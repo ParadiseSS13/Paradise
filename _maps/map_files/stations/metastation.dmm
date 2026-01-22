@@ -49386,6 +49386,10 @@
 "jUw" = (
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
+"jUF" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/engine/reactor)
 "jUN" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "psychoffice"
@@ -73479,6 +73483,13 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
+"shq" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "shr" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
@@ -85224,6 +85235,10 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
+"wkT" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "wlc" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/extra_insulated{
@@ -134205,7 +134220,7 @@ mdF
 osZ
 rab
 gJp
-vUb
+shq
 uYE
 vUb
 vUb
@@ -135756,7 +135771,7 @@ rab
 rab
 pRl
 skv
-skv
+jUF
 fnu
 egm
 bnt
@@ -137546,7 +137561,7 @@ rab
 vYq
 rab
 xmT
-rab
+wkT
 rab
 rab
 rdm
