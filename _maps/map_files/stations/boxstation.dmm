@@ -69890,7 +69890,6 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/dock_marker,
 /turf/space,
-/area/space,
 /area/space/nearstation)
 "pKa" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
