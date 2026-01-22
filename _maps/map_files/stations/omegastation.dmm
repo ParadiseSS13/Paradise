@@ -1985,7 +1985,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	sort_type_txt = "17"
+	sort_type_txt = "3"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -3485,7 +3485,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	sort_type_txt = "1"
+	sort_type_txt = "17"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
@@ -4087,7 +4087,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	sort_type_txt = "20"
+	sort_type_txt = "2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -4316,7 +4316,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	sort_type_txt = "11"
+	sort_type_txt = "18"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
@@ -5022,7 +5022,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	sort_type_txt = "10"
+	sort_type_txt = "1"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/north)
@@ -8183,7 +8183,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	sort_type_txt = "10"
+	sort_type_txt = "6"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -10062,7 +10062,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	sort_type_txt = "12"
+	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/north)
@@ -10150,6 +10150,9 @@
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -10485,7 +10488,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	sort_type_txt = "12"
+	sort_type_txt = "4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/supermatter)
@@ -11858,7 +11861,9 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/sortjunction/reversed,
+/obj/structure/disposalpipe/sortjunction/reversed{
+	sort_type_txt = "21"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/south)
 "aNZ" = (
@@ -12723,7 +12728,9 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 10
 	},
-/obj/structure/disposalpipe/sortjunction/reversed,
+/obj/structure/disposalpipe/sortjunction/reversed{
+	sort_type_txt = "9"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "aSl" = (
@@ -13931,7 +13938,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	sort_type_txt = "15"
+	sort_type_txt = "13"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
@@ -16530,7 +16537,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	sort_type_txt = "17"
+	sort_type_txt = "10"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
@@ -17328,9 +17335,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 8;
-	sort_type_txt = "4"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
@@ -18317,7 +18323,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	sort_type_txt = "17"
+	sort_type_txt = "16"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
@@ -19484,7 +19490,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	sort_type_txt = "9"
+	sort_type_txt = "7"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -22976,9 +22982,8 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 1;
-	sort_type_txt = "3"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -23306,11 +23311,11 @@
 	},
 /obj/effect/turf_decal/tiles/department/science/corner,
 /obj/machinery/firealarm/directional/east,
-/obj/effect/landmark/start/scientist,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	sort_type_txt = "3"
+	sort_type_txt = "23"
 	},
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "fwG" = (
@@ -27315,7 +27320,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	sort_type_txt = "17"
+	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
@@ -28207,7 +28212,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/sortjunction,
+/obj/structure/disposalpipe/sortjunction{
+	sort_type_txt = "5"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/supermatter)
 "iDv" = (
@@ -29245,22 +29252,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
-"jpR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/sortjunction,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint2)
 "jqh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -29633,7 +29624,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	sort_type_txt = "1"
+	sort_type_txt = "13"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
@@ -31389,7 +31380,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	sort_type_txt = "22"
+	sort_type_txt = "8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port)
@@ -32806,6 +32797,7 @@
 	dir = 4
 	},
 /obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/supermatter)
 "lSH" = (
@@ -34787,9 +34779,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/department/medical/side,
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 8;
-	sort_type_txt = "4"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/south)
@@ -38321,7 +38312,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sortjunction/reversed,
+/obj/structure/disposalpipe/sortjunction/reversed{
+	sort_type_txt = "20"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port)
 "pJU" = (
@@ -42245,7 +42238,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/sortjunction/reversed,
+/obj/structure/disposalpipe/junction/reversed,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port)
 "sGy" = (
@@ -42807,7 +42800,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	sort_type_txt = "3"
+	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/north)
@@ -45420,9 +45413,8 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 1;
-	sort_type_txt = "12"
+/obj/structure/disposalpipe/junction{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
@@ -45592,7 +45584,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	sort_type_txt = "11"
+	sort_type_txt = "24"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/north)
@@ -46765,7 +46757,9 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
-/obj/structure/disposalpipe/sortjunction/reversed,
+/obj/structure/disposalpipe/sortjunction/reversed{
+	sort_type_txt = "11"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "vkY" = (
@@ -91590,7 +91584,7 @@ ava
 aoJ
 bxE
 aqY
-jpR
+tiZ
 lZJ
 lZJ
 lZJ
