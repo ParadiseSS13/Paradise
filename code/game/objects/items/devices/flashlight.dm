@@ -163,6 +163,8 @@
 	icon_state = "flare"
 	inhand_icon_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
+	/// This var will get checked in Initialize() and if it's true, it'll get set to a randomized fuel value.
+	/// If it's 0, it'll simply remain a used up flare.
 	var/fuel = TRUE
 	var/on_damage = 7
 	var/produce_heat = 1500
