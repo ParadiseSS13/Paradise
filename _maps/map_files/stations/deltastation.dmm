@@ -29160,15 +29160,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "clU" = (
-/obj/machinery/camera{
-	c_tag = "Central Ring Hallway Center"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 4
 	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "clV" = (
@@ -29654,6 +29652,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Central Ring Hallway Center";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
@@ -58820,6 +58822,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
+"iay" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/engine)
 "iaD" = (
 /obj/machinery/light_switch{
 	dir = 8;
@@ -63217,6 +63223,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"jVp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 1
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central)
 "jVv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -77166,6 +77191,25 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
+"pSx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/neutral/corner{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central)
 "pSW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96918,6 +96962,10 @@
 /obj/effect/turf_decal/tiles/department/science/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
+"xKt" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "xKE" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -117948,7 +117996,7 @@ qXW
 reU
 qXW
 qXW
-qXW
+xKt
 qoo
 kUJ
 lrF
@@ -121032,7 +121080,7 @@ qXW
 qXW
 qXW
 cwt
-qXW
+xKt
 upu
 mUd
 clp
@@ -123090,7 +123138,7 @@ cjQ
 clr
 cmU
 iAk
-iAk
+iay
 cqU
 csu
 eMu
@@ -133884,7 +133932,7 @@ ckn
 clI
 cno
 bSE
-cqn
+jVp
 bwm
 csK
 ctR
@@ -141594,7 +141642,7 @@ ckF
 cmd
 cnG
 cht
-ygv
+pSx
 bIX
 nSv
 wwx
