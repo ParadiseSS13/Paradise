@@ -8851,15 +8851,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
 	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -9091,18 +9085,12 @@
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
 "aIp" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -9111,15 +9099,9 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/botanist,
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
 	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -9314,36 +9296,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "aJz" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "aJB" = (
@@ -9363,15 +9330,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
 	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -9594,19 +9555,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "aKD" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
 /obj/structure/sink/kitchen/directional/west,
 /obj/item/reagent_containers/glass/bucket,
 /obj/machinery/alarm/directional/west,
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "aKF" = (
@@ -9624,21 +9579,15 @@
 /area/station/engineering/smes)
 "aKG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -9650,15 +9599,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
 	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -14949,23 +14892,18 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "bln" = (
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "blr" = (
@@ -15582,15 +15520,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "bxb" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
 	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -19287,6 +19219,9 @@
 "dJK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "dKl" = (
@@ -22560,6 +22495,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/evidence,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "fPx" = (
@@ -27369,18 +27307,12 @@
 /turf/simulated/floor/plasteel/fakestairs/left,
 /area/station/command/bridge)
 "iZX" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -31206,9 +31138,6 @@
 /obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
-"lOu" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/fore)
 "lOS" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
@@ -31760,6 +31689,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "mfA" = (
@@ -31936,6 +31868,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
@@ -36508,18 +36443,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/supermatter)
 "ptZ" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -37632,6 +37561,9 @@
 	dir = 10
 	},
 /obj/machinery/alarm/directional/east,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "qmx" = (
@@ -39019,6 +38951,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -42466,19 +42401,13 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/turbine)
 "tcX" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/effect/landmark/start/botanist,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -47371,21 +47300,15 @@
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/omega/engineering)
 "wwu" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -47420,6 +47343,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "wwO" = (
@@ -48249,17 +48175,11 @@
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/omega/medical)
 "wZu" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/landmark/start/botanist,
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
-/obj/effect/landmark/start/botanist,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "wZH" = (
@@ -49613,18 +49533,12 @@
 "xSR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/medical/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -49993,7 +49907,7 @@
 "ygg" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/fore)
+/area/station/security/evidence)
 "yhg" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light_switch{
@@ -78438,7 +78352,7 @@ gbq
 ssx
 yhA
 gLY
-lOu
+qPO
 gMI
 azA
 jsQ
