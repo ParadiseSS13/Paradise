@@ -9,7 +9,6 @@
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
-	new_attack_chain = TRUE
 	/// The stored gun
 	var/obj/item/gun/energy/gun/minigun/gun
 	/// whether the gun is attached, FALSE is attached, TRUE is the gun is wielded.
@@ -67,7 +66,7 @@
 	if(slot == ITEM_SLOT_BACK)
 		RegisterSignal(user, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
 
-/obj/item/minigunpack/attack_by(obj/item/I, mob/living/user, params)
+/obj/item/minigunpack/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	. = ..()
 	// Don't need armed check, because if you have the gun assume its armed.
 	if(I == gun)
@@ -118,7 +117,6 @@
 	charge_delay = 1
 	can_fit_in_turrets = FALSE
 	shaded_charge = FALSE
-	new_attack_chain = TRUE
 	/// Associated ammo pack
 	var/obj/item/minigunpack/ammo_pack
 
@@ -135,8 +133,8 @@
 	ammo_pack = null
 	return ..()
 
-/obj/item/gun/energy/gun/minigun/activate_self(mob/user)
-	return ..()
+/obj/item/gun/energy/gun/minigun/attack_self__legacy__attackchain(mob/living/user)
+	return
 
 /obj/item/gun/energy/gun/minigun/dropped(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
