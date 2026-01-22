@@ -1464,8 +1464,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/recharge_station/upgraded,
-/mob/living/basic/hivebot/strong/malfborg,
-/turf/simulated/floor/plasteel/dark{
+/mob/living/basic/malfborg/sec/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -2578,8 +2577,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/recharge_station/upgraded,
-/mob/living/basic/hivebot/strong/malfborg,
-/turf/simulated/floor/plasteel/dark{
+/mob/living/basic/malfborg/sec/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
