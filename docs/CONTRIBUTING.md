@@ -200,6 +200,9 @@ Each role inherits the lower role's responsibilities
 included in this role are:
 
 - [Burzah](https://github.com/Burzah)
+- [Contrabang](https://github.com/Contrabang)
+- [DGamerL](https://github.com/DGamerL)
+- [PollardTheDragon](https://github.com/PollardTheDragon)
 - [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
@@ -230,6 +233,7 @@ affect mergeability status. People included in this role are:
 - [JimKil3](https://github.com/JimKil3)
 - [lewcc](https://github.com/lewcc)
 - [PollardTheDragon](https://github.com/PollardTheDragon)
+- [Pooble](https://github.com/poobsie)
 - [S34N](https://github.com/S34NW)
 - [Sirryan2002](https://github.com/Sirryan2002)
 - [SteelSlayer](https://github.com/SteelSlayer)

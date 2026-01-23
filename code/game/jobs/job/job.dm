@@ -6,6 +6,9 @@
 	/// Job access. A list of constants from access_defines.dm.
 	var/list/access = list()
 
+	/// Extra job access when the number of crew is below the skeleton crew threshold.
+	var/list/skeleton_access = list()
+
 	///Job Bitflag, used for Database entries - DO NOT JUST EDIT THESE
 	var/flag = 0
 	///Department(s) Bitflag, used for Databse entries - DO NOT JUST EDIT THESE
@@ -75,6 +78,12 @@
 	/// Standard paycheck amount for this job
 	var/standard_paycheck = CREW_PAY_ASSISTANT
 
+	/// A description to be shown when set to high priority
+	var/description = "Missing description"
+
+	/// How mechanically difficult this job is, shown on the job selection screen
+	var/difficulty
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 	SHOULD_CALL_PARENT(TRUE)
@@ -101,6 +110,9 @@
 
 /datum/job/proc/get_access()
 	return access.Copy()
+
+/datum/job/proc/get_skeleton_access()
+	return skeleton_access.Copy()
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)

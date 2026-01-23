@@ -91,6 +91,24 @@
 	path = /obj/item/clothing/suit/hooded/vox_robes
 	slot = ITEM_SLOT_OUTER_SUIT
 
+/datum/gear/racial/skulk_casual
+	display_name = "Collective jumpsuit"
+	description = "A grey, insulated jumpsuit made from a hardweave composite. Despite their cheap, mass-produced nature, this suit is seen on every caste from the lowliest Agrolyte to the Prodigium themselves."
+	path = /obj/item/clothing/under/skulk/skulkcasual
+	slot = ITEM_SLOT_JUMPSUIT
+
+/datum/gear/racial/skulk_robes
+	display_name = "Collective robes"
+	description = "A set of comfortable purple robes made from silk and faux gold, offers substantial protection from the cold. Worn by faithful commoners and Skkula-Kkavan zealots everywhere."
+	path = /obj/item/clothing/suit/collectiverobe
+	slot = ITEM_SLOT_OUTER_SUIT
+
+/datum/gear/racial/lowinquis
+	display_name = "Low-Inquisitor robes"
+	description = "A set of red and silver Collective robes with armor plates sewn into important areas. A common sight amongst the Collective Inquisition."
+	path = /obj/item/clothing/suit/hooded/lowinquis
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+
 /datum/gear/racial/plasmamansuit_coke
 	display_name = "Coke Suit"
 	description = "Plasmaman envirosuit designed by Space Cola Co and gifted to the people of Boron as part of an elaborate advertisement campaign."

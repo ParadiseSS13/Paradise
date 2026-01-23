@@ -414,17 +414,17 @@
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	for(var/obj/item/organ/internal/I in affected.internal_organs)
-		if(I && I.damage)
-			if(I.is_robotic())
-				user.visible_message(
+		if(I.damage && I.is_robotic())
+			user.visible_message(
 					SPAN_NOTICE("[user] repairs [target]'s [I.name] with [tool]."),
 					SPAN_NOTICE("You repair [target]'s [I.name] with [tool]."),
-		chat_message_type = MESSAGE_TYPE_COMBAT
+					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
-				I.damage = 0
-				I.surgeryize()
-				if(istype(tool, /obj/item/stack/nanopaste))
-					I.rejuvenate()
+			I.heal_internal_damage(I.max_damage)
+			I.surgeryize()
+			if(istype(tool, /obj/item/stack/nanopaste))
+				I.rejuvenate()
+
 	target.update_stat("internal organs repaired")
 	return ..()
 
