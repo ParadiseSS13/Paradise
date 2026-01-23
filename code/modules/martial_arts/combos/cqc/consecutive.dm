@@ -1,7 +1,7 @@
 /datum/martial_combo/cqc/consecutive
 	name = "Consecutive CQC"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Mainly offensive move, dealing some brute damage, and huge amounts of stamina damage"
+	explaination_text = "Mainly offensive move, dealing some brute damage, huge amounts of stamina damage, and muting targets."
 
 /datum/martial_combo/cqc/consecutive/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat)
