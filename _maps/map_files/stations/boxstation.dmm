@@ -50685,6 +50685,10 @@
 /obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"gkL" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "gkP" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
@@ -63527,6 +63531,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
+"mDw" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/control)
 "mDy" = (
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /obj/machinery/door/airlock/external/glass{
@@ -73899,6 +73907,11 @@
 /obj/effect/spawner/random/fungus/probably,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
+"rCs" = (
+/obj/structure/railing/pool_lining,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "rCH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -115363,7 +115376,7 @@ cXJ
 jNB
 cYQ
 luv
-luv
+mDw
 uwD
 cYQ
 exC
@@ -116406,7 +116419,7 @@ fhr
 nFa
 wva
 oAS
-jjz
+rCs
 qHc
 nxq
 nxq
@@ -117165,7 +117178,7 @@ izz
 pnB
 cSU
 mNd
-fTc
+gkL
 hQW
 wva
 bbD
