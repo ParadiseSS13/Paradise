@@ -10,6 +10,7 @@
 		playsound(get_turf(target), 'sound/weapons/cqchit2.ogg', 50, TRUE, -1)
 		target.apply_damage(70, STAMINA)
 		target.apply_damage(20, BRUTE)
+		target.Silence(3 SECONDS)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Consecutive", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

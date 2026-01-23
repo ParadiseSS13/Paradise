@@ -23,6 +23,5 @@
 		target.throw_at(throw_target, 1, 8, user)
 		target.apply_damage(40, STAMINA)
 		target.adjustBrainLoss(10)
-		target.Silence(3 SECONDS)
 		add_attack_logs(user, target, "Kicked in the head with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
