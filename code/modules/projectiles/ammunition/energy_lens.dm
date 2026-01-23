@@ -58,7 +58,6 @@
 	click_cooldown_override = 2
 	variance = 20
 	randomspread = 1
-	delay = 0
 
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/projectile/beam/laser/heavylaser
