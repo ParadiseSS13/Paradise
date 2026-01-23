@@ -1358,6 +1358,7 @@
 /area/station/command/bridge)
 "ahx" = (
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/blackbox_recorder,
 /turf/simulated/floor/greengrid,
 /area/station/command/vault)
 "ahy" = (
@@ -8539,6 +8540,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/science/corner,
+/obj/machinery/computer/rnd_backup/station{
+	dir = 4
+	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "aGm" = (
@@ -9229,6 +9234,9 @@
 	name = "west bump";
 	pixel_x = -28;
 	pixel_y = -8
+	},
+/obj/machinery/computer/message_monitor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -17747,26 +17755,6 @@
 "cMJ" = (
 /turf/simulated/mineral/ancient,
 /area/station/engineering/ai_transit_tube)
-"cMP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/landmark/spawner/late/crew,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/hallway/secondary/entry)
 "cNa" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -40773,6 +40761,10 @@
 /obj/effect/turf_decal/stripes/box,
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
+"scv" = (
+/obj/machinery/message_server,
+/turf/simulated/floor/greengrid,
+/area/station/command/vault)
 "scQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -86420,7 +86412,7 @@ woS
 bxz
 cEn
 aiW
-qzy
+scv
 rDw
 qrY
 aqM
@@ -86992,7 +86984,7 @@ oiq
 mGw
 aKR
 vtJ
-cMP
+twQ
 aKR
 aae
 aZD
