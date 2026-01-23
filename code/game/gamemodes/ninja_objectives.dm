@@ -73,7 +73,7 @@
 		var/datum/job/target_job = target.current.job
 		if(target_job.job_department_flags & DEP_FLAG_COMMAND || target_job.job_department_flags & DEP_FLAG_SECURITY)
 			reward_tc = NINJA_OBJECTIVE_HARD
-		if(target.current.job.job_department_flags & DEP_FLAG_SERVICE)
+		if(target_job.job_department_flags & DEP_FLAG_SERVICE)
 			reward_tc = NINJA_OBJECTIVE_EASY
 
 /datum/objective/ninja/hack_rnd
@@ -125,7 +125,6 @@
 /datum/objective/ninja_exfiltrate
 	name = "Exfiltrate"
 	needs_target = FALSE
-	reward_tc = 0
 
 /datum/objective/ninja/ninja_exfiltrate/update_explanation_text()
 	explanation_text = "Use your exfiltration flare to escape the station. Your work here is done."
