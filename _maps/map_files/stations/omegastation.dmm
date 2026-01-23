@@ -16429,9 +16429,6 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -40089,9 +40086,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "rFL" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 8
 	},
@@ -40101,7 +40095,6 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/hallway/secondary/entry)
 "rGD" = (
