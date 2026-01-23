@@ -130,11 +130,7 @@ SUBSYSTEM_DEF(statpanels)
 	var/datum/object_window_info/obj_window = istype(target.obj_window) ? target.obj_window : new(target)
 	obj_window.atoms_to_show = atoms_to_display
 	// don't generate icons for stuff the user will not see
-	if(length(obj_window.atoms_to_imagify))
-		for(var/i = length(obj_window.atoms_to_imagify), i >= 1, i--)
-			var/atom/queued = obj_window.atoms_to_imagify[i]
-			if(!(queued in atoms_to_display))
-				obj_window.atoms_to_imagify.Cut(i, i + 1)
+	obj_window.atoms_to_imagify &= atoms_to_display
 	refresh_client_obj_view(target, obj_window.min_index, obj_window.max_index)
 
 /datum/controller/subsystem/statpanels/proc/refresh_client_obj_view(client/refresh, min_index = 0, max_index = 30)
