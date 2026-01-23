@@ -54,11 +54,8 @@
 				displayed_species = C.species_disguise
 				break
 
-	// Cache masquerade status to avoid recalculating it later
-	ipc_masquerade_status = calculate_ipc_masquerade_status()
-
 	// If an IPC's covered in synthetic skin, they can appear human.
-	if(ipc_masquerade_status)
+	if(calculate_ipc_masquerade_status())
 		displayed_species = "Human"
 		examine_color = "#d1aa2e"
 
@@ -271,13 +268,12 @@
 
 	var/all_visible_parts_have_skin = TRUE
 
-	for(var/part_name in list("chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot", "head"))
-		var/obj/item/organ/external/limb = bodyparts_by_name[part_name]
+	for(var/obj/item/organ/external/limb as anything in bodyparts)
 		if(!limb || !limb.is_robotic())
 			continue
 
 		// If it's covered by clothing then it doesn't need to have skin for the masquerade
-		if(is_bodypart_covered_by_clothing(part_name))
+		if(is_bodypart_covered_by_clothing(limb.limb_name))
 			continue
 
 		if(!limb.has_synthetic_skin)
@@ -286,7 +282,7 @@
 	return all_visible_parts_have_skin
 
 /mob/living/carbon/human/examine_get_brute_message()
-	if(!ismachineperson(src) || ipc_masquerade_status)
+	if(!ismachineperson(src) || calculate_ipc_masquerade_status())
 		return "bruising"
 
 	return "denting"

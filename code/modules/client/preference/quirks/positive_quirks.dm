@@ -51,13 +51,12 @@
 /datum/quirk/lifelike/proc/apply_synthetic_skin_on_signal(mob/living/carbon/human/target)
 	SIGNAL_HANDLER // COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED
 
-	for(var/part_name in list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot"))
-		var/obj/item/organ/external/limb = target.bodyparts_by_name[part_name]
+	for(var/obj/item/organ/external/limb as anything in target.bodyparts)
 		if(!limb)
 			continue
 
 		// Skip monitor heads
-		if(part_name == "head" && limb.model)
+		if(limb.limb_name == "head" && limb.model)
 			var/datum/robolimb/R = GLOB.all_robolimbs[limb.model]
 			if(R && R.is_monitor)
 				continue
@@ -67,7 +66,7 @@
 			// Apply owner's skin color to synthetic skin
 			limb.synthetic_skin_colour = target.skin_colour
 			// Set real identity for head
-			if(part_name == "head")
+			if(limb.limb_name == "head")
 				limb.synthetic_skin_identity = target.dna.real_name
 			// Clear cached limb icon because otherwise it's sticky
 			limb.force_icon = null

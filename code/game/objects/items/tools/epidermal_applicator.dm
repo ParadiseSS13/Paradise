@@ -34,30 +34,24 @@
 	return TRUE
 
 /obj/item/epidermal_applicator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = used
-		var/space_left = max_metal_stored - metal_stored
-		if(space_left <= 0)
-			to_chat(user, SPAN_NOTICE("[src] is already full!"))
-			return ITEM_INTERACT_COMPLETE
+	if(!istype(used, /obj/item/stack/sheet/metal))
+		return NONE
 
-		var/to_load = min(space_left, M.amount)
-		M.use(to_load)
-		metal_stored += to_load
-
-		to_chat(user, SPAN_NOTICE("You load [to_load] sheet\s of metal into [src]."))
+	var/space_left = max_metal_stored - metal_stored
+	if(space_left <= 0)
+		to_chat(user, SPAN_NOTICE("[src] is already full!"))
 		return ITEM_INTERACT_COMPLETE
 
-	return NONE
+	var/obj/item/stack/sheet/metal/M = used
+	var/to_load = min(space_left, M.amount)
+	M.use(to_load)
+	metal_stored += to_load
+
+	to_chat(user, SPAN_NOTICE("You load [to_load] sheet\s of metal into [src]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/epidermal_applicator/activate_self(mob/user)
 	. = ..()
-	// Allow easier self-application
-	var/zone = user.zone_selected
-	if(!zone)
-		to_chat(user, SPAN_NOTICE("You need to select a body part first!"))
-		return
-
 	attack(user, user, null)
 
 /obj/item/epidermal_applicator/attack(mob/living/M, mob/living/user, params)
