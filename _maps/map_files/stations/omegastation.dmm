@@ -3602,24 +3602,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
 "ani" = (
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/glass{
-	amount = 20
-	},
-/obj/item/flash,
-/obj/item/flash,
-/obj/item/mmi,
-/obj/item/assembly/prox_sensor{
-	pixel_x = -8;
-	pixel_y = 4
-	},
-/obj/structure/table,
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/tcomms/core/station,
+/turf/simulated/floor/bluegrid,
 /area/station/turret_protected/aisat/interior)
 "anj" = (
 /obj/machinery/porta_turret/ai_turret,
