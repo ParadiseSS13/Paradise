@@ -341,6 +341,57 @@
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/tile/catwalk
 
+/obj/item/stack/tile/catwalk/grey
+	name = "grey catwalk tiles"
+	gender = PLURAL
+	singular_name = "grey catwalk tile"
+	desc = "A grey catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_grey"
+	force = 6
+	materials = list(MAT_METAL=500)
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	turf_type = /turf/simulated/floor/catwalk/grey
+	mineralType = "metal"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
+	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/catwalk/grey
+
+/obj/item/stack/tile/catwalk/black
+	name = "black catwalk tiles"
+	gender = PLURAL
+	singular_name = "black catwalk tile"
+	desc = "A black catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_black"
+	force = 6
+	materials = list(MAT_METAL=500)
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	turf_type = /turf/simulated/floor/catwalk/black
+	mineralType = "metal"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
+	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/catwalk/black
+
+/obj/item/stack/tile/catwalk/white
+	name = "white catwalk tiles"
+	gender = PLURAL
+	singular_name = "white catwalk tile"
+	desc = "A white catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_white"
+	force = 6
+	materials = list(MAT_METAL=500)
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	turf_type = /turf/simulated/floor/catwalk/white
+	mineralType = "metal"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
+	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/catwalk/white
+
 /obj/item/stack/tile/catwalk/cyborg
 	energy_type = /datum/robot_storage/energy/catwalk
 	is_cyborg = TRUE
