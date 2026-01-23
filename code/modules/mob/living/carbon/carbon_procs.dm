@@ -400,7 +400,7 @@
 
 	to_chat(src, chat_box_examine(status_list.Join("<br>")))
 
-	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
+	if((isskeleton(H) || HAS_TRAIT(H, TRAIT_SKELETONIZED)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 /mob/living/carbon/can_be_flashed(intensity = 1, override_blindness_check = 0)

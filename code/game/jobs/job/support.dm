@@ -31,6 +31,7 @@
 		ACCESS_EXPEDITION,
 		ACCESS_SMITH
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
@@ -80,6 +81,11 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SUPPLY_SHUTTLE,
 	)
+	skeleton_access = list(
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_SMITH,
+	)
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
 	standard_paycheck = CREW_PAY_LOW
@@ -120,7 +126,11 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_SMITH
+		ACCESS_SMITH,
+	)
+	skeleton_access = list(
+		ACCESS_MAILSORTING,
+		ACCESS_SUPPLY_SHUTTLE,
 	)
 	alt_titles = list("Metalworker", "Tinkerer")
 	outfit = /datum/outfit/job/smith
@@ -161,6 +171,13 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
+	)
+	skeleton_access = list(
+		ACCESS_MAILSORTING,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BAY,
+		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_SMITH,
 	)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
@@ -252,7 +269,14 @@
 		ACCESS_TELEPORTER,
 		ACCESS_CARGO,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINING_STATION
+	)
+	skeleton_access = list(
+		ACCESS_CARGO_BAY,
+		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_MAILSORTING,
+		ACCESS_MINING_STATION,
+		ACCESS_MINING,
+		ACCESS_SMITH,
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
 	outfit = /datum/outfit/job/explorer
@@ -294,6 +318,11 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	skeleton_access = list(
+		ACCESS_KITCHEN,
+		ACCESS_HYDROPONICS,
+		ACCESS_MORGUE,
+	)
 	outfit = /datum/outfit/job/bartender
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = LOW_DIFFICULTY
@@ -344,6 +373,12 @@
 		ACCESS_KITCHEN,
 		ACCESS_MAINT_TUNNELS
 	)
+	skeleton_access = list(
+		ACCESS_BAR,
+		ACCESS_MORGUE,
+		ACCESS_HYDROPONICS,
+		ACCESS_MINERAL_STOREROOM,
+	)
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
 	standard_paycheck = CREW_PAY_LOW
@@ -388,6 +423,11 @@
 		ACCESS_HYDROPONICS,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MORGUE
+	)
+	skeleton_access = list(
+		ACCESS_KITCHEN,
+		ACCESS_BAR,
+		ACCESS_MINERAL_STOREROOM,
 	)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro

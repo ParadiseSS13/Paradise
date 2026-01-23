@@ -46,6 +46,7 @@
 	var/can_be_cut = 1
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
@@ -154,6 +155,7 @@
 	inhand_icon_state = "lgloves"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
@@ -173,6 +175,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 115, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',

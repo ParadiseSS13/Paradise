@@ -34,6 +34,7 @@
 		ACCESS_XENOBIOLOGY,
 		ACCESS_WEAPONS
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
 	minimal_player_age = 21
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	exp_map = list(EXP_TYPE_SCIENCE = 1200)
@@ -90,6 +91,15 @@
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
 	)
+	skeleton_access = list(
+		ACCESS_ROBOTICS,
+		ACCESS_MORGUE,
+		ACCESS_TECH_STORAGE,
+		ACCESS_GENETICS,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+	)
 	alt_titles = list("Anomalist", "Plasma Researcher", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -143,6 +153,14 @@
 		ACCESS_MINING_STATION,
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_TELEPORTER,
+	)
+	skeleton_access = list(
+		ACCESS_TOX_STORAGE,
+		ACCESS_TOX,
+		ACCESS_ROBOTICS,
+		ACCESS_MORGUE,
+		ACCESS_TECH_STORAGE,
+		ACCESS_GENETICS,
 	)
 	alt_titles = list("Xenoarcheologist", "Slime Cultivator", "Slime Rancher")
 	minimal_player_age = 3
@@ -200,6 +218,14 @@
 		ACCESS_ROBOTICS,
 		ACCESS_TECH_STORAGE
 	)
+	skeleton_access = list(
+		ACCESS_TOX_STORAGE,
+		ACCESS_TOX,
+		ACCESS_GENETICS,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+	)
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
@@ -248,6 +274,17 @@
 		ACCESS_GENETICS,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_RESEARCH
+	)
+	skeleton_access = list(
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_TOX_STORAGE,
+		ACCESS_TOX,
+		ACCESS_ROBOTICS,
+		ACCESS_MORGUE,
+		ACCESS_TECH_STORAGE,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
 	)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)

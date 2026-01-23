@@ -840,6 +840,17 @@
 	build_path = /obj/item/organ/internal/kidneys/cybernetic
 	category = list("Medical")
 
+/datum/design/cybernetic_kidneys_u
+	name = "Upgraded Cybernetic Kidneys"
+	desc = "An upgraded cybernetic pair of kidneys."
+	id = "cybernetic_kidneys_u"
+	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/kidneys/cybernetic/upgraded
+	category = list("Medical")
+
 /datum/design/cybernetic_heart
 	name = "Cybernetic Heart"
 	desc = "A cybernetic heart."

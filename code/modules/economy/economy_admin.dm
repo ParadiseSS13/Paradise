@@ -1,7 +1,3 @@
-USER_VERB(economy_panel, R_EVENT, "Economy Panel", "Open the economy panel.", VERB_CATEGORY_EVENT)
-	var/datum/ui_module/economy_manager/E = new()
-	E.ui_interact(client.mob)
-
 /datum/ui_module/economy_manager
 	name = "Economy Manager"
 

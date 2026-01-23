@@ -77,7 +77,8 @@
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/storage/black_vest

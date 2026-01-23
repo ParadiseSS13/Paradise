@@ -30,6 +30,7 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
 //Green syndicate space suit

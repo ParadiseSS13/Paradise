@@ -747,6 +747,7 @@
 		/datum/species/drask,
 		/datum/species/grey,
 		/datum/species/diona,
+		/datum/species/skulk,
 	)
 	del_types |= /obj/item/card/id
 

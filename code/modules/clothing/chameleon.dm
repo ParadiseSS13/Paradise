@@ -243,6 +243,7 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/color.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
 	)
@@ -294,7 +295,8 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
 	var/datum/action/item_action/chameleon_change/chameleon_action
@@ -573,7 +575,8 @@
 /obj/item/storage/backpack/chameleon
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/back.dmi'
 	)
 
 	var/datum/action/item_action/chameleon_change/chameleon_action

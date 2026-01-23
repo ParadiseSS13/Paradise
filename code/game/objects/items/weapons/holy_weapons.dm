@@ -418,6 +418,8 @@
 /obj/item/nullrod/fedora/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	var/skulk_adjustment = string_assoc_list(alist(SOUTH = list(-1, 0), NORTH = list(-1, 0), EAST = list(0, -2), WEST = list(0, 2)))
+	AddElement(/datum/element/clothing_adjustment/skulk_headgear, skulk_adjustment)
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"

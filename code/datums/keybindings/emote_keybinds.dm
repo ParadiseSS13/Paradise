@@ -477,9 +477,17 @@
 	linked_emote = /datum/emote/living/carbon/human/flap/angry
 	name = "Angry Flap"
 
+/datum/keybinding/emote/carbon/human/wings
+	linked_emote = /datum/emote/living/carbon/human/wings
+	name = "Wings"
+
 /datum/keybinding/emote/carbon/human/flutter
 	linked_emote = /datum/emote/living/carbon/human/flutter
 	name = "Flutter"
+
+/datum/keybinding/emote/carbon/human/chitter
+	linked_emote = /datum/emote/living/carbon/human/chitter
+	name = "Chitter"
 
 /datum/keybinding/emote/carbon/human/quill
 	linked_emote = /datum/emote/living/carbon/human/quill

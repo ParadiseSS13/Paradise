@@ -1,9 +1,11 @@
+# this is only ran locally, not part of github actions
+
 from pathlib import Path
 import subprocess
 
 from avulto import DMM, DME
 
-RENDERER = Path("tools/github-actions/nanomap-renderer")
+RENDERER = Path("tools/github-actions/dmm-tools-para")
 SCALE = 8
 
 
@@ -22,8 +24,8 @@ if __name__ == "__main__":
         dmm = DMM.from_file(map_path)
         width = dmm.size.x * SCALE
         height = dmm.size.y * SCALE
-        commands.append([str(RENDERER), "minimap", "-w", str(width), "-h", str(height), str(map_path)])
-        commands.append(["mv", f"data/nanomaps/{dmm.filepath.stem}_nanomap_z1.png", f"icons/_nanomaps/stations/{technical_name}_nanomap_z1.png"])
+        commands.append([str(RENDERER), "minimap", "--enable", "nanomaps", "--width", str(width), "--height", str(height), str(map_path)])
+        commands.append(["mv", f"data/minimaps/{dmm.filepath.stem}-1.png", f"icons/_nanomaps/stations/{technical_name}_nanomap_z1.png"])
 
     print("inspecting ruins...")
     for pth in dme.subtypesof("/datum/map_template/ruin"):
@@ -38,8 +40,8 @@ if __name__ == "__main__":
         dmm = DMM.from_file(map_path)
         width = dmm.size.x * SCALE
         height = dmm.size.y * SCALE
-        commands.append([str(RENDERER), "minimap", "-w", str(width), "-h", str(height), str(map_path)])
-        commands.append(["mv", f"data/nanomaps/{dmm.filepath.stem}_nanomap_z1.png", f"icons/_nanomaps/ruins/{ruin_id}_nanomap_z1.png"])
+        commands.append([str(RENDERER), "minimap", "--enable", "nanomaps", "--width", str(width), "--height", str(height), str(map_path)])
+        commands.append(["mv", f"data/minimaps/{dmm.filepath.stem}-1.png", f"icons/_nanomaps/ruins/{ruin_id}_nanomap_z1.png"])
 
     print("executing...")
     for command in commands:
