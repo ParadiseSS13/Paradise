@@ -270,27 +270,15 @@
 	transparent_floor = TRUE
 
 /turf/simulated/floor/catwalk/grey
-	name = "catwalk"
-	desc = "A catwalk for easier inspection of cable and pipe installations."
 	icon = 'icons/turf/floors/catwalk_floor_grey.dmi'
-	icon_state = "catwalk"
-	base_icon_state = "catwalk"
 	floor_tile = /obj/item/stack/tile/catwalk/grey
 
 /turf/simulated/floor/catwalk/white
-	name = "catwalk"
-	desc = "A catwalk for easier inspection of cable and pipe installations."
 	icon = 'icons/turf/floors/catwalk_floor_white.dmi'
-	icon_state = "catwalk"
-	base_icon_state = "catwalk"
 	floor_tile = /obj/item/stack/tile/catwalk/white
 
 /turf/simulated/floor/catwalk/black
-	name = "catwalk"
-	desc = "A catwalk for easier inspection of cable and pipe installations."
 	icon = 'icons/turf/floors/catwalk_floor_black.dmi'
-	icon_state = "catwalk"
-	base_icon_state = "catwalk"
 	floor_tile = /obj/item/stack/tile/catwalk/black
 
 /turf/simulated/floor/catwalk/Initialize(mapload)
