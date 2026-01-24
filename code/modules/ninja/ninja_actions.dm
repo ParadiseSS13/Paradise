@@ -34,6 +34,9 @@
 	if(H.stat)
 		stop_sneaking()
 		return
+	if(!sneaking)
+		stop_sneaking()
+		return
 	var/turf/simulated/T = get_turf(H)
 	var/light_available = T.get_lumcount() * 10
 
