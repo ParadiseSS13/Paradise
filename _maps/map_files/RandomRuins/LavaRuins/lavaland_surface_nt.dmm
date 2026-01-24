@@ -1745,8 +1745,7 @@
 /area/mine/outpost/cafeteria)
 "li" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach/brad,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
 "ln" = (
 /turf/simulated/floor/plasteel/dark,
@@ -4809,6 +4808,8 @@
 /area/mine/laborcamp)
 "Cp" = (
 /obj/structure/bed/dogbed/brad,
+/mob/living/basic/cockroach/brad,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
 "Cs" = (
