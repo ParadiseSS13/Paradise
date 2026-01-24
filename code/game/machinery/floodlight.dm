@@ -89,8 +89,6 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/floodlight/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/kitchen/utensil/fork))
-		return NONE
 	if(istype(used, /obj/item/stock_parts/cell))
 		if(panel_open)
 			if(cell)

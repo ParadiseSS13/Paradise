@@ -91,11 +91,11 @@
 			return ITEM_INTERACT_COMPLETE
 
 	//these have different variable names for if the panel is open or not. For some reason.
-	if(istype(machine, /obj/machinery/alarm/))
+	if(istype(machine, /obj/machinery/alarm))
 		var/obj/machinery/alarm/air_alarm = machine
 		wiresexposed = air_alarm.wiresexposed
 
-	if(istype(machine, /obj/machinery/firealarm/))
+	if(istype(machine, /obj/machinery/firealarm))
 		var/obj/machinery/firealarm/fire_alarm = machine
 		wiresexposed = fire_alarm.wiresexposed
 

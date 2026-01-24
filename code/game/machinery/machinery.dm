@@ -358,9 +358,6 @@
 		power_change()
 
 /obj/machinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/kitchen/utensil/fork))
-		return NONE
-
 	if(exchange_parts(user, used))
 		return ITEM_INTERACT_COMPLETE
 
