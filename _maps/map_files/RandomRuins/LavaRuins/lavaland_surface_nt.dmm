@@ -1881,6 +1881,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
+"lV" = (
+/mob/living/basic/cockroach/brad,
+/turf/simulated/floor/plasteel/dark,
+/area/mine/outpost/hallway/west)
 "lW" = (
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
@@ -15202,7 +15206,7 @@ En
 MM
 Zv
 pa
-pa
+lV
 pa
 pa
 gO
