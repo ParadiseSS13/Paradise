@@ -14103,12 +14103,11 @@
 	pixel_x = -6
 	},
 /obj/machinery/door_control{
-	id = "bridge blast east";
+	id = "bridgewindows";
 	name = "Space Bridge Blast Door Control";
 	pixel_x = 6;
 	pixel_y = 3;
-	req_access = list(19);
-	id_tag = "bridgewindows"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
