@@ -457,13 +457,13 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargoload"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "acZ" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "cargounload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -474,24 +474,24 @@
 	name = "WARNING: BLAST DOORS";
 	pixel_y = 32
 	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargoload"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ada" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "cargounload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargoload"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "adc" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "cargounload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -499,6 +499,10 @@
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor";
 	name = "supply dock loading door"
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargoload"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -591,15 +595,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "adO" = (
-/obj/machinery/conveyor_switch/oneway{
-	dir = 8;
-	id = "cargounload"
-	},
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
+	},
+/obj/machinery/conveyor_switch/oneway{
+	id = "cargoload"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -813,11 +816,11 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/machinery/conveyor{
-	dir = 5;
-	id = "cargoload"
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/conveyor/southeast/ccw{
+	dir = 10;
+	id = "cargounload"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "afP" = (
@@ -891,9 +894,6 @@
 /area/station/supply/storage)
 "agg" = (
 /obj/machinery/light,
-/obj/machinery/conveyor_switch/oneway{
-	id = "cargoload"
-	},
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
@@ -901,16 +901,20 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "cargounload"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "agh" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "cargoload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "cargounload"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -921,15 +925,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "agk" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "cargoload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "cargounload"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "agt" = (
@@ -1041,13 +1045,6 @@
 "agF" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/brig)
-"agG" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -30
-	},
-/turf/simulated/wall/r_wall,
-/area/station/command/office/captain)
 "agJ" = (
 /obj/machinery/computer/mecha{
 	dir = 8
@@ -1145,10 +1142,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "agY" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "cargoload"
-	},
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
@@ -1750,10 +1743,6 @@
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "aiB" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "cargounload"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -1763,6 +1752,10 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargoload"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -2277,15 +2270,15 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "ajE" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "cargounload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargoload"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ajF" = (
@@ -3815,6 +3808,7 @@
 	amount = 30
 	},
 /obj/item/storage/belt/utility,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/port)
 "anJ" = (
@@ -6736,6 +6730,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/starboard)
 "azE" = (
@@ -8654,7 +8649,7 @@
 /area/station/service/hydroponics)
 "aGs" = (
 /obj/machinery/smartfridge,
-/turf/simulated/wall,
+/turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "aGv" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
@@ -13162,9 +13157,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "baH" = (
-/obj/machinery/computer/rdconsole{
-	dir = 8
-	},
 /obj/machinery/door_control{
 	id = "robotics";
 	name = "Robotics Shutters";
@@ -13176,6 +13168,9 @@
 	name = "east bump";
 	pixel_x = 24;
 	pixel_y = -8
+	},
+/obj/machinery/computer/rdconsole/core{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
@@ -13364,8 +13359,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "bbw" = (
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/machinery/alarm/directional/east,
+/obj/machinery/r_n_d/circuit_imprinter,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "bbz" = (
@@ -18150,6 +18145,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
+"cYK" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/machinery/camera/autoname{
+	dir = 6
+	},
+/obj/structure/closet/secure_closet/brig/temp/cell_1,
+/turf/simulated/floor/plasteel,
+/area/station/security/brig)
 "cYV" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/delivery/hollow,
@@ -19066,10 +19077,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/gravitygenerator)
 "dsD" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "cargoload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -19077,6 +19084,10 @@
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
+	},
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "cargounload"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -20661,12 +20672,10 @@
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 4
 	},
-/obj/machinery/door_timer{
-	id = "Brig1";
-	name = "Cell 1";
+/obj/machinery/door/firedoor,
+/obj/machinery/door_timer/cell_1{
 	pixel_x = 32
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "eAB" = (
@@ -21875,10 +21884,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "fiV" = (
-/obj/structure/closet/secure_closet/brig{
-	id = "brig2";
-	name = "Cell 2 Locker"
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -21891,13 +21896,10 @@
 /obj/machinery/camera/autoname{
 	dir = 6
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "fjQ" = (
-/obj/machinery/flasher{
-	id = "Brig1";
-	pixel_y = 26
-	},
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
 	},
@@ -21907,6 +21909,10 @@
 	},
 /obj/structure/bed,
 /obj/item/bedsheet,
+/obj/machinery/flasher{
+	id = "Cell 1";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "fjW" = (
@@ -22497,14 +22503,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/access_button{
-	layer = 3.6;
-	autolink_id = "viro_btn_ext";
-	name = "Virology Lab Access Button";
-	pixel_y = -6;
-	req_access = list(39);
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "fIh" = (
@@ -23417,11 +23415,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/window/reinforced/normal{
-	id = "Brig1";
-	name = "Cell 1";
-	dir = 4
-	},
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
 	},
@@ -23440,6 +23433,11 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
 	dir = 4
+	},
+/obj/machinery/door/window/brigdoor{
+	dir = 4;
+	id = "Cell 1";
+	name = "Cell 1"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -24036,9 +24034,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/door_timer{
-	id = "brig2";
-	name = "Cell 2";
+/obj/machinery/door_timer/cell_2{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -24505,10 +24501,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "gXa" = (
-/obj/machinery/flasher{
-	id = "brig2";
-	pixel_y = 26
-	},
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
 	},
@@ -24518,6 +24510,10 @@
 	},
 /obj/structure/bed,
 /obj/item/bedsheet,
+/obj/machinery/flasher{
+	id = "Cell 2";
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "gXH" = (
@@ -25005,13 +25001,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/airlock/maintenance{
 	name = "Atmospherics Maintenance"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "hjT" = (
@@ -26013,11 +26009,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/window/reinforced/normal{
-	id = "brig2";
-	name = "Cell 2";
-	dir = 4
-	},
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
 	},
@@ -26035,6 +26026,11 @@
 	icon_state = "1-8"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 4
+	},
+/obj/machinery/door/window/brigdoor{
+	id = "Cell 2";
+	name = "Cell 2";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -39912,7 +39908,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/cmo)
 "rmJ" = (
-/obj/machinery/washing_machine,
+/obj/machinery/economy/vending/artvend,
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/dorms)
 "rmS" = (
@@ -40123,7 +40119,7 @@
 /area/station/engineering/gravitygenerator)
 "rwW" = (
 /obj/machinery/smartfridge/medbay,
-/turf/simulated/wall,
+/turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "rxb" = (
 /obj/structure/cable/yellow{
@@ -42519,6 +42515,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/starboard)
 "sLY" = (
@@ -43501,6 +43498,22 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"tbW" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargoload"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "cargounload"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "tcb" = (
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
@@ -43780,10 +43793,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
-"tiX" = (
-/obj/machinery/smartfridge/medbay,
-/turf/simulated/wall/r_wall,
-/area/station/medical/chemistry)
 "tiZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -46883,6 +46892,13 @@
 	locked = 1;
 	name = "Virology Lab External Airlock"
 	},
+/obj/machinery/access_button{
+	layer = 3.6;
+	autolink_id = "viro_btn_ext";
+	name = "Virology Lab Access Button";
+	req_access = list(39);
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "vru" = (
@@ -47985,15 +48001,15 @@
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "vXi" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "cargoload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "cargounload"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "vYm" = (
@@ -51438,16 +51454,16 @@
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "yln" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "cargounload"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
 	dir = 6
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargoload"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -81159,7 +81175,7 @@ ckm
 mCl
 dWZ
 agF
-fiV
+cYK
 glh
 agF
 fiV
@@ -84494,7 +84510,7 @@ wFE
 aVY
 bFc
 mfY
-agG
+wFE
 wVD
 xkX
 rAs
@@ -85305,7 +85321,7 @@ nKv
 aNd
 uFe
 sJA
-tiX
+rwW
 jtK
 mpt
 sPJ
@@ -94006,7 +94022,7 @@ ajE
 bRO
 bym
 bRO
-agk
+tbW
 qdD
 aZD
 aZD
