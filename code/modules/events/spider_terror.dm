@@ -5,7 +5,7 @@
 	announceWhen = 240
 	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_DISASTER
-	role_weights = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 0.8, ASSIGNMENT_MEDICAL = 2.5)
+	role_weights = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 5)
 	role_requirements = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 20, ASSIGNMENT_MEDICAL = 2)
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
