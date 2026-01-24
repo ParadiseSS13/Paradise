@@ -343,7 +343,6 @@
 
 /obj/item/stack/tile/catwalk/grey
 	name = "grey catwalk tiles"
-	gender = PLURAL
 	singular_name = "grey catwalk tile"
 	desc = "A grey catwalk tile. Not rated for space usage."
 	icon_state = "tile_catwalk_grey"
@@ -352,7 +351,6 @@
 
 /obj/item/stack/tile/catwalk/black
 	name = "black catwalk tiles"
-	gender = PLURAL
 	singular_name = "black catwalk tile"
 	desc = "A black catwalk tile. Not rated for space usage."
 	icon_state = "tile_catwalk_black"
@@ -361,7 +359,6 @@
 
 /obj/item/stack/tile/catwalk/white
 	name = "white catwalk tiles"
-	gender = PLURAL
 	singular_name = "white catwalk tile"
 	desc = "A white catwalk tile. Not rated for space usage."
 	icon_state = "tile_catwalk_white"
