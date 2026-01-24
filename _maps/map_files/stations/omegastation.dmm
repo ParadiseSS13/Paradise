@@ -696,7 +696,7 @@
 	dir = 4
 	},
 /obj/machinery/recharge_station,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1757,7 +1757,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -4015,7 +4015,7 @@
 /area/station/command/teleporter)
 "aou" = (
 /obj/machinery/shieldwallgen,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/box/corners,
@@ -5511,7 +5511,7 @@
 /turf/space,
 /area/space/nearstation)
 "atI" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
@@ -6226,7 +6226,7 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "axn" = (
-/obj/structure/sign/chemistry,
+/obj/structure/sign/medical/chemistry,
 /turf/simulated/wall/r_wall,
 /area/station/medical/chemistry)
 "axo" = (
@@ -7793,7 +7793,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/item/food/mint,
@@ -9916,7 +9916,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/supermatter)
 "aLJ" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
@@ -16682,7 +16682,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "chp" = (
-/obj/structure/sign/examroom,
+/obj/structure/sign/medical/examroom,
 /turf/simulated/wall,
 /area/station/medical/reception)
 "chy" = (
@@ -20944,7 +20944,7 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
 "eKW" = (
-/obj/structure/sign/pods,
+/obj/structure/sign/public/pods,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "eLj" = (
@@ -21872,7 +21872,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/north)
 "fks" = (
-/obj/structure/sign/holy,
+/obj/structure/sign/service/chapel,
 /turf/simulated/wall,
 /area/station/service/chapel)
 "fkw" = (
@@ -22724,7 +22724,7 @@
 /obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 4
 	},
-/obj/structure/sign/deathsposal{
+/obj/structure/sign/public/deathsposal{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel/white,
@@ -23862,7 +23862,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
 "gzy" = (
-/obj/structure/sign/evac,
+/obj/structure/sign/public/evac,
 /turf/simulated/wall,
 /area/station/hallway/primary/starboard)
 "gzI" = (
@@ -26274,7 +26274,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/station/engineering/transmission_laser)
 "hXl" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/machinery/computer/mech_bay_power_console{
@@ -26728,7 +26728,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint2)
 "ioz" = (
-/obj/structure/sign/pods,
+/obj/structure/sign/public/pods,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint2)
 "ioN" = (
@@ -27948,7 +27948,7 @@
 "jeR" = (
 /obj/machinery/disposal,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sign/deathsposal{
+/obj/structure/sign/public/deathsposal{
 	pixel_y = -32
 	},
 /obj/structure/disposalpipe/trunk{
@@ -31075,7 +31075,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -31942,7 +31942,7 @@
 /obj/item/tank/internals/emergency_oxygen/double{
 	pixel_x = 3
 	},
-/obj/structure/sign/pods{
+/obj/structure/sign/public/pods{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -33081,7 +33081,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/south)
 "mKT" = (
-/obj/structure/sign/pods,
+/obj/structure/sign/public/pods,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/asmaint)
 "mLo" = (
@@ -34242,7 +34242,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "nxz" = (
-/obj/structure/sign/evac,
+/obj/structure/sign/public/evac,
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/exit)
 "nxH" = (
@@ -34906,7 +34906,7 @@
 	pixel_y = 3
 	},
 /obj/item/tank/jetpack/carbondioxide,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/item/radio/intercom{
@@ -36382,7 +36382,7 @@
 /area/station/hallway/primary/starboard)
 "oXV" = (
 /obj/structure/table/reinforced,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
 	},
 /obj/machinery/status_display{
@@ -41918,7 +41918,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "sIu" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/break_room)
 "sIv" = (
@@ -42231,7 +42231,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/supermatter)
 "sLD" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -42713,7 +42713,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "sNm" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
 "sNn" = (
@@ -42973,7 +42973,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/north)
 "sOk" = (
-/obj/structure/sign/custodian{
+/obj/structure/sign/service/custodian{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tiles/department/science/corner{
@@ -43984,7 +43984,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_y = 32
 	},
 /obj/structure/cable/yellow{
@@ -45159,7 +45159,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/science/server/coldroom)
 "unK" = (
-/obj/structure/sign/evac,
+/obj/structure/sign/public/evac,
 /turf/simulated/wall,
 /area/station/hallway/secondary/exit)
 "uok" = (
@@ -46748,7 +46748,7 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
-/obj/structure/sign/custodian{
+/obj/structure/sign/service/custodian{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -50320,7 +50320,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xxL" = (
-/obj/structure/sign/restroom,
+/obj/structure/sign/public/restroom,
 /turf/simulated/wall,
 /area/station/public/toilet/unisex)
 "xxZ" = (
