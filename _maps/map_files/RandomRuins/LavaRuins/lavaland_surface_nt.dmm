@@ -1745,6 +1745,7 @@
 /area/mine/outpost/cafeteria)
 "li" = (
 /obj/effect/decal/cleanable/dirt,
+/mob/living/basic/cockroach/brad,
 /turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
 "ln" = (
@@ -4010,7 +4011,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "xB" = (
-/obj/item/toy/figure/mech/ripley,
+/obj/item/toy/figure/mech/ripley{
+	name = "roach-sized Ripley"
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
 "xD" = (
@@ -4808,7 +4811,6 @@
 /area/mine/laborcamp)
 "Cp" = (
 /obj/structure/bed/dogbed/brad,
-/mob/living/basic/cockroach/brad,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
