@@ -19994,7 +19994,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/catwalk/grey,
 /area/station/engineering/gravitygenerator)
 "bDg" = (
