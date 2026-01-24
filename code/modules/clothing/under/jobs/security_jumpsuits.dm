@@ -6,6 +6,7 @@
 	strip_delay = 50
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/security.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi'
 	)
@@ -30,6 +31,7 @@
 	icon_state = "ward_turtle"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/security.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
@@ -93,6 +95,7 @@
 	inhand_icon_state = "bl_suit"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/security.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
@@ -154,6 +157,7 @@
 	icon_state = "hos_turtle"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/security.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'

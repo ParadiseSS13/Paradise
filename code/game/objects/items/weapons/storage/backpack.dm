@@ -17,7 +17,8 @@
 	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/back.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/back.dmi'
 		)
 
 /obj/item/storage/backpack/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
