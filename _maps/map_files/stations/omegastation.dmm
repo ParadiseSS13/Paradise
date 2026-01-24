@@ -5322,16 +5322,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "asU" = (
-/obj/item/lighter{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/lighter,
-/obj/structure/table/wood,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "asV" = (
@@ -6314,6 +6309,18 @@
 /obj/item/storage/fancy/cigars/cohiba,
 /obj/item/storage/fancy/havana_cigar,
 /obj/structure/table/wood,
+/obj/item/kirbyplants/small/small4{
+	pixel_x = -9;
+	pixel_y = 21
+	},
+/obj/item/clipboard{
+	pixel_x = 7;
+	pixel_y = 11
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "axK" = (
@@ -7609,6 +7616,9 @@
 	},
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/eftpos/register{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "aCJ" = (
@@ -10427,20 +10437,6 @@
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/processing)
-"aOc" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "aOd" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -17823,6 +17819,22 @@
 /obj/structure/sign/poster/official/do_not_question/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"cOd" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "cOA" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
@@ -31071,6 +31083,22 @@
 "lxq" = (
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
+"lxF" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "lyB" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -37053,6 +37081,11 @@
 /area/station/science/toxins/mixing)
 "pso" = (
 /obj/structure/table/wood,
+/obj/item/lighter,
+/obj/item/lighter{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "psq" = (
@@ -41128,17 +41161,7 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "sja" = (
-/obj/structure/table/wood,
-/obj/item/clipboard{
-	pixel_x = 5
-	},
-/obj/item/pen{
-	pixel_x = 6
-	},
-/obj/item/kirbyplants/small/small4{
-	pixel_x = -6;
-	pixel_y = 12
-	},
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "sjg" = (
@@ -43697,6 +43720,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
+"tmt" = (
+/obj/structure/table/wood,
+/obj/item/eftpos/register{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/bar)
 "tmF" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -87915,12 +87945,12 @@ oTs
 cxc
 aqS
 awX
-aOc
-aOc
-aOc
-aOc
-xwu
-xwu
+cOd
+cOd
+cOd
+cOd
+cOd
+cOd
 nJs
 dXj
 aAF
@@ -88173,12 +88203,12 @@ cxc
 cxc
 nkE
 asU
-pso
+tmt
 pNE
 pso
 rFK
 axF
-nJs
+lxF
 sLT
 xXt
 xXt
@@ -88435,7 +88465,7 @@ auT
 sbj
 sbj
 sja
-nJs
+lxF
 aOf
 xXt
 dVr
