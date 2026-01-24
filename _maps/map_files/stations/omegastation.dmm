@@ -27467,8 +27467,10 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "iPZ" = (
-/obj/structure/sink/puddle,
 /obj/machinery/light/small,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/grass,
 /area/station/medical/virology)
 "iQz" = (
@@ -50994,8 +50996,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/grass,
 /area/station/medical/virology)
