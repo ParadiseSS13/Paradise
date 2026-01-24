@@ -15,8 +15,8 @@
 	melee_damage_lower = 6
 	melee_damage_upper = 10
 	melee_damage_type = BURN
-	melee_attack_cooldown_min = 1.5 SECONDS
-	melee_attack_cooldown_max = 2.5 SECONDS
+	melee_attack_cooldown_min = 0.75 SECONDS
+	melee_attack_cooldown_max = 1.25 SECONDS
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	mob_size = MOB_SIZE_SMALL
@@ -43,6 +43,8 @@
 	is_ranged = TRUE
 	projectile_type = /obj/projectile/beam/disabler
 	projectile_sound = 'sound/weapons/taser2.ogg'
+	ranged_burst_count = 2
+	ranged_burst_interval = 0.5 SECONDS
 	ranged_cooldown = 1 SECONDS
 	ai_controller = /datum/ai_controller/basic_controller/swarmer
 	see_in_dark = 6
@@ -147,6 +149,9 @@
 	if(L.stat == DEAD)
 		disintegrate_mob(target)
 		return FALSE
+	if(isslime(target))
+		disintegrate_mob(target)
+		return FALSE
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		if((!C.IsWeakened()))
@@ -175,6 +180,11 @@
 /mob/living/basic/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	if(!(flags & SHOCK_TESLA))
 		return FALSE
+	return ..()
+
+/mob/living/basic/swarmer/CanPass(atom/movable/O)
+	if(istype(O, /obj/projectile/beam/disabler))
+		return TRUE
 	return ..()
 
 /mob/living/basic/swarmer/proc/disintegrate_wall(turf/simulated/wall/target)
@@ -233,7 +243,7 @@
 	REMOVE_TRAIT(target, TRAIT_SWARMER_DISINTEGRATING, src)
 	resources = clamp(resources + 50, 0, resource_max)
 	adjustHealth(-40)
-	if(isanimal_or_basicmob(target) || issilicon(target)) // Not crew? Are a silicon? Don't care.
+	if((isanimal_or_basicmob(target) || issilicon(target)) && !isslime(target)) // Not crew? Are a silicon? Don't care.
 		target.gib()
 		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 		return

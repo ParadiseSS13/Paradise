@@ -23,11 +23,11 @@
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
-	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat]"]
-	P.special_enabled = TRUE
+	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/shield_sat]"]
+	P.cost = 100
 
-	P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
-	P.special_enabled = TRUE
+	P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/shield_sat_control]"]
+	P.cost = 750
 
 /datum/station_goal/station_shield/check_completion()
 	if(..())

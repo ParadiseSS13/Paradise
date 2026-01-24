@@ -27,7 +27,10 @@
 	inhand_icon_state = "capspacesuit"
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 //Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
@@ -104,7 +107,7 @@
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
-	desc = "Ho ho ho. Merrry X-mas!"
+	desc = "Ho ho ho. Merrry X-mas! This one is spaceworthy."
 	icon_state = "santahat"
 	inhand_icon_state = null
 	sprite_sheets = list(
@@ -113,7 +116,12 @@
 		)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
+	flags_inv = HIDEEARS
 	dog_fashion = /datum/dog_fashion/head/santa
+
+/obj/item/clothing/head/helmet/space/santahat/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("Use in hand to toggle the hat's beard.")
 
 /obj/item/clothing/head/helmet/space/santahat/attack_self__legacy__attackchain(mob/user)
 	if(icon_state == "santahat")
@@ -125,7 +133,7 @@
 
 /obj/item/clothing/suit/space/santa
 	name = "Santa's suit"
-	desc = "Festive!"
+	desc = "Festive! This one is spaceworthy."
 	icon_state = "santa"
 	inhand_icon_state = null
 	slowdown = 0
@@ -180,6 +188,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -196,6 +205,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
@@ -227,7 +237,10 @@
 	desc = ". . ."
 	icon_state = "spacemime_suit"
 	inhand_icon_state = null
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/eva/clown
 	name = "clown EVA helmet"
@@ -241,4 +254,7 @@
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"
 	inhand_icon_state = null
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)

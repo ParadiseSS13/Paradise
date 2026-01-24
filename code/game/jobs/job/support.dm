@@ -31,11 +31,15 @@
 		ACCESS_EXPEDITION,
 		ACCESS_SMITH
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
 	exp_map = list(EXP_TYPE_SUPPLY = 1200)
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = MEDIUM_DIFFICULTY
+	description = "The Quartermaster has the responsibility of overseeing the Supply department.\n\n\
+					Difficulties: Standard Operating Procedure (General, Supply, Command), mining, cargo, economy, paperwork"
 
 /datum/outfit/job/qm
 	name = "Quartermaster"
@@ -77,9 +81,17 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_SUPPLY_SHUTTLE,
 	)
+	skeleton_access = list(
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_SMITH,
+	)
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
+	description = "Cargo Technicians have the responsibility of handling cargo orders and delivering mail.\n\n\
+					Difficulties: Loading and unloading crates, economy, paperwork, menu navigation"
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
@@ -114,11 +126,18 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
-		ACCESS_SMITH
+		ACCESS_SMITH,
+	)
+	skeleton_access = list(
+		ACCESS_MAILSORTING,
+		ACCESS_SUPPLY_SHUTTLE,
 	)
 	alt_titles = list("Metalworker", "Tinkerer")
 	outfit = /datum/outfit/job/smith
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = MEDIUM_DIFFICULTY
+	description = "The Smith has the responsibility of refining ores, as well as making tool bits and armor plates.\n\n\
+					Difficulties: Smithing, controls"
 
 /datum/outfit/job/smith
 	name = "Smith"
@@ -153,9 +172,19 @@
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
 	)
+	skeleton_access = list(
+		ACCESS_MAILSORTING,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BAY,
+		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_SMITH,
+	)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = HARD_DIFFICULTY
+	description = "Shaft Miners have the responsibility of mining ores on Lavaland.\n\n\
+					Difficulties: Mining, combat"
 
 /datum/outfit/job/mining
 	name = "Shaft Miner"
@@ -240,11 +269,21 @@
 		ACCESS_TELEPORTER,
 		ACCESS_CARGO,
 		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINING_STATION
+	)
+	skeleton_access = list(
+		ACCESS_CARGO_BAY,
+		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_MAILSORTING,
+		ACCESS_MINING_STATION,
+		ACCESS_MINING,
+		ACCESS_SMITH,
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
 	outfit = /datum/outfit/job/explorer
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = HARD_DIFFICULTY
+	description = "Explorers have the responsibility of exploring space near the station.\n\n\
+					Difficulties: Space movement, combat, space exploration, mining"
 
 /datum/outfit/job/explorer
 	name = "Explorer"
@@ -279,8 +318,16 @@
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	skeleton_access = list(
+		ACCESS_KITCHEN,
+		ACCESS_HYDROPONICS,
+		ACCESS_MORGUE,
+	)
 	outfit = /datum/outfit/job/bartender
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = LOW_DIFFICULTY
+	description = "The Bartender has the responsibility of mixing drinks for the crew.\n\n\
+					Difficulties: Mixing drinks"
 
 /datum/outfit/job/bartender
 	name = "Bartender"
@@ -326,9 +373,18 @@
 		ACCESS_KITCHEN,
 		ACCESS_MAINT_TUNNELS
 	)
+	skeleton_access = list(
+		ACCESS_BAR,
+		ACCESS_MORGUE,
+		ACCESS_HYDROPONICS,
+		ACCESS_MINERAL_STOREROOM,
+	)
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = MEDIUM_DIFFICULTY
+	description = "The Chef has the responsibility of cooking food for the crew.\n\n\
+					Difficulties: Martial arts, cooking"
 
 /datum/outfit/job/chef
 	name = "Chef"
@@ -368,9 +424,17 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MORGUE
 	)
+	skeleton_access = list(
+		ACCESS_KITCHEN,
+		ACCESS_BAR,
+		ACCESS_MINERAL_STOREROOM,
+	)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Botanists have the responsibility of growing plants for the Chef.\n\n\
+					Difficulties: Growing plants, maniuplating plant traits"
 
 /datum/outfit/job/hydro
 	name = "Botanist"
@@ -412,6 +476,9 @@
 	)
 	outfit = /datum/outfit/job/clown
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
+	description = "The Clown has the responsibility of entertaining the crew.\n\n\
+					Difficulties: A sense of humor. Honk!"
 
 /datum/outfit/job/clown
 	name = "Clown"
@@ -508,6 +575,9 @@
 	)
 	outfit = /datum/outfit/job/mime
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
+	description = "The Mime has the responsibility of entertaining the crew non-verbally.\n\n\
+					Difficulties: Emotes"
 
 /datum/outfit/job/mime
 	name = "Mime"
@@ -567,6 +637,9 @@
 	alt_titles = list("Custodial Technician")
 	outfit = /datum/outfit/job/janitor
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
+	description = "Janitors have the responsibility of cleaning the station.\n\n\
+					Difficulties: cleaning, lights replacement, movement, controls"
 
 /datum/outfit/job/janitor
 	name = "Janitor"
@@ -606,6 +679,9 @@
 	alt_titles = list("Journalist")
 	outfit = /datum/outfit/job/librarian
 	standard_paycheck = CREW_PAY_LOW
+	difficulty = EASY_DIFFICULTY
+	description = "The Librarian has the responsibility of providing books for the crew.\n\n\
+					Difficulties: Paperwork, controls"
 
 /datum/outfit/job/librarian
 	name = "Librarian"

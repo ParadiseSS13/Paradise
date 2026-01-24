@@ -2099,11 +2099,11 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
 "aqh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -2782,7 +2782,6 @@
 /area/station/hallway/secondary/exit)
 "ava" = (
 /obj/machinery/alarm/directional/north,
-/obj/structure/closet/crate/cookware,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -40229,6 +40228,10 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/reagent_containers/drinks/carton/plum{
+	pixel_y = 14;
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "hGE" = (
@@ -41352,11 +41355,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/spacebridge/scidock)
 "hRT" = (
-/obj/machinery/cooking/deepfryer,
 /obj/structure/window/basic{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/deepfryer/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "hRY" = (
@@ -43566,6 +43569,9 @@
 /obj/structure/table,
 /obj/item/food/mint,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "ipV" = (
@@ -52289,8 +52295,12 @@
 /area/station/service/library)
 "khD" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/bowl{
+	pixel_y = 9;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/cooking/bowl,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "khE" = (
@@ -54091,6 +54101,10 @@
 /obj/structure/table,
 /obj/item/reagent_containers/cooking/board,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/board{
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "kCH" = (
@@ -61022,7 +61036,13 @@
 	pixel_x = -13;
 	pixel_y = 2
 	},
-/obj/item/ashtray/plastic,
+/obj/item/ashtray/plastic{
+	pixel_y = -2
+	},
+/obj/item/storage/fancy/juice_boxes/random{
+	pixel_y = 11;
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "lZy" = (
@@ -67029,7 +67049,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "nxf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -77388,8 +77408,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
 "pOz" = (
-/obj/machinery/cooking/oven,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "pOC" = (
@@ -83926,8 +83946,8 @@
 /area/station/maintenance/maintcentral)
 "rpg" = (
 /obj/structure/table,
-/obj/machinery/cooking/grill,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/grill/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "rpk" = (
@@ -92082,10 +92102,10 @@
 	dir = 8;
 	name = "Portable Air Pump Connector"
 	},
-/obj/machinery/atmospherics/portable/pump,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "tbC" = (
@@ -95232,6 +95252,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay2)
+"tNX" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/glass,
+/obj/effect/turf_decal/tiles/neutral,
+/obj/item/reagent_containers/drinks/carton/watermelon{
+	pixel_x = -6;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/south)
 "tNZ" = (
 /obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel{
@@ -98849,7 +98879,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/cooking/ice_cream_mixer,
+/obj/machinery/cooking/ice_cream_mixer/loaded,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "uzZ" = (
@@ -103276,8 +103306,8 @@
 /area/station/public/quantum/service)
 "vyr" = (
 /obj/structure/table/reinforced,
-/obj/machinery/cooking/stovetop,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/stovetop/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "vyt" = (
@@ -108061,11 +108091,12 @@
 	},
 /area/station/public/quantum/docking)
 "wzE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Distro to Air Pump"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
@@ -131765,7 +131796,7 @@ kAn
 stO
 hzU
 mRj
-gTt
+tNX
 iYG
 mCM
 ecG
