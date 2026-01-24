@@ -85,7 +85,7 @@
 		else if(href_list["browse"])
 			var/obj/item/paper_bundle/P = locate(href_list["browse"])
 			if(P && (P.loc == src) && istype(P))
-				P.attack_self__legacy__attackchain(usr)
+				P.activate_self(usr)
 				onclose(usr, "[P.name]")
 
 		//Update everything

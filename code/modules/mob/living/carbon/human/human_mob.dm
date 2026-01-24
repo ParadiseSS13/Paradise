@@ -242,6 +242,9 @@
 	if(!body_accessory)
 		change_body_accessory("Plain Wings")
 
+/mob/living/carbon/human/skulk/Initialize(mapload)
+	. = ..(mapload, /datum/species/skulk)
+
 /mob/living/carbon/human/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
@@ -863,8 +866,9 @@
 		var/obj/item/clothing/head/HFP = head			//if yes gets the flash protection value from that item
 		number += HFP.flash_protect
 	if(istype(glasses, /obj/item/clothing/glasses))		//glasses
-		var/obj/item/clothing/glasses/GFP = glasses
-		number += GFP.flash_protect
+		if(!is_species(src, /datum/species/skulk))		// makes sure skkulakin properly suffer
+			var/obj/item/clothing/glasses/GFP = glasses
+			number += GFP.flash_protect
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = wear_mask
 		number += MFP.flash_protect
@@ -1110,7 +1114,7 @@
 	if(L && !L.linked_organ.is_bruised())
 		var/obj/item/organ/external/affected = get_organ("chest")
 		affected.custom_pain("You feel a stabbing pain in your chest!")
-		L.linked_organ.damage = L.linked_organ.min_bruised_damage
+		L.linked_organ.receive_damage(max(L.linked_organ.min_bruised_damage - L.linked_organ.damage, 2))
 
 /mob/living/carbon/human/resist_restraints(attempt_breaking)
 	if(HAS_TRAIT(src, TRAIT_HULK))
@@ -1215,6 +1219,8 @@
 	tail = dna.species.tail
 
 	wing = dna.species.wing
+
+	spines = dna.species.spines
 
 	maxHealth = dna.species.total_health
 
@@ -2297,3 +2303,22 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/get_strippable_items(datum/source, list/items)
 	items |= GLOB.strippable_human_items
+
+/// Used to toggle whether wings are open or not
+/mob/living/carbon/human/proc/Togglewings()
+	if(has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		to_chat(src, "<span class='warning'>Your wings are burnt off!</span>")
+		return
+
+	if(body_accessory && istype(body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = body_accessory
+		if(wings.is_open)
+			wings.is_open = FALSE
+			wings.icon = initial(wings.icon)
+			wings.pixel_x_offset = initial(wings.pixel_x_offset)
+			update_wing_layer()
+			return
+		wings.is_open = TRUE
+		wings.icon = wings.open_icon
+		wings.pixel_x_offset = -22 // Center these bad boys
+		update_wing_layer()

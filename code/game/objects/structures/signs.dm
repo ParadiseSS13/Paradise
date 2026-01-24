@@ -106,90 +106,10 @@
 	desc = "A sign that indicates an NT turf."
 	icon_state = "nanotrasen"
 
-/obj/structure/sign/securearea
-	name = "\improper SECURE AREA"
-	desc = "A warning sign which reads 'SECURE AREA'."
-	icon_state = "securearea"
-
-/obj/structure/sign/wait
-	name = "\improper WAIT FOR DECONTAMINATION!"
-	desc = "A warning sign which reads: WAIT! <BR>\
-	Before returning from the asteroid internal zone, please wait for the in-built scrubber system to remove all traces of the toxic atmosphere. This will take approximately 20 seconds.<BR> \
-	Failure to adhere to this safety regulation will result in large plasmafires that will destroy the locking mechanisms."
-	icon_state = "waitsign"
-	resistance_flags = FIRE_PROOF
-
 /obj/structure/sign/monkey_paint
 	name = "Mr. Deempisi portrait"
 	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste...You were delicious."
 	icon_state = "monkey_painting"
-
-/obj/structure/sign/biohazard
-	name = "\improper BIOHAZARD"
-	desc = "A warning sign which reads 'BIOHAZARD'."
-	icon_state = "bio"
-
-/obj/structure/sign/electricshock
-	name = "\improper HIGH VOLTAGE"
-	desc = "A warning sign which reads 'HIGH VOLTAGE'."
-	icon_state = "shock"
-
-/obj/structure/sign/examroom
-	name = "\improper EXAM"
-	desc = "A guidance sign which reads 'EXAM ROOM'."
-	icon_state = "examroom"
-
-/obj/structure/sign/vacuum
-	name = "\improper HARD VACUUM AHEAD"
-	desc = "A warning sign which reads 'HARD VACUUM AHEAD'."
-	icon_state = "space"
-
-/obj/structure/sign/vacuum/external
-	name = "\improper EXTERNAL AIRLOCK"
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'."
-	layer = MOB_LAYER
-
-/obj/structure/sign/deathsposal
-	name = "\improper DISPOSAL LEADS TO SPACE"
-	desc = "A warning sign which reads 'DISPOSAL LEADS TO SPACE'."
-	icon_state = "deathsposal"
-
-/obj/structure/sign/pods
-	name = "\improper ESCAPE PODS"
-	desc = "A warning sign which reads 'ESCAPE PODS'."
-	icon_state = "pods"
-
-/obj/structure/sign/fire
-	name = "\improper DANGER: FIRE"
-	desc = "A warning sign which reads 'DANGER: FIRE'."
-	icon_state = "fire"
-	resistance_flags = FIRE_PROOF
-
-/obj/structure/sign/nosmoking_1
-	name = "\improper NO SMOKING"
-	desc = "A warning sign which reads 'NO SMOKING'."
-	icon_state = "nosmoking"
-	resistance_flags = FLAMMABLE
-
-/obj/structure/sign/nosmoking_2
-	name = "\improper NO SMOKING"
-	desc = "A warning sign which reads 'NO SMOKING'."
-	icon_state = "nosmoking2"
-
-/obj/structure/sign/radiation
-	name = "\improper HAZARDOUS RADIATION"
-	desc = "A warning sign alerting the user of potential radiation hazards."
-	icon_state = "radiation"
-
-/obj/structure/sign/radiation/rad_area
-	name = "\improper RADIOACTIVE AREA"
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'."
-
-/obj/structure/sign/xeno_warning_mining
-	name = "DANGEROUS ALIEN LIFE"
-	desc = "A sign that warns would be travellers of hostile alien life in the vicinity."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "xeno_warning"
 
 /obj/structure/sign/lifestar
 	name = "medbay"
@@ -279,66 +199,87 @@
 	does_emissive = TRUE
 	blocks_emissive = FALSE
 
-/obj/structure/sign/science
-	name = "\improper SCIENCE!"
-	desc = "A warning sign which reads 'SCIENCE!'"
-	icon_state = "science1"
+// MARK: Warning signs
+/obj/structure/sign/biohazard
+	name = "\improper BIOHAZARD"
+	desc = "DANGER: BIOLOGICAL HAZARD. Biological PPE is REQUIRED past this point!"
+	icon_state = "biohazard"
 
-/obj/structure/sign/chemistry
-	name = "\improper CHEMISTRY"
-	desc = "A warning sign which reads 'CHEMISTRY'."
-	icon_state = "chemistry1"
+/obj/structure/sign/electricshock
+	name = "\improper HIGH VOLTAGE"
+	desc = "DANGER OF DEATH: HIGH VOLTAGE. Electrical PPE is REQUIRED before coming into contact with energized equipment!"
+	icon_state = "shock"
 
-/obj/structure/sign/botany
-	name = "\improper HYDROPONICS"
-	desc = "A warning sign which reads 'HYDROPONICS'."
-	icon_state = "hydro1"
+/obj/structure/sign/fire
+	name = "\improper DANGER: FIRE"
+	desc = "A warning sign which reads 'DANGER: FIRE'."
+	icon_state = "fire"
+	resistance_flags = FIRE_PROOF
 
-/obj/structure/sign/xenobio
-	name = "\improper XENOBIOLOGY"
-	desc = "A sign labelling an area as a place where xenobiological entities are researched."
-	icon_state = "xenobio"
+/obj/structure/sign/nosmoking
+	name = "\improper NO SMOKING"
+	desc = "Smoking is strictly prohibited in this area."
+	icon_state = "nosmoking"
+	resistance_flags = FLAMMABLE
 
-/obj/structure/sign/evac
-	name = "\improper EVACUATION"
-	desc = "A sign labelling an area where evacuation procedures take place."
-	icon_state = "evac"
+/obj/structure/sign/nosmoking/alt
+	icon_state = "nosmoking2"
 
-/obj/structure/sign/drop
-	name = "\improper DROP PODS"
-	desc = "A sign labelling an area where drop pod loading procedures take place."
-	icon_state = "drop"
+/obj/structure/sign/radiation
+	name = "\improper RADIOLOGICALLY SUPERVISED AREA"
+	desc = "WARNING: Low level radiation may be present. Ensure your dose level remains below exposure limits."
+	icon_state = "radiation"
 
-/obj/structure/sign/custodian
-	name = "\improper CUSTODIAN"
-	desc = "A sign labelling an area where the custodian works."
-	icon_state = "custodian"
+/obj/structure/sign/radiation/rad_area
+	name = "\improper RADIOLOGICALLY CONTROLLED AREA"
+	desc = "DANGER: High levels of radiation may be present. Radiological PPE is REQUIRED beyond this point."
 
-/obj/structure/sign/engineering
-	name = "\improper ENGINEERING"
-	desc = "A sign labelling an area where engineers work."
-	icon_state = "engine"
+/obj/structure/sign/explosives
+	name = "\improper HIGH EXPLOSIVES"
+	desc = "DANGER: High explosives in this area!"
+	icon_state = "explosives"
 
-/obj/structure/sign/cargo
-	name = "\improper CARGO"
-	desc = "A sign labelling an area where cargo ships dock."
-	icon_state = "cargo"
+/obj/structure/sign/explosives/alt
+	icon_state = "explosives2"
 
-/obj/structure/sign/security
-	name = "\improper SECURITY"
-	desc = "A sign labelling an area where the law is law."
-	icon_state = "security"
+/obj/structure/sign/warning
+	name = "\improper WARNING!"
+	desc = "A generic warning sign, warning about some danger."
+	icon_state = "warning"
 
-/obj/structure/sign/holy
-	name = "\improper HOLY"
-	desc = "A sign labelling a religious area."
-	icon_state = "holy"
+/obj/structure/sign/securearea
+	name = "\improper SECURE AREA"
+	desc = "WARNING: High-Security area! Identification MUST be worn at all times."
+	icon_state = "warning"
 
-/obj/structure/sign/restroom
-	name = "\improper RESTROOM"
-	desc = "A sign labelling a restroom."
-	icon_state = "restroom"
+/obj/structure/sign/magboots
+	name = "\improper MAG BOOTS"
+	desc = "WARNING: Magboots are REQUIRED in this area!"
+	icon_state = "magboots"
 
+/obj/structure/sign/turbine
+	name = "\improper TURBINE"
+	desc = "DANGER OF DEATH: NO GUARD ON TURBINE INTAKE!"
+	icon_state = "turbine"
+
+/obj/structure/sign/vacuum
+	name = "\improper HARD VACUUM AHEAD"
+	desc = "DANGER OF DEATH: Breathing apparatus and pressure suit required beyond this point."
+	icon_state = "space"
+
+/obj/structure/sign/vacuum/external
+	name = "\improper EXTERNAL AIRLOCK"
+	layer = MOB_LAYER
+
+/obj/structure/sign/wait
+	name = "\improper WAIT FOR DECONTAMINATION!"
+	desc = "A warning sign which reads: WAIT! <BR>\
+	Before returning from the asteroid internal zone, please wait for the in-built scrubber system to remove all traces of the toxic atmosphere. This will take approximately 20 seconds.<BR> \
+	Failure to adhere to this safety regulation will result in large plasmafires that will destroy the locking mechanisms."
+	icon_state = "waitsign"
+	resistance_flags = FIRE_PROOF
+
+// MARK: Direction signs
 /obj/structure/sign/directions
 	name = "direction sign"
 
@@ -365,6 +306,8 @@
 /obj/structure/sign/directions/evac
 	desc = "A direction sign, pointing out which way the Escape Shuttle Dock is."
 	icon_state = "direction_evac"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
 
 /obj/structure/sign/directions/cargo
 	desc = "A direction sign, pointing out which way the Supply Department is."
@@ -374,20 +317,396 @@
 	desc = "A direction sign, pointing out which way the Service Department is."
 	icon_state = "direction_service"
 
-/obj/structure/sign/explosives
-	name = "\improper HIGH EXPLOSIVES"
-	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
-	icon_state = "explosives"
+// MARK: Public signs
+/obj/structure/sign/public/arcade
+	name = "\improper ARCADE"
+	desc = "A place for fun and games! If you stay long enough, you might even get a bike!"
+	icon_state = "arcade"
 
-/obj/structure/sign/explosives/alt
-	icon_state = "explosives2"
+/obj/structure/sign/public/arrivals
+	name = "\improper ARRIVALS"
+	desc = "The arrivals shuttle will drop new arrivals off here, and other ships can dock in the nearby bays."
+	icon_state = "arrivals"
 
-/obj/structure/sign/magboots
-	name = "\improper MAG BOOTS"
-	desc = "A warning sign which reads MAGBOOTS"
-	icon_state = "magboots"
+/obj/structure/sign/public/arrivals/examine(mob/user)
+	. = ..()
+	. += SPAN_USERDANGER("During a crew transfer or emergency evacuation, you cannot leave via the arrivals shuttle. You must head to the departing shuttle or an escape pod.")
 
-/obj/structure/sign/turbine
-	name = "\improper TURBINE"
-	desc = "A warning which reads TURBINE"
-	icon_state = "turbine"
+/obj/structure/sign/public/bath
+	name = "\improper BATH OR SHOWER"
+	desc = "Cleans the filth from your body."
+	icon_state = "bath"
+
+/obj/structure/sign/public/cryo
+	name = "\improper CRYOGENIC DORMITORIES"
+	desc = "You can safely enter cryosleep here and leave the current work shift."
+	icon_state = "cryo"
+
+/obj/structure/sign/public/deathsposal
+	name = "\improper DISPOSAL LEADS TO SPACE"
+	desc = "DANGER OF DEATH: This disposal unit will eject anything inside it into space."
+	icon_state = "deathsposal"
+
+/obj/structure/sign/public/doors
+	name = "\improper BLAST DOORS"
+	desc = "There's a set of remote-controlled blast doors here. Don't get crushed between them!"
+	icon_state = "doors"
+
+/obj/structure/sign/public/drop
+	name = "\improper DROP PODS"
+	desc = "Drop pods will be loaded and launched from this location. Give 'em hell!"
+	icon_state = "drop"
+
+/obj/structure/sign/public/evac	
+	name = "\improper EVACUATION"
+	desc = "The shuttle will dock here at the end of the shift or during an emergency evacuation."
+	icon_state = "evac"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
+
+/obj/structure/sign/public/holy
+	name = "\improper HOLY"
+	desc = "A sign labelling a sanctified area."
+	icon_state = "holy"
+
+/obj/structure/sign/public/laundry
+	name = "\improper LAUNDRY"
+	desc = "A place for you to wash all the blood out of your clothes."
+	icon_state = "laundry"
+
+/obj/structure/sign/public/pods
+	name = "\improper ESCAPE PODS"
+	desc = "The station's escape pods can be used to evacuate in the event that the main shuttle cannot be reached."
+	icon_state = "pods"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
+
+/obj/structure/sign/public/salon
+	name = "\improper SALON"
+	desc = "If the station theoretically had a barber or stylist, they'd be found here, for sure."
+	icon_state = "salon"
+
+/obj/structure/sign/public/reception
+	name = "\improper RECEPTION"
+	desc = "Ring the bell on the desk and then wait for assistance to arrive."
+	icon_state = "reception"
+
+/obj/structure/sign/public/restroom
+	name = "\improper RESTROOM"
+	desc = "Toilets, showers, and even a robot charger!"
+	icon_state = "restroom"
+
+/obj/structure/sign/public/tools
+	name = "\improper TOOL STORAGE"
+	desc = "A place Nanotrasen stores excess tools before they're removed by roving gangs of assistants."
+	icon_state = "tools"
+
+/obj/structure/sign/public/vox_box
+	name = "\improper VOX BOX"
+	desc = "DANGER OF DEATH: PURE NITROGEN ATMOSPHERE. Breathing apparatus required for non-vox beyond this point."
+	icon_state = "vox_box"
+
+// MARK: Security
+/obj/structure/sign/security
+	name = "\improper SECURITY"
+	desc = "This is Security's turf. Better behave yourself around here."
+	icon_state = "security"
+
+/obj/structure/sign/security/armory
+	name = "\improper ARMORY"
+	desc = "All the guns are kept here. Often opened at the slightest sign of resistance against the Security department's iron rule."
+	icon_state = "armory"
+
+/obj/structure/sign/security/brig
+	name = "\improper BRIG"
+	desc = "This is where criminals are locked up."
+	icon_state = "brig"
+
+/obj/structure/sign/security/detective
+	name = "\improper DETECTIVE"
+	desc = "The office of the Detective, who will solve any case that ends up on their desk. Provided they don't need to go out for another carton of cigarettes."
+	icon_state = "detective"
+
+/obj/structure/sign/security/evidence
+	name = "\improper EVIDENCE"
+	desc = "A secure room to store evidence of crimes as well as confiscated equipment, until a Syndicate agent breaks in to retrieve it."
+	icon_state = "evidence"
+
+/obj/structure/sign/security/interrogation
+	name = "\improper INTERROGATION"
+	desc = "Despite the number of tooth extractions that happen here, no one in the Security department is actually a qualified dentist."
+	icon_state = "interrogation"
+
+/obj/structure/sign/security/labor_camp
+	name = "\improper LABOR CAMP"
+	desc = "Why have prisoners sitting around doing nothing, when they can actually be productive?"
+	icon_state = "labor_camp"
+
+/obj/structure/sign/security/law
+	name = "\improper LAW OFFICES"
+	desc = "The home of THE LAW. Houses the Internal Affairs Agent, and the Magistrate that people actually have a reason to speak to."
+	icon_state = "law"
+
+/obj/structure/sign/security/perma
+	name = "\improper PERMANENT CONFINEMENT"
+	desc = "This is where the worst of the worst criminals are locked up. Foooorrrreeeeeveeeerrrr!"
+	icon_state = "perma"
+
+// MARK: Cargo
+/obj/structure/sign/cargo
+	name = "\improper CARGO"
+	desc = "The logistical heart of the station, handling incoming supply shipments, salvage, and minerals. Oh, and mail too."
+	icon_state = "cargo"
+
+/obj/structure/sign/cargo/dock
+	name = "\improper CARGO DOCK"
+	desc = "The cargo dock and attached warehouse is the place that old crates, Forklift, and freshly arrived shipments can be found."
+	icon_state = "cargo_dock"
+
+/obj/structure/sign/cargo/mail
+	name = "\improper MAIL"
+	desc = "The station's mail room, where boxes are delivered by cargo telepad or the station's disposal system. \
+	Try not to think too hard about your package going through the same pipe as all the station's rubbish."
+	icon_state = "mail"
+
+/obj/structure/sign/cargo/materials
+	name = "\improper MATERIALS"
+	desc = "Hopefully cargo's mining department deposited something here before running off and dying."
+	icon_state = "materials_cargo"
+
+/obj/structure/sign/cargo/mining
+	name = "\improper MINING"
+	desc = "Miners are responsable for getting the materials that all other industry needs to function. And also monster hunting, alledgedly."
+	icon_state = "mining"
+
+/obj/structure/sign/cargo/salvage
+	name = "\improper SALVAGE"
+	desc = "The base of operation used by the station's explorers preparing for their quest to get as many guns as possible."
+	icon_state = "salvage"
+
+/obj/structure/sign/cargo/smith
+	name = "\improper SMITH"
+	desc = "Despite the rise automated fabrication systems such as the autolathe, some of the best craftsmanship is still only possible by letting a trained person hit the workpiece with a big hammer."
+	icon_state = "smith"
+
+/obj/structure/sign/cargo/xenos
+	name = "DANGEROUS ALIEN LIFE"
+	desc = "A warning sign reminding you that this is not a safe place. Keep a weapon with you at all times."
+	icon_state = "mining_xenos"
+
+// MARK: Engineering
+/obj/structure/sign/engineering
+	name = "\improper ENGINEERING"
+	desc = "Home to the vital systems that keep the station running. Sometimes you'll even find some engineers in here too!"
+	icon_state = "engineering"
+
+/obj/structure/sign/engineering/atmos
+	name = "\improper ATMOSPHERICS"
+	desc = "The endless pipes of Atmosia supply the air you breathe. And occasionally some other less-safe gasses too."
+	icon_state = "atmos"
+
+/obj/structure/sign/engineering/cans
+	name = "\improper GAS CANISTERS"
+	desc = "A storage area for gas canisters."
+	icon_state = "cans"
+
+/obj/structure/sign/engineering/comms
+	name = "\improper TELECOMMUNICATIONS"
+	desc = "The equipment that lets your headset work, breaks the moment an ion cloud exists near the station. If you want to live without it, grab a station-bounced radio or use an intercom."
+	icon_state = "comms"
+
+/obj/structure/sign/engineering/gravity
+	name = "\improper GRAVITY GENERATOR"
+	desc = "The machine that generates the station's artifical gravity field. Ideally this should be left alone until it breaks. Then it shouldn't be left alone."
+	icon_state = "gravity"
+
+/obj/structure/sign/engineering/materials
+	name = "\improper MATERIALS"
+	desc = "A cache of materials for use in construction and maintenance. It won't last for long enough."
+	icon_state = "materials"
+
+/obj/structure/sign/engineering/power
+	name = "\improper POWER GENERATION EQUIPMENT"
+	desc = "The equipment needed to keep the heart of the station beating. If all of this breaks, the rest of the station won't be far behind."
+	icon_state = "power"
+
+// MARK: Service
+/obj/structure/sign/service/bar
+	name = "\improper BAR"
+	desc = "A place to go and have fun, get to know new and interesting people, and destroy your liver."
+	icon_state = "bar"
+
+/obj/structure/sign/service/bar/examine(mob/user)
+	. = ..()
+	. += SPAN_INFO("Remember: The bartender is allowed under SOP to charge you for drinks. Nanotrasen is not a charity.")
+	. += SPAN_INFO("Also remember: If you start shit in the bar, the bartender is legally entitled to blast you with his shotgun and then throw you out of the bar.")
+
+/obj/structure/sign/service/chapel
+	name = "\improper CHAPEL"
+	desc = "An oasis of holy ground and spiritual peace. Obviously this is the first place you should run if you're being chased by ghosts, cultists, or vampires."
+	icon_state = "chapel"
+
+/obj/structure/sign/service/chapel/examine(mob/user)
+	. = ..()
+	. += SPAN_INFO("The chapel does in fact provide protection from all the aforementioned entities!")
+
+/obj/structure/sign/service/custodian
+	name = "\improper CUSTODIAN"
+	desc = "The kingdom of Janitalia, the first and often last line of defence standing between the station and an endless tide of blood, vomit, and fuck knows what else smeared across the halls."
+	icon_state = "custodian"
+
+/obj/structure/sign/service/drama
+	name = "\improper THEATRE"
+	desc = "Becuase of various obscure contractual oblications and treaties, Nanotrasen has agreed to give this space over to the station's Clown and Mime so they'll stop bothering everyone everywhere else."
+	base_icon_state = "drama"
+	icon_state = "drama1"
+
+/obj/structure/sign/service/drama/Initialize(mapload)
+	. = ..()
+	icon_state = "[base_icon_state][rand(1-3)]"
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/structure/sign/service/library
+	name = "\improper LIBRARY"
+	desc = "A sanctuary of NERDS! Books can alledgedly be found here. The space is also used for the station's D&D game night."
+	icon_state = "library"
+
+/obj/structure/sign/service/kitchen
+	name = "\improper KITCHEN"
+	desc = "The place to go when you need a delicious meal. Or a deep fried strip of raw bacon."
+	icon_state = "kitchen"
+
+/obj/structure/sign/service/kitchen/examine(mob/user)
+	. = ..()
+	. += SPAN_INFO("Remember: The chef is allowed under SOP to charge you for meals. Nanotrasen is not a charity.")
+	. += SPAN_INFO("Also remember: If you break into the kichen because you don't want to pay, the chef is legally entitled to beat the crap out of you.")
+
+/obj/structure/sign/service/botany
+	name = "\improper HYDROPONICS"
+	desc = "A hydroponics lab where food and other plants can be grown. There are a statistically significant number of war criminals employed here above the station's baseline."
+	icon_state = "hydro"
+
+// MARK: Medical
+/obj/structure/sign/medical
+	name = "\improper MEDICAL"
+	desc = "The station's medical bay. The doctors inside can be your salvation, but beware their wrath if provoked."
+	icon_state = "medical"
+
+/obj/structure/sign/medical/chemistry
+	name = "\improper CHEMISTRY"
+	desc = "The source of the medical department's medicines, and the clown's lube."
+	icon_state = "chemistry"
+
+/obj/structure/sign/medical/cloning
+	name = "\improper CLONING"
+	desc = "The first port-of-call for many doctors treating cardiac arrest."
+	icon_state = "clone"
+
+/obj/structure/sign/medical/morgue
+	name = "\improper MORGUE"
+	desc = "The place where autopsies are performed and cadavers are stored while awaiting funeral rites in the chapel... Or until the chef steals them."
+	icon_state = "morgue"
+
+/obj/structure/sign/medical/examroom
+	name = "\improper EXAM ROOM"
+	desc = "The place where doctors try and figure out what's wrong with you."
+	icon_state = "examroom"
+
+/obj/structure/sign/medical/psych
+	name = "\improper PSYCHOLOGIST"
+	desc = "The psychologist is alledgedly the most sane individual on the station, who can alledgedly help you with your own psychological traumas."
+	icon_state = "psych"
+
+/obj/structure/sign/medical/surgery
+	name = "\improper SURGERY"
+	desc = "This is where the station's surgical teams will perform invasive medical procedures deep inside your body. Hopefully under the effects of anesthetic."
+	icon_state = "surgery"
+
+/obj/structure/sign/medical/virology
+	name = "\improper VIROLOGY"
+	desc = "If you're nice to the virologist, they'll inject you a vaccine instead of their experimental projectile vomiting disease."
+	icon_state = "virology"
+
+// MARK: Command
+/obj/structure/sign/command
+	name = "\improper BRIDGE"
+	desc = "The throbbing brain of the station. The bridge's viewing window is a common gathering place for the station's seething masses, \
+	who all enjoy staring into what is sometimes referred to as the station's \"fish tank\"."
+	icon_state = "bridge"
+
+/obj/structure/sign/command/ai
+	name = "\improper ARTIFICIAL INTELLIGENCE"
+	desc = "The station's AI core, where the AI and a large number of automated gun turrets can be found."
+	icon_state = "ai"
+
+/obj/structure/sign/command/ai_upload
+	name = "\improper AI UPLOAD"
+	desc = "A pair of computers that can remotely upload your stupid custom lawset to any AI or any unsyncronized robots on the station. Provided they're registered to Nanotrasen, at least."
+	icon_state = "ai_upload"
+
+/obj/structure/sign/command/conference
+	name = "\improper CONFERENCE ROOM"
+	desc = "A room that is supposedly about holding orderly meetings between station command, plus the occasional diplomatic delegation. \
+	It's been host to more internal and international incidents than anywhere else on the station."
+	icon_state = "conference"
+
+/obj/structure/sign/command/eva
+	name = "\improper EVA"
+	desc = "Stocked with space suits and other equipment for performing Extra-Vehicular Activity. It's an ideal pick for the first place you should run to when you see the self-destruct mechanism being activated."
+	icon_state = "eva"
+
+/obj/structure/sign/command/head
+	name = "\improper DEPARTMENT HEAD"
+	desc = "The office of this department's commanding officer. The first place that any revolutionary will look, so don't hide in here if people start unionizing!"
+	icon_state = "head"
+
+/obj/structure/sign/command/vault
+	name = "\improper VAULT"
+	desc = "The station's high-security vault, for storing valuable items, currency, and the station's Nuclear Fission Explosive. Oh and Tom, Tom also lives in there."
+	icon_state = "vault"
+
+// MARK: Science
+/obj/structure/sign/science
+	name = "\improper SCIENCE!"
+	desc = "The science department, supposedly the entire reason that this station exists is because of the research done here."
+	icon_state = "science"
+
+/obj/structure/sign/science/chemistry_sci
+	name = "\improper SCIENCE CHEMISTRY"
+	desc = "The dedicated chemistry unit of Science. Because medical can't have all the chemicals to itself!"
+	icon_state = "chemistry_sci"
+
+/obj/structure/sign/science/cans_sci
+	name = "\improper GAS CANISTERS"
+	desc = "The various gas canisters used by Toxins to blow stuff up. Most of the gasses in here will never be used for legitimate purposes."
+	icon_state = "cans_sci"
+
+/obj/structure/sign/science/data
+	name = "\improper DATA"
+	desc = "The station's research data has to go somewhere, and that somewhere is here. Make sure you back it up, or you'll eventually be in a bad situation."
+	icon_state = "data"
+
+/obj/structure/sign/science/genetics
+	name = "\improper GENETICS"
+	desc = "Geneticists and botanists eternally race each other to create as many crimes against God as possible."
+	icon_state = "genetics"
+
+/obj/structure/sign/science/research
+	name = "\improper RESEARCH & DEVELOPMENT"
+	desc = "Where new technologies are discovered to benefit the crew. Make sure to give 'em at least 15 minutes before banging on the windows. Maybe help by bringing some materials or funny science gizmos over too."
+	icon_state = "research"
+
+/obj/structure/sign/science/robotics
+	name = "\improper ROBOTICS"
+	desc = "Builders and maintainers of robots, cyborgs, and mecha. They can also deck you out with some sick implants too, mostly no questions asked!"
+	icon_state = "robotics"
+
+/obj/structure/sign/science/toxins
+	name = "\improper TOXINS"
+	desc = "Where people reserch the scince of blowing stuff up. There's really not much more to say."
+	icon_state = "toxins"
+
+/obj/structure/sign/science/xenobio
+	name = "\improper XENOBIOLOGY"
+	desc = "A room that, if functioning properly, should be full of gasping monkeys, pens filled with slimes, and 500 other random creatures just roaming around."
+	icon_state = "xenobio"
