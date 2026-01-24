@@ -1740,7 +1740,8 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/mob/living/basic/cockroach/brad,
+/turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
 "ln" = (
 /turf/simulated/floor/plasteel/dark,
@@ -1881,10 +1882,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
-"lV" = (
-/mob/living/basic/cockroach/brad,
-/turf/simulated/floor/plasteel/dark,
-/area/mine/outpost/hallway/west)
 "lW" = (
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
@@ -4805,7 +4802,6 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/mob/living/basic/cockroach/brad,
 /obj/structure/bed/dogbed/brad,
 /turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
@@ -6247,10 +6243,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
-"KN" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/targetable)
 "KP" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Shuttle Dock"
@@ -6924,10 +6916,6 @@
 /obj/item/pen,
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
-"Ok" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/targetable)
 "Ol" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
@@ -13598,7 +13586,7 @@ oO
 oO
 oO
 oO
-Ok
+oO
 oO
 oO
 OV
@@ -13925,7 +13913,7 @@ fw
 oO
 oO
 oO
-KN
+oO
 oO
 oO
 oO
@@ -15206,7 +15194,7 @@ En
 MM
 Zv
 pa
-lV
+pa
 pa
 pa
 gO
