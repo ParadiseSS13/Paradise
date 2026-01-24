@@ -632,12 +632,10 @@
 /area/mine/laborcamp)
 "ew" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
 "ey" = (
@@ -1386,9 +1384,6 @@
 /area/mine/outpost/cafeteria)
 "iu" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Miner Lockers";
 	dir = 6;
@@ -1740,6 +1735,13 @@
 	icon_regular_floor = "yellowsiding"
 	},
 /area/mine/outpost/cafeteria)
+"li" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/mine/outpost/lockers)
 "ln" = (
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
@@ -2190,6 +2192,9 @@
 /area/lavaland/surface/gulag_rock)
 "nv" = (
 /obj/structure/closet/secure_closet/miner,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
 "nx" = (
@@ -2434,16 +2439,6 @@
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/medbay)
-"oE" = (
-/obj/structure/closet/secure_closet/miner,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/science/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/mine/outpost/lockers)
 "oL" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /obj/effect/mapping_helpers/no_lava,
@@ -2497,15 +2492,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"pe" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/dogbed/brad,
-/mob/living/basic/cockroach/brad,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "pf" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/pepper,
@@ -4010,6 +3996,14 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"xB" = (
+/obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/item/toy/figure/mech/ripley,
+/turf/simulated/floor/plating,
+/area/mine/outpost/lockers)
 "xD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4477,6 +4471,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/structure/window/reinforced/polarized,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "AD" = (
@@ -4802,6 +4797,14 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"Cp" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/mob/living/basic/cockroach/brad,
+/obj/structure/bed/dogbed/brad,
+/turf/simulated/floor/plating,
+/area/mine/outpost/lockers)
 "Cs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -6240,6 +6243,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
+"KN" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/targetable)
 "KP" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Shuttle Dock"
@@ -6270,6 +6277,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
+"KV" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/window/reinforced/polarized/grilled,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/mining)
 "KW" = (
 /obj/structure/railing,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -6908,6 +6920,10 @@
 /obj/item/pen,
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
+"Ok" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/targetable)
 "Ol" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
@@ -7089,6 +7105,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
+"Pw" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/mine/outpost/lockers)
 "Py" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -13399,7 +13419,7 @@ Qn
 Ic
 yW
 yW
-EF
+KV
 EF
 VK
 NJ
@@ -13574,7 +13594,7 @@ oO
 oO
 oO
 oO
-oO
+Ok
 oO
 oO
 OV
@@ -13901,7 +13921,7 @@ fw
 oO
 oO
 oO
-oO
+KN
 oO
 oO
 oO
@@ -14871,9 +14891,9 @@ qL
 DR
 oU
 zJ
-tL
-tL
-tL
+Cp
+li
+xB
 tL
 lx
 oO
@@ -15033,9 +15053,9 @@ JF
 xM
 hY
 zJ
+Pw
 fh
-fh
-fh
+Pw
 fh
 Ka
 oO
@@ -15845,7 +15865,7 @@ Lq
 zJ
 MW
 Hz
-oE
+ew
 fh
 vB
 oO
@@ -16333,7 +16353,7 @@ sp
 GL
 Mf
 Yf
-pe
+vn
 Yr
 oO
 oO
