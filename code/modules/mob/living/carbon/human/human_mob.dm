@@ -2317,8 +2317,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			wings.icon = initial(wings.icon)
 			wings.pixel_x_offset = initial(wings.pixel_x_offset)
 			update_wing_layer()
+			update_body()
 			return
 		wings.is_open = TRUE
 		wings.icon = wings.open_icon
 		wings.pixel_x_offset = -22 // Center these bad boys
 		update_wing_layer()
+		update_body()
