@@ -30,6 +30,7 @@
 	var/condi = FALSE
 	var/production_mode = null
 	var/printing = FALSE
+	var/production_amount_limit = null
 	var/static/list/pill_bottle_wrappers = list(
 		COLOR_RED_LIGHT = "Red",
 		COLOR_GREEN = "Green",
@@ -55,7 +56,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	RefreshParts()
 	update_icon()
 	if(condi)
 		var/datum/chemical_production_mode/new_mode = new /datum/chemical_production_mode/condiment_packs()
@@ -73,6 +73,7 @@
 		for(var/key in production_modes)
 			production_mode = key
 			break
+	RefreshParts()
 
 /obj/machinery/chem_master/Destroy()
 	QDEL_NULL(beaker)
@@ -81,8 +82,30 @@
 
 /obj/machinery/chem_master/RefreshParts()
 	reagents.maximum_volume = 0
+	reagents.set_reacting(TRUE)
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
-		reagents.maximum_volume += B.reagents.maximum_volume
+		reagents.maximum_volume += 2 * B.reagents.maximum_volume
+		if(istype(B, /obj/item/reagent_containers/glass/beaker/noreact))
+			reagents.set_reacting(FALSE)
+		else
+			reagents.handle_reactions()	// If cryostasis beaker is removed via upgrading, force a reaction
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		production_amount_limit = 20 * RaiseToPower(2, M.rating - 1)
+	for(var/key in production_modes)
+		production_modes[key].max_items_amount = clamp(production_amount_limit, 20, 120)
+
+/obj/machinery/chem_master/AltClick(mob/user, modifiers)
+	if(!beaker)
+		return
+	if(!Adjacent(user))
+		return
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	beaker.forceMove(get_turf(src))
+	if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
+		user.put_in_hands(beaker)
+	beaker = null
+	update_icon()
 
 /obj/machinery/chem_master/ex_act(severity)
 	if(severity < EXPLODE_LIGHT)
@@ -96,13 +119,13 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		reagents.clear_reagents()
 		update_icon()
 	else if(A == loaded_pill_bottle)
 		loaded_pill_bottle = null
 
 /obj/machinery/chem_master/update_icon_state()
-	icon_state = "mixer[beaker ? "1" : "0"][has_power() ? "" : "_nopower"]"
+	if(reagents)
+		icon_state = "mixer[beaker || reagents.total_volume ? "1" : "0"][has_power() ? "" : "_nopower"]"
 
 /obj/machinery/chem_master/update_overlays()
 	. = ..()
@@ -176,7 +199,6 @@
 		if(beaker)
 			beaker.forceMove(get_turf(src))
 			beaker = null
-			reagents.clear_reagents()
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.forceMove(get_turf(src))
 			loaded_pill_bottle = null
@@ -291,11 +313,14 @@
 		else
 			. = FALSE
 
-	if(. || !beaker)
+	if(.)
 		return
 
 	. = TRUE
-	var/datum/reagents/R = beaker.reagents
+	var/datum/reagents/R
+	if(beaker)
+		R = beaker.reagents
+
 	switch(action)
 		if("add")
 			var/id = params["id"]
@@ -312,6 +337,7 @@
 				reagents.trans_id_to(beaker, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
+				update_icon()
 		if("addcustom")
 			if(!beaker || !beaker.reagents.total_volume)
 				return
@@ -331,23 +357,22 @@
 				reagents.trans_id_to(beaker, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
+				update_icon()
 		if("eject")
 			if(!beaker)
 				return
 			beaker.forceMove(get_turf(src))
-			if(Adjacent(usr) && !issilicon(usr))
+			if(Adjacent(usr) && !issilicon(usr) && (!usr.get_active_hand() || !usr.get_inactive_hand()))
 				usr.put_in_hands(beaker)
 			beaker = null
-			reagents.clear_reagents()
 			update_icon()
 		if("create_items")
-			if(!reagents.total_volume)
-				return
 			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
 				return
 			M.synthesize(ui.user, loc, reagents, loaded_pill_bottle)
+			update_icon()
 		else
 			return FALSE
 
@@ -390,14 +415,12 @@
 		data["beaker_reagents"] = beaker_reagents_list
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beaker_reagents_list[++beaker_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
-		var/list/buffer_reagents_list = list()
-		data["buffer_reagents"] = buffer_reagents_list
-		for(var/datum/reagent/R in reagents.reagent_list)
-			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 	else
 		data["beaker_reagents"] = list()
-		data["buffer_reagents"] = list()
-
+	var/list/buffer_reagents_list = list()
+	data["buffer_reagents"] = buffer_reagents_list
+	for(var/datum/reagent/R in reagents.reagent_list)
+		buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 	var/production_data = list()
 	for(var/key in production_modes)
 		var/datum/chemical_production_mode/M = production_modes[key]
@@ -554,6 +577,10 @@
 	if(!isnull(medicine_name) && length(medicine_name) <= 0)
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
 
+	if(amount_per_item < 0.1)
+		to_chat(user, "<span class='warning'>Cannot create pills smaller than 0.1u!</span>")
+		return
+
 	var/data = list()
 	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
@@ -576,7 +603,6 @@
 	production_name = "Pills"
 	production_icon = "pills"
 	item_type = /obj/item/reagent_containers/pill
-	max_items_amount = 20
 	max_units_per_item = 100
 	name_suffix = " pill"
 
@@ -591,7 +617,6 @@
 	production_name = "Patches"
 	production_icon = "plus-square"
 	item_type = /obj/item/reagent_containers/patch
-	max_items_amount = 20
 	max_units_per_item = 30
 	name_suffix = " patch"
 
@@ -631,7 +656,6 @@
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
 	sprites = list("bottle", "reagent_bottle")
-	max_items_amount = 5
 	max_units_per_item = 50
 	name_suffix = " bottle"
 
