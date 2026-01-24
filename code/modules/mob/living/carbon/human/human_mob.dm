@@ -2303,3 +2303,22 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/get_strippable_items(datum/source, list/items)
 	items |= GLOB.strippable_human_items
+
+/// Used to toggle whether wings are open or not
+/mob/living/carbon/human/proc/Togglewings()
+	if(has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		to_chat(src, "<span class='warning'>Your wings are burnt off!</span>")
+		return
+
+	if(body_accessory && istype(body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = body_accessory
+		if(wings.is_open)
+			wings.is_open = FALSE
+			wings.icon = initial(wings.icon)
+			wings.pixel_x_offset = initial(wings.pixel_x_offset)
+			update_wing_layer()
+			return
+		wings.is_open = TRUE
+		wings.icon = wings.open_icon
+		wings.pixel_x_offset = -22 // Center these bad boys
+		update_wing_layer()
