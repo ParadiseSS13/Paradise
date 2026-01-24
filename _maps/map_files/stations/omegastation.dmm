@@ -2303,6 +2303,14 @@
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4
 	},
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/maintenance,
+/obj/item/crowbar/large,
+/obj/item/wirecutters,
+/obj/item/wirerod,
+/obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "ajI" = (
@@ -2388,18 +2396,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ajX" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/machinery/alarm/directional/west,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 4
-	},
-/obj/machinery/alarm/directional/west,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/obj/machinery/atmospherics/portable/pump,
-/turf/simulated/floor/plasteel/white,
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "ajY" = (
 /obj/machinery/light{
@@ -3745,12 +3750,15 @@
 /area/station/security/permabrig)
 "anv" = (
 /obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "anw" = (
-/obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/department/engineering/side{
-	dir = 6
+/obj/machinery/atmospherics/portable/pump,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -4524,24 +4532,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"aqa" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/break_room)
 "aqb" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/miner,
@@ -8965,8 +8955,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "aHw" = (
-/obj/structure/sign/poster/random/directional/north,
 /obj/machinery/economy/vending/hydronutrients,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "aHz" = (
@@ -9416,6 +9408,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/virology/checker{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "aJB" = (
@@ -10031,7 +10026,6 @@
 /obj/machinery/plantgenes{
 	pixel_y = 6
 	},
-/obj/item/toy/figure/crew/botanist,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -10690,7 +10684,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "aOM" = (
@@ -12675,13 +12669,19 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "bridgewindows";
-	name = "Bridge View Blast door"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
@@ -12703,6 +12703,7 @@
 /obj/item/multitool{
 	pixel_x = 3
 	},
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "aYV" = (
@@ -12722,6 +12723,7 @@
 /obj/item/multitool{
 	pixel_x = 3
 	},
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "aYX" = (
@@ -12932,11 +12934,12 @@
 /area/station/maintenance/fpmaint2)
 "aZJ" = (
 /obj/structure/cable,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "aZM" = (
@@ -13635,6 +13638,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bdw" = (
@@ -14009,6 +14013,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bgb" = (
@@ -14091,16 +14098,17 @@
 	},
 /obj/machinery/door_control{
 	id = "bridgelock";
-	name = "Bridge Lockdown Control";
+	name = "Southern Bridge Lockdown Control";
 	pixel_y = 3;
 	pixel_x = -6
 	},
 /obj/machinery/door_control{
 	id = "bridge blast east";
-	name = "East Bridge Blast Door Control";
+	name = "Space Bridge Blast Door Control";
 	pixel_x = 6;
-	pixel_y = 2;
-	req_access = list(19)
+	pixel_y = 3;
+	req_access = list(19);
+	id_tag = "bridgewindows"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -16995,12 +17003,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "coQ" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
+/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/machinery/atmospherics/portable/scrubber,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
 	},
-/obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/station/engineering/break_room)
 "coR" = (
 /obj/effect/turf_decal/tiles/department/security/side,
@@ -17076,6 +17084,9 @@
 "crp" = (
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/machinery/atmospherics/pipe/simple/hidden/purple{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "crC" = (
@@ -19519,10 +19530,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "dMb" = (
-/obj/structure/morgue{
-	dir = 2
-	},
 /obj/machinery/camera/autoname{
+	dir = 1
+	},
+/obj/structure/morgue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -22584,16 +22595,17 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "bridgewindows";
-	name = "Bridge View Blast door"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
@@ -22920,13 +22932,14 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "bridgewindows";
-	name = "Bridge View Blast door"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
@@ -23034,14 +23047,11 @@
 "fYx" = (
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/portable/scrubber,
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/security/checker{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/engineering/break_room)
@@ -23667,13 +23677,14 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "bridgewindows";
-	name = "Bridge View Blast door"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
@@ -24564,13 +24575,14 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "bridgewindows";
-	name = "Bridge View Blast door"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
@@ -24729,11 +24741,12 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "hdI" = (
@@ -24748,8 +24761,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 9;
-	level = 2
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -25577,6 +25589,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
+"hzl" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/obj/effect/landmark/start/assistant,
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/dorms)
 "hAo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -27152,6 +27171,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"iAD" = (
+/obj/structure/morgue{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/medical/morgue)
 "iAZ" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 8
@@ -29936,11 +29961,12 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgewindows";
-	name = "Bridge View Blast door"
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "kCw" = (
@@ -31073,6 +31099,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "lvy" = (
@@ -31333,6 +31362,12 @@
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
+"lCb" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "lCy" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -31653,6 +31688,9 @@
 /area/station/hallway/primary/central)
 "lMB" = (
 /obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "lNp" = (
@@ -31943,6 +31981,9 @@
 	},
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/purple{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -32367,7 +32408,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "miJ" = (
@@ -32568,6 +32609,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
+"mpK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "mqm" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -34060,16 +34108,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "nqP" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "bridgewindows";
-	name = "Bridge View Blast door"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
@@ -34168,9 +34217,6 @@
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -36230,6 +36276,8 @@
 /obj/item/clothing/head/welding{
 	pixel_y = 5
 	},
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "oOY" = (
@@ -37125,7 +37173,7 @@
 "ppO" = (
 /obj/machinery/light,
 /obj/structure/morgue{
-	dir = 2
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
@@ -38506,7 +38554,7 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade/recruiter,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/dorms)
 "qoj" = (
@@ -38542,6 +38590,10 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname,
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/effect/landmark/start/assistant,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/dorms)
 "qpG" = (
@@ -38554,6 +38606,8 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/obj/machinery/gameboard,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/dorms)
 "qpS" = (
@@ -39199,13 +39253,14 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "bridgewindows";
-	name = "Bridge View Blast door"
-	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
@@ -39460,6 +39515,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/omega/research)
+"qWJ" = (
+/obj/effect/turf_decal/loading_area,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "qXj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -39860,10 +39922,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "rnP" = (
-/obj/structure/table/glass,
 /obj/structure/bedsheetbin,
 /obj/item/storage/fancy/crayons,
 /obj/structure/sign/poster/random/directional/north,
+/obj/structure/table,
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/dorms)
 "roa" = (
@@ -42356,9 +42418,10 @@
 "sLN" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "sLO" = (
@@ -43632,6 +43695,9 @@
 /area/station/hallway/primary/port/south)
 "tgp" = (
 /obj/effect/turf_decal/loading_area,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "thv" = (
@@ -44269,17 +44335,14 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/primary/aft)
 "tEQ" = (
-/obj/machinery/atmospherics/portable/scrubber,
-/obj/effect/turf_decal/tiles/department/security/corner{
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/white,
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "tFY" = (
 /obj/machinery/navbeacon{
@@ -44307,9 +44370,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/purple{
-	dir = 9
-	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
@@ -45935,10 +45995,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 9;
-	level = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "uQp" = (
@@ -48204,11 +48261,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/door_control{
-	id = "bridgelock";
-	name = "Bridge Lockdown Control";
-	pixel_y = -29
-	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "wim" = (
@@ -48317,12 +48369,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "wmz" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 4
-	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -48334,6 +48380,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/portable/pump,
+/obj/effect/turf_decal/tiles/department/medical/checker{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/engineering/break_room)
 "wmO" = (
@@ -48347,6 +48396,9 @@
 "wnC" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "wnU" = (
@@ -48381,6 +48433,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "woS" = (
@@ -50449,9 +50502,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/purple{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/purple,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -50982,10 +51033,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "xVr" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/economy/vending/hydroseeds,
+/obj/item/toy/figure/crew/botanist{
+	pixel_y = 17;
+	pixel_x = -4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "xVs" = (
@@ -51361,6 +51413,21 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"ykS" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgewindows";
+	name = "Bridge View Blast door";
+	id_tag = "bridgewindows"
+	},
+/turf/simulated/floor/plating,
+/area/station/command/bridge)
 "yln" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -77238,14 +77305,14 @@ sWt
 kPl
 lEK
 miH
-uSs
-uSs
-uSs
-uSs
-uSs
+qfp
+qfp
+qfp
+qfp
+qfp
 bds
-qeR
-qeR
+mpK
+mWF
 qeR
 iye
 xZO
@@ -77502,7 +77569,7 @@ lSn
 lSn
 lSn
 bhV
-uSs
+lCb
 uSs
 bxl
 eYe
@@ -77759,7 +77826,7 @@ sWt
 gdA
 qSj
 fsJ
-uSs
+lCb
 uSs
 bxl
 sNK
@@ -78016,7 +78083,7 @@ sWt
 sWt
 bgv
 fsJ
-uSs
+lCb
 uSs
 bxl
 xZO
@@ -79564,7 +79631,7 @@ sMU
 sNM
 lUu
 tKH
-aqa
+alE
 wnC
 vsp
 aHg
@@ -79815,7 +79882,7 @@ pzd
 sWt
 qZQ
 rae
-tgp
+qWJ
 sLN
 aOL
 rVj
@@ -80619,7 +80686,7 @@ fIF
 nhR
 oWX
 xKv
-oWX
+iAD
 pgB
 pdE
 dwf
@@ -83667,7 +83734,7 @@ arA
 asH
 atI
 rVs
-axo
+hzl
 awK
 axp
 ayj
@@ -88263,7 +88330,7 @@ aZD
 aZD
 xwJ
 aZD
-aYR
+ykS
 gYz
 bgC
 qHg
