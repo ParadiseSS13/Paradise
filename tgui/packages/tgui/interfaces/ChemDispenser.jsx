@@ -4,14 +4,14 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 
-const dispenseAmounts = [1, 5, 10, 20, 30, 50];
+const dispenseAmounts = [1, 5, 10, 20, 30, 50, 75];
 const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props) => {
   const { act, data } = useBackend();
   const { chemicals } = data;
   return (
-    <Window width={400} height={400 + Math.ceil(chemicals.length / 3) * 24}>
+    <Window width={420} height={400 + Math.ceil(chemicals.length / 3) * 24}>
       <Window.Content>
         <Stack fill vertical>
           <ChemDispenserSettings />
