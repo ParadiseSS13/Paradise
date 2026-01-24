@@ -239,6 +239,16 @@
 	cost = 50
 	job = list("Station Engineer", "Chief Engineer")
 
+/datum/uplink_item/jobspecific/meltdown_rod
+	name = "Nuclear Meltdown Rod"
+	desc = "A specially designed nuclear rod, guaranteed to cause the meltdown of any reactor it's placed into. For those tasked with detonating the station's nuclear warhead, this will not achieve that end."
+	reference = "SMDR"
+	item = /obj/item/nuclear_rod/fuel/meltdown
+	cost = 25
+	job = list("Station Engineer", "Chief Engineer")
+	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+
 //RD
 
 /datum/uplink_item/jobspecific/telegun

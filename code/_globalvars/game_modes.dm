@@ -6,5 +6,7 @@ GLOBAL_DATUM(start_state, /datum/station_state) // Used in round-end report. Don
 
 GLOBAL_VAR(custom_event_msg)
 
+GLOBAL_VAR(roundstart_ready_players) // Number of players who were readied up at roundstart
+
 /// We want anomalous_particulate_tracker to exist only once and be accessible from anywhere.
 GLOBAL_DATUM_INIT(anomaly_smash_track, /datum/anomalous_particulate_tracker, new)

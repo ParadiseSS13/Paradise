@@ -320,6 +320,12 @@
 	desc = "A mask carved out of wood, detailed carefully by hand."
 	icon_state = "bumba"
 
+/obj/item/clothing/mask/fake_beard
+	name = "fake beard"
+	desc = "A fake beard. Great for making you look wise, festive, or senile."
+	icon_state = "fake_beard"
+	can_attach_to_hat = TRUE
+
 /obj/item/clothing/mask/fawkes
 	name = "Guy Fawkes mask"
 	desc = "A mask designed to help you remember a specific date."
@@ -393,7 +399,7 @@
 		var/datum/action/item_action/adjust/act = new(src)
 		if(loc == user)
 			act.Grant(user)
-		to_chat(user, (SPAN_NOTICE("You untie the neckercheif.")))
+		to_chat(user, (SPAN_NOTICE("You untie the neckerchief.")))
 	else
 		icon = 'icons/obj/clothing/neck.dmi'
 		flags_inv = FALSE

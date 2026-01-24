@@ -8,13 +8,14 @@
 	throw_speed = 1
 	pressure_resistance = 2
 	attack_verb = list("bapped")
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	scatter_distance = 8
+	new_attack_chain = TRUE
 	var/amount = 0 //Amount of total items clipped to the paper. Note: If you have 2 paper, this should be 1
 	var/photos = 0 //Amount of photos clipped to the paper.
 	var/page = 1
 	var/screen = 0
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
-	scatter_distance = 8
 
 /obj/item/paper_bundle/Initialize(mapload, default_papers = TRUE)
 	. = ..()
@@ -23,17 +24,20 @@
 		new /obj/item/paper(src)
 		amount += 1
 
-/obj/item/paper_bundle/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	..()
+/obj/item/paper_bundle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.get_heat())
+		burnpaper(used, user)
+		return ITEM_INTERACT_COMPLETE
+
 	var/obj/item/paper/P
-	if(istype(W, /obj/item/paper))
-		P = W
+	if(istype(used, /obj/item/paper))
+		P = used
 		if(istype(P, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/C = P
 			if(!C.iscopy && !C.copied)
 				to_chat(user, SPAN_NOTICE("Take off the carbon copy first."))
 				add_fingerprint(user)
-				return
+				return ITEM_INTERACT_COMPLETE
 
 		amount++
 		if(screen == 2)
@@ -44,35 +48,37 @@
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/photo))
+	if(istype(used, /obj/item/photo))
 		amount++
 		photos++
 		if(screen == 2)
 			screen = 1
-		to_chat(user, SPAN_NOTICE("You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
-		user.transfer_item_to(W, src)
+		to_chat(user, SPAN_NOTICE("You add [(used.name == "photo") ? "the photo" : used.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
+		user.transfer_item_to(used, src)
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
 
-	else if(W.get_heat())
-		burnpaper(W, user)
-
-	else if(istype(W, /obj/item/paper_bundle))
-		for(var/obj/O in W)
+	if(istype(used, /obj/item/paper_bundle))
+		for(var/obj/O in used)
 			O.loc = src
 			O.add_fingerprint(usr)
 			src.amount++
 			if(screen == 2)
 				screen = 1
-		to_chat(user, SPAN_NOTICE("You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
-		qdel(W)
+		to_chat(user, SPAN_NOTICE("You add \the [used.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
+		qdel(used)
+		return ITEM_INTERACT_COMPLETE
 
-	else
-		if(is_pen(W) || istype(W, /obj/item/toy/crayon))
-			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
+	if(is_pen(used) || istype(used, /obj/item/toy/crayon))
+		usr << browse("", "window=PaperBundle[UID()]") // Closes the dialog
 		P = get_page()
-		P.attackby__legacy__attackchain(W, user, params)
+		P.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
 
-	update_icon()
+	return ..()
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/heating_object, mob/user)
 	var/class = "warning"
@@ -128,7 +134,10 @@
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]"\
 		+ "</body></html>", "window=PaperBundle[UID()]")
 
-/obj/item/paper_bundle/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/paper_bundle/activate_self(mob/user)
+	if(..())
+		return
+
 	show_content(user)
 	add_fingerprint(usr)
 
@@ -184,7 +193,7 @@
 	else
 		to_chat(usr, SPAN_NOTICE("You need to hold it in your hands to change pages."))
 	if(ismob(loc))
-		attack_self__legacy__attackchain(loc)
+		activate_self(loc)
 
 /obj/item/paper_bundle/AltClick(mob/user)
 	if(in_range(user, src) && !user.incapacitated())

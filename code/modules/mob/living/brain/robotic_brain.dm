@@ -23,7 +23,9 @@
 	imprinted_master = null
 	return ..()
 
-/obj/item/mmi/robotic_brain/attack_self__legacy__attackchain(mob/user)
+/obj/item/mmi/robotic_brain/activate_self(mob/user)
+	if(..())
+		return
 	if(isgolem(user))
 		to_chat(user, SPAN_WARNING("Your golem fingers are too large to press the switch on [src]."))
 		return

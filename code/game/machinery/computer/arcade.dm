@@ -54,158 +54,162 @@
 	icon_screen = "battle"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villain"
-	var/temp = "Winners Don't Use Spacedrugs" //Temporary message, for attack messages, etc
-	var/player_hp = 30 //Player health/attack points
+	/// event message for attack messages, etc
+	var/previous_event = "Make your move!"
+	/// Player health/attack points
+	var/player_hp = 30
+	/// the highest amount of health that the player has held
+	var/player_max_hp = 30
+	/// player magic points
 	var/player_mp = 10
-	var/enemy_hp = 45 //Enemy health/attack points
+	/// the highest amount of mana that the player has held
+	var/player_max_mp = 10
+	/// Enemy health/attack points
+	var/enemy_hp = 45
+	/// the highest amount of health that the enemy achieves - this never changes, but avoids magic numbers
+	var/enemy_max_hp = 45
+	/// enemy magic points
 	var/enemy_mp = 20
-	var/gameover = 0
-	var/blocked = 0 //Player cannot attack/heal while set
-	var/turtle = 0
+	var/gameover = FALSE
+	/// a counter of whether the last few player inputs were to heal, incurs a turtling penalty when emagged
+	var/passive_streak = 0
+	COOLDOWN_DECLARE(spam_cooldown)
 
-/obj/machinery/computer/arcade/battle/Reset()
-	var/name_action
-	var/name_part1
-	var/name_part2
+/obj/machinery/computer/arcade/battle/proc/generate_name()
+	var/name_action = pick("Defeat ", "Annihilate ", "Save ", "Strike ", "Stop ", "Destroy ", "Robust ", "Romance ", "Pwn ", "Own ", "Ban ")
 
-	name_action = pick("Defeat ", "Annihilate ", "Save ", "Strike ", "Stop ", "Destroy ", "Robust ", "Romance ", "Pwn ", "Own ", "Ban ")
-
-	name_part1 = pick("the Automatic ", "Farmer ", "Lord ", "Professor ", "the Cuban ", "the Evil ", "the Dread King ", "the Space ", "Lord ", "the Great ", "Duke ", "General ")
-	name_part2 = pick("Melonoid", "Murdertron", "Sorcerer", "Ruin", "Jeff", "Ectoplasm", "Crushulon", "Uhangoid", "Vhakoid", "Peteoid", "slime", "Griefer", "ERPer", "Lizard Man", "Unicorn", "Bloopers")
+	var/name_part1 = pick("the Automatic ", "Farmer ", "Lord ", "Professor ", "the Cuban ", "the Evil ", "the Dread King ", "the Space ", "Lord ", "the Great ", "Duke ", "General ")
+	var/name_part2 = pick("Melonoid", "Murdertron", "Sorcerer", "Ruin", "Jeff", "Ectoplasm", "Crushulon", "Uhangoid", "Vhakoid", "Peteoid", "Slime", "Griefer", "ERPer", "Lizard Man", "Unicorn", "Bloopers")
 
 	enemy_name = replacetext((name_part1 + name_part2), "the ", "")
 	name = (name_action + name_part1 + name_part2)
 
+/obj/machinery/computer/arcade/battle/Reset()
+	previous_event = initial(previous_event)
+	player_hp = initial(player_hp)
+	player_max_hp = initial(player_max_hp)
+	player_mp = initial(player_mp)
+	player_max_mp = initial(player_max_mp)
+	enemy_hp = initial(enemy_hp)
+	enemy_max_hp = initial(enemy_max_hp)
+	enemy_mp = initial(enemy_mp)
+	gameover = initial(gameover)
+	passive_streak = initial(enemy_mp)
+
+/obj/machinery/computer/arcade/battle/Initialize(mapload)
+	. = ..()
+	generate_name()
+
 /obj/machinery/computer/arcade/battle/attack_hand(mob/user as mob)
 	if(..())
 		return
-	user.set_machine(src)
-	var/dat = "<a href='byond://?src=[UID()];close=1'>Close</a>"
-	dat += "<center><h4>[enemy_name]</h4></center>"
+	ui_interact(user)
 
-	dat += "<br><center><h3>[temp]</h3></center>"
-	dat += "<br><center>Health: [player_hp] | Magic: [player_mp] | Enemy Health: [enemy_hp]</center>"
+/obj/machinery/computer/arcade/battle/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ArcadeBattle", name)
+		ui.open()
 
-	if(gameover)
-		dat += "<center><b><a href='byond://?src=[UID()];newgame=1'>New Game</a>"
-	else
-		dat += "<center><b><a href='byond://?src=[UID()];attack=1'>Attack</a> | "
-		dat += "<a href='byond://?src=[UID()];heal=1'>Heal</a> | "
-		dat += "<a href='byond://?src=[UID()];charge=1'>Recharge Power</a>"
+/obj/machinery/computer/arcade/battle/ui_data(mob/user)
+	var/list/data = list()
+	data["enemyName"] = enemy_name
+	data["enemyHP"] = enemy_hp
+	data["enemyMaxHP"] = enemy_max_hp
+	data["playerHP"] = player_hp
+	data["playerMaxHP"] = player_max_hp
+	data["playerMP"] = player_mp
+	data["playerMaxMP"] = player_max_mp
+	data["onCooldown"] = !COOLDOWN_FINISHED(src, spam_cooldown)
+	data["gameOver"] = gameover
+	data["previousEvent"] = previous_event
+	return data
 
-	dat += "</b></center>"
-
-	//user << browse(dat, "window=arcade")
-	//onclose(user, "arcade")
-	var/datum/browser/popup = new(user, "arcade", "Space Villain 2000")
-	popup.set_content(dat)
-	popup.open()
-	return
-
-/obj/machinery/computer/arcade/battle/Topic(href, href_list)
+/obj/machinery/computer/arcade/battle/ui_act(action, params)
 	if(..())
 		return
+	if(!COOLDOWN_FINISHED(src, spam_cooldown))
+		return
 
-	if(!blocked && !gameover)
-		if(href_list["attack"])
-			blocked = 1
-			var/attackamt = rand(2,6)
-			temp = "You attack for [attackamt] damage!"
+	switch(action)
+		if("attack")
+			var/attack_amount = rand(2,6)
+			enemy_hp -= attack_amount
+			previous_event = "You attack for [attack_amount] damage!"
+			if(passive_streak > 0)
+				passive_streak--
 			playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
-			updateUsrDialog()
-			if(turtle > 0)
-				turtle--
+			COOLDOWN_START(src, spam_cooldown, 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(arcade_action)), 1 SECONDS)
 
-			sleep(10)
-			enemy_hp -= attackamt
-			arcade_action()
+		if("heal")
+			var/heal_amount = rand(6,8)
+			var/point_amount = rand(1,3)
+			player_hp += heal_amount
+			player_mp -= point_amount
 
-		else if(href_list["heal"])
-			blocked = 1
-			var/pointamt = rand(1,3)
-			var/healamt = rand(6,8)
-			temp = "You use [pointamt] magic to heal for [healamt] damage!"
+			if(player_hp > player_max_hp)
+				player_max_hp = player_hp
+			previous_event = "You use [point_amount] magic to heal for [heal_amount] damage!"
+			passive_streak++
 			playsound(loc, 'sound/arcade/heal.ogg', 50, TRUE)
-			updateUsrDialog()
-			turtle++
+			COOLDOWN_START(src, spam_cooldown, 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(arcade_action)), 1 SECONDS)
 
-			sleep(10)
-			player_mp -= pointamt
-			player_hp += healamt
-			blocked = 1
-			updateUsrDialog()
-			arcade_action()
-
-		else if(href_list["charge"])
-			blocked = 1
-			var/chargeamt = rand(4,7)
-			temp = "You regain [chargeamt] points"
+		if("charge")
+			var/charge_amount = rand(4,7)
+			player_mp += charge_amount
+			if(player_mp > player_max_mp)
+				player_max_mp = player_mp
+			previous_event = "You regain [charge_amount] points!"
+			if(passive_streak > 0)
+				passive_streak--
 			playsound(loc, 'sound/arcade/mana.ogg', 50, TRUE)
-			player_mp += chargeamt
-			if(turtle > 0)
-				turtle--
+			COOLDOWN_START(src, spam_cooldown, 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(arcade_action)), 1 SECONDS)
 
-			updateUsrDialog()
-			sleep(10)
-			arcade_action()
-
-	if(href_list["close"])
-		usr.unset_machine()
-		usr << browse(null, "window=arcade")
-
-	else if(href_list["newgame"]) //Reset everything
-		temp = "New Round"
-		player_hp = 30
-		player_mp = 10
-		enemy_hp = 45
-		enemy_mp = 20
-		gameover = 0
-		turtle = 0
-
-		if(emagged)
+		if("newgame") //Reset everything
+			if(emagged)
+				emagged = FALSE
+				generate_name()
 			Reset()
-			emagged = FALSE
 
-	add_fingerprint(usr)
-	updateUsrDialog()
-	return
+	return TRUE
 
 /obj/machinery/computer/arcade/battle/proc/arcade_action()
 	if((enemy_mp <= 0) || (enemy_hp <= 0))
-		if(!gameover)
-			gameover = 1
-			temp = "[enemy_name] has fallen! Rejoice!"
-			playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
+		gameover = TRUE
+		previous_event = "[enemy_name] has fallen!"
+		playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
 
-			if(emagged)
-				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_emagged")
-				new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
-				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
-				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
-				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
-				Reset()
-				emagged = FALSE
-			else
-				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
-				prizevend(35)
+		if(emagged)
+			SSblackbox.record_feedback("tally", "arcade_status", 1, "win_emagged")
+			new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
+			new /obj/item/clothing/head/collectable/petehat(get_turf(src))
+			message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
+			log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
+			Reset()
+			generate_name()
+			emagged = FALSE
+		else
+			SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
+			prizevend(35)
 
-	else if(emagged && (turtle >= 4))
-		var/boomamt = rand(5,10)
-		temp = "[enemy_name] throws a bomb, exploding you for [boomamt] damage!"
+	else if(emagged && (passive_streak >= 4))
+		var/boom_amount = rand(5,10)
+		previous_event = "[enemy_name] throws a bomb, exploding you for [boom_amount] damage!"
 		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
-		player_hp -= boomamt
+		player_hp -= boom_amount
 
 	else if((enemy_mp <= 5) && (prob(70)))
-		var/stealamt = rand(2,3)
-		temp = "[enemy_name] steals [stealamt] of your power!"
+		var/steal_amount = rand(2,3)
+		previous_event = "[enemy_name] steals [steal_amount] of your power!"
 		playsound(loc, 'sound/arcade/steal.ogg', 50, TRUE)
-		player_mp -= stealamt
-		updateUsrDialog()
+		player_mp -= steal_amount
 
 		if(player_mp <= 0)
-			gameover = 1
-			sleep(10)
-			temp = "You have been drained! GAME OVER"
+			gameover = TRUE
+			previous_event = "You have been drained!"
 			playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
 			if(emagged)
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_emagged")
@@ -214,20 +218,20 @@
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_normal")
 
 	else if((enemy_hp <= 10) && (enemy_mp > 4))
-		temp = "[enemy_name] heals for 4 health!"
+		previous_event = "[enemy_name] heals for 4 health!"
 		playsound(loc, 'sound/arcade/heal.ogg', 50, TRUE)
 		enemy_hp += 4
 		enemy_mp -= 4
 
 	else
-		var/attackamt = rand(3,6)
-		temp = "[enemy_name] attacks for [attackamt] damage!"
+		var/attack_amount = rand(3,6)
+		previous_event = "[enemy_name] attacks for [attack_amount] damage!"
 		playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
-		player_hp -= attackamt
+		player_hp -= attack_amount
 
 	if((player_mp <= 0) || (player_hp <= 0))
-		gameover = 1
-		temp = "You have been crushed! GAME OVER"
+		gameover = TRUE
+		previous_event = "You have been crushed!"
 		playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
 		if(emagged)
 			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_emagged")
@@ -235,27 +239,19 @@
 		else
 			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_normal")
 
-	blocked = 0
 	return
 
 
 /obj/machinery/computer/arcade/battle/emag_act(user as mob)
 	if(!emagged)
-		temp = "If you die in the game, you die for real!"
-		player_hp = 30
-		player_mp = 10
-		enemy_hp = 45
-		enemy_mp = 20
-		gameover = 0
-		blocked = 0
-
+		Reset()
 		emagged = TRUE
 
 		enemy_name = "Cuban Pete"
 		name = "Outbomb Cuban Pete"
+		previous_event = "If you die in the game, you die for real!"
 
 		add_hiddenprint(user)
-		updateUsrDialog()
 		return TRUE
 
 // *** THE ORION TRAIL ** //
