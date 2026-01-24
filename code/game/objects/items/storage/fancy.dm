@@ -142,6 +142,9 @@
 		/obj/item/toy/crayon
 	)
 
+/obj/item/storage/fancy/crayons/marine
+	desc = "A box of a SolGov Marine's favorite mid-operation snack."
+
 /obj/item/storage/fancy/crayons/populate_contents()
 	new /obj/item/toy/crayon/white(src)
 	new /obj/item/toy/crayon/red(src)
