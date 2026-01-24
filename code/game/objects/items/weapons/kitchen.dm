@@ -106,7 +106,7 @@
 	var/datum/wires/internal_wires = machine.get_internal_wires()
 	var/uncut_wire_count = 0
 	if(internal_wires)
-		uncut_wire_count = internal_wires.get_uncut_wire_count()
+		uncut_wire_count = length(internal_wires.wires - internal_wires.cut_wires)
 
 	if(prob(50))
 		// if the machine isn't powered or we're using a non-conductive fork, we waste our attempt at getting shocked

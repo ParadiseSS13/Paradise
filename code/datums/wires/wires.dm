@@ -388,13 +388,6 @@
 	cut(random_wire)
 
 /**
-* Returns the amount of uncut wires
-*/
-/datum/wires/proc/get_uncut_wire_count()
-	return length(wires - cut_wires)
-
-
-/**
  * Cuts all wires.
  */
 /datum/wires/proc/cut_all()
