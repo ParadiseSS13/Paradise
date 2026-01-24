@@ -15720,6 +15720,12 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonershuttle)
 "bma" = (
@@ -45969,6 +45975,15 @@
 "dFm" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/storage)
+"dFp" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "dFs" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -56344,10 +56359,6 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
 	},
-/obj/machinery/power/apc/important/directional/west,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "gVk" = (
@@ -59926,9 +59937,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
@@ -64119,10 +64127,8 @@
 /area/station/service/hydroponics)
 "knU" = (
 /obj/effect/turf_decal/tiles/department/security/side,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/structure/cable,
+/obj/machinery/power/apc/important/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "knY" = (
@@ -70906,6 +70912,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/main)
+"ngU" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/sign/security/labor_camp{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/station/security/prisonershuttle)
 "ngZ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
@@ -74232,7 +74248,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 10
 	},
-/obj/machinery/firealarm/directional/west,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "oyD" = (
@@ -78358,6 +78374,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/side,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "qmB" = (
@@ -80225,6 +80245,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/warden)
+"qZZ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/station/security/prisonershuttle)
 "raa" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -91658,7 +91683,6 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
-/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "vyp" = (
@@ -93654,18 +93678,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/exit)
-"wmA" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 1
-	},
-/obj/structure/sign/security/labor_camp{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/prison)
 "wmG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -98112,6 +98124,18 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
+"yar" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "yav" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cooking/grill/loaded,
@@ -152134,7 +152158,7 @@ lEc
 eud
 rWC
 fgM
-wmA
+ttS
 hDp
 biA
 bki
@@ -154704,9 +154728,9 @@ ygH
 bno
 tmp
 tmp
-tmp
+ngU
 blZ
-tmp
+qZZ
 bno
 bae
 bkr
@@ -155986,11 +156010,11 @@ tDI
 aVw
 bVD
 bno
-dVY
+dFp
 ftR
 ftR
 ftR
-rTX
+yar
 knU
 bno
 aaa

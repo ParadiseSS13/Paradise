@@ -26,13 +26,11 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
 /obj/machinery/door/airlock/external/glass{
 	name = "Labor Camp Shuttle Airlock"
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "ar" = (
 /obj/structure/disposalpipe/segment{
@@ -78,7 +76,9 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/corner{
+	dir = 8
+	},
 /area/mine/laborcamp)
 "aI" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -214,7 +214,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/side{
+	dir = 8
+	},
 /area/mine/laborcamp)
 "ck" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -552,7 +554,7 @@
 "dO" = (
 /obj/machinery/mineral/equipment_vendor/labor,
 /obj/effect/turf_decal/tiles/department/cargo/mono,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/full,
 /area/mine/laborcamp)
 "dQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -629,7 +631,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/corner{
+	dir = 1
+	},
 /area/mine/laborcamp)
 "eu" = (
 /obj/effect/turf_decal/tiles/department/medical/checker,
@@ -734,7 +738,7 @@
 	dir = 9
 	},
 /obj/machinery/economy/vending/wallmed/directional/north,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/corner,
 /area/mine/laborcamp)
 "fg" = (
 /obj/structure/rack,
@@ -1194,9 +1198,6 @@
 	},
 /area/mine/outpost/cafeteria)
 "hg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
@@ -1206,13 +1207,6 @@
 	},
 /obj/machinery/computer/prisoner{
 	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/service/kitchen,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
@@ -1269,14 +1263,12 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
 /obj/machinery/door/airlock/external/glass{
 	name = "Labor Camp Shuttle Airlock";
 	id_tag = "laborcamp_away"
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "hs" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1428,7 +1420,8 @@
 /obj/machinery/computer/area_atmos/area{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "io" = (
 /obj/effect/baseturf_helper/lava_land,
@@ -2019,6 +2012,9 @@
 	dir = 8;
 	network = list("Labor Camp")
 	},
+/obj/item/radio/intercom/department/security{
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
 "lW" = (
@@ -2115,12 +2111,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "mr" = (
-/obj/structure/closet/crate/can,
-/obj/effect/spawner/random/maintenance,
-/obj/item/cigbutt,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "ms" = (
@@ -2328,10 +2322,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
 "nA" = (
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "nC" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -2364,24 +2356,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "nM" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/sign/security/labor_camp,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "nS" = (
@@ -2816,14 +2794,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "qo" = (
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp)
 "qp" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2832,7 +2808,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "qq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2938,9 +2914,6 @@
 "qS" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
 /obj/machinery/door/airlock/external/glass{
 	name = "Labor Camp Shuttle Airlock";
 	id_tag = "laborcamp_away"
@@ -2951,7 +2924,8 @@
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp)
 "qU" = (
 /obj/machinery/door/airlock/glass{
@@ -3178,6 +3152,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
+"sj" = (
+/turf/simulated/floor/plasteel/dark/full,
+/area/mine/laborcamp/security)
 "sk" = (
 /obj/effect/turf_decal/tiles/department/cargo/side,
 /obj/effect/decal/cleanable/dirt,
@@ -3297,12 +3274,10 @@
 /obj/machinery/door/airlock/maintenance/external/glass{
 	name = "Landing Pad"
 	},
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/mapping_helpers/airlock/unres,
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp)
 "sU" = (
 /obj/structure/sign/nanotrasen{
@@ -3398,9 +3373,6 @@
 "tl" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
 /obj/machinery/door/airlock/external/glass{
 	name = "Labor Camp Shuttle Airlock"
 	},
@@ -3414,7 +3386,8 @@
 	id_tag = "Labor";
 	name = "labor camp blast door"
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp)
 "tm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3576,7 +3549,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "tL" = (
 /obj/structure/lattice/catwalk/mining,
@@ -3584,14 +3558,12 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "tM" = (
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "tT" = (
 /obj/machinery/door/firedoor,
@@ -4062,7 +4034,9 @@
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/edge{
+	dir = 4
+	},
 /area/mine/laborcamp/security)
 "wh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4150,7 +4124,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "ww" = (
 /obj/machinery/suit_storage_unit/lavaland,
@@ -4465,10 +4439,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp)
-"yo" = (
-/obj/structure/sign/greencross,
-/turf/simulated/wall/r_wall,
-/area/mine/laborcamp)
 "yp" = (
 /obj/structure/closet/crate,
 /obj/item/food/sliced/bread,
@@ -4510,7 +4480,7 @@
 "yB" = (
 /obj/effect/turf_decal/tiles/department/cargo/side,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/restroom{
+/obj/structure/sign/public/restroom{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
@@ -5062,7 +5032,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "BL" = (
 /obj/structure/closet/crate/freezer/iv_storage,
@@ -5202,7 +5172,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "Cz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5388,6 +5358,24 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"DF" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/service/library{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
+"DG" = (
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/obj/structure/sign/service/kitchen,
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp/security)
 "DH" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -5481,18 +5469,11 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/lavaland/surface/gulag_rock)
 "Ee" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side,
 /obj/structure/table,
 /obj/structure/bedsheetbin,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/medical,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
+/obj/structure/sign/medical{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -5524,7 +5505,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "Ei" = (
 /obj/structure/cable{
@@ -5620,10 +5601,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/sign/electricshock{
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/structure/sign/engineering{
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/tiles/department/cargo/side,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "EF" = (
@@ -5765,7 +5746,7 @@
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/edge,
 /area/mine/laborcamp/security)
 "Fr" = (
 /obj/structure/chair/comfy/shuttle{
@@ -6094,7 +6075,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "Hl" = (
 /obj/effect/turf_decal/loading_area{
@@ -6238,7 +6219,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/edge{
+	dir = 4
+	},
 /area/mine/laborcamp/security)
 "HR" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -6348,7 +6331,7 @@
 /area/mine/outpost/quartermaster)
 "Iw" = (
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/full,
 /area/mine/laborcamp)
 "IE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6457,7 +6440,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "Je" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -6659,7 +6642,7 @@
 /area/mine/laborcamp)
 "Kk" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "Kl" = (
 /turf/simulated/wall/r_wall,
@@ -6847,24 +6830,8 @@
 /turf/simulated/wall,
 /area/mine/outpost/hallway/west)
 "Lg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/sign/poster/official/random/directional/east,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/ore_box,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/yellow_siding{
-	dir = 9
-	},
-/obj/structure/sign/poster/official/random/directional/north,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Lm" = (
@@ -7194,35 +7161,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/laborcamp)
-"My" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/mineral/labor_points_checker{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/stripes/red/corner,
-/obj/effect/turf_decal/arrows/red{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/turf_decal/yellow_siding{
-	dir = 5
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "Mz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -7274,6 +7212,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
+"MN" = (
+/obj/structure/sign/cargo/materials,
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp)
 "MR" = (
 /obj/structure/sign/poster/official/random/directional/north,
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -7643,18 +7585,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/storage)
 "Pa" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/security,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
@@ -7715,26 +7647,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
-"Pt" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/turf_decal/tiles/department/cargo/side{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/sign/security,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "Py" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7836,7 +7748,8 @@
 	id_tag = "Labor";
 	name = "labor camp blast door"
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "Qd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7942,7 +7855,8 @@
 	name = "Labor Camp Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "Qu" = (
 /obj/structure/lattice/catwalk/mining,
@@ -7955,23 +7869,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"Qv" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/service/library,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "Qw" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
@@ -8066,10 +7963,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "QV" = (
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp)
 "QY" = (
 /obj/structure/table,
@@ -8157,11 +8052,9 @@
 /obj/machinery/door/airlock/maintenance/external/glass{
 	name = "Landing Pad"
 	},
-/obj/effect/turf_decal/tiles/department/security{
-	dir = 8
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/turf_decal/tiles/department/security/mono,
+/turf/simulated/floor/plasteel/dark/full,
 /area/mine/laborcamp/security)
 "Rr" = (
 /obj/effect/turf_decal/tiles/dark/checker,
@@ -8601,7 +8494,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/side{
+	dir = 8
+	},
 /area/mine/laborcamp)
 "TB" = (
 /obj/structure/cable,
@@ -8815,7 +8710,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/side{
+	dir = 1
+	},
 /area/mine/laborcamp)
 "UN" = (
 /obj/machinery/iv_drip,
@@ -8855,11 +8752,6 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
-"UW" = (
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/obj/structure/sign/engineering,
-/turf/simulated/wall/r_wall,
-/area/mine/laborcamp)
 "UY" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -9323,9 +9215,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "XI" = (
-/obj/item/radio/intercom/locked/prison{
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 10
 	},
@@ -9449,7 +9338,9 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/corner{
+	dir = 4
+	},
 /area/mine/laborcamp)
 "Ye" = (
 /obj/structure/flora/ash/rock/style_random,
@@ -9681,20 +9572,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
-"Zr" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/cargo/materials,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "Zv" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
@@ -9710,13 +9587,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/airlock)
 "ZB" = (
+/obj/machinery/door/firedoor,
 /obj/machinery/mineral/ore_redemption/labor{
 	input_dir = 4;
 	output_dir = 8
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/cargo,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/tiles/department/cargo/mono,
+/turf/simulated/floor/plasteel/full,
 /area/mine/laborcamp)
 "ZC" = (
 /obj/item/trash/sosjerky,
@@ -9786,6 +9663,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"ZY" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/closet/crate/can,
+/obj/item/cigbutt,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "ZZ" = (
 /obj/item/mounted/frame/intercom,
@@ -11856,7 +11740,7 @@ Zj
 Zj
 al
 Zj
-sG
+Zj
 EH
 tl
 EH
@@ -12506,7 +12390,7 @@ JC
 Pa
 ec
 Dj
-Pt
+RV
 XO
 yB
 EH
@@ -12658,7 +12542,7 @@ sV
 ZJ
 cm
 AV
-qZ
+ZY
 bw
 lU
 hg
@@ -12821,7 +12705,7 @@ EH
 Th
 TN
 Th
-bw
+DG
 Zj
 Zj
 Zj
@@ -12989,7 +12873,7 @@ RI
 nj
 Eh
 Kk
-ln
+sj
 nj
 lT
 nM
@@ -13157,7 +13041,7 @@ Ru
 Hh
 qn
 Ee
-yo
+EH
 Fm
 AL
 IH
@@ -13804,7 +13688,7 @@ fp
 Hh
 Hh
 Wg
-UW
+Nh
 Nh
 Nh
 EH
@@ -13957,7 +13841,7 @@ TU
 me
 XL
 cT
-My
+TU
 cS
 xu
 mq
@@ -14119,11 +14003,11 @@ iH
 EH
 rN
 Hh
-Zr
+Hh
 OG
 Hh
 qq
-Qv
+qq
 FR
 md
 ER
@@ -14285,7 +14169,7 @@ Lg
 ZK
 vk
 hV
-iO
+DF
 kd
 GJ
 iO
@@ -14443,7 +14327,7 @@ fg
 EH
 dO
 EH
-EH
+MN
 JB
 ZB
 EH
