@@ -250,7 +250,7 @@
 
 
 /obj/item/toy/crayon/red/marine
-	list_reagents = list("mannitol" = 2)  // Tastes best according to certain sources.  Pending community polling.
+	list_reagents = list("mannitol" = 1)
 	flavor = "It tastes like victory!"
 
 /obj/item/toy/crayon/orange/marine
@@ -266,7 +266,7 @@
 	flavor = "Mmm..  Minty!"
 
 /obj/item/toy/crayon/blue/marine
-	list_reagents = list("mannitol" = 1)
+	list_reagents = list("mannitol" = 2) // Current polling lead as best tasting color
 	flavor = "Tastes like blue!"
 
 /obj/item/toy/crayon/purple/marine
