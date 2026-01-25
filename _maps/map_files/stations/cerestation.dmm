@@ -48052,7 +48052,7 @@
 	pixel_x = -6;
 	pixel_y = 10
 	},
-/obj/item/storage/fancy/cigarettes{
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
 	pixel_y = 2
 	},
 /obj/item/lighter{
