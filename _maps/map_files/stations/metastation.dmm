@@ -87305,12 +87305,6 @@
 /obj/structure/chair,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"wOc" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/wall,
-/area/station/security/detective)
 "wOi" = (
 /obj/machinery/light{
 	dir = 4
@@ -116550,7 +116544,7 @@ pQh
 aJe
 aND
 jRH
-wOc
+plb
 plb
 epa
 mwe
