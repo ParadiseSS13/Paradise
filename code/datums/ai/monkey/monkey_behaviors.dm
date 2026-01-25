@@ -124,7 +124,7 @@
 			target = L
 			break
 
-	if(target)
+	if(target && !(living_pawn.IsWeakened() || living_pawn.IsStunned() || living_pawn.stam_paralyzed))
 		GLOB.move_manager.move_away(living_pawn, target, max_dist=MONKEY_ENEMY_VISION, delay=5)
 		return AI_BEHAVIOR_DELAY
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED

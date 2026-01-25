@@ -39,7 +39,7 @@ have ways of interacting with a specific mob and control it.
 	return ..()
 
 /datum/ai_controller/monkey/process(seconds_per_tick)
-	var/mob/living/living_pawn = src.pawn
+	var/mob/living/carbon/human/living_pawn = src.pawn
 	movement_delay = living_pawn.movement_delay() // Circumstances change. Update speed frequently.
 
 	if(!length(living_pawn.do_afters) && living_pawn.ai_controller.blackboard[BB_RESISTING])
@@ -48,11 +48,12 @@ have ways of interacting with a specific mob and control it.
 	if(living_pawn.ai_controller.blackboard[BB_RESISTING])
 		return
 
-	if(living_pawn.IsWeakened() || living_pawn.IsStunned()) // We're stunned - what are we gonna do?
+	if(living_pawn.IsWeakened() || living_pawn.IsStunned() || living_pawn.stam_paralyzed) // We're stunned - what are we gonna do?
 		cancel_actions()
+		GLOB.move_manager.stop_looping(living_pawn)
 		return
 
-	. = ..()
+	return ..()
 
 /datum/ai_controller/monkey/pun_pun
 	movement_delay = 7 DECISECONDS // pun pun moves slower so the bartender can keep track of them
@@ -106,7 +107,7 @@ have ways of interacting with a specific mob and control it.
 /datum/ai_controller/monkey/get_able_to_run()
 	var/mob/living/living_pawn = pawn
 
-	if(living_pawn.stat || living_pawn.incapacitated())
+	if(living_pawn.stat || living_pawn.incapacitated() || living_pawn.stam_paralyzed)
 		return AI_UNABLE_TO_RUN
 
 	if(living_pawn.ckey || living_pawn.client)
