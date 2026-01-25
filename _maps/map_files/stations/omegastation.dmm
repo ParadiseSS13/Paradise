@@ -25472,16 +25472,6 @@
 	},
 /turf/space,
 /area/station/engineering/solar/fore_port)
-"hwu" = (
-/obj/machinery/door_control{
-	id = "bridgewindows";
-	name = "Space Bridge Blast Door Control";
-	pixel_x = 6;
-	pixel_y = 3;
-	req_access = list(19)
-	},
-/turf/space,
-/area/space)
 "hwT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
@@ -86058,7 +86048,7 @@ aZD
 aZD
 aZD
 aZD
-hwu
+aZD
 aZD
 aZD
 aZD
