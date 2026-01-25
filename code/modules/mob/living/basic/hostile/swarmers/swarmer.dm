@@ -41,7 +41,7 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // EAT EVERYTHING
 	step_type = FOOTSTEP_MOB_CLAW
 	is_ranged = TRUE
-	projectile_type = /obj/projectile/beam/disabler
+	projectile_type = /obj/projectile/beam/disabler/swarmer
 	projectile_sound = 'sound/weapons/taser2.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.5 SECONDS
@@ -163,7 +163,7 @@
 			L.apply_damage(30, STAMINA)
 			var/obj/item/restraints/handcuffs/cable/cyan/cuffs = new /obj/item/restraints/handcuffs/cable/cyan(src)
 			playsound(loc, cuffs.cuffsound, 15, TRUE, -10)
-			if(do_mob(src, C, 1 SECONDS))
+			if(do_mob(src, C, 2 SECONDS))
 				cuffs.apply_cuffs(target, src)
 			return FALSE
 		// Make it go away.
@@ -296,7 +296,10 @@
 	innate_actions = list(
 		/datum/action/cooldown/mob_cooldown/swarmer_trap = BB_SWARMER_TRAP_ACTION,
 		/datum/action/cooldown/mob_cooldown/swarmer_barrier = BB_SWARMER_BARRIER_ACTION,
+		/datum/action/cooldown/mob_cooldown/swarmer_share_resources = BB_SWARMER_RESOURCE_SHARE_ACTION,
 	)
+	/// Our creator
+	var/mob/living/basic/swarmer/progenitor
 
 /mob/living/basic/swarmer/lesser/Initialize(mapload)
 	. = ..()
