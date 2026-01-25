@@ -860,6 +860,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				outline_color = COLOR_THEME_OPERATIVE
 			if("clockwork")
 				outline_color = COLOR_THEME_CLOCKWORK // if you want free gbp go fix the fact that clockwork's tooltip css is glass'
+			if("mindflayer")
+				outline_color = COLOR_THEME_MINDFLAYER
 			if("glass")
 				outline_color = COLOR_THEME_GLASS
 			else // this should never happen, hopefully
