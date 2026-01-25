@@ -747,7 +747,7 @@
 		/obj/item/whetstone = 1,
 		/obj/item/storage/fancy/crayons/marine = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,

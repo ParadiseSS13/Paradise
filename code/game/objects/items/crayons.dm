@@ -37,7 +37,6 @@
 	/// Can this crayon be consumed or not
 	var/consumable = TRUE
 
-
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS|OXYLOSS
@@ -248,7 +247,6 @@
 	crayon_color = "#FFFFFF"
 	dye_color = DYE_WHITE
 
-
 /obj/item/toy/crayon/red/marine
 	list_reagents = list("mannitol" = 1)
 	flavor = "It tastes like victory!"
@@ -266,7 +264,7 @@
 	flavor = "Mmm..  Minty!"
 
 /obj/item/toy/crayon/blue/marine
-	list_reagents = list("mannitol" = 2) // Current polling lead as best tasting color
+	list_reagents = list("mannitol" = 2) // Best tasting color according to community polling.
 	flavor = "Tastes like blue!"
 
 /obj/item/toy/crayon/purple/marine
