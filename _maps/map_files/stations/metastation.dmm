@@ -40880,7 +40880,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
 "hdc" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -60763,7 +60763,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "nOE" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/effect/spawner/random/cobweb/right/frequent,
 /obj/effect/spawner/random/manual,
 /turf/simulated/floor/plasteel{
