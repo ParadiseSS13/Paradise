@@ -29,6 +29,8 @@
 	var/tail
 	/// like tail but wings
 	var/wing
+	/// like wings but spines
+	var/spines
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 
