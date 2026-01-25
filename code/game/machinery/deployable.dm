@@ -182,19 +182,19 @@
 
 	var/obj/item/stack/sheet/wood/S = I
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is fully intact."))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='notice'> You start replacing the broken boards of [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You start replacing the broken boards of [src]..."))
 	if(!do_after_once(user, 2 SECONDS, target = src))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!S.use(1))
-		to_chat(user, "<span class='warning'>You've run out of planks!</span>")
+		to_chat(user, SPAN_WARNING("You've run out of planks!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='notice'> You repair [src].</span>")
-	user.visible_message("<span class='notice'> [user] repairs [src].</span>")
+	to_chat(user, SPAN_NOTICE("You repair [src]."))
+	user.visible_message(SPAN_NOTICE("[user] repairs [src]."))
 	obj_integrity = max_integrity
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
