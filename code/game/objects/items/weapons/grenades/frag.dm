@@ -30,6 +30,31 @@
 	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
 	qdel(src)
 
+/obj/item/grenade/frag/holy
+	name = "holy hand grenade"
+	desc = "O Lord, bless this Thy Hand Grenade that, with it, Thou mayest blow Thine enemies to tiny bits in Thy mercy."
+	icon_state = "holy_grenade"
+	origin_tech = "materials=3;magnets=4;combat=5"
+	modifiable_timer = FALSE
+	embedded_type = /obj/projectile/bullet/shrapnel/holy
+
+/obj/item/grenade/frag/holy/prime()
+	playsound(loc, 'sound/effects/pray.ogg', 150, TRUE)
+	for(var/turf/t in view(5))
+		t.Bless()
+		for(var/mob/living/basic/revenant/rev in t)
+			rev.reveal(2 SECONDS)
+			rev.adjustBruteLoss(150)
+	return ..()
+
+/obj/item/grenade/frag/holy/examine_more(mob/user)
+	. = ..()
+	. +=  "First shalt thou prime the Holy Pin. Then, shalt thou count to three. No more. No less. \
+	Three shalt be the number thou shalt count, and the number of the counting shalt be three. Four shalt \
+	thou not count, nor either count thou two, excepting that thou then proceed to three. Five is right out. \
+	Once the number three, being the third number, be reached, then lobbest thou thy Holy Hand Grenade \
+	towards thy foe, who, being naughty in My sight, shall snuff it."
+
 /**
  * Shrapnel that flies through the air and hits you
  */
@@ -64,6 +89,18 @@
 		we_missed.throw_at(i_wasnt_aiming_for_the_truck, 16, 3)
 	return ..()
 
+/obj/projectile/bullet/shrapnel/holy
+	name = "blessed shrapnel"
+	embedded_type = /obj/item/shrapnel/holy
+
+/obj/projectile/bullet/shrapnel/holy/on_hit(atom/target, blocked)
+	. = ..()
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/human = target
+	human.reagents.add_reagent("holy water", 5)
+
 /**
  * Shrapnel projectiles turn into this after trying to embed
  */
@@ -89,5 +126,11 @@
 /obj/item/shrapnel/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	qdel(src)
 	return TRUE
+
+/obj/item/shrapnel/holy
+	name = "blessed shrapnel"
+	desc = "Shards of godlike judgement, launched at high velocity. The power of Christ propels you."
+	force = 6
+	color = "#FFFF00" // Yellow because it's holy yo
 
 #undef DEFAULT_SHRAPNEL_RANGE
