@@ -127,6 +127,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aaT" = (
@@ -187,6 +188,11 @@
 	pixel_y = 9;
 	pixel_x = -9
 	},
+/obj/item/stamp/denied{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/obj/item/stamp,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "abm" = (
@@ -459,7 +465,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "cargoload"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -476,7 +482,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "cargoload"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -487,7 +493,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "cargoload"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -502,7 +508,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "cargoload"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -602,7 +608,7 @@
 	dir = 4
 	},
 /obj/machinery/conveyor_switch/oneway{
-	id = "cargoload"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -772,6 +778,9 @@
 	pixel_x = 5;
 	pixel_y = -27
 	},
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
 "afo" = (
@@ -819,7 +828,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/conveyor/southeast/ccw{
 	dir = 10;
-	id = "cargounload"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -902,8 +911,7 @@
 	dir = 4
 	},
 /obj/machinery/conveyor_switch/oneway{
-	dir = 8;
-	id = "cargounload"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -914,7 +922,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 8;
-	id = "cargounload"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -932,7 +940,7 @@
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
 	dir = 8;
-	id = "cargounload"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -1152,6 +1160,10 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/conveyor/east{
+	id = "QMLoad2";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ahb" = (
@@ -1755,7 +1767,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "cargoload"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -2277,7 +2289,7 @@
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "cargoload"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -2381,10 +2393,6 @@
 /obj/machinery/economy/vending/cargodrobe,
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -3007,6 +3015,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/computer/guestpass{
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -5406,10 +5417,10 @@
 /obj/item/stack/package_wrap,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/hand_labeler,
-/obj/machinery/camera/autoname{
-	dir = 1
+/obj/machinery/computer/guestpass/hop{
+	pixel_x = -28
 	},
-/obj/machinery/firealarm/directional/west,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
 "atg" = (
@@ -8252,6 +8263,9 @@
 	pixel_x = 3;
 	pixel_y = 17
 	},
+/obj/structure/reagent_dispensers/spacecleanertank{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "aFd" = (
@@ -8853,7 +8867,6 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/primary/aft)
 "aHg" = (
-/obj/machinery/firealarm/directional/north,
 /obj/machinery/disposal,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 1
@@ -8863,6 +8876,9 @@
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
+	},
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/supermatter)
@@ -11899,12 +11915,11 @@
 /area/station/maintenance/disposal)
 "aUG" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor{
-	id = "trash";
-	name = "disposal bay door";
-	id_tag = "trash"
-	},
 /obj/effect/turf_decal/stripes/box,
+/obj/machinery/door/poddoor{
+	id_tag = "trash";
+	protected = 0
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "aUJ" = (
@@ -14875,12 +14890,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
-"bkv" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "bkz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
@@ -19087,7 +19096,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 8;
-	id = "cargounload"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -32180,7 +32189,9 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/machinery/newscaster/directional/south,
+/obj/machinery/computer/guestpass{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/reception)
 "mbm" = (
@@ -38769,11 +38780,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/execution)
 "qwh" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	layer = 2
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -39092,6 +39103,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/computer/guestpass{
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -42195,6 +42209,8 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
 	},
+/obj/machinery/telepad_cargo,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "sJL" = (
@@ -43510,7 +43526,7 @@
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
 	dir = 8;
-	id = "cargounload"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -45667,6 +45683,7 @@
 	},
 /obj/item/kirbyplants/large,
 /obj/machinery/newscaster/directional/west,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/supermatter)
 "uCf" = (
@@ -46240,6 +46257,7 @@
 	dir = 4
 	},
 /obj/machinery/newscaster/directional/north,
+/obj/structure/closet/jcloset,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "uUF" = (
@@ -48008,7 +48026,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/conveyor{
 	dir = 8;
-	id = "cargounload"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -48418,6 +48436,14 @@
 /obj/machinery/monkey_recycler,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
+"wng" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "specops_home";
+	name = "Port Bay 2 Airlock"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/hallway/secondary/entry)
 "wnC" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tiles/department/engineering/side,
@@ -51463,7 +51489,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "cargoload"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
@@ -87420,9 +87446,9 @@ qTs
 eQz
 kiS
 qaI
-eQz
+wng
 qTs
-eQz
+wng
 eVC
 aZD
 aZD
@@ -89439,7 +89465,7 @@ jVs
 elE
 jnK
 qEW
-vAc
+xJj
 lGk
 mwA
 muj
@@ -91521,7 +91547,7 @@ deB
 bom
 deB
 pRY
-bkv
+sJp
 ifG
 cXo
 ibr
