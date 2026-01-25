@@ -24,7 +24,7 @@
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/attack_self__legacy__attackchain(mob/user)
-	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
+	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.all_robolimbs)
 	if(!choice)
 		return
 	if(loc != user)
