@@ -172,7 +172,7 @@
 	max_integrity = 75
 	proj_pass_rate = 65
 
-//Barricade repairs
+// Barricade repairs
 /obj/structure/barricade/wooden/crude/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(!istype(I, /obj/item/stack/sheet/wood))
 		return NONE
