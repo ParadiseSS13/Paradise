@@ -90,7 +90,7 @@
 		return
 	user.progenitor.resources = clamp(user.progenitor.resources + 50, 0, user.progenitor.resource_max)
 	user.resources -= 50
-	user.Beam(user.progenitor, "light_beam", 'icons/effects/beam.dmi', 0.8 SECONDS, beam_color = LIGHT_COLOR_CYAN)
+	user.Beam(user.progenitor, "light_beam", 'icons/effects/beam.dmi', 0.3 SECONDS, beam_color = LIGHT_COLOR_CYAN)
 	playsound(get_turf(user), 'sound/effects/empulse.ogg', 15, TRUE)
 	StartCooldown()
 
