@@ -193,6 +193,10 @@
 	display_name = "Bandana, skull"
 	path = /obj/item/clothing/mask/bandana/skull
 
+/datum/gear/fake_beard
+	display_name = "Fake beard"
+	path = /obj/item/clothing/mask/fake_beard
+
 /datum/gear/pai
 	display_name = "Personal Artificial Intelligence"
 	path = /obj/item/paicard

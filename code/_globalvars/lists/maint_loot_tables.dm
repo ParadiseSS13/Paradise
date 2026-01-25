@@ -121,6 +121,10 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 		/obj/item/coin/silver,
 		/obj/item/coin/twoheaded,
 	) = 2,
+
+	// A round tuit
+	/obj/item/toy/round_tuit = 1,
+
 ))
 
 GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
