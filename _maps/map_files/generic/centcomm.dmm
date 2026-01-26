@@ -9330,12 +9330,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "GV" = (
-/obj/item/rcl/pre_loaded,
-/obj/item/rcl/pre_loaded,
-/obj/item/rcl/pre_loaded,
-/obj/item/rcl/pre_loaded,
-/obj/item/rcl/pre_loaded,
-/obj/item/rcl/pre_loaded,
+/obj/item/rcl,
+/obj/item/rcl,
+/obj/item/rcl,
+/obj/item/rcl,
+/obj/item/rcl,
+/obj/item/rcl,
 /obj/structure/shelf/engineering,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
