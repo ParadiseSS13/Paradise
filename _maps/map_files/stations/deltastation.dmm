@@ -71084,11 +71084,11 @@
 /area/station/engineering/controlroom)
 "njE" = (
 /obj/structure/table/wood/fancy/red,
-/obj/effect/spawner/random/book,
 /obj/item/candle/eternal/lit{
 	pixel_x = -14;
 	pixel_y = 1
 	},
+/obj/effect/spawner/random/library_book/triple,
 /turf/simulated/floor/plating,
 /area/station/security/prison)
 "njF" = (
