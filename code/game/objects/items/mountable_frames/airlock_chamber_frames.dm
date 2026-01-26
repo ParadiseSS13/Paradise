@@ -98,6 +98,12 @@
 	controller.link_all_items()
 	qdel(src)
 
+/obj/item/mounted/frame/airlock_controller/crowbar_act(mob/living/user, obj/item/I)
+	if(access_electronics)
+		user.put_in_hands(access_electronics)
+		to_chat(user, SPAN_NOTICE("You remove [access_electronics] from [src] with [I]."))
+		access_electronics = null
+
 /obj/item/mounted/frame/airlock_controller/proc/get_missing_items()
 	. = list()
 	if(!length(exterior_buttons))
