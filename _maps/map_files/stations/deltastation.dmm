@@ -9940,7 +9940,7 @@
 "aOp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/table/wood,
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "aOq" = (
@@ -36571,10 +36571,7 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
-/obj/item/book/random{
-	pixel_x = 2;
-	pixel_y = 4
-	},
+/obj/effect/spawner/random/library_book,
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
@@ -38349,10 +38346,7 @@
 /area/station/science/lobby)
 "cSs" = (
 /obj/structure/table/glass,
-/obj/item/book/random{
-	pixel_x = 2;
-	pixel_y = 4
-	},
+/obj/effect/spawner/random/library_book,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "cSt" = (
@@ -65183,7 +65177,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "kKW" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "kLd" = (

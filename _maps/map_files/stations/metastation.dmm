@@ -1961,7 +1961,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "aub" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
@@ -3848,7 +3848,7 @@
 /area/station/engineering/hardsuitstorage)
 "aHI" = (
 /obj/structure/table,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/reference_book,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "aHM" = (
@@ -5952,7 +5952,7 @@
 "aSP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/reference_book,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "aST" = (
@@ -9337,7 +9337,6 @@
 /obj/structure/shelf,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/bureaucracy,
-/obj/effect/spawner/random/book,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bjD" = (
@@ -17503,7 +17502,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "bVL" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
 	},
@@ -23851,7 +23850,7 @@
 /area/station/maintenance/apmaint)
 "cCr" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/item/paicard,
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/wood,
@@ -33690,16 +33689,6 @@
 /obj/structure/curtain/medical,
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
-"eKW" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/prison/cell_block/a)
 "eKX" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -35651,11 +35640,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
-"foE" = (
-/obj/structure/table,
-/obj/item/instrument/harmonica,
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
 "foV" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
@@ -40881,10 +40865,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
 "hdc" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "hdi" = (
@@ -43092,7 +43077,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "hTl" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/light/small,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -43642,6 +43627,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"icX" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/station/security/range)
 "icY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plating,
@@ -55625,6 +55617,11 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"lZT" = (
+/obj/structure/table,
+/obj/item/instrument/harmonica,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "lZU" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -56841,6 +56838,14 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/aft)
+"mwe" = (
+/obj/structure/shelf/service,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/item/storage/bible,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "mwn" = (
 /obj/structure/table,
 /obj/item/storage/bag/ore,
@@ -60766,8 +60771,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "nOE" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/effect/spawner/random/cobweb/right/frequent,
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -70590,13 +70596,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
-"rhp" = (
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel,
-/area/station/security/range)
 "rhw" = (
 /obj/effect/landmark/start/chef,
 /obj/structure/cable{
@@ -79480,15 +79479,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
-"ukl" = (
-/obj/structure/shelf/service,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/item/storage/bible,
-/turf/simulated/floor/wood,
-/area/station/service/library)
 "ukm" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -81174,6 +81164,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"uQc" = (
+/obj/structure/shelf/service,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/structure/shelf/service,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "uQj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -82021,6 +82019,16 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
+"vdx" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/prison/cell_block/a)
 "vdB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -90773,11 +90781,9 @@
 /area/station/security/permabrig)
 "xVF" = (
 /obj/structure/shelf/service,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "xVJ" = (
@@ -113409,7 +113415,7 @@ adi
 adi
 gZJ
 jeE
-foE
+lZT
 jzA
 wXi
 adi
@@ -116534,7 +116540,7 @@ jRH
 plb
 plb
 nmV
-ukl
+mwe
 xVF
 bFw
 bcI
@@ -117545,7 +117551,7 @@ lZU
 wiM
 oNr
 eEO
-eKW
+vdx
 wyP
 axY
 dhZ
@@ -117562,7 +117568,7 @@ qks
 plb
 plb
 dvC
-xVF
+uQc
 xVF
 bcI
 bOs
@@ -121644,7 +121650,7 @@ kEW
 mQs
 wwU
 cTX
-rhp
+icX
 tjz
 wEn
 jWv

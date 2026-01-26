@@ -1338,6 +1338,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"hJ" = (
+/obj/structure/sign/cargo/materials,
+/turf/simulated/wall/r_wall,
+/area/mine/laborcamp)
 "hQ" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
@@ -3941,7 +3945,7 @@
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
 /obj/item/stack/marker_beacon/ten,
-/obj/item/book/random,
+/obj/effect/spawner/random/library_book,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "vV" = (
@@ -7225,10 +7229,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
-"MN" = (
-/obj/structure/sign/cargo/materials,
-/turf/simulated/wall/r_wall,
-/area/mine/laborcamp)
 "MR" = (
 /obj/structure/sign/poster/official/random/directional/north,
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -14821,7 +14821,7 @@ fg
 EH
 dO
 EH
-MN
+hJ
 JB
 ZB
 EH
