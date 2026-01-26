@@ -85,8 +85,6 @@
 	if(!istype(human))
 		return
 
-	human.update_inv_head()
-
 /datum/element/clothing_adjustment/skulk_headgear/proc/on_carbon_apply_overlay(mob/living/carbon/human/source, cache_index)
 	SIGNAL_HANDLER // COMSIG_CARBON_APPLY_OVERLAY
 	if(cache_index != HEAD_LAYER || !istype(source))
