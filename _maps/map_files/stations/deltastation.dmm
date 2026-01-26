@@ -52501,6 +52501,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"foI" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/neutral,
+/obj/item/rcl,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/break_room)
 "foU" = (
 /obj/structure/table/reinforced,
 /obj/item/radio/intercom{
@@ -124279,7 +124285,7 @@ bwX
 bIA
 bIA
 bEV
-xbY
+foI
 ttF
 bQp
 bIA

@@ -20042,6 +20042,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/obj/item/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "dfG" = (
@@ -40929,10 +40930,10 @@
 /area/station/security/execution)
 "hMv" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "hMA" = (
@@ -62075,6 +62076,10 @@
 /obj/item/ashtray/glass,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = -8;
+	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)

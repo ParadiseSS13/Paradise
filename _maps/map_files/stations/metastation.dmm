@@ -71596,10 +71596,10 @@
 /area/station/engineering/atmos)
 "rxV" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/random/trash,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/obj/item/rcl,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/equipmentstorage)
 "rye" = (
