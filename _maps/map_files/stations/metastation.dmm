@@ -1961,7 +1961,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "aub" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
@@ -3848,7 +3848,7 @@
 /area/station/engineering/hardsuitstorage)
 "aHI" = (
 /obj/structure/table,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/reference_book,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "aHM" = (
@@ -5952,7 +5952,7 @@
 "aSP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/reference_book,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "aST" = (
@@ -9337,7 +9337,6 @@
 /obj/structure/shelf,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/bureaucracy,
-/obj/effect/spawner/random/book,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bjD" = (
@@ -17503,7 +17502,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "bVL" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
 	},
@@ -23850,7 +23849,7 @@
 /area/station/maintenance/apmaint)
 "cCr" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/item/paicard,
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/wood,
@@ -40873,10 +40872,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
 "hdc" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "hdi" = (
@@ -43084,7 +43084,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "hTl" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/machinery/light/small,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -56839,6 +56839,14 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/aft)
+"mwe" = (
+/obj/structure/shelf/service,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/item/storage/bible,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "mwn" = (
 /obj/structure/table,
 /obj/item/storage/bag/ore,
@@ -60771,8 +60779,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "nOE" = (
-/obj/item/book/manual/random,
+/obj/effect/spawner/random/manual,
 /obj/effect/spawner/random/cobweb/right/frequent,
+/obj/effect/spawner/random/manual,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -79475,15 +79484,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
-"ukl" = (
-/obj/structure/shelf/service,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/item/storage/bible,
-/turf/simulated/floor/wood,
-/area/station/service/library)
 "ukm" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -81169,6 +81169,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"uQc" = (
+/obj/structure/shelf/service,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/structure/shelf/service,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "uQj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -90780,11 +90788,9 @@
 /area/station/security/permabrig)
 "xVF" = (
 /obj/structure/shelf/service,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
+/obj/effect/spawner/random/reference_book,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "xVJ" = (
@@ -116541,7 +116547,7 @@ jRH
 plb
 plb
 nmV
-ukl
+mwe
 xVF
 bFw
 bcI
@@ -117569,7 +117575,7 @@ qks
 plb
 plb
 dvC
-xVF
+uQc
 xVF
 bcI
 bOs
