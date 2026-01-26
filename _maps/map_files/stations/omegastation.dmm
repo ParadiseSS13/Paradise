@@ -624,6 +624,10 @@
 "adW" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start/head_of_personnel,
+/obj/machinery/door_control/ticket_machine_button{
+	pixel_x = 38;
+	pixel_y = -37
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "aet" = (
@@ -6694,12 +6698,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "azx" = (
-/obj/structure/table/reinforced,
-/obj/machinery/reagentgrinder{
-	desc = "Used to grind things up into raw materials and liquids.";
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/smartfridge/foodcart,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "azz" = (
@@ -7820,6 +7820,10 @@
 /obj/item/reagent_containers/condiment/enzyme,
 /obj/item/reagent_containers/condiment/sugar,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/reagentgrinder{
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "aDA" = (
@@ -20632,7 +20636,7 @@
 /area/station/hallway/secondary/entry/south)
 "exw" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/structure/closet/crate{
 	name = "emergency supplies crate"
@@ -28815,7 +28819,6 @@
 /area/station/medical/chemistry)
 "jIR" = (
 /obj/effect/map_effect/dynamic_airlock,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/airlock_controller/air_cycler/directional/west,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -29300,6 +29303,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/starboard)
 "kbY" = (
@@ -31103,8 +31107,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	dir = 8;
+	name = "Air to External"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -48599,6 +48604,7 @@
 /area/station/maintenance/asmaint)
 "wst" = (
 /obj/machinery/firealarm/directional/south,
+/obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "wsw" = (
