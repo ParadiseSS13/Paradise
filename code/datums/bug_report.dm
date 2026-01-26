@@ -101,6 +101,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 // returns the body payload
 /datum/tgui_bug_report_form/proc/create_form()
+	bug_report_data["test_merges"] = "#123 at A\n#1234 at B\n#1235 at C\n"
 	var/desc = {"
 ## What did you expect to happen?
 [bug_report_data["expected_behavior"]]
@@ -126,10 +127,11 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 - Client BYOND Version: [bug_report_data["user_byond_version"]]
 - Server BYOND Version: [bug_report_data["server_byond_version"]]
 - Server commit: [bug_report_data["local_commit"]]
-- Active Test Merges: [bug_report_data["test_merges"] ? bug_report_data["test_merges"] : "None"]
+- Active Test Merges: [bug_report_data["test_merges"] ? "\n[bug_report_data["test_merges"]]" : "None"]
 - Note: [bug_report_data["approver_note"] ? bug_report_data["approver_note"] : "None"]
 	"}
 
+	to_chat(usr, desc)
 	return desc
 
 // the real deal, we are sending the request through the api.
