@@ -155,9 +155,7 @@
 	. = ..()
 
 /datum/status_effect/moon_converted/Destroy()
-	var/list/messages = list()
-	messages.Add(SPAN_DANGER("You have been freed from the Moon's influence and regain your senses."))
-	to_chat(owner, chat_box_notice(messages.Join("<br>")))
+	to_chat(owner, chat_box_notice(SPAN_DANGER("You have been freed from the Moon's influence and regain your senses.")))
 	return ..()
 
 /datum/status_effect/moon_converted/on_apply()
@@ -186,7 +184,7 @@
 
 	damage_sustained += damage
 
-	if(damage_sustained < 75)
+	if(damage_sustained < 60)
 		return
 
 	qdel(src)
@@ -196,13 +194,12 @@
 	source.add_overlay(moon_insanity_overlay)
 
 /datum/status_effect/moon_converted/on_remove()
-	// Span warning and unconscious so they realize they aren't evil anymore
-	to_chat(owner, SPAN_USERDANGER("Your mind is cleared from the effect of the mansus, your alligiences are as they were before."))
+	// Span warning to help realize they aren't evil anymore
 	REMOVE_TRAIT(owner, TRAIT_MUTE, src.UID())
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
-	owner.update_appearance(UPDATE_OVERLAYS)
 	owner.cut_overlay(moon_insanity_overlay)
+	owner.update_icon()
 	QDEL_NULL(moon_insanity_overlay)
 	return ..()
 

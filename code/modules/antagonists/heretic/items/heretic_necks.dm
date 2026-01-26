@@ -164,6 +164,8 @@
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/examine(mob/user)
 	. = ..()
+	if(!IS_HERETIC_OR_MONSTER(user))
+		return
 	. += SPAN_INFORMATION("Using this amulet on the ignorant will cause them to slowly lose their minds.")
 	. += SPAN_INFORMATION("Using this amulent on one who has lost their mind will cause them to go berserk.")
 
@@ -179,8 +181,7 @@
 		return
 	var/datum/antagonist/heretic/heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/datum/status_effect/stacking/insanity = hit.has_status_effect(/datum/status_effect/stacking/heretic_insanity)
-	if(!insanity || insanity.stacks < 14)
-		to_chat(user, SPAN_HIEROPHANT_WARNING("Their mind is too strong!"))
+	if(!insanity || insanity.stacks < 14 || target == user)
 		hit.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
 	else
 		if(target.mind)

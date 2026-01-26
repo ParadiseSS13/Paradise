@@ -665,7 +665,7 @@
 	if(!length(heretics))
 		return
 
-	var/list/text = list("<font size='2'><b>The heretics were:</b></font>")
+	var/list/text = list("<br><font size=3>[SPAN_BOLD("The heretics were:")]</font>")
 	for(var/datum/mind/heretic in heretics)
 
 		text += "<br>[heretic.get_display_key()] was [heretic.name] ("
