@@ -107,7 +107,9 @@
 			coil_size = "low"
 
 	if(loaded.cable_merge_id == CABLE_LOW_POWER)
-		overlays += "rcl_[coil_size]_[loaded.color]"
+		var/image/cable_overlay = image('icons/obj/rcl.dmi', icon_state = "rcl_[coil_size]")
+		cable_overlay.color = loaded.color
+		overlays += cable_overlay
 	else if(loaded.cable_type == /obj/structure/cable/extra_insulated)
 		overlays += "rcl_[coil_size]_hd"
 	else
