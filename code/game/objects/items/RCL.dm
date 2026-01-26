@@ -20,7 +20,7 @@
 /obj/item/rcl/examine(mob/user)
 	. = ..()
 	if(loaded.amount)
-		. += SPAN_NOTICE("It contains [loaded.amount]/[RCL_MAX_SPOOL_SIZE] cables.")
+		. += SPAN_NOTICE("It contains <b>[loaded.amount]/[RCL_MAX_SPOOL_SIZE]</b> cables.")
 	else
 		. += SPAN_WARNING("It's empty!")
 	. += SPAN_NOTICE("Use in-hand to swap to [active ? "standard" : "Rapid Cable Laying"] mode.")
