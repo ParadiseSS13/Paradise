@@ -663,6 +663,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_heretic()
 	if(!length(heretics))
+		log_debug("There are no heretics")
 		return
 
 	var/list/text = list("<br><font size=3>[SPAN_BOLD("The heretics were:")]</font>")

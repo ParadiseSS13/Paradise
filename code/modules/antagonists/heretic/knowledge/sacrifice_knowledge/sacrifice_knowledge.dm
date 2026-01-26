@@ -74,7 +74,7 @@
 	// You may wonder why we don't straight up prevent them from invoking the ritual if they don't have one -
 	// Hunt and sacrifice should always be invokable for clarity's sake, even if it'll fail immediately.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		to_chat(user, "<span class='hierophant'>The ritual failed, you have no living heart!</span>")
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The ritual failed, you have no living heart!"))
 		return FALSE
 
 	// We've got no targets set, let's try to set some.
@@ -86,8 +86,8 @@
 	// If we have targets, we can check to see if we can do a sacrifice
 	// Let's remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
-		// If the mob's not in soft crit or worse, remove from list
-		if(sacrifice.health > HEALTH_THRESHOLD_CRIT && sacrifice.stat != DEAD)
+		// If the mob's not in soft crit or worse, nor are they handcuffed, remove from list
+		if(sacrifice.health > HEALTH_THRESHOLD_CRIT && sacrifice.stat != DEAD && (!HAS_TRAIT(sacrifice, TRAIT_RESTRAINED)))
 			atoms -= sacrifice
 		// Otherwise if it's neither a target nor a cultist, remove it
 		else if(!(sacrifice in heretic_datum.sac_targets) && !IS_CULTIST(sacrifice))
@@ -98,7 +98,7 @@
 		return TRUE
 
 	// or FALSE if we don't
-	to_chat(user, "<span class='hierophant'>The ritual failed, no valid sacrifice was found!</span>")
+	to_chat(user, SPAN_HIEROPHANT("The ritual failed, no valid sacrifice was found!"))
 	return FALSE
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
@@ -109,7 +109,7 @@
 		if(obtain_targets(user, heretic_datum = heretic_datum))
 			return TRUE
 		else
-			to_chat(user, "<span class='hierophant'>The ritual failed, no valid sacrifice was found!</span>")
+			to_chat(user, SPAN_HIEROPHANT("The ritual failed, no valid sacrifice was found!"))
 			return FALSE
 
 	sacrifice_process(user, selected_atoms, our_turf)
@@ -144,7 +144,7 @@
 
 	if(!length(valid_targets))
 		if(!silent)
-			to_chat(user, "<span class='hierophant_warning'>No sacrifice targets could be found!</span>")
+			to_chat(user, SPAN_HIEROPHANT_WARNING("No sacrifice targets could be found!"))
 		return FALSE
 
 	// Now, let's try to get five targets.
@@ -184,12 +184,12 @@
 		target_sanity++
 
 	if(!silent)
-		to_chat(user, "<span class='danger'>Your targets have been determined. Your Living Heart will allow you to track their position. Go and sacrifice them!</span>")
+		to_chat(user, SPAN_DANGER("Your targets have been determined. Your Living Heart will allow you to track their position. Go and sacrifice them!"))
 
 	for(var/datum/mind/chosen_mind as anything in final_targets)
 		heretic_datum.add_sacrifice_target(chosen_mind.current)
 		if(!silent)
-			to_chat(user, "<span class='danger'>[chosen_mind.current.real_name], the [chosen_mind.assigned_role].</span>")
+			to_chat(user, SPAN_DANGER("[chosen_mind.current.real_name], the [chosen_mind.assigned_role]."))
 
 	return TRUE
 
@@ -241,14 +241,13 @@
 					to_chat(mind.current, message)
 			// he(retic) gets a warn too
 			to_chat(user, "<span class='narsiesmall'>How DARE you!? I will see you destroyed for this.</span>")
-			var/non_flavor_warning = "<span class='cultlarge'>You feel that your action has attracted + <span class='hierophant_warning'>attention.</span>"
+			var/non_flavor_warning = SPAN_CULTLARGE("You feel that your action has attracted ") + SPAN_HIEROPHANT_WARNING("attention")
 			to_chat(user, non_flavor_warning)
-		return
 	else
 		heretic_datum.knowledge_points += 2
 
 	ADD_TRAIT(sacrifice, TRAIT_WAS_SACRIFICED, CULT_TRAIT)
-	to_chat(user, "<span class='hierophant_warning'>[feedback].</span>")
+	to_chat(user, SPAN_HIEROPHANT_WARNING("[feedback]."))
 	if(!begin_sacrifice(sacrifice))
 		disembowel_target(sacrifice)
 		return
@@ -258,11 +257,11 @@
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/our_turf)
 
 	// Visible and audible encouragement!
-	to_chat(user, "<span class='hierophant_warning'>A servant of the Sanguine Apostate!</span>")
-	to_chat(user, "<span class='hierophant'>Your patrons are rapturous!</span>")
+	to_chat(user, SPAN_HIEROPHANT_WARNING("A servant of the Sanguine Apostate!"))
+	to_chat(user, SPAN_HIEROPHANT("Your patrons are rapturous!"))
 	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
-	to_chat(sacrifice, "<span class='hierophant'>No! Your feel your connection with your god has been severed!</span>")
+	to_chat(sacrifice, SPAN_HIEROPHANT("No! Your feel your connection with your god has been severed!"))
 	sacrifice.mind.remove_antag_datum(/datum/antagonist/cultist)
 
 	// Increase reward counter
@@ -338,7 +337,7 @@
 
 	var/turf/destination = get_turf(destination_landmark)
 
-	sac_target.visible_message("<span class='danger'>[sac_target] begins to shudder violenty as dark tendrils begin to drag them into thin air!</span>")
+	sac_target.visible_message(SPAN_DANGER("[sac_target] begins to shudder violenty as dark tendrils begin to drag them into thin air!"))
 	sac_target.handcuffed = new /obj/item/restraints/handcuffs/cult(sac_target)
 	sac_target.update_handcuffed()
 	if(sac_target.legcuffed)
@@ -354,14 +353,15 @@
 
 	// If our target is dead, try to revive them
 	// and if we fail to revive them, don't proceede the chain
-	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(50, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
-		return
+	if(sac_target.stat & DEAD)
+		sac_target.adjustOxyLoss(-100, FALSE)
+		if(!sac_target.heal_and_revive(50, SPAN_DANGER("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
+			return
 
 	if(sac_target.AdjustSleeping(SACRIFICE_SLEEP_DURATION))
-		to_chat(sac_target, "<span class='hierophant_warning'>Your mind feels torn apart as you fall into a shallow slumber...</span>")
+		to_chat(sac_target, SPAN_HIEROPHANT_WARNING("Your mind feels torn apart as you fall into a shallow slumber..."))
 	else
-		to_chat(sac_target, "<span class='hierophant_warning'>Your mind begins to tear apart as you watch dark tendrils envelop you.</span>")
+		to_chat(sac_target, SPAN_HIEROPHANT_WARNING("Your mind begins to tear apart as you watch dark tendrils envelop you."))
 
 	sac_target.AdjustWeakened(SACRIFICE_SLEEP_DURATION * 1.2)
 	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
@@ -384,11 +384,11 @@
 	if(QDELETED(sac_target))
 		return
 
+	curse_organs(sac_target)
+
 	// The target disconnected or something, we shouldn't bother sending them along.
 	if(!sac_target.client || !sac_target.mind)
 		return
-
-	curse_organs(sac_target)
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
 	if(!destination || SEND_SIGNAL(sac_target, COMSIG_MOVABLE_TELEPORTING, destination) & COMPONENT_BLOCK_TELEPORT)
@@ -399,7 +399,7 @@
 	// and we fail to revive them (using a lower number than before),
 	// just disembowel them and stop the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(60, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
+	if(!sac_target.heal_and_revive(60, SPAN_DANGER("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 	else // lets give them a little help
 		for(var/organ_name in list("l_leg", "r_leg", "l_foot", "r_foot"))
@@ -408,11 +408,9 @@
 				sac_target.regrow_external_limb_if_missing(organ_name)
 			else if(E.status |= ORGAN_BROKEN)
 				E.status &= ~ORGAN_BROKEN
-		sac_target.adjustBruteLoss(-20)
-		sac_target.adjustFireLoss(-20)
 		sac_target.update_body() // Update the limb sprites
 
-	to_chat(sac_target, "<span class='hierophant_warning'>Unnatural forces begin to claw at your every being from beyond the veil.</span>")
+	to_chat(sac_target, SPAN_HIEROPHANT_WARNING("Unnatural forces begin to claw at your every being from beyond the veil."))
 
 	playsound(sac_target, 'sound/ambience/antag/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
 
@@ -442,7 +440,7 @@
 		to_give.insert(sac_target)
 
 	new /obj/effect/gibspawner/generic(get_turf(sac_target))
-	sac_target.visible_message("<span class='boldwarning'>Several organs force themselves out of [sac_target]!</span>")
+	sac_target.visible_message(SPAN_BOLDWARNING("Several organs force themselves out of [sac_target]!"))
 	sac_target.set_heartattack(FALSE) //Otherwise you die if you try to do an organic heart, very funny, very bad
 
 /**
@@ -469,8 +467,8 @@
 	sac_target.AdjustDizzy(20 SECONDS)
 	sac_target.emote("scream")
 
-	to_chat(sac_target, "<span class='hierophant_warning'>The grasp of the Mansus reveal themselves to you!</span>")
-	to_chat(sac_target, "<span class='hierophant_warning'>You feel invigorated! Fight to survive!</span>")
+	to_chat(sac_target, SPAN_HIEROPHANT_WARNING("The grasp of the Mansus reveal themselves to you!"))
+	to_chat(sac_target, SPAN_HIEROPHANT_WARNING("You feel invigorated! Fight to survive!"))
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
 	// Win condition
@@ -486,7 +484,7 @@
 	if(QDELETED(sac_target) || sac_target.stat == DEAD)
 		return
 
-	to_chat(sac_target, "<span class='hierophant_warning'>The worst is behind you... Not much longer! Hold fast, or expire!</span>")
+	to_chat(sac_target, SPAN_HIEROPHANT_WARNING("The worst is behind you... Not much longer! Hold fast, or expire!"))
 
 /**
  * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm), or [COMSIG_MOB_DEATH] if they don't.
@@ -543,14 +541,14 @@
 
 	if(heretic_mind?.current)
 		var/composed_return_message = ""
-		composed_return_message += "<span class='notice'>Your victim, [sac_target], was returned to the station - </span>"
+		composed_return_message += SPAN_NOTICE("Your victim, [sac_target], was returned to the station - ")
 		if(sac_target.stat == DEAD)
 			composed_return_message += "<span class='red'>dead. </span>"
 		else
 			composed_return_message += "<span class='green'>alive, but with a shattered mind. </span>"
 
-		composed_return_message += "<span class='notice'>You hear a whisper... </span>"
-		composed_return_message += "<span class='hierophant'>[get_area_name(safe_turf, TRUE)]</span>"
+		composed_return_message += SPAN_NOTICE("You hear a whisper... ")
+		composed_return_message += SPAN_HIEROPHANT_WARNING("[get_area_name(safe_turf, TRUE)]")
 		to_chat(heretic_mind.current, composed_return_message)
 
 /**
@@ -570,7 +568,7 @@
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/on_target_escape(mob/living/carbon/human/sac_target, old_z, new_z)
 	SIGNAL_HANDLER
 
-	to_chat(sac_target, "<span class='boldwarning'>Your attempt to escape the Mansus is not taken kindly!</span>")
+	to_chat(sac_target, SPAN_BOLDWARNING("Your attempt to escape the Mansus is not taken kindly!"))
 	// Ends up calling return_target() via death signal to clean up.
 	disembowel_target(sac_target)
 
@@ -580,11 +578,11 @@
  * Gives the sacrifice target some after effects upon ariving back to reality.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, "<span class='userdanger'>The fight is over, but at great cost. You have been returned to the station in one piece.</span>")
+	to_chat(sac_target, SPAN_USERDANGER("The fight is over, but at great cost. You have been returned to the station in one piece."))
 	if(IS_HERETIC(sac_target))
-		to_chat(sac_target, "<span class='userdanger'>You don't remember anything leading up to the experience, but you feel your connection with the Mansus weakened - Knowledge once known, forgotten...</span>")
+		to_chat(sac_target, SPAN_USERDANGER("You don't remember anything leading up to the experience, but you feel your connection with the Mansus weakened - Knowledge once known, forgotten..."))
 	else
-		to_chat(sac_target, "<span class='userdanger'>You don't remember anything leading up to the experience - All you can think about are those horrific hands...</span>")
+		to_chat(sac_target, SPAN_USERDANGER("You don't remember anything leading up to the experience - All you can think about are those horrific hands..."))
 
 	// Oh god where are we?
 	sac_target.AdjustConfused(60 SECONDS)
@@ -606,8 +604,8 @@
  * it spawns a special red broken illusion on their spot, for style.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, "<span class='hierophant_warning'>You failed to resist the horrors of the Mansus! Your ruined body has been returned to the station.</span>")
-	to_chat(sac_target, "<span class='hierophant_warning'>The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived.</span>")
+	to_chat(sac_target, SPAN_HIEROPHANT_WARNING("You failed to resist the horrors of the Mansus! Your ruined body has been returned to the station."))
+	to_chat(sac_target, SPAN_HIEROPHANT_WARNING("The experience leaves your mind torn and memories tattered. You will not remember anything leading up to the experience if revived."))
 
 	var/obj/effect/visible_heretic_influence/illusion = new(get_turf(sac_target))
 	illusion.name = "\improper weakened rift in reality"
@@ -628,8 +626,8 @@
 	if(sac_target.stat != DEAD)
 		sac_target.death()
 	sac_target.visible_message(
-		"<span class='danger'>[sac_target]'s organs are pulled out of [sac_target.p_their()] chest by shadowy hands!</span>",
-		"<span class='userdanger'>Your organs are violently pulled out of your chest by shadowy hands!</span>"
+		SPAN_DANGER("[sac_target]'s organs are pulled out of [sac_target.p_their()] chest by shadowy hands!"),
+		SPAN_USERDANGER("our organs are violently pulled out of your chest by shadowy hands!")
 	)
 
 	new /obj/effect/gibspawner/human(get_turf(sac_target))
