@@ -125,7 +125,7 @@
 		if(LINK_STAGE_NOT_STARTED)
 			if(!istype(button))
 				to_chat(user, SPAN_NOTICE("[src] must have its exterior buttons linked first."))
-				return TRUE
+				return ITEM_INTERACT_COMPLETE
 			link_stage = LINK_STAGE_EXTERIOR_BUTTONS
 			return attempt_item_link(user, target)
 		if(LINK_STAGE_EXTERIOR_BUTTONS)
@@ -220,7 +220,7 @@
 			if(istype(vent))
 				to_chat(user, SPAN_NOTICE("You link [vent] to [src]."))
 				vents |= vent
-				return TRUE
+				return ITEM_INTERACT_COMPLETE
 
 /obj/item/mounted/frame/airlock_controller/air_cycler/get_missing_items()
 	. = ..()
