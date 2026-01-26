@@ -496,6 +496,13 @@
 	icon_opened = "hydrosecurecrate_open"
 	icon_closed = "hydrosecurecrate"
 
+/obj/structure/closet/crate/secure/medisec
+	desc = "A secure medical crate."
+	name = "secure medical crate"
+	icon_state = "medicalsecurecrate"
+	icon_opened = "medicalsecurecrate_open"
+	icon_closed = "medicalsecurecrate"
+
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
 	name = "secure bin"
