@@ -3705,7 +3705,7 @@
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
 /obj/item/stack/marker_beacon/ten,
-/obj/item/book/random,
+/obj/effect/spawner/random/library_book,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "vV" = (

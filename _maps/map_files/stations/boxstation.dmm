@@ -45737,7 +45737,7 @@
 /area/station/science/misc_lab)
 "dUv" = (
 /obj/structure/table/wood,
-/obj/item/book/random,
+/obj/effect/spawner/random/library_book,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
 "dUM" = (
@@ -80287,7 +80287,7 @@
 	dir = 4
 	},
 /obj/structure/closet,
-/obj/item/book/random/triple,
+/obj/effect/spawner/random/library_book/triple,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "uDn" = (
