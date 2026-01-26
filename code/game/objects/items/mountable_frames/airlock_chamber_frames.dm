@@ -14,7 +14,6 @@
 
 	// external airlock buttons are expected to be placed in space
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR
-	metal_sheets_refunded = 2
 
 /obj/item/mounted/frame/airlock_button/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/access_button(get_turf(src), get_dir(user, on_wall))
@@ -25,9 +24,7 @@
 	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "access_control_off"
-
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
-	metal_sheets_refunded = 2
 
 	var/obj/item/airlock_electronics/access_electronics
 	var/link_stage = LINK_STAGE_NOT_STARTED
@@ -187,7 +184,6 @@
 /obj/item/mounted/frame/airlock_controller/air_cycler
 	name = "cycling airlock controller frame"
 	desc = "Used for building cycling airlocks."
-	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_off"
 	result_controller_type = /obj/machinery/airlock_controller/air_cycler
 
