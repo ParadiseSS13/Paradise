@@ -36,6 +36,7 @@
 	var/mob/living/cast_on = targets[1]
 	/// The duration of these effects are based on sanity, mainly for flavor but also to make it a weaker alpha strike
 	var/maximum_duration = 15 SECONDS
+	cast_on.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
 	var/datum/status_effect/stacking/heretic_insanity/insanity = cast_on.has_status_effect(/datum/status_effect/stacking/heretic_insanity)
 	var/moon_smile_duration
 	if(!insanity)

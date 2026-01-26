@@ -36,8 +36,4 @@
 	target.AdjustConfused(10 SECONDS)
 	target.adjustOxyLoss(30)
 	new /obj/effect/hallucination/delusion(get_turf(target), target, 'icons/effects/eldritch.dmi', "heretic")
-	target.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 2)
-	var/mob/living/L
-	if(isliving(user))
-		L = user
-	L.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 3)
+	target.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 3)

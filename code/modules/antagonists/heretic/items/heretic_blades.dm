@@ -298,7 +298,7 @@
 	else if(prob(15))
 		to_chat(human_mob, SPAN_HIEROPHANT("LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE"))
 		to_chat(human_mob, SPAN_DANGER("Horrible, unintelligible utterances flood your mind!"))
-		human_mob.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
+		human_mob.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 2)
 	return TRUE
 
 /obj/item/melee/sickly_blade/cursed/equipped(mob/user, slot)

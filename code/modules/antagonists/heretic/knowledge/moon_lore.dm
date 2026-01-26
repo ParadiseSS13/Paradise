@@ -59,7 +59,7 @@
 	var/mob/living/carbon/carbon_target = target
 	to_chat(carbon_target, SPAN_DANGER("You hear echoing laughter from above</span>"))
 	new /obj/effect/hallucination/delusion(get_turf(carbon_target), carbon_target, 'icons/effects/eldritch.dmi', "heretic")
-	carbon_target.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
+	carbon_target.apply_status_effect(/datum/status_effect/stacking/heretic_insanity, 2)
 
 /datum/heretic_knowledge/spell/moon_smile
 	name = "Smile of the moon"

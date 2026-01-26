@@ -17,6 +17,8 @@
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 	)
+	var/time_to_insanity = 12 SECONDS
+	COOLDOWN_DECLARE(insanity_gain)
 
 /obj/item/clothing/mask/madness_mask/Destroy()
 	local_user = null
@@ -39,6 +41,7 @@
 
 	local_user = user
 	START_PROCESSING(SSobj, src)
+	COOLDOWN_START(src, insanity_gain, time_to_insanity)
 
 	if(IS_HERETIC_OR_MONSTER(user))
 		return
@@ -59,6 +62,21 @@
 	if(IS_HERETIC_OR_MONSTER(local_user) && (flags & NODROP))
 		flags &= ~NODROP
 
+	local_user.AdjustJitter(10 SECONDS, 10 SECONDS, 30 SECONDS)
+
+	if(!IS_HERETIC_OR_MONSTER(local_user))
+		if(COOLDOWN_FINISHED(src, insanity_gain))
+			COOLDOWN_START(src, insanity_gain, time_to_insanity)
+			local_user.apply_status_effect(/datum/status_effect/stacking/heretic_insanity)
+		if(prob(1))
+			local_user.AdjustDizzy(30 SECONDS)
+			local_user.Paralyse(5 SECONDS)
+			local_user.AdjustJitter(2000 SECONDS)
+			local_user.adjustStaminaLoss(60)
+			local_user.emote("laugh")
+			local_user.visible_message("[local_user] falls to the ground and cackles uncontrollably!")
+			addtimer(CALLBACK(src, PROC_REF(undo_jitter)), 5 SECONDS)
+
 	for(var/mob/living/carbon/human/human_in_range in view(local_user))
 		if(IS_HERETIC_OR_MONSTER(human_in_range) || HAS_TRAIT(human_in_range, TRAIT_BLIND))
 			continue
@@ -66,12 +84,14 @@
 		if(human_in_range.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 			continue
 
+		if(human_in_range == local_user)
+			continue
 
 		if(prob(60))
 			human_in_range.SetHallucinate(30 SECONDS)
 
 		if(prob(40))
-			human_in_range.AdjustJitter(10 SECONDS)
+			human_in_range.AdjustJitter(10 SECONDS, 10 SECONDS, 1 MINUTES)
 
 		if(human_in_range.getStaminaLoss() <= 85 && prob(30))
 			human_in_range.emote(pick("giggle", "laugh"))
@@ -79,3 +99,6 @@
 
 		if(prob(25))
 			human_in_range.AdjustDizzy(10 SECONDS)
+
+/obj/item/clothing/mask/madness_mask/proc/undo_jitter()
+	local_user.SetJitter(1 MINUTES)
