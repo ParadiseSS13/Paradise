@@ -49,19 +49,19 @@
 	. = ..()
 
 	if(istype(access_electronics))
-		. += "<span class='notice'>Airlock electronics have been inserted to configure access for all its airlocks and buttons.</span>"
+		. += SPAN_NOTICE("Airlock electronics have been inserted to configure access for all its airlocks and buttons.")
 	else
-		. += "<span class='notice'>Airlock electronics may be placed in it to configure access for all its airlocks and buttons.</span>"
+		. += SPAN_NOTICE("Airlock electronics may be placed in it to configure access for all its airlocks and buttons.")
 
 	switch(link_stage)
 		if(LINK_STAGE_NOT_STARTED)
-			. += "<span class='notice'>It requires its exterior buttons linked next.</span>"
+			. += SPAN_NOTICE("It requires its exterior buttons linked next.")
 		if(LINK_STAGE_EXTERIOR_BUTTONS)
-			. += "<span class='notice'>It requires its exterior airlocks linked next.</span>"
+			. += SPAN_NOTICE("It requires its exterior airlocks linked next.")
 		if(LINK_STAGE_EXTERIOR_AIRLOCKS)
-			. += "<span class='notice'>It requires its interior buttons linked next.</span>"
+			. += SPAN_NOTICE("It requires its interior buttons linked next.")
 		if(LINK_STAGE_INTERIOR_BUTTONS)
-			. += "<span class='notice'>It requires its interior airlocks linked next.</span>"
+			. += SPAN_NOTICE("It requires its interior airlocks linked next.")
 
 /obj/item/mounted/frame/airlock_controller/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(..())
@@ -73,7 +73,7 @@
 	. = ..()
 	var/list/missing_items = get_missing_items()
 	if(length(missing_items))
-		to_chat(user, "<span class='notice'>[src] cannot be placed yet. It is missing at least one [english_list(missing_items)].</span>")
+		to_chat(user, SPAN_NOTICE("[src] cannot be placed yet. It is missing at least one [english_list(missing_items)]."))
 		return FALSE
 
 	return TRUE
@@ -82,13 +82,13 @@
 	var/obj/item/airlock_electronics/airlock_electronics = used
 	if(istype(airlock_electronics))
 		if(istype(access_electronics))
-			to_chat(user, "<span class='notice'>There is already \a [access_electronics] in [src].</span>")
+			to_chat(user, SPAN_NOTICE("There is already \a [access_electronics] in [src]."))
 		else
 			if(user.unequip(used))
 				access_electronics = airlock_electronics
 				used.forceMove(src)
 			else
-				to_chat(user, "<span class='notice'>You can't put [airlock_electronics] in [src].</span>")
+				to_chat(user, SPAN_NOTICE("You can't put [airlock_electronics] in [src]."))
 
 	return ..()
 
@@ -120,17 +120,17 @@
 
 	switch(link_stage)
 		if(LINK_STAGE_COMPLETE)
-			to_chat(user, "<span class='notice'>[src] has already been linked to its components.</span>")
+			to_chat(user, SPAN_NOTICE("[src] has already been linked to its components."))
 			return ITEM_INTERACT_COMPLETE
 		if(LINK_STAGE_NOT_STARTED)
 			if(!istype(button))
-				to_chat(user, "<span class='notice'>[src] must have its exterior buttons linked first.</span>")
+				to_chat(user, SPAN_NOTICE("[src] must have its exterior buttons linked first."))
 				return TRUE
 			link_stage = LINK_STAGE_EXTERIOR_BUTTONS
 			return attempt_item_link(user, target)
 		if(LINK_STAGE_EXTERIOR_BUTTONS)
 			if(istype(button))
-				to_chat(user, "<span class='notice'>You link [button] to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You link [button] to [src]."))
 				exterior_buttons |= button
 				return ITEM_INTERACT_COMPLETE
 			if(istype(airlock))
@@ -138,7 +138,7 @@
 				return attempt_item_link(user, target)
 		if(LINK_STAGE_EXTERIOR_AIRLOCKS)
 			if(istype(airlock))
-				to_chat(user, "<span class='notice'>You link [airlock] to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You link [airlock] to [src]."))
 				exterior_airlocks |= airlock
 				return ITEM_INTERACT_COMPLETE
 			if(istype(button))
@@ -146,7 +146,7 @@
 				return attempt_item_link(user, target)
 		if(LINK_STAGE_INTERIOR_BUTTONS)
 			if(istype(button))
-				to_chat(user, "<span class='notice'>You link [button] to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You link [button] to [src]."))
 				interior_buttons |= airlock
 				return ITEM_INTERACT_COMPLETE
 			if(istype(airlock))
@@ -154,7 +154,7 @@
 				return attempt_item_link(user, target)
 		if(LINK_STAGE_INTERIOR_AIRLOCKS)
 			if(istype(airlock))
-				to_chat(user, "<span class='notice'>You link [airlock] to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You link [airlock] to [src]."))
 				interior_airlocks |= airlock
 				return ITEM_INTERACT_COMPLETE
 
@@ -197,7 +197,7 @@
 	. = ..()
 	switch(link_stage)
 		if(LINK_STAGE_INTERIOR_AIRLOCKS)
-			. += "<span class='notice'>It requires its vents linked next.</span>"
+			. += SPAN_NOTICE("It requires its vents linked next.")
 
 /obj/item/mounted/frame/airlock_controller/air_cycler/setup_controller(obj/machinery/airlock_controller/air_cycler/controller)
 	. = ..()
@@ -218,7 +218,7 @@
 				return attempt_item_link(user, target)
 		if(LINK_STAGE_VENTS)
 			if(istype(vent))
-				to_chat(user, "<span class='notice'>You link [vent] to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You link [vent] to [src]."))
 				vents |= vent
 				return TRUE
 
