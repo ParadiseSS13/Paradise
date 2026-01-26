@@ -4483,7 +4483,6 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/window/reinforced/polarized,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "AD" = (
@@ -6282,11 +6281,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
-"KV" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/window/reinforced/polarized/grilled,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/mining)
 "KW" = (
 /obj/structure/railing,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -13428,7 +13422,7 @@ Qn
 Ic
 yW
 yW
-KV
+EF
 EF
 VK
 NJ
