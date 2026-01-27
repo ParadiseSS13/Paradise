@@ -365,6 +365,9 @@
 
 	sac_target.AdjustWeakened(SACRIFICE_SLEEP_DURATION * 1.2)
 	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
+	if(HAS_TRAIT(sac_target, TRAIT_RESTRAINED) && sac_target.health > 60) // We gotta harm the restrained ones JUST a lil. For fun!
+		sac_target.adjustBruteLoss(20)
+		sac_target.adjustFireLoss(20)
 
 	addtimer(CALLBACK(src, PROC_REF(after_target_sleeps), sac_target, destination), SACRIFICE_SLEEP_DURATION * 0.5) // Teleport to the minigame
 
@@ -399,7 +402,7 @@
 	// and we fail to revive them (using a lower number than before),
 	// just disembowel them and stop the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(60, SPAN_DANGER("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
+	if(!sac_target.heal_and_revive(50, SPAN_DANGER("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
 		return
 	else // lets give them a little help
 		for(var/organ_name in list("l_leg", "r_leg", "l_foot", "r_foot"))

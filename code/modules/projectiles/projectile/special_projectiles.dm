@@ -426,7 +426,6 @@
 	var/mob/living/basic/mimic/copy/ranged/R = new /mob/living/basic/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
 		R.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
-		R.target = target
 
 /obj/effect/ebeam/curse_arm
 	name = "curse arm"

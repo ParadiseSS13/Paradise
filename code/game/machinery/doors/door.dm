@@ -287,7 +287,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && used.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
-	 if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM && !istype(used, /obj/item/card/id/heretic))
+	if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM && !istype(used, /obj/item/card/id/heretic))
 		try_to_activate_door(user)
 		return ITEM_INTERACT_COMPLETE
 
