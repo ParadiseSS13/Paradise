@@ -117,9 +117,10 @@
 #define BALD				(1<<14)
 #define ALL_RPARTS			(1<<15)
 #define SHAVED				(1<<16)
+#define HAS_BACK_SPINES		(1<<17)
 
 //Pre-baked combinations of the above body flags
-#define HAS_BODY_ACCESSORY 	(HAS_TAIL | HAS_WING)
+#define HAS_BODY_ACCESSORY 	(HAS_TAIL | HAS_WING | HAS_BACK_SPINES)
 #define HAS_MARKINGS		(HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS)
 
 //Species Diet Flags
@@ -153,6 +154,8 @@
 #define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS     	(1<<2)
 #define LAVA_BRIDGE		(1<<3)	//! This turf has already been reserved for a lavaland bridge placement.
+/// Blocks this turf from being rusted
+#define NO_RUST (1<<4)
 
 // turf flags, under the turf_flags variable
 /// If a turf is an unused reservation turf awaiting assignment

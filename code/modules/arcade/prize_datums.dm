@@ -352,6 +352,11 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "A plastic replica of an energy blade."
 	typepath = /obj/item/toy/sword
 	cost = 150
+/datum/prize_item/fake_heretic_amulet
+	name = "Fake religious icon"
+	desc = "A strange medallion, which makes its wearer look like they're part of some cult."
+	typepath = /obj/item/clothing/neck/fake_heretic_amulet
+	cost = 150
 
 /datum/prize_item/fakespace
 	name = "Space Carpet"
@@ -394,6 +399,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "A full-scale model chainsaw, based on that massacre in Space Texas."
 	typepath = /obj/item/toy/chainsaw
 	cost = 200
+
+/datum/prize_item/round_tuit
+	name = "Round Tuit"
+	desc = "Just think of all the things you could do, if you carried a round tuit with you."
+	typepath = /obj/item/toy/round_tuit/colorful
+	cost = 1000
 
 /datum/prize_item/bike
 	name = "Awesome Bike!"

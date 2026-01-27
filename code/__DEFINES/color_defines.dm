@@ -12,6 +12,7 @@
 #define COLOR_GRAY      	   "#808080"
 #define COLOR_BLACK            "#000000"
 #define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
+#define COLOR_FULL_TONER_BLACK "#101010"
 #define COLOR_NAVY_BLUE        "#000080"
 #define COLOR_LIGHT_GREEN      "#008000"
 #define COLOR_DARK_GRAY        "#404040"
@@ -35,6 +36,7 @@
 #define COLOR_WARM_YELLOW      "#b3863c"
 #define COLOR_RED_GRAY         "#aa5f61"
 #define COLOR_BROWN            "#b19664"
+#define COLOR_CARGO_BROWN      "#B18644"
 #define COLOR_GREEN_GRAY       "#8daf6a"
 #define COLOR_DARK_GREEN_GRAY  "#54654c"
 #define COLOR_BLUE_GRAY        "#6a97b0"
@@ -43,6 +45,7 @@
 #define COLOR_PURPLE_GRAY      "#a2819e"
 #define COLOR_BLUE_LIGHT       "#33ccff"
 #define COLOR_RED_LIGHT        "#ff3333"
+#define COLOR_VIVID_RED        "#FF3232"
 #define COLOR_BEIGE            "#ceb689"
 #define COLOR_BABY_BLUE        "#89cff0"
 #define COLOR_PALE_GREEN_GRAY  "#aed18b"
@@ -86,9 +89,15 @@
 #define COLOR_DIAMOND          "#d8d4ea"
 #define COLOR_ANCIENT_ROCK     "#575757"
 #define COLOR_COLD_ANCIENT_ROCK "#575764"
-#define COLOR_HARD_ROCK    "#363636"
-#define COLOR_FLOOR_HARD_ROCK    "#bdbdbd"
+#define COLOR_HARD_ROCK        "#363636"
+#define COLOR_FLOOR_HARD_ROCK  "#bdbdbd"
 #define COLOR_HEALING_GREEN    "#375637"
+#define COLOR_VOID_PURPLE      "#53277E"
+#define COLOR_VERY_PALE_LIME_GREEN "#DDFFD3"
+#define COLOR_HERETIC_GREEN COLOR_VERY_PALE_LIME_GREEN
+#define COLOR_RUSTED_GLASS     "#917c65"
+#define COLOR_SOFT_RED         "#FA8282"
+#define COLOR_CULT_RED         "#960000"
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"
@@ -157,3 +166,15 @@
 
 /// Color for dead external organs/zombies
 #define	COLORTONE_DEAD_EXT_ORGAN "#0A3200"
+
+GLOBAL_LIST_INIT(heretic_path_to_color, list(
+		PATH_START = COLOR_LIME,
+		PATH_RUST = COLOR_CARGO_BROWN,
+		PATH_FLESH = COLOR_SOFT_RED,
+		PATH_ASH = COLOR_VIVID_RED,
+		PATH_VOID = COLOR_CYAN,
+		PATH_BLADE = COLOR_SILVER,
+		PATH_COSMIC = COLOR_PURPLE,
+		PATH_LOCK = COLOR_YELLOW,
+		PATH_MOON = COLOR_BLUE_LIGHT,
+	))

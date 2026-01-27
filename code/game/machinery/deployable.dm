@@ -19,8 +19,11 @@
 	density = TRUE
 	max_integrity = 100
 	var/proj_pass_rate = 50 //How many projectiles will pass the cover. Lower means stronger cover
+	/// Used to exclude welders from fixing non metal barricades.
 	var/bar_material = METAL
+	/// How much material will be dropped on deconstruction?
 	var/drop_amount = 3
+	/// What material is the barricade made of?
 	var/stacktype = /obj/item/stack/sheet/metal
 	/// This variable is used to allow projectiles to always shoot through a barrier from a certain direction
 	var/directional_blockage = FALSE
@@ -32,9 +35,9 @@
 	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
+	. = ..()
 	if(!(flags & NODECONSTRUCT))
 		make_debris()
-	qdel(src)
 
 /obj/structure/barricade/proc/make_debris()
 	if(stacktype)
@@ -91,46 +94,114 @@
 	icon_state = "woodenbarricade"
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
+	drop_amount = 5
+	layer = DOOR_HELPER_LAYER
 
 /obj/structure/barricade/wooden/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(istype(I,/obj/item/stack/sheet/wood))
-		var/obj/item/stack/sheet/wood/W = I
-		if(W.get_amount() < 5)
-			to_chat(user, SPAN_WARNING("You need at least five wooden planks to make a wall!"))
-			return ITEM_INTERACT_COMPLETE
-		else
-			to_chat(user, SPAN_NOTICE("You start adding [I] to [src]..."))
-			if(do_after(user, 50, target = src))
-				if(!W.use(5))
-					return ITEM_INTERACT_COMPLETE
-				var/turf/T = get_turf(src)
-				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
-				qdel(src)
-			return ITEM_INTERACT_COMPLETE
-	return ..()
+	if(!istype(I,/obj/item/stack/sheet/wood))
+		return ..()
+
+	var/obj/item/stack/sheet/wood/W = I
+	if(W.get_amount() < 5)
+		to_chat(user, SPAN_WARNING("You need at least five wooden planks to make a wall!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You start adding [I] to [src]..."))
+	if(!do_after(user, 5 SECONDS, target = src))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!W.use(5))
+		return ITEM_INTERACT_COMPLETE
+
+	var/turf/T = get_turf(src)
+	T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
+// This is for when barricades are initialized on windows or doors to prevent stacking
+/obj/structure/barricade/wooden/Initialize(mapload)
+	. = ..()
+	for(var/atom/boarded_object as anything in get_turf(src))
+		if(istype(boarded_object, /obj/machinery/door))
+			var/obj/machinery/door/airlock = boarded_object
+			airlock.barricaded = TRUE
+		if(istype(boarded_object, /obj/structure/mineral_door))
+			var/obj/structure/mineral_door/door = boarded_object
+			door.barricaded = TRUE
+		if(istype(boarded_object, /obj/structure/window/full))
+			var/obj/structure/window/full/window = boarded_object
+			window.barricaded = TRUE
+
+/obj/structure/barricade/wooden/Destroy()
+	de_barricade()
+	..()
 
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message(SPAN_NOTICE("[user] starts ripping [src] down!"), SPAN_NOTICE("You struggle to pull [src] apart..."), SPAN_WARNING("You hear wood splintering..."))
+
+	user.visible_message(
+		SPAN_WARNING("[user] starts ripping [src] down!"),
+		SPAN_NOTICE("You struggle to pull [src] apart..."),
+		SPAN_WARNING("You hear wood splintering...")
+	)
 	if(!I.use_tool(src, user, 6 SECONDS, volume = I.tool_volume))
 		return
-	new /obj/item/stack/sheet/wood(get_turf(src), 5)
-	qdel(src)
+
+	deconstruct()
+
+/obj/structure/barricade/wooden/proc/de_barricade()
+	for(var/atom/boarded_object as anything in get_turf(src))
+		if(istype(boarded_object, /obj/machinery/door))
+			var/obj/machinery/door/airlock = boarded_object
+			airlock.barricaded = FALSE
+		if(istype(boarded_object, /obj/structure/mineral_door))
+			var/obj/structure/mineral_door/door = boarded_object
+			door.barricaded = FALSE
+		if(istype(boarded_object, /obj/structure/window/full))
+			var/obj/structure/window/full/window = boarded_object
+			window.barricaded = FALSE
+	make_debris()
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
 	desc = "This space is blocked off by a crude assortment of planks."
 	icon_state = "woodenbarricade-old"
-	drop_amount = 1
-	max_integrity = 50
+	drop_amount = 2
+	max_integrity = 75
 	proj_pass_rate = 65
+
+// Barricade repairs
+/obj/structure/barricade/wooden/crude/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(!istype(I, /obj/item/stack/sheet/wood))
+		return NONE
+
+	if(user.a_intent == INTENT_HARM)
+		return NONE
+
+	var/obj/item/stack/sheet/wood/S = I
+	if(obj_integrity >= max_integrity)
+		to_chat(user, SPAN_NOTICE("[src] is fully intact."))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You start replacing the broken boards of [src]..."))
+	if(!do_after_once(user, 2 SECONDS, target = src))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!S.use(1))
+		to_chat(user, SPAN_WARNING("You've run out of planks!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You repair [src]."))
+	user.visible_message(SPAN_NOTICE("[user] repairs [src]."))
+	obj_integrity = max_integrity
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/barricade/wooden/crude/snow
 	desc = "This space is blocked off by a crude assortment of planks. It seems to be covered in a layer of snow."
 	icon_state = "woodenbarricade-snow-old"
-	max_integrity = 75
 
 /obj/structure/barricade/sandbags
 	name = "sandbags"

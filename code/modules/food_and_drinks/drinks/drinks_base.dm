@@ -28,6 +28,7 @@
 
 /obj/item/reagent_containers/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
 	if(!iscarbon(over_object))
+		try_table_slide(over_object)
 		return
 	var/mob/living/carbon/chugger = over_object
 	if(!(container_type & DRAINABLE))
@@ -47,6 +48,23 @@
 					SPAN_NOTICE("You hear a gasp and a clink."))
 				break
 		chugging = FALSE
+
+/obj/item/reagent_containers/drinks/proc/try_table_slide(obj/structure/table/target)
+	var/mob/living/carbon/user = usr
+	if(!istype(user) || !istype(target) || !user.can_reach(src) || (!locate(/obj/structure/table) in loc) || (get_turf(src) == get_turf(target)))
+		return
+	playsound(src, 'sound/misc/glass_slide.ogg', 50, TRUE)
+	do_table_slide(target)
+
+/obj/item/reagent_containers/drinks/proc/do_table_slide(target)
+	var/direction = get_dir(src, target)
+	if(!locate(/obj/structure/table) in (get_step(src, direction)))
+		return
+	if(!step(src, direction))
+		return
+	if(get_turf(src) == get_turf(target))
+		return
+	addtimer(CALLBACK(src, PROC_REF(do_table_slide), target), 2 DECISECONDS)
 
 /obj/item/reagent_containers/drinks/normal_act(obj/target, mob/living/user) // The 2 if checks are forced true to preserve tapping behaviour.
 	if(chugging)

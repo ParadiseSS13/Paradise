@@ -1197,6 +1197,10 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ghost_bar)
+"ex" = (
+/obj/structure/sign/public/cryo,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/ghost_bar)
 "ey" = (
 /obj/structure/chair/stool,
 /obj/machinery/computer/security/telescreen{
@@ -1482,6 +1486,10 @@
 /obj/item/storage/box/characters,
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership)
+"fB" = (
+/obj/structure/sign/service/bar,
+/turf/simulated/wall/indestructible/riveted,
+/area/ghost_bar)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -1661,7 +1669,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "gj" = (
-/obj/structure/sign/vacuum/external,
+/obj/structure/sign/public/arrivals,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
 "gk" = (
@@ -2163,6 +2171,10 @@
 "hL" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom)
+"hM" = (
+/obj/structure/sign/public/restroom,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/ghost_bar)
 "hN" = (
 /obj/machinery/door_control/no_emag{
 	id = "syndicate_elite";
@@ -2459,6 +2471,10 @@
 	},
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
+"iH" = (
+/obj/structure/sign/service/kitchen,
+/turf/simulated/wall/indestructible/riveted,
+/area/tdome/tdomeobserve)
 "iI" = (
 /obj/structure/table,
 /obj/item/aicard,
@@ -3074,6 +3090,10 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"kG" = (
+/obj/structure/sign/public/tools,
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ghost_bar)
 "kH" = (
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
@@ -4509,6 +4529,10 @@
 /obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
+"pj" = (
+/obj/structure/sign/public/cryo,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/specops)
 "pk" = (
 /obj/item/storage/box/donkpockets,
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -4782,6 +4806,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
+"qq" = (
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/structure/sign/public/restroom{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/syndicate_mothership)
 "qr" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/evac)
@@ -7054,6 +7085,10 @@
 /obj/item/ashtray/bronze,
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
+"yn" = (
+/obj/structure/sign/medical,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/ghost_bar)
 "yp" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 28
@@ -7066,6 +7101,10 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"yr" = (
+/obj/structure/sign/medical,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/evac)
 "ys" = (
 /obj/machinery/access_button{
 	pixel_y = -22;
@@ -7177,6 +7216,10 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"yT" = (
+/obj/structure/sign/public/arcade,
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ghost_bar)
 "yW" = (
 /obj/machinery/economy/vending/toyliberationstation,
 /obj/effect/turf_decal/tiles/department/security/side,
@@ -7357,6 +7400,10 @@
 "zH" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
+/area/ghost_bar)
+"zJ" = (
+/obj/structure/sign/service/kitchen,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "zK" = (
 /obj/machinery/door_control/no_emag/no_cyborg{
@@ -7952,6 +7999,10 @@
 	},
 /turf/simulated/floor/backrooms_carpet,
 /area/backrooms)
+"BW" = (
+/obj/structure/sign/medical,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/control)
 "BX" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
@@ -8886,6 +8937,9 @@
 	dir = 9
 	},
 /obj/structure/filingcabinet/chestdrawer,
+/obj/structure/sign/security/armory{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
 "FA" = (
@@ -9170,6 +9224,10 @@
 /obj/structure/fence/cut/large,
 /turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
+"GA" = (
+/obj/structure/sign/service/kitchen,
+/turf/simulated/wall/indestructible/riveted,
+/area/ghost_bar)
 "GB" = (
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
@@ -9331,11 +9389,7 @@
 /area/wizard_station)
 "Hm" = (
 /obj/effect/spawner/window,
-/obj/structure/sign/directions/engineering{
-	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: BLAST DOORS"
-	},
+/obj/structure/sign/public/doors,
 /turf/simulated/floor/plating,
 /area/centcom/control)
 "Hn" = (
@@ -9445,7 +9499,7 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "HK" = (
-/obj/structure/sign/drop,
+/obj/structure/sign/public/drop,
 /turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/syndicate_mothership)
 "HN" = (
@@ -9716,6 +9770,10 @@
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"IT" = (
+/obj/structure/sign/engineering/materials,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/specops)
 "IW" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -9743,13 +9801,8 @@
 /turf/simulated/wall/indestructible/syndicate,
 /area/ghost_bar)
 "Jf" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/sign/directions/engineering{
-	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: EXTERNAL AIRLOCK"
-	},
-/turf/simulated/floor/plating,
+/obj/structure/sign/public/doors,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "Jg" = (
 /obj/structure/chair/comfy/red{
@@ -9924,6 +9977,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
+"JO" = (
+/obj/structure/sign/cargo/dock,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/suppy)
 "JP" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plating{
@@ -9992,6 +10049,10 @@
 "JY" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
+/area/centcom/suppy)
+"JZ" = (
+/obj/structure/sign/cargo,
+/turf/simulated/wall/indestructible/riveted,
 /area/centcom/suppy)
 "Ka" = (
 /obj/structure/chair/comfy/shuttle{
@@ -10165,6 +10226,10 @@
 /obj/structure/table,
 /obj/item/megaphone,
 /turf/simulated/floor/wood,
+/area/centcom/evac)
+"KH" = (
+/obj/structure/sign/service/bar,
+/turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
 "KI" = (
 /obj/structure/table,
@@ -10496,6 +10561,10 @@
 "LV" = (
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
+"LW" = (
+/obj/structure/sign/command,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/specops)
 "LX" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -10511,6 +10580,10 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
+/area/ghost_bar)
+"Md" = (
+/obj/structure/sign/public/arcade,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
 "Me" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -11001,12 +11074,6 @@
 /obj/machinery/power/port_gen/pacman/super/upgraded,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"NW" = (
-/obj/structure/sign/securearea{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/specops)
 "NX" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ghost_bar)
@@ -11316,6 +11383,10 @@
 /obj/effect/turf_decal/delivery/white/partial,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Pc" = (
+/obj/structure/sign/public/arcade,
+/turf/simulated/wall/indestructible/opsglass,
+/area/syndicate_mothership)
 "Pd" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
@@ -11480,6 +11551,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
+"PK" = (
+/obj/structure/sign/service/bar,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/ghost_bar)
 "PM" = (
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
@@ -11631,6 +11706,10 @@
 	id_tag = "SpecopsEngineering"
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"Qi" = (
+/obj/structure/sign/security/armory,
+/turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
 "Qj" = (
 /obj/structure/chair/sofa{
@@ -12028,6 +12107,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"RH" = (
+/obj/structure/sign/public/restroom{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood,
+/area/trader_station/sol)
 "RI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -12270,7 +12355,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "SB" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "SD" = (
@@ -12511,6 +12596,10 @@
 /obj/effect/turf_decal/tiles/department/medical/side,
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
+"TH" = (
+/obj/structure/sign/command/head,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/specops)
 "TI" = (
 /obj/machinery/icemachine,
 /obj/effect/turf_decal/tiles/dark/checker,
@@ -12875,6 +12964,10 @@
 	icon_state = "asteroid"
 	},
 /area/holodeck/source_picnicarea)
+"Vd" = (
+/obj/structure/sign/service/library,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/ghost_bar)
 "Ve" = (
 /obj/structure/mirror{
 	pixel_y = 30
@@ -13003,6 +13096,10 @@
 /obj/structure/sign/poster/contraband/revolver/directional/south,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
+"VB" = (
+/obj/structure/sign/service/bar,
+/turf/simulated/wall/indestructible/riveted,
+/area/tdome/tdomeobserve)
 "VC" = (
 /obj/item/rpd/bluespace,
 /obj/item/rpd/bluespace,
@@ -13159,7 +13256,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Wm" = (
-/obj/structure/sign/drop,
+/obj/structure/sign/public/drop,
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
 "Wp" = (
@@ -13358,11 +13455,7 @@
 /area/holodeck/source_knightarena)
 "WQ" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/directions/engineering{
-	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: BLAST DOORS"
-	},
+/obj/structure/sign/public/doors,
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "WR" = (
@@ -13375,11 +13468,7 @@
 /area/ghost_bar)
 "WS" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/directions/engineering{
-	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: BLAST DOORS"
-	},
+/obj/structure/sign/public/doors,
 /turf/simulated/floor/plating,
 /area/centcom/control)
 "WT" = (
@@ -13442,11 +13531,7 @@
 /area/centcom/control)
 "Xd" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/sign/directions/engineering{
-	desc = "A sign that shows there are doors here. There are doors everywhere!";
-	icon_state = "doors";
-	name = "WARNING: BLAST DOORS"
-	},
+/obj/structure/sign/public/doors,
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "Xe" = (
@@ -13567,6 +13652,10 @@
 /obj/item/pen/red,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Xz" = (
+/obj/structure/sign/command/ai,
+/turf/simulated/wall/indestructible/riveted,
+/area/centcom/control)
 "XC" = (
 /obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 1
@@ -13640,9 +13729,8 @@
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "XW" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/sign/vacuum,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "XX" = (
 /obj/structure/table/reinforced,
@@ -13665,6 +13753,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Ya" = (
+/obj/structure/sign/service/custodian,
+/turf/simulated/wall/indestructible/syndicate/no_diagonal,
+/area/ghost_bar)
 "Yb" = (
 /obj/structure/table,
 /obj/item/gun/projectile/shotgun/toy/crossbow,
@@ -13930,10 +14022,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"YX" = (
+/obj/structure/sign/public/restroom,
+/turf/simulated/wall/indestructible/riveted,
+/area/ghost_bar)
 "YZ" = (
 /obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
+"Zb" = (
+/obj/effect/spawner/window,
+/obj/structure/sign/lifestar,
+/turf/simulated/floor/plating,
+/area/centcom/control)
 "Zc" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
@@ -33376,7 +33477,7 @@ Ra
 Ra
 Ra
 Nz
-Zr
+TH
 Ra
 qd
 FP
@@ -33882,7 +33983,7 @@ Qh
 Ra
 Ra
 Ra
-Zr
+LW
 Ws
 MG
 Ev
@@ -35163,7 +35264,7 @@ Ra
 Ra
 Ra
 Ra
-Zr
+IT
 Ra
 Ra
 Ra
@@ -35173,7 +35274,7 @@ zK
 Ra
 Ra
 Ra
-NW
+Ra
 Kq
 Zr
 GS
@@ -35430,7 +35531,7 @@ Zr
 PU
 PU
 Qs
-Zr
+Qi
 VI
 Zr
 Zr
@@ -35933,7 +36034,7 @@ oN
 oN
 oN
 MN
-Zr
+pj
 Jt
 Ra
 Ra
@@ -36447,7 +36548,7 @@ Hv
 Hv
 Hv
 MN
-Zr
+pj
 Jx
 Ra
 AV
@@ -36979,11 +37080,11 @@ ZT
 Kw
 iJ
 iJ
-ZT
+iH
 Wr
 hj
 Iu
-ZT
+iH
 Ta
 OW
 OW
@@ -37461,7 +37562,7 @@ Es
 sk
 Df
 DE
-Jn
+JO
 Fd
 Gh
 xZ
@@ -37472,7 +37573,7 @@ JY
 JY
 JY
 JY
-Jn
+JZ
 qS
 ZC
 ZC
@@ -39531,7 +39632,7 @@ YA
 YA
 Or
 TY
-YA
+Xz
 WI
 Um
 Um
@@ -41091,11 +41192,11 @@ ZT
 Jq
 Tf
 Tf
-ZT
+VB
 Ig
 Ig
 Ig
-ZT
+VB
 Ta
 OW
 OW
@@ -41593,7 +41694,7 @@ ZC
 WX
 ZC
 YD
-YA
+BW
 nk
 qb
 op
@@ -43135,7 +43236,7 @@ ZC
 WX
 ZC
 YH
-Rg
+Zb
 Fj
 zV
 GB
@@ -43392,7 +43493,7 @@ UW
 Xd
 UW
 Nl
-Hg
+yr
 Hg
 Hg
 ah
@@ -46987,7 +47088,7 @@ Qe
 QE
 Hg
 Hg
-Hg
+KH
 Xx
 YO
 cI
@@ -51066,7 +51167,7 @@ aN
 vG
 tl
 tF
-tF
+RH
 vG
 wB
 wd
@@ -62434,7 +62535,7 @@ UQ
 Ko
 rU
 LF
-Me
+YX
 Pu
 qe
 Me
@@ -63457,7 +63558,7 @@ tL
 fq
 Me
 Nr
-Nr
+kG
 LA
 NH
 Nr
@@ -64651,7 +64752,7 @@ BY
 BY
 Sd
 BZ
-BZ
+Pc
 bm
 Sd
 mM
@@ -64759,7 +64860,7 @@ Jy
 ol
 ol
 Jy
-Nr
+yT
 RK
 Tj
 Tj
@@ -65169,7 +65270,7 @@ rw
 rw
 Sd
 mO
-BY
+qq
 BY
 nW
 pz
@@ -66549,8 +66650,8 @@ Jy
 Me
 mz
 JI
-Me
-Me
+GA
+fB
 Me
 Me
 Me
@@ -68093,7 +68194,7 @@ QS
 Du
 Gl
 Gl
-Td
+hM
 Yn
 yd
 vW
@@ -68615,7 +68716,7 @@ zc
 rU
 rU
 rU
-Td
+yn
 kH
 Ay
 VW
@@ -69361,7 +69462,7 @@ Td
 Td
 Td
 Td
-Td
+Md
 EB
 Td
 Td
@@ -70388,7 +70489,7 @@ ps
 Td
 Td
 Td
-Td
+Vd
 XK
 XK
 Td
@@ -70400,7 +70501,7 @@ Td
 XK
 Td
 Td
-Td
+PK
 OS
 OS
 Td
@@ -71941,7 +72042,7 @@ Td
 Td
 Td
 Td
-Td
+zJ
 OS
 OS
 OS
@@ -73746,7 +73847,7 @@ eV
 es
 wP
 Td
-Td
+Ya
 zc
 Td
 Td
@@ -73756,7 +73857,7 @@ yy
 qH
 RQ
 rU
-Td
+ex
 EM
 EM
 EM

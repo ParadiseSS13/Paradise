@@ -687,9 +687,7 @@
 /area/template_noop)
 "oV" = (
 /obj/structure/table/wood,
-/obj/item/book/random{
-	pixel_y = 2
-	},
+/obj/effect/spawner/random/library_book,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "pb" = (

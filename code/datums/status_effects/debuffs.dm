@@ -524,6 +524,9 @@
 /datum/status_effect/transient/cult_slurring
 	id = "cult_slurring"
 
+/datum/status_effect/transient/heretic_slurring
+	id = "heretic_slurring"
+
 /datum/status_effect/incapacitating
 	id = "incapacitating"
 	tick_interval = 0
@@ -904,6 +907,74 @@
 
 /datum/status_effect/transient/drugged/on_remove()
 	owner.update_druggy_effects()
+
+/datum/status_effect/transient/disgust
+	id = "disgust"
+	tick_interval = 2 SECONDS
+	///How disgusted we were last tick.
+	var/old_disgust = 0
+
+/datum/status_effect/transient/disgust/tick()
+	. = ..()
+	if(!.)
+		return
+	old_disgust = strength
+	if(strength)
+		var/pukeprob = 2.5 + (0.025 * strength / 10)
+		if(strength >= DISGUST_LEVEL_GROSS)
+			if(prob(5))
+				owner.AdjustStuttering(2 SECONDS)
+				owner.AdjustConfused(2 SECONDS)
+			if(prob(5) && !owner.stat)
+				to_chat(owner, SPAN_WARNING("You feel kind of iffy..."))
+			owner.AdjustJitter(-6 SECONDS)
+		if(strength >= DISGUST_LEVEL_VERYGROSS)
+			if(prob(pukeprob)) //iT hAndLeS mOrE ThaN PukInG
+				owner.AdjustConfused(2.5 SECONDS)
+				owner.AdjustStuttering(2 SECONDS)
+				owner.adjust_disgust(- 50 SECONDS)
+				if(iscarbon(owner))
+					var/mob/living/carbon/human/throwing_up = owner
+					throwing_up.vomit()
+				owner.KnockDown(8 SECONDS)
+
+			owner.SetDizzy(10 SECONDS)
+		if(strength >= DISGUST_LEVEL_DISGUSTED)
+			if(prob(13))
+				owner.EyeBlurry(6 SECONDS)
+
+	// I would consider breaking this up into steps matching the disgust levels
+	// But disgust is used so rarely it wouldn't save a significant amount of time, and it makes the code just way worse
+	// We're in the same state as the last time we processed, so don't bother
+
+	switch(strength)
+		if(0 to DISGUST_LEVEL_GROSS)
+			owner.clear_alert("disgust")
+		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
+			owner.throw_alert("disgust", /atom/movable/screen/alert/gross)
+		if(DISGUST_LEVEL_VERYGROSS to DISGUST_LEVEL_DISGUSTED)
+			owner.throw_alert("disgust", /atom/movable/screen/alert/verygross)
+		if(DISGUST_LEVEL_DISGUSTED to INFINITY)
+			owner.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
+
+/datum/status_effect/transient/disgust/calc_decay()
+	return -1 SECONDS //Yes, this sucks. Unfortunently how transient works, otherwise I need to tweak the prob in strange ways.
+
+/atom/movable/screen/alert/gross
+	name = "Grossed out."
+	desc = "That was kind of gross..."
+	icon_state = "gross"
+
+/atom/movable/screen/alert/verygross
+	name = "Very grossed out."
+	desc = "You're not feeling very well..."
+	icon_state = "gross2"
+
+/atom/movable/screen/alert/disgusted
+	name = "DISGUSTED"
+	desc = "ABSOLUTELY DISGUSTIN'"
+	icon_state = "gross3"
+
 
 #define FAKE_COLD 1
 #define FAKE_FOOD_POISONING 2
@@ -1464,7 +1535,7 @@
 	//We don't have disgust, so...
 	to_chat(owner, SPAN_USERDANGER("The unnatural rust makes you feel sick!"))
 	if(ishuman(owner))
-		owner.adjustBrainLoss(2.5)
+		owner.adjust_disgust(5 SECONDS)
 		owner.reagents?.remove_all(0.75)
 	else
 		owner.adjustBruteLoss(3) //Weaker than borgs but still constant.

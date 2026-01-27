@@ -106,6 +106,7 @@
 	if(owner.stat == DEAD)
 		ADD_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_revival))
+	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, owner)
 
 
 // Removes the given organ from its owner.
@@ -114,7 +115,8 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
-	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN)
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
 

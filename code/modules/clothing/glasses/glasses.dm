@@ -1,5 +1,8 @@
 /obj/item/clothing/glasses/Initialize(mapload)
 	. = ..()
+	var/skulk_adjustment = string_assoc_list(alist(SOUTH = list(-1, 0), NORTH = list(-1, 0), EAST = list(0, -2), WEST = list(0, 2)))
+	AddElement(/datum/element/clothing_adjustment/skulk_glasses, skulk_adjustment)
+
 	if(prescription_upgradable && prescription)
 		upgrade_prescription()
 
