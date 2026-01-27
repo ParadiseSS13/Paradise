@@ -5034,6 +5034,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
+"arT" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/plushie/lizardplushie,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "asa" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -11203,6 +11208,30 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
+"aQZ" = (
+/obj/structure/shelf/engineering,
+/obj/item/grenade/nuclear_starter{
+	pixel_x = 3
+	},
+/obj/item/grenade/nuclear_starter{
+	pixel_x = 3
+	},
+/obj/item/grenade/nuclear_starter{
+	pixel_y = 4
+	},
+/obj/item/grenade/nuclear_starter{
+	pixel_y = 4
+	},
+/obj/item/grenade/nuclear_starter{
+	pixel_y = 7;
+	pixel_x = -3
+	},
+/obj/item/grenade/nuclear_starter{
+	pixel_y = 7;
+	pixel_x = -3
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "aRe" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15788,6 +15817,15 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/camera/autoname,
+/obj/item/stack/sheet/metal{
+	amount = 50;
+	pixel_x = -5;
+	pixel_y = -3
+	},
+/obj/item/stack/sheet/glass{
+	pixel_x = 10;
+	pixel_y = 6
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "bxw" = (
@@ -16458,6 +16496,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
+"bUa" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/head/welding,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "bUb" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
@@ -22425,7 +22468,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "fDg" = (
-/obj/structure/table/reinforced,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "fDl" = (
@@ -26555,6 +26598,11 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"idt" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "idF" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 8
@@ -29166,6 +29214,8 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/glasses/meson/engine,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "jTU" = (
@@ -29361,6 +29411,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "kcu" = (
@@ -31129,6 +31180,21 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
+"luR" = (
+/obj/structure/table/reinforced,
+/obj/item/geiger_counter{
+	pixel_y = -4
+	},
+/obj/item/geiger_counter{
+	pixel_x = 10;
+	pixel_y = 3
+	},
+/obj/item/geiger_counter{
+	pixel_x = -7;
+	pixel_y = 8
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "luU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -36899,6 +36965,22 @@
 "pjb" = (
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/omega/security)
+"pjs" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/radiation{
+	pixel_x = 8;
+	pixel_y = -6
+	},
+/obj/item/geiger_counter{
+	pixel_x = -6;
+	pixel_y = -3
+	},
+/obj/item/clothing/head/radiation{
+	pixel_x = 2;
+	pixel_y = 10
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "pjz" = (
 /obj/structure/sign/nanotrasen,
 /turf/simulated/wall/r_wall,
@@ -37406,10 +37488,6 @@
 "pws" = (
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint2)
-"pxj" = (
-/obj/effect/spawner/random/barrier/obstruction,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft)
 "pxB" = (
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
@@ -44376,6 +44454,15 @@
 /obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
+"tCC" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/cable_coil/random{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/weldingtool,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "tCN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -46759,6 +46846,11 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
+"vkJ" = (
+/obj/structure/closet/emcloset,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "vkY" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/exit)
@@ -47919,6 +48011,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
+"vTh" = (
+/obj/structure/table/reinforced,
+/obj/item/rpd,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "vTG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73053,10 +73150,10 @@ hPz
 mtG
 hPz
 wLe
-fDg
+luR
 jTF
-fDg
-qur
+vTh
+aQZ
 qur
 qur
 qur
@@ -73310,7 +73407,7 @@ hPz
 hPz
 hPz
 wLe
-fDg
+arT
 qur
 qur
 qur
@@ -74595,7 +74692,7 @@ kzx
 yeH
 bSQ
 pGl
-fDg
+pjs
 qur
 qov
 pDZ
@@ -76395,7 +76492,7 @@ ekD
 dTu
 hFp
 aqz
-fDg
+bUa
 kbY
 lTX
 sGB
@@ -76913,7 +77010,7 @@ poq
 cwN
 gBG
 bxv
-fDg
+tCC
 fDg
 qur
 uov
@@ -77424,7 +77521,7 @@ aqz
 fbB
 aqz
 nvj
-nvj
+jbq
 nwh
 mMD
 igX
@@ -77681,7 +77778,7 @@ wOh
 mpx
 aqz
 wyD
-oVO
+idt
 nwh
 ddQ
 jlF
@@ -78194,7 +78291,7 @@ egg
 nHH
 ddh
 aqz
-oVO
+vkJ
 oVO
 nwh
 dex
@@ -78451,7 +78548,7 @@ wkb
 hAo
 gPC
 aqz
-pxj
+nvj
 nvj
 nwh
 kgQ
