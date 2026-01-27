@@ -1,5 +1,7 @@
 /// Stores a reference to every [objective][/datum/objective] which currently exists.
 GLOBAL_LIST_EMPTY(all_objectives)
+/// Stores a reference to every heretic sacrifice target.
+GLOBAL_LIST_EMPTY(all_sacrifice_targets)
 // Used in admin procs to give them a pretty list to look at, and to also have sane reusable code.
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
 GLOBAL_LIST_EMPTY(admin_objective_list)

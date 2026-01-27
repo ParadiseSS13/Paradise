@@ -64,6 +64,8 @@
 		return FALSE
 	if(!chassis)
 		return FALSE
+	if(!is_ranged() && !chassis.Adjacent(target))
+		return FALSE
 	if(!equip_ready)
 		return FALSE
 	if(energy_drain && !chassis.has_charge(energy_drain))

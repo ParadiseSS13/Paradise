@@ -94,7 +94,8 @@
 		/obj/item/stack/nanopaste,
 		/obj/item/robotanalyzer,
 		/obj/item/rpd/bluespace,
-		/obj/item/hammer
+		/obj/item/hammer,
+		/obj/item/melee/sickly_blade/lock
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -754,7 +755,7 @@
 
 /obj/item/storage/belt/sheath
 	name = "sword sheath"
-	desc = "Can hold swords. If you see this, it is a bug. Please report this on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "sheath"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
@@ -878,7 +879,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
-		/obj/item/handheld_defibrillator
+		/obj/item/handheld_defibrillator,
+		/obj/item/melee/sickly_blade/lock
 		)
 
 /obj/item/storage/belt/bluespace/owlman

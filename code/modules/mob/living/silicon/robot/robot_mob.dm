@@ -1669,7 +1669,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		mind.remove_antag_datum(/datum/antagonist/mindslave/emagged_robot)
 		mind.remove_antag_datum(/datum/antagonist/mindslave/mindflayer_mindslave_robot)
 
-/mob/living/silicon/robot/adjustOxyLoss(amount)
+/mob/living/silicon/robot/adjustOxyLoss(amount, updating_health = TRUE)
 	if(suiciding)
 		return ..()
 	else

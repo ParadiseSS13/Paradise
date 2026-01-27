@@ -24,7 +24,7 @@
 /datum/buildmode_mode/proc/exit_mode(datum/click_intercept/buildmode/BM)
 	return
 
-/datum/buildmode_mode/proc/get_button_iconstate()
+/datum/buildmode_mode/proc/get_button_overlay_iconstate()
 	return "buildmode_[key]"
 
 /datum/buildmode_mode/proc/show_help(mob/user)

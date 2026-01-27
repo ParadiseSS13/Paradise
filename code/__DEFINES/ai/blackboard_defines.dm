@@ -221,6 +221,7 @@
 
 #define BB_TRAVEL_DESTINATION "BB_TRAVEL_DESTINATION"
 
+#define BB_SHAPESHIFT_ACTION "BB_SHAPESHIFT_ACTION"
 // Giant Spiders
 /// Our webbing target
 #define BB_SPIDER_WEB_TARGET "BB_spider_web_target"

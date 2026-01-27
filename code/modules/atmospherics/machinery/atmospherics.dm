@@ -467,4 +467,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/get_machinery_pipelines()
 	return list()
 
+/obj/machinery/atmospherics/rust_heretic_act()
+	return FALSE
+
 #undef VENT_SOUND_DELAY

@@ -75,6 +75,10 @@
 				log_admin("[key_name(usr)] has spawned event characters.")
 				if(!makeEventCharacters())
 					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
+			if("10")
+				log_admin("[key_name(usr)] has spawned heretics.")
+				if(!makeHeretics())
+					to_chat(usr, SPAN_WARNING("Unfortunately there weren't enough candidates available."))
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -219,6 +223,7 @@
 							jobs_to_ban += temp.title
 					if("nonhumandept")
 						jobs_to_ban += "pAI"
+						jobs_to_ban += ROLE_GOLEM
 						for(var/jobPos in GLOB.nonhuman_positions)
 							if(!jobPos)	continue
 							var/datum/job/temp = SSjobs.GetJob(jobPos)
@@ -683,7 +688,7 @@
 				counter = 0
 		jobs += "</tr></table>"
 
-	//Non-Human (Green)
+	// Non-Human (Green)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(GLOB.nonhuman_positions)+1]'><a href='byond://?src=[UID()];jobban3=nonhumandept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Non-human Positions</a></th></tr><tr align='center'>"
@@ -703,17 +708,23 @@
 				jobs += "</tr><tr align='center'>"
 				counter = 0
 
-		//Drone
+		// Drone
 		if(jobban_isbanned(M, "Drone"))
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>Drone</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Drone</a></td>"
 
-		//pAI
+		// pAI
 		if(jobban_isbanned(M, "pAI"))
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>pAI</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>pAI</a></td>"
+
+		// golem
+		if(jobban_isbanned(M, ROLE_GOLEM))
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[ROLE_GOLEM];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>golem</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[ROLE_GOLEM];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>golem</a></td>"
 
 		jobs += "</tr></table>"
 
@@ -824,6 +835,7 @@
 					joblist += temp.title
 			if("nonhumandept")
 				joblist += "pAI"
+				joblist += ROLE_GOLEM
 				for(var/jobPos in GLOB.nonhuman_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
