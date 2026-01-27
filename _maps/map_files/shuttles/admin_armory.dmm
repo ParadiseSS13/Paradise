@@ -475,7 +475,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Bq" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
 "BZ" = (

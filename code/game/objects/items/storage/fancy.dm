@@ -212,7 +212,7 @@
 //	MARK: Cigarette Pack
 /obj/item/storage/fancy/cigarettes
 	name = "generic cigarette packet"
-	desc = "An abstract brand of cigarette that should not exist. Make a GitHub report if you see this."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "robust_packet"
 	inhand_icon_state = "robust_packet"

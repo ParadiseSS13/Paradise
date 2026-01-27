@@ -423,6 +423,6 @@
 	var/obj/item/gun/G = stored_gun
 	stored_gun = null
 	G.forceMove(T)
-	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
+	var/mob/living/basic/mimic/copy/ranged/R = new /mob/living/basic/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
-		R.target = target
+		R.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
