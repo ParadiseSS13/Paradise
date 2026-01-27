@@ -1027,7 +1027,7 @@
 		if(C.is_valid(src, victim))
 			return C
 
-/atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/tilt_crit/crit)
+/atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/tilt_crit/crit, duration = 80 SECONDS)
 
 	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
 	var/crit_rebate = 0
@@ -1056,7 +1056,7 @@
 			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
 			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
-	victim.AddElement(/datum/element/squish, 80 SECONDS)
+	victim.AddElement(/datum/element/squish, duration)
 
 #define NO_CRUSH_DIR "no_dir"
 

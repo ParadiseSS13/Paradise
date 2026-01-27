@@ -290,7 +290,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "gs" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -367,7 +367,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "ja" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = -2;
 	pixel_y = 35
 	},
@@ -1160,7 +1160,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Cb" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = 30
 	},
 /obj/effect/mapping_helpers/no_lava,
@@ -1489,7 +1489,7 @@
 	},
 /area/ruin/unpowered/althland_factory)
 "KN" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1785,7 +1785,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "Sq" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_y = -30
 	},
 /obj/effect/mapping_helpers/no_lava,
