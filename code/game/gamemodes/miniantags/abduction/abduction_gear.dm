@@ -79,7 +79,7 @@ CONTENTS:
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = ABDUCTOR_VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10 SECONDS
@@ -794,7 +794,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	max_uses = 40
 	uses = 20
 
-/obj/item/melee/flyswatter/abductor
+/obj/item/flyswatter/abductor
 	name = "alien flyswatter"
 	desc = "For killing alien insects, obviously."
 	icon = 'icons/obj/abductor.dmi'
@@ -827,7 +827,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
 		/obj/item/holosign_creator/janitor,
-		/obj/item/melee/flyswatter,
+		/obj/item/flyswatter,
 		/obj/item/storage/bag/trash,
 		/obj/item/push_broom,
 		/obj/item/door_remote/janikeyring,
@@ -839,7 +839,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	new /obj/item/soap/syndie/abductor(src)
 	new /obj/item/lightreplacer/bluespace/abductor(src)
 	new /obj/item/storage/bag/trash/bluespace(src)
-	new /obj/item/melee/flyswatter/abductor(src)
+	new /obj/item/flyswatter/abductor(src)
 	new /obj/item/reagent_containers/spray/cleaner/safety/abductor(src)
 	new /obj/item/holosign_creator/janitor(src)
 

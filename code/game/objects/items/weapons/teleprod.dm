@@ -1,11 +1,11 @@
-/obj/item/melee/baton/cattleprod/teleprod
+/obj/item/baton/cattleprod/teleprod
 	name = "teleprod"
 	desc = "A prod with a bluespace crystal on the end. The crystal doesn't look too fun to touch."
 	icon_state = "teleprod_nocell"
 	base_icon = "teleprod"
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
-/obj/item/melee/baton/cattleprod/teleprod/pre_attack(atom/target, mob/living/user, params)
+/obj/item/baton/cattleprod/teleprod/pre_attack(atom/target, mob/living/user, params)
 	. = ..()
 	if(.)
 		return

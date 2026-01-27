@@ -436,7 +436,7 @@ Difficulty: Medium
 	return 1
 
 /mob/living/simple_animal/hostile/megafauna/dragon/generate_random_loot()
-	var/list/choices = list(/obj/item/melee/ghost_sword,
+	var/list/choices = list(/obj/item/ghost_sword,
 							/obj/item/lava_staff,
 							/obj/item/dragons_blood,
 							list(/obj/item/spellbook/oneuse/sacredflame, /obj/item/gun/magic/wand/fireball))

@@ -692,7 +692,7 @@
 	name = "saw carapace"
 	allowed_tools = list(
 		TOOL_SAW = 100,
-		/obj/item/melee/energy/sword/cyborg/saw = 100,
+		/obj/item/energy/sword/cyborg/saw = 100,
 		/obj/item/hatchet = 90,
 		/obj/item/chainsaw = 90,
 		TOOL_WIRECUTTER = 35
@@ -743,7 +743,7 @@
 		TOOL_WIRECUTTER = 35,
 		/obj/item/scissors = 12,
 		/obj/item/claymore = 6,
-		/obj/item/melee/energy = 6,
+		/obj/item/energy = 6,
 		/obj/item/pen/edagger = 6,
 		/obj/item/chainsaw = 1,
 	)

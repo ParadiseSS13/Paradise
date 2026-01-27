@@ -1,14 +1,11 @@
-/obj/item/melee
-	icon = 'icons/obj/weapons/melee.dmi'
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	needs_permit = TRUE
-
 // MARK: CAPTAIN'S SABER
-/obj/item/melee/saber
+/obj/item/saber
 	name = "captain's saber"
 	desc = "An elegant weapon, for a more civilized age."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "saber"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
@@ -20,15 +17,16 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+	needs_permit = TRUE
 	// values for slapping
 	var/slap_sound = 'sound/effects/woodhit.ogg'
 	COOLDOWN_DECLARE(slap_cooldown)
 
-/obj/item/melee/saber/examine(mob/user)
+/obj/item/saber/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("The blade looks very well-suited for piercing armour.")
 
-/obj/item/melee/saber/examine_more(mob/user)
+/obj/item/saber/examine_more(mob/user)
 	. = ..()
 	. += "Swords are a traditional ceremonial weapon carried by commanding officers of many armies and navies, even long after firearms and laserarms rendered them obsolete. \
 	Despite having no roots in such traditions, Nanotrasen participates in them, as these trappings of old tradition help to promote the air of authority the company wishes for its captains to possess."
@@ -37,12 +35,12 @@
 	able to both inflict grievous wounds on aggressors that get too close, whilst also elegantly parrying their blows (assuming the wielder is skilled with the blade). \
 	The sharp edge is adept at hacking unarmored targets, whilst the rigid tip is also quite effective at at defeating even modern body armor with thrusting attacks, as modern armor is generally designed to defeat ballistic and laser weapons rather than swords..."
 
-/obj/item/melee/saber/Initialize(mapload)
+/obj/item/saber/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	AddElement(/datum/element/high_value_item)
 
-/obj/item/melee/saber/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/saber/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(user.a_intent != INTENT_HELP || !ishuman(target))
 		return ..()
 	if(!COOLDOWN_FINISHED(src, slap_cooldown))
@@ -57,7 +55,7 @@
 							SPAN_USERDANGER("You slap [H] with the flat of the blade!"))
 		slap(target, user)
 
-/obj/item/melee/saber/proc/slap(mob/living/carbon/human/target, mob/living/user)
+/obj/item/saber/proc/slap(mob/living/carbon/human/target, mob/living/user)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(loc, slap_sound, 50, TRUE, -1)
 	target.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
@@ -65,25 +63,29 @@
 	add_attack_logs(user, target, "Slapped by [src]", ATKLOG_ALL)
 	COOLDOWN_START(src, slap_cooldown, 4 SECONDS)
 
-/obj/item/melee/saber/suicide_act(mob/user)
+/obj/item/saber/suicide_act(mob/user)
 	user.visible_message(pick(SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"), \
 						SPAN_SUICIDE("[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!")))
 	return BRUTELOSS
 
 
 // MARK: BONE SWORD
-/obj/item/melee/bone_sword
+/obj/item/bone_sword
 	name = "bone sword"
 	desc = "A curved blade made of sharpened bone and bound with sinew."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "bone_sword"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 18
 	throwforce = 14
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	attack_verb = list("slashed", "sliced", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	needs_permit = TRUE
 
-/obj/item/melee/bone_sword/Initialize(mapload)
+/obj/item/bone_sword/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 4, _stamina_coefficient = 0.6, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
@@ -92,10 +94,13 @@
 #define SECSWORD_BURN 2
 
 // MARK: SECURIBLADE
-/obj/item/melee/secsword
+/obj/item/secsword
 	name = "securiblade"
 	desc = "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
+	icon = 'icons/obj/weapons/melee.dmi'
 	base_icon_state = "secsword0"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = CONDUCT
 	force = 15
 	throwforce = 5
@@ -104,6 +109,7 @@
 	attack_verb = list("stabbed", "slashed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
+	needs_permit = TRUE
 	new_attack_chain = TRUE
 	/// The icon the sword has when turned off
 	var/base_icon = "secsword"
@@ -124,17 +130,17 @@
 	/// Stun cooldown
 	COOLDOWN_DECLARE(stun_cooldown)
 
-/obj/item/melee/secsword/Initialize(mapload)
+/obj/item/secsword/Initialize(mapload)
 	. = ..()
 	cell = new(src)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	update_appearance(UPDATE_ICON_STATE)
 
-/obj/item/melee/secsword/Destroy()
+/obj/item/secsword/Destroy()
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/item/melee/secsword/examine(mob/user)
+/obj/item/secsword/examine(mob/user)
 	. = ..()
 	if(!cell)
 		. += SPAN_NOTICE("The powercell has been removed!")
@@ -143,7 +149,7 @@
 	if(round(cell.percent() < 100))
 		. += SPAN_NOTICE("Can be recharged with a recharger.")
 
-/obj/item/melee/secsword/examine_more(mob/user)
+/obj/item/secsword/examine_more(mob/user)
 	. = ..()
 	. += "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
 	. += ""
@@ -155,28 +161,28 @@
 	presents in combat. Deactivated, it’s a simple sword, but powered, it can either be utilized as a useful stun weapon, or as a dangerous, heated blade \
 	that can inflict grievous burn wounds on any suspects unfortunate enough to meet an officer using it. Rest assured, the Securiblade is a reliable tool in the hands of a skilled officer."
 
-/obj/item/melee/secsword/update_icon_state()
+/obj/item/secsword/update_icon_state()
 	if(!cell)
 		icon_state = "[base_icon]3"
 	else
 		icon_state = "[base_icon][state]"
 
-/obj/item/melee/secsword/emp_act(severity)
+/obj/item/secsword/emp_act(severity)
 	if(!cell)
 		return
 	cell.use(round(cell.charge / severity))
 	update_icon()
 
-/obj/item/melee/secsword/get_cell()
+/obj/item/secsword/get_cell()
 	return cell
 
-/obj/item/melee/secsword/proc/clear_cell()
+/obj/item/secsword/proc/clear_cell()
 	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = null
 	update_icon()
 
-/obj/item/melee/secsword/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/item/secsword/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(!istype(used, /obj/item/stock_parts/cell))
 		return ITEM_INTERACT_COMPLETE
@@ -195,7 +201,7 @@
 	update_icon()
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/melee/secsword/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/secsword/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
 		to_chat(user, SPAN_WARNING("There's no cell installed!"))
 		return
@@ -207,7 +213,7 @@
 	cell.update_icon()
 	clear_cell()
 
-/obj/item/melee/secsword/activate_self(mob/user)
+/obj/item/secsword/activate_self(mob/user)
 	if(..())
 		return FINISH_ATTACK
 	if(!cell)
@@ -237,7 +243,7 @@
 	playsound(src, "sparks", 60, TRUE, -1)
 	return FINISH_ATTACK
 
-/obj/item/melee/secsword/attack(mob/living/M, mob/living/user, params)
+/obj/item/secsword/attack(mob/living/M, mob/living/user, params)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(state == SECSWORD_STUN && sword_stun(user, user, skip_cooldown = TRUE))
 			user.visible_message(SPAN_DANGER("[user] accidentally hits [user.p_themselves()] with [src]!"),
@@ -290,7 +296,7 @@
 	deduct_charge(burn_hitcost)
 	return ..()
 
-/obj/item/melee/secsword/proc/slap(mob/living/carbon/human/target, mob/living/user)
+/obj/item/secsword/proc/slap(mob/living/carbon/human/target, mob/living/user)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(loc, 'sound/effects/woodhit.ogg', 50, TRUE, -1)
 	target.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
@@ -298,7 +304,7 @@
 	add_attack_logs(user, target, "Slapped by [src]", ATKLOG_ALL)
 	COOLDOWN_START(src, stun_cooldown, cooldown) // Shares cooldown with stun to avoid comboing slap into stun
 
-/obj/item/melee/secsword/proc/sword_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+/obj/item/secsword/proc/sword_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(!COOLDOWN_FINISHED(src, stun_cooldown) && !skip_cooldown)
 		return FALSE
 
@@ -327,10 +333,10 @@
 	return TRUE
 
 // Proc called to remove trait that prevents repeated stamina damage. Called on a 2 Second timer when hit in stun mode
-/obj/item/melee/secsword/proc/stun_delay(mob/living/target, user_UID)
+/obj/item/secsword/proc/stun_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
-/obj/item/melee/secsword/proc/deduct_charge(amount)
+/obj/item/secsword/proc/deduct_charge(amount)
 	if(!cell)
 		return
 	if(cell.rigged)
@@ -347,10 +353,13 @@
 #undef SECSWORD_BURN
 
 // MARK: SNAKESFANG
-/obj/item/melee/snakesfang
+/obj/item/snakesfang
 	name = "snakesfang"
 	desc = "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "snakesfang"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = CONDUCT
 	force = 25
 	throwforce = 10
@@ -360,12 +369,13 @@
 	attack_verb = list("slashed", "sliced", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
+	needs_permit = TRUE
 
-/obj/item/melee/snakesfang/Initialize(mapload)
+/obj/item/snakesfang/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
-/obj/item/melee/snakesfang/examine_more(mob/user)
+/obj/item/snakesfang/examine_more(mob/user)
 	. = ..()
 	. += "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
 	. += ""
@@ -378,11 +388,14 @@
 	and it’s said that blood runs down the blade in just the right way, to drip artfully from the twin ‘fangs’ at its apex."
 
 // MARK: BREACH CLEAVER
-/obj/item/melee/breach_cleaver
+/obj/item/breach_cleaver
 	name = "breach cleaver"
 	desc = "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
-	base_icon_state = "breach_cleaver"
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "breach_cleaver0"
+	base_icon_state = "breach_cleaver"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = CONDUCT
 	force = 5
 	throwforce = 5
@@ -393,22 +406,23 @@
 	attack_verb = list("slashed", "cleaved", "chopped")
 	hitsound = 'sound/weapons/swordhitheavy.ogg'
 	materials = list(MAT_METAL = 2000)
+	needs_permit = TRUE
 	/// How much damage the sword does when wielded
 	var/force_wield = 40
 
-/obj/item/melee/breach_cleaver/Initialize(mapload)
+/obj/item/breach_cleaver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_wielded = force_wield, force_unwielded = force, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
-/obj/item/melee/breach_cleaver/examine(mob/user)
+/obj/item/breach_cleaver/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
 		. += "<span class='notice'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
 			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
 			and harm intent deals heavy damage.</span>"
 
-/obj/item/melee/breach_cleaver/examine_more(mob/user)
+/obj/item/breach_cleaver/examine_more(mob/user)
 	. = ..()
 	. += "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
 	. += ""
@@ -420,19 +434,19 @@
 	places and as a slab of armour for the wielder. The leather of the Kar'oche beast, a predator native to Moghes, binds the hilt, \
 	allowing it to be gripped securely by its warrior. The wide blade is often etched with scenes depicting military victories or great hunts."
 
-/obj/item/melee/breach_cleaver/update_icon_state()
+/obj/item/breach_cleaver/update_icon_state()
 	icon_state = "[base_icon_state]0"
 
-/obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
+/obj/item/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
 	to_chat(user, SPAN_NOTICE("You heave [src] up in both hands."))
 	user.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/living/carbon/human/user)
+/obj/item/breach_cleaver/proc/unwield(obj/item/source, mob/living/carbon/human/user)
 	user.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/breach_cleaver/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
+/obj/item/breach_cleaver/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
 		return ..()
 	if(!ismachinery(O) && !isstructure(O)) // This sword hates doors
@@ -449,7 +463,7 @@
 	damage += H.physiology.melee_bonus
 	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
 
-/obj/item/melee/breach_cleaver/attack__legacy__attackchain(mob/target, mob/living/user)
+/obj/item/breach_cleaver/attack__legacy__attackchain(mob/target, mob/living/user)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
 		return ..()
 

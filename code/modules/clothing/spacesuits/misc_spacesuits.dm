@@ -25,7 +25,7 @@
 	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
 	icon_state = "caparmor"
 	inhand_icon_state = "capspacesuit"
-	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/baton,/obj/item/restraints/handcuffs)
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -52,7 +52,7 @@
 	desc = "A heavily armored, advanced space suit that protects against most forms of damage."
 	icon_state = "deathsquad"
 	inhand_icon_state = "swat_suit"
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat,/obj/item/flashlight)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat,/obj/item/flashlight)
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	flags_inv = HIDESHOES | HIDEJUMPSUIT | HIDETAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -159,7 +159,7 @@
 	icon_state = "pirate"
 	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	slowdown = 0
 	armor = list(MELEE = 20, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 75, ACID = 150)
 	strip_delay = 40

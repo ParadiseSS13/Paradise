@@ -99,7 +99,7 @@
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
-	allowed = list(/obj/item/teleportation_scroll, /obj/item/gun/magic/staff, /obj/item/melee/ghost_sword, /obj/item/lava_staff, /obj/item/hierophant_club)
+	allowed = list(/obj/item/teleportation_scroll, /obj/item/gun/magic/staff, /obj/item/ghost_sword, /obj/item/lava_staff, /obj/item/hierophant_club)
 	max_suit_w = WEIGHT_CLASS_HUGE
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50

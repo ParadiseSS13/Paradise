@@ -256,7 +256,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("roulette", /obj/structure/roulette, 10, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1),
-		new /datum/stack_recipe("baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),
+		new /datum/stack_recipe("baseball bat", /obj/item/baseball_bat, 5, time = 1.5 SECONDS),
 		new /datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS),
 		)),
 	new /datum/stack_recipe_list("wood structures", list(

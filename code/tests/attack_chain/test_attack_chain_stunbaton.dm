@@ -1,7 +1,7 @@
 /datum/game_test/room_test/attack_chain_stunbaton/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
-	player.spawn_obj_in_hand(/obj/item/melee/baton/loaded)
+	player.spawn_obj_in_hand(/obj/item/baton/loaded)
 
 	// Prod with inactive baton.
 	player.set_intent("help")

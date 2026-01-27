@@ -395,9 +395,9 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/item/melee/baton) && !istype(target, /obj/item/melee/baton/cattleprod))
+	if(istype(target, /obj/item/baton) && !istype(target, /obj/item/baton/cattleprod))
 		to_chat(user, SPAN_NOTICE("You modify the appearance of [target]."))
-		var/obj/item/melee/baton/the_baton = target
+		var/obj/item/baton/the_baton = target
 		the_baton.icon = 'icons/obj/custom_items.dmi'
 		the_baton.base_icon = "desolate_baton"
 		the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'

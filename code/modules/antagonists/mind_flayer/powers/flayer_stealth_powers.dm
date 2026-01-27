@@ -156,7 +156,7 @@
 	base_cooldown = 2 SECONDS //The cast time is going to be the main limiting factor, not cooldown
 	base_cost = 150
 	stage = 3
-	var/hand_type = /obj/item/melee/swarm_hand
+	var/hand_type = /obj/item/swarm_hand
 
 /datum/spell/flayer/self/override_key/cast(list/targets, mob/user)
 	if(istype(user.l_hand, hand_type))
@@ -168,26 +168,25 @@
 		flayer.send_swarm_message("We dissipate the nanites.")
 		return
 
-	var/obj/item/melee/swarm_hand/funny_hand = new hand_type
+	var/obj/item/swarm_hand/funny_hand = new hand_type
 	if(!user.put_in_hands(funny_hand))
 		flayer.send_swarm_message("Our hands are currently full.")
 		qdel(funny_hand)
 		return
 
-/obj/item/melee/swarm_hand
+/obj/item/swarm_hand
 	name = "Nanite Mass"
 	desc = "Will attempt to convert any cyborg you touch into a loyal member of the hive after a 7 second delay."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	color = COLOR_BLACK
 	flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
+	needs_permit = TRUE
 	new_attack_chain = TRUE
 	var/conversion_time = 7 SECONDS
 
-/obj/item/melee/swarm_hand/pre_attack(atom/target, mob/living/user, params)
+/obj/item/swarm_hand/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -214,7 +213,7 @@
 	qdel(src)
 	return FINISH_ATTACK
 
-/obj/item/melee/swarm_hand/proc/emag_borg(mob/living/silicon/robot/borg, mob/living/user)
+/obj/item/swarm_hand/proc/emag_borg(mob/living/silicon/robot/borg, mob/living/user)
 	if(QDELETED(borg) || QDELETED(user))
 		return
 

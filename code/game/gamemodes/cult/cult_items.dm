@@ -9,11 +9,13 @@
 	. = ..()
 	icon_state = GET_CULT_DATA(tome_icon, "tome")
 
-/obj/item/melee/cultblade
+/obj/item/cultblade
 	name = "cult blade"
 	desc = "A powerful blade made of darkened metal. An aura of barely-perceptible red light seems to surround it."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 30
 	throwforce = 10
@@ -21,17 +23,18 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	needs_permit = TRUE
 	new_attack_chain = TRUE
 
-/obj/item/melee/cultblade/Initialize(mapload)
+/obj/item/cultblade/Initialize(mapload)
 	. = ..()
 	icon_state = GET_CULT_DATA(sword_icon, "blood_blade")
 
-/obj/item/melee/cultblade/examine(mob/user)
+/obj/item/cultblade/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("This blade is a powerful weapon, capable of severing limbs easily. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic will stun them completely.")
 
-/obj/item/melee/cultblade/pre_attack(atom/target, mob/living/user, params)
+/obj/item/cultblade/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -48,7 +51,7 @@
 
 		return FINISH_ATTACK
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(..())
 		return FINISH_ATTACK
 
@@ -57,7 +60,7 @@
 		if(S)
 			S.trigger()
 
-/obj/item/melee/cultblade/pickup(mob/living/user)
+/obj/item/cultblade/pickup(mob/living/user)
 	. = ..()
 	if(!IS_CULTIST(user))
 		to_chat(user, SPAN_CULTLARGE("\"I wouldn't advise that.\""))
@@ -111,7 +114,7 @@
 	icon_state = "cultrobes"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
-	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/cultblade)
 	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
@@ -133,7 +136,7 @@
 	icon_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
+	allowed = list(/obj/item/tome, /obj/item/cultblade, /obj/item/tank/internals)
 	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
@@ -144,7 +147,7 @@
 	icon_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, RAD = 20, FIRE = 50, ACID = 75)
-	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 
 /obj/item/clothing/head/hooded/cult_hoodie
@@ -181,7 +184,7 @@
 	name = "flagellant's robes"
 	desc = "A set of blood-soaked robes inscribed with unholy sigils. Wearing them greatly increases movement speed, but the cursed fabrics will take an additional tithe when the wearer is hit."
 	icon_state = "flagellantrobe"
-	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/cultblade)
 	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -371,7 +374,7 @@
 	else
 		to_chat(C, SPAN_DANGER("The veil cannot be torn here!"))
 
-/obj/item/melee/cultblade/ghost
+/obj/item/cultblade/ghost
 	name = "eldritch sword"
 	force = 15
 	flags = NODROP | DROPDEL
@@ -384,7 +387,7 @@
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
 	icon_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/cultblade)
 	armor = list(MELEE = 50, BULLET = 20, LASER = 50, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT
 	flags = NODROP | DROPDEL
@@ -403,7 +406,7 @@
 	suit = /obj/item/clothing/suit/cultrobesghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
 	head = /obj/item/clothing/head/hooded/culthood/alt/ghost
-	r_hand = /obj/item/melee/cultblade/ghost
+	r_hand = /obj/item/cultblade/ghost
 
 /obj/item/shield/mirror
 	name = "mirror shield"
@@ -782,7 +785,7 @@
 		exit = new /obj/effect/cult_portal_exit(target)
 
 /obj/effect/portal/cult/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if((istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) || (istype(used, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY)))
+	if((istype(used, /obj/item/cultblade/dagger) && IS_CULTIST(user)) || (istype(used, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY)))
 		to_chat(user, SPAN_NOTICE("You close the portal with your [used]."))
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)

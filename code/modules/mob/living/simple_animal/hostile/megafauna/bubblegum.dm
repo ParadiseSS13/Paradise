@@ -56,7 +56,7 @@ Difficulty: Hard
 	crusher_loot = list(/obj/item/crusher_trophy/demon_claws)
 	loot = list(/obj/item/clothing/suit/space/hostile_environment,
 				/obj/item/clothing/head/helmet/space/hostile_environment,
-				/obj/item/melee/spellblade/random)
+				/obj/item/spellblade/random)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0

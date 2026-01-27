@@ -291,7 +291,7 @@
 		/obj/item/ammo_box/a357,
 		/obj/item/flashlight/seclite,
 		/obj/item/grenade/barrier,
-		/obj/item/melee/energy/sword/saber,
+		/obj/item/energy/sword/saber,
 		/obj/item/shield/energy,
 		/obj/item/soap/ds
 	)
@@ -316,7 +316,7 @@
 		/obj/item/storage/box/flashbangs,
 		/obj/item/ammo_box/a357,
 		/obj/item/flashlight/seclite,
-		/obj/item/melee/energy/sword/saber,
+		/obj/item/energy/sword/saber,
 		/obj/item/shield/energy,
 		/obj/item/disk/nuclear/unrestricted
 	)
@@ -341,7 +341,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
-	r_hand = /obj/item/melee/energy/sword/pirate
+	r_hand = /obj/item/energy/sword/pirate
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
@@ -389,7 +389,7 @@
 		/obj/item/flashlight = 1,
 		/obj/item/reagent_containers/drinks/bottle/bottleofbanana = 1,
 		/obj/item/grenade/clown_grenade = 1,
-		/obj/item/melee/baton/cattleprod = 1,
+		/obj/item/baton/cattleprod = 1,
 		/obj/item/stock_parts/cell/super = 1,
 		/obj/item/bikehorn/rubberducky = 1
 	)
@@ -630,7 +630,7 @@
 	head = /obj/item/clothing/head/sovietofficerhat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	belt = /obj/item/gun/projectile/revolver/mateba
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/classic_baton/telescopic
 	r_pocket = /obj/item/flashlight/seclite
 
 	backpack_contents = list(
@@ -649,7 +649,7 @@
 	mask = /obj/item/clothing/mask/gas
 	glasses = /obj/item/clothing/glasses/night
 	belt = /obj/item/storage/belt/military/assault/soviet/full
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/classic_baton/telescopic
 	l_hand = /obj/item/gun/projectile/automatic/ak814
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 
@@ -683,7 +683,7 @@
 	head = /obj/item/clothing/head/sovietadmiralhat
 	belt = /obj/item/gun/projectile/revolver/mateba
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/classic_baton/telescopic
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
@@ -787,7 +787,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	l_hand = null
-	belt = /obj/item/melee/baton/loaded
+	belt = /obj/item/baton/loaded
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	backpack_contents = list(
@@ -824,7 +824,7 @@
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = null
-	belt = /obj/item/melee/baton/loaded
+	belt = /obj/item/baton/loaded
 	l_hand = null
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
@@ -840,7 +840,7 @@
 	name = "Trader"
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	back = /obj/item/storage/backpack/industrial
-	belt = /obj/item/melee/classic_baton
+	belt = /obj/item/classic_baton
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -873,7 +873,7 @@
 	suit = /obj/item/clothing/suit/jacket/bomber/syndicate
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/combat
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/classic_baton/telescopic
 	back = /obj/item/storage/backpack/security
 
 /datum/outfit/admin/trader/commie
@@ -899,13 +899,13 @@
 	name = "Steadfast Trading Co. Trader"
 	uniform = /obj/item/clothing/under/rank/cargo/qm/formal
 	suit = /obj/item/clothing/suit/jacket/leather/overcoat
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/classic_baton/telescopic
 
 /datum/outfit/admin/trader/ipc
 	name = "Synthetic Union Trader"
 	uniform = /obj/item/clothing/under/misc/vice
 	suit = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/classic_baton/telescopic
 	back = /obj/item/storage/backpack/robotics
 
 /datum/outfit/admin/trader/vox
@@ -914,7 +914,7 @@
 	suit = /obj/item/clothing/suit/hooded/vox_robes
 	gloves = /obj/item/clothing/gloves/color/yellow/vox
 	shoes = /obj/item/clothing/shoes/magboots/vox
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/classic_baton/telescopic
 	mask = /obj/item/clothing/mask/breath/vox/respirator
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double/vox
 	box = /obj/item/storage/box/survival_vox
@@ -923,13 +923,13 @@
 	name = "Solar-Central Compact Trader"
 	uniform = /obj/item/clothing/under/misc/durathread
 	suit = /obj/item/clothing/suit/space/skrell/white
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/classic_baton/telescopic
 
 /datum/outfit/admin/trader/grey
 	name = "Technocracy Trader"
 	uniform = /obj/item/clothing/under/costume/psyjump
 	suit = /obj/item/clothing/suit/jacket/bomber/robo
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/classic_baton/telescopic
 	back = /obj/item/storage/backpack/robotics
 
 /datum/outfit/admin/trader/nian
@@ -937,7 +937,7 @@
 	uniform = /obj/item/clothing/under/suit/really_black
 	suit = /obj/item/clothing/suit/pimpcoat
 	shoes = /obj/item/clothing/shoes/fluff/noble_boot
-	belt = /obj/item/melee/classic_baton/ntcane
+	belt = /obj/item/classic_baton/ntcane
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"

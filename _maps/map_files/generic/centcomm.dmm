@@ -1554,7 +1554,7 @@
 /obj/item/clothing/shoes/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/energy/sword/saber/red,
+/obj/item/energy/sword/saber/red,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "fP" = (
@@ -1580,7 +1580,7 @@
 /obj/item/clothing/shoes/brown,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/energy/sword/saber/green,
+/obj/item/energy/sword/saber/green,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "fT" = (
@@ -6346,8 +6346,8 @@
 /area/trader_station/sol)
 "vH" = (
 /obj/structure/rack,
-/obj/item/melee/energy/sword/saber,
-/obj/item/melee/energy/sword/saber{
+/obj/item/energy/sword/saber,
+/obj/item/energy/sword/saber{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -7615,8 +7615,8 @@
 /area/admin)
 "Av" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/melee/energy/sword,
-/obj/item/melee/energy/sword{
+/obj/item/energy/sword,
+/obj/item/energy/sword{
 	pixel_x = -5;
 	pixel_y = 5
 	},
@@ -8319,7 +8319,7 @@
 /area/ghost_bar)
 "CX" = (
 /obj/item/kitchen/knife/butcher,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /obj/item/clothing/mask/muzzle{
 	pixel_y = 8
 	},
@@ -8962,7 +8962,7 @@
 /area/space/centcomm)
 "FD" = (
 /obj/structure/table/reinforced,
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/classic_baton/telescopic,
 /obj/item/paper/court,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/dark,
@@ -9310,7 +9310,7 @@
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder/blue,
-/obj/item/melee/chainofcommand,
+/obj/item/chainofcommand,
 /obj/item/stamp/captain,
 /obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/plasteel/dark,
@@ -13359,7 +13359,7 @@
 /obj/item/clothing/shoes/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/energy/sword/saber/red,
+/obj/item/energy/sword/saber/red,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "WF" = (
@@ -13881,7 +13881,7 @@
 /obj/item/clothing/shoes/brown,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
-/obj/item/melee/energy/sword/saber/green,
+/obj/item/energy/sword/saber/green,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "Yu" = (

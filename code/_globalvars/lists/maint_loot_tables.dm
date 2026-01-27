@@ -154,7 +154,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 		/obj/item/grenade/clown_grenade,
 		/obj/item/grenade/smokebomb,
 		/obj/item/gun/syringe/syndicate,
-		/obj/item/melee/knuckleduster/syndie,
+		/obj/item/knuckleduster/syndie,
 		/obj/item/mod/construction/broken_core,
 		/obj/item/multitool/ai_detect,
 		/obj/item/seeds/ambrosia/cruciatus,
@@ -191,7 +191,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 
 		// Other rare but useful items
 		/obj/item/radio/headset,
-		/obj/item/melee/knuckleduster,
+		/obj/item/knuckleduster,
 	) = 3,
 ))
 

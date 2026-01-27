@@ -42,7 +42,7 @@
 	pda = /obj/item/pda/captain
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/classic_baton/telescopic = 1
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	backpack = /obj/item/storage/backpack/captain
@@ -131,7 +131,7 @@
 	pda = /obj/item/pda/heads/hop
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/classic_baton/telescopic = 1
 	)
 
 	bio_chips = list()
@@ -210,7 +210,7 @@
 	l_pocket = /obj/item/lighter/zippo/nt_rep
 	pda = /obj/item/pda/heads/ntrep
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/ntcane = 1
+		/obj/item/classic_baton/ntcane = 1
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
@@ -333,7 +333,7 @@
 	r_pocket = /obj/item/clothing/accessory/legal_badge
 	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/classic_baton/telescopic = 1
 	)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec

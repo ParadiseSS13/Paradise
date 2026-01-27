@@ -1,17 +1,17 @@
 /datum/spell/touch/alien_spell/corrosive_acid
 	name = "Corrosive acid"
 	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment."
-	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid"
+	hand_path = "/obj/item/touch_attack/alien/corrosive_acid"
 	action_icon_state = "alien_acid"
 	plasma_cost = 200
 	base_cooldown = 15 SECONDS
 
-/obj/item/melee/touch_attack/alien/corrosive_acid
+/obj/item/touch_attack/alien/corrosive_acid
 	name = "Corrosive acid"
 	desc = "A fistful of death."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/corrosive_acid/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/alien/corrosive_acid/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(target == user)
 		to_chat(user, SPAN_NOTICEALIEN("You withdraw your readied acid."))
@@ -33,23 +33,23 @@
 		to_chat(C, SPAN_NOTICEALIEN("You cannot dissolve this object."))
 	handle_delete(user)
 
-/obj/item/melee/touch_attack/alien/corrosive_acid/customised_abstract_text(mob/living/carbon/owner)
+/obj/item/touch_attack/alien/corrosive_acid/customised_abstract_text(mob/living/carbon/owner)
 	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is dripping with vile corrosive goo!")
 
 /datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
 	desc = "Boil acid within your hand to burn through anything you touch with it, dealing a lot of damage to aliens and destroying resin structures instantly."
-	hand_path = "/obj/item/melee/touch_attack/alien/burning_touch"
+	hand_path = "/obj/item/touch_attack/alien/burning_touch"
 	action_icon_state = "alien_acid"
 	plasma_cost = 100
 	base_cooldown = 10 SECONDS
 
-/obj/item/melee/touch_attack/alien/burning_touch
+/obj/item/touch_attack/alien/burning_touch
 	name = "Blazing touch"
 	desc = "The air warps around your hand, somehow the heat doesn't hurt."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/burning_touch/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/alien/burning_touch/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(target == user)
 		to_chat(user, SPAN_NOTICEALIEN("You cool down your boiled aid."))
@@ -78,6 +78,6 @@
 			qdel(target)
 	handle_delete(user)
 
-/obj/item/melee/touch_attack/alien/burning_touch/customised_abstract_text(mob/living/carbon/owner)
+/obj/item/touch_attack/alien/burning_touch/customised_abstract_text(mob/living/carbon/owner)
 	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] has a shimmering mirage around it!")
 

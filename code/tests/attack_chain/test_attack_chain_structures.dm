@@ -22,7 +22,7 @@
 	player.add_trait(TRAIT_FLASH_PROTECTION)
 
 	player.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
-	player.spawn_obj_in_hand(/obj/item/melee/cultblade/dagger)
+	player.spawn_obj_in_hand(/obj/item/cultblade/dagger)
 
 	var/forge = teleport_to_first(player, /obj/structure/cult/functional/forge)
 	player.click_on(forge)
@@ -82,7 +82,7 @@
 	player.click_on(displaycase)
 	TEST_ASSERT_LAST_CHATLOG(player, "You use [id_card] to close [displaycase]")
 	player.put_away(id_card)
-	var/obj/baton = player.spawn_obj_in_hand(/obj/item/melee/baton/loaded)
+	var/obj/baton = player.spawn_obj_in_hand(/obj/item/baton/loaded)
 	player.set_intent(INTENT_HARM)
 	player.click_on(displaycase)
 	TEST_ASSERT_LAST_CHATLOG(player, "You hit [displaycase] with [baton]")
@@ -100,7 +100,7 @@
 
 	var/obj/girder = teleport_to_first(player, /obj/structure/girder/cult)
 	player.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
-	player.spawn_obj_in_hand(/obj/item/melee/cultblade/dagger)
+	player.spawn_obj_in_hand(/obj/item/cultblade/dagger)
 	player.click_on(girder)
 	TEST_ASSERT_LAST_CHATLOG(player, "You demolish [girder].")
 	player.drop_held_item()

@@ -20,7 +20,7 @@
 	loot = list(
 		/obj/item/storage/box/deagle = 2, //One mag
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 3, //Again, one mag. Don't lose it.
-		/obj/item/melee/baseball_bat/homerun = 5,
+		/obj/item/baseball_bat/homerun = 5,
 		/obj/item/rcd/combat = 5,
 		/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov = 5,
 		/obj/item/storage/fancy/shell/buck = 3, //Only seven shots, make them count
@@ -50,7 +50,7 @@
 		/obj/item/shield/energy = 20,
 		/obj/item/gun/projectile/automatic/pistol = 50,
 		/obj/item/bio_chip_implanter/storage = 50,
-		/obj/item/melee/knuckleduster/syndie = 50,
+		/obj/item/knuckleduster/syndie = 50,
 		/obj/item/clothing/glasses/thermal/eyepatch = 50,
 		/obj/item/toy/syndicateballoon = 60,
 		/obj/item/organ/internal/cyberimp/arm/razorwire = 30,
@@ -108,7 +108,7 @@
 	name = "12. glint-scale large gear"
 	spawn_loot_count = 3
 	loot = list(
-				/obj/item/melee/energy/sword/pirate = 30,
+				/obj/item/energy/sword/pirate = 30,
 				/obj/item/storage/box/breacher = 30,
 				/obj/item/fireaxe = 50,
 				/obj/item/fireaxe/boneaxe = 50,
@@ -189,7 +189,7 @@
 	loot = list(
 		/obj/item/clothing/glasses/meson/gar = 50,
 		/obj/item/clothing/glasses/thermal/eyepatch = 50,
-		/obj/item/melee/energy/sword/pirate = 50,
+		/obj/item/energy/sword/pirate = 50,
 		/obj/item/clothing/suit/hooded/vox_robes = 30,
 		/obj/item/clothing/under/vox/vox_casual = 30,
 		/obj/item/clothing/gloves/color/yellow/vox = 10, //Species limited - rare item

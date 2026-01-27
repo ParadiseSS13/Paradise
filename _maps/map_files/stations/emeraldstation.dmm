@@ -431,7 +431,7 @@
 /area/station/security/detective)
 "agz" = (
 /obj/structure/closet/crate,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "agX" = (
@@ -73367,7 +73367,7 @@
 /area/station/supply/office)
 "oKF" = (
 /obj/structure/table/wood,
-/obj/item/melee/chainofcommand,
+/obj/item/chainofcommand,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "oKH" = (
@@ -88287,7 +88287,7 @@
 /area/station/security/permabrig)
 "rIH" = (
 /obj/effect/spawner/random/maintenance,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 1
@@ -92729,7 +92729,7 @@
 /area/station/maintenance/starboard)
 "sAy" = (
 /obj/structure/rack,
-/obj/item/melee/baton/cattleprod,
+/obj/item/baton/cattleprod,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "sAA" = (
@@ -93398,7 +93398,7 @@
 "sGN" = (
 /obj/structure/table,
 /obj/item/storage/toolbox,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -109952,7 +109952,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "vWa" = (
-/obj/item/melee/baton/cattleprod,
+/obj/item/baton/cattleprod,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/lighter/random{
 	pixel_x = 8
@@ -111668,7 +111668,7 @@
 /area/station/maintenance/starboard)
 "wod" = (
 /obj/structure/rack,
-/obj/item/melee/baseball_bat,
+/obj/item/baseball_bat,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box,
 /turf/simulated/floor/plasteel,

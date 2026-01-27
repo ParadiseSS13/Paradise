@@ -45,16 +45,16 @@
 	name = "Consume resin structures"
 	desc = "Allows you to rip and tear straight through resin structures."
 	action_icon_state = "alien_resin"
-	hand_path = "/obj/item/melee/touch_attack/alien/consume_resin"
+	hand_path = "/obj/item/touch_attack/alien/consume_resin"
 	plasma_cost = 10
 	base_cooldown = 5 SECONDS
 
-/obj/item/melee/touch_attack/alien/consume_resin
+/obj/item/touch_attack/alien/consume_resin
 	name = "Resin consumption"
 	desc = "The hunger..."
 	icon_state = "alien_acid"
 
-/obj/item/melee/touch_attack/alien/consume_resin/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/touch_attack/alien/consume_resin/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(target == user)
 		to_chat(user, SPAN_NOTICEALIEN("You stop trying to consume resin."))

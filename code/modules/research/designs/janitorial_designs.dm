@@ -78,5 +78,5 @@
 	req_tech = list("combat" = 5, "abductor" = 1)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
-	build_path = /obj/item/melee/flyswatter/abductor
+	build_path = /obj/item/flyswatter/abductor
 	category = list("Janitorial")

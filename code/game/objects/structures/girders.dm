@@ -472,7 +472,7 @@
 
 /obj/structure/girder/cult/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user)) //Cultists can demolish cult girders instantly with their dagger
+	if(istype(W, /obj/item/cultblade/dagger) && IS_CULTIST(user)) //Cultists can demolish cult girders instantly with their dagger
 		user.visible_message(SPAN_WARNING("[user] strikes [src] with [W]!"), SPAN_NOTICE("You demolish [src]."))
 		refundMetal(metalUsed)
 		qdel(src)

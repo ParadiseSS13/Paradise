@@ -237,7 +237,7 @@
 	inhand_icon_state = "det_suit"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -279,7 +279,7 @@
 	icon_state = "blueshieldcoat"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/classic_baton/telescopic)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -326,13 +326,13 @@
 	name = "warehouse supervisor hazard vest"
 	desc = "A high-visibilty vest used in work zones. Designed to easily identify the supply supervisor."
 	icon_state = "hazard_qm"
-	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcs, /obj/item/dest_tagger, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster)
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcs, /obj/item/dest_tagger, /obj/item/baton, /obj/item/flashlight/seclite, /obj/item/classic_baton/telescopic, /obj/item/knuckleduster)
 
 /obj/item/clothing/suit/storage/hazardvest/ce
 	name = "foreman hazard vest"
 	desc = "A high-visibility vest used in work zones. Designed to easily identify the engineering supervisor."
 	icon_state = "hazard_ce"
-	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/dest_tagger, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/dest_tagger, /obj/item/baton, /obj/item/flashlight/seclite, /obj/item/classic_baton/telescopic)
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/iaa
@@ -372,7 +372,7 @@
 	name = "head of personnel's coat"
 	desc = "A big coat for the Head of Personnel who wants to make a fashion statement. Has armour woven within the fabric."
 	icon_state = "hopcoat"
-	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	insert_max = 2
 	sprite_sheets = list(
@@ -388,7 +388,7 @@
 	name = "quartermaster's coat"
 	desc = "A brown trenchcoat to show the station you mean business. Has armor woven within the fabric."
 	icon_state = "qmcoat"
-	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
+	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/baton, /obj/item/flashlight/seclite, /obj/item/classic_baton/telescopic, /obj/item/knuckleduster, /obj/item/rcs)
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	insert_max = 2
 	sprite_sheets = list(

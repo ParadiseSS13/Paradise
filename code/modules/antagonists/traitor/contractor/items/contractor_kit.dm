@@ -50,7 +50,7 @@
 /obj/item/storage/box/syndie_kit/contractor_loadout/populate_contents()
 	new /obj/item/clothing/head/helmet/space/syndicate/contractor(src)
 	new /obj/item/clothing/suit/space/syndicate/contractor(src)
-	new /obj/item/melee/classic_baton/telescopic/contractor(src)
+	new /obj/item/classic_baton/telescopic/contractor(src)
 	new /obj/item/clothing/under/chameleon(src)
 	new /obj/item/clothing/suit/chameleon(src)
 	new /obj/item/clothing/head/chameleon(src)
@@ -59,7 +59,7 @@
 	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
 	new /obj/item/lighter/zippo(src)
 	new /obj/item/handheld_mirror(src)
-	
+
 /obj/item/paper/contractor_guide
 	name = "contractor guide"
 

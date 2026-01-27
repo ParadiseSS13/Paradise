@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/scrying,
 	/obj/item/clothing/suit/space/hardsuit/wizard,
 	/obj/item/immortality_talisman,
-	/obj/item/melee/ghost_sword,
+	/obj/item/ghost_sword,
 	/obj/item/tarot_card_pack,
 	/obj/item/tarot_card_pack/jumbo))
 
@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/clothing/suit/space/hardsuit/wizard,
 	/obj/item/gun/magic,
 	/obj/item/immortality_talisman,
-	/obj/item/melee/ghost_sword,
+	/obj/item/ghost_sword,
 	/obj/item/necromantic_stone,
 	/obj/item/scrying,
 	/obj/item/spellbook,

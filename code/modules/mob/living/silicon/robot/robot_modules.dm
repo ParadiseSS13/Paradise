@@ -479,7 +479,7 @@
 		/obj/item/inflatable/cyborg,
 		/obj/item/inflatable/cyborg/door
 	)
-	emag_modules = list(/obj/item/melee/baton/loaded/borg_stun_arm, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
+	emag_modules = list(/obj/item/baton/loaded/borg_stun_arm, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
 	override_modules = list(/obj/item/gun/energy/emitter/cyborg/proto)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/extinguisher/mini/cyborg, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
@@ -511,20 +511,20 @@
 		/obj/item/flash/cyborg,
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		/obj/item/melee/baton/loaded,
+		/obj/item/baton/loaded,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/holosign_creator/security,
 		/obj/item/clothing/mask/gas/sechailer/cyborg
 	)
 	emag_override_modules = list(/obj/item/gun/energy/laser/cyborg)
 	special_rechargables = list(
-		/obj/item/melee/baton/loaded,
+		/obj/item/baton/loaded,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/gun/energy/laser/cyborg
 	)
 
 /obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
-	var/obj/item/melee/baton/B = locate(/obj/item/melee/baton/loaded) in modules
+	var/obj/item/baton/B = locate(/obj/item/baton/loaded) in modules
 	if(B)
 		B.link_new_cell(unlink_cell)
 
@@ -541,7 +541,7 @@
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janitor,
 		/obj/item/borg/push_broom,
-		/obj/item/melee/flyswatter,
+		/obj/item/flyswatter,
 		/obj/item/extinguisher/mini/cyborg,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
@@ -731,7 +731,7 @@
 	module_actions = list(/datum/action/innate/robot_sight/thermal/alien)
 	basic_modules = list(
 		/obj/item/crowbar/cyborg/red,
-		/obj/item/melee/energy/alien/claws,
+		/obj/item/energy/alien/claws,
 		/obj/item/flash/cyborg/alien,
 		/obj/item/reagent_containers/spray/alien/smoke,
 	)
@@ -803,7 +803,7 @@
 	module_type = "Malf" // cuz it looks cool
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/melee/energy/sword/cyborg,
+		/obj/item/energy/sword/cyborg,
 		/obj/item/gun/energy/printer,
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
@@ -827,7 +827,7 @@
 		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
 		/obj/item/retractor,
-		/obj/item/melee/energy/sword/cyborg/saw, //Energy saw -- primary weapon
+		/obj/item/energy/sword/cyborg/saw, //Energy saw -- primary weapon
 		/obj/item/surgicaldrill,
 		/obj/item/bonesetter,
 		/obj/item/bonegel,
@@ -873,7 +873,7 @@
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
 		/obj/item/gripper/engineering,
-		/obj/item/melee/energy/sword/cyborg,
+		/obj/item/energy/sword/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg_chameleon,
 		/obj/item/pinpointer/operative,
@@ -909,13 +909,13 @@
 		// So, borg has way more burst damage, but also takes way longer to recharge / get back in the fight once depleted. Has to find a borg recharger and sit in it for ages.
 		// Organic gamma sec ERT carries alternate weapons, including a box of flashbangs, and can load up on a huge number of guns from science. Borg cannot do either.
 		// Overall, gamma borg has higher skill floor but lower skill ceiling.
-		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
+		/obj/item/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/extinguisher/mini/cyborg // for friendly fire from their immolator gun.
 	)
 	special_rechargables = list(
-		/obj/item/melee/baton/loaded,
+		/obj/item/baton/loaded,
 		/obj/item/gun/energy/immolator/multi/cyborg,
 		/obj/item/extinguisher/mini/cyborg
 	)
@@ -929,13 +929,13 @@
 		/obj/item/flash/cyborg,
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/gun/energy/immolator/multi/cyborg, // See comments on /robot_module/combat below
-		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
+		/obj/item/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/borg/destroyer/mobility
 	)
 	special_rechargables = list(
-		/obj/item/melee/baton/loaded,
+		/obj/item/baton/loaded,
 		/obj/item/gun/energy/immolator/multi/cyborg
 	)
 
@@ -946,7 +946,7 @@
 	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/melee/energy/sword/cyborg,
+		/obj/item/energy/sword/cyborg,
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg/red,
 	)

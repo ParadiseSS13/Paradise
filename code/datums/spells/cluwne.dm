@@ -1,7 +1,7 @@
 /datum/spell/touch/cluwne
 	name = "Curse of the Cluwne"
 	desc = "Turns the target into a fat and cursed monstrosity of a clown."
-	hand_path = /obj/item/melee/touch_attack/cluwne
+	hand_path = /obj/item/touch_attack/cluwne
 
 	base_cooldown = 1 MINUTES
 	cooldown_min = 200 //100 deciseconds reduction per rank

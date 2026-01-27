@@ -1,15 +1,18 @@
-/obj/item/melee/baton
+/obj/item/baton
 	name = "stunbaton"
 	desc = "A stun baton for incapacitating people with."
 	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
 	belt_icon = "stunbaton"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 0, FIRE = 80, ACID = 80)
+	needs_permit = TRUE
 	new_attack_chain = TRUE
 	var/base_icon = "stunbaton"
 	/// How many seconds does the knockdown last for?
@@ -27,15 +30,15 @@
 	var/knockdown_delay = 2.5 SECONDS
 	COOLDOWN_DECLARE(stun_cooldown)
 
-/obj/item/melee/baton/Initialize(mapload)
+/obj/item/baton/Initialize(mapload)
 	. = ..()
 	update_icon()
 
-/obj/item/melee/baton/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
+/obj/item/baton/loaded/Initialize(mapload) //this one starts with a cell pre-installed.
 	link_new_cell()
 	return ..()
 
-/obj/item/melee/baton/Destroy()
+/obj/item/baton/Destroy()
 	if(cell?.loc == src)
 		QDEL_NULL(cell)
 	return ..()
@@ -48,7 +51,7 @@
  * Arguments:
  * * unlink - If TRUE, sets the `cell` variable to `null` rather than linking it to a new one.
  */
-/obj/item/melee/baton/proc/link_new_cell(unlink = FALSE)
+/obj/item/baton/proc/link_new_cell(unlink = FALSE)
 	if(unlink)
 		cell = null
 		return
@@ -64,11 +67,11 @@
 	else
 		cell = new cell(src)
 
-/obj/item/melee/baton/suicide_act(mob/user)
+/obj/item/baton/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
-/obj/item/melee/baton/update_icon_state()
+/obj/item/baton/update_icon_state()
 	if(turned_on)
 		icon_state = "[base_icon]_active"
 	else if(!cell)
@@ -76,7 +79,7 @@
 	else
 		icon_state = "[base_icon]"
 
-/obj/item/melee/baton/examine(mob/user)
+/obj/item/baton/examine(mob/user)
 	. = ..()
 	if(isrobot(user))
 		. += SPAN_NOTICE("This baton is drawing power directly from your own internal charge.")
@@ -88,16 +91,16 @@
 	. += SPAN_NOTICE("This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.")
 
 
-/obj/item/melee/baton/get_cell()
+/obj/item/baton/get_cell()
 	return cell
 
-/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE) // disable the warning
+/obj/item/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE) // disable the warning
 	if(turned_on && (slot == ITEM_SLOT_BELT || slot == ITEM_SLOT_SUIT_STORE))
 		to_chat(user, SPAN_WARNING("You can't equip [src] while it's active!"))
 		return FALSE
 	return ..()
 
-/obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
+/obj/item/baton/can_enter_storage(obj/item/storage/S, mob/user)
 	if(turned_on)
 		to_chat(user, SPAN_WARNING("[S] can't hold [src] while it's active!"))
 		return FALSE
@@ -110,7 +113,7 @@
   * Arguments:
   * * amount - The amount of battery charge to be used.
   */
-/obj/item/melee/baton/proc/deductcharge(amount)
+/obj/item/baton/proc/deductcharge(amount)
 	if(!cell)
 		return
 
@@ -126,7 +129,7 @@
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
 
-/obj/item/melee/baton/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/item/baton/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(istype(used, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = used
@@ -148,7 +151,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		return ITEM_INTERACT_COMPLETE
 
-/obj/item/melee/baton/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/baton/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
 		to_chat(user, SPAN_WARNING("There's no cell installed!"))
 		return
@@ -163,7 +166,7 @@
 	turned_on = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/baton/activate_self(mob/user)
+/obj/item/baton/activate_self(mob/user)
 	if(..())
 		return FINISH_ATTACK
 
@@ -186,12 +189,12 @@
 	update_icon()
 	add_fingerprint(user)
 
-/obj/item/melee/baton/throw_impact(mob/living/carbon/human/hit_mob)
+/obj/item/baton/throw_impact(mob/living/carbon/human/hit_mob)
 	. = ..()
 	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
 
-/obj/item/melee/baton/pre_attack(atom/atom_target, mob/living/user, params)
+/obj/item/baton/pre_attack(atom/atom_target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -239,14 +242,14 @@
 		user.do_attack_animation(target)
 	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
-/obj/item/melee/baton/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/baton/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(ishuman(target) && turned_on)
 		var/mob/living/carbon/human/H = target
 		baton_stun(H, user)
 
 /// returning false results in no baton attack animation, returning true results in an animation.
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+/obj/item/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(!COOLDOWN_FINISHED(src, stun_cooldown) && !skip_cooldown)
 		return FALSE
 
@@ -287,10 +290,10 @@
 	deductcharge(hitcost)
 	return TRUE
 
-/obj/item/melee/baton/proc/play_hit_sound()
+/obj/item/baton/proc/play_hit_sound()
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
-/obj/item/melee/baton/proc/thrown_baton_stun(mob/living/carbon/human/L)
+/obj/item/baton/proc/thrown_baton_stun(mob/living/carbon/human/L)
 	if(!COOLDOWN_FINISHED(src, stun_cooldown))
 		return FALSE
 
@@ -320,15 +323,15 @@
 	deductcharge(hitcost)
 	return TRUE
 
-/obj/item/melee/baton/proc/baton_delay(mob/living/target, user_UID)
+/obj/item/baton/proc/baton_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
-/obj/item/melee/baton/emp_act(severity)
+/obj/item/baton/emp_act(severity)
 	. = ..()
 	if(cell)
 		deductcharge(1000 / severity)
 
-/obj/item/melee/baton/wash(mob/living/user, atom/source)
+/obj/item/baton/wash(mob/living/user, atom/source)
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
 		baton_stun(user, user, skip_cooldown = TRUE)
@@ -340,12 +343,12 @@
 	..()
 
 /// baton used for security bots
-/obj/item/melee/baton/infinite_cell
+/obj/item/baton/infinite_cell
 	hitcost = 0
 	turned_on = TRUE
 
 //Makeshift stun baton. Replacement for stun gloves.
-/obj/item/melee/baton/cattleprod
+/obj/item/baton/cattleprod
 	name = "stunprod"
 	desc = "An improvised stun baton."
 	icon_state = "stunprod_nocell"
@@ -359,19 +362,19 @@
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	var/obj/item/assembly/igniter/sparkler = null
 
-/obj/item/melee/baton/cattleprod/Initialize(mapload)
+/obj/item/baton/cattleprod/Initialize(mapload)
 	. = ..()
 	sparkler = new(src)
 
-/obj/item/melee/baton/cattleprod/Destroy()
+/obj/item/baton/cattleprod/Destroy()
 	QDEL_NULL(sparkler)
 	return ..()
 
-/obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+/obj/item/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(sparkler.activate())
 		return ..()
 
-/obj/item/melee/baton/loaded/borg_stun_arm
+/obj/item/baton/loaded/borg_stun_arm
 	name = "electrically-charged arm"
 	desc = "A piece of scrap metal wired directly to your power cell."
 	icon = 'icons/mob/robot_items.dmi'
@@ -379,10 +382,10 @@
 	icon_state = "elecarm"
 	hitcost = 100
 
-/obj/item/melee/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/baton/loaded/borg_stun_arm/screwdriver_act(mob/living/user, obj/item/I)
 	return FALSE
 
-/obj/item/melee/baton/flayerprod
+/obj/item/baton/flayerprod
 	name = "swarmprod"
 	desc = "A mechanical mass which you can use to incapacitate someone with."
 	icon_state = "swarmprod"
@@ -398,27 +401,27 @@
 	/// The duration that stunning someone will disable their radio for
 	var/radio_disable_time = 8 SECONDS
 
-/obj/item/melee/baton/flayerprod/Initialize(mapload) // We are not making a flayerprod without a cell
+/obj/item/baton/flayerprod/Initialize(mapload) // We are not making a flayerprod without a cell
 	link_new_cell()
 	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	return ..()
 
-/obj/item/melee/baton/flayerprod/update_icon_state()
+/obj/item/baton/flayerprod/update_icon_state()
 	return
 
-/obj/item/melee/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/baton/flayerprod/screwdriver_act(mob/living/user, obj/item/I)
 	return
 
-/obj/item/melee/baton/flayerprod/play_hit_sound()
+/obj/item/baton/flayerprod/play_hit_sound()
 	playsound(src, 'sound/weapons/egloves.ogg', 25, TRUE, -1, ignore_walls = FALSE)
 
-/obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown)
+/obj/item/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown)
 	if(..())
 		disable_radio(L)
 		return TRUE
 	return FALSE
 
-/obj/item/melee/baton/flayerprod/proc/disable_radio(mob/living/L)
+/obj/item/baton/flayerprod/proc/disable_radio(mob/living/L)
 	var/list/all_items = L.GetAllContents()
 	for(var/obj/item/radio/R in all_items)
 		R.radio_enable_timer = addtimer(CALLBACK(src, PROC_REF(enable_radio), R), radio_disable_time, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE | TIMER_DELETE_ME)
@@ -427,17 +430,17 @@
 		R.broadcasting = FALSE
 		L.visible_message(SPAN_WARNING("[R] buzzes loudly as it short circuits!"), blind_message = SPAN_NOTICE("You hear a loud, electronic buzzing."))
 
-/obj/item/melee/baton/flayerprod/proc/enable_radio(obj/item/radio/R)
+/obj/item/baton/flayerprod/proc/enable_radio(obj/item/radio/R)
 	if(QDELETED(R))
 		return
 	R.on = TRUE
 	R.listening = TRUE
 
-/obj/item/melee/baton/flayerprod/deductcharge(amount)
+/obj/item/baton/flayerprod/deductcharge(amount)
 	if(cell.charge < hitcost)
 		return
 	cell.use(amount)
 
-/obj/item/melee/baton/flayerprod/examine(mob/user)
+/obj/item/baton/flayerprod/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("This one seems to be able to interfere with radio headsets.")

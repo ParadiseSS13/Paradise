@@ -66,7 +66,7 @@
 	pda = /obj/item/pda/heads/hos
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/classic_baton/telescopic = 1
 	)
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)
@@ -194,7 +194,7 @@
 	pda = /obj/item/pda/detective
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/classic_baton/telescopic = 1
 	)
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)

@@ -108,8 +108,8 @@
 	if(try_to_open_firedoor(target))
 		return ITEM_INTERACT_COMPLETE
 
-	var/obj/item/melee/mantis_blade/secondblade = user.get_inactive_hand()
-	if(!istype(secondblade, /obj/item/melee/mantis_blade))
+	var/obj/item/mantis_blade/secondblade = user.get_inactive_hand()
+	if(!istype(secondblade, /obj/item/mantis_blade))
 		to_chat(user, SPAN_WARNING("You need a second [parent] to pry open doors!"))
 		return ITEM_INTERACT_COMPLETE
 

@@ -1,7 +1,7 @@
 #define CULT_ELDERGOD "eldergod"
 #define CULT_SLAUGHTER "slaughter"
 
-/obj/item/melee/cultblade/dagger
+/obj/item/cultblade/dagger
 	name = "ritual dagger"
 	desc = "A small, well-balanced dagger that radiates an aura of palpable menace. The blade tapers to a razor-sharp point that is ideal for drawing with."
 	icon_state = "blood_dagger"
@@ -13,24 +13,24 @@
 	var/drawing_rune = FALSE
 	var/scribe_multiplier = 1 // Lower is faster
 
-/obj/item/melee/cultblade/dagger/adminbus
+/obj/item/cultblade/dagger/adminbus
 	name = "ritual dagger of scribing, +1"
 	desc = "VERY fast culto scribing at incredible high speed!"
 	force = 16
 	scribe_multiplier = 0.1
 
-/obj/item/melee/cultblade/dagger/Initialize(mapload)
+/obj/item/cultblade/dagger/Initialize(mapload)
 	. = ..()
 	icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 
-/obj/item/melee/cultblade/dagger/examine(mob/user)
+/obj/item/cultblade/dagger/examine(mob/user)
 	. = ..()
 	if(IS_CULTIST(user) || user.stat == DEAD)
 		. += SPAN_CULT("A dagger gifted by [GET_CULT_DATA(entity_title3, "your god")]. Allows the scribing of runes and access to the knowledge archives of the cult of [GET_CULT_DATA(entity_name, "your god")].")
 		. += SPAN_CULTITALIC("Striking another cultist with it will purge holy water from them.")
 		. += SPAN_CULTITALIC("Striking a noncultist will tear their flesh, additionally, if you recently downed them with cult magic it will stun them completely.")
 
-/obj/item/melee/cultblade/dagger/pre_attack(atom/target, mob/living/user, params)
+/obj/item/cultblade/dagger/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -47,7 +47,7 @@
 
 		return FINISH_ATTACK
 
-/obj/item/melee/cultblade/dagger/activate_self(mob/user)
+/obj/item/cultblade/dagger/activate_self(mob/user)
 	if(..())
 		return
 
@@ -56,7 +56,7 @@
 	else
 		to_chat(user, SPAN_WARNING("[src] is covered in unintelligible shapes and markings."))
 
-/obj/item/melee/cultblade/dagger/proc/narsie_rune_check(mob/living/user, area/A)
+/obj/item/cultblade/dagger/proc/narsie_rune_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
 
 	if(gamemode.cult_team.cult_status < NARSIE_NEEDS_SUMMONING)
@@ -83,7 +83,7 @@
 			else
 				return TRUE
 
-/obj/item/melee/cultblade/dagger/proc/can_scribe(mob/living/user)
+/obj/item/cultblade/dagger/proc/can_scribe(mob/living/user)
 	if(!src || !user || loc != user || user.incapacitated())
 		return FALSE
 	if(drawing_rune)
@@ -98,7 +98,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/melee/cultblade/dagger/proc/scribe_rune(mob/living/user)
+/obj/item/cultblade/dagger/proc/scribe_rune(mob/living/user)
 	var/list/shields = list()
 	var/list/possible_runes = list()
 	var/keyword

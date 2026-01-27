@@ -123,38 +123,42 @@
 	chemical_cost = 15
 	dna_cost = 4
 	req_human = TRUE
-	weapon_type = /obj/item/melee/arm_blade
+	weapon_type = /obj/item/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	recharge_slowdown = 0.75
 	category = /datum/changeling_power_category/offence
 
-/obj/item/melee/arm_blade
+/obj/item/arm_blade
 	name = "arm blade"
 	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
 	hitsound = 'sound/weapons/armblade.ogg'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "arm_blade"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 	force = 25
 	throw_range = 0
 	throw_speed = 0
+	needs_permit = TRUE
 	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
+/obj/item/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	parent_action = new_parent_action
 	AddComponent(/datum/component/forces_doors_open, time_to_open = 10 SECONDS)
 
-/obj/item/melee/arm_blade/Destroy()
+/obj/item/arm_blade/Destroy()
 	if(parent_action)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 		parent_action = null
 	return ..()
 
-/obj/item/melee/arm_blade/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
+/obj/item/arm_blade/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/table))
@@ -166,7 +170,7 @@
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
 
-/obj/item/melee/arm_blade/customised_abstract_text(mob/living/carbon/owner)
+/obj/item/arm_blade/customised_abstract_text(mob/living/carbon/owner)
 	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.")
 
 /***************************************\

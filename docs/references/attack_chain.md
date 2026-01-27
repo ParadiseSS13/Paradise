@@ -458,11 +458,11 @@ The migration is complete. The proc now looks like this:
 ### `attack`
 
 Let's now look at a more complex example, the cult dagger,
-`/obj/item/melee/cultblade/dagger`. This is the code as it exists before the
+`/obj/item/cultblade/dagger`. This is the code as it exists before the
 migration:
 
 ```dm
-/obj/item/melee/cultblade/dagger/attack__legacy__attackchain(mob/living/M, mob/living/user)
+/obj/item/cultblade/dagger/attack__legacy__attackchain(mob/living/M, mob/living/user)
 	if(IS_CULTIST(M))
 		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
 			if(M == user) // Targeting yourself
@@ -483,7 +483,7 @@ migration:
 Because the dagger has a parent proc, let's also examine that:
 
 ```dm
-/obj/item/melee/cultblade/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
+/obj/item/cultblade/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
 	if(!IS_CULTIST(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
@@ -529,8 +529,8 @@ The first thing we'll do is handle the first codepath, in the dagger's parent
 type:
 
 ```diff
--/obj/item/melee/cultblade/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
-+/obj/item/melee/cultblade/pre_attack(atom/target, mob/living/user, params)
+-/obj/item/cultblade/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
++/obj/item/cultblade/pre_attack(atom/target, mob/living/user, params)
 +	if(..())
 +		return FINISH_ATTACK
 
@@ -547,7 +547,7 @@ We adjust the attack proc itself to check its parent, and perform the cult-stun
 trigger. We return nothing to let the attack chain know to continue:
 
 ```diff
-+/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
++/obj/item/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 +       if(..())
 +               return FINISH_ATTACK
 +
@@ -562,11 +562,11 @@ Then we'll handle the dagger itself. Again, we want to cancel the attack chain
 if a cultist user is attacking a cultist target, one way or another:
 
 ```diff
--/obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
+-/obj/item/cultblade/dagger/attack(mob/living/M, mob/living/user)
 -	if(IS_CULTIST(M))
 -		if(M.reagents && M.reagents.has_reagent("holywater"))
 -			if(M == user) // Targeting yourself
-+/obj/item/melee/cultblade/dagger/pre_attack(atom/target, mob/living/user, params)
++/obj/item/cultblade/dagger/pre_attack(atom/target, mob/living/user, params)
 +	if(..())
 +		return FINISH_ATTACK
 +
@@ -592,7 +592,7 @@ twice. It's now much easier to tell when that is happening.
 The resultant code looks like this:
 
 ```dm
-/obj/item/melee/cultblade/pre_attack(atom/target, mob/living/user, params)
+/obj/item/cultblade/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -609,7 +609,7 @@ The resultant code looks like this:
 
 		return FINISH_ATTACK
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(..())
 		return FINISH_ATTACK
 
@@ -618,7 +618,7 @@ The resultant code looks like this:
 		if(S)
 			S.trigger()
 
-/obj/item/melee/cultblade/dagger/pre_attack(atom/target, mob/living/user, params)
+/obj/item/cultblade/dagger/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 

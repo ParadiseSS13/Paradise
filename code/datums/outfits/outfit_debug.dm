@@ -4,7 +4,7 @@
 	uniform = /obj/item/clothing/under/costume/patriotsuit
 	back = /obj/item/mod/control/pre_equipped/debug
 	backpack_contents = list(
-		/obj/item/melee/energy/axe = 1,
+		/obj/item/energy/axe = 1,
 		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
 		/obj/item/gun/magic/wand/resurrection/debug = 1,
 		/obj/item/gun/magic/wand/death/debug = 1,

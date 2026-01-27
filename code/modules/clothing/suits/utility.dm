@@ -110,7 +110,7 @@
 
 /obj/item/clothing/suit/bomb_suit/security
 	icon_state = "bombsuitsec"
-	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/gun/energy,/obj/item/baton,/obj/item/restraints/handcuffs)
 
 /*
  * Radiation protection

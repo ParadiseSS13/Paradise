@@ -119,7 +119,7 @@
 		to_chat(user, SPAN_WARNING("You must wait until the door has stopped moving."))
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/gun/energy/plasmacutter) || istype(used, /obj/item/pickaxe/drill/diamonddrill) || istype(used, /obj/item/pickaxe/drill/jackhammer) || istype(used, /obj/item/melee/energy/blade) || istype(used, /obj/item/pyro_claws))
+	if(istype(used, /obj/item/gun/energy/plasmacutter) || istype(used, /obj/item/pickaxe/drill/diamonddrill) || istype(used, /obj/item/pickaxe/drill/jackhammer) || istype(used, /obj/item/energy/blade) || istype(used, /obj/item/pyro_claws))
 		dismantle(user, TRUE)
 		return ITEM_INTERACT_COMPLETE
 

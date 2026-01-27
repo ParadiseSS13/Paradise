@@ -199,7 +199,7 @@
 				EX.icon_state = "shade_angelic"
 			user.visible_message(SPAN_NOTICE("[user] purifies [src]!"), SPAN_NOTICE("You purify [src]!"))
 
-	else if(istype(O, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
+	else if(istype(O, /obj/item/cultblade/dagger) && IS_CULTIST(user))
 		if(!purified)
 			return
 		to_chat(user, SPAN_NOTICE("You begin to cleanse [src] of holy magic."))

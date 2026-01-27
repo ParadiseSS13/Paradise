@@ -1,5 +1,5 @@
 /obj/item/clothing/suit/armor
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
@@ -204,7 +204,21 @@
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 450)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
-	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/fancy/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/gun/projectile)
+	allowed = list(
+		/obj/item/clothing/mask/cigarette,
+		/obj/item/disk,
+		/obj/item/flash,
+		/obj/item/gun/energy,
+		/obj/item/gun/projectile,
+		/obj/item/lighter,
+		/obj/item/reagent_containers/drinks/flask,
+		/obj/item/saber,
+		/obj/item/stamp,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/fancy/matches,
+		/obj/item/storage/lockbox/medal,
+		/obj/item/tank/internals/emergency_oxygen,
+	)
 	insert_max = 3
 
 	sprite_sheets = list(
@@ -335,7 +349,7 @@
 	icon_state = "heavy"
 	inhand_icon_state = "swat_suit"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50,RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 12 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -365,7 +379,7 @@
 	name = "armor"
 	desc = "An armored vest with a detective's badge on it."
 	icon_state = "detective-armor"
-	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
 
@@ -673,7 +687,7 @@
 	icon_state = "centcom"
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/gun/energy,/obj/item/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals/emergency_oxygen)
 	flags = THICKMATERIAL
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
@@ -730,7 +744,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 					/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
-					/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
+					/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/baton, /obj/item/reagent_containers/spray/pepper, \
 					/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	flags = THICKMATERIAL | STOPSPRESSUREDMAGE
 	strip_delay = 12 SECONDS

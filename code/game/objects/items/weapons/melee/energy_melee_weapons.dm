@@ -10,10 +10,13 @@
 //////////////////////////////
 // MARK: GENERIC ENERGY BLADE
 //////////////////////////////
-/obj/item/melee/energy
+/obj/item/energy
 	name = "generic energy blade"
 	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/weapons/energy_melee.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	needs_permit = TRUE
 	/// Damage done when active. Does not stack with force_off.
 	var/force_on = 30
 	/// Damage done when thrown while active. Does not stack with throwforce_off.
@@ -54,17 +57,17 @@
 	/// Used to mark the item as a cleaving saw so that cigarette_lighter_act() will perform an early return.
 	var/is_a_cleaving_saw = FALSE
 
-/obj/item/melee/energy/Initialize(mapload)
+/obj/item/energy/Initialize(mapload)
 	. = ..()
 	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
 	throwforce_off = initial(throwforce)
 	RegisterSignal(src, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(try_sharpen))
 
-/obj/item/melee/energy/Destroy()
+/obj/item/energy/Destroy()
 	UnregisterSignal(src, COMSIG_ITEM_SHARPEN_ACT)
 	return ..()
 
-/obj/item/melee/energy/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/energy/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(cigarette_lighter_act(user, target))
 		return
 
@@ -80,7 +83,7 @@
 	if(nemesis_faction)
 		force -= faction_bonus_force
 
-/obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+/obj/item/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(is_a_cleaving_saw)
 		return FALSE
 
@@ -111,12 +114,12 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/melee/energy/suicide_act(mob/user)
+/obj/item/energy/suicide_act(mob/user)
 	user.visible_message(pick(SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"), \
 						SPAN_SUICIDE("[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!")))
 	return BRUTELOSS|FIRELOSS
 
-/obj/item/melee/energy/attack_self__legacy__attackchain(mob/living/carbon/user)
+/obj/item/energy/attack_self__legacy__attackchain(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, SPAN_WARNING("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_organ_damage(5,5)
@@ -158,12 +161,12 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/melee/energy/get_heat()
+/obj/item/energy/get_heat()
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return 3500
 	return 0
 
-/obj/item/melee/energy/proc/try_sharpen(obj/item/item, amount, max_amount)
+/obj/item/energy/proc/try_sharpen(obj/item/item, amount, max_amount)
 	SIGNAL_HANDLER // COMSIG_ITEM_SHARPEN_ACT
 	if(force_on > initial(force_on) || force_on >= max_amount)
 		return COMPONENT_BLOCK_SHARPEN_MAXED
@@ -175,7 +178,7 @@
 //////////////////////////////
 // MARK: AXE
 //////////////////////////////
-/obj/item/melee/energy/axe
+/obj/item/energy/axe
 	name = "energy axe"
 	desc = "An energised battle axe."
 	icon_state = "axe0"
@@ -197,7 +200,7 @@
 	sharp = TRUE
 	light_color = LIGHT_COLOR_WHITE
 
-/obj/item/melee/energy/axe/suicide_act(mob/user)
+/obj/item/energy/axe/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS|FIRELOSS
 
@@ -205,7 +208,7 @@
 // MARK: SWORD
 //////////////////////////////
 // Base variant.
-/obj/item/melee/energy/sword
+/obj/item/energy/sword
 	name = "energy sword"
 	desc = "May the force be within you."
 	icon_state = "sword"
@@ -222,26 +225,26 @@
 	sharp = TRUE
 	var/hacked = FALSE
 
-/obj/item/melee/energy/sword/Initialize(mapload)
+/obj/item/energy/sword/Initialize(mapload)
 	. = ..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES, _requires_activation = TRUE)
 
-/obj/item/melee/energy/sword/examine(mob/user)
+/obj/item/energy/sword/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("Can parry melee attacks and sometimes blocks ranged energy attacks. Use in hand to turn off and on.")
 
-/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
 	return FALSE
 
 // Borg variant.
-/obj/item/melee/energy/sword/cyborg
+/obj/item/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack__legacy__attackchain(mob/M, mob/living/silicon/robot/R)
+/obj/item/energy/sword/cyborg/attack__legacy__attackchain(mob/M, mob/living/silicon/robot/R)
 	if(R.cell)
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) && !(C.use(hitcost)))
@@ -251,27 +254,27 @@
 		..()
 	return
 
-/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return FALSE
 
 // Syndicate energy sword.
-/obj/item/melee/energy/sword/saber
+/obj/item/energy/sword/saber
 
-/obj/item/melee/energy/sword/saber/blue
+/obj/item/energy/sword/saber/blue
 	blade_color = "blue"
 
-/obj/item/melee/energy/sword/saber/purple
+/obj/item/energy/sword/saber/purple
 	blade_color = "purple"
 
-/obj/item/melee/energy/sword/saber/green
+/obj/item/energy/sword/saber/green
 	blade_color = "green"
 
-/obj/item/melee/energy/sword/saber/red
+/obj/item/energy/sword/saber/red
 	blade_color = "red"
 
-/obj/item/melee/energy/sword/saber/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
+/obj/item/energy/sword/saber/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
 	..()
-	if(istype(W, /obj/item/melee/energy/sword/saber))
+	if(istype(W, /obj/item/energy/sword/saber))
 		if(W == src)
 			to_chat(user, SPAN_NOTICE("You try to attach the end of the energy sword to... itself. You're not very smart, are you?"))
 			if(ishuman(user))
@@ -304,7 +307,7 @@
 			to_chat(user, SPAN_WARNING("It's already fabulous!"))
 
 
-/obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return FALSE
 	. = ..()
@@ -326,7 +329,7 @@
 // MARK: SAW
 //////////////////////////////
 /// Used by medical Syndicate cyborgs
-/obj/item/melee/energy/sword/cyborg/saw
+/obj/item/energy/sword/cyborg/saw
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force = 18 //About as much as a spear
@@ -343,7 +346,7 @@
 //////////////////////////////
 // MARK: CUTLASS
 //////////////////////////////
-/obj/item/melee/energy/sword/pirate
+/obj/item/energy/sword/pirate
 	name = "energy cutlass"
 	desc = "A crude copy of syndicate technology. Favored among space pirates for its small form factor while inactive. Arrrr, matey!"
 	force_on = 20
@@ -361,7 +364,7 @@
 //////////////////////////////
 // MARK: HARDLIGHT BLADE
 //////////////////////////////
-/obj/item/melee/energy/blade
+/obj/item/energy/blade
 	name = "energy blade"
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
 	icon_state = "blade"
@@ -372,25 +375,25 @@
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
 	sharp = TRUE
 
-/obj/item/melee/energy/blade/Initialize(mapload)
+/obj/item/energy/blade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, ROUNDSTART_TRAIT)
 
-/obj/item/melee/energy/blade/attack_self__legacy__attackchain(mob/user)
+/obj/item/energy/blade/attack_self__legacy__attackchain(mob/user)
 	return
 
-/obj/item/melee/energy/blade/hardlight
+/obj/item/energy/blade/hardlight
 	name = "hardlight blade"
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
 
-/obj/item/melee/energy/proc/nemesis_effects(mob/living/user, mob/living/target)
+/obj/item/energy/proc/nemesis_effects(mob/living/user, mob/living/target)
 	return
 
 //////////////////////////////
 // MARK: CLEAVING SAW
 //////////////////////////////
-/obj/item/melee/energy/cleaving_saw
+/obj/item/energy/cleaving_saw
 	name = "cleaving saw"
 	desc = "This saw, effective at drawing the blood of beasts, transforms into a long cleaver that makes use of centrifugal force."
 	force = 12
@@ -415,7 +418,7 @@
 	var/transform_cooldown
 	var/swiping = FALSE
 
-/obj/item/melee/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
+/obj/item/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite)) // you get the bonus damage, but the bleed buildup is too much.
 		return
 	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
@@ -425,10 +428,10 @@
 	else
 		B.add_bleed(B.bleed_buildup)
 
-/obj/item/melee/energy/cleaving_saw/attack_self__legacy__attackchain(mob/living/carbon/user)
+/obj/item/energy/cleaving_saw/attack_self__legacy__attackchain(mob/living/carbon/user)
 	transform_weapon(user)
 
-/obj/item/melee/energy/cleaving_saw/proc/transform_weapon(mob/living/user, supress_message_text)
+/obj/item/energy/cleaving_saw/proc/transform_weapon(mob/living/user, supress_message_text)
 	if(transform_cooldown > world.time)
 		return FALSE
 
@@ -478,24 +481,24 @@
 
 	add_fingerprint(user)
 
-/obj/item/melee/energy/cleaving_saw/examine(mob/user)
+/obj/item/energy/cleaving_saw/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
 	Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.<br>\
 	Transforming it immediately after an attack causes the next attack to come out faster.</span>"
 
-/obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
+/obj/item/energy/cleaving_saw/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	transform_cooldown = 0
 	transform_weapon(user, TRUE)
 	return BRUTELOSS
 
-/obj/item/melee/energy/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)
+/obj/item/energy/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)
 	..()
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
 
-/obj/item/melee/energy/cleaving_saw/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
+/obj/item/energy/cleaving_saw/attack__legacy__attackchain(mob/living/target, mob/living/carbon/human/user)
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) || swiping || !target.density || get_turf(target) == get_turf(user))
 		if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 			faction_bonus_force = 0
