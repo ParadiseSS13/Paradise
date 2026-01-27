@@ -35359,10 +35359,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
 "fjk" = (
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
 "fjw" = (
@@ -43828,8 +43828,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
 "igw" = (
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "igE" = (
@@ -74779,13 +74779,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/checkpoint/secondary)
 "sDg" = (
-/obj/machinery/power/smes/engineering,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/port)
 "sDr" = (

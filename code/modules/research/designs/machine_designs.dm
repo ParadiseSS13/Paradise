@@ -62,6 +62,16 @@
 	build_path = /obj/item/circuitboard/smes
 	category = list ("Engineering Machinery")
 
+/datum/design/transformer
+	name = "Machine Board (Power Transformer)"
+	desc = "The circuit board for a Power Transformer."
+	id = "ptransformer"
+	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/transformer
+	category = list ("Engineering Machinery")
+
 /datum/design/emitter
 	name = "Machine Board (Emitter)"
 	desc = "The circuit board for an emitter."
