@@ -169,7 +169,7 @@
 	. += ""
 	. += "Nanotrasen's version sports a chemical reservior over 3 times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armor. This \
 	pressurized jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
-	It is also able to interface with the autoinjector ports found on mordern hardsuits and MODsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
+	It is also able to interface with the autoinjector ports found on modern hardsuits and MODsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
 	. += ""
 	. += "These hyposprays are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
 
