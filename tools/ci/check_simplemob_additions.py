@@ -71,6 +71,7 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/construct/builder/hostile",
         "/mob/living/simple_animal/hostile/construct/harvester",
         "/mob/living/simple_animal/hostile/construct/harvester/hostile",
+        "/mob/living/simple_animal/hostile/construct/harvester/heretic",
         "/mob/living/simple_animal/hostile/construct/proteon",
         "/mob/living/simple_animal/hostile/construct/proteon/hostile",
         "/mob/living/simple_animal/hostile/construct/wraith",

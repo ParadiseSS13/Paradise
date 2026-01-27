@@ -352,6 +352,11 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "A plastic replica of an energy blade."
 	typepath = /obj/item/toy/sword
 	cost = 150
+/datum/prize_item/fake_heretic_amulet
+	name = "Fake religious icon"
+	desc = "A strange medallion, which makes its wearer look like they're part of some cult."
+	typepath = /obj/item/clothing/neck/fake_heretic_amulet
+	cost = 150
 
 /datum/prize_item/fakespace
 	name = "Space Carpet"

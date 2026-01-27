@@ -92,10 +92,10 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = TRUE, distance = 0, message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = TRUE, distance = 0, message = 1, vomit_type_overide = null)
 	. = TRUE
 
-	if(stat == DEAD || ismachineperson(src)) // Dead people and IPCs do not vomit particulates
+	if(stat == DEAD || (ismachineperson(src) && !locate(/obj/item/organ/internal/appendix/corrupt) in internal_organs)) // Dead people and IPCs do not vomit particulates
 		return FALSE
 
 	if(should_confuse)
@@ -128,7 +128,7 @@
 				adjustBruteLoss(3)
 		else
 			if(T)
-				T.add_vomit_floor()
+				T.add_vomit_floor(type_override = vomit_type_overide)
 			adjust_nutrition(-lost_nutrition)
 			if(should_confuse)
 				adjustToxLoss(-3)

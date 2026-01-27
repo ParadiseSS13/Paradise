@@ -3,6 +3,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	needs_permit = TRUE
+	var/drawing_rune = FALSE
 
 // MARK: CAPTAIN'S SABER
 /obj/item/melee/saber
