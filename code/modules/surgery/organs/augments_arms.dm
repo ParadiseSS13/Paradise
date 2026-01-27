@@ -1,6 +1,6 @@
 /obj/item/organ/internal/cyberimp/arm
 	name = "arm-mounted implant"
-	desc = "You shouldn't see this! Adminhelp and report this as an issue on github!"
+	desc = ABSTRACT_TYPE_DESC
 	parent_organ = "r_arm"
 	slot = "r_arm_device"
 	icon_state = "toolkit_generic"
