@@ -314,6 +314,7 @@
 	icon_state = "0"
 	floor_tile = /obj/item/stack/tile/fakespace
 	plane = PLANE_SPACE
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/fakespace/Initialize(mapload)
 	. = ..()
