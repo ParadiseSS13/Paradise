@@ -10,7 +10,7 @@
  */
 /obj/item/storage/firstaid
 	name = "generic first-aid kit"
-	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "firstaid_generic"
 	throw_range = 8
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.

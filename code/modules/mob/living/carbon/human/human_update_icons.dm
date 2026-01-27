@@ -624,7 +624,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
 		update_hud_uniform(w_uniform)
 
-		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT))
+		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT) && !HAS_TRAIT(w_uniform, TRAIT_NO_WORN_ICON))
 			var/worn_icon = listgetindex(w_uniform.sprite_sheets, dna.species.sprite_sheet_name) || w_uniform.worn_icon || 'icons/mob/clothing/under/misc.dmi'
 			var/worn_icon_state = w_uniform.worn_icon_state || w_uniform.icon_state
 			var/mutable_appearance/standing = mutable_appearance(worn_icon, "[worn_icon_state]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
@@ -696,7 +696,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gloves)
 		update_hud_gloves(gloves)
 
-		if(!wear_suit || !(wear_suit.flags_inv & HIDEGLOVES))
+		if(!wear_suit || !(wear_suit.flags_inv & HIDEGLOVES) && !HAS_TRAIT(gloves, TRAIT_NO_WORN_ICON))
 			var/worn_icon = listgetindex(gloves.sprite_sheets, dna.species.sprite_sheet_name) || gloves.worn_icon || 'icons/mob/clothing/hands.dmi'
 			var/worn_icon_state = gloves.worn_icon_state || gloves.icon_state
 			var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -GLOVES_LAYER)
@@ -765,7 +765,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(l_ear)
 		update_hud_l_ear(l_ear)
 
-		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)))
+		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)) && !HAS_TRAIT(l_ear, TRAIT_NO_WORN_ICON))
 			var/worn_icon = listgetindex(l_ear.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/ears.dmi'
 			var/worn_state = l_ear.worn_icon_state || l_ear.icon_state
 
@@ -774,7 +774,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(r_ear)
 		update_hud_r_ear(r_ear)
 
-		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)))
+		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)) && !HAS_TRAIT(r_ear, TRAIT_NO_WORN_ICON))
 			var/worn_icon = listgetindex(r_ear.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/ears.dmi'
 			var/worn_state = r_ear.worn_icon_state || r_ear.icon_state
 
@@ -794,7 +794,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(shoes)
 		update_hud_shoes(shoes)
 
-		if(!wear_suit || !(wear_suit.flags_inv & HIDESHOES))
+		if(!wear_suit || !(wear_suit.flags_inv & HIDESHOES) && !HAS_TRAIT(shoes, TRAIT_NO_WORN_ICON))
 			var/worn_icon = shoes.worn_icon || listgetindex(shoes.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/feet.dmi'
 			var/worn_icon_state = shoes.worn_icon_state || shoes.icon_state
 			var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -SHOES_LAYER, alpha = shoes.alpha, color = shoes.color)
@@ -827,10 +827,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(s_store)
 		update_hud_s_store(s_store)
-		var/worn_icon = s_store.worn_icon || 'icons/mob/clothing/belt_mirror.dmi'
-		var/worn_icon_state = s_store.worn_icon_state || s_store.icon_state
+		if(!HAS_TRAIT(s_store, TRAIT_NO_WORN_ICON))
+			var/worn_icon = s_store.worn_icon || 'icons/mob/clothing/belt_mirror.dmi'
+			var/worn_icon_state = s_store.worn_icon_state || s_store.icon_state
 
-		overlays_standing[SUIT_STORE_LAYER] = mutable_appearance(worn_icon, worn_icon_state, layer = -SUIT_STORE_LAYER)
+			overlays_standing[SUIT_STORE_LAYER] = mutable_appearance(worn_icon, worn_icon_state, layer = -SUIT_STORE_LAYER)
 	apply_overlay(SUIT_STORE_LAYER)
 
 /mob/living/carbon/human/update_inv_head()
@@ -842,40 +843,36 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(head)
 		update_hud_head(head)
-		var/obj/item/organ/external/head/head_organ = get_organ("head")
-		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
-		var/obj/item/clothing/head/head_clothes
-		if(istype(head, /obj/item/clothing/head))
-			head_clothes = head
+		if(!HAS_TRAIT(head, TRAIT_NO_WORN_ICON))
+			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+			var/obj/item/clothing/head/head_clothes
+			if(istype(head, /obj/item/clothing/head))
+				head_clothes = head
 
-		var/worn_icon = (head_clothes && robohead && robohead.is_monitor ? head_clothes.icon_monitor : FALSE) || listgetindex(head.sprite_sheets, dna.species.sprite_sheet_name) || head.worn_icon || 'icons/mob/clothing/head.dmi'
-		var/worn_icon_state = head.worn_icon_state || head.icon_state
-		var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -HEAD_LAYER, alpha = head.alpha, color = head.color)
+			var/worn_icon = (head_clothes && robohead && robohead.is_monitor ? head_clothes.icon_monitor : FALSE) || listgetindex(head.sprite_sheets, dna.species.sprite_sheet_name) || head.worn_icon || 'icons/mob/clothing/head.dmi'
+			var/worn_icon_state = head.worn_icon_state || head.icon_state
+			var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -HEAD_LAYER, alpha = head.alpha, color = head.color)
 
-		if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
-			var/obj/item/clothing/head/helmet/space/plasmaman/P = head
-			if(!P.up)
-				standing.overlays += P.visor_icon
-			else if(P.on && P.light_icon)
-				standing.overlays += P.light_icon
+			if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
+				var/obj/item/clothing/head/helmet/space/plasmaman/P = head
+				if(!P.up)
+					standing.overlays += P.visor_icon
+				else if(P.on && P.light_icon)
+					standing.overlays += P.light_icon
 
-		if(istype(head, /obj/item/clothing/head))
-			var/obj/item/clothing/head/w_hat = head
-			for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
-				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) || listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
-				var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
-				standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
+			if(istype(head, /obj/item/clothing/head))
+				var/obj/item/clothing/head/w_hat = head
+				for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
+					var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) || listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
+					var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
+					standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
 
-			for(var/obj/item/clothing/mask/mask in w_hat.attached_masks)
-				var/mask_worn_icon = listgetindex(mask.sprite_sheets, dna.species.sprite_sheet_name) || mask.worn_icon || 'icons/mob/clothing/mask.dmi'
-				var/mask_worn_icon_state = mask.worn_icon_state || mask.icon_state
-				standing.overlays += image(icon = mask_worn_icon, icon_state = mask_worn_icon_state)
-
-		if(head.blood_DNA)
-			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
-			bloodsies.color = head.blood_color
-			standing.overlays += bloodsies
-		overlays_standing[HEAD_LAYER] = standing
+			if(head.blood_DNA)
+				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
+				bloodsies.color = head.blood_color
+				standing.overlays += bloodsies
+			overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/human/update_inv_belt()
@@ -901,9 +898,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			worn_layer = BELT_LAYER
 
-		var/worn_icon = belt.worn_icon || listgetindex(belt.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/belt.dmi'
-		var/worn_icon_state = belt.worn_icon_state || belt.icon_state
-		overlays_standing[worn_layer] = mutable_appearance(worn_icon, worn_icon_state, layer = -worn_layer)
+		if(!HAS_TRAIT(belt, TRAIT_NO_WORN_ICON))
+			var/worn_icon = belt.worn_icon || listgetindex(belt.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/belt.dmi'
+			var/worn_icon_state = belt.worn_icon_state || belt.icon_state
+			overlays_standing[worn_layer] = mutable_appearance(worn_icon, worn_icon_state, layer = -worn_layer)
 
 	apply_overlay(BELT_LAYER)
 	apply_overlay(SPECIAL_BELT_LAYER)
@@ -916,18 +914,23 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(wear_suit && istype(wear_suit, /obj/item/clothing/suit))
 		update_hud_wear_suit(wear_suit)
+		if(!HAS_TRAIT(wear_suit, TRAIT_NO_WORN_ICON))
 
-		var/worn_icon = listgetindex(wear_suit.sprite_sheets, dna.species.sprite_sheet_name) || wear_suit.worn_icon || 'icons/mob/clothing/suit.dmi'
-		var/worn_icon_state = wear_suit.worn_icon_state || wear_suit.icon_state
-		var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -SUIT_LAYER, alpha = wear_suit.alpha, color = wear_suit.color)
+			var/worn_icon = listgetindex(wear_suit.sprite_sheets, dna.species.sprite_sheet_name) || wear_suit.worn_icon || 'icons/mob/clothing/suit.dmi'
+			var/worn_icon_state = wear_suit.worn_icon_state || wear_suit.icon_state
+			var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -SUIT_LAYER, alpha = wear_suit.alpha, color = wear_suit.color)
 
-		if(wear_suit.blood_DNA)
-			var/obj/item/clothing/suit/S = wear_suit
-			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "[S.blood_overlay_type]blood")
-			bloodsies.color = wear_suit.blood_color
-			standing.overlays += bloodsies
+			if(wear_suit.breakouttime)
+				drop_l_hand()
+				drop_r_hand()
 
-		overlays_standing[SUIT_LAYER] = standing
+			if(wear_suit.blood_DNA)
+				var/obj/item/clothing/suit/S = wear_suit
+				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "[S.blood_overlay_type]blood")
+				bloodsies.color = wear_suit.blood_color
+				standing.overlays += bloodsies
+
+			overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
 	update_tail_layer()
@@ -976,7 +979,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		inv?.update_icon()
 
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
-		if(!(check_obscured_slots() & ITEM_SLOT_MASK))
+		update_hud_wear_mask(wear_mask)
+		if(!(check_obscured_slots() & ITEM_SLOT_MASK) && !HAS_TRAIT(wear_mask, TRAIT_NO_WORN_ICON))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
 			if(!istype(head_organ))
 				return // Nothing to update here

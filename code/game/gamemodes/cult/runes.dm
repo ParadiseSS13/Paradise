@@ -81,7 +81,7 @@ To draw a rune, use a ritual dagger.
 
 		var/obj/item/melee/cultblade/dagger/dagger = used
 		user.visible_message(SPAN_WARNING("[user] begins to erase [src] with [dagger]."))
-		if(do_after(user, initial(scribe_delay) * dagger.scribe_multiplier, target = src))
+		if(do_after(user, initial(scribe_delay) * dagger.toolspeed, target = src))
 			to_chat(user, SPAN_NOTICE("You carefully erase the [lowertext(cultist_name)] rune."))
 			qdel(src)
 		return ITEM_INTERACT_COMPLETE
@@ -319,14 +319,37 @@ structure_check() searches for nearby cultist structures required for the invoca
 		for(var/I in invokers)
 			to_chat(I, SPAN_WARNING("You need at least two invokers to convert!"))
 		return
-
+	if(HAS_TRAIT(convertee, TRAIT_WAS_SACRIFICED) && length(invokers) < 3) // harder to convert heretic-touched
+		fail_invoke()
+		for(var/I in invokers)
+			to_chat(I, SPAN_WARNING("This one struggles against our influence with an unknown force. We require at least 3 invokers to convert them!"))
+		return
 	convertee.visible_message(SPAN_WARNING("[convertee] writhes in pain as the markings below them glow a bloody red!"), \
 							SPAN_CULTLARGE("<i>AAAAAAAAAAAAAA-</i>"))
 	convertee.mind.add_antag_datum(/datum/antagonist/cultist)
-	to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
-		and something evil takes root.</b></span>")
-	to_chat(convertee, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [GET_CULT_DATA(entity_title3, "your god")] above all else. Bring it back.\
-		</b></span>")
+	to_chat(convertee, SPAN_CULTITALIC("<b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
+		and something evil takes root.</b>"))
+	to_chat(convertee, SPAN_CULTITALIC("<b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [GET_CULT_DATA(entity_title3, "your god")] above all else. Bring it back.\
+		</b>"))
+
+	if(HAS_TRAIT(convertee, TRAIT_WAS_SACRIFICED)) // Augh! heretic backlash!
+		playsound(convertee, 'sound/magic/voidblink.ogg', 50, FALSE)
+		if(prob(20))
+			var/mob_type = pick(list(
+				/mob/living/basic/heretic_summon/rust_spirit,
+				/mob/living/basic/heretic_summon/ash_spirit,
+				/mob/living/basic/heretic_summon/stalker,
+				/mob/living/basic/heretic_summon/raw_prophet,
+				/mob/living/basic/heretic_summon/maid_in_the_mirror,
+			))
+			convertee.visible_message(SPAN_DANGER("A heretical beast is pulled out of [convertee] during the offering!"))
+			new mob_type(convertee.loc)
+		for(var/mob in invokers)
+			if(iscarbon(mob))
+				to_chat(mob, SPAN_HIEROPHANT_WARNING("AUGH! A vile magic recoils against our influence and poisons us!"))
+				var/mob/living/carbon/carbon = mob
+				carbon.reagents.add_reagent("toxin", 15)
+				carbon.reagents.add_reagent("histamine", 15)
 
 	if(ishuman(convertee))
 		var/mob/living/carbon/human/H = convertee
@@ -370,6 +393,21 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			log_game("Sacrifice rune failed - not enough acolytes and target is living")
 			return
+	var/datum/antagonist/heretic/ascended_heretic = IS_HERETIC(offering)
+	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/basic/heretic_summon/star_gazer)) // No sliping an ascended heretic on a sacrifice rune to sacrifice them, lmao
+		for(var/M in invokers)
+			to_chat(M, SPAN_CULTITALIC("[offering] is too powerful to be sacrificed alive!"))
+		fail_invoke()
+		log_game("Sacrifice rune failed - heretic is ascended and alive")
+		return
+	var/mob/living/first_invoker = invokers[1]
+	var/datum/antagonist/cultist/first_invoker_datum = first_invoker.mind.has_antag_datum(/datum/antagonist/cultist)
+	var/datum/team/cult/cult_team = first_invoker_datum.get_team()
+	var/signal_result = SEND_SIGNAL(offering, COMSIG_LIVING_CULT_SACRIFICED, invokers, cult_team)
+
+	var/do_message = TRUE
+	if(signal_result & SILENCE_SACRIFICE_MESSAGE)
+		do_message = FALSE
 
 	var/sacrifice_fulfilled
 	var/worthless = FALSE
@@ -390,36 +428,43 @@ structure_check() searches for nearby cultist structures required for the invoca
 		GLOB.sacrificed += offering
 
 	new /obj/effect/temp_visual/cult/sac(loc)
-	for(var/M in invokers)
-		if(sacrifice_fulfilled)
-			to_chat(M, SPAN_CULTLARGE("\"Yes! This is the one I desire! You have done well.\""))
-			if(!SSticker.mode.cult_team.mirror_shields_active) // Only show once
-				to_chat(M, SPAN_CULTITALIC("You are now able to construct mirror shields inside the daemon forge."))
-				SSticker.mode.cult_team.mirror_shields_active = TRUE
-		else
-			if((ishuman(offering) && offering.mind?.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(offering, TRAIT_XENOBIO_SPAWNED_HUMAN)) //If you try it on a ghost role, or an envolved caterpillar/nymph, you get nothing
-				to_chat(M, SPAN_CULTLARGE("\"This soul is of no use to either of us.\""))
-				worthless = TRUE
-			else if(ishuman(offering) || isrobot(offering))
-				to_chat(M, SPAN_CULTLARGE("\"I accept this sacrifice.\""))
+	if(do_message)
+		for(var/M in invokers)
+			if(sacrifice_fulfilled)
+				to_chat(M, SPAN_CULTLARGE("\"Yes! This is the one I desire! You have done well.\""))
+				if(!SSticker.mode.cult_team.mirror_shields_active) // Only show once
+					to_chat(M, SPAN_CULTLARGE("You are now able to construct mirror shields inside the daemon forge."))
+					SSticker.mode.cult_team.mirror_shields_active = TRUE
 			else
-				to_chat(M, SPAN_CULTLARGE("\"I accept this meager sacrifice.\""))
-	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE, SOUND_RANGE_SET(10))
-
-	if(((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind) && !worthless)
-		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
-		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
-		stone.transfer_soul("FORCE", offering, user) // If it cannot be added
-		stone.invisibility = 0
-		var/put_in_hands = user.put_in_any_hand_if_possible(stone)
-		if(put_in_hands)
-			to_chat(user, SPAN_CULTITALIC("A glowing crimson shard appears in your hand - your new ally contained within."))
+				if((ishuman(offering) && offering.mind?.offstation_role && offering.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(offering, TRAIT_XENOBIO_SPAWNED_HUMAN)) //If you try it on a ghost role, or an envolved caterpillar/nymph, you get nothing
+					to_chat(M, SPAN_CULTLARGE("\"This soul is of no use to either of us.\""))
+					worthless = TRUE
+				else if(ishuman(offering) || isrobot(offering))
+					to_chat(M, SPAN_CULTLARGE("\"I accept this sacrifice.\""))
+				else
+					to_chat(M, SPAN_CULTLARGE("\"I accept this meager sacrifice.\""))
+	// post-message
+	if(signal_result & STOP_SACRIFICE)
+		return FALSE
+	if(offering && (signal_result & DUST_SACRIFICE)) // No soulstone when dusted
+		playsound(offering, 'sound/magic/teleport_diss.ogg', 100, TRUE)
+		offering.dust()
 	else
-		if(isrobot(offering))
-			offering.dust() //To prevent the MMI from remaining
+		playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE, SOUND_RANGE_SET(10))
+		if(((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind) && !worthless)
+			var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
+			stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
+			stone.transfer_soul("FORCE", offering, user) // If it cannot be added
+			stone.invisibility = 0
+			var/put_in_hands = user.put_in_any_hand_if_possible(stone)
+			if(put_in_hands)
+				to_chat(user, SPAN_CULTITALIC("A glowing crimson shard appears in your hand - your new ally contained within."))
 		else
-			offering.gib()
-		playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE, SOUND_RANGE_SET(10))
+			if(isrobot(offering))
+				offering.dust() //To prevent the MMI from remaining
+			else
+				offering.gib()
+			playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE, SOUND_RANGE_SET(10))
 	if(sacrifice_fulfilled)
 		SSticker.mode.cult_team.successful_sacrifice()
 	return TRUE
@@ -935,6 +980,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		summon_ghosts(user, T)
 
 	else if(choice == "Ascend as a Dark Spirit")
+		if(length(SSticker.mode.heretics))
+			to_chat(user, SPAN_HIEROPHANT("The Mansus fogs your view into the spirit wrold..."))
+			fail_invoke()
+			log_game("Manifest rune failed - heretic blocked ghosting")
+			return list()
 		ghostify(user, T)
 
 
@@ -965,6 +1015,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	new_human.key = ghost_to_spawn.key
 	new_human.gender = ghost_to_spawn.gender
 	new_human.alpha = 150 //Makes them translucent
+	ADD_TRAIT(new_human, TRAIT_MUTE, UID())
 	new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
 	new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST, user) //ghosts can't summon more ghosts, also lets you see actual ghosts
 	for(var/obj/item/organ/external/current_organ in new_human.bodyparts)

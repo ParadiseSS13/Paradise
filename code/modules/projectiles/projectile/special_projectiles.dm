@@ -423,6 +423,110 @@
 	var/obj/item/gun/G = stored_gun
 	stored_gun = null
 	G.forceMove(T)
-	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
+	var/mob/living/basic/mimic/copy/ranged/R = new /mob/living/basic/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
-		R.target = target
+		R.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+
+/obj/effect/ebeam/curse_arm
+	name = "curse arm"
+
+/obj/projectile/curse_hand
+	name = "curse hand"
+	icon_state = "cursehand0"
+	base_icon_state = "cursehand"
+	hitsound = 'sound/effects/curse/curse4.ogg'
+	layer = LARGE_MOB_LAYER
+	damage = 0
+	speed = 1.5
+	range = 16
+	forcedodge = -1
+	var/burn_damage = 10
+	var/weaken_damage = 2 SECONDS
+	var/datum/beam/arm
+	var/handedness = 0
+
+/obj/projectile/curse_hand/Initialize(mapload)
+	. = ..()
+	handedness = prob(50)
+	icon_state = "[base_icon_state][handedness]"
+
+/obj/projectile/curse_hand/Destroy()
+	QDEL_NULL(arm)
+	return ..()
+
+/obj/projectile/curse_hand/update_icon_state()
+	icon_state = "[base_icon_state]0[handedness]"
+	return ..()
+
+/obj/projectile/curse_hand/fire(setAngle)
+	if(QDELETED(src)) //I'm going to try returning nothing because if it's being deleted, surely we don't want anything to happen?
+		return
+	if(starting)
+		arm = Beam(starting, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm, maxdistance = 20)
+	..()
+
+/obj/projectile/curse_hand/on_range()
+	finale()
+	return ..()
+
+/// The visual effect for the hand disappearing
+/obj/projectile/curse_hand/proc/finale()
+	if(arm)
+		QDEL_NULL(arm)
+	playsound(src, 'sound/effects/curse/curse3.ogg', 25, TRUE, -1)
+	var/turf/T = get_turf(src)
+	var/obj/effect/temp_visual/dir_setting/curse/hand/leftover = new(T, get_dir(starting, T))
+	leftover.icon_state = icon_state
+	for(var/obj/effect/temp_visual/dir_setting/curse/grasp_portal/G in starting)
+		qdel(G)
+	if(!T) //T can be in nullspace when src is set to QDEL
+		return
+	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading(starting, get_dir(starting, T))
+	var/datum/beam/D = starting.Beam(T, icon_state = "curse[handedness]", time = 5 SECONDS, maxdistance = 21, beam_type=/obj/effect/ebeam/curse_arm)
+	for(var/obj/effect/every in D.elements)
+		animate(every, alpha = 0, time = 32)
+	qdel(src)
+
+/obj/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
+	. = ..()
+	if(target == original)
+		if(isliving(target))
+			var/mob/living/out_target = target
+			out_target.apply_damage(burn_damage, BURN)
+			out_target.Weaken(weaken_damage)
+		finale()
+
+/obj/projectile/curse_hand/hel //Used in helbital's impure reagent
+	name = "Hel's grasp"
+	speed = 1
+	range = 20
+	color = "#ff7e7e"//Tint it slightly
+	burn_damage = 5
+	weaken_damage = 0 //Lets not stun people!
+
+
+/obj/effect/temp_visual/dir_setting/curse
+	icon_state = "curse"
+	duration = 32
+	var/fades = TRUE
+
+/obj/effect/temp_visual/dir_setting/curse/Initialize(mapload, set_dir)
+	. = ..()
+	if(fades)
+		animate(src, alpha = 0, time = 32)
+
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal
+	icon = 'icons/effects/64x64.dmi'
+	layer = ABOVE_ALL_MOB_LAYER
+	pixel_y = -16
+	pixel_x = -16
+	fades = FALSE
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading
+	fades = TRUE
+
+
+/obj/effect/temp_visual/dir_setting/curse/hand
+	icon_state = "cursehand1"
+

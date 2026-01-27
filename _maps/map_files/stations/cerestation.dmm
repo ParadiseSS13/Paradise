@@ -10385,6 +10385,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"bGq" = (
+/obj/item/seeds/poppy,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/apmaint)
 "bGs" = (
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 1
@@ -37254,6 +37260,7 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez{
 	pixel_x = 5
 	},
+/obj/item/seeds/poppy,
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "gZz" = (
@@ -48052,7 +48059,7 @@
 	pixel_x = -6;
 	pixel_y = 10
 	},
-/obj/item/storage/fancy/cigarettes{
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
 	pixel_y = 2
 	},
 /obj/item/lighter{
@@ -111484,6 +111491,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
+"xfe" = (
+/obj/structure/table/wood,
+/obj/item/seeds/harebell,
+/turf/simulated/floor/grass/jungle,
+/area/station/hallway/secondary/garden)
 "xfi" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -130521,7 +130533,7 @@ lMW
 jfl
 gtZ
 daM
-sKh
+bGq
 sKh
 xxb
 wIq
@@ -150548,7 +150560,7 @@ jJC
 hXq
 oTB
 beb
-beb
+xfe
 beb
 aXP
 aXP
