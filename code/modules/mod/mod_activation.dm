@@ -56,8 +56,8 @@
 			deploy(null, part, TRUE)
 		else if(!deploy && part.loc != src)
 			retract(null, part, TRUE)
-	wearer.visible_message(SPAN_NOTICE("[wearer]'s [src] [deploy ? "deploys" : "retracts"] its' parts with a mechanical hiss."),
-		SPAN_NOTICE("[src] [deploy ? "deploys" : "retracts"] its' parts with a mechanical hiss."),
+	wearer.visible_message(SPAN_NOTICE("[wearer]'s [src] [deploy ? "deploys" : "retracts"] its parts with a mechanical hiss."),
+		SPAN_NOTICE("[src] [deploy ? "deploys" : "retracts"] its parts with a mechanical hiss."),
 		"You hear a mechanical hiss.")
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(deploy)
