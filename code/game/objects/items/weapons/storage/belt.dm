@@ -96,6 +96,7 @@
 		/obj/item/rpd/bluespace,
 		/obj/item/hammer,
 		/obj/item/rcl,
+		/obj/item/melee/sickly_blade/lock,
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -880,7 +881,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
-		/obj/item/handheld_defibrillator
+		/obj/item/handheld_defibrillator,
+		/obj/item/melee/sickly_blade/lock
 		)
 
 /obj/item/storage/belt/bluespace/owlman

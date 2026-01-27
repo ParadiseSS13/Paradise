@@ -519,6 +519,9 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/extra_insulated/attack_ai(mob/user)
 	toggle_connection(user)
 
+/obj/structure/cable/rust_heretic_act()
+	return FALSE
+
 //
 //	This ASCII art represents my brain after looking at cable
 //  code for too long, half of this was written before I was even

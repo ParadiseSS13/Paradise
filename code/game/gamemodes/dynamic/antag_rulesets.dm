@@ -220,6 +220,15 @@
 	latespawn_time = null
 	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
 
+/datum/ruleset/heretic
+	name = "Heretic"
+	ruleset_weight = 10
+	antag_cost = 10
+	antagonist_type = /datum/antagonist/heretic
+
+	banned_jobs = list("Cyborg", "AI")
+
+
 /datum/ruleset/vampire
 	name = "Vampire"
 	ruleset_weight = 12
