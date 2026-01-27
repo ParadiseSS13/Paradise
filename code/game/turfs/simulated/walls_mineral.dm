@@ -1,6 +1,6 @@
 /turf/simulated/wall/mineral
 	name = "mineral wall"
-	desc = "If you can see this, please make an issue report on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = ""
 	canSmoothWith = null
 	var/last_event = 0

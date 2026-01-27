@@ -35,7 +35,7 @@
 
 /obj/structure/forcefield
 	name = "ain't supposed to see this"
-	desc = "file a github report if you do!"
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/effects/effects.dmi'
 	density = TRUE
 	anchored = TRUE

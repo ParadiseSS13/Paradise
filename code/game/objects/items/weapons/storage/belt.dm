@@ -755,7 +755,7 @@
 
 /obj/item/storage/belt/sheath
 	name = "sword sheath"
-	desc = "Can hold swords. If you see this, it is a bug. Please report this on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "sheath"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY

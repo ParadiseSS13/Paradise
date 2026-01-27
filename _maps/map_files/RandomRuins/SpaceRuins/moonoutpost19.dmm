@@ -403,7 +403,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "bd" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = 32
 	},
 /obj/structure/table,
@@ -565,8 +565,6 @@
 "bE" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/sign/vacuum{
-	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
-	name = "\improper HOSTILE ATMOSPHERE AHEAD";
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
@@ -603,14 +601,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
-"bH" = (
-/obj/structure/sign/restroom{
-	pixel_y = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "bJ" = (
@@ -1665,8 +1655,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "fA" = (
-/obj/structure/mopbucket,
-/obj/item/mop,
+/obj/structure/mopbucket/full,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "fB" = (
@@ -2309,7 +2298,7 @@
 	dir = 8
 	},
 /obj/structure/railing,
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -2352,6 +2341,10 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"hB" = (
+/obj/structure/sign/command/head,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "hC" = (
 /obj/structure/chair/office/dark{
@@ -3401,6 +3394,9 @@
 /obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/tiles/white/corner,
+/obj/structure/sign/medical/surgery{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "kJ" = (
@@ -3635,6 +3631,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"lO" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/structure/sign/engineering/atmos,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/moonbase19)
 "lP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3753,6 +3754,9 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "awaykitchen"
+	},
+/obj/structure/sign/service/kitchen{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel/stairs{
 	dir = 4
@@ -3940,7 +3944,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "na" = (
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = -32
 	},
 /obj/machinery/light/small{
@@ -3980,19 +3984,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblue,
-/area/ruin/space/moonbase19)
-"nk" = (
-/obj/structure/sign/electricshock{
-	pixel_y = 32
-	},
-/obj/structure/table,
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "nl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4269,6 +4260,11 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
+"os" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/structure/sign/medical,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/moonbase19)
 "ot" = (
 /obj/structure/railing{
 	dir = 8
@@ -4470,6 +4466,9 @@
 	dir = 4
 	},
 /obj/machinery/light/small,
+/obj/structure/sign/service/kitchen{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "pm" = (
@@ -5328,21 +5327,6 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
-"tb" = (
-/obj/structure/sign/securearea{
-	pixel_x = -32
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
 "tc" = (
 /obj/structure/railing{
 	dir = 4
@@ -6049,6 +6033,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
+"xd" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/structure/sign/public/arcade,
+/turf/simulated/wall,
+/area/ruin/space/moonbase19)
 "xf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -6118,6 +6107,10 @@
 	icon_state = "asteroidplating"
 	},
 /area/ruin/space/moonbase19)
+"xq" = (
+/obj/structure/sign/medical,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/moonbase19)
 "xs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -6156,9 +6149,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "xz" = (
-/obj/structure/sign/lifestar{
-	pixel_y = 32
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -6218,6 +6208,10 @@
 /turf/simulated/floor/plasteel/stairs{
 	dir = 8
 	},
+/area/ruin/space/moonbase19)
+"xN" = (
+/obj/structure/sign/service/custodian,
+/turf/simulated/wall,
 /area/ruin/space/moonbase19)
 "xO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6514,6 +6508,16 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
+"zd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 6
+	},
+/obj/structure/sign/vacuum/external{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
 "zh" = (
 /obj/item/food/badrecipe,
 /turf/simulated/floor/plasteel{
@@ -6798,6 +6802,10 @@
 /obj/item/laser_pointer,
 /obj/item/clothing/suit/storage/labcoat,
 /turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/moonbase19)
+"At" = (
+/obj/structure/sign/science,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "Av" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -7250,8 +7258,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Cy" = (
-/obj/structure/rack,
-/obj/item/mop,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
@@ -7262,6 +7268,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/obj/structure/mopbucket/full,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "CB" = (
@@ -7953,19 +7960,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
-"FP" = (
-/obj/structure/mopbucket,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
 "FT" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
@@ -8480,6 +8474,10 @@
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
+"Iu" = (
+/obj/structure/sign/engineering/power,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/moonbase19)
 "Ix" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/turf_decal/tiles/department/virology/corner{
@@ -8854,6 +8852,22 @@
 /obj/structure/table,
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"Ki" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/structure/sign/public/reception{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
@@ -10254,7 +10268,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/structure/sign/pods{
+/obj/structure/sign/public/pods{
 	pixel_y = 32
 	},
 /obj/effect/spawner/random/maintenance,
@@ -10298,6 +10312,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"QN" = (
+/obj/structure/sign/engineering,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "QO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -10425,6 +10443,11 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"Rr" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/structure/sign/science,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "Ru" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -10724,6 +10747,10 @@
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"Th" = (
+/obj/structure/sign/public/restroom,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "Ti" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/moonoutpost19,
@@ -11083,6 +11110,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"UJ" = (
+/obj/structure/sign/command/vault,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/moonbase19)
 "UK" = (
 /obj/structure/railing{
 	dir = 10
@@ -11223,6 +11254,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
+/area/ruin/space/moonbase19)
+"VI" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/structure/sign/engineering/power,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "VK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11411,7 +11447,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/sign/pods{
+/obj/structure/sign/public/pods{
 	pixel_y = 32
 	},
 /obj/structure/table,
@@ -11421,6 +11457,13 @@
 /obj/machinery/light/small,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"WB" = (
+/obj/item/kirbyplants/large,
+/obj/structure/sign/lifestar{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "WE" = (
 /obj/structure/railing,
@@ -11750,7 +11793,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11847,6 +11890,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
+/area/ruin/space/moonbase19)
+"Yt" = (
+/obj/structure/sign/public/reception,
+/turf/simulated/wall/r_wall,
 /area/ruin/space/moonbase19)
 "Yu" = (
 /obj/structure/toilet/directional/north,
@@ -13429,7 +13476,7 @@ ag
 ag
 ag
 ag
-ag
+Yt
 xz
 JN
 ag
@@ -13490,7 +13537,7 @@ Pf
 tX
 tX
 ig
-hs
+WB
 iw
 lY
 ig
@@ -13588,7 +13635,7 @@ mk
 Yi
 SG
 KN
-af
+VI
 Zu
 jM
 sY
@@ -13611,11 +13658,11 @@ fw
 Dd
 fv
 hI
-ag
+xq
 aZ
 pe
 aZ
-af
+os
 uv
 gi
 fV
@@ -13832,8 +13879,8 @@ Ip
 qb
 FM
 BY
-ag
-nk
+Iu
+CE
 oc
 EP
 ag
@@ -14100,7 +14147,7 @@ iW
 iW
 Aj
 Aw
-aM
+xd
 GS
 Wd
 bz
@@ -14318,16 +14365,16 @@ af
 af
 ag
 ag
-af
+lO
 ks
 Nx
 VC
 VN
-ag
+QN
 Yj
 Nc
 BO
-ag
+QN
 zl
 jh
 Cd
@@ -14369,7 +14416,7 @@ dL
 Pr
 QK
 af
-ag
+hB
 Br
 pq
 yB
@@ -14388,7 +14435,7 @@ bG
 ak
 fM
 mh
-tb
+GH
 Sb
 qc
 Sb
@@ -14613,7 +14660,7 @@ XX
 Pr
 dT
 ag
-ag
+hB
 uS
 QM
 rK
@@ -14683,7 +14730,7 @@ Ub
 ak
 jc
 bJ
-rx
+Ki
 fM
 Dc
 ag
@@ -14808,7 +14855,7 @@ ag
 Dy
 bW
 Tv
-af
+Rr
 ae
 ae
 ae
@@ -15052,7 +15099,7 @@ ag
 zK
 ak
 md
-ag
+At
 ji
 ji
 ji
@@ -15075,7 +15122,7 @@ jS
 xX
 VM
 jr
-bH
+gN
 af
 af
 ag
@@ -15199,7 +15246,7 @@ zE
 nm
 aA
 xw
-ag
+Th
 oU
 eA
 zL
@@ -15289,7 +15336,7 @@ oF
 ak
 CM
 bz
-aL
+xN
 lq
 aL
 ag
@@ -15411,7 +15458,7 @@ Mg
 Hj
 xl
 aL
-FP
+Vx
 cd
 gy
 af
@@ -15430,7 +15477,7 @@ tX
 tX
 tX
 tX
-ag
+Yt
 iT
 iT
 iT
@@ -15438,7 +15485,7 @@ ij
 ag
 JE
 JE
-ag
+Yt
 ag
 tX
 tX
@@ -16260,11 +16307,11 @@ tX
 tX
 AP
 AP
-AP
+UJ
 AP
 WG
 AP
-AP
+UJ
 AP
 AP
 tX
@@ -16479,7 +16526,7 @@ nQ
 iu
 fK
 bB
-Xc
+zd
 ag
 ag
 tX

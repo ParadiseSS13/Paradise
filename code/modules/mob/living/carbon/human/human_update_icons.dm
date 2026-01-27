@@ -198,22 +198,34 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		base_icon = chest.get_icon(skeleton)
 
 		for(var/obj/item/organ/external/part in bodyparts)
+			// We just drew the chest, don't draw it twice.
+			if(part == chest)
+				continue
+			// We will draw the hands later in the //HANDS OVERLAY section, if they're not covered by a uniform.
+			if(istype(part, /obj/item/organ/external/hand) && !(w_uniform?.body_parts_covered & HANDS))
+				continue
+
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
 			//And no change in rendering for other parts (they icon_position is 0, so goes to 'else' part)
 			if(part.icon_position & (LEFT | RIGHT))
-				var/icon/temp2 = new('icons/mob/human.dmi',"blank")
-				temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
-				temp2.Insert(new/icon(temp,dir=SOUTH),dir=SOUTH)
+				// First draw JUST ONE copy of north and south views
+				var/icon/temp2 = new('icons/mob/human.dmi', "blank")
+				temp2.Insert(new/icon(temp, dir = NORTH), dir = NORTH)
+				temp2.Insert(new/icon(temp, dir = SOUTH), dir = SOUTH)
+				base_icon.Blend(temp2, ICON_OVERLAY)
+
+				// Now underlay or overlay the left and right sides as appropriate
+				temp2 = new('icons/mob/human.dmi', "blank")
 				if(!(part.icon_position & LEFT))
-					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
+					temp2.Insert(new/icon(temp, dir = EAST), dir = EAST)
 				if(!(part.icon_position & RIGHT))
-					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
+					temp2.Insert(new/icon(temp, dir = WEST), dir = WEST)
 				base_icon.Blend(temp2, ICON_OVERLAY)
 				if(part.icon_position & LEFT)
-					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
+					temp2.Insert(new/icon(temp, dir = EAST), dir = EAST)
 				if(part.icon_position & RIGHT)
-					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
+					temp2.Insert(new/icon(temp, dir = WEST), dir = WEST)
 				base_icon.Blend(temp2, ICON_UNDERLAY)
 			else
 				base_icon.Blend(temp, ICON_OVERLAY)
@@ -228,12 +240,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				base_icon.ColorTone(husk_color_mod)
 			else if(hulk)
 				var/list/tone = rgb2num(hulk_color_mod)
-				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
+				base_icon.MapColors(rgb(tone[1], 0, 0), rgb(0, tone[2], 0), rgb(0, 0, tone[3]))
 
 		//Handle husk overlay.
 		if(husk && ("overlay_husk" in icon_states(chest.icobase)))
 			var/icon/mask = new(base_icon)
-			var/icon/husk_over = new(chest.icobase,"overlay_husk")
+			var/icon/husk_over = new(chest.icobase, "overlay_husk")
 			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
@@ -420,26 +432,53 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(w_uniform?.body_parts_covered & HANDS)
 		return
 
+	var/husk_color_mod = rgb(96, 88, 80)
+	var/hulk_color_mod = rgb(48, 224, 40)
+
+	var/husk = HAS_TRAIT(src, TRAIT_HUSK)
+	var/hulk = HAS_TRAIT(src, TRAIT_HULK)
+	var/skeleton = HAS_TRAIT(src, TRAIT_SKELETONIZED)
+
 	var/species_name = ""
 	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan", "Skkulakin"))
 		species_name = "_[lowertext(dna.species.sprite_sheet_name)]"
 
-	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
+	var/icon/hands_icon = icon('icons/mob/human.dmi', "blank")
+	var/icon/hands_mask = icon('icons/mob/human.dmi', "blank")
 
 	if(get_limb_by_name("l_hand"))
+		var/obj/item/organ/external/l_hand = get_limb_by_name("l_hand")
+		hands_icon.Blend(l_hand.get_icon(skeleton), ICON_OVERLAY)
 		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask[species_name]"), ICON_OVERLAY)
 	if(get_limb_by_name("r_hand"))
+		var/obj/item/organ/external/r_hand = get_limb_by_name("r_hand")
+		hands_icon.Blend(r_hand.get_icon(skeleton), ICON_OVERLAY)
 		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "r_hand_mask[species_name]"), ICON_OVERLAY)
-
-	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1]
-	var/icon/body_hands = icon(body_layer.icon)
-	body_hands.Blend(hands_mask, ICON_MULTIPLY)
 
 	var/mutable_appearance/markings_layer = overlays_standing[MARKINGS_LAYER]
 	var/icon/markings_hands = icon(markings_layer.icon)
 	markings_hands.Blend(hands_mask, ICON_MULTIPLY)
 
-	var/mutable_appearance/final_sprite = mutable_appearance(body_hands, layer = -HANDS_LAYER)
+	if(!skeleton)
+		if(isgolem(src))
+			var/datum/species/golem/G = src.dna.species
+			if(G.golem_colour)
+				hands_icon.ColorTone(G.golem_colour)
+		if(husk)
+			hands_icon.ColorTone(husk_color_mod)
+		else if(hulk)
+			var/list/tone = rgb2num(hulk_color_mod)
+			hands_icon.MapColors(rgb(tone[1], 0, 0), rgb(0, tone[2], 0), rgb(0, 0, tone[3]))
+
+	var/obj/item/organ/external/chest = get_organ("chest")
+	if(husk && ("overlay_husk" in icon_states(chest.icobase)))
+		var/icon/mask = new(hands_icon)
+		var/icon/husk_over = new(chest.icobase, "overlay_husk")
+		mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
+		husk_over.Blend(mask, ICON_ADD)
+		hands_icon.Blend(husk_over, ICON_OVERLAY)
+
+	var/mutable_appearance/final_sprite = mutable_appearance(hands_icon, layer = -HANDS_LAYER)
 	final_sprite.overlays += markings_hands
 
 	overlays_standing[HANDS_LAYER] = final_sprite
@@ -643,7 +682,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		update_hud_id(wear_id)
 
 		if(w_uniform && w_uniform:displays_id)
-			overlays_standing[ID_LAYER]	= mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
+			overlays_standing[ID_LAYER] = mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
 	apply_overlay(ID_LAYER)
 
 /mob/living/carbon/human/update_inv_gloves()
