@@ -58,6 +58,9 @@
 	/// So explosion doesn't deal extra damage for multitile airlocks
 	COOLDOWN_DECLARE(explosion_cooldown)
 
+	/// Blocks the door from making sparks when on cooldown. Lag preventor, disabled by disable_door_sparks for 3 seconds
+	COOLDOWN_DECLARE(spark_block_cooldown)
+
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -284,7 +287,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && used.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
-	if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
+	if(!(used.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM && !istype(used, /obj/item/card/id/heretic))
 		try_to_activate_door(user)
 		return ITEM_INTERACT_COMPLETE
 
@@ -304,7 +307,7 @@
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)
-		if(damage_amount >= 10 && prob(30))
+		if(damage_amount >= 10 && prob(30) && COOLDOWN_FINISHED(src, spark_block_cooldown))
 			spark_system.start()
 
 /obj/machinery/door/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -365,7 +368,7 @@
 	if(barricaded)
 		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
 		return
-	
+
 	if(used.get_amount() < 2)
 		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
 		return
@@ -377,7 +380,7 @@
 	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
 	if(!do_after_once(user, 4 SECONDS, target = src))
 		return
-	
+
 	/// Quick checks to make sure nothing has changed during the timer.
 	if(!density || barricaded)
 		return
@@ -687,3 +690,6 @@
 		blockage.update_icon(UPDATE_ICON_STATE)
 
 #undef MAX_FOAM_LEVEL
+
+/obj/machinery/door/proc/disable_door_sparks()
+	COOLDOWN_START(src, spark_block_cooldown, 3 SECONDS)

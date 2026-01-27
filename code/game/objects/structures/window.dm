@@ -578,6 +578,12 @@
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 
+// You can't rust glass! So only reinforced glass can be impacted.
+/obj/structure/window/reinforced/rust_heretic_act()
+	color = COLOR_RUSTED_GLASS
+	take_damage(obj_integrity * 0.5)
+	max_integrity = max_integrity * 0.5
+
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."

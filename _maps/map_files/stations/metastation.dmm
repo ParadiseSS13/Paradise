@@ -45058,6 +45058,8 @@
 /obj/structure/table,
 /obj/item/hatchet,
 /obj/effect/spawner/random/maintenance,
+/obj/item/seeds/poppy,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/grass/no_creep,
 /area/station/maintenance/abandoned_garden)
 "iDe" = (
