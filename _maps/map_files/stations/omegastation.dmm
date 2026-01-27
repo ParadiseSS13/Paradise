@@ -34621,10 +34621,6 @@
 "nvj" = (
 /turf/simulated/wall,
 /area/station/maintenance/aft)
-"nvw" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/wall,
-/area/station/maintenance/aft)
 "nwg" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/delivery/hollow,
@@ -79183,7 +79179,7 @@ eJe
 nwh
 nwh
 nwh
-nvw
+nvj
 hjd
 nvj
 nvj
