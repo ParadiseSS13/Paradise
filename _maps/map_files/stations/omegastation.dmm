@@ -1889,7 +1889,6 @@
 	start_active = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/access_button/offset/southwest,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
 "aiO" = (
@@ -2593,6 +2592,9 @@
 	dir = 4
 	},
 /obj/machinery/airlock_controller/air_cycler/directional/west,
+/obj/machinery/access_button/offset/east{
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
 "akz" = (
@@ -2609,6 +2611,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/machinery/access_button/offset/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
 "akA" = (
