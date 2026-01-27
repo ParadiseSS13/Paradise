@@ -17,6 +17,11 @@
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
 /datum/event/blob/start()
+	if(length(GLOB.crew_list) < 20) // manifest must have 20 crew to roll
+		// if blob doesnt roll due to pop, try again to roll for a major in 60 seconds
+		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		EC.next_event_time = world.time + 1 MINUTES
+		return
 	INVOKE_ASYNC(src, PROC_REF(make_blob))
 
 /datum/event/blob/process()
