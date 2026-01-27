@@ -30,6 +30,7 @@
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/stack/sheet/saltpetre_crystal = list("saltpetre" = 8),
 		/obj/item/stack/sheet/plastic = list("plastic_dust" = 5),
+		/obj/item/stack/ore/bluespace_crystal = list("bluespace_dust" = 20),
 
 		// Blender Stuff
 		/obj/item/food/grown/tomato = list("ketchup" = 0),
@@ -119,6 +120,9 @@
 /obj/machinery/reagentgrinder/Destroy()
 	QDEL_NULL(beaker)
 	return ..()
+
+/obj/machinery/reagentgrinder/AltClick(mob/user, modifiers)
+	detach(user)
 
 /obj/machinery/reagentgrinder/ex_act(severity)
 	if(beaker)
@@ -334,9 +338,14 @@
 /obj/machinery/reagentgrinder/proc/detach(mob/user)
 	if(!beaker)
 		return
+	if(!Adjacent(user))
+		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	beaker.forceMove(loc)
+	beaker.forceMove(get_turf(src))
+	SStgui.update_uis(src)
+	if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
+		user.put_in_hands(beaker)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)

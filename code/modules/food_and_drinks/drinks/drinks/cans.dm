@@ -252,7 +252,7 @@
 
 /obj/item/reagent_containers/drinks/cans/bottler
 	name = "generic beverage container"
-	desc = "this shouldn't ever be spawned. shame on you"
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "glass_bottle"
 
 /obj/item/reagent_containers/drinks/cans/bottler/on_reagent_change()

@@ -8,8 +8,10 @@
 	nonabstract_req = TRUE
 	centcom_cancast = FALSE //Prevent people from getting to centcom
 	var/sound1 = 'sound/magic/ethereal_enter.ogg'
+	var/sound2 = 'sound/magic/ethereal_exit.ogg'
 	var/jaunt_duration = 50 //in deciseconds
 	var/jaunt_in_time = 5
+	var/jaunt_out_time = null
 	var/jaunt_in_type = /obj/effect/temp_visual/wizard
 	var/jaunt_out_type = /obj/effect/temp_visual/wizard/out
 	var/jaunt_type_path = /obj/effect/dummy/spell_jaunt
@@ -52,11 +54,14 @@
 		jaunt_steam(mobloc)
 	ADD_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
 	holder.reappearing = 1
-	playsound(get_turf(target), 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+	playsound(get_turf(target), sound2, 50, TRUE, -1)
 	sleep(jaunt_in_time * 4)
 	new jaunt_in_type(mobloc, holder.dir)
 	target.setDir(holder.dir)
-	sleep(jaunt_in_time)
+	var/time_to_jaunt_out = jaunt_in_time
+	if(jaunt_out_time)
+		time_to_jaunt_out = jaunt_out_time
+	sleep(time_to_jaunt_out)
 	qdel(holder)
 	if(!QDELETED(target))
 		if(mobloc.is_blocked_turf(exclude_mobs = TRUE))

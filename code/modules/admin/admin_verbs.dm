@@ -25,6 +25,47 @@ USER_VERB(hide_verbs, R_NONE, "Adminverbs - Hide All", "Hide most of your admin 
 	to_chat(src, SPAN_INTERFACE("All of your adminverbs are now visible."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/cmd_admin_drop_everything(mob/M as mob in GLOB.mob_list)
+	set name = "\[Admin\] Drop Everything"
+
+	if(!check_rights(R_DEBUG|R_ADMIN))
+		return
+
+	var/confirm = alert(src, "Make [M] drop everything?", "Message", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	for(var/obj/item/W in M)
+		M.drop_item_to_ground(W)
+
+	log_admin("[key_name(usr)] made [key_name(M)] drop everything!")
+	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!", 1)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Everything") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_VERB(imprison, R_ADMIN, "Prison", "Send a mob to prison.", VERB_CATEGORY_ADMIN, mob/M as mob in GLOB.mob_list)
+	if(ismob(M))
+		if(is_ai(M))
+			alert(client, "The AI can't be sent to prison you jerk!", null, null, null, null)
+			return
+		//strip their stuff before they teleport into a cell :downs:
+		for(var/obj/item/W in M)
+			M.drop_item_to_ground(W)
+		//teleport person to cell
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
+		sleep(5)	//so they black out before warping
+		M.loc = pick(GLOB.prisonwarp)
+		if(ishuman(M))
+			var/mob/living/carbon/human/prisoner = M
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_JUMPSUIT)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), ITEM_SLOT_SHOES)
+		spawn(50)
+			to_chat(M, SPAN_WARNING("You have been sent to the prison station!"))
+		log_admin("[key_name(client)] sent [key_name(M)] to the prison station.")
+		message_admins(SPAN_NOTICE("[key_name_admin(client)] sent [key_name_admin(M)] to the prison station."), 1)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Prison") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/mentor_ghost()
 	var/is_mentor = check_rights(R_MENTOR, FALSE)
 	var/is_full_admin = check_rights(R_ADMIN|R_MOD, FALSE)
@@ -275,148 +316,12 @@ USER_VERB(big_brother, R_PERMISSIONS, "Big Brother Mode", "Enables Big Brother m
 		log_admin("[key_name(client)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-USER_VERB(drop_bomb, R_EVENT, "Drop Bomb", "Cause an explosion of varying strength at your location.", VERB_CATEGORY_EVENT)
-	var/turf/epicenter = client.mob.loc
-	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = tgui_input_list(client, "What size explosion would you like to produce?", "Drop Bomb", choices)
-	switch(choice)
-		if(null)
-			return 0
-		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3, cause = "[client.ckey]: Drop Bomb command")
-		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4, cause = "[client.ckey]: Drop Bomb command")
-		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5, cause = "[client.ckey]: Drop Bomb command")
-		if("Custom Bomb")
-			var/devastation_range = tgui_input_number(client, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
-			if(isnull(devastation_range))
-				return
-			var/heavy_impact_range = tgui_input_number(client, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
-			if(isnull(heavy_impact_range))
-				return
-			var/light_impact_range = tgui_input_number(client, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
-			if(isnull(light_impact_range))
-				return
-			var/flash_range = tgui_input_number(client, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
-			if(isnull(flash_range))
-				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "[client.ckey]: Drop Bomb command")
-	log_admin("[key_name(client)] created an admin explosion at [epicenter.loc]")
-	message_admins(SPAN_ADMINNOTICE("[key_name_admin(client)] created an admin explosion at [epicenter.loc]"))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-USER_VERB(give_spell, R_EVENT, "Give Spell", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, mob/T)
-	var/list/spell_list = list()
-	var/type_length = length("/datum/spell") + 2
-	for(var/A in GLOB.spells)
-		spell_list[copytext("[A]", type_length)] = A
-	var/datum/spell/S = input(client, "Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
-	if(!S)
-		return
-	S = spell_list[S]
-	if(T.mind)
-		T.mind.AddSpell(new S)
-	else
-		T.AddSpell(new S)
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(client)] gave [key_name(T)] the spell [S].")
-	message_admins("[key_name_admin(client)] gave [key_name(T)] the spell [S].", 1)
-
-USER_VERB(give_disease, R_EVENT, "Give Disease", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, mob/T)
-	var/datum/disease/given_disease = null
-
-	if(tgui_input_list(client, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
-		given_disease = AdminCreateVirus(client)
-	else
-		given_disease = tgui_input_list(client, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
-
-	if(!given_disease)
-		return
-
-	if(!istype(given_disease, /datum/disease/advance))
-		given_disease = new given_disease
-	T.ForceContractDisease(given_disease)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(client)] gave [key_name(T)] the disease [given_disease].")
-	message_admins(SPAN_ADMINNOTICE("[key_name_admin(client)] gave [key_name(T)] the disease [given_disease]."))
-
-USER_VERB(disease_outbreak, R_EVENT, "Disease Outbreak", "Creates a disease and infects a random player with it.", VERB_CATEGORY_EVENT)
-	var/datum/disease/given_disease = null
-	if(tgui_input_list(client, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
-		given_disease = AdminCreateVirus(client)
-	else
-		given_disease = tgui_input_list(client, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
-	if(!given_disease)
-		return
-
-	if(!istype(given_disease, /datum/disease/advance))
-		given_disease = new given_disease
-
-	for(var/thing in shuffle(GLOB.human_list))
-		var/mob/living/carbon/human/H = thing
-		if(H.stat == DEAD || !is_station_level(H.z))
-			continue
-		if(!H.HasDisease(given_disease))
-			H.ForceContractDisease(given_disease)
-			break
-	if(istype(given_disease, /datum/disease/advance))
-		var/datum/disease/advance/given_advanced_disease = given_disease
-		var/list/name_symptoms = list()
-		for(var/datum/symptom/S in given_advanced_disease.symptoms)
-			name_symptoms += S.name
-		message_admins("[key_name_admin(client)] has triggered a custom virus outbreak of [given_advanced_disease.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(given_advanced_disease.base_properties)]")
-	else
-		message_admins("[key_name_admin(client)] has triggered a custom virus outbreak of [given_disease.name]!")
-
-USER_CONTEXT_MENU(make_sound, R_EVENT, "\[Admin\] Make Sound", obj/O in view())
-	if(O)
-		var/message = clean_input("What do you want the message to be?", "Make Sound", user = client)
-		if(!message)
-			return
-		for(var/mob/V in hearers(O))
-			V.show_message(admin_pencode_to_html(message), 2)
-		log_admin("[key_name(client)] made [O] at [O.x], [O.y], [O.z] make a sound")
-		message_admins(SPAN_NOTICE("[key_name_admin(client)] made [O] at [O.x], [O.y], [O.z] make a sound"))
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-USER_VERB(toggle_build_mode_self, R_EVENT, "Toggle Build Mode Self", "Toggle Build Mode on yourself.", VERB_CATEGORY_EVENT)
-	if(client.mob)
-		togglebuildmode(client.mob)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-USER_VERB(object_talk, R_EVENT, "oSay", "Display a message to everyone who can hear the target", VERB_CATEGORY_EVENT, msg as text)
-	var/mob/living/mob = client.mob
-	if(mob.control_object)
-		if(!msg)
-			return
-		for(var/mob/V in hearers(mob.control_object))
-			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
-		log_admin("[key_name(client)] used oSay on [mob.control_object]: [msg]")
-		message_admins("[key_name_admin(client)] used oSay on [mob.control_object]: [msg]")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 USER_VERB(deadmin_self, R_ADMIN|R_MENTOR, "De-admin self", "De-admin yourself.", VERB_CATEGORY_ADMIN)
 	log_admin("[key_name(client)] deadmined themself.")
 	message_admins("[key_name_admin(client)] deadmined themself.")
 	client.deadmin()
 	to_chat(client, SPAN_INTERFACE("You are now a normal player."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-USER_VERB(toggle_log_hrefs, R_SERVER, "Toggle href logging", "Toggle href logging", VERB_CATEGORY_SERVER)
-	if(!client.is_connecting_from_localhost())
-		if(tgui_alert(client, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
-			return
-
-	// Why would we ever turn this off?
-	if(GLOB.configuration.logging.href_logging)
-		GLOB.configuration.logging.href_logging = FALSE
-		to_chat(client, "<b>Stopped logging hrefs</b>")
-	else
-		GLOB.configuration.logging.href_logging = TRUE
-		to_chat(client, "<b>Started logging hrefs</b>")
 
 USER_VERB(check_ai_laws, R_ADMIN, "Check AI Laws", "Output AI laws.", VERB_CATEGORY_ADMIN)
 	client.holder.output_ai_laws()
@@ -429,52 +334,6 @@ USER_VERB(open_law_manager, R_ADMIN, "Manage Silicon Laws", "Open the law manage
 	L.ui_interact(client.mob)
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-USER_CONTEXT_MENU(change_human_appearance, R_EVENT, "\[Admin\] C.M.A. - Admin", mob/living/carbon/human/H in GLOB.mob_list)
-	if(!istype(H))
-		if(isbrain(H))
-			var/mob/living/brain/B = H
-			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
-				var/obj/item/mmi/robotic_brain/positronic/C = B.container
-				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(ishuman(P.owner))
-					H = P.owner
-			else
-				return
-		else
-			return
-
-	if(client.holder)
-		log_and_message_admins("is altering the appearance of [H].")
-		H.change_appearance(APPEARANCE_ALL, client.mob, client.mob, check_species_whitelist = 0)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-USER_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "\[Admin\] C.M.A. - Self",mob/living/carbon/human/H in GLOB.mob_list)
-	if(!istype(H))
-		if(isbrain(H))
-			var/mob/living/brain/B = H
-			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
-				var/obj/item/mmi/robotic_brain/positronic/C = B.container
-				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(ishuman(P.owner))
-					H = P.owner
-			else
-				return
-		else
-			return
-
-	if(!H.client)
-		to_chat(client, "Only mobs with clients can alter their own appearance.")
-		return
-
-	switch(alert(client, "Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
-		if("Yes")
-			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
-			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 0)
-		if("No")
-			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
-			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Self") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 USER_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.", VERB_CATEGORY_ADMIN)
 	var/list/jobs = list()
@@ -545,101 +404,10 @@ USER_VERB(send_alert_message, R_ADMIN, "Send Alert Message", "Sends a large noti
 	log_admin("[key_name(client)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[new_text]\".")
 	message_admins("[key_name(client)] sent an admin alert to [key_name(about_to_be_banned)] with custom message \"[new_text]\".")
 
-USER_VERB(debug_statpanel, R_DEBUG, "Debug Stat Panel", "Toggles local debug of the stat panel", VERB_CATEGORY_DEBUG)
-	client.stat_panel.send_message("create_debug")
-
-USER_VERB(profile_code, R_DEBUG|R_VIEWRUNTIMES, "Profile Code", "View code profiler", VERB_CATEGORY_DEBUG)
-	winset(client, null, "command=.profile")
-
 USER_VERB(export_character, R_ADMIN, "Export Character DMI/JSON", "Saves character DMI and JSON to data directory.", VERB_CATEGORY_ADMIN)
 	if(ishuman(client.mob))
 		var/mob/living/carbon/human/H = client.mob
 		H.export_dmi_json()
-
-USER_VERB(raw_gas_scan, R_DEBUG|R_VIEWRUNTIMES, "Raw Gas Scan", "Scans your current tile, including LINDA data not normally displayed.", VERB_CATEGORY_DEBUG)
-	atmos_scan(client.mob, get_turf(client.mob), silent = TRUE, milla_turf_details = TRUE)
-
-USER_VERB(find_interesting_turf, R_DEBUG|R_VIEWRUNTIMES, "Interesting Turf", \
-		"Teleports you to a random Interesting Turf from MILLA", VERB_CATEGORY_DEBUG)
-	if(!isobserver(client.mob))
-		to_chat(client.mob, SPAN_WARNING("You must be an observer to do this!"))
-		return
-
-	var/list/interesting_tile = get_random_interesting_tile()
-	if(!length(interesting_tile))
-		to_chat(client, SPAN_NOTICE("There are no interesting turfs. How interesting!"))
-		return
-
-	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
-	var/mob/dead/observer/O = client.mob
-	admin_forcemove(O, T)
-	O.manual_follow(T)
-
-USER_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Interesting Turfs", "Shows all the Interesting Turfs from MILLA", VERB_CATEGORY_DEBUG)
-	if(SSair.interesting_tile_count > 500)
-		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
-		if(tgui_alert(client, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller \
-			is screaming bloody murder. Are you sure you with to continue", "WARNING", list("I am sure", "Nope")) != "I am sure")
-			return
-	else
-		if(tgui_alert(client, "Visualizing turfs may cause server to lag. Are you sure?", "Warning", list("Yes", "No")) != "Yes")
-			return
-
-	var/display_turfs_overlay = FALSE
-	if(tgui_alert(client, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) == "Yes")
-		display_turfs_overlay = TRUE
-
-	message_admins("[key_name_admin(client)] is visualizing interesting atmos turfs. Server may lag.")
-
-	var/list/zlevel_turf_indexes = list()
-
-	var/list/coords = get_interesting_atmos_tiles()
-	if(!length(coords))
-		to_chat(client, SPAN_NOTICE("There are no interesting turfs. How interesting!"))
-		return
-
-	while(length(coords))
-		var/offset = length(coords) - MILLA_INTERESTING_TILE_SIZE
-		var/turf/T = coords[offset + MILLA_INDEX_TURF]
-		coords.len -= MILLA_INTERESTING_TILE_SIZE
-
-
-		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
-		if(!zlevel_turf_indexes["[T.z]"])
-			zlevel_turf_indexes["[T.z]"] = list()
-		zlevel_turf_indexes["[T.z]"] |= T
-		if(display_turfs_overlay)
-			client.images += image('icons/effects/alphacolors.dmi', T, "red")
-		CHECK_TICK
-
-	// Sort the keys
-	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
-
-	for(var/key in zlevel_turf_indexes)
-		to_chat(client, SPAN_NOTICE("Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] Interesting Turfs</b>"))
-
-	var/z_to_view = tgui_input_number(client, "A list of z-levels their ITs has appeared in chat. Please enter a Z to visualize. Enter 0 or close the window to cancel", "Selection", 0)
-
-	if(!z_to_view)
-		return
-
-	// Do not combine these
-	var/list/ui_dat = list()
-	var/list/turf_markers = list()
-
-	var/datum/browser/vis = new(client, "atvis", "Interesting Turfs (Z[z_to_view])", 300, 315)
-	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
-	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
-	// Now generate the other list
-	for(var/x in zlevel_turf_indexes["[z_to_view]"])
-		var/turf/T = x
-		turf_markers += "s([T.x],[T.y]);"
-		CHECK_TICK
-
-	ui_dat += "<script>[turf_markers.Join("")]</script>"
-
-	vis.set_content(ui_dat.Join(""))
-	vis.open(FALSE)
 
 USER_VERB(create_rnd_restore_disk, R_ADMIN, "Create RnD Backup Restore Disk", "Create RnD Backup Restore Disk", VERB_CATEGORY_EVENT)
 	var/list/targets = list()
@@ -681,3 +449,365 @@ USER_VERB(create_rnd_restore_disk, R_ADMIN, "Create RnD Backup Restore Disk", "C
 
 	var/mob/dead/observer/A = client.mob
 	A.manual_follow(target)
+
+USER_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perform a player account age check.", VERB_CATEGORY_ADMIN)
+	var/age = input(client, "Show accounts younger then ____ days", "Age check") as num|null
+	var/playtime_hours = input(client, "Show accounts with less than ____ hours", "Playtime check") as num|null
+	if(isnull(age))
+		age = -1
+	if(isnull(playtime_hours))
+		playtime_hours = -1
+	if(age <= 0 && playtime_hours <= 0)
+		return
+
+	var/missing_ages = 0
+	var/msg = ""
+	var/is_admin = check_rights(R_ADMIN, 0)
+	for(var/client/C in GLOB.clients)
+		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
+			continue // Skip those in stealth mode if an admin isnt viewing the panel
+
+		if(!isnum(C.player_age))
+			missing_ages = 1
+			continue
+		if(C.player_age < age)
+			if(is_admin)
+				msg += "[key_name_admin(C.mob)]: [C.player_age] days old<br>"
+			else
+				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
+
+		var/client_hours = C.get_exp_type_num(EXP_TYPE_LIVING) + C.get_exp_type_num(EXP_TYPE_GHOST)
+		client_hours /= 60 // minutes to hours
+		if(client_hours < playtime_hours)
+			if(is_admin)
+				msg += "[key_name_admin(C.mob)]: [client_hours] living + ghost hours<br>"
+			else
+				msg += "[key_name_mentor(C.mob)]: [client_hours] living + ghost hours<br>"
+
+	if(missing_ages)
+		to_chat(client, "Some accounts did not have proper ages set in their clients.  This function requires database to be present")
+
+	if(msg != "")
+		client << browse(msg, "window=Player_age_check")
+	else
+		to_chat(client, "No matches for that age range found.")
+
+USER_VERB_VISIBILITY(show_traitor_panel, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", "Edit mob's memory and role", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
+	if(!istype(M))
+		to_chat(client, "This can only be used on instances of type /mob")
+		return
+	if(!M.mind)
+		to_chat(client, "This mob has no mind!")
+		return
+
+	M.mind.edit_memory()
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_VERB(player_notes, R_ADMIN|R_MOD, "Player Notes", "Open Player Notes panel.", VERB_CATEGORY_ADMIN)
+	show_note()
+
+USER_VERB(player_notes_target, R_ADMIN|R_MOD, "Show Player Notes", "Show Player Notes panel for a given ckey.", VERB_CATEGORY_ADMIN, key as text)
+	show_note(key)
+
+USER_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence on VPN whitelist", VERB_CATEGORY_ADMIN)
+	var/key = stripped_input(client, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
+	if(key)
+		GLOB.ipintel_manager.vpn_whitelist_panel(key)
+
+USER_VERB(godmode, R_ADMIN, "Godmode", "Toggles godmode on a mob.", VERB_CATEGORY_ADMIN, mob/M as mob in GLOB.mob_list)
+	M.status_flags ^= GODMODE
+	to_chat(client, SPAN_NOTICE("Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]"))
+
+	log_admin("[key_name(client)] has toggled [key_name(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]")
+	message_admins("[key_name_admin(client)] has toggled [key_name_admin(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]", 1)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Godmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
+	if(automute)
+		if(!GLOB.configuration.general.enable_auto_mute)
+			return
+	else
+		if(!usr || !usr.client)
+			return
+		if(!check_rights(R_ADMIN|R_MOD))
+			to_chat(usr, "<font color='red'>Error: cmd_admin_mute: You don't have permission to do this.</font>")
+			return
+		if(!M.client)
+			to_chat(usr, "<font color='red'>Error: cmd_admin_mute: This mob doesn't have a client tied to it.</font>")
+	if(!M.client)
+		return
+
+	var/muteunmute
+	var/mute_string
+
+	switch(mute_type)
+		if(MUTE_IC)
+			mute_string = "IC (say and emote)"
+		if(MUTE_OOC)
+			mute_string = "OOC"
+		if(MUTE_PRAY)
+			mute_string = "pray"
+		if(MUTE_ADMINHELP)
+			mute_string = "adminhelp, admin PM and ASAY"
+		if(MUTE_DEADCHAT)
+			mute_string = "deadchat and DSAY"
+		if(MUTE_EMOTE)
+			mute_string = "emote"
+		if(MUTE_ALL)
+			mute_string = "everything"
+		else
+			return
+
+	if(automute)
+		muteunmute = "auto-muted"
+		force_add_mute(M.client.ckey, mute_type)
+		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(M)] from [mute_string]")
+		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(M)] from [mute_string].", 1)
+		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Automute") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		return
+
+	toggle_mute(M.client.ckey, mute_type)
+
+	if(check_mute(M.client.ckey, mute_type))
+		muteunmute = "muted"
+	else
+		muteunmute = "unmuted"
+
+	log_admin("[key_name(usr)] has [muteunmute] [key_name(M)] from [mute_string]")
+	message_admins("[key_name_admin(usr)] has [muteunmute] [key_name_admin(M)] from [mute_string].", 1)
+	to_chat(M, "You have been [muteunmute] from [mute_string].")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Mute") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_CONTEXT_MENU(admin_rejuvenate, R_REJUVINATE, "\[Admin\] Rejuvenate", mob/living/M as mob in GLOB.mob_list)
+	if(!istype(M))
+		alert(client, "Cannot revive a ghost")
+		return
+	M.revive()
+
+	log_admin("[key_name(client)] healed / revived [key_name(M)]")
+	message_admins(SPAN_WARNING("Admin [key_name_admin(client)] healed / revived [key_name_admin(M)]!"), 1)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Rejuvenate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_CONTEXT_MENU(admin_delete, R_ADMIN, "\[Admin\] Delete", atom/A as obj|mob|turf in view())
+	client.admin_delete(A)
+
+/client/proc/admin_delete(datum/D)
+	if(istype(D) && !D.can_vv_delete())
+		to_chat(src, "[D] rejected your deletion")
+		return
+	var/atom/A = D
+	var/coords = istype(A) ? "at ([A.x], [A.y], [A.z])" : ""
+	if(alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", "Yes", "No") == "Yes")
+		log_admin("[key_name(usr)] deleted [D] [coords]")
+		message_admins("[key_name_admin(usr)] deleted [D] [coords]", 1)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delete") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		if(isturf(D))
+			var/turf/T = D
+			T.ChangeTurf(T.baseturf)
+		else
+			qdel(D)
+
+USER_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station jobs.", VERB_CATEGORY_ADMIN)
+	if(SSjobs)
+		var/currentpositiontally
+		var/totalpositiontally
+		to_chat(client, SPAN_NOTICE("Job Name: Filled job slot / Total job slots <b>(Free job slots)</b>"))
+		for(var/datum/job/job in SSjobs.occupations)
+			to_chat(client, "<span class='notice'>[job.title]: [job.current_positions] / \
+			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
+			<b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
+			if(job.total_positions != -1) // Only count position that isn't unlimited
+				currentpositiontally += job.current_positions
+				totalpositiontally += job.total_positions
+		to_chat(client, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "List Free Slots") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_CONTEXT_MENU(admin_check_contents, R_ADMIN, "\[Admin\] Check Contents", mob/living/M as mob)
+	var/list/L = M.get_contents()
+	for(var/t in L)
+		to_chat(client, "[t]")
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Contents") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Change tile view range.", VERB_CATEGORY_ADMIN)
+	if(client.view == world.view)
+		client.view = input(client, "Select view range:", "View Range", world.view) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+	else
+		client.view = world.view
+
+	log_admin("[key_name(client)] changed their view range to [client.view].")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Change View Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_VERB(call_shuttle, R_ADMIN, "Call Shuttle", "Calls the shuttle.", VERB_CATEGORY_ADMIN)
+	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
+		return
+
+	var/confirm = alert(client, "You sure?", "Confirm", "Yes", "No")
+	if(confirm != "Yes") return
+
+	if(alert(client, "Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", "Yes", "No") == "Yes")
+		SSshuttle.emergency.canRecall = TRUE
+	else
+		SSshuttle.emergency.canRecall = FALSE
+
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
+		SSshuttle.emergency.request(coefficient = 0.5, redAlert = TRUE)
+	else
+		SSshuttle.emergency.request()
+
+	log_admin("[key_name(client)] admin-called the emergency shuttle.")
+	message_admins(SPAN_ADMINNOTICE("[key_name_admin(client)] admin-called the emergency shuttle."))
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Call Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_VERB(cancel_shuttle, R_ADMIN, "Cancel Shuttle", "Cancels the shuttle.", VERB_CATEGORY_ADMIN)
+	if(alert(client, "You sure?", "Confirm", "Yes", "No") != "Yes") return
+
+	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
+		return
+
+	if(!SSshuttle.emergency.canRecall)
+		if(alert(client, "Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
+			return
+		else
+			var/keepStatus = alert(client, "Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
+			SSshuttle.emergency.canRecall = TRUE // must be true for cancel proc to work
+			SSshuttle.emergency.cancel(byCC = TRUE)
+			if(keepStatus)
+				SSshuttle.emergency.canRecall = FALSE // restores original status
+	else
+		SSshuttle.emergency.cancel(byCC = TRUE)
+
+	log_admin("[key_name(client)] admin-recalled the emergency shuttle.")
+	message_admins(SPAN_ADMINNOTICE("[key_name_admin(client)] admin-recalled the emergency shuttle."))
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_VERB(deny_shuttle, R_ADMIN, "Toggle Deny Shuttle", "Toggles crew shuttle calling-ability.", VERB_CATEGORY_ADMIN)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		alert(client, "The game hasn't started yet!")
+		return
+
+	var/alert = alert(client, "Do you want to ALLOW or DENY shuttle calls?", "Toggle Deny Shuttle", "Allow", "Deny", "Cancel")
+	if(alert == "Cancel")
+		return
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deny Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+	if(alert == "Allow")
+		if(!length(SSshuttle.hostile_environments))
+			to_chat(client, SPAN_NOTICE("No hostile environments found, cleared for takeoff!"))
+			return
+		if(alert(client, "[english_list(SSshuttle.hostile_environments)] is currently blocking the shuttle call, do you want to clear them?", "Toggle Deny Shuttle", "Yes", "No") == "Yes")
+			SSshuttle.hostile_environments.Cut()
+			var/log = "[key_name(client)] has cleared all hostile environments, allowing the shuttle to be called."
+			log_admin(log)
+			message_admins(log)
+		return
+
+	SSshuttle.registerHostileEnvironment(client) // wow, a client blocking the shuttle
+	log_and_message_admins("has denied the shuttle to be called.")
+
+USER_VERB(open_attack_log, R_ADMIN, "Attack Log", "Prints the attack log.", VERB_CATEGORY_ADMIN, mob/M as mob in GLOB.mob_list)
+	to_chat(client, SPAN_DANGER("Attack Log for [M]"))
+	for(var/t in M.attack_log_old)
+		to_chat(client, t)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Attack Log") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_VERB(reset_telecoms, R_ADMIN, "Reset NTTC Configuration", "Resets NTTC to the default configuration.", VERB_CATEGORY_ADMIN)
+	var/confirm = alert(client, "You sure you want to reset NTTC?", "Confirm", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+		C.nttc.reset()
+
+	log_admin("[key_name(client)] reset NTTC scripts.")
+	message_admins("[key_name_admin(client)] reset NTTC scripts.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset NTTC Configuration") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+USER_VERB(list_ssds_afks, R_ADMIN, "List SSDs and AFKs", "List SSDs and AFK players", VERB_CATEGORY_ADMIN)
+	/* ======== SSD Section ========= */
+	var/msg = "<html><meta charset='utf-8'><head><title>SSD & AFK Report</title></head><body>"
+	msg += "SSD Players:<br><TABLE border='1'>"
+	msg += "<tr><td><b>Key</b></td><td><b>Real Name</b></td><td><b>Job</b></td><td><b>Mins SSD</b></td><td><b>Special Role</b></td><td><b>Area</b></td><td><b>PPN</b></td><td><b>Cryo</b></td></tr>"
+	var/mins_ssd
+	var/job_string
+	var/key_string
+	var/role_string
+	var/obj_count = 0
+	var/obj_string = ""
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
+		if(!isLivingSSD(H))
+			continue
+		mins_ssd = round((world.time - H.last_logout) / 600)
+		if(H.job)
+			job_string = H.job
+		else
+			job_string = "-"
+		key_string = H.key
+		if(job_string in GLOB.command_positions)
+			job_string = "<U>" + job_string + "</U>"
+		role_string = "-"
+		obj_count = 0
+		obj_string = ""
+		if(H.mind)
+			if(H.mind.special_role)
+				role_string = "<U>[H.mind.special_role]</U>"
+			if(!H.key && H.mind.key)
+				key_string = H.mind.key
+			for(var/datum/objective/O in GLOB.all_objectives)
+				if(O.target == H.mind)
+					obj_count++
+			if(obj_count > 0)
+				obj_string = "<BR><U>Obj Target</U>"
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string][obj_string]</TD>"
+		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
+		if(istype(H.loc, /obj/machinery/cryopod))
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()]'>De-Spawn</A></TD>"
+		else
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
+		msg += "</TR>"
+	msg += "</TABLE><br></BODY></HTML>"
+
+	/* ======== AFK Section ========= */
+	msg += "AFK Players:<BR><TABLE border='1'>"
+	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins AFK</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	var/mins_afk
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
+		if(H.client == null || H.stat == DEAD) // No clientless or dead
+			continue
+		mins_afk = round(H.client.inactivity / 600)
+		if(mins_afk < 5)
+			continue
+		if(H.job)
+			job_string = H.job
+		else
+			job_string = "-"
+		key_string = H.key
+		if(job_string in GLOB.command_positions)
+			job_string = "<U>" + job_string + "</U>"
+		role_string = "-"
+		obj_count = 0
+		obj_string = ""
+		if(H.mind)
+			if(H.mind.special_role)
+				role_string = "<U>[H.mind.special_role]</U>"
+			if(!H.key && H.mind.key)
+				key_string = H.mind.key
+			for(var/datum/objective/O in GLOB.all_objectives)
+				if(O.target == H.mind)
+					obj_count++
+			if(obj_count > 0)
+				obj_string = "<BR><U>Obj Target</U>"
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_afk]</TD><TD>[role_string][obj_string]</TD>"
+		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
+		if(istype(H.loc, /obj/machinery/cryopod))
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
+		else
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
+		msg += "</TR>"
+	msg += "</TABLE></BODY></HTML>"
+	client << browse(msg, "window=Player_ssd_afk_check;size=600x300")

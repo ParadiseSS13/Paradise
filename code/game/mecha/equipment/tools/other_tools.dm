@@ -105,7 +105,7 @@
 /// what is that noise? A BAWWW from TK mutants.
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	name = "armor booster module (Close combat weaponry)"
-	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
+	desc = "A grade II plate of armor that provides moderate resistance to melee attacks, it is designed to be mounted at a slight angle to deflect light attacks. The added weight slightly increases energy consumption to maintain consistant speed."
 	icon_state = "mecha_abooster_ccw"
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 10
@@ -123,7 +123,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	name = "armor booster module (Ranged weaponry)"
-	desc = "Boosts exosuit armor against ranged attacks. Requires energy to operate."
+	desc = "A series of layered grade III composite armored plates that provides moderate resistance to ranged attacks, it is designed to be mounted at a slight angle to deflect low power rounds. The added weight slightly increases energy consumption to maintain consistant speed."
 	icon_state = "mecha_abooster_proj"
 	origin_tech = "materials=4;combat=3;engineering=3"
 	equip_cooldown = 10

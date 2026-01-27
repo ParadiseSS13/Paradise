@@ -539,11 +539,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage_inflicted)
 	var/frail_multiplier = 1
+	var/brittle_bones_multiplier = 1
 	if(owner)
 		frail_multiplier = HAS_TRAIT(owner, TRAIT_FRAIL) ? 2 : 1
+		brittle_bones_multiplier = HAS_TRAIT(owner, TRAIT_BRITTLE_BONES) ? 1.2 : 1
 	var/adjusted_broken_damage = min_broken_damage / frail_multiplier
 	if(GLOB.configuration.general.breakable_bones && brute_dam > adjusted_broken_damage && !is_robotic())
-		if(prob(damage_inflicted * frail_multiplier))
+		if(prob(damage_inflicted * (frail_multiplier + brittle_bones_multiplier)))
 			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
@@ -956,6 +958,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	var/mob/living/carbon/human/victim = owner
 
 	if(status & ORGAN_SPLINTED)

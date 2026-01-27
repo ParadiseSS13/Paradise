@@ -591,7 +591,9 @@ h2.alert {
 
 .hierophant_warning {
   color: #660099;
+  font-weight: bold;
   font-style: italic;
+  font-size: 175%;
 }
 
 // MARK: Languages
@@ -648,6 +650,10 @@ h2.alert {
 .moth {
   color: #869b29;
   font-family: 'Copperplate';
+}
+
+.skulk {
+  color: #b178b1;
 }
 
 .clown {
