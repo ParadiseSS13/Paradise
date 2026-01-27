@@ -1,6 +1,5 @@
 /obj/item/restraints/legcuffs
-	name = "leg cuffs"
-	desc = "Use this to keep prisoners in line."
+	name = "base type legcuffs"
 	gender = PLURAL
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
@@ -9,6 +8,7 @@
 	slowdown = 7
 	breakouttime = 30 SECONDS
 
+// MARK: Beartrap
 /obj/item/restraints/legcuffs/beartrap
 	name = "bear trap"
 	throw_speed = 1
@@ -44,49 +44,61 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/restraints/legcuffs/beartrap/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/restraints/legcuffs/beartrap/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
 	if(!ishuman(user) || user.restrained())
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(do_after(user, 2 SECONDS, target = user))
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, SPAN_NOTICE("[src] is now [armed ? "armed" : "disarmed"]"))
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/restraints/legcuffs/beartrap/attackby__legacy__attackchain(obj/item/I, mob/user) //Let's get explosive.
-	if(istype(I, /obj/item/grenade/iedcasing))
+/obj/item/restraints/legcuffs/beartrap/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// Let's get explosive.
+	if(istype(used, /obj/item/grenade/iedcasing))
 		if(IED)
 			to_chat(user, SPAN_WARNING("This beartrap already has an IED hooked up to it!"))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(sig)
 			to_chat(user, SPAN_WARNING("This beartrap already has a signaler hooked up to it!"))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		user.drop_item()
-		I.forceMove(src)
-		IED = I
+		used.forceMove(src)
+		IED = used
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		log_game("[key_name(user)] has rigged a beartrap with an IED.")
 		to_chat(user, SPAN_NOTICE("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. [SPAN_WARNING("There is an IED hooked up to it.")]"
-	if(istype(I, /obj/item/assembly/signaler))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/assembly/signaler))
 		if(IED)
 			to_chat(user, SPAN_WARNING("This beartrap already has an IED hooked up to it!"))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(sig)
 			to_chat(user, SPAN_WARNING("This beartrap already has a signaler hooked up to it!"))
-			return
-		sig = I
+			return ITEM_INTERACT_COMPLETE
+
+		sig = used
 		if(sig.secured)
 			to_chat(user, SPAN_WARNING("The signaler is secured."))
 			sig = null
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		user.drop_item()
-		I.forceMove(src)
+		used.forceMove(src)
 		to_chat(user, SPAN_NOTICE("You sneak [sig] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. [SPAN_WARNING("There is a remote signaler hooked up to it.")]"
-	..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
 	if(!IED && !sig)
@@ -111,11 +123,14 @@
 
 		if(ishuman(entered))
 			var/mob/living/carbon/H = entered
-			if(IS_HORIZONTAL(H))
+			if(H.buckled) // if you ride your wheelchair into the trap, snare that instead
+				var/obj/buckled_obj = H.buckled
+				buckled_obj.take_damage(trap_damage, BRUTE)
+			else if(IS_HORIZONTAL(H))
 				H.apply_damage(trap_damage, BRUTE, "chest")
 			else
 				H.apply_damage(trap_damage, BRUTE, pick("l_leg", "r_leg"))
-			if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+			if(!H.legcuffed && H.get_num_legs() >= 2 && !H.buckled) // beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 				H.legcuffed = src
 				forceMove(H)
 				H.update_inv_legcuffed()
@@ -176,6 +191,7 @@
 /obj/item/restraints/legcuffs/beartrap/energy/cyborg
 	breakouttime = 20 // Cyborgs shouldn't have a strong restraint
 
+// MARK: Bola
 /obj/item/restraints/legcuffs/bola
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."

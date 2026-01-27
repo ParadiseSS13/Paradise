@@ -24,7 +24,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	//emergency shuttle stuff
 	var/obj/docking_port/mobile/emergency/emergency
-	var/obj/docking_port/mobile/emergency/backup/backup_shuttle
 	var/emergencyCallTime = SHUTTLE_CALLTIME	//time taken for emergency shuttle to reach the station when called (in deciseconds)
 	var/emergencyDockTime = SHUTTLE_DOCKTIME	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
 	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
@@ -63,8 +62,6 @@ SUBSYSTEM_DEF(shuttle)
 	var/transit_utilized = 0
 
 /datum/controller/subsystem/shuttle/Initialize()
-	if(!backup_shuttle)
-		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
 
@@ -86,9 +83,9 @@ SUBSYSTEM_DEF(shuttle)
 			continue
 		var/obj/docking_port/mobile/port = thing
 		port.check()
-	for(var/obj/docking_port/stationary/transit/T as anything in transit_docking_ports)
-		if(!T.owner)
-			qdel(T, force=TRUE)
+	for(var/obj/docking_port/stationary/transit/transit_port in transit_docking_ports)
+		if(!transit_port.owner)
+			qdel(transit_port, force=TRUE)
 		// This next one removes transit docks/zones that aren't
 		// immediately being used. This will mean that the zone creation
 		// code will be running a lot.
@@ -97,13 +94,13 @@ SUBSYSTEM_DEF(shuttle)
 		// We're better off holding onto it for now
 		if(transit_utilized < SOFT_TRANSIT_RESERVATION_THRESHOLD)
 			continue
-		var/obj/docking_port/mobile/owner = T.owner
+		var/obj/docking_port/mobile/owner = transit_port.owner
 		if(owner)
 			var/idle = owner.mode == SHUTTLE_IDLE
 			// var/not_centcom_evac = owner.launch_status == NOLAUNCH
-			var/not_in_use = (!T.get_docked())
+			var/not_in_use = (!transit_port.get_docked())
 			if(idle && not_in_use)
-				qdel(T, force=TRUE)
+				qdel(transit_port, force=TRUE)
 
 	if(!SSmapping.clearing_reserved_turfs)
 		while(transit_requesters.len)
@@ -143,17 +140,8 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
-		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
-		if(!backup_shuttle)
-			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle!\
-			The game will be unresolvable.This is possibly a mapping error, \
-			more likely a bug with the shuttle \
-			manipulation system, or badminry. It is possible to manually \
-			resolve this problem by loading an emergency shuttle template \
-			manually, and then calling register() on the mobile docking port. \
-			Good luck.")
-			return
-		emergency = backup_shuttle
+		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Loading a default shuttle.")
+		load_initial_emergency_shuttle("emergency_cyb")
 
 	if(secondsToRefuel())
 		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - refuel_delay)/600))] minutes before trying again.")
@@ -195,14 +183,6 @@ SUBSYSTEM_DEF(shuttle)
 	message_admins("[key_name_admin(user)] has called the shuttle.")
 
 	return
-
-
-// Called when an emergency shuttle mobile docking port is
-// destroyed, which will only happen with admin intervention
-/datum/controller/subsystem/shuttle/proc/emergencyDeregister()
-	// When a new emergency shuttle is created, it will override the
-	// backup shuttle.
-	emergency = backup_shuttle
 
 /datum/controller/subsystem/shuttle/proc/cancelEvac(mob/user)
 	if(canRecall())
@@ -590,6 +570,26 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/transit_space_clearing(datum/turf_reservation/source)
 	SIGNAL_HANDLER
 	transit_utilized -= (source.width + 2) * (source.height + 2)
+
+/datum/controller/subsystem/shuttle/proc/load_initial_emergency_shuttle(shuttle_id)
+	if(emergency)
+		log_debug("requested to load initial emergency shuttle when one already exists")
+		return
+
+	var/obj/docking_port/docking_port = SSshuttle.getDock("emergency_away")
+	if(!istype(docking_port))
+		log_debug("could not find docking port")
+		return
+
+	var/datum/map_template/shuttle/shuttle_template = GLOB.shuttle_templates[shuttle_id]
+	if(!shuttle_template)
+		log_debug("could not find shuttle template")
+		return
+
+	var/obj/docking_port/mobile/mobile_port = SSshuttle.load_template(shuttle_template)
+	mobile_port.dock(docking_port, force = TRUE)
+	mobile_port.register()
+	emergency = mobile_port
 
 #undef CALL_SHUTTLE_REASON_LENGTH
 #undef MAX_TRANSIT_REQUEST_RETRIES

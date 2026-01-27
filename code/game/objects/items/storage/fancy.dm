@@ -15,6 +15,7 @@
  *		Cigar Box
  *		Vial Box
  *		Aquatic Starter Kit
+ *		Juice Box Box
  */
 
 /obj/item/storage/fancy
@@ -211,7 +212,7 @@
 //	MARK: Cigarette Pack
 /obj/item/storage/fancy/cigarettes
 	name = "generic cigarette packet"
-	desc = "An abstract brand of cigarette that should not exist. Make a GitHub report if you see this."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "robust_packet"
 	inhand_icon_state = "robust_packet"
@@ -561,3 +562,159 @@
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
 	new /obj/item/storage/bag/fish(src)
+
+/obj/item/storage/fancy/juice_boxes
+	name = "Stationside Juice Box Variety Pack"
+	desc = "Every flavor of juice boxes, right at your fingertips."
+	storage_slots = 12
+	// Fancier storage slots for that haphazardly-picked-over look
+	var/list/storage_slot_list[12]
+	icon = 'icons/obj/juice_box.dmi'
+	icon_state = "juice_box_box"
+	icon_type = "juice carton"
+	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
+	can_hold = list(/obj/item/reagent_containers/drinks/carton)
+
+/obj/item/storage/fancy/juice_boxes/update_icon_state()
+	return
+
+/obj/item/storage/fancy/juice_boxes/update_overlays()
+	. = ..()
+	. += image('icons/obj/juice_box.dmi', "juice_box_box")
+	for(var/index in 1 to length(storage_slot_list))
+		var/obj/item/reagent_containers/drinks/carton/juice_type = storage_slot_list[index]
+		if(!istype(juice_type))
+			continue
+		if(!(juice_type.icon_state))
+			continue
+		var/image/box_icon = image(icon, src, "[copytext(juice_type.icon_state, 1, -3)]slot")
+		box_icon.pixel_x = 3 * ((index - 1) % 6)
+		box_icon.pixel_y = -4 * (index > 6)
+		. += box_icon
+	. += image(icon, src, "juice_box_box_front")
+
+/obj/item/storage/fancy/juice_boxes/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	if(. && storage_slot_list.Find(I))
+		storage_slot_list[storage_slot_list.Find(I)] = null
+		update_icon()
+
+/obj/item/storage/fancy/juice_boxes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(length(can_hold))
+		if(!is_type_in_typecache(I, can_hold))
+			return ..()
+	if(isrobot(user))
+		return // Robots can't interact with storage items.
+
+	handle_item_insertion(I, user, params)
+	return TRUE
+
+/obj/item/storage/fancy/juice_boxes/handle_item_insertion(obj/item/juice_box, mob/user, params, prevent_warning = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(!(juice_box in contents))
+		return
+
+	var/list/paramlist = params2list(params)
+	// If we don't have info about where the user clicked, put the item at the end of the list.
+	if(!paramlist.Find("icon-x") || !paramlist.Find("icon-y") || !paramlist.Find("screen-loc"))
+		insert_into_end(juice_box)
+		return
+
+	var/src_screenxy = get_obj_screen_xy(src, user.client)
+	var/clicked_screenxy = splittext(paramlist["screen-loc"], ",")
+	// If the user clicked inside the boxes interface instead of on the icon, put the item at the end of the list.
+	if(src_screenxy["x"] != text2num(splittext(clicked_screenxy[1], ":")[1]) || \
+		src_screenxy["y"] != text2num(splittext(clicked_screenxy[2], ":")[1]))
+		insert_into_end(juice_box)
+		return
+
+	// The user clicked our very fancy icon, so figure out where the nearest slot is and put the juice box there.
+	var/storage_slot = ceil(clamp(1, (text2num(paramlist["icon-x"]) - 7), 15) / 3)
+	storage_slot += 6 * (text2num(paramlist["icon-y"]) < 20)
+	insert_into_nearest(juice_box, user, storage_slot)
+
+/// Pick the nearest empty slot in this juice box box to slot the juice box into.
+/obj/item/storage/fancy/juice_boxes/proc/insert_into_nearest(obj/item/juice_box, mob/user, storage_slot)
+	var/distance = 0
+	var/second_row_slot = storage_slot > 6 ? storage_slot - 6 : storage_slot + 6
+	while(distance < storage_slots / 2)
+		if(storage_slot - distance > 0 && !storage_slot_list[storage_slot - distance])
+			storage_slot_list[storage_slot - distance] = juice_box
+			break
+		if(storage_slot + distance <= storage_slots && !storage_slot_list[storage_slot + distance])
+			storage_slot_list[storage_slot + distance] = juice_box
+			break
+		if(second_row_slot - distance > 0 && !storage_slot_list[second_row_slot - distance])
+			storage_slot_list[second_row_slot - distance] = juice_box
+			break
+		if(second_row_slot + distance <= storage_slots && !storage_slot_list[second_row_slot + distance])
+			storage_slot_list[second_row_slot + distance] = juice_box
+			break
+		distance++
+
+	// If it somehow doesn't fit in a storage slot, it shouldn't be in the contents either.
+	if(!(juice_box in storage_slot_list))
+		to_chat(user, SPAN_WARNING("Somehow, [juice_box] doesn't seem to fit."))
+		remove_from_storage(juice_box, get_turf(src))
+
+	// Nudge the standard contents around so they're in the right order.
+	var/contents_copy = contents.Copy()
+	for(var/index = 1 to storage_slots)
+		if(!storage_slot_list[index])
+			continue
+		contents_copy -= storage_slot_list[index]
+		contents_copy += storage_slot_list[index]
+	contents = contents_copy
+
+	// Re-show any mobs viewing the contents the juice boxes in the proper order.
+	for(var/each_mob in mobs_viewing)
+		show_to(each_mob)
+
+	update_icon()
+
+/// Put the juice box into the last slot on the list, and nudge other juice boxes out of the way if necessary.
+/obj/item/storage/fancy/juice_boxes/proc/insert_into_end(obj/item/juice_box)
+	var/list/items_to_nudge = list()
+	// Find an empty slot
+	for(var/storage_slot = storage_slots; storage_slot > 0; storage_slot--)
+		if(!storage_slot_list[storage_slot])
+			break
+		items_to_nudge.Add(storage_slot_list[storage_slot])
+
+	// If the empty slot was not at the end, move each juice box found back one slot until the last slot is empty
+	while(length(items_to_nudge))
+		storage_slot_list[storage_slots - length(items_to_nudge)] = items_to_nudge[length(items_to_nudge)]
+		items_to_nudge.Remove(items_to_nudge[length(items_to_nudge)])
+
+	storage_slot_list[storage_slots] = juice_box
+	update_icon()
+
+/obj/item/storage/fancy/juice_boxes/random
+
+/obj/item/storage/fancy/juice_boxes/random/populate_contents()
+	var/index = 1
+	for(var/juice_type in typesof(/obj/item/reagent_containers/drinks/carton) - /obj/item/reagent_containers/drinks/carton)
+		if(prob(35))
+			storage_slot_list[index] = new juice_type(src)
+		index++
+	update_icon()
+
+/obj/item/storage/fancy/juice_boxes/full
+
+/obj/item/storage/fancy/juice_boxes/full/populate_contents()
+	new /obj/item/reagent_containers/drinks/carton/apple(src)
+	new /obj/item/reagent_containers/drinks/carton/banana(src)
+	new /obj/item/reagent_containers/drinks/carton/berry(src)
+	new /obj/item/reagent_containers/drinks/carton/carrot(src)
+	new /obj/item/reagent_containers/drinks/carton/grape(src)
+	new /obj/item/reagent_containers/drinks/carton/lemonade(src)
+	new /obj/item/reagent_containers/drinks/carton/orange(src)
+	new /obj/item/reagent_containers/drinks/carton/pineapple(src)
+	new /obj/item/reagent_containers/drinks/carton/plum(src)
+	new /obj/item/reagent_containers/drinks/carton/tomato(src)
+	new /obj/item/reagent_containers/drinks/carton/vegetable(src)
+	new /obj/item/reagent_containers/drinks/carton/watermelon(src)
+	storage_slot_list = contents.Copy()
+	update_icon()

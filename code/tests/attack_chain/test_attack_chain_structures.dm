@@ -19,6 +19,7 @@
 /datum/game_test/room_test/attack_chain_structures/Run()
 	var/datum/test_puppeteer/player = new(src)
 	player.puppet.name = "Player"
+	player.add_trait(TRAIT_FLASH_PROTECTION)
 
 	player.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
 	player.spawn_obj_in_hand(/obj/item/melee/cultblade/dagger)

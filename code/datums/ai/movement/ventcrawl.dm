@@ -24,9 +24,16 @@
 	var/obj/machinery/atmospherics/exit = controller.blackboard[BB_VENTCRAWL_EXIT]
 	var/datum/pipeline/exit_pipeline = exit?.returnPipenet()
 	var/obj/machinery/atmospherics/current = controller.pawn.loc
+	// We're no longer in pipes. Cease trying to navigate pipes.
+	if(!istype(current))
+		complete_ventcrawl(controller)
+		return
 	if(current?.returnPipenet() in exit_pipeline?.get_connected_pipelines()) // they're still connected... let it try to find another route.
 		return
 	// they're not connected, give us another chance to find a way out.
+	complete_ventcrawl(controller)
+
+/datum/ai_movement/ventcrawl/proc/complete_ventcrawl(datum/ai_controller/controller)
 	controller.set_blackboard_key(BB_VENTCRAWL_ENTRANCE, null)
 	controller.set_blackboard_key(BB_VENTCRAWL_EXIT, null)
 	controller.cancel_actions()
