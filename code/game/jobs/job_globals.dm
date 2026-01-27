@@ -105,7 +105,8 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	"AI",
 	"Cyborg",
 	"Drone",
-	"pAI"
+	"pAI",
+	"golem",
 ))
 
 /proc/get_job_datums()
