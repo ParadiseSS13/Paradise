@@ -39,7 +39,7 @@
 	weapon_ref.flags |= ABSTRACT
 	weapon_ref.set_nodrop(TRUE, user)
 
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (user.get_active_hand() && !user.drop_item()))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (!user.get_organ("r_hand") && !user.get_organ("l_hand")) || (user.get_active_hand() && !user.drop_item()))
 		flayer.send_swarm_message("We cannot manifest [weapon_ref] into our active hand...")
 		return FALSE
 

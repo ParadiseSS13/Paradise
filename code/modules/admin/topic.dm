@@ -219,6 +219,7 @@
 							jobs_to_ban += temp.title
 					if("nonhumandept")
 						jobs_to_ban += "pAI"
+						jobs_to_ban += ROLE_GOLEM
 						for(var/jobPos in GLOB.nonhuman_positions)
 							if(!jobPos)	continue
 							var/datum/job/temp = SSjobs.GetJob(jobPos)
@@ -683,7 +684,7 @@
 				counter = 0
 		jobs += "</tr></table>"
 
-	//Non-Human (Green)
+	// Non-Human (Green)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(GLOB.nonhuman_positions)+1]'><a href='byond://?src=[UID()];jobban3=nonhumandept;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Non-human Positions</a></th></tr><tr align='center'>"
@@ -703,17 +704,23 @@
 				jobs += "</tr><tr align='center'>"
 				counter = 0
 
-		//Drone
+		// Drone
 		if(jobban_isbanned(M, "Drone"))
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>Drone</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>Drone</a></td>"
 
-		//pAI
+		// pAI
 		if(jobban_isbanned(M, "pAI"))
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>pAI</font></a></td>"
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>pAI</a></td>"
+
+		// golem
+		if(jobban_isbanned(M, ROLE_GOLEM))
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[ROLE_GOLEM];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'><font color=red>golem</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[ROLE_GOLEM];jobban4=[M.UID()];dbbanaddckey=[M.last_known_ckey]'>golem</a></td>"
 
 		jobs += "</tr></table>"
 
@@ -824,6 +831,7 @@
 					joblist += temp.title
 			if("nonhumandept")
 				joblist += "pAI"
+				joblist += ROLE_GOLEM
 				for(var/jobPos in GLOB.nonhuman_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
@@ -3340,6 +3348,15 @@
 				message_admins("[key_name_admin(usr)] moved the gamma armory")
 				log_admin("[key_name(usr)] moved the gamma armory")
 				move_gamma_ship()
+
+			if("nuclear_overload")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Disable Fission Reactor Safeties")
+				message_admins("[key_name_admin(usr)] disabled reactor safeties")
+				log_admin("[key_name(usr)] disabled reactor safeties")
+				if(GLOB.main_fission_reactor)
+					INVOKE_ASYNC(GLOB.main_fission_reactor, TYPE_PROC_REF(/obj/machinery/atmospherics/fission_reactor/, overload_reactor))
+				else
+					log_admin("An admin attempted to override fission reactor safeties, but no reactor was found!")
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")

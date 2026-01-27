@@ -422,6 +422,18 @@
 	cost = 200
 	containername = "security clothing crate"
 
+/// Has a bunch of neat equipment for Skulk Officers, do note only Skkulakin can use these items
+/datum/supply_packs/security/lowinquisitor
+	name = "Low-Inquisitor Clothing Crate"
+	contains = list(/obj/item/clothing/suit/hooded/lowinquis,
+					/obj/item/clothing/suit/hooded/lowinquis,
+					/obj/item/clothing/suit/hooded/lowinquis,
+					/obj/item/clothing/mask/lowinquis,
+					/obj/item/clothing/mask/lowinquis,
+					/obj/item/clothing/mask/lowinquis)
+	cost = 300
+	containername = "low-inquisitorial clothing crate"
+
 /// Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
 /datum/supply_packs/security/officerpack
 	name = "Officer Starter Pack"
@@ -463,3 +475,14 @@
 	)
 	cost = 300
 	containername = "party ammunition crate"
+
+/datum/supply_packs/security/pepperball_ammo
+	name = "Pepperball Ammunition Crate"
+	contains = list(
+		/obj/item/ammo_box/magazine/paintball/pepperball,
+		/obj/item/ammo_box/magazine/paintball/pepperball,
+		/obj/item/ammo_box/magazine/paintball/pepperball
+	)
+	cost = 150
+	containername = "pepperball ammunition crate"
+	access = ACCESS_ARMORY

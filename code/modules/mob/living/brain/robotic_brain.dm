@@ -47,7 +47,7 @@
 	var/area/our_area = get_area(src)
 	icon_state = searching_icon
 	searching = TRUE
-	notify_ghosts("A robotic brain has been activated in [our_area.name].", source = src, flashwindow = FALSE, action = NOTIFY_ATTACK)
+	notify_ghosts("A robotic brain has been activated in [our_area.name].", source = src, flashwindow = FALSE, role = ROLE_ROBOT_BRAIN, action = NOTIFY_ATTACK)
 	addtimer(CALLBACK(src, PROC_REF(reset_search)), 60 SECONDS)
 
 // This should not ever happen, but let's be safe

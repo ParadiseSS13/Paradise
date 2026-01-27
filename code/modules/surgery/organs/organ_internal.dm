@@ -2,6 +2,7 @@
 	origin_tech = "biotech=3"
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
+	max_damage = 60
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0

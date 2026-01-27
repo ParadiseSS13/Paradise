@@ -19,7 +19,7 @@
 	/// The NTTC config for this device
 	var/datum/nttc_configuration/nttc = new()
 	/// List of all reachable devices
-	var/list/reachable_zlevels = list()
+	var/alist/reachable_zlevels = alist()
 	/// List of all linked relays
 	var/list/linked_relays = list()
 	/// Password for linking stuff together
@@ -127,7 +127,7 @@
   */
 /obj/machinery/tcomms/core/proc/refresh_zlevels()
 	// Refresh the list
-	reachable_zlevels = list()
+	reachable_zlevels = alist()
 	// Add itself as a reachable Z-level
 	reachable_zlevels |= loc.z
 	// Add all the linked relays in
@@ -137,7 +137,7 @@
 			reachable_zlevels |= R.loc.z
 	for(var/zlevel in GLOB.space_manager.z_list)
 		if(check_level_trait(zlevel, TCOMM_RELAY_ALWAYS))
-			reachable_zlevels |= zlevel
+			reachable_zlevels |= text2num(zlevel)
 
 
 /**

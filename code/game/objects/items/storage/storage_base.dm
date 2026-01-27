@@ -103,7 +103,7 @@
 	return TRUE
 
 /obj/item/storage/proc/dump_storage(mob/user, obj/item/storage/target)
-	if(!length(contents) || user.restrained() || (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) || !user.can_reach(target) || src == target)
+	if(!length(contents) || user.restrained() || (HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) || !user.can_reach(target) || !user.can_reach(src) || src == target)
 		return
 	for(var/obj/item/thing in contents)
 		if(!target.can_be_inserted(thing))
@@ -623,7 +623,8 @@
 	return ..()
 
 /obj/item/storage/AltShiftClick(mob/living/carbon/human/user)
-
+	if(!user.can_reach(src))
+		return
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
 		if(TRUE)

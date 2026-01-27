@@ -295,6 +295,7 @@
 /area/ruin/ancientstation/comm)
 "aZ" = (
 /obj/structure/showcase/machinery/oldpod,
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "ba" = (
@@ -483,7 +484,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "bD" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medical,
 /turf/simulated/wall,
 /area/ruin/ancientstation)
 "bE" = (
@@ -2237,7 +2238,6 @@
 	dir = 4
 	},
 /obj/structure/showcase/machinery/oldpod,
-/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "gK" = (
@@ -3061,7 +3061,7 @@
 /area/ruin/ancientstation/hivebot)
 "iU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/restroom{
+/obj/structure/sign/public/restroom{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -4003,6 +4003,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"lW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/command/ai{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "lY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
@@ -4112,6 +4120,11 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/atmo)
+"nj" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/structure/sign/engineering/atmos,
+/turf/simulated/wall/r_wall,
+/area/ruin/ancientstation/atmo)
 "nw" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4145,6 +4158,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/sign/security,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/powered)
 "nI" = (
@@ -4198,6 +4212,13 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
+"oG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/command/vault{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "oJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4233,6 +4254,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
+"oY" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/sign/public/cryo,
+/turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "oZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -4423,6 +4449,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/hydroponics)
+"rx" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/hivebot,
+/obj/structure/sign/security{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "rC" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -4438,6 +4472,7 @@
 /obj/structure/table,
 /obj/item/rpd,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/air2/directional/north,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "rI" = (
@@ -4538,6 +4573,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
 "sH" = (
+/obj/structure/sign/public/cryo,
 /turf/simulated/wall,
 /area/ruin/ancientstation/comm)
 "sI" = (
@@ -4579,6 +4615,7 @@
 "ts" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "tC" = (
@@ -4998,7 +5035,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/air2/directional/north,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "zi" = (
@@ -5222,6 +5258,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
+"Bx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/hivebot,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/sign/science/chemistry_sci{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "BB" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -5537,6 +5590,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
+"EB" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/sign/public/cryo,
+/turf/simulated/floor/plating/airless,
+/area/ruin/ancientstation/betanorth)
 "EH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/processor,
@@ -5761,7 +5819,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
-/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "Im" = (
@@ -5772,6 +5829,21 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"It" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/hivebot,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/sign/science/research{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "Iu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/engineering/electrical,
@@ -6088,6 +6160,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
+"LZ" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/structure/sign/public/cryo,
+/turf/simulated/wall,
+/area/ruin/ancientstation/comm)
 "Mk" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/turf_decal/tiles/department/cargo{
@@ -6107,6 +6184,14 @@
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/ruin/ancientstation/hydroponics)
+"MD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants/large/dead,
+/obj/structure/sign/service/custodian{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "MI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light/small{
@@ -6212,6 +6297,11 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"Od" = (
+/obj/effect/mapping_helpers/turfs/rust,
+/obj/structure/sign/command,
+/turf/simulated/wall,
+/area/ruin/ancientstation/comm)
 "Oi" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /obj/effect/spawner/random/fungus/frequent,
@@ -7256,7 +7346,7 @@ BC
 Xa
 Rc
 fj
-bz
+EB
 aV
 fu
 oF
@@ -7420,7 +7510,7 @@ aa
 tC
 xP
 lE
-er
+nj
 zg
 lr
 Zn
@@ -9028,7 +9118,7 @@ ci
 MK
 SM
 aG
-aT
+Od
 gJ
 du
 iM
@@ -9100,7 +9190,7 @@ hY
 ha
 Ac
 bC
-bA
+oY
 bC
 jP
 TE
@@ -9292,7 +9382,7 @@ hZ
 ha
 Ac
 bC
-bA
+oY
 bC
 FZ
 gn
@@ -9316,11 +9406,11 @@ QG
 Xw
 bi
 mm
-aT
+Od
 Il
 du
 bs
-aT
+LZ
 bG
 cg
 cB
@@ -10289,7 +10379,7 @@ BX
 bO
 kM
 bO
-kS
+rx
 qN
 fq
 gU
@@ -10299,7 +10389,7 @@ hg
 es
 Gv
 fq
-jo
+MD
 dC
 bZ
 vp
@@ -10569,7 +10659,7 @@ ds
 bn
 Bb
 cM
-bO
+lW
 Jh
 iX
 Ii
@@ -10586,7 +10676,7 @@ la
 hP
 gf
 iX
-dJ
+Bx
 kS
 jF
 yT
@@ -10714,7 +10804,7 @@ ac
 dQ
 dC
 ew
-iS
+It
 iX
 hT
 dE
@@ -10731,7 +10821,7 @@ iX
 iX
 PO
 yw
-fq
+oG
 jF
 He
 qz
