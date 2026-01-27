@@ -203,7 +203,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "nb" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/reference_book,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/grass/jungle/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
