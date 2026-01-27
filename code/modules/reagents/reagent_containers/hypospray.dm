@@ -167,7 +167,7 @@
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""
-	. += "Nanotrasen's version sports a chemical reservior over 3 times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armor. This \
+	. += "Nanotrasen's version sports a chemical reservoir over three times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armor. This \
 	pressurized jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
 	It is also able to interface with the autoinjector ports found on modern hardsuits and MODsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
 	. += ""
