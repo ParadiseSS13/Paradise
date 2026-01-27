@@ -5036,7 +5036,7 @@
 /area/station/hallway/primary/fore)
 "arT" = (
 /obj/structure/table/reinforced,
-/obj/item/toy/plushie/lizardplushie,
+/obj/effect/spawner/random/plushies,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "asa" = (
@@ -10593,9 +10593,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
@@ -15863,12 +15862,11 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "bxw" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/security/wooden_tv,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -30
 	},
+/obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/captain)
 "bxy" = (
@@ -16735,6 +16733,18 @@
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
+"caW" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 4
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/hallway)
 "cbn" = (
 /obj/structure/closet/secure_closet/injection,
 /turf/simulated/floor/plasteel/dark,
@@ -18101,6 +18111,12 @@
 	},
 /turf/simulated/floor/plasteel/reactor_pool/wall,
 /area/station/engineering/engine/reactor)
+"cQm" = (
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/carpet/grimey,
+/area/station/hallway/secondary/entry/lounge)
 "cQD" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/classic/normal{
@@ -25870,6 +25886,7 @@
 /area/station/maintenance/fpmaint2)
 "hCh" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "hCD" = (
@@ -26853,7 +26870,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
+/area/station/maintenance/fpmaint2)
 "igA" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
@@ -27237,6 +27254,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/fakestairs/right,
 /area/station/hallway/secondary/entry)
+"iuu" = (
+/obj/machinery/computer/security/telescreen/entertainment/television,
+/turf/simulated/floor/wood,
+/area/station/maintenance/gambling_den)
 "iuv" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
@@ -27321,6 +27342,9 @@
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -32
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -31416,7 +31440,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/machinery/atmospherics/binary/volume_pump/on{
-	dir = 8;
+	dir = 4;
 	name = "Air to External"
 	},
 /turf/simulated/floor/plasteel,
@@ -32025,6 +32049,9 @@
 /obj/item/weldingtool/largetank,
 /obj/item/clothing/head/welding,
 /obj/machinery/power/apc/directional/west,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "lNC" = (
@@ -32978,6 +33005,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
 "mqJ" = (
@@ -33252,7 +33282,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/station/engineering/atmos)
+/area/station/maintenance/fpmaint2)
 "mBQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -44857,6 +44887,15 @@
 /obj/item/weldingtool,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"tCL" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 32
+	},
+/turf/simulated/floor/carpet/grimey,
+/area/station/hallway/secondary/entry/lounge)
 "tCN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -48697,7 +48736,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/engineering/atmos)
+/area/station/maintenance/fpmaint2)
 "wcL" = (
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel,
@@ -78741,12 +78780,12 @@ aUB
 sMu
 xyP
 kPx
-sWt
+lfS
 igg
-uSs
+pws
 mBs
 wcs
-sWt
+lfS
 sWt
 bgv
 fsJ
@@ -83446,7 +83485,7 @@ dNE
 cjC
 exd
 hYw
-rug
+cQm
 qit
 eEg
 rug
@@ -84372,7 +84411,7 @@ iyh
 hMp
 hQM
 aJb
-aJa
+iuu
 mQO
 aDc
 sBv
@@ -85759,7 +85798,7 @@ nNp
 wGc
 gah
 jtH
-wgD
+tCL
 wgD
 ptt
 xGa
@@ -90596,7 +90635,7 @@ eva
 biR
 ozK
 xJj
-lGk
+caW
 aXn
 iWz
 nwy
