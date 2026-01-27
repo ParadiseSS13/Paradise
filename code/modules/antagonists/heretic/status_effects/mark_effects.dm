@@ -15,9 +15,6 @@
 	marked_underlay = mutable_appearance(effect_icon, effect_icon_state, BELOW_MOB_LAYER)
 	return ..()
 
-/datum/status_effect/eldritch/Destroy()
-	return ..()
-
 /datum/status_effect/eldritch/on_apply()
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
 		owner.add_overlay(marked_underlay)
