@@ -276,6 +276,8 @@
 	suffix = "lavaland_surface_basalt.dmm"
 	name = "Basalt Labratory"
 	description = "A humble self-sustaining lab that was set up to study the Necropolis' activities on Lavaland that soon got overrun by the thing it was researching."
+	allow_duplicates = FALSE
+	always_place = TRUE
 
 // MARK: Bridges
 
