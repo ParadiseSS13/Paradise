@@ -74,7 +74,7 @@
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
 	/// A variable for admins to tweak to allow ascending.
-	var/admins_var_edit_this_to_allow_heretic_ascension = FALSE
+	var/force_unlock_ascension = FALSE
 
 /datum/antagonist/heretic/Destroy()
 	LAZYNULL(sac_targets)
@@ -844,7 +844,7 @@
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
 /datum/antagonist/heretic/proc/can_ascend()
-	if(admins_var_edit_this_to_allow_heretic_ascension)
+	if(force_unlock_ascension)
 		return TRUE
 	if(feast_of_owls)
 		return FALSE // We sold our ambition for immediate power :/
@@ -961,13 +961,6 @@
 
 /datum/objective/heretic_summon/check_completion()
 	return completed || (num_summoned >= target_amount)
-
-/datum/outfit/heretic
-	name = "Heretic (Prview only)"
-
-	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
-	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
-	r_hand = /obj/item/melee/touch_attack/mansus_fist
 
 /datum/action/heretic_menu
 	name = "Info And Research"

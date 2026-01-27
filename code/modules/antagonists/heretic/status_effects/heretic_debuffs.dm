@@ -152,6 +152,7 @@
 
 /datum/status_effect/moon_converted/on_creation()
 	moon_insanity_overlay = mutable_appearance(effect_icon, effect_icon_state, ABOVE_MOB_LAYER)
+	owner.update_appearance(UPDATE_OVERLAYS)
 	. = ..()
 
 /datum/status_effect/moon_converted/Destroy()
@@ -171,7 +172,7 @@
 
 	owner.Paralyse(5 SECONDS)
 	ADD_TRAIT(owner, TRAIT_MUTE, src.UID())
-	RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_overlay))
+	owner.add_overlay(moon_insanity_overlay)
 	owner.update_appearance(UPDATE_OVERLAYS)
 	return TRUE
 
@@ -188,10 +189,6 @@
 		return
 
 	qdel(src)
-
-/datum/status_effect/moon_converted/proc/update_owner_overlay(atom/source, list/overlays)
-	SIGNAL_HANDLER
-	source.add_overlay(moon_insanity_overlay)
 
 /datum/status_effect/moon_converted/on_remove()
 	// Span warning to help realize they aren't evil anymore
@@ -286,7 +283,7 @@
 	id = "insanity"
 	on_remove_on_mob_delete = TRUE
 	status_type = STATUS_EFFECT_REFRESH
-	tick_interval = 15 SECONDS
+	tick_interval = 25 SECONDS
 	consumed_on_threshold = FALSE
 	stack_threshold = 21 // no threshold
 	max_stacks = 20

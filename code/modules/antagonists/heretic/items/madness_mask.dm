@@ -17,7 +17,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 	)
-	var/time_to_insanity = 12 SECONDS
+	var/time_to_insanity = 15 SECONDS
 	COOLDOWN_DECLARE(insanity_gain)
 
 /obj/item/clothing/mask/madness_mask/Destroy()

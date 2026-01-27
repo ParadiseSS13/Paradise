@@ -20,7 +20,7 @@
 
 /datum/status_effect/eldritch/on_apply()
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
-		RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_underlay))
+		owner.add_overlay(marked_underlay)
 		owner.update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	return FALSE
@@ -31,16 +31,6 @@
 	owner.update_icon(UPDATE_OVERLAYS)
 	QDEL_NULL(marked_underlay)
 	return ..()
-
-/**
- * Signal proc for [COMSIG_ATOM_UPDATE_OVERLAYS].
- *
- * Adds the generated mark overlay to the afflicted.
- */
-/datum/status_effect/eldritch/proc/update_owner_underlay(atom/source, list/overlays)
-	SIGNAL_HANDLER
-
-	source.add_overlay(marked_underlay)
 
 /**
  * Called when the mark is activated by the heretic.

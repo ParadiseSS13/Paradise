@@ -40,7 +40,6 @@
 		human_user.Weaken(5 SECONDS)
 		return FINISH_ATTACK
 
-
 /obj/item/melee/sickly_blade/activate_self(mob/user)
 	if(..())
 		return
@@ -52,10 +51,10 @@
 	if(!do_after(user, 1 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
 		to_chat(user, SPAN_WARNING("You fail to break the blade!"))
 		return
-	var/turf/safe_turf = find_safe_turf()
+	var/turf/safe_turf = find_safe_turf(blacklist_areas = GLOB.blacklisted_heretic_areas)
 	var/turf/blade_turf = get_turf(user)
 	var/area/our_area = get_area(blade_turf)
-	if(!is_teleport_allowed(blade_turf.z) || our_area.tele_proof)
+	if(isnull(safe_turf) || !is_teleport_allowed(blade_turf.z) || our_area.tele_proof)
 		to_chat(user, SPAN_WARNING("You shatter [src], but your plea goes unanswered."))
 		playsound(src, "shatter", 70, TRUE)
 		qdel(src)
