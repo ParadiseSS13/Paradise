@@ -443,7 +443,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -17597,6 +17597,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -29898,15 +29901,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
-"dvC" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/station/service/library)
 "dvJ" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/solar{
@@ -31486,9 +31480,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -32423,6 +32415,18 @@
 /obj/effect/spawner/airlock/w_to_e/long/square,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint2)
+"epa" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/station/service/library)
 "epy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -33690,16 +33694,6 @@
 /obj/structure/curtain/medical,
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
-"eKW" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/prison/cell_block/a)
 "eKX" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -35803,8 +35797,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "frX" = (
-/obj/machinery/power/apc/directional/west,
-/obj/structure/cable,
+/obj/machinery/computer/prisoner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -39563,13 +39558,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/lounge)
 "gHu" = (
+/obj/machinery/light,
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office";
-	pixel_y = 5
-	},
-/obj/item/book/manual/wiki/faxes{
-	pixel_x = 19;
+/obj/machinery/computer/secure_data/laptop{
+	dir = 1;
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -43647,6 +43639,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"icX" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/station/security/range)
 "icY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plating,
@@ -48461,6 +48460,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -54153,13 +54155,6 @@
 "lyc" = (
 /turf/simulated/floor/plating/airless,
 /area/station/hallway/secondary/exit)
-"lyf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fore2)
 "lyp" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
@@ -58034,11 +58029,12 @@
 /area/station/medical/storage)
 "mUi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/firealarm/directional/east,
 /obj/machinery/camera{
 	c_tag = "Magistrate's Office Aft";
 	dir = 8
 	},
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -59358,18 +59354,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
-"nmV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/station/service/library)
 "nnh" = (
 /obj/machinery/light_switch{
 	dir = 4;
@@ -63502,6 +63486,12 @@
 /obj/structure/shelf/security,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
+"oKH" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/station/maintenance/starboard)
 "oKS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated{
@@ -64533,12 +64523,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/port)
 "pat" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/secure_data/laptop{
-	dir = 1;
-	pixel_y = 4;
-	pixel_x = 3
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -70607,13 +70592,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
-"rhp" = (
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel,
-/area/station/security/range)
 "rhw" = (
 /obj/effect/landmark/start/chef,
 /obj/structure/cable{
@@ -70951,6 +70929,16 @@
 "rnF" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
+"rnH" = (
+/obj/structure/table/wood,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Magistrate's Office";
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/station/legal/magistrate)
 "rnM" = (
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/item/mecha_parts/mecha_equipment/extinguisher,
@@ -74903,12 +74891,6 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
-"sEQ" = (
-/obj/structure/bookcase,
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/station/maintenance/starboard)
 "sES" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -77544,9 +77526,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/primary/central/south)
 "tAF" = (
-/obj/machinery/computer/prisoner{
-	dir = 1
-	},
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/faxes,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -77849,6 +77830,9 @@
 "tHm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -82036,6 +82020,16 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
+"vdx" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/prison/cell_block/a)
 "vdB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -87379,6 +87373,15 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"wOG" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/station/service/library)
 "wOI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -89436,6 +89439,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/maintenance/port)
+"xvH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/fore2)
 "xvR" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
@@ -115514,7 +115524,7 @@ awF
 gYO
 aty
 shX
-lyf
+xvH
 aKs
 mtd
 mtd
@@ -116548,7 +116558,7 @@ aND
 jRH
 plb
 plb
-nmV
+epa
 mwe
 xVF
 bFw
@@ -117560,7 +117570,7 @@ lZU
 wiM
 oNr
 eEO
-eKW
+vdx
 wyP
 axY
 dhZ
@@ -117576,7 +117586,7 @@ aNJ
 qks
 plb
 plb
-dvC
+wOG
 uQc
 xVF
 bcI
@@ -120912,7 +120922,7 @@ vHD
 afp
 dZd
 frX
-aLM
+rnH
 tAF
 aMk
 aRS
@@ -121659,7 +121669,7 @@ kEW
 mQs
 wwU
 cTX
-rhp
+icX
 tjz
 wEn
 jWv
@@ -130974,7 +130984,7 @@ asJ
 oMd
 mTj
 dSv
-sEQ
+oKH
 hwF
 nOU
 aoG
