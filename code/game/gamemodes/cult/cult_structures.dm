@@ -40,6 +40,8 @@
 	var/creation_delay = 2400
 	var/list/choosable_items = list("A coder forgot to set this" = /obj/item/grown/bananapeel)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
+	/// The dispenser will create this item and then delete itself if it is rust converted.
+	var/obj/mansus_conversion_path = /obj/item/bikehorn/rubberducky
 
 /obj/structure/cult/functional/obj_destruction()
 	visible_message(death_message)
@@ -135,6 +137,13 @@
 	light_power = initial(light_power)
 	update_light()
 
+/obj/structure/cult/functional/rust_heretic_act()
+	visible_message(SPAN_NOTICE("[src] crumbles to dust. In its midst, you spot \a [initial(mansus_conversion_path.name)]."))
+	var/turf/turfy = get_turf(src)
+	new mansus_conversion_path(turfy)
+	turfy.rust_heretic_act()
+	return ..()
+
 /obj/structure/cult/functional/altar
 	name = "altar"
 	desc = "A sacrifical altar, covered in fresh blood. The runes covering its sides glow with barely-restrained power."
@@ -148,6 +157,15 @@
 	creation_message = SPAN_CULTITALIC("You kneel before the altar and your faith is rewarded with a %ITEM%!")
 	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/drinks/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
+	mansus_conversion_path = /obj/effect/heretic_rune/big
+
+/obj/structure/cult/functional/altar/get_choosable_items()
+	. = ..()
+
+	if(!SSticker.mode.cult_team?.unlocked_heretic_items[PROTEON_ORB_UNLOCKED])
+		return
+	. += "Summoning Orb"
+	.["Summoning Orb"] = /obj/item/proteon_orb
 
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
@@ -168,6 +186,7 @@
 	selection_title = "Forge"
 	creation_message = SPAN_CULTITALIC("You work the forge as dark knowledge guides your hands, creating a %ITEM%!")
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe)
+	mansus_conversion_path = /obj/structure/eldritch_crucible
 
 /obj/structure/cult/functional/forge/get_choosable_items()
 	. = ..()
@@ -175,6 +194,10 @@
 		// Both lines here are needed. If you do it without, youll get issues.
 		. += "Mirror Shield"
 		.["Mirror Shield"] = /obj/item/shield/mirror
+	if(!SSticker.mode.cult_team?.unlocked_heretic_items[CURSED_BLADE_UNLOCKED])
+		return
+	. += "Cursed Blade"
+	.["Cursed Blade"] = /obj/item/melee/sickly_blade/cursed
 
 
 /obj/structure/cult/functional/forge/Initialize(mapload)
@@ -220,6 +243,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	/turf/simulated/wall/cult/artificer
 	)))
 
+//why is this a subtype of the dispenser type
 /obj/structure/cult/functional/pylon
 	name = "pylon"
 	desc = "A floating, otherworldly crystal that radiates a baleful red light. Wherever the light touches, matter warps, and the faithful are invigorated."
@@ -229,6 +253,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	max_integrity = 50 //Very fragile
 	death_message = SPAN_DANGER("The pylon's crystal vibrates and glows fiercely before violently shattering!")
 	death_sound = 'sound/effects/pylon_shatter.ogg'
+	mansus_conversion_path = /obj/item/clothing/neck/heretic_focus //I guess the crystal turns into a necklace. Look this shouldnt be a subtype, auugh
 
 	var/heal_delay = 30
 	var/last_heal = 0
@@ -330,6 +355,15 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	creation_message = SPAN_CULTITALIC("You invoke the dark magic of the tomes creating a %ITEM%!")
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift, "Reality sunderer" = /obj/item/portal_amulet, "Blank Tarot Card" = /obj/item/blank_tarot_card)
+	mansus_conversion_path = /obj/item/codex_cicatrix
+
+/obj/structure/cult/functional/archives/get_choosable_items()
+	. = ..()
+
+	if(!SSticker.mode.cult_team?.unlocked_heretic_items[CRIMSON_MEDALLION_UNLOCKED])
+		return
+	. += "Crimson Medallion"
+	.["Crimson Medallion"] = /obj/item/clothing/neck/heretic_focus/crimson_medallion
 
 /obj/structure/cult/functional/archives/Initialize(mapload)
 	. = ..()

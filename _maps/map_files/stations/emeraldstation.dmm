@@ -10320,6 +10320,7 @@
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 5
 	},
+/obj/item/seeds/poppy,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "cbf" = (
@@ -15420,6 +15421,12 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/lobby)
+"den" = (
+/obj/effect/spawner/random/oil/maybe,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/seeds/poppy,
+/turf/simulated/floor/plating,
+/area/station/maintenance/security/aft_port)
 "deF" = (
 /obj/machinery/alarm/directional/west,
 /obj/structure/cable{
@@ -46687,6 +46694,7 @@
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
 	},
+/obj/item/seeds/harebell,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "jqr" = (
@@ -162444,7 +162452,7 @@ oni
 omp
 paN
 hFG
-uaV
+den
 skm
 coS
 eRV

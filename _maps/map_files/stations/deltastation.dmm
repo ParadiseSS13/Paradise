@@ -70414,6 +70414,7 @@
 /obj/item/seeds/harebell,
 /obj/item/seeds/wheat,
 /obj/item/seeds/watermelon,
+/obj/item/seeds/poppy,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
 "mWM" = (
