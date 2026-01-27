@@ -107,7 +107,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, SPAN_NOTICE("You start adding [I] to [src]..."))
-	if(!do_after(user, 50, target = src))
+	if(!do_after(user, 5 SECONDS, target = src))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!W.use(5))
