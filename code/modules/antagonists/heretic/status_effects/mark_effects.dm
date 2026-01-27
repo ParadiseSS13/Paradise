@@ -64,16 +64,17 @@
 	src.repetitions = max(1, repetition)
 
 /datum/status_effect/eldritch/ash/on_effect()
-	if(iscarbon(owner))
-		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.apply_damage(6 * repetitions, STAMINA)// first one = 30 stam
-		carbon_owner.adjustFireLoss(3 * repetitions) // first one = 15 burn
-		for(var/mob/living/carbon/victim in shuffle(range(1, carbon_owner)))
-			if(IS_HERETIC(victim) || victim == carbon_owner)
-				continue
-			victim.apply_status_effect(type, repetitions - 1)
-			break
-
+	if(!iscarbon(owner))
+		return ..()
+	
+	var/mob/living/carbon/carbon_owner = owner
+	carbon_owner.apply_damage(6 * repetitions, STAMINA)// first one = 30 stam
+	carbon_owner.adjustFireLoss(3 * repetitions) // first one = 15 burn
+	for(var/mob/living/carbon/victim in shuffle(range(1, carbon_owner)))
+		if(IS_HERETIC(victim) || victim == carbon_owner)
+			continue
+		victim.apply_status_effect(type, repetitions - 1)
+		break
 	return ..()
 
 // MARK OF RUST
