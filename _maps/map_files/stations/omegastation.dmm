@@ -734,6 +734,8 @@
 /obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "afi" = (
@@ -31723,12 +31725,6 @@
 /area/station/security/prison)
 "lEg" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
