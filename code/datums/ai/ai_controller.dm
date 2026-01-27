@@ -615,7 +615,14 @@ RESTRICT_TYPE(/datum/ai_controller)
 /datum/ai_controller/proc/on_sentience_lost()
 	SIGNAL_HANDLER // COMSIG_MOB_LOGOUT
 	UnregisterSignal(pawn, COMSIG_MOB_LOGOUT)
-	set_ai_status(AI_STATUS_IDLE)
+	if(ismob(pawn))
+		var/mob/ai_pawn = pawn
+		if(ai_pawn.stat == DEAD)
+			set_ai_status(AI_STATUS_OFF)
+		else
+			set_ai_status(AI_STATUS_IDLE)
+	else
+		set_ai_status(AI_STATUS_IDLE)
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, PROC_REF(on_sentience_gained))
 
 /// Turn the controller off if the pawn has been qdeleted.
