@@ -569,6 +569,24 @@
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/ninja
+	icon_state = "ninja-control"
+	theme = /datum/mod_theme/ninja
+	starting_frequency = MODLINK_FREQ_SYNDICATE
+	applied_cell = /obj/item/stock_parts/cell/bluespace
+	applied_modules = list(
+		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/dispenser/smoke,
+		/obj/item/mod/module/shinobi_stealth,
+		/obj/item/mod/module/shinobi_freedom,
+		/obj/item/mod/module/shinobi_stims,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/dispenser/smoke,
+	)
+
 //these exist for the prefs menu
 /obj/item/mod/control/pre_equipped/empty
 	starting_frequency = null

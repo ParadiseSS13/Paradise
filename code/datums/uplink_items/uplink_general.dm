@@ -182,6 +182,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous
 	category = "Highly Visible and Dangerous Weapons"
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/dangerous/pistol
 	name = "FK-69 Stechkin Pistol"
@@ -243,7 +244,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/chainsaw/syndie
 	cost = 65
 	surplus = 0 // This has caused major problems with un-needed chainsaw massacres. Bwoink bait.
-	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_NINJA)
 	can_discount = FALSE // Too gamer.
 
 /datum/uplink_item/dangerous/universal_gun_kit
@@ -275,6 +276,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Ammunition"
 	surplus = 0 // Getting these in a discount or surplus is not a good time.
 	can_discount = FALSE
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/ammo/pistol
 	name = "Stechkin - 10mm Magazine"
@@ -317,6 +319,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_weapons/garrote
 	name = "Fiber Wire Garrote"
@@ -416,6 +419,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives
 	category = "Grenades and Explosives"
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/plastic_explosives
 	name = "Composition C-4"
@@ -494,6 +498,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools
 	category = "Stealth and Camouflage Items"
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/forgers_kit
 	name = "Forger's Kit"
@@ -623,6 +628,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools
 	category = "Devices and Tools"
 	abstract = 1
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/device_tools/emag
 	name = "Cryptographic Sequencer"
@@ -771,6 +777,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits
 	category = "Space Suits and MODsuits"
 	surplus = 10 //I am setting this to 10 as there are a bunch of modsuit parts in here that should be weighted to 10. Suits and modsuits adjusted below.
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
@@ -852,6 +859,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bio_chips
 	category = "Bio-chips"
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/bio_chips/freedom
 	name = "Freedom Bio-chip"
@@ -917,6 +925,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/cyber_implants
 	category = "Cybernetic Implants"
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/cyber_implants/hackerman_deck
 	name = "Binyat Wireless Hacking System Autoimplanter"
@@ -956,7 +965,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 50
 	surplus = 0
 	can_discount = FALSE
-	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_NINJA)
 
 ////////////////////////////////////////
 // MARK: POINTLESS BADASSERY
@@ -965,6 +974,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/badass/pen
 	name = "Syndicate Fountain Pen"
@@ -1025,6 +1035,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Bundles and Telecrystals"
 	surplus = 0
 	can_discount = FALSE
+	excludefrom = list(UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/bundles_tc/telecrystal
 	name = "Raw Telecrystal"

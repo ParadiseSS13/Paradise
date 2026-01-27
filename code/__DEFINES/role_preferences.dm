@@ -44,6 +44,7 @@
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
 #define ROLE_ELITE				"lavaland elite"
+#define ROLE_NINJA				"ninja"
 
 // Misc jobban categories
 #define ROLEBAN_AHUD			"AntagHUD"

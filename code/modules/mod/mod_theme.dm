@@ -1384,3 +1384,53 @@
 /// considering this should not be used, it's getting just DS armor, not infinity in everything.
 /obj/item/mod/armor/mod_theme_administrative
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+
+/datum/mod_theme/ninja
+	name = "'Shinobi' stealthsuit"
+	desc = "A specialized modsuit "
+	default_skin = "ninja"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_ninja
+	slowdown_inactive = 1
+	slowdown_active = 0.3
+	ui_theme = "syndicate"
+	allowed_suit_storage = list(
+		/obj/item/katana/energy,
+		/obj/item/wormhole_jaunter/ninja_bomb,
+		/obj/item/throwing_star,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/gun,
+	)
+	skins = list(
+		"ninja" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE | BLOCKHAIR,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK | HIDEEYES | HIDEEARS | HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH,
+				SEALED_COVER = HEADCOVERSEYES,
+				CAN_OVERSLOT = TRUE,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT | HIDETAIL,
+				CAN_OVERSLOT = TRUE,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_ninja
+
+	armor = list(MELEE = 50, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 25, RAD = 200, FIRE = INFINITY, ACID = INFINITY)

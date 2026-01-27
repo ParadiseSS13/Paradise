@@ -8345,7 +8345,7 @@
 /area/space/centcomm)
 "Dd" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/space_ninja,
+/obj/item/clothing/suit/space_ninja,
 /turf/simulated/floor/engine,
 /area/admin)
 "De" = (
@@ -8404,7 +8404,7 @@
 /area/ghost_bar)
 "Dv" = (
 /obj/structure/rack,
-/obj/item/clothing/head/helmet/space/space_ninja,
+/obj/item/clothing/head/helmet/space_ninja,
 /turf/simulated/floor/engine,
 /area/admin)
 "Dw" = (

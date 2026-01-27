@@ -1011,6 +1011,15 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	add_fingerprint(user)
 	if(!headbutt_shock_check(user))
 		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/katana/energy) && user.a_intent == INTENT_HELP)
+		if(!do_after_once(user, 5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
+			return ITEM_INTERACT_COMPLETE
+		if(locked)
+			unlock()
+			return ITEM_INTERACT_COMPLETE
+		else
+			open()
+			return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
