@@ -380,7 +380,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/transformer
-	board_name = "Power Transformer"
+	board_name = "Electrical Transformer"
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/smes/transformer
 	board_type = "machine"

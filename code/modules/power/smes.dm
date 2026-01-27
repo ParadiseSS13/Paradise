@@ -461,8 +461,8 @@
 /obj/machinery/power/smes/empty
 
 /obj/machinery/power/smes/transformer
-	name = "power transformer"
-	desc = "A device that converts high voltage to low voltage."
+	name = "electrical transformer"
+	desc = "A device that can convert between high and low voltage. It serves as an intermediary between a powerplant and power-consuming machinery."
 	icon_state = "transformer"
 	capacity = 300 // Low capacitance
 	input_level = 200000
