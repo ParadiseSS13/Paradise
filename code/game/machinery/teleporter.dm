@@ -633,6 +633,18 @@
 /obj/machinery/teleport/perma/preset/cerestation/engineering
 	target_beacon_type = /obj/machinery/bluespace_beacon/cerestation/engineering
 
+/obj/machinery/teleport/perma/preset/omegastation/gamma_armory1
+	target_beacon_type = /obj/machinery/bluespace_beacon/omegastation/gamma_armory1
+
+/obj/machinery/teleport/perma/preset/omegastation/gamma_armory2
+	target_beacon_type = /obj/machinery/bluespace_beacon/omegastation/gamma_armory2
+
+/obj/machinery/teleport/perma/preset/omegastation/sec1
+	target_beacon_type = /obj/machinery/bluespace_beacon/omegastation/sec1
+
+/obj/machinery/teleport/perma/preset/omegastation/sec2
+	target_beacon_type = /obj/machinery/bluespace_beacon/omegastation/sec2
+
 /obj/machinery/bluespace_beacon/cerestation
 	broadcast_to_teleport_hubs = FALSE
 
@@ -649,6 +661,19 @@
 /obj/machinery/bluespace_beacon/cerestation/engineering
 
 /obj/machinery/bluespace_beacon/cerestation/service
+
+/obj/machinery/bluespace_beacon/omegastation
+	broadcast_to_teleport_hubs = FALSE
+
+/obj/machinery/bluespace_beacon/omegastation/gamma_armory1
+
+/obj/machinery/bluespace_beacon/omegastation/gamma_armory2
+
+/obj/machinery/bluespace_beacon/omegastation/sec1
+
+/obj/machinery/bluespace_beacon/omegastation/sec2
+
+
 
 /obj/machinery/teleport/station
 	name = "station"
