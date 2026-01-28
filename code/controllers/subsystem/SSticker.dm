@@ -68,6 +68,8 @@ SUBSYSTEM_DEF(ticker)
 	/// List of biohazards keyed to the last time their population was sampled.
 	var/list/biohazard_pop_times = list()
 	var/list/biohazard_included_admin_spawns = list()
+	/// Has cult tried to summon?
+	var/cult_tried_summon = FALSE
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\

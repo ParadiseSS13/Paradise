@@ -13527,6 +13527,7 @@
 /area/station/hallway/secondary/garden)
 "aXI" = (
 /obj/structure/table/glass,
+/obj/item/seeds/harebell,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "aXJ" = (
@@ -65861,6 +65862,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"neT" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/poppy,
+/turf/simulated/floor/grass,
+/area/station/maintenance/asmaint2)
 "nfe" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -75429,6 +75435,14 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/evidence,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
+"rwv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/turbine)
 "rwR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -78328,14 +78342,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"sPU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/turbine)
 "sQe" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -129256,7 +129262,7 @@ nZl
 dcs
 chf
 dgT
-sPU
+rwv
 rvr
 dcR
 dde
@@ -134355,7 +134361,7 @@ lqd
 clX
 clX
 nbx
-nbx
+neT
 cuQ
 gRe
 gRe

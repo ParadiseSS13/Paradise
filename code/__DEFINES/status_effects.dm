@@ -187,6 +187,7 @@
 #define STATUS_EFFECT_NO_OXY_HEAL /datum/status_effect/transient/no_oxy_heal
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
+#define STATUS_EFFECT_HERETIC_SLUR /datum/status_effect/transient/heretic_slurring
 #define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
 #define STATUS_EFFECT_SLURRING /datum/status_effect/transient/slurring
 #define STATUS_EFFECT_LOSE_BREATH /datum/status_effect/transient/lose_breath

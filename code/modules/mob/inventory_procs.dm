@@ -56,6 +56,13 @@
 	if(istype(r_hand, typepath))
 		return r_hand
 
+// List version of above proc
+// Returns ret_item, which is either the successfully located item or null
+/mob/proc/is_holding_item_of_types(list/typepaths)
+	for(var/typepath in typepaths)
+		var/ret_item = is_holding_item_of_type(typepath)
+		return ret_item
+
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
 	if(hand)	return r_hand
@@ -242,7 +249,7 @@
 
 	if((SEND_SIGNAL(target, COMSIG_ITEM_PRE_UNEQUIP, destination, force, silent, drop_inventory, no_move) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
 		return FALSE
-
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, target, force, destination)
 	if(target == r_hand)
 		r_hand = null
 		update_inv_r_hand()

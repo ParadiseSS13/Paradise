@@ -33,6 +33,12 @@ RESTRICT_TYPE(/datum/team/cult)
 
 	/// Timer until we do a recount of cultist members
 	var/recount_timer
+	/// List that keeps track of which items have been unlocked after a heretic was sacked.
+	var/list/unlocked_heretic_items = list(
+		CURSED_BLADE_UNLOCKED = FALSE,
+		CRIMSON_MEDALLION_UNLOCKED = FALSE,
+		PROTEON_ORB_UNLOCKED = FALSE,
+	)
 
 /datum/team/cult/Destroy(force, ...)
 	deltimer(recount_timer)
@@ -260,6 +266,8 @@ RESTRICT_TYPE(/datum/team/cult)
 	if(isgolem(mind.current))
 		return FALSE
 	if(isanimal_or_basicmob(mind.current))
+		return FALSE
+	if(IS_HERETIC(mind.current))
 		return FALSE
 	return TRUE
 

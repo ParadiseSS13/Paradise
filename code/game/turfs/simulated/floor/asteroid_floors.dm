@@ -10,6 +10,7 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
+	rust_resistance = RUST_RESISTANCE_ORGANIC
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -247,3 +248,9 @@
 
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
+
+/turf/simulated/floor/plating/asteroid/snow/mansus
+	temperature = 293.15
+	slowdown = 0
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
