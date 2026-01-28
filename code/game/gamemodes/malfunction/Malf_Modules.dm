@@ -553,7 +553,7 @@
 
 /datum/spell/ai_spell/ranged/override_machine/proc/animate_machine(obj/machinery/M, mob/user)
 	if(M && !QDELETED(M))
-		new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, user, 1)
+		new /mob/living/basic/mimic/copy/machine(get_turf(M), M, user, 1)
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
 /datum/ai_module/place_cyborg_transformer

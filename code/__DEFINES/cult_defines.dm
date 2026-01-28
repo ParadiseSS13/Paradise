@@ -17,6 +17,8 @@
 #define MAX_BLOODCHARGE 4
 /// Maximum number of spells without an empowering rune
 #define RUNELESS_MAX_BLOODCHARGE 1
+/// Maximum number of spells with enhanced magic
+#define ENHANCED_BLOODCHARGE 5
 #define BLOOD_SPEAR_COST 150
 #define BLOOD_BARRAGE_COST 300
 #define BLOOD_ORB_COST 50
@@ -69,3 +71,8 @@
 
 /// Checks that the given element is living an has a cult antag datum
 #define IS_CULTIST(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/cultist)) // for someone TODO, move all antag checks over to TG's `IS_TRAITOR` defines. Also remove `isliving()` from this call someday
+
+// Used to keep track of items rewarded after a heretic is sacked.
+#define CURSED_BLADE_UNLOCKED "Cursed Blade"
+#define CRIMSON_MEDALLION_UNLOCKED "Crimson Medallion"
+#define PROTEON_ORB_UNLOCKED "Proteon Orb"

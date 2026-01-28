@@ -12,6 +12,7 @@
 	light_power = 0.25
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	intact = FALSE
+	rust_resistance = RUST_RESISTANCE_ABSOLUTE
 
 	atmos_mode = ATMOS_MODE_SPACE
 
