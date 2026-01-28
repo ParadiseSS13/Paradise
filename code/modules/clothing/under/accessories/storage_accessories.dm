@@ -65,7 +65,7 @@
 	if(has_suit)	//if we are part of a suit
 		hold.open(user)
 	else
-		to_chat(user, "<span class='notice'>You empty [src].</span>")
+		to_chat(user, SPAN_NOTICE("You empty [src]."))
 		var/turf/T = get_turf(src)
 		hold.hide_from(usr)
 		for(var/obj/item/I in hold.contents)
@@ -77,7 +77,8 @@
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/storage/black_vest

@@ -19,6 +19,7 @@
 /datum/game_test/room_test/attack_chain_structures/Run()
 	var/datum/test_puppeteer/player = new(src)
 	player.puppet.name = "Player"
+	player.add_trait(TRAIT_FLASH_PROTECTION)
 
 	player.puppet.mind.add_antag_datum(/datum/antagonist/cultist)
 	player.spawn_obj_in_hand(/obj/item/melee/cultblade/dagger)
@@ -184,7 +185,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "You dismantle [loom]")
 	player.drop_held_item()
 
-	var/obj/structure/mineral_door/iron/door = teleport_to_first(player, /obj/structure/mineral_door/iron)
+	var/obj/structure/mineral_door/door = teleport_to_first(player, /obj/structure/mineral_door)
 	player.spawn_fast_tool(/obj/item/pickaxe)
 	player.click_on(door)
 	TEST_ASSERT_LAST_CHATLOG(player, "You finished digging.")

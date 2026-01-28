@@ -720,7 +720,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
+		apply_to_card(I, H, get_all_centcom_access(), name, "tsf")
 	I.assignment = "Trans-Solar Federation Representative"
 	H.sec_hud_set_ID()
 
@@ -774,9 +774,9 @@
 	var/obj/item/card/id/I = H.wear_id
 	I.assignment = name
 	if(istype(I) && is_solgov_lieutenant)
-		apply_to_card(I, H, get_centcom_access("Emergency Response Team Leader"), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access("Emergency Response Team Leader"), name, "tsf")
 	else if(istype(I))
-		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), name, "lifetimeid")
+		apply_to_card(I, H, get_centcom_access("Emergency Response Team Member"), name, "tsf")
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/solgov/lieutenant
@@ -1611,7 +1611,7 @@
 	H.gloves.siemens_coefficient = 0 // black "insulated" gloves, since combat gloves look kinda shit
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "lifetimeid")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Solar Federation Infilitrator", "tsf")
 
 	H.DeleteComponent(/datum/component/footstep)
 
@@ -1664,3 +1664,78 @@
 		P.owner = H.real_name
 		P.ownjob = "Tourist"
 		P.name = "PDA-[H.real_name] ([P.ownjob])"
+
+/datum/outfit/admin/supreme
+	name = "Supreme-Inquisitor"
+	uniform = /obj/item/clothing/under/skulk/skulkcasual
+	suit = /obj/item/clothing/suit/supremeinquis
+	r_ear = /obj/item/radio/headset/alt
+	head = /obj/item/clothing/head/supremeinquis
+	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/melee/baton/loaded
+	l_pocket = /obj/item/melee/energy/sword/saber/purple
+	suit_store = /obj/item/gun/energy/plasma_pistol
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+	)
+
+/datum/outfit/admin/low
+	name = "Low-Inquisitor"
+	uniform = /obj/item/clothing/under/skulk/skulkcasual
+	suit = /obj/item/clothing/suit/hooded/lowinquis
+	r_ear = /obj/item/radio/headset/alt
+	mask = /obj/item/clothing/mask/lowinquis
+	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/melee/baton/loaded
+	suit_store = /obj/item/gun/energy/plasma_pistol
+	backpack_contents = list(
+		/obj/item/storage/box/handcuffs = 1,
+		/obj/item/storage/box/survival = 1,
+		/obj/item/shield/energy = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+	)
+
+/datum/outfit/admin/heretic_long
+	name = "Heretic Long"
+
+	uniform = /obj/item/clothing/under/suit/victsuit/red
+	neck = /obj/item/clothing/neck/heretic_focus
+	back = /obj/item/storage/backpack/satchel
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
+	l_ear = /obj/item/radio/headset/syndicate
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/melee/sickly_blade = 1,
+		/obj/item/codex_cicatrix = 1,
+
+	)
+
+/datum/outfit/admin/heretic_long/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	var/obj/item/clothing/suit/hooded/cultrobes/eldritch/R = new(H.loc)
+	if(istype(R))
+		R.name = "ascendant robes"
+		R.hood.name = "ascendant hood"
+		H.equip_to_slot_or_del(R, ITEM_SLOT_OUTER_SUIT)
+		R.ToggleHood()
+
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Heretic Long", "data")
+
+/datum/outfit/admin/heretic_long/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.add_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/A = H.mind.has_antag_datum(/datum/antagonist/heretic)
+	A.knowledge_points = 9999
+	A.force_unlock_ascension = TRUE

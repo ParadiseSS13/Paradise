@@ -28,9 +28,9 @@
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Virologist", "Paramedic")
 
 /datum/gear/racial/taj/sec
-	display_name = "Tajaran Security Veil"
+	display_name = "Shaded Tajaran Security Veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a security HUD."
-	path = /obj/item/clothing/glasses/hud/tajblind/sec
+	path = /obj/item/clothing/glasses/hud/tajblind/shaded/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Internal Affairs Agent", "Magistrate")
 
 /datum/gear/racial/taj/miner
@@ -90,6 +90,24 @@
 	description = "Large, comfortable robes worn by those who need a bit more covering. The thick fabric contains a pocket suitable for those that need their hands free during their work, while the cloth serves to cover scars or other injuries to the wearer's body."
 	path = /obj/item/clothing/suit/hooded/vox_robes
 	slot = ITEM_SLOT_OUTER_SUIT
+
+/datum/gear/racial/skulk_casual
+	display_name = "Collective jumpsuit"
+	description = "A grey, insulated jumpsuit made from a hardweave composite. Despite their cheap, mass-produced nature, this suit is seen on every caste from the lowliest Agrolyte to the Prodigium themselves."
+	path = /obj/item/clothing/under/skulk/skulkcasual
+	slot = ITEM_SLOT_JUMPSUIT
+
+/datum/gear/racial/skulk_robes
+	display_name = "Collective robes"
+	description = "A set of comfortable purple robes made from silk and faux gold, offers substantial protection from the cold. Worn by faithful commoners and Skkula-Kkavan zealots everywhere."
+	path = /obj/item/clothing/suit/collectiverobe
+	slot = ITEM_SLOT_OUTER_SUIT
+
+/datum/gear/racial/lowinquis
+	display_name = "Low-Inquisitor robes"
+	description = "A set of red and silver Collective robes with armor plates sewn into important areas. A common sight amongst the Collective Inquisition."
+	path = /obj/item/clothing/suit/hooded/lowinquis
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/racial/plasmamansuit_coke
 	display_name = "Coke Suit"

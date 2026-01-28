@@ -6,6 +6,7 @@
 	worn_icon = 'icons/mob/clothing/under/captain.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/captain.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/captain.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/captain.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/captain.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/captain.dmi',
@@ -17,10 +18,12 @@
 	icon_state = "captain_skirt"
 
 /obj/item/clothing/under/rank/captain/white
+	name = "captain's white uniform"
 	desc = "It's a white dress shirt and black slacks with some gold markings denoting the rank of \"Captain\"."
 	icon_state = "captain_white"
 
 /obj/item/clothing/under/rank/captain/skirt/white
+	name = "captain's white skirt"
 	desc = "It's a white dress shirt and black skirt with some gold markings denoting the rank of \"Captain\"."
 	icon_state = "captain_skirt_white"
 

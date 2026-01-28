@@ -102,12 +102,14 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
  */
 /datum/antagonist/proc/add_owner_to_gamemode()
+	stack_trace("[type] did not implement add_owner_to_gamemode()!")
 	return
 
 /**
  * Removes the owner from their respective gamemode's list. For example `SSticker.mode.traitors -= owner`.
  */
 /datum/antagonist/proc/remove_owner_from_gamemode()
+	stack_trace("[type] did not implement remove_owner_from_gamemode()!")
 	return
 
 /**
@@ -234,7 +236,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		return FALSE
 
 	if(!silent && message)
-		to_chat(clown, "<span class='boldnotice'>[message]</span>")
+		to_chat(clown, SPAN_BOLDNOTICE("[message]"))
 	return TRUE
 
 /**
@@ -318,7 +320,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(length(finalized) || istext(finalized))
 		messages.Add(finalized)
 	if(wiki_page_name)
-		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
+		messages.Add(SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])"))
 	if(length(messages))
 		to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	if(is_banned(owner.current) && replace_banned)
@@ -357,7 +359,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [name]?", job_rank, TRUE, 10 SECONDS)
 	if(!length(candidates))
 		message_admins("[owner] ([owner.key]) has been converted into [name] with an active antagonist jobban for said role since no ghost has volunteered to take [owner.p_their()] place.")
-		to_chat(owner.current, "<span class='biggerdanger'>You have been converted into [name] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [name], but any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("You have been converted into [name] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [name], but any further violations of the rules on your part are likely to result in a permanent ban."))
 		return FALSE
 	var/mob/dead/observer/C = pick(candidates)
 	to_chat(owner.current, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -376,7 +378,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/list/messages = list()
 	. = messages
 	if(owner && owner.current)
-		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
+		messages.Add(SPAN_USERDANGER("You are a [special_role]!"))
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
@@ -385,7 +387,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]!</span>")
+		to_chat(owner.current,SPAN_USERDANGER("You are no longer a [special_role]!"))
 
 /**
  * Creates a new antagonist team.
@@ -406,17 +408,25 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return
 
 /**
+ * Check if this antag can be assigned hijack.
+ */
+/datum/antagonist/proc/can_assign_hijack_objective()
+	return FALSE
+
+/**
  * Create and assign a full set of randomized, basic human traitor objectives.
  * can_hijack - If you want the 5% chance for the antagonist to be able to roll hijack, only true for traitors
  */
 /datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE, number_of_objectives = GLOB.configuration.gamemode.traitor_objectives_amount)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		if(prob(50)) // 50% chance you have to detonate the nuke instead
-			add_antag_objective(/datum/objective/nuke)
-			return
-		add_antag_objective(/datum/objective/hijack)
-		return // Hijack should be their only objective (normally), so return.
+		// Check if hijack is allowed based on player count and number of sec
+		if(can_assign_hijack_objective())
+			if(prob(50)) // 50% chance you have to detonate the nuke instead
+				add_antag_objective(/datum/objective/nuke)
+				return
+			add_antag_objective(/datum/objective/hijack)
+			return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
 	for(var/i in 1 to number_of_objectives)
@@ -442,6 +452,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 #define MAROON_OBJECTIVE "MAROON"
 #define ASS_ONCE_OBJECTIVE "ASS_ONCE"
 #define ASS_OBJECTIVE "ASS"
+#define ASS_PET "ASS_PET"
 
 #define INFIL_SEC_OBJECTIVE "INFILTRATE_SEC"
 
@@ -454,8 +465,9 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/roll_single_human_objective()
 	var/datum/objective/objective_to_add
+
 	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 47, THEFT_OBJECTIVE = 42, INCRIMINATE_OBJECTIVE = 5, PROTECT_OBJECTIVE = 6)
-	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 45, MAROON_OBJECTIVE = 235, ASS_ONCE_OBJECTIVE = 160, ASS_OBJECTIVE = 340, INFIL_SEC_OBJECTIVE = 220)
+	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 39, MAROON_OBJECTIVE = 202, ASS_ONCE_OBJECTIVE = 138, ASS_OBJECTIVE = 293, ASS_PET = 138, INFIL_SEC_OBJECTIVE = 190)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organization && length(organization.objectives) && prob(organization.focus))
@@ -480,18 +492,33 @@ GLOBAL_LIST_EMPTY(antagonists)
 					if(ASS_ONCE_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinateonce
 
+					if(ASS_PET)
+						objective_to_add = /datum/objective/kill_pet
+
 					if(ASS_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinate
 
 					if(INFIL_SEC_OBJECTIVE)
-						objective_to_add = /datum/objective/infiltrate_sec
+						// Prevent duplicate infiltrate objectives
+						if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+							objective_to_add = roll_single_human_objective()
+						// Mutual exclusivity with protecting someone
+						else if(locate(/datum/objective/protect) in owner.get_all_objectives())
+							objective_to_add = roll_single_human_objective()
+						else
+							objective_to_add = /datum/objective/infiltrate_sec
+
 			if(THEFT_OBJECTIVE)
 				objective_to_add = /datum/objective/steal
 			if(INCRIMINATE_OBJECTIVE)
 				objective_to_add = /datum/objective/incriminate
 
 			if(PROTECT_OBJECTIVE)
-				objective_to_add = /datum/objective/protect
+				// Mutual exclusivity with infiltrating Sec
+				if(locate(/datum/objective/infiltrate_sec) in owner.get_all_objectives())
+					objective_to_add = roll_single_human_objective()
+				else
+					objective_to_add = /datum/objective/protect
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
@@ -511,6 +538,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 #undef MAROON_OBJECTIVE
 #undef ASS_ONCE_OBJECTIVE
 #undef ASS_OBJECTIVE
+#undef ASS_PET
 
 #undef INFIL_SEC_OBJECTIVE
 
@@ -540,7 +568,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 //Displayed at the start of roundend_category section, default to roundend_category header
 /datum/antagonist/proc/roundend_report_header()
-	return 	"<span class='header'>The [roundend_category] were:</span><br>"
+	return 	"[SPAN_HEADER("The [roundend_category] were:")]<br>"
 
 //Displayed at the end of roundend_category section
 /datum/antagonist/proc/roundend_report_footer()
@@ -562,11 +590,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/objectives = user.mind.get_all_objectives()
 	for(var/datum/objective/goal in objectives)
 		if(!goal.is_valid_exfiltration())
-			to_chat(user, "<span class='warning'>The [boss_title] has deemed your objectives too delicate for an early extraction.</span>")
+			to_chat(user, SPAN_WARNING("The [boss_title] has deemed your objectives too delicate for an early extraction."))
 			return
 
 	if(world.time < 60 MINUTES) // 60 minutes of no exfil
-		to_chat(user, "<span class='warning'>The [boss_title] is still preparing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		to_chat(user, SPAN_WARNING("The [boss_title] is still preparing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again."))
 		return
 	var/mob/living/L = user
 	if(!istype(L))

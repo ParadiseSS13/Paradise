@@ -10,6 +10,8 @@
 #define ORGAN_DISFIGURED   (1 << 6)
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
+/// An organ that is ostensibly dangerous when inside a body
+#define ORGAN_HAZARDOUS (1 << 9)
 
 // Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
 #define ORGAN_DATUM_HEART	"heart"
@@ -245,6 +247,7 @@
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define ismoth(A) (is_species(A, /datum/species/moth))
+#define isskulk(A) (is_species(A, /datum/species/skulk))
 
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
@@ -255,9 +258,9 @@
 #define iscaterpillar(A)	(istype((A), /mob/living/basic/nian_caterpillar))
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
 #define isretaliate(A) 		(istype((A), /mob/living/simple_animal/hostile/retaliate))
-#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
-#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
-#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
+#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider) || istype((A), /mob/living/basic/spiderling/terror_spiderling))
+#define isslaughterdemon(A) (istype((A), /mob/living/basic/demon/slaughter))
+#define isdemon(A) 			(istype((A), /mob/living/basic/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
 #define isgorilla(A) 		(istype((A), /mob/living/basic/gorilla))
 #define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
@@ -386,6 +389,13 @@
 #define BRAIN_DAMAGE_RATIO_SEVERE 	8 / 12
 #define BRAIN_DAMAGE_RATIO_CRITICAL 10 / 12
 
+//Disgust levels for humans
+#define DISGUST_LEVEL_MAXEDOUT 1500
+#define DISGUST_LEVEL_VERYDISGUSTED 1000
+#define DISGUST_LEVEL_DISGUSTED 750
+#define DISGUST_LEVEL_VERYGROSS 500
+#define DISGUST_LEVEL_GROSS 250
+
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
@@ -410,6 +420,7 @@
 #define GHOST_SEE_RADS				(1 << 5) // Ghost can see radiation
 #define GHOST_GAS_SCAN				(1 << 6) // Ghost uses gas analyzer on click
 #define GHOST_PLANT_ANALYZER		(1 << 7) // Ghost uses plant analyzer on click
+#define GHOST_NO_VISION				(1 << 8) // Ghost cannot see any ghosts at all
 
 #define GHOST_FLAGS_DEFAULT (GHOST_CAN_REENTER | GHOST_RESPAWNABLE | GHOST_VISION)
 #define GHOST_FLAGS_START_AS_OBSERVER (GHOST_FLAGS_DEFAULT | GHOST_START_AS_OBSERVER)

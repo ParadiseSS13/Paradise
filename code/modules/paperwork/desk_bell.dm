@@ -21,7 +21,7 @@
 /obj/item/desk_bell/examine(mob/user)
 	. = ..()
 	if(!isnull(attached_signaler))
-		. += "<span class='notice'>There seems to be an antenna sticking out of the base.</span>"
+		. += SPAN_NOTICE("There seems to be an antenna sticking out of the base.")
 
 /obj/item/desk_bell/Destroy()
 	if(!isnull(attached_signaler))
@@ -38,10 +38,10 @@
 	// can only attach its on your person
 	if(istype(I, /obj/item/assembly/signaler))
 		if(!in_inventory)
-			to_chat(user, "<span class='warning'>[src] needs to be in your inventory if you want to attach [I] to it!</span>")
+			to_chat(user, SPAN_WARNING("[src] needs to be in your inventory if you want to attach [I] to it!"))
 			return
 		if(!isnull(attached_signaler))
-			to_chat(user, "<span class='notice'>There's already a signaller attached!</span>")
+			to_chat(user, SPAN_NOTICE("There's already a signaller attached!"))
 			return
 		var/obj/item/assembly/signaler/signal = I
 		user.transfer_item_to(signal, src)
@@ -49,8 +49,8 @@
 		if(signal.receiving)
 			RegisterSignal(attached_signaler, COMSIG_ASSEMBLY_PULSED, PROC_REF(on_signal))
 		user.visible_message(
-			"<span class='notice'>[user] attaches [signal] to [src].</span>",
-			"<span class='notice'>You attach [signal] to [src].</span>"
+			SPAN_NOTICE("[user] attaches [signal] to [src]."),
+			SPAN_NOTICE("You attach [signal] to [src].")
 		)
 	return ..()
 
@@ -62,7 +62,7 @@
 	if(ring_cooldown > world.time || !anchored)
 		return TRUE
 	if(!ring_bell(user, from_signaler) && user)
-		to_chat(user, "<span class='notice'>[src] is silent. Some idiot broke it.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is silent. Some idiot broke it."))
 	ring_cooldown = world.time + ring_cooldown_length
 	return TRUE
 
@@ -92,10 +92,10 @@
 /obj/item/desk_bell/screwdriver_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(broken_ringer)
-		visible_message("<span class='notice'>[user] begins repairing [src]...</span>", "<span class='notice'>You begin repairing [src]...</span>")
+		visible_message(SPAN_NOTICE("[user] begins repairing [src]..."), SPAN_NOTICE("You begin repairing [src]..."))
 		tool.play_tool_sound(src)
 		if(tool.use_tool(src, user, 5 SECONDS))
-			user.visible_message("<span class='notice'>[user] repairs [src].</span>", "<span class='notice'>You repair [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] repairs [src]."), SPAN_NOTICE("You repair [src]."))
 			playsound(user, 'sound/items/change_drill.ogg', 50, vary = TRUE)
 			broken_ringer = FALSE
 			times_rang = 0
@@ -106,9 +106,9 @@
 /obj/item/desk_bell/wrench_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(user.a_intent == INTENT_HARM && !in_inventory)
-		visible_message("<span class='notice'>[user] begins taking apart [src]...</span>", "<span class='notice'>You begin taking apart [src]...</span>")
+		visible_message(SPAN_NOTICE("[user] begins taking apart [src]..."), SPAN_NOTICE("You begin taking apart [src]..."))
 		if(tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume))
-			visible_message("<span class='notice'>[user] takes apart [src].</span>", "<span class='notice'>You take apart [src].</span>")
+			visible_message(SPAN_NOTICE("[user] takes apart [src]."), SPAN_NOTICE("You take apart [src]."))
 			playsound(user, 'sound/items/deconstruct.ogg', 50, vary = TRUE)
 			new /obj/item/stack/sheet/metal(drop_location(), 2)
 			qdel(src)
@@ -129,7 +129,7 @@
 	if(attached_signaler)  // in inventory
 		if(!tool.use_tool(src, user, 0.5 SECONDS, volume = tool.tool_volume))
 			return TRUE
-		to_chat(user, "<span class='notice'>You remove [attached_signaler].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [attached_signaler]."))
 		user.put_in_hands(attached_signaler)
 		UnregisterSignal(attached_signaler, COMSIG_ASSEMBLY_PULSED)
 		attached_signaler = null
@@ -137,9 +137,9 @@
 /// Check if the clapper breaks, and if it does, break it
 /obj/item/desk_bell/proc/check_clapper(mob/living/user)
 	if(prob(times_rang / 50) && ring_cooldown_length)
-		audible_message("<span class='notice'>You hear [src]'s clapper fall off its hinge.</span>")
+		audible_message(SPAN_NOTICE("You hear [src]'s clapper fall off its hinge."))
 		if(user)
-			to_chat(user, "<span class='warning'>Nice job, you broke it.</span>")
+			to_chat(user, SPAN_WARNING("Nice job, you broke it."))
 		broken_ringer = TRUE
 
 /// Ring the bell

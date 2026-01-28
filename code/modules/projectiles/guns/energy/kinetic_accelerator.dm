@@ -36,8 +36,8 @@
 			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
-				. |= "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
-				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
+				. |= SPAN_NOTICE("You can use a crowbar on it to remove it's installed mod kits.")
+				. += SPAN_NOTICE("There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.")
 
 /obj/item/gun/energy/kinetic_accelerator/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
@@ -51,11 +51,11 @@
 	if(!max_mod_capacity)
 		return
 	if(!length(modkits))
-		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
+		to_chat(user, SPAN_NOTICE("There are no modifications currently installed."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
+	to_chat(user, SPAN_NOTICE("You pry the modifications out."))
 	for(var/obj/item/borg/upgrade/modkit/M in modkits)
 		M.uninstall(src)
 
@@ -157,7 +157,7 @@
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else if(isliving(loc))
-		to_chat(loc, "<span class='warning'>[src] silently charges up.</span>")
+		to_chat(loc, SPAN_WARNING("[src] silently charges up."))
 	update_icon()
 	overheat = FALSE
 
@@ -181,6 +181,90 @@
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 
+/obj/item/gun/energy/kinetic_accelerator/railgun
+	name = "proto-kinetic railgun"
+	desc = "A heavy-duty proto-kinetic accelerator that uses highly overclocked coils to fire a kinetic projectile at staggering speeds."
+	icon_state = "kineticrailgun"
+	base_icon_state = "kineticrailgun"
+	inhand_icon_state = "kineticgun"
+	w_class = WEIGHT_CLASS_HUGE
+	overheat_time = 3 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/railgun)
+	weapon_weight = WEAPON_HEAVY
+	max_mod_capacity = 15 // A crumb of mod capacity as a treat
+	recoil = 3 // railgun go brrrrr
+
+/obj/item/gun/energy/kinetic_accelerator/railgun/examine_more(mob/user)
+	. = ..()
+	. += "Before the nice streamlined and modern day Proto-Kinetic Accelerator was created, multiple designs were drafted by the Mining Research and Development \
+	team. Many were failures, including this one, which came out too bulky and too ineffective. Recently the MR&D Team got drunk and said 'fuck it we ball' and \
+	went back to this bulky design, overclocked it, and made it functional; turning it into what is essentially a literal man portable particle accelerator. \
+	The design results in a massive hard to control blast of kinetic energy, with the power to punch right through creatures and cause massive damage. The \
+	only problem with the design is that it is so bulky you need to carry it with two hands, and the technology has been outfitted with a special firing pin \
+	that denies use near or on the station, due to its destructive nature."
+
+/obj/item/gun/energy/kinetic_accelerator/railgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	if(is_station_level(loc.z))
+		to_chat(user, SPAN_WARNING("[src] clicks. Its internal safety prevents it from firing near the station."))
+		return
+	return ..()
+
+/obj/item/gun/energy/kinetic_accelerator/repeater
+	name = "proto-kinetic repeater"
+	desc = "A proto-kinetic accelerator boasting deeper capacitors for prolonged firing solutions."
+	icon_state = "kineticrepeater"
+	base_icon_state = "kineticrepeater"
+	inhand_icon_state = "kineticgun"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/repeater)
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/repeater/examine_more(mob/user)
+	. = ..()
+	. += "During the pizza party celebrating the release of the new crusher designs, the Mining Research and Development team members were only allowed one slice. \
+	One member exclaimed 'I wish we could have more than one slice' and another replied 'I wish we could shoot the accelerator more than once' and thus, the repeater \
+	was born. The repeater trades a bit of power for the ability to fire three shots before becoming empty, while retaining the ability to fully recharge in one \
+	go. The extra technology packed inside to make this possible unfortunately reduces mod space meaning you can't carry as many mods compared to a regular accelerator."
+
+/obj/item/gun/energy/kinetic_accelerator/shotgun
+	name = "proto-kinetic shotgun"
+	desc = "A sleek proto-kinetic accelerator with an integrated scattering system, allowing for multiple kinetic blasts to be released simultaneously."
+	icon_state = "kineticshotgun"
+	base_icon_state = "kineticshotgun"
+	inhand_icon_state = "kineticgun"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shotgun)
+	weapon_weight = WEAPON_HEAVY
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/shotgun/examine_more(mob/user)
+	. = ..()
+	. += "During the crusher design pizza party, one member of the Mining Research and Development team brought out a real riot shotgun, and killed three \
+	other research members with one blast. The MR&D Director immediately thought of a genius idea, creating the proto-kinetic shotgun moments later, which he \
+	immediately used to execute the research member who brought the real shotgun. The proto-kinetic shotgun trades off some mod capacity and cooldown in favor \
+	of firing three shots at once with reduced range and power. The total damage of all three shots is higher than a regular PKA but the individual shots are weaker. \
+	Looks like you need both hands to use it effectively."
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave
+	name = "proto-kinetic shockwave"
+	desc = "A short-range portable cannon that fires a kinetic slug into the ground, allowing it to split and strike in all directions."
+	icon_state = "kineticshockwave"
+	base_icon_state = "kineticshockwave"
+	inhand_icon_state = "kineticgun"
+	overheat_time = 2 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/shockwave)
+	max_mod_capacity = 75
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave/examine_more(mob/user)
+	. = ..()
+	. += "Quite frankly, we have no idea how the Mining Research and Development team came up with this one, all we know is that alot of \
+	beer was involved. This proto-kinetic design will slam the ground, creating a shockwave around the user, with the same power as the base PKA.\
+	The only downside is the lowered mod capacity, the lack of range it offers, and the higher cooldown, but it's pretty good for clearing rocks."
+
+/obj/item/gun/energy/kinetic_accelerator/shockwave/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	target = get_edge_target_turf(user, user.dir)
+	return ..()
+
 //Casing
 /obj/item/ammo_casing/energy/kinetic
 	projectile_type = /obj/projectile/kinetic
@@ -188,6 +272,25 @@
 	select_name = "kinetic"
 	e_cost = 500
 	fire_sound = 'sound/weapons/kenetic_accel.ogg' // fine spelling there chap
+
+/obj/item/ammo_casing/energy/kinetic/railgun
+	projectile_type = /obj/projectile/kinetic/railgun
+	fire_sound = 'sound/weapons/beam_sniper.ogg'
+
+/obj/item/ammo_casing/energy/kinetic/repeater
+	projectile_type = /obj/projectile/kinetic/repeater
+	e_cost = 150 // Three shots
+
+/obj/item/ammo_casing/energy/kinetic/shotgun
+	projectile_type = /obj/projectile/kinetic/shotgun
+	pellets = 6
+	variance = 50
+
+/obj/item/ammo_casing/energy/kinetic/shockwave
+	projectile_type = /obj/projectile/kinetic/shockwave
+	pellets = 8
+	variance = 360
+	fire_sound = 'sound/weapons/cannon.ogg'
 
 /obj/item/ammo_casing/energy/kinetic/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
@@ -222,6 +325,26 @@
 /obj/projectile/kinetic/pod/regular
 	damage = 50
 	pressure_decrease = 0.5
+
+/obj/projectile/kinetic/railgun
+	name = "hyper kinetic force"
+	damage = 75
+	range = 6
+	pressure_decrease = 0.10 // Pressured environments are a no go for the railgun
+	pass_flags = PASSMOB
+
+/obj/projectile/kinetic/repeater
+	name = "rapid kinetic force"
+	damage = 20
+	range = 4
+
+/obj/projectile/kinetic/shotgun
+	name = "split kinetic force"
+	damage = 10
+
+/obj/projectile/kinetic/shockwave
+	name = "concussive kinetic force"
+	range = 1
 
 /obj/projectile/kinetic/Destroy()
 	kinetic_gun = null
@@ -260,7 +383,7 @@
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
 		if(is_ancient_rock(target_turf))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 		else
 			var/turf/simulated/mineral/M = target_turf
 			M.gets_drilled(firer)
@@ -299,7 +422,7 @@
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
+		. += SPAN_NOTICE("Occupies <b>[cost]%</b> of mod capacity.")
 
 /obj/item/borg/upgrade/modkit/attackby__legacy__attackchain(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
@@ -325,10 +448,10 @@
 		return FALSE
 	if(minebot_upgrade)
 		if(minebot_exclusive && !istype(KA.loc, /mob/living/basic/mining_drone))
-			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
+			to_chat(user, SPAN_NOTICE("The modkit you're trying to install is only rated for minebot use."))
 			return FALSE
 	else if(istype(KA.loc, /mob/living/basic/mining_drone))
-		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
+		to_chat(user, SPAN_NOTICE("The modkit you're trying to install is not rated for minebot use."))
 		return FALSE
 	if(denied_type)
 		var/number_of_denied = 0
@@ -341,15 +464,15 @@
 				break
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
-			to_chat(user, "<span class='notice'>You install the modkit.</span>")
+			to_chat(user, SPAN_NOTICE("You install the modkit."))
 			playsound(loc, usesound, 100, 1)
 			user.unequip(src)
 			forceMove(KA)
 			KA.modkits += src
 		else
-			to_chat(user, "<span class='notice'>The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits.</span>")
+			to_chat(user, SPAN_NOTICE("The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits."))
 	else
-		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
+		to_chat(user, SPAN_NOTICE("You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits."))
 		. = FALSE
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
@@ -394,8 +517,13 @@
 	modifier = 10
 
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/projectile/kinetic/K)
+	if(istype(K, /obj/projectile/kinetic/shotgun)) // 6 Projectiles, so 1/6 the damage boost per shot
+		K.damage = round(K.damage + modifier / 6)
+		return
+	if(istype(K, /obj/projectile/kinetic/repeater)) // 3 shots, 1/3 the effect per shot
+		K.damage = round(K.damage + modifier / 3)
+		return
 	K.damage += modifier
-
 
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown
@@ -461,7 +589,7 @@
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.flag, armor_penetration_flat = K.armor_penetration_flat, armor_penetration_percentage = K.armor_penetration_percentage)
 			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
-			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
+			to_chat(L, SPAN_USERDANGER("You're struck by a [K.name]!"))
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "mining explosion"

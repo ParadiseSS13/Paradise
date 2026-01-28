@@ -12,19 +12,18 @@
 		var/obj/item/organ/internal/I = X
 		I.process()
 
-	for(var/Y in bodyparts)
-		var/obj/item/organ/external/E = Y
-		E.process()
+	for(var/obj/item/organ/external/limb in bodyparts)
+		limb.process()
 
 		if(!IS_HORIZONTAL(src) && world.time - l_move_time < 15)
 		//Moving around with fractured ribs won't do you any good
-			if(E.is_broken() && E.internal_organs && length(E.internal_organs) && prob(15))
-				var/obj/item/organ/internal/I = pick(E.internal_organs)
-				E.custom_pain("You feel broken bones moving in your [E.name]!")
+			if(limb.is_broken() && limb.internal_organs && length(limb.internal_organs) && prob(15))
+				var/obj/item/organ/internal/I = pick(limb.internal_organs)
+				limb.custom_pain("You feel broken bones moving in your [limb.name]!")
 				I.receive_damage(rand(3, 5))
-			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
-				E.custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
-				E.germ_level++
+			if((limb.status & ORGAN_BURNT) && !(limb.status & ORGAN_SALVED))
+				limb.custom_pain("You feel the skin sloughing off the burn on your [limb.name]!")
+				limb.germ_level++
 
 
 	//handle_stance()
@@ -42,7 +41,7 @@
 
 	// Buckled to a bed/chair. Stance damage is forced to 0 since they're sitting on something solid
 	// Not standing, so no need to care about stance
-	if(istype(buckled, /obj/structure/chair) || !isturf(loc))
+	if(istype(buckled, /obj/structure/chair) || istype(buckled, /obj/vehicle/bike) || !isturf(loc))
 		return
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
@@ -51,7 +50,7 @@
 			if(E?.status & ORGAN_DEAD && HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 				continue
 			if(E && !E.properly_attached && life_tick % 24 == 0)
-				to_chat(src, "<span class='danger'>Your [E] is hanging on by a thread! You need someone to surgically attach it for you!</span>")
+				to_chat(src, SPAN_DANGER("Your [E] is hanging on by a thread! You need someone to surgically attach it for you!"))
 			// let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs.
 			// Also, if you haven't gotten your leg properly attached surgically, you're not gonna have a good time trying to walk.
 			stance_damage += 2
@@ -102,8 +101,8 @@
 
 			if(!E.properly_attached)
 				visible_message(
-					"<span class='warning'>[src]'s [E.name] seems to be hanging loosely from [p_their()] wrist, completely fumbling what [p_they()] [p_were()] holding!</span>",
-					"<span class='userdanger'>You feel pain shoot through your [E.name] as it dangles limply from your [E.amputation_point], you need to get it surgically attached before you can hold anything with it!</span>"
+					SPAN_WARNING("[src]'s [E.name] seems to be hanging loosely from [p_their()] wrist, completely fumbling what [p_they()] [p_were()] holding!"),
+					SPAN_USERDANGER("You feel pain shoot through your [E.name] as it dangles limply from your [E.amputation_point], you need to get it surgically attached before you can hold anything with it!")
 				)
 
 				return
@@ -134,11 +133,11 @@
 		gloves.germ_level += 1
 
 /mob/living/carbon/human/proc/becomeSlim()
-	to_chat(src, "<span class='notice'>You feel fit again!</span>")
+	to_chat(src, SPAN_NOTICE("You feel fit again!"))
 	REMOVE_TRAIT(src, TRAIT_FAT, OBESITY)
 
 /mob/living/carbon/human/proc/becomeFat()
-	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
+	to_chat(src, SPAN_ALERT("You suddenly feel blubbery!"))
 	ADD_TRAIT(src, TRAIT_FAT, OBESITY)
 
 //Handles chem traces

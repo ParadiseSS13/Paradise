@@ -585,6 +585,14 @@
 	build_path = /obj/item/ammo_box/magazine/detective/speedcharger
 	category = list("initial", "Security")
 
+/datum/design/paintball_magazine
+	name = "Paintball Magazine"
+	id = "paintball_mag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/paintball
+	category = list("initial", "Miscellaneous")
+
 /datum/design/recorder
 	name = "Universal Recorder"
 	id = "recorder"
@@ -792,6 +800,14 @@
 	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
 	build_path = /obj/item/weldingtool/largetank/empty
 	category = list("initial", "Tools")
+
+/datum/design/inflatable_briefcase
+	name = "Inflatable Barrier Box"
+	id = "inflatable_briefcase"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
+	build_path = /obj/item/storage/briefcase/inflatable
+	category = list("initial", "Construction")
 
 /datum/design/rcd
 	name = "Rapid Construction Device (RCD)"

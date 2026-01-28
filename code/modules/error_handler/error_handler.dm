@@ -143,15 +143,8 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		GLOB.error_cache.logError(e, desclines, e_src = e_src)
 #endif
 
-/client/proc/throw_runtime()
-	set name = "Throw Runtime"
-	set desc = "Throws a runtime, what did you expect?"
-	set category = "Debug"
-
-	if(!check_rights(R_MAINTAINER))
-		return
-
-	throw_runtime_inner(1337, 0)
+USER_VERB(throw_runtime, R_MAINTAINER, "Throw Runtime", "Throws a runtime, what did you expect?", VERB_CATEGORY_DEBUG)
+	client.throw_runtime_inner(1337, 0)
 
 /client/proc/throw_runtime_inner(x, y)
 	to_chat(usr, "[x]/[y]=[x/y]")

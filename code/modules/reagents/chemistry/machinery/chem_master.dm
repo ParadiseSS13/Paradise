@@ -10,6 +10,10 @@
 #define SAFE_MIN_TEMPERATURE T0C+7	// Safe minimum temperature for chemicals before they would start to damage slimepeople.
 #define SAFE_MAX_TEMPERATURE T0C+36 // Safe maximum temperature for chemicals before they would start to damage drask.
 
+#define DEFAULT_CUSTOM_TRANSFER_AMOUNT 30
+#define MINIMUM_CUSTOM_TRANSFER_AMOUNT 1
+#define MAXIMUM_CUSTOM_TRANSFER_AMOUNT 200
+
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
 	desc = "Used to turn reagents into pills, patches, and store them in bottles."
@@ -24,9 +28,9 @@
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = TRANSFER_TO_BEAKER
 	var/condi = FALSE
-	var/useramount = 30 // Last used amount
 	var/production_mode = null
 	var/printing = FALSE
+	var/production_amount_limit = null
 	var/static/list/pill_bottle_wrappers = list(
 		COLOR_RED_LIGHT = "Red",
 		COLOR_GREEN = "Green",
@@ -52,7 +56,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	RefreshParts()
 	update_icon()
 	if(condi)
 		var/datum/chemical_production_mode/new_mode = new /datum/chemical_production_mode/condiment_packs()
@@ -70,6 +73,7 @@
 		for(var/key in production_modes)
 			production_mode = key
 			break
+	RefreshParts()
 
 /obj/machinery/chem_master/Destroy()
 	QDEL_NULL(beaker)
@@ -78,8 +82,30 @@
 
 /obj/machinery/chem_master/RefreshParts()
 	reagents.maximum_volume = 0
+	reagents.set_reacting(TRUE)
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
-		reagents.maximum_volume += B.reagents.maximum_volume
+		reagents.maximum_volume += 2 * B.reagents.maximum_volume
+		if(istype(B, /obj/item/reagent_containers/glass/beaker/noreact))
+			reagents.set_reacting(FALSE)
+		else
+			reagents.handle_reactions()	// If cryostasis beaker is removed via upgrading, force a reaction
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		production_amount_limit = 20 * RaiseToPower(2, M.rating - 1)
+	for(var/key in production_modes)
+		production_modes[key].max_items_amount = clamp(production_amount_limit, 20, 120)
+
+/obj/machinery/chem_master/AltClick(mob/user, modifiers)
+	if(!beaker)
+		return
+	if(!Adjacent(user))
+		return
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	beaker.forceMove(get_turf(src))
+	if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
+		user.put_in_hands(beaker)
+	beaker = null
+	update_icon()
 
 /obj/machinery/chem_master/ex_act(severity)
 	if(severity < EXPLODE_LIGHT)
@@ -93,13 +119,13 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		reagents.clear_reagents()
 		update_icon()
 	else if(A == loaded_pill_bottle)
 		loaded_pill_bottle = null
 
 /obj/machinery/chem_master/update_icon_state()
-	icon_state = "mixer[beaker ? "1" : "0"][has_power() ? "" : "_nopower"]"
+	if(reagents)
+		icon_state = "mixer[beaker || reagents.total_volume ? "1" : "0"][has_power() ? "" : "_nopower"]"
 
 /obj/machinery/chem_master/update_overlays()
 	. = ..()
@@ -120,23 +146,23 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
+		to_chat(user, SPAN_WARNING("You can't use [src] while it's panel is opened!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if((istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		used.forceMove(src)
 		if(beaker)
-			to_chat(usr, "<span class='notice'>You swap [used] with [beaker] inside.</span>")
+			to_chat(usr, SPAN_NOTICE("You swap [used] with [beaker] inside."))
 			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
 				user.put_in_hands(beaker)
 			else
 				beaker.forceMove(loc)
 		else
-			to_chat(user, "<span class='notice'>You add [used] to the machine.</span>")
+			to_chat(user, SPAN_NOTICE("You add [used] to the machine."))
 		beaker = used
 		SStgui.update_uis(src)
 		update_icon()
@@ -145,16 +171,16 @@
 
 	else if(istype(used, /obj/item/storage/pill_bottle))
 		if(loaded_pill_bottle)
-			to_chat(user, "<span class='warning'>A [loaded_pill_bottle] is already loaded into the machine.</span>")
+			to_chat(user, SPAN_WARNING("A [loaded_pill_bottle] is already loaded into the machine."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		loaded_pill_bottle = used
 		used.forceMove(src)
-		to_chat(user, "<span class='notice'>You add [used] into the dispenser slot!</span>")
+		to_chat(user, SPAN_NOTICE("You add [used] into the dispenser slot!"))
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
 
@@ -173,7 +199,6 @@
 		if(beaker)
 			beaker.forceMove(get_turf(src))
 			beaker = null
-			reagents.clear_reagents()
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.forceMove(get_turf(src))
 			loaded_pill_bottle = null
@@ -216,7 +241,7 @@
 			var/datum/reagent/R = reagent_list[idx]
 
 			printing = TRUE
-			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+			visible_message(SPAN_NOTICE("[src] rattles and prints out a sheet of paper."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -288,11 +313,14 @@
 		else
 			. = FALSE
 
-	if(. || !beaker)
+	if(.)
 		return
 
 	. = TRUE
-	var/datum/reagents/R = beaker.reagents
+	var/datum/reagents/R
+	if(beaker)
+		R = beaker.reagents
+
 	switch(action)
 		if("add")
 			var/id = params["id"]
@@ -309,23 +337,42 @@
 				reagents.trans_id_to(beaker, id, amount)
 			else
 				reagents.remove_reagent(id, amount)
+				update_icon()
+		if("addcustom")
+			if(!beaker || !beaker.reagents.total_volume)
+				return
+			var/id = params["id"]
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to buffer:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
+			if(!id || !amount)
+				return
+			R.trans_id_to(src, id, amount)
+		if("removecustom")
+			if(!reagents.total_volume)
+				return
+			var/id = params["id"]
+			var/amount = round(tgui_input_number(ui.user, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", "Transfer Custom Amount", DEFAULT_CUSTOM_TRANSFER_AMOUNT, MAXIMUM_CUSTOM_TRANSFER_AMOUNT, MINIMUM_CUSTOM_TRANSFER_AMOUNT))
+			if(!id || !amount)
+				return
+			if(mode)
+				reagents.trans_id_to(beaker, id, amount)
+			else
+				reagents.remove_reagent(id, amount)
+				update_icon()
 		if("eject")
 			if(!beaker)
 				return
 			beaker.forceMove(get_turf(src))
-			if(Adjacent(usr) && !issilicon(usr))
+			if(Adjacent(usr) && !issilicon(usr) && (!usr.get_active_hand() || !usr.get_inactive_hand()))
 				usr.put_in_hands(beaker)
 			beaker = null
-			reagents.clear_reagents()
 			update_icon()
 		if("create_items")
-			if(!reagents.total_volume)
-				return
 			var/production_mode_key = params["production_mode"]
 			var/datum/chemical_production_mode/M = production_modes[production_mode_key]
 			if(isnull(M))
 				return
 			M.synthesize(ui.user, loc, reagents, loaded_pill_bottle)
+			update_icon()
 		else
 			return FALSE
 
@@ -368,14 +415,12 @@
 		data["beaker_reagents"] = beaker_reagents_list
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beaker_reagents_list[++beaker_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
-		var/list/buffer_reagents_list = list()
-		data["buffer_reagents"] = buffer_reagents_list
-		for(var/datum/reagent/R in reagents.reagent_list)
-			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 	else
 		data["beaker_reagents"] = list()
-		data["buffer_reagents"] = list()
-
+	var/list/buffer_reagents_list = list()
+	data["buffer_reagents"] = buffer_reagents_list
+	for(var/datum/reagent/R in reagents.reagent_list)
+		buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
 	var/production_data = list()
 	for(var/key in production_modes)
 		var/datum/chemical_production_mode/M = production_modes[key]
@@ -467,45 +512,10 @@
 
 					arguments["analysis"] = result
 					ui_modal_message(src, id, "", null, arguments)
-				if("addcustom")
-					if(!beaker || !beaker.reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to buffer:", null, arguments, useramount)
-				if("removecustom")
-					if(!reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", null, arguments, useramount)
-				else
-					return FALSE
-		if(UI_MODAL_ANSWER)
-			var/answer = params["answer"]
-			switch(id)
-				if("addcustom")
-					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
-						return
-					ui_act("add", list("id" = arguments["id"], "amount" = amount), ui, state)
-				if("removecustom")
-					var/amount = isgoodnumber(text2num(answer))
-					if(!amount || !arguments["id"])
-						return
-					ui_act("remove", list("id" = arguments["id"], "amount" = amount), ui, state)
 				else
 					return FALSE
 		else
 			return FALSE
-
-/obj/machinery/chem_master/proc/isgoodnumber(num)
-	if(isnum(num))
-		if(num > 200)
-			num = 200
-		else if(num < 0)
-			num = 1
-		else
-			num = round(num)
-		return num
-	else
-		return FALSE
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
@@ -567,10 +577,14 @@
 	if(!isnull(medicine_name) && length(medicine_name) <= 0)
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
 
+	if(amount_per_item < 0.1)
+		to_chat(user, "<span class='warning'>Cannot create pills smaller than 0.1u!</span>")
+		return
+
 	var/data = list()
 	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
-			to_chat(user, "<span class='warning'>Not enough reagents to create these items!</span>")
+			to_chat(user, SPAN_WARNING("Not enough reagents to create these items!"))
 			return
 
 		var/obj/item/reagent_containers/P = new item_type(location)
@@ -589,7 +603,6 @@
 	production_name = "Pills"
 	production_icon = "pills"
 	item_type = /obj/item/reagent_containers/pill
-	max_items_amount = 20
 	max_units_per_item = 100
 	name_suffix = " pill"
 
@@ -604,7 +617,6 @@
 	production_name = "Patches"
 	production_icon = "plus-square"
 	item_type = /obj/item/reagent_containers/patch
-	max_items_amount = 20
 	max_units_per_item = 30
 	name_suffix = " patch"
 
@@ -644,7 +656,6 @@
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
 	sprites = list("bottle", "reagent_bottle")
-	max_items_amount = 5
 	max_units_per_item = 50
 	name_suffix = " bottle"
 
@@ -684,3 +695,7 @@
 
 #undef SAFE_MIN_TEMPERATURE
 #undef SAFE_MAX_TEMPERATURE
+
+#undef DEFAULT_CUSTOM_TRANSFER_AMOUNT
+#undef MINIMUM_CUSTOM_TRANSFER_AMOUNT
+#undef MAXIMUM_CUSTOM_TRANSFER_AMOUNT

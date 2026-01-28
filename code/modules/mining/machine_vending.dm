@@ -43,6 +43,7 @@
 		EQUIPMENT("10 Marker Beacons", /obj/item/stack/marker_beacon/ten, 100),
 		EQUIPMENT("First-Aid Kit", /obj/item/storage/firstaid/regular, 400),
 		EQUIPMENT("Advanced First-Aid Kit", /obj/item/storage/firstaid/adv, 600),
+		EQUIPMENT("Machine Repair Kit", /obj/item/storage/firstaid/machine, 500),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
 		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 750),
@@ -60,6 +61,10 @@
 	prize_list["Kinetic Weapons"] = list(
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
+		EQUIPMENT("Kinetic Railgun", /obj/item/gun/energy/kinetic_accelerator/railgun, 1500),
+		EQUIPMENT("Kinetic Repeater", /obj/item/gun/energy/kinetic_accelerator/repeater, 1500),
+		EQUIPMENT("Kinetic Shotgun", /obj/item/gun/energy/kinetic_accelerator/shotgun, 1500),
+		EQUIPMENT("Kinetic Shockwave", /obj/item/gun/energy/kinetic_accelerator/shockwave, 1500),
 		EQUIPMENT("KA Adjustable Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer/adjustable, 150),
 		EQUIPMENT("KA AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 2000),
 		EQUIPMENT("KA Cooldown Decrease", /obj/item/borg/upgrade/modkit/cooldown, 1000),
@@ -69,6 +74,10 @@
 		EQUIPMENT("KA Range Increase", /obj/item/borg/upgrade/modkit/range, 1000),
 		EQUIPMENT("KA Super Chassis", /obj/item/borg/upgrade/modkit/chassis_mod, 250),
 		EQUIPMENT("KA White Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer, 100),
+		EQUIPMENT("Crusher Retool Kit: Sword", /obj/item/crusher_trophy/retool_kit/sword, 250),
+		EQUIPMENT("Crusher Retool Kit: Harpoon", /obj/item/crusher_trophy/retool_kit/harpoon, 250),
+		EQUIPMENT("Crusher Retool Kit: Glaive", /obj/item/crusher_trophy/retool_kit/glaive, 250),
+		EQUIPMENT("Crusher Retool Kit: Dagger and Blaster", /obj/item/crusher_trophy/retool_kit/dagger, 250),
 	)
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
@@ -109,7 +118,7 @@
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	if(. && inserted_id && (stat & NOPOWER))
-		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
+		visible_message(SPAN_NOTICE("The ID slot indicator light flickers on [src] as it spits out a card before powering down."))
 		remove_id()
 
 /obj/machinery/mineral/equipment_vendor/update_icon_state()
@@ -155,6 +164,7 @@
 				"name" = prize_name,
 				"price" = prize.cost,
 				"icon" = item.icon,
+				"desc" = item.desc,
 				"icon_state" = item.icon_state
 			)
 		static_data["items"][cat] = cat_items
@@ -207,7 +217,7 @@
 				return
 			var/datum/data/mining_equipment/prize = prize_list[category][name]
 			if(prize.cost > inserted_id.mining_points) // shouldn't be able to access this since the button is greyed out, but..
-				to_chat(usr, "<span class='danger'>You have insufficient points.</span>")
+				to_chat(usr, SPAN_DANGER("You have insufficient points."))
 				return
 
 			inserted_id.mining_points -= prize.cost
@@ -382,6 +392,7 @@
 
 	prize_list["Consumables"] = list(
 		EQUIPMENT("First-Aid Kit", /obj/item/storage/firstaid/regular, 400),
+		EQUIPMENT("Machine Repair Kit", /obj/item/storage/firstaid/machine, 500),
 		EQUIPMENT("Advanced First-Aid Kit", /obj/item/storage/firstaid/adv, 600),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
@@ -392,6 +403,10 @@
 	prize_list["Kinetic Weapons"] = list(
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("Kinetic Pistol", /obj/item/gun/energy/kinetic_accelerator/pistol, 500),
+		EQUIPMENT("Kinetic Railgun", /obj/item/gun/energy/kinetic_accelerator/railgun, 1500),
+		EQUIPMENT("Kinetic Repeater", /obj/item/gun/energy/kinetic_accelerator/repeater, 1500),
+		EQUIPMENT("Kinetic Shotgun", /obj/item/gun/energy/kinetic_accelerator/shotgun, 1500),
+		EQUIPMENT("Kinetic Shockwave", /obj/item/gun/energy/kinetic_accelerator/shockwave, 1500),
 		EQUIPMENT("KA Adjustable Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer/adjustable, 150),
 		EQUIPMENT("KA AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 2000),
 		EQUIPMENT("KA Cooldown Decrease", /obj/item/borg/upgrade/modkit/cooldown, 1000),
@@ -474,10 +489,10 @@
 		if(points)
 			var/obj/item/card/id/C = used
 			C.mining_points += points
-			to_chat(user, "<span class='notice'>You transfer [points] points to [C].</span>")
+			to_chat(user, SPAN_NOTICE("You transfer [points] points to [C]."))
 			points = 0
 		else
-			to_chat(user, "<span class='notice'>There's no points left on [src].</span>")
+			to_chat(user, SPAN_NOTICE("There's no points left on [src]."))
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/mining_point_card/examine(mob/user)

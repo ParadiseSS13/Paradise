@@ -92,6 +92,12 @@
 
 // Food and eating
 
+/// time until we should next eat, set by the generic hunger subtree
+#define BB_NEXT_HUNGRY "BB_NEXT_HUNGRY"
+/// what we're going to eat next
+#define BB_FOOD_TARGET "bb_food_target"
+/// are we hungry? determined by the udder component
+#define BB_CHECK_HUNGRY "BB_check_hungry"
 /// list of foods this mob likes
 #define BB_BASIC_FOODS "BB_BASIC_FOODS"
 /// key holding any food we've found
@@ -215,6 +221,7 @@
 
 #define BB_TRAVEL_DESTINATION "BB_TRAVEL_DESTINATION"
 
+#define BB_SHAPESHIFT_ACTION "BB_SHAPESHIFT_ACTION"
 // Giant Spiders
 /// Our webbing target
 #define BB_SPIDER_WEB_TARGET "BB_spider_web_target"
@@ -244,3 +251,7 @@
 #define BB_GOLIATH_TENTACLES "BB_GOLIATH_TENTACLES"
 /// Key where goliath stores a hole it wants to get into
 #define BB_GOLIATH_HOLE_TARGET "BB_GOLIATH_HOLE"
+
+// Nian Caterpillar Keys
+/// Key that stores the silk spin ability
+#define BB_NIAN_CATERPILLAR_SPIN_MOTHSILK_ACTION "BB_nian_caterpillar_spin_mothsilk_action"

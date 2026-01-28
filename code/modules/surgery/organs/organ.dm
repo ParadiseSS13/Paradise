@@ -44,6 +44,9 @@
 	/// What level of upgrades are needed to detect this. Level 0 is default. 1 is hidden from health analysers. 2 is hidden from cyborg analysers, and the body scanner at level 1. 4 is the highest level the body scanner can reach.
 	var/stealth_level = 0
 
+	/// A list of all wounds currently on this organ
+	var/list/wound_list = list()
+
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(owner)
@@ -77,7 +80,7 @@
 		var/obj/item/stack/nanopaste/nano = I
 		nano.use(1)
 		rejuvenate()
-		to_chat(user, "<span class='notice'>You repair the damage on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You repair the damage on [src]."))
 		return
 	return ..()
 
@@ -162,9 +165,9 @@
 	. = ..()
 	if(status & ORGAN_DEAD)
 		if(!is_robotic())
-			. += "<span class='notice'>The decay has set in.</span>"
+			. += SPAN_NOTICE("The decay has set in.")
 		else
-			. += "<span class='notice'>It looks in need of repairs.</span>"
+			. += SPAN_NOTICE("It looks in need of repairs.")
 
 /obj/item/organ/proc/handle_germs()
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
@@ -193,6 +196,10 @@
 		status = ORGAN_ROBOT
 	else
 		status = 0
+
+	for(var/datum/wound/wound as anything in wound_list)
+		wound.cure_wound()
+
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
@@ -218,7 +225,7 @@
 	W.time_inflicted = world.time
 
 //Note: external organs have their own version of this proc
-/obj/item/organ/proc/receive_damage(amount, silent = 0)
+/obj/item/organ/proc/receive_damage(amount, silent = FALSE)
 	if(tough)
 		return
 	damage = clamp(damage + amount, 0, max_damage)
@@ -257,6 +264,7 @@
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 
 	owner.internal_organs -= src
 
@@ -328,10 +336,20 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 	if(!owner.can_feel_pain() || !message)
 		return
 
-	var/msg = "<span class='userdanger'>[message]</span>"
+	var/msg = SPAN_USERDANGER("[message]")
 
 	// Anti message spam checks
 	if(msg != last_pain_message || world.time >= next_pain_time)
 		last_pain_message = msg
 		to_chat(owner, msg)
 		next_pain_time = world.time + 10 SECONDS
+
+/// Finds a wound datum. `wound_to_find` should be a typepath, and if `exact` is FALSE, it will grab subtypes aswell.
+/obj/item/organ/proc/get_wound(wound_to_find, exact = FALSE)
+	if(!wound_to_find)
+		return
+	if(!exact)
+		return locate(wound_to_find) in wound_list
+	for(var/datum/wound/wound as anything in wound_list)
+		if(wound.type == wound_to_find)
+			return wound

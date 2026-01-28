@@ -10,6 +10,7 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
+	rust_resistance = RUST_RESISTANCE_ORGANIC
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -34,7 +35,7 @@
 	if(!dug)
 		return TRUE
 	if(user)
-		to_chat(user, "<span class='notice'>Looks like someone has dug here already.</span>")
+		to_chat(user, SPAN_NOTICE("Looks like someone has dug here already."))
 
 /turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -78,13 +79,13 @@
 		if(!istype(T))
 			return
 
-		to_chat(user, "<span class='notice'>You start digging...</span>")
+		to_chat(user, SPAN_NOTICE("You start digging..."))
 
 		playsound(src, used.usesound, 50, TRUE)
 		if(do_after(user, 40 * used.toolspeed, target = src))
 			if(!can_dig(user))
 				return TRUE
-			to_chat(user, "<span class='notice'>You dig a hole.</span>")
+			to_chat(user, SPAN_NOTICE("You dig a hole."))
 			getDug(used.bit_productivity_mod)
 			return TRUE
 
@@ -229,7 +230,7 @@
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
-		visible_message("<span class='danger'>[src] melts away!.</span>")
+		visible_message(SPAN_DANGER("[src] melts away!."))
 		slowdown = 0
 		burnt = TRUE
 		icon_state = "snow_dug"
@@ -247,3 +248,9 @@
 
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
+
+/turf/simulated/floor/plating/asteroid/snow/mansus
+	temperature = 293.15
+	slowdown = 0
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null

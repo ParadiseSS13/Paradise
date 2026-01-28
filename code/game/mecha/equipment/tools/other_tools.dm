@@ -49,7 +49,7 @@
 	if(!action_checks(target))
 		return
 	if(cooldown_timer > world.time)
-		occupant_message("<span class='warning'>[src] is still recharging.</span>")
+		occupant_message(SPAN_WARNING("[src] is still recharging."))
 		return
 	switch(mode)
 		if(MECH_GRAVCAT_MODE_GRAVSLING)
@@ -105,7 +105,7 @@
 /// what is that noise? A BAWWW from TK mutants.
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	name = "armor booster module (Close combat weaponry)"
-	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
+	desc = "A grade II plate of armor that provides moderate resistance to melee attacks, it is designed to be mounted at a slight angle to deflect light attacks. The added weight slightly increases energy consumption to maintain consistant speed."
 	icon_state = "mecha_abooster_ccw"
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 10
@@ -123,7 +123,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	name = "armor booster module (Ranged weaponry)"
-	desc = "Boosts exosuit armor against ranged attacks. Requires energy to operate."
+	desc = "A series of layered grade III composite armored plates that provides moderate resistance to ranged attacks, it is designed to be mounted at a slight angle to deflect low power rounds. The added weight slightly increases energy consumption to maintain consistant speed."
 	icon_state = "mecha_abooster_proj"
 	origin_tech = "materials=4;combat=3;engineering=3"
 	equip_cooldown = 10
@@ -411,7 +411,7 @@
 		return fuel_added
 
 	else
-		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
+		occupant_message(SPAN_WARNING("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
 		return 0
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby__legacy__attackchain(weapon,mob/user, params)

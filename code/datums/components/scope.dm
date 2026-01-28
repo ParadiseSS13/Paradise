@@ -14,8 +14,10 @@
 	var/time_to_scope
 	/// Flags for scoping. Check `code\__DEFINES\flags.dm`
 	var/flags
+	/// A trait you want to add when scoped in to the mob.
+	var/trait_to_add
 
-/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, flags)
+/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_ITEM_ACTION, item_action_type = /datum/action/zoom, time_to_scope = 0, flags, trait_to_add)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.range_modifier = range_modifier
@@ -23,6 +25,7 @@
 	src.item_action_type = item_action_type
 	src.time_to_scope = time_to_scope
 	src.flags = flags
+	src.trait_to_add = trait_to_add
 
 
 /datum/component/scope/Destroy(force)
@@ -43,6 +46,7 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	if(istype(parent, /obj/item/gun))
 		RegisterSignal(parent, COMSIG_GUN_TRY_FIRE, PROC_REF(on_gun_fire))
+		RegisterSignal(parent, COMSIG_LIONHUNTER_FIRE, PROC_REF(on_lionhunter_fire))
 
 /datum/component/scope/UnregisterFromParent()
 	if(item_action_type)
@@ -55,6 +59,7 @@
 		SIGNAL_REMOVETRAIT(TRAIT_WIELDED),
 		COMSIG_GUN_TRY_FIRE,
 		COMSIG_PARENT_EXAMINE,
+		COMSIG_LIONHUNTER_FIRE,
 	))
 
 /datum/component/scope/process()
@@ -75,7 +80,7 @@
 	if(!is_zoomed_in())
 		return
 	if(source.loc != tracker.owner) //Dropped.
-		to_chat(tracker.owner, "<span class='warning'>[parent]'s scope is overloaded by movement and shuts down!</span>")
+		to_chat(tracker.owner, SPAN_WARNING("[parent]'s scope is overloaded by movement and shuts down!"))
 	stop_zooming(tracker.owner)
 
 /datum/component/scope/proc/on_action_trigger(datum/action/source)
@@ -113,7 +118,14 @@
 	var/scope = istype(parent, /obj/item/gun) ? "scope in" : "zoom out"
 	switch(zoom_method)
 		if(ZOOM_METHOD_WIELD)
-			examine_list += "<span class='notice'>You can [scope] by wielding it with both hands.</span>"
+			examine_list += SPAN_NOTICE("You can [scope] by wielding it with both hands.")
+
+/datum/component/scope/proc/on_lionhunter_fire(obj/item/gun/projectile/shotgun/boltaction/lionhunter/lion)
+	SIGNAL_HANDLER // COMSIG_LIONHUNTER_FIRE
+	if(is_zoomed_in())
+		var/mob/living/user = lion.loc
+		stop_zooming(user)
+
 
 /**
  * We find and return the best target to hit on a given turf.
@@ -154,13 +166,13 @@
 	if(isnull(user.client))
 		return
 	if(HAS_TRAIT(user, TRAIT_SCOPED))
-		to_chat(user, "<span class='warning'>You are already zoomed in!</span>")
+		to_chat(user, SPAN_WARNING("You are already zoomed in!"))
 		return
 	if((flags & SCOPE_TURF_ONLY) && !isturf(user.loc))
-		to_chat(user, "<span class='warning'>There is not enough space to zoom in!</span>")
+		to_chat(user, SPAN_WARNING("There is not enough space to zoom in!"))
 		return
 	if((flags & SCOPE_NEED_ACTIVE_HAND) && user.get_active_hand() != parent)
-		to_chat(user, "<span class='warning'>You need to hold [parent] in your active hand to zoom in!</span>")
+		to_chat(user, SPAN_WARNING("You need to hold [parent] in your active hand to zoom in!"))
 		return
 	if(time_to_scope)
 		if(!do_after_once(user, time_to_scope, target = parent))
@@ -184,6 +196,9 @@
 		RegisterSignals(user, capacity_signals, PROC_REF(on_incapacitated))
 	START_PROCESSING(SSprojectiles, src)
 	ADD_TRAIT(user, TRAIT_SCOPED, "[UID()]")
+	if(trait_to_add)
+		ADD_TRAIT(user, trait_to_add, "[UID()]")
+		user.update_sight()
 	if(istype(parent, /obj/item/gun))
 		var/obj/item/gun/G = parent
 		G.on_scope_success(user)
@@ -219,6 +234,9 @@
 		COMSIG_PARENT_QDELETING,
 	))
 	REMOVE_TRAIT(user, TRAIT_SCOPED, "[UID()]")
+	if(trait_to_add)
+		REMOVE_TRAIT(user, trait_to_add, "[UID()]")
+		user.update_sight()
 
 	user.playsound_local(parent, 'sound/weapons/scope.ogg', 75, TRUE, frequency = -1)
 	user.clear_fullscreen("scope")

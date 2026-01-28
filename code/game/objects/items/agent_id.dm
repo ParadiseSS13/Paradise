@@ -55,7 +55,7 @@
 	if(istype(target, /obj/item/card/id))
 		var/obj/item/card/id/I = target
 		if(isliving(user) && user?.mind?.special_role)
-			to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
+			to_chat(usr, SPAN_NOTICE("The card's microscanners activate as you pass it over [I], copying its access."))
 			access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 			return ITEM_INTERACT_COMPLETE
 
@@ -158,7 +158,7 @@
 
 /obj/item/card/id/syndicate/proc/clear_access()
 	access = initial_access.Copy() // Initial() doesn't work on lists
-	to_chat(registered_human, "<span class='notice'>Card access reset.</span>")
+	to_chat(registered_human, SPAN_NOTICE("Card access reset."))
 
 /obj/item/card/id/syndicate/proc/change_ai_tracking()
 	untrackable = !untrackable
@@ -285,13 +285,13 @@
 /obj/item/card/id/syndi_scan_only/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='notice'>Similar to an agent ID, this ID card can be used to copy accesses, but it lacks the customization and anti-tracking capabilities of an agent ID.</span>"
+		. += SPAN_NOTICE("Similar to an agent ID, this ID card can be used to copy accesses, but it lacks the customization and anti-tracking capabilities of an agent ID.")
 
 /obj/item/card/id/syndi_scan_only/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/item/card/id))
 		var/obj/item/card/id/I = target
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role)
-				to_chat(user, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
+				to_chat(user, SPAN_NOTICE("The card's microscanners activate as you pass it over [I], copying its access."))
 				access |= I.access // Don't copy access if user isn't an antag -- to prevent metagaming
 				return ITEM_INTERACT_COMPLETE

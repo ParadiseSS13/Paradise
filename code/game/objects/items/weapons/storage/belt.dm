@@ -35,7 +35,7 @@
 
 /obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !istype(loc, /obj/item/storage/hidden_implant) && !storable)
-		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+		to_chat(usr, SPAN_WARNING("You can't seem to fit [I] into [src]."))
 		return FALSE
 	. = ..()
 
@@ -94,7 +94,8 @@
 		/obj/item/stack/nanopaste,
 		/obj/item/robotanalyzer,
 		/obj/item/rpd/bluespace,
-		/obj/item/hammer
+		/obj/item/hammer,
+		/obj/item/melee/sickly_blade/lock
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -506,7 +507,7 @@
 
 /obj/item/storage/belt/military/assault/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
-		to_chat(user, "<span class='warning'>[I] is too big for [src].</span>")
+		to_chat(user, SPAN_WARNING("[I] is too big for [src]."))
 		return
 	return ..()
 
@@ -754,7 +755,7 @@
 
 /obj/item/storage/belt/sheath
 	name = "sword sheath"
-	desc = "Can hold swords. If you see this, it is a bug. Please report this on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "sheath"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
@@ -775,11 +776,11 @@
 
 	if(length(contents))
 		var/obj/item/I = contents[1]
-		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
+		H.visible_message(SPAN_NOTICE("[H] takes [I] out of [src]."), SPAN_NOTICE("You take [I] out of [src]."))
 		H.put_in_hands(I)
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[src] is empty!"))
 
 /obj/item/storage/belt/sheath/handle_item_insertion(obj/item/W, mob/user, prevent_warning)
 	if(!..())
@@ -878,7 +879,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
-		/obj/item/handheld_defibrillator
+		/obj/item/handheld_defibrillator,
+		/obj/item/melee/sickly_blade/lock
 		)
 
 /obj/item/storage/belt/bluespace/owlman
@@ -1076,7 +1078,8 @@
 		"Drask" = 'icons/mob/clothing/species/drask/belt.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/belt.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/belt.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/belt.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/belt.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/belt.dmi'
 	)
 
 /obj/item/storage/belt/chef/black

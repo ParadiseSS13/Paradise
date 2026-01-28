@@ -14,7 +14,7 @@
 	controller = controller_
 
 /datum/ui_module/ai_controller_debugger/ui_state(mob/user)
-	return GLOB.default_state
+	return GLOB.always_state
 
 /datum/ui_module/ai_controller_debugger/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -39,9 +39,13 @@
 			"name" = "[controller.pawn]",
 			"uid" = controller.pawn.UID(),
 		)
+	data["controller"]["ai_status"] = controller.ai_status
 	data["controller"]["type"] = "[controller.type]"
 	data["controller"]["idle_behavior"] = "[controller.idle_behavior]"
 	data["controller"]["movement"] = "[controller.ai_movement]"
+	data["controller"]["movement_delay"] = controller.movement_delay
+	data["controller"]["able_to_plan"] = controller.able_to_plan
+	data["controller"]["on_failed_planning_timeout"] = controller.on_failed_planning_timeout
 	var/datum/movement_target = controller.current_movement_target
 	if(istype(movement_target))
 		data["controller"]["movement_target"] = list(
@@ -49,11 +53,11 @@
 			"uid" = "[movement_target.UID()]",
 			"source" = "[controller.movement_target_source]",
 		)
-	if(LAZYLEN(controller.current_behaviors))
+	if(length(controller.current_behaviors))
 		for(var/datum/ai_behavior/behavior in controller.current_behaviors)
 			data["controller"]["current_behaviors"] += "[behavior.type]"
 
-	if(LAZYLEN(controller.planned_behaviors))
+	if(length(controller.planned_behaviors))
 		for(var/datum/ai_behavior/behavior in controller.planned_behaviors)
 			data["controller"]["planned_behaviors"] += "[behavior.type]"
 

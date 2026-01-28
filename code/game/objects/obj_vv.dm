@@ -26,7 +26,7 @@
 		if(tgui_alert(usr, "Are you really sure you want to delete all objects of type [type]?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
-		if(tgui_alert("Second confirmation required. Delete?", "Confirm", list("Yes", "No")) != "Yes")
+		if(tgui_alert(usr, "Second confirmation required. Delete?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 		var/O_type = type
@@ -38,7 +38,7 @@
 						i++
 						qdel(Obj)
 				if(!i)
-					to_chat(usr, "<span class='notice'>No objects of this type exist.</span>")
+					to_chat(usr, SPAN_NOTICE("No objects of this type exist."))
 					return
 				log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
 				message_admins("[key_name_admin(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
@@ -49,7 +49,7 @@
 						i++
 						qdel(Obj)
 				if(!i)
-					to_chat(usr, "<span class='notice'>No objects of this type exist.</span>")
+					to_chat(usr, SPAN_NOTICE("No objects of this type exist."))
 					return
 				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
@@ -61,7 +61,7 @@
 		var_edited = TRUE
 		makeSpeedProcess()
 		log_admin("[key_name(usr)] has made [src] speed process")
-		message_admins("<span class='notice'>[key_name(usr)] has made [src] speed process</span>")
+		message_admins(SPAN_NOTICE("[key_name(usr)] has made [src] speed process"))
 	if(href_list[VV_HK_MAKENORMALSPEED])
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
@@ -69,7 +69,7 @@
 		var_edited = TRUE
 		makeNormalProcess()
 		log_admin("[key_name(usr)] has made [src] process normally")
-		message_admins("<span class='notice'>[key_name(usr)] has made [src] process normally</span>")
+		message_admins(SPAN_NOTICE("[key_name(usr)] has made [src] process normally"))
 	if(href_list[VV_HK_MODIFYARMOR])
 		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
@@ -118,7 +118,7 @@
 		armor = armor.setRating(armorlist[MELEE], armorlist[BULLET], armorlist[LASER], armorlist[ENERGY], armorlist[BOMB], armorlist[RAD], armorlist[FIRE], armorlist[ACID], armorlist[MAGIC])
 
 		log_admin("[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
-		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]</span>")
+		message_admins(SPAN_NOTICE("[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]"))
 	if(href_list[VV_HK_MODIFY_ACCESS])
 		if(!check_rights(R_ADMIN))
 			return
