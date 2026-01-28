@@ -32,23 +32,19 @@
 	/// Does this organ have augmented skin to apply to the user on install? If so, apply it to the user and remove it.
 	var/self_augmented_skin_level = 0
 
-/obj/item/organ/internal/New(mob/living/carbon/holder)
-	..()
+/obj/item/organ/internal/Initialize(mapload, mob/living/carbon/holder)
+	. = ..()
+	if(organ_datums)
+		var/list/temp_list = organ_datums.Copy()
+		organ_datums = list()
+		for(var/path in temp_list)
+			var/datum/organ/organ_datum = new path(src)
+			if(!organ_datum.organ_tag)
+				stack_trace("There was an organ datum [organ_datum] ([organ_datum.type]), that had no organ tag.")
+				continue
+			organ_datums[organ_datum.organ_tag] = organ_datum
 	if(istype(holder))
 		insert(holder)
-
-/obj/item/organ/internal/Initialize(mapload)
-	. = ..()
-	if(!organ_datums)
-		return
-	var/list/temp_list = organ_datums.Copy()
-	organ_datums = list()
-	for(var/path in temp_list)
-		var/datum/organ/organ_datum = new path(src)
-		if(!organ_datum.organ_tag)
-			stack_trace("There was an organ datum [organ_datum] ([organ_datum.type]), that had no organ tag.")
-			continue
-		organ_datums[organ_datum.organ_tag] = organ_datum
 
 /obj/item/organ/internal/Destroy()
 	if(owner) // we have to remove BEFORE organ_datums are qdel'd, or we can just live even if our heart organ got deleted

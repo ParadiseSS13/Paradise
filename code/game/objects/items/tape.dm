@@ -8,8 +8,8 @@
 	amount = 25
 	max_amount = 25
 
-/obj/item/stack/tape_roll/New(loc, amount=null)
-	..()
+/obj/item/stack/tape_roll/Initialize(mapload, loc, amount)
+	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tape_roll/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
