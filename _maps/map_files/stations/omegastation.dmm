@@ -28757,6 +28757,10 @@
 	},
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/south)
+"jyi" = (
+/obj/machinery/alarm/directional/west,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/prisonlockers)
 "jyj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79151,7 +79155,7 @@ xqy
 ebN
 cbZ
 eLr
-plX
+jyi
 ceN
 amQ
 amQ
