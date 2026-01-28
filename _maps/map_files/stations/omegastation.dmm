@@ -21194,9 +21194,6 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "eOr" = (
