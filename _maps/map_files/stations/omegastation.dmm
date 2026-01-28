@@ -11409,9 +11409,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "aUH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -11421,33 +11418,17 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
+	},
+/obj/item/beacon,
+/obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /obj/item/beacon,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/item/beacon,
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "aUJ" = (
@@ -15089,26 +15070,13 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "bza" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "bzt" = (
@@ -15365,36 +15333,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall,
 /area/station/medical/reception)
-"bKI" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "bLi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -16390,9 +16328,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "crr" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -16403,22 +16338,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "crC" = (
@@ -16610,8 +16529,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cwQ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/machinery/light{
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 4
@@ -16620,19 +16539,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "cxa" = (
@@ -23033,10 +22939,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
 "giY" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table/wood,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -23045,29 +22947,11 @@
 /obj/item/reagent_containers/condiment/saltshaker,
 /obj/item/reagent_containers/condiment/peppermill,
 /obj/item/kitchen/utensil/fork,
+/obj/structure/table/wood,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/wood,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/reagent_containers/condiment/saltshaker,
-/obj/item/reagent_containers/condiment/peppermill,
-/obj/item/kitchen/utensil/fork,
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "gjJ" = (
@@ -23489,32 +23373,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
 "gwu" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/chair/stool{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "gww" = (
@@ -23678,9 +23546,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "gCj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -23695,26 +23560,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "gCF" = (
@@ -24111,8 +23956,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "gSa" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/structure/chair/stool{
+	dir = 8
 	},
 /obj/structure/chair/stool{
 	dir = 8
@@ -24121,19 +23966,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "gSq" = (
@@ -25092,8 +24924,8 @@
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "hpv" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/structure/chair/stool{
+	dir = 4
 	},
 /obj/structure/chair/stool{
 	dir = 4
@@ -25102,21 +24934,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "hpL" = (
@@ -25640,9 +25457,6 @@
 /turf/simulated/floor/plating/ironsand,
 /area/station/maintenance/aft)
 "hHd" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/extra_insulated{
@@ -25651,19 +25465,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/starboard)
 "hHx" = (
@@ -27165,28 +26966,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"iyS" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "iyU" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -27363,9 +27142,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "iEp" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -27374,35 +27150,14 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/chair/stool{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "iFg" = (
@@ -29117,32 +28872,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"jKv" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "jKE" = (
 /obj/structure/table/wood,
 /obj/item/phone{
@@ -29249,32 +28978,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
-"jNG" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "jNS" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -30444,49 +30147,23 @@
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/aft)
 "kFz" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table/wood,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/paicard{
-	pixel_x = -5
-	},
-/obj/item/reagent_containers/drinks/cans/cola,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/structure/table/wood,
+/obj/item/paicard{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/drinks/cans/cola,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/wood,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/item/paicard{
-	pixel_x = -5
-	},
-/obj/item/reagent_containers/drinks/cans/cola,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "kFW" = (
@@ -32932,12 +32609,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "mgQ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
@@ -32945,19 +32616,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "mhi" = (
@@ -34500,9 +34158,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
 "ngp" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/chair/stool/bar{
 	dir = 8
 	},
@@ -34510,19 +34165,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/chair/stool/bar{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "ngF" = (
@@ -36170,26 +35812,6 @@
 /obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/starboard)
-"oeO" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "ofh" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 10
@@ -37452,9 +37074,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/gamma_dock)
 "oYP" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/sign/nanotrasen{
 	pixel_x = 32
 	},
@@ -37462,19 +37081,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/nanotrasen{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "oYR" = (
@@ -39035,27 +38641,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "pRV" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/tiles/department/security/checker,
+/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large,
-/obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "pRY" = (
@@ -39721,31 +39312,14 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "qoH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/landmark/start/assistant,
 /obj/structure/chair/stool{
 	dir = 8
 	},
+/obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "qoI" = (
@@ -39862,32 +39436,16 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/apmaint2)
 "qsD" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/chair/stool{
+	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "qsI" = (
@@ -40643,29 +40201,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
-"qPE" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "qPO" = (
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
@@ -40986,9 +40521,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "rfU" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=3.4-AtriumNE";
 	location = "3.3-AtriumSE"
@@ -40997,20 +40529,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=3.4-AtriumNE";
-	location = "3.3-AtriumSE"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "rgr" = (
@@ -42050,33 +41568,15 @@
 /turf/simulated/floor/carpet,
 /area/station/hallway/secondary/entry/lounge)
 "rLH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/directional/west,
 /obj/machinery/power/apc/directional/west,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "rLU" = (
@@ -42393,12 +41893,6 @@
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/aft)
 "rYZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
 /obj/item/reagent_containers/drinks/coffee,
@@ -42406,32 +41900,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
-/obj/item/reagent_containers/drinks/coffee,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "rZL" = (
@@ -42549,25 +42025,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "sbK" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/alarm/directional/east,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/alarm/directional/east,
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "sbN" = (
@@ -45549,36 +45011,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison)
-"tqP" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "tqT" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -46022,6 +45454,19 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
+"tFr" = (
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/checker{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/checker,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "tFK" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -46419,9 +45864,6 @@
 /turf/simulated/floor/carpet,
 /area/station/public/dorms)
 "tSH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -46435,27 +45877,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "tSM" = (
@@ -47031,29 +46452,6 @@
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
-"upi" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore)
 "upk" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -47300,29 +46698,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "uxK" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "uxM" = (
@@ -48031,28 +47413,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "uTj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/kirbyplants/large,
+/obj/structure/sign/service/kitchen{
+	pixel_x = -32
+	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/structure/sign/service/kitchen{
-	pixel_x = -32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "uTk" = (
@@ -48465,37 +47833,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/south)
 "vgG" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table/wood,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/reagent_containers/drinks/britcup,
+/obj/structure/table/wood,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/wood,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/reagent_containers/drinks/britcup,
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "vgK" = (
@@ -50185,8 +49533,8 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "wev" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/machinery/ai_status_display{
+	pixel_x = 32
 	},
 /obj/machinery/ai_status_display{
 	pixel_x = 32
@@ -50195,19 +49543,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/ai_status_display{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "wex" = (
@@ -51474,26 +50809,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "wPR" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "wPZ" = (
@@ -51517,16 +50839,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
 "wQO" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/reagent_containers/condiment/saltshaker,
 /obj/item/reagent_containers/condiment/peppermill,
 /obj/item/kitchen/utensil/fork,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
@@ -51536,38 +50851,14 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/table/wood,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/reagent_containers/condiment/saltshaker,
-/obj/item/reagent_containers/condiment/peppermill,
-/obj/item/kitchen/utensil/fork,
-/obj/effect/turf_decal/tiles/department/security/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/table/wood,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "wQP" = (
@@ -52102,29 +51393,13 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "xeN" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/structure/sign/service/botany{
+	pixel_x = -32
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/structure/sign/service/botany{
-	pixel_x = -32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/sign/nanotrasen{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "xeW" = (
@@ -52883,29 +52158,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "xzA" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "xAj" = (
@@ -53380,9 +52639,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "xUo" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
@@ -53393,22 +52649,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/status_display{
-	pixel_x = 32
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "xUv" = (
@@ -53774,9 +53014,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "yfR" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=3.3-AtriumSE";
 	location = "3.2-AtriumSW"
@@ -53785,20 +53022,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/security/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=3.3-AtriumSE";
-	location = "3.2-AtriumSW"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/checker,
-/obj/effect/turf_decal/tiles/department/security/checker{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "yfY" = (
@@ -89023,8 +88246,8 @@ nJs
 ayr
 rLH
 crr
-ngp
-ngp
+tFr
+tFr
 ngp
 ngp
 uTj
@@ -89278,15 +88501,15 @@ nJs
 dBG
 nJs
 nJs
-iyS
-jNG
+nJs
+dBG
 wPR
-oeO
-oeO
-oeO
-oeO
+nJs
+nJs
+nJs
+nJs
 mgQ
-upi
+ayr
 wPR
 yfR
 xeN
@@ -89538,15 +88761,15 @@ gGq
 hpv
 qsD
 uxK
-oeO
-jKv
-jKv
-qPE
-oeO
-oeO
+nJs
+gGq
+gGq
+gGq
+nJs
+nJs
 uxK
-oeO
-oeO
+nJs
+nJs
 qRL
 aNh
 ctl
@@ -89795,15 +89018,15 @@ geZ
 wQO
 rYZ
 aUH
-bKI
+dir
 kFz
 giY
 vgG
-bKI
-tqP
+dir
+pSo
 gCj
-bKI
-bKI
+dir
+dir
 gqN
 psw
 eoY
@@ -90052,15 +89275,15 @@ qrq
 iEp
 gSa
 xzA
-oeO
+nJs
 gwu
-gSa
+qrq
 qoH
-oeO
-oeO
+nJs
+nJs
 xzA
-oeO
-oeO
+nJs
+nJs
 qRL
 aNh
 fdq
@@ -90307,12 +89530,12 @@ nJs
 nJs
 nJs
 tSH
-oeO
+nJs
 bza
-oeO
-jNG
-oeO
-oeO
+nJs
+dBG
+nJs
+nJs
 xUo
 sbK
 bza
@@ -90566,9 +89789,9 @@ nJs
 tSH
 wev
 cwQ
-oeO
-jNG
-oeO
+nJs
+dBG
+nJs
 pRV
 xXt
 xXt
