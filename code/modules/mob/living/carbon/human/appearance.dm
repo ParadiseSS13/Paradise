@@ -319,7 +319,7 @@
 	return TRUE
 
 
-/mob/living/carbon/human/proc/change_skin_color(color = "#000000")
+/mob/living/carbon/human/proc/change_skin_color(color = "#404040")
 	if(!is_color_text(color) || color == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
 

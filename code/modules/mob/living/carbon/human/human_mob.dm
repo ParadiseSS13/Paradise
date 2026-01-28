@@ -1125,7 +1125,7 @@
 
 	if(blood_volume < BLOOD_VOLUME_STABLE + 50)
 		blood_volume = BLOOD_VOLUME_STABLE + 50
-	
+
 	. = ..()
 	if(.) // if revived successfully
 		set_heartattack(FALSE)
@@ -1272,7 +1272,7 @@
 		//Apply colour.
 		skin_colour = dna.species.base_color
 	else
-		skin_colour = "#000000"
+		skin_colour = "#404040" // Can't be black due to multiply blending
 
 	if(!(dna.species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE)))
 		s_tone = 1

@@ -33,7 +33,7 @@
 	var/f_colour = "#000000"			//Facial hair color
 	var/f_sec_colour = "#000000"		//Secondary facial hair color
 	var/s_tone = 1						//Skin tone
-	var/s_colour = "#000000"			//Skin color
+	var/s_colour = "#404040"			//Skin color
 	var/e_colour = "#000000"			//Eye color
 	var/alt_head = "None"				//Alt head style.
 	var/species = "Human"
@@ -902,7 +902,7 @@
 
 	// Skin color, context blend checks if its a certain species for snowflake code because we are updating blend modes per species
 	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR)) // thanks rob nelson very cool
-		species_contextblend(preview_icon, current_species , s_colour) // if you're reading this, this code is cursed. it doesn't work. this was the only way. don't be like me, don't touch this file
+		species_contextblend(preview_icon, s_colour) // if you're reading this, this code is cursed. it doesn't work. this was the only way. don't be like me, don't touch this file
 
 	// Skin tone
 	if(current_species && (current_species.bodyflags & HAS_SKIN_TONE))
@@ -947,7 +947,7 @@
 				var/datum/sprite_accessory/body_markings/BM = GLOB.marking_styles_list[tail_marking]
 				if(BM)
 					var/icon/t_marking_s = new(BM.icon, "[BM.icon_state]_s")
-					species_contextblend(t_marking_s, current_species , m_colours["tail"])
+					species_contextblend(t_marking_s, m_colours["tail"])
 					temp.Blend(t_marking_s, ICON_OVERLAY)
 
 			// Body accessory has an underlay, add it too.
@@ -965,14 +965,14 @@
 			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
 			if(body_marking_style && body_marking_style.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
-				species_contextblend(b_marking_s, current_species , m_colours["body"])
+				species_contextblend(b_marking_s, m_colours["body"])
 				preview_icon.Blend(b_marking_s, ICON_OVERLAY)
 		if(current_species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = m_styles["head"]
 			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 			if(head_marking_style && head_marking_style.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
-				species_contextblend(h_marking_s, current_species , m_colours["head"])
+				species_contextblend(h_marking_s, m_colours["head"])
 				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
 
 	var/icon/hands_icon = icon(preview_icon)
@@ -1018,7 +1018,7 @@
 		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
-			species_contextblend(head_accessory_s, current_species , hacc_colour)
+			species_contextblend(head_accessory_s, hacc_colour)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
@@ -1027,13 +1027,13 @@
 		if(current_species.name == "Slime People") // whee I am part of the problem
 			facial_s.Blend("[s_colour]A0", ICON_ADD)
 		else if(facial_hair_style.do_colouration)
-			species_contextblend(facial_s, current_species , f_colour)
+			species_contextblend(facial_s, f_colour)
 
 		if(facial_hair_style.secondary_theme)
 			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
 			if(!facial_hair_style.no_sec_colour && facial_hair_style.do_colouration)
 				facial_secondary_s.Blend(f_sec_colour, ICON_MULTIPLY)
-				species_contextblend(facial_secondary_s, current_species, f_sec_colour)
+				species_contextblend(facial_secondary_s, f_sec_colour)
 			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 
 		face_s.Blend(facial_s, ICON_OVERLAY)
