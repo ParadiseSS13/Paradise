@@ -116,7 +116,7 @@
 	trait_type = STATION_TRAIT_NEGATIVE
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 2
-	event_names = list("Meteor Shower")
+	event_names = list("Meteor Wave")
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 3
 
