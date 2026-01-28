@@ -15,6 +15,10 @@
 	if(!istype(user.loc, /obj/item))
 		to_chat(user, SPAN_WARNING("You cannot use this ability if you're outside a blade!"))
 		return
+	if(istype(user.loc, /obj/item/melee/cultblade/haunted))
+		var/obj/item/melee/cultblade/haunted/haunt_moment = user.loc
+		if(!haunt_moment.handle_haunted_movement())
+			return FALSE
 	var/obj/item/nullrod/scythe/talking/user_sword = user.loc
 	if(ishuman(user_sword.loc))
 		var/mob/living/carbon/holder = user_sword.loc

@@ -1283,7 +1283,7 @@
 /area/lavaland/surface/outdoors)
 "VJ" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = -2;
 	pixel_y = 35
 	},

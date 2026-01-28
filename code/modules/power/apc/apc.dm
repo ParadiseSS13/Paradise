@@ -1161,6 +1161,10 @@
 /obj/machinery/power/apc/unbuilt/Initialize(mapload, direction, building)
 	. = ..(building = TRUE)
 
+/obj/machinery/power/apc/rust_heretic_act()
+	obj_integrity -= 35
+	return
+
 /obj/machinery/power/apc/get_internal_wires()
 	return wires
 

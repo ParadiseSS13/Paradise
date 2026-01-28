@@ -8,7 +8,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	spell = spell_to_cast
 
 /datum/click_intercept/proc_holder/InterceptClickOn(user, params, atom/object)
-	spell.InterceptClickOn(user, params, object)
+	return spell.InterceptClickOn(user, params, object)
 
 /datum/click_intercept/proc_holder/quit()
 	spell.remove_ranged_ability(spell.ranged_ability_user)
@@ -91,6 +91,8 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	/// If SPELL_REQUIRES_NO_ANTIMAGIC is set in Spell requirements,
 	/// The spell cannot be cast if the caster has any of the antimagic flags set.
 	var/antimagic_flags = MAGIC_RESISTANCE
+	/// Is it a heretic spell? Used by heretics.
+	var/is_a_heretic_spell = FALSE
 
 /datum/spell/New()
 	..()
@@ -315,7 +317,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	if(!cast_check(TRUE, TRUE, user))
 		return
 
-	perform(targets, should_recharge_after_cast, user)
+	perform(targets, user)
 
 /**
  * Called in `try_perform` before removing the click interceptor. useful to override if you have a spell that requires more than 1 click
@@ -329,10 +331,9 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
  *
  * Arguments:
  * * targets - The list of targets the spell is being cast on. Will not be empty or null
- * * recharge - Whether or not the spell should go recharge
  * * user - The caster of the spell
  */
-/datum/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
+/datum/spell/proc/perform(list/targets, mob/user = usr) //if recharge is started is important for the trigger spells
 	SHOULD_NOT_OVERRIDE(TRUE)
 	before_cast(targets, user)
 	invocation(user)
@@ -341,7 +342,8 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 			write_custom_logs(targets, user)
 		if(create_attack_logs)
 			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
-	if(recharge)
+
+	if(should_recharge_after_cast)
 		cooldown_handler.start_recharge()
 
 	if(sound)
@@ -461,6 +463,11 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 		var/turf/T = get_turf(user)
 		if(T && is_admin_level(T.z))
 			return FALSE
+	var/sig_return = FALSE
+	if(user)
+		sig_return = SEND_SIGNAL(user, COMSIG_MOB_BEFORE_SPELL_CAST, src, show_message)
+	if(sig_return)
+		return FALSE
 
 	// If the spell requires the user has no antimagic equipped, and they're holding antimagic
 	// that corresponds with the spell's antimagic, then they can't actually cast the spell
@@ -505,7 +512,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 					to_chat(user, SPAN_NOTICE("Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals."))
 				return FALSE
 	else
-		if(clothes_req || human_req)
+		if(human_req)
 			if(show_message)
 				to_chat(user, SPAN_NOTICE("This spell can only be cast by humans!"))
 			return FALSE

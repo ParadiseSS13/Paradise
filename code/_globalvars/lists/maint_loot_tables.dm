@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_0, list(
 		// Spawners for easily found items
 		/obj/effect/spawner/random/bureaucracy,
 		/obj/effect/spawner/random/dice,
-		/obj/effect/spawner/random/book,
+		/obj/effect/spawner/random/library_book,
 
 		// Other worthless/easily found items
 		/obj/item/camera_film,
@@ -32,6 +32,8 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_0, list(
 		/obj/item/storage/box,
 		/obj/item/storage/fancy/crayons,
 		/obj/item/storage/fancy/matches,
+		/obj/item/food/grown/harebell,
+		/obj/item/food/grown/poppy,
 	) = 2,
 
 	list(
@@ -121,6 +123,10 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 		/obj/item/coin/silver,
 		/obj/item/coin/twoheaded,
 	) = 2,
+
+	// A round tuit
+	/obj/item/toy/round_tuit = 1,
+
 ))
 
 GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
