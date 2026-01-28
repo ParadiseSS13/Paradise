@@ -10153,6 +10153,9 @@
 /area/station/service/chapel)
 "aMz" = (
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "aMA" = (
@@ -10606,7 +10609,8 @@
 "aOo" = (
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/command/ntrep,
+/obj/effect/mapping_helpers/airlock/access/any/command/blueshield,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/asmaint)
 "aOp" = (
@@ -13603,6 +13607,12 @@
 /area/station/science/storage)
 "bdp" = (
 /obj/machinery/photocopier,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "bdq" = (
@@ -13765,6 +13775,12 @@
 "ber" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -14610,6 +14626,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "bjA" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "bjB" = (
@@ -14716,6 +14735,11 @@
 /area/station/hallway/secondary/entry)
 "bkj" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "bkk" = (
@@ -15220,6 +15244,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "bsT" = (
@@ -16471,10 +16498,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/prisonlockers)
 "cdB" = (
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonlockers)
 "ceg" = (
@@ -17472,7 +17499,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/command,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/command/ntrep,
+/obj/effect/mapping_helpers/airlock/access/any/command/blueshield,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/dignitary)
 "cFW" = (
@@ -17700,6 +17728,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
+"cIz" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/hos)
 "cJx" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -21159,6 +21198,12 @@
 "eOm" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/closet/secure_closet/hos,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "eOr" = (
@@ -22162,6 +22207,12 @@
 /area/station/science/toxins/mixing)
 "ftT" = (
 /obj/effect/landmark/start/head_of_security,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "fud" = (
@@ -23965,6 +24016,9 @@
 	},
 /obj/structure/sink/directional/west,
 /obj/machinery/newscaster/directional/north,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/command/office/hos)
 "gCG" = (
@@ -26539,6 +26593,17 @@
 "ibr" = (
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/omega/research)
+"icm" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/wood,
+/area/station/command/office/hos)
 "icp" = (
 /obj/machinery/computer/security/telescreen/prison{
 	dir = 1;
@@ -28425,6 +28490,13 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
 /obj/machinery/door/airlock/command/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "jsh" = (
@@ -30492,6 +30564,10 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "kTA" = (
@@ -38024,6 +38100,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
+"pFS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/wood,
+/area/station/command/office/hos)
 "pFX" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8;
@@ -40050,6 +40133,12 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "qZQ" = (
@@ -40076,13 +40165,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"raw" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
-/turf/simulated/floor/plating,
-/area/station/security/armory/secure)
 "rba" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -78312,8 +78394,8 @@ amQ
 slt
 amQ
 qZK
-bkj
-bkj
+cIz
+icm
 bkj
 bsR
 bHe
@@ -78563,10 +78645,10 @@ lfS
 ort
 qJC
 ort
-lfS
+amQ
 amQ
 kTu
-bjA
+pFS
 jsc
 ber
 bdz
@@ -78820,7 +78902,7 @@ cbZ
 cbZ
 cbZ
 cbZ
-cbZ
+amQ
 eOm
 ftT
 ong
@@ -79077,7 +79159,7 @@ cbZ
 eLr
 cdB
 ceN
-azA
+amQ
 amQ
 amQ
 amQ
@@ -80369,7 +80451,7 @@ uAN
 azA
 azA
 azA
-raw
+azA
 azA
 azA
 bWI
