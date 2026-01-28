@@ -1250,7 +1250,7 @@
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
+		to_chat(M, pick(SPAN_WARNING("That was awful!"), SPAN_WARNING("Yuck!")))
 		if(ismachineperson(M))
 			to_chat(M, SPAN_NOTICE("Your components feel smoother."))
 
