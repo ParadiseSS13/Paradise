@@ -7,8 +7,8 @@
 	throwforce = 5
 	origin_tech = "engineering=4;materials=2"
 	var/active = FALSE
-	var/obj/structure/cable/last = null
-	var/obj/item/stack/cable_coil/random/rcl_spool/loaded = null
+	var/obj/structure/cable/last
+	var/obj/item/stack/cable_coil/random/rcl_spool/loaded
 	new_attack_chain = TRUE
 
 /obj/item/rcl/Initialize(mapload)
