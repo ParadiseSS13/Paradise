@@ -5,8 +5,8 @@
 	icon = 'icons/obj/objects.dmi'
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
 
-/obj/item/holder/New()
-	..()
+/obj/item/holder/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/holder/Destroy()

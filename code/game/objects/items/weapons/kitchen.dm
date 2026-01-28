@@ -38,8 +38,8 @@
 	new_attack_chain = TRUE
 
 /obj/item/kitchen/utensil/Initialize(mapload)
-	//New()
-	..()
+	//Initialize(mapload)
+	. = ..()
 	if(prob(60))
 		src.pixel_y = rand(0, 4)
 

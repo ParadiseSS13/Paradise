@@ -119,8 +119,8 @@
 	return
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder)
-	..()
+/obj/item/organ/external/Initialize(mapload, mob/living/carbon/holder)
+	. = ..()
 	if(ishuman(holder))
 		var/mob/living/carbon/human/H = holder
 		icobase = H.dna.species.icobase
