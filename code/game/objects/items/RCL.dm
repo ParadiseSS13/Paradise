@@ -199,9 +199,6 @@
 	. += SPAN_NOTICE("<b>Alt-Click</b> to swap between laying <b>standard</b> and <b>heavy duty</b> cable.")
 	. += SPAN_NOTICE("<b>Ctrl-Click</b> to [heavy_mode ? "toggle cable connectivity" : "select cable color"].")
 
-/obj/item/rcl/robot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	return
-
 /obj/item/rcl/robot/screwdriver_act(mob/user, obj/item/I)
 	return
 
