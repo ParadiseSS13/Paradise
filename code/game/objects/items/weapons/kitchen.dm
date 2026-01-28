@@ -76,7 +76,6 @@
 
 	return COMPONENT_SKIP_ATTACK
 
-
 /obj/item/kitchen/utensil/fork
 	name = "fork"
 	desc = "It's a fork. Sure is pointy. Keep away from outlets. "
