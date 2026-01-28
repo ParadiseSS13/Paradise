@@ -5,6 +5,7 @@
 	var/dagger_icon = "blood_dagger"
 	var/sword_icon = "blood_blade"
 	var/construct_glow = LIGHT_COLOR_BLOOD_MAGIC
+	var/haunted_longsword = "hauntedblade"
 
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -46,6 +47,10 @@
 	var/proteon_name = "Proteon"
 	var/proteon_icon_state = "proteon"
 	var/proteon_dead_state = "shade_dead"
+	//Rusted Harvester Construct
+	var/rusted_harvester_name = "Rusted Harvester"
+	var/rusted_harvester_icon_state = "harvester_heretic"
+	var/rusted_harvester_dead_state = "shade_dead"
 	//Shade Spirit
 	var/shade_name = "Shade"
 	var/shade_icon_state = "shade2"
@@ -216,6 +221,8 @@
 			return proteon_name
 		if("shade")
 			return shade_name
+		if("rusted_harvester")
+			return rusted_harvester_name
 
 /datum/cult_info/proc/get_icon(type_to_icon)
 	if(!type_to_icon)
@@ -235,6 +242,8 @@
 			return wraith_icon_state
 		if("proteon")
 			return proteon_icon_state
+		if("rusted_harvester")
+			return rusted_harvester_icon_state
 		if("shade")
 			return shade_icon_state
 		if("forge")

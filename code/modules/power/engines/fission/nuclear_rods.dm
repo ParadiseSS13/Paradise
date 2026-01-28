@@ -281,7 +281,7 @@
 	heat_amount = 100
 	power_amount = 200 KW
 	heat_amp_mod = 6
-	power_amp_mod = 1.6
+	power_amp_mod = 3
 	max_durability = 4000
 	gamma_rad = 300
 	adjacent_requirements = list(

@@ -137,8 +137,6 @@
 	for(var/limb_type in typesof(/datum/robolimb))
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
-		if(R.selectable)
-			GLOB.selectable_robolimbs[R.company] = R
 
 	// Setup world topic handlers
 	for(var/topic_handler_type in subtypesof(/datum/world_topic_handler))
