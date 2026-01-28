@@ -37,36 +37,44 @@
 	var/max_contents = 1
 	new_attack_chain = TRUE
 
-/obj/item/kitchen/utensil/New()
+/obj/item/kitchen/utensil/Initialize(mapload)
+	//New()
 	..()
 	if(prob(60))
 		src.pixel_y = rand(0, 4)
 
 	create_reagents(5)
+	RegisterSignal(src, COMSIG_ATTACK, PROC_REF(on_attack))
 
-/obj/item/kitchen/utensil/melee_attack_chain(mob/user, atom/target, params, proximity_flag)
-	if(!istype(target, /mob/living/carbon/human))
-		return ..()
-
-	var/mob/living/carbon/human/victim = target
-
+/obj/item/kitchen/utensil/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.a_intent != INTENT_HELP)
-		if(user.zone_selected == "head" || user.zone_selected == "eyes")
-			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-				victim = user
-			eyestab(victim, user)
+		return
 
-		return ..()
+	if(!istype(target, /mob/living/carbon))
+		return
 
+	var/mob/living/carbon/feed_target = target
 	if(length(contents))
 		var/obj/item/food/toEat = contents[1]
 		if(istype(toEat))
-			if(victim.eat(toEat, user))
-				toEat.On_Consume(victim, user)
+			if(feed_target.eat(toEat, user))
+				toEat.On_Consume(feed_target, user)
 				overlays.Cut()
-				return
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
+
+/obj/item/kitchen/utensil/proc/on_attack(datum/source, mob/living/carbon/target, mob/living/user)
+	if(!istype(target) || user.a_intent == INTENT_HELP)
+		return
+	if(user.zone_selected != "head" && user.zone_selected != "eyes")
+		return
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		target = user
+
+	eyestab(target, user)
+
+	return COMPONENT_SKIP_ATTACK
 
 
 /obj/item/kitchen/utensil/fork
