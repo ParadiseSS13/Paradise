@@ -73,6 +73,8 @@
 		"Chief Medical Officer" = "medradio",
 		"Coroner" = "medradio",
 		"Medical Doctor" = "medradio",
+		"Medical Resident" = "medradio",
+		"Medical Student" = "medradio",
 		"Microbiologist" = "medradio",
 		"Nurse" = "medradio",
 		"Paramedic" = "medradio",
