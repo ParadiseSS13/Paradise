@@ -98,7 +98,7 @@ export const BrigTimer = (props) => {
   }
 
   return (
-    <Window width={560} height={data.timing ? 270 : 710}>
+    <Window width={580} height={data.timing ? 270 : 710}>
       <Window.Content scrollable>
         {data.timing ? (
           <Stack fill>
@@ -139,7 +139,7 @@ export const BrigTimer = (props) => {
             <Stack.Item>
               <Section title="New Prisoner">
                 <Stack horizontal>
-                  <Stack.Item>
+                  <Stack.Item grow basis={0}>
                     <LabeledList>
                       <LabeledList.Item label="Prisoner Name">
                         <Button
@@ -196,7 +196,7 @@ export const BrigTimer = (props) => {
                       <LabeledList.Item />
                     </LabeledList>
                   </Stack.Item>
-                  <Stack.Item grow>
+                  <Stack.Item grow basis={0}>
                     <Box bold>Crimes:</Box>
                     <Box>{formattedCrimes}</Box>
                     <Divider grow />
@@ -216,8 +216,10 @@ export const BrigTimer = (props) => {
                     <Stack.Item key={code}>
                       <Stack>
                         {Object.entries(category).map(([key, crime]) => (
-                          <Stack.Item key={key}>
+                          <Stack.Item grow basis={0} key={key}>
                             <Button
+                              fluid
+                              textAlign="center"
                               tooltip={crime.description}
                               onClick={() => {
                                 setSelectedCrimes(
@@ -239,35 +241,31 @@ export const BrigTimer = (props) => {
                   <Stack.Item align="center">
                     <Box bold>Modifiers</Box>
                   </Stack.Item>
-                  <Stack.Item>
-                    <Box>
-                      <Stack vertical>
-                        {Object.entries(spaceLaw.modifiers).map(([modifierGroup, category]) => (
-                          <Stack.Item key={modifierGroup}>
-                            <Stack>
-                              {Object.entries(category).map(([key, modifier]) => (
-                                <Stack.Item key={key}>
-                                  <Button
-                                    tooltip={modifier.description}
-                                    onClick={() => {
-                                      setSelectedModifiers(
-                                        selectedModifiers[modifierGroup] === key
-                                          ? { ...selectedModifiers, [modifierGroup]: null }
-                                          : { ...selectedModifiers, [modifierGroup]: key }
-                                      );
-                                    }}
-                                    color={selectedModifiers[modifierGroup] === key ? 'green' : ''}
-                                  >
-                                    {modifier.name}
-                                  </Button>
-                                </Stack.Item>
-                              ))}
-                            </Stack>
+                  {Object.entries(spaceLaw.modifiers).map(([modifierGroup, category]) => (
+                    <Stack.Item key={modifierGroup}>
+                      <Stack>
+                        {Object.entries(category).map(([key, modifier]) => (
+                          <Stack.Item grow basis={0} key={key}>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              tooltip={modifier.description}
+                              onClick={() => {
+                                setSelectedModifiers(
+                                  selectedModifiers[modifierGroup] === key
+                                    ? { ...selectedModifiers, [modifierGroup]: null }
+                                    : { ...selectedModifiers, [modifierGroup]: key }
+                                );
+                              }}
+                              color={selectedModifiers[modifierGroup] === key ? 'green' : ''}
+                            >
+                              {modifier.name}
+                            </Button>
                           </Stack.Item>
                         ))}
                       </Stack>
-                    </Box>
-                  </Stack.Item>
+                    </Stack.Item>
+                  ))}
                 </Stack>
               </Section>
             </Stack.Item>

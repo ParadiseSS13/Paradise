@@ -35,8 +35,8 @@ export const spaceLaw = {
         severity: 'medium',
         description: 'To use excessive physical force against someone without the apparent intent to kill them.',
       },
-      aggrevatedAssault: {
-        name: 'Aggrevated Assault',
+      aggravatedAssault: {
+        name: 'Aggravated Assault',
         severity: 'major',
         description: 'To use excessive physical force resulting in severe or life-threatening harm.',
       },
@@ -86,13 +86,13 @@ export const spaceLaw = {
       },
     },
     '06': {
-      abuseEquiptment: {
-        name: 'Abuse of Equiptment',
+      abuseEquipment: {
+        name: 'Abuse of Equipment',
         severity: 'minor',
         description: 'To utilize security/non-lethal equipment in an illegitimate fashion.',
       },
       abuseConfiscated: {
-        name: 'Abuse of Confiscated Equiptment',
+        name: 'Abuse of Confiscated Equipment',
         severity: 'medium',
         description: 'To take and use equipment confiscated as evidence.',
       },
