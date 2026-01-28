@@ -16497,13 +16497,6 @@
 "cbZ" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/prisonlockers)
-"cdB" = (
-/obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/prisonlockers)
 "ceg" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
@@ -27496,6 +27489,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"iIG" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/directional/east,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/prisonlockers)
 "iJg" = (
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
@@ -34261,7 +34261,6 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/iaa,
-/obj/effect/mapping_helpers/airlock/access/any/command/magistrate,
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "njn" = (
@@ -36246,7 +36245,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/security/iaa,
-/obj/effect/mapping_helpers/airlock/access/any/command/magistrate,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "oyo" = (
@@ -38562,7 +38560,7 @@
 "pWC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prisonlockers)
@@ -44836,12 +44834,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/station/maintenance/solar_maintenance/fore_starboard)
-"tzj" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/prisonlockers)
 "tzO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -78900,10 +78892,10 @@ bFk
 pUs
 lUg
 aae
-cbZ
-cbZ
-cbZ
-cbZ
+lfS
+lfS
+lfS
+lfS
 amQ
 eOm
 ftT
@@ -79159,7 +79151,7 @@ xqy
 ebN
 cbZ
 eLr
-cdB
+plX
 ceN
 amQ
 amQ
@@ -79416,7 +79408,7 @@ vnY
 ijb
 bkZ
 lCN
-tzj
+plX
 ceN
 azA
 aGc
@@ -79930,7 +79922,7 @@ xsb
 ijb
 qlk
 ceN
-plX
+iIG
 ceN
 azA
 aBl
