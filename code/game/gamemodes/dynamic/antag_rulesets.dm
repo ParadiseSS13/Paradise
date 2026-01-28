@@ -220,6 +220,14 @@
 		antag.add_antag_datum(traitor_datum)
 		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 
+/datum/ruleset/heretic
+	name = "Heretic"
+	ruleset_weight = 10
+	antag_cost = 10
+	antagonist_type = /datum/antagonist/heretic
+
+	banned_jobs = list("Cyborg", "AI")
+
 /datum/ruleset/vampire
 	name = "Vampire"
 	ruleset_weight = 12
