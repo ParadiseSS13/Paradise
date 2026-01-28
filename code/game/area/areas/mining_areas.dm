@@ -58,7 +58,6 @@
 /area/mine/unexplored/omega/medical
 	name = "Medical Rocks"
 
-
 /**********************Outpost areas**************************/
 
 /area/mine/outpost
