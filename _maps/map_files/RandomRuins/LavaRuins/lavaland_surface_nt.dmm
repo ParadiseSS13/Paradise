@@ -1626,9 +1626,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
@@ -2097,9 +2094,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
@@ -3576,6 +3570,16 @@
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"uZ" = (
+/obj/structure/closet/secure_closet/miner,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 8
+	},
+/obj/machinery/light/small,
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/dark,
+/area/mine/outpost/lockers)
 "vd" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
@@ -5751,7 +5755,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
@@ -6217,10 +6221,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
 "KJ" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/directional/west,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
 	},
@@ -7319,6 +7319,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
+"Qy" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/item/cigbutt/roach,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Qz" = (
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tiles/department/engineering,
@@ -8643,9 +8652,6 @@
 "Yo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
@@ -14732,7 +14738,7 @@ VG
 VG
 Do
 zJ
-cc
+Qy
 XG
 cc
 LO
@@ -15057,7 +15063,7 @@ xM
 hY
 zJ
 Pw
-fh
+Pw
 Pw
 fh
 Ka
@@ -15868,7 +15874,7 @@ Lq
 zJ
 MW
 Hz
-ew
+uZ
 fh
 vB
 oO
