@@ -1,15 +1,15 @@
 import { Button, Icon, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
 import { AccessList } from '../common/AccessList';
-import { BooleanLike } from 'tgui-core/react';
-import { CardComputerRecord, CardSkin, DepartmentPerson, IdCard, JobNames, JobSlotData } from './types';
-import { CardComputerJobTransfer } from './job_transfer';
-import { CardComputerJobPriority } from './job_priority';
 import { AccessRegion } from '../common/AccessList';
-import { CardComputerRecordsLog } from './records_log';
 import { AuthBlock } from './auth_block';
+import { CardComputerJobPriority } from './job_priority';
+import { CardComputerJobTransfer } from './job_transfer';
+import { CardComputerRecordsLog } from './records_log';
+import { CardComputerRecord, CardSkin, DepartmentPerson, IdCard, JobNames, JobSlotData } from './types';
 
 export const SlashedIcon = (props: { title: string; name: string; text: string }) => {
   const { title, name, text } = props;
@@ -230,7 +230,7 @@ export const CardComputer = () => {
   }
 
   return (
-    <Window width={800} height={800}>
+    <Window width={760} height={800}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>

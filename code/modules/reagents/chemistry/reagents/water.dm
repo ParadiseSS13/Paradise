@@ -95,7 +95,7 @@
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
-	taste_description = "<span class='warning'>blood</span>"
+	taste_description = SPAN_WARNING("blood")
 	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -144,7 +144,7 @@
 
 	if(type_mismatch || species_mismatch)
 		data["species"] = "Coagulated"
-		data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
+		data["blood_type"] = SPAN_WARNING("UNUSABLE!")
 		data["species_only"] = species_unique
 	else if(!same_species) // Same blood type, species-agnostic, but we're still mixing blood of different species
 		data["species"] = "Mixed Humanoid"
@@ -295,19 +295,19 @@
 	if(prob(5) && !IS_CULTIST(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !isvampirethrall(M))
 		M.AdjustJitter(-10 SECONDS)
 		var/holy_message = pick(
-			"You feel a little more peaceful inside.", 
-			"You feel a higher power looking down on you.", 
+			"You feel a little more peaceful inside.",
+			"You feel a higher power looking down on you.",
 			"You feel as though your spirit is a little safer",
 			"You feel as though you are blessed.",
 		)
-		to_chat(M, "<span class='notice'>[holy_message]</span>")
+		to_chat(M, SPAN_NOTICE("[holy_message]"))
 
 	// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 	if(current_cycle >= 30)
 		if(IS_CULTIST(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
-					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+					to_chat(M, SPAN_CULTLARGE("Your blood rites falter as holy water scours your body!"))
 					qdel(BS)
 			if(prob(5)) // 5 seems like a good number...
 				M.AdjustCultSlur(10 SECONDS)
@@ -317,14 +317,14 @@
 			if(prob(10))
 				M.say(pick("*gasp", "*cough", "*sneeze"))
 			if(prob(5)) //Same as cult, for the real big tell
-				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
+				M.visible_message(SPAN_WARNING("A fog lifts from [M]'s eyes for a moment, but soon returns."))
 
 	// 30 units, 150 seconds
-	if(current_cycle >= 75 && prob(33))	
+	if(current_cycle >= 75 && prob(33))
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
-			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
+			M.visible_message(SPAN_BIGGERDANGER("[M] recoils, their skin flushes with colour, regaining their sense of control!"))
 			return
 
 		if(IS_CULTIST(M))
@@ -362,10 +362,10 @@
 
 		switch(current_cycle)
 			if(1 to 4)
-				to_chat(M, "<span class='warning'>Something sizzles in your veins!</span>")
+				to_chat(M, SPAN_WARNING("Something sizzles in your veins!"))
 				vamp.adjust_nullification(20, 4)
 			if(5 to 12)
-				to_chat(M, "<span class='danger'>You feel an intense burning inside of you!</span>")
+				to_chat(M, SPAN_DANGER("You feel an intense burning inside of you!"))
 				update_flags |= M.adjustFireLoss(1, FALSE)
 				M.Stuttering(2 SECONDS)
 				M.Jitter(40 SECONDS)
@@ -374,9 +374,9 @@
 				vamp.adjust_nullification(20, 4)
 			if(13 to INFINITY)
 				M.visible_message(
-					"<span class='danger'>[M] suddenly bursts into flames!</span>",
-					"<span class='userdanger'>You suddenly ignite in a holy fire!</span>",
-					"<span class='danger'>You hear something suddenly bursting into flames!</span>"
+					SPAN_DANGER("[M] suddenly bursts into flames!"),
+					SPAN_USERDANGER("You suddenly ignite in a holy fire!"),
+					SPAN_DANGER("You hear something suddenly bursting into flames!")
 				)
 				M.fire_stacks = min(5, M.fire_stacks + 3)
 				M.IgniteMob()
@@ -396,13 +396,13 @@
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)
 			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
+				to_chat(H, SPAN_WARNING("Your mask protects you from the holy water!"))
 				return
 			else if(H.head)
-				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+				to_chat(H, SPAN_WARNING("Your helmet protects you from the holy water!"))
 				return
 			else
-				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
+				to_chat(M, SPAN_WARNING("Something holy interferes with your powers!"))
 				V.adjust_nullification(5, 2)
 
 
@@ -444,6 +444,79 @@
 		M.AdjustCultSlur(20 SECONDS) //CUASE WHY THE HELL NOT
 	return ..() | update_flags
 
+// unholy water, but for heretics.
+// why couldn't they have both just used the same reagent?
+// who knows.
+// maybe nar'sie is considered to be too "mainstream" of a god to worship in the heretic community.
+/datum/reagent/eldritch
+	name = "Eldritch Essence"
+	id = "eldritch"
+	description = "A strange liquid that defies the laws of physics. \
+		It re-energizes and heals those who can see beyond this fragile reality, \
+		but is incredibly harmful to the closed-minded. It metabolizes very quickly."
+	taste_description = "Ag'hsj'saje'sh"
+	process_flags = ORGANIC | SYNTHETIC
+	color = "#1f8016"
+	metabolization_rate = 1
+
+/datum/reagent/eldritch/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(IS_HERETIC_OR_MONSTER(M))
+		M.AdjustDrowsy(-10 SECONDS)
+		M.AdjustParalysis(-2 SECONDS)
+		M.AdjustStunned(-4 SECONDS)
+		M.AdjustWeakened(-4 SECONDS)
+		M.AdjustKnockDown(-4 SECONDS)
+		update_flags |= M.adjustStaminaLoss(-25, FALSE)
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustOxyLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		if(M.blood_volume < BLOOD_VOLUME_NORMAL)
+			M.blood_volume += 3
+	else
+		update_flags |= M.adjustBrainLoss(3, FALSE)
+		update_flags |= M.adjustToxLoss(1, FALSE)
+		update_flags |= M.adjustFireLoss(2, FALSE)
+		update_flags |= M.adjustOxyLoss(2, FALSE)
+		update_flags |= M.adjustBruteLoss(2, FALSE)
+	return ..() | update_flags
+
+
+/datum/reagent/helgrasp
+	name = "Helgrasp"
+	id = "helgrasp"
+	description = "This rare and forbidden concoction is thought to bring you closer to the grasp of the Norse goddess Hel."
+	metabolization_rate = 0.5
+	/// How much toxin damage do we do each tick?
+	var/toxin_damage = 0.25
+	//Keeps track of the hand timer so we can cleanup on removal
+
+//Warns you about the impenting hands
+/datum/reagent/helgrasp/on_mob_add(mob/living/affected_mob, amount)
+	. = ..()
+	to_chat(affected_mob, SPAN_HIEROPHANT("You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!"))
+	playsound(affected_mob.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1) //Very obvious tell so people can be ready
+
+//Sends hands after you for your hubris
+/datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= affected_mob.adjustToxLoss(toxin_damage, FALSE)
+	spawn_hands(affected_mob)
+	return ..() | update_flags
+
+/datum/reagent/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
+	if(!affected_mob && iscarbon(holder.my_atom))//Catch timer
+		affected_mob = holder.my_atom
+	fire_curse_hand(affected_mob)
+
+/datum/reagent/helgrasp/heretic
+	name = "Grasp of the Mansus"
+	id = "mansusgrasp"
+	process_flags = ORGANIC | SYNTHETIC
+	description = "The Hand of the Mansus is at your neck."
+	toxin_damage = 0
+
 /datum/reagent/hellwater
 	name = "Hell Water"
 	id = "hell_water"
@@ -480,7 +553,7 @@
 	description = "Also known as sodium hydroxide."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
-	taste_description = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
+	taste_description = SPAN_USERDANGER("ACID")//don't drink lye, kids
 
 /datum/reagent/drying_agent
 	name = "Drying agent"

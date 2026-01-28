@@ -165,7 +165,7 @@
 /turf/simulated/floor/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
+		to_chat(H, SPAN_WARNING("You lose your footing trying to pry off the tile!"))
 		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
@@ -216,10 +216,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins slowly prying up [src]..."), SPAN_NOTICE("You begin painstakingly prying up [src]..."))
 	if(!I.use_tool(src, user, 70, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
+	user.visible_message(SPAN_NOTICE("[user] pries up [src]!"), SPAN_NOTICE("You pry up [src]!"))
 	make_plating()
 
 /turf/simulated/floor/clockwork/make_plating()
@@ -268,6 +268,7 @@
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/catwalk/Initialize(mapload)
 	. = ..()
@@ -309,14 +310,14 @@
 				break_tile_to_plating()
 				hotspot_expose(1000,CELL_VOLUME)
 
-// Carpet used in the backrooms hallucination
 /turf/simulated/floor/backrooms_carpet
 	name = "backrooms carpet"
 	desc = "An old, musty carpet. It smells faintly mildewy."
 	icon_state = "backrooms_carpet"
 	baseturf = /turf/simulated/floor/backrooms_carpet
 
-/turf/open/floor/plating/rust
+/turf/simulated/floor/plating/rust
+// Carpet used in the backrooms hallucination
 	//SDMM supports colors, this is simply for easier mapping
 	//and should be removed on initialize
 	color = COLOR_BROWN
@@ -326,7 +327,7 @@
 	AddElement(/datum/element/rust)
 	color = null
 
-/turf/open/floor/plating/heretic_rust
+/turf/simulated/floor/plating/heretic_rust
 	color = COLOR_GREEN_GRAY
 
 /turf/simulated/floor/plating/heretic_rust/Initialize(mapload)

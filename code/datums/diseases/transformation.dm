@@ -92,9 +92,9 @@
 	stage1	= null
 	stage2	= null
 	stage3	= null
-	stage4	= list("<span class='warning'>Your back hurts.</span>", "<span class='warning'>You breathe through your mouth.</span>",
-					"<span class='warning'>You have a craving for bananas.</span>", "<span class='warning'>Your mind feels clouded.</span>")
-	stage5	= list("<span class='warning'>You feel like monkeying around.</span>")
+	stage4	= list(SPAN_WARNING("Your back hurts."), SPAN_WARNING("You breathe through your mouth."),
+					SPAN_WARNING("You have a craving for bananas."), SPAN_WARNING("Your mind feels clouded."))
+	stage5	= list(SPAN_WARNING("You feel like monkeying around."))
 
 /datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/human/affected_mob)
 	if(!issmall(affected_mob))
@@ -105,10 +105,10 @@
 	switch(stage)
 		if(2)
 			if(prob(2))
-				to_chat(affected_mob, "<span class='notice'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
+				to_chat(affected_mob, SPAN_NOTICE("Your [pick("back", "arm", "leg", "elbow", "head")] itches."))
 		if(3)
 			if(prob(4))
-				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel a stabbing pain in your head."))
 				affected_mob.AdjustConfused(20 SECONDS)
 		if(4)
 			if(prob(3))
@@ -124,10 +124,10 @@
 	agent = "R2D2 Nanomachines"
 	desc = "This disease, actually acute nanomachine infection, converts the victim into a cyborg."
 	stage1	= null
-	stage2	= list("Your joints feel stiff.", "<span class='danger'>Beep...boop..</span>")
-	stage3	= list("<span class='danger'>Your joints feel very stiff.</span>", "Your skin feels loose.", "<span class='danger'>You can feel something move...inside.</span>")
-	stage4	= list("<span class='danger'>Your skin feels very loose.</span>", "<span class='danger'>You can feel... something...inside you.</span>")
-	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
+	stage2	= list("Your joints feel stiff.", SPAN_DANGER("Beep...boop.."))
+	stage3	= list(SPAN_DANGER("Your joints feel very stiff."), "Your skin feels loose.", SPAN_DANGER("You can feel something move...inside."))
+	stage4	= list(SPAN_DANGER("Your skin feels very loose."), SPAN_DANGER("You can feel... something...inside you."))
+	stage5	= list(SPAN_DANGER("Your skin feels as if it's about to burst off!"))
 	new_form = /mob/living/silicon/robot
 	job_role = "Cyborg"
 
@@ -139,7 +139,7 @@
 			if(prob(8))
 				affected_mob.say(pick("Beep, boop", "beep, beep!", "Boop...bop"))
 			if(prob(4))
-				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel a stabbing pain in your head."))
 				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
@@ -155,10 +155,10 @@
 	agent = "Rip-LEY Alien Microbes"
 	desc = "This disease changes the victim into a xenomorph."
 	stage1	= null
-	stage2	= list("Your throat feels scratchy.", "<span class='danger'>Kill...</span>")
-	stage3	= list("<span class='danger'>Your throat feels very scratchy.</span>", "Your skin feels tight.", "<span class='danger'>You can feel something move...inside.</span>")
-	stage4	= list("<span class='danger'>Your skin feels very tight.</span>", "<span class='danger'>Your blood boils!</span>", "<span class='danger'>You can feel... something...inside you.</span>")
-	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
+	stage2	= list("Your throat feels scratchy.", SPAN_DANGER("Kill..."))
+	stage3	= list(SPAN_DANGER("Your throat feels very scratchy."), "Your skin feels tight.", SPAN_DANGER("You can feel something move...inside."))
+	stage4	= list(SPAN_DANGER("Your skin feels very tight."), SPAN_DANGER("Your blood boils!"), SPAN_DANGER("You can feel... something...inside you."))
+	stage5	= list(SPAN_DANGER("Your skin feels as if it's about to burst off!"))
 	new_form = /mob/living/carbon/alien/humanoid/hunter
 	job_role = ROLE_ALIEN
 
@@ -167,7 +167,7 @@
 	switch(stage)
 		if(3)
 			if(prob(4))
-				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel a stabbing pain in your head."))
 				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
@@ -183,9 +183,9 @@
 	desc = "This highly concentrated extract converts anything into more of itself."
 	stage1	= list("You don't feel very well.")
 	stage2	= list("Your skin feels a little slimy.")
-	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
-	stage4	= list("<span class='danger'>You are turning into a slime.</span>")
-	stage5	= list("<span class='danger'>You have become a slime.</span>")
+	stage3	= list(SPAN_DANGER("Your appendages are melting away."), SPAN_DANGER("Your limbs begin to lose their shape."))
+	stage4	= list(SPAN_DANGER("You are turning into a slime."))
+	stage5	= list(SPAN_DANGER("You have become a slime."))
 	new_form = /mob/living/simple_animal/slime/random
 
 /datum/disease/transformation/slime/stage_act()
@@ -210,9 +210,9 @@
 	desc = "This disease transforms the victim into a corgi."
 	stage1	= list("BARK.")
 	stage2	= list("You feel the need to wear silly hats.")
-	stage3	= list("<span class='danger'>Must... eat... chocolate....</span>", "<span class='danger'>YAP</span>")
-	stage4	= list("<span class='danger'>Visions of washing machines assail your mind!</span>")
-	stage5	= list("<span class='danger'>AUUUUUU!!!</span>")
+	stage3	= list(SPAN_DANGER("Must... eat... chocolate...."), SPAN_DANGER("YAP"))
+	stage4	= list(SPAN_DANGER("Visions of washing machines assail your mind!"))
+	stage5	= list(SPAN_DANGER("AUUUUUU!!!"))
 	new_form = /mob/living/simple_animal/pet/dog/corgi
 
 /datum/disease/transformation/corgi/stage_act()
@@ -234,9 +234,9 @@
 	stage_prob = 20
 	stage1	= list("Your stomach rumbles.")
 	stage2	= list("Your skin feels saggy.")
-	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
-	stage4	= list("<span class='danger'>You're ravenous.</span>")
-	stage5	= list("<span class='danger'>You have become a morph.</span>")
-	transformation_text = "<span class='userdanger'>This transformation does NOT make you an antagonist if you were not one already. If you were not an antagonist, you should not eat any steal objectives or the contents of the armory.</span>"
+	stage3	= list(SPAN_DANGER("Your appendages are melting away."), SPAN_DANGER("Your limbs begin to lose their shape."))
+	stage4	= list(SPAN_DANGER("You're ravenous."))
+	stage5	= list(SPAN_DANGER("You have become a morph."))
+	transformation_text = SPAN_USERDANGER("This transformation does NOT make you an antagonist if you were not one already. If you were not an antagonist, you should not eat any steal objectives or the contents of the armory.")
 	new_form = /mob/living/simple_animal/hostile/morph
 	job_role = ROLE_MORPH

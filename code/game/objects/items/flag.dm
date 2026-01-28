@@ -15,12 +15,12 @@
 /obj/item/flag/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	. = ..()
 	if(W.get_heat() && !(resistance_flags & ON_FIRE))
-		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
+		user.visible_message(SPAN_NOTICE("[user] lights [src] with [W]."), SPAN_NOTICE("You light [src] with [W]."), SPAN_WARNING("You hear a low whoosh."))
 		fire_act()
 
 /obj/item/flag/attack_self__legacy__attackchain(mob/user)
 	rolled = !rolled
-	user.visible_message("<span class='notice'>[user] [rolled ? "rolls up" : "unfurls"] [src].</span>", "<span class='notice'>You [rolled ? "roll up" : "unfurl"] [src].</span>", "<span class='warning'>You hear fabric rustling.</span>")
+	user.visible_message(SPAN_NOTICE("[user] [rolled ? "rolls up" : "unfurls"] [src]."), SPAN_NOTICE("You [rolled ? "roll up" : "unfurl"] [src]."), SPAN_WARNING("You hear fabric rustling."))
 	update_icon()
 
 /obj/item/flag/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
@@ -135,6 +135,11 @@
 	desc = "An eccentric handmade standard, luxuriously soft due to exotic silks and embossed with lustrous gold. Although inspired by the pride that Nianae take in their baubles, it ultimately feels melancholic. Beauty knows no pain, afterall."
 	icon_state = "nianflag"
 
+/obj/item/flag/species/skulk
+	name = "\improper Collective Flag"
+	desc = "A foreboding flag made with silk and religious fervor. The cloth of this flag undoubtly made by faithful silk-spinners and blessed by Skkula-Kkavan priests. Some would argue its beauty does not befit it, believing it to be a beacon of zealotry that plagues the Silver Collective in its entirety."
+	icon_state = "skulkflag"
+
 //Department Flags
 
 /obj/item/flag/cargo
@@ -246,7 +251,7 @@
 			boobytrap = I
 			trapper = user
 			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You hide [I] in [src]. It will detonate some time after the flag is lit on fire.</span>")
+			to_chat(user, SPAN_NOTICE("You hide [I] in [src]. It will detonate some time after the flag is lit on fire."))
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			log_game("[key_name(user)] has hidden [I] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
@@ -268,7 +273,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You remove [boobytrap] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [boobytrap] from [src]."))
 	boobytrap.forceMove(get_turf(src))
 	boobytrap = null
 	trapper = null

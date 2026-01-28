@@ -72,16 +72,16 @@
 			adjustBruteLoss(-5)
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
-				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-						"<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+				M.visible_message(SPAN_DANGER("[M] repairs some of \the <b>[src]'s</b> dents."), \
+						SPAN_CULT("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
 			else
-				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
-						"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
+				M.visible_message(SPAN_DANGER("[M] repairs some of its own dents."), \
+						SPAN_CULT("You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health."))
 		else
 			if(src != M)
-				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
+				to_chat(M, SPAN_CULT("You cannot repair <b>[src]'s</b> dents, as it has none!"))
 			else
-				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
+				to_chat(M, SPAN_CULT("You cannot repair your own dents, as you have none!"))
 	else if(src != M)
 		return ..()
 
@@ -94,8 +94,8 @@
 /mob/living/simple_animal/hostile/construct/Life(seconds, times_fired)
 	if(holy_check(src))
 		throw_alert("holy_fire", /atom/movable/screen/alert/holy_fire, override = TRUE)
-		visible_message("<span class='danger'>[src] slowly crumbles to dust in this holy place!</span>", \
-			"<span class='danger'>Your shell burns as you crumble to dust in this holy place!</span>")
+		visible_message(SPAN_DANGER("[src] slowly crumbles to dust in this holy place!"), \
+			SPAN_DANGER("Your shell burns as you crumble to dust in this holy place!"))
 		playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
 		adjustBruteLoss(maxHealth/8)
 	else
@@ -318,6 +318,13 @@
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
 
 
+/mob/living/simple_animal/hostile/construct/harvester/Initialize(mapload)
+	. = ..()
+	// Don't give the cult overlay to a rusted harvester, and only give it to the narsi harvester
+	if(construct_type == "harvester" && icon_state == "harvester")
+		add_overlay("glow_harvester_cult")
+
+
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
@@ -326,6 +333,65 @@
 /mob/living/simple_animal/hostile/construct/harvester/hostile
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic
+	name = "Rusted Harvester"
+	real_name = "Rusted Harvester"
+	maxHealth = 50
+	health = 50
+	desc = "A long, thin, decrepit construct originally built to herald Nar'Sie's rise, corrupted and rusted by the forces of the Mansus to spread its will instead."
+	playstyle_string = "You are a Rusted Harvester, built to serve the Sanguine Apostate, twisted to work the will of the Mansus. You are fragile and weak, but you rend cultists (only) apart on each attack. Follow your Master's orders!"
+	faction = list("heretic")
+	construct_type = "rusted_harvester"
+	construct_spells = list(
+		/datum/spell/aoe/rust_conversion,
+		/datum/spell/pointed/rust_construction,
+	)
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/leeching_walk)
+	ADD_TRAIT(src, TRAIT_MANSUS_TOUCHED, UID())
+	add_overlay("glow_rusted_harvester_heretic")
+	add_filter("rusted_harvester", 3, list("type" = "outline", "color" = COLOR_GREEN, "size" = 2, "alpha" = 40))
+	AddComponent(/datum/component/damage_aura,\
+		range = 3,\
+		brute_damage = 0.3,\
+		burn_damage = 0.3,\
+		toxin_damage = 0.3,\
+		stamina_damage = 1.5,\
+		simple_damage = 1.2,\
+		immune_factions = list("heretic"),\
+		damage_message = "<span class='userdanger'>Your body wilts and withers as it comes near [src]'s aura.</span>",\
+		message_probability = 7,\
+		current_owner = src,\
+	)
+
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/attack_animal(mob/living/simple_animal/user, list/modifiers)
+	// They're pretty fragile so this is probably necessary to prevent bullshit deaths.
+	if(user == src)
+		return
+	return ..()
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/AttackingTarget()
+	if(IS_CULTIST(target))
+		melee_damage_lower = min(melee_damage_lower + 5, 40)
+		melee_damage_upper = min(melee_damage_upper + 5, 40)
+	else
+		melee_damage_lower = initial(melee_damage_lower)
+		melee_damage_upper = initial(melee_damage_upper)
+
+	return ..()
+
+
+/mob/living/simple_animal/hostile/construct/harvester/heretic/Life(seconds, times_fired)
+	. = ..()
+	var/turf/adjacent = get_step(src, pick(GLOB.alldirs))
+	// 90% chance to be directional, otherwise what we're on top of
+	var/turf/simulated/land = (issimulatedturf(adjacent) && prob(90)) ? adjacent : get_turf(src)
+	do_rust_heretic_act(land)
+
 
 /mob/living/simple_animal/hostile/construct/proteon
 	name = "Proteon"

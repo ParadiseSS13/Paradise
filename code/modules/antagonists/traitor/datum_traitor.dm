@@ -21,6 +21,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	/// Have we / are we sending a backstab message at this time. If we are, do not send another.
 	var/sending_backstab = FALSE
+	/// Whether this traitor was assigned during round start
+	var/is_roundstart = FALSE
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -90,7 +92,14 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 /datum/antagonist/traitor/select_organization()
 	if(is_ai(owner.current))
 		return
-	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
+	var/list/chaos_weights = list(
+		ORG_CHAOS_HUNTER = ORG_PROB_HUNTER,
+		ORG_CHAOS_MILD = ORG_PROB_MILD,
+		ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE
+	)
+	if(can_assign_hijack_objective())
+		chaos_weights[ORG_CHAOS_HIJACK] = ORG_PROB_HIJACK
+	var/chaos = pickweight(chaos_weights)
 	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
 		var/datum/antag_org/org = org_type
 		if(initial(org.chaos_level) == chaos)
@@ -114,7 +123,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/is_contractor = LAZYACCESS(GLOB.contractors, owner)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		antag_hud_name = is_contractor ? "hudhijackcontractor" : "hudhijack"
-	if(locate(/datum/objective/nuke) in owner.get_all_objectives())
+	else if(locate(/datum/objective/nuke) in owner.get_all_objectives())
 		antag_hud_name = is_contractor ? "hudnukecontractor" : "hudnuke"
 	else
 		antag_hud_name = is_contractor ? "hudcontractor" : "hudsyndicate"
@@ -220,11 +229,11 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 	var/list/messages = list()
 	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	messages.Add("<span class='bold body'>Code Phrase: [SPAN_CODEPHRASES("[phrases]")]</span>")
+	messages.Add("<span class='bold body'>Code Response: [SPAN_CODERESPONSES("[responses]")]</span>")
 
-	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
+	antag_memory += "<b>Code Phrase</b>: [SPAN_RED("[phrases]")]<br>"
+	antag_memory += "<b>Code Response</b>: [SPAN_RED("[responses]")]<br>"
 
 	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
@@ -260,7 +269,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		R = locate(/obj/item/radio) in traitor_mob.contents
 
 	if(!R)
-		to_chat(traitor_mob, "<span class='warning'>Unfortunately, the Syndicate wasn't able to give you an uplink.</span>")
+		to_chat(traitor_mob, SPAN_WARNING("Unfortunately, the Syndicate wasn't able to give you an uplink."))
 		return FALSE // They had no PDA or radio for whatever reason.
 
 	if(isradio(R))
@@ -280,7 +289,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		target_radio.hidden_uplink = T
 		T.uplink_owner = "[traitor_mob.key]"
 		target_radio.traitor_frequency = freq
-		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.</span>")
+		to_chat(traitor_mob, SPAN_NOTICE("The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."))
 		antag_memory += "<B>Radio Freq:</B> [format_frequency(freq)] ([R.name])."
 		return TRUE
 
@@ -294,7 +303,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		var/obj/item/pda/P = R
 		P.lock_code = pda_pass
 
-		to_chat(traitor_mob, "<span class='notice'>The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.</span>")
+		to_chat(traitor_mob, SPAN_NOTICE("The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features."))
 		antag_memory += "<B>Uplink Passcode:</B> [pda_pass] ([R.name]."
 		return TRUE
 	return FALSE
@@ -304,8 +313,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
+	var/message = "<br><b>The code phrases were:</b> [SPAN_BLUETEXT("[phrases]")]<br>\
+					<b>The code responses were:</b> [SPAN_REDTEXT("[responses]")]<br>"
 
 	return message
 
@@ -344,3 +353,21 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+
+/// Helper functions for hijack pop checks
+
+/datum/antagonist/traitor/can_assign_hijack_objective()
+	var/total_players
+	if(is_roundstart)
+		total_players = GLOB.roundstart_ready_players
+		if(total_players < GLOB.configuration.gamemode.min_players_hijack_roundstart)
+			return FALSE
+		return TRUE
+	total_players = get_living_players_count()
+	if(total_players < GLOB.configuration.gamemode.min_players_hijack_midround)
+		return FALSE
+	var/security_count = get_living_security_players_count()
+	if(security_count < GLOB.configuration.gamemode.min_security_hijack_midround)
+		return FALSE
+	return TRUE
+

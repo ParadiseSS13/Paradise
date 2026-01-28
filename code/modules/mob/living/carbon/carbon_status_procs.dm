@@ -7,7 +7,7 @@
 	if(absorb_stun(0)) //continuous effect, so we don't want it to increment the stuns absorbed.
 		return
 	if(!IsWeakened())
-		to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+		to_chat(src, SPAN_NOTICE("You're too exhausted to keep going..."))
 	SEND_SIGNAL(src, COMSIG_CARBON_ENTER_STAMINACRIT)
 	stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	var/prev = stam_paralyzed
@@ -17,3 +17,11 @@
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAM_CRIT)
 	if(!prev && getStaminaLoss() < 120) // Puts you a little further into the initial stamcrit, makes stamcrit harder to outright counter with chems.
 		adjustStaminaLoss(30, FALSE)
+
+/mob/living/carbon/adjust_disgust(amount, max = DISGUST_LEVEL_MAXEDOUT)
+	var/datum/status_effect/transient/disgust/D = has_status_effect(/datum/status_effect/transient/disgust)
+	if(!D)
+		D = apply_status_effect(/datum/status_effect/transient/disgust, amount)
+	if(D)
+		D.strength += amount
+	return D

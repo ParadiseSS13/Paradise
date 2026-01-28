@@ -73,6 +73,8 @@
 		"Chief Medical Officer" = "medradio",
 		"Coroner" = "medradio",
 		"Medical Doctor" = "medradio",
+		"Medical Resident" = "medradio",
+		"Medical Student" = "medradio",
 		"Microbiologist" = "medradio",
 		"Nurse" = "medradio",
 		"Paramedic" = "medradio",
@@ -220,7 +222,7 @@
 // Fucking broken as shit, someone help me fix this.
 /datum/nttc_configuration/proc/nttc_deserialize(text, ckey)
 	if(word_blacklist.Find(text)) //uh oh, they tried to be naughty
-		message_admins("<span class='danger'>EXPLOIT WARNING: </span> [ckey] attempted to upload an NTTC configuration containing JS abusable tags!")
+		message_admins("[SPAN_DANGER("EXPLOIT WARNING: ")] [ckey] attempted to upload an NTTC configuration containing JS abusable tags!")
 		log_admin("EXPLOIT WARNING: [ckey] attempted to upload an NTTC configuration containing JS abusable tags")
 		return FALSE
 	var/list/var_list = json_decode(text)

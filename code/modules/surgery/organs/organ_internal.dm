@@ -2,6 +2,7 @@
 	origin_tech = "biotech=3"
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
+	max_damage = 60
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
@@ -105,6 +106,7 @@
 	if(owner.stat == DEAD)
 		ADD_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_revival))
+	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, owner)
 
 
 // Removes the given organ from its owner.
@@ -113,7 +115,8 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
-	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN)
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
 
@@ -178,6 +181,8 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			receive_damage(20, 1)
+		if(EMP_RESIST_ORGAN)
+			receive_damage(12, 1)
 		if(EMP_LIGHT)
 			receive_damage(7, 1)
 		if(EMP_WEAKENED)
@@ -259,7 +264,7 @@
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(is_xeno_organ)
-			to_chat(user, "<span class='warning'>It wouldnt be a very good idea to eat this.</span>")
+			to_chat(user, SPAN_WARNING("It wouldnt be a very good idea to eat this."))
 			return ..()
 		var/obj/item/food/S = prepare_eat()
 		if(S)
@@ -275,7 +280,7 @@
 		var/obj/item/stack/synthetic_skin/skin = I
 		skin.use(1)
 		self_augmented_skin_level = skin.skin_level
-		to_chat(user, "<span class='notice'>You apply [skin] to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You apply [skin] to [src]."))
 		return
 	return ..()
 

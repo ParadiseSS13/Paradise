@@ -1,14 +1,3 @@
-/client/proc/economy_manager()
-	set name = "Economy Panel"
-	set category = "Event"
-	set desc = "Perform Various Event Modification to the Economy"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	var/datum/ui_module/economy_manager/E = new()
-	E.ui_interact(usr)
-
 /datum/ui_module/economy_manager
 	name = "Economy Manager"
 

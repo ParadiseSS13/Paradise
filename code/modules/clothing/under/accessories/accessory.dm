@@ -52,7 +52,7 @@
 	has_suit.armor = has_suit.armor.attachArmor(armor)
 
 	if(user)
-		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
+		to_chat(user, SPAN_NOTICE("You attach [src] to [has_suit]."))
 	src.add_fingerprint(user)
 
 /obj/item/clothing/accessory/proc/on_removed(mob/user)
@@ -85,10 +85,10 @@
 			if(user == H)
 				U.attach_accessory(src, user, TRUE)
 				return
-			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
+			user.visible_message(SPAN_NOTICE("[user] is putting a [src.name] on [H]'s [U.name]!"), SPAN_NOTICE("You begin to put a [src.name] on [H]'s [U.name]..."))
 			if(do_after(user, 4 SECONDS, target = H) && H.w_uniform == U)
 				if(U.attach_accessory(src, user, TRUE))
-					user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
+					user.visible_message(SPAN_NOTICE("[user] puts a [src.name] on [H]'s [U.name]!"), SPAN_NOTICE("You finish putting a [src.name] on [H]'s [U.name]."))
 					after_successful_nonself_attach(H, user)
 		else
 			to_chat(user, "[H] is not wearing anything to attach \the [src] to.")
@@ -119,7 +119,10 @@
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 //Medals
 /obj/item/clothing/accessory/medal
@@ -136,13 +139,13 @@
 /obj/item/clothing/accessory/medal/examine(mob/user)
 	. = ..()
 	if(channel)
-		. += "<span class='notice'>The tiny radio inside seems to be [try_announce ? "active" : "inactive"].</span>"
+		. += SPAN_NOTICE("The tiny radio inside seems to be [try_announce ? "active" : "inactive"].")
 
 /obj/item/clothing/accessory/medal/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(channel)
 		try_announce = !try_announce
-		to_chat(user, "<span class='notice'>You silently [try_announce ? "enable" : "disable"] the radio in [src].</span>")
+		to_chat(user, SPAN_NOTICE("You silently [try_announce ? "enable" : "disable"] the radio in [src]."))
 
 /obj/item/clothing/accessory/medal/after_successful_nonself_attach(mob/living/carbon/human/H, mob/living/user)
 	if(!channel || !try_announce)
@@ -253,9 +256,9 @@
 	materials = list(MAT_PLASMA = 1000)
 	cares_about_temperature = TRUE
 
-/obj/item/clothing/accessory/medal/plasma/temperature_expose(temperature, volume)
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > T0C + 200)
+	if(exposed_temperature > T0C + 200)
 		burn_up()
 
 /obj/item/clothing/accessory/medal/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
@@ -266,7 +269,7 @@
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 10) //Technically twice as much plasma as it should spawn but a little more never hurt anyone.
-	visible_message("<span class='warning'>[src] bursts into flame!</span>")
+	visible_message(SPAN_WARNING("[src] bursts into flame!"))
 	qdel(src)
 
 // Alloy, for the vetus speculator, or abductors I guess.
@@ -335,6 +338,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
 	)
@@ -344,8 +348,8 @@
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>",
-		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
+		user.visible_message(SPAN_WARNING("[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security."),
+		SPAN_WARNING("You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security."))
 
 /obj/item/clothing/accessory/holobadge/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -359,27 +363,27 @@
 			id_card = pda.id
 
 		if((ACCESS_SEC_DOORS in id_card.access) || emagged)
-			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
+			to_chat(user, SPAN_NOTICE("You imprint your ID details onto the badge."))
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
 		else
-			to_chat(user, "<span class='warning'>[src] rejects your insufficient access rights.</span>")
+			to_chat(user, SPAN_WARNING("[src] rejects your insufficient access rights."))
 		return
 	..()
 
 /obj/item/clothing/accessory/holobadge/emag_act(mob/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
+		to_chat(user, SPAN_WARNING("[src] is already cracked."))
 	else
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
+		to_chat(user, SPAN_WARNING("You swipe the card and crack the holobadge security checks."))
 		return TRUE
 
 /obj/item/clothing/accessory/holobadge/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/user)
 	if(H != user)
-		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
-		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are THE LAW!</span>")
+		user.visible_message(SPAN_WARNING("[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently."),
+		SPAN_WARNING("You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are THE LAW!"))
 		return
 	..()
 
@@ -397,12 +401,12 @@
 /obj/item/clothing/accessory/legal_badge/attack_self__legacy__attackchain(mob/user)
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
-	user.visible_message("<span class='notice'>[user] shows [user.p_their()] [name].</span>", "<span class='notice'>You show your [name].</span>")
+	user.visible_message(SPAN_NOTICE("[user] shows [user.p_their()] [name]."), SPAN_NOTICE("You show your [name]."))
 
 /obj/item/clothing/accessory/legal_badge/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/user)
 	if(H != user)
-		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
-		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are [what_you_are]!</span>")
+		user.visible_message(SPAN_WARNING("[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently."),
+		SPAN_WARNING("You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are [what_you_are]!"))
 		return
 	..()
 
@@ -443,55 +447,82 @@
 	name = "black cowboy shirt"
 	desc = "For a real western look. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
 	name = "shortsleeved black cowboy shirt"
 	desc = "For when it's a hot day in the west. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_s"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/white
 	name = "white cowboy shirt"
 	desc = "For the rancher in us all. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_white"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
 	name = "short sleeved white cowboy shirt"
 	desc = "Best for midday cattle tending. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_whites"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink
 	name = "pink cowboy shirt"
 	desc = "For only the manliest of men, or girliest of girls. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_pink"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
 	name = "short sleeved pink cowboy shirt"
 	desc = "For a real buckle bunny. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_pinks"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy
 	name = "navy cowboy shirt"
 	desc = "Now yer a real cowboy. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_navy"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
 	name = "short sleeved navy cowboy shirt"
 	desc = "Sometimes ya need to roll up your sleeves. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_navys"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/red
 	name = "red cowboy shirt"
 	desc = "It's high noon. Looks like it can clip on to a uniform."
 	icon_state = "cowboyshirt_red"
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
 	name = "short sleeved red cowboy shirt"
@@ -499,6 +530,7 @@
 	icon_state = "cowboyshirt_reds"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
@@ -555,10 +587,10 @@
 	. = ..()
 	var/chosen_pin = show_radial_menu(user, src, flag_icons, require_near = TRUE)
 	if(!chosen_pin)
-		to_chat(user, "<span class='notice'>You decide not to change [src].</span>")
+		to_chat(user, SPAN_NOTICE("You decide not to change [src]."))
 		return
 	var/pin_icon_state = flag_types[chosen_pin]
-	to_chat(user, "<span class='notice'>You change [src] to show [chosen_pin].</span>")
+	to_chat(user, SPAN_NOTICE("You change [src] to show [chosen_pin]."))
 
 	icon_state = pin_icon_state
 	inv_overlay = mutable_appearance('icons/obj/clothing/accessories_overlay.dmi', icon_state)

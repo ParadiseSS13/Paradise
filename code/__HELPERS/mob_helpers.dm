@@ -237,7 +237,7 @@
 		if("execute", SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
-				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized [SPAN_WARNING("EXECUTION")] for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
 		if("search", SEC_RECORD_STATUS_SEARCH)
@@ -245,7 +245,7 @@
 		if("monitor", SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
-			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to [SPAN_WARNING("DEMOTE")] for [their_rank] [their_name], with comment: [comment]")
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -492,7 +492,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	var/cache_key = "[user.UID()][target.UID()][special_identifier]"
 	if(GLOB.do_after_once_tracker[cache_key])
 		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
-		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
+		to_chat(user, SPAN_WARNING("[attempt_cancel_message]"))
 		return FALSE
 
 	extra_checks += CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)
@@ -591,10 +591,10 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(!.)
 			. = M
 		else
-			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			to_chat(user, SPAN_WARNING("Multiple mobs in [A], using first mob found..."))
 			break
 	if(!.)
-		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
+		to_chat(user, SPAN_WARNING("No mob located in [A]."))
 
 // Suppress the mouse macros
 /mob/proc/LogMouseMacro(verbused, params)
@@ -824,3 +824,39 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(bypass_warning && length(limbs))
 			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
 	return (((chest_blacklisted && !base_zone) || even_weights) ? pickweight(limbs) : ran_zone(base_zone, base_probability, limbs))
+
+/proc/create_xeno(ckey, mob/user)
+	if(!ckey)
+		var/list/candidates = list()
+		for(var/mob/M in GLOB.player_list)
+			if(M.stat != DEAD)
+				continue //we are not dead!
+			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+				continue //we don't want to be an alium
+			if(jobban_isbanned(M, ROLE_ALIEN) || jobban_isbanned(M, ROLE_SYNDICATE))
+				continue //we are jobbanned
+			if(M.client.is_afk())
+				continue //we are afk
+			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
+				continue //we have a live body we are tied to
+			candidates += M.ckey
+		if(length(candidates))
+			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
+		else
+			to_chat(user, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>")
+	if(!istext(ckey))	return 0
+
+	var/alien_caste = input(user, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
+	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
+	var/mob/living/carbon/alien/new_xeno
+	switch(alien_caste)
+		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
+		if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
+		if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
+		if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
+		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
+		else			return 0
+
+	new_xeno.ckey = ckey
+	message_admins(SPAN_NOTICE("[key_name_admin(user)] has spawned [ckey] as a filthy xeno [alien_caste]."), 1)
+	return 1

@@ -9,6 +9,7 @@
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 35)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/syndicate.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/syndicate.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/syndicate.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/syndicate.dmi'
 	)
@@ -44,11 +45,11 @@
 	if(slot == ITEM_SLOT_JUMPSUIT)
 		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
 		user.set_invisible(SEE_INVISIBLE_LIVING)
-		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators activate.</span>")
+		to_chat(user, SPAN_NOTICE("You feel a slight shiver as the cybernetic obfuscators activate."))
 
 /obj/item/clothing/under/syndicate/silicon_cham/dropped(mob/user)
 	. = ..()
 	if(user)
 		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
 		user.set_invisible(INVISIBILITY_MINIMUM)
-		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators deactivate.</span>")
+		to_chat(user, SPAN_NOTICE("You feel a slight shiver as the cybernetic obfuscators deactivate."))

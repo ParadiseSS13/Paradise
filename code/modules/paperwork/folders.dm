@@ -38,7 +38,7 @@
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
 		user.drop_item()
 		W.loc = src
-		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You put [W] into [src]."))
 		update_icon(UPDATE_OVERLAYS)
 	else if(is_pen(W))
 		rename_interactive(user, W)
@@ -85,7 +85,7 @@
 		else if(href_list["browse"])
 			var/obj/item/paper_bundle/P = locate(href_list["browse"])
 			if(P && (P.loc == src) && istype(P))
-				P.attack_self__legacy__attackchain(usr)
+				P.activate_self(usr)
 				onclose(usr, "[P.name]")
 
 		//Update everything

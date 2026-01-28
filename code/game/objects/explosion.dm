@@ -16,7 +16,7 @@
 	// If we are in end round, make explosions gib the user
 	// Why? Its funny
 	if(GLOB.disable_explosions && usr && istype(usr, /mob/living/carbon/human))
-		to_chat(usr, "<span class='userdanger'>Your explosive backfires!</span>")
+		to_chat(usr, SPAN_USERDANGER("Your explosive backfires!"))
 		var/mob/living/carbon/human/H = usr
 		H.gib() // lol
 		return
@@ -212,12 +212,9 @@
 	for(var/turf/tile in spiral_range_turfs(range, epicenter))
 		tile.ex_act(EXPLODE_HEAVY)
 
-/client/proc/check_bomb_impacts()
-	set name = "Check Bomb Impact"
-	set category = "Debug"
-
-	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
-	var/turf/epicenter = get_turf(mob)
+USER_VERB(check_bomb_impact, R_DEBUG, "Check Bomb Impact", "Test bomb impact ranges.", VERB_CATEGORY_DEBUG)
+	var/newmode = alert(client, "Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
+	var/turf/epicenter = get_turf(client.mob)
 	if(!epicenter)
 		return
 
@@ -225,7 +222,7 @@
 	var/heavy = 0
 	var/light = 0
 	var/list/choices = list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb")
-	var/choice = input("Bomb Size?") in choices
+	var/choice = input(client, "Bomb Size?") in choices
 	switch(choice)
 		if(null)
 			return 0
@@ -242,9 +239,9 @@
 			heavy = 5
 			light = 7
 		if("Custom Bomb")
-			dev = input("Devastation range (Tiles):") as num
-			heavy = input("Heavy impact range (Tiles):") as num
-			light = input("Light impact range (Tiles):") as num
+			dev = input(client, "Devastation range (Tiles):") as num
+			heavy = input(client, "Heavy impact range (Tiles):") as num
+			light = input(client, "Light impact range (Tiles):") as num
 
 	var/max_range = max(dev, heavy, light)
 	var/x0 = epicenter.x

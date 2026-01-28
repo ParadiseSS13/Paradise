@@ -26,6 +26,13 @@
 	air_contents.set_oxygen(MAX_TARGET_PRESSURE * O2STANDARD * volume / (T20C * R_IDEAL_GAS_EQUATION))
 	air_contents.set_nitrogen(MAX_TARGET_PRESSURE * N2STANDARD * volume / (T20C * R_IDEAL_GAS_EQUATION))
 
+/obj/machinery/atmospherics/portable/pump/empty
+
+/obj/machinery/atmospherics/portable/pump/empty/Initialize(mapload)
+	. = ..()
+	air_contents.set_oxygen(0)
+	air_contents.set_nitrogen(0)
+
 /obj/machinery/atmospherics/portable/pump/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Invaluable for filling air in a room rapidly after a breach repair. The internal gas container can be filled by \
@@ -159,7 +166,7 @@
 	switch(action)
 		if("power")
 			if(connected_port)
-				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
+				to_chat(ui.user, SPAN_WARNING("[src] fails to turn on, the port is covered!"))
 				return
 			on = !on
 			if(on && direction == DIRECTION_OUT)
@@ -197,7 +204,7 @@
 
 /obj/machinery/atmospherics/portable/pump/big/examine(mob/user)
 	. = ..()
-	. += "<br><span class='notice'>This one is quite large, enabling it to hold more air.</span>"
+	. += "<br>[SPAN_NOTICE("This one is quite large, enabling it to hold more air.")]"
 
 /obj/machinery/atmospherics/portable/pump/bluespace
 	name = "bluespace portable air pump"
@@ -208,7 +215,7 @@
 
 /obj/machinery/atmospherics/portable/pump/bluespace/examine(mob/user)
 	. = ..()
-	. += "<br><span class='notice'>This one is not only large, but made of exotic materials, and uses bluespace technology to hold even more air.</span>"
+	. += "<br>[SPAN_NOTICE("This one is not only large, but made of exotic materials, and uses bluespace technology to hold even more air.")]"
 
 /obj/machinery/atmospherics/portable/pump/bluespace/update_icon_state()
 	if(on && direction == DIRECTION_IN)

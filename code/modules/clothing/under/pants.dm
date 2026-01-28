@@ -6,6 +6,7 @@
 	displays_id = FALSE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/pants.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/pants.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/pants.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/pants.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/pants.dmi'
@@ -85,6 +86,11 @@
 	name = "camo pants"
 	desc = "A pair of woodland camouflage pants. Probably not the best choice for a space station."
 	icon_state = "camopants"
+
+/obj/item/clothing/under/pants/cargo
+	name = "cargo pants"
+	desc = "A pair of baggy cargo pants. Not affiliated with the Cargo department."
+	icon_state = "cargopants"
 
 //Shorts ARE pants, right?
 /obj/item/clothing/under/pants/shorts
