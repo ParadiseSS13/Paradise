@@ -17,8 +17,8 @@
 	var/on = FALSE
 	var/volume = 500
 
-/obj/item/watertank/New()
-	..()
+/obj/item/watertank/Initialize(mapload)
+	. = ..()
 	create_reagents(volume)
 	noz = make_noz()
 
@@ -156,8 +156,8 @@
 	desc = "A janitorial watertank backpack with nozzle to clean dirt and graffiti."
 	icon_state = "waterbackpackjani"
 
-/obj/item/watertank/janitor/New()
-	..()
+/obj/item/watertank/janitor/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("cleaner", 500)
 
 /obj/item/reagent_containers/spray/mister/janitor
@@ -186,8 +186,8 @@
 	worn_icon_state = "waterbackpackatmos"
 	inhand_icon_state = "waterbackpackatmos"
 
-/obj/item/watertank/atmos/New()
-	..()
+/obj/item/watertank/atmos/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("water", 500)
 
 /obj/item/watertank/atmos/make_noz()
