@@ -27,9 +27,9 @@
 /obj/item/laser_pointer/purple
 	pointer_icon_state = "purple_laser"
 
-/obj/item/laser_pointer/New()
-	..()
-	diode = new(src)
+/obj/item/laser_pointer/Initialize(mapload)
+	. = ..()
+	create_diode()
 	if(!pointer_icon_state)
 		pointer_icon_state = pick("red_laser","green_laser","blue_laser","purple_laser")
 
@@ -37,11 +37,11 @@
 	QDEL_NULL(diode)
 	return ..()
 
-/obj/item/laser_pointer/upgraded/New()
-	..()
-	diode = new /obj/item/stock_parts/micro_laser/ultra
+/obj/item/laser_pointer/proc/create_diode()
+	diode = new(src)
 
-
+/obj/item/laser_pointer/upgraded/create_diode()
+	diode = new /obj/item/stock_parts/micro_laser/ultra(src)
 
 /obj/item/laser_pointer/attack__legacy__attackchain(mob/living/M, mob/user)
 	laser_act(M, user)

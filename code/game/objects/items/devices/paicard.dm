@@ -21,8 +21,8 @@
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
 
-/obj/item/paicard/New()
-	..()
+/obj/item/paicard/Initialize(mapload)
+	. = ..()
 	overlays += "pai-off"
 
 /obj/item/paicard/Destroy()
