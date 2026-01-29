@@ -281,6 +281,8 @@
 /mob/living/carbon/human/ex_act(severity)
 	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_EXPLOSION_PROOF))
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
+		return
 
 	var/brute_loss = 0
 	var/burn_loss = 0
@@ -1102,6 +1104,40 @@
 						qdel(H)
 
 	..()
+
+
+/mob/living/carbon/human/heal_and_revive(heal_to = 75, revive_message)
+	// We can't heal them if they're missing a heart
+	if(!get_int_organ_datum(ORGAN_DATUM_HEART) && can_heartattack() && !ismachineperson(src))
+		return FALSE
+
+	// We can't heal them if they're missing their lungs
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !get_int_organ_datum(ORGAN_DATUM_LUNGS) && !ismachineperson(src))
+		return FALSE
+
+	if(ismachineperson(src))
+		var/ipc_brute_to_heal = heal_to - getBruteLoss()
+		var/ipc_burn_to_heal = heal_to - getFireLoss()
+		if(ipc_brute_to_heal < 0)
+			adjustBruteLoss(ipc_brute_to_heal, updating_health = FALSE, robotic = TRUE)
+		if(ipc_burn_to_heal < 0)
+			adjustFireLoss(ipc_burn_to_heal, updating_health = FALSE, robotic = TRUE)
+
+	if(blood_volume < BLOOD_VOLUME_STABLE + 50)
+		blood_volume = BLOOD_VOLUME_STABLE + 50
+	
+	. = ..()
+	if(.) // if revived successfully
+		set_heartattack(FALSE)
+		SetLoseBreath(0)
+
+	return .
+
+/mob/living/carbon/can_be_revived()
+	if(!get_int_organ(/obj/item/organ/internal/brain) && (!IS_CHANGELING(src)) || HAS_TRAIT(src, TRAIT_HUSK))
+		return FALSE
+	return ..()
+
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
@@ -2317,8 +2353,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			wings.icon = initial(wings.icon)
 			wings.pixel_x_offset = initial(wings.pixel_x_offset)
 			update_wing_layer()
+			update_body()
 			return
 		wings.is_open = TRUE
 		wings.icon = wings.open_icon
 		wings.pixel_x_offset = -22 // Center these bad boys
 		update_wing_layer()
+		update_body()

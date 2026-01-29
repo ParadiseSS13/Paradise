@@ -41,8 +41,8 @@
 				. += SPAN_NOTICE("[mytape] has [seconds_to_time(mytape.remaining_capacity)] remaining.")
 		. += SPAN_NOTICE("Alt-Click to access the tape.")
 
-/obj/item/taperecorder/New()
-	..()
+/obj/item/taperecorder/Initialize(mapload)
+	. = ..()
 	if(starts_with_tape)
 		mytape = new /obj/item/tape/random(src)
 		update_icon(UPDATE_ICON_STATE)
@@ -360,6 +360,6 @@
 			update_icon(UPDATE_OVERLAYS)
 
 //Random colour tapes
-/obj/item/tape/random/New()
-	..()
+/obj/item/tape/random/Initialize(mapload)
+	. = ..()
 	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple")]"

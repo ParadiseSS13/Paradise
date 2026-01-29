@@ -475,7 +475,8 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/gun/energy/gun/nuclear = 1,
-		/obj/item/storage/bible = 1
+		/obj/item/storage/bible = 1,
+		/obj/item/grenade/frag/holy = 1,
 	)
 
 	cybernetic_implants = list(

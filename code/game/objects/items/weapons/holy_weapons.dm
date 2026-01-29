@@ -12,6 +12,7 @@
 	throw_range = 4
 	throwforce = 10
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	/// Null rod variant names, used for the radial menu
 	var/static/list/variant_names = list()
 	/// Null rod variant icons, used for the radial menu
@@ -30,6 +31,12 @@
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, antimagic_type)
+	AddComponent(/datum/component/effect_remover, \
+		success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
+		success_forcesay = "BEGONE FOUL MAGIKS!!", \
+		effects_we_clear = list(/obj/effect/heretic_rune, /obj/effect/cosmic_rune), \
+		time_to_remove = 5 SECONDS, \
+	)
 	if(!length(variant_names))
 		for(var/I in typesof(/obj/item/nullrod))
 			var/obj/item/nullrod/rod = I
@@ -41,13 +48,16 @@
 	user.visible_message(SPAN_SUICIDE("[user] is killing [user.p_themselves()] with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return BRUTELOSS|FIRELOSS
 
-/obj/item/nullrod/attack__legacy__attackchain(mob/M, mob/living/carbon/user)
-	..()
+/obj/item/nullrod/attack(mob/living/target, mob/living/user, params)
+	. = ..()
+	// ERT null rods are sanctified and do extra damage.
 	if(!sanctify_force)
 		return
-	if(isliving(M))
-		var/mob/living/L = M
-		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
+
+	if(isliving(target))
+		var/mob/living/L = target
+		L.adjustFireLoss(sanctify_force)
+		return
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
@@ -63,9 +73,13 @@
 			throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 
-/obj/item/nullrod/attack_self__legacy__attackchain(mob/user)
+/obj/item/nullrod/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && !reskinned)
 		reskin_holy_weapon(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/examine(mob/living/user)
 	. = ..()
@@ -273,19 +287,21 @@
 	obj_integrity = 100
 	var/possessed = FALSE
 
-/obj/item/nullrod/scythe/talking/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/nullrod/scythe/talking/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(possessed)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, "You attempt to wake the spirit of the blade...")
-
 	possessed = TRUE
-
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, FALSE, 10 SECONDS, source = src, role_cleanname = "possessed blade")
 	var/mob/dead/observer/theghost = null
 
 	if(QDELETED(src))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(length(candidates))
 		theghost = pick(candidates)
 		var/mob/living/simple_animal/shade/sword/S = new(src)
@@ -301,6 +317,7 @@
 	else
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/scythe/talking/Destroy()
 	for(var/mob/living/simple_animal/shade/sword/S in contents)
@@ -309,18 +326,21 @@
 		qdel(S)
 	return ..()
 
-/obj/item/nullrod/scythe/talking/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/soulstone) || !possessed)
+/obj/item/nullrod/scythe/talking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/soulstone) || !possessed)
 		return ..()
+
 	if(obj_integrity >= max_integrity)
 		to_chat(user, SPAN_NOTICE("You have no reason to replace a perfectly good soulstone with a new one."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	to_chat(user, SPAN_NOTICE("You load a new soulstone into the possessed blade."))
 	playsound(user, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
 	obj_integrity = max_integrity
 	for(var/mob/living/simple_animal/shade/sword/sword_shade in contents)
 		sword_shade.health = sword_shade.maxHealth
-	qdel(I)
+	qdel(used)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/scythe/talking/take_damage(damage_amount)
 	if(possessed)
@@ -458,11 +478,16 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	var/used_blessing = FALSE
 
-/obj/item/nullrod/carp/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/nullrod/carp/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(used_blessing)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(user.mind && !HAS_MIND_TRAIT(user, TRAIT_HOLY))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
 	used_blessing = TRUE
@@ -496,8 +521,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-/obj/item/nullrod/tribal_knife/New()
-	..()
+/obj/item/nullrod/tribal_knife/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/tribal_knife/Destroy()
@@ -528,52 +553,56 @@
 	throwforce = 0
 	var/praying = FALSE
 
-/obj/item/nullrod/rosary/attack__legacy__attackchain(mob/living/carbon/M, mob/living/carbon/user)
-	if(!iscarbon(M))
+/obj/item/nullrod/rosary/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!iscarbon(target))
 		return ..()
 
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(praying)
 		to_chat(user, SPAN_NOTICE("You are already using [src]."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(SPAN_NOTICE("[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name]."),
-		SPAN_NOTICE("You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name]."))
+	user.visible_message(
+		SPAN_NOTICE("[user] kneels[target == user ? null : " next to [target]"] and begins to utter a prayer to [SSticker.Bible_deity_name]."),
+		SPAN_NOTICE("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name].")
+		)
 
 	praying = TRUE
-	if(do_after(user, 15 SECONDS, target = M))
-		if(ishuman(M))
-			var/mob/living/carbon/human/target = M
+	if(do_after(user, 15 SECONDS, target = target))
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
 
-			if(target.mind)
-				if(IS_CULTIST(target))
-					var/datum/antagonist/cultist/cultist = IS_CULTIST(target)
+			if(H.mind)
+				if(IS_CULTIST(H))
+					var/datum/antagonist/cultist/cultist = IS_CULTIST(H)
 					cultist.remove_gear_on_removal = TRUE
-					target.mind.remove_antag_datum(/datum/antagonist/cultist)
+					H.mind.remove_antag_datum(/datum/antagonist/cultist)
 					praying = FALSE
-					return
-				var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+					return ITEM_INTERACT_COMPLETE
+
+				var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
 				if(V?.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 					V.adjust_nullification(120, 50)
 					to_chat(target, SPAN_USERDANGER("[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!"))
 					praying = FALSE
-					return
+					return ITEM_INTERACT_COMPLETE
 
 			if(prob(25))
 				to_chat(target, SPAN_NOTICE("[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!"))
-				target.adjustToxLoss(-5)
-				target.adjustOxyLoss(-5)
-				target.adjustBruteLoss(-5)
-				target.adjustFireLoss(-5)
+				H.adjustToxLoss(-5)
+				H.adjustOxyLoss(-5)
+				H.adjustBruteLoss(-5)
+				H.adjustFireLoss(-5)
 
 			praying = FALSE
 
 	else
 		to_chat(user, SPAN_NOTICE("Your prayer to [SSticker.Bible_deity_name] was interrupted."))
 		praying = FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/nazar
 	name = "nazar"
@@ -596,19 +625,24 @@
 	throwforce = 0
 	var/ghostcall_CD = 0
 
-/obj/item/nullrod/salt/attack_self__legacy__attackchain(mob/user)
+/obj/item/nullrod/salt/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
 	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!(ghostcall_CD > world.time))
 		ghostcall_CD = world.time + 5 MINUTES
-		user.visible_message(SPAN_NOTICE("[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!"),
-		SPAN_NOTICE("You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!"))
+		user.visible_message(
+			SPAN_NOTICE("[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!"),
+			SPAN_NOTICE("You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!")
+		)
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
 		to_chat(user, SPAN_NOTICE("You need to wait before using [src] again."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/rosary/bread
 	name = "prayer bread"
@@ -679,8 +713,8 @@
 		. += "<span class='warning'>This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
 			<b>Use the staff in hand</b> while wearing robes to link them both, then aim the staff at your victim to try and convert them.</span>"
 
-/obj/item/nullrod/missionary_staff/New()
-	..()
+/obj/item/nullrod/missionary_staff/Initialize(mapload)
+	. = ..()
 	team_color = pick("red", "blue")
 	icon_state = "godstaff-[team_color]"
 	name = "[team_color] holy staff"
@@ -692,11 +726,14 @@
 		robes = null
 	return ..()
 
-/obj/item/nullrod/missionary_staff/attack_self__legacy__attackchain(mob/user)
-	if(robes)	//as long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message
-		return FALSE
-	if(!ishuman(user))		//prevents the horror (runtimes) of missionary xenos and other non-human mobs that might be able to activate the item
-		return FALSE
+/obj/item/nullrod/missionary_staff/activate_self(mob/user)
+	// As long as it is linked, sec can't try to meta by stealing your staff and seeing if they get the link error message.
+	if(robes)
+		return ..()
+	
+	if(!ishuman(user))
+		return ITEM_INTERACT_COMPLETE
+
 	var/mob/living/carbon/human/missionary = user
 	if(missionary.wear_suit && istype(missionary.wear_suit, /obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe))
 		var/obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe/robe_to_link = missionary.wear_suit
@@ -707,40 +744,52 @@
 		robes.linked_staff = src
 		to_chat(missionary, SPAN_NOTICE("Link established. Faith generators initialized. Go spread the word."))
 		faith = 100		//full charge when a fresh link is made (can't be delinked without destroying the robes so this shouldn't be an exploitable thing)
-		return TRUE
 	else
 		to_chat(missionary, SPAN_WARNING("You must be wearing the missionary robes you wish to link with this staff."))
-		return FALSE
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/nullrod/missionary_staff/afterattack__legacy__attackchain(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
-	if(!ishuman(target) || !ishuman(missionary)) //ishuman checks
-		return
-	if(target == missionary)	//you can't convert yourself, that would raise too many questions about your own dedication to the cause
-		return
-	if(!robes)		//staff must be linked to convert
-		to_chat(missionary, SPAN_WARNING("You must link your staff to a set of missionary robes before attempting conversions."))
-		return
-	if(!missionary.wear_suit || missionary.wear_suit != robes)	//must be wearing the robes to convert
-		return
+/obj/item/nullrod/missionary_staff/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
+	if(!ishuman(target))
+		return ..()
+
+	if(target == user)
+		return ..()
+
+	if(!robes)
+		to_chat(user, SPAN_WARNING("You must link your staff to a set of missionary robes before attempting conversions."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.wear_suit || user.wear_suit != robes)
+		return ITEM_INTERACT_COMPLETE
+
 	if(faith < 100)
-		to_chat(missionary, SPAN_WARNING("You don't have enough faith to attempt a conversion right now."))
-		return
-	to_chat(missionary, SPAN_NOTICE("You concentrate on [target] and begin the conversion ritual..."))
-	if(!target.mind)	//no mind means no conversion, but also means no faith lost.
-		to_chat(missionary, SPAN_WARNING("You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile."))
-		return
-	to_chat(target, SPAN_USERDANGER("Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good..."))
-	if(do_after(missionary, 80))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
-		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
-			to_chat(missionary, SPAN_WARNING("You don't have enough faith to complete the conversion on [target]!"))
-			return
-		if(missionary in viewers(target))	//missionary must maintain line of sight to target, but the target doesn't necessary need to be able to see the missionary
-			do_convert(target, missionary)
+		to_chat(user, SPAN_WARNING("You don't have enough faith to attempt a conversion right now."))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You concentrate on [target] and begin the conversion ritual..."))
+	// No mind means no conversion, but also means no faith lost.
+	var/mob/living/carbon/human/convert_target = target
+	if(!convert_target.mind)
+		to_chat(user, SPAN_WARNING("You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile."))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(target, SPAN_USERDANGER("Your mind seems foggy. For a moment, all you can think about is serving the greater good... The greater good..."))
+	if(do_after(user, 8 SECONDS))
+		// To stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes.
+		if(faith < 100)
+			to_chat(user, SPAN_WARNING("You don't have enough faith to complete the conversion on [target]!"))
+			return ITEM_INTERACT_COMPLETE
+	
+		// User must maintain line of sight to target, but the target doesn't necessary need to be able to see the user.
+		if(user in viewers(target))
+			do_convert(target, user)
 		else
-			to_chat(missionary, SPAN_WARNING("You lost sight of the target before [target.p_they()] could be converted!"))
+			to_chat(user, SPAN_WARNING("You lost sight of the target before [target.p_they()] could be converted!"))
 			faith -= 25		//they escaped, so you only lost a little faith (to prevent spamming)
-	else	//the do_after failed, probably because you moved or dropped the staff
-		to_chat(missionary, SPAN_WARNING("Your concentration was broken!"))
+	// The do_after failed, probably because you moved or dropped the staff
+	else
+		to_chat(user, SPAN_WARNING("Your concentration was broken!"))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 10 MINUTES
