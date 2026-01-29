@@ -297,6 +297,13 @@
 	doorOpen = 'sound/machines/airlock_ext_open.ogg'
 	doorClose = 'sound/machines/airlock_ext_close.ogg'
 
+/obj/machinery/door/airlock/external/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// Snowflakey but we're not a tool and don't get first mover advantage in atom interaction so shruggles
+	if(istype(used, /obj/item/mounted/frame/airlock_controller))
+		return
+
+	return ..()
+
 /obj/machinery/door/airlock/external/glass
 	opacity = FALSE
 	glass = TRUE
