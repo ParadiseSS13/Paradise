@@ -5,27 +5,27 @@
 	/// Assoc list of when the first event in a group can run. key: severity | value: assoc list with upper and low bounds (key: "upper"/"lower" | value: time in deciseconds)
 	var/list/first_run_times = alist(
 		EVENT_LEVEL_MUNDANE = null,
-		EVENT_LEVEL_MODERATE = list("lower" = 19 MINUTES, "upper" = 23 MINUTES),
-		EVENT_LEVEL_MAJOR = list("lower" = 29 MINUTES, "upper" = 36 MINUTES),
-		EVENT_LEVEL_DISASTER = list("lower" = 40 MINUTES, "upper" = 50 MINUTES)
+		EVENT_LEVEL_MODERATE = list("lower" = 15 MINUTES, "upper" = 19 MINUTES),
+		EVENT_LEVEL_MAJOR = list("lower" = 25 MINUTES, "upper" = 32 MINUTES),
+		EVENT_LEVEL_DISASTER = list("lower" = 32 MINUTES, "upper" = 42 MINUTES)
 	) // <---- Whoever designed this needs to be shot
 
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
 	var/list/delay_lower_bound = alist(
-		EVENT_LEVEL_MUNDANE = 5 MINUTES,
-		EVENT_LEVEL_MODERATE = 7.5 MINUTES,
-		EVENT_LEVEL_MAJOR = 12 MINUTES,
-		EVENT_LEVEL_DISASTER = 9 MINUTES
+		EVENT_LEVEL_MUNDANE = 3 MINUTES,
+		EVENT_LEVEL_MODERATE = 5 MINUTES,
+		EVENT_LEVEL_MAJOR = 8 MINUTES,
+		EVENT_LEVEL_DISASTER = 7 MINUTES
 	)
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
 	var/list/delay_upper_bound = alist(
-		EVENT_LEVEL_MUNDANE = 7.5 MINUTES,
-		EVENT_LEVEL_MODERATE = 12 MINUTES,
-		EVENT_LEVEL_MAJOR = 17 MINUTES,
-		EVENT_LEVEL_DISASTER = 12 MINUTES
+		EVENT_LEVEL_MUNDANE = 5.5 MINUTES,
+		EVENT_LEVEL_MODERATE = 10 MINUTES,
+		EVENT_LEVEL_MAJOR = 15 MINUTES,
+		EVENT_LEVEL_DISASTER = 10 MINUTES
 	)
 	/// Expected time of a round in deciseconds
-	var/expected_round_length = 120 MINUTES // This macro is equivilent to 72,000 deciseconds
+	var/expected_round_length = 90 MINUTES // This macro is equivilent to 54,000 deciseconds
 
 	/// the population needed to allow blobs to split consciousness
 	var/blob_highpop_trigger = 60
