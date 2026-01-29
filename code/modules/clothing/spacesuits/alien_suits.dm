@@ -179,21 +179,23 @@
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/feet.dmi')
 	multiple_icons = FALSE
 
-/obj/item/clothing/shoes/magboots/vox/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/shoes/magboots/vox/activate_self(mob/user)
+	if(!ishuman(user))
+		return ITEM_INTERACT_COMPLETE
+
 	if(magpulse)
 		set_nodrop(FALSE, loc)
-		to_chat(user, "You relax your deathgrip on the flooring.")
+		to_chat(user, SPAN_NOTICE("You relax your deathgrip on the flooring."))
 	else
-		//make sure these can only be used when equipped.
-		if(!ishuman(user))
-			return
+		//make sure these can only be turned on when equipped.
 		var/mob/living/carbon/human/H = user
 		if(H.shoes != src)
 			to_chat(user, SPAN_WARNING("You will have to put on [src] before you can do that."))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		set_nodrop(TRUE, loc) //kinda hard to take off magclaws when you are gripping them tightly.
-		to_chat(user, "You dig your claws deeply into the flooring, bracing yourself.")
-		to_chat(user, "It would be hard to take off [src] without relaxing your grip first.")
+		to_chat(user, SPAN_NOTICE("You dig your claws deeply into the flooring, bracing yourself."))
+		to_chat(user, SPAN_NOTICE("It would be hard to take off [src] without relaxing your grip first."))
 	return ..()
 
 //In case they somehow come off while enabled.
