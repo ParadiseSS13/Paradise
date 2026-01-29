@@ -101,6 +101,44 @@ jobs:
           tools/ci/generate_maplist.sh
           DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
 
+  docker_build:
+    name: Build (Docker)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable Docker Cache
+        uses: ScribeMD/docker-cache@0.5.0
+        with:
+          key: docker-${{ runner.os }}-${{ hashFiles('_build_dependencies.sh') }}
+      - name: Checkout Project
+        uses: actions/checkout@v6
+      - name: Generate Docker Metadata
+        id: docker_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/paradisess13/paradise
+          tags: |
+            # branch event
+            type=ref,event=branch
+            # pull request event
+            type=ref,event=pr
+            # full length sha
+            type=sha,format=long
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+          push: ${{ github.event_name != 'pull_request' }}
+
   station_mapload_tests:
     name: Station Tests
     runs-on: ubuntu-22.04
