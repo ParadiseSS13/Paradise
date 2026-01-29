@@ -19,8 +19,12 @@
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/mask.dmi'
 		)
 
-/obj/item/clothing/mask/breath/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/breath/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/breath/AltClick(mob/user)
 	..()
@@ -48,8 +52,9 @@
 	desc = "A weirdly-shaped breath mask, this one seems to designed for a vox beak."
 	icon_state = "voxmask2"
 
-/obj/item/clothing/mask/breath/vox/attack_self__legacy__attackchain(mob/user)
-	return
+/obj/item/clothing/mask/breath/vox/activate_self(mob/user)
+	. = ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/breath/vox/AltClick(mob/user)
 	return
