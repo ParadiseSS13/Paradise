@@ -271,6 +271,14 @@
 	allow_duplicates = FALSE // Less space on lavaland. Ideally we would figure out a way to ban this from spawning the same level as the mining base
 	always_place = TRUE // Since only one can spawn for now, might as well ensure it.
 
+/datum/map_template/ruin/lavaland/basalt_lab
+	id = "basalt_lab"
+	suffix = "lavaland_surface_basalt_lab.dmm"
+	name = "Basalt Laboratory"
+	description = "A humble self-sustaining lab that was set up to study the Necropolis' activities on Lavaland that soon got overrun by the thing it was researching."
+	allow_duplicates = FALSE
+	always_place = TRUE
+
 // MARK: Bridges
 
 /datum/map_template/ruin/lavaland/zlvl_bridge
