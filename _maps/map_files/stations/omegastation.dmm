@@ -28113,9 +28113,6 @@
 "jBE" = (
 /obj/machinery/disposal,
 /obj/machinery/light,
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -51943,6 +51940,9 @@
 /area/station/engineering/equipmentstorage)
 "xnt" = (
 /obj/structure/closet/emcloset,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/primary/starboard)
 "xnx" = (
