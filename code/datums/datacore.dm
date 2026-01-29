@@ -347,7 +347,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(istype(head_organ.dna.species, /datum/species/slime))
 			facial_s.Blend("[H.skin_colour]A0", ICON_ADD) //A0 = 160 alpha.
 		else
-			facial_s.Blend(head_organ.facial_colour, ICON_ADD)
+			species_contextblend(facial_s, head_organ.facial_colour)
 
 		if(facial_hair_style.secondary_theme)
 			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")

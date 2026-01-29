@@ -508,7 +508,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				if(istype(head_organ.dna.species, /datum/species/slime)) // I am el worstos
 					facial_s.Blend("[skin_colour]A0", ICON_AND)
 				else if(facial_hair_style.do_colouration)
-					facial_s.Blend(head_organ.facial_colour, ICON_ADD)
 					species_contextblend(facial_s, head_organ.facial_colour)
 				if(facial_hair_style.secondary_theme)
 					var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
