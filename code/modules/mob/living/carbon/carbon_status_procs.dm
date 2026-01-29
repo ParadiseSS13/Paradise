@@ -8,7 +8,7 @@
 		return
 	if(!IsWeakened())
 		to_chat(src, SPAN_NOTICE("You're too exhausted to keep going..."))
-	if(ai_controller)
+	if(istype(ai_controller))
 		ai_controller.cancel_actions()
 		GLOB.move_manager.stop_looping(src)
 	SEND_SIGNAL(src, COMSIG_CARBON_ENTER_STAMINACRIT)
