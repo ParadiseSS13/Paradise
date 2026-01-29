@@ -61,11 +61,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)][lit ? "_on" : ""]"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_wear_mask()
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+	update_mob_overlay()
 
 /obj/item/clothing/mask/cigarette/update_name()
 	. = ..()
@@ -256,10 +252,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		if(C.wear_mask == src) // Don't update if it's just in their hand
-			C.wear_mask_update(src)
 	set_light(2, 0.25, "#E38F46")
 	update_appearance(UPDATE_NAME|UPDATE_ICON)
 	START_PROCESSING(SSobj, src)

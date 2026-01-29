@@ -877,37 +877,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/get_part_rating()
 	return 0
 
-/obj/item/proc/update_slot_icon()
+/// Updates our appearance on mob. Consider using this over manual calling `update_inv_` /mob procs when you are working on /item level.
+/// Note that this proc will only update 1 specific slot this item is currently located at
+/obj/item/proc/update_mob_overlay()
 	if(!ismob(loc))
 		return
 	var/mob/owner = loc
-	var/flags = slot_flags
-	if(flags & ITEM_SLOT_OUTER_SUIT)
-		owner.update_inv_wear_suit()
-	if(flags & ITEM_SLOT_JUMPSUIT)
-		owner.update_inv_w_uniform()
-	if(flags & ITEM_SLOT_GLOVES)
-		owner.update_inv_gloves()
-	if(flags & ITEM_SLOT_EYES)
-		owner.update_inv_glasses()
-	if(flags & ITEM_SLOT_BOTH_EARS)
-		owner.update_inv_ears()
-	if(flags & ITEM_SLOT_MASK)
-		owner.update_inv_wear_mask()
-	if(flags & ITEM_SLOT_NECK)
-		owner.update_inv_neck()
-	if(flags & ITEM_SLOT_HEAD)
-		owner.update_inv_head()
-	if(flags & ITEM_SLOT_SHOES)
-		owner.update_inv_shoes()
-	if(flags & ITEM_SLOT_ID)
-		owner.update_inv_wear_id()
-	if(flags & ITEM_SLOT_BELT)
-		owner.update_inv_belt()
-	if(flags & ITEM_SLOT_BACK)
-		owner.update_inv_back()
-	if(flags & ITEM_SLOT_PDA)
-		owner.update_inv_wear_pda()
+	owner.update_worn_overlays(owner.get_slot_by_item(src))
 
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
 /obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)

@@ -55,8 +55,6 @@
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
 	owner.transfer_item_to(weapon_ref, owner, force = TRUE, silent = TRUE)
-	owner.update_inv_l_hand()
-	owner.update_inv_r_hand()
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 25, TRUE, ignore_walls = FALSE)
 	UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
 	UnregisterSignal(owner, COMSIG_FLAYER_RETRACT_IMPLANTS)

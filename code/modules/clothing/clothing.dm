@@ -220,8 +220,7 @@
 		return
 
 	over_mask = !over_mask
-	if(user.glasses == src)
-		user.update_inv_glasses()
+	update_mob_overlay()
 	to_chat(user, SPAN_NOTICE("You adjust [src] to be worn [over_mask ? "over" : "under"] a mask."))
 
 //////////////////////////////
@@ -483,9 +482,7 @@
 /obj/item/clothing/head/proc/detach_hat(obj/item/clothing/head/hat, mob/user)
 	attached_hats -= hat
 	hat.on_removed(user)
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_head()
+	update_mob_overlay()
 
 /obj/item/clothing/head/proc/remove_hat(mob/user, obj/item/clothing/head/hat)
 	if(!(hat in attached_hats))
@@ -521,10 +518,7 @@
 
 		attached_hats += hat
 		hat.on_attached(src, user)
-
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.update_inv_head()
+		update_mob_overlay()
 
 		return TRUE
 	else if(hat.has_under)
@@ -677,9 +671,7 @@
 				else //Otherwise, put it in an available hand, the active one preferentially.
 					user.drop_item_to_ground(src)
 					user.put_in_hands(src)
-	H.wear_mask_update(src, toggle_off = up)
-	usr.update_inv_wear_mask()
-	usr.update_inv_head()
+	update_mob_overlay()
 	update_action_buttons()
 
 //////////////////////////////
@@ -913,7 +905,6 @@
 			user.drop_item_to_ground(src)
 			qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
-			user.update_inv_wear_suit()
 			return
 		else
 			to_chat(user, SPAN_WARNING("You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!"))//Yep, that's all they get. Avoids having to snowflake in a cooldown.
@@ -936,7 +927,7 @@
 
 	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)
-	user.update_inv_wear_suit()
+	update_mob_overlay()
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
@@ -1191,10 +1182,7 @@
 
 		accessories += A
 		A.on_attached(src, user)
-
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.update_inv_w_uniform()
+		update_mob_overlay()
 
 		return TRUE
 	else
@@ -1205,9 +1193,7 @@
 /obj/item/clothing/under/proc/detach_accessory(obj/item/clothing/accessory/A, mob/user)
 	accessories -= A
 	A.on_removed(user)
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_w_uniform()
+	update_mob_overlay()
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
@@ -1251,7 +1237,7 @@
 	else
 		body_parts_covered = initial(body_parts_covered)
 	worn_icon_state = "[base_icon_state][rolled_down ? "[JUMPSUIT_ROLLED_DOWN_SUFFIX]" : ""]"
-	user.update_inv_w_uniform()
+	update_mob_overlay()
 
 #undef JUMPSUIT_ROLLED_DOWN_SUFFIX
 
