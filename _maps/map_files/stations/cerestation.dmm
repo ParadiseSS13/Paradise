@@ -55473,10 +55473,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
-"kNO" = (
-/obj/machinery/power/electrolyzer,
-/turf/space,
-/area/space)
 "kNV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -118717,7 +118713,7 @@ rNK
 rNK
 rNK
 rNK
-kNO
+rNK
 rNK
 rNK
 rNK
