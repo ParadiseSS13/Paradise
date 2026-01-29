@@ -83,7 +83,7 @@
 
 /area/station/command/office/dignitary
 	name = "\improper Dignitary's Office"
-	icon_state = "ntrep"
+	icon_state = "dig_office"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Dignitary"
 	request_console_announces = TRUE

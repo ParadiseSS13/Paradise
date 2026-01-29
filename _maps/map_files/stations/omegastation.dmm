@@ -410,7 +410,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "acF" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -4190,7 +4190,7 @@
 	pixel_x = 8
 	},
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "asf" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 4
@@ -8157,11 +8157,11 @@
 /obj/effect/landmark/start/internal_affairs,
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "aIP" = (
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "aIR" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/library,
@@ -8429,7 +8429,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "aJX" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -8688,7 +8688,7 @@
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "aLc" = (
 /obj/machinery/camera/autoname{
 	dir = 1
@@ -8698,11 +8698,11 @@
 	name = "Paperwork's bed"
 	},
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "aLd" = (
 /obj/structure/closet/secure_closet/iaa,
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "aLf" = (
 /obj/structure/table/wood,
 /obj/machinery/firealarm/directional/south,
@@ -8710,7 +8710,7 @@
 	department = "Magistrate's Office"
 	},
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "aLg" = (
 /obj/structure/sign/nanotrasen,
 /turf/simulated/wall,
@@ -9573,6 +9573,7 @@
 	pixel_x = -7;
 	pixel_y = 1
 	},
+/obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "aOO" = (
@@ -13463,7 +13464,7 @@
 /obj/structure/sign/poster/official/random/directional/north,
 /obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "bmD" = (
 /obj/structure/sign/radiation{
 	pixel_x = -32
@@ -15591,7 +15592,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "csh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -19449,7 +19450,7 @@
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "exd" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -19636,7 +19637,7 @@
 /obj/item/gavelblock,
 /obj/item/stamp/magistrate,
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "eEP" = (
 /obj/structure/table/reinforced,
 /obj/item/toy/ai{
@@ -19990,6 +19991,8 @@
 	dir = 8
 	},
 /obj/machinery/economy/vending/wallmed/directional/west,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "eNA" = (
@@ -24943,7 +24946,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "hHU" = (
 /obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -25784,7 +25787,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "icu" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
@@ -27334,7 +27337,7 @@
 	},
 /obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "jcP" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -29315,7 +29318,7 @@
 "kqR" = (
 /obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "kqV" = (
 /obj/structure/transit_tube/curved{
 	dir = 1
@@ -31656,7 +31659,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "lPB" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -34073,7 +34076,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/iaa,
 /turf/simulated/floor/wood,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "njn" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -35165,7 +35168,7 @@
 /area/station/maintenance/aft)
 "nPb" = (
 /turf/simulated/wall,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "nPu" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -41228,7 +41231,7 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "rEl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -41931,7 +41934,7 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
+/obj/structure/disposalpipe/junction/reversed{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -42733,7 +42736,7 @@
 /obj/structure/sign/poster/official/random/directional/north,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet,
-/area/station/legal/lawoffice)
+/area/station/legal/legaloffice)
 "sDC" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/prison)
