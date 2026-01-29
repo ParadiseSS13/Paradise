@@ -104,7 +104,7 @@
 		M.throw_at(target_turf, 5, 10)
 
 	if(!silent)
-		M.visible_message(SPAN_NOTICE("[M] drops out of \the [src]!"))
+		M.visible_message(SPAN_NOTICE("[M] climbs out of \the [src]!"))
 	return TRUE
 
 /obj/tgvehicle/sealed/proc/exit_location(M)
