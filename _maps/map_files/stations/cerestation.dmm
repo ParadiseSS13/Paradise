@@ -9857,10 +9857,10 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/spacebridge/cargocom)
 "bCK" = (
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/command/starboard)
 "bCP" = (
@@ -22511,9 +22511,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/smes/engineering{
-	output_level = 100000
-	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/fore_starboard)
 "dCh" = (
@@ -25203,7 +25201,7 @@
 /area/space/nearstation)
 "ejQ" = (
 /obj/structure/cable,
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/port)
 "ejZ" = (
@@ -31127,7 +31125,7 @@
 /area/station/maintenance/starboard)
 "fyH" = (
 /obj/structure/cable,
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/aft_starboard)
 "fyR" = (
@@ -87879,7 +87877,7 @@
 /area/station/maintenance/fsmaint)
 "scR" = (
 /obj/structure/cable,
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/starboard)
 "scU" = (
@@ -96671,10 +96669,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/checkpoint/secondary)
 "tZa" = (
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-8"
 	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/fore_port)
 "tZf" = (
@@ -98827,10 +98825,10 @@
 /area/station/hallway/spacebridge/scidock)
 "uwj" = (
 /obj/structure/cable,
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/apmaint)
 "uwk" = (

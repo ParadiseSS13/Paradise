@@ -460,6 +460,32 @@
 
 /obj/machinery/power/smes/empty
 
+/obj/machinery/power/smes/transformer
+	name = "electrical transformer"
+	desc = "A device that can convert between high and low voltage. It serves as an intermediary between a powerplant and power-consuming machinery."
+	icon_state = "transformer"
+	capacity = 300 // Low capacitance
+	input_level = 200000
+
+/obj/machinery/power/smes/transformer/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/transformer(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	RefreshParts()
+
+/obj/machinery/power/smes/transformer/RefreshParts()
+	var/IO = 0
+	for(var/obj/item/stock_parts/capacitor/CP in component_parts)
+		IO += CP.rating
+	input_level_max = 200000 * IO
+	output_level_max = 200000 * IO
+
+/obj/machinery/power/smes/transformer/update_overlays()
+	..()
+	overlays.Cut()
+
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Magically produces power."
