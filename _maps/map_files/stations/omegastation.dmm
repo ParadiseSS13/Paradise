@@ -6234,6 +6234,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/port)
+"awJ" = (
+/obj/effect/turf_decal/tiles/department/science,
+/obj/structure/closet/secure_closet/scientist,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/hallway)
 "awK" = (
 /obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet/arcade,
@@ -13256,15 +13261,6 @@
 "bcI" = (
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/primary/aft)
-"bdc" = (
-/obj/machinery/computer/ai_resource{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/rd)
 "bdf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -17465,15 +17461,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
-"cLM" = (
-/obj/structure/table/glass,
-/obj/item/aicard,
-/obj/item/circuitboard/aicore{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/rd)
 "cMg" = (
 /obj/effect/turf_decal/tiles/department/science/corner,
 /obj/structure/cable{
@@ -21948,8 +21935,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "ftf" = (
+/obj/machinery/computer/ai_resource{
+	dir = 4
+	},
 /obj/effect/turf_decal/tiles/department/science/side{
-	dir = 9
+	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
@@ -23209,15 +23199,6 @@
 /obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
-"gik" = (
-/obj/machinery/computer/aifixer{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/rd)
 "gjq" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
@@ -24140,13 +24121,6 @@
 	},
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel/white,
-/area/station/science/misc_lab)
-"gOn" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "gON" = (
 /obj/structure/sign/nanotrasen{
@@ -26244,7 +26218,6 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/structure/sign/poster/random/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "hVP" = (
@@ -37952,6 +37925,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"pto" = (
+/obj/structure/sign/poster/random/directional/north,
+/obj/effect/turf_decal/tiles/department/science,
+/obj/machinery/economy/vending/scidrobe,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/hallway)
 "ptt" = (
 /obj/machinery/light{
 	dir = 4
@@ -38731,24 +38710,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
-"pUO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/misc_lab)
 "pVk" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -46664,11 +46625,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "uyc" = (
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 5
+/obj/machinery/computer/aifixer{
+	dir = 8
 	},
-/obj/machinery/light{
-	dir = 4
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/rd)
@@ -50731,7 +50692,6 @@
 	name = "Science Lockdown Blast Door"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
 "wRs" = (
@@ -52852,6 +52812,12 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/aicard,
+/obj/item/circuitboard/aicore{
+	pixel_x = -2;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
@@ -92473,7 +92439,7 @@ ckk
 bWH
 ugK
 uLm
-lGr
+dkp
 szX
 oqK
 pRY
@@ -92729,8 +92695,8 @@ xoP
 opO
 yfK
 ftf
-bdc
 lGr
+awJ
 sZr
 cnd
 pRY
@@ -92986,8 +92952,8 @@ oNP
 uIy
 pyo
 syo
-cLM
 lGr
+pto
 hVG
 vwy
 pRY
@@ -93243,8 +93209,8 @@ cJZ
 gLJ
 jcm
 uyc
-gik
 lGr
+awJ
 sZr
 cnd
 pRY
@@ -93501,7 +93467,7 @@ uFH
 uLm
 uLm
 uLm
-lGr
+dkp
 mxq
 laA
 pRY
@@ -95048,8 +95014,8 @@ oMb
 qGL
 mxB
 nMi
-gOn
-pUO
+oHo
+mLI
 mLQ
 egN
 xrT
