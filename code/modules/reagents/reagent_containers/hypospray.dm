@@ -293,7 +293,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
 	name = "suspicious medipen"
-	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse."
+	desc = "A cheap-looking medipen. It contains a wide mix of medicines to fix most health issues. The reagent list seems to match up with the chemicals stolen from a recently-raided Nanotrasen warehouse."
 	icon_state = "hyperpen"
 	amount_per_transfer_from_this = 37
 	volume = 37
