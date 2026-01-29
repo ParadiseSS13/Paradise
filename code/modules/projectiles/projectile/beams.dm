@@ -110,6 +110,10 @@
 	armor_penetration_flat = -10
 	light_color = LIGHT_COLOR_BLUE
 
+/obj/projectile/beam/disabler/swarmer
+	name = "weakened disabler beam"
+	damage = 20
+
 /obj/projectile/beam/disabler/fake
 	name = "weakened disabler beam"
 	nodamage = 1

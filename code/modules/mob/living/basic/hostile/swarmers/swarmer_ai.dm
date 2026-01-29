@@ -40,6 +40,7 @@
 		/datum/ai_planning_subtree/swarmer_find_construction_target,
 		/datum/ai_planning_subtree/swarmer_create_trap,
 		/datum/ai_planning_subtree/swarmer_create_barricade,
+		/datum/ai_planning_subtree/swarmer_share_resources,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/avoid_breaches/walls/swarmer_hunting,
 		/datum/ai_planning_subtree/find_and_hunt_target/corpses/swarmer,
 		/datum/ai_planning_subtree/find_and_hunt_target/swarmer_objects,
@@ -296,3 +297,46 @@
 /datum/ai_behavior/swarmer_create_barricade/finish_action(datum/ai_controller/controller, succeeded, action_key, target_key)
 	controller.clear_blackboard_key(target_key)
 	return ..()
+
+/// Run the resource sharing behavior
+/datum/ai_planning_subtree/swarmer_share_resources
+	/// Key where the share action is stored
+	var/action_key = BB_SWARMER_RESOURCE_SHARE_ACTION
+
+/datum/ai_planning_subtree/swarmer_share_resources/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	var/mob/living/basic/swarmer/lesser/user = controller.pawn
+	if(!istype(user))
+		return
+	if(!user.progenitor)
+		return
+	if(user.resources < 50)
+		return
+	if(!controller.blackboard_key_exists(action_key))
+		return
+	var/datum/action/cooldown/mob_cooldown/swarmer_share_resources/share_action = controller.blackboard[action_key]
+	if(share_action.IsAvailable())
+		controller.queue_behavior(/datum/ai_behavior/swarmer_share_resources, action_key)
+		return SUBTREE_RETURN_FINISH_PLANNING
+
+/// Share resources with the parent swarmer
+/datum/ai_behavior/swarmer_share_resources
+	action_cooldown = 15 SECONDS
+	required_distance = 0
+	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
+
+/datum/ai_behavior/swarmer_share_resources/setup(datum/ai_controller/controller, action_key)
+	var/datum/action/cooldown/mob_cooldown/swarmer_share_resources/share_action = controller.blackboard[action_key]
+	var/mob/living/basic/swarmer/user = controller.pawn
+	if(!istype(user))
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
+	if(!share_action || user.resources < 50)
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
+	return ..()
+
+/datum/ai_behavior/swarmer_share_resources/perform(seconds_per_tick, datum/ai_controller/controller, action_key)
+	. = ..()
+	var/datum/action/cooldown/mob_cooldown/swarmer_share_resources/share_action = controller.blackboard[action_key]
+	if(share_action?.Trigger())
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
+
