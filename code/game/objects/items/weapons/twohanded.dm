@@ -63,8 +63,11 @@
 /obj/item/fireaxe/energized/Initialize(mapload)
 	. = ..()
 	// only update the new args
-	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
+
+/obj/item/fireaxe/energized/New()
+	..()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/fireaxe/energized/Destroy()
 	STOP_PROCESSING(SSobj, src)

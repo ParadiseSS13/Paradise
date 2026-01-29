@@ -163,8 +163,8 @@
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	var/temp = 300
 
-/obj/item/ammo_casing/energy/temp/Initialize(mapload)
-	. = ..()
+/obj/item/ammo_casing/energy/temp/New()
+	..()
 	BB = null
 
 /obj/item/ammo_casing/energy/temp/newshot()
@@ -234,7 +234,7 @@
 	select_name = "blue"
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/wormhole/Initialize(mapload, obj/item/gun/energy/wormhole_projector/wh)
+/obj/item/ammo_casing/energy/wormhole/New(obj/item/gun/energy/wormhole_projector/wh)
 	gun = wh
 	return ..()
 
@@ -348,8 +348,8 @@
 	select_name = "teleport beam"
 	var/teleport_target
 
-/obj/item/ammo_casing/energy/teleport/Initialize(mapload)
-	. = ..()
+/obj/item/ammo_casing/energy/teleport/New()
+	..()
 	BB = null
 
 /obj/item/ammo_casing/energy/teleport/newshot()
@@ -362,8 +362,8 @@
 	select_name = "gun mimic"
 	var/mimic_type
 
-/obj/item/ammo_casing/energy/mimic/Initialize(mapload)
-	. = ..()
+/obj/item/ammo_casing/energy/mimic/New()
+	..()
 	BB = null
 
 /obj/item/ammo_casing/energy/mimic/newshot()

@@ -23,10 +23,13 @@
 	dog_fashion = null
 	requires_tcomms = TRUE
 
+/obj/item/radio/headset/New()
+	..()
+	internal_channels.Cut()
+
 /obj/item/radio/headset/Initialize(mapload)
 	. = ..()
 
-	internal_channels.Cut()
 	if(ks1type)
 		keyslot1 = new ks1type(src)
 		if(keyslot1.syndie)
@@ -122,7 +125,7 @@
 /obj/item/radio/headset/syndicate/alt/nocommon
 	name = "syndicate researcher headset"
 
-/obj/item/radio/headset/syndicate/alt/nocommon/Initialize(mapload)
+/obj/item/radio/headset/syndicate/alt/nocommon/New()
 	. = ..()
 	set_frequency(SYND_FREQ)
 

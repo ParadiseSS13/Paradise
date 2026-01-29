@@ -1091,9 +1091,9 @@
 		var/mob/living/carbon/human/H = M
 		if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
 			if(isslimeperson(H))
-				new /obj/item/organ/internal/bone_tumor/slime_tumor(H, H)
+				new /obj/item/organ/internal/bone_tumor/slime_tumor(H)
 			else
-				new /obj/item/organ/internal/bone_tumor(H, H)
+				new /obj/item/organ/internal/bone_tumor(H)
 
 	return ..()
 

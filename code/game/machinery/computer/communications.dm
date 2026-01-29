@@ -595,9 +595,9 @@
 	SSshuttle.autoEvac()
 	return ..()
 
-/obj/item/circuitboard/communications/Initialize(mapload)
-	. = ..()
+/obj/item/circuitboard/communications/New()
 	GLOB.shuttle_caller_list += src
+	..()
 
 /obj/item/circuitboard/communications/Destroy()
 	GLOB.shuttle_caller_list -= src

@@ -49,8 +49,8 @@
 	update_icon()
 	return secured
 
-/obj/item/assembly/infra/Initialize(mapload)
-	. = ..()
+/obj/item/assembly/infra/New()
+	..()
 	if(!secured)
 		toggle_secure()
 
@@ -185,8 +185,8 @@
 
 
 
-/obj/item/assembly/infra/armed/Initialize(mapload)
-	. = ..()
+/obj/item/assembly/infra/armed/New()
+	..()
 	spawn(3)
 		if(holder)
 			if(holder.master)

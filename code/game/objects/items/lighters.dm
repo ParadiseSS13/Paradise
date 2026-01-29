@@ -370,8 +370,8 @@
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
 	smoketime = 20 //40 seconds
 
-/obj/item/match/firebrand/Initialize(mapload)
-	. = ..()
+/obj/item/match/firebrand/New()
+	..()
 	matchignite()
 
 /obj/item/match/unathi

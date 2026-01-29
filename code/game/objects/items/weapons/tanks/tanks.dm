@@ -16,8 +16,8 @@
 	var/integrity = 3
 	var/volume = 70
 
-/obj/item/tank/Initialize(mapload)
-	. = ..()
+/obj/item/tank/New()
+	..()
 
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
@@ -26,6 +26,7 @@
 	populate_gas()
 
 	START_PROCESSING(SSobj, src)
+	return
 
 /obj/item/tank/Destroy()
 	QDEL_NULL(air_contents)

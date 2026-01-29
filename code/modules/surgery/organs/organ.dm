@@ -58,8 +58,8 @@
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/Initialize(mapload, mob/living/carbon/holder, datum/species/species_override = null)
-	. = ..()
+/obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
+	..(holder)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(ishuman(holder))

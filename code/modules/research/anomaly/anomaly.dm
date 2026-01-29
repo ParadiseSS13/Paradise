@@ -61,8 +61,8 @@
 /obj/item/assembly/signaler/anomaly/random
 	name = "Random anomaly core"
 
-/obj/item/assembly/signaler/anomaly/random/Initialize(mapload)
-	. = ..()
+/obj/item/assembly/signaler/anomaly/random/New()
+	..()
 	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
 	var/A = pick(types)
 	new A(loc)

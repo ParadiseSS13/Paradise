@@ -31,8 +31,8 @@
 		injector_mob = user
 	..()
 
-/obj/item/slime_extract/Initialize(mapload)
-	. = ..()
+/obj/item/slime_extract/New()
+	..()
 	create_reagents(100)
 
 /obj/item/slime_extract/grey

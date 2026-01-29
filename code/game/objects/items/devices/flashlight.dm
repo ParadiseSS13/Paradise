@@ -163,19 +163,15 @@
 	icon_state = "flare"
 	inhand_icon_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
-	/// This var will get checked in Initialize() and if it's true, it'll get set to a randomized fuel value.
-	/// If it's 0, it'll simply remain a used up flare.
-	var/fuel = TRUE
+	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
 	var/fuel_lower = 800
 	var/fuel_upp = 1000
 
-/obj/item/flashlight/flare/Initialize(mapload)
-	. = ..()
-	if(fuel)
-		fuel = rand(fuel_lower, fuel_upp)
-	update_icon()
+/obj/item/flashlight/flare/New()
+	fuel = rand(fuel_lower, fuel_upp)
+	..()
 
 /obj/item/flashlight/flare/update_icon_state()
 	inhand_icon_state = "[initial(inhand_icon_state)][on ? "-on" : ""]"
@@ -226,10 +222,20 @@
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/used
-	fuel = 0
 
-/obj/item/flashlight/flare/glowstick/used
+/obj/item/flashlight/flare/used/Initialize(mapload)
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
 	fuel = 0
+	on = 0
+	update_icon()
+
+/obj/item/flashlight/flare/glowstick/used/Initialize(mapload)
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user) && !fuel)
@@ -328,8 +334,8 @@
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
 
-/obj/item/flashlight/slime/Initialize(mapload)
-	. = ..()
+/obj/item/flashlight/slime/New()
+	..()
 	set_light(brightness_on)
 	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
 		update_brightness()
@@ -352,8 +358,8 @@
 	var/emp_cur_charges = 4
 	var/charge_tick = 0
 
-/obj/item/flashlight/emp/Initialize(mapload)
-	. = ..()
+/obj/item/flashlight/emp/New()
+	..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/emp/Destroy()
