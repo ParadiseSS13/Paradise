@@ -13,6 +13,21 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/horn, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/headlights, VEHICLE_CONTROL_DRIVE)
 
+/obj/tgvehicle/sealed/car/forklift
+	name = "forklift"
+	desc = "Are you certified?"
+	icon_state = "engineering_pod"
+	key_type = /obj/item/stamp/granted
+	enter_sound = 'sound/effects/clowncar/door_close.ogg'
+	exit_sound = 'sound/effects/clowncar/door_open.ogg'
+	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, RAD = 100, FIRE = 100, ACID = 80)
+	access_provider_flags = VEHICLE_CONTROL_DRIVE
+
+/obj/tgvehicle/sealed/car/forklift/generate_actions()
+	. = ..()
+	initialize_controller_action_type(/datum/action/vehicle/sealed/horn, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/headlights, VEHICLE_CONTROL_DRIVE)
+
 /obj/tgvehicle/sealed/car/engineering_pod
 	name = "engineering pod"
 	desc = "A state of the art pod featuring an experimental nuclear engine."
