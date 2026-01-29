@@ -233,7 +233,6 @@
 		if(loaded.cable_type == /obj/structure/cable/extra_insulated/pre_connect)
 			loaded.cable_type = /obj/structure/cable/extra_insulated
 			to_chat(user, SPAN_NOTICE("[src] is now dispensing closed-connection heavy duty cable"))
-
 		else
 			loaded.cable_type = /obj/structure/cable/extra_insulated/pre_connect
 			to_chat(user, SPAN_NOTICE("[src] is now dispensing open-connection heavy duty cable"))
