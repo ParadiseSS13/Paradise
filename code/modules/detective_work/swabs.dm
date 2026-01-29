@@ -2,6 +2,7 @@
 	name = "sample collection kit"
 	desc = "A sterile cotton swab and test tube for collecting samples."
 	icon_state = "swab"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 250)
 	/// currently in machine
 	var/dispenser = FALSE
 	/// gunshot residue data

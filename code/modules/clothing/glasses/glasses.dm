@@ -109,6 +109,7 @@
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_PLASMA = 350, MAT_URANIUM = 1000)
 
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "meson HUD sunglasses"
@@ -147,6 +148,7 @@
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "science"
 	origin_tech = "magnets=2;engineering=1"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	prescription_upgradable = TRUE
 	scan_reagents = TRUE // You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
@@ -180,6 +182,7 @@
 	see_in_dark = 8
 	prescription_upgradable = TRUE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_PLASMA = 350, MAT_URANIUM = 1000)
 
 /obj/item/clothing/glasses/night/syndicate_fake
 	name = "suspicious night vision goggles"

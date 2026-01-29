@@ -113,6 +113,7 @@
 	complexity = 2
 	incompatible_modules = list(/obj/item/mod/module/active_sonar)
 	cooldown_time = 7.5 SECONDS //come on man this is discount thermals, it doesnt need a 15 second cooldown
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 
 /obj/item/mod/module/active_sonar/on_use()
 	. = ..()
@@ -295,6 +296,7 @@
 	complexity = 1
 	overlay_state_inactive = "module_smoke_grenade"
 	dispense_type = /obj/item/grenade/smokebomb
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12050, MAT_GOLD = 2000, MAT_PLASMA = 5000)
 
 /obj/item/mod/module/dispenser/smoke/on_use()
 	var/obj/item/grenade/smokebomb/grenade = ..()

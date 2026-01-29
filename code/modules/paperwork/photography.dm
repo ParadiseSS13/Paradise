@@ -535,6 +535,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	name = "digital camera"
 	desc = "A digital camera."
 	digital = TRUE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 300)
 	var/list/datum/picture/saved_pictures = list()
 	var/max_storage = 10
 

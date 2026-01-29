@@ -175,7 +175,7 @@
 	inhand_icon_state = "glasses"
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
-	materials = list(MAT_GLASS = 250)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
 	strip_delay = 2 SECONDS
 	put_on_delay = 2.5 SECONDS
 	resistance_flags = NONE
