@@ -128,8 +128,8 @@
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
-/obj/item/card/id/New()
-	..()
+/obj/item/card/id/Initialize(mapload)
+	. = ..()
 	spawn(30)
 		if(ishuman(loc) && blood_type == "\[UNSET\]")
 			var/mob/living/carbon/human/H = loc
@@ -403,9 +403,9 @@
 	registered_name = "Captain"
 	assignment = "Captain"
 
-/obj/item/card/id/captains_spare/New()
+/obj/item/card/id/captains_spare/Initialize(mapload)
+	. = ..()
 	access = get_all_accesses()
-	..()
 
 /obj/item/card/id/admin
 	name = "admin ID card"
@@ -415,9 +415,9 @@
 	assignment = "Testing Shit"
 	untrackable = TRUE
 
-/obj/item/card/id/admin/New()
+/obj/item/card/id/admin/Initialize(mapload)
+	. = ..()
 	access = get_absolutely_all_accesses()
-	..()
 
 /obj/item/card/id/centcom
 	name = "central command ID card"
@@ -426,9 +426,9 @@
 	registered_name = "Central Command"
 	assignment = "General"
 
-/obj/item/card/id/centcom/New()
+/obj/item/card/id/centcom/Initialize(mapload)
+	. = ..()
 	access = get_all_centcom_access()
-	..()
 
 // MARK: Security
 /obj/item/card/id/prisoner
@@ -482,8 +482,8 @@
 	registered_name = "Prisoner #13-007"
 
 /obj/item/card/id/prisoner/random
-/obj/item/card/id/prisoner/random/New()
-	..()
+/obj/item/card/id/prisoner/random/Initialize(mapload)
+	. = ..()
 	var/random_number = "#[rand(0, 99)]-[rand(0, 999)]"
 	name = "Prisoner [random_number]"
 	registered_name = name

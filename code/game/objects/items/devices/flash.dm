@@ -237,8 +237,8 @@
 /obj/item/flash/cameraflash/burn_out() //stops from burning out
 	return
 
-/obj/item/flash/cameraflash/New()
-	..()
+/obj/item/flash/cameraflash/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/flash/cameraflash/Destroy()

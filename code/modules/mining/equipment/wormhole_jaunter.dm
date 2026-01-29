@@ -394,8 +394,8 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 /obj/item/wormhole_jaunter/wormhole_weaver/get_cell()
 	return wcell
 
-/obj/item/wormhole_jaunter/wormhole_weaver/New()
-	..()
+/obj/item/wormhole_jaunter/wormhole_weaver/Initialize(mapload)
+	. = ..()
 	wcell = new(src)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/examine(mob/user)

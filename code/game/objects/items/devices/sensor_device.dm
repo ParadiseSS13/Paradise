@@ -8,8 +8,8 @@
 	origin_tech = "programming=3;materials=3;magnets=3"
 	var/datum/ui_module/crew_monitor/crew_monitor
 
-/obj/item/sensor_device/New()
-	..()
+/obj/item/sensor_device/Initialize(mapload)
+	. = ..()
 	crew_monitor = new(src)
 
 /obj/item/sensor_device/Destroy()

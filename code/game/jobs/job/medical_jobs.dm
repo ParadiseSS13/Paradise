@@ -85,7 +85,7 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
 	)
-	alt_titles = list("Surgeon","Nurse")
+	alt_titles = list("Surgeon", "Nurse", "Medical Student", "Medical Resident")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/doctor
