@@ -11,7 +11,7 @@
 	var/voice
 	var/active
 
-/obj/item/voice_changer/Initialize(mapload)
+/obj/item/voice_changer/New()
 	. = ..()
 
 	if(isitem(loc))

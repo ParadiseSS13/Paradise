@@ -39,8 +39,8 @@
 	var/icon_medium = "pinonmedium"
 	var/icon_far = "pinonfar"
 
-/obj/item/pinpointer/Initialize(mapload)
-	. = ..()
+/obj/item/pinpointer/New()
+	..()
 	GLOB.pinpointer_list += src
 
 /obj/item/pinpointer/Destroy()
