@@ -3410,6 +3410,7 @@
 #include "code\modules\vehicle\speedbike.dm"
 #include "code\modules\vehicle\sportscar.dm"
 #include "code\modules\vehicle\vehicle.dm"
+#include "code\modules\vehicle\tg_vehicles\department_vehicles.dm"
 #include "code\modules\vehicle\tg_vehicles\scooter.dm"
 #include "code\modules\vehicle\tg_vehicles\sealed.dm"
 #include "code\modules\vehicle\tg_vehicles\tg_vehicle_actions.dm"

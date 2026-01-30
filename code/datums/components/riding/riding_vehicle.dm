@@ -202,4 +202,8 @@
 	vehicle_move_delay = 0.6
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS
 
+/datum/component/riding/vehicle/departmental
+	vehicle_move_delay = 1.25
+	ride_check_flags = RIDER_NEEDS_LEGS | UNBUCKLE_DISABLED_RIDER | RIDER_CARBON_OR_SILICON_NO_LARGE_MOBS
+
 #undef EPSILON
