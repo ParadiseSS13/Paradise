@@ -15935,6 +15935,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "cCd" = (
