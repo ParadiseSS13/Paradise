@@ -108,23 +108,26 @@
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
-/obj/item/clothing/mask/muzzle/safety/shock/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
+/obj/item/clothing/mask/muzzle/safety/shock/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/assembly/signaler) || istype(used, /obj/item/assembly/voice))
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, SPAN_NOTICE("Something is already attached to [src]."))
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
+
 		if(!user.drop_item())
-			to_chat(user, SPAN_WARNING("You are unable to insert [W] into [src]."))
-			return FALSE
-		trigger = W
+			to_chat(user, SPAN_WARNING("You are unable to insert [used] into [src]."))
+			return ITEM_INTERACT_COMPLETE
+
+		trigger = used
 		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
-		to_chat(user, SPAN_NOTICE("You attach [W] to [src]."))
-		return TRUE
-	else if(istype(W, /obj/item/assembly))
+		to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/assembly))
 		to_chat(user, SPAN_NOTICE("That won't fit in [src]. Perhaps a signaler or voice analyzer would?"))
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -194,8 +197,12 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ANTI_VIRAL, "inherent")
 
-/obj/item/clothing/mask/surgical/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/surgical/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/fakemoustache
 	name = "completely real moustache"
@@ -214,8 +221,12 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
-/obj/item/clothing/mask/fakemoustache/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/fakemoustache/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	pontificate(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_MASK)
@@ -356,9 +367,13 @@
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 
-/obj/item/clothing/mask/bandana/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/bandana/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(slot_flags & ITEM_SLOT_MASK || slot_flags & ITEM_SLOT_HEAD)
 		adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/bandana/examine(mob/user)
 	. = ..()

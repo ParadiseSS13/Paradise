@@ -56,22 +56,22 @@
 /obj/item/clothing/gloves/color/black/thief
 	pickpocket = 1
 
-/obj/item/clothing/gloves/color/black/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wirecutters))
-		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
-			var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes","No"))
-			if(get_dist(user, src) > 1)
-				to_chat(user, "You have moved too far away.")
-				return
-			if(confirm == "Yes")
-				to_chat(user, SPAN_NOTICE("You snip the fingertips off of [src]."))
-				playsound(user.loc, W.usesound, rand(10,50), 1)
-				var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
-				if(pickpocket)
-					F.pickpocket = FALSE
-				qdel(src)
-				return
-	..()
+/obj/item/clothing/gloves/color/black/wirecutter_act(mob/living/user, obj/item/I)
+	if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
+		var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes","No"))
+		if(get_dist(user, src) > 1)
+			to_chat(user, "You have moved too far away.")
+			return TRUE
+		if(confirm == "Yes")
+			to_chat(user, SPAN_NOTICE("You snip the fingertips off of [src]."))
+			playsound(user.loc, I.usesound, rand(10,50), 1)
+			var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
+			if(pickpocket)
+				F.pickpocket = FALSE
+			qdel(src)
+		return TRUE
+
+	return ..()
 
 /obj/item/clothing/gloves/color/black/poisoner
 	desc = "A pair of thick black gloves. They're coated with a hydrophobic material that repels liquids."

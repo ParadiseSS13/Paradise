@@ -255,8 +255,12 @@
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
-/obj/item/clothing/head/fedora/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/fedora/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	tip_fedora(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
@@ -472,8 +476,12 @@
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 	actions_types = list(/datum/action/item_action/caw)
 
-/obj/item/clothing/head/griffin/attack_self__legacy__attackchain()
+/obj/item/clothing/head/griffin/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	caw()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
