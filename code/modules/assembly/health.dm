@@ -5,7 +5,7 @@
 	name = "health sensor"
 	desc = "Used for scanning and monitoring health."
 	icon_state = "health"
-	materials = list(MAT_METAL=800, MAT_GLASS=200)
+	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	origin_tech = "magnets=1;biotech=1"
 
 	/// Are we scanning our user's health?

@@ -718,7 +718,7 @@
 	icon_state = "rcd"
 	inhand_icon_state = "rcdammo"
 	origin_tech = "materials=3"
-	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL = 16000, MAT_GLASS = 8000)
 	new_attack_chain = TRUE
 	var/ammoamt = 20
 

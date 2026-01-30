@@ -42,6 +42,7 @@
 	overlay_state_active = "module_defibrillator_active"
 	incompatible_modules = list(/obj/item/mod/module/defibrillator)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/defibrillator/Initialize(mapload)
 	. = ..()
@@ -122,6 +123,7 @@
 	incompatible_modules = list(/obj/item/mod/module/monitor)
 	cooldown_time = 0.5 SECONDS
 	allow_flags = MODULE_ALLOW_INACTIVE
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 3000)
 	var/datum/ui_module/crew_monitor/mod/crew_monitor
 
 

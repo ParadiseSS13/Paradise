@@ -17,6 +17,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 1
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
 	/// When the mopping sound was last played.
 	COOLDOWN_DECLARE(mop_sound_cooldown)
 	/// How fast does this mop?
@@ -123,6 +124,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 100
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/emag_act(mob/user)
 	. = ..()
@@ -144,6 +146,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 200
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 4000, MAT_GOLD = 1000, MAT_PLASMA = 3000)
 	/// Toggle for refilling itself
 	var/refill_enabled = TRUE
 	/// Rate per process() tick spray refills itself
@@ -226,6 +229,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 5
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 1500, MAT_GOLD = 1500, MAT_URANIUM = 700, MAT_PLASMA = 2000)
 	/// Toggle for filling the bag (true) or emptying (false)
 	var/bagging = TRUE
 	/// Toggle for wide area or single tile pickups

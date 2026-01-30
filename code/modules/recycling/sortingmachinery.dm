@@ -272,6 +272,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 250, MAT_GLASS = 150)
 	///Value of the tag
 	var/currTag = 1
 	//The whole system for the sort_type var is determined based on the order of this list,
