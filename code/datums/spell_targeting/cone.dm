@@ -72,3 +72,10 @@
 /datum/spell_targeting/cone/proc/calculate_cone_shape(current_level)
 	// Default formula: (1 (innate) -> 3 -> 5 -> 5 -> 7 -> 7 -> 9 -> 9 -> ...)
 	return current_level + (current_level % 2) + 1
+
+/datum/spell_targeting/cone/InterceptClickOn(mob/user, params, atom/A, datum/spell/spell)
+	var/list/targets = choose_targets(user, spell, params, A)
+	if(!length(targets))
+		return FALSE // no targets
+	spell.try_perform(targets, user)
+	return TRUE

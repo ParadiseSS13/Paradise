@@ -94,7 +94,8 @@
 		/obj/item/stack/nanopaste,
 		/obj/item/robotanalyzer,
 		/obj/item/rpd/bluespace,
-		/obj/item/hammer
+		/obj/item/hammer,
+		/obj/item/melee/sickly_blade/lock
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -754,7 +755,7 @@
 
 /obj/item/storage/belt/sheath
 	name = "sword sheath"
-	desc = "Can hold swords. If you see this, it is a bug. Please report this on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "sheath"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
@@ -869,6 +870,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
+	materials = list(MAT_GOLD = 1500, MAT_DIAMOND = 3000, MAT_URANIUM = 1000)
 	can_hold = list()
 	large = TRUE
 	w_class_override = list(
@@ -878,7 +880,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
-		/obj/item/handheld_defibrillator
+		/obj/item/handheld_defibrillator,
+		/obj/item/melee/sickly_blade/lock
 		)
 
 /obj/item/storage/belt/bluespace/owlman

@@ -9,6 +9,7 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -189,6 +190,7 @@
 	desc = "These experimental boots try to get around the restrictions of magboots by installing miniature gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
 	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
+	materials = list(MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 4000)
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //In other news, combining magboots with jumpboots is a mess
 	strip_delay = 10 SECONDS
 	put_on_delay = 10 SECONDS

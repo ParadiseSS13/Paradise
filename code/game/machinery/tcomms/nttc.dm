@@ -88,6 +88,8 @@
 		"Coroner" = "medradio",
 		"Mortician" = "medradio",
 		"Medical Doctor" = "medradio",
+		"Medical Resident" = "medradio",
+		"Medical Student" = "medradio",
 		"Microbiologist" = "medradio",
 		"Nurse" = "medradio",
 		"Physician" = "medradio",

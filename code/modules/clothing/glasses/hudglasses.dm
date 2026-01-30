@@ -10,6 +10,7 @@
 	var/hud_access_override = FALSE
 	/// Used for debug huds at examine.dm, gives us all rights for records
 	var/hud_debug = FALSE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 
 /obj/item/clothing/glasses/hud/Initialize(mapload)
 	. = ..()

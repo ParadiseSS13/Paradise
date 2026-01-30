@@ -90,7 +90,7 @@
 	icon_state = "muzzle_secure"
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -319,6 +319,12 @@
 	name = "tribal mask"
 	desc = "A mask carved out of wood, detailed carefully by hand."
 	icon_state = "bumba"
+
+/obj/item/clothing/mask/fake_beard
+	name = "fake beard"
+	desc = "A fake beard. Great for making you look wise, festive, or senile."
+	icon_state = "fake_beard"
+	can_attach_to_hat = TRUE
 
 /obj/item/clothing/mask/fawkes
 	name = "Guy Fawkes mask"

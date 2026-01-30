@@ -232,12 +232,13 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 
 /obj/item/stack/sheet/animalhide/armor_plate
 	name = "armor plate"
-	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
+	desc = "Two connected armor plates designed to absorb a small amount of incoming damage. They can be fastened onto a working class mecha, but cannot be removed afterwards."
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "armor_plate"
 	singular_name = "armor plate"
 	flags = NOBLUDGEON
 	layer = MOB_LAYER
+	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 5000)
 
 /obj/item/stack/sheet/animalhide/armor_plate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)

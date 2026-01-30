@@ -5,6 +5,7 @@
 	icon_state = "defib-on"
 	inhand_icon_state = "defib"
 	belt_icon = "defib"
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200)
 
 	var/icon_base = "defib"
 	///Can the defib shock yet?

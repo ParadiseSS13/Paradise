@@ -268,6 +268,7 @@
 	keep_dir = FALSE
 	intact = FALSE
 	transparent_floor = TRUE
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/catwalk/Initialize(mapload)
 	. = ..()
@@ -309,14 +310,14 @@
 				break_tile_to_plating()
 				hotspot_expose(1000,CELL_VOLUME)
 
-// Carpet used in the backrooms hallucination
 /turf/simulated/floor/backrooms_carpet
 	name = "backrooms carpet"
 	desc = "An old, musty carpet. It smells faintly mildewy."
 	icon_state = "backrooms_carpet"
 	baseturf = /turf/simulated/floor/backrooms_carpet
 
-/turf/open/floor/plating/rust
+/turf/simulated/floor/plating/rust
+// Carpet used in the backrooms hallucination
 	//SDMM supports colors, this is simply for easier mapping
 	//and should be removed on initialize
 	color = COLOR_BROWN
@@ -326,7 +327,7 @@
 	AddElement(/datum/element/rust)
 	color = null
 
-/turf/open/floor/plating/heretic_rust
+/turf/simulated/floor/plating/heretic_rust
 	color = COLOR_GREEN_GRAY
 
 /turf/simulated/floor/plating/heretic_rust/Initialize(mapload)

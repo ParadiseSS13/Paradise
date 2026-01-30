@@ -8,6 +8,7 @@
 	throwforce = 5
 	throw_speed = 1
 	origin_tech = "engineering=4;materials=2"
+	materials = list(MAT_METAL = 5000)
 	var/max_amount = 90
 	var/active = FALSE
 	var/obj/structure/cable/last = null
@@ -152,8 +153,8 @@
 	last = loaded.place_turf(get_turf(loc), user, turn(user.dir, 180))
 	is_empty(user) //If we've run out, display message
 
-/obj/item/rcl/pre_loaded/New() //Comes preloaded with cable, for testing stuff
-	..()
+/obj/item/rcl/pre_loaded/Initialize(mapload) // Comes preloaded with cable, for testing stuff
+	. = ..()
 	loaded = new()
 	loaded.max_amount = max_amount
 	loaded.amount = max_amount

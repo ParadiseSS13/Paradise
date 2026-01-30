@@ -10,6 +10,7 @@
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
 
 /obj/item/robotanalyzer/proc/handle_clumsy(mob/living/user)
 	var/list/msgs = list()
