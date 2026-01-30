@@ -6007,6 +6007,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "aAq" = (
@@ -12731,6 +12734,9 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
@@ -19501,6 +19507,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/security/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "eyU" = (
@@ -19519,6 +19528,9 @@
 /obj/machinery/door_timer/cell_1{
 	pixel_x = 32
 	},
+/obj/machinery/door/airlock/security/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "eAB" = (
@@ -24270,6 +24282,9 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "hmC" = (
@@ -24294,7 +24309,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/alphanumeric/plasma,
-/turf/simulated/floor/engine/co2,
+/turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
 "hny" = (
 /obj/structure/cable{
@@ -28222,6 +28237,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/security/corner,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "jDE" = (
@@ -36260,13 +36278,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/asmaint)
 "ozK" = (
@@ -42274,6 +42292,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
+"smM" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/turf/simulated/floor/plasteel,
+/area/station/security/brig)
 "smT" = (
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/stripes/line{
@@ -76391,7 +76422,7 @@ aZD
 aae
 aZD
 sWt
-hmb
+ijM
 ijM
 jkG
 kAg
@@ -76905,7 +76936,7 @@ wdN
 lfS
 lfS
 lfS
-hmb
+ijM
 cCr
 ivw
 kHl
@@ -82040,7 +82071,7 @@ btb
 ceh
 mCl
 dQC
-evs
+smM
 ffh
 rmz
 gFp
@@ -90277,8 +90308,8 @@ hpP
 hpP
 hpP
 asU
+sja
 tmt
-pNE
 pso
 rFK
 axF
@@ -90538,7 +90569,7 @@ sbj
 auT
 bEp
 eVn
-sja
+pNE
 lxF
 aOf
 xXt
