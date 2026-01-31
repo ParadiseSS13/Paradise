@@ -16,6 +16,7 @@
 	throw_range = 5
 	usesound = 'sound/weapons/flash.ogg'
 	origin_tech = "bluespace=3"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3750)
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad

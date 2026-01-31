@@ -13,6 +13,7 @@
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 200
 	incompatible_modules = list(/obj/item/mod/module/pathfinder)
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	/// The pathfinding implant.
 	var/obj/item/bio_chip/mod/implant
 

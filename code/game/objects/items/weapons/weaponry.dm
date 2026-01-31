@@ -191,7 +191,7 @@
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
-	materials = list(MAT_WOOD = 5000)
+	materials = list(MAT_WOOD = 10000)
 	COOLDOWN_DECLARE(last_deflect)
 	var/deflect_cooldown = 5 MINUTES
 	COOLDOWN_DECLARE(next_throw_time)

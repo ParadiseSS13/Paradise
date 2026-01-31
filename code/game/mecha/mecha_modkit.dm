@@ -3,6 +3,7 @@
 	desc = "A kit to modify your mech. This one doesn't do anything."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "harddisk_mini"
+	materials = list(MAT_METAL = 500)
 	var/install_time = 15
 
 /obj/item/mecha_modkit/proc/install(obj/mecha/mech, mob/user)
@@ -56,6 +57,7 @@
 	weapdestrsound = 'sound/mecha/weapdestrsyndi.ogg'
 	lowpowersound = 'sound/mecha/lowpowersyndi.ogg'
 	longactivationsound = 'sound/mecha/LongSyndiActivation.ogg'
+	materials = list(MAT_METAL = 400, MAT_TITANIUM = 100)
 
 /obj/item/mecha_modkit/voice/honk
 	name = "mecha voice modification kit : Honk"
@@ -66,6 +68,7 @@
 	weapdestrsound = 'sound/items/Airhorn2.ogg'
 	lowpowersound = 'sound/items/Airhorn2.ogg'
 	longactivationsound = 'sound/items/bikehorn.ogg'
+	materials = list(MAT_METAL = 400, MAT_BANANIUM = 100)
 
 /obj/item/mecha_modkit/voice/silent
 	name = "mecha voice modification kit : Silent"

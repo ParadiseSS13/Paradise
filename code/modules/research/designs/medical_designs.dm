@@ -2,6 +2,16 @@
 ////////////Medical Tools////////////////
 /////////////////////////////////////////
 
+/datum/design/reagent_scanner
+	name = "Reagent Scanner"
+	desc = "A device for identifying chemicals."
+	id = "reagent_scanner"
+	req_tech = list("magnets" = 2, "plasmatech" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
+	build_path = /obj/item/reagent_scanner
+	category = list("Medical")
+
 /datum/design/adv_reagent_scanner
 	name = "Advanced Reagent Scanner"
 	desc = "A device for identifying chemicals and their proportions."
@@ -205,16 +215,6 @@
 	construction_time = 60
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 2000, MAT_TITANIUM = 500, MAT_BLUESPACE = 250)
 	build_path = /obj/item/stack/synthetic_skin/level_3
-	category = list("Medical")
-
-/datum/design/reagent_scanner
-	name = "Reagent Scanner"
-	desc = "A device for identifying chemicals."
-	id = "reagent_scanner"
-	req_tech = list("magnets" = 2, "plasmatech" = 2)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
-	build_path = /obj/item/reagent_scanner
 	category = list("Medical")
 
 /datum/design/scalpel_laser1
