@@ -399,6 +399,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	name = "heavy duty cable coil"
 	singular_name = "heavy duty cable"
 	icon = 'icons/obj/cable_coils/heavy_duty.dmi'
+	materials = list(MAT_METAL = 30, MAT_GLASS = 30)
 	color = null
 	cable_type = /obj/structure/cable/extra_insulated
 	cable_merge_id = CABLE_MERGE_HIGH_POWER

@@ -94,7 +94,7 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_BULKY
-	materials = list(MAT_METAL = 500)
+	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 500)
 	attack_verb = list("bludgeoned", "whacked", "cracked")
 	/// Is the secret compartment open?
 	var/is_open = FALSE

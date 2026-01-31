@@ -476,7 +476,7 @@
 
 /obj/structure/sign/cargo/mining
 	name = "\improper MINING"
-	desc = "Miners are responsable for getting the materials that all other industry needs to function. And also monster hunting, alledgedly."
+	desc = "Miners are responsable for getting the materials that all other industry needs to function. And also monster hunting, allegedly."
 	icon_state = "mining"
 
 /obj/structure/sign/cargo/salvage
@@ -568,7 +568,7 @@
 
 /obj/structure/sign/service/library
 	name = "\improper LIBRARY"
-	desc = "A sanctuary of NERDS! Books can alledgedly be found here. The space is also used for the station's D&D game night."
+	desc = "A sanctuary of NERDS! Books can allegedly be found here. The space is also used for the station's D&D game night."
 	icon_state = "library"
 
 /obj/structure/sign/service/kitchen
@@ -614,7 +614,7 @@
 
 /obj/structure/sign/medical/psych
 	name = "\improper PSYCHOLOGIST"
-	desc = "The psychologist is alledgedly the most sane individual on the station, who can alledgedly help you with your own psychological traumas."
+	desc = "The psychologist is allegedly the most sane individual on the station, who can allegedly help you with your own psychological traumas."
 	icon_state = "psych"
 
 /obj/structure/sign/medical/surgery

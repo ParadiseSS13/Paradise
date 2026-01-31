@@ -228,6 +228,7 @@
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
+	materials = list(MAT_GOLD = 250, MAT_URANIUM = 500)
 	icon_state = "satchel_bspace"
 
 /obj/item/storage/bag/ore/cyborg/holding
@@ -265,6 +266,7 @@
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 400)
 
 /obj/item/storage/bag/plants/portaseeder/Initialize(mapload)
 	. = ..()
@@ -367,7 +369,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	slot_flags = null
-	materials = list(MAT_METAL=3000)
+	materials = list(MAT_METAL = 3000)
 	can_hold = list(
 		/obj/item/food,
 		/obj/item/reagent_containers/drinks,

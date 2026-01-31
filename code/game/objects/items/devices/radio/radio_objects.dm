@@ -29,6 +29,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	inhand_icon_state = "radio"
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	/// boolean for radio enabled or not
 	var/on = TRUE
 	var/last_transmission

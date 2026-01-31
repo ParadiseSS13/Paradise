@@ -8,6 +8,7 @@
 	throwforce = 5
 	throw_speed = 1
 	origin_tech = "engineering=4;materials=2"
+	materials = list(MAT_METAL = 5000)
 	var/max_amount = 90
 	var/active = FALSE
 	var/obj/structure/cable/last = null

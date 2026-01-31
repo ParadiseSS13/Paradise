@@ -6,6 +6,7 @@
 	encased = null
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000)
 
 /obj/item/organ/external/head/ipc/Initialize(mapload, mob/living/carbon/holder, datum/species/species_override = null)
 	. = ..()
@@ -110,6 +111,7 @@
 	slot = "heart"
 	vital = TRUE
 	status = ORGAN_ROBOT
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 750)
 	requires_robotic_bodypart = TRUE
 	organ_datums = list(/datum/organ/battery)
 
@@ -118,6 +120,7 @@
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"
 	status = ORGAN_ROBOT
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 2500)
 	weld_proof = TRUE
 	requires_robotic_bodypart = TRUE
 
@@ -151,6 +154,7 @@
 	name = "microphone"
 	icon_state = "voicebox"
 	status = ORGAN_ROBOT
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 2500)
 	dead_icon = "taperecorder_empty"
 	requires_robotic_bodypart = TRUE
 

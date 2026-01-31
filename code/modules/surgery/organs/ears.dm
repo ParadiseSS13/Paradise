@@ -33,6 +33,7 @@
 	icon_state = "ears-c"
 	desc = "a basic cybernetic designed to mimic the operation of ears."
 	origin_tech = "biotech=4"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	status = ORGAN_ROBOT
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
