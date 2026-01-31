@@ -21,17 +21,11 @@
 	icon_state = "fax_mobile"
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 30, RAD = 0, FIRE = 80, ACID = 80)
 
-/obj/tgvehicle/department/fax_mobile/generate_actions()
-	. = ..()
-
 /obj/tgvehicle/department/cargo_engine
 	name = "cargo engine"
 	desc = "Are you certified to drive this?"
 	icon_state = "cargo_engine"
 	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, RAD = 100, FIRE = 100, ACID = 80)
-
-/obj/tgvehicle/department/cargo_engine/generate_actions()
-	. = ..()
 
 /obj/tgvehicle/department/command_caddy
 	name = "command caddy"
@@ -39,17 +33,11 @@
 	icon_state = "wizmobile"
 	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 60, RAD = 40, FIRE = 80, ACID = 80)
 
-/obj/tgvehicle/department/command_caddy/generate_actions()
-	. = ..()
-
 /obj/tgvehicle/department/anomalous_auto
 	name = "anomalous automobile"
 	desc = "Experimental science, to go where there are no roads."
 	icon_state = "soutomobile"
 	armor = list(MELEE = 30, BULLET = 20, LASER = 60, ENERGY = 60, BOMB = 95, RAD = 30, FIRE = 90, ACID = 90)
-
-/obj/tgvehicle/department/anomalous_auto/generate_actions()
-	. = ..()
 
 /obj/tgvehicle/department/docwagon
 	name = "mediwagon"
@@ -60,9 +48,4 @@
 
 /obj/tgvehicle/department/docwagon/Initialize(mapload)
 	. = ..()
-	trailer = new(get_step(src, NORTH))
-
-/obj/tgvehicle/department/docwagon/generate_actions()
-	. = ..()
-
-
+	trailer = new(get_step(src.loc, NORTH))
