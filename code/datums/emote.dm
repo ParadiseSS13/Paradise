@@ -530,8 +530,13 @@
 				to_chat(user, SPAN_WARNING("You cannot [key] while [stat]!"))
 			return FALSE
 		if(HAS_TRAIT(user, TRAIT_FAKEDEATH))
-			// Don't let people blow their cover by mistake
-			return FALSE
+			if(istype(user, /mob/living))
+				var/mob/living/L
+				if(!L.has_status_effect(/datum/status_effect/ghoul))
+					return FALSE
+			else
+				// Don't let people blow their cover by mistake
+				return FALSE
 		if(hands_use_check && !user.can_use_hands() && (iscarbon(user)))
 			if(!intentional)
 				return FALSE

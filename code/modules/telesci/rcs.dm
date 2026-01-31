@@ -16,6 +16,7 @@
 	throw_range = 5
 	usesound = 'sound/weapons/flash.ogg'
 	origin_tech = "bluespace=3"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3750)
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad
@@ -27,15 +28,12 @@
 
 /obj/item/rcs/Initialize(mapload)
 	. = ..()
+	rcell = new(src)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/rcs/get_cell()
 	return rcell
-
-/obj/item/rcs/New()
-	..()
-	rcell = new(src)
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()

@@ -8,6 +8,7 @@
 	desc = "The incomplete body of a golem. Add ten sheets of any mineral to finish."
 	var/shell_type = /obj/effect/mob_spawn/human/alive/golem
 	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 40000)
 
 /obj/item/golem_shell/servant
 	name = "incomplete servant golem shell"
@@ -87,10 +88,10 @@
 	var/area/A = get_area(src)
 	if(!mapload && A)
 		if(COOLDOWN_FINISHED(src, ghost_flash_cooldown))
-			notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src)
+			notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src, role = ROLE_GOLEM)
 			COOLDOWN_START(src, ghost_flash_cooldown, 20 MINUTES)
 		else
-			notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src, flashwindow = FALSE)
+			notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src, role = ROLE_GOLEM, flashwindow = FALSE)
 	if(has_owner && creator)
 		important_info = "Serve your creator, even if they are an antag."
 		flavour_text = "You are a golem created to serve your creator."

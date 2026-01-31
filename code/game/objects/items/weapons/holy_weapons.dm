@@ -31,6 +31,12 @@
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, antimagic_type)
+	AddComponent(/datum/component/effect_remover, \
+		success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
+		success_forcesay = "BEGONE FOUL MAGIKS!!", \
+		effects_we_clear = list(/obj/effect/heretic_rune, /obj/effect/cosmic_rune), \
+		time_to_remove = 5 SECONDS, \
+	)
 	if(!length(variant_names))
 		for(var/I in typesof(/obj/item/nullrod))
 			var/obj/item/nullrod/rod = I
@@ -515,8 +521,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-/obj/item/nullrod/tribal_knife/New()
-	..()
+/obj/item/nullrod/tribal_knife/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/tribal_knife/Destroy()
@@ -707,8 +713,8 @@
 		. += "<span class='warning'>This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
 			<b>Use the staff in hand</b> while wearing robes to link them both, then aim the staff at your victim to try and convert them.</span>"
 
-/obj/item/nullrod/missionary_staff/New()
-	..()
+/obj/item/nullrod/missionary_staff/Initialize(mapload)
+	. = ..()
 	team_color = pick("red", "blue")
 	icon_state = "godstaff-[team_color]"
 	name = "[team_color] holy staff"

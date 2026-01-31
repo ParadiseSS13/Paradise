@@ -272,7 +272,7 @@
 						return
 
 					var/list/EO_path = clone.dna.species.has_limbs[current_limb]["path"]
-					var/obj/item/organ/external/EO = new EO_path(clone) //Passing a human to a limb's New() proc automatically attaches it
+					var/obj/item/organ/external/EO = new EO_path(clone, clone) // Passing a human to a limb's Initialize() proc automatically attaches it
 					desc_flavor = "You see \a [EO.name] growing from [clone]'[clone.p_s()] [EO.amputation_point]."
 					current_limb = null
 					EO.brute_dam = desired_data.limbs[EO.limb_name][1]

@@ -32,6 +32,8 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_0, list(
 		/obj/item/storage/box,
 		/obj/item/storage/fancy/crayons,
 		/obj/item/storage/fancy/matches,
+		/obj/item/food/grown/harebell,
+		/obj/item/food/grown/poppy,
 	) = 2,
 
 	list(

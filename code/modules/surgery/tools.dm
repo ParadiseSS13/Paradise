@@ -5,7 +5,7 @@
 	icon_state = "retractor"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
@@ -30,7 +30,7 @@
 	icon_state = "hemostat"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2500)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
@@ -55,7 +55,7 @@
 	icon_state = "cautery"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	materials = list(MAT_METAL=2500, MAT_GLASS=750)
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 750)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	damtype = BURN
@@ -106,7 +106,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	hitsound = 'sound/weapons/drill.ogg'
-	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
 	flags = CONDUCT
 	force = 15.0
 	sharp = TRUE
@@ -147,7 +147,7 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
-	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -181,7 +181,7 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
 
 /obj/item/scalpel/laser/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
@@ -216,11 +216,13 @@
 	desc = "An improved laser emitter for rapidly creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser2_on"
 	toolspeed = 0.6
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000)
 
 /obj/item/scalpel/laser/laser3
 	desc = "An advanced laser emitter for creating and cauterizing precise surgical incisions with extreme speed."
 	icon_state = "scalpel_laser3_on"
 	toolspeed = 0.4
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 
 /// super tool! Retractor/hemostat
 /obj/item/scalpel/laser/manager
@@ -228,6 +230,7 @@
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
 
 /obj/item/scalpel/laser/manager/Initialize(mapload)
 	. = ..()
@@ -249,7 +252,7 @@
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
-	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	tool_behaviour = TOOL_SAW
@@ -278,6 +281,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 6000)
 	tool_behaviour = TOOL_BONEGEL
 	new_attack_chain = TRUE
 
@@ -299,6 +303,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
 	w_class = WEIGHT_CLASS_SMALL
 	tool_behaviour = TOOL_FIXOVEIN
 	new_attack_chain = TRUE
@@ -326,6 +331,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
+	materials = list(MAT_METAL = 4000)
 	tool_behaviour = TOOL_BONESET
 	new_attack_chain = TRUE
 

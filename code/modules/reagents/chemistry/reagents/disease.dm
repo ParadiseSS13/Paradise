@@ -9,7 +9,7 @@
 	if(volume > 2.5)
 		if(iscarbon(M))
 			if(!M.get_int_organ(/obj/item/organ/internal/body_egg))
-				new/obj/item/organ/internal/body_egg/spider_eggs(M) //Yes, even Xenos can fall victim to the plague that is spider infestation.
+				new/obj/item/organ/internal/body_egg/spider_eggs(M, M) //Yes, even Xenos can fall victim to the plague that is spider infestation.
 	return ..()
 
 /datum/reagent/nanomachines

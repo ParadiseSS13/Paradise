@@ -61,8 +61,8 @@
 /obj/item/assembly/signaler/anomaly/random
 	name = "Random anomaly core"
 
-/obj/item/assembly/signaler/anomaly/random/New()
-	..()
+/obj/item/assembly/signaler/anomaly/random/Initialize(mapload)
+	. = ..()
 	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
 	var/A = pick(types)
 	new A(loc)
@@ -84,6 +84,7 @@
 	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
 	icon_state = "reactiveoff"
 	icon = 'icons/obj/clothing/suits.dmi'
+	materials = list(MAT_PLASMA = 8000, MAT_TITANIUM = 14000, MAT_BLUESPACE = 6000)
 
 /obj/item/reactive_armour_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/static/list/anomaly_armour_types = list(

@@ -142,8 +142,8 @@
 	owner = "John Doe"
 	default_pen = /obj/item/pen/multi/syndicate
 
-/obj/item/pda/syndicate/New()
-	..()
+/obj/item/pda/syndicate/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = TRUE
@@ -207,8 +207,8 @@
 	icon_state = "pda-h"
 	default_pen = /obj/item/pen/multi/gold
 
-/obj/item/pda/centcom/New()
-	..()
+/obj/item/pda/centcom/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = 1

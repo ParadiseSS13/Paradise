@@ -96,6 +96,9 @@
 	/// Does this projectile hit living non dense mobs?
 	var/always_hit_living_nondense = FALSE
 
+	/// Is this projectile forced to not make hit messages or sound to avoid spam?
+	var/force_no_hit_message_or_sound = FALSE
+
 	//Hitscan
 	var/hitscan = FALSE //Whether this is hitscan. If it is, speed is basically ignored.
 	var/list/beam_segments //assoc list of datum/point_precise or datum/point_precise/vector, start = end. Used for hitscan effect generation.
@@ -139,6 +142,8 @@
 	var/ricochet_incidence_leeway = 40
 	/// Can our ricochet autoaim hit our firer?
 	var/ricochet_shoots_firer = TRUE
+	/// Do we always bounce off non mobs?
+	var/always_nonmob_ricochet = FALSE
 
 	/// determines what type of antimagic can block the spell projectile
 	var/antimagic_flags
@@ -240,15 +245,16 @@
 		var/organ_hit_text = ""
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
-		if(suppressed)
-			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, SPAN_USERDANGER("You're shot by \a [src][organ_hit_text]!"))
-		else
-			if(hitsound)
-				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, TRUE, -1)
-			L.visible_message(SPAN_DANGER("[L] is hit by \a [src][organ_hit_text]!"), \
-								SPAN_USERDANGER("[L] is hit by \a [src][organ_hit_text]!"))	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+		if(!force_no_hit_message_or_sound)
+			if(suppressed)
+				playsound(loc, hitsound, 5, TRUE, -1)
+				to_chat(L, SPAN_USERDANGER("You're shot by \a [src][organ_hit_text]!</span>"))
+			else
+				if(hitsound)
+					var/volume = vol_by_damage()
+					playsound(loc, hitsound, volume, TRUE, -1)
+				L.visible_message(SPAN_DANGER("[L] is hit by \a [src][organ_hit_text]!</span>"), \
+									SPAN_USERDANGER("[L] is hit by \a [src][organ_hit_text]!</span>"))	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 		if(immolate)
 			L.adjust_fire_stacks(immolate)
 			L.IgniteMob()
@@ -295,6 +301,7 @@
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
 		ricochets++
+		ricochet_chance *= ricochet_decay_chance // Note: I should impliment ricohet decay damage. I'm not doing that during heretic as balance scope
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
 			permutated.Cut()
@@ -499,6 +506,7 @@
 
 /obj/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
+
 		return TRUE
 	return FALSE
 
@@ -507,6 +515,9 @@
 		return TRUE
 
 	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+		return TRUE
+
+	if(!ismob(A) && always_nonmob_ricochet)
 		return TRUE
 
 	return FALSE
