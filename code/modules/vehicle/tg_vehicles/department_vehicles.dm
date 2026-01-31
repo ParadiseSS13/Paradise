@@ -6,9 +6,6 @@
 
 /obj/tgvehicle/department/Initialize(mapload)
 	. = ..()
-	make_ridable()
-
-/obj/tgvehicle/department/proc/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/departmental)
 
 /obj/tgvehicle/department/generate_actions()
