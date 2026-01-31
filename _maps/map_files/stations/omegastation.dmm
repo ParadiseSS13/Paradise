@@ -109,6 +109,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aaG" = (
@@ -380,6 +381,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "acf" = (
@@ -1058,6 +1060,7 @@
 	name = "Cargo Office"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "agY" = (
@@ -8192,6 +8195,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "aJd" = (
@@ -15295,6 +15299,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/rd)
 "ckm" = (
@@ -18441,6 +18446,7 @@
 	},
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "dTr" = (
@@ -27242,6 +27248,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/wood,
 /area/station/command/office/cmo)
 "iZi" = (
@@ -27849,6 +27856,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "jsh" = (
@@ -31322,6 +31330,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "lEC" = (
@@ -38516,6 +38525,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/cmo)
 "pQT" = (
@@ -45545,6 +45555,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "tEg" = (
@@ -45681,6 +45692,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "tIg" = (
