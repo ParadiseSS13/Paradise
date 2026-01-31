@@ -420,7 +420,7 @@
 					SPAN_NOTICE("You repair [target]'s [I.name] with [tool]."),
 					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
-			I.heal_internal_damage(I.max_damage)
+			I.heal_internal_damage(I.max_damage, TRUE)
 			I.surgeryize()
 			if(istype(tool, /obj/item/stack/nanopaste))
 				I.rejuvenate()
