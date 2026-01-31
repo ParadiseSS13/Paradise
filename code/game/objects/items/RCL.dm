@@ -6,6 +6,7 @@
 	inhand_icon_state = "rcl"
 	throwforce = 5
 	origin_tech = "engineering=4;materials=2"
+	materials = list(MAT_METAL = 5000)
 	var/active = FALSE
 	var/obj/structure/cable/last
 	var/obj/item/stack/cable_coil/random/rcl_spool/loaded

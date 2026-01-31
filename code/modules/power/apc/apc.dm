@@ -1187,5 +1187,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/unbuilt, 24, 24)
 	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "engineering=2;programming=1"
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'

@@ -6,6 +6,7 @@
 	name = "grenade casing"
 	desc = "A do it yourself grenade casing!"
 	icon_state = "chemg"
+	materials = list(MAT_METAL = 2000)
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
 	force = 2
@@ -339,6 +340,7 @@
 	allowed_containers = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/condiment,
 								/obj/item/reagent_containers/drinks)
 	origin_tech = "combat=3;engineering=3"
+	materials = list(MAT_METAL = 3000)
 	affected_area = 5
 	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
 	threatscale = 1.1	// 10% more effective.
@@ -385,6 +387,7 @@
 	icon_state = "cryog"
 	affected_area = 2
 	ignition_temp = -100
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 500)
 
 /// Intended for pyrotechnical mixes. Produces a small fire upon detonation, igniting potentially flammable mixtures.
 /obj/item/grenade/chem_grenade/pyro
@@ -392,6 +395,7 @@
 	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
 	icon_state = "pyrog"
 	origin_tech = "combat=4;engineering=4"
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500)
 	ignition_temp = 500 // This is enough to expose a hotspot.
 
 /// Intended for weaker, but longer lasting effects. Could have some interesting uses.
@@ -400,6 +404,7 @@
 	desc = "A custom made advanced release grenade. It is able to be detonated more than once. Can be configured using a multitool."
 	icon_state = "timeg"
 	origin_tech = "combat=3;engineering=4"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
 /obj/item/grenade/chem_grenade/adv_release/multitool_act(mob/user, obj/item/I)

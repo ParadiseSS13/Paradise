@@ -192,6 +192,7 @@
 	dead_icon = "heart-c-off"
 	status = ORGAN_ROBOT
 	organ_datums = list(/datum/organ/heart, /datum/organ/battery)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
@@ -199,6 +200,7 @@
 	icon_state = "heart-c-u-on"
 	base_icon_state = "heart-c-u"
 	dead_icon = "heart-c-u-off"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	var/attempted_restart = FALSE
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/M, special = FALSE)

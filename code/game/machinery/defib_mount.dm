@@ -153,8 +153,7 @@
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
 	w_class = WEIGHT_CLASS_BULKY
-
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(user, on_wall), 1)
