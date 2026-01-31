@@ -27,7 +27,7 @@
     "@typescript-eslint/parser": "^8.46.0",
     "@typescript-eslint/utils": "^8.46.0",
     "css-loader": "^7.1.2",
-    "eslint": "^8.57.1",
+    "eslint": "^9.26.0",
     "eslint-config-prettier": "^9.1.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-simple-import-sort": "^12.1.1",
