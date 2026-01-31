@@ -19529,7 +19529,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "eyU" = (
@@ -19550,7 +19550,7 @@
 	},
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "eAB" = (
@@ -33929,6 +33929,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "nfg" = (
@@ -42363,7 +42364,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "smT" = (
