@@ -40,6 +40,24 @@
 /area/mine/unexplored/cere/orbiting
 	name = "Near Station Asteroids"
 
+/area/mine/unexplored/omega/ai
+	name = "AI Asteroid"
+
+/area/mine/unexplored/omega/research
+	name = "Research Rocks"
+
+/area/mine/unexplored/omega/cargo
+	name = "Cargo Rocks"
+
+/area/mine/unexplored/omega/security
+	name = "Security Rocks"
+
+/area/mine/unexplored/omega/engineering
+	name = "Engineering Rocks"
+
+/area/mine/unexplored/omega/medical
+	name = "Medical Rocks"
+
 /**********************Outpost areas**************************/
 
 /area/mine/outpost
