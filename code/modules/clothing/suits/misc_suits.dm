@@ -1292,7 +1292,7 @@
 		icon_state = icon_state + "_t"
 	else
 		icon_state = initial(icon_state)
-	usr.update_inv_wear_suit()
+	update_mob_overlay()
 	update_action_buttons()
 
 /obj/item/clothing/suit/lordadmiral

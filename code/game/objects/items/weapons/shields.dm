@@ -112,6 +112,7 @@
 		user.take_organ_damage(5)
 	active = !active
 	icon_state = "eshield[active]"
+	update_mob_overlay()
 
 	if(active)
 		force = 10
@@ -127,10 +128,6 @@
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
 		to_chat(user, SPAN_NOTICE("[src] can now be concealed."))
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
 	if(!forced)
 		add_fingerprint(user)
 	return
@@ -174,10 +171,7 @@
 		slot_flags = ITEM_SLOT_BACK
 		to_chat(user, SPAN_NOTICE("You extend \the [src]."))
 	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
+	update_mob_overlay()
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return

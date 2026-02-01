@@ -667,8 +667,6 @@
 	if(choice && reskin_radial_check(M))
 		icon_state = razorwire_skin_options[choice]
 		update_icon()
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
 
 /obj/item/melee/razorwire/proc/reskin_radial_check(mob/user)
 	if(!ishuman(user))
@@ -677,6 +675,9 @@
 	if(!src || !H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	return TRUE
+
+/obj/item/melee/razorwire/update_icon_state()
+	update_mob_overlay()
 
 /datum/action/item_action/organ_action/toggle/razorwire
 	button_icon = 'icons/obj/surgery.dmi'

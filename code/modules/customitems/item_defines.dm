@@ -353,7 +353,7 @@
 		new /datum/action/item_action/openclose(jacket)//this actually works
 	jacket.adjust_flavour = "unbutton"
 	jacket.sprite_sheets = null
-	user.update_inv_wear_suit()
+	jacket.update_mob_overlay()
 	qdel(src)
 
 /// Fei Hazelwood: Tariq Yon-Dale
@@ -466,7 +466,6 @@
 		target.transfer_fingerprints_to(sallet)
 		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, 1)
 		to_chat(user, SPAN_NOTICE("You modify [target] with [src]."))
-		H.update_inv_head()
 		qdel(target)
 		qdel(src)
 	else
@@ -484,12 +483,10 @@
 		return
 
 	if(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest))
-		var/mob/living/carbon/human/H = user
 		var/obj/item/clothing/suit/storage/S = target
 		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
 		webbing.allowed = S.allowed
 		to_chat(user, SPAN_NOTICE("You modify [S] with [src]."))
-		H.update_inv_wear_suit()
 		qdel(S)
 		qdel(src)
 	else
@@ -737,10 +734,10 @@
 		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
 			var/list/new_state = options[choice]
 			icon_state = new_state["icon_state"]
+			update_mob_overlay()
 			state = choice
 			to_chat(user, "You adjust the helmet.")
 			playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
-			user.update_inv_head()
 			return 1
 
 /// V-Force_Bomber: E.L.O.
@@ -808,9 +805,9 @@
 			icon_state = "[options[choice]]_open"
 		else
 			icon_state = options[choice]
+		update_mob_overlay()
 		to_chat(user, "You turn your coat inside out and now it's [choice]!")
 		name = "custom [choice] military jacket"
-		user.update_inv_wear_suit()
 		return 1
 
 	. = ..()
@@ -900,7 +897,7 @@
 		else
 			to_chat(usr, "You attempt to hit the button but can't.")
 			return
-	usr.update_inv_wear_suit()
+	update_mob_overlay()
 
 /// Sweetjealousy: Sophie Faust-Noms
 /obj/item/clothing/suit/storage/labcoat/fluff/red
@@ -996,9 +993,9 @@
 			icon_state += "_on"
 			suit_adjusted = 1 //Lights On
 
+		update_mob_overlay()
 		update_action_buttons()
 		to_chat(user, "You turn [src]'s lighting system [flavour].")
-		user.update_inv_wear_suit()
 
 /// Xantholne: Meex Zwichsnicrur
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne
@@ -1181,7 +1178,7 @@
 		icon_state = "jane_sid_suit_down"
 		to_chat(usr, "You unzip and roll down \the [src].")
 
-	usr.update_inv_w_uniform()
+	update_mob_overlay()
 
 /// MrBarrelrolll: Maximus Greenwood
 /obj/item/clothing/under/fluff/honourable
@@ -1343,7 +1340,7 @@
 		icon_state += "_open"
 		to_chat(usr, "You transform \the [src].")
 		adjusted = 1
-	usr.update_inv_head()
+	update_mob_overlay()
 	update_action_buttons()
 
 /// chronx100: Hughe O'Splash
@@ -1528,7 +1525,6 @@
 		if(P == H.head)
 			H.unequip(P, force = TRUE)
 			H.equip_to_slot(F, ITEM_SLOT_HEAD, TRUE)
-			H.update_inv_head()
 		qdel(P)
 
 	else if(istype(target, /obj/item/clothing/under/plasmaman))
@@ -1542,9 +1538,7 @@
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		P.icon_state = "ikelos_envirosuit"
 		P.icon = 'icons/obj/custom_items.dmi'
-
-		if(P == H.w_uniform)
-			H.update_inv_w_uniform()
+		P.update_mob_overlay()
 
 	else
 		to_chat(user, SPAN_WARNING("You can't modify [target]!"))

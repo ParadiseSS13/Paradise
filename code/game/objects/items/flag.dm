@@ -35,10 +35,7 @@
 	icon_state = "[get_flag_icon()][rolled ? "_rolled" : ""]"
 	inhand_icon_state = "[get_flag_icon()][resistance_flags & ON_FIRE ? "_fire" : ""]"
 	custom_fire_overlay = "[initial(custom_fire_overlay)][rolled ? "_rolled" : ""]"
-	if(ismob(loc))
-		var/mob/mob = loc
-		mob.update_inv_r_hand()
-		mob.update_inv_l_hand()
+	update_mob_overlay()
 
 /obj/item/flag/proc/get_flag_icon()
 	return initial(icon_state)

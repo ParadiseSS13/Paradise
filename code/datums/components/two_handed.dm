@@ -215,7 +215,10 @@
 	if(sharpened_increase && only_sharp_when_wielded)
 		parent_item.force += sharpened_increase
 	parent_item.name = "[parent_item.name] (Wielded)"
+
+	// Update icons
 	parent_item.update_appearance()
+	parent_item.update_mob_overlay()
 
 	if(isrobot(user))
 		to_chat(user, SPAN_NOTICE("You dedicate your module to [parent]."))
@@ -278,14 +281,9 @@
 
 	// Update icons
 	parent_item.update_appearance()
+	parent_item.update_mob_overlay()
 
 	if(istype(user)) // tk showed that we might not have a mob here
-		if(user.get_item_by_slot(ITEM_SLOT_BACK) == parent)
-			user.update_inv_back()
-		else
-			user.update_inv_l_hand()
-			user.update_inv_r_hand()
-
 		// if the item requires two handed drop the item on unwield
 		if(require_twohands && can_drop)
 			user.drop_item_to_ground(parent, force = TRUE)

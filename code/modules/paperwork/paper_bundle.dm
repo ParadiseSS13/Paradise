@@ -44,10 +44,7 @@
 			screen = 1
 		to_chat(user, SPAN_NOTICE("You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name]."))
 		user.transfer_item_to(P, src)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.update_inv_l_hand()
-			H.update_inv_r_hand()
+		update_mob_overlay()
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 

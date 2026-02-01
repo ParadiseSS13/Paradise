@@ -870,12 +870,7 @@
 			icon_state = "tempgun_1"
 		if(-INFINITY to 120)
 			icon_state = "tempgun_0"
-
-	if(iscarbon(loc))
-		var/mob/living/carbon/M = loc
-		M.update_inv_back()
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
+	update_mob_overlay()
 
 /obj/item/gun/energy/temperature/update_overlays()
 	. = ..()

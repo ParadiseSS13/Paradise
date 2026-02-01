@@ -46,11 +46,7 @@
 		icon_state = "thurible-lit"
 	else
 		icon_state = "thurible"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		if(H.r_hand == src || H.l_hand == src)
-			H.update_inv_l_hand()
-			H.update_inv_r_hand()
+	update_mob_overlay()
 	return ..()
 
 /obj/item/thurible/attackby__legacy__attackchain(obj/item/fire_source, mob/user, params)

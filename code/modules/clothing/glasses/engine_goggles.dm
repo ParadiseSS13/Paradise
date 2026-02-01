@@ -102,16 +102,7 @@
 
 /obj/item/clothing/glasses/meson/engine/update_icon_state()
 	icon_state = "trayson-[mode]"
-	update_mob()
-
-/obj/item/clothing/glasses/meson/engine/proc/update_mob()
-	if(isliving(loc))
-		var/mob/living/user = loc
-		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
-			user.update_inv_glasses()
-		else
-			user.update_inv_l_hand()
-			user.update_inv_r_hand()
+	update_mob_overlay()
 
 /// Atmospherics techs get their own version with T-ray and an exlusive Pressure view.
 /obj/item/clothing/glasses/meson/engine/atmos

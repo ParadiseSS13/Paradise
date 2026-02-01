@@ -110,9 +110,7 @@ CONTENTS:
 			mode = ABDUCTOR_VEST_STEALTH
 			armor = stealth_armor
 			icon_state = "vest_stealth"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_wear_suit()
+	update_mob_overlay()
 	update_action_buttons()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
@@ -278,6 +276,7 @@ CONTENTS:
 			icon_state = "wonderprodCuff"
 		if(BATON_PROBE)
 			icon_state = "wonderprodProbe"
+	update_mob_overlay()
 
 /obj/item/abductor_baton/attack__legacy__attackchain(mob/target, mob/living/user)
 	if(!isabductor(user))
@@ -313,10 +312,6 @@ CONTENTS:
 
 /obj/item/abductor_baton/attack_self__legacy__attackchain(mob/living/user)
 	toggle(user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
 
 /obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
 	L.store_last_attacker(user)

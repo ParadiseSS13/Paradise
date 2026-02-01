@@ -40,7 +40,7 @@
 	else
 		RegisterSignal(target, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE, PROC_REF(late_update_icon), TRUE)
 	if(isitem(target))
-		INVOKE_ASYNC(target, TYPE_PROC_REF(/obj/item/, update_slot_icon), TRUE)
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/obj/item, update_mob_overlay))
 	if(_dir)
 		RegisterSignal(target, list(COMSIG_ATOM_DECALS_ROTATING, COMSIG_ATOM_GET_DECALS), PROC_REF(get_decals), TRUE)
 		SSdcs.RegisterSignal(target, COMSIG_ATOM_DIR_CHANGE, TYPE_PROC_REF(/datum/controller/subsystem/processing/dcs, rotate_decals), override=TRUE)
@@ -129,7 +129,7 @@
 	SSdcs.UnregisterSignal(source, COMSIG_ATOM_DIR_CHANGE)
 	source.update_appearance(UPDATE_OVERLAYS)
 	if(isitem(source))
-		INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item/, update_slot_icon))
+		INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, update_mob_overlay))
 	return ..()
 
 /datum/element/decal/proc/apply_overlay(atom/source, list/overlays)

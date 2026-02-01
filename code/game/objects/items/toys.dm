@@ -194,10 +194,7 @@
 		icon_state = "sword"
 		w_class = WEIGHT_CLASS_SMALL
 
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+	update_mob_overlay()
 	add_fingerprint(user)
 
 /obj/item/toy/sword/attack_by(obj/item/attacking, mob/user, params)

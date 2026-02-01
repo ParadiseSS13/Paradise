@@ -463,7 +463,7 @@
 	mod.worn_icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
-	mod.wearer.update_inv_back()
+	mod.update_mob_overlay()
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 
 ///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
