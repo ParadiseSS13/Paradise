@@ -67,6 +67,33 @@
 	new /obj/structure/swarmer/barricade(T)
 	StartCooldown()
 
+/datum/action/cooldown/mob_cooldown/swarmer_share_resources
+	name = "Share Resources"
+	button_icon = 'icons/mob/swarmer.dmi'
+	button_icon_state = "ui_transfer"
+	desc = "Share 50 resources with the swarmer that created you."
+	click_to_activate = FALSE
+	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
+	cooldown_time = 15 SECONDS
+	shared_cooldown = NONE
+
+/datum/action/cooldown/mob_cooldown/swarmer_share_resources/Activate(atom/target)
+	var/mob/living/basic/swarmer/lesser/user = target
+	if(!istype(user))
+		to_chat(target, SPAN_WARNING("Incompatible hardware detected. Aborting."))
+		return
+	if(!user.progenitor)
+		to_chat(target, SPAN_WARNING("Progenitor not responding. Aborting."))
+		return
+	if(user.resources < 50)
+		to_chat(user, SPAN_WARNING("Insufficient resources. Aborting."))
+		return
+	user.progenitor.resources = clamp(user.progenitor.resources + 50, 0, user.progenitor.resource_max)
+	user.resources -= 50
+	user.Beam(user.progenitor, "light_beam", 'icons/effects/beam.dmi', 0.3 SECONDS, beam_color = LIGHT_COLOR_CYAN)
+	playsound(get_turf(user), 'sound/effects/empulse.ogg', 15, TRUE)
+	StartCooldown()
+
 /datum/action/cooldown/mob_cooldown/swarmer_replicate
 	name = "Replicate"
 	button_icon = 'icons/mob/swarmer.dmi'
@@ -95,5 +122,6 @@
 	user.resources -= 50
 	user.visible_message(SPAN_WARNING("[user] manufactures a new swarmer."))
 	playsound(get_turf(user), 'sound/items/rped.ogg', 50, TRUE)
-	new /mob/living/basic/swarmer/lesser(T)
+	var/mob/living/basic/swarmer/lesser/child = new /mob/living/basic/swarmer/lesser(T)
+	child.progenitor = user
 	StartCooldown()
