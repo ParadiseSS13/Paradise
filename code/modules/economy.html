@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>code/modules/economy/README.md - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>Paradise Economy <aside>code/modules/economy/README.md</aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/economy/README.md"><img src="git.png" width="16" height="16" title="code/modules/economy/README.md"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2 id="introduction">Introduction</h2>
+<p>This README was last updated on October 2nd, 2022</p>
+<h2 id="economy-subsystem">Economy SubSystem</h2>
+<p>The Economy SubSystem performs a few important tasks that turns the gears of the economy</p>
+<ul>
+<li>
+<p><code>payday()</code> - This is called every 30 minutes. the payday proc goes through every single money account and credits it the amount it has its paycheck set to. In addition, it will add/subtract credits based on what bonuses/deductions the money account has on it. In addition, SSeconomy tracks global deductions and bonuses which will be applied to EVERY paycheck and then zero'd out after the payday is over. If a money account is open on a NanoBank app, they will be alerted to the paycheck through the app.</p>
+</li>
+<li>
+<p><code>process_job_tasks()</code>- This is called every 30 seconds to check if players who have job objectives have completed the requirements of those job objectives, if so, it will add a &quot;bonus&quot; to the players next check and notify the player of the payroll modification. This proc handles calling procs and changing variables that will check completion on the job task and disable it from being checked in the future once payout is given.</p>
+</li>
+</ul>
+<h2 id="the-space-credit-financial-system">The Space Credit Financial System</h2>
+<p>The Space Credit system is split up into two important datums: money accounts (<code>/datum/money_account</code>) and money account databases (<code>datum/money_account_database</code>). Money accounts represent individual accounts and money account databases represent a collection of money accounts.</p>
+<h3 id="money-accounts">Money Accounts</h3>
+<p>A <code>/datum/money_acount</code> or &quot;money account&quot; is where most economy data is stored. In money accounts information is contained about the owner as well as all relevant credentials and setting for the account. Money accounts are rather barebones and only contain helper functions to simplify direct interaction.</p>
+<p><strong>Credit Balance</strong>
+Accounts are primarily a store of space credits for crew
+<code>/datum/money_account/proc/try_withdraw_credits</code> - used to subtract credits from account balance with some safety checks
+<code>/datum/money_account/proc/deposit_credits</code>      - used to deposit credits into the account balance
+<code>/datum/money_account/proc/set_credits</code>          - used to set credit balance to a specified value</p>
+<p><strong>Account Security</strong>
+Accounts are not perfectly secure and safe, in fact, they're built to be broken into when crew members are not careful with their credentials, or an antagonist chooses to try and access another's account</p>
+<p><code>/datum/money_account/proc/authenticate_login</code>
+This authenticate_login() proc is used to check the provided credentials against the accounts security level, it returns fails (FALSE) or success (TRUE) if the provided values pass the threshold/security reqs for the specificed security level
+There are a few important accounts level</p>
+<ul>
+<li><code>ACCOUNT_SECURITY_ID</code> - Account can be accessed with only the account number</li>
+<li><code>ACCOUNT_SECURITY_PIN</code> - Account can be accessed only with the account number AND correct pin</li>
+<li><code>ACCOUNT_SECURITY_RESTRICTED</code> - Account has same pin/acc-number restrictions but can only be accessed through special machines</li>
+<li><code>ACCOUNT_SECURITY_CC</code> - Account requires user to be an admin, this is for CC character safety</li>
+<li><code>ACCOUNT_SECURITY_VENDOR</code> - Account requires forced programmatic access, players in-game cannot access this account</li>
+</ul>
+<p><code>make_transaction_log</code> - Creates a <code>/datum/transaction</code> object to be tracked on money account
+Transactions are just logs of money going in and out of the account so that players can see where there money comes from and how it is being spent, it provides a paper trail as well for security and legal affairs</p>
+<p><strong>Money Transfers</strong>
+Money transfers are the transfer of space credits between money accounts, while the movement of space credits out of one account into another is handled by an account database, the actual requests that have not been resolved are stored and handled on money accounts</p>
+<p><code>/datum/money_account/proc/create_transfer_request</code>
+Simple helper proc that handles creating a transfer request on the money account, needed to interact with LAZYLISTs
+<code>/datum/money_account/proc/resolve_transfer_request</code>
+another helper proc that clears the transfer request</p>
+<p>Neither of these procs actually transfer money account and rather just deal with how the information is being stored and processed on the money account, the actual money transfer is done through the account database.</p>
+<p><strong>Why You Shouldn't use these Procs</strong>
+You shouldn't be using these procs unless you intend to change how the account database interacts with money accounts. Like mentioned previously, money accounts are only for storing data and don't actual perform the functions and power the moving parts of the economy. This is because there can be upwards of 100 money accounts in one round, in order to make this memory performative, money accounts are focused on being as efficient as possible by utilizing LAZY LISTS and facilitating good Garbage Collection practices</p>
+<p>Instead, if you want to perform calculations, purchases, transfers, etc with multiple money accounts, ALL of that should be done through a account database or some form of financial machinery but not the money account.</p>
+<h3 id="account-databases">Account Databases</h3>
+<p>If Money accounts are just records of data, account databases are a store of multiple money data records. A <code>datum/money_account_database</code> holds lists of money accounts and serves as the primary means in which interactions are carried out</p>
+<p>most instances of any financial/economy machinery/programs should have a reference to the main station
+database. You'll see a lot of machinery already use a var ref to the main station db, through this, most all economy actions can be performed. (Please see each procs documentation for usage). This is how you will interact with money account, through the account database.</p>
+<p><strong>Referencing Money Databases</strong>
+A good way to make sure your machine can access the station money database
+<code>var/datum/money_account_database/account_db = GLOB.station_money_database</code>
+Additionally, if you need to access a different money database you can go through SSeconomy
+<code>SSeconomy.money_account_databases</code></p>
+<p><strong>Using a Money DB to find an account</strong>
+The only way to find personal money accounts in a money DB is with the account associated account number
+you can use <code>find_user_account()</code> for this.
+<code>/datum/money_account_database/proc/find_user_account(account_number, include_departments = FALSE)</code>
+for this proc specifically, you can specify to include departments in the search</p>
+<p>For the main station type account db, you can also find departments, you can either get all the departments in one list an iterate through it yourself, or just provide the name of the department
+<code>/datum/money_account_database/main_station/proc/get_all_department_accounts()</code>
+<code>/datum/money_account_database/main_station/proc/get_account_by_department(department)</code></p>
+<p><strong>Moving Money In and Out of Money Accounts</strong>
+You can charge a money account, when doing this through the account_db, you need to provide information about the purchase so that if the charge goes through, proper transaction logs can be created
+<code>/datum/money_account_database/proc/charge_account</code></p>
+<p>You can add credits to a money account with the credit account proc, works similairly to charge account
+<code>/datum/money_account_database/proc/credit_account</code></p>
+<p>Create a money transfer request datum on specified money account, notifies the money account to start storing this data
+<code>/datum/money_account_database/proc/create_transfer_request</code>
+Resolves a money transfer request, deletes transfer request and charges/credits involved accounts
+<code>/datum/money_account_database/proc/resolve_transfer_request</code></p>
+<p><strong>Money Account Security through the DB</strong>
+Check user permission to access a money account based on given parameters
+<code>/datum/money_account_database/proc/try_authenticate_login</code>
+Create a transaction log on a money account (and DB in some cases), basically a constructor
+<code>/datum/money_account_database/proc/log_account_action</code></p>
+<p>for example, in order to interact with money account A you will need to go through your account database
+<code>account_db.credit_account(A, 50, &quot;Account Credit&quot;, ...)</code>
+as opposed to doing it the wrong way which doesn't create a transaction log or check to see if the DB is online
+<code>A.deposit_credits(50)</code></p>
+<p>As with the previousl example, you may notice that a lot of these procs exist on the money account level. Those are internal procs that exist for the account database to use. The reason for this is to ensure proper logging for players and admins, handle interactions where two money accounts are involved, and to prevent runtimes that may occur from value mismatches. Many procs such as a <code>charge_account()</code> and <code>resolve_transfer_request()</code> also ensure perfect transfer of credits, this is important (And explained in the next section)</p>
+<h3 id="perfect-credit-transfer">Perfect Credit Transfer</h3>
+<p>The power of an in-game economy exists because of how much control we have over it. Every credit spent needs to go somewhere, and every credit given needs to come from somewhere. One should avoid just crediting accounts on a whim or removing money for no reason. Since we don't have current implementations of supply/demand or rolling prices (increasing or decreasing), prices of items in-game are fixed. That means that the money supply is the only thing controlling how much or little of items that the crew can buy.</p>
+<p>Space Credits Taps (In-Flow of Space Credits into the economy)</p>
+<ul>
+<li>SSeconomy Payday every 30 minutes</li>
+<li>Job Objectives Completion</li>
+<li>Cargo selling crates, plasma, seeds, and research</li>
+<li>Round-start Money Account Balances</li>
+<li>Slot Machine Winnings (although this really is a space credit drain in disguise)</li>
+<li>Contract Completions (contractors)</li>
+</ul>
+<p>Space Credit Drains/Exchanges (Out-Flow of space credits out of the economy)</p>
+<ul>
+<li>Vending Machine Purchases</li>
+<li>Cargo Supply Console Purchases</li>
+<li>Physical Destruction of Space cash or credits stored in economy machinery</li>
+<li>RARE: Sol Traders</li>
+</ul>
+<h2 id="other-important-economy-machinery-programs">Other Important Economy Machinery/Programs</h2></td></tr></table></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

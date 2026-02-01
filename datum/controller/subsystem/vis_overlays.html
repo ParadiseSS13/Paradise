@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/controller/subsystem/vis_overlays - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/controller/subsystem/vis_overlays.html#var">Var Details</a> - <a href="datum/controller/subsystem/vis_overlays.html#proc">Proc Details</a></header><main><h1>vis_overlays <aside>/<a href="datum.html">datum</a>/<a href="datum/controller.html">controller</a>/<a href="datum/controller/subsystem.html">subsystem</a>/<a href="datum/controller/subsystem/vis_overlays.html">vis_overlays</a></aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/controllers/subsystem/SSvis_overlays.dm#L10"><img src="git.png" width="16" height="16" title="code/controllers/subsystem/SSvis_overlays.dm 10"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr><tr><th><a href="datum/controller/subsystem/vis_overlays.html#var/currentrun">currentrun</a></th><td>List of currently processed overlays during a run</td></tr><tr><th><a href="datum/controller/subsystem/vis_overlays.html#var/vis_overlay_cache">vis_overlay_cache</a></th><td>Cache for visual overlays</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="datum/controller/subsystem/vis_overlays.html#proc/_create_new_vis_overlay">_create_new_vis_overlay</a></th><td>Creates a new visual overlay with the specified parameters.</td></tr><tr><th><a href="datum/controller/subsystem/vis_overlays.html#proc/add_vis_overlay">add_vis_overlay</a></th><td>Adds a visual overlay to a given atom.</td></tr><tr><th><a href="datum/controller/subsystem/vis_overlays.html#proc/remove_vis_overlay">remove_vis_overlay</a></th><td>Removes specified visual overlays from an atom.</td></tr></table><h2 id="var">Var Details</h2><h3 id="var/currentrun"><aside class="declaration">var </aside>currentrun <aside>– /list</aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/controllers/subsystem/SSvis_overlays.dm#L19"><img src="git.png" width="16" height="16" title="code/controllers/subsystem/SSvis_overlays.dm 19"></a></h3><p>List of currently processed overlays during a run</p><h3 id="var/vis_overlay_cache"><aside class="declaration">var </aside>vis_overlay_cache <aside>– /list</aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/controllers/subsystem/SSvis_overlays.dm#L17"><img src="git.png" width="16" height="16" title="code/controllers/subsystem/SSvis_overlays.dm 17"></a></h3><p>Cache for visual overlays</p><h2 id="proc">Proc Details</h2><h3 id="proc/_create_new_vis_overlay"><aside class="declaration">proc </aside>_create_new_vis_overlay<aside>(icon, iconstate, layer, plane, dir, alpha, add_appearance_flags)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/controllers/subsystem/SSvis_overlays.dm#L103"><img src="git.png" width="16" height="16" title="code/controllers/subsystem/SSvis_overlays.dm 103"></a></aside></h3><p>Creates a new visual overlay with the specified parameters.</p>
+<p>This procedure initializes a new visual overlay object with the given attributes.</p>
+<p>Arguments:</p>
+<ul>
+<li>icon - The icon to display for the overlay.</li>
+<li>iconstate - The state of the icon.</li>
+<li>layer - The layer on which the overlay will be rendered.</li>
+<li>plane - The plane for the overlay.</li>
+<li>dir - The direction the overlay faces.</li>
+<li>alpha - The transparency level of the overlay.</li>
+<li>add_appearance_flags - Additional flags for overlay appearance.</li>
+</ul>
+<p>Returns the newly created overlay.</p><h3 id="proc/add_vis_overlay"><aside class="declaration">proc </aside>add_vis_overlay<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/thing, icon, iconstate, layer, plane, dir, alpha, add_appearance_flags, unique)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/controllers/subsystem/SSvis_overlays.dm#L60"><img src="git.png" width="16" height="16" title="code/controllers/subsystem/SSvis_overlays.dm 60"></a></aside></h3><p>Adds a visual overlay to a given atom.</p>
+<p>This procedure creates and adds a visual overlay to the specified object. It can either create a unique
+overlay or reuse an existing one based on the provided parameters.</p>
+<p>Arguments:</p>
+<ul>
+<li>thing - The atom to which the overlay will be added. The &quot;thing&quot; var can be anything with vis_contents which includes images</li>
+<li>icon - The icon to display for the overlay.</li>
+<li>iconstate - The state of the icon.</li>
+<li>layer - The layer on which the overlay will be rendered.</li>
+<li>plane - The plane for the overlay.</li>
+<li>dir - The direction the overlay faces.</li>
+<li>alpha - The transparency level of the overlay (default is 255).</li>
+<li>add_appearance_flags - Additional flags for overlay appearance (default is NONE).</li>
+<li>unique - A boolean indicating if the overlay should be unique (default is FALSE).</li>
+</ul>
+<p>Returns the overlay that was added.</p><h3 id="proc/remove_vis_overlay"><aside class="declaration">proc </aside>remove_vis_overlay<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/thing, /list/overlays)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/controllers/subsystem/SSvis_overlays.dm#L124"><img src="git.png" width="16" height="16" title="code/controllers/subsystem/SSvis_overlays.dm 124"></a></aside></h3><p>Removes specified visual overlays from an atom.</p>
+<p>This procedure removes the given overlays from the atom's visual contents and also updates the
+managed overlays list if applicable.</p>
+<p>Arguments:</p>
+<ul>
+<li>thing - The atom from which the overlays will be removed.</li>
+<li>overlays - A list of overlays to remove.</li>
+</ul></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

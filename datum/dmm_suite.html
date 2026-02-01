@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/dmm_suite - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/dmm_suite.html#proc">Proc Details</a></header><main><h1>dmm_suite <aside>/<a href="datum.html">datum</a>/<a href="datum/dmm_suite.html">dmm_suite</a></aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/awaymissions/maploader/dmm_suite.dm#L55"><img src="git.png" width="16" height="16" title="code/modules/awaymissions/maploader/dmm_suite.dm 55"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="datum/dmm_suite.html#proc/load_map">load_map</a></th><td>Construct the model map and control the loading process</td></tr><tr><th><a href="datum/dmm_suite.html#proc/parse_grid">parse_grid</a></th><td>Fill a given tile with its area/turf/objects/mobs
+Variable model is one full map line (e.g /turf/simulated/wall{icon_state = &quot;rock&quot;},/area/mine/dangerous/explored)</td></tr><tr><th><a href="datum/dmm_suite.html#proc/parse_value">parse_value</a></th><td>Tries to parse the given value_text. Will fallback on the value_text as a string if it fails</td></tr></table><h2 id="proc">Proc Details</h2><h3 id="proc/load_map"><aside class="declaration">proc </aside>load_map<aside>(dmm_file, x_offset, y_offset, z_offset, shouldCropMap, measureOnly)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/awaymissions/maploader/reader.dm#L28"><img src="git.png" width="16" height="16" title="code/modules/awaymissions/maploader/reader.dm 28"></a></aside></h3><p>Construct the model map and control the loading process</p>
+<p>WORKING :</p>
+<ol>
+<li>Makes an associative mapping of model_keys with model
+e.g aa = /turf/simulated/wall{icon_state = &quot;rock&quot;}</li>
+<li>Read the map line by line, parsing the result (using parse_grid)</li>
+</ol>
+<p>If <code>measureOnly</code> is set, then no atoms will be created, and all this will do
+is return the bounds after parsing the file</p>
+<p>If you need to freeze init while you're working, you can use the spacial allocator's
+&quot;add_dirt&quot; and &quot;remove_dirt&quot; which will put initializations on hold until you say
+the word. This is important for loading large maps such as the cyberiad, where
+atmos will attempt to start before it's ready, causing runtimes galore if init is
+allowed to romp unchecked.</p><h3 id="proc/parse_grid"><aside class="declaration">proc </aside>parse_grid<aside>(model, xcrd, ycrd, zcrd, /<a href="datum.html">datum</a>/<a href="datum/dmm_suite.html">dmm_suite</a>/loaded_map/LM)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/awaymissions/maploader/reader.dm#L200"><img src="git.png" width="16" height="16" title="code/modules/awaymissions/maploader/reader.dm 200"></a></aside></h3><p>Fill a given tile with its area/turf/objects/mobs
+Variable model is one full map line (e.g /turf/simulated/wall{icon_state = &quot;rock&quot;},/area/mine/dangerous/explored)</p>
+<p>WORKING :</p>
+<ol>
+<li>
+<p>Read the model string, member by member (delimiter is ',')</p>
+</li>
+<li>
+<p>Get the path of the atom and store it into a list</p>
+</li>
+<li>
+<p>a) Check if the member has variables (text within '{' and '}')</p>
+</li>
+<li>
+<p>b) Construct an associative list with found variables, if any (the atom index in members is the same as its variables in members_attributes)</p>
+</li>
+<li>
+<p>Instanciates the atom with its variables</p>
+</li>
+</ol><h3 id="proc/parse_value"><aside class="declaration">proc </aside>parse_value<aside>(value_text)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/awaymissions/maploader/reader.dm#L399"><img src="git.png" width="16" height="16" title="code/modules/awaymissions/maploader/reader.dm 399"></a></aside></h3><p>Tries to parse the given value_text. Will fallback on the value_text as a string if it fails</p></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

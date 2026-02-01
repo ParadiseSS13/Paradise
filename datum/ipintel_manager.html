@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/ipintel_manager - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/ipintel_manager.html#proc">Proc Details</a></header><main><h1>ipintel_manager <aside>/<a href="datum.html">datum</a>/<a href="datum/ipintel_manager.html">ipintel_manager</a></aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L3"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 3"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="datum/ipintel_manager.html#proc/get_ip_intel">get_ip_intel</a></th><td>Get IP intel</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/ip_intel_query">ip_intel_query</a></th><td>Performs the remote IPintel lookup</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/ipintel_badip_check">ipintel_badip_check</a></th><td>IP Rating Checker</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/ipintel_handle_error">ipintel_handle_error</a></th><td>Error handler</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/ipintel_is_banned">ipintel_is_banned</a></th><td>IPIntel Ban Checker</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/log_ipintel">log_ipintel</a></th><td>Logs an IPintel error</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/vpn_whitelist_add">vpn_whitelist_add</a></th><td>VPN whitelist adder</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/vpn_whitelist_check">vpn_whitelist_check</a></th><td>VPN whitelist checker</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/vpn_whitelist_panel">vpn_whitelist_panel</a></th><td>VPN whitelist panel</td></tr><tr><th><a href="datum/ipintel_manager.html#proc/vpn_whitelist_remove">vpn_whitelist_remove</a></th><td>VPN whitelist remover</td></tr></table><h2 id="proc">Proc Details</h2><h3 id="proc/get_ip_intel"><aside class="declaration">proc </aside>get_ip_intel<aside>(ip, bypasscache, updatecache)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L51"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 51"></a></aside></h3><p>Get IP intel</p>
+<p>Performs a lookup of the rating for an IP provided</p>
+<p>Arguments:</p>
+<ul>
+<li>ip - The IP to lookup</li>
+<li>bypasscache - Do we want to bypass the DB cache?</li>
+<li>updatecache - Do we want to update the DB cache?</li>
+</ul><h3 id="proc/ip_intel_query"><aside class="declaration">proc </aside>ip_intel_query<aside>(ip, retried)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L123"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 123"></a></aside></h3><p>Performs the remote IPintel lookup</p>
+<p>Arguments:</p>
+<ul>
+<li>ip - The IP to lookup</li>
+<li>retried - Was this attempt retried?</li>
+</ul><h3 id="proc/ipintel_badip_check"><aside class="declaration">proc </aside>ipintel_badip_check<aside>(target_ip)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L239"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 239"></a></aside></h3><p>IP Rating Checker</p>
+<p>Checks if a provided IP passes the config threshold for denial</p>
+<p>Arguments:</p>
+<ul>
+<li>target_ip - The IP to check</li>
+</ul><h3 id="proc/ipintel_handle_error"><aside class="declaration">proc </aside>ipintel_handle_error<aside>(error, ip, retried)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L180"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 180"></a></aside></h3><p>Error handler</p>
+<p>Handles an IP intel error, also throttling the susbystem if required</p>
+<p>Arguments:</p>
+<ul>
+<li>error - The error description</li>
+<li>ip - The IP that was tried</li>
+<li>retried - Was this on a retried attempt</li>
+</ul><h3 id="proc/ipintel_is_banned"><aside class="declaration">proc </aside>ipintel_is_banned<aside>(t_ckey, t_ip)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L214"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 214"></a></aside></h3><p>IPIntel Ban Checker</p>
+<p>Checks if a user is banned due to IPintel. It will check configuration, DB, whitelist checks, and more</p>
+<p>Arguments:</p>
+<ul>
+<li>t_ckey - The ckey to check</li>
+<li>t_ip - The IP to check</li>
+</ul><h3 id="proc/log_ipintel"><aside class="declaration">proc </aside>log_ipintel<aside>(text)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L199"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 199"></a></aside></h3><p>Logs an IPintel error</p>
+<p>Pretty self explanatory. Logs errors regarding ipintel.</p>
+<p>Arguments:</p>
+<ul>
+<li>text - Argument 1</li>
+</ul><h3 id="proc/vpn_whitelist_add"><aside class="declaration">proc </aside>vpn_whitelist_add<aside>(target_ckey)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L302"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 302"></a></aside></h3><p>VPN whitelist adder</p>
+<p>Adds a ckey to the VPN whitelist. Asks the admin to also provide a link to their request.</p>
+<p>Arguments:</p>
+<ul>
+<li>target_ckey - The ckey to whitelist</li>
+</ul><h3 id="proc/vpn_whitelist_check"><aside class="declaration">proc </aside>vpn_whitelist_check<aside>(target_ckey)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L277"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 277"></a></aside></h3><p>VPN whitelist checker</p>
+<p>Checks if a ckey is whitelisted to be using a VPN against the DB</p>
+<p>Arguments:</p>
+<ul>
+<li>target_ckey - The ckey to check</li>
+</ul><h3 id="proc/vpn_whitelist_panel"><aside class="declaration">proc </aside>vpn_whitelist_panel<aside>(target_ckey<span class="as"> as </span>text)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L346"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 346"></a></aside></h3><p>VPN whitelist panel</p>
+<p>Doesnt actually open a panel, this is just a verb to handle the rest of the whitelist operations</p>
+<p>Arguments:</p>
+<ul>
+<li>target_ckey - The ckey to add/remove</li>
+</ul><h3 id="proc/vpn_whitelist_remove"><aside class="declaration">proc </aside>vpn_whitelist_remove<aside>(target_ckey)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ipintel.dm#L326"><img src="git.png" width="16" height="16" title="code/datums/ipintel.dm 326"></a></aside></h3><p>VPN whitelist remover</p>
+<p>Removes a ckey from the VPN whitelist. Pretty simple.</p>
+<p>Arguments:</p>
+<ul>
+<li>target_ckey - The ckey to remove</li>
+</ul></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

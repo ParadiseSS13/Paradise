@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/client_login_processor - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/client_login_processor.html#var">Var Details</a> - <a href="datum/client_login_processor.html#proc">Proc Details</a></header><main><h1>Client Login Processor Framework <aside>/<a href="datum.html">datum</a>/<a href="datum/client_login_processor.html">client_login_processor</a></aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/client/login_processing/__client_login_processor.dm#L20"><img src="git.png" width="16" height="16" title="code/modules/client/login_processing/__client_login_processor.dm 20"></a></h1><p>The holder class for all client data processing</p>
+<p>This framework is designed for loading in client data from the database.
+Login processors have their own queries, which will be put into one async batch and
+executed at the same time, to reduce the time it takes for a client to login.
+Login processors can also be given priorities to have things fire in specific orders
+EG: Load their preferences before their job bans, etc etc</p>
+<p>When creating these, please name the files with the priority at the start, and the typepath after
+EG: 10-load_preferences.dm
+This makes it easier to track stuff down -AA07</p>
+<p>Also if you have used other languages before with &quot;interface&quot; types (Java, C# (Microsoft Java), etc),
+treat this class as one of those. <a href="datum/client_login_processor.html#proc/get_query" title="/datum/client_login_processor">/datum/client_login_processor/proc/get_query</a> and
+<a href="datum/client_login_processor.html#proc/process_result" title="/datum/client_login_processor">/datum/client_login_processor/proc/process_result</a> MUST be overriden.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr><tr><th><a href="datum/client_login_processor.html#var/priority">priority</a></th><td>The login priority. A lower priority will fire first</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="datum/client_login_processor.html#proc/get_query">get_query</a></th><td>Query Getter</td></tr><tr><th><a href="datum/client_login_processor.html#proc/process_result">process_result</a></th><td>Result Processor</td></tr></table><h2 id="var">Var Details</h2><h3 id="var/priority"><aside class="declaration">var </aside>priority <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/client/login_processing/__client_login_processor.dm#L22"><img src="git.png" width="16" height="16" title="code/modules/client/login_processing/__client_login_processor.dm 22"></a></h3><p>The login priority. A lower priority will fire first</p><h2 id="proc">Proc Details</h2><h3 id="proc/get_query"><aside class="declaration">proc </aside>get_query<aside>(/<a href="client.html">client</a>/C) <span class="as"> as </span>/<a href="datum.html">datum</a>/<a href="datum/db_query.html">db_query</a> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/client/login_processing/__client_login_processor.dm#L35"><img src="git.png" width="16" height="16" title="code/modules/client/login_processing/__client_login_processor.dm 35"></a></aside></h3><p>Query Getter</p>
+<p>Gets the DB query for this login processor</p>
+<p>Takes the client as an arg instead of just the ckey incase we need more data (IP, CID, etc).
+Returns a DB query datum.</p>
+<p>Arguments:</p>
+<ul>
+<li>C - The client to use to generate the query</li>
+</ul><h3 id="proc/process_result"><aside class="declaration">proc </aside>process_result<aside>(/<a href="datum.html">datum</a>/<a href="datum/db_query.html">db_query</a>/Q, /<a href="client.html">client</a>/C)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/client/login_processing/__client_login_processor.dm#L51"><img src="git.png" width="16" height="16" title="code/modules/client/login_processing/__client_login_processor.dm 51"></a></aside></h3><p>Result Processor</p>
+<p>Takes the (now executed) query and the client and parses the required data out
+Note: This can be a no-op if you want to just update the DB, just return on the override</p>
+<p>Arguments:</p>
+<ul>
+<li>Q - The DB query to process data from</li>
+<li>C - The client to store stuff on</li>
+</ul></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

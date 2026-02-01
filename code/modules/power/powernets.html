@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../../"><link rel="stylesheet" href="dmdoc.css"><title>code/modules/power/powernets/README.md - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>Understanding Powernets <aside>code/modules/power/powernets/README.md</aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/power/powernets/README.md"><img src="git.png" width="16" height="16" title="code/modules/power/powernets/README.md"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><p>Much like any other massive numbers system in SS13, the power (or powernet) system is complex and confusing to work with, only being trumped in complexity by atmospherics/LINDA. This README serves as a powernets 101 guide and breaks down how the system works.</p>
+<h2 id="two-types-of-powernets">Two Types of Powernets</h2>
+<p>There are two types of powernets in our code</p>
+<ol>
+<li>Regional Powernets</li>
+<li>Local Powernets</li>
+</ol>
+<p>They are two completely different datum types from eachother and serve different completely different purposes. In a nutshell, regional powernets are dynamically sized and deal with physical machinery, cables, and generators whereas local powernets are statically locked into a single area each and work directly with APCs to handle individual machines interactions with the larger regional powernet.</p>
+<h2 id="regional-powernet">Regional Powernet</h2>
+<p>An inter-area datum which handles 1 continuous set of cables (<code>var/list/cables</code>) and all the connected machinery/nodes on that set of cable (<code>var/list/nodes</code>).</p>
+<p>On this datum you'll notice a lot of different vars handling power input, output, consumption, demand, etc</p>
+<h3 id="regional-powernet-process-call-stack">Regional Powernet Process Call Stack</h3>
+<p>Starting in SSmachines,
+<code>/datum/controller/subsystem/machines/fire(resumed = 0)</code>
+the <code>fire()</code> proc will call process <code>process_powernets()</code>
+<code>/datum/controller/subsystem/machines/proc/process_powernets(resumed = 0)</code>
+This proc will then call <code>process_power()</code> on every single registered regional powernet</p>
+<h3 id="the-power-variables">The Power Variables</h3>
+<p><code>var/available_power</code> - the currently available power in the powernet in watts THIS PROCESS CYCLE
+<code>var/power_demand</code> - the power being consumed from available power in watts THIS PROCESS CYCLE</p>
+<p><code>var/queued_power_production</code> - the power in watts that will be available to be consumed in the NEXT PROCESS CYCLE
+--&gt; All power producing generators dump their production into this variable
+<code>var/queued_power_demand</code> - the power in watts that will be guaranteed to be consumed in the NEXT PROCESS CYCLE
+--&gt; Anything machine/item that needs to have priority consumption draws from the queue'd cycle first in order to ensure it gets priority power (electrocution, powersinks, etc)</p>
+<h2 id="local-powernets">Local Powernets</h2>
+<p>This is a power datum that is locked to an area. There is only one local powernet datum per area which handles all power tracking/consumption
+in that area. Every area will be initialized with a local powernet datum either by the area itself or if a machine intializes before the area does.</p>
+<h3 id="the-static-passive-power-system">The Static/Passive Power System</h3>
+<p>Powernets used to iterate through every machine to check power, while this is incredibly accurate and straightforward, we don't really need to
+iterate through every machine (there are 1000's) since most of those machines will never change how much power they consume during their entire
+lifetime except to maybe change power states. So we made the Static/Passive power system which only tracks machine power on the local powernet
+so that we only have to iterate through the powernets instead of their machines.</p>
+<pre><code class="language-dm">/* Passive consumption vars, only change when machines are added/removed from the powernet (not if the power channel turns on/off) */
+/// The amount of power consumed by equipment in every power cycle
+VAR_PRIVATE/passive_equipment_consumption = 0
+/// The amount of power consumed by lighting in every power cycle
+VAR_PRIVATE/passive_lighting_consumption = 0
+/// The amount of power consumed by environment in every power cycle
+VAR_PRIVATE/passive_environment_consumption = 0
+</code></pre>
+<p>Using <code>adjust_static_power()</code>, it's possible to change these variables by inputting a channel and an amount to change the static power by.
+Due to the lack of tracking the machines and their current consumption on the local net (by design), we need to be very particular about
+how we're changing static power so we're maintaining perfect parity.</p>
+<p>On Machine types, we have unsafe private setter procs that faciliate static power changes on machines</p>
+<pre><code class="language-dm">/// Helper proc to positively adjust static power tracking on the machine's powernet, not meant for general use!
+/obj/machinery/proc/_add_static_power(channel, amount)
+	PRIVATE_PROC(TRUE)
+	machine_powernet?.adjust_static_power(channel, amount)
+
+/// Helper proc to negatively adjust static power tracking on the machine's powernet, not meant for general use!
+/obj/machinery/proc/_remove_static_power(channel, amount)
+	PRIVATE_PROC(TRUE)
+	machine_powernet?.adjust_static_power(channel, -amount)
+</code></pre>
+<p>These setter procs are called both in Initialize() to set the initial power and by the helper procs we have in machines. <strong>Coders should not be
+using <code>_add_static_power</code> or <code>_remove_static_power</code> ever unless they're changing how power functions on the base machine type. Instead you should
+be using the safe helper procs below!</strong></p>
+<pre><code class="language-dm">/// Safely changes the static power on the local powernet based on an adjustment in idle power
+/obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
+	if(power_state == IDLE_POWER_USE)
+		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
+	idle_power_consumption = amount
+
+/// Safely changes the static power on the local powernet based on an adjustment in active power
+/obj/machinery/proc/update_active_power_consumption(channel = power_channel, amount)
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
+	if(power_state == ACTIVE_POWER_USE)
+		machine_powernet.adjust_static_power(power_channel, amount - active_power_consumption)
+	active_power_consumption = amount
+</code></pre>
+<p>These allow you to safely set how much power a machine will use when it's &quot;Active&quot; or &quot;Idle,&quot; and the procs will handle changing the static
+power for you. That way you never have to worry about losing parity when you're just trying to make your new machine consume power.</p>
+<p>As a note: you should never be manually setting power consumption variables in code, this is a really quick way to get funky number on your
+powernet. So for example don't edit <code>power_state</code>, <code>idle_power_consumption</code>, or <code>active_power_consumption</code>; Use their respective setter procs
+that are already defined on <code>/machinery</code>!</p></td></tr></table></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

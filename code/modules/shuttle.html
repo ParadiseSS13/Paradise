@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>code/modules/shuttle/README.md - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>code/modules/shuttle/README.md <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/modules/shuttle/README.md"><img src="git.png" width="16" height="16" title="code/modules/shuttle/README.md"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<ul>
+<li><a href="#shuttle-system">Shuttle system</a>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#docking-ports">Docking ports</a>
+<ul>
+<li><a href="#obj-docking_port">/obj/docking_port</a>
+<ul>
+<li><a href="#variables">Variables</a></li>
+</ul>
+</li>
+<li><a href="#objdockingportmobile">/obj/docking_port/mobile</a></li>
+<li><a href="#objdockingportmobile">/obj/docking_port/mobile</a></li>
+</ul>
+</li>
+<li><a href="#modifications">Modifications</a>
+<ul>
+<li><a href="#shuttle-controller">Shuttle Controller</a></li>
+<li><a href="#airlocks">Airlocks</a></li>
+<li><a href="#initialization">Initialization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="important-note">Important note:</h1>
+<p>The following readme was last updated during Late 2015. The changes between Paradise &amp; TG's shuttle system has diverged greatly since then. Do not take the documentation here's description of differences between tg &amp; paradise seriously without double checking. </p>
+<h1 id="shuttle-system">Shuttle system</h1><h2 id="introduction">Introduction</h2>
+<p>This folder belongs to the &quot;shuttle&quot; system. The shuttle system is used to control the
+&quot;Shuttles&quot; on the map, which are, at their core, a rectangular area of turfs that &quot;move&quot;.</p>
+<p>The shuttle system is comprised of two primary files.
+<a href="http://github.com/ParadiseSS13/Paradise/blob/master/code/modules/shuttle/shuttle.dm"><code>shuttle.dm</code></a>,
+which contains the primary code, and
+<a href="http://github.com/ParadiseSS13/Paradise/blob/master/code/controllers/Process/shuttles.dm"><code>shuttles.dm</code></a>
+which contains the back-end controller system.
+There are a few other files, but it isn't worth noting on.</p>
+<p>Shuttles are used for many purposes, including the end of rounds, so it's important to
+understand them.</p>
+<h2 id="docking-ports">Docking ports</h2><h3 id="obj-docking-port">obj docking_port</h3>
+<p>The <code>/obj/docking_port</code> type is the primary component of the shuttle system. Almost all of
+the shuttle system is controlled by the docking ports, the only thing that isn't, really,
+is the shuttle manager, which manages, you guessed it, the docking ports.</p>
+<p>Docking ports are split into two main types: <code>/obj/docking_port/stationary</code>, and
+<code>/obj/docking_port/mobile</code>, but they share a few variables and procs defined at the
+<code>/obj/docking_port</code> level.</p>
+<h4 id="variables">Variables</h4>
+<p><code>id</code>: This variable is used for any plain-text references to the docking port. It should
+always be lowercase.</p>
+<p><code>width</code>, <code>height</code>: The width and height variables are <strong>absolute</strong> value variables which
+define the bounding box of the docking port. It is very important to note that these are
+different from the <code>dwidth</code> and <code>dheight</code> in terms of how they are counted. As they are
+absolute representations of the size of the bounding box, they need to be equal to the
+amount of turfs on the side of the bounding box. An easy way to think of it is, if you
+start at the very corner piece, you would start the count at <code>1</code> from that corner piece,
+IE, you move 1 turf in any direction, it would be <code>2</code>.</p>
+<p>A crude ASCII example:</p>
+<pre><code>||D|||
+</code></pre>
+<p>Would be classed by the values <code>width</code> = 6, <code>height</code> = 1.</p>
+<p>It is important to note that bounding boxes are <em>always</em> rectangular. However, shuttles
+are allowed to be any shape they so wish, as anything that matches the <code>turf_type</code> of
+stationary docking ports will not be moved with the shuttle- by default, this is equal to
+<code>/turf/space</code>.
+Another quick example of this:</p>
+<pre><code>  |||
+  |||
+  |||
+ |||||
+||||||D
+|||||||
+||| |||
+</code></pre>
+<p>This, even though it is not exactly a rectangle, would be classified by the values
+<code>width</code> = <code>7</code>, <code>height</code> = <code>7</code>.</p>
+<p><code>dwidth</code>, <code>dheight</code>: The relative offset of the docking port to the bounding box. These
+values are calculated <strong>relative</strong> to the bounding box. The values are counted from the
+bottom left corner of the bounding box, <strong>relative</strong> to the direction of the docking port.
+The &quot;bottom left corner&quot; changes depending on the direction of the docking port object.
+so a docking port <strong>facing north</strong> that looks something like this:</p>
+<pre><code>|||  
+|||  
+|||D|  
+|||||
+</code></pre>
+<p>Would have a <code>dwidth</code> value of <code>3</code>, and a <code>dheight</code> value of <code>1</code>.
+A docking port <strong>facing south</strong> that looks like this:</p>
+<pre><code>||||||
+|||D||
+ ||||
+</code></pre>
+<p>Would have a <code>dwidth</code> value of <code>2</code>, and a <code>dheight</code> value of <code>1</code></p>
+<h3 id="obj-docking-port-mobile">/obj/docking_port/mobile</h3>
+<p><code>/obj/docking_port/mobile</code>, or, &quot;Mobile&quot; docking ports are used to define and control the
+movement of the shuttle chunks. The &quot;Mobile&quot; docking port moves with the shuttle, and is
+essentially attached to it. A &quot;Mobile&quot; docking port only moves to predefined positions
+on the map, referred to as &quot;Stationary&quot; docking ports.</p>
+<h3 id="obj-docking-port-mobile">/obj/docking_port/mobile</h3>
+<p><code>/obj/docking_port/stationary</code>, or &quot;Stationary&quot; docking ports are used as predefined
+references for where &quot;Mobile&quot; docking ports may move. &quot;Stationary&quot; docking ports do not
+move unless something has gone horribly wrong. They are essentially static points in
+space. Going into details, whenever a &quot;Mobile&quot; docking port &quot;moves&quot;, it registers with the
+stationary docking port that it was requested to move to, and moves itself to it. It is
+important to note that docking ports will switch direction on the fly, and a &quot;Stationary&quot;
+docking port not matching the initial direction of the &quot;Mobile&quot; docking port will cause
+the entire shuttle to be rotated in order for the &quot;Mobile&quot; docking port to face the same
+direction as the &quot;Stationary&quot; docking port.</p>
+<h2 id="modifications">Modifications</h2>
+<p>There are three main differences between -tg-station13's shuttle system and the one in
+use on Paradise, and none are very complex.</p>
+<h3 id="airlocks">Airlocks</h3>
+<p>The biggest modification comes in the form of how docking ports interact with airlocks.
+With -tg-station13's base code, any door on the shuttle will be closed, and any door
+directly next to the mobile docking port will be closed off of the shuttle.</p>
+<p>In Paradise, however, when a mobile docking port undocks from the stationary docking port,
+it will look for any door in the machine list who's <code>id_tag</code> variable matches the
+stationary docking port's <code>id</code> variable. When it finds these doors, it will close <em>and</em>
+bolt the doors shut. Any airlocks on the shuttle will be closed as per usual, but any
+airlocks within the shuttle with the <code>id_tag</code> of <code>s_docking_airlock</code> will also be bolted,
+and will stay bolted until the shuttle has exited transit space.</p>
+<h3 id="initialization">Initialization</h3>
+<p>In -tg-station13's shuttle system, all docking ports register with the shuttle controller
+on <code>New()</code>. However, as Paradise uses a different system for the shuttle controller, it is
+not yet created when <code>New()</code> is called.</p>
+<p>To fix this issue, all docking ports will not initialize automatically on <code>New()</code>.
+Instead, they are manually initialized by the shuttle controller when it is created, via
+a proc called <code>initialize()</code>.</p></td></tr></table></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

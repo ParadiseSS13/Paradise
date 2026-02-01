@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>/area/syndicate_depot/core - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="area/syndicate_depot/core.html#proc">Proc Details</a></header><main><h1>core <aside>/<a href="area.html">area</a>/<a href="area/syndicate_depot/core.html">syndicate_depot/core</a></aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/game/area/areas/depot-areas.dm#L7"><img src="git.png" width="16" height="16" title="code/game/area/areas/depot-areas.dm 7"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="area/syndicate_depot/core.html#proc/list_getmobs">list_getmobs</a></th><td>Returns a LIST of the MOBS in one of the depot area's lists.</td></tr><tr><th><a href="area/syndicate_depot/core.html#proc/list_show">list_show</a></th><td>Returns a STRING, containing the NAMES of the mobs in the provided list, JOINED together with &quot;, &quot;</td></tr><tr><th><a href="area/syndicate_depot/core.html#proc/list_shownames">list_shownames</a></th><td>Returns a LIST of the NAMES of the mobs in the provided list.</td></tr></table><h2 id="proc">Proc Details</h2><h3 id="proc/list_getmobs"><aside class="declaration">proc </aside>list_getmobs<aside>(/list/L, show_ckeys)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/game/area/areas/depot-areas.dm#L471"><img src="git.png" width="16" height="16" title="code/game/area/areas/depot-areas.dm 471"></a></aside></h3><p>Returns a LIST of the MOBS in one of the depot area's lists.</p>
+<p>E.g. list_getmobs(depotarea.guard_list) returns a list of the extra guard mobs in the depot.
+Arguments:</p>
+<ul>
+<li>list/L, the list of UIDs from which to draw members</li>
+<li>show_ckeys, bool, if true will display ckeys in addition to names</li>
+</ul><h3 id="proc/list_show"><aside class="declaration">proc </aside>list_show<aside>(/list/L, show_ckeys)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/game/area/areas/depot-areas.dm#L439"><img src="git.png" width="16" height="16" title="code/game/area/areas/depot-areas.dm 439"></a></aside></h3><p>Returns a STRING, containing the NAMES of the mobs in the provided list, JOINED together with &quot;, &quot;</p>
+<p>E.g. list_show(depotarea.guard_list) returns a string like:
+&quot;Syndicate Backup (123), Syndicate Backup(456), Syndicate Backup(789)&quot;, etc.
+Arguments:</p>
+<ul>
+<li>list/L, the list of UIDs from which to draw members</li>
+<li>show_ckeys, bool, if true will display ckeys in addition to names</li>
+</ul><h3 id="proc/list_shownames"><aside class="declaration">proc </aside>list_shownames<aside>(/list/L, show_ckeys)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/game/area/areas/depot-areas.dm#L451"><img src="git.png" width="16" height="16" title="code/game/area/areas/depot-areas.dm 451"></a></aside></h3><p>Returns a LIST of the NAMES of the mobs in the provided list.</p>
+<p>E.g. list_shownames(depotarea.guard_list) returns a list of the names of extra guard mobs in depot.
+Arguments:</p>
+<ul>
+<li>list/L, the list of UIDs from which to draw members</li>
+<li>show_ckeys, bool, if true will display ckeys in addition to names</li>
+</ul></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

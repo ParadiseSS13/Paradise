@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/ai_planning_subtree - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/ai_planning_subtree.html#var">Var Details</a> - <a href="datum/ai_planning_subtree.html#proc">Proc Details</a></header><main><h1>ai_planning_subtree <aside>/<a href="datum.html">datum</a>/<a href="datum/ai_planning_subtree.html">ai_planning_subtree</a></aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ai/ai_planning_subtree.dm#L5"><img src="git.png" width="16" height="16" title="code/datums/ai/ai_planning_subtree.dm 5"></a></h1><p>A subtree is attached to a controller and is occasionally called by
+/ai_controller/select_behaviors(). This mainly exists to act as a way to
+subtype and modify select_behaviors() without needing to subtype the AI
+controller itself.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr><tr><th><a href="datum/ai_planning_subtree.html#var/operational_datums">operational_datums</a></th><td>A list of typepaths of &quot;operational datums&quot; (elements/components) we
+absolutely NEED to run. Checked in unit tests, as well as be a nice
+reminder to developers that such a thing might be needed. Note that in
+the Attach/Inititalize/New (or any future equivalent for these procs),
+you will need to add the trait TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM
+to the mob in question in order for unit tests to succeed. This will
+break obviously enough if you don't do this and declare the required
+datum here however.</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="datum/ai_planning_subtree.html#proc/select_behaviors">select_behaviors</a></th><td>Determines what behaviors should the controller try processing; if this
+returns SUBTREE_RETURN_FINISH_PLANNING then the controller won't go through
+the other subtrees should multiple exist in the controller.</td></tr></table><h2 id="var">Var Details</h2><h3 id="var/operational_datums"><aside class="declaration">var </aside>operational_datums <aside>– /list</aside> <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ai/ai_planning_subtree.dm#L14"><img src="git.png" width="16" height="16" title="code/datums/ai/ai_planning_subtree.dm 14"></a></h3><p>A list of typepaths of &quot;operational datums&quot; (elements/components) we
+absolutely NEED to run. Checked in unit tests, as well as be a nice
+reminder to developers that such a thing might be needed. Note that in
+the Attach/Inititalize/New (or any future equivalent for these procs),
+you will need to add the trait TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM
+to the mob in question in order for unit tests to succeed. This will
+break obviously enough if you don't do this and declare the required
+datum here however.</p><h2 id="proc">Proc Details</h2><h3 id="proc/select_behaviors"><aside class="declaration">proc </aside>select_behaviors<aside>(/<a href="datum.html">datum</a>/<a href="datum/ai_controller.html">ai_controller</a>/controller, seconds_per_tick)  <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/ai/ai_planning_subtree.dm#L19"><img src="git.png" width="16" height="16" title="code/datums/ai/ai_planning_subtree.dm 19"></a></aside></h3><p>Determines what behaviors should the controller try processing; if this
+returns SUBTREE_RETURN_FINISH_PLANNING then the controller won't go through
+the other subtrees should multiple exist in the controller.</p></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../../"><link rel="stylesheet" href="dmdoc.css"><title>code/datums/components/orbiter.dm - Space Station 13</title></head><body><header><a href="index.html">Space Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="code/datums/components/orbiter.html#define">Define Details</a></header><main><h1>code/datums/components/orbiter.dm <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/components/orbiter.dm"><img src="git.png" width="16" height="16" title="code/datums/components/orbiter.dm"></a></h1><table class="summary" cellspacing="0"><tr><th><a href="code/datums/components/orbiter.html#define/ORBIT_LOCK_IN">ORBIT_LOCK_IN</a></th><td>Code to handle atoms orbiting other atoms, following them as they move.
+The basic logic is simple. We register a signal, COMSIG_MOVABLE_MOVED onto orbited atoms.
+When the orbited atom moves, any ghosts orbiting them are moved to their turf.
+We also register a MOVED signal onto the ghosts to cancel their orbit if they move themselves.
+Complexities come in for items within other items (such as the NAD in a box in a backpack on an assistant pretending to be the captain),
+as items in containers do <strong>not</strong> fire COMSIG_MOVABLE_MOVED when their container moves.</td></tr></table><h2 id="define">Define Details</h2><h3 id="define/ORBIT_LOCK_IN"><aside class="declaration">#define </aside>ORBIT_LOCK_IN <a href="https://github.com/ParadiseSS13/Paradise/blob/506e5b7f5d9e45eafbcfc840b775ca69dee16715/code/datums/components/orbiter.dm#L33"><img src="git.png" width="16" height="16" title="code/datums/components/orbiter.dm 33"></a></h3><p>Code to handle atoms orbiting other atoms, following them as they move.
+The basic logic is simple. We register a signal, COMSIG_MOVABLE_MOVED onto orbited atoms.
+When the orbited atom moves, any ghosts orbiting them are moved to their turf.
+We also register a MOVED signal onto the ghosts to cancel their orbit if they move themselves.
+Complexities come in for items within other items (such as the NAD in a box in a backpack on an assistant pretending to be the captain),
+as items in containers do <strong>not</strong> fire COMSIG_MOVABLE_MOVED when their container moves.</p>
+<p>The signal logic for items in containers is as follows:
+Assume 1 is some item (for example, the NAD) and 2 is a box.
+When 1 is added to 2, we register the typical orbit COMSIG_MOVABLE_MOVED onto 2.
+This in essence makes 2 the &quot;leader&quot;, the atom that ghosts follow in movement.
+As 2 is moved around (say, dragged on the floor) ghosts will follow it.
+We also register a new intermediate COMSIG_MOVABLE_MOVED signal onto 1 that tracks if 1 is moved.
+Remember, this will only fire if 1 is moved around containers, since it's impossible for it to actually move on its own.
+If 1 is moved out of 2, this signal makes 1 the new leader.
+Lastly, we add a COMSIG_ATOM_EXITED to 2, which tracks if 1 is removed from 2.
+This EXITED signal cleans up any orbiting signals on and above 2.
+If 2 is added to another item, (say a backpack, 3)
+3 becomes the new leader
+2 becomes an intermediate
+1 is unchanged (but still carries the orbiter datum)</p>
+<p>You may be asking yourself: is this overengineered?
+In part, yes. However, MOVED signals don't get fired for items in containers, so this is
+really the next best way.
+Also, is this really optimal?
+As much as it can be, I believe. This signal-shuffling will not happen for any item that is just moving from turf to turf,
+which should apply to 95% of cases (read: ghosts orbiting mobs).</p></main><footer>paradise.dme <a href="https://github.com/ParadiseSS13/Paradise/tree/506e5b7f5d9e45eafbcfc840b775ca69dee16715">506e5b7</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>
