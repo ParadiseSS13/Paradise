@@ -22285,7 +22285,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "eyE" = (
@@ -47168,11 +47168,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "jvQ" = (
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_port)
 "jvR" = (
@@ -48498,10 +48498,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes/engineering,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_starboard)
 "jHP" = (
@@ -81025,7 +81025,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "qkY" = (
