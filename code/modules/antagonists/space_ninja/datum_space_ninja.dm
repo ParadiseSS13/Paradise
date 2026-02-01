@@ -23,11 +23,7 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 
 // POLTODO: Exfil
 /datum/antagonist/space_ninja/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
-	if(isplasmaman(extractor))
-		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate/plasmaman)
-	else
-		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
-
+	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/space_ninja)
 	radio.autosay("<b>--ZZZT!- Domo Ar!g@to, [extractor.real_name]. Your training paid -^%&!-ZZT!-</b>", "Spider Clan HQ", "Security")
 	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Space Ninja")
 

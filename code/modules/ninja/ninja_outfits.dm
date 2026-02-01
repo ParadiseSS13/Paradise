@@ -18,3 +18,19 @@
 		/obj/item/bio_chip/dust,
 		/obj/item/bio_chip/uplink/ninja
 	)
+
+/datum/outfit/admin/ghostbar_antag/space_ninja
+	name = "Ghostbar Space Ninja"
+	uniform = /obj/item/clothing/under/syndicate
+	shoes = /obj/item/clothing/shoes/space_ninja
+	gloves = /obj/item/clothing/gloves/space_ninja
+	head = /obj/item/clothing/head/helmet/space_ninja
+	mask = /obj/item/clothing/mask/gas/space_ninja
+	suit = /obj/item/clothing/suit/space_ninja
+	belt = /obj/item/toy/katana
+	back = /obj/item/storage/backpack/satchel
+	backpack_contents = list(
+		/obj/item/storage/box/engineer = 1,
+		/obj/item/flashlight = 1,
+		/obj/item/food/syndidonkpocket = 1,
+	)
