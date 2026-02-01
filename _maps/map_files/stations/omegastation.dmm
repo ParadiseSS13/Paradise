@@ -18394,6 +18394,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
+"dQJ" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	name = "North East of Legaria"
+	},
+/turf/space,
+/area/space)
 "dQT" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint2)
@@ -103431,7 +103438,7 @@ aZD
 aZD
 aZD
 aZD
-aZD
+dQJ
 aZD
 aZD
 aZD
