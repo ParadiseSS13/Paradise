@@ -75,7 +75,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
 		new /datum/stack_recipe/barsign_frame("bar sign frame", /obj/machinery/barsign, 4),
 		new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 5 SECONDS, one_per_turf = FALSE, on_floor = TRUE),
-
+		new /datum/stack_recipe("airlock access button frame", /obj/item/mounted/frame/airlock_button, 2),
+		new /datum/stack_recipe("airlock controller frame", /obj/item/mounted/frame/airlock_controller/access_controller, 2),
+		new /datum/stack_recipe("cycling airlock controller frame", /obj/item/mounted/frame/airlock_controller/air_cycler, 2),
 		)),
 	new /datum/stack_recipe_list("construction", list(
 		new /datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
