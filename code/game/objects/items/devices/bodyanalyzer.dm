@@ -211,10 +211,14 @@
 		var/splint = ""
 		var/internal_bleeding = ""
 		var/lung_ruptured = ""
+		var/liver_cirrhosis = ""
+
 		if(e.status & ORGAN_INT_BLEEDING)
 			internal_bleeding = "<br>Internal bleeding"
 		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"
+		if(istype(e, /obj/item/organ/external/groin) && target.has_liver_cirrhosis())
+			liver_cirrhosis = "Liver cirrhosis:"
 		if(e.status & ORGAN_SPLINTED)
 			splint = "Splinted:"
 		if(e.status & ORGAN_BROKEN)
@@ -248,7 +252,7 @@
 			imp += "Unknown body present:"
 		if(!AN && !open && !infected && !imp)
 			AN = "None:"
-		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
+		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][liver_cirrhosis]</td>"
 		dat += "</tr>"
 	for(var/obj/item/organ/internal/i in target.internal_organs)
 		var/mech = i.desc

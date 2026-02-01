@@ -344,6 +344,10 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		to_chat(owner, msg)
 		next_pain_time = world.time + 10 SECONDS
 
+/// Wound datum adding helper. Returns the wound datum
+/obj/item/organ/proc/add_wound(wound_path)
+	return new wound_path(src)
+
 /// Finds a wound datum. `wound_to_find` should be a typepath, and if `exact` is FALSE, it will grab subtypes aswell.
 /obj/item/organ/proc/get_wound(wound_to_find, exact = FALSE)
 	if(!wound_to_find)

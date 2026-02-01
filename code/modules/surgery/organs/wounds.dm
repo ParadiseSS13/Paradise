@@ -12,6 +12,7 @@
 		INVOKE_ASYNC(src, GLOBAL_PROC_REF(qdel), src)
 		return
 	parent = _parent
+	parent.wound_list += src
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(remove_and_destroy))
 
 /datum/wound/Destroy(force, ...)
@@ -59,3 +60,26 @@
 	if(prob(4))
 		parent.owner.custom_emote(EMOTE_VISIBLE, "gasps for air!")
 		parent.owner.AdjustLoseBreath(10 SECONDS)
+
+/datum/wound/cirrhosis
+	name = "cirrhosis"
+	/// Cirrhosis has two "gamefied" stages, mild and severe
+	var/stage = CIRRHOSIS_MILD
+
+/datum/wound/cirrhosis/do_effect()
+	switch(stage)
+		if(CIRRHOSIS_MILD)
+			parent.max_damage = 40
+			parent.owner.adjustToxLoss(0.5)
+			if(parent.damage >= 20 && prob(5))
+				stage = CIRRHOSIS_SEVERE
+
+		if(CIRRHOSIS_SEVERE)
+			parent.max_damage = 20
+			parent.owner.adjustToxLoss(1)
+			// You're on a slow clock. 400 seconds until death
+			parent.receive_damage(0.1)
+
+/datum/wound/cirrhosis/cure_wound()
+	. = ..()
+	parent.max_damage = initial(parent.max_damage)
