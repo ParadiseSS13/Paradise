@@ -3,7 +3,7 @@
 	/// How long will a vote last for in deciseconds
 	var/vote_time = 60 SECONDS // 60 seconds
 	/// Time before the first shuttle vote (deciseconds)
-	var/autotransfer_initial_time = 2 HOURS // 2 hours
+	var/autotransfer_initial_time = 1.5 HOURS // 90 minutes
 	/// Time between subsequent shuttle votes if the first one is not successful (deciseconds)
 	var/autotransfer_interval_time = 30 MINUTES // 30 mins
 	/// Prevent dead players from voting
