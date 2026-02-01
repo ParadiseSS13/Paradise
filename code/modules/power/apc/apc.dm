@@ -1165,6 +1165,9 @@
 	obj_integrity -= 35
 	return
 
+/obj/machinery/power/apc/get_internal_wires()
+	return wires
+
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate/off, 24, 24)
