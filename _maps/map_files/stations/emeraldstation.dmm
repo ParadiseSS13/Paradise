@@ -40373,6 +40373,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
+/obj/item/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "idP" = (

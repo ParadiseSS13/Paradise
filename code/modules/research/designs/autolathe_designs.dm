@@ -830,7 +830,7 @@
 	id = "rcl"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000)
-	build_path = /obj/item/rcl
+	build_path = /obj/item/rcl/empty
 	category = list("initial", "Construction")
 
 //hacked autolathe recipes
