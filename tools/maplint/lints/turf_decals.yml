@@ -1,0 +1,3 @@
+/turf/simulated/wall:
+  banned_neighbors:
+  - /obj/effect/turf_decal/tiles
