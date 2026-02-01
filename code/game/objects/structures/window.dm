@@ -19,7 +19,7 @@
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
 	var/heat_resistance = 800
-	var/decon_speed = null
+	var/decon_speed = 2 SECONDS
 	var/fulltile = FALSE
 	var/shardtype = /obj/item/shard
 	var/glass_decal = /obj/effect/decal/cleanable/glass
@@ -79,9 +79,6 @@
 
 	if(fulltile)
 		setDir()
-
-	if(decon_speed == null && fulltile)
-		decon_speed = 2 SECONDS
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
@@ -534,7 +531,7 @@
 	if(barricaded)
 		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
 		return
-	
+
 	if(used.get_amount() < 2)
 		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
 		return
@@ -546,7 +543,7 @@
 	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
 	if(!do_after_once(user, 4 SECONDS, target = src))
 		return
-	
+
 	/// Quick checks to make sure nothing has changed during the timer.
 	if(!density || barricaded)
 		return
@@ -699,6 +696,7 @@
 	heat_resistance = 32000
 	max_integrity = 150
 	explosion_block = 1
+	decon_speed = 3 SECONDS
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -716,6 +714,7 @@
 	heat_resistance = 32000
 	max_integrity = 500
 	explosion_block = 2
+	decon_speed = 5 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -735,6 +734,7 @@
 	heat_resistance = 32000
 	max_integrity = 600
 	explosion_block = 2
+	decon_speed = 7 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -790,6 +790,7 @@
 	heat_resistance = 32000
 	max_integrity = 300
 	explosion_block = 1
+	decon_speed = 3 SECONDS
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
@@ -811,6 +812,7 @@
 	heat_resistance = 32000
 	max_integrity = 1000
 	explosion_block = 2
+	decon_speed = 5 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
@@ -861,6 +863,7 @@
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
+	decon_speed = 6 SECONDS
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 100, FIRE = 80, ACID = 100)
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
@@ -884,6 +887,7 @@
 	max_integrity = 1200
 	reinf = TRUE
 	heat_resistance = 32000
+	decon_speed = 7 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
