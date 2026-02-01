@@ -46,8 +46,12 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 	)
 
-/obj/item/clothing/mask/gas/welding/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/gas/welding/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	weldingvisortoggle(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
@@ -70,8 +74,12 @@
 /obj/item/clothing/mask/gas/explorer/marines
 	name = "military gas mask"
 
-/obj/item/clothing/mask/gas/explorer/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/gas/explorer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/explorer/adjustmask(user)
 	..()
@@ -125,7 +133,10 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/clothing/mask/gas/clown_hat/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
 							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
@@ -138,14 +149,16 @@
 	var/picked_mask = mask_type[mask_choice]
 
 	if(QDELETED(src) || !picked_mask)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(user.stat || !in_range(user, src))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
 	qdel(src)
 	user.put_in_active_hand(new_mask)
 	to_chat(user, SPAN_NOTICE("Your Clown Mask has now morphed into its new form, all praise the Honk Mother!"))
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
@@ -225,8 +238,12 @@
 /obj/item/clothing/mask/gas/owl_mask/super_hero
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
-/obj/item/clothing/mask/gas/owl_mask/attack_self__legacy__attackchain()
+/obj/item/clothing/mask/gas/owl_mask/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	hoot()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
@@ -346,13 +363,11 @@
 			else
 				to_chat(user, SPAN_NOTICE("It's broken."))
 
-/obj/item/clothing/mask/gas/sechailer/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wirecutters))
-		if(aggressiveness != 5)
-			to_chat(user, SPAN_WARNING("You broke it!"))
-			aggressiveness = 5
-			return
-	. = ..()
+/obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
+	if(aggressiveness != 5)
+		to_chat(user, SPAN_WARNING("You broke it!"))
+		aggressiveness = 5
+	return TRUE
 
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
 	switch(aggressiveness)
@@ -376,8 +391,12 @@
 			to_chat(user, SPAN_WARNING("You adjust the restrictor but nothing happens, probably because its broken."))
 	return TRUE
 
-/obj/item/clothing/mask/gas/sechailer/attack_self__legacy__attackchain()
+/obj/item/clothing/mask/gas/sechailer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	halt()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
 	if(safety)

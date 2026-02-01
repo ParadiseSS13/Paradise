@@ -116,10 +116,14 @@
 	if(slot == ITEM_SLOT_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return TRUE
 
-/obj/item/clothing/suit/storage/void_cloak/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/suit/storage/void_cloak/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!IS_HERETIC(user))
-		to_chat(user, SPAN_HIEROPHANT("You lack the forbidden knowledge to access this cloaks potential."))
-		return
+		to_chat(user, SPAN_HIEROPHANT("You lack the forbidden knowledge to access this cloak's potential."))
+		return ITEM_INTERACT_COMPLETE
+
 	if(cloak_invisible)
 		make_visible()
 	else
@@ -127,7 +131,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
-
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/storage/void_cloak/proc/hide_item(atom/movable/source, obj/item/item, slot)
 	SIGNAL_HANDLER

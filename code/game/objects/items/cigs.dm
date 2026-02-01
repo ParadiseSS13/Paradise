@@ -27,7 +27,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	body_parts_covered = null
 	attack_verb = null
 	container_type = INJECTABLE
-	new_attack_chain = TRUE
 	/// Is the cigarette lit?
 	var/lit = FALSE
 	/// Do we require special items to be lit?
@@ -642,7 +641,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "holo_cigar"
 	lefthand_file = 'icons/mob/inhands/smoking_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/smoking_righthand.dmi'
-	new_attack_chain = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
