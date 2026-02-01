@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# run
+# Create and run a BYOND server container for Paradise
+
+set -euo pipefail
+
+BYOND_PORT="6666"
+DB_CONTAINER="paradise_db"
+NETWORK_NAME="paradise_net"
+SERVER_CONTAINER="paradise"
+SERVER_IMAGE="paradise:latest"
+
+# make sure we're at the root of the repository
+if [ ! -f "Dockerfile" ]; then
+    echo >&2 "Error: No Dockerfile found. Are you at the repository root?"
+    exit 1
+fi
+
+# make sure the server doesn't already exist
+if docker ps -a --format '{{.Names}}' | grep -qx "${SERVER_CONTAINER}"; then
+    echo >&2 "Error: container '${SERVER_CONTAINER}' already exists."
+    echo >&2 "Stop it with: docker rm -f ${SERVER_CONTAINER}"
+    exit 1
+fi
+
+# make sure the database is running, so we can connect to it
+if ! docker ps --format '{{.Names}}' | grep -qx "${DB_CONTAINER}"; then
+    echo >&2 "Error: container '${DB_CONTAINER}' is not running."
+    echo >&2 "Start it (or recreate it) before running the server."
+    exit 1
+fi
+
+# ensure the server has a 'config.toml' file to use
+[ -f "config/config.toml" ] || { echo >&2 "Error: missing config/config.toml (did you copy config/example/config.toml yet?)"; exit 1; }
+
+# ensure we've got a data directory with 'mode.txt'
+mkdir -p data
+[ -f "data/mode.txt" ] || echo "extended" >data/mode.txt
+
+# create and run the server container
+    # --detach \        <== add this below if you want it to run in the background
+docker run \
+    --init \
+    --name "${SERVER_CONTAINER}" \
+    --network "${NETWORK_NAME}" \
+    --publish "${BYOND_PORT}:6666" \
+    --rm \
+    --mount type=bind,src="${PWD}/config",dst=/config,readonly \
+    --mount type=bind,src="${PWD}/data",dst=/data \
+    "${SERVER_IMAGE}"

@@ -42,7 +42,7 @@
 # Set this to true if you are using database-based admins, or false if you want to define them in this file
 # If the database fails, this file will be used as fallback
 use_database_admins = false
-# Auto authenticate localhost users as admin? Useful for test servers, disable in producation
+# Auto authenticate localhost users as admin? Useful for test servers, disable in production
 enable_localhost_autoadmin = true
 # List of admin rank assignments and their permissions
 # These names ARE CASE SENSITIVE
