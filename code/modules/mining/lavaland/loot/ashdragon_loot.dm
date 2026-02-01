@@ -244,7 +244,7 @@
 	var/timer = 0
 	var/banned_turfs
 
-/obj/item/lava_staff/Initialize(mapload)
+/obj/item/lava_staff/New()
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 

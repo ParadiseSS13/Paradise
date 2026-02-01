@@ -24,7 +24,7 @@
 	name = "data disk - 'God Emperor of Mankind'"
 	read_only = TRUE
 
-/obj/item/disk/data/demo/Initialize(mapload)
+/obj/item/disk/data/demo/New()
 	. = ..()
 	initialize_data()
 	buf.types = DNA2_BUF_UE|DNA2_BUF_UI
@@ -41,7 +41,7 @@
 	name = "data disk - 'Mr. Muggles'"
 	read_only = 1
 
-/obj/item/disk/data/monkey/Initialize(mapload)
+/obj/item/disk/data/monkey/New()
 	. = ..()
 	initialize_data()
 	buf.types = DNA2_BUF_SE
@@ -52,7 +52,7 @@
 	buf.dna.SetSEValueRange(GLOB.monkeyblock, 0xDAC, 0xFFF)
 
 //Disk stuff.
-/obj/item/disk/data/Initialize(mapload)
+/obj/item/disk/data/New()
 	. = ..()
 	var/diskcolor = pick(0, 1, 2, 3, 4, 5)
 	icon_state = "datadisk[diskcolor]"

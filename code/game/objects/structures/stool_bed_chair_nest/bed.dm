@@ -263,12 +263,9 @@
 	var/obj/item/roller/held
 	var/obj/carry_holo = FALSE
 
-/obj/item/roller_holder/Initialize(mapload)
-	. = ..()
-	create_roller()
-
-/obj/item/roller_holder/proc/create_roller()
-	held = new(src)
+/obj/item/roller_holder/New()
+	..()
+	held = new /obj/item/roller(src)
 
 /obj/item/roller_holder/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/item/roller))
@@ -309,7 +306,8 @@
 	icon_state = "holo_retracted"
 	carry_holo = TRUE
 
-/obj/item/roller_holder/holo/create_roller()
+/obj/item/roller_holder/holo/New()
+	..()
 	held = new /obj/item/roller/holo(src)
 
 /*

@@ -37,8 +37,8 @@
 	materials = list(MAT_METAL = 100)
 	var/max_contents = 1
 
-/obj/item/kitchen/utensil/Initialize(mapload)
-	. = ..()
+/obj/item/kitchen/utensil/New()
+	..()
 	if(prob(60))
 		src.pixel_y = rand(0, 4)
 

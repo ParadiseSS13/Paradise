@@ -8,7 +8,7 @@
 	tough = TRUE // Immune to damage
 	augment_state ='icons/mob/human_races/robotic.dmi'
 
-/obj/item/organ/internal/cyberimp/Initialize(mapload, mob/M = null)
+/obj/item/organ/internal/cyberimp/New(mob/M = null)
 	. = ..()
 	if(implant_overlay)
 		var/mutable_appearance/overlay = mutable_appearance(icon, implant_overlay)

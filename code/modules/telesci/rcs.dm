@@ -28,12 +28,15 @@
 
 /obj/item/rcs/Initialize(mapload)
 	. = ..()
-	rcell = new(src)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/rcs/get_cell()
 	return rcell
+
+/obj/item/rcs/New()
+	..()
+	rcell = new(src)
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()

@@ -47,7 +47,7 @@
 
 /obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
 	. = ..()
-	paddles = new paddle_type(src, src)
+	paddles = new paddle_type(src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/loaded/Initialize(mapload) // Loaded version starts with high-capacity cell.
@@ -310,7 +310,7 @@
 	var/on_cooldown = FALSE
 
 
-/obj/item/shockpaddles/Initialize(mapload, mainunit)
+/obj/item/shockpaddles/New(mainunit)
 	. = ..()
 
 	if(check_defib_exists(mainunit, null, src))

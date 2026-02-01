@@ -90,6 +90,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
 
+/obj/item/radio/New()
+	..()
+	wires = new(src)
+
+	internal_channels = GLOB.default_internal_channels.Copy()
+	GLOB.global_radios |= src
+
 /obj/item/radio/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
@@ -104,10 +111,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/Initialize(mapload)
 	. = ..()
-	wires = new(src)
-	internal_channels = GLOB.default_internal_channels.Copy()
-	GLOB.global_radios |= src
-
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_frequency(frequency)
@@ -644,24 +647,24 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	myborg = null
 	return ..()
 
-/obj/item/radio/borg/syndicate/Initialize(mapload)
-	. = ..()
+/obj/item/radio/borg/syndicate/New()
+	..()
 	syndiekey = keyslot
 	set_frequency(SYND_FREQ)
 	freqlock = TRUE
 
 /obj/item/radio/borg/deathsquad
 
-/obj/item/radio/borg/deathsquad/Initialize(mapload)
-	. = ..()
+/obj/item/radio/borg/deathsquad/New()
+	..()
 	set_frequency(DTH_FREQ)
 	freqlock = TRUE
 
 /obj/item/radio/borg/ert
 	keyslot = new /obj/item/encryptionkey/ert
 
-/obj/item/radio/borg/ert/Initialize(mapload)
-	. = ..()
+/obj/item/radio/borg/ert/New()
+	..()
 	set_frequency(ERT_FREQ)
 	freqlock = TRUE
 
@@ -771,8 +774,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ
 
-/obj/item/radio/phone/medbay/Initialize(mapload)
-	. = ..()
+/obj/item/radio/phone/medbay/New()
+	..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
 
 /obj/item/radio/proc/attempt_send_deadsay_message(mob/subject, message)

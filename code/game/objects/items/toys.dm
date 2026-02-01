@@ -35,8 +35,8 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
 
-/obj/item/toy/balloon/Initialize(mapload)
-	. = ..()
+/obj/item/toy/balloon/New()
+	..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/pre_attack(atom/target, mob/living/user, params)
@@ -1513,8 +1513,8 @@
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	return BRUTELOSS
 
-/obj/item/toy/russian_revolver/Initialize(mapload)
-	. = ..()
+/obj/item/toy/russian_revolver/New()
+	..()
 	spin_cylinder()
 
 /obj/item/toy/russian_revolver/activate_self(mob/user)

@@ -203,8 +203,8 @@
 	icon_state = "lightning"
 	desc = "test lightning."
 
-/obj/item/lightning/Initialize(mapload)
-	. = ..()
+/obj/item/lightning/New()
+	..()
 	icon_state = "1"
 
 /obj/item/lightning/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
