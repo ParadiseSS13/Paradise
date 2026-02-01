@@ -24,6 +24,8 @@
 	intact = FALSE
 	floor_tile = null
 	real_layer = PLATING_LAYER
+	rust_resistance = RUST_RESISTANCE_ABSOLUTE
+
 
 
 /turf/simulated/floor/lava/ex_act()

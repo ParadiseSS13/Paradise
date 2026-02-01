@@ -24,8 +24,17 @@
 
 	new_attack_chain = TRUE
 
-/obj/item/screwdriver/Initialize(mapload)
+/obj/item/screwdriver/Initialize(mapload, param_color = null)
 	. = ..()
+	if(random_color)
+		if(!param_color)
+			param_color = pick("red", "blue", "pink", "brown", "green", "cyan", "yellow")
+		icon_state = "screwdriver_[param_color]"
+		belt_icon = "screwdriver_[param_color]"
+
+	if(prob(75))
+		pixel_y = rand(0, 16)
+
 	AddComponent(/datum/component/surgery_initiator/robo)
 	RegisterSignal(src, COMSIG_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
@@ -41,17 +50,6 @@
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
-
-/obj/item/screwdriver/New(loc, param_color = null)
-	..()
-	if(random_color)
-		if(!param_color)
-			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
-		icon_state = "screwdriver_[param_color]"
-		belt_icon = "screwdriver_[param_color]"
-
-	if(prob(75))
-		src.pixel_y = rand(0, 16)
 
 /obj/item/screwdriver/proc/on_attack(datum/source, mob/living/carbon/target, mob/living/user)
 	if(!istype(target) || user.a_intent == INTENT_HELP)
@@ -101,7 +99,7 @@
 	icon_state = "drill_screw"
 	inhand_icon_state = "drill"
 	belt_icon = "hand_drill"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 2500)
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
 	force = 8 //might or might not be too high, subject to change
 	throwforce = 8

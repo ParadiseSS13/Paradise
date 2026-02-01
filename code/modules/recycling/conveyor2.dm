@@ -424,6 +424,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems.<br>\
 	<span class='notice'><b>Use</b> the assembly on the ground to finalize it.<br>\
 	Use a <b>conveyor belt switch</b> on the assembly to link them.</span>"
+	materials = list(MAT_METAL = 5000)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 
@@ -459,11 +460,12 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	<b>Use</b> the assembly on the ground to finalize it.<span>"
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch"
+	materials = list(MAT_METAL = 450, MAT_GLASS = 190)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 
-/obj/item/conveyor_switch_construct/New(loc, new_id)
-	..(loc)
+/obj/item/conveyor_switch_construct/Initialize(mapload, new_id)
+	. = ..()
 	if(new_id)
 		id = new_id
 	else

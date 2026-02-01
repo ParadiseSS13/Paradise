@@ -2,7 +2,7 @@
 
 /obj/item/ai_upgrade
 	name = "parent ai upgrade"
-	desc = "A base rootkit for ai upgrades. If you are seeing this, report where you found it on the github issues."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
 	inhand_icon_state = "card-id"

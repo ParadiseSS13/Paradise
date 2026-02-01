@@ -524,3 +524,8 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
+
+/obj/machinery/door/window/rust_heretic_act()
+	color = COLOR_RUSTED_GLASS
+	take_damage(obj_integrity * 0.5)
+	max_integrity = max_integrity * 0.5

@@ -12,6 +12,7 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	/// If TRUE, the hypospray can inject any clothing without TRAIT_HYPOSPRAY_IMMUNE.
 	var/penetrate_thick = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
@@ -167,9 +168,9 @@
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""
-	. += "Nanotrasen's version sports a chemical reserviour over 3 times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armour, this \
-	pressurised jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
-	It is also able to interface with the autoinjector ports found on mordern hardsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
+	. += "Nanotrasen's version sports a chemical reservoir over three times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armor. This \
+	pressurized jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
+	It is also able to interface with the autoinjector ports found on modern hardsuits and MODsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
 	. += ""
 	. += "These hyposprays are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
 
@@ -293,7 +294,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
 	name = "suspicious medipen"
-	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse."
+	desc = "A cheap-looking medipen. It contains a wide mix of medicines to fix most health issues. The reagent list seems to match up with the chemicals stolen from a recently-raided Nanotrasen warehouse."
 	icon_state = "hyperpen"
 	amount_per_transfer_from_this = 37
 	volume = 37

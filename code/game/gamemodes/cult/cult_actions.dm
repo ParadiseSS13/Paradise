@@ -30,6 +30,9 @@
 
 	if(user.holy_check())
 		return
+	if(user.AmountHereticSlurring())
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The Mansus blocks your call!"))
+		return
 
 	if(!user.can_speak())
 		to_chat(user, SPAN_WARNING("You can't speak!"))
@@ -119,6 +122,12 @@
 	..()
 
 /datum/action/innate/cult/use_dagger/Activate()
+	var/obj/item/melee/sickly_blade/cursed/better_tool = owner.find_item(/obj/item/melee/sickly_blade/cursed)
+	if(better_tool)
+		owner.unequip(better_tool)
+		owner.put_in_hands(better_tool)
+		better_tool.AltClick(owner)
+		return
 	var/obj/item/melee/cultblade/dagger/D = owner.find_item(/obj/item/melee/cultblade/dagger)
 	if(D)
 		owner.unequip(D)

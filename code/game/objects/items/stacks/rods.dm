@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
-	materials = list(MAT_METAL=1000)
+	materials = list(MAT_METAL = 1000)
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
@@ -93,7 +93,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	desc = "Treated, specialized iron rods. When exposed to the vacuum of space their coating breaks off, but they can hold up against the extreme heat of molten liquids."
 	singular_name = "heat resistant rod"
 	color = "#5286b9ff"
-	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 1000, MAT_PLASMA = 1000)
+	materials = list(MAT_METAL = 1000, MAT_PLASMA = 1000, MAT_TITANIUM = 1000)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	merge_type = /obj/item/stack/rods/lava
 

@@ -9,6 +9,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/visor)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_SILVER = 2500, MAT_GLASS = 5000)
 	/// The HUD type given by the visor.
 	var/hud_type
 	/// The trait given by the visor.

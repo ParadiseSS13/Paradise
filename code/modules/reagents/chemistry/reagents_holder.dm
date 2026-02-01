@@ -43,13 +43,6 @@
 	if(temperature_maximum)
 		temperature_max = temperature_maximum
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
-	if(!GLOB.chemical_reagents_list)
-		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
-		var/paths = subtypesof(/datum/reagent)
-		GLOB.chemical_reagents_list = list()
-		for(var/path in paths)
-			var/datum/reagent/D = new path()
-			GLOB.chemical_reagents_list[D.id] = D
 	if(!GLOB.chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 		// It is filtered into multiple lists within a list.

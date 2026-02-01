@@ -78,8 +78,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/dye_color = "#FFFFFF"
 
-/obj/item/hair_dye_bottle/New()
-	..()
+/obj/item/hair_dye_bottle/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/hair_dye_bottle/update_overlays()
