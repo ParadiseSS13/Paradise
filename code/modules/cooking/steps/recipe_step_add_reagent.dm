@@ -79,12 +79,12 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 /datum/cooking/recipe_step/add_reagent/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker)
 	var/obj/item/reagent_containers/our_item = used_item
 	if(!istype(our_item))
-		return list()
+		return
 
 	var/obj/item/container = locateUID(tracker.container_uid)
 	var/trans = our_item.reagents.trans_to(container, our_item.amount_per_transfer_from_this)
 
-	return list(message = "You transfer [trans] units to \the [container].")
+	return list("message" = "You transfer [trans] units to \the [container].", "amount" = amount, "reagent_remain_percent" = remain_percent, "reagent_id" = reagent_id)
 
 /datum/cooking/recipe_step/add_reagent/is_complete(obj/used_item, datum/cooking/recipe_tracker/tracker, list/step_data)
 	var/obj/item/container = locateUID(tracker.container_uid)

@@ -1,3 +1,23 @@
+/// A single attempt to perform a step in a recipe.
+/// These are created in a recipe tracker and not kept around.
+/// This exists only to make the bookkeeping around recipe tracking easier.
+/datum/cooking/step_attempt
+	var/conditions_met
+	var/current_step_index
+	var/datum/cooking/recipe/recipe
+	var/datum/cooking/recipe_step/recipe_step
+
+/datum/cooking/step_attempt/New(
+		datum/cooking/recipe/recipe,
+		datum/cooking/recipe_step/recipe_step,
+		current_step_index,
+		conditions_met
+	)
+	src.recipe = recipe
+	src.recipe_step = recipe_step
+	src.current_step_index = current_step_index
+	src.conditions_met = conditions_met
+
 /// A recipe tracker is an abstract representation of the progress that a
 /// cooking container has made towards any of its possible recipe outcomes.
 ///
@@ -41,7 +61,7 @@
 /// Wrapper function for analyzing process_item internally.
 /datum/cooking/recipe_tracker/proc/process_item_wrap(mob/user, obj/used)
 	#ifdef PCWJ_DEBUG
-	log_debug("/datum/cooking/recipe_tracker/proc/process_item_wrap called!")
+	log_debug("/datum/cooking/recipe_tracker/proc/process_item_wrap([user], [used])")
 	#endif
 
 	var/response = process_item(user, used)
@@ -74,44 +94,27 @@
 	// TODO: I *hate* passing in a user here and want to move all the necessary
 	// UI interactions (selecting which recipe to complete, selecting which step
 	// to perform) to be moved somewhere else entirely.
-	var/list/valid_steps = list()
-	var/list/valid_recipes = list()
 	var/list/completed_recipes = list()
-	var/list/silent_recipes = list()
-	var/list/attempted_step_per_recipe = list()
+	var/list/step_datas = list()
+	var/list/step_attempts = list()
+	var/completed_steps = 0
 
 	for(var/datum/cooking/recipe/recipe in recipes_last_completed_step)
 		var/current_idx = recipes_last_completed_step[recipe]
 		var/datum/cooking/recipe_step/next_step
 
-		var/match = FALSE
 		do
 			next_step = recipe.steps[++current_idx]
-			var/conditions = next_step.check_conditions_met(used, src)
-			if(conditions == PCWJ_CHECK_VALID)
-				LAZYADD(valid_steps[next_step.type], next_step)
-				LAZYADD(valid_recipes[next_step.type], recipe)
-				attempted_step_per_recipe[recipe] = current_idx
-				match = TRUE
-				break
-			else if(conditions == PCWJ_CHECK_SILENT)
-				LAZYADD(silent_recipes, recipe)
+			var/conditions_met = next_step.check_conditions_met(used, src)
+			if(conditions_met == PCWJ_CHECK_VALID || conditions_met == PCWJ_CHECK_SILENT)
+				step_attempts += new/datum/cooking/step_attempt(
+					recipe, next_step, current_idx, conditions_met)
 		while(next_step && next_step.optional && current_idx <= length(recipe.steps))
 
-		if(match)
-			LAZYOR(recipes_all_applied_steps[recipe], current_idx)
-			if(length(recipe.steps) == current_idx)
-				completed_recipes |= recipe
-
-	if(!length(valid_steps))
-		if(length(silent_recipes))
-			return PCWJ_PARTIAL_SUCCESS
+	if(!length(step_attempts))
 		return PCWJ_NO_STEPS
 
-	var/list/recipes_with_completed_steps = list()
-	var/list/step_data
-	var/complete_steps = 0
-	for(var/step_type in valid_steps)
+	for(var/datum/cooking/step_attempt/step_attempt in step_attempts)
 		// For each valid step type we only call follow_step() once since it's
 		// pointless to e.g. add an item to the container more than once.
 		//
@@ -124,21 +127,33 @@
 		// for now, we do nothing, and just watch out for situations where two
 		// different recipe steps with incompatible end states are valid with
 		// the same object.
-		var/datum/cooking/recipe_step/sample_step = valid_steps[step_type][1]
-		step_data = sample_step.follow_step(used, src)
-		step_reaction_message = step_data["message"]
+		if(!(step_attempt.recipe_step.type in step_datas))
+			var/step_data = step_attempt.recipe_step.follow_step(used, src)
+			if(islist(step_data))
+				step_datas[step_attempt.recipe_step.type] = step_data
+				step_reaction_message = step_datas[step_attempt.recipe_step.type]["message"]
 
-		for(var/i in 1 to length(valid_recipes[step_type]))
-			var/datum/cooking/recipe/recipe = valid_recipes[step_type][i]
-			var/datum/cooking/recipe_step/recipe_step = valid_steps[step_type][i]
-			if(recipe_step.is_complete(used, src, step_data))
-				recipes_last_completed_step[recipe] = attempted_step_per_recipe[recipe]
-				recipes_with_completed_steps |= recipe
-				complete_steps++
+		var/previous_step = recipes_last_completed_step[step_attempt.recipe]
+		if(step_attempt.recipe_step.is_complete(used, src, step_datas[step_attempt.recipe_step.type]))
+			recipes_last_completed_step[step_attempt.recipe] = step_attempt.current_step_index
+			LAZYOR(recipes_all_applied_steps[step_attempt.recipe], step_attempt.current_step_index)
+			completed_steps++
+
+			if(step_attempt.recipe_step == step_attempt.recipe.steps[length(step_attempt.recipe.steps)])
+				completed_recipes += step_attempt.recipe
+		else
+			recipes_last_completed_step[step_attempt.recipe] = previous_step
+
+	if(length(step_datas) > 1)
+		var/list/types = list()
+		for(var/step_type in step_datas)
+			types += "[step_type]"
+		log_debug("More than one valid step data at the same step, this shouldn't happen. Valid steps: [jointext(types, ", ")]")
 
 	var/obj/item/reagent_containers/cooking/container = locateUID(container_uid)
-	if(complete_steps)
-		recipes_applied_step_data += list(step_data)
+	if(completed_steps)
+		var/list/first_applied_step_data = step_datas[1]
+		recipes_applied_step_data += list(step_datas[first_applied_step_data])
 
 		// Empty out the stove data here so that it can be reused from zero for
 		// other cooking steps, as well as to prevent cheatiness where a recipe
@@ -147,14 +162,10 @@
 		if(container)
 			container.clear_cooking_data()
 
-		if("signal" in step_data)
-			SEND_SIGNAL(container, step_data["signal"])
+		if("signal" in first_applied_step_data)
+			SEND_SIGNAL(container, first_applied_step_data["signal"])
 	else
 		return PCWJ_PARTIAL_SUCCESS
-
-	for(var/recipe in recipes_last_completed_step)
-		if(!(recipe in recipes_with_completed_steps))
-			recipes_last_completed_step -= recipe
 
 	var/datum/cooking/recipe/recipe_to_complete
 	if(length(completed_recipes))
@@ -179,5 +190,12 @@
 				log_debug("failure to create result for recipe tracker")
 
 		return PCWJ_COMPLETE
+
+	// any recipes that have fewer completed steps than the number
+	// of steps we've actually accomplished shouldn't be considered
+	var/completed_step_count = length(recipes_applied_step_data)
+	for(var/recipe in recipes_last_completed_step)
+		if(!(recipe in recipes_all_applied_steps) || length(recipes_all_applied_steps[recipe]) < completed_step_count)
+			recipes_last_completed_step.Remove(recipe)
 
 	return PCWJ_SUCCESS

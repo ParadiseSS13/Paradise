@@ -14,15 +14,17 @@
 	return
 
 /datum/cooking/recipe_step/use_machine/check_conditions_met(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
-
-	if(container.get_cooker_time(cooker_surface_name, temperature) >= time)
-		return PCWJ_CHECK_VALID
-
 	if(istype(used_item, machine_type))
 		return PCWJ_CHECK_SILENT
 
 	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe_step/use_machine/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
+	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
+	if(istype(container) && container.get_cooker_time(cooker_surface_name, temperature) >= time)
+		return TRUE
+
+	return FALSE
 
 /datum/cooking/recipe_step/use_machine/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
 	var/list/step_data = list(target = used_item.UID())
