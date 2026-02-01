@@ -341,6 +341,30 @@
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/tile/catwalk
 
+/obj/item/stack/tile/catwalk/grey
+	name = "grey catwalk tiles"
+	singular_name = "grey catwalk tile"
+	desc = "A grey catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_grey"
+	turf_type = /turf/simulated/floor/catwalk/grey
+	merge_type = /obj/item/stack/tile/catwalk/grey
+
+/obj/item/stack/tile/catwalk/black
+	name = "black catwalk tiles"
+	singular_name = "black catwalk tile"
+	desc = "A black catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_black"
+	turf_type = /turf/simulated/floor/catwalk/black
+	merge_type = /obj/item/stack/tile/catwalk/black
+
+/obj/item/stack/tile/catwalk/white
+	name = "white catwalk tiles"
+	singular_name = "white catwalk tile"
+	desc = "A white catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_white"
+	turf_type = /turf/simulated/floor/catwalk/white
+	merge_type = /obj/item/stack/tile/catwalk/white
+
 /obj/item/stack/tile/catwalk/cyborg
 	energy_type = /datum/robot_storage/energy/catwalk
 	is_cyborg = TRUE
