@@ -407,6 +407,8 @@
 				. += ((health_deficiency / 25) - 1.1) //Once damage is over 40, you get the harsh formula
 			else
 				. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
+	if(istype(H.ai_controller))
+		H.ai_controller.movement_delay = .
 
 #undef ADD_SLOWDOWN
 #undef SLOWDOWN_INCREMENT

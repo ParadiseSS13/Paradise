@@ -9,8 +9,9 @@
 /datum/ai_planning_subtree/generic_resist/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/living_pawn = controller.pawn
 
-	if(SHOULD_RESIST(living_pawn) && SPT_PROB(RESIST_SUBTREE_PROB, seconds_per_tick))
-		controller.queue_behavior(/datum/ai_behavior/resist) // BRO IM ON FUCKING FIRE BRO
+	if(SHOULD_RESIST(living_pawn) || length(living_pawn.grabbed_by))
+		if(SPT_PROB(RESIST_SUBTREE_PROB, seconds_per_tick))
+			controller.queue_behavior(/datum/ai_behavior/resist) // BRO IM ON FUCKING FIRE BRO
 		return SUBTREE_RETURN_FINISH_PLANNING // IM NOT DOING ANYTHING ELSE BUT EXTINGUISH MYSELF, GOOD GOD HAVE MERCY.
 
 /**
