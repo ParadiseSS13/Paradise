@@ -53,6 +53,12 @@
 			if(C.species_disguise)
 				displayed_species = C.species_disguise
 				break
+
+	// If an IPC's covered in synthetic skin, they can appear human.
+	if(calculate_ipc_masquerade_status())
+		displayed_species = "Human"
+		examine_color = "#d1aa2e"
+
 	if(skip_jumpsuit && skip_face || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!"    //omit the species when examining
 	else
@@ -122,7 +128,7 @@
 				continue
 
 		if(!ismachineperson(src))
-			if(E.is_robotic())
+			if(E.is_robotic() && !E.has_synthetic_skin)
 				wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
 
 			else if(E.status & ORGAN_SPLINTED)
@@ -256,5 +262,61 @@
 
 	return msg
 
+/mob/living/carbon/human/proc/calculate_ipc_masquerade_status()
+	if(!ismachineperson(src))
+		return FALSE
+
+	var/all_visible_parts_have_skin = TRUE
+
+	for(var/obj/item/organ/external/limb as anything in bodyparts)
+		if(!limb || !limb.is_robotic())
+			continue
+
+		// If it's covered by clothing then it doesn't need to have skin for the masquerade
+		if(is_bodypart_covered_by_clothing(limb.limb_name))
+			continue
+
+		if(!limb.has_synthetic_skin)
+			return FALSE
+
+	return all_visible_parts_have_skin
+
 /mob/living/carbon/human/examine_get_brute_message()
-	return !ismachineperson(src) ? "bruising" : "denting"
+	if(!ismachineperson(src) || calculate_ipc_masquerade_status())
+		return "bruising"
+
+	return "denting"
+
+/// Checks if a body part is covered by clothing
+/mob/living/carbon/human/proc/is_bodypart_covered_by_clothing(part_name)
+	var/bodypart_clothing_bitflag = bodypart_name_to_clothing_bitflag(part_name)
+	if(!bodypart_clothing_bitflag)
+		return FALSE
+
+	// Masks
+	if(bodypart_clothing_bitflag & HEAD)
+		var/obj/item/clothing/mask/current_mask = wear_mask
+		if(istype(current_mask) && (current_mask.body_parts_covered & bodypart_clothing_bitflag))
+			return TRUE
+
+	// Jumpsuit/uniform
+	var/chest_groin_arms_legs_bitflag = ARMS | LEGS | UPPER_TORSO | LOWER_TORSO
+	if(bodypart_clothing_bitflag & chest_groin_arms_legs_bitflag)
+		if(w_uniform && (w_uniform.body_parts_covered & bodypart_clothing_bitflag))
+			return TRUE
+		if(wear_suit && (wear_suit.body_parts_covered & bodypart_clothing_bitflag))
+			return TRUE
+
+	// Gloves
+	if(bodypart_clothing_bitflag & HANDS)
+		var/obj/item/clothing/gloves/current_gloves = gloves
+		if(istype(current_gloves) && (current_gloves.body_parts_covered & bodypart_clothing_bitflag))
+			return TRUE
+
+	// Shoes
+	if(bodypart_clothing_bitflag & FEET)
+		var/obj/item/clothing/shoes/current_shoes = shoes
+		if(istype(current_shoes) && (current_shoes.body_parts_covered & bodypart_clothing_bitflag))
+			return TRUE
+
+	return FALSE

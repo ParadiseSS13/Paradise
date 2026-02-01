@@ -1442,6 +1442,7 @@
 #include "code\game\objects\items\tanks\tank_types.dm"
 #include "code\game\objects\items\tanks\watertank.dm"
 #include "code\game\objects\items\tools\crowbar.dm"
+#include "code\game\objects\items\tools\epidermal_applicator.dm"
 #include "code\game\objects\items\tools\hammer.dm"
 #include "code\game\objects\items\tools\multitool.dm"
 #include "code\game\objects\items\tools\screwdriver.dm"

@@ -348,6 +348,16 @@
 		if(istype(affecting))
 			affecting.disfigure()
 
+	var/was_skin_removed = FALSE
+	for(var/obj/item/organ/external/limb in H.bodyparts)
+		if(limb.has_synthetic_skin)
+			was_skin_removed = TRUE
+			limb.remove_synthetic_skin(TRUE)
+
+	if(was_skin_removed)
+		H.visible_message("<span class='warning'>The synthetic skin on [H]'s body bubbles and melts away.</span>", \
+						"<span class='warning'>The synthetic skin on your body bubbles and melts away.</span>")
+
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()
 		return

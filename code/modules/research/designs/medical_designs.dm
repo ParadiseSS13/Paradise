@@ -71,6 +71,16 @@
 	build_path = /obj/item/reagent_containers/applicator
 	category = list("Medical")
 
+/datum/design/epidermal_applicator
+	name = "Epidermal Applicator"
+	desc = "A pen-shaped device developed by Zeng-Hu Pharmaceuticals and used to apply synthetic skin to prosthetic limbs."
+	id = "epidermal_applicator"
+	req_tech = list("biotech" = 5, "materials" = 6, "engineering" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_SILVER = 500)
+	build_path = /obj/item/epidermal_applicator
+	category = list("Medical")
+
 /datum/design/handheld_defib
 	name = "Handheld Defibrillator"
 	desc = "A smaller defibrillator only capable of treating cardiac arrest."
