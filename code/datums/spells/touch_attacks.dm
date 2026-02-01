@@ -19,7 +19,7 @@
 		cooldown_handler.start_recharge(cooldown_handler.recharge_duration)
 		return
 	var/hand_handled = 1
-	attached_hand = new hand_path(src)
+	attached_hand = new hand_path(src, src)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(discharge_hand))
 	if(isalien(user))
 		user.put_in_hands(attached_hand)
