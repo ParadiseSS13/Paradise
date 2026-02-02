@@ -627,7 +627,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT) && !HAS_TRAIT(w_uniform, TRAIT_NO_WORN_ICON))
 			var/worn_icon = listgetindex(w_uniform.sprite_sheets, dna.species.sprite_sheet_name) || w_uniform.worn_icon || 'icons/mob/clothing/under/misc.dmi'
 			var/worn_icon_state = w_uniform.worn_icon_state || w_uniform.icon_state
-			var/mutable_appearance/standing = mutable_appearance(worn_icon, "[worn_icon_state]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
+			if(istype(w_uniform, /obj/item/clothing/under/color))
+				var/obj/item/clothing/under/color/colored_uniform = w_uniform
+				if(colored_uniform.icon_palette_key)
+					var/icon/colored_icon = icon(worn_icon, "[worn_icon_state]_s")
+					if(!GLOB.palette_registry[colored_uniform.dyeing_key])
+						stack_trace("Item just tried to be colored with an invalid registry key: [colored_uniform.dyeing_key]")
+					colored_icon.swap_palette(
+						GLOB.palette_registry[colored_uniform.dyeing_key][colored_uniform.default_palette_key],
+						GLOB.palette_registry[colored_uniform.dyeing_key][colored_uniform.icon_palette_key]
+					)
+					worn_icon = colored_icon
+					worn_icon_state = null
+			var/mutable_appearance/standing = mutable_appearance(worn_icon, (worn_icon_state ? "[worn_icon_state]_s" : ""), layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
 
 			if(w_uniform.blood_DNA)
 				var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")

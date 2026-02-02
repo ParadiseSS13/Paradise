@@ -2,7 +2,10 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	icon = 'icons/obj/clothing/under/color.dmi'
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
+	icon_state = "white"
 	dyeable = TRUE
+	var/list/default_palette_key = DYE_WHITE
+	var/list/icon_palette_key = null
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
 		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/color.dmi',
@@ -14,6 +17,7 @@
 /obj/item/clothing/under/color/jumpskirt
 	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	icon_state = "whiteskirt"
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
@@ -28,13 +32,13 @@
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - typesof(/obj/item/clothing/under/color/jumpskirt) - excluded)
 	name = initial(C.name)
 	icon_state = initial(C.icon_state)
+	icon_palette_key = initial(C.icon_palette_key)
 	inhand_icon_state = initial(C.inhand_icon_state)
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
-	icon_state = "black"
+	icon_palette_key = DYE_BLACK
 	inhand_icon_state = "bl_suit"
-	resistance_flags = NONE
 
 /obj/item/clothing/under/color/jumpskirt/black
 	name = "black jumpskirt"
@@ -44,7 +48,7 @@
 
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
-	icon_state = "blue"
+	icon_palette_key = DYE_BLUE
 	inhand_icon_state = "b_suit"
 
 /obj/item/clothing/under/color/jumpskirt/blue
@@ -57,7 +61,7 @@
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
-	icon_state = "green"
+	icon_palette_key = DYE_GREEN
 	inhand_icon_state = "g_suit"
 
 /obj/item/clothing/under/color/jumpskirt/green
@@ -68,7 +72,7 @@
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
 	desc = "A tasteful grey jumpsuit that reminds you of the good old days."
-	icon_state = "grey"
+	icon_palette_key = DYE_GREY
 	inhand_icon_state = "gy_suit"
 
 /obj/item/clothing/under/color/grey/greytide
@@ -84,11 +88,12 @@
 	name = "ancient jumpsuit"
 	desc = "A terribly ragged and frayed grey jumpsuit. It looks like it hasn't been washed in over a decade."
 	icon_state = "ancient"
+	icon_palette_key = null
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
 	desc = "Don't wear this near paranoid security officers."
-	icon_state = "orange"
+	icon_palette_key = DYE_ORANGE
 	inhand_icon_state = "o_suit"
 
 /obj/item/clothing/under/color/jumpskirt/orange
@@ -100,6 +105,7 @@
 /obj/item/clothing/under/color/orange/prison
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "prisoner"
+	icon_palette_key = null
 	inhand_icon_state = "prisoner"
 	has_sensor = 2
 	sensor_mode = SENSOR_COORDS
@@ -107,6 +113,7 @@
 /obj/item/clothing/under/color/jumpskirt/orange/prison
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "prisonerskirt"
+	icon_palette_key = null
 	inhand_icon_state = "prisoner"
 	has_sensor = 2
 	sensor_mode = SENSOR_COORDS
@@ -114,7 +121,7 @@
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
 	desc = "Just looking at this makes you feel <i>fabulous</i>."
-	icon_state = "pink"
+	icon_palette_key = DYE_PINK
 	inhand_icon_state = "p_suit"
 
 /obj/item/clothing/under/color/jumpskirt/pink
@@ -125,7 +132,7 @@
 
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
-	icon_state = "red"
+	icon_palette_key = DYE_RED
 	inhand_icon_state = "r_suit"
 
 /obj/item/clothing/under/color/jumpskirt/red
@@ -146,7 +153,7 @@
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
-	icon_state = "yellow"
+	icon_palette_key = DYE_YELLOW
 
 /obj/item/clothing/under/color/jumpskirt/yellow
 	name = "yellow jumpskirt"
@@ -159,7 +166,7 @@
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
-	icon_state = "lightblue"
+	icon_palette_key = DYE_LIGHTBLUE
 
 /obj/item/clothing/under/color/jumpskirt/lightblue
 	name = "light blue jumpskirt"
@@ -167,7 +174,7 @@
 
 /obj/item/clothing/under/color/aqua
 	name = "aqua jumpsuit"
-	icon_state = "aqua"
+	icon_palette_key = DYE_AQUA
 
 /obj/item/clothing/under/color/jumpskirt/aqua
 	name = "aqua jumpskirt"
@@ -175,7 +182,7 @@
 
 /obj/item/clothing/under/color/purple
 	name = "purple jumpsuit"
-	icon_state = "purple"
+	icon_palette_key = DYE_PURPLE
 	inhand_icon_state = "p_suit"
 
 /obj/item/clothing/under/color/jumpskirt/purple
@@ -190,7 +197,7 @@
 
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
-	icon_state = "lightpurple"
+	icon_palette_key = DYE_LIGHTPURPLE
 
 /obj/item/clothing/under/color/jumpskirt/lightpurple
 	name = "light purple jumpskirt"
@@ -198,7 +205,7 @@
 
 /obj/item/clothing/under/color/lightgreen
 	name = "light green jumpsuit"
-	icon_state = "lightgreen"
+	icon_palette_key = DYE_LIGHTGREEN
 
 /obj/item/clothing/under/color/jumpskirt/lightgreen
 	name = "light green jumpskirt"
@@ -206,7 +213,7 @@
 
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"
-	icon_state = "lightbrown"
+	icon_palette_key = DYE_LIGHTBROWN
 
 /obj/item/clothing/under/color/jumpskirt/lightbrown
 	name = "light brown jumpskirt"
@@ -214,7 +221,7 @@
 
 /obj/item/clothing/under/color/brown
 	name = "brown jumpsuit"
-	icon_state = "brown"
+	icon_palette_key = DYE_BROWN
 
 /obj/item/clothing/under/color/jumpskirt/brown
 	name = "brown jumpskirt"
@@ -222,7 +229,7 @@
 
 /obj/item/clothing/under/color/yellowgreen
 	name = "yellow green jumpsuit"
-	icon_state = "yellowgreen"
+	icon_palette_key = DYE_YELLOWGREEN
 
 /obj/item/clothing/under/color/jumpskirt/yellowgreen
 	name = "yellow green jumpskirt"
@@ -230,7 +237,7 @@
 
 /obj/item/clothing/under/color/darkblue
 	name = "dark blue jumpsuit"
-	icon_state = "darkblue"
+	icon_palette_key = DYE_DARKBLUE
 
 /obj/item/clothing/under/color/jumpskirt/darkblue
 	name = "dark blue jumpskirt"
@@ -238,7 +245,7 @@
 
 /obj/item/clothing/under/color/lightred
 	name = "light red jumpsuit"
-	icon_state = "lightred"
+	icon_palette_key = DYE_LIGHTRED
 
 /obj/item/clothing/under/color/jumpskirt/lightred
 	name = "light red jumpskirt"
@@ -246,7 +253,7 @@
 
 /obj/item/clothing/under/color/darkred
 	name = "dark red jumpsuit"
-	icon_state = "darkred"
+	icon_palette_key = DYE_DARKRED
 
 /obj/item/clothing/under/color/jumpskirt/darkred
 	name = "dark red jumpskirt"
