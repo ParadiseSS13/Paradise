@@ -39,8 +39,8 @@
 	var/module_type = "NoMod"
 
 
-/obj/item/robot_module/New()
-	..()
+/obj/item/robot_module/Initialize(mapload)
+	. = ..()
 
 	// Creates new objects from the type lists.
 	for(var/i in basic_modules)
@@ -79,6 +79,7 @@
 		if(I) // If it exists, add the object reference.
 			special_rechargables += I
 		special_rechargables -= path // No matter what, remove the path from the list.
+	module_armor = getArmor(arglist(module_armor))
 
 	// Add all the modules into the robot's inventory. Without this, their inventory will be blank.
 	rebuild_modules()
@@ -102,9 +103,6 @@
 	QDEL_LIST_CONTENTS(special_rechargables)
 	return ..()
 
-/obj/item/robot_module/Initialize(mapload)
-	. = ..()
-	module_armor = getArmor(arglist(module_armor))
 /**
  * Searches through the various module lists for the given `item_type`, deletes and removes the item from all supplied lists, if the item is found.
  *
@@ -1129,4 +1127,3 @@
 	statpanel_name = "Metal"
 	stack = /obj/item/stack/sheet/metal
 	add_to_storage = TRUE
-

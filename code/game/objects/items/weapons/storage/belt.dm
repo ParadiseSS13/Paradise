@@ -870,6 +870,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
+	materials = list(MAT_GOLD = 1500, MAT_DIAMOND = 3000, MAT_URANIUM = 1000)
 	can_hold = list()
 	large = TRUE
 	w_class_override = list(

@@ -7,6 +7,7 @@
 	var/searching_icon = "boris_recharging"
 	var/occupied_icon = "boris"
 	origin_tech = "biotech=3;programming=3;plasmatech=2"
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500)
 	req_access = list(ACCESS_ROBOTICS)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 	var/searching = FALSE
@@ -170,7 +171,8 @@
 			brainmob.emp_damage += rand(10, 20)
 	..()
 
-/obj/item/mmi/robotic_brain/New()
+/obj/item/mmi/robotic_brain/Initialize(mapload)
+	. = ..()
 	brainmob = new(src)
 	brainmob.name = "[pick("PBU", "HIU", "SINA", "ARMA", "OSI")]-[rand(100, 999)]"
 	brainmob.real_name = brainmob.name
@@ -183,7 +185,6 @@
 	brainmob.dna.ResetSE()
 	brainmob.dna.ResetUI()
 	GLOB.dead_mob_list -= brainmob
-	..()
 
 /obj/item/mmi/robotic_brain/attack_ghost(mob/dead/observer/O)
 	if(brainmob && brainmob.key)

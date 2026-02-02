@@ -4,7 +4,7 @@
 
 /obj/item/clothing/suit/storage/Initialize(mapload)
 	. = ..()
-	pockets = new pockets(src)
+	pockets = new pockets(src, src)
 	pockets.storage_slots = 2	//two slots
 	pockets.max_w_class = WEIGHT_CLASS_SMALL		//fit only pocket sized items
 	pockets.max_combined_w_class = 4

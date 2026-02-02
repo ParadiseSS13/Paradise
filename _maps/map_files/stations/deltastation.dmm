@@ -12653,7 +12653,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/engine,
-/area/station/engineering/engine)
+/area/station/engineering/engine/reactor)
 "aYt" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/effect/turf_decal/tiles/neutral,
@@ -14929,6 +14929,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
 "biT" = (

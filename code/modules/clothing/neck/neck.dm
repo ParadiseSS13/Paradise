@@ -37,6 +37,7 @@
 	name = "stethoscope"
 	desc = "An outdated medical apparatus, used to get a rough idea of the condition of the heart and lungs. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
+	materials = list(MAT_METAL = 500)
 
 /obj/item/clothing/neck/stethoscope/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ishuman(target) || !isliving(user))

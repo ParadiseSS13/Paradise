@@ -63,11 +63,8 @@
 /obj/item/fireaxe/energized/Initialize(mapload)
 	. = ..()
 	// only update the new args
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
-
-/obj/item/fireaxe/energized/New()
-	..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
 
 /obj/item/fireaxe/energized/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -694,6 +691,7 @@
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	dyeable = FALSE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time

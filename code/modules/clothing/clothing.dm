@@ -159,7 +159,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
 
-/obj/item/clothing/ears/offear/New(obj/O)
+/obj/item/clothing/ears/offear/Initialize(mapload, obj/O)
 	. = ..()
 	name = O.name
 	desc = O.desc
@@ -176,7 +176,7 @@
 	inhand_icon_state = "glasses"
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
-	materials = list(MAT_GLASS = 250)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
 	strip_delay = 2 SECONDS
 	put_on_delay = 2.5 SECONDS
 	resistance_flags = NONE
