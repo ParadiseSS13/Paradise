@@ -1,7 +1,7 @@
 // The ammo/gun is stored in a back slot item
 /obj/item/minigunpack
 	name = "IK-134 backpack power supply"
-	desc = "The massive external power source for the IK-134 gatling gun."
+	desc = "An IK-134 gatling gun's massive external power source."
 	icon = 'icons/obj/guns/minigun.dmi'
 	icon_state = "holstered"
 	inhand_icon_state = "satchel-sec"
