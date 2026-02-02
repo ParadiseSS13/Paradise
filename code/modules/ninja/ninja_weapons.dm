@@ -66,6 +66,8 @@
 	force = 5
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
+
+	new_attack_chain = TRUE
 	/// What is the maximum number of energy shurikens the printer can hold?
 	var/maximum_stars = 4
 	/// What is the current number of energy shurikens the printer is holding?
