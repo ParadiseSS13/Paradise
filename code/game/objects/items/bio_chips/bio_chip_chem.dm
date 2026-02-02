@@ -3,6 +3,7 @@
 	desc = "Injects things."
 	icon_state = "reagents"
 	origin_tech = "materials=3;biotech=4"
+	materials = list(MAT_GLASS = 200)
 	container_type = OPENCONTAINER
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/chem

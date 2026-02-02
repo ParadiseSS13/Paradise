@@ -27,9 +27,11 @@
 /datum/proximity_monitor/advanced/proc/cleanup_field()
 	for(var/turf/turf as anything in edge_turfs)
 		cleanup_edge_turf(turf)
+		cleanup_effects(turf)
 	edge_turfs = list()
 	for(var/turf/turf as anything in field_turfs)
 		cleanup_field_turf(turf)
+		cleanup_effects(turf)
 	field_turfs = list()
 
 //Call every time the field moves (done automatically if you use update_center) or a setup specification is changed.
@@ -48,10 +50,12 @@
 		if(QDELETED(src))
 			return
 		cleanup_field_turf(old_turf)
+		cleanup_effects(old_turf)
 	for(var/turf/old_turf as anything in old_edge_turfs - edge_turfs)
 		if(QDELETED(src))
 			return
 		cleanup_edge_turf(old_turf)
+		cleanup_effects(old_turf)
 
 	if(full_recalc)
 		old_field_turfs = list()
@@ -107,6 +111,10 @@
 /// Do NOT call this manually, requires management of the field_turfs list
 /datum/proximity_monitor/advanced/proc/cleanup_field_turf(turf/target)
 	PRIVATE_PROC(TRUE)
+	return
+
+/// A holder proc for cleaning up various effects.
+/datum/proximity_monitor/advanced/proc/cleanup_effects(turf/target)
 	return
 
 /// Called when a turf in the edge of the monitor is linked

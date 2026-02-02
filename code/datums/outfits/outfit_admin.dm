@@ -1699,3 +1699,43 @@
 		/obj/item/shield/energy = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
+
+/datum/outfit/admin/heretic_long
+	name = "Heretic Long"
+
+	uniform = /obj/item/clothing/under/suit/victsuit/red
+	neck = /obj/item/clothing/neck/heretic_focus
+	back = /obj/item/storage/backpack/satchel
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/chameleon/noslip
+	l_ear = /obj/item/radio/headset/syndicate
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/melee/sickly_blade = 1,
+		/obj/item/codex_cicatrix = 1,
+
+	)
+
+/datum/outfit/admin/heretic_long/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	var/obj/item/clothing/suit/hooded/cultrobes/eldritch/R = new(H.loc)
+	if(istype(R))
+		R.name = "ascendant robes"
+		R.hood.name = "ascendant hood"
+		H.equip_to_slot_or_del(R, ITEM_SLOT_OUTER_SUIT)
+		R.ToggleHood()
+
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Heretic Long", "data")
+
+/datum/outfit/admin/heretic_long/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.add_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/A = H.mind.has_antag_datum(/datum/antagonist/heretic)
+	A.knowledge_points = 9999
+	A.force_unlock_ascension = TRUE

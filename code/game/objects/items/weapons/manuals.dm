@@ -21,7 +21,7 @@
 	//While piracy is a heinious deed, we don't want people uploading programmatic books into the player book DB for obvious reasons
 	copyright = TRUE
 	name = "Book Manual"
-	desc = "Please make a report on the github if you somehow get ahold of one of these in-game."
+	desc = ABSTRACT_TYPE_DESC
 	summary = "This is a manual procured by Nanotrasen, it contains important information!"
 	//Pages has to be a list of strings, it will break the book otherwise
 	pages = list({"How did we get here? Anyway, if you are reading this please make a report on the Github as you should not

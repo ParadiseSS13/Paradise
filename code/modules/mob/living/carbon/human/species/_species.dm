@@ -265,7 +265,7 @@
 			continue
 		var/list/organ_data = has_limbs[limb_name]
 		var/limb_path = organ_data["path"]
-		var/obj/item/organ/O = new limb_path(H)
+		var/obj/item/organ/O = new limb_path(H, H)
 		organ_data["descriptor"] = O.name
 		// Transfer things from the old organ to the new
 		if(istype(O, /obj/item/organ/external) && transfer_list[limb_name])
@@ -295,7 +295,7 @@
 		// not doing so (as of now) causes weird issues for some organs like posibrains, which need a mob on init or they'll qdel themselves.
 		// for the record: this caused every single IPC's brain to be deleted randomly throughout a round, killing them instantly.
 
-		new organ_path(H)
+		new organ_path(H, H)
 
 	create_mutant_organs(H)
 
@@ -318,7 +318,7 @@
 		qdel(ears)
 
 	if(mutantears && !isnull(H.bodyparts_by_name[initial(mutantears.parent_organ)]))
-		new mutantears(H)
+		new mutantears(H, H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	var/datum/organ/lungs/lung = H.get_int_organ_datum(ORGAN_DATUM_LUNGS)

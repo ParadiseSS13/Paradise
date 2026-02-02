@@ -310,6 +310,7 @@
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 	dye_color = null // not technically a crayon, so we're not gonna have it dye stuff in the laundry machine
 	consumable = FALSE // To stop you from eating spraycans. It's TOO SILLY!
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()

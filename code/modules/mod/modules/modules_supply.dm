@@ -121,6 +121,7 @@
 	incompatible_modules = list(/obj/item/mod/module/drill)
 	cooldown_time = 0.5 SECONDS
 	overlay_state_active = "module_drill"
+	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000)
 
 /obj/item/mod/module/drill/on_activation()
 	. = ..()

@@ -49,8 +49,11 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, direction, building = 3)
+/obj/item/radio/intercom/Initialize(mapload, direction, building = 3)
 	. = ..()
+	if(!custom_name)
+		name = "station intercom (General)"
+
 	buildstage = building
 	if(buildstage)
 		update_operating_status()
@@ -63,17 +66,12 @@
 	GLOB.global_intercoms.Add(src)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/item/radio/intercom/Initialize(mapload)
+/obj/item/radio/intercom/department/medbay/Initialize(mapload, direction, building)
 	. = ..()
-	if(!custom_name)
-		name = "station intercom (General)"
-
-/obj/item/radio/intercom/department/medbay/New()
-	..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
 
-/obj/item/radio/intercom/department/security/New()
-	..()
+/obj/item/radio/intercom/department/security/Initialize(mapload, direction, building)
+	. = ..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
 		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY)
@@ -85,16 +83,16 @@
 	frequency = SYND_FREQ
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
-/obj/item/radio/intercom/syndicate/New()
-	..()
+/obj/item/radio/intercom/syndicate/Initialize(mapload, direction, building)
+	. = ..()
 	internal_channels[num2text(SYND_FREQ)] = list(ACCESS_SYNDICATE)
 
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
 
-/obj/item/radio/intercom/pirate/New()
-	..()
+/obj/item/radio/intercom/pirate/Initialize(mapload, direction, building)
+	. = ..()
 	internal_channels.Cut()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
@@ -298,6 +296,6 @@
 	name = "prison intercom"
 	desc = "A reliable form of communication even during local communication blackouts. It looks like it has been modified to not broadcast. Not so reliable, I guess..."
 
-/obj/item/radio/intercom/locked/prison/New()
-	..()
+/obj/item/radio/intercom/locked/prison/Initialize(mapload, direction, building)
+	. = ..()
 	wires.cut(WIRE_RADIO_TRANSMIT)

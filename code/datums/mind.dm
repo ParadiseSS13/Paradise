@@ -33,7 +33,11 @@
 
 	var/memory
 
-	var/assigned_role //assigned role is what job you're assigned to when you join the station.
+	/// Assigned role is what job you're assigned to when you join the station.
+	var/assigned_role
+	/// This is the the job datum you have
+	var/datum/job/job_datum
+
 	var/playtime_role //if set, overrides your assigned_role for the purpose of playtime awards. Set by IDcomputer when your ID is changed.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
 	var/offstation_role = FALSE //set to true for ERT, deathsquad, abductors, etc, that can go from and to CC at will and shouldn't be antag targets
@@ -83,6 +87,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
+	job_datum = null
 	remove_all_antag_datums()
 	qdel(objective_holder)
 	unbind()
@@ -418,6 +423,25 @@
 
 	. += _memory_edit_role_enabled(ROLE_MIND_FLAYER)
 
+/datum/mind/proc/memory_edit_heretic(mob/living/carbon/human/H)
+	. = _memory_edit_header("heretic")
+	if(has_antag_datum(/datum/antagonist/heretic))
+		var/datum/antagonist/heretic/wheretic = has_antag_datum(/datum/antagonist/heretic)
+		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+		switch(wheretic.has_living_heart())
+			if(HERETIC_NO_LIVING_HEART)
+				. += " | <br>Give <a href='byond://?src=[UID()];heretic=heart'>Living heart</a>"
+			if(HERETIC_HAS_LIVING_HEART)
+				. += " | <br><a href='byond://?src=[UID()];heretic=Target'><b>Add Heart Target (marked mob)</b></a>"
+				. += " | <a href='byond://?src=[UID()];heretic=RemoveTarget'><b>Remove A Target</b></a>"
+				. += " | <br> Targets are / have been: [english_list(wheretic.all_sac_targets, nothing_text = "No one")]"
+		. += " | <br>Give <a href='byond://?src=[UID()];heretic=focus'>focus</a>|<a href='byond://?src=[UID()];heretic=knowledge'> or adjust knowledge points.</a>."
+
+	else
+		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_HERETIC)
+
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
 	if(src in SSticker.mode.syndicates)
@@ -565,6 +589,7 @@
 		"changeling",
 		"vampire", // "traitorvamp",
 		"mind_flayer",
+		"heretic",
 		"nuclear",
 		"traitor", // "traitorchan",
 	)
@@ -582,6 +607,8 @@
 		sections["vampire"] = memory_edit_vampire(H)
 		/** MINDFLAYER ***/
 		sections["mind_flayer"] = memory_edit_mind_flayer(H)
+		/** HERETIC ***/
+		sections["heretic"] = memory_edit_heretic(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/
@@ -1171,6 +1198,59 @@
 				log_admin("[key_name(usr)] has set [key_name(current)]'s current swarms to [new_swarms].")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s current swarms to [new_swarms].")
 
+	else if(href_list["heretic"])
+		switch(href_list["heretic"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/heretic))
+					remove_antag_datum(/datum/antagonist/heretic)
+					log_admin("[key_name(usr)] has de-heretic'd [key_name(current)].")
+					message_admins("[key_name(usr)] has de-heretic'd [key_name(current)].")
+			if("heretic")
+				make_heretic()
+				log_admin("[key_name(usr)] has heretic'd [key_name(current)].")
+				to_chat(current, "<b><font color='red'>You feel a whisper in your head. You are a Heretic!</font></b>")
+				message_admins("[key_name(usr)] has heretic'd [key_name(current)].")
+			if("Target")
+				var/mob/living/carbon/human/new_target = usr.client?.holder.marked_datum
+				if(!istype(new_target))
+					to_chat(usr, "<span class='warning'>You need to mark a human to do this!</span>")
+					return
+
+				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
+					to_chat(current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
+					to_chat(current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
+					var/datum/antagonist/heretic/hereitic = has_antag_datum(/datum/antagonist/heretic)
+					hereitic.add_sacrifice_target(new_target)
+			if("RemoveTarget")
+				var/datum/antagonist/heretic/thereitic = has_antag_datum(/datum/antagonist/heretic)
+				var/list/removable = list()
+				for(var/mob/living/carbon/human/old_target as anything in thereitic.sac_targets)
+					removable[old_target.name] = old_target
+
+				var/name_of_removed = tgui_input_list(usr, "Choose a human to remove", "Who to Spare", removable)
+				if(QDELETED(src) || isnull(name_of_removed))
+					return
+				var/mob/living/carbon/human/chosen_target = removable[name_of_removed]
+				if(QDELETED(chosen_target) || !ishuman(chosen_target))
+					return
+
+				if(!thereitic.remove_sacrifice_target(chosen_target))
+					to_chat(usr, "<span class='warning'>Failed to remove [name_of_removed] from [current]'s sacrifice list. Perhaps they're no longer in the list anyways.</span>")
+					return
+
+				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
+					to_chat(current, "<span class='danger'>The Mansus has modified your targets.</span>")
+			if("focus")
+				current.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(current)), ITEM_SLOT_NECK, TRUE, TRUE)
+				to_chat(current, "<span class='danger'>The Mansus has given you a focus!</span>")
+				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a heretic focus")
+			if("knowledge")
+				var/change_num = tgui_input_number(usr, "Add or remove knowledge points", "Points", 0, 100, -100)
+				if(!change_num || QDELETED(src))
+					return
+				var/datum/antagonist/heretic/whereitic = has_antag_datum(/datum/antagonist/heretic)
+				whereitic.knowledge_points += change_num
+
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
 
@@ -1744,6 +1824,11 @@
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
 		add_antag_datum(/datum/antagonist/mindflayer)
 		SSticker.mode.mindflayers |= src
+
+/datum/mind/proc/make_heretic()
+	if(!has_antag_datum(/datum/antagonist/heretic))
+		add_antag_datum(/datum/antagonist/heretic)
+		SSticker.mode.heretics |= src
 
 /datum/mind/proc/make_Abductor()
 	if(alert(usr, "Are you sure you want to turn this person into an abductor? This can't be undone!", "New Abductor?", "Yes", "No") != "Yes")

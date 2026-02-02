@@ -1010,7 +1010,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/telecomms/computer)
 "sH" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = -32
 	},
 /obj/machinery/light{
@@ -2839,7 +2839,7 @@
 /turf/template_noop,
 /area/space/nearstation/no_teleport)
 "Vb" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/machinery/light{

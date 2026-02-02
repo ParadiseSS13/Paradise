@@ -81,12 +81,6 @@
 /datum/element/clothing_adjustment/skulk_headgear/on_item_dropped(datum/source, mob/target)
 	UnregisterSignal(target, list(COMSIG_CARBON_APPLY_OVERLAY))
 
-	var/mob/living/carbon/human/human = target
-	if(!istype(human))
-		return
-
-	human.update_inv_head()
-
 /datum/element/clothing_adjustment/skulk_headgear/proc/on_carbon_apply_overlay(mob/living/carbon/human/source, cache_index)
 	SIGNAL_HANDLER // COMSIG_CARBON_APPLY_OVERLAY
 	if(cache_index != HEAD_LAYER || !istype(source))
@@ -103,6 +97,8 @@
 	var/image/overlay = source.overlays_standing[cache_index]
 	for(var/dir in GLOB.cardinal)
 		var/icon/dir_image = icon(overlay.icon, overlay.icon_state)
+		if(overlay.color)
+			dir_image.Blend(overlay.color, ICON_MULTIPLY)
 		dir_image.Shift(NORTH, directions[dir][1])
 		dir_image.Shift(WEST, directions[dir][2])
 		I.Insert(dir_image, dir = dir)
@@ -153,6 +149,8 @@
 	var/image/overlay = source.overlays_standing[cache_index]
 	for(var/dir in GLOB.cardinal)
 		var/icon/dir_image = icon(overlay.icon, overlay.icon_state)
+		if(overlay.color)
+			dir_image.Blend(overlay.color, ICON_MULTIPLY)
 		dir_image.Shift(NORTH, directions[dir][1])
 		dir_image.Shift(WEST, directions[dir][2])
 		I.Insert(dir_image, dir = dir)
@@ -203,6 +201,8 @@
 	var/image/overlay = source.overlays_standing[cache_index]
 	for(var/dir in GLOB.cardinal)
 		var/icon/dir_image = icon(overlay.icon, overlay.icon_state)
+		if(overlay.color)
+			dir_image.Blend(overlay.color, ICON_MULTIPLY)
 		dir_image.Shift(NORTH, directions[dir][1])
 		dir_image.Shift(WEST, directions[dir][2])
 		I.Insert(dir_image, dir = dir)

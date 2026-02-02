@@ -155,7 +155,7 @@
 /obj/item/trash/spentcasing
 	icon = 'icons/obj/bullet.dmi'
 	name = "arbitrary spent casing item"
-	desc = "If you can see this and didn't spawn it, make an issue report on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "pistol_brass"
 	scatter_distance = 10
 	materials = list(MAT_METAL = 100)

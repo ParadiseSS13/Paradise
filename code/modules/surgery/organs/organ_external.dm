@@ -119,8 +119,8 @@
 	return
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder)
-	..()
+/obj/item/organ/external/Initialize(mapload, mob/living/carbon/holder)
+	. = ..()
 	if(ishuman(holder))
 		var/mob/living/carbon/human/H = holder
 		icobase = H.dna.species.icobase
@@ -958,6 +958,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	var/mob/living/carbon/human/victim = owner
 
 	if(status & ORGAN_SPLINTED)
