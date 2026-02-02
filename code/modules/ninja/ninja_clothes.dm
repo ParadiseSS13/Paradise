@@ -172,3 +172,14 @@
 /obj/item/clothing/suit/space_ninja/dropped(mob/user, silent)
 	. = ..()
 	antistun_action.Remove(user)
+
+/obj/item/storage/bag/garment/syndie/ninja_suit
+	name = "ninja suit garment bag"
+
+/obj/item/storage/bag/garment/syndie/ninja_suit/populate_contents()
+	new /obj/item/clothing/under/syndicate(src)
+	new /obj/item/clothing/shoes/space_ninja(src)
+	new /obj/item/clothing/gloves/space_ninja(src)
+	new /obj/item/clothing/head/helmet/space_ninja(src)
+	new /obj/item/clothing/mask/gas/space_ninja(src)
+	new /obj/item/clothing/suit/space_ninja(src)

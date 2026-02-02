@@ -82,10 +82,10 @@
 
 /datum/action/cooldown/ninja/stim_suit
 	name = "Ninja's Tenacity"
-	desc = "Activates an injector within your suit, pumping you with a small hit of stimulants. 1 Minute cooldown."
+	desc = "Activates an injector within your suit, pumping you with a small hit of stimulants. 2 Minute cooldown."
 	button_icon = 'icons/obj/bio_chips.dmi'
 	button_icon_state = "adrenal"
-	cooldown_time = 1 MINUTES
+	cooldown_time = 2 MINUTES
 
 /datum/action/cooldown/ninja/stim_suit/Activate(atom/target)
 	if(!ishuman(owner))

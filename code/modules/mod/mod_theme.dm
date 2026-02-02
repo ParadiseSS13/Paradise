@@ -1387,7 +1387,7 @@
 
 /datum/mod_theme/ninja
 	name = "'Shinobi' stealthsuit"
-	desc = "A specialized modsuit "
+	desc = "A specialized modsuit worn by the spider clan's elite ninja operatives."
 	default_skin = "ninja"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_ninja
 	slowdown_inactive = 1
