@@ -28,19 +28,18 @@
 
 /// ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/minigunpack/attack_hand(mob/living/carbon/user, list/modifiers)
-	if(src.loc == user)
-		if(!armed)
-			if(user.get_item_by_slot(ITEM_SLOT_BACK) == src)
-				armed = TRUE
-				if(!user.put_in_hands(gun))
-					armed = FALSE
-					to_chat(user, SPAN_WARNING("You need a free hand to hold the gun!"))
-					return
-				update_icon(UPDATE_ICON_STATE)
-		else
-			to_chat(user, SPAN_WARNING("You are already holding the gun!"))
-	else
-		..()
+	if(src.loc != user)
+		return ..()
+	if(armed)
+		to_chat(user, SPAN_WARNING("You are already holding the gun!"))
+		return
+	if(user.get_item_by_slot(ITEM_SLOT_BACK) == src)
+		armed = TRUE
+		if(!user.put_in_hands(gun))
+			armed = FALSE
+			to_chat(user, SPAN_WARNING("You need a free hand to hold the gun!"))
+			return
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/minigunpack/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(armed)
