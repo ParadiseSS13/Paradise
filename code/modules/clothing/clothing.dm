@@ -740,7 +740,7 @@
 		return TRUE
 
 	if(can_cut_open)
-		playsound(src.loc, I.usesound, 100, 1)
+		playsound(src, I.usesound, 100, 1)
 		user.visible_message(
 			SPAN_WARNING("[user] cuts open the toes of [src]."),
 			SPAN_WARNING("You cut open the toes of [src].")

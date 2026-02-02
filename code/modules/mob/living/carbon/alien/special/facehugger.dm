@@ -37,7 +37,7 @@
 		Die()
 
 /obj/item/clothing/mask/facehugger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!src.attack_obj(src, user, modifiers))
+	if(!attack_obj(src, user, modifiers))
 		return used.attack_obj__legacy__attackchain(src, user, modifiers)
 	
 	return ITEM_INTERACT_COMPLETE
