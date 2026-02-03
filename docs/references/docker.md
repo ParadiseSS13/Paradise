@@ -812,3 +812,43 @@ they are running under the hood, and what flags and names they give to the
 docker command.
 
 You're a black belt now, so your real training can finally begin.
+
+### First Lesson
+
+The top of the `Dockerfile` (the blueprint for building a Docker image) has a
+list of required build arguments:
+
+    # You MUST supply these to `docker build` with a `--build-arg` flag!
+    ARG NODE_VERSION=0
+    ARG RUST_VERSION=0
+    ARG STABLE_BYOND_MAJOR=0
+    ARG STABLE_BYOND_MINOR=0
+
+Per the comment, you'll need to supply these values to the `docker build`
+command with the `--build-arg` flag, similar to the way the tool script does.
+
+    # determine which versions to use in order to build everything
+    source _build_dependencies.sh
+
+    # build the docker image
+    docker build "$@" \
+        --build-arg "NODE_VERSION=${NODE_VERSION}" \
+        --build-arg "RUST_VERSION=${RUST_VERSION}" \
+        --build-arg "STABLE_BYOND_MAJOR=${STABLE_BYOND_MAJOR}" \
+        --build-arg "STABLE_BYOND_MINOR=${STABLE_BYOND_MINOR}" \
+        --tag "${SERVER_IMAGE}" \
+        .
+
+Note that we `source _build_dependencies.sh` to pick up the recommended
+version numbers for the software used to build Paradise.
+
+Let's say that you want to check if TGUI still works with a more modern
+version of Node.js. You modify `NODE_VERSION` in `_build_dependencies.sh` as
+follows:
+
+    # For TGUI
+    export NODE_VERSION="24.13.0"
+
+The tool script (`tools/docker/build`) will pick up that change, and build your
+Docker image using that version of Node. Will it actually build? I don't know.
+If not, you've got some software develoment work ahead of you. 頑張ってください！

@@ -6,10 +6,39 @@
 # For more info, please see: docs/references/docker.md
 #
 
-ARG NODE_VERSION=20
-ARG RUST_VERSION=1.92
-ARG STABLE_BYOND_MAJOR=516
-ARG STABLE_BYOND_MINOR=1666
+# You MUST supply these to `docker build` with a `--build-arg` flag!
+ARG NODE_VERSION=0
+ARG RUST_VERSION=0
+ARG STABLE_BYOND_MAJOR=0
+ARG STABLE_BYOND_MINOR=0
+
+# Gate: Were we supplied with all the required --build-arg flags?
+FROM ubuntu:24.04 AS build-dependencies
+# Required build arguments
+ARG NODE_VERSION
+ARG RUST_VERSION
+ARG STABLE_BYOND_MAJOR
+ARG STABLE_BYOND_MINOR
+# Optional build metadata
+ARG VCS_REF
+ARG BUILD_DATE
+# Verify and record all required arguments
+RUN [ "$NODE_VERSION" != "0" ] || { echo "\n\n--build-arg=NODE_VERSION=??? must be supplied\n\n"; exit 2; };
+RUN [ "$RUST_VERSION" != "0" ] || { echo "\n\n--build-arg=RUST_VERSION=??? must be supplied"; exit 2; };
+RUN [ "$STABLE_BYOND_MAJOR" != "0" ] || { echo "\n\n--build-arg=STABLE_BYOND_MAJOR=??? must be supplied"; exit 2; };
+RUN [ "$STABLE_BYOND_MINOR" != "0" ] || { echo "\n\n--build-arg=STABLE_BYOND_MINOR=??? must be supplied"; exit 2; };
+RUN { echo "# Generated at image build time. Do not edit."; \
+    [ -n "${BUILD_DATE:-}" ] && echo "BUILD_DATE=$BUILD_DATE" || true; \
+    [ -n "${VCS_REF:-}" ] && echo "VCS_REF=$VCS_REF" || true; \
+    echo "NODE_VERSION=$NODE_VERSION"; \
+    echo "RUST_VERSION=$RUST_VERSION"; \
+    echo "STABLE_BYOND_MAJOR=$STABLE_BYOND_MAJOR"; \
+    echo "STABLE_BYOND_MINOR=$STABLE_BYOND_MINOR"; \
+    echo "BYOND_IMAGE=beestation/byond:${STABLE_BYOND_MAJOR}.${STABLE_BYOND_MINOR}"; \
+    echo "RUST_IMAGE=rust:${RUST_VERSION}-slim-bookworm"; \
+    } > /_built_as.env
+
+# --- Mission Specifications Decrypted: Welcome to the Syndicate...
 
 # BYOND Base Image
 FROM beestation/byond:${STABLE_BYOND_MAJOR}.${STABLE_BYOND_MINOR} AS base
@@ -63,9 +92,11 @@ RUN DreamMaker paradise.dme
 
 # Build final Paradise server image
 FROM base AS image
+COPY _build_dependencies.sh _build_dependencies.sh
 COPY _maps _maps
 COPY icons icons
 COPY strings strings
+COPY --from=build-dependencies /_built_as.env _built_as.env
 COPY --from=byond-build /paradise.dmb paradise.dmb
 COPY --from=byond-build /paradise.rsc paradise.rsc
 COPY --from=nanomap-build /icons/_nanomaps icons/_nanomaps

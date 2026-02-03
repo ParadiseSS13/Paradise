@@ -111,6 +111,22 @@ jobs:
           key: docker-${{ runner.os }}-${{ hashFiles('_build_dependencies.sh') }}
       - name: Checkout Project
         uses: actions/checkout@v6
+      - name: Load Build Dependencies
+        id: deps
+        shell: bash
+        run: |
+          set -euo pipefail
+          source ./_build_dependencies.sh
+          # export as step outputs
+          {
+            echo "NODE_VERSION=$NODE_VERSION"
+            echo "RUST_VERSION=$RUST_VERSION"
+            echo "STABLE_BYOND_MAJOR=$STABLE_BYOND_MAJOR"
+            echo "STABLE_BYOND_MINOR=$STABLE_BYOND_MINOR"
+            # metadata for provenance
+            echo "VCS_REF=${GITHUB_SHA}"
+            echo "BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } >> "$GITHUB_OUTPUT"
       - name: Generate Docker Metadata
         id: docker_meta
         uses: docker/metadata-action@v5
@@ -138,6 +154,13 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           push: ${{ github.event_name != 'pull_request' }}
+          build-args: |
+            NODE_VERSION=${{ steps.deps.outputs.NODE_VERSION }}
+            RUST_VERSION=${{ steps.deps.outputs.RUST_VERSION }}
+            STABLE_BYOND_MAJOR=${{ steps.deps.outputs.STABLE_BYOND_MAJOR }}
+            STABLE_BYOND_MINOR=${{ steps.deps.outputs.STABLE_BYOND_MINOR }}
+            VCS_REF=${{ steps.deps.outputs.VCS_REF }}
+            BUILD_DATE=${{ steps.deps.outputs.BUILD_DATE }}
 
   station_mapload_tests:
     name: Station Tests
