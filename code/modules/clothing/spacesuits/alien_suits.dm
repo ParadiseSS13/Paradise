@@ -26,6 +26,7 @@
 /obj/item/clothing/head/helmet/space/unathi
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	icon_state = null
+	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	species_restricted = list("Unathi")
 	icon_monitor = null
 	sprite_sheets = list(
@@ -40,6 +41,8 @@
 /obj/item/clothing/suit/space/unathi
 	icon = 'icons/obj/clothing/species/unathi/suits.dmi'
 	icon_state = null
+	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	slowdown = 0
 	species_restricted = list("Unathi")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
