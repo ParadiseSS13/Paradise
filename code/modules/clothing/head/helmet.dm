@@ -30,7 +30,7 @@
 			flags_inv ^= visor_flags_inv
 			to_chat(user, "[up ? alt_toggle_message : toggle_message] \the [src]")
 			update_icon(UPDATE_ICON_STATE)
-			user.update_inv_head()
+			update_mob_overlay()
 
 			if(active_sound)
 				while(up)

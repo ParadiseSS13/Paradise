@@ -56,6 +56,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)
 		icon_state = base_icon_state
+	update_mob_overlay()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	. = ..()
@@ -73,9 +74,7 @@
 	update_icon()
 	if(isnull(user))
 		user = loc
-	var/mob/living/carbon/human/H = user
-	if(istype(H))
-		H.update_inv_head()
+	if(istype(user))
 		if(!update_light)
 			to_chat(user, SPAN_NOTICE("You turn \the [src]'s torch [on ? "on":"off"]."))
 		if(on && !up)
@@ -335,7 +334,6 @@
 			visor_icon = "skull_envisor"
 			light_icon = "skull_enlight"
 	update_icon()
-	M.update_inv_head()
 	reskinned = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/proc/reskin_radial_check(mob/user)

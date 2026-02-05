@@ -294,10 +294,7 @@
 		var/adjective = pick("furiously", "passionately", "with vigor", "with determination", "like a devil", "with care and love", "like there is no tomorrow")
 		user.visible_message(SPAN_NOTICE("[user] shakes [src] [adjective]!"), SPAN_NOTICE("You shake [src] [adjective]!"))
 		icon_state = "shaker-shake"
-		if(iscarbon(loc))
-			var/mob/living/carbon/M = loc
-			M.update_inv_r_hand()
-			M.update_inv_l_hand()
+		update_mob_overlay()
 		playsound(user, 'sound/items/boston_shaker.ogg', 80, TRUE)
 		COOLDOWN_START(src, shaking_cooldown, 3 SECONDS)
 
@@ -306,10 +303,7 @@
 			reagents.set_reacting(TRUE)
 			reagents.handle_reactions()
 	icon_state = "shaker"
-	if(iscarbon(loc))
-		var/mob/living/carbon/M = loc
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+	update_mob_overlay()
 
 	shaking = FALSE
 	reagents.set_reacting(FALSE)

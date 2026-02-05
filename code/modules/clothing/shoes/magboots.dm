@@ -50,9 +50,9 @@
 	no_slip = !no_slip
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
+	update_mob_overlay()
 	if(!no_message)
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
-	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	update_action_buttons()
 	check_mag_pulse(user, removing = (user.get_item_by_slot(ITEM_SLOT_SHOES) != src))

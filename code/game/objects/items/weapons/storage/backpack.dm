@@ -228,8 +228,7 @@
 
 	strap_side_straight = !strap_side_straight
 	worn_icon_state = "satchel[strap_side_straight ? "-flipped" : ""]"
-	if(user.back == src)
-		user.update_inv_back()
+	update_mob_overlay()
 
 /obj/item/storage/backpack/satchel/withwallet/populate_contents()
 	new /obj/item/storage/wallet/random(src)

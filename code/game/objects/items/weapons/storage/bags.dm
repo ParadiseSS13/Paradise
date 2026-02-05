@@ -88,10 +88,7 @@
 			icon_state = "[initial(icon_state)]1"
 		else
 			icon_state = "[initial(icon_state)]"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+	update_mob_overlay()
 
 /obj/item/storage/bag/trash/cyborg
 

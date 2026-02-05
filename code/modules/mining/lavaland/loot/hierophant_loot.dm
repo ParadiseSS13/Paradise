@@ -114,11 +114,7 @@
 
 /obj/item/hierophant_club/update_icon_state()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
-	if(ismob(loc))
-		var/mob/M = loc
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
-		M.update_inv_back()
+	update_mob_overlay()
 
 /obj/item/hierophant_club/proc/prepare_icon_update()
 	update_icon()

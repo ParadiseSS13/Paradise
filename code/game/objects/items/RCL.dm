@@ -38,14 +38,9 @@
 		var/amount = min(loaded.amount + coil.get_amount(), max_amount)
 		coil.use(amount - loaded.amount)
 		loaded.amount = amount
-		refresh_icon(user)
+		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, SPAN_NOTICE("You add the cables to [src]. It now contains [loaded.amount]."))
 		return ITEM_INTERACT_COMPLETE
-
-/obj/item/rcl/proc/refresh_icon(mob/user)
-	update_icon(UPDATE_ICON_STATE)
-	user.update_inv_l_hand()
-	user.update_inv_r_hand()
 
 /obj/item/rcl/screwdriver_act(mob/user, obj/item/I)
 	if(!loaded)
@@ -67,7 +62,7 @@
 	loaded.forceMove(user.loc)
 	user.put_in_hands(loaded)
 	loaded = null
-	refresh_icon(user)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/rcl/examine(mob/user)
 	. = ..()
@@ -97,9 +92,10 @@
 		else
 			icon_state = "rcl-0"
 	inhand_icon_state = "rcl[loaded.amount ? "" : "-0"]"
+	update_mob_overlay()
 
 /obj/item/rcl/proc/is_empty(mob/user, loud = 1)
-	refresh_icon(user)
+	update_icon(UPDATE_ICON_STATE)
 	if(!loaded || !loaded.amount)
 		if(loud)
 			to_chat(user, SPAN_WARNING("The last of the cables unreel from [src]!"))
