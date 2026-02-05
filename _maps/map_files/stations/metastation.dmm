@@ -35590,12 +35590,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
-"fnG" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/station/security/prisonlockers)
 "fnQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -117543,7 +117537,7 @@ tKg
 jaM
 rAk
 iqG
-fnG
+vdE
 vDs
 uSc
 dgr
