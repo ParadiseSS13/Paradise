@@ -8,6 +8,7 @@
 	icon_state = "storage"
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/storage, /obj/item/mod/module/plate_compression)
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 10000)
 	/// Max weight class of items in the storage.
 	var/max_w_class = WEIGHT_CLASS_NORMAL
 	/// Max combined weight of all items in the storage.
@@ -62,6 +63,7 @@
 	icon_state = "storage_large"
 	max_combined_w_class = 21
 	max_items = 14
+	materials = list(MAT_METAL = 2500, MAT_URANIUM = 10000)
 
 /obj/item/mod/module/storage/syndicate
 	name = "MOD syndicate storage module"
@@ -72,6 +74,7 @@
 	max_combined_w_class = 30
 	max_items = 21
 	origin_tech = "materials=6;bluespace=5;syndicate=2"
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
 
 /obj/item/mod/module/storage/belt
 	name = "MOD case storage module"
@@ -126,6 +129,7 @@
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	/// Do we stop the wearer from gliding in space.
 	var/stabilize = TRUE
 	var/thrust_callback
@@ -191,6 +195,7 @@
 		However, it will take from the suit's power to do so."
 	icon_state = "empshield"
 	origin_tech = "materials=6;bluespace=5;syndicate=2"
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/emp_shield, /obj/item/mod/module/dna_lock)
@@ -215,6 +220,7 @@
 	cooldown_time = 0.5 SECONDS
 	overlay_state_active = "module_light_on"
 	light_color = COLOR_WHITE
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	///The light power for the mod
 	var/mod_light_range = 4
 	///The light range for the mod
@@ -352,6 +358,7 @@
 		however, this incredibly sensitive module is shorted out by EMPs. Luckily, stable mutagen has been outlawed."
 	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
+	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000)
 	module_type = MODULE_USABLE
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
@@ -450,6 +457,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/plasma_stabilizer)
 	overlay_state_inactive = "module_plasma"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/plasma_stabilizer/on_equip()
 	ADD_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, MODSUIT_TRAIT)

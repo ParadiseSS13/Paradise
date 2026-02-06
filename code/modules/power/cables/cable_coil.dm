@@ -24,6 +24,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
+	/// Used for RCL cable spools to stop the stack from being eaten.
+	var/rcl_spool = FALSE
 	/// Type of cable this coil makes
 	var/cable_type = /obj/structure/cable
 	/// Bitflag of the types of cable we can add cable to with this coil.
@@ -66,7 +68,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/examine(mob/user)
 	. = ..()
-	if(!in_range(user, src) || is_cyborg)
+	if(!in_range(user, src))
 		return
 	if(get_amount() == 1)
 		. += "A short piece of power cable."
@@ -125,7 +127,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		else
 			break
 		while(cable_used <= MAXCABLEPERHEAL && E.burn_dam && amount >= 1)
-			use(1)
+			use(1, rcl_spool)
 			cable_used += 1
 			E.heal_damage(0, HEALPERCABLE, 0, TRUE)
 		H.UpdateDamageIcon()
@@ -215,7 +217,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	if(IS_DIR_DIAGONAL(C.d2))// if the cable is layed diagonally, check the others 2 possible directions
 		C.merge_diagonal_networks(C.d2)
 
-	use(1)
+	use(1, rcl_spool)
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
@@ -281,7 +283,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		if(IS_DIR_DIAGONAL(NC.d2))	// if the cable is layed diagonally, check the others 2 possible directions
 			NC.merge_diagonal_networks(NC.d2)
 
-		use(1)
+		use(1, rcl_spool)
 
 		if(NC.shock(user, 50))
 			if(prob(50)) //fail
@@ -327,7 +329,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		if(C.d2 & (C.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
 			C.merge_connected_networks(C.d2)
 
-		use(1)
+		use(1, rcl_spool)
 
 		if(C.shock(user, 50))
 			if(prob(50)) //fail
@@ -399,6 +401,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	name = "heavy duty cable coil"
 	singular_name = "heavy duty cable"
 	icon = 'icons/obj/cable_coils/heavy_duty.dmi'
+	materials = list(MAT_METAL = 30, MAT_GLASS = 30)
 	color = null
 	cable_type = /obj/structure/cable/extra_insulated
 	cable_merge_id = CABLE_MERGE_HIGH_POWER
@@ -426,29 +429,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	src.amount = rand(1,2)
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	update_wclass()
-
-/obj/item/stack/cable_coil/cyborg
-	energy_type = /datum/robot_storage/energy/cable
-	is_cyborg = TRUE
-
-/obj/item/stack/cable_coil/cyborg/update_icon_state()
-	return // icon_state should always be a full cable
-
-/obj/item/stack/cable_coil/cyborg/attack_self__legacy__attackchain(mob/user)
-	var/cablecolor = tgui_input_list(usr, "Pick a cable color.", "Cable Color", list("red","yellow","green","blue","pink","orange","cyan","white"))
-	cable_color(cablecolor)
-	update_icon()
-
-/obj/item/stack/cable_coil/extra_insulated/cyborg
-	energy_type = /datum/robot_storage/energy/cable
-	is_cyborg = TRUE
-
-/obj/item/stack/cable_coil/extra_insulated/cyborg/attack_self__legacy__attackchain(mob/user)
-	toggle_connection(user)
-	update_icon()
-
-/obj/item/stack/cable_coil/extra_insulated/cyborg/update_icon_state()
-	return // icon_state should always be a full cable
 
 #undef HEALPERCABLE
 #undef MAXCABLEPERHEAL
