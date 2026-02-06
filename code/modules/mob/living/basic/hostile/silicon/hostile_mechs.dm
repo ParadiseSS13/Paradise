@@ -66,7 +66,7 @@
 
 /mob/living/basic/hostile_mech/death(gibbed)
 	// Only execute the below if we successfully died
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 	playsound(get_turf(src), 'sound/mecha/critdestrsyndi.ogg', 100, FALSE)
 	. = ..(gibbed)
 	if(!.)
