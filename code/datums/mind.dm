@@ -490,6 +490,15 @@
 	else
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
 
+/datum/mind/proc/memory_edit_uplifted(mob/living/H)
+	. = _memory_edit_header("uplifted", list())
+	if(has_antag_datum(/datum/antagonist/uplifted_primitive))
+		. += "<a href='byond://?src=[UID()];uplifted=clear'>no</a>|<b><font color='red'>UPLIFTED</font></b>"
+	else
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];uplifted=uplifted'>uplifted</a>"
+
+	. += _memory_edit_role_enabled(ROLE_UPLIFTED_PRIMITIVE)
+
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(has_antag_datum(/datum/antagonist/eventmisc))
@@ -629,6 +638,8 @@
 		sections["abductor"] = memory_edit_abductor(H)
 		/** Zombies **/
 		sections["zombie"] = memory_edit_zombie(H)
+		/** Uplifted Primitives **/
+		sections["uplifted"] = memory_edit_uplifted(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
@@ -1398,6 +1409,22 @@
 				message_admins("[key_name_admin(usr)] has removed the zombie virus from [key_name(current)].")
 				log_admin("[key_name(usr)] has removed the zombie virus from [key_name(current)].")
 				current.create_log(MISC_LOG, "[key_name(current)] had their zombie virus admin-removed by [key_name_admin(usr)]")
+
+	else if(href_list["uplifted"])
+		switch(href_list["uplifted"])
+			if("clear")
+				if(!has_antag_datum(/datum/antagonist/uplifted_primitive))
+					return
+				remove_antag_datum(/datum/antagonist/uplifted_primitive)
+				message_admins("[key_name_admin(usr)] has de-uplifted'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has de-uplifted'ed [key_name(current)].")
+			if("uplifted")
+				if(has_antag_datum(/datum/antagonist/uplifted_primitive))
+					return
+				add_antag_datum(/datum/antagonist/uplifted_primitive)
+				message_admins("[key_name_admin(usr)] has uplifted'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has uplifted'ed [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was made into an uplifted primitive by [key_name_admin(usr)]")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
