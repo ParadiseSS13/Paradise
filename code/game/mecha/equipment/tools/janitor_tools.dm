@@ -150,11 +150,13 @@
 	/// Toggle for refilling itself
 	var/refill_enabled = TRUE
 	/// Rate per process() tick spray refills itself
-	var/refill_rate = 1
+	var/refill_rate = 10
 	/// Power use per process to refill reagents
-	var/refill_cost = 25
+	var/refill_cost = 100
 	/// What reagent to refill with
 	var/refill_reagent = "cleaner"
+	/// The internal reagent container capacity
+	var/spray_capacity = 250
 	/// The range of tiles the sprayer will reach.
 	var/spray_range = 4
 	/// Internal sprayer object
@@ -166,8 +168,8 @@
 	spray_controller.loc = src
 	spray_controller.spray_maxrange = spray_range
 	spray_controller.spray_currentrange = spray_range
-	spray_controller.volume = 100
-	spray_controller.reagents.add_reagent("cleaner", 100)
+	spray_controller.volume = spray_capacity
+	spray_controller.reagents.add_reagent("cleaner", spray_capacity)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/emag_act(mob/user)
@@ -180,7 +182,7 @@
 	refill_rate = 5
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/action(atom/target)
-	if(spray_controller.reagents.total_volume < 15) // Needs at least enough reagents to apply the full spray
+	if(spray_controller.reagents.total_volume <= 20) // Needs at least enough reagents to apply the full spray
 		to_chat(chassis.occupant, SPAN_DANGER("*click*"))
 		playsound(src, 'sound/weapons/empty.ogg', 100, 1)
 		return
@@ -198,7 +200,7 @@
 
 // Auto-regeneration of space cleaner. Takes energy.
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/process()
-	if(spray_controller.reagents.total_volume < 100)
+	if(spray_controller.reagents.total_volume < spray_capacity)
 		spray_controller.reagents.add_reagent(refill_reagent, refill_rate)
 		chassis.use_power(refill_cost)
 		update_equip_info()
