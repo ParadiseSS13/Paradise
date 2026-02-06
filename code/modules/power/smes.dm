@@ -479,8 +479,8 @@
 	var/IO = 0
 	for(var/obj/item/stock_parts/capacitor/CP in component_parts)
 		IO += CP.rating
-	input_level_max = 200000 * IO
-	output_level_max = 200000 * IO
+	input_level_max = initial(input_level) * IO
+	output_level_max = initial(input_level) * IO
 
 /obj/machinery/power/smes/transformer/update_overlays()
 	..()
