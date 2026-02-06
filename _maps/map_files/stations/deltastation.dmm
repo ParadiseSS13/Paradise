@@ -884,11 +884,10 @@
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "agE" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "agF" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/titanium_window,
 /area/shuttle/arrival/station)
 "agH" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -963,7 +962,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "agZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1049,10 +1048,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/hallway/secondary/entry/north)
 "ahB" = (
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "ahC" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "ahD" = (
 /obj/structure/cable/yellow{
@@ -1135,7 +1134,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "aim" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -1173,7 +1172,7 @@
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "aiF" = (
 /obj/structure/chair{
@@ -1232,7 +1231,7 @@
 /obj/structure/closet/wardrobe/mixed,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "ajd" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -1266,13 +1265,13 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/item/storage/secure/briefcase,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "ajD" = (
 /obj/structure/computerframe{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "ajE" = (
 /obj/structure/cable{
@@ -1424,15 +1423,15 @@
 /area/shuttle/pod_1)
 "akx" = (
 /obj/structure/closet/wardrobe/black,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "aky" = (
 /obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "akz" = (
 /obj/structure/closet/wardrobe/yellow,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "akA" = (
 /obj/effect/mapping_helpers/turfs/rust,
@@ -1577,7 +1576,7 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "alJ" = (
 /obj/structure/closet/emcloset,
@@ -24026,7 +24025,7 @@
 	},
 /obj/effect/landmark/spawner/late/crew,
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "bRD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -40486,11 +40485,11 @@
 /turf/simulated/wall,
 /area/station/maintenance/port2)
 "dbN" = (
-/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/floor/mineral/titanium,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "dbX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -50911,7 +50910,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "eHs" = (
 /obj/structure/disposalpipe/segment{
@@ -57919,7 +57918,7 @@
 "hEk" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "hEt" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -62975,7 +62974,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "jOL" = (
 /obj/machinery/ai_status_display,
@@ -74580,6 +74579,9 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/sleep)
+"oHy" = (
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/area/shuttle/arrival/station)
 "oHR" = (
 /turf/simulated/floor/plating/airless,
 /area/station/hallway/secondary/exit)
@@ -74813,7 +74815,7 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "oMH" = (
 /obj/machinery/light{
@@ -77012,7 +77014,7 @@
 /area/station/engineering/atmos/control)
 "pHg" = (
 /obj/item/kirbyplants/large,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "pHr" = (
 /obj/machinery/door/firedoor,
@@ -83065,7 +83067,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "seH" = (
 /obj/structure/disposalpipe/segment,
@@ -87011,7 +87013,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "tES" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -93024,7 +93026,7 @@
 "vZx" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/walllocker/emerglocker/directional/east,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "vZK" = (
 /obj/structure/table/glass,
@@ -97336,7 +97338,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "xJD" = (
 /obj/machinery/newscaster/directional/west,
@@ -134239,7 +134241,7 @@ alv
 agE
 alv
 alv
-agD
+oHy
 agE
 aaa
 dGS
@@ -134489,15 +134491,15 @@ blc
 jWY
 doS
 abj
-agD
+oHy
 agE
 agF
 agF
-agD
+oHy
 agF
 agF
 agE
-agD
+oHy
 abj
 dGS
 wOh

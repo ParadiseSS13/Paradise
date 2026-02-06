@@ -534,7 +534,7 @@
 	if(barricaded)
 		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
 		return
-	
+
 	if(used.get_amount() < 2)
 		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
 		return
@@ -546,7 +546,7 @@
 	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
 	if(!do_after_once(user, 4 SECONDS, target = src))
 		return
-	
+
 	/// Quick checks to make sure nothing has changed during the timer.
 	if(!density || barricaded)
 		return
@@ -600,6 +600,19 @@
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	glass_amount = 2
 	var/id
+
+/obj/structure/window/reinforced/indestructible
+	resistance_flags = INDESTRUCTIBLE
+	env_smash_level = INFINITY // I am invincible!
+
+/obj/structure/window/reinforced/indestructible/screwdriver_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/window/reinforced/indestructible/crowbar_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/window/reinforced/indestructible/ex_act(severity)
+	return
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
