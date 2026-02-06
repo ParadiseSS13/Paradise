@@ -282,7 +282,7 @@
 
 /mob/living/basic/hostile_mech/ares
 	name = "hostile ares"
-	desc = "A hacked ares mech, armed with a solaris laser cannon, xray laser rifle, and an AC6 light machine gun."
+	desc = "A hacked Ares mech, armed with a Solaris laser cannon, xray laser rifle, and an AC6 light machine gun."
 	icon_state = "ares"
 	health = 450
 	maxHealth = 450
