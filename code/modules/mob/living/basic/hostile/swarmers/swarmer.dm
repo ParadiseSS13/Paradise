@@ -309,6 +309,10 @@
 	real_name = "Lesser Swarmer [rand(100,999)]-[pick("kappa", "sigma", "beta", "omicron", "iota", "epsilon", "omega", "gamma", "delta", "tau", "alpha")]"
 	name = real_name
 
+/mob/living/basic/swarmer/lesser/death(gibbed)
+	progenitor = null
+	return ..()
+
 // =====================
 // MARK: Swarmer Structures
 // =====================
