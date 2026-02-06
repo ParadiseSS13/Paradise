@@ -246,7 +246,7 @@
 
 /mob/living/basic/hostile_mech/durand
 	name = "hostile durand"
-	desc = "A hacked durand mech, armed with a small missile pod, solaris laser cannon, and a scattershot shotgun."
+	desc = "A hacked Durand mech, armed with a small missile pod, Solaris laser cannon, and a scattershot shotgun."
 	icon_state = "durand"
 	health = 400
 	maxHealth = 400
