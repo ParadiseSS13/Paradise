@@ -5,7 +5,6 @@
 	/// The list of species this event can spawn uplifted primitives of.
 	var/list/allowed_species = list(
 		/datum/species/monkey,
-		/datum/species/monkey/tajaran,
 		/datum/species/monkey/vulpkanin,
 		/datum/species/monkey/skrell,
 		/datum/species/monkey/unathi,
