@@ -89,7 +89,7 @@
 		return
 	. = ..()
 	if(prob(25))
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 
 /mob/living/basic/hostile_mech/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	. = ..()
