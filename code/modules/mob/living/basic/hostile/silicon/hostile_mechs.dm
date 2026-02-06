@@ -182,7 +182,7 @@
 
 /mob/living/basic/hostile_mech/ripley
 	name = "hostile ripley"
-	desc = "A hacked ripley mech, armed with a malfunctioning grenade launcher, heavy plasma cutter, and a drill."
+	desc = "A hacked Ripley mech, armed with a malfunctioning grenade launcher, heavy plasma cutter, and a drill."
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
