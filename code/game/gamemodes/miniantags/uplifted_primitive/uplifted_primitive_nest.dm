@@ -48,12 +48,12 @@
 				potential_food += C.nutriment_factor
 
 	if(potential_scrap == 0 && potential_food == 0)
-		to_chat(user, SPAN_WARNING("[used] does not seem suitable to disassemble or place in your nest."))
+		to_chat(user, SPAN_WARNING("[used] does not seem suitable to disassemble or place in the nest."))
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		SPAN_WARNING("[user] starts finding a place to put [used] in [user.p_their()] nest."),
-		SPAN_NOTICE("You start finding a place to put [used] in your nest.")
+		SPAN_WARNING("[user] starts finding a place to put [used] in the nest."),
+		SPAN_NOTICE("You start finding a place to put [used] in the nest.")
 	)
 
 	if(!do_after(user, 1 SECONDS, target = src))
