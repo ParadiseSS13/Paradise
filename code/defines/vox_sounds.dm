@@ -1060,6 +1060,8 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 "surrender" = 'sound/vox_fem/surrender.ogg',
 "surround" = 'sound/vox_fem/surround.ogg',
 "surrounded" = 'sound/vox_fem/surrounded.ogg',
+"swarmer" = 'sound/vox_fem/swarmer.ogg',
+"swarmers" = 'sound/vox_fem/swarmers.ogg',
 "switch" = 'sound/vox_fem/switch.ogg',
 "sword" = 'sound/vox_fem/sword.ogg',
 "syndicate" = 'sound/vox_fem/syndicate.ogg',
