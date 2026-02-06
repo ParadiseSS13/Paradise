@@ -11,14 +11,14 @@
 
 /datum/spell/uplifted_make_nest/cast(list/targets, mob/user)
 	var/datum/antagonist/uplifted_primitive/U = user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive)
-	var/turf/floor = get_turf(user)
 
 	user.visible_message(SPAN_NOTICE("[user] starts building a nest!"), SPAN_NOTICE("You start building a nest!"))
 
 	if (!do_after(user, 10 SECONDS, target = user))
 		return
 
-	var/obj/nest = new /obj/structure/uplifted_primitive/nest(floor)
+	var/obj/structure/uplifted_primitive/nest/nest = new(get_turf(user))
+	nest.nest_species = user.dna.species.type
 	U.nest_uid = nest.UID()
 
 /datum/spell/uplifted_make_nest/can_cast(mob/user, charge_check, show_message)
