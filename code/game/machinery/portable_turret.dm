@@ -1142,16 +1142,16 @@
 	shot_delay = 2 SECONDS
 
 /obj/machinery/porta_turret/ruin/lwap
-	projectile = /obj/projectile/beam/laser/sniper
-	eprojectile = /obj/projectile/beam/laser/sniper
+	projectile = /obj/projectile/beam/laser/sniper/pierce
+	eprojectile = /obj/projectile/beam/laser/sniper/pierce
 	shot_sound = 'sound/weapons/marauder.ogg'
 	eshot_sound = 'sound/weapons/marauder.ogg'
 	scan_range = 16
 	shot_delay = 3 SECONDS
 
 /obj/machinery/porta_turret/ruin/immolator
-	projectile = /obj/projectile/beam/immolator/strong
-	eprojectile = /obj/projectile/beam/immolator/strong
+	projectile = /obj/projectile/beam/immolator
+	eprojectile = /obj/projectile/beam/immolator
 	shot_sound = 'sound/weapons/laser3.ogg'
 	eshot_sound = 'sound/weapons/laser3.ogg'
 

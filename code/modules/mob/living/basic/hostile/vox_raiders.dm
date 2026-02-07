@@ -102,6 +102,20 @@
 			continue
 		harbinger.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
 
+/mob/living/basic/vox_miner/foreman/raider
+	name = "Vox Raider"
+	desc = "A vox primalis wearing a strange suit and wielding a spikethrower."
+	icon_state = "vox_raider"
+	icon_living = "vox_raider"
+	ai_controller = /datum/ai_controller/basic_controller/simple/vox_foreman/raider
+	loot = list(
+			/obj/item/salvage/loot/vox,
+			/obj/item/salvage/loot/vox,
+			/obj/effect/mob_spawn/human/corpse/vox_miner,
+			/obj/effect/decal/cleanable/blood/innards/vox,
+			/obj/effect/decal/cleanable/blood/vox,
+			/obj/effect/gibspawner/vox)
+
 /datum/ai_controller/basic_controller/simple/vox_miner
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
@@ -160,3 +174,11 @@
 
 /datum/ai_planning_subtree/ranged_skirmish/vox_miner/foreman
 	max_range = 9
+
+/datum/ai_controller/basic_controller/simple/vox_foreman/raider
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
+		BB_RANGED_SKIRMISH_MIN_DISTANCE = 3,
+		BB_RANGED_SKIRMISH_MAX_DISTANCE = 6,
+	)
