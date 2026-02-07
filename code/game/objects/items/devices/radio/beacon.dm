@@ -5,6 +5,7 @@
 	icon_state = "beacon"
 	inhand_icon_state = "signaler"
 	origin_tech = "bluespace=1"
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throw_range = 9

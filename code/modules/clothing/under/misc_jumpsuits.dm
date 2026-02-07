@@ -73,7 +73,8 @@
 		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
 		)
 
 /obj/item/clothing/under/misc/burial

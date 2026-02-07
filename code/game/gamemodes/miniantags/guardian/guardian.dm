@@ -295,7 +295,7 @@
 	if(has_guardian(user))
 		to_chat(user, "You already have a [mob_name]!")
 		return
-	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDFLAYER(user)))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDFLAYER(user)|| IS_HERETIC(user))) //God I hate this stupid check but it's needed
 		to_chat(user, "[ling_failure]")
 		return
 	if(used)

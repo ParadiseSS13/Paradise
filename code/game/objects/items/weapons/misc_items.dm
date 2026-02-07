@@ -94,7 +94,7 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_BULKY
-	materials = list(MAT_METAL = 500)
+	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 500)
 	attack_verb = list("bludgeoned", "whacked", "cracked")
 	/// Is the secret compartment open?
 	var/is_open = FALSE
@@ -203,8 +203,8 @@
 	icon_state = "lightning"
 	desc = "test lightning."
 
-/obj/item/lightning/New()
-	..()
+/obj/item/lightning/Initialize(mapload)
+	. = ..()
 	icon_state = "1"
 
 /obj/item/lightning/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)

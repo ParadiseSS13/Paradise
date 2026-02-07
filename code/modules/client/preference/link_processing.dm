@@ -924,7 +924,7 @@
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White", "Clockwork"))
+					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White", "Clockwork", "Mindflayer"))
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
@@ -942,6 +942,8 @@
 							UI_style = "White"
 						if("Clockwork")
 							UI_style = "Clockwork"
+						if("Mindflayer")
+							UI_style = "Mindflayer"
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr

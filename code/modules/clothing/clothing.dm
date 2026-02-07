@@ -158,7 +158,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
 
-/obj/item/clothing/ears/offear/New(obj/O)
+/obj/item/clothing/ears/offear/Initialize(mapload, obj/O)
 	. = ..()
 	name = O.name
 	desc = O.desc
@@ -175,7 +175,7 @@
 	inhand_icon_state = "glasses"
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
-	materials = list(MAT_GLASS = 250)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
 	strip_delay = 2 SECONDS
 	put_on_delay = 2.5 SECONDS
 	resistance_flags = NONE
@@ -253,6 +253,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
 		)
@@ -374,36 +375,57 @@
 	var/obj/item/clothing/under/has_under = null
 	/// the attached hats to this hat.
 	var/list/attached_hats = list()
+	/// the attached masks to this hat
+	var/list/attached_masks = list()
 	/// if this hat can have hats placed on top of it.
 	var/can_have_hats = FALSE
 	/// if this hat can be a hat of a hat. Hat^2
 	var/can_be_hat = TRUE
+	/// if this hat can have masks attached to it.
+	var/can_have_mask = FALSE
 
 
 /obj/item/clothing/head/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(!length(attached_hats))
+
+	var/list/removable_items = list()
+	removable_items += attached_hats
+	removable_items += attached_masks
+
+	if(!length(removable_items))
 		return
-	var/obj/item/clothing/head/hat
-	if(length(attached_hats) > 1)
-		var/pick = radial_menu_helper(usr, src, attached_hats, custom_check = FALSE, require_near = TRUE)
-		if(!pick || !istype(pick, /obj/item/clothing/head) || !Adjacent(usr))
+
+	var/obj/item/picked_item
+	if(length(removable_items) > 1)
+		var/pick = radial_menu_helper(usr, src, removable_items, custom_check = FALSE, require_near = TRUE)
+		if(!pick || !Adjacent(usr))
 			return
-		hat = pick
+		picked_item = pick
 	else
-		hat = attached_hats[1]
-	remove_hat(user, hat)
+		picked_item = removable_items[1]
+
+	// Remove the appropriate item type
+	if(istype(picked_item, /obj/item/clothing/head))
+		remove_hat(user, picked_item)
+	else if(istype(picked_item, /obj/item/clothing/mask))
+		remove_mask(user, picked_item)
 
 /obj/item/clothing/head/Destroy()
 	if(is_equipped())
 		var/mob/M = loc
 		for(var/obj/item/clothing/head/H as anything in attached_hats)
 			H.on_removed(M)
+		for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+			detach_mask(mask, null)
 	else
 		for(var/obj/item/clothing/head/H as anything in attached_hats)
 			H.forceMove(get_turf(src))
+		for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+			mask.attached_to_hat = null
+			mask.forceMove(get_turf(src))
 	attached_hats = null
+	attached_masks = null
 	return ..()
 
 /obj/item/clothing/head/dropped(mob/user, silent)
@@ -419,6 +441,9 @@
 	. = ..()
 	for(var/obj/item/clothing/head/hat as anything in attached_hats)
 		. += "\A [hat] is placed neatly on top."
+	for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+		. += "\A [mask] is attached to it."
+	if(length(attached_hats) || length(attached_masks))
 		. += SPAN_NOTICE("<b>Alt-Shift-Click</b> to remove an accessory.")
 
 //when user attached a hat to H (another hat)
@@ -512,8 +537,68 @@
 /obj/item/clothing/head/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/head) && can_have_hats)
 		attach_hat(I, user, TRUE)
+	else if(istype(I, /obj/item/clothing/mask) && can_have_mask)
+		var/obj/item/clothing/mask/M = I
+		if(M.can_attach_to_hat)
+			attach_mask(M, user, TRUE)
 
 	return ..()
+
+/obj/item/clothing/head/proc/can_attach_mask(obj/item/clothing/mask/mask)
+	if(!can_have_mask)
+		return FALSE
+	if(!mask.can_attach_to_hat)
+		return FALSE
+	if(length(attached_masks) >= 1)
+		return FALSE
+	return TRUE
+
+/obj/item/clothing/head/proc/attach_mask(obj/item/clothing/mask/mask, mob/user, unequip = FALSE)
+	if(!can_attach_mask(mask))
+		to_chat(user, SPAN_NOTICE("You cannot attach [mask] to [src]."))
+		return FALSE
+
+	if(unequip && !user.drop_item_to_ground(mask))
+		return FALSE
+
+	attached_masks += mask
+	mask.attached_to_hat = src
+	mask.forceMove(src)
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_head()
+
+	to_chat(user, SPAN_NOTICE("You attach [mask] to [src]."))
+	return TRUE
+
+/obj/item/clothing/head/proc/detach_mask(obj/item/clothing/mask/mask, mob/user)
+	if(!(mask in attached_masks))
+		return FALSE
+
+	attached_masks -= mask
+	mask.attached_to_hat = null
+
+	if(user)
+		user.put_in_hands(mask)
+	else
+		mask.forceMove(get_turf(src))
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_head()
+
+	return TRUE
+
+/obj/item/clothing/head/proc/remove_mask(mob/user, obj/item/clothing/mask/mask)
+	if(!isliving(user))
+		return
+	if(user.incapacitated())
+		return
+	if(!Adjacent(user))
+		return
+	if(detach_mask(mask, user))
+		to_chat(user, SPAN_NOTICE("You remove [mask] from [src]."))
 
 //////////////////////////////
 // MARK: MASK
@@ -527,6 +612,10 @@
 	permeability_coefficient = 0.7
 
 	var/adjusted_flags = null
+	/// If this mask can be attached to a hat
+	var/can_attach_to_hat = FALSE
+	/// The head clothing that this mask is attached to
+	var/obj/item/clothing/head/attached_to_hat = null
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/user)
@@ -611,6 +700,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 	)
 
@@ -977,7 +1067,8 @@
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 	insert_max = 0 // No inserts for space suits
 
@@ -998,6 +1089,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
 		)

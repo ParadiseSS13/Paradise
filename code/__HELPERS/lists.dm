@@ -1038,3 +1038,11 @@
 **/
 /proc/list_clear_nulls(list/list_to_clear)
 	return (list_to_clear.RemoveAll(null) > 0)
+
+///Flattens a keyed list into a list of its contents
+/proc/flatten_list(list/key_list)
+	if(!islist(key_list))
+		return null
+	. = list()
+	for(var/key in key_list)
+		. |= LIST_VALUE_WRAP_LISTS(key_list[key])

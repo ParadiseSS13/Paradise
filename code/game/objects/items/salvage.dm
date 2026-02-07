@@ -1,6 +1,6 @@
 /obj/item/salvage
 	name = "salvage"
-	desc = "A tonne of salvage looted from bad mapping practices. Who spawned the base type? Report this on the github."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/sellable.dmi'
 	force = 5
 	throwforce = 5
@@ -17,9 +17,7 @@
 	. += SPAN_NOTICE("You can bring this back to Cargo to sell to Central Command onboard the 'NTV Arion' Supply shuttle.")
 
 /// Ruin Salvage, misc loot gained from looking around ruins.
-
 /obj/item/salvage/ruin
-	desc = "A tonne of salvage recovered from an abandoned ruin. Who spawned the base type? Report this on the github."
 
 /obj/item/salvage/ruin/pirate
 	name = "rum keg"
@@ -74,10 +72,6 @@
 	drop_sound = sound('sound/hallucinations/look_up2.ogg', 10)
 
 /// Loot salvage, gained from fighting space simplemobs.
-
-/obj/item/salvage/loot
-	desc = "If you can see this forbidden salvage, report it on GitHub."
-
 /obj/item/salvage/loot/pirate
 	name = "stolen jewellery"
 	desc = "A collection of stolen jewellery and gemstones. Gold, silver, sapphire, amethyst, and more, this bounty will surely fetch a good price on the market."

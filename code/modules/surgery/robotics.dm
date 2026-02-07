@@ -420,7 +420,7 @@
 					SPAN_NOTICE("You repair [target]'s [I.name] with [tool]."),
 					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
-			I.heal_internal_damage(I.max_damage)
+			I.heal_internal_damage(I.max_damage, TRUE)
 			I.surgeryize()
 			if(istype(tool, /obj/item/stack/nanopaste))
 				I.rejuvenate()
@@ -716,7 +716,7 @@
 	return ..()
 
 /datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", GLOB.selectable_robolimbs)
+	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", GLOB.all_robolimbs)
 	if(!chosen_appearance)
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

@@ -459,6 +459,7 @@ GLOBAL_LIST_EMPTY(safes)
 	name = "safe internals"
 	desc = "The mechanism and locking bolts for a Scarborough Arms - 2 tumbler safe."
 	icon_state = "safe_internals"
+	materials = list(MAT_METAL = 1000)
 
 /**
   * # Safe Codes

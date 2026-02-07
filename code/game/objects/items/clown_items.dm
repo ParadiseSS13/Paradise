@@ -31,6 +31,7 @@
 	icon_state = "air_horn"
 	origin_tech = "materials=4;engineering=4"
 	honk_sounds = list('sound/items/airhorn2.ogg' = 1)
+	materials = list(MAT_METAL = 4000, MAT_BANANIUM = 1000)
 
 /obj/item/bikehorn/golden
 	name = "golden bike horn"

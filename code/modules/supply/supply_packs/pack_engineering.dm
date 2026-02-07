@@ -264,6 +264,18 @@
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "Forged Nuclear Coolant crate"
 
+/datum/supply_packs/engineering/nuclear_premium_rods
+	name = "Forged Premium Nuclear Rods crate"
+	contains = list(
+		/obj/item/nuclear_rod/moderator/platinum_plating,
+		/obj/item/nuclear_rod/moderator/platinum_plating,
+		/obj/item/nuclear_rod/coolant/iridium_conductor,
+		/obj/item/nuclear_rod/coolant/iridium_conductor,
+	)
+	cost = 1500
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "Forged Premium Nuclear Rods crate"
+
 /* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"

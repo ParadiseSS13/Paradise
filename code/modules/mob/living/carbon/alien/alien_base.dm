@@ -69,10 +69,10 @@
 	return speech_verb
 
 
-/mob/living/carbon/alien/adjustToxLoss(amount)
+/mob/living/carbon/alien/adjustToxLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
 
-/mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
+/mob/living/carbon/alien/adjustFireLoss(amount, updating_health = TRUE) // Weak to Fire
 	if(amount > 0)
 		return ..(amount * 1.5)
 	else

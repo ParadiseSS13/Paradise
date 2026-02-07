@@ -1,5 +1,7 @@
 /// Minimum age (in days) for accounts to play these roles.
 GLOBAL_LIST_INIT(special_role_times, list(
+	ROLE_ROBOT_BRAIN = 0,
+	ROLE_GOLEM = 0,
 	ROLE_PAI = 0,
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,
@@ -492,26 +494,11 @@ GLOBAL_LIST_INIT(special_role_times, list(
 
 		if(TAB_ANTAG) // Antagonist's Preferences (and maps)
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
-			dat += "<h2>Special Role Settings</h2>"
-			if(jobban_isbanned(user, ROLE_SYNDICATE))
-				dat += "<b>You are banned from special roles.</b>"
-				be_special = list()
-			else
-				for(var/i in GLOB.special_roles)
-					if(jobban_isbanned(user, i))
-						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
-					else if(!player_old_enough_antag(user.client, i))
-						var/available_in_days_antag = available_in_days_antag(user.client, i)
-						var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, i))
-						if(available_in_days_antag)
-							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
-						else if(role_available_in_playtime)
-							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(role_available_in_playtime)]]</b></font><br>"
-						else
-							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
-					else
-						var/is_special = (i in src.be_special)
-						dat += "<b>Be [capitalize(i)]:</b><a class=[is_special ? "green" : "red"] href='byond://?_src_=prefs;preference=be_special;role=[i]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
+			dat += "<h2>Antagonist Role Settings</h2>"
+			dat += get_role_settings(user, GLOB.special_roles_antags)
+			dat += "<h2>Neutral Role Settings</h2>"
+			dat += get_role_settings(user, GLOB.special_roles_neutral)
+
 			dat += "<h2>Total Playtime:</h2>"
 			if(!GLOB.configuration.jobs.enable_exp_tracking)
 				dat += SPAN_WARNING("Playtime tracking is not enabled.")
@@ -637,6 +624,30 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 810)
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
+
+/datum/preferences/proc/get_role_settings(mob/user, list/global_role_list)
+	var/html
+	if(jobban_isbanned(user, ROLE_SYNDICATE))
+		html += "<b>You are banned from special roles.</b>"
+		be_special = list()
+		return html
+
+	for(var/role in global_role_list)
+		if(jobban_isbanned(user, role))
+			html += "<b>Be [capitalize(role)]:</b> <font color='red'><b> \[BANNED]</b></font><br>"
+		else if(!player_old_enough_antag(user.client, role))
+			var/available_in_days_antag = available_in_days_antag(user.client, role)
+			var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, role))
+			if(available_in_days_antag)
+				html += "<b>Be [capitalize(role)]:</b> <font color='red'><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
+			else if(role_available_in_playtime)
+				html += "<b>Be [capitalize(role)]:</b> <font color='red'><b> \[IN [(role_available_in_playtime)]]</b></font><br>"
+			else
+				html += "<b>Be [capitalize(role)]:</b> <font color='red'><b> \[ERROR]</b></font><br>"
+		else
+			var/is_special = (role in src.be_special)
+			html += "<b>Be [capitalize(role)]:</b><a class='[is_special ? "green" : "red"]' href='byond://?_src_=prefs;preference=be_special;role=[role]'><b>[(is_special) ? "Yes" : "No"]</b></a><br>"
+	return html
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 	var/dat = "<body>"

@@ -15,14 +15,13 @@
 	resistance_flags = FLAMMABLE
 	scatter_distance = 10
 
-/obj/item/a_gift/New()
-	..()
+/obj/item/a_gift/Initialize(mapload)
+	. = ..()
 	scatter_atom()
 	if(w_class > 0 && w_class < 4)
 		icon_state = "gift[w_class]"
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
-	return
 
 /obj/item/gift/attack_self__legacy__attackchain(mob/user as mob)
 	user.drop_item()

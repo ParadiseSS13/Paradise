@@ -444,6 +444,79 @@
 		M.AdjustCultSlur(20 SECONDS) //CUASE WHY THE HELL NOT
 	return ..() | update_flags
 
+// unholy water, but for heretics.
+// why couldn't they have both just used the same reagent?
+// who knows.
+// maybe nar'sie is considered to be too "mainstream" of a god to worship in the heretic community.
+/datum/reagent/eldritch
+	name = "Eldritch Essence"
+	id = "eldritch"
+	description = "A strange liquid that defies the laws of physics. \
+		It re-energizes and heals those who can see beyond this fragile reality, \
+		but is incredibly harmful to the closed-minded. It metabolizes very quickly."
+	taste_description = "Ag'hsj'saje'sh"
+	process_flags = ORGANIC | SYNTHETIC
+	color = "#1f8016"
+	metabolization_rate = 1
+
+/datum/reagent/eldritch/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(IS_HERETIC_OR_MONSTER(M))
+		M.AdjustDrowsy(-10 SECONDS)
+		M.AdjustParalysis(-2 SECONDS)
+		M.AdjustStunned(-4 SECONDS)
+		M.AdjustWeakened(-4 SECONDS)
+		M.AdjustKnockDown(-4 SECONDS)
+		update_flags |= M.adjustStaminaLoss(-25, FALSE)
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustOxyLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		if(M.blood_volume < BLOOD_VOLUME_NORMAL)
+			M.blood_volume += 3
+	else
+		update_flags |= M.adjustBrainLoss(3, FALSE)
+		update_flags |= M.adjustToxLoss(1, FALSE)
+		update_flags |= M.adjustFireLoss(2, FALSE)
+		update_flags |= M.adjustOxyLoss(2, FALSE)
+		update_flags |= M.adjustBruteLoss(2, FALSE)
+	return ..() | update_flags
+
+
+/datum/reagent/helgrasp
+	name = "Helgrasp"
+	id = "helgrasp"
+	description = "This rare and forbidden concoction is thought to bring you closer to the grasp of the Norse goddess Hel."
+	metabolization_rate = 0.5
+	/// How much toxin damage do we do each tick?
+	var/toxin_damage = 0.25
+	//Keeps track of the hand timer so we can cleanup on removal
+
+//Warns you about the impenting hands
+/datum/reagent/helgrasp/on_mob_add(mob/living/affected_mob, amount)
+	. = ..()
+	to_chat(affected_mob, SPAN_HIEROPHANT("You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!"))
+	playsound(affected_mob.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1) //Very obvious tell so people can be ready
+
+//Sends hands after you for your hubris
+/datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= affected_mob.adjustToxLoss(toxin_damage, FALSE)
+	spawn_hands(affected_mob)
+	return ..() | update_flags
+
+/datum/reagent/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
+	if(!affected_mob && iscarbon(holder.my_atom))//Catch timer
+		affected_mob = holder.my_atom
+	fire_curse_hand(affected_mob)
+
+/datum/reagent/helgrasp/heretic
+	name = "Grasp of the Mansus"
+	id = "mansusgrasp"
+	process_flags = ORGANIC | SYNTHETIC
+	description = "The Hand of the Mansus is at your neck."
+	toxin_damage = 0
+
 /datum/reagent/hellwater
 	name = "Hell Water"
 	id = "hell_water"

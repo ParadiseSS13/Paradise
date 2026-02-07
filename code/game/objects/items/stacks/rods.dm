@@ -1,7 +1,6 @@
 GLOBAL_LIST_INIT(rod_recipes, list (
 	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor_or_lattice = TRUE),
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("catwalk tile", /obj/item/stack/tile/catwalk, 2, 4, 20),
 	new /datum/stack_recipe("curtain rod", /obj/item/mounted/curtain/curtain_fixture, 2, 1, 20),
 	null,
 	new /datum/stack_recipe_list("railings...", list(
@@ -17,6 +16,12 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
+	new /datum/stack_recipe_list("catwalks...", list(
+		new /datum/stack_recipe("catwalk tile", /obj/item/stack/tile/catwalk, 2, 4, 20),
+		new /datum/stack_recipe("grey catwalk tile", /obj/item/stack/tile/catwalk/grey, 2, 4, 20),
+		new /datum/stack_recipe("white catwalk tile", /obj/item/stack/tile/catwalk/white, 2, 4, 20),
+		new /datum/stack_recipe("black catwalk tile", /obj/item/stack/tile/catwalk/black, 2, 4, 20),
+		)),
 	))
 
 /obj/item/stack/rods
@@ -30,7 +35,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
-	materials = list(MAT_METAL=1000)
+	materials = list(MAT_METAL = 1000)
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
@@ -93,7 +98,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	desc = "Treated, specialized iron rods. When exposed to the vacuum of space their coating breaks off, but they can hold up against the extreme heat of molten liquids."
 	singular_name = "heat resistant rod"
 	color = "#5286b9ff"
-	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 1000, MAT_PLASMA = 1000)
+	materials = list(MAT_METAL = 1000, MAT_PLASMA = 1000, MAT_TITANIUM = 1000)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	merge_type = /obj/item/stack/rods/lava
 

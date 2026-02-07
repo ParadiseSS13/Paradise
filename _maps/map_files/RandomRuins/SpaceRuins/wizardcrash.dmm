@@ -396,7 +396,7 @@
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/space/powered)
 "bz" = (
-/mob/living/simple_animal/hostile/mimic/crate,
+/mob/living/basic/mimic/crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
