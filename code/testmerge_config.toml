@@ -9,3 +9,17 @@
 
 #[general_configuration]
 #lobby_time = 99999999
+
+[event_configuration]
+event_delay_lower_bounds = {mundane = 3, moderate = 5, major = 8, disaster = 7}
+event_delay_upper_bounds = {mundane = 5.5, moderate = 10, major = 15, disaster = 10}
+expected_round_length = 90
+event_initial_delays = [
+  #{severity = "mundane", lower_bound = 7, upper_bound = 12},
+  {severity = "moderate", lower_bound = 15, upper_bound = 19},
+  {severity = "major", lower_bound = 25, upper_bound = 32},
+  {severity = "disaster", lower_bound = 32, upper_bound = 42},
+]
+
+[voting_configuration]
+autotransfer_initial_time = 54000
