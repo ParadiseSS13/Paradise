@@ -38,8 +38,8 @@
 	/// The probability that the next spawned mob will be sentient.
 	var/sentient_probability = 5
 
-/obj/structure/uplifted_primitive/nest/Initialize()
-	. = ..()
+/obj/structure/uplifted_primitive/nest/Initialize(mapload)
+	. = ..(mapload)
 	AddElement(/datum/element/relay_attackers)
 	RegisterSignal(src, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(rally_retaliation))
 	START_PROCESSING(SSobj, src)

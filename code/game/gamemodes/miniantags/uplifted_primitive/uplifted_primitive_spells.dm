@@ -14,7 +14,7 @@
 
 	user.visible_message(SPAN_NOTICE("[user] starts building a nest!"), SPAN_NOTICE("You start building a nest!"))
 
-	if (!do_after(user, 10 SECONDS, target = user))
+	if(!do_after(user, 10 SECONDS, target = user))
 		return
 
 	var/obj/structure/uplifted_primitive/nest/nest = new(get_turf(user))
