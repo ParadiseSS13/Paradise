@@ -15,9 +15,8 @@ RESTRICT_TYPE(/datum/antagonism/uplifted_primitive)
 	if(!istype(H))
 		return
 
-	// TODO: this is currently very violent, consider another way to block humanization
-	H.dna.species.primitive_form = null
-	H.dna.species.greater_form = null
+	if(H.dna.species.is_small)
+		ADD_TRAIT(H, TRAIT_GENELESS, UNIQUE_TRAIT_SOURCE(src))
 
 	RegisterSignal(H, COMSIG_LIVING_ENTER_VENTCRAWL, PROC_REF(apply_ventcrawl_effects))
 	RegisterSignal(H, COMSIG_LIVING_EXIT_VENTCRAWL, PROC_REF(remove_ventcrawl_effects))
@@ -29,8 +28,7 @@ RESTRICT_TYPE(/datum/antagonism/uplifted_primitive)
 	if(!istype(H))
 		return
 
-	H.dna.species.primitive_form = initial(H.dna.species.primitive_form)
-	H.dna.species.greater_form = initial(H.dna.species.greater_form)
+	REMOVE_TRAIT(H, TRAIT_GENELESS, UNIQUE_TRAIT_SOURCE(src))
 
 	UnregisterSignal(H, COMSIG_LIVING_ENTER_VENTCRAWL)
 	UnregisterSignal(H, COMSIG_LIVING_EXIT_VENTCRAWL)
