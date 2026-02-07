@@ -139,6 +139,9 @@
 	SHOULD_CALL_PARENT(FALSE)
 	if(ammo_pack)
 		ammo_pack.attach_gun(user)
+		var/datum/component/automatic_fire/autofire = GetComponent(/datum/component/automatic_fire)
+		autofire.stop_autofiring()
+		autofire.autofire_off()
 	else
 		qdel(src)
 
