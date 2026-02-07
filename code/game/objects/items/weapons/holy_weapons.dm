@@ -601,25 +601,31 @@
 	. = ..()
 	bound_ghanta = new(src)
 	bound_ghanta.bound_vajra = src
+	bound_ghanta.sanctify_force = sanctify_force
 
-/obj/item/nullrod/vajra/pickup(mob/living/user)
+///Make sure the creature trying to pick us up is a human with two hands free.
+/obj/item/nullrod/vajra/attack_hand(mob/user, pickupfireoverride = FALSE)
+	if(!user)
+		return FALSE
+	if(!ishuman(user))
+		return FALSE
 	var/mob/living/carbon/human/wielder = user
-	if(!istype(wielder))
-		return
-
 	if(!wielder.get_organ("l_hand") || !wielder.get_organ("r_hand"))
 		to_chat(user, SPAN_WARNING("You need two hands to wield [src]!"))
-		user.drop_item_to_ground(src, TRUE)
-		return
-
+		return FALSE
 	if(wielder.l_hand || wielder.r_hand)
 		to_chat(user, SPAN_WARNING("You need both hands free to pick up [src]!"))
-		user.drop_item_to_ground(src, TRUE)
-		return
+		return FALSE
 
+	//Change to right hand for pickup.
+	if(wielder.hand)
+		wielder.swap_hand()
+
+	return ..()
+
+/obj/item/nullrod/vajra/pickup(mob/living/user)
 	if(!..())
 		return
-
 	put_in_both_hands(user)
 
 /obj/item/nullrod/vajra/proc/put_in_both_hands(mob/user)
@@ -671,7 +677,10 @@
 	reunite_with_ghanta()
 
 /obj/item/nullrod/vajra/mob_can_equip(mob/M, slot, disable_warning = FALSE)
-	if(slot == ITEM_SLOT_RIGHT_HAND || slot == ITEM_SLOT_LEFT_HAND)
+	if(slot == ITEM_SLOT_LEFT_HAND)
+		to_chat(M, SPAN_WARNING("[src] must be equipped in the right hand."))
+		return FALSE
+	if(slot == ITEM_SLOT_RIGHT_HAND)
 		if(M.r_hand || M.l_hand)
 			to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
 			return FALSE
@@ -679,7 +688,7 @@
 
 /obj/item/nullrod/vajra/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(slot == ITEM_SLOT_LEFT_HAND || slot == ITEM_SLOT_RIGHT_HAND)
+	if(slot == ITEM_SLOT_RIGHT_HAND)
 		put_in_both_hands(user)
 	else
 		reunite_with_ghanta()
