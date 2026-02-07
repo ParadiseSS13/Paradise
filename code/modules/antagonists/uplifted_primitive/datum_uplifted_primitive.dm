@@ -1,4 +1,4 @@
-RESTRICT_TYPE(/datum/antagonism/uplifted_primitive)
+RESTRICT_TYPE(/datum/antagonist/uplifted_primitive)
 
 /datum/antagonist/uplifted_primitive
 	name = "Uplifted Primitive"
