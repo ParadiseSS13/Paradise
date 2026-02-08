@@ -805,15 +805,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
+	create_fracture_wound(fracture_name_override)
+
+	// Fractures have a chance of getting you out of restraints
+	if(prob(25))
+		release_restraints()
+
+/obj/item/organ/external/proc/create_fracture_wound(fracture_name_override)
 	var/picked_type = pick(typesof(/datum/wound/fracture))
 	var/datum/wound/fracture = new picked_type(src)
 	if(fracture_name_override)
 		fracture.name = fracture_name_override
 	wound_list += fracture
-
-	// Fractures have a chance of getting you out of restraints
-	if(prob(25))
-		release_restraints()
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())

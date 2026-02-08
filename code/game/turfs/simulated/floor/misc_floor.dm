@@ -270,6 +270,18 @@
 	transparent_floor = TRUE
 	rust_resistance = RUST_RESISTANCE_BASIC
 
+/turf/simulated/floor/catwalk/grey
+	icon = 'icons/turf/floors/catwalk_floor_grey.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/grey
+
+/turf/simulated/floor/catwalk/white
+	icon = 'icons/turf/floors/catwalk_floor_white.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/white
+
+/turf/simulated/floor/catwalk/black
+	icon = 'icons/turf/floors/catwalk_floor_black.dmi'
+	floor_tile = /obj/item/stack/tile/catwalk/black
+
 /turf/simulated/floor/catwalk/Initialize(mapload)
 	. = ..()
 	var/image/I = image('icons/turf/floors/plating.dmi', src, "plating")
