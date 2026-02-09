@@ -1161,6 +1161,9 @@
 /obj/machinery/power/apc/unbuilt/Initialize(mapload, direction, building)
 	. = ..(building = TRUE)
 
+/obj/machinery/power/apc/rust_heretic_act()
+	obj_integrity -= 35
+	return
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/syndicate, 24, 24)
@@ -1184,5 +1187,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/unbuilt, 24, 24)
 	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "engineering=2;programming=1"
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'

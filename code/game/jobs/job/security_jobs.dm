@@ -39,6 +39,7 @@
 		ACCESS_WEAPONS
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
+	alt_titles = list("Security Director", "Sheriff")
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
@@ -104,6 +105,7 @@
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE,
 	)
+	alt_titles = list("Bailiff", "Correctional Officer", "Armorer")
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_SECURITY = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
@@ -154,7 +156,7 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	alt_titles = list("Forensic Technician")
+	alt_titles = list("Forensic Technician", "Investigator")
 	access = list(
 		ACCESS_BRIG,
 		ACCESS_COURT,
@@ -244,6 +246,7 @@
 		ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MORGUE,
 	)
+	alt_titles = list("Deputy", "Ranger", "Constable")
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_PARAPLEGIC)

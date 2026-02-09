@@ -97,6 +97,8 @@
 	var/mob/living/victim = entered
 	if(istype(victim, /mob/living/basic/revenant))
 		return
+	if(IS_HERETIC_OR_MONSTER(victim))
+		return
 	victim.apply_status_effect(STATUS_EFFECT_RUST_CORRUPTION)
 
 /datum/element/rust/heretic/proc/on_exited(turf/source, atom/movable/gone)
@@ -104,6 +106,8 @@
 	if(!isliving(gone))
 		return
 	var/mob/living/leaver = gone
+	if(IS_HERETIC_OR_MONSTER(leaver))
+		return
 	leaver.remove_status_effect(STATUS_EFFECT_RUST_CORRUPTION)
 
 // Small visual effect imparted onto rusted things by revenants.

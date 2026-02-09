@@ -703,7 +703,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!modify)
 				return FALSE
 			var/skin = params["skin_target"]
-			var/skin_list = is_centcom() ? get_centcom_card_skins() : get_station_card_skins()
+			var/skin_list = is_centcom() ? get_all_card_skins() : get_station_card_skins()
 			if(skin in skin_list)
 				modify.icon_state = skin
 			return

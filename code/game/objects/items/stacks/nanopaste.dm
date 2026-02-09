@@ -6,6 +6,7 @@
 	icon_state = "tube"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;engineering=3"
+	materials = list(MAT_METAL = 1166, MAT_GLASS = 1166)
 	amount = 6
 	max_amount = 6
 	merge_type = /obj/item/stack/nanopaste

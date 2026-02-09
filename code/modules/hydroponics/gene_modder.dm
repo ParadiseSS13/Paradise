@@ -571,7 +571,7 @@
 	name = "plant data disk"
 	desc = "A disk for storing plant genetic data."
 	icon_state = "datadisk_hydro"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	var/ui_name = "Empty Disk"
 	var/is_bulk_core = FALSE
 	var/read_only = 0 //Well, it's still a floppy disk

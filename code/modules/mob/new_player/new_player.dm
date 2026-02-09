@@ -168,7 +168,7 @@
 			to_chat(usr, SPAN_WARNING("You must wait for the server to finish starting before you can join!"))
 			return FALSE
 
-		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
+		if(alert(usr, "Are you sure you wish to observe? There may be a delay before you can attempt to rejoin.", "Observe", "Yes", "No") == "Yes")
 			if(!client)
 				return TRUE
 			var/mob/dead/observer/observer = new(src, GHOST_FLAGS_START_AS_OBSERVER)

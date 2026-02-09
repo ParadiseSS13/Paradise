@@ -178,7 +178,6 @@
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
 					/obj/item/clothing/suit/armor/laserproof)		// Only two vests to keep costs down for balance
 	cost = 500
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ablative armor crate"
 
 /////// Weapons: Specialist
@@ -210,7 +209,6 @@
 	contains = list(/obj/item/gun/energy/gun,
 					/obj/item/gun/energy/gun)
 	cost = 500
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
 /datum/supply_packs/security/armory/eshotguns
@@ -218,7 +216,6 @@
 	contains = list(/obj/item/gun/energy/gun/shotgun,
 					/obj/item/gun/energy/gun/shotgun)
 	cost = 500
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy shotgun crate"
 
 /datum/supply_packs/security/armory/securiblades
@@ -226,7 +223,6 @@
 	contains = list(/obj/item/storage/belt/sheath/secsword,
 		/obj/item/storage/belt/sheath/secsword)
 	cost = 600
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "securiblade crate"
 
 /datum/supply_packs/security/armory/stingers
@@ -243,7 +239,6 @@
 					/obj/item/gun/energy/gun/mini,
 					/obj/item/gun/energy/gun/mini)
 	cost = 300
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
 /datum/supply_packs/security/armory/eweapons
@@ -282,7 +277,6 @@
 	contains = list(/obj/item/gun/projectile/automatic/laserrifle,
 					/obj/item/gun/projectile/automatic/laserrifle)
 	cost = 500
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "laser rifle crate"
 
 /datum/supply_packs/security/armory/laserammo
@@ -299,7 +293,6 @@
 	contains = list(/obj/item/gun/energy/laser/lever_action,
 					/obj/item/gun/energy/laser/lever_action)
 	cost = 250
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "lever action rifle crate"
 
 /datum/supply_packs/security/armory/beanammo
@@ -363,7 +356,6 @@
 	contains = list(/obj/item/gun/energy/disabler/smg,
 					/obj/item/gun/energy/disabler/smg)
 	cost = 550
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "disabler smg crate"
 
 /////// Implants & etc

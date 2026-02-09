@@ -358,8 +358,8 @@
 	var/treatment_virus = "spaceacillin"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/firstaid_arm_assembly/New(loc, new_skin)
-	..()
+/obj/item/firstaid_arm_assembly/Initialize(mapload, new_skin)
+	. = ..()
 	if(new_skin)
 		skin = new_skin
 	update_icon(UPDATE_OVERLAYS)

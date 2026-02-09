@@ -137,8 +137,6 @@
 	for(var/limb_type in typesof(/datum/robolimb))
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
-		if(R.selectable)
-			GLOB.selectable_robolimbs[R.company] = R
 
 	// Setup world topic handlers
 	for(var/topic_handler_type in subtypesof(/datum/world_topic_handler))
@@ -159,6 +157,8 @@
 	sortTim(GLOB.client_login_processors, GLOBAL_PROC_REF(cmp_login_processor_priority))
 
 	GLOB.emote_list = init_emote_list()
+
+	GLOB.chemical_reagents_list = init_reagent_list()
 
 	// Set up PCWJ recipes
 	initialize_cooking_recipes()
@@ -242,3 +242,10 @@
 				.[E.key_third_person] = list(E)
 			else
 				.[E.key_third_person] |= E
+
+/// Initialises all of /datum/reagent into a list indexed by reagent id.
+/proc/init_reagent_list()
+	. = list()
+	for(var/path in subtypesof(/datum/reagent))
+		var/datum/reagent/R = new path()
+		.[R.id] = R

@@ -264,3 +264,9 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/proc/get_prying_tools()
 	return list(TOOL_CROWBAR)
+
+/turf/simulated/floor/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+	ChangeTurf(/turf/simulated/floor/plating)
+	return ..()

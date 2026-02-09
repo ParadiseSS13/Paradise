@@ -173,7 +173,7 @@
 		icon_state = "[initial(icon_state)]_impregnated"
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
-			new /obj/item/organ/internal/body_egg/alien_embryo(target)
+			new /obj/item/organ/internal/body_egg/alien_embryo(target, target)
 			SSblackbox.record_feedback("tally", "alien_growth", 1, "people_infected")
 	else
 		target.visible_message(SPAN_DANGER("[src] violates [target]'s face!"), \

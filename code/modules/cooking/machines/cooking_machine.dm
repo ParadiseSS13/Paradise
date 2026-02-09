@@ -2,7 +2,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking
 	name = "Default Cooking Appliance"
-	desc = "You shouldn't be seeing this. Please report this as an issue on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cooking/machines.dmi'
 	density = TRUE
 	anchored = TRUE

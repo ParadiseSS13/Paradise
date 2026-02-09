@@ -16,6 +16,7 @@
  *		Toy xeno
  *		Toy chainsaws
  *		Action Figures
+ *		Round Tuits
  */
 
 
@@ -34,8 +35,8 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
 
-/obj/item/toy/balloon/New()
-	..()
+/obj/item/toy/balloon/Initialize(mapload)
+	. = ..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/pre_attack(atom/target, mob/living/user, params)
@@ -1512,8 +1513,8 @@
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	return BRUTELOSS
 
-/obj/item/toy/russian_revolver/New()
-	..()
+/obj/item/toy/russian_revolver/Initialize(mapload)
+	. = ..()
 	spin_cylinder()
 
 /obj/item/toy/russian_revolver/activate_self(mob/user)
@@ -2024,3 +2025,25 @@
 	throwforce = 0
 	breakouttime = 0
 	ignoresClumsy = TRUE
+
+//////////////////////////////////////////////////////
+//				Round Tuits				//
+//////////////////////////////////////////////////////
+
+/obj/item/toy/round_tuit
+	name = "\improper Round Tuit"
+	desc = "Tuits are hard to come by, especially the round ones. Guard it with your life."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "round_tuit_wooden"
+	COOLDOWN_DECLARE(toy_message_cooldown)
+
+/obj/item/toy/round_tuit/activate_self(mob/user)
+	if(..() || !COOLDOWN_FINISHED(src, toy_message_cooldown))
+		return
+	user.visible_message(SPAN_NOTICE("[user] holds [src] close to [user.p_them()] with a resolute expression..."),
+		SPAN_NOTICE("You hold [src] firmly. You feel like you can accomplish anything."))
+	COOLDOWN_START(src, toy_message_cooldown, 10 SECONDS)
+
+/obj/item/toy/round_tuit/colorful
+	desc = "Now that you have one, you can accomplish all the things you put aside until you got a Round Tuit."
+	icon_state = "round_tuit_colorful"

@@ -265,6 +265,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
+
+/// Trait given to anything linked to, not necessarily allied to, the mansus
+#define TRAIT_MANSUS_TOUCHED "mansus_touched"
+/// This trait makes you immune to baton knockdown.
+#define TRAIT_BATON_RESISTANCE "baton_resistance"
+
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
 #define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 #define TRAIT_BOOTS_OF_JUMPING "boots_of_jumping" // Mob can do the jump emote without losing stamina
@@ -278,8 +284,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOB_EATER "mob_eater"
 #define TRAIT_XENOBIO_SPAWNED "xenobio_spawned"
 
+#define TRAIT_BOMBIMMUNE "bombimmune"
+
+/// Trait for when you can no longer gain body heat
+#define TRAIT_HYPOTHERMIC "body_hypothermic"
+
+/// Used to prevent multiple floating blades from triggering over the same target
+#define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"
+
+
 /// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "trait_ai_paused"
+
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -311,8 +327,17 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SILENT_INSERTION "silent_insertion"
 /// Makes an item active, this is generally used by energy based weapons or toggle based items.
 #define TRAIT_ITEM_ACTIVE "item_active"
+
+/// Allows heretics to cast their spells.
+#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+/// Designates a heart as a living heart for a heretic.
+#define TRAIT_LIVING_HEART "living_heart"
+/// Added to those who have been sacrificed.
+#define TRAIT_WAS_SACRIFICED "was_sacrificed"
+
 /// Forbids running broadcast_examine() in examinate().
 #define TRAIT_HIDE_EXAMINE "hide_examine"
+
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
@@ -349,6 +374,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
 #define TRAIT_SKIP_EXAMINE "skip_examine"
+
+/// Items with this trait will not have their worn icon overlayed.
+#define TRAIT_NO_WORN_ICON "no_worn_icon"
 
 /// A general trait for tracking whether a zombie owned the organ or limb
 #define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
@@ -575,6 +603,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
 
+/// Trait applied by element
+#define ELEMENT_TRAIT(source) "element_trait_[source]"
+
 //***** MOVABLE ATOM TRAITS *****//
 // Prevents the atom from being transitioned to another Z level when approaching the edge of the map.
 #define TRAIT_NO_EDGE_TRANSITIONS "trait_no_edge_transitions"
@@ -598,3 +629,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Proc wrapper of remove_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_remove_trait(datum/target, trait, source)
 	REMOVE_TRAIT(target, trait, source)
+
+/// Proc that handles adding multiple traits to a target via a list. Must have a common source and target.
+/datum/proc/add_traits(list/list_of_traits, source)
+	for(var/trait in list_of_traits)
+		ADD_TRAIT(src, trait, source)
+
+/// Proc that handles removing multiple traits from a target via a list. Must have a common source and target.
+/datum/proc/remove_traits(list/list_of_traits, source)
+	for(var/trait in list_of_traits)
+		REMOVE_TRAIT(src, trait, source)

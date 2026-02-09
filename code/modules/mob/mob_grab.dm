@@ -27,8 +27,8 @@
 	plane = HUD_PLANE
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/grab/New(mob/user, mob/victim)
-	..()
+/obj/item/grab/Initialize(mapload, mob/user, mob/victim)
+	. = ..()
 
 	//Okay, first off, some fucking sanity checking. No user, or no victim, or they are not mobs, no grab.
 	if(!istype(user) || !istype(victim))

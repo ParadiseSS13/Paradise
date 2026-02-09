@@ -41,7 +41,8 @@
 	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 	/// How much we get activated by gamma radiation
 	var/rad_conversion_amount = 0
-
+	/// Are we boarded up?
+	var/barricaded = FALSE
 
 /obj/structure/window/rad_act(atom/source, amount, emission_type)
 	if(emission_type == GAMMA_RAD && amount * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
@@ -219,6 +220,10 @@
 		return
 
 	add_fingerprint(user)
+	if(istype(I, /obj/item/stack/sheet/wood))
+		build_barricade(user, I)
+		return
+
 	if(istype(I, /obj/item/stack/rods) && user.a_intent == INTENT_HELP)
 		for(var/obj/structure/grille/G in get_turf(src))
 			if(!G.broken)
@@ -256,7 +261,6 @@
 					take_damage(75)
 	else
 		return ..()
-
 
 /obj/structure/window/crowbar_act(mob/user, obj/item/I)
 	if(!reinf)
@@ -523,6 +527,43 @@
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
 
+/obj/structure/window/proc/build_barricade(mob/living/user, obj/item/stack/sheet/wood/used)
+	if(!fulltile)
+		return
+
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
+		return
+	
+	if(used.get_amount() < 2)
+		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
+		return
+
+	if(!density)
+		to_chat(user, SPAN_WARNING("[src] needs to be secured before it can be barricaded!"))
+		return
+
+	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
+	if(!do_after_once(user, 4 SECONDS, target = src))
+		return
+	
+	/// Quick checks to make sure nothing has changed during the timer.
+	if(!density || barricaded)
+		return
+
+	if(!used.use(2))
+		to_chat(user, SPAN_WARNING("You've run out of planks!"))
+		return
+
+	user.visible_message(
+		SPAN_WARNING("[user] boards up [src]!"),
+		SPAN_NOTICE("You board up [src]."),
+		SPAN_WARNING("You hear planks being nailed into something!")
+	)
+	var/obj/structure/barricade/wooden/crude/boards = new(loc)
+	boards.add_fingerprint(user)
+	barricaded = TRUE
+
 /obj/structure/window/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Lacks protection from radiation."
 
@@ -536,6 +577,12 @@
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
+
+// You can't rust glass! So only reinforced glass can be impacted.
+/obj/structure/window/reinforced/rust_heretic_act()
+	color = COLOR_RUSTED_GLASS
+	take_damage(obj_integrity * 0.5)
+	max_integrity = max_integrity * 0.5
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
@@ -708,6 +755,20 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+
+/obj/structure/window/full/screwdriver_act(mob/user, obj/item/I)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("There's boards in the way of [src]'s screws!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	return ..()
+
+/obj/structure/window/full/crowbar_act(mob/user, obj/item/I)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("There's boards stopping you from levering [src]!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	return ..()
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Has very light protection from radiation"
