@@ -124,4 +124,5 @@
 	playsound(get_turf(user), 'sound/items/rped.ogg', 50, TRUE)
 	var/mob/living/basic/swarmer/lesser/child = new /mob/living/basic/swarmer/lesser(T)
 	child.progenitor = user
+	child.RegisterSignal(user, COMSIG_MOB_DEATH, TYPE_PROC_REF(/mob/living/basic/swarmer/lesser, progenitor_death))
 	StartCooldown()

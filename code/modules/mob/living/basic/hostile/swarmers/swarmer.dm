@@ -313,6 +313,9 @@
 	progenitor = null
 	return ..()
 
+/mob/living/basic/swarmer/lesser/proc/progenitor_death()
+	progenitor = null
+
 // =====================
 // MARK: Swarmer Structures
 // =====================
