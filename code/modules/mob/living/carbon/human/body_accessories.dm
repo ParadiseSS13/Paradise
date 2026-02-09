@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	icon_state = "skrell_fringetail_xlong"
 	allowed_species = list("Skrell")
 
-//Moth wings
+// Moth wings
 /datum/body_accessory/wing
 	icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
 	animated_icon = null
@@ -172,6 +172,8 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	icon_state = "plain"
 	allowed_species = list("Nian")
 	has_behind = TRUE
+	var/is_open = FALSE
+	var/open_icon = 'icons/mob/sprite_accessories/moth/moth_wingsopen.dmi'
 
 /datum/body_accessory/wing/plain
 

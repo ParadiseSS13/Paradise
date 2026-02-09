@@ -199,3 +199,13 @@
 #define ONLY_CHECK_EXT_PRESSURE 1
 /// Only release until we reach this pressure
 #define ONLY_CHECK_INT_PRESSURE 2
+
+// Defines to identify each individual gas (used for death_gas component)
+#define SPAWN_GAS_OXYGEN "oxygen"
+#define SPAWN_GAS_NITROGEN "nitrogen"
+#define SPAWN_GAS_N2O "sleepy_gas"
+#define SPAWN_GAS_CO2 "carbon_dioxide"
+#define SPAWN_GAS_PLASMA "plasma"
+#define SPAWN_GAS_AGENTB "plasma"
+#define SPAWN_GAS_HYDROGEN "hydrogen"
+#define SPAWN_GAS_WATER "water_vapor"

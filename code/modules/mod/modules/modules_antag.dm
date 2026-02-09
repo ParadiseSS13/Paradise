@@ -245,6 +245,7 @@
 	/// The suit's size before the module is installed.
 	var/old_size
 	origin_tech = "materials=6;bluespace=5;syndicate=1" //Printable at illegals 2, so only one level.
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 
 /obj/item/mod/module/plate_compression/on_install()
 	old_size = mod.w_class
@@ -274,6 +275,7 @@
 	incompatible_modules = list(/obj/item/mod/module/stealth)
 	cooldown_time = 10 SECONDS
 	origin_tech = "combat=6;materials=6;powerstorage=5;bluespace=5;syndicate=2" //Printable at 3
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
 	/// The alpha applied when the cloak is on.
@@ -352,6 +354,7 @@
 	incompatible_modules = list(/obj/item/mod/module/status_readout)
 	tgui_id = "status_readout"
 	origin_tech = "combat=6;biotech=6;syndicate=1"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/status_readout/add_ui_data()
 	. = ..()

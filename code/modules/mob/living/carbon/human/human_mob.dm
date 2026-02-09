@@ -281,6 +281,8 @@
 /mob/living/carbon/human/ex_act(severity)
 	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_EXPLOSION_PROOF))
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
+		return
 
 	var/brute_loss = 0
 	var/burn_loss = 0
@@ -1039,12 +1041,12 @@
 		if(!(limb_type in H.bodyparts_by_name))
 			var/list/organ_data = H.dna.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
-			var/obj/item/organ/external/O = new limb_path(temp_holder)
+			var/obj/item/organ/external/O = new limb_path(temp_holder, temp_holder)
 			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
 				continue					//In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
 											//while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
 			else
-				O = new limb_path(H) //Create the limb on the player.
+				O = new limb_path(H, H) //Create the limb on the player.
 				O.owner = H
 				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
 				if(O.body_part == HEAD) //They're sprouting a fresh head so lets hook them up with their genetic stuff so their new head looks like the original.
@@ -1058,12 +1060,12 @@
 	for(var/index in species_organs)
 		var/organ = species_organs[index]
 		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
-			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
+			var/obj/item/organ/internal/I = new organ(temp_holder, temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
 				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nian eyes, since,
 										//while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
-				I = new organ(H) //Create the organ inside the player.
+				I = new organ(H, H) //Create the organ inside the player.
 				I.insert(H)
 	qdel(temp_holder)
 
@@ -1102,6 +1104,40 @@
 						qdel(H)
 
 	..()
+
+
+/mob/living/carbon/human/heal_and_revive(heal_to = 75, revive_message)
+	// We can't heal them if they're missing a heart
+	if(!get_int_organ_datum(ORGAN_DATUM_HEART) && can_heartattack() && !ismachineperson(src))
+		return FALSE
+
+	// We can't heal them if they're missing their lungs
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !get_int_organ_datum(ORGAN_DATUM_LUNGS) && !ismachineperson(src))
+		return FALSE
+
+	if(ismachineperson(src))
+		var/ipc_brute_to_heal = heal_to - getBruteLoss()
+		var/ipc_burn_to_heal = heal_to - getFireLoss()
+		if(ipc_brute_to_heal < 0)
+			adjustBruteLoss(ipc_brute_to_heal, updating_health = FALSE, robotic = TRUE)
+		if(ipc_burn_to_heal < 0)
+			adjustFireLoss(ipc_burn_to_heal, updating_health = FALSE, robotic = TRUE)
+
+	if(blood_volume < BLOOD_VOLUME_STABLE + 50)
+		blood_volume = BLOOD_VOLUME_STABLE + 50
+
+	. = ..()
+	if(.) // if revived successfully
+		set_heartattack(FALSE)
+		SetLoseBreath(0)
+
+	return .
+
+/mob/living/carbon/can_be_revived()
+	if(!get_int_organ(/obj/item/organ/internal/brain) && (!IS_CHANGELING(src)) || HAS_TRAIT(src, TRAIT_HUSK))
+		return FALSE
+	return ..()
+
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
@@ -2303,3 +2339,24 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/get_strippable_items(datum/source, list/items)
 	items |= GLOB.strippable_human_items
+
+/// Used to toggle whether wings are open or not
+/mob/living/carbon/human/proc/Togglewings()
+	if(has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		to_chat(src, "<span class='warning'>Your wings are burnt off!</span>")
+		return
+
+	if(body_accessory && istype(body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = body_accessory
+		if(wings.is_open)
+			wings.is_open = FALSE
+			wings.icon = initial(wings.icon)
+			wings.pixel_x_offset = initial(wings.pixel_x_offset)
+			update_wing_layer()
+			update_body()
+			return
+		wings.is_open = TRUE
+		wings.icon = wings.open_icon
+		wings.pixel_x_offset = -22 // Center these bad boys
+		update_wing_layer()
+		update_body()

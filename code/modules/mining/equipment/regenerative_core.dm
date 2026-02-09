@@ -14,6 +14,10 @@
 		to_chat(user, SPAN_WARNING("The stabilizer only works on certain types of monster organs, generally regenerative in nature."))
 		return ..()
 
+	if(C.inert)
+		to_chat(user, SPAN_WARNING("[M] is inert! The stabilizer won't function as the regenerative enzymes have dissolved!"))
+		return ..()
+
 	C.preserved()
 	to_chat(user, SPAN_NOTICE("You inject [M] with the stabilizer. It will no longer go inert."))
 	qdel(src)

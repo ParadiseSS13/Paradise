@@ -80,7 +80,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "au" = (
-/obj/structure/sign/chemistry{
+/obj/structure/sign/medical/chemistry{
 	pixel_y = 1
 	},
 /turf/simulated/wall/mineral/titanium,
@@ -120,7 +120,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aJ" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
 "aK" = (
@@ -411,7 +411,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bY" = (
-/obj/structure/sign/examroom,
+/obj/structure/sign/medical/examroom,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
 "bZ" = (

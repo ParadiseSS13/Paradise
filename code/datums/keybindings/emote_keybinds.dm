@@ -275,6 +275,10 @@
 	linked_emote = /datum/emote/living/carbon/sign
 	name = "Sign"
 
+/datum/keybinding/emote/carbon/gulp
+	linked_emote = /datum/emote/living/carbon/gulp
+	name = "Gulp"
+
 /datum/keybinding/emote/carbon/alien
 	category = KB_CATEGORY_EMOTE_ALIEN
 
@@ -476,6 +480,10 @@
 /datum/keybinding/emote/carbon/human/flap/angry
 	linked_emote = /datum/emote/living/carbon/human/flap/angry
 	name = "Angry Flap"
+
+/datum/keybinding/emote/carbon/human/wings
+	linked_emote = /datum/emote/living/carbon/human/wings
+	name = "Wings"
 
 /datum/keybinding/emote/carbon/human/flutter
 	linked_emote = /datum/emote/living/carbon/human/flutter

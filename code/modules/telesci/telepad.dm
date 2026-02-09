@@ -98,6 +98,7 @@
 	icon_state = "beacon"
 	inhand_icon_state = "signaler"
 	origin_tech = "bluespace=3"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
 
 /obj/item/telepad_beacon/attack_self__legacy__attackchain(mob/user as mob)
 	if(user)

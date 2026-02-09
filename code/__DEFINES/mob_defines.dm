@@ -10,6 +10,8 @@
 #define ORGAN_DISFIGURED   (1 << 6)
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
+/// An organ that is ostensibly dangerous when inside a body
+#define ORGAN_HAZARDOUS (1 << 9)
 
 // Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
 #define ORGAN_DATUM_HEART	"heart"
@@ -386,6 +388,13 @@
 #define BRAIN_DAMAGE_RATIO_MODERATE 6 / 12
 #define BRAIN_DAMAGE_RATIO_SEVERE 	8 / 12
 #define BRAIN_DAMAGE_RATIO_CRITICAL 10 / 12
+
+//Disgust levels for humans
+#define DISGUST_LEVEL_MAXEDOUT 1500
+#define DISGUST_LEVEL_VERYDISGUSTED 1000
+#define DISGUST_LEVEL_DISGUSTED 750
+#define DISGUST_LEVEL_VERYGROSS 500
+#define DISGUST_LEVEL_GROSS 250
 
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12

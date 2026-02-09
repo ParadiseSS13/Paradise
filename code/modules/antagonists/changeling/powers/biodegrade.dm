@@ -105,7 +105,7 @@
 	if(user.get_active_hand() && !user.drop_item())
 		to_chat(user, SPAN_WARNING("[user.get_active_hand()] is stuck to our hand, we cannot emit acid on this hand."))
 		return FALSE
-	current_hand = new hand(src)
+	current_hand = new hand(src, src)
 	user.put_in_active_hand(current_hand)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(remove_hand_spell))
 	return TRUE
@@ -130,7 +130,7 @@
 	throw_speed = 0
 	var/datum/action/changeling/biodegrade/parent_action
 
-/obj/item/melee/changeling_corrosive_acid/New(datum/action/changeling/biodegrade/new_parent)
+/obj/item/melee/changeling_corrosive_acid/Initialize(mapload, datum/action/changeling/biodegrade/new_parent)
 	. = ..()
 	parent_action = new_parent
 

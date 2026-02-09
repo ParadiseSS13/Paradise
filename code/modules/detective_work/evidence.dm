@@ -322,6 +322,7 @@
 	name = "sample collection kit"
 	desc = "An unused sterile cotton swab and test tube for collecting DNA samples and gunpowder residue."
 	icon_state = "swab"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 250)
 	/// currently in machine
 	var/dispenser = FALSE
 
@@ -402,6 +403,7 @@
 /obj/item/sample/swab
 	name = "sample collection kit"
 	icon_state = "swab_used"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 250)
 
 /obj/item/sample/swab/proc/set_used(sample_str, atom/source, data)
 	name = "[initial(name)] ([sample_str] - [source])"

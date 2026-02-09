@@ -9,6 +9,7 @@
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
 	resistance_flags = NONE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
