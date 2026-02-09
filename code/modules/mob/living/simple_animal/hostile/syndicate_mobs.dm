@@ -303,51 +303,6 @@
 		if(melee_type == MELEE_WEAPON_DSWORD && prob(50))
 			jedi_spin()
 
-/mob/living/simple_animal/hostile/syndicate/Shoot(atom/targeted_atom)
-	if(QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from)
-		return
-	var/turf/startloc = get_turf(targets_from)
-	var/turf/target_turf = get_turf(targeted_atom)
-	if(!target_turf)
-		return
-	if(casingtype)
-		// I know that is ABSOLUTELY terrible way to do that, but.. i don't know how to make it properly. I wasted a lot of time trying to, but only this is working somewhat good enough.
-		var/dx = abs(target_turf.x - startloc.x)
-		var/dy = abs(target_turf.y - startloc.y)
-		if(target_turf.x < startloc.x && target_turf.y > startloc.y)
-			if(dy > dx)
-				target_turf.pixel_x = 14
-				target_turf.pixel_y = 14
-			else if(dy < dx)
-				target_turf.pixel_x = -14
-				target_turf.pixel_y = -14
-		else if(target_turf.x < startloc.x && target_turf.y < startloc.y)
-			if(dy > dx)
-				target_turf.pixel_x = 14
-				target_turf.pixel_y = -14
-			else if(dy < dx)
-				target_turf.pixel_x = -14
-				target_turf.pixel_y = 14
-		else if(target_turf.x > startloc.x && target_turf.y > startloc.y)
-			if(dy > dx)
-				target_turf.pixel_x = -14
-				target_turf.pixel_y = 14
-			else if(dy < dx)
-				target_turf.pixel_x = 14
-				target_turf.pixel_y = -14
-		else if(target_turf.x > startloc.x && target_turf.y < startloc.y)
-			if(dy > dx)
-				target_turf.pixel_x = -14
-				target_turf.pixel_y = -14
-			else if(dy < dx)
-				target_turf.pixel_x = 14
-				target_turf.pixel_y = 14
-		var/obj/item/ammo_casing/casing = new casingtype(startloc)
-		playsound(src, projectilesound, 100, 1)
-		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
-		target_turf.pixel_x = initial(target_turf.pixel_x)
-		target_turf.pixel_y = initial(target_turf.pixel_y)
-
 /mob/living/simple_animal/hostile/syndicate/LoseTarget()
 	. = ..()
 	if(syndie_flags & SWORD && melee_type != MELEE_WEAPON_NONE)
@@ -407,7 +362,7 @@
 		return
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
-	var/turn_dir = 1
+	var/turn_dir = NORTH
 
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
@@ -475,7 +430,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/attack_hand(mob/living/user)
 	if(melee_type == MELEE_WEAPON_DSWORD && prob(deflect_chance))
-		visible_message("<span class='boldwarning'>[src] deflects [user]'s punch with its double-bladed sword!</span>")
+		visible_message(SPAN_BOLDWARNING("[src] deflects [user]'s punch with its double-bladed sword!"))
 		do_attack_animation(src)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.attack_animal(src)
@@ -483,7 +438,7 @@
 		return FINISH_ATTACK
 
 	if(prob(parry_chance))
-		visible_message("<span class='boldwarning'>[src] parries [user]!</span>")
+		visible_message(SPAN_BOLDWARNING("[src] parries [user]!"))
 		do_attack_animation(src)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
@@ -494,7 +449,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/attack_by(obj/item/O, mob/living/user, params)
 	if(melee_type == MELEE_WEAPON_DSWORD && prob(deflect_chance))
-		visible_message("<span class='boldwarning'>[src] deflects [O] with its double-bladed sword!</span>")
+		visible_message(SPAN_BOLDWARNING("[src] deflects [O] with its double-bladed sword!"))
 		do_attack_animation(src)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.attack_animal(src)
@@ -502,7 +457,7 @@
 		return FINISH_ATTACK
 
 	if(prob(parry_chance))
-		visible_message("<span class='boldwarning'>[src] parries [O]!</span>")
+		visible_message(SPAN_BOLDWARNING("[src] parries [O]!"))
 		do_attack_animation(src)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
@@ -519,12 +474,12 @@
 			do_attack_animation(src)
 			playsound(src, 'sound/weapons/effects/ric3.ogg', clamp(maxHealth-health, 40, 120), TRUE)
 		Proj.reflect_back(src)
-		visible_message("<span class='danger'>[src] reflects [Proj] with its [syndie_flags & ESHIELD ? "shield" : "sword"]!</span>")
+		visible_message(SPAN_DANGER("[src] reflects [Proj] with its [syndie_flags & ESHIELD ? "shield" : "sword"]!"))
 		return -1
 
 	if(melee_type != MELEE_WEAPON_NONE && prob(parry_chance))
 		do_attack_animation(src)
-		visible_message("<span class='danger'>[src] parries [Proj]!</span>")
+		visible_message(SPAN_DANGER("[src] parries [Proj]!"))
 		playsound(src, 'sound/weapons/parry.ogg', clamp(maxHealth-health, 40, 120))
 		return
 
@@ -688,7 +643,7 @@
 			if(istype(loc, /obj/structure/closet))
 				var/obj/structure/closet/O = loc
 				forceMove(get_turf(src))
-				visible_message("<span class='boldwarning'>[src] smashes their way out of [O]!</span>")
+				visible_message(SPAN_BOLDWARNING("[src] smashes their way out of [O]!"))
 				qdel(O)
 				raise_alert("[src] reported being trapped in a locker.")
 				raised_alert = FALSE
@@ -781,7 +736,7 @@
 	loot = list() // Explodes, doesn't drop loot.
 
 /mob/living/simple_animal/hostile/syndicate/depot/modsuit/backup/death()
-	visible_message("<span class='warning'>[src] explodes!</span>")
+	visible_message(SPAN_WARNING("[src] explodes!"))
 	playsound(src, 'sound/items/timer.ogg', 30, FALSE)
 	explosion(src, 0, 4, 4, flame_range = 2, adminlog = FALSE, cause = "[name] autogib")
 	qdel(src)

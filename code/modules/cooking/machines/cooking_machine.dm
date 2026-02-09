@@ -2,7 +2,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking
 	name = "Default Cooking Appliance"
-	desc = "You shouldn't be seeing this. Please report this as an issue on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cooking/machines.dmi'
 	density = TRUE
 	anchored = TRUE
@@ -79,7 +79,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+		to_chat(user, SPAN_NOTICE("You screw [src]'s panel [panel_open ? "open" : "closed"]."))
 		update_appearance()
 		if(panel_open)
 			machine_state_change()
@@ -110,10 +110,9 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		return
 	var/datum/cooking_surface/surface = surfaces[surface_idx]
 
-	var/list/surface_options = list(
-		RADIAL_ACTION_SET_ALARM = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_setalarm"),
-		RADIAL_ACTION_ON_OFF = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_onoff"),
-	)
+	var/list/surface_options = list(RADIAL_ACTION_SET_ALARM = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_setalarm"))
+	if(surface.allow_toggling)
+		surface_options[RADIAL_ACTION_ON_OFF] = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_onoff")
 	if(surface.allow_temp_change)
 		surface_options[RADIAL_ACTION_SET_TEMPERATURE] = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_settemp")
 	var/option_choice = show_radial_menu(user, src, surface_options, require_near = TRUE)
@@ -136,7 +135,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	for(var/allowed_container_type in allowed_containers)
 		if(istype(used, allowed_container_type))
 			if(ismob(user))
-				to_chat(user, "<span class='notice'>You put [used] on [src].</span>")
+				to_chat(user, SPAN_NOTICE("You put [used] on [src]."))
 				if(user.drop_item())
 					used.forceMove(src)
 			else

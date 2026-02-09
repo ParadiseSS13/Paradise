@@ -54,7 +54,7 @@
 			mind.add_mind_objective(/datum/objective/demon_fluff)
 			messages.Add(mind.prepare_announce_objectives(FALSE))
 
-		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
+		messages.Add(SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)"))
 		to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /obj/effect/decal/cleanable/blood/innards
@@ -104,7 +104,7 @@
 	spawn(5)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/basic/demon/slaughter/cult)
 		if(!length(demon_candidates))
-			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			visible_message(SPAN_WARNING("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		if(QDELETED(src)) // Just in case
@@ -112,7 +112,7 @@
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/basic/demon/slaughter/cult/S = src
 		if(!M || !M.client)
-			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			visible_message(SPAN_WARNING("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		var/client/C = M.client
@@ -164,5 +164,5 @@
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, TRUE, -1)
-		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
+		to_chat(M, SPAN_CLOWN("You leave [src]'s warm embrace, and feel ready to take on the world."))
 	..(M)

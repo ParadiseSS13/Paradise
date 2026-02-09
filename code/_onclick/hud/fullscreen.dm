@@ -121,13 +121,26 @@
 	icon_state = "fog"
 	color = "#FF0000"
 
+/atom/movable/screen/fullscreen/stretch/curse
+	icon = 'icons/mob/screen_fog.dmi'
+	icon_state = "curse"
+	layer = CURSE_LAYER
+
 /atom/movable/screen/fullscreen/stretch/flash
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
+	var/dark_type = /atom/movable/screen/fullscreen/stretch/flash/dark
+
+/atom/movable/screen/fullscreen/stretch/flash/dark
+	icon_state = "flash_dark"
 
 /atom/movable/screen/fullscreen/stretch/flash/noise
 	icon_state = "noise"
+	dark_type = /atom/movable/screen/fullscreen/stretch/flash/noise/dark
+
+/atom/movable/screen/fullscreen/stretch/flash/noise/dark
+	icon_state = "noise_dark"
 
 /atom/movable/screen/fullscreen/stretch/high
 	icon = 'icons/mob/screen_gen.dmi'

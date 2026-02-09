@@ -41,21 +41,21 @@
 /obj/item/reagent_containers/condiment/mob_act(mob/target, mob/living/user)
 	. = TRUE
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
+		to_chat(user, SPAN_WARNING("None of [src] left, oh no!"))
 		return
 	if(!iscarbon(target)) // Non-carbons can't process reagents
-		to_chat(user, "<span class='warning'>You cannot find a way to feed [target].</span>")
+		to_chat(user, SPAN_WARNING("You cannot find a way to feed [target]."))
 		return
 
 	if(target == user)
-		to_chat(user, "<span class='notice'>You swallow some of the contents of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You swallow some of the contents of [src]."))
 	else
-		user.visible_message("<span class='warning'>[user] attempts to feed [target] from [src].</span>")
+		user.visible_message(SPAN_WARNING("[user] attempts to feed [target] from [src]."))
 		if(!do_mob(user, target))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
-		user.visible_message("<span class='warning'>[user] feeds [target] from [src].</span>")
+		user.visible_message(SPAN_WARNING("[user] feeds [target] from [src]."))
 		add_attack_logs(user, target, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 	var/fraction = min(10/reagents.total_volume, 1)
 	reagents.reaction(target, REAGENT_INGEST, fraction)
@@ -66,25 +66,25 @@
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 		. = TRUE
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty!</span>")
+			to_chat(user, SPAN_WARNING("[target] is empty!"))
 			return
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			to_chat(user, SPAN_WARNING("[src] is full!"))
 			return
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
+		to_chat(user, SPAN_NOTICE("You fill [src] with [trans] units of the contents of [target]."))
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
 	else if(target.is_refillable() || istype(target, /obj/item/food))
 		. = TRUE
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty!</span>")
+			to_chat(user, SPAN_WARNING("[src] is empty!"))
 			return
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>you can't add anymore to [target]!</span>")
+			to_chat(user, SPAN_WARNING("you can't add anymore to [target]!"))
 			return
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] units of the condiment to [target].</span>")
+		to_chat(user, SPAN_NOTICE("You transfer [trans] units of the condiment to [target]."))
 
 /obj/item/reagent_containers/condiment/on_reagent_change()
 	if(!length(possible_states))
@@ -138,8 +138,12 @@
 	list_reagents = list("sodiumchloride" = 20)
 	possible_states = list()
 
+/obj/item/reagent_containers/condiment/saltshaker/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/shelf_positioning, y_offset_ = -3)
+
 /obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!"))
 	var/newname = "[name]"
 	name = "[user.name]"
 	user.name = newname
@@ -159,6 +163,10 @@
 	volume = 20
 	list_reagents = list("blackpepper" = 20)
 	possible_states = list()
+
+/obj/item/reagent_containers/condiment/peppermill/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/shelf_positioning, y_offset_ = -3)
 
 /obj/item/reagent_containers/condiment/milk
 	name = "space milk"
@@ -313,15 +321,15 @@
 	//You can tear the bag open above food to put the condiments on it, obviously.
 	if(istype(target, /obj/item/food))
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>You tear open [src], but there's nothing in it.</span>")
+			to_chat(user, SPAN_WARNING("You tear open [src], but there's nothing in it."))
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>You tear open [src], but [target] is stacked so high that it just drips off!</span>") //Not sure if food can ever be full, but better safe than sorry.
+			to_chat(user, SPAN_WARNING("You tear open [src], but [target] is stacked so high that it just drips off!")) //Not sure if food can ever be full, but better safe than sorry.
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='notice'>You tear open [src] above [target] and the condiments drip onto it.</span>")
+			to_chat(user, SPAN_NOTICE("You tear open [src] above [target] and the condiments drip onto it."))
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE

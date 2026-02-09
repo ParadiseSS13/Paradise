@@ -83,7 +83,7 @@
 	if(!user)
 		return
 	if(isplasmaman(user))
-		to_chat(user, "<span class='notice'>A spectral hand appears from your spellbook and pulls a brand new plasmaman envirosuit, complete with helmet, from the void, then drops it on the floor.</span>")
+		to_chat(user, SPAN_NOTICE("A spectral hand appears from your spellbook and pulls a brand new plasmaman envirosuit, complete with helmet, from the void, then drops it on the floor."))
 		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
 		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
 	user.drop_item_to_ground(user.wear_id)
@@ -134,7 +134,7 @@
 	qdel(user.head)
 
 	// Part of Sacred Flame
-	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	to_chat(user, SPAN_NOTICE("You feel fireproof."))
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_EXPLOSION_PROOF, MAGIC_TRAIT)

@@ -69,14 +69,14 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins to unfasten [src]."), SPAN_NOTICE("You begin to unfasten [src]."))
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	if(broken)
-		user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
+		user.visible_message(SPAN_NOTICE("[user] drops the broken shards to the floor."), SPAN_NOTICE("You drop the broken shards on the floor."))
 		new /obj/item/shard(get_turf(user))
 	else
-		user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
+		user.visible_message(SPAN_NOTICE("[user] carefully places [src] on the floor."), SPAN_NOTICE("You carefully place [src] on the floor."))
 		new /obj/item/mounted/mirror(get_turf(user))
 	qdel(src)
 
@@ -125,6 +125,7 @@
 	desc = "Some reflective glass ready to be hung on a wall. Don't break it!"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
+	materials = list(MAT_GLASS = 2500)
 
 /obj/item/mounted/mirror/do_build(turf/on_wall, mob/user)
 	var/obj/structure/mirror/M = new /obj/structure/mirror(get_turf(user), get_dir(on_wall, user), 1)
@@ -169,8 +170,8 @@
 
 		if("Body")
 			if(organ_warn)
-				to_chat(user, "<span class='boldwarning'>Using the mirror will destroy any non biochip implants in you!</span>")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask")
+				to_chat(user, SPAN_BOLDWARNING("Using the mirror will destroy any non biochip implants in you!"))
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Skkulakin")
 			if(actually_magical)
 				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Vox", "Plasmaman", "Kidan", "Slime People")
 

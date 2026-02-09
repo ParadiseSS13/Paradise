@@ -34,7 +34,7 @@
 	if(!use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	overlays.Cut()
-	to_chat(user, "<span class='notice'>You slice off [src]'s uneven chunks of aluminium and scorch marks.</span>")
+	to_chat(user, SPAN_NOTICE("You slice off [src]'s uneven chunks of aluminium and scorch marks."))
 
 /obj/item/target/attack_hand(mob/user)
 	// taking pinned targets off!
@@ -89,7 +89,7 @@
 	if(LAZYLEN(overlays) <= 35 && C.GetPixel(p_x, p_y)) // if the located pixel isn't blank (null)
 		hp -= P.damage
 		if(hp <= 0)
-			visible_message("<span class='danger'>[src] breaks into tiny pieces and collapses!</span>")
+			visible_message(SPAN_DANGER("[src] breaks into tiny pieces and collapses!"))
 			qdel(src)
 			return
 		var/image/bullet_hole = image('icons/effects/effects.dmi', "scorch", OBJ_LAYER + 0.5)

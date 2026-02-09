@@ -5,6 +5,7 @@
 	dyeable = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/color.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/color.dmi'
@@ -252,7 +253,7 @@
 	icon_state = "darkredskirt"
 
 /obj/item/clothing/under/color/rainbow
-	name = "rainbow"
+	name = "rainbow jumpsuit"
 	desc = "rainbow."
 	icon_state = "rainbow"
 	inhand_icon_state = "rainbow"

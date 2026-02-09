@@ -43,6 +43,7 @@
 		EQUIPMENT("10 Marker Beacons", /obj/item/stack/marker_beacon/ten, 100),
 		EQUIPMENT("First-Aid Kit", /obj/item/storage/firstaid/regular, 400),
 		EQUIPMENT("Advanced First-Aid Kit", /obj/item/storage/firstaid/adv, 600),
+		EQUIPMENT("Machine Repair Kit", /obj/item/storage/firstaid/machine, 500),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
 		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 750),
@@ -94,7 +95,7 @@
 	prize_list["Miscellaneous"] = list(
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 100),
 		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
-		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
+		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/cohiba, 150),
 		EQUIPMENT("GAR Meson Scanners", /obj/item/clothing/glasses/meson/gar, 500),
 		EQUIPMENT("Hoverboard", /obj/item/melee/skateboard/hoverboard, 4000), //Cross lava rivers in a discounted style. To buying it in cargo. Still more than jump boots.
 		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 3500), //I want miners have to pay a lot to get this, but be set once they do.
@@ -117,7 +118,7 @@
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	if(. && inserted_id && (stat & NOPOWER))
-		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
+		visible_message(SPAN_NOTICE("The ID slot indicator light flickers on [src] as it spits out a card before powering down."))
 		remove_id()
 
 /obj/machinery/mineral/equipment_vendor/update_icon_state()
@@ -163,6 +164,7 @@
 				"name" = prize_name,
 				"price" = prize.cost,
 				"icon" = item.icon,
+				"desc" = item.desc,
 				"icon_state" = item.icon_state
 			)
 		static_data["items"][cat] = cat_items
@@ -215,7 +217,7 @@
 				return
 			var/datum/data/mining_equipment/prize = prize_list[category][name]
 			if(prize.cost > inserted_id.mining_points) // shouldn't be able to access this since the button is greyed out, but..
-				to_chat(usr, "<span class='danger'>You have insufficient points.</span>")
+				to_chat(usr, SPAN_DANGER("You have insufficient points."))
 				return
 
 			inserted_id.mining_points -= prize.cost
@@ -334,7 +336,7 @@
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 250),
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes/cigpack_robust, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
-		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
+		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/cohiba, 150),
 		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
 		EQUIPMENT("Cheeseburger", /obj/item/food/burger/cheese, 150),
 		EQUIPMENT("Big Burger", /obj/item/food/burger/bigbite, 250),
@@ -390,6 +392,7 @@
 
 	prize_list["Consumables"] = list(
 		EQUIPMENT("First-Aid Kit", /obj/item/storage/firstaid/regular, 400),
+		EQUIPMENT("Machine Repair Kit", /obj/item/storage/firstaid/machine, 500),
 		EQUIPMENT("Advanced First-Aid Kit", /obj/item/storage/firstaid/adv, 600),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
@@ -486,10 +489,10 @@
 		if(points)
 			var/obj/item/card/id/C = used
 			C.mining_points += points
-			to_chat(user, "<span class='notice'>You transfer [points] points to [C].</span>")
+			to_chat(user, SPAN_NOTICE("You transfer [points] points to [C]."))
 			points = 0
 		else
-			to_chat(user, "<span class='notice'>There's no points left on [src].</span>")
+			to_chat(user, SPAN_NOTICE("There's no points left on [src]."))
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/card/mining_point_card/examine(mob/user)

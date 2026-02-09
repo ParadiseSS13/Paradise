@@ -44,8 +44,8 @@
 /obj/item/garrote/proc/wield(obj/item/source, mob/living/carbon/user)
 	if(!strangling)
 		return
-	user.visible_message("<span class='notice'>[user] removes [src] from [strangling]'s neck.</span>",
-			"<span class='warning'>You remove [src] from [strangling]'s neck.</span>")
+	user.visible_message(SPAN_NOTICE("[user] removes [src] from [strangling]'s neck."),
+			SPAN_WARNING("You remove [src] from [strangling]'s neck."))
 
 	strangling = null
 	update_icon(UPDATE_ICON_STATE)
@@ -74,7 +74,7 @@
 		return
 
 	if(M.dir != U.dir && !M.incapacitated())
-		to_chat(user, "<span class='warning'>You cannot use [src] on [M] from that angle!</span>")
+		to_chat(user, SPAN_WARNING("You cannot use [src] on [M] from that angle!"))
 		return
 
 	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
@@ -107,8 +107,8 @@
 
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, TRUE, -10, ignore_walls = FALSE)
 
-	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with [src]!</span>", \
-				"<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
+	M.visible_message(SPAN_DANGER("[U] comes from behind and begins garroting [M] with [src]!"), \
+				SPAN_USERDANGER("[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]"), \
 				"You hear struggling and wire strain against flesh!")
 
 	return
@@ -137,8 +137,8 @@
 		G = user.r_hand
 
 	else
-		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
-				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
+		user.visible_message(SPAN_WARNING("[user] loses [user.p_their()] grip on [strangling]'s neck."), \
+				SPAN_WARNING("You lose your grip on [strangling]'s neck."))
 
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
@@ -147,8 +147,8 @@
 		return
 
 	if(!G.affecting)
-		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
-				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
+		user.visible_message(SPAN_WARNING("[user] loses [user.p_their()] grip on [strangling]'s neck."), \
+				SPAN_WARNING("You lose your grip on [strangling]'s neck."))
 
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
@@ -173,6 +173,6 @@
 
 
 /obj/item/garrote/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, TRUE, -10, ignore_walls = FALSE)
 	return OXYLOSS

@@ -2,7 +2,7 @@
 	name = "igniter"
 	desc = "A small electronic device able to ignite combustible substances."
 	icon_state = "igniter"
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	origin_tech = "magnets=1"
 	var/datum/effect_system/spark_spread/sparks
 
@@ -29,8 +29,8 @@
 	if(location)
 		location.hotspot_expose(1000, 1)
 	visible_message(
-		"<span class='notice'>Sparks shoot out of [src].</span>",
-		"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+		SPAN_NOTICE("Sparks shoot out of [src]."),
+		SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	sparks.start()
 
@@ -68,15 +68,15 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] and activates it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='notice'>You press [src] against [cig] and activates it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+			SPAN_NOTICE("[user] presses [src] against [cig] and activates it, lighting [cig] in a shower of sparks!"),
+			SPAN_NOTICE("You press [src] against [cig] and activates it, lighting [cig] in a shower of sparks!"),
+			SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] and activates it, lighting [cig] for [target] in a shower of sparks!</span>",
-			"<span class='notice'>You press [src] against [cig] and activate it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+			SPAN_NOTICE("[user] presses [src] against [cig] and activates it, lighting [cig] for [target] in a shower of sparks!"),
+			SPAN_NOTICE("You press [src] against [cig] and activate it, lighting [cig] in a shower of sparks!"),
+			SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	sparks.start()	// Make sparks fly!
 	cig.light(user, target)

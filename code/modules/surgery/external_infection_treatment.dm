@@ -43,7 +43,7 @@
 
 /datum/surgery_step/heal_infection/can_repeat(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!can_be_healed(user, target, target_zone))
-		to_chat(user, "<span class='notice'>It doesn't look like [target] has any remaining infection.</span>")
+		to_chat(user, SPAN_NOTICE("It doesn't look like [target] has any remaining infection."))
 		return FALSE
 	return TRUE
 
@@ -63,7 +63,7 @@
 /datum/surgery_step/heal_infection/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	if(!can_be_healed(user, target, target_zone))
-		to_chat(user, "<span class='notice'>It doesn't look like [target] has any remaining infection.</span>")
+		to_chat(user, SPAN_NOTICE("It doesn't look like [target] has any remaining infection."))
 		return SURGERY_STEP_CONTINUE
 
 	var/outer_msg = "[user] succeeds in fixing some of [target]'s infection"
@@ -79,8 +79,8 @@
 
 	if(COOLDOWN_FINISHED(src, success_message_spam_cooldown))
 		user.visible_message(
-			"<span class='notice'>[outer_msg].</span>",
-			"<span class='notice'>[self_msg].</span>",
+			SPAN_NOTICE("[outer_msg]."),
+			SPAN_NOTICE("[self_msg]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
@@ -95,8 +95,8 @@
 /datum/surgery_step/heal_infection/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'>Your hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!</span>",
+		SPAN_WARNING("[user]'s hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!"),
+		SPAN_WARNING("Your hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(3, BURN, affected)
@@ -156,8 +156,8 @@
 
 /datum/surgery_step/pull_skin/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/msg = "<span class='notice'>[user] pulls the incision closed on [target]'s [affected.name] with [tool].</span>"
-	var/self_msg = "<span class='notice'>You pull the incision closed on [target]'s [affected.name] with [tool].</span>"
+	var/msg = SPAN_NOTICE("[user] pulls the incision closed on [target]'s [affected.name] with [tool].")
+	var/self_msg = SPAN_NOTICE("You pull the incision closed on [target]'s [affected.name] with [tool].")
 
 	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
@@ -165,8 +165,8 @@
 
 /datum/surgery_step/pull_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/msg = "<span class='warning'>[user]'s hand slips, tearing the edges of incision on [target]'s [affected.name] with [tool]!</span>"
-	var/self_msg = "<span class='warning'>Your hand slips, tearing the edges of incision on [target]'s [affected.name] with [tool]!</span>"
+	var/msg = SPAN_WARNING("[user]'s hand slips, tearing the edges of incision on [target]'s [affected.name] with [tool]!")
+	var/self_msg = SPAN_WARNING("Your hand slips, tearing the edges of incision on [target]'s [affected.name] with [tool]!")
 	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	target.apply_damage(12, BRUTE, affected, sharp = TRUE)
 	return SURGERY_STEP_RETRY

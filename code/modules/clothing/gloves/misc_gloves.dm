@@ -12,6 +12,7 @@
 	clipped = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
@@ -44,6 +45,7 @@
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 200, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
@@ -85,6 +87,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
@@ -100,6 +103,7 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
@@ -152,12 +156,12 @@
 				do_sparks(5, 0, loc)
 				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
-				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
+				visible_message(SPAN_DANGER("[C] has been touched with [src] by [H]!"))
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
 			else
-				to_chat(H, "<span class='notice'>Not enough charge!</span>")
+				to_chat(H, SPAN_NOTICE("Not enough charge!"))
 			return TRUE
 	return FALSE
 
@@ -167,27 +171,30 @@
 	if(cell)
 		. += "gloves_cell"
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		if(!cell)
-			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[W] is stuck to you!</span>")
-				return
-			W.forceMove(src)
-			cell = W
-			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			update_icon(UPDATE_OVERLAYS)
-		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-	else
+/obj/item/clothing/gloves/color/yellow/stun/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stock_parts/cell))
 		return ..()
+
+	if(cell)
+		to_chat(user, SPAN_WARNING("[src] already has a cell!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
+		return ITEM_INTERACT_COMPLETE
+
+	used.forceMove(src)
+	cell = used
+	to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
+	update_icon(UPDATE_OVERLAYS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(cell)
-		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You cut [cell] away from [src]."))
 		cell.forceMove(get_turf(loc))
 		cell = null
 		update_icon(UPDATE_OVERLAYS)
@@ -195,7 +202,7 @@
 /obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
 	. = ..()
 	if(user.Adjacent(src))
-		. += "<span class='notice'>They don't feel like rubber...</span>"
+		. += SPAN_NOTICE("They don't feel like rubber...")
 
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "gloves of the North Star"
@@ -237,6 +244,7 @@
 	siemens_coefficient = 0
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi'

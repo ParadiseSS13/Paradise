@@ -1,6 +1,6 @@
 /turf/simulated/wall/mineral
 	name = "mineral wall"
-	desc = "If you can see this, please make an issue report on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = ""
 	canSmoothWith = null
 	var/last_event = 0
@@ -40,6 +40,7 @@
 	explosion_block = 3
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_DIAMOND_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_DIAMOND_WALLS)
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/wall/mineral/bananium
 	name = "bananium wall"
@@ -71,6 +72,7 @@
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/wall/mineral/uranium/Initialize(mapload)
 	. = ..()
@@ -103,9 +105,9 @@
 /turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.tool_enabled)
 		ignite(2500) //The number's big enough
-		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-							"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-							"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+		user.visible_message(SPAN_DANGER("[user] sets [src] on fire!"),\
+							SPAN_DANGER("[src] disintegrates into a cloud of plasma!"),\
+							SPAN_WARNING("You hear a 'whoompf' and a roar."))
 		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
@@ -114,11 +116,6 @@
 	new girder_type(src)
 	ChangeTurf(/turf/simulated/floor)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
-
-/turf/simulated/wall/mineral/plasma/temperature_expose(exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
-	..()
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
 
 /turf/simulated/wall/mineral/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
@@ -197,6 +194,7 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
+	rust_resistance = RUST_RESISTANCE_ORGANIC
 
 /////////////////////Titanium walls/////////////////////
 
@@ -213,6 +211,14 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
+	rust_resistance = RUST_RESISTANCE_TITANIUM
+
+/turf/simulated/wall/mineral/titanium/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		ChangeTurf(/turf/simulated/wall)
+		rust_turf() //Not magic rusting intentionally
+		return
+	return ..()
 
 /turf/simulated/wall/mineral/titanium/copyTurf(turf/T)
 	. = ..()
@@ -259,6 +265,14 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	rust_resistance = RUST_RESISTANCE_TITANIUM
+
+/turf/simulated/wall/mineral/plastitanium/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		ChangeTurf(/turf/simulated/wall)
+		rust_turf() //Not magic rusting intentionally
+		return
+	return ..()
 
 /turf/simulated/wall/mineral/plastitanium/copyTurf(turf/T)
 	. = ..()

@@ -11,38 +11,18 @@ GLOBAL_VAR_INIT(send_emergency_team, FALSE)
 GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 GLOBAL_LIST_EMPTY(ert_request_messages)
 
-/client/proc/response_team()
-	set name = "Dispatch CentComm Response Team"
-	set category = "Event"
-	set desc = "Send an CentComm response team to the station."
-
-	if(!check_rights(R_EVENT))
-		return
-
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
-		return
-
-	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
-		return
-
-	var/datum/ui_module/ert_manager/E = new()
-	E.ui_interact(usr)
-
-
 /mob/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
-		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
+		to_chat(src, SPAN_WARNING("No emergency response team is currently being sent."))
 		return FALSE
 
 	if(jobban_isbanned(src, ROLE_ERT))
-		to_chat(src, "<span class='warning'>You are jobbanned from playing on an emergency response team!</span>")
+		to_chat(src, SPAN_WARNING("You are jobbanned from playing on an emergency response team!"))
 		return FALSE
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
-		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		to_chat(src, SPAN_WARNING("This role is not yet available to you. You need to wait another [player_age_check] days."))
 		return FALSE
 
 	return TRUE
@@ -50,7 +30,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /mob/dead/observer/JoinResponseTeam()
 	. = ..()
 	if(!check_ahud_rejoin_eligibility())
-		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		to_chat(src, SPAN_BOLDNOTICE("Upon using the antagHUD you forfeited the ability to join the round."))
 		return FALSE
 
 /proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
@@ -95,7 +75,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		A.close()
 	var/list/ert_species_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
-		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Random")))
+		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Skkulakin", "Random")))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 10 SECONDS)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
@@ -163,7 +143,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(!new_species)
 		new_species = "Human"
 	if(new_species == "Random")
-		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey")
+		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Skkulakin")
 	var/datum/species/S = GLOB.all_species[new_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
@@ -174,7 +154,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/eye_c = pick("#000000", "#8B4513", "#1E90FF", "#8c00ff", "#a80c0c", "#2fdb63") // Black, brown, blue, purple, red, green
 
 	switch(new_species) //Diona not included as they don't use the hair colours, kidan use accessory, drask are skin tone Grey not included as they are BALD
-		if("Human", "Tajaran", "Vulpkanin", "Nian")
+		if("Human", "Tajaran", "Vulpkanin", "Nian","Skkulakin")
 			var/hair_c_htvn = pick("#8B4513", "#000000", "#FF4500", "#FFD700", "#d4d1bf") // Brown, black, red, blonde, grey
 			head_organ.facial_colour = hair_c_htvn
 			head_organ.sec_facial_colour = hair_c_htvn

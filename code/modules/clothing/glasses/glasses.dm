@@ -1,5 +1,8 @@
 /obj/item/clothing/glasses/Initialize(mapload)
 	. = ..()
+	var/skulk_adjustment = string_assoc_list(alist(SOUTH = list(-1, 0), NORTH = list(-1, 0), EAST = list(0, -2), WEST = list(0, 2)))
+	AddElement(/datum/element/clothing_adjustment/skulk_glasses, skulk_adjustment)
+
 	if(prescription_upgradable && prescription)
 		upgrade_prescription()
 
@@ -12,11 +15,11 @@
 
 	if(istype(used, /obj/item/clothing/glasses/regular))
 		if(prescription)
-			to_chat(user, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
+			to_chat(user, SPAN_WARNING("You can't possibly imagine how adding more lenses would improve [src]."))
 			return ITEM_INTERACT_COMPLETE
 		user.drop_item_to_ground(used)
 		upgrade_prescription(used)
-		to_chat(user, "<span class='notice'>You fit [src] with lenses from [used].</span>")
+		to_chat(user, SPAN_NOTICE("You fit [src] with lenses from [used]."))
 		user.update_nearsighted_effects()
 		return ITEM_INTERACT_COMPLETE
 
@@ -38,7 +41,7 @@
 	name = initial(name)
 
 	if(user)
-		to_chat(user, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You salvage the prescription lenses from [src]."))
 		user.put_in_hands(prescription_glasses)
 		user.update_nearsighted_effects()
 	else
@@ -46,7 +49,7 @@
 
 /obj/item/clothing/glasses/screwdriver_act(mob/living/user)
 	if(!prescription)
-		to_chat(user, "<span class='notice'>There are no prescription lenses in [src].</span>")
+		to_chat(user, SPAN_NOTICE("There are no prescription lenses in [src]."))
 		return
 	remove_prescription(user)
 	return TRUE
@@ -73,7 +76,7 @@
 		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot("eyes")
 		if(!H.AmountBlinded() && eyes)
 			if(H.glasses == src)
-				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
+				to_chat(H, SPAN_DANGER("[src] overloads and blinds you!"))
 				H.flash_eyes(visual = TRUE)
 				H.EyeBlind(6 SECONDS)
 				H.EyeBlurry(10 SECONDS)
@@ -106,6 +109,7 @@
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_PLASMA = 350, MAT_URANIUM = 1000)
 
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "meson HUD sunglasses"
@@ -144,6 +148,7 @@
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "science"
 	origin_tech = "magnets=2;engineering=1"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	prescription_upgradable = TRUE
 	scan_reagents = TRUE // You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
@@ -177,6 +182,7 @@
 	see_in_dark = 8
 	prescription_upgradable = TRUE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_PLASMA = 350, MAT_URANIUM = 1000)
 
 /obj/item/clothing/glasses/night/syndicate_fake
 	name = "suspicious night vision goggles"
@@ -331,7 +337,7 @@
 
 	punused = TRUE
 	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
-	user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
+	user.visible_message(SPAN_BIGGERDANGER("YEEEAAAAAHHHHHHHHHHHHH!!"))
 	if(HAS_TRAIT(user, TRAIT_BADASS)) //unless you're badass
 		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
 

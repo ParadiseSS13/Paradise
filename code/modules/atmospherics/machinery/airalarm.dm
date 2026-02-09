@@ -152,6 +152,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 		"nitrous oxide"  = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 		"hydrogen"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
+		"water vapor"      = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 		"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 		"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
 		"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
@@ -165,6 +166,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 				"nitrous oxide"  = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 				"hydrogen"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
+				"water vapor"      = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
 				"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
@@ -177,6 +179,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 				"nitrous oxide"  = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 				"hydrogen"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
+				"water vapor"      = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.50,ONE_ATMOSPHERE*1.60), /* kpa */
 				"temperature"    = new/datum/tlv(T0C-50, T0C-20, T0C, T20C), // K
@@ -189,6 +192,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				"plasma"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"nitrous oxide"  = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"hydrogen"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"water vapor"      = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
 				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
@@ -202,6 +206,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				"plasma"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"nitrous oxide"  = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"hydrogen"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"water vapor"      = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
 				"temperature"    = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // K
@@ -302,6 +307,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	cur_tlv = TLV["hydrogen"]
 	var/hydrogen_dangerlevel = cur_tlv.get_danger_level(environment.hydrogen() * GET_PP)
 
+	cur_tlv = TLV["water vapor"]
+	var/water_vapor_dangerlevel = cur_tlv.get_danger_level(environment.water_vapor() * GET_PP)
+
 	cur_tlv = TLV["other"]
 	var/other_dangerlevel = cur_tlv.get_danger_level(environment.total_trace_moles() * GET_PP)
 
@@ -317,6 +325,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		plasma_dangerlevel,
 		sleeping_agent_dangerlevel,
 		hydrogen_dangerlevel,
+		water_vapor_dangerlevel,
 		other_dangerlevel,
 		temperature_dangerlevel
 	)
@@ -420,6 +429,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.scrub_Toxins = FALSE
 				S.scrub_N2O = FALSE
 				S.scrub_H2 = FALSE
+				S.scrub_H2O = FALSE
 				S.scrubbing = TRUE
 				S.widenet = FALSE
 				S.update_icon(UPDATE_ICON_STATE)
@@ -442,6 +452,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.scrub_Toxins = TRUE
 				S.scrub_N2O = TRUE
 				S.scrub_H2 = TRUE
+				S.scrub_H2O = TRUE
 				S.scrubbing = TRUE
 				S.widenet = TRUE
 				S.update_icon(UPDATE_ICON_STATE)
@@ -482,6 +493,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.scrub_Toxins = FALSE
 				S.scrub_N2O = FALSE
 				S.scrub_H2  = FALSE
+				S.scrub_H2O = FALSE
 				S.scrubbing = TRUE
 				S.widenet = FALSE
 				S.update_icon(UPDATE_ICON_STATE)
@@ -635,6 +647,10 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/hydrogen_dangerlevel = cur_tlv.get_danger_level(environment.hydrogen() * GET_PP)
 	var/hydrogen_percent = total ? environment.hydrogen() / total * 100 : 0
 
+	cur_tlv = TLV["water vapor"]
+	var/water_vapor_dangerlevel = cur_tlv.get_danger_level(environment.water_vapor() * GET_PP)
+	var/water_vapor_percent = total ? environment.water_vapor() / total * 100 : 0
+
 	cur_tlv = TLV["other"]
 	var/other_moles = total - known_total
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
@@ -656,6 +672,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	percentages["plasma"] = plasma_percent
 	percentages["n2o"] = sleeping_agent_percent
 	percentages["hydrogen"] = hydrogen_percent
+	percentages["water_vapor"] = water_vapor_percent
 	percentages["other"] = other_percent
 	data["contents"] = percentages
 
@@ -668,8 +685,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	danger["plasma"] = plasma_dangerlevel
 	danger["n2o"] = sleeping_agent_dangerlevel
 	danger["hydrogen"] = hydrogen_dangerlevel
+	danger["water_vapor"] = water_vapor_dangerlevel
 	danger["other"] = other_dangerlevel
-	danger["overall"] = max(pressure_dangerlevel,oxygen_dangerlevel,nitrogen_dangerlevel,co2_dangerlevel,plasma_dangerlevel,hydrogen_dangerlevel,other_dangerlevel,temperature_dangerlevel)
+	danger["overall"] = max(pressure_dangerlevel,oxygen_dangerlevel,nitrogen_dangerlevel,co2_dangerlevel,plasma_dangerlevel,hydrogen_dangerlevel,water_vapor_dangerlevel,other_dangerlevel,temperature_dangerlevel)
 	data["danger"] = danger
 	return data
 
@@ -744,6 +762,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 			scrubber_info["filter_toxins"] = S.scrub_Toxins
 			scrubber_info["filter_n2o"] = S.scrub_N2O
 			scrubber_info["filter_h2"] = S.scrub_H2
+			scrubber_info["filter_h2o"] = S.scrub_H2O
 			scrubbers += list(scrubber_info)
 	data["scrubbers"] = scrubbers
 	return data
@@ -772,6 +791,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		"plasma"         = "Toxin",
 		"nitrous oxide"  = "N2O",
 		"hydrogen"		 = "H2",
+		"water vapor"    = "H2O",
 		"other"          = "Other")
 	for(var/g in gas_names)
 		thresholds += list(list("name" = gas_names[g], "settings" = list()))
@@ -838,7 +858,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		return UI_CLOSE
 
 	if(aidisabled && (is_ai(user) || isrobot(user)))
-		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		to_chat(user, SPAN_WARNING("AI control for \the [src] interface has been disabled."))
 		return UI_CLOSE
 
 	. = shorted ? UI_DISABLED : UI_INTERACTIVE
@@ -886,6 +906,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					"n2_scrub",
 					"o2_scrub",
 					"h2_scrub",
+					"h2o_scrub",
 					"widenet",
 					"scrubbing",
 					"direction")
@@ -902,7 +923,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 						return
 
 					if(!((U in alarm_area.vents) || (U in alarm_area.scrubbers)))
-						message_admins("<span class='boldannounceooc'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
+						message_admins(SPAN_BOLDANNOUNCEOOC("[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!"))
 						return
 
 					mode = AALARM_MODE_CUSTOM
@@ -950,6 +971,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 								S.scrub_O2 = val
 							if("h2_scrub")
 								S.scrub_H2 = val
+							if("h2o_scrub")
+								S.scrub_H2O = val
 							if("widenet")
 								S.widenet = val
 							if("scrubbing")
@@ -1016,7 +1039,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				return
 			input_temperature = input_temperature + T0C
 			if(input_temperature > max_temperature || input_temperature < min_temperature)
-				to_chat(usr, "<span class='warning'>Temperature must be between [min_temperature_c]C and [max_temperature_c]C</span>")
+				to_chat(usr, SPAN_WARNING("Temperature must be between [min_temperature_c]C and [max_temperature_c]C"))
 			else
 				target_temperature = input_temperature
 
@@ -1027,7 +1050,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of \the [src]!</span>", "<span class='notice'>You emag \the [src], disabling its safeties.</span>")
+			user.visible_message(SPAN_WARNING("Sparks fly out of \the [src]!"), SPAN_NOTICE("You emag \the [src], disabling its safeties."))
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
@@ -1042,10 +1065,10 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 					locked = !locked
-					to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+					to_chat(user, SPAN_NOTICE("You [locked ? "lock" : "unlock"] the Air Alarm interface."))
 					SStgui.update_uis(src)
 				else
-					to_chat(user, "<span class='warning'>Access denied.</span>")
+					to_chat(user, SPAN_WARNING("Access denied."))
 
 				return ITEM_INTERACT_COMPLETE
 
@@ -1053,10 +1076,10 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 			if(iscoil(used))
 				var/obj/item/stack/cable_coil/coil = used
 				if(coil.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
+					to_chat(user, SPAN_WARNING("You need more cable for this!"))
 					return ITEM_INTERACT_COMPLETE
 
-				to_chat(user, "<span class='notice'>You wire [src]!</span>")
+				to_chat(user, SPAN_NOTICE("You wire [src]!"))
 				playsound(get_turf(src), coil.usesound, 50, 1)
 				coil.use(5)
 
@@ -1067,7 +1090,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				return ITEM_INTERACT_COMPLETE
 		if(AIR_ALARM_FRAME)
 			if(istype(used, /obj/item/airalarm_electronics))
-				to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+				to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				qdel(used)
 				buildstage = AIR_ALARM_UNWIRED
@@ -1162,22 +1185,22 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm/AltClick(mob/user)
 	if(Adjacent(user) && allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+		to_chat(user, SPAN_NOTICE("You [locked ? "lock" : "unlock"] the Air Alarm interface."))
 	else
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	switch(buildstage)
 		if(AIR_ALARM_FRAME)
-			. += "<span class='notice'>Its <i>circuit</i> is missing and the <b>bolts</b> are exposed.</span>"
+			. += SPAN_NOTICE("Its <i>circuit</i> is missing and the <b>bolts</b> are exposed.")
 		if(AIR_ALARM_UNWIRED)
-			. += "<span class='notice'>The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.</span>"
+			. += SPAN_NOTICE("The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.")
 		if(AIR_ALARM_READY)
 			if(wiresexposed)
-				. += "<span class='notice'>The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.</span>"
+				. += SPAN_NOTICE("The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.")
 			else
-				. += "<span class='notice'>You can unlock an Air Alarm by using an ID with the required access on it (shortcut: <b>Alt-click</b>), or ask a local synthetic.</span>"
+				. += SPAN_NOTICE("You can unlock an Air Alarm by using an ID with the required access on it (shortcut: <b>Alt-click</b>), or ask a local synthetic.")
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)

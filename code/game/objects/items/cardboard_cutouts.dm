@@ -19,7 +19,7 @@
 /obj/item/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
-	user.visible_message("<span class='warning'>[user] pushes over [src]!</span>", "<span class='danger'>You push over [src]!</span>")
+	user.visible_message(SPAN_WARNING("[user] pushes over [src]!"), SPAN_DANGER("You push over [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	push_over()
 
@@ -35,7 +35,7 @@
 /obj/item/cardboard_cutout/attack_self__legacy__attackchain(mob/living/user)
 	if(!pushed_over)
 		return
-	to_chat(user, "<span class='notice'>You right [src].</span>")
+	to_chat(user, SPAN_NOTICE("You right [src]."))
 	desc = initial(desc)
 	icon = initial(icon)
 	icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
@@ -65,7 +65,7 @@
 			push_over()
 
 /obj/item/cardboard_cutout/bullet_act(obj/projectile/P)
-	visible_message("<span class='danger'>[src] is hit by [P]!</span>")
+	visible_message(SPAN_DANGER("[src] is hit by [P]!"))
 	playsound(src, 'sound/weapons/slice.ogg', 50, 1)
 	if(prob(P.damage))
 		push_over()
@@ -76,23 +76,23 @@
 	if(istype(crayon, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/can = crayon
 		if(can.capped)
-			to_chat(user, "<span class='warning'>The cap is on the spray can remove it first!</span>")
+			to_chat(user, SPAN_WARNING("The cap is on the spray can remove it first!"))
 			return
 	if(pushed_over)
-		to_chat(user, "<span class='warning'>Right [src] first!</span>")
+		to_chat(user, SPAN_WARNING("Right [src] first!"))
 		return
 	var/new_appearance = tgui_input_list(user, "Choose a new appearance for [src]", "26th Century Deception", possible_appearances)
 	if(!Adjacent(usr))
-		user.visible_message("<span class='danger'>You need to be closer!</span>")
+		user.visible_message(SPAN_DANGER("You need to be closer!"))
 		return
 	if(pushed_over)
-		to_chat(user, "<span class='warning'>Right [src] first!</span>")
+		to_chat(user, SPAN_WARNING("Right [src] first!"))
 		return
 	if(!new_appearance || !crayon)
 		return
 	if(!do_after(user, 10, FALSE, src, TRUE))
 		return
-	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
+	user.visible_message(SPAN_NOTICE("[user] gives [src] a new look."), SPAN_NOTICE("Voila! You give [src] a new look."))
 	alpha = 255
 	icon = initial(icon)
 	if(!deceptive)

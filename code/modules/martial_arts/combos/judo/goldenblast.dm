@@ -6,8 +6,8 @@
 	combo_text_override = "Help, Disarm, Help, Grab, Disarm, Disarm, Grab, Help, Disarm, Disarm, Grab, Help"
 
 /datum/martial_combo/judo/goldenblast/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	target.visible_message("<span class='warning'>[user] blasts [target] with energy, sending [target.p_them()] to the ground!</span>", \
-						"<span class='userdanger'>[user] makes strange hand gestures, screams wildly and prods you directly in the chest! You feel the wrath of the GOLDEN BOLT surge through your body! You've been utterly robusted!</span>")
+	target.visible_message(SPAN_WARNING("[user] blasts [target] with energy, sending [target.p_them()] to the ground!"), \
+						SPAN_USERDANGER("[user] makes strange hand gestures, screams wildly and prods you directly in the chest! You feel the wrath of the GOLDEN BOLT surge through your body! You've been utterly robusted!"))
 	playsound(get_turf(target), 'sound/weapons/taser.ogg', 55, TRUE, -1)
 	playsound(get_turf(target), 'sound/weapons/tase.ogg', 55, TRUE, -1)
 	target.SpinAnimation(10, 1)

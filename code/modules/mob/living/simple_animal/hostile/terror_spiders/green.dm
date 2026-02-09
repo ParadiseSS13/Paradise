@@ -34,10 +34,10 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/green/proc/DoLayGreenEggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
-		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
+		to_chat(src, SPAN_NOTICE("There is already a cluster of eggs here!"))
 		return
 	if(fed < feedings_to_lay)
-		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
+		to_chat(src, SPAN_WARNING("You must wrap more humanoid prey before you can do this!"))
 		return
 	var/list/eggtypes = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 	var/list/spider_array = CountSpidersDetailed(FALSE)
@@ -49,17 +49,17 @@
 	if(client)
 		eggtype = tgui_input_list(src, "What kind of eggs?", "Egg Laying", eggtypes)
 		if(!(eggtype in eggtypes))
-			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+			to_chat(src, SPAN_DANGER("Unrecognized egg type."))
 			return FALSE
 	if(!isturf(loc))
 		// This has to be checked after we ask the user what egg type. Otherwise they could trigger prompt THEN move into a vent.
-		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
+		to_chat(src, SPAN_DANGER("Eggs can only be laid while standing on a floor."))
 		return
 	if(fed < feedings_to_lay)
 		// We have to check this again after the popup, to account for people spam-clicking the button, then doing all the popups at once.
-		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
+		to_chat(src, SPAN_WARNING("You must wrap more humanoid prey before you can do this!"))
 		return
-	visible_message("<span class='notice'>[src] lays a cluster of eggs.</span>")
+	visible_message(SPAN_NOTICE("[src] lays a cluster of eggs."))
 	if(eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 1)
 	else if(eggtype == TS_DESC_GRAY)
@@ -71,7 +71,7 @@
 	else if(eggtype == TS_DESC_BROWN)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1)
 	else
-		to_chat(src, "<span class='warning'>Unrecognized egg type!</span>")
+		to_chat(src, SPAN_WARNING("Unrecognized egg type!"))
 		fed += feedings_to_lay
 	fed -= feedings_to_lay
 
@@ -93,9 +93,9 @@
 	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.AdjustEyeBlurry(20 SECONDS, 0, 120 SECONDS)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.
-		visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
+		visible_message(SPAN_DANGER("[src] buries its fangs deep into the [inject_target] of [target]!"))
 	else
-		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!</span>")
+		visible_message(SPAN_DANGER("[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/event_cost()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)

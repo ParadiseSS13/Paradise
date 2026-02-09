@@ -84,7 +84,7 @@
 
 /datum/spell/bloodcrawl/proc/block_hands(mob/living/carbon/C)
 	if(C.l_hand || C.r_hand)
-		to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
+		to_chat(C, SPAN_WARNING("You may not hold items while blood crawling!"))
 		return FALSE
 	var/obj/item/bloodcrawl/B1 = new(C)
 	var/obj/item/bloodcrawl/B2 = new(C)
@@ -107,8 +107,8 @@
 /datum/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
 	mob_loc.visible_message(
-		"<span class='danger'>[L] sinks into [A].</span>",
-		"<span class='danger'>You hear something sinking into a thick liquid.</span>"
+		SPAN_DANGER("[L] sinks into [A]."),
+		SPAN_DANGER("You hear something sinking into a thick liquid.")
 	)
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, L.dir, "jaunt")
@@ -121,8 +121,8 @@
 		return
 	if(victim.stat == CONSCIOUS)
 		A.visible_message(
-			"<span class='warning'>[victim] kicks free of [A] just before entering it!</span>",
-			"<span class='warning'>You hear something sinking into a thick liquid and someone struggling!</span>"
+			SPAN_WARNING("[victim] kicks free of [A] just before entering it!"),
+			SPAN_WARNING("You hear something sinking into a thick liquid and someone struggling!")
 		)
 		L.stop_pulling()
 		return
@@ -130,14 +130,14 @@
 	victim.forceMove(holder)
 	victim.emote("scream")
 	A.visible_message(
-		"<span class='danger'>[L] drags [victim] into [A]!</span>",
-		"<span class='danger'>You hear something being dragged into a thick liquid!</span>"
+		SPAN_DANGER("[L] drags [victim] into [A]!"),
+		SPAN_DANGER("You hear something being dragged into a thick liquid!")
 	)
 	L.stop_pulling()
 	to_chat(L, "<b>You begin to feast on [victim]. You cannot move while you are doing this.</b>")
 	A.visible_message(
-		"<span class='danger'>Loud eating sounds come from the blood...</span>",
-		"<span class='danger'>The sound of torn flesh and snapping bones fills the air...</span>"
+		SPAN_DANGER("Loud eating sounds come from the blood..."),
+		SPAN_DANGER("The sound of torn flesh and snapping bones fills the air...")
 	)
 	var/sound
 	if(isslaughterdemon(L))
@@ -151,21 +151,21 @@
 		sleep(3 SECONDS)
 
 	if(!victim)
-		to_chat(L, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
+		to_chat(L, SPAN_DANGER("You happily devour... nothing? Your meal vanished at some point!"))
 		return
 	if(victim.mind)
-		to_chat(L, "<span class='warning'>You devour [victim]. Your health is fully restored.</span>")
+		to_chat(L, SPAN_WARNING("You devour [victim]. Your health is fully restored."))
 		L.adjustBruteLoss(-1000)
 		L.adjustFireLoss(-1000)
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
 	else if((ishuman(victim) || isrobot(victim)))
-		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetizing, leaving you wanting for more.</span>")
+		to_chat(L, SPAN_WARNING("You devour [victim], but their lack of intelligence renders their flesh dull and unappetizing, leaving you wanting for more."))
 		L.adjustBruteLoss(-50)
 		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-50)
 	else if(isanimal_or_basicmob(victim))
-		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
+		to_chat(L, SPAN_WARNING("You devour [victim], but this measly meal barely sates your appetite!"))
 		L.adjustBruteLoss(-25)
 		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-25)
@@ -173,7 +173,7 @@
 	if(isslaughterdemon(L))
 		var/mob/living/basic/demon/slaughter/demon = L
 		demon.devoured++
-		to_chat(victim, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
+		to_chat(victim, SPAN_USERDANGER("You feel teeth sink into your flesh, and the--"))
 		var/obj/item/organ/internal/regenerative_core/legion/core = victim.get_int_organ(/obj/item/organ/internal/regenerative_core/legion)
 		if(core)
 			core.remove(victim)
@@ -217,8 +217,8 @@
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice),50, TRUE, -1)
 	A.visible_message(
-		"<span class='danger'>[L] rises out of [A]!</span>",
-		"<span class='danger'>You hear something rising out of a thick liquid!</span>"
+		SPAN_DANGER("[L] rises out of [A]!"),
+		SPAN_DANGER("You hear something rising out of a thick liquid!")
 	)
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
@@ -230,8 +230,8 @@
 
 /datum/spell/bloodcrawl/proc/rise_message(atom/A)
 	A.visible_message(
-		"<span class='danger'>[A] starts to bubble...</span>",
-		"<span class='danger'>You can hear bubbling...</span>"
+		SPAN_DANGER("[A] starts to bubble..."),
+		SPAN_DANGER("You can hear bubbling...")
 	)
 
 /datum/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
@@ -246,7 +246,7 @@
 /datum/spell/bloodcrawl/proc/phasein(atom/A, mob/living/L)
 
 	if(L.notransform)
-		to_chat(L, "<span class='warning'>Finish eating first!</span>")
+		to_chat(L, SPAN_WARNING("Finish eating first!"))
 		return FALSE
 	rise_message(A)
 	if(!do_after(L, 2 SECONDS, target = A))
@@ -280,7 +280,7 @@
 		return ..()
 
 	if(current_demon.block_shadow_crawl)
-		to_chat(user, "<span class='warning'>You are too concentrated to activate [name].</span>")
+		to_chat(user, SPAN_WARNING("You are too concentrated to activate [name]."))
 		return FALSE
 
 	return ..()
@@ -298,7 +298,7 @@
 	return
 
 /datum/spell/bloodcrawl/shadow_crawl/sink_animation(atom/A, mob/living/L)
-	A.visible_message("<span class='danger'>[L] sinks into the shadows...</span>")
+	A.visible_message(SPAN_DANGER("[L] sinks into the shadows..."))
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(get_turf(L), L.dir, "shadowwalk_disappear")
 
 /datum/spell/bloodcrawl/shadow_crawl/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)

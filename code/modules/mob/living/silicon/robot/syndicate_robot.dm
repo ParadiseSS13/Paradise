@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/syndicate
-	base_icon = "spidersyndi"
 	icon_state = "spidersyndi"
+	base_icon_state = "spidersyndi"
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	has_camera = FALSE
@@ -46,8 +46,8 @@
 	return
 
 /mob/living/silicon/robot/syndicate/medical
-	base_icon = "syndi-medi"
-	icon_state = "syndi-medi"
+	icon_state = "syndi_medi"
+	base_icon_state = "syndi_medi"
 	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
@@ -64,8 +64,8 @@
 	module = new /obj/item/robot_module/syndicate_medical(src)
 
 /mob/living/silicon/robot/syndicate/saboteur
-	base_icon = "syndi-engi"
-	icon_state = "syndi-engi"
+	icon_state = "syndi_engi"
+	base_icon_state = "syndi_engi"
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
@@ -114,7 +114,7 @@
 		for(var/obj/item/borg_chameleon/C in module.contents)
 			cham_proj = C
 		if(!cham_proj)
-			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
+			to_chat(src, SPAN_WARNING("Error : No chameleon projector system found."))
 			return
 	cham_proj.attack_self__legacy__attackchain(src)
 

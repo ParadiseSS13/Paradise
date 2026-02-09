@@ -427,7 +427,7 @@
 		else
 			f_name = "a "
 		if(blood_color != "#030303")
-			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+			f_name += "[SPAN_DANGER("blood-stained")] [name][infix]!"
 		else
 			f_name += "oil-stained [name][infix]."
 	. = list("[bicon(src)] That's [f_name] [suffix]")
@@ -441,48 +441,48 @@
 	var/one_percent = reagents.total_volume / 100
 	var/blood_type = ""
 	if(user.advanced_reagent_vision())	// You can see absolute unit concentrations in transparent containers and % concentrations in opaque containers. You can also see blood types.
-		. += "<span class='notice'>It contains:</span>"
+		. += SPAN_NOTICE("It contains:")
 		if(!length(reagents.reagent_list))
-			. += "<span class='notice'>Nothing.</span>"
+			. += SPAN_NOTICE("Nothing.")
 			return
 		if(container_type & TRANSPARENT)
 			for(var/I in reagents.reagent_list)
 				var/datum/reagent/R = I
 				if(R.id != "blood")
-					. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
+					. += SPAN_NOTICE("[R.volume] units of [R] ([round(R.volume / one_percent)]%)")
 				else
 					blood_type = R.data["blood_type"]
-					. += "<span class='notice'>[R.volume] units of [R] ([blood_type ? "[blood_type]" : ""]) ([round(R.volume / one_percent)]%)</span>"
+					. += SPAN_NOTICE("[R.volume] units of [R] ([blood_type ? "[blood_type]" : ""]) ([round(R.volume / one_percent)]%)")
 			return
 		// Opaque containers
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.id != "blood")
-				. += "<span class='notice'>[R] ([round(R.volume / one_percent)]%)</span>"
+				. += SPAN_NOTICE("[R] ([round(R.volume / one_percent)]%)")
 			else
 				blood_type = R.data["blood_type"]
-				. += "<span class='notice'>[R] ([blood_type ? "[blood_type]" : ""]) ([round(R.volume / one_percent)]%)</span>"
+				. += SPAN_NOTICE("[R] ([blood_type ? "[blood_type]" : ""]) ([round(R.volume / one_percent)]%)")
 		return
 
 	if(container_type & TRANSPARENT)
-		. += "<span class='notice'>It contains:</span>"
+		. += SPAN_NOTICE("It contains:")
 		if(user.reagent_vision())	// You can see absolute unit quantities of reagents in transparent containers.
 			for(var/I in reagents.reagent_list)
 				var/datum/reagent/R = I
-				. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
+				. += SPAN_NOTICE("[R.volume] units of [R] ([round(R.volume / one_percent)]%)")
 			return
 
 		//Otherwise, just show the total volume
 		if(length(reagents?.reagent_list))
-			. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+			. += SPAN_NOTICE("[reagents.total_volume] units of various reagents.")
 		else
-			. += "<span class='notice'>Nothing.</span>"
+			. += SPAN_NOTICE("Nothing.")
 		return
 
 	if(container_type & AMOUNT_VISIBLE)
 		if(reagents.total_volume)
-			. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+			. += SPAN_NOTICE("It has [reagents.total_volume] unit\s left.")
 		else
-			. += "<span class='danger'>It's empty.</span>"
+			. += SPAN_DANGER("It's empty.")
 
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	. = build_base_description(infix, suffix)
@@ -613,7 +613,7 @@
 //Check if the multitool has an item in its data buffer
 /atom/proc/multitool_check_buffer(user, silent = FALSE)
 	if(!silent)
-		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
+		to_chat(user, SPAN_WARNING("[src] has no data buffer!"))
 	return FALSE
 
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)
@@ -1133,6 +1133,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
+		if(type_override)
+			type = type_override
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
 		if(type_override)
 			type = type_override
@@ -1237,7 +1239,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M as anything in get_mobs_in_view(7, src, ai_eyes=AI_EYE_REQUIRE_HEAR))
-		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
+		M.show_message("<span class='game say'>[SPAN_NAME("[src]")] [atom_say_verb], \"[message]\"</span>", 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
@@ -1252,7 +1254,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_emote(emote)
 	if(!emote)
 		return
-	visible_message("<span class='game emote'><span class='name'>[src]</span> [emote]</span>", "<span class='game emote'>You hear how something [emote]</span>")
+	visible_message("<span class='game emote'>[SPAN_NAME("[src]")] [emote]</span>", "<span class='game emote'>You hear how something [emote]</span>")
 
 	runechat_emote(src, emote)
 
@@ -1384,13 +1386,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!user)
 		return null
 	else if(implement && implement.loc != user)
-		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		to_chat(user, SPAN_WARNING("You no longer have the pen to rename [src]."))
 		return null
 	else if(!in_range(src, user))
-		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		to_chat(user, SPAN_WARNING("You cannot rename [src] from here."))
 		return null
 	else if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		to_chat(user, SPAN_WARNING("You cannot rename [src] in your current state."))
 		return null
 
 
@@ -1493,6 +1495,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
+
+/**
+ * Causes effects when the atom gets hit by a rust effect from heretics
+ *
+ * Override this if you want custom behaviour in whatever gets hit by the rust
+ * /turf/rust_turf should be used instead for overriding rust on turfs
+ */
+/atom/proc/rust_heretic_act()
+	return
+
+///wrapper proc that passes our mob's rust_strength to the target we are rusting
+/mob/living/proc/do_rust_heretic_act(atom/target)
+	var/datum/antagonist/heretic/heretic_data = IS_HERETIC(src)
+	target.rust_heretic_act(heretic_data?.rust_strength)
+
+/mob/living/basic/heretic_summon/rust_spirit/do_rust_heretic_act(atom/target)
+	target.rust_heretic_act(RUST_RESISTANCE_ORGANIC)
 
 /// Used with the spawner component to do something when a mob is spawned.
 /atom/proc/on_mob_spawn(mob/created_mob)

@@ -47,20 +47,20 @@
 			deliveryamt += 1
 			qdel(I)
 		else
-			to_chat(user, "<span class='notice'>The bananade is full, screwdriver it shut to ready it.</span>")
+			to_chat(user, SPAN_NOTICE("The bananade is full, screwdriver it shut to ready it."))
 		return
 
 	return ..()
 
 /obj/item/grenade/bananade/casing/screwdriver_act(mob/living/user, obj/item/I)
 	if(!deliveryamt)
-		to_chat(user, "<span class='notice'>You need to add banana peels before you can ready the grenade!</span>")
+		to_chat(user, SPAN_NOTICE("You need to add banana peels before you can ready the grenade!"))
 		return TRUE
 
 	var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
 	user.drop_item_to_ground(src)
 	user.put_in_hands(G)
 	G.deliveryamt = deliveryamt
-	to_chat(user, "<span class='notice'>You lock the assembly shut, readying it for HONK.</span>")
+	to_chat(user, SPAN_NOTICE("You lock the assembly shut, readying it for HONK."))
 	qdel(src)
 	return TRUE

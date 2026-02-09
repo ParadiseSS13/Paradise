@@ -4,6 +4,7 @@
 	inhand_icon_state = "nursesuit"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/medical.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/medical.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/medical.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/medical.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/medical.dmi'

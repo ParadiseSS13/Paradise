@@ -18,7 +18,8 @@
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
 /obj/item/clothing/head/hooded/explorer
@@ -58,7 +59,8 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
@@ -73,9 +75,9 @@
 	var/mob/living/carbon/C = loc
 	if(istype(C) && prob(2)) //cursed by bubblegum
 		if(prob(15))
-			to_chat(C, "<span class='colossus'><b>[pick("I AM IMMORTAL.","I SHALL TAKE BACK WHAT'S MINE.","I SEE YOU.","YOU CANNOT ESCAPE ME FOREVER.","DEATH CANNOT HOLD ME.")]</b></span>")
+			to_chat(C, SPAN_COLOSSUS("<b>[pick("I AM IMMORTAL.","I SHALL TAKE BACK WHAT'S MINE.","I SEE YOU.","YOU CANNOT ESCAPE ME FOREVER.","DEATH CANNOT HOLD ME.")]</b>"))
 		else
-			to_chat(C, "<span class='warning'>[pick("You hear faint whispers.","You smell ash.","You feel hot.","You hear a roar in the distance.")]</span>")
+			to_chat(C, SPAN_WARNING("[pick("You hear faint whispers.","You smell ash.","You feel hot.","You hear a roar in the distance.")]"))
 
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
@@ -109,6 +111,16 @@
 	put_on_delay = 60
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list("Vox", "Vulpkanin", "Unathi", "Tajaran")
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+	)
 
 /obj/item/clothing/head/helmet/space/prisoner_gulag
 	name = "gulag helmet"
@@ -121,3 +133,12 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, RAD = 10, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
+	)

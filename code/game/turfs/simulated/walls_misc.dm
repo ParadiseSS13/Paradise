@@ -82,14 +82,14 @@
 /turf/simulated/wall/clockwork/attack_hulk(mob/living/user, does_attack_animation = 0)
 	..()
 	if(heated)
-		to_chat(user, "<span class='userdanger'>The wall is searing hot to the touch!</span>")
+		to_chat(user, SPAN_USERDANGER("The wall is searing hot to the touch!"))
 		user.adjustFireLoss(5)
 		playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 50, TRUE)
 
 /turf/simulated/wall/clockwork/mech_melee_attack(obj/mecha/M)
 	..()
 	if(heated)
-		to_chat(M.occupant, "<span class='userdanger'>The wall's intense heat completely reflects your [M.name]'s attack!</span>")
+		to_chat(M.occupant, SPAN_USERDANGER("The wall's intense heat completely reflects your [M.name]'s attack!"))
 		M.take_damage(20, BURN)
 
 /turf/simulated/wall/boss

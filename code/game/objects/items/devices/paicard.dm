@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=2"
+	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
 	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/radio/radio
@@ -21,8 +22,8 @@
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
 
-/obj/item/paicard/New()
-	..()
+/obj/item/paicard/Initialize(mapload)
+	. = ..()
 	overlays += "pai-off"
 
 /obj/item/paicard/Destroy()
@@ -256,7 +257,7 @@
 		var/delta = (world.time / 10) - last_request
 		if(request_cooldown > delta)
 			var/cooldown_time = round(request_cooldown - ((world.time / 10) - last_request), 1)
-			to_chat(usr, "<span class='warning'>The request system is currently offline. Please wait another [cooldown_time] seconds.</span>")
+			to_chat(usr, SPAN_WARNING("The request system is currently offline. Please wait another [cooldown_time] seconds."))
 			return
 		last_request = world.time / 10
 		looking_for_personality = 1
@@ -322,7 +323,7 @@
 /obj/item/paicard/proc/alertUpdate()
 	var/turf/T = get_turf(loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
+		M.show_message(SPAN_NOTICE("[src] flashes a message across its screen, \"Additional personalities available for download.\""), 3, SPAN_NOTICE("[src] bleeps electronically."), 2)
 
 /obj/item/paicard/emp_act(severity)
 	for(var/mob/M in src)

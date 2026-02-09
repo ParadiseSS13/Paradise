@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(station_turfs)
+
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1
@@ -25,6 +27,7 @@
 	var/sleeping_agent = 0
 	var/agent_b = 0
 	var/hydrogen = 0
+	var/water_vapor = 0
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -93,6 +96,9 @@
 
 	var/list/milla_data = null
 
+	///This turf's resistance to getting rusted
+	var/rust_resistance = RUST_RESISTANCE_ORGANIC
+
 	new_attack_chain = TRUE
 	/// The destination x-coordinate that atoms entering this turf will be automatically moved to.
 	var/destination_x
@@ -144,6 +150,8 @@
 		directional_opacity = ALL_CARDINALS
 
 	initialize_milla()
+	if(is_station_level(z))
+		GLOB.station_turfs += src
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -194,7 +202,7 @@
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
 		for(var/obj/machinery/door/airlock/A in src)
 			if(A.density)
-				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
+				to_chat(user, SPAN_WARNING("That type of pipe won't fit under [A]!"))
 				return
 		our_rpd.create_disposals_pipe(user, src)
 	else if(our_rpd.mode == RPD_TRANSIT_MODE)
@@ -450,6 +458,7 @@
 		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
 		merged.set_agent_b(merged.agent_b() / turf_count)
 		merged.set_hydrogen(merged.hydrogen() / turf_count)
+		merged.set_water_vapor(merged.water_vapor() / turf_count)
 	get_turf_air(self).copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
@@ -666,7 +675,7 @@
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
-	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.visible_message(SPAN_DANGER("[C] slams into [src]!"), SPAN_USERDANGER("You slam into [src]!"))
 	if(issilicon(C))
 		C.adjustBruteLoss(damage)
 		C.Weaken(3 SECONDS)
@@ -686,6 +695,12 @@
 
 	AddElement(/datum/element/rust/heretic)
 	new /obj/effect/glowing_rune(src)
+
+/// Check if the heretic is strong enough to rust this turf, and if so, rusts the turf with an added visual effect.
+/turf/rust_heretic_act(rust_strength = 1)
+	if((flags & NO_RUST) || (rust_strength < rust_resistance))
+		return
+	magic_rust_turf()
 
 /// Returns a list of all attached /datum/element/decal/ for this turf
 /turf/proc/get_decals()

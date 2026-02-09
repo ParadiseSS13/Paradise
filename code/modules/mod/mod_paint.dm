@@ -3,6 +3,7 @@
 	desc = "This one-use skin applier will add a skin to MODsuits of a specific type. This one applies to standard modsuits."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "skinapplier"
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_PLASMA = 1000)
 	var/skin = "civilian"
 	var/compatible_theme = /datum/mod_theme/standard
 
@@ -15,13 +16,13 @@
 		return ..()
 	var/obj/item/mod/control/mod = target
 	if(mod.active || mod.activating)
-		to_chat(user, "<span class='warning'>Deactivate the suit!</span>")
+		to_chat(user, SPAN_WARNING("Deactivate the suit!"))
 		return FINISH_ATTACK
 	if(!istype(mod.theme, compatible_theme))
-		to_chat(user, "<span class='warning'>Theme is not compatible!</span>")
+		to_chat(user, SPAN_WARNING("Theme is not compatible!"))
 		return FINISH_ATTACK
 	mod.set_mod_skin(skin)
-	to_chat(user, "<span class='notice'>You apply the theme to [mod].</span>")
+	to_chat(user, SPAN_NOTICE("You apply the theme to [mod]."))
 	qdel(src)
 	return FINISH_ATTACK
 

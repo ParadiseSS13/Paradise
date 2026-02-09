@@ -13,6 +13,7 @@
 	display_contents_with_number = TRUE
 	use_to_pickup = TRUE
 	origin_tech = "engineering=1"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
 
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
@@ -22,6 +23,7 @@
 	storage_slots = 50
 	max_combined_w_class = 200 //50 belts
 	origin_tech = "engineering=2;bluespace=1"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_SILVER = 500)
 
 /obj/item/storage/conveyor/attackby__legacy__attackchain(obj/item/I, mob/user, params) //So we can link belts en masse
 	if(istype(I, /obj/item/conveyor_switch_construct))
@@ -31,7 +33,7 @@
 			C.id = S.id
 			linked = TRUE
 		if(linked)
-			to_chat(user, "<span class='notice'>All belts in [src] linked with [S].</span>")
+			to_chat(user, SPAN_NOTICE("All belts in [src] linked with [S]."))
 	else
 		return ..()
 
@@ -40,6 +42,6 @@
 		return
 	var/obj/item/conveyor_construct/C = locate() in src
 	if(!C)
-		to_chat(user, "<span class='notice'>There are no belts in [src].</span>")
+		to_chat(user, SPAN_NOTICE("There are no belts in [src]."))
 	else
 		C.afterattack__legacy__attackchain(A, user, proximity)

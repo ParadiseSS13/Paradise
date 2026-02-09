@@ -34,7 +34,7 @@
 /obj/structure/nest/examine(mob/user)
 	. = ..()
 	if(!spawn_is_triggered)
-		. += "<span class='warning'>You can hear a cacophony of growling snores from within.</span>"
+		. += SPAN_WARNING("You can hear a cacophony of growling snores from within.")
 
 /obj/structure/nest/attack_animal(mob/living/simple_animal/M)
 	if(faction_check(faction, M.faction, FALSE) && !M.client)
@@ -56,7 +56,7 @@
 /obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)
 
-	to_chat(L, "<span class='danger'>As you stumble across \the [name], you can hear ominous rumbling from beneath your feet!</span>")
+	to_chat(L, SPAN_DANGER("As you stumble across \the [name], you can hear ominous rumbling from beneath your feet!"))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
 	for(var/obj/structure/nest/N in range(spawn_trigger_distance, src))
 		N.spawn_is_triggered = TRUE
@@ -68,7 +68,7 @@
 
 	for(var/i in 1 to spawn_max)
 		var/mob/spawned_mob = new M(get_turf(src))
-		visible_message("<span class='danger'>\A [spawned_mob.name] crawls out of \the [name]!</span>")
+		visible_message(SPAN_DANGER("\A [spawned_mob.name] crawls out of \the [name]!"))
 
 /obj/structure/nest/lavaland
 	spawn_mob_options = list(

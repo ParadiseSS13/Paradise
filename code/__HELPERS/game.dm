@@ -384,6 +384,24 @@
 
 	return active_players
 
+/// Get living players who are playing in the round (no ghosts)
+/proc/get_living_players_count()
+	var/count = 0
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+		if(player.mind && player.stat != DEAD && player.client)
+			count++
+	return count
+
+/// Same as above but only count Sec
+/datum/antagonist/traitor/proc/get_living_security_players_count()
+	var/count = 0
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+		if(!player.mind || player.stat == DEAD || !player.client)
+			continue
+		if(player.mind.assigned_role in GLOB.active_security_positions)
+			count++
+	return count
+
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
 	for(var/mob/M in moblist)
@@ -505,3 +523,28 @@
 		min(list_y),
 		max(list_x),
 		max(list_y))
+
+///Checks to see if `atom/source` is behind `atom/target`
+/proc/check_behind(atom/source, atom/target)
+	// Let's see if source is behind target
+	// "Behind" is defined as 3 tiles directly to the back of the target
+	// x . .
+	// x > .
+	// x . .
+
+	// We'll take "same tile" as "behind" for ease
+	if(target.loc == source.loc)
+		return TRUE
+
+	// We'll also assume lying down is behind, as mob directions when lying are unclear
+	if(isliving(target))
+		var/mob/living/living_target = target
+		if(living_target.body_position == LYING_DOWN)
+			return TRUE
+
+	// Exceptions aside, let's actually check if they're, yknow, behind
+	var/dir_target_to_source = get_dir(target, source)
+	if(target.dir & REVERSE_DIR(dir_target_to_source))
+		return TRUE
+
+	return FALSE

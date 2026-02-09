@@ -21,6 +21,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
 	usesound = 'sound/items/rped.ogg'
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000)
 	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
@@ -36,7 +37,7 @@
 	var/obj/item/reagent_containers/glass/beaker/B = I
 	if(B.reagents?.total_volume)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[src] cannot hold [I] while it contains liquid.</span>")
+			to_chat(usr, SPAN_WARNING("[src] cannot hold [I] while it contains liquid."))
 		return FALSE
 	return ..()
 
@@ -50,7 +51,7 @@
 		if(get_dist(user, M) > (user.client.maxview() / 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console (attempted range exploit).")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+			to_chat(user, SPAN_NOTICE("ERROR: [M] is out of [src]'s range!"))
 			return
 
 	if(M.component_parts)
@@ -83,6 +84,7 @@
 	alt_sound = 'sound/items/pshoom_2.ogg'
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.5
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000, MAT_SILVER = 2500)
 
 /obj/item/storage/part_replacer/bluespace/tier4/populate_contents()
 	for(var/amount in 1 to 30)
@@ -120,35 +122,35 @@
 	desc = "A basic capacitor used in the construction of a variety of devices."
 	icon_state = "capacitor"
 	origin_tech = "powerstorage=1"
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 
 /obj/item/stock_parts/scanning_module
 	name = "scanning module"
 	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "scan_module"
 	origin_tech = "magnets=1"
-	materials = list(MAT_METAL=50, MAT_GLASS=20)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 
 /obj/item/stock_parts/manipulator
 	name = "micro-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "micro_mani"
 	origin_tech = "materials=1;programming=1"
-	materials = list(MAT_METAL=30)
+	materials = list(MAT_METAL = 100)
 
 /obj/item/stock_parts/micro_laser
 	name = "micro-laser"
 	desc = "A tiny laser used in certain devices."
 	icon_state = "micro_laser"
 	origin_tech = "magnets=1"
-	materials = list(MAT_METAL=10, MAT_GLASS=20)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 
 /obj/item/stock_parts/matter_bin
 	name = "matter bin"
 	desc = "A container used to hold compressed matter awaiting re-construction."
 	icon_state = "matter_bin"
 	origin_tech = "materials=1"
-	materials = list(MAT_METAL=80)
+	materials = list(MAT_METAL = 100)
 
 //Rank 2
 
@@ -158,35 +160,35 @@
 	icon_state = "adv_capacitor"
 	origin_tech = "powerstorage=3"
 	rating = 2
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 150, MAT_GLASS = 150)
 
 /obj/item/stock_parts/scanning_module/adv
 	name = "advanced scanning module"
 	icon_state = "adv_scan_module"
 	origin_tech = "magnets=3"
 	rating = 2
-	materials = list(MAT_METAL=50, MAT_GLASS=20)
+	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 
 /obj/item/stock_parts/manipulator/nano
 	name = "nano-manipulator"
 	icon_state = "nano_mani"
 	origin_tech = "materials=3;programming=2"
 	rating = 2
-	materials = list(MAT_METAL=30)
+	materials = list(MAT_METAL = 150)
 
 /obj/item/stock_parts/micro_laser/high
 	name = "high-power micro-laser"
 	icon_state = "high_micro_laser"
 	origin_tech = "magnets=3"
 	rating = 2
-	materials = list(MAT_METAL=10, MAT_GLASS=20)
+	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 
 /obj/item/stock_parts/matter_bin/adv
 	name = "advanced matter bin"
 	icon_state = "advanced_matter_bin"
 	origin_tech = "materials=3"
 	rating = 2
-	materials = list(MAT_METAL=80)
+	materials = list(MAT_METAL = 150)
 
 //Rating 3
 
@@ -196,7 +198,7 @@
 	icon_state = "super_capacitor"
 	origin_tech = "powerstorage=4;engineering=4"
 	rating = 3
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 100)
 
 /obj/item/stock_parts/scanning_module/phasic
 	name = "phasic scanning module"
@@ -204,28 +206,28 @@
 	icon_state = "super_scan_module"
 	origin_tech = "magnets=4;engineering=4"
 	rating = 3
-	materials = list(MAT_METAL=50, MAT_GLASS=20)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 150, MAT_SILVER = 60)
 
 /obj/item/stock_parts/manipulator/pico
 	name = "pico-manipulator"
 	icon_state = "pico_mani"
 	origin_tech = "materials=4;programming=4;engineering=4"
 	rating = 3
-	materials = list(MAT_METAL=30)
+	materials = list(MAT_METAL = 200)
 
 /obj/item/stock_parts/micro_laser/ultra
 	name = "ultra-high-power micro-laser"
 	icon_state = "ultra_high_micro_laser"
 	origin_tech = "magnets=4;engineering=4"
 	rating = 3
-	materials = list(MAT_METAL=10, MAT_GLASS=20)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 150, MAT_URANIUM = 60)
 
 /obj/item/stock_parts/matter_bin/super
 	name = "super matter bin"
 	icon_state = "super_matter_bin"
 	origin_tech = "materials=4;engineering=4"
 	rating = 3
-	materials = list(MAT_METAL=80)
+	materials = list(MAT_METAL = 200)
 
 //Rating 4
 
@@ -235,7 +237,7 @@
 	icon_state = "quadratic_capacitor"
 	origin_tech = "powerstorage=5;materials=4;engineering=4"
 	rating = 4
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 100, MAT_DIAMOND = 100)
 
 /obj/item/stock_parts/scanning_module/triphasic
 	name = "triphasic scanning module"
@@ -243,25 +245,25 @@
 	icon_state = "triphasic_scan_module"
 	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 4
-	materials = list(MAT_METAL=50, MAT_GLASS=20)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_DIAMOND = 30, MAT_BLUESPACE = 30)
 
 /obj/item/stock_parts/manipulator/femto
 	name = "femto-manipulator"
 	icon_state = "femto_mani"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
-	materials = list(MAT_METAL=30)
+	materials = list(MAT_METAL = 200, MAT_DIAMOND = 30, MAT_TITANIUM = 30)
 
 /obj/item/stock_parts/micro_laser/quadultra
 	name = "quad-ultra micro-laser"
 	icon_state = "quadultra_micro_laser"
 	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 4
-	materials = list(MAT_METAL=10, MAT_GLASS=20)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 100, MAT_DIAMOND = 60)
 
 /obj/item/stock_parts/matter_bin/bluespace
 	name = "bluespace matter bin"
 	icon_state = "bluespace_matter_bin"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
-	materials = list(MAT_METAL=80)
+	materials = list(MAT_METAL = 250, MAT_DIAMOND = 100, MAT_BLUESPACE = 100)

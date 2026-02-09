@@ -88,13 +88,13 @@
 				return
 			var/obj/item/held_item = usr.get_active_hand()
 			if(is_pen(held_item))
-				paper.attackby__legacy__attackchain(held_item, usr)
+				paper.item_interaction(usr, held_item)
 				return
 			else
 				usr.put_in_hands(paper)
 				paper.add_fingerprint(usr)
 				notices--
-				to_chat(usr, "<span class='notice'>You take a [paper.name] out of [src].</span>")
+				to_chat(usr, SPAN_NOTICE("You take a [paper.name] out of [src]."))
 				update_icon(UPDATE_ICON_STATE)
 		if("showFull")
 			var/obj/item/paper/paper = locate(params["paper"])
@@ -106,13 +106,13 @@
 /obj/structure/noticeboard/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/paper))
 		if(notices >= MAX_NOTICES)
-			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
+			to_chat(user, SPAN_NOTICE("You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached."))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
 		I.forceMove(src)
 		notices++
-		to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
+		to_chat(user, SPAN_NOTICE("You pin the paper to the noticeboard."))
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		SStgui.update_uis(src)

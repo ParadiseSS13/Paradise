@@ -50,6 +50,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/magboot)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	/// Slowdown added onto the suit.
 	var/slowdown_active = 0.5
 
@@ -84,6 +85,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	tgui_id = "rad_counter"
+	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
@@ -104,10 +106,11 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/tether)
 	cooldown_time = 4 SECONDS
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 
 /obj/item/mod/module/tether/on_use()
 	if(has_gravity(get_turf(src)))
-		to_chat(mod.wearer, "<span class='warning'>Too much gravity to use the tether!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Too much gravity to use the tether!"))
 		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
 		return FALSE
 	return ..()

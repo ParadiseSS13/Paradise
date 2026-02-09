@@ -138,6 +138,7 @@
 	desc = "An intricate piece of machinery that creates a holographic video call with another MODlink-compatible device. Essentially a video necklace."
 	icon_state = "modlink"
 	actions_types = list(/datum/action/item_action/call_link)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_GOLD = 500)
 	/// The installed power cell.
 	var/obj/item/stock_parts/cell/cell
 	/// The MODlink datum we operate.
@@ -169,11 +170,11 @@
 /obj/item/clothing/neck/link_scryer/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>The battery charge reads [cell.percent()]%. Use a <b>Screwdriver</b> to remove it.</span>"
+		. += SPAN_NOTICE("The battery charge reads [cell.percent()]%. Use a <b>Screwdriver</b> to remove it.")
 	else
-		. += "<span class='notice'>It is missing a battery, one can be installed by clicking with a power cell on it.</span>"
-	. += "<span class='notice'>The MODlink ID is [mod_link.id], frequency is [mod_link.frequency || "unset"]. <b>Use</b> a multitool to copy/imprint frequency.</span>"
-	. += "<span class='notice'>Use in hand to set name.</span>"
+		. += SPAN_NOTICE("It is missing a battery, one can be installed by clicking with a power cell on it.")
+	. += SPAN_NOTICE("The MODlink ID is [mod_link.id], frequency is [mod_link.frequency || "unset"]. <b>Use</b> a multitool to copy/imprint frequency.")
+	. += SPAN_NOTICE("Use in hand to set name.")
 
 /obj/item/clothing/neck/link_scryer/equipped(mob/living/user, slot)
 	. = ..()
@@ -184,17 +185,22 @@
 	. = ..()
 	mod_link?.end_call()
 
-/obj/item/clothing/neck/link_scryer/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/neck/link_scryer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/new_label = reject_bad_text(tgui_input_text(user, "Change the visible name", "Set Name", label, MAX_NAME_LEN))
 	if(!user.is_holding(src))
-		return
-	if(!new_label)
-		to_chat(user, "<span class='warning'>That name is invalid!</span>")
-		return
-	label = new_label
-	to_chat(user, "<span class='notice'>You set the name as [label].</span>")
-	update_appearance(UPDATE_NAME)
+		return ITEM_INTERACT_COMPLETE
 
+	if(!new_label)
+		to_chat(user, SPAN_WARNING("That name is invalid!"))
+		return ITEM_INTERACT_COMPLETE
+
+	label = new_label
+	to_chat(user, SPAN_NOTICE("You set the name as [label]."))
+	update_appearance(UPDATE_NAME)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/neck/link_scryer/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -206,7 +212,7 @@
 	var/obj/item/linked_thing = locateUID(M.buffer_uid)
 
 	if(!linked_thing)
-		to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+		to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 		M.buffer_uid = UID()
 		return TRUE
 	if(ismodcontrol(linked_thing))
@@ -216,12 +222,12 @@
 			return FALSE
 		switch(response)
 			if("Copy")
-				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 				M.buffer_uid = UID()
 				return TRUE
 			if("Imprint")
 				mod_link.frequency = chosen_control.mod_link.frequency
-				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You imprint the frequency to [src]."))
 				return TRUE
 	else
 		var/obj/item/clothing/neck/link_scryer/chosen_scryer = linked_thing
@@ -230,12 +236,12 @@
 			return FALSE
 		switch(response)
 			if("Copy")
-				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				to_chat(user, SPAN_NOTICE("You save the frequency of [src] to the buffer."))
 				M.buffer_uid = UID()
 				return TRUE
 			if("Imprint")
 				mod_link.frequency = chosen_scryer.mod_link.frequency
-				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				to_chat(user, SPAN_NOTICE("You imprint the frequency to [src]."))
 				return TRUE
 
 /obj/item/clothing/neck/link_scryer/get_cell()
@@ -246,16 +252,22 @@
 		return
 	cell.use(50)
 
-/obj/item/clothing/neck/link_scryer/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	. = ..()
-	if(cell || !istype(O, /obj/item/stock_parts/cell))
-		return
+/obj/item/clothing/neck/link_scryer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stock_parts/cell))
+		return ..()
+	
+	if(cell)
+		to_chat(user, SPAN_WARNING("[src] already has a cell!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
-		return
-	O.forceMove(src)
-	cell = O
-	to_chat(user, "<span class='notice'>You load [O] into [src].</span>")
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	used.forceMove(src)
+	cell = used
+	to_chat(user, SPAN_NOTICE("You load [used] into [src]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/neck/link_scryer/update_name(updates)
 	. = ..()
@@ -270,7 +282,7 @@
 	. = ..()
 	if(!cell)
 		return
-	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [cell] from [src]."))
 	user.put_in_hands(cell)
 	return
 
@@ -416,23 +428,23 @@
 	if(!frequency)
 		return
 	if(!istype(called))
-		to_chat(user, "<span class='warning'>That target is invalid!</span>")
+		to_chat(user, SPAN_WARNING("That target is invalid!"))
 		return
 	var/mob/living/link_user = get_user_callback.Invoke()
 	if(!link_user)
 		return
 	if(HAS_TRAIT(link_user, TRAIT_IN_CALL))
-		to_chat(user, "<span class='warning'>You are already calling someone!</span>")
+		to_chat(user, SPAN_WARNING("You are already calling someone!"))
 		return
 	var/mob/living/link_target = called.get_user_callback.Invoke()
 	if(!link_target)
-		to_chat(user, "<span class='warning'>That target is invalid!</span>")
+		to_chat(user, SPAN_WARNING("That target is invalid!"))
 		return
 	if(HAS_TRAIT(link_target, TRAIT_IN_CALL))
-		to_chat(user, "<span class='warning'>The person you are calling is already in a call!</span>")
+		to_chat(user, SPAN_WARNING("The person you are calling is already in a call!"))
 		return
 	if(!can_call_callback.Invoke() || !called.can_call_callback.Invoke())
-		to_chat(user, "<span class='warning'>You are unable to call at this time!</span>")
+		to_chat(user, SPAN_WARNING("You are unable to call at this time!"))
 		return
 	link_target.playsound_local(get_turf(called.holder), 'sound/weapons/ring.ogg', 15, TRUE)
 	var/atom/movable/screen/alert/modlink_call/alert = link_target.throw_alert("[UID()]_modlink", /atom/movable/screen/alert/modlink_call)
@@ -500,7 +512,7 @@
 
 /proc/call_link(mob/user, datum/mod_link/calling_link)
 	if(!calling_link.frequency)
-		to_chat(user, "<span class='warning'>The frequency isn't set!</span>")
+		to_chat(user, SPAN_WARNING("The frequency isn't set!"))
 		return
 	var/list/callers = list()
 	for(var/id in GLOB.mod_link_ids)
@@ -513,7 +525,7 @@
 			continue
 		callers["[link.holder] ([id])"] = id
 	if(!length(callers))
-		to_chat(user, "<span class='notice'>There are no targets on freq [calling_link.frequency].</span>")
+		to_chat(user, SPAN_NOTICE("There are no targets on freq [calling_link.frequency]."))
 		return
 	var/chosen_link = tgui_input_list(user, "Choose ID to call from [calling_link.frequency] frequency", "MODlink", callers)
 	if(!chosen_link)
@@ -557,5 +569,5 @@
 	var/datum/mod_link/link_caller = locateUID(link_caller_uid)
 	if(!user || !link_caller)
 		return ..()
-	to_chat(user, "<span class='notice'>[end_message]</span>")
+	to_chat(user, SPAN_NOTICE("[end_message]"))
 	return ..()

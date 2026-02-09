@@ -14,27 +14,27 @@
 /obj/item/melee/touch_attack/alien/corrosive_acid/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(target == user)
-		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
+		to_chat(user, SPAN_NOTICEALIEN("You withdraw your readied acid."))
 		return
 	if(!proximity_flag || isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
 	var/mob/living/carbon/C = user
 	if(!plasma_check(200, C))
-		to_chat(C, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
+		to_chat(C, SPAN_NOTICEALIEN("You don't have enough plasma to perform this action!"))
 		return
 	var/acid_damage_modifier = 100
 	if(isliving(target))
 		acid_damage_modifier = 50
 	if(target.acid_act(2 * acid_damage_modifier, acid_damage_modifier))
-		visible_message("<span class='alertalien'>[C] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+		visible_message(SPAN_ALERTALIEN("[C] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!"))
 		add_attack_logs(C, target, "Applied corrosive acid") // Want this logged
 		C.add_plasma(-200)
 	else
-		to_chat(C, "<span class='noticealien'>You cannot dissolve this object.</span>")
+		to_chat(C, SPAN_NOTICEALIEN("You cannot dissolve this object."))
 	handle_delete(user)
 
 /obj/item/melee/touch_attack/alien/corrosive_acid/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is dripping with vile corrosive goo!</span>"
+	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is dripping with vile corrosive goo!")
 
 /datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
@@ -52,13 +52,13 @@
 /obj/item/melee/touch_attack/alien/burning_touch/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(target == user)
-		to_chat(user, "<span class='noticealien'>You cool down your boiled aid.</span>")
+		to_chat(user, SPAN_NOTICEALIEN("You cool down your boiled aid."))
 		return
 	if(!proximity_flag || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	var/mob/living/carbon/C = user
 	if(!plasma_check(100, C))
-		to_chat(C, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
+		to_chat(C, SPAN_NOTICEALIEN("You don't have enough plasma to perform this action!"))
 		return
 	if(isliving(target))
 		var/mob/living/guy_to_burn = target
@@ -66,18 +66,18 @@
 		guy_to_burn.adjustFireLoss(60)
 		guy_to_burn.adjust_fire_stacks(3)
 		guy_to_burn.IgniteMob()
-		C.visible_message("<span class='alertalien'>[C] touches [target] and a fireball erupts on contact!</span>")
+		C.visible_message(SPAN_ALERTALIEN("[C] touches [target] and a fireball erupts on contact!"))
 		C.add_plasma(-100)
 	else
 		var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest)
 		for(var/resin_type in resin_objects)
 			if(!istype(target, resin_type))
 				continue
-			C.visible_message("<span class='alertalien'>[C] touches [target] and burns right through it!</span>")
+			C.visible_message(SPAN_ALERTALIEN("[C] touches [target] and burns right through it!"))
 			C.add_plasma(-100)
 			qdel(target)
 	handle_delete(user)
 
 /obj/item/melee/touch_attack/alien/burning_touch/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] has a shimmering mirage around it!</span>"
+	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] has a shimmering mirage around it!")
 

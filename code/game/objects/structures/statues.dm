@@ -16,12 +16,12 @@
 		if(istype(W, /obj/item/gun/energy/plasmacutter))
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
-								"<span class='notice'>You are slicing apart the [name]...</span>")
+								SPAN_NOTICE("You are slicing apart the [name]..."))
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
-									"<span class='notice'>You slice apart the [name].</span>")
+									SPAN_NOTICE("You slice apart the [name]."))
 				deconstruct(TRUE)
 			return ITEM_INTERACT_COMPLETE
 	return ..()
@@ -41,7 +41,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
-						"<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
+						SPAN_NOTICE("You rub some dust off from the [name]'s surface."))
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -120,9 +120,9 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
-						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
-						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+	user.visible_message(SPAN_DANGER("[user] sets [src] on fire!"),\
+						SPAN_DANGER("[src] disintegrates into a cloud of plasma!"),\
+						SPAN_WARNING("You hear a 'whoompf' and a roar."))
 	message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
 	log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
 	investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", INVESTIGATE_ATMOS)
@@ -268,7 +268,7 @@
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return
@@ -323,7 +323,7 @@
 
 /obj/structure/snowman/built/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
-		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+		to_chat(user, SPAN_NOTICE("You patch some of the damage on [src] with [I]."))
 		obj_integrity = max_integrity
 		qdel(I)
 		return ITEM_INTERACT_COMPLETE

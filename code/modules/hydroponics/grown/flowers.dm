@@ -227,7 +227,7 @@
 		return FINISH_ATTACK
 
 	if(isliving(target))
-		to_chat(target, "<span class='danger'>You are lit on fire from the intense heat of [src]!</span>")
+		to_chat(target, SPAN_DANGER("You are lit on fire from the intense heat of [src]!"))
 		target.adjust_fire_stacks(seed.potency / 20)
 		if(target.IgniteMob())
 			message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
@@ -240,11 +240,11 @@
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else
-		to_chat(usr, "<span class='warning'>All the petals have fallen off [src] from violent whacking!</span>")
+		to_chat(usr, SPAN_WARNING("All the petals have fallen off [src] from violent whacking!"))
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)
 	. = ..()
 	if(!user.gloves)
-		to_chat(user, "<span class='danger'>[src] burns your bare hand!</span>")
+		to_chat(user, SPAN_DANGER("[src] burns your bare hand!"))
 		user.adjustFireLoss(rand(1, 5))

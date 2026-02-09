@@ -78,17 +78,17 @@
 			user.visible_message("[user.name] turns the [name] [active ? "on" : "off"].", "You turn the [name] [active ? "on" : "off"].")
 			investigate_log("turned [active ? "<font color='green'>on</font>" : "<font color='red'>off</font>"] by [user.key]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins() / 0.29)]%" : "<font color='red'>It is empty</font>"].", INVESTIGATE_SINGULO)
 		else
-			to_chat(user, "<span class='warning'>The controls are locked!</span>")
+			to_chat(user, SPAN_WARNING("The controls are locked!"))
 
 /obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(loaded_tank)
-		to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
+		to_chat(user, SPAN_NOTICE("Remove the plasma tank first."))
 		return TRUE
 	var/turf/T = get_turf(src)
 	for(var/obj/machinery/power/rad_collector/can_wrench in T.contents)
 		if(can_wrench.anchored && !anchored)
-			to_chat(user, "<span class='notice'>You can't wrench down [src] here!</span>")
+			to_chat(user, SPAN_NOTICE("You can't wrench down [src] here!"))
 			return
 	I.play_tool_sound(src)
 	anchored = !anchored
@@ -101,10 +101,10 @@
 /obj/machinery/power/rad_collector/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/tank/internals/plasma))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first.</span>")
+			to_chat(user, SPAN_WARNING("[src] needs to be secured to the floor first."))
 			return ITEM_INTERACT_COMPLETE
 		if(loaded_tank)
-			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
+			to_chat(user, SPAN_WARNING("There's already a plasma tank loaded."))
 			return ITEM_INTERACT_COMPLETE
 		if(user.drop_item())
 			loaded_tank = used
@@ -122,9 +122,9 @@
 				to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
 			else
 				locked = FALSE //just in case it somehow gets locked
-				to_chat(user, "<span class='warning'>The controls can only be locked when [src] is active</span>")
+				to_chat(user, SPAN_WARNING("The controls can only be locked when [src] is active"))
 		else
-			to_chat(user, "<span class='warning'>Access denied!</span>")
+			to_chat(user, SPAN_WARNING("Access denied!"))
 
 		return ITEM_INTERACT_COMPLETE
 	else
@@ -153,12 +153,12 @@
 				max_gamma = gamma_waves[listing]
 		var/beta_delta = max_beta - RAD_COLLECTOR_THRESHOLD
 		var/gamma_delta = max_gamma - RAD_COLLECTOR_THRESHOLD
-		. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b></span>"
-		. +="<span class='notice'>Strongest Beta absorption over the last [rad_time /(1 SECONDS)] seconds: <b>[max_beta]</b>, <b>[abs(beta_delta)]</b> [beta_delta >= 0 ? "above" : "below"] threshold</span>"
-		. +="<span class='notice'>Strongest Gamma absorption over the last [rad_time /(1 SECONDS)] seconds: <b>[max_gamma]</b>, <b>[abs(gamma_delta)]</b> [gamma_delta >= 0 ? "above" : "below"] threshold</span>"
+		. += SPAN_NOTICE("[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b>")
+		. +=SPAN_NOTICE("Strongest Beta absorption over the last [rad_time /(1 SECONDS)] seconds: <b>[max_beta]</b>, <b>[abs(beta_delta)]</b> [beta_delta >= 0 ? "above" : "below"] threshold")
+		. +=SPAN_NOTICE("Strongest Gamma absorption over the last [rad_time /(1 SECONDS)] seconds: <b>[max_gamma]</b>, <b>[abs(gamma_delta)]</b> [gamma_delta >= 0 ? "above" : "below"] threshold")
 
 	else
-		. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"</span>"
+		. += SPAN_NOTICE("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"")
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))

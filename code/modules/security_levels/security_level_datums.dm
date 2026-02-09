@@ -143,3 +143,8 @@
 	status_display_data = "deltaalert"
 	elevating_to_announcement_title = "Attention! Delta security level reached!"
 	elevating_to_announcement_text = "The station's self-destruct mechanism has been engaged. All crew are instructed to abandon the station immediately. This is not a drill."
+
+/datum/security_level/delta/overload
+	number_level = SEC_LEVEL_DELTA_REACTOR
+	elevating_to_announcement_title = "Attention! Delta-AZ5 security level reached!"
+	elevating_to_announcement_text = "Central Command has disabled all nuclear fission reactor failsafes. Crew are instructed to ensure detonation of the station fission reactor at all costs."

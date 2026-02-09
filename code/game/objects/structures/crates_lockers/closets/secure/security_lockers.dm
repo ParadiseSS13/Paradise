@@ -10,7 +10,6 @@
 		new /obj/item/storage/backpack/satchel_cap(src)
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
-	new /obj/item/storage/bag/garment/captain(src)
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/storage/belt/sheath/saber(src)
@@ -44,6 +43,7 @@
 	name = "head of security's locker"
 	req_access = list(ACCESS_HOS)
 	icon_state = "hos"
+	opened_door_sprite = "sec"
 
 /obj/structure/closet/secure_closet/hos/populate_contents()
 	if(prob(50))
@@ -122,8 +122,8 @@
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
 	req_access = list(ACCESS_BLUESHIELD)
-	icon_state = "hop"
-	closed_door_sprite = "bs"
+	icon_state = "bs"
+	opened_door_sprite = "hop"
 
 /obj/structure/closet/secure_closet/blueshield/populate_contents()
 	new /obj/item/storage/backpack/blueshield(src)
@@ -143,8 +143,8 @@
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)
-	icon_state = "hop"
-	closed_door_sprite = "ntr"
+	icon_state = "ntr"
+	opened_door_sprite = "hop"
 
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)
@@ -309,7 +309,7 @@
 	name = "\improper Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magi"
-	opened_door_sprite = "chaplain"
+	opened_door_sprite = "cap"
 
 /obj/structure/closet/secure_closet/magistrate/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)
@@ -326,9 +326,8 @@
 /obj/structure/closet/secure_closet/iaa
 	name = "internal affairs locker"
 	req_access = list(ACCESS_INTERNAL_AFFAIRS)
-	icon_state = "magi"
+	icon_state = "iaa"
 	opened_door_sprite = "chaplain"
-	closed_door_sprite = "iaa"
 
 /obj/structure/closet/secure_closet/iaa/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)

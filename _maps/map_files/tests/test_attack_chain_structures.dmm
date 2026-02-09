@@ -20,7 +20,7 @@
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "eN" = (
-/obj/structure/mineral_door/iron,
+/obj/structure/mineral_door,
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "eY" = (

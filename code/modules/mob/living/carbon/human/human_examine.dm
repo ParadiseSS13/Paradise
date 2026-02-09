@@ -29,14 +29,14 @@
 	switch(limb_name)
 		if("hands")
 			if(blood_DNA)
-				return "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+				return "[SPAN_WARNING("[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!")]\n"
 		if("eyes")
 			if(HAS_TRAIT(src, SCRYING))
 				if(IS_CULTIST(src) && HAS_TRAIT(src, CULT_EYES))
-					return "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
-				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
+					return "[SPAN_BOLDWARNING("[p_their(TRUE)] glowing red eyes are glazed over!")]\n"
+				return "[SPAN_BOLDWARNING("[p_their(TRUE)] eyes are glazed over.")]\n"
 			if(IS_CULTIST(src) && HAS_TRAIT(src, CULT_EYES))
-				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
+				return "[SPAN_BOLDWARNING("[p_their(TRUE)] eyes are glowing an unnatural red!")]\n"
 
 	return msg
 
@@ -193,9 +193,9 @@
 			if(skills)
 				var/char_limit = 40
 				if(length(skills) <= char_limit)
-					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
+					msg += "[SPAN_DEPTRADIO("Employment records:")] [skills]\n"
 				else
-					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
+					msg += "[SPAN_DEPTRADIO("Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...")]<a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
 
 
 	if(hasHUD(user, EXAMINE_HUD_MEDICAL_READ))
@@ -212,9 +212,9 @@
 
 		var/medical_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>" : "\[[medical]\]"
 		var/mental_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='byond://?src=[UID()];mental=1'>\[[mental]\]</a>" : "\[[mental]\]"
-		msg += "<span class='deptradio'>Physical status: </span>[medical_status]\n"
-		msg += "<span class='deptradio'>Mental Status: </span>[mental_status]\n"
-		msg += "<span class='deptradio'>Medical records:</span> <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+		msg += "[SPAN_DEPTRADIO("Physical status: ")][medical_status]\n"
+		msg += "[SPAN_DEPTRADIO("Mental Status: ")][mental_status]\n"
+		msg += "[SPAN_DEPTRADIO("Medical records:")] <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(TRUE)
@@ -236,9 +236,9 @@
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
 			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='byond://?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
-			msg += "<span class='deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
-			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
+			msg += "[SPAN_DEPTRADIO("Criminal status:")] [criminal_status]\n"
+			msg += "[SPAN_DEPTRADIO("Security records:")] <a href='byond://?src=[UID()];secrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "[SPAN_DEPTRADIO("Latest entry:")] [commentLatest]\n"
 
 	if(hasHUD(user, EXAMINE_HUD_MALF_READ))
 		var/perpname = get_visible_name(TRUE)
@@ -252,7 +252,7 @@
 							malf = E.fields["ai_target"]
 
 			var/malf_status = hasHUD(user, EXAMINE_HUD_MALF_WRITE) ? "<a href='byond://?src=[UID()];ai=`'>\[[malf]\]</a>" : "\[[malf]\]"
-			msg += "<span class='deptradio'>Target Status:</span> [malf_status]\n"
+			msg += "[SPAN_DEPTRADIO("Target Status:")] [malf_status]\n"
 
 	return msg
 

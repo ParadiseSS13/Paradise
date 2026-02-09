@@ -50,9 +50,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
 		if(istype(chosen_disease, /datum/disease/advance))
 			var/datum/disease/advance/temp_disease = chosen_disease
-			to_chat(M, chat_box_examine("<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms:\n[english_list(temp_disease.symptoms)]\nand the following stats:\n[english_map(temp_disease.GenerateProperties())]</span>"))
+			to_chat(M, chat_box_examine(SPAN_DEADSAY("<b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms:\n[english_list(temp_disease.symptoms)]\nand the following stats:\n[english_map(temp_disease.GenerateProperties())]")))
 		else
-			to_chat(M, chat_box_examine("<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!</span>"))
+			to_chat(M, chat_box_examine(SPAN_DEADSAY("<b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!")))
 
 /datum/event/disease_outbreak/announce()
 	switch(severity)

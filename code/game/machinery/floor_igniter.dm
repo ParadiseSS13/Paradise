@@ -102,10 +102,10 @@
 	disable = !disable
 
 	if(disable)
-		user.visible_message("<span class='warning'>[user] has disabled [src]!</span>", "<span class='warning'>You disable the connection to [src].</span>")
+		user.visible_message(SPAN_WARNING("[user] has disabled [src]!"), SPAN_WARNING("You disable the connection to [src]."))
 		icon_state = "[base_state]-d"
 	else
-		user.visible_message("<span class='warning'>[user] has reconnected [src]!</span>", "<span class='warning'>You fix the connection to [src].</span>")
+		user.visible_message(SPAN_WARNING("[user] has reconnected [src]!"), SPAN_WARNING("You fix the connection to [src]."))
 		if(has_power())
 			icon_state = "[base_state]"
 		else

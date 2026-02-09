@@ -75,19 +75,19 @@
 				inaccurate = FALSE
 
 			if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && !(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
-				to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
+				to_chat(user, SPAN_WARNING("You cannot slice [src] here! You need a table or at least a tray to do it."))
 				return ITEM_INTERACT_COMPLETE
 
 			var/slices_lost = 0
 			if(!inaccurate)
 				user.visible_message(
-			"<span class='notice'>[user] slices [src] with [used].</span>",
-			"<span class='notice'>You slice [src] with [used].</span>"
+			SPAN_NOTICE("[user] slices [src] with [used]."),
+			SPAN_NOTICE("You slice [src] with [used].")
 				)
 			else
 				user.visible_message(
-					"<span class='notice'>[user] crudely slices [src] with [used], destroying some in the process!</span>",
-					"<span class='notice'>You crudely slice [src] with [used], destroying some in the process!</span>"
+					SPAN_NOTICE("[user] crudely slices [src] with [used], destroying some in the process!"),
+					SPAN_NOTICE("You crudely slice [src] with [used], destroying some in the process!")
 				)
 				slices_lost = rand(1, min(1, round(slices_num / 2)))
 
@@ -141,7 +141,7 @@
 	if(trash)
 		generate_trash(T)
 
-	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
+	visible_message(SPAN_WARNING("[src] has been squashed."),SPAN_ITALICS("You hear a smack."))
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
@@ -193,7 +193,7 @@
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)
-		to_chat(user, "<span class='notice'>You deshell [src], revealing \a [T].</span>")
+		to_chat(user, SPAN_NOTICE("You deshell [src], revealing \a [T]."))
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 
@@ -224,7 +224,7 @@
 	set_light(0)
 
 /obj/item/food/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='notice'>This is \a </span><span class='name'>[src].</span>\n"
+	var/msg = "[SPAN_NOTICE("This is")][SPAN_NAME(" \a [src].")]\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	var/reag_txt = ""
@@ -232,7 +232,7 @@
 		for(var/reagent_id in seed.reagents_add)
 			var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 			var/amt = reagents.get_reagent_amount(reagent_id)
-			reag_txt += "\n<span class='notice'>- [R.name]: [amt]</span>"
+			reag_txt += "\n[SPAN_NOTICE("- [R.name]: [amt]")]"
 
 	if(reag_txt)
 		msg += reag_txt

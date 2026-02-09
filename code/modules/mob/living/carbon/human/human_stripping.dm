@@ -61,8 +61,8 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	var/obj/item/clothing/accessory/A = jumpsuit.accessories[1]
 	var/thief_mode = in_thief_mode(user)
 	if(!thief_mode)
-		user.visible_message("<span class='danger'>[user] starts to take off [A] from [source]'s [jumpsuit]!</span>", \
-							"<span class='danger'>You start to take off [A] from [source]'s [jumpsuit]!</span>")
+		user.visible_message(SPAN_DANGER("[user] starts to take off [A] from [source]'s [jumpsuit]!"), \
+							SPAN_DANGER("You start to take off [A] from [source]'s [jumpsuit]!"))
 
 	if(!do_mob(user, source, POCKET_STRIP_DELAY, hidden = thief_mode))
 		return
@@ -70,8 +70,8 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		return
 
 	if(!thief_mode)
-		user.visible_message("<span class='danger'>[user] takes [A] off of [source]'s [jumpsuit]!</span>", \
-							"<span class='danger'>You take [A] off of [source]'s [jumpsuit]!</span>")
+		user.visible_message(SPAN_DANGER("[user] takes [A] off of [source]'s [jumpsuit]!"), \
+							SPAN_DANGER("You take [A] off of [source]'s [jumpsuit]!"))
 	jumpsuit.detach_accessory(A, user)
 
 /datum/strippable_item/mob_item_slot/left_ear
@@ -153,7 +153,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	if(isnull(item))
 		return FALSE
 
-	to_chat(user, "<span class='notice'>You try to empty [source]'s [pocket_side] pocket.</span>")
+	to_chat(user, SPAN_NOTICE("You try to empty [source]'s [pocket_side] pocket."))
 
 	add_attack_logs(user, source, "Attempting pickpocketing of [item]")
 	item.add_fingerprint(user)
@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	return result
 
 /datum/strippable_item/mob_item_slot/pocket/proc/warn_owner(atom/owner)
-	to_chat(owner, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
+	to_chat(owner, SPAN_WARNING("You feel your [pocket_side] pocket being fumbled with!"))
 
 /datum/strippable_item/mob_item_slot/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET
@@ -203,8 +203,8 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		return
 
 	carbon_source.visible_message(
-		"<span class='danger'>[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on [source]'s [item.name].</span>",
-		"<span class='userdanger'>[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on your [item.name].</span>",
+		SPAN_DANGER("[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on [source]'s [item.name]."),
+		SPAN_USERDANGER("[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on your [item.name]."),
 	)
 
 	if(!do_mob(user, carbon_source, INTERNALS_TOGGLE_DELAY))
@@ -218,8 +218,8 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	carbon_source.update_action_buttons_icon()
 
 	carbon_source.visible_message(
-		"<span class='danger'>[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on [source]'s [item.name].</span>",
-		"<span class='userdanger'>[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on your [item.name].</span>",
+		SPAN_DANGER("[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on [source]'s [item.name]."),
+		SPAN_USERDANGER("[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on your [item.name]."),
 	)
 
 

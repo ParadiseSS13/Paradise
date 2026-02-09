@@ -23,13 +23,10 @@
 	dog_fashion = null
 	requires_tcomms = TRUE
 
-/obj/item/radio/headset/New()
-	..()
-	internal_channels.Cut()
-
 /obj/item/radio/headset/Initialize(mapload)
 	. = ..()
 
+	internal_channels.Cut()
 	if(ks1type)
 		keyslot1 = new ks1type(src)
 		if(keyslot1.syndie)
@@ -125,7 +122,7 @@
 /obj/item/radio/headset/syndicate/alt/nocommon
 	name = "syndicate researcher headset"
 
-/obj/item/radio/headset/syndicate/alt/nocommon/New()
+/obj/item/radio/headset/syndicate/alt/nocommon/Initialize(mapload)
 	. = ..()
 	set_frequency(SYND_FREQ)
 
@@ -409,7 +406,7 @@
 			return
 
 		if(!user.transfer_item_to(key, src, FALSE, FALSE))
-			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
+			to_chat(user, SPAN_WARNING("[key] is stuck to your hand, you can't insert it in [src]."))
 			return
 
 		if(!keyslot1)

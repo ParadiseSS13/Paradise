@@ -131,7 +131,7 @@ GLOBAL_LIST(ui_logins)
 			state.rank = state.id.assignment
 			state.access = state.id.access
 		else
-			to_chat(usr, "<span class='warning'>Access Denied</span>")
+			to_chat(usr, SPAN_WARNING("Access Denied"))
 			return
 	else if(login_type == LOGIN_TYPE_AI && is_ai(usr))
 		state.name = usr.name

@@ -98,10 +98,10 @@
 	button_icon_state = "mech_defense_mode_[chassis.defence_mode ? "on" : "off"]"
 	if(chassis.defence_mode)
 		chassis.deflect_chance = chassis.defence_mode_deflect_chance
-		chassis.occupant_message("<span class='notice'>You enable [chassis] defence mode.</span>")
+		chassis.occupant_message(SPAN_NOTICE("You enable [chassis] defence mode."))
 	else
 		chassis.deflect_chance = initial(chassis.deflect_chance)
-		chassis.occupant_message("<span class='danger'>You disable [chassis] defence mode.</span>")
+		chassis.occupant_message(SPAN_DANGER("You disable [chassis] defence mode."))
 	chassis.log_message("Toggled defence mode.")
 	build_all_button_icons()
 
@@ -113,7 +113,7 @@
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
 	if(chassis.obj_integrity < chassis.max_integrity - chassis.max_integrity / 3)
-		chassis.occupant_message("<span class='danger'>The leg actuators are too damaged to overload!</span>")
+		chassis.occupant_message(SPAN_DANGER("The leg actuators are too damaged to overload!"))
 		return // Can't activate them if the mech is too damaged
 	if(!isnull(forced_state))
 		chassis.leg_overload_mode = forced_state
@@ -126,15 +126,15 @@
 		// chassis.bumpsmash = 1
 		chassis.step_in = min(1, round(chassis.step_in / 2))
 		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min, chassis.step_energy_drain * chassis.leg_overload_coeff)
-		chassis.occupant_message("<span class='danger'>You enable leg actuators overload.</span>")
+		chassis.occupant_message(SPAN_DANGER("You enable leg actuators overload."))
 		if(istype(chassis.selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
-			chassis.occupant_message("<span class='danger'>Your shields turn off as your actuators overload.</span>")
+			chassis.occupant_message(SPAN_DANGER("Your shields turn off as your actuators overload."))
 	else
 		chassis.leg_overload_mode = 0
 		// chassis.bumpsmash = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.occupant_message("<span class='notice'>You disable leg actuators overload.</span>")
+		chassis.occupant_message(SPAN_NOTICE("You disable leg actuators overload."))
 	build_all_button_icons()
 	chassis.update_icon(UPDATE_OVERLAYS)
 
@@ -167,7 +167,7 @@
 		spawn(chassis.smoke_cooldown)
 			chassis.smoke_ready = 1
 	else
-		chassis.occupant_message("<span class='warning'>You are either out of smoke, or the smoke isn't ready yet.</span>")
+		chassis.occupant_message(SPAN_WARNING("You are either out of smoke, or the smoke isn't ready yet."))
 
 /datum/action/innate/mecha/mech_zoom
 	name = "Zoom"
@@ -238,7 +238,7 @@
 	else
 		chassis.floor_buffer = FALSE
 		chassis.step_in -= chassis.buffer_delay
-	to_chat(usr, "<span class='notice'>The floor buffer is now [chassis.floor_buffer ? "active" : "deactivated"].</span>")
+	to_chat(usr, SPAN_NOTICE("The floor buffer is now [chassis.floor_buffer ? "active" : "deactivated"]."))
 
 /datum/action/innate/mecha/select_module
 	name = "Hey, you shouldn't see this please make a bug report"
@@ -260,6 +260,6 @@
 		chassis.selected.on_unequip()
 	chassis.selected = equipment
 	chassis.selected.on_equip()
-	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
+	chassis.occupant_message(SPAN_NOTICE("You switch to [equipment.name]."))
 	chassis.visible_message("[chassis] raises [equipment.name]")
 	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())

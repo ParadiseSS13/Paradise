@@ -53,7 +53,7 @@
 	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 			// no arms...
-			to_chat(user, "<span class='warning'>You need arms to be able to clap.</span>")
+			to_chat(user, SPAN_WARNING("You need arms to be able to clap."))
 		else
 			// well, we've got at least one
 			user.visible_message("[user] makes the sound of one hand clapping.")
@@ -128,6 +128,14 @@
 	message_mime = "seems to grumble!"
 	message_postfix = "at %t!"
 	muzzled_noises = list("bothered")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+
+/datum/emote/living/carbon/human/clear_throat
+	key = "clear"
+	key_third_person = "clears throat"
+	message = "clears their throat."
+	message_mime = "silently clears their throat!"
+	muzzled_noises = list("clears their throat.")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/hug
@@ -304,19 +312,19 @@
 /datum/emote/living/carbon/human/johnny/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/human/H = user
 	if(!istype(H.wear_mask, /obj/item/clothing/mask/cigarette))
-		to_chat(user, "<span class='warning'>You can't be that cool without a cigarette between your lips.</span>")
+		to_chat(user, SPAN_WARNING("You can't be that cool without a cigarette between your lips."))
 		return TRUE
 
 	var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
 
 	if(!cig.lit)
-		to_chat(user, "<span class='warning'>You have to light that [cig] first, cool cat.</span>")
+		to_chat(user, SPAN_WARNING("You have to light that [cig] first, cool cat."))
 		return TRUE
 
 	if(H.getOxyLoss() > 30)
 		user.visible_message(
-			"<span class='warning'>[user] gasps for air and swallows their cigarette!</span>",
-			"<span class='warning'>You gasp for air and accidentally swallow your [cig]!</span>"
+			SPAN_WARNING("[user] gasps for air and swallows their cigarette!"),
+			SPAN_WARNING("You gasp for air and accidentally swallow your [cig]!")
 		)
 		if(cig.lit)
 			to_chat(user, "<span class='userdanger'>The lit [cig] burns on the way down!")
@@ -357,9 +365,9 @@
 	else
 		smacking_hand = new /obj/item/slapper(user)
 	if(user.put_in_hands(smacking_hand))
-		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+		to_chat(user, SPAN_NOTICE("You ready your slapping hand."))
 	else
-		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+		to_chat(user, SPAN_WARNING("You're incapable of slapping in your current state."))
 
 /datum/emote/living/carbon/human/wink
 	key = "wink"
@@ -408,16 +416,16 @@
 /datum/emote/living/carbon/human/highfive/payme/run_emote(mob/living/user, params, type_override, intentional)
 	var/obj/item/eftpos/eftpos = user.is_holding_item_of_type(/obj/item/eftpos)
 	if(!eftpos)
-		to_chat(user, "<span class='warning'>You must be holding an EFTPOS to do that!</span>")
+		to_chat(user, SPAN_WARNING("You must be holding an EFTPOS to do that!"))
 		return TRUE
 	if(!eftpos.can_offer)
-		to_chat(user, "<span class='warning'>[eftpos] is too bulky to hold out to someone!</span>")
+		to_chat(user, SPAN_WARNING("[eftpos] is too bulky to hold out to someone!"))
 		return TRUE
 	if(!eftpos.transaction_locked)
-		to_chat(user, "<span class='warning'>You must lock [eftpos] before it can accept payments.</span>")
+		to_chat(user, SPAN_WARNING("You must lock [eftpos] before it can accept payments."))
 		return TRUE
 	if(user.has_status_effect(status))
-		user.visible_message("<span class='notice'>[user.name] shakes [eftpos] around slightly, impatiently waiting for someone to scan their card.</span>")
+		user.visible_message(SPAN_NOTICE("[user.name] shakes [eftpos] around slightly, impatiently waiting for someone to scan their card."))
 		return TRUE
 
 	var/datum/result = set_status(user)
@@ -488,7 +496,7 @@
 		return TRUE
 
 	if(prob(5) && !HAS_TRAIT(user, TRAIT_COOL))
-		user.visible_message("<span class='danger'><b>[user]</b> snaps [user.p_their()] fingers right off!</span>")
+		user.visible_message(SPAN_DANGER("<b>[user]</b> snaps [user.p_their()] fingers right off!"))
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return TRUE
 	return ..()
@@ -517,10 +525,10 @@
 	var/fingers = round(text2num(params), 1)
 
 	if(fingers > 10)
-		to_chat(user, "<span class='warning'>You don't have enough fingers!</span>")
+		to_chat(user, SPAN_WARNING("You don't have enough fingers!"))
 		return TRUE
 	else if(fingers < 0)
-		to_chat(user, "<span class='warning'>You're not entirely sure how to raise negative fingers.</span>")
+		to_chat(user, SPAN_WARNING("You're not entirely sure how to raise negative fingers."))
 		return TRUE
 
 	params = fingers
@@ -643,18 +651,79 @@
 	key = "flap"
 	key_third_person = "flaps"
 	message = "flaps their wings."
+	sound = 'sound/effects/mob_effects/flap.ogg'
 	species_type_whitelist_typecache = list(/datum/species/moth)
+	var/wing_time = 1 SECONDS
+
+/datum/emote/living/carbon/human/flap/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.Togglewings()
+		addtimer(CALLBACK(src, PROC_REF(finish_flap), H), wing_time)
+
+/datum/emote/living/carbon/human/flap/proc/finish_flap(mob/living/carbon/human/H)
+	H.Togglewings()
 
 /datum/emote/living/carbon/human/flap/angry
 	key = "aflap"
 	key_third_person = "aflaps"
+	sound = 'sound/effects/mob_effects/angryflap.ogg'
 	message = "flaps their wings ANGRILY!"
+	wing_time = 0.5 SECONDS
+
+/datum/emote/living/carbon/human/wings
+	key = "wings"
+	key_third_person = "wings"
+	message = "their wings."
+
+/datum/emote/living/carbon/human/wings/can_run_emote(mob/user, status_check = TRUE, intentional)
+	. = ..()
+	if(!..())
+		return FALSE
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		to_chat(H, "<span class='warning'>Your wings are burnt off!</span>")
+		return FALSE
+	if(!H.body_accessory || !istype(H.body_accessory, /datum/body_accessory/wing))
+		to_chat(H, "<span class='warning'>You don't have wings!</span>")
+		return FALSE
+	return TRUE
+
+/datum/emote/living/carbon/human/wings/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(.)
+		var/mob/living/carbon/human/H = user
+		H.Togglewings()
+
+/datum/emote/living/carbon/human/wings/select_message_type(mob/user, intentional)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			. = "opens " + message
+		else
+			. = "closes " + message
 
 /datum/emote/living/carbon/human/flutter
 	key = "flutter"
 	key_third_person = "flutters"
 	message = "flutters their wings."
+	sound = 'sound/effects/mob_effects/flutter.ogg'
 	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/chitter
+	key = "chitter"
+	key_third_person = "chitters"
+	message = "chitters."
+	message_param = "chitters at %t."
+	emote_type = EMOTE_AUDIBLE
+	sound = "sound/effects/chitter.ogg"
+	species_type_whitelist_typecache = list(/datum/species/skulk)
+	muzzled_noises = list("frustrated")
 
 /datum/emote/living/carbon/human/quill
 	key = "quill"

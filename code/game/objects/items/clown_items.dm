@@ -31,6 +31,7 @@
 	icon_state = "air_horn"
 	origin_tech = "materials=4;engineering=4"
 	honk_sounds = list('sound/items/airhorn2.ogg' = 1)
+	materials = list(MAT_METAL = 4000, MAT_BANANIUM = 1000)
 
 /obj/item/bikehorn/golden
 	name = "golden bike horn"
@@ -49,7 +50,7 @@
 
 /obj/item/bikehorn/golden/proc/flip_mobs(mob/user)
 	if(cooldown >= world.time)
-		to_chat(user, "<span class='warning'>You can't make others flip yet!</span>")
+		to_chat(user, SPAN_WARNING("You can't make others flip yet!"))
 		return
 	cooldown = world.time + 30 SECONDS
 	var/turf/T = get_turf(src)
@@ -80,7 +81,7 @@
 
 /obj/item/clown_recorder/attack_self__legacy__attackchain(mob/user)
 	if(cooldown > world.time)
-		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
+		to_chat(user, SPAN_NOTICE("The tape is still winding back."))
 		return
 	playsound(src, pick('sound/voice/sitcom_laugh.ogg', 'sound/voice/sitcom_laugh2.ogg'), 50, FALSE)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -90,7 +91,7 @@
 
 /obj/item/clown_recorder/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
+		to_chat(user, SPAN_NOTICE("Winding back speed has been improved by the bananium ooze!"))
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		return TRUE
 	return FALSE

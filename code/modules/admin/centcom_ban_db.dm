@@ -15,7 +15,7 @@
 /datum/admins/proc/create_ccbdb_lookup(ckey)
 	// Bail if disabled
 	if(!GLOB.configuration.url.centcom_ban_db_url)
-		to_chat(usr, "<span class='warning'>The CentCom Ban DB lookup is disabled. Please inform a maintainer or server host.</span>")
+		to_chat(usr, SPAN_WARNING("The CentCom Ban DB lookup is disabled. Please inform a maintainer or server host."))
 		return
 	// Bail if no ckey is supplied
 	if(!ckey)
@@ -41,12 +41,12 @@
 
 	// Bail if it errored
 	if(response.errored)
-		to_chat(user, "<span class='warning'>Error connecting to CentCom Ban DB. Please inform a maintainer or server host.</span>")
+		to_chat(user, SPAN_WARNING("Error connecting to CentCom Ban DB. Please inform a maintainer or server host."))
 		return
 
 	// Bail if the code isnt 200
 	if(response.status_code != 200)
-		to_chat(user, "<span class='warning'>Error performing CentCom Ban DB lookup (Code: [response.status_code])</span>")
+		to_chat(user, SPAN_WARNING("Error performing CentCom Ban DB lookup (Code: [response.status_code])"))
 		return
 
 	var/list/popup_data = list()
@@ -98,20 +98,14 @@
 					popup_data += "<hr>"
 
 		catch
-			to_chat(user, "<span class='warning'>Error parsing JSON data from CentCom Ban DB lookup. Please inform a maintainer.</span>")
+			to_chat(user, SPAN_WARNING("Error parsing JSON data from CentCom Ban DB lookup. Please inform a maintainer."))
 			return
 
 	var/datum/browser/popup = new(user, "ccbdblookup-[ckey]", "<div align='center'>CC Ban DB Lookup - [ckey]</div>", 700, 600)
 	popup.set_content(popup_data.Join())
 	popup.open(FALSE)
 
-// Just a simple verb so admins can do manual lookups
-/client/proc/ccbdb_lookup_ckey()
-	set name = "Global Ban DB Lookup"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/input_ckey = input(usr, "Please enter a ckey to lookup", "Global Ban DB Lookup")
-	holder.create_ccbdb_lookup(input_ckey)
+/// Just a simple verb so admins can do manual lookups
+USER_VERB(ccbdb_lookup_ckey, R_ADMIN, "Global Ban DB Lookup", "Lookup global bans by ckey.", VERB_CATEGORY_ADMIN)
+	var/input_ckey = input(client, "Please enter a ckey to lookup", "Global Ban DB Lookup")
+	client.holder.create_ccbdb_lookup(input_ckey)

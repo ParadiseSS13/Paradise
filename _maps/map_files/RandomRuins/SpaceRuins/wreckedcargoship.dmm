@@ -917,7 +917,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "Lt" = (
-/obj/structure/sign/nosmoking_2{
+/obj/structure/sign/nosmoking/alt{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tiles/dark/corner{

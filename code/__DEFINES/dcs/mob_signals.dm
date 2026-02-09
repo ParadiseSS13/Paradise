@@ -101,6 +101,17 @@
 ///Called when movement intent is toggled.
 #define COMSIG_MOVE_INTENT_TOGGLED "move_intent_toggled"
 
+///from base of obj/allowed(mob/M): (/obj) returns ACCESS_ALLOWED if mob has id access to the obj
+#define COMSIG_MOB_TRIED_ACCESS "tried_access"
+	#define ACCESS_ALLOWED (1<<0)
+	#define ACCESS_DISALLOWED (1<<1)
+	#define LOCKED_ATOM_INCOMPATIBLE (1<<2)
+
+/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
+#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
+/// A mob has just unequipped an item.
+#define COMSIG_MOB_UNEQUIPPED_ITEM "mob_unequipped_item"
+
 // /mob/living
 
 ///from base of mob/living/resist() (/mob/living)
@@ -192,6 +203,11 @@
 #define COMSIG_LIVING_WRITE_MEMORY "living_write_memory"
 	#define COMPONENT_DONT_WRITE_MEMORY (1<<0)
 
+/// Sent to a mob being injected with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_INJECT "living_try_syringe_inject"
+/// Sent to a mob being withdrawn from with a syringe when the do_after initiates
+#define COMSIG_LIVING_TRY_SYRINGE_WITHDRAW "living_try_syringe_withdraw"
+
 // /mob/living/simple_animal signals
 ///from /mob/living/simple_animal/handle_environment()
 #define COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT "simpleanimal_handle_environment"
@@ -242,6 +258,38 @@
 /// from remove_ventcrawler(): (mob/living/crawler)
 #define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"
 
+
+///From living/Life(). (seconds, times_fired)
+#define COMSIG_LIVING_LIFE "living_life"
+	/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
+	#define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
+
+/// Sent from /datum/action/cooldown/spell/before_cast() to the caster: (datum/action/cooldown/spell/spell, atom/cast_on)
+#define COMSIG_MOB_BEFORE_SPELL_CAST "mob_spell_pre_cast"
+/// Sent from /datum/action/cooldown/spell/before_cast() to the spell: (atom/cast_on)
+#define COMSIG_SPELL_BEFORE_CAST "spell_pre_cast"
+	/// Return to prevent the spell cast from continuing.
+	#define SPELL_CANCEL_CAST (1 << 0)
+	/// Return from before cast signals to prevent the spell from giving off sound or invocation.
+	#define SPELL_NO_FEEDBACK (1 << 1)
+	/// Return from before cast signals to prevent the spell from going on cooldown before aftercast.
+	#define SPELL_NO_IMMEDIATE_COOLDOWN (1 << 2)
+
+#define COMSIG_TOUCH_HANDLESS_CAST "spell_touch_handless_cast"
+	/// Return this to prevent the hand spawning/unspawning
+	#define COMPONENT_CAST_HANDLESS (1<<0)
+
+///From /obj/effect/rune/convert/do_sacrifice() : (list/invokers)
+#define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
+	/// Return to stop the sac from occurring
+	#define STOP_SACRIFICE (1<<0)
+	/// Don't send a message for sacrificing this thing, we have our own
+	#define SILENCE_SACRIFICE_MESSAGE (1<<1)
+	/// Don't send a message for sacrificing this thing UNLESS it's the cult target
+	#define SILENCE_NONTARGET_SACRIFICE_MESSAGE (1<<2)
+	/// Dusts the target instead of gibbing them (no soulstone)
+	#define DUST_SACRIFICE (1<<3)
+
 /// From base of /client/Move(): (new_loc, direction)
 #define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
 	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
@@ -291,3 +339,6 @@
 
 /// From base of /client/Move(): (direction, old_dir)
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
+
+/// Called when someone attempts to cuff a carbon
+#define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"

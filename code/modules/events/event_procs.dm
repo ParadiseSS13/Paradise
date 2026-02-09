@@ -1,23 +1,3 @@
-
-/client/proc/forceEvent(type in SSevents.allEvents)
-	set name = "Trigger Event"
-	set category = "Event"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	if(ispath(type))
-		new type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
-		message_admins("[key_name_admin(usr)] has triggered an event. ([type])", 1)
-
-/client/proc/event_manager_panel()
-	set name = "Event Manager Panel"
-	set category = "Event"
-	if(SSevents)
-		SSevents.Interact(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
-
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/list/safe_areas = typecacheof(list(
 		/area/station/turret_protected/ai,
@@ -52,6 +32,13 @@
 	var/list/possible_areas = typecache_filter_list_reverse(SSmapping.existing_station_areas, safe_areas)
 
 	return possible_areas
+
+/proc/findMaintananceEventArea() // For maintanance events ONLY
+	var/list/maintanance_area = typecacheof(list(/area/station/maintenance))
+
+	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, maintanance_area)
+
+	return pick(possible_areas)
 
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.

@@ -33,7 +33,7 @@
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
 		M.forceMove(drop_location())
-		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
+		visible_message(SPAN_DANGER("[M] bursts out of [src]!"))
 
 	if(!ismachineperson(src))
 		hgibs(loc, dna)

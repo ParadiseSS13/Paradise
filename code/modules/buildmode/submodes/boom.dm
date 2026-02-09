@@ -13,9 +13,9 @@
 	var/flames = -1
 
 /datum/buildmode_mode/boom/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Mouse Button on obj  = Kaboom</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Mouse Button on obj  = Kaboom"))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/boom/change_settings(mob/user)
 	devastation = tgui_input_number(user, "Range of Total Devasation", "Devastation", -1, min_value = -1)

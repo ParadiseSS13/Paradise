@@ -56,22 +56,22 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(length(changelings))
-		var/list/text = list("<br><font size=3><span class='bold'>The changelings were:</span></font>")
+		var/list/text = list("<br><font size=3>[SPAN_BOLD("The changelings were:")]</font>")
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = TRUE
 
 			text += "<br>[changeling.get_display_key()] was [changeling.name] and "
 			if(changeling.current)
 				if(changeling.current.stat == DEAD)
-					text += "<span class='bold'>died</span>!"
+					text += "[SPAN_BOLD("died")]!"
 				else
-					text += "<span class='bold'>survived!</span>"
+					text += SPAN_BOLD("survived!")
 				if(changeling.current.real_name != changeling.name)
 					text += " as [changeling.current.real_name]"
 				else
 					text += "!"
 			else
-				text += "<span class='bold'>had [changeling.p_their()] body destroyed!</span>"
+				text += SPAN_BOLD("had [changeling.p_their()] body destroyed!")
 				changelingwin = FALSE
 
 			// Removed sanity if(changeling) because we -want- a runtime to inform us that the changelings list is incorrect and needs to be fixed.

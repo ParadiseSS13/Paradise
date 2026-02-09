@@ -77,7 +77,7 @@
 /obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to be unsecured to disassemble it!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -97,19 +97,19 @@
 	if(istype(I, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/W = I
 		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
+			to_chat(user, SPAN_WARNING("You need one brass sheet to do this!"))
 			return
 		var/turf/T = get_turf(src)
 		if(iswallturf(T))
-			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
+			to_chat(user, SPAN_WARNING("There is already a wall present!"))
 			return
 		if(!isfloorturf(T))
-			to_chat(user, "<span class='warning'>A floor must be present to build a [anchored ? "false ":""]wall!</span>")
+			to_chat(user, SPAN_WARNING("A floor must be present to build a [anchored ? "false ":""]wall!"))
 			return
 		if(locate(/obj/structure/falsewall) in T.contents)
-			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
+			to_chat(user, SPAN_WARNING("There is already a false wall present!"))
 			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
+		to_chat(user, SPAN_NOTICE("You start adding [W] to [src]..."))
 		if(do_after(user, 20, target = src))
 			var/brass_floor = FALSE
 			if(istype(T, /turf/simulated/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
@@ -122,7 +122,7 @@
 					new /obj/structure/falsewall/brass(T)
 				qdel(src)
 			else
-				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
+				to_chat(user, SPAN_WARNING("You need more brass to make a [anchored ? "false ":""]wall!"))
 		return
 	return ..()
 

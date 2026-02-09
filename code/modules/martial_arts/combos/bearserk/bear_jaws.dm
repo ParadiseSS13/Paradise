@@ -7,8 +7,8 @@
 	user.do_attack_animation(target, ATTACK_EFFECT_BITE)
 	playsound(get_turf(target), 'sound/weapons/bite.ogg', 25, vary = TRUE, extrarange = -1)
 	if(IS_HORIZONTAL(target))
-		target.visible_message("<span class='warning'>[user] leaps onto [target] and bites them!</span>",
-						"<span class='userdanger'>[user] leaps onto you and bites you like a real savage!</span>")
+		target.visible_message(SPAN_WARNING("[user] leaps onto [target] and bites them!"),
+						SPAN_USERDANGER("[user] leaps onto you and bites you like a real savage!"))
 		target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
 		if(isliving(target) && target.stat != DEAD)
 			user.adjustStaminaLoss(-60)
@@ -16,8 +16,8 @@
 		add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	var/atk_verb = pick("bites", "gnaws", "tears at")
-	target.visible_message("<span class='danger'>[user] [atk_verb] [target]!</span>",
-					"<span class='userdanger'>[user] [atk_verb] you!</span>")
+	target.visible_message(SPAN_DANGER("[user] [atk_verb] [target]!"),
+					SPAN_USERDANGER("[user] [atk_verb] you!"))
 	target.apply_damage(10, BRUTE, user.zone_selected, sharp = TRUE)
 	if(isliving(target) && target.stat != DEAD)
 		user.adjustStaminaLoss(-40)

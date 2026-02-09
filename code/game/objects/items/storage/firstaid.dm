@@ -10,10 +10,11 @@
  */
 /obj/item/storage/firstaid
 	name = "generic first-aid kit"
-	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "firstaid_generic"
 	throw_range = 8
-	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
+	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
+	materials = list(MAT_PLASTIC = 8000)
 	var/treatment_brute = "salglu_solution"
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
@@ -269,6 +270,7 @@
 	storage_slots = 50
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
+	materials = list(MAT_PLASTIC = 2000)
 	var/base_name = ""
 	var/label_text = ""
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.
@@ -297,7 +299,7 @@
 /obj/item/storage/pill_bottle/attack__legacy__attackchain(mob/M, mob/user)
 	if(iscarbon(M) && length(contents))
 		if(applying_meds)
-			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
+			to_chat(user, SPAN_WARNING("You are already applying meds."))
 			return
 		applying_meds = TRUE
 		for(var/obj/item/reagent_containers/P in contents)
@@ -345,13 +347,13 @@
 		var/mob/living/carbon/C = over_object
 		if(loc == C && src == C.get_active_hand())
 			if(!length(contents))
-				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
+				to_chat(C, SPAN_NOTICE("There is nothing in [src]!"))
 				return
-			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
+			C.visible_message(SPAN_DANGER("[C] [rapid_intake_message]"))
 			if(do_mob(C, C, 100)) // 10 seconds
 				for(var/obj/item/reagent_containers/pill/P in contents)
 					P.interact_with_atom(C, C)
-				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
+				C.visible_message(SPAN_DANGER("[C] [rapid_post_instake_message]"))
 			return
 
 	return ..()

@@ -128,6 +128,10 @@
 	tastes = list("shrimp" = 4)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/shrimp_skewer/bone
+	trash = /obj/item/stack/bone_rods
+	icon_state = "shrimpskewer_bone"
+
 /obj/item/food/fish_skewer
 	name = "fish skewer"
 	desc = "A whole fish battered and grilled on a skewer. Hope you're hungry!"
@@ -138,6 +142,10 @@
 	list_reagents = list("protein" = 6, "vitamin" = 4)
 	tastes = list("shrimp" = 1, "batter" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/fish_skewer/bone
+	trash = /obj/item/stack/bone_rods
+	icon_state = "fishskewer_bone"
 
 /obj/item/food/sliceable/ebi_maki
 	name = "ebi maki roll"
@@ -378,3 +386,4 @@
 	trash = /obj/item/trash/caviar
 	list_reagents = list("protein" = 5)
 	tastes = list("fish" = 2, "high society" = 1)
+	materials = list(MAT_METAL = 100)

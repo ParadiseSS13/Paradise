@@ -5,8 +5,8 @@
 	icon = 'icons/obj/objects.dmi'
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
 
-/obj/item/holder/New()
-	..()
+/obj/item/holder/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/holder/Destroy()
@@ -78,7 +78,7 @@
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
-	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
+	to_chat(src, SPAN_NOTICE("\The [grabber] scoops you up."))
 	grabber.status_flags |= PASSEMOTES
 	return H
 

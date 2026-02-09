@@ -18,8 +18,12 @@
 	/// Determines used sprites: hardhat[on]_[hat_color]
 	var/hat_color = "yellow"
 
-/obj/item/clothing/head/hardhat/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/clothing/head/hardhat/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	toggle_helmet_light(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/hardhat/proc/toggle_helmet_light(mob/living/user)
 	on = !on
@@ -47,7 +51,7 @@
 		on = FALSE
 		turn_off()
 		update_icon(UPDATE_ICON_STATE)
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(SPAN_DANGER("[src]'s light fades and turns off."))
 
 /obj/item/clothing/head/hardhat/orange
 	name = "orange hard hat"

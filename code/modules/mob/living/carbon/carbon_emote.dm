@@ -143,6 +143,18 @@
 	hands_use_check = TRUE
 	target_behavior = EMOTE_TARGET_BHVR_NUM
 
+/datum/emote/living/carbon/sign/run_emote(mob/user, params, type_override, intentional)
+	var/fingers = round(text2num(params), 1)
+
+	if(fingers > 10)
+		to_chat(user, SPAN_WARNING("You don't have enough fingers!"))
+		return TRUE
+	else if(fingers < 0)
+		to_chat(user, SPAN_WARNING("You're not entirely sure how to raise negative fingers."))
+		return TRUE
+	params = fingers
+	return ..()
+
 /datum/emote/living/carbon/faint
 	key = "faint"
 	key_third_person = "faints"
@@ -163,7 +175,7 @@
 /datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
 
 	if(!(user.get_active_hand() || user.get_inactive_hand()))
-		to_chat(user, "<span class='warning'>You need something in your hand to use this emote!</span>")
+		to_chat(user, SPAN_WARNING("You need something in your hand to use this emote!"))
 		return TRUE
 
 	var/obj/item/thing
@@ -198,8 +210,13 @@
 	else if(!(thing.flags & ABSTRACT))
 		message = "twirls [thing] around in their hand!"
 	else
-		to_chat(user, "<span class='warning'>You cannot twirl [thing]!</span>")
+		to_chat(user, SPAN_WARNING("You cannot twirl [thing]!"))
 		return TRUE
 
 	. = ..()
 	message = initial(message)
+
+/datum/emote/living/carbon/gulp
+	key = "gulp"
+	key_third_person = "gulps"
+	message = "nervously gulps."

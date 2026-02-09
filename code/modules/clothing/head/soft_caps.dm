@@ -6,6 +6,7 @@
 	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/softcap
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/softcap.dmi'
 	sprite_sheets = list(
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/softcap.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
@@ -26,8 +27,12 @@
 /obj/item/clothing/head/soft/update_icon_state()
 	icon_state = "[initial(icon_state)][flipped ? "_flipped" : ""]"
 
-/obj/item/clothing/head/soft/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/soft/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	flip(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
 	flipped = !flipped

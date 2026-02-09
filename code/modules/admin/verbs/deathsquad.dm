@@ -8,7 +8,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	if(!check_rights(R_EVENT))
 		return
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
+		to_chat(usr, SPAN_WARNING("The round hasn't started yet!"))
 		return
 	if(GLOB.deathsquad_sent)
 		if(alert("A Deathsquad is already being sent, are you sure you want to send another?", null, "Yes", "No") != "Yes")
@@ -19,9 +19,9 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		if(alert("Do you want to set AI and cyborgs laws to Terminator?", null, "Yes", "No") != "No")
 			ai_laws_change = TRUE
 
-	message_admins("<span class='notice'>[key_name_admin(proccaller)] has started to spawn a DeathSquad.</span>")
+	message_admins(SPAN_NOTICE("[key_name_admin(proccaller)] has started to spawn a DeathSquad."))
 	log_admin("[key_name_admin(proccaller)] has started to spawn a DeathSquad.")
-	to_chat(proccaller, "<span class='boldwarning'>This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle or use the end round verb when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected will be the team leader.</span>")
+	to_chat(proccaller, SPAN_BOLDWARNING("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle or use the end round verb when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected will be the team leader."))
 
 	var/mission = sanitize(copytext_char(input(src, "Please specify which mission the Deathsquad shall undertake.", "Specify Mission", "",), 1, MAX_MESSAGE_LEN))
 	if(!mission)
@@ -36,7 +36,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		var/notice_sound = sound('sound/AI/epsilon_laws.ogg')
 		for(var/mob/living/silicon/ai/AI in ais)
 			death_squad_ai_law_set.sync(AI, TRUE, FALSE) // Reset all laws exept zero
-			to_chat(AI, "<span class='userdanger'>Central command has uploaded a new set of laws you must follow. Make sure you follow them.</span>")
+			to_chat(AI, SPAN_USERDANGER("Central command has uploaded a new set of laws you must follow. Make sure you follow them."))
 			SEND_SOUND(AI, notice_sound)
 			AI.show_laws()
 			var/obj/item/radio/headset/heads/ai_integrated/ai_radio = AI.get_radio()
@@ -45,7 +45,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 			for(var/mob/living/silicon/robot/R in AI.connected_robots)
 				R.sync()
-				to_chat(R, "<span class='userdanger'>Central command has uploaded a new set of laws you must follow. Make sure you follow them.</span>")
+				to_chat(R, SPAN_USERDANGER("Central command has uploaded a new set of laws you must follow. Make sure you follow them."))
 				SEND_SOUND(R, notice_sound)
 				R.show_laws()
 				var/obj/item/radio/borg/cyborg_radio = R.get_radio()
@@ -105,7 +105,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	if(!length(commando_ghosts))
 		message_admins("[key_name_admin(proccaller)]'s Deathsquad had no volunteers and was cancelled.")
 		log_admin("[key_name(proccaller)]'s Deathsquad had no volunteers and was cancelled.")
-		to_chat(src, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
+		to_chat(src, SPAN_USERDANGER("Nobody volunteered to join the DeathSquad."))
 		return
 
 	// Spawns a nuclear warhead for the team
@@ -123,7 +123,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 		var/dstype
 		if(is_leader)
-			to_chat(ghost_mob.client, "<span class='boldwarning'>You have been chosen to lead the Deathsquad. Please stand by.</span>" )
+			to_chat(ghost_mob.client, SPAN_BOLDWARNING("You have been chosen to lead the Deathsquad. Please stand by.") )
 		else
 			dstype = input_async(ghost_mob, "Select Deathsquad Type (10 seconds):", list("Organic", "Cyborg"))
 		addtimer(CALLBACK(src, PROC_REF(deathsquad_spawn), ghost_mob, is_leader, dstype, my_spawn_loc, nuke_code, mission), 10 SECONDS) // This may fail if the user switches mobs during it, this is because input_async is only for mobs not clients
@@ -140,7 +140,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		P.stamp(stamp)
 		qdel(stamp)
 
-	message_admins("<span class='notice'>[key_name_admin(proccaller)] has spawned a DeathSquad.</span>")
+	message_admins(SPAN_NOTICE("[key_name_admin(proccaller)] has spawned a DeathSquad."))
 	log_admin("[key_name(proccaller)] used Spawn Death Squad.")
 	return TRUE
 
@@ -174,9 +174,9 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		R.key = ghost_mob.key
 		dust_if_respawnable(ghost_mob)
 		if(nuke_code)
-			R.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")
-		R.mind.store_memory("<b>Mission:</b> <span class='warning'>[mission].</span>")
-		to_chat(R, "<span class='userdanger'>You are a Deathsquad cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[mission]</span></span>")
+			R.mind.store_memory("<b>Nuke Code:</b> [SPAN_WARNING("[nuke_code].")]")
+		R.mind.store_memory("<b>Mission:</b> [SPAN_WARNING("[mission].")]")
+		to_chat(R, SPAN_USERDANGER("You are a Deathsquad cyborg, in the service of Central Command. \nYour current mission is: [SPAN_DANGER("[mission]")]"))
 	else
 		var/mob/living/carbon/human/new_commando = create_deathsquad_commando(L, is_leader)
 		new_commando.mind.key = ghost_mob.key
@@ -184,9 +184,9 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		dust_if_respawnable(ghost_mob)
 		new_commando.update_action_buttons_icon()
 		if(nuke_code)
-			new_commando.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")
-		new_commando.mind.store_memory("<b>Mission:</b> <span class='warning'>[mission].</span>")
-		to_chat(new_commando, "<span class='userdanger'>You are a Deathsquad [is_leader ? "<b>TEAM LEADER</b>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[mission]</span></span>")
+			new_commando.mind.store_memory("<b>Nuke Code:</b> [SPAN_WARNING("[nuke_code].")]")
+		new_commando.mind.store_memory("<b>Mission:</b> [SPAN_WARNING("[mission].")]")
+		to_chat(new_commando, SPAN_USERDANGER("You are a Deathsquad [is_leader ? "<b>TEAM LEADER</b>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: [SPAN_DANGER("[mission]")]"))
 
 /client/proc/create_deathsquad_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)

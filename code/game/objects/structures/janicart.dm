@@ -14,7 +14,7 @@
 	var/obj/item/storage/bag/trash/my_bag = null
 	var/obj/item/mop/my_mop = null
 	var/obj/item/push_broom/my_broom = null
-	var/obj/item/reagent_containers/spray/cleaner/my_spray = null
+	var/obj/item/reagent_containers/spray/my_spray = null
 	var/obj/item/lightreplacer/my_replacer = null
 	var/signs = 0
 	var/const/max_signs = 4
@@ -51,11 +51,11 @@
 
 /obj/structure/janitorialcart/proc/put_in_cart(mob/user, obj/item/I)
 	if(!user.unequip(I)) // We can do this here because everything below wants to
-		to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[I] is stuck to your hand!"))
 		return
 
 	I.forceMove(src)
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	to_chat(user, SPAN_NOTICE("You put [I] into [src]."))
 	update_icon(UPDATE_OVERLAYS)
 	return
 
@@ -87,18 +87,18 @@
 			return
 
 		if(robot_module)
-			to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
+			to_chat(user, SPAN_WARNING("You cannot store [used] in [src]!"))
 			return
 
 		if(!my_mop)
 			my_mop = attacking_mop
 			put_in_cart(user, attacking_mop)
 		else
-			to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
+			to_chat(user, SPAN_NOTICE("There is already one of those in [src]."))
 		return
 
 	if(robot_module)
-		to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
+		to_chat(user, SPAN_WARNING("You cannot store [used] in [src]!"))
 		return
 
 	if(istype(used, /obj/item/caution))
@@ -106,7 +106,7 @@
 			signs++
 			put_in_cart(user, used)
 		else
-			to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
+			to_chat(user, SPAN_NOTICE("[src] can't hold any more signs."))
 		return
 
 	if(istype(used, /obj/item/push_broom))
@@ -123,7 +123,7 @@
 			return
 		item_present = TRUE
 
-	if(istype(used, /obj/item/reagent_containers/spray/cleaner))
+	if(istype(used, /obj/item/reagent_containers/spray))
 		if(!my_spray)
 			my_spray = used
 			put_in_cart(user, used)
@@ -138,7 +138,7 @@
 		item_present = TRUE
 
 	if(item_present)
-		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
+		to_chat(user, SPAN_NOTICE("There is already one of those in [src]."))
 		return
 
 	return FALSE
@@ -146,17 +146,17 @@
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		"<span class='warning'>[user] begins to empty the contents of [src].</span>",
-		"<span class='notice'>You begin to empty the contents of [src].</span>",
-		"<span class='warning'>You hear a prying sound.</span>"
+		SPAN_WARNING("[user] begins to empty the contents of [src]."),
+		SPAN_NOTICE("You begin to empty the contents of [src]."),
+		SPAN_WARNING("You hear a prying sound.")
 		)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
 
 	user.visible_message(
-		"<span class='warning'>[user] empties the contents of [src]'s bucket onto the floor!</span>",
-		"<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>",
-		"<span class='warning'>You hear liquid spilling onto the floor.</span>"
+		SPAN_WARNING("[user] empties the contents of [src]'s bucket onto the floor!"),
+		SPAN_NOTICE("You empty the contents of [src]'s bucket onto the floor."),
+		SPAN_WARNING("You hear liquid spilling onto the floor.")
 		)
 	reagents.reaction(loc)
 	reagents.clear_reagents()
@@ -168,9 +168,9 @@
 			return
 
 		user.visible_message( \
-			"<span class='notice'>[user] tightens [src]'s casters.</span>",
-			"<span class='notice'>You have tightened [src]'s casters.</span>",
-			"<span class='notice'>You hear ratcheting.</span>"
+			SPAN_NOTICE("[user] tightens [src]'s casters."),
+			SPAN_NOTICE("You have tightened [src]'s casters."),
+			SPAN_NOTICE("You hear ratcheting.")
 			)
 		anchored = TRUE
 		return
@@ -180,9 +180,9 @@
 			return
 
 		user.visible_message( \
-			"<span class='notice'>[user] loosens [src]'s casters.</span>",
-			"<span class='notice'>You have loosened [src]'s casters.</span>",
-			"<span class='notice'>You hear ratcheting.</span>"
+			SPAN_NOTICE("[user] loosens [src]'s casters."),
+			SPAN_NOTICE("You have loosened [src]'s casters."),
+			SPAN_NOTICE("You hear ratcheting.")
 			)
 		anchored = FALSE
 
@@ -216,38 +216,38 @@
 			if(!my_bag)
 				return
 			user.put_in_hands(my_bag)
-			to_chat(user, "<span class='notice'>You take [my_bag] from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You take [my_bag] from [src]."))
 			my_bag = null
 		if("Mop")
 			if(!my_mop)
 				return
 			user.put_in_hands(my_mop)
-			to_chat(user, "<span class='notice'>You take [my_mop] from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You take [my_mop] from [src]."))
 			my_mop = null
 		if("Broom")
 			if(!my_broom)
 				return
 			user.put_in_hands(my_broom)
-			to_chat(user, "<span class='notice'>You take [my_broom] from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You take [my_broom] from [src]."))
 			my_broom = null
 		if("Spray Bottle")
 			if(!my_spray)
 				return
 			user.put_in_hands(my_spray)
-			to_chat(user, "<span class='notice'>You take [my_spray] from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You take [my_spray] from [src]."))
 			my_spray = null
 		if("Light Replacer")
 			if(!my_replacer)
 				return
 			user.put_in_hands(my_replacer)
-			to_chat(user, "<span class='notice'>You take [my_replacer] from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You take [my_replacer] from [src]."))
 			my_replacer = null
 		if("Sign")
 			if(!signs)
 				return
 			if(sign)
 				user.put_in_hands(sign)
-				to_chat(user, "<span class='notice'>You take \a [sign] from [src].</span>")
+				to_chat(user, SPAN_NOTICE("You take \a [sign] from [src]."))
 				signs--
 			else
 				WARNING("Signs ([signs]) didn't match contents")

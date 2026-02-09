@@ -60,9 +60,9 @@
 
 	if(!M.can_buckle() && !force)
 		if(M == usr)
-			to_chat(M, "<span class='warning'>You are unable to buckle yourself to [src]!</span>")
+			to_chat(M, SPAN_WARNING("You are unable to buckle yourself to [src]!"))
 		else
-			to_chat(usr, "<span class='warning'>You are unable to buckle [M] to [src]!</span>")
+			to_chat(usr, SPAN_WARNING("You are unable to buckle [M] to [src]!"))
 		M.buckling = null
 		return FALSE
 
@@ -149,17 +149,17 @@
 	if(.)
 		if(M == user)
 			M.visible_message(
-				"<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",
-				"<span class='notice'>You buckle yourself to [src].</span>",
-				"<span class='notice'>You hear the click of a buckle being secured.</span>"
+				SPAN_NOTICE("[M] buckles [M.p_themselves()] to [src]."),
+				SPAN_NOTICE("You buckle yourself to [src]."),
+				SPAN_NOTICE("You hear the click of a buckle being secured.")
 			)
 			M.create_log(ATTACK_LOG, "Buckles [M.p_themselves()] to [src]", M)
 			log_attack(M, M, "Buckles themselves to [src]")
 		else
 			M.visible_message(
-				"<span class='warning'>[user] buckles [M] to [src]!</span>",
-				"<span class='warning'>[user] buckles you to [src]!</span>",
-				"<span class='notice'>You hear the click of a buckle being secured.</span>"
+				SPAN_WARNING("[user] buckles [M] to [src]!"),
+				SPAN_WARNING("[user] buckles you to [src]!"),
+				SPAN_NOTICE("You hear the click of a buckle being secured.")
 			)
 			user.create_log(ATTACK_LOG, "[user] has buckled [M] to [src]", M)
 			M.create_log(DEFENSE_LOG, "[M] has been buckled by [user] to [src]", user)
@@ -171,18 +171,18 @@
 	if(M)
 		if(M != user)
 			M.visible_message(
-				"<span class='notice'>[user] unbuckles [M] from [src].</span>",
-				"<span class='notice'>[user] unbuckles you from [src].</span>",
-				"<span class='notice'>You hear the click of a buckle being undone.</span>"
+				SPAN_NOTICE("[user] unbuckles [M] from [src]."),
+				SPAN_NOTICE("[user] unbuckles you from [src]."),
+				SPAN_NOTICE("You hear the click of a buckle being undone.")
 			)
 			user.create_log(ATTACK_LOG, "[user] has unbuckled [M] from [src]", M)
 			M.create_log(DEFENSE_LOG, "[M] has been unbuckled by [user] from [src]", user)
 			log_attack(user, M, "Unbuckled from [src]")
 		else
 			M.visible_message(
-				"<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",
-				"<span class='notice'>You unbuckle yourself from [src].</span>",
-				"<span class='notice'>You hear the click of a buckle being undone.</span>"
+				SPAN_NOTICE("[M] unbuckles [M.p_themselves()] from [src]."),
+				SPAN_NOTICE("You unbuckle yourself from [src]."),
+				SPAN_NOTICE("You hear the click of a buckle being undone.")
 			)
 			M.create_log(ATTACK_LOG, "Unbuckles [M.p_themselves()] from [src]", M)
 			log_attack(M, M, "Unbuckles themselves from [src]")

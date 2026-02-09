@@ -26,11 +26,15 @@
 			register_camera(wearer)
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/ert/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(camera || !has_camera)
 		..(user)
 	else
 		register_camera(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)
@@ -38,7 +42,7 @@
 	camera = new /obj/machinery/camera/portable(src, FALSE)
 	camera.network = list("ERT")
 	camera.c_tag = wearer.name
-	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+	to_chat(wearer, SPAN_NOTICE("User scanned as [camera.c_tag]. Camera activated."))
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
 	. = ..()
@@ -69,6 +73,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
 
@@ -189,6 +194,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")

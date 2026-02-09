@@ -24,10 +24,10 @@
 
 /obj/item/storm_staff/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It has [thunder_charges] charges remaining.</span>"
-	. += "<span class='notice'>Use it in hand to dispel storms.</span>"
-	. += "<span class='notice'>Use it on targets to summon thunderbolts from the sky.</span>"
-	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
+	. += SPAN_NOTICE("It has [thunder_charges] charges remaining.")
+	. += SPAN_NOTICE("Use it in hand to dispel storms.")
+	. += SPAN_NOTICE("Use it on targets to summon thunderbolts from the sky.")
+	. += SPAN_NOTICE("The thunderbolts are boosted if in an area with weather effects.")
 
 /obj/item/storm_staff/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(cigarette_lighter_act(user, target))
@@ -41,20 +41,20 @@
 		return !isnull(cig)
 
 	if(!thunder_charges)
-		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
+		to_chat(user, SPAN_WARNING("[src] needs to recharge!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='warning'>[user] holds [src] up to [user.p_their()] [cig.name] and shoots a tiny bolt of lightning that sets it alight!</span>",
-			"<span class='warning'>You hold [src] up to [cig] and shoot a tiny bolt of lightning that sets it alight!</span>",
-			"<span class='danger'>A thundercrack fills the air!</span>"
+			SPAN_WARNING("[user] holds [src] up to [user.p_their()] [cig.name] and shoots a tiny bolt of lightning that sets it alight!"),
+			SPAN_WARNING("You hold [src] up to [cig] and shoot a tiny bolt of lightning that sets it alight!"),
+			SPAN_DANGER("A thundercrack fills the air!")
 		)
 	else
 		user.visible_message(
-			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [cig.name] alight!</span>",
-			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [cig.name] alight!</span>",
-			"<span class='danger'>A thundercrack fills the air!</span>"
+			SPAN_WARNING("[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [cig.name] alight!"),
+			SPAN_WARNING("You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [cig.name] alight!"),
+			SPAN_DANGER("A thundercrack fills the air!")
 		)
 	cig.light(user, target)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
@@ -65,7 +65,7 @@
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
 	if(!user_area || !user_turf)
-		to_chat(user, "<span class='warning'>Something is preventing you from using the staff here.</span>")
+		to_chat(user, SPAN_WARNING("Something is preventing you from using the staff here."))
 		return
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
@@ -77,11 +77,11 @@
 	if(A)
 		if(A.stage != WEATHER_END_STAGE)
 			if(A.stage == WEATHER_WIND_DOWN_STAGE)
-				to_chat(user, "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>")
+				to_chat(user, SPAN_WARNING("The storm is already ending! It would be a waste to use the staff now."))
 				return
 			user.visible_message(
-				"<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>",
-				"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>"
+				SPAN_WARNING("[user] holds [src] skywards as an orange beam travels into the sky!"),
+				SPAN_NOTICE("You hold [src] skyward, dispelling the storm!")
 			)
 			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
 			A.wind_down()
@@ -101,26 +101,26 @@
 
 	. = ..()
 	if(!thunder_charges)
-		to_chat(user, "<span class='warning'>The staff needs to recharge.</span>")
+		to_chat(user, SPAN_WARNING("The staff needs to recharge."))
 		return
 	var/turf/target_turf = get_turf(target)
 	var/area/target_area = get_area(target)
 	var/area/user_area = get_area(user)
 	if(!target_turf || !target_area || (is_type_in_list(target_area, excluded_areas)) || !user_area || (is_type_in_list(user_area, excluded_areas)))
-		to_chat(user, "<span class='warning'>The staff will not work here.</span>")
+		to_chat(user, SPAN_WARNING("The staff will not work here."))
 		return
 	if(target_turf in targeted_turfs)
-		to_chat(user, "<span class='warning'>That SPOT is already being shocked!</span>")
+		to_chat(user, SPAN_WARNING("That SPOT is already being shocked!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(user, SPAN_WARNING("You don't want to hurt anyone!"))
 		return
 	var/power_boosted = FALSE
 	if(iswizard(user) || is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
 		power_boosted = TRUE
 	playsound(src, 'sound/magic/lightningshock.ogg', 10, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	targeted_turfs += target_turf
-	to_chat(user, "<span class='warning'>You aim at [target_turf]!</span>")
+	to_chat(user, SPAN_WARNING("You aim at [target_turf]!"))
 	new /obj/effect/temp_visual/thunderbolt_targeting(target_turf)
 	addtimer(CALLBACK(src, PROC_REF(throw_thunderbolt), target_turf, power_boosted, user), 1 SECONDS)
 	thunder_charges--
@@ -143,7 +143,7 @@
 	for(var/turf/T as anything in affected_turfs)
 		new /obj/effect/temp_visual/electricity(T)
 		for(var/mob/living/hit_mob in T)
-			to_chat(hit_mob, "<span class='userdanger'>You've been struck by lightning!</span>")
+			to_chat(hit_mob, SPAN_USERDANGER("You've been struck by lightning!"))
 			hit_mob.electrocute_act(15 * (isanimal_or_basicmob(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_TESLA|SHOCK_NOSTUN)
 			if(ishostile(hit_mob))
 				var/mob/living/simple_animal/hostile/H = hit_mob //mobs find and damage you...
@@ -158,8 +158,8 @@
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 	target.visible_message(
-		"<span class='danger'>A thunderbolt strikes [target]!</span>",
-		"<span class='danger'>A thundercrack fills the air!</span>"
+		SPAN_DANGER("A thunderbolt strikes [target]!"),
+		SPAN_DANGER("A thundercrack fills the air!")
 	)
 	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE, cause = name)
 

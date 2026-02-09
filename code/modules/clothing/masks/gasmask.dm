@@ -46,8 +46,12 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 	)
 
-/obj/item/clothing/mask/gas/welding/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/gas/welding/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	weldingvisortoggle(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
@@ -70,8 +74,12 @@
 /obj/item/clothing/mask/gas/explorer/marines
 	name = "military gas mask"
 
-/obj/item/clothing/mask/gas/explorer/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/gas/explorer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/explorer/adjustmask(user)
 	..()
@@ -125,7 +133,10 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/clothing/mask/gas/clown_hat/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
 							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
@@ -138,14 +149,16 @@
 	var/picked_mask = mask_type[mask_choice]
 
 	if(QDELETED(src) || !picked_mask)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(user.stat || !in_range(user, src))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
 	qdel(src)
 	user.put_in_active_hand(new_mask)
-	to_chat(user, "<span class='notice'>Your Clown Mask has now morphed into its new form, all praise the Honk Mother!</span>")
-	return TRUE
+	to_chat(user, SPAN_NOTICE("Your Clown Mask has now morphed into its new form, all praise the Honk Mother!"))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
@@ -225,8 +238,12 @@
 /obj/item/clothing/mask/gas/owl_mask/super_hero
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 
-/obj/item/clothing/mask/gas/owl_mask/attack_self__legacy__attackchain()
+/obj/item/clothing/mask/gas/owl_mask/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	hoot()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
@@ -319,7 +336,7 @@
 		var/message = phrase_list[key]
 
 		if(!safety)
-			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
+			to_chat(user, SPAN_NOTICE("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
 			return
 
 		switch(aggressiveness)
@@ -327,57 +344,59 @@
 				phrase = (phrase < 6) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,SPAN_NOTICE("You set the restrictor to: [message]"))
 			if(2)
 				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,SPAN_NOTICE("You set the restrictor to: [message]"))
 			if(3)
 				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,SPAN_NOTICE("You set the restrictor to: [message]"))
 			if(4)
 				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,SPAN_NOTICE("You set the restrictor to: [message]"))
 			else
-				to_chat(user, "<span class='notice'>It's broken.</span>")
+				to_chat(user, SPAN_NOTICE("It's broken."))
 
-/obj/item/clothing/mask/gas/sechailer/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wirecutters))
-		if(aggressiveness != 5)
-			to_chat(user, "<span class='warning'>You broke it!</span>")
-			aggressiveness = 5
-			return
-	. = ..()
+/obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
+	if(aggressiveness != 5)
+		to_chat(user, SPAN_WARNING("You broke it!"))
+		aggressiveness = 5
+	return TRUE
 
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
 	switch(aggressiveness)
 		if(1)
-			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")
+			to_chat(user, SPAN_NOTICE("You set the aggressiveness restrictor to the second position."))
 			aggressiveness = 2
 			phrase = 7
 		if(2)
-			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the third position.</span>")
+			to_chat(user, SPAN_NOTICE("You set the aggressiveness restrictor to the third position."))
 			aggressiveness = 3
 			phrase = 13
 		if(3)
-			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the fourth position.</span>")
+			to_chat(user, SPAN_NOTICE("You set the aggressiveness restrictor to the fourth position."))
 			aggressiveness = 4
 			phrase = 1
 		if(4)
-			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the first position.</span>")
+			to_chat(user, SPAN_NOTICE("You set the aggressiveness restrictor to the first position."))
 			aggressiveness = 1
 			phrase = 1
 		if(5)
-			to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
+			to_chat(user, SPAN_WARNING("You adjust the restrictor but nothing happens, probably because its broken."))
 	return TRUE
 
-/obj/item/clothing/mask/gas/sechailer/attack_self__legacy__attackchain()
+/obj/item/clothing/mask/gas/sechailer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	halt()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
 	if(safety)

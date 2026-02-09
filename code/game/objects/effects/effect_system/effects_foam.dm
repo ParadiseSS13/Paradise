@@ -291,10 +291,10 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	if(prob(75 - metal * 25))
-		user.visible_message("<span class='warning'>[user] smashes through [src].</span>", "<span class='notice'>You smash through [src].</span>")
+		user.visible_message(SPAN_WARNING("[user] smashes through [src]."), SPAN_NOTICE("You smash through [src]."))
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
+		to_chat(user, SPAN_NOTICE("You hit the metal foam but bounce off it."))
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
 /obj/structure/foamedmetal/CanPass(atom/movable/mover, border_dir)

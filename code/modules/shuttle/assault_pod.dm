@@ -30,7 +30,7 @@
 	var/dheight = 0
 	var/width = 7
 	var/height = 7
-	var/lz_dir = 1
+	var/lz_dir = NORTH
 
 /obj/item/assault_pod/attack_self__legacy__attackchain(mob/living/user)
 	var/target_area

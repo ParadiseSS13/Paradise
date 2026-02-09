@@ -3,6 +3,7 @@
 	desc = "Injects things."
 	icon_state = "reagents"
 	origin_tech = "materials=3;biotech=4"
+	materials = list(MAT_GLASS = 200)
 	container_type = OPENCONTAINER
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/chem
@@ -37,9 +38,9 @@
 		injectamount = cause
 	reagents.trans_to(R, injectamount)
 	add_attack_logs(usr, R, "Chem bio-chip activated injecting [injectamount]u of [contained_chemicals]")
-	to_chat(R, "<span class='italics'>You hear a faint beep.</span>")
+	to_chat(R, SPAN_ITALICS("You hear a faint beep."))
 	if(!reagents.total_volume)
-		to_chat(R, "<span class='italics'>You hear a faint click from your chest.</span>")
+		to_chat(R, SPAN_ITALICS("You hear a faint click from your chest."))
 		qdel(src)
 
 /obj/item/bio_chip_implanter/chem

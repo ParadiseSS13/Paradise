@@ -130,7 +130,7 @@
 
 /obj/machinery/recharge_station/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, SPAN_NOTICE("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", I))
 		return TRUE
@@ -183,18 +183,18 @@
 		return
 
 	if(get_dist(src, user) > 2 || get_dist(target, user) > 1)
-		to_chat(user, "<span class='notice'>[target] is too far away to put inside [src].</span>")
+		to_chat(user, SPAN_NOTICE("[target] is too far away to put inside [src]."))
 		return
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_WARNING("Close the maintenance panel first."))
 		return
 
 	var/can_accept_user
 	if(isrobot(target))
 		var/mob/living/silicon/robot/R = target
 		if(occupant)
-			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
+			to_chat(R, SPAN_WARNING("The cell is already occupied!"))
 			return
 		can_accept_user = TRUE
 
@@ -204,13 +204,13 @@
 		if(H.stat == DEAD)
 			return
 		if(occupant)
-			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
+			to_chat(H, SPAN_WARNING("The cell is already occupied!"))
 			return
 		if(ismodcontrol(H.back) || ismachineperson(H))
 			can_accept_user = TRUE
 
 	if(!can_accept_user)
-		to_chat(user, "<span class='notice'>Only non-organics and people wearing modsuits may enter the recharger!</span>")
+		to_chat(user, SPAN_NOTICE("Only non-organics and people wearing modsuits may enter the recharger!"))
 		return
 
 	target.stop_pulling()

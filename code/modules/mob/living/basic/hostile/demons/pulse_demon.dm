@@ -262,12 +262,12 @@
 		return
 	mind.wipe_memory()
 	var/list/greeting = list()
-	greeting.Add("<span class='warning'><font size=3><b>You are a pulse demon.</b></font></span>")
+	greeting.Add(SPAN_WARNING("<font size=3><b>You are a pulse demon.</b></font>"))
 	greeting.Add("<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>")
 	greeting.Add("<b>Navigate the station's power cables to find power sources to steal from to power your abilities.</b>")
 	greeting.Add("<b>Hijack APCs by entering them to unlock more powerful abilities, gain more maximum charge, and gain access to connected machines.</b>")
 	greeting.Add("<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise resistant to damage.</b>")
-	greeting.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
+	greeting.Add(SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)"))
 	for(var/datum/objective/new_obj in list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper))
 		mind.add_mind_objective(new_obj)
 	greeting.Add(mind.prepare_announce_objectives(FALSE))
@@ -327,7 +327,7 @@
 		if(!S.locked && !can_exit_cable)
 			can_exit_cable = TRUE
 			S.do_toggle(can_exit_cable)
-			to_chat(src, "<span class='danger'>Your self-sustaining ability has automatically enabled itself to prevent death from having no connection!</span>")
+			to_chat(src, SPAN_DANGER("Your self-sustaining ability has automatically enabled itself to prevent death from having no connection!"))
 
 /mob/living/basic/demon/pulse_demon/proc/update_controlling_area(reset = FALSE)
 	var/area/prev = controlling_area
@@ -539,7 +539,7 @@
 
 /mob/living/basic/demon/pulse_demon/say(message, verb, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client && check_mute(client.ckey, MUTE_IC))
-		to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+		to_chat(src, SPAN_DANGER("You cannot speak in IC (Muted)."))
 		return FALSE
 
 	if(sanitize)
@@ -554,7 +554,7 @@
 		var/turf/T = get_turf(src)
 		log_say("[key_name_admin(src)] (@[T.x], [T.y], [T.z]) made [current_robot]([key_name_admin(current_robot)]) say: [message]")
 		log_admin("[key_name_admin(src)] made [key_name_admin(current_robot)] say: [message]")
-		message_admins("<span class='notice'>[key_name_admin(src)] made [key_name_admin(current_robot)] say: [message]</span>")
+		message_admins(SPAN_NOTICE("[key_name_admin(src)] made [key_name_admin(current_robot)] say: [message]"))
 		// don't sanitize again
 		current_robot.say(message, null, FALSE, ignore_speech_problems, ignore_atmospherics, ignore_languages)
 		return TRUE
@@ -628,7 +628,7 @@
 	if(!is_valid_apc(A) || (A in hijacked_apcs) || apc_being_hijacked || A.being_hijacked)
 		return FALSE
 
-	to_chat(src, "<span class='notice'>You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds.</span>")
+	to_chat(src, SPAN_NOTICE("You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds."))
 	apc_being_hijacked = A
 	A.being_hijacked = TRUE
 	A.update_icon()
@@ -636,7 +636,7 @@
 		if(is_valid_apc(A))
 			finish_hijack_apc(A, remote)
 		else
-			to_chat(src, "<span class='warning'>Failed to hijack [src].</span>")
+			to_chat(src, SPAN_WARNING("Failed to hijack [src]."))
 	apc_being_hijacked = null
 	A.being_hijacked = FALSE
 	A.update_icon()
@@ -660,7 +660,7 @@
 	if(!remote)
 		update_controlling_area()
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
-	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs and have [apcs_remaining] left to spend.</span>")
+	to_chat(src, SPAN_NOTICE("Hijacking complete! You now control [length(hijacked_apcs)] APCs and have [apcs_remaining] left to spend."))
 	var/turf/T = get_turf(A)
 	var/distance = 0
 	strengthen_cables(T, distance)
@@ -763,7 +763,7 @@
 	SIGNAL_HANDLER
 	if(emp_debounce)
 		return
-	visible_message("<span class='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
+	visible_message(SPAN_DANGER("[src] [pick("fizzles", "wails", "flails")] in anguish!"))
 	playsound(get_turf(src), pick(hurt_sounds), 30, TRUE)
 	throw_alert(ALERT_CATEGORY_NOREGEN, /atom/movable/screen/alert/pulse_noregen)
 	switch(severity)
@@ -790,19 +790,19 @@
 		if(C?.charge)
 			C.use(min(C.charge, power_drain_rate))
 			adjust_charge(min(C.charge, power_drain_rate))
-			visible_message("<span class='notice'>[src] touches [O] and drains its power!</span>", "<span class='notice'>You touch [O] and drain it's power!</span>")
+			visible_message(SPAN_NOTICE("[src] touches [O] and drains its power!"), SPAN_NOTICE("You touch [O] and drain it's power!"))
 
 /mob/living/basic/demon/pulse_demon/attack_hand(mob/living/carbon/human/M)
 	if(is_under_tile())
-		to_chat(M, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(M, SPAN_DANGER("You can't interact with something that's under the floor!"))
 		return
 	switch(M.intent)
 		if(INTENT_HELP)
-			visible_message("<span class='notice'>[M] [response_help_continuous] [src].</span>")
+			visible_message(SPAN_NOTICE("[M] [response_help_continuous] [src]."))
 		if(INTENT_DISARM, INTENT_GRAB)
-			visible_message("<span class='notice'>[M] [response_disarm_continuous] [src].</span>")
+			visible_message(SPAN_NOTICE("[M] [response_disarm_continuous] [src]."))
 		if(INTENT_HELP)
-			visible_message("<span class='warning'>[M] [response_harm_continuous] [src].</span>")
+			visible_message(SPAN_WARNING("[M] [response_harm_continuous] [src]."))
 	try_attack_mob(M)
 
 /mob/living/basic/demon/pulse_demon/attack_by(obj/item/O, mob/living/user, params)
@@ -810,16 +810,16 @@
 		return FINISH_ATTACK
 
 	if(is_under_tile())
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, SPAN_DANGER("You can't interact with something that's under the floor!"))
 		return FINISH_ATTACK
 
 	var/obj/item/stock_parts/cell/C = O.get_cell()
 	if(C && C.charge)
 		C.use(min(C.charge, power_drain_rate))
 		adjust_charge(min(C.charge, power_drain_rate))
-		to_chat(user, "<span class='warning'>You touch [src] with [O] and [src] drains it!</span>")
-		to_chat(src, "<span class='notice'>[user] touches you with [O] and you drain its power!</span>")
-	visible_message("<span class='notice'>[O] goes right through [src].</span>")
+		to_chat(user, SPAN_WARNING("You touch [src] with [O] and [src] drains it!"))
+		to_chat(src, SPAN_NOTICE("[user] touches you with [O] and you drain its power!"))
+	visible_message(SPAN_NOTICE("[O] goes right through [src]."))
 	try_shock_mob(user, O.siemens_coefficient)
 	return FINISH_ATTACK
 
@@ -836,7 +836,7 @@
 		regen_lock = max(regen_lock, 1)
 		return ..()
 	else
-		visible_message("<span class='warning'>[proj] goes right through [src]!</span>")
+		visible_message(SPAN_WARNING("[proj] goes right through [src]!"))
 
 /mob/living/basic/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
 	return

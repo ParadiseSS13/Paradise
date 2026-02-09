@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		valid_minds[H.real_name] = H.mind
 
 	if(!length(valid_minds))
-		to_chat(user, "<span class='warning'>No suitable humanoid targets found!</span>")
+		to_chat(user, SPAN_WARNING("No suitable humanoid targets found!"))
 		return
 	var/name = input(user, "Choose a player to add to this team", "Add Team Member") as null|anything in valid_minds
 	if(!name)
@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!message)
 		return
 
-	var/team_message = chat_box_red("<font color='#d6000b'><span class='bold'>Admin '[name]' Team Message ([user.key]): </span></font><span class='notice'>[message]</span>")
+	var/team_message = chat_box_red("<font color='#d6000b'>[SPAN_BOLD("Admin '[name]' Team Message ([user.key]): ")]</font>[SPAN_NOTICE("[message]")]")
 	var/team_alert_sound = sound('sound/effects/adminticketopen.ogg')
 	for(var/datum/mind/M as anything in members)
 		if(QDELETED(M.current))
@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		if(return_value & TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL)
 			return
 		if(!(return_value & TEAM_ADMIN_ADD_OBJ_SUCCESS))
-			to_chat(user, "<span class='warning'>[src] team failed to properly handle your selected objective, if you believe this was an error, tell a coder.</span>")
+			to_chat(user, SPAN_WARNING("[src] team failed to properly handle your selected objective, if you believe this was an error, tell a coder."))
 			return
 		if(return_value & TEAM_ADMIN_ADD_OBJ_CANCEL_LOG) // Logs are being handled elsewhere
 			return
@@ -382,7 +382,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/admins/proc/check_teams()
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
+		to_chat(usr, SPAN_WARNING("The game hasn't started yet!"))
 		return
 
 	var/datum/browser/popup = new(usr, "teams", "Team List", 500, 500)

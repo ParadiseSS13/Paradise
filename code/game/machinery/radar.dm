@@ -141,13 +141,13 @@
 
 	switch(construction_state)
 		if(RADAR_NEEDS_WELDING)
-			. += "<span class='notice'>The framework is damaged, and needs welding.</span>"
+			. += SPAN_NOTICE("The framework is damaged, and needs welding.")
 		if(RADAR_NEEDS_PLASTEEL)
-			. += "<span class='notice'>The framework needs new plasteel plating.</span>"
+			. += SPAN_NOTICE("The framework needs new plasteel plating.")
 		if(RADAR_NEEDS_WRENCH)
-			. += "<span class='notice'>The plating needs wrenching into place.</span>"
+			. += SPAN_NOTICE("The plating needs wrenching into place.")
 		if(RADAR_NEEDS_SCREWDRIVER)
-			. += "<span class='notice'>The cover screws are loose.</span>"
+			. += SPAN_NOTICE("The cover screws are loose.")
 
 // Interaction
 
@@ -160,7 +160,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, null, 1, I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
+	to_chat(user, SPAN_NOTICE("You mend the damaged framework."))
 	construction_state = RADAR_NEEDS_PLASTEEL
 
 // Step 2
@@ -171,10 +171,10 @@
 	if(istype(used, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/PS = used
 		if(PS.amount < 10)
-			to_chat(user, "<span class='warning'>You need 10 sheets of plasteel.</span>")
+			to_chat(user, SPAN_WARNING("You need 10 sheets of plasteel."))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You add new plating to the framework.</span>")
+		to_chat(user, SPAN_NOTICE("You add new plating to the framework."))
 		construction_state = RADAR_NEEDS_WRENCH
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
@@ -188,7 +188,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
+	to_chat(user, SPAN_NOTICE("You secure the plating to the framework."))
 	construction_state = RADAR_NEEDS_SCREWDRIVER
 
 
@@ -201,7 +201,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You screw the covers back into place.</span>")
+	to_chat(user, SPAN_NOTICE("You screw the covers back into place."))
 	set_fixed()
 
 /obj/machinery/radar/RefreshParts()

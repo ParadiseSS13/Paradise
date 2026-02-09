@@ -34,7 +34,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='notice'>You prepare the astroturf.</span>")
+	to_chat(user, SPAN_NOTICE("You prepare the astroturf."))
 	var/grassAmt = 1 + round(seed.potency * tile_coefficient) // The grass we're holding
 	for(var/obj/item/food/grown/grass/G in user.loc) // The grass on the floor
 		if(G.type != type)

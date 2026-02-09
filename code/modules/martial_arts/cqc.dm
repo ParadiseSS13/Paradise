@@ -63,8 +63,8 @@
 	chokehold_active = FALSE
 
 /datum/martial_art/cqc/proc/start_chokehold(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
-						"<span class='userdanger'>[A] puts you into a chokehold!</span>")
+	D.visible_message(SPAN_DANGER("[A] puts [D] into a chokehold!"), \
+						SPAN_USERDANGER("[A] puts you into a chokehold!"))
 	add_attack_logs(A, D, "Put into a chokehold with martial-art [src]", ATKLOG_ALL)
 	chokehold_active = TRUE
 	var/damage_multiplier = 1 + D.getStaminaLoss() / 100 //The chokehold is more effective the more tired the target is.
@@ -72,8 +72,8 @@
 		D.apply_damage(10 * damage_multiplier, OXY)
 		D.LoseBreath(3 SECONDS)
 		if(D.getOxyLoss() >= 50 || D.health <= 20)
-			D.visible_message("<span class='danger'>[A] puts [D] to sleep!</span>", \
-						"<span class='userdanger'>[A] knocks you out cold!</span>")
+			D.visible_message(SPAN_DANGER("[A] puts [D] to sleep!"), \
+						SPAN_USERDANGER("[A] knocks you out cold!"))
 			D.SetSleeping(40 SECONDS)
 			drop_chokehold()
 
@@ -103,12 +103,12 @@
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 10, TRUE, -1)
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 10, TRUE, -1)
-	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-						"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	D.visible_message(SPAN_DANGER("[A] [picked_hit_type] [D]!"), \
+						SPAN_USERDANGER("[A] [picked_hit_type] you!"))
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(IS_HORIZONTAL(A) && !IS_HORIZONTAL(D))
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
-							"<span class='userdanger'>[A] leg sweeps you!</span>")
+							SPAN_USERDANGER("[A] leg sweeps you!"))
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 10, TRUE, -1)
 		D.KnockDown(5 SECONDS)
 		A.SetKnockDown(0 SECONDS)
@@ -127,13 +127,13 @@
 		drop_restraining()
 
 	if(!IS_HORIZONTAL(D) || !restraining)
-		D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
-							"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
+		D.visible_message(SPAN_WARNING("[A] strikes [D]'s jaw with their hand!"), \
+							SPAN_USERDANGER("[A] strikes your jaw, disorienting you!"))
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 5, TRUE, -1)
 		D.SetSlur(4 SECONDS)
 		D.apply_damage(15, STAMINA)
 	else
-		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
+		D.visible_message(SPAN_DANGER("[A] attempted to disarm [D]!"), SPAN_USERDANGER("[A] attempted to disarm [D]!"))
 		playsound(D, 'sound/weapons/punchmiss.ogg', 5, TRUE, -1)
 
 	add_attack_logs(A, D, "Disarmed with martial-art [src]", ATKLOG_ALL)

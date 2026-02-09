@@ -89,7 +89,7 @@
 	This initially causes slowdown of muscle contractions, but continued attack will result in almost complete paralysis of most voluntary skeletal muscle groups, along with feelings of extreme lethargy and fatigue. \
 	These effects are temporary and will subside soon after, causing no lasting harm. By a massive stroke of coincidence, these same particle beams also exhibit a similar effect on the motors of IPC limbs."
 	. += ""
-	. += "The safety and efficiency of the disabler has caused it to rapidly replace tasers in police and security forces across most of known space, \
+	. += "The safety and efficacy of the disabler has caused it to rapidly replace tasers in police and security forces across most of known space, \
 	although the lack of immediate stopping power has prevented a complete replacement."
 
 /obj/item/gun/energy/disabler/Initialize(mapload)
@@ -105,7 +105,7 @@
 	return ..()
 
 /obj/item/gun/energy/disabler/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth. It looks like [user.p_theyre()] trying to shirk [user.p_their()] responsibilities!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is putting the barrel of [src] in [user.p_their()] mouth. It looks like [user.p_theyre()] trying to shirk [user.p_their()] responsibilities!"))
 	sleep(25)
 	if(user.is_holding(src))
 		if(can_shoot())
@@ -116,7 +116,7 @@
 		else
 			playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 	else
-		user.visible_message("<span class='suicide'>[user] fumbles [src]! [user.p_they(TRUE)] can't even get this right!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] fumbles [src]! [user.p_they(TRUE)] can't even get this right!"))
 	return SHAME
 
 //////////////////////////////

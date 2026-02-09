@@ -1,9 +1,13 @@
 use crate::milla::constants::*;
 use crate::milla::model::*;
+use byondapi::global_call::call_global;
 use byondapi::map::ByondXYZ;
+use byondapi::prelude::ByondValue;
+use core::f32;
 use eyre::eyre;
 use scc::Bag;
 use std::collections::HashSet;
+use std::f32::consts::E;
 
 pub(crate) fn find_walls(next: &mut ZLevel) {
     for my_index in 0..MAP_SIZE * MAP_SIZE {
@@ -373,6 +377,8 @@ pub(crate) fn post_process(
                 react(my_next_tile, true);
             }
 
+            do_turf_effects(my_next_tile, x, y, z);
+
             // Sanitize the tile, to avoid negative/NaN/infinity spread.
             sanitize(my_next_tile, my_tile);
         }
@@ -453,6 +459,11 @@ pub(crate) fn check_interesting(
             reasons |= ReasonFlags::DISPLAY;
         } else if (my_next_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES)
             != (my_tile.gases.sleeping_agent() >= SLEEPING_GAS_VISIBILITY_MOLES)
+        {
+            // Crossed the sleeping agent visibility threshold.
+            reasons |= ReasonFlags::DISPLAY;
+        } else if (my_next_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES)
+            != (my_tile.gases.water_vapor() >= WATER_VAPOR_VISIBILITY_MOLES)
         {
             // Crossed the sleeping agent visibility threshold.
             reasons |= ReasonFlags::DISPLAY;
@@ -631,6 +642,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile
             .gases
             .set_oxygen(my_next_tile.gases.oxygen() - plasma_burnt * PLASMA_BURN_OXYGEN_PER_PLASMA);
+        my_next_tile.gases.set_water_vapor(
+            my_next_tile.gases.water_vapor() + plasma_burnt * WATER_VAPOR_PER_PLASMA_BURNT,
+        );
 
         // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
@@ -638,7 +652,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         thermal_energy += PLASMA_BURN_ENERGY * plasma_burnt;
 
         // (or we would, but this is the last reaction)
-        //cached_temperature = thermal_energy / cached_heat_capacity;
+        cached_temperature = thermal_energy / cached_heat_capacity;
 
         my_next_tile.fuel_burnt += plasma_burnt;
     }
@@ -679,9 +693,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         my_next_tile.gases.set_oxygen(
             my_next_tile.gases.oxygen() - hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN,
         );
-        // my_next_tile
-        // .gases
-        // .set_water_vapor(my_next_tile.gases.water_vapor() + hydrogen_burnt);
+        my_next_tile
+            .gases
+            .set_water_vapor(my_next_tile.gases.water_vapor() + hydrogen_burnt);
 
         // Recalculate heat capacity.
         cached_heat_capacity = fraction * my_next_tile.heat_capacity();
@@ -698,6 +712,54 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy);
     } else {
         my_next_tile.thermal_energy += thermal_energy - initial_thermal_energy;
+    }
+}
+
+/// Apply the effects of the gas onto the turf itself
+pub(crate) fn do_turf_effects(my_next_tile: &mut Tile, x: i32, y: i32, z: i32) {
+    let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
+    // Calculate the water saturation pressure using the Arden Buck equation
+    let saturation_pressure: f32;
+    if cached_temperature > T0C {
+        saturation_pressure = 0.61121
+            * E.powf(
+                (18.678 - ((cached_temperature - T0C) / 234.5))
+                    * ((cached_temperature - T0C) / (cached_temperature + 257.14 - T0C)),
+            );
+    } else {
+        saturation_pressure = 0.61121
+            * E.powf(
+                (23.036 - ((cached_temperature - T0C) / 333.7))
+                    * ((cached_temperature - T0C) / (cached_temperature + 279.82 - T0C)),
+            );
+    }
+    let relative_humidity: f32 =
+        (my_next_tile.gases.water_vapor() * R_IDEAL_GAS_EQUATION * cached_temperature
+            / TILE_VOLUME)
+            / saturation_pressure;
+    if relative_humidity > 1.0 && my_next_tile.gases.water_vapor() > 0.0 {
+        // Condense all the water we cannot hold
+        let condensed_water: f32 =
+            my_next_tile.gases.water_vapor() - my_next_tile.gases.water_vapor() / relative_humidity;
+        my_next_tile
+            .gases
+            .set_water_vapor(my_next_tile.gases.water_vapor() - condensed_water);
+        //We lose gas, so we lose the thermal energy it had
+        my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
+        // Make the floor wet
+        call_global(
+            "condense_water",
+            &[
+                if cached_temperature > T0C {
+                    ByondValue::from(1.0)
+                } else {
+                    ByondValue::from(3.0)
+                },
+                ByondValue::from((x + 1) as f32),
+                ByondValue::from((y + 1) as f32),
+                ByondValue::from((z + 1) as f32),
+            ],
+        );
     }
 }
 

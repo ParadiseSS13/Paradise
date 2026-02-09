@@ -29,7 +29,7 @@
 	/// If provided, a custom overlay representing being the object being on fire.
 	var/custom_fire_overlay
 	/// How much acid is on this object?
-	var/acid_level = 0 
+	var/acid_level = 0
 	/// Can this object be attacked in melee?
 	var/can_be_hit = TRUE
 	/// Is this object currently being zapped by lightning?
@@ -37,7 +37,7 @@
 	/// Should this object speed process? Greatly increases the frequency of process events (5 times more frequent).
 	var/speed_process = FALSE
 	/// Are we visible on the station blueprints at roundstart?
-	var/on_blueprints = FALSE 
+	var/on_blueprints = FALSE
 	/// Forces the object to be on the blueprints, regardless of when it was created.
 	var/force_blueprints = FALSE
 	/// Does this object require you to hold it to commit suicide with it?
@@ -187,7 +187,7 @@
 /// Returns `TRUE` if the object was successfully repaired. Fully repairs an object (setting `BROKEN` to `FALSE`), default repair time = 40.
 /obj/proc/default_welder_repair(mob/user, obj/item/I)
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, SPAN_NOTICE("[src] does not need repairs."))
 		return
 	if(I.tool_behaviour != TOOL_WELDER)
 		return
@@ -204,16 +204,16 @@
 /// Handles (un)anchoring. Returns `TRUE` if successful, otherwise returns `FALSE`.
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	if(!anchored && !isfloorturf(loc))
-		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+		user.visible_message(SPAN_WARNING("A floor must be present to secure [src]!"))
 		return FALSE
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	if(!(flags & NODECONSTRUCT))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
+		to_chat(user, SPAN_NOTICE("Now [anchored ? "un" : ""]securing [name]."))
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
+			to_chat(user, SPAN_NOTICE("You've [anchored ? "un" : ""]secured [name]."))
 			anchored = !anchored
 		return TRUE
 	return FALSE
@@ -265,7 +265,7 @@
 		return
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
-	if(!sharp && new_sharp_val)
+	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
 
 /// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
@@ -278,7 +278,7 @@
 	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
-	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.visible_message(SPAN_DANGER("[C] slams into [src]!"), SPAN_USERDANGER("You slam into [src]!"))
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
 

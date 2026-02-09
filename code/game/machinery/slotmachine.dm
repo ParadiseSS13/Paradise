@@ -138,17 +138,17 @@
 */
 /obj/machinery/economy/slot_machine/emag_act(user)
 	if(emagged)
-		to_chat(user, "<span class='notice'>[src] is unresponsive. It is probably already modified.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is unresponsive. It is probably already modified."))
 		return
 	playsound(loc, 'sound/effects/sparks4.ogg', 75, 1)
 	emagged = TRUE
-	to_chat(user, "<span class='notice'>You engage the reverse-gripping mechanism on the machine's handle.</span>")
+	to_chat(user, SPAN_NOTICE("You engage the reverse-gripping mechanism on the machine's handle."))
 	log_game("[key_name(user)] emagged [src]")
 	return TRUE
 
 /// The spinning and throwing away is handled here, with a possible call to winning
 /obj/machinery/economy/slot_machine/proc/emagged_spinning(mob/living/user)
-	to_chat(user, "<span class='danger'>As you grip the handle of the machine, it grips back at you, and starts to wildly spin you around!</span>")
+	to_chat(user, SPAN_DANGER("As you grip the handle of the machine, it grips back at you, and starts to wildly spin you around!"))
 	user.SpinAnimation(speed = 2, loops = 6)
 	emagged_game_in_progress = TRUE
 
@@ -172,7 +172,7 @@
 		return
 
 	// Find the right direction and throw the user away from the machine
-	to_chat(user, "<span class='userdanger'>The handle suddenly lets you go!</span>")
+	to_chat(user, SPAN_USERDANGER("The handle suddenly lets you go!"))
 	user.anchored = FALSE
 	var/user_direction = get_dir(src, user)
 	var/turf/throw_direction = get_edge_target_turf(user, user_direction)

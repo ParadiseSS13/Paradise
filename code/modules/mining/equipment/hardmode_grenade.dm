@@ -8,7 +8,7 @@
 	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 	for(var/mob/living/simple_animal/hostile/megafauna/M in range(7, src))
 		M.enrage()
-		visible_message("<span class='userdanger'>[M] begins to wake up as the nanomachines enter them, it looks pissed!</span>")
+		visible_message(SPAN_USERDANGER("[M] begins to wake up as the nanomachines enter them, it looks pissed!"))
 	qdel(src)
 
 /obj/item/paper/hardmode

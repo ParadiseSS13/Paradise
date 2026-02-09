@@ -128,16 +128,16 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	if(owner.current.is_muzzled())
-		to_chat(owner.current, "<span class='warning'>[owner.current.wear_mask] prevents you from biting [H]!</span>")
+		to_chat(owner.current, SPAN_WARNING("[owner.current.wear_mask] prevents you from biting [H]!"))
 		draining = null
 		return
 	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
-	owner.current.visible_message("<span class='danger'>[owner.current] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	owner.current.visible_message(SPAN_DANGER("[owner.current] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!"), SPAN_DANGER("You sink your fangs into [H] and begin to drain [H.p_their()] blood."), SPAN_NOTICE("You hear a soft puncture and a wet sucking noise."))
 	while(do_mob(owner.current, H, suck_rate, hidden = TRUE))
 		owner.current.do_attack_animation(H, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-				to_chat(owner.current, "<span class='warning'>You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!</span>")
+				to_chat(owner.current, SPAN_WARNING("You have drained most of the life force from [H]'s blood, and you will get no more useable blood from them!"))
 				H.blood_volume = max(H.blood_volume - 25, 0)
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
@@ -146,26 +146,26 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
-				to_chat(owner.current, "<span class='notice'><b>You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use.</b></span>")
+				to_chat(owner.current, SPAN_NOTICE("<b>You have accumulated [bloodtotal] unit\s of blood, and have [bloodusable] left to use.</b>"))
 		H.blood_volume = max(H.blood_volume - 25, 0)
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(H.blood_volume)
 			if(H.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner.current, "<span class='danger'>Your victim's blood volume is dangerously low.</span>")
+				to_chat(owner.current, SPAN_DANGER("Your victim's blood volume is dangerously low."))
 			else if(H.blood_volume <= BLOOD_VOLUME_STABLE && blood_volume_warning > BLOOD_VOLUME_STABLE)
-				to_chat(owner.current, "<span class='warning'>Your victim's blood is at an unsafe level.</span>")
+				to_chat(owner.current, SPAN_WARNING("Your victim's blood is at an unsafe level."))
 			blood_volume_warning = H.blood_volume //Set to blood volume, so that you only get the message once
 		else
-			to_chat(owner.current, "<span class='warning'>You have bled your victim dry!</span>")
+			to_chat(owner.current, SPAN_WARNING("You have bled your victim dry!"))
 			break
 		if((!H.ckey && !H.player_ghosted) || HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN)) //Only runs if there is no ckey and the body has not being ghosted while alive, also runs if the victim is an evolved caterpillar or diona nymph.
-			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
+			to_chat(owner.current, SPAN_NOTICE("<b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b>"))
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 		else
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))
 
 	draining = null
-	to_chat(owner.current, "<span class='notice'>You stop draining [H.name] of blood.</span>")
+	to_chat(owner.current, SPAN_NOTICE("You stop draining [H.name] of blood."))
 
 #undef BLOOD_GAINED_MODIFIER
 
@@ -230,10 +230,10 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		if(!(p in old_powers))
 			if(istype(p, /datum/spell))
 				var/datum/spell/power = p
-				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
+				to_chat(owner.current, SPAN_BOLDNOTICE("[power.gain_desc]"))
 			else if(istype(p, /datum/vampire_passive))
 				var/datum/vampire_passive/power = p
-				to_chat(owner.current, "<span class='boldnotice'>[power.gain_desc]</span>")
+				to_chat(owner.current, SPAN_BOLDNOTICE("[power.gain_desc]"))
 
 /datum/antagonist/vampire/proc/check_sun()
 	var/ax = owner.current.x
@@ -254,11 +254,11 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner.current, "<span class='biggerdanger'>The starlight saps your strength, you should get out of the starlight!</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("The starlight saps your strength, you should get out of the starlight!"))
 		subtract_usable_blood(10)
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner.current, "<span class='biggerdanger'>Your body is turning to ash, get out of the starlight NOW!</span>")
+		to_chat(owner.current, SPAN_BIGGERDANGER("Your body is turning to ash, get out of the starlight NOW!"))
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
 		if(owner.current.getCloneLoss() >= 100)
@@ -341,16 +341,16 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	if(prob(burn_chance) && owner.current.health >= 50)
 		switch(owner.current.health)
 			if(75 to 100)
-				to_chat(owner.current, "<span class='warning'>Your skin flakes away...</span>")
+				to_chat(owner.current, SPAN_WARNING("Your skin flakes away..."))
 			if(50 to 75)
-				to_chat(owner.current, "<span class='warning'>Your skin sizzles!</span>")
+				to_chat(owner.current, SPAN_WARNING("Your skin sizzles!"))
 		owner.current.adjustFireLoss(3)
 	else if(owner.current.health < 50)
 		if(!owner.current.on_fire)
-			to_chat(owner.current, "<span class='danger'>Your skin catches fire!</span>")
+			to_chat(owner.current, SPAN_DANGER("Your skin catches fire!"))
 			owner.current.emote("scream")
 		else
-			to_chat(owner.current, "<span class='danger'>You continue to burn!</span>")
+			to_chat(owner.current, SPAN_DANGER("You continue to burn!"))
 		owner.current.adjust_fire_stacks(5)
 		owner.current.IgniteMob()
 
@@ -378,7 +378,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 /datum/antagonist/vampire/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	messages.Add("<span class='danger'>You are a Vampire!</span><br>")
+	messages.Add("[SPAN_DANGER("You are a Vampire!")]<br>")
 	messages.Add("To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers. \
 		You are weak to holy things, starlight, and fire. Don't go into space and avoid the Chaplain, the chapel, and especially Holy Water.")
 	return messages
@@ -404,7 +404,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		var/obj/item/nullrod/N = source
 		bonus_force = N.sanctify_force
 	if(!get_ability(/datum/vampire_passive/full))
-		to_chat(owner.current, "<span class='warning'>[source]'s power interferes with your own!</span>")
+		to_chat(owner.current, SPAN_WARNING("[source]'s power interferes with your own!"))
 		adjust_nullification(30 + bonus_force, 15 + bonus_force)
 
 /datum/antagonist/vampire/custom_blurb()

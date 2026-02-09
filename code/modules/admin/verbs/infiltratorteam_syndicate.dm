@@ -87,8 +87,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 				new_syndicate_infiltrator.update_action_buttons_icon()
 				dust_if_respawnable(theguy)
 			infiltrators -= theguy
-		to_chat(new_syndicate_infiltrator, "<span class='danger'>You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B></span>")
-		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink bio-chip to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
+		to_chat(new_syndicate_infiltrator, SPAN_DANGER("You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B>"))
+		to_chat(new_syndicate_infiltrator, SPAN_NOTICE("You are equipped with an uplink bio-chip to help you achieve your objectives. ((activate it via button in top left of screen))"))
 		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
 		if(syndicate_leader_selected)
@@ -96,11 +96,11 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			new_syndicate_infiltrator.loc = warpto.loc
 			sit_spawns_leader -= warpto
 			team_leader = new_syndicate_infiltrator
-			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it.</span>")
+			to_chat(new_syndicate_infiltrator, SPAN_DANGER("As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it."))
 		else
-			to_chat(new_syndicate_infiltrator, "<span class='danger'>Your team leader is: [team_leader]. They are in charge!</span>")
+			to_chat(new_syndicate_infiltrator, SPAN_DANGER("Your team leader is: [team_leader]. They are in charge!"))
 		teamsize--
-		to_chat(new_syndicate_infiltrator, "<span class='notice'>You have more helpful information stored in your Notes.</span>")
+		to_chat(new_syndicate_infiltrator, SPAN_NOTICE("You have more helpful information stored in your Notes."))
 		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Bio-chip ((top left of screen)) <BR> - Dust Bio-chip ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink bio-chip")

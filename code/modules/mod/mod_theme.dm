@@ -217,7 +217,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_atmospheric
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 75, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/advanced
 	name = "'Daedalus' advanced"

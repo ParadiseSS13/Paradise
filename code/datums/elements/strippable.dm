@@ -64,7 +64,7 @@
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
 	if(equipping.flags & NODROP)
-		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("You can't put [equipping] on [source], it's stuck to your hand!"))
 		return FALSE
 
 	if(equipping.flags & ABSTRACT)
@@ -78,13 +78,13 @@
 	var/thief_mode = in_thief_mode(user)
 	if(!thief_mode)
 		source.visible_message(
-			"<span class='notice'>[user] tries to put [equipping] on [source].</span>",
-			"<span class='notice'>[user] tries to put [equipping] on you.</span>",
+			SPAN_NOTICE("[user] tries to put [equipping] on [source]."),
+			SPAN_NOTICE("[user] tries to put [equipping] on you."),
 		)
 		if(ishuman(source))
 			var/mob/living/carbon/human/victim_human = source
 			if(!victim_human.has_vision())
-				to_chat(victim_human, "<span class='userdanger'>You feel someone trying to put something on you.</span>")
+				to_chat(victim_human, SPAN_USERDANGER("You feel someone trying to put something on you."))
 
 	if(!do_mob(user, source, equipping.put_on_delay, hidden = thief_mode))
 		return FALSE
@@ -124,21 +124,21 @@
 	if(isnull(item))
 		return FALSE
 
-	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
+	to_chat(user, SPAN_DANGER("You try to remove [source]'s [item.name]..."))
 	add_attack_logs(user, source, "Attempting stripping of [item]")
 	item.add_fingerprint(user)
 
 	var/thief_mode = in_thief_mode(user)
 	if(!thief_mode)
 		source.visible_message(
-			"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
-			"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
+			SPAN_WARNING("[user] tries to remove [source]'s [item.name]."),
+			SPAN_USERDANGER("[user] tries to remove your [item.name]."),
 			"You hear rustling."
 		)
 		if(ishuman(source))
 			var/mob/living/carbon/human/victim_human = source
 			if(!victim_human.has_vision())
-				to_chat(source, "<span class='userdanger'>You feel someone fumble with your belongings.</span>")
+				to_chat(source, SPAN_USERDANGER("You feel someone fumble with your belongings."))
 
 	return start_unequip_mob(get_item(source), source, user, hidden = thief_mode)
 
@@ -204,7 +204,7 @@
 		return FALSE
 
 	if(!equipping.mob_can_equip(source, item_slot, disable_warning = TRUE))
-		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
+		to_chat(user, SPAN_WARNING("\The [equipping] doesn't fit in that place!"))
 		return FALSE
 
 	return TRUE

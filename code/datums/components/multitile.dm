@@ -59,7 +59,7 @@
 	var/current_width = 1
 	var/tile_index = 1
 
-	for(var/turf/filler_turf as anything in block( 
+	for(var/turf/filler_turf as anything in block(
 	owner.x - offset_x - distance_from_center_x, owner.y + offset_y - distance_from_center_y, owner.z,
 	owner.x - offset_x + distance_from_center_x, owner.y + offset_y + distance_from_center_y, owner.z,
 	))
@@ -67,6 +67,7 @@
 		if(new_filler_map[max_height - current_height][current_width] == 1) // Because the `block()` proc always works from the bottom left to the top right, we have to loop through our list in reverse
 			var/obj/structure/filler/new_filler = new(filler_turf)
 			all_fillers += new_filler
+			new_filler.parent = owner
 		current_width += 1
 		tile_index++
 		if(tile_index % max_width == 1)

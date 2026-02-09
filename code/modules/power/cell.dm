@@ -4,6 +4,7 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cell"
 	origin_tech = "powerstorage=1"
+	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
 	force = 5
 	throwforce = 5
 	throw_range = 5
@@ -34,7 +35,7 @@
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
 		// State of charge is in kJ so we multiply it by 1000 to get Joules
-		desc += "<span class='notice'>It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.</span>"
+		desc += SPAN_NOTICE("It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.")
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
@@ -94,12 +95,12 @@
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
 	if(rigged)
-		. += "<span class='danger'>This power cell seems to be faulty!</span>"
+		. += SPAN_DANGER("This power cell seems to be faulty!")
 	else
-		. += "<span class='notice'>The charge meter reads [round(percent())]%.</span>"
+		. += SPAN_NOTICE("The charge meter reads [round(percent())]%.")
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(user), SPAN_SUICIDE("[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/attackby__legacy__attackchain(obj/item/W, mob/user, params)
@@ -180,7 +181,7 @@
 	origin_tech = "powerstorage=2"
 	icon_state = "hcell"
 	maxcharge = 10000
-	materials = list(MAT_GLASS = 60)
+	materials = list(MAT_METAL = 700, MAT_GLASS = 60)
 	rating = 3
 	chargerate = 1500
 
@@ -201,7 +202,7 @@
 	origin_tech = "powerstorage=3;materials=3"
 	icon_state = "scell"
 	maxcharge = 20000
-	materials = list(MAT_GLASS = 300)
+	materials = list(MAT_METAL = 700, MAT_GLASS = 300)
 	rating = 4
 	chargerate = 2000
 
@@ -217,7 +218,7 @@
 	icon_state = "hpcell"
 	inhand_icon_state = "scell"
 	maxcharge = 30000
-	materials = list(MAT_GLASS = 400)
+	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 400)
 	rating = 5
 	chargerate = 3000
 
@@ -232,7 +233,7 @@
 	origin_tech = "powerstorage=5;bluespace=4;materials=4;engineering=4"
 	icon_state = "bscell"
 	maxcharge = 40000
-	materials = list(MAT_GLASS = 600)
+	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 600, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
 	rating = 6
 	chargerate = 4000
 
@@ -254,7 +255,7 @@
 	icon_state = "icell"
 	origin_tech =  "powerstorage=7"
 	maxcharge = 30000
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 12000, MAT_GOLD = 6000, MAT_TITANIUM = 6000, MAT_URANIUM = 6000, MAT_DIAMOND = 6000, MAT_BLUESPACE = 6000) // If you actually get this and recycle it, it better be worth it.
 	rating = 6
 	chargerate = 30000
 	self_recharge = TRUE

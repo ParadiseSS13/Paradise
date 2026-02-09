@@ -63,8 +63,8 @@
 
 /mob/living/basic/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
-	to_chat(src, "<span class='userdanger'>NOTICE: EMP detected, systems damaged!</span>")
-	visible_message("<span class='warning'>[src] crackles and buzzes violently!</span>")
+	to_chat(src, SPAN_USERDANGER("NOTICE: EMP detected, systems damaged!"))
+	visible_message(SPAN_WARNING("[src] crackles and buzzes violently!"))
 
 /mob/living/basic/mining_drone/examine(mob/user)
 	. = ..()
@@ -72,24 +72,24 @@
 	var/t_s = p_s()
 	if(health < maxHealth)
 		if(health >= maxHealth * 0.5)
-			. += "<span class='warning'>[t_He] look[t_s] slightly dented.</span>"
+			. += SPAN_WARNING("[t_He] look[t_s] slightly dented.")
 		else
-			. += "<span class='boldwarning'>[t_He] look[t_s] severely dented!</span>"
+			. += SPAN_BOLDWARNING("[t_He] look[t_s] severely dented!")
 	var/ore_count = 0
 	for(var/obj/item/stack/ore/ore_stack in contents)
 		ore_count += ore_stack.amount
 
-	. += "<span class='notice'>[t_He] is currently storing [ore_count] ore.</span>"
+	. += SPAN_NOTICE("[t_He] is currently storing [ore_count] ore.")
 
 	if(stored_gun && stored_gun.max_mod_capacity)
-		. += "<span class='notice'><b>[stored_gun.get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
+		. += SPAN_NOTICE("<b>[stored_gun.get_remaining_mod_capacity()]%</b> mod capacity remaining.")
 		for(var/A in stored_gun.get_modkits())
 			var/obj/item/borg/upgrade/modkit/M = A
-			. += "<span class='notice'>There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>"
+			. += SPAN_NOTICE("There is \a [M] installed, using <b>[M.cost]%</b> capacity.")
 
 /mob/living/basic/mining_drone/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
-		to_chat(user, "<span class='notice'>You instruct [src] to drop any collected ore.</span>")
+		to_chat(user, SPAN_NOTICE("You instruct [src] to drop any collected ore."))
 		drop_ore()
 		return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/borg/upgrade/modkit))
@@ -111,7 +111,7 @@
 		return
 	. = TRUE
 	if(health == maxHealth)
-		to_chat(user, "<span class='notice'>[src] doesn't need repairing!</span>")
+		to_chat(user, SPAN_NOTICE("[src] doesn't need repairing!"))
 		return
 	if(!I.tool_use_check(user, 1))
 		return
@@ -159,10 +159,10 @@
 /mob/living/basic/mining_drone/proc/drop_ore(message = TRUE)
 	if(!length(contents))
 		if(message)
-			to_chat(src, "<span class='warning'>You attempt to dump your stored ore, but you have none.</span>")
+			to_chat(src, SPAN_WARNING("You attempt to dump your stored ore, but you have none."))
 		return
 	if(message)
-		to_chat(src, "<span class='notice'>You dump your stored ore.</span>")
+		to_chat(src, SPAN_NOTICE("You dump your stored ore."))
 	for(var/obj/item/stack/ore/O in contents)
 		O.forceMove(drop_location())
 
@@ -177,8 +177,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/mining_drone_cube/attack_self__legacy__attackchain(mob/user)
-	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
-	"<span class='warning'>You press center button on [src]. The device suddenly expands into a fully functional mining drone!</span>")
+	user.visible_message(SPAN_WARNING("\The [src] suddenly expands into a fully functional mining drone!"), \
+	SPAN_WARNING("You press center button on [src]. The device suddenly expands into a fully functional mining drone!"))
 	var/mob/living/basic/mining_drone/drone = new(get_turf(src))
 	drone.befriend(user)
 	qdel(src)
