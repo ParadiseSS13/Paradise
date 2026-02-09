@@ -75,12 +75,12 @@
 	if(!length(contents))
 		return
 	var/obj/item/I = contents[1]
-	var/image/img = image("icon"=I, "layer"=FLOAT_LAYER)	//take a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
+	var/image/img = image("icon"=I, "layer"=FLOAT_LAYER)	// take a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
 	img.plane = FLOAT_PLANE
 	img.pixel_x = 0
 	img.pixel_y = 0
 	. += img
-	. += "evidence"	//should look nicer for transparent stuff. not really that important, but hey.
+	. += "evidence"	// should look nicer for transparent stuff. not really that important, but hey.
 
 /obj/item/evidencebag/update_desc(updates)
 	. = ..()
@@ -262,7 +262,6 @@
 			report.info += SPAN_NOTICE("Most Likely Match: [fiber]<br>")
 	else
 		report.info += "No fibers found."
-
 
 /obj/item/forensics
 	icon = 'icons/obj/forensics/forensics.dmi'
