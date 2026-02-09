@@ -228,7 +228,11 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 5730),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 100, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 100, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/prince, 0, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/white, 0, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/princess, 0, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/queen, 0, TRUE),
 		)
 	var/activation_counter = 0
 	var/event_rolls = 0
