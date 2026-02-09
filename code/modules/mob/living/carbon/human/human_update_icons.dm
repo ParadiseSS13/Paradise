@@ -630,9 +630,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(istype(w_uniform, /obj/item/clothing/under/color))
 				var/obj/item/clothing/under/color/colored_uniform = w_uniform
 				if(colored_uniform.icon_palette_key)
-					var/icon/colored_icon = icon(worn_icon, "[worn_icon_state]_s")
 					if(!GLOB.palette_registry[colored_uniform.dyeing_key])
 						stack_trace("Item just tried to be colored with an invalid registry key: [colored_uniform.dyeing_key]")
+					var/icon/colored_icon = icon(worn_icon, "[worn_icon_state]_s")
 					colored_icon.swap_palette(
 						GLOB.palette_registry[colored_uniform.dyeing_key][colored_uniform.default_palette_key],
 						GLOB.palette_registry[colored_uniform.dyeing_key][colored_uniform.icon_palette_key]
@@ -1068,9 +1068,20 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		show_hand_to_observers(r_hand, left = FALSE)
 		var/worn_icon_state = r_hand.inhand_icon_state || r_hand.icon_state
 		var/mutable_appearance/standing
+		var/obj/item/clothing/under/color/colored_uniform = r_hand
 
 		if(r_hand.sprite_sheets_inhand && r_hand.sprite_sheets_inhand[dna.species.sprite_sheet_name])
 			standing = mutable_appearance(r_hand.sprite_sheets_inhand[dna.species.sprite_sheet_name], "[worn_icon_state]_r", layer = -R_HAND_LAYER, color = r_hand.color)
+		else if(istype(colored_uniform) && colored_uniform.icon_palette_key)
+			if(!GLOB.palette_registry[colored_uniform.dyeing_key])
+				stack_trace("Item just tried to be colored with an invalid registry key: [colored_uniform.dyeing_key]")
+			var/icon/colored_icon = icon(r_hand.righthand_file, worn_icon_state)
+			colored_icon.swap_palette(
+				GLOB.palette_registry[colored_uniform.dyeing_key][colored_uniform.default_palette_key],
+				GLOB.palette_registry[colored_uniform.dyeing_key][colored_uniform.icon_palette_key]
+			)
+			standing = mutable_appearance(colored_icon, null, layer = -R_HAND_LAYER, color = r_hand.color)
+			standing = center_image(standing, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
 		else
 			standing = mutable_appearance(r_hand.righthand_file, worn_icon_state, layer = -R_HAND_LAYER, color = r_hand.color)
 			standing = center_image(standing, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
@@ -1086,9 +1097,20 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		show_hand_to_observers(l_hand, left = TRUE)
 		var/worn_icon_state = l_hand.inhand_icon_state || l_hand.icon_state
 		var/mutable_appearance/standing
+		var/obj/item/clothing/under/color/colored_uniform = l_hand
 
 		if(l_hand.sprite_sheets_inhand && l_hand.sprite_sheets_inhand[dna.species.sprite_sheet_name])
 			standing = mutable_appearance(l_hand.sprite_sheets_inhand[dna.species.sprite_sheet_name], "[worn_icon_state]_l", layer = -L_HAND_LAYER, color = l_hand.color)
+		else if(istype(colored_uniform) && colored_uniform.icon_palette_key)
+			if(!GLOB.palette_registry[colored_uniform.dyeing_key])
+				stack_trace("Item just tried to be colored with an invalid registry key: [colored_uniform.dyeing_key]")
+			var/icon/colored_icon = icon(l_hand.lefthand_file, worn_icon_state)
+			colored_icon.swap_palette(
+				GLOB.palette_registry[colored_uniform.dyeing_key][colored_uniform.default_palette_key],
+				GLOB.palette_registry[colored_uniform.dyeing_key][colored_uniform.icon_palette_key]
+			)
+			standing = mutable_appearance(colored_icon, null, layer = -L_HAND_LAYER, color = l_hand.color)
+			standing = center_image(standing, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
 		else
 			standing = mutable_appearance(l_hand.lefthand_file, worn_icon_state, layer = -L_HAND_LAYER, color = l_hand.color)
 			standing = center_image(standing, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)

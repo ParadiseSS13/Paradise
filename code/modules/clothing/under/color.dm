@@ -3,9 +3,10 @@
 	icon = 'icons/obj/clothing/under/color.dmi'
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	icon_state = "white"
+	inhand_icon_state = "color_suit"
 	dyeable = TRUE
-	var/list/default_palette_key = DYE_WHITE
-	var/list/icon_palette_key = null
+	var/default_palette_key = DYE_WHITE
+	var/icon_palette_key = null
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
 		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/color.dmi',
@@ -20,8 +21,21 @@
 	icon_state = "whiteskirt"
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
-/obj/item/clothing/under/color/random/Initialize(mapload)
+/obj/item/clothing/under/color/Initialize(mapload)
 	. = ..()
+	if(!icon_palette_key)
+		message_admins("no uniform color key")
+		return
+	if(!GLOB.palette_registry[dyeing_key])
+		stack_trace("Item just tried to be colored with an invalid registry key: [dyeing_key]")
+	var/icon/colored_icon = icon(icon, icon_state)
+	colored_icon.swap_palette(
+		GLOB.palette_registry[dyeing_key][default_palette_key],
+		GLOB.palette_registry[dyeing_key][icon_palette_key]
+	)
+	icon = colored_icon
+
+/obj/item/clothing/under/color/random/Initialize(mapload)
 	var/list/excluded = list(/obj/item/clothing/under/color/random,
 							/obj/item/clothing/under/color/blue/dodgeball,
 							/obj/item/clothing/under/color/orange/prison,
@@ -34,27 +48,24 @@
 	icon_state = initial(C.icon_state)
 	icon_palette_key = initial(C.icon_palette_key)
 	inhand_icon_state = initial(C.inhand_icon_state)
+	return ..()
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
 	icon_palette_key = DYE_BLACK
-	inhand_icon_state = "bl_suit"
 
 /obj/item/clothing/under/color/jumpskirt/black
 	name = "black jumpskirt"
 	icon_palette_key = DYE_BLACK
-	inhand_icon_state = "bl_suit"
 	resistance_flags = NONE // I am going to assume this is here for a reason
 
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
 	icon_palette_key = DYE_BLUE
-	inhand_icon_state = "b_suit"
 
 /obj/item/clothing/under/color/jumpskirt/blue
 	name = "blue jumpskirt"
 	icon_palette_key = DYE_BLUE
-	inhand_icon_state = "b_suit"
 
 /obj/item/clothing/under/color/blue/dodgeball
 	flags = NODROP
@@ -62,18 +73,15 @@
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
 	icon_palette_key = DYE_GREEN
-	inhand_icon_state = "g_suit"
 
 /obj/item/clothing/under/color/jumpskirt/green
 	name = "green jumpskirt"
 	icon_palette_key = DYE_GREEN
-	inhand_icon_state = "g_suit"
 
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
 	desc = "A tasteful grey jumpsuit that reminds you of the good old days."
 	icon_palette_key = DYE_GREY
-	inhand_icon_state = "gy_suit"
 
 /obj/item/clothing/under/color/grey/greytide
 	flags = NODROP
@@ -82,7 +90,6 @@
 	name = "grey jumpskirt"
 	desc = "A tasteful grey jumpskirt that reminds you of the good old days."
 	icon_palette_key = DYE_GREY
-	inhand_icon_state = "gy_suit"
 
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
@@ -94,13 +101,11 @@
 	name = "orange jumpsuit"
 	desc = "Don't wear this near paranoid security officers."
 	icon_palette_key = DYE_ORANGE
-	inhand_icon_state = "o_suit"
 
 /obj/item/clothing/under/color/jumpskirt/orange
 	name = "orange jumpskirt"
 	desc = "Don't wear this near paranoid security officers."
 	icon_palette_key = DYE_ORANGE
-	inhand_icon_state = "o_suit"
 
 /obj/item/clothing/under/color/orange/prison
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
@@ -122,23 +127,19 @@
 	name = "pink jumpsuit"
 	desc = "Just looking at this makes you feel <i>fabulous</i>."
 	icon_palette_key = DYE_PINK
-	inhand_icon_state = "p_suit"
 
 /obj/item/clothing/under/color/jumpskirt/pink
 	name = "pink jumpskirt"
 	desc = "Just looking at this makes you feel <i>fabulous</i>."
 	icon_palette_key = DYE_PINK
-	inhand_icon_state = "p_suit"
 
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
 	icon_palette_key = DYE_RED
-	inhand_icon_state = "r_suit"
 
 /obj/item/clothing/under/color/jumpskirt/red
 	name = "red jumpskirt"
 	icon_palette_key = DYE_RED
-	inhand_icon_state = "r_suit"
 
 /obj/item/clothing/under/color/red/dodgeball
 	flags = NODROP
@@ -181,12 +182,10 @@
 /obj/item/clothing/under/color/purple
 	name = "purple jumpsuit"
 	icon_palette_key = DYE_PURPLE
-	inhand_icon_state = "p_suit"
 
 /obj/item/clothing/under/color/jumpskirt/purple
 	name = "purple jumpskirt"
 	icon_palette_key = DYE_PURPLE
-	inhand_icon_state = "p_suit"
 
 /// for jani ert
 /obj/item/clothing/under/color/purple/sensor
