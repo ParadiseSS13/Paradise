@@ -731,19 +731,25 @@
 		do_sparks(rand(1,6), 1, loc)
 		next_spark_time = world.time + 0.8 SECONDS
 
-/obj/item/clothing/gloves/color/black/pyro_claws/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
-		if(core)
-			to_chat(user, SPAN_NOTICE("[src] already has a [I]!"))
-			return
-		if(!user.drop_item())
-			to_chat(user, SPAN_WARNING("[I] is stuck to your hand!"))
-			return
-		to_chat(user, SPAN_NOTICE("You insert [I] into [src], and [src] starts to warm up."))
-		I.forceMove(src)
-		core = I
-	else
+/obj/item/clothing/gloves/color/black/pyro_claws/wirecutter_act(mob/living/user, obj/item/I)
+	return
+
+/obj/item/clothing/gloves/color/black/pyro_claws/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/signaler/anomaly/pyro))
 		return ..()
+
+	if(core)
+		to_chat(user, SPAN_NOTICE("[src] already has a [used]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You insert [used] into [src], and [src] starts to warm up."))
+	used.forceMove(src)
+	core = used
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE
