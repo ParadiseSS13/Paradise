@@ -445,11 +445,11 @@
 	materials = list(MAT_PLASTIC = 10000)
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi'
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
 		)
 
 /obj/item/clothing/head/jester
