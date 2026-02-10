@@ -3,7 +3,6 @@
 #define STAGE_TORMENT 3
 #define STAGE_ATTACK 4
 #define MANIFEST_DELAY 9
-#define INVISIBILITY_FCLUWNE 45
 
 /mob/living/simple_animal/hostile/floor_cluwne
 	name = "???"
@@ -184,7 +183,7 @@
 
 	else
 		layer = GAME_PLANE
-		invisibility = INVISIBILITY_FCLUWNE
+		invisibility = INVISIBILITY_OBSERVER
 		mouse_opacity = 0
 		density = FALSE
 
@@ -352,7 +351,7 @@
 		if(do_after(src, 50, target = H) && eating)
 			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
-			H.invisibility = INVISIBILITY_FCLUWNE
+			H.invisibility = INVISIBILITY_OBSERVER
 			H.mouse_opacity = 0
 			H.density = FALSE
 			H.anchored = TRUE
@@ -439,4 +438,3 @@
 #undef STAGE_TORMENT
 #undef STAGE_ATTACK
 #undef MANIFEST_DELAY
-#undef INVISIBILITY_FCLUWNE
