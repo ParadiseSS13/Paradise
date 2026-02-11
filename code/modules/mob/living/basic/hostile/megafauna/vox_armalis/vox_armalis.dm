@@ -6,6 +6,7 @@
 	gender = PLURAL
 	icon = 'icons/mob/lavaland/32x64fauna.dmi'
 	icon_state = "armalis"
+	icon_dead = "armalis_dead"
 	speak_emote = list("creels")
 	melee_attack_cooldown_min = 1 SECONDS
 	damage_coeff = list(BRUTE = 0.2, BURN = 0.2, TOX = 0.2, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -26,6 +27,14 @@
 	ranged_cooldown = 0.5 SECONDS // It's player controlled, it can have player fire rates.
 	initial_traits = list()
 	crusher_loot = list()
+	blood_color = "#2299FC"
+	butcher_time = 40 SECONDS
+	butcher_results = list(
+		/obj/item/food/fried_vox = 8,
+		/obj/item/organ/internal/cyberimp/brain/sensory_enhancer = 1,
+		/obj/item/salvage/loot/vox = 10,
+		/obj/item/organ/internal/brain/vox = 1,
+		)
 	true_spawn = FALSE
 	innate_actions = list(
 		/datum/action/cooldown/mob_cooldown/vox_armalis/swap_ammo,
@@ -34,6 +43,8 @@
 	)
 	/// Are the claws on
 	var/plasma_claws = FALSE
+	/// Do we explode on death?
+	var/do_death_explosion = TRUE
 
 /mob/living/basic/megafauna/vox_armalis/Initialize(mapload)
 	. = ..()
@@ -48,6 +59,8 @@
 	return TRUE
 
 /mob/living/basic/megafauna/vox_armalis/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	if(isspaceturf(loc))
+		new /obj/effect/particle_effect/ion_trails(get_turf(src), dir)
 	return TRUE
 
 /mob/living/basic/megafauna/vox_armalis/update_overlays()
@@ -58,21 +71,41 @@
 
 /mob/living/basic/megafauna/vox_armalis/ex_act(severity)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(75)
 
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(25)
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(10)
 
 /mob/living/basic/megafauna/vox_armalis/devour(mob/living/L)
 	return
 
 /mob/living/basic/megafauna/vox_armalis/death(gibbed)
-	death_explosion()
+	plasma_claws = FALSE
+	update_overlays()
+	transform = transform.Turn(90)
+	transform = transform.Translate(0, -16)
+	if(do_death_explosion)
+		death_explosion()
 	return ..()
+
+/mob/living/basic/megafauna/vox_armalis/gib() // Overwrites to make voxblood
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
+	// hide and freeze for the GC
+	notransform = TRUE
+	if(gib_nullifies_icon)
+		icon = null
+	invisibility = 101
+
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	for(var/i in 1 to 5)
+		new /obj/effect/gibspawner/vox(loc)
+	QDEL_IN(src, 0)
+	return TRUE
 
 /mob/living/basic/megafauna/vox_armalis/proc/death_explosion()
 	visible_message("<span class='userdanger'>[src] starts beeping ominously!</span>")
@@ -166,7 +199,7 @@
 /obj/projectile/bullet/hspike/on_hit(atom/target, blocked = 0)
 	if((blocked < 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.bleed(75)
+		H.bleed(50)
 		H.Immobilize(1 SECONDS)
 	..()
 

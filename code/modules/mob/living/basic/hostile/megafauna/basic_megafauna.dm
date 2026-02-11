@@ -25,7 +25,7 @@
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	initial_traits = list(TRAIT_FLYING)
 	/// The loot the mob should drop if killed with a crusher
-	var/list/crusher_loot
+	var/list/crusher_loot = list()
 	/// The type of medal it drops if on hard mode
 	var/medal_type
 	/// The type of boss for the medal it drops
@@ -144,13 +144,13 @@
 
 /mob/living/basic/megafauna/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(250)
 
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(100)
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(50)
 
 /// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
