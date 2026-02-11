@@ -16,7 +16,7 @@
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	materials = list(MAT_METAL=1750, MAT_GLASS=400)
+	materials = list(MAT_METAL = 1750, MAT_GLASS = 400)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_WELDER
 	can_toggle = TRUE
@@ -34,8 +34,12 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
-/obj/item/clothing/head/welding/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/welding/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	weldingvisortoggle(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/welding/flamedecal
 	name = "flame decal welding helmet"
@@ -82,9 +86,13 @@
 	if(isturf(location))
 		location.hotspot_expose(700, 1)
 
-/obj/item/clothing/head/cakehat/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/cakehat/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(status > 1)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	onfire = !onfire
 	if(onfire)
 		force = 3
@@ -95,7 +103,7 @@
 		force = null
 		damtype = BRUTE
 		icon_state = "cake0"
-
+	return ITEM_INTERACT_COMPLETE
 
 /*
  * Soviet Hats
@@ -113,13 +121,17 @@
 	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
-/obj/item/clothing/head/ushanka/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/clothing/head/ushanka/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(icon_state == "ushankadown")
 		icon_state = "ushankaup"
 		to_chat(user, "You raise the ear flaps on the ushanka.")
 	else
 		icon_state = "ushankadown"
 		to_chat(user, "You lower the ear flaps on the ushanka.")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/sovietsidecap
 	name = "\improper Soviet side cap"

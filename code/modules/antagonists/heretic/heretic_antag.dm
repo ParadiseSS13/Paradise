@@ -668,7 +668,10 @@
 
 	var/list/text = list("<br><font size=3>[SPAN_BOLD("The heretics were:")]</font>")
 	for(var/datum/mind/heretic in heretics)
-
+		var/datum/antagonist/heretic/heretic_datum = heretic.has_antag_datum(/datum/antagonist/heretic)
+		// Skip heretic monster summons.
+		if(!heretic_datum)
+			continue
 		text += "<br>[heretic.get_display_key()] was [heretic.name] ("
 		if(heretic.current)
 			if(heretic.current.stat == DEAD)
@@ -678,27 +681,26 @@
 		else
 			text += "body destroyed"
 		text += ")"
-		var/datum/antagonist/heretic/our_heretic = heretic.has_antag_datum(/datum/antagonist/heretic)
-		text += "<br><b>Sacrifices Made:</b> [our_heretic.total_sacrifices]"
-		text += "<br>The heretic's sacrifice targets were: [english_list(our_heretic.all_sac_targets, nothing_text = "No one")]."
+		text += "<br><b>Sacrifices Made:</b> [heretic_datum.total_sacrifices]"
+		text += "<br>The heretic's sacrifice targets were: [english_list(heretic_datum.all_sac_targets, nothing_text = "No one")]."
 		var/list/all_objectives = heretic.get_all_objectives()
 
-		if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
+		if(length(all_objectives)) // If the traitor had no objectives, don't need to process this.
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				text += "<br><b>Objective #[count]</b>: [objective.explanation_text]</b></font>"
 				count++
-		if(our_heretic.feast_of_owls)
+		if(heretic_datum.feast_of_owls)
 			text += SPAN_GREENTEXT("<br>Ascension Forsaken")
-		if(our_heretic.ascended)
+		if(heretic_datum.ascended)
 			text += SPAN_HIEROPHANT_WARNING("<br>THE HERETIC ASCENDED!")
 
 		text += "<br><b>Knowledge Researched:</b> "
 
 		var/list/string_of_knowledge = list()
 
-		for(var/knowledge_index in our_heretic.researched_knowledge)
-			var/datum/heretic_knowledge/knowledge = our_heretic.researched_knowledge[knowledge_index]
+		for(var/knowledge_index in heretic_datum.researched_knowledge)
+			var/datum/heretic_knowledge/knowledge = heretic_datum.researched_knowledge[knowledge_index]
 			string_of_knowledge += knowledge.name
 
 		text += english_list(string_of_knowledge)

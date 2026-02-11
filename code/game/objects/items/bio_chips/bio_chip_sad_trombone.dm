@@ -6,6 +6,7 @@
 	trigger_causes = BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL | BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/sad_trombone
 	implant_state = "implant-honk"
+	materials = list(MAT_BANANIUM = 500)
 
 /obj/item/bio_chip/sad_trombone/emote_trigger(emote, mob/source, force)
 	activate(emote)

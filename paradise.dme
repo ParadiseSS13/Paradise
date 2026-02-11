@@ -3153,6 +3153,7 @@
 #include "code\modules\projectiles\guns\energy\energy.dm"
 #include "code\modules\projectiles\guns\energy\kinetic_accelerator.dm"
 #include "code\modules\projectiles\guns\energy\laser.dm"
+#include "code\modules\projectiles\guns\energy\laser_gatling.dm"
 #include "code\modules\projectiles\guns\energy\pulse.dm"
 #include "code\modules\projectiles\guns\energy\special_eguns.dm"
 #include "code\modules\projectiles\guns\energy\stun.dm"

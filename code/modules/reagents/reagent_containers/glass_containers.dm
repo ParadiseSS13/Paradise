@@ -232,7 +232,7 @@
 	name = "large beaker"
 	desc = "A large glass beaker with twice the capacity of a normal beaker."
 	icon_state = "beakerlarge"
-	materials = list(MAT_GLASS=2500)
+	materials = list(MAT_GLASS = 2500)
 	volume = 100
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
 
@@ -241,7 +241,7 @@
 	desc = "A small glass vial, often used by virologists of the 25th century."
 	icon_state = "vial"
 	belt_icon = "vial"
-	materials = list(MAT_GLASS=250)
+	materials = list(MAT_GLASS = 250)
 	volume = 25
 	possible_transfer_amounts = list(5,10,15,25)
 	can_assembly = 0
@@ -260,7 +260,7 @@
 	name = "cryostasis beaker"
 	desc = "A cryostasis beaker that allows for chemical storage without reactions."
 	icon_state = "beakernoreact"
-	materials = list(MAT_METAL=3000)
+	materials = list(MAT_METAL = 3000)
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
@@ -272,7 +272,7 @@
 	name = "bluespace beaker"
 	desc = "A bleeding-edge beaker that uses experimental bluespace technology to store massive quantities of liquid."
 	icon_state = "beakerbluespace"
-	materials = list(MAT_GLASS=3000)
+	materials = list(MAT_GLASS = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 250, MAT_BLUESPACE = 250)
 	volume = 300
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
@@ -296,7 +296,7 @@
 	desc = "Useful for moving liquids, or having a helmet in the zombie apocalypse."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 400)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
