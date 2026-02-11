@@ -37,6 +37,7 @@
 			return TRUE
 
 		if(istype(ninja_obj, /datum/objective/ninja/capture))
+			var/datum/objective/ninja/capture/cap_obj = ninja_obj
 			if(target.stat == DEAD) // We can't interrogate dead targets
 				continue
 			if(target != ninja_obj.target.current)
@@ -53,6 +54,7 @@
 								SPAN_NOTICE("You begin to scan [target]!"))
 			if(!do_after_once(user, 5 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
 				return TRUE
+			cap_obj.handle_capture(target, target.loc)
 			ninja_obj.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work. A new task is being assigned to you..."))
 			ninja_obj.check_completion()
