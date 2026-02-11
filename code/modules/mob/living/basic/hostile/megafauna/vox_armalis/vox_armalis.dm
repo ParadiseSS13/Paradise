@@ -85,7 +85,7 @@
 
 /mob/living/basic/megafauna/vox_armalis/death(gibbed)
 	plasma_claws = FALSE
-	update_overlays()
+	update_icon(UPDATE_OVERLAYS)
 	transform = transform.Turn(90)
 	transform = transform.Translate(0, -16)
 	if(do_death_explosion)
