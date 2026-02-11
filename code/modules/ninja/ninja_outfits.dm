@@ -13,6 +13,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
 		/obj/item/ninja_scanner,
+		/obj/item/gun/energy/kinetic_accelerator/energy_net,
 	)
 	bio_chips = list(
 		/obj/item/bio_chip/dust,

@@ -94,3 +94,91 @@
 /obj/item/shuriken_printer/proc/print_star()
 	if(current_stars < maximum_stars)
 		current_stars++
+
+/obj/item/gun/energy/kinetic_accelerator/energy_net
+	name = "energy net projector"
+	desc = "A non-lethal weapon favored by the Spider Clan. Targets struck will find themselves trapped in an energy net."
+	icon_state = "energy-net-gun"
+	inhand_icon_state = "energy-net-gun"
+	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL=2000)
+	origin_tech = "combat=4;magnets=4;syndicate=5"
+	suppressed = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/net)
+	unique_rename = FALSE
+	overheat_time = 3 SECONDS
+	holds_charge = TRUE
+	unique_frequency = TRUE
+	can_flashlight = FALSE
+	max_mod_capacity = 0
+	empty_state = "energy-net-gun_empty"
+	can_holster = TRUE
+
+/obj/item/gun/energy/kinetic_accelerator/energy_net/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_INSERTION, ROUNDSTART_TRAIT)
+
+/obj/item/ammo_casing/energy/net
+	projectile_type = /obj/projectile/energy/net
+	muzzle_flash_color = null
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	select_name = "energy net"
+	e_cost = 500
+	fire_sound = 'sound/weapons/bolathrow.ogg'
+
+/obj/projectile/energy/net
+	name = "energy net"
+	icon_state = "net-end"
+	damage = 0
+	nodamage = 1
+	stamina = 60
+	knockdown = 4 SECONDS
+	speed = 1.5
+
+/obj/projectile/energy/net/fire(setAngle)
+	if(firer)
+		firer.Beam(src, icon_state = "net-beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor)
+	return ..()
+
+/obj/projectile/energy/net/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(!firer)
+		return
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	if(!H.stam_paralyzed)
+		return
+	var/obj/item/restraints/handcuffs/cable/green/cuff = new()
+	cuff.apply_cuffs(H, firer, FALSE)
+	var/obj/structure/bed/energy_net/net = new(H.loc)
+	net.buckle_mob(H, TRUE)
+
+/obj/structure/bed/energy_net
+	name = "energy net"
+	desc = "A pulsing array of green energy that can securely hold a victim in place."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "e-net"
+
+/obj/structure/bed/energy_net/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(!has_buckled_mobs())
+		Destroy() // We don't exist if nothing is being held
+	for(var/buck in buckled_mobs) // No net, no buckles
+		var/mob/living/M = buck
+		if(M != user)
+			if(!do_after(user, 10 SECONDS, target = src))
+				if(M && M.buckled)
+					to_chat(user, SPAN_WARNING("You fail to release [M] from \the [src]!"))
+				return
+			M.visible_message(SPAN_NOTICE("[user.name] pulls [M.name] free from the energy net!"),\
+				SPAN_NOTICE("[user.name] pulls you free from the energy net."),\
+				SPAN_ITALICS("You hear a small zap..."))
+			unbuckle_mob(M)
+			Destroy()
+		if(!M.buckled)
+			return
+		M.visible_message(SPAN_WARNING("[M.name] breaks free from the energy net!"),\
+			SPAN_NOTICE("You break free from the energy net!"),\
+			SPAN_ITALICS("You hear a small zap..."))
+		unbuckle_mob(M)
+	Destroy()

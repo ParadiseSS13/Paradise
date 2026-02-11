@@ -24,12 +24,34 @@
 			continue
 		if(istype(ninja_obj, /datum/objective/ninja/kill))
 			if(target.stat != DEAD)
-				return ..()
+				continue
 			if(target != ninja_obj.target.current)
 				continue
 			user.visible_message(SPAN_DANGER("[user] begins to use [src] to scan [target]!"), \
 								SPAN_NOTICE("You begin to scan [target]!"))
 			if(!do_after_once(user, 8 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
+				return TRUE
+			ninja_obj.completed = TRUE
+			to_chat(user, SPAN_NOTICE("Contract complete. Good work. A new task is being assigned to you..."))
+			ninja_obj.check_completion()
+			return TRUE
+
+		if(istype(ninja_obj, /datum/objective/ninja/capture))
+			if(target.stat == DEAD) // We can't interrogate dead targets
+				continue
+			if(target != ninja_obj.target.current)
+				continue
+			if(!target.buckled)
+				continue
+			var/has_net = FALSE
+			for(var/obj/structure/bed/energy_net/net in target.loc)
+				has_net = TRUE
+				break
+			if(!has_net)
+				continue
+			user.visible_message(SPAN_DANGER("[user] begins to use [src] to scan [target]!"), \
+								SPAN_NOTICE("You begin to scan [target]!"))
+			if(!do_after_once(user, 5 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
 				return TRUE
 			ninja_obj.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work. A new task is being assigned to you..."))
