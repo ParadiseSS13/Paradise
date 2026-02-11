@@ -185,6 +185,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 // MARK: PLASTEEL
 //////////////////////////////
 GLOBAL_LIST_INIT(plasteel_recipes, list(
+	new /datum/stack_recipe("Satellite chassis", /obj/machinery/science_satellite, 10, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("AI core", /obj/structure/ai_core, 4, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS),
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
