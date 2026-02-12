@@ -129,7 +129,6 @@
 /obj/projectile/energy/net
 	name = "energy net"
 	icon_state = "net-end"
-	damage = 0
 	nodamage = 1
 	stamina = 60
 	knockdown = 4 SECONDS
