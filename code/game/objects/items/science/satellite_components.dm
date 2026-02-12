@@ -2,7 +2,7 @@
 	name = "satellite component"
 	new_attack_chain = TRUE
 	icon = 'icons/obj/stock_parts.dmi'
-
+	new_attack_chain = TRUE
 	var/weight = 0
 	var/fuel_efficiency = 0
 	var/fuel_capacity = 0
@@ -12,9 +12,14 @@
 	var/power_consumption = 0
 	var/power_capacity = 0
 
+////////////////////////////////////////
+// MARK: Computers
+////////////////////////////////////////
+
 /obj/item/satellite_component/computer/basic
 	name = "basic on-board computer"
 	icon_state = "nano_mani"
+	desc = "A standard satellite computer that doesn't specialize in anything."
 	weight = 10
 	power_consumption = 10
 	science_multiplier = 10
@@ -23,33 +28,24 @@
 /obj/item/satellite_component/computer/science
 	name = "scientific on-board computer"
 	icon_state = "pico_mani"
-	weight = 20
+	desc = "A satelite computer that focuses on processing more data at the cost of more power usage. "
+	weight = 10
 	power_consumption = 25
-	science_multiplier = 25
+	science_multiplier = 20
 	power_capacity = 10
 
 /obj/item/satellite_component/computer/efficient
 	name = "efficient on-board computer"
 	icon_state = "femto_mani"
-	weight = 15
-	power_consumption = 5
-	science_multiplier = 10
+	desc = "A computer that focuses on powersaving at the cost of data processing."
+	weight = 10
+	power_consumption = 7
+	science_multiplier = 5
 	power_capacity = 10
 
-	/*
-/obj/item/satellite_component/engine/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	. = ..()
-	if (!istype(target, /obj/machinery/science_satellite))
-		return
-
-	var/obj/machinery/science_satellite/chassis = target
-	//if (!chassis.panel_open)
-	//	return
-	if(/obj/item/satellite_component/engine in chassis.parts)
-		to_chat(user, SPAN_ERROR("There is already an engine in [src]"))
-		return
-	chassis.parts += src
-*/
+////////////////////////////////////////
+// MARK: Engines
+////////////////////////////////////////
 
 /obj/item/satellite_component/engine/basic_engine
 	name = "basic engine"
@@ -78,26 +74,9 @@
 	fuel_efficiency = 50
 	power_consumption = 10
 
-/obj/item/satellite_component/solar_panel
-	name = "satellite solar panels"
-	icon_state = "quadratic_capacitor"
-	desc = "A set of solar panels for a satellite."
-	weight = 2
-	power_generation = 5
-
-/obj/item/satellite_component/electric_generator
-	name = "satellite generator"
-	icon_state = "ultra_high_micro_laser"
-	desc = "An electric generator for a satellite."
-	weight = 5
-	power_generation = 20
-
-/obj/item/satellite_component/power_cell
-	name = "satellite power cell"
-	icon_state = "adv_capacitor"
-	desc = "An electric generator for a satellite."
-	weight = 5
-	power_capacity = 20
+////////////////////////////////////////
+// MARK: Science instruments
+////////////////////////////////////////
 
 /obj/item/satellite_component/meteorological_surveyor
 	name = "meteorological surveyor"
@@ -119,3 +98,57 @@
 	desc = "A magnetormeter meant for a satellite. Allows collecting data from ash storms and volcanism."
 	weight = 10
 	power_consumption = 10
+
+////////////////////////////////////////
+// MARK: Misc parts
+////////////////////////////////////////
+
+/obj/item/satellite_component/solar_panel
+	name = "satellite solar panels"
+	icon_state = "quadratic_capacitor"
+	desc = "A set of solar panels for a satellite."
+	weight = 2
+	power_generation = 5
+
+/obj/item/satellite_component/electric_generator
+	name = "satellite generator"
+	icon_state = "ultra_high_micro_laser"
+	desc = "An electric generator for a satellite."
+	weight = 5
+	power_generation = 20
+
+/obj/item/satellite_component/power_cell
+	name = "satellite power cell"
+	icon_state = "adv_capacitor"
+	desc = "An electric generator for a satellite."
+	weight = 5
+	power_capacity = 20
+
+/obj/item/satellite_component/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	. = ..()
+	if (!istype(target, /obj/machinery/science_satellite))
+		return
+
+	var/obj/machinery/science_satellite/chassis = target
+	if (!chassis.panel_open)
+		return
+
+
+	user.drop_item()
+	forceMove(chassis)
+	chassis.parts += src
+	//qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/satellite_component/engine/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if (!istype(target, /obj/machinery/science_satellite))
+		return
+
+	var/obj/machinery/science_satellite/chassis = target
+
+	for(var/obj/item/satellite_component/component in chassis.parts)
+		if(istype(component, /obj/item/satellite_component/engine))
+			to_chat(user, SPAN_WARNING("There is already an engine in \the [chassis]"))
+			return NONE
+
+	return ..()
