@@ -78,7 +78,7 @@
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
-		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
+		if(C && length(crusher_loot) && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
 		if(enraged && length(loot) && enraged_loot) // Don't drop a disk if the boss drops no loot. Important for legion.
 			for(var/mob/living/M in urange(20, src)) // Yes big range, but for bubblegum arena
