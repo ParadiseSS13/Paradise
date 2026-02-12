@@ -139,6 +139,7 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	var/obj/machinery/syndicatebomb/new_bomb = new bomb_type(get_turf(src))
 	new_bomb.anchored = TRUE
+	new_bomb.timer_set = 90
 	new_bomb.active = TRUE
 	var/objectives = user.mind.get_all_objectives()
 	for(var/datum/objective/ninja/bomb_department/bomb_dep in objectives)

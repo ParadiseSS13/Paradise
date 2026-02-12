@@ -18,6 +18,11 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 	/// Number of missions needed to complete
 	var/mission_goal = 4
 
+/datum/antagonist/space_ninja/on_gain()
+	..()
+	mission_goal = 4 + (length(GLOB.crew_list) / 10)
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/ninjaalert.ogg'))
+
 /datum/antagonist/space_ninja/give_objectives()
 	forge_objectives()
 
@@ -31,13 +36,53 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 	. = ..()
 	equip_ninja()
 
+/datum/antagonist/space_ninja/add_owner_to_gamemode()
+	SSticker.mode.ninjas |= owner
+
+/datum/antagonist/space_ninja/remove_owner_from_gamemode()
+	SSticker.mode.ninjas -= owner
+
 /datum/antagonist/space_ninja/proc/equip_ninja()
 	if(!ishuman(owner.current))
 		return
 	var/mob/living/carbon/human/new_ninja = owner.current
+	new_ninja.delete_equipment()
 	new_ninja.equipOutfit(/datum/outfit/space_ninja)
 
 /datum/antagonist/space_ninja/proc/forge_objectives()
-	var/iteration = 1
+	add_antag_objective(/datum/objective/ninja_goals, "Complete [mission_goal] missions for the Spider Clan.")
+	var/list/moderate_objectives = list(
+		/datum/objective/ninja/capture = 20,
+		/datum/objective/ninja/kill = 20,
+		/datum/objective/ninja/hack_rnd = 5,
+		/datum/objective/ninja/bomb_department = 3,
+		/datum/objective/ninja/bomb_department/emp = 3,
+		/datum/objective/ninja/bomb_department/spiders = 3,
+	)
+	var/list/all_ninja_objectives = list(
+		/datum/objective/ninja/capture = 10,
+		/datum/objective/ninja/kill = 10,
+		/datum/objective/ninja/hack_rnd = 5,
+		/datum/objective/ninja/bomb_department = 3,
+		/datum/objective/ninja/bomb_department/emp = 3,
+		/datum/objective/ninja/bomb_department/spiders = 3,
+		/datum/objective/ninja/steal_supermatter = 3,
+		/datum/objective/ninja/interrogate_ai = 3,
+	)
+	for(var/i in 1 to mission_goal)
+		if(i <= mission_goal / 2) // This ensures some easier objectives are rolled to allow ninjas to work up to harder ones.
+			forge_objective(moderate_objectives)
+			continue
+		forge_objective(all_ninja_objectives)
+	add_antag_objective(/datum/objective/ninja_exfiltrate)
 
-/datum/antagonist/space_ninja/proc/forge_new_objective()
+/datum/antagonist/space_ninja/proc/forge_objective(list/objective_list)
+
+	var/datum/objective/ninja/new_objective = pickweight(objective_list)
+	if(new_objective.onlyone)
+		var/list/current_objectives = get_antag_objectives()
+		for(var/datum/objective/ninja/c_objective in current_objectives)
+			if(istype(c_objective, new_objective))
+				forge_objective(objective_list)
+				return
+	add_antag_objective(new_objective)
