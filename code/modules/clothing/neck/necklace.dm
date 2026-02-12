@@ -26,16 +26,44 @@
 	return ..()
 
 
-/obj/item/clothing/neck/necklace/locket/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/neck/necklace/locket/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	operate_locket(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/clothing/neck/necklace/locket/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/paper) && !istype(used, /obj/item/photo))
+		to_chat(user, SPAN_WARNING("Only photographs and papers will fit inside [src]!"))
+		return ..()
+
+	if(!open)
+		to_chat(user, SPAN_WARNING("You have to open [src] first."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(held)
+		to_chat(user, SPAN_WARNING("[src] already has something inside it."))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You slip [used] into [src]."))
+	user.drop_item()
+	var/obj/item/thing = used
+	thing.forceMove(src)
+	held = used
+	operate_locket(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/clothing/neck/necklace/locket/proc/operate_locket(mob/living/user)
 	if(!base_icon)
 		base_icon = icon_state
 
 	if(!("[base_icon]_open" in icon_states(icon)))
-		to_chat(user, "[src] doesn't seem to open.")
-		return
+		to_chat(user, SPAN_WARNING("[src] doesn't seem to open."))
+		return ITEM_INTERACT_COMPLETE
 
 	open = !open
-	to_chat(user, "You flip [src] [open ? "open" : "closed"].")
+	to_chat(user, SPAN_NOTICE("You flip [src] [open ? "open" : "closed"]."))
 	if(open)
 		icon_state = "[base_icon]_open"
 		if(held)
@@ -44,22 +72,6 @@
 			held = null
 	else
 		icon_state = "[base_icon]"
-
-/obj/item/clothing/neck/necklace/locket/attackby__legacy__attackchain(obj/item/O, mob/user)
-	if(!open)
-		to_chat(user, "You have to open it first.")
-		return
-
-	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo))
-		if(held)
-			to_chat(usr, "[src] already has something inside it.")
-		else
-			to_chat(usr, "You slip [O] into [src].")
-			user.drop_item()
-			O.forceMove(src)
-			held = O
-	else
-		return ..()
 
 /obj/item/clothing/neck/necklace/locket/silver
 	name = "silver locket"

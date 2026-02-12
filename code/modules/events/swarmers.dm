@@ -1,6 +1,6 @@
 /datum/event/swarmers
 	name = "Swarmer Infestation"
-	nominal_severity = EVENT_LEVEL_MAJOR
+	nominal_severity = EVENT_LEVEL_MODERATE
 	role_weights = list(ASSIGNMENT_ENGINEERING = 5, ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 0.8)
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 20)
 	/// The name of the notification for dchat

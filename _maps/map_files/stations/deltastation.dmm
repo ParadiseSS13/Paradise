@@ -12647,13 +12647,13 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/camera{
 	c_tag = "Engine South East";
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
+/area/station/engineering/engine)
 "aYt" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/effect/turf_decal/tiles/neutral,
@@ -30139,7 +30139,7 @@
 	dir = 8;
 	layer = 4;
 	name = "NGCR Telescreen";
-	network = list("Singularity")
+	network = list("engine")
 	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine)
@@ -37097,7 +37097,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_port)
 "cMZ" = (
@@ -37522,7 +37522,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_port)
 "cOB" = (
@@ -48332,7 +48332,7 @@
 /obj/machinery/camera{
 	c_tag = "Engine Storage Pool";
 	dir = 1;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/plasteel/reactor_pool,
 /area/station/engineering/engine/reactor)
@@ -56304,7 +56304,7 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/camera{
 	c_tag = "Engine North";
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -57932,10 +57932,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
 "hDE" = (
-/obj/effect/map_effect/dynamic_airlock,
 /obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
 "hDS" = (
@@ -67627,10 +67627,10 @@
 /area/station/security/permabrig)
 "lKI" = (
 /obj/structure/cable,
-/obj/machinery/power/smes/engineering,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_starboard)
 "lKO" = (
@@ -68895,7 +68895,7 @@
 /obj/machinery/camera{
 	c_tag = "Engine North West";
 	dir = 5;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -71395,7 +71395,7 @@
 /obj/machinery/camera{
 	c_tag = "Engine South West";
 	dir = 4;
-	network = list("SS13","Engineering")
+	network = list("SS13","Engineering","engine")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
@@ -98157,7 +98157,7 @@
 /area/station/maintenance/fsmaint)
 "yeb" = (
 /obj/structure/cable,
-/obj/machinery/power/smes/engineering,
+/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "yee" = (

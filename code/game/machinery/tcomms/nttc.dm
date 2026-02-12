@@ -212,7 +212,7 @@
 		"Nanotrasen Career Trainer" = "proradio",
 	)
 	/// List of Command jobs
-	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "Quartermaster", "AI")
+	var/list/heads = list("Captain", "Station Commander", "Head of Command", "Commanding Officer", "Head of Personnel", "Head of Service", "Crew Relations Officer", "Nanotrasen Representative", "Blueshield", "Blueshield Officer", "Bodyguard", "Command Escort", "Chief Engineer", "Engineering Director", "Senior Engineer", "Engine Foreman", "Chief Medical Officer", "Medical Director", "Senior Physician", "Research Director", "Chief Research Officer", "Senior Researcher", "Head of Security", "Sheriff", "Security Director", "Magistrate", "Judge", "Quartermaster", "Chief Logistics Officer", "Supply Director", "Requisitions Foreman", "AI")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Inquisitor", "Emergency Response Team Janitor", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
