@@ -179,8 +179,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	for(var/datum/ruleset/ruleset in (rulesets + implied_rulesets)) // rulesets first, then implied rulesets
 		log_dynamic("Applying [ruleset.antag_amount] [ruleset.name]\s.")
 		antag_budget += ruleset.roundstart_pre_setup()
-	if(antag_budget < 0)
-		antag_budget = 0
+	antag_budget = max(0, antag_budget)
 	
 	log_dynamic("Budget overflow: [antag_budget].")
 	// for the future, maybe try readding antagonists with apply_antag_budget(antag_budget)
@@ -220,7 +219,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 	var/turf/T = get_turf(cryopod)
 	if(!T || is_admin_level(T.z))
 		return
-	antag_budget -= 1
+	antag_budget = max(0, antag_budget - 1)
 	if(!sleepy_mob.mind || !length(sleepy_mob.mind.antag_datums))
 		log_dynamic("Crew cryo. New budget: [antag_budget]", TRUE)
 		return
