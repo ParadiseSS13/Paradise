@@ -119,18 +119,18 @@
 	if(prob(50))
 		// if the machine isn't powered or we're using a non-conductive fork, we waste our attempt at getting shocked
 		if(!machine.has_power() || !(flags & CONDUCT))
-			to_chat(user, SPAN_NOTICE("You clumsily stick \the [src] into the open panel of \the [target]."))
+			to_chat(user, SPAN_NOTICE("You clumsily stick [src] into the open panel of [target]."))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, SPAN_DANGER("You stick \the [src] into the open panel of \the [target]."))
-		do_sparks(3, 1, machine)
+		to_chat(user, SPAN_DANGER("You stick [src] into the open panel of [target]."))
+		do_sparks(3, TRUE, machine)
 		//electrocute the mob, we're not checking distance because some machines are bigger than 1x1
 		electrocute_mob(user, get_area(machine), machine, machine.siemens_strength, FALSE)
 	else if(prob(50) && uncut_wire_count) // 50% of 50% = 25%
-		to_chat(user, SPAN_NOTICE("You stick \the [src] into the open panel of \the [target] and tear one of the wires."))
+		to_chat(user, SPAN_NOTICE("You stick [src] into the open panel of [target] and tear one of the wires."))
 		internal_wires.cut_random_uncut_wire()
 	else
-		to_chat(user, SPAN_NOTICE("You stick \the [src] into the open panel of \the [target]. That was fun!"))
+		to_chat(user, SPAN_NOTICE("You stick [src] into the open panel of [target]. That was fun!"))
 
 	return ITEM_INTERACT_COMPLETE
 
