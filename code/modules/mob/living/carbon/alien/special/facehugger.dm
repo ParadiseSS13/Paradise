@@ -39,7 +39,7 @@
 /obj/item/clothing/mask/facehugger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!attack_obj(src, user, modifiers))
 		return used.attack_obj__legacy__attackchain(src, user, modifiers)
-	
+
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)
@@ -51,7 +51,7 @@
 /obj/item/clothing/mask/facehugger/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ishuman(target))
 		return ..()
-	
+
 	user.drop_item_to_ground(src)
 	Attach(target)
 

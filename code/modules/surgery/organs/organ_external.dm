@@ -812,11 +812,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		release_restraints()
 
 /obj/item/organ/external/proc/create_fracture_wound(fracture_name_override)
-	var/picked_type = pick(typesof(/datum/wound/fracture))
-	var/datum/wound/fracture = new picked_type(src)
+	var/datum/wound/fracture = add_wound(pick(typesof(/datum/wound/fracture)))
+
 	if(fracture_name_override)
 		fracture.name = fracture_name_override
-	wound_list += fracture
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
