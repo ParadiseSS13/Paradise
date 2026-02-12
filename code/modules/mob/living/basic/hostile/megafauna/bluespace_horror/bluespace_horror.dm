@@ -22,7 +22,6 @@
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.4
 	ranged_cooldown = 1.5 SECONDS
-	crusher_loot = list()
 	true_spawn = FALSE
 	ai_controller = /datum/ai_controller/basic_controller/bluespace_horror
 	innate_actions = list(
