@@ -51,7 +51,7 @@
 	. = ..()
 	var/dye_key_selector = dye_key_override ? dye_key_override : dyeing_key
 	var/obj/item/clothing/under/color/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
-	if(!("icon_palette_key" in vars) && target_type in typesof(/obj/item/clothing/under/color))
+	if(!("icon_palette_key" in vars) && (target_type in typesof(/obj/item/clothing/under/color)))
 		redye_jumpsuit(target_type::default_palette_key, target_type::icon_palette_key)
 
 /// Solid color jumpsuits do some fancy palette swapping, so we do that here.
