@@ -208,11 +208,6 @@
 	logging_desc = "Shuttle with angry monkeys"
 
 /datum/shuttle_loan_situation/monkey_business/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
-	spawn_list.Add(/obj/machinery/syndicatebomb/badmin/clown/shuttle_loan)
-	spawn_list.Add(/obj/item/paper/fluff/cargo/bomb)
-	for(var/i in 1 to 4)
-		spawn_list.Add(/mob/living/basic/clown)
-
 	var/list/monkey_types = list(
 		/mob/living/carbon/human/monkey/angry,
 		/mob/living/carbon/human/nian_worme/angry,
