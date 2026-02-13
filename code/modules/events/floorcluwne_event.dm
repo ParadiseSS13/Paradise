@@ -1,5 +1,7 @@
 /datum/event/spawn_floor_cluwne
-
+	nominal_severity = EVENT_LEVEL_MODERATE
+	role_weights = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 0.8)
+	role_requirements = list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 15)
 
 /datum/event/spawn_floor_cluwne/start()
 
