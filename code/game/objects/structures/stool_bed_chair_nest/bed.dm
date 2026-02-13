@@ -238,8 +238,8 @@
 	desc = "A retracted hardlight stretcher that can be carried around."
 	icon_state = "holo_retracted"
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL = 1000)
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	extended = /obj/structure/bed/roller/holo
 
 /obj/structure/bed/roller/MouseDrop(over_object, src_location, over_location)
@@ -263,9 +263,12 @@
 	var/obj/item/roller/held
 	var/obj/carry_holo = FALSE
 
-/obj/item/roller_holder/New()
-	..()
-	held = new /obj/item/roller(src)
+/obj/item/roller_holder/Initialize(mapload)
+	. = ..()
+	create_roller()
+
+/obj/item/roller_holder/proc/create_roller()
+	held = new(src)
 
 /obj/item/roller_holder/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/item/roller))
@@ -306,8 +309,7 @@
 	icon_state = "holo_retracted"
 	carry_holo = TRUE
 
-/obj/item/roller_holder/holo/New()
-	..()
+/obj/item/roller_holder/holo/create_roller()
 	held = new /obj/item/roller/holo(src)
 
 /*

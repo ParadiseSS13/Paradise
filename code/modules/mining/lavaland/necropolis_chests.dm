@@ -73,7 +73,7 @@
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 		if(24)
-			switch(rand(1, 11))
+			switch(rand(1, 10))
 				if(1)
 					new /obj/item/blank_tarot_card(src)
 				if(2 to 5)
@@ -82,8 +82,6 @@
 					new /obj/item/tarot_card_pack/jumbo(src)
 				if(9, 10)
 					new /obj/item/tarot_card_pack/mega(src)
-				if(11)
-					new /obj/item/tarot_generator(src) // ~1/250? Seems reasonable
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
@@ -92,7 +90,7 @@
 	icon_state = "datadisk1"
 	var/modkit_design
 
-/obj/item/disk/design_disk/modkit_disk/New()
+/obj/item/disk/design_disk/modkit_disk/Initialize(mapload)
 	. = ..()
 	if(modkit_design)
 		blueprint = new modkit_design

@@ -32,6 +32,7 @@
 		ACCESS_SMITH
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
+	alt_titles = list("Supply Director", "Chief Logistics Officer", "Requisitions Foreman")
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
@@ -86,7 +87,7 @@
 		ACCESS_MINING_STATION,
 		ACCESS_SMITH,
 	)
-	alt_titles = list("Mail Carrier", "Courier")
+	alt_titles = list("Mail Carrier", "Courier", "Logistics Technician", "Requistions Specialist")
 	outfit = /datum/outfit/job/cargo_tech
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -323,6 +324,7 @@
 		ACCESS_HYDROPONICS,
 		ACCESS_MORGUE,
 	)
+	alt_titles = list("Barkeep", "Waiter", "Brewmaster", "Barista")
 	outfit = /datum/outfit/job/bartender
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = LOW_DIFFICULTY
@@ -429,7 +431,7 @@
 		ACCESS_BAR,
 		ACCESS_MINERAL_STOREROOM,
 	)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	alt_titles = list("Hydroponicist", "Botanical Researcher", "Farmer", "Gardener")
 	outfit = /datum/outfit/job/hydro
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = MEDIUM_DIFFICULTY
@@ -474,6 +476,7 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_THEATRE
 	)
+	alt_titles = list("Jester", "Entertainer", "Comedian")
 	outfit = /datum/outfit/job/clown
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -573,6 +576,7 @@
 		ACCESS_MIME,
 		ACCESS_THEATRE
 	)
+	alt_titles = list("Pantomime", "Performer", "Performance Artist")
 	outfit = /datum/outfit/job/mime
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY
@@ -676,7 +680,7 @@
 		ACCESS_LIBRARY,
 		ACCESS_MAINT_TUNNELS
 	)
-	alt_titles = list("Journalist")
+	alt_titles = list("Journalist", "Reporter", "News Anchor", "Antiquarian", "Curator")
 	outfit = /datum/outfit/job/librarian
 	standard_paycheck = CREW_PAY_LOW
 	difficulty = EASY_DIFFICULTY

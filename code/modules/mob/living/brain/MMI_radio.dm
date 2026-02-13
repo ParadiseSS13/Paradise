@@ -4,3 +4,4 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade1"
 	origin_tech = "programming=3;biotech=2;engineering=2"
+	materials = list(MAT_METAL = 200)

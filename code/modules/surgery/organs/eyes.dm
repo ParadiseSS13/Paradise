@@ -115,6 +115,7 @@
 	icon_state = "eyes-c"
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	status = ORGAN_ROBOT
 	can_be_colorblind = FALSE // I PRINTED 400 PAIRS OF NEW EYES TO CURE COLORBLIND KIDS! -Space Beast
 	var/flash_intensity = 1
@@ -135,6 +136,7 @@
 	eye_color = "#199900"
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_GOLD = 300)
 
 /obj/item/organ/internal/eyes/cybernetic/meson/insert(mob/living/carbon/human/M, special = FALSE)
 	ADD_TRAIT(M, TRAIT_MESON_VISION, "meson_vision[UID()]")
@@ -151,6 +153,7 @@
 	see_in_dark = 8
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_URANIUM = 1000, MAT_DIAMOND = 1000, MAT_BLUESPACE = 1000)
 
 /obj/item/organ/internal/eyes/cybernetic/xray/hardened
 	name = "hardened X-ray eyes"
@@ -169,6 +172,7 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	see_in_dark = 8
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4;syndicate=1"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 
 /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
 	name = "hardened thermal eyes"
@@ -183,6 +187,7 @@
 	eye_color = "#6f00ff"
 	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 	var/scope_range = 0.8 //Only used in initialize. Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
 	var/active = FALSE
 
@@ -247,6 +252,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	eye_color = "#101010"
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 400)
 	flash_intensity = 3
 
 /obj/item/organ/internal/eyes/cybernetic/shield/hardened

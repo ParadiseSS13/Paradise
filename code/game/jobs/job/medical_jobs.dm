@@ -29,6 +29,7 @@
 		ACCESS_WEAPONS
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
+	alt_titles = list("Medical Director", "Senior Physician")
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_MEDICAL = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
@@ -85,7 +86,7 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
 	)
-	alt_titles = list("Surgeon","Nurse")
+	alt_titles = list("Surgeon", "Nurse", "Physician", "Medical Student", "Medical Resident")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/doctor
@@ -136,6 +137,7 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
 	)
+	alt_titles = list("Mortician")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/coroner
@@ -181,6 +183,8 @@
 				head = /obj/item/clothing/head/surgery/blue
 			if("Medical Doctor")
 				uniform = /obj/item/clothing/under/rank/medical/doctor
+			if("Physician")
+				uniform = /obj/item/clothing/under/rank/medical/doctor
 			if("Nurse")
 				if(H.gender == FEMALE)
 					if(prob(50))
@@ -213,7 +217,7 @@
 		ACCESS_SURGERY,
 		ACCESS_VIROLOGY,
 	)
-	alt_titles = list("Pharmacist","Pharmacologist")
+	alt_titles = list("Pharmacist", "Pharmacologist")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/chemist
@@ -382,6 +386,7 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY,
 	)
+	alt_titles = list("Emergency Medical Technician", "First Responder", "Rescue Technician")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic

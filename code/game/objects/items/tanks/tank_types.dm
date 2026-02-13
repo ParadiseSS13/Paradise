@@ -17,6 +17,7 @@
 	icon_state = "generic"
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
 
 /obj/item/tank/internals/oxygen
 	name = "oxygen tank"
@@ -133,6 +134,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
 	volume = 1 // Roughly 4m 15s of air
+	materials = list(MAT_METAL = 500, MAT_GLASS = 100)
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
 	air_contents.set_oxygen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -144,6 +146,7 @@
 	name = "extended-capacity emergency oxygen tank"
 	icon_state = "emergency_engi"
 	volume = 3 // Lasts 12m 45s
+	materials = list(MAT_METAL = 800, MAT_GLASS = 100)
 
 /obj/item/tank/internals/emergency_oxygen/engi/empty/populate_gas()
 	return
@@ -158,6 +161,7 @@
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
 	volume = 6 // Lasts 25m 30s
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
 	return
