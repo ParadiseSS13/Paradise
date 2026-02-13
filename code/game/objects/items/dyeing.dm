@@ -51,17 +51,27 @@
 	. = ..()
 	var/dye_key_selector = dye_key_override ? dye_key_override : dyeing_key
 	var/obj/item/clothing/under/color/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
-	if(!istype(src, /obj/item/clothing/under/color) && (target_type in typesof(/obj/item/clothing/under/color)))
-		redye_jumpsuit(initial(target_type::default_palette_key), initial(target_type::icon_palette_key))
+	if(!("icon_palette_key" in vars) && target_type in typesof(/obj/item/clothing/under/color))
+		redye_jumpsuit(target_type::default_palette_key, target_type::icon_palette_key)
 
 /// Solid color jumpsuits do some fancy palette swapping, so we do that here.
 /obj/item/clothing/under/color/dye_item(dye_color, dye_key_override)
-	. = ..()
-	var/dye_key_selector = dye_key_override ? dye_key_override : dyeing_key
-	var/obj/item/clothing/under/color/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
-	if(!(target_type in typesof(/obj/item/clothing/under/color)))
+	if(!dyeable || !dye_color)
 		return
-	icon_palette_key = initial(target_type::icon_palette_key)
+	var/dye_key_selector = dye_key_override ? dye_key_override : dyeing_key
+	if(!dye_key_selector)
+		return FALSE
+	if(!GLOB.dye_registry[dye_key_selector])
+		stack_trace("Item just tried to be dyed with an invalid registry key: [dye_key_selector]")
+		return FALSE
+	var/obj/item/clothing/under/color/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
+	if(!target_type)
+		return FALSE
+	if(!(target_type in typesof(/obj/item/clothing/under/color)))
+		icon_palette_key = null
+		return
+	icon_palette_key = target_type::icon_palette_key
+	return ..()
 
 /// Beanies use the color var for their appearance, we don't normally copy this over but we have to for beanies
 /obj/item/clothing/head/beanie/dye_item(dye_color, dye_key_override)
