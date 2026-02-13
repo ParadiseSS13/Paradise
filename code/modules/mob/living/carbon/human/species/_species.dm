@@ -970,7 +970,7 @@
 	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
 		H.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE)
+	if(radiation > RAD_MOB_MUTATE && !HAS_TRAIT(H, TRAIT_GENELESS))
 		if(prob(1))
 			to_chat(H, SPAN_DANGER("You mutate!"))
 			randmutb(H)
