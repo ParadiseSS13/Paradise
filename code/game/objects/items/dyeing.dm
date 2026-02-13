@@ -46,6 +46,23 @@
 	update_appearance(ALL)
 	return target_type
 
+/// If we're dying a non-solid jumpsuit to solid, we have to do some extra icon shenanigans.
+/obj/item/clothing/under/dye_item(dye_color, dye_key_override)
+	. = ..()
+	var/dye_key_selector = dye_key_override ? dye_key_override : dyeing_key
+	var/obj/item/clothing/under/color/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
+	if(!istype(src, /obj/item/clothing/under/color) && (target_type in typesof(/obj/item/clothing/under/color)))
+		redye_jumpsuit(initial(target_type::default_palette_key), initial(target_type::icon_palette_key))
+
+/// Solid color jumpsuits do some fancy palette swapping, so we do that here.
+/obj/item/clothing/under/color/dye_item(dye_color, dye_key_override)
+	. = ..()
+	var/dye_key_selector = dye_key_override ? dye_key_override : dyeing_key
+	var/obj/item/clothing/under/color/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
+	if(!(target_type in typesof(/obj/item/clothing/under/color)))
+		return
+	icon_palette_key = initial(target_type::icon_palette_key)
+
 /// Beanies use the color var for their appearance, we don't normally copy this over but we have to for beanies
 /obj/item/clothing/head/beanie/dye_item(dye_color, dye_key_override)
 	. = ..()

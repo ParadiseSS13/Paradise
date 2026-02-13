@@ -232,12 +232,12 @@
 	random_look(owner)
 
 /obj/item/clothing/under/chameleon
-	name = "black jumpsuit"
+	name = "white jumpsuit"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
 	icon = 'icons/obj/clothing/under/color.dmi'
-	icon_state = "black"
+	icon_state = "white"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
-	inhand_icon_state = "bl_suit"
+	inhand_icon_state = "color_suit"
 	random_sensor = FALSE
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
