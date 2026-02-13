@@ -24,7 +24,6 @@
 /obj/item/clothing/under/color/Initialize(mapload)
 	. = ..()
 	if(!icon_palette_key)
-		message_admins("no uniform color key")
 		return
 	if(!GLOB.palette_registry[dyeing_key])
 		stack_trace("Item just tried to be colored with an invalid registry key: [dyeing_key]")
@@ -36,6 +35,7 @@
 	icon = colored_icon
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
+	. = ..()
 	var/list/excluded = list(/obj/item/clothing/under/color/random,
 							/obj/item/clothing/under/color/blue/dodgeball,
 							/obj/item/clothing/under/color/orange/prison,
@@ -48,7 +48,20 @@
 	icon_state = initial(C.icon_state)
 	icon_palette_key = initial(C.icon_palette_key)
 	inhand_icon_state = initial(C.inhand_icon_state)
-	return ..()
+	if(C == /obj/item/clothing/under/color/psyche)
+		generate_psychedelic_icon(list("white", "white_s", "white_d_s", "color_suit"))
+
+/obj/item/clothing/under/color/jumpskirt/random/Initialize(mapload)
+	. = ..()
+	var/list/excluded = list(/obj/item/clothing/under/color/jumpskirt/random,
+							/obj/item/clothing/under/color/jumpskirt/orange/prison,)
+	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color/jumpskirt) - excluded)
+	name = initial(C.name)
+	icon_state = initial(C.icon_state)
+	icon_palette_key = initial(C.icon_palette_key)
+	inhand_icon_state = initial(C.inhand_icon_state)
+	if(C == /obj/item/clothing/under/color/jumpskirt/psyche)
+		generate_psychedelic_icon(list("whiteskirt", "whiteskirt_s", "whiteskirt_d_s", "color_suit"))
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
@@ -162,6 +175,68 @@
 	name = "psychedelic jumpsuit"
 	desc = "Groovy!"
 	icon_state = "psyche"
+	inhand_icon_state = "psyche_suit"
+
+/obj/item/clothing/under/color/psyche/Initialize(mapload)
+	. = ..()
+	generate_psychedelic_icon(list("white", "white_s", "white_d_s", "color_suit"))
+
+/obj/item/clothing/under/color/jumpskirt/psyche
+	name = "psychedelic jumpskirt"
+	desc = "Far out!"
+	icon_state = "psycheskirt"
+	inhand_icon_state = "psyche_suit"
+
+/obj/item/clothing/under/color/jumpskirt/psyche/Initialize(mapload)
+	. = ..()
+	generate_psychedelic_icon(list("whiteskirt", "whiteskirt_s", "whiteskirt_d_s", "color_suit"))
+
+/// We are generating the psychedelic jumpsuit sprite in code because who wants to copy-paste 192 sprites for every change
+/obj/item/clothing/under/color/proc/generate_psychedelic_icon(list/state_names)
+	if(!length(state_names))
+		return
+	if(!is_type_in_list(src, list(
+			/obj/item/clothing/under/color/psyche,
+			/obj/item/clothing/under/color/jumpskirt/psyche,
+			/obj/item/clothing/under/color/random,
+			/obj/item/clothing/under/color/jumpskirt/random)))
+		return
+
+	var/list/frame_colors = list(DYE_DARKBLUE, DYE_RED, DYE_BLACK, DYE_YELLOW, DYE_AQUA, DYE_PURPLE, DYE_LIGHTGREEN, DYE_PINK)
+	var/list/all_sheets = sprite_sheets + list(
+			"Human" = worn_icon,
+			"Obj" = icon,
+			"Lefthand" = lefthand_file,
+			"Righthand" = righthand_file)
+
+	// For every sprite sheet where this suit is present...
+	for(var/sheet_key in all_sheets)
+		var/filepath = all_sheets[sheet_key]
+		var/icon/jumpsuit = new(filepath)
+
+		// For every color frame...
+		for(var/frame_num in 1 to 8)
+			// Dye each white sprite in that sheet to the frame color.
+			for(var/white_state in state_names)
+				if(!(white_state in jumpsuit.IconStates()))
+					continue
+				var/icon/jumpsuit_frame = new(filepath, white_state)
+				jumpsuit_frame.swap_palette(
+					GLOB.palette_registry[dyeing_key][default_palette_key],
+					GLOB.palette_registry[dyeing_key][frame_colors[frame_num]]
+				)
+				// Apply the frame to the jumpsuit icon.
+				jumpsuit.Insert(jumpsuit_frame, splicetext(white_state, 1, 6, "psyche"), frame = frame_num)
+
+		// Set the jumpsuit icon to be used by this jumpsuit to the one we just made.
+		if(sprite_sheets[sheet_key])
+			sprite_sheets[sheet_key] = jumpsuit
+		else
+			switch(sheet_key)
+				if("Human") worn_icon = jumpsuit
+				if("Obj") icon = jumpsuit
+				if("Lefthand") lefthand_file = jumpsuit
+				if("Righthand")  righthand_file = jumpsuit
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"

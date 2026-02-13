@@ -256,7 +256,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 // Palettes for clothing
 #define PALETTE_JS_RED list("#4d0d1d", "#7e111e", "#ab312c", "#cb4836")
-#define PALETTE_JS_ORANGE list("#651d22", "#9d3c26", "#c05729", "#d27835")
+#define PALETTE_JS_ORANGE list("#651d22", "#9d3720", "#c05425", "#d67a2f")
 #define PALETTE_JS_YELLOW list("#733b22", "#9d6025", "#c48c1a", "#d9b114")
 #define PALETTE_JS_GREEN list("#112624", "#1c492c", "#2a7330", "#3d9339")
 #define PALETTE_JS_BLUE list("#0d1a4d", "#0c3473", "#0e56af", "#2771cb")
