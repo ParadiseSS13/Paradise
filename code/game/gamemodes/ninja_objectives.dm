@@ -40,9 +40,9 @@
 		return TRUE
 	for(var/datum/mind/M in get_owners())
 		var/mob/living/carbon/human/H = M.current
-		if(!ishuman)
+		if(!ishuman(H))
 			continue
-		var/obj/item/bio_chip/uplink/ninja/nuplink = locate(/obj/item/bio_chip/uplink/ninja) in
+		var/obj/item/bio_chip/uplink/ninja/nuplink = locate(/obj/item/bio_chip/uplink/ninja) in H
 		if(!nuplink)
 			continue
 		nuplink.hidden_uplink.uses += reward_tc
