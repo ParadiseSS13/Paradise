@@ -1,6 +1,7 @@
 /obj/machinery/syndicatebomb/ninja
 	name = "spider clan bomb"
 	payload = /obj/item/bombcore/ninja
+	timer_set = 90
 
 /obj/machinery/syndicatebomb/ninja/emp
 	name = "spider clan EMP bomb"
@@ -139,13 +140,12 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	var/obj/machinery/syndicatebomb/new_bomb = new bomb_type(get_turf(src))
 	new_bomb.anchored = TRUE
-	new_bomb.timer_set = 90
-	new_bomb.active = TRUE
+	new_bomb.activate()
 	var/objectives = user.mind.get_all_objectives()
 	for(var/datum/objective/ninja/bomb_department/bomb_dep in objectives)
 		if(!bomb_dep.completed)
 			bomb_dep.completed = TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work. A new task is being assigned to you..."))
+			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			bomb_dep.check_completion()
 	qdel(src)
 

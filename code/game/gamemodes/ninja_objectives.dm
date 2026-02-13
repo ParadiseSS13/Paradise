@@ -39,8 +39,14 @@
 	if(..())
 		return TRUE
 	for(var/datum/mind/M in get_owners())
-		var/obj/item/uplink/hidden/nuplink = M.find_syndicate_uplink()
-		nuplink.uses += reward_tc
+		var/mob/living/carbon/human/H = M.current
+		if(!ishuman)
+			continue
+		var/obj/item/bio_chip/uplink/ninja/nuplink = locate(/obj/item/bio_chip/uplink/ninja) in
+		if(!nuplink)
+			continue
+		nuplink.hidden_uplink.uses += reward_tc
+	return TRUE
 
 /datum/objective/ninja/kill
 	name = "Kill a Target"

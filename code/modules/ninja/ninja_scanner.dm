@@ -32,7 +32,7 @@
 			if(!do_after_once(user, 8 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
 				return TRUE
 			ninja_obj.completed = TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work. A new task is being assigned to you..."))
+			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			ninja_obj.check_completion()
 			return TRUE
 
@@ -56,7 +56,7 @@
 				return TRUE
 			cap_obj.handle_capture(target, target.loc)
 			ninja_obj.completed = TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work. A new task is being assigned to you..."))
+			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			ninja_obj.check_completion()
 			return TRUE
 
@@ -85,7 +85,7 @@
 					do_teleport(card, pick(open_turfs))
 					break
 			ninja_obj.completed = TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work. A new task is being assigned to you..."))
+			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			ninja_obj.check_completion()
 			return TRUE
 	return TRUE
@@ -103,9 +103,9 @@
 		if(ninja_obj.completed)
 			continue
 		if(istype(ninja_obj, /datum/objective/ninja/hack_rnd) && istype(attacked_obj, /obj/machinery/computer/rnd_network_controller))
-			if(!do_after_once(user, 8 SECONDS, target = attacked_obj, allow_moving = FALSE, attempt_cancel_message = "You stop hacking [attacked_obj] before completing the download."))
+			if(!do_after_once(user, 12 SECONDS, target = attacked_obj, allow_moving = FALSE, attempt_cancel_message = "You stop hacking [attacked_obj] before completing the download."))
 				return TRUE
-			to_chat(user, SPAN_NOTICE("Contract complete. Good work. A new task is being assigned to you..."))
+			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			var/obj/machinery/computer/rnd_network_controller/rnd = attacked_obj
 			rnd.research_files.known_tech = list()
 			ninja_obj.completed = TRUE
