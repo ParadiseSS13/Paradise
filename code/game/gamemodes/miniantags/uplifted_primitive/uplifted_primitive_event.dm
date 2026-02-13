@@ -5,7 +5,6 @@
 	/// The list of species this event can spawn uplifted primitives of.
 	var/list/allowed_species = list(
 		/datum/species/monkey,
-		/datum/species/monkey/vulpkanin,
 		/datum/species/monkey/skrell,
 		/datum/species/monkey/unathi,
 		/datum/species/monkey/nian_worme,
@@ -15,7 +14,15 @@
 	INVOKE_ASYNC(src, PROC_REF(make_uplifted_primitive))
 
 /datum/event/spawn_uplifted_primitive/proc/make_uplifted_primitive()
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an uplifted primitive?", ROLE_UPLIFTED_PRIMITIVE, TRUE, source = /obj/item/storage/box/monkeycubes)
+	// disallow species which have existing players
+	var/list/currently_allowed_species = allowed_species - SSticker.mode.uplifted_primitives
+	if(!length(currently_allowed_species))
+		message_admins("Warning: The uplifted primitives event could not be triggered because all allowed species already have an uplifted team.")
+		kill()
+		return
+	var/datum/species/selected_species = pick(currently_allowed_species)
+
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an uplifted primitive?", ROLE_UPLIFTED_PRIMITIVE, TRUE, source = /obj/structure/uplifted_primitive/nest)
 	if(!length(candidates))
 		message_admins("no candidates were found for the uplifted primitive event.")
 		kill()
@@ -42,7 +49,6 @@
 	dust_if_respawnable(C)
 
 	var/datum/mind/player_mind = new /datum/mind(key)
-	var/datum/species/selected_species = pick(allowed_species)
 	var/mob/living/carbon/human/primitive = new(selected_vent, selected_species)
 
 	player_mind.active = TRUE
