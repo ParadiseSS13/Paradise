@@ -149,6 +149,6 @@
 /datum/quirk/breathing_tube
 	name = "Breathing Tube"
 	desc  = "You have been outfitted with a breathing tube."
-	cost = 2
+	cost = 1
 	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/cyberimp/mouth/breathing_tube
