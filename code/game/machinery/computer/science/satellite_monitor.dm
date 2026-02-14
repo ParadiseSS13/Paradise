@@ -27,6 +27,7 @@
 
 /obj/machinery/computer/satellite_monitor/ui_data(mob/user)
 	var/list/data = list()
+	data["name"] = name
 	data["linked_satellites"] = linked_satellites
 	data["collected_science_data"] = collected_science_data
 	data["inserted_disk"] = istype(inserted_disk)
@@ -55,3 +56,4 @@
 	linked_satellites += multitool.buffer
 	to_chat(user, SPAN_NOTICE("You save \the [multitool]'s data into the [src]'s database. "))
 	atom_say("Successfully stored information into the database.")
+	return ITEM_INTERACT_COMPLETE

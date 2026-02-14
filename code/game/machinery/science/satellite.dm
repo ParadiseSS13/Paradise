@@ -7,7 +7,7 @@
 	anchored = FALSE
 	density = 1
 	var/obj/item/multitool/linked_multitool
-	var/obj/item/satellite_component/stats
+	var/datum/satellite_stats/satellite_stats = new()
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
@@ -20,18 +20,33 @@
 		new /obj/item/satellite_component/computer/basic
 	)
 
+/obj/machinery/science_satellite/proc/adjust_stats(obj/item/satellite_component/component, add = TRUE)
+	to_chat(usr, SPAN_NOTICE("add: [add]"))
+	if(!istype(component))
+		return
+
+	var/multiplier = (add)? 1 : -1 //if add is false, we're subtracting, which is the same as adding a negative number
+	satellite_stats.weight += component.component_stats.weight * multiplier
+	satellite_stats.fuel_efficiency += component.component_stats.fuel_efficiency * multiplier
+	satellite_stats.fuel_capacity += component.component_stats.fuel_capacity * multiplier
+	satellite_stats.science_multiplier += component.component_stats.science_multiplier * multiplier
+	satellite_stats.power_generation += component.component_stats.power_generation * multiplier
+	satellite_stats.power_storage += component.component_stats.power_storage * multiplier
+	satellite_stats.power_consumption += component.component_stats.power_consumption * multiplier
+	satellite_stats.power_capacity += component.component_stats.power_capacity * multiplier
+
 /obj/machinery/science_satellite/science/Initialize(mapload)
 	. = ..()
 	parts = list(
 		new /obj/item/satellite_component/engine/small_engine,
 		new /obj/item/satellite_component/computer/basic,
-		new /obj/item/satellite_component/meteorological_surveyor,
-		new /obj/item/satellite_component/plasma_lab,
-		new /obj/item/satellite_component/magnetometer,
-		new /obj/item/satellite_component/solar_panel,
-		new /obj/item/satellite_component/solar_panel,
-		new /obj/item/satellite_component/solar_panel,
-		new /obj/item/satellite_component/solar_panel
+		new /obj/item/satellite_component/science_instrument/meteorological_surveyor,
+		new /obj/item/satellite_component/science_instrument/plasma_lab,
+		new /obj/item/satellite_component/science_instrument/magnetometer,
+		new /obj/item/satellite_component/misc_part/solar_panel,
+		new /obj/item/satellite_component/misc_part/solar_panel,
+		new /obj/item/satellite_component/misc_part/solar_panel,
+		new /obj/item/satellite_component/misc_part/solar_panel
 	)
 
 /obj/machinery/science_satellite/screwdriver_act(mob/living/user, obj/item/I)

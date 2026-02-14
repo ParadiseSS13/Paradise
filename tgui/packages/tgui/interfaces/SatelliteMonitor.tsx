@@ -6,6 +6,17 @@ import { Window } from '../layouts';
 interface SatelliteMonitorData {
   linked_satellites: {
     name: string;
+    satellite_stats: {
+      weight: number;
+      fuel_efficiency: number;
+      fuel_capacity: number;
+      science_multiplier: number;
+      power_generation: number;
+      power_storage: number;
+      power_consumption: number;
+      power_capacity: number;
+    };
+    /*
     parts: {
       name: string;
       weight: number;
@@ -17,6 +28,7 @@ interface SatelliteMonitorData {
       power_consumption: number;
       power_capacity: number;
     }[];
+    */
   }[];
   collected_science_data: number;
   inserted_disk: boolean;
@@ -35,7 +47,7 @@ export const SatelliteMonitor = (props, context) => {
             <Section title="Satellites" fill scrollable width="60%">
               {linked_satellites.map((satellite) => (
                 <Stack.Item key={satellite.name}>
-                  {satellite.name} {satellite.parts.toString()}
+                  name: {satellite.name} weight: {satellite.satellite_stats.weight}
                   <Button align="left">Controls</Button>
                 </Stack.Item>
               ))}
