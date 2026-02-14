@@ -112,6 +112,8 @@
 
 #define STATUS_EFFECT_GROUNDPOUND /datum/status_effect/stacking/ground_pound //if hit twice, the third attack will fling the target
 
+#define STATUS_EFFECT_BLUESPACE_THREADS /datum/status_effect/stacking/unstable_bluespace_threads // if hit twice, the third attack will cause something random
+
 #define STATUS_EFFECT_TELEPORTSICK /datum/status_effect/teleport_sickness //increasing debuffs as you rapidly teleport.
 
 #define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait
@@ -187,6 +189,7 @@
 #define STATUS_EFFECT_NO_OXY_HEAL /datum/status_effect/transient/no_oxy_heal
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
+#define STATUS_EFFECT_HERETIC_SLUR /datum/status_effect/transient/heretic_slurring
 #define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering
 #define STATUS_EFFECT_SLURRING /datum/status_effect/transient/slurring
 #define STATUS_EFFECT_LOSE_BREATH /datum/status_effect/transient/lose_breath

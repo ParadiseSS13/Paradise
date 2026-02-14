@@ -80,7 +80,7 @@
 
 /obj/item/clothing/shoes/clown_shoes
 	name = "clown shoes"
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! <span class='notice'>Ctrl-click to toggle the waddle dampeners!</span>"
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! <span class='notice'>Alt-click to toggle the waddle dampeners!</span>"
 	icon_state = "clown"
 	inhand_icon_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
@@ -103,7 +103,7 @@
 	. = ..()
 	user.RemoveElement(/datum/element/waddling)
 
-/obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
+/obj/item/clothing/shoes/clown_shoes/AltClick(mob/living/user)
 	if(!isliving(user))
 		return
 	if(user.get_active_hand() != src)

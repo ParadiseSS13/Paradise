@@ -6,6 +6,7 @@
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	permeability_coefficient = 0.8
+	new_attack_chain = TRUE
 	/// Only these species can wear this kit.
 	var/list/species_restricted
 	/// If set to a sprite path, replaces the sprite for monitor heads
@@ -158,7 +159,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
 
-/obj/item/clothing/ears/offear/New(obj/O)
+/obj/item/clothing/ears/offear/Initialize(mapload, obj/O)
 	. = ..()
 	name = O.name
 	desc = O.desc
@@ -175,7 +176,7 @@
 	inhand_icon_state = "glasses"
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
-	materials = list(MAT_GLASS = 250)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
 	strip_delay = 2 SECONDS
 	put_on_delay = 2.5 SECONDS
 	resistance_flags = NONE
@@ -199,7 +200,6 @@
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	/// If TRUE, will hide the wearer's examines from other players.
 	var/hide_examine = FALSE
-	new_attack_chain = TRUE
 
 /*
  * SEE_SELF  // can see self, no matter what
@@ -253,6 +253,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
 		)
@@ -261,20 +262,20 @@
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return // return TRUE to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
-		if(!clipped)
-			playsound(src.loc, W.usesound, 100, 1)
-			user.visible_message(SPAN_WARNING("[user] snips the fingertips off [src]."),SPAN_WARNING("You snip the fingertips off [src]."))
-			clipped = TRUE
-			name = "mangled [name]"
-			desc = "[desc] They have had the fingertips cut off of them."
-			update_icon()
-		else
-			to_chat(user, SPAN_NOTICE("[src] have already been clipped!"))
-		return
-	else
-		return ..()
+/obj/item/clothing/gloves/wirecutter_act(mob/living/user, obj/item/I)
+	if(clipped)
+		to_chat(user, SPAN_NOTICE("[src] have already been clipped!"))
+		return TRUE
+
+	playsound(src.loc, I.usesound, 100, 1)
+	user.visible_message(
+		SPAN_WARNING("[user] snips the fingertips off [src]."),
+		SPAN_WARNING("You snip the fingertips off [src].")
+	)
+	clipped = TRUE
+	name = "mangled [name]"
+	desc = "[desc] They have had the fingertips cut off of them."
+	update_icon()
 
 //////////////////////////////
 // MARK: SUIT SENSORS
@@ -374,36 +375,57 @@
 	var/obj/item/clothing/under/has_under = null
 	/// the attached hats to this hat.
 	var/list/attached_hats = list()
+	/// the attached masks to this hat
+	var/list/attached_masks = list()
 	/// if this hat can have hats placed on top of it.
 	var/can_have_hats = FALSE
 	/// if this hat can be a hat of a hat. Hat^2
 	var/can_be_hat = TRUE
+	/// if this hat can have masks attached to it.
+	var/can_have_mask = FALSE
 
 
 /obj/item/clothing/head/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(!length(attached_hats))
+
+	var/list/removable_items = list()
+	removable_items += attached_hats
+	removable_items += attached_masks
+
+	if(!length(removable_items))
 		return
-	var/obj/item/clothing/head/hat
-	if(length(attached_hats) > 1)
-		var/pick = radial_menu_helper(usr, src, attached_hats, custom_check = FALSE, require_near = TRUE)
-		if(!pick || !istype(pick, /obj/item/clothing/head) || !Adjacent(usr))
+
+	var/obj/item/picked_item
+	if(length(removable_items) > 1)
+		var/pick = radial_menu_helper(usr, src, removable_items, custom_check = FALSE, require_near = TRUE)
+		if(!pick || !Adjacent(usr))
 			return
-		hat = pick
+		picked_item = pick
 	else
-		hat = attached_hats[1]
-	remove_hat(user, hat)
+		picked_item = removable_items[1]
+
+	// Remove the appropriate item type
+	if(istype(picked_item, /obj/item/clothing/head))
+		remove_hat(user, picked_item)
+	else if(istype(picked_item, /obj/item/clothing/mask))
+		remove_mask(user, picked_item)
 
 /obj/item/clothing/head/Destroy()
 	if(is_equipped())
 		var/mob/M = loc
 		for(var/obj/item/clothing/head/H as anything in attached_hats)
 			H.on_removed(M)
+		for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+			detach_mask(mask, null)
 	else
 		for(var/obj/item/clothing/head/H as anything in attached_hats)
 			H.forceMove(get_turf(src))
+		for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+			mask.attached_to_hat = null
+			mask.forceMove(get_turf(src))
 	attached_hats = null
+	attached_masks = null
 	return ..()
 
 /obj/item/clothing/head/dropped(mob/user, silent)
@@ -419,6 +441,9 @@
 	. = ..()
 	for(var/obj/item/clothing/head/hat as anything in attached_hats)
 		. += "\A [hat] is placed neatly on top."
+	for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+		. += "\A [mask] is attached to it."
+	if(length(attached_hats) || length(attached_masks))
 		. += SPAN_NOTICE("<b>Alt-Shift-Click</b> to remove an accessory.")
 
 //when user attached a hat to H (another hat)
@@ -509,11 +534,74 @@
 
 	return FALSE
 
-/obj/item/clothing/head/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/head) && can_have_hats)
-		attach_hat(I, user, TRUE)
+/obj/item/clothing/head/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/head) && can_have_hats)
+		attach_hat(used, user, TRUE)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/clothing/mask) && can_have_mask)
+		var/obj/item/clothing/mask/M = used
+		if(M.can_attach_to_hat)
+			attach_mask(M, user, TRUE)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
+
+/obj/item/clothing/head/proc/can_attach_mask(obj/item/clothing/mask/mask)
+	if(!can_have_mask)
+		return FALSE
+	if(!mask.can_attach_to_hat)
+		return FALSE
+	if(length(attached_masks) >= 1)
+		return FALSE
+	return TRUE
+
+/obj/item/clothing/head/proc/attach_mask(obj/item/clothing/mask/mask, mob/user, unequip = FALSE)
+	if(!can_attach_mask(mask))
+		to_chat(user, SPAN_NOTICE("You cannot attach [mask] to [src]."))
+		return FALSE
+
+	if(unequip && !user.drop_item_to_ground(mask))
+		return FALSE
+
+	attached_masks += mask
+	mask.attached_to_hat = src
+	mask.forceMove(src)
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_head()
+
+	to_chat(user, SPAN_NOTICE("You attach [mask] to [src]."))
+	return TRUE
+
+/obj/item/clothing/head/proc/detach_mask(obj/item/clothing/mask/mask, mob/user)
+	if(!(mask in attached_masks))
+		return FALSE
+
+	attached_masks -= mask
+	mask.attached_to_hat = null
+
+	if(user)
+		user.put_in_hands(mask)
+	else
+		mask.forceMove(get_turf(src))
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_head()
+
+	return TRUE
+
+/obj/item/clothing/head/proc/remove_mask(mob/user, obj/item/clothing/mask/mask)
+	if(!isliving(user))
+		return
+	if(user.incapacitated())
+		return
+	if(!Adjacent(user))
+		return
+	if(detach_mask(mask, user))
+		to_chat(user, SPAN_NOTICE("You remove [mask] from [src]."))
 
 //////////////////////////////
 // MARK: MASK
@@ -527,6 +615,10 @@
 	permeability_coefficient = 0.7
 
 	var/adjusted_flags = null
+	/// If this mask can be attached to a hat
+	var/can_attach_to_hat = FALSE
+	/// The head clothing that this mask is attached to
+	var/obj/item/clothing/head/attached_to_hat = null
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/user)
@@ -611,6 +703,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 	)
 
@@ -641,52 +734,73 @@
 	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/match) && src.loc == user)
-		var/obj/item/match/M = I
+/obj/item/clothing/shoes/wirecutter_act(mob/living/user, obj/item/I)
+	if(cut_open)
+		to_chat(user, SPAN_WARNING("[src] have already had [p_their()] toes cut open!"))
+		return TRUE
+
+	if(can_cut_open)
+		playsound(src, I.usesound, 100, 1)
+		user.visible_message(
+			SPAN_WARNING("[user] cuts open the toes of [src]."),
+			SPAN_WARNING("You cut open the toes of [src].")
+		)
+		cut_open = TRUE
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+		return TRUE
+
+/obj/item/clothing/shoes/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/match) && src.loc == user)
+		var/obj/item/match/M = used
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
-			user.visible_message(SPAN_WARNING("[user] strikes a [M] on the bottom of [src], lighting it."),SPAN_WARNING("You strike [M] on the bottom of [src] to light it."))
+			user.visible_message(
+				SPAN_NOTICE("[user] strikes a [M] on the bottom of [src], lighting it."),
+				SPAN_NOTICE("You strike [M] on the bottom of [src] to light it."),
+				SPAN_NOTICE("You hear a match being lit.")
+			)
 			M.matchignite()
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(M.lit && !M.burnt && M.w_class <= WEIGHT_CLASS_SMALL)
-			user.visible_message(SPAN_WARNING("[user] crushes [M] into the bottom of [src], extinguishing it."),SPAN_WARNING("You crush [M] into the bottom of [src], extinguishing it."))
+			user.visible_message(
+				SPAN_NOTICE("[user] crushes [M] into the bottom of [src], extinguishing it."),
+				SPAN_NOTICE("You crush [M] into the bottom of [src], extinguishing it."),
+				SPAN_WARNING("You hear a thin wooden snap!")
+			)
 			M.dropped()
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/wirecutters))
-		if(can_cut_open)
-			if(!cut_open)
-				playsound(src.loc, I.usesound, 100, 1)
-				user.visible_message(SPAN_WARNING("[user] cuts open the toes of [src]."),SPAN_WARNING("You cut open the toes of [src]."))
-				cut_open = TRUE
-				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-			else
-				to_chat(user, SPAN_NOTICE("[src] have already had [p_their()] toes cut open!"))
-		return
-
-	if(istype(I, /obj/item/kitchen/knife/combat))
+	if(istype(used, /obj/item/kitchen/knife/combat))
 		if(!knife_slot)
-			to_chat(user, SPAN_NOTICE("There is no place to put [I] in [src]!"))
-			return
+			to_chat(user, SPAN_NOTICE("There is no place to put [used] in [src]!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(hidden_blade)
 			to_chat(user, SPAN_NOTICE("There is already something in [src]!"))
-			return
-		if(!user.drop_item_to_ground(I))
-			return
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.drop_item_to_ground(used))
+			return ITEM_INTERACT_COMPLETE
+
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(45) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 
 			var/stabbed_foot = pick("l_foot", "r_foot")
-			user.visible_message(SPAN_NOTICE("[user] tries to place [I] into [src] but stabs their own foot!"), \
-			SPAN_WARNING("You go to put [I] into [src], but miss the boot and stab your own foot!"))
-			user.apply_damage(I.force, BRUTE, stabbed_foot)
-			user.drop_item(I)
-			return
-		user.visible_message(SPAN_NOTICE("[user] places [I] into their [name]!"), \
-			SPAN_NOTICE("You place [I] into the side of your [name]!"))
-		I.forceMove(src)
-		hidden_blade = I
-		return
+			user.visible_message(
+				SPAN_NOTICE("[user] tries to place [used] into [src] but stabs their own foot!"),
+				SPAN_WARNING("You go to put [used] into [src], but miss the boot and stab your own foot!")
+			)
+			user.apply_damage(used.force, BRUTE, stabbed_foot)
+			user.drop_item(used)
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			SPAN_NOTICE("[user] places [used] into their [name]!"),
+			SPAN_NOTICE("You place [used] into the side of your [name]!")
+		)
+		used.forceMove(src)
+		hidden_blade = used
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -866,10 +980,12 @@
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
-/obj/item/clothing/suit/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	..()
-	if(istype(I, /obj/item/smithed_item/insert))
-		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, I, user)
+/obj/item/clothing/suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/smithed_item/insert))
+		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, used, user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/clothing/suit/proc/detach_insert(atom/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_CLICK_ALT
@@ -977,7 +1093,8 @@
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 	insert_max = 0 // No inserts for space suits
 
@@ -998,6 +1115,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
 		)
@@ -1061,16 +1179,16 @@
 			return FALSE
 	return TRUE
 
-/obj/item/clothing/under/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory))
-		attach_accessory(I, user, TRUE)
+/obj/item/clothing/under/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/accessory))
+		attach_accessory(used, user, TRUE)
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby__legacy__attackchain(I, user, params)
-		return TRUE
+			A.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
 
-	. = ..()
+	return ..()
 
 /obj/item/clothing/under/serialize()
 	var/data = ..()

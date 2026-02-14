@@ -186,7 +186,7 @@
 		M.occupant_message(SPAN_DANGER("You hit [src]."))
 		visible_message(SPAN_DANGER("[M.name] hits [src]!"), SPAN_USERDANGER("[M.name] hits you!"))
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
-	else
+	else if(M.occupant.a_intent == INTENT_DISARM)
 		step_away(src,M)
 		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
 		M.occupant_message(SPAN_WARNING("You push [src] out of the way."))
@@ -316,7 +316,7 @@
 
 	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
 
-	var/obj/item/grab/G = new /obj/item/grab(user, src)
+	var/obj/item/grab/G = new /obj/item/grab(user, user, src)
 	if(!G)	//the grab will delete itself in New if src is anchored
 		return 0
 	user.put_in_active_hand(G)

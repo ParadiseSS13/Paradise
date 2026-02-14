@@ -7,6 +7,7 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
+	materials = list(MAT_METAL = 200)
 
 /obj/item/reagent_containers/drinks/cans/examine(mob/user)
 	. = ..()
@@ -251,7 +252,7 @@
 
 /obj/item/reagent_containers/drinks/cans/bottler
 	name = "generic beverage container"
-	desc = "this shouldn't ever be spawned. shame on you"
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "glass_bottle"
 
 /obj/item/reagent_containers/drinks/cans/bottler/on_reagent_change()

@@ -8,7 +8,7 @@ import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 
-const transferAmounts = [1, 5, 10];
+const transferAmounts = [1, 5, 10, 25, 75];
 
 const analyzeModalBodyOverride = (modal) => {
   const { act, data } = useBackend<ChemMasterData>();
@@ -136,18 +136,7 @@ const ChemMasterBeaker = (props: {}) => {
         title="Beaker"
         fill
         scrollable
-        buttons={
-          bufferNonEmpty ? (
-            <Button.Confirm
-              icon="eject"
-              disabled={!beaker}
-              content="Eject and Clear Buffer"
-              onClick={() => act('eject')}
-            />
-          ) : (
-            <Button icon="eject" disabled={!beaker} content="Eject and Clear Buffer" onClick={() => act('eject')} />
-          )
-        }
+        buttons={<Button icon="eject" disabled={!beaker} content="Eject" onClick={() => act('eject')} />}
       >
         {beaker ? (
           <BeakerContents

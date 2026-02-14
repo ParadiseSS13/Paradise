@@ -824,3 +824,39 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(bypass_warning && length(limbs))
 			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
 	return (((chest_blacklisted && !base_zone) || even_weights) ? pickweight(limbs) : ran_zone(base_zone, base_probability, limbs))
+
+/proc/create_xeno(ckey, mob/user)
+	if(!ckey)
+		var/list/candidates = list()
+		for(var/mob/M in GLOB.player_list)
+			if(M.stat != DEAD)
+				continue //we are not dead!
+			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+				continue //we don't want to be an alium
+			if(jobban_isbanned(M, ROLE_ALIEN) || jobban_isbanned(M, ROLE_SYNDICATE))
+				continue //we are jobbanned
+			if(M.client.is_afk())
+				continue //we are afk
+			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
+				continue //we have a live body we are tied to
+			candidates += M.ckey
+		if(length(candidates))
+			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
+		else
+			to_chat(user, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>")
+	if(!istext(ckey))	return 0
+
+	var/alien_caste = input(user, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
+	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
+	var/mob/living/carbon/alien/new_xeno
+	switch(alien_caste)
+		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
+		if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
+		if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
+		if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
+		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
+		else			return 0
+
+	new_xeno.ckey = ckey
+	message_admins(SPAN_NOTICE("[key_name_admin(user)] has spawned [ckey] as a filthy xeno [alien_caste]."), 1)
+	return 1

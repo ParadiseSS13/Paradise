@@ -329,6 +329,31 @@
 	icon_state = "emolong"
 	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
 
+/datum/sprite_accessory/hair/twinbows
+	name = "Twin Bows"
+	icon_state = "twinbows"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/silky
+	name = "Silky"
+	icon_state = "silky"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/choppylong
+	name = "Choppy Long"
+	icon_state = "choppylong"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/choppy
+	name = "Choppy"
+	icon_state = "choppy"
+	species_allowed = list("Human", "Slime People")
+
+/datum/sprite_accessory/hair/longsidepart
+	name = "Long Side Part"
+	icon_state = "longsidepart"
+	species_allowed = list("Human", "Slime People")
+
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////

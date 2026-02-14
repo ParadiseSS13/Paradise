@@ -273,8 +273,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/duplicate_self = 0 //Do we want the species randomized along with equipment should the user be duplicated in their entirety?
 	var/sword_type = /obj/item/multisword //type of sword to equip.
 
-/obj/item/multisword/New()
-	..()
+/obj/item/multisword/Initialize(mapload)
+	. = ..()
 	GLOB.multiverse |= src
 
 
@@ -1024,7 +1024,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
 /obj/item/clothing/suit/hooded/oblivion/Initialize(mapload)

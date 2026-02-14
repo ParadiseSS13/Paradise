@@ -15,10 +15,6 @@
 	/// How fast do we clean?
 	var/cleanspeed = 15
 
-/mob/living/basic/alien/maid/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/ai_retaliate)
-
 /// Clean instead of attack.
 /mob/living/basic/alien/maid/early_melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	. = ..()

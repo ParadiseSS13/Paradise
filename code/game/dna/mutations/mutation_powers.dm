@@ -900,7 +900,7 @@
 
 
 	//Body accessory.
-	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)))
+	if((M.dna.species.tail && M.dna.species.bodyflags & (HAS_TAIL)) || (M.dna.species.wing && M.dna.species.bodyflags & (HAS_WING)) || (M.dna.species.spines && M.dna.species.bodyflags & (HAS_BACK_SPINES)))
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
 		if(length(valid_body_accessories) > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
 			var/new_body_accessory = tgui_input_list(user, "Please select body accessory style", "Character Generation", valid_body_accessories)
@@ -1010,7 +1010,7 @@
 	return new /datum/spell_targeting/telepathic
 
 /datum/spell/remotetalk/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))
+	if(!isliving(user))
 		return
 	if(user.mind?.miming) // Dont let mimes telepathically talk
 		to_chat(user,SPAN_WARNING("You can't communicate without breaking your vow of silence."))
@@ -1044,7 +1044,7 @@
 	return new /datum/spell_targeting/telepathic
 
 /datum/spell/mindscan/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))
+	if(!isliving(user))
 		return
 	for(var/mob/living/target in targets)
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"

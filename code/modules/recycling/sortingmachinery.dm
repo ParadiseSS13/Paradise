@@ -162,7 +162,7 @@
 	max_amount = 25
 	resistance_flags = FLAMMABLE
 	var/wrap_time = 2 SECONDS
-	var/static/list/no_wrap = list(/obj/item/small_delivery, /obj/structure/big_delivery, /obj/item/evidencebag, /obj/structure/closet/body_bag)
+	var/static/list/no_wrap = list(/obj/item/small_delivery, /obj/structure/big_delivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/envelope)
 
 /obj/item/stack/package_wrap/pre_attack(atom/atom_target, mob/living/user, params)
 	. = ..()
@@ -272,6 +272,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 250, MAT_GLASS = 150)
 	///Value of the tag
 	var/currTag = 1
 	//The whole system for the sort_type var is determined based on the order of this list,

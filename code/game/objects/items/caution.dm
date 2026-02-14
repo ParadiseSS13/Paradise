@@ -11,6 +11,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
+	materials = list(MAT_PLASTIC = 4000)
 
 /obj/item/caution/proximity_sign
 	var/timing = FALSE

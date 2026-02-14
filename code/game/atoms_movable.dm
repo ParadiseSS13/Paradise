@@ -443,6 +443,20 @@
 	if(old_turf?.z != new_turf?.z)
 		on_changed_z_level(old_turf, new_turf)
 
+	if(HAS_SPATIAL_GRID_CONTENTS(src))
+		if(old_turf && new_turf && (old_turf.z != new_turf.z \
+			|| GET_SPATIAL_INDEX(old_turf.x) != GET_SPATIAL_INDEX(new_turf.x) \
+			|| GET_SPATIAL_INDEX(old_turf.y) != GET_SPATIAL_INDEX(new_turf.y)))
+
+			SSspatial_grid.exit_cell(src, old_turf)
+			SSspatial_grid.enter_cell(src, new_turf)
+
+		else if(old_turf && !new_turf)
+			SSspatial_grid.exit_cell(src, old_turf)
+
+		else if(new_turf && !old_turf)
+			SSspatial_grid.enter_cell(src, new_turf)
+
 	var/datum/light_source/L
 	var/thing
 	for(thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
@@ -1013,7 +1027,7 @@
 		if(C.is_valid(src, victim))
 			return C
 
-/atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/tilt_crit/crit)
+/atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/tilt_crit/crit, duration = 80 SECONDS)
 
 	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
 	var/crit_rebate = 0
@@ -1042,7 +1056,7 @@
 			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
 			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
-	victim.AddElement(/datum/element/squish, 80 SECONDS)
+	victim.AddElement(/datum/element/squish, duration)
 
 #define NO_CRUSH_DIR "no_dir"
 
@@ -1307,3 +1321,33 @@
 
 	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
 		LAZYREMOVEASSOC(location.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE, src)
+
+/// Propogates ourselves through our nested contents, similar to other important_recursive_contents procs
+/// Main difference is that client contents need to possibly duplicate recursive contents for the clients mob AND its eye
+/mob/proc/enable_client_mobs_in_contents()
+	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
+		LAZYINITLIST(movable_loc.important_recursive_contents)
+		var/list/recursive_contents = movable_loc.important_recursive_contents // blue hedgehog velocity
+		if(!length(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS]))
+			SSspatial_grid.add_grid_awareness(movable_loc, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
+		LAZYINITLIST(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS])
+		recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS] |= src
+
+	var/turf/our_turf = get_turf(src)
+	/// We got our awareness updated by the important recursive contents stuff, now we add our membership
+	SSspatial_grid.add_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
+
+/// Clears the clients channel of this mob
+/mob/proc/clear_important_client_contents()
+	var/turf/our_turf = get_turf(src)
+	SSspatial_grid.remove_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
+
+	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
+		LAZYINITLIST(movable_loc.important_recursive_contents)
+		var/list/recursive_contents = movable_loc.important_recursive_contents // blue hedgehog velocity
+		LAZYINITLIST(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS])
+		recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS] -= src
+		if(!length(recursive_contents[RECURSIVE_CONTENTS_CLIENT_MOBS]))
+			SSspatial_grid.remove_grid_awareness(movable_loc, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
+		ASSOC_UNSETEMPTY(recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS)
+		UNSETEMPTY(movable_loc.important_recursive_contents)

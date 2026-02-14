@@ -411,6 +411,23 @@
 	new_name += " [pick("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava")]"
 	return new_name
 
+/datum/language/skulk
+	name = "Skkula-Runespeak"
+	desc = "A language comprised mostly of chittering, laced with psionic resonations used to convey urgency and emotion. Utterly esoteric to the unenlightened."
+	speech_verb = "resonates"
+	ask_verb = "pulses"
+	exclaim_verbs = list("thunders")
+	whisper_verb = "warps"
+	colour = "skulk"
+	key = "8"
+	flags = RESTRICTED | WHITELISTED
+	syllables = list("┤ᖋ|:ᖋᔮᒣ╎ᔮ", "ᖋリᒣ|:॥.", "ᒣ⍑ᒷ ▭", "⍊ᒷ∷", "ᒷ⎓", "╎リ┤ ▭ ⍑╎ᒲ")
+
+/datum/language/skulk/get_random_name()
+	var/new_name = "[pick("Akki", "Akku", "Avvi", "Bakku", "Bakki", "Bakk", "Kkath", "Makkith", "Vullo", "Mortis", "Vaal", "Kkari", "Thrakk", "Skkiv", "Llav", "Vykke", "Hakki", "Askki", "Tavv", "Maskii", "Tokko", "Kkavik", "Morkk", "Savv")]"
+	new_name += "-[pick("Akku", "Avvi", "Bakku", "Bakki", "Bakk", "Kkath", "Makkith", "Vullo", "Mortis", "Vaal", "Kkari", "Thrakk", "Skkiv", "Llav", "Vykke", "Hakki", "Askki", "Tavv", "Maskii", "Tokko", "Kkavik", "Morkk", "Savv")]"
+	return new_name
+
 /datum/language/common
 	name = "Galactic Common"
 	desc = "Originally a carefully crafted fusion of various Human and Skrell dialects, Galactic Common is the most commonly spoken language in the Sector, and incorporates influences from nearly every known sapient species."

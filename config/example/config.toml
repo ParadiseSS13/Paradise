@@ -285,6 +285,13 @@ enable_gamemode_player_limit = true
 # Enable to generate zero or more random station traits on game start.
 add_random_station_traits = false
 
+# Minimum readied up players required for roundstart hijack objectives
+min_players_hijack_roundstart = 30
+# Minimum alive crew required for midround hijack objectives
+min_players_hijack_midround = 20
+# Minimum security required for midround hijack objectives
+min_security_hijack_midround = 2
+
 ################################################################
 
 [general_configuration]
@@ -433,6 +440,12 @@ details_url = "https://iphub.info/?ip="
 [job_configuration]
 # This section contains information on job configuartion, as well as the jon amounts
 
+# Will the crew be given extended access if the manifest count is low enough?
+allow_skeleton_crew_access = true
+# Number of crew on the manifest needed to activate skeleton crew access
+skeleton_crew_threshold = 30
+# Number of crew on the manifest needed to disable skeleton crew access
+skeleton_crew_escape_threshold = 35
 # Require account agre restrictions for job? Requires the database
 restrict_jobs_on_account_age = false
 # Allow admins to bypass all job age restrictions

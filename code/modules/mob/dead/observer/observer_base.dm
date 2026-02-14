@@ -716,12 +716,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
-	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"
+	set desc = "Cycles between seeing all ghosts, only your own ghost, or no ghosts."
 	set category = "Ghost"
 
-	ghost_flags ^= GHOST_VISION
+	if(ghost_flags & GHOST_VISION)
+		ghost_flags &= ~GHOST_VISION
+		to_chat(src, SPAN_NOTICE("Ghost vision set to: Only your own ghost visible."))
+	else if(ghost_flags & GHOST_NO_VISION)
+		ghost_flags &= ~GHOST_NO_VISION
+		ghost_flags |= GHOST_VISION
+		to_chat(src, SPAN_NOTICE("Ghost vision set to: All ghosts visible."))
+	else
+		ghost_flags |= GHOST_NO_VISION
+		to_chat(src, SPAN_NOTICE("Ghost vision set to: No ghosts visible."))
 	update_sight()
-	to_chat(src, SPAN_NOTICE("Ghost vision [ghost_flags & GHOST_VISION ? "en" : "dis"]abled."))
 
 /mob/dead/observer/verb/pick_darkness()
 	set name = "Pick Darkness"
@@ -755,7 +763,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 
 /mob/dead/observer/update_sight()
-	see_invisible = ghost_flags & GHOST_VISION ? SEE_INVISIBLE_OBSERVER : SEE_INVISIBLE_OBSERVER_NO_OBSERVERS
+	if(ghost_flags & GHOST_VISION)
+		// See all ghosts
+		see_invisible = SEE_INVISIBLE_OBSERVER
+		sight |= SEE_SELF
+	else if(ghost_flags & GHOST_NO_VISION)
+		// See no ghosts at all, including own ghost
+		see_invisible = SEE_INVISIBLE_OBSERVER_NO_OBSERVERS - 1
+		sight &= ~SEE_SELF
+	else
+		// See only own ghost
+		see_invisible = SEE_INVISIBLE_OBSERVER_NO_OBSERVERS
+		sight |= SEE_SELF
 	return ..()
 
 // Ghosts can see all the reagents inside things.

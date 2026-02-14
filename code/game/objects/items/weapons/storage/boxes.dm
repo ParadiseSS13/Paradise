@@ -2047,6 +2047,20 @@
 	new /obj/item/kitchen/knife/cheese(src)
 	new /obj/item/kitchen/knife/pizza_cutter(src)
 
+/obj/item/storage/box/kitchen_moulds
+	name = "kitchen mould kit"
+	desc = "A box of shaped moulds used for candy. Like gummy bears!"
+
+/obj/item/storage/box/kitchen_moulds/populate_contents()
+	new /obj/item/reagent_containers/cooking/mould/bear(src)
+	new /obj/item/reagent_containers/cooking/mould/worm(src)
+	new /obj/item/reagent_containers/cooking/mould/bean(src)
+	new /obj/item/reagent_containers/cooking/mould/ball(src)
+	new /obj/item/reagent_containers/cooking/mould/cane(src)
+	new /obj/item/reagent_containers/cooking/mould/cash(src)
+	new /obj/item/reagent_containers/cooking/mould/coin(src)
+	new /obj/item/reagent_containers/cooking/mould/loli(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

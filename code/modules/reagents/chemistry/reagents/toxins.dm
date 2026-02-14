@@ -47,13 +47,19 @@
 	taste_description = "slimes"
 	taste_mult = 1.3
 
+/datum/reagent/slimejelly/reaction_mob(mob/living/M, method, volume, show_message)
+	var/mob/living/carbon/C = M
+	if(method != REAGENT_INGEST || !iscarbon(C) || !C.mind?.has_antag_datum(/datum/antagonist/vampire))
+		return ..()
+
+	M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
+	M.blood_volume = min(M.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+	M.absorb_blood(id)
+
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/mob/living/carbon/C = M
 	if(iscarbon(C) && C.mind?.has_antag_datum(/datum/antagonist/vampire))
-		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
-		if(M.get_blood_id() != id)
-			M.blood_volume = min(M.blood_volume + REAGENTS_METABOLISM, BLOOD_VOLUME_NORMAL)
 		return ..() | update_flags
 
 	if(M.get_blood_id() != id)
@@ -121,6 +127,28 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(70))
 		M.adjustBrainLoss(1)
+	return ..() | update_flags
+
+/datum/reagent/lead
+	name = "Lead"
+	id = "lead"
+	description = "A heavy metal that causes brain damage and kidney failure, used by some ancient civilisations as a sweetener."
+	reagent_state = LIQUID
+	color = "#484848" // rgb: 72, 72, 72
+	taste_description = "sweet"
+
+/datum/reagent/lead/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(70))
+		M.adjustBrainLoss(1)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/internal/kidneys/our_kidneys = H.get_int_organ(/obj/item/organ/internal/kidneys)
+		if(prob(70))
+			if(our_kidneys && our_kidneys.damage < 60)
+				our_kidneys.receive_damage(1, TRUE)
+			else
+				M.adjustToxLoss(1)
 	return ..() | update_flags
 
 /datum/reagent/chlorine

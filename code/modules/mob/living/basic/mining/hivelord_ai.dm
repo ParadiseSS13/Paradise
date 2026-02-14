@@ -83,6 +83,9 @@
 
 /datum/ai_planning_subtree/flee_target/legion/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/target = controller.blackboard[target_key]
+	if(ismecha(target))
+		var/obj/mecha/mech = target
+		target = mech.occupant
 	if(QDELETED(target) || target.faction_check_mob(controller.pawn))
 		return // Only flee if we have a hostile target
 	return ..()

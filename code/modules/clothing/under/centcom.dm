@@ -7,6 +7,7 @@
 	inhand_icon_state = "g_suit"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/centcom.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/centcom.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/centcom.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/centcom.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/centcom.dmi'

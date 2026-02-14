@@ -32,6 +32,7 @@
 	var/scribble	//Scribble on the back.
 	var/icon/tiny
 	var/photo_size = 3
+	var/max_length = 64
 	scatter_distance = 8
 
 /obj/item/photo/attack_self__legacy__attackchain(mob/user as mob)
@@ -42,7 +43,7 @@
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
 		if(!txt)
 			return
-		txt = copytext(txt, 1, 128)
+		txt = copytext(txt, 1, max_length)
 		if(loc == user && user.stat == CONSCIOUS)
 			scribble = txt
 	else if(P.get_heat())
@@ -110,7 +111,7 @@
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
-		+ "</body></html>", "window=Photo[UID()];size=[64*photo_size]x[scribble ? 400 : 64*photo_size]")
+		+ "</body></html>", "window=Photo[UID()];size=[64 * photo_size]x[max(64 * photo_size, 64 * photo_size + 120)]")
 	onclose(usr, "Photo[UID()]")
 
 /obj/item/photo/proc/rename(mob/user)
@@ -534,6 +535,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	name = "digital camera"
 	desc = "A digital camera."
 	digital = TRUE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 300)
 	var/list/datum/picture/saved_pictures = list()
 	var/max_storage = 10
 

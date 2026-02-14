@@ -7,6 +7,7 @@
 	singular_name = "skin plate"
 	max_amount = 10
 	merge_type = /obj/item/stack/synthetic_skin
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/skin_level = 1
 
 /obj/item/stack/synthetic_skin/attack__legacy__attackchain(mob/living/M as mob, mob/user as mob)
@@ -31,14 +32,15 @@
 	desc = "A sealed patch of synthetic skin. An improvement over the basic version, more water resistant and less prone to peeling off."
 	icon_state = "skin_2"
 	merge_type = /obj/item/stack/synthetic_skin/level_2
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_TITANIUM = 250)
 	singular_name = "skin patch"
 	skin_level = 2
-
 
 /obj/item/stack/synthetic_skin/level_3
 	name = "level-3 synthetic skin foam"
 	desc = "A nanite foam injector meeting the requirements of level-3 synthetic skin. The best one can buy, best used to hide major cybernetic alterations, for beauty or for infiltration."
 	icon_state = "skin_3"
 	merge_type = /obj/item/stack/synthetic_skin/level_3
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 2000, MAT_TITANIUM = 500, MAT_BLUESPACE = 250)
 	singular_name = "nanite foam"
 	skin_level = 3

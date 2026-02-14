@@ -313,7 +313,7 @@
 	icon_state = "cutting_board"
 	inhand_icon_state = "clipboard" // huh
 	preposition = "On"
-	materials = list(MAT_WOOD = 5)
+	materials = list(MAT_WOOD = 10000)
 
 /obj/item/reagent_containers/cooking/sushimat
 	name = "Sushi Mat"
@@ -422,7 +422,7 @@
 	name = "prep bowl"
 	desc = "A bowl for mixing, or tossing a salad. Not to be eaten out of"
 	icon_state = "bowl"
-	materials = list(MAT_PLASTIC = 500)
+	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
 	removal_penalty = 2
 
 /obj/item/reagent_containers/cooking/icecream_bowl

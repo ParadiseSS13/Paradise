@@ -44,6 +44,9 @@
 	/// What level of upgrades are needed to detect this. Level 0 is default. 1 is hidden from health analysers. 2 is hidden from cyborg analysers, and the body scanner at level 1. 4 is the highest level the body scanner can reach.
 	var/stealth_level = 0
 
+	/// A list of all wounds currently on this organ
+	var/list/wound_list = list()
+
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(owner)
@@ -55,8 +58,8 @@
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
-	..(holder)
+/obj/item/organ/Initialize(mapload, mob/living/carbon/holder, datum/species/species_override = null)
+	. = ..()
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(ishuman(holder))
@@ -193,6 +196,10 @@
 		status = ORGAN_ROBOT
 	else
 		status = 0
+
+	for(var/datum/wound/wound as anything in wound_list)
+		wound.cure_wound()
+
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
@@ -218,7 +225,7 @@
 	W.time_inflicted = world.time
 
 //Note: external organs have their own version of this proc
-/obj/item/organ/proc/receive_damage(amount, silent = 0)
+/obj/item/organ/proc/receive_damage(amount, silent = FALSE)
 	if(tough)
 		return
 	damage = clamp(damage + amount, 0, max_damage)
@@ -257,6 +264,7 @@
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 
 	owner.internal_organs -= src
 
@@ -335,3 +343,18 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		last_pain_message = msg
 		to_chat(owner, msg)
 		next_pain_time = world.time + 10 SECONDS
+
+/// Wound datum adding helper. Returns the wound datum
+/obj/item/organ/proc/add_wound(wound_path)
+	// Passing the organ with the arg puts it on the wound list automatically
+	return new wound_path(src)
+
+/// Finds a wound datum. `wound_to_find` should be a typepath, and if `exact` is FALSE, it will grab subtypes aswell.
+/obj/item/organ/proc/get_wound(wound_to_find, exact = FALSE)
+	if(!wound_to_find)
+		return
+	if(!exact)
+		return locate(wound_to_find) in wound_list
+	for(var/datum/wound/wound as anything in wound_list)
+		if(wound.type == wound_to_find)
+			return wound

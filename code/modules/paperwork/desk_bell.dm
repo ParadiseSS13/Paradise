@@ -5,6 +5,7 @@
 	desc = "The cornerstone of any customer service job. You feel an unending urge to ring it. It looks like it can be wrenched or screwdrivered."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "desk_bell"
+	materials = list(MAT_METAL = 4000)
 	/// The amount of times this bell has been rang, used to check the chance it breaks
 	var/times_rang = 0
 	/// Is this bell broken?

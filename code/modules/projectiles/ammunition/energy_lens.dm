@@ -53,6 +53,12 @@
 /obj/item/ammo_casing/energy/laser/eshotgun/cyborg
 	e_cost = 500
 
+/obj/item/ammo_casing/energy/laser/minigun
+	projectile_type = /obj/projectile/beam/laser/minigun
+	click_cooldown_override = 2
+	variance = 20
+	randomspread = 1
+
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
@@ -163,8 +169,8 @@
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	var/temp = 300
 
-/obj/item/ammo_casing/energy/temp/New()
-	..()
+/obj/item/ammo_casing/energy/temp/Initialize(mapload)
+	. = ..()
 	BB = null
 
 /obj/item/ammo_casing/energy/temp/newshot()
@@ -234,7 +240,7 @@
 	select_name = "blue"
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/wormhole/New(obj/item/gun/energy/wormhole_projector/wh)
+/obj/item/ammo_casing/energy/wormhole/Initialize(mapload, obj/item/gun/energy/wormhole_projector/wh)
 	gun = wh
 	return ..()
 
@@ -348,8 +354,8 @@
 	select_name = "teleport beam"
 	var/teleport_target
 
-/obj/item/ammo_casing/energy/teleport/New()
-	..()
+/obj/item/ammo_casing/energy/teleport/Initialize(mapload)
+	. = ..()
 	BB = null
 
 /obj/item/ammo_casing/energy/teleport/newshot()
@@ -362,8 +368,8 @@
 	select_name = "gun mimic"
 	var/mimic_type
 
-/obj/item/ammo_casing/energy/mimic/New()
-	..()
+/obj/item/ammo_casing/energy/mimic/Initialize(mapload)
+	. = ..()
 	BB = null
 
 /obj/item/ammo_casing/energy/mimic/newshot()

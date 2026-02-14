@@ -211,6 +211,7 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 250)
 	category = list("Equipment")
+
 /datum/design/alienwrench
 	name = "Alien Wrench"
 	desc = "An advanced wrench obtained through Abductor technology."

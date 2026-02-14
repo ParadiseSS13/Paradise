@@ -8,6 +8,8 @@
 	var/list/used_places = list()
 	/// A list of types which are are valid to place on this shelf.
 	var/list/allowed_types = list()
+	/// A list of types whose subtypes are valid to place on this shelf. Used in addition to [allowed_types].
+	var/list/allowed_subtypes = list()
 	/// The default scale transformation for objects placed on the shelf.
 	var/default_scale = 0.70
 	/// The default rotation transformation for objects placed on the shelf.
@@ -22,6 +24,9 @@
 	if(length(allowed_types_))
 		allowed_types += allowed_types_
 	random_pickup_locations = random_pickup_locations_
+
+	if(allowed_subtypes)
+		allowed_subtypes = typecacheof(allowed_subtypes)
 
 /datum/component/shelver/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_SHELF_ATTEMPT_PICKUP, PROC_REF(on_shelf_attempt_pickup))
@@ -130,7 +135,11 @@
 	if(user.a_intent == INTENT_HARM)
 		return
 
-	if(length(allowed_types) && !(attacker.type in allowed_types))
+	var/restrictions = length(allowed_types) || length(allowed_subtypes)
+	var/in_allowed_types = is_type_in_list(attacker, allowed_types)
+	var/in_allowed_subtypes = is_type_in_typecache(attacker, allowed_subtypes)
+
+	if(restrictions && !(in_allowed_types || in_allowed_subtypes))
 		to_chat(user, SPAN_NOTICE("[attacker] won't fit on [parent]!"))
 		return COMPONENT_SKIP_AFTERATTACK
 
@@ -173,6 +182,7 @@
 	to_add.appearance_flags |= PIXEL_SCALE
 	if("layer" in position_details)
 		to_add.layer = position_details["layer"]
+	to_add.layer -= 0.001 * placement_idx
 	used_places[placement_idx] = to_add.UID()
 	var/obj/O = parent
 	if(istype(O))
@@ -215,6 +225,31 @@
 	)
 	default_scale = 0.80
 	default_rotation = -45
+
+/datum/component/shelver/spice_rack
+	default_scale = 0.80
+
+	allowed_subtypes = list(
+		// this also means larger containers like flour/sugar but the
+		// alternative is not allowing any custom condiment containers
+		/obj/item/reagent_containers/condiment,
+	)
+
+	placement_zones = list(
+		// Bottom Shelf
+		list(1,  1,  6, 16) = list("x" = -10, "y" = -3, "layer" = BELOW_OBJ_LAYER),
+		list(7,  1, 12, 16) = list("x" = -5, "y" = -3, "layer" = BELOW_OBJ_LAYER),
+		list(13, 1, 18, 16) = list("x" = 0, "y" = -3, "layer" = BELOW_OBJ_LAYER),
+		list(19, 1, 24, 16) = list("x" = 5, "y" = -3, "layer" = BELOW_OBJ_LAYER),
+		list(25, 1, 32, 16) = list("x" = 10, "y" = -3, "layer" = BELOW_OBJ_LAYER),
+
+		// Top Shelf
+		list(1,  17,  6, 32) = list("x" = -10, "y" = 12),
+		list(7,  17, 12, 32) = list("x" = -5, "y" = 12),
+		list(13, 17, 18, 32) = list("x" = 0, "y" = 12),
+		list(19, 17, 24, 32) = list("x" = 5, "y" = 12),
+		list(25, 17, 32, 32) = list("x" = 10, "y" = 12),
+	)
 
 /// A component for items stored on shelves, propagated by [/datum/component/shelver] components.
 /datum/component/shelved
