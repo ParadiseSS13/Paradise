@@ -165,6 +165,9 @@
 		if(T.pipe_id == what_f_pipe)
 			// What the fuck is iconrotation // I hope that it's the direction
 			new T.construction_type(dest, iconrotation)
+
+			//to_chat(user, SPAN_NOTICE("[src] rapidly dispenses [T]!"))
+			//automatic_wrench_down(user, T)
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
@@ -202,6 +205,11 @@
 			eaten = TRUE
 	for(var/obj/structure/transit_tube_construction/C in T)
 		QDEL_NULL(C)
+		eaten = TRUE
+	for(var/obj/machinery/fluid_pipe/F in T) //will change with new variant later
+		if(F.anchored == TRUE)
+			continue
+		QDEL_NULL(F)
 		eaten = TRUE
 	if(eaten)
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
