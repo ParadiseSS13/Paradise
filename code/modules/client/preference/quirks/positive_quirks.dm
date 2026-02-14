@@ -117,7 +117,7 @@
 /datum/quirk/culinary_implant
 	name = "IPC Culinary Implant"
 	desc = "Either you or your creator wanted you to seem more organic, and gave you an artificial mouth and stomach."
-	cost = 2
+	cost = 1
 	species_flags = QUIRK_ORGANIC_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/cyberimp/chest/ipc_food
 
