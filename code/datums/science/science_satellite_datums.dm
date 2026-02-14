@@ -4,7 +4,6 @@
 	var/fuel_capacity = 0
 	var/science_multiplier = 0
 	var/power_generation = 0
-	var/power_storage = 0
 	var/power_consumption = 0
 	var/power_capacity = 0
 
