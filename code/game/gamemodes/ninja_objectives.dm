@@ -1,20 +1,3 @@
-/datum/objective/ninja_goals
-	name = "Complete Missions"
-	needs_target = FALSE
-
-/datum/objective/ninja_goals/New(mission_goal)
-	. = ..()
-
-/datum/objective/ninja_goals/check_completion()
-	if(..())
-		return TRUE
-	for(var/datum/mind/M in get_owners())
-		var/datum/antagonist/space_ninja/N = M.has_antag_datum(/datum/antagonist/space_ninja)
-		for(var/datum/objective/ninja/ninja_objective in N.get_antag_objectives())
-			if(!ninja_objective.completed)
-				return FALSE
-		return TRUE
-
 #define NINJA_OBJECTIVE_EASY 10
 #define NINJA_OBJECTIVE_NORMAL 20
 #define NINJA_OBJECTIVE_HARD 40
@@ -35,9 +18,7 @@
 /datum/objective/ninja/proc/hand_out_equipment()
 	give_kit(special_equipment_path)
 
-/datum/objective/ninja/check_completion()
-	if(..())
-		return TRUE
+/datum/objective/ninja/proc/complete_objective()
 	for(var/datum/mind/M in get_owners())
 		var/mob/living/carbon/human/H = M.current
 		if(!ishuman(H))
@@ -46,6 +27,9 @@
 		if(!nuplink)
 			continue
 		nuplink.hidden_uplink.uses += reward_tc
+	completed = TRUE
+
+/datum/objective/ninja/proc/check_objective_conditions()
 	return TRUE
 
 /datum/objective/ninja/kill
@@ -306,17 +290,25 @@
 
 /datum/objective/ninja/interrogate_ai
 	name = "Interrogate AI"
-	explanation_text = "We wish to expunge some data from their AI system. Use your scanner on the AI core to wirelessly transfer it to us for interrogation."
+	explanation_text = "We wish to expunge some data from their AI system. Use your scanner on an active AI core to wirelessly transfer it to us for interrogation."
 	needs_target = FALSE
 	onlyone = TRUE
 	reward_tc = NINJA_OBJECTIVE_HARD
 
+/datum/objective/ninja/interrogate_ai/check_objective_conditions() // If there is no AI, you don't get the objective.
+	if(!length(GLOB.ai_list))
+		return FALSE
+	return TRUE
+
 /datum/objective/ninja/steal_supermatter
 	name = "Steal Supermatter"
-	explanation_text = "Steal the supermatter crystal, using the hypernobilium net we have provided you. The crystal will sell well to the highest bidder."
+	explanation_text = "Steal the supermatter crystal, using the net gun we have modified for you. The crystal will sell well to the highest bidder."
 	needs_target = FALSE
 	onlyone = TRUE
 	reward_tc = NINJA_OBJECTIVE_HARD
+
+/datum/objective/ninja/steal_supermatter/check_objective_conditions() // If there is no supermatter, you don't get the objective.
+	return !isnull(GLOB.main_supermatter_engine)
 
 /datum/objective/ninja/bomb_department
 	name = "Bomb Department"

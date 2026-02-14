@@ -50,7 +50,6 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 	new_ninja.equipOutfit(/datum/outfit/space_ninja)
 
 /datum/antagonist/space_ninja/proc/forge_objectives()
-	add_antag_objective(/datum/objective/ninja_goals, "Complete [mission_goal] missions for the Spider Clan.")
 	var/list/moderate_objectives = list(
 		/datum/objective/ninja/capture = 20,
 		/datum/objective/ninja/kill = 20,
@@ -79,6 +78,12 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 /datum/antagonist/space_ninja/proc/forge_objective(list/objective_list)
 
 	var/datum/objective/ninja/new_objective = pickweight(objective_list)
+	var/datum/objective/ninja/obj_item = new new_objective() // Needed to do to check validity and reroll
+	if(!obj_item.check_objective_conditions())
+		forge_objective(objective_list)
+		qdel(obj_item)
+		return
+	qdel(obj_item)
 	if(new_objective.onlyone)
 		var/list/current_objectives = get_antag_objectives()
 		for(var/datum/objective/ninja/c_objective in current_objectives)

@@ -1,7 +1,6 @@
 /obj/machinery/syndicatebomb/ninja
 	name = "spider clan bomb"
 	payload = /obj/item/bombcore/ninja
-	timer_set = 90
 
 /obj/machinery/syndicatebomb/ninja/emp
 	name = "spider clan EMP bomb"
@@ -144,9 +143,8 @@
 	var/objectives = user.mind.get_all_objectives()
 	for(var/datum/objective/ninja/bomb_department/bomb_dep in objectives)
 		if(!bomb_dep.completed)
-			bomb_dep.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
-			bomb_dep.check_completion()
+			bomb_dep.complete_objective()
 	qdel(src)
 
 /obj/item/wormhole_jaunter/ninja_bomb/turf_check(mob/user)

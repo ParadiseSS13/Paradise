@@ -33,7 +33,7 @@
 				return TRUE
 			ninja_obj.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
-			ninja_obj.check_completion()
+			ninja_obj.complete_objective()
 			return TRUE
 
 		if(istype(ninja_obj, /datum/objective/ninja/capture))
@@ -57,7 +57,7 @@
 			cap_obj.handle_capture(target, target.loc)
 			ninja_obj.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
-			ninja_obj.check_completion()
+			ninja_obj.complete_objective()
 			return TRUE
 
 		if(istype(ninja_obj, /datum/objective/ninja/interrogate_ai))
@@ -86,7 +86,7 @@
 					break
 			ninja_obj.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
-			ninja_obj.check_completion()
+			ninja_obj.complete_objective()
 			return TRUE
 	return TRUE
 
@@ -109,7 +109,7 @@
 			var/obj/machinery/computer/rnd_network_controller/rnd = attacked_obj
 			rnd.research_files.known_tech = list()
 			ninja_obj.completed = TRUE
-			ninja_obj.check_completion()
+			ninja_obj.complete_objective()
 			return TRUE
 
 	return ..()
