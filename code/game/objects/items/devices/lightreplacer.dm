@@ -158,6 +158,7 @@
 
 /obj/item/lightreplacer/update_icon_state()
 	icon_state = "lightreplacer[emagged]"
+	belt_icon = emagged ? "light_replacer_red" : "light_replacer"
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."
@@ -250,6 +251,7 @@
 	name = "bluespace light replacer"
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
 	icon_state = "lightreplacer_blue"
+	belt_icon = "light_replacer_blue"
 	bluespace_toggle = TRUE
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 
