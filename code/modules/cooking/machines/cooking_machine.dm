@@ -2,7 +2,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking
 	name = "Default Cooking Appliance"
-	desc = "You shouldn't be seeing this. Please report this as an issue on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cooking/machines.dmi'
 	density = TRUE
 	anchored = TRUE
@@ -110,10 +110,9 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		return
 	var/datum/cooking_surface/surface = surfaces[surface_idx]
 
-	var/list/surface_options = list(
-		RADIAL_ACTION_SET_ALARM = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_setalarm"),
-		RADIAL_ACTION_ON_OFF = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_onoff"),
-	)
+	var/list/surface_options = list(RADIAL_ACTION_SET_ALARM = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_setalarm"))
+	if(surface.allow_toggling)
+		surface_options[RADIAL_ACTION_ON_OFF] = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_onoff")
 	if(surface.allow_temp_change)
 		surface_options[RADIAL_ACTION_SET_TEMPERATURE] = image(icon = 'icons/hud/radial.dmi', icon_state = "radial_settemp")
 	var/option_choice = show_radial_menu(user, src, surface_options, require_near = TRUE)

@@ -39,6 +39,7 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_PLASTIC = 200)
 
 	var/sides = 6
 	var/result = null

@@ -74,6 +74,10 @@
 /datum/atom_hud/data/pressure
 	hud_icons = list(PRESSURE_HUD)
 
+/datum/atom_hud/data/heretic
+	hud_icons = list(HERETIC_HUD)
+	ignore_invisibility_check = TRUE
+
 /// Pressure hud is special, because it doesn't use hudatoms. SSair manages its images, so tell SSair to add the initial set.
 /datum/atom_hud/data/pressure/add_hud_to(mob/user)
 	..()
@@ -510,6 +514,13 @@
 		holder.icon_state = "electrified"
 	else
 		holder.icon_state = ""
+
+/*~~~~~~~~~~~~~~
+	HERETIC HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/heretic_influence/proc/do_hud_stuff()
+	var/image/holder = hud_list[HERETIC_HUD]
+	holder.icon_state = "reality_smash"
 
 /*~~~~~~~~~~~~~~
 	JANI HUD

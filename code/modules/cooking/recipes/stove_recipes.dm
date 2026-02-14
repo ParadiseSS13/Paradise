@@ -145,6 +145,44 @@
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 
+/datum/cooking/recipe_step/add_item/fried_skrell/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/skrell))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/frog_leg
+	container_type = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/frog_leg
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_skrell(),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe_step/add_item/grey/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/grey))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/grey_gruel
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/grey_gruel
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/grey(),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/hong_kong_borscht
 	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/hong_kong_borscht
@@ -212,6 +250,26 @@
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 
+/datum/cooking/recipe_step/add_item/fried_taj/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/tajaran))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/feline_mignon
+	container_type = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/feline_mignon
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_taj(),
+		PCWJ_ADD_REAGENT("wine", 5, optional = TRUE),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/misosoup
 	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/misosoup
@@ -273,6 +331,25 @@
 		PCWJ_ADD_REAGENT("water", 10),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
+
+/datum/cooking/recipe_step/add_item/plasmaman/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/plasmaman))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/plasmabone_broth
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/plasmabone_broth
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/plasmaman(),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
 
 /datum/cooking/recipe/red_porridge
 	container_type = /obj/item/reagent_containers/cooking/pot

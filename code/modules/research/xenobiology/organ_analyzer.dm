@@ -94,6 +94,8 @@
 			update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/organ_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
 	if(!istype(used, /obj/item/organ/internal))
 		to_chat(user, SPAN_WARNING("The machines rejects [used]; it finds no possible potential in it."))
 		return ITEM_INTERACT_COMPLETE

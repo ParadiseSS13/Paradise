@@ -125,6 +125,7 @@
 	desc = "Some reflective glass ready to be hung on a wall. Don't break it!"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
+	materials = list(MAT_GLASS = 2500)
 
 /obj/item/mounted/mirror/do_build(turf/on_wall, mob/user)
 	var/obj/structure/mirror/M = new /obj/structure/mirror(get_turf(user), get_dir(on_wall, user), 1)
@@ -170,7 +171,7 @@
 		if("Body")
 			if(organ_warn)
 				to_chat(user, SPAN_BOLDWARNING("Using the mirror will destroy any non biochip implants in you!"))
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask")
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Skkulakin")
 			if(actually_magical)
 				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Vox", "Plasmaman", "Kidan", "Slime People")
 

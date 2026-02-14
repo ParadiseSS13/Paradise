@@ -82,7 +82,7 @@
 
 /datum/milla_safe/turf_cool/on_run(turf/T, delta, divisor)
 	var/datum/gas_mixture/air = get_turf_air(T)
-	air.set_temperature(max(min(air.temperature()-delta * divisor,air.temperature() / divisor), TCMB))
+	air.set_temperature(max(min(air.temperature()-delta * divisor,air.temperature() / divisor), T20C))
 	air.react()
 
 /*

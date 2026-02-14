@@ -37,6 +37,9 @@
 		for(var/obj/effect/decal/cleanable/C in src)
 			is_dirty = TRUE
 			break
+		for(var/obj/effect/heretic_rune/H in src)
+			is_dirty = TRUE
+			break
 
 	if(!is_dirty && !isturf(src))
 		// We don't need cleaning, so let's spare the janitor a pixel hunt and let the floor under us get cleaned instead.
@@ -65,6 +68,8 @@
 		//Generic cleaning functionality
 		for(var/obj/effect/decal/cleanable/C in src)
 			qdel(C)
+		for(var/obj/effect/heretic_rune/H in src)
+			qdel(H)
 		clean_blood()
 		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT)
 		return TRUE

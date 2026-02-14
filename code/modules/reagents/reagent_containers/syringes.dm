@@ -65,13 +65,14 @@
 			return
 		if(L != user)
 			L.visible_message(SPAN_DANGER("[user] is trying to inject [L]!"), \
-									SPAN_USERDANGER("[user] is trying to inject you!"))
+							SPAN_USERDANGER("[user] is trying to inject you!"))
+			SEND_SIGNAL(L, COMSIG_LIVING_TRY_SYRINGE_INJECT, user)
 			if(!do_mob(user, L))
 				return
 			if(L.reagents.total_volume >= L.reagents.maximum_volume)
 				return
-			L.visible_message("<span class='danger'>[user] injects [L] with the syringe!", \
-							"<span class='userdanger'>[user] injects [L] with the syringe!")
+			L.visible_message(SPAN_DANGER("[user] injects [L] with the syringe!"), \
+							SPAN_USERDANGER("[user] injects [L] with the syringe!"))
 
 		var/list/rinject = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -88,6 +89,7 @@
 	if(L != user)
 		L.visible_message(SPAN_DANGER("[user] is trying to take a blood sample from [L]!"), \
 						SPAN_USERDANGER("[user] is trying to take a blood sample from [L]!"))
+		SEND_SIGNAL(L, COMSIG_LIVING_TRY_SYRINGE_WITHDRAW, user)
 		busy = TRUE
 		if(!do_mob(user, L, syringe_draw_time))
 			busy = FALSE

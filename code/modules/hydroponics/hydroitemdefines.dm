@@ -103,6 +103,7 @@
 	materials = null
 	flags = NONE
 	resistance_flags = FLAMMABLE
+	materials = list(MAT_WOOD = 10000)
 
 /obj/item/hatchet
 	name = "hatchet"

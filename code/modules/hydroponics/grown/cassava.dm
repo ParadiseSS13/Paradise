@@ -32,8 +32,9 @@
 	species = "ironcassava"
 	plantname = "Cast-ava"
 	product = /obj/item/food/grown/cassava/iron
+	icon_grow = "castava-grow"
 	mutatelist = list()
-	reagents_add = list("nutriment" = 0.4, "tapioca" = 0.1)
+	reagents_add = list("iron" = 0.5)
 
 /obj/item/food/grown/cassava/iron
 	seed = /obj/item/seeds/cassava/iron

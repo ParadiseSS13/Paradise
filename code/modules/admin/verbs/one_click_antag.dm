@@ -1,7 +1,3 @@
-USER_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create an antagonist of your choice", VERB_CATEGORY_EVENT)
-	if(client.holder)
-		client.holder.one_click_antag()
-
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"<B>One-click Antagonist</B><br>
@@ -14,6 +10,7 @@ USER_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create a
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=8'>Make Mindflayers</a><br>
 		<a href='byond://?src=[UID()];makeAntag=9'>Make Event Characters</a><br>
+		<a href='byond://?src=[UID()];makeAntag=10'>Make Heretics</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -310,6 +307,38 @@ USER_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create a
 		message_admins("[key_name(owner)] made [key_name_admin(flayer)] a Mindflayer with One-Click-Antag")
 	qdel(temp)
 	return TRUE
+
+/datum/admins/proc/makeHeretics()
+	var/datum/game_mode/traitor/temp = new
+
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	var/antnum = input(owner, "How many Heretics you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
+		return
+	log_admin("[key_name(owner)] tried making [antnum] Heretics with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] Heretics with One-Click-Antag")
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_HERETIC, applicant, temp))
+			candidates += applicant
+
+	if(length(candidates))
+		var/numHeretics = min(length(candidates), antnum)
+
+		for(var/i = 0, i<numHeretics, i++)
+			H = pick(candidates)
+			H.mind.make_heretic()
+			log_admin("[key_name(H)] was made a heretic with one-click antag.")
+			candidates.Remove(H)
+
+		return 1
+	return 0
+
 
 /datum/admins/proc/makeEventCharacters()
 	var/list/mob/living/carbon/human/candidates = list()

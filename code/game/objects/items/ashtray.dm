@@ -74,8 +74,9 @@
 	icon_full  = "ashtray_full_bl"
 	max_butts = 8
 	max_integrity = 8
-	material = /obj/item/stack/sheet/plastic
 	throwforce = 3
+	material = /obj/item/stack/sheet/plastic
+	materials = list(MAT_PLASTIC = 2000)
 
 /obj/item/ashtray/bronze
 	name = "bronze ashtray"
@@ -86,6 +87,7 @@
 	max_butts = 16
 	max_integrity = 16
 	throwforce = 10
+	materials = list(MAT_METAL = 2000)
 
 /obj/item/ashtray/glass
 	name = "glass ashtray"
@@ -95,5 +97,6 @@
 	icon_full  = "ashtray_full_gl"
 	max_butts = 12
 	max_integrity = 12
-	material = /obj/item/stack/sheet/glass
 	throwforce = 6
+	material = /obj/item/stack/sheet/glass
+	materials = list(MAT_GLASS = 2000)

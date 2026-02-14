@@ -218,6 +218,7 @@
 	icon = 'icons/obj/chemical_flamethrower.dmi'
 	icon_state = "normal"
 	container_type = REFILLABLE
+	materials = list(MAT_METAL = 5000)
 	/// How much ammo do we have? Empty at 0.
 	var/ammo = 100
 	/// Which reagent IDs do we accept
@@ -301,6 +302,7 @@
 	icon_state = "extended"
 	ammo = 200
 	required_volume = 20 // Bigger canister? More reagents needed.
+	materials = list(MAT_METAL = 10000)
 
 /obj/item/chemical_canister/extended/nuclear
 	name = "\improper Syndicate chemical canister"
@@ -319,3 +321,4 @@
 	icon_state = "pyro"
 	ammo = 150
 	accepted_chemicals = list("phlogiston", "phlogiston_dust", "napalm", "fuel", "thermite", "clf3", "plasma")
+	materials = list(MAT_METAL = 7500)

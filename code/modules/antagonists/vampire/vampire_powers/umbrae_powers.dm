@@ -88,14 +88,16 @@
 		to_chat(user, SPAN_USERDANGER("The snare sends a psychic backlash!"))
 		C.EyeBlind(20 SECONDS)
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby__legacy__attackchain(obj/item/I, mob/user)
-	var/obj/item/flash/flash = I
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/flash/flash = used
 	if(!istype(flash) || !flash.try_use_flash(user))
 		return ..()
-	user.visible_message(SPAN_DANGER("[user] points [I] at [src]!"),
-	SPAN_DANGER("You point [I] at [src]!"))
+
+	user.visible_message(SPAN_DANGER("[user] points [used] at [src]!"),
+	SPAN_DANGER("You point [used] at [src]!"))
 	visible_message(SPAN_NOTICE("[src] withers away."))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/process()
 	var/turf/T = get_turf(src)

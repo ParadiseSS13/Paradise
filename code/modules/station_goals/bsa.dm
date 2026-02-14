@@ -16,8 +16,8 @@
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_packs/misc/station_goal/bsa/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
-	P.special_enabled = TRUE
+	var/datum/supply_packs/engineering/bsa/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/bsa]"]
+	P.cost = 1500
 
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())

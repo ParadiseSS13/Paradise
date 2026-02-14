@@ -496,6 +496,13 @@
 	icon_opened = "hydrosecurecrate_open"
 	icon_closed = "hydrosecurecrate"
 
+/obj/structure/closet/crate/secure/medisec
+	desc = "A secure medical crate."
+	name = "secure medical crate"
+	icon_state = "medicalsecurecrate"
+	icon_opened = "medicalsecurecrate_open"
+	icon_closed = "medicalsecurecrate"
+
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
 	name = "secure bin"
@@ -654,11 +661,12 @@
 /obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost, mob/user)
 	. = ..()
 	var/list/temp_uplink_list = get_uplink_items(U, user)
+	var/list/temp_buyable_items = list() // Extra safety so we don't even have the items with no surplus in the final list
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
-		buyable_items += temp_uplink_list[category]
+		temp_buyable_items += temp_uplink_list[category]
 
-	for(var/datum/uplink_item/uplink_item in buyable_items)
+	for(var/datum/uplink_item/uplink_item in temp_buyable_items)
 		if(!uplink_item.surplus) // Otherwise we'll just have an element with a weight of 0 in our weighted list
 			continue
 		buyable_items[uplink_item] = uplink_item.surplus

@@ -115,7 +115,7 @@
 	select = clamp(select, 1, length(ammo_type)) // If we decrease ammo types while selecting a removed one, we want to make sure it doesnt try to select an out of bounds index
 	for(var/i = 1, i <= length(ammo_type), i++)
 		var/shottype = ammo_type[i]
-		shot = new shottype(src)
+		shot = new shottype(src, src)
 		ammo_type[i] = shot
 	shot = ammo_type[select]
 	fire_sound = shot.fire_sound

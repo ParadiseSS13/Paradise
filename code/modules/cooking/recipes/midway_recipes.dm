@@ -63,6 +63,77 @@
 	)
 	appear_in_default_catalog = FALSE
 
+/datum/cooking/recipe_step/add_item/fried_nian
+
+/datum/cooking/recipe_step/add_item/fried_nian/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/moth))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/moffolo_wings
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/fried_nian
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_nian(),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe/moffolo_wild_wings
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/fried_nian_bbq
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_nian(),
+		PCWJ_ADD_REAGENT("bbqsauce", 5),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe_step/add_item/fried_drask/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/drask))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/calamari
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/calamari
+	product_count = 3
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_drask(),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe_step/add_item/fried_human/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/human))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/pork_rind
+	container_type = /obj/item/reagent_containers/cooking/deep_basket
+	product_type = /obj/item/food/pork_rind
+	product_count = 3
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_human(),
+		PCWJ_USE_DEEP_FRYER(10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe_step/add_item/deep_fried_anything
 
 /datum/cooking/recipe_step/add_item/deep_fried_anything/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)

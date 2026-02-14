@@ -309,7 +309,7 @@
 			bag?.dump_storage(M, over_object)
 			return
 
-		if(!M.restrained() && !M.stat)
+		if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
 			playsound(loc, "rustle", 50, TRUE, -5)
 
 			if(istype(over_object, /atom/movable/screen/inventory/hand))
@@ -320,7 +320,7 @@
 						return
 				if(!M.unequip(src, force = TRUE))
 					return
-				M.put_in_active_hand(src)
+				M.put_in_hands(src)
 			else
 				bag?.open(usr)
 

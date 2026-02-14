@@ -1,7 +1,8 @@
 /obj/item/restraints
-	name = "bugged restraints" //This item existed before this pr, but had no name or such. Better warn people if it exists
-	desc = "Should not exist. Report me to a(n) coder/admin!"
+	name = "base type restraints"
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/restraints.dmi'
+	new_attack_chain = TRUE
 	var/cuffed_state = "handcuff"
 	///How long it will take to break out of restraints
 	var/breakouttime
@@ -59,24 +60,25 @@
 	/// If set to TRUE, people with the TRAIT_CLUMSY won't cuff themselves when trying to cuff others.
 	var/ignoresClumsy = FALSE
 
-/obj/item/restraints/handcuffs/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
-		return
+/obj/item/restraints/handcuffs/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!iscarbon(target))
+		return NONE
 
-	if(!istype(C))
-		return
+	if(!user.IsAdvancedToolUser())
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to use [src]!"))
+		return ITEM_INTERACT_COMPLETE
 
 	if(flags & NODROP)
 		to_chat(user, SPAN_WARNING("[src] is stuck to your hand!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (!ignoresClumsy))
 		to_chat(user, SPAN_WARNING("Uh... how do those things work?!"))
 		apply_cuffs(user, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	cuff(C, user)
+	cuff(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/restraints/handcuffs/proc/cuff(mob/living/carbon/C, mob/user, remove_src = TRUE)
 	if(!istype(C)) // Shouldn't be able to cuff anything but carbons.
@@ -93,6 +95,7 @@
 							SPAN_USERDANGER("[user] is trying to put [src.name] on [C]!"))
 
 		playsound(loc, cuffsound, 15, TRUE, -10)
+		SEND_SIGNAL(C, COMSIG_CARBON_CUFF_ATTEMPTED, user)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, SPAN_NOTICE("You handcuff [C]."))
@@ -184,9 +187,9 @@
 /obj/item/restraints/handcuffs/cable/white
 	color = COLOR_WHITE
 
-/obj/item/restraints/handcuffs/cable/random/New()
+/obj/item/restraints/handcuffs/cable/random/Initialize(mapload)
+	. = ..()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
-	..()
 
 /obj/item/restraints/handcuffs/cable/proc/cable_color(colorC)
 	if(!colorC)
@@ -223,8 +226,13 @@
 		return TRUE
 	return ..()
 
-/obj/item/restraints/handcuffs/cable/zipties/used/attack__legacy__attackchain()
-	return
+/obj/item/restraints/handcuffs/cable/zipties/used/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	to_chat(user, SPAN_WARNING("[src] are broken and useless!"))
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/restraints/handcuffs/cable/zipties/used/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	to_chat(user, SPAN_WARNING("[src] are broken and useless!"))
+	return ITEM_INTERACT_COMPLETE
 
 //////////////////////////////
 // MARK: TWIMSTS
@@ -259,10 +267,10 @@
 //////////////////////////////
 // MARK: CRAFTING
 //////////////////////////////
-/obj/item/restraints/handcuffs/cable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/restraints/handcuffs/cable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	..()
 
-	handle_attack_construction(I, user)
+	handle_attack_construction(used, user)
 
 /obj/item/restraints/handcuffs/cable/proc/handle_attack_construction(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/rods))
@@ -300,9 +308,10 @@
 		var/obj/item/toy/crayon/C = I
 		cable_color(C.dye_color)
 
-/obj/item/restraints/handcuffs/cable/zipties/cyborg/attack__legacy__attackchain(mob/living/carbon/C, mob/user)
+/obj/item/restraints/handcuffs/cable/zipties/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(isrobot(user))
-		cuff(C, user, FALSE)
+		cuff(target, user, FALSE)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/restraints/handcuffs/cable/zipties/cyborg/handle_attack_construction(obj/item/I, mob/user)
 	// Don't allow borgs to send their their ziptie module to the shadow realm.

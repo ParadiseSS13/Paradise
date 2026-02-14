@@ -76,6 +76,13 @@
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	RefreshParts()
 
+/obj/machinery/cooking/ice_cream_mixer/loaded/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to length(surfaces))
+		var/datum/cooking_surface/surface = surfaces[i]
+		surface.container = new /obj/item/reagent_containers/cooking/icecream_bowl(src)
+	update_appearance()
+
 /obj/item/circuitboard/cooking/ice_cream_mixer
 	board_name = "Ice Cream Mixer"
 	build_path = /obj/machinery/cooking/ice_cream_mixer

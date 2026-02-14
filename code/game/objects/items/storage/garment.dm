@@ -71,6 +71,8 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/security/hos(src)
 	new /obj/item/clothing/under/plasmaman/security/hos(src)
+	new /obj/item/clothing/suit/hooded/highinquis (src)
+	new /obj/item/clothing/mask/highinquis (src)
 
 /obj/item/storage/bag/garment/research_director
 	name = "research director's garment bag"

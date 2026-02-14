@@ -14,6 +14,7 @@
 	species_exception = list(/datum/species/golem)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suits/labcoat.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suits/labcoat.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suits/labcoat.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suits/labcoat.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/labcoat.dmi'

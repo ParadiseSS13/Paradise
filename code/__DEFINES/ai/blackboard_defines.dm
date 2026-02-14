@@ -92,6 +92,12 @@
 
 // Food and eating
 
+/// time until we should next eat, set by the generic hunger subtree
+#define BB_NEXT_HUNGRY "BB_NEXT_HUNGRY"
+/// what we're going to eat next
+#define BB_FOOD_TARGET "bb_food_target"
+/// are we hungry? determined by the udder component
+#define BB_CHECK_HUNGRY "BB_check_hungry"
 /// list of foods this mob likes
 #define BB_BASIC_FOODS "BB_BASIC_FOODS"
 /// key holding any food we've found
@@ -215,6 +221,7 @@
 
 #define BB_TRAVEL_DESTINATION "BB_TRAVEL_DESTINATION"
 
+#define BB_SHAPESHIFT_ACTION "BB_SHAPESHIFT_ACTION"
 // Giant Spiders
 /// Our webbing target
 #define BB_SPIDER_WEB_TARGET "BB_spider_web_target"

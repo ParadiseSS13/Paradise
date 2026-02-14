@@ -36,6 +36,9 @@
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
 			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
+		if(PREFTOGGLE_TOGGLE3)
+			our_prefs.toggles3 ^= preftoggle_bitflag
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
 			to_chat(user, SPAN_NOTICE("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
@@ -311,7 +314,7 @@
 	name = "Toggle Post-Round Credits"
 	description = "Toggle seeing the post-round credit popup."
 	preftoggle_bitflag = PREFTOGGLE_3_POSTCREDS
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
 	enable_message = "You will now see post-round credits."
 	disable_message = "You will no longer see post-round credits."
@@ -467,13 +470,13 @@
 
 /datum/preference_toggle/toggle_debug_logs
 	name = "Toggle Debug Log Messages"
-	description = "Disables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
+	description = "Enables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
 	preftoggle_bitflag = PREFTOGGLE_CHAT_DEBUGLOGS
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
 	rights_required = R_VIEWRUNTIMES | R_DEBUG
-	enable_message = "You now won't get debug logs."
-	disable_message = "You now will get debug logs."
+	enable_message = "You now will get debug logs."
+	disable_message = "You now won't get debug logs."
 	blackbox_message = "Debug logs toggled"
 
 /datum/preference_toggle/toggle_mctabs

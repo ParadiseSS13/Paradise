@@ -243,7 +243,7 @@
 	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
-	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT / 2, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list("initial","Construction")
 	maxstack = 50
@@ -261,7 +261,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL = 16000, MAT_GLASS = 8000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -405,7 +405,7 @@
 	name = "Cultivator"
 	id = "cultivator"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 200)
 	build_path = /obj/item/cultivator
 	category = list("initial","Miscellaneous")
 
@@ -584,6 +584,14 @@
 	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	build_path = /obj/item/ammo_box/magazine/detective/speedcharger
 	category = list("initial", "Security")
+
+/datum/design/paintball_magazine
+	name = "Paintball Magazine"
+	id = "paintball_mag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/paintball
+	category = list("initial", "Miscellaneous")
 
 /datum/design/recorder
 	name = "Universal Recorder"
@@ -822,7 +830,7 @@
 	id = "rcl"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000)
-	build_path = /obj/item/rcl
+	build_path = /obj/item/rcl/empty
 	category = list("initial", "Construction")
 
 //hacked autolathe recipes

@@ -200,6 +200,7 @@
 		if(ishuman(antag.current))
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), latespawn_time, TIMER_DELETE_ME)
+		traitor_datum.is_roundstart = TRUE
 		antag.add_antag_datum(traitor_datum)
 		SSblackbox.record_feedback("nested tally", "dynamic_selections", 1, list("roundstart", "[antagonist_type]"))
 
@@ -218,6 +219,15 @@
 	. = ..()
 	latespawn_time = null
 	addtimer(CALLBACK(src, PROC_REF(latespawn), dynamic), 5 MINUTES, TIMER_DELETE_ME|TIMER_LOOP)
+
+/datum/ruleset/heretic
+	name = "Heretic"
+	ruleset_weight = 10
+	antag_cost = 10
+	antagonist_type = /datum/antagonist/heretic
+
+	banned_jobs = list("Cyborg", "AI")
+
 
 /datum/ruleset/vampire
 	name = "Vampire"

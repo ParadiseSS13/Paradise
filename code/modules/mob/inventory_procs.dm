@@ -32,6 +32,22 @@
 /mob/proc/is_holding(obj/item/I)
 	return istype(I) && (I == r_hand || I == l_hand)
 
+/// Returns a list of items being held
+/mob/proc/held_items()
+	var/list/items = list()
+	items += get_item_by_slot(ITEM_SLOT_LEFT_HAND)
+	items += get_item_by_slot(ITEM_SLOT_RIGHT_HAND)
+	return items
+
+/// Returns a number corresponding to an open hand, or null if no open hands.
+/mob/proc/get_empty_held_indexes()
+	var/list/L
+	var/list/held = held_items()
+	for(var/i in 1 to length(held))
+		if(!held[i])
+			LAZYADD(L, i)
+	return L
+
 //Checks if we're holding an item of type: typepath
 /mob/proc/is_holding_item_of_type(typepath)
 	. = FALSE
@@ -39,6 +55,13 @@
 		return l_hand
 	if(istype(r_hand, typepath))
 		return r_hand
+
+// List version of above proc
+// Returns ret_item, which is either the successfully located item or null
+/mob/proc/is_holding_item_of_types(list/typepaths)
+	for(var/typepath in typepaths)
+		var/ret_item = is_holding_item_of_type(typepath)
+		return ret_item
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
@@ -226,7 +249,7 @@
 
 	if((SEND_SIGNAL(target, COMSIG_ITEM_PRE_UNEQUIP, destination, force, silent, drop_inventory, no_move) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
 		return FALSE
-
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, target, force, destination)
 	if(target == r_hand)
 		r_hand = null
 		update_inv_r_hand()

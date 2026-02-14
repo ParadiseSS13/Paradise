@@ -30,8 +30,8 @@
 
 	scatter_distance = 10
 
-/obj/item/ammo_casing/New()
-	..()
+/obj/item/ammo_casing/Initialize(mapload)
+	. = ..()
 	if(projectile_type)
 		BB = new projectile_type(src)
 	scatter_atom()

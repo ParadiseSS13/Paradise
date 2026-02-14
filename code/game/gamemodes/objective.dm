@@ -1,5 +1,7 @@
 /// Stores a reference to every [objective][/datum/objective] which currently exists.
 GLOBAL_LIST_EMPTY(all_objectives)
+/// Stores a reference to every heretic sacrifice target.
+GLOBAL_LIST_EMPTY(all_sacrifice_targets)
 // Used in admin procs to give them a pretty list to look at, and to also have sane reusable code.
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
 GLOBAL_LIST_EMPTY(admin_objective_list)
@@ -109,7 +111,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	var/list/protect_objectives = list()
 	for(var/datum/objective/protect/P in GLOB.all_objectives)
-		if(P.target == target)
+		if(P.target == target && P.owner && P.holder)
 			protect_objectives += P
 	return protect_objectives
 
@@ -123,6 +125,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	var/list/assassination_objectives = list()
 	for(var/datum/objective/O in GLOB.all_objectives)
+		if(QDELETED(O) || !O.owner || !O.holder)
+			continue
 		if((istype(O, /datum/objective/assassinate) || istype(O, /datum/objective/assassinateonce)) && O.target == target)
 			assassination_objectives += O
 	return assassination_objectives
@@ -282,6 +286,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = TRUE
 	delayed_objective_text = "Your objective is to assassinate another crewmember. You will receive further information in a few minutes."
 
+/datum/objective/assassinate/New(text, datum/team/team_to_join, datum/mind/_owner)
+	. = ..()
+	RegisterSignal(src, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(on_target_assigned))
+
 /datum/objective/assassinate/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
@@ -290,6 +298,41 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			explanation_text += " Be warned, it seems they have a guardian angel."
 	else
 		explanation_text = "Free Objective"
+
+/datum/objective/assassinate/proc/on_target_assigned(datum/source, datum/mind/new_target)
+	SIGNAL_HANDLER  // COMSIG_OBJECTIVE_TARGET_FOUND
+	if(!new_target)
+		return
+	// Notify the first available protect objective that we have a target
+	for(var/datum/objective/protect/protect_obj in GLOB.all_objectives)
+		if(!protect_obj.target && protect_obj.owner && protect_obj.holder)
+			var/datum/mind/assassination_target = protect_obj.try_find_assassination_target()
+			if(assassination_target && !protect_obj.is_invalid_target(assassination_target))
+				protect_obj.target = assassination_target
+				// Cancel the fallback timer since we now have a target
+				if(protect_obj.fallback_timer_id)
+					deltimer(protect_obj.fallback_timer_id)
+					protect_obj.fallback_timer_id = null
+				addtimer(CALLBACK(protect_obj, TYPE_PROC_REF(/datum/objective/protect, notify_protect_objectives)), 1 MINUTES)
+				return
+
+/datum/objective/assassinate/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
+
+	// Don't assassinate people we're supposed to protect. This shouldn't come up much
+	for(var/datum/mind/M in get_owners())
+		if(QDELETED(M) || !M.current)
+			continue
+		for(var/datum/antagonist/antag in M.antag_datums)
+			if(QDELETED(antag))
+				continue
+			for(var/datum/objective/O in antag.get_antag_objectives(FALSE))
+				if(QDELETED(O))
+					continue
+				if(istype(O, /datum/objective/protect) && O.target == possible_target)
+					return TARGET_INVALID_CONFLICTING_OBJECTIVE
 
 /datum/objective/assassinate/check_completion()
 	if(..())
@@ -310,18 +353,58 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	delayed_objective_text = "Your objective is to teach another crewmember a lesson. You will receive further information in a few minutes."
 	var/won = FALSE
 
+/datum/objective/assassinateonce/New(text, datum/team/team_to_join, datum/mind/_owner)
+	. = ..()
+	RegisterSignal(src, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(on_target_assigned))
+
 /datum/objective/assassinateonce/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
 		var/list/protect_objectives = find_protect_objectives_for_target()
 		if(length(protect_objectives) > 0)
 			explanation_text += " Be warned, it seems they have a guardian angel."
-		establish_signals()
+		establish_death_signal()
 	else
 		explanation_text = "Free Objective"
 
-/datum/objective/assassinateonce/establish_signals()
-	RegisterSignal(target.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(check_midround_completion))
+/datum/objective/assassinateonce/proc/establish_death_signal()
+	if(target?.current)
+		RegisterSignal(target.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(check_midround_completion))
+
+/datum/objective/assassinateonce/proc/on_target_assigned(datum/source, datum/mind/new_target)
+	SIGNAL_HANDLER  // COMSIG_OBJECTIVE_TARGET_FOUND
+	if(!new_target)
+		return
+	// Notify protect objectives that we have a target
+	for(var/datum/objective/protect/protect_obj in GLOB.all_objectives)
+		if(!protect_obj.target && protect_obj.owner && protect_obj.holder)
+			var/datum/mind/assassination_target = protect_obj.try_find_assassination_target()
+			if(assassination_target && !protect_obj.is_invalid_target(assassination_target))
+				protect_obj.target = assassination_target
+				// Cancel the fallback timer since we now have a target
+				if(protect_obj.fallback_timer_id)
+					deltimer(protect_obj.fallback_timer_id)
+					protect_obj.fallback_timer_id = null
+				addtimer(CALLBACK(protect_obj, TYPE_PROC_REF(/datum/objective/protect, notify_protect_objectives)), 1 MINUTES)
+				return
+
+/datum/objective/assassinateonce/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
+
+	// Don't teach a lesson to people we're supposed to protect. This shouldn't come up much
+	for(var/datum/mind/M in get_owners())
+		if(QDELETED(M) || !M.current)
+			continue
+		for(var/datum/antagonist/antag in M.antag_datums)
+			if(QDELETED(antag))
+				continue
+			for(var/datum/objective/O in antag.get_antag_objectives(FALSE))
+				if(QDELETED(O))
+					continue
+				if(istype(O, /datum/objective/protect) && O.target == possible_target)
+					return TARGET_INVALID_CONFLICTING_OBJECTIVE
 
 /datum/objective/assassinateonce/check_completion()
 	return won || completed || !target?.current?.ckey
@@ -419,6 +502,19 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(IS_CHANGELING(possible_target.current))
 		return TARGET_INVALID_CHANGELING
 
+	// Removing someone's brain makes it pretty hard to protect them.
+	for(var/datum/mind/M in get_owners())
+		if(QDELETED(M) || !M.current)
+			continue
+		for(var/datum/antagonist/antag in M.antag_datums)
+			if(QDELETED(antag))
+				continue
+			for(var/datum/objective/O in antag.get_antag_objectives(FALSE))
+				if(QDELETED(O))
+					continue
+				if(istype(O, /datum/objective/protect) && O.target == possible_target)
+					return TARGET_INVALID_CONFLICTING_OBJECTIVE
+
 /datum/objective/debrain/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Steal the brain of [target.current.real_name], the [target.assigned_role]."
@@ -445,17 +541,35 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Protect"
 	martyr_compatible = TRUE
 	delayed_objective_text = "Your objective is to protect another crewmember. You will receive further information in a few minutes."
-	completed = TRUE
+	/// Timer for fallback target assignment (randomized between 5-10 minutes)
+	var/fallback_timer_id
+
+/datum/objective/protect/Destroy()
+	if(fallback_timer_id)
+		deltimer(fallback_timer_id)
+		fallback_timer_id = null
+	return ..()
 
 /datum/objective/protect/update_explanation_text()
 	if(target?.current)
 		explanation_text = "[target.current.real_name], the [target.assigned_role], is in grave danger. Ensure that they remain alive for the duration of the shift."
-		// Check if there are existing assassination objectives for this target and notify them
-		var/list/assassination_objectives = find_assassination_objectives_for_target()
-		if(length(assassination_objectives) > 0)
-			addtimer(CALLBACK(src, PROC_REF(notify_assassination_objectives)), 5 SECONDS, TIMER_DELETE_ME)
 	else
-		explanation_text = "Free Objective"
+		// We're waiting for a target to be chosen. Don't want Free Objective to show here.
+		explanation_text = delayed_objective_text
+
+// Alert protect objective owners, invoked by the kill objectives when their targets are assigned
+/datum/objective/protect/proc/notify_protect_objectives()
+	update_explanation_text()
+	var/list/protect_owners = get_owners()
+	for(var/datum/mind/M in protect_owners)
+		if(M.current)
+			SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
+			var/list/messages = M.prepare_announce_objectives(FALSE)
+			to_chat(M.current, chat_box_red(messages.Join("<br>")))
+
+/datum/objective/protect/found_target()
+	// Keep from being overridden by Free Objective just because we haven't found a target yet.
+	return target || fallback_timer_id
 
 /datum/objective/protect/is_invalid_target(datum/mind/possible_target)
 	. = ..()
@@ -465,24 +579,101 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	// Antags don't need protection.
 	if(possible_target.special_role)
 		return TARGET_INVALID_ANTAG
+	// Don't protect people we're supposed to kill.
+	for(var/datum/mind/M in get_owners())
+		if(QDELETED(M) || !M.current)
+			continue
+		for(var/datum/antagonist/antag in M.antag_datums)
+			if(QDELETED(antag))
+				continue
+			for(var/datum/objective/O in antag.get_antag_objectives(FALSE))
+				if(QDELETED(O))
+					continue
+				if((istype(O, /datum/objective/assassinate) || istype(O, /datum/objective/assassinateonce) || istype(O, /datum/objective/debrain)) && O.target == possible_target)
+					return TARGET_INVALID_CONFLICTING_OBJECTIVE
 
+// This runs only once, when the objective is created.
 /datum/objective/protect/find_target(list/target_blacklist)
-	. = ..()
 	if(target) // Already have a target, don't need to find one.
 		return target
-	// Try to make the target someone who is the target of an assassinate or teach a lesson objective.
+
+	// First, try to find someone who's already targeted by an assassination objective
+	var/datum/mind/assassination_target = try_find_assassination_target()
+	if(assassination_target)
+		target = assassination_target
+		update_explanation_text()
+		// Notify assassin. 1 minute buffer prevents immediately spamming the assassin after their objective block with another notification.
+		addtimer(CALLBACK(src, PROC_REF(notify_assassination_objectives)), 1 MINUTES)
+		// Don't notify the Protect objective, because this path means we found a target immediately, and the initial objectives block will already show the target.
+		return target
+
+	// No assassination target found yet. Set up a fallback timer for 5-10 minutes from now
+	if(!fallback_timer_id)
+		var/fallback_time = rand(5 MINUTES, 10 MINUTES)
+		fallback_timer_id = addtimer(CALLBACK(src, PROC_REF(find_fallback_target)), fallback_time, TIMER_STOPPABLE)
+
+	// Update explanation text to show we're waiting for a target
+	update_explanation_text()
+	return null
+
+// Try to find a target that's already targeted by assassination objectives
+/datum/objective/protect/proc/try_find_assassination_target()
+	// Let's prioritize people who are going to be RR'd for protection.
+	var/list/possible_targets = list()
+
+	for(var/datum/objective/O in GLOB.all_objectives)
+		if(QDELETED(O) || !O.owner || !O.holder)
+			continue
+		if((istype(O, /datum/objective/assassinate) && O.target))
+			if(!is_invalid_target(O.target))
+				possible_targets += O.target
+
+	if(length(possible_targets) > 0)
+		return pick(possible_targets)
+
+	// Fall back to people who are going to be taught a lesson.
+	possible_targets = list()
+
+	for(var/datum/objective/O in GLOB.all_objectives)
+		if(QDELETED(O) || !O.owner || !O.holder)
+			continue
+		if((istype(O, /datum/objective/assassinateonce) && O.target))
+			if(!is_invalid_target(O.target))
+				possible_targets += O.target
+
+	if(length(possible_targets) > 0)
+		return pick(possible_targets)
+
+	return null
+
+// Called at the end of the timer for protect
+/datum/objective/protect/proc/find_fallback_target(list/target_blacklist)
+	if(!needs_target)
+		return
+
+	deltimer(fallback_timer_id)
+	fallback_timer_id = null
+
+	// First try to find a legitimate assignment one final time
+	var/datum/mind/assassination_target = try_find_assassination_target()
+	if(assassination_target && !is_invalid_target(assassination_target) && !(assassination_target in target_blacklist))
+		target = assassination_target
+		// Both Protect and Assassinate are being jumped with some hot new info. Let's tell them.
+		notify_protect_objectives()
+		notify_assassination_objectives()
+		return
+
+	// Fall back to any valid crew member to protect
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
-		for(var/datum/objective/O in GLOB.all_objectives)
-			if((istype(O, /datum/objective/assassinate) || istype(O, /datum/objective/assassinateonce)) && O.target == possible_target)
-				possible_targets += O.target
-				break
+		possible_targets += possible_target
+
 	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
-		update_explanation_text()
-		return target
+		// No assassin to notify
+		notify_protect_objectives()
 
 // Notifies assassination objectives that their target has a protector.
 /datum/objective/protect/proc/notify_assassination_objectives()

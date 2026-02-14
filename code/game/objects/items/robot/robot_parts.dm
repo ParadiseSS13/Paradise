@@ -8,8 +8,8 @@
 	var/sabotaged = FALSE //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
 
-/obj/item/robot_parts/New(newloc, model)
-	..(newloc)
+/obj/item/robot_parts/Initialize(mapload, model)
+	. = ..()
 	if(model_info && model)
 		model_info = model
 		var/datum/robolimb/R = GLOB.all_robolimbs[model]
@@ -24,7 +24,7 @@
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/attack_self__legacy__attackchain(mob/user)
-	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
+	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.all_robolimbs)
 	if(!choice)
 		return
 	if(loc != user)
@@ -37,30 +37,35 @@
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "l_arm"
 	part = list("l_arm","l_hand")
+	materials = list(MAT_METAL = 10000)
 
 /obj/item/robot_parts/r_arm
 	name = "right arm"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_arm"
 	part = list("r_arm","r_hand")
+	materials = list(MAT_METAL = 10000)
 
 /obj/item/robot_parts/l_leg
 	name = "left leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "l_leg"
 	part = list("l_leg","l_foot")
+	materials = list(MAT_METAL = 10000)
 
 /obj/item/robot_parts/r_leg
 	name = "right leg"
 	desc = "A skeletal limb wrapped in pseudomuscles, with a low-conductivity case."
 	icon_state = "r_leg"
 	part = list("r_leg","r_foot")
+	materials = list(MAT_METAL = 10000)
 
 /obj/item/robot_parts/chest
 	name = "torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	icon_state = "chest"
 	part = list("groin","chest")
+	materials = list(MAT_METAL = 40000)
 	var/wired = FALSE
 	var/obj/item/stock_parts/cell/cell = null
 
@@ -73,6 +78,7 @@
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	icon_state = "head"
 	part = list("head")
+	materials = list(MAT_METAL = 5000)
 	var/obj/item/flash/flash1 = null
 	var/obj/item/flash/flash2 = null
 
@@ -87,6 +93,7 @@
 	icon_state = "robo_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	model_info = null
+	materials = list(MAT_METAL = 15000)
 	var/obj/item/robot_parts/l_arm/l_arm = null
 	var/obj/item/robot_parts/r_arm/r_arm = null
 	var/obj/item/robot_parts/l_leg/l_leg = null
@@ -101,8 +108,8 @@
 	var/aisync = 1
 	var/panel_locked = 1
 
-/obj/item/robot_parts/robot_suit/New()
-	..()
+/obj/item/robot_parts/robot_suit/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/robot_parts/robot_suit/Destroy()
