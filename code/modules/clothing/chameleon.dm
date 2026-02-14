@@ -185,6 +185,7 @@
 	target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
+	target.icon = initial(picked_item.icon)
 
 	if(isitem(target))
 		var/obj/item/I = target
@@ -202,13 +203,18 @@
 		else
 			I.sprite_sheets = null
 
-		if(isclothing(I) && isclothing(picked_item))
+		if(isclothing(I) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
+			if(istype(I, /obj/item/clothing/under) && ispath(picked_item, /obj/item/clothing/under/color))
+				var/obj/item/clothing/under/color/colored_jumpsuit = picked_item
+				if(colored_jumpsuit.icon_palette_key)
+					var/obj/item/clothing/under/target_jumpsuit = I
+					target_jumpsuit.redye_jumpsuit(colored_jumpsuit.default_palette_key, colored_jumpsuit.icon_palette_key)
 		I.update_appearance()
 
-	target.icon = initial(picked_item.icon)
+	//target.icon = initial(picked_item.icon)
 
 /datum/action/item_action/chameleon_change/Trigger(left_click)
 	if(!IsAvailable())
@@ -260,6 +266,9 @@
 		/obj/item/clothing/under/dress,
 		/obj/item/clothing/under/pants,
 		/obj/item/clothing/under/color,
+		/obj/item/clothing/under/color/random,
+		/obj/item/clothing/under/color/jumpskirt,
+		/obj/item/clothing/under/color/jumpskirt/random,
 		/obj/item/clothing/under/retro,
 		/obj/item/clothing/under/solgov,
 		/obj/item/clothing/under/suit,
