@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	layer = MOB_LAYER + 0.5
 	pixel_x = -32
 	just_a_pipe = FALSE
-	just_a_pipe = FALSE
+	connect_dirs = list(EAST, SOUTH)
 	/// Intake of fluids
 	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake
 	/// Currently selected recipe
@@ -43,8 +43,6 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 			connect_dirs = list(WEST, SOUTH)
 		// Default direction is east so no need to change this
 
-	connect_dirs = GLOB.cardinal.Copy()
-	connect_dirs -= REVERSE_DIR(dir)
 	make_intakes()
 	return ..()
 
@@ -84,7 +82,6 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 			AddComponent(/datum/component/multitile, list(
 				list(1, MACH_CENTER)
 			))
-			pixel_x = -32
 
 		if(WEST)
 			AddComponent(/datum/component/multitile, list(
