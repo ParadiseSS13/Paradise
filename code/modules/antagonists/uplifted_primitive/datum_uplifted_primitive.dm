@@ -6,6 +6,8 @@ RESTRICT_TYPE(/datum/antagonist/uplifted_primitive)
 	special_role = SPECIAL_ROLE_UPLIFTED_PRIMITIVE
 	antag_hud_name = "huduplifted"
 	antag_hud_type = ANTAG_HUD_UPLIFTED_TEAMLESS
+	// TODO: wiki page
+	//wiki_page_name = "Uplifted_Primitive"
 
 	/// The UID of the nest built by the owner.
 	var/nest_uid
@@ -20,6 +22,14 @@ RESTRICT_TYPE(/datum/antagonist/uplifted_primitive)
 		/datum/objective/uplifted/collect_animals,
 		/datum/objective/uplifted/fortify,
 	)
+
+/datum/antagonist/uplifted_primitive/greet()
+	. = ..()
+	. += SPAN_BOLDNOTICE("Despite your primitive form, you have enlightened with sentience.")
+	. += SPAN_BOLDNOTICE("With this newfound awareness you are able to spread your species by building a nest and supplying it with food and scrap metal.")
+	. += SPAN_BOLDNOTICE("By propagating your kind and working with your fellow primitives, you may finally be able to defend yourself from the crew of the station.")
+	. += SPAN_BOLDNOTICE("Alternatively, you could try to keep a friendly relationship with the crew, though they may see you as a threat not worth keeping alive.")
+	. += SPAN_BOLDNOTICE("Regardless of the method, you must help your species to survive and prosper on the station.")
 
 /datum/antagonist/uplifted_primitive/give_objectives()
 	add_antag_objective(pick(potential_objectives))
