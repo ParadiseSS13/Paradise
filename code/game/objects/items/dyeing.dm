@@ -69,7 +69,7 @@
 		return FALSE
 	if(!(target_type in typesof(/obj/item/clothing/under/color)))
 		icon_palette_key = null
-		return
+		return ..()
 	icon_palette_key = target_type::icon_palette_key
 	return ..()
 

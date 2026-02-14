@@ -62,7 +62,7 @@
 				GLOB.palette_registry[dyeing_key][old_palette_key],
 				GLOB.palette_registry[dyeing_key][new_palette_key]
 			)
-			jumpsuit.Insert(colored_icon, white_state)
+			jumpsuit.Insert(colored_icon, white_state, frame = 1)
 
 		// Set the new sprite we just made to the one this jumpsuit uses.
 		if(sprite_sheets[sheet_key])
@@ -255,7 +255,7 @@
 		var/icon/jumpsuit = new(filepath)
 
 		// For every color frame...
-		for(var/frame_num in 1 to 8)
+		for(var/frame_num in 1 to length(frame_colors))
 			// Dye each white sprite in that sheet to the frame color.
 			for(var/white_state in state_names)
 				if(!(white_state in jumpsuit.IconStates()))
