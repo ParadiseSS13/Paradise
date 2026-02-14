@@ -47,12 +47,12 @@ RESTRICT_TYPE(/datum/team/uplifted_primitive)
 		var/selected_objective_path = pick(potential_objectives)
 		var/datum/objective/new_objective = new selected_objective_path()
 		add_team_objective(new_objective)
-		announce_new_objective(new_objective)
+		announce_new_objective(members - new_member, new_objective)
 		has_added_team_objective = TRUE
 
-/datum/team/uplifted_primitive/proc/announce_new_objective(datum/objective/new_objective)
+/datum/team/uplifted_primitive/proc/announce_new_objective(list/announce_to, datum/objective/new_objective)
 	var/message = prepare_new_objective_message(new_objective)
-	for(var/datum/mind/member in members)
+	for(var/datum/mind/member in announce_to)
 		if(!member.current || !isliving(member.current))
 			continue
 		to_chat(member.current, message)
