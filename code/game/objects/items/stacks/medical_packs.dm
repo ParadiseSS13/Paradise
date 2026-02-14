@@ -598,6 +598,7 @@
 	attack_verb = list("poked", "pricked", "stabbed")
 	hitsound = null
 	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_METAL = 200)
 
 /obj/item/suture_needle/examine(mob/user)
 	. = ..()
