@@ -47,7 +47,10 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 		return
 	var/mob/living/carbon/human/new_ninja = owner.current
 	new_ninja.delete_equipment()
-	new_ninja.equipOutfit(/datum/outfit/space_ninja)
+	if(isvox(new_ninja))
+		new_ninja.equipOutfit(/datum/outfit/space_ninja/vox)
+	else
+		new_ninja.equipOutfit(/datum/outfit/space_ninja)
 
 /datum/antagonist/space_ninja/proc/forge_objectives()
 	var/list/moderate_objectives = list(

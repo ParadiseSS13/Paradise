@@ -909,6 +909,12 @@
 /obj/structure/closet/wardrobe/mixed,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
+"dX" = (
+/obj/structure/mirror{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/outpost)
 "dY" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 8
@@ -54693,7 +54699,7 @@ aN
 aN
 aN
 ac
-aB
+dX
 TE
 TE
 TE

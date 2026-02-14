@@ -143,7 +143,7 @@
 		/obj/item/katana/energy,
 		/obj/item/restraints/handcuffs
 	)
-	flags_inv = HIDEJUMPSUIT | HIDETAIL
+	flags_inv = HIDEJUMPSUIT
 	armor = list(MELEE = 30, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 20, RAD = 100, FIRE = INFINITY, ACID = INFINITY)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',

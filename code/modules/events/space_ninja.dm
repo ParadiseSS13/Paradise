@@ -41,7 +41,7 @@
 		poll_ninja()
 		return
 	if(!new_ninja || !new_ninja.client)
-		poll_ninja()
+		kill()
 		return
 
 	var/list/spawn_locs = list()
@@ -72,7 +72,6 @@
 	M.cleanSE()
 	M.overeatduration = 0
 	M.age = rand(23,35)
-	M.get_dna_scrambled() // Randomize appearance. If someone wants to change it, they have a mirror
 	M.regenerate_icons()
 
 	M.mind = new
