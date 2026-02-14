@@ -10,8 +10,10 @@
 #define SPAWN_COOLDOWN_TIME (120 SECONDS)
 /// The number of percentage points to increase the probability of the next spawned mob being sentient by.
 #define SPAWN_SENTIENT_PROB_INCREASE 25
-/// The maximum number of limiting mobs that a nest can consider before disabling NPC spawning.
-#define SPAWN_MAX_LIMITING_MOBS 3
+/// The maximum number the spawn count can reach before disabling NPC spawning.
+#define SPAWN_MAX_LIMIT 3
+/// The number of additional mobs permitted by each extra nearby nest.
+#define SPAWN_EXTRA_NEST_MOBS 2
 
 /obj/structure/uplifted_primitive
 	icon = 'icons/obj/uplifted_primitive.dmi'
@@ -71,7 +73,7 @@
 			available_food -= SPAWN_FOOD_COST
 			sentient_probability = initial(sentient_probability)
 		else
-			if(count_limiting_mobs() < SPAWN_MAX_LIMITING_MOBS)
+			if(count_spawn_limit() < SPAWN_MAX_LIMIT)
 				spawn_npc()
 				available_scrap -= SPAWN_SCRAP_COST
 				available_food -= SPAWN_FOOD_COST
@@ -85,7 +87,7 @@
 
 /// Returns TRUE if a new player mob was successfully spawned, otherwise FALSE.
 /obj/structure/uplifted_primitive/nest/proc/try_spawn_uplifted()
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an uplifted primitive?", ROLE_UPLIFTED_PRIMITIVE, TRUE, source = /obj/item/storage/box/monkeycubes)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an uplifted primitive?", ROLE_UPLIFTED_PRIMITIVE, TRUE, source = /obj/structure/uplifted_primitive/nest)
 	if(!length(candidates))
 		return FALSE
 
@@ -110,16 +112,24 @@
 
 /// Returns the number of mobs currently contributing to the spawn limit.
 /// Currently, any NPC human with the same species as the nest and a monkey ai controller within range is counted.
-/obj/structure/uplifted_primitive/nest/proc/count_limiting_mobs()
+/obj/structure/uplifted_primitive/nest/proc/count_spawn_limit()
 	var/count = 0
-	for(var/mob/living/carbon/human/H in orange(src, 7))
-		if(H.dna.species.type != nest_species || H.mind)
-			continue
 
-		if(!istype(H.ai_controller, /datum/ai_controller/monkey))
-			continue
+	for(var/atom/movable/A in orange(src, 7))
+		var/mob/living/carbon/human/H = A
+		if(istype(H))
+			if(H.dna.species.type != nest_species || H.mind)
+				continue
+			if(!istype(H.ai_controller, /datum/ai_controller/monkey))
+				continue
+			count += 1
 
-		count += 1
+		var/obj/structure/uplifted_primitive/nest/N = A
+		if(istype(N))
+			if(N.nest_species != nest_species)
+				continue
+			count -= SPAWN_EXTRA_NEST_MOBS
+
 	return count
 
 /obj/structure/uplifted_primitive/nest/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -202,4 +212,5 @@
 #undef SPAWN_FOOD_COST
 #undef SPAWN_COOLDOWN_TIME
 #undef SPAWN_SENTIENT_PROB_INCREASE
-#undef SPAWN_MAX_LIMITING_MOBS
+#undef SPAWN_MAX_LIMIT
+#undef SPAWN_EXTRA_NEST_MOBS

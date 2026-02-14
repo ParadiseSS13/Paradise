@@ -2,6 +2,10 @@
 	name = "Make Nest"
 	desc = "Build a nest at your current location."
 
+	action_icon = 'icons/obj/uplifted_primitive.dmi'
+	action_icon_state = "nest"
+	action_background_icon_state = "bg_default"
+
 	base_cooldown = 15 SECONDS
 	clothes_req = FALSE
 	antimagic_flags = NONE
