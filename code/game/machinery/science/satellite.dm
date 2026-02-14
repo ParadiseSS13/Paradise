@@ -7,6 +7,7 @@
 	anchored = FALSE
 	density = 1
 	var/obj/item/multitool/linked_multitool
+	var/obj/item/satellite_component/stats
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
@@ -15,22 +16,22 @@
 /obj/machinery/science_satellite/basic/Initialize(mapload)
 	. = ..()
 	parts = list(
-		/obj/item/satellite_component/engine/basic_engine,
-		/obj/item/satellite_component/computer/basic
+		new /obj/item/satellite_component/engine/basic_engine,
+		new /obj/item/satellite_component/computer/basic
 	)
 
 /obj/machinery/science_satellite/science/Initialize(mapload)
 	. = ..()
 	parts = list(
-		/obj/item/satellite_component/engine/basic/small_engine,
-		/obj/item/satellite_component/computer/basic,
-		/obj/item/satellite_component/meteorological_surveyor,
-		/obj/item/satellite_component/plasma_lab,
-		/obj/item/satellite_component/magnetometer,
-		/obj/item/satellite_component/solar_panel,
-		/obj/item/satellite_component/solar_panel,
-		/obj/item/satellite_component/solar_panel,
-		/obj/item/satellite_component/solar_panel
+		new /obj/item/satellite_component/engine/small_engine,
+		new /obj/item/satellite_component/computer/basic,
+		new /obj/item/satellite_component/meteorological_surveyor,
+		new /obj/item/satellite_component/plasma_lab,
+		new /obj/item/satellite_component/magnetometer,
+		new /obj/item/satellite_component/solar_panel,
+		new /obj/item/satellite_component/solar_panel,
+		new /obj/item/satellite_component/solar_panel,
+		new /obj/item/satellite_component/solar_panel
 	)
 
 /obj/machinery/science_satellite/screwdriver_act(mob/living/user, obj/item/I)
