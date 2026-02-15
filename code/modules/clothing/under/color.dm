@@ -86,6 +86,7 @@
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
 	icon_palette_key = DYE_BLACK
+	resistance_flags = NONE
 
 /obj/item/clothing/under/color/jumpskirt/black
 	name = "black jumpskirt"
