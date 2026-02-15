@@ -41,7 +41,6 @@
 	item = /obj/item/gun/energy/kinetic_accelerator/energy_net
 	cost = 30
 
-
 /datum/uplink_item/ninja/spider_bomb
 	name = "Spider Bomb"
 	desc = "An evil device fabricated by the Spider Clan. This bomb contains a large number of dehydrated spider-cubes that will all activate upon detonation. These spiders do not discern friend from foe - all non-spiders make for good food."

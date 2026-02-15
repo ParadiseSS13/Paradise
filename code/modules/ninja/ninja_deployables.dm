@@ -23,7 +23,7 @@
 
 /obj/item/bombcore/badmin/summon/ninja_spiders
 	summon_path = /mob/living/basic/giant_spider
-	amt_summon = 20
+	amt_summon = 12
 
 /obj/item/wormhole_jaunter/ninja_bomb
 	name = "spider clan bomb deployment flare"

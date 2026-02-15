@@ -45,6 +45,7 @@
 
 /datum/objective/ninja/capture
 	name = "Capture a Target"
+	reward_tc = NINJA_OBJECTIVE_NORMAL
 	/// The kidnapee's belongings. Set upon capture.
 	var/list/obj/item/victim_belongings = null
 	/// Temporary objects that are available to the kidnapee during their time in jail. These are deleted when the victim is returned.
@@ -99,14 +100,12 @@
 		stuff_to_transfer += modsuit_safety
 	// Regular items get removed in second
 	for(var/obj/item/I in sucker)
-		// Any items we don't want to take from them?
-		if(istype(H))
-			// Keep their uniform and shoes
-			if(I == H.w_uniform || I == H.shoes)
-				continue
-			// Plasmamen are no use if they're crispy
-			if(isplasmaman(H) && I == H.head)
-				continue
+		// Keep their uniform and shoes
+		if(I == H.w_uniform || I == H.shoes)
+			continue
+		// Plasmamen are no use if they're crispy
+		if(isplasmaman(H) && I == H.head)
+			continue
 
 		// Any kind of implant gets potentially removed (mindshield, freedoms, etc)
 		if(istype(I, /obj/item/bio_chip))
@@ -129,8 +128,7 @@
 			stuff_to_transfer += A
 
 	// Transfer it all (or drop it if not possible)
-	for(var/i in stuff_to_transfer)
-		var/obj/item/I = i
+	for(var/obj/item/i as anything in stuff_to_transfer)
 		if(GLOB.prisoner_belongings.give_item(I))
 			victim_belongings += I
 		else if(!((ABSTRACT|NODROP) in I.flags)) // Anything that can't be put on hold, just drop it on the ground
@@ -209,8 +207,7 @@
 
 /datum/objective/ninja/capture/proc/handle_target_return(mob/living/M, turf/T)
 	// Make a closet to return the target and their items neatly
-	var/obj/structure/closet/closet = new
-	closet.forceMove(T)
+	var/obj/structure/closet/closet = new(T)
 
 	// Return their items
 	for(var/i in victim_belongings)

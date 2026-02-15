@@ -41,7 +41,6 @@
 	cloak_action.stop_sneaking()
 	cloak_action.Remove(user)
 
-
 /obj/item/clothing/mask/gas/space_ninja
 	name = "ninja mask"
 	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement."
@@ -77,7 +76,7 @@
 	name = "ninja gloves"
 	icon_state = "s-ninja"
 	siemens_coefficient = 0
-	pickpocket = 1 // Master of stealth, you can pick a pocket
+	pickpocket = TRUE // Master of stealth, you can pick a pocket
 	armor = list(MELEE = 30, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 20, RAD = 100, FIRE = INFINITY, ACID = INFINITY)
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT

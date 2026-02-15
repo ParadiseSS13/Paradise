@@ -26,7 +26,6 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 /datum/antagonist/space_ninja/give_objectives()
 	forge_objectives()
 
-// POLTODO: Exfil
 /datum/antagonist/space_ninja/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
 	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/space_ninja)
 	radio.autosay("<b>--ZZZT!- Domo Ar!g@to, [extractor.real_name]. Your training paid -^%&!-ZZT!-</b>", "Spider Clan HQ", "Security")
