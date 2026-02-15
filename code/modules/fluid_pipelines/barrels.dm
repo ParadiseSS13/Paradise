@@ -86,7 +86,6 @@
 	. = list()
 	for(var/obj/machinery/fluid_pipe/pipe as anything in get_adjacent_pipes())
 		. += "[get_dir(src, pipe)]"
-		// Somehow doesnt' want to render more than one connection
 
 	if(barrel)
 		. += "active"
@@ -108,15 +107,18 @@
 		if(!selected_fluid)
 			return
 		var/datum/fluid/liquid = is_path_in_list(selected_fluid, fluid_datum.fluids, TRUE)
-		if(!liquid)
+		var/amount = min(move_amount, barrel.tank.get_empty_space())
+		if(!liquid || !amount)
 			return
-		fluid_datum.move_fluid(selected_fluid, barrel.tank, move_amount)
+		fluid_datum.move_fluid(selected_fluid, barrel.tank, amount)
+
 	else if(state == STATE_OUTPUT)
-		if(!fluid_datum)
-			return
 		var/amount = min(move_amount, fluid_datum.get_empty_space())
+		if(!fluid_datum || !amount || !length(barrel.tank.fluids))
+			return
 		barrel.tank.move_any_fluid(fluid_datum, amount)
 
+	barrel.update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/fluid_pipe/barrel_filler/proc/add_barrel(obj/structure/barrel/_barrel)
 	barrel = _barrel
