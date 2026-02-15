@@ -36486,26 +36486,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/asmaint)
 "fFs" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/light/small{
 	dir = 1
-	},
-/obj/item/reagent_containers/drinks/bottle/beer{
-	desc = "Takes you to a whole new level of thinking.";
-	name = "Meta-Cider"
-	},
-/obj/effect/spawner/random/maintenance,
-/obj/structure/closet,
-/obj/structure/sign/engineering/power{
-	pixel_y = 32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint2)
@@ -69009,18 +68991,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "qFH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/shelf/engineering,
 /obj/effect/spawner/random/engineering/materials,
 /obj/effect/spawner/random/engineering/toolbox,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "qFI" = (
@@ -72227,9 +72200,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "rJL" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -72251,29 +72221,6 @@
 	dir = 1
 	},
 /obj/machinery/computer/shuttle/engineering,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 1
-	},
-/obj/machinery/computer/fission_monitor,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "rJR" = (
@@ -82586,17 +82533,7 @@
 	dir = 6;
 	level = 1
 	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/plating,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/catwalk/grey,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /area/station/maintenance/fsmaint2)
 "vpw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
