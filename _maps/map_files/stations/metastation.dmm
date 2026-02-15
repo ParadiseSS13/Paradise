@@ -36485,12 +36485,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/asmaint)
-"fFs" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/fsmaint2)
 "fFW" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -135969,7 +135963,7 @@ iSW
 kYt
 mhE
 qFH
-fFs
+enp
 aaa
 aaa
 aaa
