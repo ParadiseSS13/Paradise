@@ -199,7 +199,7 @@
 	icon_state = "psyche"
 	inhand_icon_state = "psyche_suit"
 
-/obj/item/clothing/under/color/psyche/set_icon_from_cache(palette_key = "psyche")
+/obj/item/clothing/under/color/psyche/set_icon_from_cache(palette_key = "psyche", dye_key = null)
 	return ..()
 
 /obj/item/clothing/under/color/jumpskirt/psyche
@@ -208,7 +208,7 @@
 	icon_state = "psycheskirt"
 	inhand_icon_state = "psyche_suit"
 
-/obj/item/clothing/under/color/jumpskirt/psyche/set_icon_from_cache(palette_key = "psycheskirt")
+/obj/item/clothing/under/color/jumpskirt/psyche/set_icon_from_cache(palette_key = "psycheskirt", dye_key = null)
 	return ..()
 
 /obj/item/clothing/under/color/lightblue
