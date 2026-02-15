@@ -97,7 +97,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/energy_net
 	name = "energy net projector"
-	desc = "A non-lethal weapon favored by the Spider Clan. Targets struck will find themselves trapped in an energy net."
+	desc = "A non-lethal weapon favored by the Spider Clan. Targets stunned by this weapon will be trapped in an energy net for extraction."
 	icon_state = "energy-net-gun"
 	inhand_icon_state = "energy-net-gun"
 	w_class = WEIGHT_CLASS_SMALL

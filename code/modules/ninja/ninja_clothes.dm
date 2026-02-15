@@ -182,3 +182,8 @@
 	new /obj/item/clothing/head/helmet/space_ninja(src)
 	new /obj/item/clothing/mask/gas/space_ninja(src)
 	new /obj/item/clothing/suit/space_ninja(src)
+
+/obj/item/card/id/syndicate/ninja
+	name = "ninja card"
+	initial_access = list(ACCESS_MAINT_TUNNELS)
+	icon_state = "data"

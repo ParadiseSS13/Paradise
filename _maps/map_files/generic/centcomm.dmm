@@ -12174,7 +12174,10 @@
 /area/ruin/space/bubblegum_arena)
 "SP" = (
 /obj/structure/table/wood,
-/obj/item/teleportation_scroll/apprentice,
+/obj/item/reagent_containers/drinks/tea,
+/obj/item/reagent_containers/drinks/tea{
+	pixel_y = 12
+	},
 /turf/simulated/floor/wood,
 /area/ninja/outpost)
 "SR" = (

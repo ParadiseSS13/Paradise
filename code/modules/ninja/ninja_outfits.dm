@@ -7,6 +7,7 @@
 	mask = /obj/item/clothing/mask/gas/space_ninja
 	suit = /obj/item/clothing/suit/space_ninja
 	belt = /obj/item/katana/energy
+	id = /obj/item/card/id/syndicate/ninja
 	back = /obj/item/storage/backpack/satchel
 	l_ear = /obj/item/radio/headset
 	box = /obj/item/storage/box/survival_syndie
@@ -15,6 +16,7 @@
 		/obj/item/ninja_scanner,
 		/obj/item/gun/energy/kinetic_accelerator/energy_net,
 		/obj/item/wormhole_jaunter/extraction,
+		/obj/item/teleportation_scroll/apprentice,
 	)
 	bio_chips = list(
 		/obj/item/bio_chip/dust,
