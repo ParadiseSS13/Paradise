@@ -8,7 +8,7 @@
 /obj/machinery/fluid_pipe/pump
 	name = "fluid pump"
 	desc = "Pumps fluids from one pipe to another."
-	icon_state = "pump_4"
+	icon_state = "fpump"
 	just_a_pipe = FALSE
 	dir = EAST
 	capacity = 0 // Safety
@@ -22,19 +22,21 @@
 /obj/machinery/fluid_pipe/abstract/pump
 
 /obj/machinery/fluid_pipe/abstract/pump/Initialize(mapload, direction, _parent)
+	dir = direction
 	connect_dirs = list(REVERSE_DIR(direction))
 	return ..()
 
 // End abstract pump
 
 /obj/machinery/fluid_pipe/pump/Initialize(mapload, direction)
+	dir = direction
 	connect_dirs = list(dir)
 	incoming = new(get_turf(src), dir, src)
 	update_icon()
 	return ..()
 
 /obj/machinery/fluid_pipe/pump/update_icon_state()
-	icon_state = "pump_[dir]"
+	return
 
 /obj/machinery/fluid_pipe/pump/blind_connect()
 	clear_pipenet_refs() // You have to clear these every time you attempt connecting, otherwise it might keep pumping even though it's not connected
@@ -61,10 +63,11 @@
 	if(!anchored)
 		blind_connect()
 	else
-		incoming.fluid_datum.remove_pipe(src)
-		incoming.fluid_datum = null
-		fluid_datum.remove_pipe(src)
-		fluid_datum = null
+		if(isnull(incoming) == FALSE)
+			incoming.fluid_datum.remove_pipe(src)
+			incoming.fluid_datum = null
+			fluid_datum.remove_pipe(src)
+			fluid_datum = null
 
 		for(var/direction in list (dir, REVERSE_DIR(dir)))
 			var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, direction) // Yes, a pump is also a valid place to transfer from
@@ -82,12 +85,3 @@
 	if(fluid_datum?.total_capacity <= 0 || !incoming.fluid_datum)
 		return
 	incoming.fluid_datum.move_any_fluid(fluid_datum, 50) // DGTODO this doesn't work?
-
-/obj/machinery/fluid_pipe/pump/north
-	dir = NORTH
-
-/obj/machinery/fluid_pipe/pump/south
-	dir = SOUTH
-
-/obj/machinery/fluid_pipe/pump/west
-	dir = WEST

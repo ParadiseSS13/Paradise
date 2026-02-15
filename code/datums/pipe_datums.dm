@@ -435,7 +435,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	construction_type = /obj/machinery/fluid_pipe/pump
 	pipe_id = PIPE_FLUID_PUMP
 	orientations = 4
-	pipe_icon = "pump_4"
+	pipe_icon = "fpump"
 	rpd_dispensable = TRUE
 
 /datum/pipes/fluid/pumpjack
