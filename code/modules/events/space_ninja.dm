@@ -1,7 +1,7 @@
 /datum/event/space_ninja
 	name = "Space Ninja"
 	role_weights = list(ASSIGNMENT_SECURITY = 2)
-	//role_requirements = list(ASSIGNMENT_CREW = 20, ASSIGNMENT_SECURITY = 2)
+	role_requirements = list(ASSIGNMENT_CREW = 20, ASSIGNMENT_SECURITY = 2)
 	nominal_severity = EVENT_LEVEL_MAJOR
 
 /datum/event/space_ninja/start()
