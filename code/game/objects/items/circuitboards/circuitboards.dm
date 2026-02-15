@@ -97,6 +97,11 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/security/engineering
 
+/obj/item/circuitboard/camera/engi_outpost
+	board_name = "Engineering Outpost Camera Monitor"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/security/engi_outpost
+
 /obj/item/circuitboard/xenobiology
 	board_name = "Xenobiology Console"
 	icon_state = "science"
@@ -460,6 +465,11 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
+
+/obj/item/circuitboard/engineering_shuttle
+	board_name = "Engineering Shuttle"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/shuttle/engineering
 
 /obj/item/circuitboard/supplycomp/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE

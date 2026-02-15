@@ -73,7 +73,7 @@
 
 /obj/effect/map_effect/dynamic_airlock/door/collect_sibling_item(atom/A)
 	. = ..()
-	if(istype(A, /obj/machinery/door/airlock/external))
+	if(istype(A, /obj/machinery/door/airlock))
 		airlock = A
 	if(istype(A, /obj/machinery/access_button))
 		buttons |= A

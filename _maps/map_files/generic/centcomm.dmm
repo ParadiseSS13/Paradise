@@ -6847,6 +6847,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xm" = (
+/obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/fluid_pipe,
+/turf/simulated/floor/plasteel,
+/area/adminconstruction)
 "xo" = (
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
@@ -56064,16 +56069,16 @@ De
 De
 De
 De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
 DH
 aN
 aN
@@ -56330,7 +56335,7 @@ De
 De
 De
 De
-De
+xm
 DH
 aN
 aN
@@ -56587,7 +56592,7 @@ De
 De
 De
 De
-De
+xm
 DH
 aN
 aN
@@ -56844,7 +56849,7 @@ De
 De
 De
 De
-De
+xm
 DH
 aN
 aN
@@ -57101,7 +57106,7 @@ De
 De
 De
 De
-De
+xm
 DH
 aN
 aN
@@ -57358,7 +57363,7 @@ De
 De
 De
 De
-De
+xm
 DH
 aN
 aN
@@ -57599,6 +57604,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -57614,8 +57620,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -57856,6 +57861,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -57871,8 +57877,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -58113,6 +58118,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -58128,8 +58134,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -58370,6 +58375,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -58385,8 +58391,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -58627,6 +58632,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -58642,8 +58648,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -58884,6 +58889,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -58899,8 +58905,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -59141,6 +59146,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -59156,8 +59162,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -59398,6 +59403,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -59413,8 +59419,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -59655,6 +59660,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -59670,8 +59676,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -59912,6 +59917,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -59927,8 +59933,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -60169,6 +60174,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -60184,8 +60190,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -60426,6 +60431,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -60441,8 +60447,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -60683,6 +60688,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -60698,8 +60704,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -60940,6 +60945,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -60955,8 +60961,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -61197,6 +61202,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -61212,8 +61218,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -61454,6 +61459,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -61469,8 +61475,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -61711,6 +61716,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -61726,8 +61732,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -61968,6 +61973,7 @@ De
 De
 De
 De
+xm
 De
 De
 De
@@ -61983,8 +61989,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -62216,6 +62221,16 @@ aN
 DH
 De
 De
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
 De
 De
 De
@@ -62231,17 +62246,7 @@ De
 De
 De
 De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
+xm
 DH
 aN
 aN
@@ -62473,6 +62478,7 @@ aN
 DH
 De
 De
+xm
 De
 De
 De
@@ -62497,8 +62503,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -62730,6 +62735,7 @@ aN
 DH
 De
 De
+xm
 De
 De
 De
@@ -62754,8 +62760,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -62987,6 +62992,7 @@ aN
 DH
 De
 De
+xm
 De
 De
 De
@@ -63011,8 +63017,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -63244,6 +63249,7 @@ aN
 DH
 De
 De
+xm
 De
 De
 De
@@ -63268,8 +63274,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -63501,6 +63506,7 @@ aN
 DH
 De
 De
+xm
 De
 De
 De
@@ -63525,8 +63531,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -63758,6 +63763,7 @@ aN
 DH
 De
 De
+xm
 De
 De
 De
@@ -63782,8 +63788,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -64015,6 +64020,7 @@ aN
 DH
 De
 De
+xm
 De
 De
 De
@@ -64039,8 +64045,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -64272,6 +64277,7 @@ aN
 DH
 De
 De
+xm
 De
 De
 De
@@ -64296,8 +64302,7 @@ De
 De
 De
 De
-De
-De
+xm
 DH
 aN
 aN
@@ -64529,32 +64534,32 @@ aN
 DH
 De
 De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
-De
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
+xm
 DH
 aN
 aN
