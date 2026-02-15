@@ -2,16 +2,18 @@
 	name = "satellite chassis"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "autolathe"
-	var/list/parts
+	var/list/parts = new()
 	desc = "A satellite chassis constructected from plasteel."
 	anchored = FALSE
 	density = 1
 	var/obj/item/multitool/linked_multitool
 	var/datum/satellite_stats/satellite_stats = new()
+	var/current_power = 0
+	var/current_fuel = 0
+	var/list/linked_consoles = new()
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
-	parts = list()
 
 /obj/machinery/science_satellite/basic/Initialize(mapload)
 	. = ..()
@@ -19,6 +21,7 @@
 		new /obj/item/satellite_component/engine/basic_engine,
 		new /obj/item/satellite_component/computer/basic
 	)
+	//adjust_stats()
 
 /obj/machinery/science_satellite/proc/adjust_stats(obj/item/satellite_component/component, add = TRUE)
 	to_chat(usr, SPAN_NOTICE("add: [add]"))
@@ -31,7 +34,6 @@
 	satellite_stats.fuel_capacity += component.component_stats.fuel_capacity * multiplier
 	satellite_stats.science_multiplier += component.component_stats.science_multiplier * multiplier
 	satellite_stats.power_generation += component.component_stats.power_generation * multiplier
-	satellite_stats.power_storage += component.component_stats.power_storage * multiplier
 	satellite_stats.power_consumption += component.component_stats.power_consumption * multiplier
 	satellite_stats.power_capacity += component.component_stats.power_capacity * multiplier
 
@@ -84,3 +86,9 @@
 
 	multitool.set_multitool_buffer(user, src)
 	linked_multitool = multitool
+
+/obj/machinery/science_satellite/Destroy()
+	for(var/obj/machinery/computer/satellite_monitor/console in linked_consoles)
+		console.linked_satellites -= src
+	. = ..()
+

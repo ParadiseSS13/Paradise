@@ -1,6 +1,6 @@
 /obj/machinery/computer/satellite_monitor
 	name = "Satellite Monitor"
-	var/list/linked_satellites
+	var/list/linked_satellites = new()
 	var/collected_science_data = 0
 	var/obj/item/disk/tech_disk/inserted_disk
 	var/datum/tech/programming/data_collected
@@ -8,7 +8,6 @@
 
 /obj/machinery/computer/satellite_monitor/Initialize(mapload)
 	. = ..()
-	linked_satellites = list()
 
 /obj/machinery/computer/satellite_monitor/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -32,18 +31,20 @@
 		satellite_data += list(list(
 			"name" = satellite.name,
 			"weight" = satellite.satellite_stats.weight,
-			"fuel efficiency" = satellite.satellite_stats.fuel_efficiency,
-			"fuel capacity" = satellite.satellite_stats.fuel_capacity,
-			"science multiplier" = satellite.satellite_stats.science_multiplier,
-			"power generation" = satellite.satellite_stats.power_generation,
-			"power consumption" = satellite.satellite_stats.power_consumption,
-			"power capacity" = satellite.satellite_stats.power_capacity
+			"fuel_efficiency" = satellite.satellite_stats.fuel_efficiency,
+			"fuel_capacity" = satellite.satellite_stats.fuel_capacity,
+			"science_multiplier" = satellite.satellite_stats.science_multiplier,
+			"power_generation" = satellite.satellite_stats.power_generation,
+			"power_consumption" = satellite.satellite_stats.power_consumption,
+			"power_capacity" = satellite.satellite_stats.power_capacity,
+			"current_power" = satellite.current_power,
+			"current_fuel" = satellite.current_fuel
 		))
 
 	data["satellite_data"] = satellite_data
 	data["collected_science_data"] = collected_science_data
 	data["inserted_disk"] = istype(inserted_disk)
-	data["cmagged"] = HAS_TRAIT(TRAIT_CMAGGED)
+	data["cmagged"] = HAS_TRAIT(src, TRAIT_CMAGGED)
 	return data
 
 /obj/machinery/computer/satellite_monitor/ui_interact(mob/user, datum/tgui/ui = null)
@@ -62,13 +63,18 @@
 		atom_say("Error: unkown data.")
 		return
 
-	if(multitool.buffer in linked_satellites) //already registered this satellite
+	var/obj/machinery/science_satellite/satellite = multitool.buffer
+	if(QDELETED(satellite))
+		return
+
+	if(satellite in linked_satellites) //already registered this satellite
 		atom_say("Error: entry already stored in database.")
 		return
 
-	linked_satellites += multitool.buffer
+	linked_satellites += satellite
 	to_chat(user, SPAN_NOTICE("You save \the [multitool]'s data into the [src]'s database. "))
 	atom_say("Successfully stored information into the database.")
+	satellite.linked_consoles += src
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/computer/satellite_monitor/cmag_act(mob/user)
@@ -80,6 +86,12 @@
 
 /obj/machinery/computer/satellite_monitor/examine(mob/user)
 	. = ..()
-	if(!HAS_TRAIT(TRAIT_CMAGGED))
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
-		. += SPAN_WARNING("Bananium ooze is dripping from the keyboard!")
+
+	. += SPAN_WARNING("Bananium ooze is dripping from the keyboard!")
+
+/obj/machinery/computer/satellite_monitor/Destroy()
+	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
+		satellite.linked_consoles -= src
+	. = ..()
