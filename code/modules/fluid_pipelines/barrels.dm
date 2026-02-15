@@ -62,6 +62,7 @@
 	desc = "Connect a barrel and fill it with a fluid of your choice."
 	icon = 'icons/obj/pipes/fluid_machinery.dmi'
 	icon_state = "filler"
+	density = FALSE
 	capacity = 0
 	connect_dirs = list(NORTH, EAST, WEST) // south looks ugly
 	/// The connected barrel
