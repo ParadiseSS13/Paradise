@@ -277,6 +277,12 @@
 		else if(istype(A, /area/station/engineering/engine/supermatter))
 			to_chat(src, SPAN_WARNING("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			return TRUE
+		else if(istype(A, /area/station/engineering/engine))
+			to_chat(src, SPAN_WARNING("Disrupting the control equipment of a nuclear reactor would not be to our benefit. Aborting."))
+			return TRUE
+		else if(istype(A, /area/station/engineering/engine/reactor))
+			to_chat(src, SPAN_WARNING("Disrupting the control equipment of a nuclear reactor would not be to our benefit. Aborting."))
+			return TRUE
 	return FALSE
 
 // =====================

@@ -95,7 +95,7 @@
 		var/datum/tlv/cur_tlv = new/datum/tlv(ONE_ATMOSPHERE * 0.80, ONE_ATMOSPHERE  *0.90, ONE_ATMOSPHERE * 1.10,ONE_ATMOSPHERE * 1.20) /* kpa */
 		var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || istype(A, /area/station/engineering/engine/supermatter) || pressure_dangerlevel)
+		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || istype(A, /area/station/engineering/engine/supermatter) || istype(A, /area/station/engineering/engine/reactor) || pressure_dangerlevel)
 			return FALSE
 	return TRUE
 
