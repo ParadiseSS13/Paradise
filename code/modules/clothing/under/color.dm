@@ -2,7 +2,7 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	icon = 'icons/obj/clothing/under/color.dmi'
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
-	icon_state = "white"
+	icon_state = "color"
 	inhand_icon_state = "color_suit"
 	dyeable = TRUE
 	var/default_palette_key = DYE_WHITE
@@ -18,7 +18,7 @@
 /obj/item/clothing/under/color/jumpskirt
 	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	icon_state = "whiteskirt"
+	icon_state = "colorskirt"
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/color/Initialize(mapload)
@@ -27,52 +27,32 @@
 
 /obj/item/clothing/under/color/update_icon()
 	. = ..()
-	if(!icon_palette_key)
-		return
-	if(!GLOB.palette_registry[dyeing_key])
-		stack_trace("Item just tried to be colored with an invalid registry key: [dyeing_key]")
-	redye_jumpsuit(default_palette_key, icon_palette_key)
+	set_icon_from_cache()
 
-/obj/item/clothing/under/proc/redye_jumpsuit(old_palette_key, new_palette_key)
-	var/list/all_sheets = sprite_sheets + list(
-			"Human" = worn_icon,
-			"Obj" = icon,
-			"Lefthand" = lefthand_file,
-			"Righthand" = righthand_file)
-	var/list/state_names = list(icon_state,
-			"[worn_icon_state || icon_state]_s",
-			"[worn_icon_state || icon_state]_d_s",
-			inhand_icon_state,)
+/obj/item/clothing/under/proc/set_icon_from_cache(palette_key = null, dye_key = null)
+	if(!palette_key && ("icon_palette_key" in vars))
+		var/obj/item/clothing/under/color/colored_jumpsuit = src
+		palette_key = palette_key || colored_jumpsuit.icon_palette_key
+	if(!palette_key)
+		return FALSE
+	dye_key = dye_key || dyeing_key
+	if(!GLOB.palette_registry[dye_key])
+		stack_trace("Item just tried to be colored with an invalid registry key: [dye_key]")
+	var/datum/asset/icon_cache/clothing/icon_cache = get_asset_datum(/datum/asset/icon_cache/clothing/)
 
-	// For every sprite sheet...
-	for(var/sheet_key in all_sheets)
-		var/filepath = all_sheets[sheet_key]
-		var/icon/jumpsuit = new(filepath)
+	// Set icons
+	for(var/sheet_key in sprite_sheets)
+		sprite_sheets[sheet_key] = icon_cache.sprite_sheets[dye_key][palette_key][sheet_key]
+	icon = icon_cache.sprite_sheets[dye_key][palette_key]["Obj"]
+	worn_icon = icon_cache.sprite_sheets[dye_key][palette_key]["Human"]
+	lefthand_file = icon_cache.sprite_sheets[dye_key][palette_key]["Lefthand"]
+	righthand_file = icon_cache.sprite_sheets[dye_key][palette_key]["Righthand"]
 
-		// If each icon state exists in the file...
-		for(var/white_state in state_names)
-			if(!white_state)
-				continue
-			if(!(white_state in jumpsuit.IconStates()))
-				continue
-
-			// Dye it the color we want.
-			var/icon/colored_icon = new(filepath, white_state)
-			colored_icon.swap_palette(
-				GLOB.palette_registry[dyeing_key][old_palette_key],
-				GLOB.palette_registry[dyeing_key][new_palette_key]
-			)
-			jumpsuit.Insert(colored_icon, white_state, frame = 1)
-
-		// Set the new sprite we just made to the one this jumpsuit uses.
-		if(sprite_sheets[sheet_key])
-			sprite_sheets[sheet_key] = jumpsuit
-		else
-			switch(sheet_key)
-				if("Human") worn_icon = jumpsuit
-				if("Obj") icon = jumpsuit
-				if("Lefthand") lefthand_file = jumpsuit
-				if("Righthand")  righthand_file = jumpsuit
+	// Set icon states
+	var/icon_state_prefix = findtext(palette_key, "psyche") ? "psyche" : "color"
+	var/icon_state_skirt = dye_key == "under" ? "" : "skirt"
+	icon_state = "[icon_state_prefix][icon_state_skirt]"
+	inhand_icon_state = "[icon_state_prefix]_suit"
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	var/list/excluded = list(/obj/item/clothing/under/color/random,
@@ -89,7 +69,7 @@
 	inhand_icon_state = initial(C.inhand_icon_state)
 	. = ..()
 	if(C == /obj/item/clothing/under/color/psyche)
-		generate_psychedelic_icon(list("white", "white_s", "white_d_s", "color_suit"))
+		set_icon_from_cache(palette_key = "psyche")
 
 /obj/item/clothing/under/color/jumpskirt/random/Initialize(mapload)
 	var/list/excluded = list(/obj/item/clothing/under/color/jumpskirt/random,
@@ -101,7 +81,7 @@
 	inhand_icon_state = initial(C.inhand_icon_state)
 	. = ..()
 	if(C == /obj/item/clothing/under/color/jumpskirt/psyche)
-		generate_psychedelic_icon(list("whiteskirt", "whiteskirt_s", "whiteskirt_d_s", "color_suit"))
+		set_icon_from_cache(palette_key = "psycheskirt")
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
@@ -199,9 +179,11 @@
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
+	icon_palette_key = DYE_WHITE
 
 /obj/item/clothing/under/color/jumpskirt/white
 	name = "white jumpskirt"
+	icon_palette_key = DYE_WHITE
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
@@ -217,9 +199,8 @@
 	icon_state = "psyche"
 	inhand_icon_state = "psyche_suit"
 
-/obj/item/clothing/under/color/psyche/Initialize(mapload)
-	. = ..()
-	generate_psychedelic_icon(list("white", "white_s", "white_d_s", "color_suit"))
+/obj/item/clothing/under/color/psyche/set_icon_from_cache(palette_key = "psyche")
+	return ..()
 
 /obj/item/clothing/under/color/jumpskirt/psyche
 	name = "psychedelic jumpskirt"
@@ -227,56 +208,8 @@
 	icon_state = "psycheskirt"
 	inhand_icon_state = "psyche_suit"
 
-/obj/item/clothing/under/color/jumpskirt/psyche/Initialize(mapload)
-	. = ..()
-	generate_psychedelic_icon(list("whiteskirt", "whiteskirt_s", "whiteskirt_d_s", "color_suit"))
-
-/// We are generating the psychedelic jumpsuit sprite in code because who wants to copy-paste 192 sprites for every change
-/obj/item/clothing/under/color/proc/generate_psychedelic_icon(list/state_names)
-	if(!length(state_names))
-		return
-	if(!is_type_in_list(src, list(
-			/obj/item/clothing/under/color/psyche,
-			/obj/item/clothing/under/color/jumpskirt/psyche,
-			/obj/item/clothing/under/color/random,
-			/obj/item/clothing/under/color/jumpskirt/random)))
-		return
-
-	var/list/frame_colors = list(DYE_DARKBLUE, DYE_RED, DYE_BLACK, DYE_YELLOW, DYE_AQUA, DYE_PURPLE, DYE_LIGHTGREEN, DYE_PINK)
-	var/list/all_sheets = sprite_sheets + list(
-			"Human" = worn_icon,
-			"Obj" = icon,
-			"Lefthand" = lefthand_file,
-			"Righthand" = righthand_file)
-
-	// For every sprite sheet where this suit is present...
-	for(var/sheet_key in all_sheets)
-		var/filepath = all_sheets[sheet_key]
-		var/icon/jumpsuit = new(filepath)
-
-		// For every color frame...
-		for(var/frame_num in 1 to length(frame_colors))
-			// Dye each white sprite in that sheet to the frame color.
-			for(var/white_state in state_names)
-				if(!(white_state in jumpsuit.IconStates()))
-					continue
-				var/icon/jumpsuit_frame = new(filepath, white_state)
-				jumpsuit_frame.swap_palette(
-					GLOB.palette_registry[dyeing_key][default_palette_key],
-					GLOB.palette_registry[dyeing_key][frame_colors[frame_num]]
-				)
-				// Apply the frame to the jumpsuit icon.
-				jumpsuit.Insert(jumpsuit_frame, splicetext(white_state, 1, 6, "psyche"), frame = frame_num)
-
-		// Set the jumpsuit icon to be used by this jumpsuit to the one we just made.
-		if(sprite_sheets[sheet_key])
-			sprite_sheets[sheet_key] = jumpsuit
-		else
-			switch(sheet_key)
-				if("Human") worn_icon = jumpsuit
-				if("Obj") icon = jumpsuit
-				if("Lefthand") lefthand_file = jumpsuit
-				if("Righthand")  righthand_file = jumpsuit
+/obj/item/clothing/under/color/jumpskirt/psyche/set_icon_from_cache(palette_key = "psycheskirt")
+	return ..()
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
@@ -387,8 +320,10 @@
 	name = "red team jersey"
 	desc = "The jersey of the Nanotrasen Phi-ghters!"
 	icon_state = "redjersey"
+	icon_palette_key = null
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
 	desc = "The jersey of the Nanotrasen Pi-rates!"
 	icon_state = "bluejersey"
+	icon_palette_key = null

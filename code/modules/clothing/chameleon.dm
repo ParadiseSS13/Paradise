@@ -211,10 +211,11 @@
 				var/obj/item/clothing/under/color/colored_jumpsuit = picked_item
 				if(colored_jumpsuit.icon_palette_key)
 					var/obj/item/clothing/under/target_jumpsuit = I
-					target_jumpsuit.redye_jumpsuit(colored_jumpsuit.default_palette_key, colored_jumpsuit.icon_palette_key)
+					target_jumpsuit.set_icon_from_cache(palette_key = colored_jumpsuit::icon_palette_key, dye_key = colored_jumpsuit::dyeing_key)
+				else if(ispath(colored_jumpsuit, /obj/item/clothing/under/color/psyche) || ispath(colored_jumpsuit, /obj/item/clothing/under/color/jumpskirt/psyche))
+					var/obj/item/clothing/under/target_jumpsuit = I
+					target_jumpsuit.set_icon_from_cache(palette_key = colored_jumpsuit::icon_state, dye_key = colored_jumpsuit::dyeing_key)
 		I.update_appearance()
-
-	//target.icon = initial(picked_item.icon)
 
 /datum/action/item_action/chameleon_change/Trigger(left_click)
 	if(!IsAvailable())
@@ -241,7 +242,7 @@
 	name = "white jumpsuit"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
 	icon = 'icons/obj/clothing/under/color.dmi'
-	icon_state = "white"
+	icon_state = "color"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	inhand_icon_state = "color_suit"
 	random_sensor = FALSE

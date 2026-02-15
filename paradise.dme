@@ -1926,6 +1926,7 @@
 #include "code\modules\asset_cache\assets\asset_chess.dm"
 #include "code\modules\asset_cache\assets\asset_claw_game.dm"
 #include "code\modules\asset_cache\assets\asset_cloning.dm"
+#include "code\modules\asset_cache\assets\asset_clothing_icons.dm"
 #include "code\modules\asset_cache\assets\asset_common.dm"
 #include "code\modules\asset_cache\assets\asset_emoji.dm"
 #include "code\modules\asset_cache\assets\asset_icon_ref_map.dm"

@@ -628,6 +628,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/worn_icon = listgetindex(w_uniform.sprite_sheets, dna.species.sprite_sheet_name) || w_uniform.worn_icon || 'icons/mob/clothing/under/misc.dmi'
 			var/worn_icon_state = w_uniform.worn_icon_state || w_uniform.icon_state
 			var/mutable_appearance/standing = mutable_appearance(worn_icon, "[worn_icon_state]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
+
 			if(w_uniform.blood_DNA)
 				var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")
 				bloodsies.color = w_uniform.blood_color
