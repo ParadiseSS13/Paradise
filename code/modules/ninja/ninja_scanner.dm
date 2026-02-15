@@ -1,6 +1,6 @@
 /obj/item/ninja_scanner
 	name = "spider scanner"
-	desc = "Advanced multi-use scanning device used by the spider clan to confirm bounty completion."
+	desc = "Advanced multi-use scanning device used by the spider clan to confirm bounty completion. Scan the corpses of dead or netted crew to redeem your bounties."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ninja_scanner"
 
