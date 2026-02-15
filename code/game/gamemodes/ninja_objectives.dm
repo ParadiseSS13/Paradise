@@ -129,10 +129,10 @@
 
 	// Transfer it all (or drop it if not possible)
 	for(var/obj/item/i as anything in stuff_to_transfer)
-		if(GLOB.prisoner_belongings.give_item(I))
-			victim_belongings += I
-		else if(!((ABSTRACT|NODROP) in I.flags)) // Anything that can't be put on hold, just drop it on the ground
-			I.forceMove(T)
+		if(GLOB.prisoner_belongings.give_item(i))
+			victim_belongings += i
+		else if(!((ABSTRACT|NODROP) in i.flags)) // Anything that can't be put on hold, just drop it on the ground
+			i.forceMove(T)
 
 	// Give some species the necessary to survive. Courtesy of the Syndicate.
 	if(istype(H))
