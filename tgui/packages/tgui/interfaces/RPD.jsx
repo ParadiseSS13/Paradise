@@ -256,31 +256,45 @@ const DisposalPipeContent = (props) => {
               <Grid.Column>
                 <ActionButtons />
                 {pipelist
-                  .filter((p) => p.pipe_type === 2 && p.pipe_id === whatdpipe && p.orientations !== 1)
+                  .filter((p) => p.pipe_type === 2 && p.pipe_id === whatdpipe)
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
-                      <Grid>
-                        <Grid.Column>
-                          <Button
-                            fluid
-                            textAlign="center"
-                            selected={iconrotation === 1}
-                            content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
-                            onClick={() => act('iconrotation', { iconrotation: 1 })}
-                            style={{ marginBottom: '5px' }}
-                          />
-                        </Grid.Column>
-                        <Grid.Column>
-                          <Button
-                            fluid
-                            textAlign="center"
-                            selected={iconrotation === 4}
-                            content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
-                            onClick={() => act('iconrotation', { iconrotation: 4 })}
-                            style={{ marginBottom: '5px' }}
-                          />
-                        </Grid.Column>
-                      </Grid>
+                      {p.orientations === 1 && (
+                        <Grid>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
+                              style={{ marginBottom: '5px' }}
+                            />
+                          </Grid.Column>
+                        </Grid>
+                      )}
+                      {p.orientations >= 2 && (
+                        <Grid>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              selected={iconrotation === 1}
+                              content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 1 })}
+                              style={{ marginBottom: '5px' }}
+                            />
+                          </Grid.Column>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              selected={iconrotation === 4}
+                              content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 4 })}
+                              style={{ marginBottom: '5px' }}
+                            />
+                          </Grid.Column>
+                        </Grid>
+                      )}
                       {p.orientations === 4 && (
                         <Grid>
                           <Grid.Column>
@@ -426,7 +440,7 @@ const TransitTubeContent = (props) => {
               <Grid.Column>
                 <ActionButtons />
                 {pipelist
-                  .filter((p) => p.pipe_type === transit_pipe_type && p.pipe_id === whatttube && p.orientations !== 1)
+                  .filter((p) => p.pipe_type === transit_pipe_type && p.pipe_id === whatttube)
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
                       <Grid>
@@ -522,40 +536,30 @@ const FluidPipeContent = (props) => {
               <Grid.Column>
                 <ActionButtons />
                 {pipelist
-                  .filter((p) => p.pipe_type === fluid_pipe_type && p.pipe_id === what_f_pipe && p.orientations !== 1)
+                  .filter((p) => p.pipe_type === fluid_pipe_type && p.pipe_id === what_f_pipe)
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
-                      <Grid>
-                        <Grid.Column>
-                          <Button
-                            fluid
-                            textAlign="center"
-                            selected={iconrotation === 1}
-                            content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
-                            onClick={() => act('iconrotation', { iconrotation: 1 })}
-                            style={{ marginBottom: '5px' }}
-                          />
-                        </Grid.Column>
-                        <Grid.Column>
-                          <Button
-                            fluid
-                            textAlign="center"
-                            selected={iconrotation === 4}
-                            content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
-                            onClick={() => act('iconrotation', { iconrotation: 4 })}
-                            style={{ marginBottom: '5px' }}
-                          />
-                        </Grid.Column>
-                      </Grid>
-                      {p.orientations === 4 && (
+                      {p.orientations === 1 && (
                         <Grid>
                           <Grid.Column>
                             <Button
                               fluid
                               textAlign="center"
-                              selected={iconrotation === 2}
                               content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
-                              onClick={() => act('iconrotation', { iconrotation: 2 })}
+                              style={{ marginBottom: '5px' }}
+                            />
+                          </Grid.Column>
+                        </Grid>
+                      )}
+                      {p.orientations >= 2 && (
+                        <Grid>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              selected={iconrotation === 4}
+                              content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 4 })}
                               style={{ marginBottom: '5px' }}
                             />
                           </Grid.Column>
@@ -566,6 +570,30 @@ const FluidPipeContent = (props) => {
                               selected={iconrotation === 8}
                               content={<Box className={classes(['rpd32x32', `west-${p.pipe_icon}`])} />}
                               onClick={() => act('iconrotation', { iconrotation: 8 })}
+                              style={{ marginBottom: '5px' }}
+                            />
+                          </Grid.Column>
+                        </Grid>
+                      )}
+                      {p.orientations === 4 && (
+                        <Grid>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              selected={iconrotation === 1}
+                              content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 1 })}
+                              style={{ marginBottom: '5px' }}
+                            />
+                          </Grid.Column>
+                          <Grid.Column>
+                            <Button
+                              fluid
+                              textAlign="center"
+                              selected={iconrotation === 2}
+                              content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 2 })}
                               style={{ marginBottom: '5px' }}
                             />
                           </Grid.Column>
