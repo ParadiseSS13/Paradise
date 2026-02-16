@@ -10,13 +10,13 @@
 /obj/machinery/computer/satellite_monitor/Initialize(mapload)
 	. = ..()
 	var/icon/temp_background = icon('icons/effects/parallax.dmi', "layer1")
-	temp_background.Blend(new/icon('icons/effects/parallax.dmi', "layer2"), ICON_ADD)
-	temp_background.Blend(new/icon('icons/effects/parallax.dmi', "layer3"), ICON_ADD)
+	temp_background.Blend(icon('icons/effects/parallax.dmi', "layer2"), ICON_ADD)
+	temp_background.Blend(icon('icons/effects/parallax.dmi', "layer3"), ICON_ADD)
 	current_background_base64 = icon2base64(temp_background)
 
 	var/theme = SSmapping.lavaland_theme?.planet_icon_state
 	theme = (theme)? theme : "planet_lava"
-	current_planet_base64 = icon2base64(new/icon('icons/effects/planets.dmi', theme, SOUTH, 1))
+	current_planet_base64 = icon2base64(icon('icons/effects/planets.dmi', theme, SOUTH, 1))
 
 /obj/machinery/computer/satellite_monitor/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -71,7 +71,7 @@
 
 	var/obj/item/multitool/multitool = I
 	if (!istype(multitool.buffer, /obj/machinery/science_satellite)) //not a satellite in buffer (for example a teleporter)
-		atom_say("Error: unkown data.")
+		atom_say("Error: Unknown data.")
 		return
 
 	var/obj/machinery/science_satellite/satellite = multitool.buffer
@@ -79,7 +79,7 @@
 		return
 
 	if(satellite in linked_satellites) //already registered this satellite
-		atom_say("Error: entry already stored in database.")
+		atom_say("Error: Entry already stored in database.")
 		return
 
 	linked_satellites += satellite
