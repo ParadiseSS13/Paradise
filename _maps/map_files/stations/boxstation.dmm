@@ -55441,6 +55441,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
+"iqL" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/effect/turf_decal/tiles/department/command,
+/obj/machinery/ai_node/processing_node,
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/server/coldroom)
 "iqM" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -84239,8 +84248,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/machinery/r_n_d/server/station,
 /obj/effect/turf_decal/tiles/department/command,
+/obj/machinery/ai_node/network_node,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "vJm" = (
@@ -135651,7 +135660,7 @@ ten
 jIA
 vwC
 cbd
-vIO
+iqL
 ukV
 crR
 vIO
