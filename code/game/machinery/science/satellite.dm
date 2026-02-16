@@ -126,3 +126,8 @@
 	to_chat(user, SPAN_NOTICE("You set the name of [src] to [new_name]."))
 	name = new_name
 	internal_name = new_name
+
+/obj/machinery/science_satellite/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<b>Click</b> with a multitool when the panel is open to store [src] into the multitools buffer.")
+	. += SPAN_NOTICE("<b>Click</b> with an empty hand when the panel is open to rename [src].")
