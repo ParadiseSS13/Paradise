@@ -15,8 +15,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Bishop Cybernetics"
 	desc = "This limb has a white polymer casing with blue holo-displays."
 	icon = 'icons/mob/human_races/cyberlimbs/bishop/bishop_main.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi',
-	"Skkulakin" = 'icons/mob/human_races/skulk/cyberlimbs/wardtakahashi.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/bishop/alt1
