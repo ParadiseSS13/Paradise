@@ -15,7 +15,8 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Bishop Cybernetics"
 	desc = "This limb has a white polymer casing with blue holo-displays."
 	icon = 'icons/mob/human_races/cyberlimbs/bishop/bishop_main.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi',
+	"Skkulakin" = 'icons/mob/human_races/skulk/cyberlimbs/wardtakahashi.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/bishop/alt1
@@ -35,7 +36,8 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Hephaestus Industries"
 	desc = "This limb has a militaristic black and green casing with gold stripes."
 	icon = 'icons/mob/human_races/cyberlimbs/hephaestus/hephaestus_main.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/hephaestus.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/hephaestus.dmi',
+	"Skkulakin" = 'icons/mob/human_races/skulk/cyberlimbs/hephaestus.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/hephaestus/alt1
@@ -73,7 +75,8 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Ward-Takahashi"
 	desc = "This limb features sleek black and white polymers."
 	icon = 'icons/mob/human_races/cyberlimbs/wardtakahashi/wardtakahashi_main.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi',
+	"Skkulakin" = 'icons/mob/human_races/skulk/cyberlimbs/wardtakahashi.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/wardtakahashi/alt1
@@ -119,7 +122,8 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Shellguard Munitions Standard Series"
 	desc = "This limb features exposed robust steel and paint to match Shellguards motifs."
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_main.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/shellguard.dmi')
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/shellguard.dmi',
+	"Skkulakin" = 'icons/mob/human_races/skulk/cyberlimbs/shellguard.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/shellguard/alt1
