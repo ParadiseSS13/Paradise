@@ -13,8 +13,6 @@
 		return ..()
 	if(!user.mind)
 		return ..()
-	if(target.stat != DEAD && !is_ai(target))
-		return ..()
 	var/list/obj_list = user.mind.get_all_objectives()
 	if(!length(obj_list))
 		to_chat(user, SPAN_WARNING("You have no objectives!"))
@@ -88,7 +86,7 @@
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			ninja_obj.complete_objective()
 			return TRUE
-	return TRUE
+	return ..()
 
 /obj/item/ninja_scanner/attack_obj(obj/attacked_obj, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
