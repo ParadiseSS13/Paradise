@@ -15,7 +15,7 @@
 	current_background_base64 = icon2base64(temp_background)
 
 	var/theme = SSmapping.lavaland_theme?.planet_icon_state
-	theme = (theme)? theme : "planet_lavaland"
+	theme = (theme)? theme : "planet_lava"
 	current_planet_base64 = icon2base64(new/icon('icons/effects/planets.dmi', theme, SOUTH, 1))
 
 /obj/machinery/computer/satellite_monitor/attack_ai(mob/user)
