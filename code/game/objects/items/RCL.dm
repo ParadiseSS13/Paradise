@@ -57,9 +57,11 @@
 		C.melee_attack_chain(user, src, list2params(modifiers))
 		return ITEM_INTERACT_COMPLETE
 
-	if(isturf(target))
-		loaded.melee_attack_chain(user, target, list2params(modifiers))
-		return ITEM_INTERACT_COMPLETE
+	if(isstorage(target) || istable(target))
+		return ..()
+
+	loaded.melee_attack_chain(user, target, list2params(modifiers))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rcl/proc/refresh_icon(mob/user)
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
