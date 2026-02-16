@@ -5,6 +5,7 @@
 	gloves = /obj/item/clothing/gloves/space_ninja
 	head = /obj/item/clothing/head/helmet/space_ninja
 	mask = /obj/item/clothing/mask/gas/space_ninja
+	glasses = /obj/item/clothing/glasses/night
 	suit = /obj/item/clothing/suit/space_ninja
 	belt = /obj/item/katana/energy
 	id = /obj/item/card/id/syndicate/ninja

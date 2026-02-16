@@ -1399,6 +1399,7 @@
 		/obj/item/throwing_star,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/gun,
+		/obj/item/ninja_scanner,
 	)
 	skins = list(
 		"ninja" = list(

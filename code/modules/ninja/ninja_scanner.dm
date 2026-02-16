@@ -3,7 +3,7 @@
 	desc = "Advanced multi-use scanning device used by the spider clan to confirm bounty completion. Scan the corpses of dead or netted crew to redeem your bounties."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ninja_scanner"
-
+	slot_flags = ITEM_SLOT_BELT
 	force = 9 // Can be used as a weapon in an emergency
 	hitsound = 'sound/weapons/genhit1.ogg'
 	new_attack_chain = TRUE

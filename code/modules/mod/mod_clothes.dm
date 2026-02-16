@@ -52,7 +52,6 @@
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 	)
 
-
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
 	desc = "A pair of gauntlets for a MODsuit."
@@ -75,7 +74,6 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 	)
-
 
 /obj/item/clothing/shoes/mod
 	name = "MOD boots"

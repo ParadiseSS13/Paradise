@@ -140,7 +140,8 @@
 		/obj/item/melee/baton,
 		/obj/item/tank/internals,
 		/obj/item/katana/energy,
-		/obj/item/restraints/handcuffs
+		/obj/item/restraints/handcuffs,
+		/obj/item/ninja_scanner
 	)
 	flags_inv = HIDEJUMPSUIT
 	armor = list(MELEE = 30, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 20, RAD = 100, FIRE = INFINITY, ACID = INFINITY)
