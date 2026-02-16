@@ -165,6 +165,7 @@ const PlanetPanel = () => {
             height: '100%',
             position: 'absolute',
             zIndex: backgroundZ,
+            objectFit: 'cover',
           }}
           src={`data:image/png;base64,${current_background_base64}`}
         />

@@ -14,7 +14,9 @@
 	temp_background.Blend(new/icon('icons/effects/parallax.dmi', "layer3"), ICON_ADD)
 	current_background_base64 = icon2base64(temp_background)
 
-	current_planet_base64 = icon2base64(new/icon('icons/effects/planets.dmi', "planet_lavaland", SOUTH, 1))
+	var/theme = SSmapping.lavaland_theme?.planet_icon_state
+	theme = (theme)? theme : "planet_lavaland"
+	current_planet_base64 = icon2base64(new/icon('icons/effects/planets.dmi', theme, SOUTH, 1))
 
 /obj/machinery/computer/satellite_monitor/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -36,7 +38,7 @@
 	var/list/satellite_data = list()
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
 		satellite_data += list(list(
-			"name" = satellite.name,
+			"name" = satellite.internal_name,
 			"weight" = satellite.satellite_stats.weight,
 			"fuel_efficiency" = satellite.satellite_stats.fuel_efficiency,
 			"fuel_capacity" = satellite.satellite_stats.fuel_capacity,

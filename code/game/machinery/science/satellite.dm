@@ -1,5 +1,6 @@
 /obj/machinery/science_satellite
 	name = "satellite chassis"
+	var/internal_name // to stop the handlabler
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "autolathe"
 	var/list/parts = new()
@@ -14,6 +15,7 @@
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
+	internal_name = name
 
 /obj/machinery/science_satellite/basic/Initialize(mapload)
 	. = ..()
@@ -60,7 +62,7 @@
 	satellite_stats.power_consumption = 0
 	satellite_stats.power_capacity = 0
 
-	for(var/item/satellite_component/component in parts)
+	for(var/obj/item/satellite_component/component in parts)
 		satellite_stats.weight += component.component_stats.weight
 		satellite_stats.fuel_efficiency += component.component_stats.fuel_efficiency
 		satellite_stats.fuel_capacity += component.component_stats.fuel_capacity
@@ -110,3 +112,17 @@
 		console.linked_satellites -= src
 	. = ..()
 
+/obj/machinery/science_satellite/attack_hand(mob/user)
+	if(stat & (BROKEN | NOPOWER))
+		return
+
+	if(!panel_open)
+		return
+
+	var/new_name = input(user, "Input a new name for this satellite.", "Satellite name")
+	if (!new_name || !Adjacent(user))
+		return
+
+	to_chat(user, SPAN_NOTICE("You set the name of [src] to [new_name]."))
+	name = new_name
+	internal_name = new_name
