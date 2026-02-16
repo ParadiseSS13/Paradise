@@ -87,12 +87,16 @@
 	. += SPAN_NOTICE("Alt-click to draw an energy shuriken!")
 	. += SPAN_NOTICE("It has [current_stars] stored.")
 
-/obj/item/shuriken_printer/AltClick(mob/user, modifiers)
-	if(!current_stars)
+/obj/item/shuriken_printer/AltClick(mob/living/carbon/user, modifiers)
+	if(!iscarbon(user))
 		return ..()
+	if(current_stars < 1)
+		return ..()
+	current_stars--
 	var/obj/item/energy_shuriken/star = new /obj/item/energy_shuriken(get_turf(src), src)
 	user.put_in_hands(star)
 	to_chat(user, SPAN_NOTICE("You draw [star] from [src]."))
+	user.throw_mode_on()
 
 /obj/item/shuriken_printer/proc/print_star()
 	if(current_stars < maximum_stars)
