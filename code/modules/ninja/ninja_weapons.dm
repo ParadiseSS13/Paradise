@@ -46,7 +46,7 @@
 /obj/item/energy_shuriken/Initialize(mapload)
 	. = ..()
 	// Only lasts so long. Delete self after some time.
-	addtimer(CALLBACK(src, PROC_REF(qdel)), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(qdel), src), 30 SECONDS)
 
 /obj/item/energy_shuriken/throw_impact(atom/target)
 	. = ..()
@@ -64,6 +64,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 5
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
 
@@ -81,15 +82,17 @@
 	. = ..()
 	fabrication_timer = addtimer(CALLBACK(src, PROC_REF(print_star)), 30 SECONDS, TIMER_LOOP | TIMER_STOPPABLE)
 
-/obj/item/shuriken_printer/activate_self(mob/user)
-	..()
-	var/obj/item/energy_shuriken/star = new /obj/item/energy_shuriken(get_turf(src), src)
-	user.put_in_hands(star)
-	to_chat(user, SPAN_NOTICE("You draw [star] from [src].")) // No period on purpose.
-
 /obj/item/shuriken_printer/examine(mob/user)
 	. = ..()
+	. += SPAN_NOTICE("Alt-click to draw an energy shuriken!")
 	. += SPAN_NOTICE("It has [current_stars] stored.")
+
+/obj/item/shuriken_printer/AltClick(mob/user, modifiers)
+	if(!current_stars)
+		return ..()
+	var/obj/item/energy_shuriken/star = new /obj/item/energy_shuriken(get_turf(src), src)
+	user.put_in_hands(star)
+	to_chat(user, SPAN_NOTICE("You draw [star] from [src]."))
 
 /obj/item/shuriken_printer/proc/print_star()
 	if(current_stars < maximum_stars)
