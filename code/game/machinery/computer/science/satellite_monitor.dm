@@ -4,10 +4,17 @@
 	var/collected_science_data = 0
 	var/obj/item/disk/tech_disk/inserted_disk
 	var/datum/tech/programming/data_collected
-
+	var/current_planet_base64
+	var/current_background_base64
 
 /obj/machinery/computer/satellite_monitor/Initialize(mapload)
 	. = ..()
+	var/icon/temp_background = icon('icons/effects/parallax.dmi', "layer1")
+	temp_background.Blend(new/icon('icons/effects/parallax.dmi', "layer2"), ICON_ADD)
+	temp_background.Blend(new/icon('icons/effects/parallax.dmi', "layer3"), ICON_ADD)
+	current_background_base64 = icon2base64(temp_background)
+
+	current_planet_base64 = icon2base64(new/icon('icons/effects/planets.dmi', "planet_lavaland", SOUTH, 1))
 
 /obj/machinery/computer/satellite_monitor/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -45,6 +52,8 @@
 	data["collected_science_data"] = collected_science_data
 	data["inserted_disk"] = istype(inserted_disk)
 	data["cmagged"] = HAS_TRAIT(src, TRAIT_CMAGGED)
+	data["current_planet_base64"] = current_planet_base64
+	data["current_background_base64"] = current_background_base64
 	return data
 
 /obj/machinery/computer/satellite_monitor/ui_interact(mob/user, datum/tgui/ui = null)

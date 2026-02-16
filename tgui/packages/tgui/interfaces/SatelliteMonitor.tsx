@@ -21,6 +21,8 @@ interface SatelliteMonitorData {
   collected_science_data: number;
   inserted_disk: boolean;
   cmagged: boolean;
+  current_planet_base64: string;
+  current_background_base64: string;
 }
 
 export const SatelliteMonitor = (props, context) => {
@@ -149,5 +151,40 @@ const DiskPanel = () => {
 const PlanetPanel = () => {
   const { act, data } = useBackend<SatelliteMonitorData>();
 
-  return <Stack>planet.png</Stack>;
+  const { current_planet_base64, current_background_base64 } = data;
+  console.log(current_planet_base64);
+
+  const planetZ = 10;
+  const backgroundZ = 5;
+  return (
+    <Box m={-1}>
+      <Stack>
+        <img
+          style={{
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            zIndex: backgroundZ,
+          }}
+          src={`data:image/png;base64,${current_background_base64}`}
+        />
+      </Stack>
+      <Box
+        mt={'20%'}
+        style={{
+          alignContent: 'center',
+        }}
+        height="100%"
+        align="center"
+      >
+        <img
+          style={{
+            position: 'relative',
+            zIndex: planetZ,
+          }}
+          src={`data:image/png;base64,${current_planet_base64}`}
+        />
+      </Box>
+    </Box>
+  );
 };

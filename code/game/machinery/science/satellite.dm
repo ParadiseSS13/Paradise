@@ -21,21 +21,7 @@
 		new /obj/item/satellite_component/engine/basic_engine,
 		new /obj/item/satellite_component/computer/basic
 	)
-	//adjust_stats()
-
-/obj/machinery/science_satellite/proc/adjust_stats(obj/item/satellite_component/component, add = TRUE)
-	to_chat(usr, SPAN_NOTICE("add: [add]"))
-	if(!istype(component))
-		return
-
-	var/multiplier = (add)? 1 : -1 //if add is false, we're subtracting, which is the same as adding a negative number
-	satellite_stats.weight += component.component_stats.weight * multiplier
-	satellite_stats.fuel_efficiency += component.component_stats.fuel_efficiency * multiplier
-	satellite_stats.fuel_capacity += component.component_stats.fuel_capacity * multiplier
-	satellite_stats.science_multiplier += component.component_stats.science_multiplier * multiplier
-	satellite_stats.power_generation += component.component_stats.power_generation * multiplier
-	satellite_stats.power_consumption += component.component_stats.power_consumption * multiplier
-	satellite_stats.power_capacity += component.component_stats.power_capacity * multiplier
+	recalculate_stats()
 
 /obj/machinery/science_satellite/science/Initialize(mapload)
 	. = ..()
@@ -50,6 +36,38 @@
 		new /obj/item/satellite_component/misc_part/solar_panel,
 		new /obj/item/satellite_component/misc_part/solar_panel
 	)
+	recalculate_stats()
+
+/obj/machinery/science_satellite/proc/adjust_stats(obj/item/satellite_component/component, add = TRUE)
+	if(!istype(component))
+		return
+
+	var/multiplier = (add)? 1 : -1 //if add is false, we're subtracting, which is the same as adding a negative number
+	satellite_stats.weight += component.component_stats.weight * multiplier
+	satellite_stats.fuel_efficiency += component.component_stats.fuel_efficiency * multiplier
+	satellite_stats.fuel_capacity += component.component_stats.fuel_capacity * multiplier
+	satellite_stats.science_multiplier += component.component_stats.science_multiplier * multiplier
+	satellite_stats.power_generation += component.component_stats.power_generation * multiplier
+	satellite_stats.power_consumption += component.component_stats.power_consumption * multiplier
+	satellite_stats.power_capacity += component.component_stats.power_capacity * multiplier
+
+/obj/machinery/science_satellite/proc/recalculate_stats()
+	satellite_stats.weight = 0
+	satellite_stats.fuel_efficiency = 0
+	satellite_stats.fuel_capacity = 0
+	satellite_stats.science_multiplier = 0
+	satellite_stats.power_generation = 0
+	satellite_stats.power_consumption = 0
+	satellite_stats.power_capacity = 0
+
+	for(var/item/satellite_component/component in parts)
+		satellite_stats.weight += component.component_stats.weight
+		satellite_stats.fuel_efficiency += component.component_stats.fuel_efficiency
+		satellite_stats.fuel_capacity += component.component_stats.fuel_capacity
+		satellite_stats.science_multiplier += component.component_stats.science_multiplier
+		satellite_stats.power_generation += component.component_stats.power_generation
+		satellite_stats.power_consumption += component.component_stats.power_consumption
+		satellite_stats.power_capacity += component.component_stats.power_capacity
 
 /obj/machinery/science_satellite/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
