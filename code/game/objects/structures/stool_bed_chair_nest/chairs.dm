@@ -718,3 +718,85 @@
 	name = "runed stone chair"
 	desc = "A cold stone throne engraved with indecipherable symbols. Studying them causes your head to pound."
 	buildstacktype = null
+
+/obj/structure/chair/comfy/beach
+	name = "beach chair"
+	desc = "Perfect for relaxing in the sun by the waves."
+	icon_state = "beach_chair"
+	buckle_lying = TRUE
+	buildstacktype = null
+	item_chair = /obj/item/chair/beach
+	var/stripes_color = null
+
+/obj/structure/chair/comfy/beach/update_overlays()
+	icon = initial(icon)
+	. = ..()
+	if(stripes_color)
+		var/icon/icon_overlay = new(icon, "beach_chair_stripes")
+		icon_overlay += color
+		. += icon_overlay
+
+/obj/structure/chair/comfy/beach/blue
+	item_chair = /obj/item/chair/beach/blue
+	stripes_color = COLOR_LIGHT_CYAN
+
+/obj/structure/chair/comfy/beach/post_buckle_mob(mob/living/sitter)
+	. = ..()
+	if(dir == EAST)
+		sitter.set_lying_angle(270)
+	else if(dir == WEST)
+		sitter.set_lying_angle(90)
+	else
+		sitter.set_lying_angle(0)
+		sitter.pixel_y = 0
+
+/obj/structure/chair/comfy/beach/rotate()
+	. = ..()
+	for(var/mob/living/sitter in buckled_mobs)
+		if(dir == EAST)
+			sitter.set_lying_angle(270)
+		else if(dir == WEST)
+			sitter.set_lying_angle(90)
+		else
+			sitter.set_lying_angle(0)
+			sitter.pixel_y = 0
+
+/obj/structure/chair/comfy/beach/deconstruct()
+	// If we don't have the NOCONSTRUCT flag
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/wood(loc, 2)
+		new /obj/item/stack/sheet/cloth(loc, 1)
+	..()
+
+/obj/item/chair/beach
+	name = "folded beach chair"
+	desc = "A beach chair folded up for easy carrying."
+	icon = 'icons/obj/chairs.dmi'
+	icon_state = "beach_chair_folded"
+	inhand_icon_state = "beach_chair"
+	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_WOOD = 2000, MAT_CLOTH = 1000)
+	origin_type = /obj/structure/chair/comfy/beach
+	var/stripes_color = null
+
+/obj/item/chair/beach/update_overlays()
+	icon = initial(icon)
+	lefthand_file = initial(lefthand_file)
+	righthand_file = initial(righthand_file)
+	. = ..()
+	if(stripes_color)
+		var/icon/icon_overlay = new(icon, "beach_chair_folded_stripes")
+		icon_overlay += color
+		. += icon_overlay
+
+		icon_overlay = new(lefthand_file, "beach_chair_stripes")
+		icon_overlay += color
+		lefthand_file.Blend(icon_overlay, ICON_MULTIPLY)
+
+		icon_overlay = new(righthand_file, "beach_chair_stripes")
+		icon_overlay += color
+		righthand_file.Blend(icon_overlay, ICON_MULTIPLY)
+
+/obj/item/chair/beach/blue
+	origin_type = /obj/structure/chair/comfy/beach/blue
+	stripes_color = COLOR_LIGHT_CYAN
