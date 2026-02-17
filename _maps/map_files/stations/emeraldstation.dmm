@@ -68627,7 +68627,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block)
 "nPX" = (
-/obj/effect/turf_decal/tiles/department/engineering/side,
 /turf/simulated/wall,
 /area/station/engineering/control)
 "nPY" = (
