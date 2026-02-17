@@ -23,7 +23,7 @@
 		if(istype(ninja_obj, /datum/objective/ninja/kill))
 			if(target.stat != DEAD)
 				continue
-			if(target != ninja_obj.target.current)
+			if(!ninja_obj.target.current || target != ninja_obj.target.current)
 				continue
 			user.visible_message(SPAN_DANGER("[user] begins to use [src] to scan [target]!"), \
 								SPAN_NOTICE("You begin to scan [target]!"))
@@ -42,18 +42,20 @@
 				continue
 			if(!target.buckled)
 				continue
-			var/has_net = FALSE
+			var/obj/structure/bed/energy_net/trapped_net
 			for(var/obj/structure/bed/energy_net/net in target.loc)
-				has_net = TRUE
+				trapped_net = net
 				break
-			if(!has_net)
+			if(!trapped_net)
 				continue
 			user.visible_message(SPAN_DANGER("[user] begins to use [src] to scan [target]!"), \
 								SPAN_NOTICE("You begin to scan [target]!"))
 			if(!do_after_once(user, 5 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
 				return TRUE
-			cap_obj.handle_capture(target, target.loc)
+			target.unbuckle(TRUE)
+			qdel(trapped_net)
 			do_teleport(target, pick(GLOB.syndieprisonwarp), 0, TRUE, bypass_area_flag = TRUE)
+			cap_obj.handle_capture(target, target.loc)
 			ninja_obj.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			ninja_obj.complete_objective()
