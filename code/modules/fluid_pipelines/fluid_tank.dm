@@ -5,6 +5,7 @@
 	icon_state = "tank"
 	just_a_pipe = FALSE
 	capacity = 1000
+	uninstalled_type = /obj/structure/fluid_construction/tank
 
 /obj/machinery/fluid_pipe/tank/update_icon_state()
 	return

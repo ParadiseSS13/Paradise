@@ -3,6 +3,7 @@
 	desc = "Connects automatically to other underground pipes up to 5 tiles away."
 	icon_state = "underground"
 	dir = EAST
+	uninstalled_type = /obj/structure/fluid_construction/underground
 
 /obj/machinery/fluid_pipe/underground_pipe/Initialize(mapload)
 	. = ..()
