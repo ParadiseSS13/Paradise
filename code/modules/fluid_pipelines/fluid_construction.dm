@@ -3,11 +3,12 @@
 /obj/structure/fluid_construction
 	name = "uninstalled fluid pipe"
 	desc = "An incomplete fluid pipe, someone should wrench it."
-
 	icon = 'icons/obj/pipes/fluid_pipes.dmi'
 	max_integrity = 100
+	/// Should our construction ignore rotation?
 	var/can_rotate = TRUE
-	var/installed_type = null
+	/// The type it will be turned into after wrenching
+	var/installed_type
 
 /obj/structure/fluid_construction/examine(mob/user)
 	. = ..()
@@ -59,12 +60,11 @@
 /obj/structure/fluid_construction/pumpjack/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	for(var/obj/turf_contents in T)
-		if(istype(turf_contents, /obj/structure/geyser))
-			var/obj/machinery/fluid_pipe/installed = new installed_type(T, dir)
-			user.visible_message(SPAN_NOTICE("[user] installs [installed], over the [turf_contents] as it whirrs to life."))
-			qdel(src)
-			return
+	for(var/obj/sturcture/geyser/geysers in T)
+		var/obj/machinery/fluid_pipe/installed = new installed_type(T, dir)
+		user.visible_message(SPAN_NOTICE("[user] installs [installed], over the [geysers] as it whirrs to life."))
+		qdel(src)
+		return
 	to_chat(user, SPAN_WARNING("[src] can only be installed over a geyser!"))
 
 /obj/structure/fluid_construction/pumpjack/rotate() //only has two orientations, lets not break it

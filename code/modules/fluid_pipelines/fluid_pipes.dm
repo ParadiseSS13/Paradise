@@ -25,7 +25,7 @@
 	var/only_one_connect = FALSE
 	/// Are we connected to something?
 	var/is_connected = FALSE
-	/// Our uninstalled version
+	/// What the unwrenched fluid pipe becomes
 	var/uninstalled_type = /obj/structure/fluid_construction/pipe
 
 /obj/machinery/fluid_pipe/Initialize(mapload, direction)
