@@ -7,7 +7,7 @@
 	icon = 'icons/obj/pipes/fluid_pipes.dmi'
 	max_integrity = 100
 	var/can_rotate = TRUE
-	var/installed_type = null
+	var/installed_type
 
 /obj/structure/fluid_construction/examine(mob/user)
 	. = ..()
@@ -36,8 +36,8 @@
 	user.visible_message(SPAN_NOTICE("[user] installs [installed]."))
 
 	I.play_tool_sound(src, I.tool_volume)
-	qdel(src)
 	. |= RPD_TOOL_SUCCESS
+	qdel(src)
 
 /obj/structure/fluid_construction/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	. = TRUE
@@ -66,7 +66,7 @@
 			return
 	to_chat(user, SPAN_WARNING("[src] can only be installed over a geyser!"))
 
-/obj/structure/fluid_construction/pumpjack/rotate() //only has two orientations, lets not break it
+/obj/structure/fluid_construction/pumpjack/rotate() // Only has two orientations, lets not break it
 	if(dir == EAST)
 		dir = WEST
 	else
@@ -114,7 +114,7 @@
 	icon_state = "refinery_4"
 	can_rotate = FALSE
 
-/obj/structure/fluid_construction/refinery/rotate() //same deal here, only two orientations
+/obj/structure/fluid_construction/refinery/rotate() // Same deal here, only two orientations
 	if(dir == EAST)
 		dir = WEST
 	else

@@ -56,8 +56,8 @@
 /obj/machinery/fluid_pipe/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
 	return (pipe.fluid_datum == incoming.fluid_datum)
 
-/obj/machinery/fluid_pipe/pump/Destroy() //i can only assume the code for unwrenching handled deleting the mysterious secret pipe, it didnt but now it does
-	if(isnull(incoming) == FALSE)
+/obj/machinery/fluid_pipe/pump/Destroy() // I can only assume the code for unwrenching handled deleting the mysterious secret pipe, it didnt but now it does
+	if(!isnull(incoming))
 		qdel(incoming)
 
 	for(var/direction in list (dir, REVERSE_DIR(dir)))
