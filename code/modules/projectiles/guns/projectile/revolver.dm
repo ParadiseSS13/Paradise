@@ -16,8 +16,8 @@
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
 	. += "[get_ammo(0, 0)] of those are live rounds."
-	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder)) // Ideally, a double barrel shotgun or peashooter has no barrel.
-		. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to spin it's barrel.")
+	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder)) // Ideally, a double barrel shotgun or peashooter has no cylinder.
+		. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to spin it's cylinder.")
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = 1)
 	if(spin)
