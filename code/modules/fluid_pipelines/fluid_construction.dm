@@ -14,9 +14,8 @@
 	. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it.")
 
 /obj/structure/fluid_construction/proc/rotate()
-	if(can_rotate == TRUE)
+	if(can_rotate)
 		setDir(turn(dir, -90)) // subtypes will handle illegal turns
-	return
 
 /obj/structure/fluid_construction/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
