@@ -10,7 +10,6 @@
 	desc = "Pumps fluids from one pipe to another."
 	icon_state = "fpump"
 	just_a_pipe = FALSE
-	dir = EAST
 	capacity = 0 // Safety
 	uninstalled_type = /obj/structure/fluid_construction/pump
 	/// How much fluid do we move each tick? The amount moved is the double of the variable.

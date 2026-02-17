@@ -33,9 +33,8 @@
 		if(istype(turf_contents, /obj/machinery/fluid_pipe) && turf_contents.density)
 			to_chat(user, SPAN_WARNING("There isn't enough space to install [src] here."))
 			return
-	var/atom/installed = new installed_type(T)
-	installed.dir = dir
-	user.visible_message(SPAN_NOTICE("[user] installs [src]."))
+	var/obj/machinery/fluid_pipe/installed = new installed_type(T, dir)
+	user.visible_message(SPAN_NOTICE("[user] installs [installed]."))
 
 	I.play_tool_sound(src, I.tool_volume)
 	qdel(src)
@@ -62,9 +61,8 @@
 	var/turf/T = get_turf(src)
 	for(var/obj/turf_contents in T)
 		if(istype(turf_contents, /obj/structure/geyser))
-			var/atom/installed = new installed_type(T)
-			installed.dir = dir
-			user.visible_message(SPAN_NOTICE("[user] installs [src], over the [turf_contents] as it whirrs to life."))
+			var/obj/machinery/fluid_pipe/installed = new installed_type(T, dir)
+			user.visible_message(SPAN_NOTICE("[user] installs [installed], over the [turf_contents] as it whirrs to life."))
 			qdel(src)
 			return
 	to_chat(user, SPAN_WARNING("[src] can only be installed over a geyser!"))
