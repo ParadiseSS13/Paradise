@@ -163,11 +163,12 @@
 
 	for(var/datum/pipes/fluid/T in GLOB.construction_pipe_list)
 		if(T.pipe_id == what_f_pipe)
+			var/obj/structure/fluid_construction/F = new T.construction_type(dest)
 			// What the fuck is iconrotation // I hope that it's the direction
-			new T.construction_type(dest, iconrotation)
+			F.dir = iconrotation ? iconrotation : user.dir
 
-			//to_chat(user, SPAN_NOTICE("[src] rapidly dispenses [T]!"))
-			//automatic_wrench_down(user, T)
+			to_chat(user, SPAN_NOTICE("[src] rapidly dispenses [F]!"))
+			automatic_wrench_down(user, F)
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf

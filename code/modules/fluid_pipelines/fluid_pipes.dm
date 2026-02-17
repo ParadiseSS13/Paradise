@@ -25,6 +25,8 @@
 	var/only_one_connect = FALSE
 	/// Are we connected to something?
 	var/is_connected = FALSE
+	/// What the unwrenched fluid pipe becomes
+	var/uninstalled_type = /obj/structure/fluid_construction/pipe
 
 /obj/machinery/fluid_pipe/Initialize(mapload, direction)
 	. = ..()
@@ -137,25 +139,17 @@
 /obj/machinery/fluid_pipe/proc/update_neighbors()
 	neighbors = length(get_adjacent_pipes())
 
-/obj/machinery/fluid_pipe/attack_hand(mob/user)
-	if(..())
-		return
-	if(anchored)
-		return TRUE
-	dir = turn(dir, -90)
-
 /obj/machinery/fluid_pipe/wrench_act(mob/living/user, obj/item/I)
-	. = TRUE
-	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
+	to_chat(user, "You start uninstalling [src].")
 	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
 		return
-
-	if(!anchored)
-		anchored = TRUE
-		blind_connect()
-	else
-		disconnect_pipe()
-		anchored = FALSE
+	var/obj/structure/fluid_construction/construction = new uninstalled_type(get_turf(src))
+	if(!istype(construction))
+		CRASH("expected [construction] to be a fluid_type construction")
+	. = TRUE
+	construction.dir = dir
+	user.visible_message(SPAN_NOTICE("[user] uninstalls [src]."))
+	qdel(src)
 
 /obj/machinery/fluid_pipe/update_overlays()
 	. = ..()

@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/fluid/pipe
 	pipe_name = "fluid pipe"
-	construction_type = /obj/machinery/fluid_pipe
+	construction_type = /obj/structure/fluid_construction/pipe
 	pipe_id = PIPE_FLUID
 	orientations = 1
 	pipe_icon = "pipe"
@@ -424,7 +424,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/fluid/underground
 	pipe_name = "underground fluid pipe"
-	construction_type = /obj/machinery/fluid_pipe/underground_pipe
+	construction_type = /obj/structure/fluid_construction/underground
 	pipe_id = PIPE_UNDERGROUND
 	orientations = 4
 	pipe_icon = "underground"
@@ -432,7 +432,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/fluid/pump
 	pipe_name = "fluid pump"
-	construction_type = /obj/machinery/fluid_pipe/pump
+	construction_type = /obj/structure/fluid_construction/pump
 	pipe_id = PIPE_FLUID_PUMP
 	orientations = 4
 	pipe_icon = "fpump"
@@ -440,7 +440,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/fluid/pumpjack
 	pipe_name = "pumpjack"
-	construction_type = /obj/machinery/fluid_pipe/pumpjack
+	construction_type = /obj/structure/fluid_construction/pumpjack
 	pipe_id = PIPE_PUMPJACK
 	orientations = 2
 	pipe_icon = "pumpjack"
@@ -448,7 +448,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/fluid/tank
 	pipe_name = "fluid tank"
-	construction_type = /obj/machinery/fluid_pipe/tank
+	construction_type = /obj/structure/fluid_construction/tank
 	pipe_id = PIPE_TANK
 	orientations = 1
 	pipe_icon = "tank"
@@ -456,7 +456,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/fluid/barrel_filler
 	pipe_name = "barrel filler"
-	construction_type = /obj/machinery/fluid_pipe/barrel_filler
+	construction_type = /obj/structure/fluid_construction/barrel_filler
 	pipe_id = PIPE_BARRELFILLER
 	orientations = 1
 	pipe_icon = "filler"
@@ -464,7 +464,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 
 /datum/pipes/fluid/refinery
 	pipe_name = "refinery"
-	construction_type = /obj/machinery/fluid_pipe/refinery
+	construction_type = /obj/structure/fluid_construction/refinery
 	pipe_id = PIPE_REFINERY
 	orientations = 2
 	pipe_icon = "refinery"

@@ -10,18 +10,20 @@
 	desc = "Pumps fluids from one pipe to another."
 	icon_state = "fpump"
 	just_a_pipe = FALSE
-	dir = EAST
 	capacity = 0 // Safety
+	uninstalled_type = /obj/structure/fluid_construction/pump
 	/// How much fluid do we move each tick? The amount moved is the double of the variable.
 	var/pump_speed = 50 // Enough to fully fill one pipe per tick
 	/// The incoming pipeline
 	var/obj/machinery/fluid_pipe/abstract/pump/incoming
+
 
 // Start abstract pump
 
 /obj/machinery/fluid_pipe/abstract/pump
 
 /obj/machinery/fluid_pipe/abstract/pump/Initialize(mapload, direction, _parent)
+	name = "pump internal"
 	dir = direction
 	connect_dirs = list(REVERSE_DIR(direction))
 	return ..()
@@ -54,27 +56,15 @@
 /obj/machinery/fluid_pipe/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
 	return (pipe.fluid_datum == incoming.fluid_datum)
 
-/obj/machinery/fluid_pipe/pump/wrench_act(mob/living/user, obj/item/I)
-	. = TRUE
-	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
-	if(!do_after(user, 3 SECONDS, TRUE, src))
-		return
+/obj/machinery/fluid_pipe/pump/Destroy() // I can only assume the code for unwrenching handled deleting the mysterious secret pipe, it didnt but now it does
+	if(!isnull(incoming))
+		qdel(incoming)
 
-	if(!anchored)
-		blind_connect()
-	else
-		if(isnull(incoming) == FALSE)
-			incoming.fluid_datum.remove_pipe(src)
-			incoming.fluid_datum = null
-			fluid_datum.remove_pipe(src)
-			fluid_datum = null
-
-		for(var/direction in list (dir, REVERSE_DIR(dir)))
-			var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, direction) // Yes, a pump is also a valid place to transfer from
-			if(pipe)
-				pipe.update_icon()
-
-	anchored = !anchored
+	for(var/direction in list (dir, REVERSE_DIR(dir)))
+		var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, direction) // Yes, a pump is also a valid place to transfer from
+		if(pipe)
+			pipe.update_icon()
+	return ..()
 
 /obj/machinery/fluid_pipe/pump/clear_pipenet_refs()
 	. = ..()

@@ -65,6 +65,7 @@
 	density = FALSE
 	capacity = 0
 	connect_dirs = list(NORTH, EAST, WEST) // south looks ugly
+	uninstalled_type = /obj/structure/fluid_construction/barrel_filler
 	/// The connected barrel
 	var/obj/structure/barrel/barrel
 	/// Selected fluid. Is a typepath

@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	pixel_x = -32
 	just_a_pipe = FALSE
 	connect_dirs = list(EAST, SOUTH)
+	uninstalled_type = /obj/structure/fluid_construction/refinery
 	/// Intake of fluids
 	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake
 	/// Currently selected recipe
@@ -90,36 +91,9 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 
 	intake = new(get_step(src, REVERSE_DIR(dir)), dir, src)
 
-/obj/machinery/fluid_pipe/refinery/wrench_act(mob/living/user, obj/item/I)
-	. = TRUE
-	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
-	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
-		return
-
-	if(!anchored)
-		anchored = TRUE
-		make_intakes()
-		blind_connect()
-	else
-		anchored = FALSE
-		DeleteComponent(/datum/component/multitile)
-		qdel(intake)
-		cut_overlays()
-
 /obj/machinery/fluid_pipe/refinery/attack_hand(mob/user)
 	if(!anchored)
-		// I dug myself into this hole and I'll like it
-		if(dir == EAST)
-			dir = WEST
-			icon_state = "refinery_8"
-			pixel_x = 0
-			connect_dirs = list(WEST, SOUTH)
-		else
-			dir = EAST
-			icon_state = "refinery_4"
-			pixel_x = -32
-			connect_dirs = list(EAST, SOUTH)
-		return
+		return //while this shouldn't be possible i'd rather not think about what an unwrenched refining refinery refines
 
 	if(!length(GLOB.refinery_recipes))
 		for(var/datum/refinery_recipe/recipe as anything in subtypesof(/datum/refinery_recipe))
