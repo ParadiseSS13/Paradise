@@ -59,7 +59,7 @@
 /obj/structure/fluid_construction/pumpjack/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
-	for(var/obj/sturcture/geyser/geysers in T)
+	for(var/obj/structure/geyser/geysers in T)
 		var/obj/machinery/fluid_pipe/installed = new installed_type(T, dir)
 		user.visible_message(SPAN_NOTICE("[user] installs [installed], over the [geysers] as it whirrs to life."))
 		qdel(src)
