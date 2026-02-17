@@ -120,8 +120,6 @@
 
 /// Syndicate .357, same as the basetype except it can be customised
 /obj/item/gun/projectile/revolver/syndie
-	name = "\improper .357 magnum revolver"
-	desc = "A powerful revolver commonly used by the Syndicate. Uses .357 magnum ammo."
 	unique_reskin = TRUE
 
 /obj/item/gun/projectile/revolver/syndie/Initialize(mapload)
