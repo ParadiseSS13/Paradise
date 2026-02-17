@@ -53,6 +53,7 @@
 			if(!do_after_once(user, 5 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
 				return TRUE
 			cap_obj.handle_capture(target, target.loc)
+			do_teleport(target, pick(GLOB.syndieprisonwarp), 0, TRUE, bypass_area_flag = TRUE)
 			ninja_obj.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			ninja_obj.complete_objective()

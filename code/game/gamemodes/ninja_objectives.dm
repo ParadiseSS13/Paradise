@@ -39,7 +39,7 @@
 /datum/objective/ninja/kill/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Kill [target.current.real_name], the [target.assigned_role]. Scan the corpse with your scanner to verify that the deed is done."
-		var/datum/job/target_job = target.current.job
+		var/datum/job/target_job = SSjobs.GetJob(target.assigned_role)
 		if(target_job.job_department_flags & DEP_FLAG_COMMAND || target_job.job_department_flags & DEP_FLAG_SECURITY)
 			reward_tc = NINJA_OBJECTIVE_HARD
 
@@ -56,7 +56,7 @@
 /datum/objective/ninja/capture/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Capture [target.current.real_name], the [target.assigned_role]. Use your energy net to capture them so that we can interrogate them at one of our many secret dojos."
-		var/datum/job/target_job = target.current.job
+		var/datum/job/target_job = SSjobs.GetJob(target.assigned_role)
 		if(target_job.job_department_flags & DEP_FLAG_COMMAND || target_job.job_department_flags & DEP_FLAG_SECURITY)
 			reward_tc = NINJA_OBJECTIVE_HARD
 		if(target_job.job_department_flags & DEP_FLAG_SERVICE)
