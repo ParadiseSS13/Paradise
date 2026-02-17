@@ -76,7 +76,7 @@ in their list
 		throw EXCEPTION("No 'type' field in the data")
 	var/path = text2path(data["type"])
 	if(!path)
-		throw EXCEPTION("Path not found: [path]")
+		throw EXCEPTION("Path not found: [data["type"]]")
 
 	// Since Initialize() eats the first argument
 	// we need to pass loc twice for organs, otherwise
