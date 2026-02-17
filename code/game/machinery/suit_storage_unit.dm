@@ -321,6 +321,9 @@
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
 /obj/machinery/suit_storage_unit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(shocked)
 		if(shock(user, 100))
 			return ITEM_INTERACT_COMPLETE
@@ -774,3 +777,7 @@
 	if(!uv_super)
 		toggleUV(TRUE)
 	secure = FALSE
+
+
+/obj/machinery/suit_storage_unit/get_internal_wires()
+	return wires
