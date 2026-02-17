@@ -15,12 +15,11 @@
 	. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it.")
 
 /obj/structure/fluid_construction/proc/rotate()
-	if(can_rotate == TRUE)
+	if(can_rotate)
 		setDir(turn(dir, -90)) // subtypes will handle illegal turns
-	return
 
 /obj/structure/fluid_construction/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	rotate()
 
@@ -38,8 +37,8 @@
 	user.visible_message(SPAN_NOTICE("[user] installs [installed]."))
 
 	I.play_tool_sound(src, I.tool_volume)
-	qdel(src)
 	. |= RPD_TOOL_SUCCESS
+	qdel(src)
 
 /obj/structure/fluid_construction/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	. = TRUE
@@ -67,7 +66,7 @@
 		return
 	to_chat(user, SPAN_WARNING("[src] can only be installed over a geyser!"))
 
-/obj/structure/fluid_construction/pumpjack/rotate() //only has two orientations, lets not break it
+/obj/structure/fluid_construction/pumpjack/rotate() // Only has two orientations, lets not break it
 	if(dir == EAST)
 		dir = WEST
 	else
@@ -115,7 +114,7 @@
 	icon_state = "refinery_4"
 	can_rotate = FALSE
 
-/obj/structure/fluid_construction/refinery/rotate() //same deal here, only two orientations
+/obj/structure/fluid_construction/refinery/rotate() // Same deal here, only two orientations
 	if(dir == EAST)
 		dir = WEST
 	else
