@@ -18,7 +18,7 @@
 		setDir(turn(dir, -90)) // subtypes will handle illegal turns
 
 /obj/structure/fluid_construction/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	rotate()
 
