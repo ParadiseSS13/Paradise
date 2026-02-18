@@ -675,9 +675,9 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         // Actual burn amount.
         let mut hydrogen_burnt =
             efficiency * 2.0 * HYDROGEN_BURN_MAX_RATIO * hotspot_boost * burnable_hydrogen;
-        if hydrogen_burnt < PLASMA_BURN_MIN_MOLES {
+        if hydrogen_burnt < HYDROGEN_BURN_MIN_MOLES {
             // Boost up to the minimum.
-            hydrogen_burnt = PLASMA_BURN_MIN_MOLES.min(burnable_hydrogen);
+            hydrogen_burnt = HYDROGEN_BURN_MIN_MOLES.min(burnable_hydrogen);
         }
         if hydrogen_burnt * HYDROGEN_BURN_OXYGEN_PER_HYDROGEN
             > fraction * my_next_tile.gases.oxygen()
