@@ -207,7 +207,7 @@
 		return
 
 	env.set_temperature(2)
-	env.set_nitrogen(env.nitrogen() + env.toxins())
+	env.set_nitrogen(env.nitrogen() + env.toxins() + env.hydrogen())
 	env.set_toxins(0)
 	env.set_hydrogen(0)
 
