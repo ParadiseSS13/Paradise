@@ -176,7 +176,7 @@
 	. = list()
 	for(var/direction in connect_dirs)
 		for(var/obj/machinery/fluid_pipe/pipe in get_step(src, direction))
-			if(pipe.anchored && (get_dir(pipe, src) in pipe.connect_dirs))
+			if((get_dir(pipe, src) in pipe.connect_dirs))
 				. += pipe
 
 /// Proc to check special conditions. Return `TRUE` if you don't want to connect with this pipe
