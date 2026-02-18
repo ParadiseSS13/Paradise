@@ -1,7 +1,7 @@
 // Fluid pipe construction
 // just the unwrenched part that moves around
 /obj/structure/fluid_construction
-	name = "uninstalled fluid pipe"
+	name = "unset uninstalled pipe name"
 	desc = "An incomplete fluid pipe, someone should wrench it."
 	icon = 'icons/obj/pipes/fluid_pipes.dmi'
 	max_integrity = 100
@@ -29,10 +29,11 @@
 	if(!isfloorturf(T) && !isspaceturf(T))
 		to_chat(user, SPAN_WARNING("You cannot install [src] here."))
 		return
-	for(var/obj/turf_contents in T)
-		if(istype(turf_contents, /obj/machinery/fluid_pipe) && turf_contents.density)
+	for(var/obj/machinery/fluid_pipe in T)
+		if(fluid_pipe.density)
 			to_chat(user, SPAN_WARNING("There isn't enough space to install [src] here."))
 			return
+
 	var/obj/machinery/fluid_pipe/installed = new installed_type(T, dir)
 	user.visible_message(SPAN_NOTICE("[user] installs [installed]."))
 
@@ -52,9 +53,9 @@
 /obj/structure/fluid_construction/pumpjack
 	name = "uninstalled pump jack"
 	desc = "Looks about the right size to fit over a geyser."
-	installed_type = /obj/machinery/fluid_pipe/pumpjack
 	icon = 'icons/obj/pipes/32x64fluid_machinery.dmi'
 	icon_state = "pumpjack_idle"
+	installed_type = /obj/machinery/fluid_pipe/pumpjack
 
 /obj/structure/fluid_construction/pumpjack/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -74,45 +75,39 @@
 
 /obj/structure/fluid_construction/pipe
 	name = "uninstalled fluid pipe"
-	installed_type = /obj/machinery/fluid_pipe
-	icon = 'icons/obj/pipes/fluid_pipes.dmi'
 	icon_state = "pipe"
+	installed_type = /obj/machinery/fluid_pipe
 	can_rotate = FALSE
 
 /obj/structure/fluid_construction/underground
 	name = "uninstalled underground pipe"
-	installed_type = /obj/machinery/fluid_pipe/underground_pipe
-	icon = 'icons/obj/pipes/fluid_pipes.dmi'
 	icon_state = "underground"
-	can_rotate = TRUE
+	installed_type = /obj/machinery/fluid_pipe/underground_pipe
 
 /obj/structure/fluid_construction/pump
 	name = "uninstalled fluid pump"
-	installed_type = /obj/machinery/fluid_pipe/pump
-	icon = 'icons/obj/pipes/fluid_pipes.dmi'
 	icon_state = "fpump"
-	can_rotate = TRUE
+	installed_type = /obj/machinery/fluid_pipe/pump
 
 /obj/structure/fluid_construction/tank
 	name = "uninstalled fluid tank"
-	installed_type = /obj/machinery/fluid_pipe/tank
 	icon = 'icons/obj/pipes/32x64fluid_machinery.dmi'
 	icon_state = "tank"
+	installed_type = /obj/machinery/fluid_pipe/tank
 	can_rotate = FALSE
 
 /obj/structure/fluid_construction/barrel_filler
 	name = "uninstalled barrel filler"
-	installed_type = /obj/machinery/fluid_pipe/barrel_filler
 	icon = 'icons/obj/pipes/fluid_machinery.dmi'
 	icon_state = "filler"
+	installed_type = /obj/machinery/fluid_pipe/barrel_filler
 	can_rotate = FALSE
 
 /obj/structure/fluid_construction/refinery
 	name = "uninstalled refinery"
-	installed_type = /obj/machinery/fluid_pipe/refinery
 	icon = 'icons/obj/pipes/64x64fluid_machinery.dmi'
 	icon_state = "refinery_4"
-	can_rotate = FALSE
+	installed_type = /obj/machinery/fluid_pipe/refinery
 
 /obj/structure/fluid_construction/refinery/rotate() // Same deal here, only two orientations
 	if(dir == EAST)
