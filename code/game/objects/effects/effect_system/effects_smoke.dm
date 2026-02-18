@@ -202,8 +202,6 @@
 	var/datum/gas_mixture/env = get_turf_air(T)
 	for(var/obj/effect/hotspot/H in T)
 		qdel(H)
-	for(var/obj/effect/hotspot/fake/H in T)
-		qdel(H)
 
 	if(env.fuel_burnt() == 0)
 		return
