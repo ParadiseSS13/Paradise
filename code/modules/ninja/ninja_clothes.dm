@@ -1,6 +1,6 @@
 /obj/item/clothing/head/helmet/space_ninja
 	desc = "What may appear to be a simple black garment is in fact a highly sophisticated nano-weave helmet. Standard issue ninja gear."
-	name = "ninja scarf"
+	name = "ninja fukumen"
 	icon_state = "s-ninja"
 	inhand_icon_state = "s-ninja_hood"
 	flags = BLOCKHAIR
@@ -73,7 +73,7 @@
 
 /obj/item/clothing/gloves/space_ninja
 	desc = "These nano-enhanced gloves insulate from electricity and provide fire resistance."
-	name = "ninja gloves"
+	name = "ninja tekko"
 	icon_state = "s-ninja"
 	siemens_coefficient = 0
 	pickpocket = TRUE // Master of stealth, you can pick a pocket
@@ -91,8 +91,8 @@
 	)
 
 /obj/item/clothing/shoes/space_ninja
-	name = "ninja shoes"
-	desc = "A pair of running shoes. Excellent for running and even better for smashing skulls."
+	name = "ninja jaka-tabi"
+	desc = "A pair of split-toed rubber-soled shoes. Excellent for running and even better for smashing skulls."
 	icon_state = "s-ninja"
 	permeability_coefficient = 0.01
 	no_slip = TRUE
@@ -130,7 +130,7 @@
 	freedoms_action.Remove(user)
 
 /obj/item/clothing/suit/space_ninja
-	name = "ninja kabuto"
+	name = "ninja uwagi"
 	desc = "A unique suit of nano-enhanced armor designed specifically for Spider Clan assassins."
 	icon_state = "s-ninja"
 	inhand_icon_state = "s-ninja_suit"
