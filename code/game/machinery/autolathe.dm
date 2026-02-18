@@ -524,6 +524,9 @@
 	if(!wires.is_cut(WIRE_AUTOLATHE_DISABLE))
 		disabled = FALSE
 
+/obj/machinery/autolathe/get_internal_wires()
+	return wires
+
 /obj/machinery/autolathe/syndicate
 	name = "syndicate autolathe"
 
