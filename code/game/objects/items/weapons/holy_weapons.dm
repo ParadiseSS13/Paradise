@@ -606,7 +606,7 @@
 	bound_ghanta.bound_vajra = src
 	bound_ghanta.sanctify_force = sanctify_force
 
-///Make sure the creature trying to pick us up is a human with two hands free.
+/// Make sure the creature trying to pick up vajra is a human with two hands free.
 /obj/item/nullrod/vajra/attack_hand(mob/user, pickupfireoverride = FALSE)
 	if(!user)
 		return FALSE
@@ -915,7 +915,7 @@
 		return
 	if(user.a_intent != INTENT_HARM)
 		return
-	// Knock back 1-2 tiles
+	// Knock back 1 tile
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, 1, 5, user, spin = FALSE)
 
