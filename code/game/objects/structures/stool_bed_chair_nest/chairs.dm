@@ -795,7 +795,6 @@
 /obj/item/chair/beach
 	name = "folded beach chair"
 	desc = "A beach chair folded up for easy carrying."
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "beach_chair_folded"
 	inhand_icon_state = "beach_chair"
 	w_class = WEIGHT_CLASS_BULKY
