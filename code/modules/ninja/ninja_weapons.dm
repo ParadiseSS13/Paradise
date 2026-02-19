@@ -8,6 +8,7 @@
 	throwforce = 20
 	armor_penetration_percentage = 50
 	armor_penetration_flat = 10
+	origin_tech = "combat=6;syndicate=4"
 	hitsound = 'sound/weapons/blade1.ogg'
 	/// Is the weapon gripped or not?
 	var/gripped = FALSE
@@ -98,6 +99,7 @@
 	inhand_icon_state = "eshield0"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	origin_tech = "combat=6;syndicate=5"
 	force = 5
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -144,7 +146,7 @@
 	inhand_icon_state = "energy-net-gun"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=2000)
-	origin_tech = "combat=4;magnets=4;syndicate=5"
+	origin_tech = "combat=6;magnets=4;syndicate=4"
 	suppressed = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/net)
 	unique_rename = FALSE

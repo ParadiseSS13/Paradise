@@ -6,6 +6,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	armor = list(MELEE = 30, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 20, RAD = 100, FIRE = INFINITY, ACID = INFINITY)
+	origin_tech = "combat=5;materials=5;syndicate=2"
 	blockTracking = 1
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list(
@@ -47,6 +48,7 @@
 	icon_state = "s-ninja"
 	inhand_icon_state = "s-ninja_mask"
 	flash_protect = FLASH_PROTECTION_FLASH
+	origin_tech = "combat=4;materials=4;syndicate=1"
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -82,6 +84,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	origin_tech = "combat=5;materials=5;syndicate=2"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Skkulakin" = 'icons/mob/clothing/species/vox/gloves.dmi',
@@ -101,6 +104,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	origin_tech = "combat=5;materials=5;syndicate=2"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi',
@@ -145,6 +149,7 @@
 	)
 	flags_inv = HIDEJUMPSUIT
 	armor = list(MELEE = 30, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 20, RAD = 100, FIRE = INFINITY, ACID = INFINITY)
+	origin_tech = "combat=5;materials=5;syndicate=2"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',

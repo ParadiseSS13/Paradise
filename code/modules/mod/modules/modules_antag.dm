@@ -644,6 +644,7 @@
 	name = "MOD shinobi stealth module"
 	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced stealth technology in the classic ninja scarf."
 	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	removable = FALSE
 	/// Linked sneaking action
@@ -667,6 +668,7 @@
 	name = "MOD shinobi escape module"
 	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced escaping technology in the classic ninja boots."
 	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	removable = FALSE
 	/// Linked freedom action
@@ -691,6 +693,7 @@
 	name = "MOD shinobi stimulant module"
 	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced stimulants technology in the classic ninja kabuto."
 	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	removable = FALSE
 	/// Linked stims action
