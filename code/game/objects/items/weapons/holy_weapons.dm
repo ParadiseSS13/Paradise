@@ -521,8 +521,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-/obj/item/nullrod/tribal_knife/New()
-	..()
+/obj/item/nullrod/tribal_knife/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/tribal_knife/Destroy()
@@ -713,8 +713,8 @@
 		. += "<span class='warning'>This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
 			<b>Use the staff in hand</b> while wearing robes to link them both, then aim the staff at your victim to try and convert them.</span>"
 
-/obj/item/nullrod/missionary_staff/New()
-	..()
+/obj/item/nullrod/missionary_staff/Initialize(mapload)
+	. = ..()
 	team_color = pick("red", "blue")
 	icon_state = "godstaff-[team_color]"
 	name = "[team_color] holy staff"

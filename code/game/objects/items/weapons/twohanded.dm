@@ -63,11 +63,8 @@
 /obj/item/fireaxe/energized/Initialize(mapload)
 	. = ..()
 	// only update the new args
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
-
-/obj/item/fireaxe/energized/New()
-	..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
 
 /obj/item/fireaxe/energized/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -694,6 +691,7 @@
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	dyeable = FALSE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time
@@ -733,19 +731,25 @@
 		do_sparks(rand(1,6), 1, loc)
 		next_spark_time = world.time + 0.8 SECONDS
 
-/obj/item/clothing/gloves/color/black/pyro_claws/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
-		if(core)
-			to_chat(user, SPAN_NOTICE("[src] already has a [I]!"))
-			return
-		if(!user.drop_item())
-			to_chat(user, SPAN_WARNING("[I] is stuck to your hand!"))
-			return
-		to_chat(user, SPAN_NOTICE("You insert [I] into [src], and [src] starts to warm up."))
-		I.forceMove(src)
-		core = I
-	else
+/obj/item/clothing/gloves/color/black/pyro_claws/wirecutter_act(mob/living/user, obj/item/I)
+	return
+
+/obj/item/clothing/gloves/color/black/pyro_claws/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/signaler/anomaly/pyro))
 		return ..()
+
+	if(core)
+		to_chat(user, SPAN_NOTICE("[src] already has a [used]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You insert [used] into [src], and [src] starts to warm up."))
+	used.forceMove(src)
+	core = used
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE

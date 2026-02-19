@@ -17,8 +17,8 @@
 	var/start_lit = FALSE
 	var/flickering = FALSE
 
-/obj/item/candle/New()
-	..()
+/obj/item/candle/Initialize(mapload)
+	. = ..()
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)

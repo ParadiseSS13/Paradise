@@ -1041,12 +1041,12 @@
 		if(!(limb_type in H.bodyparts_by_name))
 			var/list/organ_data = H.dna.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
-			var/obj/item/organ/external/O = new limb_path(temp_holder)
+			var/obj/item/organ/external/O = new limb_path(temp_holder, temp_holder)
 			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
 				continue					//In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
 											//while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
 			else
-				O = new limb_path(H) //Create the limb on the player.
+				O = new limb_path(H, H) //Create the limb on the player.
 				O.owner = H
 				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
 				if(O.body_part == HEAD) //They're sprouting a fresh head so lets hook them up with their genetic stuff so their new head looks like the original.
@@ -1060,12 +1060,12 @@
 	for(var/index in species_organs)
 		var/organ = species_organs[index]
 		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
-			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
+			var/obj/item/organ/internal/I = new organ(temp_holder, temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
 				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nian eyes, since,
 										//while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
-				I = new organ(H) //Create the organ inside the player.
+				I = new organ(H, H) //Create the organ inside the player.
 				I.insert(H)
 	qdel(temp_holder)
 
@@ -1125,7 +1125,7 @@
 
 	if(blood_volume < BLOOD_VOLUME_STABLE + 50)
 		blood_volume = BLOOD_VOLUME_STABLE + 50
-	
+
 	. = ..()
 	if(.) // if revived successfully
 		set_heartattack(FALSE)
@@ -1151,6 +1151,12 @@
 		var/obj/item/organ/external/affected = get_organ("chest")
 		affected.custom_pain("You feel a stabbing pain in your chest!")
 		L.linked_organ.receive_damage(max(L.linked_organ.min_bruised_damage - L.linked_organ.damage, 2))
+
+/mob/living/carbon/human/proc/has_liver_cirrhosis()
+	var/obj/item/organ/internal/liver/liver = get_int_organ(/obj/item/organ/internal/liver)
+	if(!liver || liver.status & ORGAN_ROBOT)
+		return FALSE
+	return liver.get_wound(/datum/wound/cirrhosis)
 
 /mob/living/carbon/human/resist_restraints(attempt_breaking)
 	if(HAS_TRAIT(src, TRAIT_HULK))
@@ -2353,8 +2359,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			wings.icon = initial(wings.icon)
 			wings.pixel_x_offset = initial(wings.pixel_x_offset)
 			update_wing_layer()
+			update_body()
 			return
 		wings.is_open = TRUE
 		wings.icon = wings.open_icon
 		wings.pixel_x_offset = -22 // Center these bad boys
 		update_wing_layer()
+		update_body()

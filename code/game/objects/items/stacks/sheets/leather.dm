@@ -238,6 +238,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	singular_name = "armor plate"
 	flags = NOBLUDGEON
 	layer = MOB_LAYER
+	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 5000)
 
 /obj/item/stack/sheet/animalhide/armor_plate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)

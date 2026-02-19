@@ -227,6 +227,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
+"cc" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "cd" = (
 /obj/machinery/light{
 	dir = 4
@@ -632,12 +640,10 @@
 /area/mine/laborcamp)
 "ew" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
 "ey" = (
@@ -1386,9 +1392,6 @@
 /area/mine/outpost/cafeteria)
 "iu" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Miner Lockers";
 	dir = 6;
@@ -1623,9 +1626,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
@@ -1740,6 +1740,11 @@
 	icon_regular_floor = "yellowsiding"
 	},
 /area/mine/outpost/cafeteria)
+"li" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/basic/cockroach/brad,
+/turf/simulated/floor/plating,
+/area/mine/outpost/lockers)
 "ln" = (
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
@@ -1804,6 +1809,14 @@
 /obj/structure/sign/service/kitchen,
 /turf/simulated/wall,
 /area/mine/outpost/cafeteria)
+"lC" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "lD" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -2082,9 +2095,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
 "mX" = (
@@ -2190,6 +2200,9 @@
 /area/lavaland/surface/gulag_rock)
 "nv" = (
 /obj/structure/closet/secure_closet/miner,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
 "nx" = (
@@ -2434,16 +2447,6 @@
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/medbay)
-"oE" = (
-/obj/structure/closet/secure_closet/miner,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/science/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/mine/outpost/lockers)
 "oL" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /obj/effect/mapping_helpers/no_lava,
@@ -2497,15 +2500,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"pe" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/dogbed/brad,
-/mob/living/basic/cockroach/brad,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "pf" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/pepper,
@@ -3576,6 +3570,16 @@
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"uZ" = (
+/obj/structure/closet/secure_closet/miner,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 8
+	},
+/obj/machinery/light/small,
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel/dark,
+/area/mine/outpost/lockers)
 "vd" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
@@ -4010,6 +4014,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"xB" = (
+/obj/item/toy/figure/mech/ripley{
+	name = "roach-sized Ripley"
+	},
+/turf/simulated/floor/plating,
+/area/mine/outpost/lockers)
 "xD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4802,6 +4812,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"Cp" = (
+/obj/structure/bed/dogbed/brad,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/mine/outpost/lockers)
 "Cs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -5740,7 +5755,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
@@ -6206,10 +6221,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/smith_workshop)
 "KJ" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/directional/west,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
 	},
@@ -7089,6 +7100,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/gulag_rock)
+"Pw" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/mine/outpost/lockers)
 "Py" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7304,6 +7319,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/hallway/west)
+"Qy" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/item/cigbutt/roach,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Qz" = (
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tiles/department/engineering,
@@ -8448,6 +8472,14 @@
 /obj/effect/spawner/random/fungus/maybe,
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
+"XG" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "XH" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner,
@@ -8620,9 +8652,6 @@
 "Yo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/lockers)
@@ -14709,9 +14738,9 @@ VG
 VG
 Do
 zJ
-tL
-cX
-tL
+Qy
+XG
+cc
 LO
 wL
 oO
@@ -14871,10 +14900,10 @@ qL
 DR
 oU
 zJ
-tL
-tL
-tL
-tL
+Cp
+li
+xB
+lC
 lx
 oO
 Ye
@@ -15033,9 +15062,9 @@ JF
 xM
 hY
 zJ
-fh
-fh
-fh
+Pw
+Pw
+Pw
 fh
 Ka
 oO
@@ -15845,7 +15874,7 @@ Lq
 zJ
 MW
 Hz
-oE
+uZ
 fh
 vB
 oO
@@ -16333,7 +16362,7 @@ sp
 GL
 Mf
 Yf
-pe
+vn
 Yr
 oO
 oO

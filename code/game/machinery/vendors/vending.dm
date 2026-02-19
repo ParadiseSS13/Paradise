@@ -1089,6 +1089,8 @@
 /obj/machinery/economy/vending/proc/get_vendor_account()
 	return GLOB.station_money_database.vendor_account
 
+/obj/machinery/economy/vending/get_internal_wires()
+	return wires
 /*
  * Vending machine types
  */

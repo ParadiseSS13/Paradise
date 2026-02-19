@@ -199,18 +199,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	scatter_distance = 5
 
-/obj/item/New()
-	..()
-
-	if(!hitsound)
-		if(damtype == "fire")
-			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
-			hitsound = "swing_hit"
-	LAZYINITLIST(attack_verb)
-	if(!move_resist)
-		determine_move_resist()
-
 /obj/item/Initialize(mapload)
 	. = ..()
 	for(var/path in actions_types)
@@ -219,6 +207,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		in_storage = TRUE
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+	if(!hitsound)
+		if(damtype == "fire")
+			hitsound = 'sound/items/welder.ogg'
+		if(damtype == "brute")
+			hitsound = "swing_hit"
+	LAZYINITLIST(attack_verb)
+	if(!move_resist)
+		determine_move_resist()
 
 /// This proc is used to add text for items with ABSTRACT flag after default examine text.
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
@@ -861,6 +857,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				outline_color = COLOR_THEME_OPERATIVE
 			if("clockwork")
 				outline_color = COLOR_THEME_CLOCKWORK // if you want free gbp go fix the fact that clockwork's tooltip css is glass'
+			if("mindflayer")
+				outline_color = COLOR_THEME_MINDFLAYER
 			if("glass")
 				outline_color = COLOR_THEME_GLASS
 			else // this should never happen, hopefully

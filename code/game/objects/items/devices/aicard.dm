@@ -10,6 +10,7 @@
 	flags = NOBLUDGEON
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 200)
 
 /obj/item/aicard/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()

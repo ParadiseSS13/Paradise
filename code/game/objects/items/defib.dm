@@ -10,6 +10,7 @@
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000, MAT_SILVER = 1000)
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	new_attack_chain = TRUE
@@ -46,7 +47,7 @@
 
 /obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
 	. = ..()
-	paddles = new paddle_type(src)
+	paddles = new paddle_type(src, src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/loaded/Initialize(mapload) // Loaded version starts with high-capacity cell.
@@ -221,6 +222,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	origin_tech = "biotech=5"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/defibrillator/compact/loaded/Initialize(mapload)
 	. = ..()
@@ -308,7 +310,7 @@
 	var/on_cooldown = FALSE
 
 
-/obj/item/shockpaddles/New(mainunit)
+/obj/item/shockpaddles/Initialize(mapload, mainunit)
 	. = ..()
 
 	if(check_defib_exists(mainunit, null, src))
