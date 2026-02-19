@@ -119706,13 +119706,6 @@
 	},
 /turf/simulated/floor/plasteel/edge,
 /area/station/engineering/atmos/asteroid_filtering)
-"vDb" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 8
-	},
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/engine/reactor)
 "vDd" = (
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -142279,7 +142272,7 @@ aZS
 kxw
 kxw
 ueP
-vDb
+wwz
 kxw
 wwz
 ueP
