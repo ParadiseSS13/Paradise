@@ -1160,6 +1160,7 @@
 /obj/item/storage/belt/sheath/holy/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, antimagic_type)
+	update_icon()
 
 /obj/item/storage/belt/sheath/holy/pickup(mob/living/user)
 	. = ..()
