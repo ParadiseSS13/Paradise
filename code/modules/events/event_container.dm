@@ -226,9 +226,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_DISASTER
 	available_events = list(
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 5730),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 100, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 100, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 100, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 150, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 150, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 150, TRUE)
 		)
 	var/activation_counter = 0
 	var/event_rolls = 0
