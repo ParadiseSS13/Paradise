@@ -109,6 +109,13 @@
 	icon_state = "refinery_4"
 	installed_type = /obj/machinery/fluid_pipe/refinery
 
+/obj/structure/fluid_construction/pipe_bluespace
+	name = "uninstalled fluid transmitter"
+	icon = 'icons/obj/pipes/32x64fluid_machinery.dmi'
+	icon_state = "transmitter"
+	installed_type = /obj/machinery/fluid_pipe/bluespace
+	can_rotate = FALSE
+
 /obj/structure/fluid_construction/refinery/rotate() // Same deal here, only two orientations
 	if(dir == EAST)
 		dir = WEST

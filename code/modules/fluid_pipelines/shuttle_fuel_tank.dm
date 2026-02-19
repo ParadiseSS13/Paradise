@@ -21,6 +21,7 @@
 	var/datum/fluid/current_fuel
 	/// Units moved per 0.5 seconds. Base is 100/s
 	var/amount_moved = 50
+	uninstalled_type = null // This shouldn't be used ever, i know it wont be used but im scared of what happens if it is used
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/west
 	icon = 'icons/obj/pipes/shuttleintake_west.dmi'

@@ -37,6 +37,7 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	/// Reference to the geyser underneath the extractor
 	var/obj/structure/geyser/extracting_geyser
+	uninstalled_type = /obj/structure/fluid_construction/pumpjack
 
 /obj/machinery/fluid_pipe/pumpjack/update_icon_state()
 	return
@@ -76,11 +77,3 @@
 
 	var/amount = min(50, fluid_datum.get_empty_space())
 	fluid_datum.add_fluid(extracting_geyser.liquid_to_output, amount)
-
-/obj/machinery/fluid_pipe/pumpjack/attack_hand(mob/user)
-	if(..())
-		return
-	if(dir == EAST)
-		dir = WEST
-	else
-		dir = EAST

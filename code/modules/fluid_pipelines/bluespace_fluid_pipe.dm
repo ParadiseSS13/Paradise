@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(bluespace_fluid_pipes)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	/// Our linked pair
 	var/obj/machinery/fluid_pipe/bluespace/pair
+	uninstalled_type = /obj/structure/fluid_construction/pipe_bluespace
 
 /obj/machinery/fluid_pipe/bluespace/examine(mob/user)
 	. = ..()
@@ -20,6 +21,7 @@ GLOBAL_LIST_EMPTY(bluespace_fluid_pipes)
 	if(length(GLOB.bluespace_fluid_pipes) >= 2)
 		log_debug("3 or more fluid transmitters have been spawned in.")
 		visible_message("ERROR: Only 2 transmitters may be active at the same time!")
+		new uninstalled_type(get_turf(src))
 		return INITIALIZE_HINT_QDEL // What even
 
 	GLOB.bluespace_fluid_pipes |= src
@@ -55,6 +57,7 @@ GLOBAL_LIST_EMPTY(bluespace_fluid_pipes)
 		fluid_datum.add_pipe(pair)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(remove_reference))
 	RegisterSignal(pair, COMSIG_PARENT_QDELETING, PROC_REF(remove_reference))
+	pair.setup_pipes()
 
 /obj/machinery/fluid_pipe/bluespace/proc/remove_reference()
 	pair = null
@@ -72,8 +75,7 @@ GLOBAL_LIST_EMPTY(bluespace_fluid_pipes)
 
 /obj/machinery/fluid_pipe/bluespace/get_adjacent_pipes()
 	. = ..()
-	if(pair)
-		.++
+	.++
 
 /obj/machinery/fluid_pipe/bluespace/ex_act(severity)
 	pair.ex_act(severity) // Bluespace link moment
