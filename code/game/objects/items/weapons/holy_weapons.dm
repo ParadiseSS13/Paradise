@@ -120,7 +120,10 @@
 			new_sheath.update_appearance(UPDATE_ICON_STATE)
 			user.put_in_active_hand(new_sheath)
 		else
-			user.put_in_active_hand(new_rod)
+			var/mob/living/carbon/human/human_user = user
+			if(!human_user.equip_to_slot_if_possible(new_rod, (human_user.hand ? ITEM_SLOT_LEFT_HAND : ITEM_SLOT_RIGHT_HAND), disable_warning = TRUE))
+				if(!human_user.equip_to_slot_if_possible(new_rod, (human_user.hand ? ITEM_SLOT_RIGHT_HAND : ITEM_SLOT_LEFT_HAND), disable_warning = TRUE))
+					human_user.drop_item_to_ground(new_rod)
 
 		if(sanctify_force)
 			new_rod.sanctify_force = sanctify_force
@@ -678,11 +681,13 @@
 
 /obj/item/nullrod/vajra/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(slot == ITEM_SLOT_LEFT_HAND)
-		to_chat(M, SPAN_WARNING("[src] must be equipped in the right hand."))
+		if(!disable_warning)
+			to_chat(M, SPAN_WARNING("[src] must be equipped in the right hand."))
 		return FALSE
 	if(slot == ITEM_SLOT_RIGHT_HAND)
 		if(M.r_hand || M.l_hand)
-			to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
+			if(!disable_warning)
+				to_chat(M, SPAN_WARNING("You need both hands free to pick up [src]!"))
 			return FALSE
 	return ..()
 
@@ -690,6 +695,8 @@
 	. = ..()
 	if(slot == ITEM_SLOT_RIGHT_HAND)
 		put_in_both_hands(user)
+	else if(slot == ITEM_SLOT_LEFT_HAND)
+		reunite_with_ghanta(TRUE)
 	else
 		reunite_with_ghanta()
 
