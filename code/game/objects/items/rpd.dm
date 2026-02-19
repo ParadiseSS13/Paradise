@@ -37,6 +37,8 @@
 	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT
 	/// What kind of transit tube are we trying to lay?
 	var/whatttube = PIPE_TRANSIT_TUBE
+	/// What kind of fluid pipe are we trying to lay?
+	var/what_f_pipe = PIPE_FLUID
 	/// Cooldown on RPD use.
 	var/spawndelay = RPD_COOLDOWN_TIME
 	/// Time taken to drill a borehole before the pipe can be laid.
@@ -52,6 +54,7 @@
 	var/list/mainmenu = list(
 		list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
 		list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
+		list("category" = "Fluid pipes", "mode" = RPD_FLUID_MODE, "icon" = "droplet"),
 		list("category" = "Transit", "mode" = RPD_TRANSIT_MODE, "icon" = "subway"),
 		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "sync-alt"),
 		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "arrows-alt-h"),
@@ -154,6 +157,20 @@
 			automatic_wrench_down(user, S)
 			activate_rpd(TRUE)
 
+/obj/item/rpd/proc/create_fluid_pipe(mob/user, turf/dest)
+	if(!can_dispense_pipe(what_f_pipe, PIPETYPE_FLUID))
+		CRASH("Failed to spawn [get_pipe_name(what_f_pipe, PIPETYPE_FLUID)] - possible tampering detected")
+
+	for(var/datum/pipes/fluid/T in GLOB.construction_pipe_list)
+		if(T.pipe_id == what_f_pipe)
+			var/obj/structure/fluid_construction/F = new T.construction_type(dest)
+			// What the fuck is iconrotation // I hope that it's the direction
+			F.dir = iconrotation ? iconrotation : user.dir
+
+			to_chat(user, SPAN_NOTICE("[src] rapidly dispenses [F]!"))
+			automatic_wrench_down(user, F)
+			activate_rpd(TRUE)
+
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)
 		P.rotate()
@@ -189,6 +206,11 @@
 			eaten = TRUE
 	for(var/obj/structure/transit_tube_construction/C in T)
 		QDEL_NULL(C)
+		eaten = TRUE
+	for(var/obj/machinery/fluid_pipe/F in T) //will change with new variant later
+		if(F.anchored == TRUE)
+			continue
+		QDEL_NULL(F)
 		eaten = TRUE
 	if(eaten)
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
@@ -252,6 +274,7 @@
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
 	data["whatttube"] = whatttube
+	data["what_f_pipe"] = what_f_pipe
 	data["auto_wrench_toggle"] = auto_wrench_toggle
 	return data
 
@@ -270,6 +293,8 @@
 			whatdpipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatttube")
 			whatttube = isnum(params[action]) ? params[action] : text2num(params[action])
+		if("what_f_pipe")
+			what_f_pipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("pipe_category")
 			pipe_category = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("mode")

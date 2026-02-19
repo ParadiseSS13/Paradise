@@ -329,9 +329,13 @@
 				L.drop_item_to_ground(M)
 			M.forceMove(src)
 
-///Return the air if we can analyze it
+/// Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
-	return null
+	return FALSE
+
+/// Return the fluids if we can analyze it
+/atom/proc/return_analyzable_fluids()
+	return FALSE
 
 /atom/proc/on_reagent_change()
 	return

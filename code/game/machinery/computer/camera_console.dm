@@ -12,7 +12,7 @@
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
 
-	var/list/network = list("SS13", "Mining Outpost", "Labor Camp")
+	var/list/network = list("SS13", "Mining Outpost", "Engineering Outpost", "Labor Camp")
 	var/obj/machinery/camera/active_camera
 	/// The list of total watchers, living and dead, of this console.
 	var/list/watchers = list()
@@ -329,6 +329,15 @@
 	light_color = "#FAC54B"
 	network = list()
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/engi_outpost
+	name = "engineering outpost camera monitor"
+	desc = "Used to access the various cameras on the engineering outpost."
+	icon_keyboard = "tech_key"
+	icon_screen = "engie_cams"
+	light_color = "#FAC54B"
+	network = list("Engineering Outpost")
+	circuit = /obj/item/circuitboard/camera/engi_outpost
 
 /obj/machinery/computer/security/engineering/Initialize(mapload)
 	. = ..()

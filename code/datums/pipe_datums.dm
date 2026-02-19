@@ -408,6 +408,68 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	orientations = 4
 	pipe_icon = "transit_station"
 
+// MARK: Fluid pipes
+/datum/pipes/fluid
+	pipe_type = PIPETYPE_FLUID
+	/// The type of the object that results from dispensing this datum from the RPD.
+	var/construction_type = null
+
+/datum/pipes/fluid/pipe
+	pipe_name = "fluid pipe"
+	construction_type = /obj/structure/fluid_construction/pipe
+	pipe_id = PIPE_FLUID
+	orientations = 1
+	pipe_icon = "pipe"
+	rpd_dispensable = TRUE
+
+/datum/pipes/fluid/underground
+	pipe_name = "underground fluid pipe"
+	construction_type = /obj/structure/fluid_construction/underground
+	pipe_id = PIPE_UNDERGROUND
+	orientations = 4
+	pipe_icon = "underground"
+	rpd_dispensable = TRUE
+
+/datum/pipes/fluid/pump
+	pipe_name = "fluid pump"
+	construction_type = /obj/structure/fluid_construction/pump
+	pipe_id = PIPE_FLUID_PUMP
+	orientations = 4
+	pipe_icon = "fpump"
+	rpd_dispensable = TRUE
+
+/datum/pipes/fluid/pumpjack
+	pipe_name = "pumpjack"
+	construction_type = /obj/structure/fluid_construction/pumpjack
+	pipe_id = PIPE_PUMPJACK
+	orientations = 2
+	pipe_icon = "pumpjack"
+	rpd_dispensable = TRUE
+
+/datum/pipes/fluid/tank
+	pipe_name = "fluid tank"
+	construction_type = /obj/structure/fluid_construction/tank
+	pipe_id = PIPE_TANK
+	orientations = 1
+	pipe_icon = "tank"
+	rpd_dispensable = TRUE
+
+/datum/pipes/fluid/barrel_filler
+	pipe_name = "barrel filler"
+	construction_type = /obj/structure/fluid_construction/barrel_filler
+	pipe_id = PIPE_BARRELFILLER
+	orientations = 1
+	pipe_icon = "filler"
+	rpd_dispensable = TRUE
+
+/datum/pipes/fluid/refinery
+	pipe_name = "refinery"
+	construction_type = /obj/structure/fluid_construction/refinery
+	pipe_id = PIPE_REFINERY
+	orientations = 2
+	pipe_icon = "refinery"
+	rpd_dispensable = TRUE
+
 //Pipes the RPD can't dispense. Since these don't use an interface, we don't need to bother with setting an icon. We do, however, want to name these for other purposes
 
 /datum/pipes/atmospheric/circulator
