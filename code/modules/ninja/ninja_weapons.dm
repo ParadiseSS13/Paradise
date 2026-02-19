@@ -9,6 +9,41 @@
 	armor_penetration_percentage = 50
 	armor_penetration_flat = 10
 	hitsound = 'sound/weapons/blade1.ogg'
+	/// Is the weapon gripped or not?
+	var/gripped = FALSE
+
+/obj/item/katana/energy/activate_self(mob/living/carbon/human/user)
+	. = ..()
+	if(!ishuman(user))
+		return
+	var/is_proper_modsuit = FALSE
+	if(istype(user.gloves, /obj/item/clothing/gloves/mod))
+		var/obj/item/mod/control/modsuit = user.get_item_by_slot(ITEM_SLOT_BACK)
+		if(istype(modsuit) && istype(modsuit.theme, /datum/mod_theme/ninja))
+			is_proper_modsuit = TRUE
+	if(!istype(user.gloves, /obj/item/clothing/gloves/space_ninja) && !is_proper_modsuit)
+		return
+	if(!gripped)
+		gripped = TRUE
+		to_chat(user, SPAN_NOTICE("You tighten your grip on [src], ensuring you won't drop it."))
+		set_nodrop(TRUE, user)
+		return
+	gripped = FALSE
+	to_chat(user, SPAN_NOTICE("You relax your grip on [src]."))
+	set_nodrop(FALSE, user)
+
+/obj/item/katana/energy/dropped(mob/user, silent)
+	. = ..()
+	gripped = FALSE
+	to_chat(user, SPAN_WARNING("Your grip on [src] is loosened!"))
+	set_nodrop(FALSE, user)
+
+/obj/item/katana/energy/equipped(mob/user, slot, initial)
+	. = ..()
+	if(gripped)
+		gripped = FALSE
+		to_chat(user, SPAN_NOTICE("You relax your grip on [src]."))
+		set_nodrop(FALSE, user)
 
 /obj/item/katana/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()

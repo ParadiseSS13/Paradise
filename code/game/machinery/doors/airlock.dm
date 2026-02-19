@@ -1012,12 +1012,14 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!headbutt_shock_check(user))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/katana/energy) && user.a_intent == INTENT_HELP)
-		if(!do_after_once(user, 5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
-			return ITEM_INTERACT_COMPLETE
 		if(locked)
+			if(!do_after_once(user, 5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
+				return ITEM_INTERACT_COMPLETE
 			unlock()
 			return ITEM_INTERACT_COMPLETE
 		else
+			if(!do_after_once(user, 2.5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
+				return ITEM_INTERACT_COMPLETE
 			open()
 			return ITEM_INTERACT_COMPLETE
 	if(panel_open)

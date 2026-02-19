@@ -25,6 +25,7 @@
 	)
 
 /datum/outfit/space_ninja/vox
+	name = "Space Ninja - Vox"
 
 /datum/outfit/space_ninja/vox/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

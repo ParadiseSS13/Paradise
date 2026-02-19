@@ -581,6 +581,7 @@
 		/obj/item/mod/module/shinobi_stealth,
 		/obj/item/mod/module/shinobi_freedom,
 		/obj/item/mod/module/shinobi_stims,
+		/obj/item/mod/module/noslip,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
