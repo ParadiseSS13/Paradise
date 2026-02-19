@@ -698,6 +698,7 @@
 	desc = "A powerful ritual tool. Has an auspicious sound."
 	reskinned = TRUE
 	reskin_selectable = FALSE
+	// Keeps ghanta from being stored somewhere all on its lonesome
 	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "ghanta"
 	force = 0
@@ -708,6 +709,28 @@
 	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
 	var/obj/item/nullrod/vajra/bound_vajra = null
 	var/blessing = FALSE
+
+/obj/item/nullrod/ghanta/Initialize(mapload)
+	RegisterSignal(src, COMSIG_INTERACTING, PROC_REF(interrupt_interacting))
+	return ..()
+
+/// Keeps ghanta from being placed somewhere all on its lonesome
+/obj/item/nullrod/ghanta/proc/interrupt_interacting(obj/item/nullrod/ghanta/self, mob/user, atom/target, list/modifiers)
+	var/list/placeable_obj_types = typecacheof(list(
+	/obj/machinery/disposal,
+	/obj/machinery/cooking,
+	/obj/machinery/economy/vending/custom,
+	/obj/machinery/washing_machine,
+	/obj/structure/table,
+	/obj/structure/rack,
+	/obj/structure/closet,
+	/obj/structure/displaycase,
+	/obj/structure/safe,
+	/obj/structure/shelf,
+	))
+	if(is_type_in_list(target, placeable_obj_types))
+		target.item_interaction(user, bound_vajra, modifiers)
+		return TRUE
 
 /obj/item/nullrod/ghanta/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(slot != ITEM_SLOT_LEFT_HAND)
@@ -728,18 +751,12 @@
 	else
 		bound_vajra.reunite_with_ghanta()
 
-/obj/item/nullrod/ghanta/on_enter_storage(obj/item/storage/S)
-	. = ..()
-	if(istype(bound_vajra.loc, /mob))
-		var/mob/holder = bound_vajra.loc
-		holder.drop_item_to_ground(bound_vajra, TRUE, TRUE)
-	bound_vajra.forceMove(S)
-	bound_vajra.reunite_with_ghanta()
-
+/// Keeps ghanta from being dropped somewhere all on its lonesome
 /obj/item/nullrod/ghanta/dropped(mob/user, silent)
 	. = ..()
 	bound_vajra.reunite_with_ghanta(TRUE)
 
+/// Keeps ghanta from being thrown somewhere all on its lonesome
 /obj/item/nullrod/ghanta/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	bound_vajra.throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
 
