@@ -722,7 +722,7 @@
 	var/list/item_categories = list("Artefacts", "Weapons and Armors", "Staves", "Summons")
 	var/list/loadout_categories = list("Standard", "Unique")
 
-/obj/item/spellbook/proc/initialize()
+/obj/item/spellbook/proc/create_spellbook()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/loadout
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
@@ -735,9 +735,9 @@
 	main_tab = main_categories[1]
 	tab = categories[1]
 
-/obj/item/spellbook/New()
-	..()
-	initialize()
+/obj/item/spellbook/Initialize(mapload)
+	. = ..()
+	create_spellbook()
 
 /obj/item/spellbook/attackby__legacy__attackchain(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/contract))
@@ -970,12 +970,9 @@
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
 
-/obj/item/spellbook/oneuse/New()
-	..()
+/obj/item/spellbook/oneuse/Initialize(mapload)
+	. = ..()
 	name += spellname
-
-/obj/item/spellbook/oneuse/initialize() //No need to init
-	return
 
 /obj/item/spellbook/oneuse/attack_self__legacy__attackchain(mob/user)
 	var/datum/spell/S = new spell
@@ -1155,7 +1152,7 @@
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"
 
-/obj/item/spellbook/oneuse/random/initialize()
+/obj/item/spellbook/oneuse/random/create_spellbook()
 	. = ..()
 	var/static/list/banned_spells = typesof(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/emp)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)

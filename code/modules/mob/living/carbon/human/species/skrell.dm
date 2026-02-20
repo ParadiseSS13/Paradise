@@ -1,6 +1,7 @@
 /datum/species/skrell
 	name = "Skrell"
 	name_plural = "Skrell"
+	max_age = "220" // they're just like space elves no way
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	language = "Qurvolious"
 	primitive_form = /datum/species/monkey/skrell

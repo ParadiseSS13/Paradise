@@ -14,6 +14,7 @@
 
 	if(.) //not dead
 		handle_kidneys()
+		check_for_missing_organs()
 
 		if(check_mutations)
 			domutcheck(src)
@@ -201,7 +202,7 @@
 	var/loc_temp = get_temperature(readonly_environment)
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
-	if(stat != DEAD)
+	if(stat != DEAD || !HAS_TRAIT(src, TRAIT_HYPOTHERMIC))
 		stabilize_temperature_from_calories()
 
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
@@ -211,7 +212,7 @@
 			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
 				bodytemperature += max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
-		else
+		else if(!HAS_TRAIT(src, TRAIT_HYPOTHERMIC))
 			//Place is hotter than we are
 			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
@@ -1016,3 +1017,14 @@
 			total_damage *= 0.05
 
 	adjustToxLoss(total_damage)
+
+/// A proc that checks for any missing organs and gives you damage for not having them
+/mob/living/carbon/human/proc/check_for_missing_organs()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+
+	// Currently only checks for a liver
+	// This has to be here since we can't check this in the on_life of organs
+	var/obj/item/organ/internal/liver = get_int_organ(/obj/item/organ/internal/liver)
+	if(!liver && !isslimeperson(src))
+		adjustToxLoss(2)

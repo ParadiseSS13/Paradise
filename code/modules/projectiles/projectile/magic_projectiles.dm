@@ -374,12 +374,12 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 		else
 			var/obj/O = change
 			if(isgun(O))
-				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
+				new /mob/living/basic/mimic/copy/ranged(O.loc, O, firer)
 			else
-				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
-	else if(istype(change, /mob/living/simple_animal/hostile/mimic/copy))
+				new /mob/living/basic/mimic/copy(O.loc, O, firer)
+	else if(istype(change, /mob/living/basic/mimic/copy))
 		// Change our allegiance!
-		var/mob/living/simple_animal/hostile/mimic/copy/C = change
+		var/mob/living/basic/mimic/copy/C = change
 		C.ChangeOwner(firer)
 	return ..()
 

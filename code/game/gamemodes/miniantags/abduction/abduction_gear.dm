@@ -23,7 +23,7 @@ CONTENTS:
 /obj/item/abductor
 	name = "generic abductor item"
 	icon = 'icons/obj/abductor.dmi'
-	desc = "You are not supposed to be able to see this. If you can see this, please make an issue report on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 
 /obj/item/abductor/proc/AbductorCheck(user)
 	if(isabductor(user))
@@ -628,6 +628,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/wrench/abductor
 	name = "alien wrench"
@@ -637,6 +638,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"
@@ -650,6 +652,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	requires_fuel = FALSE
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/crowbar/abductor
 	name = "alien crowbar"
@@ -660,6 +663,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/wirecutters/abductor
 	name = "alien wirecutters"
@@ -669,6 +673,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/wirecutters/abductor/Initialize(mapload)
 	. = ..()
@@ -682,6 +687,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
 
 /obj/item/multitool/abductor/Initialize(mapload)
 	. = ..()
@@ -714,6 +720,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "scalpel"
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/hemostat/alien
 	name = "alien hemostat"
@@ -722,6 +729,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2500)
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/retractor/alien
 	name = "alien retractor"
@@ -730,6 +738,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 3000)
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/circular_saw/alien
 	name = "alien saw"
@@ -737,6 +746,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
 
 /obj/item/surgicaldrill/alien
 	name = "alien drill"
@@ -744,6 +754,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
 
 /obj/item/bonegel/alien
 	name = "alien bone gel"
@@ -751,6 +762,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/fix_o_vein/alien
 	name = "alien FixOVein"
@@ -758,6 +770,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /obj/item/bonesetter/alien
 	name = "alien bone setter"
@@ -765,6 +778,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 
 /////////////////////////////////////////
 //////////// JANITORIAL TOOLS ///////////
@@ -778,6 +792,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=3;engineering=3;abductor=2"
 	refill_rate = 50
 	mopspeed = 10
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
 
 /obj/item/soap/syndie/abductor
 	name = "alien soap"
@@ -793,6 +808,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "magnets=3;engineering=4;abductor=2"
 	max_uses = 40
 	uses = 20
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
 
 /obj/item/melee/flyswatter/abductor
 	name = "alien flyswatter"
@@ -802,6 +818,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "abductor=1"
 	force = 2 // Twice as powerful thanks to alien technology!
 	throwforce = 2
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
 
 /obj/item/reagent_containers/spray/cleaner/safety/abductor	// Essentially an Advanced Space Cleaner, but abductor-themed. For the implant.
 	name = "alien space cleaner"

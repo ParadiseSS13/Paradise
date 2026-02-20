@@ -215,3 +215,8 @@
 
 	. = ..()
 	message = initial(message)
+
+/datum/emote/living/carbon/gulp
+	key = "gulp"
+	key_third_person = "gulps"
+	message = "nervously gulps."

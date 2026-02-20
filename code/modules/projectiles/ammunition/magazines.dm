@@ -271,6 +271,7 @@
 	multiload = 0
 	slow_loading = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 10000)
 	///A var to check if the mag is being loaded
 	var/being_loaded = FALSE
 	/// There are two reloading processes ongoing so cancel them
@@ -611,7 +612,7 @@
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
 	icon_state = "handgun_ammo_battery"
-	materials = list(MAT_METAL = 20000)
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	var/charge = 1000
 
 // Overwrite description so shells aren't displayed

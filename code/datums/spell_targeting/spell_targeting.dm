@@ -66,7 +66,14 @@
  */
 /datum/spell_targeting/proc/InterceptClickOn(mob/user, params, atom/A, datum/spell/spell)
 	var/list/targets = choose_targets(user, spell, params, A)
+	var/list/final_targets
+	for(var/thing in targets)
+		if(spell.valid_target(thing, user))
+			final_targets += targets
+	if(!length(final_targets))
+		return FALSE // no targets
 	spell.try_perform(targets, user)
+	return TRUE
 
 /**
  * Checks whether or not the given target is valid. Calls spell.valid_target as well

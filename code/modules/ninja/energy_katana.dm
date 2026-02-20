@@ -65,8 +65,8 @@
 	if(msg)
 		to_chat(user, SPAN_NOTICE("[msg]"))
 
-/obj/item/katana/energy/New()
-	..()
+/obj/item/katana/energy/Initialize(mapload)
+	. = ..()
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
