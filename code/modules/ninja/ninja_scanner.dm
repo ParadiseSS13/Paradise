@@ -60,6 +60,7 @@
 			if(istype(c_target))
 				var/obj/item/restraints/handcuffs/cuffs = target.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 				qdel(cuffs)
+				c_target.handcuffed = FALSE
 				c_target.update_handcuffed()
 			cap_obj.handle_capture(target, target_loc)
 			ninja_obj.completed = TRUE
