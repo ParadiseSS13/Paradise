@@ -1,5 +1,4 @@
 /datum/action/cooldown/ninja
-	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_ninja"
 	button_icon_state = "genetic_view"
 
