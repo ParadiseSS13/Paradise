@@ -54,8 +54,14 @@
 				return TRUE
 			target.unbuckle(TRUE)
 			qdel(trapped_net)
+			var/target_loc = target.loc
 			do_teleport(target, pick(GLOB.syndieprisonwarp), 0, TRUE, bypass_area_flag = TRUE)
-			cap_obj.handle_capture(target, target.loc)
+			var/mob/living/carbon/c_target = target
+			if(istype(c_target))
+				var/obj/item/restraints/handcuffs/cuffs = target.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
+				qdel(cuffs)
+				c_target.update_handcuffed()
+			cap_obj.handle_capture(target, target_loc)
 			ninja_obj.completed = TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			ninja_obj.complete_objective()
