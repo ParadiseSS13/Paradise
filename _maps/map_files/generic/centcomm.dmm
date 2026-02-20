@@ -3504,6 +3504,7 @@
 "mE" = (
 /obj/structure/bed/wood,
 /obj/item/bedsheet/black,
+/obj/effect/landmark/spawner/ninja,
 /turf/simulated/floor/wood,
 /area/ninja/outpost)
 "mF" = (
