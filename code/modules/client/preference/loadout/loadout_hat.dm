@@ -309,12 +309,12 @@
 
 /datum/gear/hat/beret_job/md
 	display_name = "Beret, doctor"
-	path = /obj/item/clothing/head/beret/md
+	path = /obj/item/clothing/head/beret/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 /datum/gear/hat/beret_job/md_alt
 	display_name = "Beret, doctor corporate"
-	path = /obj/item/clothing/head/beret/md_alt
+	path = /obj/item/clothing/head/beret/med_alt
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
 

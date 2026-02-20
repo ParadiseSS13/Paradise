@@ -513,7 +513,7 @@
 /area/shuttle/administration)
 "cn" = (
 /obj/structure/closet/secure_closet/medical1,
-/obj/item/clothing/head/beret/md,
+/obj/item/clothing/head/beret/med,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "co" = (
