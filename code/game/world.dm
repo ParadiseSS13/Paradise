@@ -19,6 +19,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	// If this instance is listening on port 6666, the server will look for config/overrides_6666.toml
 	GLOB.configuration.load_overrides("config/overrides_[world.port].toml")
 
+	// Adds a hook for loading TM specific configs we can keep in repo.
+	GLOB.configuration.load_overrides("code/testmerge_config.toml")
+
 	#ifdef TEST_CONFIG_OVERRIDE
 	GLOB.configuration.load_overrides("config/tests/config_[TEST_CONFIG_OVERRIDE].toml")
 	#endif

@@ -1091,9 +1091,9 @@
 		var/mob/living/carbon/human/H = M
 		if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
 			if(isslimeperson(H))
-				new /obj/item/organ/internal/bone_tumor/slime_tumor(H)
+				new /obj/item/organ/internal/bone_tumor/slime_tumor(H, H)
 			else
-				new /obj/item/organ/internal/bone_tumor(H)
+				new /obj/item/organ/internal/bone_tumor(H, H)
 
 	return ..()
 
@@ -1651,6 +1651,10 @@
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
 						I.heal_internal_damage(4, TRUE)
+						if(istype(I, /obj/item/organ/internal/liver))
+							var/obj/item/organ/internal/liver/liver = I
+							liver.damaged_ticks = 0
+
 						if(istype(I, /obj/item/organ/internal/cyberimp)) // Fix disabled implants like the ipc charging implant
 							var/obj/item/organ/internal/cyberimp/crit = I
 							crit.crit_fail = FALSE

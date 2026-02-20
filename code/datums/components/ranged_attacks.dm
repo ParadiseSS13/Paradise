@@ -87,4 +87,6 @@
 		target_zone = ran_zone()
 	casing.fire(target, firer, null, null, null, target_zone, 0, firer)
 	casing.update_appearance()
+	if(istype(casing, /obj/item/ammo_casing/energy))
+		qdel(casing)
 	SEND_SIGNAL(parent, COMSIG_BASICMOB_POST_ATTACK_RANGED, target, modifiers)

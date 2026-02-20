@@ -237,6 +237,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1"
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 500)
 	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
 	var/obj/item/envelope/saved
 	/// How far away can the scanner scan mail or people

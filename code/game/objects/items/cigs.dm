@@ -27,7 +27,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	body_parts_covered = null
 	attack_verb = null
 	container_type = INJECTABLE
-	new_attack_chain = TRUE
 	/// Is the cigarette lit?
 	var/lit = FALSE
 	/// Do we require special items to be lit?
@@ -334,11 +333,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/random
 
-/obj/item/clothing/mask/cigarette/random/New()
+/obj/item/clothing/mask/cigarette/random/Initialize(mapload)
 	list_reagents = list("nicotine" = 40, pick("fuel", "saltpetre", "synaptizine", "green_vomit", "potass_iodide", "msg", "lexorin", "mannitol", \
 	"spaceacillin" ,"cryoxadone" ,"holywater", "tea" ,"egg" ,"haloperidol" ,"mutagen" ,"omnizine", "carpet", "aranesp", "cryostylane", "chocolate", \
 	"bilk", "cheese", "rum", "blood", "charcoal", "coffee", "ectoplasm", "space_drugs", "milk", "mutadone", "antihol", "teporone", "insulin", "salbutamol", "toxin") = 20)
-	..()
+	. = ..()
 
 /obj/item/clothing/mask/cigarette/candy
 	name = "candy cigarette"
@@ -428,9 +427,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "death_cig"
 	butt_type = /obj/item/cigbutt/death
 
-/obj/item/clothing/mask/cigarette/carcinoma/New()
+/obj/item/clothing/mask/cigarette/carcinoma/Initialize(mapload)
 	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
-	..()
+	. = ..()
 
 /obj/item/cigbutt
 	name = "cigarette butt"
@@ -642,7 +641,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "holo_cigar"
 	lefthand_file = 'icons/mob/inhands/smoking_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/smoking_righthand.dmi'
-	new_attack_chain = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',

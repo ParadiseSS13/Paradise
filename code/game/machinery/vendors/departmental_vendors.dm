@@ -128,6 +128,9 @@
 
 	refill_canister = /obj/item/vending_refill/dinnerware
 
+/obj/machinery/economy/vending/dinnerware/free
+	prices = list()
+
 /obj/machinery/economy/vending/hydronutrients
 	name = "\improper NutriMax"
 	desc = "A plant nutrients vendor."
@@ -204,6 +207,7 @@
 					/obj/item/seeds/glowshroom = 3,
 					/obj/item/seeds/grape = 3,
 					/obj/item/seeds/grass = 3,
+					/obj/item/seeds/harebell = 3,
 					/obj/item/seeds/lemon = 3,
 					/obj/item/seeds/lettuce = 3,
 					/obj/item/seeds/lime = 3,

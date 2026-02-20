@@ -2,7 +2,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking
 	name = "Default Cooking Appliance"
-	desc = "You shouldn't be seeing this. Please report this as an issue on GitHub."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cooking/machines.dmi'
 	density = TRUE
 	anchored = TRUE
@@ -88,6 +88,9 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 		return
 
 /obj/machinery/cooking/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork) && panel_open)
+		return NONE
+
 	if(istype(used, /obj/item/storage/part_replacer) || istype(used, /obj/item/autochef_remote))
 		return ..()
 

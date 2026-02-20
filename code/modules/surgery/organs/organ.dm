@@ -58,8 +58,8 @@
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
-	..(holder)
+/obj/item/organ/Initialize(mapload, mob/living/carbon/holder, datum/species/species_override = null)
+	. = ..()
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(ishuman(holder))
@@ -264,6 +264,7 @@
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 
 	owner.internal_organs -= src
 
@@ -342,6 +343,11 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		last_pain_message = msg
 		to_chat(owner, msg)
 		next_pain_time = world.time + 10 SECONDS
+
+/// Wound datum adding helper. Returns the wound datum
+/obj/item/organ/proc/add_wound(wound_path)
+	// Passing the organ with the arg puts it on the wound list automatically
+	return new wound_path(src)
 
 /// Finds a wound datum. `wound_to_find` should be a typepath, and if `exact` is FALSE, it will grab subtypes aswell.
 /obj/item/organ/proc/get_wound(wound_to_find, exact = FALSE)

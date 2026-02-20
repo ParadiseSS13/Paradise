@@ -377,24 +377,6 @@
 
 	return TRUE
 
- //* Book Spawners n'stuff *//
-/obj/item/book/random
-	icon_state = "random_book"
-	var/amount = 1
-
-/obj/item/book/random/Initialize(mapload)
-	. = ..()
-	END_OF_TICK(CALLBACK(src, PROC_REF(spawn_books)))
-
-/obj/item/book/random/proc/spawn_books()
-	var/list/books = GLOB.library_catalog.get_random_book(amount)
-	for(var/datum/cachedbook/book as anything in books)
-		new /obj/item/book(loc, book, TRUE, FALSE)
-	qdel(src)
-
-/obj/item/book/random/triple
-	amount = 3
-
  //* Codex Gigas *//
  //This book used to have its own dm file, due to devil code removal, it is now only a cosmetic item for the time being
  //this will be its resting place until it is used for something else eventually.

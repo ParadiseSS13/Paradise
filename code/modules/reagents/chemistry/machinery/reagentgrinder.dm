@@ -30,6 +30,7 @@
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/stack/sheet/saltpetre_crystal = list("saltpetre" = 8),
 		/obj/item/stack/sheet/plastic = list("plastic_dust" = 5),
+		/obj/item/stack/ore/bluespace_crystal = list("bluespace_dust" = 20),
 
 		// Blender Stuff
 		/obj/item/food/grown/tomato = list("ketchup" = 0),
@@ -165,6 +166,9 @@
 	default_unfasten_wrench(user, I)
 
 /obj/machinery/reagentgrinder/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
