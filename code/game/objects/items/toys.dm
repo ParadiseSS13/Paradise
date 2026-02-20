@@ -2054,7 +2054,7 @@
 //////////////////////////////////////////////////////
 
 /obj/item/toy/pool_noodle
-	name = "\improper boring pool noodle"
+	name = "boring pool noodle"
 	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "pool_noodle"
@@ -2064,7 +2064,7 @@
 /obj/item/toy/pool_noodle/Initialize(mapload)
 	if(!color)
 		return ..()
-	name = "\improper pool noodle"
+	name = "pool noodle"
 	desc = "A damp, flexible tube for unrestrained summer fun."
 	return ..()
 
