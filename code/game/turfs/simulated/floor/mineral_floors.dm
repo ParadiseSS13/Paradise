@@ -225,7 +225,7 @@
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"
 	icon_state = "tranquillite"
-	icons = list("tranquillite","tranquillite_dam")
+	icons = list("tranquillite", "tranquillite_dam")
 	floor_tile = /obj/item/stack/tile/mineral/tranquillite
 	footstep = null
 	barefootstep = null
