@@ -55,7 +55,7 @@
 			target.unbuckle(TRUE)
 			qdel(trapped_net)
 			var/target_loc = target.loc
-			do_teleport(target, pick(GLOB.syndieprisonwarp), 0, TRUE, bypass_area_flag = TRUE)
+			do_teleport(target, pick(GLOB.ninjaprisonwarp), 0, TRUE, bypass_area_flag = TRUE)
 			var/mob/living/carbon/c_target = target
 			if(istype(c_target))
 				var/obj/item/restraints/handcuffs/cuffs = target.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
