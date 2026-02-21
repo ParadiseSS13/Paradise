@@ -75,7 +75,8 @@ GLOBAL_LIST_EMPTY(bluespace_fluid_pipes)
 
 /obj/machinery/fluid_pipe/bluespace/get_adjacent_pipes()
 	. = ..()
-	.++
+	if(pair)
+		.+= pair
 
 /obj/machinery/fluid_pipe/bluespace/ex_act(severity)
 	pair.ex_act(severity) // Bluespace link moment
