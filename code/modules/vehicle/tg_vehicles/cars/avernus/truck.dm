@@ -14,6 +14,11 @@
 		/obj/structure/big_delivery,
 	))
 
+/obj/tgvehicle/sealed/car/truck/generate_actions()
+	. = ..()
+	initialize_controller_action_type(/datum/action/vehicle/sealed/headlights, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/sealed/garage_door, VEHICLE_CONTROL_DRIVE)
+
 /obj/tgvehicle/sealed/car/truck/MouseDrop_T(atom/movable/dropped, mob/living/user)
 	. = ..()
 

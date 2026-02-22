@@ -52,12 +52,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
-"aO" = (
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/station/service/janitor)
 "aR" = (
 /obj/machinery/door/airlock/bananium,
 /turf/simulated/floor/plasteel,
@@ -992,6 +986,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
+"iS" = (
+/obj/machinery/power/apc/directional/west,
+/turf/simulated/floor/plasteel,
+/area/station/service/hallway)
 "iW" = (
 /obj/machinery/door/airlock/research,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1594,6 +1592,15 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/iceplanet/surface)
+"nx" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hydroponics)
 "nz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2296,7 +2303,8 @@
 /area/station/science/storage)
 "uk" = (
 /obj/machinery/door/poddoor/shutters{
-	dir = 2
+	dir = 2;
+	id_tag = "serv_inner_garage"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/garage/service)
@@ -2405,6 +2413,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
+"vk" = (
+/obj/machinery/door_control{
+	id = "serv_inner_garage";
+	name = "Garage Door Control";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hallway)
 "vl" = (
 /turf/simulated/wall,
 /area/station/service/janitor)
@@ -2801,6 +2817,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
+"yR" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/station/service/hydroponics)
 "yS" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
@@ -3005,10 +3027,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "AW" = (
-/obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
 	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "AX" = (
@@ -5242,12 +5264,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/lavaland/surface/outdoors/unexplored/danger)
-"Ud" = (
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 8
-	},
-/turf/simulated/wall,
-/area/station/service/janitor)
 "Ug" = (
 /obj/structure/railing{
 	dir = 1
@@ -103644,7 +103660,7 @@ iE
 Dq
 iE
 iE
-iE
+vk
 iO
 Wd
 XX
@@ -104161,7 +104177,7 @@ iE
 iE
 iE
 pc
-Ud
+vl
 ee
 QF
 bw
@@ -104418,7 +104434,7 @@ iE
 iE
 iE
 iE
-aO
+vl
 cj
 ze
 cd
@@ -104669,7 +104685,7 @@ iE
 iE
 iE
 iE
-iE
+iS
 iE
 iE
 iE
@@ -106223,7 +106239,7 @@ Ea
 AW
 xs
 xs
-wb
+nx
 Ea
 Xb
 Xb
@@ -106994,9 +107010,9 @@ Ea
 Wq
 jo
 xs
-Dp
+yR
 Ea
-Xb
+fC
 Xb
 Xb
 Xb

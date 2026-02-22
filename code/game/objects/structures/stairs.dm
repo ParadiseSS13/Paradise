@@ -152,7 +152,7 @@
 		return // already see it
 	if(!(climber in viewers(STAIR_INDICATOR_RANGE + 1, src)))
 		return // can't see the staircase (+1 tile for some leeway)
-	var/turf/simulated/floor/floor_turf = get_step(src, UP)
+	var/turf/simulated/floor/floor_turf = get_step(src, traverse_dir)
 	if(!istype(floor_turf))
 		return // no place to go up to
 
