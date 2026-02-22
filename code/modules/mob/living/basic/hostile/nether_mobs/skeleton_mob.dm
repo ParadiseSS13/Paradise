@@ -170,6 +170,8 @@
 	ranged_burst_interval = 0.35 SECONDS
 	projectile_sound = 'sound/magic/magic_missile.ogg'
 	ai_controller = /datum/ai_controller/basic_controller/incursion/reanimator
+	/// Are we reanimating?
+	var/reanimating = FALSE
 	/// List of actions the reanimator has
 	var/list/reanimator_actions = list(
 		/datum/action/cooldown/mob_cooldown/summon_skulls = BB_REANIMATOR_SKULL_ACTION,
@@ -184,6 +186,9 @@
 		return ..()
 	if(target.stat != DEAD)
 		return ..()
+	if(reanimating)
+		return
+	reanimating = TRUE
 	new /obj/effect/temp_visual/cult/rune_spawn/rune7(target.loc, 5 SECONDS, "#252525")
 	new /obj/effect/temp_visual/cult/rune_spawn/rune7/inner(target.loc, 5 SECONDS, "#252525")
 	new /obj/effect/temp_visual/cult/rune_spawn/rune7/center(target.loc, 5 SECONDS, "#252525")
@@ -197,6 +202,8 @@
 	if(do_after_once(src, 2 SECONDS, target = target, attempt_cancel_message = "You stop reanimating a corpse.", interaction_key = "reanimator_revive"))
 		sleep(3 SECONDS) // Locks the revitalizer down for 2 seconds, but gives the player 5 seconds to return
 		reanimate(target)
+	else
+		reanimating = FALSE
 
 /mob/living/basic/skeleton/incursion/reanimator/proc/reanimate(mob/living/carbon/human/H)
 	visible_message(SPAN_WARNING("[name] releases dark tendrils into the flesh of [H], morphing their corpse into a grotesque creature!"))
@@ -215,7 +222,7 @@
 
 	var/mob/dead/observer/chosen_ghost
 	var/list/candidates
-	candidates = SSghost_spawns.poll_candidates("Would you like to play as a Reanimated Blank?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/basic/netherworld/blankbody, role_cleanname = "blank")
+	candidates = SSghost_spawns.poll_candidates("Would you like to play as a Reanimated Blank?", ROLE_DEMON, FALSE, poll_time = 10 SECONDS, source = /mob/living/basic/netherworld/blankbody, role_cleanname = "blank")
 	if(length(candidates))
 		chosen_ghost = pick(candidates)
 	if(chosen_ghost && blank.stat != DEAD)
@@ -223,6 +230,7 @@
 		blank.cancel_camera()
 		dust_if_respawnable(chosen_ghost)
 		to_chat(blank, SPAN_USERDANGER("You have been raised by the dead to serve as a footsoldier in the incursion. Strike down your foes!"))
+	reanimating = FALSE
 
 /obj/projectile/magic/necrotic_bolt
 	name = "necrotic bolt"
@@ -269,4 +277,4 @@
 	attack_verb_simple = "bites"
 	speak_emote = list("chatters")
 	throw_blocked_message = "is shrugged off by"
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/prowler
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles

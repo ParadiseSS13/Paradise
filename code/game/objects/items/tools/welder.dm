@@ -277,6 +277,7 @@
 	maximum_fuel = 40
 	toolspeed = 0.75
 	light_intensity = 1
+	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
 
 /obj/item/weldingtool/research/suicide_act(mob/living/user)
 
@@ -315,7 +316,7 @@
 	inhand_icon_state = "upindwelder"
 	belt_icon = "welder_upg"
 	maximum_fuel = 80
-	materials = list(MAT_METAL=70, MAT_GLASS=120)
+	materials = list(MAT_METAL = 800, MAT_GLASS = 500)
 	origin_tech = "engineering=3;plasmatech=2"
 
 /obj/item/weldingtool/hugetank/empty
@@ -328,7 +329,7 @@
 	inhand_icon_state = "exwelder"
 	belt_icon = "welder_exp"
 	maximum_fuel = 40
-	materials = list(MAT_METAL=70, MAT_GLASS=120)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_PLASMA = 1500, MAT_URANIUM = 200)
 	origin_tech = "materials=4;engineering=4;bluespace=3;plasmatech=4"
 	light_intensity = 1
 	toolspeed = 0.5

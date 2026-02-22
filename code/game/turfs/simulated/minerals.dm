@@ -13,6 +13,7 @@
 	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
+	flags = NO_RUST
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation_beta = RAD_BETA_BLOCKER
 	layer = EDGED_TURF_LAYER

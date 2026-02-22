@@ -19,6 +19,8 @@
 	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
 	var/uses = 30 //0 for unlimited uses
 	var/instant = 0
+	var/list/list_reagents = null // Note that reagents are transferred PER BITE!
+	var/flavor = "Delicious!"
 	/// What color will this crayon dye clothes, cables, etc? used for for updateIcon purposes on other objs
 	var/dye_color = DYE_RED
 	var/dat
@@ -155,8 +157,9 @@
 		times_eaten++
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		user.adjust_nutrition(5)
+		user.reagents.add_reagent_list(list_reagents)
 		if(times_eaten < max_bites)
-			to_chat(user, SPAN_NOTICE("You take a bite of the [name]. Delicious!"))
+			to_chat(user, SPAN_NOTICE("You take a bite of the [name]. [flavor]"))
 		else
 			to_chat(user, SPAN_WARNING("There is no more of [name] left!"))
 			qdel(src)
@@ -244,6 +247,38 @@
 	crayon_color = "#FFFFFF"
 	dye_color = DYE_WHITE
 
+/obj/item/toy/crayon/red/marine
+	list_reagents = list("mannitol" = 1)
+	flavor = "It tastes like victory!"
+
+/obj/item/toy/crayon/orange/marine
+	list_reagents = list("mannitol" = 1)
+	flavor = "It tastes like a round fruit, the name of which you can't quite recall..."
+
+/obj/item/toy/crayon/yellow/marine
+	list_reagents = list("mannitol" = 1)
+	flavor = "Just like a spicy cheese MRE!"
+
+/obj/item/toy/crayon/green/marine
+	list_reagents = list("mannitol" = 1)
+	flavor = "Mmm..  Minty!"
+
+/obj/item/toy/crayon/blue/marine
+	list_reagents = list("mannitol" = 2) // Best tasting color according to community polling.
+	flavor = "Tastes like blue!"
+
+/obj/item/toy/crayon/purple/marine
+	list_reagents = list("mannitol" = 1)
+	flavor = "It's grrrape!"
+
+/obj/item/toy/crayon/black/marine
+	list_reagents = list("mannitol" = 1)
+	flavor = "Licorice delicious!"
+
+/obj/item/toy/crayon/white/marine
+	list_reagents = list("mannitol" = 1)
+	flavor = "Its flavor remains a mystery!"
+
 /obj/item/toy/crayon/white/chalk
 	name = "detective's chalk"
 	desc = "A stick of white chalk for marking crime scenes."
@@ -310,6 +345,7 @@
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 	dye_color = null // not technically a crayon, so we're not gonna have it dye stuff in the laundry machine
 	consumable = FALSE // To stop you from eating spraycans. It's TOO SILLY!
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()

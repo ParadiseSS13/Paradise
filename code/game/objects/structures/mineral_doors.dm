@@ -25,6 +25,8 @@
 	var/damageSound = null
 	/// How much foam is on the door. Max 5 levels.
 	var/foam_level = 0
+	/// Is this door barricaded?
+	var/barricaded = FALSE
 
 /obj/structure/mineral_door/examine(mob/user)
 	. = ..()
@@ -78,6 +80,8 @@
 		return
 	if(foam_level)
 		return
+	if(barricaded)
+		return
 	if(isliving(user))
 		var/mob/living/M = user
 		if(M.client)
@@ -124,7 +128,11 @@
 /obj/structure/mineral_door/screwdriver_act(mob/living/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
 		to_chat(user, SPAN_WARNING("You can't figure out how to deconstruct [src]!"))
-		return TRUE
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("There's boards stopping you from levering [src]!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(!I.use_tool(src, user, 4 SECONDS * I.toolspeed * hardness, volume = I.tool_volume))
 		return TRUE
@@ -132,22 +140,28 @@
 	deconstruct(TRUE)
 	return TRUE
 
-/obj/structure/mineral_door/item_interaction(mob/living/user, obj/item/W, list/modifiers)
-	if(istype(W, /obj/item/pickaxe))
+/obj/structure/mineral_door/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/sheet/wood))
+		build_barricade(user, used)
+
+	if(istype(used, /obj/item/pickaxe))
 		if(flags & NODECONSTRUCT)
 			to_chat(user, SPAN_WARNING("You can't figure out how to deconstruct [src]!"))
-			return
-		var/obj/item/pickaxe/digTool = W
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/pickaxe/digTool = used
 		to_chat(user, SPAN_NOTICE("You start digging \the [src]."))
 		if(do_after(user, 4 SECONDS * digTool.toolspeed * hardness, target = src) && src)
 			to_chat(user, SPAN_NOTICE("You finished digging."))
 			deconstruct(TRUE)
+
 		return ITEM_INTERACT_COMPLETE
-	else if(user.a_intent != INTENT_HARM)
+
+	if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 		return ITEM_INTERACT_COMPLETE
-	else
-		return ..()
+
+	return ..()
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -158,6 +172,40 @@
 			else
 				new sheetType(T, max(sheetAmount - 2, 1))
 	qdel(src)
+
+/obj/structure/mineral_door/proc/build_barricade(mob/living/user, obj/item/stack/sheet/wood/used)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
+		return
+	
+	if(used.get_amount() < 2)
+		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
+		return
+
+	if(!density)
+		to_chat(user, SPAN_WARNING("[src] needs to be closed before it can be barricaded!"))
+		return
+
+	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
+	if(!do_after_once(user, 4 SECONDS, target = src))
+		return
+	
+	/// Quick checks to make sure nothing has changed during the timer.
+	if(!density || barricaded)
+		return
+
+	if(!used.use(2))
+		to_chat(user, SPAN_WARNING("You've run out of planks!"))
+		return
+
+	user.visible_message(
+		SPAN_WARNING("[user] boards up [src]!"),
+		SPAN_NOTICE("You board up [src]."),
+		SPAN_WARNING("You hear planks being nailed into something!")
+	)
+	var/obj/structure/barricade/wooden/crude/boards = new(loc)
+	boards.add_fingerprint(user)
+	barricaded = TRUE
 
 /obj/structure/mineral_door/silver
 	name = "silver door"

@@ -281,7 +281,7 @@
 	heat_amount = 100
 	power_amount = 200 KW
 	heat_amp_mod = 6
-	power_amp_mod = 1.6
+	power_amp_mod = 3
 	max_durability = 4000
 	gamma_rad = 300
 	adjacent_requirements = list(
@@ -346,9 +346,9 @@
 	name = "titanium moderator"
 	desc = "A nuclear moderation rod comprised primarily of cast titanium. For what it lacks in power amplification, it makes up for in versatility and durability."
 	icon_state = "mod_titanium"
-	max_durability = 5000
-	heat_amp_mod = 1.1
-	power_amp_mod = 1.3
+	max_durability = 5500
+	heat_amp_mod = 0.7
+	power_amp_mod = 1.5
 	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 2000)
 

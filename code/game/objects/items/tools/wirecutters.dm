@@ -24,18 +24,15 @@
 
 	new_attack_chain = TRUE
 
-/obj/item/wirecutters/Initialize(mapload)
+/obj/item/wirecutters/Initialize(mapload, param_color = null)
 	. = ..()
-	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
-	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
-
-/obj/item/wirecutters/New(loc, param_color = null)
-	..()
 	if(random_color)
 		if(!param_color)
 			param_color = pick("yellow", "red")
 		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	var/mob/living/carbon/mob = target
@@ -121,7 +118,7 @@
 	inhand_icon_state = "jawsoflife"
 	belt_icon = "jaws"
 	origin_tech = "materials=2;engineering=2"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL

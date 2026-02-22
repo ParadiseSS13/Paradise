@@ -119,8 +119,8 @@
 	return
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder)
-	..()
+/obj/item/organ/external/Initialize(mapload, mob/living/carbon/holder)
+	. = ..()
 	if(ishuman(holder))
 		var/mob/living/carbon/human/H = holder
 		icobase = H.dna.species.icobase
@@ -805,15 +805,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
-	var/picked_type = pick(typesof(/datum/wound/fracture))
-	var/datum/wound/fracture = new picked_type(src)
-	if(fracture_name_override)
-		fracture.name = fracture_name_override
-	wound_list += fracture
+	create_fracture_wound(fracture_name_override)
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
 		release_restraints()
+
+/obj/item/organ/external/proc/create_fracture_wound(fracture_name_override)
+	var/datum/wound/fracture = add_wound(pick(typesof(/datum/wound/fracture)))
+
+	if(fracture_name_override)
+		fracture.name = fracture_name_override
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
@@ -958,6 +960,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	var/mob/living/carbon/human/victim = owner
 
 	if(status & ORGAN_SPLINTED)

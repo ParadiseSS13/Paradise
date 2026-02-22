@@ -6,10 +6,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;materials=3;magnets=3"
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
 	var/datum/ui_module/crew_monitor/crew_monitor
 
-/obj/item/sensor_device/New()
-	..()
+/obj/item/sensor_device/Initialize(mapload)
+	. = ..()
 	crew_monitor = new(src)
 
 /obj/item/sensor_device/Destroy()

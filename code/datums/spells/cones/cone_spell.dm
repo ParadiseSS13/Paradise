@@ -1,7 +1,19 @@
 /datum/spell/cone
+	create_attack_logs = FALSE
+	create_custom_logs = TRUE
+	var/cone_levels = 3
+	var/respect_density = TRUE
 
 /datum/spell/cone/create_new_targeting()
-	return new /datum/spell_targeting/cone
+	var/datum/spell_targeting/cone/C = new()
+	C.cone_levels = cone_levels
+	C.respect_density = respect_density
+	return C
+
+// Normally, cone spells will generate an attack log for every turf they loop over, while searching for targets.
+// With this override, all /aoe type spells will only generate 1 log, saying that the user has cast the spell.
+/datum/spell/cone/write_custom_logs(list/targets, mob/user)
+	add_attack_logs(user, null, "Cast the cone spell [name]", ATKLOG_ALL)
 
 /datum/spell/cone/cast(list/targets, mob/user)
 	var/level_counter = 1

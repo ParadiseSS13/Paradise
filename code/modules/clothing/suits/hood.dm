@@ -78,6 +78,7 @@
 			return
 		RemoveHood()
 
+
 /obj/item/clothing/head/hooded
 	var/obj/item/clothing/suit/hooded/suit
 

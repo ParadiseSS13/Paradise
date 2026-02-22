@@ -28,9 +28,13 @@
 #define ROLE_TOURIST			"Tourist"
 #define ROLE_VAMPIRE			"vampire"
 #define ROLE_MIND_FLAYER		"mindflayer"
+#define ROLE_HERETIC			"heretic"
 // Role tags for EVERYONE!
 #define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
+#define ROLE_GOLEM				"golem"
+#define ROLE_ROBOT_BRAIN		"robot brain"
+#define ROLE_ASH_WALKER			"ash walker"
 #define ROLE_GUARDIAN			"guardian"
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
@@ -49,7 +53,7 @@
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
 //(in game days played) to play that role
-GLOBAL_LIST_INIT(special_roles, list(
+GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_ABDUCTOR = /datum/game_mode/abduction, 		// Abductor
 	ROLE_BLOB, 											// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
@@ -57,22 +61,32 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
-	ROLE_PAI, 											// PAI
 	ROLE_REVENANT, 										// Revenant
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary
-	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_ELITE,											// Lavaland Elite
-	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor
-	ROLE_TOURIST,										// Tourist
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire
 	ROLE_ALIEN, 										// Xenomorph
 	ROLE_WIZARD = /datum/game_mode/wizard, 				// Wizard
 	ROLE_MIND_FLAYER,
+	ROLE_HERETIC,
+
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
 //	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported
 //	ROLE_GANG = /datum/game_mode/gang
 ))
+
+GLOBAL_LIST_INIT(special_roles_neutral, list(
+	ROLE_ASH_WALKER,
+	ROLE_GOLEM,
+	ROLE_PAI, // PAI
+	ROLE_ROBOT_BRAIN,
+	ROLE_SENTIENT, // Sentient animal
+	ROLE_TOURIST, // Tourist
+	ROLE_TRADER, // Trader
+))
+
+GLOBAL_LIST_INIT(special_roles, special_roles_antags | special_roles_neutral)
