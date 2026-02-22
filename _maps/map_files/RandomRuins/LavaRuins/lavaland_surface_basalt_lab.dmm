@@ -1,0 +1,1906 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"aH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"aN" = (
+/obj/effect/spawner/random/blood/often,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/effect/turf_decal/tiles/department/engineering/half,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"aY" = (
+/obj/effect/spawner/random/blood/often,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"be" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"br" = (
+/turf/template_noop,
+/area/template_noop)
+"bu" = (
+/obj/effect/spawner/random/blood/often,
+/obj/structure/sink/kitchen/directional/south,
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"bN" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4
+	},
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/basalt_lab)
+"cJ" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/loot/pet_uhhh_supplies,
+/obj/effect/spawner/random/plushies,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/basalt_lab)
+"da" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"dj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/atmos{
+	name = "Atmospherics"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"dy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"dD" = (
+/obj/structure/dresser,
+/obj/item/crowbar/small{
+	pixel_x = 1;
+	pixel_y = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/basalt_lab)
+"dS" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"er" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"fA" = (
+/obj/machinery/firealarm/directional/south,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"gc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ruin/unpowered/basalt_lab)
+"ha" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"hr" = (
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"hE" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"hK" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"ie" = (
+/obj/structure/fence/corner,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"in" = (
+/obj/structure/rack,
+/obj/item/holosign_creator/janitor{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/item/storage/bag/trash{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/item/lightreplacer{
+	pixel_x = -4;
+	pixel_y = -5
+	},
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"io" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/unpowered/basalt_lab)
+"jq" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ruin/unpowered/basalt_lab)
+"kd" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"kf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"kp" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"kv" = (
+/obj/item/hatchet/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"kG" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/item/storage/firstaid/brute{
+	pixel_x = 9;
+	pixel_y = 7
+	},
+/obj/item/clothing/neck/stethoscope{
+	pixel_x = -7;
+	pixel_y = -1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"kU" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/tower,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"kW" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden/crude,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"ll" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"lu" = (
+/obj/structure/table,
+/obj/machinery/cooking/grill/loaded,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/unpowered/basalt_lab)
+"lT" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"lW" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/loot/good_times,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/unpowered/basalt_lab)
+"mw" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/unpowered/basalt_lab)
+"mX" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"nw" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"nz" = (
+/obj/effect/spawner/random/trash/spread_tiles,
+/obj/effect/spawner/random/trash/spread_tiles,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/closet/crate/trashcart,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"nW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"of" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 8;
+	pixel_y = 11
+	},
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/half,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"oh" = (
+/obj/effect/spawner/random/blood/often,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"op" = (
+/obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"oF" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"oH" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"oY" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/unpowered/basalt_lab)
+"pz" = (
+/obj/effect/spawner/random/blood/often,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"pH" = (
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/access_button/offset/northwest,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"pI" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-4"
+	},
+/obj/machinery/computer/monitor{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"pP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"qg" = (
+/mob/living/basic/mining/hivelord/legion,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"qA" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/unpowered/basalt_lab)
+"rW" = (
+/obj/effect/turf_decal/trimline/department/security/arrow_cw,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"sb" = (
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ruin/unpowered/basalt_lab)
+"sj" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"sm" = (
+/obj/structure/toilet/directional/west,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/unpowered/basalt_lab)
+"sn" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/item/organ/internal/regenerative_core/legion{
+	pixel_x = -7;
+	pixel_y = 11
+	},
+/obj/item/organ/internal/regenerative_core/legion{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/obj/item/organ/internal/regenerative_core/legion{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"sW" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"uh" = (
+/obj/machinery/power/port_gen/pacman/super/upgraded,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/sign/engineering/power{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"uj" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/airlock_controller/air_cycler/directional/north,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"vc" = (
+/obj/structure/sink/puddle,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"vo" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"vx" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"vM" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"vP" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"vW" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"wc" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wu" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"wC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random/blood/often,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"xV" = (
+/obj/effect/turf_decal/trimline/department/medbay/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"yo" = (
+/obj/structure/bed,
+/obj/item/bedsheet/purple,
+/obj/item/stack/tile/wood,
+/mob/living/basic/mining/hivelord/legion/dwarf,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"yG" = (
+/obj/structure/safe/floor,
+/obj/effect/spawner/random/loot/coins,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/basalt_lab)
+"yH" = (
+/obj/machinery/atmospherics/unary/tank/air,
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"zG" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light,
+/obj/machinery/computer/secure_data/laptop{
+	dir = 1;
+	pixel_y = 4;
+	pixel_x = 3
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Ah" = (
+/obj/item/reagent_containers/glass/bottle/nutrient,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Ak" = (
+/obj/structure/cable/extra_insulated/pre_connect{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"AA" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"AS" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Bo" = (
+/obj/machinery/atmospherics/pipe/cap/visible{
+	dir = 1
+	},
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 9;
+	pixel_y = -3
+	},
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = -4;
+	pixel_y = -10
+	},
+/obj/effect/turf_decal/tiles/department/engineering/half,
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"BO" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/food_or_drink/three_course_meal,
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Cj" = (
+/obj/effect/spawner/random/blood/often,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Cz" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"CT" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"CV" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"CY" = (
+/obj/machinery/power/smes/upgraded,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"DM" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"DS" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"DV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Ed" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"El" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/potato,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"EQ" = (
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/access_button/offset/north,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"ER" = (
+/obj/machinery/firealarm/directional/east,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Fa" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Fh" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"FF" = (
+/obj/structure/closet/crate/radiation,
+/obj/item/stack/sheet/mineral/uranium/ten,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"FQ" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"FX" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered/basalt_lab)
+"Gb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Gh" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/kitchen/utensil/fork{
+	pixel_x = -9;
+	pixel_y = 1
+	},
+/obj/item/kitchen/utensil/spoon{
+	pixel_x = 10;
+	pixel_y = 1
+	},
+/obj/item/kitchen/knife{
+	pixel_x = 2;
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/unpowered/basalt_lab)
+"Gv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/effect/turf_decal/trimline/department/security/line,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Gx" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"GI" = (
+/mob/living/basic/mining/goliath,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Hc" = (
+/obj/machinery/firealarm/directional/west,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Hl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"HK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"HM" = (
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Ii" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/med_data/laptop,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Ir" = (
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Js" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"JG" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/computer/monitor{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Kx" = (
+/obj/machinery/door/airlock/silver,
+/obj/item/soap/homemade,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/unpowered/basalt_lab)
+"KA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"KM" = (
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Li" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"LL" = (
+/obj/item/stack/tile/wood,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/basalt_lab)
+"LY" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/item/firstaid_arm_assembly,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Mx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"MV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Nn" = (
+/obj/machinery/power/apc/reinforced/directional/south,
+/obj/structure/cable,
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"NY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/department/security/arrow_ccw,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Od" = (
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Oe" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Oz" = (
+/obj/effect/turf_decal/trimline/department/medbay/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"OI" = (
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/half{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"OL" = (
+/obj/effect/spawner/random/trash/spread_tiles,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"PL" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Qg" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/basalt_lab)
+"Qo" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Qr" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Qt" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"QJ" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"QK" = (
+/obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/engineering_construction{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/obj/item/painter{
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"QZ" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/shovel/spade,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Rb" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/random_species/miner,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Rc" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Rf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Rp" = (
+/obj/structure/fence,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"RM" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/item/stack/sheet/sinew{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/stack/sheet/sinew{
+	pixel_x = 7;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"RR" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"So" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"SF" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/tiles/department/virology/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"SJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Tu" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/item/restraints/handcuffs{
+	pixel_x = -3;
+	pixel_y = 12
+	},
+/obj/item/flash/cyborg{
+	pixel_x = 12;
+	pixel_y = -4
+	},
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Vl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-4"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Wh" = (
+/obj/structure/fence/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Wo" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"WJ" = (
+/mob/living/basic/mining/hivelord/legion,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"WL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"YQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"YR" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/seeds/tower,
+/obj/item/seeds/tower,
+/obj/item/seeds/tower,
+/obj/item/seeds/potato,
+/obj/item/seeds/potato,
+/obj/item/seeds/potato,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"YW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Za" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Zk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Zl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Zu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/mob/living/basic/mining/hivelord/legion,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Zv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"Zx" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"ZE" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+"ZO" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered/basalt_lab)
+
+(1,1,1) = {"
+br
+br
+br
+br
+br
+br
+br
+br
+wc
+wc
+wc
+wc
+wc
+wc
+wc
+wc
+wc
+wc
+br
+br
+br
+br
+br
+br
+"}
+(2,1,1) = {"
+br
+br
+br
+br
+br
+br
+br
+wc
+wc
+FX
+FX
+FX
+sb
+jq
+FX
+FX
+FX
+wc
+br
+br
+br
+br
+br
+br
+"}
+(3,1,1) = {"
+br
+br
+br
+br
+br
+br
+wc
+wc
+wc
+FX
+sn
+RM
+LY
+vP
+Hc
+wu
+FX
+qg
+br
+br
+br
+br
+br
+br
+"}
+(4,1,1) = {"
+br
+br
+br
+br
+wc
+wc
+wc
+bN
+wc
+FX
+Ii
+Oz
+Qo
+Gx
+Qo
+vP
+jq
+wc
+wc
+br
+br
+br
+br
+br
+"}
+(5,1,1) = {"
+br
+br
+br
+br
+wc
+FX
+FX
+gc
+FX
+FX
+kG
+xV
+WJ
+pP
+Oe
+vP
+sb
+wc
+Wh
+wc
+br
+br
+br
+br
+"}
+(6,1,1) = {"
+br
+br
+wc
+wc
+wc
+FX
+Wo
+YQ
+Qt
+FX
+sW
+Qo
+Qo
+Zl
+mX
+Za
+sb
+wc
+Rp
+wc
+wc
+wc
+wc
+br
+"}
+(7,1,1) = {"
+wc
+wc
+wc
+wc
+wc
+FX
+AS
+Cj
+Rb
+ZE
+be
+So
+mX
+Zl
+rW
+Zx
+FX
+nz
+Rp
+wc
+wc
+wc
+wc
+wc
+"}
+(8,1,1) = {"
+wc
+FX
+FX
+FX
+FX
+FX
+op
+Ed
+WL
+ha
+wC
+PL
+DV
+aG
+Gv
+zG
+FX
+FX
+FX
+FX
+FX
+FX
+FX
+wc
+"}
+(9,1,1) = {"
+wc
+FX
+yH
+dy
+of
+FX
+DS
+Gb
+KM
+FX
+vM
+Qo
+JG
+Qo
+NY
+Tu
+FX
+FQ
+Qr
+lW
+io
+lu
+FX
+wc
+"}
+(10,1,1) = {"
+wc
+FX
+in
+Cz
+aN
+dj
+Rf
+kp
+Nn
+FX
+oH
+Qo
+QK
+lT
+HK
+sj
+pz
+Zk
+Qo
+mw
+mw
+Gh
+FX
+wc
+"}
+(11,1,1) = {"
+wc
+FX
+OI
+vo
+Bo
+FX
+DS
+Gb
+KM
+FX
+vM
+mX
+pI
+GI
+kd
+YW
+nW
+SJ
+Mx
+AA
+Qo
+bu
+FX
+wc
+"}
+(12,1,1) = {"
+wc
+FX
+FX
+FX
+FX
+FX
+DS
+kf
+Js
+ZE
+be
+mX
+oh
+Qo
+Hl
+vP
+FX
+ER
+SF
+BO
+vW
+HM
+FX
+wc
+"}
+(13,1,1) = {"
+wc
+wc
+FX
+sm
+oY
+FX
+AS
+Li
+Zu
+MV
+aH
+DM
+aY
+mX
+Fa
+vP
+FX
+FX
+jq
+jq
+jq
+FX
+FX
+wc
+"}
+(14,1,1) = {"
+wc
+wc
+FX
+qA
+qA
+FX
+DS
+CT
+KM
+FX
+CY
+Fh
+QJ
+ZO
+Vl
+fA
+FX
+uh
+FF
+Rp
+wc
+wc
+wc
+wc
+"}
+(15,1,1) = {"
+wc
+FX
+FX
+Kx
+FX
+FX
+CV
+KA
+KM
+FX
+FX
+FX
+FX
+FX
+pH
+FX
+FX
+dS
+wc
+Rp
+wc
+wc
+br
+br
+"}
+(16,1,1) = {"
+wc
+FX
+dD
+Qg
+LL
+kW
+DS
+Zv
+RR
+FX
+wc
+wc
+FX
+vx
+hK
+ll
+FX
+Ak
+wc
+ie
+wc
+br
+br
+br
+"}
+(17,1,1) = {"
+wc
+FX
+yo
+yG
+cJ
+FX
+Ir
+hr
+Od
+FX
+wc
+wc
+FX
+uj
+da
+oF
+FX
+Rc
+wc
+wc
+wc
+br
+br
+br
+"}
+(18,1,1) = {"
+wc
+FX
+FX
+FX
+FX
+FX
+FX
+jq
+FX
+FX
+wc
+wc
+FX
+FX
+EQ
+FX
+FX
+Rc
+br
+br
+br
+br
+br
+br
+"}
+(19,1,1) = {"
+wc
+Rp
+El
+vc
+kU
+Rp
+YR
+wc
+Ah
+wc
+wc
+wc
+wc
+wc
+er
+hE
+hE
+nw
+br
+br
+br
+br
+br
+br
+"}
+(20,1,1) = {"
+wc
+Rp
+El
+wc
+QZ
+Rp
+wc
+wc
+OL
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+"}
+(21,1,1) = {"
+wc
+Rp
+wc
+wc
+wc
+Rp
+wc
+wc
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+"}
+(22,1,1) = {"
+qg
+ie
+kv
+wc
+wc
+ie
+wc
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+"}
+(23,1,1) = {"
+br
+wc
+wc
+wc
+wc
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+"}
