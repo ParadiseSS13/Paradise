@@ -273,6 +273,10 @@
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
+"cU" = (
+/obj/structure/stairs/east,
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "cX" = (
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
@@ -1266,6 +1270,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage)
+"kx" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "ky" = (
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
@@ -1326,6 +1334,10 @@
 "lt" = (
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage)
+"lD" = (
+/obj/structure/stairs/west,
+/turf/simulated/floor/plating,
+/area/station/maintenance/service)
 "lK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -1613,6 +1625,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
+"nE" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "nH" = (
 /obj/machinery/economy/merch,
 /turf/simulated/floor/plasteel,
@@ -37847,8 +37865,8 @@ BF
 BF
 BF
 BF
-BF
-BF
+kx
+tf
 BF
 bX
 FZ
@@ -38104,7 +38122,7 @@ BF
 BF
 BF
 BF
-BF
+bX
 BF
 BF
 bX
@@ -38354,9 +38372,9 @@ FZ
 FZ
 FZ
 FZ
-FZ
 bX
-BF
+bX
+nE
 BF
 BF
 BF
@@ -38611,8 +38629,8 @@ FZ
 FZ
 FZ
 FZ
-FZ
 bX
+BF
 BF
 BF
 BF
@@ -38869,7 +38887,7 @@ bX
 bX
 bX
 bX
-bX
+BF
 BF
 BF
 BF
@@ -39125,16 +39143,16 @@ bX
 BF
 BF
 BF
-BF
+bX
+cU
+cU
+bX
+kx
 bX
 bX
-BF
 bX
 bX
-bX
-bX
-bX
-BF
+kx
 bX
 BF
 yP
@@ -39382,12 +39400,12 @@ bX
 BF
 BF
 BF
-BF
-BF
-BF
-BF
+bX
+cU
+cU
 bX
 Rn
+XL
 XL
 XL
 Pg
@@ -39639,11 +39657,11 @@ bX
 BF
 BF
 BF
-BF
-BF
-BF
-BF
 bX
+bX
+bX
+bX
+BF
 BF
 BF
 Cp
@@ -39899,8 +39917,8 @@ BF
 BF
 BF
 BF
+kx
 BF
-bX
 BF
 BF
 BF
@@ -40156,7 +40174,6 @@ BF
 BF
 BF
 BF
-BF
 bX
 bX
 bX
@@ -40164,7 +40181,8 @@ bX
 bX
 bX
 bX
-BF
+bX
+kx
 bX
 bX
 bX
@@ -104662,8 +104680,8 @@ sW
 ze
 nd
 so
-pF
-pF
+lD
+lD
 so
 fC
 Xb
@@ -104919,8 +104937,8 @@ eq
 ze
 vb
 so
-pF
-pF
+lD
+lD
 so
 Xb
 Xb

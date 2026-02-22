@@ -1572,6 +1572,7 @@
 #include "code\game\objects\structures\signs.dm"
 #include "code\game\objects\structures\snow.dm"
 #include "code\game\objects\structures\spirit_board.dm"
+#include "code\game\objects\structures\stairs.dm"
 #include "code\game\objects\structures\statues.dm"
 #include "code\game\objects\structures\streetlights.dm"
 #include "code\game\objects\structures\table_frames.dm"

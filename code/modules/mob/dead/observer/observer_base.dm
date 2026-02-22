@@ -971,3 +971,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(HAS_MIND_TRAIT(src, TRAIT_MENTOR_OBSERVING))
 		log_debug("[key_name(src)] ended up in regular cleanup_observe rather than the mentor cleanup observe despite having TRAIT_MENTOR_OBSERVING. This is likely a bug and may result in them being stuck outside of their bodies.")
 	cleanup_observe()
+
+/mob/dead/observer/verb/ghost_move_down()
+	set name = "Move Down"
+	set category = "Ghost"
+
+	if(is_upper_level(z))
+		Move(get_step(src, DOWN))
+		to_chat(src, SPAN_NOTICE("You move downwards."))
+	else
+		to_chat(src, SPAN_WARNING("You cannot move downwards from here."))
+
+/mob/dead/observer/verb/ghost_move_up()
+	set name = "Move Upwards"
+	set category = "Ghost"
+
+	if(is_lower_level(z))
+		Move(get_step(src, UP))
+		to_chat(src, SPAN_NOTICE("You move upwards."))
+	else
+		to_chat(src, SPAN_WARNING("You cannot move upwards from here."))

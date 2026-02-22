@@ -94,13 +94,6 @@
 /obj/effect/spawner/random/giant_spiders,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"iC" = (
-/obj/effect/spawner/random/dirt/frequent,
-/obj/structure/sign/nosmoking_1{
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel,
-/area/template_noop)
 "jW" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/light/small/autoattach/deepmaints,
@@ -131,13 +124,6 @@
 /obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"oE" = (
-/obj/effect/spawner/random/dirt/frequent,
-/obj/structure/sign/nosmoking_1{
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel,
-/area/template_noop)
 "oU" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/closet/l3closet,
@@ -157,12 +143,10 @@
 "re" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/bookcase/metal,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/library_book,
+/obj/effect/spawner/random/library_book,
+/obj/effect/spawner/random/library_book,
+/obj/effect/spawner/random/library_book,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "rw" = (
@@ -2651,7 +2635,7 @@ bP
 (42,1,1) = {"
 bP
 bP
-iC
+Jw
 IT
 DS
 DS
@@ -2763,7 +2747,7 @@ DS
 DS
 DS
 IT
-oE
+Jw
 bP
 bP
 bP
@@ -3291,7 +3275,7 @@ Jw
 Jw
 Jw
 Jw
-Wf
+Jw
 Jw
 cB
 Jw
@@ -3344,7 +3328,7 @@ ya
 Jw
 Jw
 ya
-Jw
+jW
 Jw
 rU
 Jw
@@ -3968,7 +3952,7 @@ Jw
 Jw
 Jw
 Jw
-Jw
+jW
 Jw
 Ti
 Jw
@@ -4019,7 +4003,7 @@ Jw
 Jw
 Jw
 Jw
-Wf
+Jw
 Jw
 Jw
 Jw
@@ -4500,7 +4484,7 @@ bP
 bP
 BE
 Jw
-Jw
+jW
 Jw
 BE
 bP
@@ -4593,7 +4577,7 @@ Jw
 Jw
 Jw
 Jw
-Jw
+jW
 Ti
 Jw
 bP
@@ -4603,7 +4587,7 @@ KA
 bP
 bP
 BE
-jW
+Jw
 ya
 Jw
 WR
@@ -4643,7 +4627,7 @@ Jw
 Jw
 Jw
 Jw
-jW
+Jw
 Jw
 Jw
 Jw
@@ -4760,7 +4744,7 @@ bP
 bP
 BE
 Jw
-Jw
+jW
 Jw
 BE
 bP

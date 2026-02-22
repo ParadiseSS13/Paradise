@@ -17,6 +17,7 @@ GLOBAL_LIST_EMPTY(navigation_computers)
 GLOBAL_LIST_EMPTY(hierophant_walls)
 GLOBAL_LIST_EMPTY(pandemics)
 GLOBAL_LIST_EMPTY(ladders)
+GLOBAL_LIST_EMPTY(stairs)
 
 GLOBAL_LIST_EMPTY(all_areas)
 GLOBAL_LIST_EMPTY_TYPED(all_unique_areas, /area) // List of all unique areas. AKA areas with there_can_be_many = FALSE

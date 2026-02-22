@@ -119,7 +119,7 @@
 
 /// Makes the base of the ladder transparent
 /obj/structure/ladder/proc/make_base_transparent()
-	if(!check_level_trait(z, ZTRAIT_DOWN)) // Ladders which are actually teleporting you to another z level
+	if(!check_level_trait(z, ZTRAIT_UPPER_LEVEL)) // Ladders which are actually teleporting you to another z level
 		return
 	new /obj/effect/abstract/ladder_hole(loc, src)
 

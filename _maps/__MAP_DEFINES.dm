@@ -36,9 +36,10 @@
 	/// Tcomms relays will always extend to this level.
 	#define TCOMM_RELAY_ALWAYS "Tcomm Relay Always"
 
-	/// Whether this z level is linked up/down.
-	#define ZTRAIT_UP "Up"
-	#define ZTRAIT_DOWN "Down"
+	/// Whether this z level is an upper/lower level of a station map.
+	/// We do not have "true" multi-z, instead we allow for station maps to have two hardcoded upper and lower levels.
+	#define ZTRAIT_LOWER_LEVEL "Up"
+	#define ZTRAIT_UPPER_LEVEL "Down"
 
 // Level names
 	#define MAIN_STATION "Main Station"
