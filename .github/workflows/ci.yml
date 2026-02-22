@@ -105,10 +105,6 @@ jobs:
     name: Build (Docker)
     runs-on: ubuntu-latest
     steps:
-      - name: Enable Docker Cache
-        uses: ScribeMD/docker-cache@0.5.0
-        with:
-          key: docker-${{ runner.os }}-${{ hashFiles('_build_dependencies.sh') }}
       - name: Checkout Project
         uses: actions/checkout@v6
       - name: Load Build Dependencies
@@ -147,6 +143,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Push Docker Image
         uses: docker/build-push-action@v6
         with:
@@ -161,6 +159,8 @@ jobs:
             STABLE_BYOND_MINOR=${{ steps.deps.outputs.STABLE_BYOND_MINOR }}
             VCS_REF=${{ steps.deps.outputs.VCS_REF }}
             BUILD_DATE=${{ steps.deps.outputs.BUILD_DATE }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   station_mapload_tests:
     name: Station Tests
