@@ -800,6 +800,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_WOOD = 2000, MAT_CLOTH = 1000)
 	origin_type = /obj/structure/chair/comfy/beach
+	force = 4
+	throwforce = 8
+	throw_range = 3
+	hitsound = 'sound/items/beach_chair_hit_1.ogg'
+	break_chance = 10
+	force_unwielded = 4
+	force_wielded = 6
 	var/stripes_color = null
 
 /obj/item/chair/beach/Initialize(mapload)
