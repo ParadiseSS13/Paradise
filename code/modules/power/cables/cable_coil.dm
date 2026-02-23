@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
+	desc = "A low-cost superconducting cable."
 	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
@@ -28,6 +29,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	/// Deletes the cable coil upon getting empty.
 	/// Used for RCL cable spools to stop the stack from being eaten.
 	var/destroy_upon_empty = TRUE
+	/// Used to decouple the physical color of the cable from the logical color. Used by RCL to stop its spool holder from being colored in.
+	var/spool_color
 	/// Type of cable this coil makes
 	var/cable_type = /obj/structure/cable
 	/// Bitflag of the types of cable we can add cable to with this coil.
@@ -67,17 +70,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		w_class = WEIGHT_CLASS_TINY
 	else
 		w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/stack/cable_coil/examine(mob/user)
-	. = ..()
-	if(!in_range(user, src))
-		return
-	if(get_amount() == 1)
-		. += "A short piece of power cable."
-	else if(get_amount() == 2)
-		. += "A piece of power cable."
-	else
-		. += "A coil of power cables."
 
 /obj/item/stack/cable_coil/can_merge(obj/item/stack/check, inhand = FALSE)
 	. = FALSE
@@ -148,7 +140,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Let the RCL handle it.
-	if(istype(used, /obj/item/stack/cable_coil/random/rcl_spool))
+	if(istype(used, /obj/item/stack/cable_coil/rcl))
 		used.item_interaction(user, src, modifiers)
 		return ..()
 
@@ -183,8 +175,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
 	var/obj/structure/cable/C = new cable_type(location)
-	C.cable_color(color)
-
+	if(destroy_upon_empty)
+		C.cable_color(color)
+	else
+		C.cable_color(spool_color)
 	return C
 
 /// called when cable_coil is clicked on a turf/simulated/floor
@@ -376,7 +370,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	return OXYLOSS
 
 /obj/item/stack/cable_coil/proc/color_rainbow()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	color = pick(COLOR_RED, COLOR_PINK, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN, COLOR_BLUE, COLOR_WHITE)
 	return color
 
 /obj/item/stack/cable_coil/five
@@ -385,30 +379,30 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/ten
 	amount = 10
 
-/obj/item/stack/cable_coil/yellow
-	color = COLOR_YELLOW
-
-/obj/item/stack/cable_coil/blue
-	color = COLOR_BLUE
-
-/obj/item/stack/cable_coil/green
-	color = COLOR_GREEN
-
 /obj/item/stack/cable_coil/pink
 	color = COLOR_PINK
+
+/obj/item/stack/cable_coil/yellow
+	color = COLOR_YELLOW
 
 /obj/item/stack/cable_coil/orange
 	color = COLOR_ORANGE
 
+/obj/item/stack/cable_coil/green
+	color = COLOR_GREEN
+
 /obj/item/stack/cable_coil/cyan
 	color = COLOR_CYAN
+
+/obj/item/stack/cable_coil/blue
+	color = COLOR_BLUE
 
 /obj/item/stack/cable_coil/white
 	color = COLOR_WHITE
 
 /obj/item/stack/cable_coil/random/Initialize(mapload)
 	. = ..()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
+	color = pick(COLOR_RED, COLOR_PINK, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN, COLOR_BLUE, COLOR_WHITE)
 
 /obj/item/stack/cable_coil/extra_insulated
 	name = "heavy duty cable coil"

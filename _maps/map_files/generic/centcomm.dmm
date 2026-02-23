@@ -9324,12 +9324,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "GV" = (
-/obj/item/stack/cable_coil/random/rcl_spool,
-/obj/item/stack/cable_coil/random/rcl_spool,
-/obj/item/stack/cable_coil/random/rcl_spool,
-/obj/item/stack/cable_coil/random/rcl_spool,
-/obj/item/stack/cable_coil/random/rcl_spool,
-/obj/item/stack/cable_coil/random/rcl_spool,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
 /obj/structure/shelf/engineering,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)

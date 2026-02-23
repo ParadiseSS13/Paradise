@@ -71557,7 +71557,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
-/obj/item/stack/cable_coil/random/rcl_spool,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/equipmentstorage)
 "rye" = (

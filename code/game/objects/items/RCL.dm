@@ -1,43 +1,38 @@
-/obj/item/stack/cable_coil/random/rcl_spool
+/obj/item/stack/cable_coil/rcl
 	name = "rapid cable layer (RCL)"
 	desc = "An electrician's best friend, this plastic spool can hold a large amount of cable and rapidly lay it down."
 	icon = 'icons/obj/rcl.dmi'
 	icon_state = "rcl"
 	inhand_icon_state = "rcl"
-	throwforce = 5
 	origin_tech = "engineering=4;materials=2"
 	materials = list(MAT_METAL = 5000)
 	destroy_upon_empty = FALSE
 	max_amount = RCL_MAX_SPOOL_SIZE
 	amount = RCL_MAX_SPOOL_SIZE
+	color = null
 	/// Are we rapidly laying cable?
 	var/active = FALSE
 	/// Remembers the last cable structure that got laid down to aid in further cable laying.
 	var/obj/structure/cable/last
 
-/obj/item/stack/cable_coil/random/rcl_spool/examine(mob/user)
+/obj/item/stack/cable_coil/rcl/examine(mob/user)
 	. = ..()
-	if(amount)
-		. += SPAN_NOTICE("It contains <b>[amount]/[RCL_MAX_SPOOL_SIZE]</b> cables.")
-	else
-		. += SPAN_WARNING("It's empty!")
+	. += SPAN_NOTICE("It can stack <b>[RCL_MAX_SPOOL_SIZE]</b> lengths of cable around its spool.")
 	. += SPAN_NOTICE("Use in-hand to swap to [active ? "standard" : "Rapid Cable Laying"] mode.")
 
-/obj/item/stack/cable_coil/random/rcl_spool/Initialize(mapload)
+/obj/item/stack/cable_coil/rcl/Initialize(mapload)
 	. = ..()
 	w_class = WEIGHT_CLASS_NORMAL
 	AddComponent(/datum/component/two_handed)
-	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	color_rainbow()
+	refresh_icon()
 
-/obj/item/stack/cable_coil/random/rcl_spool/Destroy()
+/obj/item/stack/cable_coil/rcl/Destroy()
 	last = null
 	active = FALSE
 	return ..()
 
-/obj/item/stack/cable_coil/random/rcl_spool/AltClick(mob/living/user)
-	return
-
-/obj/item/stack/cable_coil/random/rcl_spool/screwdriver_act(mob/user, obj/item/I)
+/obj/item/stack/cable_coil/rcl/screwdriver_act(mob/user, obj/item/I)
 	if(!amount)
 		to_chat(user, SPAN_WARNING("There's no cable to remove!"))
 		return
@@ -52,7 +47,7 @@
 			delta = amount
 		if(cable_merge_id == CABLE_LOW_POWER)
 			var/obj/item/stack/cable_coil/dropped_coil = new /obj/item/stack/cable_coil(user.loc, delta)
-			dropped_coil.color = color
+			dropped_coil.color = spool_color
 			use(delta, FALSE)
 		else
 			new /obj/item/stack/cable_coil/extra_insulated(user.loc, delta)
@@ -60,7 +55,7 @@
 	refresh_icon(user)
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/stack/cable_coil/random/rcl_spool/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/item/stack/cable_coil/rcl/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/stack/cable_coil))
 		return ..()
 
@@ -71,11 +66,11 @@
 
 	// When loading an empty cable spool, turn it into either standard or heavy based on what we're loading.
 	if(!amount)
-		color = used_coil.color
+		spool_color = used_coil.color
 		cable_type = used_coil.cable_type
 		cable_merge_id = used_coil.cable_merge_id
 	// Robot RCL can freely swap between cable types anyway, allow them to eat the cable.
-	else if((cable_merge_id != used_coil.cable_merge_id) && !is_cyborg)
+	else if((cable_merge_id != used_coil.cable_merge_id) && !is_robot_module())
 		to_chat(user, SPAN_WARNING("These coils are of different types!"))
 		return ITEM_INTERACT_COMPLETE
 
@@ -86,13 +81,18 @@
 	to_chat(user, SPAN_NOTICE("You add the cables to [src]. It now contains [amount]."))
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/stack/cable_coil/random/rcl_spool/proc/refresh_icon(mob/user)
+/obj/item/stack/cable_coil/rcl/proc/refresh_icon(mob/user)
+	if(color)
+		spool_color = color
+		color = null
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
-	user.update_inv_l_hand()
-	user.update_inv_r_hand()
+	if(user)
+		user.update_inv_l_hand()
+		user.update_inv_r_hand()
 
-/obj/item/stack/cable_coil/random/rcl_spool/update_icon_state()
+/obj/item/stack/cable_coil/rcl/update_overlays()
 	. = ..()
+	overlays.Cut()
 	if(!amount)
 		return
 
@@ -105,25 +105,28 @@
 		if(1 to 30)
 			coil_size = "low"
 	if(cable_merge_id == CABLE_LOW_POWER)
-		icon_state = "rcl_[coil_size]"
+		var/image/cable_overlay = image('icons/obj/rcl.dmi', icon_state = "rcl_[coil_size]")
+		cable_overlay.color = spool_color
+		overlays += cable_overlay
 	else if(cable_type == /obj/structure/cable/extra_insulated)
-		icon_state = "rcl_[coil_size]_hd"
+		overlays += "rcl_[coil_size]_hd"
 	else
-		icon_state = "rcl_[coil_size]_hd_connected"
+		overlays += "rcl_[coil_size]_hd_connected"
 
-/obj/item/stack/cable_coil/random/rcl_spool/update_overlays()
-	. = ..()
-	underlays.Cut()
-	var/image/rcl_underlay = image('icons/obj/rcl.dmi', icon_state = "rcl")
-	underlays += rcl_underlay
+/obj/item/stack/cable_coil/rcl/update_icon_state()
+	icon_state = "rcl"
 	if(cable_merge_id == CABLE_LOW_POWER)
-		inhand_icon_state = "rcl[amount ? "_[color]" : null]"
+		inhand_icon_state = "rcl[amount ? "_[spool_color]" : null]"
 	else if(cable_type == /obj/structure/cable/extra_insulated)
 		inhand_icon_state = "rcl[amount ?  "_hd" : null]"
 	else
 		inhand_icon_state = "rcl[amount ? "_hd_connected" : null]"
 
-/obj/item/stack/cable_coil/random/rcl_spool/proc/is_empty(mob/user, loud = 1)
+/obj/item/stack/cable_coil/rcl/update_name()
+	. = ..()
+	name = initial(name)
+
+/obj/item/stack/cable_coil/rcl/proc/is_empty(mob/user, loud = 1)
 	refresh_icon(user)
 	if(!amount)
 		if(loud)
@@ -131,12 +134,12 @@
 		return TRUE
 	return FALSE
 
-/obj/item/stack/cable_coil/random/rcl_spool/dropped(mob/wearer)
+/obj/item/stack/cable_coil/rcl/dropped(mob/wearer)
 	..()
 	active = FALSE
 	last = null
 
-/obj/item/stack/cable_coil/random/rcl_spool/activate_self(mob/user)
+/obj/item/stack/cable_coil/rcl/activate_self(mob/user)
 	if(..())
 		return FINISH_ATTACK
 
@@ -153,11 +156,11 @@
 				break
 	to_chat(user, SPAN_NOTICE("You [active ? "prepare to rapidly lay cable" : "stop rapidly laying cable"]."))
 
-/obj/item/stack/cable_coil/random/rcl_spool/on_mob_move(direct, mob/user)
+/obj/item/stack/cable_coil/rcl/on_mob_move(direct, mob/user)
 	if(active && isturf(user.loc))
 		trigger(user)
 
-/obj/item/stack/cable_coil/random/rcl_spool/proc/trigger(mob/user)
+/obj/item/stack/cable_coil/rcl/proc/trigger(mob/user)
 	if(is_empty(user, 0))
 		to_chat(user, SPAN_WARNING("[src] is empty!"))
 		return
@@ -183,44 +186,53 @@
 	last = place_turf(get_turf(loc), user, turn(user.dir, 180))
 	is_empty(user) //If we've run out, display message
 
-/obj/item/stack/cable_coil/random/rcl_spool/empty/Initialize(mapload)
+/obj/item/stack/cable_coil/rcl/empty/Initialize(mapload)
 	..()
 	use(RCL_MAX_SPOOL_SIZE, FALSE)
-	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	refresh_icon()
 
-/obj/item/stack/cable_coil/random/rcl_spool/robot
+/obj/item/stack/cable_coil/rcl/AltClick(mob/living/user)
+	return
+
+/obj/item/stack/cable_coil/rcl/update_wclass()
+	return
+
+/obj/item/stack/cable_coil/rcl/robot
 	name = "robotic rapid cable layer (RRCL)"
 	desc = "A Rapid Cable Layer used to hold a spool of cable for engineering and construction robots."
-	is_cyborg = TRUE
 	/// Tells us if we're laying basic or insulated cable.
 	var/heavy_mode = FALSE
 
-/obj/item/stack/cable_coil/random/rcl_spool/robot/examine(mob/user)
+/obj/item/stack/cable_coil/rcl/robot/Initialize(mapload)
+	..()
+	refresh_icon()
+
+/obj/item/stack/cable_coil/rcl/robot/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("[src] is currently dispensing [heavy_mode ? "<b>heavy duty cable</b>" : "<b>standard cable</b>"].")
 	. += SPAN_NOTICE("<b>Alt-Click</b> to swap between laying <b>standard</b> and <b>heavy duty</b> cable.")
 	. += SPAN_NOTICE("<b>Ctrl-Click</b> to [heavy_mode ? "toggle cable connectivity" : "select cable color"].")
 
-/obj/item/stack/cable_coil/random/rcl_spool/robot/screwdriver_act(mob/user, obj/item/I)
+/obj/item/stack/cable_coil/rcl/robot/screwdriver_act(mob/user, obj/item/I)
 	return
 
-/obj/item/stack/cable_coil/random/rcl_spool/robot/AltClick(mob/user, modifiers)
+/obj/item/stack/cable_coil/rcl/robot/AltClick(mob/user, modifiers)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	if(heavy_mode)
 		cable_type = /obj/structure/cable
 		cable_merge_id = CABLE_LOW_POWER
-		color = "red"
+		spool_color = "red"
 	else
 		cable_type = /obj/structure/cable/extra_insulated
 		cable_merge_id = CABLE_HIGH_POWER
-		color = null
+		spool_color = null
 	heavy_mode = !heavy_mode
 	to_chat(user, SPAN_NOTICE("You start dispensing [heavy_mode ? "heavy-duty cable" : "standard cable"]."))
-	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	refresh_icon()
 
-/obj/item/stack/cable_coil/random/rcl_spool/robot/CtrlClick(mob/user, modifiers)
+/obj/item/stack/cable_coil/rcl/robot/CtrlClick(mob/user, modifiers)
 	if(!heavy_mode)
 		var/new_cable_color = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("white","red","orange","yellow","green","blue","cyan","pink"))
 		if(!new_cable_color)
@@ -239,4 +251,4 @@
 			cable_type = /obj/structure/cable/extra_insulated/pre_connect
 			to_chat(user, SPAN_NOTICE("[src] is now dispensing open-connection heavy duty cable"))
 
-	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	refresh_icon()

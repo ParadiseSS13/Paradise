@@ -52531,7 +52531,7 @@
 "foI" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tiles/neutral,
-/obj/item/stack/cable_coil/random/rcl_spool,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "foU" = (

@@ -38372,7 +38372,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/stack/cable_coil/random/rcl_spool,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "cRR" = (

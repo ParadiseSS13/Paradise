@@ -105,8 +105,8 @@ By design, d1 is the smallest direction and d2 is the highest
 			return
 		coil.cable_join(src, user)
 
-	else if(istype(W, /obj/item/stack/cable_coil/random/rcl_spool))
-		var/obj/item/stack/cable_coil/random/rcl_spool/R = W
+	else if(istype(W, /obj/item/stack/cable_coil/rcl))
+		var/obj/item/stack/cable_coil/rcl/R = W
 		if(R.amount)
 			R.cable_join(src, user)
 			R.is_empty(user)
