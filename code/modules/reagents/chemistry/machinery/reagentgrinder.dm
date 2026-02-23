@@ -397,7 +397,7 @@
 
 /obj/machinery/reagentgrinder/proc/juice()
 	power_change()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(!beaker || beaker.reagents.holder_full())
 		return
@@ -432,7 +432,7 @@
 
 /obj/machinery/reagentgrinder/proc/grind()
 	power_change()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(!beaker || beaker.reagents.holder_full())
 		return

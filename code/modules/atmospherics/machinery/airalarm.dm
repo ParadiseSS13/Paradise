@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
 	for(var/obj/machinery/alarm/AA in alarm_area)
-		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
+		if(!(AA.machine_flags & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
 			AA.preset=preset
 			apply_preset(1) // Only this air alarm should send a cycle.
 
@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/process()
-	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != AIR_ALARM_READY || init_tick == SSair.milla_tick)
+	if((machine_flags & (NOPOWER|BROKEN)) || shorted || buildstage != AIR_ALARM_READY || init_tick == SSair.milla_tick)
 		return
 
 	var/turf/simulated/location = loc
@@ -391,7 +391,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 			if(AIR_ALARM_READY)
 				icon_state = "alarmx"
 		return
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_flags & (NOPOWER|BROKEN)) || shorted)
 		icon_state = "alarmp"
 		return
 
@@ -410,7 +410,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	. = ..()
 	underlays.Cut()
 
-	if(stat & NOPOWER || buildstage != AIR_ALARM_READY || wiresexposed || shorted)
+	if(machine_flags & NOPOWER || buildstage != AIR_ALARM_READY || wiresexposed || shorted)
 		return
 
 	underlays += emissive_appearance(icon, "alarm_lightmask")
@@ -420,7 +420,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	switch(mode)
 		if(AALARM_MODE_FILTERING)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
-				if(S.stat & (NOPOWER|BROKEN))
+				if(S.machine_flags & (NOPOWER|BROKEN))
 					continue
 				S.on = TRUE
 				S.scrub_O2 = (preset == AALARM_PRESET_VOX)
@@ -435,7 +435,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
-				if(P.stat & (NOPOWER|BROKEN))
+				if(P.machine_flags & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
 				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
@@ -445,7 +445,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		if(AALARM_MODE_CONTAMINATED)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
-				if(S.stat & (NOPOWER|BROKEN))
+				if(S.machine_flags & (NOPOWER|BROKEN))
 					continue
 				S.on = TRUE
 				S.scrub_CO2 = TRUE
@@ -458,7 +458,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
-				if(P.stat & (NOPOWER|BROKEN))
+				if(P.machine_flags & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
 				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
@@ -468,7 +468,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		if(AALARM_MODE_DRAUGHT)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
-				if(S.stat & (NOPOWER|BROKEN))
+				if(S.machine_flags & (NOPOWER|BROKEN))
 					continue
 				S.on = TRUE
 				S.widenet = FALSE
@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
-				if(P.stat & (NOPOWER|BROKEN))
+				if(P.machine_flags & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
 				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
@@ -486,7 +486,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		if(AALARM_MODE_REFILL)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
-				if(S.stat & (NOPOWER|BROKEN))
+				if(S.machine_flags & (NOPOWER|BROKEN))
 					continue
 				S.on = TRUE
 				S.scrub_CO2 = TRUE
@@ -499,7 +499,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
-				if(P.stat & (NOPOWER|BROKEN))
+				if(P.machine_flags & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
 				P.pressure_checks = ONLY_CHECK_EXT_PRESSURE
@@ -509,7 +509,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		if(AALARM_MODE_PANIC, AALARM_MODE_CYCLE)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
-				if(S.stat & (NOPOWER|BROKEN))
+				if(S.machine_flags & (NOPOWER|BROKEN))
 					continue
 				S.on = TRUE
 				S.widenet = TRUE
@@ -517,7 +517,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
-				if(P.stat & (NOPOWER|BROKEN))
+				if(P.machine_flags & (NOPOWER|BROKEN))
 					continue
 				P.on = FALSE
 				P.update_icon(UPDATE_ICON_STATE)
@@ -525,7 +525,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		if(AALARM_MODE_SIPHON)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
-				if(S.stat & (NOPOWER|BROKEN))
+				if(S.machine_flags & (NOPOWER|BROKEN))
 					continue
 				S.on = TRUE
 				S.widenet = FALSE
@@ -533,7 +533,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
-				if(P.stat & (NOPOWER|BROKEN))
+				if(P.machine_flags & (NOPOWER|BROKEN))
 					continue
 				P.on = FALSE
 				P.update_icon(UPDATE_ICON_STATE)
@@ -541,13 +541,13 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		if(AALARM_MODE_OFF)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
-				if(S.stat & (NOPOWER|BROKEN))
+				if(S.machine_flags & (NOPOWER|BROKEN))
 					continue
 				S.on = FALSE
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
-				if(P.stat & (NOPOWER|BROKEN))
+				if(P.machine_flags & (NOPOWER|BROKEN))
 					continue
 				P.on = FALSE
 				P.update_icon(UPDATE_ICON_STATE)
@@ -555,13 +555,13 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		if(AALARM_MODE_FLOOD)
 			for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
-				if(S.stat & (NOPOWER|BROKEN))
+				if(S.machine_flags & (NOPOWER|BROKEN))
 					continue
 				S.on = FALSE
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
-				if(P.stat & (NOPOWER|BROKEN))
+				if(P.machine_flags & (NOPOWER|BROKEN))
 					continue
 				P.on = TRUE
 				P.pressure_checks = ONLY_CHECK_INT_PRESSURE
@@ -571,7 +571,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm/proc/apply_danger_level()
 	var/new_area_danger_level = ATMOS_ALARM_NONE
 	for(var/obj/machinery/alarm/AA in alarm_area)
-		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
+		if(!(AA.machine_flags & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = max(new_area_danger_level, AA.danger_level)
 	alarm_area.atmosalert(new_area_danger_level, src)
 
@@ -828,12 +828,12 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				return GLOB.always_state
 		else
 			for(var/obj/machinery/computer/atmoscontrol/AC in view(user.client.maxview(), user))
-				if(!AC.stat)
+				if(!AC.machine_flags)
 					return GLOB.always_state
 
 	if(ishuman(user))
 		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
-			if(!AC.stat)
+			if(!AC.machine_flags)
 				return GLOB.always_state
 
 	return GLOB.default_state
@@ -935,7 +935,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
 						var/obj/machinery/atmospherics/unary/vent_pump/V = U
 
-						if(V.stat & (NOPOWER|BROKEN))
+						if(V.machine_flags & (NOPOWER|BROKEN))
 							return
 
 						switch(cmd)
@@ -956,7 +956,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 					else if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
 						var/obj/machinery/atmospherics/unary/vent_scrubber/S = U
 
-						if(S.stat & (NOPOWER|BROKEN))
+						if(S.machine_flags & (NOPOWER|BROKEN))
 							return
 
 						switch(cmd)
@@ -1063,7 +1063,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	switch(buildstage)
 		if(AIR_ALARM_READY)
 			if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))// trying to unlock the interface with an ID card
-				if(stat & (NOPOWER|BROKEN))
+				if(machine_flags & (NOPOWER|BROKEN))
 					return ITEM_INTERACT_COMPLETE
 
 				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
@@ -1166,7 +1166,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 /obj/machinery/alarm/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)

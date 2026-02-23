@@ -100,7 +100,7 @@
 	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
-	if((stat & (NOPOWER|BROKEN)) || !on)
+	if((machine_flags & (NOPOWER|BROKEN)) || !on)
 		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()

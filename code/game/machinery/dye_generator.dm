@@ -18,10 +18,10 @@
 
 /obj/machinery/dye_generator/power_change()
 	if(has_power() && anchored)
-		stat &= ~NOPOWER
+		machine_flags &= ~NOPOWER
 		set_light(2, l_color = dye_color)
 	else
-		stat |= NOPOWER
+		machine_flags |= NOPOWER
 		set_light(0)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -32,9 +32,9 @@
 /obj/machinery/dye_generator/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		. += "barbervend_off"
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			. += "barbervend_broken"
 	if(light)
 		underlays += emissive_appearance(icon, "barbervend_lightmask")
@@ -42,7 +42,7 @@
 /obj/machinery/dye_generator/attack_hand(mob/user)
 	..()
 	src.add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	var/temp = tgui_input_color(user, "Please select a dye color", "Dye Color")
 	if(isnull(temp))
@@ -64,8 +64,8 @@
 	return ..()
 
 /obj/machinery/dye_generator/obj_break(damage_flag)
-	if(!(stat & BROKEN))
-		stat |= BROKEN
+	if(!(machine_flags & BROKEN))
+		machine_flags |= BROKEN
 		update_icon(UPDATE_OVERLAYS)
 
 //Hair Dye Bottle

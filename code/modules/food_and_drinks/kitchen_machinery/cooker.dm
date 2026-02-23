@@ -185,7 +185,7 @@
 		if(istype(used, /obj/item/storage/part_replacer))
 			exchange_parts(user, used)
 			return ITEM_INTERACT_COMPLETE
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		to_chat(user, SPAN_WARNING("Close the panel first!"))

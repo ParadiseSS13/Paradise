@@ -69,7 +69,7 @@
 
 /obj/machinery/computer/fission_monitor/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	ui_interact(user)
 
@@ -77,7 +77,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/fission_monitor/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return FALSE
 
 	if(active)
@@ -110,7 +110,7 @@
 	// If we somehow dont have an engine anymore, handle it here.
 	if(!active)
 		return
-	if(active.stat & BROKEN)
+	if(active.machine_flags & BROKEN)
 		active = null
 		return
 
@@ -157,7 +157,7 @@
 	if(..())
 		return
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	if(action == "set_throttle")

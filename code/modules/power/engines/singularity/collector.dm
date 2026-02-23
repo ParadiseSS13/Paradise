@@ -161,9 +161,9 @@
 		. += SPAN_NOTICE("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"")
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(machine_flags & BROKEN) && !(flags & NODECONSTRUCT))
 		eject()
-		stat |= BROKEN
+		machine_flags |= BROKEN
 
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = FALSE
@@ -200,7 +200,7 @@
 	cut_overlays()
 	if(loaded_tank)
 		add_overlay("ptank")
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(active)
 		add_overlay(loaded_tank ? "on" : "error")

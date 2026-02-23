@@ -128,7 +128,7 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(stat & BROKEN || !user)
+	if(machine_flags & BROKEN || !user)
 		return ITEM_INTERACT_COMPLETE
 
 	// Borg gripper check here because it is an `ABSTRACT` item.
@@ -369,7 +369,7 @@
 	if(..(user))
 		return 1
 
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
 	if(user && user.loc == src)
@@ -415,7 +415,7 @@
 		to_chat(usr, SPAN_WARNING("The disposal unit's power is disabled!"))
 		return
 
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
 	src.add_fingerprint(usr)
@@ -470,7 +470,7 @@
 
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		mode = DISPOSALS_OFF
 		flush = FALSE
 
@@ -479,7 +479,7 @@
 /obj/machinery/disposal/update_icon_state()
 	. = ..()
 
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = "disposal-broken"
 		return
 
@@ -492,7 +492,7 @@
 	if(flush)
 		. += "dispover-handle"
 
-	if(stat & (NOPOWER|BROKEN) || mode == DISPOSALS_UNSCREWED)
+	if(machine_flags & (NOPOWER|BROKEN) || mode == DISPOSALS_UNSCREWED)
 		return
 
 	// 	check for items in disposal - occupied light
@@ -514,7 +514,7 @@
 // timed process
 // charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/process()
-	if(stat & BROKEN)			// nothing can happen if broken
+	if(machine_flags & BROKEN)			// nothing can happen if broken
 		change_power_mode(NO_POWER_USE)
 		return
 
@@ -531,7 +531,7 @@
 	if(flush && air_contents.return_pressure() >= SEND_PRESSURE)	// flush can happen even without power
 		flush()
 
-	if(stat & NOPOWER)			// won't charge if no power
+	if(machine_flags & NOPOWER)			// won't charge if no power
 		return
 
 	if(mode != DISPOSALS_RECHARGING)		// if off or ready, no need to charge
@@ -589,9 +589,9 @@
 // called when area power changes
 /obj/machinery/disposal/power_change()
 	if(!..())
-		return	// do default setting/reset of stat NOPOWER bit
+		return	// do default setting/reset of machine_flags NOPOWER bit
 	update()	// update icon
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)

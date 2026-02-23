@@ -91,7 +91,7 @@
 		return COMPONENT_CANCEL_TOOLACT
 
 /obj/machinery/autolathe/interact(mob/user)
-	if(shocked && !(stat & NOPOWER))
+	if(shocked && !(machine_flags & NOPOWER))
 		if(shock(user, 50))
 			return
 
@@ -269,7 +269,7 @@
 		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return ITEM_INTERACT_COMPLETE
 
-	if(stat)
+	if(machine_flags)
 		return ITEM_INTERACT_COMPLETE
 
 	// Disks in general
@@ -320,7 +320,7 @@
 	if(busy)
 		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return
-	if(shocked && !(stat & NOPOWER))
+	if(shocked && !(machine_flags & NOPOWER))
 		if(shock(user, 50))
 			return
 	if(panel_open)
@@ -483,7 +483,7 @@
 		else
 			return
 	while(D)
-		if((stat & (NOPOWER|BROKEN)) || disabled)
+		if((machine_flags & (NOPOWER|BROKEN)) || disabled)
 			being_built = new /list()
 			return 0
 		if(!can_build(D, multiplier))

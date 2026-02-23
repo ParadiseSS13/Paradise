@@ -41,7 +41,7 @@
 	. += SPAN_NOTICE("Gas nodes will only link with reactors when facing a reactor from the side opposite of the inlet pipe.")
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/process_atmos()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return FALSE
 	if(!linked_reactor)
 		return FALSE

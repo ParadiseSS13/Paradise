@@ -69,7 +69,7 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/volume_pump/process_atmos()
-	if((stat & (NOPOWER|BROKEN)) || !on)
+	if((machine_flags & (NOPOWER|BROKEN)) || !on)
 		return 0
 
 	// Pump mechanism just won't do anything if the pressure is too high/too low

@@ -147,7 +147,7 @@
 
 /obj/machinery/atmospherics/fission_reactor/examine(mob/user)
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		. += "A burning hole remains where the NGCR Reactor housed its core. It's inoperable in this state. The acrid smell permeates through even the thickest of suits."
 		switch(repair_step)
 			if(REACTOR_NEEDS_DIGGING)
@@ -228,7 +228,7 @@
 
 /obj/machinery/atmospherics/fission_reactor/update_overlays()
 	. = ..()
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		var/rod_state = round((100 - operating_power + 24) / 25)
 		rod_state = clamp(rod_state, 1, 5)
 		. += "rods_[control_rods_remaining]_[rod_state]"
@@ -251,10 +251,10 @@
 		build_reactor_network()
 
 /obj/machinery/atmospherics/fission_reactor/proc/set_broken(meltdown = TRUE)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
-	stat |= BROKEN
+	machine_flags |= BROKEN
 	overlays = null
 
 	if(safety_override && operating_power >= 100)
@@ -277,7 +277,7 @@
 	icon_state = "broken"
 
 /obj/machinery/atmospherics/fission_reactor/proc/set_fixed()
-	stat &= ~BROKEN
+	machine_flags &= ~BROKEN
 	icon_state = "reactor_off"
 	build_reactor_network()
 
@@ -286,7 +286,7 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/creature = user
-	if(istype(used, /obj/item/shovel) && repair_step == REACTOR_NEEDS_DIGGING && (stat & BROKEN))
+	if(istype(used, /obj/item/shovel) && repair_step == REACTOR_NEEDS_DIGGING && (machine_flags & BROKEN))
 		playsound(src, used.usesound, 50, TRUE)
 		if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 			playsound(src, used.usesound, 50, TRUE)
@@ -378,7 +378,7 @@
 			to_chat(user, SPAN_INFORMATION("You remove any remaining damaged structure from the housing."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
-	if(!(stat & BROKEN) && venting)
+	if(!(machine_flags & BROKEN) && venting)
 		if(I.use_tool(src, user, (8 SECONDS * I.toolspeed), volume = I.tool_volume))
 			venting = FALSE
 			return ITEM_INTERACT_COMPLETE
@@ -391,7 +391,7 @@
 			to_chat(user, SPAN_INFORMATION("You secure the new plastitanium structure in place."))
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
-	if(!(stat & BROKEN) && control_rods_remaining < TOTAL_CONTROL_RODS)
+	if(!(machine_flags & BROKEN) && control_rods_remaining < TOTAL_CONTROL_RODS)
 		if(I.use_tool(src, user, 0, volume = I.tool_volume))
 			if(do_after_once(user, (8 SECONDS * I.toolspeed), allow_moving = FALSE, target = src, progress = TRUE))
 				control_rods_remaining++
@@ -491,7 +491,7 @@
 		reactor.air_contents.merge(removed)
 
 /obj/machinery/atmospherics/fission_reactor/process()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		var/rad_type = pick(GAMMA_RAD, ALPHA_RAD, BETA_RAD)
 		radiation_pulse(src, 500, rad_type)
 		return

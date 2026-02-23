@@ -600,7 +600,7 @@
 	update_icon()
 
 /obj/machinery/door/airlock/cult/arePowerSystemsOn()
-	return !(stat & BROKEN)
+	return !(machine_flags & BROKEN)
 
 /obj/machinery/door/airlock/cult/narsie_act()
 	return

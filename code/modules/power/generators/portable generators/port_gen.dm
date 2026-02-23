@@ -31,7 +31,7 @@
 	update_icon()
 
 /obj/machinery/power/port_gen/proc/is_broken()
-	return (stat & (BROKEN|EMPED))
+	return (machine_flags & (BROKEN|EMPED))
 
 /obj/machinery/power/port_gen/proc/has_fuel() //Placeholder for fuel check.
 	return TRUE
@@ -55,26 +55,26 @@
 	var/duration = 10 MINUTES
 	switch(severity)
 		if(1)
-			stat &= BROKEN
+			machine_flags &= BROKEN
 			if(prob(75))
 				explode()
 				return
 		if(2)
 			if(prob(25))
-				stat &= BROKEN
+				machine_flags &= BROKEN
 			if(prob(10))
 				explode()
 				return
 		if(3)
 			if(prob(10))
-				stat &= BROKEN
+				machine_flags &= BROKEN
 			duration = 30 SECONDS
-	stat |= EMPED
+	machine_flags |= EMPED
 	addtimer(CALLBACK(src, PROC_REF(remove_emp)), duration)
 
 /// Callback proc for EMP status
 /obj/machinery/power/port_gen/proc/remove_emp()
-	stat &= ~EMPED
+	machine_flags &= ~EMPED
 
 /obj/machinery/power/port_gen/proc/explode()
 	explosion(loc, -1, 3, 5, -1, cause = "Exploding [name]")

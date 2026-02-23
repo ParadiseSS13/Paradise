@@ -5,7 +5,7 @@
 
 /obj/machinery/power/apc/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
-		if(!(stat & BROKEN))
+		if(!(machine_flags & BROKEN))
 			set_broken()
 		if(opened != APC_COVER_OFF)
 			opened = APC_COVER_OFF
@@ -48,12 +48,12 @@
 		if(I.use_tool(src, user, FALSE, volume = I.tool_volume))
 			if(has_electronics())
 				electronics_state = APC_ELECTRONICS_NONE
-				if(stat & BROKEN)
+				if(machine_flags & BROKEN)
 					user.visible_message(
 						SPAN_NOTICE("[user] rips out the broken the APC electronics inside [src]!"),
 						SPAN_NOTICE("You break the charred APC electronics and remove the remains."),
 						SPAN_WARNING("You hear metallic levering and a crack."))
-					stat |= MAINT
+					machine_flags |= MAINT
 					update_icon()
 					return
 
@@ -64,7 +64,7 @@
 						SPAN_NOTICE("You discarded the shorted board."),
 						SPAN_WARNING("You hear metallic levering.")
 					)
-					stat |= MAINT
+					machine_flags |= MAINT
 					update_icon()
 					return
 
@@ -76,7 +76,7 @@
 						)
 					malfai = null
 					malfhack = FALSE
-					stat |= MAINT
+					machine_flags |= MAINT
 					update_icon()
 					return
 
@@ -86,17 +86,17 @@
 					SPAN_WARNING("You hear metallic levering.")
 					)
 				new /obj/item/apc_electronics(loc)
-				stat |= MAINT
+				machine_flags |= MAINT
 				update_icon()
 				return
 
 	// 2. Closed APC
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		if(panel_open) // wires are exposed
 			to_chat(user, SPAN_WARNING("Exposed wiring prevents you from opening [src]!"))
 			return
 
-		if(cover_locked && !(stat & MAINT)) // locked...
+		if(cover_locked && !(machine_flags & MAINT)) // locked...
 			to_chat(user, SPAN_WARNING("The cover of [src] is locked!"))
 			return
 
@@ -105,7 +105,7 @@
 		update_icon()
 
 	// 3. Broken, closed APC
-	if((stat & BROKEN) && opened == APC_CLOSED)
+	if((machine_flags & BROKEN) && opened == APC_CLOSED)
 		if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
 			return
 
@@ -168,7 +168,7 @@
 
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, apc_frame_welding_time, amount = 3, volume = I.tool_volume))
-		if((stat & BROKEN) || opened == APC_COVER_OFF)
+		if((machine_flags & BROKEN) || opened == APC_COVER_OFF)
 			new sheet_type(loc)
 			if(shock_proof)
 				new /obj/item/stack/sheet/plastic(loc, 10)

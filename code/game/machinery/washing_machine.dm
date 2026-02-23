@@ -72,7 +72,7 @@
 /obj/machinery/washing_machine/AltClick(mob/user)
 	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(!washing && !door_open)
 		start_wash_cycle()
@@ -116,7 +116,7 @@
 	* proc in the insert chain depending if they're a mob or obj/item
 */
 /obj/machinery/washing_machine/proc/attempt_insert(mob/user, atom/movable/atom_to_insert)
-	if(!anchored || (stat & BROKEN) || (stat & NOPOWER))
+	if(!anchored || (machine_flags & BROKEN) || (machine_flags & NOPOWER))
 		return FALSE
 	if(!door_open)
 		to_chat(user, SPAN_WARNING("[src]'s door is closed!"))
@@ -281,7 +281,7 @@
 		wash_color = S.dye_color
 
 /obj/machinery/washing_machine/proc/start_wash_cycle()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	locate_color_source()
 	washing = TRUE

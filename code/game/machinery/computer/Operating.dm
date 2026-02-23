@@ -43,7 +43,7 @@
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
 	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	ui_interact(user)
 
@@ -51,7 +51,7 @@
 	if(..(user))
 		return
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	add_fingerprint(user)
@@ -163,7 +163,7 @@
 	if(..())
 		return
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	. = TRUE
@@ -196,7 +196,7 @@
 			return FALSE
 
 /obj/machinery/computer/operating/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(!table) //Does this Operating Computer have an Operating Table connected to it?
 		return

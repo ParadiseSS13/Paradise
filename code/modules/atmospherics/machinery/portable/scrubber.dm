@@ -21,7 +21,7 @@
 			A tank of gas can also be attached, allowing you to remove harmful gases from the attached tank.</span>"
 
 /obj/machinery/atmospherics/portable/scrubber/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 

@@ -103,7 +103,7 @@
 	return FALSE
 
 /obj/machinery/turretid/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/card/id)||istype(used, /obj/item/pda))
@@ -220,7 +220,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/update_icon_state()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "control_off"
 		set_light(0)
 	else if(enabled)

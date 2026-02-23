@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	data["paperinserted"] = copyitem ? TRUE : FALSE
 	data["destination"] = destination ? destination : FALSE
 	data["sendError"] = FALSE
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		data["sendError"] = "No Power"
 	else if(!data["authenticated"])
 		data["sendError"] = "Not Logged In"
@@ -241,7 +241,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if("send") // actually send the fax
 			if(!copyitem || !is_authenticated || !destination)
 				return
-			if(stat & (BROKEN|NOPOWER))
+			if(machine_flags & (BROKEN|NOPOWER))
 				return
 			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
 				var/cooldown_seconds = cooldown_seconds()
@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
 /obj/machinery/photocopier/faxmachine/proc/receivefax(datum/fax/incoming)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return FALSE
 
 	if(department == "Unknown")

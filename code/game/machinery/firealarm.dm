@@ -68,10 +68,10 @@ FIRE ALARM
 	if(wiresexposed)
 		icon_state = "firealarm_b[buildstage]"
 		return
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = "firealarm_broken"
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "firealarm_off"
 		return
 
@@ -89,7 +89,7 @@ FIRE ALARM
 	. = ..()
 	underlays.Cut()
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(is_station_contact(z) && show_alert_level)
@@ -223,7 +223,7 @@ FIRE ALARM
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(.) //damage received
-		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0 && !emagged)
+		if(obj_integrity > 0 && !(machine_flags & BROKEN) && buildstage != 0 && !emagged)
 			if(prob(33))
 				alarm()
 
@@ -233,8 +233,8 @@ FIRE ALARM
 	..()
 
 /obj/machinery/firealarm/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
-		stat |= BROKEN
+	if(!(machine_flags & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
+		machine_flags |= BROKEN
 		var/area/our_area = get_area(src)
 		LAZYREMOVE(our_area.firealarms, src)
 		update_icon()
@@ -242,7 +242,7 @@ FIRE ALARM
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 1)
-		if(!(stat & BROKEN))
+		if(!(machine_flags & BROKEN))
 			var/obj/item/I = new /obj/item/firealarm_electronics(loc)
 			if(!disassembled)
 				I.obj_integrity = I.max_integrity * 0.5
@@ -250,7 +250,7 @@ FIRE ALARM
 	qdel(src)
 
 /obj/machinery/firealarm/proc/update_fire_light(fire)
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 		return
 	else if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_EPSILON)
@@ -266,7 +266,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/proc/update_fire_sound(fire)
 	var/area/A = get_area(src)
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		GLOB.firealarm_soundloop.stop(src, TRUE)
 	else if(A.fire)
 		GLOB.firealarm_soundloop.start(src)
@@ -285,7 +285,7 @@ FIRE ALARM
 	update_fire_sound()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN) || buildstage != 2)
+	if(machine_flags & (NOPOWER|BROKEN) || buildstage != 2)
 		return 1
 
 	if(user.incapacitated())

@@ -58,7 +58,7 @@
 		. += "The charge meter reads [cell ? round(cell.percent(),1) : 0]%"
 
 /obj/machinery/space_heater/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 	if(cell)

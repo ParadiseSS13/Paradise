@@ -659,7 +659,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			var/cmd = params["cmd"]
 			var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber = locateUID(device_id)
 
-			if(scrubber.stat & (NOPOWER|BROKEN))
+			if(scrubber.machine_flags & (NOPOWER|BROKEN))
 				return
 
 			switch(cmd)

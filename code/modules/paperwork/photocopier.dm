@@ -260,7 +260,7 @@
   * * scancopy - If TRUE, cancopy does not check for an item on/inside the copier to copy, used for copying stored files
   */
 /obj/machinery/photocopier/proc/cancopy(scancopy = FALSE) //are we able to make a copy of a doc?
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return FALSE
 	if(copying) //are we in the process of copying something already?
 		to_chat(usr, SPAN_WARNING("[src] is busy, try again in a few seconds."))
@@ -434,7 +434,7 @@
 /obj/machinery/photocopier/proc/ai_text(mob/user)
 	if(!issilicon(user))
 		return
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	var/text = tgui_input_text(user, "Enter what you want to write:", "Write", multiline = TRUE, encode = FALSE)
 	if(!text)
@@ -453,7 +453,7 @@
 /obj/machinery/photocopier/proc/ai_pic()
 	if(!issilicon(usr))
 		return
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	if(toner < 5)
 		return

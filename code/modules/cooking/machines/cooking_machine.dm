@@ -227,7 +227,7 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 
 /obj/machinery/cooking/power_change()
 	. = ..()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		machine_state_change()
 
 /obj/machinery/cooking/proc/machine_state_change()

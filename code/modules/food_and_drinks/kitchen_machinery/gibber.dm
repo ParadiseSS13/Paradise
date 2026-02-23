@@ -55,7 +55,7 @@
 	return OBLITERATION
 
 /obj/machinery/gibber/update_icon_state()
-	if(operating && !(stat & (NOPOWER|BROKEN)))
+	if(operating && !(machine_flags & (NOPOWER|BROKEN)))
 		icon_state = "grinder_on"
 		return
 	icon_state = initial(icon_state)
@@ -64,7 +64,7 @@
 	. = ..()
 	if(dirty)
 		. += "grinder_bloody"
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(!occupant)
 		. += "grinder_jam"
@@ -80,7 +80,7 @@
 	go_out()
 
 /obj/machinery/gibber/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(operating)

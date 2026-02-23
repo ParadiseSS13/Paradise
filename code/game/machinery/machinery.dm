@@ -10,7 +10,7 @@
 	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.3
 	new_attack_chain = TRUE
-	var/stat = 0
+	var/machine_flags = 0
 
 	/// How is this machine currently passively consuming power?
 	var/power_state = IDLE_POWER_USE
@@ -134,12 +134,12 @@
 	* NOTE:Subtypes of machinery should call parent here unless they change this proc's behaviour regarding NOPOWER
 */
 /obj/machinery/proc/power_change()
-	var/old_stat = stat
+	var/old_stat = machine_flags
 	if(has_power(power_channel) || interact_offline) //if we don't require power, we don't give a shit about the power channel!
-		stat &= ~NOPOWER
+		machine_flags &= ~NOPOWER
 	else
-		stat |= NOPOWER
-	return old_stat != stat //performance saving for machines that use power_change() to update icons!
+		machine_flags |= NOPOWER
+	return old_stat != machine_flags //performance saving for machines that use power_change() to update icons!
 
 /obj/machinery/proc/reregister_machine()
 	if(machine_powernet?.powernet_area != get_area(src))
@@ -191,7 +191,7 @@
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
 	. = ..()
 	if(.)
-		stat &= ~BROKEN
+		machine_flags &= ~BROKEN
 
 // This proc is only staying because of the fingerprint adding
 // IT NEEDS TO DIE
@@ -206,7 +206,7 @@
 	return !inoperable(additional_flags)
 
 /obj/machinery/proc/inoperable(additional_flags = 0)
-	return ((!interact_offline && (stat & NOPOWER)) || (stat & (BROKEN|additional_flags)))
+	return ((!interact_offline && (machine_flags & NOPOWER)) || (machine_flags & (BROKEN|additional_flags)))
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!is_operational())
@@ -307,7 +307,7 @@
 
 /obj/machinery/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
-		stat |= BROKEN
+		machine_flags |= BROKEN
 
 /obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
 	if(I.tool_behaviour != TOOL_CROWBAR)
@@ -363,7 +363,7 @@
 
 	if(istype(used, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = used
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			to_chat(user, SPAN_NOTICE("[src] is too damaged to be fixed with nanopaste!"))
 			return ITEM_INTERACT_COMPLETE
 
@@ -462,7 +462,7 @@
 
 /obj/machinery/examine(mob/user)
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		. += SPAN_NOTICE("It looks broken and non-functional.")
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
@@ -557,7 +557,7 @@
 	return
 
 /obj/machinery/emp_act(severity)
-	if(power_state && !stat)
+	if(power_state && !machine_flags)
 		use_power(7500/severity)
 		. = TRUE
 	..()

@@ -190,7 +190,7 @@
 		projectile = initial_projectile
 
 /obj/machinery/porta_turret/update_icon_state()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = "[base_icon_state]_broken"
 	else
 		if((raised || raising) && has_power() && enabled)
@@ -392,7 +392,7 @@
 	if(syndicate)
 		to_chat(user, SPAN_DANGER("[src] is sealed tightly, tools won't help here."))
 		return
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		to_chat(user, SPAN_NOTICE("[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it."))
 		return
 
@@ -430,7 +430,7 @@
 	return TRUE
 
 /obj/machinery/porta_turret/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if((stat & BROKEN) && !syndicate)
+	if((machine_flags & BROKEN) && !syndicate)
 		return ITEM_INTERACT_COMPLETE
 
 	else if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
@@ -475,7 +475,7 @@
 	M.do_attack_animation(src)
 	if(M.melee_damage_upper == 0 || (M.melee_damage_type != BRUTE && M.melee_damage_type != BURN))
 		return
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		visible_message(SPAN_DANGER("[M] [M.attacktext] [src]!"))
 		..()
 	else
@@ -487,7 +487,7 @@
 	attacker.do_attack_animation(src)
 	if(attacker.melee_damage_upper == 0 || (attacker.melee_damage_type != BRUTE && attacker.melee_damage_type != BURN))
 		return FALSE
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		visible_message(SPAN_DANGER("[attacker] [attacker.attack_verb_continuous] [src]!"))
 		..()
 	else
@@ -497,7 +497,7 @@
 /obj/machinery/porta_turret/attack_alien(mob/living/carbon/alien/humanoid/M)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 		visible_message(SPAN_DANGER("[M] has slashed at [src]!"))
 		take_damage(15)
@@ -530,7 +530,7 @@
 	health -= damage_amount
 	if(damage_amount > 5 && prob(45) && spark_system && damage_flag != FIRE)
 		spark_system.start()
-	if(health <= 50 && !(stat & BROKEN))
+	if(health <= 50 && !(machine_flags & BROKEN))
 		die()	//the death process :(
 	if(health <= 0)
 		Destroy()
@@ -580,7 +580,7 @@
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
 	health = 50
-	stat |= BROKEN	//enables the BROKEN bit
+	machine_flags |= BROKEN	//enables the BROKEN bit
 	if(spark_system)
 		spark_system.start()	//creates some sparks because they look cool
 	update_icon(UPDATE_ICON_STATE)
@@ -588,7 +588,7 @@
 /obj/machinery/porta_turret/process()
 	//the main machinery process
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		if(!always_up)
 			//if the turret has no power or is broken, make the turret pop down if it hasn't already
 			pop_down()
@@ -740,7 +740,7 @@
 		return
 	if(raising || raised)
 		return
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	if(deployment_override)
 		pop_up()
@@ -776,7 +776,7 @@
 		return
 	if(raising || !raised)
 		return
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	set_raised_raising(raised, TRUE)
 	sleep(POPDOWN_ANIM_TIME)
@@ -1211,10 +1211,10 @@
 	var/area/syndicate_depot/core/depotarea
 
 /obj/machinery/porta_turret/syndicate/CanPass(atom/A)
-	return ((stat & BROKEN) || !isliving(A))
+	return ((machine_flags & BROKEN) || !isliving(A))
 
 /obj/machinery/porta_turret/syndicate/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
-	return ((stat & BROKEN) || !pass_info.is_living)
+	return ((machine_flags & BROKEN) || !pass_info.is_living)
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
@@ -1320,10 +1320,10 @@
 	return
 
 /obj/machinery/porta_turret/inflatable_turret/CanPass(atom/A)
-	return ((stat & BROKEN) || !isliving(A))
+	return ((machine_flags & BROKEN) || !isliving(A))
 
 /obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
-	return ((stat & BROKEN) || !pass_info.is_living)
+	return ((machine_flags & BROKEN) || !pass_info.is_living)
 
 // Meatpackers' ruin turret
 /obj/machinery/porta_turret/meatpacker_ship

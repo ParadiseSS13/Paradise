@@ -96,7 +96,7 @@
 				step_towards(I, src)
 
 /obj/machinery/dish_drive/attack_ai(mob/living/user)
-	if(stat)
+	if(machine_flags)
 		return
 	to_chat(user, SPAN_NOTICE("You send a disposal transmission signal to [src]."))
 	do_the_dishes(TRUE)

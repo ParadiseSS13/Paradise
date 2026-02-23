@@ -159,7 +159,7 @@
 	return
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
-	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)))
+	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (machine_flags & (NOPOWER|BROKEN)))
 		return FALSE
 	return TRUE
 

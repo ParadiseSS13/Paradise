@@ -213,7 +213,7 @@
 	if(!can_afford_design(D))
 		atom_say("Error: Insufficient materials to build [D.name]!")
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		atom_say("Error: Insufficient power!")
 		return
 

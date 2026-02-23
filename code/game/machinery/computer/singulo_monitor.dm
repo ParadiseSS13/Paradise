@@ -41,7 +41,7 @@
 
 /obj/machinery/computer/singulo_monitor/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	ui_interact(user)
 
@@ -136,7 +136,7 @@
 
 
 /obj/machinery/computer/singulo_monitor/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return FALSE
 	if(active)
 		if(last_energy != active.energy)
@@ -155,7 +155,7 @@
 	if(..())
 		return
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	. = TRUE

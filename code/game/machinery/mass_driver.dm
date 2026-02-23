@@ -37,7 +37,7 @@
 		id_tag = new_tag
 
 /obj/machinery/mass_driver/proc/drive(amount)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	use_power(500 * power)
@@ -59,7 +59,7 @@
 	flick("mass_driver1", src)
 
 /obj/machinery/mass_driver/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	drive()

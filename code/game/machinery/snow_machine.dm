@@ -102,7 +102,7 @@
 /obj/machinery/snow_machine/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		turn_on_or_off(FALSE, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 

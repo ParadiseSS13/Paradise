@@ -180,7 +180,7 @@
 	if(panel_open)
 		icon_state = "scanner" + (occupant ? "" : "_open") + "_maintenance"
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "scanner"
 		return
 	if(!occupant)

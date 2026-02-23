@@ -37,7 +37,7 @@
 /obj/machinery/flasher/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
@@ -45,7 +45,7 @@
 
 /obj/machinery/flasher/update_icon_state()
 	. = ..()
-	if((stat & NOPOWER) || !anchored)
+	if((machine_flags & NOPOWER) || !anchored)
 		icon_state = "[base_state]1-p"
 	else
 		icon_state = "[base_state]1"
@@ -54,7 +54,7 @@
 	. = ..()
 	underlays.Cut()
 	cut_overlays()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 
 	if(anchored)
@@ -93,7 +93,7 @@
 			L.Weaken(strength)
 
 /obj/machinery/flasher/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 	if(prob(75/severity))
@@ -151,7 +151,7 @@
 		return attack_hand(user)
 
 /obj/machinery/flasher_button/attack_hand(mob/user as mob)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(active)
 		return

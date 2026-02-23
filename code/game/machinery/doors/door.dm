@@ -423,7 +423,7 @@
 			else
 				flick("doorc1", src)
 		if("deny")
-			if(stat == CONSCIOUS)
+			if(!machine_flags)
 				flick("door_deny", src)
 
 /obj/machinery/door/proc/open()
@@ -527,7 +527,7 @@
 	return 1
 
 /obj/machinery/door/proc/hasPower()
-	return !(stat & NOPOWER)
+	return !(machine_flags & NOPOWER)
 
 /obj/machinery/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
@@ -572,11 +572,11 @@
 	return
 
 /obj/machinery/door/proc/hostile_lockdown(mob/origin)
-	if(!stat) //So that only powered doors are closed.
+	if(!machine_flags) //So that only powered doors are closed.
 		close() //Close ALL the doors!
 
 /obj/machinery/door/proc/disable_lockdown()
-	if(!stat) //Opens only powered doors.
+	if(!machine_flags) //Opens only powered doors.
 		open() //Open everything!
 
 /obj/machinery/door/GetExplosionBlock()

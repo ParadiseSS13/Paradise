@@ -83,7 +83,7 @@
 
 /obj/machinery/door/firedoor/power_change()
 	. = ..()
-	if(!(stat & NOPOWER))
+	if(!(machine_flags & NOPOWER))
 		latetoggle()
 	if(!.)
 		return
@@ -91,7 +91,7 @@
 	update_icon()
 
 /obj/machinery/door/firedoor/proc/adjust_light()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		set_light(0)
 		return
 	if(active_alarm)

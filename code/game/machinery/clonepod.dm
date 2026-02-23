@@ -622,7 +622,7 @@
 	. = ..()
 	add_fingerprint(user)
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	ui_interact(user)
@@ -666,7 +666,7 @@
 
 //TGUI
 /obj/machinery/clonepod/ui_interact(mob/user, datum/tgui/ui = null)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -717,7 +717,7 @@
 
 //Icon stuff
 /obj/machinery/clonepod/update_icon_state()
-	if(currently_cloning && !(stat & NOPOWER))
+	if(currently_cloning && !(machine_flags & NOPOWER))
 		icon_state = "pod_cloning"
 	else
 		icon_state = "pod_idle"

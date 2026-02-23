@@ -64,7 +64,7 @@
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			if(stat & BROKEN)
+			if(machine_flags & BROKEN)
 				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 60, TRUE)
 			else
 				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
@@ -72,9 +72,9 @@
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/power/solar/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(machine_flags & BROKEN) && !(flags & NODECONSTRUCT))
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		stat |= BROKEN
+		machine_flags |= BROKEN
 		unset_control()
 		update_icon(UPDATE_OVERLAYS)
 
@@ -84,7 +84,7 @@
 			var/obj/item/solar_assembly/S = locate() in src
 			if(S)
 				S.forceMove(loc)
-				S.give_glass(stat & BROKEN)
+				S.give_glass(machine_flags & BROKEN)
 		else
 			playsound(src, "shatter", 70, TRUE)
 			new /obj/item/shard(loc)
@@ -93,7 +93,7 @@
 
 /obj/machinery/power/solar/update_overlays()
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		. += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
 	else
 		var/image/panel = image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
@@ -119,7 +119,7 @@
 	//isn't the power received from the incoming light proportionnal to cos(p_angle) (Lambert's cosine law) rather than cos(p_angle)^2 ?
 
 /obj/machinery/power/solar/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	if(!control) //if there's no sun or the panel is not linked to a solar control computer, no need to proceed
 		return
@@ -135,8 +135,8 @@
 			unset_control()
 
 /obj/machinery/power/solar/proc/broken()
-	. = (!(stat & BROKEN))
-	stat |= BROKEN
+	. = (!(machine_flags & BROKEN))
+	machine_flags |= BROKEN
 	unset_control()
 	update_icon(UPDATE_OVERLAYS)
 
@@ -338,7 +338,7 @@
 
 //called by the sun controller, update the facing angle (either manually or via tracking) and rotates the panels accordingly
 /obj/machinery/power/solar_control/proc/update()
-	if(stat & (NOPOWER | BROKEN))
+	if(machine_flags & (NOPOWER | BROKEN))
 		return
 
 	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
@@ -348,11 +348,11 @@
 
 /obj/machinery/power/solar_control/update_overlays()
 	. = ..()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		. += "[icon_keyboard]_off"
 		return
 	. += icon_keyboard
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		. += "[icon_state]_broken"
 	else
 		. += icon_screen
@@ -367,7 +367,7 @@
 /obj/machinery/power/solar_control/attack_hand(mob/user)
 	if(..(user))
 		return TRUE
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	ui_interact(user)
 
@@ -438,7 +438,7 @@
 	var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)
 	for(var/obj/C in src)
 		C.forceMove(loc)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		to_chat(user, SPAN_NOTICE("The broken glass falls out."))
 		A.state = 4	// STATE_WIRES
 		new /obj/item/shard(drop_location())
@@ -454,7 +454,7 @@
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			if(stat & BROKEN)
+			if(machine_flags & BROKEN)
 				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 			else
 				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
@@ -462,16 +462,16 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/power/solar_control/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(machine_flags & BROKEN) && !(flags & NODECONSTRUCT))
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		stat |= BROKEN
+		machine_flags |= BROKEN
 		update_icon()
 
 /obj/machinery/power/solar_control/process()
 	lastgen = gen
 	gen = 0
 
-	if(stat & (NOPOWER | BROKEN))
+	if(machine_flags & (NOPOWER | BROKEN))
 		return
 
 	if(connected_tracker && connected_tracker.powernet != powernet) //NOTE : handled here so that we don't add trackers to the processing list
@@ -502,7 +502,7 @@
 
 
 /obj/machinery/power/solar_control/proc/broken()
-	stat |= BROKEN
+	machine_flags |= BROKEN
 	update_icon()
 
 //

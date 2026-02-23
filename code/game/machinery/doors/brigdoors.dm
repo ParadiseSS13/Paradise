@@ -144,7 +144,7 @@
 			RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
 	if(!length(targets))
-		stat |= BROKEN
+		machine_flags |= BROKEN
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/door_timer/proc/on_target_qdel(atom/target)
@@ -154,7 +154,7 @@
 // if it's less than 0, open door, reset timer
 // update the door_timer window and the icon
 /obj/machinery/door_timer/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(timing)
 		if(timeleft() <= 0)
@@ -181,7 +181,7 @@
 // Closes and locks doors, power check
 /obj/machinery/door_timer/proc/timer_start()
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return 0
 
 	if(!printed)
@@ -217,7 +217,7 @@
 
 // Opens and unlocks doors, power check
 /obj/machinery/door_timer/proc/timer_end()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return 0
 
 	// Reset vars
@@ -247,7 +247,7 @@
 		C.update_icon()
 
 	for(var/obj/machinery/treadmill_monitor/T in targets)
-		if(!T.stat)
+		if(!T.machine_flags)
 			T.redeem()
 		T.on = FALSE
 
@@ -406,10 +406,10 @@
 // if BROKEN, display blue screen of death icon AI uses
 // if timing=true, run update display function
 /obj/machinery/door_timer/update_icon_state()
-	if(stat & (NOPOWER))
+	if(machine_flags & (NOPOWER))
 		icon_state = "frame"
 		return
-	if(stat & (BROKEN))
+	if(machine_flags & (BROKEN))
 		set_picture("ai_bsod")
 		return
 	if(timing)

@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	return ..()
 
 /obj/machinery/message_server/process()
-	if(active && (stat & (BROKEN | NOPOWER)))
+	if(active && (machine_flags & (BROKEN | NOPOWER)))
 		active = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		return

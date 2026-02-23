@@ -104,7 +104,7 @@
 		return TRUE
 
 /obj/machinery/mech_bay_recharge_port/process()
-	if(stat & NOPOWER || !recharge_console)
+	if(machine_flags & NOPOWER || !recharge_console)
 		return
 	var/had_mecha = !isnull(recharging_mecha)
 	update_recharging_mecha()
@@ -130,7 +130,7 @@
 
 
 /obj/machinery/computer/mech_bay_power_console/update_overlays()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		icon_screen = "recharge_comp" // off
 	else
 		var/obj/item/stock_parts/cell/cell = recharge_port?.recharging_mecha?.cell

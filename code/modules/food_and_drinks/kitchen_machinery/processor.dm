@@ -226,7 +226,7 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/processor/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN)) //no power or broken
+	if(machine_flags & (NOPOWER|BROKEN)) //no power or broken
 		return
 
 	if(processing)

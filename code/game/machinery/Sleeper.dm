@@ -43,7 +43,7 @@
 
 /obj/machinery/sleeper/power_change()
 	..() //we don't check parent return here because we also care about BROKEN
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(machine_flags & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
 		set_light(0)
@@ -151,7 +151,7 @@
 	ui_interact(user)
 
 /obj/machinery/sleeper/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(panel_open)
@@ -279,7 +279,7 @@
 	if(panel_open)
 		to_chat(usr, SPAN_NOTICE("Close the maintenance panel first."))
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	. = TRUE
@@ -411,7 +411,7 @@
 /obj/machinery/sleeper/emp_act(severity)
 	if(filtering)
 		toggle_filter()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 	if(occupant)

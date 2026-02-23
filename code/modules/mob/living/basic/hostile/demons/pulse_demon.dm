@@ -350,7 +350,7 @@
 
 // can enter an apc at all?
 /mob/living/basic/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
-	return istype(A) && !(A.stat & BROKEN) && !A.shorted
+	return istype(A) && !(A.machine_flags & BROKEN) && !A.shorted
 
 /mob/living/basic/demon/pulse_demon/Move(newloc)
 	var/obj/machinery/power/new_power = locate(/obj/machinery/power) in newloc

@@ -109,7 +109,7 @@
 
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range,
 		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 	if(z != epicenter.z)
 		return
@@ -164,17 +164,17 @@
 		anom_refiner.refine_core(orig_light_range)
 
 /obj/machinery/doppler_array/update_icon_state()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
-		icon_state = !(stat & NOPOWER) && anchored ? initial(icon_state) : "[initial(icon_state)]-off"
+		icon_state = !(machine_flags & NOPOWER) && anchored ? initial(icon_state) : "[initial(icon_state)]-off"
 
 /// overrides base power_change to check to make sure machine is anchored
 /obj/machinery/doppler_array/power_change()
 	if(has_power(power_channel) && anchored)
-		stat &= ~NOPOWER
+		machine_flags &= ~NOPOWER
 	else
-		stat |= NOPOWER
+		machine_flags |= NOPOWER
 
 /obj/machinery/doppler_array/ui_state(mob/user)
 	return GLOB.default_state

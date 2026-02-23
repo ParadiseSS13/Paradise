@@ -246,7 +246,7 @@
 
 	var/comms_online = FALSE
 	if(istype(comms_computer))
-		if(!(comms_computer.stat & (NOPOWER|BROKEN)))
+		if(!(comms_computer.machine_flags & (NOPOWER|BROKEN)))
 			comms_online = TRUE
 	if(comms_online)
 		spawn(0)

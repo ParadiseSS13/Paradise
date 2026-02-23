@@ -503,7 +503,7 @@
 	var/mob/living/carbon/human/H = user
 	var/datum/organ/battery/power_source = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
 	if(istype(power_source))
-		if(A.emagged || A.stat & BROKEN)
+		if(A.emagged || A.machine_flags & BROKEN)
 			do_sparks(3, 1, A)
 			to_chat(H, SPAN_WARNING("The APC power currents surge erratically, damaging your chassis!"))
 			H.adjustFireLoss(10,0)

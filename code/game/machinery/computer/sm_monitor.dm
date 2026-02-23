@@ -21,7 +21,7 @@
 
 /obj/machinery/computer/sm_monitor/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	ui_interact(user)
 
@@ -118,7 +118,7 @@
 		active = null
 
 /obj/machinery/computer/sm_monitor/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return FALSE
 
 	if(active)
@@ -136,7 +136,7 @@
 	if(..())
 		return
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	. = TRUE

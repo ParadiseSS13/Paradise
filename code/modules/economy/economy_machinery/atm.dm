@@ -41,7 +41,7 @@
 
 /obj/machinery/economy/atm/update_icon_state()
 	. = ..()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "atm_off"
 	else
 		icon_state = "atm"
@@ -50,7 +50,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 
 	underlays += emissive_appearance(icon, "atm_lightmask")
@@ -58,14 +58,14 @@
 /obj/machinery/economy/atm/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
 /obj/machinery/economy/atm/process()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 
 /obj/machinery/economy/atm/attack_hand(mob/user)

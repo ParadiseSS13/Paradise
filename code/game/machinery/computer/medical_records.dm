@@ -208,7 +208,7 @@
 /obj/machinery/computer/med_data/ui_act(action, params)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(!GLOB.data_core.general.Find(active1))
@@ -434,7 +434,7 @@
 		SStgui.update_uis(src)
 
 /obj/machinery/computer/med_data/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return ..(severity)
 
 	for(var/datum/data/record/R in GLOB.data_core.medical)

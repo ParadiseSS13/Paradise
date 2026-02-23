@@ -109,10 +109,10 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			if(!(stat & EMPED))
+			if(!(machine_flags & EMPED))
 				previous_network = network
 				network = list()
-				stat |= EMPED
+				machine_flags |= EMPED
 				turn_off(null, FALSE, TRUE)
 				addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), (90 / severity) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 			..()
@@ -120,7 +120,7 @@
 /obj/machinery/camera/proc/reactivate_after_emp()
 	network = previous_network
 	previous_network = null
-	stat &= ~EMPED
+	machine_flags &= ~EMPED
 	turn_on(null, FALSE, TRUE)
 
 /obj/machinery/camera/ex_act(severity)
@@ -247,7 +247,7 @@
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return damage_amount
 	. = ..()
 
@@ -275,7 +275,7 @@
 /obj/machinery/camera/update_icon_state()
 	if(!status)
 		icon_state = "[initial(icon_state)]1"
-	else if(stat & EMPED)
+	else if(machine_flags & EMPED)
 		icon_state = "[initial(icon_state)]emp"
 	else
 		icon_state = "[initial(icon_state)]"
@@ -340,7 +340,7 @@
 /obj/machinery/camera/proc/can_use()
 	if(!status)
 		return 0
-	if(stat & EMPED)
+	if(machine_flags & EMPED)
 		return 0
 	return 1
 

@@ -15,7 +15,7 @@
 
 /obj/machinery/computer/brigcells/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	if(!allowed(user))
 		to_chat(user, SPAN_WARNING("Access denied."))

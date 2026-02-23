@@ -87,7 +87,7 @@
 		flick("doorctrl-denied", src)
 
 /obj/machinery/door_control/ticket_machine_button/update_icon_state()
-	if(!(stat & NOPOWER))
+	if(!(machine_flags & NOPOWER))
 		icon_state = "doorctrl0"
 
 /obj/machinery/ticket_machine/update_icon_state()

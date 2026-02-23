@@ -186,7 +186,7 @@
 	return D
 
 /obj/machinery/computer/security/attack_hand(mob/user)
-	if(stat || ..())
+	if(machine_flags || ..())
 		return
 
 	ui_interact(user)
@@ -265,7 +265,7 @@
 
 /obj/machinery/computer/security/telescreen/entertainment/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)

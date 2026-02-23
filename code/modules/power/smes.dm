@@ -61,7 +61,7 @@
 					break dir_loop
 
 	if(!terminal)
-		stat |= BROKEN
+		machine_flags |= BROKEN
 		return
 	terminal.master = src
 	update_icon()
@@ -92,7 +92,7 @@
 
 /obj/machinery/power/smes/update_overlays()
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
 	. += "smes-op[outputting ? TRUE : FALSE]"
@@ -121,7 +121,7 @@
 		if(!terminal)
 			to_chat(user, SPAN_ALERT("No power source found."))
 			return ITEM_INTERACT_COMPLETE
-		stat &= ~BROKEN
+		machine_flags &= ~BROKEN
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
@@ -189,7 +189,7 @@
 
 				make_terminal(user, temporary_direction, temporary_location)
 				terminal.connect_to_network()
-				stat &= ~BROKEN
+				machine_flags &= ~BROKEN
 		return ITEM_INTERACT_COMPLETE
 
 	// Disassembling the terminal
@@ -252,7 +252,7 @@
 	return clamp(round(ceil(charge * 5 / capacity)), 0, 5)
 
 /obj/machinery/power/smes/process()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
 	// Store machine state to see if we need to update the icon overlays
@@ -309,7 +309,7 @@
 // Called after all power processes are finished
 // Restores charge level to smes if there was excess this ptick
 /obj/machinery/power/smes/proc/restore()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
 	if(!outputting)
@@ -350,7 +350,7 @@
 	return GLOB.default_state
 
 /obj/machinery/power/smes/ui_interact(mob/user, datum/tgui/ui = null)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

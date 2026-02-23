@@ -64,8 +64,8 @@
 /obj/machinery/power/teg/power_change()
 	. = ..()
 	if(!anchored)
-		stat |= NOPOWER
-	if((stat & (BROKEN|NOPOWER)))
+		machine_flags |= NOPOWER
+	if((machine_flags & (BROKEN|NOPOWER)))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
@@ -73,7 +73,7 @@
 
 /obj/machinery/power/teg/update_overlays()
 	. = ..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(lastgenlev != 0)
@@ -86,7 +86,7 @@
 		. += emissive_appearance(icon, "teg-oc[lastcirc]")
 
 /obj/machinery/power/teg/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(!cold_circ || !hot_circ)
@@ -154,7 +154,7 @@
 	return attack_hand(user)
 
 /obj/machinery/power/teg/attack_ghost(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	ui_interact(user)
 

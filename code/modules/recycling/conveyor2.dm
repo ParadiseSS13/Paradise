@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return ..()
 
 	if(istype(used, /obj/item/conveyor_switch_construct))
@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		var/obj/item/conveyor_construct/C = new(loc)
 		C.id = id
 		transfer_fingerprints_to(C)
@@ -221,9 +221,9 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	AM.Move(get_step(loc, forwards), forwards, move_time)
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return FALSE
-	else if(stat & NOPOWER)
+	else if(machine_flags & NOPOWER)
 		return FALSE
 	else if(!operable)
 		return FALSE
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 // make the conveyor broken and propagate inoperability to any connected conveyor with the same conveyor datum
 /obj/machinery/conveyor/proc/make_broken()
-	stat |= BROKEN
+	machine_flags |= BROKEN
 	operable = FALSE
 	update_icon()
 	var/obj/machinery/conveyor/C = locate() in get_step(src, forwards)
@@ -302,9 +302,9 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 /obj/machinery/conveyor_switch/update_overlays()
 	. = ..()
-	if(position == DIRECTION_REVERSED && !(stat & NOPOWER))
+	if(position == DIRECTION_REVERSED && !(machine_flags & NOPOWER))
 		. += "redlight"
-	if(position == DIRECTION_FORWARDS && !(stat & NOPOWER))
+	if(position == DIRECTION_FORWARDS && !(machine_flags & NOPOWER))
 		. += "greenlight"
 
 /obj/machinery/conveyor_switch/oneway

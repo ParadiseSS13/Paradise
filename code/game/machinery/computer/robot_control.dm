@@ -18,7 +18,7 @@
 /obj/machinery/computer/robotics/attack_hand(mob/user as mob)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	ui_interact(user)
 

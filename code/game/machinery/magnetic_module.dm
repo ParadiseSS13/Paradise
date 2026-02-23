@@ -124,7 +124,7 @@
 						magnetic_process()
 
 /obj/machinery/magnetic_module/process()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		on = FALSE
 
 	// Sanity checks:
@@ -417,7 +417,7 @@
 
 	while(moving && length(rpath) >= 1)
 
-		if(stat & (BROKEN|NOPOWER))
+		if(machine_flags & (BROKEN|NOPOWER))
 			break
 
 		looping = TRUE

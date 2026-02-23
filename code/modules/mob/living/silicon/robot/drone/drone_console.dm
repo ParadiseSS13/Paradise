@@ -48,7 +48,7 @@
 	data["drone_progress"] = null
 	if(dronefab)
 		data["drone_fab"] = TRUE
-		data["fab_power"] = dronefab.stat & NOPOWER ? FALSE : TRUE
+		data["fab_power"] = dronefab.machine_flags & NOPOWER ? FALSE : TRUE
 		data["drone_prod"] = dronefab.produce_drones
 		data["drone_progress"] = dronefab.drone_progress
 	data["selected_area"] = drone_call_area
@@ -130,7 +130,7 @@
 
 	for(var/obj/machinery/drone_fabricator/fab in get_area(src))
 
-		if(fab.stat & NOPOWER)
+		if(fab.machine_flags & NOPOWER)
 			continue
 
 		dronefab = fab

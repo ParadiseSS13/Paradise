@@ -45,7 +45,7 @@
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/update_icon_state()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "light-p"
 		return
 	var/area/our_area = get_area(src)
@@ -55,7 +55,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 	var/area/our_area = get_area(src)
 	. += "light[our_area.lightswitch]"
@@ -78,7 +78,7 @@
 /obj/machinery/light_switch/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, 0.5)
@@ -86,7 +86,7 @@
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 

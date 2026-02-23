@@ -44,7 +44,7 @@
 	return
 
 /obj/machinery/keycard_auth/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
@@ -159,7 +159,7 @@
 	reset()
 
 /obj/machinery/keycard_auth/proc/receive_request(obj/machinery/keycard_auth/source)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	reset()
 

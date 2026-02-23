@@ -141,7 +141,7 @@
 	if(panel_open)
 		icon_state = "scanner_[occupant ? "" : "open_"]maintenance"
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "scanner"
 		return
 	if(!occupant)
@@ -381,7 +381,7 @@
 		if(..(user))
 			return
 
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_flags & (NOPOWER|BROKEN))
 			return
 
 		ui_interact(user)
@@ -486,7 +486,7 @@
 		return FALSE // don't update uis
 	if(irradiating) // Make sure that it isn't already irradiating someone...
 		return FALSE // don't update uis
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	add_fingerprint(usr)

@@ -21,13 +21,13 @@
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(3, 1)
 
 /obj/machinery/gameboard/update_icon_state()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "gboard_off"
 	else
 		icon_state = "gboard_on"

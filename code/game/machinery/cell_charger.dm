@@ -15,7 +15,7 @@
 /obj/machinery/cell_charger/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("There's [charging ? "\a [charging.name]" : "no cell"] in [src].")
-	if(charging && !(stat & (NOPOWER|BROKEN)))
+	if(charging && !(machine_flags & (NOPOWER|BROKEN)))
 		. += SPAN_NOTICE("Current charge: <b>[round(charging.percent(), 1)]%</b>")
 		if(charging.percent() < 100)
 			. += SPAN_NOTICE("- Recharging <b>[((charging.chargerate * recharge_coeff) / charging.maxcharge) * 100]%</b> cell charge per cycle.")
@@ -57,13 +57,13 @@
 		if(0.995 to 1)
 			. += "cell-o2"
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	. += "ccharger-o[chargelevel]"
 
 /obj/machinery/cell_charger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stock_parts/cell) && !panel_open)
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			to_chat(user, SPAN_WARNING("[src] is broken!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!anchored)
@@ -136,7 +136,7 @@
 	return
 
 /obj/machinery/cell_charger/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	if(charging)
@@ -149,7 +149,7 @@
 		recharge_coeff = C.rating
 
 /obj/machinery/cell_charger/process()
-	if(!charging || !anchored || (stat & (BROKEN|NOPOWER)))
+	if(!charging || !anchored || (machine_flags & (BROKEN|NOPOWER)))
 		return
 
 	if(charging.percent() >= 100)

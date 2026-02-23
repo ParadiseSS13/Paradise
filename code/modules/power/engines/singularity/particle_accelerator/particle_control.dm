@@ -77,7 +77,7 @@
 	if(active)
 		icon_state = "[reference]p[strength]"
 	else
-		if(stat & NOPOWER)
+		if(machine_flags & NOPOWER)
 			icon_state = "[reference]w"
 			return
 		else if(power_state && assembled)
@@ -125,14 +125,14 @@
 
 /obj/machinery/particle_accelerator/control_box/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		active = FALSE
 		change_power_mode(NO_POWER_USE)
-	else if(!stat && construction_state <= 3)
+	else if(!machine_flags && construction_state <= 3)
 		change_power_mode(IDLE_POWER_USE)
 	update_icon()
 
-	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
+	if((machine_flags & NOPOWER) || (!machine_flags && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
 			part.powered = FALSE

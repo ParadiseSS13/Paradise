@@ -368,7 +368,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
-	if(shocked && !(stat & NOPOWER))
+	if(shocked && !(machine_flags & NOPOWER))
 		if(shock(user, 100))
 			return
 	if(default_deconstruction_screwdriver(user, "[base_icon_state]", "[base_icon_state]", I))
@@ -599,7 +599,7 @@
 	return TRUE
 
 /obj/machinery/suit_storage_unit/attack_hand(mob/user)
-	if(..() || (stat & NOPOWER))
+	if(..() || (machine_flags & NOPOWER))
 		return
 	if(shocked && shock(user, 100))
 		return
@@ -638,7 +638,7 @@
 	if(..())
 		return
 	add_fingerprint(usr)
-	if(shocked && !(stat & NOPOWER))
+	if(shocked && !(machine_flags & NOPOWER))
 		if(shock(usr, 100))
 			return FALSE
 

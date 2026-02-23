@@ -293,7 +293,7 @@
 	attack_hand(user)
 
 /obj/machinery/bottler/attack_hand(mob/user)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	interact(user)
 
@@ -394,7 +394,7 @@
 	return
 
 /obj/machinery/bottler/update_icon_state()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = "bottler_broken"
 	else if(bottling)
 		icon_state = "bottler_on"

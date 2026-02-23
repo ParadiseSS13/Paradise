@@ -89,7 +89,7 @@
 	. = ..()
 	add_fingerprint(user)
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	ui_interact(user)
@@ -128,7 +128,7 @@
 	return desired_data
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui = null)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	var/datum/asset/simple/cloning/assets = get_asset_datum(/datum/asset/simple/cloning)
@@ -221,7 +221,7 @@
 /obj/machinery/computer/cloning/ui_act(action, params)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	var/datum/cloning_data/patient_data = scanner?.last_scan //For readability, mostly

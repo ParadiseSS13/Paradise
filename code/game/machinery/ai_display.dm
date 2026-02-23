@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 		user.ai_statuschange()
 
 /obj/machinery/ai_status_display/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 	mode = AI_DISPLAY_MODE_BSOD
@@ -36,13 +36,13 @@ GLOBAL_LIST_EMPTY(ai_displays)
 /obj/machinery/ai_status_display/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/ai_status_display/flicker()
-	if(stat & (NOPOWER | BROKEN))
+	if(machine_flags & (NOPOWER | BROKEN))
 		return FALSE
 
 	addtimer(CALLBACK(src, PROC_REF(un_spookify), mode), 2 SECONDS)
@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 
 /obj/machinery/ai_status_display/proc/un_spookify(our_real_state)
 	mode = our_real_state
-	if(stat & (NOPOWER | BROKEN))
+	if(machine_flags & (NOPOWER | BROKEN))
 		return FALSE
 	update_icon(UPDATE_OVERLAYS)
 
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 
 	underlays.Cut()
 
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 
 	switch(mode)

@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	. = ..()
 	underlays.Cut()
 
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 
 	. += "req_comp[newmessagepriority]"
@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	return ..()
 
 /obj/machinery/requests_console/attack_ghost(user as mob)
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 
 	ui_interact(user)

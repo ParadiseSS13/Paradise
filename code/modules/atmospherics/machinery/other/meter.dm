@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 		icon_state = "meterX"
 		return
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		icon_state = "meter0"
 		return
 
@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	if(get_dist(user, src) > 3 && !(is_ai(user) || istype(user, /mob/dead)))
 		. += SPAN_BOLDNOTICE("You are too far away to read it.")
 
-	else if(stat & (NOPOWER|BROKEN))
+	else if(machine_flags & (NOPOWER|BROKEN))
 		. += SPAN_DANGER("The display is off.")
 
 	else if(target)

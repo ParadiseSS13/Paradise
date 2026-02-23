@@ -99,16 +99,16 @@
 	update_icon()
 
 /obj/machinery/power/treadmill/proc/get_power_output()
-	if(speed && !stat && anchored && powernet)
+	if(speed && !machine_flags && anchored && powernet)
 		return power_gen * speed / MAX_SPEED
 	return 0
 
 /obj/machinery/power/treadmill/emp_act(severity)
 	..()
-	if(!(stat & BROKEN))
-		stat |= BROKEN
+	if(!(machine_flags & BROKEN))
+		machine_flags |= BROKEN
 		spawn(100)
-			stat &= ~BROKEN
+			machine_flags &= ~BROKEN
 
 /obj/machinery/power/treadmill/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(default_unfasten_wrench(user, used, time = 60))
@@ -160,7 +160,7 @@
 			break
 
 /obj/machinery/treadmill_monitor/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(treadmill && on)
 		var/output = treadmill.get_power_output()
@@ -183,10 +183,10 @@
 
 /obj/machinery/treadmill_monitor/update_overlays()
 	. = ..()
-	if(stat & NOPOWER || !total_joules || !on)
+	if(machine_flags & NOPOWER || !total_joules || !on)
 		line1 = ""
 		line2 = ""
-	else if(stat & BROKEN)
+	else if(machine_flags & BROKEN)
 		. += image('icons/obj/status_display.dmi', icon_state = "ai_bsod")
 		line1 = "A@#$A"
 		line2 = "729%!"
@@ -195,7 +195,7 @@
 			line1 = "-W/S-"
 			line2 = "-TIX-"
 		else
-			if(!treadmill || treadmill.stat)
+			if(!treadmill || treadmill.machine_flags)
 				line1 = "???"
 			else
 				line1 = "[add_zero(num2text(round(treadmill.get_power_output())), 4)]"
@@ -225,11 +225,11 @@
 
 /obj/machinery/treadmill_monitor/emp_act(severity)
 	..()
-	if(!(stat & BROKEN))
-		stat |= BROKEN
+	if(!(machine_flags & BROKEN))
+		machine_flags |= BROKEN
 		update_icon()
 		spawn(100)
-			stat &= ~BROKEN
+			machine_flags &= ~BROKEN
 			update_icon()
 
 #undef FONT_SIZE

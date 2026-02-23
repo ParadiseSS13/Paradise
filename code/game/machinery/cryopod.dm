@@ -94,7 +94,7 @@
 	if(..())
 		return
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	var/mob/user = ui.user
@@ -736,7 +736,7 @@
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return TRUE
-			
+
 	return FALSE
 
 /// Immeditely teleport a human or robot to cryo and then despawn them.

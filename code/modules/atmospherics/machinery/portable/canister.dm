@@ -134,7 +134,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/update_icon_state()
 	// Colors has to be applied every icon update
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = "[canister_color["prim"]]-1"//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 		return
 
@@ -143,7 +143,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/update_overlays()
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
 	for(var/C in canister_color)
@@ -174,7 +174,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
-		if(!(stat & BROKEN))
+		if(!(machine_flags & BROKEN))
 			canister_break()
 		if(disassembled)
 			new /obj/item/stack/sheet/metal (loc, 10)
@@ -183,14 +183,14 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	qdel(src)
 
 /obj/machinery/atmospherics/portable/canister/obj_break(damage_flag)
-	if((stat & BROKEN) || (flags & NODECONSTRUCT))
+	if((machine_flags & BROKEN) || (flags & NODECONSTRUCT))
 		return
 	canister_break()
 
 /obj/machinery/atmospherics/portable/canister/proc/canister_break()
 	disconnect()
 	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
-	stat |= BROKEN
+	machine_flags |= BROKEN
 	density = FALSE
 	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	update_icon()
@@ -213,7 +213,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/atmospherics/portable/canister/process_atmos()
 	..()
 	sync_pressure_appearance()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
 	if(valve_open)
@@ -450,7 +450,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[H2O\]"
 	icon_state = "lightgrey" //See Initialize()
 	can_label = FALSE
-	
+
 /obj/machinery/atmospherics/portable/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
@@ -512,10 +512,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/water_vapor/Initialize(mapload)
 	. = ..()
-	
+
 	canister_color["prim"] = "lightgrey"
 	air_contents.set_water_vapor((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
-	
+
 	update_icon()
 
 /obj/machinery/atmospherics/portable/canister/air/Initialize(mapload)
@@ -534,7 +534,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
 
 /obj/machinery/atmospherics/portable/canister/welder_act(mob/user, obj/item/I)
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		return
 
 	. = TRUE

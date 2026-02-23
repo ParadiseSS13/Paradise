@@ -58,7 +58,7 @@
 	. = ..()
 	if(!istype(used, /obj/item/nuclear_rod/fuel))
 		return CONTINUE_ATTACK
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		to_chat(user, SPAN_WARNING("You must close the access panel first!"))
@@ -102,7 +102,7 @@
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 
 /obj/machinery/nuclear_centrifuge/process()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		if(power_state == ACTIVE_POWER_USE)
 			abort_enrichment()
 		return
@@ -211,11 +211,11 @@
 		to_chat(user, SPAN_WARNING("You can't load [src] while it's opened!"))
 		return FALSE
 
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		to_chat(user, SPAN_WARNING("[src] is broken."))
 		return FALSE
 
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		to_chat(user, SPAN_WARNING("[src] has no power."))
 		return FALSE
 
@@ -457,7 +457,7 @@
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 
 /obj/machinery/nuclear_rod_fabricator/process()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		if(power_state == ACTIVE_POWER_USE)
 			abort_fabrication()
 		return

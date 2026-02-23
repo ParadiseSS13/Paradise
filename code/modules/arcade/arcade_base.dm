@@ -42,7 +42,7 @@
 	interact(user)
 
 /obj/machinery/economy/arcade/interact(mob/user)
-	if(stat & BROKEN || panel_open)
+	if(machine_flags & BROKEN || panel_open)
 		return
 	if(!tokens && !freeplay)
 		to_chat(user, "\The [src] doesn't have enough credits to play! Pay first!")

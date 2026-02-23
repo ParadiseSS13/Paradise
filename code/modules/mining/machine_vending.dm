@@ -117,7 +117,7 @@
 /obj/machinery/mineral/equipment_vendor/power_change()
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
-	if(. && inserted_id && (stat & NOPOWER))
+	if(. && inserted_id && (machine_flags & NOPOWER))
 		visible_message(SPAN_NOTICE("The ID slot indicator light flickers on [src] as it spits out a card before powering down."))
 		remove_id()
 

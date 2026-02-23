@@ -100,7 +100,7 @@
 					var/PRP
 					for(PRP = 1, PRP <= 4, PRP++)
 						for(var/obj/machinery/power/apc/APC in my_area)
-							if(!(APC.stat & BROKEN))
+							if(!(APC.machine_flags & BROKEN))
 								theAPC = APC
 								break
 

@@ -139,7 +139,7 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 /obj/machinery/autochef/update_overlays()
 	. = ..()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	. += image(icon, icon_state = "light-on")

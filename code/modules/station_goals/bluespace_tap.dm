@@ -208,7 +208,7 @@
 		set_light(15, 5, "#ff0000")
 		return
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(1, 1, "#353535")
@@ -238,7 +238,7 @@
 
 /obj/machinery/power/bluespace_tap/power_change()
 	. = ..()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(1, 1, "#353535")

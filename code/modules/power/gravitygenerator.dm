@@ -47,10 +47,10 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	qdel(src)
 
 /obj/machinery/gravity_generator/proc/set_broken()
-	stat |= BROKEN
+	machine_flags |= BROKEN
 
 /obj/machinery/gravity_generator/proc/set_fix()
-	stat &= ~BROKEN
+	machine_flags &= ~BROKEN
 
 //
 // Generator which spawns with the station.
@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/main/examine(mob/user)
 	. = ..()
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		return
 
 	switch(construction_state)
@@ -184,7 +184,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 // Step 4
 /obj/machinery/gravity_generator/main/screwdriver_act(mob/living/user, obj/item/I)
-	if(!(stat & BROKEN)) // Not actually broken
+	if(!(machine_flags & BROKEN)) // Not actually broken
 		return
 	if(construction_state != GRAV_NEEDS_SCREWDRIVER)
 		return
@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/main/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui && !(stat & BROKEN))
+	if(!ui && !(machine_flags & BROKEN))
 		ui = new(user, src, "GravityGen", name)
 		ui.open()
 
@@ -237,11 +237,11 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main/power_change()
 	if(!..())
 		return
-	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", INVESTIGATE_GRAVITY)
+	investigate_log("has [machine_flags & NOPOWER ? "lost" : "regained"] power.", INVESTIGATE_GRAVITY)
 	set_power()
 
 /obj/machinery/gravity_generator/main/get_status()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return "generator_[construction_state]"
 	if(on || charging_state != GRAV_POWER_IDLE)
 		return "on"
@@ -261,7 +261,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
   * Set the charging state based on external power and the breaker state.
   */
 /obj/machinery/gravity_generator/main/proc/set_power()
-	if(stat & (NOPOWER|BROKEN) || !breaker_on)
+	if(machine_flags & (NOPOWER|BROKEN) || !breaker_on)
 		charging_state = GRAV_POWER_DOWN
 	else if(breaker_on)
 		charging_state = GRAV_POWER_UP
@@ -304,7 +304,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 // Charge/Discharge and turn on/off gravity when you reach 0/100 percent.
 // Also emit radiation and handle the overlays.
 /obj/machinery/gravity_generator/main/process()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	if(charging_state == GRAV_POWER_IDLE)
 		return

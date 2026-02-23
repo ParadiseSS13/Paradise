@@ -51,7 +51,7 @@
 		. += "[base_attachment_icon_state]-connector"
 
 /obj/machinery/atmospherics/portable/pump/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 
