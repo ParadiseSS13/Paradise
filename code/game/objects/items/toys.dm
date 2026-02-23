@@ -2059,6 +2059,9 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "pool_noodle"
 	attack_verb = list("bopped", "splatted", "smacked", "thwapped", "slapped")
+	hitsound = 'sound/items/pool_noodle_hit.ogg'
+	// Having this var at all should play hitsound even if damage is zero
+	var/zero_damage_hitsound = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/toy/pool_noodle/Initialize(mapload)
