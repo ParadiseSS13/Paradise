@@ -470,7 +470,7 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
-		/obj/item/rcl/robot,
+		/obj/item/stack/cable_coil/random/rcl_spool/robot,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/inflatable/cyborg,
@@ -766,7 +766,7 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
-		/obj/item/rcl/robot,
+		/obj/item/stack/cable_coil/random/rcl_spool/robot,
 		/obj/item/stack/sheet/glass/cyborg/drone,
 		/obj/item/stack/sheet/rglass/cyborg/drone,
 		/obj/item/stack/sheet/wood/cyborg,
@@ -876,7 +876,7 @@
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
-		/obj/item/rcl/robot,
+		/obj/item/stack/cable_coil/random/rcl_spool/robot,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)

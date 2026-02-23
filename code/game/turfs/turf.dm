@@ -569,14 +569,14 @@ GLOBAL_LIST_EMPTY(station_turfs)
 					return ITEM_INTERACT_COMPLETE
 			C.place_turf(src, user)
 			return ITEM_INTERACT_COMPLETE
-		else if(istype(used, /obj/item/rcl))
-			var/obj/item/rcl/R = used
-			if(R.loaded)
+		else if(istype(used, /obj/item/stack/cable_coil/random/rcl_spool))
+			var/obj/item/stack/cable_coil/random/rcl_spool/R = used
+			if(R)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.item_interaction(user, R)
 						return ITEM_INTERACT_COMPLETE
-				R.loaded.place_turf(src, user)
+				R.place_turf(src, user)
 				R.is_empty(user)
 
 			return ITEM_INTERACT_COMPLETE
