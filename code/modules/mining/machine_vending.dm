@@ -95,7 +95,7 @@
 	prize_list["Miscellaneous"] = list(
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 100),
 		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
-		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
+		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/cohiba, 150),
 		EQUIPMENT("GAR Meson Scanners", /obj/item/clothing/glasses/meson/gar, 500),
 		EQUIPMENT("Hoverboard", /obj/item/melee/skateboard/hoverboard, 4000), //Cross lava rivers in a discounted style. To buying it in cargo. Still more than jump boots.
 		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 3500), //I want miners have to pay a lot to get this, but be set once they do.
@@ -336,7 +336,7 @@
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 250),
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes/cigpack_robust, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
-		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
+		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/cohiba, 150),
 		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
 		EQUIPMENT("Cheeseburger", /obj/item/food/burger/cheese, 150),
 		EQUIPMENT("Big Burger", /obj/item/food/burger/bigbite, 250),

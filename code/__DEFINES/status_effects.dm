@@ -112,6 +112,8 @@
 
 #define STATUS_EFFECT_GROUNDPOUND /datum/status_effect/stacking/ground_pound //if hit twice, the third attack will fling the target
 
+#define STATUS_EFFECT_BLUESPACE_THREADS /datum/status_effect/stacking/unstable_bluespace_threads // if hit twice, the third attack will cause something random
+
 #define STATUS_EFFECT_TELEPORTSICK /datum/status_effect/teleport_sickness //increasing debuffs as you rapidly teleport.
 
 #define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait

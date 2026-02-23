@@ -317,6 +317,9 @@
 ///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
 #define COMSIG_BASICMOB_POST_ATTACK_RANGED "basicmob_post_attack_ranged"
 
+/// from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_POST_ATTACK_RANGED_BURST "basicmob_post_attack_ranged_burst"
+
 /// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/activated)
 #define COMSIG_MOB_ABILITY_STARTED "mob_ability_base_started"
 	/// Return to block the ability from starting / activating

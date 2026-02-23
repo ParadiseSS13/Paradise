@@ -153,12 +153,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
-"U" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
-	},
-/turf/template_noop,
-/area/ruin/space/sec_shuttle)
 "V" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
@@ -176,7 +170,7 @@
 	dir = 8;
 	icon_state = "burst_l"
 	},
-/turf/template_noop,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
 "Z" = (
 /obj/structure/computerframe,
@@ -201,7 +195,7 @@ z
 z
 z
 Y
-U
+V
 V
 V
 e
