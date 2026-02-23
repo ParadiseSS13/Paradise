@@ -5,18 +5,18 @@ RESTRICT_TYPE(/datum/weather/sleet_storm)
 	desc = "An intense freezing rain hurtles down on the area, obstructing visibility."
 
 	telegraph_message = "<span class='boldwarning'>The air around you grows colder, and the clouds darken. Seek shelter.</span>"
-	telegraph_overlay = "light_ash"
+	telegraph_overlay = "light_snow"
 
 	weather_message = "<span class='userdanger'><i>You are caught in a storm of freezing rain! Get inside!</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
-	weather_overlay = "ash_storm"
+	weather_overlay = "snow_storm"
 
 	end_message = "<span class='boldannounceic'>The sleet slows, and the patter of ice on the ground softens. It should be safe to go outside now.</span>"
-	end_overlay = "light_ash"
+	end_overlay = "light_snow"
 
 	area_types = list(/area/iceplanet/surface)
-	target_trait = ORE_LEVEL
+	target_trait = ZTRAIT_WINTER_LEVEL
 	immunity_type = "snow"
 	probability = 25
 	barometer_predictable = TRUE

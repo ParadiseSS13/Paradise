@@ -40,6 +40,7 @@
 	/// We do not have "true" multi-z, instead we allow for station maps to have two hardcoded upper and lower levels.
 	#define ZTRAIT_LOWER_LEVEL "Up"
 	#define ZTRAIT_UPPER_LEVEL "Down"
+	#define ZTRAIT_WINTER_LEVEL "Winter Level"
 
 // Level names
 	#define MAIN_STATION "Main Station"

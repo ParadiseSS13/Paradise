@@ -236,6 +236,10 @@
 	construction_state = initial(construction_state)
 	update_icon()
 
+/obj/machinery/radar/avernus
+	respond_to_weather_in_area = /area/iceplanet/surface
+	radio_channel = "Common"
+
 /obj/item/circuitboard/machine/radar
 	board_name = "Doppler Radar"
 	icon_state = "supply"

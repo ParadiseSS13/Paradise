@@ -531,6 +531,14 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
+"fb" = (
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/telecomms/chamber)
 "fh" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -831,7 +839,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/iceplanet/surface)
+/area/station/maintenance/apmaint)
 "hx" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -1028,6 +1036,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage)
+"iZ" = (
+/turf/simulated/wall/r_wall,
+/area/station/telecomms/chamber)
 "jb" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
@@ -1135,6 +1146,10 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/service/kitchen/freezer)
+"jz" = (
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/bluegrid,
+/area/station/telecomms/chamber)
 "jC" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/robotics/chargebay)
@@ -1181,7 +1196,7 @@
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
-/area/iceplanet/surface)
+/area/station/maintenance/apmaint)
 "jR" = (
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
@@ -1597,7 +1612,7 @@
 "no" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/iceplanet/surface)
+/area/station/maintenance/apmaint)
 "nx" = (
 /obj/effect/turf_decal/tiles/department/virology/side,
 /obj/machinery/light_switch{
@@ -2554,7 +2569,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/iceplanet/surface)
+/area/station/maintenance/apmaint)
 "wH" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance)
@@ -2810,7 +2825,24 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/iceplanet/surface)
+/area/station/maintenance/apmaint)
+"yI" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecommunications Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/telecomms/chamber)
 "yP" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
@@ -2969,6 +3001,15 @@
 /obj/effect/turf_decal/tiles/department/virology,
 /turf/simulated/floor/plasteel,
 /area/station/public/sleep)
+"zM" = (
+/obj/machinery/power/apc/directional/south,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/telecomms/chamber)
 "zT" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/science/misc_lab)
@@ -3078,6 +3119,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
+"Be" = (
+/obj/machinery/tcomms/core/station,
+/obj/machinery/camera{
+	c_tag = "Telecommunications Core";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/telecomms/chamber)
 "Bn" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
@@ -3302,7 +3351,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/iceplanet/surface)
+/area/station/maintenance/apmaint)
 "CY" = (
 /obj/effect/turf_decal/tiles/dark/checker,
 /obj/structure/table/wood,
@@ -3383,6 +3432,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/sleep)
+"Dm" = (
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/apmaint)
 "Do" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -3854,6 +3906,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/genetics)
+"HG" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/apmaint)
 "HI" = (
 /obj/machinery/atmospherics/trinary/tvalve/flipped{
 	dir = 4
@@ -3863,6 +3919,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
+"HJ" = (
+/turf/simulated/wall,
+/area/station/maintenance/apmaint)
+"HP" = (
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "HR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -4380,6 +4442,9 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
+"Lt" = (
+/turf/simulated/floor/plasteel/stairs,
+/area/station/maintenance/apmaint)
 "Lv" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -4393,6 +4458,16 @@
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"Lz" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/telecomms/chamber)
 "LB" = (
 /turf/simulated/floor/plasteel,
 /area/station/medical/medbay)
@@ -4751,7 +4826,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/iceplanet/surface)
+/area/station/maintenance/apmaint)
 "Pg" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -5106,9 +5181,22 @@
 /obj/structure/closet/secure_closet/cmo,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/cmo)
+"SL" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/coffee{
+	pixel_y = 7
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "SS" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/cmo)
+"SU" = (
+/obj/structure/chair/comfy{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "Ta" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -5457,7 +5545,7 @@
 /obj/structure/railing/cap/normal,
 /obj/structure/conduit,
 /turf/simulated/floor/plating,
-/area/iceplanet/surface)
+/area/station/maintenance/apmaint)
 "VI" = (
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
@@ -5632,6 +5720,10 @@
 "Xv" = (
 /turf/simulated/floor/dome/pavement/road,
 /area/station/garage/medbay)
+"Xw" = (
+/obj/effect/spawner/window/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "Xy" = (
 /obj/machinery/light{
 	dir = 1
@@ -5730,6 +5822,9 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
+"Yy" = (
+/turf/simulated/floor/plasteel/dark,
+/area/station/telecomms/chamber)
 "YE" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/alarm/directional/south,
@@ -93893,9 +93988,9 @@ jZ
 jZ
 jZ
 jZ
-NX
-NX
-NX
+Dm
+Dm
+Dm
 Xb
 Xb
 Xb
@@ -94149,10 +94244,10 @@ HS
 Fk
 vJ
 CW
-ig
-bI
-bI
-NX
+HP
+Lt
+Lt
+Dm
 Xb
 Xb
 Xb
@@ -94407,9 +94502,9 @@ JJ
 mu
 wF
 yF
-bI
-bI
-NX
+Lt
+Lt
+Dm
 Xb
 Xb
 Xb
@@ -94666,7 +94761,7 @@ no
 VD
 Pc
 jQ
-NX
+Dm
 Xb
 Xb
 Xb
@@ -94921,22 +95016,22 @@ WO
 Zm
 Zm
 Zm
-vI
-vI
-NX
-NX
-Ui
-Ui
-vI
-vI
-vI
-Ui
-Ui
-vI
-vI
-vI
-vI
-vI
+HJ
+HJ
+Dm
+Dm
+Xw
+Xw
+HJ
+HJ
+HJ
+Xw
+Xw
+HJ
+HJ
+HJ
+HJ
+HJ
 vI
 lX
 lX
@@ -95178,22 +95273,22 @@ Je
 HS
 Xe
 Zm
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
 ht
-ig
-vI
+HP
+HP
+HP
+HP
+HP
+ht
+HP
+HP
+HP
+HP
+HP
+HP
+ht
+HP
+HJ
 wr
 KZ
 KZ
@@ -95435,22 +95530,22 @@ TR
 OK
 hF
 cF
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-Ll
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HG
 Zs
 pa
 pa
@@ -95692,22 +95787,22 @@ OK
 OK
 yT
 vJ
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-ig
-vI
+HP
+HP
+HP
+HP
+SL
+SU
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HP
+HJ
 tF
 YT
 YT
@@ -95949,18 +96044,18 @@ nI
 nI
 LV
 vJ
-NX
-NX
-NX
-NX
-Ui
-Ui
-vI
-vI
-vI
-Ui
-Ui
-vI
+Dm
+Dm
+Dm
+Dm
+Xw
+Xw
+HJ
+HJ
+HJ
+Xw
+Xw
+HJ
 Ic
 Ic
 Ic
@@ -96212,7 +96307,7 @@ DG
 Xb
 Xb
 Xb
-Xb
+st
 Xb
 Xb
 Xb
@@ -97237,6 +97332,7 @@ cf
 HE
 KG
 DG
+fC
 Xb
 Xb
 Xb
@@ -97244,8 +97340,7 @@ Xb
 Xb
 Xb
 Xb
-Xb
-Xb
+eg
 Ic
 Iz
 Cb
@@ -121406,11 +121501,11 @@ NX
 Xb
 Xb
 Xb
-NX
-NX
-NX
-NX
-NX
+iZ
+iZ
+iZ
+iZ
+iZ
 Xb
 Xb
 Xb
@@ -121663,11 +121758,11 @@ NX
 Xb
 Xb
 Xb
-Xb
-Xb
-Xb
-Xb
-NX
+iZ
+Lz
+Be
+fb
+iZ
 Xb
 Xb
 Xb
@@ -121920,11 +122015,11 @@ NX
 Xb
 Xb
 Xb
-Xb
-Xb
-Xb
-Xb
-NX
+iZ
+jz
+Yy
+zM
+iZ
 Xb
 Xb
 Xb
@@ -122177,11 +122272,11 @@ Xb
 Xb
 Xb
 Xb
-Xb
-Xb
-Xb
-Xb
-NX
+iZ
+iZ
+yI
+iZ
+iZ
 Xb
 Xb
 Xb
