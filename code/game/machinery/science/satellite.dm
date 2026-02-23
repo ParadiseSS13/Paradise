@@ -10,14 +10,13 @@
 	var/obj/item/multitool/linked_multitool
 	var/datum/satellite_stats/base_stats/satellite_stats = new()
 	var/list/linked_consoles = new()
-	//var/datum/orbit_data = new()
 	var/list/maneuver_data = new()
-	var/datum/orbit_data/orbit = new()
+	var/datum/orbit_data/orbit_data = new()
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
 	internal_name = name
-	orbit.owner = satellite_stats
+	orbit_data.owner = satellite_stats
 
 /obj/machinery/science_satellite/basic/Initialize(mapload)
 	. = ..()
@@ -61,7 +60,7 @@
 	satellite_stats.current_power = satellite_stats.power_capacity
 
 /obj/machinery/science_satellite/proc/recalculate_stats()
-	satellite_stats = initial(satellite_stats)
+	satellite_stats = new()
 
 	for(var/obj/item/satellite_component/component in parts)
 		satellite_stats.weight += component.component_stats.weight
@@ -124,7 +123,7 @@
 	if(!panel_open)
 		return
 
-	var/new_name = input(user, "Input a new name for this satellite.", "Satellite name")
+	var/new_name = tgui_input_text(user, "Input a new name for this satellite.", "Satellite name", internal_name)
 	if (!new_name || !Adjacent(user))
 		return
 
@@ -134,5 +133,5 @@
 
 /obj/machinery/science_satellite/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("<b>Click</b> with a multitool when the panel is open to store [src] into the multitools buffer.")
-	. += SPAN_NOTICE("<b>Click</b> with an empty hand when the panel is open to rename [src].")
+	. += SPAN_NOTICE("<b>Click</b> with a multitool when the panel is open to store the satellite's connection data into the multitools buffer.")
+	. += SPAN_NOTICE("<b>Click</b> with an empty hand when the panel is open to rename the satellite.")

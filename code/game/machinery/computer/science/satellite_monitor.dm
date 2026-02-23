@@ -37,6 +37,7 @@
 	var/list/data = list()
 	var/list/satellite_data = list()
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
+		var/datum/orbit_data/orbit_data = satellite.orbit_data
 		satellite_data += list(list(
 			"name" = satellite.internal_name,
 			"weight" = satellite.satellite_stats.weight,
@@ -48,7 +49,17 @@
 			"power_consumption" = satellite.satellite_stats.power_consumption,
 			"power_capacity" = satellite.satellite_stats.power_capacity,
 			"current_power" = satellite.satellite_stats.current_power,
-			"current_fuel" = satellite.satellite_stats.current_fuel
+			"current_fuel" = satellite.satellite_stats.current_fuel,
+			"orbit_data" = list(list(
+				"apoapsis" = orbit_data.apoapsis,
+				"periapsis" = orbit_data.periapsis,
+				"inclination" = orbit_data.inclination,
+				"period_multiplier" = orbit_data.period_multiplier,
+				"period" = orbit_data.period,
+				"launch_time" = orbit_data.launch_time,
+				"velocity" = orbit_data.velocity,
+				"orbit_progress" = orbit_data.orbit_progress,
+			))
 		))
 
 	data["satellite_data"] = satellite_data

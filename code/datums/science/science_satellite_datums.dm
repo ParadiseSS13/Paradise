@@ -14,10 +14,10 @@
 /datum/orbit_data
 	var/apoapsis = 40000 // furthest
 	var/periapsis = 40000 // closest
-	var/eccentricity = 0 // how oval the orbit is
+	//var/eccentricity = 0 // how oval the orbit is
 	var/inclination = 0 // how tilted the orbit is
 	var/latitude = 0 // the center latitude of the orbit
-	var/altitude = 40000
+	//var/altitude = 40000
 	var/period_multiplier = 4000
 	var/period = 20 MINUTES // probably breaks physics, but its a video game
 	//var/gravitational_constant = 6.67408
@@ -97,7 +97,7 @@
 	apoapsis += maneuver.prograde / maneuver.magnitude * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn // 0 progress = at periapsis, abs(0-0.5)*2 = 1. 0.5 progress = at apoapsis, abs(0.5-0.5)*2 = 0. 1 progress(same as 0) = abs(1-0.5)*2 = 1
 	periapsis += maneuver.prograde / maneuver.magnitude * (1 - bimodal_orbit) * satellite_stats.engine_speed_constant * fraction_burn // 0 progress = at periapsis, 1 - abs(0-0.5)*2 = 0. 0.5 progress = at apoapsis, 1-abs(0.5-0.5)* 2 = 1. 1 progress (same as 0) = 1-abs(1 - 0.5)*2 = 0
 
-	inclination += maneuver.normal / maneuver.magnitude * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn // normal burns are most efficient the closer to periapsis you are
+	inclination += (maneuver.normal / maneuver.magnitude * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn) % 360 // normal burns are most efficient the closer to periapsis you are
 
 	// subtract fuel, and add power
 	satellite_stats.current_fuel -= 1 / satellite_stats.fuel_efficiency

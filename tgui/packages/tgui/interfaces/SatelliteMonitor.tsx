@@ -17,6 +17,16 @@ interface SatelliteMonitorData {
     power_capacity: number;
     current_power: number;
     current_fuel: number;
+    orbit_data: {
+      apoapsis: number;
+      periapsis: number;
+      inclination: number;
+      period_multiplier: number;
+      period: number;
+      launch_time: number;
+      velocity: number;
+      orbit_progress: number;
+    };
     // };
   }[];
   collected_science_data: number;
