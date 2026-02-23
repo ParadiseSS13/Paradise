@@ -8,14 +8,16 @@
 	anchored = FALSE
 	density = 1
 	var/obj/item/multitool/linked_multitool
-	var/datum/satellite_stats/satellite_stats = new()
-	var/current_power = 0
-	var/current_fuel = 0
+	var/datum/satellite_stats/base_stats/satellite_stats = new()
 	var/list/linked_consoles = new()
+	//var/datum/orbit_data = new()
+	var/list/maneuver_data = new()
+	var/datum/orbit_data/orbit = new()
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
 	internal_name = name
+	orbit.owner = satellite_stats
 
 /obj/machinery/science_satellite/basic/Initialize(mapload)
 	. = ..()
@@ -41,6 +43,7 @@
 	recalculate_stats()
 
 /obj/machinery/science_satellite/proc/adjust_stats(obj/item/satellite_component/component, add = TRUE)
+
 	if(!istype(component))
 		return
 
@@ -49,27 +52,29 @@
 	satellite_stats.fuel_efficiency += component.component_stats.fuel_efficiency * multiplier
 	satellite_stats.fuel_capacity += component.component_stats.fuel_capacity * multiplier
 	satellite_stats.science_multiplier += component.component_stats.science_multiplier * multiplier
-	satellite_stats.power_generation += component.component_stats.power_generation * multiplier
+	satellite_stats.passive_power_generation += component.component_stats.passive_power_generation * multiplier
+	satellite_stats.active_power_generation += component.component_stats.active_power_generation * multiplier
 	satellite_stats.power_consumption += component.component_stats.power_consumption * multiplier
 	satellite_stats.power_capacity += component.component_stats.power_capacity * multiplier
 
+	satellite_stats.current_fuel = satellite_stats.fuel_capacity
+	satellite_stats.current_power = satellite_stats.power_capacity
+
 /obj/machinery/science_satellite/proc/recalculate_stats()
-	satellite_stats.weight = 0
-	satellite_stats.fuel_efficiency = 0
-	satellite_stats.fuel_capacity = 0
-	satellite_stats.science_multiplier = 0
-	satellite_stats.power_generation = 0
-	satellite_stats.power_consumption = 0
-	satellite_stats.power_capacity = 0
+	satellite_stats = initial(satellite_stats)
 
 	for(var/obj/item/satellite_component/component in parts)
 		satellite_stats.weight += component.component_stats.weight
 		satellite_stats.fuel_efficiency += component.component_stats.fuel_efficiency
 		satellite_stats.fuel_capacity += component.component_stats.fuel_capacity
 		satellite_stats.science_multiplier += component.component_stats.science_multiplier
-		satellite_stats.power_generation += component.component_stats.power_generation
+		satellite_stats.passive_power_generation += component.component_stats.passive_power_generation
+		satellite_stats.active_power_generation += component.component_stats.active_power_generation
 		satellite_stats.power_consumption += component.component_stats.power_consumption
 		satellite_stats.power_capacity += component.component_stats.power_capacity
+
+	satellite_stats.current_fuel = satellite_stats.fuel_capacity
+	satellite_stats.current_power = satellite_stats.power_capacity
 
 /obj/machinery/science_satellite/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

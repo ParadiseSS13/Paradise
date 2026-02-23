@@ -43,11 +43,12 @@
 			"fuel_efficiency" = satellite.satellite_stats.fuel_efficiency,
 			"fuel_capacity" = satellite.satellite_stats.fuel_capacity,
 			"science_multiplier" = satellite.satellite_stats.science_multiplier,
-			"power_generation" = satellite.satellite_stats.power_generation,
+			"passive_power_generation" = satellite.satellite_stats.passive_power_generation,
+			"active_power_generation" = satellite.satellite_stats.active_power_generation,
 			"power_consumption" = satellite.satellite_stats.power_consumption,
 			"power_capacity" = satellite.satellite_stats.power_capacity,
-			"current_power" = satellite.current_power,
-			"current_fuel" = satellite.current_fuel
+			"current_power" = satellite.satellite_stats.current_power,
+			"current_fuel" = satellite.satellite_stats.current_fuel
 		))
 
 	data["satellite_data"] = satellite_data

@@ -11,7 +11,8 @@ interface SatelliteMonitorData {
     fuel_efficiency: number;
     fuel_capacity: number;
     science_multiplier: number;
-    power_generation: number;
+    passive_power_generation: number;
+    active_power_generation: number;
     power_consumption: number;
     power_capacity: number;
     current_power: number;
@@ -106,11 +107,11 @@ const SatellitePanel = () => {
             </Stack.Item>
           </Stack>
           <Stack mt={1}>
-            {satellite.power_consumption - satellite.power_generation > 0
+            {satellite.power_consumption - satellite.passive_power_generation > 0
               ? 'power generation: '
               : 'power consumption: '}
 
-            {Math.abs(satellite.power_consumption - satellite.power_generation) + 'W/s'}
+            {Math.abs(satellite.power_consumption - satellite.passive_power_generation) + 'W/s'}
           </Stack>
           <Stack>
             <Box mt={1} width="50%">
