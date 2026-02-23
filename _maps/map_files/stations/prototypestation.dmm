@@ -30,6 +30,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
+"aF" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/simulated/floor/dome/pavement/brick,
+/area/iceplanet/surface)
 "aG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -1304,6 +1310,12 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
+"kL" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/simulated/floor/dome/pavement/brick,
+/area/iceplanet/surface)
 "kM" = (
 /obj/structure/railing{
 	dir = 1
@@ -2725,6 +2737,13 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
+"xO" = (
+/obj/machinery/light/exterior/outdoors{
+	dir = 4
+	},
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/simulated/floor/dome/pavement/brick,
+/area/iceplanet/surface)
 "xQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3481,6 +3500,10 @@
 "DG" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/genetics)
+"DH" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/simulated/floor/dome/pavement/brick,
+/area/iceplanet/surface)
 "DJ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -3729,7 +3752,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/genetics)
 "FS" = (
@@ -4714,10 +4736,6 @@
 /obj/structure/closet/secure_closet/research_reagents,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/misc_lab)
-"NS" = (
-/obj/effect/turf_decal/weather/snow/corner,
-/turf/simulated/floor/dome/pavement/road,
-/area/iceplanet/surface)
 "NX" = (
 /turf/simulated/wall/r_wall,
 /area/iceplanet/surface)
@@ -99415,7 +99433,7 @@ in
 WT
 WT
 WT
-in
+DH
 Xb
 Xb
 Xb
@@ -99668,15 +99686,15 @@ WT
 WT
 WT
 WT
-NS
 WT
 WT
 WT
+WT
 in
-in
-in
-in
-in
+aF
+aF
+aF
+aF
 Xb
 Xb
 Xb
@@ -101215,10 +101233,10 @@ WT
 WT
 WT
 in
-in
-in
-in
-in
+kL
+kL
+kL
+kL
 Xb
 Xb
 Xb
@@ -101471,7 +101489,7 @@ in
 WT
 WT
 WT
-nm
+xO
 Xb
 Xb
 Xb
@@ -104303,7 +104321,7 @@ vl
 XX
 XX
 iO
-Xb
+fC
 Xb
 Xb
 Xb
@@ -104817,7 +104835,7 @@ so
 lD
 lD
 so
-fC
+Xb
 Xb
 Xb
 Xb

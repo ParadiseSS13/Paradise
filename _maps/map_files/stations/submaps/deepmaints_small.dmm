@@ -22,6 +22,7 @@
 "cg" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "cE" = (
@@ -83,6 +84,12 @@
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
+"fL" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/ice_cream_mixer/loaded,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
 "gn" = (
 /obj/structure/table,
 /obj/effect/spawner/random/dirt/frequent,
@@ -117,6 +124,12 @@
 /obj/effect/turf_decal/tiles/department/medical,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
+"lm" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/light/floor,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
 "nB" = (
 /turf/template_noop,
 /area/template_noop)
@@ -139,6 +152,7 @@
 /area/template_noop)
 "nT" = (
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "ou" = (
@@ -168,6 +182,15 @@
 /obj/effect/turf_decal/tiles/department/medical,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
+"pJ" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
 "qb" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/random/dirt/frequent,
@@ -178,6 +201,9 @@
 /obj/effect/spawner/random/engineering/misc,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"rz" = (
+/turf/simulated/mineral/random/low_chance,
 /area/template_noop)
 "rH" = (
 /obj/machinery/light,
@@ -249,6 +275,13 @@
 /obj/structure/railing,
 /turf/simulated/floor/catwalk,
 /area/template_noop)
+"uD" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/cooking/stovetop/loaded,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
 "vA" = (
 /obj/structure/railing,
 /obj/structure/railing/corner{
@@ -287,6 +320,12 @@
 /obj/machinery/floodlight/anchored/darker_on,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/template_noop)
+"An" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
 "AM" = (
 /turf/simulated/mineral/random/volcanic,
 /area/template_noop)
@@ -304,6 +343,24 @@
 "Bw" = (
 /turf/simulated/floor/grass,
 /area/template_noop)
+"BN" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/deepfryer/loaded,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Cj" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
 "CQ" = (
 /obj/structure/reagent_dispensers/oil,
 /obj/effect/spawner/random/dirt/frequent,
@@ -316,9 +373,21 @@
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
+"Ea" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/themed_mess/robotic,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Ez" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plating/asteroid/basalt,
+/area/template_noop)
+"Fd" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/machinery/cooking/grill/loaded,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Fr" = (
 /obj/structure/railing,
@@ -333,6 +402,12 @@
 "GQ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
+/area/template_noop)
+"Hm" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "IB" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -354,6 +429,11 @@
 /obj/machinery/biogenerator,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"KR" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/mapping_helpers/turfs/rust/maybe,
+/turf/simulated/wall,
 /area/template_noop)
 "Lp" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -396,6 +476,17 @@
 /obj/effect/spawner/random/stock_parts,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"Pr" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/kitchen/knife,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Pu" = (
 /obj/structure/dresser,
@@ -473,6 +564,12 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"US" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel/white,
+/area/template_noop)
 "Va" = (
 /obj/structure/railing{
 	dir = 10
@@ -500,6 +597,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/catwalk,
+/area/template_noop)
+"Yf" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/smartfridge/foodcart,
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "YL" = (
 /obj/structure/table,
@@ -857,13 +960,13 @@ nB
 nB
 nB
 IB
-IB
+Ea
 IB
 LM
 ZF
 Pj
 IB
-IB
+Ea
 IB
 nB
 nB
@@ -2297,13 +2400,13 @@ nB
 nB
 nB
 nT
+KR
+KR
 nT
 nT
-nT
-nT
-nT
-nT
-nT
+KR
+KR
+KR
 nT
 nB
 nB
@@ -2345,21 +2448,21 @@ nB
 nB
 nB
 nT
+KR
+Yf
 nT
 nT
-nT
-nT
-nT
-nT
-nT
+Fd
+uD
+Pr
 nT
 nB
 nB
 LA
 LA
 LA
-AM
-AM
+rz
+rz
 LA
 LA
 LA
@@ -2393,8 +2496,8 @@ nB
 nB
 nB
 nT
-nT
-nT
+KR
+Cj
 nT
 nT
 nT
@@ -2406,9 +2509,9 @@ nB
 LA
 LA
 ky
-AM
-AM
-AM
+rz
+rz
+rz
 LA
 LA
 LA
@@ -2441,22 +2544,22 @@ nB
 nB
 nB
 nT
+KR
+pJ
+nT
+lm
 nT
 nT
-nT
-nT
-nT
-nT
-nT
+lm
 nT
 nB
 nB
 LA
 LA
-AM
-AM
-AM
-AM
+rz
+rz
+rz
+rz
 tk
 LA
 LA
@@ -2489,8 +2592,8 @@ nB
 nB
 nB
 nT
-nT
-nT
+KR
+Hm
 nT
 nT
 nT
@@ -2501,9 +2604,9 @@ nB
 nB
 LA
 LA
-AM
-AM
-AM
+rz
+rz
+rz
 Vf
 LA
 LA
@@ -2537,21 +2640,21 @@ nB
 nB
 nB
 nT
+KR
+US
 nT
 nT
-nT
-nT
-nT
-nT
-nT
+BN
+fL
+An
 nT
 nB
 nB
 LA
 AM
 LA
-AM
-AM
+rz
+rz
 LA
 LA
 LA
@@ -2585,13 +2688,13 @@ nB
 nB
 nB
 nT
+KR
+KR
 nT
 nT
-nT
-nT
-nT
-nT
-nT
+KR
+KR
+KR
 nT
 nB
 nB
