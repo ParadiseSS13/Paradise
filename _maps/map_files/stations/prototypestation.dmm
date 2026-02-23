@@ -267,6 +267,12 @@
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
+"cQ" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hallway)
 "cU" = (
 /obj/structure/stairs/east,
 /turf/simulated/floor/plating,
@@ -1846,11 +1852,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
-"pF" = (
-/turf/simulated/floor/plasteel/stairs{
-	dir = 8
-	},
-/area/station/maintenance/service)
 "pJ" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/med_data/laptop{
@@ -1994,6 +1995,12 @@
 /obj/structure/closet/secure_closet/mime,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/mime)
+"qY" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hallway)
 "qZ" = (
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 6
@@ -2620,6 +2627,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/cafeteria)
+"xa" = (
+/obj/machinery/door_control{
+	id = "serv_inner_garage";
+	name = "Garage Door Control";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/garage/service)
 "xc" = (
 /turf/simulated/floor/dome/pavement/road,
 /area/station/garage/service)
@@ -2842,6 +2857,10 @@
 "yV" = (
 /turf/simulated/wall,
 /area/station/medical/coldroom)
+"zb" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/station/service/hallway)
 "ze" = (
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
@@ -3562,6 +3581,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/cafeteria)
+"EP" = (
+/obj/structure/stairs/west,
+/turf/simulated/floor/plating,
+/area/iceplanet/surface)
 "EQ" = (
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
@@ -38099,23 +38122,23 @@ FZ
 FZ
 FZ
 FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
 FZ
 FZ
 FZ
@@ -38356,23 +38379,23 @@ FZ
 FZ
 FZ
 FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
+bX
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+bX
 FZ
 FZ
 FZ
@@ -38613,23 +38636,23 @@ FZ
 FZ
 FZ
 FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
+bX
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+bX
 FZ
 FZ
 FZ
@@ -38870,23 +38893,23 @@ FZ
 FZ
 FZ
 FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
+bX
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+BF
+bX
 FZ
 FZ
 FZ
@@ -39127,23 +39150,23 @@ FZ
 FZ
 FZ
 FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
+bX
+cU
+cU
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+bX
+cU
+cU
+bX
 FZ
 FZ
 FZ
@@ -39384,6 +39407,10 @@ FZ
 FZ
 FZ
 FZ
+bX
+cU
+cU
+bX
 FZ
 FZ
 FZ
@@ -39393,14 +39420,10 @@ FZ
 FZ
 FZ
 FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
+bX
+cU
+cU
+bX
 FZ
 FZ
 FZ
@@ -39641,6 +39664,10 @@ FZ
 FZ
 FZ
 FZ
+bX
+bX
+bX
+bX
 FZ
 FZ
 FZ
@@ -39650,14 +39677,10 @@ FZ
 FZ
 FZ
 FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
-FZ
+bX
+bX
+bX
+bX
 FZ
 FZ
 FZ
@@ -102120,7 +102143,7 @@ FP
 FP
 FP
 iO
-XX
+Wd
 xc
 xc
 xc
@@ -103401,7 +103424,7 @@ iE
 iE
 iE
 Dq
-iE
+cQ
 iE
 iE
 cr
@@ -103662,7 +103685,7 @@ iE
 iE
 vk
 iO
-Wd
+xa
 XX
 XX
 XX
@@ -104664,8 +104687,8 @@ qv
 qv
 vI
 vI
-jt
-jt
+EP
+EP
 vI
 Xb
 in
@@ -104677,8 +104700,8 @@ WT
 in
 Xb
 so
-pF
-pF
+lD
+lD
 eJ
 Dq
 iE
@@ -104690,7 +104713,7 @@ iE
 iE
 iE
 iE
-iE
+zb
 vl
 sW
 ze
@@ -104921,8 +104944,8 @@ qv
 qv
 qv
 vI
-jt
-jt
+EP
+EP
 vI
 Xb
 in
@@ -104934,9 +104957,9 @@ WT
 in
 Xb
 so
-pF
-pF
-eJ
+lD
+lD
+Dw
 Dq
 iE
 iE
@@ -105191,9 +105214,9 @@ WT
 in
 Xb
 so
-pF
-pF
-Dw
+ll
+ll
+ll
 xT
 iE
 iE
@@ -105456,7 +105479,7 @@ iE
 iE
 iE
 iE
-iE
+qY
 iE
 iE
 iE
