@@ -430,11 +430,6 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
-"KR" = (
-/obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/turf/simulated/wall,
-/area/template_noop)
 "Lp" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
@@ -2400,13 +2395,13 @@ nB
 nB
 nB
 nT
-KR
-KR
+ZF
+ZF
 nT
 nT
-KR
-KR
-KR
+ZF
+ZF
+ZF
 nT
 nB
 nB
@@ -2448,7 +2443,7 @@ nB
 nB
 nB
 nT
-KR
+ZF
 Yf
 nT
 nT
@@ -2496,7 +2491,7 @@ nB
 nB
 nB
 nT
-KR
+ZF
 Cj
 nT
 nT
@@ -2544,7 +2539,7 @@ nB
 nB
 nB
 nT
-KR
+ZF
 pJ
 nT
 lm
@@ -2592,7 +2587,7 @@ nB
 nB
 nB
 nT
-KR
+ZF
 Hm
 nT
 nT
@@ -2640,7 +2635,7 @@ nB
 nB
 nB
 nT
-KR
+ZF
 US
 nT
 nT
@@ -2688,13 +2683,13 @@ nB
 nB
 nB
 nT
-KR
-KR
+ZF
+ZF
 nT
 nT
-KR
-KR
-KR
+ZF
+ZF
+ZF
 nT
 nB
 nB
