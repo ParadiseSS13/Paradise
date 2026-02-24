@@ -141,7 +141,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Let the RCL handle it.
 	if(istype(used, /obj/item/stack/cable_coil/rcl))
-		used.item_interaction(user, src, modifiers)
 		return ..()
 
 	if(istype(used, /obj/item/stack/cable_coil))
@@ -151,11 +150,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			to_chat(user, "These coils are of different types.")
 			return ITEM_INTERACT_COMPLETE
 
-		if(C.get_amount() >= MAXCOIL)
+		if(C.get_amount() >= C.max_amount)
 			to_chat(user, "The coil is as long as it will get.")
 			return ITEM_INTERACT_COMPLETE
 
-		if((C.get_amount() + get_amount() <= MAXCOIL))
+		if((C.get_amount() + get_amount() <= C.max_amount))
 			to_chat(user, "You join the cable coils together.")
 			return ITEM_INTERACT_COMPLETE
 
@@ -316,9 +315,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				to_chat(user, SPAN_WARNING("There's already a cable at that position!"))
 				return
 
-
-		C.cable_color(color)
-
+		if(destroy_upon_empty)
+			C.cable_color(color)
+		else
+			C.cable_color(spool_color)
 		C.d1 = nd1
 		C.d2 = nd2
 

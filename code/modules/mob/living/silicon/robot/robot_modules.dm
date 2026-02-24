@@ -1121,3 +1121,9 @@
 	statpanel_name = "Metal"
 	stack = /obj/item/stack/sheet/metal
 	add_to_storage = TRUE
+
+/datum/robot_storage/material/cable
+	name = "Cable Storage"
+	statpanel_name = "Cable"
+	max_amount = 90
+	stack = /obj/item/stack/cable_coil/rcl

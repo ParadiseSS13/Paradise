@@ -4,6 +4,7 @@
 	icon = 'icons/obj/rcl.dmi'
 	icon_state = "rcl"
 	inhand_icon_state = "rcl"
+	belt_icon = null
 	origin_tech = "engineering=4;materials=2"
 	materials = list(MAT_METAL = 5000)
 	destroy_upon_empty = FALSE
@@ -22,9 +23,9 @@
 
 /obj/item/stack/cable_coil/rcl/Initialize(mapload)
 	. = ..()
-	w_class = WEIGHT_CLASS_NORMAL
-	AddComponent(/datum/component/two_handed)
 	color_rainbow()
+	AddComponent(/datum/component/two_handed)
+	w_class = WEIGHT_CLASS_NORMAL
 	refresh_icon()
 
 /obj/item/stack/cable_coil/rcl/Destroy()
@@ -59,13 +60,28 @@
 	if(!istype(used, /obj/item/stack/cable_coil))
 		return ..()
 
+	// Another RCL is stealing cable from us, let its interact_with_atom() fire.
+	if(istype(used, /obj/item/stack/cable_coil/rcl))
+		return NONE
+
+	load_cable(user, used)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/stack/cable_coil/rcl/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/item/stack/cable_coil))	
+		return ..()
+
+	load_cable(user, target)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/stack/cable_coil/rcl/proc/load_cable(mob/living/user, obj/item/used)
 	var/obj/item/stack/cable_coil/used_coil = used
-	if(amount >= RCL_MAX_SPOOL_SIZE)
+	if(get_amount() >= RCL_MAX_SPOOL_SIZE)
 		to_chat(user, SPAN_WARNING("You cannot fit any more cable on [src]!"))
 		return ITEM_INTERACT_COMPLETE
 
 	// When loading an empty cable spool, turn it into either standard or heavy based on what we're loading.
-	if(!amount)
+	if(!get_amount())
 		spool_color = used_coil.color
 		cable_type = used_coil.cable_type
 		cable_merge_id = used_coil.cable_merge_id
@@ -74,11 +90,11 @@
 		to_chat(user, SPAN_WARNING("These coils are of different types!"))
 		return ITEM_INTERACT_COMPLETE
 
-	var/new_amount = min(amount + used_coil.get_amount(), RCL_MAX_SPOOL_SIZE)
-	used_coil.use(new_amount - amount)
-	amount = new_amount
+	var/delta = (RCL_MAX_SPOOL_SIZE - get_amount())
+	add(min(used_coil.get_amount(), delta))
+	used_coil.use(min(used_coil.get_amount(), delta), used_coil.destroy_upon_empty)
 	refresh_icon(user)
-	to_chat(user, SPAN_NOTICE("You add the cables to [src]. It now contains [amount]."))
+	to_chat(user, SPAN_NOTICE("You add the cables to [src]. It now contains [get_amount()]."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/cable_coil/rcl/proc/refresh_icon(mob/user)
@@ -93,11 +109,11 @@
 /obj/item/stack/cable_coil/rcl/update_overlays()
 	. = ..()
 	overlays.Cut()
-	if(!amount)
+	if(!get_amount())
 		return
 
 	var/coil_size
-	switch(amount)
+	switch(get_amount())
 		if(61 to INFINITY)
 			coil_size = "full"
 		if(31 to 60)
@@ -128,7 +144,7 @@
 
 /obj/item/stack/cable_coil/rcl/proc/is_empty(mob/user, loud = 1)
 	refresh_icon(user)
-	if(!amount)
+	if(!get_amount())
 		if(loud)
 			to_chat(user, SPAN_WARNING("The last of the cables unreel from [src]!"))
 		return TRUE
@@ -200,12 +216,18 @@
 /obj/item/stack/cable_coil/rcl/robot
 	name = "robotic rapid cable layer (RRCL)"
 	desc = "A Rapid Cable Layer used to hold a spool of cable for engineering and construction robots."
+	energy_type = /datum/robot_storage/material/cable
+	is_cyborg = TRUE
 	/// Tells us if we're laying basic or insulated cable.
 	var/heavy_mode = FALSE
 
+// update_icon() refuses to add the cable overlay on Initialize(), I'm convinced it's an issue with energy stacks.
+// Energy stacks cannot be avoid because the icon of a stack refuses to render otherwise for reasons beyond my comprehension.
 /obj/item/stack/cable_coil/rcl/robot/Initialize(mapload)
 	..()
-	refresh_icon()
+	var/image/cable_overlay = image('icons/obj/rcl.dmi', icon_state = "rcl_full")
+	cable_overlay.color = spool_color
+	overlays += cable_overlay
 
 /obj/item/stack/cable_coil/rcl/robot/examine(mob/user)
 	. = ..()
@@ -234,14 +256,11 @@
 
 /obj/item/stack/cable_coil/rcl/robot/CtrlClick(mob/user, modifiers)
 	if(!heavy_mode)
-		var/new_cable_color = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("white","red","orange","yellow","green","blue","cyan","pink"))
+		var/new_cable_color = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("pink","red","orange","yellow","green","blue","cyan","white"))
 		if(!new_cable_color)
 			return
 
 		to_chat(user, SPAN_NOTICE("[src] is now dispensing [new_cable_color] cable."))
-		// For reasons beyond my comprehension, BYOND cannot comprehend the fact that green is equal to itself unless you explicitly tell it so.
-		if(new_cable_color == "green")
-			new_cable_color = COLOR_GREEN
 		cable_color(new_cable_color)
 	else
 		if(cable_type == /obj/structure/cable/extra_insulated/pre_connect)
