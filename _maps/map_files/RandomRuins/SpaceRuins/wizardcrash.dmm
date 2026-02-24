@@ -180,7 +180,8 @@
 /area/ruin/space/powered)
 "aM" = (
 /obj/machinery/door/airlock/external,
-/turf/template_noop,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "aN" = (
 /obj/structure/bookcase,
@@ -394,7 +395,6 @@
 /area/ruin/space/powered)
 "bz" = (
 /mob/living/basic/mimic/crate,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bA" = (
@@ -478,6 +478,7 @@
 	opened = 1
 	},
 /obj/effect/spawner/random/wizardcrash,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bP" = (

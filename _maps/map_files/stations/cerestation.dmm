@@ -34109,14 +34109,6 @@
 "gkX" = (
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/break_room/secondary)
-"gle" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
 "glf" = (
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
@@ -40456,12 +40448,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "hHm" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "hHp" = (
@@ -43237,6 +43228,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/sorting)
+"ijS" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "ijW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -74384,6 +74381,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"paT" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "paV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -83424,11 +83427,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
 "rcw" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "rcy" = (
@@ -89827,9 +89830,6 @@
 "szH" = (
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/structure/chair{
-	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
@@ -109341,12 +109341,11 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "wIl" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/under/color/orange/prison,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "wIp" = (
@@ -113648,12 +113647,6 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/catwalk,
 /area/station/command/teleporter)
-"xET" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
 "xEX" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
@@ -113767,10 +113760,11 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "xGq" = (
@@ -115430,6 +115424,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "xZx" = (
@@ -130113,7 +130108,7 @@ pSz
 mFT
 rnm
 qBv
-gle
+rcw
 rcw
 wIl
 gjo
@@ -131144,7 +131139,7 @@ mFT
 mFT
 mFT
 dqb
-drz
+ijS
 xQS
 xQS
 aqY
@@ -131396,12 +131391,12 @@ rNK
 rNK
 pVD
 xGe
-xET
+hHm
 hHm
 szH
 akD
 bTR
-drz
+paT
 xQS
 jYh
 lSo

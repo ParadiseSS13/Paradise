@@ -6885,12 +6885,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
-"xx" = (
-/obj/machinery/photocopier/faxmachine/longrange/syndie{
-	department = "Syndicate"
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
 "xy" = (
 /obj/structure/bookcase/random,
 /obj/machinery/light/small,
@@ -69163,7 +69157,7 @@ lZ
 lZ
 lZ
 wk
-xx
+lZ
 lZ
 lZ
 lZ
