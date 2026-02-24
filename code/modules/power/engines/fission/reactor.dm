@@ -273,7 +273,7 @@
 	icon_state = "meltdown"
 	sleep(2.5 SECONDS)
 	var/explosion_modifier = clamp(reactivity_multiplier * EXPLOSION_MODIFIER, 8, 40)
-	explosion(get_turf(src), explosion_modifier / 2, explosion_modifier, explosion_modifier + 3, explosion_modifier + 6, ignorecap = TRUE, smoke = TRUE)
+	explosion(get_turf(src), explosion_modifier / 2, explosion_modifier, explosion_modifier + 3, explosion_modifier + 6, ignorecap = TRUE)
 	icon_state = "broken"
 
 /obj/machinery/atmospherics/fission_reactor/proc/set_fixed()
