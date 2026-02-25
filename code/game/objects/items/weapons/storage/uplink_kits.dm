@@ -175,7 +175,7 @@
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/// 164TC
+/// 167.5 TC
 /obj/item/storage/box/syndie_kit/bundle/gangster
 	name = "Mob Boss"
 	desc = "Armed with a classic suit and a lethally-effective thompson submachine gun, you are the boss, and they have disrespected you."
