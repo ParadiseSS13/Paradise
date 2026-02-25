@@ -39,7 +39,9 @@
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
 		var/datum/orbit_data/orbit_data = satellite.orbit_data
 		satellite_data += list(list(
+			"UID" = satellite.UID(),
 			"name" = satellite.internal_name,
+			"status" = satellite.status,
 			"weight" = satellite.satellite_stats.weight,
 			"fuel_efficiency" = satellite.satellite_stats.fuel_efficiency,
 			"fuel_capacity" = satellite.satellite_stats.fuel_capacity,
@@ -66,6 +68,7 @@
 	data["collected_science_data"] = collected_science_data
 	data["inserted_disk"] = istype(inserted_disk)
 	data["cmagged"] = HAS_TRAIT(src, TRAIT_CMAGGED)
+	data["world_time"] = world.time
 	data["current_planet_base64"] = current_planet_base64
 	data["current_background_base64"] = current_background_base64
 	return data
@@ -75,6 +78,32 @@
 	if(!ui)
 		ui = new(user, src, "SatelliteMonitor", name)
 		ui.open()
+
+/obj/machinery/computer/satellite_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	var/obj/machinery/science_satellite/satellite = get_satellite_from_UID(params["uid"])
+	if(!satellite)
+		return
+
+	switch(action)
+		if("launch")
+			// TODO: Launch code
+			satellite.status = "in orbit"
+			. = TRUE
+		if("add_maneuver")
+			var/prograde = text2num(params["prograde"])
+			var/normal = text2num(params["normal"])
+			var/time_at_maneuver = text2num(params["time_at_maneuver"])
+			satellite.orbit_data.add_maneuver(prograde, normal, time_at_maneuver)
+			satellite.status = "waiting for maneuver"
+			. = TRUE
+
+/obj/machinery/computer/satellite_monitor/proc/get_satellite_from_UID(uid)
+	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
+		if(satellite.UID() == uid)
+			return(satellite)
 
 /obj/machinery/computer/satellite_monitor/multitool_act(mob/living/user, obj/item/I)
 	. = ..()

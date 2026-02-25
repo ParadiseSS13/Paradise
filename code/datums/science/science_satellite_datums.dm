@@ -65,15 +65,12 @@
 
 
 /datum/orbit_data/proc/heartbeat()
-
 	velocity = get_velocity()
 	orbit_progress = get_orbit_progress()
 
 	for(var/datum/maneuver_data/maneuver in planned_maneuvers)
 		if(world.time > maneuver.world_time_at_maneuver)
 			perform_burn(maneuver, owner)
-		if(maneuver.prograde <= 0)
-			planned_maneuvers -= maneuver
 
 /// Performs a fraction of the maneuver
 /datum/orbit_data/proc/perform_burn(datum/maneuver_data/maneuver, datum/satellite_stats/satellite_stats)

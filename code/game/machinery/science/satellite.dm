@@ -12,6 +12,7 @@
 	var/list/linked_consoles = new()
 	var/list/maneuver_data = new()
 	var/datum/orbit_data/orbit_data = new()
+	var/status = "OK"
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
