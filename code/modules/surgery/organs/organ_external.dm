@@ -342,9 +342,9 @@
 	brute_dam = max(brute_dam - brute, 0)
 	burn_dam  = max(burn_dam - burn, 0)
 
-	if(internal)
+	var/datum/wound/fracture = get_wound(/datum/wound/fracture)
+	if(internal && fracture)
 		status &= ~ORGAN_BROKEN
-		var/datum/wound/fracture = get_wound(/datum/wound/fracture)
 		fracture.cure_wound()
 		perma_injury = 0
 
