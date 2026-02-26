@@ -7205,9 +7205,6 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
-"zI" = (
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/area/ninja/holding)
 "zJ" = (
 /obj/structure/sign/service/kitchen,
 /turf/simulated/wall/indestructible/syndicate/no_diagonal,
@@ -52769,11 +52766,7 @@ aN
 aN
 aN
 aN
-yi
-zI
-dS
-Mb
-Mb
+aN
 yi
 dS
 Mb
@@ -52790,8 +52783,12 @@ yi
 dS
 Mb
 Mb
-zI
 yi
+dS
+Mb
+Mb
+yi
+aN
 aN
 aN
 aN
