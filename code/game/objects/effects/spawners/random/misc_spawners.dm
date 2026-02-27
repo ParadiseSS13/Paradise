@@ -334,6 +334,79 @@
 		/obj/item/stack/sheet/mineral/diamond/ten = 1,
 	)
 
+/obj/effect/spawner/random/giant_spiders
+	name = "giant spider spawner"
+	spawn_loot_chance = 30
+	spawn_scatter_radius = 1
+	loot = list(
+		/mob/living/basic/giant_spider
+	)
+
+/obj/effect/spawner/random/giant_spiders/Initialize(mapload)
+	spawn_loot_count = roll("1d4")
+	. = ..()
+
+/obj/effect/spawner/random/crew_corpse
+	name = "random crew corpse spawner"
+	spawn_loot_chance = 30
+	spawn_scatter_radius = 1
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+		/obj/effect/mob_spawn/human/corpse/random_species/doctor,
+		/obj/effect/mob_spawn/human/corpse/random_species/engineer,
+		/obj/effect/mob_spawn/human/corpse/random_species/scientist,
+		/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+	)
+
+/obj/effect/spawner/random/science_equipment
+	name = "science equipment spawner"
+	spawn_loot_chance = 60
+	loot = list(
+		/obj/item/assembly/igniter,
+		/obj/item/assembly/timer,
+		/obj/item/book/manual/wiki/robotics_cyborgs,
+		/obj/item/book/manual/wiki/sop_science,
+		/obj/item/clothing/glasses/hud/diagnostic,
+		/obj/item/clothing/glasses/science,
+		/obj/item/clothing/glasses/welding,
+		/obj/item/clothing/gloves/color/latex,
+		/obj/item/extinguisher/mini,
+		/obj/item/grenade/chem_grenade/firefighting,
+		/obj/item/paicard,
+		/obj/item/pen,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/dropper/precision,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/beaker/large,
+		/obj/item/reagent_containers/glass/bottle/morphine,
+		/obj/item/robotanalyzer,
+		/obj/item/stack/cable_coil,
+		/obj/item/storage/box/beakers,
+		/obj/item/storage/box/pillbottles,
+		/obj/item/storage/firstaid/machine,
+		/obj/item/transfer_valve,
+	)
+
+/obj/effect/spawner/random/mech_wreck
+	name = "mech wreckage spawner"
+	spawn_loot_chance = 75
+	loot = list(
+		/obj/structure/mecha_wreckage/ripley = 20,
+		/obj/structure/mecha_wreckage/gygax = 20,
+
+		/obj/structure/mecha_wreckage/mauler = 10,
+		/obj/structure/mecha_wreckage/nkarrdem = 10,
+		/obj/structure/mecha_wreckage/odysseus = 10,
+		/obj/structure/mecha_wreckage/reticence = 10,
+
+		/obj/structure/mecha_wreckage/durand = 5,
+		/obj/structure/mecha_wreckage/honker = 5,
+
+		/obj/structure/mecha_wreckage/ares = 1,
+		/obj/structure/mecha_wreckage/marauder = 1,
+		/obj/structure/mecha_wreckage/phazon = 1,
+	)
+
 /obj/effect/spawner/random/common_ore
 	name = "random common ore stack"
 	loot = list(

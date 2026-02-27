@@ -346,3 +346,39 @@
 	. = ..()
 	AddElement(/datum/element/rust/heretic)
 	color = null
+
+/turf/simulated/floor/dome/pavement
+	name = "pavement"
+	icon_state = "metalfoam"
+	icon = 'icons/turf/floors/surface.dmi'
+	icon_state = "pave_empty"
+
+/turf/simulated/floor/dome/pavement/crowbar_act(mob/user, obj/item/I)
+	if(.)
+		return
+
+/turf/simulated/floor/dome/pavement/siding
+	icon_state = "pavement"
+
+/turf/simulated/floor/dome/pavement/corner
+	icon_state = "pave_corner"
+
+/turf/simulated/floor/dome/pavement/corner_inverted
+	icon_state = "pave_invert_corner"
+
+/turf/simulated/floor/dome/pavement/brick
+	icon_state = "brick_paving"
+
+/turf/simulated/floor/dome/pavement/tiling
+	icon_state = "pave_tiling"
+
+/turf/simulated/floor/dome/pavement/stairs
+	icon_state = "pave_stairs"
+
+/turf/simulated/floor/dome/pavement/road
+	icon_state = "road_empty"
+
+
+
+
+

@@ -71,3 +71,12 @@
 	always_unpowered = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	valid_territory = FALSE
+
+/area/iceplanet
+	name = "Ice Planet"
+	always_unpowered = TRUE
+	poweralm = FALSE
+	apc_starts_off = TRUE
+
+/area/iceplanet/surface
+	name = "Ice Planet Surface"

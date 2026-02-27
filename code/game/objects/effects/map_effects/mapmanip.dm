@@ -88,3 +88,55 @@
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/gun_room
 	name = "white_ship gun room"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/small
+	name = "deepmaints small"
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/small
+	name = "deepmaints small"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/medium
+	name = "deepmaints medium"
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/medium
+	name = "deepmaints medium"
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallway_horizontal
+	name = "deepmaints horizontal hallway"
+	color = COLOR_SUN
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_horizontal
+	name = "deepmaints horizontal hallway"
+	color = COLOR_SUN
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallway_vertical
+	name = "deepmaints vertical hallway"
+	color = COLOR_TEAL
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_vertical
+	name = "deepmaints vertical hallway"
+	color = COLOR_TEAL
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallway_floor
+	name = "deepmaints floor tile 3x3"
+	color = COLOR_RED
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallway_floor
+	name = "deepmaints floor tile 3x3"
+	color = COLOR_RED
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallroom_5x5
+	name = "deepmaints hall room 5x5"
+	color = COLOR_YELLOW
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/hallroom_5x5
+	name = "deepmaints hall room 5x5"
+	color = COLOR_YELLOW
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/long
+	name = "deepmaints room long"
+	color = COLOR_ASSEMBLY_LBLUE
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/deepmaints/long
+	name = "deepmaints room long"
+	color = COLOR_ASSEMBLY_LBLUE

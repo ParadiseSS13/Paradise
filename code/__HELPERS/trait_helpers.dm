@@ -603,6 +603,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
 
+///Used for managing KEEP_TOGETHER in [/atom/var/appearance_flags]
+#define TRAIT_KEEP_TOGETHER "keep-together"
+
 /// Trait applied by element
 #define ELEMENT_TRAIT(source) "element_trait_[source]"
 

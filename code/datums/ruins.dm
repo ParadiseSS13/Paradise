@@ -25,7 +25,8 @@
 	if(!name && id)
 		name = id
 
-	mappath = prefix + suffix
+	if(prefix && suffix)
+		mappath = prefix + suffix
 	..(path = mappath)
 
 /// The cost of a ruin is the square root of the product of its dimensions.

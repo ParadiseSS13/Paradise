@@ -249,6 +249,26 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
 
+/turf/simulated/floor/iceplanet
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_ICEPLANET
+
+/turf/simulated/floor/iceplanet/snow
+	#warn pull variance and digging into components or something out of asteroid floor
+	name = "snow"
+	desc = "Looks cold."
+	icon = 'icons/turf/snow.dmi'
+	baseturf = /turf/simulated/floor/iceplanet/snow
+	icon_state = "snow"
+	icon_plating = "snow"
+	temperature = 180
+	slowdown = 2
+
+/turf/simulated/floor/iceplanet/road
+	name = "pavement"
+	icon = 'icons/turf/floors/surface.dmi'
+	icon_state = "road_empty"
+
 /turf/simulated/floor/plating/asteroid/snow/mansus
 	temperature = 293.15
 	slowdown = 0

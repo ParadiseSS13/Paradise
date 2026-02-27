@@ -34,6 +34,8 @@
 	var/correct_prediction
 	/// Are we broken?
 	var/construction_state = RADAR_NEEDS_WELDING
+	var/radio_channel = "Supply"
+	var/respond_to_weather_in_area = /area/lavaland/surface/outdoors
 	luminosity = 1
 
 /obj/machinery/radar/Initialize(mapload)
@@ -56,7 +58,9 @@
 	radio = new(src)
 	radio.listening = FALSE
 	radio.follow_target = src
-	radio.config(list("Supply" = 0))
+	var/list/radio_config = list()
+	radio_config[radio_channel] = 0
+	radio.config(radio_config)
 
 	AddComponent(/datum/component/largetransparency, -1, 2, 0, 1)
 	update_appearance(UPDATE_OVERLAYS)
@@ -79,7 +83,7 @@
 	for(var/datum/weather/W in SSweather.processing)
 		if(!W)
 			break
-		if(W.barometer_predictable && is_path_in_list(/area/lavaland/surface/outdoors, W.area_types))
+		if(W.barometer_predictable && is_path_in_list(respond_to_weather_in_area, W.area_types))
 			switch(W.stage)
 				if(WEATHER_STARTUP_STAGE)
 					if(last_stage == WEATHER_STARTUP_STAGE)
@@ -231,6 +235,10 @@
 	stat &= ~BROKEN
 	construction_state = initial(construction_state)
 	update_icon()
+
+/obj/machinery/radar/avernus
+	respond_to_weather_in_area = /area/iceplanet/surface
+	radio_channel = "Common"
 
 /obj/item/circuitboard/machine/radar
 	board_name = "Doppler Radar"

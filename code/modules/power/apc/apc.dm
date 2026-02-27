@@ -164,7 +164,27 @@
 
 	if(!mapload)
 		GLOB.apcs = sortAtom(GLOB.apcs)
+		if(istype(A) && !apc_area)
+			apc_area = A
+		return
 
+	preliminary_setup(direction, building)
+
+/// A separate proc for some setup behavior because
+/// APCs have multiple subtypes, a /New, and a /Initialize
+/// and it's annoying to constantly suss out the state
+/// of something to set all this up
+/obj/machinery/power/apc/proc/preliminary_setup(direction, building = FALSE)
+	var/area/A = get_area(src)
+
+	electronics_state = APC_ELECTRONICS_INSTALLED
+	// is starting with a power cell installed, create it and set its charge level
+	if(cell_type)
+		cell = new /obj/item/stock_parts/cell(src)
+		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
+		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+
+	//if area isn't specified use current
 	if(keep_preset_name)
 		if(isarea(A))
 			apc_area = A
@@ -1145,6 +1165,21 @@
 
 /obj/machinery/power/apc/critical
 	cell_type = 25000
+
+/obj/machinery/power/apc/autoattach
+
+/obj/machinery/power/apc/autoattach/Initialize(mapload)
+	AddElement(/datum/element/automount/apc)
+	. = ..()
+
+/obj/machinery/power/apc/autoattach/deepmaints
+	emergency_power = TRUE
+	operating = TRUE
+	cell_type = 0
+
+/obj/machinery/power/apc/autoattach/deepmaints/Initialize(mapload)
+	. = ..()
+	preliminary_setup(dir, building = FALSE)
 
 /// Can handle any amount of power. Made with plasteel frames and is found in maints and other high power areas.
 /obj/machinery/power/apc/reinforced

@@ -60,10 +60,11 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
+			#warn set these back when we're ready to release
+			map_datum = new /datum/map/moonstation // Assume cyberiad if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
-		map_datum = new /datum/map/boxstation // Assume cyberiad if non-existent
+		map_datum = new /datum/map/moonstation // Assume cyberiad if non-existent
 	if(fexists("data/last_map.txt"))
 		var/list/lines = file2list("data/last_map.txt")
 		// Check its valid
@@ -90,6 +91,7 @@ SUBSYSTEM_DEF(mapping)
 	environments[ENVIRONMENT_LAVALAND] = create_environment(oxygen = LAVALAND_OXYGEN, nitrogen = LAVALAND_NITROGEN, temperature = LAVALAND_TEMPERATURE)
 	environments[ENVIRONMENT_TEMPERATE] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = T20C)
 	environments[ENVIRONMENT_COLD] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = 180)
+	environments[ENVIRONMENT_ICEPLANET] = create_environment(carbon_dioxide = MOLES_O2STANDARD, temperature = 180)
 
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
 	ASSERT(lavaland_theme_type)
@@ -330,13 +332,15 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.fluff_name]...")
 	// This should always be Z2, but you never know
-	var/map_z_level = GLOB.space_manager.add_new_zlevel(
-		MAIN_STATION,
-		linkage = CROSSLINKED,
-		traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK),
-		transition_tag = TRANSITION_TAG_SPACE
-	)
-	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	var/list/map_zlevels = list()
+	for(var/i in 1 to length(map_datum.level_traits))
+		map_zlevels += GLOB.space_manager.add_new_zlevel(
+			map_datum.level_names[i],
+			linkage = map_datum.linkage,
+			traits = map_datum.level_traits[i],
+			transition_tag = map_datum.transition_tag
+		)
+	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_zlevels[1])
 	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
 
 	// Save station name in the DB

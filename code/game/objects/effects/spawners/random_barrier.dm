@@ -64,3 +64,13 @@
 		/obj/structure/grille,
 		/obj/structure/grille/broken,
 	)
+
+/obj/effect/spawner/random/barrier/foamedmetal
+	name = "foamed metal maybe"
+	icon_state = "grille"
+	spawn_loot_chance = 45
+	loot = list(
+		/obj/structure/foamedmetal,
+		/turf/simulated/floor/plating/metalfoam,
+		/turf/simulated/floor/plating/metalfoam/iron,
+	)
