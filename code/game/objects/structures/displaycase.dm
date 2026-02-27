@@ -77,10 +77,22 @@
 		. += SPAN_WARNING("The ID lock has been shorted out.")
 
 /obj/structure/displaycase/proc/dump(mob/user)
-	if(showpiece)
-		if(!user || !user.put_in_hands(showpiece))
-			showpiece.forceMove(loc)
+	if(!showpiece)
+		return
+	if(!user)
+		showpiece.forceMove(loc)
 		showpiece = null
+		return
+	if(!istype(user, /mob/living/carbon/human) && !user.put_in_hands(showpiece))
+		showpiece.forceMove(loc)
+		showpiece = null
+		return
+
+	var/mob/living/carbon/human/human_user = user
+	if(!human_user.equip_to_slot_if_possible(showpiece, (human_user.hand ? ITEM_SLOT_LEFT_HAND : ITEM_SLOT_RIGHT_HAND), disable_warning = TRUE))
+		if(!human_user.equip_to_slot_if_possible(showpiece, (human_user.hand ? ITEM_SLOT_RIGHT_HAND : ITEM_SLOT_LEFT_HAND), disable_warning = TRUE))
+			showpiece.forceMove(loc)
+	showpiece = null
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

@@ -96,7 +96,7 @@
 	name = "Heist Bundle"
 	desc = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation. Drain the vault of all its worth so we can get that pay dirt!11"
 	items = list(
-		/obj/item/gun/projectile/revolver, // 65 TC
+		/obj/item/gun/projectile/revolver/syndie, // 65 TC
 		/obj/item/ammo_box/a357, // 15 TC
 		/obj/item/ammo_box/a357, // 15 TC
 		/obj/item/card/emag, // 30 TC
@@ -215,8 +215,8 @@
 	desc = "Get pretty good with two revolvers, two speedloaders, and a backup combat knife."
 	items = list(
 		/obj/item/kitchen/knife/combat, // 0TC but very robust
-		/obj/item/gun/projectile/revolver,  // 65TC
-		/obj/item/gun/projectile/revolver,  // 65TC
+		/obj/item/gun/projectile/revolver/syndie,  // 65TC
+		/obj/item/gun/projectile/revolver/syndie,  // 65TC
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/encryptionkey/syndicate, // 10TC
@@ -540,7 +540,7 @@
 	name = "\improper .357 revolver kit"
 
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
-	new /obj/item/gun/projectile/revolver(src)
+	new /obj/item/gun/projectile/revolver/syndie(src)
 	new /obj/item/ammo_box/a357(src)
 
 /obj/item/storage/box/syndie_kit/stechkin
