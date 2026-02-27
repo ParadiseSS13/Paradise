@@ -401,8 +401,7 @@
 				to_chat(usr, SPAN_WARNING("Cancelled addition: reason field is required."))
 				return FALSE
 			releasetime = releasetime + 10 MINUTES
-			if(timeleft() * 10 > 60 MINUTES)
-				releasetime = world.timeofday + 60 MINUTES
+			releasetime = min(releasetime, world.timeofday + 60 MINUTES)
 			var/added_time_text = isobserver(usr) ? "for: [added_time_reason]." : "by [usr.name] for: [added_time_reason]."
 			Radio.autosay("Prisoner [occupant] had their timer extended [added_time_text]", name, "Security")
 			notify_prisoner("Your brig timer has been extended [added_time_text].")
