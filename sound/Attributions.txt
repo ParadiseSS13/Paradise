@@ -28,4 +28,7 @@ effects/mob_effects/flap.ogg and effects/mob_effects/angryflap.ogg were taken fr
 
 effects/mob_effects/flutter.ogg was taken from https://freesound.org/people/Godowan/sounds/240476/ under CC0
 
+items/beach_chair_hit_1.ogg was compressed to ogg from "screen door open 1.wav" in https://filmcow.itch.io/filmcow-sfx 's "FilmCow Recorded SFX.zip" under their FilmCow Royalty Free SFX Library License Agreement
+
 items/pool_noodle_hit.ogg was compressed to ogg from "cardboard box hit 28.wav" in https://filmcow.itch.io/filmcow-sfx-4 's "Hits & Crunches 48kHz.zip" under their FilmCow Royalty Free SFX Library License Agreement
+
