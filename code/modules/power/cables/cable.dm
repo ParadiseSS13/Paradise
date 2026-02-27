@@ -20,7 +20,7 @@ By design, d1 is the smallest direction and d2 is the highest
 */
 /obj/structure/cable
 	name = "power cable"
-	desc = "A low-cost superconducting cable"
+	desc = "A low-cost superconducting cable."
 	icon = 'icons/obj/power_cond/power_cond_white.dmi'
 	icon_state = "0-1"
 	level = 1

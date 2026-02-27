@@ -27,3 +27,5 @@ voice/scream_kidan.ogg is a modification of voice/scream_moth.ogg introduced fro
 effects/mob_effects/flap.ogg and effects/mob_effects/angryflap.ogg were taken from https://freesound.org/people/Elfman-Rox/sounds/238555/ under CC0
 
 effects/mob_effects/flutter.ogg was taken from https://freesound.org/people/Godowan/sounds/240476/ under CC0
+
+items/beach_chair_hit_1.ogg was compressed to ogg from "screen door open 1.wav" in https://filmcow.itch.io/filmcow-sfx 's "FilmCow Recorded SFX.zip" under their FilmCow Royalty Free SFX Library License Agreement

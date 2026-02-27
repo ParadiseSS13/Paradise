@@ -140,20 +140,69 @@
 	log_debug("Fire rate = [hits_per_sec] hits/sec")
 	log_debug("Total damage = [total_damage], DPS = [damage_per_sec]")
 	log_debug("############### End hit report ################")
+
+/mob/living/carbon/human/ai_controlled/Initialize(mapload, datum/species/new_species)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/ai_controlled/angry/Initialize(mapload, datum/species/new_species)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	. = ..(mapload, /datum/species/skrell)
+
+/mob/living/carbon/human/skrell/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/skrell/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/tajaran/Initialize(mapload)
 	. = ..(mapload, /datum/species/tajaran)
 
+/mob/living/carbon/human/tajaran/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/tajaran/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
 	. = ..(mapload, /datum/species/vulpkanin)
+
+/mob/living/carbon/human/vulpkanin/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/vulpkanin/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/unathi/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi)
 
+/mob/living/carbon/human/unathi/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/unathi/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
+
+/mob/living/carbon/human/vox/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/vox/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
@@ -167,14 +216,46 @@
 /mob/living/carbon/human/kidan/Initialize(mapload)
 	. = ..(mapload, /datum/species/kidan)
 
+/mob/living/carbon/human/kidan/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/kidan/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/plasma/Initialize(mapload)
 	. = ..(mapload, /datum/species/plasmaman)
+
+/mob/living/carbon/human/plasma/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/plasma/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/slime/Initialize(mapload)
 	. = ..(mapload, /datum/species/slime)
 
+/mob/living/carbon/human/slime/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/slime/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/grey/Initialize(mapload)
 	. = ..(mapload, /datum/species/grey)
+
+/mob/living/carbon/human/grey/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/grey/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/abductor/Initialize(mapload)
 	. = ..(mapload, /datum/species/abductor)
@@ -182,11 +263,27 @@
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
 
+/mob/living/carbon/human/diona/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/diona/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
 
 /mob/living/carbon/human/machine/Initialize(mapload)
 	. = ..(mapload, /datum/species/machine)
+
+/mob/living/carbon/human/machine/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/machine/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
@@ -213,6 +310,14 @@
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
+/mob/living/carbon/human/drask/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/drask/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
 	ai_controller = new /datum/ai_controller/monkey(src)
@@ -237,13 +342,53 @@
 	. = ..(mapload, /datum/species/monkey/nian_worme)
 	ai_controller = new /datum/ai_controller/monkey(src)
 
+/mob/living/carbon/human/monkey/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/farwa/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/wolpin/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/neara/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/stok/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/nian_worme/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/moth/Initialize(mapload)
 	. = ..(mapload, /datum/species/moth)
 	if(!body_accessory)
 		change_body_accessory("Plain Wings")
 
+/mob/living/carbon/human/moth/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/moth/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/skulk/Initialize(mapload)
 	. = ..(mapload, /datum/species/skulk)
+
+/mob/living/carbon/human/skulk/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/skulk/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -1151,6 +1296,12 @@
 		var/obj/item/organ/external/affected = get_organ("chest")
 		affected.custom_pain("You feel a stabbing pain in your chest!")
 		L.linked_organ.receive_damage(max(L.linked_organ.min_bruised_damage - L.linked_organ.damage, 2))
+
+/mob/living/carbon/human/proc/has_liver_cirrhosis()
+	var/obj/item/organ/internal/liver/liver = get_int_organ(/obj/item/organ/internal/liver)
+	if(!liver || liver.status & ORGAN_ROBOT)
+		return FALSE
+	return liver.get_wound(/datum/wound/cirrhosis)
 
 /mob/living/carbon/human/resist_restraints(attempt_breaking)
 	if(HAS_TRAIT(src, TRAIT_HULK))
