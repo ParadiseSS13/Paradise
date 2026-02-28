@@ -60,9 +60,9 @@
 
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)
-			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+			output += "<p><a href='byond://?src=[UID()];ready=1'><font color='lime'><b>Declare Ready</b></font></a></p>"
 		else
-			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'><font color='orange'><b>Cancel</b></font></a>)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
