@@ -208,6 +208,7 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
 
+
 /obj/item/clothing/head/cowboyhat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
