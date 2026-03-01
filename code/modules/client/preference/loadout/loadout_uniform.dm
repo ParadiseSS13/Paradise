@@ -31,7 +31,7 @@
 	main_typepath = /datum/gear/uniform/turtleneck/job
 
 //there's a lot more colors than I thought there were @_@
-
+// MARK: Colored jumpsuits
 /datum/gear/uniform/suit/jumpsuitblack
 	display_name = "Jumpsuit, black"
 	path = /obj/item/clothing/under/color/black
@@ -231,6 +231,10 @@
 	display_name = "Skirt, black"
 	path = /obj/item/clothing/under/dress/blackskirt
 
+/datum/gear/uniform/skirt/black_tango
+	display_name = "black tango dress"
+	path = obj/item/clothing/under/dress/blacktango
+
 /datum/gear/uniform/skirt/blue_tango
 	display_name = "blue tango dress"
 	path = /obj/item/clothing/under/dress/blacktango/blue
@@ -239,7 +243,7 @@
 	main_typepath = /datum/gear/uniform/skirt/job
 	subtype_selection_cost = FALSE
 
-//Engineering
+// MARK: Engineering
 
 /datum/gear/uniform/eng
 	main_typepath = /datum/gear/uniform/eng
@@ -275,7 +279,7 @@
 	path = /obj/item/clothing/under/rank/engineering/chief_engineer/turtleneck
 	allowed_roles = list("Chief Engineer")
 
-//Research
+// MARK: Research
 /datum/gear/uniform/sci
 	main_typepath = /datum/gear/uniform/sci
 
@@ -345,7 +349,7 @@
 	allowed_roles = list("Research Director")
 
 
-//Medical
+// MARK: Medical
 /datum/gear/uniform/skirt/job/chem
 	display_name = "Skirt, chemist"
 	path = /obj/item/clothing/under/rank/medical/chemist/skirt
@@ -376,7 +380,7 @@
 	path = /obj/item/clothing/under/rank/medical/cmo/turtleneck
 	allowed_roles = list("Chief Medical Officer")
 
-//Supply
+// MARK: Supply
 /datum/gear/uniform/skirt/job/cargo
 	display_name = "Skirt, cargo"
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
@@ -402,7 +406,7 @@
 	path = /obj/item/clothing/under/rank/cargo/qm/turtleneck
 	allowed_roles = list("Quartermaster")
 
-//Security
+// MARK: Security
 /datum/gear/uniform/skirt/job/warden
 	display_name = "Skirt, warden"
 	path = /obj/item/clothing/under/rank/security/warden/skirt
@@ -428,7 +432,7 @@
 	path = /obj/item/clothing/under/rank/security/head_of_security/turtleneck
 	allowed_roles = list("Head of Security")
 
-//Service
+// MARK: Service
 
 /datum/gear/uniform/suit/job/hydroponics_alt
 	display_name = "Jumpsuit, hydroponics brown"
@@ -490,7 +494,7 @@
 	path = /obj/item/clothing/under/rank/civilian/chaplain/thobe
 	allowed_roles = list("Chaplain")
 
-//Command and dignitary
+// MARK: Command
 /datum/gear/uniform/skirt/captain
 	display_name = "Skirt, captain"
 	path = /obj/item/clothing/under/rank/captain/skirt
@@ -537,6 +541,7 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/delivery
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+// MARK: Overalls
 /datum/gear/uniform/overalls
 	main_typepath = /datum/gear/uniform/overalls
 
@@ -602,6 +607,7 @@
 	path = /obj/item/clothing/under/rank/security/officer/uniform
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective")
 
+// MARK: Other
 /datum/gear/uniform/shorts
 	main_typepath = /datum/gear/uniform/shorts
 
@@ -682,12 +688,12 @@
 
 /datum/gear/uniform/suit/tacticool
 	display_name = "Tacticool turtleneck"
-	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
+	description = "A sleek black turtleneck paired with some khakis. (WARNING: DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
 
 /datum/gear/uniform/suit/greyman
 	display_name = "Greyman Henley"
-	description = "Khaki henley paired up with some grey cargo pants (WARNING DOES NOT HAVE SUIT SENSORS)"
+	description = "Khaki henley paired up with some grey cargo pants. (WARNING: DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/greyman
 
 /datum/gear/uniform/suit/assistantformal
