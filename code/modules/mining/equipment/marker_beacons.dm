@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/activate_self(mob/user)
 	if(..())
-	return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 
 	if(!isturf(user.loc))
 		to_chat(user, SPAN_WARNING("You need more space to place a [singular_name] here."))

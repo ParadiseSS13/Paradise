@@ -187,21 +187,21 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	. = ..()
 	recipes = GLOB.pglass_recipes
 
-/obj/item/stack/sheet/plasmaglass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/V  = W
-		var/obj/item/stack/sheet/plasmarglass/RG = new (user.loc)
-		RG.add_fingerprint(user)
-		V.use(1)
-		var/obj/item/stack/sheet/glass/G = src
-		src = null
-		var/replace = (user.get_inactive_hand()==G)
-		G.use(1)
-		if(!G && !RG && replace)
-			user.put_in_hands(RG)
-	else
+/obj/item/stack/sheet/plasmaglass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/rods))
 		return ..()
+
+	var/obj/item/stack/rods/V  = used
+	var/obj/item/stack/sheet/plasmarglass/RG = new (user.loc)
+	RG.add_fingerprint(user)
+	V.use(1)
+	var/obj/item/stack/sheet/glass/G = src
+	src = null
+	var/replace = (user.get_inactive_hand() == G)
+	G.use(1)
+	if(!G && !RG && replace)
+		user.put_in_hands(RG)
+	return ITEM_INTERACT_COMPLETE
 
 //////////////////////////////
 // MARK: REINFORCED PLASMA GLASS

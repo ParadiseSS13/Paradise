@@ -64,7 +64,7 @@
 
 	if(S.pickup_all_on_tile)
 		for(var/obj/item/stack/ore/O in contents)
-			O.attackby__legacy__attackchain(S, user)
+			O.item_interaction(S, user)
 			return
 
 /turf/simulated/floor/plating/asteroid/item_interaction(mob/living/user, obj/item/used, list/modifiers)

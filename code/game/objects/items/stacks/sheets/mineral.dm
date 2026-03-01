@@ -197,6 +197,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "empty-sandbags"
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 
 /obj/item/emptysandbag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/stack/ore/glass))
