@@ -629,6 +629,10 @@
 	display_name = "Shorts, grey"
 	path = /obj/item/clothing/under/pants/shorts/grey
 
+/datum/gear/uniform/shorts/jean
+	display_name = "Shorts, jean"
+	path = /obj/item/clothing/under/pants/shorts/jeanshorts
+
 /datum/gear/uniform/pants
 	main_typepath = /datum/gear/uniform/pants
 
