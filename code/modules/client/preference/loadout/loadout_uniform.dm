@@ -231,6 +231,10 @@
 	display_name = "Skirt, black"
 	path = /obj/item/clothing/under/dress/blackskirt
 
+/datum/gear/uniform/skirt/black_tango
+	display_name = "black tango dress"
+	path = /obj/item/clothing/under/dress/blacktango
+
 /datum/gear/uniform/skirt/blue_tango
 	display_name = "blue tango dress"
 	path = /obj/item/clothing/under/dress/blacktango/blue
