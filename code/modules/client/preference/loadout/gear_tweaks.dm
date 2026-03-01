@@ -47,7 +47,7 @@
 /datum/gear_tweak/rename
 	display_type = "Name"
 	fa_icon = "edit"
-	info = "Renameable"
+	info = "Customizable name"
 
 /datum/gear_tweak/rename/get_default()
 	return ""
@@ -68,7 +68,7 @@
 /datum/gear_tweak/redesc
 	display_type = "Description"
 	fa_icon = "edit"
-	info = "PLACEHOLDER"
+	info = "Customizable description"
 
 /datum/gear_tweak/redesc/get_default()
 	return ""
