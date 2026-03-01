@@ -65,20 +65,21 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	. = ..()
 	recipes = GLOB.glass_recipes
 
-/obj/item/stack/sheet/glass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/CC = W
+/obj/item/stack/sheet/glass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/CC = used
 		if(CC.get_amount() < 5)
-			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
-			return
+			to_chat(user, SPAN_WARNING("[used] doesn't have enough cable! You need 5 lengths."))
+			return ITEM_INTERACT_COMPLETE
+
 		CC.use(5)
 		to_chat(user, SPAN_NOTICE("You attach wire to [src]."))
 		new /obj/item/stack/light_w(user.loc)
 		use(1)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/V  = W
+	if(istype(used, /obj/item/stack/rods))
+		var/obj/item/stack/rods/V  = used
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
 		V.use(1)
@@ -88,7 +89,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		G.use(1)
 		if(!G && !RG && replace)
 			user.put_in_hands(RG)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
