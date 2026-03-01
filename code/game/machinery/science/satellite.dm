@@ -13,6 +13,7 @@
 	var/list/maneuver_data = new()
 	var/datum/orbit_data/orbit_data = new()
 	var/status = "OK"
+	var/collected_science_data = 0
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
@@ -60,6 +61,8 @@
 	satellite_stats.current_fuel = satellite_stats.fuel_capacity
 	satellite_stats.current_power = satellite_stats.power_capacity
 
+	satellite_stats.fuel_usage = (1 + satellite_stats.weight * 0.1) / satellite_stats.fuel_efficiency
+
 /obj/machinery/science_satellite/proc/recalculate_stats()
 	satellite_stats = new()
 
@@ -75,6 +78,8 @@
 
 	satellite_stats.current_fuel = satellite_stats.fuel_capacity
 	satellite_stats.current_power = satellite_stats.power_capacity
+
+	satellite_stats.fuel_usage = (1 + satellite_stats.weight * 0.1) / satellite_stats.fuel_efficiency
 
 /obj/machinery/science_satellite/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

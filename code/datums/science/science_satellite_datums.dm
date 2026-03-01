@@ -10,6 +10,7 @@
 	var/current_fuel = 0
 	var/current_power = 0
 	var/engine_speed_constant = 10
+	var/fuel_usage = 1
 
 /datum/orbit_data
 	var/apoapsis = 40000 // furthest
@@ -18,7 +19,7 @@
 	var/inclination = 0 // how tilted the orbit is
 	var/latitude = 0 // the center latitude of the orbit
 	//var/altitude = 40000
-	var/period_multiplier = 4000
+	var/const/period_multiplier = 4000
 	var/period = 20 MINUTES // probably breaks physics, but its a video game
 	//var/gravitational_constant = 6.67408
 	//var/planet_mass = 5 // lavaland is less dense than earth, and will have a lower gravity
@@ -57,7 +58,7 @@
 
 /// gives the time it takes to finish 1 cycle around the planet in minutes
 /datum/orbit_data/proc/get_period()
-	return ((apoapsis + periapsis) / period_multiplier) * 1 MINUTES
+	return ((apoapsis + periapsis) / period_multiplier)
 
 /// gives a value between 0 and 1 which is where the satellite is on the orbit
 /datum/orbit_data/proc/get_orbit_progress()
@@ -90,24 +91,38 @@
 		return
 
 	// do the burn
+	// add a proportionate amount to the apoapsis and periapsis, depending on how close we are to either
 	var/bimodal_orbit = abs(orbit_progress - 0.5) * 2
-	apoapsis += maneuver.prograde / maneuver.magnitude * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn // 0 progress = at periapsis, abs(0-0.5)*2 = 1. 0.5 progress = at apoapsis, abs(0.5-0.5)*2 = 0. 1 progress(same as 0) = abs(1-0.5)*2 = 1
-	periapsis += maneuver.prograde / maneuver.magnitude * (1 - bimodal_orbit) * satellite_stats.engine_speed_constant * fraction_burn // 0 progress = at periapsis, 1 - abs(0-0.5)*2 = 0. 0.5 progress = at apoapsis, 1-abs(0.5-0.5)* 2 = 1. 1 progress (same as 0) = 1-abs(1 - 0.5)*2 = 0
+	apoapsis += maneuver.prograde * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn // 0 progress = at periapsis, abs(0-0.5)*2 = 1. 0.5 progress = at apoapsis, abs(0.5-0.5)*2 = 0. 1 progress(same as 0) = abs(1-0.5)*2 = 1
+	periapsis += maneuver.prograde * (1 - bimodal_orbit) * satellite_stats.engine_speed_constant * fraction_burn // 0 progress = at periapsis, 1 - abs(0-0.5)*2 = 0. 0.5 progress = at apoapsis, 1-abs(0.5-0.5)* 2 = 1. 1 progress (same as 0) = 1-abs(1 - 0.5)*2 = 0
 
-	inclination += (maneuver.normal / maneuver.magnitude * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn) % 360 // normal burns are most efficient the closer to periapsis you are
+ 	// normal burns are most efficient the closer to periapsis you are
+	inclination += (maneuver.normal * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn) % 360
 
 	// subtract fuel, and add power
-	satellite_stats.current_fuel -= 1 / satellite_stats.fuel_efficiency
+	satellite_stats.current_fuel -= satellite_stats.fuel_usage
 	satellite_stats.current_power += satellite_stats.active_power_generation
 	period = get_period()
 
-/datum/orbit_data/proc/add_maneuver(prograde, normal, time_at_maneuver)
+/// Adds a manuever to the orbit
+/// * `prograde` - can be negative. Affects the size of the orbit
+/// * `normal` - can be negative. Affects how tilted the orbit is
+/// * `time_to_maneuver` - deciseconds until the maneuver
+/// * `burn_time` - how many repetitions should be done
+/datum/orbit_data/proc/add_maneuver(prograde, normal, time_to_maneuver, burn_time)
 	var/datum/maneuver_data/maneuver = new()
 	maneuver.prograde = prograde
 	maneuver.normal = normal
 	maneuver.magnitude = maneuver.get_magnitude()
-	maneuver.world_time_at_maneuver = time_at_maneuver
-	maneuver.burn_time = maneuver.magnitude
+
+	//normalize the vector
+	maneuver.prograde /= maneuver.magnitude
+	maneuver.normal /= maneuver.magnitude
+
+	maneuver.world_time_at_maneuver = time_to_maneuver + world.time
+	maneuver.burn_time = burn_time
+
+	planned_maneuvers += maneuver
 
 /datum/maneuver_data
 	var/prograde = 0
@@ -115,7 +130,7 @@
 	var/magnitude = 0
 	var/world_time_at_maneuver = INFINITY
 	var/burn_time = 0
-	var/burn_constant = 0.1
+	var/const/burn_constant = 0.1
 
 /datum/maneuver_data/proc/get_magnitude()
 	return ROOT(prograde ** 2 + normal ** 2, 2)

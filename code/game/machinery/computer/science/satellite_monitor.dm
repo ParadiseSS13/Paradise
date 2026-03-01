@@ -1,7 +1,6 @@
 /obj/machinery/computer/satellite_monitor
 	name = "Satellite Monitor"
 	var/list/linked_satellites = new()
-	var/collected_science_data = 0
 	var/obj/item/disk/tech_disk/inserted_disk
 	var/datum/tech/programming/data_collected
 	var/current_planet_base64
@@ -38,9 +37,22 @@
 	var/list/satellite_data = list()
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
 		var/datum/orbit_data/orbit_data = satellite.orbit_data
+		var/list/planned_maneuvers = list()
+		for(var/datum/maneuver_data/maneuver in orbit_data.planned_maneuvers)
+			planned_maneuvers += list(list(
+				"prograde" = maneuver.prograde,
+				"normal" = maneuver.normal,
+				"burn_time" = maneuver.burn_time,
+				"time_to_maneuver" = maneuver.world_time_at_maneuver - world.time
+			))
+
+		if(planned_maneuvers.len) // in case no maneuver has been set this still needs to become an array
+			planned_maneuvers += list()
+
 		satellite_data += list(list(
 			"UID" = satellite.UID(),
 			"name" = satellite.internal_name,
+			"collected_science_data" = satellite.collected_science_data,
 			"status" = satellite.status,
 			"weight" = satellite.satellite_stats.weight,
 			"fuel_efficiency" = satellite.satellite_stats.fuel_efficiency,
@@ -52,7 +64,8 @@
 			"power_capacity" = satellite.satellite_stats.power_capacity,
 			"current_power" = satellite.satellite_stats.current_power,
 			"current_fuel" = satellite.satellite_stats.current_fuel,
-			"orbit_data" = list(list(
+			"fuel_usage" = satellite.satellite_stats.fuel_usage,
+			"orbit_data" = list(
 				"apoapsis" = orbit_data.apoapsis,
 				"periapsis" = orbit_data.periapsis,
 				"inclination" = orbit_data.inclination,
@@ -61,11 +74,11 @@
 				"launch_time" = orbit_data.launch_time,
 				"velocity" = orbit_data.velocity,
 				"orbit_progress" = orbit_data.orbit_progress,
-			))
+				"planned_maneuvers" = planned_maneuvers,
+			)
 		))
 
 	data["satellite_data"] = satellite_data
-	data["collected_science_data"] = collected_science_data
 	data["inserted_disk"] = istype(inserted_disk)
 	data["cmagged"] = HAS_TRAIT(src, TRAIT_CMAGGED)
 	data["world_time"] = world.time
@@ -82,6 +95,9 @@
 /obj/machinery/computer/satellite_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
+	. = TRUE
+
+	atom_say("ui_act uid: [params["uid"]]")
 
 	var/obj/machinery/science_satellite/satellite = get_satellite_from_UID(params["uid"])
 	if(!satellite)
@@ -89,16 +105,30 @@
 
 	switch(action)
 		if("launch")
+			atom_say("launch")
+
 			// TODO: Launch code
 			satellite.status = "in orbit"
-			. = TRUE
 		if("add_maneuver")
+			atom_say("add_maneuver")
 			var/prograde = text2num(params["prograde"])
 			var/normal = text2num(params["normal"])
-			var/time_at_maneuver = text2num(params["time_at_maneuver"])
-			satellite.orbit_data.add_maneuver(prograde, normal, time_at_maneuver)
+			var/burn_time = text2num(params["burnTime"])
+			var/time_to_maneuver = text2num(params["timeToManeuver"])
+			satellite.orbit_data.add_maneuver(prograde, normal, time_to_maneuver, burn_time MINUTES)
 			satellite.status = "waiting for maneuver"
-			. = TRUE
+		if("delete_all_maneuvers")
+			atom_say("delete_all_maneuvers")
+
+			satellite.orbit_data.planned_maneuvers = new()
+		if("load_data_onto_disk")
+			atom_say("load_data_onto_disk")
+
+			// TODO: Load Data
+			return FALSE
+		if("eject_disk")
+			// TODO: Ejeckt Disk
+			return FALSE
 
 /obj/machinery/computer/satellite_monitor/proc/get_satellite_from_UID(uid)
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
