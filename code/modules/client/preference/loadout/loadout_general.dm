@@ -93,10 +93,23 @@
 	display_name = "Camera"
 	path = /obj/item/camera
 
+/datum/gear/photo_album
+	display_name = "Photo album"
+	path = /obj/item/storage/photo_album
+
+/datum/gear/filmcartridge
+	display_name = "Film cartridge"
+	path = /obj/item/camera_film
+
 /datum/gear/taperecorder
 	display_name = "Universal recorder"
 	path = /obj/item/taperecorder
 
+/datum/gear/tapebox
+	display_name = "Box of tapes"
+	path = /obj/item/storage/box/tapes
+
+// MARK: Plushies
 /datum/gear/redfoxplushie
 	display_name = "Red fox plushie"
 	path = /obj/item/toy/plushie/red_fox
@@ -387,30 +400,26 @@
 	display_name = "Wizard's staff"
 	path = /obj/item/staff
 
-/datum/gear/photo_album
-	display_name = "Photo album"
-	path = /obj/item/storage/photo_album
-
 //////////////////////
 //		Mugs		//
 //////////////////////
 
 /datum/gear/mug
 	display_name = "Coffee mug, random"
-	description = "A randomly colored coffee mug. You'll need to supply your own beverage though."
+	description = "A randomly colored coffee mug. You'll need to supply your own beverage, though."
 	path = /obj/item/reagent_containers/drinks/mug
 	sort_category = "Mugs"
 
 /datum/gear/novelty_mug
 	display_name = "Coffee mug, novelty"
-	description = "A random novelty coffee mug. You'll need to supply your own beverage though."
+	description = "A random novelty coffee mug. You'll need to supply your own beverage, though."
 	path = /obj/item/reagent_containers/drinks/mug/novelty
 	cost = 2
 	sort_category = "Mugs"
 
 /datum/gear/mug/flask
 	display_name = "Flask"
-	description = "A flask for drink transportation. You'll need to supply your own beverage though."
+	description = "A flask for drink transportation. You'll need to supply your own beverage, though."
 	path = /obj/item/reagent_containers/drinks/flask/barflask
 
 /datum/gear/mug/department
@@ -518,10 +527,6 @@
 	display_name = "Clipboard"
 	path = /obj/item/clipboard
 
-/datum/gear/paperwork/pen
-	display_name = "Pen"
-	path = /obj/item/pen
-
 /datum/gear/paperwork/redpen
 	display_name = "Red pen"
 	path = /obj/item/pen/red
@@ -530,22 +535,17 @@
 	display_name = "Blue pen"
 	path = /obj/item/pen/blue
 
+/datum/gear/paperwork/graypen
+	display_name = "Gray pen" // is this not a pencil
+	path = /obj/item/pen/gray
+
 /datum/gear/paperwork/multipen
 	display_name = "Multicolored pen"
 	path = /obj/item/pen/multi
 
-/datum/gear/paperwork/fancypen
-	display_name = "Fancy pen"
-	path = /obj/item/pen/fancy
-
 /datum/gear/paperwork/folder
 	display_name = "Folder"
 	path = /obj/item/folder
-
-/datum/gear/paperwork/folder/New()
-	..()
-	gear_tweaks |= new /datum/gear_tweak/rename
-	gear_tweaks |= new /datum/gear_tweak/redesc
 
 /datum/gear/paperwork/folder/red
 	display_name = "Red folder"
