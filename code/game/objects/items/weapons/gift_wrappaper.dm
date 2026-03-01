@@ -135,6 +135,6 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self__legacy__attackchain(mob/user)
-	. = ()
+	. = ..()
 	to_chat(user, SPAN_NOTICE("You need to use it on a package that has already been wrapped!"))
 	return ITEM_INTERACT_COMPLETE

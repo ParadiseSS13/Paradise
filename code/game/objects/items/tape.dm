@@ -41,7 +41,7 @@
 		to_chat(user, SPAN_NOTICE("You don't have enough tape!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(M.wear_mask)
+	if(H.wear_mask)
 		to_chat(user, SPAN_NOTICE("[H == user ? user : H]'s mouth is already covered!"))
 		return ITEM_INTERACT_COMPLETE
 
