@@ -64,7 +64,7 @@
 
 	if(S.pickup_all_on_tile)
 		for(var/obj/item/stack/ore/O in contents)
-			O.item_interaction(S, user)
+			S.melee_attack_chain(user, O)
 			return
 
 /turf/simulated/floor/plating/asteroid/item_interaction(mob/living/user, obj/item/used, list/modifiers)
