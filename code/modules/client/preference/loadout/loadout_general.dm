@@ -504,3 +504,61 @@
 /datum/gear/instrument/xylo
 	display_name = "Xylophone"
 	path = /obj/item/instrument/xylophone
+
+//////////////////////
+//	  Paperwork 	//
+//////////////////////
+
+/datum/gear/paperwork
+	display_name = "Paper bin"
+	path = /obj/item/paper_bin
+	sort_category = "Paperwork"
+
+/datum/gear/paperwork/clipboard
+	display_name = "Clipboard"
+	path = /obj/item/clipboard
+
+/datum/gear/paperwork/pen
+	display_name = "Pen"
+	path = /obj/item/pen
+
+/datum/gear/paperwork/redpen
+	display_name = "Red pen"
+	path = /obj/item/pen/red
+
+/datum/gear/paperwork/bluepen
+	display_name = "Blue pen"
+	path = /obj/item/pen/blue
+
+/datum/gear/paperwork/multipen
+	display_name = "Multicolored pen"
+	path = /obj/item/pen/multi
+
+/datum/gear/paperwork/fancypen
+	display_name = "Fancy pen"
+	path = /obj/item/pen/fancy
+
+/datum/gear/paperwork/folder
+	display_name = "Folder"
+	path = /obj/item/folder
+
+/datum/gear/paperwork/folder/New()
+	..()
+	gear_tweaks |= new /datum/gear_tweak/rename
+	gear_tweaks |= new /datum/gear_tweak/redesc
+
+/datum/gear/paperwork/folder/red
+	display_name = "Red folder"
+	path = /obj/item/folder/red
+
+/datum/gear/paperwork/folder/blue
+	display_name = "Blue folder"
+	path = /obj/item/folder/blue
+
+/datum/gear/paperwork/folder/white
+	display_name = "White folder"
+	path = /obj/item/folder/white
+
+/datum/gear/paperwork/folder/yellow
+	display_name = "Yellow folder"
+	path = /obj/item/folder/yellow
