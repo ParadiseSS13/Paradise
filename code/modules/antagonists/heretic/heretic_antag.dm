@@ -563,7 +563,7 @@
 	if(num_heads >= 2)
 		var/datum/objective/major_sacrifice/other_sac_objective = new()
 		add_antag_objective(other_sac_objective)
-	if(prob(5))
+	if(prob(20))
 		add_antag_objective(/datum/objective/hijack)
 	else
 		add_antag_objective(/datum/objective/escape)
