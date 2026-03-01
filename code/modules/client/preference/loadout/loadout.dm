@@ -33,9 +33,9 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	if(!description)
 		var/obj/O = path
 		description = initial(O.desc)
-	if(tweakname == TRUE) // Check if the name and/or description var is set to false, in case we don't want custom stuff.
+	if(tweakname == TRUE) // makes either option not work if their respective var is set to `false`
 		gear_tweaks |= new /datum/gear_tweak/rename
-	if(tweakdesc == TRUE) // There has got to be a more efficient way to handle this.
+	if(tweakdesc == TRUE)
 		gear_tweaks |= new /datum/gear_tweak/redesc
 
 
