@@ -15,34 +15,70 @@
 	display_name = "D20"
 	path = /obj/item/dice/d20
 
-/datum/gear/uplift
-	display_name = "Pack of Uplifts"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_uplift
+/datum/gear/carp
+	display_name = "Pack of Carps"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_carp
+
+/datum/gear/dromedary
+	display_name = "Pack of Dromedaries"
+	path = /obj/item/storage/fancy/cigarettes/dromedaryco
+
+/datum/gear/ourbrand
+	display_name = "Pack of Our Brand"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_our_brand
 
 /datum/gear/robust
 	display_name = "Pack of Robusts"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_robust
 
-/datum/gear/carp
-	display_name = "Pack of Carps"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_carp
+/datum/gear/robustgold
+	display_name = "Pack of Robust Golds"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
+
+/datum/gear/robustjunior
+	display_name = "Pack of Robust Juniors"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_candy
+
+/datum/gear/shadyjims
+	display_name = "Pack of Shady Jims"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
+
+/datum/gear/solarrays
+	display_name = "Pack of Solar Rays"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_solar_rays
+
+/datum/gear/uplift
+	display_name = "Pack of Uplifts"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_uplift
 
 /datum/gear/midori
 	display_name = "Pack of Midoris"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_midori
+
+/datum/gear/carcinoma
+	display_name = "Pack of Carcinomas"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_carcinoma
+
+/datum/gear/matches
+	display_name = "Box of matches"
+	path = /obj/item/storage/fancy/matches
+
+/datum/gear/lighter
+	display_name = "Cheap lighter"
+	path = /obj/item/lighter
+
+/datum/gear/zippolighter
+	display_name = "Zippo lighter"
+	path = /obj/item/lighter/zippo
 
 /datum/gear/smokingpipe
 	display_name = "Smoking pipe"
 	path = /obj/item/clothing/mask/cigarette/pipe
 	cost = 2
 
-/datum/gear/lighter
-	display_name = "Cheap lighter"
-	path = /obj/item/lighter
-
-/datum/gear/matches
-	display_name = "Box of matches"
-	path = /obj/item/storage/fancy/matches
+/datum/gear/kingsown
+	display_name = "King's Own tobacco"
+	path = /obj/item/food/grown/tobacco/pre_dried
 
 /datum/gear/candlebox
 	display_name = "Box of candles"
@@ -64,66 +100,207 @@
 /datum/gear/redfoxplushie
 	display_name = "Red fox plushie"
 	path = /obj/item/toy/plushie/red_fox
+	sort_category = "Plushies"
+
+/datum/gear/blackfoxplushie
+	display_name = "Black fox plushie"
+	path = /obj/item/toy/plushie/black_fox
+	sort_category = "Plushies"
+
+/datum/gear/marblefoxplushie
+	display_name = "Marble fox plushie"
+	path = /obj/item/toy/plushie/marble_fox
+	sort_category = "Plushies"
+
+/datum/gear/bluefoxplushie
+	display_name = "Blue fox plushie"
+	path = /obj/item/toy/plushie/blue_fox
+	sort_category = "Plushies"
+
+/datum/gear/orangefoxplushie
+	display_name = "Orange fox plushie"
+	path = /obj/item/toy/plushie/orange_fox
+	sort_category = "Plushies"
+
+/datum/gear/coffeefoxplushie
+	display_name = "Coffee fox plushie"
+	path = /obj/item/toy/plushie/coffee_fox
+	sort_category = "Plushies"
+
+/datum/gear/pinkfoxplushie
+	display_name = "Pink fox plushie"
+	path = /obj/item/toy/plushie/pink_fox
+	sort_category = "Plushies"
+
+/datum/gear/purplefoxplushie
+	display_name = "Purple fox plushie"
+	path = /obj/item/toy/plushie/purple_fox
+	sort_category = "Plushies"
+
+/datum/gear/crimsonfoxplushie
+	display_name = "Crimson fox plushie"
+	path = /obj/item/toy/plushie/crimson_fox
+	sort_category = "Plushies"
 
 /datum/gear/blackcatplushie
 	display_name = "Black cat plushie"
 	path = /obj/item/toy/plushie/black_cat
+	sort_category = "Plushies"
 
-/datum/gear/voxplushie
-	display_name = "Vox plushie"
-	path = /obj/item/toy/plushie/voxplushie
+/datum/gear/greycatplushie
+	display_name = "Grey cat plushie"
+	path = /obj/item/toy/plushie/grey_cat
+	sort_category = "Plushies"
+
+/datum/gear/whitecatplushie
+	display_name = "White cat plushie"
+	path = /obj/item/toy/plushie/white_cat
+	sort_category = "Plushies"
+
+/datum/gear/orangecatplushie
+	display_name = "Orange cat plushie"
+	path = /obj/item/toy/plushie/orange_cat
+	sort_category = "Plushies"
+
+/datum/gear/siamesecatplushie
+	display_name = "Siamese cat plushie"
+	path = /obj/item/toy/plushie/siamese_cat
+	sort_category = "Plushies"
+
+/datum/gear/tabbycatplushie
+	display_name = "Tabby cat plushie"
+	path = /obj/item/toy/plushie/tabby_cat
+	sort_category = "Plushies"
+
+/datum/gear/tuxedocatplushie
+	display_name = "Tuxedo cat plushie"
+	path = /obj/item/toy/plushie/tuxedo_cat
+	sort_category = "Plushies"
 
 /datum/gear/lizardplushie
 	display_name = "Lizard plushie"
 	path = /obj/item/toy/plushie/lizardplushie
+	sort_category = "Plushies"
 
 /datum/gear/deerplushie
 	display_name = "Deer plushie"
 	path = /obj/item/toy/plushie/deer
+	sort_category = "Plushies"
 
 /datum/gear/carpplushie
 	display_name = "Carp plushie"
 	path = /obj/item/toy/plushie/carpplushie
+	sort_category = "Plushies"
 
-/datum/gear/greyplushie
-	display_name = "Grey Plushie"
-	path = /obj/item/toy/plushie/greyplushie
+/datum/gear/icecarpplushie
+	display_name = "Ice carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/ice
+	sort_category = "Plushies"
 
-/datum/gear/nianplushie
-	display_name = "Nian plushie"
-	path = /obj/item/toy/plushie/nianplushie
+/datum/gear/silentcarpplushie
+	display_name = "Silent carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/silent
+	sort_category = "Plushies"
 
-/datum/gear/ipcplushie
-	display_name = "IPC plushie"
-	path = /obj/item/toy/plushie/ipcplushie
+/datum/gear/electriccarpplushie
+	display_name = "Electric carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/electric
+	sort_category = "Plushies"
 
-/datum/gear/kidanplushie
-	display_name = "Kidan plushie"
-	path = /obj/item/toy/plushie/kidanplushie
+/datum/gear/goldcarpplushie
+	display_name = "Gold carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/gold
+	sort_category = "Plushies"
 
-/datum/gear/plasmaplushie
-	display_name = "Plasmaman plushie"
-	path = /obj/item/toy/plushie/plasmamanplushie
+/datum/gear/toxincarpplushie
+	display_name = "Toxin carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/toxin
+	sort_category = "Plushies"
+
+/datum/gear/dragoncarpplushie
+	display_name = "Dragon carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/dragon
+	sort_category = "Plushies"
+
+/datum/gear/pinkcarpplushie
+	display_name = "Pink carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/pink
+	sort_category = "Plushies"
+
+/datum/gear/candycarpplushie
+	display_name = "Candy carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/candy
+	sort_category = "Plushies"
+
+/datum/gear/nebulacarpplushie
+	display_name = "Nebula carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/nebula
+	sort_category = "Plushies"
+
+/datum/gear/voidcarpplushie
+	display_name = "Void carp plushie"
+	path = /obj/item/toy/plushie/carpplushie/void
+	sort_category = "Plushies"
+
+/datum/gear/humanplushie
+	display_name = "Human plushie"
+	path = /obj/item/toy/plushie/humanplushie
+	sort_category = "Plushies"
 
 /datum/gear/skrellplushie
 	display_name = "Skrell plushie"
 	path = /obj/item/toy/plushie/skrellplushie
+	sort_category = "Plushies"
+
+/datum/gear/voxplushie
+	display_name = "Vox plushie"
+	path = /obj/item/toy/plushie/voxplushie
+	sort_category = "Plushies"
 
 /datum/gear/draskplushie
 	display_name = "Drask plushie"
 	path = /obj/item/toy/plushie/draskplushie
+	sort_category = "Plushies"
 
-/datum/gear/borgplushie
-	display_name = "Borg plushie"
-	path = /obj/item/toy/plushie/borgplushie
+/datum/gear/greyplushie
+	display_name = "Grey Plushie"
+	path = /obj/item/toy/plushie/greyplushie
+	sort_category = "Plushies"
 
 /datum/gear/nymphplushie
 	display_name = "Diona nymph plushie"
 	path = /obj/item/toy/plushie/nymphplushie
+	sort_category = "Plushies"
+
+/datum/gear/ipcplushie
+	display_name = "IPC plushie"
+	path = /obj/item/toy/plushie/ipcplushie
+	sort_category = "Plushies"
+
+/datum/gear/kidanplushie
+	display_name = "Kidan plushie"
+	path = /obj/item/toy/plushie/kidanplushie
+	sort_category = "Plushies"
+
+/datum/gear/plasmaplushie
+	display_name = "Plasmaman plushie"
+	path = /obj/item/toy/plushie/plasmamanplushie
+	sort_category = "Plushies"
+
+/datum/gear/nianplushie
+	display_name = "Nian plushie"
+	path = /obj/item/toy/plushie/nianplushie
+	sort_category = "Plushies"
+
+/datum/gear/borgplushie
+	display_name = "Borg plushie"
+	path = /obj/item/toy/plushie/borgplushie
+	sort_category = "Plushies"
 
 /datum/gear/sharkplushie
 	display_name = "Shark plushie"
 	path = /obj/item/toy/plushie/shark
+	sort_category = "Plushies"
 
 /datum/gear/cryaonbox
 	display_name = "Box of crayons"
