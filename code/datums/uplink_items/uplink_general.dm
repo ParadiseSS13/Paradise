@@ -758,6 +758,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Advanced Pinpointer"
 	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
 	reference = "ADVP"
+	excludefrom = list()
 	item = /obj/item/pinpointer/advpinpointer
 	cost = 10
 	can_discount = FALSE
