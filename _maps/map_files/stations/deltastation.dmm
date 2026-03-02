@@ -93935,7 +93935,7 @@
 	dir = 8
 	},
 /obj/machinery/door_control{
-	id = "genetics";
+	id = "genetics_shutters";
 	name = "Genetics Privacy Shutters";
 	pixel_y = 9;
 	req_access = list(9);
