@@ -203,8 +203,8 @@
 	if(foam_level)
 		return
 
-	if(!barricaded)
-		return
+	if(barricaded)
+		return FALSE
 
 	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
 		return FALSE

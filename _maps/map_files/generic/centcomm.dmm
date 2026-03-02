@@ -18,6 +18,9 @@
 /obj/item/ashtray/glass,
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership)
+"ae" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ninja/holding)
 "af" = (
 /obj/structure/window/reinforced,
 /turf/simulated/wall/indestructible/riveted,
@@ -1159,8 +1162,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "fg" = (
-/turf/simulated/floor/bamboo,
-/area/ninja/outpost)
+/turf/simulated/wall/indestructible/wood,
+/area/ninja/holding)
 "fk" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	autoclose = 0;
@@ -6686,12 +6689,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
-"xx" = (
-/obj/machinery/photocopier/faxmachine/longrange/syndie{
-	department = "Syndicate"
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
 "xy" = (
 /obj/structure/bookcase/random,
 /obj/machinery/light/small,
@@ -8007,9 +8004,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
-"CE" = (
-/turf/simulated/wall/indestructible/wood,
-/area/ninja/holding)
 "CF" = (
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
@@ -9188,6 +9182,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
+"He" = (
+/turf/simulated/floor/bamboo,
+/area/ninja/outpost)
 "Hg" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
@@ -10411,9 +10408,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
-"Mb" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/ninja/holding)
 "Mc" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
@@ -52514,19 +52508,19 @@ yi
 du
 du
 du
-Mb
+ae
 du
 du
 du
-Mb
+ae
 du
 du
 du
-Mb
+ae
 du
 du
 du
-Mb
+ae
 du
 du
 du
@@ -52769,24 +52763,24 @@ aN
 aN
 yi
 dS
-Mb
-Mb
+ae
+ae
 yi
 dS
-Mb
-Mb
+ae
+ae
 yi
 dS
-Mb
-Mb
+ae
+ae
 yi
 dS
-Mb
-Mb
+ae
+ae
 yi
 dS
-Mb
-Mb
+ae
+ae
 yi
 aN
 aN
@@ -53024,7 +53018,7 @@ aN
 aN
 aN
 yi
-CE
+fg
 OJ
 OJ
 OJ
@@ -53044,7 +53038,7 @@ OJ
 OJ
 OJ
 OJ
-CE
+fg
 yi
 aN
 aN
@@ -53281,7 +53275,7 @@ aN
 aN
 aN
 yi
-CE
+fg
 OJ
 OJ
 OJ
@@ -53301,7 +53295,7 @@ OJ
 OJ
 OJ
 OJ
-CE
+fg
 yi
 aN
 aN
@@ -54313,12 +54307,12 @@ zX
 ac
 Mc
 TE
-fg
-fg
-fg
-fg
-fg
-fg
+He
+He
+He
+He
+He
+He
 TE
 TE
 aB
@@ -54570,12 +54564,12 @@ zX
 ac
 WY
 TE
-fg
+He
 md
 By
 NL
 tM
-fg
+He
 TE
 TE
 aB
@@ -54827,12 +54821,12 @@ zX
 ac
 WY
 TE
-fg
+He
 md
 NL
 NL
 tM
-fg
+He
 TE
 TE
 aB
@@ -55084,12 +55078,12 @@ zX
 ac
 WY
 TE
-fg
+He
 md
 NL
 By
 tM
-fg
+He
 TE
 TE
 aB
@@ -55341,12 +55335,12 @@ zX
 ac
 WY
 TE
-fg
+He
 md
 By
 NL
 tM
-fg
+He
 TE
 TE
 aB
@@ -55598,12 +55592,12 @@ zX
 ac
 Mc
 TE
-fg
-fg
-fg
-fg
-fg
-fg
+He
+He
+He
+He
+He
+He
 TE
 TE
 aB
@@ -69067,7 +69061,7 @@ lZ
 lZ
 lZ
 wk
-xx
+lZ
 lZ
 lZ
 lZ

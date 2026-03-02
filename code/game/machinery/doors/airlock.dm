@@ -184,6 +184,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return new snowflake_path(src)
 	return source_area?.airlock_wires ? new source_area.airlock_wires(src) : new /datum/wires/airlock(src)
 
+/obj/machinery/door/airlock/get_internal_wires()
+	return wires
+
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.closeOtherId == closeOtherId && A != src)
@@ -1023,6 +1026,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			open()
 			return ITEM_INTERACT_COMPLETE
 	if(panel_open)
+		if(istype(used, /obj/item/kitchen/utensil/fork))
+			return NONE
+
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
 				if(istype(used, /obj/item/stack/sheet/metal))
