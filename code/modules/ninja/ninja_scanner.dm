@@ -53,7 +53,7 @@
 			if(!do_after_once(user, 5 SECONDS, target = target, allow_moving = FALSE, attempt_cancel_message = "You stop scanning [target] before completing the scan."))
 				return TRUE
 			target.unbuckle(TRUE)
-			qdel(trapped_net)
+			trapped_net.Destroy()
 			var/target_loc = target.loc
 			do_teleport(target, pick(GLOB.ninjaprisonwarp), 0, TRUE, bypass_area_flag = TRUE)
 			var/mob/living/carbon/c_target = target
