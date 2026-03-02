@@ -58,7 +58,7 @@
 
 /// gives the time it takes to finish 1 cycle around the planet in minutes
 /datum/orbit_data/proc/get_period()
-	return ((apoapsis + periapsis) / period_multiplier)
+	return ((apoapsis + periapsis) / period_multiplier) MINUTES
 
 /// gives a value between 0 and 1 which is where the satellite is on the orbit
 /datum/orbit_data/proc/get_orbit_progress()

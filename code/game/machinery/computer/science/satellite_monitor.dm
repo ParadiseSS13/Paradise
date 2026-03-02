@@ -5,6 +5,7 @@
 	var/datum/tech/programming/data_collected
 	var/current_planet_base64
 	var/current_background_base64
+	var/obj/machinery/science_satellite/selected_satellite_ui
 
 /obj/machinery/computer/satellite_monitor/Initialize(mapload)
 	. = ..()
@@ -84,6 +85,7 @@
 	data["world_time"] = world.time
 	data["current_planet_base64"] = current_planet_base64
 	data["current_background_base64"] = current_background_base64
+	data["selected_satellite_UID_ui"] = selected_satellite_ui?.UID()
 	return data
 
 /obj/machinery/computer/satellite_monitor/ui_interact(mob/user, datum/tgui/ui = null)
@@ -100,6 +102,11 @@
 	atom_say("ui_act uid: [params["uid"]]")
 
 	var/obj/machinery/science_satellite/satellite = get_satellite_from_UID(params["uid"])
+	if(action == "select_satellite") // satellite can be null here in order to unset the selected satellite
+		atom_say("select_satellite")
+		selected_satellite_ui = satellite
+		return
+
 	if(!satellite)
 		return
 
@@ -133,7 +140,7 @@
 /obj/machinery/computer/satellite_monitor/proc/get_satellite_from_UID(uid)
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
 		if(satellite.UID() == uid)
-			return(satellite)
+			return satellite
 
 /obj/machinery/computer/satellite_monitor/multitool_act(mob/living/user, obj/item/I)
 	. = ..()

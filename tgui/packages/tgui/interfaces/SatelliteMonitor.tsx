@@ -11,6 +11,7 @@ interface SatelliteMonitorData {
   world_time: number;
   current_planet_base64: string;
   current_background_base64: string;
+  selected_satellite_UID_ui: string;
 }
 
 interface Satellite {
@@ -54,10 +55,12 @@ class Maneuver {
 export const SatelliteMonitor = (props, context) => {
   const { act, data } = useBackend<SatelliteMonitorData>();
 
-  const { satellite_data, inserted_disk, cmagged, world_time } = data;
+  const { satellite_data, inserted_disk, cmagged, world_time, selected_satellite_UID_ui } = data;
 
-  const [selectedSatellite, setSelectedSatellite] = useState<Satellite | null>(null);
   const [plannedManeuver, setPlannedManeuver] = useState<Maneuver>(new Maneuver());
+  let selectedSatellite: Satellite | undefined = satellite_data.find(
+    (satellite) => satellite.UID === selected_satellite_UID_ui
+  );
 
   return (
     <Window width={900} height={600}>
@@ -71,14 +74,13 @@ export const SatelliteMonitor = (props, context) => {
                     cmagged={cmagged}
                     selectedSatellite={selectedSatellite}
                     worldTime={world_time}
-                    setSelectedSatellite={setSelectedSatellite}
                     plannedManeuver={plannedManeuver}
                     setPlannedManeuver={setPlannedManeuver}
                     act={act}
                   />
                 </Box>
               ) : (
-                <SatellitePanel satellite_data={satellite_data} setSelectedSatellite={setSelectedSatellite} />
+                <SatellitePanel satellite_data={satellite_data} selectedSatellite={selectedSatellite} act={act} />
               )}
             </Section>
             <Section fill width="50%">
@@ -102,7 +104,6 @@ interface ManeuverPanelProps {
   cmagged: boolean;
   selectedSatellite: Satellite;
   worldTime: number;
-  setSelectedSatellite: any;
   plannedManeuver: Maneuver;
   setPlannedManeuver: any;
   act: any;
@@ -112,17 +113,17 @@ const ManeuverPanel = ({
   cmagged,
   selectedSatellite,
   worldTime,
-  setSelectedSatellite,
   plannedManeuver,
   setPlannedManeuver,
   act,
 }: ManeuverPanelProps) => {
+  const deciseconds_in_minute = 600;
   return (
     <Stack vertical>
       <Box width="100%" align="end">
         <Button
           onClick={() => {
-            setSelectedSatellite(null);
+            act('select_satellite');
           }}
         >
           Back
@@ -139,9 +140,27 @@ const ManeuverPanel = ({
             <Stack width="50%" vertical>
               <Stack>{`weight: ${selectedSatellite.weight}kg`}</Stack>
               <Stack>{`fuel usage: ${selectedSatellite.fuel_usage.toPrecision(2)}L/s`}</Stack>
+              <Stack>{`Period: ${selectedSatellite.orbit_data.period / deciseconds_in_minute}min`}</Stack>
             </Stack>
           </Stack>
-          <Section title="Burn configuration">
+          <Section title="Burn configuration" mt={3}>
+            <Box mb={2} align="right">
+              <Button
+                onClick={() => {
+                  if (plannedManeuver.burnTime) {
+                    act('add_maneuver', {
+                      uid: selectedSatellite.UID,
+                      prograde: plannedManeuver.prograde,
+                      normal: plannedManeuver.normal,
+                      burnTime: plannedManeuver.burnTime,
+                      timeToManeuver: plannedManeuver.time_to_maneuver * deciseconds_in_minute,
+                    });
+                  }
+                }}
+              >
+                Add Maneuver
+              </Button>
+            </Box>
             <Stack>
               <Stack.Item width="50%">
                 {`${plannedManeuver.prograde >= 0 ? 'Prograde' : 'Retrograde'} (${Math.abs(plannedManeuver.prograde ?? 0)}%):`}
@@ -173,7 +192,7 @@ const ManeuverPanel = ({
               />
             </Stack>
             <Stack>
-              <Stack.Item width="50%">{`Burn time: ${plannedManeuver.burnTime}s`}</Stack.Item>
+              <Stack.Item width="50%">{`Burn time (${plannedManeuver.burnTime}s): `}</Stack.Item>
               <NumberInput
                 width="3.1em"
                 value={plannedManeuver.burnTime ?? 0}
@@ -200,24 +219,8 @@ const ManeuverPanel = ({
                 }}
               />
             </Stack>
-            <Box mt={2} align="right">
-              <Button
-                onClick={() => {
-                  if (plannedManeuver.burnTime) {
-                    act('add_maneuver', {
-                      uid: selectedSatellite.UID,
-                      prograde: plannedManeuver.prograde,
-                      normal: plannedManeuver.normal,
-                      burnTime: plannedManeuver.burnTime,
-                      timeToManeuver: plannedManeuver.time_to_maneuver,
-                    });
-                  }
-                }}
-              >
-                Add Maneuver
-              </Button>
-            </Box>
-            <Section title="Planned maneuvers" scrollable>
+
+            <Section title="Planned maneuvers" scrollable mt={3}>
               <Box textAlign="right">
                 {selectedSatellite.orbit_data.planned_maneuvers.length > 0 && (
                   <Button
@@ -234,9 +237,13 @@ const ManeuverPanel = ({
               </Box>
               {selectedSatellite.orbit_data.planned_maneuvers.length > 0
                 ? selectedSatellite.orbit_data.planned_maneuvers.map((maneuver: Maneuver) => {
+                    let time = maneuver.time_to_maneuver / deciseconds_in_minute; // BYOND handles everything in deci seconds
                     return (
-                      <Stack key={maneuver.time_to_maneuver} scrollable>
-                        <Stack>{`Maneuver in ${maneuver.time_to_maneuver} minutes`}</Stack>
+                      <Stack key={maneuver.time_to_maneuver} scrollable mt={3}>
+                        <Stack vertical>
+                          <Stack>{`Maneuver in ${Math.floor(time)} min ${Math.abs(Math.floor((time % 1) * 60))} sec`}</Stack>
+                          <Stack>{`Prograde: ${maneuver.prograde} Normal: ${maneuver.normal} Burn Time: ${maneuver.burnTime}`}</Stack>
+                        </Stack>
                       </Stack>
                     );
                   })
@@ -255,7 +262,7 @@ const ManeuverPanel = ({
   );
 };
 
-const SatellitePanel = ({ satellite_data, setSelectedSatellite }) => {
+const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
   return satellite_data.map((satellite: Satellite) => (
     <Stack.Item key={satellite.name}>
       <Stack mb={2} ml={1}>
@@ -316,8 +323,9 @@ const SatellitePanel = ({ satellite_data, setSelectedSatellite }) => {
             <Box width="50%" align="right">
               <Button
                 onClick={() => {
-                  console.log(satellite);
-                  setSelectedSatellite(satellite);
+                  act('select_satellite', {
+                    uid: satellite.UID,
+                  });
                 }}
               >
                 Controls
