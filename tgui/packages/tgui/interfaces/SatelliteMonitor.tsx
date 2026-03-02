@@ -48,7 +48,7 @@ interface Satellite {
 class Maneuver {
   prograde: number = 0;
   normal: number = 0;
-  burnTime: number = 0;
+  burn_time: number = 0;
   time_to_maneuver: number = 0;
 }
 
@@ -118,6 +118,8 @@ const ManeuverPanel = ({
   act,
 }: ManeuverPanelProps) => {
   const deciseconds_in_minute = 600;
+  const deciseconds_in_second = 10;
+
   return (
     <Stack vertical>
       <Box width="100%" align="end">
@@ -147,13 +149,13 @@ const ManeuverPanel = ({
             <Box mb={2} align="right">
               <Button
                 onClick={() => {
-                  if (plannedManeuver.burnTime) {
+                  if (plannedManeuver.burn_time) {
                     act('add_maneuver', {
                       uid: selectedSatellite.UID,
                       prograde: plannedManeuver.prograde,
                       normal: plannedManeuver.normal,
-                      burnTime: plannedManeuver.burnTime,
-                      timeToManeuver: plannedManeuver.time_to_maneuver * deciseconds_in_minute,
+                      burnTime: plannedManeuver.burn_time,
+                      timeToManeuver: plannedManeuver.time_to_maneuver,
                     });
                   }
                 }}
@@ -192,16 +194,16 @@ const ManeuverPanel = ({
               />
             </Stack>
             <Stack>
-              <Stack.Item width="50%">{`Burn time (${plannedManeuver.burnTime}s): `}</Stack.Item>
+              <Stack.Item width="50%">{`Burn time (${plannedManeuver.burn_time}s): `}</Stack.Item>
               <NumberInput
                 width="3.1em"
-                value={plannedManeuver.burnTime ?? 0}
+                value={plannedManeuver.burn_time ?? 0}
                 minValue={0}
                 maxValue={999}
                 step={1}
                 stepPixelSize={4}
                 onChange={(value) => {
-                  plannedManeuver.burnTime = value;
+                  plannedManeuver.burn_time = value;
                 }}
               />
             </Stack>
@@ -235,14 +237,20 @@ const ManeuverPanel = ({
                   </Button>
                 )}
               </Box>
+              {'len: ' + selectedSatellite.orbit_data.planned_maneuvers.length}
               {selectedSatellite.orbit_data.planned_maneuvers.length > 0
                 ? selectedSatellite.orbit_data.planned_maneuvers.map((maneuver: Maneuver) => {
-                    let time = maneuver.time_to_maneuver / deciseconds_in_minute; // BYOND handles everything in deci seconds
+                    let time = maneuver.time_to_maneuver / deciseconds_in_minute; // BYOND handles everything in deciseconds
+                    // prettier-ignore
+                    let minuteString = (Math.sign(time) === 1 ? '' : '-') + Math.abs(Math.trunc(time)).toString().padStart(2, '0'); // force show sign on 0, force 2 digits
+                    // prettier-ignore
+                    let secondsString = Math.abs(Math.trunc((time % 1) * 60)).toString().padStart(2, '0'); // remove sign, force 2 digits
+
                     return (
                       <Stack key={maneuver.time_to_maneuver} scrollable mt={3}>
                         <Stack vertical>
-                          <Stack>{`Maneuver in ${Math.floor(time)} min ${Math.abs(Math.floor((time % 1) * 60))} sec`}</Stack>
-                          <Stack>{`Prograde: ${maneuver.prograde} Normal: ${maneuver.normal} Burn Time: ${maneuver.burnTime}`}</Stack>
+                          <Stack>{`Maneuver in ${minuteString}:${secondsString}`}</Stack>
+                          <Stack>{`Prograde: ${maneuver.prograde} Normal: ${maneuver.normal} Burn Time: ${maneuver.burn_time / deciseconds_in_second}s`}</Stack>
                         </Stack>
                       </Stack>
                     );

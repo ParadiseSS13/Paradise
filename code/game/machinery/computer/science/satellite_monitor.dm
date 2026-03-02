@@ -117,12 +117,12 @@
 			// TODO: Launch code
 			satellite.status = "in orbit"
 		if("add_maneuver")
-			atom_say("add_maneuver")
 			var/prograde = text2num(params["prograde"])
 			var/normal = text2num(params["normal"])
 			var/burn_time = text2num(params["burnTime"])
 			var/time_to_maneuver = text2num(params["timeToManeuver"])
-			satellite.orbit_data.add_maneuver(prograde, normal, time_to_maneuver, burn_time MINUTES)
+			atom_say("add_maneuver. prograde: [prograde] normal: [normal] burn_time: [burn_time] time_to_maneuver: [time_to_maneuver]")
+			satellite.orbit_data.add_maneuver(prograde, normal, time_to_maneuver MINUTES, burn_time SECONDS)
 			satellite.status = "waiting for maneuver"
 		if("delete_all_maneuvers")
 			atom_say("delete_all_maneuvers")
