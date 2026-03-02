@@ -33,6 +33,7 @@ rustlibs_516_prod.dll @AffectedArc07
 # TGUI stuff
 /tgui/bin @Burzah
 /tgui/docs @Burzah
+/tgui/yarn.lock @Burzah
 
 
 ### Multiple Owners
