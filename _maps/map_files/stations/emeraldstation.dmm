@@ -13625,9 +13625,6 @@
 "cJo" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/incinerator)
-"cJq" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/arrival/station)
 "cJx" = (
 /obj/item/shard,
 /turf/simulated/floor/plating,
@@ -150752,8 +150749,8 @@ jkt
 bQO
 iYm
 kbY
-cJq
-cJq
+idk
+idk
 idk
 sgc
 idk
@@ -151019,7 +151016,7 @@ tId
 jNB
 asq
 heu
-cJq
+idk
 idk
 wAh
 wAh
@@ -152047,7 +152044,7 @@ lAJ
 cOV
 asq
 uHu
-cJq
+idk
 idk
 wAh
 wAh
@@ -152294,8 +152291,8 @@ jaj
 bQO
 iYm
 kbY
-cJq
-cJq
+idk
+idk
 idk
 sgc
 idk

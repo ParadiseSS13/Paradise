@@ -884,9 +884,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
-"agD" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/arrival/station)
 "agE" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
@@ -134424,13 +134421,13 @@ jWY
 doS
 aaa
 agE
-agD
+agE
 alv
 alv
 agE
 alv
 alv
-agD
+agE
 agE
 aaa
 dGS
@@ -134680,15 +134677,15 @@ blc
 jWY
 doS
 abj
-agD
+agE
 agE
 agF
 agF
-agD
+agE
 agF
 agF
 agE
-agD
+agE
 abj
 dGS
 wOh
