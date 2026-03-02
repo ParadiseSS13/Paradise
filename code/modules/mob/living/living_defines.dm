@@ -141,3 +141,6 @@
 	var/can_hide = FALSE
 	/// Allows a mob to pass unbolted doors while hidden
 	var/pass_door_while_hidden = FALSE
+
+	/// How long does it take to harvest a mob?
+	var/butcher_time = 8 SECONDS

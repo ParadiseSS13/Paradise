@@ -400,7 +400,7 @@
 /obj/item/melee/breach_cleaver/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_wielded = force_wield, force_unwielded = force, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/breach_cleaver/examine(mob/user)
 	. = ..()

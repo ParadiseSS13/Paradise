@@ -24,8 +24,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
+	/// Deletes the cable coil upon getting empty.
 	/// Used for RCL cable spools to stop the stack from being eaten.
-	var/rcl_spool = FALSE
+	var/destroy_upon_empty = TRUE
 	/// Type of cable this coil makes
 	var/cable_type = /obj/structure/cable
 	/// Bitflag of the types of cable we can add cable to with this coil.
@@ -127,7 +128,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		else
 			break
 		while(cable_used <= MAXCABLEPERHEAL && E.burn_dam && amount >= 1)
-			use(1, rcl_spool)
+			use(1, destroy_upon_empty)
 			cable_used += 1
 			E.heal_damage(0, HEALPERCABLE, 0, TRUE)
 		H.UpdateDamageIcon()
@@ -217,7 +218,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	if(IS_DIR_DIAGONAL(C.d2))// if the cable is layed diagonally, check the others 2 possible directions
 		C.merge_diagonal_networks(C.d2)
 
-	use(1, rcl_spool)
+	use(1, destroy_upon_empty)
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
@@ -283,7 +284,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		if(IS_DIR_DIAGONAL(NC.d2))	// if the cable is layed diagonally, check the others 2 possible directions
 			NC.merge_diagonal_networks(NC.d2)
 
-		use(1, rcl_spool)
+		use(1, destroy_upon_empty)
 
 		if(NC.shock(user, 50))
 			if(prob(50)) //fail
@@ -329,7 +330,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		if(C.d2 & (C.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
 			C.merge_connected_networks(C.d2)
 
-		use(1, rcl_spool)
+		use(1, destroy_upon_empty)
 
 		if(C.shock(user, 50))
 			if(prob(50)) //fail

@@ -1666,6 +1666,65 @@
 		P.ownjob = "Tourist"
 		P.name = "PDA-[H.real_name] ([P.ownjob])"
 
+/datum/outfit/admin/vox_explorer
+	name = "Vox Explorer"
+	uniform = /obj/item/clothing/under/vox/vox_casual
+	back = /obj/item/storage/backpack/satchel
+	mask = /obj/item/clothing/mask/breath/vox/respirator
+	suit = /obj/item/clothing/suit/space/vox/medic
+	l_ear = /obj/item/radio/headset/alt
+	gloves = /obj/item/clothing/gloves/color/yellow/vox
+	glasses = /obj/item/clothing/glasses/sunglasses
+	shoes = /obj/item/clothing/shoes/magboots/vox
+	box = /obj/item/storage/box/survival_vox
+	id = /obj/item/card/id/syndicate
+
+	backpack_contents = list(
+		/obj/item/folder/blue = 1,
+		/obj/item/gun/energy/plasma_pistol = 1,
+		/obj/item/pen/fancy = 1,
+		/obj/item/clothing/head/helmet/space/vox/medic = 1,
+	)
+
+/datum/outfit/admin/vox_explorer/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/obj/item/tank/internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+	if(!H.equip_to_appropriate_slot(internal_tank))
+		if(!H.put_in_any_hand_if_possible(internal_tank))
+			H.drop_item_to_ground(H.l_hand)
+			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
+	H.internal = internal_tank
+
+/datum/outfit/admin/vox_war_drone
+	name = "Vox War Drone"
+	uniform = /obj/item/clothing/under/vox/vox_casual
+	back = /obj/item/storage/backpack/satchel
+	mask = /obj/item/clothing/mask/breath/vox/respirator
+	suit = /obj/item/clothing/suit/space/vox/carapace
+	head = /obj/item/clothing/head/helmet/space/vox/carapace
+	box = /obj/item/storage/box/survival_vox
+	l_ear = /obj/item/radio/headset/alt
+	gloves = /obj/item/clothing/gloves/color/yellow/vox
+	glasses = /obj/item/clothing/glasses/sunglasses
+	shoes = /obj/item/clothing/shoes/magboots/vox
+	box = /obj/item/storage/box/survival_vox
+	id = /obj/item/card/id/syndicate
+
+	backpack_contents = list(
+		/obj/item/melee/energy/sword = 1,
+	)
+
+/datum/outfit/admin/vox_war_drone/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/obj/item/tank/internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+	if(!H.equip_to_appropriate_slot(internal_tank))
+		if(!H.put_in_any_hand_if_possible(internal_tank))
+			H.drop_item_to_ground(H.l_hand)
+			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
+	H.internal = internal_tank
+
 /datum/outfit/admin/supreme
 	name = "Supreme-Inquisitor"
 	uniform = /obj/item/clothing/under/skulk/skulkcasual

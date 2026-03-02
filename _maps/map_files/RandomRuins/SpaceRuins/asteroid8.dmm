@@ -1,0 +1,554 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/obj/structure/cable,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/machine_frame,
+/obj/item/stack/cable_coil/five,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"c" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered)
+"f" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/unpowered)
+"l" = (
+/turf/simulated/mineral,
+/area/ruin/space/unpowered)
+"m" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered)
+"v" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/emitter{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"D" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/corpse/engineer,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/clothing/gloves/color/yellow,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered)
+"E" = (
+/obj/structure/closet/crate/secure/engineering,
+/obj/item/nuke_core/supermatter_sliver,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"F" = (
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/space/unpowered)
+"G" = (
+/mob/living/basic/carp,
+/turf/template_noop,
+/area/template_noop)
+"I" = (
+/obj/machinery/atmospherics/unary/vent_pump,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"K" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"N" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/unpowered)
+"O" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/computerframe,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"R" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"W" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/asteroid8,
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/unpowered)
+"X" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/machine_frame,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/unpowered)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+R
+F
+F
+R
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+G
+a
+a
+"}
+(3,1,1) = {"
+a
+R
+a
+a
+a
+a
+a
+a
+R
+R
+R
+R
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+a
+a
+R
+R
+R
+R
+R
+R
+R
+R
+R
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+a
+R
+R
+R
+R
+l
+l
+K
+R
+l
+R
+R
+R
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+a
+a
+R
+R
+l
+l
+l
+l
+l
+l
+F
+l
+l
+R
+R
+a
+a
+"}
+(7,1,1) = {"
+a
+a
+a
+a
+R
+R
+l
+l
+F
+l
+l
+l
+l
+F
+F
+l
+R
+R
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+R
+R
+l
+F
+F
+F
+l
+R
+R
+R
+l
+F
+l
+R
+a
+a
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+R
+R
+l
+l
+l
+I
+X
+m
+W
+R
+R
+R
+R
+R
+a
+a
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+R
+R
+R
+l
+l
+O
+D
+c
+f
+R
+R
+R
+R
+R
+a
+a
+a
+"}
+(11,1,1) = {"
+a
+a
+a
+R
+R
+R
+l
+l
+E
+v
+b
+N
+R
+R
+R
+R
+a
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+a
+a
+a
+R
+R
+l
+l
+l
+R
+R
+R
+R
+R
+R
+l
+R
+a
+a
+a
+"}
+(13,1,1) = {"
+a
+a
+a
+a
+R
+R
+R
+l
+l
+l
+R
+l
+R
+R
+l
+l
+R
+a
+a
+a
+"}
+(14,1,1) = {"
+a
+a
+a
+a
+a
+R
+R
+l
+F
+l
+l
+K
+l
+l
+l
+l
+R
+a
+a
+a
+"}
+(15,1,1) = {"
+a
+a
+G
+a
+a
+R
+R
+R
+F
+F
+l
+l
+l
+l
+R
+R
+R
+a
+a
+a
+"}
+(16,1,1) = {"
+a
+a
+a
+a
+a
+R
+R
+R
+l
+l
+F
+l
+l
+R
+R
+a
+a
+a
+a
+a
+"}
+(17,1,1) = {"
+a
+R
+a
+a
+a
+a
+R
+R
+R
+R
+R
+R
+R
+R
+a
+a
+a
+a
+a
+R
+"}
+(18,1,1) = {"
+a
+F
+R
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+R
+F
+"}
+(19,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+G
+a
+a
+a
+a
+R
+"}
+(20,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

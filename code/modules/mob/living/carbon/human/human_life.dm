@@ -14,6 +14,7 @@
 
 	if(.) //not dead
 		handle_kidneys()
+		check_for_missing_organs()
 
 		if(check_mutations)
 			domutcheck(src)
@@ -1016,3 +1017,14 @@
 			total_damage *= 0.05
 
 	adjustToxLoss(total_damage)
+
+/// A proc that checks for any missing organs and gives you damage for not having them
+/mob/living/carbon/human/proc/check_for_missing_organs()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+
+	// Currently only checks for a liver
+	// This has to be here since we can't check this in the on_life of organs
+	var/obj/item/organ/internal/liver = get_int_organ(/obj/item/organ/internal/liver)
+	if(!liver && !isslimeperson(src))
+		adjustToxLoss(2)
