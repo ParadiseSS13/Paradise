@@ -69,6 +69,8 @@
 
 	if(sel_species == "Random")
 		sel_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Drask", "Kidan", "Grey", "Skkulakin", "Vox", "Slime", "Machine")
+	if(sel_species == "Slime")
+		sel_species = "Slime People"
 	var/datum/species/S = GLOB.all_species[sel_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
