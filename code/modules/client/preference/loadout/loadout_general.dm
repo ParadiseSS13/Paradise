@@ -57,6 +57,10 @@
 	display_name = "Camera"
 	path = /obj/item/camera
 
+/datum/gear/taperecorder
+	display_name = "Universal recorder"
+	path = /obj/item/taperecorder
+
 /datum/gear/redfoxplushie
 	display_name = "Red fox plushie"
 	path = /obj/item/toy/plushie/red_fox
