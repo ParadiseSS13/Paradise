@@ -225,7 +225,7 @@
 		icon_state = "r_wall-[d_state]"
 		smoothing_flags = NONE
 	else
-		smoothing_flags = SMOOTH_BITMASK
+		smoothing_flags = SMOOTH_BITMASK | SMOOTH_OBJ
 		icon_state = "[base_icon_state]-[smoothing_junction]"
 		QUEUE_SMOOTH_NEIGHBORS(src)
 		QUEUE_SMOOTH(src)

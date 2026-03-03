@@ -10,9 +10,6 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "af" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/computer/med_data,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
@@ -49,6 +46,9 @@
 "ak" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "al" = (
@@ -66,6 +66,9 @@
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "an" = (
@@ -100,9 +103,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "at" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/computer/aifixer,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
