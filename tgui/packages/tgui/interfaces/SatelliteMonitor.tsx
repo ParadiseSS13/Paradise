@@ -237,7 +237,6 @@ const ManeuverPanel = ({
                   </Button>
                 )}
               </Box>
-              {'len: ' + selectedSatellite.orbit_data.planned_maneuvers.length}
               {selectedSatellite.orbit_data.planned_maneuvers.length > 0
                 ? selectedSatellite.orbit_data.planned_maneuvers.map((maneuver: Maneuver) => {
                     let time = maneuver.time_to_maneuver / deciseconds_in_minute; // BYOND handles everything in deciseconds
@@ -368,6 +367,7 @@ const DiskPanel = ({ satellite_data, inserted_disk }) => {
 };
 
 const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64 }) => {
+  const orbitZ = 15;
   const planetZ = 10;
   const backgroundZ = 5;
   return (
@@ -376,6 +376,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
         <img
           draggable={false}
           style={{
+            userSelect: 'none',
             width: '100%',
             height: '100%',
             position: 'absolute',
@@ -385,10 +386,11 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
           src={`data:image/png;base64,${current_background_base64}`}
         />
       </Stack>
-      <Box height="100%" backgroundColor="green">
+      <Box height="100%">
         <img
           draggable={false}
           style={{
+            userSelect: 'none',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
@@ -397,6 +399,53 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
           }}
           src={`data:image/png;base64,${current_planet_base64}`}
         />
+      </Box>
+      <Box
+        width="100%"
+        height="100%"
+        style={{
+          position: 'absolute',
+          overflow: 'hidden',
+        }}
+      >
+        {satellites.map((satellite: Satellite) => {
+          const orbitSizeFull = 100000; // works as a scale
+          let size = ((satellite.orbit_data.periapsis + satellite.orbit_data.periapsis) / orbitSizeFull) * 100 + '%';
+          let orbitProgress = `${satellite.orbit_data.orbit_progress * 100}%`;
+          return (
+            <Stack key={satellite.name}>
+              {size}
+              <Stack
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  transform: `translate(-50%, -50%) rotate(${satellite.orbit_data.inclination}deg)`,
+                  backgroundColor: 'green',
+                  width: size,
+                  height: '5px',
+                  position: 'absolute',
+                  zIndex: orbitZ,
+                  border: 'none',
+                }}
+              >
+                <img
+                  src={`data:image/png;base64,${current_planet_base64}`}
+                  style={{
+                    top: '50%',
+                    left: orbitProgress,
+                    transform: `translate(-50%, -50%) rotate(${0}deg)`, // 0 degree rotation puts it back on track
+                    backgroundColor: `green`,
+                    width: '20px',
+                    height: '20px',
+                    position: 'relative',
+                    zIndex: orbitZ + 5,
+                    border: 'none',
+                  }}
+                />
+              </Stack>
+            </Stack>
+          );
+        })}
       </Box>
     </Box>
   );

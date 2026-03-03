@@ -1,8 +1,8 @@
 /obj/machinery/science_satellite
 	name = "satellite chassis"
 	var/internal_name // to stop the handlabler
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "autolathe"
+	icon = 'icons/obj/machines/science_satellite.dmi'
+	icon_state = "satellite_closed"
 	var/list/parts = new()
 	desc = "A satellite chassis constructected from plasteel."
 	anchored = FALSE
@@ -85,7 +85,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
+	default_deconstruction_screwdriver(user, "satellite_open", "satellite_closed", I)
 
 /obj/machinery/science_satellite/crowbar_act(mob/living/user, obj/item/I)
 	if(!panel_open)

@@ -96,6 +96,8 @@
 	apoapsis += maneuver.prograde * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn // 0 progress = at periapsis, abs(0-0.5)*2 = 1. 0.5 progress = at apoapsis, abs(0.5-0.5)*2 = 0. 1 progress(same as 0) = abs(1-0.5)*2 = 1
 	periapsis += maneuver.prograde * (1 - bimodal_orbit) * satellite_stats.engine_speed_constant * fraction_burn // 0 progress = at periapsis, 1 - abs(0-0.5)*2 = 0. 0.5 progress = at apoapsis, 1-abs(0.5-0.5)* 2 = 1. 1 progress (same as 0) = 1-abs(1 - 0.5)*2 = 0
 
+	// TODO: Recalculate orbit progress bases off periapsis
+
  	// normal burns are most efficient the closer to periapsis you are
 	inclination += (maneuver.normal * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn) % 360
 
