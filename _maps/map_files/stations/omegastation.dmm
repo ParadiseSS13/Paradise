@@ -11875,7 +11875,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "baM" = (
-/obj/machinery/atmospherics/portable/scrubber,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "baN" = (
@@ -11888,6 +11890,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/science/corner,
 /obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/white,
@@ -12329,6 +12334,9 @@
 "beg" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "burn_sensor"
+	},
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
@@ -14281,6 +14289,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "bxX" = (
@@ -15675,6 +15686,7 @@
 /area/station/turret_protected/aisat/interior)
 "cpj" = (
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/atmospherics/portable/pump/empty,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "cqh" = (
@@ -17068,6 +17080,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
+"cZL" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
+/turf/simulated/floor/engine/vacuum,
+/area/station/science/toxins/mixing)
 "dae" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -20403,6 +20419,12 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"eNG" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/science/toxins/mixing)
 "eOm" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/closet/secure_closet/hos,
@@ -22593,7 +22615,7 @@
 /area/station/maintenance/service/port)
 "gbl" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "gbq" = (
 /obj/structure/table/glass,
@@ -38863,6 +38885,9 @@
 	id = "toxinsigniter";
 	pixel_x = 20
 	},
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "ppf" = (
@@ -39873,6 +39898,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/xenobiology)
 "pSb" = (
+/obj/machinery/atmospherics/binary/pump{
+	name = "Port to Hot Loop";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "pSo" = (
@@ -41356,7 +41385,7 @@
 /area/station/engineering/atmos)
 "qIO" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "qJv" = (
 /obj/machinery/camera/autoname{
@@ -44083,9 +44112,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet/unisex)
-"suV" = (
-/turf/simulated/wall/r_wall,
-/area/shuttle/arrival/station)
 "svA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/disposaloutlet,
@@ -48731,6 +48757,7 @@
 	dir = 1;
 	name = "Bomb Mix Monitor"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "uDp" = (
@@ -49025,6 +49052,7 @@
 /area/station/hallway/secondary/entry)
 "uLj" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "uLl" = (
@@ -51462,6 +51490,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/storage)
 "wdt" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
 "wdH" = (
@@ -52008,6 +52039,12 @@
 /obj/effect/turf_decal/tiles/department/science,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"wsC" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/science/toxins/mixing)
 "wsU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -53048,9 +53085,6 @@
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/ai_transit_tube)
-"wVN" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/arrival/station)
 "wVU" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -54574,8 +54608,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "xJC" = (
-/obj/machinery/atmospherics/portable/pump/empty,
 /obj/machinery/light,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "xJM" = (
@@ -86477,20 +86511,20 @@ aZD
 aZD
 aZD
 uCh
-wVN
-wVN
+uCh
+uCh
 dfa
-wVN
+uCh
 rba
 rba
 rba
 rba
-wVN
+uCh
 dfa
-wVN
-wVN
-wVN
-wVN
+uCh
+uCh
+uCh
+uCh
 aae
 ioN
 mEA
@@ -86733,7 +86767,7 @@ aae
 aZD
 aZD
 uCh
-wVN
+uCh
 hyc
 leb
 kcu
@@ -86988,15 +87022,15 @@ inU
 blH
 aae
 uCh
-wVN
-wVN
+uCh
+uCh
 qIO
 mdF
 wqP
 kcu
 kcu
 kcu
-suV
+kcu
 kcu
 kcu
 kcu
@@ -87247,7 +87281,7 @@ aae
 rba
 vQj
 wPf
-wVN
+uCh
 wYm
 wqP
 kcu
@@ -87517,8 +87551,8 @@ xrV
 nZG
 urB
 qoD
-wVN
-wVN
+uCh
+uCh
 aae
 ioN
 jUG
@@ -87761,7 +87795,7 @@ aae
 rba
 xOA
 sij
-wVN
+uCh
 siF
 wqP
 kcu
@@ -88016,8 +88050,8 @@ aZD
 aZD
 aZD
 uCh
-wVN
-wVN
+uCh
+uCh
 gbl
 jDm
 wqP
@@ -88275,7 +88309,7 @@ aZD
 aZD
 aZD
 uCh
-wVN
+uCh
 ejv
 osJ
 kcu
@@ -88533,20 +88567,20 @@ aZD
 aZD
 aZD
 uCh
-wVN
-wVN
+uCh
+uCh
 kQz
-wVN
+uCh
 rba
 rba
 rba
 rba
-wVN
+uCh
 kQz
-wVN
-wVN
-wVN
-wVN
+uCh
+uCh
+uCh
+uCh
 aae
 ioN
 wdb
@@ -98794,9 +98828,9 @@ aZU
 baN
 uDl
 uLj
-wdt
+cZL
 beg
-wdt
+wsC
 kdK
 aae
 bhN
@@ -99053,7 +99087,7 @@ bdl
 aNO
 feO
 poZ
-wdt
+eNG
 kdK
 aae
 bhN
