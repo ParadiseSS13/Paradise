@@ -1,14 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "b" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/lightable/torch/lava_bridge,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "c" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -20,16 +18,14 @@
 	dir = 1
 	},
 /obj/item/flashlight/lantern,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "d" = (
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "e" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/shelf/wood,
@@ -37,21 +33,18 @@
 /obj/item/pickaxe/bone,
 /obj/item/mining_scanner,
 /obj/effect/spawner/random/common_ore,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "f" = (
 /mob/living/basic/mining/goliath,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "g" = (
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "h" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -63,88 +56,68 @@
 /obj/structure/closet/crate/necropolis,
 /obj/effect/spawner/random/common_ore,
 /obj/effect/spawner/random/common_ore,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "i" = (
 /obj/structure/barricade/wooden/crude,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "l" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/bed/dirty,
 /obj/item/bedsheet,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "m" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "n" = (
 /turf/template_noop,
 /area/template_noop)
 "p" = (
 /obj/structure/lightable/bonfire/lit,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "q" = (
 /obj/structure/chair/stool/wood{
 	pixel_x = 5
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "r" = (
 /obj/item/reagent_containers/glass/bucket/wooden,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "s" = (
 /obj/structure/stone_tile/block,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "t" = (
 /obj/structure/chair/stool/wood,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "u" = (
 /turf/simulated/wall/mineral/wood,
-/area/lavaland/surface/outdoors)
-"v" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "x" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/tower,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "z" = (
 /obj/structure/grave,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "B" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "C" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
@@ -156,92 +129,79 @@
 	pixel_x = 12;
 	pixel_y = 7
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "D" = (
 /obj/structure/stone_tile/surrounding,
 /obj/structure/lightable/torch/lava_bridge,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "E" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "I" = (
 /obj/structure/lightable/torch/lava_bridge,
 /obj/structure/stone_tile/surrounding,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "K" = (
 /turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "L" = (
 /obj/structure/stone_tile/block/cracked,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "M" = (
 /mob/living/basic/mining/hivelord/legion,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "N" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/glowshroom,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "O" = (
 /obj/structure/stone_tile/slab,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "Q" = (
 /obj/effect/mob_spawn/human/corpse/random_species/miner,
 /turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "R" = (
 /obj/item/clothing/shoes/workboots/mining,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "S" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "T" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "V" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/stone_tile/slab/cracked,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "W" = (
 /obj/item/cultivator/rake,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "Y" = (
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/structure/lightable/torch/lava_bridge,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 "Z" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/area/lavaland/surface/outdoors/unexplored)
 
 (1,1,1) = {"
 n
@@ -607,7 +567,7 @@ u
 u
 u
 a
-v
+m
 O
 O
 n
