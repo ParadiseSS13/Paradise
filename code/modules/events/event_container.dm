@@ -153,7 +153,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 12),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/fake_virus,		12),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	12, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 12, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 12, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bizarre_debris, 50000, TRUE)
 	)
 
 /datum/event_container/moderate
