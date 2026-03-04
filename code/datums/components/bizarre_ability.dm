@@ -14,6 +14,8 @@
 	var/obj/effect/stand_overlay = null
 	var/stand_icon = 'icons/obj/bizarre_debris.dmi'
 	var/stand_icon_state = "repair"
+	var/image/aura_underlay = null
+	var/aura_icon_state = "pinkaura"
 	// A list of abilities this stand will grant the user
 	var/list/datum/action/stand/manifest/ability_actions = list(/datum/action/stand/testability1, /datum/action/stand/testability2)
 	// A list containing the newly created actions given to the user, for deletion
@@ -49,11 +51,14 @@
 		stand_overlay.icon_state = stand_icon_state
 		stand_overlay.dir = owner.dir
 		stand_overlay.layer = owner.layer - 0.01
+		stand_overlay.mouse_opacity = 0 // This thing covers half the player's sprite
+		aura_underlay = image(stand_icon, aura_icon_state, layer = owner.layer - 0.01)
 		on_dir_change(owner, null, owner.dir)
 		playsound(owner.loc, 'sound/misc/bizarresummon.ogg', 50, FALSE)
 		stand_overlay.alpha = 0
 		animate(stand_overlay, alpha = 255, 0.2 SECONDS)
 		owner.vis_contents += stand_overlay
+		owner.underlays += aura_underlay
 		for(var/item in ability_actions)
 			var/datum/action/A = new item
 			A.Grant(owner)
@@ -64,6 +69,9 @@
 		if(stand_overlay)
 			qdel(stand_overlay)
 			stand_overlay = null
+		if(aura_underlay)
+			owner.underlays -= aura_underlay
+			aura_underlay = null
 		for(var/datum/action/A in current_abilities)
 			A.Remove(owner)
 		current_abilities.Cut()
