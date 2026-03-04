@@ -363,6 +363,10 @@
 			if(E == occupant.get_organ(lung_organ?.parent_organ) && occupant.is_lung_ruptured())
 				organData["lungRuptured"] = TRUE
 
+			var/obj/item/organ/internal/liver = occupant.get_int_organ(/obj/item/organ/internal/liver)
+			if(E == occupant.get_organ(liver?.parent_organ) && occupant.has_liver_cirrhosis())
+				organData["liverCirrhosis"] = TRUE
+
 			if(E.status & ORGAN_INT_BLEEDING)
 				organData["internalBleeding"] = TRUE
 
@@ -503,9 +507,15 @@
 
 			if(e.status & ORGAN_INT_BLEEDING)
 				ailments |= "Internal Bleeding"
+
 			var/obj/item/organ/internal/lung_organ = occupant.get_int_organ_by_datum(ORGAN_DATUM_LUNGS)
 			if(e == occupant.get_organ(lung_organ?.parent_organ) && occupant.is_lung_ruptured())
 				ailments |= "Lung Ruptured"
+
+			var/obj/item/organ/internal/liver = occupant.get_int_organ(/obj/item/organ/internal/liver)
+			if(e == occupant.get_organ(liver?.parent_organ) && occupant.has_liver_cirrhosis())
+				ailments |= "Liver cirrhosis"
+
 			if(e.status & ORGAN_SPLINTED)
 				ailments |= "Splinted"
 			if(e.status & ORGAN_BROKEN)

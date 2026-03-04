@@ -646,13 +646,13 @@
 		return
 	var/mob/living/carbon/human/H = owner
 	H.physiology.armor = H.physiology.armor.attachArmor(cleaving_armor_boost)
-	H.physiology.stamina_mod *= 0.8
+	H.physiology.stamina_mod *= 0.5
 
 /datum/status_effect/breaching_and_cleaving/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.armor = H.physiology.armor.detachArmor(cleaving_armor_boost)
-		H.physiology.stamina_mod /= 0.8
+		H.physiology.stamina_mod /= 0.5
 	QDEL_NULL(cleaving_armor_boost)
 
 /datum/status_effect/hope

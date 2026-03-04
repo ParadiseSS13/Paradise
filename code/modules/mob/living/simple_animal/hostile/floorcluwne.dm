@@ -37,7 +37,7 @@
 	var/stage = STAGE_HAUNT
 	var/interest = 0
 	var/target_area
-	var/invalid_area_typecache = list(/area/space, /area/centcom)
+	var/invalid_area_typecache = list(/area/space, /area/lavaland, /area/ruin)
 	var/eating = FALSE
 	var/smiting = FALSE
 	var/admincluwne = FALSE
@@ -79,7 +79,7 @@
 	do_jitter_animation(1000)
 	pixel_y = 8
 
-	if(is_type_in_typecache(get_area(loc), invalid_area_typecache))
+	if(is_type_in_typecache(get_area(loc), invalid_area_typecache) && !is_admin_level(z))
 		var/area = pick(SSmapping.teleportlocs)
 		var/area/tp = SSmapping.teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
@@ -102,7 +102,7 @@
 			if(current_victim.stat == DEAD || current_victim.get_int_organ(/obj/item/organ/internal/honktumor/cursed) || is_type_in_typecache(get_area(T), invalid_area_typecache))
 				Acquire_Victim()
 
-	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(get_area(T), invalid_area_typecache))//if cluwne gets stuck he just teleports
+	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(get_area(T), invalid_area_typecache) && !is_admin_level(z)) // If cluwne gets stuck he just teleports
 		do_teleport(src, T)
 
 	interest++
@@ -164,7 +164,10 @@
 			if(H.stat != DEAD && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 				current_victim = H
 				return target = current_victim
-
+		if(smiting)
+			message_admins("Smiting floor cluwne was deleted due to a lack of valid target.")
+			qdel(src)
+			return
 		if(H && H.stat != DEAD && H != current_victim && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 			current_victim = H
 			interest = 0
@@ -180,7 +183,7 @@
 
 	else
 		layer = GAME_PLANE
-		invisibility = INVISIBILITY_MAXIMUM
+		invisibility = INVISIBILITY_OBSERVER
 		mouse_opacity = 0
 		density = FALSE
 
@@ -348,7 +351,7 @@
 		if(do_after(src, 50, target = H) && eating)
 			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
-			H.invisibility = INVISIBILITY_MAXIMUM
+			H.invisibility = INVISIBILITY_OBSERVER
 			H.mouse_opacity = 0
 			H.density = FALSE
 			H.anchored = TRUE
