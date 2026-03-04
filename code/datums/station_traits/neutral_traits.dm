@@ -128,7 +128,6 @@
 
 /datum/station_trait/darkness
 	name = "Electricity Saving"
-	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
 	show_in_report = TRUE
 	report_message = "The previous shift's engineers were real stingy with power and left most of the lights off. Hopefully we installed light switches in every room..."
