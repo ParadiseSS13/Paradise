@@ -6,7 +6,18 @@
 	w_class = 1
 	new_attack_chain = TRUE
 
+	// A list of all stands the arrow can give
+	var/list/stand_list
+
 /obj/item/arrowhead/Initialize(mapload)
+	stand_list = list(
+		/datum/action/stand/manifest/repair,
+		/datum/action/stand/manifest/bomb,
+		/datum/action/stand/manifest/timestop,
+		/datum/action/stand/manifest/timeskip,
+		/datum/action/stand/manifest/metal,
+		/datum/action/stand/manifest/erasure
+	)
 	START_PROCESSING(SSobj, src)
 	set_light(2, 4, "#ffd04f")
 
@@ -25,8 +36,9 @@
 		to_chat(user, "Your soul is deemed unworthy by the arrowhead, you die on the spot!")
 		user.death(FALSE)
 	else
-		var/datum/action/stand/manifest/manifest = new(user)
-		manifest.Grant(user)
+		var/datum/action/stand/manifest/random_stand_type = pick(stand_list)
+		var/datum/action/stand/manifest/random_stand = new random_stand_type
+		random_stand.Grant(user)
 		to_chat(user, "You feel new abilities awakening within yourself!")
 		qdel(src)
 
