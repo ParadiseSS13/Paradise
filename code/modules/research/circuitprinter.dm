@@ -1,6 +1,6 @@
 /*///////////////Circuit Imprinter (By Darem)////////////////////////
 	Used to print new circuit boards (for computers and similar systems) and AI modules. Each circuit board pattern are stored in
-a /datum/desgin on the linked R&D console. You can then print them out in a fasion similar to a regular lathe. However, instead of
+a /datum/design on the linked R&D console. You can then print them out in a fasion similar to a regular lathe. However, instead of
 using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 */
