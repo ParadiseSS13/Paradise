@@ -1,4 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"am" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/chair/comfy/corp{
+	dir = 8
+	},
+/obj/structure/sign/poster/official/random/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "aC" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/table,
@@ -9,6 +17,11 @@
 /turf/simulated/floor/plasteel/white{
 	icon_regular_floor = "yellowsiding"
 	},
+/area/template_noop)
+"bu" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/sign/poster/official/dig/directional/north,
+/turf/simulated/floor/plating,
 /area/template_noop)
 "cj" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -21,6 +34,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"cM" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/unary/tank{
+	dir = 1
+	},
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallroom_5x5,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "cN" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -74,6 +95,22 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"dG" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"dL" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "dX" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/reagent_dispensers/oil,
@@ -84,6 +121,22 @@
 /obj/structure/closet/wardrobe/black,
 /obj/effect/turf_decal/tiles/dark/side{
 	dir = 5
+	},
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"eG" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 5
+	},
+/obj/structure/closet/crate,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"fu" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table/flipped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
@@ -97,6 +150,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"hb" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/closet/cardboard,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/deepmaints/hallroom_5x5,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "he" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/chair/comfy/corp{
@@ -106,16 +167,38 @@
 /obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
+"hl" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "hZ" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/table,
 /obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
+"is" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "ja" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/tiles/department/medical/side,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"jy" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"jF" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "jW" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -129,15 +212,39 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"kw" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 9
+	},
+/obj/structure/closet/cardboard,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "ky" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
+"kC" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/flashlight,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "kU" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"lR" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/mineral,
+/area/template_noop)
+"mi" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table/flipped,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "mJ" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -146,9 +253,18 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
+/area/template_noop)
+"mX" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/closet/cardboard,
+/obj/structure/closet/cardboard,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "nv" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -160,6 +276,30 @@
 /obj/machinery/light/small/deepmaints,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"os" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning,
+/obj/structure/closet/crate,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"oE" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"oS" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/blood/often,
+/obj/item/trash/spentcasing/shotgun/slug,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"pe" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass/no_creep,
 /area/template_noop)
 "pG" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -174,7 +314,22 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/command,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"qI" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"rb" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/no_creep,
 /area/template_noop)
 "re" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -183,6 +338,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"rr" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "rC" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -198,6 +358,22 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"sy" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/closet/crate/freezer,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"sN" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table/flipped{
+	dir = 1
+	},
+/obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "sP" = (
@@ -217,8 +393,37 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/carpet/blue,
 /area/template_noop)
+"un" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/restraints/handcuffs/cable/random,
+/obj/effect/spawner/random/blood/maybe,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"uA" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass/no_creep,
+/area/template_noop)
 "uX" = (
 /turf/template_noop,
+/area/template_noop)
+"vf" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/chair,
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
+/obj/effect/spawner/random/blood,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"vx" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 4
+	},
+/obj/machinery/light/small/deepmaints,
+/obj/structure/closet/crate,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "vF" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -226,6 +431,15 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"vJ" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/plushies,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "wb" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -251,6 +465,29 @@
 /obj/machinery/kitchen_machine/microwave,
 /obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"xS" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/unary/tank{
+	dir = 1
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"xT" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/punching_bag,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/carpet/cyan,
+/area/template_noop)
+"yK" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass/no_creep,
 /area/template_noop)
 "yR" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -288,11 +525,13 @@
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tiles/department/command,
+/obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "zS" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/turf_decal/stripes/corner,
+/obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Ae" = (
@@ -302,12 +541,38 @@
 /obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
+"An" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table/flipped{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Au" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/table,
 /obj/machinery/cooking/grill/loaded,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"AD" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/shelf,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"BH" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/grass/no_creep,
+/area/template_noop)
+"BZ" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/blood/maybe,
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "CQ" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -324,6 +589,31 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"Dl" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 8
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 1
+	},
+/obj/structure/closet/cardboard,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Dp" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/black,
 /area/template_noop)
 "DJ" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -370,6 +660,27 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"FS" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk/black,
+/area/template_noop)
+"Gb" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
+/obj/effect/spawner/random/blood,
+/obj/item/clothing/head/hardhat,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "Gl" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/light/small/deepmaints{
@@ -383,6 +694,29 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"Hi" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Hy" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"HB" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 1
+	},
+/obj/structure/closet/cardboard,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "HI" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -420,6 +754,21 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"IT" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Jh" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table/flipped{
+	dir = 8
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Jp" = (
@@ -464,7 +813,31 @@
 /obj/machinery/light/small/deepmaints{
 	dir = 4
 	},
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"LW" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"Mi" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/blood/maybe,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Mz" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/burn,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"MK" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/closet/cardboard,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "ML" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -483,6 +856,24 @@
 "MZ" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/light/small/deepmaints,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Nf" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/structure/flora/junglebush,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass/no_creep,
+/area/template_noop)
+"ND" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"NP" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "NV" = (
@@ -508,6 +899,19 @@
 	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
+"Pv" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table/flipped{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Px" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/kirbyplants/large,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "PJ" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/economy/atm/directional/north,
@@ -523,6 +927,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"PO" = (
+/obj/effect/spawner/random/dirt/frequent,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"QF" = (
+/obj/effect/turf_decal/woodsiding,
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass/no_creep,
+/area/template_noop)
+"Ra" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/item/kirbyplants/large,
+/obj/effect/spawner/random/cobweb/right/frequent,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "RH" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/light/small/deepmaints{
@@ -530,16 +949,35 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"SI" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass/no_creep,
+/area/template_noop)
 "SY" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/economy/vending/dinnerware,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Ta" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table/flipped{
+	dir = 4
+	},
+/obj/machinery/light/small/deepmaints{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Tg" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/table,
 /obj/effect/spawner/random/food_or_drink/three_course_meal,
+/obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/carpet/grimey,
 /area/template_noop)
 "Tt" = (
@@ -548,7 +986,12 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 9
 	},
+/obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"Tx" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/grass/no_creep,
 /area/template_noop)
 "TD" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -569,6 +1012,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"UO" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/shelf,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "UU" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -592,6 +1042,14 @@
 /obj/effect/turf_decal/tiles/dark/side,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"VE" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning,
+/obj/structure/closet/cardboard,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "VJ" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/morgue{
@@ -600,6 +1058,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 5
 	},
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Wj" = (
@@ -630,6 +1089,13 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"XZ" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/effect/turf_decal/trimline/department/supply/filled/warning{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "YI" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/table,
@@ -640,6 +1106,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/template_noop)
+"YK" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/table/flipped{
+	dir = 8
+	},
+/obj/item/trash/spentcasing/bullet,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Zh" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/machine_frame,
@@ -647,6 +1121,15 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /turf/simulated/floor/plasteel,
+/area/template_noop)
+"ZA" = (
+/obj/effect/spawner/random/dirt/frequent,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/black,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -1755,15 +2238,15 @@ uX
 uX
 uX
 uX
+jy
+Wp
+Wp
+Wp
+ML
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
-FO
+qI
 FO
 Wp
 Wp
@@ -1857,11 +2340,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+uA
+Nf
+rb
+MZ
 uX
 uX
 uX
@@ -1959,11 +2442,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+BH
+Tx
+QF
+Wp
 uX
 uX
 uX
@@ -2061,11 +2544,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+RH
+SI
+yK
+pe
+ND
 uX
 uX
 uX
@@ -2163,15 +2646,15 @@ uX
 uX
 uX
 uX
+oE
+Wp
+Wp
+Wp
+Wp
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
-FO
+Hi
 FO
 Wp
 Wp
@@ -2571,11 +3054,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+jy
+NP
+Wp
+kC
+ML
 uX
 uX
 uX
@@ -2673,11 +3156,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+bu
+lR
+lR
+Gb
+NP
 uX
 uX
 uX
@@ -2775,11 +3258,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+lR
+lR
+lR
+Wp
 uX
 uX
 uX
@@ -2877,11 +3360,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+Mz
+lR
+jy
+Mz
 uX
 uX
 uX
@@ -2979,11 +3462,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+oE
+PO
+Wp
+NP
+Wp
 uX
 uX
 uX
@@ -3387,11 +3870,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+MK
+VE
+Wp
+Hy
+hb
 uX
 uX
 uX
@@ -3489,11 +3972,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+vJ
+XZ
+Wp
+eG
+vx
 uX
 uX
 uX
@@ -3591,11 +4074,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Wp
+Wp
+Wp
+Wp
+Wp
 uX
 uX
 uX
@@ -3693,11 +4176,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Dl
+dL
+ND
+kw
+dG
 uX
 uX
 uX
@@ -3795,11 +4278,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+sy
+os
+Wp
+HB
+mX
 uX
 uX
 uX
@@ -4203,15 +4686,15 @@ uX
 uX
 uX
 uX
+hl
+jF
+jF
+xS
+cM
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
-JU
+xT
 Gl
 Wp
 Vd
@@ -4305,11 +4788,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+am
+rr
+FS
+jF
+jF
 uX
 uX
 uX
@@ -4407,15 +4890,15 @@ uX
 uX
 uX
 uX
+jF
+ZA
+Dp
+ZA
+jF
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
-Wp
+oE
 Wp
 Wp
 Wp
@@ -4509,11 +4992,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+jF
+jF
+FS
+jF
+jF
 uX
 uX
 uX
@@ -4611,11 +5094,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+LW
+jF
+jF
+AD
+UO
 uX
 uX
 uX
@@ -5019,11 +5502,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Px
+An
+YK
+Jh
+IT
 uX
 uX
 uX
@@ -5121,11 +5604,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+fu
+BZ
+is
+un
+mi
 uX
 uX
 uX
@@ -5223,11 +5706,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+fu
+oS
+vf
+is
+mi
 uX
 uX
 uX
@@ -5325,11 +5808,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+sN
+Mi
+is
+BZ
+mi
 uX
 uX
 uX
@@ -5427,11 +5910,11 @@ uX
 uX
 uX
 uX
-uX
-uX
-uX
-uX
-uX
+Ra
+Ta
+Pv
+Pv
+IT
 uX
 uX
 uX
