@@ -33,6 +33,7 @@
 		owner.overlays -= stand_overlay
 		for(var/datum/action/A in current_abilities)
 			A.Remove(owner)
+		current_abilities.Cut()
 
 /datum/action/stand/manifest/teststand
 
