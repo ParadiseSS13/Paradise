@@ -791,7 +791,7 @@
 	species_type_whitelist_typecache = list(/datum/species/drask)
 	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
-	sound = "sound/voice/drasktalk.ogg"
+	sound = "sound/effects/drasktalk.ogg"
 
 /datum/emote/living/carbon/human/drask_talk/drone
 	key = "drone"
