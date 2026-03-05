@@ -55,17 +55,17 @@
 		stand_overlay.icon_state = stand_icon_state
 		stand_overlay.dir = owner.dir
 		stand_overlay.layer = owner.layer - 0.01
-		stand_overlay.mouse_opacity = 0 // This thing covers half the player's sprite
-		aura_underlay = image(stand_icon, aura_icon_state, layer = owner.layer - 0.01)
+		stand_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		aura_underlay = image(stand_icon, aura_icon_state, layer = 3.79)
 		on_dir_change(owner, null, owner.dir)
-		playsound(owner.loc, 'sound/misc/bizarresummon.ogg', 50, FALSE)
+		playsound(owner.loc, 'sound/misc/bizarresummon.ogg', 50, TRUE)
 		stand_overlay.alpha = 0
 		animate(stand_overlay, alpha = 255, 0.2 SECONDS)
 		owner.vis_contents += stand_overlay
 		owner.underlays += aura_underlay
 		for(var/spell in ability_spells)
 			var/datum/spell/A = new spell
-			owner.mind.spell_list += A
+			owner.AddSpell(A)
 			current_spells += A
 	else
 		manifested = FALSE
@@ -76,9 +76,8 @@
 		if(aura_underlay)
 			owner.underlays -= aura_underlay
 			aura_underlay = null
-		for(var/datum/action/A in current_spells)
-			owner.mind.spell_list -= A
-		current_spells.Cut()
+		for(var/datum/spell/A in current_spells)
+			owner.RemoveSpell(A)
 
 // MARK: STANDS
 
@@ -90,17 +89,17 @@
 /datum/action/stand/manifest/bomb
 	stand_icon_state = "bomb"
 	aura_icon_state = "purpleaura"
-	ability_spells = list(/datum/spell/stand/repair)
+	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/repair)
 
 /datum/action/stand/manifest/timestop
 	stand_icon_state = "timestop"
 	aura_icon_state = "yellowaura"
-	ability_spells = list(/datum/spell/stand/timestop)
+	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/timestop)
 
 /datum/action/stand/manifest/timeskip
 	stand_icon_state = "timeskip"
 	aura_icon_state = "redaura"
-	ability_spells = list(/datum/spell/stand/timeskip)
+	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/timeskip)
 
 /datum/action/stand/manifest/metal
 	stand_icon_state = "metal"
@@ -110,7 +109,7 @@
 /datum/action/stand/manifest/erasure
 	stand_icon_state = "erasure"
 	aura_icon_state = "blueaura"
-	ability_spells = list(/datum/spell/stand/repair)
+	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/erasure, /datum/spell/stand/greater_erasure)
 
 // MARK: STAND ABILITIES
 
@@ -119,11 +118,18 @@
 	desc = "If you see this button, something has gone wrong!"
 
 	base_cooldown = 0
+	starts_charged = FALSE
 	clothes_req = FALSE
 	action_icon = 'icons/obj/bizarre_debris.dmi'
 	action_icon_state = "repair"
 	action_background_icon = 'icons/mob/actions/actions.dmi'
 	action_background_icon_state = "bg_pulsedemon"
+
+/datum/spell/stand/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.click_radius = -1
+	return T
 
 /datum/spell/stand/testability
 	name = "Test Ability 1"
@@ -150,7 +156,7 @@
 	name = "Stop Time"
 	desc = "Stops time in a short radius. ZA WARUDO!"
 
-	base_cooldown = 15 SECONDS
+	base_cooldown = 20 SECONDS
 	action_icon = 'icons/mob/actions/actions.dmi'
 	action_icon_state = "time"
 
@@ -183,3 +189,66 @@
 
 	action_icon = 'icons/mob/actions/actions.dmi'
 	action_icon_state = "spacetime"
+
+/datum/spell/stand/timeskip/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/datum/spell/stand/timeskip/cast(list/targets, mob/user)
+
+/datum/spell/stand/erasure
+	name = "Space Erasure"
+	desc = "Erase a pocket of space above a selected tile, at a distance calculated such that it will only pull you in."
+
+	base_cooldown = 5 SECONDS
+	action_icon = 'icons/mob/actions/actions.dmi'
+	action_icon_state = "emp"
+
+/datum/spell/stand/erasure/cast(list/targets, mob/user)
+	var/turf/cast_on = targets[1]
+	space_erasure(cast_on, user)
+
+/datum/spell/stand/erasure/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.range = 7
+	T.allowed_type = /turf/simulated/floor
+	T.use_turf_of_user = TRUE
+	return T
+
+/datum/spell/stand/erasure/proc/space_erasure(turf/T, mob/user)
+	new /obj/effect/temp_visual/space_erasure(T)
+	playsound(T, 'sound/misc/bizarreerasure.ogg', 50, TRUE)
+	user.throw_at(T, 20, 1)
+
+/datum/spell/stand/greater_erasure
+	name = "Greater Erasure"
+	desc = "Erase a pocket of space above a selected tile, pulling in everything around it, including you!"
+
+	base_cooldown = 10 SECONDS
+	action_icon = 'icons/mob/actions/actions.dmi'
+	action_icon_state = "pd_emp"
+
+/datum/spell/stand/greater_erasure/cast(list/targets, mob/user)
+	var/turf/cast_on = targets[1]
+	greater_space_erasure(cast_on)
+
+/datum/spell/stand/greater_erasure/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.range = 7
+	T.allowed_type = /turf/simulated/floor
+	T.use_turf_of_user = TRUE
+	return T
+
+/datum/spell/stand/greater_erasure/proc/greater_space_erasure(turf/T)
+	new /obj/effect/temp_visual/space_erasure(T)
+	playsound(T, 'sound/misc/bizarreerasure.ogg', 50, TRUE)
+	for(var/atom/movable/X in view(7, T))
+		if(iseffect(X))
+			continue
+		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
+			X.throw_at(T, 20, 1)
+
+/obj/effect/temp_visual/space_erasure
+	icon_state = "m_shield"
+	duration = 0.8 SECONDS
