@@ -18,6 +18,13 @@
 /datum/objective/ninja/proc/hand_out_equipment()
 	give_kit(special_equipment_path)
 
+/datum/objective/ninja/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(possible_target.current)
+		var/turf/current_location = get_turf(possible_target.current)
+		if(current_location && !is_station_level(current_location.z))
+			return TARGET_INVALID_UNREACHABLE
+
 /datum/objective/ninja/proc/complete_objective()
 	for(var/datum/mind/M in get_owners())
 		var/mob/living/carbon/human/H = M.current
