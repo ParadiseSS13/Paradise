@@ -217,6 +217,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 8, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 9),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 16, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_uplifted_primitive, 16, is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)

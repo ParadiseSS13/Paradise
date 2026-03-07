@@ -602,7 +602,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/datum/pipeline/pipenet = starting_machine.returnPipenet(target_move)
 	pipenet.add_ventcrawler(src)
 	add_ventcrawl_images(pipenet)
-
+	SEND_SIGNAL(src, COMSIG_LIVING_ENTER_VENTCRAWL)
 
 /mob/living/proc/add_ventcrawl_images(datum/pipeline/pipenet)
 	var/list/totalMembers = list()

@@ -255,6 +255,8 @@
 #define COMSIG_MOB_PRE_JAUNT "spell_mob_pre_jaunt"
 	#define COMPONENT_BLOCK_JAUNT (1<<0)
 
+/// from add_ventcrawler(): (mob/living/crawler)
+#define COMSIG_LIVING_ENTER_VENTCRAWL "living_enter_ventcrawl"
 /// from remove_ventcrawler(): (mob/living/crawler)
 #define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"
 
