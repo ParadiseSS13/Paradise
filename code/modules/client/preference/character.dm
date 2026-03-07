@@ -1062,7 +1062,8 @@
 	var/has_gloves = FALSE
 
 	if(job_support_low & JOB_ASSISTANT) //This gives the preview icon clothes depending on which job(if any) is set to 'high'
-		clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "grey_s")
+		clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "color_s")
+		clothes_s.swap_palette(PALETTE_JS_WHITE, PALETTE_JS_GREY)
 		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if(backbag == 2)
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
