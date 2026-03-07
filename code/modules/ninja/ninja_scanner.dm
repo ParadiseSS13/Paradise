@@ -36,14 +36,14 @@
 
 		if(istype(ninja_obj, /datum/objective/ninja/capture))
 			var/datum/objective/ninja/capture/cap_obj = ninja_obj
+			if(target != ninja_obj.target.current)
+				continue
 			if(target.stat == DEAD)
 				if(!target.ghost_can_reenter()) // Target is DNR. Reroll.
 					to_chat(user, SPAN_NOTICE("Target is unrecoverable. Finding a new target..."))
-					on_target_cryo()
+					ninja_obj.on_target_cryo()
 				else
 					to_chat(user, SPAN_NOTICE("Target is dead. Dead people don't talk. Esnure they are revived, then send them to us."))
-				continue
-			if(target != ninja_obj.target.current)
 				continue
 			if(!target.buckled)
 				continue
