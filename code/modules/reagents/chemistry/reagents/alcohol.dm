@@ -1249,10 +1249,10 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.dna.species.reagent_tag & PROCESS_SYN)
-		return
-	if(method == REAGENT_INGEST)
-		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
+	if(method == REAGENT_INGEST & !ismachineperson(M) & !isvox(M)) // vox don't get a message
+		to_chat(M, pick(SPAN_WARNING("That was awful!"), SPAN_WARNING("Yuck!")))
+	if(method == REAGENT_INGEST & ismachineperson(M))
+		to_chat(M, SPAN_NOTICE("Your components feel smoother."))
 
 /datum/reagent/consumable/ethanol/synthanol/robottears
 	name = "Robot Tears"
