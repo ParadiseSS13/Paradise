@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	return ..()
 
 /obj/machinery/pandemic/proc/set_broken()
-	stat |= BROKEN
+	machine_flags |= BROKEN
 	update_icon()
 
 /obj/machinery/pandemic/proc/GetViruses()
@@ -142,7 +142,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		playsound(loc, 'sound/machines/ping.ogg', 30, 1)
 
 /obj/machinery/pandemic/update_icon_state()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = (beaker ? "pandemic1_b" : "pandemic0_b")
 		return
 	icon_state = "pandemic[(beaker)?"1":"0"][(has_power()) ? "" : "_nopower"]"
@@ -576,7 +576,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		printing = null
 
 /obj/machinery/pandemic/proc/print_goal_orders()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
@@ -612,7 +612,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 /obj/machinery/pandemic/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if((istype(used, /obj/item/reagent_containers) && (used.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_flags & (NOPOWER|BROKEN))
 			return ITEM_INTERACT_COMPLETE
 		if(beaker)
 			to_chat(user, SPAN_WARNING("A beaker is already loaded into the machine!"))

@@ -43,7 +43,7 @@
 
 /obj/machinery/atmospherics/refill_station/update_overlays()
 	. = ..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(holding_tank)
@@ -60,7 +60,7 @@
 
 /obj/machinery/atmospherics/refill_station/power_change()
 	. = ..()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(MINIMUM_USEFUL_LIGHT_RANGE, light_power_on, light_color_on)
@@ -76,7 +76,7 @@
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(holding_tank)
 	holding_tank = new_tank
-	if(!(stat & NOPOWER))
+	if(!(machine_flags & NOPOWER))
 		on = TRUE
 		change_power_mode(ACTIVE_POWER_USE)
 	update_icon(UPDATE_OVERLAYS)
@@ -88,7 +88,7 @@
 	if(!istype(used, /obj/item/tank))
 		to_chat(user, SPAN_WARNING("[used] does not fit in [src]'s tank slot."))
 		return ITEM_INTERACT_COMPLETE
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		if(used.flags & NODROP || !user.transfer_item_to(used, src))
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
@@ -99,7 +99,7 @@
 			replace_tank(user, new_tank)
 		else
 			holding_tank = new_tank
-			if(!(stat & NOPOWER))
+			if(!(machine_flags & NOPOWER))
 				on = TRUE
 				change_power_mode(ACTIVE_POWER_USE)
 		update_icon(UPDATE_OVERLAYS)
@@ -117,7 +117,7 @@
 
 /obj/machinery/atmospherics/refill_station/process_atmos()
 	..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	var/datum/milla_safe/refill_station_process/milla = new()
 	milla.invoke_async(src)
@@ -183,7 +183,7 @@
 	if(!is_type_in_typecache(used, accepted_types))
 		to_chat(user, SPAN_WARNING("[used] does not fit in [src]'s tank slot."))
 		return ITEM_INTERACT_COMPLETE
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		if(used.flags & NODROP || !user.transfer_item_to(used, src))
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
@@ -194,7 +194,7 @@
 			replace_tank(user, new_tank)
 		else
 			holding_tank = new_tank
-			if(!(stat & NOPOWER))
+			if(!(machine_flags & NOPOWER))
 				on = TRUE
 				change_power_mode(ACTIVE_POWER_USE)
 		update_icon(UPDATE_OVERLAYS)

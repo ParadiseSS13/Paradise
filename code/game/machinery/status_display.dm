@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 	. = ..()
 	underlays.Cut()
 
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 
 	if(picture_state)
@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 /obj/machinery/status_display/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 
 // timed process
 /obj/machinery/status_display/process()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		remove_display()
 		return
 
@@ -76,14 +76,14 @@ GLOBAL_LIST_EMPTY(status_displays)
 	update()
 
 /obj/machinery/status_display/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 	set_picture("ai_bsod")
 	..(severity)
 
 /obj/machinery/status_display/flicker()
-	if(stat & (NOPOWER | BROKEN))
+	if(machine_flags & (NOPOWER | BROKEN))
 		return FALSE
 
 	spookymode = TRUE

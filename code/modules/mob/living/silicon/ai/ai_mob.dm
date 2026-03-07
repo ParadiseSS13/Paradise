@@ -1517,7 +1517,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	malfhacking = null
 	clear_alert("hackingapc")
 
-	if(!istype(apc) || QDELETED(apc) || apc.stat & BROKEN)
+	if(!istype(apc) || QDELETED(apc) || apc.machine_flags & BROKEN)
 		to_chat(src, SPAN_DANGER("Hack aborted. The designated APC no longer exists on the power network."))
 		SEND_SOUND(src, sound('sound/machines/buzz-two.ogg'))
 	else if(apc.aidisabled)

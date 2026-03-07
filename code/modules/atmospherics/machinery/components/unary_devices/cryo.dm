@@ -46,7 +46,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
-	if(!(stat & (BROKEN | NOPOWER)))
+	if(!(machine_flags & (BROKEN | NOPOWER)))
 		set_light(1.5, 1, LIGHT_COLOR_CYAN)
 	else
 		set_light(0)
@@ -266,7 +266,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/ui_act(action, params)
 	if(..() || usr == occupant)
 		return
-	if(stat & (NOPOWER | BROKEN))
+	if(machine_flags & (NOPOWER | BROKEN))
 		return
 
 	. = TRUE

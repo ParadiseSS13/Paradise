@@ -29,7 +29,7 @@
 		Activate(user)
 
 /obj/machinery/ai_slipper/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		to_chat(user, SPAN_WARNING("[src] has no power or is broken!"))
 		return
 	if(!allowed(user))
@@ -38,7 +38,7 @@
 	Activate(user)
 
 /obj/machinery/ai_slipper/proc/Activate(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(!uses)
 		to_chat(user, SPAN_WARNING("[src] is empty!"))
@@ -54,7 +54,7 @@
 		addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown_time)
 
 /obj/machinery/ai_slipper/update_icon_state()
-	if(stat & (NOPOWER|BROKEN) || cooldown_on || !uses)
+	if(machine_flags & (NOPOWER|BROKEN) || cooldown_on || !uses)
 		icon_state = "liquid_dispenser"
 	else
 		icon_state = "liquid_dispenser_on"

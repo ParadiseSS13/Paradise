@@ -27,7 +27,7 @@
 
 	for(var/I in callees)
 		var/obj/machinery/hologram/holopad/H = I
-		if(!QDELETED(H) && !(H.stat & NOPOWER) && H.anchored)
+		if(!QDELETED(H) && !(H.machine_flags & NOPOWER) && H.anchored)
 			dialed_holopads += H
 			var/area/area = get_area(H)
 			LAZYADD(H.holo_calls, src)
@@ -148,13 +148,13 @@
 /datum/holocall/proc/Check()
 	for(var/I in dialed_holopads)
 		var/obj/machinery/hologram/holopad/H = I
-		if((H.stat & NOPOWER) || !H.anchored)
+		if((H.machine_flags & NOPOWER) || !H.anchored)
 			ConnectionFailure(H)
 
 	if(QDELETED(src))
 		return FALSE
 
-	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && !(calling_holopad.stat & NOPOWER) && user.loc == calling_holopad.loc
+	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && !(calling_holopad.machine_flags & NOPOWER) && user.loc == calling_holopad.loc
 
 	if(.)
 		if(!connected_holopad)

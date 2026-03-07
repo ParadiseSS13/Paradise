@@ -50,7 +50,7 @@
 /obj/machinery/computer/teleporter/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/gps))
 		var/obj/item/gps/L = used
-		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
+		if(L.locked_location && !(machine_flags & (NOPOWER|BROKEN)))
 			if(!user.transfer_item_to(L, src))
 				to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you cannot put it in [src]"))
 				return ITEM_INTERACT_COMPLETE
@@ -79,7 +79,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/teleporter/ui_interact(mob/user, datum/tgui/ui = null)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -308,12 +308,12 @@
 	area_bypass = FALSE
 	var/obj/machinery/teleport/station/trg = target
 	trg.linked_stations |= power_station
-	trg.stat &= ~NOPOWER
+	trg.machine_flags &= ~NOPOWER
 	if(trg.teleporter_hub)
-		trg.teleporter_hub.stat &= ~NOPOWER
+		trg.teleporter_hub.machine_flags &= ~NOPOWER
 		trg.teleporter_hub.update_icon(UPDATE_ICON_STATE)
 	if(trg.teleporter_console)
-		trg.teleporter_console.stat &= ~NOPOWER
+		trg.teleporter_console.machine_flags &= ~NOPOWER
 		trg.teleporter_console.update_icon()
 
 /proc/find_loc(obj/R as obj)
@@ -529,7 +529,7 @@
 	tele_delay = max(A, 0)
 
 /obj/machinery/teleport/perma/proc/on_atom_entered(datum/source, atom/movable/entered)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	if(!is_teleport_allowed(z) && !admin_usage)
@@ -570,7 +570,7 @@
 /obj/machinery/teleport/perma/update_icon_state()
 	if(panel_open)
 		icon_state = "tele-o"
-	else if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)))
+	else if(target && !recalibrating && !(machine_flags & (BROKEN|NOPOWER)))
 		icon_state = "tele1"
 	else
 		icon_state = "tele0"
@@ -579,11 +579,11 @@
 	. = ..()
 	underlays.Cut()
 
-	if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)) && !panel_open)
+	if(target && !recalibrating && !(machine_flags & (BROKEN|NOPOWER)) && !panel_open)
 		underlays += emissive_appearance(icon, "tele1_lightmask")
 
 /obj/machinery/teleport/perma/proc/update_lighting()
-	if(target && !recalibrating && !panel_open && !(stat & (BROKEN|NOPOWER)))
+	if(target && !recalibrating && !panel_open && !(machine_flags & (BROKEN|NOPOWER)))
 		set_light(2, 1, "#f1f1bd")
 	else
 		set_light(0)
@@ -774,7 +774,7 @@
 		to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 
 /obj/machinery/teleport/station/proc/toggle(mob/user)
-	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console)
+	if(machine_flags & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console)
 		return
 	if(teleporter_hub.panel_open)
 		to_chat(user, SPAN_NOTICE("Close the hub's maintenance panel first."))
@@ -800,7 +800,7 @@
 		teleporter_hub.update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 		teleporter_hub.update_lighting()
 
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
@@ -808,7 +808,7 @@
 /obj/machinery/teleport/station/update_icon_state()
 	if(panel_open)
 		icon_state = "controller-o"
-	else if(stat & NOPOWER)
+	else if(machine_flags & NOPOWER)
 		icon_state = "controller-p"
 	else
 		icon_state = "controller"
@@ -817,7 +817,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(!(stat & NOPOWER) && !panel_open)
+	if(!(machine_flags & NOPOWER) && !panel_open)
 		underlays += emissive_appearance(icon, "controller_lightmask")
 
 #undef REGIME_TELEPORT

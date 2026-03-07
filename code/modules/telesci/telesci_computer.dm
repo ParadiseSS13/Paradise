@@ -168,7 +168,7 @@
 	if(!TP)
 		return
 
-	if(TP.stat & NOPOWER)
+	if(TP.machine_flags & NOPOWER)
 		return
 
 	var/turf/target = locateUID(last_target_ref)

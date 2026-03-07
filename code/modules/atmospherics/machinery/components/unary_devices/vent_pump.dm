@@ -109,7 +109,7 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/unary/vent_pump/process_atmos()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return FALSE
 	if(QDELETED(parent))
 		// We're orphaned!

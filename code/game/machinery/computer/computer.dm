@@ -28,7 +28,7 @@
 	update_icon()
 
 /obj/machinery/computer/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return FALSE
 	return TRUE
 
@@ -44,7 +44,7 @@
 	if(flickering)
 		return FALSE
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return FALSE
 
 	flickering = TRUE
@@ -72,24 +72,24 @@
 /obj/machinery/computer/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if((stat & NOPOWER) || force_no_power_icon_state)
+	if((machine_flags & NOPOWER) || force_no_power_icon_state)
 		if(icon_keyboard)
 			. += "[icon_keyboard]_off"
 		return
 
 	// This whole block lets screens and keyboards ignore lighting and be visible even in the darkest room
 	var/overlay_state = icon_screen
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		overlay_state = "[icon_state]_broken"
 	. += "[overlay_state]"
-	if(!(stat & BROKEN) && light)
+	if(!(machine_flags & BROKEN) && light)
 		underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 	if(icon_keyboard)
 		. += "[icon_keyboard]"
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
 
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		if(!cached_emissive_color[overlay_state])
 			// Get the average color of the computer screen so it can be used as a tinted glow
 			// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
@@ -100,7 +100,7 @@
 
 /obj/machinery/computer/power_change()
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
-	if((stat & (BROKEN|NOPOWER)))
+	if((machine_flags & (BROKEN|NOPOWER)))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
@@ -110,7 +110,7 @@
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			if(stat & BROKEN)
+			if(machine_flags & BROKEN)
 				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 			else
 				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
@@ -119,9 +119,9 @@
 
 /obj/machinery/computer/obj_break(damage_flag)
 	if(circuit && !(flags & NODECONSTRUCT)) //no circuit, no breaking
-		if(!(stat & BROKEN))
+		if(!(machine_flags & BROKEN))
 			playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-			stat |= BROKEN
+			machine_flags |= BROKEN
 			update_icon()
 			set_light(0)
 
@@ -155,7 +155,7 @@
 			A.setDir(dir)
 			A.circuit = M
 			A.anchored = TRUE
-			if(stat & BROKEN)
+			if(machine_flags & BROKEN)
 				if(user)
 					to_chat(user, SPAN_NOTICE("The broken glass falls out."))
 				else
@@ -174,7 +174,7 @@
 
 /obj/machinery/computer/proc/set_broken()
 	if(!(resistance_flags & INDESTRUCTIBLE))
-		stat |= BROKEN
+		machine_flags |= BROKEN
 		update_icon()
 
 /obj/machinery/computer/proc/decode(text)

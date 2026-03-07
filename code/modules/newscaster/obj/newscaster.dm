@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	if(inoperable())
 		return
 
-	if(!(stat & NOPOWER))
+	if(!(machine_flags & NOPOWER))
 		underlays += emissive_appearance(icon, "newscaster_lightmask")
 
 	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 /obj/machinery/newscaster/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		to_chat(user, SPAN_WARNING("The broken remains of [src] fall on the ground."))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		new /obj/item/shard(loc)
@@ -166,7 +166,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 /obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			if(stat & BROKEN)
+			if(machine_flags & BROKEN)
 				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, TRUE)
 			else
 				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
@@ -181,8 +181,8 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	qdel(src)
 
 /obj/machinery/newscaster/obj_break()
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
-		stat |= BROKEN
+	if(!(machine_flags & BROKEN) && !(flags & NODECONSTRUCT))
+		machine_flags |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		update_icon(UPDATE_OVERLAYS)
 

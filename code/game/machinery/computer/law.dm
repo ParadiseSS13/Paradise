@@ -101,10 +101,10 @@
 		borg.throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 
 /obj/machinery/computer/aiupload/attack_hand(mob/user)
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		to_chat(user, SPAN_WARNING("The upload computer has no power!"))
 		return
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		to_chat(user, SPAN_WARNING("The upload computer is broken!"))
 		return
 
@@ -145,10 +145,10 @@
 	return ..()
 
 /obj/machinery/computer/borgupload/attack_hand(mob/user)
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		to_chat(user, SPAN_WARNING("The upload computer has no power!"))
 		return
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		to_chat(user, SPAN_WARNING("The upload computer is broken!"))
 		return
 

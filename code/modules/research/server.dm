@@ -29,7 +29,7 @@
 
 
 /obj/machinery/r_n_d/server/update_icon_state()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "RD-server-off"
 	else
 		icon_state = "RD-server-on"

@@ -102,7 +102,7 @@
 		return TRUE
 	if(!powernet_apc)
 		return FALSE
-	if(powernet_apc.stat & (BROKEN|MAINT)) // no working apc, no power
+	if(powernet_apc.machine_flags & (BROKEN|MAINT)) // no working apc, no power
 		return FALSE
 
 	switch(channel)

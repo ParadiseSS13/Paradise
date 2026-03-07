@@ -115,7 +115,7 @@
 	if(widenet)
 		check_turfs()
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	var/turf/T = loc

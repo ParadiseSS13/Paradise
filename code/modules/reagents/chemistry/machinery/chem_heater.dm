@@ -38,7 +38,7 @@
 
 /obj/machinery/chem_heater/process()
 	..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(on)
 		if(beaker)
@@ -65,9 +65,9 @@
 
 /obj/machinery/chem_heater/power_change()
 	if(has_power())
-		stat &= ~NOPOWER
+		machine_flags &= ~NOPOWER
 	else
-		stat |= NOPOWER
+		machine_flags |= NOPOWER
 
 /obj/machinery/chem_heater/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
@@ -116,7 +116,7 @@
 /obj/machinery/chem_heater/ui_act(action, params)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	. = TRUE

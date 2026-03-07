@@ -123,7 +123,7 @@
 /obj/machinery/economy/merch/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	. = FALSE

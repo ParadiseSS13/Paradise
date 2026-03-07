@@ -55,7 +55,7 @@
 /obj/machinery/computer/syndicate_depot/attack_hand(mob/user)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	ui_interact(user)
 
@@ -376,7 +376,7 @@
 /obj/machinery/computer/syndicate_depot/syndiecomms/power_change()
 	if(!..())
 		return
-	if(!security_lockout && (stat & NOPOWER))
+	if(!security_lockout && (machine_flags & NOPOWER))
 		security_lockout = TRUE
 		raise_alert("[src] lost power.")
 

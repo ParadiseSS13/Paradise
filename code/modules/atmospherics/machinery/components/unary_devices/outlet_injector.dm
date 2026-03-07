@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(air_injectors)
 /obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
 	injecting = FALSE
 
-	if(!on || stat & NOPOWER)
+	if(!on || machine_flags & NOPOWER)
 		return 0
 
 	if(air_contents.temperature() > 0)

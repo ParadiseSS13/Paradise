@@ -281,7 +281,7 @@
 ************************************/
 
 /obj/machinery/kitchen_machine/proc/cook()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	start()
 	if(!has_cookables()) //dry run
@@ -386,7 +386,7 @@
 
 /obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_flags & (NOPOWER|BROKEN))
 			return FALSE
 		use_power(500)
 		sleep(10)
@@ -477,7 +477,7 @@
 		. += SPAN_NOTICE("Your expert chef knowledge tells you that this would make \a [initial(result.name)].")
 
 /obj/machinery/kitchen_machine/attack_hand(mob/user)
-	if(stat & (BROKEN|NOPOWER) || panel_open || !anchored)
+	if(machine_flags & (BROKEN|NOPOWER) || panel_open || !anchored)
 		return
 
 	ui_interact(user)
@@ -596,10 +596,10 @@
 	if(!has_cookables())
 		to_chat(user, SPAN_WARNING("It's empty!"))
 		return FALSE
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		to_chat(user, SPAN_WARNING("It's broken!"))
 		return FALSE
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		to_chat(user, SPAN_WARNING("It's depowered!"))
 		return FALSE
 	if(panel_open)

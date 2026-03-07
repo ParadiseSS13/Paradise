@@ -69,7 +69,7 @@
 		. += "crucible_wires"
 	if(pouring)
 		. += "crucible_output"
-	else if(has_power() && !(stat & (BROKEN)))
+	else if(has_power() && !(machine_flags & (BROKEN)))
 		. += "crucible_passive"
 
 /obj/machinery/magma_crucible/update_icon_state()

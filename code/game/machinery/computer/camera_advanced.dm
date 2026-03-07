@@ -44,7 +44,7 @@
 	if(!current_user)
 		return
 
-	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(current_user) && !current_user.has_unlimited_silicon_privilege) || !current_user.has_vision() || current_user.incapacitated())
+	if((machine_flags & (NOPOWER|BROKEN)) || (!Adjacent(current_user) && !current_user.has_unlimited_silicon_privilege) || !current_user.has_vision() || current_user.incapacitated())
 		remove_eye(current_user)
 
 /obj/machinery/computer/camera_advanced/Destroy()

@@ -23,7 +23,7 @@
 
 	if(charging)
 		. += "There's [charging ? "\a [charging.name]" : "nothing"] in [src]."
-		if(!(stat & (NOPOWER|BROKEN)))
+		if(!(machine_flags & (NOPOWER|BROKEN)))
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
 			. += SPAN_NOTICE("Current charge: <b>[round(C.percent(), 1)]%</b>.")
 			if(using_power)
@@ -135,7 +135,7 @@
 		update_icon()
 
 /obj/machinery/recharger/process()
-	if(stat & (NOPOWER|BROKEN) || !anchored || panel_open)
+	if(machine_flags & (NOPOWER|BROKEN) || !anchored || panel_open)
 		return
 	if(!charging)
 		return
@@ -146,7 +146,7 @@
 		update_icon()
 
 /obj/machinery/recharger/emp_act(severity)
-	if(stat & (NOPOWER|BROKEN) || !anchored)
+	if(machine_flags & (NOPOWER|BROKEN) || !anchored)
 		..(severity)
 		return
 
@@ -164,7 +164,7 @@
 /obj/machinery/recharger/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
@@ -174,7 +174,7 @@
 	if(panel_open)
 		icon_state = "[base_icon_state]open"
 		return
-	if(stat & (NOPOWER|BROKEN) || !anchored)
+	if(machine_flags & (NOPOWER|BROKEN) || !anchored)
 		icon_state = "[base_icon_state]off"
 		return
 	if(charging)
@@ -189,7 +189,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if((stat & NOPOWER) || panel_open)
+	if((machine_flags & NOPOWER) || panel_open)
 		return
 
 	underlays += emissive_appearance(icon, "[icon_state]_lightmask")

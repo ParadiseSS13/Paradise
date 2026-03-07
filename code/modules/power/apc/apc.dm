@@ -182,7 +182,7 @@
 
 		opened = APC_OPENED
 		operating = FALSE
-		stat |= MAINT
+		machine_flags |= MAINT
 		constructed = TRUE
 	else
 		electronics_state = APC_ELECTRONICS_INSTALLED
@@ -202,7 +202,7 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			return
 		if(opened)
 			if(has_electronics() && terminal)
@@ -215,7 +215,7 @@
 				. += "There are no electronics nor connected wires."
 			. += shock_proof ? "There is additional plastic insulation" : "There is a place to put in some plastic insulation"
 		else
-			if(stat & MAINT)
+			if(machine_flags & MAINT)
 				. += "The cover is closed. Something wrong with it: it doesn't work."
 			else if(malfhack)
 				. += "The cover is broken. It may be hard to force it open."
@@ -240,7 +240,7 @@
 			to_chat(user, SPAN_WARNING("[src] already has a power cell!"))
 			return ITEM_INTERACT_COMPLETE
 
-		if(stat & MAINT)
+		if(machine_flags & MAINT)
 			to_chat(user, SPAN_WARNING("[src] has no electronics inside!"))
 			return ITEM_INTERACT_COMPLETE
 
@@ -319,7 +319,7 @@
 	if(istype(used, /obj/item/apc_electronics) && opened)
 		if(has_electronics())
 			if(user.mind && HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
-				if(stat & BROKEN)
+				if(machine_flags & BROKEN)
 					to_chat(user, SPAN_WARNING("[src] is damaged! You must repair the frame before you can install [used]!"))
 					return ITEM_INTERACT_COMPLETE
 				if(malfhack)
@@ -339,14 +339,14 @@
 				qdel(used)
 				electronics_state = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
-				stat &= ~MAINT
+				machine_flags &= ~MAINT
 				update_icon()
 				return ITEM_INTERACT_COMPLETE
 			else
 				to_chat(user, SPAN_WARNING("[src] already contains APC electronics!"))
 				return ITEM_INTERACT_COMPLETE
 
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			to_chat(user, SPAN_WARNING("[src] is damaged! You must repair the frame before you can install [used]!"))
 			return ITEM_INTERACT_COMPLETE
 
@@ -358,19 +358,19 @@
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 			electronics_state = APC_ELECTRONICS_INSTALLED
 			locked = FALSE
-			stat &= ~MAINT
+			machine_flags &= ~MAINT
 			update_icon()
 			qdel(used)
 		return ITEM_INTERACT_COMPLETE
 
 	// APC frame repair. Instant, but you consume 2 metal instead of doing it for free.
 	if(istype(used, frame_type) && opened)
-		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity))
+		if(!(machine_flags & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity))
 			to_chat(user, SPAN_WARNING("[src] has no damage to fix!"))
 			return ITEM_INTERACT_COMPLETE
 
 		// Only cover is broken, no need to remove any components.
-		if(!(stat & BROKEN) && opened == APC_COVER_OFF)
+		if(!(machine_flags & BROKEN) && opened == APC_COVER_OFF)
 			user.visible_message(
 				SPAN_NOTICE("[user] replaces the missing cover of [src]."),
 				SPAN_NOTICE("You replace the missing cover of [src].")
@@ -389,7 +389,7 @@
 			SPAN_NOTICE("You replace the damaged frame of [src].")
 		)
 		qdel(used)
-		stat &= ~BROKEN
+		machine_flags &= ~BROKEN
 		obj_integrity = max_integrity
 		if(opened == APC_COVER_OFF)
 			opened = APC_OPENED
@@ -423,7 +423,7 @@
 		togglelock(user)
 
 /obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return damage_amount
 	. = ..()
 
@@ -456,7 +456,7 @@
 			shock_proof = FALSE
 		return
 
-	if(stat & (BROKEN|MAINT))
+	if(machine_flags & (BROKEN|MAINT))
 		return
 
 	interact(user)
@@ -611,7 +611,7 @@
 	switch(action)
 		if("lock")
 			if(user.has_unlimited_silicon_privilege)
-				if(emagged || stat & BROKEN)
+				if(emagged || machine_flags & BROKEN)
 					to_chat(user, SPAN_WARNING("The APC does not respond to the command!"))
 					return FALSE
 				else
@@ -672,7 +672,7 @@
 
 /// What the APC will do every process interval, updates power settings and power changes depending on powernet state
 /obj/machinery/power/apc/process()
-	if(stat & (BROKEN|MAINT)) // if the APC is broken, don't even bother
+	if(machine_flags & (BROKEN|MAINT)) // if the APC is broken, don't even bother
 		return
 	if(!apc_area.requires_power) // if the area doesn't use power, don't even bother
 		return
@@ -902,7 +902,7 @@
 		to_chat(user, SPAN_WARNING("You must close the cover to swipe an ID card!"))
 	else if(panel_open)
 		to_chat(user, SPAN_WARNING("You must close the panel!"))
-	else if(stat & (BROKEN|MAINT))
+	else if(machine_flags & (BROKEN|MAINT))
 		to_chat(user, SPAN_WARNING("Nothing happens!"))
 	else
 		if(allowed(user) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
@@ -953,7 +953,7 @@
 
 /// set APC stat as broken and set it to be non operational, kick out an AI if there's a malf one in it
 /obj/machinery/power/apc/proc/set_broken()
-	stat |= BROKEN
+	machine_flags |= BROKEN
 	operating = FALSE
 	if(occupier)
 		malfvacate(1)
@@ -1078,7 +1078,7 @@
 			to_chat(user, "You must close the cover to swipe an ID card.")
 		else if(panel_open)
 			to_chat(user, "You must close the panel first.")
-		else if(stat & (BROKEN|MAINT))
+		else if(machine_flags & (BROKEN|MAINT))
 			to_chat(user, "Nothing happens.")
 		else
 			flick("apc-spark", src)

@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/ai_node/process()
 	..()
 	if(active)
-		if(stat & NOPOWER)
+		if(machine_flags & NOPOWER)
 			atom_say("ERROR: Insufficient power! Shutting down...")
 			turn_off()
 			return
@@ -278,7 +278,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/computer/ai_resource/attack_hand(mob/user)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	ui_interact(user)
 

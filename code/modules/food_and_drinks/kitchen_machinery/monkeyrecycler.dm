@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			M.buffer = src
 			to_chat(user, SPAN_NOTICE("You log [src] in [M]'s buffer."))
 		return ITEM_INTERACT_COMPLETE
-	if(stat != 0) //NOPOWER etc
+	if(machine_flags != 0) //NOPOWER etc
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	return ..()
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
-	if(stat != 0) //NOPOWER etc
+	if(machine_flags != 0) //NOPOWER etc
 		return
 	if(grinded >= required_grind)
 		to_chat(user, SPAN_NOTICE("The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube."))

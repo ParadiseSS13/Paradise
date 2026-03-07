@@ -81,13 +81,13 @@
 				set_sign(new /datum/barsign/hiddensigns/building/wired)
 				return
 		if(BARSIGN_COMPLETE)
-			if((stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signbroken))
+			if((machine_flags & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signbroken))
 				set_sign(new /datum/barsign/hiddensigns/signbroken)
 				return
-			if((stat & NOPOWER) && !(stat & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signoff))
+			if((machine_flags & NOPOWER) && !(machine_flags & BROKEN) && !istype(current_sign, /datum/barsign/hiddensigns/signoff))
 				set_sign(new /datum/barsign/hiddensigns/signoff)
 				return
-			if((stat & EMPED) && !(stat & BROKEN|NOPOWER) && !istype(current_sign, /datum/barsign/hiddensigns/empbarsign))
+			if((machine_flags & EMPED) && !(machine_flags & BROKEN|NOPOWER) && !istype(current_sign, /datum/barsign/hiddensigns/empbarsign))
 				set_sign(new /datum/barsign/hiddensigns/empbarsign)
 				return
 	if(!current_sign)
@@ -100,7 +100,7 @@
 	. = ..()
 	underlays.Cut()
 
-	if(!is_on() || stat & (BROKEN|NOPOWER) || !current_sign || build_stage < BARSIGN_COMPLETE)
+	if(!is_on() || machine_flags & (BROKEN|NOPOWER) || !current_sign || build_stage < BARSIGN_COMPLETE)
 		return
 
 	underlays |= emissive_appearance(icon, current_sign.icon)
@@ -131,7 +131,7 @@
 		return turn_on()
 
 /obj/machinery/barsign/proc/turn_off()
-	if((stat & (BROKEN|EMPED|MAINT)) || !is_on() || build_stage < BARSIGN_COMPLETE)
+	if((machine_flags & (BROKEN|EMPED|MAINT)) || !is_on() || build_stage < BARSIGN_COMPLETE)
 		return FALSE
 	save_sign(current_sign)
 	set_light(0)
@@ -141,7 +141,7 @@
 	return TRUE
 
 /obj/machinery/barsign/proc/turn_on()
-	if((stat & (BROKEN|NOPOWER|MAINT)) || is_on() || build_stage < BARSIGN_COMPLETE)
+	if((machine_flags & (BROKEN|NOPOWER|MAINT)) || is_on() || build_stage < BARSIGN_COMPLETE)
 		return FALSE
 	if(panel_open)
 		return FALSE
@@ -157,10 +157,10 @@
 /obj/machinery/barsign/attack_hand(mob/user)
 	if(..())
 		return
-	if(stat & MAINT)
+	if(machine_flags & MAINT)
 		to_chat(user, SPAN_WARNING("Wait until the repairs are complete!"))
 		return
-	if((stat & (BROKEN|NOPOWER|EMPED)) || build_stage < BARSIGN_COMPLETE)
+	if((machine_flags & (BROKEN|NOPOWER|EMPED)) || build_stage < BARSIGN_COMPLETE)
 		to_chat(user, SPAN_WARNING("The controls seem unresponsive."))
 		return
 	if(panel_open)
@@ -204,7 +204,7 @@
 				if(!used.use(5))
 					to_chat(user, SPAN_WARNING("You need a total of five cables to wire [src]!"))
 					return ITEM_INTERACT_COMPLETE
-				stat &= ~EMPED
+				machine_flags &= ~EMPED
 				build_stage = BARSIGN_WIRED
 				update_icon()
 				playsound(get_turf(src), used.usesound, 50, TRUE)
@@ -221,8 +221,8 @@
 				build_stage = BARSIGN_COMPLETE
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				obj_integrity = max_integrity
-				if(stat & BROKEN)
-					stat &= ~BROKEN
+				if(machine_flags & BROKEN)
+					machine_flags &= ~BROKEN
 				set_sign(new /datum/barsign/hiddensigns/signoff)
 				add_fingerprint(user)
 				return ITEM_INTERACT_COMPLETE
@@ -240,9 +240,9 @@
 	set_sign(picked_name)
 
 /obj/machinery/barsign/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(!(machine_flags & BROKEN) && !(flags & NODECONSTRUCT))
 		turn_off()
-		stat |= BROKEN
+		machine_flags |= BROKEN
 		// Don't break the glass unless it actually has glass.
 		if(build_stage == BARSIGN_COMPLETE)
 			set_sign(new /datum/barsign/hiddensigns/signbroken)
@@ -262,14 +262,14 @@
 	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	turn_off()
-	stat |= MAINT
+	machine_flags |= MAINT
 	if(I.use_tool(src, user, time, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		obj_integrity = max_integrity
-		stat &= ~BROKEN
+		machine_flags &= ~BROKEN
 		set_sign(new /datum/barsign/hiddensigns/signoff)
 		add_fingerprint(user)
-	stat &= ~MAINT
+	machine_flags &= ~MAINT
 
 /obj/machinery/barsign/screwdriver_act(mob/living/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -340,7 +340,7 @@
 			to_chat(user, SPAN_WARNING("Open the maintenance panel first!"))
 			return
 			// Drop a shard if the glass is broken
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			to_chat(user, SPAN_NOTICE("You remove the broken screen from [src]."))
 			new /obj/item/shard(get_turf(user))
 		else
@@ -362,7 +362,7 @@
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	if(!(flags & NODECONSTRUCT))
-		if(stat & EMPED)
+		if(machine_flags & EMPED)
 			to_chat(user, SPAN_NOTICE("You remove the burnt wires out from [src]."))
 		else
 			to_chat(user, SPAN_NOTICE("You cut the wires out from [src]."))
@@ -374,7 +374,7 @@
 		add_fingerprint(user)
 
 /obj/machinery/barsign/emag_act(mob/user)
-	if(stat & (BROKEN|NOPOWER|EMPED))
+	if(machine_flags & (BROKEN|NOPOWER|EMPED))
 		to_chat(user, SPAN_WARNING("[src] cannot be taken over right now!"))
 		return
 	if(emagged)
@@ -386,7 +386,7 @@
 	return TRUE
 
 /obj/machinery/barsign/proc/post_emag()
-	if(stat & (BROKEN|NOPOWER|EMPED))
+	if(machine_flags & (BROKEN|NOPOWER|EMPED))
 		return
 	emagged = TRUE
 	set_random_sign()
@@ -394,8 +394,8 @@
 
 /obj/machinery/barsign/emp_act(severity)
 	if(build_stage >= BARSIGN_WIRED)
-		if(!(stat & EMPED))
-			stat |= EMPED
+		if(!(machine_flags & EMPED))
+			machine_flags |= EMPED
 			turn_on()
 			set_sign(new /datum/barsign/hiddensigns/empbarsign)
 			playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
@@ -403,7 +403,7 @@
 
 /obj/machinery/barsign/power_change()
 	. = ..()
-	if(. && (stat & NOPOWER))
+	if(. && (machine_flags & NOPOWER))
 		turn_off()
 
 /obj/machinery/barsign/deconstruct(disassembled = FALSE)
@@ -411,7 +411,7 @@
 		new /obj/item/stack/sheet/metal(drop_location(), 4)
 	else
 		new /obj/item/stack/sheet/metal(drop_location(), 2)
-		if(build_stage >= BARSIGN_WIRED && !(stat & EMPED))
+		if(build_stage >= BARSIGN_WIRED && !(machine_flags & EMPED))
 			new /obj/item/stack/cable_coil(drop_location(), 3)
 		if(build_stage >= BARSIGN_COMPLETE)
 			new /obj/item/shard(drop_location())

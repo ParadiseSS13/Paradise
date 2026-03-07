@@ -429,7 +429,7 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/readybutton/attack_hand(mob/user)
-	if(user.stat || stat & (BROKEN))
+	if(user.stat || (machine_flags & BROKEN))
 		to_chat(user, "This device is not functioning.")
 		return
 

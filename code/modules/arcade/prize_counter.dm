@@ -70,11 +70,11 @@
 			return TRUE
 
 /obj/machinery/prize_counter/update_icon_state()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = "prize_counter-broken"
 	else if(panel_open)
 		icon_state = "prize_counter-open"
-	else if(stat & NOPOWER)
+	else if(machine_flags & NOPOWER)
 		icon_state = "prize_counter-off"
 	else
 		icon_state = "prize_counter-on"

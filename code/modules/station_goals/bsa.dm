@@ -23,7 +23,7 @@
 	if(..())
 		return TRUE
 	for(var/obj/machinery/bsa/full/B in SSmachines.get_by_type(/obj/machinery/bsa/full))
-		if(B && !B.stat && is_station_contact(B.z))
+		if(B && !B.machine_flags && is_station_contact(B.z))
 			return TRUE
 	return FALSE
 
@@ -307,9 +307,9 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/computer/bsa_control/update_icon_state()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = icon_state_broken
-	else if(stat & NOPOWER)
+	else if(machine_flags & NOPOWER)
 		icon_state = icon_state_nopower
 	else if(cannon && (!COOLDOWN_FINISHED(cannon, firing_cooldown)))
 		icon_state = icon_state_reloading
@@ -391,7 +391,7 @@
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	if(!cannon || !target)
 		return
-	if(cannon.stat)
+	if(cannon.machine_flags)
 		notice = "Cannon unpowered!"
 		return
 	notice = null

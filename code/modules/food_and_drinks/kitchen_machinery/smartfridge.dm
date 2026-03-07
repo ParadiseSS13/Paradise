@@ -99,7 +99,7 @@
 	return ..()
 
 /obj/machinery/smartfridge/process()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	if(seconds_electrified > 0)
 		seconds_electrified--
@@ -108,7 +108,7 @@
 
 /obj/machinery/smartfridge/power_change()
 	. = ..()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
@@ -126,11 +126,11 @@
 		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
 	if(panel_open)
 		. += "[icon_state]_panel"
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		. += "[icon_state]_off"
 		if(icon_addon)
 			. += "[icon_addon]"
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			. += "[icon_state]_broken"
 		return
 	if(visible_contents)
@@ -188,7 +188,7 @@
 	if(istype(used, /obj/item/autochef_remote))
 		return
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		to_chat(user, SPAN_NOTICE("[src] is unpowered and useless."))
 		return ITEM_INTERACT_COMPLETE
 
@@ -234,7 +234,7 @@
 	return attack_hand(user)
 
 /obj/machinery/smartfridge/attack_hand(mob/user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	wires.Interact(user)
 	ui_interact(user)
@@ -246,7 +246,7 @@
 		return
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
 		return
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		to_chat(user, SPAN_NOTICE("\The [src] is unpowered and useless."))
 		return TRUE
 

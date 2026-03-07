@@ -257,7 +257,7 @@
 	eject_abductee()
 
 /obj/machinery/abductor/experiment/broken
-	stat = BROKEN
+	machine_flags = BROKEN
 
 /obj/machinery/abductor/experiment/broken/MouseDrop_T(mob/living/carbon/human/target, mob/user)
 	return

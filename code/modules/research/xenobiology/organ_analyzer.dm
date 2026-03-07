@@ -81,7 +81,7 @@
 	if(panel_open)
 		to_chat(user, SPAN_WARNING("You can't interact with the machine while the panel is open!"))
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(contains_organ)
 		if(processing_organ)
@@ -135,7 +135,7 @@
 
 /obj/machinery/organ_analyzer/process()
 	..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		processing_organ = FALSE
 		update_appearance(UPDATE_OVERLAYS)
 		return

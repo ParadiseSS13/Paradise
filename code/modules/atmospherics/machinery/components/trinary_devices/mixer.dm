@@ -79,7 +79,7 @@
 	air3.volume = 300
 
 /obj/machinery/atmospherics/trinary/mixer/process_atmos()
-	if((stat & (NOPOWER|BROKEN)) || !on)
+	if((machine_flags & (NOPOWER|BROKEN)) || !on)
 		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()

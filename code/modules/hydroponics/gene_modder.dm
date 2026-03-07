@@ -118,7 +118,7 @@
 			seeds_for_bulk_core = 1
 
 /obj/machinery/plantgenes/update_icon_state()
-	if((stat & (BROKEN|NOPOWER)))
+	if((machine_flags & (BROKEN|NOPOWER)))
 		icon_state = "dnamod-off"
 	else
 		icon_state = "dnamod"

@@ -271,7 +271,7 @@
  * * mob/user - the mob who activated the biogenerator
  */
 /obj/machinery/biogenerator/proc/process_plants(mob/user)
-	if(stat & (NOPOWER | BROKEN))
+	if(machine_flags & (NOPOWER | BROKEN))
 		return
 	if(processing)
 		to_chat(user, SPAN_WARNING("[src] is currently processing!"))

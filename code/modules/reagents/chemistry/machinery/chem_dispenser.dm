@@ -194,7 +194,7 @@
 /obj/machinery/chem_dispenser/ui_act(actions, params)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 	if(!anchored)
 		return
@@ -318,12 +318,12 @@
 	return attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_ghost(mob/user)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	ui_interact(user)
 
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	if(!anchored)
 		to_chat(user, SPAN_WARNING("[src] must be anchored first!"))

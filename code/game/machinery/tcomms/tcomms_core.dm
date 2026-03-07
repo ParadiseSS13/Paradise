@@ -75,7 +75,7 @@
   */
 /obj/machinery/tcomms/core/proc/zlevel_reachable(zlevel)
 	// Nothing is reachable if the core is offline, unpowered, or ion'd
-	if(!active || (stat & NOPOWER) || ion)
+	if(!active || (machine_flags & NOPOWER) || ion)
 		return FALSE
 	if(zlevel in reachable_zlevels)
 		return TRUE
@@ -93,7 +93,7 @@
   */
 /obj/machinery/tcomms/core/proc/handle_message(datum/tcomms_message/tcm)
 	// Don't do anything with rejected signals, if were offline, if we are ion'd, or if we have no power
-	if(tcm.reject || !active || (stat & NOPOWER) || ion)
+	if(tcm.reject || !active || (machine_flags & NOPOWER) || ion)
 		return FALSE
 	// Kill the signal if its on a z-level that isnt reachable
 	if(!zlevel_reachable(tcm.source_level))
@@ -133,7 +133,7 @@
 	// Add all the linked relays in
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		// Only if the relay is active
-		if(R.active && !(R.stat & NOPOWER))
+		if(R.active && !(R.machine_flags & NOPOWER))
 			reachable_zlevels |= R.loc.z
 	for(var/zlevel in GLOB.space_manager.z_list)
 		if(check_level_trait(zlevel, TCOMM_RELAY_ALWAYS))
@@ -168,7 +168,7 @@
 			continue
 		// If another core is active, return FALSE
 		if(C.active)
-			if(C.stat & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
+			if(C.machine_flags & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
 				C.active = FALSE	// Since only one active core is allowed per z level, give priority to the one actually working.
 				C.update_icon()
 			else
@@ -222,7 +222,7 @@
 			continue
 		// Assume false
 		var/status = FALSE
-		if(R.active && !(R.stat & NOPOWER))
+		if(R.active && !(R.machine_flags & NOPOWER))
 			status = TRUE
 
 		relays += list(list("addr" = "\ref[R]", "net_id" = R.network_id, "sector" = R.loc.z, "status" = status))

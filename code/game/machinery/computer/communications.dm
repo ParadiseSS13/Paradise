@@ -388,7 +388,7 @@
 	if(..(user))
 		return
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(!is_secure_level(src.z))
@@ -606,7 +606,7 @@
 
 /proc/print_command_report(text = "", title = "Central Command Update", add_to_records = TRUE)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
-		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
+		if(!(C.machine_flags & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
@@ -617,7 +617,7 @@
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
-		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
+		if(!(C.machine_flags & (BROKEN|NOPOWER)) && is_admin_level(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text

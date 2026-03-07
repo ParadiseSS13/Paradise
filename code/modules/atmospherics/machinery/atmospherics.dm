@@ -193,7 +193,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/wrench/W)
 	var/turf/T = get_turf(src)
-	if(!can_unwrench_while_on && !(stat & NOPOWER) && on)
+	if(!can_unwrench_while_on && !(machine_flags & NOPOWER) && on)
 		to_chat(user, SPAN_ALERT("You cannot unwrench this [name], turn it off first."))
 		return TRUE
 	if(!can_unwrench)

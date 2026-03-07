@@ -39,7 +39,7 @@
 /obj/machinery/igniter/update_icon_state()
 	. = ..()
 
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		icon_state = "igniter0"
 		return
 
@@ -53,7 +53,7 @@
 		underlays += emissive_appearance(icon, "igniter_lightmask")
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()? // AA 2022-08-02 - I guess it cant go anywhere else?
-	if(on && !(stat & NOPOWER))
+	if(on && !(machine_flags & NOPOWER))
 		var/turf/location = get_turf(src)
 		if(isturf(location))
 			location.hotspot_expose(1000, 1)
@@ -66,7 +66,7 @@
 /obj/machinery/igniter/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		on = FALSE
 	update_icon()
 
@@ -84,7 +84,7 @@
 	anchored = TRUE
 
 /obj/machinery/sparker/update_icon_state()
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "[base_state]-p"
 	else
 		icon_state = "[base_state]"
@@ -135,7 +135,7 @@
 	return TRUE
 
 /obj/machinery/sparker/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		..(severity)
 		return
 

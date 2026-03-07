@@ -34,7 +34,7 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/grey_autocloner/proc/growclone(datum/dna2_record/R)
-	if(attempting || stat & (NOPOWER|BROKEN))
+	if(attempting || machine_flags & (NOPOWER|BROKEN))
 		return FALSE
 	clonemind = locateUID(R.mind)
 	if(!istype(clonemind))	//not a mind
@@ -94,7 +94,7 @@
 	return TRUE
 
 /obj/machinery/grey_autocloner/process()
-	if(stat & NOPOWER) //explode if power is lost and cloning
+	if(machine_flags & NOPOWER) //explode if power is lost and cloning
 		if(occupant)
 			messy_explode()
 			return

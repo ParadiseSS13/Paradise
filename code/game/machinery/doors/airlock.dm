@@ -245,7 +245,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	return ((aiControlDisabled == AICONTROLDISABLED_ON) && (!hackProof) && (!isAllPowerLoss()) && user.mind?.special_role)
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return 0
 	return (main_power_lost_until==0 || backup_power_lost_until==0)
 
@@ -253,7 +253,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	return !(wires.is_cut(WIRE_IDSCAN) || aiDisabledIdScanner)
 
 /obj/machinery/door/airlock/proc/isAllPowerLoss()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return 1
 	if(wires.is_cut(WIRE_MAIN_POWER1) && wires.is_cut(WIRE_BACKUP_POWER1))
 		return 1
@@ -642,7 +642,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if("closing")
 			update_icon(AIRLOCK_CLOSING)
 		if("deny")
-			if(stat == CONSCIOUS)
+			if(machine_flags == CONSCIOUS)
 				update_icon(AIRLOCK_DENY)
 				playsound(src, doorDeni, 50, FALSE, 3)
 				addtimer(CALLBACK(src, PROC_REF(handle_deny_end)), 0.6 SECONDS)
@@ -1209,7 +1209,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				SPAN_ITALICS("You hear welding."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				obj_integrity = max_integrity
-				stat &= ~BROKEN
+				machine_flags &= ~BROKEN
 				user.visible_message(SPAN_NOTICE("[user.name] has repaired [src]."), \
 					SPAN_NOTICE("You finish repairing the airlock."))
 			update_icon()
@@ -1488,7 +1488,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		// If we lost power, disable electrification
 		// Keeping door lights on, runs on internal battery or something.
 		electrified_until = 0
@@ -1504,7 +1504,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/hostile_lockdown(mob/origin)
 	// Must be powered and have working AI wire.
-	if(canAIControl(src) && stat == CONSCIOUS)
+	if(canAIControl(src) && !machine_flags)
 		locked = FALSE //For airlocks that were bolted open.
 		safe = FALSE //DOOR CRUSH
 		close()
@@ -1515,15 +1515,15 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/disable_lockdown()
 	// Must be powered and have working AI wire.
-	if(canAIControl(src) && stat == CONSCIOUS)
+	if(canAIControl(src) && !machine_flags)
 		unlock()
 		electrified_until = 0
 		open()
 		safe = TRUE
 
 /obj/machinery/door/airlock/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
-		stat |= BROKEN
+	if(!(machine_flags & BROKEN) && !(flags & NODECONSTRUCT))
+		machine_flags |= BROKEN
 		if(!panel_open)
 			panel_open = TRUE
 		wires.cut_all()

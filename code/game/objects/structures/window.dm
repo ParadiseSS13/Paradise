@@ -693,7 +693,7 @@
 /obj/machinery/button/windowtint/power_change()
 	if(!..())
 		return
-	if(active && (stat & NOPOWER))
+	if(active && (machine_flags & NOPOWER))
 		toggle_tint()
 
 /obj/machinery/button/windowtint/update_icon_state()

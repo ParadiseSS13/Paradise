@@ -203,7 +203,7 @@
 
 				make_terminal(user, temporary_location)
 				terminal.connect_to_network()
-				stat &= ~BROKEN
+				machine_flags &= ~BROKEN
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

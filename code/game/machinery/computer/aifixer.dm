@@ -11,9 +11,9 @@
 
 /obj/machinery/computer/aifixer/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			return ..()
-		if(stat & NOPOWER)
+		if(machine_flags & NOPOWER)
 			to_chat(user, SPAN_WARNING("The screws on [name]'s screen won't budge."))
 		else
 			to_chat(user, SPAN_WARNING("The screws on [name]'s screen won't budge and it emits a warning beep!."))
@@ -97,7 +97,7 @@
 
 /obj/machinery/computer/aifixer/update_overlays()
 	. = ..()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	if(active)
 		. += "ai-fixer-on"
@@ -115,7 +115,7 @@
 		return
 	//Downloading AI from card to terminal.
 	if(interaction == AI_TRANS_FROM_CARD)
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_flags & (NOPOWER|BROKEN))
 			to_chat(user, "[src] is offline and cannot take an AI at this time!")
 			return
 		AI.forceMove(src)

@@ -36,7 +36,7 @@
 		to_chat(user, SPAN_NOTICE("[M] is at full integrity."))
 		return
 	to_chat(user, SPAN_NOTICE("Structural damage detected! [M]'s overall estimated integrity is [round((M.obj_integrity / M.max_integrity) * 100)]%."))
-	if(M.stat & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
+	if(M.machine_flags & BROKEN) // Displays alongside above message. Machines with a "broken" state do not become broken at 0% HP - anything that reaches that point is destroyed
 		to_chat(user, SPAN_WARNING("Further analysis: Catastrophic component failure detected! [M] requires reconstruction to fully repair."))
 
 /obj/item/robotanalyzer/attack__legacy__attackchain(mob/living/M, mob/living/user) // Scanning borgs, IPCs/augmented crew, and AIs

@@ -53,7 +53,7 @@
 
 /obj/machinery/door_control/attack_hand(mob/user as mob)
 	add_fingerprint(usr)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
@@ -114,13 +114,13 @@
 
 	desiredstate_open = !desiredstate_open
 	spawn(15)
-		if(!(stat & NOPOWER))
+		if(!(machine_flags & NOPOWER))
 			icon_state = "doorctrl0"
 
 /obj/machinery/door_control/power_change()
 	if(!..())
 		return
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		icon_state = "doorctrl-p"
 	else
 		icon_state = "doorctrl0"

@@ -290,9 +290,9 @@
 		. += "[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]"
 	if(icon_addon)
 		. += "[icon_addon]"
-	if((stat & (BROKEN|NOPOWER)) || force_no_power_icon_state)
+	if((machine_flags & (BROKEN|NOPOWER)) || force_no_power_icon_state)
 		. += "[icon_off ? "[icon_off]_off" : "[icon_state]_off"]"
-		if(stat & BROKEN)
+		if(machine_flags & BROKEN)
 			. += "[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]"
 		return
 	if(light)
@@ -305,7 +305,7 @@
 	if(flickering)
 		return FALSE
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return FALSE
 
 	flickering = TRUE
@@ -435,7 +435,7 @@
 		to_chat(user, SPAN_WARNING("[src] does not accept coins."))
 		return ITEM_INTERACT_COMPLETE
 	if(refill_canister && istype(used, refill_canister))
-		if(stat & (BROKEN|NOPOWER))
+		if(machine_flags & (BROKEN|NOPOWER))
 			to_chat(user, SPAN_NOTICE("[src] does not respond."))
 			return ITEM_INTERACT_COMPLETE
 
@@ -662,7 +662,7 @@
 	return attack_hand(user)
 
 /obj/machinery/economy/vending/attack_hand(mob/user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	if(tilted)
@@ -919,7 +919,7 @@
 */
 
 /obj/machinery/economy/vending/process()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	if(!active)
@@ -943,7 +943,7 @@
 	underlays.Cut()
 
 /obj/machinery/economy/vending/proc/speak(message)
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		return
 	if(!message)
 		return
@@ -952,7 +952,7 @@
 
 /obj/machinery/economy/vending/power_change()
 	. = ..()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
@@ -960,9 +960,9 @@
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/economy/vending/obj_break(damage_flag)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
-	stat |= BROKEN
+	machine_flags |= BROKEN
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
 

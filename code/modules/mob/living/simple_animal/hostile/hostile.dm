@@ -226,7 +226,7 @@
 				return FALSE
 			if(!P.raised) //Don't attack invincible turrets
 				return FALSE
-			if(P.stat & BROKEN) //Or turrets that are already broken
+			if(P.machine_flags & BROKEN) //Or turrets that are already broken
 				return FALSE
 			return TRUE
 

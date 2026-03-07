@@ -115,7 +115,7 @@
 	if(!(update_state & UPSTATE_ALLGOOD))
 		return
 
-	if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
+	if(!(machine_flags & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
 		var/image/statover_lock = status_overlays_lock[locked + 1]
 		var/image/statover_charg = status_overlays_charging[charging + 1]
 		. += statover_lock
@@ -142,9 +142,9 @@
 
 	if(cell)
 		update_state |= UPSTATE_CELL_IN
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		update_state |= UPSTATE_BROKE
-	if(stat & MAINT)
+	if(machine_flags & MAINT)
 		update_state |= UPSTATE_MAINT
 	if(opened)
 		if(opened == APC_OPENED)
@@ -212,7 +212,7 @@
 /obj/machinery/power/apc/flicker(second_pass = FALSE)
 	if(opened || panel_open)
 		return FALSE
-	if(stat & (NOPOWER | BROKEN))
+	if(machine_flags & (NOPOWER | BROKEN))
 		return FALSE
 	if(!second_pass) //The first time, we just cut overlays
 		addtimer(CALLBACK(src, PROC_REF(flicker), TRUE), 1)

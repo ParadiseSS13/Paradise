@@ -65,7 +65,7 @@
 
 /obj/machinery/computer/monitor/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 	// Update the powernet
 	powernet = find_powernet()

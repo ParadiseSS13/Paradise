@@ -41,11 +41,11 @@
 		to_chat(user, SPAN_WARNING("[src] is busy right now."))
 		return FALSE
 
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		to_chat(user, SPAN_WARNING("[src] is broken."))
 		return FALSE
 
-	if(stat & NOPOWER)
+	if(machine_flags & NOPOWER)
 		to_chat(user, SPAN_WARNING("[src] has no power."))
 		return FALSE
 

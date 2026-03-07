@@ -100,7 +100,7 @@
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
 /obj/machinery/atmospherics/binary/circulator/update_icon_state() //this gets called everytime atmos is updated in the circulator (alot)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		icon_state = "circ[side]-p"
 		return
 	if(last_pressure_delta > 0)
@@ -125,7 +125,7 @@
 	else
 		. += "disconnected"
 
-	if(stat & (BROKEN|NOPOWER) && !light)
+	if(machine_flags & (BROKEN|NOPOWER) && !light)
 		return
 	if(last_pressure_delta > 0)
 		if(last_pressure_delta > ONE_ATMOSPHERE)
@@ -137,7 +137,7 @@
 
 /obj/machinery/atmospherics/binary/circulator/power_change()
 	. = ..()
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)

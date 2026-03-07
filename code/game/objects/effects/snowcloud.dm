@@ -28,7 +28,7 @@
 	if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
 		qdel(src)
 		return
-	if(!parent_machine || !parent_machine.active || parent_machine.stat & NOPOWER) //All reasons a cloud could dissipate
+	if(!parent_machine || !parent_machine.active || parent_machine.machine_flags & NOPOWER) //All reasons a cloud could dissipate
 		if(prob(10))
 			qdel(src)
 		return

@@ -34,7 +34,7 @@
 /obj/machinery/bodyscanner/power_change()
 	if(!..())
 		return
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(machine_flags & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
 		set_light(0)
@@ -168,7 +168,7 @@
 	ui_interact(user)
 
 /obj/machinery/bodyscanner/attack_hand(user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(occupant == user)
@@ -407,7 +407,7 @@
 /obj/machinery/bodyscanner/ui_act(action, params)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	. = TRUE

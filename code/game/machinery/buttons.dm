@@ -57,7 +57,7 @@
 	qdel(src)
 
 /obj/machinery/driver_button/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(active)
@@ -142,7 +142,7 @@
 		return attack_hand(user)
 
 /obj/machinery/ignition_switch/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_flags & (NOPOWER|BROKEN))
 		return
 
 	if(active)

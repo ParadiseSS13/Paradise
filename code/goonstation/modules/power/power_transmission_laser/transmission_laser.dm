@@ -217,7 +217,7 @@
 /// Appearance changes are here
 /obj/machinery/power/transmission_laser/update_overlays()
 	. = ..()
-	if((stat & BROKEN) || !charge)
+	if((machine_flags & BROKEN) || !charge)
 		. += "unpowered"
 		return
 	if(input_available > 0)
@@ -359,7 +359,7 @@
 /obj/machinery/power/transmission_laser/process()
 	max_grid_load = get_surplus()
 	input_available = get_surplus()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 
 	if(powernet && input_attempt && turned_on)

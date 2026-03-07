@@ -93,7 +93,7 @@
 
 // Turns the electrolyzer on and off
 /obj/machinery/power/electrolyzer/attack_hand(mob/user)
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	if(!anchored)
 		to_chat(user, SPAN_WARNING("[src] must be anchored first!"))

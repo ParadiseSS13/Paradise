@@ -121,7 +121,7 @@
 
 /obj/machinery/atmospherics/portable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/tank))
-		if(!(stat & BROKEN))
+		if(!(machine_flags & BROKEN))
 			if(!user.drop_item())
 				return ITEM_INTERACT_COMPLETE
 			var/obj/item/tank/T = used
@@ -157,7 +157,7 @@
 			to_chat(user, SPAN_NOTICE("Nothing happens."))
 
 /obj/machinery/atmospherics/portable/attacked_by(obj/item/attacker, mob/living/user)
-	if(attacker.force < 10 && !(stat & BROKEN))
+	if(attacker.force < 10 && !(machine_flags & BROKEN))
 		take_damage(0)
 	else
 		add_fingerprint(user)

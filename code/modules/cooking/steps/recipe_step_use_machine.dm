@@ -100,7 +100,7 @@
 	return AUTOCHEF_ACT_NO_AVAILABLE_MACHINES
 
 /datum/cooking/recipe_step/use_machine/proc/can_use_machine(obj/machinery/autochef, obj/machinery/cooking/machine)
-	if(machine.stat & (NOPOWER|BROKEN))
+	if(machine.machine_flags & (NOPOWER|BROKEN))
 		return FALSE
 
 	for(var/datum/cooking_surface/surface in machine.surfaces)

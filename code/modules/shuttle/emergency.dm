@@ -37,7 +37,7 @@
 			. += SPAN_WARNING("It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements...")
 
 /obj/machinery/computer/emergency_shuttle/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_flags & (BROKEN|NOPOWER))
 		return
 
 	var/obj/item/card/id/id_card

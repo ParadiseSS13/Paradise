@@ -63,7 +63,7 @@
 
 /obj/machinery/radar/update_overlays()
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		icon_state = "broken"
 	else
 		icon_state = "base"
@@ -71,7 +71,7 @@
 		. += "screen"
 
 /obj/machinery/radar/process()
-	if(stat & BROKEN)
+	if(machine_flags & BROKEN)
 		return
 	if(check_time > world.time)
 		return
@@ -136,7 +136,7 @@
 
 /obj/machinery/radar/examine(mob/user)
 	. = ..()
-	if(!(stat & BROKEN))
+	if(!(machine_flags & BROKEN))
 		return
 
 	switch(construction_state)
@@ -194,7 +194,7 @@
 
 // Step 4
 /obj/machinery/radar/screwdriver_act(mob/living/user, obj/item/I)
-	if(!(stat & BROKEN)) // Not actually broken
+	if(!(machine_flags & BROKEN)) // Not actually broken
 		return
 	if(construction_state != RADAR_NEEDS_SCREWDRIVER)
 		return
@@ -223,12 +223,12 @@
 		set_broken()
 
 /obj/machinery/radar/proc/set_broken()
-	stat |= BROKEN
+	machine_flags |= BROKEN
 	investigate_log("has broken down.", "radar")
 	update_icon()
 
 /obj/machinery/radar/proc/set_fixed()
-	stat &= ~BROKEN
+	machine_flags &= ~BROKEN
 	construction_state = initial(construction_state)
 	update_icon()
 
