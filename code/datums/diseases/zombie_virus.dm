@@ -134,6 +134,8 @@
 		affected_mob.med_hud_set_status()
 		affected_mob.update_hands_hud()
 		H.update_body()
+		var/obj/item/organ/internal/zombietumor/tumor = new
+		tumor.insert(affected_mob)
 	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
 		if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
 			var/datum/antagonist/zombie/plague = new /datum/antagonist/zombie(plague_disease)
@@ -174,6 +176,8 @@
 	for(var/obj/item/organ/limb as anything in H.bodyparts)
 		if(HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
 			REMOVE_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
+	for(var/obj/item/organ/internal/zombietumor/tumor in H.internal_organs)
+		tumor.remove()
 	affected_mob.DeleteComponent(/datum/component/zombie_regen)
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()

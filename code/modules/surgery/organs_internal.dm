@@ -293,6 +293,11 @@
 		extracting = organs[I]
 		if(!extracting)
 			return SURGERY_BEGINSTEP_SKIP
+		if(extracting && extracting.owner)
+			var/obj/item/organ/external/affected = extracting.owner.get_organ(target_zone)
+			if(affected && affected.internal_organs)
+				if(istype(extracting, /obj/item/organ/internal/zombietumor))
+					src.time = 45 SECONDS
 		user.visible_message(
 			"[user] starts to separate [target]'s [I] with [tool].",
 			"You start to separate [target]'s [I] with [tool] for removal.",
