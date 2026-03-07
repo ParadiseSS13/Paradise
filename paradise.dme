@@ -2119,6 +2119,7 @@
 #include "code\modules\clothing\neck\neck.dm"
 #include "code\modules\clothing\neck\necklace.dm"
 #include "code\modules\clothing\neck\scarfs.dm"
+#include "code\modules\clothing\neck\towel.dm"
 #include "code\modules\clothing\patreon\hats.dm"
 #include "code\modules\clothing\patreon\patreon_glasses.dm"
 #include "code\modules\clothing\shoes\colour.dm"
