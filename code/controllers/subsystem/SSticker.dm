@@ -158,6 +158,8 @@ SUBSYSTEM_DEF(ticker)
 					if(istype(SSmapping.map_datum, M)) // Random will never choose the same map twice in a row.
 						continue
 					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
+						if(length(GLOB.clients) > initial(M.max_players_random))
+							continue
 						pickable_types += M
 
 				var/datum/map/target_map = pick(pickable_types)

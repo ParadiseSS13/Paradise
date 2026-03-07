@@ -81,6 +81,13 @@
 	request_console_name = "Blueshield"
 	request_console_announces = TRUE
 
+/area/station/command/office/dignitary
+	name = "\improper Dignitary's Office"
+	icon_state = "dig_office"
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "Dignitary"
+	request_console_announces = TRUE
+
 /area/station/command/teleporter
 	name = "\improper Teleporter"
 	icon_state = "teleporter"
