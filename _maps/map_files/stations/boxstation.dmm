@@ -46278,7 +46278,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/engine/reactor)
+/area/station/maintenance/storage)
 "edM" = (
 /obj/machinery/light{
 	dir = 4
@@ -62593,6 +62593,11 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"lGp" = (
+/obj/structure/lattice,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
+/turf/space,
+/area/space/nearstation)
 "lGw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -65780,7 +65785,7 @@
 	int_button_link_id = "atmossm_btn_int"
 	},
 /turf/simulated/floor/noslip,
-/area/station/engineering/engine/reactor)
+/area/station/maintenance/storage)
 "nfS" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/indestructible/titanium,
@@ -71289,7 +71294,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/plating,
-/area/station/engineering/engine/reactor)
+/area/station/maintenance/storage)
 "pFm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -77424,7 +77429,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/engine/reactor)
+/area/station/maintenance/storage)
 "ssV" = (
 /obj/structure/table,
 /obj/item/toy/figure/crew/secofficer,
@@ -88570,7 +88575,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/engine/reactor)
+/area/station/maintenance/storage)
 "xJI" = (
 /obj/machinery/light/small,
 /obj/structure/cable/extra_insulated{
@@ -116962,7 +116967,7 @@ fbR
 aaa
 aaa
 aaa
-aab
+lGp
 aaa
 aaa
 aaa
@@ -121059,8 +121064,8 @@ xfI
 epT
 xfI
 pEY
-fbR
-fbR
+dcq
+dcq
 nVf
 dhv
 euu
@@ -121317,7 +121322,7 @@ aMM
 epT
 xJE
 nfE
-fbR
+dcq
 nVf
 cTm
 ksO
@@ -121574,7 +121579,7 @@ aMM
 epT
 xJE
 ssQ
-fbR
+dcq
 oSd
 dcq
 dcq
@@ -121830,8 +121835,8 @@ dcq
 vJY
 dcq
 edD
-fbR
-fbR
+dcq
+dcq
 ddr
 qqe
 ddr
