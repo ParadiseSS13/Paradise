@@ -40893,7 +40893,7 @@
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
-/obj/machinery/r_n_d/server/station,
+/obj/machinery/ai_node/processing_node,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "hdX" = (
@@ -68382,7 +68382,7 @@
 /obj/effect/turf_decal/siding{
 	dir = 4
 	},
-/obj/machinery/r_n_d/server/station,
+/obj/machinery/ai_node/network_node,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "quc" = (
