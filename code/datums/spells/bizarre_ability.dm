@@ -187,6 +187,7 @@
 	name = "Time Skip"
 	desc = "Erase a moment of time and blink forward!"
 
+	base_cooldown = 10 SECONDS
 	action_icon = 'icons/mob/actions/actions.dmi'
 	action_icon_state = "spacetime"
 
@@ -194,6 +195,77 @@
 	return new /datum/spell_targeting/self
 
 /datum/spell/stand/timeskip/cast(list/targets, mob/user)
+	var/dir = user.dir
+	var/turf/current = get_turf(user)
+	var/turf/next
+	var/turf/last_valid = current
+
+	for(var/i = 1 to 7)
+		next = get_step(current, dir)
+		if(!next)
+			break
+		if(next.density)
+			break
+		var/blocked = FALSE
+		for(var/atom/movable/A in next)
+			if(!isliving(A) && A.density)
+				blocked = TRUE
+				break
+		if(blocked)
+			break
+		last_valid = next
+		current = next
+
+	if(last_valid != get_turf(user))
+		user.forceMove(last_valid)
+
+	for(var/mob/living/M in view(7, user))
+		var/m_dir = M.dir
+		var/turf/m_current = get_turf(M)
+		var/turf/m_next
+		var/turf/m_last_valid = m_current
+
+		for(var/i = 1 to 7)
+			m_next = get_step(m_current, m_dir)
+			if(!m_next)
+				break
+			if(m_next.density)
+				break
+
+			var/m_blocked = FALSE
+			for(var/atom/movable/A in m_next)
+				if(!isliving(A) && A.density)
+					m_blocked = TRUE
+					break
+
+			if(m_blocked)
+				break
+
+			m_last_valid = m_next
+			m_current = m_next
+
+		if(m_last_valid != get_turf(M))
+			M.forceMove(m_last_valid)
+
+		if(!M.client)
+			continue
+
+		var/atom/movable/screen/fullscreen/stretch/cursor_catcher/timeskip/C
+		C = M.overlay_fullscreen("timeskip", /atom/movable/screen/fullscreen/stretch/cursor_catcher/timeskip, 0)
+		C.assign_to_mob(M)
+		M.playsound_local(M.loc, 'sound/misc/bizarretimeskip.ogg', 75, FALSE)
+		addtimer(CALLBACK(src, PROC_REF(remove_timeskip_overlay), M), 1 SECONDS)
+
+
+/datum/spell/stand/timeskip/proc/remove_timeskip_overlay(mob/M)
+	if(!M)
+		return
+	M.clear_fullscreen("timeskip")
+
+
+/atom/movable/screen/fullscreen/stretch/cursor_catcher/timeskip
+	icon = 'icons/mob/screen_timeskip.dmi'
+	icon_state = "timeskip"
 
 /datum/spell/stand/erasure
 	name = "Space Erasure"
