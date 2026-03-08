@@ -124,5 +124,20 @@
 			ninja_obj.completed = TRUE
 			ninja_obj.complete_objective()
 			return TRUE
+		if(istype(ninja_obj, /datum/objective/ninja/insert_spider_rod) && istype(attacked_obj, /obj/machinery/atmospherics/reactor_chamber))
+			var/obj/machinery/atmospherics/reactor_chamber/r_chamber = attacked_obj
+			if(!r_chamber.held_rod)
+				to_chat(user, SPAN_NOTICE("There is no rod in [r_chamber]."))
+				return TRUE
+			if(!istype(r_chamber.held_rod, /obj/item/nuclear_rod/fuel/uranium_238/spiders))
+				to_chat(user, SPAN_NOTICE("The rod in [r_chamber] is not one of ours."))
+				return TRUE
+			if(r_chamber.linked_reactor.offline)
+				to_chat(user, SPAN_NOTICE("[r_chamber.linked_reactor] is not online."))
+				return TRUE
+			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
+			ninja_obj.completed = TRUE
+			ninja_obj.complete_objective()
+			return TRUE
 
 	return ..()

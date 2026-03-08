@@ -53,21 +53,21 @@ RESTRICT_TYPE(/datum/antagonist/space_ninja)
 
 /datum/antagonist/space_ninja/proc/forge_objectives()
 	var/list/moderate_objectives = list(
-		/datum/objective/ninja/capture = 20,
-		/datum/objective/ninja/kill = 20,
+		/datum/objective/ninja/capture = 8,
+		/datum/objective/ninja/kill = 8,
 		/datum/objective/ninja/hack_rnd = 5,
-		/datum/objective/ninja/bomb_department = 3,
 		/datum/objective/ninja/bomb_department/emp = 3,
 		/datum/objective/ninja/bomb_department/spiders = 3,
 	)
 	var/list/all_ninja_objectives = list(
-		/datum/objective/ninja/capture = 10,
-		/datum/objective/ninja/kill = 10,
-		/datum/objective/ninja/hack_rnd = 5,
+		/datum/objective/ninja/capture = 8,
+		/datum/objective/ninja/kill = 8,
+		/datum/objective/ninja/hack_rnd = 4,
 		/datum/objective/ninja/bomb_department = 3,
 		/datum/objective/ninja/bomb_department/emp = 3,
 		/datum/objective/ninja/bomb_department/spiders = 3,
 		/datum/objective/ninja/steal_supermatter = 3,
+		/datum/objective/ninja/insert_spider_rod = 3,
 		/datum/objective/ninja/interrogate_ai = 3,
 	)
 	for(var/i in 1 to mission_goal)

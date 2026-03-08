@@ -314,6 +314,17 @@
 /datum/objective/ninja/steal_supermatter/check_objective_conditions() // If there is no supermatter, you don't get the objective.
 	return !isnull(GLOB.main_supermatter_engine)
 
+/datum/objective/ninja/insert_spider_rod
+	name = "Sabotage Fission Reactor"
+	explanation_text = "Insert a spider-clan uranium 238 fuel rod into the station's fission reactor, then scan the reactor chamber while it is active."
+	needs_target = FALSE
+	onlyone = TRUE
+	reward_tc = NINJA_OBJECTIVE_HARD
+	special_equipment_path = /obj/item/beacon/ninja_rod_spawner
+
+/datum/objective/ninja/insert_spider_rod/check_objective_conditions() // If there is no reactor, you don't get the objective.
+	return !isnull(GLOB.main_fission_reactor)
+
 /datum/objective/ninja/bomb_department
 	name = "Bomb Department"
 	needs_target = FALSE
