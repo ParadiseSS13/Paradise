@@ -76,9 +76,12 @@ RUN tgui/bin/tgui
 
 # Render NanoMaps
 FROM ubuntu:24.04 AS nanomap-build
+COPY __odlint.dm __odlint.dm
+COPY __spacemandmm.dm __spacemandmm.dm
 COPY _maps _maps
 COPY code code
 COPY icons icons
+COPY interface interface
 COPY tools/github-actions tools/github-actions
 COPY paradise.dme paradise.dme
 RUN tools/github-actions/nanomap-renderer-invoker.sh
