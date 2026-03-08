@@ -885,7 +885,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "agD" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "agE" = (
 /turf/simulated/wall/indestructible/titanium,
@@ -74686,7 +74686,7 @@
 	},
 /area/station/public/sleep)
 "oHy" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "oHR" = (
 /turf/simulated/floor/plating/airless,

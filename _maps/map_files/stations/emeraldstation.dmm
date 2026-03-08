@@ -13626,7 +13626,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/incinerator)
 "cJq" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "cJx" = (
 /obj/item/shard,

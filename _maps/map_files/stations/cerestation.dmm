@@ -3456,7 +3456,7 @@
 /area/space/nearstation)
 "aBe" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "aBj" = (
 /obj/machinery/newscaster/security_unit/directional/east,
@@ -16921,7 +16921,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "cFY" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "cFZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -59780,7 +59780,7 @@
 /area/station/service/clown/secret)
 "lHH" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "lHI" = (
 /obj/structure/sign/directions/medical{

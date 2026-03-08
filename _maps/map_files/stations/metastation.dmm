@@ -69851,7 +69851,7 @@
 /area/station/public/dorms)
 "qTT" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "qTX" = (
 /obj/machinery/atmospherics/refill_station/oxygen,
@@ -75324,7 +75324,7 @@
 /area/station/security/permabrig)
 "sOi" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "sOy" = (
 /obj/machinery/ai_status_display{
@@ -76688,7 +76688,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
 "tnO" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "tnP" = (
 /obj/structure/cable{
