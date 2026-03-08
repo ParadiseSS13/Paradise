@@ -661,34 +661,34 @@
 /datum/uplink_item/stealthy_weapons/cqc/nuke
 	reference = "NCQC"
 	cost = 40
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/syndicate_bomb/nuke
 	reference = "NSB"
 	cost = 55
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/nuke
 	reference = "NSBEMP"
 	cost = 50
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/atmosfiregrenades/nuke
 	reference = "NAPG"
 	cost = 60
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/chameleon/nuke
 	reference = "NCHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon/nuke
 	cost = 30
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	reference = "NNSSS"
 	cost = 20
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/explosives/detomatix/nuclear
 	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crew members who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA. This version comes with a program to toggle your nuclear shuttle blast doors remotely."
