@@ -3456,7 +3456,7 @@
 /area/space/nearstation)
 "aBe" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "aBj" = (
 /obj/machinery/newscaster/security_unit/directional/east,
@@ -14980,7 +14980,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "cpQ" = (
 /obj/structure/closet/firecloset/full,
@@ -16921,7 +16921,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "cFY" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "cFZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -17187,7 +17187,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "cIc" = (
 /turf/simulated/floor/light{
@@ -23254,7 +23254,7 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "dMy" = (
 /obj/structure/table,
@@ -24920,7 +24920,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "egE" = (
 /obj/machinery/atmospherics/portable/scrubber,
@@ -31364,7 +31364,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "fCP" = (
 /obj/effect/spawner/random/dirt/frequent,
@@ -33784,8 +33784,8 @@
 /area/station/science/toxins/mixing)
 "ghi" = (
 /obj/machinery/door/airlock/titanium/glass,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/mineral/titanium,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "ghq" = (
 /obj/machinery/door/firedoor,
@@ -34112,14 +34112,6 @@
 "gkX" = (
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/break_room/secondary)
-"gle" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
 "glf" = (
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
@@ -36107,7 +36099,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "gLB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -36948,7 +36940,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "gVR" = (
 /obj/structure/railing,
@@ -37373,7 +37365,7 @@
 /area/station/maintenance/service/aft_starboard)
 "hay" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "haE" = (
 /obj/machinery/hologram/holopad,
@@ -37645,7 +37637,7 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "hdL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -40459,12 +40451,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "hHm" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "hHp" = (
@@ -43240,6 +43231,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/sorting)
+"ijS" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "ijW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -52597,7 +52594,7 @@
 /area/station/engineering/equipmentstorage)
 "kic" = (
 /obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "kij" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -59783,7 +59780,7 @@
 /area/station/service/clown/secret)
 "lHH" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "lHI" = (
 /obj/structure/sign/directions/medical{
@@ -62963,7 +62960,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/north)
 "mvN" = (
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "mvX" = (
 /obj/machinery/door/airlock/public/glass{
@@ -64355,7 +64352,7 @@
 	},
 /obj/effect/landmark/spawner/late/crew,
 /obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "mNx" = (
 /obj/structure/cable/extra_insulated{
@@ -67561,7 +67558,7 @@
 /area/station/maintenance/starboard)
 "nAT" = (
 /obj/structure/closet/wardrobe/xenos,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "nBb" = (
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -68398,7 +68395,7 @@
 /area/station/service/chapel)
 "nKF" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "nKG" = (
 /obj/structure/cable{
@@ -69266,7 +69263,7 @@
 "nWk" = (
 /obj/structure/closet/wardrobe/yellow,
 /obj/machinery/newscaster/directional/north,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "nWq" = (
 /obj/item/cigbutt/roach,
@@ -70713,7 +70710,7 @@
 	c_tag = "Arrivals Shuttle Aft";
 	dir = 10
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "omG" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -74387,6 +74384,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"paT" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plasteel,
+/area/station/security/prisonershuttle)
 "paV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -74666,11 +74669,6 @@
 /obj/effect/turf_decal/tiles/department/virology,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/service/aft_starboard)
-"pdu" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/arrival/station)
 "pdC" = (
 /obj/structure/table/wood,
 /obj/item/dest_tagger,
@@ -75225,8 +75223,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "pkt" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/opsglass/titanium_window,
 /area/shuttle/arrival/station)
 "pku" = (
 /obj/structure/cable{
@@ -75991,7 +75988,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "pue" = (
 /obj/effect/decal/cleanable/cobweb2,
@@ -80886,7 +80883,7 @@
 /area/station/maintenance/apmaint)
 "qBa" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "qBb" = (
 /obj/machinery/disposal,
@@ -82476,12 +82473,12 @@
 	},
 /obj/effect/landmark/spawner/late/crew,
 /obj/structure/closet/walllocker/emerglocker/directional/east,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "qRY" = (
 /obj/structure/closet/wardrobe/green,
 /obj/machinery/requests_console/directional/north,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "qRZ" = (
 /obj/machinery/light{
@@ -83427,11 +83424,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
 "rcw" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "rcy" = (
@@ -84451,7 +84448,7 @@
 /area/station/maintenance/disposal/westalt)
 "rrx" = (
 /obj/structure/closet/wardrobe/black,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "rrz" = (
 /obj/machinery/economy/vending/snack,
@@ -87381,7 +87378,7 @@
 /obj/machinery/cell_charger{
 	pixel_y = 5
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "rWJ" = (
 /obj/machinery/door/firedoor,
@@ -89831,9 +89828,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
@@ -91385,7 +91379,7 @@
 "sPt" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "sPv" = (
 /obj/machinery/door/poddoor/preopen{
@@ -96518,7 +96512,7 @@
 /area/station/maintenance/command/starboard)
 "tXi" = (
 /obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "tXn" = (
 /obj/item/assembly/mousetrap/armed,
@@ -98641,7 +98635,7 @@
 	icon_state = "spooky";
 	name = "Observer-Start"
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "utP" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -99202,7 +99196,7 @@
 	c_tag = "Arrivals Shuttle Fore Compartment";
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "uzI" = (
 /obj/machinery/computer/aifixer{
@@ -100519,7 +100513,7 @@
 	c_tag = "Arrivals Shuttle Fore";
 	dir = 6
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "uOz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -100953,7 +100947,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "uSP" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "uSS" = (
 /obj/machinery/firealarm/directional/north,
@@ -107602,7 +107596,7 @@
 /area/station/security/prisonershuttle)
 "wru" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/indestructible{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -109344,12 +109338,11 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "wIl" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/under/color/orange/prison,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "wIp" = (
@@ -111227,7 +111220,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
 "xbJ" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "xbO" = (
 /turf/simulated/mineral/ancient/outer,
@@ -111384,7 +111377,7 @@
 /obj/machinery/computer/arcade{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "xdW" = (
 /obj/item/trash/spentcasing/bullet/lasershot,
@@ -113651,12 +113644,6 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/catwalk,
 /area/station/command/teleporter)
-"xET" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/prisonershuttle)
 "xEX" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
@@ -113770,10 +113757,11 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/gulag,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "xGq" = (
@@ -115433,6 +115421,7 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
 	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "xZx" = (
@@ -130116,7 +130105,7 @@ pSz
 mFT
 rnm
 qBv
-gle
+rcw
 rcw
 wIl
 gjo
@@ -131147,7 +131136,7 @@ mFT
 mFT
 mFT
 dqb
-drz
+ijS
 xQS
 xQS
 aqY
@@ -131399,12 +131388,12 @@ rNK
 rNK
 pVD
 xGe
-xET
+hHm
 hHm
 szH
 akD
 bTR
-drz
+paT
 xQS
 jYh
 lSo
@@ -158281,7 +158270,7 @@ eWu
 vjb
 pCL
 hUU
-cVL
+weD
 bhO
 bhO
 uSP
@@ -160337,20 +160326,20 @@ eWu
 vjb
 pCL
 hUU
-cVL
+weD
 bhO
 bhO
 uSP
 cFY
 cFY
-pdu
+ghi
 cFY
 pkt
 pkt
 pkt
 pkt
 cFY
-pdu
+ghi
 cFY
 cFY
 cFY
