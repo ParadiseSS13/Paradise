@@ -192,8 +192,8 @@
 	var/mob/living/carbon/human/H = target
 	if(!H.stam_paralyzed)
 		return
-	var/obj/item/restraints/handcuffs/cable/green/cuff = new()
-	cuff.apply_cuffs(H, firer, FALSE)
+	var/obj/item/restraints/handcuffs/cable/zipties/cuff = new()
+	cuff.apply_cuffs(H, firer)
 	var/obj/structure/bed/energy_net/net = new(H.loc)
 	net.buckle_mob(H, TRUE)
 
