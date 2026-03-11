@@ -12985,10 +12985,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "bio" = (
-/obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "bir" = (
@@ -15141,7 +15141,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/command/office/rd)
 "bZA" = (
-/obj/machinery/economy/vending/chapdrobe,
+/obj/structure/closet/secure_closet/chaplain,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
 "bZG" = (
@@ -21674,9 +21674,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
 "fzF" = (
-/obj/structure/table/wood,
-/obj/item/folder,
-/obj/item/storage/fancy/crayons,
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
 "fzJ" = (
@@ -48684,9 +48682,6 @@
 "uBk" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
 "uBo" = (
@@ -49899,7 +49894,7 @@
 "vls" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/chair,
-/obj/effect/landmark/start/scientist,
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
 "vlJ" = (
@@ -52778,6 +52773,8 @@
 	},
 /obj/item/storage/fancy/candle_box,
 /obj/machinery/newscaster/directional/south,
+/obj/item/storage/fancy/crayons,
+/obj/item/folder,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
 "wLQ" = (
