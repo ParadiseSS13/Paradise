@@ -11314,6 +11314,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
+"btx" = (
+/obj/machinery/door_control{
+	id = "kitchen_counter";
+	name = "Service Shutter Control";
+	pixel_x = 7;
+	pixel_y = 6;
+	req_access = list(28)
+	},
+/turf/simulated/wall,
+/area/station/service/kitchen)
 "btA" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -42657,7 +42667,8 @@
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = -6
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
@@ -124488,7 +124499,7 @@ iOZ
 bsp
 bsp
 nqq
-bQI
+btx
 bQI
 bQI
 bQI
