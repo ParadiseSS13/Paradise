@@ -707,9 +707,21 @@
 /datum/keybinding/emote/simple_animal/pet/cat/can_use(client/C, mob/M)
 	return iscat(M) && ..()
 
+/datum/keybinding/emote/simple_animal/cow/moo
+	linked_emote = /datum/emote/cow/moo
+	name = "Moo (Cow)"
+
 /datum/keybinding/emote/simple_animal/lizard/whicker
 	linked_emote = /datum/emote/lizard/whicker
 	name = "Whicker (Lizard)"
+
+/datum/keybinding/emote/simple_animal/chicken/cluck
+	linked_emote = /datum/emote/chicken/cluck
+	name = "Cluck (Chicken)"
+
+/datum/keybinding/emote/simple_animal/pig/oink
+	linked_emote = /datum/emote/pig/oink
+	name = "Oink (Pig)"
 
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM
