@@ -101,7 +101,7 @@
 	C.sit()
 	return TRUE
 
-/datum/emote/living/simple_animal/moo
+/datum/emote/living/simple_animal/cow/moo
 	key = "moo"
 	key_third_person = "moos"
 	message = "moos!"
@@ -109,7 +109,7 @@
 	emote_type = EMOTE_AUDIBLE
 	mob_type_allowed_typecache = list(/mob/living/basic/cow)
 
-/datum/emote/living/simple_animal/cluck
+/datum/emote/living/simple_animal/chicken/cluck
 	key = "cluck"
 	key_third_person = "clucks"
 	message = "clucks."
@@ -117,7 +117,7 @@
 	emote_type = EMOTE_AUDIBLE
 	mob_type_allowed_typecache = list(/mob/living/basic/chicken)
 
-/datum/emote/living/simple_animal/oink
+/datum/emote/living/simple_animal/pig/oink
 	key = "oink"
 	key_third_person = "oinks"
 	message = "oinks."
