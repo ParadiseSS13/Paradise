@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				"water vapor"      = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
-				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
+				"temperature"    = new/datum/tlv(T0C, T0C+5, T0C+80, T0C+100), // K
 			)
 		if(AALARM_PRESET_DISABLED)
 			no_cycle_after = TRUE
