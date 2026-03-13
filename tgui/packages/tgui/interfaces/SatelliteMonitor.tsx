@@ -434,7 +434,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                     top: '50%',
                     left: orbitProgress,
                     transform: `translate(-50%, -50%) rotate(${0}deg)`, // 0 degree rotation puts it back on track
-                    backgroundColor: `green`,
+                    backgroundColor: `cyan`,
                     width: '20px',
                     height: '20px',
                     position: 'relative',

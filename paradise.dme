@@ -369,6 +369,7 @@
 #include "code\controllers\subsystem\SSredis.dm"
 #include "code\controllers\subsystem\SSresearch.dm"
 #include "code\controllers\subsystem\SSrunechat.dm"
+#include "code\controllers\subsystem\SSscience_satellite.dm"
 #include "code\controllers\subsystem\SSsecurity_level.dm"
 #include "code\controllers\subsystem\SSshuttles.dm"
 #include "code\controllers\subsystem\SSstatpanel.dm"

@@ -1,5 +1,6 @@
 /obj/machinery/computer/satellite_monitor
 	name = "Satellite Monitor"
+	icon_screen = "sat"
 	var/list/linked_satellites = new()
 	var/obj/item/disk/tech_disk/inserted_disk
 	var/datum/tech/programming/data_collected

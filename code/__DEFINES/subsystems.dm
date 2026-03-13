@@ -60,6 +60,7 @@
 #define INIT_ORDER_SOUNDS 20
 #define INIT_ORDER_INSTRUMENTS 19
 #define INIT_ORDER_RESEARCH 18 // SoonTM
+#define INIT_ORDER_SCIENCE_SATELLTIE 17.9
 #define INIT_ORDER_VIS 17
 #define INIT_ORDER_STATION 16 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
 #define INIT_ORDER_EVENTS 15
@@ -97,41 +98,42 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
-#define FIRE_PRIORITY_PING			10
-#define FIRE_PRIORITY_NIGHTSHIFT	10
-#define FIRE_PRIORITY_IDLE_NPC		10
-#define FIRE_PRIORITY_UNPLANNED_NPC	10
-#define FIRE_PRIORITY_CLEANUP		10
-#define FIRE_PRIORITY_TICKETS		10
-#define FIRE_PRIORITY_RESEARCH		10 // SoonTM
-#define FIRE_PRIORITY_AMBIENCE		10
-#define FIRE_PRIORITY_VIS			10
-#define FIRE_PRIORITY_GARBAGE		15
-#define FIRE_PRIORITY_AIR			20
-#define FIRE_PRIORITY_NPC			20
-#define FIRE_PRIORITY_CAMERA		20
-#define FIRE_PRIORITY_NPC_MOVEMENT	21
-#define FIRE_PRIORITY_NPC_ACTIONS	22
-#define FIRE_PRIORITY_PATHFINDING	23
-#define FIRE_PRIORITY_PROCESS		25
-#define FIRE_PRIORITY_THROWING		25
-#define FIRE_PRIORITY_SPACEDRIFT	30
-#define FIRE_PRIORITY_FIELDS		30
-#define FIRE_PRIORITY_SMOOTHING		35
-#define FIRE_PRIORITY_OBJ			40
-#define FIRE_PRIORITY_ACID			40
-#define FIRE_PRIORITY_BURNING		40
-#define FIRE_PRIORITY_DEFAULT		50
-#define FIRE_PRIORITY_PARALLAX		65
-#define FIRE_PRIORITY_MOBS			100
-#define FIRE_PRIORITY_TGUI			110
-#define FIRE_PRIORITY_TICKER		200
-#define FIRE_PRIORITY_STATPANEL		390
-#define FIRE_PRIORITY_CHAT 			400
-#define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
-#define FIRE_PRIORITY_OVERLAYS		500
-#define FIRE_PRIORITY_DELAYED_VERBS	950
-#define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
+#define FIRE_PRIORITY_PING				10
+#define FIRE_PRIORITY_NIGHTSHIFT		10
+#define FIRE_PRIORITY_IDLE_NPC			10
+#define FIRE_PRIORITY_UNPLANNED_NPC		10
+#define FIRE_PRIORITY_CLEANUP			10
+#define FIRE_PRIORITY_TICKETS			10
+#define FIRE_PRIORITY_RESEARCH			10 // SoonTM
+#define FIRE_PRIORITY_SCIENCE_SATELLITE 10
+#define FIRE_PRIORITY_AMBIENCE			10
+#define FIRE_PRIORITY_VIS				10
+#define FIRE_PRIORITY_GARBAGE			15
+#define FIRE_PRIORITY_AIR				20
+#define FIRE_PRIORITY_NPC				20
+#define FIRE_PRIORITY_CAMERA			20
+#define FIRE_PRIORITY_NPC_MOVEMENT		21
+#define FIRE_PRIORITY_NPC_ACTIONS		22
+#define FIRE_PRIORITY_PATHFINDING		23
+#define FIRE_PRIORITY_PROCESS			25
+#define FIRE_PRIORITY_THROWING			25
+#define FIRE_PRIORITY_SPACEDRIFT		30
+#define FIRE_PRIORITY_FIELDS			30
+#define FIRE_PRIORITY_SMOOTHING			35
+#define FIRE_PRIORITY_OBJ				40
+#define FIRE_PRIORITY_ACID				40
+#define FIRE_PRIORITY_BURNING			40
+#define FIRE_PRIORITY_DEFAULT			50
+#define FIRE_PRIORITY_PARALLAX			65
+#define FIRE_PRIORITY_MOBS				100
+#define FIRE_PRIORITY_TGUI				110
+#define FIRE_PRIORITY_TICKER			200
+#define FIRE_PRIORITY_STATPANEL			390
+#define FIRE_PRIORITY_CHAT 				400
+#define FIRE_PRIORITY_RUNECHAT			410 // I hate how high the fire priority on this is -aa
+#define FIRE_PRIORITY_OVERLAYS			500
+#define FIRE_PRIORITY_DELAYED_VERBS		950
+#define FIRE_PRIORITY_INPUT				1000 // This must always always be the max highest priority. Player input must never be lost.
 
 
 // SS runlevels
