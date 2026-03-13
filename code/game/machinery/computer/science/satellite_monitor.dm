@@ -7,6 +7,7 @@
 	var/current_planet_base64
 	var/current_background_base64
 	var/obj/machinery/science_satellite/selected_satellite_ui
+	circuit = /obj/item/circuitboard/satellite_monitor
 
 /obj/machinery/computer/satellite_monitor/Initialize(mapload)
 	. = ..()
