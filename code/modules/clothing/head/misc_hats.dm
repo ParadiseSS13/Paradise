@@ -247,22 +247,27 @@
 	name = "engineering cowboy hat"
 	desc = "The Supermatter is just another bull to lasso."
 	icon_state = "cowboyhat_engie"
+
 /obj/item/clothing/head/cowboyhat/research
 	name = "research cowboy hat"
 	desc = "Bluespace is kind of a new frontier if you think about it."
 	icon_state = "cowboyhat_sci"
+
 /obj/item/clothing/head/cowboyhat/med
 	name = "medical cowboy hat"
 	desc = "Every gunslinger needs a medic after he gets hit."
 	icon_state = "cowboyhat_med"
+
 /obj/item/clothing/head/cowboyhat/supply
 	name = "supply cowboy hat"
 	desc = "Can't have gunslingers without someone to bring them guns."
 	icon_state = "cowboyhat_supply"
+
 /obj/item/clothing/head/cowboyhat/command
 	name = "command cowboy hat"
 	desc = "You're the real sheriff 'round these parts."
 	icon_state = "cowboyhat_command"
+
 /obj/item/clothing/head/fedora
 	name = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
