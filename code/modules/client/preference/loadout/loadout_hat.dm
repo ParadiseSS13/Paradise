@@ -31,6 +31,10 @@
 	path = /obj/item/clothing/head/hardhat/dblue
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
+/datum/gear/hat/warning_cone
+	display_name = "Warning cone"
+	path = /obj/item/clothing/head/cone
+
 /datum/gear/hat/that
 	display_name = "Top hat"
 	path = /obj/item/clothing/head/that
