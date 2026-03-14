@@ -2089,3 +2089,36 @@
 	desc = "Rumor has it that microscopic space life makes its home in these crevices."
 	icon_state = "shell_red"
 	dye_color = DYE_LIGHTRED
+
+/obj/item/toy/pool_noodle
+	name = "boring pool noodle"
+	desc = ABSTRACT_TYPE_DESC
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "pool_noodle"
+	attack_verb = list("bopped", "splatted", "smacked", "thwapped", "slapped")
+	hitsound = 'sound/items/pool_noodle_hit.ogg'
+	// Having this var at all should play hitsound even if damage is zero
+	var/zero_damage_hitsound = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/toy/pool_noodle/Initialize(mapload)
+	if(!color)
+		return ..()
+	name = "pool noodle"
+	desc = "A damp, flexible tube for unrestrained summer fun."
+	return ..()
+
+/obj/item/toy/pool_noodle/pink
+	color = COLOR_PINK
+
+/obj/item/toy/pool_noodle/lime
+	color = COLOR_LIME
+
+/obj/item/toy/pool_noodle/aqua
+	color = COLOR_CYAN
+
+/obj/item/toy/pool_noodle/violet
+	color = COLOR_VIOLET
+
+/obj/item/toy/pool_noodle/orange
+	color = COLOR_ORANGE
