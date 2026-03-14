@@ -7,7 +7,7 @@
 #define MAX_SUMMARY_LEN 1500
 #define MAX_NAME_LEN 50 	// diona names can get loooooooong
 #define MAX_TWEAKNAME_LEN 50 // geartweaks item name; separated if this ever needs changing on its own
-#define MAX_TWEAKDESC_LEN 350 // geartweaks item description
+#define MAX_TWEAKDESC_LEN 450 // geartweaks item description
 #define MAX_FLAVORTEXT_PRINT 400 // Amount of flavor text characters to print before cutting off.
 
 /// Removes characters incompatible with file names.
