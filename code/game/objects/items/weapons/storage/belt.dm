@@ -714,6 +714,8 @@
 	desc = "A dorky fannypack for keeping small items in."
 	icon_state = "fannypack_leather"
 	storage_slots = 3
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_FANNYPACK
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
