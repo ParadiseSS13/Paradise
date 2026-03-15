@@ -75223,7 +75223,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "pkt" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "pku" = (
 /obj/structure/cable{

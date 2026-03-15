@@ -957,9 +957,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			. = FALSE
 
 /obj/machinery/door/airlock/proc/open_close(mob/user)
-	var/direction = get_current_direction()
-	dir = direction ? direction : NORTH
-	update_icon()
 	if(welded)
 		to_chat(user, SPAN_WARNING("The airlock has been welded shut!"))
 		return FALSE
@@ -970,18 +967,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return open()
 	else
 		return close()
-
-/obj/machinery/door/airlock/proc/get_current_direction()
-	// Prioritize walls to avoid emergency shuttle shenanigans
-	for(var/direction in GLOB.cardinal)
-		if(iswallturf(get_step(src, direction)))
-			return direction
-	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/structure/window/full) in get_step(src, direction)))
-			return direction
-	for(var/direction in GLOB.cardinal)
-		if((locate(/obj/machinery/door) in get_step(src, direction)))
-			return direction
 
 /obj/machinery/door/airlock/proc/toggle_light(mob/user)
 	if(wires.is_cut(WIRE_BOLT_LIGHT))

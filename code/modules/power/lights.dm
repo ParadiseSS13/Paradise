@@ -379,6 +379,20 @@
 	if(A && !A.requires_power)
 		on = TRUE
 
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = -12
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
+
 	switch(base_state)
 		if("tube")
 			brightness_range = 8

@@ -223,13 +223,14 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 
-/turf/simulated/wall/indestructible/opsglass/titanium_window
+/turf/simulated/wall/indestructible/fakeglass/titanium_window
 	name = "shuttle window"
-	icon = 'icons/turf/floors/titaniumglass.dmi'
-	icon_state = "titaniumglass-0"
-	base_icon_state = "titaniumglass"
+	icon = 'icons/obj/smooth_structures/windows/32x40shuttle_window.dmi'
+	icon_state = "shuttle_window-0"
+	base_icon_state = "shuttle_window"
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_TITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_TITANIUM_WALLS)
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/shuttle_window_edges.dmi'
 
 /turf/simulated/wall/indestructible/rock
 	name = "dense rock"
