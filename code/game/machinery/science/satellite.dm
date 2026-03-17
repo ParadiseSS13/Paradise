@@ -19,17 +19,17 @@
 	. = ..()
 	internal_name = name
 	orbit_data.owner = satellite_stats
+	update_icon()
 
 /obj/machinery/science_satellite/basic/Initialize(mapload)
-	. = ..()
 	parts = list(
 		new /obj/item/satellite_component/engine/basic_engine,
 		new /obj/item/satellite_component/computer/basic
 	)
+	. = ..()
 	recalculate_stats()
 
 /obj/machinery/science_satellite/science/Initialize(mapload)
-	. = ..()
 	parts = list(
 		new /obj/item/satellite_component/engine/small_engine,
 		new /obj/item/satellite_component/computer/basic,
@@ -41,7 +41,20 @@
 		new /obj/item/satellite_component/misc_part/solar_panel,
 		new /obj/item/satellite_component/misc_part/solar_panel
 	)
+	. = ..()
 	recalculate_stats()
+
+/obj/machinery/science_satellite/update_overlays()
+	. = ..()
+	for(var/obj/item/satellite_component/part in parts)
+		log_debug("part.overlay_icon: [!!(part.overlay_icon)]")
+		if(!part.overlay_icon)
+			continue
+
+		var/image/overlay_image = image(icon, part.overlay_icon)
+		overlay_image.color = part.color
+		. += overlay_image
+
 
 /obj/machinery/science_satellite/proc/adjust_stats(obj/item/satellite_component/component, add = TRUE)
 
