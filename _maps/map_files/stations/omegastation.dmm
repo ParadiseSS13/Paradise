@@ -2349,10 +2349,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/command/checker,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Dignitary's Office";
-	pixel_y = 4
-	},
+/obj/machinery/phone,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/dignitary)
 "alm" = (
@@ -3600,11 +3597,18 @@
 	pixel_y = 3
 	},
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	name = "north bump"
+	pixel_y = 26;
+	name = "north bump";
+	pixel_x = 8
 	},
 /obj/item/rcl,
 /obj/item/rcl,
+/obj/machinery/door_control{
+	id = "ceblast";
+	name = "Engineering Lockdown Control";
+	pixel_x = -7;
+	pixel_y = 27
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "apr" = (
@@ -9764,8 +9768,8 @@
 "aPh" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
-/obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tiles/department/command/checker,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/dignitary)
 "aPi" = (
@@ -9776,7 +9780,7 @@
 	},
 /obj/item/flashlight/lamp{
 	pixel_y = 10;
-	pixel_x = 7
+	pixel_x = 1
 	},
 /obj/machinery/light_switch{
 	dir = 1;
@@ -9792,10 +9796,6 @@
 	pixel_x = -6
 	},
 /obj/effect/turf_decal/tiles/department/command/checker,
-/obj/machinery/phone{
-	pixel_y = 8;
-	pixel_x = -8
-	},
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = -6;
 	pixel_y = -5
@@ -9803,10 +9803,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/dignitary)
 "aPj" = (
-/obj/machinery/computer/secure_data{
-	dir = 1
-	},
 /obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/table/wood,
+/obj/machinery/computer/secure_data/laptop{
+	dir = 1;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/dignitary)
 "aPk" = (
@@ -11422,8 +11424,8 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -28211,8 +28213,8 @@
 /area/station/science/rnd)
 "jev" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
@@ -37233,8 +37235,8 @@
 /area/station/maintenance/fpmaint2)
 "orI" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -37866,12 +37868,12 @@
 /area/station/engineering/smes)
 "oLH" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/spawner/airlock/s_to_n,
@@ -40102,8 +40104,8 @@
 /area/station/hallway/secondary/exit)
 "pZl" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -43257,8 +43259,8 @@
 /area/station/engineering/smes)
 "rVj" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
@@ -43971,8 +43973,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "spo" = (
-/obj/machinery/photocopier,
 /obj/effect/turf_decal/tiles/department/command/checker,
+/obj/structure/table/wood,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Dignitary's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/dignitary)
 "spv" = (
@@ -45036,8 +45042,8 @@
 "sLQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
@@ -45626,8 +45632,8 @@
 /area/station/engineering/atmos)
 "sNM" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -45636,8 +45642,8 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
@@ -45765,8 +45771,8 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "atmoslock";
-	name = "Atmospherics Lockdown Blast door"
+	name = "Atmospherics Lockdown Blast door";
+	id_tag = "atmoslock"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
