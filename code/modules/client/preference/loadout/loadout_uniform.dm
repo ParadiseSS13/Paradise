@@ -231,6 +231,10 @@
 	display_name = "Skirt, black"
 	path = /obj/item/clothing/under/dress/blackskirt
 
+/datum/gear/uniform/skirt/black_tango
+	display_name = "black tango dress"
+	path = /obj/item/clothing/under/dress/blacktango
+
 /datum/gear/uniform/skirt/blue_tango
 	display_name = "blue tango dress"
 	path = /obj/item/clothing/under/dress/blacktango/blue
@@ -624,6 +628,10 @@
 /datum/gear/uniform/shorts/grey
 	display_name = "Shorts, grey"
 	path = /obj/item/clothing/under/pants/shorts/grey
+
+/datum/gear/uniform/shorts/jean
+	display_name = "Shorts, jean"
+	path = /obj/item/clothing/under/pants/shorts/jeanshorts
 
 /datum/gear/uniform/pants
 	main_typepath = /datum/gear/uniform/pants
