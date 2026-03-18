@@ -284,12 +284,12 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "hA" = (
-/obj/machinery/light/built{
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/light/exterior/outdoors{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/pod/dark/lavaland_air,
-/area/ruin/powered/snow_biodome)
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "jE" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/wood,
