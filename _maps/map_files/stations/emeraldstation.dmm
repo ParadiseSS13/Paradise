@@ -28343,10 +28343,10 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/north,
-/obj/machinery/r_n_d/server/station,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
+/obj/machinery/ai_node/processing_node,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "fHd" = (
@@ -112538,10 +112538,10 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/r_n_d/server/station,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
+/obj/machinery/ai_node/network_node,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "wAw" = (
