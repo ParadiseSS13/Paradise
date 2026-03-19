@@ -52849,14 +52849,17 @@
 /area/station/engineering/engine/reactor)
 "wLt" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/fancy/candle_box,
 /obj/machinery/newscaster/directional/south,
 /obj/item/storage/fancy/crayons,
 /obj/item/folder,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = -8;
+	pixel_y = 10
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
 "wLQ" = (
@@ -94032,7 +94035,7 @@ iWz
 iWz
 upr
 sPV
-ifG
+tkD
 pRY
 mdi
 rvP
