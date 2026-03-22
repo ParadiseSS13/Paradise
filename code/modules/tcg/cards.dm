@@ -5,7 +5,7 @@
 // attack_hand goes to attack_self__legacy__attackchain(mob/user)
 
 // resetting stats will probably be a thing in the future
-#warn Need a TCG coin or two to replace the gold one that can be dropped. Make it shrink like the cards/packs
+// Need a TCG coin or two to replace the gold one that can be dropped. Make it shrink like the cards/packs
 
 /datum/tcg_card
 	var/name = "Chrono Legionnare"
