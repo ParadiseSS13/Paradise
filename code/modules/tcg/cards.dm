@@ -133,7 +133,7 @@
 		user.unequip(second_card)
 		second_card.forceMove(new_deck)
 		src.forceMove(new_deck)
-		new_deck.update_icon_state(UPDATE_ICON_STATE)
+		new_deck.update_icon(UPDATE_ICON_STATE)
 		new_deck.update_icon()
 		return
 	if(istype(I, /obj/item/tcgcard_deck))
