@@ -2,6 +2,7 @@
 	name = "MOD helmet"
 	desc = "A helmet for a MODsuit."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	icon_monitor = 'icons/mob/clothing/modsuit/species/monitor_helmets.dmi'
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
 	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
