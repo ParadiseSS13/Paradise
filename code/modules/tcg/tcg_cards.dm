@@ -437,3 +437,6 @@
 /obj/item/tcgcard_hand/dropped(mob/user, silent)
 	. = ..()
 	transform = matrix(0.5,0,0,0,0.5,0)
+
+#undef ROTATED_ANGLE
+#undef UNROTATED_ANGLE
