@@ -133,7 +133,7 @@
 		user.unequip(second_card)
 		second_card.forceMove(new_deck)
 		src.forceMove(new_deck)
-		new_deck.update_icon_state()
+		new_deck.update_icon_state(UPDATE_ICON_STATE)
 		new_deck.update_icon()
 		return
 	if(istype(I, /obj/item/tcgcard_deck))
@@ -224,7 +224,7 @@
 			cards.Add(card)
 			qdel(new_card)
 	var/list/possible_cards = list()
-	var/list/rarity_cards = list( "Legendary" = list(), "Rare" = list(), "Uncommon" = list(), "Common" = list())
+	var/list/rarity_cards = list("Legendary" = list(),"Rare" = list(),"Uncommon" = list(),"Common" = list())
 	for(var/card in cards)
 		var/datum/tcg_card/new_card = new card()
 		if(new_card.name == "Stupid Coder")
