@@ -1,9 +1,4 @@
 name: Build Rust library
-
-permissions:
-  contents: write
-  pull-requests: write
-
 on:
   issue_comment:
     types: created
