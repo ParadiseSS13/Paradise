@@ -14451,6 +14451,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/item/reagent_containers/drinks/bottle/holywater,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
 "bBz" = (
@@ -41551,6 +41552,10 @@
 /obj/item/pen,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/item/lighter/zippo/black{
+	pixel_x = 9;
+	pixel_y = 10
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel)
