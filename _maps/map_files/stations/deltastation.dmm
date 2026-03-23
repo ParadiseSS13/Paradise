@@ -5684,15 +5684,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
-"azJ" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/cargo/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
 "azK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5730,16 +5721,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "azO" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/turf_decal/tiles/department/cargo/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
-"azP" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
@@ -6163,6 +6144,9 @@
 "aAZ" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "aBa" = (
@@ -6816,6 +6800,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "aDj" = (
@@ -8557,6 +8542,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "aJx" = (
@@ -9307,9 +9293,6 @@
 	home_destination = "QM #4";
 	suffix = "#4"
 	},
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "aLW" = (
@@ -9334,6 +9317,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "aLY" = (
@@ -9761,9 +9745,6 @@
 "aNt" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
 	},
@@ -13549,7 +13530,7 @@
 /obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
-/obj/machinery/light{
+/obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -47401,14 +47382,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/hardsuitstorage)
-"dPo" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
 "dPq" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/aft_port)
@@ -61585,6 +61558,15 @@
 /obj/effect/turf_decal/tiles/department/medical/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"jgc" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "jgG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -70011,6 +69993,11 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"mPo" = (
+/obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "mPq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -89330,6 +89317,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
+"urR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/neutral,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "urW" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -142542,7 +142540,7 @@ aJv
 nQX
 nQX
 nQX
-aNu
+urR
 aNu
 aNu
 sPg
@@ -142788,7 +142786,7 @@ axf
 lyj
 aBN
 ayD
-azJ
+azL
 aDI
 aBS
 aCN
@@ -143302,7 +143300,7 @@ qWs
 axm
 osS
 ayD
-azL
+jgc
 aFO
 aBS
 aCN
@@ -143830,7 +143828,7 @@ aQn
 aCN
 aQr
 aCN
-dPo
+hOa
 aSb
 enX
 anr
@@ -144076,7 +144074,7 @@ ayD
 azO
 aFO
 aEQ
-aBS
+mPo
 aFG
 aEU
 aIP
@@ -144084,7 +144082,7 @@ aLX
 aMf
 aMz
 aNb
-aBS
+mPo
 aEX
 aBS
 aKK
@@ -144330,7 +144328,7 @@ asd
 asd
 ksV
 asd
-azP
+azO
 aFO
 aBP
 aBS
