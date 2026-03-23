@@ -16,7 +16,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 /// Sends a message to all players with a role and the specified permissions
 /proc/message_roles(msg, permissions)
 	for(var/client/C in GLOB.admins)
-		if(C.holder.rights & permissions)
+		if(check_rights_client(permissions, FALSE, C))
 			to_chat(C, msg)
 			SEND_SOUND(C, sound('sound/effects/bug_report.ogg'))
 

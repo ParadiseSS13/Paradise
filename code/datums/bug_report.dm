@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	approving_user = user.ckey
 	var/datum/db_query/query_update_approver = SSdbcore.NewQuery("UPDATE bug_reports SET approver_ckey=:approver WHERE id=:index", list("approver" = user.ckey, "index" = row_index))
 	if(!query_update_approver.warn_execute())
-		to_chat(user, "<span class='warning'> Failed to set bug report approver in row [row_index] in the database")
+		to_chat(user, SPAN_WARNING("Failed to set bug report approver in row [row_index] in the database"))
 	return TRUE
 
 // returns the body payload
@@ -205,10 +205,10 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	if(.)
 		return
 	if(handled)
-		to_chat(ui.user, "<span class='warning'>The report has already been handled. Changes cannot be made.")
+		to_chat(ui.user, SPAN_WARNING("The report has already been handled. Changes cannot be made."))
 		return
 	if(approving_user && approving_user != ui.user.ckey)
-		to_chat(ui.user, "<span class='warning'>The report is in use by someone else and has been opened in read only mode. Changes cannot be made.")
+		to_chat(ui.user, SPAN_WARNING("The report is in use by someone else and has been opened in read only mode. Changes cannot be made."))
 		return
 	var/mob/user = ui.user
 	switch(action)
