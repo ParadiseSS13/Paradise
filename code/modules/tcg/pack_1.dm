@@ -1,6 +1,3 @@
-/datum/tcg_card/pack_1
-	pack = 'icons/obj/tcg/pack1.dmi'
-
 /datum/tcg_card/pack_1/
 	name = ""
 	desc = ""
