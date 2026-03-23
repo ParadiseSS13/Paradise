@@ -31,17 +31,21 @@
 		/obj/effect/decal/cleanable/vomit = 2,
 	)
 
+/// Display warnings for towel grime and wetness levels that would transfer.
+/obj/item/clothing/neck/towel/examine()
+	. = ..()
+
+	switch(wetlevel)
+		if(0) . += SPAN_NOTICE("It looks dry.")
+		if(1 to 4) . += SPAN_NOTICE("It looks damp.")
+		if(5) . += SPAN_WARN("It looks sopping wet.")
+
+	switch(grimelevel)
+		if(0) . += SPAN_NOTICE("It looks clean.")
+		if(1) . += SPAN_NOTICE("It looks a bit grimy.")
+		if(2 to 5) . += SPAN_WARN("It looks filthy.")
+
 /obj/item/clothing/neck/towel/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!user.can_reach(target))
-		return ..()
-
-	// place towel on ground
-	if(issimulatedturf(target))
-		var/turf/simulated/T = target
-		if(!T.density)
-			user.drop_item_to_ground(src)
-			forceMove(T)
-
 	var/toweling_result = NONE
 
 	if(iscarbon(target) || issimulatedturf(target))
@@ -71,6 +75,8 @@
 		user_message += " It dries [target == user ? "you" : target.p_them()]."
 		target_message += " It dries you."
 
+	update_icon()
+
 	to_chat(user, SPAN_NOTICE(user_message))
 	if(target != user && ismob(target))
 		to_chat(target, SPAN_NOTICE(target_message))
@@ -80,37 +86,43 @@
 	var/toweling_result = NONE
 	// the grimiest decal will transfer to the towel. calculate this before griming up the toweling target
 	var/obj/effect/decal/cleanable/grimiest_decal = null
-	for(var/obj/effect/decal/cleanable/C in target)
-		if(!grimiest_decal || grime_sources[C] > grime_sources[grimiest_decal])
-			grimiest_decal = C
+	for(var/obj/effect/decal/cleanable/target_decal in target)
+		message_admins("found grime: [target_decal]")
+		if(!grimiest_decal || grime_sources[target_decal.type] > grime_sources[grimiest_decal.type])
+			grimiest_decal = target_decal
 
 	// if the towel is grimy, add grime to the target. do this before adding more grime to the towel
 	if(grimelevel > 1)
-		for(var/obj/effect/decal/cleanable/C in src)
-			var/added_decal = new C(target)
-			if(istype(C, /obj/effect/decal/cleanable/blood))
-				var/obj/effect/decal/cleanable/blood/added_blood_decal = added_decal
-				var/obj/effect/decal/cleanable/blood/grimiest_blood_decal = grimiest_decal
-				added_blood_decal.blood_DNA |= grimiest_blood_decal.blood_DNA.Copy()
+		message_admins("Reached the point of spreading grime from towel.")
+		for(var/obj/effect/decal/cleanable/towel_decal in src)
+			if(istype(towel_decal, /obj/effect/decal/cleanable/blood))
+				var/obj/effect/decal/cleanable/blood/towel_blood_decal = towel_decal
+				target.add_blood(towel_blood_decal.blood_DNA, towel_blood_decal.basecolor)
+			else
+				new towel_decal.type(target)
 		grimelevel -= 1
 		toweling_result |= TOWEL_GRIME_SPREAD
 
 	// if the grimiest decal (above) is grimier than the towel, add it to the towel.
-	if(grime_sources[grimiest_decal] > grimelevel)
-		var/added_decal = new grimiest_decal(src)
+	if(grimiest_decal && grime_sources[grimiest_decal.type] > grimelevel)
+		message_admins("Reached the point of adding grime to towel.")
 		if(istype(grimiest_decal, /obj/effect/decal/cleanable/blood))
-			var/obj/effect/decal/cleanable/blood/added_blood_decal = added_decal
 			var/obj/effect/decal/cleanable/blood/grimiest_blood_decal = grimiest_decal
-			added_blood_decal.blood_DNA |= grimiest_blood_decal.blood_DNA.Copy()
+			add_blood(grimiest_blood_decal.blood_DNA, grimiest_blood_decal.basecolor)
+			grimiest_blood_decal.bloodiness = 0
+			grimiest_blood_decal.amount = 0
+		else
+			new grimiest_decal.type(src)
 		toweling_result |= TOWEL_GRIME_ABSORBED
 
 		// if the towel wasn't dirty before we started, clean the target
 		if(!grimelevel)
-			for(var/obj/effect/decal/cleanable/C in target)
-				qdel(C)
-				target.clean_blood()
+			message_admins("Reached the point of cleaning the target.")
+			for(var/obj/effect/decal/cleanable/target_decal in target)
+				qdel(target_decal)
+			target.clean_blood()
 			toweling_result |= TOWEL_CLEANED_TARGET
-		grimelevel = grime_sources[grimiest_decal]
+		grimelevel = grime_sources[grimiest_decal.type]
 	return toweling_result
 
 /obj/item/clothing/neck/towel/proc/exchange_water(atom/target, mob/living/user, list/modifiers)
@@ -166,19 +178,14 @@
 	inhand_icon_state = "beach_towel"
 	worn_icon_state = "towel_palm"
 
-/// Display warnings for towel grime and wetness levels that would transfer.
-/obj/item/clothing/neck/towel/examine()
-	. = ..()
-
-	switch(wetlevel)
-		if(0) . += SPAN_NOTICE("It looks dry.")
-		if(1 to 4) . += SPAN_NOTICE("It looks damp.")
-		if(5) . += SPAN_WARN("It looks sopping wet.")
-
-	switch(grimelevel)
-		if(0) . += SPAN_NOTICE("It looks clean.")
-		if(1) . += SPAN_NOTICE("It looks a bit grimy.")
-		if(2 to 5) . += SPAN_WARN("It looks filthy.")
+/obj/item/clothing/neck/towel/beach/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	// place beach towel on ground
+	if(issimulatedturf(target))
+		var/turf/simulated/T = target
+		if(!T.density)
+			user.drop_item_to_ground(src)
+			forceMove(T)
+	return ..()
 
 /obj/item/clothing/neck/towel/beach/Moved()
 	. = ..()
