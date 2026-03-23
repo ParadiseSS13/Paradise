@@ -180,7 +180,6 @@
 /obj/item/cardpack/series_one
 	name = "Trading Card Pack 1" // please god think of a better name
 	desc = "Contains five cards from the Series 1 of Trading Cards! Collect them all!"
-	icon_state = "cardpack"
 	series = list(/datum/tcg_card/pack_1)
 	contains_coin = 10
 
