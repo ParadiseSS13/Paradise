@@ -21,8 +21,9 @@
 
 /obj/item/smithing_cast/examine(mob/user)
 	. = ..()
-	. += "It is currently configured to make [amount_to_make == 1 ? "a" : "[amount_to_make]"] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
-	. += SPAN_NOTICE("You can select the desired product by using [src] in your hand.")
+	if(length(possible_products) > 1)
+		. += "It is currently configured to make [amount_to_make == 1 ? "a" : "[amount_to_make]"] [selected_product.name][amount_to_make == 1 ? "" : "s"]."
+		. += SPAN_NOTICE("You can select the desired product by using [src] in your hand.")
 
 /obj/item/smithing_cast/activate_self(mob/user)
 	. = ..()
@@ -179,6 +180,26 @@
 	icon_state = "knife_handle_cast"
 	product_type = /obj/item/smithed_item/component/knife_handle
 	basin_state = "cast_knife_handle"
+
+/obj/item/smithing_cast/component/rod_housing
+	name = "rod housing cast"
+	icon_state = "rod_housing_cast"
+	desc = "A cast for creating a nuclear rod housing frame."
+	product_type = /obj/item/smithed_item/component/rod_housing
+	basin_state = "cast_rod_housing"
+
+/obj/item/smithing_cast/component/rod_housing/AltClick(mob/user)
+	return
+
+/obj/item/smithing_cast/component/rod_core
+	name = "rod core cast"
+	icon_state = "rod_core_cast"
+	desc = "A cast for creating a nuclear rod core."
+	product_type = /obj/item/smithed_item/component/rod_core
+	basin_state = "cast_rod_core"
+
+/obj/item/smithing_cast/component/rod_core/AltClick(mob/user)
+	return
 
 /obj/item/smithing_cast/component/trim
 	name = "trim cast"

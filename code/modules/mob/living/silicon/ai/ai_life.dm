@@ -48,8 +48,10 @@
 	else
 		adjustOxyLoss(-1)
 
-	var/area/my_area = get_area(src)
+	if(player_logged > 0 && stat != DEAD && job)
+		handle_ssd()
 
+	var/area/my_area = get_area(src)
 	if(!lacks_power())
 		if(aiRestorePowerRoutine > 1)
 			update_blind_effects()
@@ -138,6 +140,9 @@
 								aiRestorePowerRoutine = 3
 						sleep(50)
 						theAPC = null
+
+/mob/living/silicon/ai/proc/handle_ssd()
+	player_logged++ // No auto cryo, but this will give the AI SSD protection after the value of `SSD_WARNING_TIMER` is reached.
 
 /mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)

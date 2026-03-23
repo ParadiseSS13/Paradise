@@ -135,6 +135,7 @@
 	preloadShuttleTemplates()
 	preloadBridgeTemplates()
 	preloadEventTemplates()
+	preloadLazyTemplates()
 
 /proc/preloadRuinTemplates()
 	// Merge the active lists together
@@ -207,3 +208,13 @@
 		var/datum/map_template/event/E = new event_type()
 
 		GLOB.map_templates[E.event_id] = E
+
+/proc/preloadLazyTemplates()
+	for(var/item in subtypesof(/datum/map_template/lazy))
+		var/datum/map_template/lazy/lazy_type = item
+		if(!initial(lazy_type.mappath))
+			continue
+
+		var/datum/map_template/lazy/L = new lazy_type()
+
+		GLOB.map_templates[L.name] = L

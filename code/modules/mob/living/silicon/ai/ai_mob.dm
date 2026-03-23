@@ -253,6 +253,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Bubblish", 1)
 	add_language("Clownish", 1)
 	add_language("Tkachi", 1)
+	add_language("Skkula-Runespeak", 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -467,6 +468,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/update_icons()
 	. = ..()
 	update_hat_icons()
+	if(player_logged) // make sure the SSD overlay stays
+		overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")
 
 /mob/living/silicon/ai/proc/do_research()
 	last_research_time = world.time

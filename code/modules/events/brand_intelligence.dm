@@ -62,10 +62,8 @@
 				// let them become "normal" after turning
 				upriser.shoot_inventory = FALSE
 				upriser.aggressive = FALSE
-				var/mob/living/simple_animal/hostile/mimic/copy/vendor/M = new(upriser.loc, upriser, null)
+				var/mob/living/basic/mimic/copy/vendor/M = new(upriser.loc, upriser, null)
 				M.faction = list("profit")
-				M.speak = rampant_speeches.Copy()
-				M.speak_chance = 15
 			else
 				explosion(upriser.loc, -1, 1, 2, 4, 0, cause = "Brand Intelligence Uprising")
 				qdel(upriser)

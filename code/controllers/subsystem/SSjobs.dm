@@ -15,6 +15,10 @@ SUBSYSTEM_DEF(jobs)
 	var/probability_of_antag_role_restriction = 100 // Dict probability of a job rolling an antagonist role
 	var/id_change_counter = 1
 
+	/// Is the crew count below the skeleton crew threshold?
+	var/skeleton_crew = FALSE
+	/// Holds a reference to the skeleton timer until it's finished or killed.
+	var/skeleton_revoke_timer
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
 	/// Do we spawn everyone at shuttle due to late arivals?
@@ -33,6 +37,8 @@ SUBSYSTEM_DEF(jobs)
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
+	if(GLOB.configuration.jobs.allow_skeleton_crew_access)
+		check_skeleton_crew()
 	if(!SSdbcore.IsConnected() || !GLOB.configuration.jobs.enable_exp_tracking)
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
@@ -587,3 +593,22 @@ SUBSYSTEM_DEF(jobs)
 	SSdbcore.MassExecute(playtime_history_update_queries, TRUE, TRUE, FALSE, FALSE)
 
 	log_debug("Successfully updated all EXP data in [stop_watch(start_time)]s")
+
+/datum/controller/subsystem/jobs/proc/check_skeleton_crew()
+	if(length(GLOB.crew_list) <= GLOB.configuration.jobs.skeleton_crew_threshold)
+		if(skeleton_revoke_timer)
+			deltimer(skeleton_revoke_timer)
+		if(!skeleton_crew)
+			GLOB.minor_announcement.Announce("Due to reduced crew numbers, extended departmental access has been unlocked on crew IDs.", "Extended Access Enabled")
+			skeleton_crew = TRUE
+		return
+
+	if(skeleton_crew >= GLOB.configuration.jobs.skeleton_crew_escape_threshold)
+		if(skeleton_crew && !skeleton_revoke_timer)
+			GLOB.minor_announcement.Announce("Crew count is now above minimal levels, extended departmental access will be revoked from crew IDs in 2 minutes. \
+				If your ID access has not been upgraded by the Head of Personnel, please vacate any areas you do not normally have access to.", "Extended Access Disabled")
+			skeleton_revoke_timer = addtimer(CALLBACK(src, PROC_REF(deactivate_skeleton_access)), 2 MINUTES, TIMER_STOPPABLE)
+
+/datum/controller/subsystem/jobs/proc/deactivate_skeleton_access()
+	skeleton_crew = FALSE
+	deltimer(skeleton_revoke_timer)

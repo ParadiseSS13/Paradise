@@ -239,6 +239,16 @@
 	cost = 50
 	job = list("Station Engineer", "Chief Engineer")
 
+/datum/uplink_item/jobspecific/meltdown_rod
+	name = "Nuclear Meltdown Rod"
+	desc = "A specially designed nuclear rod, guaranteed to cause the meltdown of any reactor it's placed into. For those tasked with detonating the station's nuclear warhead, this will not achieve that end."
+	reference = "SMDR"
+	item = /obj/item/nuclear_rod/fuel/meltdown
+	cost = 25
+	job = list("Station Engineer", "Chief Engineer")
+	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+
 //RD
 
 /datum/uplink_item/jobspecific/telegun
@@ -652,6 +662,16 @@
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
+
+/datum/uplink_item/species_restricted/skinmonger
+	name = "Skinmonger Autoimplanter"
+	desc = "A strange implant that continuously fabricates synthetic epidermis, covering up prosthetics. \
+	When implanted, the Skinmonger will bond to its host, first covering every limb in synthetic skin, then replacing destroyed skin periodically. \
+	IPCs can use this implant to disguise themselves as human. However, it will not cover monitor-shaped heads."
+	reference = "SKINMON"
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger
+	cost = 10
+	species = list("Machine")
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"

@@ -190,7 +190,7 @@
 			return // No rayman for you
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
-		var/obj/item/organ/external/new_limb = new limb_path(H)
+		var/obj/item/organ/external/new_limb = new limb_path(H, H)
 		new_limb.open = ORGAN_CLOSED // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
 		H.adjustBruteLoss(stored_brute)
 		H.adjustFireLoss(stored_burn)

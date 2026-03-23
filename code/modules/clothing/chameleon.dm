@@ -185,6 +185,7 @@
 	target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
+	target.icon = initial(picked_item.icon)
 
 	if(isitem(target))
 		var/obj/item/I = target
@@ -202,13 +203,19 @@
 		else
 			I.sprite_sheets = null
 
-		if(isclothing(I) && isclothing(picked_item))
+		if(isclothing(I) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
+			if(istype(I, /obj/item/clothing/under) && ispath(picked_item, /obj/item/clothing/under/color))
+				var/obj/item/clothing/under/color/colored_jumpsuit = picked_item
+				if(colored_jumpsuit.icon_palette_key)
+					var/obj/item/clothing/under/target_jumpsuit = I
+					target_jumpsuit.set_icon_from_cache(palette_key = colored_jumpsuit::icon_palette_key, dye_key = colored_jumpsuit::dyeing_key)
+				else if(ispath(colored_jumpsuit, /obj/item/clothing/under/color/psyche) || ispath(colored_jumpsuit, /obj/item/clothing/under/color/jumpskirt/psyche))
+					var/obj/item/clothing/under/target_jumpsuit = I
+					target_jumpsuit.set_icon_from_cache(palette_key = colored_jumpsuit::icon_state, dye_key = colored_jumpsuit::dyeing_key)
 		I.update_appearance()
-
-	target.icon = initial(picked_item.icon)
 
 /datum/action/item_action/chameleon_change/Trigger(left_click)
 	if(!IsAvailable())
@@ -232,17 +239,18 @@
 	random_look(owner)
 
 /obj/item/clothing/under/chameleon
-	name = "black jumpsuit"
+	name = "white jumpsuit"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
 	icon = 'icons/obj/clothing/under/color.dmi'
-	icon_state = "black"
+	icon_state = "color"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
-	inhand_icon_state = "bl_suit"
+	inhand_icon_state = "color_suit"
 	random_sensor = FALSE
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/color.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
 	)
@@ -259,6 +267,9 @@
 		/obj/item/clothing/under/dress,
 		/obj/item/clothing/under/pants,
 		/obj/item/clothing/under/color,
+		/obj/item/clothing/under/color/random,
+		/obj/item/clothing/under/color/jumpskirt,
+		/obj/item/clothing/under/color/jumpskirt/random,
 		/obj/item/clothing/under/retro,
 		/obj/item/clothing/under/solgov,
 		/obj/item/clothing/under/suit,
@@ -294,7 +305,8 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
 	var/datum/action/item_action/chameleon_change/chameleon_action
@@ -573,7 +585,8 @@
 /obj/item/storage/backpack/chameleon
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/back.dmi'
 	)
 
 	var/datum/action/item_action/chameleon_change/chameleon_action

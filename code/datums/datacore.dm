@@ -265,7 +265,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Tail
-	if(H.body_accessory && (istype(H.body_accessory, /datum/body_accessory/tail) || istype(H.body_accessory, /datum/body_accessory/wing)))
+	if(H.body_accessory && (istype(H.body_accessory, /datum/body_accessory/tail) || istype(H.body_accessory, /datum/body_accessory/wing) || istype(H.body_accessory, /datum/body_accessory/spines)))
 		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
 		preview_icon.Blend(temp, ICON_OVERLAY)
 	else if(H.tail && H.dna.species.bodyflags & HAS_TAIL)
@@ -273,6 +273,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		preview_icon.Blend(temp, ICON_OVERLAY)
 	else if(H.wing && H.dna.species.bodyflags & HAS_WING)
 		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.wing]_s")
+		preview_icon.Blend(temp, ICON_OVERLAY)
+	else if(H.spines && H.dna.species.bodyflags & HAS_BACK_SPINES)
+		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.spines]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
 	for(var/obj/item/organ/external/E in H.bodyparts)
@@ -576,7 +579,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 				clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 			else
-				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "grey_s")
+				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "color_s")
+				clothes_s.swap_palette(PALETTE_JS_WHITE, PALETTE_JS_GREY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY) // Why do we do this twice

@@ -15,6 +15,8 @@
 #define TARGET_CRYOING					14
 #define TARGET_INVALID_HEAD				15
 #define TARGET_INVALID_ANTAG			16
+#define TARGET_INVALID_CONFLICTING_OBJECTIVE	17
+#define TARGET_INVALID_HERETIC			18
 
 //gamemode istype helpers
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
@@ -60,6 +62,7 @@
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
 #define SPECIAL_ROLE_ZOMBIE "Zombie"
 #define SPECIAL_ROLE_TOURIST "Tourist"
+#define SPECIAL_ROLE_HERETIC "Heretic"
 #define SPECIAL_ROLE_EVENTMISC "Event Role"
 
 // Constants used by code which checks the status of nuclear blasts during a

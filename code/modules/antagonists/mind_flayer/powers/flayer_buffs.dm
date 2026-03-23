@@ -7,27 +7,30 @@
 	checks_nullification = FALSE
 	action_icon = 'icons/mob/actions/flayer_actions.dmi'
 	action_icon_state = "quick_reboot"
-	upgrade_info = "Increase the amount you heal, decrease time between uses, and increase how long you heal for."
+	upgrade_info = "Increase the amount you heal."
 	max_level = 4
-	base_cooldown = 30 SECONDS
+	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
 	base_cost = 50
 	current_cost = 50 // Innate abilities HAVE to set `current_cost`
 	static_upgrade_increase = 25
-	/// Any extra duration we get from upgrading the spell.
-	var/extra_duration = 0 // The base spell is 5 brute/burn healing a second for 5 seconds
-	/// Any extra healing we get per second from upgrading the spell
+	/// Any extra healing per second we get from upgrading this spell
 	var/extra_healing = 0
 
 /datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)
 	to_chat(user, SPAN_NOTICE("We begin to heal rapidly."))
-	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_duration, extra_healing)
+	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_healing)
 
 /datum/spell/flayer/self/rejuv/on_apply()
 	..()
-	cooldown_handler.recharge_duration -= 5 SECONDS
-	extra_duration += 2 SECONDS
-	extra_healing += 2
+	switch(level)
+		if(FLAYER_POWER_LEVEL_TWO)
+			extra_healing = 3
+		if(FLAYER_POWER_LEVEL_THREE)
+			extra_healing = 7
+		if(FLAYER_POWER_LEVEL_FOUR)
+			extra_healing = 12
+
 
 /datum/spell/flayer/self/quicksilver_form
 	name = "Quicksilver Form"

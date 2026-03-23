@@ -43,6 +43,33 @@
 			chassis.occupant.dust()
 			target.Bumped(chassis)
 			return
+		if(istype(target, /obj/machinery/atmospherics/reactor_chamber))
+			var/obj/machinery/atmospherics/reactor_chamber/chamber = target
+			if(chamber.chamber_state != CHAMBER_OPEN) // we need to handle this a bit special
+				chamber.attack_hand(cargo_holder.occupant)
+				return
+			if(chamber.held_rod)
+				if(length(cargo_holder.cargo) >= cargo_holder.cargo_capacity)
+					occupant_message("<span class='warning'>Not enough room in the cargo compartment!</span>")
+					return
+				chamber.held_rod.add_hiddenprint(cargo_holder.occupant)
+				chassis.visible_message("<span class='notice'>[chassis] lifts [target] and starts to load it into the cargo compartment.</span>")
+				cargo_holder.cargo += chamber.held_rod
+				chamber.held_rod.forceMove(chassis)
+				chamber.held_rod = null
+				playsound(chamber.loc, 'sound/machines/podopen.ogg', 50, 1)
+				chamber.update_icon(UPDATE_OVERLAYS)
+				return
+
+			for(var/obj/item/nuclear_rod/rod in cargo_holder.cargo)
+				rod.add_hiddenprint(cargo_holder.occupant)
+				chamber.held_rod = rod
+				rod.forceMove(chamber)
+				cargo_holder.cargo -= rod
+				playsound(chamber.loc, 'sound/machines/podclose.ogg', 50, 1)
+				chamber.update_icon(UPDATE_OVERLAYS)
+				return
+
 		if(O.anchored)
 			occupant_message(SPAN_WARNING("[target] is firmly secured!"))
 			return
@@ -302,6 +329,7 @@
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 30000, MAT_TRANQUILLITE = 10000)
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
 	if(..())
@@ -463,6 +491,7 @@
 	energy_drain = 3000
 	harmful = TRUE
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 23000, MAT_TITANIUM = 8000)
 	var/obj/item/kinetic_crusher/mecha/internal_crusher
 
 /obj/item/kinetic_crusher/mecha

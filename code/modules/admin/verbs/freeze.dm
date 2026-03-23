@@ -105,3 +105,19 @@ USER_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
 		cut_overlay(freeze_overlay)
 	message_admins(SPAN_NOTICE("[key_name_admin(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal"))
 	log_admin("[key_name(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal")
+
+/obj/machinery/atmospherics/fission_reactor/admin_Freeze(client/admin)
+	var/obj/effect/overlay/adminoverlay/freeze_overlay = new
+	freeze_overlay.pixel_x = 16
+	if(!admin_intervention)
+		radio.autosay("Alert: Unknown intervention is interfering in reactor core operations. It is not progressing in local timespace.", name, "Engineering")
+		GLOB.frozen_atom_list += src
+		admin_intervention = TRUE
+		add_overlay(freeze_overlay)
+	else
+		radio.autosay("Alert: Unknown intervention has ceased within the reactor core. It has returned to the regular flow of time.", name, "Engineering")
+		GLOB.frozen_atom_list -= src
+		admin_intervention = FALSE
+		cut_overlay(freeze_overlay)
+	message_admins(SPAN_NOTICE("[key_name_admin(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor"))
+	log_admin("[key_name(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor")

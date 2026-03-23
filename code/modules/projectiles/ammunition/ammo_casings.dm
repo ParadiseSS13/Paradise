@@ -189,6 +189,7 @@
 	projectile_type = /obj/projectile/bullet/pellet
 	pellets = 6
 	variance = 25
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubbershot shell"
@@ -197,14 +198,14 @@
 	projectile_type = /obj/projectile/bullet/pellet/rubber
 	pellets = 6
 	variance = 25
-	materials = list(MAT_METAL=4000)
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
 	desc = "A 12 gauge shell loaded with a beanbag slug for less-lethal takedowns."
 	icon_state = "beanbag"
 	projectile_type = /obj/projectile/bullet/weakbullet
-	materials = list(MAT_METAL=250)
+	materials = list(MAT_METAL = 250)
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
@@ -238,6 +239,7 @@
 	icon_state = "incendiary"
 	projectile_type = /obj/projectile/bullet/incendiary/shell
 	muzzle_flash_color = LIGHT_COLOR_FIRE
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/frag12
 	name = "\improper FRAG-12 slug"
@@ -272,6 +274,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000)
 
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "lasershot"
@@ -289,6 +292,7 @@
 	desc = "An empty 12 gauge shell, ready to be loaded with all manner of projectiles."
 	icon_state = "techshell"
 	projectile_type = null
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 200)
 
 /obj/item/ammo_casing/shotgun/dart
 	name = "shotgun dart"
@@ -298,9 +302,10 @@
 	projectile_type = /obj/projectile/bullet/dart
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	materials = list(MAT_METAL = 4000)
 
-/obj/item/ammo_casing/shotgun/dart/New()
-	..()
+/obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
+	. = ..()
 	create_reagents(30)
 
 /obj/item/ammo_casing/shotgun/dart/attackby__legacy__attackchain()
@@ -309,8 +314,8 @@
 /obj/item/ammo_casing/shotgun/dart/bioterror
 	desc = "A shotgun dart filled with deadly toxins."
 
-/obj/item/ammo_casing/shotgun/dart/bioterror/New()
-	..()
+/obj/item/ammo_casing/shotgun/dart/bioterror/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("neurotoxin", 6)
 	reagents.add_reagent("spore", 6)
 	reagents.add_reagent("capulettium_plus", 6) //;HELP OPS IN MAINT
@@ -408,6 +413,27 @@
 	projectile_type = /obj/projectile/bullet/a40mm
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+
+/obj/item/ammo_casing/caseless/paintball
+	name = "paintball"
+	desc = "Do not aim at the eyes."
+	projectile_type = /obj/projectile/paintball
+	muzzle_flash_effect = null
+	caliber = "paintball"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "paintball"
+	harmful = FALSE
+
+/obj/item/ammo_casing/caseless/pepperball
+	name = "pepperball"
+	desc = "Aim at the eyes for maximum effect."
+	projectile_type = /obj/projectile/pepperball
+	muzzle_flash_effect = null
+	caliber = "pepperball"
+	icon = 'icons/obj/projectiles.dmi'
+	icon_state = "paintball"
+	harmful = FALSE
+	color = "#660000"
 
 /obj/item/ammo_casing/caseless/foam_dart
 	name = "foam dart"

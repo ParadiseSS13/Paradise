@@ -334,7 +334,12 @@ GLOBAL_LIST_EMPTY(safes)
 				return
 			var/obj/item/I = contents[index]
 			if(I && in_range(src, usr))
-				usr.put_in_hands(I)
+				var/mob/living/carbon/human/human_user = usr
+				if(!istype(usr, /mob/living/carbon/human) && !usr.put_in_hands(I))
+					I.forceMove(loc)
+				else if(!human_user.equip_to_slot_if_possible(I, (human_user.hand ? ITEM_SLOT_LEFT_HAND : ITEM_SLOT_RIGHT_HAND), disable_warning = TRUE))
+					if(!human_user.equip_to_slot_if_possible(I, (human_user.hand ? ITEM_SLOT_RIGHT_HAND : ITEM_SLOT_LEFT_HAND), disable_warning = TRUE))
+						I.forceMove(loc)
 				space -= I.w_class
 		else
 			return FALSE
@@ -459,6 +464,7 @@ GLOBAL_LIST_EMPTY(safes)
 	name = "safe internals"
 	desc = "The mechanism and locking bolts for a Scarborough Arms - 2 tumbler safe."
 	icon_state = "safe_internals"
+	materials = list(MAT_METAL = 1000)
 
 /**
   * # Safe Codes

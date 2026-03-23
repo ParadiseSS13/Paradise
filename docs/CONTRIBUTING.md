@@ -200,7 +200,8 @@ Each role inherits the lower role's responsibilities
 included in this role are:
 
 - [Burzah](https://github.com/Burzah)
-- [Warriorstar](https://github.com/warriorstar-orion)
+- [DGamerL](https://github.com/DGamerL)
+- [PollardTheDragon](https://github.com/PollardTheDragon)
 
 ---
 
@@ -209,12 +210,8 @@ PRs. People included in this role are:
 
 - [AffectedArc07](https://github.com/AffectedArc07)
 - [Charliminator](https://github.com/hal9000PR)
-- [Contrabang](https://github.com/Contrabang)
-- [DGamerL](https://github.com/DGamerL)
 - [FunnyMan3595](https://github.com/FunnyMan3595)
 - [lewcc](https://github.com/lewcc)
-- [PollardTheDragon](https://github.com/PollardTheDragon)
-- [S34N](https://github.com/S34NW)
 - [SteelSlayer](https://github.com/SteelSlayer)
 - [Warriorstar](https://github.com/warriorstar-orion)
 
@@ -223,18 +220,9 @@ PRs. People included in this role are:
 `Review Team` members are people who are denoted as having reviews which can
 affect mergeability status. People included in this role are:
 
-- [Charliminator](https://github.com/hal9000PR)
-- [Contrabang](https://github.com/Contrabang)
-- [DGamerL](https://github.com/DGamerL)
-- [FunnyMan3595](https://github.com/FunnyMan3595)
 - [JimKil3](https://github.com/JimKil3)
-- [lewcc](https://github.com/lewcc)
-- [PollardTheDragon](https://github.com/PollardTheDragon)
 - [Pooble](https://github.com/poobsie)
-- [S34N](https://github.com/S34NW)
 - [Sirryan2002](https://github.com/Sirryan2002)
-- [SteelSlayer](https://github.com/SteelSlayer)
-- [Warriorstar](https://github.com/warriorstar-orion)
 - [Wilkson](https://github.com/BiancaWilkson)
 
 ---

@@ -68,6 +68,8 @@ SUBSYSTEM_DEF(ticker)
 	/// List of biohazards keyed to the last time their population was sampled.
 	var/list/biohazard_pop_times = list()
 	var/list/biohazard_included_admin_spawns = list()
+	/// Has cult tried to summon?
+	var/cult_tried_summon = FALSE
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -178,6 +180,7 @@ SUBSYSTEM_DEF(ticker)
 		hide_mode = TRUE
 
 	var/list/datum/game_mode/runnable_modes
+	var/is_admin_forced = FALSE
 
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = GLOB.configuration.gamemode.get_runnable_modes()
@@ -188,9 +191,9 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
-			var/datum/game_mode/M = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
-			if(M.can_start())
-				mode = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
+			mode = GLOB.configuration.gamemode.pick_mode(GLOB.secret_force_mode)
+			is_admin_forced = TRUE
+
 		SSjobs.ResetOccupations()
 		if(!mode)
 			mode = pickweight(runnable_modes)
@@ -200,7 +203,7 @@ SUBSYSTEM_DEF(ticker)
 	else
 		mode = GLOB.configuration.gamemode.pick_mode(GLOB.master_mode)
 
-	if(!mode.can_start())
+	if(!mode.can_start() && !is_admin_forced)
 		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
@@ -276,6 +279,13 @@ SUBSYSTEM_DEF(ticker)
 
 	// Behold, a rough way of figuring out what takes 10 years
 	var/watch = start_watch()
+
+	// Count ready players before we spawn them for hijack objective requirements
+	GLOB.roundstart_ready_players = 0
+	for(var/mob/new_player/player in GLOB.new_player_mobs)
+		if(player.ready && player.client)
+			GLOB.roundstart_ready_players++
+
 	create_characters() // Create player characters and transfer clients
 	log_debug("Creating characters took [stop_watch(watch)]s")
 

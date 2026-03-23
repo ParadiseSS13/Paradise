@@ -76,16 +76,15 @@
 	var/output
 	var/time = 40
 
-/// WHO NAME A PARAMETER FOR A PROC "what" holy hell
-/datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
+/datum/food_processor_process/proc/process_food(loc, process_in, obj/machinery/processor/processor)
 	if(output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)
 			new output(loc)
-	if(what)
-		qdel(what)
+	if(process_in)
+		qdel(process_in)
 
 /////////////////////////
-/////OBJECT RECIPIES/////
+/////OBJECT RECIPES//////
 /////////////////////////
 /datum/food_processor_process/meat
 	input = /obj/item/food/meat
@@ -124,14 +123,14 @@
 	output = /obj/item/popsicle_stick
 
 /////////////////////////
-///END OBJECT RECIPIES///
+///END OBJECT RECIPES////
 /////////////////////////
 
 /datum/food_processor_process/mob/process_food(loc, what, processor)
 	..()
 
 //////////////////////
-/////MOB RECIPIES/////
+/////MOB RECIPES//////
 //////////////////////
 /datum/food_processor_process/mob/slime
 	input = /mob/living/simple_animal/slime
@@ -174,7 +173,7 @@
 	//bucket_of_blood.reagents.handle_reactions() //blood doesn't react
 	..()
 ////////////////////////
-////END MOB RECIPIES////
+////END MOB RECIPES/////
 ////////////////////////
 
 //END RECIPE DATUMS
@@ -188,6 +187,9 @@
 	return 0
 
 /obj/machinery/processor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(processing)
 		to_chat(user, SPAN_WARNING("\the [src] is already processing something!"))
 		return ITEM_INTERACT_COMPLETE

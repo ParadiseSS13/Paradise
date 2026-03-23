@@ -18,7 +18,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "ah" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "ai" = (

@@ -82,6 +82,8 @@
 	..()
 	var/datum/action/innate/cocoon/cocoon = new()
 	cocoon.Grant(H)
+	var/datum/action/innate/toggle_wings/wings_toggle = new()
+	wings_toggle.Grant(H)
 	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, PROC_REF(check_burn_wings))
 	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
@@ -91,6 +93,8 @@
 	..()
 	for(var/datum/action/innate/cocoon/cocoon in H.actions)
 		cocoon.Remove(H)
+	for(var/datum/action/innate/toggle_wings/wings_toggle in H.actions)
+		wings_toggle.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
@@ -118,14 +122,26 @@
 	if(isobj(H.loc))
 		// Can't fly if you're in a box/mech/whatever.
 		return FALSE
+	// Open your wings to fly
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			return FALSE
 	var/turf/T = get_turf(H)
 	var/datum/gas_mixture/current = T.get_readonly_air()
 	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
-	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		return TRUE
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return FALSE
+
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			return FALSE
+
+	return TRUE
 
 /datum/species/moth/spec_movement_delay()
 	return FALSE
@@ -181,6 +197,16 @@
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, SPAN_WARNING("You need to hold still in order to weave a cocoon!"))
+
+/datum/action/innate/toggle_wings
+	name = "Toggle Wings"
+	desc = "Open or close your wings! While your wings are open, you can fly in pressurized 0G environments!"
+	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
+	button_icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
+	button_icon_state = "monarch_BEHIND"
+
+/datum/action/innate/toggle_wings/Activate()
+	owner.emote("wings")
 
 /**
  * Removes moth from cocoon, restores burnt wings

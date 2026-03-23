@@ -271,6 +271,7 @@
 	multiload = 0
 	slow_loading = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 10000)
 	///A var to check if the mag is being loaded
 	var/being_loaded = FALSE
 	/// There are two reloading processes ongoing so cancel them
@@ -501,6 +502,24 @@
 	icon_state = "party_drum"
 	ammo_type = /obj/item/ammo_casing/shotgun/confetti
 
+/obj/item/ammo_box/magazine/paintball
+	name = "paintball magazine"
+	desc = "A magazine that holds a large amount of paintballs."
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "paintballmag"
+	ammo_type = /obj/item/ammo_casing/caseless/paintball
+	caliber = "paintball"
+	max_ammo = 25
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
+
+/obj/item/ammo_box/magazine/paintball/pepperball
+	name = "pepperball magazine"
+	desc = "A magazine that holds a large amount of pepperballs."
+	icon_state = "pepperballmag"
+	ammo_type = /obj/item/ammo_casing/caseless/pepperball
+	caliber = "pepperball"
+	max_ammo = 10
+
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
@@ -593,7 +612,7 @@
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
 	icon_state = "handgun_ammo_battery"
-	materials = list(MAT_METAL = 20000)
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	var/charge = 1000
 
 // Overwrite description so shells aren't displayed

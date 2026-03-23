@@ -414,17 +414,17 @@
 		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	for(var/obj/item/organ/internal/I in affected.internal_organs)
-		if(I && I.damage)
-			if(I.is_robotic())
-				user.visible_message(
+		if(I.damage && I.is_robotic())
+			user.visible_message(
 					SPAN_NOTICE("[user] repairs [target]'s [I.name] with [tool]."),
 					SPAN_NOTICE("You repair [target]'s [I.name] with [tool]."),
-		chat_message_type = MESSAGE_TYPE_COMBAT
+					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
-				I.damage = 0
-				I.surgeryize()
-				if(istype(tool, /obj/item/stack/nanopaste))
-					I.rejuvenate()
+			I.heal_internal_damage(I.max_damage, TRUE)
+			I.surgeryize()
+			if(istype(tool, /obj/item/stack/nanopaste))
+				I.rejuvenate()
+
 	target.update_stat("internal organs repaired")
 	return ..()
 
@@ -716,7 +716,7 @@
 	return ..()
 
 /datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", GLOB.selectable_robolimbs)
+	var/chosen_appearance = tgui_input_list(user, "Select the company appearance for this limb.", "Limb Company Selection", GLOB.all_robolimbs)
 	if(!chosen_appearance)
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -787,11 +787,21 @@
 
 	var/new_gender = gender_list[gender_key]
 	var/old_name = target.real_name
-	target.real_name = new_name
+	var/identity_type = "core identity parameters"
+
+	// Prioritize replacing a synthetic skin identity over the IPC's actual identity
+	var/obj/item/organ/external/head = target.bodyparts_by_name["head"]
+	if(head && head.has_synthetic_skin)
+		head.synthetic_skin_identity = new_name
+		target.real_name = new_name
+		identity_type = "synthetic facial identity"
+	else
+		target.real_name = new_name
+
 	target.gender = new_gender
 	user.visible_message(
-		SPAN_NOTICE("[user] edits [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]."),
-		SPAN_NOTICE("You alter [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]."),
+		SPAN_NOTICE("[user] edits [old_name]'s [identity_type] with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]."),
+		SPAN_NOTICE("You alter [old_name]'s [identity_type] with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 

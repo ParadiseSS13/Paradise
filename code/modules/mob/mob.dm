@@ -75,6 +75,7 @@
 		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
 		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
 		PRESSURE_HUD = 'icons/effects/effects.dmi',
+		HERETIC_HUD = 'icons/effects/eldritch.dmi',
 		MALF_AI_HUD = 'icons/mob/hud/malfhud.dmi',
 		ANOMALOUS_HUD = 'icons/effects/effects.dmi',
 	)
@@ -1491,6 +1492,19 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(.)
 		set_typing_indicator(FALSE)
 
+/// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
+/// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent
+/mob/proc/become_uncliented()
+	if(!canon_client)
+		return
+
+	if(canon_client?.movingmob)
+		LAZYREMOVE(canon_client.movingmob.client_mobs_in_contents, src)
+		canon_client.movingmob = null
+
+	clear_important_client_contents()
+	canon_client = null
+
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
@@ -1656,4 +1670,3 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 			. *= 0.5
 		if(5 to 6)
 			return 0
-

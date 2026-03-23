@@ -125,8 +125,17 @@
 		rigged = FALSE
 		return TRUE
 
-/obj/structure/closet/crate/welder_act()
-	return
+/obj/structure/closet/crate/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!opened && user.loc == src)
+		to_chat(user, SPAN_WARNING("You can't weld [src] from inside!"))
+		return
+	if(!I.tool_use_check(user, 0) || !opened)
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		deconstruct(TRUE)
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
@@ -496,6 +505,13 @@
 	icon_opened = "hydrosecurecrate_open"
 	icon_closed = "hydrosecurecrate"
 
+/obj/structure/closet/crate/secure/medisec
+	desc = "A secure medical crate."
+	name = "secure medical crate"
+	icon_state = "medicalsecurecrate"
+	icon_opened = "medicalsecurecrate_open"
+	icon_closed = "medicalsecurecrate"
+
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
 	name = "secure bin"
@@ -654,11 +670,12 @@
 /obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost, mob/user)
 	. = ..()
 	var/list/temp_uplink_list = get_uplink_items(U, user)
+	var/list/temp_buyable_items = list() // Extra safety so we don't even have the items with no surplus in the final list
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
-		buyable_items += temp_uplink_list[category]
+		temp_buyable_items += temp_uplink_list[category]
 
-	for(var/datum/uplink_item/uplink_item in buyable_items)
+	for(var/datum/uplink_item/uplink_item in temp_buyable_items)
 		if(!uplink_item.surplus) // Otherwise we'll just have an element with a weight of 0 in our weighted list
 			continue
 		buyable_items[uplink_item] = uplink_item.surplus

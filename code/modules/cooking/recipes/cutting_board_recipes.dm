@@ -67,6 +67,33 @@
 		PCWJ_ADD_ITEM(/obj/item/organ/internal/brain),
 	)
 
+/datum/cooking/recipe_step/add_item/kidan/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/kidan))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/bug_bar
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/bug_bar
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/kidan(),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe/bug_burger
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/bug_burger
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_ADD_ITEM(/obj/item/food/bug_bar),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/cheeseburger
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/cheese
@@ -354,6 +381,42 @@
 		PCWJ_ADD_ITEM(/obj/item/food/tofu),
 	)
 
+/datum/cooking/recipe_step/add_item/slime/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/slime))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/turkish_delight
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/turkish_delight
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/slime(),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe_step/add_item/machine/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/machine))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/wafers
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/wafers
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/machine(),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/xenoburger
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/xeno
@@ -469,6 +532,19 @@
 		tongs.update_appearance(UPDATE_ICON_STATE)
 	else
 		. = ..()
+
+/datum/cooking/recipe_step/add_item/supermatter_sliver/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
+	var/obj/item/container = locateUID(tracker.container_uid)
+	if(!istype(container))
+		return FALSE
+
+	var/obj/item/retractor/supermatter/tongs = added_item
+	if(istype(tongs))
+		for(var/obj/item/nuke_core/supermatter_sliver/sliver in container.contents)
+			if(istype(sliver))
+				return TRUE
+
+	return ..()
 
 /datum/cooking/recipe/supermatter_sandwich
 	container_type = /obj/item/reagent_containers/cooking/board

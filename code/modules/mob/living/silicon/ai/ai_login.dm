@@ -1,4 +1,6 @@
 /mob/living/silicon/ai/Login()	//ThisIsDumb(TM) TODO: tidy this up �_� ~Carn
+	if(player_logged)
+		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow_silicon")
 	..()
 
 	if(stat != DEAD)

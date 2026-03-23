@@ -4,6 +4,7 @@
 	inhand_icon_state = "engi_suit"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/engineering.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/engineering.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/engineering.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/engineering.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/engineering.dmi'

@@ -52,7 +52,7 @@ SUBSYSTEM_DEF(afk)
 						toRemove += H.ckey
 						warn(H, SPAN_DANGER("You have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area."))
 						log_afk_action(H, mins_afk, T, "despawned", "AFK in a fast despawn area")
-						force_cryo_human(H)
+						force_cryo(H)
 					else
 						if(!(H.mind.special_role in non_cryo_antags))
 							if(cryo_ssd(H))
@@ -71,7 +71,7 @@ SUBSYSTEM_DEF(afk)
 				log_afk_action(H, mins_afk, T, "despawned")
 				warn(H, SPAN_DANGER("You have been despawned after being AFK for [mins_afk] minutes."))
 				toRemove += H.ckey
-				force_cryo_human(H)
+				force_cryo(H)
 
 	removeFromWatchList(toRemove)
 

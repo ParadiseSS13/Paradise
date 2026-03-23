@@ -144,6 +144,7 @@
 	color = "#8523be"
 	taste_description = "nurturing"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	max_kidney_damage = 0
 
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -449,6 +450,7 @@
 	reagent_state = LIQUID
 	taste_description = "dust"
 	goal_difficulty = REAGENT_GOAL_EASY
+	max_kidney_damage = 0
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -472,6 +474,7 @@
 	addiction_threshold = 5
 	harmless = FALSE
 	taste_description = "health"
+	max_kidney_damage = 0
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/human/H)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -641,6 +644,7 @@
 	metabolization_rate = 0.2
 	taste_description = "safety"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	max_kidney_damage = 0
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -663,6 +667,7 @@
 	harmless = FALSE
 	taste_description = "oxygenation"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	max_kidney_damage = 0
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -833,6 +838,7 @@
 	color = "#757377"
 	taste_description = "clarity"
 	goal_difficulty = REAGENT_GOAL_HARD
+	max_kidney_damage = 0
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1013,6 +1019,7 @@
 	harmless = FALSE
 	overdose_threshold = 15
 	goal_difficulty = REAGENT_GOAL_HARD
+	max_kidney_damage = 4
 
 /datum/reagent/medicine/sanguine_reagent/on_mob_life(mob/living/M)
 	if(!ishuman(M))
@@ -1069,6 +1076,7 @@
 	harmless = FALSE
 	overdose_threshold = 30 //so a single shotgun dart can't cause the tumor effect
 	goal_difficulty = REAGENT_GOAL_HARD
+	max_kidney_damage = 4 // So much calcium
 
 /datum/reagent/medicine/osseous_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1083,9 +1091,9 @@
 		var/mob/living/carbon/human/H = M
 		if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
 			if(isslimeperson(H))
-				new /obj/item/organ/internal/bone_tumor/slime_tumor(H)
+				new /obj/item/organ/internal/bone_tumor/slime_tumor(H, H)
 			else
-				new /obj/item/organ/internal/bone_tumor(H)
+				new /obj/item/organ/internal/bone_tumor(H, H)
 
 	return ..()
 
@@ -1096,6 +1104,7 @@
 	color = "#D1D1F1"
 	taste_description = "sweetness"
 	goal_difficulty = REAGENT_GOAL_EASY
+	max_kidney_damage = 0
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1642,6 +1651,10 @@
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
 						I.heal_internal_damage(4, TRUE)
+						if(istype(I, /obj/item/organ/internal/liver))
+							var/obj/item/organ/internal/liver/liver = I
+							liver.damaged_ticks = 0
+
 						if(istype(I, /obj/item/organ/internal/cyberimp)) // Fix disabled implants like the ipc charging implant
 							var/obj/item/organ/internal/cyberimp/crit = I
 							crit.crit_fail = FALSE

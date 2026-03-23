@@ -135,6 +135,11 @@
 	desc = "An eccentric handmade standard, luxuriously soft due to exotic silks and embossed with lustrous gold. Although inspired by the pride that Nianae take in their baubles, it ultimately feels melancholic. Beauty knows no pain, afterall."
 	icon_state = "nianflag"
 
+/obj/item/flag/species/skulk
+	name = "\improper Collective Flag"
+	desc = "A foreboding flag made with silk and religious fervor. The cloth of this flag undoubtly made by faithful silk-spinners and blessed by Skkula-Kkavan priests. Some would argue its beauty does not befit it, believing it to be a beacon of zealotry that plagues the Silver Collective in its entirety."
+	icon_state = "skulkflag"
+
 //Department Flags
 
 /obj/item/flag/cargo
@@ -209,9 +214,9 @@
 	var/obj/item/grenade/boobytrap = null
 	var/mob/trapper = null
 
-/obj/item/flag/chameleon/New()
+/obj/item/flag/chameleon/Initialize(mapload)
+	. = ..()
 	updated_icon_state = icon_state
-	..()
 
 /obj/item/flag/chameleon/attack_self__legacy__attackchain(mob/user)
 	if(used)
@@ -289,6 +294,6 @@
 /obj/item/flag/chameleon/get_flag_icon()
 	return updated_icon_state
 
-/obj/item/flag/chameleon/depot/New()
-	..()
+/obj/item/flag/chameleon/depot/Initialize(mapload)
+	. = ..()
 	boobytrap = new /obj/item/grenade/gas/plasma(src)

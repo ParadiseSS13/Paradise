@@ -36,6 +36,50 @@
 	trait_to_apply = TRAIT_GLUTTON
 	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 
+/datum/quirk/lifelike
+	name = "Lifelike"
+	desc = "Your prosthetic limbs have been fitted with a synthetic epidermis, making them appear natural. \
+			For IPCs, this covers all body parts, making them look human (except monitor-shaped heads). \
+			For all others, it covers prosthetic limbs."
+	cost = 4
+
+/datum/quirk/lifelike/apply_quirk_effects(mob/living/carbon/human/target, character)
+	. = ..(target, character)
+	// Apply synthetic skin after robotic limbs are applied or the quirk doesn't work very well
+	RegisterSignal(target, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED, PROC_REF(apply_synthetic_skin_on_signal))
+
+/datum/quirk/lifelike/proc/apply_synthetic_skin_on_signal(mob/living/carbon/human/target)
+	SIGNAL_HANDLER // COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED
+
+	for(var/obj/item/organ/external/limb as anything in target.bodyparts)
+		if(!limb)
+			continue
+
+		// Skip monitor heads
+		if(limb.limb_name == "head" && limb.model)
+			var/datum/robolimb/R = GLOB.all_robolimbs[limb.model]
+			if(R && R.is_monitor)
+				continue
+
+		if(ismachineperson(target) || limb.is_robotic())
+			limb.has_synthetic_skin = TRUE
+			// Apply owner's skin color to synthetic skin
+			limb.synthetic_skin_colour = target.skin_colour
+			// Set real identity for head
+			if(limb.limb_name == "head")
+				limb.synthetic_skin_identity = target.dna.real_name
+			// Clear cached limb icon because otherwise it's sticky
+			limb.force_icon = null
+			// Force mob icon regeneration
+			limb.mob_icon = null
+			limb.compile_icon()
+
+	// Now rebuild appearance
+	target.update_body(rebuild_base = TRUE)
+
+	// Unregister the signal since we're done with it
+	UnregisterSignal(target, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
+
 /obj/item/storage/box/papersack/prepped_meal
 	name = "packed meal"
 	var/list/entree_options = list(
@@ -51,7 +95,7 @@
 		/obj/item/food/meatkebab,
 		/obj/item/food/salmonsteak, // If anyone microwaves their leftover fish in the workplace it should be on sight
 		/obj/item/food/shrimp_skewer,
-		/obj/item/food/omelette
+		/obj/item/food/omelette,
 	)
 	var/list/snack_options = list(
 		/obj/item/food/chips,
@@ -63,8 +107,7 @@
 		/obj/item/food/candy/chocolate_orange,
 		/obj/item/food/sliced/mothmallow,
 		/obj/item/food/sliced/apple_cake,
-		/obj/item/food/sliced/banarnarbread
-
+		/obj/item/food/sliced/banarnarbread,
 	)
 	var/list/drink_options = list(
 		/obj/item/reagent_containers/drinks/h_chocolate,
@@ -75,7 +118,19 @@
 		/obj/item/reagent_containers/drinks/cans/space_up,
 		/obj/item/reagent_containers/drinks/cans/iced_tea,
 		/obj/item/reagent_containers/drinks/cans/starkist,
-		/obj/item/reagent_containers/drinks/bottle/beer // Don't tell your boss
+		/obj/item/reagent_containers/drinks/bottle/beer, // Don't tell your boss
+		/obj/item/reagent_containers/drinks/carton/apple,
+		/obj/item/reagent_containers/drinks/carton/banana,
+		/obj/item/reagent_containers/drinks/carton/berry,
+		/obj/item/reagent_containers/drinks/carton/carrot,
+		/obj/item/reagent_containers/drinks/carton/grape,
+		/obj/item/reagent_containers/drinks/carton/lemonade,
+		/obj/item/reagent_containers/drinks/carton/orange,
+		/obj/item/reagent_containers/drinks/carton/pineapple,
+		/obj/item/reagent_containers/drinks/carton/plum,
+		/obj/item/reagent_containers/drinks/carton/tomato,
+		/obj/item/reagent_containers/drinks/carton/vegetable,
+		/obj/item/reagent_containers/drinks/carton/watermelon,
 	)
 
 /obj/item/storage/box/papersack/prepped_meal/populate_contents()
@@ -106,7 +161,7 @@
 /datum/quirk/culinary_implant
 	name = "IPC Culinary Implant"
 	desc = "Either you or your creator wanted you to seem more organic, and gave you an artificial mouth and stomach."
-	cost = 2
+	cost = 1
 	species_flags = QUIRK_ORGANIC_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/cyberimp/chest/ipc_food
 
@@ -138,6 +193,6 @@
 /datum/quirk/breathing_tube
 	name = "Breathing Tube"
 	desc  = "You have been outfitted with a breathing tube."
-	cost = 2
+	cost = 1
 	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/cyberimp/mouth/breathing_tube

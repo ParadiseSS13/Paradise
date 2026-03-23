@@ -221,7 +221,8 @@
 					SPAN_NOTICE("You treat damage to [target]'s [I.name] with [tool_name]."),
 					chat_message_type = MESSAGE_TYPE_COMBAT
 				)
-				I.damage = 0
+				I.heal_internal_damage(I.max_damage)
+
 			else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
 				user.visible_message(
 					SPAN_NOTICE("[user] treats damage to [target]'s [I.name] with [tool_name]."),
