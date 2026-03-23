@@ -198,6 +198,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		base_icon = chest.get_icon(skeleton)
 
 		for(var/obj/item/organ/external/part in bodyparts)
+			part.sync_colour_to_human(src)
+
 			// We just drew the chest, don't draw it twice.
 			if(part == chest)
 				continue
