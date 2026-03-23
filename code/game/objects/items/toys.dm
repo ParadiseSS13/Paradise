@@ -2133,8 +2133,6 @@
 /obj/item/toy/bucket_and_spade/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /turf/simulated/floor/beach/sand))
 		return ..()
-	if(!user.can_reach(target))
-		return ..()
 	if(length(target.contents))
 		var/obj/structure/sand_sculpture/sculpture = (locate(/obj/structure/sand_sculpture) in target)
 		if(!sculpture)
@@ -2166,14 +2164,14 @@
 			SPAN_NOTICE("You hear shuffling and packing of sand nearby."))
 	playsound(loc, 'sound/effects/sculptures/sand_buildstart.ogg', 80, TRUE)
 
-	if(do_after(user = user, delay = 80, target = target))
-		visible_message(
-			SPAN_NOTICE("[user] builds \a [chosen_sculpture::name] on [target]."),
-			SPAN_NOTICE("You finish building \the [chosen_sculpture::name] on [target]."))
-		playsound(loc, 'sound/effects/sculptures/sand_buildfinish.ogg', 80, TRUE)
-		new chosen_sculpture(target)
-	else
+	if(!do_after(user = user, delay = 8 SECONDS, target = target))
 		to_chat(user, SPAN_NOTICE("You stop building [chosen_sculpture::name]."))
+		return ITEM_INTERACT_COMPLETE
+	visible_message(
+		SPAN_NOTICE("[user] builds \a [chosen_sculpture::name] on [target]."),
+		SPAN_NOTICE("You finish building \the [chosen_sculpture::name] on [target]."))
+	playsound(loc, 'sound/effects/sculptures/sand_buildfinish.ogg', 80, TRUE)
+	new chosen_sculpture(target)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/sand_sculpture
@@ -2209,18 +2207,21 @@
 	if(istype(entered))
 		take_damage(5, BRUTE)
 
-/obj/structure/sand_sculpture/attack_by(obj/item/tool, mob/user, params)
-	if(!user.can_reach(src))
-		return
-	if(user.a_intent == INTENT_HARM)
-		take_damage(5, BRUTE)
-		return
-	if(istype(tool, /obj/item/toy/bucket_and_spade))
-		interact_sculpture(user, tool)
+/obj/structure/sand_sculpture/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/toy/bucket_and_spade) || user.a_intent == INTENT_HARM)
+		return ..()
+
+	interact_sculpture(user, used)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/sand_sculpture/attacked_by(obj/item/attacker, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	take_damage(5, BRUTE)
+	return FINISH_ATTACK
 
 /obj/structure/sand_sculpture/attack_hand(mob/user)
-	if(!user.can_reach(src))
-		return
 	if(user.a_intent == INTENT_HARM)
 		take_damage(5, BRUTE)
 		return
