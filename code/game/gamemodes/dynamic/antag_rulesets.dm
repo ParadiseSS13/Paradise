@@ -277,7 +277,7 @@
 /datum/ruleset/implied/roundstart_pre_setup()
 	// antag_amount is always 0 when this proc is called, so we need to update banned_jobs manually
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
-		banned_jobs += protected_jobs	
+		banned_jobs += protected_jobs
 
 /datum/ruleset/implied/mindflayer
 	name = "Mindflayer"
@@ -314,6 +314,7 @@
 	stack_trace("Undefined behavior for dynamic non-unique teams!")
 
 /datum/ruleset/team/automatic_deduct(budget)
+	team_size = team_scale()
 	antag_amount = team_size
 	. = antag_cost
 	log_dynamic("Automatic deduction: +[antag_amount] [name]\s. Remaining budget: [budget - .].")
@@ -323,11 +324,14 @@
 		return FALSE
 	return ..()
 
+/datum/ruleset/team/proc/team_scale()
+	return team_size
+
 /datum/ruleset/team/cult
 	name = "Cultist"
 	ruleset_weight = 3
-	// antag_weight doesnt matter, since we've already allocated our budget for 4 cultists only
-	antag_cost = 30
+	// antag_weight doesnt matter, since we've already allocated our budget for cultists
+	antag_cost = 12.5 // 15 players
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
@@ -336,8 +340,15 @@
 	)
 	banned_jobs = list("Cyborg", "AI", "Chaplain", "Head of Personnel")
 
-	team_size = 4
+	team_size = 1
 	team_type = /datum/team/cult
+
+/datum/ruleset/team/cult/team_scale()
+	var/players = 0
+	for(var/mob/new_player/P in GLOB.player_list)
+		if(P.client && P.ready)
+			players++
+	return min(1 + round_down((players - 15) / 5), 4)
 
 /datum/ruleset/team/cult/declare_completion()
 	if(SSticker.mode.cult_team.cult_status == NARSIE_HAS_RISEN)

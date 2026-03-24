@@ -27,7 +27,7 @@
 		if((player.client) && (player.ready))
 			playerC++
 
-	max_cultists_to_start = min(1 + ((playerC - 15) / 5), 4)
+	max_cultists_to_start = min(1 + round_down((playerC - 15) / 5), 4)
 
 /datum/game_mode/cult/pre_setup()
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
