@@ -12,7 +12,7 @@
 	recommended_enemies = 1
 	single_antag_positions = list()
 
-	var/const/agents_possible = 5 //If we ever need more syndicate agents.
+	var/agents_possible = 5 //If we ever need more syndicate agents.
 
 	var/nukes_left = 1 //Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
