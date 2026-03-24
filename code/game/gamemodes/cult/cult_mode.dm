@@ -8,18 +8,26 @@
 	config_tag = "cult"
 	restricted_jobs = list("Chaplain", "AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Nanotrasen Career Trainer", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Trans-Solar Federation General", "Research Director", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
 	protected_jobs = list()
-	required_players = 30
-	required_enemies = 3
+	required_players = 15
+	required_enemies = 1
 	recommended_enemies = 4
 
 	var/list/pre_cult = list()
 
-	var/const/min_cultists_to_start = 3
+	var/const/min_cultists_to_start = 1
 	var/const/max_cultists_to_start = 4
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
 	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
+
+/datum/game_mode/cult/can_start()
+	. = ..()
+	for(var/mob/new_player/player in GLOB.player_list)
+		if((player.client) && (player.ready))
+			playerC++
+
+	max_cultists_to_start = min(1 + ((playerC - 15) / 5), 4)
 
 /datum/game_mode/cult/pre_setup()
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
