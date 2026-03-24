@@ -15,7 +15,7 @@
 	var/list/pre_cult = list()
 
 	var/const/min_cultists_to_start = 1
-	var/const/max_cultists_to_start = 4
+	var/max_cultists_to_start = 4
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
