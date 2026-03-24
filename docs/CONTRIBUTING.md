@@ -200,7 +200,6 @@ Each role inherits the lower role's responsibilities
 included in this role are:
 
 - [Burzah](https://github.com/Burzah)
-- [Contrabang](https://github.com/Contrabang)
 - [DGamerL](https://github.com/DGamerL)
 - [PollardTheDragon](https://github.com/PollardTheDragon)
 
