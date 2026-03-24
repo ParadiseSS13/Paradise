@@ -23,6 +23,7 @@
 
 /datum/game_mode/cult/can_start()
 	. = ..()
+	var/playerC = 0
 	for(var/mob/new_player/player in GLOB.player_list)
 		if((player.client) && (player.ready))
 			playerC++
