@@ -7,9 +7,9 @@
 	name = "nuclear emergency"
 	config_tag = "nuclear"
 	tdm_gamemode = TRUE
-	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
-	required_enemies = 5
-	recommended_enemies = 5
+	required_players = 10	// 10 players, solo ops. 30 players - 5 players to be the nuke ops = 25 players remaining
+	required_enemies = 1
+	recommended_enemies = 1
 	single_antag_positions = list()
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
@@ -27,6 +27,14 @@
 /datum/game_mode/nuclear/can_start()//This could be better, will likely have to recode it later
 	if(!..())
 		return 0
+
+	var/playerC = 0
+	for(var/mob/new_player/player in GLOB.player_list)
+		if((player.client) && (player.ready))
+			playerC++
+
+	if(playerC < 30)
+		agents_possible = 1
 
 	var/list/possible_syndicates = get_players_for_role(ROLE_OPERATIVE)
 	var/agent_number = 0
