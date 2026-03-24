@@ -340,7 +340,6 @@
 	)
 	banned_jobs = list("Cyborg", "AI", "Chaplain", "Head of Personnel")
 
-	team_size = 1
 	team_type = /datum/team/cult
 
 /datum/ruleset/team/cult/team_scale()
