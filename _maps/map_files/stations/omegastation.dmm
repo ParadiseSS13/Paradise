@@ -22627,7 +22627,7 @@
 /area/station/maintenance/service/port)
 "gbl" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "gbq" = (
 /obj/structure/table/glass,
@@ -41440,7 +41440,7 @@
 /area/station/engineering/atmos)
 "qIO" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "qJv" = (
 /obj/machinery/camera/autoname{
@@ -48801,9 +48801,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
-"uCh" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
-/area/shuttle/arrival/station)
 "uCn" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "Interrogation"
@@ -86600,20 +86597,20 @@ aZD
 aZD
 aZD
 vaM
-uCh
-uCh
+vaM
+vaM
 dfa
-uCh
+vaM
 rba
 rba
 rba
 rba
-uCh
+vaM
 dfa
-uCh
-uCh
-uCh
-uCh
+vaM
+vaM
+vaM
+vaM
 aae
 ioN
 mEA
@@ -86856,7 +86853,7 @@ aae
 aZD
 aZD
 vaM
-uCh
+vaM
 hyc
 leb
 kcu
@@ -87111,8 +87108,8 @@ inU
 blH
 aae
 vaM
-uCh
-uCh
+vaM
+vaM
 qIO
 mdF
 wqP
@@ -87370,7 +87367,7 @@ aae
 rba
 vQj
 wPf
-uCh
+vaM
 wYm
 wqP
 kcu
@@ -87640,8 +87637,8 @@ xrV
 nZG
 urB
 qoD
-uCh
-uCh
+vaM
+vaM
 aae
 ioN
 jUG
@@ -87884,7 +87881,7 @@ aae
 rba
 xOA
 sij
-uCh
+vaM
 siF
 wqP
 kcu
@@ -88139,8 +88136,8 @@ aZD
 aZD
 aZD
 vaM
-uCh
-uCh
+vaM
+vaM
 gbl
 jDm
 wqP
@@ -88398,7 +88395,7 @@ aZD
 aZD
 aZD
 vaM
-uCh
+vaM
 ejv
 osJ
 kcu
@@ -88656,20 +88653,20 @@ aZD
 aZD
 aZD
 vaM
-uCh
-uCh
+vaM
+vaM
 dfa
-uCh
+vaM
 rba
 rba
 rba
 rba
-uCh
+vaM
 dfa
-uCh
-uCh
-uCh
-uCh
+vaM
+vaM
+vaM
+vaM
 aae
 ioN
 wdb
