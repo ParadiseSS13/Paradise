@@ -75,6 +75,14 @@
 	air.set_carbon_dioxide(2000)
 	supermatter_turf.blind_release_air(air)
 
+// hydrogen
+/datum/engi_event/supermatter_event/delta_tier/hydrogen
+	name = "D-4"
+
+/datum/engi_event/supermatter_event/delta_tier/hydrogen/on_start()
+	var/datum/gas_mixture/air = new()
+	air.set_hydrogen(2000)
+	supermatter_turf.blind_release_air(air)
 
 // C class events
 
@@ -159,6 +167,21 @@
 	supermatter.power += 3000
 	duration = 10 SECONDS
 
+/datum/engi_event/supermatter_event/bravo_tier/power_surge // basically an arc-lite event
+	name = "B-4"
+	duration = 2 MINUTES
+
+/datum/engi_event/supermatter_event/bravo_tier/power_surge/on_start()
+	supermatter.power_additive = 1500
+
+/datum/engi_event/supermatter_event/bravo_tier/gas_dump // basically a laminate-lite event without the EMP
+	name = "B-5"
+	duration = 2 MINUTES
+
+/datum/engi_event/supermatter_event/bravo_tier/gas_dump/on_start()
+	supermatter.heat_multiplier = 2
+	supermatter.gas_multiplier = 2
+
 //A class events
 /datum/engi_event/supermatter_event/alpha_tier
 	threat_level = SM_EVENT_THREAT_A
@@ -190,6 +213,14 @@
 
 /datum/engi_event/supermatter_event/alpha_tier/gas_multiplier/on_start()
 	supermatter.gas_multiplier = 4
+
+/datum/engi_event/supermatter_event/alpha_tier/integrity_hit
+	name = "A-4"
+	duration = 10 SECONDS
+
+/datum/engi_event/supermatter_event/alpha_tier/integrity_hit/on_start()
+	supermatter.damage += 150
+	supermatter.matter_power += 1000
 
 // S-tier events are special. They are very dangerous, but give a 5 minute warning to the engis.
 /datum/engi_event/supermatter_event/sierra_tier
@@ -226,3 +257,16 @@
 	supermatter.heat_multiplier = 25
 	supermatter.gas_multiplier = 25
 	empulse(supermatter, 3, 6, TRUE, "S-laminite event")
+
+// Flood
+/datum/engi_event/supermatter_event/sierra_tier/flood
+	name = "S-FLOOD OUTPOUR"
+
+/datum/engi_event/supermatter_event/sierra_tier/flood/start_sierra_event()
+	..()
+	var/datum/gas_mixture/air = new()
+	air.set_nitrogen(20000)
+	air.set_oxygen(15000)
+	supermatter_turf.blind_release_air(air) // WHO HAS AN RCD, SPACE IT
+	supermatter.gas_multiplier = 15
+	empulse(supermatter, 3, 6, TRUE, "S-flood event")

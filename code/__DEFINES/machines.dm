@@ -49,7 +49,7 @@
 
 // More defines for the suppermatter
 /// Higher == Crystal safe operational temperature is higher.
-#define SUPERMATTER_HEAT_PENALTY_THRESHOLD 40
+#define SUPERMATTER_HEAT_PENALTY_THRESHOLD 30
 
 // Firelock states
 #define FD_OPEN 1
