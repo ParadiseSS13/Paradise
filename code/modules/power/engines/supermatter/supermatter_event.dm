@@ -219,7 +219,7 @@
 	duration = 10 SECONDS
 
 /datum/engi_event/supermatter_event/alpha_tier/integrity_hit/on_start()
-	supermatter.damage += 150
+	supermatter.damage += rand(350,650)
 	supermatter.matter_power += 1000
 
 // S-tier events are special. They are very dangerous, but give a 5 minute warning to the engis.
@@ -265,7 +265,7 @@
 /datum/engi_event/supermatter_event/sierra_tier/flood/start_sierra_event()
 	..()
 	var/datum/gas_mixture/air = new()
-	air.set_nitrogen(20000)
+	air.set_toxins(20000)
 	air.set_oxygen(15000)
 	supermatter_turf.blind_release_air(air) // WHO HAS AN RCD, SPACE IT
 	supermatter.gas_multiplier = 15
