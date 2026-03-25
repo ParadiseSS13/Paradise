@@ -506,7 +506,7 @@
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/bearserk

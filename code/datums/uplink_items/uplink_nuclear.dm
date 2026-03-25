@@ -550,7 +550,7 @@
 	reference = "KMI"
 	item = /obj/item/bio_chip_implanter/krav_maga
 	cost = 25
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_NINJA)
 
 /datum/uplink_item/bio_chips/uplink/nuclear
 	name = "Nuclear Uplink Bio-chip"
