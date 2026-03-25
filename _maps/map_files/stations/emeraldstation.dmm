@@ -105087,6 +105087,14 @@
 /obj/item/food/dough,
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
+	},
+/obj/item/holomenu{
+	pixel_x = 9;
+	pixel_y = 17
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "vaq" = (
@@ -107667,6 +107675,10 @@
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/drinks/flask/barflask,
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/bar)
 "vBV" = (

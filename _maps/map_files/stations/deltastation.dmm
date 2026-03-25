@@ -7759,6 +7759,10 @@
 	pixel_x = 10;
 	pixel_y = 3
 	},
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "aGF" = (
@@ -92759,6 +92763,14 @@
 	pixel_x = 7
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/holomenu{
+	pixel_x = 9;
+	pixel_y = 17
+	},
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "vRp" = (

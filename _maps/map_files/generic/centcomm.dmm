@@ -2505,6 +2505,10 @@
 	pixel_x = 7;
 	pixel_y = -14
 	},
+/obj/item/holomenu{
+	pixel_x = 8;
+	pixel_y = 7
+	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "iL" = (

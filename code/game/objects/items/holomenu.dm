@@ -9,7 +9,7 @@
 	light_color = LIGHT_COLOR_CYAN
 	light_range = 1.4
 
-	req_one_access = list(ACCESS_BAR, ACCESS_GALLEY, ACCESS_HYDROPONICS)
+	req_one_access = list(ACCESS_BAR, ACCESS_KITCHEN)
 
 	var/rave_mode = FALSE
 	var/menu_text = ""
@@ -19,12 +19,14 @@
 	var/image/holo_text
 	var/image/holo_border
 
-/obj/item/holomenu/mechanics_hints(mob/user, distance, is_adjacent)
-	. += ..()
-	. += "If you have Bar, Galley, or Hydroponics access, you can swipe your ID on this to anchor it in place."
-	. += "You can enter text manually by clicking it with an empty hand, or you can use a paper on the [src] to transfer its written contents."
-	. += "ALT-click the [src] to toggle its border."
-	. += "CTRL-click the [src] to toggle RAVE MODE."
+/obj/item/holomenu/examine(mob/user)
+	. = ..()
+	if(anchored && length(menu_text))
+		interact(user)
+		return
+	. += "<span class='notice'>If you have Bar or Kitchen access, you can swipe your ID on this to anchor it.</span>"
+	. += "<span class='notice'>Click it with an empty hand to enter text, or use a paper to transfer its contents.</span>"
+	. += "<span class='notice'>ALT-click to toggle its border. CTRL-click to toggle RAVE MODE.</span>"
 
 /obj/item/holomenu/Initialize()
 	. = ..()
@@ -33,84 +35,123 @@
 	holo_border = image(icon, null, "holomenu-border")
 
 /obj/item/holomenu/Destroy()
-	STOP_PROCESSING(SSfast_process, src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/holomenu/process()
 	update_icon()
 
 /obj/item/holomenu/update_icon()
-	ClearOverlays()
+	cut_overlays()
 	if(anchored)
 		set_light(2)
 		if(rave_mode)
-			var/color_rotate = color_rotation(rand(-80, 80))
-			holo_lights.color = color_rotate
-			holo_text.color = color_rotate
-			holo_border.color = color_rotate
+			var/randcolor = rgb(rand(0,255), rand(0,255), rand(0,255))
+			holo_lights.color = randcolor
+			holo_text.color = randcolor
+			holo_border.color = randcolor
 		else
 			holo_lights.color = null
 			holo_text.color = null
 			holo_border.color = null
-		AddOverlays(holo_lights)
+		overlays += holo_lights
 		if(length(menu_text))
-			AddOverlays(holo_text)
+			overlays += holo_text
 		if(border_on)
-			AddOverlays(holo_border)
+			overlays += holo_border
 	else
 		set_light(0)
 
-/obj/item/holomenu/attackby(obj/item/attacking_item, mob/user)
-	var/obj/item/card/id/ID = attacking_item.GetID()
-	if(istype(ID))
-		if(check_access(ID))
+/obj/item/holomenu/attackby__legacy__attackchain(obj/I, mob/user)
+	if(istype(I, /obj/item/card/id))
+		if(allowed(user))
 			anchored = !anchored
-			to_chat(user, SPAN_NOTICE("You [anchored ? "" : "un"]anchor \the [src]."))
+			to_chat(user, "<span class='notice'>You [anchored ? "" : "un"]anchor \the [src].</span>")
 			update_icon()
 		else
-			to_chat(user, SPAN_WARNING("Access denied."))
-		return TRUE
-	if(istype(attacking_item, /obj/item/paper) && allowed(user))
-		var/obj/item/paper/P = attacking_item
-		to_chat(user, SPAN_NOTICE("You scan \the [attacking_item.name] into \the [name]."))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+	if(istype(I, /obj/item/paper) && allowed(user))
+		var/obj/item/paper/P = I
+		to_chat(user, "<span class='notice'>You scan \the [I.name] into \the [name].</span>")
 		menu_text = P.info
 		menu_text = replacetext(menu_text, "color=black>", "color=white>")
 		update_icon()
-		return TRUE
-	return ..()
-
-/obj/item/holomenu/examine(mob/user, distance, is_adjacent, infix, suffix, show_extended)
-	if(anchored && length(menu_text))
-		interact(user)
-		return TRUE
-	else
-		. = ..()
-
-/obj/item/holomenu/attack_hand(mob/user)
-	if(anchored)
-		if(allowed(user))
-			var/new_text = sanitize(input(user, "Enter new text for the holo-menu to display.", "Holo-Menu Display", html2pencode(menu_text, TRUE)) as null|message)
-			if(!isnull(new_text))
-				menu_text = pencode2html(new_text)
-				update_icon()
-		else
-			interact(user)
 		return
 	return ..()
 
+// /obj/item/holomenu/attack_hand(mob/user)
+// 	if(anchored)
+// 		if(allowed(user))
+// 			var/new_text = sanitize(input(user, "Enter new text for the holo-menu to display.", "Holo-Menu Display", menu_text) as null|message)
+// 			if(!isnull(new_text))
+// 				menu_text = new_text
+// 				update_icon()
+// 		else
+// 			interact(user)
+// 		return
+// 	return ..()
+
 /obj/item/holomenu/interact(mob/user)
-	var/datum/browser/holomenu_win = new(user, "holomenu", "Holo-Display", 450, 500)
-	holomenu_win.set_content(menu_text)
-	holomenu_win.open()
+	if(anchored)
+		ui_interact(user)
+	else
+		return
+
+/obj/item/holomenu/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Holomenu", name)
+		ui.open()
+
+/obj/item/holomenu/ui_data(mob/user)
+	var/parsed = menu_text
+	parsed = replacetext(parsed, "\[b]", "<b>")
+	parsed = replacetext(parsed, "\[/b]", "</b>")
+	parsed = replacetext(parsed, "\[i]", "<i>")
+	parsed = replacetext(parsed, "\[/i]", "</i>")
+	parsed = replacetext(parsed, "\[u]", "<u>")
+	parsed = replacetext(parsed, "\[/u]", "</u>")
+	parsed = replacetext(parsed, "\[br]", "<br>")
+	parsed = replacetext(parsed, "\[h1]", "<h1>")
+	parsed = replacetext(parsed, "\[/h1]", "</h1>")
+	parsed = replacetext(parsed, "\[h2]", "<h2>")
+	parsed = replacetext(parsed, "\[/h2]", "</h2>")
+	parsed = replacetext(parsed, "\[h3]", "<h3>")
+	parsed = replacetext(parsed, "\[/h3]", "</h3>")
+	parsed = replacetext(parsed, "\[list]", "<ul>")
+	parsed = replacetext(parsed, "\[/list]", "</ul>")
+	parsed = replacetext(parsed, "\[*]", "<li>")
+	parsed = replacetext(parsed, "\[hr]", "<hr>")
+	parsed = replacetext(parsed, "\[small]", "<small>")
+	parsed = replacetext(parsed, "\[/small]", "</small>")
+	parsed = replacetext(parsed, "\[table]", "<table>")
+	parsed = replacetext(parsed, "\[/table]", "</table>")
+	parsed = replacetext(parsed, "\[cell]", "<td>")
+	parsed = replacetext(parsed, "\[row]", "<tr>")
+
+	return list("menu_text" = parsed)
+
+/obj/item/holomenu/ui_act(action, list/params, datum/tgui/ui = null)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("set_text")
+			if(!allowed(usr))
+				return FALSE
+			menu_text = sanitize(params["text"])
+			update_icon()
+			return TRUE
 
 /obj/item/holomenu/AltClick(mob/user)
 	if(Adjacent(user))
 		if(allowed(user))
 			border_on = !border_on
-			to_chat(user, SPAN_NOTICE("You toggle \the [src]'s border to be [border_on ? "on" : "off"]."))
+			to_chat(user, "<span class='notice'>You toggle \the [src]'s border [border_on ? "on" : "off"].</span>")
 			update_icon()
 		else
-			to_chat(user, SPAN_WARNING("Access denied."))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 	return ..()
 
@@ -118,16 +159,16 @@
 	if(Adjacent(user))
 		if(allowed(user))
 			rave_mode = !rave_mode
-			to_chat(user, SPAN_NOTICE("You toggle \the [src]'s rave mode [rave_mode ? "on" : "off"]."))
+			to_chat(user, "<span class='notice'>You toggle \the [src]'s rave mode [rave_mode ? "on" : "off"].</span>")
 			update_icon()
 			if(rave_mode)
-				START_PROCESSING(SSfast_process, src)
-				light_color = LIGHT_COLOR_HALOGEN // a more generic lighting
+				START_PROCESSING(SSobj, src)
+				light_color = LIGHT_COLOR_HALOGEN
 			else
-				STOP_PROCESSING(SSfast_process, src)
+				STOP_PROCESSING(SSobj, src)
 				light_color = initial(light_color)
 		else
-			to_chat(user, SPAN_WARNING("Access denied."))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 	return ..()
 
@@ -137,28 +178,23 @@
 	icon = 'icons/obj/holomenu_holodeck.dmi'
 	anchored = 1
 	layer = 4
-
 	req_one_access = list()
 
-/obj/item/holomenu/holodeck/mechanics_hints(mob/user, distance, is_adjacent)
-	. += ..()
-	. += "Note that holodecks do not support RAVE MODE."
-
-/obj/item/holomenu/holodeck/attack_hand(mob/user)
-	var/new_text = sanitize(input(user, "Enter new text for the hologram to display.", "Hologram Display", html2pencode(menu_text, TRUE)) as null|message)
+/obj/item/holomenu/holodeck/attack_self__legacy__attackchain(mob/user)
+	var/new_text = sanitize(input(user, "Enter new text for the hologram to display.", "Hologram Display", menu_text) as null|message)
 	if(!isnull(new_text))
-		menu_text = pencode2html(new_text)
+		menu_text = new_text
 		update_icon()
 
-/obj/item/holomenu/holodeck/attackby(obj/item/attacking_item, mob/user)
-	var/obj/item/card/id/ID = attacking_item.GetID()
-	if(istype(ID))
-		return TRUE
-	if(istype(attacking_item, /obj/item/paper))
-		var/obj/item/paper/P = attacking_item
-		to_chat(user, SPAN_NOTICE("You scan \the [attacking_item.name] into \the [name]."))
+/obj/item/holomenu/holodeck/attackby__legacy__attackchain(obj/I, mob/user)
+	//var/obj/item/card/id/ID = I.GetID()
+	//if(istype(ID))
+	//	return
+	if(istype(I, /obj/item/paper))
+		var/obj/item/paper/P = I
+		to_chat(user, "<span class='notice'>You scan \the [I.name] into \the [name].</span>")
 		menu_text = P.info
 		menu_text = replacetext(menu_text, "color=black>", "color=white>")
 		update_icon()
-		return TRUE
+		return
 	return ..()
