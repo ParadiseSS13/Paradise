@@ -17,7 +17,7 @@
 	var/blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	var/basecolor = "#A10808" // Color when wet.
-	var/amount = 5
+	amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/image/weightless_image
