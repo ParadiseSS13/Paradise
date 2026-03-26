@@ -25,7 +25,7 @@
 		interact(user)
 		return
 	. += "<span class='notice'>If you have Bar or Kitchen access, you can swipe your ID on this to anchor it.</span>"
-	. += "<span class='notice'>Click it with an empty hand to enter text, or use a paper to transfer its contents.</span>"
+	. += "<span class='notice'>Click it with an empty hand to view the text, or use a paper to transfer its contents.</span>"
 	. += "<span class='notice'>ALT-click to toggle its border. CTRL-click to toggle RAVE MODE.</span>"
 
 /obj/item/holomenu/Initialize()
@@ -46,7 +46,7 @@
 	if(anchored)
 		set_light(2)
 		if(rave_mode)
-			var/randcolor = rgb(rand(0,255), rand(0,255), rand(0,255))
+			var/randcolor = rgb(rand(100,255), rand(100,255), rand(100,255))
 			holo_lights.color = randcolor
 			holo_text.color = randcolor
 			holo_border.color = randcolor
@@ -80,23 +80,15 @@
 		return
 	return ..()
 
-// /obj/item/holomenu/attack_hand(mob/user)
-// 	if(anchored)
-// 		if(allowed(user))
-// 			var/new_text = sanitize(input(user, "Enter new text for the holo-menu to display.", "Holo-Menu Display", menu_text) as null|message)
-// 			if(!isnull(new_text))
-// 				menu_text = new_text
-// 				update_icon()
-// 		else
-// 			interact(user)
-// 		return
-// 	return ..()
-
-/obj/item/holomenu/interact(mob/user)
+/obj/item/holomenu/attack_hand(mob/user)
 	if(anchored)
-		ui_interact(user)
-	else
+		if(allowed(user))
+			ui_interact(user)
+			update_icon()
+		else
+			interact(user)
 		return
+	return ..()
 
 /obj/item/holomenu/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -187,9 +179,6 @@
 		update_icon()
 
 /obj/item/holomenu/holodeck/attackby__legacy__attackchain(obj/I, mob/user)
-	//var/obj/item/card/id/ID = I.GetID()
-	//if(istype(ID))
-	//	return
 	if(istype(I, /obj/item/paper))
 		var/obj/item/paper/P = I
 		to_chat(user, "<span class='notice'>You scan \the [I.name] into \the [name].</span>")
