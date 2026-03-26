@@ -386,7 +386,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol
 	name = "dueling pistol"
 	desc = "An expensive pistol used for settling disputes."
-	icon_state = "ishotgun"
+	icon_state = "dueling_pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dueling_pistol

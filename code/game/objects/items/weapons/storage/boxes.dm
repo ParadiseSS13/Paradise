@@ -1802,7 +1802,7 @@
 /obj/item/storage/box/dueling_pistols
 	name = "dueling pistols kit"
 	desc = "A fancy box for storing a dueling pistol, gloves, and spare rounds."
-	icon_state = "soviet_box"
+	icon_state = "dueling_pistols_box"
 
 /obj/item/storage/box/dueling_pistols/populate_contents()
 	new /obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol(src)
