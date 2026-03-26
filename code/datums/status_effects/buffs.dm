@@ -658,7 +658,7 @@
 /datum/status_effect/dueling
 	id = "dueling"
 	alert_type = /atom/movable/screen/alert/status_effect/dueling
-	duration = 1 MINUTE
+	duration = 1 MINUTES
 
 /atom/movable/screen/alert/status_effect/dueling
 	name = "Dueling"
