@@ -381,6 +381,31 @@
 		sling = FALSE
 		update_icon(UPDATE_ICON_STATE)
 
+
+// Dueling Pistols //
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol
+	name = "dueling pistol"
+	desc = "An expensive pistol used for settling disputes."
+	icon_state = "ishotgun"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_BELT
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/dueling_pistol
+	unique_reskin = FALSE
+	can_sawoff = FALSE
+	can_holster = TRUE
+
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol/AltClick(mob/living/user)
+	. = ..()
+	if(loc != user)
+		return
+	user.apply_status_effect(STATUS_EFFECT_DUELIN)
+
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/stack/cable_coil))
+		return
+	else
+		return ..()
+
 //caneshotgun
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane

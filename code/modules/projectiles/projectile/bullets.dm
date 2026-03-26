@@ -109,6 +109,14 @@
 		var/mob/living/M = target
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
+/obj/projectile/bullet/dueling
+	damage = 10
+
+/obj/projectile/bullet/dueling/on_hit(atom/target, blocked = 0)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		if
+
 /obj/projectile/bullet/midbullet
 	damage = 20
 	stamina = 45 // Three rounds from the c20r knocks unarmoured people down, four for people with bulletproof

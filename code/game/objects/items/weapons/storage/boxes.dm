@@ -1799,6 +1799,18 @@
 /obj/item/storage/box/soviet/empty/populate_contents()
 	return
 
+/obj/item/storage/box/dueling_pistols
+	name = "dueling pistols kit"
+	desc = "A fancy box for storing a dueling pistol, gloves, and spare rounds."
+	icon_state = "soviet_box"
+
+/obj/item/storage/box/dueling_pistols/populate_contents()
+	new /obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol(src)
+	new /obj/item/ammo_casing/dueling(src)
+	new /obj/item/ammo_casing/dueling(src)
+	new /obj/item/ammo_casing/dueling(src)
+	new /obj/item/clothing/gloves/color/white(src)
+
 /obj/item/storage/box/clown
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown."
