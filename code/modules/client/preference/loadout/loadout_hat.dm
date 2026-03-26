@@ -31,10 +31,6 @@
 	path = /obj/item/clothing/head/hardhat/dblue
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
-/datum/gear/hat/warning_cone
-	display_name = "Warning cone"
-	path = /obj/item/clothing/head/cone
-
 /datum/gear/hat/that
 	display_name = "Top hat"
 	path = /obj/item/clothing/head/that
@@ -181,31 +177,6 @@
 	display_name = "Cowboy hat, botany"
 	path = /obj/item/clothing/head/cowboyhat/hydro
 	allowed_roles = list("Botanist")
-
-/datum/gear/hat/cowboyhat/engie
-	display_name = "Cowboy hat, engineering"
-	path = /obj/item/clothing/head/cowboyhat/engie
-	allowed_roles = list("Station Engineer", "Atmospheric Technician", "Chief Engineer")
-
-/datum/gear/hat/cowboyhat/research
-	display_name = "Cowboy hat, research"
-	path = /obj/item/clothing/head/cowboyhat/research
-	allowed_roles = list("Research Director", "Scientist", "Xenobiologist", "Roboticist", "Geneticist")
-
-/datum/gear/hat/cowboyhat/med
-	display_name = "Cowboy hat, medical"
-	path = /obj/item/clothing/head/cowboyhat/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Chemist", "Virologist", "Psychologist", "Coroner")
-
-/datum/gear/hat/cowboyhat/supply
-	display_name = "Cowboy hat, supply"
-	path = /obj/item/clothing/head/cowboyhat/supply
-	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer", "Smith")
-
-/datum/gear/hat/cowboyhat/command
-	display_name = "Cowboy hat, command"
-	path = /obj/item/clothing/head/cowboyhat/command
-	allowed_roles = list("Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Quartermaster", "Nanotrasen Representative", "Magistrate", "Blueshield Officer", "Nanotrasen Career Trainer")
 
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"

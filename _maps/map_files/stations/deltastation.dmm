@@ -71,10 +71,6 @@
 /obj/structure/sign/engineering/atmos{
 	pixel_x = 32
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room/secondary)
 "ace" = (
@@ -892,10 +888,11 @@
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "agE" = (
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "agF" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "agH" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -970,7 +967,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "agZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1056,10 +1053,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/hallway/secondary/entry/north)
 "ahB" = (
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "ahC" = (
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ahD" = (
 /obj/structure/cable/yellow{
@@ -1142,7 +1139,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aim" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -1180,7 +1177,7 @@
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "aiF" = (
 /obj/structure/chair{
@@ -1239,7 +1236,7 @@
 /obj/structure/closet/wardrobe/mixed,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "ajd" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -1273,13 +1270,13 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/item/storage/secure/briefcase,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "ajD" = (
 /obj/structure/computerframe{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ajE" = (
 /obj/structure/cable{
@@ -1431,15 +1428,15 @@
 /area/shuttle/pod_1)
 "akx" = (
 /obj/structure/closet/wardrobe/black,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aky" = (
 /obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akz" = (
 /obj/structure/closet/wardrobe/yellow,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "akA" = (
 /obj/effect/mapping_helpers/turfs/rust,
@@ -1584,7 +1581,7 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/suit/storage/hazardvest,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "alJ" = (
 /obj/structure/closet/emcloset,
@@ -8715,10 +8712,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "aKa" = (
@@ -16710,10 +16703,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/control)
 "bpM" = (
@@ -17197,10 +17186,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -19230,10 +19215,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/control)
 "bAN" = (
@@ -19409,18 +19390,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "bBL" = (
+/obj/machinery/light,
 /obj/machinery/computer/atmos_alert{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
-	},
-/obj/machinery/door_control{
-	id = "atmos";
-	name = "Atmospherics Lockdown";
-	pixel_y = -24;
-	req_access = list(24)
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -23016,9 +22992,6 @@
 /obj/machinery/computer/station_alert{
 	dir = 4
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = -24
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "bOa" = (
@@ -23984,7 +23957,7 @@
 	},
 /obj/effect/landmark/spawner/late/crew,
 /obj/machinery/light,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bRD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -25318,11 +25291,7 @@
 /obj/machinery/computer/security/engineering{
 	dir = 4
 	},
-/obj/machinery/door_control{
-	id = "atmos";
-	name = "Atmospherics Lockdown";
-	pixel_y = -8;
-	req_access = list(24);
+/obj/machinery/keycard_auth{
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -40431,11 +40400,11 @@
 /turf/simulated/wall,
 /area/station/maintenance/port2)
 "dbN" = (
+/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "dbX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -42734,10 +42703,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
@@ -45274,8 +45239,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
+/obj/machinery/r_n_d/server/station,
 /obj/machinery/light/small,
-/obj/machinery/ai_node/network_node,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
 	name = "Mainframe Floor";
@@ -45296,7 +45261,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/obj/machinery/ai_node/processing_node,
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
 	name = "Mainframe Floor";
@@ -49595,10 +49560,6 @@
 	name = "Atmospherics Locker Room"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room/secondary)
 "ehT" = (
@@ -50949,7 +50910,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "eHs" = (
 /obj/structure/disposalpipe/segment{
@@ -52117,10 +52078,6 @@
 /area/station/service/hydroponics)
 "fgh" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "fgm" = (
@@ -52977,12 +52934,12 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8;
+	name = "O2 to Air Mixer"
+	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 5
-	},
-/obj/machinery/atmospherics/binary/valve/digital/open{
-	name = "Oxygen Outlet Valve";
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -54297,7 +54254,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "fYb" = (
@@ -54737,18 +54693,10 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "ghP" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "git" = (
@@ -56004,10 +55952,6 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "gKj" = (
@@ -57975,7 +57919,7 @@
 "hEk" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "hEt" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -61014,10 +60958,6 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "iTz" = (
@@ -62547,10 +62487,6 @@
 /area/station/hallway/secondary/exit)
 "jDM" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room/secondary)
 "jDT" = (
@@ -63037,7 +62973,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "jOL" = (
 /obj/machinery/ai_status_display,
@@ -63860,10 +63796,6 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "keL" = (
@@ -74754,9 +74686,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/sleep)
-"oHy" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
-/area/shuttle/arrival/station)
 "oHR" = (
 /turf/simulated/floor/plating/airless,
 /area/station/hallway/secondary/exit)
@@ -74990,7 +74919,7 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "oMH" = (
 /obj/machinery/light{
@@ -77094,10 +77023,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/solar_maintenance/fore_port)
 "pGk" = (
@@ -77160,7 +77085,7 @@
 /area/station/engineering/atmos/control)
 "pHg" = (
 /obj/item/kirbyplants/large,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "pHr" = (
 /obj/machinery/door/firedoor,
@@ -79282,10 +79207,6 @@
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Supermatter Monitoring Room"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "qEh" = (
@@ -79558,10 +79479,6 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "qJY" = (
@@ -80517,10 +80434,6 @@
 /area/station/science/genetics)
 "rcz" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "rcD" = (
@@ -80713,10 +80626,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "rgn" = (
@@ -81432,14 +81341,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
@@ -83208,7 +83109,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "seH" = (
 /obj/structure/disposalpipe/segment,
@@ -84713,14 +84614,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/control)
@@ -86997,10 +86890,6 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "tBi" = (
@@ -87247,7 +87136,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "tES" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -90433,10 +90322,6 @@
 /area/station/security/permabrig)
 "uSi" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "uSl" = (
@@ -93266,7 +93151,7 @@
 "vZx" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/walllocker/emerglocker/directional/east,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "vZK" = (
 /obj/structure/table/glass,
@@ -94050,7 +93935,7 @@
 	dir = 8
 	},
 /obj/machinery/door_control{
-	id = "genetics_shutters";
+	id = "genetics";
 	name = "Genetics Privacy Shutters";
 	pixel_y = 9;
 	req_access = list(9);
@@ -95824,12 +95709,12 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8;
+	name = "N2 to Air Mixer"
+	},
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 5
-	},
-/obj/machinery/atmospherics/binary/valve/digital/open{
-	name = "Nitrogen Outlet Valve";
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -97597,7 +97482,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "xJD" = (
 /obj/machinery/newscaster/directional/west,
@@ -134545,7 +134430,7 @@ alv
 agE
 alv
 alv
-oHy
+agD
 agE
 aaa
 dGS
@@ -134795,15 +134680,15 @@ blc
 jWY
 doS
 abj
-oHy
+agD
 agE
 agF
 agF
-oHy
+agD
 agF
 agF
 agE
-oHy
+agD
 abj
 dGS
 wOh

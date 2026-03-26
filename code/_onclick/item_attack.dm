@@ -178,7 +178,7 @@
 		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
 		return FALSE
 
-	if(!force && !("zero_damage_hitsound" in vars))
+	if(!force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
 		SEND_SIGNAL(target, COMSIG_ATTACK)

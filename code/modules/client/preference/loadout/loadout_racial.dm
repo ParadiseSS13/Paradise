@@ -14,8 +14,6 @@
 /datum/gear/racial
 	sort_category = "Racial"
 	main_typepath = /datum/gear/racial
-	tweakname = FALSE // Just to keep things identifiable, really.
-	tweakdesc = FALSE
 
 /datum/gear/racial/taj
 	display_name = "Tajaran veil"
@@ -63,7 +61,7 @@
 	display_name = "Tajaran Skills Veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a skills HUD."
 	path = /obj/item/clothing/glasses/hud/tajblind/skill
-	allowed_roles = list("Head of Personnel", "Psychiatrist", "Nanotrasen Representative")
+	allowed_roles = list("Head of Personnel", "Psychiatrist")
 
 /datum/gear/racial/taj/hydroponics
 	display_name = "Tajaran Hydroponic Veil"

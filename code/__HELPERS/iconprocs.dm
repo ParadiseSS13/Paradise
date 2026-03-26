@@ -547,10 +547,3 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		"x" = icon_width > world.icon_size && pixel_x != 0 ? (icon_width - world.icon_size) * 0.5 : 0,
 		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
 	)
-
-/// Swaps an entire palette, for convenience, given two same-length lists of rgb or rgba colors
-/icon/proc/swap_palette(list/old_colors, list/new_colors)
-	if(length(old_colors) != length(new_colors))
-		return FALSE
-	for(var/index in 1 to length(old_colors))
-		SwapColor(old_colors[index], new_colors[index])

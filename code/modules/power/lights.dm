@@ -291,9 +291,9 @@
 	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
-	brightness_color = "#faca92"
+	brightness_color = "#ffebb0"
 	nightshift_light_range = 4
-	nightshift_light_color = "#e29a5f" // #a0a080
+	nightshift_light_color = "#ffefa0" // #a0a080
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
 
