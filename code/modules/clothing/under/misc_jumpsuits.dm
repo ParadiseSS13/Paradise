@@ -108,6 +108,17 @@
 	icon_state = "durathread"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 5, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 0)
 
+/obj/item/clothing/under/misc/swimsuit
+	name = "abstract swimsuit"
+	desc = ABSTRACT_TYPE_DESC
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
+		)
+
 /obj/item/clothing/under/misc/swimsuit/black
 	name = "black swimsuit"
 	desc = "An oldfashioned black swimsuit."
