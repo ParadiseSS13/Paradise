@@ -398,7 +398,7 @@
 	. = ..()
 	if(loc != user)
 		return
-	user.apply_status_effect(STATUS_EFFECT_DUELIN)
+	user.apply_status_effect(STATUS_EFFECT_DUELING)
 
 /obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil))

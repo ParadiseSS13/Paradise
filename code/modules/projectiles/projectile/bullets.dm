@@ -114,8 +114,22 @@
 
 /obj/projectile/bullet/dueling/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
+		var/target_valid = FALSE
+		var/source_valid = FALSE
 		var/mob/living/M = target
-		if
+		for(var/datum/status_effect/S in M.status_effects)
+			if(istype(S, STATUS_EFFECT_DUELING))
+				target_valid = TRUE
+		if(!target_valid)
+			return
+		var/mob/living/F = firer
+		for(var/datum/status_effect/S in F.status_effects)
+			if(istype(S, STATUS_EFFECT_DUELING))
+				source_valid = TRUE
+		if(!source_valid)
+			return
+		M.apply_damage(90, BRUTE, def_zone)
+		M.AdjustKnockDown(5 SECONDS)
 
 /obj/projectile/bullet/midbullet
 	damage = 20
