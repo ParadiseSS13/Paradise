@@ -130,6 +130,8 @@
 			return
 		M.apply_damage(90, BRUTE, def_zone)
 		M.AdjustKnockDown(5 SECONDS)
+		M.remove_status_effect(STATUS_EFFECT_DUELING)
+		F.remove_status_effect(STATUS_EFFECT_DUELING)
 
 /obj/projectile/bullet/midbullet
 	damage = 20
