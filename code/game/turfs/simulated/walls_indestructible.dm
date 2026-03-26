@@ -227,14 +227,6 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 
-/turf/simulated/wall/indestructible/opsglass/titanium_window
-	name = "shuttle window"
-	icon = 'icons/turf/floors/titaniumglass.dmi'
-	icon_state = "titaniumglass-0"
-	base_icon_state = "titaniumglass"
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_TITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS)
-
 /turf/simulated/wall/indestructible/rock
 	name = "dense rock"
 	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."

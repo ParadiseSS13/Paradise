@@ -36,9 +36,6 @@
 	eyes = "skulk_eyes_s"
 	butt_sprite = "nian"
 
-	male_scream_sound = 'sound/voice/scream_skkulk.ogg'
-	female_scream_sound = 'sound/voice/scream_skkulk.ogg'
-
 	optional_body_accessory = FALSE
 
 	reagent_tag = PROCESS_ORG

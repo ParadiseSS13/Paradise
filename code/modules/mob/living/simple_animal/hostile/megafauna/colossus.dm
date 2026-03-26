@@ -18,6 +18,9 @@ The colossus' true danger lies in its ranged capabilities. It fires immensely da
 At 33% health, the colossus gains an additional attack:
  4. The colossus fires two spirals of death bolts, spinning in opposite directions.
 
+When a colossus dies, it leaves behind a chunk of glowing crystal known as a black box. Anything placed inside will carry over into future rounds.
+For instance, you could place a bag of holding into the black box, and then kill another colossus next round and retrieve the bag of holding from inside.
+
 Difficulty: Very Hard
 
 */

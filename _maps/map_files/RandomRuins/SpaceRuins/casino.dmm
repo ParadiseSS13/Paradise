@@ -413,8 +413,10 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "kx" = (
-/obj/machinery/light/exterior/warning{
-	dir = 4
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#FF0000";
+	color = "#FF0000"
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -464,8 +466,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "lZ" = (
-/obj/machinery/light/exterior/warning{
-	dir = 1
+/obj/machinery/light{
+	dir = 1;
+	brightness_color = "#FF0000";
+	color = "#FF0000"
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -1032,7 +1036,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "DL" = (
-/obj/machinery/light/exterior/warning,
+/obj/machinery/light{
+	brightness_color = "#FF0000";
+	color = "#FF0000"
+	},
 /turf/template_noop,
 /area/template_noop)
 "DM" = (
@@ -1507,8 +1514,10 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/powered/casino/hall)
 "TA" = (
-/obj/machinery/light/exterior/warning{
-	dir = 8
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000";
+	color = "#FF0000"
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -1686,12 +1695,14 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "Xe" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000";
+	color = "#FF0000"
+	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-4"
-	},
-/obj/machinery/light/exterior/warning{
-	dir = 8
 	},
 /turf/template_noop,
 /area/template_noop)

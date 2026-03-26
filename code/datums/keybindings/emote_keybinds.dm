@@ -711,18 +711,6 @@
 	linked_emote = /datum/emote/lizard/whicker
 	name = "Whicker (Lizard)"
 
-/datum/keybinding/emote/living/simple_animal/cow/moo
-	linked_emote = /datum/emote/living/simple_animal/cow/moo
-	name = "Moo (Cow)"
-
-/datum/keybinding/emote/living/simple_animal/cluck
-	linked_emote = /datum/emote/living/simple_animal/chicken/cluck
-	name = "Cluck (Chicken)"
-
-/datum/keybinding/emote/living/simple_animal/pig/oink
-	linked_emote = /datum/emote/living/simple_animal/pig/oink
-	name = "Oink (Pig)"
-
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM
 	var/default_emote_text = "Insert custom me emote text."

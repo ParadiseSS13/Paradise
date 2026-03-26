@@ -12898,17 +12898,18 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "aVV" = (
-/turf/simulated/wall/indestructible/titanium,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "aVX" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aVY" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/arrival/station)
 "aWb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -13367,22 +13368,22 @@
 /area/station/hallway/secondary/entry)
 "aXr" = (
 /obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aXs" = (
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aXu" = (
 /obj/structure/closet/wardrobe/black,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aXv" = (
 /obj/structure/closet/wardrobe/xenos,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aXx" = (
 /obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aXA" = (
 /obj/structure/cable{
@@ -13718,7 +13719,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/indestructible{
+/obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
@@ -13728,7 +13729,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "aZa" = (
 /obj/structure/table/reinforced,
@@ -15331,7 +15332,7 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bez" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -31602,7 +31603,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "cqY" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "cra" = (
 /obj/structure/extinguisher_cabinet{
@@ -44660,7 +44661,7 @@
 /obj/machinery/cell_charger{
 	pixel_y = 5
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "dtY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -46278,7 +46279,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/storage)
+/area/station/engineering/engine/reactor)
 "edM" = (
 /obj/machinery/light{
 	dir = 4
@@ -49812,7 +49813,7 @@
 "fFc" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "fFd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -50653,7 +50654,7 @@
 /area/station/hallway/primary/aft/south)
 "gdQ" = (
 /obj/structure/closet/walllocker/emerglocker/directional/south,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "gdY" = (
 /obj/structure/table/reinforced,
@@ -53296,7 +53297,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "hqC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -54614,7 +54615,7 @@
 	c_tag = "Arrivals Shuttle Fore";
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "hXP" = (
 /obj/machinery/light/small{
@@ -55387,15 +55388,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
-"iqL" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery/white/hollow,
-/obj/effect/turf_decal/tiles/department/command,
-/obj/machinery/ai_node/processing_node,
-/turf/simulated/floor/plasteel/dark,
-/area/station/science/server/coldroom)
 "iqM" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -57916,7 +57908,7 @@
 	},
 /area/station/service/mime)
 "jyO" = (
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "jza" = (
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -58427,7 +58419,7 @@
 /area/station/medical/virology)
 "jMw" = (
 /obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "jMy" = (
 /obj/machinery/door/window/reinforced/normal{
@@ -60910,7 +60902,7 @@
 	c_tag = "Arrivals North";
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "kRy" = (
 /obj/structure/cable/extra_insulated{
@@ -62602,11 +62594,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"lGp" = (
-/obj/structure/lattice,
-/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine,
-/turf/space,
-/area/space/nearstation)
 "lGw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -64364,7 +64351,7 @@
 	},
 /obj/effect/landmark/spawner/late/crew,
 /obj/structure/closet/walllocker/emerglocker/directional/south,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "mvU" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -65223,7 +65210,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "mOG" = (
 /obj/structure/railing/corner,
@@ -65794,10 +65781,10 @@
 	int_button_link_id = "atmossm_btn_int"
 	},
 /turf/simulated/floor/noslip,
-/area/station/maintenance/storage)
+/area/station/engineering/engine/reactor)
 "nfS" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "ngD" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -67880,7 +67867,7 @@
 /obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ogf" = (
 /obj/structure/cable,
@@ -68407,7 +68394,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival/station)
 "oqF" = (
 /obj/machinery/door/firedoor,
@@ -71158,7 +71145,7 @@
 	icon_state = "spooky";
 	name = "Observer-Start"
 	},
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "pCT" = (
 /turf/simulated/floor/plasteel/dark,
@@ -71169,7 +71156,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "pDd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -71303,7 +71290,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/plating,
-/area/station/maintenance/storage)
+/area/station/engineering/engine/reactor)
 "pFm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -72056,14 +72043,14 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "pYo" = (
+/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/titanium/glass,
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/indestructible/titanium,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "pYy" = (
 /obj/machinery/newscaster/directional/west,
 /obj/structure/closet/wardrobe/yellow,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "pYT" = (
 /obj/structure/cable/extra_insulated{
@@ -72890,7 +72877,7 @@
 /obj/machinery/computer/arcade{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "qrc" = (
 /obj/structure/chair/comfy/shuttle{
@@ -72901,7 +72888,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "qrf" = (
 /obj/machinery/door/firedoor,
@@ -77438,7 +77425,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/storage)
+/area/station/engineering/engine/reactor)
 "ssV" = (
 /obj/structure/table,
 /obj/item/toy/figure/crew/secofficer,
@@ -82812,7 +82799,7 @@
 "uWH" = (
 /obj/machinery/requests_console/directional/west,
 /obj/structure/closet/wardrobe/green,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "uWO" = (
 /obj/machinery/door/poddoor/shutters{
@@ -83237,7 +83224,7 @@
 	},
 /obj/effect/landmark/spawner/late/crew,
 /obj/machinery/light,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "viB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -84237,8 +84224,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
+/obj/machinery/r_n_d/server/station,
 /obj/effect/turf_decal/tiles/department/command,
-/obj/machinery/ai_node/network_node,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "vJm" = (
@@ -86439,7 +86426,7 @@
 /obj/machinery/camera{
 	c_tag = "Arrivals Shuttle Front Compartment"
 	},
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "wIt" = (
 /obj/structure/disposalpipe/segment,
@@ -86880,7 +86867,7 @@
 	},
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/indestructible/titanium/blue,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "wSi" = (
 /obj/structure/cable{
@@ -88584,7 +88571,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/storage)
+/area/station/engineering/engine/reactor)
 "xJI" = (
 /obj/machinery/light/small,
 /obj/structure/cable/extra_insulated{
@@ -116976,7 +116963,7 @@ fbR
 aaa
 aaa
 aaa
-lGp
+aab
 aaa
 aaa
 aaa
@@ -121073,8 +121060,8 @@ xfI
 epT
 xfI
 pEY
-dcq
-dcq
+fbR
+fbR
 nVf
 dhv
 euu
@@ -121331,7 +121318,7 @@ aMM
 epT
 xJE
 nfE
-dcq
+fbR
 nVf
 cTm
 ksO
@@ -121588,7 +121575,7 @@ aMM
 epT
 xJE
 ssQ
-dcq
+fbR
 oSd
 dcq
 dcq
@@ -121844,8 +121831,8 @@ dcq
 vJY
 dcq
 edD
-dcq
-dcq
+fbR
+fbR
 ddr
 qqe
 ddr
@@ -135682,7 +135669,7 @@ ten
 jIA
 vwC
 cbd
-iqL
+vIO
 ukV
 crR
 vIO
