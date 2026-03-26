@@ -44,6 +44,19 @@
 	syndicate = TRUE
 	emagged = TRUE
 
+// Spawns a spider fuel rod for ninja objectives
+/obj/item/beacon/ninja_rod_spawner
+	name = "spider clan beacon"
+	desc = "A label on it reads: <i>Activate to have a spider clan brand fuel rod teleported to your location</i>."
+	origin_tech = "bluespace=6;syndicate=3"
+
+/obj/item/beacon/ninja_rod_spawner/attack_self__legacy__attackchain(mob/user)
+	if(!user)
+		return
+	var/obj/item/nuclear_rod/fuel/uranium_238/spiders/new_rod = new(user.loc)
+	qdel(src)
+	user.put_in_hands(new_rod)
+
 // SINGULO BEACON SPAWNER
 /obj/item/beacon/syndicate
 	name = "suspicious beacon"
