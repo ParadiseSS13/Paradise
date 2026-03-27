@@ -42,6 +42,8 @@ RESTRICT_TYPE(/datum/antagonist/uplifted_primitive)
 	if(H.dna.species.is_small)
 		ADD_TRAIT(H, TRAIT_GENELESS, UNIQUE_TRAIT_SOURCE(src))
 
+	H.ventcrawler = VENTCRAWLER_SIGNAL
+	RegisterSignal(H, COMSIG_LIVING_TRY_VENTCRAWL, PROC_REF(attempt_ventcrawl))
 	RegisterSignal(H, COMSIG_LIVING_ENTER_VENTCRAWL, PROC_REF(apply_ventcrawl_effects))
 	RegisterSignal(H, COMSIG_LIVING_EXIT_VENTCRAWL, PROC_REF(remove_ventcrawl_effects))
 
@@ -54,10 +56,29 @@ RESTRICT_TYPE(/datum/antagonist/uplifted_primitive)
 
 	REMOVE_TRAIT(H, TRAIT_GENELESS, UNIQUE_TRAIT_SOURCE(src))
 
+	H.ventcrawler = initial(H.ventcrawler)
+	UnregisterSignal(H, COMSIG_LIVING_TRY_VENTCRAWL)
 	UnregisterSignal(H, COMSIG_LIVING_ENTER_VENTCRAWL)
 	UnregisterSignal(H, COMSIG_LIVING_EXIT_VENTCRAWL)
 
 	owner.RemoveSpell(/datum/spell/uplifted_make_nest)
+
+/datum/antagonist/uplifted_primitive/proc/attempt_ventcrawl()
+	SIGNAL_HANDLER
+	var/mob/living/L = owner.current
+
+	for(var/obj/item/I in L.contents)
+		if(istype(I, /obj/item/bio_chip))
+			continue
+		if(istype(I, /obj/item/reagent_containers/patch))
+			continue
+		if(I.flags & ABSTRACT)
+			continue
+		if(I.w_class > WEIGHT_CLASS_NORMAL)
+			to_chat(L, SPAN_WARNING("You cannot crawl into a vent with large items!"))
+			return FALSE
+
+	return TRUE
 
 /datum/antagonist/uplifted_primitive/proc/apply_ventcrawl_effects()
 	SIGNAL_HANDLER

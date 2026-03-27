@@ -580,7 +580,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, SPAN_WARNING("You cannot crawl into a vent while buckled to something!"))
 		return
 
-	if(iscarbon(src) && length(contents) && ventcrawlerlocal < VENTCRAWLER_ALWAYS) // If we're here you can only ventcrawl while completely nude
+	if(ventcrawlerlocal == VENTCRAWLER_SIGNAL && !SEND_SIGNAL(src, COMSIG_LIVING_TRY_VENTCRAWL))
+		return
+
+	if(ventcrawlerlocal == VENTCRAWLER_NUDE && iscarbon(src) && length(contents)) // If we're here you can only ventcrawl while completely nude
 		for(var/obj/item/I in contents)
 			if(istype(I, /obj/item/bio_chip))
 				continue
