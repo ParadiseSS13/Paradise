@@ -45,11 +45,18 @@
 	AddElement(/datum/element/relay_attackers)
 	RegisterSignal(src, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(rally_retaliation))
 	START_PROCESSING(SSobj, src)
+	COOLDOWN_START(src, spawn_cooldown, SPAWN_COOLDOWN_TIME)
 
 /obj/structure/uplifted_primitive/nest/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	UnregisterSignal(src, COMSIG_ATOM_WAS_ATTACKED)
 	RemoveElement(/datum/element/relay_attackers)
+	return ..()
+
+/obj/structure/uplifted_primitive/nest/deconstruct(disassembled)
+	if(available_scrap > 0 || available_food > 0)
+		new /obj/item/uplifted_nest_bundle(get_turf(src), available_scrap, available_food)
+
 	return ..()
 
 /obj/structure/uplifted_primitive/nest/examine(mob/user)
@@ -91,6 +98,8 @@
 	return team && team.guaranteed_sentient_spawns > 0
 
 /obj/structure/uplifted_primitive/nest/proc/spawn_npc()
+	if(QDELETED(src))
+		return
 	var/mob/living/carbon/human/primitive = new(get_turf(src), nest_species)
 	primitive.ai_controller = new /datum/ai_controller/monkey(primitive)
 	visible_message(SPAN_NOTICE("[primitive.name] emerges out of the nest!"))
@@ -98,7 +107,7 @@
 /// Returns TRUE if a new player mob was successfully spawned, otherwise FALSE.
 /obj/structure/uplifted_primitive/nest/proc/try_spawn_uplifted()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an uplifted primitive?", ROLE_UPLIFTED_PRIMITIVE, TRUE, source = /obj/structure/uplifted_primitive/nest)
-	if(!length(candidates))
+	if(!length(candidates) || QDELETED(src))
 		return FALSE
 
 	var/mob/C = pick(candidates)
@@ -142,6 +151,19 @@
 
 	return count
 
+/obj/structure/uplifted_primitive/nest/AltClick(mob/user, modifiers)
+	var/datum/antagonist/uplifted_primitive/antag = user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive)
+
+	if(!antag || locateUID(antag.nest_uid) != src)
+		return ..()
+
+	to_chat(user, SPAN_NOTICE("You start disassembling the nest."))
+	if(!do_after(user, 7 SECONDS, target = src))
+		return
+
+	to_chat(user, SPAN_NOTICE("You finish disassembling the nest and collect the remaining scrap and food."))
+	deconstruct(TRUE)
+
 /obj/structure/uplifted_primitive/nest/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!user.mind || !user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive))
 		return NONE
@@ -167,6 +189,11 @@
 		for(var/datum/reagent/consumable/C in used.reagents.reagent_list)
 			if(nest_species.dietflags & C.diet_flags)
 				potential_food += C.nutriment_factor
+
+	var/obj/item/uplifted_nest_bundle/scrap_ball = used
+	if(istype(scrap_ball))
+		potential_scrap += scrap_ball.scrap
+		potential_food += scrap_ball.food
 
 	if(potential_scrap == 0 && potential_food == 0)
 		to_chat(user, SPAN_WARNING("[used] does not seem suitable to disassemble or place in the nest."))
@@ -215,6 +242,29 @@
 		var/datum/ai_controller/monkey/M = defender.ai_controller
 		if(istype(M))
 			M.retaliate(attacker)
+
+/obj/item/uplifted_nest_bundle
+	name = "bundle of junk"
+	desc = "A loosely put together collection of scrap metal and food items."
+
+	icon = 'icons/obj/uplifted_primitive.dmi'
+	icon_state = "bundle"
+
+	w_class = WEIGHT_CLASS_SMALL
+
+	var/scrap = 0
+	var/food = 0
+
+/obj/item/uplifted_nest_bundle/Initialize(mapload, new_scrap, new_food)
+	. = ..()
+	scrap = new_scrap
+	food = new_food
+
+/obj/item/uplifted_nest_bundle/examine(mob/user)
+	. = ..()
+	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive))
+		. += SPAN_NOTICE("It contains [scrap] units of scrap.")
+		. += SPAN_NOTICE("It contains [food] units of food.")
 
 #undef INTEGRITY_REGEN_AMOUNT
 #undef INTEGRITY_REGEN_SCRAP_COST

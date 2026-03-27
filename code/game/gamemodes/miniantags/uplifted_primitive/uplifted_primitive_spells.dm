@@ -34,7 +34,8 @@
 	if(!U)
 		return FALSE
 
-	if(locateUID(U.nest_uid))
+	var/obj/structure/uplifted_primitive/nest/nest = locateUID(U.nest_uid)
+	if(!QDELETED(nest))
 		if(show_message)
 			to_chat(user, SPAN_WARNING("You already have a nest!"))
 		return FALSE

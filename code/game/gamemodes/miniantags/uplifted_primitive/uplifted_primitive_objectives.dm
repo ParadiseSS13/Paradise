@@ -50,6 +50,6 @@
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/uplifted_primitive/U = M.has_antag_datum(/datum/antagonist/uplifted_primitive)
 		var/obj/nest = locateUID(U.nest_uid)
-		if(nest != null && get_area(nest) == target_area)
+		if(!QDELETED(nest) && get_area(nest) == target_area)
 			return TRUE
 	return FALSE
