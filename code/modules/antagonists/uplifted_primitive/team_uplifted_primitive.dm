@@ -20,6 +20,9 @@ RESTRICT_TYPE(/datum/team/uplifted_primitive)
 		/datum/objective/uplifted/build_nest_in_area,
 	)
 
+	/// The number of spawns that should always poll ghosts for nests of this team.
+	var/guaranteed_sentient_spawns = 0
+
 /datum/team/uplifted_primitive/New(list/starting_members, datum/species/new_species = /datum/species/monkey)
 	team_species = new_species
 	return ..(starting_members)

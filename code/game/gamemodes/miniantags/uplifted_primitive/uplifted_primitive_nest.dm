@@ -68,10 +68,13 @@
 	if(available_scrap >= SPAWN_SCRAP_COST && available_food >= SPAWN_FOOD_COST && COOLDOWN_FINISHED(src, spawn_cooldown))
 		COOLDOWN_START(src, spawn_cooldown, SPAWN_COOLDOWN_TIME)
 
-		if(prob(sentient_probability) && try_spawn_uplifted())
+		if(roll_sentience() && try_spawn_uplifted())
 			available_scrap -= SPAWN_SCRAP_COST
 			available_food -= SPAWN_FOOD_COST
 			sentient_probability = initial(sentient_probability)
+
+			if(has_guaranteed_spawn())
+				SSticker.mode.uplifted_teams[nest_species].guaranteed_sentient_spawns -= 1
 		else
 			if(count_spawn_limit() < SPAWN_MAX_LIMIT)
 				spawn_npc()
@@ -79,6 +82,13 @@
 				available_food -= SPAWN_FOOD_COST
 			// accumulating probability ensures a sentient spawn occurs in a finite number of iterations
 			sentient_probability = min(sentient_probability + SPAWN_SENTIENT_PROB_INCREASE, 100)
+
+/obj/structure/uplifted_primitive/nest/proc/roll_sentience()
+	return has_guaranteed_spawn() || prob(sentient_probability)
+
+/obj/structure/uplifted_primitive/nest/proc/has_guaranteed_spawn()
+	var/datum/team/uplifted_primitive/team = SSticker.mode.uplifted_teams[nest_species]
+	return team && team.guaranteed_sentient_spawns > 0
 
 /obj/structure/uplifted_primitive/nest/proc/spawn_npc()
 	var/mob/living/carbon/human/primitive = new(get_turf(src), nest_species)

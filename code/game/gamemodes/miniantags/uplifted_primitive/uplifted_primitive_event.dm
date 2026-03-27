@@ -55,6 +55,8 @@
 	player_mind.transfer_to(primitive)
 	player_mind.add_antag_datum(/datum/antagonist/uplifted_primitive)
 
+	SSticker.mode.uplifted_teams[selected_species].guaranteed_sentient_spawns = 2
+
 	primitive.add_ventcrawl(selected_vent)
 
 	message_admins("[key_name_admin(primitive)] has been made into an uplifted [initial(primitive.name)] by an event.")
