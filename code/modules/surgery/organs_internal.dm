@@ -297,7 +297,7 @@
 			var/obj/item/organ/external/affected = extracting.owner.get_organ(target_zone)
 			if(affected && affected.internal_organs)
 				if(istype(extracting, /obj/item/organ/internal/zombietumor))
-					src.time = 45 SECONDS
+					src.time = 40 SECONDS
 		user.visible_message(
 			"[user] starts to separate [target]'s [I] with [tool].",
 			"You start to separate [target]'s [I] with [tool] for removal.",
