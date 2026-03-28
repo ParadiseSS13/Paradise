@@ -143,7 +143,7 @@
 		if(istype(H))
 			if(H.dna.species.type != nest_species || H.mind)
 				continue
-			if(!istype(H.ai_controller, /datum/ai_controller/monkey))
+			if(!istype(H.ai_controller, /datum/ai_controller/monkey/uplifted_npc))
 				continue
 			count += 1
 

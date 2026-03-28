@@ -76,8 +76,8 @@ have ways of interacting with a specific mob and control it.
 	var/mob/living/carbon/human/target = living_mob
 
 	if(istype(me) && istype(target) \
-	   && target.mind && target.mind.has_antag_datum(/datum/antagonist/uplifted_primitive) \
-	   && target.dna.species.type == me.dna.species.type)
+		&& target.mind && target.mind.has_antag_datum(/datum/antagonist/uplifted_primitive) \
+		&& target.dna.species.type == me.dna.species.type)
 		return
 
 	return ..()
