@@ -18,9 +18,10 @@ RESTRICT_TYPE(/datum/antagonist/uplifted_primitive)
 	/// The list of objective types which can be selected from when picking a personal objective.
 	var/list/potential_objectives = list(
 		/datum/objective/uplifted/collect_items,
-		/datum/objective/uplifted/collect_food,
 		/datum/objective/uplifted/collect_animals,
+		/datum/objective/uplifted/barter,
 		/datum/objective/uplifted/fortify,
+		/datum/objective/uplifted/obtain,
 	)
 
 /datum/antagonist/uplifted_primitive/greet()
@@ -32,7 +33,8 @@ RESTRICT_TYPE(/datum/antagonist/uplifted_primitive)
 	. += SPAN_BOLDNOTICE("Regardless of the method, you must help your species to survive and prosper on the station.")
 
 /datum/antagonist/uplifted_primitive/give_objectives()
-	add_antag_objective(pick(potential_objectives))
+	add_antag_objective(pick_n_take(potential_objectives))
+	add_antag_objective(pick_n_take(potential_objectives))
 
 /datum/antagonist/uplifted_primitive/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/carbon/human/H = ..()
