@@ -11,9 +11,9 @@
 /// The number of percentage points to increase the probability of the next spawned mob being sentient by.
 #define SPAWN_SENTIENT_PROB_INCREASE 25
 /// The maximum number the spawn count can reach before disabling NPC spawning.
-#define SPAWN_MAX_LIMIT 3
+#define SPAWN_MAX_LIMIT 2
 /// The number of additional mobs permitted by each extra nearby nest.
-#define SPAWN_EXTRA_NEST_MOBS 2
+#define SPAWN_EXTRA_NEST_MOBS 1
 
 /obj/structure/uplifted_primitive
 	icon = 'icons/obj/uplifted_primitive.dmi'
@@ -105,7 +105,7 @@
 	if(QDELETED(src))
 		return
 	var/mob/living/carbon/human/primitive = new(get_turf(src), nest_species)
-	primitive.ai_controller = new /datum/ai_controller/monkey(primitive)
+	primitive.ai_controller = new /datum/ai_controller/monkey/uplifted_npc(primitive)
 	visible_message(SPAN_NOTICE("[primitive.name] emerges out of the nest!"))
 
 /// Returns TRUE if a new player mob was successfully spawned, otherwise FALSE.
