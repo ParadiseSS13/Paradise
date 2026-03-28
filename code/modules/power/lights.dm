@@ -38,7 +38,36 @@
 
 /obj/machinery/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/light_construct/setDir(newdir)
+	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
 
 /obj/machinery/light_construct/examine(mob/user)
 	. = ..()
@@ -1013,6 +1042,22 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update()
+
+/obj/machinery/light/setDir(newdir)
+	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
 
 /obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered
