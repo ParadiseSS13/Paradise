@@ -168,9 +168,9 @@
 		"Rare" = 50,
 		"Legendary" = 3
 	)
-	///The amount of cards to draw from the guarenteed rarity table
+	/// The amount of cards to draw from the guarenteed rarity table
 	var/guaranteed_count = 1
-	///The guaranteed rarity table, acts about the same as the rarity table.
+	/// The guaranteed rarity table, acts about the same as the rarity table.
 	var/list/guar_rarity = list(
 		"Uncommon" = 30,
 		"Rare" = 9,
@@ -182,7 +182,6 @@
 	desc = "Contains five cards from the Series 1 of Trading Cards! Collect them all!"
 	series = list(/datum/tcg_card/pack_1)
 	contains_coin = 10
-
 
 /obj/item/cardpack/equipped(mob/user, slot, initial)
 	. = ..()
@@ -209,7 +208,6 @@
 		new /obj/item/coin/gold(get_turf(user))
 	// new rulebook goes here
 	qdel(src)
-
 
 /obj/item/cardpack/proc/buildCardListWithRarity(card_cnt, rarity_cnt)
 	var/list/return_cards = list()
