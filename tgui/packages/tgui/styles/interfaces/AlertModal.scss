@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use '../colors.scss';
-
 .AlertModal__Message {
   text-align: center;
   justify-content: center;
@@ -17,14 +15,14 @@
 .AlertModal__Loader {
   width: 100%;
   position: relative;
-  height: 4px;
+  height: var(--border-thickness-large);
 }
 
 .AlertModal__LoaderProgress {
   position: absolute;
-  transition:
-    background-color 500ms ease-out,
-    width 500ms ease-out;
-  background-color: colors.bg(colors.$primary);
+  transition-duration: var(--transition-time-slow);
+  transition-property: background-color, width;
+  transition-timing-function: ease-out;
+  background-color: hsl(from var(--color-primary) h s calc(l - var(--adjust-color)));
   height: 100%;
 }

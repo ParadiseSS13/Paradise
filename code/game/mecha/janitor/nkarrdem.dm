@@ -5,7 +5,6 @@
 	initial_icon = "nkarrdem"
 	step_in = 3
 	turnsound = 'sound/mecha/mechmove01.ogg'
-	stepsound = 'sound/mecha/mechstep.ogg'
 	max_temperature = 10000
 	max_integrity = 110
 	max_equip = 4
@@ -32,7 +31,7 @@
 	. = ..()
 	if(. && ishuman(H))
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			occupant_message("<span class='warning'>[H.glasses] prevent you from using [src]'s built-in janitorial HUD.</span>")
+			occupant_message(SPAN_WARNING("[H.glasses] prevent you from using [src]'s built-in janitorial HUD."))
 		else
 			var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 			jani_hud.add_hud_to(H)

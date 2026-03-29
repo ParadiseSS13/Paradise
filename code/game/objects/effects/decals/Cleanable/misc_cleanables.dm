@@ -4,7 +4,6 @@
 	name = "clutter"
 	desc = "Someone should clean that up."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shards"
@@ -43,12 +42,10 @@
 	name = "dirt"
 	desc = "Someone should clean that up."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dirt"
 	base_icon_state = "dirt"
-	smoothing_flags = NONE
 	smoothing_groups = list(SMOOTH_GROUP_CLEANABLE_DIRT)
 	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
 	mouse_opacity = FALSE
@@ -75,9 +72,7 @@
 	name = "flour"
 	desc = "It's still good. Four second rule!"
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 
 /obj/effect/decal/cleanable/flour/nanofrost
@@ -98,10 +93,8 @@
 	name = "glowing goo"
 	desc = "Jeez. I hope that's not for lunch."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	light_range = 1
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenglow"
 
 /obj/effect/decal/cleanable/greenglow/Initialize(mapload)
@@ -114,21 +107,14 @@
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
 	desc = "Somebody should remove that."
-	density = FALSE
-	layer = OBJ_LAYER
 	plane = GAME_PLANE
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb1"
 	resistance_flags = FLAMMABLE
 
 /obj/effect/decal/cleanable/molten_object
 	name = "gooey grey mass"
 	desc = "It looks like a melted... something."
-	density = FALSE
-	layer = OBJ_LAYER
 	plane = GAME_PLANE
-	gender = NEUTER
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
 	mergeable_decal = FALSE
 
@@ -139,19 +125,14 @@
 /obj/effect/decal/cleanable/cobweb2
 	name = "cobweb"
 	desc = "Somebody should remove that."
-	density = FALSE
-	layer = OBJ_LAYER
 	plane = GAME_PLANE
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb2"
 
 /obj/effect/decal/cleanable/vomit
 	name = "vomit"
 	desc = "Gosh, how unpleasant."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
-	plane = FLOOR_PLANE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
@@ -227,6 +208,29 @@
 	random_icon_states = list("gvomit_1", "gvomit_2", "gvomit_3", "gvomit_4")
 	scoop_reagents = list("green_vomit" = 5)
 
+/obj/effect/decal/cleanable/vomit/nebula
+	name = "nebula vomit"
+	desc = "Gosh, how... beautiful."
+	icon_state = "vomitnebula_1"
+	random_icon_states = list("vomitnebula_1", "vomitnebula_2", "vomitnebula_3", "vomitnebula_4")
+
+/obj/effect/decal/cleanable/vomit/nebula/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_OVERLAYS)
+
+/obj/effect/decal/cleanable/vomit/nebula/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, icon_state, src, alpha = src.alpha)
+
+/// Nebula vomit with extra guests
+/obj/effect/decal/cleanable/vomit/nebula/worms
+
+/obj/effect/decal/cleanable/vomit/nebula/worms/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to rand(3, 6))
+		new /mob/living/basic/mining/hivelordbrood(loc)
+
+
 /obj/effect/decal/cleanable/shreds
 	name = "shreds"
 	desc = "The shredded remains of what appears to be clothing."
@@ -247,23 +251,19 @@
 /obj/effect/decal/cleanable/tomato_smudge
 	name = "tomato smudge"
 	desc = "It's red."
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("tomato_floor1", "tomato_floor2", "tomato_floor3")
 
 /obj/effect/decal/cleanable/plant_smudge
 	name = "plant smudge"
-	density = FALSE
 	layer = TURF_LAYER
-	gender = NEUTER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_plant")
 
 /obj/effect/decal/cleanable/egg_smudge
 	name = "smashed egg"
 	desc = "Seems like this one won't hatch."
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_egg1", "smashed_egg2", "smashed_egg3")
@@ -272,18 +272,29 @@
 /obj/effect/decal/cleanable/pie_smudge
 	name = "smashed pie"
 	desc = "It's pie cream from a cream pie."
-	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
 
+/obj/effect/decal/cleanable/paint_splat
+	name = "paint splat"
+	layer = TURF_LAYER
+	plane = GAME_PLANE
+	icon = 'icons/effects/splatters.dmi'
+	icon_state = "splatter-1"
+	random_icon_states = list("splatter-1", "splatter-2", "splatter-3")
+	mergeable_decal = FALSE
+
+/obj/effect/decal/cleanable/paint_splat/Initialize(mapload)
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+	return ..()
+
 /obj/effect/decal/cleanable/fungus
 	name = "space fungus"
 	desc = "A fungal growth. Looks pretty nasty."
-	density = FALSE
 	layer = TURF_LAYER
 	plane = GAME_PLANE
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 	color = "#D5820B"
 	scoop_reagents = list("fungus" = 10)
@@ -293,9 +304,9 @@
 /obj/effect/decal/cleanable/fungus/examine(mob/user)
 	. = ..()
 	if(no_scoop)
-		. += "<span class='notice'>There's not a lot here, you probably wouldn't be able to harvest anything useful.</span>"
+		. += SPAN_NOTICE("There's not a lot here, you probably wouldn't be able to harvest anything useful.")
 	else
-		. += "<span class='notice'>There's enough here to scrape into a beaker.</span>"
+		. += SPAN_NOTICE("There's enough here to scrape into a beaker.")
 
 /obj/effect/decal/cleanable/fungus/on_scoop()
 	alpha = 128
@@ -328,5 +339,29 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+
+/obj/effect/decal/cleanable/reagent
+	name = "fluid"
+	desc = "Some kind of fluid?"
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "xfloor1"
+	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+	var/basecolor = "#909090"
+	var/amount = 10
+
+/obj/effect/decal/cleanable/reagent/Initialize(mapload, decal_color)
+	. = ..()
+	color = basecolor
+	if(decal_color)
+		color = decal_color
+	base_icon_state = icon_state
+
+	update_icon()
+
+/obj/effect/decal/cleanable/reagent/drip
+	icon = 'icons/effects/drip.dmi'
+	icon_state = "1"
+	random_icon_states = list("1", "2", "3", "4", "5")
+	amount = 1
 
 #undef ALWAYS_IN_GRAVITY

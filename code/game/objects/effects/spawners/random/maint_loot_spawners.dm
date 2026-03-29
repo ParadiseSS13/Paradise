@@ -9,6 +9,8 @@
 /obj/effect/spawner/random/maintenance/Initialize(mapload)
 	loot = GLOB.maintenance_loot_tables
 	spawn_loot_count = rand(2, 4)
+	if(is_station_level(z))
+		GLOB.maints_loot_spawns += loc
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT))
 		spawn_loot_chance -= TRAIT_CHANCE_DELTA

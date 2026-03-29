@@ -1,8 +1,8 @@
 /mob/new_player
 	var/ready = FALSE
 	var/spawning = FALSE	//Referenced when you want to delete the new_player later on in the code.
-	var/totalPlayers = 0		 //Player counts for the Lobby tab
-	var/totalPlayersReady = 0
+	/// Has this player chosen to respawn as a new character?
+	var/chose_respawn = FALSE
 	universal_speak = TRUE
 
 	invisibility = 101
@@ -20,8 +20,13 @@
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/Destroy()
+	if(spawning)
+		// The mind is being reused elsewhere, so just unhook it here.
+		mind = null
 	if(mind)
-		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+		// Minds really shouldn't bind to new players, but just in case...
+		mind.unbind()
+		qdel(mind)
 	return ..()
 
 /mob/new_player/proc/new_player_panel()
@@ -55,20 +60,20 @@
 
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)
-			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+			output += "<p><a href='byond://?src=[UID()];ready=1'><font color='lime'><b>Declare Ready</b></font></a></p>"
 		else
-			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'><font color='orange'><b>Cancel</b></font></a>)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
 	var/list/antags = client.prefs.be_special
 	if(length(antags))
-		if(!client.skip_antag)
+		if(!client.persistent.skip_antag)
 			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
 		else
 			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		output += "<br /><small>You are <b>[client.persistent.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Observe (Please wait...)</p>"
@@ -78,8 +83,10 @@
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
+	#ifdef SERVERREGIONS
 	if(length(GLOB.configuration.system.region_map))
 		output += "<p><a href='byond://?src=[UID()];setregion=1'>Set region (reduces ping)</A></p>"
+	#endif
 
 	output += "</center>"
 
@@ -96,17 +103,6 @@
 			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
 			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
-
-		if(SSticker.current_state == GAME_STATE_PREGAME)
-			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
-			if(check_rights(R_ADMIN, 0, src))
-				status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
-			totalPlayersReady = 0
-			for(var/mob/new_player/player in GLOB.player_list)
-				if(check_rights(R_ADMIN, 0, src))
-					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
-				if(player.ready)
-					totalPlayersReady++
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)
@@ -128,7 +124,7 @@
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
-		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+		to_chat(usr, SPAN_WARNING("You must consent to the terms of service before you can join!"))
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
 			"ckey" = ckey
 		))
@@ -142,13 +138,13 @@
 
 	if(href_list["ready"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, SPAN_WARNING("You must consent to the terms of service before you can join!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!ready && !client.prefs.active_character.check_any_job() && (client.prefs.active_character.alternate_option == RETURN_TO_LOBBY))
-			to_chat(usr, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			to_chat(usr, SPAN_DANGER("You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences."))
 			ready = FALSE
 			return FALSE
 
@@ -156,7 +152,7 @@
 		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
-		client.skip_antag = !client.skip_antag
+		client.persistent.skip_antag = !client.persistent.skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -165,19 +161,19 @@
 
 	if(href_list["observe"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, SPAN_WARNING("You must consent to the terms of service before you can join!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
-			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
+			to_chat(usr, SPAN_WARNING("You must wait for the server to finish starting before you can join!"))
 			return FALSE
 
-		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
+		if(alert(usr, "Are you sure you wish to observe? There may be a delay before you can attempt to rejoin.", "Observe", "Yes", "No") == "Yes")
 			if(!client)
 				return TRUE
-			var/mob/dead/observer/observer = new(src)
+			var/mob/dead/observer/observer = new(src, GHOST_FLAGS_START_AS_OBSERVER)
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
@@ -186,11 +182,10 @@
 				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minute\s"
 				if(GLOB.configuration.general.roundstart_observer_period == 0)
 					period_human_readable = "before the round started"
-				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability, and can freely observe what other players see.</span>")
+				to_chat(src, SPAN_NOTICE("As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability, and can freely observe what other players see."))
 				if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
 					// admins always get aobserve
 					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
-			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/spawn_point
 			if(SSticker.current_state < GAME_STATE_PLAYING)
@@ -198,7 +193,7 @@
 			else
 				spawn_point = locate("landmark*Observer-Start")
 
-			to_chat(src, "<span class='notice'>Now teleporting.</span>")
+			to_chat(src, SPAN_NOTICE("Now teleporting."))
 			observer.forceMove(get_turf(spawn_point))
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.active_character.update_preview_icon(1)
@@ -218,19 +213,21 @@
 		privacy_consent()
 		return FALSE
 
+	#ifdef SERVERREGIONS
 	if(href_list["setregion"])
 		usr.client.change_region()
 		return FALSE
+	#endif
 
 	if(href_list["late_join"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, SPAN_WARNING("You must consent to the terms of service before you can join!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+			to_chat(usr, SPAN_WARNING("The round is either not ready, or has already finished..."))
 			return
 		if(!can_use_species(src, client.prefs.active_character.species))
 			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
@@ -244,7 +241,7 @@
 	if(href_list["SelectedJob"])
 
 		if(!GLOB.enter_allowed)
-			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
+			to_chat(usr, SPAN_NOTICE("There is an administrative lock on entering the game!"))
 			return
 
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
@@ -318,10 +315,10 @@
 	if(src != usr)
 		return 0
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+		to_chat(usr, SPAN_WARNING("The round is either not ready, or has already finished..."))
 		return 0
 	if(!GLOB.enter_allowed)
-		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
+		to_chat(usr, SPAN_NOTICE("There is an administrative lock on entering the game!"))
 		return 0
 	if(!IsJobAvailable(rank))
 		to_chat(src, alert("[rank] is not available. Please try another."))
@@ -329,6 +326,9 @@
 	var/datum/job/thisjob = SSjobs.GetJob(rank)
 	if(thisjob.barred_by_disability(client))
 		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
+		return 0
+	if(thisjob.barred_by_quirk(client))
+		to_chat(src, alert("[rank] is not available due to your character's quirk. Please try another."))
 		return 0
 	if(thisjob.barred_by_missing_limbs(client))
 		to_chat(src, alert("[rank] is not available due to your character having amputated limbs without a prosthetic replacement. Please try another."))
@@ -338,7 +338,9 @@
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
 	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human
-
+	if(chose_respawn)
+		SSblackbox.record_feedback("tally", "player_respawn", 1, "[thisjob]")
+		log_and_message_admins("[character.ckey] has respawned as [character.real_name], \a [character.dna?.species ? character.dna.species : "Undefined species"] [rank].")
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
 		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet
@@ -385,7 +387,9 @@
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
 
-			if(length(GLOB.current_pending_diseases) && character.ForceContractDisease(GLOB.current_pending_diseases[1], TRUE, TRUE))
+			if(length(GLOB.current_pending_diseases) && character.ForceContractDisease(GLOB.current_pending_diseases[1]["disease"], TRUE, TRUE))
+				var/datum/event/disease_outbreak/outbreak = GLOB.current_pending_diseases[1]["event"]
+				outbreak.force_disease_time = 0
 				popleft(GLOB.current_pending_diseases)
 			if(GLOB.summon_guns_triggered)
 				give_guns(character)
@@ -488,7 +492,7 @@
 		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in SSjobs.occupations)
-		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && !job.barred_by_missing_limbs(client))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && !job.barred_by_missing_limbs(client) && !job.barred_by_quirk(client))
 			num_jobs_available++
 			activePlayers[job] = 0
 			var/categorized = 0
@@ -562,21 +566,16 @@
 		H.flavor_text = ""
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
+	mind.set_original_mob(new_character)
+	mind.transfer_to(new_character)
 
-	if(mind)
-		mind.active = FALSE					//we wish to transfer the key manually
-		// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
-		if(mind.assigned_role == "Clown")
-			new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
-			new_character.rename_self("clown")
-		else if(mind.assigned_role == "Mime")
-			new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
-			new_character.rename_self("mime")
-		mind.set_original_mob(new_character)
-		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
-
-
-	new_character.key = key		//Manually transfer the key to log them in
+	// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
+	if(mind.assigned_role == "Clown")
+		new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
+		new_character.rename_self("clown")
+	else if(mind.assigned_role == "Mime")
+		new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
+		new_character.rename_self("mime")
 
 	return new_character
 
@@ -624,8 +623,8 @@
 	if(!client || !client.prefs) ..()
 	return client.prefs.active_character.gender
 
-/mob/new_player/is_ready()
-	return ready && ..()
+/mob/new_player/proc/is_ready()
+	return ready && client
 
 // No hearing announcements
 /mob/new_player/can_hear()

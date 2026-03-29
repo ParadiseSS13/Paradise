@@ -26,7 +26,23 @@
 
 /proc/get_open_turf_in_dir(atom/center, dir)
 	var/turf/T = get_ranged_target_turf(center, dir, 1)
-	if(T && !T.density)
+	if(T)
+		var/list/milla = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(T, milla)
+
+		var/checked_dir
+		switch(dir)
+			if(NORTH)
+				checked_dir = MILLA_NORTH
+			if(EAST)
+				checked_dir = MILLA_EAST
+			if(SOUTH)
+				checked_dir = MILLA_SOUTH
+			if(WEST)
+				checked_dir = MILLA_WEST
+
+		if(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & checked_dir)
+			return
 		return T
 
 /proc/get_adjacent_open_turfs(atom/center)
@@ -151,7 +167,8 @@
 	for(var/depth in 1 to recursion_limit)
 		var/list/layer = next_layer
 		next_layer = list()
-		for(var/thing in layer)
+		for(var/atom/thing in layer)
+			next_layer += thing.contents
 			if(!ismob(thing))
 				continue
 			var/mob/this_mob = thing
@@ -251,7 +268,7 @@
 			Y1+=s
 			while(Y1!=Y2)
 				T=locate(X1,Y1,Z)
-				if(T.opacity)
+				if(IS_OPAQUE_TURF(T))
 					return 0
 				Y1+=s
 	else
@@ -267,7 +284,7 @@
 			else
 				X1+=signX //Line exits tile horizontally
 			T=locate(X1,Y1,Z)
-			if(T.opacity)
+			if(IS_OPAQUE_TURF(T))
 				return 0
 	return 1
 
@@ -354,20 +371,36 @@
 			viewing += M.client
 	flick_overlay(I, viewing, duration)
 
+/// Get active players who are playing in the round
 /proc/get_active_player_count()
-	// Get active players who are playing in the round
 	var/active_players = 0
-	for(var/i = 1; i <= length(GLOB.player_list); i++)
-		var/mob/M = GLOB.player_list[i]
-		if(M && M.client)
-			if(isnewplayer(M)) // exclude people in the lobby
+	for(var/mob/player as anything in GLOB.player_list)
+		if(isobserver(player)) // Ghosts are fine if they were playing once (didn't start as observers)
+			var/mob/dead/observer/observer = player
+			if(observer.ghost_flags & GHOST_START_AS_OBSERVER) // Exclude people who started as observers
 				continue
-			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
-				var/mob/dead/observer/O = M
-				if(O.started_as_observer) // Exclude people who started as observers
-					continue
-			active_players++
+
+		active_players++
+
 	return active_players
+
+/// Get living players who are playing in the round (no ghosts)
+/proc/get_living_players_count()
+	var/count = 0
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+		if(player.mind && player.stat != DEAD && player.client)
+			count++
+	return count
+
+/// Same as above but only count Sec
+/datum/antagonist/traitor/proc/get_living_security_players_count()
+	var/count = 0
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+		if(!player.mind || player.stat == DEAD || !player.client)
+			continue
+		if(player.mind.assigned_role in GLOB.active_security_positions)
+			count++
+	return count
 
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
@@ -490,3 +523,28 @@
 		min(list_y),
 		max(list_x),
 		max(list_y))
+
+///Checks to see if `atom/source` is behind `atom/target`
+/proc/check_behind(atom/source, atom/target)
+	// Let's see if source is behind target
+	// "Behind" is defined as 3 tiles directly to the back of the target
+	// x . .
+	// x > .
+	// x . .
+
+	// We'll take "same tile" as "behind" for ease
+	if(target.loc == source.loc)
+		return TRUE
+
+	// We'll also assume lying down is behind, as mob directions when lying are unclear
+	if(isliving(target))
+		var/mob/living/living_target = target
+		if(living_target.body_position == LYING_DOWN)
+			return TRUE
+
+	// Exceptions aside, let's actually check if they're, yknow, behind
+	var/dir_target_to_source = get_dir(target, source)
+	if(target.dir & REVERSE_DIR(dir_target_to_source))
+		return TRUE
+
+	return FALSE

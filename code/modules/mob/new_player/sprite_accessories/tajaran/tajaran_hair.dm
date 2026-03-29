@@ -58,7 +58,6 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_bedhead
 	name = "Tajara Bedhead"
 	icon_state = "bedhead"
-	glasses_over = 1
 
 /datum/sprite_accessory/hair/tajara/taj_hair_retro
 	name = "Tajara Ladies' Retro"
@@ -83,7 +82,6 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_sidebraid
 	name = "Tajara Sidebraid"
 	icon_state = "sidebraid"
-	glasses_over = 1
 
 /datum/sprite_accessory/hair/tajara/taj_hair_earrings
 	name = "Tajara Earrings"
@@ -113,7 +111,6 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_lynx
 	name = "Tajara Lynx"
 	icon_state = "lynx"
-	glasses_over = 1
 
 /datum/sprite_accessory/hair/tajara/taj_hair_longtail
 	name = "Tajara Long Tail"

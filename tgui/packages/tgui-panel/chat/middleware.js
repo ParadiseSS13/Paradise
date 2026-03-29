@@ -4,14 +4,18 @@
  * @license MIT
  */
 
-import DOMPurify from 'dompurify';
 import { storage } from 'common/storage';
+import DOMPurify from 'dompurify';
+
 import {
-  loadSettings,
-  updateSettings,
+  addBlacklistSetting,
   addHighlightSetting,
+  loadSettings,
+  removeBlacklistSetting,
   removeHighlightSetting,
+  updateBlacklistSetting,
   updateHighlightSetting,
+  updateSettings,
 } from '../settings/actions';
 import { selectSettings } from '../settings/selectors';
 import {
@@ -23,10 +27,10 @@ import {
   moveChatPageLeft,
   moveChatPageRight,
   rebuildChat,
-  toggleAcceptedType,
-  updateMessageCount,
   removeChatPage,
   saveChatToDisk,
+  toggleAcceptedType,
+  updateMessageCount,
 } from './actions';
 import { MAX_PERSISTED_MESSAGES, MESSAGE_SAVE_INTERVAL } from './constants';
 import { createMessage, serializeMessage } from './model';
@@ -179,11 +183,15 @@ export const chatMiddleware = (store) => {
       type === loadSettings.type ||
       type === addHighlightSetting.type ||
       type === removeHighlightSetting.type ||
-      type === updateHighlightSetting.type
+      type === updateHighlightSetting.type ||
+      type === addBlacklistSetting.type ||
+      type === removeBlacklistSetting.type ||
+      type === updateBlacklistSetting.type
     ) {
       next(action);
       const settings = selectSettings(store.getState());
       chatRenderer.setHighlight(settings.highlightSettings, settings.highlightSettingById);
+      chatRenderer.setBlacklist(settings.blacklistSettings, settings.blacklistSettingById);
       return;
     }
     if (type === 'roundrestart') {

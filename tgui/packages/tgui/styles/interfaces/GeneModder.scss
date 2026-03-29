@@ -1,7 +1,5 @@
 @use '../base.scss';
 
-$background-color: rgba(0, 0, 0, 0.33) !default;
-
 .GeneModder__left {
   position: absolute;
   top: 0;
@@ -16,5 +14,5 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   bottom: 0;
   left: base.em(490px);
   right: 0;
-  background-color: $background-color;
+  background-color: var(--color-section);
 }

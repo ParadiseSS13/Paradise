@@ -190,7 +190,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "fv" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
@@ -348,7 +348,7 @@
 /obj/effect/decal/remains/human,
 /obj/structure/sign/poster/official/air2/directional/south,
 /obj/item/clothing/under/rank/cargo/miner,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "kR" = (
@@ -429,12 +429,9 @@
 "pn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
 /obj/item/clothing/under/rank/cargo/miner,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "pP" = (
@@ -688,7 +685,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "zv" = (
@@ -717,7 +714,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "zO" = (
@@ -974,7 +971,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
@@ -1125,7 +1122,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	invisibility = 101
@@ -1286,7 +1283,7 @@
 /area/lavaland/surface/outdoors)
 "VJ" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = -2;
 	pixel_y = 35
 	},
@@ -1307,10 +1304,7 @@
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "Wl" = (
@@ -1331,10 +1325,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/miningcar,
-/obj/item/mounted/frame/apc_frame{
-	pixel_x = -3;
-	pixel_y = 28
-	},
+/obj/machinery/power/apc/unbuilt/directional/north,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "WU" = (

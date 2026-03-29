@@ -7,7 +7,6 @@
 	hud_type = /datum/hud/simple_animal
 
 	universal_understand = TRUE
-	universal_speak = FALSE
 	status_flags = CANPUSH
 	healable = TRUE
 	gib_nullifies_icon = FALSE // prevents players from having transparent icon when their body is gibbed
@@ -67,9 +66,9 @@
 	/// How much damage this simple animal does to objects, if any
 	var/obj_damage = 0
 	/// Flat armour reduction, occurs after percentage armour penetration.
-	var/armour_penetration_flat = 0
+	var/armor_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
-	var/armour_penetration_percentage = 0
+	var/armor_penetration_percentage = 0
 	/// Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 	/// 1 for full damage , 0 for none , -1 for 1:1 heal from that source
@@ -83,9 +82,6 @@
 
 	/// Higher speed is slower, negative speed is faster
 	var/speed = 1
-	var/can_hide = FALSE
-	/// Allows a mob to pass unbolted doors while hidden
-	var/pass_door_while_hidden = FALSE
 
 	/// If the mob can be renamed
 	var/unique_pet = FALSE
@@ -192,10 +188,10 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		. += SPAN_DEADSAY("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
 		return
 	if(IsSleeping())
-		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
+		. += SPAN_NOTICE("Upon closer examination, [p_they()] appear[p_s()] to be asleep.")
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
@@ -345,12 +341,14 @@
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, 1)
 		if(deathmessage)
-			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
+			visible_message(SPAN_DANGER("\The [src] [deathmessage]"))
 		else if(!del_on_death)
-			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+			visible_message(SPAN_DANGER("\The [src] stops moving..."))
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)
+		// Moves them to their turf to prevent rendering problems
+		forceMove(get_turf(src))
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
 		del_on_death = FALSE

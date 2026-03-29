@@ -5,16 +5,20 @@
  */
 
 import { storage } from 'common/storage';
+
 import { setClientTheme } from '../themes';
 import {
-  loadSettings,
-  updateSettings,
+  addBlacklistSetting,
   addHighlightSetting,
+  loadSettings,
+  removeBlacklistSetting,
   removeHighlightSetting,
+  updateBlacklistSetting,
   updateHighlightSetting,
+  updateSettings,
 } from './actions';
-import { selectSettings } from './selectors';
 import { FONTS_DISABLED } from './constants';
+import { selectSettings } from './selectors';
 
 let statFontSizeTimer;
 let statFontFamilyTimer;
@@ -76,7 +80,10 @@ export const settingsMiddleware = (store) => {
       type === loadSettings.type ||
       type === addHighlightSetting.type ||
       type === removeHighlightSetting.type ||
-      type === updateHighlightSetting.type
+      type === updateHighlightSetting.type ||
+      type === addBlacklistSetting.type ||
+      type === removeBlacklistSetting.type ||
+      type === updateBlacklistSetting.type
     ) {
       // Set client theme
       const theme = payload?.theme;

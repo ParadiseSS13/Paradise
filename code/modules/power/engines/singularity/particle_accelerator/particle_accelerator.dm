@@ -64,7 +64,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = null
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 90, ACID = 80)
@@ -91,7 +90,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, SPAN_NOTICE("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 270)
 
@@ -99,17 +98,17 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	. = ..()
 	switch(construction_state)
 		if(ACCELERATOR_UNWRENCHED)
-			. += "<span class='notice'>\The [name]'s <i>anchoring bolts</i> are loose.</span>"
+			. += SPAN_NOTICE("\The [name]'s <i>anchoring bolts</i> are loose.")
 		if(ACCELERATOR_WRENCHED)
-			. += "<span class='notice'>\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.</span>"
+			. += SPAN_NOTICE("\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.")
 		if(ACCELERATOR_WIRED)
-			. +=  "<span class='notice'>\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+			. +=  SPAN_NOTICE("\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.")
 		if(ACCELERATOR_READY)
-			. += "<span class='notice'>\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.</span>"
+			. += SPAN_NOTICE("\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.")
 			if(powered)
 				desc = desc_holder
 	if(!anchored)
-		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+		. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it.")
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -164,7 +163,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			return 1
 	return 0
 
-/obj/structure/particle_accelerator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/particle_accelerator/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(!iscoil(W))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)
@@ -175,6 +174,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				"You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
@@ -222,7 +222,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
-	anchored = FALSE
 	density = TRUE
 	power_state = NO_POWER_USE
 
@@ -237,7 +236,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
+		to_chat(user, SPAN_NOTICE("It is fastened to the floor!"))
 		return
 	dir = turn(dir, 270)
 

@@ -3,12 +3,11 @@
 	desc = "All slimy and yuck."
 	icon_state = "innards"
 	origin_tech = "biotech=5"
-	parent_organ = "chest"
 	slot = "parasite_egg"
 
 /obj/item/organ/internal/body_egg/on_find(mob/living/finder)
 	..()
-	to_chat(finder, "<span class='warning'>You found an unknown alien organism in [owner]'s [parent_organ]!</span>")
+	to_chat(finder, SPAN_WARNING("You found an unknown alien organism in [owner]'s [parent_organ]!"))
 
 /obj/item/organ/internal/body_egg/insert(mob/living/carbon/M, special = 0)
 	..()

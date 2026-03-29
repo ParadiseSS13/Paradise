@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
 	plane = FLOOR_PLANE
 	max_integrity = 300
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 50, acid = 0)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
 
 	/// List of living mobs currently using the holopad
 	var/list/masters = list()
@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	public_mode = !public_mode
-	to_chat(user, "<span class='notice'>You [public_mode ? "enable" : "disable"] the holopad's public mode setting.</span>")
+	to_chat(user, SPAN_NOTICE("You [public_mode ? "enable" : "disable"] the holopad's public mode setting."))
 
 /obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -185,8 +185,8 @@ GLOBAL_LIST_EMPTY(holopads)
 
 /obj/machinery/hologram/holopad/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Its maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
-	. += "<span class='notice'>Its public mode indicator reads <b>[public_mode ? "on" : "off"]</b>. It can be <b>turned [public_mode ? "off" : "on"]</b> by using a multitool while the maintenance panel is open.</span>"
+	. += SPAN_NOTICE("Its maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.")
+	. += SPAN_NOTICE("Its public mode indicator reads <b>[public_mode ? "on" : "off"]</b>. It can be <b>turned [public_mode ? "off" : "on"]</b> by using a multitool while the maintenance panel is open.")
 
 /obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
 	if(..())
@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='notice'>Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
+				to_chat(AI, SPAN_NOTICE("Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>."))
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
 			temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -264,7 +264,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(outgoing_call)
 			return
 		if(dialling_input)
-			to_chat(usr, "<span class='notice'>Finish dialling first!</span>")
+			to_chat(usr, SPAN_NOTICE("Finish dialling first!"))
 			return
 		temp = "You must stand on the holopad to make a call!<br>"
 		temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -306,26 +306,25 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	updateDialog()
 
-//do not allow AIs to answer calls or people will use it to meta the AI satellite
+// do not allow AIs to answer calls or people will use it to meta the AI satellite
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai_or_robot)
-	var/mob/living/silicon/ai/ai = ai_or_robot
-	var/mob/living/silicon/robot/robot = ai_or_robot
-	if(!istype(ai) && !istype(robot))
-		return
 	if(outgoing_call)
 		return
-	if(istype(robot))
-		interact(robot)
-	if(ismecha(ai.loc)) // AIs must exit mechs before activating holopads.
+
+	if(isrobot(ai_or_robot))
+		interact(ai_or_robot)
 		return
-	/*There are pretty much only three ways to interact here.
-	I don't need to check for client since they're clicking on an object.
-	This may change in the future but for now will suffice.*/
-	else if(ai.eyeobj.loc != loc)//Set client eye on the object if it's not already.
+	if(!is_ai(ai_or_robot))
+		return
+	if(is_mecha_occupant(ai_or_robot)) // AIs must exit mechs before activating holopads.
+		return
+
+	var/mob/living/silicon/ai/ai = ai_or_robot
+	if(ai.eyeobj.loc != loc) // Set client eye on the object if it's not already.
 		ai.eyeobj.set_loc(get_turf(src))
-	else if(!LAZYLEN(masters) || !masters[ai])//If there is no hologram, possibly make one.
-		activate_holo(ai, 1)
-	else//If there is a hologram, remove it.
+	else if(!LAZYLEN(masters) || !masters[ai]) // If there is no hologram, possibly make one.
+		activate_holo(ai, TRUE)
+	else // If there is a hologram, remove it.
 		clear_holo(ai)
 
 /obj/machinery/hologram/holopad/process()
@@ -420,7 +419,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		to_chat(user, "<font color='red'>ERROR:</font> Unable to project hologram.")
 	if(!(stat & NOPOWER) && (!AI || force))
 		if(AI && (istype(AI.current, /obj/machinery/hologram/holopad)))
-			to_chat(user, "<span class='danger'>ERROR:</span> Image feed in progress.")
+			to_chat(user, "[SPAN_DANGER("ERROR:")] Image feed in progress.")
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
@@ -453,7 +452,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		return hologram
 
 
-	to_chat(user, "<span class='danger'>ERROR:</span> Hologram Projection Malfunction.")
+	to_chat(user, "[SPAN_DANGER("ERROR:")] Hologram Projection Malfunction.")
 	clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
@@ -588,9 +587,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "holoray"
 	layer = FLY_LAYER
-	density = FALSE
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100

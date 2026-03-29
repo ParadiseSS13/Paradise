@@ -17,6 +17,10 @@
 	linked_emote = /datum/emote/spin
 	name = "Spin"
 
+/datum/keybinding/emote/jump
+	linked_emote = /datum/emote/jump
+	name = "Jump"
+
 /datum/keybinding/emote/blush
 	linked_emote = /datum/emote/living/blush
 	name = "Blush"
@@ -33,6 +37,10 @@
 	linked_emote = /datum/emote/living/choke
 	name = "Choke"
 
+/datum/keybinding/emote/sing_tune
+	linked_emote = /datum/emote/living/sing_tune
+	name = "Sing Tune"
+
 /datum/keybinding/emote/collapse
 	linked_emote = /datum/emote/living/collapse
 	name = "Collapse"
@@ -40,10 +48,6 @@
 /datum/keybinding/emote/dance
 	linked_emote = /datum/emote/living/dance
 	name = "Dance"
-
-/datum/keybinding/emote/jump
-	linked_emote = /datum/emote/living/jump
-	name = "Jump"
 
 /datum/keybinding/emote/deathgasp
 	linked_emote = /datum/emote/living/deathgasp
@@ -271,6 +275,10 @@
 	linked_emote = /datum/emote/living/carbon/sign
 	name = "Sign"
 
+/datum/keybinding/emote/carbon/gulp
+	linked_emote = /datum/emote/living/carbon/gulp
+	name = "Gulp"
+
 /datum/keybinding/emote/carbon/alien
 	category = KB_CATEGORY_EMOTE_ALIEN
 
@@ -348,6 +356,10 @@
 /datum/keybinding/emote/carbon/human/eyebrow
 	linked_emote = /datum/emote/living/carbon/human/eyebrow
 	name = "Eyebrow"
+
+/datum/keybinding/emote/carbon/human/clear_throat
+	linked_emote = /datum/emote/living/carbon/human/clear_throat
+	name = "Clear Throat"
 
 /datum/keybinding/emote/carbon/human/facepalm
 	linked_emote = /datum/emote/living/carbon/human/facepalm
@@ -469,9 +481,17 @@
 	linked_emote = /datum/emote/living/carbon/human/flap/angry
 	name = "Angry Flap"
 
+/datum/keybinding/emote/carbon/human/wings
+	linked_emote = /datum/emote/living/carbon/human/wings
+	name = "Wings"
+
 /datum/keybinding/emote/carbon/human/flutter
 	linked_emote = /datum/emote/living/carbon/human/flutter
 	name = "Flutter"
+
+/datum/keybinding/emote/carbon/human/chitter
+	linked_emote = /datum/emote/living/carbon/human/chitter
+	name = "Chitter"
 
 /datum/keybinding/emote/carbon/human/quill
 	linked_emote = /datum/emote/living/carbon/human/quill
@@ -622,6 +642,10 @@
 	linked_emote = /datum/emote/living/silicon/halt
 	name = "Halt"
 
+/datum/keybinding/emote/silicon/salute
+	linked_emote = /datum/emote/living/silicon/salute
+	name = "Salute"
+
 /datum/keybinding/emote/simple_animal
 	category = KB_CATEGORY_EMOTE_ANIMAL
 
@@ -636,7 +660,7 @@
 	return isnymph(M) && ..()
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga
-	linked_emote = /datum/emote/living/simple_animal/gorilla/ooga
+	linked_emote = /datum/emote/living/basic_mob/gorilla/ooga
 	name = "Ooga (Gorilla)"
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga/can_use(client/C, mob/M)
@@ -682,6 +706,22 @@
 
 /datum/keybinding/emote/simple_animal/pet/cat/can_use(client/C, mob/M)
 	return iscat(M) && ..()
+
+/datum/keybinding/emote/simple_animal/lizard/whicker
+	linked_emote = /datum/emote/lizard/whicker
+	name = "Whicker (Lizard)"
+
+/datum/keybinding/emote/living/simple_animal/cow/moo
+	linked_emote = /datum/emote/living/simple_animal/cow/moo
+	name = "Moo (Cow)"
+
+/datum/keybinding/emote/living/simple_animal/cluck
+	linked_emote = /datum/emote/living/simple_animal/chicken/cluck
+	name = "Cluck (Chicken)"
+
+/datum/keybinding/emote/living/simple_animal/pig/oink
+	linked_emote = /datum/emote/living/simple_animal/pig/oink
+	name = "Oink (Pig)"
 
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM

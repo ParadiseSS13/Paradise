@@ -3,7 +3,7 @@
 /datum/action/changeling
 	name = "Prototype Sting"
 	desc = "" // Fluff
-	button_background_icon_state = "bg_changeling"
+	background_icon_state = "bg_changeling"
 	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/changeling/cling
 	/// Datum path used to determine the location and name of the power in changeling evolution menu UI
@@ -49,6 +49,7 @@
 	try_to_sting(owner)
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
+	. = TRUE // Value doesn't appear to matter here, but it matters for the middle-click override in AltClickOn inside click.dm
 	user.changeNext_click(5)
 	if(!can_sting(user, target))
 		return
@@ -69,19 +70,19 @@
 /datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	SHOULD_CALL_PARENT(TRUE)
 	if(req_human && (!ishuman(user) || issmall(user)))
-		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
+		to_chat(user, SPAN_WARNING("We cannot do that in this form!"))
 		return FALSE
 	if(cling.chem_charges < chemical_cost)
-		to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
+		to_chat(user, SPAN_WARNING("We require at least [chemical_cost] unit\s of chemicals to do that!"))
 		return FALSE
 	if(cling.absorbed_count < req_dna)
-		to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
+		to_chat(user, SPAN_WARNING("We require at least [req_dna] sample\s of compatible DNA."))
 		return FALSE
 	if(req_stat < user.stat)
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, SPAN_WARNING("We are incapacitated."))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, SPAN_WARNING("We are incapacitated."))
 		return FALSE
 	return TRUE
 

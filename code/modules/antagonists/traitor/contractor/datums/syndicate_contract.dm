@@ -148,7 +148,7 @@
 	if(status != CONTRACT_STATUS_INACTIVE || !ISINDEXSAFE(reward_tc, difficulty))
 		return
 	else if(owning_hub.current_contract)
-		to_chat(M, "<span class='warning'>You already have an ongoing contract!</span>")
+		to_chat(M, SPAN_WARNING("You already have an ongoing contract!"))
 		return
 
 	if(!contract.choose_difficulty(difficulty, src))
@@ -251,16 +251,16 @@
 	else if(!contract.can_start_extraction_process(M, target))
 		return "You and the target must be standing in the extraction area to start the extraction process."
 
-	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
-					"<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
+	M.visible_message(SPAN_NOTICE("[M] starts entering a cryptic series of characters on [U]."),\
+					SPAN_NOTICE("You start entering an extraction signal to your handlers on [U]..."))
 	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M, hidden = TRUE))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
 		extraction_flare = F
 		extraction_deadline = world.time + extraction_cooldown
-		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
-						"<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
+		M.visible_message(SPAN_NOTICE("[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it."),\
+						SPAN_NOTICE("You finish entering the signal on [U] and light an extraction flare, initiating the extraction process."))
 		addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), U, M, F), EXTRACTION_PHASE_PORTAL)
 		extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
 
@@ -444,7 +444,7 @@
 		// Heal them up - gets them out of crit/soft crit.
 		M.reagents.add_reagent("omnizine", 10)
 
-		to_chat(M, "<span class='warning'>You feel strange...</span>")
+		to_chat(M, SPAN_WARNING("You feel strange..."))
 		M.Paralyse(30 SECONDS)
 		M.EyeBlind(35 SECONDS)
 		M.EyeBlurry(35 SECONDS)
@@ -453,26 +453,26 @@
 		for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
 			if(G.summoner == M)
 				M.remove_guardian_actions()
-				to_chat(G, "<span class='danger'>You feel your body ripped to shreds as you're forcibly removed from your summoner!</span>")
-				to_chat(M, "<span class='warning'>You feel some part of you missing, you're not who you used to be...</span>")
+				to_chat(G, SPAN_DANGER("You feel your body ripped to shreds as you're forcibly removed from your summoner!"))
+				to_chat(M, SPAN_WARNING("You feel some part of you missing, you're not who you used to be..."))
 				G.ghostize()
 				qdel(G)
 
 		sleep(6 SECONDS)
-		to_chat(M, "<span class='warning'>That portal did something to you...</span>")
+		to_chat(M, SPAN_WARNING("That portal did something to you..."))
 
 		sleep(6.5 SECONDS)
-		to_chat(M, "<span class='warning'>Your head pounds... It feels like it's going to burst out your skull!</span>")
+		to_chat(M, SPAN_WARNING("Your head pounds... It feels like it's going to burst out your skull!"))
 
 		sleep(3 SECONDS)
-		to_chat(M, "<span class='warning'>Your head pounds...</span>")
+		to_chat(M, SPAN_WARNING("Your head pounds..."))
 
 		sleep(10 SECONDS)
 		to_chat(M, "<span class='specialnotice'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
 					so it's only a matter of time before we send you back...\"</i></span>")
 
-		to_chat(M, "<span class='danger'><font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font></span>")
+		to_chat(M, SPAN_DANGER("<font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font>"))
 
 /**
   * Default damage if no injury is possible.
@@ -497,13 +497,13 @@
 			return
 		default_damage(M)
 		injury_target.droplimb()
-		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god, something's missing!</span>")
+		to_chat(M, SPAN_WARNING("You were interrogated by your captors before being sent back! Oh god, something's missing!"))
 		return
 		//Species specific punishments first
 	if(ismachineperson(M))
 		M.emp_act(EMP_HEAVY)
 		M.adjustBrainLoss(30)
-		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
+		to_chat(M, SPAN_WARNING("You were interrogated by your captors before being sent back! You feel like some of your components are loose!"))
 		return
 	default_damage(M) //Now that we won't accidentally kill an IPC we can make everyone take damage
 	if(isslimeperson(M))
@@ -513,7 +513,7 @@
 		injury_target.cause_internal_bleeding()
 		injury_target = M.get_organ(BODY_ZONE_CHEST)
 		injury_target.cause_internal_bleeding()
-		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
+		to_chat(M, SPAN_WARNING("You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!"))
 		return
 	if(prob(25)) //You either get broken ribs, or a broken limb and IB if you made it this far
 		injury_target = M.get_organ(BODY_ZONE_CHEST)
@@ -561,12 +561,12 @@
 	// Injuries due to questioning and souvenirs
 	injure_target(M)
 	if(prob(RETURN_SOUVENIR_CHANCE))
-		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
+		to_chat(M, SPAN_NOTICE("Your captors left you a souvenir for your troubles!"))
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
 
 	// Return them a bit confused.
-	M.visible_message("<span class='notice'>[M] vanishes...</span>")
+	M.visible_message(SPAN_NOTICE("[M] vanishes..."))
 	M.forceMove(closet)
 	M.Paralyse(3 SECONDS)
 	M.EyeBlurry(5 SECONDS)

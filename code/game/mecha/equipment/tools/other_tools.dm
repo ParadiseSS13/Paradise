@@ -11,6 +11,7 @@
 	desc = "An exosuit module that allows exosuits to teleport to any position in view."
 	icon_state = "mecha_teleport"
 	origin_tech = "bluespace=7"
+	materials = list(MAT_METAL = 10000, MAT_DIAMOND = 10000)
 	equip_cooldown = 150
 	energy_drain = 8000
 	range = MECHA_RANGED
@@ -28,7 +29,6 @@
 /obj/item/mecha_parts/mecha_equipment/teleporter/precise
 	name = "upgraded teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
-	origin_tech = "bluespace=7"
 	energy_drain = 1000
 	tele_precision = 1
 
@@ -50,7 +50,7 @@
 	if(!action_checks(target))
 		return
 	if(cooldown_timer > world.time)
-		occupant_message("<span class='warning'>[src] is still recharging.</span>")
+		occupant_message(SPAN_WARNING("[src] is still recharging."))
 		return
 	switch(mode)
 		if(MECH_GRAVCAT_MODE_GRAVSLING)
@@ -106,9 +106,10 @@
 /// what is that noise? A BAWWW from TK mutants.
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	name = "armor booster module (Close combat weaponry)"
-	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
+	desc = "A grade II plate of armor that provides moderate resistance to melee attacks, it is designed to be mounted at a slight angle to deflect light attacks. The added weight slightly increases energy consumption to maintain consistant speed."
 	icon_state = "mecha_abooster_ccw"
 	origin_tech = "materials=4;combat=4"
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 5000)
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
@@ -124,9 +125,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	name = "armor booster module (Ranged weaponry)"
-	desc = "Boosts exosuit armor against ranged attacks. Requires energy to operate."
+	desc = "A series of layered grade III composite armored plates that provides moderate resistance to ranged attacks, it is designed to be mounted at a slight angle to deflect low power rounds. The added weight slightly increases energy consumption to maintain consistant speed."
 	icon_state = "mecha_abooster_proj"
 	origin_tech = "materials=4;combat=3;engineering=3"
+	materials = list(MAT_METAL = 20000, MAT_GOLD = 5000)
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
@@ -139,6 +141,27 @@
 		start_cooldown()
 		return TRUE
 
+/obj/item/mecha_parts/mecha_equipment/pulse_shield
+	name = "EPS-99 pulse shield generator"
+	desc = "A shield module that covers the exosuit in an energy barrier that absorbs damage. Requires energy to operate."
+	icon_state = "mecha_pulse_shield"
+	origin_tech = "materials=4;combat=4"
+	materials = list(MAT_METAL = 20000, MAT_GOLD = 5000, MAT_BLUESPACE = 5000)
+	equip_cooldown = 10
+	energy_drain = 50
+	range = 0
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/on_equip()
+	chassis.update_icon(UPDATE_OVERLAYS)
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/on_unequip()
+	. = ..()
+	chassis.update_icon(UPDATE_OVERLAYS)
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/proc/attack_react(mob/user as mob)
+	if(action_checks(user))
+		start_cooldown()
+		return TRUE
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
@@ -147,6 +170,7 @@
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid_item"
 	origin_tech ="magnets=3;programming=3;engineering=4"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_GOLD = 1000, MAT_SILVER = 2000)
 	equip_cooldown = 20
 	energy_drain = 50
 	range = 0
@@ -233,7 +257,7 @@
 	desc = "An exosuit module that wirelessly drains energy from any available power channel in an area. The performance index barely compensates for movement costs."
 	icon_state = "tesla"
 	origin_tech = "magnets=4;powerstorage=4;engineering=4"
-	energy_drain = 0
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_GOLD = 2000, MAT_SILVER = 3000)
 	range = 0
 	var/coeff = 100
 	var/list/use_channels = list(PW_CHANNEL_EQUIPMENT, PW_CHANNEL_ENVIRONMENT, PW_CHANNEL_LIGHTING)
@@ -288,6 +312,9 @@
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(1)
 		return
+	if(istype(chassis.selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+		chassis.selected.on_unequip() // No shields while recharging
+		occupant_message("Shields disabled.")
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)
@@ -310,12 +337,11 @@
 /////////////////////////////////////////// GENERATOR /////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/generator
-	name = "exosuit plasma converter"
+	name = "exosuit plasma generator"
 	desc = "An exosuit module that generates power using solid plasma as fuel. Pollutes the environment."
 	icon_state = "tesla"
 	origin_tech = "plasmatech=2;powerstorage=2;engineering=2"
-	range = MECHA_MELEE
-	energy_drain = 0 //for allow load fuel without energy
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000, MAT_SILVER = 2000, MAT_PLASMA = 5000)
 	var/coeff = 100
 	var/fuel_type = MAT_PLASMA
 	var/max_fuel = 150000 // 45k energy for 75 plasma/ 375 cr.
@@ -392,7 +418,7 @@
 		return fuel_added
 
 	else
-		occupant_message("<span class='warning'>[fuel_name] traces in target minimal! [I] cannot be used as fuel.</span>")
+		occupant_message(SPAN_WARNING("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
 		return 0
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby__legacy__attackchain(weapon,mob/user, params)
@@ -426,14 +452,13 @@
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear
 	name = "exonuclear reactor"
 	desc = "An exosuit module that generates power using uranium as fuel. Pollutes the environment."
-	icon_state = "tesla"
 	origin_tech = "powerstorage=4;engineering=4"
 	fuel_name = "uranium" // Our fuel name as a string
 	fuel_type = MAT_URANIUM
 	max_fuel = 50000 // around 83k energy for 25 uranium/ 0 cr.
-	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 150
 	power_per_cycle = 250
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000, MAT_SILVER = 500)
 	var/rad_per_cycle = 120
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
@@ -445,6 +470,7 @@
 	desc = "Ion thrusters to be attached to an exosuit. Drains power even while not in flight."
 	icon_state = "tesla"
 	origin_tech = "powerstorage=4;engineering=4"
+	materials = list(MAT_METAL = 15000, MAT_PLASMA = 3000)
 	range = 0
 	energy_drain = 20
 	selectable = FALSE

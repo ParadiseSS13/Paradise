@@ -53,7 +53,7 @@
 		return
 	if(r_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.screen_loc = ui_rhand
+			r_hand.screen_loc = UI_RHAND
 			client.screen += r_hand
 
 		update_observer_view(r_hand)
@@ -64,7 +64,7 @@
 		return
 	if(l_hand)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.screen_loc = ui_lhand
+			l_hand.screen_loc = UI_LHAND
 			client.screen += l_hand
 		update_observer_view(l_hand)
 
@@ -74,9 +74,9 @@
 	update_hud_wear_mask(wear_mask)
 
 /mob/living/carbon/update_inv_back()
-	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)]
-		inv.update_icon()
+	if(client)
+		var/atom/movable/screen/inventory/inv = hud_used?.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_BACK)]
+		inv?.update_icon()
 
 	if(back)
 		update_hud_back(back)

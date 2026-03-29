@@ -3,17 +3,23 @@
 /// How many pixels to move the muzzle flash up so your character doesn't look like they're shitting out lasers.
 #define MUZZLE_EFFECT_PIXEL_INCREMENT 17
 
-/obj/item/projectile
+/obj/projectile
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
-	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	hitsound = 'sound/weapons/pierce.ogg'
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	pass_flags = PASSTABLE
+	animate_movement = NO_STEPS
+	/// Flat armor reduction, occurs after percentage armor penetration.
+	var/armor_penetration_flat
+	/// Percentage armor reduction, happens before flat armor reduction.
+	var/armor_penetration_percentage
+	/// Hit sound to play when we hit something
+	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
@@ -33,7 +39,6 @@
 	var/Angle = null
 	var/original_angle = null //Angle at firing
 	var/spread = 0			//amount (in degrees) of projectile spread
-	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 
@@ -43,7 +48,7 @@
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
-	var/projectile_type = "/obj/item/projectile"
+	var/projectile_type = "/obj/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
 	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
 	var/reflectability = REFLECTABILITY_PHYSICAL
@@ -91,6 +96,9 @@
 	/// Does this projectile hit living non dense mobs?
 	var/always_hit_living_nondense = FALSE
 
+	/// Is this projectile forced to not make hit messages or sound to avoid spam?
+	var/force_no_hit_message_or_sound = FALSE
+
 	//Hitscan
 	var/hitscan = FALSE //Whether this is hitscan. If it is, speed is basically ignored.
 	var/list/beam_segments //assoc list of datum/point_precise or datum/point_precise/vector, start = end. Used for hitscan effect generation.
@@ -134,18 +142,25 @@
 	var/ricochet_incidence_leeway = 40
 	/// Can our ricochet autoaim hit our firer?
 	var/ricochet_shoots_firer = TRUE
+	/// Do we always bounce off non mobs?
+	var/always_nonmob_ricochet = FALSE
 
-/obj/item/projectile/New()
+	/// determines what type of antimagic can block the spell projectile
+	var/antimagic_flags
+	/// determines the drain cost on the antimagic item
+	var/antimagic_charge_cost
+
+/obj/projectile/New()
 	return ..()
 
-/obj/item/projectile/Initialize(mapload)
+/obj/projectile/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/projectile/proc/Range()
+/obj/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
@@ -156,16 +171,27 @@
 	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
 		on_range()
 
-/obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
+/obj/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
 
-/obj/item/projectile/proc/prehit(atom/target)
+/obj/projectile/proc/prehit(atom/target)
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
+			visible_message(SPAN_WARNING("[src] fizzles on contact with [victim]!"))
+			damage = 0
+			nodamage = 1
+			return FALSE
 	return TRUE
 
-/obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost)) // Yes we have to check this twice welcome to bullet hell code
+			return FALSE
 	if(target == original)
 		hitx = target.pixel_x + p_x - 16
 		hity = target.pixel_y + p_y - 16
@@ -219,15 +245,16 @@
 		var/organ_hit_text = ""
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
-		if(suppressed)
-			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
-		else
-			if(hitsound)
-				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, TRUE, -1)
-			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
-								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+		if(!force_no_hit_message_or_sound)
+			if(suppressed)
+				playsound(loc, hitsound, 5, TRUE, -1)
+				to_chat(L, SPAN_USERDANGER("You're shot by \a [src][organ_hit_text]!</span>"))
+			else
+				if(hitsound)
+					var/volume = vol_by_damage()
+					playsound(loc, hitsound, volume, TRUE, -1)
+				L.visible_message(SPAN_DANGER("[L] is hit by \a [src][organ_hit_text]!</span>"), \
+									SPAN_USERDANGER("[L] is hit by \a [src][organ_hit_text]!</span>"))	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 		if(immolate)
 			L.adjust_fire_stacks(immolate)
 			L.IgniteMob()
@@ -249,7 +276,7 @@
 
 	return were_affects_applied
 
-/obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
+/obj/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
 	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
@@ -258,22 +285,23 @@
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
 			return TRUE
 
-/obj/item/projectile/proc/vol_by_damage()
+/obj/projectile/proc/vol_by_damage()
 	if(damage)
 		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
-/obj/item/projectile/proc/store_hitscan_collision(datum/point_precise/point_cache)
+/obj/projectile/proc/store_hitscan_collision(datum/point_precise/point_cache)
 	beam_segments[beam_index] = point_cache
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
-/obj/item/projectile/Bump(atom/A)
+/obj/projectile/Bump(atom/A)
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
 		ricochets++
+		ricochet_chance *= ricochet_decay_chance // Note: I should impliment ricohet decay damage. I'm not doing that during heretic as balance scope
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
 			permutated.Cut()
@@ -327,10 +355,10 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+/obj/projectile/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1 //Bullets don't drift in space
 
-/obj/item/projectile/process()
+/obj/projectile/process()
 	if(!loc || !trajectory)
 		return PROCESS_KILL
 	if(paused || !isturf(loc))
@@ -350,7 +378,7 @@
 	for(var/i in 1 to required_moves)
 		pixel_move(1)
 
-/obj/item/projectile/proc/pixel_move(trajectory_multiplier, hitscanning = FALSE)
+/obj/projectile/proc/pixel_move(trajectory_multiplier, hitscanning = FALSE)
 	if(!loc || !trajectory)
 		return
 	last_projectile_move = world.time
@@ -394,7 +422,7 @@
 		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
 	Range()
 
-/obj/item/projectile/proc/fire(setAngle)
+/obj/projectile/proc/fire(setAngle)
 	if(setAngle)
 		Angle = setAngle
 	if(!current || loc == current)
@@ -417,7 +445,7 @@
 	START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)
 
-/obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
+/obj/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
 	if(!starting)
 		return
 	var/new_x = starting.x + pick(position_modifiers)
@@ -438,11 +466,14 @@
 	set_angle(get_angle(curloc, original))
 
 /// A mob moving on a tile with a projectile is hit by it.
-/obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
-	if(isliving(entered) && entered.density && !checkpass(PASSMOB) && !(entered in permutated) && (entered.loc == loc))
+/obj/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
+	if(!isliving(entered))
+		return
+	var/mob/living_entered = entered
+	if(((living_entered.density || !living_entered.projectile_hit_check(src))) && !checkpass(PASSMOB) && !(living_entered in permutated) && (living_entered.loc == loc))
 		Bump(entered, 1)
 
-/obj/item/projectile/Destroy()
+/obj/projectile/Destroy()
 	if(hitscan)
 		finalize_hitscan_and_generate_tracers()
 	STOP_PROCESSING(SSprojectiles, src)
@@ -451,12 +482,12 @@
 	firer = null
 	return ..()
 
-/obj/item/projectile/proc/dumbfire(dir)
+/obj/projectile/proc/dumbfire(dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 
 
-/obj/item/projectile/proc/on_ricochet(atom/A)
+/obj/projectile/proc/on_ricochet(atom/A)
 	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)
 		return
 
@@ -473,21 +504,25 @@
 	if(unlucky_sob)
 		set_angle(get_angle(src, unlucky_sob.loc))
 
-/obj/item/projectile/proc/check_ricochet()
+/obj/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
+
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/check_ricochet_flag(atom/A)
+/obj/projectile/proc/check_ricochet_flag(atom/A)
 	if((flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
 	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
+	if(!ismob(A) && always_nonmob_ricochet)
+		return TRUE
+
 	return FALSE
 
-/obj/item/projectile/set_angle(new_angle)
+/obj/projectile/set_angle(new_angle)
 	..()
 
 	Angle = new_angle
@@ -500,7 +535,7 @@
 		store_hitscan_collision(point_cache)
 	return TRUE
 
-/obj/item/projectile/proc/set_angle_centered(new_angle)
+/obj/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
 	var/list/coordinates = trajectory.return_coordinates()
 	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
@@ -511,10 +546,10 @@
 		store_hitscan_collision(point_cache)
 	return TRUE
 
-/obj/item/projectile/experience_pressure_difference()
+/obj/projectile/experience_pressure_difference()
 	return // Immune to gas flow.
 
-/obj/item/projectile/forceMove(atom/target)
+/obj/projectile/forceMove(atom/target)
 	. = ..()
 	if(QDELETED(src)) // we coulda bumped something
 		return
@@ -525,20 +560,20 @@
 		if(hitscan)
 			record_hitscan_start(RETURN_PRECISE_POINT(src))
 
-/obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
+/obj/projectile/proc/is_reflectable(desired_reflectability_level)
 	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
 		return FALSE
 	if(reflectability < desired_reflectability_level)
 		return FALSE
 	return TRUE
 
-/obj/item/projectile/proc/record_hitscan_start(datum/point_precise/point_cache)
+/obj/projectile/proc/record_hitscan_start(datum/point_precise/point_cache)
 	if(point_cache)
 		beam_segments = list()
 		beam_index = point_cache
 		beam_segments[beam_index] = null //record start.
 
-/obj/item/projectile/proc/process_hitscan()
+/obj/projectile/proc/process_hitscan()
 	//Safety here is to make hitscan stop if something goes wrong. Why is it equal to range * 10, when range is the maximum amount of tiles it can go? No clue.
 	var/safety = range * 10
 	record_hitscan_start(RETURN_POINT_VECTOR_INCREMENT(src, Angle, MUZZLE_EFFECT_PIXEL_INCREMENT, 1))
@@ -554,13 +589,13 @@
 			return //Kill!
 		pixel_move(1, TRUE)
 
-/obj/item/projectile/proc/finalize_hitscan_and_generate_tracers(impacting = TRUE)
+/obj/projectile/proc/finalize_hitscan_and_generate_tracers(impacting = TRUE)
 	if(trajectory && beam_index)
 		var/datum/point_precise/point_cache = trajectory.copy_to()
 		beam_segments[beam_index] = point_cache
 	generate_hitscan_tracers(null, hitscan_duration, impacting)
 
-/obj/item/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE)
+/obj/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE)
 	if(!length(beam_segments))
 		return
 	if(tracer_type)
@@ -590,7 +625,7 @@
 	if(cleanup)
 		cleanup_beam_segments()
 
-/obj/item/projectile/proc/cleanup_beam_segments()
+/obj/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
 
 /**
@@ -601,7 +636,7 @@
  * This is NOT used for pacifist checks, that's handled by [/obj/item/ammo_casing/var/harmful]
  * This is used in places such as AI responses to determine if they're being threatened or not (among other places)
  */
-/obj/item/projectile/proc/is_hostile_projectile()
+/obj/projectile/proc/is_hostile_projectile()
 	if(damage > 0 || stamina > 0)
 		return TRUE
 
@@ -616,7 +651,7 @@
 		playsound(src, sound, vol = 100, vary = TRUE)
 
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/bullet = new projectile_type(startloc)
+	var/obj/projectile/bullet = new projectile_type(startloc)
 	bullet.starting = startloc
 	bullet.firer = firer || src
 	bullet.firer_source_atom = src

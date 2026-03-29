@@ -129,7 +129,7 @@
 /area/shuttle/transport)
 "x" = (
 /obj/machinery/door/airlock/freezer{
-	name = "Meat tadeship backroom";
+	name = "Meat Ferry Backroom";
 	req_access = "28"
 	},
 /turf/simulated/floor/plasteel{

@@ -56,13 +56,9 @@
 	name = "\improper Transport Shuttle"
 	parallax_move_direction = EAST
 
-/area/shuttle/gamma/space
+/area/shuttle/gamma
+	name = "\improper Gamma Armory Shuttle"
 	icon_state = "shuttle"
-	name = "\improper Gamma Armory"
-
-/area/shuttle/gamma/station
-	icon_state = "shuttle"
-	name = "\improper Gamma Armory Station"
 
 /area/shuttle/siberia
 	name = "\improper Labor Camp Shuttle"
@@ -96,10 +92,8 @@
 
 /area/shuttle/administration/centcom
 	name = "\improper Nanotrasen Vessel Centcom"
-	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
-	name = "\improper Nanotrasen Vessel"
 	icon_state = "shuttlered2"
 
 // === Trying to remove these areas:

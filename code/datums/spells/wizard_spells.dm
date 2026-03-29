@@ -3,7 +3,6 @@
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
 	base_cooldown = 200
-	clothes_req = TRUE
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
 	cooldown_min = 60 //35 deciseconds reduction per rank
@@ -11,7 +10,7 @@
 	proj_icon_state = "magicm"
 	proj_name = "a magic missile"
 	proj_lingering = 1
-	proj_type = /obj/item/projectile/magic/magic_missile
+	proj_type = /obj/projectile/magic/magic_missile
 
 	proj_lifespan = 20
 	proj_step_delay = 2
@@ -30,7 +29,7 @@
 	T.max_targets = INFINITY
 	return T
 
-/obj/item/projectile/magic/magic_missile
+/obj/projectile/magic/magic_missile
 	name = "Magic Missile"
 	hitsound = 'sound/magic/mm_hit.ogg'
 	weaken = 6 SECONDS
@@ -49,7 +48,7 @@
 	proj_icon_state = "bike_horn"
 	proj_name = "A bike horn"
 	proj_lingering = 1
-	proj_type = /obj/item/projectile/magic/magic_missile/honk_missile
+	proj_type = /obj/projectile/magic/magic_missile/honk_missile
 
 	proj_lifespan = 20
 	proj_step_delay = 5
@@ -69,7 +68,7 @@
 	T.max_targets = INFINITY
 	return T
 
-/obj/item/projectile/magic/magic_missile/honk_missile
+/obj/projectile/magic/magic_missile/honk_missile
 	name = "Funny Missile"
 	hitsound = 'sound/items/bikehorn.ogg'
 
@@ -86,10 +85,9 @@
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
 
 	base_cooldown = 400
-	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
-	message = "<span class='notice'>You feel strong! You feel a pressure building behind your eyes!</span>"
+	message = SPAN_NOTICE("You feel strong! You feel a pressure building behind your eyes!")
 	centcom_cancast = FALSE
 
 	traits = list(TRAIT_LASEREYES)
@@ -113,7 +111,6 @@
 	base_cooldown = 120
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	cooldown_min = 20 //25 deciseconds reduction per rank
 
 	smoke_type = SMOKE_COUGHING
@@ -128,7 +125,6 @@
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
 	base_cooldown = 40 SECONDS
-	clothes_req = TRUE
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
 	cooldown_min = 200 //50 deciseconds reduction per rank
@@ -143,9 +139,7 @@
 	desc = "This spell randomly teleports you a short distance."
 
 	base_cooldown = 20
-	clothes_req = TRUE
 	invocation = "none"
-	invocation_type = "none"
 	cooldown_min = 5 //4 deciseconds reduction per rank
 
 
@@ -170,7 +164,6 @@
 	desc = "This spell teleports you to a type of area of your selection."
 
 	base_cooldown = 600
-	clothes_req = TRUE
 	invocation = "SCYAR NILA"
 	invocation_type = "shout"
 	cooldown_min = 200 //100 deciseconds reduction per rank
@@ -189,7 +182,6 @@
 	desc = "This spell teleports you back to your teacher."
 
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	invocation = "SCYAR TESO"
 	invocation_type = "shout"
 	cooldown_min = 10 SECONDS
@@ -202,7 +194,7 @@
 
 /datum/spell/return_to_teacher/cast(list/targets, mob/living/user = usr)
 	if(!(teacher && teacher.current))
-		to_chat(user, "<span class='danger'>The link to your teacher is broken!</span>")
+		to_chat(user, SPAN_DANGER("The link to your teacher is broken!"))
 		return
 	do_teleport(user, teacher.current, 1, sound_in = 'sound/magic/blink.ogg', sound_out = 'sound/magic/blink.ogg', safe_turf_pick = TRUE)
 
@@ -235,11 +227,9 @@
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
 	base_cooldown = 50 SECONDS
-	clothes_req = TRUE
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
 	cooldown_min = 100
-	summon_amt = 1
 	delay = 0
 	action_icon_state = "time"
 
@@ -252,11 +242,10 @@
 	desc = "This spell conjures a simple carp."
 
 	base_cooldown = 1200
-	clothes_req = TRUE
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
 
-	summon_type = list(/mob/living/simple_animal/hostile/carp)
+	summon_type = list(/mob/living/basic/carp)
 
 	cast_sound = 'sound/magic/summon_karp.ogg'
 	aoe_range = 1
@@ -268,7 +257,6 @@
 	base_cooldown = 600
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 
 	summon_type = list(/obj/structure/constructshell)
 
@@ -286,7 +274,7 @@
 	invocation_type = "shout"
 	summon_amt = 10
 
-	summon_type = list(/mob/living/simple_animal/hostile/creature)
+	summon_type = list(/mob/living/basic/creature)
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 3
 
@@ -297,7 +285,7 @@
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
-	message = "<span class='notice'>Your eyes cry out in pain!</span>"
+	message = SPAN_NOTICE("Your eyes cry out in pain!")
 	cooldown_min = 2 SECONDS
 	sound = 'sound/magic/blind.ogg'
 
@@ -309,13 +297,13 @@
 
 /datum/spell/blind/cast(list/targets, mob/living/user)
 	if(!length(targets))
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, SPAN_NOTICE("No target found in range."))
 		return
 
 	var/mob/living/target = targets[1]
 	if(target.can_block_magic(antimagic_flags))
-		to_chat(target, "<span class='notice'>Your eye itches, but it passes momentarily.</span>")
-		to_chat(user, "<span class='notice'>The spell had no effect!</span>")
+		to_chat(target, SPAN_NOTICE("Your eye itches, but it passes momentarily."))
+		to_chat(user, SPAN_NOTICE("The spell had no effect!"))
 		return FALSE
 	target.EyeBlurry(40 SECONDS)
 	target.EyeBlind(30 SECONDS)
@@ -333,14 +321,22 @@
 	invocation_type = "shout"
 	cooldown_min = 20 //10 deciseconds reduction per rank
 
-	selection_activated_message		= "<span class='notice'>You prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
+	selection_activated_message		= SPAN_NOTICE("You prepare to cast your fireball spell! <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message	= SPAN_NOTICE("You extinguish your fireball...for now.")
 
-	var/fireball_type = /obj/item/projectile/magic/fireball
+	var/fireball_type = /obj/projectile/magic/fireball
+	var/what_icon_state = "fireball0"
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
 
-	active = FALSE
+	should_recharge_after_cast = FALSE
+
+	/// How many projectiles we can fire per cast. Not all at once, per click, kinda like charges. Unlike charges, it doesn't share cooldown
+	var/projectile_amount = 1
+	/// How many projectiles we have yet to fire, based on projectile_amount
+	var/current_amount = 0
+	/// Do we care if we are on a turf?
+	var/cares_about_turf = TRUE
 
 /datum/spell/fireball/apprentice
 	centcom_cancast = FALSE
@@ -353,50 +349,63 @@
 /datum/spell/fireball/update_spell_icon()
 	if(!action)
 		return
-	action.button_overlay_icon_state = "fireball[active]"
-	action.UpdateButtons()
+	action.button_icon_state = "[what_icon_state][active]"
+	action.build_all_button_icons()
 
 /datum/spell/fireball/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1] //There is only ever one target for fireball
-	var/turf/T = user.loc
-	var/turf/U = get_step(user, user.dir) // Get the tile infront of the move, based on their direction
-	if(!isturf(U) || !isturf(T))
+	var/turf/T = get_turf(user)
+	var/turf/U = get_step(get_turf(user), user.dir) // Get the tile infront of the move, based on their direction
+	if((!isturf(U) && cares_about_turf) || (!isturf(T) && cares_about_turf))
 		return FALSE
 
-	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
+	var/obj/projectile/magic/fireball/FB = new fireball_type(get_turf(user))
 	FB.current = get_turf(user)
 	FB.original = target
 	FB.firer = user
 	FB.preparePixelProjectile(target, user)
 	FB.fire()
-	user.newtonian_move(get_dir(U, T))
+	if(cares_about_turf)
+		user.newtonian_move(get_dir(U, T))
+	if(should_recharge_after_cast)
+		should_recharge_after_cast = FALSE
+		remove_ranged_ability(user)
 
 	return TRUE
+
+/datum/spell/fireball/should_remove_click_intercept()
+	return FALSE
+
+/datum/spell/fireball/before_cast(list/targets, mob/user)
+	. = ..()
+	current_amount++
+	if(current_amount >= projectile_amount)
+		current_amount = 0
+		should_recharge_after_cast = TRUE
+
 
 /datum/spell/fireball/toolbox
 	name = "Homing Toolbox"
 	desc = "This spell summons and throws a magical homing toolbox at your opponent."
 	sound = 'sound/weapons/smash.ogg'
-	fireball_type = /obj/item/projectile/homing/magic/toolbox
+	fireball_type = /obj/projectile/homing/magic/toolbox
 	invocation = "ROBUSTIO!"
 
-	selection_activated_message		= "<span class='notice'>You prepare to cast your homing toolbox! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You unrobust your toolbox...for now.</span>"
+	selection_activated_message		= SPAN_NOTICE("You prepare to cast your homing toolbox! <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message	= SPAN_NOTICE("You unrobust your toolbox...for now.")
 
 /datum/spell/fireball/homing
 	name = "Greater Homing Fireball"
 	desc = "This spell fires a strong homing fireball at a target."
 	invocation = "ZI-ONI SOMA"
-	fireball_type = /obj/item/projectile/homing/magic/homing_fireball
+	fireball_type = /obj/projectile/homing/magic/homing_fireball
 
-	selection_activated_message = "<span class='notice'>You prepare to cast your greater homing fireball spell! <B>Left-click to cast at a target!</B></span>"
-	base_cooldown = 6 SECONDS
+	selection_activated_message = SPAN_NOTICE("You prepare to cast your greater homing fireball spell! <B>Left-click to cast at a target!</B>")
 
 /datum/spell/aoe/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	base_cooldown = 40 SECONDS
-	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 	cooldown_min = 150
@@ -436,13 +445,13 @@
 				var/mob/living/M = AM
 				M.Weaken(10 SECONDS)
 				M.adjustBruteLoss(5)
-				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
+				to_chat(M, SPAN_USERDANGER("You're slammed into the floor by a mystical force!"))
 		else
 			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
 			if(isliving(AM))
 				var/mob/living/M = AM
 				M.Weaken(stun_amt)
-				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
+				to_chat(M, SPAN_USERDANGER("You're thrown back by a mystical force!"))
 			spawn(0)
 				AM.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 
@@ -476,11 +485,10 @@
 	name = "Corpse Explosion"
 	desc = "Fills a corpse with energy, causing it to explode violently."
 	base_cooldown = 5 SECONDS
-	clothes_req = TRUE
 	invocation = "JAH ITH BER"
 	invocation_type = "whisper"
-	selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You cancel the spell.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to detonate a corpse. Click on a target to cast the spell.")
+	selection_deactivated_message = SPAN_NOTICE("You cancel the spell.")
 	action_icon_state = "corpse_explosion"
 
 /datum/spell/corpse_explosion/create_new_targeting()
@@ -505,11 +513,11 @@
 		range = max(1, range)
 		M.apply_damage(100 / range, BRUTE)
 		if(issilicon(M))
-			to_chat(M, "<span class='userdanger'>Your sensors are disabled, and your carapace is ripped apart by the violent dark magic!</span>")
+			to_chat(M, SPAN_USERDANGER("Your sensors are disabled, and your carapace is ripped apart by the violent dark magic!"))
 			M.Weaken(6 SECONDS / range)
 			continue
 
-		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
+		to_chat(M, SPAN_USERDANGER("You are eviscerated by the violent dark magic!"))
 		if(ishuman(M))
 			if(range < 4)
 				M.KnockDown(4 SECONDS / range)

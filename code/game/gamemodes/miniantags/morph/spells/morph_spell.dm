@@ -10,7 +10,7 @@
 		name = "[name] ([hunger_cost])"
 		action.name = name
 		action.desc = desc
-		action.UpdateButtons()
+		action.build_all_button_icons()
 
 /datum/spell/morph_spell/create_new_handler()
 	var/datum/spell_handler/morph/H = new

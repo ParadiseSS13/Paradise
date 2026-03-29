@@ -1,4 +1,4 @@
-/obj/item/projectile/ion
+/obj/projectile/ion
 	name = "ion bolt"
 	icon_state = "ion"
 	damage = 0
@@ -10,41 +10,38 @@
 	var/strong_emp = 1
 	var/weak_emp = 1
 
-/obj/item/projectile/ion/on_hit(atom/target, blocked = 0)
+/obj/projectile/ion/on_hit(atom/target, blocked = 0)
 	..()
 	empulse(target, strong_emp, weak_emp, TRUE, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/ion/weak
+/obj/projectile/ion/weak
 	strong_emp = -1
 	weak_emp = 0
 
-/obj/item/projectile/bullet/gyro
+/obj/projectile/bullet/gyro
 	name ="explosive bolt"
 	icon_state= "bolter"
 	damage = 50
 	alwayslog = TRUE
-	flag = "bullet"
 
-/obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/bullet/a40mm
+/obj/projectile/bullet/a40mm
 	name ="40mm grenade"
 	desc = "USE A WEEL GUN."
 	icon_state= "bolter"
 	alwayslog = TRUE
-	damage = 60
-	flag = "bullet"
 
-/obj/item/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, 1, 0, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/temp
+/obj/projectile/temp
 	name = "temperature beam"
 	icon_state = "temp_4"
 	damage = 0
@@ -54,7 +51,7 @@
 	var/temperature = 300
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-/obj/item/projectile/temp/New(loc, shot_temp)
+/obj/projectile/temp/New(loc, shot_temp)
 	..()
 	if(!isnull(shot_temp))
 		temperature = shot_temp
@@ -91,7 +88,7 @@
 			icon_state = "temp_4"
 
 
-/obj/item/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
+/obj/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
 	..()
 	if(isliving(target))
 		var/mob/living/M = target
@@ -102,16 +99,14 @@
 			playsound(M.loc, 'sound/effects/bamf.ogg', 50, 0)
 	return 1
 
-/obj/item/projectile/meteor
+/obj/projectile/meteor
 	name = "meteor"
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	damage = 0
-	damage_type = BRUTE
 	nodamage = 1
-	flag = "bullet"
 
-/obj/item/projectile/meteor/Bump(atom/A)
+/obj/projectile/meteor/Bump(atom/A)
 	if(A == firer)
 		loc = A.loc
 		return
@@ -121,66 +116,98 @@
 			shake_camera(M, 3, 1)
 	qdel(src)
 
-/obj/item/projectile/missile
+/obj/projectile/paintball
+	name = "paintball"
+	icon_state = "paintball"
+	damage = 1
+
+/obj/projectile/paintball/on_hit(atom/target, blocked, hit_zone)
+	var/obj/effect/decal/cleanable/paint_splat/splat = new /obj/effect/decal/cleanable/paint_splat(get_turf(target))
+	splat.color = color
+	return ..()
+
+/obj/projectile/pepperball
+	name = "pepperball"
+	icon_state = "paintball"
+	damage = 1
+
+/obj/projectile/pepperball/Initialize(mapload)
+	. = ..()
+	create_reagents(5)
+	reagents.set_reacting(FALSE)
+	reagents.add_reagent("condensedcapsaicin", 5)
+
+/obj/projectile/pepperball/on_hit(atom/target, blocked, hit_zone)
+	var/turf/our_turf = get_turf(target)
+	reagents.reaction(our_turf)
+	for(var/atom/T in our_turf)
+		reagents.reaction(T)
+	return ..()
+
+/obj/projectile/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
 	damage = 50
-	///If the missile will have a heavy, or light explosion.
-	var/heavy = TRUE
+	/// Devastation from the missile
+	var/devastation = 1
+	/// Heavy damage from the missile
+	var/heavy_damage = 2
+	/// Light damage from the missile
+	var/light_damage = 3
 
-/obj/item/projectile/missile/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/missile/on_hit(atom/target, blocked, hit_zone)
 	..()
-	if(heavy)
-		explosion(target, 1, 2, 3, cause = "[type] fired by [key_name(firer)]")
-	else
-		explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
+	explosion(target, devastation, heavy_damage, light_damage, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/missile/light
+/obj/projectile/missile/light
 	damage = 15
-	heavy = FALSE
+	devastation = -1
+	heavy_damage = 0
+	light_damage = 2
 
-/obj/item/projectile/energy/floramut
+/obj/projectile/missile/medium
+	damage = 30
+	devastation = -1
+	heavy_damage = 1
+
+/obj/projectile/energy/floramut
 	name = "alpha somatoray"
 	icon_state = "energy"
-	damage = 0
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	flag = "energy"
 
-/obj/item/projectile/energy/florayield
+/obj/projectile/energy/florayield
 	name = "beta somatoray"
 	icon_state = "energy2"
-	damage = 0
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	flag = "energy"
 
-/obj/item/projectile/energy/mindflayer
+/obj/projectile/energy/mindflayer
 	name = "flayer ray"
 
-/obj/item/projectile/energy/mindflayer/on_hit(atom/target, blocked = 0)
+/obj/projectile/energy/mindflayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
 		M.adjustBrainLoss(20)
 		M.AdjustHallucinate(20 SECONDS)
 
-/obj/item/projectile/clown
+/obj/projectile/clown
 	name = "snap-pop"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
 
-/obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
+/obj/projectile/clown/Bump(atom/A as mob|obj|turf|area)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a snap!</span>")
+	visible_message(SPAN_WARNING("[src] explodes!"),SPAN_WARNING("You hear a snap!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
-/obj/item/projectile/beam/wormhole
+/obj/projectile/beam/wormhole
 	name = "wormhole beam"
 	icon_state = "spark"
 	hitsound = "sparks"
@@ -189,16 +216,16 @@
 	color = "#33CCFF"
 	nodamage = TRUE
 
-/obj/item/projectile/beam/wormhole/orange
+/obj/projectile/beam/wormhole/orange
 	name = "orange wormhole beam"
 	color = "#FF6600"
 
-/obj/item/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
+/obj/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
 	..()
 	if(istype(casing))
 		gun = casing.gun
 
-/obj/item/projectile/beam/wormhole/on_hit(atom/target)
+/obj/projectile/beam/wormhole/on_hit(atom/target)
 	if(ismob(target))
 		if(is_teleport_allowed(target.z))
 			var/turf/portal_destination = pick(orange(6, src))
@@ -208,33 +235,32 @@
 		qdel(src)
 	gun.create_portal(src)
 
-/obj/item/projectile/bullet/frag12
+/obj/projectile/bullet/frag12
 	name ="explosive slug"
 	damage = 15
 	alwayslog = TRUE
 
-/obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 1, cause = "frag 12 fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/bullet/confetti
+/obj/projectile/bullet/confetti
 	name = "confetti shot"
 	damage = 0
 	range = 3
 
-/obj/item/projectile/bullet/confetti/on_range()
+/obj/projectile/bullet/confetti/on_range()
 	confettisize(src, 7, 3)
 	..()
 
-/obj/item/projectile/bullet/confetti/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/bullet/confetti/on_hit(atom/target, blocked, hit_zone)
 	confettisize(src, 7, 3)
 	..()
 
-/obj/item/projectile/plasma
+/obj/projectile/plasma
 	name = "plasma blast"
 	icon_state = "plasmacutter"
-	damage_type = BRUTE
 	damage = 5
 	range = 3
 	dismemberment = 20
@@ -245,7 +271,6 @@
 	impact_type = /obj/effect/projectile/impact/plasma_cutter
 	impact_effect_type = null
 	hitscan_light_intensity = 3
-	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_CYAN
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
@@ -254,18 +279,18 @@
 	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_CYAN
 
-/obj/item/projectile/plasma/prehit(atom/target)
+/obj/projectile/plasma/prehit(atom/target)
 	. = ..()
 	if(!lavaland_equipment_pressure_check(get_turf(target)))
 		name = "weakened [name]"
 		dismemberment = 0
 		sharp = FALSE
 
-/obj/item/projectile/plasma/on_hit(atom/target)
+/obj/projectile/plasma/on_hit(atom/target)
 	. = ..()
 	if(ismineralturf(target))
 		if(is_ancient_rock(target))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(SPAN_NOTICE("This rock appears to be resistant to all mining tools except pickaxes!"))
 			forcedodge = 0
 			return
 		forcedodge = 1
@@ -274,28 +299,27 @@
 	else
 		forcedodge = 0
 
-/obj/item/projectile/plasma/adv
+/obj/projectile/plasma/adv
 	damage = 7
 	range = 5
 
-/obj/item/projectile/plasma/adv/mech
+/obj/projectile/plasma/adv/mech
 	damage = 10
 	range = 9
 
-/obj/item/projectile/energy/teleport
+/obj/projectile/energy/teleport
 	name = "teleportation burst"
 	icon_state = "bluespace"
-	damage = 0
 	nodamage = 1
 	alwayslog = TRUE
 	var/obj/item/beacon/teleport_target
 
-/obj/item/projectile/energy/teleport/New(loc, tele_target)
+/obj/projectile/energy/teleport/New(loc, tele_target)
 	..(loc)
 	if(tele_target)
 		teleport_target = tele_target
 
-/obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
+/obj/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
 	var/turf/target_turf = get_turf(teleport_target)
 	if(isliving(target))
 		if(istype(target_turf) && (target_turf.z == target.z || teleport_target.emagged))
@@ -305,50 +329,76 @@
 	add_attack_logs(firer, target, "Shot with a [type] [teleport_target ? "(Destination: [teleport_target])" : ""]")
 	return ..()
 
-/obj/item/projectile/energy/demonic_grappler
+/obj/projectile/energy/demonic_grappler
 	name = "demonic grappler"
 	icon_state = "bluespace"
-	damage = 0
-	damage_type = BURN
 	nodamage = 1
-	flag = "energy"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-/obj/item/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
-	if(isliving(target))
-		var/turf/source_turf = get_turf(firer)
-		do_teleport(target, source_turf)
-	else
-		var/turf/miss_turf = get_step(target, get_dir(target, firer))
-		do_teleport(firer, miss_turf)
+/obj/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
+	var/turf/miss_turf = get_step(target, get_dir(target, firer))
+	do_teleport(firer, miss_turf)
 	return ..()
 
-/obj/item/projectile/snowball
+/obj/projectile/energy/demonic_shocker
+	name = "demonic shocker"
+	icon_state = "electrode"
+	nodamage = 1
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	hitsound = 'sound/magic/lightningbolt.ogg'
+	/// Maximum amount of bounces
+	var/bounce_count = 3
+
+/obj/projectile/energy/demonic_shocker/on_hit(atom/target, blocked = 0)
+	if(!isliving(target))
+		return ..()
+	chain(target, firer)
+	return ..()
+
+/obj/projectile/energy/demonic_shocker/proc/chain(mob/living/target, mob/source)
+	var/mob/living/L = target
+	L.electrocute_act(20, firer, flags = SHOCK_NOGLOVES)
+	if(bounce_count <= 0)
+		return
+
+	var/list/possible_targets = list()
+	for(var/mob/living/M in oview(3, target))
+		if(firer == M || M.faction_check_mob(firer))
+			continue
+		possible_targets += M
+	if(!length(possible_targets))
+		return
+
+	var/next_victim = pick(possible_targets)
+	bounce_count -= 1
+	playsound(get_turf(target), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
+	chain(next_victim, target)
+
+/obj/projectile/snowball
 	name = "snowball"
 	icon_state = "snowball"
 	hitsound = 'sound/items/dodgeball.ogg'
 	damage = 4
 	damage_type = BURN
 
-/obj/item/projectile/snowball/on_hit(atom/target)	//chilling
+/obj/projectile/snowball/on_hit(atom/target)	//chilling
 	. = ..()
 	if(isliving(target))
 		var/mob/living/M = target
 		M.bodytemperature = max(0, M.bodytemperature - 50)	//each hit will drop your body temp, so don't get surrounded!
 		M.ExtinguishMob()	//bright side, they counter being on fire!
 
-/obj/item/projectile/ornament
+/obj/projectile/ornament
 	name = "ornament"
 	icon_state = "ornament-1"
 	hitsound = 'sound/effects/glasshit.ogg'
 	damage = 7
-	damage_type = BRUTE
 
-/obj/item/projectile/ornament/New()
+/obj/projectile/ornament/New()
 	icon_state = pick("ornament-1", "ornament-2")
 	..()
 
-/obj/item/projectile/ornament/on_hit(atom/target)	//knockback
+/obj/projectile/ornament/on_hit(atom/target)	//knockback
 	..()
 	if(isturf(target))
 		return 0
@@ -357,7 +407,7 @@
 	T.throw_at(get_edge_target_turf(target, throwdir),10,10)
 	return 1
 
-/obj/item/projectile/mimic
+/obj/projectile/mimic
 	name = "googly-eyed gun"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	damage = 0
@@ -366,7 +416,7 @@
 	flag = "melee"
 	var/obj/item/gun/stored_gun
 
-/obj/item/projectile/mimic/New(loc, mimic_type)
+/obj/projectile/mimic/New(loc, mimic_type)
 	..(loc)
 	if(mimic_type)
 		stored_gun = new mimic_type(src)
@@ -375,12 +425,116 @@
 		overlays = stored_gun.overlays
 		SpinAnimation(20, -1)
 
-/obj/item/projectile/mimic/on_hit(atom/target)
+/obj/projectile/mimic/on_hit(atom/target)
 	..()
 	var/turf/T = get_turf(src)
 	var/obj/item/gun/G = stored_gun
 	stored_gun = null
 	G.forceMove(T)
-	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
+	var/mob/living/basic/mimic/copy/ranged/R = new /mob/living/basic/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
-		R.target = target
+		R.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+
+/obj/effect/ebeam/curse_arm
+	name = "curse arm"
+
+/obj/projectile/curse_hand
+	name = "curse hand"
+	icon_state = "cursehand0"
+	base_icon_state = "cursehand"
+	hitsound = 'sound/effects/curse/curse4.ogg'
+	layer = LARGE_MOB_LAYER
+	damage = 0
+	speed = 1.5
+	range = 16
+	forcedodge = -1
+	var/burn_damage = 10
+	var/weaken_damage = 2 SECONDS
+	var/datum/beam/arm
+	var/handedness = 0
+
+/obj/projectile/curse_hand/Initialize(mapload)
+	. = ..()
+	handedness = prob(50)
+	icon_state = "[base_icon_state][handedness]"
+
+/obj/projectile/curse_hand/Destroy()
+	QDEL_NULL(arm)
+	return ..()
+
+/obj/projectile/curse_hand/update_icon_state()
+	icon_state = "[base_icon_state]0[handedness]"
+	return ..()
+
+/obj/projectile/curse_hand/fire(setAngle)
+	if(QDELETED(src)) //I'm going to try returning nothing because if it's being deleted, surely we don't want anything to happen?
+		return
+	if(starting)
+		arm = Beam(starting, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm, maxdistance = 20)
+	..()
+
+/obj/projectile/curse_hand/on_range()
+	finale()
+	return ..()
+
+/// The visual effect for the hand disappearing
+/obj/projectile/curse_hand/proc/finale()
+	if(arm)
+		QDEL_NULL(arm)
+	playsound(src, 'sound/effects/curse/curse3.ogg', 25, TRUE, -1)
+	var/turf/T = get_turf(src)
+	var/obj/effect/temp_visual/dir_setting/curse/hand/leftover = new(T, get_dir(starting, T))
+	leftover.icon_state = icon_state
+	for(var/obj/effect/temp_visual/dir_setting/curse/grasp_portal/G in starting)
+		qdel(G)
+	if(!T) //T can be in nullspace when src is set to QDEL
+		return
+	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading(starting, get_dir(starting, T))
+	var/datum/beam/D = starting.Beam(T, icon_state = "curse[handedness]", time = 5 SECONDS, maxdistance = 21, beam_type=/obj/effect/ebeam/curse_arm)
+	for(var/obj/effect/every in D.elements)
+		animate(every, alpha = 0, time = 32)
+	qdel(src)
+
+/obj/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
+	. = ..()
+	if(target == original)
+		if(isliving(target))
+			var/mob/living/out_target = target
+			out_target.apply_damage(burn_damage, BURN)
+			out_target.Weaken(weaken_damage)
+		finale()
+
+/obj/projectile/curse_hand/hel //Used in helbital's impure reagent
+	name = "Hel's grasp"
+	speed = 1
+	range = 20
+	color = "#ff7e7e"//Tint it slightly
+	burn_damage = 5
+	weaken_damage = 0 //Lets not stun people!
+
+
+/obj/effect/temp_visual/dir_setting/curse
+	icon_state = "curse"
+	duration = 32
+	var/fades = TRUE
+
+/obj/effect/temp_visual/dir_setting/curse/Initialize(mapload, set_dir)
+	. = ..()
+	if(fades)
+		animate(src, alpha = 0, time = 32)
+
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal
+	icon = 'icons/effects/64x64.dmi'
+	layer = ABOVE_ALL_MOB_LAYER
+	pixel_y = -16
+	pixel_x = -16
+	fades = FALSE
+
+/obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading
+	fades = TRUE
+
+
+/obj/effect/temp_visual/dir_setting/curse/hand
+	icon_state = "cursehand1"
+

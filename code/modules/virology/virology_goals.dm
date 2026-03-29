@@ -4,9 +4,9 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal
 	var/name = "Generic Virology Goal"
-	/// The amount of units currently already delivered  
-	var/delivered_amount = 0  
-	/// The amount of units of the required virus that must be delivered for the completion of this goal  
+	/// The amount of units currently already delivered
+	var/delivered_amount = 0
+	/// The amount of units of the required virus that must be delivered for the completion of this goal
 	var/delivery_goal = 15
 	var/completed = FALSE
 
@@ -24,6 +24,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	SIGNAL_HANDLER  // COMSIG_CARGO_CHECK_SELL
 	if(istype(thing, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/C = thing
+		if(!thing.reagents?.has_reagent("blood"))
+			return
 		if(check_viruses(C.reagents.reagent_list))
 			return COMSIG_CARGO_SELL_PRIORITY
 		return COMSIG_CARGO_SELL_WRONG
@@ -78,7 +80,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			return
 	GLOB.archived_virology_goals += GLOB.virology_goals
 	GLOB.virology_goals = list(new /datum/virology_goal/property_symptom, new /datum/virology_goal/virus, new /datum/virology_goal/virus/stealth)
-	for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
+	for(var/obj/machinery/pandemic/P in GLOB.pandemics)
 		P.print_goal_orders()
 
 /datum/virology_goal/Destroy()
@@ -110,7 +112,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/datum/symptom/S = new type()
 		goal_symptom = S.type
 		goal_symptom_name = S.name
-		goal_property = pick("resistance", "stealth", "stage rate", "transmittable")  
+		goal_property = pick("resistance", "stealth", "stage rate", "transmissibility")
 		goal_property_value = rand(-8, 6)
 		switch(goal_property)
 			if("resistance")
@@ -119,8 +121,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				goal_property_value += S.stealth
 			if("stage rate")
 				goal_property_value += S.stage_speed
-			if("transmittable")
-				goal_property_value += S.transmittable
+			if("transmissibility")
+				goal_property_value += S.transmissibility
 		qdel(S)
 		times_looped++
 	while(check_for_duplicate() && times_looped < MAX_LOOPS)
@@ -254,28 +256,39 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	if(!BL.data || !BL.data["viruses"])
 		return
 	for(var/datum/disease/advance/D in BL.data["viruses"])
+		// Assume we succeed for each virus and change that if we found out it's wrong
+		var/valid = TRUE
+		var/missing_symptoms = list()
+		// We have the wrong numnber of symptoms. Complain about it if possible and required, then go to next virus.
 		if(length(D.symptoms) != length(goal_symptoms))
-			if(simulate || !manifest || !complain)
-				continue
-			var/datum/economy/line_item/item = new
-			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
-			item.credits = 0
-			item.reason = "Virus [D.name] has the wrong number of symptoms for [name] ([length(D.symptoms)] is not [length(goal_symptoms)])."
-			manifest.line_items += item
-			continue
-		for(var/S in goal_symptoms)
-			var/datum/symptom/SY = locate(S) in D.symptoms
-			if(!SY)
-				if(simulate || !manifest || !complain)
-					continue
+			valid = FALSE
+			if(!simulate && manifest && complain)
 				var/datum/economy/line_item/item = new
 				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
 				item.credits = 0
-				item.reason = "Virus [D.name] is missing symptom [initial(SY.name)] for [name]."
+				item.reason = "Virus [D.name] has the wrong number of symptoms for [name] ([length(D.symptoms)] is not [length(goal_symptoms)])."
+			continue
+
+		// Check if we have all symptoms we need, and list the ones we don't.
+		for(var/S in goal_symptoms)
+			var/datum/symptom/SY = locate(S) in D.symptoms
+			if(!SY)
+				valid = FALSE
+				missing_symptoms += initial(SY.name)
+
+
+		// We are missing some symptoms we need. Complain about it if possible and required, then go to next virus.
+		if(!valid)
+			if(!simulate && manifest && complain)
+				var/datum/economy/line_item/item = new
+				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+				item.credits = 0
+				item.reason = "Virus [D.name] is missing symptoms [english_list(missing_symptoms)] for [name]."
 				manifest.line_items += item
-				return
-			if(simulate)
-				return TRUE
+			continue
+
+		if(simulate)
+			return TRUE
 		if(manifest)
 			var/datum/economy/line_item/item = new
 			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)

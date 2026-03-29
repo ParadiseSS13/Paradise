@@ -1,6 +1,7 @@
 /obj/item/mod/construction
 	desc = "A part used in MOD construction. You could insert it into a MOD shell."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
+	materials = list(MAT_METAL = 5000)
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"
@@ -29,7 +30,7 @@
 
 /obj/item/mod/construction/broken_core/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You could repair it with a <b>screwdriver</b>...</span>"
+	. += SPAN_NOTICE("You could repair it with a <b>screwdriver</b>...")
 
 /obj/item/mod/construction/broken_core/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -42,6 +43,7 @@
 	name = "MOD external plating"
 	desc = "External plating used to finish a MOD control unit."
 	icon_state = "standard-plating"
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_PLASMA = 1000)
 	var/datum/mod_theme/theme = /datum/mod_theme/standard
 
 /obj/item/mod/construction/plating/Initialize(mapload)
@@ -53,33 +55,43 @@
 
 /obj/item/mod/construction/plating/engineering
 	theme = /datum/mod_theme/engineering
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_GOLD = 2000, MAT_PLASMA = 1000)
 
 /obj/item/mod/construction/plating/atmospheric
 	theme = /datum/mod_theme/atmospheric
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_TITANIUM = 2000, MAT_PLASMA = 1000)
 
 /obj/item/mod/construction/plating/medical
 	theme = /datum/mod_theme/medical
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_SILVER = 2000, MAT_PLASMA = 1000)
 
 /obj/item/mod/construction/plating/security
 	theme = /datum/mod_theme/security
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
+
 /obj/item/mod/construction/plating/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_BANANIUM = 2000, MAT_PLASMA = 1000)
 
 /// I want to add a way to get the rarer modsuit types, that is limited. A low chance for traders to have plating for it seems interesting
 /obj/item/mod/construction/plating/rescue
 	theme = /datum/mod_theme/rescue
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_SILVER = 2000, MAT_PLASMA = 1000)
 
 /// Continued from above, none of these are steal objectives, and only the CE or RD one comes pre-installed with modules. You are getting the protection / speed / looks of these hardsuits, but no special modules.
 /obj/item/mod/construction/plating/safeguard
 	theme = /datum/mod_theme/safeguard
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
 
 /// This may be a bad idea. I think this is an interesting idea. And you still need robotics to build it, and traders can charge as much for it as they want. Also with ones like the CE modsuit, it is the flagship mod. That means it is sold a lot.
 /obj/item/mod/construction/plating/advanced
 	theme = /datum/mod_theme/advanced
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 2000, MAT_PLASMA = 2000)
 
 /// Don't think people will want the RD one though, it is as slow as shit. Anyway, here it is. Surely this will not end poorly.
 /obj/item/mod/construction/plating/research
 	theme = /datum/mod_theme/research
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
 
 #define START_STEP "start"
 #define CORE_STEP "core"
@@ -95,6 +107,7 @@
 	name = "MOD shell"
 	desc = "The core housing and support structure for a MOD suit, with numerous plugs and connectors for attaching additional components."
 	icon_state = "mod-construction_start"
+	materials = list(MAT_METAL = 10000, MAT_PLASMA = 5000)
 	var/obj/item/core
 	var/obj/item/helmet
 	var/obj/item/chestplate
@@ -124,7 +137,7 @@
 			display_text = "The assembly seems <b>loose</b>..."
 		if(SCREWED_ASSEMBLY_STEP)
 			display_text = "All it's missing is <b>external plating</b>..."
-	. += "<span class='notice'>[display_text]</span>"
+	. += SPAN_NOTICE("[display_text]")
 
 /obj/item/mod/construction/shell/attackby__legacy__attackchain(obj/item/part, mob/user, params)
 	. = ..()
@@ -133,44 +146,44 @@
 			if(!istype(part, /obj/item/mod/core))
 				return
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[part] is stuck to you and cannot be placed into [src].</span>")
+				to_chat(user, SPAN_WARNING("[part] is stuck to you and cannot be placed into [src]."))
 				return
 			playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-			to_chat(user, "<span class='notice'>Core inserted.</span>")
+			to_chat(user, SPAN_NOTICE("Core inserted."))
 			core = part
 			core.forceMove(src)
 			construction_step = CORE_STEP
 		if(CORE_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					to_chat(user, "<span class='notice'>Core screwed.</span>")
+					to_chat(user, SPAN_NOTICE("Core screwed."))
 				construction_step = SCREWED_CORE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					core.forceMove(drop_location())
-					to_chat(user, "<span class='notice'>Core removed.</span>")
+					to_chat(user, SPAN_NOTICE("Core removed."))
 				construction_step = START_STEP
 		if(SCREWED_CORE_STEP)
 			if(istype(part, /obj/item/mod/construction/helmet)) //Construct
 				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[part] is stuck to you and cannot be placed into [src].</span>")
+					to_chat(user, SPAN_WARNING("[part] is stuck to you and cannot be placed into [src]."))
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				to_chat(user, "<span class='notice'>Helmet added.</span>")
+				to_chat(user, SPAN_NOTICE("Helmet added."))
 				helmet = part
 				helmet.forceMove(src)
 				construction_step = HELMET_STEP
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
-					to_chat(user, "<span class='notice'>Core unscrewed.</span>")
+					to_chat(user, SPAN_NOTICE("Core unscrewed."))
 					construction_step = CORE_STEP
 		if(HELMET_STEP)
 			if(istype(part, /obj/item/mod/construction/chestplate)) //Construct
 				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[part] is stuck to you and cannot be placed into [src].</span>")
+					to_chat(user, SPAN_WARNING("[part] is stuck to you and cannot be placed into [src]."))
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				to_chat(user, "<span class='notice'>Chestplate added.</span>")
+				to_chat(user, SPAN_NOTICE("Chestplate added."))
 				forceMove(src)
 				chestplate = part
 				chestplate.forceMove(src)
@@ -178,60 +191,60 @@
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					helmet.forceMove(drop_location())
-					to_chat(user, "<span class='notice'>Helmet removed.</span>")
+					to_chat(user, SPAN_NOTICE("Helmet removed."))
 					helmet = null
 					construction_step = SCREWED_CORE_STEP
 		if(CHESTPLATE_STEP)
 			if(istype(part, /obj/item/mod/construction/gauntlets)) //Construct
 				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[part] is stuck to you and cannot be placed into [src].</span>")
+					to_chat(user, SPAN_WARNING("[part] is stuck to you and cannot be placed into [src]."))
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				to_chat(user, "<span class='notice'>Gauntlets added.</span>")
+				to_chat(user, SPAN_NOTICE("Gauntlets added."))
 				gauntlets = part
 				gauntlets.forceMove(src)
 				construction_step = GAUNTLETS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					chestplate.forceMove(drop_location())
-					to_chat(user, "<span class='notice'>Chestplate removed.</span>")
+					to_chat(user, SPAN_NOTICE("Chestplate removed."))
 					chestplate = null
 					construction_step = HELMET_STEP
 		if(GAUNTLETS_STEP)
 			if(istype(part, /obj/item/mod/construction/boots)) //Construct
 				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[part] is stuck to you and cannot be placed into [src].</span>")
+					to_chat(user, SPAN_WARNING("[part] is stuck to you and cannot be placed into [src]."))
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-				to_chat(user, "<span class='notice'>Boots added.</span>")
+				to_chat(user, SPAN_NOTICE("Boots added."))
 				boots = part
 				boots.forceMove(src)
 				construction_step = BOOTS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					gauntlets.forceMove(drop_location())
-					to_chat(user, "<span class='notice'>Gauntlets removed.</span>")
+					to_chat(user, SPAN_NOTICE("Gauntlets removed."))
 					gauntlets = null
 					construction_step = CHESTPLATE_STEP
 		if(BOOTS_STEP)
 			if(part.tool_behaviour == TOOL_WRENCH) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					to_chat(user, "<span class='notice'>Assembly secured.</span>")
+					to_chat(user, SPAN_NOTICE("Assembly secured."))
 					construction_step = WRENCHED_ASSEMBLY_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					boots.forceMove(drop_location())
-					to_chat(user, "<span class='notice'>Boots removed.</span>")
+					to_chat(user, SPAN_NOTICE("Boots removed."))
 					boots = null
 					construction_step = GAUNTLETS_STEP
 		if(WRENCHED_ASSEMBLY_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					to_chat(user, "<span class='notice'>Assembly screwed.</span>")
+					to_chat(user, SPAN_NOTICE("Assembly screwed."))
 					construction_step = SCREWED_ASSEMBLY_STEP
 			else if(part.tool_behaviour == TOOL_WRENCH) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
-					to_chat(user, "<span class='notice'>Assembly unsecured.</span>")
+					to_chat(user, SPAN_NOTICE("Assembly unsecured."))
 					construction_step = BOOTS_STEP
 		if(SCREWED_ASSEMBLY_STEP)
 			if(istype(part, /obj/item/mod/construction/plating)) //Construct
@@ -244,10 +257,10 @@
 				qdel(external_plating)
 				qdel(src)
 				user.put_in_hands(mod)
-				to_chat(user, "<span class='notice'>Suit finished!</span>")
+				to_chat(user, SPAN_NOTICE("Suit finished!"))
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
-					to_chat(user, "<span class='notice'>Assembly unscrewed.</span>")
+					to_chat(user, SPAN_NOTICE("Assembly unscrewed."))
 					construction_step = SCREWED_ASSEMBLY_STEP
 	update_icon(UPDATE_ICON_STATE)
 

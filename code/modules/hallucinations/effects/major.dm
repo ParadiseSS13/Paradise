@@ -30,7 +30,6 @@
 	hallucination_icon = 'icons/mob/terrorspider.dmi'
 	hallucination_icon_state = "terror_green"
 	duration = 30 SECONDS
-	damage = 25
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -39,11 +38,11 @@
 /obj/effect/hallucination/chaser/attacker/terror_spider/attack_effects()
 	do_attack_animation(target, ATTACK_EFFECT_BITE)
 	target.playsound_local(get_turf(src), 'sound/weapons/bite.ogg', 50, TRUE)
-	to_chat(target, "<span class='userdanger'>[name] bites you!</span>")
+	to_chat(target, SPAN_USERDANGER("[name] bites you!"))
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/on_knockdown()
-	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						"<span class='userdanger'>[name] bites you!</span>")
+	target.visible_message(SPAN_WARNING("[target] recoils as if hit by something, before suddenly collapsing!"),
+						SPAN_USERDANGER("[name] bites you!"))
 
 /**
   * # Hallucination - Spider Web
@@ -65,16 +64,16 @@
 	. = ..()
 
 /obj/effect/hallucination/tripper/spider_web/on_crossed()
-	target.visible_message("<span class='warning'>[target] trips over nothing.</span>",
-						"<span class='userdanger'>You get stuck in [src]!</span>")
+	target.visible_message(SPAN_WARNING("[target] trips over nothing."),
+						SPAN_USERDANGER("You get stuck in [src]!"))
 
 /obj/effect/hallucination/tripper/spider_web/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(user != target)
 		return ITEM_INTERACT_COMPLETE
 	step_towards(target, get_turf(src))
 	target.Weaken(4 SECONDS)
-	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [used.name] as if striking something, only to trip!</span>",
-						"<span class='userdanger'>[src] vanishes as you strike it with [used], causing you to stumble forward!</span>")
+	target.visible_message(SPAN_WARNING("[target] flails [target.p_their()] [used.name] as if striking something, only to trip!"),
+						SPAN_USERDANGER("[src] vanishes as you strike it with [used], causing you to stumble forward!"))
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 
@@ -182,8 +181,8 @@
 	target.playsound_local(get_turf(src), 'sound/weapons/egloves.ogg', 50, TRUE)
 
 /obj/effect/hallucination/chaser/attacker/abductor/on_knockdown()
-	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						"<span class='userdanger'>[name] has stunned you with the advanced baton!</span>")
+	target.visible_message(SPAN_WARNING("[target] recoils as if hit by something, before suddenly collapsing!"),
+						SPAN_USERDANGER("[name] has stunned you with the advanced baton!"))
 	if(!QDELETED(owning_hallucination))
 		owning_hallucination.spawn_scientist()
 	else
@@ -323,11 +322,11 @@
 /obj/effect/hallucination/chaser/attacker/assaulter/attack_effects()
 	do_attack_animation(target)
 	target.playsound_local(get_turf(src), istext(attack_sound) ? get_sfx(attack_sound) : attack_sound, 25, TRUE)
-	to_chat(target, "<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
+	to_chat(target, SPAN_USERDANGER("[name] has [attack_verb] [target]!"))
 
 /obj/effect/hallucination/chaser/attacker/assaulter/on_knockdown()
-	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						"<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
+	target.visible_message(SPAN_WARNING("[target] recoils as if hit by something, before suddenly collapsing!"),
+						SPAN_USERDANGER("[name] has [attack_verb] [target]!"))
 	QDEL_IN(src, 3 SECONDS)
 
 /obj/effect/hallucination/blob
@@ -433,7 +432,6 @@
 	hallucination_icon = 'icons/mob/human.dmi'
 	hallucination_icon_state = "zombie2_s"
 	duration = 45 SECONDS
-	damage = 25
 	/// The hallucination that spawned us.
 	var/obj/effect/hallucination/blob/owning_hallucination = null
 	/// Whether or not the target has been zombified already.
@@ -451,12 +449,12 @@
 /obj/effect/hallucination/chaser/attacker/blob_zombie/attack_effects()
 	do_attack_animation(target)
 	target.playsound_local(get_turf(src), 'sound/weapons/genhit1.ogg', 50, TRUE)
-	to_chat(target, "<span class='userdanger'>[name] has hit [target]!</span>")
+	to_chat(target, SPAN_USERDANGER("[name] has hit [target]!"))
 
 /obj/effect/hallucination/chaser/attacker/blob_zombie/on_knockdown()
 	if(!QDELETED(owning_hallucination))
-		target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-							"<span class='warning'>The corpse of [target.name] suddenly rises!</span>")
+		target.visible_message(SPAN_WARNING("[target] recoils as if hit by something, before suddenly collapsing!"),
+							SPAN_WARNING("The corpse of [target.name] suddenly rises!"))
 		owning_hallucination.zombify(target)
 		has_zombified = TRUE
 	else
@@ -483,7 +481,6 @@
   * Fires a penetrator round at the target. On hit, knockdown + stam loss + hallucinated blood splatter for a bit.
   */
 /obj/effect/hallucination/sniper
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/sniper/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -504,7 +501,7 @@
 
 /obj/effect/hallucination/sniper/proc/fire_bullet(turf/shot_loc, mob/living/carbon/target)
 	// Fire the bullet
-	var/obj/item/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
+	var/obj/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
 	bullet.hallucinator = target
 	bullet.def_zone = BODY_ZONE_HEAD
 	bullet.suppressed = TRUE
@@ -528,7 +525,6 @@
 	START_PROCESSING(SSprojectiles, bullet)
 
 /obj/effect/hallucination/sniper_bloodsplatter
-	duration = 15 SECONDS
 	hallucination_icon = 'icons/effects/blood.dmi'
 	hallucination_icon_state = "mfloor1"
 	hallucination_color = "#A10808"
@@ -541,7 +537,7 @@
 	hallucination_icon_state = pick("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 
 
-/obj/item/projectile/bullet/sniper/penetrator/hallucination
+/obj/projectile/bullet/sniper/penetrator/hallucination
 	nodamage = TRUE
 	invisibility = INVISIBILITY_MAXIMUM // You no see boolet
 	/// The hallucinator
@@ -549,7 +545,7 @@
 	/// Handles only the victim seeing it
 	var/image/bullet_image = null
 
-/obj/item/projectile/bullet/sniper/penetrator/hallucination/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/bullet/sniper/penetrator/hallucination/on_hit(atom/target, blocked, hit_zone)
 	if(!isliving(target))
 		return
 	if(target != hallucinator)
@@ -562,9 +558,9 @@
 	hit_target.apply_damage(60, STAMINA, def_zone)
 	hit_target.KnockDown(2 SECONDS)
 	new /obj/effect/hallucination/sniper_bloodsplatter(get_turf(src), hit_target)
-	to_chat(hit_target, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
+	to_chat(hit_target, SPAN_USERDANGER("You're shot by \a [src][organ_hit_text]!"))
 
-/obj/item/projectile/bullet/sniper/penetrator/hallucination/Bump(atom/A, yes)
+/obj/projectile/bullet/sniper/penetrator/hallucination/Bump(atom/A, yes)
 	if(!yes) // prevents double bumps.
 		return
 	var/turf/target_turf = get_turf(A)

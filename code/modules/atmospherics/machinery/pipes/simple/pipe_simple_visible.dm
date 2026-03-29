@@ -2,7 +2,6 @@
 	icon_state = "intact"
 	level = 2
 	// these are inherited, but it's nice to have them explicit here
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers
@@ -61,7 +60,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes.</span>"
+	. += SPAN_NOTICE("This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes.")
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_overlays()
 	. = list()

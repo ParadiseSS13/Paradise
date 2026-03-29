@@ -2,11 +2,11 @@
 #define TTV_TANK_ICON_STATES list("anesthetic", "emergency", "emergency_double", "emergency_engi", "emergency_sleep", "jetpack", "jetpack_black", "jetpack_void", "oxygen", "oxygen_f", "oxygen_fr", "plasma")
 
 /obj/item/transfer_valve
-	icon = 'icons/obj/assemblies.dmi'
 	name = "tank transfer valve"
-	icon_state = "valve_1"
-	item_state = "ttv"
 	desc = "Regulates the transfer of air between two tanks."
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "valve_1"
+	inhand_icon_state = "ttv"
 	var/obj/item/tank/tank_one = null
 	var/obj/item/tank/tank_two = null
 	var/obj/item/assembly/attached_device = null
@@ -28,21 +28,21 @@
 /obj/item/transfer_valve/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank))
 		if(tank_one && tank_two)
-			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first.</span>")
+			to_chat(user, SPAN_WARNING("There are already two tanks attached, remove one first."))
 			return
 
 		if(!tank_one)
 			if(!user.transfer_item_to(I, src))
 				return
 			tank_one = I
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
+			to_chat(user, SPAN_NOTICE("You attach the tank to the transfer valve."))
 			if(I.w_class > w_class)
 				w_class = I.w_class
 		else if(!tank_two)
 			if(!user.transfer_item_to(I, src))
 				return
 			tank_two = I
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
+			to_chat(user, SPAN_NOTICE("You attach the tank to the transfer valve."))
 			if(I.w_class > w_class)
 				w_class = I.w_class
 
@@ -52,15 +52,15 @@
 	else if(isassembly(I))
 		var/obj/item/assembly/A = I
 		if(A.secured)
-			to_chat(user, "<span class='notice'>The device is secured.</span>")
+			to_chat(user, SPAN_NOTICE("The device is secured."))
 			return
 		if(attached_device)
-			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first.</span>")
+			to_chat(user, SPAN_WARNING("There is already a device attached to the valve, remove it first."))
 			return
 		if(!user.transfer_item_to(A, src))
 			return
 		attached_device = A
-		to_chat(user, "<span class='notice'>You attach [A] to the valve controls and secure it.</span>")
+		to_chat(user, SPAN_NOTICE("You attach [A] to the valve controls and secure it."))
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 

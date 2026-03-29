@@ -2,7 +2,6 @@
 	name = "Shapechange"
 	desc = "Take on the shape of another for a time to use their natural abilities. Once you've made your choice it cannot be changed."
 	clothes_req = FALSE
-	human_req = FALSE
 	base_cooldown = 200
 	cooldown_min = 50
 	invocation = "RAC'WA NO!"
@@ -12,7 +11,7 @@
 	var/shapeshift_type
 	var/list/current_shapes = list()
 	var/list/current_casters = list()
-	var/list/possible_shapes = list(/mob/living/simple_animal/mouse,
+	var/list/possible_shapes = list(/mob/living/basic/mouse,
 		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/bot/ed209,
 		/mob/living/simple_animal/hostile/construct/armoured)
@@ -39,7 +38,7 @@
 /datum/spell/shapeshift/proc/Shapeshift(mob/living/caster)
 	for(var/mob/living/M in caster)
 		if(M.status_flags & GODMODE)
-			to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
+			to_chat(caster, SPAN_WARNING("You're already shapeshifted!"))
 			return
 
 	var/mob/living/shape = new shapeshift_type(get_turf(caster))
@@ -83,10 +82,10 @@
 	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 
 /datum/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
-	caster.visible_message("<span class='danger'>[caster] screams in agony as bones and claws erupt out of their flesh!</span>",
-		"<span class='danger'>You begin channeling the transformation.</span>")
+	caster.visible_message(SPAN_DANGER("[caster] screams in agony as bones and claws erupt out of their flesh!"),
+		SPAN_DANGER("You begin channeling the transformation."))
 	if(!do_after(caster, 5 SECONDS, FALSE, caster))
-		to_chat(caster, "<span class='warning'>You lose concentration of the spell!</span>")
+		to_chat(caster, SPAN_WARNING("You lose concentration of the spell!"))
 		return
 	return ..()
 
@@ -98,10 +97,10 @@
 	action_icon_state = "vampire_bats"
 	gain_desc = "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth."
 
-	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/adminvampire
-	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
+	shapeshift_type = /mob/living/basic/scarybat/adminvampire
+	current_shapes = list(/mob/living/basic/scarybat/adminvampire)
 	current_casters = list()
-	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
+	possible_shapes = list(/mob/living/basic/scarybat/adminvampire)
 
 /datum/spell/shapeshift/hellhound
 	name = "Lesser Hellhound Form"

@@ -5,9 +5,8 @@
 	base_cooldown = 600
 	clothes_req = FALSE
 	invocation = "GIN'YU CAPAN"
-	invocation_type = "none"  // shh
-	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
+	selection_activated_message = SPAN_NOTICE("You prepare to transfer your mind. Click on a target to cast the spell.")
+	selection_deactivated_message = SPAN_NOTICE("You decide that your current form is good enough.")
 	cooldown_min = 200 //100 deciseconds reduction per rank
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	var/list/protected_roles = list(SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_CHANGELING, SPECIAL_ROLE_CULTIST) //which roles are immune to the spell
@@ -38,18 +37,18 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/mob/living/target = targets[1]
 
 	if(user.suiciding)
-		to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
+		to_chat(user, SPAN_WARNING("You're killing yourself! You can't concentrate enough to do this!"))
 		return
 
 	if((target.mind.special_role in protected_roles) && target != user)
-		to_chat(user, "<span class='danger'>Their mind is resisting your spell.</span>")
+		to_chat(user, SPAN_DANGER("Their mind is resisting your spell."))
 		return
 
 	if(issilicon(target))
-		to_chat(user, "<span class='warning'>You feel this enslaved being is just as dead as its cold, hard exoskeleton.</span>")
+		to_chat(user, SPAN_WARNING("You feel this enslaved being is just as dead as its cold, hard exoskeleton."))
 		return
 	if(target.can_block_magic(antimagic_flags))
-		to_chat(user, "<span class='danger'>Their mind is resisting your spell.</span>")
+		to_chat(user, SPAN_DANGER("Their mind is resisting your spell."))
 		return
 
 	var/mob/living/victim = target//The target of the spell whos body will be transferred to.
@@ -65,7 +64,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 			for(var/V in victim.mind.special_verbs)
 				remove_verb(victim, V)
 
-		var/mob/dead/observer/ghost = victim.ghostize(0)
+		var/mob/dead/observer/ghost = victim.ghostize()
 		caster.mind.transfer_to(victim)
 
 		if(length(victim.mind.special_verbs))//To add all the special verbs for the original caster.
@@ -74,7 +73,6 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 		ghost.mind.transfer_to(caster)
 		if(ghost.key)
-			GLOB.non_respawnable_keys -= ghost.ckey
 			caster.key = ghost.key	//have to transfer the key since the mind was not active
 		qdel(ghost)
 

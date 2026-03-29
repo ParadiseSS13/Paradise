@@ -10,7 +10,6 @@
 		new /obj/item/storage/backpack/satchel_cap(src)
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
-	new /obj/item/storage/bag/garment/captain(src)
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/storage/belt/sheath/saber(src)
@@ -19,6 +18,7 @@
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
+	new /obj/item/autosurgeon/organ/one_use/skill_hud(src)
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
@@ -36,11 +36,14 @@
 	new /obj/item/reagent_containers/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/bag/garment/head_of_personnel(src)
+	new /obj/item/autosurgeon/organ/one_use/skill_hud(src)
+	new /obj/item/storage/box/fingerprints(src) // used for fingerprinting new arrivals
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
 	req_access = list(ACCESS_HOS)
 	icon_state = "hos"
+	opened_door_sprite = "sec"
 
 /obj/structure/closet/secure_closet/hos/populate_contents()
 	if(prob(50))
@@ -60,10 +63,10 @@
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/drinks/mug/hos(src)
-	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/reagent_containers/drinks/flask/barflask(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/autosurgeon/organ/one_use/sec_hud(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -119,8 +122,8 @@
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
 	req_access = list(ACCESS_BLUESHIELD)
-	icon_state = "hop"
-	closed_door_sprite = "bs"
+	icon_state = "bs"
+	opened_door_sprite = "hop"
 
 /obj/structure/closet/secure_closet/blueshield/populate_contents()
 	new /obj/item/storage/backpack/blueshield(src)
@@ -140,8 +143,8 @@
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)
-	icon_state = "hop"
-	closed_door_sprite = "ntr"
+	icon_state = "ntr"
+	opened_door_sprite = "hop"
 
 /obj/structure/closet/secure_closet/ntrep/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)
@@ -195,7 +198,6 @@
 	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
 	new /obj/item/clipboard(src)
 	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/detective_scanner(src)
 	new /obj/item/flash(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/holosign_creator/detective(src)
@@ -205,8 +207,10 @@
 	new /obj/item/storage/bag/garment/detective(src)
 	new /obj/item/storage/belt/security(src)
 	new /obj/item/storage/box/evidence(src)
+	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
+	new /obj/item/storage/briefcase/crimekit(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"
@@ -305,7 +309,7 @@
 	name = "\improper Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magi"
-	opened_door_sprite = "chaplain"
+	opened_door_sprite = "cap"
 
 /obj/structure/closet/secure_closet/magistrate/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)
@@ -322,9 +326,8 @@
 /obj/structure/closet/secure_closet/iaa
 	name = "internal affairs locker"
 	req_access = list(ACCESS_INTERNAL_AFFAIRS)
-	icon_state = "magi"
+	icon_state = "iaa"
 	opened_door_sprite = "chaplain"
-	closed_door_sprite = "iaa"
 
 /obj/structure/closet/secure_closet/iaa/populate_contents()
 	new /obj/item/book/manual/wiki/faxes(src)

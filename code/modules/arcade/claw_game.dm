@@ -3,8 +3,6 @@ GLOBAL_VAR(claw_game_html)
 /obj/machinery/economy/arcade/claw
 	name = "Claw Game"
 	desc = "One of the most infuriating ways to win a toy."
-	icon = 'icons/obj/arcade.dmi'
-	icon_state = "clawmachine_1_on"
 	token_price = 5
 	window_name = "Claw Game"
 	var/machine_image = "_1"
@@ -63,7 +61,6 @@ GLOBAL_VAR(claw_game_html)
 	var/datum/browser/popup = new(user, window_name, name, 915, 700, src)
 	popup.set_content(my_game_html)
 	popup.add_stylesheet("page", 'code/modules/arcade/page.css')
-	popup.add_scss_stylesheet("Button", 'tgui/packages/tgui/styles/components/Button.scss')
 	popup.add_script("jquery-1.8.2.min", 'html/browser/jquery-1.8.2.min.js')
 	popup.add_script("jquery-ui-1.8.24.custom.min", 'html/browser/jquery-ui-1.8.24.custom.min.js')
 	popup.open()

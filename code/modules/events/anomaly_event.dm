@@ -2,6 +2,10 @@
 
 /datum/event/anomaly
 	name = "Anomaly: Energetic Flux"
+	nominal_severity = EVENT_LEVEL_MODERATE
+	noAutoEnd = TRUE
+	role_weights = list(ASSIGNMENT_SCIENCE = 1, ASSIGNMENT_ENGINEERING = 1)
+	role_requirements = list(ASSIGNMENT_SCIENCE = 1, ASSIGNMENT_ENGINEERING = 1)
 	var/obj/effect/anomaly/anomaly_path = /obj/effect/anomaly/flux
 	var/turf/target_turf
 	announceWhen = 1
@@ -9,7 +13,14 @@
 	var/prefix_message = "Localized hyper-energetic flux wave detected on long range scanners."
 	/// Sound effect used
 	var/announce_sound = 'sound/AI/anomaly_flux.ogg'
+	var/spawned = FALSE
 
+
+/datum/event/anomaly/tick()
+	if(spawned && QDELETED(anomaly_path))
+		// Add 15 minutes for cleanup
+		endWhen = activeFor + 450
+		noAutoEnd = FALSE
 
 /datum/event/anomaly/setup()
 	target_turf = find_targets(TRUE)
@@ -45,7 +56,8 @@
 	GLOB.minor_announcement.Announce("[prefix_message] Expected location: [target.name].", "Anomaly Alert", announce_sound)
 
 /datum/event/anomaly/start()
-	var/newAnomaly = new anomaly_path(target_turf)
-	announce_to_ghosts(newAnomaly)
+	anomaly_path = new anomaly_path(target_turf)
+	announce_to_ghosts(anomaly_path)
+	spawned = TRUE
 
 #undef TURF_FIND_TRIES

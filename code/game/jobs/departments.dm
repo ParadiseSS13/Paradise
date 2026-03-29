@@ -80,7 +80,6 @@
 	department_name = DEPARTMENT_SECURITY
 
 	account_starting_balance = DEPARTMENT_BALANCE_HIGH
-	account_base_pay = DEPARTMENT_BASE_PAY_MEDIUM
 	account_access = list(ACCESS_HOS)
 	department_roles = list(
 		"Head of Security",
@@ -105,7 +104,7 @@
 		"Anomalist",
 		"Plasma Researcher",
 		"Chemical Researcher",
-		"Geneticist",	//Part of both medical and science
+		"Geneticist",
 		"Roboticist",
 	)
 	head_of_staff = "Research Director"
@@ -153,7 +152,6 @@
 	department_name = DEPARTMENT_ENGINEERING
 
 	account_starting_balance = DEPARTMENT_BALANCE_LOW
-	account_base_pay = DEPARTMENT_BASE_PAY_MEDIUM
 	account_access = list(ACCESS_CE)
 	department_roles = list(
 		"Chief Engineer",
@@ -177,7 +175,6 @@
 		"Medical Doctor",
 		"Surgeon",
 		"Nurse",
-		"Geneticist",
 		"Psychiatrist",
 		"Chemist",
 		"Virologist",

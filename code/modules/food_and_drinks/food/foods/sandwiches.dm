@@ -7,12 +7,11 @@
 
 /obj/item/food/burger
 	name = "burger"
-	desc = "If you got this, something broke! Contact a coder if this somehow spawns."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "burger"
 
 /obj/item/food/burger/plain
-	name = "burger"
 	desc = "The cornerstone of every nutritious breakfast."
 	icon_state = "hburger"
 	filling_color = "#D63C3C"
@@ -110,7 +109,6 @@
 	name = "mime burger"
 	desc = "Its taste defies language."
 	icon_state = "mimeburger"
-	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "silence" = 2)
@@ -170,8 +168,6 @@
 	name = "white pretty patty"
 	desc = "Delicious titanium!"
 	icon_state = "ppatty-mime"
-	filling_color = "#FFFFFF"
-	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "white" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -181,7 +177,6 @@
 	desc = "Perfect for hiding the fact that it's burnt to a crisp."
 	icon_state = "ppatty-red"
 	filling_color = "#D63C3C"
-	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "red" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -191,7 +186,6 @@
 	desc = "Contains 0% juice."
 	icon_state = "ppatty-orange"
 	filling_color = "#FFA500"
-	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "orange" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -201,7 +195,6 @@
 	desc = "Bright to the last bite."
 	icon_state = "ppatty-yellow"
 	filling_color = "#FFFF00"
-	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "yellow" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -211,7 +204,6 @@
 	desc = "It's not tainted meat, it's painted meat!"
 	icon_state = "ppatty-green"
 	filling_color = "#00FF00"
-	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "green" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -221,7 +213,6 @@
 	desc = "Is this blue rare?"
 	icon_state = "ppatty-blue"
 	filling_color = "#0000FF"
-	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "blue" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -231,7 +222,6 @@
 	desc = "Regal and low class at the same time."
 	icon_state = "ppatty-purple"
 	filling_color = "#800080"
-	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "purple" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -251,7 +241,6 @@
 	desc = "It's shockingly good, if you live off of electricity that is."
 	icon_state = "empoweredburger"
 	filling_color = "#FFFF00"
-	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 1, "plasma" = 2)
 	tastes = list("bun" = 2, "pure electricity" = 5)
 	goal_difficulty = FOOD_GOAL_HARD
@@ -261,7 +250,6 @@
 	desc = "Pretty much what you'd expect..."
 	icon_state = "ratburger"
 	filling_color = "#808080"
-	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 1)
 	tastes = list("bun" = 2, "dead rat" = 5)
 
@@ -317,7 +305,7 @@
 
 /obj/item/food/burger/mcrib
 	name = "mcRib"
-	desc = "An elusive rib shaped burger with limited availablity across the galaxy. Not as good as you remember it."
+	desc = "An elusive rib-shaped burger with limited availability across the galaxy. Not as good as you remember it."
 	icon_state = "mcrib"
 	bitesize = 3
 	filling_color = "#F2B6EA"
@@ -395,17 +383,18 @@
 	tastes = list("toast" = 1, "jelly" = 1)
 
 /obj/item/food/jellysandwich/slime
+	name = "slime sandwich"
 	list_reagents = list("nutriment" = 2, "slimejelly" = 5, "vitamin" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/jellysandwich/cherry
-	name = "slime sandwich"
+	name = "cherry sandwich"
 	list_reagents = list("nutriment" = 2, "cherryjelly" = 5, "vitamin" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/notasandwich
 	name = "not-a-sandwich"
-	desc = "Something seems to be wrong with this, you can't quite figure what. Maybe it's his moustache."
+	desc = "Something seems to be wrong with this, but you can't quite figure out what. Maybe it's his moustache."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "notasandwich"
 	list_reagents = list("nutriment" = 6, "vitamin" = 6)
@@ -415,7 +404,6 @@
 /obj/item/food/wrap
 	name = "egg wrap"
 	desc = "The precursor to Pigs in a Blanket."
-	icon = 'icons/obj/food/food.dmi'
 	icon_state = "wrap"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("egg" = 1)
@@ -438,7 +426,6 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "peanut_butter_jelly_sandwich"
 	filling_color = "#9E3A78"
-	bitesize = 2
 	tastes = list("peanut butter" = 3, "jelly" = 3, "bread" = 2)
 
 /obj/item/food/peanut_butter_jelly/slime
@@ -468,7 +455,62 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "peanut_butter_banana_sandwich"
 	filling_color = "#D9BE29"
-	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 2)
 	tastes = list("peanutbutter" = 3, "banana" = 3, "bread" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/glass_sandwich
+	name = "glass sandwich"
+	desc = "Crushed glass shards sandwiched between two slices of plain bread. Crunchy!"
+	icon = 'icons/obj/food/burgerbread.dmi'
+	icon_state = "glass_sandwich"
+	tastes = list("dozens of glass shards skewering your mouth" = 3, "pain" = 3, "bread" = 2)
+	list_reagents = list("nutriment" = 2, "glass_shards" = 5)
+	var/bite_damage = 2
+
+/obj/item/food/glass_sandwich/On_Consume(mob/living/M)
+	..()
+	M.adjustBruteLoss(bite_damage)
+
+/obj/item/food/glass_sandwich/plasma
+	name = "plasma glass sandwich"
+	desc = "Razor-sharp plasma glass shards, crushed up and sandwiched between two slices of plain bread. Extra crunchy!"
+	icon_state = "plasma_glass_sandwich"
+	list_reagents = list("nutriment" = 2, "glass_shards" = 5, "plasma" = 5)
+	bite_damage = 4
+
+/obj/item/food/glass_sandwich/plasma/plastitanium
+	name = "plastitanium glass sandwich"
+	desc = "Evil-looking plastitanium glass shards, crushed up and sandwiched between two slices of plain bread. Evilly crunchy!"
+	icon_state = "plastitanium_glass_sandwich"
+
+/obj/item/food/supermatter_sandwich
+	name = "supermatter sandwich"
+	desc = "A supermatter sliver, somehow safely contained between two slices of bread. You have been told many times to not lick the forbidden nacho... But surely one taste can't be that bad?"
+	icon = 'icons/obj/food/burgerbread.dmi'
+	icon_state = "supermatter_sandwich"
+	tastes = list("indescribable power" = 3, "bread" = 2)
+	list_reagents = list("vitamin" = 50) // Supermatter is full of energy!
+
+/obj/item/food/supermatter_sandwich/On_Consume(mob/living/M)
+	..()
+	if(!HAS_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE))
+		M.visible_message(
+			SPAN_DANGER("[M] lifts [src] up to [M.p_their()] mouth and bites down, inducing a resonance... [M.p_their(TRUE)] body starts to glow and burst into flames before flashing into dust!"),
+			SPAN_USERDANGER("You bite down on [src].<br><br> Everything starts burning and all you can hear is ringing. Your final thought is: \"OH FU-\""),
+			SPAN_DANGER("A deafening resonance fills the air, followed by silence...")
+		)
+		radiation_pulse(src, 2000, GAMMA_RAD)
+		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+		M.drop_item() // How many bridge hobos will take a bite, I wonder?
+		M.dust()
+		message_admins("[src] has consumed [key_name_admin(M)] [ADMIN_JMP(src)].")
+		investigate_log("has consumed [key_name(M)].", INVESTIGATE_SUPERMATTER)
+
+/obj/item/food/supermatter_sandwich/process()
+	. = ..()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40,"#ffd04f", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)

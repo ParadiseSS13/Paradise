@@ -42,11 +42,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/tradergearminor
 	name = "traderstart_specificgear_minor"
-	icon_state = "questionmark"
 
 /obj/effect/landmark/spawner/tradergearmajor
 	name = "traderstart_specificgear_major"
-	icon_state = "questionmark"
 
 /obj/effect/landmark/spawner/ert
 	name = "Response Team"
@@ -106,6 +104,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "revenantspawn"
 	icon_state = "Rev"
 
+/obj/effect/landmark/spawner/ninja
+	name = "ninjaspawn"
+
 /obj/effect/landmark/spawner/bubblegum_arena
 	name = "bubblegum_arena_human"
 	icon_state = "Explorer"
@@ -142,13 +143,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/ertdirector/Initialize(mapload)
 	spawner_list = GLOB.ertdirector
-	return ..()
-
-/obj/effect/landmark/spawner/ninjastart
-	name = "ninjastart"
-
-/obj/effect/landmark/spawner/ninjastart/Initialize(mapload)
-	spawner_list = GLOB.ninjastart
 	return ..()
 
 /obj/effect/landmark/spawner/aroomwarp
@@ -200,6 +194,20 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	spawner_list = GLOB.syndieprisonwarp
 	return ..()
 
+/obj/effect/landmark/spawner/ninja_prison_warp
+	name = "ninja prison warp"
+
+/obj/effect/landmark/spawner/ninja_prison_warp/Initialize(mapload)
+	spawner_list = GLOB.ninjaprisonwarp
+	return ..()
+
+/obj/effect/landmark/spawner/antag_extract_warp
+	name = "antagextractwarp"
+
+/obj/effect/landmark/spawner/antag_extract_warp/Initialize(mapload)
+	spawner_list = GLOB.antagextractwarp
+	return ..()
+
 /obj/effect/landmark/spawner/prisonwarp
 	name = "prisonwarp"
 
@@ -224,9 +232,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/commando_manual
 	name = "Deathsquad Commando Manual"
-
-/obj/effect/landmark/spawner/holding_facility
-	name = "Holding Facility"
 
 /obj/effect/landmark/spawner/holocarp
 	name = "Holocarp Spawn"
@@ -253,8 +258,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	tag = null
+	return ..()
 
 /obj/effect/landmark/proc/set_tag()
 	tag = "landmark*[name]"
@@ -280,7 +285,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/start/assistant
 	name = "Assistant"
-	icon_state = "Assistant"
 
 /obj/effect/landmark/start/atmospheric
 	name = "Life Support Specialist"
@@ -483,7 +487,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 	new /obj/item/clothing/under/misc/gimmick_captain_suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
-	new /obj/item/clothing/mask/cigarette/cigar/havana(src.loc)
+	new /obj/item/clothing/mask/cigarette/cigar/cohiba(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -643,41 +647,44 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/mob_spawner/goliath
-	mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	mobtype = /mob/living/basic/mining/goliath
 
 /obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
 	if(prob(1))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
+		mobtype = /mob/living/basic/mining/goliath/ancient
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/legion
-	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
+	mobtype = /mob/living/basic/mining/hivelord/legion
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
 	if(prob(5))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
+		mobtype = /mob/living/basic/mining/hivelord/legion/dwarf
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/watcher
-	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mobtype = /mob/living/basic/mining/basilisk/watcher
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
 	if(prob(1))
 		if(prob(25)) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
+			mobtype = /mob/living/basic/mining/basilisk/watcher/icewing
 		else
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
+			mobtype = /mob/living/basic/mining/basilisk/watcher/magmawing
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/goldgrub
-	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
+	mobtype = /mob/living/basic/mining/goldgrub
 
 /obj/effect/landmark/mob_spawner/gutlunch
-	mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch
+	mobtype = /mob/living/basic/mining/gutlunch
 
 /obj/effect/landmark/mob_spawner/gutlunch/Initialize(mapload)
 	if(prob(5))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
+		if(prob(50))
+			mobtype = /mob/living/basic/mining/gutlunch/gubbuck
+		else
+			mobtype = /mob/living/basic/mining/gutlunch/guthen
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/abandoned_minebot

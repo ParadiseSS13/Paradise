@@ -14,6 +14,7 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	var/list/cargo = list()
 	var/cargo_capacity = 15
 
@@ -149,7 +150,6 @@
 	max_temperature = 65000
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
@@ -170,10 +170,8 @@
 	initial_icon = "deathripley"
 	step_in = 3
 	slow_pressure_step_in = 3
-	opacity=0
 	max_temperature = 65000
 	max_integrity = 300
-	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, RAD = 0, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
@@ -221,7 +219,6 @@
 
 /obj/mecha/working/ripley/mining/old
 	desc = "An old, dusty mining ripley."
-	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
 /obj/mecha/working/ripley/mining/old/add_cell()
@@ -265,7 +262,7 @@
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
 		if(O && (O in cargo))
-			occupant_message("<span class='notice'>You unload [O].</span>")
+			occupant_message(SPAN_NOTICE("You unload [O]."))
 			O.loc = get_turf(src)
 			cargo -= O
 			var/turf/T = get_turf(O)
@@ -310,5 +307,5 @@
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
+		desc += "</br>[SPAN_DANGER("The mech's equipment slots spark dangerously!")]"
 	return ..()

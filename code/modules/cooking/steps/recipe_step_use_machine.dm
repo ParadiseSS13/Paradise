@@ -14,15 +14,17 @@
 	return
 
 /datum/cooking/recipe_step/use_machine/check_conditions_met(obj/used_item, datum/cooking/recipe_tracker/tracker)
-	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
-
-	if(container.get_cooker_time(cooker_surface_name, temperature) >= time)
-		return PCWJ_CHECK_VALID
-
 	if(istype(used_item, machine_type))
 		return PCWJ_CHECK_SILENT
 
 	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe_step/use_machine/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
+	var/obj/item/reagent_containers/cooking/container = locateUID(tracker.container_uid)
+	if(istype(container) && container.get_cooker_time(cooker_surface_name, temperature) >= time)
+		return TRUE
+
+	return FALSE
 
 /datum/cooking/recipe_step/use_machine/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
 	var/list/step_data = list(target = used_item.UID())
@@ -118,10 +120,6 @@
 /datum/cooking/recipe_step/use_machine/oven/get_pda_formatted_desc()
 	return "Bake in an oven for [DisplayTimeText(time)] at [lowertext(temperature)] temperature."
 
-/datum/cooking/recipe_step/use_machine/oven/extra_machine_step(obj/machinery/cooking/machine)
-	var/obj/machinery/cooking/oven/oven = machine
-	oven.opened = FALSE
-
 /datum/cooking/recipe_step/use_machine/stovetop
 	machine_type = /obj/machinery/cooking/stovetop
 	cooker_surface_name = COOKER_SURFACE_STOVE
@@ -134,7 +132,7 @@
 	cooker_surface_name = COOKER_SURFACE_ICE_CREAM_MIXER
 
 /datum/cooking/recipe_step/use_machine/ice_cream_mixer/New(time_, options)
-	..(J_LO, time_, options)
+	..(J_MED, time_, options)
 
 /datum/cooking/recipe_step/use_machine/ice_cream_mixer/get_pda_formatted_desc()
 	return "Mix in an ice cream mixer for [DisplayTimeText(time)]."
@@ -161,7 +159,7 @@
 	cooker_surface_name = COOKER_SURFACE_DEEPFRYER
 
 /datum/cooking/recipe_step/use_machine/deepfryer/New(time_, options)
-	..(J_LO, time_, options)
+	..(J_MED, time_, options)
 
 /datum/cooking/recipe_step/use_machine/deepfryer/get_pda_formatted_desc()
 	return "Deep-fry for [DisplayTimeText(time)]."

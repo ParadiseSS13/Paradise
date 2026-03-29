@@ -4,7 +4,6 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "Contain_F"
 	anchored = TRUE
-	density = FALSE
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2
@@ -20,12 +19,14 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	GLOB.tesla_containment += src
 
 /obj/machinery/field/containment/Destroy()
 	if(FG1)// These checks are mostly in case a field is spawned in by accident.
 		FG1.fields -= src
 	if(FG2)
 		FG2.fields -= src
+	GLOB.tesla_containment -= src
 	return ..()
 
 /obj/machinery/field/containment/attack_hand(mob/user)
@@ -58,7 +59,7 @@
 		qdel(src)
 		return
 	if(ismegafauna(M))
-		M.visible_message("<span class='warning'>[M] glows fiercely as the containment field flickers out!</span>")
+		M.visible_message(SPAN_WARNING("[M] glows fiercely as the containment field flickers out!"))
 		FG1.calc_energy(INFINITY) //rip that 'containment' field
 		M.adjustHealth(-M.obj_damage)
 	else
@@ -117,9 +118,9 @@
 			if(prob(20))
 				user.Stun(4 SECONDS)
 			user.take_overall_damage(0, shock_damage)
-			user.visible_message("<span class='danger'>[user.name] was shocked by [src]!</span>", \
-			"<span class='userdanger'>Energy pulse detected, system damaged!</span>", \
-			"<span class='italics'>You hear an electrical crack.</span>")
+			user.visible_message(SPAN_DANGER("[user.name] was shocked by [src]!"), \
+			SPAN_USERDANGER("Energy pulse detected, system damaged!"), \
+			SPAN_ITALICS("You hear an electrical crack."))
 
 		user.updatehealth()
 		bump_field(user)

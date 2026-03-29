@@ -24,20 +24,20 @@
 	if(!holstered)
 		var/obj/item/gun/holding = mod.wearer.get_active_hand()
 		if(!holding)
-			to_chat(mod.wearer, "<span class='warning'>Nothing to holster!</span>")
+			to_chat(mod.wearer, SPAN_WARNING("Nothing to holster!"))
 			return
 		if(!istype(holding) || holding.w_class > WEIGHT_CLASS_NORMAL) //god no holstering a BSG / combat shotgun
-			to_chat(mod.wearer, "<span class='warning'>It's too big to fit!</span>")
+			to_chat(mod.wearer, SPAN_WARNING("It's too big to fit!"))
 			return
 		holstered = holding
-		mod.wearer.visible_message("<span class='notice'>[mod.wearer] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
+		mod.wearer.visible_message(SPAN_NOTICE("[mod.wearer] holsters [holstered]."), SPAN_NOTICE("You holster [holstered]."))
 		mod.wearer.unequip(mod.wearer.get_active_hand())
 		holstered.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [msg], ready to shoot!</span>", \
-			"<span class='warning'>You draw [msg], ready to shoot!</span>")
+		mod.wearer.visible_message(SPAN_WARNING("[mod.wearer] draws [msg], ready to shoot!"), \
+			SPAN_WARNING("You draw [msg], ready to shoot!"))
 	else
-		to_chat(mod.wearer, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("You need an empty hand to draw [holstered]!"))
 
 /obj/item/mod/module/holster/on_uninstall(deleting = FALSE)
 	if(holstered)
@@ -113,6 +113,7 @@
 	complexity = 2
 	incompatible_modules = list(/obj/item/mod/module/active_sonar)
 	cooldown_time = 7.5 SECONDS //come on man this is discount thermals, it doesnt need a 15 second cooldown
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 
 /obj/item/mod/module/active_sonar/on_use()
 	. = ..()
@@ -128,12 +129,11 @@
 		new /obj/effect/temp_visual/sonar_ping(mod.wearer.loc, mod.wearer, creature)
 		creatures_detected++
 	playsound(mod.wearer, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE, extrarange = 9) // Should be audible for the radius of the sonar
-	to_chat(mod.wearer, ("<span class='notice'>You slam your fist into the ground, sending out a sonic wave that detects [creatures_detected] living beings nearby!</span>"))
+	to_chat(mod.wearer, (SPAN_NOTICE("You slam your fist into the ground, sending out a sonic wave that detects [creatures_detected] living beings nearby!")))
 
 /obj/effect/temp_visual/sonar_ping
 	duration = 3 SECONDS
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
 	randomdir = FALSE
 	/// The image shown to modsuit users
 	var/image/modsuit_image
@@ -255,16 +255,13 @@
 /obj/item/grenade/cryogrenade_mod
 	name = "cryogenic grenade"
 	desc = "A very cold grenade."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
-	item_state = "grenade"
 	var/freeze_range = 4
 	var/stamina_damage = 60
 	var/body_adjustment = -230
 	var/reagent_volume = 15
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
-
 
 /obj/item/grenade/cryogrenade_mod/Destroy()
 	thrower = null
@@ -299,6 +296,7 @@
 	complexity = 1
 	overlay_state_inactive = "module_smoke_grenade"
 	dispense_type = /obj/item/grenade/smokebomb
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12050, MAT_GOLD = 2000, MAT_PLASMA = 5000)
 
 /obj/item/mod/module/dispenser/smoke/on_use()
 	var/obj/item/grenade/smokebomb/grenade = ..()

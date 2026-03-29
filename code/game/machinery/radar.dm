@@ -13,7 +13,6 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	power_state = NO_POWER_USE // going to be used outside
 	interact_offline = TRUE
-	idle_power_consumption = 0
 	pixel_x = -32
 	armor = list(MELEE = 80, BULLET = 10, LASER = 30, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -113,8 +112,8 @@
 	if(dont_announce)
 		return
 
-	var/datum/weather/next_weather = SSweather.next_weather_by_zlevel["3"]
-	var/next_hit = SSweather.next_hit_by_zlevel["3"]
+	var/datum/weather/next_weather = SSweather.next_weather_by_zlevel["[z]"]
+	var/next_hit = SSweather.next_hit_by_zlevel["[z]"]
 	var/next_difference = next_hit - world.time
 	var/difference_rounded = DisplayTimeText(max(1, next_difference))
 
@@ -122,16 +121,16 @@
 		return
 	if(accuracy_coeff >= 4) //perfect accuracy
 		if(next_difference <= (3 MINUTES))
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name].</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = TRUE
 	else if(prob(accuracy_coeff) && next_difference <= 3 MINUTES && next_difference >= 30 SECONDS)
 		if(next_weather == "emberfall" && !prob(10 * accuracy_coeff)) // fake callout
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm.</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = FALSE
 		else
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name].</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = TRUE
 
@@ -142,13 +141,13 @@
 
 	switch(construction_state)
 		if(RADAR_NEEDS_WELDING)
-			. += "<span class='notice'>The framework is damaged, and needs welding.</span>"
+			. += SPAN_NOTICE("The framework is damaged, and needs welding.")
 		if(RADAR_NEEDS_PLASTEEL)
-			. += "<span class='notice'>The framework needs new plasteel plating.</span>"
+			. += SPAN_NOTICE("The framework needs new plasteel plating.")
 		if(RADAR_NEEDS_WRENCH)
-			. += "<span class='notice'>The plating needs wrenching into place.</span>"
+			. += SPAN_NOTICE("The plating needs wrenching into place.")
 		if(RADAR_NEEDS_SCREWDRIVER)
-			. += "<span class='notice'>The cover screws are loose.</span>"
+			. += SPAN_NOTICE("The cover screws are loose.")
 
 // Interaction
 
@@ -161,7 +160,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, null, 1, I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
+	to_chat(user, SPAN_NOTICE("You mend the damaged framework."))
 	construction_state = RADAR_NEEDS_PLASTEEL
 
 // Step 2
@@ -172,10 +171,10 @@
 	if(istype(used, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/PS = used
 		if(PS.amount < 10)
-			to_chat(user, "<span class='warning'>You need 10 sheets of plasteel.</span>")
+			to_chat(user, SPAN_WARNING("You need 10 sheets of plasteel."))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You add new plating to the framework.</span>")
+		to_chat(user, SPAN_NOTICE("You add new plating to the framework."))
 		construction_state = RADAR_NEEDS_WRENCH
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
@@ -189,7 +188,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
+	to_chat(user, SPAN_NOTICE("You secure the plating to the framework."))
 	construction_state = RADAR_NEEDS_SCREWDRIVER
 
 
@@ -202,7 +201,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You screw the covers back into place.</span>")
+	to_chat(user, SPAN_NOTICE("You screw the covers back into place."))
 	set_fixed()
 
 /obj/machinery/radar/RefreshParts()
@@ -237,7 +236,6 @@
 	board_name = "Doppler Radar"
 	icon_state = "supply"
 	build_path = /obj/machinery/radar
-	board_type = "machine"
 	origin_tech = "engineering=2"
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
@@ -246,7 +244,6 @@
 	)
 
 /obj/item/circuitboard/machine/radar/broken
-	board_name = "Doppler Radar"
 	desc = "Bits of char, plastic, and ash cling to the boards surface. How it was working before was nothing short of a miracle. It's probably not going to work again."
 	icon_state = "command_broken"
 

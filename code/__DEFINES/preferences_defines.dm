@@ -83,8 +83,10 @@
 
 // toggles_3 variables. These MUST be prefixed with PREFTOGGLE_3
 #define PREFTOGGLE_3_COGBAR_ANIMATIONS				(1<<0) // 1
+#define PREFTOGGLE_3_DARK_FLASH						(1<<1) // 2
+#define PREFTOGGLE_3_POSTCREDS 						(1<<2) // 4
 
-#define TOGGLES_3_TOTAL 							1 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL 							7 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_3_DEFAULT (PREFTOGGLE_3_COGBAR_ANIMATIONS)
 
@@ -119,6 +121,8 @@
 #define PREFTOGGLE_TOGGLE1		3
 /// Interacts with the toggles2 bitflag
 #define PREFTOGGLE_TOGGLE2		4
+/// Interacts with the toggles3 bitflag
+#define PREFTOGGLE_TOGGLE3		5
 
 
 // Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
@@ -183,3 +187,17 @@
 #define COLOURBLIND_MODE_DEUTER "Red-green (green weak, deuteranopia)"
 #define COLOURBLIND_MODE_PROT "Red-green (red weak, protanopia)"
 #define COLOURBLIND_MODE_TRIT "Blue-yellow (tritanopia)"
+
+/// Best FPS options for clients. A regular list that has only divisors of 1000
+GLOBAL_LIST_INIT(client_fps_options, list_fps_options())
+
+/proc/list_fps_options()
+	var/list/options = list()
+
+	for(var/option in 1 to 1000 / world.fps)
+		if(1000 % option) // Lummox said it works better with divisors of 1000
+			continue
+
+		options += 1000 / option
+
+	return options

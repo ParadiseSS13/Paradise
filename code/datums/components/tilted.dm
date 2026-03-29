@@ -49,7 +49,7 @@
 
 /datum/component/tilted/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE
-	examine_list += "<span class='notice'>It's been tilted over. <i>Alt+Click</i> it to right it.</span>"
+	examine_list += SPAN_NOTICE("It's been tilted over. <i>Alt+Click</i> it to right it.")
 
 /datum/component/tilted/proc/on_alt_click(atom/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_CLICK_ALT
@@ -59,7 +59,7 @@
 /datum/component/tilted/proc/on_interact(atom/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ATTACK_HAND
 	if(block_interactions)
-		to_chat(user, "<span class='warning'>You can't do that right now, you need to right it first!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now, you need to right it first!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/tilted/proc/on_untilt(atom/source, mob/user)
@@ -88,9 +88,9 @@
 		if(!do_after(user, duration, TRUE, parent) || QDELETED(src))
 			return
 		user.visible_message(
-			"<span class='notice'>[user] rights [atom_parent].</span>",
-			"<span class='notice'>You right [atom_parent].</span>",
-			"<span class='notice'>You hear a loud clang.</span>"
+			SPAN_NOTICE("[user] rights [atom_parent]."),
+			SPAN_NOTICE("You right [atom_parent]."),
+			SPAN_NOTICE("You hear a loud clang.")
 		)
 
 	if(QDELETED(atom_parent))

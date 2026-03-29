@@ -7,18 +7,13 @@
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
-	anchored = FALSE
-	health = 20
-	maxHealth = 20
 	pass_flags = PASSMOB
 
 	radio_channel = "Medical"
 
 	bot_type = MED_BOT
-	bot_filter = RADIO_MEDBOT
 	model = "Medibot"
 	bot_purpose = "seek out hurt crewmembers and ensure that they are healed"
 	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
@@ -114,7 +109,6 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 
 /mob/living/simple_animal/bot/medbot/syndicate
 	name = "Suspicious Medibot"
@@ -124,10 +118,8 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 	syndicate_aligned = TRUE
 	req_access = list(ACCESS_SYNDICATE)
-	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = "Syndicate"
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
 
@@ -232,7 +224,7 @@
 	if(..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE
@@ -278,17 +270,17 @@
 /mob/living/simple_animal/bot/medbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/reagent_containers/glass))
 		if(locked)
-			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
+			to_chat(user, SPAN_WARNING("You cannot insert a beaker because the panel is locked!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!isnull(reagent_glass))
-			to_chat(user, "<span class='warning'>There is already a beaker loaded!</span>")
+			to_chat(user, SPAN_WARNING("There is already a beaker loaded!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
 
 		W.forceMove(src)
 		reagent_glass = W
-		to_chat(user, "<span class='notice'>You insert [W].</span>")
+		to_chat(user, SPAN_NOTICE("You insert [W]."))
 		ui_interact(user)
 
 		return ITEM_INTERACT_COMPLETE
@@ -306,8 +298,8 @@
 	if(emagged)
 		declare_crit = FALSE
 		if(user)
-			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+			to_chat(user, SPAN_NOTICE("You short out [src]'s reagent synthesis circuits."))
+		audible_message(SPAN_DANGER("[src] buzzes oddly!"))
 		flick("medibot_spark", src)
 		if(user)
 			previous_patient = user.UID()
@@ -412,7 +404,7 @@
 		return
 
 	for(var/datum/disease/D as anything in C.viruses)
-		if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
+		if((!(D.visibility_flags & VIRUS_HIDDEN_SCANNER) || (D.GetDiseaseID() in GLOB.detected_advanced_diseases["[z]"])) && D.severity != VIRUS_NONTHREAT && (D.stage > 1 || D.spread_flags & SPREAD_AIRBORNE))
 			return TRUE //Medbots see viruses that aren't fully hidden and have developed enough/are airborne, ignoring safe viruses
 
 /mob/living/simple_animal/bot/medbot/proc/select_medication(mob/living/carbon/C, beaker_injection)
@@ -517,8 +509,8 @@
 		return
 
 	C.visible_message(
-		"<span class='danger'>[src] is trying to inject [patient]!</span>",
-		"<span class='userdanger'>[src] is trying to inject you!</span>"
+		SPAN_DANGER("[src] is trying to inject [patient]!"),
+		SPAN_USERDANGER("[src] is trying to inject you!")
 	)
 
 	if(!do_after(src, 3 SECONDS, target = C) || !on || (get_dist(src, patient) > 1) || !assess_patient(patient))
@@ -535,8 +527,8 @@
 		patient.reagents.add_reagent(reagent_id, injection_amount)
 
 	C.visible_message(
-		"<span class='danger'>[src] injects [patient] with its syringe!</span>",
-		"<span class='userdanger'>[src] injects you with its syringe!</span>"
+		SPAN_DANGER("[src] injects [patient] with its syringe!"),
+		SPAN_USERDANGER("[src] injects you with its syringe!")
 	)
 
 	// Don't soft reset here, we already have a patient, only soft reset if we fail to heal them.
@@ -553,7 +545,7 @@
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(SPAN_USERDANGER("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 
 	if(drops_parts)

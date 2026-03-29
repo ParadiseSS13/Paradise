@@ -2,7 +2,7 @@
 /obj/item/food/grown/citrus
 	seed = /obj/item/seeds/lime
 	name = "citrus"
-	desc = "It's so sour, your face will twist."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "lime"
 	bitesize_mod = 2
 	wine_power = 0.3
@@ -25,10 +25,8 @@
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/food/grown/citrus/lime
-	seed = /obj/item/seeds/lime
 	name = "lime"
 	desc = "It's so sour, your face will twist."
-	icon_state = "lime"
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 
@@ -114,9 +112,15 @@
 	tastes = list("burning lemon" = 1)
 	wine_flavor = "fire"
 
-/obj/item/food/grown/firelemon/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/food/grown/firelemon/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/area/A = get_area(user)
-	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
+	user.visible_message(
+		SPAN_WARNING("[user] primes [src]!"),
+		SPAN_USERDANGER("You prime [src]!")
+	)
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	log_game("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].")
@@ -126,6 +130,7 @@
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/grown/firelemon/burn()
 	prime()

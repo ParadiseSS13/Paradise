@@ -49,7 +49,7 @@
 			beeagents += R
 		var/bee_amount = round(created_volume * 0.2)
 		for(var/i in 1 to bee_amount)
-			var/mob/living/simple_animal/hostile/poison/bees/new_bee = new(location)
+			var/mob/living/basic/bee/new_bee = new(location)
 			if(LAZYLEN(beeagents))
 				new_bee.assign_reagent(pick(beeagents))
 
@@ -284,7 +284,6 @@
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
 	min_temp = T0C + 100
-	result_amount = 1
 	mix_sound = null
 
 /datum/chemical_reaction/sonic_powder
@@ -372,7 +371,7 @@
 	result = null
 	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
-	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
+	mix_message = SPAN_DANGER("The reaction releases an electrical blast!")
 	mix_sound = 'sound/magic/lightningbolt.ogg'
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)

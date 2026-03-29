@@ -4,7 +4,6 @@
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
 	desc = "A portable generator for emergency backup power."
-	icon = 'icons/obj/power.dmi'
 	icon_state = "portgen0_0"
 	density = TRUE
 	anchored = FALSE
@@ -18,9 +17,9 @@
 	. = ..()
 	if(!in_range(user, src))
 		if(active)
-			. += "<span class='notice'>The generator is on.</span>"
+			. += SPAN_NOTICE("The generator is on.")
 		else
-			. += "<span class='notice'>The generator is off.</span>"
+			. += SPAN_NOTICE("The generator is off.")
 
 /obj/machinery/power/port_gen/process()
 	if(anchored && powernet && active && has_fuel() && !is_broken())

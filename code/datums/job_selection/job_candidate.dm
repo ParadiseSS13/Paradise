@@ -153,11 +153,13 @@ RESTRICT_TYPE(/datum/job_candidate)
 		return FALSE
 	if(is_barred_by_missing_limbs(job))
 		return FALSE
+	if(is_barred_by_quirk(job))
+		return FALSE
 
 	return TRUE
 
 /datum/job_candidate/proc/is_barred_by_missing_limbs(datum/job/job)
-	if(!job.missing_limbs_allowed)
+	if(job.missing_limbs_allowed)
 		return FALSE
 
 	var/organ_status
@@ -174,6 +176,16 @@ RESTRICT_TYPE(/datum/job_candidate)
 		return FALSE
 	for(var/disability in job.blacklisted_disabilities)
 		if(active_character.disabilities & disability)
+			return TRUE
+	return FALSE
+
+/datum/job_candidate/proc/is_barred_by_quirk(datum/job/job)
+	if(!length(job.blacklisted_disabilities))
+		return FALSE
+	active_character.rebuild_quirks() // Gotta rebuild to make sure they aren't still JSON
+	var/list/active_character_quirks = active_character.quirks
+	for(var/datum/quirk/quirk in active_character_quirks)
+		if(quirk.blacklisted)
 			return TRUE
 	return FALSE
 

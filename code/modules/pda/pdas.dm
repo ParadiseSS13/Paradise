@@ -103,11 +103,10 @@
 
 /obj/item/pda/heads/blueshield
 	default_cartridge = /obj/item/cartridge/hos
-	icon_state = "pda-h"
 	default_pen = /obj/item/pen/fancy
 
 /obj/item/pda/heads/ert
-	default_cartridge = /obj/item/cartridge/centcom
+	default_cartridge = /obj/item/cartridge/captain
 	detonate = FALSE
 	default_pen = /obj/item/pen/multi/fountain
 
@@ -143,8 +142,8 @@
 	owner = "John Doe"
 	default_pen = /obj/item/pen/multi/syndicate
 
-/obj/item/pda/syndicate/New()
-	..()
+/obj/item/pda/syndicate/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = TRUE
@@ -203,12 +202,13 @@
 	icon_state = "pda-genetics"
 
 /obj/item/pda/centcom
-	default_cartridge = /obj/item/cartridge/centcom
+	default_cartridge = /obj/item/cartridge/captain
+	detonate = FALSE
 	icon_state = "pda-h"
 	default_pen = /obj/item/pen/multi/gold
 
-/obj/item/pda/centcom/New()
-	..()
+/obj/item/pda/centcom/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = 1

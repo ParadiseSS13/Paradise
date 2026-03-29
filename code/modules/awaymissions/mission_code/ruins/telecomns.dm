@@ -1,5 +1,8 @@
 // stuff for the telecomms sat (telecomms_returns.dmm)
 
+/// Turrets pop up in 1 second, animation is for 0.5 seconds, so we have to call for sleep() twice in order to make it 1 second and not fuck up the flick
+#define POPUP_ANIM_TIME 0.5 SECONDS
+
 GLOBAL_LIST_EMPTY(telecomms_bots)
 GLOBAL_LIST_EMPTY(telecomms_doomsday_device)
 GLOBAL_LIST_EMPTY(telecomms_trap_tank)
@@ -37,7 +40,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	decorative_eye.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/explode()
-	visible_message("<span class='userdanger'>[src] EXPLODES!</span>")
+	visible_message(SPAN_USERDANGER("[src] EXPLODES!"))
 	var/your_doom = get_turf(src)
 	new /obj/item/grenade/frag(your_doom)
 	internal_tank.forceMove(your_doom)
@@ -115,12 +118,24 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/machinery/autolathe/trapped/proc/material_container_shenanigins(datum/source, obj/item/attacker, mob/user)
 	if(!disguise_broken)
-		to_chat(user, "<span class='danger'>As you stick [attacker] into the recharger, it sparks and flashes blue. Wait a minute, this isn't a recharger!</span>")
+		to_chat(user, SPAN_DANGER("As you stick [attacker] into the recharger, it sparks and flashes blue. Wait a minute, this isn't a recharger!"))
 		name = "modified autolathe"
 		desc = "An autolathe modified with holopad parts, to make it look like a harmless weapon recharger!"
 		do_sparks(3, 1, src)
 		icon_state = "autolathe"
 		disguise_broken = TRUE
+
+/obj/machinery/autolathe/trapped/screwdriver_act(mob/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	if(busy)
+		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
+		return
+	if(disguise_broken == FALSE)
+		default_deconstruction_screwdriver(user, "rechargeropen", initial(icon_state), I)
+	else
+		default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
 
 /obj/machinery/shieldgen/telecomms
 	name = "overclocked shield generator"
@@ -148,20 +163,24 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	universal_speak = TRUE
 	universal_understand = TRUE
 	var/has_died = FALSE // fucking decoy silicons are weird.
+	var/turf/our_death_turf // Don't ask, see above.
 
 /mob/living/silicon/decoy/telecomms/death(gibbed)
 	if(has_died)
 		return ..()
 	has_died = TRUE
+	if(!our_death_turf)
+		our_death_turf = get_turf(src)
 	for(var/obj/structure/telecomms_doomsday_device/D in GLOB.telecomms_doomsday_device)
 		D.start_the_party()
 		break
-	new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
+	new /obj/item/documents/syndicate/dvorak_blackbox(our_death_turf)
 	if(prob(50))
 		if(prob(80))
-			new /obj/item/ai_upgrade/surveillance_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/surveillance_upgrade(our_death_turf)
 		else // 10% chance
-			new /obj/item/ai_upgrade/malf_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/malf_upgrade(our_death_turf)
+	our_death_turf = null
 	return ..()
 
 /obj/structure/telecomms_trap_tank
@@ -183,7 +202,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	GLOB.telecomms_trap_tank -= src
 	return ..()
 
-/obj/structure/telecomms_trap_tank/bullet_act(obj/item/projectile/P)
+/obj/structure/telecomms_trap_tank/bullet_act(obj/projectile/P)
 	explode()
 
 /obj/structure/telecomms_trap_tank/proc/explode()
@@ -194,7 +213,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "turret"
 	desc = "Looks like the cover to a turret. Not deploying, however?"
 	icon = 'icons/obj/turrets.dmi'
-	icon_state = "turretCover"
+	icon_state = "turret_cover"
+	layer = /obj/machinery/syndicatebomb/doomsday::layer + 0.1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	anchored = TRUE
 	/// Has someone stolen loot from the ruins core room? If they try to leave without killing dvorak, they are punished.
@@ -209,15 +229,13 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	return ..()
 
 /obj/structure/telecomms_doomsday_device/proc/start_the_party(ruin_cheese_attempted = FALSE)
-	invisibility = 90
 	var/obj/machinery/syndicatebomb/doomsday/kaboom = new /obj/machinery/syndicatebomb/doomsday(get_turf(src))
 	kaboom.icon_state = "death-bomb-active"
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
 	for(var/obj/structure/telecomms_trap_tank/TTT in GLOB.telecomms_trap_tank)
 		TTT.explode()
-	flick_holder.layer = kaboom.layer + 0.1
-	flick("popup", flick_holder)
-	sleep(1 SECONDS)
+	sleep(POPUP_ANIM_TIME)
+	flick("popup", src)
+	sleep(POPUP_ANIM_TIME)
 	for(var/obj/structure/telecomms_shield_cover/shield in urange(15, get_turf(src)))
 		shield.activate()
 	if(ruin_cheese_attempted)
@@ -237,7 +255,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		qdel(CT)
 	kaboom.activate()
 	kaboom.icon_state = "death-bomb-active" // something funny goes on with icons here
-	qdel(flick_holder)
 	qdel(src)
 
 /obj/machinery/syndicatebomb/doomsday
@@ -256,7 +273,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	return // No.
 
 /obj/machinery/syndicatebomb/doomsday/screwdriver_act(mob/user, obj/item/I)
-	to_chat(user, "<span class='danger'>[src] is welded shut! You can't get at the wires!</span>")
+	to_chat(user, SPAN_DANGER("[src] is welded shut! You can't get at the wires!"))
 
 /obj/machinery/syndicatebomb/doomsday/Initialize(mapload)
 	. = ..()
@@ -300,19 +317,18 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "turret"
 	desc = "Looks like the cover to a turret. Not deploying, however?"
 	icon = 'icons/obj/turrets.dmi'
-	icon_state = "turretCover"
+	icon_state = "turret_cover"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	anchored = TRUE
+	/// Trap we create on activation
+	var/obj/machinery/shieldgen/telecomms/trap
 
 /obj/structure/telecomms_shield_cover/proc/activate()
-	invisibility = 90
-	var/obj/machinery/shieldgen/telecomms/trap = new /obj/machinery/shieldgen/telecomms(get_turf(src))
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = trap.layer + 0.1
-	flick("popup", flick_holder)
-	sleep(1 SECONDS)
+	trap = new(get_turf(src))
+	sleep(POPUP_ANIM_TIME)
+	flick("popup", src)
+	sleep(POPUP_ANIM_TIME)
 	trap.shields_up()
-	qdel(flick_holder)
 	qdel(src)
 
 /turf/simulated/floor/catwalk/airless
@@ -323,48 +339,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/machinery/economy/vending/snack/trapped
 	aggressive = TRUE
 	aggressive_tilt_chance = 100 //It will tip on you, and it will be funny.
-
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg
-	name = "Security cyborg"
-	desc = "Oh god they still have access to these!"
-	icon = 'icons/mob/robots.dmi'
-	icon_state = "Noble-SEC"
-	health = 200
-	maxHealth = 200
-	faction = list("malf_drone")
-	ranged = TRUE
-	rapid = 2
-	speed = 0.5
-	projectiletype = /obj/item/projectile/beam/disabler/weak
-	projectilesound = 'sound/weapons/taser2.ogg'
-	gold_core_spawnable = NO_SPAWN // Could you imagine xenobio with this? lmao.
-	a_intent = INTENT_HARM
-	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
-
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/Initialize(mapload)
-	. = ..()
-	baton = new(src)
-
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/Destroy()
-	QDEL_NULL(baton)
-	return ..()
-
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/AttackingTarget()
-	if(QDELETED(target))
-		return
-	face_atom(target)
-	baton.melee_attack_chain(src, target)
-	return TRUE
-
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!used_item && !isturf(A))
-		used_item = baton
-	..()
-
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/emp_act(severity)
-	. = ..()
-	target = null
-	adjustBruteLoss(50)
 
 /obj/structure/displaycase/dvoraks_treat
 	alert = TRUE // Ooopsies you opened this after doomsday and the doors bolted, oh nooooo
@@ -392,8 +366,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	desc = "A mobile AI upload. The transmitter is extremely powerful, but will burn out after one use. Make it count."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dvorak_upload"
+	inhand_icon_state = "camera_bug"
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "camera_bug"
 	origin_tech = "syndicate=4;programming=6"
 	/// Integrated AI upload
 	var/obj/machinery/computer/aiupload/dvorak/integrated_console
@@ -417,11 +391,11 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/item/remote_ai_upload/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/emag))
-		to_chat(user, "<span class='warning'>You are more likely to damage this with an emag, than achieve something useful.</span>")
+		to_chat(user, SPAN_WARNING("You are more likely to damage this with an emag, than achieve something useful."))
 		return
 	var/time_to_die = integrated_console.item_interaction(user, O, params2list(params))
 	if(time_to_die)
-		to_chat(user, "<span class='danger'>[src]'s relay begins to overheat...</span>")
+		to_chat(user, SPAN_DANGER("[src]'s relay begins to overheat..."))
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 		addtimer(CALLBACK(src, PROC_REF(prime)), 5 SECONDS)
 
@@ -431,7 +405,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/effect/spawner/random/telecomms_core_table
 	name = "telecomms core table spawner"
-	spawn_loot_count = 1
 	loot = list(
 		/obj/item/rcd/combat,
 		/obj/item/gun/medbeam,
@@ -477,7 +450,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	anchored = TRUE
 	layer = HOLOPAD_LAYER
 	plane = FLOOR_PLANE
-	max_integrity = 300
 	/// Have we been activated? If we have, we do not activate again.
 	var/activated = FALSE
 	/// Tied effect to kill when we die.
@@ -607,3 +579,5 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/structure/environmental_storytelling_holopad/core_room
 	things_to_say = list("OKAY. TIME TO GO.", "GO MY SECURITY BORGS, WHAT TIDERS F-FEAR!", "I have a DOOMSDAY DEVICE AND I AM NOT AFRAID TO SHOVE IT UP YOUR-")
 	soundblock = "core"
+
+#undef POPUP_ANIM_TIME

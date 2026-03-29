@@ -33,10 +33,12 @@
 	for(var/organ_path in get_caste_organs())
 		var/obj/item/organ/internal/organ = new organ_path()
 		organ.insert(src)
+	AddComponent(/datum/component/event_tracker, EVENT_XENOS)
 
-/mob/living/carbon/alien/death(gibbed)
-	move_resist = null
-	return ..()
+/mob/living/carbon/alien/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 1)
 
 /// returns the list of type paths of the organs that we need to insert into
 /// this particular xeno upon its creation
@@ -67,10 +69,10 @@
 	return speech_verb
 
 
-/mob/living/carbon/alien/adjustToxLoss(amount)
+/mob/living/carbon/alien/adjustToxLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
 
-/mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
+/mob/living/carbon/alien/adjustFireLoss(amount, updating_health = TRUE) // Weak to Fire
 	if(amount > 0)
 		return ..(amount * 1.5)
 	else
@@ -178,7 +180,7 @@
 		to_chat(M, alien_message)
 
 /mob/living/carbon/alien/proc/deathrattle_message()
-	return "<i><span class='alien'>The hivemind echoes: [name] has been slain!</span></i>"
+	return "<i>[SPAN_ALIEN("The hivemind echoes: [name] has been slain!")]</i>"
 
 /*----------------------------------------
 Proc: AddInfectionImages()
@@ -213,7 +215,7 @@ Des: Removes all infected images from the alien.
 and carry the owner just to make sure*/
 /mob/living/carbon/proc/update_plasma_display(mob/owner)
 	for(var/datum/action/spell_action/action in actions)
-		action.UpdateButtons()
+		action.build_all_button_icons()
 	if(!hud_used || !isalien(owner)) //clientless aliens or non aliens
 		return
 	hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[get_plasma()]</font></div>"

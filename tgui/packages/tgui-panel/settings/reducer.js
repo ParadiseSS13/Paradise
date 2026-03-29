@@ -4,21 +4,26 @@
  * @license MIT
  */
 
+import { storage } from 'common/storage';
+
 import {
+  addBlacklistSetting,
+  addHighlightSetting,
   changeSettingsTab,
   loadSettings,
   openChatSettings,
-  toggleSettings,
-  updateSettings,
-  addHighlightSetting,
+  removeBlacklistSetting,
   removeHighlightSetting,
+  toggleSettings,
+  updateBlacklistSetting,
   updateHighlightSetting,
+  updateSettings,
 } from './actions';
-import { createDefaultHighlightSetting } from './model';
-import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
-import { storage } from 'common/storage';
+import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
+import { createDefaultBlacklistSetting, createDefaultHighlightSetting } from './model';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
+const defaultBlacklistSetting = createDefaultBlacklistSetting();
 
 const initialState = {
   version: 1,
@@ -34,6 +39,10 @@ const initialState = {
   highlightSettings: [defaultHighlightSetting.id],
   highlightSettingById: {
     [defaultHighlightSetting.id]: defaultHighlightSetting,
+  },
+  blacklistSettings: [defaultBlacklistSetting.id],
+  blacklistSettingById: {
+    [defaultBlacklistSetting.id]: defaultBlacklistSetting,
   },
   view: {
     visible: false,
@@ -78,6 +87,16 @@ export const settingsReducer = (state = initialState, action) => {
     else if (!nextState.highlightSettingById[defaultHighlightSetting.id]) {
       nextState.highlightSettings = [defaultHighlightSetting.id, ...nextState.highlightSettings];
       nextState.highlightSettingById[defaultHighlightSetting.id] = defaultHighlightSetting;
+    }
+    // Lazy init blacklist
+    if (!nextState.blacklistSettings) {
+      nextState.blacklistSettings = [defaultBlacklistSetting.id];
+      nextState.blacklistSettingById[defaultBlacklistSetting.id] = defaultBlacklistSetting;
+    }
+    // Just doing the same as above
+    else if (!nextState.blacklistSettingById[defaultBlacklistSetting.id]) {
+      nextState.blacklistSettings = [defaultBlacklistSetting.id, ...nextState.blacklistSettings];
+      nextState.blacklistSettingById[defaultBlacklistSetting.id] = defaultBlacklistSetting;
     }
     // Update the highlight settings for default highlight
     // settings compatibility
@@ -174,6 +193,52 @@ export const settingsReducer = (state = initialState, action) => {
     if (nextState.highlightSettingById[id]) {
       nextState.highlightSettingById[id] = {
         ...nextState.highlightSettingById[id],
+        ...settings,
+      };
+    }
+
+    return nextState;
+  }
+  if (type === addBlacklistSetting.type) {
+    const blacklistSetting = payload;
+    if (state.blacklistSettings.length >= MAX_HIGHLIGHT_SETTINGS) {
+      return state;
+    }
+    return {
+      ...state,
+      blacklistSettings: [...state.blacklistSettings, blacklistSetting.id],
+      blacklistSettingById: {
+        ...state.blacklistSettingById,
+        [blacklistSetting.id]: blacklistSetting,
+      },
+    };
+  }
+  if (type === removeBlacklistSetting.type) {
+    const { id } = payload;
+    const nextState = {
+      ...state,
+      blacklistSettings: [...state.blacklistSettings],
+      blacklistSettingById: {
+        ...state.blacklistSettingById,
+      },
+    };
+    delete nextState.blacklistSettingById[id];
+    nextState.blacklistSettings = nextState.blacklistSettings.filter((sid) => sid !== id);
+    return nextState;
+  }
+  if (type === updateBlacklistSetting.type) {
+    const { id, ...settings } = payload;
+    const nextState = {
+      ...state,
+      blacklistSettings: [...state.blacklistSettings],
+      blacklistSettingById: {
+        ...state.blacklistSettingById,
+      },
+    };
+
+    if (nextState.blacklistSettingById[id]) {
+      nextState.blacklistSettingById[id] = {
+        ...nextState.blacklistSettingById[id],
         ...settings,
       };
     }

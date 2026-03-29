@@ -19,7 +19,7 @@
 		toggle_throw_mode()
 	return ..()
 
-/mob/living/carbon/ghostize(can_reenter_corpse)
+/mob/living/carbon/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	if(in_throw_mode)
 		toggle_throw_mode()
 	return ..()
@@ -32,7 +32,7 @@
 	if(stat == DEAD)
 		return
 	else
-		show_message("<span class='userdanger'>The blob attacks!</span>")
+		show_message(SPAN_USERDANGER("The blob attacks!"))
 		adjustBruteLoss(10)
 
 /mob/living/carbon/Move(NewLoc, direct)
@@ -60,7 +60,7 @@
 			last_stomach_attack = world.time
 			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
+					M.show_message(SPAN_WARNING("You hear something rumbling inside [src]'s stomach..."), 2)
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
@@ -80,7 +80,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text("<span class='warning'><b>[user] attacks [src]'s stomach wall with [I]!</b></span>"), 2)
+						M.show_message(SPAN_WARNING("<b>[user] attacks [src]'s stomach wall with [I]!</b>"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -92,10 +92,10 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = TRUE, distance = 0, message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = TRUE, distance = 0, message = 1, vomit_type_overide = null)
 	. = TRUE
 
-	if(stat == DEAD || ismachineperson(src)) // Dead people and IPCs do not vomit particulates
+	if(stat == DEAD || (ismachineperson(src) && !locate(/obj/item/organ/internal/appendix/corrupt) in internal_organs)) // Dead people and IPCs do not vomit particulates
 		return FALSE
 
 	if(should_confuse)
@@ -106,16 +106,16 @@
 
 	if(!blood && nutrition < 100) // Nutrition vomiting while already starving
 		if(message)
-			visible_message("<span class='warning'>[src] dry heaves!</span>", \
-							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
+			visible_message(SPAN_WARNING("[src] dry heaves!"), \
+							SPAN_USERDANGER("You try to throw up, but there's nothing in your stomach!"))
 		if(should_confuse)
 			KnockDown(20 SECONDS)
 			AdjustConfused(20 SECONDS)
 		return
 
 	if(message)
-		visible_message("<span class='danger'>[src] throws up!</span>", \
-						"<span class='userdanger'>You throw up!</span>")
+		visible_message(SPAN_DANGER("[src] throws up!"), \
+						SPAN_USERDANGER("You throw up!"))
 
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 	var/turf/T = get_turf(src)
@@ -123,14 +123,20 @@
 		if(blood)
 			if(T)
 				add_splatter_floor(T)
+			blood_volume = max(blood_volume - lost_nutrition, 0)
 			if(should_confuse)
 				adjustBruteLoss(3)
 		else
 			if(T)
-				T.add_vomit_floor()
+				T.add_vomit_floor(type_override = vomit_type_overide)
 			adjust_nutrition(-lost_nutrition)
 			if(should_confuse)
 				adjustToxLoss(-3)
+
+		// Try to infect the people we hit with our viruses
+		for(var/mob/living/carbon/to_infect in T.contents)
+			for(var/datum/disease/illness in viruses)
+				to_infect.ContractDisease(illness)
 
 		T = get_step(T, dir)
 		if(T.is_blocked_turf())
@@ -149,7 +155,7 @@
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
 		M.forceMove(drop_location())
-		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
+		visible_message(SPAN_DANGER("[M] bursts out of [src]!"))
 
 ///Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
@@ -182,6 +188,7 @@
 	// Moderate shock - Stun, knockdown, funny effect
 	var/should_stun = FALSE
 	var/stun_dur = 0 SECONDS
+	var/icon/overlay_icon = null
 	if(shock_damage >= SHOCK_MODERATE)
 		should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 		if(should_stun)
@@ -190,15 +197,15 @@
 		if(shock_damage >= SHOCK_FLASH) // Arc flash explosion is instant, don't wait for the secondary shock and bypass the effect
 			stun_dur = 0
 		else
-			var/obj/effect/temp_visual/electrocution/shock_effect = new /obj/effect/temp_visual/electrocution(loc, stun_dur)
-			shock_effect.setDir(dir)
+			overlay_icon = new('icons/effects/effects.dmi', "electrocution")
+			overlays += overlay_icon
 		emote("scream")
 		AdjustStuttering(4 SECONDS)
 
 	// Major Shock - YEET
 	var/throw_distance = 0
 	var/throw_dir = null
-	if(shock_damage >= SHOCK_MAJOR)
+	if(shock_damage >= SHOCK_MAJOR && !(flags & SHOCK_ILLUSION))
 		do_sparks(3, TRUE, src)
 		AdjustStuttering(4 SECONDS)
 		if(isatom(source))
@@ -206,13 +213,15 @@
 			throw_dir = get_dir(shock_source.loc, src)
 			throw_distance = round(shock_damage / 10)
 
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance), stun_dur)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance, overlay_icon), stun_dur)
 	return shock_damage
 
 /// Called after electrocute_act to apply secondary effects
-/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance)
+/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance, overlay_icon)
 	if(jitter_amount)
 		AdjustJitter(jitter_amount)
+	if(overlay_icon)
+		overlays -= overlay_icon
 	if(should_stun)
 		KnockDown(6 SECONDS)
 	if(throw_dir && throw_distance && !HAS_TRAIT(src, TRAIT_MAGPULSE)) // Don't yeet if they're wearing magboots
@@ -224,6 +233,8 @@
 		return
 	hand = !hand
 	update_hands_hud()
+	r_hand?.on_hands_swap(src, hand == HAND_BOOL_RIGHT)
+	l_hand?.on_hands_swap(src, hand == HAND_BOOL_LEFT)
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
@@ -236,12 +247,14 @@
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(health < HEALTH_THRESHOLD_CRIT)
 		return
+	if(SEND_SIGNAL(src, COMSIG_CARBON_PRE_MISC_HELP, M) & COMPONENT_BLOCK_MISC_HELP)
+		return
 	if(src == M && ishuman(src))
 		check_self_for_injuries()
 		return
 	if(player_logged)
-		M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.</span>", \
-		"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
+		M.visible_message(SPAN_NOTICE("[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD."), \
+		SPAN_NOTICE("You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD."))
 	if(IS_HORIZONTAL(src)) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 		add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 		if(ishuman(src))
@@ -259,30 +272,38 @@
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if(!player_logged)
 			M.visible_message( \
-				"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
-				"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
+				SPAN_NOTICE("[M] shakes [src] trying to wake [p_them()] up!"),\
+				SPAN_NOTICE("You shake [src] trying to wake [p_them()] up!"),\
 				)
 		return
 	// If it has any of the highfive statuses, dap, handshake, etc
 	var/datum/status_effect/effect = has_status_effect_type(STATUS_EFFECT_HIGHFIVE)
 	if(istype(effect, STATUS_EFFECT_OFFERING_EFTPOS))
-		to_chat(M, "<span class='warning'>You need to have your ID in hand to scan it!</span>")
+		to_chat(M, SPAN_WARNING("You need to have your ID in hand to scan it!"))
 		return
 	else if(effect)
 		M.apply_status_effect(effect.type)
 		return
 	// BEGIN HUGCODE - N3X
 	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-	if(M.zone_selected == "head")
-		M.visible_message(\
-		"<span class='notice'>[M] pats [src] on the head.</span>",\
-		"<span class='notice'>You pat [src] on the head.</span>",\
-		)
-		return
-	M.visible_message(\
-	"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-	"<span class='notice'>You hug [src].</span>",\
+
+	switch(M.zone_selected)
+		if("head")
+			M.visible_message(
+				SPAN_NOTICE("[M] pats [src] on the head."),
+				SPAN_NOTICE("You pat [src] on the head."),
+			)
+			return
+		if("l_hand", "r_hand")
+			M.emote("handshake")
+			return
+
+	M.visible_message(
+		SPAN_NOTICE("[M] gives [src] a [pick("hug","warm embrace")]."),
+		SPAN_NOTICE("You hug [src]."),
 	)
+
+
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.wear_suit)
@@ -300,9 +321,9 @@
   */
 /mob/living/carbon/proc/pat_out(mob/living/target)
 	if(target == src) // stop drop and roll, no trying to put out fire on yourself for free.
-		to_chat(src, "<span class='warning'>Stop drop and roll!</span>")
+		to_chat(src, SPAN_WARNING("Stop drop and roll!"))
 		return
-	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
+	var/self_message = SPAN_WARNING("You try to extinguish [target]!")
 	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
 		var/mob/living/carbon/human/H = src
 		var/protected = FALSE // Protected from the fire
@@ -312,17 +333,17 @@
 		var/obj/item/organ/external/active_hand = H.get_active_hand()
 		if(active_hand && !protected) // Wouldn't really work without a hand
 			active_hand.receive_damage(0, 5)
-			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
+			self_message = SPAN_DANGER("You burn your hand trying to extinguish [target]!")
 			H.update_icons()
 
-	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	visible_message(SPAN_WARNING("[src] tries to extinguish [target]!"), self_message)
 	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	target.adjust_fire_stacks(-0.5)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
-	visible_message("<span class='notice'>[src] examines [H.p_themselves()].</span>", \
-		"<span class='notice'>You check yourself for injuries.</span>" \
+	visible_message(SPAN_NOTICE("[src] examines [H.p_themselves()]."), \
+		SPAN_NOTICE("You check yourself for injuries.") \
 		)
 	var/list/status_list = list()
 
@@ -341,7 +362,7 @@
 				status = "battered"
 			if(40 to INFINITY)
 				status = "mangled"
-		if(brutedamage > 0 && (burndamage > 0 || LB.status & ORGAN_BURNT))
+		if(brutedamage > 0.1 && (burndamage > 0.1 || LB.status & ORGAN_BURNT))
 			status += " and "
 
 		if(LB.status & ORGAN_BURNT)
@@ -358,28 +379,28 @@
 		if(LB.status & ORGAN_MUTATED)
 			status = "weirdly shapen"
 
-		var/msg = "<span class='notice'>Your [LB.name] is OK.</span>"
+		var/msg = SPAN_NOTICE("Your [LB.name] is OK.")
 		if(!isnull(status))
-			msg = "<span class='warning'>Your [LB.name] is [status].</span>"
+			msg = SPAN_WARNING("Your [LB.name] is [status].")
 		status_list += msg
 
 		for(var/obj/item/I in LB.embedded_objects)
 			status_list += "\t<a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
-		status_list += "<span class='boldannounceic'>Your [parse_zone(t)] is missing!</span>"
+		status_list += SPAN_BOLDANNOUNCEIC("Your [parse_zone(t)] is missing!")
 
 	if(H.bleed_rate)
-		status_list += "<span class='danger'>You are bleeding!</span>"
+		status_list += SPAN_DANGER("You are bleeding!")
 	if(staminaloss)
 		if(staminaloss > 30)
-			status_list += "<span class='notice'>You're completely exhausted.</span>"
+			status_list += SPAN_NOTICE("You're completely exhausted.")
 		else
-			status_list += "<span class='notice'>You feel fatigued.</span>"
+			status_list += SPAN_NOTICE("You feel fatigued.")
 
-	to_chat(src, chat_box_examine(status_list.Join("\n")))
+	to_chat(src, chat_box_examine(status_list.Join("<br>")))
 
-	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
+	if((isskeleton(H) || HAS_TRAIT(H, TRAIT_SKELETONIZED)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 /mob/living/carbon/can_be_flashed(intensity = 1, override_blindness_check = 0)
@@ -389,11 +410,10 @@
 	if((E?.status & ORGAN_DEAD) || E?.is_broken() || !.)
 		return FALSE
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, flash_type = /atom/movable/screen/fullscreen/stretch/flash)
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
-	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
 	var/damage = intensity - check_eye_prot()
 	var/extra_damage = 0
@@ -421,12 +441,12 @@
 
 		switch(damage)
 			if(1)
-				to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
+				to_chat(src, SPAN_WARNING("Your eyes sting a little."))
 				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
 				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
 				E.receive_damage(minor_damage, 1)
 			if(2)
-				to_chat(src, "<span class='warning'>Your eyes burn.</span>")
+				to_chat(src, SPAN_WARNING("Your eyes burn."))
 				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
@@ -439,20 +459,20 @@
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
-					to_chat(src, "<span class='warning'>Your eyes start to burn badly!</span>")
+					to_chat(src, SPAN_WARNING("Your eyes start to burn badly!"))
 				else //snowflake conditions piss me off for the record
-					to_chat(src, "<span class='warning'>The flash blinds you!</span>")
+					to_chat(src, SPAN_WARNING("The flash blinds you!"))
 
 			else if(E.damage >= E.min_broken_damage)
-				to_chat(src, "<span class='warning'>You can't see anything!</span>")
+				to_chat(src, SPAN_WARNING("You can't see anything!"))
 
 			else
-				to_chat(src, "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>")
+				to_chat(src, SPAN_WARNING("Your eyes are really starting to hurt. This can't be good for you!"))
 		return 1
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
-			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
+			to_chat(src, SPAN_NOTICE("Something bright flashes in the corner of your vision!"))
 
 
 /mob/living/carbon/proc/tintcheck()
@@ -491,11 +511,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	if(has_buckled_mobs())
-		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+		to_chat(src, SPAN_WARNING("You can't vent crawl with other creatures on you!"))
 		return
 
 	if(buckled)
-		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
+		to_chat(src, SPAN_WARNING("You can't vent crawl while buckled!"))
 		return
 
 	if(ishuman(src))
@@ -528,14 +548,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				break
 
 	if(!vent_found)
-		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
+		to_chat(src, SPAN_WARNING("This ventilation duct is not connected to anything!"))
 		return
 
 	if(!vent_found.parent || !(length(vent_found.parent.members) || vent_found.parent.other_atmosmch))
 		return
 
-	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-					"<span class='notice'>You begin climbing into the ventilation system...</span>")
+	visible_message(SPAN_NOTICE("[src] begins climbing into the ventilation system..."), \
+					SPAN_NOTICE("You begin climbing into the ventilation system..."))
 
 #ifdef GAME_TESTS
 	var/ventcrawl_delay = 0 SECONDS
@@ -549,15 +569,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!do_after(src, ventcrawl_delay, target = src))
 			return
 	if(!vent_found.can_crawl_through() || QDELETED(vent_found))
-		to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
+		to_chat(src, SPAN_WARNING("You can't vent crawl through that!"))
 		return
 
 	if(has_buckled_mobs())
-		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+		to_chat(src, SPAN_WARNING("You can't vent crawl with other creatures on you!"))
 		return
 
 	if(buckled)
-		to_chat(src, "<span class='warning'>You cannot crawl into a vent while buckled to something!</span>")
+		to_chat(src, SPAN_WARNING("You cannot crawl into a vent while buckled to something!"))
 		return
 
 	if(iscarbon(src) && length(contents) && ventcrawlerlocal < VENTCRAWLER_ALWAYS) // If we're here you can only ventcrawl while completely nude
@@ -569,7 +589,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(I.flags & ABSTRACT)
 				continue
 
-			to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
+			to_chat(src, SPAN_WARNING("You can't crawl around in the ventilation ducts with items!"))
 			return
 
 	visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
@@ -640,7 +660,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/atom/movable/AM = hit_atom
 			var/atom/throw_target = get_edge_target_turf(AM, dir)
 			if(!AM.anchored || ismecha(AM))
-				AM.throw_at(throw_target, 5, 12, src)
+				if(!HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE))
+					AM.throw_at(throw_target, 5, 12, src)
 				hit_something = TRUE
 		if(isobj(hit_atom))
 			var/obj/O = hit_atom
@@ -648,10 +669,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			hit_something = TRUE
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom
-			L.adjustBruteLoss(60)
-			L.KnockDown(12 SECONDS)
-			L.Confused(10 SECONDS)
 			shake_camera(L, 4, 3)
+			if(HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE))
+				var/obj/item/I = src.get_active_hand()
+				if(I)
+					I.attack(L, src)
+				L.KnockDown(1 SECONDS)
+			else
+				L.adjustBruteLoss(60)
+				L.KnockDown(12 SECONDS)
+				L.Confused(10 SECONDS)
 			hit_something = TRUE
 		if(isturf(hit_atom))
 			var/turf/T = hit_atom
@@ -659,8 +686,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				T.dismantle_wall(TRUE)
 				hit_something = TRUE
 		if(hit_something)
-			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+			visible_message(SPAN_DANGER("[src] slams into [hit_atom]!"), SPAN_USERDANGER("You slam into [hit_atom]!"))
 		return
 	if(has_status_effect(STATUS_EFFECT_IMPACT_IMMUNE))
 		return
@@ -672,7 +699,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	for(var/obj/item/dualsaber/D in contents)
 		if(HAS_TRAIT(D, TRAIT_WIELDED) && D.force)
-			visible_message("<span class='danger'>[src] impales [C] with [D], before dropping them on the ground!</span>")
+			visible_message(SPAN_DANGER("[src] impales [C] with [D], before dropping them on the ground!"))
 			C.apply_damage(100, BRUTE, "chest", sharp = TRUE, used_weapon = "Impaled on [D].")
 			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
 			C.KnockDown(6 SECONDS)
@@ -691,24 +718,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(I)
 		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
-#define THROW_MODE_ICON 'icons/effects/cult_target.dmi'
-
 /mob/living/carbon/proc/throw_mode_off()
 	in_throw_mode = FALSE
 	if(throw_icon) //in case we don't have the HUD and we use the hotkey
 		throw_icon.icon_state = "act_throw_off"
-	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
-		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+	remove_mousepointer(MP_THROW_MODE_PRIORITY)
 
 /mob/living/carbon/proc/throw_mode_on()
 	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
-	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
-		client.mouse_pointer_icon = THROW_MODE_ICON
-
-#undef THROW_MODE_ICON
+	add_mousepointer(MP_THROW_MODE_PRIORITY, 'icons/mouse_icons/cult_target.dmi')
 
 /mob/proc/throw_item(atom/target)
 	return
@@ -734,7 +755,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(throwable_mob)
 			thrown_thing = throwable_mob
 			if(HAS_TRAIT(src, TRAIT_PACIFISM))
-				to_chat(src, "<span class='notice'>You gently let go of [throwable_mob].</span>")
+				to_chat(src, SPAN_NOTICE("You gently let go of [throwable_mob]."))
 				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
@@ -750,16 +771,17 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		drop_item_to_ground(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
-			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
+			to_chat(src, SPAN_NOTICE("You set [I] down gently on the ground."))
 			return
 
 	if(QDELETED(thrown_thing))
 		return
 
 	if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
-		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+		visible_message(SPAN_DANGER("[src] has thrown [thrown_thing]."))
 	newtonian_move(get_dir(target, src))
 	thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	thrown_thing.scatter_atom()
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
@@ -899,15 +921,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	if(has_status_effect(STATUS_EFFECT_UNBUCKLE))
-		to_chat(src, "<span class='notice'>You are already trying to unbuckle!</span>")
+		to_chat(src, SPAN_NOTICE("You are already trying to unbuckle!"))
 		return
 	apply_status_effect(STATUS_EFFECT_UNBUCKLE)
 
-	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
-				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [breakout_time / 10] seconds and you need to stay still.)</span>")
+	visible_message(SPAN_WARNING("[src] attempts to unbuckle [p_themselves()]!"),
+				SPAN_NOTICE("You attempt to unbuckle yourself... (This will take around [breakout_time / 10] seconds and you need to stay still.)"))
 	if(!do_after(src, breakout_time, FALSE, src, allow_moving = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check))), allow_moving_target = TRUE, hidden = TRUE))
 		if(src && buckled)
-			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
+			to_chat(src, SPAN_WARNING("You fail to unbuckle yourself!"))
 	else
 		if(!buckled)
 			return
@@ -932,13 +954,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	Weaken (2 SECONDS, TRUE) //Your busy dying from fire, no way you could be able to roll and reach for a snack in your bag
 	KnockDown(6 SECONDS, TRUE) //Ok now you can have that snack if you want
 	spin(32, 2)
-	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_themselves()] out!</span>",
-		"<span class='notice'>You stop, drop, and roll!</span>")
+	visible_message(SPAN_DANGER("[src] rolls on the floor, trying to put [p_themselves()] out!"),
+		SPAN_NOTICE("You stop, drop, and roll!"))
 	addtimer(CALLBACK(src, PROC_REF(extinguish_roll), 3 SECONDS))
 
 /mob/living/carbon/proc/extinguish_roll()
 	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>","<span class='notice'>You extinguish yourself.</span>")
+		visible_message(SPAN_DANGER("[src] has successfully extinguished [p_themselves()]!"),SPAN_NOTICE("You extinguish yourself."))
 		ExtinguishMob()
 
 /mob/living/carbon/resist_restraints(attempt_breaking)
@@ -966,14 +988,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "[I] is too well made, you'll need hands for this one!")
 		return
 	if(has_status_effect(STATUS_EFFECT_REMOVE_MUZZLE))
-		to_chat(src, "<span class='notice'>You are already trying to remove [I]!</span>")
+		to_chat(src, SPAN_NOTICE("You are already trying to remove [I]!"))
 		return
 	apply_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
-	visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
-	to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
+	visible_message(SPAN_WARNING("[src] gnaws on [I], trying to remove it!"))
+	to_chat(src, SPAN_NOTICE("You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)"))
 	if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check))), hidden = TRUE))
-		visible_message("<span class='warning'>[src] removes [I]!</span>")
-		to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
+		visible_message(SPAN_WARNING("[src] removes [I]!"))
+		to_chat(src, SPAN_NOTICE("You get rid of [I]!"))
 		if(I.security_lock)
 			I.do_break()
 		drop_item_to_ground(I)
@@ -985,7 +1007,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		effective_breakout_time = 5 SECONDS
 
 	if(has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
-		to_chat(src, "<span class='notice'>You are already trying to [break_cuffs ? "break" : "remove"] [restraints].</span>")
+		to_chat(src, SPAN_NOTICE("You are already trying to [break_cuffs ? "break" : "remove"] [restraints]."))
 		return
 
 	apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
@@ -1009,6 +1031,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	update_inv_handcuffed()
 	update_hands_hud()
 
+// Called to escape a cryocell
+/mob/living/carbon/proc/cryo_resist(obj/machinery/atmospherics/unary/cryo_cell/cell)
+	var/effective_breakout_time = 1 MINUTES
+	if(stat != UNCONSCIOUS)
+		effective_breakout_time = 5 SECONDS
+
+	if(has_status_effect(STATUS_EFFECT_EXIT_CRYOCELL))
+		to_chat(src, SPAN_NOTICE("You are already trying to exit [cell]."))
+		return
+
+	apply_status_effect(STATUS_EFFECT_EXIT_CRYOCELL)
+	cell.attempt_escape(src, effective_breakout_time)
+
 /mob/living/carbon/get_standard_pixel_y_offset()
 	if(IS_HORIZONTAL(src))
 		if(buckled)
@@ -1022,7 +1057,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(HAS_TRAIT(src, TRAIT_EMP_IMMUNE))
 		return
 	if(HAS_TRAIT(src, TRAIT_EMP_RESIST))
-		severity = clamp(severity, EMP_LIGHT, EMP_WEAKENED)
+		severity = clamp(severity, EMP_RESIST_ORGAN, EMP_WEAKENED)
 	for(var/X in internal_organs)
 		var/obj/item/organ/internal/O = X
 		O.emp_act(severity)
@@ -1080,7 +1115,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		client.screen -= W
 
 	if(show_message)
-		visible_message("<span class='warning'>[src] slips out of [W]!</span>")
+		visible_message(SPAN_WARNING("[src] slips out of [W]!"))
 
 	W.forceMove(drop_location())
 	W.dropped(src)
@@ -1115,7 +1150,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		client.screen -= W
 
 	if(show_message)
-		visible_message("<span class='warning'>[W] falls off of [src]!</span>")
+		visible_message(SPAN_WARNING("[W] falls off of [src]!"))
 
 	W.forceMove(drop_location())
 	W.dropped(src)
@@ -1145,7 +1180,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				step(src, dir)
 
 	stop_pulling()
-	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
+	to_chat(src, SPAN_NOTICE("You [slipVerb]ped on [description]!"))
 	playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
@@ -1199,14 +1234,15 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return TRUE
 
 /mob/living/carbon/proc/selfFeed(obj/item/food/to_eat, fullness)
-	if(to_eat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
-		to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
+	var/is_glutton = HAS_TRAIT(src, TRAIT_GLUTTON)
+	if(!is_glutton && to_eat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
+		to_chat(src, SPAN_NOTICE("You don't feel like eating any more junk food at the moment."))
 		return FALSE
 
 	var/list/reaction_msg = list()
 	if(fullness <= 50)
 		reaction_msg += "You hungrily chew out a piece of [to_eat] and gobble it!"
-		to_chat(src, "<span class='warning'></span>")
+		to_chat(src, SPAN_WARNING(""))
 	else if(fullness > 50 && fullness < 150)
 		reaction_msg += "You hungrily begin to eat [to_eat]."
 	else if(fullness > 150 && fullness < 500)
@@ -1214,10 +1250,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else if(fullness > 500 && fullness < 600)
 		reaction_msg += "You unwillingly chew a bit of [to_eat]."
 	else if(fullness > (600 * (1 + overeatduration / 2000))) // The more you eat - the more you can eat
-		to_chat(src, "<span class='warning'>You cannot force any more of [to_eat] to go down your throat.</span>")
+		to_chat(src, SPAN_WARNING("You cannot force any more of [to_eat] to go down your throat."))
 		return FALSE
-
-	to_chat(src, "<span class='notice'>[jointext(reaction_msg, " ")]</span>")
+	if(is_glutton)
+		src.changeNext_move(CLICK_CD_RAPID) // Hungry hungry spessman
+	to_chat(src, SPAN_NOTICE("[jointext(reaction_msg, " ")]"))
 
 	return TRUE
 
@@ -1226,14 +1263,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/to_eat, mob/user, fullness)
 	if(fullness > (600 * (1 + overeatduration / 1000)))
-		visible_message("<span class='warning'>[user] cannot force anymore of [to_eat] down [src]'s throat.</span>")
+		visible_message(SPAN_WARNING("[user] cannot force anymore of [to_eat] down [src]'s throat."))
 		return FALSE
 
-	visible_message("<span class='warning'>[user] attempts to force [src] to swallow [to_eat].</span>")
+	visible_message(SPAN_WARNING("[user] attempts to force [src] to swallow [to_eat]."))
 	if(!do_after(user, 3 SECONDS, TRUE, src))
 		return FALSE
 	forceFedAttackLog(to_eat, user)
-	visible_message("<span class='warning'>[user] forces [src] to swallow [to_eat].</span>")
+	visible_message(SPAN_WARNING("[user] forces [src] to swallow [to_eat]."))
 	return TRUE
 
 /mob/living/carbon/proc/forceFedAttackLog(obj/item/reagent_containers/to_eat, mob/user)
@@ -1267,7 +1304,7 @@ so that different stomachs can handle things in different ways VB*/
 		. |= LH.GetAccess()
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(wear_mask?.flags & BLOCK_GAS_SMOKE_EFFECT || head?.flags & BLOCK_GAS_SMOKE_EFFECT || internal)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH) || wear_mask?.flags & BLOCK_GAS_SMOKE_EFFECT || head?.flags & BLOCK_GAS_SMOKE_EFFECT || internal)
 		return FALSE
 
 	return TRUE
@@ -1415,11 +1452,11 @@ so that different stomachs can handle things in different ways VB*/
 
 /mob/living/carbon/proc/lazrevival(mob/living/carbon/M)
 	if(M.get_ghost()) // ghosted after the timer expires.
-		M.visible_message("<span class='warning'>[M]'s body stops twitching as the Lazarus Reagent loses potency.</span>")
+		M.visible_message(SPAN_WARNING("[M]'s body stops twitching as the Lazarus Reagent loses potency."))
 		return
 
 	// If the ghost has re-entered the body, perform the revival!
-	M.visible_message("<span class='success'>[M] gasps as they return to life!</span>")
+	M.visible_message(SPAN_SUCCESS("[M] gasps as they return to life!"))
 	M.adjustCloneLoss(50)
 	M.setOxyLoss(0)
 	M.adjustBruteLoss(rand(0, 15))
@@ -1482,7 +1519,7 @@ so that different stomachs can handle things in different ways VB*/
 		if(!usr)
 			return
 		if(QDELETED(src))
-			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			to_chat(usr, SPAN_NOTICE("Mob doesn't exist anymore."))
 			return
 
 		if(result)
@@ -1500,11 +1537,11 @@ so that different stomachs can handle things in different ways VB*/
 			return
 
 		if(QDELETED(src))
-			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			to_chat(usr, SPAN_NOTICE("Mob doesn't exist anymore."))
 			return
 
 		if(locateUID(new_organ) in internal_organs)
-			to_chat(usr, "<span class='notice'>Mob already has that organ.</span>")
+			to_chat(usr, SPAN_NOTICE("Mob already has that organ."))
 			return
 		var/obj/item/organ/internal/organ = new new_organ
 		organ.insert(src)
@@ -1517,14 +1554,14 @@ so that different stomachs can handle things in different ways VB*/
 		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", internal_organs)
 
 		if(QDELETED(src))
-			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			to_chat(usr, SPAN_NOTICE("Mob doesn't exist anymore."))
 			return
 
 		if(!(rem_organ in internal_organs))
-			to_chat(usr, "<span class='notice'>Mob does not have that organ.</span>")
+			to_chat(usr, SPAN_NOTICE("Mob does not have that organ."))
 			return
 
-		to_chat(usr, "<span class='notice'>Removed [rem_organ] from [src].</span>")
+		to_chat(usr, SPAN_NOTICE("Removed [rem_organ] from [src]."))
 		rem_organ.remove(src)
 		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(src)]")
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(src)]")

@@ -41,7 +41,6 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 	mid_sounds = list('sound/machines/kitchen/microwave_mid1.ogg' = 10, 'sound/machines/kitchen/microwave_mid2.ogg' = 1)
 	mid_length = 15
 	end_sound = 'sound/machines/kitchen/microwave_end.ogg'
-	volume = 100
 
 /datum/looping_sound/kitchen/deep_fryer
 	start_sound = 'sound/machines/kitchen/deep_fryer_immerse.ogg'
@@ -74,3 +73,32 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 	volume = 20
 	falloff_distance = 2
 	falloff_exponent = 5
+
+/////////// NGCR ////////////
+
+/datum/looping_sound/reactor
+	mid_sounds = list('sound/machines/fission/reactor_loop.ogg' = 1)
+	mid_length = 30
+	volume = 30
+	extra_range = 5
+	falloff_exponent = 1
+	falloff_distance = 1
+	channel = CHANNEL_ENGINE
+
+/datum/looping_sound/reactor_startup
+	start_sound = 'sound/machines/fission/reactor_startup_beginning.ogg'
+	start_length = 15 SECONDS
+	mid_sounds = list('sound/machines/fission/reactor_startup_mid.ogg' = 1)
+	mid_length = 11.8 SECONDS
+	falloff_exponent = 3
+	falloff_distance = 3
+	volume = 35
+	channel = CHANNEL_ENGINE
+
+/datum/looping_sound/centrifuge
+	start_sound = 'sound/machines/fission/centrifuge_start.ogg'
+	start_length = 0.95 SECONDS
+	mid_sounds = list('sound/machines/fission/centrifuge_mid.ogg' = 1)
+	mid_length = 0.95 SECONDS
+	volume = 35
+	channel = CHANNEL_ENGINE

@@ -31,7 +31,9 @@
 							CAT_HOLIDAY,
 							CAT_LARGE_DECORATIONS
 						),
-						CAT_CLOTHING) //Clothing subcategories
+						// Clothing subcategories
+						list(CAT_CLOTHING_GENERAL,
+							CAT_CLOTHING_RACIAL))
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
 
@@ -362,11 +364,11 @@
 			SStgui.update_uis(src)
 			var/fail_msg = construct_item(usr, TR)
 			if(!fail_msg)
-				to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+				to_chat(usr, SPAN_NOTICE("[TR.name] constructed."))
 				if(TR.alert_admins_on_craft)
 					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
 			else
-				to_chat(usr, "<span class='warning'>Construction failed[fail_msg]</span>")
+				to_chat(usr, SPAN_WARNING("Construction failed[fail_msg]"))
 			busy = FALSE
 			SStgui.update_uis(src)
 

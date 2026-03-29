@@ -19,8 +19,6 @@
 	icon_state = "terror_brown"
 	icon_living = "terror_brown"
 	icon_dead = "terror_brown_dead"
-	maxHealth = 120 // Low
-	health = 120
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	move_to_delay = 20 // Slow.

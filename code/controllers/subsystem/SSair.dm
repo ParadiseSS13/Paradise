@@ -697,7 +697,6 @@ SUBSYSTEM_DEF(air)
 /obj/effect/overlay/turf
 	icon = 'icons/effects/tile_effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
 	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
 
@@ -707,9 +706,13 @@ SUBSYSTEM_DEF(air)
 /obj/effect/overlay/turf/sleeping_agent
 	icon_state = "sleeping_agent"
 
+/obj/effect/overlay/turf/water_vapor
+	icon_state = "water_vapor"
+
 /datum/controller/subsystem/air/proc/setup_overlays()
 	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
 	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
+	GLOB.wvmaster = new /obj/effect/overlay/turf/water_vapor
 
 /datum/controller/subsystem/air/proc/bind_turf(turf/T, list/milla_tile = null)
 	var/datum/gas_mixture/bound_to_turf/B = new()
@@ -798,7 +801,7 @@ SUBSYSTEM_DEF(air)
 
 	log_debug(err)
 	var/msg = "MILLA has crashed. SSair will stop running, and all atmospherics will stop functioning. Every turf will report as full of breathable air, and all fires will be extinguished. Shuttle call highly recommended."
-	to_chat(GLOB.admins, "<span class='boldannounceooc'>[msg]</span>")
+	to_chat(GLOB.admins, SPAN_BOLDANNOUNCEOOC("[msg]"))
 	log_world(msg)
 
 	// Disable firing.
@@ -806,6 +809,11 @@ SUBSYSTEM_DEF(air)
 	// Disable fire, too.
 	for(var/turf/simulated/S in SSair.hotspots)
 		QDEL_NULL(S.active_hotspot)
+
+/// condenses water on a tile at the specified coordinates
+/proc/condense_water(water_phase, x, y, z)
+	var/turf/simulated/floor/tile =  locate(x, y, z)
+	tile.MakeSlippery(water_phase)
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe

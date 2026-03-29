@@ -3,7 +3,6 @@
 	var/datum/pipeline/parent
 	var/volume = 0
 	force = 20
-	power_state = NO_POWER_USE
 	can_unwrench = TRUE
 	damage_deflection = 12
 	can_be_undertile = TRUE
@@ -11,7 +10,6 @@
 	//Buckling
 	can_buckle = TRUE
 	buckle_requires_restraints = TRUE
-	buckle_lying = -1
 
 	flags_2 = NO_MALF_EFFECT_2
 
@@ -50,7 +48,7 @@
 
 /obj/machinery/atmospherics/pipe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"
+	. += SPAN_NOTICE("This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.")
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null

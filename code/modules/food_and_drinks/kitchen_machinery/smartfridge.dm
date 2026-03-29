@@ -7,7 +7,6 @@
 	name = "\improper SmartFridge"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "smartfridge"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -178,6 +177,9 @@
 	return ..()
 
 /obj/machinery/smartfridge/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
@@ -187,13 +189,13 @@
 		return
 
 	if(stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='notice'>[src] is unpowered and useless.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is unpowered and useless."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(load(used, user))
 		user.visible_message(
-			"<span class='notice'>[user] has added [used] to [src].</span>",
-			"<span class='notice'>You add [used] to [src].</span>"
+			SPAN_NOTICE("[user] has added [used] to [src]."),
+			SPAN_NOTICE("You add [used] to [src].")
 		)
 		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
@@ -207,18 +209,18 @@
 				items_loaded++
 		if(items_loaded)
 			user.visible_message(
-				"<span class='notice'>[user] loads [src] with [P].</span>",
-				"<span class='notice'>You load [src] with [P].</span>"
+				SPAN_NOTICE("[user] loads [src] with [P]."),
+				SPAN_NOTICE("You load [src] with [P].")
 			)
 			SStgui.update_uis(src)
 			update_icon(UPDATE_OVERLAYS)
 		var/failed = length(P.contents)
 		if(failed)
-			to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
+			to_chat(user, SPAN_NOTICE("[failed] item\s [failed == 1 ? "is" : "are"] refused."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!istype(used, /obj/item/card/emag))
-		to_chat(user, "<span class='notice'>\The [src] smartly refuses [used].</span>")
+		to_chat(user, SPAN_NOTICE("\The [src] smartly refuses [used]."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -245,12 +247,12 @@
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
 		return
 	if(stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
+		to_chat(user, SPAN_NOTICE("\The [src] is unpowered and useless."))
 		return TRUE
 
 	var/obj/item/storage/box/pillbottles/P = over_object
 	if(!length(P.contents))
-		to_chat(user, "<span class='notice'>\The [P] is empty.</span>")
+		to_chat(user, SPAN_NOTICE("\The [P] is empty."))
 		return TRUE
 
 	var/items_loaded = 0
@@ -258,11 +260,11 @@
 		if(load(G, user))
 			items_loaded++
 	if(items_loaded)
-		user.visible_message("<span class='notice'>[user] empties \the [P] into \the [src].</span>", "<span class='notice'>You empty \the [P] into \the [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] empties \the [P] into \the [src]."), SPAN_NOTICE("You empty \the [P] into \the [src]."))
 		update_icon(UPDATE_OVERLAYS)
 	var/failed = length(P.contents)
 	if(failed)
-		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
+		to_chat(user, SPAN_NOTICE("[failed] item\s [failed == 1 ? "is" : "are"] refused."))
 	return TRUE
 
 /obj/machinery/smartfridge/ui_state(mob/user)
@@ -307,7 +309,7 @@
 	switch(action)
 		if("vend")
 			if(is_secure && !emagged && scan_id && !allowed(usr)) //secure fridge check
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				to_chat(usr, SPAN_WARNING("Access denied."))
 				return FALSE
 
 			var/index = text2num(params["index"])
@@ -351,7 +353,7 @@
 /obj/machinery/smartfridge/proc/load(obj/I, mob/user)
 	if(accept_check(I))
 		if(length(contents) >= max_n_of_items)
-			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
+			to_chat(user, SPAN_NOTICE("\The [src] is full."))
 			return FALSE
 		else
 			if(isstorage(I.loc))
@@ -369,7 +371,7 @@
 						item_quants[I.name] += 1
 						return TRUE
 					else
-						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
+						to_chat(user, SPAN_WARNING("\The [I] is stuck to you!"))
 						return FALSE
 			else
 				I.forceMove(src)
@@ -401,7 +403,7 @@
 		return FALSE
 
 	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
-	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
+	visible_message(SPAN_WARNING("[src] launches [throw_item.name] at [target.name]!"))
 	return TRUE
 
 /**
@@ -425,7 +427,7 @@
 
 /obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = TRUE
-	to_chat(user, "<span class='notice'>You short out the product lock on \the [src].</span>")
+	to_chat(user, SPAN_NOTICE("You short out the product lock on \the [src]."))
 	return TRUE
 
 /obj/machinery/smartfridge/secure/emp_act(severity)
@@ -514,6 +516,7 @@
 		/obj/item/food/grown/mushroom/fungus,
 		/obj/item/food/grown/mushroom,
 		/obj/item/food/grown/ash_flora,
+		/obj/item/food/grown/citrus
 	)
 	var/list/output = list()
 	for(var/I in 1 to 3)
@@ -548,7 +551,6 @@
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
 	desc = "When you need seeds fast!"
-	icon = 'icons/obj/vending.dmi'
 	icon_state = "seeds"
 	board_type = /obj/machinery/smartfridge/seeds
 
@@ -609,7 +611,6 @@
 	desc = "A storage unit for circuits."
 	icon_state = "circuits"
 	icon_lightmask = "circuits"
-	visible_contents = TRUE
 	board_type = /obj/machinery/smartfridge/secure/circuits
 
 /obj/machinery/smartfridge/secure/circuits/Initialize(mapload)
@@ -682,7 +683,6 @@
 /obj/machinery/smartfridge/medbay
 	name = "\improper Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	board_type = /obj/machinery/smartfridge/medbay
 
 /obj/machinery/smartfridge/medbay/Initialize(mapload)
@@ -722,7 +722,6 @@
 /obj/machinery/smartfridge/secure/medbay
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 	board_type = /obj/machinery/smartfridge/secure/medbay
 
@@ -746,7 +745,6 @@
 /obj/machinery/smartfridge/secure/chemistry
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	board_type = /obj/machinery/smartfridge/secure/chemistry
 	req_access = list(ACCESS_CHEMISTRY)
 
@@ -794,7 +792,6 @@
 	icon_state = "disktoaster"
 	icon_lightmask = "disktoaster"
 	pass_flags = PASSTABLE
-	visible_contents = TRUE
 	board_type = /obj/machinery/smartfridge/disks
 
 /obj/machinery/smartfridge/disks/Initialize(mapload)
@@ -864,11 +861,14 @@
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/Initialize(mapload)
 	starting_items = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/glass/bottle/tracking_agar = 1,
+		/obj/item/reagent_containers/glass/bottle/stable_agar = 1,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
 		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1,
+		/obj/item/reagent_containers/glass/bottle/sterilizine,
 		/obj/item/storage/lockbox/vials = 2
 	)
 	. = ..()
@@ -884,6 +884,8 @@
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
 	starting_items = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/glass/bottle/tracking_agar = 1,
+		/obj/item/reagent_containers/glass/bottle/stable_agar = 1,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,

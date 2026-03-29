@@ -1,27 +1,24 @@
 /obj/item/melee/touch_attack
 	name = "outstretched hand"
 	desc = "High Five?"
-	var/catchphrase = "High Five!"
-	var/on_use_sound = null
-	var/datum/spell/touch/attached_spell
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "disintegrate"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 0
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	new_attack_chain = TRUE
 	/// Has it been blocked by antimagic? If so, abort.
 	var/blocked_by_antimagic = FALSE
+	var/catchphrase = "High Five!"
+	var/on_use_sound = null
+	var/datum/spell/touch/attached_spell
 
-/obj/item/melee/touch_attack/New(spell)
+/obj/item/melee/touch_attack/Initialize(mapload, spell)
+	. = ..()
 	attached_spell = spell
-	..()
 
 /obj/item/melee/touch_attack/Destroy()
 	if(attached_spell)
@@ -30,20 +27,20 @@
 	return ..()
 
 /obj/item/melee/touch_attack/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.</span>"
+	return SPAN_WARNING("[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.")
 
 /obj/item/melee/touch_attack/attack(mob/living/target, mob/living/carbon/human/user)
 	if(..() || !iscarbon(user)) //Look ma, no hands
 		return FINISH_ATTACK
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't reach out!</span>")
+		to_chat(user, SPAN_WARNING("You can't reach out!"))
 		return FINISH_ATTACK
 
 /obj/item/melee/touch_attack/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	var/mob/mob_victim = target
 	if(istype(mob_victim) && mob_victim.can_block_magic(attached_spell.antimagic_flags))
-		to_chat(user, "<span class='danger'>[mob_victim] absorbs your spell!</span>")
+		to_chat(user, SPAN_DANGER("[mob_victim] absorbs your spell!"))
 		blocked_by_antimagic = TRUE
 		if(attached_spell && attached_spell.cooldown_handler)
 			attached_spell.cooldown_handler.start_recharge(attached_spell.cooldown_handler.recharge_duration * 0.5)
@@ -63,9 +60,6 @@
 	desc = "This hand of mine glows with an awesome power!"
 	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
-
 
 /obj/item/melee/touch_attack/disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -79,10 +73,9 @@
 /obj/item/melee/touch_attack/fleshtostone
 	name = "petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
+	icon_state = "fleshtostone"
 	catchphrase = "STAUN EI!!"
 	on_use_sound = 'sound/magic/fleshtostone.ogg'
-	icon_state = "fleshtostone"
-	item_state = "fleshtostone"
 
 /obj/item/melee/touch_attack/fleshtostone/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -99,8 +92,6 @@
 	desc = "The power to sew your foes into a doom cut from the fabric of fate."
 	catchphrase = "MAHR-XET 'ABL"
 	on_use_sound = 'sound/magic/smoke.ogg'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
 	color = COLOR_PURPLE
 
 /obj/item/melee/touch_attack/plushify/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -112,14 +103,11 @@
 	L.plushify()
 	handle_delete(user)
 
-
 /obj/item/melee/touch_attack/fake_disintegrate
 	name = "toy plastic hand"
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."
 	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
 	needs_permit = FALSE
 
 /obj/item/melee/touch_attack/fake_disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -134,10 +122,9 @@
 /obj/item/melee/touch_attack/cluwne
 	name = "cluwne touch"
 	desc = "It's time to start clowning around."
+	icon_state = "cluwnecurse"
 	catchphrase = "NWOLC EGNEVER"
 	on_use_sound = 'sound/misc/sadtrombone.ogg'
-	icon_state = "cluwnecurse"
-	item_state = "cluwnecurse"
 
 /obj/item/melee/touch_attack/cluwne/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -146,7 +133,7 @@
 		return
 
 	if(iswizard(target))
-		to_chat(user, "<span class='warning'>The spell has no effect on [target].</span>")
+		to_chat(user, SPAN_WARNING("The spell has no effect on [target]."))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new

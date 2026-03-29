@@ -45,18 +45,6 @@
 	if(H.radiation > RAD_MOB_GORILLIZE && prob(RAD_MOB_GORILLIZE_PROB))
 		H.gorillize()
 
-/datum/species/monkey/handle_npc(mob/living/carbon/human/H)
-	if(H.stat != CONSCIOUS)
-		return
-	if(prob(1))
-		H.emote(pick("scratch","jump","roll","tail"))
-	if(prob(33) && (H.mobility_flags & MOBILITY_MOVE) && isturf(H.loc) && !H.pulledby) //won't move if being pulled
-		var/dir_to_go = pick(GLOB.cardinal)
-		var/turf/to_go = get_step(H, dir_to_go)
-		if(islava(to_go) || ischasm(to_go))
-			return
-		step(H, dir_to_go)
-
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
@@ -65,6 +53,14 @@
 	H.real_name = get_random_name()
 	H.name = H.real_name
 	H.butcher_results = list(/obj/item/food/meat/monkey = 5)
+	H.ai_controller = new /datum/ai_controller/monkey(H)
+	H.dna.blood_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
+
+/datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	if(H.ai_controller && istype(H.ai_controller, /datum/ai_controller/monkey))
+		var/datum/ai_controller/monkey/controller = H.ai_controller
+		controller.set_trip_mode(mode = FALSE)
 
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
@@ -83,7 +79,6 @@
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
-	reagent_tag = PROCESS_ORG
 	has_organ = list(
 		"heart" 	= /obj/item/organ/internal/heart/tajaran,
 		"lungs" 	= /obj/item/organ/internal/lungs/tajaran,
@@ -106,7 +101,6 @@
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
-	reagent_tag = PROCESS_ORG
 	has_organ = list(
 		"heart" 	= /obj/item/organ/internal/heart/vulpkanin,
 		"lungs" 	= /obj/item/organ/internal/lungs/vulpkanin,
@@ -128,7 +122,6 @@
 	default_language = "Neara"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
-	reagent_tag = PROCESS_ORG
 	tail = null
 
 	inherent_traits = list(TRAIT_NOEXAMINE, TRAIT_NOFAT, TRAIT_WATERBREATH)
@@ -154,9 +147,7 @@
 	default_language = "Stok"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
-	reagent_tag = PROCESS_ORG
 
-	bodyflags = HAS_TAIL | HAS_BODYACC_COLOR
 
 	has_organ = list(
 		"heart" 	= /obj/item/organ/internal/heart/unathi,
@@ -173,14 +164,11 @@
 	name_plural = "nian worme"
 	icobase = 'icons/mob/human_races/monkeys/r_worme.dmi'
 	tail = ""
-	total_health = 75
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	bodyflags = BALD | SHAVED
 	greater_form = /datum/species/moth
 	default_language = "Tkachi"
-	eyes = "blank_eyes"
 	butt_sprite = "nian"
-	reagent_tag = PROCESS_ORG
 	dietflags = DIET_HERB
 	tox_mod = 3 // Die. Terrible creatures. Die.
 

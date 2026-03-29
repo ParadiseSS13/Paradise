@@ -16,8 +16,8 @@
 	Nanotrasen Science Directorate"}
 
 /datum/station_goal/bluespace_tap/on_report()
-	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
-	P.special_enabled = TRUE
+	var/datum/supply_packs/engineering/bluespace_tap/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/bluespace_tap]"]
+	P.cost = 1000
 
 /datum/station_goal/bluespace_tap/check_completion()
 	if(..())
@@ -82,7 +82,6 @@
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -32
-	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -457,7 +456,7 @@
 	radio.autosay("<b>Power spike detected during Bluespace Harvester Operation. Large bluespace payload inbound.</b>", name, "Engineering")
 	// Build location list cache once
 	var/list/possible_spawns = list()
-	var/list/random_spawns = GLOB.nukedisc_respawn
+	var/list/random_spawns = GLOB.maints_loot_spawns
 	// Build list of spawn positions
 	for(var/turf/current_target_turf in view(3, src))
 		possible_spawns.Add(current_target_turf)
@@ -485,7 +484,7 @@
 /obj/machinery/power/bluespace_tap/proc/find_spawn_location(random = FALSE)
 	var/list/possible_spawns = list()
 	if(random)
-		possible_spawns = GLOB.nukedisc_respawn
+		possible_spawns = GLOB.maints_loot_spawns
 	else
 		// Build list of spawn positions
 		for(var/turf/current_target_turf in view(3, src))
@@ -585,7 +584,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] disables the [src]'s safeties'.</span>", "<span class='warning'>You disable the [src]'s safeties'.</span>")
+		user.visible_message(SPAN_WARNING("[user] disables the [src]'s safeties'."), SPAN_WARNING("You disable the [src]'s safeties'."))
 	return TRUE
 
 /obj/structure/spawner/nether/bluespace_tap

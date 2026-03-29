@@ -4,7 +4,6 @@
 	desc = "An incredibly lifelike marble carving."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
-	density = TRUE
 	anchored = TRUE
 	max_integrity = 0 //destroying the statue kills the mob within
 	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
@@ -115,7 +114,7 @@
 	if(user)
 		user.dust()
 	dump_contents()
-	visible_message("<span class='warning'>[src] shatters!</span>")
+	visible_message(SPAN_WARNING("[src] shatters!"))
 
 /obj/structure/closet/statue/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF

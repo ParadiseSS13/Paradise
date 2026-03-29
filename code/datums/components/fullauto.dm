@@ -97,6 +97,7 @@
 
 	if(!QDELETED(clicker))
 		UnregisterSignal(clicker, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP, COMSIG_CLIENT_MOUSEDRAG))
+		clicker.mob.remove_mousepointer(MP_AUTO_GUN_PRIORITY)
 	mouse_status = AUTOFIRE_MOUSEUP // In regards to the component there's no click anymore to care about.
 	clicker = null
 	if(!QDELETED(shooter))
@@ -164,8 +165,7 @@
 		return
 	autofire_stat = AUTOFIRE_STAT_FIRING
 
-	clicker.mouse_override_icon = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
-	clicker.mouse_pointer_icon = clicker.mouse_override_icon
+	clicker.mob.add_mousepointer(MP_AUTO_GUN_PRIORITY, 'icons/mouse_icons/weapon_pointer.dmi')
 
 	if(mouse_status == AUTOFIRE_MOUSEUP) // See mouse_status definition for the reason for this.
 		RegisterSignal(clicker, COMSIG_CLIENT_MOUSEUP, PROC_REF(on_mouse_up))
@@ -206,8 +206,7 @@
 	STOP_PROCESSING(SSprojectiles, src)
 	autofire_stat = AUTOFIRE_STAT_ALERT
 	if(clicker)
-		clicker.mouse_override_icon = null
-		clicker.mouse_pointer_icon = clicker.mouse_override_icon
+		clicker.mob.remove_mousepointer(MP_AUTO_GUN_PRIORITY)
 		UnregisterSignal(clicker, COMSIG_CLIENT_MOUSEDRAG)
 	if(!QDELETED(shooter))
 		UnregisterSignal(shooter, COMSIG_MOB_SWAPPED_HANDS)
@@ -259,7 +258,7 @@
 	var/next_delay = autofire_shot_delay
 	if(windup_autofire)
 		next_delay = clamp(next_delay - current_windup_reduction, round(autofire_shot_delay * windup_autofire_cap), autofire_shot_delay)
-		current_windup_reduction = (current_windup_reduction + round(autofire_shot_delay * windup_autofire_reduction_multiplier))
+		current_windup_reduction = (current_windup_reduction + round(autofire_shot_delay * windup_autofire_reduction_multiplier, 0.01))
 		timerid = addtimer(CALLBACK(src, PROC_REF(windup_reset), FALSE), windup_spindown, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
 
 	if(shooter.next_move_modifier != 1) //DNA vault, mephemdrone, bluespace slowness debuff.
@@ -291,7 +290,7 @@
 
 	var/other_hand = shooter.get_organ(shooter.hand ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
 	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !other_hand))
-		to_chat(shooter, "<span class='warning'>You need to use both hands!</span>")
+		to_chat(shooter, SPAN_WARNING("You need to use both hands!"))
 		return FALSE
 
 	return TRUE

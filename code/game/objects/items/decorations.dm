@@ -6,7 +6,7 @@
 /obj/item/decorations/sticky_decorations
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/decorations/sticky_decorations/New()
+/obj/item/decorations/sticky_decorations/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ducttape, src, null, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
 
@@ -218,7 +218,6 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 
 /obj/structure/decorative_structures/wrench_act(mob/user, obj/item/I)
@@ -276,5 +275,3 @@
 	name = "lava land display"
 	desc = "The tomb of many a miner and possibly a home for much worse things."
 	icon_state = "lava_land_display"
-
-

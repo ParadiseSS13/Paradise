@@ -1,7 +1,6 @@
 // These can only be applied by blobs. They are what blobs are made out of.
 // The 4 damage
 /datum/reagent/blob
-	description = ""
 	var/complementary_color = COLOR_BLACK
 	var/message = "The blob strikes you" //message sent to any mob hit by the blob
 	var/message_living = null //extension to first mob sent to only living mobs i.e. silicons have no skin to be burnt
@@ -182,4 +181,4 @@
 	if(message_living && !issilicon(M))
 		totalmessage += message_living
 	totalmessage += "!"
-	to_chat(M, "<span class='userdanger'>[totalmessage]</span>")
+	to_chat(M, SPAN_USERDANGER("[totalmessage]"))

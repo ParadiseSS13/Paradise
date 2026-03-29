@@ -9,6 +9,6 @@
 	spawn_pool = /datum/spawn_pool/casino_mobs
 	point_value = 1
 	loot = list(
-		/mob/living/simple_animal/hostile/pirate,
-		/mob/living/simple_animal/hostile/pirate/ranged,
+		/mob/living/basic/pirate,
+		/mob/living/basic/pirate/ranged,
 	)

@@ -9,10 +9,8 @@
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "egg_scoop"
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 
 /obj/item/fish_net
 	name = "fish net"
@@ -20,13 +18,11 @@
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "net"
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 
 /obj/item/fish_net/suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-	visible_message("<span class='suicide'>[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	visible_message(SPAN_SUICIDE("[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/fishfood
@@ -37,7 +33,6 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 
 /obj/item/tank_brush
 	name = "aquarium brush"
@@ -45,14 +40,12 @@
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "brush"
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	attack_verb = list("scrubbed", "brushed", "scraped")
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	visible_message(SPAN_SUICIDE("[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish
@@ -107,7 +100,6 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	force = 1
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
 	hitsound = 'sound/effects/snap.ogg'
@@ -146,7 +138,6 @@
 	name = "toothless shark"
 	desc = "Looks like someone ripped it's teeth out!"
 	icon_state = "shark"
-	hitsound = 'sound/effects/snap.ogg'
 
 /obj/item/shard/shark_teeth
 	name = "shark teeth"

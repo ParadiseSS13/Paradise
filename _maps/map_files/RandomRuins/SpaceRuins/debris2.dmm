@@ -34,7 +34,7 @@
 /turf/simulated/floor/plating/burnt/airless,
 /area/ruin/unpowered)
 "ap" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "ar" = (
@@ -126,13 +126,17 @@
 /turf/simulated/floor/plating/damaged/airless,
 /area/ruin/unpowered)
 "aZ" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "Di" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Ou" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -302,7 +306,7 @@ aC
 aa
 aV
 aa
-ab
+Ou
 aa
 aa
 aa
@@ -383,7 +387,7 @@ aC
 aa
 aT
 aa
-ab
+Ou
 aN
 as
 aa

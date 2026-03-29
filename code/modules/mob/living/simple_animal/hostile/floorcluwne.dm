@@ -15,7 +15,6 @@
 	maxHealth = 200
 	health = 200
 	speed = -1
-	attacktext = "attacks"
 	anchored = TRUE
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
@@ -38,7 +37,7 @@
 	var/stage = STAGE_HAUNT
 	var/interest = 0
 	var/target_area
-	var/invalid_area_typecache = list(/area/space, /area/centcom)
+	var/invalid_area_typecache = list(/area/space, /area/lavaland, /area/ruin)
 	var/eating = FALSE
 	var/smiting = FALSE
 	var/admincluwne = FALSE
@@ -80,7 +79,7 @@
 	do_jitter_animation(1000)
 	pixel_y = 8
 
-	if(is_type_in_typecache(get_area(loc), invalid_area_typecache))
+	if(is_type_in_typecache(get_area(loc), invalid_area_typecache) && !is_admin_level(z))
 		var/area = pick(SSmapping.teleportlocs)
 		var/area/tp = SSmapping.teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
@@ -103,7 +102,7 @@
 			if(current_victim.stat == DEAD || current_victim.get_int_organ(/obj/item/organ/internal/honktumor/cursed) || is_type_in_typecache(get_area(T), invalid_area_typecache))
 				Acquire_Victim()
 
-	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(get_area(T), invalid_area_typecache))//if cluwne gets stuck he just teleports
+	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(get_area(T), invalid_area_typecache) && !is_admin_level(z)) // If cluwne gets stuck he just teleports
 		do_teleport(src, T)
 
 	interest++
@@ -165,7 +164,10 @@
 			if(H.stat != DEAD && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 				current_victim = H
 				return target = current_victim
-
+		if(smiting)
+			message_admins("Smiting floor cluwne was deleted due to a lack of valid target.")
+			qdel(src)
+			return
 		if(H && H.stat != DEAD && H != current_victim && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 			current_victim = H
 			interest = 0
@@ -181,7 +183,7 @@
 
 	else
 		layer = GAME_PLANE
-		invisibility = INVISIBILITY_MAXIMUM
+		invisibility = INVISIBILITY_OBSERVER
 		mouse_opacity = 0
 		density = FALSE
 
@@ -221,13 +223,13 @@
 				var/obj/item/I = locate() in orange(H, 8)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
-					to_chat(H, "<span class='warning'>What threw that?</span>")
+					to_chat(H, SPAN_WARNING("What threw that?"))
 
 		if(STAGE_SPOOK)
 
 			if(prob(4))
 				H.slip("???", 10 SECONDS)
-				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
+				to_chat(H, SPAN_WARNING("The floor shifts underneath you!"))
 
 			if(prob(3))
 				H.playsound_local(src,'sound/spookoween/scary_horn.ogg', 2)
@@ -243,7 +245,7 @@
 				var/obj/item/I = locate() in orange(H, 8)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
-					to_chat(H, "<span class='warning'>What threw that?</span>")
+					to_chat(H, SPAN_WARNING("What threw that?"))
 
 			if(prob(4))
 				to_chat(H, "<font face='Comic Sans MS'><i>yalp ot tnaw I</i></font>")
@@ -255,7 +257,7 @@
 
 			if(prob(5))
 				H.slip("???", 10 SECONDS)
-				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
+				to_chat(H, SPAN_WARNING("The floor shifts underneath you!"))
 
 			if(prob(5))
 				playsound(src, pick('sound/spookoween/scary_horn.ogg', 'sound/spookoween/scary_horn2.ogg', 'sound/spookoween/scary_horn3.ogg'), 30, 1)
@@ -268,16 +270,16 @@
 				for(var/obj/item/I in orange(H, 5))
 					if(I && !I.anchored)
 						I.throw_at(H, 4, 3)
-				to_chat(H, "<span class='warning'>What the hell?!</span>")
+				to_chat(H, SPAN_WARNING("What the hell?!"))
 
 			if(prob(5))
-				to_chat(H, "<span class='warning'>Something feels very wrong...</span>")
+				to_chat(H, SPAN_WARNING("Something feels very wrong..."))
 				H.playsound_local(src,'sound/hallucinations/behind_you1.ogg', 25)
 				H.flash_eyes()
 
 			if(prob(5))
 				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
-				to_chat(H, "<span class='warning'>Something grabs your foot!</span>")
+				to_chat(H, SPAN_WARNING("Something grabs your foot!"))
 				H.playsound_local(src,'sound/hallucinations/i_see_you1.ogg', 25)
 				H.Stun(20 SECONDS)
 
@@ -292,7 +294,7 @@
 					playsound(src, 'sound/effects/clownstep1.ogg', 30, 1)
 
 			if(prob(5))
-				to_chat(H, "<span class='userdanger'>WHAT THE FUCK IS THAT?!</span>")
+				to_chat(H, SPAN_USERDANGER("WHAT THE FUCK IS THAT?!"))
 				to_chat(H, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
 				H.playsound_local(src,'sound/hallucinations/im_here1.ogg', 25)
 				H.reagents.add_reagent("lsd", 3)
@@ -319,7 +321,7 @@
 						H.unbuckle(force = TRUE)
 				manifested = TRUE
 				Manifest()
-				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
+				to_chat(H, SPAN_USERDANGER("You feel the floor closing in on your feet!"))
 				H.Weaken(60 SECONDS)
 				H.emote("scream")
 				H.adjustBruteLoss(10)
@@ -333,10 +335,10 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Grab(mob/living/carbon/human/H)
-	to_chat(H, "<span class='userdanger'>You feel a cold, gloved hand clamp down on your ankle!</span>")
+	to_chat(H, SPAN_USERDANGER("You feel a cold, gloved hand clamp down on your ankle!"))
 	for(var/I in 1 to get_dist(src, H))
 
-		if(do_after(src, 10, target = H))
+		if(do_after(src, 1 SECONDS, target = H, hidden = TRUE))
 			step_towards(H, src)
 			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, TRUE, -4)
 			H.emote("scream")
@@ -344,17 +346,17 @@
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/items/bikehorn.ogg'), 50, 1)
 
 	if(get_dist(src,H) <= 1)
-		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
+		visible_message(SPAN_DANGER("[src] begins dragging [H] under the floor!"))
 
-		if(do_after(src, 50, target = H) && eating)
+		if(do_after(src, 5 SECONDS, target = H, hidden = TRUE) && eating)
 			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
-			H.invisibility = INVISIBILITY_MAXIMUM
+			H.invisibility = INVISIBILITY_OBSERVER
 			H.mouse_opacity = 0
 			H.density = FALSE
 			H.anchored = TRUE
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
-			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
+			H.visible_message(SPAN_USERDANGER("[src] pulls [H] under the floor!"))
 		else//some fuck pulled away our food
 			stage = STAGE_TORMENT
 			eating = FALSE
@@ -376,8 +378,8 @@
 
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
-	if(do_after(src, 50, target = H))
-		if(prob(50) || smiting)
+	if(do_after(src, 5 SECONDS, target = H, hidden = TRUE))
+		if(smiting)
 			H.makeCluwne()
 
 		H.adjustBruteLoss(30)

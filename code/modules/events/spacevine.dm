@@ -1,3 +1,9 @@
+/datum/event/spacevine
+	name = "Space Vines"
+	role_weights = list(ASSIGNMENT_CREW = 0.4, ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_BOTANIST = 2)
+	role_requirements = list(ASSIGNMENT_CREW = 25 , ASSIGNMENT_BOTANIST = 1, ASSIGNMENT_ENGINEERING = 1)
+	nominal_severity = EVENT_LEVEL_MODERATE
+
 /datum/event/spacevine/start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
 
@@ -193,7 +199,7 @@
 	if(issilicon(crosser))
 		return
 	if(prob(severity) && istype(crosser) && !isvineimmune(crosser))
-		to_chat(crosser, "<span class='alert'>You accidentally touch the vine and feel a strange sensation.</span>")
+		to_chat(crosser, SPAN_ALERT("You accidentally touch the vine and feel a strange sensation."))
 		crosser.adjustToxLoss(5)
 
 /datum/spacevine_mutation/toxicity/on_eat(obj/structure/spacevine/holder, mob/living/eater)
@@ -273,7 +279,7 @@
 	quality = SPACEVINE_MUTATION_POSITIVE
 
 /datum/spacevine_mutation/transparency/on_grow(obj/structure/spacevine/holder)
-	holder.set_opacity(0)
+	holder.set_opacity(FALSE)
 	holder.alpha = 125
 
 /datum/spacevine_mutation/thorns
@@ -286,13 +292,13 @@
 	if(prob(severity) && istype(crosser) && !isvineimmune(holder))
 		var/mob/living/M = crosser
 		M.adjustBruteLoss(5)
-		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(M, SPAN_ALERT("You cut yourself on the thorny vines."))
 
 /datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
 	if(prob(severity) && istype(hitter) && !isvineimmune(holder))
 		var/mob/living/M = hitter
 		M.adjustBruteLoss(5)
-		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(M, SPAN_ALERT("You cut yourself on the thorny vines."))
 	. =	expected_damage
 
 /datum/spacevine_mutation/woodening
@@ -393,7 +399,6 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "Light1"
 	anchored = TRUE
-	density = FALSE
 	layer = SPACEVINE_LAYER
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
@@ -447,7 +452,7 @@
 			qdel(master)
 	master = null
 	mutations.Cut()
-	set_opacity(0)
+	set_opacity(FALSE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
 	return ..()
@@ -483,7 +488,7 @@
 			eater.say("Nom")
 		wither()
 
-/obj/structure/spacevine/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
+/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
 	var/damage_dealt = I.force
 	if(istype(I, /obj/item/scythe))
 		var/obj/item/scythe/S = I
@@ -644,7 +649,7 @@
 	if(!energy)
 		icon_state = pick("Med1", "Med2", "Med3")
 		energy = 1
-		set_opacity(1)
+		set_opacity(TRUE)
 	else
 		icon_state = pick("Hvy1", "Hvy2", "Hvy3")
 		energy = 2
@@ -668,7 +673,7 @@
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
 		SM.on_buckle(src, V)
 	if((V.stat != DEAD) && (V.buckled != src)) //not dead or captured
-		to_chat(V, "<span class='danger'>The vines [pick("wind", "tangle", "tighten")] around you!</span>")
+		to_chat(V, SPAN_DANGER("The vines [pick("wind", "tangle", "tighten")] around you!"))
 		buckle_mob(V, 1)
 
 /obj/structure/spacevine/proc/spread()
@@ -702,12 +707,12 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(temp, volume)
+/obj/structure/spacevine/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	var/override = 0
 	for(var/SM_type in mutations)
 		var/datum/spacevine_mutation/SM = mutations[SM_type]
-		override += SM.process_temperature(src, temp, volume)
+		override += SM.process_temperature(src, exposed_temperature, exposed_volume)
 	if(!override)
 		wither()
 

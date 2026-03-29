@@ -17,6 +17,8 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	var/vision_range = 11
 	/// Blackboard key for aggro range, uses vision range if not specified
 	var/aggro_range_key = BB_AGGRO_RANGE
+	/// Can we target allies?
+	var/targets_allies = FALSE
 
 /datum/ai_behavior/find_potential_targets/get_cooldown(datum/ai_controller/cooldown_for)
 	if(cooldown_for.blackboard[BB_FIND_TARGETS_FIELD(type)])
@@ -24,6 +26,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	return ..()
 
 /datum/ai_behavior/find_potential_targets/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
+	. = ..()
 	var/mob/living/living_mob = controller.pawn
 	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
 
@@ -55,6 +58,8 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	var/list/filtered_targets = list()
 
 	for(var/atom/pot_target in potential_targets)
+		if(ismob(pot_target) && living_mob.faction_check_mob(pot_target) && !targets_allies)
+			continue
 		if(targeting_strategy.can_attack(living_mob, pot_target))//Can we attack it?
 			filtered_targets += pot_target
 			continue
@@ -65,6 +70,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 
 	var/atom/target = pick_final_target(controller, filtered_targets)
 	controller.set_blackboard_key(target_key, target)
+	SEND_SIGNAL(controller.pawn, COMSIG_HOSTILE_FOUND_TARGET)
 
 	var/atom/potential_hiding_location = targeting_strategy.find_hidden_mobs(living_mob, target)
 
@@ -103,6 +109,8 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 			continue
 		if(!strategy.can_attack(pawn, maybe_target))
 			continue
+		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target))
+			continue
 		valid_found = TRUE
 		break
 	if(!valid_found)
@@ -133,7 +141,13 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 			continue
 		if(!strategy.can_attack(pawn, maybe_target))
 			continue
+		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target))
+			continue
 		accepted_targets += maybe_target
+
+	if(!length(accepted_targets))
+		finish_action(controller, succeeded = FALSE)
+		return
 
 	// Alright, we found something acceptable, let's use it yeah?
 	var/atom/target = pick_final_target(controller, accepted_targets)
@@ -160,3 +174,6 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 
 /datum/ai_behavior/find_potential_targets/bigger_range
 	vision_range = 16
+
+/datum/ai_behavior/find_potential_targets/allies
+	targets_allies = TRUE

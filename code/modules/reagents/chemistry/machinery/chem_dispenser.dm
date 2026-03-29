@@ -50,7 +50,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
@@ -108,7 +107,7 @@
 /obj/machinery/chem_dispenser/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>[src]'s maintenance hatch is open!</span>"
+		. += SPAN_NOTICE("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: <br>Recharging <b>[recharge_amount]</b> power units per interval.<br>Power efficiency increased by <b>[round((powerefficiency * 1000) - 100, 1)]%</b>.<span>"
 
@@ -132,6 +131,11 @@
 		icon_state = "dispenser_nopower"
 		return
 	icon_state = "[initial(icon_state)][beaker ? "_working" : ""]"
+
+/obj/machinery/chem_dispenser/power_change()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/chem_dispenser/ex_act(severity)
 	if(severity < EXPLODE_LIGHT)
@@ -198,7 +202,7 @@
 	. = TRUE
 	switch(actions)
 		if("amount")
-			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
+			amount = clamp(round(text2num(params["amount"]), 1), 0, 75) // round to nearest 1 and clamp to 0 - 75
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return
@@ -242,22 +246,22 @@
 
 	if((istype(used, /obj/item/reagent_containers/glass) || istype(used, /obj/item/reagent_containers/drinks)) && user.a_intent != INTENT_HARM)
 		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+			to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 
 		used.forceMove(src)
 		if(beaker)
-			to_chat(usr, "<span class='notice'>You swap [used] with [beaker].</span>")
+			to_chat(usr, SPAN_NOTICE("You swap [used] with [beaker]."))
 			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
 				user.put_in_hands(beaker)
 			else
 				beaker.forceMove(loc)
 		else
-			to_chat(user, "<span class='notice'>You set [used] on the machine.</span>")
+			to_chat(user, SPAN_NOTICE("You set [used] on the machine."))
 		beaker = used
 
 		SStgui.update_uis(src) // update all UIs attached to src
@@ -309,7 +313,7 @@
 		var/mob/living/silicon/robot/drone/drone = user
 		if(!drone.emagged)
 			// There's nothing a drone can do here that wouldn't violate their laws and/or the rules.
-			to_chat(user, "<span class='warning'>Your safety protocols refuse to connect to [src].</span>")
+			to_chat(user, SPAN_WARNING("Your safety protocols refuse to connect to [src]."))
 			return
 	return attack_hand(user)
 
@@ -322,7 +326,7 @@
 	if(stat & BROKEN)
 		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
+		to_chat(user, SPAN_WARNING("[src] must be anchored first!"))
 		return
 	ui_interact(user)
 
@@ -330,10 +334,10 @@
 	if(!is_drink || !Adjacent(user))
 		return
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is anchored to the floor!</span>")
+		to_chat(user, SPAN_WARNING("[src] is anchored to the floor!"))
 		return
 	pixel_x = 0
 	pixel_y = 0
@@ -347,7 +351,7 @@
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
 	"watermelonjuice", "pineapplejuice", "cream", "berryjuice")
-	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
+	upgrade_reagents = list("electrolytes", "ginger_ale", "bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
@@ -417,7 +421,6 @@
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"
 	icon = 'icons/obj/chemical.dmi'
-	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
 	flags = NOBLUDGEON
 	var/obj/item/stock_parts/cell/high/cell = null
@@ -459,22 +462,22 @@
 			if(actual)
 				target.reagents.add_reagent(current_reagent, actual)
 				cell.charge -= actual / efficiency
-				to_chat(user, "<span class='notice'>You dispense [actual] unit\s of [current_reagent] into [target].</span>")
+				to_chat(user, SPAN_NOTICE("You dispense [actual] unit\s of [current_reagent] into [target]."))
 				update_icon(UPDATE_OVERLAYS)
 			else if(free) // If actual is nil and there's still free space, it means we're out of juice
-				to_chat(user, "<span class='warning'>Insufficient energy to complete operation.</span>")
+				to_chat(user, SPAN_WARNING("Insufficient energy to complete operation."))
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, "<span class='notice'>You remove [amount] unit\s of [current_reagent] from [target].</span>")
+				to_chat(user, SPAN_NOTICE("You remove [amount] unit\s of [current_reagent] from [target]."))
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
-				to_chat(user, "<span class='notice'>You remove all but [current_reagent] from [target].</span>")
+				to_chat(user, SPAN_NOTICE("You remove all but [current_reagent] from [target]."))
 
 /obj/item/handheld_chem_dispenser/attack_self__legacy__attackchain(mob/user)
 	if(cell)
 		ui_interact(user)
 	else
-		to_chat(user, "<span class='warning'>[src] lacks a power cell!</span>")
+		to_chat(user, SPAN_WARNING("[src] lacks a power cell!"))
 
 
 /obj/item/handheld_chem_dispenser/ui_state(mob/user)
@@ -517,7 +520,7 @@
 	. = TRUE
 	switch(action)
 		if("amount")
-			amount = clamp(round(text2num(params["amount"])), 1, 50) // round to nearest 1 and clamp to 1 - 50
+			amount = clamp(round(text2num(params["amount"])), 1, 75) // round to nearest 1 and clamp to 1 - 75
 		if("dispense")
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]
@@ -574,15 +577,15 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			to_chat(user, SPAN_NOTICE("[src] already has a cell."))
 		else
 			if(C.maxcharge < 100)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+				to_chat(user, SPAN_NOTICE("[src] requires a higher capacity cell."))
 				return
 			if(!user.transfer_item_to(W, src))
 				return
 			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+			to_chat(user, SPAN_NOTICE("You install a cell in [src]."))
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
@@ -590,14 +593,13 @@
 		cell.update_icon()
 		cell.loc = get_turf(src)
 		cell = null
-		to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove the cell from [src]."))
 		update_icon(UPDATE_OVERLAYS)
 		return
 	..()
 
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"
-	item_state = "handheld_booze"
 	icon_state = "handheld_booze"
 	is_drink = TRUE
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
@@ -605,7 +607,6 @@
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"
-	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
 	is_drink = TRUE
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",

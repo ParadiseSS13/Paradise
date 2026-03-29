@@ -50,3 +50,10 @@
 	hunt_targets = list(/obj/item/stack/ore)
 	hunt_chance = 90
 	hunt_range = 9
+
+/// Find and clean things
+/datum/ai_planning_subtree/find_and_hunt_target/clean
+	target_key = BB_CLEAN_TARGET
+	hunting_behavior = /datum/ai_behavior/hunt_target/interact_with_target/clean
+	hunt_targets = list(/obj/effect/decal/cleanable)
+	hunt_range = 4

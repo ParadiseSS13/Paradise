@@ -1,5 +1,5 @@
 /****************************************************
-				BLOOD SYSTEM
+				MARK: BLOOD SYSTEM
 ****************************************************/
 
 #define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
@@ -13,7 +13,7 @@
 
 /mob/living/carbon/human/proc/resume_bleeding()
 	if(stat != DEAD && bleed_rate && bleedsuppress)
-		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+		to_chat(src, SPAN_WARNING("The blood soaks through your bandage."))
 	bleedsuppress = FALSE
 
 // Takes care blood loss and regeneration
@@ -33,18 +33,18 @@
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
-					to_chat(src, "<span class='warning'>You feel [word].</span>")
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1), dna.species.blood_damage_type)
+					to_chat(src, SPAN_WARNING("You feel [word]."))
+				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1))
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), dna.species.blood_damage_type)
+				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 				if(prob(5))
 					EyeBlurry(12 SECONDS)
-					to_chat(src, "<span class='warning'>You feel very [word].</span>")
+					to_chat(src, SPAN_WARNING("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				apply_damage_type(5, dna.species.blood_damage_type)
+				adjustOxyLoss(5)
 				if(prob(15))
 					Paralyse(rand(2 SECONDS, 6 SECONDS))
-					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
+					to_chat(src, SPAN_WARNING("You feel extremely [word]."))
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
 				death()
 
@@ -134,7 +134,7 @@
 	bleed_rate = 0
 
 /****************************************************
-				BLOOD TRANSFERS
+				MARK: BLOOD TRANSFERS
 ****************************************************/
 
 //Gets blood from mob to a container or other mob, preserving all data in it.
@@ -153,6 +153,8 @@
 
 	blood_volume -= amount
 
+	SEND_SIGNAL(AM, COMSIG_MOB_REAGENT_EXCHANGE, src)
+
 	var/list/blood_data = get_blood_data(blood_id)
 
 	if(iscarbon(AM))
@@ -162,7 +164,7 @@
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
 						var/datum/disease/D = thing
-						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
+						if((D.spread_flags & SPREAD_SPECIAL) || (D.spread_flags & SPREAD_NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
 				if(!(blood_data?["blood_type"] in get_safe_blood(C.dna.blood_type)) || C.dna.species.name != blood_data["species"] && (blood_data["species_only"] || C.dna.species.own_species_blood))
@@ -363,11 +365,13 @@
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
 
-/mob/living/proc/absorb_blood()
+/mob/living/proc/absorb_blood(passed_id)
 	// This merely deletes the blood reagent inside of the mob to look nice on health scans.
 	// The update to .blood_volume happens in `/datum/reagent/proc/reaction_mob`
 	var/id = get_blood_id()
+	if(passed_id)
+		id = passed_id
 	if(id)
-		reagents.del_reagent(get_blood_id())
+		reagents.del_reagent(id)
 
 #undef EXOTIC_BLEED_MULTIPLIER

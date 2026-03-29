@@ -27,7 +27,6 @@
 
 /obj/item/reagent_containers/drinks/bottle/random_drink
 	name = "unlabelled drink"
-	icon = 'icons/obj/drinks.dmi'
 
 /obj/item/reagent_containers/drinks/bottle/random_drink/Initialize(mapload)
 	. = ..()
@@ -103,3 +102,6 @@
 	for(var/i in 1 to 6)
 		var/nade = pick(grenadelist)
 		new nade(src)
+
+/obj/item/storage/box/grenades/empty/populate_contents()
+	return

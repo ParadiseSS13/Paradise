@@ -3,8 +3,6 @@
 	desc = "A large unknown smithing machine. If you see this, there's a problem and you should notify the development team."
 	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "power_hammer"
-	max_integrity = 200
-	pixel_x = 0	// 2x2
 	pixel_y = -32
 	bound_height = 64
 	bound_width = 64
@@ -31,8 +29,8 @@
 /obj/machinery/smithing/examine(mob/user)
 	. = ..()
 	if(working_component)
-		. += "<span class='notice'>You can activate the machine with your hand, or remove the component by alt-clicking.</span>"
-		. += "<span class='notice'>There is currently a [working_component] in [src].</span>"
+		. += SPAN_NOTICE("You can activate the machine with your hand, or remove the component by alt-clicking.")
+		. += SPAN_NOTICE("There is currently a [working_component] in [src].")
 
 /obj/machinery/smithing/power_change()
 	if(!..())
@@ -42,29 +40,37 @@
 		operating = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/smithing/Destroy()
+	if(working_component)
+		working_component.forceMove(src.loc)
+	. = ..()
+
 /obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='danger'>Putting [G.affecting] in [src] might hurt them!</span>")
+			to_chat(user, SPAN_DANGER("Putting [G.affecting] in [src] might hurt them!"))
 			return ITEM_INTERACT_COMPLETE
 		special_attack_grab(G, user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is still operating!"))
 		return FINISH_ATTACK
 
 	if(istype(used, /obj/item/smithed_item/component))
 		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(working_component)
 			user.put_in_active_hand(working_component)
-			to_chat(user, "<span class='notice'>You swap [used] with [working_component] in [src].</span>")
+			to_chat(user, SPAN_NOTICE("You swap [used] with [working_component] in [src]."))
 		else
-			to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+			to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
 
 		working_component = used
 		return ITEM_INTERACT_COMPLETE
@@ -75,7 +81,7 @@
 		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
 		req_one_access = list()
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		to_chat(user, SPAN_NOTICE("You disable the security protocols"))
 		return TRUE
 
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
@@ -100,13 +106,13 @@
 	if(!istype(G))
 		return FALSE
 	if(!iscarbon(G.affecting))
-		to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
+		to_chat(user, SPAN_WARNING("You can't shove that in there!"))
 		return FALSE
 	if(G.state < GRAB_NECK)
-		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		to_chat(user, SPAN_WARNING("You need a better grip to do that!"))
 		return FALSE
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>You try to shove someone into the machine, but your access is denied!</span>")
+		to_chat(user, SPAN_WARNING("You try to shove someone into the machine, but your access is denied!"))
 		return FALSE
 	var/result = special_attack(user, G.affecting)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -125,10 +131,10 @@
 	if(!Adjacent(user))
 		return
 	if(!working_component)
-		to_chat(user, "<span class='notice'>There isn't anything in [src].</span>")
+		to_chat(user, SPAN_NOTICE("There isn't anything in [src]."))
 		return
 	if(operating)
-		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently operating!"))
 		return
 	if(working_component.burn_check(user))
 		working_component.burn_user(user)
@@ -143,7 +149,7 @@
 		return
 	. = TRUE
 	if(operating)
-		to_chat(user, "<span class='alert'>[src] is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, SPAN_ALERT("[src] is busy. Please wait for completion of previous operation."))
 		return
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 

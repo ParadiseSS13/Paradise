@@ -51,8 +51,7 @@
 	if(QDELETED(A))
 		return
 
-	if(client?.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
+	if(check_click_intercept(params,A))
 		return
 
 	if(next_click > world.time)
@@ -64,7 +63,7 @@
 	if(dragged && !modifiers[dragged])
 		return
 	if(IsFrozen(A) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEIC("Interacting with admin-frozen players is not permitted."))
 		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
@@ -107,6 +106,10 @@
 			return
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
+
+	if(isclowncar(loc) && !modifiers["shift"])
+		var/obj/tgvehicle/sealed/car/clowncar/cc = loc
+		return cc.fire_cannon_at(A, src, params)
 
 	if(restrained())
 		RestrainedClickOn(A)
@@ -440,7 +443,7 @@
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(A)
 
-	var/obj/item/projectile/beam/LE = new /obj/item/projectile/beam(loc)
+	var/obj/projectile/beam/LE = new /obj/projectile/beam(loc)
 	LE.icon = 'icons/effects/genetics.dmi'
 	LE.icon_state = "eyelasers"
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
@@ -471,7 +474,6 @@
 	setDir(direction)
 
 /atom/movable/screen/click_catcher
-	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -512,6 +514,19 @@
 			modifiers["catcher"] = TRUE
 			click_turf.Click(location, control, list2params(modifiers))
 	. = 1
+
+/mob/proc/check_click_intercept(params,A)
+	// Client level intercept
+	if(client?.click_intercept)
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	// Mob level intercept
+	if(click_interceptor)
+		if(call(click_interceptor, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	return FALSE
 
 #undef MAX_SAFE_BYOND_ICON_SCALE_TILES
 #undef MAX_SAFE_BYOND_ICON_SCALE_PX

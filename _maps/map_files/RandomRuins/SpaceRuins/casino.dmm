@@ -127,9 +127,8 @@
 "dm" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "du" = (
 /turf/simulated/floor/plating,
@@ -414,10 +413,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/casino/security)
 "kx" = (
-/obj/machinery/light{
-	dir = 4;
-	brightness_color = "#FF0000";
-	color = "#FF0000"
+/obj/machinery/light/exterior/warning{
+	dir = 4
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -454,9 +451,8 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "lS" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "lU" = (
 /obj/structure/cable{
@@ -468,10 +464,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "lZ" = (
-/obj/machinery/light{
-	dir = 1;
-	brightness_color = "#FF0000";
-	color = "#FF0000"
+/obj/machinery/light/exterior/warning{
+	dir = 1
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -565,9 +559,8 @@
 "op" = (
 /obj/structure/table,
 /obj/machinery/cooking/grill,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "oq" = (
 /obj/structure/chair/sofa/corp/right{
@@ -619,9 +612,8 @@
 /area/ruin/space/powered/casino/arrivals)
 "ql" = (
 /obj/machinery/cooking/ice_cream_mixer,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "qw" = (
 /obj/machinery/light/small{
@@ -632,15 +624,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
-"qA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/ruin/space/powered/casino/arrivals)
 "qK" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
@@ -942,15 +925,6 @@
 /obj/effect/spawner/airlock,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/floor)
-"AF" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/ruin/space/powered/casino/arrivals)
 "AK" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood,
@@ -1058,17 +1032,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "DL" = (
-/obj/machinery/light{
-	brightness_color = "#FF0000";
-	color = "#FF0000"
-	},
+/obj/machinery/light/exterior/warning,
 /turf/template_noop,
 /area/template_noop)
 "DM" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "DR" = (
 /obj/machinery/light{
@@ -1109,9 +1079,8 @@
 "EK" = (
 /obj/structure/table,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "EZ" = (
 /obj/machinery/door/airlock/maintenance,
@@ -1438,9 +1407,8 @@
 	dir = 8
 	},
 /obj/machinery/cooking/oven,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "Rw" = (
 /turf/simulated/wall,
@@ -1539,10 +1507,8 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/powered/casino/hall)
 "TA" = (
-/obj/machinery/light{
-	dir = 8;
-	brightness_color = "#FF0000";
-	color = "#FF0000"
+/obj/machinery/light/exterior/warning{
+	dir = 8
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -1555,9 +1521,8 @@
 /area/ruin/space/powered/casino/kitchen)
 "TW" = (
 /obj/effect/spawner/random/pool/casino_mob,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "Uc" = (
 /obj/structure/cable{
@@ -1641,9 +1606,8 @@
 /obj/item/kitchen/rollingpin{
 	pixel_y = -1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/powered/casino/kitchen)
 "UY" = (
 /obj/effect/turf_decal/delivery/partial{
@@ -1722,14 +1686,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "Xe" = (
-/obj/machinery/light{
-	dir = 8;
-	brightness_color = "#FF0000";
-	color = "#FF0000"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/light/exterior/warning{
+	dir = 8
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -2173,12 +2135,12 @@ wg
 LK
 LK
 Yy
-qA
+Yy
 Yy
 aj
 Yy
 Yy
-qA
+Yy
 Yy
 sO
 UO
@@ -3208,12 +3170,12 @@ wg
 LK
 LK
 Oq
-AF
 jK
 jK
 jK
 jK
-AF
+jK
+jK
 jK
 FV
 Uf

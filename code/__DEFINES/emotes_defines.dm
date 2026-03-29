@@ -76,7 +76,7 @@
 #define EMOTE_ACT_STOP_EXECUTION 1
 
 /// List of emotes useable by ghosties
-#define USABLE_DEAD_EMOTES list("*flip", "*spin")
+#define USABLE_DEAD_EMOTES list("*flip", "*spin", "*jump")
 
 // Strings used for the rock paper scissors emote and status effect
 #define RPS_EMOTE_ROCK 		"rock"

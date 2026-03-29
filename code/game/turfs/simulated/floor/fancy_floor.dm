@@ -4,7 +4,6 @@
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
 	clawfootstep = FOOTSTEP_WOOD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/wood/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -29,16 +28,16 @@
 		broken = FALSE
 		burnt = FALSE
 		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the broken planks.</span>")
+			to_chat(user, SPAN_NOTICE("You remove the broken planks."))
 	else
 		if(make_tile)
 			if(user && !silent)
-				to_chat(user, "<span class='notice'>You unscrew the planks.</span>")
+				to_chat(user, SPAN_NOTICE("You unscrew the planks."))
 			if(floor_tile)
 				new floor_tile(src)
 		else
 			if(user && !silent)
-				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
+				to_chat(user, SPAN_WARNING("You forcefully pry off the planks, destroying them in the process."))
 	return make_plating()
 
 /turf/simulated/floor/wood/airless
@@ -77,7 +76,6 @@
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	transform = matrix(1, 0, -9, 0, 1, -9) //Yes, these sprites are 50x50px, big grass control the industry
 
 /turf/simulated/floor/grass/get_broken_states()
@@ -85,7 +83,7 @@
 
 /turf/simulated/floor/grass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/shovel))
-		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
+		to_chat(user, SPAN_NOTICE("You shovel the grass."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		remove_tile()
 		return ITEM_INTERACT_COMPLETE
@@ -133,7 +131,6 @@
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/carpet/Initialize(mapload)
 	. = ..()
@@ -257,7 +254,6 @@
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
 	clawfootstep = FOOTSTEP_WOOD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/bamboo/Initialize(mapload)
 	. = ..()
@@ -317,8 +313,8 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	floor_tile = /obj/item/stack/tile/fakespace
-	smoothing_flags = NONE
 	plane = PLANE_SPACE
+	rust_resistance = RUST_RESISTANCE_BASIC
 
 /turf/simulated/floor/fakespace/Initialize(mapload)
 	. = ..()

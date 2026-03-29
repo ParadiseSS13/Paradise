@@ -3,7 +3,6 @@
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the south side, and its output port is on the north side."
 	icon = 'icons/obj/atmospherics/circulator.dmi'
 	icon_state = "circ8-off"
-	anchored = TRUE
 	density = TRUE
 	can_unwrench = TRUE
 
@@ -93,7 +92,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	side_inverted = !side_inverted
-	to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
+	to_chat(user, SPAN_NOTICE("You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side."))
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/machinery/atmospherics/binary/circulator/update_desc()

@@ -8,7 +8,7 @@
 	command_name = "Stay"
 	command_desc = "Command your pet to stay idle in this location."
 	speech_commands = list("sit", "stay", "stop")
-	command_feedback = "sits"
+	command_feedback = "sits."
 
 /datum/pet_command/idle/execute_action(datum/ai_controller/controller)
 	return SUBTREE_RETURN_FINISH_PLANNING // This cancels further AI planning
@@ -43,6 +43,8 @@
 	speech_commands = list("heel", "follow")
 	///the behavior we use to follow
 	var/follow_behavior = /datum/ai_behavior/pet_follow_friend
+	/// should we activate immediately if we're doing nothing else and gain a friend?
+	var/activate_on_befriend = FALSE
 
 /datum/pet_command/follow/set_command_active(mob/living/parent, mob/living/commander)
 	. = ..()
@@ -55,6 +57,17 @@
 	controller.queue_behavior(follow_behavior, BB_CURRENT_PET_TARGET)
 	return SUBTREE_RETURN_FINISH_PLANNING
 
+/datum/pet_command/follow/add_new_friend(mob/living/tamer)
+	. = ..()
+	var/mob/living/parent = locateUID(parent_uid)
+	if(!parent)
+		return
+	if(activate_on_befriend && !parent.ai_controller.blackboard_key_exists(BB_ACTIVE_PET_COMMAND))
+		try_activate_command(tamer)
+
+/// Like follow but start active
+/datum/pet_command/follow/start_active
+	activate_on_befriend = TRUE
 /**
  * # Pet Command: Use ability
  * Use an an ability that does not require any targets
@@ -112,7 +125,7 @@
 /datum/pet_command/attack/proc/refuse_target(mob/living/parent, atom/target)
 	var/mob/living/living_parent = parent
 	living_parent.custom_emote(EMOTE_VISIBLE, refuse_reaction)
-	living_parent.visible_message("<span class='notice'>[living_parent] refuses to attack [target].</span>")
+	living_parent.visible_message(SPAN_NOTICE("[living_parent] refuses to attack [target]."))
 
 /datum/pet_command/attack/execute_action(datum/ai_controller/controller)
 	controller.queue_behavior(attack_behaviour, BB_CURRENT_PET_TARGET, targeting_strategy_key)

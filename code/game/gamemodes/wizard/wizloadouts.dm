@@ -53,7 +53,7 @@
 		Bring them to the afterlife, one trigger pull at a time. <br> \
 		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
 		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
-	items_path = list(/obj/item/gun/projectile/revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
+	items_path = list(/obj/item/gun/projectile/revolver/syndie, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
 	spells_path = list(/datum/spell/ethereal_jaunt, /datum/spell/turf_teleport/blink, \
 		/datum/spell/summonitem, /datum/spell/noclothes, /datum/spell/lichdom/gunslinger)
 	category = "Unique"
@@ -71,8 +71,8 @@
 	desc = "A set of legendary artifacts used by a bald, grey wizard, now passed on to you. <br> \
 		Open His Grace's latch once you are ready to kill by using It in your hand. Keep It fed or you will be Its next meal.<br> \
 		If your Homing Toolbox spell is not enough, you might want to raid the Armory or loot a Security Officer to get more ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
-		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Homing Toolbox, Knock and No Clothes.<i>"
-	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/shoes/black, \
+		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask, Warning Cone, Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Homing Toolbox, Knock and No Clothes.<i>"
+	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/head/cone, /obj/item/clothing/shoes/black, \
 		/obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
 	spells_path = list(/datum/spell/ethereal_jaunt, /datum/spell/forcewall, \
 		/datum/spell/aoe/knock, /datum/spell/noclothes, /datum/spell/fireball/toolbox)
@@ -83,7 +83,7 @@
 	if(!user)
 		return
 	if(isplasmaman(user))
-		to_chat(user, "<span class='notice'>A spectral hand appears from your spellbook and pulls a brand new plasmaman envirosuit, complete with helmet, from the void, then drops it on the floor.</span>")
+		to_chat(user, SPAN_NOTICE("A spectral hand appears from your spellbook and pulls a brand new plasmaman envirosuit, complete with helmet, from the void, then drops it on the floor."))
 		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
 		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
 	user.drop_item_to_ground(user.wear_id)
@@ -124,7 +124,7 @@
 /datum/spellbook_entry/loadout/fireball
 	name = "Fireball. Fireball. Fireball."
 	desc = "Who cares about the rest of the spells. Become an expert in fire magic. Devote yourself to the craft. The only spell you need anyways is <b>Fireball.</b><br>\
-		</i>Provides fire immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
+		</i>Provides fire & explosion immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
 	spells_path = list(/datum/spell/sacred_flame, /datum/spell/fireball/homing, /datum/spell/infinite_guns/fireball)
 	category = "Unique"
 	destroy_spellbook = TRUE
@@ -134,9 +134,10 @@
 	qdel(user.head)
 
 	// Part of Sacred Flame
-	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	to_chat(user, SPAN_NOTICE("You feel fireproof."))
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_EXPLOSION_PROOF, MAGIC_TRAIT)
 
 	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red/fireball(user), ITEM_SLOT_OUTER_SUIT)
 	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red/fireball(user), ITEM_SLOT_HEAD)

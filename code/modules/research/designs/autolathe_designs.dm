@@ -31,7 +31,7 @@
 	id = "extinguisher"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 200)
-	build_path = /obj/item/extinguisher
+	build_path = /obj/item/extinguisher/empty
 	category = list("initial","Tools")
 
 /datum/design/multitool
@@ -63,7 +63,7 @@
 	id = "welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
-	build_path = /obj/item/weldingtool
+	build_path = /obj/item/weldingtool/empty
 	category = list("initial","Tools")
 
 /datum/design/mini_weldingtool
@@ -71,7 +71,7 @@
 	id = "mini_welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
-	build_path = /obj/item/weldingtool/mini
+	build_path = /obj/item/weldingtool/mini/empty
 	category = list("initial","Tools")
 
 /datum/design/screwdriver
@@ -120,6 +120,15 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 15, MAT_GLASS = 10)
 	build_path = /obj/item/stack/cable_coil
+	category = list("initial","Tools")
+	maxstack = 30
+
+/datum/design/cable_coil_heavy_duty
+	name = "Heavy Duty Cable Coil"
+	id = "cable_coil_heavy_duty"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30, MAT_GLASS = 30)
+	build_path = /obj/item/stack/cable_coil/extra_insulated
 	category = list("initial","Tools")
 	maxstack = 30
 
@@ -234,7 +243,7 @@
 	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
-	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT / 2, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list("initial","Construction")
 	maxstack = 50
@@ -252,7 +261,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL = 16000, MAT_GLASS = 8000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -396,7 +405,7 @@
 	name = "Cultivator"
 	id = "cultivator"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 200)
 	build_path = /obj/item/cultivator
 	category = list("initial","Miscellaneous")
 
@@ -576,6 +585,14 @@
 	build_path = /obj/item/ammo_box/magazine/detective/speedcharger
 	category = list("initial", "Security")
 
+/datum/design/paintball_magazine
+	name = "Paintball Magazine"
+	id = "paintball_mag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/paintball
+	category = list("initial", "Miscellaneous")
+
 /datum/design/recorder
 	name = "Universal Recorder"
 	id = "recorder"
@@ -676,7 +693,7 @@
 	name = "Goggles"
 	id = "goggles"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
 	build_path = /obj/item/clothing/glasses/goggles
 	category = list("initial", "Miscellaneous")
 
@@ -752,14 +769,6 @@
 	build_path = /obj/item/reagent_containers/hypospray/safety
 	category = list("initial", "Medical")
 
-/datum/design/automender
-	name = "Auto-mender"
-	id = "automender"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000)
-	build_path = /obj/item/reagent_containers/applicator
-	category = list("initial", "Medical")
-
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
 	id = "prox_sensor"
@@ -789,8 +798,16 @@
 	id = "large_welding_tool"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
-	build_path = /obj/item/weldingtool/largetank
+	build_path = /obj/item/weldingtool/largetank/empty
 	category = list("initial", "Tools")
+
+/datum/design/inflatable_briefcase
+	name = "Inflatable Barrier Box"
+	id = "inflatable_briefcase"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
+	build_path = /obj/item/storage/briefcase/inflatable
+	category = list("initial", "Construction")
 
 /datum/design/rcd
 	name = "Rapid Construction Device (RCD)"
@@ -813,7 +830,7 @@
 	id = "rcl"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000)
-	build_path = /obj/item/rcl
+	build_path = /obj/item/rcl/empty
 	category = list("initial", "Construction")
 
 //hacked autolathe recipes
@@ -1094,3 +1111,19 @@
 	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/melee/knuckleduster
 	category = list("hacked", "Security")
+
+/datum/design/sample_kit
+	name = "Forensic Swab"
+	id = "forensicswab"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 250)
+	build_path = /obj/item/forensics/swab
+	category = list("initial", "Security")
+
+/datum/design/suture_needle
+	name = "Suture Needle"
+	id = "sutureneedle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200)
+	build_path = /obj/item/suture_needle
+	category = list("initial", "Medical")

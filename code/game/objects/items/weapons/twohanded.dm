@@ -19,7 +19,6 @@
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
@@ -56,19 +55,16 @@
 /obj/item/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
 	force_wielded = 35
-	armour_penetration_flat = 10
-	armour_penetration_percentage = 30
+	armor_penetration_flat = 10
+	armor_penetration_percentage = 30
 	var/charge = 20
 	var/max_charge = 20
 
 /obj/item/fireaxe/energized/Initialize(mapload)
 	. = ..()
 	// only update the new args
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
-
-/obj/item/fireaxe/energized/New()
-	..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
 
 /obj/item/fireaxe/energized/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -84,7 +80,7 @@
 			var/mob/living/target = M
 			charge = 0
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
+			user.visible_message(SPAN_DANGER("[user] slams the charged axe into [M.name] with all [user.p_their()] might!"))
 			do_sparks(1, 1, src)
 			target.KnockDown(8 SECONDS)
 			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
@@ -107,11 +103,10 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
-	armour_penetration_flat = 10
-	armour_penetration_percentage = 50
+	armor_penetration_flat = 10
+	armor_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
@@ -158,13 +153,13 @@
 		return
 
 	if(HAS_TRAIT(user, TRAIT_HULK))
-		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
+		to_chat(user, SPAN_WARNING("You grip the blade too hard and accidentally drop it!"))
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			user.drop_item_to_ground(src)
 			return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40) && force)
-		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
+		to_chat(user, SPAN_WARNING("You twirl around a bit before losing your balance and impaling yourself on [src]."))
 		user.take_organ_damage(20, 25)
 		return
 	if((HAS_TRAIT(src, TRAIT_WIELDED)) && prob(50))
@@ -176,20 +171,20 @@
 		return !isnull(cig)
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		to_chat(user, SPAN_WARNING("You need to activate [src] before you can light anything with it!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='danger'>[user] flips through the air and spins [src] wildly! It brushes against [user.p_their()] [cig] and sets it alight!</span>",
-			"<span class='notice'>You flip through the air and twist [src] so it brushes against [cig], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			SPAN_DANGER("[user] flips through the air and spins [src] wildly! It brushes against [user.p_their()] [cig] and sets it alight!"),
+			SPAN_NOTICE("You flip through the air and twist [src] so it brushes against [cig], lighting it with the blade."),
+			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	else
 		user.visible_message(
-			"<span class='danger'>[user] flips through the air and slashes at [user] with [src]! The blade barely misses, brushing against [user.p_their()] [cig] and setting it alight!</span>",
-			"<span class='notice'>You flip through the air and slash [src] at [cig], lighting it for [target].</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			SPAN_DANGER("[user] flips through the air and slashes at [user] with [src]! The blade barely misses, brushing against [user.p_their()] [cig] and setting it alight!"),
+			SPAN_NOTICE("You flip through the air and slash [src] at [cig], lighting it for [target]."),
+			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 50, TRUE)
@@ -225,7 +220,7 @@
 
 /obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class='warning'>You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!</span>")
+		to_chat(user, SPAN_WARNING("You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!"))
 		return TRUE
 
 /obj/item/dualsaber/green
@@ -242,7 +237,7 @@
 
 /obj/item/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(user && HAS_TRAIT(user, TRAIT_HULK))
-		to_chat(user, "<span class='warning'>You lack the grace to wield this!</span>")
+		to_chat(user, SPAN_WARNING("You lack the grace to wield this!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 	w_class = w_class_on
 
@@ -259,11 +254,11 @@
 		return
 	if(!hacked)
 		hacked = TRUE
-		to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
+		to_chat(user, SPAN_WARNING("2XRNBW_ENGAGE"))
 		blade_color = "rainbow"
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
+		to_chat(user, SPAN_WARNING("It's starting to look like a triple rainbow - no, nevermind."))
 
 //spears
 /obj/item/spear
@@ -281,14 +276,13 @@
 	var/force_wielded = 18
 	throwforce = 20
 	throw_speed = 4
-	armour_penetration_flat = 5
+	armor_penetration_flat = 5
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
 
@@ -353,7 +347,7 @@
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
-	armour_penetration_percentage = 15				//Enhanced armor piercing
+	armor_penetration_percentage = 15				//Enhanced armor piercing
 
 //Blatant imitation of spear, but all natural. Also not valid for explosive modification.
 /obj/item/spear/bamboo
@@ -367,12 +361,8 @@
 /obj/item/spear/grey_tide
 	name = "\improper Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
-	base_icon_state = "spearglass"
-	icon_state = "spearglass0"
 	force_unwielded = 15
 	force_wielded = 25
-	throwforce = 20
-	throw_speed = 4
 	attack_verb = list("gored")
 
 /obj/item/spear/grey_tide/afterattack__legacy__attackchain(atom/movable/AM, mob/living/user, proximity)
@@ -395,7 +385,7 @@
 /obj/item/spear/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/organ/external/head))
 		if(user.unequip(src) && user.drop_item())
-			to_chat(user, "<span class='notice'>You stick [I] onto the spear and stand it upright on the ground.</span>")
+			to_chat(user, SPAN_NOTICE("You stick [I] onto the spear and stand it upright on the ground."))
 			var/obj/structure/headspear/HS = new /obj/structure/headspear(get_turf(src))
 			var/matrix/M = matrix()
 			I.transform = M
@@ -413,7 +403,6 @@
 	name = "head on a spear"
 	desc = "How barbaric."
 	icon_state = "headspear"
-	density = FALSE
 	anchored = TRUE
 	var/obj/item/organ/external/head/mounted_head = null
 	var/obj/item/spear/contained_spear = null
@@ -424,7 +413,7 @@
 	return ..()
 
 /obj/structure/headspear/attack_hand(mob/living/user)
-	user.visible_message("<span class='warning'>[user] kicks over [src]!</span>", "<span class='danger'>You kick down [src]!</span>")
+	user.visible_message(SPAN_WARNING("[user] kicks over [src]!"), SPAN_DANGER("You kick down [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	var/turf/T = get_turf(src)
 	if(contained_spear)
@@ -519,7 +508,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 30
-	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
 	origin_tech = "combat=4;powerstorage=7"
 
@@ -533,9 +521,9 @@
 
 /obj/item/mjollnir/proc/shock(mob/living/target)
 	do_sparks(5, 1, target.loc)
-	target.visible_message("<span class='danger'>[target] was shocked by [src]!</span>",
-		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>",
-		"<span class='danger'>You hear a heavy electrical crack!</span>")
+	target.visible_message(SPAN_DANGER("[target] was shocked by [src]!"),
+		SPAN_USERDANGER("You feel a powerful shock course through your body sending you flying!"),
+		SPAN_DANGER("You hear a heavy electrical crack!"))
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
@@ -601,16 +589,16 @@
 		if(isliving(A))
 			var/mob/living/Z = A
 			if(Z.health >= 1)
-				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from [src]!</span>",
-					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>",
-					"<span class='danger'>You hear something heavy impact flesh!.</span>")
+				Z.visible_message(SPAN_DANGER("[Z.name] was sent flying by a blow from [src]!"),
+					SPAN_USERDANGER("You feel a powerful blow connect with your body and send you flying!"),
+					SPAN_DANGER("You hear something heavy impact flesh!."))
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
-				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [src]!</span>",
-					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>",
-					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
+				Z.visible_message(SPAN_DANGER("[Z.name] was blown to pieces by the power of [src]!"),
+					SPAN_USERDANGER("You feel a powerful blow rip you apart!"),
+					SPAN_DANGER("You hear a heavy impact and the sound of ripping flesh!."))
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -636,7 +624,7 @@
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 22
 	damtype = BURN
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -657,12 +645,12 @@
 	return ..()
 
 /obj/item/pyro_claws/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] energy claws extending [owner.p_their(FALSE)] wrists.</span>"
+	return SPAN_WARNING("[owner.p_they(TRUE)] [owner.p_have(FALSE)] energy claws extending [owner.p_their(FALSE)] wrists.")
 
 /obj/item/pyro_claws/process()
 	lifetime -= 2 SECONDS
 	if(lifetime <= 0)
-		visible_message("<span class='warning'>[src] slides back into the depths of [loc]'s wrists.</span>")
+		visible_message(SPAN_WARNING("[src] slides back into the depths of [loc]'s wrists."))
 		do_sparks(rand(1,6), 1, loc)
 		qdel(src)
 		return
@@ -682,28 +670,28 @@
 			return
 
 		if(A.locked)
-			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+			to_chat(user, SPAN_NOTICE("The airlock's bolts prevent it from being forced."))
 			return
 
 		if(A.arePowerSystemsOn())
-			user.visible_message("<span class='warning'>[user] jams [user.p_their()] [name] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+			user.visible_message(SPAN_WARNING("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"), SPAN_WARNING("You start forcing the airlock open."), SPAN_WARNING("You hear a metal screeching sound."))
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
 			if(!do_after(user, 25, target = A))
 				return
 
-		user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+		user.visible_message(SPAN_WARNING("[user] forces the airlock open with [user.p_their()] [name]!"), SPAN_WARNING("You force open the airlock."), SPAN_WARNING("You hear a metal screeching sound."))
 		A.open(2)
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
-	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
-	item_state = "pyro"
-	item_color = "pyro" // I will kill washing machines one day
+	desc = "A pair of heavy combat gauntlets that project lethal energy claws via the power of a captive pyroclastic anomaly core."
 	icon_state = "pyro"
+	inhand_icon_state = null
+	worn_icon_state = null
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	dyeable = FALSE
-
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time
@@ -715,9 +703,9 @@
 /obj/item/clothing/gloves/color/black/pyro_claws/examine(mob/user)
 	. = ..()
 	if(core)
-		. += "<span class='notice'>[src] are fully operational!</span>"
+		. += SPAN_NOTICE("[src] are fully operational!")
 	else
-		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
+		. += SPAN_WARNING("It is missing a pyroclastic anomaly core.")
 
 /obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_GLOVES)
@@ -725,16 +713,16 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
 	if(!core)
-		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
+		to_chat(user, SPAN_NOTICE("[src] has no core to power it!"))
 		return
 	if(on_cooldown)
-		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is on cooldown!"))
 		return
 	if((user.l_hand && !user.drop_l_hand()) || (user.r_hand && !user.drop_r_hand()))
-		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
+		to_chat(user, SPAN_NOTICE("[src] are unable to deploy the blades with the items in your hands!"))
 		return
 	var/obj/item/W = new /obj/item/pyro_claws
-	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
+	user.visible_message(SPAN_WARNING("[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!"), SPAN_NOTICE("You deploy [W] from your wrists!"), SPAN_WARNING("You hear the shower of sparks!"))
 	user.put_in_hands(W)
 	on_cooldown = TRUE
 	set_nodrop(TRUE, user)
@@ -743,19 +731,25 @@
 		do_sparks(rand(1,6), 1, loc)
 		next_spark_time = world.time + 0.8 SECONDS
 
-/obj/item/clothing/gloves/color/black/pyro_claws/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
-		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
-			return
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
-		I.forceMove(src)
-		core = I
-	else
+/obj/item/clothing/gloves/color/black/pyro_claws/wirecutter_act(mob/living/user, obj/item/I)
+	return
+
+/obj/item/clothing/gloves/color/black/pyro_claws/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/signaler/anomaly/pyro))
 		return ..()
+
+	if(core)
+		to_chat(user, SPAN_NOTICE("[src] already has a [used]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You insert [used] into [src], and [src] starts to warm up."))
+	used.forceMove(src)
+	core = used
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE
@@ -776,8 +770,6 @@
 	force = 8
 	throwforce = 10
 	throw_speed = 3
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
 
@@ -792,10 +784,10 @@
 		unwield_callback = CALLBACK(src, PROC_REF(unwield)))
 
 /obj/item/push_broom/update_icon_state()
-	icon_state = "broom0"
+	icon_state = "[base_icon_state]0"
 
 /obj/item/push_broom/proc/wield(obj/item/source, mob/user)
-	to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
+	to_chat(user, SPAN_NOTICE("You brace [src] against the ground in a firm sweeping stance."))
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
 
 /obj/item/push_broom/proc/unwield(obj/item/source, mob/user)
@@ -831,7 +823,7 @@
 		else
 			garbage.Move(new_item_loc, user.dir)
 		if(trashed_into)
-			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [trashed_into].</span>")
+			to_chat(user, SPAN_NOTICE("You sweep the pile of garbage into [trashed_into]."))
 		trash_amount++
 		if(trash_amount > BROOM_PUSH_LIMIT)
 			break
@@ -869,9 +861,9 @@
 
 	switch(user.a_intent)
 		if(INTENT_HELP)
-			H.visible_message("<span class='danger'>[user] sweeps [H] away!</span>", \
-							"<span class='userdanger'>[user] sweeps you away!</span>", \
-							"<span class='italics'>You hear sweeping.</span>")
+			H.visible_message(SPAN_DANGER("[user] sweeps [H] away!"), \
+							SPAN_USERDANGER("[user] sweeps you away!"), \
+							SPAN_ITALICS("You hear sweeping."))
 			playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
 
 			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)))
@@ -883,9 +875,9 @@
 			if(H.stat || IS_HORIZONTAL(H))
 				return ..()
 
-			H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
-							"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
-							"<span class='italics'>You hear sweeping.</span>")
+			H.visible_message(SPAN_DANGER("[user] sweeps [H]'s legs out from under [H.p_them()]!"), \
+							SPAN_USERDANGER("[user] sweeps your legs out from under you!"), \
+							SPAN_ITALICS("You hear sweeping."))
 
 			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
@@ -895,9 +887,9 @@
 			add_attack_logs(user, H, "Leg swept with titanium push broom", ATKLOG_ALL)
 
 		if(INTENT_GRAB)
-			H.visible_message("<span class='danger'>[user] smacks [H] with the brush of [user.p_their()] broom!</span>", \
-							"<span class='userdanger'>[user] smacks you with the brush of [user.p_their()] broom!</span>", \
-							"<span class='italics'>You hear a smacking noise.</span>")
+			H.visible_message(SPAN_DANGER("[user] smacks [H] with the brush of [user.p_their()] broom!"), \
+							SPAN_USERDANGER("[user] smacks you with the brush of [user.p_their()] broom!"), \
+							SPAN_ITALICS("You hear a smacking noise."))
 
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, TRUE, -1)
@@ -960,20 +952,20 @@
 	if(isliving(A))
 		var/mob/living/target = A
 		if(target.stat == DEAD)
-			visible_message("<span class='danger'>[user] raises [src] high, ready to bring it down on [target]!</span>")
+			visible_message(SPAN_DANGER("[user] raises [src] high, ready to bring it down on [target]!"))
 			if(do_after(user, 1 SECONDS, TRUE, target))
-				visible_message("<span class='danger'>[user] brings down [src], obliterating [target] with a heavy blow!</span>")
+				visible_message(SPAN_DANGER("[user] brings down [src], obliterating [target] with a heavy blow!"))
 				playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
 				target.dust()
 				return
-			to_chat(user, "<span class='notice'>You lower [src]. There'll be time to obliterate them later...</span>")
+			to_chat(user, SPAN_NOTICE("You lower [src]. There'll be time to obliterate them later..."))
 			return
 
 		if(charged)
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
-			target.visible_message("<span class='danger'>[src] flares with energy and shocks [target]!</span>", \
-									"<span class='userdanger'>You're shocked by [src]!</span>", \
-									"<span class='warning'>You hear shocking.</span>")
+			target.visible_message(SPAN_DANGER("[src] flares with energy and shocks [target]!"), \
+									SPAN_USERDANGER("You're shocked by [src]!"), \
+									SPAN_WARNING("You hear shocking."))
 			target.KnockDown(4 SECONDS)
 			do_sparks(3, FALSE, src)
 			charged = FALSE
@@ -986,7 +978,7 @@
 	if(istype(A, /turf/simulated/wall/indestructible))
 		return
 
-	to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
+	to_chat(user, SPAN_NOTICE("You start to obliterate [A]."))
 	playsound(loc, hitsound, 50, TRUE)
 
 	var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))

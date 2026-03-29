@@ -1,9 +1,10 @@
 /datum/spell/vampire/self/blood_swell
 	name = "Blood Swell (30)"
 	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
-	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
+	gain_desc = "You have gained the ability to temporarily resist large amounts of stuns and physical damage."
 	base_cooldown = 40 SECONDS
 	required_blood = 30
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "blood_swell"
 
 /datum/spell/vampire/self/blood_swell/cast(list/targets, mob/user)
@@ -14,8 +15,9 @@
 
 /datum/spell/vampire/self/stomp
 	name = "Seismic Stomp (30)"
-	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if you legs are impared by a bola or similar."
+	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if your legs are restrained by a bola or similar."
 	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "seismic_stomp"
 	base_cooldown = 60 SECONDS
 	required_blood = 30
@@ -70,18 +72,19 @@
 	animate(src, transform = M * 8, time = duration, alpha = 0)
 
 /datum/vampire_passive/blood_swell_upgrade
-	gain_desc = "While blood swell is active all of your melee attacks deal increased damage."
+	gain_desc = "While blood swell is active, all of your melee attacks deal increased damage."
 
 /datum/spell/vampire/self/overwhelming_force
 	name = "Overwhelming Force"
 	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access."
 	gain_desc = "You have gained the ability to force open doors at a small blood cost."
 	base_cooldown = 2 SECONDS
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "OH_YEAAAAH"
 
 /datum/spell/vampire/self/overwhelming_force/cast(list/targets, mob/user)
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-		to_chat(user, "<span class='warning'>You feel MIGHTY!</span>")
+		to_chat(user, SPAN_WARNING("You feel MIGHTY!"))
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 		user.status_flags &= ~CANPUSH
 		user.move_resist = MOVE_FORCE_STRONG
@@ -96,13 +99,14 @@
 	gain_desc = "You have gained the ability to temporarily move at high speeds."
 	base_cooldown = 30 SECONDS
 	required_blood = 30
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "blood_rush"
 
 /datum/spell/vampire/self/blood_rush/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
 	// they're not getting anything out of this spell if they're stunned or buckled anyways, so we might as well stop them from wasting the blood
 	if(L.IsWeakened() || L.buckled)
-		to_chat(L, "<span class='warning'>You can't cast this spell while incapacitated!</span>")
+		to_chat(L, SPAN_WARNING("You can't cast this spell while incapacitated!"))
 		return FALSE
 	return ..()
 
@@ -112,7 +116,7 @@
 		return
 
 	var/mob/living/carbon/human/H = target
-	to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
+	to_chat(H, SPAN_NOTICE("You feel a rush of energy!"))
 
 	H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 	H.clear_legcuffs(TRUE)
@@ -122,17 +126,17 @@
 
 /datum/spell/fireball/demonic_grasp
 	name = "Demonic Grasp (20)"
-	desc = "Fire a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
-	gain_desc = "You have gained the ability to snare and disrupt people with demonic apendages."
+	desc = "Summon a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
+	gain_desc = "You have gained the ability to snare and disrupt people with demonic appendages."
 	base_cooldown = 30 SECONDS
-	fireball_type = /obj/item/projectile/magic/demonic_grasp
+	fireball_type = /obj/projectile/magic/demonic_grasp
 
-	selection_activated_message		= "<span class='notice'>You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You re-absorb the energy...for now.</span>"
+	selection_activated_message		= SPAN_NOTICE("You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B>")
+	selection_deactivated_message	= SPAN_NOTICE("You re-absorb the energy...for now.")
 
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "demonic_grasp"
 
-	action_background_icon_state = "bg_vampire"
 	sound = null
 	invocation_type = "none"
 	invocation = null
@@ -145,17 +149,17 @@
 	V.required_blood = 20
 	return V
 
-/obj/item/projectile/magic/demonic_grasp
+/obj/projectile/magic/demonic_grasp
 	name = "demonic grasp"
 	// parry this you filthy casual
 	reflectability = REFLECTABILITY_NEVER
 	icon_state = null
 
-/obj/item/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
+/obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
 	. = ..()
 	new /obj/effect/temp_visual/demonic_grasp(loc)
 
-/obj/item/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/demonic_grasp/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	if(!.)
 		return
@@ -180,7 +184,7 @@
 			throw_target = get_step(firer, get_dir(firer, L))
 			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(create_snare), L)) // pull towards
 
-/obj/item/projectile/magic/demonic_grasp/proc/create_snare(mob/target)
+/obj/projectile/magic/demonic_grasp/proc/create_snare(mob/target)
 	new /obj/effect/temp_visual/demonic_snare(target.loc)
 
 /obj/effect/temp_visual/demonic_grasp
@@ -191,14 +195,14 @@
 /obj/effect/temp_visual/demonic_snare
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "immobilized"
-	duration = 1 SECONDS
 
 /datum/spell/vampire/charge
 	name = "Charge (30)"
-	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
+	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning targets, and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
 	base_cooldown = 30 SECONDS
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "vampire_charge"
 
 /datum/spell/vampire/charge/create_new_targeting()
@@ -225,6 +229,7 @@
 	gain_desc = "You can now leap to a target and trap them in a conjured arena."
 	required_blood = 150
 	base_cooldown = 30 SECONDS
+	action_background_icon_state = "bg_garg"
 	action_icon_state = "duel"
 	should_recharge_after_cast = FALSE
 	var/spell_active = FALSE
@@ -302,6 +307,6 @@
 	QDEL_LIST_CONTENTS(all_temp_walls)
 	cooldown_handler.start_recharge()
 	user.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
-	user.visible_message("<span class='warning'>The arena begins to dissipate.</span>")
+	user.visible_message(SPAN_WARNING("The arena begins to dissipate."))
 
 #undef ARENA_SIZE

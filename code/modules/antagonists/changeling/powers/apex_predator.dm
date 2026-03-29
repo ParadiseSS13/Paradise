@@ -2,7 +2,7 @@
 	name = "Apex Predator"
 	desc = "We evolve a keen intuition, allowing us to detect the anxieties of nearby lifeforms."
 	helptext = "We will be able to detect the direction and room our prey is in, as well as if they have any injuries."
-	button_overlay_icon_state = "predator"
+	button_icon_state = "predator"
 	dna_cost = 1
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility
@@ -18,7 +18,7 @@
 			continue
 		target_by_name[possible_target.real_name] = possible_target
 	if(!length(target_by_name))
-		to_chat(user, "<span class='changeling'>There is no prey to be hunted here...</span>")
+		to_chat(user, SPAN_CHANGELING("There is no prey to be hunted here..."))
 		return
 	var/target_name = tgui_input_list(user, "Person to Locate", "Prey", target_by_name)
 	if(!target_name)
@@ -28,4 +28,4 @@
 	var/message = "[target_name] is in [get_area(target)], [dir2text(get_dir(user, target))] of us."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
 		message += " <i>They are wounded...</i>"
-	to_chat(user, "<span class='changeling'>[message]</span>")
+	to_chat(user, SPAN_CHANGELING("[message]"))

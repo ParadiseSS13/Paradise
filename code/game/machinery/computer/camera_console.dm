@@ -193,7 +193,7 @@
 
 /obj/machinery/computer/security/attack_ai(mob/user)
 	if(is_ai(user))
-		to_chat(user, "<span class='notice'>You realise it's kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips.</span>")
+		to_chat(user, SPAN_NOTICE("You realise it's kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips."))
 		return
 
 	ui_interact(user)
@@ -240,9 +240,7 @@
 	icon_state = "entertainment_console"
 	icon_screen = "entertainment_off"
 	light_color = "#FFEEDB"
-	light_range_on = 0
 	network = list("news")
-	luminosity = 0
 	circuit = null
 	/// Icon utilised when feeds_on is true
 	var/icon_screen_on = "entertainment"

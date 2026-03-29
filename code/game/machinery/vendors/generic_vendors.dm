@@ -60,7 +60,9 @@
 					/obj/item/reagent_containers/drinks/bottle/cream = 4,
 					/obj/item/reagent_containers/drinks/cans/tonic = 8,
 					/obj/item/reagent_containers/drinks/cans/cola = 8,
+					/obj/item/reagent_containers/drinks/cans/electrolytes = 4,
 					/obj/item/reagent_containers/drinks/cans/sodawater = 15,
+					/obj/item/reagent_containers/drinks/cans/ginger_ale = 8,
 					/obj/item/reagent_containers/drinks/drinkingglass = 30,
 					/obj/item/reagent_containers/drinks/drinkingglass/shotglass = 30,
 					/obj/item/reagent_containers/drinks/ice = 9)
@@ -151,7 +153,7 @@
 	if(!..())
 		return FALSE
 	if(!I.is_open_container())
-		to_chat(user, "<span class='warning'>You need to open [I] before inserting it.</span>")
+		to_chat(user, SPAN_WARNING("You need to open [I] before inserting it."))
 		return FALSE
 	return TRUE
 
@@ -192,6 +194,7 @@
 					/obj/item/clothing/head/soft/solgov = 10,
 					/obj/item/clothing/head/beret = 10,
 					/obj/item/clothing/head/beret/black = 10,
+					/obj/item/clothing/head/headscarf = 10,
 					/obj/item/clothing/head/hairflower = 10,
 					/obj/item/clothing/head/mailman = 1,
 					/obj/item/clothing/head/soft/rainbow = 1)
@@ -209,6 +212,7 @@
 				/obj/item/clothing/head/soft/solgov = 20,
 				/obj/item/clothing/head/beret = 20,
 				/obj/item/clothing/head/beret/black = 20,
+				/obj/item/clothing/head/headscarf = 20,
 				/obj/item/clothing/head/hairflower = 20,
 				/obj/item/clothing/head/mailman = 60,
 				/obj/item/clothing/head/soft/rainbow = 40,
@@ -415,12 +419,14 @@
 					/obj/item/clothing/under/pants/mustangjeans = 1,
 					/obj/item/clothing/under/pants/camo = 3,
 					/obj/item/clothing/under/pants/blackjeans = 3,
+					/obj/item/clothing/under/pants/shorts/jeanshorts = 3,
 					/obj/item/clothing/under/pants/khaki = 3,
 					/obj/item/clothing/under/pants/white = 3,
 					/obj/item/clothing/under/pants/red = 3,
 					/obj/item/clothing/under/pants/black = 3,
 					/obj/item/clothing/under/pants/tan = 3,
 					/obj/item/clothing/under/pants/blue = 3,
+					/obj/item/clothing/under/pants/cargo = 3,
 					/obj/item/clothing/under/pants/track = 3,
 					/obj/item/clothing/suit/tracksuit = 3,
 					/obj/item/clothing/suit/tracksuit/green = 3,
@@ -506,12 +512,14 @@
 				/obj/item/clothing/under/pants/mustangjeans = 100,
 				/obj/item/clothing/under/pants/camo = 75,
 				/obj/item/clothing/under/pants/blackjeans = 75,
+				/obj/item/clothing/under/pants/shorts/jeanshorts = 75,
 				/obj/item/clothing/under/pants/khaki = 75,
 				/obj/item/clothing/under/pants/white = 75,
 				/obj/item/clothing/under/pants/red = 75,
 				/obj/item/clothing/under/pants/black = 75,
 				/obj/item/clothing/under/pants/tan = 75,
 				/obj/item/clothing/under/pants/blue = 75,
+				/obj/item/clothing/under/pants/cargo = 75,
 				/obj/item/clothing/under/pants/track = 75,
 				/obj/item/clothing/suit/tracksuit = 75,
 				/obj/item/clothing/suit/tracksuit/green = 75,
@@ -707,6 +715,7 @@
 					/obj/item/clothing/mask/face/fox = 1,
 					/obj/item/clothing/mask/face/tribal = 1,
 					/obj/item/clothing/mask/face/rat = 1,
+					/obj/item/clothing/mask/fake_beard = 1,
 					/obj/item/clothing/suit/apron/overalls = 1,
 					/obj/item/clothing/head/rabbitears =1,
 					/obj/item/clothing/head/sombrero = 1,
@@ -756,7 +765,25 @@
 					/obj/item/clothing/shoes/roman = 1,
 					/obj/item/shield/riot/roman/fake = 1,
 					/obj/item/clothing/under/costume/cuban_suit = 1,
-					/obj/item/clothing/head/cuban_hat = 1)
+					/obj/item/clothing/head/cuban_hat = 1,
+					/obj/item/clothing/head/turban_orange = 1,
+					/obj/item/clothing/head/turban_green = 1,
+					/obj/item/clothing/head/eboshi = 1,
+					/obj/item/clothing/head/kippah = 1,
+					/obj/item/clothing/head/shtreimel = 1,
+					/obj/item/clothing/head/hijab = 1,
+					/obj/item/clothing/suit/hooded/costume/cassock = 1,
+					/obj/item/clothing/suit/hooded/costume/nun = 1,
+					/obj/item/clothing/suit/costume/bana = 1,
+					/obj/item/clothing/suit/costume/joue = 1,
+					/obj/item/clothing/suit/costume/miko = 1,
+					/obj/item/clothing/suit/costume/hasidic_coat = 1,
+					/obj/item/clothing/under/costume/kasaya = 1,
+					/obj/item/clothing/under/costume/modestgreen = 1,
+					/obj/item/clothing/under/costume/thobe = 1,
+					/obj/item/clothing/neck/cloak/tallit = 1,
+					/obj/item/clothing/head/santahat = 3,
+					/obj/item/clothing/suit/santa = 1)
 
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
@@ -827,6 +854,7 @@
 				/obj/item/clothing/mask/face/fox = 100,
 				/obj/item/clothing/mask/face/tribal = 100,
 				/obj/item/clothing/mask/face/rat = 100,
+				/obj/item/clothing/mask/fake_beard = 50,
 				/obj/item/clothing/suit/apron/overalls = 75,
 				/obj/item/clothing/head/rabbitears = 75,
 				/obj/item/clothing/head/sombrero = 40,
@@ -876,7 +904,25 @@
 				/obj/item/clothing/shoes/roman = 40,
 				/obj/item/shield/riot/roman/fake = 75,
 				/obj/item/clothing/under/costume/cuban_suit = 125,
-				/obj/item/clothing/head/cuban_hat = 75)
+				/obj/item/clothing/head/cuban_hat = 75,
+				/obj/item/clothing/head/turban_orange = 50,
+				/obj/item/clothing/head/turban_green = 50,
+				/obj/item/clothing/head/eboshi = 50,
+				/obj/item/clothing/head/kippah = 50,
+				/obj/item/clothing/head/shtreimel = 75,
+				/obj/item/clothing/head/hijab = 50,
+				/obj/item/clothing/suit/hooded/costume/cassock = 100,
+				/obj/item/clothing/suit/hooded/costume/nun = 100,
+				/obj/item/clothing/suit/costume/bana = 100,
+				/obj/item/clothing/suit/costume/joue = 100,
+				/obj/item/clothing/suit/costume/miko = 100,
+				/obj/item/clothing/suit/costume/hasidic_coat = 100,
+				/obj/item/clothing/under/costume/kasaya = 100,
+				/obj/item/clothing/under/costume/modestgreen = 100,
+				/obj/item/clothing/under/costume/thobe = 100,
+				/obj/item/clothing/neck/cloak/tallit = 75,
+				/obj/item/clothing/head/santahat = 50,
+				/obj/item/clothing/suit/santa = 200)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
 
@@ -1046,6 +1092,8 @@
 					/obj/item/reagent_containers/drinks/cans/starkist = 10,
 					/obj/item/reagent_containers/drinks/cans/space_up = 10,
 					/obj/item/reagent_containers/drinks/cans/grape_juice = 10,
+					/obj/item/reagent_containers/drinks/cans/ginger_ale = 10,
+					/obj/item/reagent_containers/drinks/cans/electrolytes = 10,
 					/obj/item/reagent_containers/glass/beaker/waterbottle = 10)
 
 	contraband = list(/obj/item/reagent_containers/drinks/cans/thirteenloko = 5)
@@ -1056,6 +1104,8 @@
 				/obj/item/reagent_containers/drinks/cans/starkist = 50,
 				/obj/item/reagent_containers/drinks/cans/space_up = 50,
 				/obj/item/reagent_containers/drinks/cans/grape_juice = 50,
+				/obj/item/reagent_containers/drinks/cans/ginger_ale = 50,
+				/obj/item/reagent_containers/drinks/cans/electrolytes = 40,
 				/obj/item/reagent_containers/glass/beaker/waterbottle = 20)
 
 	refill_canister = /obj/item/vending_refill/cola
@@ -1099,7 +1149,8 @@
 					/obj/item/pen/red = 5,
 					/obj/item/pen/fancy = 2)
 
-	contraband = list(/obj/item/toy/crayon/mime = 1,
+	contraband = list(/obj/item/storage/toolbox/artistic = 1,
+					/obj/item/toy/crayon/mime = 1,
 					/obj/item/toy/crayon/rainbow = 1,
 					/obj/item/poster/random_contraband = 5)
 
@@ -1118,7 +1169,7 @@
 	icon_lightmask = "tool"
 	icon_panel = "generic"
 	category = VENDOR_TYPE_SUPPLIES
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	products = list(/obj/item/crowbar = 5,
 					/obj/item/screwdriver = 5,
@@ -1247,9 +1298,12 @@
 					/obj/item/storage/fancy/matches = 10,
 					/obj/item/lighter/random = 4,
 					/obj/item/lighter/zippo = 2,
-					/obj/item/storage/fancy/rollingpapers = 5)
+					/obj/item/storage/fancy/rollingpapers = 5,
+					/obj/item/food/grown/tobacco/pre_dried = 5,)
 
-	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_midori = 6)
+	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_carcinoma = 6
+					)
 
 	prices = list(/obj/item/clothing/mask/cigarette/cigar = 100,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
@@ -1263,11 +1317,13 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 50,
 				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
+				/obj/item/storage/fancy/cigarettes/cigpack_carcinoma = 70,
 				/obj/item/reagent_containers/patch/nicotine = 70,
 				/obj/item/storage/fancy/matches = 20,
 				/obj/item/lighter/random = 40,
 				/obj/item/lighter/zippo = 80,
 				/obj/item/storage/fancy/rollingpapers = 30,
+				/obj/item/food/grown/tobacco/pre_dried = 50,
 )
 
 	refill_canister = /obj/item/vending_refill/cigarette
@@ -1284,13 +1340,15 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_carcinoma = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 				/obj/item/reagent_containers/patch/nicotine = 10,
 				/obj/item/storage/fancy/matches = 10,
 				/obj/item/lighter/zippo = 6,
-				/obj/item/storage/fancy/rollingpapers = 5)
+				/obj/item/storage/fancy/rollingpapers = 5,
+				/obj/item/food/grown/tobacco/pre_dried = 5,)
 
 	// You'd better believe that NT branded cigs are contraband in the Syndicate's territory.
 	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
@@ -1324,12 +1382,14 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_candy = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_carcinoma = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 10,
 				/obj/item/reagent_containers/patch/nicotine = 20,
 				/obj/item/storage/fancy/matches = 10,
 				/obj/item/lighter/zippo = 10,
-				/obj/item/storage/fancy/rollingpapers = 10)
+				/obj/item/storage/fancy/rollingpapers = 10,
+				/obj/item/food/grown/tobacco/pre_dried = 10,)
 
 	contraband = list()
 	prices = list()
@@ -1369,6 +1429,7 @@
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	tiltable = FALSE
 	products = list(/obj/item/stack/medical/bruise_pack = 2,
+					/obj/item/stack/medical/suture/emergency = 2,
 					/obj/item/stack/medical/ointment = 2,
 					/obj/item/reagent_containers/syringe/charcoal = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,

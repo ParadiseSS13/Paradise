@@ -6,7 +6,6 @@
 	hand_path = /obj/item/melee/touch_attack/mime_malaise
 
 	base_cooldown = 300
-	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "mime_curse"
 
@@ -16,7 +15,6 @@
 	catchphrase = null
 	on_use_sound = null
 	icon_state = "fleshtostone"
-	item_state = "fleshtostone"
 
 /obj/item/melee/touch_attack/mime_malaise/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

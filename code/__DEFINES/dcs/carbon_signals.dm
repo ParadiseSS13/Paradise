@@ -51,7 +51,7 @@
 ///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
 #define COMSIG_HUMAN_ATTACKED "human_attacked"
 
-///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
+///from /mob/living/carbon/human/proc/check_shields(): (/mob/living/carbon/human/owner, atom/hitby, attack_text, final_block_chance, damage, attack_type)
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)
 

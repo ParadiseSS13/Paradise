@@ -32,8 +32,7 @@ Difficulty: Medium
 	light_color = "#E4C7C5"
 	speak_emote = list("roars")
 	speed = 3
-	move_to_delay = 3
-	projectiletype = /obj/item/projectile/kinetic/miner
+	projectiletype = /obj/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 16
@@ -67,7 +66,6 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Resonant Signal"
 	desc = "The sweet blood, oh, it sings to me."
-	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
@@ -75,23 +73,23 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now dashing to your target.</span>"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
+	chosen_message = SPAN_COLOSSUS("You are now dashing to your target.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Fire Kinetic Accelerator"
-	button_overlay_icon = 'icons/obj/guns/energy.dmi'
-	button_overlay_icon_state = "kineticgun"
-	chosen_message = "<span class='colossus'>You are now shooting your kinetic accelerator.</span>"
+	button_icon = 'icons/obj/guns/energy.dmi'
+	button_icon_state = "kineticgun"
+	chosen_message = SPAN_COLOSSUS("You are now shooting your kinetic accelerator.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Transform Weapon"
-	button_overlay_icon = 'icons/obj/lavaland/artefacts.dmi'
-	button_overlay_icon_state = "cleaving_saw"
-	chosen_message = "<span class='colossus'>You are now transforming your weapon.</span>"
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon_state = "cleaving_saw"
+	chosen_message = SPAN_COLOSSUS("You are now transforming your weapon.")
 	chosen_attack_num = 3
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/OpenFire()
@@ -122,13 +120,13 @@ Difficulty: Medium
 	..()
 	target.remove_stun_absorption("miner")
 
-/obj/item/projectile/kinetic/miner
+/obj/projectile/kinetic/miner
 	damage = 20
 	speed = 0.9
 	icon_state = "ka_tracer"
 	range = MINER_DASH_RANGE
 
-/obj/item/projectile/kinetic/miner/enraged
+/obj/projectile/kinetic/miner/enraged
 	damage = 35
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE)
@@ -159,8 +157,8 @@ Difficulty: Medium
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/butcher(mob/living/L)
-	visible_message("<span class='danger'>[src] butchers [L]!</span>",
-	"<span class='userdanger'>You butcher [L], restoring your health!</span>")
+	visible_message(SPAN_DANGER("[src] butchers [L]!"),
+	SPAN_USERDANGER("You butcher [L], restoring your health!"))
 	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
 		if(guidance)
 			adjustHealth(-L.maxHealth)
@@ -203,7 +201,7 @@ Difficulty: Medium
 	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
 	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
 	ranged_cooldown_time = 5 //They got some cooldown mods.
-	projectiletype = /obj/item/projectile/kinetic/miner/enraged
+	projectiletype = /obj/projectile/kinetic/miner/enraged
 	maxHealth = 1800
 	health = 1800 //Bit more of a challenge.
 
@@ -223,7 +221,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/shoot_ka()
 	if(ranged_cooldown <= world.time && get_dist(src, target) <= MINER_DASH_RANGE && !Adjacent(target))
 		ranged_cooldown = world.time + ranged_cooldown_time
-		visible_message("<span class='danger'>[src] fires the proto-kinetic accelerator!</span>")
+		visible_message(SPAN_DANGER("[src] fires the proto-kinetic accelerator!"))
 		face_atom(target)
 		new /obj/effect/temp_visual/dir_setting/firing_effect(loc, dir)
 		Shoot(target)

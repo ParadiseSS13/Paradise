@@ -116,7 +116,7 @@
 		if(bodytemperature <= (T0C - 40)) // stun temperature
 			Tempstun = TRUE
 			throw_alert("temp", /atom/movable/screen/alert/cold, 3)
-			to_chat(src,"<span class='userdanger'>You suddenly freeze up, you cannot move!</span>")
+			to_chat(src,SPAN_USERDANGER("You suddenly freeze up, you cannot move!"))
 
 		if(bodytemperature <= (T0C - 50)) // hurt temperature
 			if(bodytemperature <= 50) // sqrting negative numbers is bad
@@ -126,7 +126,7 @@
 
 	else
 		if(Tempstun)
-			to_chat(src,"<span class='warning'>You suddenly unthaw!</span>")
+			to_chat(src,SPAN_WARNING("You suddenly unthaw!"))
 		Tempstun = FALSE
 
 	updatehealth("handle environment")
@@ -446,6 +446,10 @@
 				phrases += "What happened?"
 			if(!slimes_near)
 				phrases += "Lonely..."
+			if(trained && prob(3))
+				phrases += "Treat? Have treat?"
+				phrases += "Can have treat?"
+				phrases += "Treat?..."
 			if(stat == CONSCIOUS)
 				say (pick(phrases))
 

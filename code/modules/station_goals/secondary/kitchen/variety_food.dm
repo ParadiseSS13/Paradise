@@ -53,8 +53,8 @@
 	return copy
 
 /datum/secondary_goal_progress/variety_food/update(obj/item/food/food, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(food))
+	// Not properly labeled for this goal? Ignore.
+	if(!check_goal_label(food))
 		return
 
 	// Not food? Ignore.

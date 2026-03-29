@@ -644,17 +644,13 @@ Returns 1 if the chain up to the area contains the given typepath
 		current = get_step_towards(current, target_turf)
 		while(current != target_turf)
 			if(steps > length)
-				return 0
-			if(current.opacity)
-				return 0
-			for(var/thing in current)
-				var/atom/A = thing
-				if(A.opacity)
-					return 0
+				return FALSE
+			if(IS_OPAQUE_TURF(current))
+				return FALSE
 			current = get_step_towards(current, target_turf)
 			steps++
 
-	return 1
+	return TRUE
 
 //Returns: all the areas in the world
 /proc/return_areas()
@@ -1388,7 +1384,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return I
 
 //similar function to RANGE_TURFS(), but will search spiralling outwards from the center (like the above, but only turfs)
-/proc/spiral_range_turfs(dist=0, center=usr, orange=0)
+/proc/spiral_range_turfs(dist = 0, center = usr, orange = 0)
 	if(!dist)
 		if(!orange)
 			return list(center)
@@ -1552,7 +1548,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/organ/internal = "INT_ORG",
 			/obj/item/organ = "ORGAN",
 			/obj/item/pda = "PDA",
-			/obj/item/projectile = "PROJ",
+			/obj/projectile = "PROJ",
 			/obj/item/radio/headset = "HEADSET",
 			/obj/item/reagent_containers/glass/beaker = "BEAKER",
 			/obj/item/reagent_containers/glass/bottle = "BOTTLE",
@@ -1947,3 +1943,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return_list[path] = 0
 		return_list[path] += 1
 	return return_list
+
+// Wrappers for BYOND default procs which can't directly be called by call().
+/proc/_step(ref, dir)
+	step(ref, dir)

@@ -14,13 +14,62 @@
 /datum/gear/racial
 	sort_category = "Racial"
 	main_typepath = /datum/gear/racial
-	cost = 1
+	tweakname = FALSE // Just to keep things identifiable, really.
+	tweakdesc = FALSE
 
 /datum/gear/racial/taj
 	display_name = "Tajaran veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Can be combined with various other eyewear."
 	path = /obj/item/clothing/glasses/hud/tajblind
 	slot = ITEM_SLOT_EYES
+
+/datum/gear/racial/taj/medical
+	display_name = "Tajaran Medical Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a medical HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/med
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Virologist", "Paramedic")
+
+/datum/gear/racial/taj/sec
+	display_name = "Shaded Tajaran Security Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a security HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/shaded/sec
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Internal Affairs Agent", "Magistrate")
+
+/datum/gear/racial/taj/miner
+	display_name = "Tajaran Mining Meson Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a meson HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/meson/cargo
+	allowed_roles = list("Shaft Miner", "Explorer", "Quartermaster")
+
+/datum/gear/racial/taj/engineering
+	display_name = "Tajaran Engineering Meson Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a meson HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/meson
+	allowed_roles = list("Chief Engineer", "Life Support Specialist", "Station Engineer")
+
+/datum/gear/racial/taj/science
+	display_name = "Tajaran Science Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a science HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/sci
+	allowed_roles = list("Scientist", "Research Director", "Bartender", "Chemist", "Xenobiologist")
+
+/datum/gear/racial/taj/diagnostics
+	display_name = "Tajaran Diagnostic Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a science HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/diag
+	allowed_roles = list("Roboticist")
+
+/datum/gear/racial/taj/skills
+	display_name = "Tajaran Skills Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a skills HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/skill
+	allowed_roles = list("Head of Personnel", "Psychiatrist", "Nanotrasen Representative")
+
+/datum/gear/racial/taj/hydroponics
+	display_name = "Tajaran Hydroponic Veil"
+	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a hydroponic HUD."
+	path = /obj/item/clothing/glasses/hud/tajblind/hydro
+	allowed_roles = list("Botanist")
 
 /datum/gear/racial/footwraps
 	display_name = "Cloth footwraps"
@@ -44,6 +93,24 @@
 	path = /obj/item/clothing/suit/hooded/vox_robes
 	slot = ITEM_SLOT_OUTER_SUIT
 
+/datum/gear/racial/skulk_casual
+	display_name = "Collective jumpsuit"
+	description = "A grey, insulated jumpsuit made from a hardweave composite. Despite their cheap, mass-produced nature, this suit is seen on every caste from the lowliest Agrolyte to the Prodigium themselves."
+	path = /obj/item/clothing/under/skulk/skulkcasual
+	slot = ITEM_SLOT_JUMPSUIT
+
+/datum/gear/racial/skulk_robes
+	display_name = "Collective robes"
+	description = "A set of comfortable purple robes made from silk and faux gold, offers substantial protection from the cold. Worn by faithful commoners and Skkula-Kkavan zealots everywhere."
+	path = /obj/item/clothing/suit/collectiverobe
+	slot = ITEM_SLOT_OUTER_SUIT
+
+/datum/gear/racial/lowinquis
+	display_name = "Low-Inquisitor robes"
+	description = "A set of red and silver Collective robes with armor plates sewn into important areas. A common sight amongst the Collective Inquisition."
+	path = /obj/item/clothing/suit/hooded/lowinquis
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+
 /datum/gear/racial/plasmamansuit_coke
 	display_name = "Coke Suit"
 	description = "Plasmaman envirosuit designed by Space Cola Co and gifted to the people of Boron as part of an elaborate advertisement campaign."
@@ -53,3 +120,21 @@
 	display_name = "Tactical Suit"
 	description = "Plasmaman envirosuit supplied by black markets. Forged on Boron. Does not have suit sensors."
 	path = /obj/item/storage/box/tacticool_envirosuit
+
+/datum/gear/racial/plasmamansuit_chapbw
+	display_name = "Chaplain suit, black and white"
+	description = "Envirosuit for pious plasmamen in black and white."
+	path =/obj/item/storage/box/chapbw_envirosuit
+	allowed_roles = list("Chaplain")
+
+/datum/gear/racial/plasmamansuit_chapwg
+	display_name = "Chaplain suit, white and green"
+	description = "Envirosuit for pious plasmamen in white and green."
+	path = /obj/item/storage/box/chapwg_envirosuit
+	allowed_roles = list("Chaplain")
+
+/datum/gear/racial/plasmamansuit_chapco
+	display_name = "Chaplain suit, blue and orange"
+	description = "Envirosuit for pious plasmamen in blue and orange."
+	path = /obj/item/storage/box/chapco_envirosuit
+	allowed_roles = list("Chaplain")

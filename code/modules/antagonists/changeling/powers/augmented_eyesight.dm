@@ -2,10 +2,8 @@
 	name = "Augmented Eyesight"
 	desc = "Creates more light sensing rods in our eyes, allowing our vision to penetrate most blocking objects. Protects our vision from flashes while inactive."
 	helptext = "Grants us x-ray vision or flash protection. We will become a lot more vulnerable to flash-based devices while x-ray vision is active."
-	button_overlay_icon_state = "augmented_eyesight"
-	chemical_cost = 0
+	button_icon_state = "augmented_eyesight"
 	dna_cost = 4
-	active = FALSE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility
 
@@ -35,16 +33,16 @@
 /datum/action/changeling/augmented_eyesight/proc/update_eyes(mob/user)
 	var/obj/item/organ/internal/eyes/E = user.get_organ_slot("eyes")
 	if(!E)
-		to_chat(user, "<span class='warning'>We can't adjust our eyes if we don't have any!</span>")
+		to_chat(user, SPAN_WARNING("We can't adjust our eyes if we don't have any!"))
 		return
 	if(active)
 		E.vision_flags |= SEE_MOBS | SEE_OBJS | SEE_TURFS //Add sight flags to the user's eyes
 		E.flash_protect = FLASH_PROTECTION_SENSITIVE //Adjust the user's eyes' flash protection
 		E.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		to_chat(user, "<span class='notice'>We adjust our eyes to sense prey through walls.</span>")
+		to_chat(user, SPAN_NOTICE("We adjust our eyes to sense prey through walls."))
 	else
 		E.vision_flags = initial(E.vision_flags) //Remove sight flags from the user's eyes
 		E.flash_protect = FLASH_PROTECTION_WELDER //Adjust the user's eyes' flash protection
 		E.lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-		to_chat(user, "<span class='notice'>We adjust our eyes to protect them from bright lights.</span>")
+		to_chat(user, SPAN_NOTICE("We adjust our eyes to protect them from bright lights."))
 	user.update_sight()

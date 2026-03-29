@@ -1,34 +1,16 @@
-#For more details
-# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
-# https://docs.gitea.com/1.19/usage/issue-pull-request-templates
-#Be sure to check the docs
-#
-#Format
-#- type: | markdown | textarea | input | checkboxes |
-#  id:   | just an id, no actual relevance |
-#  attributes:
-#    label:       | Box title |
-#    description: | Box small text - Description |
-#
 name: "Issue Report"
-#title: "[Bug]: " | if you want to have a have it automatically say [Bug] when they start the form
 description: "File an issue report to make us aware of a bug or issue."
-#labels: [Bug] | Auto labels the post, as we do not use this, commenting out, purely as reference
-
 body:
   - type: markdown
     attributes:
-      value: Thanks for taking the time to fill out this issue report! Don't forget to give it a meaningful title so users can find the report easily.
-  - type: checkboxes
-    id: not_an_exploit
-    attributes:
-      label: ⚠️ Could this issue be an exploit? ⚠️
-      description: "[If your issue is an ingame exploit that allows players to gain an unfair advantage, or could affect server stability or security, please file it on the forum here.](https://www.paradisestation.org/forum/179-exploit-reports/)"
-      options:
-        - label: I confirm this issue does not give players an unfair advantage. (Required)
-          required: true
-        - label: I confirm this issue does not affect server stability or security. (Required)
-          required: true
+      value: >
+        Thank you for taking the time to complete this issue report.<br>
+        Please ensure the title is clear and descriptive to help others
+        locate and understand the report more easily.<br>
+
+        If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).<br>
+
+        What is an exploit? [Check out our documentation here for more information](https://devdocs.paradisestation.org/contributing/exploits/)!
 
   - type: input
     id: version

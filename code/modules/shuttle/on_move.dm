@@ -1,5 +1,6 @@
 // Shuttle on-movement //
 /atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_ON_SHUTTLE_MOVE, T1)
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
 		on_changed_z_level(oldT, newT)
@@ -9,14 +10,6 @@
 		shuttleRotate(rotation)
 	abstract_move(T1)
 	return 1
-
-/atom/movable/lighting_object/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
-	// lighting objects should not be moved from their parent turfs
-	return 0
-
-/obj/effect/landmark/shuttle_import/onShuttleMove()
-	// Used for marking where to preview/load shuttles
-	return 0
 
 /obj/docking_port/onShuttleMove()
 	// Stationary ports shouldn't move, mobile ones move themselves

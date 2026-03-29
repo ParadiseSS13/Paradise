@@ -8,6 +8,11 @@
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind
+	/// The current client inhabiting this mob. Managed by login/logout
+	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
+	/// We need to do this because the mob on logout never actually has a reference to client
+	/// We also need to clear this var/do other cleanup in client/Destroy, since that happens before logout
+	var/client/canon_client
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	rad_insulation_beta = RAD_MOB_INSULATION
 	rad_insulation_gamma = RAD_MOB_INSULATION
@@ -160,7 +165,7 @@
 
 	var/has_limbs = 1 //Whether this mob have any limbs he can move with
 
-	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
+	// Counts how many `Life()` ticks have occured on an SSD mob, for SSD handling. There isn't a `/mob`-level proc for SSD handling, so you must define one for any mob that you want to give SSD effects to.
 	var/player_logged = 0
 
 	//Ghosted var, set only if a player has manually ghosted out of this mob.
@@ -182,8 +187,6 @@
 	var/last_logout = 0
 
 	var/resize = 1 //Badminnery resize
-
-	var/datum/vision_override/vision_type = null //Vision override datum.
 
 	var/list/permanent_huds = list()
 
@@ -250,5 +253,14 @@
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
+	/// Allows a datum to intercept all click calls this mob is the source of.
+	/// This is *not* necessarily an instance of [/datum/click_intercept].
+	var/datum/click_interceptor
 
+	/// gunshot residue for det work. holds the caliber of any BALLISTIC weapon fired by this mob without gloves.
+	var/gunshot_residue
+	/// For storing what do_after's something has, key = string, value = amount of interactions of that type happening.
+	var/list/do_afters
 	new_attack_chain = TRUE
+
+	var/list/mousepointers = list()

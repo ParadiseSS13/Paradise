@@ -8,7 +8,6 @@
 	action_icon_state = "spacetime"
 
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	invocation = "none"
 	centcom_cancast = FALSE //Prevent people from getting to centcom
 	cooldown_min = 30 SECONDS //No reduction, just more range.
@@ -44,7 +43,7 @@
 	. = ..()
 	var/list/turf/to_switcharoo = targets
 	if(!length(to_switcharoo))
-		to_chat(user, "<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>")
+		to_chat(user, SPAN_WARNING("For whatever reason, the strings nearby aren't keen on being tangled."))
 		return
 
 	ready = FALSE
@@ -75,7 +74,6 @@
 /obj/effect/cross_action
 	name = "cross me"
 	desc = "for crossing."
-	anchored = TRUE
 
 /obj/effect/cross_action/spacetime_dist
 	name = "spacetime distortion"

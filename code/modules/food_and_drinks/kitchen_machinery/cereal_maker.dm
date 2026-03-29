@@ -22,3 +22,6 @@
 	var/obj/item/food/cereal/type = new(get_turf(src))
 	return type
 
+/obj/machinery/cooker/cerealmaker/wrench_act(mob/user, obj/item/I)
+	if(default_unfasten_wrench(user, I))
+		return TRUE

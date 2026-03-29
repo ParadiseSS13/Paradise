@@ -30,14 +30,13 @@
 	health = 1000
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
 	ranged_cooldown_time = 20
 	speed = 2
 	move_to_delay = 10
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/magic/repulse.ogg'
 	deathmessage = "'s lights flicker, before its top part falls down."
 	loot_drop = /obj/item/clothing/accessory/pandora_hope
@@ -57,26 +56,26 @@
 
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Chaser Burst"
-	button_overlay_icon_state = "singular_shot"
-	chosen_message = "<span class='boldwarning'>You fire a chaser after all mobs in view.</span>"
+	button_icon_state = "singular_shot"
+	chosen_message = SPAN_BOLDWARNING("You fire a chaser after all mobs in view.")
 	chosen_attack_num = CHASER_BURST
 
 /datum/action/innate/elite_attack/magic_box
 	name = "Magic Box"
-	button_overlay_icon_state = "magic_box"
-	chosen_message = "<span class='boldwarning'>You are now attacking with a box of magic squares.</span>"
+	button_icon_state = "magic_box"
+	chosen_message = SPAN_BOLDWARNING("You are now attacking with a box of magic squares.")
 	chosen_attack_num = MAGIC_BOX
 
 /datum/action/innate/elite_attack/pandora_teleport
 	name = "Line Teleport"
-	button_overlay_icon_state = "pandora_teleport"
-	chosen_message = "<span class='boldwarning'>You will now teleport to your target.</span>"
+	button_icon_state = "pandora_teleport"
+	chosen_message = SPAN_BOLDWARNING("You will now teleport to your target.")
 	chosen_attack_num = PANDORA_TELEPORT
 
 /datum/action/innate/elite_attack/aoe_squares
 	name = "AOE Blast"
-	button_overlay_icon_state = "aoe_squares"
-	chosen_message = "<span class='boldwarning'>Your attacks will spawn an AOE blast at your target location.</span>"
+	button_icon_state = "aoe_squares"
+	chosen_message = SPAN_BOLDWARNING("Your attacks will spawn an AOE blast at your target location.")
 	chosen_attack_num = AOE_SQUARES
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/OpenFire()
@@ -169,7 +168,7 @@
 	for(var/t in RANGE_TURFS(1, source))
 		new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(t, src, TRUE)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
-	visible_message("<span class='hierophant'>[src] fades out!</span>")
+	visible_message(SPAN_HIEROPHANT("[src] fades out!"))
 	set_density(FALSE)
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
@@ -177,7 +176,7 @@
 	forceMove(T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	set_density(TRUE)
-	visible_message("<span class='hierophant'>[src] fades in!</span>")
+	visible_message(SPAN_HIEROPHANT("[src] fades in!"))
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
 	ranged_cooldown = world.time + cooldown_time * 2
@@ -208,9 +207,6 @@
 	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "hope"
-	item_state = "hope"
-	item_color = "hope"
-	slot_flags = ITEM_SLOT_ACCESSORY
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 

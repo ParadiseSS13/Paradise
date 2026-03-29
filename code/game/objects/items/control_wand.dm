@@ -4,18 +4,17 @@
 #define WAND_SPEED "Change Closing Speed"
 
 /obj/item/door_remote
-	icon_state = "gangtool-white"
-	item_state = "electronic"
-	icon = 'icons/obj/device.dmi'
 	name = "control wand"
 	desc = "Remotely controls airlocks."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gangtool-white"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	flags = NOBLUDGEON
 	var/mode = WAND_OPEN
 	var/region_access = list()
 	var/additional_access = list()
 	var/obj/item/card/id/ID
-
 	new_attack_chain = TRUE
 
 /obj/item/door_remote/Initialize(mapload)
@@ -48,11 +47,11 @@
 		return
 	mode = choice
 
-	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
+	to_chat(user, SPAN_NOTICE("Now in mode: [mode]."))
 
 /obj/item/door_remote/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's current mode is: [mode]</span>"
+	. += SPAN_NOTICE("It's current mode is: [mode]")
 
 /obj/item/door_remote/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/machinery/door/airlock))
@@ -72,19 +71,19 @@
 
 /obj/item/door_remote/proc/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
-		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
+		to_chat(user, SPAN_DANGER("The door doesn't respond to [src]!"))
 		return
 
 	if(!(D.arePowerSystemsOn()))
-		to_chat(user, "<span class='danger'>[D] has no power!</span>")
+		to_chat(user, SPAN_DANGER("[D] has no power!"))
 		return
 
 	if(!D.requiresID())
-		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
+		to_chat(user, SPAN_DANGER("[D]'s ID scan is disabled!"))
 		return
 
 	if(!D.check_access(src.ID))
-		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
+		to_chat(user, SPAN_DANGER("[src] does not have access to this door."))
 		return
 
 	D.add_hiddenprint(user)
@@ -104,23 +103,23 @@
 			D.update_icon()
 		if(WAND_SPEED)
 			D.normalspeed = !D.normalspeed
-			to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
+			to_chat(user, SPAN_NOTICE("[D] is now in [D.normalspeed ? "normal" : "fast"] mode."))
 
 /obj/item/door_remote/proc/access_windoor(obj/machinery/door/window/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
-		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
+		to_chat(user, SPAN_DANGER("The door doesn't respond to [src]!"))
 		return
 
 	if(!D.has_power())
-		to_chat(user, "<span class='danger'>[D] has no power!</span>")
+		to_chat(user, SPAN_DANGER("[D] has no power!"))
 		return
 
 	if(!D.requiresID())
-		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
+		to_chat(user, SPAN_DANGER("[D]'s ID scan is disabled!"))
 		return
 
 	if(!D.check_access(ID))
-		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
+		to_chat(user, SPAN_DANGER("[src] does not have access to this door."))
 		return
 
 	D.add_hiddenprint(user)
@@ -131,11 +130,11 @@
 			else
 				D.close()
 		if(WAND_BOLT)
-			to_chat(user, "<span class='danger'>[D] has no bolting functionality.</span>")
+			to_chat(user, SPAN_DANGER("[D] has no bolting functionality."))
 		if(WAND_EMERGENCY)
-			to_chat(user, "<span class='danger'>[D] has no emergency access functionality.</span>")
+			to_chat(user, SPAN_DANGER("[D] has no emergency access functionality."))
 		if(WAND_SPEED)
-			to_chat(user, "<span class='danger'>[D] has no speed change functionality.</span>")
+			to_chat(user, SPAN_DANGER("[D] has no speed change functionality."))
 
 /obj/item/door_remote/omni
 	name = "omni door remote"
@@ -145,7 +144,7 @@
 
 /obj/item/door_remote/captain
 	name = "command door remote"
-	icon_state = "gangtool-yellow"
+	icon_state = "gangtool-blue"
 	region_access = list(REGION_COMMAND)
 
 /obj/item/door_remote/chief_engineer
@@ -165,17 +164,16 @@
 
 /obj/item/door_remote/quartermaster
 	name = "supply door remote"
-	icon_state = "gangtool-green"
+	icon_state = "gangtool-brown"
 	region_access = list(REGION_SUPPLY)
 
 /obj/item/door_remote/chief_medical_officer
 	name = "medical door remote"
-	icon_state = "gangtool-blue"
 	region_access = list(REGION_MEDBAY)
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
-	icon_state = "gangtool-white"
+	icon_state = "gangtool-green"
 	region_access = list(REGION_GENERAL)
 	additional_access = list(ACCESS_HOP)
 
@@ -189,7 +187,7 @@
 	name = "access tuner"
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
-	item_state = "hacktool"
+	inhand_icon_state = "hacktool"
 	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
 	/// How far can we use this. Leave `null` for infinite range
@@ -210,11 +208,11 @@
 		return
 
 	if(busy)
-		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
+		to_chat(user, SPAN_WARNING("[src] is alreading interfacing with a door!"))
 		return
 	icon_state = "hacktool-g"
 	busy = TRUE
-	to_chat(user, "<span class='notice'>[src] is attempting to interface with [target]...</span>")
+	to_chat(user, SPAN_NOTICE("[src] is attempting to interface with [target]..."))
 	if(do_after(user, hack_speed, target = target, hidden = TRUE))
 		busy = FALSE
 		icon_state = "hacktool"
@@ -234,7 +232,7 @@
 	name = "janitor's keyring"
 	desc = "An absolutely unwieldy set of keys attached to a metal ring. The keys on the ring allow you to access most Departmental entries and the Service Department!"
 	icon_state = "keyring"
-	item_state = "keyring"
+	inhand_icon_state = null
 	/// Are you already using the keyring?
 	var/busy = FALSE
 	/// This prevents spamming the key-shake.
@@ -243,7 +241,7 @@
 	var/hack_speed
 	/// Stores the last airlock opened, opens faster on repeated use
 	var/last_airlock_uid
-	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
+	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_ENGINEERING_GENERAL, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/Initialize(mapload)
 	. = ..()
@@ -251,13 +249,13 @@
 
 /obj/item/door_remote/janikeyring/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!</span>"
+	. += SPAN_NOTICE("This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!")
 
 /obj/item/door_remote/janikeyring/activate_self(mob/user)
 	if(..() || cooldown > world.time)
 		return
 
-	to_chat(user, "<span class='warning'>You shake [src]!</span>")
+	to_chat(user, SPAN_WARNING("You shake [src]!"))
 	playsound(src, 'sound/items/keyring_shake.ogg', 50)
 	cooldown = world.time + JANGLE_COOLDOWN
 
@@ -273,15 +271,15 @@
 	if(!istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/window))
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>You are already using [src] on the [target]'s access panel!</span>")
+		to_chat(user, SPAN_WARNING("You are already using [src] on the [target]'s access panel!"))
 		return
 	busy = TRUE
 	var/mob/living/carbon/human/H = user
 	if(H.mind.assigned_role == "Janitor" && last_airlock_uid == target.UID())
-		to_chat(user, "<span class='notice'>You recognize [target] and look for the key you used...</span>")
+		to_chat(user, SPAN_NOTICE("You recognize [target] and look for the key you used..."))
 		hack_speed = 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open [target]...</span>")
+		to_chat(user, SPAN_NOTICE("You fiddle with [src], trying different keys to open [target]..."))
 		if(H.mind.assigned_role != "Janitor")
 			hack_speed = rand(30, 60) SECONDS
 		else
@@ -296,37 +294,37 @@
 
 /obj/item/door_remote/janikeyring/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
-		to_chat(user, "<span class='danger'>[src] won't fit in the [D] airlock's access panel, there's slime everywhere!</span>")
+		to_chat(user, SPAN_DANGER("[src] won't fit in the [D] airlock's access panel, there's slime everywhere!"))
 		return
 
 	if(!D.arePowerSystemsOn())
-		to_chat(user, "<span class='danger'>The [D] airlock has no power!</span>")
+		to_chat(user, SPAN_DANGER("The [D] airlock has no power!"))
 		return
 
 	if(!D.check_access(ID))
-		to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D] airlock's access panel!</span>")
+		to_chat(user, SPAN_DANGER("[src] does not seem to have a key for the [D] airlock's access panel!"))
 		return
 
 	D.add_hiddenprint(user)
 	if(D.density)
 		D.open()
 	else
-		to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
+		to_chat(user, SPAN_DANGER("The [D] airlock is already open!"))
 
 /obj/item/door_remote/janikeyring/access_windoor(obj/machinery/door/window/D, mob/user)
 	if(!(D.has_power()))
-		to_chat(user, "<span class='danger'>[D] has no power!</span>")
+		to_chat(user, SPAN_DANGER("[D] has no power!"))
 		return
 
 	if(!D.check_access(ID))
-		to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D]'s access panel!</span>")
+		to_chat(user, SPAN_DANGER("[src] does not seem to have a key for the [D]'s access panel!"))
 		return
 
 	D.add_hiddenprint(user)
 	if(D.density)
 		D.open()
 	else
-		to_chat(user, "<span class='danger'>The [D] is already open!</span>")
+		to_chat(user, SPAN_DANGER("The [D] is already open!"))
 
 #undef WAND_OPEN
 #undef WAND_BOLT

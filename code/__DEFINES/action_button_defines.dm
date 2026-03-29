@@ -12,11 +12,11 @@
 
 //Upper left (action buttons)
 
-#define ui_action_palette "WEST+0:23,NORTH-1:3"
-#define ui_action_palette_offset(north_offset) ("WEST+0:23,NORTH-[1+north_offset]:3")
+#define UI_ACTION_PALETTE "WEST+0:23,NORTH-1:3"
+#define UI_ACTION_PALETTE_OFFSET(north_offset) ("WEST+0:23,NORTH-[1+north_offset]:3")
 
-#define ui_palette_scroll "WEST+1:8,NORTH-6:28"
-#define ui_palette_scroll_offset(north_offset) ("WEST+1:8,NORTH-[6+north_offset]:15")
+#define UI_PALETTE_SCROLL "WEST+1:8,NORTH-6:28"
+#define UI_PALETTE_SCROLL_OFFSET(north_offset) ("WEST+1:8,NORTH-[6+north_offset]:15")
 // Defines relating to action button positions
 
 /// Whatever the base action datum thinks is best

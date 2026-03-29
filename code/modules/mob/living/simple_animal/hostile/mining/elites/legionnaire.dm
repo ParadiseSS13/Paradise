@@ -28,13 +28,11 @@
 	health = 1000
 	melee_damage_lower = 35
 	melee_damage_upper = 35
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "slashes its arms at"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
 	speed = 0.5 //Since it is mainly melee, this *should* be right
-	move_to_delay = 3
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/hallucinations/wail.ogg'
 	deathmessage = "'s arms reach out before it falls apart onto the floor, lifeless."
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
@@ -57,26 +55,26 @@
 
 /datum/action/innate/elite_attack/legionnaire_charge
 	name = "Legionnaire Charge"
-	button_overlay_icon_state = "legionnaire_charge"
-	chosen_message = "<span class='boldwarning'>You will attempt to grab your opponent and throw them.</span>"
+	button_icon_state = "legionnaire_charge"
+	chosen_message = SPAN_BOLDWARNING("You will attempt to grab your opponent and throw them.")
 	chosen_attack_num = LEGIONNAIRE_CHARGE
 
 /datum/action/innate/elite_attack/head_detach
 	name = "Release Head"
-	button_overlay_icon_state = "head_detach"
-	chosen_message = "<span class='boldwarning'>You will now detach your head or kill it if it is already released.</span>"
+	button_icon_state = "head_detach"
+	chosen_message = SPAN_BOLDWARNING("You will now detach your head or kill it if it is already released.")
 	chosen_attack_num = HEAD_DETACH
 
 /datum/action/innate/elite_attack/bonfire_teleport
 	name = "Bonfire Teleport"
-	button_overlay_icon_state = "bonfire_teleport"
-	chosen_message = "<span class='boldwarning'>You will leave a bonfire. Second use will let you swap positions with it indefintiely. Using this move on the same tile as your active bonfire removes it.</span>"
+	button_icon_state = "bonfire_teleport"
+	chosen_message = SPAN_BOLDWARNING("You will leave a bonfire. Second use will let you swap positions with it indefintiely. Using this move on the same tile as your active bonfire removes it.")
 	chosen_attack_num = BONFIRE_TELEPORT
 
 /datum/action/innate/elite_attack/spew_smoke
 	name = "Spew Smoke"
-	button_overlay_icon_state = "spew_smoke"
-	chosen_message = "<span class='boldwarning'>Your head will spew smoke in an area, wherever it may be.</span>"
+	button_icon_state = "spew_smoke"
+	chosen_message = SPAN_BOLDWARNING("Your head will spew smoke in an area, wherever it may be.")
 	chosen_attack_num = SPEW_SMOKE
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Destroy()
@@ -130,7 +128,7 @@
 		new /obj/effect/temp_visual/dragon_swoop/legionnaire(T)
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
-	visible_message("<span class='danger'>[src] prepares to charge!</span>")
+	visible_message(SPAN_DANGER("[src] prepares to charge!"))
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), dir_to_target, 0), 4)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran, list/hit_targets = list())
@@ -164,8 +162,8 @@
 		if(faction_check_mob(L))
 			charging = FALSE
 			return
-		visible_message("<span class='danger'>[src] tramples and kicks [L]!</span>")
-		to_chat(L, "<span class='userdanger'>[src] tramples you and kicks you away!</span>")
+		visible_message(SPAN_DANGER("[src] tramples and kicks [L]!"))
+		to_chat(L, SPAN_USERDANGER("[src] tramples you and kicks you away!"))
 		L.throw_at(throwtarget, 10, 1, src)
 		L.Weaken(1 SECONDS) //Pain Train has no breaks.
 		if(L in hit_targets)
@@ -210,7 +208,7 @@
 	icon_state = "legionnaire"
 	icon_living = "legionnaire"
 	icon_aggro = "legionnaire"
-	visible_message("<span class='danger'>The top of [src]'s spine leaks a black liquid, forming into a skull!</span>")
+	visible_message(SPAN_DANGER("The top of [src]'s spine leaks a black liquid, forming into a skull!"))
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
 	ranged_cooldown = world.time + 2 SECONDS * revive_multiplier()
@@ -219,7 +217,7 @@
 		mypile = newpile
 		mypile.myowner = src
 		playsound(get_turf(src),'sound/items/fultext_deploy.ogg', 200, 1)
-		visible_message("<span class='warning'>[src] summons a bonfire on [get_turf(src)]!</span>")
+		visible_message(SPAN_WARNING("[src] summons a bonfire on [get_turf(src)]!"))
 		return
 	else
 		var/turf/legionturf = get_turf(src)
@@ -229,9 +227,9 @@
 			return
 		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, 1)
 		playsound(legionturf,'sound/items/fultext_deploy.ogg', 200, 1)
-		visible_message("<span class='danger'>[src] melts down into a burning pile of bones!</span>")
+		visible_message(SPAN_DANGER("[src] melts down into a burning pile of bones!"))
 		forceMove(pileturf)
-		visible_message("<span class='danger'>[src] forms from the bonfire!</span>")
+		visible_message(SPAN_DANGER("[src] forms from the bonfire!"))
 		mypile.forceMove(legionturf)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/spew_smoke()
@@ -242,11 +240,11 @@
 	else
 		smoke_location = myhead
 	if(myhead != null)
-		myhead.visible_message("<span class='danger'>[myhead] spews smoke from its maw!</span>")
+		myhead.visible_message(SPAN_DANGER("[myhead] spews smoke from its maw!"))
 	else if(!has_head)
-		visible_message("<span class='danger'>[src] spews smoke from the tip of their spine!</span>")
+		visible_message(SPAN_DANGER("[src] spews smoke from the tip of their spine!"))
 	else
-		visible_message("<span class='danger'>[src] spews smoke from its maw!</span>")
+		visible_message(SPAN_DANGER("[src] spews smoke from its maw!"))
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(6, FALSE, smoke_location)
 	smoke.attach(smoke_location)
@@ -290,7 +288,6 @@
 	max_integrity = 100
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	anchored = TRUE
-	density = FALSE
 	light_range = 4
 	light_color = LIGHT_COLOR_FLARE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
@@ -318,7 +315,6 @@
 
 //The visual effect which appears in front of legionnaire when he goes to charge.
 /obj/effect/temp_visual/dragon_swoop/legionnaire
-	duration = 10
 
 /obj/effect/temp_visual/dragon_swoop/legionnaire/Initialize(mapload)
 	. = ..()
@@ -342,9 +338,8 @@
 /obj/item/crusher_trophy/legionnaire_spine/on_mark_detonation(mob/living/target, mob/living/user)
 	if(!prob(bonus_value) || target.stat == DEAD)
 		return
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(user.loc)
-	A.GiveTarget(target)
-	A.friends += user
+	var/mob/living/basic/mining/hivelordbrood/legion/A = new /mob/living/basic/mining/hivelordbrood/legion(user.loc)
+	A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 	A.faction = user.faction.Copy()
 
 /obj/item/crusher_trophy/legionnaire_spine/attack_self__legacy__attackchain(mob/user)
@@ -352,12 +347,11 @@
 		return
 	var/mob/living/LivingUser = user
 	if(next_use_time > world.time)
-		LivingUser.visible_message("<span class='warning'>[LivingUser] shakes the [src], but nothing happens...</span>")
+		LivingUser.visible_message(SPAN_WARNING("[LivingUser] shakes the [src], but nothing happens..."))
 		to_chat(LivingUser, "<b>You need to wait longer to use this again.</b>")
 		return
-	LivingUser.visible_message("<span class='warning'>[LivingUser] shakes the [src] and summons a legion skull!</span>")
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/LegionSkull = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(LivingUser.loc)
-	LegionSkull.friends += LivingUser
+	LivingUser.visible_message(SPAN_WARNING("[LivingUser] shakes the [src] and summons a legion skull!"))
+	var/mob/living/basic/mining/hivelordbrood/legion/LegionSkull = new /mob/living/basic/mining/hivelordbrood/legion(LivingUser.loc)
 	LegionSkull.faction = LivingUser.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
 

@@ -43,6 +43,14 @@
 
 #define TIMER_COOLDOWN_END(cd_source, cd_index) LAZYREMOVE(cd_source.cooldowns, cd_index)
 
+
+/// Checks if a timer based cooldown is NOT finished.
+#define TIMER_COOLDOWN_RUNNING(cd_source, cd_index) LAZYACCESS(cd_source.cooldowns, cd_index)
+
+/// Checks if a timer based cooldown is finished.
+#define TIMER_COOLDOWN_FINISHED(cd_source, cd_index) (!TIMER_COOLDOWN_RUNNING(cd_source, cd_index))
+
+
 /*
  * Stoppable timer cooldowns.
  * Use indexes the same as the regular tiemr cooldowns.

@@ -91,11 +91,12 @@
 	if(isnull(LAZYACCESS(occupants, grant_to)) || !actiontype)
 		return FALSE
 	LAZYINITLIST(occupant_actions[grant_to])
-	if(occupant_actions[grant_to][actiontype])
+	var/list/occupant_action_list = occupant_actions[grant_to]
+	if(occupant_action_list[actiontype])
 		return TRUE
 	var/datum/action/action = generate_action_type(actiontype)
 	action.Grant(grant_to)
-	occupant_actions[grant_to][action.type] = action
+	occupant_action_list[action.type] = action
 	return TRUE
 
 /**
@@ -112,8 +113,9 @@
 	if(isnull(LAZYACCESS(occupants, take_from)) || !actiontype)
 		return FALSE
 	LAZYINITLIST(occupant_actions[take_from])
-	if(occupant_actions[take_from][actiontype])
-		var/datum/action/action = occupant_actions[take_from][actiontype]
+	var/list/occupant_action_list = occupant_actions[take_from]
+	if(occupant_action_list[actiontype])
+		var/datum/action/action = occupant_action_list[actiontype]
 		// Actions don't dissipate on removal, they just sit around assuming they'll be reusued
 		// Gotta qdel
 		qdel(action)
@@ -176,9 +178,10 @@
 /obj/tgvehicle/proc/cleanup_actions_for_mob(mob/M)
 	if(!istype(M))
 		return FALSE
-	for(var/path in occupant_actions[M])
+	var/list/occupant_action_list = occupant_actions[M]
+	for(var/path in occupant_action_list)
 		stack_trace("Leftover action type [path] in vehicle type [type] for mob type [M.type] - THIS SHOULD NOT BE HAPPENING!")
-		var/datum/action/action = occupant_actions[M][path]
+		var/datum/action/action = occupant_action_list[path]
 		action.Remove(M)
 		occupant_actions[M] -= path
 	occupant_actions -= M
@@ -188,9 +191,9 @@
 
 /datum/action/vehicle
 	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
-	button_background_icon = 'icons/mob/actions/actions_vehicle.dmi'
-	button_overlay_icon = 'icons/mob/actions/actions_vehicle.dmi'
-	button_overlay_icon_state = "vehicle_eject"
+	background_icon = 'icons/mob/actions/actions_vehicle.dmi'
+	button_icon = 'icons/mob/actions/actions_vehicle.dmi'
+	button_icon_state = "vehicle_eject"
 	var/obj/tgvehicle/vehicle_target
 	var/obj/tgvehicle/vehicle_ridden_target
 
@@ -201,7 +204,7 @@
 /datum/action/vehicle/skateboard/ollie
 	name = "Ollie"
 	desc = "Get some air! Land on a table or fence to do a gnarly grind."
-	button_overlay_icon_state = "skateboard_ollie"
+	button_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/vehicle/skateboard/ollie/Trigger(left_click)
@@ -219,7 +222,7 @@
 		vehicle.unbuckle_mob(rider)
 		rider.throw_at(landing_turf, 2, 2)
 		rider.Weaken(5 SECONDS)
-		vehicle.visible_message("<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>")
+		vehicle.visible_message(SPAN_DANGER("[rider] misses the landing and falls on [rider.p_their()] face!"))
 		return
 	if((locate(/obj/structure/table) in landing_turf) || (locate(/obj/structure/railing) in landing_turf))
 		vehicle.grinding = TRUE
@@ -251,7 +254,7 @@
 /datum/action/vehicle/skateboard/kickflip
 	name = "Kickflip"
 	desc = "Kick your board up and catch it."
-	button_overlay_icon_state = "skateboard_ollie"
+	button_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/vehicle/skateboard/kickflip/Trigger(left_click)
@@ -265,21 +268,21 @@
 		rider.Weaken(5 SECONDS)
 		if(prob(15))
 			rider.visible_message(
-				"<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>",
-				"<span class='userdanger'>You smack against the board, hard.</span>",
+				SPAN_DANGER("[rider] misses the landing and falls on [rider.p_their()] face!"),
+				SPAN_USERDANGER("You smack against the board, hard."),
 			)
 			rider.emote("scream")
 			rider.adjustBruteLoss(10)  // thats gonna leave a mark
 			return
 		rider.visible_message(
-			"<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>",
-			"<span class='userdanger'>You fall flat onto the board!</span>",
+			SPAN_DANGER("[rider] misses the landing and falls on [rider.p_their()] face!"),
+			SPAN_USERDANGER("You fall flat onto the board!"),
 		)
 		return
 
 	rider.visible_message(
-		"<span class='notice'>[rider] does a sick kickflip and catches [rider.p_their()] board in midair.</span>",
-		"<span class='notice'>You do a sick kickflip, catching the board in midair! Stylish.</span>",
+		SPAN_NOTICE("[rider] does a sick kickflip and catches [rider.p_their()] board in midair."),
+		SPAN_NOTICE("You do a sick kickflip, catching the board in midair! Stylish."),
 	)
 	playsound(board, 'sound/effects/skateboard_ollie.ogg', 50, vary = TRUE)
 	rider.spin(spintime = 4, speed = 1)
@@ -287,3 +290,116 @@
 	animate(board, pixel_y = -6, time = 0.3 SECONDS)
 	board.unbuckle_mob(rider)
 	addtimer(CALLBACK(board, TYPE_PROC_REF(/obj/tgvehicle/scooter/skateboard, pick_up_board), rider), 0.5 SECONDS)  // so the board can still handle "picking it up"
+
+/datum/action/vehicle/sealed
+	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
+	var/obj/tgvehicle/sealed/vehicle_entered_target
+
+/datum/action/vehicle/sealed/Destroy()
+	vehicle_entered_target = null
+	return ..()
+
+/datum/action/vehicle/sealed/climb_out
+	name = "Climb Out"
+	desc = "Climb out of your vehicle!"
+	button_icon_state = "car_eject"
+
+/datum/action/vehicle/sealed/climb_out/Trigger(trigger_flags)
+	if(..() && istype(vehicle_entered_target))
+		vehicle_entered_target.mob_try_exit(owner, owner)
+
+/datum/action/vehicle/sealed/remove_key
+	name = "Remove key"
+	desc = "Take your key out of the vehicle's ignition."
+	button_icon_state = "car_removekey"
+
+/datum/action/vehicle/sealed/remove_key/Trigger(trigger_flags)
+	vehicle_entered_target.remove_key(owner)
+
+// Clown car stuff
+/datum/action/vehicle/sealed/horn
+	name = "Honk Horn"
+	desc = "Honk your classy horn."
+	button_icon_state = "car_horn"
+	var/horn_sound = 'sound/items/airhorn.ogg'
+	var/horn_cooldown = 60
+	var/last_horn = 0
+
+/datum/action/vehicle/sealed/horn/Trigger(trigger_flags)
+	if(last_horn + horn_cooldown > world.time)
+		return
+	last_horn = world.time
+	vehicle_entered_target.visible_message(SPAN_WARNING("[vehicle_entered_target] loudly honks!"))
+	to_chat(owner, "<span class=notice'>You press [vehicle_entered_target]'s horn.</span>")
+	if(istype(vehicle_entered_target.inserted_key, /obj/item/bikehorn))
+		playsound(vehicle_entered_target, 'sound/items/bikehorn.ogg', 75) // The bikehorn plays a sound instead
+		return
+	playsound(vehicle_entered_target, horn_sound, 75)
+
+/datum/action/vehicle/sealed/headlights
+	name = "Toggle Headlights"
+	desc = "Turn on your brights!"
+	button_icon_state = "car_headlights"
+
+/datum/action/vehicle/sealed/headlights/Trigger(trigger_flags)
+	to_chat(owner, "<span class=notice'>You flip the switch for the vehicle's headlights.</span>")
+	vehicle_entered_target.headlights_toggle = !vehicle_entered_target.headlights_toggle
+	if(vehicle_entered_target.headlights_toggle)
+		vehicle_entered_target.set_light(vehicle_entered_target.headlight_range, vehicle_entered_target.headlight_power)
+	else
+		vehicle_entered_target.remove_light()
+	vehicle_entered_target.update_appearance()
+	playsound(owner, vehicle_entered_target.headlights_toggle ? 'sound/weapons/gun_interactions/pistol_magin.ogg' : 'sound/weapons/gun_interactions/pistol_magout.ogg', 40, TRUE)
+
+/datum/action/vehicle/sealed/dump_kidnapped_mobs
+	name = "Dump Kidnapped Mobs"
+	desc = "Dump all objects and people in your car on the floor."
+	button_icon_state = "car_dump"
+
+/datum/action/vehicle/sealed/dump_kidnapped_mobs/Trigger(trigger_flags)
+	vehicle_entered_target.visible_message(SPAN_WARNING("[vehicle_target] starts dumping the people inside of it."))
+	vehicle_entered_target.dump_specific_mobs(VEHICLE_CONTROL_KIDNAPPED)
+
+
+/datum/action/vehicle/sealed/roll_the_dice
+	name = "Press Colorful Button"
+	desc = "Press one of those colorful buttons on your display panel!"
+	button_icon_state = "car_rtd"
+
+/datum/action/vehicle/sealed/roll_the_dice/Trigger(trigger_flags)
+	if(!istype(vehicle_entered_target, /obj/tgvehicle/sealed/car/clowncar))
+		return
+	var/obj/tgvehicle/sealed/car/clowncar/C = vehicle_entered_target
+	C.roll_the_dice(owner)
+
+/datum/action/vehicle/sealed/cannon
+	name = "Toggle Siege Mode"
+	desc = "Destroy them with their own fodder!"
+	button_icon_state = "car_cannon"
+
+/datum/action/vehicle/sealed/cannon/Trigger(trigger_flags)
+	if(!istype(vehicle_entered_target, /obj/tgvehicle/sealed/car/clowncar))
+		return
+	var/obj/tgvehicle/sealed/car/clowncar/C = vehicle_entered_target
+	C.toggle_cannon(owner)
+
+
+/datum/action/vehicle/sealed/thank
+	name = "Thank the Clown Car Driver"
+	desc = "They're just doing their job."
+	button_icon_state = "car_thanktheclown"
+	COOLDOWN_DECLARE(thank_time_cooldown)
+
+/datum/action/vehicle/sealed/thank/Trigger(trigger_flags)
+	if(!istype(vehicle_entered_target, /obj/tgvehicle/sealed/car/clowncar))
+		return
+	if(!COOLDOWN_FINISHED(src, thank_time_cooldown))
+		return
+	COOLDOWN_START(src, thank_time_cooldown, 6 SECONDS)
+	var/obj/tgvehicle/sealed/car/clowncar/clown_car = vehicle_entered_target
+	var/list/mob/drivers = clown_car.return_drivers()
+	if(!length(drivers))
+		to_chat(owner, SPAN_WARNING("You prepare to thank the driver, only to realize that they don't exist."))
+		return
+	var/mob/clown = pick(drivers)
+	owner.say("Thank you for the fun ride, [clown.name]!")

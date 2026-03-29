@@ -12,8 +12,11 @@
 	light_power = 0.25
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	intact = FALSE
+	rust_resistance = RUST_RESISTANCE_ABSOLUTE
 
 	atmos_mode = ATMOS_MODE_SPACE
+
+	rad_insulation_alpha = RAD_NO_INSULATION
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -43,22 +46,15 @@
 		update_light()
 
 	if(opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/BeforeChange()
+/turf/space/BeforeChange()
 	..()
-	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-	S.remove_from_transit(src)
+
 	if(light_sources) // Turn off starlight, if present
 		set_light(0)
-
-/turf/AfterChange(ignore_air, keep_cabling = FALSE)
-	..()
-	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-	S.add_to_transit(src)
-	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
 	if(GLOB.configuration.general.starlight)
@@ -76,24 +72,24 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
 		if(W)
-			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
+			to_chat(user, SPAN_WARNING("There is already a catwalk here!"))
 			return ITEM_INTERACT_COMPLETE
 		if(L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
+				to_chat(user, SPAN_NOTICE("You construct a catwalk."))
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 				new/obj/structure/lattice/catwalk(src)
 				return ITEM_INTERACT_COMPLETE
 			else
-				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
+				to_chat(user, SPAN_WARNING("You need two rods to build a catwalk!"))
 				return ITEM_INTERACT_COMPLETE
 		if(R.use(1))
-			to_chat(user, "<span class='notice'>Constructing support lattice...</span>")
+			to_chat(user, SPAN_NOTICE("Constructing support lattice..."))
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			ReplaceWithLattice()
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
+			to_chat(user, SPAN_WARNING("You need one rod to build a lattice."))
 			return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stack/tile/plasteel))
@@ -103,14 +99,14 @@
 			if(S.use(1))
 				qdel(L)
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You build a floor.</span>")
+				to_chat(user, SPAN_NOTICE("You build a floor."))
 				ChangeTurf(/turf/simulated/floor/plating)
 				return ITEM_INTERACT_COMPLETE
 			else
-				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+				to_chat(user, SPAN_WARNING("You need one floor tile to build a floor!"))
 				return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
+			to_chat(user, SPAN_WARNING("The plating is going to need some support! Place metal rods first."))
 			return ITEM_INTERACT_COMPLETE
 
 	return ..()

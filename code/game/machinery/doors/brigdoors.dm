@@ -15,7 +15,6 @@
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE    		// can't pick it up
-	density = FALSE       		// can walk through it.
 	layer = WALL_OBJ_LAYER
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
@@ -27,7 +26,6 @@
 	var/printed = 0
 	var/datum/data/record/prisoner
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 	var/occupant = CELL_NONE
 	var/crimes = CELL_NONE
@@ -331,7 +329,7 @@
 	if(..())
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, SPAN_WARNING("Access denied."))
 		return
 	. = TRUE
 	switch(action)
@@ -375,7 +373,7 @@
 			if(timing)
 				var/reset_reason = tgui_input_text(usr, "Reason for resetting timer:", name)
 				if(!reset_reason)
-					to_chat(usr, "<span class='warning'>Cancelled reset: reason field is required.</span>")
+					to_chat(usr, SPAN_WARNING("Cancelled reset: reason field is required."))
 					return FALSE
 				releasetime = world.timeofday + timetoset
 				var/resettext = isobserver(usr) ? "for: [reset_reason]." : "by [usr.name] for: [reset_reason]."
@@ -396,7 +394,7 @@
 		if("flash")
 			for(var/obj/machinery/flasher/F in targets)
 				if(F.last_flash && (F.last_flash + 150) > world.time)
-					to_chat(usr, "<span class='warning'>Flash still charging.</span>")
+					to_chat(usr, SPAN_WARNING("Flash still charging."))
 				else
 					F.flash()
 		else

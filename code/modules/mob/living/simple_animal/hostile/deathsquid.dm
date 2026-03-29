@@ -3,7 +3,6 @@
 	desc = "A large, floating eldritch horror. Its body glows with an evil red light, and its tentacles look to have been dipped in alien blood."
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 
-	speed = 1
 	speak_emote = list("telepathically thunders", "telepathically booms")
 	maxHealth = 2500 // same as megafauna
 	health = 2500
@@ -17,7 +16,7 @@
 
 	attacktext = "slices"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	armour_penetration_percentage = 40
+	armor_penetration_percentage = 40
 	melee_damage_lower = 10
 	melee_damage_upper = 100
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
@@ -29,8 +28,6 @@
 
 	see_in_dark = 8
 	mob_size = MOB_SIZE_LARGE
-	ventcrawler = VENTCRAWLER_NONE
-	gold_core_spawnable = NO_SPAWN
 
 
 
@@ -46,7 +43,6 @@
 	maxHealth = 200
 	health = 200
 	speed = 3
-	armour_penetration_flat = 5
-	melee_damage_lower = 10
+	armor_penetration_flat = 5
 	melee_damage_upper = 20
 	environment_smash = 2

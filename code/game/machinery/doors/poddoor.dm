@@ -39,7 +39,7 @@
 	return
 
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, SPAN_NOTICE("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door/poddoor/Bumped(atom/AM)
@@ -76,14 +76,14 @@
 	if(!density)
 		return
 	if(!hasPower() && !(resistance_flags & INDESTRUCTIBLE))
-		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
+		to_chat(user, SPAN_NOTICE("You start forcing [src] open..."))
 		if(do_after(user, 50 * I.toolspeed, target = src))
 			if(!hasPower())
 				open()
 			else
-				to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+				to_chat(user, SPAN_WARNING("[src] resists your efforts to force it!"))
 	else
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, SPAN_WARNING("[src] resists your efforts to force it!"))
 
  // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
  // Wise words. - Bxil
@@ -91,7 +91,6 @@
 	name = "large pod door"
 	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
 	layer = CLOSED_BLASTDOOR_LAYER
-	closingLayer = CLOSED_BLASTDOOR_LAYER
 	width = 2
 
 /obj/machinery/door/poddoor/multi_tile/triple
@@ -104,10 +103,8 @@
 
 /obj/machinery/door/poddoor/multi_tile/impassable
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
-	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
-	width = 2
 
 /obj/machinery/door/poddoor/multi_tile/impassable/hostile_lockdown()
 	return
@@ -116,7 +113,7 @@
 	return
 
 /obj/machinery/door/poddoor/multi_tile/impassable/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, SPAN_NOTICE("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door/poddoor/multi_tile/impassable/triple

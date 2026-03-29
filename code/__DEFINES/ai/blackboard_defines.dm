@@ -14,6 +14,10 @@
 #define BB_BASIC_MOB_FLEE_TARGET_HIDING_LOCATION "BB_BASIC_FLEE_TARGET_HIDING_LOCATION"
 /// Key defining the targeting strategy for things to flee from
 #define BB_FLEE_TARGETING_STRATEGY "BB_FLEE_TARGETING_STRATEGY"
+/// are we ready to breed?
+#define BB_BREED_READY "BB_breed_ready"
+/// maximum kids we can have
+#define BB_MAX_CHILDREN "BB_max_children"
 /// Key defining how far we attempt to get away from something we're fleeing from
 #define BB_BASIC_MOB_FLEE_DISTANCE "BB_BASIC_FLEE_DISTANCE"
 #define DEFAULT_BASIC_FLEE_DISTANCE 9
@@ -47,6 +51,10 @@
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
 ///Blackboard key for a whitelist typecache of "things we can target while trying to move"
 #define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+/// some behaviors that check current_target also set this on deep crit mobs
+#define BB_BASIC_MOB_EXECUTION_TARGET "BB_basic_execution_target"
+/// Blackboard key storing how long your targeting strategy has held a particular target
+#define BB_BASIC_MOB_HAS_TARGET_TIME "BB_BASIC_MOB_HAS_TARGET_TIME"
 
 //Hunting BB keys
 
@@ -57,8 +65,39 @@
 /// Key that holds the cooldown for our hunting subtree
 #define BB_HUNTING_COOLDOWN(type) "BB_HUNTING_COOLDOWN_[type]"
 
+
+// Finding adult mob
+/// key holds the adult we found
+#define BB_FOUND_MOM "BB_found_mom"
+/// list of types of mobs we will look for
+#define BB_FIND_MOM_TYPES "BB_find_mom_types"
+/// list of types of mobs we must ignore
+#define BB_IGNORE_MOM_TYPES "BB_ignore_mom_types"
+
+// Baby-making blackboard
+/// Types of animal we can make babies with.
+#define BB_BABIES_PARTNER_TYPES "BB_babies_partner"
+/// Types of animal that we make as a baby.
+#define BB_BABIES_CHILD_TYPES "BB_babies_child"
+/// Current partner target
+#define BB_BABIES_TARGET "BB_babies_target"
+/// Timeout for finding partners when theres too many of us in 1 location
+#define BB_PARTNER_SEARCH_TIMEOUT "BB_partner_search_timeout"
+
+/// Chance to randomly acquire a new target
+#define BB_RANDOM_AGGRO_CHANCE "BB_random_aggro_chance"
+/// Chance to randomly drop all of our targets
+#define BB_RANDOM_DEAGGRO_CHANCE "BB_random_deaggro_chance"
+
+
 // Food and eating
 
+/// time until we should next eat, set by the generic hunger subtree
+#define BB_NEXT_HUNGRY "BB_NEXT_HUNGRY"
+/// what we're going to eat next
+#define BB_FOOD_TARGET "bb_food_target"
+/// are we hungry? determined by the udder component
+#define BB_CHECK_HUNGRY "BB_check_hungry"
 /// list of foods this mob likes
 #define BB_BASIC_FOODS "BB_BASIC_FOODS"
 /// key holding any food we've found
@@ -84,6 +123,12 @@
 #define BB_VENTCRAWL_DELAY "BB_VENTCRAWL_DELAY"
 /// key holding a range to look for vents (recommended: 10)
 #define BB_VENT_SEARCH_RANGE "BB_VENT_SEARCH_RANGE"
+
+// Ranged
+/// Minimum range to keep target within
+#define BB_RANGED_SKIRMISH_MIN_DISTANCE "BB_ranged_skirmish_min_distance"
+/// Maximum range to keep target within
+#define BB_RANGED_SKIRMISH_MAX_DISTANCE "BB_ranged_skirmish_max_distance"
 
 // Tipped blackboards
 
@@ -129,6 +174,14 @@
 /// gibtonite wall we need to run away from
 #define BB_MINEBOT_GIBTONITE_RUN "BB_MINEBOT_GIBTONITE_RUN"
 
+// Legion
+/// Corpse we have consumed
+#define BB_LEGION_CORPSE "legion_corpse"
+/// Things our target recently said
+#define BB_LEGION_RECENT_LINES "legion_recent_lines"
+/// The creator of our legion skull
+#define BB_LEGION_BROOD_CREATOR "legion_brood_creator"
+
 /// Blackboard field for the most recent command the pet was given
 #define BB_ACTIVE_PET_COMMAND "BB_ACTIVE_PET_COMMAND"
 
@@ -143,8 +196,14 @@
 /// List of strings used to apologize for attacking friends.
 #define BB_OWNER_FRIENDLY_FIRE_APOLOGIES "BB_FF_APOLOGIES"
 
+// Hivebot keys
+/// the hivebot partner we will go communicate with
+#define BB_HIVE_PARTNER "BB_HIVE_PARTNER"
 
 // Misc
+
+/// Target define for cleaning
+#define BB_CLEAN_TARGET "BB_clean_target"
 
 /// For /datum/ai_behavior/find_potential_targets, what if any field are we using currently
 #define BB_FIND_TARGETS_FIELD(type) "BB_FIND_TARGETS_FIELD_[type]"
@@ -159,3 +218,40 @@
 #define BB_INCURSION_HOME_PORTAL "BB_INCURSION_HOME_PORTAL"
 #define BB_INCURSION_HOME_PORTAL_TARGET "BB_INCURSION_HOME_PORTAL_TARGET"
 #define BB_PROWL_TARGET "BB_PROWL_TARGET"
+
+#define BB_TRAVEL_DESTINATION "BB_TRAVEL_DESTINATION"
+
+#define BB_SHAPESHIFT_ACTION "BB_SHAPESHIFT_ACTION"
+// Giant Spiders
+/// Our webbing target
+#define BB_SPIDER_WEB_TARGET "BB_spider_web_target"
+/// Key where we store the web-spinning ability
+#define BB_SPIDER_WEB_ACTION "BB_spider_web_action"
+/// Our wrapping target
+#define BB_SPIDER_WRAP_TARGET "BB_spider_wrap_target"
+/// Key where we define the wrapping ability
+#define BB_SPIDER_WRAP_ACTION "BB_spider_wrap_action"
+/// Key where we define the egg laying ability
+#define BB_SPIDER_EGG_LAYING_ACTION "BB_spider_egg_laying_action"
+/// Key used by changelings who control spiders
+#define BB_CHANGELING_SPIDER_ORDER "BB_changeling_spider_order"
+
+// Malf Drones
+/// Are we active?
+#define BB_MALF_DRONE_PASSIVE "BB_MALF_DRONE_PASSIVE"
+
+// bee keys
+/// the bee hive we live inside
+#define BB_CURRENT_HOME "BB_current_home"
+/// the hydro we will pollinate
+#define BB_TARGET_HYDRO "BB_target_hydro"
+
+// Goliath AI keys
+/// Key where we store the tentacleing ability
+#define BB_GOLIATH_TENTACLES "BB_GOLIATH_TENTACLES"
+/// Key where goliath stores a hole it wants to get into
+#define BB_GOLIATH_HOLE_TARGET "BB_GOLIATH_HOLE"
+
+// Nian Caterpillar Keys
+/// Key that stores the silk spin ability
+#define BB_NIAN_CATERPILLAR_SPIN_MOTHSILK_ACTION "BB_nian_caterpillar_spin_mothsilk_action"

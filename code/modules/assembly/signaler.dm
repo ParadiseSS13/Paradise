@@ -3,12 +3,10 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler
 	name = "remote signaling device"
 	desc = "Used to remotely activate devices. Allows for syncing when using a signaler on another."
-	icon_state = "signaller"
-	item_state = "signaler"
+	icon_state = "signaler"
 	materials = list(MAT_METAL = 400, MAT_GLASS = 120)
 	origin_tech = "magnets=1;bluespace=1"
 	wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE | ASSEMBLY_WIRE_RADIO_PULSE | ASSEMBLY_WIRE_RADIO_RECEIVE
-	secured = TRUE
 	bomb_name = "remote-control bomb"
 	/// Are we set to receieve a signal?
 	var/receiving = FALSE
@@ -28,10 +26,10 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += "The power light is [receiving ? "on" : "off"]"
-	. += "<span class='notice'>Alt+Click to send a signal.</span>"
+	. += SPAN_NOTICE("Alt+Click to send a signal.")
 
 /obj/item/assembly/signaler/AltClick(mob/user)
-	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	to_chat(user, SPAN_NOTICE("You activate [src]."))
 	activate()
 
 /obj/item/assembly/signaler/attackby__legacy__attackchain(obj/item/W, mob/user, params)

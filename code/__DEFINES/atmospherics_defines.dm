@@ -4,6 +4,8 @@
 #define GAS_CO2	(1 << 3)
 #define GAS_N2O	(1 << 4)
 #define GAS_A_B	(1 << 5)
+#define GAS_H2 	(1 << 6)
+#define GAS_H20 (1 << 7)
 
 //ATMOS
 //stuff you should probably leave well alone!
@@ -16,8 +18,8 @@
 /// -14C - Temperature used for kitchen cold room, medical freezer, etc.
 #define COLD_ROOM_TEMP			259.15
 
-/// -193C - Temperature used for server rooms
-#define SERVER_ROOM_TEMP			80
+/// 1C - Temperature used for server rooms
+#define SERVER_ROOM_TEMP			274
 
 #define MOLES_CELLSTANDARD		(ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))	//moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO		(MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
@@ -74,6 +76,17 @@
 #define MIN_TOXIC_GAS_DAMAGE				1
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
+#define MOLES_WATER_VAPOR_VISIBLE			2.0		//Moles in a standard cell after which water vapor is visible
+
+//HYDROGEN
+#define HYDROGEN_BURN_ENERGY				2500000
+#define HYDROGEN_MIN_IGNITE_TEMP			500
+
+//WATER VAPOR
+#define WATER_VAPOR_PER_PLASMA_BURNT        6
+#define WATER_VAPOR_REACTION_ENERGY         200
+#define H2_NEEDED_FOR_H2O					2
+#define O2_NEEDED_FOR_H2O					1
 
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE				550		//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
@@ -89,7 +102,7 @@
 #define BODYTEMP_AUTORECOVERY_MINIMUM		10		//Minimum amount of kelvin moved toward 310.15K per tick. So long as abs(310.15 - bodytemp) is more than 50.
 #define BODYTEMP_COLD_DIVISOR				6		//Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is lower than their body temperature. Make it lower to lose bodytemp faster.
 #define BODYTEMP_HEAT_DIVISOR				6		//Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is higher than their body temperature. Make it lower to gain bodytemp faster.
-#define BODYTEMP_COOLING_MAX				30		//The maximum number of degrees that your body can cool in 1 tick, when in a cold area.
+#define BODYTEMP_COOLING_MAX				-30		//The maximum number of degrees that your body can cool in 1 tick, when in a cold area.
 #define BODYTEMP_HEATING_MAX				30		//The maximum number of degrees that your body can heat up in 1 tick, when in a hot area.
 
 #define BODYTEMP_HEAT_DAMAGE_LIMIT			(BODYTEMP_NORMAL + 50) // The limit the human body can take before it starts taking damage from heat.
@@ -186,3 +199,13 @@
 #define ONLY_CHECK_EXT_PRESSURE 1
 /// Only release until we reach this pressure
 #define ONLY_CHECK_INT_PRESSURE 2
+
+// Defines to identify each individual gas (used for death_gas component)
+#define SPAWN_GAS_OXYGEN "oxygen"
+#define SPAWN_GAS_NITROGEN "nitrogen"
+#define SPAWN_GAS_N2O "sleepy_gas"
+#define SPAWN_GAS_CO2 "carbon_dioxide"
+#define SPAWN_GAS_PLASMA "plasma"
+#define SPAWN_GAS_AGENTB "plasma"
+#define SPAWN_GAS_HYDROGEN "hydrogen"
+#define SPAWN_GAS_WATER "water_vapor"

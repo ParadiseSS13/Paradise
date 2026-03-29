@@ -7,14 +7,13 @@
 	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_MEDICAL
 	supervisors = "the captain"
 	department_head = list("Captain")
-	selection_color = "#ffddf0"
+	selection_color = "#b8ebfa"
 	req_admin_notify = 1
 	department_account_access = TRUE
 	access = list(
 		ACCESS_CHEMISTRY,
 		ACCESS_CMO,
 		ACCESS_EVA,
-		ACCESS_GENETICS,
 		ACCESS_HEADS,
 		ACCESS_KEYCARD_AUTH,
 		ACCESS_MAINT_TUNNELS,
@@ -29,12 +28,17 @@
 		ACCESS_VIROLOGY,
 		ACCESS_WEAPONS
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
+	alt_titles = list("Medical Director", "Senior Physician")
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_MEDICAL = 1200)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/cmo
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Medical), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = HARD_DIFFICULTY
+	description = "The Chief Medical Officer has the responsibility of overseeing the Medical Department.\n\n\
+					Difficulties: Standard Operating Procedure (General, Medical), surgery, cloning, healing, virology, autopsies, communication"
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
@@ -57,7 +61,6 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
-
 /datum/outfit/job/cmo/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_MED_EXAMINE, JOB_TRAIT)
@@ -71,18 +74,26 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_MORGUE,
 		ACCESS_SURGERY
 	)
-	alt_titles = list("Surgeon","Nurse")
+	skeleton_access = list(
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY,
+	)
+	alt_titles = list("Surgeon", "Nurse", "Physician", "Medical Student", "Medical Resident")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/doctor
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Medical Doctors have the responsibility of performing medical care, including surgery and cloning of the dead.\n\n\
+					Difficulties: Surgery, cloning, healing"
 
 /datum/outfit/job/doctor
 	name = "Medical Doctor"
@@ -114,16 +125,26 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_MORGUE
 	)
+	skeleton_access = list(
+		ACCESS_SURGERY,
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY,
+	)
+	alt_titles = list("Mortician")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/coroner
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = LOW_DIFFICULTY
+	description = "The Coroner has the responsibility of organizing dead crew members and their belongings.\n\n\
+					Difficulties: Autopsies"
 
 /datum/outfit/job/coroner
 	name = "Coroner"
@@ -162,6 +183,8 @@
 				head = /obj/item/clothing/head/surgery/blue
 			if("Medical Doctor")
 				uniform = /obj/item/clothing/under/rank/medical/doctor
+			if("Physician")
+				uniform = /obj/item/clothing/under/rank/medical/doctor
 			if("Nurse")
 				if(H.gender == FEMALE)
 					if(prob(50))
@@ -182,24 +205,33 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_CHEMISTRY,
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_MINERAL_STOREROOM
 	)
-	alt_titles = list("Pharmacist","Pharmacologist")
+	skeleton_access = list(
+		ACCESS_MORGUE,
+		ACCESS_SURGERY,
+		ACCESS_VIROLOGY,
+	)
+	alt_titles = list("Pharmacist", "Pharmacologist")
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/chemist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Chemists have the responsibility of providing medicine to medical.\n\n\
+					Difficulties: Chemistry, menu navigation"
 
 /datum/outfit/job/chemist
 	name = "Chemist"
 	jobtype = /datum/job/chemist
 
 	uniform = /obj/item/clothing/under/rank/medical/chemist
+	r_pocket = /obj/item/storage/bag/chemistry
 	suit = /obj/item/clothing/suit/storage/labcoat/chemist
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
@@ -215,48 +247,6 @@
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_QUICK_HEATER, JOB_TRAIT)
 
-/datum/job/geneticist
-	title = "Geneticist"
-	flag = JOB_GENETICIST
-	department_flag = JOBCAT_MEDSCI
-	total_positions = 2
-	spawn_positions = 2
-	job_department_flags = DEP_FLAG_MEDICAL | DEP_FLAG_SCIENCE
-	supervisors = "the chief medical officer and the research director"
-	department_head = list("Chief Medical Officer", "Research Director")
-	selection_color = "#ffeef0"
-	access = list(
-		ACCESS_GENETICS,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MEDICAL,
-		ACCESS_MORGUE,
-		ACCESS_RESEARCH
-	)
-	minimal_player_age = 3
-	exp_map = list(EXP_TYPE_CREW = 180)
-	outfit = /datum/outfit/job/geneticist
-	standard_paycheck = CREW_PAY_MEDIUM
-
-/datum/outfit/job/geneticist
-	name = "Geneticist"
-	jobtype = /datum/job/geneticist
-
-	uniform = /obj/item/clothing/under/rank/rnd/geneticist
-	suit = /obj/item/clothing/suit/storage/labcoat/genetics
-	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_medsci
-	id = /obj/item/card/id/geneticist
-	suit_store = /obj/item/flashlight/pen
-	pda = /obj/item/pda/geneticist
-
-	backpack = /obj/item/storage/backpack/genetics
-	satchel = /obj/item/storage/backpack/satchel_gen
-	dufflebag = /obj/item/storage/backpack/duffel/genetics
-
-/datum/outfit/job/geneticist/on_mind_initialize(mob/living/carbon/human/H)
-	. = ..()
-	ADD_TRAIT(H.mind, TRAIT_GENETIC_BUDGET, JOB_TRAIT)
-
 /datum/job/virologist
 	title = "Virologist"
 	flag = JOB_VIROLOGIST
@@ -266,12 +256,18 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_VIROLOGY
+	)
+	skeleton_access = list(
+		ACCESS_MORGUE,
+		ACCESS_SURGERY,
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
 	)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
@@ -281,6 +277,9 @@
 	)
 	outfit = /datum/outfit/job/virologist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "The Virologist has the responsibility of manipulating and creating viruses as well as vaccines.\n\n\
+					Difficulties: Virus mutation, virus curing, virus mixing, menu navigation"
 
 
 /datum/outfit/job/virologist
@@ -288,6 +287,7 @@
 	jobtype = /datum/job/virologist
 
 	uniform = /obj/item/clothing/under/rank/medical/virologist
+	r_pocket = /obj/item/storage/bag/bio
 	suit = /obj/item/clothing/suit/storage/labcoat/virologist
 	shoes = /obj/item/clothing/shoes/white
 	mask = /obj/item/clothing/mask/surgical
@@ -313,15 +313,25 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
 		ACCESS_PSYCHIATRIST
 	)
+	skeleton_access = list(
+		ACCESS_MORGUE,
+		ACCESS_SURGERY,
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY,
+	)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = EASY_DIFFICULTY
+	description = "The Psychologist has the responsibility to keep the crew sane.\n\n\
+					Difficulties: Communication, menu navigation"
 
 /datum/outfit/job/psychiatrist
 	name = "Psychiatrist"
@@ -355,7 +365,7 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_CARGO,
 		ACCESS_EVA,
@@ -367,21 +377,31 @@
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
 		ACCESS_MORGUE,
-		ACCESS_PARAMEDIC
+		ACCESS_PARAMEDIC,
+		ACCESS_TELEPORTER
 	)
+	skeleton_access = list(
+		ACCESS_SURGERY,
+		ACCESS_CHEMISTRY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_VIROLOGY,
+	)
+	alt_titles = list("Emergency Medical Technician", "First Responder", "Rescue Technician")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic
-	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo."
+	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo, or space emergencies via the Teleporter near the Bridge."
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = LOW_DIFFICULTY
+	description = "The Paramedic has the responsibility of rescuing crew members from danger.\n\n\
+					Difficulties: Healing"
 
 /datum/outfit/job/paramedic
 	name = "Paramedic"
 	jobtype = /datum/job/paramedic
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
-	shoes = /obj/item/clothing/shoes/black
-	head = /obj/item/clothing/head/soft/blue
+	head = /obj/item/clothing/head/soft/paramedic
 	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med/para
 	id = /obj/item/card/id/paramedic

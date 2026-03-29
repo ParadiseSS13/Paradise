@@ -1,14 +1,14 @@
 /obj/item/gun/energy
-	icon_state = "energy"
 	name = "generic energy gun"
 	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon = 'icons/obj/guns/energy.dmi'
+	icon_state = "energy"
 	fire_sound_text = "laser blast"
 
 	/// What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
 	/// The specific type of power cell this gun has.
-	var/cell_type = /obj/item/stock_parts/cell
+	var/cell_type = /obj/item/stock_parts/cell/energy_gun
 	var/modifystate = 0
 	/// What projectiles can this gun shoot?
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
@@ -38,15 +38,17 @@
 	var/can_be_lensed = TRUE
 	/// Current lens
 	var/obj/item/smithed_item/lens/current_lens
+	/// The max damage multiplier a lens can apply to a energy gun. Use sparingly, primarly for stamina based weapons.
+	var/lens_damage_cap = 999
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
-	. += "<span class='notice'>Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]</span>"
+		. += SPAN_NOTICE("It is [round(cell.percent())]% charged.")
+	. += SPAN_NOTICE("Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]")
 	if(current_lens)
-		. += "<span class='notice'>Has a lens currently attached.</span>"
-		. += "<span class='notice'>Lenses can be removed with Alt-Click.</span>"
+		. += SPAN_NOTICE("Has a lens currently attached.")
+		. += SPAN_NOTICE("Lenses can be removed with Alt-Click.")
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
@@ -90,10 +92,10 @@
 	if(!istype(new_lens))
 		return
 	if(current_lens)
-		to_chat(user, "<span class='notice'>Your [src] already has a lens.</span>")
+		to_chat(user, SPAN_NOTICE("Your [src] already has a lens."))
 		return
 	if(new_lens.flags & NODROP || !user.transfer_item_to(new_lens, src))
-		to_chat(user, "<span class='warning'>[new_lens] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[new_lens] is stuck to your hand!"))
 		return
 	current_lens = new_lens
 	new_lens.on_attached(src)
@@ -103,7 +105,7 @@
 	if(!Adjacent(user))
 		return
 	if(!current_lens)
-		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
+		to_chat(user, SPAN_NOTICE("Your [src] has no lens to remove."))
 		return
 	user.put_in_hands(current_lens)
 	current_lens.on_detached()
@@ -113,7 +115,7 @@
 	select = clamp(select, 1, length(ammo_type)) // If we decrease ammo types while selecting a removed one, we want to make sure it doesnt try to select an out of bounds index
 	for(var/i = 1, i <= length(ammo_type), i++)
 		var/shottype = ammo_type[i]
-		shot = new shottype(src)
+		shot = new shottype(src, src)
 		ammo_type[i] = shot
 	shot = ammo_type[select]
 	fire_sound = shot.fire_sound
@@ -191,7 +193,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if(shot.select_name)
-		to_chat(user, "<span class='notice'>[src] is now set to [shot.select_name].</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now set to [shot.select_name]."))
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -215,19 +217,22 @@
 	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/inhand_ratio = CEILING((cell.charge / cell.maxcharge) * inhand_charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/new_inhand_icon_state = initial(inhand_icon_state) ? null : icon_state
+	var/new_worn_icon_state = initial(worn_icon_state) ? null : icon_state
 	new_icon_state = "[icon_state]_charge"
-	var/new_item_state = null
-	if(!initial(item_state))
-		new_item_state = icon_state
 	if(modifystate)
 		new_icon_state += "_[shot.select_name]"
-		if(new_item_state)
-			new_item_state += "[shot.select_name]"
-	if(new_item_state)
-		new_item_state += "[inhand_ratio]"
-		item_state = new_item_state
-	if(current_skin)
-		icon_state = current_skin
+		if(new_inhand_icon_state)
+			new_inhand_icon_state += "[shot.select_name]"
+		if(new_worn_icon_state)
+			new_worn_icon_state += "[shot.select_name]"
+	if(new_inhand_icon_state)
+		new_inhand_icon_state += "[inhand_ratio]"
+		inhand_icon_state = new_inhand_icon_state
+	if(new_worn_icon_state)
+		new_worn_icon_state += "[inhand_ratio]"
+		worn_icon_state = new_worn_icon_state
+	icon_state = current_skin || initial(icon_state)
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
@@ -256,20 +261,20 @@
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_shoot())
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
 		sleep(25)
 		if(user.is_holding(src))
-			user.visible_message("<span class='suicide'>[user] melts [user.p_their()] face off with [src]!</span>")
+			user.visible_message(SPAN_SUICIDE("[user] melts [user.p_their()] face off with [src]!"))
 			playsound(loc, fire_sound, 50, TRUE, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
 			update_icon()
 			return FIRELOSS
 		else
-			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
+			user.visible_message(SPAN_SUICIDE("[user] panics and starts choking to death!"))
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message(SPAN_SUICIDE("[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b>"))
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 

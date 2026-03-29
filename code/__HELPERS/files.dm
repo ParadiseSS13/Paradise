@@ -2,7 +2,7 @@
 /proc/wrap_file(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounceooc'>File load blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("File load blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
 		return
@@ -12,7 +12,7 @@
 /proc/wrap_file2text(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounceooc'>File load blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("File load blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
 		return
@@ -89,7 +89,7 @@
 /// Used because md5ing files stored in the rsc sometimes gives incorrect md5 results.
 /proc/md5asfile(file)
 	var/static/notch = 0
-	// Its importaint this code can handle md5filepath sleeping instead of hard blocking, if it's converted to use rust_g.
+	// Its importaint this code can handle md5filepath sleeping instead of hard blocking
 	var/filename = "tmp/md5asfile.[world.realtime].[world.timeofday].[world.time].[world.tick_usage].[notch]"
 	notch = WRAP(notch+1, 0, 2**15)
 	fcopy(file, filename)

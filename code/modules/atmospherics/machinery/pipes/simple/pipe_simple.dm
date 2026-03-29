@@ -7,7 +7,6 @@
 
 	volume = 70
 
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
 
 	var/obj/machinery/atmospherics/node1
@@ -69,7 +68,7 @@
 		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
-	src.visible_message("<span class='danger'>\The [src] bursts!</span>")
+	src.visible_message(SPAN_DANGER("\The [src] bursts!"))
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, FALSE, loc)
@@ -78,9 +77,9 @@
 
 /obj/machinery/atmospherics/pipe/simple/proc/normalize_dir()
 	if(dir==3)
-		dir = 1
+		dir = NORTH
 	else if(dir==12)
-		dir = 4
+		dir = EAST
 
 /obj/machinery/atmospherics/pipe/simple/Destroy()
 	. = ..()

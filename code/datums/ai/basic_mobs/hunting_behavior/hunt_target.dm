@@ -14,6 +14,7 @@
 	set_movement_target(controller, hunt_target)
 
 /datum/ai_behavior/hunt_target/perform(seconds_per_tick, datum/ai_controller/controller, hunting_target_key, hunting_cooldown_key)
+	. = ..()
 	var/mob/living/hunter = controller.pawn
 	var/atom/hunted = controller.blackboard[hunting_target_key]
 
@@ -58,6 +59,11 @@
 	always_reset_target = TRUE
 
 /datum/ai_behavior/hunt_target/interact_with_target/consume_ores/minebot
+	always_reset_target = TRUE
+	hunt_cooldown = 2 SECONDS
+	behavior_intent = INTENT_HELP
+
+/datum/ai_behavior/hunt_target/interact_with_target/clean
 	always_reset_target = TRUE
 	hunt_cooldown = 2 SECONDS
 	behavior_intent = INTENT_HELP

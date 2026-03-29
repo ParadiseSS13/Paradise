@@ -204,6 +204,15 @@
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
 
+/datum/supply_packs/organic/juice_boxes
+	name = "Stationside Juice Boxes Variety Pack"
+	contains = list(/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+	)
+	cost = 400
+	containername = "juice box box box"
+
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"
@@ -379,7 +388,8 @@
 
 /datum/supply_packs/organic/hydroponics/seeds
 	name = "Seeds Crate"
-	contains = list(/obj/item/seeds/chili,
+	contains = list(/obj/item/seeds/tower,
+					/obj/item/seeds/chili,
 					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
@@ -390,6 +400,8 @@
 					/obj/item/seeds/wheat/rice,
 					/obj/item/seeds/carrot,
 					/obj/item/seeds/sunflower,
+					/obj/item/seeds/lettuce,
+					/obj/item/seeds/onion,
 					/obj/item/seeds/chanter,
 					/obj/item/seeds/potato,
 					/obj/item/seeds/sugarcane)
@@ -421,7 +433,6 @@
 					/obj/item/seeds/eggplant/eggy,
 					/obj/item/seeds/random,
 					/obj/item/seeds/random)
-	cost = 200
 	containername = "exotic seeds crate"
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit
@@ -445,3 +456,11 @@
 					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 150
 	containername = "beekeeper suits"
+
+/datum/supply_packs/organic/bottler
+	name = "Bottler Unit Crate"
+	contains = list(/obj/machinery/bottler)
+	cost = 150
+	containertype = /obj/structure/largecrate
+	containername = "Bottler Unit Crate"
+

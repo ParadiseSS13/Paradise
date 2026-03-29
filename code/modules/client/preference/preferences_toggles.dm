@@ -32,16 +32,19 @@
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
+		if(PREFTOGGLE_TOGGLE3)
+			our_prefs.toggles3 ^= preftoggle_bitflag
+			to_chat(user, SPAN_NOTICE("[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
 		if(PREFTOGGLE_LIGHT)
 			our_prefs.light ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.light & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, SPAN_NOTICE("[(our_prefs.light & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)
@@ -307,6 +310,16 @@
 	if(user.prefs.sound & ~SOUND_DISCO)
 		usr.stop_sound_channel(CHANNEL_JUKEBOX)
 
+/datum/preference_toggle/toggle_post_credits
+	name = "Toggle Post-Round Credits"
+	description = "Toggle seeing the post-round credit popup."
+	preftoggle_bitflag = PREFTOGGLE_3_POSTCREDS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now see post-round credits."
+	disable_message = "You will no longer see post-round credits."
+	blackbox_message = "Toggle Post-Round Credits"
+
 /datum/preference_toggle/toggle_ghost_pda
 	name = "Toggle Ghost PDA messages"
 	description = "Toggle seeing PDA messages as an observer"
@@ -457,13 +470,13 @@
 
 /datum/preference_toggle/toggle_debug_logs
 	name = "Toggle Debug Log Messages"
-	description = "Disables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
+	description = "Enables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
 	preftoggle_bitflag = PREFTOGGLE_CHAT_DEBUGLOGS
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
 	rights_required = R_VIEWRUNTIMES | R_DEBUG
-	enable_message = "You now won't get debug logs."
-	disable_message = "You now will get debug logs."
+	enable_message = "You now will get debug logs."
+	disable_message = "You now won't get debug logs."
 	blackbox_message = "Debug logs toggled"
 
 /datum/preference_toggle/toggle_mctabs

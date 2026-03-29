@@ -6,8 +6,8 @@
 	if(user.a_intent == INTENT_HELP)
 		return FALSE
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-	target.visible_message("<span class='warning'>[user] karate chops [target]'s neck!</span>", \
-		"<span class='userdanger'>[user] karate chops your neck, rendering you unable to speak for a short time!</span>")
+	target.visible_message(SPAN_WARNING("[user] karate chops [target]'s neck!"), \
+		SPAN_USERDANGER("[user] karate chops your neck, rendering you unable to speak for a short time!"))
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 	target.AdjustSilence(20 SECONDS)

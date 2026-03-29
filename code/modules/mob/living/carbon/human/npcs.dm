@@ -2,18 +2,16 @@
 	name = "fancy uniform"
 	desc = "It looks like it was tailored for a monkey."
 	icon_state = "punpun"
-	item_color = "punpun"
+	worn_icon = 'icons/mob/clothing/under/misc.dmi'
 	species_restricted = list("Monkey")
 	species_exception = list(/datum/species/monkey)
-
-	icon = 'icons/obj/clothing/under/misc.dmi'
-	sprite_sheets = list("Monkey" = 'icons/mob/clothing/under/misc.dmi')
 
 /mob/living/carbon/human/monkey/punpun/Initialize(mapload)
 	. = ..()
 	name = "Pun Pun"
 	real_name = name
 	equip_to_slot(new /obj/item/clothing/under/punpun(src), ITEM_SLOT_JUMPSUIT)
+	ai_controller = new /datum/ai_controller/monkey/pun_pun(src)
 
 /mob/living/carbon/human/monkey/teeny/Initialize(mapload)
 	. = ..()
@@ -79,7 +77,7 @@
 	if(!picked || !isturf(picked))
 		return
 
-	visible_message("<span class='warning'>[src] blinks away!</span>", "<span class='danger'>Your instincts kick in, and you blink away!</span>")
+	visible_message(SPAN_WARNING("[src] blinks away!"), SPAN_DANGER("Your instincts kick in, and you blink away!"))
 	INVOKE_ASYNC(src, PROC_REF(after_the_attack), picked)
 
 	playsound(get_turf(src), 'sound/magic/blink.ogg', 50, TRUE)

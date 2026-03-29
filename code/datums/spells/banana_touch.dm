@@ -6,7 +6,6 @@
 	hand_path = /obj/item/melee/touch_attack/banana
 
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 
@@ -16,7 +15,6 @@
 	catchphrase = "NWOLC YRGNA"
 	on_use_sound = 'sound/items/AirHorn.ogg'
 	icon_state = "banana_touch"
-	item_state = "banana_touch"
 	var/is_apprentice_spell = FALSE
 
 /datum/spell/touch/banana/apprentice
@@ -29,7 +27,7 @@
 	. = ..()
 
 	if(is_apprentice_spell && iswizard(target) && target != user)
-		to_chat(user, "<span class='danger'>Seriously?! Honk THEM, not me!</span>")
+		to_chat(user, SPAN_DANGER("Seriously?! Honk THEM, not me!"))
 		return
 	if(!proximity_flag || target == user || blocked_by_antimagic || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return

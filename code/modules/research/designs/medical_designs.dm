@@ -2,6 +2,16 @@
 ////////////Medical Tools////////////////
 /////////////////////////////////////////
 
+/datum/design/reagent_scanner
+	name = "Reagent Scanner"
+	desc = "A device for identifying chemicals."
+	id = "reagent_scanner"
+	req_tech = list("magnets" = 2, "plasmatech" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
+	build_path = /obj/item/reagent_scanner
+	category = list("Medical")
+
 /datum/design/adv_reagent_scanner
 	name = "Advanced Reagent Scanner"
 	desc = "A device for identifying chemicals and their proportions."
@@ -50,6 +60,25 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200)
 	build_path = /obj/item/healthupgrade
+	category = list("Medical")
+
+/datum/design/automender
+	name = "Auto-mender"
+	id = "automender"
+	req_tech = list("biotech" = 7, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 3000, MAT_GLASS = 1000)
+	build_path = /obj/item/reagent_containers/applicator
+	category = list("Medical")
+
+/datum/design/epidermal_applicator
+	name = "Epidermal Applicator"
+	desc = "A pen-shaped device developed by Zeng-Hu Pharmaceuticals and used to apply synthetic skin to prosthetic limbs."
+	id = "epidermal_applicator"
+	req_tech = list("biotech" = 5, "materials" = 6, "engineering" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_SILVER = 500)
+	build_path = /obj/item/epidermal_applicator
 	category = list("Medical")
 
 /datum/design/handheld_defib
@@ -165,14 +194,37 @@
 	build_path = /obj/item/stack/nanopaste
 	category = list("Medical")
 
-/datum/design/reagent_scanner
-	name = "Reagent Scanner"
-	desc = "A device for identifying chemicals."
-	id = "reagent_scanner"
-	req_tech = list("magnets" = 2, "plasmatech" = 2)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
-	build_path = /obj/item/reagent_scanner
+/datum/design/skin_1
+	name = "level-1 synthetic skin plate"
+	desc = "A sheet of level-1 synthetic skin plating. Used as a cheap covering for cybernetic organs, is able to match the colour of the limb but not the texture."
+	id = "skin_1"
+	req_tech = list("biotech" = 1, "materials" = 1)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 20
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
+	build_path = /obj/item/stack/synthetic_skin
+	category = list("Medical")
+
+/datum/design/skin_2
+	name = "level-2 synthetic skin patch"
+	desc = "A sealed patch of synthetic skin. An improvement over the basic version, more water resistant and less prone to peeling off."
+	id = "skin_2"
+	req_tech = list("biotech" = 5, "materials" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 40
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_TITANIUM = 250)
+	build_path = /obj/item/stack/synthetic_skin/level_2
+	category = list("Medical")
+
+/datum/design/skin_3
+	name = "level-3 synthetic skin foam"
+	desc = "A nanite foam injector meeting the requirements of level-3 synthetic skin. The best one can buy, best used to hide major cybernetic alterations, for beauty or for infiltration."
+	id = "skin_3"
+	req_tech = list("biotech" = 7, "materials" = 7)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 2000, MAT_TITANIUM = 500, MAT_BLUESPACE = 250)
+	build_path = /obj/item/stack/synthetic_skin/level_3
 	category = list("Medical")
 
 /datum/design/scalpel_laser1
@@ -372,6 +424,17 @@
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
+	category = list("Medical")
+
+/datum/design/cyberimp_cargo
+	name = "Cargo Arm Implant"
+	desc = "A set of everything a cargo technician needs to have to do their job, besides a forklift. Designed to be installed on subject's arm."
+	id = "ci-cargo"
+	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/cargo
 	category = list("Medical")
 
 /datum/design/cyberimp_janitorial
@@ -613,7 +676,7 @@
 
 /datum/design/cyberimp_clownvoice
 	name = "Comical Implant"
-	desc = "<span class='sans'>Uh oh.</span>"
+	desc = SPAN_SANS("Uh oh.")
 	id = "ci-clownvoice"
 	req_tech = list("materials" = 2, "biotech" = 2)
 	build_type = PROTOLATHE | MECHFAB
@@ -776,6 +839,17 @@
 	build_path = /obj/item/organ/internal/liver/cybernetic
 	category = list("Medical")
 
+/datum/design/cybernetic_liver_u
+	name = "Upgraded Cybernetic Liver"
+	desc = "An upgraded cybernetic liver."
+	id = "cybernetic_liver_u"
+	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/liver/cybernetic/upgraded
+	category = list("Medical")
+
 /datum/design/cybernetic_kidneys
 	name = "Cybernetic Kidneys"
 	desc = "A cybernetic pair of kidneys."
@@ -785,6 +859,17 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
 	build_path = /obj/item/organ/internal/kidneys/cybernetic
+	category = list("Medical")
+
+/datum/design/cybernetic_kidneys_u
+	name = "Upgraded Cybernetic Kidneys"
+	desc = "An upgraded cybernetic pair of kidneys."
+	id = "cybernetic_kidneys_u"
+	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/kidneys/cybernetic/upgraded
 	category = list("Medical")
 
 /datum/design/cybernetic_heart

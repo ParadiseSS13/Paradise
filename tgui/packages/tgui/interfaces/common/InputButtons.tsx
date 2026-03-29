@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from '../../components';
+import { Box, Button, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 
@@ -13,58 +13,48 @@ type InputButtonsProps = {
   disabled?: boolean;
 };
 
-export const InputButtons = (props: InputButtonsProps, context) => {
-  const { act, data } = useBackend<InputButtonsData>(context);
+export const InputButtons = (props: InputButtonsProps) => {
+  const { act, data } = useBackend<InputButtonsData>();
   const { large_buttons, swapped_buttons } = data;
   const { input, message, disabled } = props;
   const submitButton = (
     <Button
       color="good"
-      content="Submit"
+      textAlign="center"
       bold={!!large_buttons}
       fluid={!!large_buttons}
-      onClick={() => act('submit', { entry: input })}
-      textAlign="center"
-      tooltip={large_buttons && message}
-      disabled={disabled}
+      tooltip={!!large_buttons && message}
+      disabled={!!disabled}
       width={!large_buttons && 6}
-    />
+      onClick={() => act('submit', { entry: input })}
+    >
+      Submit
+    </Button>
   );
   const cancelButton = (
     <Button
       color="bad"
-      content="Cancel"
+      textAlign="center"
       bold={!!large_buttons}
       fluid={!!large_buttons}
-      onClick={() => act('cancel')}
-      textAlign="center"
       width={!large_buttons && 6}
-    />
+      onClick={() => act('cancel')}
+    >
+      Cancel
+    </Button>
   );
 
   return (
-    <Flex fill align="center" direction={!swapped_buttons ? 'row' : 'row-reverse'} justify="space-around">
-      {large_buttons ? (
-        <Flex.Item grow ml={swapped_buttons ? 0.5 : 0} mr={!swapped_buttons ? 0.5 : 0}>
-          {cancelButton}
-        </Flex.Item>
-      ) : (
-        <Flex.Item>{cancelButton}</Flex.Item>
-      )}
+    <Stack fill align="center" direction={!swapped_buttons ? 'row' : 'row-reverse'} justify="space-around">
+      <Stack.Item grow={large_buttons}>{cancelButton}</Stack.Item>
       {!large_buttons && message && (
-        <Flex.Item>
+        <Stack.Item>
           <Box color="label" textAlign="center">
             {message}
           </Box>
-        </Flex.Item>
+        </Stack.Item>
       )}
-      {large_buttons ? (
-        <Flex.Item grow mr={swapped_buttons ? 0.5 : 0} ml={!swapped_buttons ? 0.5 : 0}>
-          {submitButton}
-        </Flex.Item>
-      ) : (
-        <Flex.Item>{submitButton}</Flex.Item>
-      )}
-    </Flex>
+      <Stack.Item grow={large_buttons}>{submitButton}</Stack.Item>
+    </Stack>
   );
 };

@@ -1,4 +1,6 @@
 /datum/event/wormholes
+	name =  "Wormholes"
+	role_weights = "Vent Clog"
 	announceWhen 			= 10
 	endWhen 				= 60
 
@@ -39,7 +41,6 @@
 	desc = "It looks highly unstable; It could close at any moment."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "anom"
-	failchance = 0
 
 /obj/effect/portal/wormhole/can_teleport(atom/movable/M)
 	. = ..()

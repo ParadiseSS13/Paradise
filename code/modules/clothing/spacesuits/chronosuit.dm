@@ -2,7 +2,6 @@
 	name = "chronosuit helmet"
 	desc = "A white helmet with an opaque blue visor."
 	icon_state = "chronohelmet"
-	item_state = "chronohelmet"
 	slowdown = 1
 	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -17,16 +16,13 @@
 	dropped()
 	return ..()
 
-
 /obj/item/clothing/suit/space/chronos
 	name = "chronosuit"
 	desc = "An advanced spacesuit equipped with teleportation and anti-compression technology."
 	icon_state = "chronosuit"
-	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
 	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	dyeable = FALSE
 
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
@@ -64,7 +60,7 @@
 	switch(severity)
 		if(1)
 			if(user && ishuman(user) && (user.wear_suit == src))
-				to_chat(user, "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>")
+				to_chat(user, SPAN_USERDANGER("Elecrtromagnetic pulse detected, shutting down systems to preserve integrity..."))
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/proc/chronowalk(mob/living/carbon/human/user)
@@ -181,10 +177,7 @@
 
 /obj/effect/chronos_cam
 	name = "chronosuit view"
-	density = FALSE
-	anchored = TRUE
 	invisibility = 101
-	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 

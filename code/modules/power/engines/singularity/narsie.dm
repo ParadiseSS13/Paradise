@@ -8,7 +8,6 @@
 	pixel_y = -85
 	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
 	dissipate = FALSE
-	move_self = TRUE
 	grav_pull = 5
 	consume_range = 6
 	gender = FEMALE
@@ -24,7 +23,6 @@
 	pixel_x = -236
 	pixel_y = -256
 	current_size = 12
-	move_self = TRUE //Do we move on our own?
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
@@ -97,7 +95,7 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!IS_CULTIST(M))
-				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
+				to_chat(M, SPAN_WARNING("You feel your sanity crumble away in an instant as you gaze upon [src.name]..."))
 				M.Stun(6 SECONDS)
 
 
@@ -146,7 +144,7 @@
 		return
 	if(!target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, SPAN_CULTLARGE("[uppertext(GET_CULT_DATA(entity_name, name))] HAS LOST INTEREST IN YOU"))
 	target = food
 	if(ishuman(target))
 		to_chat(target, "<span class ='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HUNGERS FOR YOUR SOUL</span>")

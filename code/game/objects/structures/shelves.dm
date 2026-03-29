@@ -15,19 +15,20 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	/// The current overlay of the top shelf. Used for interleaving objects and shelf layers for the illusion of depth.
 	var/image/shelf_overlay
 	var/build_stack_type = /obj/item/stack/sheet/metal
+	var/shelf_type = /datum/component/shelver/basic_shelf
 	COOLDOWN_DECLARE(spraypaint_cd)
 
 /obj/structure/shelf/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
-	AddComponent(/datum/component/shelver/basic_shelf, random_pickup_locations_ = istype(A, /area/station/maintenance) || istype(A, /area/ruin/lavaland_relay))
+	AddComponent(shelf_type, random_pickup_locations_ = istype(A, /area/station/maintenance) || istype(A, /area/ruin/lavaland_relay))
 	update_icon()
 	set_style(shelf_style)
 
 	if(mapload)
 		SEND_SIGNAL(src, COMSIG_SHELF_ADDED_ON_MAPLOAD)
 
-/obj/structure/shelf/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/obj/structure/shelf/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	var/obj/item/toy/crayon/spraycan/spraycan = I
 	if(!istype(spraycan))
 		return ..()
@@ -40,8 +41,8 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 		return ..()
 
 	if(!COOLDOWN_FINISHED(src, spraypaint_cd))
-		to_chat(user, "<span class='warning'>The paint on [src] is still drying!</span>")
-		return
+		to_chat(user, SPAN_WARNING("The paint on [src] is still drying!"))
+		return ITEM_INTERACT_COMPLETE
 
 	var/cur_idx = GLOB.shelf_colors.Find(shelf_style)
 	if(!cur_idx)
@@ -54,6 +55,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 
 	// Tiny cooldown to prevent constant spamming of the action
 	COOLDOWN_START(src, spraypaint_cd, 1 SECONDS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/shelf/proc/set_style(new_style)
 	if(shelf_style == new_style && !isnull(shelf_overlay))
@@ -73,10 +75,10 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		return FALSE
-	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, (2.5 SECONDS) * I.toolspeed, volume = I.tool_volume))
 		return
 
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	to_chat(user, SPAN_NOTICE("You disassemble [src]."))
 	deconstruct()
 
 /obj/structure/shelf/deconstruct(disassembled)
@@ -117,10 +119,21 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	shelf_style = "clockwork"
 	build_stack_type = /obj/item/stack/tile/brass
 
+/obj/structure/shelf/wood
+	name = "wooden shelf"
+	icon_state = "shelf_wood"
+	shelf_style = "wood"
+	build_stack_type = /obj/item/stack/sheet/wood
+
+/obj/structure/shelf/spice_rack
+	name = "spice rack"
+	icon_state = "shelf_spice_rack"
+	shelf_style = "spice_rack"
+	shelf_type = /datum/component/shelver/spice_rack
+
 /obj/structure/gunrack
 	name = "gun rack"
 	desc = "A rack for stowing firearms."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "gunrack"
 	layer = TABLE_LAYER
 	density = TRUE
@@ -144,7 +157,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return
 
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	to_chat(user, SPAN_NOTICE("You disassemble [src]."))
 	deconstruct()
 
 /obj/structure/gunrack/deconstruct(disassembled)
@@ -190,7 +203,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return
 
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	to_chat(user, SPAN_NOTICE("You disassemble [src]."))
 	deconstruct()
 
 /obj/structure/spear_rack/deconstruct(disassembled)

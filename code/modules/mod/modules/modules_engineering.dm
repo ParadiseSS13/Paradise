@@ -10,6 +10,7 @@
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/welding, /obj/item/mod/module/armor_booster)
 	overlay_state_inactive = "module_welding"
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 
 /obj/item/mod/module/welding/on_suit_activation()
 	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
@@ -50,6 +51,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/magboot)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	/// Slowdown added onto the suit.
 	var/slowdown_active = 0.5
 
@@ -81,10 +83,10 @@
 	desc = "A protoype module that improves the sensors on the modsuit to detect radiation on the user. \
 	Currently due to time restraints and a lack of lead on lavaland, it does not have a built in geiger counter or radiation protection."
 	icon_state = "radshield"
-	complexity = 0 //I'm setting this to zero for now due to it not currently increasing radiaiton armor. If we add giger counter / additional rad protecion to this, it should be 2. We denied radiation potions before, so this should NOT give full rad immunity on a engi modsuit
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	tgui_id = "rad_counter"
+	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
@@ -105,10 +107,11 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/tether)
 	cooldown_time = 4 SECONDS
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 
 /obj/item/mod/module/tether/on_use()
 	if(has_gravity(get_turf(src)))
-		to_chat(mod.wearer, "<span class='warning'>Too much gravity to use the tether!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("Too much gravity to use the tether!"))
 		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
 		return FALSE
 	return ..()
@@ -120,16 +123,16 @@
 	. = ..()
 	if(!.)
 		return
-	var/obj/item/projectile/tether = new /obj/item/projectile/tether(get_turf(mod.wearer))
+	var/obj/projectile/tether = new /obj/projectile/tether(get_turf(mod.wearer))
 	tether.original = target
 	tether.firer = mod.wearer
 	tether.preparePixelProjectile(target, mod.wearer)
 	tether.fire()
 	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
-	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/item/projectile/tether, make_chain))
+	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/projectile/tether, make_chain))
 	drain_power(use_power_cost)
 
-/obj/item/projectile/tether
+/obj/projectile/tether
 	name = "tether"
 	icon_state = "tether_projectile"
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
@@ -142,18 +145,18 @@
 	///How fast the tether will throw the user at the target
 	var/yank_speed = 1
 
-/obj/item/projectile/tether/proc/make_chain()
+/obj/projectile/tether/proc/make_chain()
 	if(firer)
 		chain = Beam(firer, chain_icon_state, icon, time = 10 SECONDS, maxdistance = range)
 
-/obj/item/projectile/tether/on_hit(atom/target)
+/obj/projectile/tether/on_hit(atom/target)
 	. = ..()
 	if(firer && isliving(firer))
 		var/mob/living/L = firer
 		L.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
 		L.throw_at(target, 15, yank_speed, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE), block_movement = FALSE)
 
-/obj/item/projectile/tether/Destroy()
+/obj/projectile/tether/Destroy()
 	QDEL_NULL(chain)
 	return ..()
 

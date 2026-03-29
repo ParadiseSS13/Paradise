@@ -5,8 +5,7 @@
 	layer = 3
 	plane = FLOOR_PLANE
 	anchored = TRUE
-	max_integrity = 200
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 50, acid = 30)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	var/uses = 20
 	var/cooldown_time = 10 SECONDS
 	var/cooldown_on = FALSE
@@ -14,7 +13,7 @@
 
 /obj/machinery/ai_slipper/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A small counter shows it has: [uses] use\s remaining.</span>"
+	. += SPAN_NOTICE("A small counter shows it has: [uses] use\s remaining.")
 
 /obj/machinery/ai_slipper/power_change()
 	if(!..())
@@ -31,10 +30,10 @@
 
 /obj/machinery/ai_slipper/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
-		to_chat(user, "<span class='warning'>[src] has no power or is broken!</span>")
+		to_chat(user, SPAN_WARNING("[src] has no power or is broken!"))
 		return
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return
 	Activate(user)
 
@@ -42,10 +41,10 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(!uses)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[src] is empty!"))
 		return
 	if(cooldown_on)
-		to_chat(user, "<span class='warning'>[src] is still recharging!</span>")
+		to_chat(user, SPAN_WARNING("[src] is still recharging!"))
 		return
 	else
 		new /obj/effect/particle_effect/foam(loc)

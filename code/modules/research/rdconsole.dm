@@ -190,12 +190,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(istype(used, /obj/item/disk/tech_disk)) t_disk = used
 		else if(istype(used, /obj/item/disk/design_disk)) d_disk = used
 		else
-			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
+			to_chat(user, SPAN_DANGER("Machine cannot accept disks in that format."))
 			return
 		if(!user.transfer_item_to(used, src))
 			return
 		playsound(src, used.drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE) // Highly important auditory feedback
-		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
+		to_chat(user, SPAN_NOTICE("You add the disk to the machine!"))
 	else if(!(linked_analyzer && linked_analyzer.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		return ..()
 
@@ -206,7 +206,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
 		req_one_access = list()
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		to_chat(user, SPAN_NOTICE("You disable the security protocols"))
 		return TRUE
 
 /obj/machinery/computer/rdconsole/proc/prompt_eject_sheets(obj/machinery/r_n_d/machine, material_id, amount)
@@ -252,11 +252,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_analyzer.busy)
-		to_chat(user, "<span class='danger'>[linked_analyzer] is busy at the moment.</span>")
+		to_chat(user, SPAN_DANGER("[linked_analyzer] is busy at the moment."))
 		return
 
 	if(!linked_analyzer.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_analyzer] appears to be empty.</span>")
+		to_chat(user, SPAN_DANGER("[linked_analyzer] appears to be empty."))
 		return
 
 	var/datum/research/files = get_files()
@@ -287,11 +287,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_analyzer.busy)
-		to_chat(user, "<span class='danger'>[linked_analyzer] is busy at the moment.</span>")
+		to_chat(user, SPAN_DANGER("[linked_analyzer] is busy at the moment."))
 		return
 
 	if(!linked_analyzer.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_analyzer] appears to be empty.</span>")
+		to_chat(user, SPAN_DANGER("[linked_analyzer] appears to be empty."))
 		return
 
 	if(!istype(linked_analyzer.loaded_item, /obj/item/relic))
@@ -306,7 +306,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	R.reveal()
 	R.forceMove(get_turf(linked_analyzer))
 	linked_analyzer.loaded_item = null
-	investigate_log("Scientific analyser has revealed a relic with effect ID <span class='danger'>[R.function_id]</span> effect.", "strangeobjects")
+	investigate_log("Scientific analyser has revealed a relic with effect ID [SPAN_DANGER("[R.function_id]")] effect.", "strangeobjects")
 	linked_analyzer.icon_state = "s_analyzer"
 	SStgui.update_uis(src)
 
@@ -335,7 +335,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(!linked_analyzer.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_analyzer] appears to be empty.</span>")
+		to_chat(user, SPAN_DANGER("[linked_analyzer] appears to be empty."))
 	else
 		for(var/T in temp_tech)
 			files.UpdateTech(T, temp_tech[T])
@@ -366,7 +366,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
-		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
+		to_chat(usr, SPAN_DANGER("No linked device detected."))
 		return
 
 	var/datum/research/files = get_files()
@@ -377,16 +377,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
-		to_chat(usr, "<span class='danger'>Unexpected linked device type.</span>")
+		to_chat(usr, SPAN_DANGER("Unexpected linked device type."))
 		return
 
 	if(machine.busy)
-		to_chat(usr, "<span class='danger'>[machine] is busy at the moment.</span>")
+		to_chat(usr, SPAN_DANGER("[machine] is busy at the moment."))
 		return
 
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
-		to_chat(usr, "<span class='danger'>Unknown design specified.</span>")
+		to_chat(usr, SPAN_DANGER("Unknown design specified."))
 		return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
@@ -522,18 +522,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(user_pass == C.network_password)
 					C.consoles += UID()
 					network_manager_uid = C.UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[C.network_name]</b>."))
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Controller not found. Please file an issue report."))
 
 			return TRUE
 
 	// Now we do a files check
 	var/datum/research/files = get_files()
 	if(!files)
-		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
+		to_chat(usr, SPAN_DANGER("Error - No research network linked."))
 		return
 
 
@@ -608,7 +608,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("erase_disk")
 			if(t_disk && d_disk)
-				to_chat(ui.user, "<span class='warning'>Can not simultaneously wipe tech disk and design disk.</span>")
+				to_chat(ui.user, SPAN_WARNING("Can not simultaneously wipe tech disk and design disk."))
 				return FALSE
 			if(t_disk)
 				t_disk.wipe_tech()
@@ -634,7 +634,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the scientific analyzer.
 			if(linked_analyzer)
 				if(linked_analyzer.busy)
-					to_chat(ui.user, "<span class='danger'>[linked_analyzer] is busy at the moment.</span>")
+					to_chat(ui.user, SPAN_DANGER("[linked_analyzer] is busy at the moment."))
 
 				else if(linked_analyzer.loaded_item)
 					linked_analyzer.loaded_item.forceMove(linked_analyzer.loc)
@@ -745,11 +745,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				// Check the password
 				if(user_pass == C.network_password)
 					network_manager_uid = C.UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[C.network_name]</b>."))
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Controller not found. Please file an issue report."))
 
 	return TRUE // update uis
 
@@ -771,7 +771,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return TRUE
 	ui_interact(user)
 

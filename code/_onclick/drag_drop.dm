@@ -53,8 +53,6 @@ to inform the game this action was expected and its fine
 	if(QDELETED(object)) // Yep, you can click on qdeleted things before they have time to nullspace. Fun.
 		return
 	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEDOWN, object, location, control, params)
-	if(mouse_down_icon)
-		mouse_pointer_icon = mouse_down_icon
 	var/delay = mob.CanMobAutoclick(object, location, params)
 	if(delay)
 		selected_target[1] = object
@@ -66,8 +64,6 @@ to inform the game this action was expected and its fine
 /client/MouseUp(object, location, control, params)
 	if(SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEUP, object, location, control, params) & COMPONENT_CLIENT_MOUSEUP_INTERCEPT)
 		click_intercept_time = world.time
-	if(mouse_up_icon)
-		mouse_pointer_icon = mouse_up_icon
 	selected_target[1] = null
 
 /mob/proc/CanMobAutoclick(object, location, params)

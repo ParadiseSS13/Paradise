@@ -104,9 +104,6 @@
 
 #define TORADIANS(degrees) ((degrees) * 0.0174532925)
 
-/// Gets shift x that would be required the bitflag (1<<x)
-#define TOBITSHIFT(bit) ( log(2, bit) )
-
 // Will filter out extra rotations and negative rotations
 // E.g: 540 becomes 180. -180 becomes 180.
 #define SIMPLIFY_DEGREES(degrees) (MODULUS((degrees), 360))
@@ -212,8 +209,11 @@
 
 #define LORENTZ_DISTRIBUTION(x, s) ( s*tan(TODEGREES(PI*(rand()-0.5))) + x )
 #define LORENTZ_CUMULATIVE_DISTRIBUTION(x, y, s) ( (1/PI)*TORADIANS(arctan((x-y)/s)) + 1/2 )
-
 #define RULE_OF_THREE(a, b, x) ((a*x)/b)
+
+/// Returns probability based on deviation from the mean(m) and sigma(s)
+#define normal_distribution(x, m, s) ((1 / ((2 * PI * s**2)**0.5)) * NUM_E ** -(((x - m) ** 2) / (2 * s ** 2)))
+
 // )
 
 /proc/RaiseToPower(num, power)
@@ -257,3 +257,6 @@
 
 /// Returns the hex value of a decimal number. len == length of returned string.
 #define num2hex(X, len) uppertext(num2text(X, len, 16))
+
+/// Tests if the value is in the given range.
+#define IS_IN_BOUNDS(val, lower, upper) ((val) >= (lower) && (val) <= (upper))

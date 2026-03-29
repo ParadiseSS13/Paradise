@@ -5,15 +5,14 @@
 	name = "hypospray"
 	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients."
 	icon = 'icons/obj/hypo.dmi'
-	item_state = "hypo"
 	icon_state = "hypo"
+	inhand_icon_state = "hypo"
 	belt_icon = "hypospray"
-	amount_per_transfer_from_this = 5
-	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	/// If TRUE, the hypospray can inject any clothing without TRAIT_HYPOSPRAY_IMMUNE.
 	var/penetrate_thick = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
@@ -32,7 +31,7 @@
 
 /obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[src] is empty!"))
 		return
 
 	if(!iscarbon(M))
@@ -42,12 +41,12 @@
 	if(H.wear_suit)
 		// This check is here entirely to stop goobers injecting Nukies, the SST, and the Deathsquad with meme chems.
 		if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)
-			to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
+			to_chat(user, SPAN_WARNING("[src] is unable to penetrate the armour of [M] or interface with any injection ports."))
 			return
 
 	if(reagents.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick, penetrate_everything))
-		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
-		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
+		to_chat(M, SPAN_WARNING("You feel a tiny prick!"))
+		to_chat(user, SPAN_NOTICE("You inject [M] with [src]."))
 
 		if(M.reagents)
 			var/list/injected = list()
@@ -58,10 +57,10 @@
 			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
 
 			if(safety_hypo)
-				visible_message("<span class='warning'>[user] injects [M] with [trans] units of [primary_reagent_name].</span>")
+				visible_message(SPAN_WARNING("[user] injects [M] with [trans] units of [primary_reagent_name]."))
 				playsound(loc, 'sound/goonstation/items/hypo.ogg', 80, 0)
 
-			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
+			to_chat(user, SPAN_NOTICE("[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src]."))
 
 			var/contained = english_list(injected)
 
@@ -89,7 +88,7 @@
 /obj/item/reagent_containers/hypospray/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can use a pen to add a label to [src].</span>"
+		. += SPAN_NOTICE("You can use a pen to add a label to [src].")
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
@@ -100,16 +99,16 @@
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				to_chat(loc, SPAN_WARNING("[src] identifies and removes a harmful substance."))
 			else
-				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				visible_message(SPAN_WARNING("[src] identifies and removes a harmful substance."))
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
 		emagged = TRUE
 		penetrate_thick = TRUE
 		penetrate_everything = TRUE
-		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+		to_chat(user, SPAN_WARNING("You short out the safeties on [src]."))
 		return TRUE
 
 //////////////////////////////
@@ -169,9 +168,9 @@
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""
-	. += "Nanotrasen's version sports a chemical reserviour over 3 times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armour, this \
-	pressurised jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
-	It is also able to interface with the autoinjector ports found on mordern hardsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
+	. += "Nanotrasen's version sports a chemical reservoir over three times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armor. This \
+	pressurized jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
+	It is also able to interface with the autoinjector ports found on modern hardsuits and MODsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
 	. += ""
 	. += "These hyposprays are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
 
@@ -182,7 +181,7 @@
 	name = "empty autoinjector"
 	desc = "A rapid and safe way to inject chemicals into humanoids. This one is empty."
 	icon_state = "autoinjector"
-	item_state = "autoinjector"
+	inhand_icon_state = "autoinjector"
 	belt_icon = "autoinjector"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
@@ -191,17 +190,8 @@
 	ignore_hypospray_immunity = TRUE
 	penetrate_everything = TRUE // Autoinjectors bypass everything.
 	container_type = DRAWABLE
-	flags = null
 
-/obj/item/reagent_containers/hypospray/autoinjector/mob_act(mob/target, mob/living/user)
-	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return TRUE
-	. = ..()
-	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/reagent_containers/hypospray/autoinjector/activate_self(mob/user)
-	. = ..()
+/obj/item/reagent_containers/hypospray/autoinjector/on_reagent_change()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
@@ -212,10 +202,10 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
-	if(reagents && length(reagents.reagent_list))
-		. += "<span class='notice'>It is currently loaded.</span>"
+	if(length(reagents?.reagent_list))
+		. += SPAN_NOTICE("It is currently loaded.")
 	else
-		. += "<span class='notice'>It is spent.</span>"
+		. += SPAN_NOTICE("It is spent.")
 
 /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
 	name = "emergency autoinjector"
@@ -280,7 +270,7 @@
 	icon_state = "zombiepen"
 	amount_per_transfer_from_this = 15
 	volume = 15
-	container_type = null //No sucking out the reagent
+	container_type = NONE // No sucking out the reagent
 	list_reagents = list("zombiecure1" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/apply(mob/living/M, mob/user)
@@ -304,7 +294,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
 	name = "suspicious medipen"
-	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse."
+	desc = "A cheap-looking medipen. It contains a wide mix of medicines to fix most health issues. The reagent list seems to match up with the chemicals stolen from a recently-raided Nanotrasen warehouse."
 	icon_state = "hyperpen"
 	amount_per_transfer_from_this = 37
 	volume = 37

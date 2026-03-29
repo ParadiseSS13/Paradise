@@ -28,7 +28,7 @@ Difficulty: Medium
 	attacktext = "chomps"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speak_emote = list("echoes")
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	wander = FALSE
@@ -45,11 +45,10 @@ Difficulty: Medium
 	score_type = LEGION_SCORE
 	loot = list(/obj/item/storm_staff)
 	difficulty_ore_modifier = 3
-	crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull)
+	crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull, /obj/item/crusher_trophy/retool_kit/ashenskull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 	appearance_flags = 512
 	contains_xeno_organ = TRUE
@@ -89,7 +88,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion/drop_loot()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
-		if(other != src)
+		if(other != src && other.stat != DEAD)
 			return
 	..()
 
@@ -106,13 +105,13 @@ Difficulty: Medium
 	if(. && ishuman(target))
 		var/mob/living/L = target
 		if(L.stat == UNCONSCIOUS)
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
+			var/mob/living/basic/mining/hivelordbrood/legion/A = new(loc)
 			A.infest(L)
 
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
 	if(world.time >= ranged_cooldown && !charging)
 		if(prob(30))
-			visible_message("<span class='warning'><b>[src] charges!</b></span>")
+			visible_message(SPAN_WARNING("<b>[src] charges!</b>"))
 			SpinAnimation(speed = 20, loops = 5, parallel = FALSE)
 			ranged = FALSE
 			retreat_distance = 0
@@ -135,24 +134,26 @@ Difficulty: Medium
 			SLEEP_CHECK_DEATH(beam_time + 2 SECONDS)
 			firing_laser = FALSE
 		else if(prob(40))
-			var/mob/living/simple_animal/hostile/asteroid/big_legion/A = new(loc)
-			A.GiveTarget(target)
-			A.friends = friends
+			var/mob/living/basic/mining/big_legion/A = new(loc)
+			A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
-			visible_message("<span class='danger'>A monstrosity emerges from [src]</span>",
-			"<span class='userdanger'>You summon a big [A]!</span>")
+			visible_message(SPAN_DANGER("A monstrosity emerges from [src]"),
+			SPAN_USERDANGER("You summon a big [A]!"))
 			ranged_cooldown = world.time + 5 SECONDS
 		else
-			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/A
+			var/mob/living/basic/mining/hivelord/legion/A
 			if(enraged)
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril(loc)
+				A = new /mob/living/basic/mining/hivelord/legion/advanced(loc)
+				ADD_TRAIT(A, TRAIT_FROM_TENDRIL, INNATE_TRAIT)
 			else
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril(loc)
-			A.GiveTarget(target)
-			A.friends = friends
+				A = new /mob/living/basic/mining/hivelord/legion(loc)
+				ADD_TRAIT(A, TRAIT_FROM_TENDRIL, INNATE_TRAIT)
+			A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
-			visible_message("<span class='danger'>A [A] emerges from [src]!</span>",
-			"<span class='userdanger'>You summon a [A]!</span>")
+			visible_message(SPAN_DANGER("A [A] emerges from [src]!"),
+			SPAN_USERDANGER("You summon a [A]!"))
 			ranged_cooldown = world.time + 2 SECONDS
 
 /mob/living/simple_animal/hostile/megafauna/legion/MoveToTarget()
@@ -193,11 +194,11 @@ Difficulty: Medium
 				continue
 
 			if(M.stat == DEAD)
-				visible_message("<span class='danger'>[M] is disintegrated by the beam!</span>")
+				visible_message(SPAN_DANGER("[M] is disintegrated by the beam!"))
 				M.dust()
 			else if(M != src)
 				playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
-				to_chat(M, "<span class='userdanger'>You're struck by a disintegration laser!</span>")
+				to_chat(M, SPAN_USERDANGER("You're struck by a disintegration laser!"))
 				var/limb_to_hit = M.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 				var/armor = M.run_armor_check(limb_to_hit, LASER)
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
@@ -217,23 +218,22 @@ Difficulty: Medium
 		M.Scale(resize, resize)
 		transform = M
 		if(amount > 0 && (enraged || prob(33)))
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
+			var/mob/living/basic/mining/hivelordbrood/A
 			if(enraged)
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
+				A = new /mob/living/basic/mining/hivelordbrood/legion/advanced(loc)
 			else
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
+				A = new /mob/living/basic/mining/hivelordbrood/legion(loc)
 			if(!enraged || prob(33))
-				A.GiveTarget(target)
+				A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 			else
 				for(var/mob/living/carbon/human/H in range(7, src))
 					if(H.stat == DEAD)
-						A.GiveTarget(H)
+						A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, H)
 						break
-			A.friends = friends
+			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
 
 /obj/item/gps/internal/legion
 	icon_state = null
 	gpstag = "Echoing Signal"
 	desc = "The message repeats."
-	invisibility = 100

@@ -17,12 +17,12 @@
 
 
 /datum/buildmode_mode/tilting/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on obj/mob      = Select atom to tilt</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on turf/obj/mob = Tilt selected atom onto target</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button + Alt          = Untilt selected atom</span>")
-	to_chat(user, "<span class='warning'>Right-click the main action button to customize tilting behavior.</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button on obj/mob      = Select atom to tilt"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button on turf/obj/mob = Tilt selected atom onto target"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button + Alt          = Untilt selected atom"))
+	to_chat(user, SPAN_WARNING("Right-click the main action button to customize tilting behavior."))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/tilting/change_settings(mob/user)
 	crush_damage = tgui_input_number(user, "Crush Damage", "Damage", initial(crush_damage))
@@ -35,13 +35,13 @@
 	weaken_time = weaken_time SECONDS
 	knockdown_time = tgui_input_number(user, "How long to knockdown (in seconds)?", "Knockdown Time", 12)
 	knockdown_time = knockdown_time SECONDS
-	ignore_gravity = tgui_alert(user, "Ignore gravity?", "Ignore gravity", "Yes", "No") == "Yes"
-	should_rotate = tgui_alert(user, "Should it rotate on falling?", "Should rotate", "Yes", "No") == "Yes"
+	ignore_gravity = tgui_alert(user, "Ignore gravity?", "Ignore gravity", list("Yes", "No")) == "Yes"
+	should_rotate = tgui_alert(user, "Should it rotate on falling?", "Should rotate", list("Yes", "No")) == "Yes"
 	if(should_rotate)
 		rotation_angle = tgui_input_number(user, "Which angle to rotate at? (if empty, defaults to 90 degrees in either direction)", "Rotation angle", 0)
-		rightable = tgui_alert(user, "Should it be rightable with alt-click?", "Rightable", "Yes", "No") == "Yes"
+		rightable = tgui_alert(user, "Should it be rightable with alt-click?", "Rightable", list("Yes", "No")) == "Yes"
 		if(rightable)
-			block_interactions_until_righted = tgui_alert(user, "Should it block interactions until righted (by alt-clicking)?", "Block interactions", "Yes", "No") == "Yes"
+			block_interactions_until_righted = tgui_alert(user, "Should it block interactions until righted (by alt-clicking)?", "Block interactions", list("Yes", "No")) == "Yes"
 
 /datum/buildmode_mode/tilting/handle_click(mob/user, params, atom/movable/object)
 	var/list/pa = params2list(params)
@@ -56,7 +56,7 @@
 		to_chat(user, "Selected object '[tilter]' to tilt.")
 	if(right_click)
 		if(!tilter)
-			to_chat(user, "<span class='warning'>You need to select something to tilt (or untilt) first.</span>")
+			to_chat(user, SPAN_WARNING("You need to select something to tilt (or untilt) first."))
 			return
 		if(tilter.GetComponent(/datum/component/tilted) && alt_click)
 			tilter.untilt(duration = 0)
@@ -64,7 +64,7 @@
 			return
 
 		if(!object || isnull(get_turf(object)))
-			to_chat(user, "<span class='warning'>You need to select a target first.</span>")
+			to_chat(user, SPAN_WARNING("You need to select a target first."))
 			return
 
 		tilter.fall_and_crush(get_turf(object), crush_damage, prob(crit_chance), 2, forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, rotation_angle, rightable, block_interactions_until_righted)

@@ -10,17 +10,10 @@
 /obj/machinery/particle_accelerator/control_box
 	name = "Particle Accelerator Control Console"
 	desc = "This part controls the density of the particles."
-	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"
-	anchored = FALSE
-	density = TRUE
-	power_state = NO_POWER_USE
 	idle_power_consumption = 500
-	active_power_consumption = 10000
-	construction_state = 0
-	active = FALSE
-	dir = 1
+	dir = NORTH
 	var/strength_upper_limit = 2
 	var/interface_control = 1
 	var/list/obj/structure/particle_accelerator/connected_parts
@@ -294,7 +287,7 @@
 		return
 
 	if(!interface_control)
-		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
+		to_chat(usr, SPAN_ERROR("ERROR: Request timed out. Check wire contacts."))
 		return
 
 	switch(action)

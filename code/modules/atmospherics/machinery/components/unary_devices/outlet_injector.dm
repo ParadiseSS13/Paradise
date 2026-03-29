@@ -10,7 +10,6 @@ GLOBAL_LIST_EMPTY(air_injectors)
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 
 	can_unwrench = TRUE
-	can_unwrench_while_on = TRUE
 
 	name = "air injector"
 	desc = "Has a valve and pump attached to it."
@@ -78,4 +77,4 @@ GLOBAL_LIST_EMPTY(air_injectors)
 
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
-	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer"))

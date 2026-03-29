@@ -297,6 +297,13 @@
 	doorOpen = 'sound/machines/airlock_ext_open.ogg'
 	doorClose = 'sound/machines/airlock_ext_close.ogg'
 
+/obj/machinery/door/airlock/external/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// Snowflakey but we're not a tool and don't get first mover advantage in atom interaction so shruggles
+	if(istype(used, /obj/item/mounted/frame/airlock_controller))
+		return
+
+	return ..()
+
 /obj/machinery/door/airlock/external/glass
 	opacity = FALSE
 	glass = TRUE
@@ -321,7 +328,6 @@
 /obj/machinery/door/airlock/centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
-	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
@@ -375,7 +381,7 @@
 	security_level = 6
 
 /obj/machinery/door/airlock/hatch/syndicate/command/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, SPAN_NOTICE("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
 	return
 
 /// This door is used in the malf AI telecomms ruin. This door starts early access, and will try to crush someone to death who enters it's turf like how an AI door crushes.
@@ -467,9 +473,9 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(SPAN_NOTICE("[user] [welded ? null : "un"]welds [src]!"),\
+					SPAN_NOTICE("You [welded ? null : "un"]weld [src]!"),\
+					SPAN_WARNING("You hear welding."))
 	update_icon()
 
 /obj/machinery/door/airlock/abductor
@@ -574,7 +580,7 @@
 /obj/machinery/door/airlock/cult/cult_conceal()
 	icon = stealth_icon
 	overlays_file = stealth_overlays
-	opacity = stealth_opacity
+	set_opacity(stealth_opacity)
 	glass = stealth_glass
 	airlock_material = stealth_airlock_material
 	name = "airlock"
@@ -585,7 +591,7 @@
 /obj/machinery/door/airlock/cult/cult_reveal()
 	icon = GET_CULT_DATA(airlock_runed_icon_file, initial(icon))
 	overlays_file = GET_CULT_DATA(airlock_runed_overlays_file, initial(overlays_file))
-	opacity = initial(opacity)
+	set_opacity(initial(opacity))
 	glass = initial(glass)
 	airlock_material = initial(airlock_material)
 	name = initial(name)
@@ -644,7 +650,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 
 //////////////////////////////////
 /*

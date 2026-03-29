@@ -1,4 +1,5 @@
 /datum/ai_planning_subtree/ventcrawl
+	var/ventcrawl_finding_behavior = /datum/ai_behavior/find_and_set/ventcrawl
 
 /datum/ai_planning_subtree/ventcrawl/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	// we're in a pipe
@@ -15,7 +16,7 @@
 			return SUBTREE_RETURN_FINISH_PLANNING
 		// We dont have an exit vent, but we have a target. Let's find an exit vent near it.
 		if(controller.blackboard_key_exists(BB_VENTCRAWL_FINAL_TARGET))
-			controller.queue_behavior(/datum/ai_behavior/find_and_set/ventcrawl, BB_VENTCRAWL_EXIT, null, controller.blackboard[BB_VENT_SEARCH_RANGE])
+			controller.queue_behavior(ventcrawl_finding_behavior, BB_VENTCRAWL_EXIT, null, controller.blackboard[BB_VENT_SEARCH_RANGE])
 			return
 		// we dont have an set exit vent nor a final target... let's just get out of the pipe.
 		controller.queue_behavior(/datum/ai_behavior/find_and_set/pipenet_vent, BB_VENTCRAWL_EXIT, null, controller.blackboard[BB_VENT_SEARCH_RANGE])
@@ -34,11 +35,14 @@
 
 	// we're far-away, lets try to find a ventcrawl path
 	if(!controller.blackboard_key_exists(BB_VENTCRAWL_EXIT))
-		controller.queue_behavior(/datum/ai_behavior/find_and_set/ventcrawl, BB_VENTCRAWL_EXIT, null, controller.blackboard[BB_VENT_SEARCH_RANGE], FALSE)
+		controller.queue_behavior(ventcrawl_finding_behavior, BB_VENTCRAWL_EXIT, null, controller.blackboard[BB_VENT_SEARCH_RANGE], FALSE)
 		return
 	// we found a path, lets take it!
 	controller.queue_behavior(/datum/ai_behavior/interact_with_vent, BB_VENTCRAWL_ENTRANCE)
 	return SUBTREE_RETURN_FINISH_PLANNING
+
+/datum/ai_behavior/find_and_set/ventcrawl
+	var/list/searched_entry_types = list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber)
 
 /**
  * This proc assumes that all ventcrawling creatures are omniscient.
@@ -103,7 +107,7 @@
 		var/turf/current = popleft(open_set)
 		closed_set |= current
 		for(var/obj/machinery/atmospherics/atmos in current)
-			if(is_type_in_list(atmos, GLOB.ventcrawl_machinery) && atmos.can_crawl_through())
+			if(is_type_in_list(atmos, searched_entry_types) && atmos.can_crawl_through())
 				vents |= atmos
 
 		for(var/dir in GLOB.cardinal)
@@ -152,6 +156,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/interact_with_vent/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/atom/target = controller.blackboard[target_key]
 	if(QDELETED(target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
@@ -166,6 +171,6 @@
 	controller.set_blackboard_key(BB_VENTCRAWL_IS_ENTERING, TRUE)
 	L.handle_ventcrawl(vent)
 	controller.set_blackboard_key(BB_VENTCRAWL_IS_ENTERING, FALSE)
-	if(controller.pawn.loc != vent)
+	if(QDELETED(controller) || controller.pawn.loc != vent)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED

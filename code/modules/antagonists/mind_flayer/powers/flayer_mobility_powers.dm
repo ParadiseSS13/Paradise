@@ -80,7 +80,7 @@
 	if(!is_teleport_allowed(start_turf.z) || !is_teleport_allowed(end_turf.z))
 		return
 	user.visible_message(
-		"<span class='danger'>[user] de-materializes and jumps through the screen of [target]!</span>",
+		SPAN_DANGER("[user] de-materializes and jumps through the screen of [target]!"),
 		"<span class='warning'>You de-materialize and jump into [target]!")
 
 	user.set_body_position(STANDING_UP)
@@ -101,8 +101,8 @@
 	user.set_body_position(STANDING_UP)
 	animate(user, 0.5 SECONDS, 0, transform = previous)
 	user.visible_message(
-		"<span class='warning'>[user] suddenly crawls through the monitor of [marked_computer]!</span>",
-		"<span class='notice'>As you reform yourself at [marked_computer] you feel the mark you left on it fade.</span>")
+		SPAN_WARNING("[user] suddenly crawls through the monitor of [marked_computer]!"),
+		SPAN_NOTICE("As you reform yourself at [marked_computer] you feel the mark you left on it fade."))
 	marked_computer = null
 	cooldown_handler.start_recharge()
 
@@ -128,7 +128,6 @@
 	action_icon_state = "pd_cablehop"
 	upgrade_info = "Double the health of the barrier by reinforcing it with ICE."
 	category = FLAYER_CATEGORY_DESTROYER
-	power_type = FLAYER_UNOBTAINABLE_POWER
 	base_cost = 100
 	current_cost = 100
 	max_level = 2
@@ -156,7 +155,7 @@
 /datum/spell/flayer/techno_wall/cast(list/targets, mob/user)
 	var/turf/target_turf = get_turf(targets[1])
 	if(target_turf == start_turf)
-		flayer.send_swarm_message("<span class='notice'>You deselect the targeted turf.</span>")
+		flayer.send_swarm_message(SPAN_NOTICE("You deselect the targeted turf."))
 		start_turf = null
 		should_recharge_after_cast = FALSE
 		return
@@ -182,7 +181,6 @@
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
-	opacity = FALSE
 	alpha = 200
 	var/upgraded_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
 

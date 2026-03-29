@@ -30,7 +30,7 @@
 		if(!O.check_ahud_rejoin_eligibility())
 			error_on_humanize = "You have enabled antag HUD and are unable to re-enter the round."
 	if(jobban_isbanned(user, ROLE_SYNDICATE) || jobban_isbanned(user, ROLE_TSPIDER))
-		to_chat(user, "<span class='warning'>You are jobbanned from role of syndicate and/or terror spider.</span>")
+		to_chat(user, SPAN_WARNING("You are jobbanned from role of syndicate and/or terror spider."))
 		return
 	if(error_on_humanize == "")
 		var/spider_ask = tgui_alert(user, humanize_prompt, "Join as Terror Spider?", list("Yes", "No"))
@@ -40,7 +40,7 @@
 		to_chat(user, "Cannot inhabit spider: [error_on_humanize]")
 		return
 	if(key)
-		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")
+		to_chat(user, SPAN_NOTICE("Someone else already took this spider."))
 		return
 	key = user.key
 	give_intro_text()

@@ -67,6 +67,7 @@
 	action_cooldown = 2 MINUTES
 
 /datum/ai_behavior/send_sos_message/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/carbon/target = controller.blackboard[target_key]
 	var/mob/living/living_pawn = controller.pawn
 	if(QDELETED(target) || is_station_level(target.z))
@@ -157,6 +158,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/minebot_mine_turf/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/basic/living_pawn = controller.pawn
 	var/turf/target = controller.blackboard[target_key]
 
@@ -172,7 +174,11 @@
 
 	living_pawn.face_atom(target)
 
-	RegisterSignal(target, COMSIG_MINE_EXPOSE_GIBTONITE, PROC_REF(on_mine_expose_gibtonite))
+	var/turf/simulated/mineral/mineral_target = target
+	if(istype(mineral_target) && istype(mineral_target.ore, /datum/ore/gibtonite))
+		// Duplicate signals can occur when a minebot previously tried to mine a
+		// turf and failed (e.g. something else was hit by the kpa projectile)
+		RegisterSignal(mineral_target, COMSIG_MINE_EXPOSE_GIBTONITE, PROC_REF(on_mine_expose_gibtonite), override = TRUE)
 
 	living_pawn.RangedAttack(target)
 	living_pawn.a_intent = old_intent
@@ -182,6 +188,7 @@
 /datum/ai_behavior/minebot_mine_turf/proc/on_mine_expose_gibtonite(datum/source, mob/living/instigator)
 	SIGNAL_HANDLER // COMSIG_MINE_EXPOSE_GIBTONITE
 
+	UnregisterSignal(source, COMSIG_MINE_EXPOSE_GIBTONITE)
 	instigator.emote("me", EMOTE_VISIBLE, "yelps!")
 	instigator.ai_controller.set_blackboard_key(BB_MINEBOT_GIBTONITE_RUN, source)
 

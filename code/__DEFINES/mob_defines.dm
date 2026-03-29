@@ -10,6 +10,8 @@
 #define ORGAN_DISFIGURED   (1 << 6)
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
+/// An organ that is ostensibly dangerous when inside a body
+#define ORGAN_HAZARDOUS (1 << 9)
 
 // Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
 #define ORGAN_DATUM_HEART	"heart"
@@ -70,7 +72,10 @@
 #define PULSE_FAST		3	//90-120 bpm
 #define PULSE_2FAST		4	//>120 bpm
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
-//feel free to add shit to lists below
+
+// Cirrhosis defines
+#define CIRRHOSIS_MILD		1
+#define CIRRHOSIS_SEVERE	2
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG (1<<0)		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -245,21 +250,22 @@
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define ismoth(A) (is_species(A, /datum/species/moth))
+#define isskulk(A) (is_species(A, /datum/species/skulk))
 
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
-#define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
+#define ismouse(A)			(istype((A), /mob/living/basic/mouse))
 #define isbot(A)			(istype((A), /mob/living/simple_animal/bot))
 #define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
-#define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
-#define iscaterpillar(A)	(istype((A), /mob/living/simple_animal/nian_caterpillar))
+#define isnymph(A)      	(istype((A), /mob/living/basic/diona_nymph))
+#define iscaterpillar(A)	(istype((A), /mob/living/basic/nian_caterpillar))
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
 #define isretaliate(A) 		(istype((A), /mob/living/simple_animal/hostile/retaliate))
-#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
-#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
-#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
+#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider) || istype((A), /mob/living/basic/spiderling/terror_spiderling))
+#define isslaughterdemon(A) (istype((A), /mob/living/basic/demon/slaughter))
+#define isdemon(A) 			(istype((A), /mob/living/basic/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
-#define isgorilla(A) 		(istype((A), /mob/living/simple_animal/hostile/gorilla))
+#define isgorilla(A) 		(istype((A), /mob/living/basic/gorilla))
 #define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
@@ -386,6 +392,13 @@
 #define BRAIN_DAMAGE_RATIO_SEVERE 	8 / 12
 #define BRAIN_DAMAGE_RATIO_CRITICAL 10 / 12
 
+//Disgust levels for humans
+#define DISGUST_LEVEL_MAXEDOUT 1500
+#define DISGUST_LEVEL_VERYDISGUSTED 1000
+#define DISGUST_LEVEL_DISGUSTED 750
+#define DISGUST_LEVEL_VERYGROSS 500
+#define DISGUST_LEVEL_GROSS 250
+
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
@@ -394,3 +407,26 @@
 #define NPC_DEFAULT_MIN_TEMP 250
 /// Default maximum body temperature mobs can exist in before taking damage
 #define NPC_DEFAULT_MAX_TEMP 350
+
+#define MP_SPELL_PRIORITY 		1
+#define MP_THROW_MODE_PRIORITY 	2
+#define MP_GIVE_MODE_PRIORITY 	3
+#define MP_AUTO_GUN_PRIORITY 	4
+#define MP_CLOWN_CAR_PRIORITY 	5
+#define MP_MECHA_PRIORITY 		6
+
+#define GHOST_START_AS_OBSERVER 	(1 << 0) // Ghost started playing as an observer.
+#define GHOST_CAN_REENTER 			(1 << 1) // Ghost can reenter its corpse
+#define GHOST_RESPAWNABLE			(1 << 2) // Ghost can respawn. Note that checking respawnability is better via GLOB.non_respawnable_keys and TRAIT_RESPAWNABLE
+#define GHOST_VISION				(1 << 3) // Ghost can see invisible things (like other ghosts)
+#define GHOST_HEALTH_SCAN			(1 << 4) // Ghost uses health scanner on click
+#define GHOST_SEE_RADS				(1 << 5) // Ghost can see radiation
+#define GHOST_GAS_SCAN				(1 << 6) // Ghost uses gas analyzer on click
+#define GHOST_PLANT_ANALYZER		(1 << 7) // Ghost uses plant analyzer on click
+#define GHOST_NO_VISION				(1 << 8) // Ghost cannot see any ghosts at all
+
+#define GHOST_FLAGS_DEFAULT (GHOST_CAN_REENTER | GHOST_RESPAWNABLE | GHOST_VISION)
+#define GHOST_FLAGS_START_AS_OBSERVER (GHOST_FLAGS_DEFAULT | GHOST_START_AS_OBSERVER)
+#define GHOST_FLAGS_NO_REENTER (GHOST_FLAGS_DEFAULT & ~GHOST_CAN_REENTER)
+#define GHOST_FLAGS_NO_RESPAWNABLE (GHOST_FLAGS_DEFAULT & ~GHOST_RESPAWNABLE)
+#define GHOST_FLAGS_OBSERVE_ONLY (GHOST_FLAGS_DEFAULT & ~(GHOST_CAN_REENTER | GHOST_RESPAWNABLE))

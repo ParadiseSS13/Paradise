@@ -1,6 +1,9 @@
 #define ALL ~0 //For convenience.
 #define NONE 0
 
+/// All the cardinal direction bitflags.
+#define ALL_CARDINALS (NORTH | SOUTH | EAST | WEST)
+
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE		(1<<0)		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & ITEM_SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					(1<<1)		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
@@ -114,9 +117,10 @@
 #define BALD				(1<<14)
 #define ALL_RPARTS			(1<<15)
 #define SHAVED				(1<<16)
+#define HAS_BACK_SPINES		(1<<17)
 
 //Pre-baked combinations of the above body flags
-#define HAS_BODY_ACCESSORY 	(HAS_TAIL | HAS_WING)
+#define HAS_BODY_ACCESSORY 	(HAS_TAIL | HAS_WING | HAS_BACK_SPINES)
 #define HAS_MARKINGS		(HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS)
 
 //Species Diet Flags
@@ -150,6 +154,8 @@
 #define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS     	(1<<2)
 #define LAVA_BRIDGE		(1<<3)	//! This turf has already been reserved for a lavaland bridge placement.
+/// Blocks this turf from being rusted
+#define NO_RUST (1<<4)
 
 // turf flags, under the turf_flags variable
 /// If a turf is an unused reservation turf awaiting assignment
@@ -185,6 +191,7 @@
 #define ZAP_SUPERMATTER_FLAGS (ZAP_GENERATES_POWER)
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
+GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288))
 
 //Mob mobility var flags
 /// can move

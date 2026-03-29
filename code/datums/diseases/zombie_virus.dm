@@ -4,14 +4,14 @@
 	desc = "This virus infects humanoids and drives them insane with a hunger for flesh, along with possessing regenerative abilities."
 	max_stages = 7
 	spread_text = "Blood and Saliva"
-	spread_flags = BLOOD
+	spread_flags = SPREAD_BLOOD
 	cure_text = "Anti-plague viral solutions"
 	cures = list()
 	agent = ""
 	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 	allow_dead = TRUE
-	disease_flags = CAN_CARRY
+	disease_flags = VIRUS_CAN_CARRY
 	virus_heal_resistant = TRUE
 	stage_prob = 100 // It isn't actually 100%, but is instead based on a timer
 	cure_chance = 80
@@ -19,6 +19,15 @@
 	var/cure_stage = 0
 	/// Cooldown until the virus can advance to the next stage
 	COOLDOWN_DECLARE(stage_timer)
+	/// What disease are we passing along to datum/antagonist/zombie
+	var/plague_disease
+	/// Activate the immediate zombie rot loop
+	var/instant_zombie
+
+/datum/disease/zombie/New(chosen_plague, plague_zomb)
+	if(plague_zomb)
+		plague_disease = chosen_plague
+		instant_zombie = TRUE
 
 /datum/disease/zombie/stage_act()
 	if(stage == 8)
@@ -45,21 +54,21 @@
 	switch(stage)
 		if(1) // cured by lvl 1 cure
 			if(prob(4))
-				to_chat(affected_mob, "<span class='warning'>[pick("Your scalp itches.", "Your skin feels flakey.")]</span>")
+				to_chat(affected_mob, SPAN_WARNING("[pick("Your scalp itches.", "Your skin feels flakey.")]"))
 			else if(prob(5))
-				to_chat(affected_mob, "<span class='warning'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
+				to_chat(affected_mob, SPAN_WARNING("Your [pick("back", "arm", "leg", "elbow", "head")] itches."))
 		if(2)
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>Mucous runs down the back of your throat.</span>")
+				to_chat(affected_mob, SPAN_DANGER("Mucous runs down the back of your throat."))
 			else if(prob(5))
-				to_chat(affected_mob, "<span class='warning'>[pick("You feel hungry.", "You crave for something to eat.")]</span>")
+				to_chat(affected_mob, SPAN_WARNING("[pick("You feel hungry.", "You crave for something to eat.")]"))
 		if(3) // cured by lvl 2 cure
 			if(prob(2))
 				affected_mob.emote("sneeze")
 			else if(prob(2))
 				affected_mob.emote("cough")
 			else if(prob(5))
-				to_chat(affected_mob, "<span class='warning'><i>[pick("So hungry...", "You'd kill someone for a bite of food...", "Hunger cramps seize you...")]</i></span>")
+				to_chat(affected_mob, SPAN_WARNING("<i>[pick("So hungry...", "You'd kill someone for a bite of food...", "Hunger cramps seize you...")]</i>"))
 			if(prob(5))
 				affected_mob.adjustToxLoss(1)
 		if(4) // shows up on medhuds
@@ -68,14 +77,14 @@
 			else if(prob(2))
 				affected_mob.emote("drool")
 			else if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You feel a cold sweat form.</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel a cold sweat form."))
 			if(prob(25))
 				affected_mob.adjustToxLoss(1)
 		if(5, 6)  // 5 is cured by lvl 3 cure. 6+ needs lvl 4 cure
 			var/turf/T = get_turf(affected_mob)
 			if(T.get_lumcount() >= 0.5)
 				if(prob(5))
-					to_chat(affected_mob, "<span class='danger'>Those lights seem bright. It stings.</span>")
+					to_chat(affected_mob, SPAN_DANGER("Those lights seem bright. It stings."))
 				if(prob(25))
 					affected_mob.adjustFireLoss(2)
 			if(prob(2))
@@ -126,7 +135,14 @@
 		affected_mob.update_hands_hud()
 		H.update_body()
 	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
-		affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+		if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
+			var/datum/antagonist/zombie/plague = new /datum/antagonist/zombie(plague_disease)
+			plague.silent = TRUE //to prevent the second box from appearing
+			plague.wiki_page_name = null
+			affected_mob.mind.add_antag_datum(plague)
+		else
+			affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+
 	return TRUE
 
 
@@ -162,3 +178,13 @@
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()
 	return ..()
+
+/datum/disease/zombie/wizard
+		spread_flags = SPREAD_NON_CONTAGIOUS
+		bypasses_immunity = TRUE
+		spread_text = "Non Contagious"
+		cure_text = "Anti-magic"
+
+// this should not be curable. Prevents things like rez wands from un-zombifying your zombs.
+/datum/disease/zombie/wizard/cure()
+	return

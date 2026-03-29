@@ -3,11 +3,12 @@
 	desc = "A kit to modify your mech. This one doesn't do anything."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "harddisk_mini"
+	materials = list(MAT_METAL = 500)
 	var/install_time = 15
 
 /obj/item/mecha_modkit/proc/install(obj/mecha/mech, mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>You install [src] into [mech].</span>")
+		to_chat(user, SPAN_NOTICE("You install [src] into [mech]."))
 	return TRUE
 
 /obj/item/mecha_modkit/voice
@@ -22,10 +23,10 @@
 
 /obj/item/mecha_modkit/voice/install(obj/mecha/mech, mob/living/carbon/user)
 	if(istype(mech, /obj/mecha/combat/reticence) && user)
-		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!</span>")
+		to_chat(user, SPAN_WARNING("You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!"))
 		return FALSE
 	if(istype(mech, /obj/mecha/combat/honker) && user)
-		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but you somehow trip before you get it in!</span>")
+		to_chat(user, SPAN_WARNING("You attempt to install [src] into [mech], but you somehow trip before you get it in!"))
 		user.slip("your own foot", 16 SECONDS, 0, 0, 1, "trip")
 		return FALSE
 	mech.nominalsound = nominalsound
@@ -56,6 +57,7 @@
 	weapdestrsound = 'sound/mecha/weapdestrsyndi.ogg'
 	lowpowersound = 'sound/mecha/lowpowersyndi.ogg'
 	longactivationsound = 'sound/mecha/LongSyndiActivation.ogg'
+	materials = list(MAT_METAL = 400, MAT_TITANIUM = 100)
 
 /obj/item/mecha_modkit/voice/honk
 	name = "mecha voice modification kit : Honk"
@@ -66,6 +68,7 @@
 	weapdestrsound = 'sound/items/Airhorn2.ogg'
 	lowpowersound = 'sound/items/Airhorn2.ogg'
 	longactivationsound = 'sound/items/bikehorn.ogg'
+	materials = list(MAT_METAL = 400, MAT_BANANIUM = 100)
 
 /obj/item/mecha_modkit/voice/silent
 	name = "mecha voice modification kit : Silent"

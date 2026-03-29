@@ -1,5 +1,4 @@
 /obj/effect/mapping_helpers/airlock/windoor/access
-	layer = DOOR_HELPER_LAYER
 	icon_state = "access_windoor"
 	var/access
 
@@ -69,10 +68,10 @@
 	icon_state = "access_windoor_eng"
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general
-	access = ACCESS_ENGINE
+	access = ACCESS_ENGINEERING_GENERAL
 
-/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction
-	access = ACCESS_CONSTRUCTION
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/station_engineer
+	access = ACCESS_STATION_ENGINEER
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS
@@ -287,7 +286,7 @@
 	access = ACCESS_ENGINE
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction
-	access = ACCESS_CONSTRUCTION
+	access = ACCESS_ENGINEERING_GENERAL
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/maintenance
 	access = ACCESS_MAINT_TUNNELS

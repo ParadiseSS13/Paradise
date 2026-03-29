@@ -78,10 +78,10 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
 	alpha = 150
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation_beta = RAD_LIGHT_INSULATION
+	resistance_flags = UNACIDABLE | ACID_PROOF
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
@@ -103,15 +103,14 @@
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
 	desc = "A fragile energy field that blocks movement. Excels at blocking lethal projectiles."
-	density = TRUE
 	max_integrity = 10
 	allow_walk = FALSE
 
-/obj/structure/holosign/barrier/cyborg/bullet_act(obj/item/projectile/P)
+/obj/structure/holosign/barrier/cyborg/bullet_act(obj/projectile/P)
 	take_damage((P.damage / 5) , BRUTE, MELEE, 1)	//Doesn't really matter what damage flag it is.
-	if(istype(P, /obj/item/projectile/energy/electrode))
+	if(istype(P, /obj/projectile/energy/electrode))
 		take_damage(10, BRUTE, MELEE, 1)	//Tasers aren't harmful.
-	if(istype(P, /obj/item/projectile/beam/disabler))
+	if(istype(P, /obj/projectile/beam/disabler))
 		take_damage(5, BRUTE, MELEE, 1)	//Disablers aren't harmful.
 
 /obj/structure/holosign/barrier/cyborg/hacked
@@ -120,7 +119,7 @@
 	max_integrity = 20
 	var/shockcd = 0
 
-/obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/item/projectile/P)
+/obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/projectile/P)
 	take_damage(P.damage, BRUTE, MELEE, 1)	//Yeah no this doesn't get projectile resistance.
 
 /obj/structure/holosign/barrier/cyborg/hacked/proc/cooldown()

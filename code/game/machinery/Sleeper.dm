@@ -14,6 +14,8 @@
 	anchored = TRUE
 	dir = WEST
 	var/mob/living/carbon/human/occupant = null
+	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
+	var/obj/effect/occupant_overlay = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
@@ -34,10 +36,10 @@
 	. = ..()
 	if(occupant)
 		if(occupant.stat == DEAD)
-			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
+			. += SPAN_WARNING("You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!")
 		else
-			. += "<span class='notice'>You see [occupant.name] inside.</span>"
-	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
+			. += SPAN_NOTICE("You see [occupant.name] inside.")
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.")
 
 /obj/machinery/sleeper/power_change()
 	..() //we don't check parent return here because we also care about BROKEN
@@ -134,7 +136,7 @@
 			if(prob(addiction_removal_chance))
 				atom_say("Patient's addiction was cured.")
 				playsound(get_turf(src), 'sound/machines/ping.ogg', 50, 0)
-				to_chat(occupant, "<span class='boldnotice'>You no longer feel reliant on [R.name]!</span>")
+				to_chat(occupant, SPAN_BOLDNOTICE("You no longer feel reliant on [R.name]!"))
 				occupant.reagents.addiction_list.Remove(R)
 				qdel(R)
 
@@ -153,7 +155,7 @@
 		return
 
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 		return
 
 	ui_interact(user)
@@ -275,7 +277,7 @@
 	if(!controls_inside && usr == occupant)
 		return
 	if(panel_open)
-		to_chat(usr, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(usr, SPAN_NOTICE("Close the maintenance panel first."))
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -286,7 +288,7 @@
 			if(!occupant)
 				return
 			if(occupant.stat == DEAD)
-				to_chat(usr, "<span class='danger'>This person has no life to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
+				to_chat(usr, SPAN_DANGER("This person has no life to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them."))
 				return
 			var/chemical = params["chemid"]
 			var/amount = text2num(params["amount"])
@@ -311,7 +313,7 @@
 	if(istype(used, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(!beaker)
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[used] is stuck to you!</span>")
+				to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
 				return ITEM_INTERACT_COMPLETE
 
 			beaker = used
@@ -321,31 +323,31 @@
 			return ITEM_INTERACT_COMPLETE
 
 		else
-			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
+			to_chat(user, SPAN_WARNING("The sleeper has a beaker already."))
 			return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
 		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(user, SPAN_BOLDNOTICE("Close the maintenance panel first."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!ismob(G.affecting))
 			return ITEM_INTERACT_COMPLETE
 
 		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+			to_chat(user, SPAN_BOLDNOTICE("The sleeper is already occupied!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			to_chat(user, SPAN_WARNING("[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head."))
 			return ITEM_INTERACT_COMPLETE
 
 		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
 
 		if(do_after(user, 20, target = G.affecting))
 			if(occupant)
-				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+				to_chat(user, SPAN_BOLDNOTICE("The sleeper is already occupied!"))
 				return ITEM_INTERACT_COMPLETE
 
 			if(!G || !G.affecting)
@@ -355,7 +357,8 @@
 			M.forceMove(src)
 			occupant = M
 			update_icon(UPDATE_ICON_STATE)
-			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+			update_icon(UPDATE_OVERLAYS)
+			to_chat(M, SPAN_BOLDNOTICE("You feel cool air surround you. You go numb as your senses turn inward."))
 			add_fingerprint(user)
 			qdel(G)
 			SStgui.update_uis(src)
@@ -370,7 +373,7 @@
 
 /obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, SPAN_NOTICE("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I))
 		return TRUE
@@ -380,10 +383,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
+		to_chat(user, SPAN_NOTICE("The scanner is occupied."))
 		return
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_NOTICE("Close the maintenance panel first."))
 		return
 
 	setDir(turn(dir, -90))
@@ -445,7 +448,7 @@
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user, chemical, amount)
 	if(!(chemical in possible_chems))
-		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")
+		to_chat(user, SPAN_NOTICE("The sleeper does not offer that chemical!"))
 		return
 	if(!(amount in amounts))
 		return
@@ -505,7 +508,7 @@
 		occupant = L
 		playsound(src, 'sound/machines/podclose.ogg', 5)
 		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
-		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+		to_chat(L, SPAN_BOLDNOTICE("You feel cool air surround you. You go numb as your senses turn inward."))
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
@@ -530,24 +533,54 @@
 	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(panel_open)
-		to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+		to_chat(user, SPAN_BOLDNOTICE("Close the maintenance panel first."))
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+		to_chat(user, SPAN_BOLDNOTICE("The sleeper is already occupied!"))
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
+		to_chat(user, SPAN_BOLDNOTICE("Subject may not hold anything in their hands."))
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, SPAN_WARNING("[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head."))
 		return
 	return TRUE
 
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE
+
+
+/obj/machinery/sleeper/update_overlays()
+	. = ..()
+	if(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
+	if(!occupant)
+		return
+	occupant_overlay = new(get_turf(src))
+	occupant_overlay.icon = occupant.icon
+	occupant_overlay.icon_state = occupant.icon_state
+	occupant_overlay.overlays = occupant.overlays
+	occupant_overlay.dir = dir
+	occupant_overlay.layer = layer + 0.01
+	var/matrix/MA = matrix(transform)
+	if(dir == NORTH)
+		MA.TurnTo(0, 180)
+		occupant_overlay.dir = SOUTH // trust me
+	if(dir == EAST)
+		MA.TurnTo(0, 270)
+		occupant_overlay.pixel_y = -8
+	if(dir == WEST)
+		MA.TurnTo(0 , 90)
+		occupant_overlay.pixel_y = -8
+	MA.Scale(0.66, 0.66)
+	occupant_overlay.transform = MA
+	var/mutable_appearance/rim = mutable_appearance(icon = icon, icon_state = "[base_icon]_first_overlay", layer = occupant_overlay.layer + 0.01)
+	var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "[base_icon]-lid-nodetail", layer = rim.layer + 0.01, alpha = 140)
+	. += rim
+	. += lid
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"
@@ -579,7 +612,7 @@
 	light_color = LIGHT_COLOR_DARKRED
 
 /obj/machinery/sleeper/clockwork/crowbar_act(mob/user, obj/item/I)
-	to_chat(user, "<span class='warning'>You pry on the internal mechanisms of [src] with all your might, but they refuse to budge!</span>")
+	to_chat(user, SPAN_WARNING("You pry on the internal mechanisms of [src] with all your might, but they refuse to budge!"))
 	return FALSE
 
 #undef ADDICTION_SPEEDUP_TIME

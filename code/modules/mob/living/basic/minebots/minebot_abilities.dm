@@ -1,10 +1,10 @@
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS
-	button_background_icon_state = "bg_default"
+	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
 	name = "Toggle Light"
-	button_overlay_icon_state = "mech_lights_off"
+	button_icon_state = "mech_lights_off"
 
 /datum/action/innate/minedrone/toggle_light/Activate()
 	var/mob/living/basic/mining_drone/user = owner
@@ -14,11 +14,11 @@
 	else
 		user.set_light(6)
 	user.light_on = !user.light_on
-	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
+	to_chat(user, SPAN_NOTICE("You toggle your light [user.light_on ? "on" : "off"]."))
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
-	button_overlay_icon_state = "meson"
+	button_icon_state = "meson"
 
 /datum/action/innate/minedrone/toggle_meson_vision/Activate()
 	var/mob/living/user = owner
@@ -30,7 +30,7 @@
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "minebot")
 
 	update_user_sight(user)
-	to_chat(user, "<span class='notice'>You toggle your meson vision [!active ? "on" : "off"].</span>")
+	to_chat(user, SPAN_NOTICE("You toggle your meson vision [!active ? "on" : "off"]."))
 
 /datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
 	user.sight = initial(user.sight)
@@ -41,7 +41,7 @@
 
 /datum/action/innate/minedrone/dump_ore
 	name = "Dump Ore"
-	button_overlay_icon_state = "mech_eject"
+	button_icon_state = "mech_eject"
 
 /datum/action/innate/minedrone/dump_ore/Activate()
 	var/mob/living/basic/mining_drone/user = owner

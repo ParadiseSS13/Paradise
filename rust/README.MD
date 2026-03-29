@@ -17,11 +17,13 @@ It also imports and tweaks the following [rust-g](https://github.com/tgstation/r
 - HTTP
 - JSON
 - Logging
+- MySQL
 - Noisegen
 - Redis PubSub
 - TOML
 
+If you're adding anything to this, **please** use the BYONDAPI stuff instead of `json_encode` and `json_decode` everywhere.
+
 ## Building
 
-BYOND 516.1651 introduced breaking changes to ByondAPI, the interop system to get data other than strings in and out of DLLs.
-Because of this, you need to specify the `--no-default-features --features byond-516` to build the 516 compliant lib. Not specifying a feature will build for versions `515.1621` to `516.1650`. Specifying `byond-516` will build for `516.1651` and up.
+Just running `cargo build --release` should be enough if you're on Windows. If you are on Linux, you should be familiar with figuring stuff out yourself and consulting 300 pieces of documentation for a single command.

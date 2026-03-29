@@ -13,7 +13,6 @@
 	name = "Paradise Punch"
 	id = "paradise_punch"
 	description = "Tastes just how you'd think Paradise would if you could bottle it."
-	reagent_state = LIQUID
 	color = "#cc0044"
 	taste_description = "paradise"
 
@@ -22,7 +21,6 @@
 	name = "Apple-pocalypse"
 	id = "apple-pocalypse"
 	description = "If doomsday came in fruit form, it'd probably be apples."
-	reagent_state = LIQUID
 	color = "#44FF44"
 	taste_description = "doomsday"
 
@@ -30,7 +28,7 @@
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, TRUE, 0, TRUE) // Ignore the 0 volume
-		to_chat(M, "<span class='notice'>You briefly feel super-massive, like a black hole. Probably just your imagination...</span>")
+		to_chat(M, SPAN_NOTICE("You briefly feel super-massive, like a black hole. Probably just your imagination..."))
 	return ..()
 
 //Berry Banned: This one is tasty and safe to drink, might have a low chance of healing a random damage type?
@@ -38,7 +36,6 @@
 	name = "Berry Banned"
 	id = "berry_banned"
 	description = "Reason for ban: Excessive Flavor."
-	reagent_state = LIQUID
 	color = "#FF44FF"
 	taste_description = "a permaban"
 
@@ -59,7 +56,7 @@
 				update_flags |= M.adjustCloneLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			if(5)
 				update_flags |= M.adjustBrainLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		to_chat(M, "<span class='notice'>You feel slightly rejuvinated!</span>")
+		to_chat(M, SPAN_NOTICE("You feel slightly rejuvinated!"))
 	return ..() | update_flags
 
 //Berry Banned 2: This one is tasty and toxic. Deals toxin damage and MAYBE plays the "BWOINK!" sound if it kills someone?
@@ -67,7 +64,6 @@
 	name = "Berry Banned"
 	id = "berry_banned2"
 	description = "Reason for ban: Excessive Flavor."
-	reagent_state = LIQUID
 	color = "#FF44FF"
 	taste_description = "a permaban"
 
@@ -76,12 +72,12 @@
 	if(prob(50))
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)		//double strength of poison berry juice alone, because it's concentrated (this is equal to the damage of normal toxin, less often)
 	if(prob(10))
-		to_chat(M, "<span class='notice'>You feel slightly rejuvinated!</span>")		//meta this!
+		to_chat(M, SPAN_NOTICE("You feel slightly rejuvinated!"))		//meta this!
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_death(mob/living/M)
 	SEND_SOUND(M, sound('sound/effects/adminhelp.ogg', 0, 1, 0, 25))
-	to_chat(M, chat_box_red("<span class='adminhelp'>PM from-<b>Administrator</b>: BWOINK!</span>"), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+	to_chat(M, chat_box_red(SPAN_ADMINHELP("PM from-<b>Administrator</b>: BWOINK!")), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 	..()
 
 //Blackeye Brew: Chance to make the drinker say greytider-themed things like "I thought clown was valid!"
@@ -89,7 +85,6 @@
 	name = "Blackeye Brew"
 	id = "blackeye_brew"
 	description = "Creamy, smooth flavor, just like the bald heads of the masses. Supposedly aged for 30 years."
-	reagent_state = LIQUID
 	color = "#4d2600"
 	taste_description = "greytide"
 
@@ -113,7 +108,6 @@
 	name = "Grape Granade"
 	id = "grape_granade"
 	description = "Exploding with grape flavor and a favorite among ERT members system-wide."
-	reagent_state = LIQUID
 	color = "#9933ff"
 	taste_description = "old people"
 
@@ -122,7 +116,7 @@
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, FALSE, 30) //Capped at 30 to prevent sorium abuse
 		M.emote("burp")
-		to_chat(M, "<span class='notice'>You feel ready to burst! Oh wait, just a burp...</span>")
+		to_chat(M, SPAN_NOTICE("You feel ready to burst! Oh wait, just a burp..."))
 	else if(prob(25))
 		M.emote("burp")
 	return ..()
@@ -132,7 +126,6 @@
 	name = "Meteor Malt"
 	id = "meteor_malt"
 	description = "Soft drinks have been detected on collision course with your tastebuds."
-	reagent_state = LIQUID
 	color = "#cc9900"
 	taste_description = "flying space rocks"
 

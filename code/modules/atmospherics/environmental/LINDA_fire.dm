@@ -1,9 +1,9 @@
 
-/atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/atom/proc/temperature_expose(exposed_temperature, exposed_volume)
 	if(!isnull(reagents))
 		reagents.temperature_reagents(exposed_temperature)
 
-/turf/simulated/temperature_expose(exposed_temperature)
+/turf/simulated/temperature_expose(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature, 10, 300)
 
@@ -21,7 +21,6 @@
 
 //This is the icon for fire on turfs.
 /obj/effect/hotspot
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/goonstation/effects/fire.dmi'
 	icon_state = "1"
@@ -260,6 +259,6 @@
 			if(capped)
 				chance = min(chance, 30)
 			if(prob(chance) || bypass_rng)
-				T.visible_message("<span class='warning'>[T] melts!</span>")
+				T.visible_message(SPAN_WARNING("[T] melts!"))
 				T.burn_down()
 	return affected

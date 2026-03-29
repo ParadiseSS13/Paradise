@@ -36,13 +36,15 @@
 	desc = "A device to automatically replace lights. Refill with broken or working light bulbs, or sheets of glass."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "lightreplacer0"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	belt_icon = "light_replacer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=3;engineering=4"
 	force = 8
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 3000)
 	var/max_uses = 20
 	var/uses = 10
 	/// How much to increase per each glass?
@@ -63,7 +65,7 @@
 
 /obj/item/lightreplacer/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(uses >= max_uses)
-		to_chat(user, "<span class='warning'>[src] is full.</span>")
+		to_chat(user, SPAN_WARNING("[src] is full."))
 		return
 
 	if(istype(I, /obj/item/stack/sheet/glass))
@@ -71,34 +73,34 @@
 
 		if(G.use(decrement))
 			AddUses(increment)
-			to_chat(user, "<span class='notice'>You insert some glass into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, SPAN_NOTICE("You insert some glass into [src]. You have [uses] light\s remaining."))
 		else
-			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
+			to_chat(user, SPAN_WARNING("You need one sheet of glass to replace lights!"))
 		return
 
 	if(istype(I, /obj/item/shard))
 		if(!user.drop_item_to_ground(I))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[I] is stuck to your hand!"))
 			return
 
 		AddUses(increment)
-		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
+		to_chat(user, SPAN_NOTICE("You insert a shard of glass into [src]. You have [uses] light\s remaining."))
 		qdel(I)
 		return
 
 	if(istype(I, /obj/item/light))
 		var/obj/item/light/L = I
 		if(!user.drop_item_to_ground(L))
-			to_chat(user, "<span class='warning'>[L] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[L] is stuck to your hand!"))
 			return
 
 		if(L.status == LIGHT_OK)
 			AddUses(1)
-			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, SPAN_NOTICE("You insert [L] into [src]. You have [uses] light\s remaining."))
 			qdel(L)
 		else
 			AddShards(1, user)
-			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, SPAN_NOTICE("You insert [L] into [src]. You have [uses] light\s remaining."))
 		qdel(L)
 		return
 
@@ -124,14 +126,14 @@
 					qdel(L)
 
 		if(!found_lightbulbs)
-			to_chat(user, "<span class='warning'>[S] contains no bulbs.</span>")
+			to_chat(user, SPAN_WARNING("[S] contains no bulbs."))
 			return
 
 		if(!replaced_something && uses == max_uses)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			to_chat(user, SPAN_WARNING("[src] is full!"))
 			return
 
-		to_chat(user, "<span class='notice'>You fill [src] with lights from [S]. " + status_string() + "</span>")
+		to_chat(user, SPAN_NOTICE("You fill [src] with lights from [S]. " + status_string() + ""))
 		return
 	return ..()
 
@@ -156,6 +158,7 @@
 
 /obj/item/lightreplacer/update_icon_state()
 	icon_state = "lightreplacer[emagged]"
+	belt_icon = emagged ? "light_replacer_red" : "light_replacer"
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."
@@ -176,7 +179,7 @@
 		AddUses(new_bulbs)
 	bulb_shards = bulb_shards % shards_required
 	if(new_bulbs != 0)
-		to_chat(user, "<span class='notice'>[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses.</span>")
+		to_chat(user, SPAN_NOTICE("[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses."))
 		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	return new_bulbs
 
@@ -200,7 +203,7 @@
 			to_chat(U, "[src]'s refill light blinks red.")
 			return
 	else
-		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
+		to_chat(U, SPAN_WARNING("There is a working [target.fitting] already inserted!"))
 		return
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
@@ -247,8 +250,10 @@
 /obj/item/lightreplacer/bluespace
 	name = "bluespace light replacer"
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
-	icon_state = "lightreplacer_blue0"
+	icon_state = "lightreplacer_blue"
+	belt_icon = "light_replacer_blue"
 	bluespace_toggle = TRUE
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 
 /obj/item/lightreplacer/bluespace/emag_act()
 	return  // long range explosions are stupid

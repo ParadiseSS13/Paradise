@@ -33,6 +33,8 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	if(world.time > last_rad_cache_update + rad_cache_update_interval)
 		refresh_rad_cache()
 		last_rad_cache_update = world.time
+	for(var/emission_type in GLOB.turf_rad_item_cache)
+		GLOB.turf_rad_item_cache["[emission_type]"] = list()
 	. = ..()
 
 /datum/controller/subsystem/processing/radiation/proc/get_turf_radiation(turf/place)

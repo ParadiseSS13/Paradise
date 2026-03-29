@@ -8,8 +8,6 @@ img {
   margin: 0;
   padding: 0;
   line-height: 1;
-  -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
-  image-rendering: pixelated;
 }
 
 img.icon {
@@ -92,6 +90,14 @@ h2.alert {
   font-family: 'OCR-A', monospace;
   font-size: 1.15em;
   font-weight: bold;
+}
+
+.robotemote {
+  font-family: 'OCR-A', monospace;
+  font-size: 1.15em;
+  font-weight: bold;
+  font-style: italic;
+  color: #6685f5;
 }
 
 .hidden {
@@ -516,7 +522,7 @@ h2.alert {
 
 .mind_control {
   color: #a00d6f;
-  font-size: 3;
+  font-size: 120%;
   font-weight: bold;
   font-style: italic;
 }
@@ -561,16 +567,6 @@ h2.alert {
   font-style: italic;
 }
 
-.zombie {
-  color: #7c4848;
-}
-
-.zombielarge {
-  color: #7c4848;
-  font-weight: bold;
-  font-size: 120%;
-}
-
 // MARK: MEGAFAUNA
 .colossus {
   color: #7f282a;
@@ -585,7 +581,9 @@ h2.alert {
 
 .hierophant_warning {
   color: #660099;
+  font-weight: bold;
   font-style: italic;
+  font-size: 175%;
 }
 
 // MARK: Languages
@@ -601,12 +599,18 @@ h2.alert {
   color: #8282fb;
 }
 
-.com_zvezhan {
+.com_cygni {
   color: #7c4848;
 }
 
 .zombie {
-  color: #ff0000;
+  color: #7c4848;
+}
+
+.zombielarge {
+  color: #7c4848;
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .soghun {
@@ -642,6 +646,10 @@ h2.alert {
 .moth {
   color: #869b29;
   font-family: 'Copperplate';
+}
+
+.skulk {
+  color: #b178b1;
 }
 
 .clown {
@@ -747,6 +755,14 @@ span.body .coderesponses {
 
 .agent_b {
   color: teal;
+}
+
+.hydrogen {
+  color: #997379;
+}
+
+.water_vapor {
+  color: darkslateblue;
 }
 
 // MARK: Boxed messages

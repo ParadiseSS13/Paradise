@@ -3,13 +3,17 @@
 #define ION_ANNOUNCE 1
 
 /datum/event/ion_storm
+	name = "Ion Storm"
+	role_weights = list(ASSIGNMENT_COMMAND = 1)
+	role_requirements = list(ASSIGNMENT_COMMAND = 1)
+	nominal_severity = EVENT_LEVEL_MODERATE
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
 	var/ionMessage = null
 	var/ionAnnounceChance = 33
 	announceWhen	= 1
 
-/datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
+/datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, _severity, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
 	src.botEmagChance = botEmagChance
 	src.announceEvent = announceEvent
 	src.ionMessage = ionMessage
@@ -28,11 +32,11 @@
 			if(message)
 				ai_player.add_ion_law(message)
 				to_chat(ai_player, "<br>")
-				to_chat(ai_player, "<span class='danger'>[message] ...LAWS UPDATED</span>")
+				to_chat(ai_player, SPAN_DANGER("[message] ...LAWS UPDATED"))
 				to_chat(ai_player, "<br>")
 
 				for(var/ghost in GLOB.dead_mob_list)
-					to_chat(ghost, "<span class='deadsay'><b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> has received an ion law:\n<b>'[message]'</b></span>")
+					to_chat(ghost, SPAN_DEADSAY("<b>[ai_player] ([ghost_follow_link(ai_player, ghost)])</b> has received an ion law:\n<b>'[message]'</b>"))
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot as anything in GLOB.bots_list)

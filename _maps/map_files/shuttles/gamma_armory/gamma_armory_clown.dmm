@@ -1,0 +1,238 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/gamma)
+"d" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/structure/sign/poster/contraband/clown/directional/north,
+/obj/item/food/pie,
+/obj/item/food/pie,
+/obj/item/food/pie,
+/obj/item/food/pie,
+/obj/item/food/pie,
+/obj/item/food/pie,
+/obj/item/food/pie,
+/obj/item/food/pie,
+/obj/item/food/pie,
+/obj/item/gun/throw/piecannon,
+/obj/item/gun/throw/piecannon,
+/obj/item/gun/throw/piecannon,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"h" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/suit_storage_unit/clown,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"l" = (
+/obj/mecha/combat/honker/loaded,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/shuttle/gamma)
+"n" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"o" = (
+/obj/structure/statue/bananium/clown,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"p" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"r" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass,
+/obj/docking_port/mobile/gamma_armory{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"x" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/structure/sign/poster/contraband/clown/directional/north,
+/obj/item/gun/energy/clown,
+/obj/item/gun/energy/clown,
+/obj/item/gun/energy/clown,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"D" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/obj/item/ammo_box/shotgun/confetti,
+/obj/item/ammo_box/shotgun/confetti,
+/obj/item/ammo_box/shotgun/confetti,
+/obj/item/gun/projectile/shotgun/automatic/combat/confetti,
+/obj/item/gun/projectile/shotgun/automatic/combat/confetti,
+/obj/item/gun/projectile/shotgun/automatic/combat/confetti,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"E" = (
+/obj/machinery/mech_bay_recharge_port/upgraded,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"G" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"I" = (
+/obj/structure/table/reinforced,
+/obj/item/grenade/clusterbuster/lube,
+/obj/item/grenade/confetti,
+/obj/item/bikehorn,
+/obj/item/bikehorn,
+/obj/item/bikehorn,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"J" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"K" = (
+/obj/machinery/autolathe/upgraded/gamma,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/structure/sign/vacuum/external{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"L" = (
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 32
+	},
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"M" = (
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/machinery/ai_status_display{
+	pixel_y = 32
+	},
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"O" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/gamma)
+"Q" = (
+/turf/simulated/floor/mineral/titanium{
+	color = "yellow"
+	},
+/area/shuttle/gamma)
+"R" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/gamma)
+
+(1,1,1) = {"
+O
+O
+O
+O
+J
+O
+R
+"}
+(2,1,1) = {"
+O
+D
+p
+K
+G
+h
+O
+"}
+(3,1,1) = {"
+O
+d
+Q
+I
+Q
+E
+O
+"}
+(4,1,1) = {"
+O
+x
+Q
+o
+Q
+l
+O
+"}
+(5,1,1) = {"
+O
+M
+L
+Q
+Q
+n
+O
+"}
+(6,1,1) = {"
+O
+O
+O
+r
+a
+O
+R
+"}

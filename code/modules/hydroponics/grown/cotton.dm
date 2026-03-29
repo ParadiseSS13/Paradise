@@ -13,7 +13,6 @@
 	yield = 2
 	potency = 50
 	growthstages = 3
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "cotton-dead"
 	mutatelist = list(/obj/item/seeds/cotton/durathread)
 
@@ -22,17 +21,17 @@
 	name = "cotton bundle"
 	desc = "A fluffy bundle of cotton."
 	icon_state = "cotton"
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	throw_speed = 2
 	throw_range = 3
 	attack_verb = list("pomfed")
 	var/cotton_type = /obj/item/stack/sheet/cotton
 	var/cotton_name = "raw cotton"
 
-/obj/item/grown/cotton/attack_self__legacy__attackchain(mob/user)
-	user.show_message("<span class='notice'>You pull some [cotton_name] out of [src]!</span>", 1)
+/obj/item/grown/cotton/activate_self(mob/user)
+	if(..())
+		return
+
+	user.show_message(SPAN_NOTICE("You pull some [cotton_name] out of [src]!"), 1)
 	var/seed_modifier = 0
 	if(seed)
 		seed_modifier = round(seed.potency / 25)
@@ -42,7 +41,7 @@
 		if(ST != cotton && istype(ST, cotton_type) && ST.amount < ST.max_amount)
 			ST.attackby__legacy__attackchain(cotton, user)
 	if(cotton.amount > old_cotton_amount)
-		to_chat(user, "<span class='notice'>You add the newly-formed [cotton_name] to the stack. It now contains [cotton.amount] [cotton_name].</span>")
+		to_chat(user, SPAN_NOTICE("You add the newly-formed [cotton_name] to the stack. It now contains [cotton.amount] [cotton_name]."))
 	qdel(src)
 
 //reinforced mutated variant
@@ -56,14 +55,7 @@
 	product = /obj/item/grown/cotton/durathread
 	lifespan = 80
 	endurance = 50
-	maturation = 15
-	production = 1
-	yield = 2
-	potency = 50
-	growthstages = 3
 	mutatelist = list()
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
-	icon_dead = "cotton-dead"
 
 /obj/item/grown/cotton/durathread
 	seed = /obj/item/seeds/cotton/durathread
@@ -73,8 +65,6 @@
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
-	throw_range = 3
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	cotton_type = /obj/item/stack/sheet/cotton/durathread
 	cotton_name = "raw durathread"

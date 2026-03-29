@@ -237,7 +237,7 @@
 		if("execute", SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
-				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized [SPAN_WARNING("EXECUTION")] for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
 		if("search", SEC_RECORD_STATUS_SEARCH)
@@ -245,7 +245,7 @@
 		if("monitor", SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
-			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to [SPAN_WARNING("DEMOTE")] for [their_rank] [their_name], with comment: [comment]")
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -388,9 +388,13 @@
  *	param {boolean} hidden - By default, any action 1 second or longer shows a cog over the user while it is in progress. If hidden is set to TRUE, the cog will not be shown.
  *	If allow_sleeping_or_dead is true, dead and sleeping mobs will continue. Good if you want to show a progress bar to the user but it doesn't need them to do anything, like modsuits.
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE, allow_sleeping_or_dead = FALSE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), interaction_key = null, use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE, allow_sleeping_or_dead = FALSE)
 	if(!user)
 		return FALSE
+
+	if(interaction_key)
+		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
+		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 	var/atom/Tloc = null
 	if(target)
 		Tloc = target.loc
@@ -415,6 +419,7 @@
 		if(!hidden && delay >= 1 SECONDS)
 			cog = new(user)
 
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = TRUE
@@ -462,6 +467,14 @@
 	if(progress)
 		qdel(progbar)
 		cog?.remove()
+		if(interaction_key)
+			var/reduced_interaction_count = (LAZYACCESS(user.do_afters, interaction_key) || 0) - 1
+			if(reduced_interaction_count > 0) // Not done yet!
+				LAZYSET(user.do_afters, interaction_key, reduced_interaction_count)
+				return
+			// all out, let's clear er out fully
+			LAZYREMOVE(user.do_afters, interaction_key)
+		SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
 // Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
 /proc/check_for_true_callbacks(list/extra_checks)
@@ -472,18 +485,28 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_EMPTY(do_after_once_tracker)
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE)
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE, interaction_key = null, list/extra_checks = list(), allow_moving_target = FALSE)
 	if(!user || !target)
 		return
 
 	var/cache_key = "[user.UID()][target.UID()][special_identifier]"
 	if(GLOB.do_after_once_tracker[cache_key])
 		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
-		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
+		to_chat(user, SPAN_WARNING("[attempt_cancel_message]"))
 		return FALSE
+
+	extra_checks += CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)))
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks, interaction_key = interaction_key, allow_moving_target = allow_moving_target)
 	GLOB.do_after_once_tracker[cache_key] = FALSE
+
+// Please don't use this unless you absolutely need to. Just have a direct call to do_after_once whenever possible.
+/proc/interrupt_do_after_once(mob/user, atom/target, special_identifier)
+	var/cache_key = "[user.UID()][target.UID()][special_identifier]"
+	if(GLOB.do_after_once_tracker[cache_key])
+		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
+		return TRUE
+	return FALSE
 
 /proc/do_after_once_checks(cache_key)
 	if(GLOB.do_after_once_tracker[cache_key] && GLOB.do_after_once_tracker[cache_key] == DOAFTERONCE_MAGIC)
@@ -568,10 +591,10 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(!.)
 			. = M
 		else
-			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			to_chat(user, SPAN_WARNING("Multiple mobs in [A], using first mob found..."))
 			break
 	if(!.)
-		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
+		to_chat(user, SPAN_WARNING("No mob located in [A]."))
 
 // Suppress the mouse macros
 /mob/proc/LogMouseMacro(verbused, params)
@@ -643,6 +666,14 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		for(var/T in typesof(/mob/living/simple_animal))
 			var/mob/living/simple_animal/SA = T
 			switch(initial(SA.gold_core_spawnable))
+				if(HOSTILE_SPAWN)
+					mob_spawn_meancritters += T
+				if(FRIENDLY_SPAWN)
+					mob_spawn_nicecritters += T
+
+		for(var/T in typesof(/mob/living/basic))
+			var/mob/living/basic/BA = T
+			switch(initial(BA.gold_core_spawnable))
 				if(HOSTILE_SPAWN)
 					mob_spawn_meancritters += T
 				if(FRIENDLY_SPAWN)
@@ -793,3 +824,39 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(bypass_warning && length(limbs))
 			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
 	return (((chest_blacklisted && !base_zone) || even_weights) ? pickweight(limbs) : ran_zone(base_zone, base_probability, limbs))
+
+/proc/create_xeno(ckey, mob/user)
+	if(!ckey)
+		var/list/candidates = list()
+		for(var/mob/M in GLOB.player_list)
+			if(M.stat != DEAD)
+				continue //we are not dead!
+			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+				continue //we don't want to be an alium
+			if(jobban_isbanned(M, ROLE_ALIEN) || jobban_isbanned(M, ROLE_SYNDICATE))
+				continue //we are jobbanned
+			if(M.client.is_afk())
+				continue //we are afk
+			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
+				continue //we have a live body we are tied to
+			candidates += M.ckey
+		if(length(candidates))
+			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
+		else
+			to_chat(user, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>")
+	if(!istext(ckey))	return 0
+
+	var/alien_caste = input(user, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
+	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
+	var/mob/living/carbon/alien/new_xeno
+	switch(alien_caste)
+		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
+		if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
+		if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
+		if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
+		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
+		else			return 0
+
+	new_xeno.ckey = ckey
+	message_admins(SPAN_NOTICE("[key_name_admin(user)] has spawned [ckey] as a filthy xeno [alien_caste]."), 1)
+	return 1

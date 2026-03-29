@@ -1,7 +1,6 @@
 /datum/spell/flayer/self/weapon
 	name = "Create weapon"
 	desc = "This really shouldn't be here"
-	power_type = FLAYER_UNOBTAINABLE_POWER
 	action_icon = 'icons/mob/robot_items.dmi'
 	action_icon_state = "lollipop"
 	base_cooldown = 1 SECONDS // This just handles retracting and deploying the weapon, weapon charge will be fully separate
@@ -40,7 +39,7 @@
 	weapon_ref.flags |= ABSTRACT
 	weapon_ref.set_nodrop(TRUE, user)
 
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (user.get_active_hand() && !user.drop_item()))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (!user.get_organ("r_hand") && !user.get_organ("l_hand")) || (user.get_active_hand() && !user.drop_item()))
 		flayer.send_swarm_message("We cannot manifest [weapon_ref] into our active hand...")
 		return FALSE
 
@@ -134,7 +133,7 @@
 /obj/item/ammo_casing/magic/grapple_ammo
 	name = "grapple"
 	desc = "a hand"
-	projectile_type = /obj/item/projectile/tether/flayer
+	projectile_type = /obj/projectile/tether/flayer
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "flayer_claw"
 	caliber = "grapple"
@@ -150,43 +149,41 @@
 	. = ..()
 	grapple = null
 
-/obj/item/projectile/tether/flayer
+/obj/projectile/tether/flayer
 	name = "Grapple Arm"
 	range = 10
 	damage = 15
-	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "flayer_claw"
 	chain_icon_state = "flayer_tether"
 	speed = 3
 	yank_speed = 2
-	reflectability = REFLECTABILITY_PHYSICAL // This lowkey makes no sense but it's also kinda funny
 	/// The ammo this came from
 	var/obj/item/ammo_casing/magic/grapple_ammo/ammo
 
-/obj/item/projectile/tether/flayer/Initialize(mapload, obj/item/ammo_casing/magic/grapple_ammo/grapple_casing)
+/obj/projectile/tether/flayer/Initialize(mapload, obj/item/ammo_casing/magic/grapple_ammo/grapple_casing)
 	. = ..()
 	ammo = grapple_casing
 
-/obj/item/projectile/tether/flayer/fire(setAngle)
+/obj/projectile/tether/flayer/fire(setAngle)
 	. = ..()
 	make_chain()
 	SEND_SIGNAL(firer, COMSIG_FLAYER_RETRACT_IMPLANTS)
 
-/obj/item/projectile/tether/flayer/Destroy()
+/obj/projectile/tether/flayer/Destroy()
 	. = ..()
 	ammo = null
 
-/obj/item/projectile/tether/flayer/on_hit(atom/target, blocked = 0)
+/obj/projectile/tether/flayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	playsound(target, 'sound/items/zip.ogg', 75, TRUE)
 	if(isliving(target) && blocked < 100)
 		var/mob/living/creature = target
 		creature.visible_message(
-			"<span class='notice'>[firer] uses [creature] to pull [firer.p_themselves()] over!</span>",
-			"<span class='danger'>You feel a strong tug as [firer] yanks [firer.p_themselves()] over to you!</span>")
+			SPAN_NOTICE("[firer] uses [creature] to pull [firer.p_themselves()] over!"),
+			SPAN_DANGER("You feel a strong tug as [firer] yanks [firer.p_themselves()] over to you!"))
 		creature.KnockDown(1 SECONDS)
 		return
-	target.visible_message("<span class='notice'>[firer] drags [firer.p_themselves()] across the room!</span>")
+	target.visible_message(SPAN_NOTICE("[firer] drags [firer.p_themselves()] across the room!"))
 
 /datum/spell/flayer/self/weapon/grapple_arm/on_apply()
 	..()
@@ -201,9 +198,7 @@
 	upgrade_info = ""
 	action_icon = 'icons/obj/device.dmi'
 	action_icon_state = "hacktool"
-	base_cooldown = 1 SECONDS
 	category = FLAYER_CATEGORY_INTRUDER
-	power_type = FLAYER_UNOBTAINABLE_POWER
 	weapon_type = /obj/item/door_remote/omni/access_tuner/flayer
 
 /*
@@ -214,8 +209,7 @@
 	desc = "Allows us to propel pieces of shrapnel from our arm."
 	upgrade_info = "Upgrading it allows us to reload the cannon faster. At the third level, we gain an extra magazine slot."
 	action_icon = 'icons/obj/guns/projectile.dmi'
-	action_icon_state = "shell_cannon_weapon"
-	base_cooldown = 1 SECONDS
+	action_icon_state = "shell_cannon"
 	category = FLAYER_CATEGORY_DESTROYER
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
@@ -236,13 +230,12 @@
 /obj/item/gun/projectile/revolver/doublebarrel/flayer
 	name = "integrated shrapnel cannon"
 	desc = "Allows us to propel shrapnel at high velocities. Cannot be loaded with conventional shotgun shells."
-	icon_state = "shell_cannon_weapon"
+	icon_state = "shell_cannon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	flags = NODROP | ABSTRACT
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/flayer
 	unique_reskin = FALSE
 	can_sawoff = FALSE

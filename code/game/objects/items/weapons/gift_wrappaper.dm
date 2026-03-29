@@ -10,20 +10,18 @@
 /obj/item/a_gift
 	name = "gift"
 	desc = "PRESENTS!!!! eek!"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gift1"
-	item_state = "gift1"
+	inhand_icon_state = "gift"
 	resistance_flags = FLAMMABLE
 	scatter_distance = 10
 
-/obj/item/a_gift/New()
-	..()
+/obj/item/a_gift/Initialize(mapload)
+	. = ..()
 	scatter_atom()
 	if(w_class > 0 && w_class < 4)
 		icon_state = "gift[w_class]"
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
-	return
 
 /obj/item/gift/attack_self__legacy__attackchain(mob/user as mob)
 	user.drop_item()
@@ -31,20 +29,20 @@
 		user.put_in_active_hand(gift)
 		src.gift.add_fingerprint(user)
 	else
-		to_chat(user, "<span class='notice'>The gift was empty!</span>")
+		to_chat(user, SPAN_NOTICE("The gift was empty!"))
 	qdel(src)
 
 /obj/effect/spresent/relaymove(mob/user as mob)
 	if(user.stat)
 		return
-	to_chat(user, "<span class='notice'>You can't move.</span>")
+	to_chat(user, SPAN_NOTICE("You can't move."))
 
 /obj/effect/spresent/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/wirecutters))
-		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
+		to_chat(user, SPAN_NOTICE("I need wirecutters for that."))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, "<span class='notice'>You cut open the present.</span>")
+	to_chat(user, SPAN_NOTICE("You cut open the present."))
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.forceMove(loc)
 	qdel(src)
@@ -137,4 +135,4 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self__legacy__attackchain(mob/user)
-	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
+	to_chat(user, SPAN_NOTICE("You need to use it on a package that has already been wrapped!"))

@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(station_turfs)
+
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1
@@ -24,6 +26,8 @@
 	var/toxins = 0
 	var/sleeping_agent = 0
 	var/agent_b = 0
+	var/hydrogen = 0
+	var/water_vapor = 0
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -34,7 +38,6 @@
 
 	var/blocks_air = FALSE
 
-	flags = 0 // TODO, someday move all off the flags here to turf_flags
 
 	var/turf_flags = NONE
 
@@ -68,14 +71,18 @@
 
 	/// Is the lighting on this turf inited
 	var/tmp/lighting_corners_initialised = FALSE
-	/// List of light sources affecting this turf.
-	var/tmp/list/datum/light_source/affecting_lights
 	/// The lighting Object affecting us
-	var/tmp/atom/movable/lighting_object/lighting_object
-	/// A list of our lighting corners.
-	var/tmp/list/datum/lighting_corner/corners
-	/// Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
-	var/tmp/has_opaque_atom = FALSE
+	var/tmp/datum/lighting_object/lighting_object
+	/// Lighting Corner datums.
+	var/tmp/datum/lighting_corner/lighting_corner_NE
+	var/tmp/datum/lighting_corner/lighting_corner_SE
+	var/tmp/datum/lighting_corner/lighting_corner_SW
+	var/tmp/datum/lighting_corner/lighting_corner_NW
+
+	/// Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
+	var/directional_opacity = NONE
+	/// Lazylist of movable atoms providing opacity sources.
+	var/list/atom/movable/opacity_sources
 
 	/// The general behavior of atmos on this tile.
 	var/atmos_mode = ATMOS_MODE_SEALED
@@ -89,6 +96,9 @@
 
 	var/list/milla_data = null
 
+	///This turf's resistance to getting rusted
+	var/rust_resistance = RUST_RESISTANCE_ORGANIC
+
 	new_attack_chain = TRUE
 	/// The destination x-coordinate that atoms entering this turf will be automatically moved to.
 	var/destination_x
@@ -96,6 +106,10 @@
 	var/destination_y
 	/// The destination z-level that atoms entering this turf will be automatically moved to.
 	var/destination_z
+
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -129,13 +143,15 @@
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
 
-	if(light_power && light_range)
+	if(light_range && light_power)
 		update_light()
 
 	if(opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	initialize_milla()
+	if(is_station_level(z))
+		GLOB.station_turfs += src
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -186,7 +202,7 @@
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
 		for(var/obj/machinery/door/airlock/A in src)
 			if(A.density)
-				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
+				to_chat(user, SPAN_WARNING("That type of pipe won't fit under [A]!"))
 				return
 		our_rpd.create_disposals_pipe(user, src)
 	else if(our_rpd.mode == RPD_TRANSIT_MODE)
@@ -198,8 +214,8 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
 
-/turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/bullet/gyro))
+/turf/bullet_act(obj/projectile/Proj)
+	if(istype(Proj, /obj/projectile/bullet/gyro))
 		explosion(src, -1, 0, 2, cause = "[Proj.type] fired by [key_name(Proj.firer)] (hit turf)")
 	..()
 	return FALSE
@@ -238,11 +254,6 @@
 		var/mob/O = A
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
-
-	// If an opaque movable atom moves around we need to potentially update visibility.
-	if(A.opacity)
-		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
-		reconsider_lights()
 
 	if((!(A) || !(src in A.locs)))
 		return
@@ -316,13 +327,14 @@
 		return src
 
 	set_light(0)
-	var/old_opacity = opacity
-	var/old_dynamic_lighting = dynamic_lighting
-	var/old_affecting_lights = affecting_lights
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
-	var/old_corners = corners
+	var/old_lighting_corner_NE = lighting_corner_NE
+	var/old_lighting_corner_SE = lighting_corner_SE
+	var/old_lighting_corner_SW = lighting_corner_SW
+	var/old_lighting_corner_NW = lighting_corner_NW
+	var/old_directional_opacity = directional_opacity
 
 	BeforeChange()
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
@@ -353,31 +365,36 @@
 	W.blueprint_data = old_blueprint_data
 	W.pressure_overlay = old_pressure_overlay
 
-	recalc_atom_opacity()
+	lighting_corner_NE = old_lighting_corner_NE
+	lighting_corner_SE = old_lighting_corner_SE
+	lighting_corner_SW = old_lighting_corner_SW
+	lighting_corner_NW = old_lighting_corner_NW
+
+	if(!W.dynamic_lighting)
+		W.lighting_build_overlay()
+	else
+		W.lighting_clear_overlay()
 
 	if(SSlighting.initialized)
-		recalc_atom_opacity()
-		lighting_object = old_lighting_object
-		affecting_lights = old_affecting_lights
-		corners = old_corners
-		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
-			reconsider_lights()
+		W.lighting_object = old_lighting_object
+		directional_opacity = old_directional_opacity
+		recalculate_directional_opacity()
 
-		if(dynamic_lighting != old_dynamic_lighting)
-			if(IS_DYNAMIC_LIGHTING(src))
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
+		if(lighting_object && !lighting_object.needs_update)
+			lighting_object.update()
 
-		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			S.update_starlight()
+		for(var/turf/space/space_tile in RANGE_TURFS(1, src))
+			space_tile.update_starlight()
 
 	obscured = old_obscured
 
 	return W
 
 /turf/proc/BeforeChange()
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	if("[z]" in GLOB.space_manager.z_list)
+		var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
+		S.remove_from_transit(src)
 
 /turf/proc/is_safe()
 	return FALSE
@@ -403,6 +420,11 @@
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
+
+	if("[z]" in GLOB.space_manager.z_list)
+		var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
+		S.add_to_transit(src)
+		S.apply_transition(src)
 
 /turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
 	..()
@@ -435,6 +457,8 @@
 		merged.set_toxins(merged.toxins() / turf_count)
 		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
 		merged.set_agent_b(merged.agent_b() / turf_count)
+		merged.set_hydrogen(merged.hydrogen() / turf_count)
+		merged.set_water_vapor(merged.water_vapor() / turf_count)
 	get_turf_air(self).copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
@@ -541,7 +565,7 @@
 			var/obj/item/stack/cable_coil/C = used
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
-					LC.attackby__legacy__attackchain(C, user)
+					LC.item_interaction(user, C)
 					return ITEM_INTERACT_COMPLETE
 			C.place_turf(src, user)
 			return ITEM_INTERACT_COMPLETE
@@ -550,7 +574,7 @@
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
-						LC.attackby__legacy__attackchain(R, user)
+						LC.item_interaction(user, R)
 						return ITEM_INTERACT_COMPLETE
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
@@ -578,9 +602,12 @@
 		if(AM == source)
 			continue	//we don't want to return source
 		if(istype(AM, /obj/structure/cable))
-
 			var/obj/structure/cable/C = AM
 			if(C.d1 == direction || C.d2 == direction)
+				if(istype(source, /obj/structure/cable))
+					var/obj/structure/cable/source_cable = source
+					if(!(source_cable.connect_type & C.connect_type))
+						continue
 				. += C // one of the cables ends matches the supplied direction, add it to connnections
 		if(cable_only || direction)
 			continue
@@ -609,7 +636,7 @@
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type = /turf/space)
-	// Remove all atoms except observers, landmarks, docking ports, and (un)`simulated` atoms (lighting overlays)
+	// Remove all atoms except observers, landmarks, docking ports
 	var/turf/T0 = src
 	for(var/X in T0.GetAllContents())
 		var/atom/A = X
@@ -648,7 +675,7 @@
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
-	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.visible_message(SPAN_DANGER("[C] slams into [src]!"), SPAN_USERDANGER("You slam into [src]!"))
 	if(issilicon(C))
 		C.adjustBruteLoss(damage)
 		C.Weaken(3 SECONDS)
@@ -668,6 +695,12 @@
 
 	AddElement(/datum/element/rust/heretic)
 	new /obj/effect/glowing_rune(src)
+
+/// Check if the heretic is strong enough to rust this turf, and if so, rusts the turf with an added visual effect.
+/turf/rust_heretic_act(rust_strength = 1)
+	if((flags & NO_RUST) || (rust_strength < rust_resistance))
+		return
+	magic_rust_turf()
 
 /// Returns a list of all attached /datum/element/decal/ for this turf
 /turf/proc/get_decals()

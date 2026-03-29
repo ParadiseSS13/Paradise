@@ -10,8 +10,6 @@
 	force = 3
 	throwforce = 5
 	throw_speed = 3
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
 	new_attack_chain = TRUE
@@ -20,8 +18,8 @@
 	/// The cooldown between each mopping sound effect
 	var/mop_sound_cooldown
 
-/obj/item/mop/New()
-	..()
+/obj/item/mop/Initialize(mapload)
+	. = ..()
 	create_reagents(mopcap)
 	GLOB.janitorial_equipment += src
 
@@ -31,7 +29,7 @@
 
 /obj/item/mop/proc/wet_mop(obj/O, mob/user, robot_mop)
 	if(O.reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>[O] is empty!</span>")
+		to_chat(user, SPAN_WARNING("[O] is empty!"))
 		if(robot_mop)
 			return
 
@@ -50,12 +48,12 @@
 			return
 
 	O.reagents.trans_to(src, 6)
-	to_chat(user, "<span class='notice'>You wet [src] in [O].</span>")
+	to_chat(user, SPAN_NOTICE("You wet [src] in [O]."))
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
 /obj/item/mop/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	// Use the mop as a weapon.
-	if(user.a_intent != INTENT_HELP)
+	if(!isturf(target) && !isitem(target) && user.a_intent == INTENT_HARM)
 		return ..()
 
 	if(istype(target, /obj/item/reagent_containers/glass/bucket/))
@@ -65,7 +63,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
+		to_chat(user, SPAN_WARNING("Your mop is dry!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(world.time > mop_sound_cooldown)
@@ -90,7 +88,7 @@
 
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
-	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
+	to_chat(user, SPAN_NOTICE("You wet [src] in [source]."))
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 	return TRUE
 
@@ -100,6 +98,7 @@
 	mopcap = 10
 	icon_state = "advmop"
 	origin_tech = "materials=3;engineering=3"
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 200)
 	force = 6
 	throwforce = 8
 	throw_range = 4
@@ -111,8 +110,8 @@
 	/// Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
 	var/refill_reagent = "water"
 
-/obj/item/mop/advanced/New()
-	..()
+/obj/item/mop/advanced/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mop/advanced/activate_self(mob/user)
@@ -124,7 +123,7 @@
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj, src)
-	to_chat(user, "<span class='notice'>You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position.</span>")
+	to_chat(user, SPAN_NOTICE("You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position."))
 	playsound(user, 'sound/machines/click.ogg', 30, 1)
 
 /obj/item/mop/advanced/process()
@@ -134,7 +133,7 @@
 
 /obj/item/mop/advanced/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The condenser switch is set to <b>[refill_enabled ? "ON" : "OFF"]</b>.</span>"
+	. += SPAN_NOTICE("The condenser switch is set to <b>[refill_enabled ? "ON" : "OFF"]</b>.")
 
 /obj/item/mop/advanced/Destroy()
 	if(refill_enabled)

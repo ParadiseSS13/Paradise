@@ -4,7 +4,6 @@
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "glass-0"
 	base_icon_state = "glass"
-	baseturf = /turf/space
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_GLASS_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_GLASS_FLOOR)
@@ -51,7 +50,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You fix some cracks in the glass.</span>")
+		to_chat(user, SPAN_NOTICE("You fix some cracks in the glass."))
 		overlays -= current_overlay
 		current_overlay = null
 		burnt = FALSE
@@ -71,10 +70,10 @@
 			R = robouser.all_active_items[metal_slot]
 
 	if(!istype(R, /obj/item/stack/sheet/metal) || R.get_amount() < 2)
-		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")
+		to_chat(user, SPAN_DANGER("You also need to hold two sheets of metal to dismantle \the [src]!"))
 		return
 
-	to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin replacing [src]..."))
 	playsound(src, I.usesound, 80, TRUE)
 
 	if(do_after(user, 3 SECONDS * I.toolspeed, target = src))
@@ -138,7 +137,7 @@
 	var/obj/item/thing = user.get_inactive_hand()
 	if(!thing || !(thing.tool_behaviour in get_prying_tools()))
 		return
-	to_chat(user, "<span class='danger'>You need to hold two sheets of metal to dismantle \the [src]!</span>")
+	to_chat(user, SPAN_DANGER("You need to hold two sheets of metal to dismantle \the [src]!"))
 
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"

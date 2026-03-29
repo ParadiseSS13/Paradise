@@ -5,17 +5,17 @@
     height: 96%;
     left: 2.5%;
     top: 2%;
-    border: 5px outset #364963;
-    padding: 5px;
+    border: var(--border-thickness-larger) outset var(--color-primary);
+    padding: var(--space-m);
     text-align: center;
 
     &--arrow {
-      color: #35435a;
+      color: hsl(from var(--color-primary) h s calc(l - 7.5));
     }
 
     &--hinge {
       content: ' ';
-      background-color: #191f2a;
+      background-color: hsl(from var(--color-primary) h s calc(l - 25));
       width: 25px;
       height: 40px;
       position: absolute;
@@ -25,23 +25,15 @@
   }
 
   &--dialer {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-m);
 
     &--number {
-      color: #bbbbbb;
       display: inline;
-      background-color: #191f2a;
       font-size: 1.5rem;
       font-weight: bold;
-      padding: 0 0.5rem;
-    }
-
-    &--right {
-      .Button {
-        i {
-          z-index: -100;
-        }
-      }
+      padding: 0 var(--space-m);
+      background-color: hsl(from var(--color-base) h s calc(l - 7.5));
+      color: var(--color-text-translucent);
     }
 
     .Button {
@@ -50,11 +42,12 @@
   }
 
   &--contents {
-    border: 10px solid #191f2a;
-    background-color: #0f131a;
+    border: calc(var(--border-thickness-larger) * 2) solid hsl(from var(--color-base) h s calc(l - 5));
+    background-color: hsl(from var(--color-base) h s calc(l - 12.5));
     height: calc(85% + 7.5px);
     text-align: left;
-    padding: 5px;
+    padding: var(--space-m);
+    box-shadow: inset 0px 0 0 5rem hsl(from var(--color-base) h s calc(l - 10));
   }
 
   &--help {

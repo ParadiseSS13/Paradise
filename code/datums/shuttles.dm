@@ -33,10 +33,17 @@
 	port_id = "admin"
 	name = "Base Shuttle Template (Admin)"
 
+/datum/map_template/shuttle/trader
+	port_id = "trader"
+	name = "Base Shuttle Template (Trader)"
+	prefix = "_maps/map_files/shuttles/trader/"
 
+/datum/map_template/shuttle/gamma_armory
+	port_id = "gamma_armory"
+	name = "Base Gamma Armory Template"
+	prefix = "_maps/map_files/shuttles/gamma_armory/"
 
-// Shuttles start here:
-
+// MARK: Emergency
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
 	name = "NTV Bullet (Bar)"
@@ -57,7 +64,6 @@
 	name = "NTV Charon (Militarized)"
 	description = "A militarized Charon-class shuttle hull featuring defense turrets and minimal crew comforts."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
-
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
@@ -91,6 +97,13 @@
 /datum/map_template/shuttle/emergency/meta
 	suffix = "meta"
 	name = "Emergency shuttle (Metastation)"
+
+/datum/map_template/shuttle/emergency/clockwork
+	suffix = "clockwork"
+	name = "Clockwork Shuttle"
+	description = "A shuttle constructed mostly from brass and clockwork. \
+	A large portion of the shuttle is dominated by a chapel that appears to be dedicated to the worship of Ratvar, the Clockwork Justicular."
+	admin_notes = "Contains 4 inactive clockwork marauder constructs. Put players into the constructs if you want them to move."
 
 /datum/map_template/shuttle/emergency/narnar
 	suffix = "narnar"
@@ -163,6 +176,7 @@
 	qdel(home, TRUE)
 	SSshuttle.emergency_locked_in = TRUE
 
+// MARK: Ferry
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
 	name = "transport ferry"
@@ -180,6 +194,7 @@
 	admin_notes = "Meat currently contains no zombifying reagents, people on \
 		meatspike must be spawned in."
 
+// MARK: Admin
 /datum/map_template/shuttle/admin/hospital
 	suffix = "hospital"
 	name = "NHV Asclepius"
@@ -199,3 +214,71 @@
 	suffix = "skipjack"
 	name = "Vox Skipjack"
 	description = "Vox skipjack ship."
+
+// MARK: Gamma
+/datum/map_template/shuttle/gamma_armory/standard
+	suffix = "base"
+	name = "Gamma Armory (standard)"
+	description = "The standard Gamma level armory shuttle, for assisting station crews in dire need of more firepower."
+	admin_notes = "Equipped with: 3 Multi-lens immolators, 3 Advanced Eguns, 3 Saber SMGs (plus 3 spare mags), 3 combat shotguns (plus 3 spare buckshot speedloaders),\
+	2 medbeam guns, 3 combat knives, 1 cluster flashbang, 1 plasma incendiary grenade, a gamma autolathe,\
+	1 shielded safeguard MODsuit, 1 Ares mech (pre-equipped)."
+
+/datum/map_template/shuttle/gamma_armory/clown
+	suffix = "clown"
+	name = "Gamma Armory (HONK!)"
+	description = "A special Gamma level armory shuttle, for assisting station crews in dire need of more FUN."
+	admin_notes = "Equipped with: 6 bananas, 3 HONK rifles, 3 pie cannons (plus 9 spare pies), 3 combat shotguns loaded with confetti shot (plus 3 spare confetti speedloaders),\
+	1 clown statue, 3 bike horns, 1 lube clusterbang, 1 confetti grenade, a gamma autolathe,\
+	1 clown EVA suit, 1 HONK mech (pre-equipped)."
+
+// MARK: Trader
+/datum/map_template/shuttle/trader/sol
+	suffix = "sol"
+	name = "Solgov Trade Freighter"
+	description = "Trading vessel for solgov traders."
+
+/datum/map_template/shuttle/trader/ussp
+	suffix = "ussp"
+	name = "USSP Trade Barge"
+	description = "Trading vessel for USSP traders."
+
+/datum/map_template/shuttle/trader/cybersun
+	suffix = "syndicate"
+	name = "Cybersun Trade Skiff"
+	description = "Trading vessel for cybersun traders."
+
+/datum/map_template/shuttle/trader/glint_scale
+	suffix = "glint"
+	name = "Glint Scale Trade Hound"
+	description = "Trading vessel for glint scale traders."
+
+/datum/map_template/shuttle/trader/steadfast
+	suffix = "stead"
+	name = "Steadfast Co. Trade Freighter"
+	description = "Trading vessel for steadfast company traders."
+
+/datum/map_template/shuttle/trader/synthetic
+	suffix = "synth"
+	name = "Synthetic Union Trade Vessel"
+	description = "Trading vessel for synthetic union traders."
+
+/datum/map_template/shuttle/trader/skipjack
+	suffix = "skip"
+	name = "Vox Trade Skipjack"
+	description = "Trading vessel for skipjack traders."
+
+/datum/map_template/shuttle/trader/skrell
+	suffix = "skrell"
+	name = "Skrellian Trade Skiff"
+	description = "Trading vessel for skrellian central authority traders."
+
+/datum/map_template/shuttle/trader/technocracy
+	suffix = "techno"
+	name = "Technocracy Trade Pod"
+	description = "Trading vessel for technocracy traders."
+
+/datum/map_template/shuttle/trader/guild
+	suffix = "guild"
+	name = "Merchant Guild Trade Freighter"
+	description = "Trading vessel for merchant guild traders."

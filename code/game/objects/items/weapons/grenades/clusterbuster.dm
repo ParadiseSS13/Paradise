@@ -4,14 +4,14 @@
 /obj/item/grenade/clusterbuster
 	name = "clusterbang"
 	desc = "Use of this weapon may constitute a war crime in your area, consult your local captain."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
-	item_state = "flashbang"
+	worn_icon_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
 
 /obj/item/grenade/clusterbuster/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.</span>"
+	. += SPAN_NOTICE("Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.")
 
 /obj/item/grenade/clusterbuster/prime()
 	update_mob()
@@ -39,7 +39,6 @@
 /obj/item/grenade/clusterbuster/segment
 	name = "clusterbang bomblet"
 	desc = "A bomblet released by a clusterbang. Better run!"
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
 /obj/item/grenade/clusterbuster/segment/Initialize(mapload, payload_type = /obj/item/grenade/flashbang/cluster)
@@ -214,7 +213,7 @@
 /obj/item/grenade/clusterbuster/crab
 	name = "\improper Crab Grenade"
 	desc = "Reserved for those pesky request."
-	payload = /mob/living/simple_animal/crab
+	payload = /mob/living/basic/crab
 
 /obj/item/grenade/clusterbuster/plasma
 	name = "\improper Plasma Cluster Grenade"

@@ -1,0 +1,116 @@
+@use 'sass:color';
+@use './colors.scss';
+
+@property --gradient-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: '<angle>';
+}
+
+@keyframes shine {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+.shine {
+  position: absolute;
+  inset: 0;
+  animation: shine 10s linear infinite;
+}
+
+.drag-icon {
+  position: absolute;
+  inset: 0;
+  background-position: 2px;
+  background-repeat: no-repeat;
+  background-size: 10px;
+  // Adds 0.8KiB to the css bundle
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M40 352l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zm192 0l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zM40 320c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0zM232 192l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40zM40 160c-22.1 0-40-17.9-40-40L0 72C0 49.9 17.9 32 40 32l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0zM232 32l48 0c22.1 0 40 17.9 40 40l0 48c0 22.1-17.9 40-40 40l-48 0c-22.1 0-40-17.9-40-40l0-48c0-22.1 17.9-40 40-40z' opacity='0.4'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+
+.window {
+  overflow: hidden;
+  position: relative;
+  background-color: black;
+}
+
+.window-lightMode {
+  background-color: colors.$lightMode;
+  border: 2px solid colors.$lightBorder;
+}
+
+/** Window sizes */
+.window-30 {
+  height: 30px;
+}
+
+.window-50 {
+  height: 50px;
+}
+
+.window-70 {
+  height: 70px;
+}
+
+.content {
+  background-color: black;
+  display: grid;
+  font: 'tgfont';
+  grid-template-columns: 4rem 1fr;
+  inset: 2px;
+  left: 1.2rem;
+  overflow: hidden;
+  padding: 2px;
+  position: absolute;
+  z-index: 2;
+}
+
+.content-lightMode {
+  background-color: white;
+}
+
+.button {
+  background-color: colors.$button;
+  border-radius: 0.3rem;
+  border: none;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: bold;
+  outline: none;
+  overflow: hidden;
+  padding: 0.1rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:hover {
+    background-color: color.adjust(colors.$button, $lightness: 10%, $space: hsl);
+  }
+}
+
+.button-lightMode {
+  background-color: colors.$lightBorder;
+  border: none;
+  color: black;
+  &:hover {
+    background-color: colors.$lightHover;
+  }
+}
+
+.textarea {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 1.1rem;
+  margin: 0.1rem 0 0 0.4rem;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: color.scale(colors.$button, $lightness: 20% * colors.$scrollbar-color-multiplier) transparent;
+}
+
+.textarea-large {
+  overflow-y: scroll;
+}

@@ -14,15 +14,14 @@
 	name = "pulse rifle"
 	desc = "An experimental energy rifle, it's extremely heavy and faintly hums with unstable energy. The absolute bleeding edge of NT weapon development. The fire selector has three settings: 'stun', 'kill', 'DESTROY'."
 	icon_state = "pulse"
-	item_state = null
+	worn_icon_state = null
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
-	can_holster = FALSE
 	force = 10
 	modifystate = TRUE
-	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
-	cell_type = /obj/item/stock_parts/cell/pulse
+	cell_type = /obj/item/stock_parts/cell/energy_gun/pulse
 	execution_speed = 2 SECONDS
 
 /obj/item/gun/energy/pulse/examine_more(mob/user)
@@ -56,11 +55,10 @@
 /obj/item/gun/energy/pulse/carbine
 	name = "pulse carbine"
 	desc = "A lighter, more compact version of the pulse rifle. Easier to store and transport, but has fewer shots. It has a mounting point for a flashlight. The fire selector has three settings: 'stun', 'kill', 'DESTROY'."
+	icon_state = "pulse_carbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
-	icon_state = "pulse_carbine"
-	item_state = null
-	cell_type = /obj/item/stock_parts/cell/pulse/carbine
+	cell_type = /obj/item/stock_parts/cell/energy_gun/pulse/carbine
 	can_flashlight = TRUE
 	flight_x_offset = 18
 	flight_y_offset = 12
@@ -80,17 +78,16 @@
 /obj/item/gun/energy/pulse/pistol
 	name = "pulse pistol"
 	desc = "A pulse gun miniaturised into a pistol-sized form factor. Easy to conceal, but has a low capacity. The fire selector has three settings: 'stun', 'kill', 'DESTROY'."
+	icon_state = "pulse_pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
-	icon_state = "pulse_pistol"
-	item_state = null
 	can_holster = TRUE
-	cell_type = /obj/item/stock_parts/cell/pulse/pistol
+	cell_type = /obj/item/stock_parts/cell/energy_gun/pulse/pistol
 	can_charge = FALSE
 
 /obj/item/gun/energy/pulse/pistol/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>The power cell of this weapon cannot be recharged!</span>"
+	. += SPAN_WARNING("The power cell of this weapon cannot be recharged!")
 
 /obj/item/gun/energy/pulse/pistol/examine_more(mob/user)
 	..()
@@ -116,7 +113,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
 /obj/item/gun/energy/pulse/destroyer/attack_self__legacy__attackchain(mob/living/user)
-	to_chat(user, "<span class='notice'>[src] is now set to DESTROY.</span>")
+	to_chat(user, SPAN_NOTICE("[src] is now set to DESTROY."))
 
 //////////////////////////////
 // MARK: PULSE ANNIHILATOR
@@ -127,7 +124,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/pulse)
 
 /obj/item/gun/energy/pulse/destroyer/annihilator/attack_self__legacy__attackchain(mob/living/user)
-	to_chat(user, "<span class='boldannounceic'>[src] is now set to ANNIHILATE.</span>")
+	to_chat(user, SPAN_BOLDANNOUNCEIC("[src] is now set to ANNIHILATE."))
 
 //////////////////////////////
 // MARK: M1911-P
@@ -136,13 +133,13 @@
 	name = "\improper M1911-P"
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun that matters, it's the size of the hole it puts through people."
 	icon_state = "m1911"
-	item_state = "gun"
-	can_holster = TRUE
+	worn_icon_state = "gun"
+	inhand_icon_state = "gun"
 	cell_type = /obj/item/stock_parts/cell/infinite
 
 /obj/item/gun/energy/pulse/pistol/m1911/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] contains a highly experimental power cell that consatntly generates energy seemingly out of nowhere. It will never run out of charge.</span>"
+	. += SPAN_NOTICE("[src] contains a highly experimental power cell that consatntly generates energy seemingly out of nowhere. It will never run out of charge.")
 
 /obj/item/gun/energy/pulse/pistol/m1911/examine_more(mob/user)
 	..()
@@ -165,18 +162,15 @@
 	name = "pulse turret gun"
 	desc = "A heavy pulse cannon made for mounted emplacements. The fire selector has two settings: 'stun', and 'DESTROY'."
 	icon_state = "turretlaser"
-	item_state = "turretlaser"
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
 	weapon_weight = WEAPON_MEDIUM
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
-	ammo_x_offset = 2
 
 /obj/item/gun/energy/pulse/turret/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>This weapon has no internal power source. It cannot function without being mounted in a turret frame!</span>"
+	. += SPAN_WARNING("This weapon has no internal power source. It cannot function without being mounted in a turret frame!")
 
 /obj/item/gun/energy/pulse/turret/examine_more(mob/user)
 	..()

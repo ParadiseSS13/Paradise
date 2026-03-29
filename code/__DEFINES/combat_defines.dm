@@ -149,8 +149,10 @@
 #define EXPLODE_LIGHT 3
 
 #define EMP_HEAVY 1
-#define EMP_LIGHT 2
-#define EMP_WEAKENED 3
+#define EMP_RESIST_ORGAN 2
+#define EMP_LIGHT 3
+#define EMP_RESIST_BODY 4
+#define EMP_WEAKENED 5
 
 /*
 * converts life cycle values into deciseconds. try and avoid usage of this.
@@ -166,3 +168,6 @@
 #define AUTOFIRE_STAT_ALERT	(1<<1)
 /// Gun is shooting.
 #define AUTOFIRE_STAT_FIRING (1<<2)
+
+/// Multiplier for wall damage for comparison with object integrity.
+#define OBJ_INTEGRITY_TO_WALL_DAMAGE 10

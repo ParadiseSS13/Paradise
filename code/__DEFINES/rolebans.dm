@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(antag_roles, list(
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
 	ROLE_TSPIDER,
+	ROLE_NINJA,
 ))
 
 // Bannable other roles
@@ -24,5 +25,6 @@ GLOBAL_LIST_INIT(other_roles, list(
 	ROLE_GHOST,
 	ROLEBAN_AHUD,
 	ROLEBAN_RECORDS,
-	ROLE_ELITE
+	ROLE_ELITE,
+	ROLE_ASH_WALKER,
 ))

@@ -167,7 +167,7 @@
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = target
-	if(owned_by.seen_messages)
+	if(owned_by?.seen_messages)
 		var/idx = 1
 		var/combined_height = approx_lines
 		for(var/datum/chatmessage/m as anything in owned_by.seen_messages[message_loc])

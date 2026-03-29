@@ -59,6 +59,8 @@
 	var/list/datum/mind/vampire_enthralled = list()
 	/// A list of all minds which have the mindflayer antag datum
 	var/list/datum/mind/mindflayers = list()
+	/// A list of all minds which have the heretic antag datum
+	var/list/datum/mind/heretics = list()
 
 	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
 	var/list/datum/mind/pre_traitors = list()
@@ -72,6 +74,8 @@
 	var/list/datum/mind/wizards = list()
 	/// A list of all minds that are wizard apprentices
 	var/list/datum/mind/apprentices = list()
+	/// A list of all minds that are ninjas
+	var/list/datum/mind/ninjas = list()
 
 	/// The cult team datum
 	var/datum/team/cult/cult_team
@@ -250,7 +254,8 @@
 	for(var/tech_id in SSeconomy.tech_levels)
 		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.tech_levels[tech_id], tech_id)
 
-	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [get_webhook_name()] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	var/round_text = GLOB.round_id ? "Round [GLOB.round_id]" : "Unknown Round"
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "[round_text] of [get_webhook_name()] has ended - [surviving_total] survivors, [ghosts] ghosts.")
 	if(SSredis.connected)
 		// Send our presence to required channels
 		var/list/presence_data = list()
@@ -298,7 +303,7 @@
 	players = shuffle(players)
 	// Get a list of all the people who want to be the antagonist for this round
 	for(var/mob/eligible_player in players)
-		if(!eligible_player.client.skip_antag)
+		if(!eligible_player.client.persistent.skip_antag)
 			if(species_exclusive && (eligible_player.client.prefs.active_character.species != species_exclusive))
 				continue
 			if(role in eligible_player.client.prefs.be_special)
@@ -338,7 +343,7 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species, and those who are already antagonists
 	for(var/mob/living/carbon/human/player in players)
-		if(player.client.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role) || player.mind?.special_role)
+		if(player.client.persistent.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role) || player.mind?.special_role)
 			continue
 
 		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in species_to_mindflayer))
@@ -422,7 +427,7 @@
 //Reports player logouts//
 //////////////////////////
 /proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
+	var/msg = "[SPAN_NOTICE("Roundstart logout report")]\n\n"
 	for(var/mob/living/L in GLOB.mob_list)
 
 		if(L.ckey)
@@ -453,7 +458,7 @@
 					continue //Dead
 
 			continue //Happy connected client
-		for(var/mob/dead/observer/D in GLOB.mob_list)
+		for(var/mob/dead/observer/D in GLOB.dead_mob_list)
 			if(D.mind && (D.mind.is_original_mob(L) || D.mind.current == L))
 				if(L.stat == DEAD)
 					if(L.suiciding)	//Suicider
@@ -463,7 +468,7 @@
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (Dead)\n"
 						continue //Dead mob, ghost abandoned
 				else
-					if(D.can_reenter_corpse)
+					if(D.ghost_flags & GHOST_CAN_REENTER)
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>This shouldn't appear.</b></font>)\n"
 						continue //Lolwhat
 					else
@@ -509,57 +514,56 @@
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)
-		to_chat(M, "<span class='userdanger'>Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!</span>")
+		to_chat(M, SPAN_USERDANGER("Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!"))
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
 		M.ghostize()
 		M.key = theghost.key
 		dust_if_respawnable(theghost)
 	else
 		message_admins("[M] ([M.key]) has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
-		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [role_type], but any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+		to_chat(M, SPAN_BIGGERDANGER("You have been converted into [role_type] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [role_type], but any further violations of the rules on your part are likely to result in a permanent ban."))
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
 	if(ply.assigned_role)
 		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and"
+	var/text = "<br><b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and "
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+			text += SPAN_BOLD("died!")
 		else
-			text += " <span class='greentext'>survived</span>"
+			text += SPAN_BOLD("survived")
 		if(fleecheck)
 			var/turf/T = get_turf(ply.current)
 			if(!T || !is_station_level(T.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
+				text += " while [SPAN_BOLD("fleeing the station")]"
 		if(ply.current.real_name != ply.name)
-			text += " as <b>[ply.current.real_name]</b>"
+			text += " as <b>[ply.current.real_name]!</b>"
+		else
+			text += "!"
 	else
-		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
+		text += SPAN_BOLD("had [ply.p_their()] body destroyed!")
 	return text
 
 /proc/printeventplayer(datum/mind/ply)
 	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>"
 	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [ply.special_role]"
-	text += " and"
+	text += " and "
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += " <b>died</b>"
+			text += SPAN_BOLD("died!")
 		else
-			text += " <b>survived</b>"
+			text += SPAN_BOLD("survived!")
 	else
-		text += " <b>had [ply.p_their()] body destroyed</b>"
+		text += SPAN_BOLD("had [ply.p_their()] body destroyed!")
 	return text
 
 /proc/printobjectives(datum/mind/ply)
 	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective in ply.get_all_objectives(include_team = FALSE))
-		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+		objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 		count++
 	return objective_parts.Join("<br>")
 
@@ -609,9 +613,9 @@
 	for(var/department in departments)
 		if(departments[department])
 			any = TRUE
-			to_chat(world, "<b>[department]</b>: <span class='greenannounce'>[departments[department]] completed!</span>")
+			to_chat(world, "<b>[department]</b>: [SPAN_GREENANNOUNCE("[departments[department]] completed!")]")
 	if(!any)
-		to_chat(world, "<span class='boldannounceic'>None completed!</span>")
+		to_chat(world, SPAN_BOLDANNOUNCEIC("None completed!"))
 
 /datum/game_mode/proc/generate_station_trait_report()
 	var/something_to_print = FALSE
@@ -632,6 +636,7 @@
 	. += auto_declare_completion_enthralled()
 	. += auto_declare_completion_mindflayer()
 	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_heretic()
 	. += auto_declare_completion_nuclear()
 	. += auto_declare_completion_wizard()
 	. += auto_declare_completion_revolution()

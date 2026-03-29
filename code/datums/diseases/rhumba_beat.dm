@@ -2,12 +2,12 @@
 	name = "The Rhumba Beat"
 	max_stages = 5
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Chick Chicky Boom!"
 	cures = list("plasma")
 	agent = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 
 /datum/disease/rhumba_beat/stage_act()
 	if(!..())
@@ -20,21 +20,21 @@
 			if(prob(45))
 				affected_mob.adjustToxLoss(5)
 			if(prob(1))
-				to_chat(affected_mob, "<span class='danger'>You feel strange...</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel strange..."))
 		if(3)
 			if(prob(5))
-				to_chat(affected_mob, "<span class='danger'>You feel the urge to dance...</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel the urge to dance..."))
 			else if(prob(5))
 				affected_mob.emote("gasp")
 			else if(prob(10))
-				to_chat(affected_mob, "<span class='danger'>You feel the need to chick chicky boom...</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel the need to chick chicky boom..."))
 		if(4)
 			if(prob(10))
 				affected_mob.emote("gasp")
-				to_chat(affected_mob, "<span class='danger'>You feel a burning beat inside...</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel a burning beat inside..."))
 			if(prob(20))
 				affected_mob.adjustToxLoss(5)
 		if(5)
-			to_chat(affected_mob, "<span class='danger'>Your body is unable to contain the Rhumba Beat...</span>")
+			to_chat(affected_mob, SPAN_DANGER("Your body is unable to contain the Rhumba Beat..."))
 			if(prob(50))
 				affected_mob.gib()

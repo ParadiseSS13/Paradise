@@ -3,7 +3,6 @@
 	icon = 'icons/obj/items.dmi' //mapping
 	icon_state = "syndballoon"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
 	var/list/elements
 	var/floor_type = /turf/simulated/floor/vault/lavaland_air
 	var/finished = FALSE
@@ -197,7 +196,6 @@
 	desc = "Puzzling..."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "puzzle_pillar"
-	anchored = FALSE
 	density = TRUE
 	var/id = 0
 	var/obj/effect/sliding_puzzle/source
@@ -280,7 +278,7 @@
 
 /obj/effect/sliding_puzzle/prison/Destroy()
 	if(prisoner)
-		to_chat(prisoner,"<span class='userdanger'>With the cube broken by force, you can feel your body falling apart.</span>")
+		to_chat(prisoner,SPAN_USERDANGER("With the cube broken by force, you can feel your body falling apart."))
 		prisoner.death()
 		qdel(prisoner)
 	. = ..()
@@ -312,12 +310,12 @@
 	//Handcuffed or unconcious
 	if(istype(carbon_victim) && carbon_victim.handcuffed || victim.stat != CONSCIOUS)
 		if(!puzzle_imprison(target))
-			to_chat(user,"<span class='warning'>[src] does nothing.</span>")
+			to_chat(user,SPAN_WARNING("[src] does nothing."))
 			return
-		to_chat(user,"<span class='warning'>You trap [victim] in the prison cube!</span>")
+		to_chat(user,SPAN_WARNING("You trap [victim] in the prison cube!"))
 		qdel(src)
 	else
-		to_chat(user,"<span class='notice'>[src] only accepts restrained or unconscious prisoners.</span>")
+		to_chat(user,SPAN_NOTICE("[src] only accepts restrained or unconscious prisoners."))
 
 /proc/puzzle_imprison(mob/living/prisoner)
 	var/turf/T = get_turf(prisoner)
@@ -329,7 +327,7 @@
 	//First grab the prisoner and move them temporarily into the generator so they won't get thrown around.
 	prisoner.notransform = TRUE
 	prisoner.forceMove(cube)
-	to_chat(prisoner,"<span class='userdanger'>You're trapped by the prison cube! You will remain trapped until someone solves it.</span>")
+	to_chat(prisoner,SPAN_USERDANGER("You're trapped by the prison cube! You will remain trapped until someone solves it."))
 
 	//Clear the area from objects (and cube user)
 	var/list/things_to_throw = list()

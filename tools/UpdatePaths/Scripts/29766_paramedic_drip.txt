@@ -1,0 +1,1 @@
+/obj/structure/closet/paramedic : @DELETE

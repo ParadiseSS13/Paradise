@@ -163,6 +163,13 @@ ipc_screens = [
     "Icon State 2",
   ]},
 ]
+fluff_undershirts = [
+	{ name = "Shirt Name Here", ckeys = [
+		"ckeyhere1",
+		"ckeyhere2",
+	] },
+]
+
 
 ################################################################
 
@@ -173,7 +180,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 68
+sql_version = 72
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -222,9 +229,9 @@ forward_all_ahelps = true
 # Disable this to disable all random events
 allow_random_events = true
 # Map of lower bounds for event delays. In minutes.
-event_delay_lower_bounds = {mundane = 10, moderate = 30, major = 50}
+event_delay_lower_bounds = {mundane = 5, moderate = 7.5, major = 12, disaster = 9}
 # Map of upper bounds for event delays. In minutes.
-event_delay_upper_bounds = {mundane = 15, moderate = 45, major = 70}
+event_delay_upper_bounds = {mundane = 7.5, moderate = 12, major = 17, disaster = 12}
 # Expected round length in minutes. Changes event weights
 expected_round_length = 120
 # Initial delays for the first events firing off. If any of these are commented, a random value based on above thresholds is used.
@@ -232,9 +239,12 @@ expected_round_length = 120
 # Values are in minutes
 event_initial_delays = [
   #{severity = "mundane", lower_bound = 10, upper_bound = 15},
-  {severity = "moderate", lower_bound = 25, upper_bound = 40},
-  {severity = "major", lower_bound = 55, upper_bound = 75},
+  {severity = "moderate", lower_bound = 19, upper_bound = 23},
+  {severity = "major", lower_bound = 29, upper_bound = 36},
+  {severity = "disaster", lower_bound = 40, upper_bound = 50},
 ]
+# The population needed to allow blobs to split consciousness
+blob_highpop_trigger = 60
 
 ################################################################
 
@@ -251,14 +261,14 @@ gamemode_probabilities = [
 	{ gamemode = "extend-a-traitormongous", probability = 0 }, # Autotraitor
 	{ gamemode = "extended", probability = 0 },
 	{ gamemode = "nuclear", probability = 2 },
-	{ gamemode = "raginmages", probability = 0 },
+	{ gamemode = "raginmages", probability = 1 },
 	{ gamemode = "revolution", probability = 0 },
 	{ gamemode = "traitor", probability = 0 },
 	{ gamemode = "traitorchan", probability = 0 },
 	{ gamemode = "traitorvamp", probability = 0 },
 	{ gamemode = "vampchan", probability = 0 },
 	{ gamemode = "vampire", probability = 0 },
-	{ gamemode = "wizard", probability = 2 },
+	{ gamemode = "wizard", probability = 1 },
 	{ gamemode = "trifecta", probability = 0 },
 	{ gamemode = "dynamic", probability = 22 },
 ]
@@ -274,6 +284,13 @@ traitor_objective_amount = 2
 enable_gamemode_player_limit = true
 # Enable to generate zero or more random station traits on game start.
 add_random_station_traits = false
+
+# Minimum readied up players required for roundstart hijack objectives
+min_players_hijack_roundstart = 30
+# Minimum alive crew required for midround hijack objectives
+min_players_hijack_midround = 20
+# Minimum security required for midround hijack objectives
+min_security_hijack_midround = 2
 
 ################################################################
 
@@ -300,7 +317,7 @@ allow_antag_hud = true
 # Forbid players from rejoining if they use antag hud
 restrict_antag_hud_rejoin = true
 # Do we want to allow player respawns?
-respawn_enabled = false
+respawn_enabled = true
 # Enable/disable the buster for the CID randomiser DLL
 enable_cid_randomiser_buster = false
 # Prevent admins from possessing the singularity
@@ -357,12 +374,16 @@ randomise_shift_time = true
 enable_night_shifts = true
 # Cap for monkeys spawned from monkey cubes
 monkey_cube_cap = 32
+# Cap for chickens
+chicken_hatched_cap = 50
 # Make explosions react to obstacles (walls+doors) instead of ignoring them
 reactionary_explosions = true
 # Bomb cap for explosions (Outer devastation. Other values calculate from this)
 bomb_cap = 20
 # Amount of time (deciseconds) for a brain to keep its "spark of life". Set to -1 to disable.
 revival_brain_life = 6000 # 10 minutes
+# Amount of time (deciseconds) the player must wait before respawning as a new character.
+respawn_delay = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
 # Enable weather events initialized by SSweather. New weather events can still be added during the round if this is disabled.
@@ -419,6 +440,12 @@ details_url = "https://iphub.info/?ip="
 [job_configuration]
 # This section contains information on job configuartion, as well as the jon amounts
 
+# Will the crew be given extended access if the manifest count is low enough?
+allow_skeleton_crew_access = true
+# Number of crew on the manifest needed to activate skeleton crew access
+skeleton_crew_threshold = 30
+# Number of crew on the manifest needed to disable skeleton crew access
+skeleton_crew_escape_threshold = 35
 # Require account agre restrictions for job? Requires the database
 restrict_jobs_on_account_age = false
 # Allow admins to bypass all job age restrictions
@@ -637,6 +664,10 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/asteroid3.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroid4.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroid5.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroid6.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroid7.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroid8.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroid9.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining1.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining2.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining3.dmm",
@@ -653,6 +684,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/derelict4.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/derelict5.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/engineering_vessel.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
@@ -665,6 +697,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/sieged_lab.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/spacebar.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/syndiecakesfactory.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/telecoms_shuttle.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/telecomns_returns.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/unathi_skiff.dmm",
@@ -672,6 +705,11 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_pirates.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_drakehounds.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_vox.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_skullakin.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/alien_cache_site.dmm",
 
   ### The following ruins are based from past pre-spawned Zlevel content ###
   "_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
@@ -741,7 +779,9 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_wooden_cabin.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_basalt_lab.dmm",
 ]
 
 ################################################################
@@ -759,6 +799,8 @@ shutdown_on_reboot = false
 #api_host = "http://127.0.0.1:8080"
 # Access key for the internal API.
 #api_key = "your_secret_here"
+# Github API token for in game bug reporting
+#github_api_token = "your_secret_here"
 # List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
 topic_ip_ratelimit_bypass = ["127.0.0.1"]
 # Turn this to true if you are running a production server
@@ -859,13 +901,13 @@ non_repeating_maps = true
 # - "FPTP" = A vote that excludes the map from the current round, and last round, then uses a weighted pick on the remaining maps, from preferences.
 # If you dont enter one correctly, it will whine on startup
 map_vote_day_types = [
-  {day_number = 1, rotation_type = "Vote"}, # Monday
+  {day_number = 1, rotation_type = "Random"}, # Monday
   {day_number = 2, rotation_type = "Random"}, # Tuesday
-  {day_number = 3, rotation_type = "FPTP"}, # Wednesday
+  {day_number = 3, rotation_type = "Random"}, # Wednesday
   {day_number = 4, rotation_type = "Random"}, # Thursday
-  {day_number = 5, rotation_type = "Vote"}, # Friday
-  {day_number = 6, rotation_type = "FPTP"}, # Saturday
-  {day_number = 7, rotation_type = "FPTP"}, # Sunday
+  {day_number = 5, rotation_type = "Random"}, # Friday
+  {day_number = 6, rotation_type = "Random"}, # Saturday
+  {day_number = 7, rotation_type = "Random"}, # Sunday
 ]
 
 ################################################################

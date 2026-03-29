@@ -6,7 +6,6 @@
 	if(!mind)
 		mind = new /datum/mind(key)
 		mind.active = TRUE
-		mind.current = src
 
 	if(length(GLOB.newplayer_start))
 		loc = pick(GLOB.newplayer_start)

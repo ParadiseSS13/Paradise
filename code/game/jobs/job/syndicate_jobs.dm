@@ -19,7 +19,6 @@
 	jobtype = /datum/job/syndicateofficer
 
 	uniform = /obj/item/clothing/under/syndicate
-	back = /obj/item/storage/backpack
 	head = /obj/item/clothing/head/beret
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/magboots/elite
@@ -38,7 +37,8 @@
 	bio_chips = list(
 		/obj/item/bio_chip/dust,
 		/obj/item/bio_chip/freedom,
-		/obj/item/bio_chip/adrenalin
+		/obj/item/bio_chip/adrenalin,
+		/obj/item/bio_chip/mindshield/syndicate
 	)
 
 	cybernetic_implants = list(

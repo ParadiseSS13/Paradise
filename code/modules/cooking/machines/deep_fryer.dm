@@ -8,10 +8,6 @@
 	name = "deep fryer"
 	desc = "A deep fryer that can hold two baskets."
 	icon_state = "deep_fryer"
-	density = TRUE
-	anchored = TRUE
-	layer = BELOW_OBJ_LAYER
-	cooking = FALSE
 	allowed_containers = list(
 		/obj/item/reagent_containers/cooking/deep_basket,
 	)
@@ -35,7 +31,7 @@
 
 /obj/machinery/cooking/deepfryer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Ctrl-Click</b> on a basin to set its timer and toggle it on or off.</span>"
+	. += SPAN_NOTICE("<b>Ctrl-Click</b> on a basin to set its timer and toggle it on or off.")
 
 #define ICON_SPLIT_X 16
 #define ICON_SPLIT_Y 16
@@ -70,7 +66,7 @@
 					which_hand = "r_hand"
 
 				burn_victim.adjustFireLossByPart(20, which_hand)
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [surface.container] off of [src].</span>")
+				to_chat(burn_victim, SPAN_DANGER("You burn your hand a little taking [surface.container] off of [src]."))
 
 		user.put_in_hands(surface.container)
 		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)

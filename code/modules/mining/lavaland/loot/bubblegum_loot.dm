@@ -18,7 +18,7 @@
 	for(var/mob/living/M in targets_to_fuck_up)
 		var/turf/T = get_turf(M)
 		M.Immobilize(1 SECONDS)
-		to_chat(M, "<span class='colossus'><b>NO! I REFUSE TO LET YOU THINK YOU HAVE WON. I SHALL END YOUR INSIGNIFICANT LIFE!</b></span>")
+		to_chat(M, SPAN_COLOSSUS("<b>NO! I REFUSE TO LET YOU THINK YOU HAVE WON. I SHALL END YOUR INSIGNIFICANT LIFE!</b>"))
 		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(T)
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 		sleep(8)
@@ -45,7 +45,7 @@
 	for(var/mob/living/M in probably_bubblearena)
 		var/turf/T = get_turf(M)
 		M.Immobilize(1 SECONDS)
-		to_chat(M, "<span class='colossus'><b>Now... get out of my home.</b></span>")
+		to_chat(M, SPAN_COLOSSUS("<b>Now... get out of my home.</b>"))
 		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(T)
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 		sleep(8)
@@ -75,7 +75,7 @@
 		spawn()
 			var/obj/effect/mine/pickup/bloodbath/B = new(H)
 			B.mineEffect(H)
-	to_chat(user, "<span class='notice'>You shatter the bottle!</span>")
+	to_chat(user, SPAN_NOTICE("You shatter the bottle!"))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	qdel(src)
 
@@ -114,7 +114,7 @@
 		log_admin("[key_name(L)] has been marked for death by [key_name(user)].")
 
 		L.mind.add_mind_objective(/datum/objective/survive)
-		to_chat(L, "<span class='userdanger'>You've been marked for death! Don't let the demons get you!</span>")
+		to_chat(L, SPAN_USERDANGER("You've been marked for death! Don't let the demons get you!"))
 		L.color = "#FF0000"
 		spawn()
 			var/obj/effect/mine/pickup/bloodbath/B = new(L)
@@ -123,7 +123,7 @@
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(H.stat == DEAD || H == L)
 				continue
-			to_chat(H, "<span class='userdanger'>You have an overwhelming desire to kill [L]. [L.p_they(TRUE)] [L.p_have()] been marked red! Go kill [L.p_them()]!</span>")
+			to_chat(H, SPAN_USERDANGER("You have an overwhelming desire to kill [L]. [L.p_they(TRUE)] [L.p_have()] been marked red! Go kill [L.p_them()]!"))
 			H.put_in_hands(new /obj/item/kitchen/knife/butcher(H))
 
 	qdel(src)

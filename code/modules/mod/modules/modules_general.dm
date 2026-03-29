@@ -8,6 +8,7 @@
 	icon_state = "storage"
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/storage, /obj/item/mod/module/plate_compression)
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 10000)
 	/// Max weight class of items in the storage.
 	var/max_w_class = WEIGHT_CLASS_NORMAL
 	/// Max combined weight of all items in the storage.
@@ -56,12 +57,13 @@
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
-	desc = "Reverse engineered by Cybersun Industries from Donk Corporation designs, this system of hidden compartments \
-		is entirely within the suit, distributing items and weight evenly to ensure a comfortable experience for the user; \
-		whether smuggling, or simply hauling."
+	desc = "A collaborative effort between Cybersun Industries and Donk Corporation, this system of hidden compartments, attachment points, and pouches \
+		fits entirely within the suit, distributing items and weight evenly to ensure a comfortable carrying experience for the user \
+		in all manner of hauling tasks."
 	icon_state = "storage_large"
 	max_combined_w_class = 21
 	max_items = 14
+	materials = list(MAT_METAL = 2500, MAT_URANIUM = 10000)
 
 /obj/item/mod/module/storage/syndicate
 	name = "MOD syndicate storage module"
@@ -72,6 +74,7 @@
 	max_combined_w_class = 30
 	max_items = 21
 	origin_tech = "materials=6;bluespace=5;syndicate=2"
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000)
 
 /obj/item/mod/module/storage/belt
 	name = "MOD case storage module"
@@ -83,7 +86,6 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	removable = FALSE
 	max_combined_w_class = 21
-	max_items = 7
 
 /obj/item/mod/module/storage/bluespace
 	name = "MOD bluespace storage module"
@@ -115,9 +117,9 @@
 ///Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack
 	name = "MOD ion jetpack module"
-	desc = "A series of electric thrusters installed across the suit, this is a module highly anticipated by trainee Engineers. \
-		Rather than using gasses for combustion thrust, these jets are capable of accelerating ions using \
-		charge from the suit's charge. Some say this isn't Cybersun Industries's first foray into jet-enabled suits."
+	desc = "A series of electric thrusters installed across the suit, allowing for precision movement in zero-G environments. \
+		Rather than using gasses for combustion thrust, this modules uses lightweight ion thrusters connected directly to the suit's energy cell, \
+		removing any reliance on external fuel systems. This does, however, mean that the thrusters are useless outside of zero-G, as any heavy weight will easily overwhelm the ion engines."
 	icon_state = "jetpack"
 	module_type = MODULE_TOGGLE
 	complexity = 3
@@ -127,6 +129,7 @@
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	/// Do we stop the wearer from gliding in space.
 	var/stabilize = TRUE
 	var/thrust_callback
@@ -192,6 +195,7 @@
 		However, it will take from the suit's power to do so."
 	icon_state = "empshield"
 	origin_tech = "materials=6;bluespace=5;syndicate=2"
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/emp_shield, /obj/item/mod/module/dna_lock)
@@ -216,6 +220,8 @@
 	cooldown_time = 0.5 SECONDS
 	overlay_state_active = "module_light_on"
 	light_color = COLOR_WHITE
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 	///The light power for the mod
 	var/mod_light_range = 4
 	///The light range for the mod
@@ -232,7 +238,7 @@
 
 /obj/item/mod/module/flashlight/on_activation()
 	if(!COOLDOWN_FINISHED(src, activation_cooldown))
-		to_chat(mod.wearer, "<span class='warning'>[src] isn't ready after being shut down!</span>")
+		to_chat(mod.wearer, SPAN_WARNING("[src] isn't ready after being shut down!"))
 		return
 	. = ..()
 	if(!.)
@@ -265,7 +271,7 @@
 			if(isnull(value))
 				return
 			if(is_color_dark(value, 50))
-				to_chat(mod.wearer, ("<span class='warning'>That is too dark</span>"))
+				to_chat(mod.wearer, (SPAN_WARNING("That is too dark")))
 				return
 			light_color = value
 			mod.wearer.regenerate_icons()
@@ -280,7 +286,7 @@
 	on_deactivation(FALSE)
 	COOLDOWN_START(src, activation_cooldown, 20 SECONDS)
 
-	to_chat(mod.wearer, "<span class='warning'>Your [name] shuts off!</span>")
+	to_chat(mod.wearer, SPAN_WARNING("Your [name] shuts off!"))
 
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
@@ -353,6 +359,7 @@
 		however, this incredibly sensitive module is shorted out by EMPs. Luckily, stable mutagen has been outlawed."
 	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
+	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000)
 	module_type = MODULE_USABLE
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
@@ -426,7 +433,6 @@
 /obj/item/mod/module/dna_lock/emp_shield
 	name = "MOD DN-MP shield lock"
 	desc = "This syndicate module is a combination EMP shield and DNA lock. Provides the best of both worlds, with the weakness of niether."
-	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=3"
 	complexity = 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
@@ -452,6 +458,8 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/plasma_stabilizer)
 	overlay_state_inactive = "module_plasma"
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/plasma_stabilizer/on_equip()
 	ADD_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, MODSUIT_TRAIT)

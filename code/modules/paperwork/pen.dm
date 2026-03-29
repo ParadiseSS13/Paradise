@@ -14,18 +14,16 @@
 	name = "pen"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!</span>")
+	to_chat(viewers(user), SPAN_SUICIDE("[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!"))
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -47,7 +45,6 @@
 
 /obj/item/pen/invisible
 	desc = "It's an invisible pen marker."
-	icon_state = "pen"
 	colour = "white"
 
 /obj/item/pen/multi
@@ -163,7 +160,7 @@
 		var/fraction = min(transfer_amount / reagents.total_volume, 1)
 		reagents.reaction(M, REAGENT_INGEST, fraction)
 		transfered = reagents.trans_to(M, transfer_amount)
-	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
+	to_chat(user, SPAN_WARNING("You sneakily stab [M] with the pen."))
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
 
@@ -180,7 +177,6 @@
 	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
 	container_type = (DRAINABLE | TRANSPARENT) //cannot be refilled, but pax can be extracted for use in other items with syringe
-	origin_tech = "engineering=4;syndicate=2"
 	transfer_amount = 25 // 4 Dosages instead of 2
 
 /obj/item/pen/sleepy/love/Initialize(mapload)
@@ -207,13 +203,14 @@
 // E-DAGGER
 
 /obj/item/pen/edagger
+	inhand_icon_state = null
 	origin_tech = "combat=3;syndicate=1"
 	var/active = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	throw_speed = 4
 
 /obj/item/pen/edagger/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
@@ -228,8 +225,8 @@
 		M.apply_damage(40, STAMINA) //Just enough to slow
 		M.KnockDown(2 SECONDS)
 		M.visible_message(
-			"<span class='warning'>[user] stabs [M] in the back!</span>",
-			"<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>"
+			SPAN_WARNING("[user] stabs [M] in the back!"),
+			SPAN_USERDANGER("[user] stabs you in the back! The energy blade makes you collapse in pain!")
 		)
 
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -245,22 +242,22 @@
 		return !isnull(cig)
 
 	if(!active)
-		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		to_chat(user, SPAN_WARNING("You need to activate [src] before you can light anything with it!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
 			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			SPAN_NOTICE("You casually slash [src] at [cig], lighting it with the blade."),
+			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	else
 		user.visible_message(
 			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
 			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			SPAN_NOTICE("You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade."),
+			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -281,7 +278,7 @@
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 2, 1)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		to_chat(user, SPAN_WARNING("[src] can now be concealed."))
 		set_light(0)
 	else
 		active = TRUE
@@ -293,7 +290,7 @@
 		embed_chance = 100 //rule of cool
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 2, TRUE)
-		to_chat(user, "<span class='warning'>[src] is now active.</span>")
+		to_chat(user, SPAN_WARNING("[src] is now active."))
 		set_light(brightness_on, 1)
 	set_sharpness(active)
 	update_icon()
@@ -301,10 +298,8 @@
 /obj/item/pen/edagger/update_icon_state()
 	if(active)
 		icon_state = "edagger"
-		item_state = "edagger"
 	else
 		icon_state = initial(icon_state) //looks like a normal pen when off.
-		item_state = initial(item_state)
 
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
@@ -331,13 +326,13 @@
 /obj/item/pen/multi/poison/on_write(obj/item/paper/P, mob/user)
 	if(current_poison)
 		if(P.contact_poison)
-			to_chat(user, "<span class='warning'>[P] is already coated.</span>")
+			to_chat(user, SPAN_WARNING("[P] is already coated."))
 		else
 			P.contact_poison = current_poison
 			P.contact_poison_volume = 20
 			P.contact_poison_poisoner = user.name
 			add_attack_logs(user, P, "Poison pen'ed")
-			to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+			to_chat(user, SPAN_WARNING("You apply the poison to [P]."))
 
 // MARK: CHAMELEON PEN
 /obj/item/pen/chameleon

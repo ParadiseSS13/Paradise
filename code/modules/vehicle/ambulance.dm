@@ -20,8 +20,8 @@
 
 /datum/action/ambulance_alarm
 	name = "Toggle Sirens"
-	button_overlay_icon = 'icons/obj/vehicles.dmi'
-	button_overlay_icon_state = "docwagon2"
+	button_icon = 'icons/obj/vehicles.dmi'
+	button_icon_state = "docwagon2"
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
 	var/toggle_cooldown = 40
 	var/cooldown = 0
@@ -55,7 +55,6 @@
 	start_length = 0
 	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
 	mid_length = 14
-	volume = 100
 
 
 /obj/vehicle/ambulance/post_buckle_mob(mob/living/M)
@@ -150,7 +149,7 @@
 /obj/vehicle/ambulance/examine(mob/user)
 	. = ..()
 	if(emagged && in_range(src, user))
-		. += "<span class='danger'>The safeties seem to have been shorted out!</span>"
+		. += SPAN_DANGER("The safeties seem to have been shorted out!")
 
 /obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"
@@ -160,7 +159,7 @@
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>"
+	. += SPAN_NOTICE("Drag [src]'s sprite over the ambulance to (de)attach it.")
 
 /obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()

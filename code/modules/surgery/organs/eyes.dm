@@ -115,6 +115,7 @@
 	icon_state = "eyes-c"
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	status = ORGAN_ROBOT
 	can_be_colorblind = FALSE // I PRINTED 400 PAIRS OF NEW EYES TO CURE COLORBLIND KIDS! -Space Beast
 	var/flash_intensity = 1
@@ -124,7 +125,7 @@
 		return
 	if(prob(10 * severity))
 		return
-	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
+	to_chat(owner, SPAN_WARNING("Static obfuscates your vision!"))
 	owner.flash_eyes(flash_intensity, visual = TRUE)
 	..()
 
@@ -135,6 +136,7 @@
 	eye_color = "#199900"
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_GOLD = 300)
 
 /obj/item/organ/internal/eyes/cybernetic/meson/insert(mob/living/carbon/human/M, special = FALSE)
 	ADD_TRAIT(M, TRAIT_MESON_VISION, "meson_vision[UID()]")
@@ -151,6 +153,7 @@
 	see_in_dark = 8
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_URANIUM = 1000, MAT_DIAMOND = 1000, MAT_BLUESPACE = 1000)
 
 /obj/item/organ/internal/eyes/cybernetic/xray/hardened
 	name = "hardened X-ray eyes"
@@ -169,6 +172,7 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	see_in_dark = 8
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4;syndicate=1"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 
 /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
 	name = "hardened thermal eyes"
@@ -183,6 +187,7 @@
 	eye_color = "#6f00ff"
 	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 	var/scope_range = 0.8 //Only used in initialize. Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
 	var/active = FALSE
 
@@ -247,7 +252,12 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	eye_color = "#101010"
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 400)
 	flash_intensity = 3
+
+/obj/item/organ/internal/eyes/cybernetic/shield/hardened
+	name = "hardened shielded robotic eyes"
+	emp_proof = TRUE
 
 #define INTACT 0
 #define ONE_SHATTERED 1
@@ -263,6 +273,7 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	emp_proof = TRUE //They are crystal artifacts, not metal
+	max_damage = 120
 	min_bruised_damage = 30
 	min_broken_damage = 60
 	actions_types = list(/datum/action/item_action/organ_action/use/eyesofgod)
@@ -309,20 +320,20 @@
 				receive_damage(0.25, 1)
 				new /obj/effect/temp_visual/eyesofgod(T)
 				if(prob(25))
-					to_chat(M, "<span class='warning'>You feel like you are being watched...</span>")
+					to_chat(M, SPAN_WARNING("You feel like you are being watched..."))
 		switch(damage)
 			if(25 to 30)
 				if(prob(50))
-					to_chat(owner, "<span class='warning'>Your eyes are burning in your skull!</span>")
+					to_chat(owner, SPAN_WARNING("Your eyes are burning in your skull!"))
 					owner.apply_damage(0.5, BURN, parent_organ)
 			if(30 to 54)
 				receive_damage(0.25, 1) //more pain when damaged
 				if(prob(15)) //Warning that you are still hurting yourself still
-					to_chat(owner, "<span class='warning'>Your eyes are burning in your skull!</span>")
+					to_chat(owner, SPAN_WARNING("Your eyes are burning in your skull!"))
 					owner.apply_damage(0.5, BURN, parent_organ)
 			if(55 to 60)
 				if(prob(50))
-					to_chat(owner, "<span class='warning'>Your eyes feel like they are going to explode!</span>")
+					to_chat(owner, SPAN_WARNING("Your eyes feel like they are going to explode!"))
 					owner.apply_damage(1, BURN, parent_organ)
 
 
@@ -335,7 +346,7 @@
 		if(shatter_state == ONE_SHATTERED)
 			return
 		shatter_state = ONE_SHATTERED
-	to_chat(owner, "<span class='notice'>Your feel better as your [shatter_state ? "left eye" : "right eye"] fixes itself!</span>")
+	to_chat(owner, SPAN_NOTICE("Your feel better as your [shatter_state ? "left eye" : "right eye"] fixes itself!"))
 
 /obj/item/organ/internal/eyes/cybernetic/eyesofgod/receive_damage(amount, silent)
 	. = ..()
@@ -353,7 +364,7 @@
 			shatter_state = ONE_SHATTERED
 			msg = "right eye"
 			owner.become_nearsighted(EYES_OF_GOD)
-	to_chat(owner, "<span class='userdanger'>You scream out in pain as your [msg] shatters!</span>")
+	to_chat(owner, SPAN_USERDANGER("You scream out in pain as your [msg] shatters!"))
 	owner.emote("scream")
 	owner.bleed(5)
 	deactivate()

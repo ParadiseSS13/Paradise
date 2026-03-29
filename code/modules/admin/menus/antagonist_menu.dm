@@ -133,6 +133,28 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		temp_list["max_health"] = player.maxHealth
 		cached_data["security"] += list(temp_list)
 
+	cached_data["disease_carriers"] = list()
+	cached_data["virus_data"] = list()
+	for(var/datum/disease/advance/virus in GLOB.active_diseases)
+		var/list/temp_list = list()
+		var/list/temp_list2 = list()
+		var/mob/living/carbon/player = virus.affected_mob
+		if(!player?.mind)
+			continue
+		temp_list["name"] = player.mind.name
+		temp_list["mind_uid"] = player.mind.UID()
+		temp_list["ckey"] = ckey(player.mind.key)
+		temp_list["status"] = player.stat
+		temp_list["health"] = player.health
+		temp_list["max_health"] = player.maxHealth
+		temp_list["progress"] = virus.progress
+		temp_list["patient_zero"] = virus.carrier
+		temp_list["virus_name"] = virus.name
+		temp_list["strain"] = virus.strain
+		if(!("[virus.strain]" in temp_list2))
+			temp_list2["[virus.strain]"] = english_list(virus.symptoms)
+		cached_data["disease_carriers"] += list(temp_list)
+		cached_data["virus_data"] += temp_list2
 
 /datum/ui_module/admin/antagonist_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -143,43 +165,25 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		if("show_player_panel")
 			var/datum/mind/mind = locateUID(params["mind_uid"])
 			if(QDELETED(mind.current))
-				to_chat(ui.user, "<span class='warning'>Mind doesn't have a corresponding mob.</span>")
+				to_chat(ui.user, SPAN_WARNING("Mind doesn't have a corresponding mob."))
 				return
-			ui.user.client.holder.show_player_panel(mind.current)
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/show_player_panel, mind.current)
 		if("pm")
 			ui.user.client.cmd_admin_pm(params["ckey"], null)
 		if("follow")
-			var/client/C = ui.user.client
-			if(!isobserver(ui.user))
-				if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
-					return
-				C.admin_ghost()
-			var/datum/target = locateUID(params["datum_uid"])
-			if(QDELETED(target))
-				to_chat(ui.user, "<span class='warning'>This datum has been deleted!</span>")
-				return
-
-			if(istype(target, /datum/mind))
-				var/datum/mind/mind = target
-				if(!ismob(mind.current))
-					to_chat(ui.user, "<span class='warning'>This can only be used on instances of type /mob</span>")
-					return
-				target = mind.current
-
-			var/mob/dead/observer/A = C.mob
-			A.ManualFollow(target)
+			ghost_follow_uid(ui.user, params["datum_uid"])
 		if("obs")
 			var/client/C = ui.user.client
 			var/datum/mind/mind = locateUID(params["mind_uid"])
 
 			if(!ismob(mind.current))
-				to_chat(ui.user, "<span class='warning'>This can only be used on instances of type /mob</span>")
+				to_chat(ui.user, SPAN_WARNING("This can only be used on instances of type /mob"))
 				return
-			C.admin_observe_target(mind.current)
+			SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_observe_target, mind.current)
 		if("tp")
 			var/datum/mind/mind = locateUID(params["mind_uid"])
 			if(QDELETED(mind))
-				to_chat(ui.user, "<span class='warning'>No mind!</span>")
+				to_chat(ui.user, SPAN_WARNING("No mind!"))
 				return
 			mind.edit_memory()
 		if("vv")
@@ -188,7 +192,7 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 			var/client/C = ui.user.client
 			var/datum/target = locateUID(params["owner_uid"])
 			if(QDELETED(target))
-				to_chat(ui.user, "<span class='warning'>It seems the target you are looking for is null or deleted.</span>")
+				to_chat(ui.user, SPAN_WARNING("It seems the target you are looking for is null or deleted."))
 				return
 			if(istype(target, /datum/antagonist))
 				var/datum/antagonist/antag = target
@@ -196,14 +200,14 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 			if(istype(target, /datum/mind))
 				var/datum/mind/mind = target
 				if(!ismob(mind.current))
-					to_chat(ui.user, "<span class='warning'>This can only be used on instances of type /mob</span>")
+					to_chat(ui.user, SPAN_WARNING("This can only be used on instances of type /mob"))
 					return
 				target = mind.current
 				var/mob/dead/observer/A = C.mob
-				A.ManualFollow(target)
+				A.manual_follow(target)
 				return
 			if(istype(target, /datum/team))
 				ui.user.client.holder.team_switch_tab_index = clamp(GLOB.antagonist_teams.Find(target), 1, length(GLOB.antagonist_teams))
 				ui.user.client.holder.check_teams()
 				return
-			to_chat(ui.user, "<span class='warning'>Type [target.type] isn't supported for finding the owner of an objective.</span>")
+			to_chat(ui.user, SPAN_WARNING("Type [target.type] isn't supported for finding the owner of an objective."))

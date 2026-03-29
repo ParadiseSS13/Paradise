@@ -14,7 +14,6 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	mob_size = MOB_SIZE_SMALL
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/food/meat = 3)
@@ -23,7 +22,7 @@
 	response_harm   = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/turns_since_scan = 0
-	var/mob/living/simple_animal/mouse/movement_target
+	var/mob/living/basic/mouse/movement_target
 	var/eats_mice = 1
 	var/collar_icon_state = "cat"
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -49,6 +48,7 @@
 /mob/living/simple_animal/pet/cat/runtime/Initialize(mapload)
 	. = ..()
 	SSpersistent_data.register(src)
+	GLOB.station_pets += src
 
 /mob/living/simple_animal/pet/cat/runtime/Destroy()
 	SSpersistent_data.registered_atoms -= src
@@ -139,7 +139,7 @@
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
-		for(var/mob/living/simple_animal/mouse/M in view(1, src))
+		for(var/mob/living/basic/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
 				custom_emote(EMOTE_VISIBLE, "splats \the [M]!")
 				M.death()
@@ -169,7 +169,7 @@
 		movement_target = null
 		stop_automated_movement = FALSE
 		walk(src, 0)
-		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
+		for(var/mob/living/basic/mouse/snack in oview(src,3))
 			if(isturf(snack.loc) && !snack.stat)
 				movement_target = snack
 				break
@@ -179,7 +179,6 @@
 
 /mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"
-	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
@@ -275,8 +274,8 @@
 
 	if(stat == DEAD)
 		if(++final_bites >= total_final_bites)
-			visible_message("<span class='danger'>[L] finished eating [src], there's nothing left!</span>")
-			to_chat(L, "<span class='notice'>Whoa, that last bite tasted weird.</span>")
+			visible_message(SPAN_DANGER("[L] finished eating [src], there's nothing left!"))
+			to_chat(L, SPAN_NOTICE("Whoa, that last bite tasted weird."))
 			L.reagents.add_reagent("teslium", 5)
 			qdel(src)
 
@@ -295,5 +294,5 @@
 	var/new_name = tgui_input_text(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change", name)
 	if(!new_name)
 		return
-	to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
+	to_chat(src, SPAN_NOTICE("Your name is now <b>\"[new_name]\"</b>!"))
 	name = new_name

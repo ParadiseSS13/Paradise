@@ -9,7 +9,6 @@
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
-	anchored = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/mob_type
@@ -68,7 +67,7 @@
 	if(!gender_prompt(user))
 		return
 	if(!loc || !uses && !permanent || QDELETED(src) || QDELETED(user))
-		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
+		to_chat(user, SPAN_WARNING("The [name] is no longer usable!"))
 		return
 	create(ckey = user.ckey, user = user)
 
@@ -106,18 +105,18 @@
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return FALSE
 	if(!uses && !permanent)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		to_chat(user, SPAN_WARNING("This spawner is out of charges!"))
 		return FALSE
 	if((jobban_isbanned(user, ban_type) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		to_chat(user, SPAN_WARNING("You are jobanned!"))
 		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE) && restrict_respawnability)
-		to_chat(user, "<span class='warning'>You currently do not have respawnability!</span>")
+		to_chat(user, SPAN_WARNING("You currently do not have respawnability!"))
 		return FALSE
 	if(isobserver(user))
 		var/mob/dead/observer/O = user
 		if(!O.check_ahud_rejoin_eligibility() && restrict_ahud)
-			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			to_chat(user, SPAN_WARNING("Upon using the antagHUD you forfeited the ability to join the round."))
 			return FALSE
 	if(time_check(user))
 		return FALSE
@@ -127,8 +126,8 @@
 	var/deathtime = world.time - user.timeofdeath
 	var/joinedasobserver = FALSE
 	if(isobserver(user))
-		var/mob/dead/observer/G = user
-		if(G.started_as_observer)
+		var/mob/dead/observer/ghost = user
+		if(ghost.ghost_flags & GHOST_START_AS_OBSERVER)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -143,12 +142,13 @@
 
 	if(deathtime <= death_cooldown && !joinedasobserver)
 		to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
+		to_chat(user, SPAN_WARNING("You must wait [death_cooldown / 600] minutes to respawn!"))
 		return TRUE
 	return FALSE
 
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name, mob/user = usr)
-	log_game("[ckey] became [mob_name]")
+	if(ckey) // we don't care about corpse spawners etc
+		log_game("[ckey] became [mob_name]")
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(mob_name)
 		M.rename_character(M.real_name, mob_name)
@@ -413,7 +413,7 @@
 	var/despawn = tgui_alert(user, "Return to cryosleep? (Warning, Your mob will be deleted!)", "Leave Bar", list("Yes", "No"))
 	if(despawn != "Yes" || !loc || !Adjacent(user))
 		return
-	user.visible_message("<span class='notice'>[user.name] climbs back into cryosleep...</span>")
+	user.visible_message(SPAN_NOTICE("[user.name] climbs back into cryosleep..."))
 	qdel(user)
 
 /datum/outfit/cryobartender
@@ -458,7 +458,7 @@
 
 /datum/outfit/abductorcorpse
 	name = "Abductor Corpse"
-	uniform = /obj/item/clothing/under/color/grey
+	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
 
 /obj/effect/mob_spawn/human/corpse/ashwalker
@@ -621,6 +621,13 @@
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
+// Cargo tech corpse
+/obj/effect/mob_spawn/human/corpse/random_species/cargo_tech
+	name = "Cargo Technician"
+	mob_name = "Cargo Technician"
+	id_job = "Cargo Technician"
+	outfit = /datum/outfit/job/cargo_tech
+
 //Engineer corpse.
 /obj/effect/mob_spawn/human/corpse/engineer
 	name = "Engineer"
@@ -640,6 +647,7 @@
 	l_pocket = null
 	l_ear = null
 	id = null
+	can_be_admin_equipped = FALSE
 
 /obj/effect/mob_spawn/human/corpse/random_species/security_officer
 	name = "Security Officer"
@@ -670,13 +678,10 @@
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	name = "Shaft Miner"
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/shaftminer
 	l_pocket = /obj/item/reagent_containers/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
@@ -692,6 +697,12 @@
 	mob_name = "Scientist"
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
+
+/obj/effect/mob_spawn/human/corpse/random_species/miner
+	name = "Shaft Miner"
+	mob_name = "Shaft Miner"
+	id_job = "Shaft Miner"
+	outfit = /datum/outfit/job/mining/equipped/less
 
 /obj/effect/mob_spawn/human/corpse/skeleton
 	name = "skeletal remains"
@@ -736,6 +747,7 @@
 		/datum/species/drask,
 		/datum/species/grey,
 		/datum/species/diona,
+		/datum/species/skulk,
 	)
 	del_types |= /obj/item/card/id
 
@@ -756,6 +768,7 @@
 /obj/effect/mob_spawn/human/alive/zombie/equip(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_NPC_ZOMBIE, ROUNDSTART_TRAIT)
 	H.ForceContractDisease(new /datum/disease/zombie)
+	H.zone_selected = BODY_ZONE_CHEST
 	for(var/datum/disease/zombie/zomb in H.viruses)
 		zomb.stage = 8
 
@@ -768,8 +781,8 @@
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
 	. = ..()
 	for(var/datum/disease/zombie/zomb in H.viruses)
-		zomb.spread_flags = SPECIAL
-		zomb.visibility_flags = HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
+		zomb.spread_flags = SPREAD_SPECIAL
+		zomb.visibility_flags = VIRUS_HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
 
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
@@ -790,13 +803,13 @@
 	qdel(src)
 
 /obj/effect/mob_spawn/corpse/watcher
-	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mob_type = /mob/living/basic/mining/basilisk/watcher
 	icon = 'icons/mob/lavaland/watcher.dmi'
 	icon_state = "watcher_dead"
 	pixel_x = -12
 
 /obj/effect/mob_spawn/corpse/goliath
-	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	mob_type = /mob/living/basic/mining/goliath
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_dead"
 	pixel_x = -12

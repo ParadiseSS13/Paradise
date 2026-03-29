@@ -1,7 +1,6 @@
 /datum/action/changeling/sting
 	name = "Tiny Prick"
 	desc = "Stabby stabby."
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	category = /datum/changeling_power_category/stings
 	var/sting_icon = null
 	/// A middle click override used to intercept changeling stings performed on a target.
@@ -31,7 +30,7 @@
 
 /datum/action/changeling/sting/proc/set_sting()
 	var/mob/living/user = owner
-	to_chat(user, "<span class='warning'>We prepare our sting, use alt+click or middle mouse button on a target to sting them.</span>")
+	to_chat(user, SPAN_WARNING("We prepare our sting, use alt+click or middle mouse button on a target to sting them."))
 	user.middleClickOverride = click_override
 	cling.chosen_sting = src
 	user.hud_used.lingstingdisplay.icon_state = sting_icon
@@ -39,7 +38,7 @@
 
 /datum/action/changeling/sting/proc/unset_sting()
 	var/mob/living/user = owner
-	to_chat(user, "<span class='warning'>We retract our sting, we can't sting anyone for now.</span>")
+	to_chat(user, SPAN_WARNING("We retract our sting, we can't sting anyone for now."))
 	user.middleClickOverride = null
 	cling.chosen_sting = null
 	user.hud_used.lingstingdisplay.icon_state = null
@@ -50,16 +49,16 @@
 		return FALSE
 	var/target_distance = get_dist(user, target)
 	if(target_distance > cling.sting_range) // Too far, don't bother pathfinding
-		to_chat(user, "<span class='warning'>Our target is too far for our sting!</span>")
+		to_chat(user, SPAN_WARNING("Our target is too far for our sting!"))
 		return FALSE
 	if(target_distance && !length(get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE, skip_first = FALSE))) // If they're not on the same turf, check if it can even reach them.
-		to_chat(user, "<span class='warning'>Our sting is blocked from reaching our target!</span>")
+		to_chat(user, SPAN_WARNING("Our sting is blocked from reaching our target!"))
 		return FALSE
 	if(!cling.chosen_sting)
-		to_chat(user, "<span class='warning'>We haven't prepared our sting yet!</span>")
+		to_chat(user, SPAN_WARNING("We haven't prepared our sting yet!"))
 		return FALSE
 	if(ismachineperson(target))
-		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
+		to_chat(user, SPAN_WARNING("This won't work on synthetics."))
 		return FALSE
 	if(IS_CHANGELING(target))
 		sting_feedback(user, target)
@@ -70,9 +69,9 @@
 /datum/action/changeling/sting/sting_feedback(mob/user, mob/target)
 	if(!target)
 		return
-	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
+	to_chat(user, SPAN_NOTICE("We stealthily sting [target.name]."))
 	if(IS_CHANGELING(target))
-		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
+		to_chat(target, SPAN_WARNING("You feel a tiny prick."))
 		add_attack_logs(user, target, "Unsuccessful sting (changeling)")
 	return TRUE
 
@@ -80,7 +79,7 @@
 	name = "Extract DNA Sting"
 	desc = "We stealthily sting a target and extract their DNA. Costs 25 chemicals."
 	helptext = "Will give you the DNA of your target, allowing you to transform into them."
-	button_overlay_icon_state = "sting_extract"
+	button_icon_state = "sting_extract"
 	sting_icon = "sting_extract"
 	chemical_cost = 25
 	power_type = CHANGELING_INNATE_POWER
@@ -100,7 +99,7 @@
 	name = "Mute Sting"
 	desc = "We silently sting a human, completely silencing them for a short time. Costs 20 chemicals."
 	helptext = "Does not provide a warning to the victim that they have been stung, until they try to speak and cannot."
-	button_overlay_icon_state = "sting_mute"
+	button_icon_state = "sting_mute"
 	sting_icon = "sting_mute"
 	chemical_cost = 20
 	dna_cost = 4
@@ -116,7 +115,7 @@
 	name = "Blind Sting"
 	desc = "We temporarily blind our victim. Costs 25 chemicals."
 	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time."
-	button_overlay_icon_state = "sting_blind"
+	button_icon_state = "sting_blind"
 	sting_icon = "sting_blind"
 	chemical_cost = 25
 	dna_cost = 2
@@ -124,7 +123,7 @@
 
 /datum/action/changeling/sting/blind/sting_action(mob/living/user, mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
-	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
+	to_chat(target, SPAN_DANGER("Your eyes burn horrifically!"))
 	target.become_nearsighted(EYE_DAMAGE)
 	target.EyeBlind(40 SECONDS)
 	target.EyeBlurry(80 SECONDS)
@@ -136,7 +135,7 @@
 	name = "Cryogenic Sting"
 	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals."
 	helptext = "Does not provide a warning to the victim, though they will likely realize they are suddenly freezing."
-	button_overlay_icon_state = "sting_cryo"
+	button_icon_state = "sting_cryo"
 	sting_icon = "sting_cryo"
 	chemical_cost = 15
 	dna_cost = 4
@@ -154,7 +153,7 @@
 	name = "Lethargic Sting"
 	desc = "We silently sting our victim with a chemical that will gradually drain their stamina. Costs 50 chemicals."
 	helptext = "Does not provide a warning to the victim, though they will quickly realize they have been poisoned."
-	button_overlay_icon_state = "sting_lethargic"
+	button_icon_state = "sting_lethargic"
 	sting_icon = "sting_lethargic"
 	chemical_cost = 50
 	dna_cost = 4

@@ -4,8 +4,6 @@
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
 	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "glowshroomf"
 	base_icon_state = "glowshroom" //replaced in New
@@ -16,7 +14,7 @@
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
 /obj/structure/glowshroom/extinguish_light(force = FALSE)
-	visible_message("<span class='warning'>[src] withers away!</span>")
+	visible_message(SPAN_WARNING("[src] withers away!"))
 	qdel(src)
 
 /obj/structure/glowshroom/glowcap
@@ -40,8 +38,8 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-/obj/structure/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)
-	..()
+/obj/structure/glowshroom/Initialize(mapload, loc, obj/item/seeds/newseed, mutate_stats)
+	. = ..()
 	if(newseed)
 		myseed = newseed.Copy()
 		myseed.forceMove(src)
@@ -98,7 +96,7 @@
 		var/newDir = pick(dirList)
 		if(newDir == 16)
 			floor = 1
-			newDir = 1
+			newDir = NORTH
 		return newDir
 
 	floor = 1
@@ -115,7 +113,7 @@
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1
-	visible_message("<span class='danger'>[src] melts away!</span>")
+	visible_message(SPAN_DANGER("[src] melts away!"))
 	var/obj/effect/decal/cleanable/molten_object/I = new (get_turf(src))
 	I.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)

@@ -3,7 +3,6 @@
 	desc = "Used for scanning and alerting when someone enters a certain proximity."
 	icon_state = "prox"
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
-	origin_tech = "magnets=1;engineering=1"
 
 	secured = FALSE
 
@@ -28,7 +27,7 @@
 /obj/item/assembly/prox_sensor/examine(mob/user)
 	. = ..()
 	if(timing)
-		. += "<span class='notice'>The proximity sensor is arming.</span>"
+		. += SPAN_NOTICE("The proximity sensor is arming.")
 	else
 		. += "The proximity sensor is [scanning ? "armed" : "disarmed"]."
 
@@ -138,7 +137,7 @@
 
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>[src] is unsecured!</span>")
+		user.show_message(SPAN_WARNING("[src] is unsecured!"))
 		return FALSE
 	var/timing_ui = ""
 	var/time_display = ""

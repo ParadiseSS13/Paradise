@@ -5,8 +5,8 @@
  */
 /datum/action/guardian
 	name = "Generic guardian host action"
-	button_overlay_icon = 'icons/mob/guardian.dmi'
-	button_overlay_icon_state = "base"
+	button_icon = 'icons/mob/guardian.dmi'
+	button_icon_state = "base"
 	var/mob/living/simple_animal/hostile/guardian/guardian
 
 /datum/action/guardian/Grant(mob/M, mob/living/simple_animal/hostile/guardian/G)
@@ -24,7 +24,7 @@
 /datum/action/guardian/communicate
 	name = "Communicate"
 	desc = "Communicate telepathically with your guardian."
-	button_overlay_icon_state = "communicate"
+	button_icon_state = "communicate"
 
 /datum/action/guardian/communicate/Trigger(left_click)
 	var/input = tgui_input_text(owner, "Enter a message to tell your guardian:", "Message")
@@ -32,8 +32,8 @@
 		return
 
 	// Show the message to our guardian and to host.
-	to_chat(guardian, "<span class='changeling'><i>[owner]:</i> [input]</span>")
-	to_chat(owner, "<span class='changeling'><i>[owner]:</i> [input]</span>")
+	to_chat(guardian, SPAN_CHANGELING("<i>[owner]:</i> [input]"))
+	to_chat(owner, SPAN_CHANGELING("<i>[owner]:</i> [input]"))
 	log_say("(HOST to [key_name(guardian)]): [input]", owner)
 	owner.create_log(SAY_LOG, "HOST to GUARDIAN: [input]", guardian)
 
@@ -50,7 +50,7 @@
 /datum/action/guardian/recall
 	name = "Recall Guardian"
 	desc = "Forcibly recall your guardian."
-	button_overlay_icon_state = "recall"
+	button_icon_state = "recall"
 
 /datum/action/guardian/recall/Trigger(left_click)
 	guardian.Recall()
@@ -63,17 +63,17 @@
 /datum/action/guardian/reset_guardian
 	name = "Replace Guardian Player"
 	desc = "Replace your guardian's player with a ghost. This can only be done once."
-	button_overlay_icon_state = "reset"
+	button_icon_state = "reset"
 	var/cooldown_timer
 
-/datum/action/guardian/reset_guardian/IsAvailable()
+/datum/action/guardian/reset_guardian/IsAvailable(show_message = TRUE)
 	if(cooldown_timer)
 		return FALSE
 	return TRUE
 
 /datum/action/guardian/reset_guardian/Trigger(left_click)
 	if(cooldown_timer)
-		to_chat(owner, "<span class='warning'>This ability is still recharging.</span>")
+		to_chat(owner, SPAN_WARNING("This ability is still recharging."))
 		return
 
 	var/confirm = tgui_alert(owner, "Are you sure you want replace your guardian's player?", "Confirm", list("Yes", "No"))
@@ -82,20 +82,20 @@
 
 	// Do this immediately, so the user can't spam a bunch of polls.
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
-	UpdateButtons()
+	build_all_button_icons()
 
-	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")
+	to_chat(owner, SPAN_DANGER("Searching for a replacement ghost..."))
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
 
 	if(!length(candidates))
-		to_chat(owner, "<span class='danger'>There were no ghosts willing to take control of your guardian. You can try again in 5 minutes.</span>")
+		to_chat(owner, SPAN_DANGER("There were no ghosts willing to take control of your guardian. You can try again in 5 minutes."))
 		return
 	if(QDELETED(guardian)) // Just in case
 		return
 
 	var/mob/dead/observer/new_stand = pick(candidates)
-	to_chat(guardian, "<span class='danger'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")
-	to_chat(owner, "<span class='danger'>Your guardian has been successfully reset.</span>")
+	to_chat(guardian, SPAN_DANGER("Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance."))
+	to_chat(owner, SPAN_DANGER("Your guardian has been successfully reset."))
 	message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(guardian)])")
 	guardian.ghostize()
 	guardian.key = new_stand.key
@@ -122,7 +122,7 @@
 	if(isfloorturf(beacon_loc) && !islava(beacon_loc) && !ischasm(beacon_loc))
 		QDEL_NULL(guardian_user.beacon)
 		guardian_user.beacon = new(beacon_loc)
-		to_chat(guardian_user, "<span class='notice'>Beacon placed! You may now warp targets to it, including your user, via <b>Alt Click</b>.</span>")
+		to_chat(guardian_user, SPAN_NOTICE("Beacon placed! You may now warp targets to it, including your user, via <b>Alt Click</b>."))
 
 	return TRUE
 
@@ -148,14 +148,14 @@
 		S.spawner = guardian_user
 		S.name = "[get_area(snare_loc)] trap ([snare_loc.x],[snare_loc.y],[snare_loc.z])"
 		guardian_user.snares |= S
-		to_chat(guardian_user, "<span class='notice'>Surveillance trap deployed!</span>")
+		to_chat(guardian_user, SPAN_NOTICE("Surveillance trap deployed!"))
 		return TRUE
 	else
 		var/picked_snare = tgui_input_list(guardian_user, "You have too many snares deployed! Delete one to place another.", "Disarm Snare", guardian_user.snares)
 		if(picked_snare)
 			guardian_user.snares -= picked_snare
 			qdel(picked_snare)
-			to_chat(user, "<span class='notice'>Snare disarmed.</span>")
+			to_chat(user, SPAN_NOTICE("Snare disarmed."))
 			revert_cast()
 
 /datum/spell/choose_battlecry
@@ -184,7 +184,7 @@
  */
 /datum/action/guardian/reset_guardian/proc/reset_cooldown()
 	cooldown_timer = null
-	UpdateButtons()
+	build_all_button_icons()
 
 /**
  * Grants all existing `/datum/action/guardian` type actions to the src mob.

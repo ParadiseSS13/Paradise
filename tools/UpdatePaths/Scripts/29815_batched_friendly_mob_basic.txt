@@ -1,0 +1,7 @@
+/mob/living/simple_animal/lizard/@SUBTYPES : /mob/living/basic/lizard/@SUBTYPES{@OLD}
+/mob/living/simple_animal/butterfly/@SUBTYPES : /mob/living/basic/butterfly/@SUBTYPES{@OLD}
+/mob/living/simple_animal/cockroach/@SUBTYPES : /mob/living/basic/cockroach/@SUBTYPES{@OLD}
+/mob/living/simple_animal/hostile/retaliate/poison/snake/@SUBTYPES : /mob/living/basic/snake/@SUBTYPES{@OLD}
+/mob/living/simple_animal/bunny/@SUBTYPES : /mob/living/basic/bunny/@SUBTYPES{@OLD}
+/mob/living/simple_animal/pet/penguin/@SUBTYPES : /mob/living/basic//pet/penguin/@SUBTYPES{@OLD}
+/mob/living/simple_animal/pet/sloth/@SUBTYPES : /mob/living/basic//pet/sloth/@SUBTYPES{@OLD}

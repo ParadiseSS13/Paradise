@@ -249,15 +249,19 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck,
+/mob/living/basic/mining/gutlunch/gubbuck,
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "aM" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/obj/item/seeds/comfrey,
-/obj/item/seeds/aloe,
+/obj/item/seeds/comfrey{
+	potency = 40
+	},
+/obj/item/seeds/aloe{
+	potency = 40
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aN" = (
@@ -378,7 +382,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen,
+/mob/living/basic/mining/gutlunch/guthen,
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bd" = (

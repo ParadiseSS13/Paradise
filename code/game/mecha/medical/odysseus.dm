@@ -17,7 +17,7 @@
 	. = ..()
 	if(. && ishuman(H))
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			occupant_message("<span class='warning'>[H.glasses] prevent you from using the built-in medical hud.</span>")
+			occupant_message(SPAN_WARNING("[H.glasses] prevent you from using the built-in medical hud."))
 		else
 			var/datum/atom_hud/data/human/medical/advanced/A = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 			A.add_hud_to(H)

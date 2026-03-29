@@ -1,18 +1,16 @@
 /obj/item/stack/tile
 	name = "broken tile"
-	singular_name = "broken tile"
 	desc = "A broken tile. This should not exist."
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
-	item_state = "tile"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "tile"
+	singular_name = "broken tile"
 	force = 1
 	throwforce = 1
 	throw_speed = 5
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
-	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
 	scatter_distance = 3
@@ -23,17 +21,17 @@
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 4)
-		to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+		to_chat(user, SPAN_WARNING("You need at least four tiles to do this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>You can not reform this!</span>")
+		to_chat(user, SPAN_WARNING("You can not reform this!"))
 		return
 	if(mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
 		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-					"<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
-					"<span class='italics'>You hear welding.</span>")
+					SPAN_NOTICE("You shaped [src] into metal with the welding tool."), \
+					SPAN_ITALICS("You hear welding."))
 		var/obj/item/stack/rods/R = src
 		src = null
 		var/replace = (user.get_inactive_hand()==R)
@@ -229,13 +227,11 @@
 	gender = PLURAL
 	singular_name = "floor tile"
 	desc = "Those could work as a pretty decent throwing weapon."
-	icon_state = "tile"
 	force = 6
 	materials = list(MAT_METAL=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
@@ -297,7 +293,6 @@
 	singular_name = "light pod floor tile"
 	desc = "A lightly colored grooved floor tile."
 	icon_state = "tile_podlight"
-	turf_type = /turf/simulated/floor/pod
 
 /obj/item/stack/tile/pod/dark
 	name = "dark pod floor tile"
@@ -340,12 +335,35 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
 	turf_type = /turf/simulated/floor/catwalk
 	mineralType = "metal"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/tile/catwalk
+
+/obj/item/stack/tile/catwalk/grey
+	name = "grey catwalk tiles"
+	singular_name = "grey catwalk tile"
+	desc = "A grey catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_grey"
+	turf_type = /turf/simulated/floor/catwalk/grey
+	merge_type = /obj/item/stack/tile/catwalk/grey
+
+/obj/item/stack/tile/catwalk/black
+	name = "black catwalk tiles"
+	singular_name = "black catwalk tile"
+	desc = "A black catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_black"
+	turf_type = /turf/simulated/floor/catwalk/black
+	merge_type = /obj/item/stack/tile/catwalk/black
+
+/obj/item/stack/tile/catwalk/white
+	name = "white catwalk tiles"
+	singular_name = "white catwalk tile"
+	desc = "A white catwalk tile. Not rated for space usage."
+	icon_state = "tile_catwalk_white"
+	turf_type = /turf/simulated/floor/catwalk/white
+	merge_type = /obj/item/stack/tile/catwalk/white
 
 /obj/item/stack/tile/catwalk/cyborg
 	energy_type = /datum/robot_storage/energy/catwalk
