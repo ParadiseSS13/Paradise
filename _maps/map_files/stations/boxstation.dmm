@@ -86650,7 +86650,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/genetics,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
