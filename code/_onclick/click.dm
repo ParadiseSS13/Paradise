@@ -107,6 +107,11 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
 
+	if(isturf(A))
+		var/turf/clicked_turf = A
+		for(var/obj/machinery/door/AL in clicked_turf.contents)
+			AL.try_to_activate_door(src)
+
 	if(isclowncar(loc) && !modifiers["shift"])
 		var/obj/tgvehicle/sealed/car/clowncar/cc = loc
 		return cc.fire_cannon_at(A, src, params)
