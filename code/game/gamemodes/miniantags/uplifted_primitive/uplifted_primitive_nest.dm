@@ -63,13 +63,19 @@
 	. = ..()
 	. += SPAN_NOTICE("It appears to have been built by [lowertext(nest_species::name_plural)].")
 
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive) && user.dna.species.type == nest_species)
+	if(!user.mind)
+		return
+	var/datum/antagonist/uplifted_primitive/antag = user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive)
+
+	if(antag && user.dna.species.type == nest_species)
 		. += SPAN_NOTICE("It contains [available_scrap] units of scrap.")
 		. += SPAN_NOTICE("It contains [available_food] units of food.")
 		. += SPAN_NOTICE("It needs at least [SPAWN_SCRAP_COST] scrap and [SPAWN_FOOD_COST] food to produce another primitive.")
 		. += SPAN_NOTICE("A new primitive can emerge [COOLDOWN_FINISHED(src, spawn_cooldown) \
 			? "soon" \
 			: "in [round(COOLDOWN_TIMELEFT(src, spawn_cooldown) / (1 SECONDS))] seconds"].")
+		if(locateUID(antag.nest_uid) == src)
+			. += SPAN_NOTICE("<b>Alt-Click</b> to deconstruct the nest.")
 
 /obj/structure/uplifted_primitive/nest/process()
 	if(obj_integrity < max_integrity && available_scrap >= INTEGRITY_REGEN_SCRAP_COST)
@@ -177,7 +183,7 @@
 		return NONE
 
 	if(user.a_intent != INTENT_HELP)
-		return ITEM_INTERACT_COMPLETE
+		return NONE
 
 	if(used.resistance_flags & INDESTRUCTIBLE)
 		to_chat(user, SPAN_WARNING("You don't think it's a good idea to put [used] in the nest."))
