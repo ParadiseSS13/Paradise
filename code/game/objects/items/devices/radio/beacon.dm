@@ -91,6 +91,7 @@
 		"Hacker" = /obj/item/storage/box/syndie_kit/bundle/hacker,
 		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
+		"Mob Boss" = /obj/item/storage/box/syndie_kit/bundle/gangster,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
 		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid,
 		"Ocelot" = /obj/item/storage/box/syndie_kit/bundle/ocelot,
