@@ -19,7 +19,7 @@
 	var/inclination = 0 // how tilted the orbit is
 	var/latitude = 0 // the center latitude of the orbit
 	//var/altitude = 40000
-	var/const/period_multiplier = 4000
+	var/const/period_multiplier = 80000//4000
 	var/period = 20 MINUTES // probably breaks physics, but its a video game
 	//var/gravitational_constant = 6.67408
 	//var/planet_mass = 5 // lavaland is less dense than earth, and will have a lower gravity
@@ -49,12 +49,13 @@
 	return (semi_major * (1 - eccent ** 2) / (1 + eccent * cos(theta)))
 */
 
-///datum/orbit_data/proc/get_altitude()
-//	return periapsis * (1 - abs(orbit_progress - 0.5) * 2) + (apoapsis * abs(orbit_progress - 0.5) * 2)
+/datum/orbit_data/proc/get_altitude()
+	return apoapsis + ((periapsis - apoapsis) * (1 - abs(orbit_progress - 0.5) * 2))
+	//return periapsis * (1 - abs(orbit_progress - 0.5) * 2) + (apoapsis * abs(orbit_progress - 0.5) * 2)
 
 /// gives a sinus wave that peaks at 0.25 and -0.25, with a cycle the length of period
 /datum/orbit_data/proc/get_velocity()
-	return sin((world.time - launch_time) * 2 * PI) / period
+	return sin((world.time - launch_time) * 2 * PI / (period / 10)) // we're dividing period by 10 because we want to match up with actual seconds, not deciseconds
 
 /// gives the time it takes to finish 1 cycle around the planet in minutes
 /datum/orbit_data/proc/get_period()
@@ -71,6 +72,8 @@
 
 	for(var/datum/maneuver_data/maneuver in planned_maneuvers)
 		if(world.time > maneuver.world_time_at_maneuver)
+			if(launch_time > world.time) // yet to launch
+				launch_time = world.time
 			perform_burn(maneuver, owner)
 
 /// Performs a fraction of the maneuver
@@ -99,7 +102,8 @@
 	// TODO: Recalculate orbit progress bases off periapsis
 
  	// normal burns are most efficient the closer to periapsis you are
-	inclination += (maneuver.normal * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn) % 360
+	inclination += (maneuver.normal * bimodal_orbit * satellite_stats.engine_speed_constant * fraction_burn)
+	inclination %= 360
 
 	// subtract fuel, and add power
 	satellite_stats.current_fuel -= satellite_stats.fuel_usage
@@ -110,7 +114,7 @@
 /// * `prograde` - can be negative. Affects the size of the orbit
 /// * `normal` - can be negative. Affects how tilted the orbit is
 /// * `time_to_maneuver` - deciseconds until the maneuver
-/// * `burn_time` - how many repetitions should be done
+/// * `burn_time` - how many ticks this should be done
 /datum/orbit_data/proc/add_maneuver(prograde, normal, time_to_maneuver, burn_time)
 	var/datum/maneuver_data/maneuver = new()
 	maneuver.prograde = prograde
@@ -132,7 +136,7 @@
 	var/magnitude = 0
 	var/world_time_at_maneuver = INFINITY
 	var/burn_time = 0
-	var/const/burn_constant = 0.1
+	var/const/burn_constant = 1 SECONDS
 
 /datum/maneuver_data/proc/get_magnitude()
 	return ROOT(prograde ** 2 + normal ** 2, 2)

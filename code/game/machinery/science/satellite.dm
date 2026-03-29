@@ -20,6 +20,7 @@
 	internal_name = name
 	orbit_data.owner = satellite_stats
 	update_icon()
+	SSscience_satellite.satellites += src
 
 /obj/machinery/science_satellite/basic/Initialize(mapload)
 	parts = list(
@@ -131,6 +132,7 @@
 	linked_multitool = multitool
 
 /obj/machinery/science_satellite/Destroy()
+	SSscience_satellite.satellites -= src
 	for(var/obj/machinery/computer/satellite_monitor/console in linked_consoles)
 		console.linked_satellites -= src
 	. = ..()

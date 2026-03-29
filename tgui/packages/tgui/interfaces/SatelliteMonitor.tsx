@@ -411,7 +411,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
         {satellites.map((satellite: Satellite) => {
           const orbitSizeFull = 100000; // works as a scale
           let size = ((satellite.orbit_data.periapsis + satellite.orbit_data.periapsis) / orbitSizeFull) * 100 + '%';
-          let orbitProgress = `${satellite.orbit_data.orbit_progress * 100}%`;
+          let orbitProgress = `${Math.abs(satellite.orbit_data.orbit_progress - 0.5) * 200}%`;
           return (
             <Stack key={satellite.name}>
               {size}
