@@ -129,7 +129,7 @@ STATUS EFFECTS
 	if(client)
 		var/atom/movable/plane_master_controller/pm = hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 		for(var/key in pm.controlled_planes)
-			animate(pm.controlled_planes[key], transform = matrix(angle, MATRIX_ROTATE))
+			animate(pm.controlled_planes[key], transform = matrix(-angle, MATRIX_ROTATE))
 
 /mob/living/proc/on_standing_up()
 	if(layer == LYING_MOB_LAYER || HAS_TRAIT(src, TRAIT_CONTORTED_BODY))
