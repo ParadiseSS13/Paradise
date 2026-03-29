@@ -5,9 +5,6 @@
 	/// The list of species this event can spawn uplifted primitives of.
 	var/list/allowed_species = list(
 		/datum/species/monkey,
-		/datum/species/monkey/skrell,
-		/datum/species/monkey/unathi,
-		/datum/species/monkey/nian_worme,
 	)
 
 /datum/event/spawn_uplifted_primitive/start()
