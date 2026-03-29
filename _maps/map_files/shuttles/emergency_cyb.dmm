@@ -11,30 +11,45 @@
 /area/shuttle/escape)
 "af" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/obj/machinery/light/spot{
-	dir = 8
+/obj/structure/closet/fireaxecabinet{
+	pixel_x = 32
 	},
+/obj/item/flash,
+/obj/item/restraints/handcuffs,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"ag" = (
-/obj/structure/window/reinforced{
+"ai" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
 	dir = 1
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"aj" = (
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
-/obj/structure/reagent_dispensers/fueltank/chem{
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"al" = (
+/obj/machinery/defibrillator_mount/loaded{
 	pixel_x = 32
 	},
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/shuttle/escape)
-"am" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/effect/turf_decal/caution/stand_clear,
-/turf/simulated/floor/plasteel,
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ao" = (
 /obj/structure/chair/comfy/shuttle{
@@ -48,35 +63,61 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"aN" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/escape)
-"aU" = (
-/obj/effect/spawner/window/shuttle,
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"ba" = (
+"aT" = (
 /obj/machinery/computer/emergency_shuttle,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"bd" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 32
+"aX" = (
+/obj/structure/window/reinforced{
+	dir = 1
 	},
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
+/obj/machinery/door/window/classic/normal{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/shuttle/escape)
+"ba" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/storage/firstaid/adv,
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/structure/window/reinforced,
+/obj/machinery/recharge_station,
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_x = 32
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/shuttle/escape)
+"bi" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"bm" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/machinery/door/window/classic/normal{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"br" = (
+/obj/machinery/door/airlock/titanium/glass{
+	name = "Shuttle Hatch";
+	hackProof = 1;
+	aiControlDisabled = 1;
+	id_tag = "s_docking_airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bu" = (
 /obj/structure/window/reinforced{
@@ -111,22 +152,65 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bQ" = (
-/obj/structure/table/reinforced,
-/obj/structure/closet/fireaxecabinet{
-	pixel_x = 32
+/obj/machinery/door/window/classic/normal{
+	dir = 8
 	},
-/obj/item/flash,
-/obj/item/restraints/handcuffs,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
-"cr" = (
 /obj/structure/window/plastitanium{
 	dir = 1
 	},
-/obj/machinery/door/window/reinforced/normal{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"bS" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_y = 4;
+	pixel_x = -7
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"bT" = (
 /obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/escape)
+"bX" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"bY" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/escape)
+"cr" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"cA" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
 	dir = 4
 	},
 /obj/machinery/recharger/wallcharger{
@@ -134,37 +218,14 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"ct" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/recharge_station,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/shuttle/escape)
-"cA" = (
-/obj/machinery/door/window/reinforced/reversed{
-	dir = 4
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/structure/window/plastitanium,
-/turf/simulated/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"cB" = (
-/obj/machinery/door/window/classic/normal{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
 ab
 ab
+ac
+br
 ab
-aU
 bD
 ab
 ab
@@ -173,19 +234,21 @@ ab
 (2,1,1) = {"
 ac
 ac
-af
 cr
+ai
+bi
 cA
 ap
-aN
+bT
 bu
 bw
 "}
 (3,1,1) = {"
 ac
-ba
+aT
 ao
-am
+bS
+bm
 bE
 bE
 bA
@@ -195,11 +258,12 @@ bw
 (4,1,1) = {"
 ac
 ac
+af
 bQ
-ag
-ct
-cB
-bd
+aX
+ba
+aj
+al
 bu
 bw
 "}
@@ -207,9 +271,10 @@ bw
 aa
 ab
 ab
+bX
+bY
 ab
-aU
-aU
+bY
 ab
 ab
 ab
