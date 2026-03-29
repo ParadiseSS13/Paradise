@@ -262,7 +262,7 @@
 
 /obj/item/gun/projectile/automatic/tommygun/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.20 SECONDS, allow_akimbo = FALSE)
+	AddComponent(/datum/component/automatic_fire, 2 DECISECONDS, allow_akimbo = FALSE)
 
 //////////////////////////////
 // MARK: M26A2 ASSAULT RIFLE
