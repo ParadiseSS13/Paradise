@@ -21,6 +21,10 @@
 	explanation_text = "Fortify your nest against potential attackers and arm your fellow primitives."
 	completed = TRUE
 
+/datum/objective/uplifted/expand
+	explanation_text = "Expand your territory into nearby rooms and areas to fit your species' growing needs."
+	completed = TRUE
+
 /datum/objective/uplifted/build_nest_in_area
 	/// The area in which the nest must be built to complete the objective.
 	var/area/target_area

@@ -17,7 +17,7 @@ RESTRICT_TYPE(/datum/team/uplifted_primitive)
 
 	/// All potential objectives which can be added as the team objective.
 	var/list/potential_objectives = list(
-		/datum/objective/uplifted/build_nest_in_area,
+		/datum/objective/uplifted/expand,
 	)
 
 	/// The number of spawns that should always poll ghosts for nests of this team.
@@ -32,6 +32,7 @@ RESTRICT_TYPE(/datum/team/uplifted_primitive)
 	name = "[team_species::name] Uprising"
 
 	add_team_objective(/datum/objective/uplifted/propagate)
+	add_team_objective(/datum/objective/uplifted/build_nest_in_area)
 
 /datum/team/uplifted_primitive/can_create_team()
 	return SSticker.mode.uplifted_teams[team_species] == null
@@ -47,11 +48,14 @@ RESTRICT_TYPE(/datum/team/uplifted_primitive)
 	..()
 
 	if(!has_added_team_objective && length(members) >= TEAM_OBJECTIVE_MEMBER_THRESHOLD)
-		var/selected_objective_path = pick(potential_objectives)
-		var/datum/objective/new_objective = new selected_objective_path()
-		add_team_objective(new_objective)
-		announce_new_objective(members - new_member, new_objective)
 		has_added_team_objective = TRUE
+		addtimer(CALLBACK(src, PROC_REF(add_new_objective)), 10 SECONDS)
+
+/datum/team/uplifted_primitive/proc/add_new_objective()
+	var/selected_objective_path = pick_n_take(potential_objectives)
+	var/datum/objective/new_objective = new selected_objective_path()
+	add_team_objective(new_objective)
+	announce_new_objective(members, new_objective)
 
 /datum/team/uplifted_primitive/proc/announce_new_objective(list/announce_to, datum/objective/new_objective)
 	var/message = prepare_new_objective_message(new_objective)
