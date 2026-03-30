@@ -34,7 +34,6 @@
 	name = "Meal, Ready-to-Eat"
 	desc = "A compact SolGov-produced field ration designed to feed a soldier in active combat. Contains self-heating food packets that require no prior preperation. \
 	It meets all of the legal and technical requirements to be considered real food!"
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "ration_solgov"
 	storage_slots = 8
 	drop_sound = null
