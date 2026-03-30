@@ -21,6 +21,7 @@
 
 	throw_speed = 3
 	throw_range = 10
+	new_attack_chain = TRUE
 
 	var/list/cards = list()
 	/// How often the deck can be shuffled.
@@ -129,29 +130,31 @@
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attack_hand), attacker)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/obj/item/deck/attackby__legacy__attackchain(obj/O, mob/user)
+/obj/item/deck/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// clicking is for drawing
-	if(istype(O, /obj/item/deck))
-		var/obj/item/deck/other_deck = O
+	if(istype(used, /obj/item/deck))
+		var/obj/item/deck/other_deck = used
 		if(other_deck.main_deck_id != main_deck_id)
 			to_chat(user, SPAN_WARNING("These aren't the same deck!"))
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		merge_deck(user, O)
-		return
+		merge_deck(user, used)
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/pen))
-		rename_interactive(user, O)
-		return
+	if(istype(used, /obj/item/pen))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
 
-	if(!istype(O, /obj/item/cardhand))
+	if(!istype(used, /obj/item/cardhand))
 		return ..()
-	var/obj/item/cardhand/H = O
+
+	var/obj/item/cardhand/H = used
 	if(H.parent_deck_id != main_deck_id)
 		to_chat(user, SPAN_WARNING("You can't mix cards from different decks!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	draw_card(user, user.a_intent == INTENT_HARM)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/deck/proc/in_play_range(mob/user)
 
@@ -451,8 +454,12 @@
 		)
 	H.throw_at(get_step(target, target.dir), 3, 1, null)
 
-/obj/item/deck/attack_self__legacy__attackchain(mob/user)
+/obj/item/deck/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	deckshuffle(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/deck/proc/deckshuffle(mob/user)
 	if(shuffle_cooldown < world.time - 1 SECONDS)
@@ -507,11 +514,15 @@
 	icon_state = "card_pack"
 	icon = 'icons/obj/playing_cards.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/list/cards = list()
 	var/parentdeck = null // For future card pack that need to be compatible with eachother i.e. cardemon
 
 
-/obj/item/pack/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/pack/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	user.visible_message(
 		SPAN_NOTICE("[name] rips open [src]!"),
 		SPAN_NOTICE("You rip open [src]!"),
@@ -526,6 +537,7 @@
 
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.put_in_hands(H)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/cardhand
 	name = "hand of cards"
@@ -533,6 +545,7 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
+	new_attack_chain = TRUE
 	/// If true, the cards will be face down.
 	var/concealed = FALSE
 	/// All of the cards in the deck.
@@ -571,19 +584,18 @@
 /obj/item/cardhand/proc/single()
 	return length(cards) == 1
 
-/obj/item/cardhand/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/cardhand/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	// this is how we handle our ranged attacks.
-	. = ..()
-	if(!istype(target, /obj/item/deck) || proximity_flag)
+	if(!istype(target, /obj/item/deck) || Adjacent(target))
 		// if we're adjacent to the deck, don't do anything since we'll already be using attackby.
-		return
+		return ..()
 
 	var/obj/item/deck/D = target
 	if(D.in_play_range(user))
-		return D.attackby__legacy__attackchain(src, user)
+		D.item_interaction(user, src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/deck/hitby(atom/movable/thrown, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-
 	if(!istype(thrown, /obj/item/cardhand))
 		return ..()
 
@@ -675,49 +687,61 @@
 	attack_verb = source.attack_verb
 	resistance_flags = source.resistance_flags
 
-/obj/item/cardhand/attackby__legacy__attackchain(obj/O, mob/user)
+/obj/item/cardhand/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Augh I really don't like this
-	if(length(cards) == 1 && is_pen(O))
+	if(length(cards) == 1 && is_pen(used))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
 			to_chat(user,SPAN_NOTICE("You cannot write on this card."))
-			return
-		var/card_text = rename_interactive(user, O, use_prefix = FALSE, actually_rename = FALSE)
+			return ITEM_INTERACT_COMPLETE
+
+		var/card_text = rename_interactive(user, used, use_prefix = FALSE, actually_rename = FALSE)
 		if(card_text && P.name == "Blank Card")
 			P.name = card_text
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	else if(istype(O, /obj/item/cardhand))
-		var/obj/item/cardhand/H = O
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/cardhand))
+		var/obj/item/cardhand/H = used
 		// if you're attacking a cardhand with one in hand, merge it into our deck.
 		// remember that "we" are the one being attacked here.
-		if(H.parent_deck_id == parent_deck_id)
-			if(!Adjacent(user))
-				return
-			var/datum/playingcard/chosen = select_card_radial(user)
-			if(QDELETED(chosen))
-				return
-			user.visible_message(
-				SPAN_NOTICE("[user] adds [concealed ? "a card" : chosen.name] to [user.p_their()] hand."),
-				"<span clas='notice'>You add [chosen.name] to your deck.</span>",
-				SPAN_NOTICE("You hear cards being shuffled together.")
-			)
-			H.transfer_card_to_self(src, chosen)
-			return
-		else
+		if(H.parent_deck_id != parent_deck_id)
 			to_chat(user, SPAN_NOTICE("You cannot mix cards from other decks!"))
-			return
+			return ITEM_INTERACT_COMPLETE
+
+		if(!Adjacent(user))
+			return ITEM_INTERACT_COMPLETE
+
+		var/datum/playingcard/chosen = select_card_radial(user)
+		if(QDELETED(chosen))
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			SPAN_NOTICE("[user] adds [concealed ? "a card" : chosen.name] to [user.p_their()] hand."),
+			SPAN_NOTICE("You add [chosen.name] to your deck.</span>"),
+			SPAN_NOTICE("You hear cards being shuffled together.")
+		)
+		H.transfer_card_to_self(src, chosen)
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
-/obj/item/cardhand/attack_self__legacy__attackchain(mob/user)
+/obj/item/cardhand/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(length(cards) == 1)
 		turn_hand(user)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	var/datum/playingcard/card = select_card_radial(user)
 	if(QDELETED(card))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	remove_card(user, card)
+	return ITEM_INTERACT_COMPLETE
 
 /mob/living/carbon/proc/get_active_card_hand()
 	var/obj/item/cardhand/hand = get_active_hand()
