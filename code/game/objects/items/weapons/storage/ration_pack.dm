@@ -5,9 +5,7 @@
 	desc = "A compact USSP-produced field ration designed to feed a soldier in active combat for multiple days. Contains bars of ultra-condensed nutrition for maximum efficiency, \
 	making it both the lightest and most calorie-dense ration in the entire Orion Arm. The USSP Bureau of Food stamp on the side certifies it as edible.\
 	The USSP Bureau of Construction stamp on the other side certifies it as suitable to use as a building material."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "ration_soviet"
-	storage_slots = 7
 	can_hold = list(
 		/obj/item/food/rations,
 		/obj/item/reagent_containers/drinks/cans/sodawater,
