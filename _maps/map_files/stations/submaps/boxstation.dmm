@@ -2905,7 +2905,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "Ro" = (
-/obj/machinery/atmospherics/pipe/manifold4w/visible/green,
 /obj/machinery/atmospherics/meter,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2915,6 +2914,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/visible/green{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
