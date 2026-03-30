@@ -9,12 +9,12 @@
 	/// Icon to swap to when the packaging is opened.
 	var/opened_icon = "liquidfood"
 
-/obj/item/food/rations/attack(mob/M, mob/user, def_zone)
-	if(..())
-		return
+/obj/item/food/rations/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(opened || !ishuman(target))
+		return ..()
 
-	if(!opened)
-		to_chat(user, "<span class='warning'>[src] cannot be eaten without removing the packaging first!</span>")
+	to_chat(user, "<span class='warning'>[src] cannot be eaten without removing the packaging first!</span>")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/rations/activate_self(mob/user)
 	if(..())
