@@ -1,10 +1,6 @@
 #define ROTATED_ANGLE 90
 #define UNROTATED_ANGLE 0
 
-// attackby goes to attackby__legacy__attackchain(obj/I, mob/user)
-// attack_hand goes to attack_self__legacy__attackchain(mob/user)
-
-// resetting stats will probably be a thing in the future
 // Need a TCG coin or two to replace the gold one that can be dropped. Make it shrink like the cards/packs
 
 /datum/tcg_card
@@ -95,8 +91,8 @@
 			flipped = !flipped
 			if(flipped)
 				icon_state = "cardback"
-				name = "TCG card"
-				desc = "A flipped TCG-branded card."
+				name = "Battles of Orion card"
+				desc = "A flipped Battles of Orion-branded card."
 			else
 				name = card_datum.name
 				desc = card_datum.desc
@@ -178,8 +174,8 @@
 	)
 
 /obj/item/cardpack/series_one
-	name = "Trading Card Pack 1" // please god think of a better name
-	desc = "Contains five cards from the Series 1 of Trading Cards! Collect them all!"
+	name = "Battles of Orion: Series 1
+	desc = "Contains five cards from the Series 1 of Battles of Orion! Collect them all!"
 	series = list(/datum/tcg_card/pack_1)
 	contains_coin = 10
 
@@ -246,7 +242,7 @@
 
 /obj/item/tcgcard_deck
 	name = "Trading Card Pile"
-	desc = "A stack of TCG cards."
+	desc = "A stack of Battle of Orion cards."
 	icon = 'icons/obj/tcg/misc.dmi'
 	icon_state = "deck_up"
 	w_class = WEIGHT_CLASS_TINY
@@ -372,8 +368,8 @@
 	update_icon()
 
 /obj/item/tcgcard_hand
-	name = "Trading Card Hand"
-	desc = "A hand full of TCG cards."
+	name = "Card Hand"
+	desc = "A hand full of Battle of Orion cards."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	w_class = WEIGHT_CLASS_TINY
