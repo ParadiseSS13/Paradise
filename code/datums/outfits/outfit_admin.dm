@@ -293,7 +293,8 @@
 		/obj/item/grenade/barrier,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/soap/ds
+		/obj/item/soap/ds,
+		/obj/item/food/rations/liquidfood,
 	)
 
 	cybernetic_implants = list(
@@ -318,7 +319,8 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/disk/nuclear/unrestricted
+		/obj/item/disk/nuclear/unrestricted,
+		/obj/item/food/rations/liquidfood,
 	)
 
 /datum/outfit/admin/deathsquad_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -602,7 +604,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/ammo_box/a762 = 4
+		/obj/item/ammo_box/a762 = 4,
+		/obj/item/storage/soviet_ration = 1,
 	)
 
 /datum/outfit/admin/soviet/soldier
@@ -616,9 +619,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/lighter = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_robust = 1,
-		/obj/item/ammo_box/magazine/apsm10mm = 2
+		/obj/item/ammo_box/magazine/apsm10mm = 2,
+		/obj/item/storage/soviet_ration = 1,
 	)
 
 /datum/outfit/admin/soviet/officer
@@ -657,8 +659,7 @@
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/gun/projectile/automatic/pistol/type_230 = 1,
 		/obj/item/ammo_box/magazine/apsm10mm = 2,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo/engraved = 1
+		/obj/item/storage/soviet_ration = 1,
 	)
 
 /datum/outfit/admin/soviet/marine/captain
@@ -671,8 +672,7 @@
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/gun/projectile/revolver/mateba = 1,
 		/obj/item/ammo_box/a357 = 2,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo/engraved = 1
+		/obj/item/storage/soviet_ration = 1,
 	)
 
 /datum/outfit/admin/soviet/admiral
@@ -745,9 +745,10 @@
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/storage/fancy/crayons/marine = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
+		/obj/item/storage/fancy/crayons/marine = 1,
+		/obj/item/storage/mre = 1,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
@@ -795,7 +796,8 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/ammo_box/magazine/m50 = 3,
+		/obj/item/storage/mre = 1,
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -810,7 +812,8 @@
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
 		/obj/item/whetstone = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
+		/obj/item/storage/mre = 1,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
@@ -833,7 +836,8 @@
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/ammo_box/magazine/m50 = 3,
+		/obj/item/storage/mre = 1,
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -1569,7 +1573,8 @@
 		/obj/item/storage/box/smoke_grenades = 1,
 		/obj/item/lighter/zippo = 1,
 		/obj/item/clothing/mask/cigarette/cigar = 3,
-		/obj/item/clothing/mask/gas/explorer = 1
+		/obj/item/clothing/mask/gas/explorer = 1,
+		/obj/item/storage/mre = 1,
 	)
 
 	bio_chips = list(/obj/item/bio_chip/stealth)

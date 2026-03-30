@@ -1,3 +1,31 @@
+
+
+/obj/item/storage/soviet_ration
+	name = "The People's Field Ration"
+	desc = "A compact USSP-produced field ration designed to feed a soldier in active combat for multiple days. Contains bars of ultra-condensed nutrition for maximum efficiency, \
+	making it both the lightest and most calorie-dense ration in the entire Orion Arm. The USSP Bureau of Food stamp on the side certifies it as edible.\
+	The USSP Bureau of Construction stamp on the other side certifies it as suitable to use as a building material."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "ration_soviet"
+	storage_slots = 7
+	can_hold = list(
+		/obj/item/food/rations,
+		/obj/item/reagent_containers/drinks/cans/sodawater,
+		/obj/item/clothing/mask/cigarette,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/fancy/matches,
+		/obj/item/match
+	)
+
+/obj/item/storage/soviet_ration/populate_contents()
+	new /obj/item/food/rations/nutrient_prism(src)
+	new /obj/item/food/rations/nutrient_prism(src)
+	new /obj/item/food/rations/nutrient_prism(src)
+	new /obj/item/food/rations/nutrient_prism(src)
+	new /obj/item/reagent_containers/drinks/cans/sodawater(src)
+	new /obj/item/storage/fancy/cigarettes/cigpack_our_brand(src)
+	new /obj/item/storage/fancy/matches(src)
+
 #define MAIN_FOOD 1
 #define SIDE_FOOD 2
 #define SNACK_FOOD 3
@@ -14,7 +42,7 @@
 	drop_sound = null
 	pickup_sound = null
 	can_hold = list(
-		/obj/item/food/snacks/rations,
+		/obj/item/food/rations,
 		/obj/item/reagent_containers/glass/beaker/waterbottle,
 		/obj/item/clothing/mask/cigarette,
 		/obj/item/storage/fancy/cigarettes,
@@ -35,6 +63,13 @@
 	/// Used when populating contents after doing get_menu_items().
 	var/dessert_food
 
+/obj/item/storage/mre/Initialize(mapload)
+	if(!menu_option)
+		menu_option = pick("Chicken & Cavatelli", "BBQ Pork & Rice", "Pepperoni Pizza & Cheese-Filled Crackers", "Sushi & Rice Onigiri", "Spaghetti & Meatballs", "Creamy Spinach Fettuccini", "Cheese & Veggie Omlette")
+	name =  "[name] ([menu_option])"
+	get_menu_items(menu_option)
+	. = ..()
+
 /obj/item/storage/mre/show_to(mob/user as mob)
 	if(!opened)
 		opened = TRUE
@@ -47,14 +82,8 @@
 	if(!opened)
 		to_chat(usr, "<span class='warning'>You need to open [src] before you can put things inside it.</span>")
 		return FALSE
-	..()
 
-/obj/item/storage/mre/Initialize(mapload)
-	if(!menu_option)
-		menu_option = pick("Chicken & Cavatelli", "BBQ Pork & Rice", "Pepperoni Pizza & Cheese-Filled Crackers", "Sushi & Rice Onigiri", "Spaghetti & Meatballs", "Creamy Spinach Fettuccini", "Cheese & Veggie Omlette")
-	name =  "[name] ([menu_option])"
-	get_menu_items(menu_option)
-	. = ..()
+	return ..()
 
 /obj/item/storage/mre/examine()
 	. = ..()
@@ -94,47 +123,46 @@ Frequently bought by preppers, explorers, and colonists heading out to the front
 /obj/item/storage/mre/proc/get_menu_items()
 	var/static/list/menu_item_list = list(
 		"Chicken & Cavatelli" = list(
-			/obj/item/food/snacks/rations/mre/chicken,
-			/obj/item/food/snacks/rations/mre/cavatelli,
-			/obj/item/food/snacks/rations/mre/trail_mix,
-			/obj/item/food/snacks/rations/mre/brownie
+			/obj/item/food/rations/mre/chicken,
+			/obj/item/food/rations/mre/cavatelli,
+			/obj/item/food/rations/mre/trail_mix,
+			/obj/item/food/rations/mre/brownie
 		),
 		"BBQ Pork & Rice" = list(
-			/obj/item/food/snacks/rations/mre/pork,
-			/obj/item/food/snacks/rations/mre/rice,
-			/obj/item/food/snacks/rations/mre/fighting_fuel,
-			/obj/item/food/snacks/rations/mre/pancake
+			/obj/item/food/rations/mre/pork,
+			/obj/item/food/rations/mre/rice,
+			/obj/item/food/rations/mre/fighting_fuel,
+			/obj/item/food/rations/mre/pancake
 		),
 		"Pepperoni Pizza & Cheese-Filled Crackers" = list(
-			/obj/item/food/snacks/rations/mre/pizza,
-			/obj/item/food/snacks/rations/mre/cheese_crackers,
-			/obj/item/food/snacks/rations/mre/trail_mix,
-			/obj/item/food/snacks/rations/mre/smores
+			/obj/item/food/rations/mre/pizza,
+			/obj/item/food/rations/mre/cheese_crackers,
+			/obj/item/food/rations/mre/trail_mix,
+			/obj/item/food/rations/mre/smores
 		),
 		"Sushi & Rice Onigiri" = list(
-			/obj/item/food/snacks/rations/mre/sushi,
-			/obj/item/food/snacks/rations/mre/onigiri,
-			/obj/item/food/snacks/rations/mre/bun,
-			/obj/item/food/snacks/rations/mre/spiced_apple
+			/obj/item/food/rations/mre/sushi,
+			/obj/item/food/rations/mre/onigiri,
+			/obj/item/food/rations/mre/bun,
+			/obj/item/food/rations/mre/spiced_apple
 		),
 		"Spaghetti & Meatballs" = list(
-			/obj/item/food/snacks/rations/mre/spaghetti,
-			/obj/item/food/snacks/rations/mre/meatballs,
-			/obj/item/food/snacks/rations/mre/peanut_crackers,
-			/obj/item/food/snacks/rations/mre/flan
+			/obj/item/food/rations/mre/spaghetti,
+			/obj/item/food/rations/mre/meatballs,
+			/obj/item/food/rations/mre/peanut_crackers,
+			/obj/item/food/rations/mre/flan
 		),
 		"Creamy Spinach Fettuccini" = list(
-			/obj/item/food/snacks/rations/mre/fettuccini,
-			/obj/item/food/snacks/rations/mre/pretzel_nugget,
-			/obj/item/food/snacks/rations/mre/fighting_fuel,
-			/obj/item/food/snacks/rations/mre/pbj
-
+			/obj/item/food/rations/mre/fettuccini,
+			/obj/item/food/rations/mre/pretzel_nugget,
+			/obj/item/food/rations/mre/fighting_fuel,
+			/obj/item/food/rations/mre/pbj
 		),
 		"Cheese & Veggie Omlette" = list(	// The Vomlette. The worst MRE in history.
-			/obj/item/food/snacks/rations/mre/vomlette,
-			/obj/item/food/snacks/rations/mre/cheese_crackers,
-			/obj/item/food/snacks/rations/mre/bun,
-			/obj/item/food/snacks/rations/mre/granola
+			/obj/item/food/rations/mre/vomlette,
+			/obj/item/food/rations/mre/cheese_crackers,
+			/obj/item/food/rations/mre/bun,
+			/obj/item/food/rations/mre/granola
 		)
 	)
 	main_food = menu_item_list[menu_option][MAIN_FOOD]

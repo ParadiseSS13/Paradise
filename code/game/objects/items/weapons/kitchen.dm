@@ -159,7 +159,7 @@
 /obj/item/kitchen/utensil/pspoon/mre
 	name = "\improper MRE spoon"
 	desc = "A military-grade plastic spoon. Robust construction, thin end towards enemy."
-	icon_state = "pspoon"
+	icon_state = "pspoon_mre"
 	force = 10
 	attack_verb = list("attacked", "poked", "stabbed", "shanked")
 
