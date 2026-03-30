@@ -34,7 +34,7 @@
 	desc = "A flipped trading card."
 	icon_state = "cardback"
 	icon = 'icons/obj/tcg/pack1.dmi'
-
+	new_attack_chain = TRUE
 	var/datum_type = /datum/tcg_card
 	var/datum/tcg_card/card_datum
 	var/flipped = FALSE
@@ -60,11 +60,15 @@
 	. = ..()
 	transform = matrix(0.5,0,0,0,0.5,0)
 
-/obj/item/tcg_card/attack_self__legacy__attackchain(mob/user)
+/obj/item/tcg_card/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(flipped)
 		flipped = !flipped
 	if(!flipped)
 		flipped = TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/tcg_card/New(loc, new_datum)
 	. = ..()
@@ -110,9 +114,9 @@
 			else
 				card_datum.Unrotate(user)
 
-/obj/item/tcg_card/attackby__legacy__attackchain(obj/I, mob/user)
-	if(istype(I, /obj/item/tcg_card))
-		var/obj/item/tcg_card/second_card = I
+/obj/item/tcg_card/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tcg_card))
+		var/obj/item/tcg_card/second_card = used
 		if(loc == user && second_card.loc == user)
 			var/obj/item/tcgcard_hand/hand = new(get_turf(user))
 			user.unequip(src)
@@ -123,7 +127,8 @@
 			hand.cards.Add(second_card)
 			user.put_in_hands(hand)
 			hand.update_icon()
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		var/obj/item/tcgcard_deck/new_deck = new /obj/item/tcgcard_deck(drop_location())
 		new_deck.flipped = flipped
 		user.unequip(second_card)
@@ -131,18 +136,21 @@
 		src.forceMove(new_deck)
 		new_deck.update_icon(UPDATE_ICON_STATE)
 		new_deck.update_icon()
-		return
-	if(istype(I, /obj/item/tcgcard_deck))
-		var/obj/item/tcgcard_deck/old_deck = I
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/tcgcard_deck))
+		var/obj/item/tcgcard_deck/old_deck = used
 		if(length(old_deck.contents) >= 30)
 			to_chat(user, "<span class='notice'>This pile has too many cards for a regular deck!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.unequip(src)
 		src.forceMove(old_deck)
 		flipped = old_deck.flipped
 		old_deck.update_icon()
 		update_icon()
-	return
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/cardpack
 	name = "Trading Card Pack: Chrono & Friends"
@@ -150,7 +158,13 @@
 	icon = 'icons/obj/tcg/misc.dmi'
 	icon_state = "cardpack"
 	w_class = WEIGHT_CLASS_TINY
-
+/obj/item/cardpack
+	name = "Trading Card Pack: Chrono & Friends"
+	desc = "This unobtainable group certainly shouldn't be findable and you should ahelp this!"
+	icon = 'icons/obj/tcg/misc.dmi'
+	icon_state = "cardpack"
+	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	/// The card series to look through
 	var/list/series = list(/datum/tcg_card/pack_1)
 	/// The chance there will be a coin in the pack
@@ -187,8 +201,10 @@
 	. = ..()
 	transform = matrix(0.5,0,0,0,0.5,0)
 
-/obj/item/cardpack/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/cardpack/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/list/cards = buildCardListWithRarity(card_count, guaranteed_count)
 	var/obj/item/tcgcard_hand/hand = new(get_turf(user))
 
@@ -204,6 +220,7 @@
 		new /obj/item/coin/thunderdome(get_turf(user))
 	// new rulebook goes here
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/cardpack/proc/buildCardListWithRarity(card_cnt, rarity_cnt)
 	var/list/return_cards = list()
@@ -318,30 +335,39 @@
 		return FALSE
 	return TRUE
 
-/obj/item/tcgcard_deck/attackby__legacy__attackchain(obj/I, mob/user)
-	if(istype(I, /obj/item/tcg_card))
+/obj/item/tcgcard_deck/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tcg_card))
 		if(contents.len >= max_cards)
 			to_chat(user, "<span class='notice'>This pile has too many cards for a single deck!</span>")
-			return FALSE
-		var/obj/item/tcg_card/new_card = I
+			return ITEM_INTERACT_COMPLETE
+
+		var/obj/item/tcg_card/new_card = used
 		new_card.flipped = flipped
 		user.unequip(new_card)
 		new_card.forceMove(src)
 		update_icon()
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/tcgcard_hand))
-		var/obj/item/tcgcard_hand/hand = I
+	if(istype(used, /obj/item/tcgcard_hand))
+		var/obj/item/tcgcard_hand/hand = used
 		for(var/obj/item/tcg_card/card in hand.cards)
 			if(contents.len >= max_cards)
-				return FALSE
+				return ITEM_INTERACT_COMPLETE
+
 			card.flipped = flipped
 			card.forceMove(src)
 			hand.cards.Remove(card)
 		update_icon()
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/tcgcard_deck/attack_self__legacy__attackchain(mob/user)
-	shuffle_deck(user)
 	return ..()
+
+/obj/item/tcgcard_deck/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	shuffle_deck(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/tcgcard_deck/proc/draw_card(mob/user)
 	if(!contents.len)
@@ -407,33 +433,38 @@
 		overlays += I
 
 
-/obj/item/tcgcard_hand/attackby__legacy__attackchain(obj/I, mob/user)
-	if(istype(I, /obj/item/tcg_card))
-		var/obj/item/tcg_card/card = I
-		if(loc == user && card.loc == user)
-			user.unequip(card)
-			card.forceMove(src)
-			cards.Add(card)
-			update_icon()
-			return
-	. = ..()
+/obj/item/tcgcard_hand/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/tcg_card))
+		return ..()
 
-/obj/item/tcgcard_hand/attack_self__legacy__attackchain(mob/user)
-	if(loc == user)
-		var/list/choices = list()
-		for(var/obj/item/tcg_card/card in cards)
-			choices[card] = image(icon = card.icon, icon_state = card.icon_state)
-		var/obj/item/tcg_card/choice = show_radial_menu(user, src, choices, require_near = TRUE)
+	var/obj/item/tcg_card/card = used
+	if(loc == user && card.loc == user)
+		user.unequip(card)
+		card.forceMove(src)
+		cards.Add(card)
+		update_icon()
+	return ITEM_INTERACT_COMPLETE
 
-		if(choice)
-			choice.forceMove(get_turf(src))
-			user.put_in_hands(choice)
-			cards.Remove(choice)
-			update_icon()
-			if(length(cards) == 0)
-				qdel(src)
-			return
-	. = ..()
+/obj/item/tcgcard_hand/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(loc != user)
+		return ITEM_INTERACT_COMPLETE
+
+	var/list/choices = list()
+	for(var/obj/item/tcg_card/card in cards)
+		choices[card] = image(icon = card.icon, icon_state = card.icon_state)
+	var/obj/item/tcg_card/choice = show_radial_menu(user, src, choices, require_near = TRUE)
+
+	if(choice)
+		choice.forceMove(get_turf(src))
+		user.put_in_hands(choice)
+		cards.Remove(choice)
+		update_icon()
+		if(length(cards) == 0)
+			qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/tcgcard_hand/Destroy()
 	for(var/obj/item/tcg_card/card in cards)
