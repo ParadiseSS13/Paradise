@@ -80,8 +80,8 @@
 /obj/item/tcg_card/attack_hand(mob/user)
 	var/list/choices = list(
 		"Pick Up" = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_pickup"),
-		"Rotate" = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_rotate"),
-		"Flip" = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_flip"),
+		"Rotate" = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_rotate"),
+		"Flip" = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_flip"),
 	)
 	var/result = show_radial_menu(user, src, choices, require_near = TRUE)
 	switch(result)
@@ -174,7 +174,7 @@
 	)
 
 /obj/item/cardpack/series_one
-	name = "Battles of Orion: Series 1
+	name = "Battles of Orion: Series 1"
 	desc = "Contains five cards from the Series 1 of Battles of Orion! Collect them all!"
 	series = list(/datum/tcg_card/pack_1)
 	contains_coin = 10
@@ -201,7 +201,7 @@
 	playsound(loc, 'sound/items/poster_ripped.ogg', 20, TRUE)
 	if(prob(contains_coin))
 		to_chat(user, "<span_class='notice'>...and it came with a flipper, too!</span>")
-		new /obj/item/coin/gold(get_turf(user))
+		new /obj/item/coin/thunderdome(get_turf(user))
 	// new rulebook goes here
 	qdel(src)
 
@@ -240,14 +240,33 @@
 
 	return return_cards
 
+/obj/item/coin/thunderdome
+	name = "Thunderdome Flipper"
+	desc = "A Thunderdome TCG flipper, for deciding who gets to go first. Also conveniently acts as a counter, for various purposes."
+	icon = 'icons/obj/tcg/misc.dmi'
+	icon_state = "coin_nanotrasen"
+	sideslist = list("nanotrasen", "syndicate")
+
+/obj/item/coin/thunderdome/Initialize(mapload)
+	. = ..()
+	transform = matrix(0.5,0,0,0,0.5,0)
+
+/obj/item/coin/thunderdome/equipped(mob/user, slot, initial)
+	. = ..()
+	transform = matrix()
+
+/obj/item/coin/thunderdome/dropped(mob/user, silent)
+	. = ..()
+	transform = matrix(0.5,0,0,0,0.5,0)
+
 /obj/item/tcgcard_deck
-	name = "Trading Card Pile"
+	name = "Trading Card Deck"
 	desc = "A stack of Battle of Orion cards."
 	icon = 'icons/obj/tcg/misc.dmi'
 	icon_state = "deck_up"
 	w_class = WEIGHT_CLASS_TINY
 
-	var/flipped = FALSE
+	var/flipped = TRUE
 	var/max_cards = 30
 
 /obj/item/tcgcard_deck/examine(mob/user)
@@ -278,7 +297,6 @@
 		"Draw" = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_draw"),
 		"Shuffle" = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_shuffle"),
 		"Pickup" = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_pickup"),
-		"Flip" = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_flip"),
 	)
 	var/choice = show_radial_menu(user, src, choices, require_near = TRUE)
 	if(!check_menu(user))
