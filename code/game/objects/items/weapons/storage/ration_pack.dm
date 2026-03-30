@@ -158,7 +158,8 @@ Frequently bought by preppers, explorers, and colonists heading out to the front
 			/obj/item/food/rations/mre/fighting_fuel,
 			/obj/item/food/rations/mre/pbj
 		),
-		"Cheese & Veggie Omlette" = list(	// The Vomlette. The worst MRE in history.
+		// The Vomlette. The worst MRE in history.
+		"Cheese & Veggie Omlette" = list(
 			/obj/item/food/rations/mre/vomlette,
 			/obj/item/food/rations/mre/cheese_crackers,
 			/obj/item/food/rations/mre/bun,

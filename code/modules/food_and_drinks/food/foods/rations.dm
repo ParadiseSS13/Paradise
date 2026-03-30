@@ -22,7 +22,7 @@
 
 	if(!opened)
 		opened = TRUE
-		update_icon_state()
+		update_icon(UPDATE_ICON_STATE)
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -5)
 		to_chat(user, "<span class='notice'>You tear open the packaging of [src].</span>")
 
