@@ -76663,6 +76663,13 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/genetics)
+"pxv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/warehouse)
 "pxD" = (
 /obj/structure/railing{
 	dir = 8
@@ -139706,7 +139713,7 @@ azy
 aAK
 aBG
 aAK
-aAK
+pxv
 aEI
 aAK
 kXQ
