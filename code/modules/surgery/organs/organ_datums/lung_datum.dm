@@ -142,13 +142,15 @@
 		if(CO2_pp > safe_co2_max)
 			if(!H.co2overloadtime) // If it's the first breath with too much CO2 in it, lets start a counter, then have them pass out after 12s or so.
 				H.co2overloadtime = world.time
-			else if(world.time - H.co2overloadtime > 120)
-				H.Paralyse(6 SECONDS)
-				H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
-				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
-					H.apply_damage_type(15, co2_damage_type)
+			else if(world.time - H.co2overloadtime > 80) // Throw the warning 4 seconds before they get knocked out.
 				H.throw_alert("too_much_co2", /atom/movable/screen/alert/too_much_co2)
-			if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
+				if(world.time - H.co2overloadtime > 120)
+					H.Paralyse(6 SECONDS)
+					H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
+					if(world.time - H.co2overloadtime > 240) // They've been in here 30s now, lets start to kill them for their own good!
+						H.apply_damage_type(15, co2_damage_type)
+
+			if(prob(60)) // Lets give them some chance to know somethings not right.
 				H.emote("cough")
 
 		else
