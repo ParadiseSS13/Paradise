@@ -56,6 +56,16 @@
 	. += ""
 	. += "Like the one <b>you</b> work for..."
 
+/obj/item/food/rations/liquidfood/On_Consume(mob/M, mob/user)
+	if(prob(10))
+		M.visible_message(
+			SPAN_DANGER("[M] vomits on the floor profusely!"),
+			SPAN_DANGER("The vile taste of [src] overpowers you, and you empty your stomach onto the floor!"),
+			SPAN_DANGER("You hear someone vomiting all over the floor!")
+		)
+		M.fakevomit(no_text = 1)
+		M.adjust_nutrition(-rand(5, 10))
+
 /obj/item/food/rations/nutrient_prism
 	name = "type I survival bar"
 	desc = "The standard field ration for the USSP. An ultra-dense bar of compressed nutritional components and essential vitamins, known to be difficult to chew. \

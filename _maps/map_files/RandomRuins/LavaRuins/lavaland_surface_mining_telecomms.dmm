@@ -104,7 +104,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/food/liquidfood,
+/obj/item/food/rations/liquidfood,
 /obj/item/pickaxe/emergency,
 /turf/simulated/floor/pod,
 /area/ruin/lavaland_relay)

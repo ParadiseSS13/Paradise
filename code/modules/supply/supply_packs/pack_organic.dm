@@ -25,6 +25,17 @@
 	containername = "food crate"
 	announce_beacons = list("Kitchen" = list("Kitchen"))
 
+/datum/supply_packs/organic/liquid_food
+	name = "LiquidFood Ration Crate"
+	contains = list(/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,)
+	cost = 500
+	containername = "Ration crate"
+
 /datum/supply_packs/organic/pizza
 	name = "Pizza Crate"
 	contains = list(/obj/item/pizzabox/margherita,
