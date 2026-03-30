@@ -32,7 +32,7 @@
 					/obj/item/food/rations/liquidfood,
 					/obj/item/food/rations/liquidfood,
 					/obj/item/food/rations/liquidfood,
-					/obj/item/food/rations/liquidfood,)
+					/obj/item/food/rations/liquidfood)
 	cost = 500
 	containername = "Ration crate"
 

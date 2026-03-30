@@ -46,7 +46,7 @@
 	. += "Through tireless research, constant re-evaluation, and (some would say) dubious testing methodology, they successfully created what they pitched as the perfect ration: \
 	lightweight, compact, requiring no preperation, able to be consumed on the move, full of nutrition that is fully absorbed by all humanoid species, all while being cheap and easy to mass manufacture."
 	. += ""
-	. += "Unfortunately, the TSF's trials of the new ration revealed that it was almost universally lothed by anyone that consumed it. \
+	. += "Unfortunately, the TSF's trials of the new ration revealed that it was almost universally loathed by anyone that consumed it. \
 	Whilst it was ultimately rejected, UltraFood simply turned around and started marketing to penny-pinching megacorporations that didn't care about that particular detail."
 	// Only show the snarky final part if you actually work for NT.
 	if(user.mind.special_role)
@@ -94,7 +94,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, "<span class = 'notice'>You start to bite into [src] and try to rip a small piece off.</span>")
-	if(!do_after_once(user, delay = 5 SECONDS, target = user))	// It's VERY VERY chewy. A few months of service and you shall have the most strong, chiseled jaw ever. Like the soldiers on propagana posters have.
+	if(!do_after_once(user, delay = 5 SECONDS, target = user))	// It's VERY VERY chewy. A few months of service and you shall have the most strong, chiseled jaw ever. Like the soldiers on propaganda posters have.
 		to_chat(user, "<span class = 'notice'>You give up on trying to bite through [src].</span>")
 		return ITEM_INTERACT_COMPLETE
 
@@ -128,7 +128,7 @@
 	tastes = list("cheese" = 2, "cardboard" = 3, "bread" = 1)
 
 /obj/item/food/rations/mre/sushi
-	name = "suishi bites"
+	name = "sushi bites"
 	desc = "Multiple bits of assorted sushi. The fish is cooked..."
 	icon_state = "ration_pouch"
 	opened_icon = "sushi_bites"
@@ -153,11 +153,11 @@
 
 /obj/item/food/rations/mre/vomlette
 	name = "cheese and vegetable omlette"
-	desc = "Also known as the \"Vomlette\". It doesn't look like an omlette, it doesn't taste like an omlette, and it sure as hell doesn't <b>smell</b> like an omlette! No redeeming qualities whatsoever."
+	desc = "Also known as the \"Vomlette\". It doesn't look like an omelette, it doesn't taste like an omelette, and it sure as hell doesn't <b>smell</b> like an omelette! No redeeming qualities whatsoever."
 	icon_state = "ration_pouch"
 	opened_icon = "vomlette"
 	list_reagents = list("nutriment" = 10, "plantmatter" = 15)
-	tastes = list("very artifical cheese" = 3, "chemicals" = 2 , "artificial preservatives" = 1, "something resembling a vegetable" = 2)
+	tastes = list("very artificial cheese" = 3, "chemicals" = 2 , "artificial preservatives" = 1, "something resembling a vegetable" = 2)
 
 // MARK:	MRE Sides
 /obj/item/food/rations/mre/cavatelli
@@ -276,8 +276,8 @@
 	tastes = list("cinnamon" = 2, "apple" = 2, "spices" = 1)
 
 /obj/item/food/rations/mre/smores
-	name = "military-grade smores bar"
-	desc = "A bunch of marshmallows and chocolate bits stuck together with sticky granola. Surprisingly tastes better than any smores bar you can find in stores."
+	name = "military-grade s'mores bar"
+	desc = "A bunch of marshmallows and chocolate bits stuck together with sticky granola. Surprisingly tastes better than any s'mores bar you can find in stores."
 	icon_state = "ration_bar"
 	opened_icon = "smores"
 	list_reagents = list("nutriment" = 6, "chocolate" = 3, "sugar" = 8)
