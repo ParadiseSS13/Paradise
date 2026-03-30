@@ -420,7 +420,6 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 	)
 
-
 //Cargo
 /obj/item/clothing/head/beret/qm
 	name = "quartermaster's beret"
