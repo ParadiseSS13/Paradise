@@ -479,10 +479,10 @@
 		qdel(target_needle)
 
 /obj/item/stack/medical/suture/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!can_merge(thing, TRUE))
+	if(!can_merge(used, TRUE))
 		return ..()
 
-	var/obj/item/stack/material = thing
+	var/obj/item/stack/material = used
 	var/merge_amount = merge(material)
 	if(merge_amount)
 		if(istype(material))
