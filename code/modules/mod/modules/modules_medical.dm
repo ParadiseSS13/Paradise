@@ -133,3 +133,20 @@
 
 /obj/item/mod/module/monitor/on_use()
 	crew_monitor.ui_interact(mod.wearer)
+
+///Health Analyzer - Gives the suit an extendable health analyzer, able to be upgraded
+/obj/item/mod/module/analyzer
+	name = "MOD health analyzer"
+	desc = "A module installed into the palm of the suit, allows the deployment of a typical upgradable health analyzer."
+	icon_state = "brain_hurties"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	active_power_cost = DEFAULT_CHARGE_DRAIN
+	device = /obj/item/healthanalyzer/mod
+	incompatible_modules = list(/obj/item/mod/module/analyzer)
+	cooldown_time = 0.5 SECONDS
+
+/obj/item/healthanalyzer/mod
+	name = "MOD health analyzer"
+	desc = "A integrated body scanner that allows the user to scan vital signs of a patient."
+	flags = NODROP
