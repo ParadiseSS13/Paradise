@@ -145,6 +145,7 @@
 	device = /obj/item/healthanalyzer/mod
 	incompatible_modules = list(/obj/item/mod/module/analyzer)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000)
 
 /obj/item/healthanalyzer/mod
 	name = "MOD health analyzer"
