@@ -22,6 +22,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	GLOB.newplayer_start += loc
 	qdel(src)
 
+// I'm lazy, shoot me
+/obj/effect/landmark/ashwalker
+	name = "ashwakerstart"
+
 /obj/effect/landmark/lightsout
 	name = "Electrical Storm Epicentre"
 
