@@ -404,6 +404,91 @@
 	/// The type of the item we create when depleted
 	var/depleted_type = /obj/item/suture_needle
 
+/obj/item/stack/medical/suture/can_merge(obj/item/check, inhand = FALSE)
+	if(is_cyborg) // No merging cyborg stacks into other stacks
+		return FALSE
+	if(ismob(loc) && !inhand) // no merging with items that are on the mob
+		return FALSE
+	if(!istype(check, merge_type))
+		if(!istype(check, depleted_type))
+			return FALSE
+		else
+			return amount > 0
+	// it must be a stack
+	var/obj/item/stack/check_stack = check
+	if(amount <= 0 || check_stack.amount <= 0 || check_stack.merge_type != merge_type) // no merging empty stacks that are in the process of being qdel'd
+		return FALSE
+	return TRUE
+
+/obj/item/stack/medical/suture/merge_without_del(obj/item/material, mob/user = usr)
+	if(istype(material, /obj/item/stack))
+		return ..()
+	if(QDELETED(material))
+		CRASH("Stack merge attempted on qdeleted target stack.")
+	if(QDELETED(src))
+		CRASH("Stack merge attempted on qdeleted source stack.")
+	if(material == src)
+		CRASH("Stack attempted to merge into itself.")
+
+		// Get amount from user
+	var/min = 0
+	var/max = get_amount()
+	var/stackmaterial = tgui_input_number(user, "How many segments do you wish to transfer to the other needle? (Max: [max])", "Suture Split", max_value = max)
+	if(isnull(stackmaterial) || stackmaterial <= min || stackmaterial > get_amount())
+		return FALSE
+
+	if(!Adjacent(user, 1))
+		return FALSE
+
+	change_stack(user, stackmaterial, material)
+	to_chat(user, SPAN_NOTICE("You transfer [stackmaterial] segments to [material]."))
+	return stackmaterial
+
+/obj/item/stack/medical/suture/merge(obj/item/stack/material)
+	. = merge_without_del(material)
+	if(is_zero_amount(FALSE))
+		if(depleted_type)
+			var/needle = new depleted_type(src.loc)
+			if(ishuman(src.loc))
+				var/mob/living/carbon/human/human_user = src.loc
+				human_user.put_in_active_hand(needle)
+		qdel(src)
+
+/obj/item/stack/medical/suture/AltClick(mob/living/user)
+	to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+	return FALSE
+
+/obj/item/stack/medical/suture/split(mob/user, amount, obj/item/suture_needle/target_needle)
+	if(!istype(target_needle) || !user.can_reach(target_needle))
+		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+		return FALSE
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/stack/material = .
+	var/newloc = target_needle.loc
+	qdel(target_needle)
+	forceMove(material, newloc)
+
+/obj/item/stack/medical/suture/change_stack(mob/user, amount, obj/item/suture_needle/target_needle)
+	if(!istype(target_needle) || !user.can_reach(target_needle))
+		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+		return FALSE
+	. = ..()
+	if(.)
+		qdel(target_needle)
+
+/obj/item/stack/medical/suture/attackby__legacy__attackchain(obj/item/thing, mob/user, params)
+	if(!can_merge(thing, TRUE))
+		return ..()
+
+	var/obj/item/stack/material = thing
+	var/merge_amount = merge(material)
+	if(merge_amount)
+		if(istype(material))
+			merge_amount = material.get_amount()
+		to_chat(user, SPAN_NOTICE("Your [material.name] stack now contains [merge_amount] [singular_name]\s."))
+
 /obj/item/stack/medical/suture/apply(mob/living/carbon/human/target, mob/user)
 	. = FALSE
 	if(current_target)
