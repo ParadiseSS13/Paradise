@@ -478,7 +478,7 @@
 	if(.)
 		qdel(target_needle)
 
-/obj/item/stack/medical/suture/attackby__legacy__attackchain(obj/item/thing, mob/user, params)
+/obj/item/stack/medical/suture/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!can_merge(thing, TRUE))
 		return ..()
 
@@ -488,6 +488,7 @@
 		if(istype(material))
 			merge_amount = material.get_amount()
 		to_chat(user, SPAN_NOTICE("Your [material.name] stack now contains [merge_amount] [singular_name]\s."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/medical/suture/apply(mob/living/carbon/human/target, mob/user)
 	. = FALSE
