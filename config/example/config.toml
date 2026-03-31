@@ -180,7 +180,7 @@ fluff_undershirts = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 71
+sql_version = 72
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -664,6 +664,10 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/asteroid3.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroid4.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroid5.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroid6.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroid7.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroid8.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroid9.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining1.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining2.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining3.dmm",
@@ -775,6 +779,7 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_wooden_cabin.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_basalt_lab.dmm",
 ]

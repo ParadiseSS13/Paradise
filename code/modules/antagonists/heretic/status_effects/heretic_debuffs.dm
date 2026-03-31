@@ -310,8 +310,8 @@
 	return ..()
 
 /datum/status_effect/stacking/heretic_insanity/proc/update_greyscale()
-	var/stack_intensity = 1 - (0.66 * (stacks / max_stacks))
-	var/inverse_intensity = 0.33 * (stacks / max_stacks)
+	var/stack_intensity = 1 - (0.66 * clamp((stacks / (max_stacks / 2)), 0, 1))
+	var/inverse_intensity = 0.33 * clamp((stacks / (max_stacks / 2)), 0, 1)
 	var/custom_greyscale = list(stack_intensity, inverse_intensity, inverse_intensity,\
 								inverse_intensity, stack_intensity, inverse_intensity,\
 								inverse_intensity, inverse_intensity, stack_intensity)

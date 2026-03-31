@@ -17,6 +17,7 @@
  *		Toy chainsaws
  *		Action Figures
  *		Round Tuits
+ *		Beach/Pool Toys
  */
 
 
@@ -1232,6 +1233,32 @@
 	icon_state = "plushie_kidansad"
 	sadbug = TRUE
 
+/obj/item/toy/plushie_picker
+	name = "plushie box"
+	desc = "Exactly the plushie you ordered, no funny business."
+	icon = 'icons/obj/boxes.dmi'
+	icon_state = "toy_box"
+
+/obj/item/toy/plushie_picker/activate_self(mob/user)
+	if(..())
+		return
+
+	var/list/obj/item/toy/plushie/valid_plushies = subtypesof(/obj/item/toy/plushie) - (
+		typesof(/obj/item/toy/plushie/fluff) | list(/obj/item/toy/plushie/borgplushie/random))
+	var/list/picking_list = list()
+	for(var/each_plush in valid_plushies)
+		var/obj/item/toy/plushie/valid_plush = each_plush
+		picking_list |= list(valid_plush::name = valid_plush)
+	var/chosen_plush = tgui_input_list(user, "Choose a plushie:", "Choosing plushie", picking_list)
+	if(!chosen_plush)
+		return
+
+	user.drop_item_to_ground(src)
+	chosen_plush = picking_list[chosen_plush]
+	var/spawned_plush = new chosen_plush(loc)
+	user.put_in_hands(spawned_plush)
+	qdel(src)
+
 /*
  * Foam Armblade
  */
@@ -2047,3 +2074,77 @@
 /obj/item/toy/round_tuit/colorful
 	desc = "Now that you have one, you can accomplish all the things you put aside until you got a Round Tuit."
 	icon_state = "round_tuit_colorful"
+
+//////////////////////////////////////////////////////
+//				Beach/Pool Toys				//
+//////////////////////////////////////////////////////
+
+/obj/item/toy/shell
+	name = "orange space shell"
+	desc = "A whorled orange shell with yellow stripes."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "shell_orange"
+	var/dye_color = DYE_ORANGE
+
+/obj/item/toy/shell/pink
+	name = "pink space shell"
+	desc = "A pretty pink fan-shaped shell."
+	icon_state = "shell_pink"
+	dye_color = DYE_PINK
+
+/obj/item/toy/shell/purple
+	name = "purple space shell"
+	desc = "Could this be a dried space life-form, rather than a shell?"
+	icon_state = "shell_purple"
+	dye_color = DYE_PURPLE
+
+/obj/item/toy/shell/green
+	name = "space dollar shell"
+	desc = "If only you knew a merchant who accepts dollars made from space debris..."
+	icon_state = "shell_green"
+	dye_color = DYE_YELLOWGREEN
+
+/obj/item/toy/shell/blue
+	name = "blue space shell"
+	desc = "If you put your ear up to it, your headset will start giving you feedback."
+	icon_state = "shell_blue"
+	dye_color = DYE_LIGHTBLUE
+
+/obj/item/toy/shell/red
+	name = "red space shell"
+	desc = "Rumor has it that microscopic space life makes its home in these crevices."
+	icon_state = "shell_red"
+	dye_color = DYE_LIGHTRED
+
+/obj/item/toy/pool_noodle
+	name = "boring pool noodle"
+	desc = ABSTRACT_TYPE_DESC
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "pool_noodle"
+	attack_verb = list("bopped", "splatted", "smacked", "thwapped", "slapped")
+	hitsound = 'sound/items/pool_noodle_hit.ogg'
+	// Having this var at all should play hitsound even if damage is zero
+	var/zero_damage_hitsound = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/toy/pool_noodle/Initialize(mapload)
+	if(!color)
+		return ..()
+	name = "pool noodle"
+	desc = "A damp, flexible tube for unrestrained summer fun."
+	return ..()
+
+/obj/item/toy/pool_noodle/pink
+	color = COLOR_PINK
+
+/obj/item/toy/pool_noodle/lime
+	color = COLOR_LIME
+
+/obj/item/toy/pool_noodle/aqua
+	color = COLOR_CYAN
+
+/obj/item/toy/pool_noodle/violet
+	color = COLOR_VIOLET
+
+/obj/item/toy/pool_noodle/orange
+	color = COLOR_ORANGE
