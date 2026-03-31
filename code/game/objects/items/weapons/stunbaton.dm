@@ -289,7 +289,7 @@
 	return TRUE
 
 /obj/item/melee/baton/proc/play_hit_sound()
-	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+	playsound(src, 'sound/items/squeaktoy.ogg', 50, TRUE, -1)
 
 /obj/item/melee/baton/proc/thrown_baton_stun(mob/living/carbon/human/L)
 	if(!COOLDOWN_FINISHED(src, stun_cooldown))
@@ -317,7 +317,7 @@
 	L.store_last_attacker(user)
 	L.visible_message(SPAN_DANGER("[src] stuns [L]!"))
 	add_attack_logs(user, L, "stunned")
-	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+	playsound(src, 'sound/items/squeaktoy.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
 	return TRUE
 
