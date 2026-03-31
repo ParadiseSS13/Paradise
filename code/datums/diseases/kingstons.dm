@@ -39,7 +39,8 @@
 				if(istajaran(affected_mob))
 					affected_mob.visible_message(SPAN_DANGER("[affected_mob] coughs up a hairball!"), \
 													SPAN_USERDANGER("You cough up a hairball!"))
-					affected_mob.Stun(10 SECONDS)
+					affected_mob.custom_emote(EMOTE_VISIBLE, "coughs up a hairball!", FALSE)
+					affected_mob.SetDizzy(6 SECONDS)
 				else
 					affected_mob.visible_message(SPAN_DANGER("[affected_mob]'s form contorts into something more feline!"), \
 													SPAN_USERDANGER("YOU TURN INTO A TAJARAN!"))
