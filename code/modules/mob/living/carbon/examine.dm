@@ -257,7 +257,7 @@
 				if(!check_ghost_client()) // our ghost is offline or no ghost attached to body
 					msg += "; there are no signs of life"
 				if(!get_ghost() && !key) // no ghost attached to body
-					msg += " and [p_their()] soul has departed"
+					msg += " and [p_their()] life insurance has expired"
 			msg += "...</span>\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
