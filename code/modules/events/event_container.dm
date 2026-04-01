@@ -181,6 +181,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/mass_hallucination,		10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 5, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear, 15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/isekai, 100),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear/honk,	10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/disposals_clog, 12),

@@ -3540,6 +3540,7 @@
 #include "code\modules\vehicle\snowmobile.dm"
 #include "code\modules\vehicle\speedbike.dm"
 #include "code\modules\vehicle\sportscar.dm"
+#include "code\modules\vehicle\truck_smite.dm"
 #include "code\modules\vehicle\vehicle.dm"
 #include "code\modules\vehicle\tg_vehicles\moon_roller.dm"
 #include "code\modules\vehicle\tg_vehicles\scooter.dm"

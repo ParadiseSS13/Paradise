@@ -185,6 +185,9 @@
 /mob/living/carbon/human/unathi/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi)
 
+/mob/living/carbon/human/ashwalker/Initialize(mapload, datum/species/new_species)
+	. = ..(mapload, /datum/species/unathi/ashwalker)
+
 /mob/living/carbon/human/unathi/ai_controlled/Initialize(mapload)
 	. = ..()
 	ai_controller = new /datum/ai_controller/monkey(src)
