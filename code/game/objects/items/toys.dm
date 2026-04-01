@@ -1233,6 +1233,32 @@
 	icon_state = "plushie_kidansad"
 	sadbug = TRUE
 
+/obj/item/toy/plushie_picker
+	name = "plushie box"
+	desc = "Exactly the plushie you ordered, no funny business."
+	icon = 'icons/obj/boxes.dmi'
+	icon_state = "toy_box"
+
+/obj/item/toy/plushie_picker/activate_self(mob/user)
+	if(..())
+		return
+
+	var/list/obj/item/toy/plushie/valid_plushies = subtypesof(/obj/item/toy/plushie) - (
+		typesof(/obj/item/toy/plushie/fluff) | list(/obj/item/toy/plushie/borgplushie/random))
+	var/list/picking_list = list()
+	for(var/each_plush in valid_plushies)
+		var/obj/item/toy/plushie/valid_plush = each_plush
+		picking_list |= list(valid_plush::name = valid_plush)
+	var/chosen_plush = tgui_input_list(user, "Choose a plushie:", "Choosing plushie", picking_list)
+	if(!chosen_plush)
+		return
+
+	user.drop_item_to_ground(src)
+	chosen_plush = picking_list[chosen_plush]
+	var/spawned_plush = new chosen_plush(loc)
+	user.put_in_hands(spawned_plush)
+	qdel(src)
+
 /*
  * Foam Armblade
  */
