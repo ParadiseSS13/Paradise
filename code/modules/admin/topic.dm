@@ -2384,7 +2384,7 @@
 				var/starting_turf_y = M.y + rand(10, 15) * pick(1, -1)
 				var/turf/start = locate(starting_turf_x, starting_turf_y, M.z)
 
-				new /obj/effect/immovablerod/smite(start, M)
+				new /obj/effect/immovablerod/smite/truck(start, M)
 				logmsg = "a rod"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")

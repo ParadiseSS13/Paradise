@@ -2,13 +2,14 @@
 	icon = 'icons/tgmc/objects/64x64.dmi'
 	icon_state = "truck"
 
-/obj/effect/immovablerod/smite/truck/Initialize(mapload)
-	. = ..()
-	playsound(src, 'sound/effects/truckhorn.ogg', 100, TRUE)
+/obj/effect/immovablerod/smite/truck/New(atom/_start, atom/_end)
+	playsound(_end, 'sound/effects/truck_horn.mp3', 100, TRUE)
+	return ..()
 
 /obj/effect/immovablerod/smite/truck/clong(turf/victim)
 	for(var/mob/living/carbon/human/soon_to_be_isekaied as anything in victim)
 		clong_thing(soon_to_be_isekaied)
+		playsound(src, 'sound/effects/explosion1.ogg', 100, TRUE)
 
 /obj/effect/immovablerod/smite/truck/clong_thing(mob/living/carbon/human/victim)
 	if(!istype(victim) || !victim.mind)
@@ -33,6 +34,8 @@
 
 	// Gotta know magic in your new life!
 	walker.mind.AddSpell(new /datum/spell/fireball)
+
+	to_chat(walker, SPAN_USERDANGER("Welcome to your new life in your isekai world!"))
 
 /datum/event/isekai
 	name =  "Isekai truck"
