@@ -104,9 +104,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "revenantspawn"
 	icon_state = "Rev"
 
-/obj/effect/landmark/spawner/ninja
-	name = "ninjaspawn"
-
 /obj/effect/landmark/spawner/bubblegum_arena
 	name = "bubblegum_arena_human"
 	icon_state = "Explorer"
@@ -143,6 +140,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/ertdirector/Initialize(mapload)
 	spawner_list = GLOB.ertdirector
+	return ..()
+
+/obj/effect/landmark/spawner/ninjastart
+	name = "ninjastart"
+
+/obj/effect/landmark/spawner/ninjastart/Initialize(mapload)
+	spawner_list = GLOB.ninjastart
 	return ..()
 
 /obj/effect/landmark/spawner/aroomwarp
@@ -194,13 +198,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	spawner_list = GLOB.syndieprisonwarp
 	return ..()
 
-/obj/effect/landmark/spawner/ninja_prison_warp
-	name = "ninja prison warp"
-
-/obj/effect/landmark/spawner/ninja_prison_warp/Initialize(mapload)
-	spawner_list = GLOB.ninjaprisonwarp
-	return ..()
-
 /obj/effect/landmark/spawner/antag_extract_warp
 	name = "antagextractwarp"
 
@@ -232,6 +229,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/commando_manual
 	name = "Deathsquad Commando Manual"
+
+/obj/effect/landmark/spawner/holding_facility
+	name = "Holding Facility"
 
 /obj/effect/landmark/spawner/holocarp
 	name = "Holocarp Spawn"

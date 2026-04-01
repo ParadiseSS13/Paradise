@@ -29,9 +29,7 @@
 	/// Map datum of the map to use, overriding the defaults, and `data/next_map.txt`
 	var/override_map = null
 	/// Assoc list of region names and their server IPs. Used for geo-routing.
-	#ifdef SERVERREGIONS
 	var/list/region_map = list()
-	#endif
 	/// Send a system toast on init completion?
 	var/toast_on_init_complete = FALSE
 	/// The URL for a ss13-yt-wrap server (https://github.com/Absolucy/ss13-yt-wrap) to use.
@@ -61,9 +59,7 @@
 
 
 	// Load region overrides
-	#ifdef SERVERREGIONS
 	if(islist(data["regional_servers"]))
 		region_map.Cut()
 		for(var/list/kvset in data["regional_servers"])
 			region_map[kvset["name"]] = kvset["ip"]
-	#endif

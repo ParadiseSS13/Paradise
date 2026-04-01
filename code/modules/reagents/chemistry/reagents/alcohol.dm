@@ -1793,24 +1793,6 @@
 			H.blood_volume += 0.4
 	return ..()
 
-/datum/reagent/consumable/ethanol/erponbeach
-	name = "ERP on the Beach"
-	id = "erponbeach"
-	description = "Not Safe For the Workplace"
-	color = "#FC5F1E"
-	alcohol_perc = 0.1
-	drink_icon = "erponbeach"
-	drink_name = "ERP on the Beach"
-	drink_desc = "Clearly Not Safe For Work."
-	taste_description = "fruit juice and alcohol"
-
-/datum/reagent/consumable/ethanol/erponbeach/on_mob_life(mob/living/M)
-	if(prob(5))
-		SEND_SOUND(M, sound('sound/effects/adminhelp.ogg', 0, 1, 0, 25))
-		var/admin_message = pick("PM from-<b>Administrator</b>: Rule 8: No ERP!", "PM from-<b>Administrator</b>: Care to explain yourself?", "PM from-<b>Administrator</b>: No ERP. Perma ban issued.")
-		to_chat(M, chat_box_red(SPAN_ADMINHELP("[admin_message]")), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
-	return ..()
-
 // MARK: Species drinks
 /datum/reagent/consumable/ethanol/acid_dreams
 	name = "Acid Dreams"

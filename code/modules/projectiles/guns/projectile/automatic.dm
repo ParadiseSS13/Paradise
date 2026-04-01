@@ -256,13 +256,9 @@
 	origin_tech = "combat=5;materials=1;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	burst_size = 1
 	can_suppress = FALSE
-	actions_types = list()
-
-/obj/item/gun/projectile/automatic/tommygun/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/automatic_fire, 2 DECISECONDS, allow_akimbo = FALSE)
+	burst_size = 4
+	fire_delay = 1
 
 //////////////////////////////
 // MARK: M26A2 ASSAULT RIFLE

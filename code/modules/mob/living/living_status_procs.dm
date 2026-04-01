@@ -123,13 +123,7 @@ STATUS EFFECTS
 	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, TRUE)
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(orient_crawling))
 	set_density(FALSE)
-	var/angle = pick(90, 270)
-	set_lying_angle(angle)
-
-	if(client)
-		var/atom/movable/plane_master_controller/pm = hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-		for(var/key in pm.controlled_planes)
-			animate(pm.controlled_planes[key], transform = matrix(-angle, MATRIX_ROTATE))
+	set_lying_angle(pick(90, 270))
 
 /mob/living/proc/on_standing_up()
 	if(layer == LYING_MOB_LAYER || HAS_TRAIT(src, TRAIT_CONTORTED_BODY))
@@ -141,10 +135,6 @@ STATUS EFFECTS
 	set_lying_angle(0)
 	pixel_y = 0
 
-	if(client)
-		var/atom/movable/plane_master_controller/pm = hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-		for(var/key in pm.controlled_planes)
-			animate(pm.controlled_planes[key], transform = matrix(0, MATRIX_ROTATE))
 /* makes sure the crawlers head is pointing in the direction they crawl
  * effectively splits dirs down the middle.
 

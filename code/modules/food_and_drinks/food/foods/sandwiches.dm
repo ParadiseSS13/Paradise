@@ -338,20 +338,6 @@
 	list_reagents = list("nutriment" = 6, "cherryjelly" = 5, "vitamin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/burger/nothing
-	name = "nothingburger"
-	desc = "You really expected more out of this."
-	icon = 'icons/obj/food/burgerbread.dmi'
-	icon_state = "nothingburger1"
-	bitesize = 5
-	list_reagents = list("nothing" = 10)
-	tastes = list("nothing" = 4, "absolutely nothing" = 1, "ambient temperature" = 1)
-
-/obj/item/food/burger/nothing/On_Consume(mob/living/carbon/human/M, mob/user)
-	. = ..()
-	if(!istype(M))
-		return
-	M.adjust_nutrition(-50 * REAGENTS_METABOLISM)
 
 //////////////////////
 //	Sandwiches		//

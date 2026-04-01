@@ -210,7 +210,6 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_3, list(
 		/obj/item/bio_chip_implanter/storage,
 		/obj/item/reagent_containers/spray/sticky_tar,
 		/obj/item/storage/box/syndie_kit/space,
-		/obj/item/card/cmag,
 	) = 3,
 ))
 

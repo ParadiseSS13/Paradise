@@ -1014,17 +1014,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	add_fingerprint(user)
 	if(!headbutt_shock_check(user))
 		return ITEM_INTERACT_COMPLETE
-	if(istype(used, /obj/item/katana/energy) && user.a_intent == INTENT_HELP)
-		if(locked)
-			if(!do_after_once(user, 5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
-				return ITEM_INTERACT_COMPLETE
-			unlock()
-			return ITEM_INTERACT_COMPLETE
-		else
-			if(!do_after_once(user, 2.5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
-				return ITEM_INTERACT_COMPLETE
-			open()
-			return ITEM_INTERACT_COMPLETE
 	if(panel_open)
 		if(istype(used, /obj/item/kitchen/utensil/fork))
 			return NONE

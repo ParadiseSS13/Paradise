@@ -175,23 +175,6 @@
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/// 167.5 TC
-/obj/item/storage/box/syndie_kit/bundle/gangster
-	name = "Mob Boss"
-	desc = "Armed with a classic suit and a lethally-effective thompson submachine gun, you are the boss, and they have disrespected you."
-	items = list(
-		/obj/item/gun/projectile/automatic/tommygun, // ~80 TC
-		/obj/item/ammo_box/magazine/tommygunm45, // ~20 TC
-		/obj/item/melee/knuckleduster/syndie, // 15 TC
-		/obj/item/clothing/gloves/color/black, // 0TC
-		/obj/item/clothing/under/suit/mafia, // 0TC
-		/obj/item/clothing/head/fedora, // 0 TC
-		/obj/item/storage/fancy/cigars/cohiba, // 0 TC
-		/obj/item/lighter/zippo/engraved, // 0 TC
-		/obj/item/stack/spacecash/c4500, // ~32.5 TC
-		/obj/item/card/id/syndicate, // 10TC
-		/obj/item/encryptionkey/syndicate) // 10TC
-
 /// 215TC + Tactical Grenadier Belt
 /obj/item/storage/box/syndie_kit/bundle/grenadier
 	name = "Grenade Bundle"

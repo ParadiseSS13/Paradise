@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(late_mapping)
  */
 /datum/controller/subsystem/late_mapping/proc/maintenance_mice()
 	var/watch = start_watch()
-	log_startup_progress("Populating maintenance with mi- what the fuck, did a mouse just screech at me?!?!?")
+	log_startup_progress("Populating maintenance with mice...")
 
 	// Looking up for maintenance floors specifically as possible spawn points
 	var/list/maintenance_turfs = list()
@@ -80,13 +80,13 @@ SUBSYSTEM_DEF(late_mapping)
 		return
 
 	// The ratio is based on turfs per mice. Using Boxstation as an example, it would average between 20 to 30 mice.
-	var/floor_tiles_per_one_mice = rand(250, 325)
+	var/floor_tiles_per_one_mice = rand(125, 200)
 	var/mice_number = ceil(length(maintenance_turfs) / floor_tiles_per_one_mice)
 
 	for(var/i in 1 to mice_number)
 		if(prob(1))
-			new /mob/living/carbon/human/monkey/angry(pick_n_take(maintenance_turfs))
+			new /mob/living/basic/mouse/white/linter(pick_n_take(maintenance_turfs))
 		else
-			new /mob/living/carbon/human/monkey(pick_n_take(maintenance_turfs))
+			new /mob/living/basic/mouse(pick_n_take(maintenance_turfs))
 
 	log_debug("Spawned [mice_number] mice over in [stop_watch(watch)]s")

@@ -408,18 +408,6 @@
 	else
 		. += "thrall|<b>NO</b>"
 
-/datum/mind/proc/memory_edit_space_ninja(mob/living/carbon/human/H)
-	. = _memory_edit_header("space_ninja")
-	var/datum/antagonist/space_ninja/ninja = has_antag_datum(/datum/antagonist/space_ninja)
-	if(ninja)
-		. += "<b><font color='red'>SPACE NINJA</font></b>|<a href='byond://?src=[UID()];space_ninja=clear'>no</a>"
-		if(!ninja.has_antag_objectives())
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];space_ninja=autoobjectives'>Randomize!</a>"
-	else
-		. += "<a href='byond://?src=[UID()];space_ninja=space_ninja'>space_ninja</a>|<b>NO</b>"
-
-	. += _memory_edit_role_enabled(ROLE_NINJA)
-
 /datum/mind/proc/memory_edit_mind_flayer(mob/living/carbon/human/H)
 	. = _memory_edit_header("mind_flayer")
 	var/datum/antagonist/mindflayer/flayer = has_antag_datum(/datum/antagonist/mindflayer)
@@ -617,8 +605,6 @@
 		sections["changeling"] = memory_edit_changeling(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
-		/** SPACE NINJA */
-		sections["space_ninja"] = memory_edit_space_ninja(H)
 		/** MINDFLAYER ***/
 		sections["mind_flayer"] = memory_edit_mind_flayer(H)
 		/** HERETIC ***/
@@ -1182,19 +1168,6 @@
 				to_chat(usr, SPAN_NOTICE("The objectives for vampire [key] have been generated. You can edit them and announce manually."))
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
-
-	else if(href_list["space_ninja"])
-		switch(href_list["space_ninja"])
-			if("clear")
-				if(has_antag_datum(/datum/antagonist/space_ninja))
-					remove_antag_datum(/datum/antagonist/space_ninja)
-					log_admin("[key_name(usr)] has de-ninja'd [key_name(current)].")
-					message_admins("[key_name(usr)] has de-ninja'd [key_name(current)].")
-			if("space_ninja")
-				make_space_ninja()
-				log_admin("[key_name(usr)] has ninja'd [key_name(current)].")
-				to_chat(current, "<b><font color='red'>Your training awakens, and a myserious set of gear teleports in around you... You are a Space Ninja!</font></b>")
-				message_admins("[key_name(usr)] has ninja'd [key_name(current)].")
 
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
@@ -1852,11 +1825,6 @@
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
 		add_antag_datum(/datum/antagonist/mindflayer)
 		SSticker.mode.mindflayers |= src
-
-/datum/mind/proc/make_space_ninja()
-	if(!has_antag_datum(/datum/antagonist/space_ninja))
-		add_antag_datum(/datum/antagonist/space_ninja)
-		SSticker.mode.ninjas |= src
 
 /datum/mind/proc/make_heretic()
 	if(!has_antag_datum(/datum/antagonist/heretic))

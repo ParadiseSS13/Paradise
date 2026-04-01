@@ -605,7 +605,6 @@
 		final_heat += heat_total
 		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
-		chamber.held_rod.do_special_effect()
 
 	if(final_heat)
 		average_heatgen = final_heat / active_chambers

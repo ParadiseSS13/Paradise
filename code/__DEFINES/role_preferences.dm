@@ -45,7 +45,6 @@
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
 #define ROLE_ELITE				"lavaland elite"
-#define ROLE_NINJA				"ninja"
 
 // Misc jobban categories
 #define ROLEBAN_AHUD			"AntagHUD"
@@ -72,7 +71,6 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_WIZARD = /datum/game_mode/wizard, 				// Wizard
 	ROLE_MIND_FLAYER,
 	ROLE_HERETIC,
-	ROLE_NINJA,
 
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
