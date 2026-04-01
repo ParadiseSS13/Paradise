@@ -1422,3 +1422,11 @@
 	required_reagents = list("degreaser" = 1, "sterilizine" = 1, "drying_agent" = 1, "cleaner" = 1)
 	result_amount = 4
 	mix_message = "The solution swirls together in the container and doesn't stop swirling."
+
+/datum/chemical_reaction/erponbeach
+	name = "ERP on the Beach"
+	id = "erponbeach"
+	result = "erponbeach"
+	required_reagents = list("screwdrivercocktail" = 1, "berryjuice" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
