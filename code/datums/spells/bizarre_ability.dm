@@ -84,32 +84,22 @@
 /datum/action/stand/manifest/repair
 	stand_icon_state = "repair"
 	aura_icon_state = "pinkaura"
-	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/repair)
-
-/datum/action/stand/manifest/bomb
-	stand_icon_state = "bomb"
-	aura_icon_state = "purpleaura"
-	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/repair)
+	ability_spells = list(/datum/spell/stand/repair)
 
 /datum/action/stand/manifest/timestop
 	stand_icon_state = "timestop"
 	aura_icon_state = "yellowaura"
-	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/timestop)
+	ability_spells = list(/datum/spell/stand/timestop)
 
 /datum/action/stand/manifest/timeskip
 	stand_icon_state = "timeskip"
 	aura_icon_state = "redaura"
-	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/timeskip)
-
-/datum/action/stand/manifest/metal
-	stand_icon_state = "metal"
-	aura_icon_state = "whiteaura"
-	ability_spells = list(/datum/spell/stand/repair)
+	ability_spells = list(/datum/spell/stand/timeskip)
 
 /datum/action/stand/manifest/erasure
 	stand_icon_state = "erasure"
 	aura_icon_state = "blueaura"
-	ability_spells = list(/datum/spell/stand/barrage, /datum/spell/stand/erasure, /datum/spell/stand/greater_erasure)
+	ability_spells = list(/datum/spell/stand/erasure, /datum/spell/stand/greater_erasure)
 
 // MARK: STAND ABILITIES
 
@@ -150,7 +140,22 @@
 	name = "Repair Others"
 	desc = "Repair the injuries of other creatures. Cannot be performed on its user."
 
-	action_icon_state = "repair"
+	base_cooldown = 10 SECONDS
+	action_icon = 'icons/mob/actions/actions.dmi'
+	action_icon_state = "vampire_rejuvinate"
+
+/datum/spell/stand/repair/cast(list/targets, mob/user)
+	var/mob/living/carbon/human/target = targets[1]
+	target.adjustToxLoss(-25)
+	target.adjustOxyLoss(-25)
+	target.adjustBruteLoss(-25)
+	target.adjustFireLoss(-25)
+
+/datum/spell/stand/repair/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.click_radius = -1
+	return T
 
 /datum/spell/stand/timestop
 	name = "Stop Time"

@@ -12,10 +12,8 @@
 /obj/item/arrowhead/Initialize(mapload)
 	stand_list = list(
 		/datum/action/stand/manifest/repair,
-		/datum/action/stand/manifest/bomb,
 		/datum/action/stand/manifest/timestop,
 		/datum/action/stand/manifest/timeskip,
-		/datum/action/stand/manifest/metal,
 		/datum/action/stand/manifest/erasure
 	)
 	START_PROCESSING(SSobj, src)
@@ -32,7 +30,7 @@
 	if(has_stand(user))
 		to_chat(user, "Your abilities have already been awoken by the arrowhead!")
 		return
-	if(prob(0)) // Set to 50 later
+	if(prob(50))
 		to_chat(user, "Your soul is deemed unworthy by the arrowhead, you die on the spot!")
 		user.death(FALSE)
 	else
