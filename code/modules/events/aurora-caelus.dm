@@ -1,6 +1,6 @@
 /datum/event/aurora_caelus
 	name = "Aurora Caelus"
-	nominal_severity = ENTITY_LEVEL_MAJOR
+	nominal_severity = EVENT_LEVEL_MAJOR
 	endWhen = 50
 	/// List of colors that the aurora takes
 	var/list/aurora_colors = list("#A2FF80", "#A2FF8B", "#A2FF96", "#A2FFA5", "#A2FFAF", "#A2FFB6", "#A2FFC1", "#A2FFC7", "#A2FFDE", "#A2FFEE")
