@@ -1,9 +1,9 @@
 /mob/living/basic/clown
 	name = "Clown"
-	desc = "A strange creature that vaguely resembles a normal clown. Upon closer inspection, it is nothing of the sort."
-	icon = 'icons/mob/simple_human.dmi'
-	icon_state = "clown"
-	icon_living = "clown"
+	desc = "A strange creature that vaguely resembles a normal clown that has spent way too much time at the gym."
+	icon = 'icons/mob/clown.dmi'
+	icon_state = "honkhulk"
+	icon_living = "honkhulk"
 	icon_dead = "clown_dead"
 	icon_gib = "clown_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
@@ -12,14 +12,14 @@
 	response_disarm_continuous = "gently pushes aside the"
 	response_disarm_simple = "gently push aside the"
 	a_intent = INTENT_HARM
-	maxHealth = 75
-	health = 75
+	maxHealth = 250
+	health = 250
 	speed = 0
 	harm_intent_damage = 8
-	melee_damage_lower = 10
-	melee_damage_upper = 10
-	melee_attack_cooldown_min = 1.5 SECONDS
-	melee_attack_cooldown_max = 2.5 SECONDS
+	melee_damage_lower = 25
+	melee_damage_upper = 35
+	melee_attack_cooldown_min = 1 SECONDS
+	melee_attack_cooldown_max = 1.5 SECONDS
 	attack_sound = 'sound/items/bikehorn.ogg'
 	minimum_survivable_temperature = 270
 	maximum_survivable_temperature = 370
@@ -54,6 +54,7 @@
 	icon = 'icons/mob/animal.dmi'
 	name = "clown goblin"
 	desc = "A tiny walking mask and clown shoes. You want to honk his nose!"
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "clowngoblin"
 	icon_living = "clowngoblin"
 	icon_dead = null
@@ -70,6 +71,7 @@
 /mob/living/basic/clown/goblin/cluwne
 	name = "cluwne goblin"
 	desc = "A tiny pile of misery and evil. Kill this thing before it comes for your family."
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "cluwnegoblin"
 	icon_living = "cluwnegoblin"
 	response_help_continuous = "henks the"
