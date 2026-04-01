@@ -187,7 +187,7 @@
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	select_name  = "disable"
 	e_cost = 50
-	fire_sound = 'sound/weapons/taser2.ogg'
+	fire_sound = 'sound/items/bikehorn.ogg'
 	harmful = FALSE
 	delay = 0.6 SECONDS
 
