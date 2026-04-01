@@ -229,6 +229,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 100, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/aurora_caelus, 50, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/prince, 0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/white, 0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror/princess, 0, TRUE),
