@@ -498,7 +498,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/thunderdome
 	name = "thunderdome flipper"
-	icon_state = "coin_thunderdome_heads"
+	icon_state = "coin_thunderdome_nanotrasen"
 	cmineral = "thunderdome"
 	desc = "A Thunderdome TCG flipper, for deciding who gets to go first. Also conveniently acts as a counter, for various purposes."
 	sideslist = list("nanotrasen", "syndicate")

@@ -257,6 +257,7 @@
 	icon = 'icons/obj/tcg/misc.dmi'
 	icon_state = "deck_up"
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 
 	var/flipped = TRUE
 	var/max_cards = 30
@@ -392,6 +393,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/list/cards = list()
 
 /obj/item/tcgcard_hand/update_icon()
