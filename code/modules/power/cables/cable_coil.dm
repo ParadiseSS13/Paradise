@@ -29,8 +29,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	/// Deletes the cable coil upon getting empty.
 	/// Used for RCL cable spools to stop the stack from being eaten.
 	var/destroy_upon_empty = TRUE
-	/// Used to decouple the physical color of the cable from the logical color. Used by RCL to stop its spool holder from being colored in.
-	var/spool_color
 	/// Type of cable this coil makes
 	var/cable_type = /obj/structure/cable
 	/// Bitflag of the types of cable we can add cable to with this coil.
@@ -49,6 +47,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	var/obj/item/stack/cable_coil/new_stack = ..()
 	new_stack.color = color
 	return new_stack
+
+/// Used to decouple the physical color of the cable from the logical color. Used by RCL to stop its spool holder from being colored in.
+/obj/item/stack/cable_coil/get_cable_color()
+	return color
 
 /obj/item/stack/cable_coil/update_name()
 	. = ..()
@@ -170,11 +172,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
 	var/obj/structure/cable/C = new cable_type(location)
-	if(destroy_upon_empty)
-		C.cable_color(color)
-	else
-		C.cable_color(spool_color)
-	return C
+	C.cable_color(get_cable_color())
 
 /// called when cable_coil is clicked on a turf/simulated/floor
 /obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, cable_direction)
@@ -311,10 +309,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				to_chat(user, SPAN_WARNING("There's already a cable at that position!"))
 				return
 
-		if(destroy_upon_empty)
-			C.cable_color(color)
-		else
-			C.cable_color(spool_color)
+		C.cable_color(get_cable_color())
 		C.d1 = nd1
 		C.d2 = nd2
 

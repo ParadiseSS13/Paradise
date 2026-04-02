@@ -13,6 +13,7 @@
 	color = null
 	/// Are we rapidly laying cable?
 	var/active = FALSE
+	var/spool_color
 	/// Remembers the last cable structure that got laid down to aid in further cable laying.
 	var/obj/structure/cable/last
 
@@ -48,7 +49,7 @@
 			delta = amount
 		if(cable_merge_id == CABLE_LOW_POWER)
 			var/obj/item/stack/cable_coil/dropped_coil = new /obj/item/stack/cable_coil(user.loc, delta)
-			dropped_coil.color = spool_color
+			dropped_coil.color = get_cable_color()
 			use(delta, FALSE)
 		else
 			new /obj/item/stack/cable_coil/extra_insulated(user.loc, delta)
@@ -84,7 +85,7 @@
 
 	// When loading an empty cable spool, turn it into either standard or heavy based on what we're loading.
 	if(!get_amount())
-		spool_color = used_coil.color
+		spool_color = used_coil.get_cable_color()
 		cable_type = used_coil.cable_type
 		cable_merge_id = used_coil.cable_merge_id
 	// Robot RCL can freely swap between cable types anyway, allow them to eat the cable.
@@ -98,6 +99,9 @@
 	refresh_icon(user)
 	to_chat(user, SPAN_NOTICE("You add the cables to [src]. It now contains [get_amount()]."))
 	return ITEM_INTERACT_COMPLETE
+
+/obj/item/stack/cable_coil/rcl/get_cable_color()
+	return spool_color
 
 /obj/item/stack/cable_coil/rcl/proc/refresh_icon(mob/user)
 	if(color)
@@ -124,7 +128,7 @@
 			coil_size = "low"
 	if(cable_merge_id == CABLE_LOW_POWER)
 		var/image/cable_overlay = image('icons/obj/rcl.dmi', icon_state = "rcl_[coil_size]")
-		cable_overlay.color = spool_color
+		cable_overlay.color = get_cable_color()
 		overlays += cable_overlay
 	else if(cable_type == /obj/structure/cable/extra_insulated)
 		overlays += "rcl_[coil_size]_hd"
@@ -134,7 +138,7 @@
 /obj/item/stack/cable_coil/rcl/update_icon_state()
 	icon_state = "rcl"
 	if(cable_merge_id == CABLE_LOW_POWER)
-		inhand_icon_state = "rcl[amount ? "_[spool_color]" : null]"
+		inhand_icon_state = "rcl[amount ? "_[get_cable_color()]" : null]"
 	else if(cable_type == /obj/structure/cable/extra_insulated)
 		inhand_icon_state = "rcl[amount ?  "_hd" : null]"
 	else
