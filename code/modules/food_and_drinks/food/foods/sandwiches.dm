@@ -341,7 +341,6 @@
 /obj/item/food/burger/nothing
 	name = "nothingburger"
 	desc = "You really expected more out of this."
-	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "nothingburger1"
 	bitesize = 5
 	list_reagents = list("nothing" = 10)
