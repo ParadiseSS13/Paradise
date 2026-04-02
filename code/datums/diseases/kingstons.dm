@@ -37,8 +37,6 @@
 		if(4)
 			if(prob(5))
 				if(istajaran(affected_mob))
-					affected_mob.visible_message(SPAN_DANGER("[affected_mob] coughs up a hairball!"), \
-													SPAN_USERDANGER("You cough up a hairball!"))
 					affected_mob.custom_emote(EMOTE_VISIBLE, "coughs up a hairball!", FALSE)
 					affected_mob.SetDizzy(6 SECONDS)
 				else
