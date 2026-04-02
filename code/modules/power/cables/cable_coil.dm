@@ -172,6 +172,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
 	var/obj/structure/cable/C = new cable_type(location)
 	C.cable_color(get_cable_color())
+	return C
 
 /// called when cable_coil is clicked on a turf/simulated/floor
 /obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, cable_direction)
