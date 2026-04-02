@@ -34,3 +34,4 @@ items/beach_chair_hit_1.ogg was compressed to ogg from "screen door open 1.wav" 
 
 items/pool_noodle_hit.ogg was compressed to ogg from "cardboard box hit 28.wav" in https://filmcow.itch.io/filmcow-sfx-4 's "Hits & Crunches 48kHz.zip" under their FilmCow Royalty Free SFX Library License Agreement
 
+effects/sculptures/sand_buildfinish.ogg, sand_buildstart.ogg, sand_collapse.ogg, and sand_hit.ogg were compressed to ogg from "sand foley 14.wav", "sand foley 31.wav", "sand falling 4.wav", and "sand hit ground 2.wav" in https://filmcow.itch.io/filmcow-sfx-3 's "Beads & Sand 48kHz.zip" under their FilmCow Royalty Free SFX Library License Agreement.
