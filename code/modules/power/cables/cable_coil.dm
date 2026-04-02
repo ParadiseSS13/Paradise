@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
 
 	if(!S && ismachineperson(target) && user.a_intent == INTENT_HELP)
-		to_chat(user, SPAN_NOTICE("[target.p_they(TRUE)] [target.p_are()] missing that limb!"))
+		to_chat(user, SPAN_NOTICE("[H.p_they(TRUE)] [H.p_are()] missing that limb!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!S?.is_robotic() || user.a_intent != INTENT_HELP || S.open == ORGAN_SYNTHETIC_OPEN)
@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			cable_used += 1
 			E.heal_damage(0, HEALPERCABLE, 0, TRUE)
 		H.UpdateDamageIcon()
-		user.visible_message(SPAN_ALERT("[user] repairs some burn damage on [target]'s [E.name] with [src]."))
+		user.visible_message(SPAN_ALERT("[user] repairs some burn damage on [H]'s [E.name] with [src]."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/cable_coil/split()
@@ -139,10 +139,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	return C
 
 /obj/item/stack/cable_coil/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	// Let the RCL handle it.
-	if(istype(used, /obj/item/stack/cable_coil/rcl))
-		return ..()
-
 	if(istype(used, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used
 		// Cable merging is handled by parent proc
