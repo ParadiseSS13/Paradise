@@ -60,7 +60,7 @@
 	if(!istype(used, /obj/item/stack/cable_coil))
 		return ..()
 
-	// Another RCL is stealing cable from us, let its interact_with_atom() fire.
+	// Another RCL is stealing cable from us, let its `interact_with_atom()` fire.
 	if(istype(used, /obj/item/stack/cable_coil/rcl))
 		return NONE
 
@@ -69,7 +69,9 @@
 
 /obj/item/stack/cable_coil/rcl/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/item/stack/cable_coil))	
-		return ..()
+		..()
+		is_empty(user)
+		return ITEM_INTERACT_COMPLETE
 
 	load_cable(user, target)
 	return ITEM_INTERACT_COMPLETE
@@ -222,7 +224,7 @@
 	var/heavy_mode = FALSE
 
 // update_icon() refuses to add the cable overlay on Initialize(), I'm convinced it's an issue with energy stacks.
-// Energy stacks cannot be avoid because the icon of a stack refuses to render otherwise for reasons beyond my comprehension.
+// Energy stacks cannot be avoided because the icon of a stack refuses to render otherwise for reasons beyond my comprehension.
 /obj/item/stack/cable_coil/rcl/robot/Initialize(mapload)
 	..()
 	var/image/cable_overlay = image('icons/obj/rcl.dmi', icon_state = "rcl_full")

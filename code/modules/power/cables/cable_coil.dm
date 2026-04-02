@@ -141,7 +141,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used
-		// Cable merging is handled by parent proc
 		if(C.cable_merge_id != cable_merge_id)
 			to_chat(user, "These coils are of different types.")
 			return ITEM_INTERACT_COMPLETE
@@ -150,12 +149,13 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			to_chat(user, "The coil is as long as it will get.")
 			return ITEM_INTERACT_COMPLETE
 
+		// Cable merging is handled by parent proc.
 		if((C.get_amount() + get_amount() <= C.max_amount))
 			to_chat(user, "You join the cable coils together.")
-			return ITEM_INTERACT_COMPLETE
+			return ..()
 
 		to_chat(user, "You transfer [get_amount_transferred()] length\s of cable from one coil to the other.")
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 
 	if(istype(used, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = used
