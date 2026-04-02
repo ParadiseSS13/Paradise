@@ -8,9 +8,7 @@
 /datum/spell/bloodcrawl/space_crawl
 	name = "Space Phase"
 	desc = "Allows you to phase in and out of existence while in space or glass tiles."
-
-
-
+	base_cooldown = 1 MINUTES
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon_state = "space_crawl"
@@ -23,9 +21,7 @@
 /datum/spell/bloodcrawl/space_crawl/valid_target(turf/target, user)
 	if(isspaceturf(get_turf(user))) //qwertodo: make this work on basalt / asteroid turf, if we get a planet map
 		return TRUE
-	if(istype(get_turf(user), /turf/simulated/floor/transparent))
-		return TRUE
-	to_chat(user, SPAN_WARNING("You must stand on a space or glass turf!"))
+	to_chat(user, SPAN_WARNING("You must stand in space!"))
 	return FALSE
 
 /datum/spell/bloodcrawl/space_crawl/rise_message(atom/A)
