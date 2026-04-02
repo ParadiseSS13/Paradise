@@ -25,7 +25,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
-	new_attack_chain = TRUE
 	/// Deletes the cable coil upon getting empty.
 	/// Used for RCL cable spools to stop the stack from being eaten.
 	var/destroy_upon_empty = TRUE
