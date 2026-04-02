@@ -89,10 +89,6 @@
 /obj/item/stack/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
-
-	// Do not craft from an RCL.
-	if(istype(src, /obj/item/stack/cable_coil/rcl))
-		return ITEM_INTERACT_COMPLETE
 	
 	ui_interact(user)
 	return ITEM_INTERACT_COMPLETE

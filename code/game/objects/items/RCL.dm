@@ -24,6 +24,8 @@
 
 /obj/item/stack/cable_coil/rcl/Initialize(mapload)
 	. = ..()
+	// Do not craft from an RCL.
+	recipes = null
 	color_rainbow()
 	AddComponent(/datum/component/two_handed)
 	w_class = WEIGHT_CLASS_NORMAL
