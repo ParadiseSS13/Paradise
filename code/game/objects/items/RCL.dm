@@ -100,7 +100,7 @@
 	to_chat(user, SPAN_NOTICE("You add the cables to [src]. It now contains [get_amount()]."))
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/stack/cable_coil/rcl/get_cable_color()
+/obj/item/stack/cable_coil/rcl/proc/get_cable_color()
 	return spool_color
 
 /obj/item/stack/cable_coil/rcl/proc/refresh_icon(mob/user)

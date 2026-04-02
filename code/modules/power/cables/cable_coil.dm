@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	return new_stack
 
 /// Used to decouple the physical color of the cable from the logical color. Used by RCL to stop its spool holder from being colored in.
-/obj/item/stack/cable_coil/get_cable_color()
+/obj/item/stack/cable_coil/proc/get_cable_color()
 	return color
 
 /obj/item/stack/cable_coil/update_name()

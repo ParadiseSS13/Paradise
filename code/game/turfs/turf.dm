@@ -571,7 +571,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			return ITEM_INTERACT_COMPLETE
 		else if(istype(used, /obj/item/stack/cable_coil/rcl))
 			var/obj/item/stack/cable_coil/rcl/R = used
-			if(R)
+			if(R.get_amount())
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.item_interaction(user, R)
