@@ -19,6 +19,13 @@
 		walker = new /mob/living/carbon/human/ashwalker(get_turf(spawn_spot))
 		break
 
+	victim.death()
+	if(!walker)
+		var/list/possible_turfs = get_area_turfs(/area/station/science/xenobiology)
+		if(!length(possible_turfs))
+			return
+		walker = new /mob/living/carbon/human/ashwalker(pick(possible_turfs))
+
 	// Gotta be able to talk the indigenous languages!
 	walker.grant_all_babel_languages()
 	walker.ckey = victim.ckey
@@ -34,6 +41,7 @@
 
 	// Gotta know magic in your new life!
 	walker.mind.AddSpell(new /datum/spell/fireball)
+	walker.mind.AddSpell(new /datum/spell/cone/staggered/entropic_plume)
 
 	to_chat(walker, SPAN_USERDANGER("Welcome to your new life in your isekai world!"))
 
