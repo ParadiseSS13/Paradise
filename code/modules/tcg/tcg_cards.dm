@@ -158,12 +158,6 @@
 	icon = 'icons/obj/tcg/misc.dmi'
 	icon_state = "cardpack"
 	w_class = WEIGHT_CLASS_TINY
-/obj/item/cardpack
-	name = "Trading Card Pack: Chrono & Friends"
-	desc = "This unobtainable group certainly shouldn't be findable and you should ahelp this!"
-	icon = 'icons/obj/tcg/misc.dmi'
-	icon_state = "cardpack"
-	w_class = WEIGHT_CLASS_TINY
 	new_attack_chain = TRUE
 	/// The card series to look through
 	var/list/series = list(/datum/tcg_card/pack_1)
@@ -256,25 +250,6 @@
 		return_cards.Add(pick(rarity_cards[card_list]))
 
 	return return_cards
-
-/obj/item/coin/thunderdome
-	name = "Thunderdome Flipper"
-	desc = "A Thunderdome TCG flipper, for deciding who gets to go first. Also conveniently acts as a counter, for various purposes."
-	icon = 'icons/obj/tcg/misc.dmi'
-	icon_state = "coin_nanotrasen"
-	sideslist = list("nanotrasen", "syndicate")
-
-/obj/item/coin/thunderdome/Initialize(mapload)
-	. = ..()
-	transform = matrix(0.5,0,0,0,0.5,0)
-
-/obj/item/coin/thunderdome/equipped(mob/user, slot, initial)
-	. = ..()
-	transform = matrix()
-
-/obj/item/coin/thunderdome/dropped(mob/user, silent)
-	. = ..()
-	transform = matrix(0.5,0,0,0,0.5,0)
 
 /obj/item/tcgcard_deck
 	name = "Trading Card Deck"

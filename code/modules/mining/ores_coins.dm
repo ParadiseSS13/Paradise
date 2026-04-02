@@ -496,6 +496,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name_by_cmineral = FALSE
 	heads_name = "valid"
 
+/obj/item/coin/thunderdome
+	name = "Thunderdome Flipper"
+	desc = "A Thunderdome TCG flipper, for deciding who gets to go first. Also conveniently acts as a counter, for various purposes."
+	cmineral = "nanotrasen"
+	icon_state = "coin_nanotrasen_heads"
+	sideslist = list("nanotrasen", "syndicate")
+
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"
 	credits = 160
