@@ -4,6 +4,7 @@
 	icon = 'icons/obj/rcl.dmi'
 	icon_state = "rcl"
 	inhand_icon_state = "rcl"
+	throwforce = 5
 	belt_icon = null
 	origin_tech = "engineering=4;materials=2"
 	materials = list(MAT_METAL = 5000)
