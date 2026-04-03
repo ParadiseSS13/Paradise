@@ -14,7 +14,7 @@
 	/// Bounty name as it shows on the console.
 	var/name = "supply bounty"
 	/// Type of object demanded by the bounty
-	var/obj/bounty_target_type
+	var/bounty_target_type
 	/// How much of the item is needed for the bounty
 	var/quantity = SUPPLY_BOUNTY_QUANTITY_ONE
 	/// How much is rewarded for supplying the bounty item
@@ -23,4 +23,18 @@
 	var/amount_supplied = 0
 	/// If there is a special reward, what is it?
 	var/special_reward_type
+	/// Flavor reason for the bounty
+	var/reason = "Central Command says so."
 
+/datum/supply_bounty/New()
+	. = ..()
+	reason = GenerateReason()
+
+/datum/supply_bounty/proc/GenerateReason()
+	var/faction = pick("Central Command", "The Trans-Solar Federation", "The USSP")
+	return pick("[faction] has made an urgent request for [bounty_target_type.name]. Payment guaranteed.",
+		"[faction] has experienced a recent disaster and needs [bounty_target_type.name] in order to re-establish order."
+		"[faction] has offered to pay a decent sum of credits if we can supply them with [bounty_target_type.name]."
+		"An anonymous buyer has placed a bid on [bounty_target_type.name].",
+		"[faction] is offering a reward for [bounty_target_type.name]."
+	)
