@@ -361,7 +361,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	return OXYLOSS
 
 /obj/item/stack/cable_coil/proc/color_rainbow()
-	color = pick(COLOR_RED, COLOR_PINK, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN, COLOR_BLUE, COLOR_WHITE)
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	return color
 
 /obj/item/stack/cable_coil/five
