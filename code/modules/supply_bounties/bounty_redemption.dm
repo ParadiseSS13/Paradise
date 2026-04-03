@@ -1,0 +1,70 @@
+/obj/machinery/bounty_redemption
+	name = "bounty redemption machine"
+	desc = "An electronic deposit bin that relays demands and needs from Central Command and other potential buyers. Credits are paid out with tickets redeemable at your local ATM."
+	icon = 'icons/obj/machines/mining_machines.dmi'
+	icon_state = "salvage_redemption"
+	anchored = TRUE
+	density = TRUE
+	/// Direction to take items
+	var/input_dir = NORTH
+	/// Direction to print rewards
+	var/output_dir = SOUTH
+	/// Maximum number of bounties
+	var/bounty_count = 0
+	/// Possible bounties
+	var/list/possible_bounties = list()
+	/// Currently active bounties
+	var/list/bounty_list = list()
+
+/obj/machinery/bounty_redemption/Initialize(mapload)
+	. = ..()
+	possible_bounties = subtypesof(/datum/supply_bounty)
+	// Stock parts
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/salvage_redemption(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/bounty_redemption/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/bounty_redemption/process()
+	if(panel_open || !has_power())
+		return
+	var/turf/input = get_step(src, input_dir)
+	var/list/slips_to_print = list()
+	for(var/datum/supply_bounty/bounty in bounty_list)
+		for(var/obj/input_obj in input)
+			if(!istype(input_obj, bounty.bounty_target_type))
+				continue
+			input_obj.visible_message(SPAN_WARN("[input_obj] disintegrates as [src] breaks it down for bluespace packaging!", "You hear as something disintegrates."))
+			qdel(input_obj)
+			bounty.amount_supplied++
+			if(bounty.amount_supplied == bounty.quantity)
+				slips_to_print += bounty
+	for(var/datum/supply_bounty/bounty in slips_to_print)
+		print_slip(bounty)
+
+/obj/machinery/bounty_redemption/RefreshParts()
+	bounty_count = 0
+	for(var/obj/item/stock_parts/component in component_parts)
+		bounty_count += component.rating
+	SStgui.update_uis(src)
+
+/obj/machinery/bounty_redemption/proc/RefreshBounties()
+	while(length(bounty_list) < bounty_count)
+		bounty_list += new pick(possible_bounties)
+
+/obj/machinery/bounty_redemption/proc/print_slip(datum/supply_bounty/bounty)
+	// Print the credit slip
+	playsound(src, 'sound/machines/banknote_counter.ogg', 30, FALSE)
+	var/obj/item/credit_redemption_slip/slip = new /obj/item/credit_redemption_slip(get_step(get_turf(src), output_dir), bounty.reward)
+	bounty_list -= bounty
+	qdel(bounty)
+	RefreshBounties()
