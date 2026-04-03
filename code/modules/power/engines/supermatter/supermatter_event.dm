@@ -216,10 +216,12 @@
 
 /datum/engi_event/supermatter_event/alpha_tier/integrity_hit
 	name = "A-4"
-	duration = 10 SECONDS
 
 /datum/engi_event/supermatter_event/alpha_tier/integrity_hit/on_start()
 	supermatter.damage += rand(350,650)
+	if(supermatter.damage >= 1000)
+		clamp(supermatter.damage, 0, 1000)
+
 	supermatter.matter_power += 1000
 
 // S-tier events are special. They are very dangerous, but give a 5 minute warning to the engis.
