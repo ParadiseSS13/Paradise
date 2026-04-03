@@ -33,8 +33,8 @@
 /datum/supply_bounty/proc/GenerateReason()
 	var/faction = pick("Central Command", "The Trans-Solar Federation", "The USSP")
 	return pick("[faction] has made an urgent request for [bounty_target_type.name]. Payment guaranteed.",
-		"[faction] has experienced a recent disaster and needs [bounty_target_type.name] in order to re-establish order."
-		"[faction] has offered to pay a decent sum of credits if we can supply them with [bounty_target_type.name]."
+		"[faction] has experienced a recent disaster and needs [bounty_target_type.name] in order to re-establish order.",
+		"[faction] has offered to pay a decent sum of credits if we can supply them with [bounty_target_type.name].",
 		"An anonymous buyer has placed a bid on [bounty_target_type.name].",
 		"[faction] is offering a reward for [bounty_target_type.name]."
 	)
