@@ -43,7 +43,7 @@
 		for(var/obj/input_obj in input)
 			if(!istype(input_obj, bounty.bounty_target_type))
 				continue
-			input_obj.visible_message(SPAN_WARN("[input_obj] disintegrates as [src] breaks it down for bluespace packaging!", "You hear as something disintegrates."))
+			input_obj.visible_message(SPAN_WARN("[input_obj] disintegrates as [src] breaks it down for bluespace packaging!"), SPAN_WARN("You hear as something disintegrates."))
 			qdel(input_obj)
 			bounty.amount_supplied++
 			if(bounty.amount_supplied == bounty.quantity)
