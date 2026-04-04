@@ -203,6 +203,9 @@
 		potential_scrap += scrap_ball.scrap
 		potential_food += scrap_ball.food
 
+	var/obj/item/stack/pile = used
+	var/multiplier = istype(pile) ? pile.amount : 1
+
 	if(potential_scrap == 0 && potential_food == 0)
 		to_chat(user, SPAN_WARNING("[used] does not seem suitable to disassemble or place in the nest."))
 		return ITEM_INTERACT_COMPLETE
@@ -212,16 +215,16 @@
 		SPAN_NOTICE("You start finding a place to put [used] in the nest.")
 	)
 
-	if(!do_after(user, 1 SECONDS, target = src))
+	if(!do_after(user, multiplier SECONDS, target = src))
 		return ITEM_INTERACT_COMPLETE
 
 	if(potential_scrap > 0)
 		to_chat(user, SPAN_NOTICE("You dismantle [used] and place the scrap around the nest."))
-		available_scrap += potential_scrap
+		available_scrap += potential_scrap * multiplier
 
 	if(potential_food > 0)
 		to_chat(user, SPAN_NOTICE("You place the edible parts of [used] in the nest."))
-		available_food += potential_food
+		available_food += potential_food * multiplier
 
 	qdel(used)
 
