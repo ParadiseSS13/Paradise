@@ -1,13 +1,24 @@
 // ADDING A NEW BOUNTY
 // new /datum/supply_bounty(TYPE, IS_EXACT, QUANTITY, REWARD, EXTRA REWARD)
+#define SUPPLY_BOUNTY_QUANTITY_ONE 1
+#define SUPPLY_BOUNTY_QUANTITY_LOW 3
+#define SUPPLY_BOUNTY_QUANTITY_MEDIUM 5
+#define SUPPLY_BOUNTY_QUANTITY_HIGH 10
+#define SUPPLY_BOUNTY_QUANTITY_BULK 25
+
+#define SUPPLY_BOUNTY_REWARD_CHEAP 25
+#define SUPPLY_BOUNTY_REWARD_LOW 50
+#define SUPPLY_BOUNTY_REWARD_MEDIUM 75
+#define SUPPLY_BOUNTY_REWARD_HIGH 100
+#define SUPPLY_BOUNTY_REWARD_GRAND 200
 /// List of all bounty datums.
-GLOBAL_LIST_INIT(supply_bounties, alist(
+GLOBAL_LIST_INIT(supply_bounties, list(
 	/// GENERAL
 	new /datum/supply_bounty(/obj/item/folder, 				FALSE, 			SUPPLY_BOUNTY_QUANTITY_MEDIUM, 		SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/supply_bounty(/obj/item/pen, 				FALSE, 			SUPPLY_BOUNTY_QUANTITY_MEDIUM, 		SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/supply_bounty(/obj/item/paper_bin, 			FALSE, 			SUPPLY_BOUNTY_QUANTITY_LOW, 		SUPPLY_BOUNTY_REWARD_MEDIUM),
-	new /datum/supply_bounty(/obj/item/stamp/granted, 		FALSE, 			SUPPLY_BOUNTY_ONE, 					SUPPLY_BOUNTY_REWARD_MEDIUM),
-	new /datum/supply_bounty(/obj/item/stamp/denied, 		FALSE, 			SUPPLY_BOUNTY_ONE, 					SUPPLY_BOUNTY_REWARD_MEDIUM),
+	new /datum/supply_bounty(/obj/item/stamp/granted, 		FALSE, 			SUPPLY_BOUNTY_QUANTITY_ONE, 					SUPPLY_BOUNTY_REWARD_MEDIUM),
+	new /datum/supply_bounty(/obj/item/stamp/denied, 		FALSE, 			SUPPLY_BOUNTY_QUANTITY_ONE, 					SUPPLY_BOUNTY_REWARD_MEDIUM),
 	new /datum/supply_bounty(/obj/item/toner, 				FALSE, 			SUPPLY_BOUNTY_QUANTITY_LOW, 		SUPPLY_BOUNTY_REWARD_MEDIUM),
 
 	// SUPPLY
@@ -29,5 +40,16 @@ GLOBAL_LIST_INIT(supply_bounties, alist(
 	// SECURITY
 
 
-	)
-)
+))
+
+#undef SUPPLY_BOUNTY_QUANTITY_ONE
+#undef SUPPLY_BOUNTY_QUANTITY_LOW
+#undef SUPPLY_BOUNTY_QUANTITY_MEDIUM
+#undef SUPPLY_BOUNTY_QUANTITY_HIGH
+#undef SUPPLY_BOUNTY_QUANTITY_BULK
+
+#undef SUPPLY_BOUNTY_REWARD_CHEAP
+#undef SUPPLY_BOUNTY_REWARD_LOW
+#undef SUPPLY_BOUNTY_REWARD_MEDIUM
+#undef SUPPLY_BOUNTY_REWARD_HIGH
+#undef SUPPLY_BOUNTY_REWARD_GRAND

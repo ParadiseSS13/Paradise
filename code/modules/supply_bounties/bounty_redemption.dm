@@ -58,7 +58,7 @@
 
 /obj/machinery/bounty_redemption/proc/RefreshBounties()
 	while(length(bounty_list) < bounty_count)
-		bounty_list += new pick(GLOB.supply_bounties)
+		bounty_list += new (pick(GLOB.supply_bounties))
 
 /obj/machinery/bounty_redemption/proc/print_slip(datum/supply_bounty/bounty)
 	// Print the credit slip
