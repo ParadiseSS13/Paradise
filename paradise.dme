@@ -3470,6 +3470,8 @@
 #include "code\modules\surgery\organs\subtypes\vox_organs.dm"
 #include "code\modules\surgery\organs\subtypes\vulpkanin_organs.dm"
 #include "code\modules\surgery\organs\subtypes\xenos.dm"
+#include "code\modules\tcg\pack_1.dm"
+#include "code\modules\tcg\tcg_cards.dm"
 #include "code\modules\telesci\bscrystal.dm"
 #include "code\modules\telesci\gps.dm"
 #include "code\modules\telesci\rcs.dm"
