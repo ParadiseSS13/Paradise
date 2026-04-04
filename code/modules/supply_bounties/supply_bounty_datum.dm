@@ -15,6 +15,8 @@
 	var/name = "supply bounty"
 	/// Type of object demanded by the bounty
 	var/bounty_target_type
+	/// Does it need to be the exact item type?
+	var/exact_type = FALSE
 	/// How much of the item is needed for the bounty
 	var/quantity = SUPPLY_BOUNTY_QUANTITY_ONE
 	/// How much is rewarded for supplying the bounty item
@@ -26,9 +28,14 @@
 	/// Flavor reason for the bounty
 	var/reason = "Central Command says so."
 
-/datum/supply_bounty/New()
+/datum/supply_bounty/New(type_input, exact_input = FALSE, quantity_input = SUPPLY_BOUNTY_QUANTITY_ONE, reward_input = SUPPLY_BOUNTY_REWARD_CHEAP, special_reward_type_input = null)
 	. = ..()
 	reason = GenerateReason()
+	bounty_target_type = type_input
+	exact_type = exact_input
+	quantity = quantity_input
+	reward = reward_input
+	special_reward_type = special_reward_type_input
 
 /datum/supply_bounty/proc/GenerateReason()
 	var/faction = pick("Central Command", "The Trans-Solar Federation", "The USSP")

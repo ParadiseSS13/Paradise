@@ -43,6 +43,8 @@
 		for(var/obj/input_obj in input)
 			if(!istype(input_obj, bounty.bounty_target_type))
 				continue
+			if(bounty.exact_type && input_obj.type != bounty.bounty_target_type)
+				continue
 			input_obj.visible_message(SPAN_WARN("[input_obj] disintegrates as [src] breaks it down for bluespace packaging!"), SPAN_WARN("You hear as something disintegrates."))
 			qdel(input_obj)
 			bounty.amount_supplied++
@@ -64,7 +66,9 @@
 /obj/machinery/bounty_redemption/proc/print_slip(datum/supply_bounty/bounty)
 	// Print the credit slip
 	playsound(src, 'sound/machines/banknote_counter.ogg', 30, FALSE)
-	var/obj/item/credit_redemption_slip/slip = new /obj/item/credit_redemption_slip(get_step(get_turf(src), output_dir), bounty.reward)
+	new /obj/item/credit_redemption_slip(get_step(get_turf(src), output_dir), bounty.reward)
+	if(bounty.special_reward_type)
+		new bounty.special_reward_type(get_step(get_turf(src), output_dir))
 	bounty_list -= bounty
 	qdel(bounty)
 	RefreshBounties()

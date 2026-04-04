@@ -3401,6 +3401,7 @@
 #include "code\modules\supply\supply_packs\pack_security.dm"
 #include "code\modules\supply\supply_packs\pack_shuttle.dm"
 #include "code\modules\supply\supply_packs\pack_vendor.dm"
+#include "code\modules\supply_bounties\bounty_list.dm"
 #include "code\modules\supply_bounties\bounty_redemption.dm"
 #include "code\modules\supply_bounties\supply_bounty_datum.dm"
 #include "code\modules\surgery\abstract_steps.dm"
