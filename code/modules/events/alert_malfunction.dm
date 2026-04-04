@@ -12,7 +12,7 @@
 	SSsecurity_level.set_level(level)
 
 /datum/event/alert_malf/announce()
-	if(level >= 5 || previous_level == 3 || previous_level == 4)
+	if(level >= 5 || previous_level >= 3)
 		GLOB.minor_announcement.Announce("Critical malfunction detected in [station_name()] security level subroutines. Issuing correction...", "General Alert")
 		SSsecurity_level.set_level(previous_level)
 	else
