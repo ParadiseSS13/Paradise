@@ -615,7 +615,7 @@
 	product_type = /obj/item/food/jelliedtoast/cherry
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
 		PCWJ_ADD_REAGENT("cherryjelly", 5),
 	)
 
@@ -624,7 +624,7 @@
 	product_type = /obj/item/food/jelliedtoast/slime
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
 		PCWJ_ADD_REAGENT("slimejelly", 5),
 	)
 
@@ -670,3 +670,57 @@
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/tapiocadough)
 	)
+
+// ----------- Board recipes imported from Hispania!
+
+/datum/cooking/recipe/butter_dog
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/hotdog/butter
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_ADD_REAGENT("butter", 30),
+	)
+
+// Buttertoast //
+/datum/cooking/recipe/butter_toast
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/butter_toast
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
+		PCWJ_ADD_REAGENT("butter", 5),
+	)
+
+/datum/cooking/recipe/avocadosandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/avocadosandwich
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/avocado),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/avocado),
+		PCWJ_ADD_REAGENT("mayonnaise", 10),
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
+	)
+
+/datum/cooking/recipe/baconrolled
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/baconrolled
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/avocado),
+		PCWJ_ADD_ITEM(/obj/item/food/bacon),
+	)
+
+/datum/cooking/recipe/salmoncreamtoast
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/salmoncreamtoast
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/baguette),
+		PCWJ_ADD_ITEM(/obj/item/food/smokedsalmon),
+		PCWJ_ADD_REAGENT("cream_cheese", 10),
+	)
+
+// ----------- END of recipe imports from Hispania!

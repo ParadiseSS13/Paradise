@@ -1199,3 +1199,115 @@
 		PCWJ_ADD_ITEM(/obj/item/food/tapiocadough),
 		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
+
+// ----------- Oven recipes imported from Hispania!
+
+/// empanadas by Soulster
+/datum/cooking/recipe/oven/empanada
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/empanada
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/cutlet),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
+
+/// Honey Pie by Nothing (Thanks Ume)
+/datum/cooking/recipe/oven/honeypie
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/honey_pie
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
+		PCWJ_ADD_REAGENT("honey", 5),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
+	)
+
+/// HoneyBread(For Luka <3 )
+/datum/cooking/recipe/oven/honeybread
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/honeybread
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_REAGENT("honey", 15),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
+	)
+
+// Peachmeat
+/datum/cooking/recipe/oven/peachmeat
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/peach_meat
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/peach),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/peach),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_REAGENT("guacamole", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
+
+// Stuffed mushroom
+/datum/cooking/recipe/oven/stuffed_mushrooms
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/stuffed_mushrooms
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/chanterelle),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/chanterelle),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/bacon),
+		PCWJ_ADD_ITEM(/obj/item/food/bacon),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/oven/cheeseanonnacake
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/sliceable/cheeseanonnacake
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/dough),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/anonna),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("sugar", 15),
+		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
+	)
+
+// Filet Mignon
+/datum/cooking/recipe/oven/filetmignon
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/filetmignon
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/chanterelle),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_REAGENT("wine", 5),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS)
+	)
+
+// Cuy
+/datum/cooking/recipe/oven/cuy
+	container_type = /obj/item/reagent_containers/cooking/oven
+	product_type = /obj/item/food/cuy
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/avocado),
+		PCWJ_ADD_ITEM(/obj/item/food/rawmouse),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
+	)
+
+// ----------- END of recipe imports from Hispania!

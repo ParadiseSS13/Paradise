@@ -35,7 +35,9 @@
 	"honey" = list("honey", "honey jar", "A sweet substance produced by bees."),
 	"sugar" = list("sugar", "sugar sack", "Tasty spacey sugar!"),
 	"flour" = list("flour", "flour sack", "A big bag of flour. Good for baking!"),
-	"rice" = list("rice", "rice sack", "A big bag of rice. Good for cooking!"))
+	"rice" = list("rice", "rice sack", "A big bag of rice. Good for cooking!"),
+	"butter" = list("butter", "butter tub", "Delicious milk fat."),
+	"cream_cheese" = list("cream_cheese", "cream cheese tub", "Thick liquid cheese."))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/condiment/mob_act(mob/target, mob/living/user)
@@ -297,6 +299,22 @@
 	list_reagents = list("ketchup" = 50)
 	possible_states = list()
 
+// Butter adapted from Hispania!
+/obj/item/reagent_containers/condiment/butter
+	name = "butter"
+	desc = "Delicious milk fat."
+	icon_state = "butter"
+	list_reagents = list("butter" = 50)
+	possible_states = list()
+
+// Cream cheese adapted from Hispania!
+/obj/item/reagent_containers/condiment/cream_cheese
+	name = "cream cheese"
+	desc = "Thick liquid cheese."
+	icon_state = "cream_cheese"
+	list_reagents = list("cream_cheese" = 50)
+	possible_states = list()
+
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
 /obj/item/reagent_containers/condiment/pack
@@ -315,7 +333,8 @@
 	"blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze."),
 	"cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn."),
 	"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
-	"vinegar" =list("condi_mixed", "vinegar", "Perfect for chips, if you're feeling Space British."))
+	"vinegar" = list("condi_mixed", "vinegar", "Perfect for chips, if you're feeling Space British."),
+	"discount_sauce" = list("discount_sauce", "Discount Dan's Special Sauce", "Discount Dan brings you his very own special blend of delicious ingredients in one discount sauce!"))
 
 /obj/item/reagent_containers/condiment/pack/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	//You can tear the bag open above food to put the condiments on it, obviously.
@@ -362,3 +381,11 @@
 	name = "hotsauce pack"
 	originalname = "hotsauce"
 	list_reagents = list("capsaicin" = 10)
+
+// Discount sauce from Hispania!
+/obj/item/reagent_containers/condiment/pack/discount_sauce
+	name = "Discount Dan's Special Sauce"
+	desc = "Discount Dan brings you his very own special blend of delicious ingredients in one discount sauce!"
+	list_reagents = list("discount_sauce" = 10)
+	icon = 'icons/hispania/obj/food/containers.dmi'
+	icon_state = "discount_sauce"

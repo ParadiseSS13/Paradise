@@ -281,3 +281,48 @@
 	filling_color = "#E6DEB5"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+////////////////////////
+// 		Hispania!		//
+////////////////////////
+
+//  HoneyBread       //
+/obj/item/food/sliceable/honeybread
+	name = "honey bread"
+	desc = "Just a Honey Bread."
+	icon_state = "honeybread"
+	slice_path = /obj/item/food/sliced/honeybread
+	slices_num = 5
+	filling_color = "#EFD8A7"
+	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
+	tastes = list("bread" = 10, "honey" = 10)
+
+/obj/item/food/sliced/honeybread
+	name = "honeybread slice"
+	desc = "A slice of a honeybread."
+	icon_state = "honeybreadslice"
+	trash = /obj/item/trash/plate
+	filling_color = "#EFD8A7"
+
+// Toast //
+/obj/item/food/toast
+	name = "toast"
+	desc = "It's a slice of bread but toasted."
+	icon_state = "toast"
+	filling_color = "#D2691E"
+	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	tastes = list("toast" = 1)
+	bitesize = 3
+
+// ButterToast //
+/obj/item/food/butter_toast
+	name = "buttered toast"
+	desc = "Butter lightly spread over a piece of toast."
+	icon = 'icons/obj/food/burgerbread.dmi'
+	icon_state = "butter_toast"
+	filling_color = "#D2691E"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1)
+	tastes = list("butter" = 1,"toast" = 1)
+	bitesize = 5
+
+// ----------- END of imports from Hispania!

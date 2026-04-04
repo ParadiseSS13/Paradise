@@ -271,3 +271,37 @@
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/food/tapiocadough(location)
+
+// Corn dough for arepas and the like
+/datum/chemical_reaction/corndough
+	name = "Maize Dough"
+	id = "corndough"
+	result = null
+	required_reagents = list("water" = 10, "corn_starch" = 10)
+	result_amount = 1
+	mix_message = "The ingredients form a dough."
+
+/datum/chemical_reaction/corndough/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/food/dough/corn(location)
+
+// ----------- Reagent recipes imported from Hispania!
+
+/datum/chemical_reaction/butter
+	name = "Butter"
+	id = "butter"
+	result = "butter"
+	required_reagents = list("cream" = 20, "sodiumchloride" = 1)
+	result_amount = 20
+	mix_message = "The butter whips into shape."
+
+/datum/chemical_reaction/cream_cheese
+	name = "Cream Cheese"
+	id = "cream_cheese"
+	result = "cream_cheese"
+	required_reagents = list("cream" = 20, "milk" = 10, "sodiumchloride" = 1)
+	result_amount = 20
+	mix_message = "The cream combines into a smooth cheese."
+
+// ----------- END of recipe imports from Hispania!

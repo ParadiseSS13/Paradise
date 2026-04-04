@@ -696,3 +696,71 @@
 	filling_color = "#FF1C1C"
 	bitesize = 3
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+////////////////////////
+// 		Hispania!		//
+////////////////////////
+
+/obj/item/food/rawmouse
+	name = "raw mouse"
+	desc = "A raw mouse, what did you expect? Disgusting!"
+	icon_state = "raw_mouse"
+	filling_color = "#FF1C1C"
+	bitesize = 2
+	list_reagents = list("protein" = 3)
+	tastes = list("nasty" = 1)
+
+/obj/item/food/peach_meat
+	name = "Peach Meat"
+	desc = "A good steak dipped in peach sauce, with an avocado base"
+	icon_state = "peach_meat"
+	trash = /obj/item/trash/plate
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "protein" = 1, "vitamin" = 1)
+	tastes = list("sweet" = 1, "beefy" = 1)
+
+/obj/item/food/baconrolled
+	name = "Bacon Rolls"
+	desc = "Rolls of bacon filled up with avocado!"
+	icon_state = "bacon_roll"
+	list_reagents = list("protein" = 1, "nutriment" = 2)
+	tastes = list("meat with vegetables" = 1)
+
+/obj/item/food/meatsteak_cactus
+	name = "meat steak"
+	desc = "A piece of hot spicy meat. With some prickly pear cactus on top."
+	icon_state = "meatstake_cactus"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	tastes = list("meat" = 1, "cactus" = 1)
+
+/obj/item/food/syntisteak_cactus
+	name = "synthetic meat"
+	desc = "A synthetic slab of flesh. With some prickly pear cactus on top."
+	icon_state = "meatstake_cactus"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	tastes = list("meat" = 1, "cactus" = 1)
+
+/obj/item/food/filetmignon
+	name = "Filet Mignon"
+	desc = "Sirloin wrapped in bacon served with mushroom sauce"
+	icon_state = "filetmignon"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1, "protein" = 1)
+	tastes = list("winey" = 1, "beefy" = 1)
+
+/obj/item/food/hotdog/butter
+	name = "butter dog"
+	desc = "Made of butter instead of real dogs."
+	icon_state = "butter_dog"
+	filling_color = "#fff98f"
+	list_reagents = list("nutriment" = 6, "vitamin" = 6, "butter" = 5)
+	tastes = list("bread" = 1)
+
+// ---------- END of imports from Hispania!
+

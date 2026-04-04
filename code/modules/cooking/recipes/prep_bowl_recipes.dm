@@ -168,3 +168,34 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
 	)
 
+// ----------- Bowl recipes imported from Hispania!
+
+// ENSALADASS CALENTITAS
+/datum/cooking/recipe/ensaladacactus
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/ensaladacactus
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cabbage),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/prickly_pear),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+	)
+
+/datum/cooking/recipe/garlic_snack
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/garlic_snack
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_REAGENT("guacamole", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 2),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_ITEM(/obj/item/food/baguette),
+	)
+
+// ----------- END of recipe imports from Hispania!
+

@@ -188,6 +188,11 @@
 	list_reagents = list("nutriment" = 6)
 	tastes = list("dough" = 1)
 
+/obj/item/food/dough/corn
+	name = "maize dough"
+	desc = "Perfect for making arepas, usable in place of wheat dough."
+	color = "#FFEEBB"
+
 // Dough + rolling pin = flat dough
 /obj/item/food/dough/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/kitchen/rollingpin))
