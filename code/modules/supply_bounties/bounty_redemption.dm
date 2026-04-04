@@ -11,14 +11,11 @@
 	var/output_dir = SOUTH
 	/// Maximum number of bounties
 	var/bounty_count = 0
-	/// Possible bounties
-	var/list/possible_bounties = list()
 	/// Currently active bounties
 	var/list/bounty_list = list()
 
 /obj/machinery/bounty_redemption/Initialize(mapload)
 	. = ..()
-	possible_bounties = subtypesof(/datum/supply_bounty)
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/salvage_redemption(null)
@@ -61,7 +58,7 @@
 
 /obj/machinery/bounty_redemption/proc/RefreshBounties()
 	while(length(bounty_list) < bounty_count)
-		bounty_list += new pick(possible_bounties)
+		bounty_list += new pick(GLOB.supply_bounties)
 
 /obj/machinery/bounty_redemption/proc/print_slip(datum/supply_bounty/bounty)
 	// Print the credit slip
