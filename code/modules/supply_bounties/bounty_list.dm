@@ -17,8 +17,8 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 	new /datum/supply_bounty(/obj/item/folder, 				FALSE, 			SUPPLY_BOUNTY_QUANTITY_MEDIUM, 		SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/supply_bounty(/obj/item/pen, 				FALSE, 			SUPPLY_BOUNTY_QUANTITY_MEDIUM, 		SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/supply_bounty(/obj/item/paper_bin, 			FALSE, 			SUPPLY_BOUNTY_QUANTITY_LOW, 		SUPPLY_BOUNTY_REWARD_MEDIUM),
-	new /datum/supply_bounty(/obj/item/stamp/granted, 		FALSE, 			SUPPLY_BOUNTY_QUANTITY_ONE, 					SUPPLY_BOUNTY_REWARD_MEDIUM),
-	new /datum/supply_bounty(/obj/item/stamp/denied, 		FALSE, 			SUPPLY_BOUNTY_QUANTITY_ONE, 					SUPPLY_BOUNTY_REWARD_MEDIUM),
+	new /datum/supply_bounty(/obj/item/stamp/granted, 		FALSE, 			SUPPLY_BOUNTY_QUANTITY_ONE, 		SUPPLY_BOUNTY_REWARD_MEDIUM),
+	new /datum/supply_bounty(/obj/item/stamp/denied, 		FALSE, 			SUPPLY_BOUNTY_QUANTITY_ONE, 		SUPPLY_BOUNTY_REWARD_MEDIUM),
 	new /datum/supply_bounty(/obj/item/toner, 				FALSE, 			SUPPLY_BOUNTY_QUANTITY_LOW, 		SUPPLY_BOUNTY_REWARD_MEDIUM),
 
 	// SUPPLY
