@@ -31,6 +31,10 @@
 	path = /obj/item/clothing/head/hardhat/dblue
 	allowed_roles = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
+/datum/gear/hat/warning_cone
+	display_name = "Warning cone"
+	path = /obj/item/clothing/head/cone
+
 /datum/gear/hat/that
 	display_name = "Top hat"
 	path = /obj/item/clothing/head/that
@@ -178,6 +182,31 @@
 	path = /obj/item/clothing/head/cowboyhat/hydro
 	allowed_roles = list("Botanist")
 
+/datum/gear/hat/cowboyhat/engie
+	display_name = "Cowboy hat, engineering"
+	path = /obj/item/clothing/head/cowboyhat/engie
+	allowed_roles = list("Station Engineer", "Atmospheric Technician", "Chief Engineer")
+
+/datum/gear/hat/cowboyhat/research
+	display_name = "Cowboy hat, research"
+	path = /obj/item/clothing/head/cowboyhat/research
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist", "Roboticist", "Geneticist")
+
+/datum/gear/hat/cowboyhat/med
+	display_name = "Cowboy hat, medical"
+	path = /obj/item/clothing/head/cowboyhat/med
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Chemist", "Virologist", "Psychologist", "Coroner")
+
+/datum/gear/hat/cowboyhat/supply
+	display_name = "Cowboy hat, supply"
+	path = /obj/item/clothing/head/cowboyhat/supply
+	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer", "Smith")
+
+/datum/gear/hat/cowboyhat/command
+	display_name = "Cowboy hat, command"
+	path = /obj/item/clothing/head/cowboyhat/command
+	allowed_roles = list("Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Quartermaster", "Nanotrasen Representative", "Magistrate", "Blueshield Officer", "Nanotrasen Career Trainer")
+
 /datum/gear/hat/beret_purple
 	display_name = "Beret, purple"
 	path = /obj/item/clothing/head/beret/purple_normal
@@ -307,15 +336,81 @@
 	path = /obj/item/clothing/head/beret/rd
 	allowed_roles = list("Research Director")
 
-/datum/gear/hat/beret_job/med
-	display_name = "Beret, medical"
+/datum/gear/hat/beret_job/md
+	display_name = "Beret, doctor"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Coroner", "Paramedic")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Coroner", "Psychologist", "Virologist")
+
+/datum/gear/hat/beret_job/md_alt
+	display_name = "Beret, doctor corporate"
+	path = /obj/item/clothing/head/beret/med_alt
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Coroner", "Psychologist", "Virologist")
+
 
 /datum/gear/hat/beret_job/para
 	display_name = "Beret, EMT"
 	path = /obj/item/clothing/head/beret/paramedic
 	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
+/datum/gear/hat/beret_job/chem
+	display_name = "Beret, chemist"
+	path = /obj/item/clothing/head/beret/chem
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
+/datum/gear/hat/beret_job/chem_alt
+	display_name = "Beret, chemist corporate"
+	path = /obj/item/clothing/head/beret/chem_alt
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
+/datum/gear/hat/beret_job/chem_orange
+	display_name = "Beret, chemist orange"
+	path = /obj/item/clothing/head/beret/chem_orange
+	allowed_roles = list("Chief Medical Officer", "Chemist")
+
+/datum/gear/hat/beret_job/coroner
+	display_name = "Beret, coroner"
+	path = /obj/item/clothing/head/beret/coroner
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/hat/beret_job/coroner_alt
+	display_name = "Beret, coroner corporate"
+	path = /obj/item/clothing/head/beret/coroner_alt
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/hat/beret_job/coroner_black
+	display_name = "Beret, coroner black"
+	path = /obj/item/clothing/head/beret/coroner_black
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/hat/beret_job/psych
+	display_name = "Beret, psychologist"
+	path = /obj/item/clothing/head/beret/psych
+	allowed_roles = list("Chief Medical Officer", "Psychologist")
+
+/datum/gear/hat/beret_job/psych_alt
+	display_name = "Beret, psychologist corporate"
+	path = /obj/item/clothing/head/beret/psych_alt
+	allowed_roles = list("Chief Medical Officer", "Psychologist")
+
+/datum/gear/hat/beret_job/psych_teal
+	display_name = "Beret, psychologist teal"
+	path = /obj/item/clothing/head/beret/psych_teal
+	allowed_roles = list("Chief Medical Officer", "Psychologist")
+
+/datum/gear/hat/beret_job/viro
+	display_name = "Beret, virologist"
+	path = /obj/item/clothing/head/beret/viro
+	allowed_roles = list("Virologist")
+
+/datum/gear/hat/beret_job/viro_alt
+	display_name = "Beret, virologist corporate"
+	path = /obj/item/clothing/head/beret/viro_alt
+	allowed_roles = list("Virologist")
+
+/datum/gear/hat/beret_job/viro_green
+	display_name = "Beret, virologist green"
+	path = /obj/item/clothing/head/beret/viro_green
+	allowed_roles = list("Virologist")
 
 /datum/gear/hat/beret_job/cmo
 	display_name = "Beret, chief medical officer"
