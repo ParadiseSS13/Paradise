@@ -63,18 +63,16 @@
 	. = ..()
 	. += SPAN_NOTICE("It appears to have been built by [lowertext(nest_species::name_plural)].")
 
-	if(!user.mind)
-		return
-	var/datum/antagonist/uplifted_primitive/antag = user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive)
-
-	if(antag && user.dna.species.type == nest_species)
+	var/datum/antagonist/uplifted_primitive/antag = user.mind?.has_antag_datum(/datum/antagonist/uplifted_primitive)
+	if((antag && user.dna?.species.type == nest_species) || isobserver(user))
 		. += SPAN_NOTICE("It contains [available_scrap] units of scrap.")
 		. += SPAN_NOTICE("It contains [available_food] units of food.")
 		. += SPAN_NOTICE("It needs at least [SPAWN_SCRAP_COST] scrap and [SPAWN_FOOD_COST] food to produce another primitive.")
 		. += SPAN_NOTICE("A new primitive can emerge [COOLDOWN_FINISHED(src, spawn_cooldown) \
 			? "soon" \
 			: "in [round(COOLDOWN_TIMELEFT(src, spawn_cooldown) / (1 SECONDS))] seconds"].")
-		if(locateUID(antag.nest_uid) == src)
+
+		if(locateUID(antag?.nest_uid) == src)
 			. += SPAN_NOTICE("<b>Alt-Click</b> to deconstruct the nest.")
 
 /obj/structure/uplifted_primitive/nest/process()
@@ -105,7 +103,7 @@
 
 /obj/structure/uplifted_primitive/nest/proc/has_guaranteed_spawn()
 	var/datum/team/uplifted_primitive/team = SSticker.mode.uplifted_teams[nest_species]
-	return team && team.guaranteed_sentient_spawns > 0
+	return team?.guaranteed_sentient_spawns > 0
 
 /obj/structure/uplifted_primitive/nest/proc/spawn_npc()
 	if(QDELETED(src))
