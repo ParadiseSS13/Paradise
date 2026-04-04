@@ -387,5 +387,4 @@
 	name = "Discount Dan's Special Sauce"
 	desc = "Discount Dan brings you his very own special blend of delicious ingredients in one discount sauce!"
 	list_reagents = list("discount_sauce" = 10)
-	icon = 'icons/hispania/obj/food/containers.dmi'
 	icon_state = "discount_sauce"
