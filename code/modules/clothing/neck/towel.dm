@@ -9,6 +9,13 @@
 	desc = "Larger than a rag, smaller than a beach towel."
 	icon_state = "towel"
 	inhand_icon_state = "towel"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi'
+	)
 	/// Tracks how wet the towel is. Wet towels dampen their targets instead of drying them.
 	var/wetlevel = 0
 	/// Tracks how much yuck the towel has on it. Grime levels higher than 1 can be spread.
