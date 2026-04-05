@@ -1267,16 +1267,16 @@
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
-/datum/cooking/recipe/oven/cheeseanonnacake
+/datum/cooking/recipe/oven/cheeseannonacake
 	container_type = /obj/item/reagent_containers/cooking/oven
-	product_type = /obj/item/food/sliceable/cheeseanonnacake
+	product_type = /obj/item/food/sliceable/cheeseannonacake
 	catalog_category = COOKBOOK_CATEGORY_DESSERTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
-		PCWJ_ADD_PRODUCE(/obj/item/food/grown/anonna),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/annona),
 		PCWJ_ADD_REAGENT("milk", 5),
 		PCWJ_ADD_REAGENT("sugar", 15),
 		PCWJ_USE_OVEN(J_MED, 15 SECONDS),

@@ -213,21 +213,21 @@
 // 		Hispania!		//
 ////////////////////////
 
-/obj/item/food/sliceable/cheeseanonnacake
-	name = "cheese anonna cake"
+/obj/item/food/sliceable/cheeseannonacake
+	name = "cheese annona cake"
 	desc = "DANGEROUSLY sugary cheesy."
-	icon_state = "cheeseanonnacake"
-	slice_path = /obj/item/food/sliced/cheeseanonnacake
+	icon_state = "cheeseannonacake"
+	slice_path = /obj/item/food/sliced/cheeseannonacake
 	slices_num = 5
 	filling_color = "#FAF7AF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("cake" = 4, "sugary cream cheese" = 3)
 
-/obj/item/food/sliced/cheeseanonnacake
-	name = "cheese anonna cake slice"
+/obj/item/food/sliced/cheeseannonacake
+	name = "cheese annona cake slice"
 	desc = "Slice of pure cheestisfaction."
-	icon_state = "cheeseanonnacake_slice"
+	icon_state = "cheeseannonacake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FAF7AF"
 	tastes = list("cake" = 4, "sugary cream cheese" = 3)

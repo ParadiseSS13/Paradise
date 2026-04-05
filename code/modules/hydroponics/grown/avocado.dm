@@ -15,7 +15,7 @@
 	icon_dead = "avocado-dead"
 	mutatelist = list(/obj/item/seeds/avocado/aircado, /obj/item/seeds/avocado/firecado, /obj/item/seeds/avocado/earthcado)
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list( "water" = 0.05, "vitamin" = 0.05, "plantmatter" = 0.1)
+	reagents_add = list("water" = 0.05, "vitamin" = 0.05, "plantmatter" = 0.1)
 
 /obj/item/food/grown/avocado
 	seed = /obj/item/seeds/avocado
@@ -39,7 +39,7 @@
 	plantname = "Aircado Tree"
 	product = /obj/item/food/grown/avocado/aircado
 	mutatelist = list(/obj/item/seeds/avocado, /obj/item/seeds/avocado/firecado, /obj/item/seeds/avocado/earthcado)
-	reagents_add = list( "oxygen" = 0.05)
+	reagents_add = list("oxygen" = 0.05)
 	rarity = 20
 
 /obj/item/seeds/avocado/firecado
@@ -50,7 +50,7 @@
 	plantname = "Firecado Tree"
 	product = /obj/item/food/grown/avocado/firecado
 	mutatelist = list(/obj/item/seeds/avocado, /obj/item/seeds/avocado/aircado, /obj/item/seeds/avocado/earthcado)
-	reagents_add = list( "oil" = 0.05, "plantmatter" = 0.1)
+	reagents_add = list("oil" = 0.05, "plantmatter" = 0.1)
 	rarity = 20
 
 /obj/item/seeds/avocado/earthcado
@@ -61,7 +61,7 @@
 	plantname = "Earthcado Tree"
 	product = /obj/item/food/grown/avocado/earthcado
 	mutatelist = list(/obj/item/seeds/avocado, /obj/item/seeds/avocado/firecado, /obj/item/seeds/avocado/aircado)
-	reagents_add = list( "carbon" = 0.05, "plantmatter" = 0.1)
+	reagents_add = list("carbon" = 0.05, "plantmatter" = 0.1)
 	rarity = 20
 
 /obj/item/food/grown/avocado/aircado
