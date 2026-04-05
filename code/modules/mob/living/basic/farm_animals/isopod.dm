@@ -91,8 +91,18 @@
 	melee_damage_upper = 5
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
+	holder_type = /obj/item/holder/isopod_smol
 	ai_controller = /datum/ai_controller/basic_controller/isopod/smol
 	max_nutrition = 400
+
+/mob/living/basic/isopod/smol/attack_hand(mob/living/carbon/human/M)
+	// Let people pick the little buggers up.
+	if(M.a_intent != INTENT_HELP)
+		return ..()
+	if(isrobot(M))
+		M.visible_message(SPAN_NOTICE("[M] playfully boops [src]!"), SPAN_NOTICE("You playfully boop [src]!"))
+	else
+		get_scooped(M)
 
 /mob/living/basic/isopod/smol/consume(datum/source, obj/item/potential_food)
 	var/food_reagents = potential_food.reagents.get_reagent_amount("nutriment") + potential_food.reagents.get_reagent_amount("plantmatter") + potential_food.reagents.get_reagent_amount("protein") + potential_food.reagents.get_reagent_amount("vitamin")
