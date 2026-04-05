@@ -140,8 +140,8 @@
 /obj/item/reagent_containers/drinks/drinkingglass/fyrsskar_tears
 	list_reagents = list("fyrsskartears" = 50)
 
-/obj/item/reagent_containers/drinks/drinkingglass/howler
-	list_reagents = list("howler" = 50)
+/obj/item/reagent_containers/drinks/drinkingglass/durkehiet
+	list_reagents = list("durkehiet" = 50)
 
 /obj/item/reagent_containers/drinks/drinkingglass/islay_whiskey
 	list_reagents = list("islaywhiskey" = 50)
