@@ -54,7 +54,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		else
 			to_chat(M, chat_box_examine(SPAN_DEADSAY("<b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!")))
 
-/datum/event/disease_outbreak/announce()
+/datum/event/disease_outbreak/announce(false_alarm)
+	if(false_alarm)
+		severity = pick(EVENT_LEVEL_MAJOR, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MUNDANE)
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
 			GLOB.major_announcement.Announce("Lethal viral pathogen detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak_virus.ogg')
