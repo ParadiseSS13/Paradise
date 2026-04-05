@@ -304,16 +304,6 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#EFD8A7"
 
-// Toast //
-/obj/item/food/toast
-	name = "toast"
-	desc = "It's a slice of bread but toasted."
-	icon_state = "toast"
-	filling_color = "#D2691E"
-	list_reagents = list("nutriment" = 2, "vitamin" = 1)
-	tastes = list("toast" = 1)
-	bitesize = 3
-
 // ButterToast //
 /obj/item/food/butter_toast
 	name = "buttered toast"
