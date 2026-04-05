@@ -90,7 +90,7 @@
 	// the grimiest decal will transfer to the towel. calculate this before griming up the toweling target
 	var/obj/effect/decal/cleanable/grimiest_decal = null
 	for(var/obj/effect/decal/cleanable/target_decal in target)
-		if(!(target_decal in grime_sources))
+		if(!(target_decal.type in grime_sources))
 			// we can't pick this up, it's glass shards or some other not-really-towelable mess
 			continue
 		if(!grimiest_decal || target_decal.amount > grimiest_decal.amount)
