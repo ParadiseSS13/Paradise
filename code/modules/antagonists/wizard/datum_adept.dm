@@ -1,7 +1,6 @@
 /datum/antagonist/wizard/adept
 	name = "Wizard Adept"
 	special_role = SPECIAL_ROLE_WIZARD_ADEPT
-	antag_hud_name = "wizard adept"
 	antag_datum_blacklist = list(/datum/antagonist/wizard/construct, /datum/antagonist/wizard/apprentice)
 
 	/// Potential offensive spell list

@@ -10,7 +10,7 @@
 /datum/event/wizard_adept/proc/poll_wiz_adept(list/potential_wizards)
 	var/list/candidates = list()
 	if(!potential_wizards)
-		candidates = SSghost_spawns.poll_candidates("Do you want to play as a Wizard?", ROLE_WIZARD, TRUE)
+		candidates = SSghost_spawns.poll_candidates("Do you want to play as a Wizard Adept?", ROLE_WIZARD, TRUE)
 	else
 		candidates = potential_wizards
 	if(!length(candidates))
