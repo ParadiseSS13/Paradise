@@ -7,7 +7,7 @@
 /datum/event/tear/honk/spawn_tear(location)
 	HE = new /obj/effect/tear/honk(location)
 
-/datum/event/tear/honk/announce()
+/datum/event/tear/honk/announce(false_alarm)
 	var/area/target_area = impact_area
 	if(!target_area)
 		if(false_alarm)
