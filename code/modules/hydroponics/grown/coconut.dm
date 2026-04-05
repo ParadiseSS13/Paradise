@@ -69,9 +69,15 @@
 	icon_state = "bombonut"
 	seed = /obj/item/seeds/coconut/bombonut
 
-/obj/item/grown/bombonut/activate_self(mob/living/user) //Avisamos a un admin y se guarda en log que el usuario detonara esto
+/obj/item/grown/bombonut/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/area/A = get_area(user)
-	user.visible_message("<span class='warning'>[user] primes the [src]!</span>", "<span class='userdanger'>You prime the [src]!</span>")
+	user.visible_message(
+		SPAN_WARNING("[user] primes the [src]!</span>"),
+		SPAN_USERDANGER("You prime the [src]!</span>")
+	)
 	var/message = "[ADMIN_LOOKUPFLW(user)] primed a bombonut for detonation at [A] [ADMIN_COORDJMP(user)]"
 	investigate_log("[key_name(user)] primed a bombonut for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
 	message_admins(message)
@@ -80,6 +86,7 @@
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	return ITEM_INTERACT_COMPLETE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/grown/bombonut, prime), rand(10 DECISECONDS, 60 DECISECONDS)))
 
 /obj/item/grown/bombonut/burn()

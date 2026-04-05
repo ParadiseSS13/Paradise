@@ -648,13 +648,16 @@
 	initial_state = icon_state
 
 /obj/item/food/candy/choco_mre/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!open)
 		open = TRUE
 		antable = TRUE
 		to_chat(user, "<span class='notice'>You tear \the [src] open.</span>")
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 		icon_state = "[initial_state]open"
-		return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/candy/choco_mre/attack(mob/M, mob/user, def_zone)
 	if(!open && (M == user))
