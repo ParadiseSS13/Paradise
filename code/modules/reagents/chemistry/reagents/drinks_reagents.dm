@@ -1491,11 +1491,11 @@
 /datum/reagent/consumable/drink/coconutwater
 	name = "Coconut Water"
 	id = "coconutwater"
-	description = "Diaphanous water with coconut bits floating"
+	description = "Diaphanous water with coconut bits floating inside."
 	color = "#FF292E"
 	drink_icon = "glass_white"
 	drink_name = "Glass of Coconut Water"
-	drink_desc = "Diaphanous water with coconut bits floating"
+	drink_desc = "Diaphanous water with coconut bits floating inside."
 	taste_description = "mildly sweet"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
