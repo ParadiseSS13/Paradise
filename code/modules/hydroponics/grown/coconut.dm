@@ -81,8 +81,9 @@
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-	return ITEM_INTERACT_COMPLETE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/grown/bombonut, prime), rand(10 DECISECONDS, 60 DECISECONDS)))
+	return ITEM_INTERACT_COMPLETE
+
 
 /obj/item/grown/bombonut/burn()
 	prime()
