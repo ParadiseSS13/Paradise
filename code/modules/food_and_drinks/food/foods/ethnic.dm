@@ -457,16 +457,12 @@
 	name = "Macaco Soup"
 	desc = "Uma delicia"
 	icon_state = "macacosoup"
-	trash = /obj/item/trash/snack_bowl
-	bitesize = 5
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 
 /obj/item/food/soup/furamingosoup
 	name = "Furamingo Soup"
 	desc = "Black, white, pink or blue"
 	icon_state = "furamingosoup"
-	trash = /obj/item/trash/snack_bowl
-	bitesize = 5
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 
 /obj/item/food/salmoncurry
