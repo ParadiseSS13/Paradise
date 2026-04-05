@@ -7,7 +7,7 @@
  */
 /datum/spell/bloodcrawl/space_crawl
 	name = "Space Phase"
-	desc = "Allows you to phase in and out of existence while in space or glass tiles."
+	desc = "Allows you to phase in and out of existence while in space."
 	base_cooldown = 1 MINUTES
 	action_background_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_background_icon_state = "bg_heretic"
