@@ -7,8 +7,6 @@
 	icon_dead = "ahuitz_dead"
 	pass_flags = PASSTABLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
-	mob_size = MOB_SIZE_SMALL
-	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	butcher_results = list(/obj/item/food/meat = 1)
 	minimum_survivable_temperature = 0
@@ -91,6 +89,8 @@
 	health = 30
 	melee_damage_lower = 1
 	melee_damage_upper = 5
+	mob_size = MOB_SIZE_SMALL
+	ventcrawler = VENTCRAWLER_ALWAYS
 	ai_controller = /datum/ai_controller/basic_controller/isopod/smol
 	max_nutrition = 400
 
