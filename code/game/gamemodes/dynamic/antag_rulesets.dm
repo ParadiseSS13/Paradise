@@ -303,6 +303,8 @@
 	var/unique_team = TRUE
 	/// How many players on a team.
 	var/team_size = 1
+	/// How much does each person on the team cost?
+	var/individual_cost = 5
 	/// Team datum to create.
 	var/datum/team/team_type
 
@@ -316,7 +318,7 @@
 /datum/ruleset/team/automatic_deduct(budget)
 	team_size = team_scale()
 	antag_amount = team_size
-	. = antag_cost
+	. = antag_cost + max(((team_size - 1) * individual_cost), 0) // The first antag on a team costs as much as the team.
 	log_dynamic("Automatic deduction: +[antag_amount] [name]\s. Remaining budget: [budget - .].")
 
 /datum/ruleset/team/antagonist_possible(budget)
