@@ -628,7 +628,6 @@
 	name = "enriched cracker"
 	desc = "It's a salted cracker, the surface looks saturated with oil."
 	icon_state = "mre_cracker"
-	bitesize = 2
 	list_reagents = list("nutriment" = 0.25, "teporone" = 1, "weak_omnizine" = 1)
 	tastes = list("salty" = 1, "oily" = 1)
 

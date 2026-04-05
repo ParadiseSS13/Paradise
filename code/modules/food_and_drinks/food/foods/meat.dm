@@ -706,7 +706,6 @@
 	desc = "A raw mouse, what did you expect? Disgusting!"
 	icon_state = "raw_mouse"
 	filling_color = "#FF1C1C"
-	bitesize = 2
 	list_reagents = list("protein" = 3)
 	tastes = list("nasty" = 1)
 

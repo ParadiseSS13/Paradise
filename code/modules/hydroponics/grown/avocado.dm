@@ -32,7 +32,7 @@
 	icon_state = "avocado_cut"
 
 /obj/item/seeds/avocado/aircado
-	name = "pack of avocado seeds"
+	name = "pack of aircado seeds"
 	desc = "These seeds grow into aircado trees. Airy."
 	icon_state = "seed-aircado"
 	species = "aircado"

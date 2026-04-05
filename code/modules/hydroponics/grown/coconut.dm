@@ -24,7 +24,6 @@
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
 	throw_range = 3
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	slice_path = /obj/item/food/sliced/coconut
@@ -42,7 +41,6 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "coconut-slice"
 	filling_color = "#FF4500"
-	bitesize = 2
 
 //BOMBONUT HERE//
 
@@ -55,10 +53,7 @@
 	mutatelist = list()
 	product = /obj/item/grown/bombonut
 	lifespan = 35
-	endurance = 35
-	yield = 5
 	potency = 30
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("plantmatter" = 0.1, "sorium" = 0.7)
 

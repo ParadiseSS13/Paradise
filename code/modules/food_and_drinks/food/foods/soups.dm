@@ -336,7 +336,6 @@
 	name = "Garlic Soup"
 	desc = "a garlic soup with an egg on top"
 	icon_state = "garlic_soup"
-	trash = /obj/item/trash/snack_bowl
 	bitesize = 4
 	list_reagents = list("nutriment" = 6, "vitamin" = 3)
 
@@ -351,7 +350,6 @@
 	name = "Fish Consome"
 	desc = "a warm consome with tasty fish meat"
 	icon_state = "carpconsomme"
-	trash = /obj/item/trash/snack_bowl
 	bitesize = 4
 	list_reagents = list("nutriment" = 3, "vitamin" = 2, "blackpepper" = 1)
 	tastes = list("mexico" = 1, "salmon" = 1, "potato" = 1)

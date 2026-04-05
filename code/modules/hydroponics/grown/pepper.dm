@@ -7,7 +7,6 @@
 	species = "bellp"
 	plantname = "Bell Pepper Tree"
 	product = /obj/item/food/grown/bell_pepper
-	lifespan = 25
 	endurance = 20
 	yield = 4
 	potency = 3
