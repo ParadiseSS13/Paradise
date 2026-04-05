@@ -1,6 +1,7 @@
 #define VERM_MICE 0
 #define VERM_LIZARDS 1
 #define VERM_SPIDERS 2
+#define VERM_ISOPODS 3
 
 /datum/event/infestation
 	name = "Vermin Infestation"
@@ -53,7 +54,7 @@
 /datum/event/infestation/proc/spawn_on_turfs(list/turfs)
 	var/list/spawn_types = list()
 	var/max_number
-	vermin = rand(0, 2)
+	vermin = rand(0, 3)
 	switch(vermin)
 		if(VERM_MICE)
 			spawn_types = list(/mob/living/basic/mouse/gray, /mob/living/basic/mouse/brown, /mob/living/basic/mouse/white)
@@ -67,6 +68,10 @@
 			spawn_types = list(/mob/living/basic/spiderling)
 			max_number = 3
 			vermstring = "spiders"
+		if(VERM_ISOPODS)
+			spawn_types = list(/mob/living/basic/isopod/smol)
+			max_number = 2
+			vermstring = "isopods"
 	var/amount_to_spawn = rand(2, max_number)
 	while(length(turfs) && amount_to_spawn > 0)
 		var/turf/simulated/floor/T = pick_n_take(turfs)
@@ -95,3 +100,4 @@
 #undef VERM_MICE
 #undef VERM_LIZARDS
 #undef VERM_SPIDERS
+#undef VERM_ISOPODS

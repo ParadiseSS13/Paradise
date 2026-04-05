@@ -2629,6 +2629,7 @@
 #include "code\modules\mob\living\basic\farm_animals\deer_ai.dm"
 #include "code\modules\mob\living\basic\farm_animals\goat.dm"
 #include "code\modules\mob\living\basic\farm_animals\goose.dm"
+#include "code\modules\mob\living\basic\farm_animals\isopod.dm"
 #include "code\modules\mob\living\basic\farm_animals\pig.dm"
 #include "code\modules\mob\living\basic\farm_animals\seal.dm"
 #include "code\modules\mob\living\basic\farm_animals\turkey.dm"
