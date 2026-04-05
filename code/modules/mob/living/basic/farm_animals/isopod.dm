@@ -95,7 +95,6 @@
 	max_nutrition = 400
 
 /mob/living/basic/isopod/smol/consume(datum/source, obj/item/potential_food)
-	SIGNAL_HANDLER // COMSIG_MOB_ATE
 	var/food_reagents = potential_food.reagents.get_reagent_amount("nutriment") + potential_food.reagents.get_reagent_amount("plantmatter") + potential_food.reagents.get_reagent_amount("protein") + potential_food.reagents.get_reagent_amount("vitamin")
 	if(food_reagents < 1)
 		adjust_nutrition(2)
