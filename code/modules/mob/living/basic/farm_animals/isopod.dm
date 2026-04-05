@@ -1,7 +1,6 @@
 /mob/living/basic/isopod
 	name = "ahuitz"
 	desc = "A large isopod from Kelune that is usually kept as a ranch animal."
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "ahuitz"
 	icon_living = "ahuitz"
 	icon_dead = "ahuitz_dead"
