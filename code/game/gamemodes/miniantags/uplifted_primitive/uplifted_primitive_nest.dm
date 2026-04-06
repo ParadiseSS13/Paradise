@@ -40,6 +40,9 @@
 	/// The probability that the next spawned mob will be sentient.
 	var/sentient_probability = 5
 
+	/// Whether or not to let ghosts interact with the nest to spawn without a roll.
+	var/spawn_on_demand = FALSE
+
 /obj/structure/uplifted_primitive/nest/Initialize(mapload)
 	. = ..(mapload)
 	AddElement(/datum/element/relay_attackers)
@@ -75,15 +78,19 @@
 		if(locateUID(antag?.nest_uid) == src)
 			. += SPAN_NOTICE("<b>Alt-Click</b> to deconstruct the nest.")
 
+	if(isobserver(user))
+		. += SPAN_NOTICE("<b>Click</b> to spawn as a primitive when this nest is ready.")
+
 /obj/structure/uplifted_primitive/nest/process()
 	if(obj_integrity < max_integrity && available_scrap >= INTEGRITY_REGEN_SCRAP_COST)
 		available_scrap -= INTEGRITY_REGEN_SCRAP_COST
 		obj_integrity = min(obj_integrity + INTEGRITY_REGEN_AMOUNT, max_integrity)
 
-	if(available_scrap >= SPAWN_SCRAP_COST && available_food >= SPAWN_FOOD_COST && COOLDOWN_FINISHED(src, spawn_cooldown))
+	if(!spawn_on_demand && available_scrap >= SPAWN_SCRAP_COST && available_food >= SPAWN_FOOD_COST && COOLDOWN_FINISHED(src, spawn_cooldown))
 		COOLDOWN_START(src, spawn_cooldown, SPAWN_COOLDOWN_TIME)
 
-		if(roll_sentience() && try_spawn_uplifted())
+		var/rolled = roll_sentience()
+		if(rolled && try_spawn_uplifted())
 			available_scrap -= SPAWN_SCRAP_COST
 			available_food -= SPAWN_FOOD_COST
 			sentient_probability = initial(sentient_probability)
@@ -95,6 +102,8 @@
 				spawn_npc()
 				available_scrap -= SPAWN_SCRAP_COST
 				available_food -= SPAWN_FOOD_COST
+			else
+				spawn_on_demand = rolled
 			// accumulating probability ensures a sentient spawn occurs in a finite number of iterations
 			sentient_probability = min(sentient_probability + SPAWN_SENTIENT_PROB_INCREASE, 100)
 
@@ -119,12 +128,14 @@
 		return FALSE
 
 	var/mob/C = pick(candidates)
-	var/key = C.key
+	return incarnate_uplifted_mob(C)
 
+/obj/structure/uplifted_primitive/nest/proc/incarnate_uplifted_mob(mob/target)
+	var/key = target.key
 	if(!key)
 		return FALSE
 
-	dust_if_respawnable(C)
+	dust_if_respawnable(target)
 
 	var/datum/mind/player_mind = new /datum/mind(key)
 	var/mob/living/carbon/human/primitive = new(get_turf(src), nest_species)
@@ -134,7 +145,6 @@
 	player_mind.add_antag_datum(/datum/antagonist/uplifted_primitive)
 
 	visible_message(SPAN_NOTICE("[primitive.name] emerges out of the nest with a curious look!"))
-
 	return TRUE
 
 /// Returns the number of mobs currently contributing to the spawn limit.
@@ -158,6 +168,24 @@
 			count -= SPAWN_EXTRA_NEST_MOBS
 
 	return count
+
+/obj/structure/uplifted_primitive/nest/attack_ghost(mob/dead/observer/user)
+	if(..() || !istype(user))
+		return TRUE
+
+	if(spawn_on_demand \
+	&& available_scrap >= SPAWN_SCRAP_COST \
+	&& available_food >= SPAWN_FOOD_COST \
+	&& COOLDOWN_FINISHED(src, spawn_cooldown))
+		if(tgui_alert(user, "Are you sure you want to spawn as an uplifted primitive?", "Are you sure?", list("Yes", "No")) != "Yes")
+			return
+		incarnate_uplifted_mob(user)
+		available_scrap -= SPAWN_SCRAP_COST
+		available_food -= SPAWN_FOOD_COST
+		sentient_probability = initial(sentient_probability)
+		spawn_on_demand = FALSE
+	else
+		to_chat(user, SPAN_WARNING("This nest is not ready to spawn another primitive!"))
 
 /obj/structure/uplifted_primitive/nest/AltClick(mob/user, modifiers)
 	var/datum/antagonist/uplifted_primitive/antag = user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive)
