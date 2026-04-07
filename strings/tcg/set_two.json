@@ -1,0 +1,403 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_2"
+		},
+		{
+			"template": "syndicate",
+			"cardtype": "Unit",
+			"series": "pack_1",
+			"faction": "Syndicate"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_2"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_2"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_2"
+		}
+	],
+	"cards": [
+		{
+			"template": "syndicate",
+			"id": "syndicate_operative",
+			"name": "Syndicate Operative",
+			"desc": "",
+			"icon_state": "syndie_op",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "nuclear_operative",
+			"name": "Nuclear Operative",
+			"desc": "",
+			"icon_state": "nuke_op",
+			"rarity": "Rare",
+			"level": "6",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "jaegar",
+			"name": "Jaeger MODsuit Agent",
+			"desc": "",
+			"icon_state": "jaegar",
+			"rarity": "Rare",
+			"level": "7",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "dark_gygax",
+			"name": "Dark Gygax",
+			"desc": "",
+			"icon_state": "dark_gygax",
+			"rarity": "Uncommon",
+			"level": "8",
+			"attack": "",
+			"defense": "",
+			"effect": "Must be Special Summoned. Requires a Nuclear Operative and another Syndicate Unit to summon.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "mauler",
+			"name": "Mauler",
+			"desc": "",
+			"icon_state": "mauler",
+			"rarity": "Rare",
+			"level": "8",
+			"attack": "",
+			"defense": "",
+			"effect": "Must be Special Summoned. Requires a Nuclear Operative and another Syndicate Unit to summon.",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "emag",
+			"name": "Cryptographic Sequencer",
+			"desc": "",
+			"icon_state": "emag",
+			"rarity": "Common",
+			"effect": ""
+		},
+		{
+			"template": "item_single",
+			"id": "advanced_pinpointer",
+			"name": "Advanced Pinpointer",
+			"desc": "",
+			"icon_state": "advanced_pinpointer",
+			"rarity": "Uncommon",
+			"effect": "Search your deck for an Item card and add it to your hand. You may reveal your chosen card to your opponent."
+		},
+		{
+			"template": "item_continuous",
+			"id": "esword",
+			"name": "Energy Sword",
+			"desc": "",
+			"icon_state": "esword",
+			"rarity": "Common",
+			"effect": "When activated, choose a Unit you control. It gains 500 ATK while this card is on the field."
+		},
+		{
+			"template": "syndicate",
+			"id": "honk_operative",
+			"name": "HONK Operative",
+			"desc": "",
+			"icon_state": "honk_operative",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "When targeted by an enemy attack, flip a coin. If heads, negate that attack and switch the attacking Unit to Defense Position.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "dark_lord",
+			"name": "Dark Lord",
+			"desc": "Dark Lord",
+			"icon_state": "dark_lord",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "During your Battle Phase, flip a coin. If heads, you can attack twice.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "sniper",
+			"name": "Sniper",
+			"desc": "",
+			"icon_state": "sniper",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "During your Main Phase, choose a Unit your opponent controls. If none of your opponent's Units do not attack during their next Battle Phase, destroy the chosen Unit.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "mediborg",
+			"name": "Syndicate Medical Cyborg",
+			"desc": "",
+			"icon_state": "mediborg",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "Once per turn you may either: Flip a coin when a Syndicate faction Unit card is targeted for an attack. If heads, negate that attack. OR, you may send a Syndicate faction card from the Morgue to your Deck.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "engiborg",
+			"name": "Syndicate Saboteur Cyborg",
+			"desc": "",
+			"icon_state": "",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "This Unit is also considered an Engineering Cyborg.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "clown",
+			"name": "...Clown?",
+			"desc": "",
+			"icon_state": "clown",
+			"rarity": "common",
+			"level": "2",
+			"attack": "",
+			"defense": "",
+			"effect": "When targeted by an enemy attack or effect, flip a coin. If heads, negate that attack or effect.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "harbringer",
+			"name": "Syndicate Harbringer",
+			"desc": "",
+			"icon_state": "harbringer",
+			"rarity": "Legendary",
+			"level": "8",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "headslug",
+			"name": "Headslug",
+			"desc": "",
+			"icon_state": "headslug",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "250",
+			"defense": "200",
+			"effect": "When sent to the Morgue by Battle, mark this card DNR. If possible, search your Deck for a Monkey card and add it to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "changeling",
+			"name": "Changeling",
+			"desc": "",
+			"icon_state": "changeling",
+			"rarity": "Uncommon",
+			"level": "5",
+			"attack": "",
+			"defense": "",
+			"effect": "Must be Special Summoned by using a Headslug or Monkey. When this card is destroyed by battle, flip a coin. If heads, add a Headslug from the DNR deck or your Deck to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "lesser_form",
+			"name": "Lesser Form",
+			"desc": "",
+			"icon_state": "lessser_form",
+			"rarity": "Rare",
+			"effect": "At any point during either player's turn, you may play this card from your hand. Send a Changeling you control back to your hand and Special Summon a Monkey from your Hand or Deck in its place."
+		},
+		{
+			"template": "item_continuous",
+			"id": "chitinous_armor",
+			"name": "Chitinous Armor",
+			"desc": "",
+			"icon_state": "chit_armor",
+			"rarity": "Rare",
+			"effect": "Target a Changeling Unit you control. It gains 500 DEF while this card is on the field."
+		},
+		{
+			"template": "item_continuous",
+			"id": "armblade",
+			"name": "Armblade",
+			"desc": "",
+			"icon_state": "armblade",
+			"rarity": "Rare",
+			"effect": "Target a Changeling Unit you control. It gains 500 ATK while this card is on the field."
+		},
+		{
+			"template": "item_single",
+			"id": "spread_infestation",
+			"name": "Spread Infestation",
+			"desc": "",
+			"icon_state": "spread_infestation",
+			"rarity": "Rare",
+			"effect": "If you control a Changeling Unit, Special Summon a 'Spider' card from your Hand or Deck."
+		},
+		{
+			"template": "syndicate",
+			"id": "cybersun_trader",
+			"name": "Cybersun Trader",
+			"desc": "",
+			"icon_state": "cybersun_trader",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "sst",
+			"name": "Syndicate Strike Team Operative",
+			"desc": "",
+			"icon_state": "sst",
+			"rarity": "Legendary",
+			"level": "7",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "macrobomb",
+			"name": "Macrobomb Biochip",
+			"desc": "",
+			"icon_state": "macrobomb",
+			"rarity": "Uncommon",
+			"effect": "When one of your Syndicate faction cards is destroyed by Battle, target a Unit of equal or lower Level and destroy it."
+		},
+		{
+			"template": "syndicate",
+			"id": "ninja",
+			"name": "Space Ninja",
+			"desc": "",
+			"icon_state": "ninja",
+			"rarity": "Rare",
+			"level": "5",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "ninja_mod",
+			"name": "Space Ninja (MODSuit)",
+			"desc": "",
+			"icon_state": "ninja_Mod",
+			"rarity": "Rare",
+			"level": "6",
+			"attack": "",
+			"defense": "",
+			"effect": "Must be Special Summoned by using a Space Ninja.",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "syndicat",
+			"name": "Syndicat",
+			"desc": "",
+			"icon_state": "syndicat",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "syndicate",
+			"id": "syndifox",
+			"name": "Syndifox",
+			"desc": "",
+			"icon_state": "syndifox",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "syndicate_teleporter",
+			"name": "Syndicate Teleporter",
+			"desc": "",
+			"icon_state": "",
+			"rarity": "Rare",
+			"effect": "You may play this card when a Unit you control is targeted for an attack or during your Main Phase. Flip a coin. If heads, move your targeted unit to another spot on your field and negate the attack. If tails, send the Unit to the Morgue."
+		},
+		{
+			"template": "item_single",
+			"id": "syndicate_recruitment",
+			"name": "Syndicate Recruitment",
+			"desc": "",
+			"icon_state": "",
+			"rarity": "Common",
+			"effect": "When this card is activated, search your Deck for 1 to 3 'Syndicate Operatives' and add them to your hand."
+		},
+		{
+			"template": "item_single",
+			"id": "gorlex_funding",
+			"name": "Gorlex Funding",
+			"desc": "",
+			"icon_state": "gorlex_funding",
+			"rarity": "Uncommon",
+			"effect": "Search your deck for a 'Nuclear Operative' or 'Jaeger MODsuit Agent' and add it to your hand."
+		},
+		{
+			"template": "item_single",
+			"id": "war_declaration",
+			"name": "War Declaration",
+			"desc": "",
+			"icon_state": "",
+			"rarity": "Rare",
+			"effect": "If your opponent controls more Units than you, Special Summon a 'Nuclear Operative' or 'Jaeger MODsuit Agent' card from your hand."
+		}
+	]
+}

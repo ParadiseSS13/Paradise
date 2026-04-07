@@ -1,21 +1,22 @@
+#warn add the booster boxes to cargo
+#warn add the new pack to the vendor
+#warn make deck boxes
+#warn make premade decks
+
 #define ROTATED_ANGLE 90
 #define UNROTATED_ANGLE 0
 
-// Need a TCG coin or two to replace the gold one that can be dropped. Make it shrink like the cards/packs
-
 /datum/tcg_card
+	var/id = "coder"
 	var/name = "Chrono Legionnare"
 	var/desc = "You shouldn't be seeing this. You should ahelp this!"
+	var/level = INFINITY
+	var/attack = INFINITY
+	var/defense = INFINITY
+	var/icon = DEFAULT_TCG_DMI_ICON
 	var/icon_state = "chrono"
-	var/pack = 'icons/obj/tcg/pack1.dmi'
-
-	// This will be probably implemented.... sometime.
-	// var/health = 0
-	// var/attack = 0
-	// var/mana = 0
-
-	var/faction = "Coderbus"
 	var/rarity = "Unobtainable"
+	var/faction = "Coderbus"
 	var/card_type = "Unit"
 
 	var/obj/item/tcg_card/card
@@ -30,27 +31,34 @@
 	return
 
 /obj/item/tcg_card
-	name = "trading card"
-	desc = "A flipped trading card."
-	icon_state = "cardback"
-	icon = 'icons/obj/tcg/pack1.dmi'
-	new_attack_chain = TRUE
-	var/datum_type = /datum/tcg_card
-	var/datum/tcg_card/card_datum
+	var/id = ""
+	var/series = ""
 	var/flipped = FALSE
 	var/rotated = FALSE
-
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
+	/// Whether or not a card was either spawned in/bought from an uplink.
+	var/illegal = FALSE
 
 /obj/item/tcg_card/examine(mob/user)
 	. = ..()
 	if(flipped)
 		return
-
-	. += ""
-	. += "This card has the following stats:"
-	. += "Rarity: [card_datum.rarity]"
-	. += "Card Type: [card_datum.card_type]"
+	var/datum/card/data = extract_datum()
+	if(!data)
+		return
+	. += "Faction: [data.faction] | Rarity: [data.rarity]"
+	. += "Type: [data.cardtype][data.cardsubtype ? " — [data.cardsubtype]" : ""]"
+	if(data.cardtype == "Unit")
+		. += "Level: [data.level] | ATK: [data.attack] / DEF: [data.defense]"
+	if(data.effect)
+		. += "<i>[data.effect]</i>"
+	. += "Rarity: [data.rarity]"
+	. += "Type: [data.cardtype]"
+	if(data.rules)
+		. += "Effect: [data.rules]"
+	if(illegal)
+		. += "<span class='warning'>This card is a low-quality copy. You surely won't get any respect from this card.</span>"
 
 /obj/item/tcg_card/equipped(mob/user, slot, initial)
 	. = ..()
@@ -70,16 +78,18 @@
 		flipped = TRUE
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/tcg_card/New(loc, new_datum)
+/obj/item/tcg_card/New(loc, new_series, new_id, new_illegal = FALSE)
 	. = ..()
-
-	if(new_datum)
-		datum_type = new_datum
-	card_datum = new datum_type
-	icon = card_datum.pack
-	icon_state = card_datum.icon_state
-	name = card_datum.name
-	desc = card_datum.desc
+	series = new_series
+	id = new_id
+	illegal = new_illegal
+	var/datum/card/data = extract_datum()
+	if(!data)
+		return
+	name = data.name
+	desc = "<i>[data.desc]</i>"
+	icon = data.icon
+	icon_state = data.icon_state
 
 /obj/item/tcg_card/attack_hand(mob/user)
 	var/list/choices = list(
@@ -98,21 +108,19 @@
 				name = "Battles of Orion card"
 				desc = "A flipped Battles of Orion-branded card."
 			else
-				name = card_datum.name
-				desc = card_datum.desc
-				icon_state = card_datum.icon_state
+				var/datum/card/data = extract_datum()
+				if(data)
+					name = data.name
+					desc = "<i>[data.desc]</i>"
+					icon_state = data.icon_state
 		if("Rotate")
 			var/matrix/ntransform = matrix(transform)
 			if(rotated)
-				ntransform.TurnTo(ROTATED_ANGLE , UNROTATED_ANGLE)
+				ntransform.TurnTo(ROTATED_ANGLE, UNROTATED_ANGLE)
 			else
-				ntransform.TurnTo(UNROTATED_ANGLE , ROTATED_ANGLE)
+				ntransform.TurnTo(UNROTATED_ANGLE, ROTATED_ANGLE)
 			rotated = !rotated
 			animate(src, transform = ntransform, time = 2, easing = (EASE_IN|EASE_OUT))
-			if(rotated)
-				card_datum.Rotate(user)
-			else
-				card_datum.Unrotate(user)
 
 /obj/item/tcg_card/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/tcg_card))
@@ -160,11 +168,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	new_attack_chain = TRUE
 	/// The card series to look through
-	var/list/series = list(/datum/tcg_card/pack_1)
+	var/list/series
 	/// The chance there will be a coin in the pack
 	var/contains_coin = -1
 	/// The amount of cards you draw
-	var/card_count = 5
+	var/card_count = 6
+	/// Whether or not all cards from a series is dropped
+	var/drop_all_cards = FALSE
 	/// The rarity table
 	var/list/rarity_table = list(
 		"Common" = 900,
@@ -184,8 +194,28 @@
 /obj/item/cardpack/series_one
 	name = "Battles of Orion: Series 1"
 	desc = "Contains five cards from the Series 1 of Battles of Orion! Collect them all!"
-	series = list(/datum/tcg_card/pack_1)
+	series = "pack_1"
+	contains_coin = 10 // there's a 10% a coin is included in the pack
+
+/obj/item/cardpack/series_one_deluxe
+	name = "Battles of Orion: Series 1 DELUXE"
+	desc = "A limited edition pack that contains EVERY card in Series 1. Contact your local Administrator or Developer if you find this!"
+	series = "pack_1"
+	contains_coin = 100
+	drop_all_cards = TRUE
+
+/obj/item/cardpack/series_two
+	name = "Battles of Orion: Series 2"
+	desc = "Contains six cards straight from Donk Co.! Don't ask how Donk made the cards so accurate."
+	series = "pack_2"
 	contains_coin = 10
+
+/obj/item/cardpack/series_two_deluxe
+	name = "Battles of Orion: Series 2 DELUXE"
+	desc = "A limited edition pack that contains EVERY card in Series 2. Contact your local Administrator or Developer if you find this!"
+	series = "pack_2"
+	contains_coin = 100
+	drop_all_cards = TRUE
 
 /obj/item/cardpack/equipped(mob/user, slot, initial)
 	. = ..()
@@ -199,11 +229,20 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
-	var/list/cards = buildCardListWithRarity(card_count, guaranteed_count)
-	var/obj/item/tcgcard_hand/hand = new(get_turf(user))
+	var/list/cards
+	if(drop_all_cards)
+		var/list/all_cards = SStrading_card_game.cached_cards[series]["ALL"]
+		if(!all_cards)
+			to_chat(user, "<span class='warning'>No cards found for series [series]!</span>")
+			qdel(src)
+			return ITEM_INTERACT_COMPLETE
+		cards = all_cards
+	else
+		cards = buildCardListWithRarity(card_count, guaranteed_count)
 
-	for(var/template in cards)
-		var/obj/item/tcg_card/card = new(hand, template)
+	var/obj/item/tcgcard_hand/hand = new(get_turf(user))
+	for(var/id in cards)
+		var/obj/item/tcg_card/card = new(hand, series, id, drop_all_cards)
 		hand.cards.Add(card)
 	user.put_in_hands(hand)
 	hand.update_icon()
@@ -212,44 +251,25 @@
 	if(prob(contains_coin))
 		to_chat(user, "<span_class='notice'>...and it came with a flipper, too!</span>")
 		new /obj/item/coin/thunderdome(get_turf(user))
-	// new rulebook goes here
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/cardpack/proc/buildCardListWithRarity(card_cnt, rarity_cnt)
 	var/list/return_cards = list()
-
-	var/list/cards = list()
-	for(var/card_type in series)
-		for(var/card in subtypesof(card_type))
-			var/datum/tcg_card/new_card = new card()
-			if(new_card.name == "Chrono Legionnare")
-				continue
-			cards.Add(card)
-			qdel(new_card)
-	var/list/possible_cards = list()
-	var/list/rarity_cards = list("Legendary" = list(),"Rare" = list(),"Uncommon" = list(),"Common" = list())
-	for(var/card in cards)
-		var/datum/tcg_card/new_card = new card()
-		if(new_card.name == "Stupid Coder")
-			continue
-		possible_cards[card] = rarity_table[new_card.rarity]
-		var/list/rarity_card_type = rarity_cards[new_card.rarity]
-		if(!rarity_card_type)
-			rarity_card_type = list()
-		rarity_card_type.Add(card)
-		rarity_cards[new_card.rarity] = rarity_card_type
-		qdel(new_card)
-
-	for(var/card_counter = 1 to card_count)
-		var/cardtype = pickweight(possible_cards)
-		return_cards.Add(cardtype)
-
-	for(var/card_counter = 1 to guaranteed_count)
-		var/card_list = pickweight(guar_rarity)
-		return_cards.Add(pick(rarity_cards[card_list]))
-
+	return_cards += returnCardsByRarity(rarity_cnt, guar_rarity)
+	return_cards += returnCardsByRarity(card_cnt, rarity_table)
 	return return_cards
+
+/obj/item/cardpack/proc/returnCardsByRarity(count, list/table)
+	var/list/result = list()
+	for(var/i in 1 to count)
+		var/rarity = pickweight(table)
+		var/list/cards = SStrading_card_game.cached_cards[series][rarity]
+		if(cards && length(cards))
+			result += pick(cards)
+		else
+			CRASH("No cards found for rarity [rarity] in series [series]")
+	return result
 
 /obj/item/tcgcard_deck
 	name = "Trading Card Deck"
@@ -342,6 +362,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
+
 	shuffle_deck(user)
 	return ITEM_INTERACT_COMPLETE
 
@@ -391,7 +412,7 @@
 	name = "Card Hand"
 	desc = "A hand full of Battle of Orion cards."
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "nothing"
+	icon_state = "runtime"
 	w_class = WEIGHT_CLASS_TINY
 	new_attack_chain = TRUE
 	var/list/cards = list()
@@ -427,6 +448,14 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(loc != user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(length(cards) == 1)
+		var/obj/item/tcg_card/last_card = cards[1]
+		last_card.forceMove(get_turf(src))
+		user.put_in_hands(last_card)
+		cards.Remove(last_card)
+		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
 	var/list/choices = list()
