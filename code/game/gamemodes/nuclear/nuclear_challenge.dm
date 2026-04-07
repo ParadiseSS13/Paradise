@@ -60,7 +60,7 @@
 
 	// No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
 	total_tc = CHALLENGE_TELECRYSTALS + round(((length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS)
-	if(length(GLOB.nuclear_uplink_list == 1)) // Solo ops
+	if(length(GLOB.nuclear_uplink_list) == 1) // Solo ops
 		total_tc = total_tc / 5
 	share_telecrystals()
 	SSshuttle.refuel_delay = CHALLENGE_SHUTTLE_DELAY
@@ -86,7 +86,7 @@
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
 		return FALSE
-	if(length((get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) < CHALLENGE_MIN_PLAYERS) && GLOB.nuclear_uplink_list > 1) // If there's only one uplink, there's only one nukie.
+	if((length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) < CHALLENGE_MIN_PLAYERS) && length(GLOB.nuclear_uplink_list) > 1) // If there's only one uplink, there's only one nukie.
 		to_chat(user, "The enemy crew is too small to be worth declaring war on.")
 		return FALSE
 	if(!is_admin_level(user.z))
