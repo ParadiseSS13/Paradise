@@ -2254,6 +2254,7 @@
 #include "code\modules\events\brand_intelligence.dm"
 #include "code\modules\events\bureaucratic_error.dm"
 #include "code\modules\events\camera_failure.dm"
+#include "code\modules\events\cargo_pods_event.dm"
 #include "code\modules\events\carp_migration.dm"
 #include "code\modules\events\clogged_disposals.dm"
 #include "code\modules\events\communications_blackout.dm"
