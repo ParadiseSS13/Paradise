@@ -75,6 +75,9 @@
 
 	var/datum/spell/offense = pick(offense_spells)
 	new_wiz.mind.AddSpell(new offense(null))
+	if(istype(offense, /datum/spell/sacred_flame))
+		ADD_TRAIT(new_wiz, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+		ADD_TRAIT(new_wiz, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 
 	var/datum/spell/defense = pick(defense_spells)
 	new_wiz.mind.AddSpell(new defense(null))
