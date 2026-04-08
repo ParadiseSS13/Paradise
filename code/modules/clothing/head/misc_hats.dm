@@ -462,7 +462,6 @@
 	desc = "This cone is trying to warn you of something!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cone"
-	force = 0
 	throwforce = 3.0
 	throw_range = 5
 	attack_verb = list("warned", "cautioned", "smashed")
