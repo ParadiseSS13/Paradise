@@ -102,8 +102,6 @@
 
 	for(var/obj/effect/landmark/spawner/syndie/S in GLOB.landmarks_list)
 		synd_spawn += get_turf(S)
-		qdel(S)
-		continue
 
 	var/obj/machinery/nuclearbomb/syndicate/the_bomb
 	var/nuke_code = rand(10000, 99999)
