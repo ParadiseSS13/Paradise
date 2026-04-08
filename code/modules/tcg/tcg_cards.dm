@@ -1,7 +1,12 @@
-#warn add the booster boxes to cargo
+#warn make a vendor for the cardpacks
+#warn add the booster boxes to said vendor
 #warn add the new pack to the vendor
 #warn make deck boxes
 #warn make premade decks
+#warn add deck searching functionality
+#warn make card values able to be changed
+#warn using a card in hand flips it over
+#warn make card pack loot spawner and put it in maint
 
 #define ROTATED_ANGLE 90
 #define UNROTATED_ANGLE 0
@@ -46,15 +51,15 @@
 		return
 	var/datum/card/data = extract_datum()
 	if(!data)
-		return
-	. += "Faction: [data.faction] | Rarity: [data.rarity]"
+		CRASH("Missing card datum for [series]/[id]")
+
+	. += "Rarity: [data.rarity]"
 	. += "Type: [data.cardtype][data.cardsubtype ? " — [data.cardsubtype]" : ""]"
 	if(data.cardtype == "Unit")
-		. += "Level: [data.level] | ATK: [data.attack] / DEF: [data.defense]"
+		. += "Level: [data.level] | ATK: [data.attack] /  DEF: [data.defense]"
+		. += "Faction: [data.faction]"
 	if(data.effect)
 		. += "<i>[data.effect]</i>"
-	. += "Rarity: [data.rarity]"
-	. += "Type: [data.cardtype]"
 	if(data.rules)
 		. += "Effect: [data.rules]"
 	if(illegal)
@@ -148,7 +153,7 @@
 
 	if(istype(used, /obj/item/tcgcard_deck))
 		var/obj/item/tcgcard_deck/old_deck = used
-		if(length(old_deck.contents) >= 30)
+		if(length(old_deck.contents) >= 35)
 			to_chat(user, "<span class='notice'>This pile has too many cards for a regular deck!</span>")
 			return ITEM_INTERACT_COMPLETE
 		user.unequip(src)
@@ -191,10 +196,10 @@
 		"Legendary" = 1
 	)
 
-/obj/item/cardpack/series_one
-	name = "Battles of Orion: Series 1"
+/obj/item/cardpack/series_command
+	name = "Battles of Orion: Commendable Command"
 	desc = "Contains five cards from the Series 1 of Battles of Orion! Collect them all!"
-	series = "pack_1"
+	series = "pack_command"
 	contains_coin = 10 // there's a 10% a coin is included in the pack
 
 /obj/item/cardpack/series_one_deluxe
@@ -205,7 +210,7 @@
 	drop_all_cards = TRUE
 
 /obj/item/cardpack/series_two
-	name = "Battles of Orion: Series 2"
+	name = "Battles of Orion: Syndicate Synergies"
 	desc = "Contains six cards straight from Donk Co.! Don't ask how Donk made the cards so accurate."
 	series = "pack_2"
 	contains_coin = 10
@@ -412,7 +417,7 @@
 	name = "Card Hand"
 	desc = "A hand full of Battle of Orion cards."
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "runtime"
+	icon_state = "nothing"
 	w_class = WEIGHT_CLASS_TINY
 	new_attack_chain = TRUE
 	var/list/cards = list()

@@ -75,13 +75,6 @@
 	cost = 200
 	category = MERCH_CAT_TOY
 
-/datum/merch_item/tcg/series_one
-	name = "Battles of Orion: Series 1"
-	desc = "The brand-new trading card game on the scene with all your favorite Nanotrasen employees!"
-	typepath = /obj/item/cardpack/series_one
-	cost = 100
-	category = MERCH_CAT_TOY
-
 /datum/merch_item/katana
 	name = "Replica Katana"
 	desc = "Woefully underpowered in D20."

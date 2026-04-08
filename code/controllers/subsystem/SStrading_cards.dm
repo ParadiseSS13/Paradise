@@ -4,12 +4,12 @@ SUBSYSTEM_DEF(trading_card_game)
 	/// Base directory for all related string files
 	var/card_directory = "strings/tcg"
 	/// List of card files to load
-	var/list/card_files = list("set_one.json", "set_two.json")
+	var/list/card_files = list("set_command.json", "set_engineering.json")
 	/// List of keyword files
 	/// These allow you to add on hovor logic to parts of a card's text, displaying extra info
 	var/list/keyword_files = list("keywords.json")
 	/// What cardpack types to load
-	var/card_packs = list(/obj/item/cardpack/series_one)
+	var/card_packs = list(/obj/item/cardpack/series_command, /obj/item/cardpack/series_two)
 	var/list/cached_guar_rarity = list()
 	var/list/cached_rarity_table = list()
 	/// List of all cards by series, with cards cached by rarity to make those lookups faster
@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(trading_card_game)
 	var/desc = "A placeholder card."
 	var/rules = ""
 	var/effect = ""
-	var/icon = 'icons/obj/tcg/pack1.dmi'
+	var/icon = 'icons/runtime/tcg/default.dmi'
 	var/icon_state = "cardback"
 	var/level
 	var/attack = 0
@@ -220,6 +220,9 @@ SUBSYSTEM_DEF(trading_card_game)
 
 /datum/card/proc/apply(list/data)
 	for(var/varname in (data & vars))
+		if(varname == "icon")
+			vars[varname] = icon(data[varname])
+			continue
 		vars[varname] = data[varname]
 
 /datum/card/proc/applyTemplates(list/data, list/templates = list())

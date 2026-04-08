@@ -1,0 +1,131 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_command"
+		},
+		{
+			"template": "command",
+			"cardtype": "Unit",
+			"series": "pack_command",
+			"faction": "Command"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_command"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_command"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_command"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "captain",
+			"name": "Captain",
+			"desc": "The head of every Nanotrasen space station who spends most of their shift delegating and protecting the disk.",
+			"icon_state": "captain",
+			"rarity": "Rare",
+			"level": "7",
+			"attack": "",
+			"effect": "Must be Special Summoned by using a Command faction card along with a card of a different faction. Once per turn, choose a Unit you control. It gains 200 ATK for each different faction you control until the end of the turn.",
+			"rules": ""
+		},
+		{
+			"template": "command",
+			"id": "renault",
+			"name": "Renault",
+			"desc": "The Captain's trusty pet fox who spends most shifts walking around aimlessly in the Captain's Office.",
+			"icon_state": "renault",
+			"rarity": "Rare",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "command",
+			"id": "ntr",
+			"name": "Nanotrasen Representative",
+			"desc": "Hired as an advisory for station's command members, Nanotrasen Representatives ensure Standard Operating Procedure is followed.",
+			"icon_state": "ntr",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "While this card is face-up, each Command Unit you control gains 300 ATK.",
+			"rules": ""
+		},
+		{
+			"template": "command",
+			"id": "blueshield",
+			"name": "Blueshield",
+			"desc": "Hailing from a specialized training branch, Blueshields are hired to protect and ensure the safety of the Captain and other Heads of Staff.",
+			"icon_state": "blueshield",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "If one of your Command Units are attacked by your opponent, you may Special Summon this card in Defense Position.",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "fax",
+			"name": "Strongly Worded Fax",
+			"desc": "Sometimes you just gotta report things to your higher-ups.",
+			"icon_state": "fax",
+			"rarity": "Uncommon",
+			"effect": ""
+		},
+		{
+			"template": "item_continuous",
+			"id": "command_headset",
+			"name": "Command Headset",
+			"desc": "A headset with the ability to hear the illustrious Command channel.",
+			"icon_state": "command_headset",
+			"rarity": "Common",
+			"effect": "Once during your turn, you may look at the top card of your deck. If it is a Command Unit, add it to your hand. If not, place it back on the top of your deck."
+		},
+		{
+			"template": "item_continuous",
+			"id": "nad",
+			"name": "Nuclear Authentication Disk",
+			"desc": "A highly sought out disk containing unique cryptographic data, the Nuclear Authentication Disk is used to detonate nuclear fission devices.",
+			"icon_state": "nad",
+			"rarity": "Uncommon",
+			"effect": "While this card is on the field and you control a Command Unit, your opponent may not Special Summon a Unit that is Level 6 or higher. If this card is destroyed, your opponent draws 2 cards."
+		},
+		{
+			"template": "item_single",
+			"id": "ert_call",
+			"name": "ERT Call",
+			"desc": "When on-station personnel are not able to handle the happenings of the station, Central Command may elect to send some extra hands.",
+			"icon_state": "ert_call",
+			"rarity": "Common",
+			"effect": ""
+		},
+		{
+			"template": "item_single",
+			"id": "staff_meeting",
+			"name": "Head of Staff Meeting",
+			"desc": "I'm really sure the Captain has something REALLY important to tell us when they interrupt our work.",
+			"icon_state": "staff_meetings",
+			"rarity": "Common",
+			"effect": "Search your deck for at most a Command Unit, Special Summon it, and then shuffle your deck."
+		}
+	]
+}

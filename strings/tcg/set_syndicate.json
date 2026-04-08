@@ -2,13 +2,13 @@
 	"templates": [
 		{
 			"template": "default",
-			"cardtype": "Unit",
-			"series": "pack_2"
+			"series": "pack_2",
+			"icon": "icons/runtime/tcg/pack2.dmi"
 		},
 		{
 			"template": "syndicate",
 			"cardtype": "Unit",
-			"series": "pack_1",
+			"series": "pack_2",
 			"faction": "Syndicate"
 		},
 		{
@@ -146,7 +146,7 @@
 			"level": "3",
 			"attack": "",
 			"defense": "",
-			"effect": "During your Battle Phase, flip a coin. If heads, you can attack twice.",
+			"effect": "After Dark Lord has completed an attack, flip a coin. If heads, you can attack twice.",
 			"rules": ""
 		},
 		{
@@ -194,7 +194,7 @@
 			"name": "...Clown?",
 			"desc": "",
 			"icon_state": "clown",
-			"rarity": "common",
+			"rarity": "Common",
 			"level": "2",
 			"attack": "",
 			"defense": "",
@@ -224,7 +224,7 @@
 			"level": "3",
 			"attack": "250",
 			"defense": "200",
-			"effect": "When sent to the Morgue by Battle, mark this card DNR. If possible, search your Deck for a Monkey card and add it to your hand.",
+			"effect": "When this card is sent to the Morgue by Battle, mark this card DNR. If possible, search your Deck for a Monkey card and add it to your hand.",
 			"rules": ""
 		},
 		{
@@ -245,7 +245,7 @@
 			"id": "lesser_form",
 			"name": "Lesser Form",
 			"desc": "",
-			"icon_state": "lessser_form",
+			"icon_state": "lesser_form",
 			"rarity": "Rare",
 			"effect": "At any point during either player's turn, you may play this card from your hand. Send a Changeling you control back to your hand and Special Summon a Monkey from your Hand or Deck in its place."
 		},
@@ -329,7 +329,7 @@
 			"id": "ninja_mod",
 			"name": "Space Ninja (MODSuit)",
 			"desc": "",
-			"icon_state": "ninja_Mod",
+			"icon_state": "ninja_mod",
 			"rarity": "Rare",
 			"level": "6",
 			"attack": "",
@@ -368,7 +368,7 @@
 			"id": "syndicate_teleporter",
 			"name": "Syndicate Teleporter",
 			"desc": "",
-			"icon_state": "",
+			"icon_state": "syndicate_teleporter",
 			"rarity": "Rare",
 			"effect": "You may play this card when a Unit you control is targeted for an attack or during your Main Phase. Flip a coin. If heads, move your targeted unit to another spot on your field and negate the attack. If tails, send the Unit to the Morgue."
 		},
@@ -377,15 +377,15 @@
 			"id": "syndicate_recruitment",
 			"name": "Syndicate Recruitment",
 			"desc": "",
-			"icon_state": "",
+			"icon_state": "syndicate_recruitment",
 			"rarity": "Common",
-			"effect": "When this card is activated, search your Deck for 1 to 3 'Syndicate Operatives' and add them to your hand."
+			"effect": "When this card is activated, search your Deck for 1 'Syndicate Operative' and add it to your hand."
 		},
 		{
 			"template": "item_single",
 			"id": "gorlex_funding",
 			"name": "Gorlex Funding",
-			"desc": "",
+			"desc": "gorlex_funding",
 			"icon_state": "gorlex_funding",
 			"rarity": "Uncommon",
 			"effect": "Search your deck for a 'Nuclear Operative' or 'Jaeger MODsuit Agent' and add it to your hand."
@@ -395,7 +395,7 @@
 			"id": "war_declaration",
 			"name": "War Declaration",
 			"desc": "",
-			"icon_state": "",
+			"icon_state": "war_declaration",
 			"rarity": "Rare",
 			"effect": "If your opponent controls more Units than you, Special Summon a 'Nuclear Operative' or 'Jaeger MODsuit Agent' card from your hand."
 		}

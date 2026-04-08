@@ -6,12 +6,6 @@
 			"series": "pack_1"
 		},
 		{
-			"template": "command",
-			"cardtype": "Unit",
-			"series": "pack_1",
-			"faction": "Command"
-		},
-		{
 			"template": "engineering",
 			"cardtype": "Unit",
 			"series": "pack_1",
@@ -75,31 +69,6 @@
 	"cards": [
 		{
 			"template": "command",
-			"id": "captain",
-			"name": "Captain",
-			"desc": "The head of every Nanotrasen space station who spends most of their shift delegating and protecting the disk.",
-			"icon_state": "captain",
-			"rarity": "Rare",
-			"level": "7",
-			"attack": "",
-			"effect": "",
-			"rules": ""
-		},
-		{
-			"template": "command",
-			"id": "renault",
-			"name": "Renault",
-			"desc": "The Captain's trusty pet fox who spends most shifts walking around aimlessly in the Captain's Office.",
-			"icon_state": "renault",
-			"rarity": "Rare",
-			"level": "4",
-			"attack": "",
-			"defense": "",
-			"effect": "",
-			"rules": ""
-		},
-		{
-			"template": "command",
 			"id": "ce",
 			"name": "Chief Engineer",
 			"desc": "The head of the engineering department and the one who ensures the station runs smoothly. Most of them fail at this.",
@@ -121,7 +90,7 @@
 			"level": "6",
 			"attack": "",
 			"defense": "",
-			"effect": "",
+			"effect": "Once per turn, you may target one Unit you control. Shuffle that Unit into your deck and pick a card of a different Faction to put in your hand",
 			"rules": ""
 		},
 		{
