@@ -158,12 +158,11 @@
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "c_tube"
 	hitsound = 'sound/items/cardboard_tube.ogg'
-	throwforce = 1
-	force = 1
 	attack_verb = list("bonked", "thunked")
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 5
+	var/zero_damage_hitsound = TRUE
 
 /obj/item/c_tube/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	qdel(src)
