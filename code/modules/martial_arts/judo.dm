@@ -30,6 +30,7 @@
 		/obj/item/holosign_creator/security,
 		/obj/item/holosign_creator/detective,
 		/obj/item/restraints/legcuffs/bola,
+		/obj/item/fine_scanner,
 		/obj/item/detective_scanner)
 
 /obj/item/storage/belt/judobelt/update_weight()

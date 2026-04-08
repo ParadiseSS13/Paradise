@@ -2234,6 +2234,7 @@
 #include "code\modules\economy\economy_machinery\atm.dm"
 #include "code\modules\economy\economy_machinery\economy_machinery.dm"
 #include "code\modules\economy\economy_machinery\eftpos.dm"
+#include "code\modules\economy\economy_machinery\fines.dm"
 #include "code\modules\emoji\emoji_parse.dm"
 #include "code\modules\emoji\emojipedia.dm"
 #include "code\modules\error_handler\error_handler.dm"

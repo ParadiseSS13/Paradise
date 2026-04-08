@@ -436,6 +436,7 @@
 				/obj/item/flash,
 				/obj/item/grenade/flashbang,
 				/obj/item/storage/belt/security,
+				/obj/item/fine_scanner,
 				/obj/item/holosign_creator/security,
 				/obj/item/clothing/mask/gas/sechailer,
 				/obj/item/clothing/glasses/hud/security/sunglasses,
