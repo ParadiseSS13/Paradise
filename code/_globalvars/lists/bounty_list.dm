@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 	new /datum/supply_bounty(/obj/item/screwdriver, 		TRUE, 			SUPPLY_BOUNTY_QUANTITY_HIGH, 		SUPPLY_BOUNTY_REWARD_CHEAP),
 	new /datum/supply_bounty(/obj/item/wirecutters, 		TRUE, 			SUPPLY_BOUNTY_QUANTITY_HIGH, 		SUPPLY_BOUNTY_REWARD_CHEAP),
 	new /datum/supply_bounty(/obj/item/multitool, 			TRUE, 			SUPPLY_BOUNTY_QUANTITY_HIGH, 		SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/supply_bounty(/obj/item/wrench,				TRUE,			SUPPLY_BOUNTY_QUANTITY_HIGH,		SUPPLY_BOUNTY_REWARD_CHEAP),
 
 	// SERVICE
 
@@ -35,10 +36,12 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 
 
 	// MEDICAL
-
+	new /datum/medical_bounty(obj/item/scalpel, 			TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_CHEAP),
+	// rest of the tools
 
 	// SECURITY
-
+	new /datum/security_bounty(obj/item/melee/baton,		TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_MEDIUM),
+	new /datum/security_bounty(obj/item/restraint/handcuffs,	TRUE,		SUPPLY_BOUNTY_QUANTITY_HIGH,		SUPPLY_BOUNTY_REWARD_CHEAP),
 
 ))
 
