@@ -42,8 +42,7 @@
 	///Static List of book datums to track what books the librarian has added to the library inventory
 	var/static/list/inventory = list()
 	///How Long a book is allowed to be checked out for
-	#warn CHANGE THIS BACK TO 15 MINUTES
-	var/checkoutperiod = 0 MINUTES
+	var/checkoutperiod = 15 MINUTES
 	///Wait period for printing books
 	var/print_cooldown = 5 SECONDS
 	///How much toner the computer has left
@@ -68,8 +67,7 @@
 	var/branch_name = "Nanotrasen Main Library Branch"
 	if(world.time < next_overdue_check)
 		return
-	#warn this too
-	next_overdue_check = world.time + 0 MINUTES
+	next_overdue_check = world.time + 5 MINUTES
 	for(var/datum/borrowbook/book in checkouts)
 		if(world.time > book.duedate && !book.announced_overdue)
 			book.announced_overdue = TRUE
@@ -574,7 +572,6 @@
 	P.bookname = sanitize(B.title)
 	P.libraryid = B.libraryid
 	P.patron_name = sanitize(user_data.patron_name)
-	//P.patron_account = sanitize(user_data.patron_account)
 	P.patron_account = user_data.patron_account
 	P.duedate = world.time + (checkoutperiod)
 	checkouts.Add(P)
