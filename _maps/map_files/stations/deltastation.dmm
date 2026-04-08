@@ -32437,6 +32437,7 @@
 	pixel_y = -28
 	},
 /obj/item/folder,
+/obj/item/toner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cwP" = (
@@ -66733,6 +66734,10 @@
 "lqk" = (
 /obj/structure/table,
 /obj/item/instrument/harmonica,
+/obj/item/toner{
+	pixel_y = 5;
+	pixel_x = -3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "lql" = (
@@ -80721,6 +80726,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"rgJ" = (
+/obj/structure/table/wood,
+/obj/item/toner,
+/turf/simulated/floor/wood,
+/area/station/maintenance/library)
 "rgS" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -98428,13 +98438,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/computer/library{
-	pixel_y = 7
-	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
 	},
+/obj/machinery/computer/library/perma,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "yeG" = (
@@ -129296,7 +129304,7 @@ fHD
 bkV
 iem
 wgx
-iwr
+rgJ
 eZe
 fHD
 iVX
