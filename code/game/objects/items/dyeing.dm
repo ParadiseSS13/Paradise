@@ -48,32 +48,17 @@
 
 /// Because of jumpsuit palettes, we have to do some extra icon shenanigans.
 /obj/item/clothing/under/dye_item(dye_color, dye_key_override)
-	if(!dyeable || !dye_color)
-		return
-	var/dye_key_selector = dye_key_override ? dye_key_override : dyeing_key
-	var/obj/item/clothing/under/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
+	. = ..()
 
 	// If we're dying it to a colored jumpsuit...
-	if(target_type in typesof(/obj/item/clothing/under/color))
-		var/obj/item/clothing/under/color/target_obj = new target_type(null)
-		set_icon_from_cache(palette_key = target_obj.icon_palette_key, dye_key = target_obj.dyeing_key)
-		// update the name/description
-		name = initial(target_obj.name)
-		desc = target_obj.desc + "\nThe colors look a little dodgy."
-		qdel(target_obj)
+	if(ispath(., /obj/item/clothing/under/color))
+		var/obj/item/clothing/under/color/target_type = .
+		set_icon_from_cache(palette_key = target_type.icon_palette_key, dye_key = target_type.dyeing_key)
 
-		// If it also started as a colored jumpsuit, change the palette key
-		if("icon_palette_key" in vars)
-			var/obj/item/clothing/under/color/dyed_item = src
-			dyed_item.icon_palette_key = dye_color
-		return
-
-	// If we're not, but it started as a colored jumpsuit, unset the palette key so icon updates don't mess it up
-	else if("icon_palette_key" in vars)
-		var/obj/item/clothing/under/color/dyed_item = src
-		dyed_item.icon_palette_key = null
-
-	return ..()
+/obj/item/clothing/under/color/dye_item(dye_color, dye_key_override)
+	. = ..()
+	if(ispath(., /obj/item/clothing/under/color))
+		icon_palette_key = dye_color
 
 /// Beanies use the color var for their appearance, we don't normally copy this over but we have to for beanies
 /obj/item/clothing/head/beanie/dye_item(dye_color, dye_key_override)
