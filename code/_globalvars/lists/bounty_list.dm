@@ -36,7 +36,9 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 
 
 	// MEDICAL
-	new /datum/medical_bounty(obj/item/scalpel, 			FALSE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_CHEAP),
+	new /datum/medical_bounty(obj/item/scalpel, 			TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/scalpel/laser, 			TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/scalpel/laser/manager, 			TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/medical_bounty(obj/item/cautery,				TRUE, 			SUPPLY_BOUNTY_QUANTITY_LOW, 		SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/medical_bounty(obj/item/hemostat,			TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/medical_bounty(obj/item/retractor,			TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
@@ -47,37 +49,35 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 	new /datum/medical_bounty(obj/item/bonesetter,			TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/medical_bounty(obj/item/dissector,			TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/medical_bounty(obj/item/surgical_drapes,		TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
-	new /datum/medical_bounty(obj/item/stack/medical/burn_pack	TRUE		SUPPLY_BOUNTY_QUANTITY_MEDIUM,		SUPPLY_BOUNTY_REWARD_MEDIUM),
-	new /datum/medical_bounty(obj/item/stack/medical/bruise_pack	TRUE	SUPPLY_BOUNTY_QUANTITY_MEDIUM,
-	new /datum/medical_bounty(obj/item/stack/medical/ointment		TRUE	SUPPLY_BOUNTY_QUANTITY_MEDIUM,
-	new /datum/medical_bounty(obj/item/reagent_containers/syringe/charcoal		TRUE
-	new /datum/medical_bounty(obj/item/reagent_containers/hypospray/autoinjector/epinephrine
+	new /datum/medical_bounty(obj/item/stack/medical/burn_pack	TRUE,		SUPPLY_BOUNTY_QUANTITY_MEDIUM,		SUPPLY_BOUNTY_REWARD_MEDIUM),
+	new /datum/medical_bounty(obj/item/stack/medical/bruise_pack	FALSE,	SUPPLY_BOUNTY_QUANTITY_MEDIUM,		SUPPLY_BOUNTY_REWARD_MEDIUM),
+	new /datum/medical_bounty(obj/item/stack/medical/ointment		FALSE,	SUPPLY_BOUNTY_QUANTITY_MEDIUM,		SUPPLY_BOUNTY_REWARD_CHEAP),
+	new /datum/medical_bounty(obj/item/reagent_containers/syringe/charcoal		TRUE, 	SUPPLY_BOUNTY_QUANTITY_HIGH,		SUPPLY_BOUNTY_REWARD_CHEAP),
+	new /datum/medical_bounty(obj/item/reagent_containers/hypospray/autoinjector/epinephrine	TRUE,	SUPPLY_BOUNTY_QUANTITY_HIGH,	SUPPLY_BOUNTY_REWARD_CHEAP),
 	new /datum/medical_bounty(obj/item/stack/medical/splint		TRUE		SUPPLY_BOUNTY_QUANTITY_HIGH,		SUPPLY_BOUNTY_REWARD_CHEAP),
-	new /datum/medical_bounty(obj/item/reagent_containers/hypospray/autoinjector/epinephrine
-	new /datum/medical_bounty(obj/item/stack/medical/bruise_pack/advanced
-	new /datum/medical_bounty(obj/item/stack/medical/ointment/advanced
-	new /datum/medical_bounty(obj/item/reagent_containers/patch/styptic
-	new /datum/medical_bounty(obj/item/reagent_containers/patch/silver_sulf
-	new /datum/medical_bounty(obj/item/stack/medical/suture
-	new /datum/medical_bounty(obj/item/stack/medical/suture/emergency
-	new /datum/medical_bounty(obj/item/stack/medical/suture/medicated
-	new /datum/medical_bounty(obj/item/stack/medical/suture/regen_mesh/advanced
-	new /datum/medical_bounty(obj/item/stack/medical/suture/regen_mesh
-	new /datum/medical_bounty(obj/item/reagent_containers/syringe
-	new /datum/medical_bounty(obj/item/reagent_containers/glass/beaker
-	new /datum/medical_bounty(obj/item/reagent_containers/dropper
-	new /datum/medical_bounty(obj/item/reagent_containers/hypospray/safety
-	new /datum/medical_bounty(obj/item/healthanalyzer/advanced
-	new /datum/medical_bounty(obj/item/healthanalyzer
-	new /datum/medical_bounty(obj/item/sensor_device
-	new /datum/medical_bounty(obj/item/pinpointer/crew
+	new /datum/medical_bounty(obj/item/stack/medical/suture,	TRUE,		SUPPLY_BOUNTY_QUANTITY_MEDIUM,		SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/stack/medical/suture/emergency,	TRUE,	SUPPLY_BOUNTY_QUANTITY_HIGH,	SUPPLY_BOUNTY_REWARD_CHEAP),
+	new /datum/medical_bounty(obj/item/stack/medical/suture/medicated, TRUE,	SUPPLY_BOUNTY_QUANTITY_LOW,		SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/stack/medical/suture/regen_mesh/advanced	TRUE,	SUPPLY_BOUNTY_QUANTITY_LOW,		SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/stack/medical/suture/regen_mesh,	TRUE,	SUPPLY_BOUNTY_QUANTITY_MEDIUM,	SUPPLY_BOUNTY_REWARD_CHEAP),
+	new /datum/medical_bounty(obj/item/reagent_containers/syringe,	TRUE,	SUPPLY_BOUNTY_QUANTITY_HIGH,		SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/reagent_containers/glass/beaker,	FALSE,	SUPPLY_BOUNTY_QUANTITY_HIGH,	SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/reagent_containers/bottle,		TRUE,	SUPPLY_BOUNTY_QUANTITY_HIGH,	SUPPLY_BOUNTY_REWARD_CHEAP),
+	new /datum/medical_bounty(obj/item/reagent_containers/dropper,		TRUE,	SUPPLY_BOUNTY_QUANTITY_HIGH,	SUPPLY_BOUNTY_REWARD_CHEAP),
+	new /datum/medical_bounty(obj/item/reagent_containers/hypospray		FALSE,	SUPPLY_BOUNTY_QUANTITY_LOW,		SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/healthanalyzer,		FALSE,			SUPPLY_BOUNTY_QUANTITY_HIGH,		SUPPLY_BOUNTY_REWARD_LOW),
+	new /datum/medical_bounty(obj/item/sensor_device,		TRUE,				SUPPLY_BOUNTY_QUANTITY_LOW,		SUPPLY_BOUNTY_REWARD_MEDIUM),
+	new /datum/medical_bounty(obj/item/pinpointer/crew,		TRUE,				SUPPLY_BOUNTY_QUANTITY_LOW,		SUPPLY_BOUNTY_REWARD_MEDIUM),
 
 
 
 	// SECURITY
 	new /datum/security_bounty(obj/item/melee/baton,		TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_MEDIUM),
 	new /datum/security_bounty(obj/item/restraint/handcuffs,	TRUE,		SUPPLY_BOUNTY_QUANTITY_HIGH,		SUPPLY_BOUNTY_REWARD_CHEAP),
-
+	new /datum/security_bounty
+	new /datum/security_bounty
+	new /datum/security_bounty
+	new /datum/security_bounty
 ))
 
 #undef SUPPLY_BOUNTY_QUANTITY_ONE
