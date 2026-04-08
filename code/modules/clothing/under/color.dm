@@ -53,7 +53,7 @@
 
 /obj/item/clothing/under/color/set_icon_from_cache(palette_key, dye_key)
 	palette_key = palette_key || icon_palette_key
-	. = ..()
+	. = ..(palette_key, dye_key)
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	var/list/excluded = list(/obj/item/clothing/under/color/random,

@@ -56,11 +56,10 @@
 		set_icon_from_cache(palette_key = target_type.icon_palette_key, dye_key = target_type.dyeing_key)
 
 /obj/item/clothing/under/color/dye_item(dye_color, dye_key_override)
+	icon_palette_key = null
 	. = ..()
 	if(ispath(., /obj/item/clothing/under/color))
 		icon_palette_key = dye_color
-	else
-		icon_palette_key = null
 
 /// Beanies use the color var for their appearance, we don't normally copy this over but we have to for beanies
 /obj/item/clothing/head/beanie/dye_item(dye_color, dye_key_override)
