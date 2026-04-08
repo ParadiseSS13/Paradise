@@ -477,7 +477,9 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
 		)
-	var/zero_damage_hitsound = TRUE
+
+/obj/item/clothing/head/cone/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/clothing/head/jester
 	name = "jester hat"

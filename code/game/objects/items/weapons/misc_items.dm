@@ -162,13 +162,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 5
-	var/zero_damage_hitsound = TRUE
 
 /obj/item/c_tube/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	qdel(src)
 	return TRUE
 
-
+/obj/item/c_tube/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/fan
 	name = "desk fan"
