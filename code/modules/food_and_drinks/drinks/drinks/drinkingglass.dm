@@ -1,5 +1,3 @@
-
-
 /obj/item/reagent_containers/drinks/drinkingglass
 	name = "glass"
 	desc = "Your standard drinking glass."
@@ -74,7 +72,7 @@
 				if(0.25 to 0.75) overlays += image(icon, "bacchusblessing_over_02")
 				if(0.05 to 0.25) overlays += image(icon, "bacchusblessing_over_03")
 	else
-		var/image/drink_image = image(icon, "glassoverlay")
+		var/image/drink_image = image('icons/obj/reagentfillings.dmi', "drinkingglass")
 		drink_image.color = mix_color_from_reagents(reagents.reagent_list)
 		overlays += drink_image
 

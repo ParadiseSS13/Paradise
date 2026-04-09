@@ -324,6 +324,7 @@ to destroy them and players will be able to make replacements.
 		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe,
 		"TrainDrobe" =							/obj/machinery/economy/vending/traindrobe,
 		"Castivend" =							/obj/machinery/economy/vending/smith,
+		"ChapDrobe" =							/obj/machinery/economy/vending/chapdrobe,
 		"CrewVend 3000" =						/obj/machinery/economy/vending/custom)
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
