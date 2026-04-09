@@ -2,32 +2,32 @@
 	"templates": [
 		{
 			"template": "default",
-			"series": "pack_2",
+			"series": "series_syndicate",
 			"icon": "icons/runtime/tcg/pack2.dmi"
 		},
 		{
 			"template": "syndicate",
 			"cardtype": "Unit",
-			"series": "pack_2",
+			"series": "series_syndicate",
 			"faction": "Syndicate"
 		},
 		{
 			"template": "item_single",
 			"cardtype": "Item",
 			"cardsubtype": "Single Use",
-			"series": "pack_2"
+			"series": "series_syndicate"
 		},
 		{
 			"template": "item_continuous",
 			"cardtype": "Item",
 			"cardsubtype": "Continuous Item",
-			"series": "pack_2"
+			"series": "series_syndicate"
 		},
 		{
 			"template": "item_environment",
 			"cardtype": "Item",
 			"cardsubtype": "Environment",
-			"series": "pack_2"
+			"series": "series_syndicate"
 		}
 	],
 	"cards": [

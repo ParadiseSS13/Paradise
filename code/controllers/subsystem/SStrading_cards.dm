@@ -4,12 +4,12 @@ SUBSYSTEM_DEF(trading_card_game)
 	/// Base directory for all related string files
 	var/card_directory = "strings/tcg"
 	/// List of card files to load
-	var/list/card_files = list("set_command.json", "set_engineering.json")
+	var/list/card_files = list("set_command.json", "set_engineering.json", "set_medical.json", "set_research.json", "set_security", "set_service", "set_supply", "set_miscellaneous", "set_syndicate")
 	/// List of keyword files
 	/// These allow you to add on hovor logic to parts of a card's text, displaying extra info
 	var/list/keyword_files = list("keywords.json")
 	/// What cardpack types to load
-	var/card_packs = list(/obj/item/cardpack/series_command, /obj/item/cardpack/series_two)
+	var/card_packs = list(/obj/item/cardpack/series_command, /obj/item/cardpack/series_engineering, /obj/item/cardpack/series_medical, /obj/item/cardpack/series_research, /obj/item/cardpack/series_security, /obj/item/cardpack/series_service, /obj/item/cardpack/series_supply, /obj/item/cardpack/series_miscellaneous, /obj/item/cardpack/series_syndicate)
 	var/list/cached_guar_rarity = list()
 	var/list/cached_rarity_table = list()
 	/// List of all cards by series, with cards cached by rarity to make those lookups faster

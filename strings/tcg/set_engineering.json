@@ -1,0 +1,141 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_engineering"
+		},
+		{
+			"template": "engineering",
+			"cardtype": "Unit",
+			"series": "pack_engineering",
+			"faction": "Engineering"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_engineering"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_engineering"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_engineering"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "ce",
+			"name": "Chief Engineer",
+			"desc": "The head of the engineering department and the one who ensures the station runs smoothly. Most of them fail at this.",
+			"icon_state": "ce",
+			"rarity": "Uncommon",
+			"level": "6",
+			"attack": "",
+			"defense": "",
+			"effect": "Once during your turn, you may discard a card. Search your deck for a 'Supermatter Crystal' card and add it to your hand. If this card is send to the Morgue, Special Summon an Engineering Unit from the Morgue in Defense Postition",
+			"rules": ""
+		},
+		{
+			"template": "engineering",
+			"id": "atmos_tech",
+			"name": "Atmospheric Technician",
+			"desc": "The workers of the Engineering department who ensure the air is breathable and devoid of anything harmful.",
+			"icon_state": "atmos_tech",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "When this card is Normal Summoned or Special Summoned, search your deck for an Environment card and add it to your hand.",
+			"rules": ""
+		},
+		{
+			"template": "engineering",
+			"id": "engineer",
+			"name": "Station Engineer",
+			"desc": "The main working arm of the Engineering department, Station Engineers keep the hull and all the machines within intact.",
+			"icon_state": "engineer",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "While this card is in Defense Position, you cannot drop below 100 Lifepoints from battle damage.",
+			"rules": ""
+		},
+		{
+			"template": "engineering",
+			"id": "poly",
+			"name": "Poly",
+			"desc": "An expert in quantum cracker theory, she continues to scare enginee- INTEGRITY FAILING!",
+			"icon_state": "poly",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "Once per turn, select a card's attack, defense, or effect. Copy that onto this card until the end of your turn. You cannot use this effect until the end of your next turn.",
+			"rules": ""
+		},
+		{
+			"template": "item_continuous",
+			"id": "emitter",
+			"name": "Emitter Cannon",
+			"desc": "A heavy duty laser cannon, used to excite the Supermatter Crystal and maintain Containment Fields.",
+			"icon_state": "emitter",
+			"rarity": "Common",
+			"effect": "While this card is on the field, treat it as a Level 0 / 700 ATK / 0 DEF Unit. It may not switch positions and cannnot be used for summoning."
+		},
+		{
+			"template": "item_environment",
+			"id": "supermatter_chamber",
+			"name": "Supermatter Chamber",
+			"desc": "A heavily fortified and specialized room used to safely house an activated Supermatter Crystal.",
+			"icon_state": "supermatter_chamber",
+			"rarity": "Rare",
+			"effect": "Requires an 'Emitter Cannon', 'Cooling Loop', and 'Supermatter Crystal' to be discarded/tributed to play this card. While this card is on the field, any 'Chief Engineer' and Engineering Unit gains 500 ATK."
+		},
+		{
+			"template": "item_single",
+			"id": "fire_axe",
+			"name": "Fire Axe",
+			"desc": "A deadly weapon wielded by Atmospheric Technicians to help breach dangerous environments or breach an Atmosian invader's flesh.",
+			"icon_state": "fire_axe",
+			"rarity": "Uncommon",
+			"effect": "When you play this card you may either: Choose a Unit you control, it gains 450 ATK; OR you may target an Environment card and send it to the Morgue."
+		},
+		{
+			"template": "item_continuous",
+			"id": "insulated_gloves",
+			"name": "Insulated Gloves",
+			"desc": "A set of rubber yellow gloves designed to protect the wearer from electrical shock.",
+			"icon_state": "insulated_gloves",
+			"rarity": "Common",
+			"effect": "Choose a Unit you control, it cannot be destroyed by card effect when this card is on the field."
+		},
+		{
+			"template": "item_continuous",
+			"id": "supermatter_crystal",
+			"name": "Supermatter Crystal",
+			"desc": "",
+			"icon_state": "supermatter_crystal",
+			"rarity": "Rare",
+			"effect": "While this card is on the field, it cannot be destroyed by your opponent's card effects. If your opponent attacks you directly, negate the attack, destroy every card you control, and destroy the Unit that declared the attack."
+		},
+		{
+			"template": "item_continuous",
+			"id": "cooling_loop",
+			"name": "Cooling Loop",
+			"desc": "Used to keep Nanotrasen engines running cool, these pipes are (one of) the only thing keeping you from having a hole in Engineering.",
+			"icon_state": "cooling_loop",
+			"rarity": "Common",
+			"effect": "Can only be played while you control a 'Station Engineer' or an 'Atmospheric Technician'."
+		}
+	]
+}

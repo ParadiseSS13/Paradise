@@ -198,9 +198,57 @@
 
 /obj/item/cardpack/series_command
 	name = "Battles of Orion: Commendable Command"
-	desc = "Contains five cards from the Series 1 of Battles of Orion! Collect them all!"
+	desc = "Contains five cards from the Command Command series of Battles of Orion! Collect them all!"
 	series = "pack_command"
-	contains_coin = 10 // there's a 10% a coin is included in the pack
+	contains_coin = 30 // there's a 10% a coin is included in the pack
+
+/obj/item/cardpack/series_engineering
+	name = "Battles of Orion: Electrifying Engineering"
+	desc = "Contains five cards from the Electrifying Engeineering series of Battles of Orion! Collect them all!"
+	series = "pack_engineering"
+	contains_coin = 10
+
+/obj/item/cardpack/series_medical
+	name = "Battles of Orion: Marvelous Medical"
+	desc = "Contains five cards from the Marvelous Medical series of Battles of Orion! Collect them all!"
+	series = "pack_medical"
+	contains_coin = 10
+
+/obj/item/cardpack/series_research
+	name = "Battles of Orion: Reckless Research"
+	desc = "Contains five cards the Reckless Research series of Battles of Orion! Collecet them all!"
+	series = "pack_research"
+	contains_coin = 10
+
+/obj/item/cardpack/series_security
+	name = "Battles of Orion: Stalwart Security"
+	desc = "Contains five cards the series of Battles of Orion! Collecet them all!"
+	series = "pack_security"
+	contains_coin = 10
+
+/obj/item/cardpack/series_service
+	name = "Battles of Orion: Stellar Service"
+	desc = "Contains five cards the Stellar Service series of Battles of Orion! Collecet them all!"
+	series = "pack_service"
+	contains_coin = 10
+
+/obj/item/cardpack/series_supply
+	name = "Battles of Orion: Solid Supply"
+	desc = "Contains five cards the Solid Supply series of Battles of Orion! Collecet them all!"
+	series = "pack_supply"
+	contains_coin = 10
+
+/obj/item/cardpack/series_miscellaneous
+	name = "Battles of Orion: Mystery Miscellaneous"
+	desc = "Contains five cards the Mystery Miscellaneous series of Battles of Orion! Collecet them all!"
+	series = "pack_miscellaneous"
+	contains_coin = 10
+
+/obj/item/cardpack/series_syndicate
+	name = "Battles of Orion: Syndicate Synergies"
+	desc = "Contains six cards straight from Donk Co.! Don't ask how Donk made the cards so accurate."
+	series = "pack_syndicate"
+	contains_coin = 10
 
 /obj/item/cardpack/series_one_deluxe
 	name = "Battles of Orion: Series 1 DELUXE"

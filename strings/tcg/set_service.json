@@ -1,0 +1,165 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_service"
+		},
+		{
+			"template": "service",
+			"cardtype": "Unit",
+			"series": "pack_service",
+			"faction": "Service"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_service"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_service"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_service"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "hop",
+			"name": "Head of Personnel",
+			"desc": "Never far far from their closest pal, Ian, they defend the ability to give out AA to anyone who passes.",
+			"icon_state": "hop",
+			"rarity": "Rare",
+			"level": "6",
+			"attack": "",
+			"defense": "",
+			"effect": "Once per turn, you may target one Unit you control. Shuffle that Unit into your deck and pick a card of a different Faction to put in your hand",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "botanist",
+			"name": "Botanist",
+			"desc": "The main ingredient provider for the chef, skilled botanist can produce plants that can fill a crewmember up and kill them just as quickly.",
+			"icon_state": "botanist",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "mime",
+			"name": "Mime",
+			"desc": "...",
+			"icon_state": "mime",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "clown",
+			"name": "Clown",
+			"desc": "Honk!",
+			"icon_state": "clown",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "When targeted by an enemy attack or effect, flip a coin. If heads, negate that attack or effect.",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "janitor",
+			"name": "Janitor",
+			"desc": "The humble Janitor travels the station in search of any messes that need cleaning.",
+			"icon_state": "janitor",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "chef",
+			"name": "Chef",
+			"desc": "Wielder of CQC within their kitchen, the Chef protects their kitchen from any invaders trying to disrupt the distribution of food to the crew.",
+			"icon_state": "chef",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "bartender",
+			"name": "Bartender",
+			"desc": "The station's OTHER source of emotional reassurance, the Bartender serves alcohol to anyone who wants it while shooting any disruptive patrons with their shotgun.",
+			"icon_state": "bartender",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "chaplain",
+			"name": "Chaplain",
+			"desc": "The spirtual leader of the station, the Chaplain offers unique services due to their connection with religious higher-ups.",
+			"icon_state": "chaplain",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "librarian",
+			"name": "Librarian",
+			"desc": "Usually found within their library writing and printing books, the Librarian is able to loan out books full of knowledge. Don't forget to return them!",
+			"icon_state": "librarian",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "service",
+			"id": "pete",
+			"name": "Pete",
+			"desc": "The chef's tempermental companion, this goat is not afraid to butt heads with you and take a bite out of your local Diona.",
+			"icon_state": "pete",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		}
+	]
+}

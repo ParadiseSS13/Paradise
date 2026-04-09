@@ -1,0 +1,153 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_security"
+		},
+		{
+			"template": "security",
+			"cardtype": "Unit",
+			"series": "pack_security",
+			"faction": "Security"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_security"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_security"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_security"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "hos",
+			"name": "Head of Security",
+			"desc": "The head of the security department, charged with putting away Syndicate and Assistant scum alike.",
+			"icon_state": "hos",
+			"rarity": "Rare",
+			"level": "6",
+			"attack": "",
+			"defense": "",
+			"effect": "Once per turn during your opponent's Battle Phase, you may negate one attack targeting a Security Unit you control. While this card is on the field, your opponent cannot Special Summon more than one Unit per turn.",
+			"rules": ""
+		},
+		{
+			"template": "security",
+			"id": "warden",
+			"name": "Warden",
+			"desc": "Watcher of the armory and the prison wing, the Warden expertly puts down rowdy criminals with Krav Maga.",
+			"icon_state": "warden",
+			"rarity": "Uncommon",
+			"level": "5",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "security",
+			"id": "officer",
+			"name": "Security Officer",
+			"desc": "The sworn enemy of any greytider, Security Officers are hired to keep the station in order and free of crime.",
+			"icon_state": "officer",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "security",
+			"id": "detective",
+			"name": "Detective",
+			"desc": "Sometimes masquerading as a noir detective, the Detective uses their deductive skills to help Security find suspects of crimes.",
+			"icon_state": "detective",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "security",
+			"id": "beepsky",
+			"name": "Beepsky",
+			"desc": "",
+			"icon_state": "beepsky",
+			"rarity": "Rare",
+			"level": "5",
+			"attack": "",
+			"defense": "",
+			"effect": "After this card has been attacked, switch the attacking Unit to Defense Position. This Unit cannot switch positions during your opponent's next turn.",
+			"rules": ""
+		},
+		{
+			"template": "security",
+			"id": "araneus",
+			"name": "Sergeant Araneus",
+			"desc": "The Head of Security's trusty pet spider is known for her violent retaliations torwards mistreatment.",
+			"icon_state": "araneus",
+			"rarity": "Uncommon",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "security",
+			"id": "paperwork",
+			"name": "Paperwork",
+			"desc": "The Internal Affair's pet sloth is as mopey as can be and can sometimes get around to eating paperwork. Still slightly faster than a legal case.",
+			"icon_state": "paperwork",
+			"rarity": "Uncommon",
+			"level": "2",
+			"attack": "",
+			"defense": "",
+			"effect": "While this card is on the field, your opponent must place all Item cards face down to play. Item cards played in response to an attack or card effect are exempt from this.",
+			"rules": ""
+		},
+		{
+			"template": "item_single",
+			"id": "flash",
+			"name": "Flash",
+			"desc": "",
+			"icon_state": "flash",
+			"rarity": "Common",
+			"effect": "This card may be played from your hand when your opponent declares an attack. When your opponent declares an attack on a Unit you control, redirect that attack to another Unit you control. If you do not control any other Units, your opponent attacks directly. "
+		},
+		{
+			"template": "item_continuous",
+			"id": "security_holosign",
+			"name": "Security Holosign",
+			"desc": "A holographic barrier that prevents fast foot traffic from passing through used by Security.",
+			"icon_state": "security_holosign",
+			"rarity": "Common",
+			"effect": "While this card is on the field, your opponent cannot change their Units between Attack and Defense position unless they discard a card. "
+		},
+		{
+			"template": "item_environment",
+			"id": "code_red",
+			"name": "Code Red",
+			"desc": "Attention! Code Red! There is an immediate and serious threat to the station. Security may have weapons unholstered at all times",
+			"icon_state": "code_red",
+			"rarity": "Uncommon",
+			"effect": "While this card is on the field, neither player can Special Summon more than one Unit per turn. Each Security Unit on the field gains 300 ATK and 300 DEF. "
+		}
+	]
+}

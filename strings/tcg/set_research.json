@@ -1,0 +1,113 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_research"
+		},
+		{
+			"template": "research",
+			"cardtype": "Unit",
+			"series": "pack_research",
+			"faction": "Research"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_research"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_research"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_research"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "rd",
+			"name": "Research Director",
+			"desc": "The head of the science department who has to wrangle their explosion prone workers around.",
+			"icon_state": "rd",
+			"rarity": "Uncommon",
+			"level": "6",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "geneticist",
+			"name": "Geneticist",
+			"desc": "Tasked with manipulating humanoid DNA, the Geneticist is able to give out genetic powers to their fellow crew.",
+			"icon_state": "geneticist",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "roboticist",
+			"name": "Roboticist",
+			"desc": "The maintainer of all things cyborg, Roboticists build and maintain cyborgs for the station and are able to build a wide variety of exosuits.",
+			"icon_state": "roboticist",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "scientist",
+			"name": "Scientist",
+			"desc": "A Scientist's job ranges from manning the R&D desk, to mixing chemicals, to setting up tank transfer valve bombs",
+			"icon_state": "scientist",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "xenobiologist",
+			"name": "Xenobiologist",
+			"desc": "Caretakers of captive slimes, the Xenobiologist breeds many different types of slimes to get unqiue slime extracts, as well as using them to revitalize organs from fauna",
+			"icon_state": "xenobiologist",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "When this card is Normal Summoned, you may Special Summon a 'Grey Slime' from your Hand or Deck. Once during your turn, you may Special Summon a 'Grey Slime' from your hand or deck. You may only Special Summon a 'Grey Slime' once per turn.",
+			"rules": ""
+		},
+		{
+			"template": "research",
+			"id": "en",
+			"name": "E-N",
+			"desc": "Robotics' adorable and lovable clone of Ian, he's got a heart of gold and can even do your taxes for you! Beware any unexpected sparking though.",
+			"icon_state": "e-n",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "Can be used to Special Summon a card with 'Cyborg' in the name.",
+			"rules": ""
+		}
+	]
+}

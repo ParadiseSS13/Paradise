@@ -1,0 +1,126 @@
+{
+	"templates": [
+		{
+			"template": "default",
+			"cardtype": "Unit",
+			"series": "pack_supply"
+		},
+		{
+			"template": "supply",
+			"cardtype": "Unit",
+			"series": "pack_supply",
+			"faction": "Supply"
+		},
+		{
+			"template": "item_single",
+			"cardtype": "Item",
+			"cardsubtype": "Single Use",
+			"series": "pack_supply"
+		},
+		{
+			"template": "item_continuous",
+			"cardtype": "Item",
+			"cardsubtype": "Continuous Item",
+			"series": "pack_supply"
+		},
+		{
+			"template": "item_environment",
+			"cardtype": "Item",
+			"cardsubtype": "Environment",
+			"series": "pack_supply"
+		}
+	],
+	"cards": [
+		{
+			"template": "command",
+			"id": "qm",
+			"name": "Quartermaster",
+			"desc": "The head of the supply department that makes sure everyone gets their crates and their ores.",
+			"icon_state": "qm",
+			"rarity": "Uncommon",
+			"level": "5",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "cargo_tech",
+			"name": "Cargo Technician",
+			"desc": "The main workhorse of the Supply department, Cargo Technicians ensure your crates are delivered soon after you order them.",
+			"icon_state": "cargo_tech",
+			"rarity": "Common",
+			"level": "2",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "miner",
+			"name": "Shaft Miner",
+			"desc": "Pioneers of Lavaland, Shaft Miners brave the horrors in order to bring materials to the station.",
+			"icon_state": "miner",
+			"rarity": "Common",
+			"level": "4",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "explorer",
+			"name": "Explorer",
+			"desc": "",
+			"icon_state": "explorer",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "smith",
+			"name": "Smith",
+			"desc": "",
+			"icon_state": "smith",
+			"rarity": "Common",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "",
+			"rules": ""
+		},
+		{
+			"template": "supply",
+			"id": "forklift",
+			"name": "Forklift",
+			"desc": "Supply's pet of choice, Forklift has been taught how to carry crates and wouldn't hurt a fly!",
+			"icon_state": "forklift",
+			"rarity": "Uncommon",
+			"level": "5",
+			"attack": "0",
+			"defense": "15",
+			"effect": "nice",
+			"rules": "ph gods"
+		},
+		{
+			"template": "supply",
+			"id": "brad",
+			"name": "Brad",
+			"desc": "Residing just on the outskirts of the Mining Outpost, Brad is a cockroach that has adapted to the weather patterns of Lavaland and can withstand them.",
+			"icon_state": "brad",
+			"rarity": "Uncommon",
+			"level": "3",
+			"attack": "",
+			"defense": "",
+			"effect": "This card cannot be destroyed by card effects.",
+			"rules": ""
+		}
+	]
+}
