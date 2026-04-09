@@ -454,9 +454,9 @@
 	..()
 
 /obj/machinery/power/smes/engineering
-	charge = 0.08e6 // Engineering starts with some charge for singulo
+	charge = 0.1e7 // Engineering starts with some charge for engines
 	input_level = 200000
-	output_level = 80000
+	output_level = 190000
 
 /obj/machinery/power/smes/empty
 
