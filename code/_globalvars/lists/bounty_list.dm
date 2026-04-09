@@ -15,6 +15,21 @@
 /// List of all active bounties
 GLOBAL_LIST_EMPTY(active_supply_bounties)
 
+/// List of possible bonus rewards for bounties
+GLOBAL_LIST_INIT(supply_bounty_bonuses, list(
+	/obj/item/stack/spacecash/c100 = 10,
+	/obj/item/stack/spacecash/c50 = 30,
+	/obj/item/stack/spacecash/c20 = 50,
+	/obj/item/stack/sheet/mineral/gold/five = 5,
+	/obj/item/stack/sheet/mineral/silver/five = 5,
+	/obj/item/stack/sheet/mineral/bananium/five = 1,
+	/obj/item/stack/sheet/mineral/tranquilite/five = 1,
+	/obj/item/stack/sheet/mineral/titanium/five = 2,
+	/obj/item/stack/sheet/mineral/iridium/two = 5,
+	/obj/item/stack/sheet/mineral/palladium/two = 5,
+	/obj/item/stack/sheet/mineral/platinum/two = 5,
+))
+
 /// List of all bounty datums.
 GLOBAL_LIST_INIT(supply_bounties, list(
 	/// GENERAL
