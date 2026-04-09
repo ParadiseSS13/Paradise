@@ -849,7 +849,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
 			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 			var/obj/item/clothing/head/head_clothes
-			if(istype(head, /obj/item/clothing/head))
+			if(istype(head, /obj/item/clothing))
 				head_clothes = head
 
 			var/worn_icon = (head_clothes && robohead && robohead.is_monitor ? head_clothes.icon_monitor : FALSE) || listgetindex(head.sprite_sheets, dna.species.sprite_sheet_name) || head.worn_icon || 'icons/mob/clothing/head.dmi'
@@ -984,13 +984,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		update_hud_wear_mask(wear_mask)
 		if(!(check_obscured_slots() & ITEM_SLOT_MASK) && !HAS_TRAIT(wear_mask, TRAIT_NO_WORN_ICON))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 			if(!istype(head_organ))
 				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
 				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
 
-			var/icon/worn_icon = new(listgetindex(wear_mask.sprite_sheets, dna.species.sprite_sheet_name) || wear_mask.worn_icon || 'icons/mob/clothing/mask.dmi')
+			var/obj/item/clothing/worn_mask = wear_mask
+			var/icon/worn_icon = new(listgetindex(wear_mask.sprite_sheets, dna.species.sprite_sheet_name) || (robohead && robohead.is_monitor ? worn_mask.icon_monitor : FALSE) || wear_mask.worn_icon || 'icons/mob/clothing/mask.dmi')
 			var/worn_icon_state = wear_mask.worn_icon_state || wear_mask.icon_state
 			if(alternate_head && ("[worn_icon_state]_[alternate_head.suffix]" in worn_icon.IconStates()))
 				worn_icon_state += "_[alternate_head.suffix]"
