@@ -69,8 +69,6 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 	new /datum/medical_bounty(obj/item/sensor_device,		TRUE,				SUPPLY_BOUNTY_QUANTITY_LOW,		SUPPLY_BOUNTY_REWARD_MEDIUM),
 	new /datum/medical_bounty(obj/item/pinpointer/crew,		TRUE,				SUPPLY_BOUNTY_QUANTITY_LOW,		SUPPLY_BOUNTY_REWARD_MEDIUM),
 
-
-
 	// SECURITY
 	new /datum/security_bounty(obj/item/melee/baton,		TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_MEDIUM),
 	new /datum/security_bounty(obj/item/restraint/handcuffs,	TRUE,		SUPPLY_BOUNTY_QUANTITY_HIGH,		SUPPLY_BOUNTY_REWARD_CHEAP),
@@ -80,7 +78,6 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 	new /datum/security_bounty(obj/item/reagent_containers/spray/pepper,	TRUE,	SUPPLY_BOUNTY_QUANTITY_LOW,		SUPPLY_BOUNTY_REWARD_MEDIUM),
 	new /datum/security_bounty(obj/item/flashlight/seclite		TRUE,		SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_MEDIUM),
 	new /datum/security_bounty(obj/item/ammo_box/magazine/detective/speedcharger)	TRUE,	SUPPLY_BOUNTY_QUANTITY_LOW,	SUPPLY_BOUNTY_REWARD_MEDIUM),
-	new /datum/security_bounty(obj/item/flamethrower	TRUE,			SUPPLY_BOUNTY_QUANTITY_ONE,			SUPPLY_BOUNTY_REWARD_HIGH)
 	new /datum/security_bounty(obj/item/ammo_casing/shotgun/beanbag		TRUE,	SUPPLY_BOUNTY_QUANTITY_HIGH,	SUPPLY_BOUNTY_REWARD_CHEAP),
 	new /datum/security_bounty(obj/item/ammo_casing/shotgun/rubbershot		TRUE,	SUPPLY_BOUNTY_QUANTITY_HIGH,	SUPPLY_BOUNTY_REWARD_CHEAP),
 	new /datum/security_bounty(obj/item/ammo_casing/shotgun/dart			TRUE,	SUPPLY_BOUNTY_QUANTITY_HIGH,	SUPPLY_BOUNTY_REWARD_CHEAP),
