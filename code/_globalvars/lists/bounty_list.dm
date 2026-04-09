@@ -11,6 +11,10 @@
 #define SUPPLY_BOUNTY_REWARD_MEDIUM 75
 #define SUPPLY_BOUNTY_REWARD_HIGH 100
 #define SUPPLY_BOUNTY_REWARD_GRAND 200
+
+/// List of all active bounties
+GLOBAL_LIST_EMPTY(active_supply_bounties)
+
 /// List of all bounty datums.
 GLOBAL_LIST_INIT(supply_bounties, list(
 	/// GENERAL

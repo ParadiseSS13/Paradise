@@ -11,8 +11,6 @@
 	var/output_dir = SOUTH
 	/// Maximum number of bounties
 	var/bounty_count = 0
-	/// Currently active bounties
-	var/list/bounty_list = list()
 
 /obj/machinery/bounty_redemption/Initialize(mapload)
 	. = ..()
@@ -36,7 +34,7 @@
 		return
 	var/turf/input = get_step(src, input_dir)
 	var/list/slips_to_print = list()
-	for(var/datum/supply_bounty/bounty in bounty_list)
+	for(var/datum/supply_bounty/bounty in GLOB.active_supply_bounties)
 		for(var/obj/input_obj in input)
 			if(!istype(input_obj, bounty.bounty_target_type))
 				continue
@@ -57,9 +55,9 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/bounty_redemption/proc/RefreshBounties()
-	while(length(bounty_list) < bounty_count)
+	while(length(GLOB.active_supply_bounties) < bounty_count)
 		var/datum/supply_bounty/new_bounty = pick(GLOB.supply_bounties)
-		bounty_list += new new_bounty()
+		GLOB.active_supply_bounties += new new_bounty()
 
 /obj/machinery/bounty_redemption/proc/print_slip(datum/supply_bounty/bounty)
 	// Print the credit slip
@@ -67,6 +65,6 @@
 	new /obj/item/credit_redemption_slip(get_step(get_turf(src), output_dir), bounty.reward)
 	if(bounty.special_reward_type)
 		new bounty.special_reward_type(get_step(get_turf(src), output_dir))
-	bounty_list -= bounty
+	GLOB.active_supply_bounties -= bounty
 	qdel(bounty)
 	RefreshBounties()
