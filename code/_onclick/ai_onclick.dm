@@ -69,6 +69,11 @@
 	if(world.time <= next_move)
 		return
 
+	if(isturf(A))
+		var/turf/clicked_turf = A
+		for(var/obj/machinery/door/AL in clicked_turf.contents)
+			AL.try_to_activate_door(src)
+
 	if(aiCamera.in_camera_mode)
 		aiCamera.camera_mode_off()
 		aiCamera.captureimage(A, usr)
