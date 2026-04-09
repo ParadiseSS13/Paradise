@@ -38,15 +38,15 @@
 
 /obj/item/fine_scanner/activate_self(mob/user)
 	. = ..()
-	var/selection = tgui_input_list(user, "Please select a crime tier:", "Select Crime Tier", list("100", "200"), "100")
+	var/selection = tgui_input_list(user, "Please select a crime tier:", "Select Crime Tier", list("Minor: 100", "Medium: 200"), "100")
 	if(!Adjacent(user))
 		return
 	if(!selection)
 		return
 	switch(selection)
-		if("100")
+		if("Minor: 100")
 			crime_setting = CRIME_100
-		if("200")
+		if("Medium: 200")
 			crime_setting = CRIME_200
 
 /obj/item/fine_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
