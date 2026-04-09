@@ -89,7 +89,11 @@
 /obj/item/stack/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
-	
+
+	// Don't bring up the crafting UI if there's nothing to craft.
+	if(!LAZYLEN(recipes))
+		return
+
 	ui_interact(user)
 	return ITEM_INTERACT_COMPLETE
 
