@@ -134,7 +134,7 @@
 /obj/item/mod/module/monitor/on_use()
 	crew_monitor.ui_interact(mod.wearer)
 
-///Health Analyzer - Gives the suit an extendable health analyzer, able to be upgraded
+/// Health Analyzer - Gives the suit an extendable health analyzer, able to be upgraded
 /obj/item/mod/module/analyzer
 	name = "MOD health analyzer"
 	desc = "A module installed into the palm of the suit, allows the deployment of a typical upgradable health analyzer."
