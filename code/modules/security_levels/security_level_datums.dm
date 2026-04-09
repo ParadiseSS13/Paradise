@@ -76,7 +76,7 @@
 /datum/security_level/red
 	name = "red"
 	number_level = SEC_LEVEL_RED
-	elevating_to_sound = 'sound/misc/notice1.ogg'
+	elevating_to_sound = 'sound/misc/notice3.ogg'
 	ai_announcement_sound = 'sound/AI/red.ogg'
 	color = "red"
 	status_display_mode = STATUS_DISPLAY_ALERT
