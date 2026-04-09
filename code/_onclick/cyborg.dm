@@ -37,7 +37,12 @@
 		MiddleClickOn(A)
 		return
 	if(modifiers["shift"])
-		ShiftClickOn(A)
+		if(isturf(A))
+			var/turf/clicked_turf = A
+			for(var/obj/machinery/door/AL in clicked_turf.contents)
+				AL.try_to_activate_door(src)
+		else
+			ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
 		AltClickOn(A)
@@ -56,11 +61,6 @@
 		return
 
 	face_atom(A) // change direction to face what you clicked on
-
-	if(isturf(A))
-		var/turf/clicked_turf = A
-		for(var/obj/machinery/door/AL in clicked_turf.contents)
-			AL.try_to_activate_door(src)
 
 	if(aiCamera)
 		if(aiCamera.in_camera_mode)
