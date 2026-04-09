@@ -138,7 +138,7 @@
 /obj/item/mod/module/analyzer
 	name = "MOD health analyzer"
 	desc = "A module installed into the palm of the suit, allows the deployment of a typical upgradable health analyzer."
-	icon_state = "brain_hurties"
+	icon_state = "health"
 	module_type = MODULE_ACTIVE
 	complexity = 1
 	active_power_cost = DEFAULT_CHARGE_DRAIN
