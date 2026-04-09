@@ -64,6 +64,10 @@
 /obj/item/fine_scanner/proc/issue_fine(mob/living/user, obj/item/card/id/C, crime_string)
 	visible_message(SPAN_NOTICE("[user] swipes a card through [src]."))
 	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number, include_departments = FALSE)
+	if(!D)
+		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Invalid Account Link.\"")]", SPAN_NOTICE("You hear something buzz."))
+		playsound(src, fail_sound, 50, TRUE)
+		return
 	if(!GLOB.station_money_database.charge_account(D, crime_setting, "Security Fine", user.name, FALSE, FALSE))
 		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Insufficient funds.\"")]", SPAN_NOTICE("You hear something buzz."))
 		playsound(src, fail_sound, 50, TRUE)
