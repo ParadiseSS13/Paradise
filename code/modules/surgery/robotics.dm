@@ -280,10 +280,10 @@
 	if(C.get_amount() < 3)
 		to_chat(user, SPAN_WARNING("You need three or more cable pieces to repair this damage."))
 		return SURGERY_BEGINSTEP_SKIP
-	C.use(3)
+	C.use(3, C.destroy_upon_empty)
 	user.visible_message(
-		"[user] begins to splice new cabling into [target]'s [affected.name].",
-		"You begin to splice new cabling into [target]'s [affected.name].",
+		SPAN_NOTICE("[user] begins to splice new cabling into [target]'s [affected.name]."),
+		SPAN_NOTICE("You begin to splice new cabling into [target]'s [affected.name]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
@@ -294,7 +294,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		SPAN_NOTICE("[user] finishes splicing cable into [target]'s [affected.name]."),
-		SPAN_NOTICE("You finishes splicing new cable into [target]'s [affected.name]."),
+		SPAN_NOTICE("You finish splicing new cable into [target]'s [affected.name]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.heal_damage(0, rand(30, 50), 1, 1)
