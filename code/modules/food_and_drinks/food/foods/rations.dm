@@ -101,7 +101,6 @@
 	to_chat(user, "<span class = 'notice'>You successfully manage to rip a small chunk out of [src].</span>")
 	return ..()
 
-
 // MARK:	MRE Mains
 /obj/item/food/rations/mre/chicken
 	name = "fried chicken breast"
