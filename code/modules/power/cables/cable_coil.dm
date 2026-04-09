@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil
 	name = "cable coil"
+	desc = "A low-cost superconducting cable."
 	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
@@ -46,6 +47,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	new_stack.color = color
 	return new_stack
 
+/// Used to decouple the physical color of the cable from the logical color. Used by RCL to stop its spool holder from being colored in.
+/obj/item/stack/cable_coil/proc/get_cable_color()
+	return color
+
 /obj/item/stack/cable_coil/update_name()
 	. = ..()
 	if(amount > 2)
@@ -66,17 +71,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		w_class = WEIGHT_CLASS_TINY
 	else
 		w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/stack/cable_coil/examine(mob/user)
-	. = ..()
-	if(!in_range(user, src))
-		return
-	if(get_amount() == 1)
-		. += "A short piece of power cable."
-	else if(get_amount() == 2)
-		. += "A piece of power cable."
-	else
-		. += "A coil of power cables."
 
 /obj/item/stack/cable_coil/can_merge(obj/item/stack/check, inhand = FALSE)
 	. = FALSE
@@ -145,27 +139,24 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	C.color = color
 	return C
 
-// Items usable on a cable coil :
-//   - Wirecutters : cut them duh !
-//   - Cable coil : merge cables
 /obj/item/stack/cable_coil/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used
-		// Cable merging is handled by parent proc
 		if(C.cable_merge_id != cable_merge_id)
 			to_chat(user, "These coils are of different types.")
 			return ITEM_INTERACT_COMPLETE
 
-		if(C.get_amount() >= MAXCOIL)
+		if(C.get_amount() >= C.max_amount)
 			to_chat(user, "The coil is as long as it will get.")
 			return ITEM_INTERACT_COMPLETE
 
-		if((C.get_amount() + get_amount() <= MAXCOIL))
+		// Cable merging is handled by parent proc.
+		if((C.get_amount() + get_amount() <= C.max_amount))
 			to_chat(user, "You join the cable coils together.")
-			return ITEM_INTERACT_COMPLETE
+			return ..()
 
 		to_chat(user, "You transfer [get_amount_transferred()] length\s of cable from one coil to the other.")
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 
 	if(istype(used, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = used
@@ -180,8 +171,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
 	var/obj/structure/cable/C = new cable_type(location)
-	C.cable_color(color)
-
+	C.cable_color(get_cable_color())
 	return C
 
 /// called when cable_coil is clicked on a turf/simulated/floor
@@ -319,9 +309,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				to_chat(user, SPAN_WARNING("There's already a cable at that position!"))
 				return
 
-
-		C.cable_color(color)
-
+		C.cable_color(get_cable_color())
 		C.d1 = nd1
 		C.d2 = nd2
 
@@ -382,30 +370,30 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/ten
 	amount = 10
 
-/obj/item/stack/cable_coil/yellow
-	color = COLOR_YELLOW
-
-/obj/item/stack/cable_coil/blue
-	color = COLOR_BLUE
-
-/obj/item/stack/cable_coil/green
-	color = COLOR_GREEN
-
 /obj/item/stack/cable_coil/pink
 	color = COLOR_PINK
+
+/obj/item/stack/cable_coil/yellow
+	color = COLOR_YELLOW
 
 /obj/item/stack/cable_coil/orange
 	color = COLOR_ORANGE
 
+/obj/item/stack/cable_coil/green
+	color = COLOR_GREEN
+
 /obj/item/stack/cable_coil/cyan
 	color = COLOR_CYAN
+
+/obj/item/stack/cable_coil/blue
+	color = COLOR_BLUE
 
 /obj/item/stack/cable_coil/white
 	color = COLOR_WHITE
 
 /obj/item/stack/cable_coil/random/Initialize(mapload)
 	. = ..()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
+	color = pick(COLOR_RED, COLOR_PINK, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN, COLOR_BLUE, COLOR_WHITE)
 
 /obj/item/stack/cable_coil/extra_insulated
 	name = "heavy duty cable coil"
