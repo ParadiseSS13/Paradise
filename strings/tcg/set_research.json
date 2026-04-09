@@ -54,7 +54,7 @@
 			"level": "2",
 			"attack": "",
 			"defense": "",
-			"effect": "",
+			"effect": "During your Main Phase, target a Unit you control and flip a coin. If heads, it gains 400 ATK until your next Main Phase. If tails, it loses 400 ATK until your next Main Phase.",
 			"rules": ""
 		},
 		{
