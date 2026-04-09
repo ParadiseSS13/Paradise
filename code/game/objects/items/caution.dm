@@ -76,23 +76,22 @@
 	energy_type = /datum/robot_storage/energy/jani_landmine
 	is_cyborg = TRUE
 
-/obj/item/stack/caution/proximity_sign/malf/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
+/obj/item/stack/caution/proximity_sign/malf/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!check_allowed_items(target, 1))
-		return
-	if(!proximity)
-		return
-	var/turf/T = get_turf(target)
+		return ITEM_INTERACT_COMPLETE
 
+	var/turf/T = get_turf(target)
 	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put mines on a tile that has dense stuff
 		to_chat(user, SPAN_NOTICE("The space is occupied! You cannot place a mine there!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(!use(1)) //Can't place a landmine if you don't have a landmine
 		to_chat(user, SPAN_NOTICE("[src] is out of landmines! It can be refilled at a cyborg charger."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	playsound(src.loc, 'sound/machines/click.ogg', 20, TRUE)
 	var/obj/item/caution/proximity_sign/M = new /obj/item/caution/proximity_sign(get_turf(target), src)
 	M.timing = TRUE
 	START_PROCESSING(SSobj, M)
 	to_chat(user, SPAN_NOTICE("You place a landmine with [src]. You have 15 seconds until it is armed."))
-	return M
-
+	return ITEM_INTERACT_COMPLETE

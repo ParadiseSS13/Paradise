@@ -4,6 +4,7 @@
 	icon_state = "headset"
 	worn_icon_state = "headset"
 	inhand_icon_state = "headset"
+	var/icon_monitor = 'icons/mob/clothing/species/machine/monitor/ears.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi', //We read you loud and skree-er.
 		"Kidan" = 'icons/mob/clothing/species/kidan/ears.dmi'
