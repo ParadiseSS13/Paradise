@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(supply_bounty_bonuses, list(
 	/obj/item/stack/sheet/mineral/gold/five = 5,
 	/obj/item/stack/sheet/mineral/silver/five = 5,
 	/obj/item/stack/sheet/mineral/bananium/five = 1,
-	/obj/item/stack/sheet/mineral/tranquilite/five = 1,
+	/obj/item/stack/sheet/mineral/tranquillite/five = 1,
 	/obj/item/stack/sheet/mineral/titanium/five = 2,
 	/obj/item/stack/sheet/mineral/iridium/two = 5,
 	/obj/item/stack/sheet/mineral/palladium/two = 5,
