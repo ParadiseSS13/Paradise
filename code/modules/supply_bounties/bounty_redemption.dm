@@ -64,7 +64,7 @@
 /obj/machinery/bounty_redemption/proc/print_slip(datum/supply_bounty/bounty)
 	// Print the credit slip
 	playsound(src, 'sound/machines/banknote_counter.ogg', 30, FALSE)
-	new /obj/item/credit_redemption_slip(get_step(get_turf(src), output_dir), bounty.reward)
+	new /obj/item/credit_redemption_slip/no_cut(get_step(get_turf(src), output_dir), bounty.reward)
 	if(bounty.special_reward_type)
 		new bounty.special_reward_type(get_step(get_turf(src), output_dir))
 	GLOB.active_supply_bounties -= bounty
