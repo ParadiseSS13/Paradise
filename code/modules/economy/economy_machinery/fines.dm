@@ -1,6 +1,3 @@
-#define CRIME_100 250
-#define CRIME_200 500
-
 /obj/item/fine_scanner
 	name = "fine scanner"
 	desc = "Swipe an ID card to issue a fine."
@@ -12,8 +9,8 @@
 	new_attack_chain = TRUE
 	/// Built in radio used to message about crime
 	var/obj/item/radio/Radio
-	/// The selected crime setting
-	var/crime_setting = CRIME_100
+	/// The set fine amount
+	var/fine_amount = 250
 	/// linked money account database to this scanner. Usually the station database
 	var/datum/money_account_database/main_station/account_database
 	/// The linked account. This will usually be security unless admins tinker
@@ -38,16 +35,12 @@
 
 /obj/item/fine_scanner/activate_self(mob/user)
 	. = ..()
-	var/selection = tgui_input_list(user, "Please select a crime tier:", "Select Crime Tier", list("Minor: 100", "Medium: 200"), "100")
 	if(!Adjacent(user))
 		return
-	if(!selection)
+	var/minutes = tgui_input_number(user, "Select the number of minutes that would be served (1-10):", "Issue Fine", 5, 10, 1)
+	if(!minutes)
 		return
-	switch(selection)
-		if("Minor: 100")
-			crime_setting = CRIME_100
-		if("Medium: 200")
-			crime_setting = CRIME_200
+	fine_amount = minutes * 50
 
 /obj/item/fine_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
@@ -72,14 +65,18 @@
 		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Invalid Account Link.\"")]", SPAN_NOTICE("You hear something buzz."))
 		playsound(src, fail_sound, 50, TRUE)
 		return
-	if(!GLOB.station_money_database.charge_account(D, crime_setting, "Security Fine", user.name, FALSE, FALSE))
+	if(!GLOB.station_money_database.charge_account(D, fine_amount, "Security Fine", user.name, FALSE, FALSE))
 		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Insufficient funds.\"")]", SPAN_NOTICE("You hear something buzz."))
 		playsound(src, fail_sound, 50, TRUE)
 		return
-	GLOB.station_money_database.credit_account(linked_account, crime_setting, "Security Fine", user.name, FALSE)
+	GLOB.station_money_database.credit_account(linked_account, fine_amount, "Security Fine", user.name, FALSE)
 	playsound(src, fine_sound, 50, TRUE)
-	Radio.autosay("<b>[C.registered_name] has paid a fine of [crime_setting] for the crime of [crime_string]. Fine issued by [user.name].</b>", "Automatic Fine System", "Security")
+	Radio.autosay("<b>[C.registered_name] has paid a fine of [fine_amount] credits for the crime of [crime_string]. Fine issued by [user.name].</b>", "Automatic Fine System", "Security")
 	print_report(user, C, crime_string)
+	var/datum/data/record/R = find_security_record("name", C.registered_name)
+	if(istype(R))
+		R.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
+		update_all_mob_security_hud()
 
 /obj/item/fine_scanner/proc/print_report(mob/living/user, obj/item/card/id/card, crime_string)
 	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
@@ -90,7 +87,7 @@
 					<center><small><b>Admission data:</b></small></center><br>
 					<small><b>Log generated at:</b>		[station_time_timestamp()]<br>
 					<b>Detainee:</b>		[card.registered_name]<br>
-					<b>Fine Amount:</b>		[crime_setting]<br>
+					<b>Fine Amount:</b>		[fine_amount] credits<br>
 					<b>Charge(s):</b>	[crime_string]<br>
 					<b>Arresting Officer:</b>		[user.name]<br><hr><br>
 					<small>This log file was generated automatically upon activation of a fine scanner.</small>"}
@@ -103,12 +100,9 @@
 				<center><small><b>Admission data:</b></small></center><br>
 				<small><b>Log generated at:</b>		[station_time_timestamp()]<br>
 				<b>Detainee:</b>		[card.registered_name]<br>
-				<b>Fine Amount:</b>		[crime_setting]<br>
+				<b>Fine Amount:</b>		[fine_amount] credits<br>
 				<b>Charge(s):</b>	[crime_string]<br>
 				<b>Arresting Officer:</b>		[user.name]<br><hr><br>
 				<small>This log file was generated automatically upon activation of a fine scanner.</small>"}
 	playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 	user.put_in_hands(P)
-
-#undef CRIME_100
-#undef CRIME_200
