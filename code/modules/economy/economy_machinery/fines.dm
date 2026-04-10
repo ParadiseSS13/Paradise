@@ -64,6 +64,8 @@
 			issue_fine(user, used, crime_string)
 
 /obj/item/fine_scanner/proc/issue_fine(mob/living/user, obj/item/card/id/C, crime_string)
+	if(!crime_string || crime_string == "")
+		crime_string = "(NO CRIME LISTED.)"
 	visible_message(SPAN_NOTICE("[user] swipes a card through [src]."))
 	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number, include_departments = FALSE)
 	if(!D)
