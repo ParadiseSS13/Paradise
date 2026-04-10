@@ -26,10 +26,6 @@
 		to_chat(user, SPAN_DANGER("[src] cannot be applied to [M]!"))
 		return FALSE
 
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, SPAN_DANGER("You don't have the dexterity to do this!"))
-		return FALSE
-
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
