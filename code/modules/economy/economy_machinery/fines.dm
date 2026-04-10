@@ -57,8 +57,10 @@
 			return
 		if(!account_database)
 			account_database = GLOB.station_money_database
+			linked_account = account_database.get_account_by_department(DEPARTMENT_SECURITY)
 		// Needs to ensure it actually is connected, in case there is no database.
 		if(account_database)
+			linked_account = account_database.get_account_by_department(DEPARTMENT_SECURITY)
 			issue_fine(user, used, crime_string)
 
 /obj/item/fine_scanner/proc/issue_fine(mob/living/user, obj/item/card/id/C, crime_string)
