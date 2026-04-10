@@ -267,19 +267,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
 		if(U)
 			var/u_icon = U.sprite_sheets && (dna.species.sprite_sheet_name in U.sprite_sheets) ? U.sprite_sheets[dna.species.sprite_sheet_name] : U.icon //Species-fit the undergarment.
-			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
+			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]"), ICON_OVERLAY)
 
 	if(undershirt && dna.species.clothing_flags & HAS_UNDERSHIRT)
 		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_full_list[undershirt]
 		if(U2)
 			var/u2_icon = U2.sprite_sheets && (dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[dna.species.sprite_sheet_name] : U2.icon
-			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
+			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]"), ICON_OVERLAY)
 
 	if(socks && dna.species.clothing_flags & HAS_SOCKS && get_organ("l_leg") && get_organ("r_leg")) // Check if the human has both legs before going on adding socks.
 		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
 			var/u3_icon = U3.sprite_sheets && (dna.species.sprite_sheet_name in U3.sprite_sheets) ? U3.sprite_sheets[dna.species.sprite_sheet_name] : U3.icon
-			underwear_standing.Blend(new /icon(u3_icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
+			underwear_standing.Blend(new /icon(u3_icon, "sk_[U3.icon_state]"), ICON_OVERLAY)
 
 	if(underwear_standing)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
@@ -629,7 +629,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT) && !HAS_TRAIT(w_uniform, TRAIT_NO_WORN_ICON))
 			var/worn_icon = listgetindex(w_uniform.sprite_sheets, dna.species.sprite_sheet_name) || w_uniform.worn_icon || 'icons/mob/clothing/under/misc.dmi'
 			var/worn_icon_state = w_uniform.worn_icon_state || w_uniform.icon_state
-			var/mutable_appearance/standing = mutable_appearance(worn_icon, "[worn_icon_state]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
+			var/mutable_appearance/standing = mutable_appearance(worn_icon, "[worn_icon_state]", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
 
 			if(w_uniform.blood_DNA)
 				var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")

@@ -50,7 +50,7 @@
 
 	// Set icon states
 	var/icon_state_prefix = findtext(palette_key, "psyche") ? "psyche" : "color"
-	var/icon_state_skirt = dye_key == "under" ? "" : "skirt"
+	var/icon_state_skirt = dye_key == DYE_REGISTRY_UNDER ? "" : "skirt"
 	icon_state = "[icon_state_prefix][icon_state_skirt]"
 	inhand_icon_state = "[icon_state_prefix]_suit"
 

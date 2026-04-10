@@ -1267,7 +1267,7 @@
 		base_icon_state = icon_state
 
 	var/current_worn_icon = LAZYACCESS(sprite_sheets, user.dna.species.sprite_sheet_name) || worn_icon || 'icons/mob/clothing/under/misc.dmi'
-	if(!icon_exists(current_worn_icon, "[base_icon_state][JUMPSUIT_ROLLED_DOWN_SUFFIX]_s"))
+	if(!icon_exists(current_worn_icon, "[base_icon_state][JUMPSUIT_ROLLED_DOWN_SUFFIX]"))
 		to_chat(user, SPAN_NOTICE("You cannot roll down this uniform!"))
 		return
 
