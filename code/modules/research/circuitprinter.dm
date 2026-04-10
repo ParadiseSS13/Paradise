@@ -1,7 +1,7 @@
 /*///////////////Circuit Imprinter (By Darem)////////////////////////
-	Used to print new circuit boards (for computers and similar systems) and AI modules. Each circuit board pattern are stored in
-a /datum/desgin on the linked R&D console. You can then print them out in a fasion similar to a regular lathe. However, instead of
-using metal and glass, it uses glass and reagents (usually sulfuric acis).
+	Used to print new circuit boards (for computers and similar systems) and AI modules. Each circuit board pattern is stored in
+a /datum/design on the linked R&D console. You can then print them out in a fashion similar to a regular lathe using glass and
+sometimes a secondary material (often gold or diamond).
 
 */
 /obj/machinery/r_n_d/circuit_imprinter
@@ -79,7 +79,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
+		to_chat(user, SPAN_WARNING("You can't load [src] while it's opened."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

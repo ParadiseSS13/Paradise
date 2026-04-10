@@ -192,6 +192,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HYPOSPRAY_IMMUNE	"hypospray_immune" // For making crew-accessable hyposprays not pierce your clothing
 #define TRAIT_RSG_IMMUNE		"rsgimmune" //prevents RSG syringes from piercing your clothing
 #define TRAIT_DRASK_SUPERCOOL	"drask_supercool"
+#define TRAIT_BRITTLE_BONES		"brittle_bones"
 
 /// trait determines if this mob can breed given by /datum/component/breeding
 #define TRAIT_MOB_BREEDER "mob_breeder"
@@ -208,6 +209,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_COLORBLIND		"colorblind"
 #define TRAIT_WINGDINGS			"wingdings"
 #define TRAIT_WATERBREATH		"waterbreathing"
+#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_NOFAT				"no_fatness"
 #define TRAIT_NOGERMS			"no_germs"
 #define TRAIT_NODECAY			"no_decay"
@@ -232,6 +234,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
 #define TRAIT_IPC_JOINTS_MAG "ipc_joints_mag" // IPC has weaker limbs but can re-attach them with ease
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
+#define TRAIT_IPC_CAN_EAT "ipc_can_eat" // IPC can eat food
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 #define TRAIT_MAGPULSE "magpulse" // Used for anything that is magboot related
@@ -262,8 +265,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
+
+/// Trait given to anything linked to, not necessarily allied to, the mansus
+#define TRAIT_MANSUS_TOUCHED "mansus_touched"
+/// This trait makes you immune to baton knockdown.
+#define TRAIT_BATON_RESISTANCE "baton_resistance"
+
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
 #define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
+#define TRAIT_BOOTS_OF_JUMPING "boots_of_jumping" // Mob can do the jump emote without losing stamina
 
 /// Whether or not the user is in a MODlink call, prevents making more calls
 #define TRAIT_IN_CALL "in_call"
@@ -274,8 +284,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOB_EATER "mob_eater"
 #define TRAIT_XENOBIO_SPAWNED "xenobio_spawned"
 
+#define TRAIT_BOMBIMMUNE "bombimmune"
+
+/// Trait for when you can no longer gain body heat
+#define TRAIT_HYPOTHERMIC "body_hypothermic"
+
+/// Used to prevent multiple floating blades from triggering over the same target
+#define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"
+
+
 /// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "trait_ai_paused"
+
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -307,8 +327,17 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SILENT_INSERTION "silent_insertion"
 /// Makes an item active, this is generally used by energy based weapons or toggle based items.
 #define TRAIT_ITEM_ACTIVE "item_active"
+
+/// Allows heretics to cast their spells.
+#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+/// Designates a heart as a living heart for a heretic.
+#define TRAIT_LIVING_HEART "living_heart"
+/// Added to those who have been sacrificed.
+#define TRAIT_WAS_SACRIFICED "was_sacrificed"
+
 /// Forbids running broadcast_examine() in examinate().
 #define TRAIT_HIDE_EXAMINE "hide_examine"
+
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
@@ -345,6 +374,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
 #define TRAIT_SKIP_EXAMINE "skip_examine"
+
+/// Items with this trait will not have their worn icon overlayed.
+#define TRAIT_NO_WORN_ICON "no_worn_icon"
 
 /// A general trait for tracking whether a zombie owned the organ or limb
 #define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
@@ -406,6 +438,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SMITH "tait_smith"
 /// Allows faster butchering times
 #define TRAIT_BUTCHER "butcher"
+
+/// How much faster pack rats are in wrapping packages as a percentage
+#define PACK_RAT_WRAP_SPEEDUP 0.375
 
 // sec traits
 
@@ -487,8 +522,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define MENTOR_OBSERVING "mobserving"
 #define TIPPED_OVER "tipped_over"
 
-//quirk traits
-#define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
@@ -508,6 +541,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CANNOT_PULL "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
+#define TRAIT_FROM_TENDRIL "from_tendril"
+#define TRAIT_TENTACLE_IMMUNE "tentacle_immune"
 
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
@@ -535,6 +570,20 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_MESSY "station_trait_messy"
 #define STATION_TRAIT_TRIAI "station_trait_triai"
 
+/*********************
+*    QUIRK TRAITS    *
+**********************/
+#define TRAIT_FRAIL "frail"
+#define TRAIT_ASTHMATIC "asthma"
+#define TRAIT_SKITTISH "skittish"
+#define TRAIT_FREERUNNER "freerunner"
+#define TRAIT_GLUTTON "glutton"
+#define TRAIT_NO_APC_CHARGING "no_apc_charging"
+#define TRAIT_FOREIGNER "foreigner"
+#define TRAIT_HUNGRY "hungry"
+#define TRAIT_NO_WHISPERING "no_whisper"
+#define TRAIT_COOL "cool"
+
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.
 #define TRAIT_BLUESPACE_SPEED "bluespace_speed_trait"
@@ -545,13 +594,32 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// A web is being spun on this turf presently
 #define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
 
+/// A swarmer construct is being built here
+#define TRAIT_SWARMER_CONSTRUCTION "swarmer_construction_turf"
+/// A swarmer is deconstructing this already
+#define TRAIT_SWARMER_DISINTEGRATING "swarmer_disintegrating"
+
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
 
+/// Trait applied by element
+#define ELEMENT_TRAIT(source) "element_trait_[source]"
+
 //***** MOVABLE ATOM TRAITS *****//
 // Prevents the atom from being transitioned to another Z level when approaching the edge of the map.
 #define TRAIT_NO_EDGE_TRANSITIONS "trait_no_edge_transitions"
+
+//important_recursive_contents traits
+/*
+ * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
+ * Use [/atom/movable/proc/become_area_sensitive(trait_source)] to properly enable it. How you remove it isn't as important.
+ */
+#define TRAIT_AREA_SENSITIVE "area-sensitive"
+///every hearing sensitive atom has this trait
+#define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+///every object that is currently the active storage of some client mob has this trait
+#define TRAIT_ACTIVE_STORAGE "active_storage"
 
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.
@@ -561,3 +629,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Proc wrapper of remove_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_remove_trait(datum/target, trait, source)
 	REMOVE_TRAIT(target, trait, source)
+
+/// Proc that handles adding multiple traits to a target via a list. Must have a common source and target.
+/datum/proc/add_traits(list/list_of_traits, source)
+	for(var/trait in list_of_traits)
+		ADD_TRAIT(src, trait, source)
+
+/// Proc that handles removing multiple traits from a target via a list. Must have a common source and target.
+/datum/proc/remove_traits(list/list_of_traits, source)
+	for(var/trait in list_of_traits)
+		REMOVE_TRAIT(src, trait, source)

@@ -14,6 +14,14 @@
 #define MINERAL_PREVENT_DIG	0	//! A mineral turf should not be changed when mined.
 #define MINERAL_ALLOW_DIG	1	//! A mineral turf should be dug out when mined.
 
+
+// Defines for turfs rust resistance
+#define RUST_RESISTANCE_BASIC 1
+#define RUST_RESISTANCE_REINFORCED 2
+#define RUST_RESISTANCE_TITANIUM 3
+#define RUST_RESISTANCE_ORGANIC 4
+#define RUST_RESISTANCE_ABSOLUTE 5
+
 /// Returns an outline (neighboring turfs) of the given block
 #define CORNER_OUTLINE(corner, width, height) ( \
 	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, -1) + \
@@ -22,3 +30,6 @@
 	CORNER_BLOCK_OFFSET(corner, 1, height, width, 0))
 
 #define IS_OPAQUE_TURF(turf) (turf.directional_opacity == ALL_CARDINALS)
+
+/// Returns all turfs in a zlevel
+#define Z_TURFS(ZLEVEL) block(1, 1, ZLEVEL, world.maxx, world.maxy, ZLEVEL)

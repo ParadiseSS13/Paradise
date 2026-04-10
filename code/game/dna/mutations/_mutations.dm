@@ -33,7 +33,7 @@
 		ADD_TRAIT(M, thing, GENETIC_MUTATION)
 	if(length(activation_messages))
 		var/msg = pick(activation_messages)
-		to_chat(M, "<span class='notice'>[msg]</span>")
+		to_chat(M, SPAN_NOTICE("[msg]"))
 
 
 // Called when the gene deactivates.  Undo your magic here.
@@ -46,7 +46,7 @@
 		REMOVE_TRAIT(M, thing, GENETIC_MUTATION)
 	if(length(deactivation_messages))
 		var/msg = pick(deactivation_messages)
-		to_chat(M, "<span class='warning'>[msg]</span>")
+		to_chat(M, SPAN_WARNING("[msg]"))
 
 // This section inspired by goone's bioEffects.
 

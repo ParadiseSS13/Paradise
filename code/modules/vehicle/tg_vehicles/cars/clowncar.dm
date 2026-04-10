@@ -62,7 +62,7 @@
 			forced_mob.reagents.del_reagent("dublindrop")
 			if(reagent_amount >= 30)
 				message_admins("[ADMIN_LOOKUPFLW(forced_mob)] was forced into a clown car with [reagent_amount] unit(s) of Irish Car Bomb, causing an explosion.")
-				audible_message("<span class='warning'>You hear a rattling sound coming from the engine. That can't be good...</span>", null, 1)
+				audible_message(SPAN_WARNING("You hear a rattling sound coming from the engine. That can't be good..."), null, 1)
 				addtimer(CALLBACK(src, PROC_REF(irish_car_bomb)), 5 SECONDS)
 
 // We don't want everything in the clown car to get dusted when it touches the supermatter, so dump the mobs.
@@ -80,7 +80,7 @@
 /obj/tgvehicle/sealed/car/clowncar/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(prob(33))
-		visible_message("<span class='warning'>[src] spews out a ton of space lube!</span>")
+		visible_message(SPAN_WARNING("[src] spews out a ton of space lube!"))
 		var/datum/effect_system/foam_spread/L = new()
 		var/datum/reagents/foamreagent = new /datum/reagents(200)
 		foamreagent.add_reagent("lube", 200)
@@ -93,7 +93,7 @@
 		return
 	var/obj/item/food/grown/banana/banana = I
 	obj_integrity += min(banana.seed.potency, max_integrity-obj_integrity)
-	to_chat(user, "<span class='warning'>You use the [banana] to repair [src]!</span>")
+	to_chat(user, SPAN_WARNING("You use the [banana] to repair [src]!"))
 	qdel(banana)
 
 /obj/tgvehicle/sealed/car/clowncar/Bump(atom/bumped)
@@ -104,7 +104,7 @@
 		var/mob/living/hittarget_living = bumped
 
 		if(istype(hittarget_living, /mob/living/basic/deer))
-			visible_message("<span class='warning'>[src] careens into [hittarget_living]! Oh the humanity!</span>")
+			visible_message(SPAN_WARNING("[src] careens into [hittarget_living]! Oh the humanity!"))
 			for(var/mob/living/carbon/carbon_occupant in occupants)
 				if(prob(35)) // Note: The randomstep on dump_mobs throws occupants into each other and often causes wounds regardless.
 					continue
@@ -118,7 +118,7 @@
 		if(iscarbon(hittarget_living))
 			var/mob/living/carbon/C = hittarget_living
 			C.Stun(4 SECONDS) // I play to make sprites go horizontal
-		hittarget_living.visible_message("<span class='warning'>[src] rams into [hittarget_living] and sucks [hittarget_living.p_them()] up!</span>")
+		hittarget_living.visible_message(SPAN_WARNING("[src] rams into [hittarget_living] and sucks [hittarget_living.p_them()] up!"))
 		mob_forced_enter(hittarget_living)
 		playsound(src, pick('sound/effects/clowncar/clowncar_ram1.ogg', 'sound/effects/clowncar/clowncar_ram2.ogg', 'sound/effects/clowncar/clowncar_ram3.ogg'), 75)
 		log_attack(src, hittarget_living, "sucked up")
@@ -134,7 +134,7 @@
 				return
 			if(conditionalwall.operating)
 				return
-	visible_message("<span class='warning'>[src] rams into [bumped] and crashes!</span>")
+	visible_message(SPAN_WARNING("[src] rams into [bumped] and crashes!"))
 	playsound(src, pick('sound/effects/clowncar/clowncar_crash1.ogg', 'sound/effects/clowncar/clowncar_crash2.ogg'), 75)
 	playsound(src, 'sound/effects/clowncar/clowncar_crashpins.ogg', 75)
 	dump_mobs(TRUE)
@@ -156,7 +156,7 @@
 		return
 	if(HAS_TRAIT(target_pancake, TRAIT_CLOWN_CAR_SQUISHED))
 		return
-	target_pancake.visible_message("<span class='warning'>[src] runs over [target_pancake], flattening [target_pancake.p_them()] like a pancake!</span>")
+	target_pancake.visible_message(SPAN_WARNING("[src] runs over [target_pancake], flattening [target_pancake.p_them()] like a pancake!"))
 	handle_squish_carbon(target_pancake, 30)
 	ADD_TRAIT(target_pancake, TRAIT_CLOWN_CAR_SQUISHED, "clown_car")
 	addtimer(CALLBACK(src, PROC_REF(allow_resquish), target_pancake), 5 SECONDS)
@@ -168,7 +168,7 @@
 	if(emagged)
 		return FALSE
 	emagged = TRUE
-	to_chat(user, "<span class='warning'>You scramble [src]'s child safety lock, and a panel with six colorful buttons appears!</span>")
+	to_chat(user, SPAN_WARNING("You scramble [src]'s child safety lock, and a panel with six colorful buttons appears!"))
 	initialize_controller_action_type(/datum/action/vehicle/sealed/roll_the_dice, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/cannon, VEHICLE_CONTROL_DRIVE)
 	return TRUE
@@ -200,10 +200,10 @@
 	last_emag_button_use = world.time
 	switch(rand(1,6))
 		if(1)
-			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and a special banana peel drops out of it.</span>")
+			visible_message(SPAN_WARNING("[user] presses one of the colorful buttons on [src], and a special banana peel drops out of it."))
 			new /obj/item/grown/bananapeel/specialpeel(loc)
 		if(2)
-			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and unknown chemicals flood out of it.</span>")
+			visible_message(SPAN_WARNING("[user] presses one of the colorful buttons on [src], and unknown chemicals flood out of it."))
 			var/datum/reagents/randomchems = new/datum/reagents(300)
 			randomchems.my_atom = src
 			randomchems.add_reagent(get_random_reagent_id(), 100)
@@ -211,20 +211,20 @@
 			foam.set_up(200, src, randomchems)
 			foam.start()
 		if(3)
-			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car turns on its singularity disguise system.</span>")
+			visible_message(SPAN_WARNING("[user] presses one of the colorful buttons on [src], and the clown car turns on its singularity disguise system."))
 			icon = 'icons/obj/singularity.dmi'
 			icon_state = "singularity_s1"
 			singulomode = TRUE
 			addtimer(CALLBACK(src, PROC_REF(reset_icon)), 10 SECONDS)
 		if(4)
-			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car spews out a cloud of confetti all over the place.</span>")
+			visible_message(SPAN_WARNING("[user] presses one of the colorful buttons on [src], and the clown car spews out a cloud of confetti all over the place."))
 			confettisize(src, 50, 8)
 		if(5)
-			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car starts dropping a lubricant trail.</span>")
+			visible_message(SPAN_WARNING("[user] presses one of the colorful buttons on [src], and the clown car starts dropping a lubricant trail."))
 			RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(cover_in_oil))
 			addtimer(CALLBACK(src, PROC_REF(stop_dropping_oil)), 3 SECONDS)
 		if(6)
-			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car lets out a comedic toot.</span>")
+			visible_message(SPAN_WARNING("[user] presses one of the colorful buttons on [src], and the clown car lets out a comedic toot."))
 			playsound(src, 'sound/effects/clowncar/clowncar_fart.ogg', 100)
 			for(var/mob/living/L in orange(loc, 6))
 				L.emote("laugh")
@@ -252,7 +252,7 @@
 /// Toggles the on and off state of the clown cannon that shoots random kidnapped people
 /obj/tgvehicle/sealed/car/clowncar/proc/toggle_cannon(mob/user)
 	if(cannonmode == CLOWN_CANNON_BUSY)
-		to_chat(user, "<span class='notice'>Please wait for the vehicle to finish its current action first.</span>")
+		to_chat(user, SPAN_NOTICE("Please wait for the vehicle to finish its current action first."))
 		return
 	if(cannonmode) // cannon active, deactivate
 		if(!singulomode)
@@ -260,13 +260,13 @@
 			icon_state = "clowncar"
 		addtimer(CALLBACK(src, PROC_REF(deactivate_cannon)), 2 SECONDS)
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode2.ogg', 75)
-		visible_message("<span class='warning'>[src] starts going back into mobile mode.</span>")
+		visible_message(SPAN_WARNING("[src] starts going back into mobile mode."))
 	else
 		canmove = FALSE // anchor and activate cannon
 		if(!singulomode)
 			flick("clowncar_tofire", src)
 			icon_state = "clowncar_fire"
-		visible_message("<span class='warning'>[src] opens up and reveals a large cannon.</span>")
+		visible_message(SPAN_WARNING("[src] opens up and reveals a large cannon."))
 		addtimer(CALLBACK(src, PROC_REF(activate_cannon)), 2 SECONDS)
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode1.ogg', 75)
 	cannonmode = CLOWN_CANNON_BUSY

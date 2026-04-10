@@ -47,6 +47,9 @@
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
 	return
 
+/obj/structure/weightmachine/attack_tk(mob/user)
+	return
+
 /obj/structure/weightmachine/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
@@ -77,7 +80,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(in_use)
-		to_chat(user, "<span class='warning'>It's currently in use - wait a bit.</span>")
+		to_chat(user, SPAN_WARNING("It's currently in use - wait a bit."))
 		return
 	else
 		WELDER_ATTEMPT_SLICING_MESSAGE

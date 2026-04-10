@@ -3,8 +3,8 @@
 	desc = "A rechargeable electrochemical power cell. This one is cheap and doesn't have very good capacity as a result."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cell"
-	item_state = "cell1"
 	origin_tech = "powerstorage=1"
+	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
 	force = 5
 	throwforce = 5
 	throw_range = 5
@@ -29,13 +29,13 @@
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
-/obj/item/stock_parts/cell/New()
-	..()
+/obj/item/stock_parts/cell/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
 		// State of charge is in kJ so we multiply it by 1000 to get Joules
-		desc += "<span class='notice'>It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.</span>"
+		desc += SPAN_NOTICE("It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.")
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
@@ -95,12 +95,12 @@
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
 	if(rigged)
-		. += "<span class='danger'>This power cell seems to be faulty!</span>"
+		. += SPAN_DANGER("This power cell seems to be faulty!")
 	else
-		. += "<span class='notice'>The charge meter reads [round(percent())]%.</span>"
+		. += SPAN_NOTICE("The charge meter reads [round(percent())]%.")
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(user), SPAN_SUICIDE("[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/attackby__legacy__attackchain(obj/item/W, mob/user, params)
@@ -181,7 +181,7 @@
 	origin_tech = "powerstorage=2"
 	icon_state = "hcell"
 	maxcharge = 10000
-	materials = list(MAT_GLASS = 60)
+	materials = list(MAT_METAL = 700, MAT_GLASS = 60)
 	rating = 3
 	chargerate = 1500
 
@@ -201,9 +201,8 @@
 	This one utilizes some experimental tweaks to the cell chemistry to achieve a better charge capacity than any cell currently available on the market."
 	origin_tech = "powerstorage=3;materials=3"
 	icon_state = "scell"
-	item_state = "cell2"
 	maxcharge = 20000
-	materials = list(MAT_GLASS = 300)
+	materials = list(MAT_METAL = 700, MAT_GLASS = 300)
 	rating = 4
 	chargerate = 2000
 
@@ -217,9 +216,9 @@
 	for even more tightly packed anodes and cathodes, giving this cell an incredible charge capacity."
 	origin_tech = "powerstorage=4;engineering=4;materials=4"
 	icon_state = "hpcell"
-	item_state = "cell2"
+	inhand_icon_state = "scell"
 	maxcharge = 30000
-	materials = list(MAT_GLASS = 400)
+	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 400)
 	rating = 5
 	chargerate = 3000
 
@@ -233,9 +232,8 @@
 	They then exploited the transdimensional properties of bluespace to squeeze it down to a standard cell's form factor."
 	origin_tech = "powerstorage=5;bluespace=4;materials=4;engineering=4"
 	icon_state = "bscell"
-	item_state = "cell3"
 	maxcharge = 40000
-	materials = list(MAT_GLASS = 600)
+	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 600, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
 	rating = 6
 	chargerate = 4000
 
@@ -255,10 +253,9 @@
 	name = "infinite-capacity power cell"
 	desc = "A self-recarging power cell. It produces endless amounts of energy seemingly out of nowhere."
 	icon_state = "icell"
-	item_state = "cell4"
 	origin_tech =  "powerstorage=7"
 	maxcharge = 30000
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 12000, MAT_GOLD = 6000, MAT_TITANIUM = 6000, MAT_URANIUM = 6000, MAT_DIAMOND = 6000, MAT_BLUESPACE = 6000) // If you actually get this and recycle it, it better be worth it.
 	rating = 6
 	chargerate = 30000
 	self_recharge = TRUE
@@ -271,7 +268,7 @@
 	desc = "An alien power cell of unknown design. It produces endless amounts of energy seemingly out of nowhere."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cell"
-	item_state = "cella"
+	inhand_icon_state = "acell"
 	maxcharge = 50000
 	rating = 12
 	chargerate = 50000
@@ -285,7 +282,7 @@
 	desc = "A rechargeable starch-based power cell. The charge capacity depends on the potency of the plant used to create it."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
-	item_state = "cellp"
+	inhand_icon_state = "pcell"
 	origin_tech = "powerstorage=1;biotech=1"
 	charge = 100
 	maxcharge = 300
@@ -298,7 +295,7 @@
 	origin_tech = "powerstorage=5;biotech=4"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
-	item_state = "cellsl"
+	inhand_icon_state = "slcell"
 	materials = list()
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = TRUE // Infused slime cores self-recharge, over time

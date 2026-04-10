@@ -1,11 +1,8 @@
 1-Rover-1
 7-Zark-7
 790
-AM
 AMEE
 ASTAR
-Adaptive Manipulator
-Allied Mastercomputer
 Alpha 5
 Alpha 6
 Alpha 7
@@ -14,32 +11,33 @@ Android
 Aniel
 Asimov
 Astor
+Auto
 B-4
 B-9
 B.O.B.
 B166ER
-Bender
 Bishop
 Blitz
 Box
 Brackenridge
-C-3PO
 Cassandra One
+Caster
 Cell
 Chii
+Chap
 Chip
 Computer
 Conky 2000
 Cutie
 Data
 Dee Model
+Deep Blue
 Deep Thought
 Dor-15
 Dorfl
 Dot Matrix
 Duey
 E.D.I.
-ED-209
 E-Man
 Emma-2
 Erasmus
@@ -60,6 +58,7 @@ H.E.L.P.eR.
 H.E.R.B.I.E.
 HAL 9000
 Hadaly
+Hogarth
 Huey
 Irona
 Jay-Dub
@@ -72,6 +71,7 @@ Kryten 2X4B-523P
 L-76
 L-Ron
 LUH 3417
+Linus
 Louie
 MARK13
 Maria
@@ -79,9 +79,9 @@ Marvin
 Master Control Program
 Max 404
 Maximillian
-Mechagodzilla
-Mechani-Kong
 Metalhead
+Metta
+Mother
 Mr. R.I.N.G.
 NCH
 Necron-99
@@ -91,7 +91,6 @@ Orange v 3.5
 PTO
 Project 2501
 R.I.C. 2.0
-R2-D2
 R4-P17
 Revelation
 Ro-Man
@@ -101,12 +100,12 @@ S.H.O.C.K.
 S.H.R.O.U.D.
 S.O.P.H.I.E.
 SEN 5241
-SHODAN
 SID 6.7
 Setaur
 Shrike
 Solo
 Speedy
+STEM
 Super 17
 Surgeon General Kraken
 T-1000
@@ -114,19 +113,16 @@ T-800
 T-850
 THX 1138
 TWA
-Terminus
 Tidy
-Tik-Tok
 Tobor
 Trurl
+Turing
 ULTRABOT
 Ulysses
 Uniblab
 V.I.N.CENT.
 Voltes V
 W1k1
-Wikipedia
-Windows 3.1
 X-5
 XERXES
 XR
@@ -137,10 +133,4 @@ Z-3
 Zed
 Zord
 Mugsy3000
-Terminus
-Decimus
 Robot Devil
-Optimus
-Megatron
-Soundwave
-Ironhide

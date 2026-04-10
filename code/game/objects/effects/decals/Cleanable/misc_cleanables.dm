@@ -208,6 +208,29 @@
 	random_icon_states = list("gvomit_1", "gvomit_2", "gvomit_3", "gvomit_4")
 	scoop_reagents = list("green_vomit" = 5)
 
+/obj/effect/decal/cleanable/vomit/nebula
+	name = "nebula vomit"
+	desc = "Gosh, how... beautiful."
+	icon_state = "vomitnebula_1"
+	random_icon_states = list("vomitnebula_1", "vomitnebula_2", "vomitnebula_3", "vomitnebula_4")
+
+/obj/effect/decal/cleanable/vomit/nebula/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_OVERLAYS)
+
+/obj/effect/decal/cleanable/vomit/nebula/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, icon_state, src, alpha = src.alpha)
+
+/// Nebula vomit with extra guests
+/obj/effect/decal/cleanable/vomit/nebula/worms
+
+/obj/effect/decal/cleanable/vomit/nebula/worms/Initialize(mapload)
+	. = ..()
+	for(var/i in 1 to rand(3, 6))
+		new /mob/living/basic/mining/hivelordbrood(loc)
+
+
 /obj/effect/decal/cleanable/shreds
 	name = "shreds"
 	desc = "The shredded remains of what appears to be clothing."
@@ -253,6 +276,20 @@
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
 
+/obj/effect/decal/cleanable/paint_splat
+	name = "paint splat"
+	layer = TURF_LAYER
+	plane = GAME_PLANE
+	icon = 'icons/effects/splatters.dmi'
+	icon_state = "splatter-1"
+	random_icon_states = list("splatter-1", "splatter-2", "splatter-3")
+	mergeable_decal = FALSE
+
+/obj/effect/decal/cleanable/paint_splat/Initialize(mapload)
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+	return ..()
+
 /obj/effect/decal/cleanable/fungus
 	name = "space fungus"
 	desc = "A fungal growth. Looks pretty nasty."
@@ -267,9 +304,9 @@
 /obj/effect/decal/cleanable/fungus/examine(mob/user)
 	. = ..()
 	if(no_scoop)
-		. += "<span class='notice'>There's not a lot here, you probably wouldn't be able to harvest anything useful.</span>"
+		. += SPAN_NOTICE("There's not a lot here, you probably wouldn't be able to harvest anything useful.")
 	else
-		. += "<span class='notice'>There's enough here to scrape into a beaker.</span>"
+		. += SPAN_NOTICE("There's enough here to scrape into a beaker.")
 
 /obj/effect/decal/cleanable/fungus/on_scoop()
 	alpha = 128
@@ -302,5 +339,29 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+
+/obj/effect/decal/cleanable/reagent
+	name = "fluid"
+	desc = "Some kind of fluid?"
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "xfloor1"
+	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
+	var/basecolor = "#909090"
+	var/amount = 10
+
+/obj/effect/decal/cleanable/reagent/Initialize(mapload, decal_color)
+	. = ..()
+	color = basecolor
+	if(decal_color)
+		color = decal_color
+	base_icon_state = icon_state
+
+	update_icon()
+
+/obj/effect/decal/cleanable/reagent/drip
+	icon = 'icons/effects/drip.dmi'
+	icon_state = "1"
+	random_icon_states = list("1", "2", "3", "4", "5")
+	amount = 1
 
 #undef ALWAYS_IN_GRAVITY

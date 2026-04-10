@@ -28,26 +28,26 @@
 /datum/spell/lichdom/proc/attempt_revive(mob/user)
 	// Can only cast when unconscious/dead
 	if(user.stat == CONSCIOUS)
-		to_chat(user, "<span class='notice'>You aren't dead enough to revive!</span>")
+		to_chat(user, SPAN_NOTICE("You aren't dead enough to revive!"))
 		cooldown_handler.revert_cast()
 		return
 
 	// Body was destroyed
 	if(QDELETED(current_body))
-		to_chat(user, "<span class='warning'>Your body is gone!</span>")
+		to_chat(user, SPAN_WARNING("Your body is gone!"))
 		return
 
 	// Phylactery was destroyed
 	var/obj/item/marked_item = locateUID(marked_item_uid)
 	if(QDELETED(marked_item))
-		to_chat(user, "<span class='warning'>Your phylactery is gone!</span>")
+		to_chat(user, SPAN_WARNING("Your phylactery is gone!"))
 		return
 
 	// Wrong z-level
 	var/turf/body_turf = get_turf(current_body)
 	var/turf/item_turf = get_turf(marked_item)
 	if(body_turf.z != item_turf.z)
-		to_chat(user, "<span class='warning'>Your phylactery is out of range!</span>")
+		to_chat(user, SPAN_WARNING("Your phylactery is out of range!"))
 		return
 
 	if(isobserver(user))
@@ -64,7 +64,7 @@
 		// Give a hint as to where the body is
 		var/wheres_wizdo = dir2text(get_dir(body_turf, item_turf))
 		if(wheres_wizdo)
-			current_body.visible_message("<span class='warning'>Suddenly [current_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!</span>")
+			current_body.visible_message(SPAN_WARNING("Suddenly [current_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!"))
 			body_turf.Beam(item_turf, icon_state = "lichbeam", icon = 'icons/effects/effects.dmi', time = 10 + 10 * resurrections, maxdistance = INFINITY)
 
 		UnregisterSignal(current_body, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_Z_CHANGED))
@@ -81,20 +81,20 @@
 
 	current_body = lich
 	cooldown_handler.recharge_duration += 1 MINUTES
-	to_chat(lich, "<span class='warning'>Your bones clatter and shudder as they're pulled back into this world!</span>")
+	to_chat(lich, SPAN_WARNING("Your bones clatter and shudder as they're pulled back into this world!"))
 
 /datum/spell/lichdom/proc/attempt_mark_item(mob/user)
 	var/obj/item/target = user.get_active_hand()
 	if(!target)
-		to_chat(user, "<span class='warning'>You must hold an item you wish to make your phylactery!</span>")
+		to_chat(user, SPAN_WARNING("You must hold an item you wish to make your phylactery!"))
 		return
 
 	if(target.flags & (ABSTRACT|NODROP))
-		to_chat(user, "<span class='warning'>[target] cannot be used as your phylactery!</span>")
+		to_chat(user, SPAN_WARNING("[target] cannot be used as your phylactery!"))
 		return
 
 	if(!do_after(user, 5 SECONDS, target = target))
-		to_chat(user, "<span class='warning'>Your soul snaps back to your body as you drop [target]!</span>")
+		to_chat(user, SPAN_WARNING("Your soul snaps back to your body as you drop [target]!"))
 		return
 
 	name = "RISE!"
@@ -108,7 +108,7 @@
 		build_all_button_icons()
 
 	target.name = "ensouled [target.name]"
-	target.desc += "<br><span class='warning'>A terrible aura surrounds this item, its very existence is offensive to life itself...</span>"
+	target.desc += "<br>[SPAN_WARNING("A terrible aura surrounds this item, its very existence is offensive to life itself...")]"
 	target.color = "#003300"
 	marked_item_uid = target.UID()
 
@@ -122,7 +122,7 @@
 		H.drop_item_to_ground(H.head)
 		equip_lich(H)
 
-	to_chat(user, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!</span>")
+	to_chat(user, SPAN_USERDANGER("With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!"))
 
 /datum/spell/lichdom/proc/is_revive_possible()
 	var/obj/item/marked_item = locateUID(marked_item_uid)

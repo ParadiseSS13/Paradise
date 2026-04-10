@@ -4,7 +4,8 @@
 	desc = "A S.U.N.S.H.I.N.E. brand watertank backpack with nozzle to water plants."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "waterbackpack"
-	item_state = "waterbackpack"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
@@ -16,8 +17,8 @@
 	var/on = FALSE
 	var/volume = 500
 
-/obj/item/watertank/New()
-	..()
+/obj/item/watertank/Initialize(mapload)
+	. = ..()
 	create_reagents(volume)
 	noz = make_noz()
 
@@ -38,7 +39,7 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(user.get_item_by_slot(ITEM_SLOT_BACK) != src)
-		to_chat(user, "<span class='notice'>The watertank needs to be on your back to use.</span>")
+		to_chat(user, SPAN_NOTICE("The watertank needs to be on your back to use."))
 		return
 	on = !on
 	if(on)
@@ -48,7 +49,7 @@
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
 			on = FALSE
-			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
+			to_chat(user, SPAN_NOTICE("You need a free hand to hold the mister."))
 			return
 		noz.forceMove(user)
 	else
@@ -109,12 +110,10 @@
 	desc = "A mister nozzle attached to a water tank."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "mister"
-	item_state = "mister"
 	w_class = WEIGHT_CLASS_BULKY
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-
 	var/obj/item/watertank/tank
 
 /obj/item/reagent_containers/spray/mister/Initialize(mapload)
@@ -131,7 +130,7 @@
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
 	..()
-	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
+	to_chat(user, SPAN_NOTICE("The mister snaps back onto the watertank."))
 	tank.on = FALSE
 	loc = tank
 
@@ -156,17 +155,15 @@
 /obj/item/watertank/janitor
 	desc = "A janitorial watertank backpack with nozzle to clean dirt and graffiti."
 	icon_state = "waterbackpackjani"
-	item_state = "waterbackpackjani"
 
-/obj/item/watertank/janitor/New()
-	..()
+/obj/item/watertank/janitor/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("cleaner", 500)
 
 /obj/item/reagent_containers/spray/mister/janitor
 	name = "janitor spray nozzle"
 	desc = "A janitorial spray nozzle attached to a watertank, designed to clean up large messes."
 	icon_state = "misterjani"
-	item_state = "misterjani"
 	spray_maxrange = 4
 	spray_currentrange = 4
 	spray_minrange = 2
@@ -186,10 +183,11 @@
 	name = "backpack firefighter tank"
 	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
 	icon_state = "waterbackpackatmos"
-	item_state = "waterbackpackatmos"
+	worn_icon_state = "waterbackpackatmos"
+	inhand_icon_state = "waterbackpackatmos"
 
-/obj/item/watertank/atmos/New()
-	..()
+/obj/item/watertank/atmos/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("water", 500)
 
 /obj/item/watertank/atmos/make_noz()
@@ -207,7 +205,7 @@
 	desc = "A heavy duty nozzle attached to a firefighter's backpack tank."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "atmos_nozzle_1"
-	item_state = "nozzleatmos"
+	inhand_icon_state = "nozzleatmos"
 	has_safety = FALSE
 	safety_active = FALSE
 	reagent_capacity = 500
@@ -230,11 +228,11 @@
 	. = ..()
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
-			. += "<span class='notice'>[src] is currently set to extinguishing mode.</span>"
+			. += SPAN_NOTICE("[src] is currently set to extinguishing mode.")
 		if(NANOFROST)
-			. += "<span class='notice'>[src] is currently set to nanofrost mode.</span>"
+			. += SPAN_NOTICE("[src] is currently set to nanofrost mode.")
 		if(METAL_FOAM)
-			. += "<span class='notice'>[src] is currently set to metal foam mode.</span>"
+			. += SPAN_NOTICE("[src] is currently set to metal foam mode.")
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	if(!check_tank_exists(loc, src))
@@ -288,7 +286,7 @@
 	if(istype(tank, /obj/item/mod/module/firefighting_tank))
 		return
 
-	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
+	to_chat(user, SPAN_NOTICE("The nozzle snaps back onto the tank!"))
 	tank.on = FALSE
 	loc = tank
 
@@ -300,11 +298,11 @@
 	switch(nozzle_mode)
 		if(NANOFROST)
 			if(reagents.total_volume < 100)
-				to_chat(user, "<span class='warning'>You need at least 100 units of water to use the nanofrost launcher!</span>")
+				to_chat(user, SPAN_WARNING("You need at least 100 units of water to use the nanofrost launcher!"))
 				return
 
 			if(COOLDOWN_TIMELEFT(src, nanofrost_cooldown))
-				to_chat(user, "<span class='warning'>The nanofrost launcher is still recharging!</span>")
+				to_chat(user, SPAN_WARNING("The nanofrost launcher is still recharging!"))
 				return
 
 			COOLDOWN_START(src, nanofrost_cooldown, nanofrost_cooldown_time)
@@ -322,11 +320,11 @@
 				return
 
 			if(metal_synthesis_charge <= 0)
-				to_chat(user, "<span class='warning'>Metal foam mix is still being synthesized!</span>")
+				to_chat(user, SPAN_WARNING("Metal foam mix is still being synthesized!"))
 				return
 
 			if(reagents.total_volume < 10)
-				to_chat(user, "<span class='warning'>You need at least 10 units of water to use the metal foam synthesizer!</span>")
+				to_chat(user, SPAN_WARNING("You need at least 10 units of water to use the metal foam synthesizer!"))
 				return
 
 			var/obj/effect/particle_effect/foam/metal/foam = new /obj/effect/particle_effect/foam/metal(get_turf(A), TRUE)

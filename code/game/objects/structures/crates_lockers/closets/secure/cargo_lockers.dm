@@ -35,7 +35,7 @@
 	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/storage/backpack/duffel(src)
 	new /obj/item/storage/backpack/explorer(src)
-	new /obj/item/storage/backpack/satchel/explorer(src)
+	new /obj/item/storage/backpack/satchel_explorer(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
@@ -80,9 +80,8 @@
 /obj/structure/closet/secure_closet/smith
 	name = "smith's locker"
 	req_access = list(ACCESS_SMITH)
-	icon_state = "cargo"
+	icon_state = "smith"
 	opened_door_sprite = "cargo"
-	closed_door_sprite = "smith"
 
 /obj/structure/closet/secure_closet/smith/populate_contents()
 	new /obj/item/radio/headset/headset_cargo(src)

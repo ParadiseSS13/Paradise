@@ -45,7 +45,7 @@ Difficulty: Medium
 	score_type = LEGION_SCORE
 	loot = list(/obj/item/storm_staff)
 	difficulty_ore_modifier = 3
-	crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull)
+	crusher_loot = list(/obj/item/crusher_trophy/empowered_legion_skull, /obj/item/crusher_trophy/retool_kit/ashenskull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = TRUE
@@ -88,7 +88,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion/drop_loot()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
-		if(other != src)
+		if(other != src && other.stat != DEAD)
 			return
 	..()
 
@@ -111,7 +111,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
 	if(world.time >= ranged_cooldown && !charging)
 		if(prob(30))
-			visible_message("<span class='warning'><b>[src] charges!</b></span>")
+			visible_message(SPAN_WARNING("<b>[src] charges!</b>"))
 			SpinAnimation(speed = 20, loops = 5, parallel = FALSE)
 			ranged = FALSE
 			retreat_distance = 0
@@ -138,20 +138,22 @@ Difficulty: Medium
 			A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
-			visible_message("<span class='danger'>A monstrosity emerges from [src]</span>",
-			"<span class='userdanger'>You summon a big [A]!</span>")
+			visible_message(SPAN_DANGER("A monstrosity emerges from [src]"),
+			SPAN_USERDANGER("You summon a big [A]!"))
 			ranged_cooldown = world.time + 5 SECONDS
 		else
 			var/mob/living/basic/mining/hivelord/legion/A
 			if(enraged)
-				A = new /mob/living/basic/mining/hivelord/legion/advanced/tendril(loc)
+				A = new /mob/living/basic/mining/hivelord/legion/advanced(loc)
+				ADD_TRAIT(A, TRAIT_FROM_TENDRIL, INNATE_TRAIT)
 			else
-				A = new /mob/living/basic/mining/hivelord/legion/tendril(loc)
+				A = new /mob/living/basic/mining/hivelord/legion(loc)
+				ADD_TRAIT(A, TRAIT_FROM_TENDRIL, INNATE_TRAIT)
 			A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
-			visible_message("<span class='danger'>A [A] emerges from [src]!</span>",
-			"<span class='userdanger'>You summon a [A]!</span>")
+			visible_message(SPAN_DANGER("A [A] emerges from [src]!"),
+			SPAN_USERDANGER("You summon a [A]!"))
 			ranged_cooldown = world.time + 2 SECONDS
 
 /mob/living/simple_animal/hostile/megafauna/legion/MoveToTarget()
@@ -192,11 +194,11 @@ Difficulty: Medium
 				continue
 
 			if(M.stat == DEAD)
-				visible_message("<span class='danger'>[M] is disintegrated by the beam!</span>")
+				visible_message(SPAN_DANGER("[M] is disintegrated by the beam!"))
 				M.dust()
 			else if(M != src)
 				playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
-				to_chat(M, "<span class='userdanger'>You're struck by a disintegration laser!</span>")
+				to_chat(M, SPAN_USERDANGER("You're struck by a disintegration laser!"))
 				var/limb_to_hit = M.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 				var/armor = M.run_armor_check(limb_to_hit, LASER)
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)

@@ -185,15 +185,16 @@
 	target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
+	target.icon = initial(picked_item.icon)
 
 	if(isitem(target))
 		var/obj/item/I = target
 
-		I.item_state = initial(picked_item.item_state)
-		I.item_color = initial(picked_item.item_color)
+		I.worn_icon_state = initial(picked_item.worn_icon_state)
+		I.inhand_icon_state = initial(picked_item.inhand_icon_state)
 		I.color = initial(picked_item.color)
 
-		I.icon_override = initial(picked_item.icon_override)
+		I.worn_icon = initial(picked_item.worn_icon)
 		if(initial(picked_item.sprite_sheets))
 			// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
 			var/obj/item/P = new picked_item(null)
@@ -202,13 +203,19 @@
 		else
 			I.sprite_sheets = null
 
-		if(isclothing(I) && isclothing(picked_item))
+		if(isclothing(I) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
+			if(istype(I, /obj/item/clothing/under) && ispath(picked_item, /obj/item/clothing/under/color))
+				var/obj/item/clothing/under/color/colored_jumpsuit = picked_item
+				if(colored_jumpsuit.icon_palette_key)
+					var/obj/item/clothing/under/target_jumpsuit = I
+					target_jumpsuit.set_icon_from_cache(palette_key = colored_jumpsuit::icon_palette_key, dye_key = colored_jumpsuit::dyeing_key)
+				else if(ispath(colored_jumpsuit, /obj/item/clothing/under/color/psyche) || ispath(colored_jumpsuit, /obj/item/clothing/under/color/jumpskirt/psyche))
+					var/obj/item/clothing/under/target_jumpsuit = I
+					target_jumpsuit.set_icon_from_cache(palette_key = colored_jumpsuit::icon_state, dye_key = colored_jumpsuit::dyeing_key)
 		I.update_appearance()
-
-	target.icon = initial(picked_item.icon)
 
 /datum/action/item_action/chameleon_change/Trigger(left_click)
 	if(!IsAvailable())
@@ -232,24 +239,21 @@
 	random_look(owner)
 
 /obj/item/clothing/under/chameleon
-	name = "black jumpsuit"
-	icon_state = "black"
-	item_state = "bl_suit"
-	item_color = "black"
+	name = "white jumpsuit"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
+	icon = 'icons/obj/clothing/under/color.dmi'
+	icon_state = "color"
+	worn_icon = 'icons/mob/clothing/under/color.dmi'
+	inhand_icon_state = "color_suit"
 	random_sensor = FALSE
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-
-	icon = 'icons/obj/clothing/under/color.dmi'
-
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/color.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/color.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
-		)
-
+	)
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)
@@ -263,6 +267,9 @@
 		/obj/item/clothing/under/dress,
 		/obj/item/clothing/under/pants,
 		/obj/item/clothing/under/color,
+		/obj/item/clothing/under/color/random,
+		/obj/item/clothing/under/color/jumpskirt,
+		/obj/item/clothing/under/color/jumpskirt/random,
 		/obj/item/clothing/under/retro,
 		/obj/item/clothing/under/solgov,
 		/obj/item/clothing/under/suit,
@@ -293,13 +300,13 @@
 	name = "armor"
 	desc = "A slim armored vest that protects against most types of damage."
 	icon_state = "armor"
-	item_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 	)
 
 	var/datum/action/item_action/chameleon_change/chameleon_action
@@ -328,16 +335,13 @@
 	name = "optical meson scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
-	item_state = "meson"
 	prescription_upgradable = TRUE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
-
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/glasses/chameleon/Initialize(mapload)
@@ -425,7 +429,6 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	icon_state = "yellow"
-	item_state = "ygloves"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
@@ -455,9 +458,8 @@
 	name = "grey cap"
 	desc = "It's a baseball hat in a tasteful grey colour."
 	icon = 'icons/obj/clothing/head/softcap.dmi'
-	icon_override = 'icons/mob/clothing/head/softcap.dmi'
-	icon_state = "greysoft"
-	item_color = "grey"
+	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
+	icon_state = "grey"
 
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -492,7 +494,6 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow." //More accurate
 	icon_state = "gas_alt"
-	item_state = "gas_alt"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags = AIRTIGHT | BLOCK_GAS_SMOKE_EFFECT
@@ -535,7 +536,6 @@
 
 /obj/item/clothing/mask/chameleon/voice_change
 	icon_state = "swat"
-	item_state = "swat"
 
 	var/obj/item/voice_changer/voice_changer
 
@@ -551,7 +551,6 @@
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"
 	icon_state = "black"
-	item_color = "black"
 	desc = "A pair of black shoes."
 	dyeable = FALSE
 	permeability_coefficient = 0.05
@@ -586,7 +585,8 @@
 /obj/item/storage/backpack/chameleon
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/back.dmi'
 	)
 
 	var/datum/action/item_action/chameleon_change/chameleon_action
@@ -733,7 +733,7 @@
 		var/obj/item/mod/control/C = target
 		C.current_disguise = FALSE
 		if(C.active || C.activating)
-			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			to_chat(C.wearer, SPAN_WARNING("Your suit is already active!"))
 			return
 		if(initial(picked_item.name) == C.name) // If you select the same item as what it's currently disguised as, change back to MODsuit form.
 			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
@@ -741,7 +741,7 @@
 			return
 		. = ..()
 		C.current_disguise = TRUE
-		C.item_state = initial(picked_item.item_state)
+		C.inhand_icon_state = initial(picked_item.inhand_icon_state)
 		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
 			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look), TRUE)
 
@@ -753,7 +753,7 @@
 				toreturn.return_look()
 				return
 		if(C.active || C.activating)
-			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			to_chat(C.wearer, SPAN_WARNING("Your suit is already active!"))
 			return
 	..()
 

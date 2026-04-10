@@ -33,7 +33,7 @@
 	faction = list("scarybat")
 	gold_core_spawnable = HOSTILE_SPAWN
 
-	initial_traits = list(TRAIT_FLYING)
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE)
 
 /mob/living/basic/scarybat/Initialize(mapload, mob/living/L)
 	. = ..()
@@ -47,7 +47,7 @@
 	if(istype(L))
 		if(prob(15))
 			L.Stun(2 SECONDS)
-			L.visible_message("<span class='danger'>\the [src] scares \the [L]!</span>")
+			L.visible_message(SPAN_DANGER("\the [src] scares \the [L]!"))
 
 
 // This mob is for the admin-only ancient vampire, DO NOT USE ELSEWHERE

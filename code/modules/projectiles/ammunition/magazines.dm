@@ -110,6 +110,9 @@
 	name = "combat shotgun internal magazine"
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/shot/com/confetti
+	ammo_type = /obj/item/ammo_casing/shotgun/confetti
+
 /obj/item/ammo_box/magazine/internal/shot/malf
 	name = "cyborg shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/lasershot
@@ -122,6 +125,11 @@
 /obj/item/ammo_box/magazine/internal/shot/improvised
 	name = "improvised shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/dueling_pistol
+	name = "dueling pistol internal magazine"
+	ammo_type = /obj/item/ammo_casing/dueling
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/shot/improvised/cane
@@ -268,6 +276,7 @@
 	multiload = 0
 	slow_loading = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 10000)
 	///A var to check if the mag is being loaded
 	var/being_loaded = FALSE
 	/// There are two reloading processes ongoing so cancel them
@@ -280,13 +289,13 @@
 			user.transfer_item_to(AC, src)
 			return
 	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
-		to_chat(user, "<span class='notice'>You begin to load the magazine with [A].</span>")
+		to_chat(user, SPAN_NOTICE("You begin to load the magazine with [A]."))
 		var/obj/item/ammo_box/AB = A
 		for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
 			if(length(stored_ammo) >= max_ammo)
-				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
+				to_chat(user, SPAN_NOTICE("You stop loading the magazine with [A]."))
 				break
-			if(do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = "<span class='notice'>You stop loading the magazine with [A].</span>"))
+			if(do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = SPAN_NOTICE("You stop loading the magazine with [A].")))
 				src.give_round(AC)
 				AB.stored_ammo -= AC
 				update_mat_value()
@@ -387,7 +396,7 @@
 /obj/item/ammo_box/magazine/tommygunm45
 	name = "drum magazine (.45)"
 	icon_state = "drum45"
-	ammo_type = /obj/item/ammo_casing/c45
+	ammo_type = /obj/item/ammo_casing/c45/nostamina
 	caliber = ".45"
 	max_ammo = 50
 
@@ -498,6 +507,24 @@
 	icon_state = "party_drum"
 	ammo_type = /obj/item/ammo_casing/shotgun/confetti
 
+/obj/item/ammo_box/magazine/paintball
+	name = "paintball magazine"
+	desc = "A magazine that holds a large amount of paintballs."
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "paintballmag"
+	ammo_type = /obj/item/ammo_casing/caseless/paintball
+	caliber = "paintball"
+	max_ammo = 25
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
+
+/obj/item/ammo_box/magazine/paintball/pepperball
+	name = "pepperball magazine"
+	desc = "A magazine that holds a large amount of pepperballs."
+	icon_state = "pepperballmag"
+	ammo_type = /obj/item/ammo_casing/caseless/pepperball
+	caliber = "pepperball"
+	max_ammo = 10
+
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
@@ -590,7 +617,7 @@
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
 	icon_state = "handgun_ammo_battery"
-	materials = list(MAT_METAL = 20000)
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	var/charge = 1000
 
 // Overwrite description so shells aren't displayed
@@ -612,7 +639,7 @@
 
 /obj/item/ammo_box/magazine/detective/speedcharger/examine()
 	. = ..()
-	. += "<span class='notice'>There is [charge_percent()]% charge left!</span>"
+	. += SPAN_NOTICE("There is [charge_percent()]% charge left!")
 
 /obj/item/ammo_box/magazine/detective/speedcharger/attack_self__legacy__attackchain()
 	return

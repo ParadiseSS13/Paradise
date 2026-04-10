@@ -75,16 +75,15 @@
 	if(!found)
 		return
 
-	var/datum/milla_safe/quench/milla = new()
+	var/datum/milla_safe/turf_cool/milla = new()
 	milla.invoke_async(src, delta, divisor)
 
-/datum/milla_safe/quench
+/datum/milla_safe/turf_cool
 
-/datum/milla_safe/quench/on_run(turf/T, delta, divisor)
+/datum/milla_safe/turf_cool/on_run(turf/T, delta, divisor)
 	var/datum/gas_mixture/air = get_turf_air(T)
-	air.set_temperature(max(min(air.temperature()-delta * divisor,air.temperature() / divisor), TCMB))
+	air.set_temperature(max(min(air.temperature()-delta * divisor,air.temperature() / divisor), T20C))
 	air.react()
-	extinguish_hotspot(T)
 
 /*
  * Makes a turf slippery using the given parameters
@@ -152,7 +151,7 @@
 							var/obj/item/organ/external/affected = M.get_organ("head")
 							if(affected)
 								M.apply_damage(5, BRUTE, "head")
-								M.visible_message("<span class='warning'><b>[M]</b> hits their head on the ice!</span>")
+								M.visible_message(SPAN_WARNING("<b>[M]</b> hits their head on the ice!"))
 								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
 
 				if(TURF_WET_PERMAFROST) // Permafrost

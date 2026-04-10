@@ -11,7 +11,7 @@
 	name = "supply shuttle"
 	id = "supply"
 	callTime = 2 MINUTES
-	dir = 8
+	dir = WEST
 	width = 12
 	dwidth = 5
 	height = 7
@@ -22,7 +22,7 @@
 		"living creatures" = list(
 			/mob/living,
 			/obj/structure/blob,
-			/obj/structure/spider/spiderling,
+			/mob/living/basic/spiderling,
 			/obj/machinery/clonepod,
 			/obj/item/paicard),
 		"classified nuclear weaponry" = list(
@@ -77,7 +77,7 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port)
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port, force=FALSE, transit=FALSE)
 	. = ..()
 	if(.)
 		return
@@ -321,11 +321,11 @@
 		credit_changes[item.account] += item.credits
 
 		if(item.credits > 0)
-			msg += "<span class='good'>[item.account.account_name] +[item.credits]</span>: [item.reason]<br>"
+			msg += "[SPAN_GOOD("[item.account.account_name] +[item.credits]")]: [item.reason]<br>"
 		else if(item.credits == 0)
 			msg += "<span class='[item.zero_is_good ? "good" : "bad"]'>[item.account.account_name] Notice</span>: [item.reason]<br>"
 		else
-			msg += "<span class='bad'>[item.account.account_name] [item.credits]</span>: [item.reason]<br>"
+			msg += "[SPAN_BAD("[item.account.account_name] [item.credits]")]: [item.reason]<br>"
 
 		if(item.requests_console_department)
 			if(!department_messages[item.requests_console_department])

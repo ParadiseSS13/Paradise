@@ -53,7 +53,7 @@
 		Bring them to the afterlife, one trigger pull at a time. <br> \
 		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
 		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
-	items_path = list(/obj/item/gun/projectile/revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
+	items_path = list(/obj/item/gun/projectile/revolver/syndie, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
 	spells_path = list(/datum/spell/ethereal_jaunt, /datum/spell/turf_teleport/blink, \
 		/datum/spell/summonitem, /datum/spell/noclothes, /datum/spell/lichdom/gunslinger)
 	category = "Unique"
@@ -83,7 +83,7 @@
 	if(!user)
 		return
 	if(isplasmaman(user))
-		to_chat(user, "<span class='notice'>A spectral hand appears from your spellbook and pulls a brand new plasmaman envirosuit, complete with helmet, from the void, then drops it on the floor.</span>")
+		to_chat(user, SPAN_NOTICE("A spectral hand appears from your spellbook and pulls a brand new plasmaman envirosuit, complete with helmet, from the void, then drops it on the floor."))
 		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
 		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
 	user.drop_item_to_ground(user.wear_id)
@@ -134,7 +134,7 @@
 	qdel(user.head)
 
 	// Part of Sacred Flame
-	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	to_chat(user, SPAN_NOTICE("You feel fireproof."))
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_EXPLOSION_PROOF, MAGIC_TRAIT)

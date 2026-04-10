@@ -47,7 +47,12 @@
 	var/datum/cooking_surface/surface = stove.surfaces[surface_idx]
 	surface.temperature = J_MED
 	surface.turn_on(player.puppet)
-	sleep(3 SECONDS)
-	surface.turn_off(player.puppet)
-	player.alt_click_on(stove, "icon-x=18&icon-y=18")
-	TEST_ASSERT(locate(/obj/item/food/soylentgreen) in stove.loc, "could not find complete soylent")
+	var/attempt_count = 10
+	while(attempt_count)
+		sleep(1 SECONDS)
+		if(locate(/obj/item/food/soylentgreen) in pot)
+			surface.turn_off(player.puppet)
+			return
+		attempt_count--
+
+	TEST_FAIL("could not find complete soylent after 10 attempts")

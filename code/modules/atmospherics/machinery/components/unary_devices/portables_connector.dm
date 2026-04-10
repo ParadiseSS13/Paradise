@@ -34,7 +34,7 @@
 
 /obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/wrench/W)
 	if(connected_device)
-		to_chat(user, "<span class='danger'>You cannot unwrench this [name], detach [connected_device] first.</span>")
+		to_chat(user, SPAN_DANGER("You cannot unwrench this [name], detach [connected_device] first."))
 		return TRUE
 	return ..()
 

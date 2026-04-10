@@ -12,8 +12,8 @@
 	blocks_air = TRUE
 	baseturf = /turf/cordon
 
-// /turf/cordon/rust_heretic_act()
-// 	return FALSE
+/turf/cordon/rust_heretic_act()
+	return FALSE
 
 /turf/cordon/acid_act(acidpwr, acid_volume, acid_id)
 	return FALSE
@@ -24,7 +24,7 @@
 /turf/cordon/TerraformTurf(path, list/new_baseturfs, flags)
 	return
 
-/turf/cordon/bullet_act(obj/item/projectile/hitting_projectile, def_zone, piercing_hit)
+/turf/cordon/bullet_act(obj/projectile/hitting_projectile, def_zone, piercing_hit)
 	SHOULD_CALL_PARENT(FALSE) // Fuck you
 	return
 

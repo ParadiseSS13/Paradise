@@ -1,5 +1,11 @@
 /turf/simulated/floor/indestructible
 
+/turf/simulated/floor/indestructible/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "plating"
+
 /turf/simulated/floor/indestructible/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
@@ -119,3 +125,10 @@
 	temperature = T20C
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
+
+/turf/simulated/floor/indestructible/titanium
+	name = "shuttle floor"
+	icon_state = "titanium"
+
+/turf/simulated/floor/indestructible/titanium/blue
+	icon_state = "titanium_blue"

@@ -83,9 +83,9 @@
 	. += "\The [src] appears to be producing [power_gen*power_output] W."
 	. += "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper."
 	if(is_broken())
-		. += "<span class='warning'>\The [src] seems to have broken down.</span>"
+		. += SPAN_WARNING("\The [src] seems to have broken down.")
 	if(overheating)
-		. += "<span class='danger'>\The [src] is overheating!</span>"
+		. += SPAN_DANGER("\The [src] is overheating!")
 
 /obj/machinery/power/port_gen/pacman/has_fuel()
 	var/needed_sheets = power_output / time_per_sheet
@@ -196,10 +196,10 @@
 		var/obj/item/stack/addstack = used
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
-			to_chat(user, "<span class='notice'>[src] is full!</span>")
+			to_chat(user, SPAN_NOTICE("[src] is full!"))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You add [amount] sheet\s to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You add [amount] sheet\s to [src]."))
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)
@@ -221,9 +221,9 @@
 		return
 	panel_open = !panel_open
 	if(panel_open)
-		to_chat(user, "<span class='notice'>You open the access panel.</span>")
+		to_chat(user, SPAN_NOTICE("You open the access panel."))
 	else
-		to_chat(user, "<span class='notice'>You close the access panel.</span>")
+		to_chat(user, SPAN_NOTICE("You close the access panel."))
 
 /obj/machinery/power/port_gen/pacman/wrench_act(mob/living/user, obj/item/I)
 	if(active)
@@ -233,10 +233,10 @@
 		return
 	if(!anchored)
 		connect_to_network()
-		to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You secure the generator to the floor."))
 	else
 		disconnect_from_network()
-		to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You unsecure the generator from the floor."))
 	anchored = !anchored
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)

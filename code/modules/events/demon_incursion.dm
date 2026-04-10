@@ -2,8 +2,10 @@
 	name = "demon incursion"
 	/// Corresponds to the number of process() runs the event has lasted for. Roughly 2 minutes here.
 	announceWhen = 60
-	/// Corresponds to the number of process() runs the event has lasted for. Roughly 2 minutes here.
-	endWhen = 60
+	noAutoEnd = TRUE
+	role_weights = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 2)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 35, ASSIGNMENT_MEDICAL = 3)
+	nominal_severity = EVENT_LEVEL_MAJOR
 	/// The name of the notification for dchat
 	var/notify_title = "Demonic Incursion"
 	/// The icon of the notification
@@ -12,6 +14,17 @@
 	var/list/portal_list = list()
 	/// The target number of portals
 	var/target_portals = 100
+	/// Toggled when the first portal is spawned
+	var/spawned = FALSE
+
+
+/datum/event/demon_incursion/tick()
+	if(!length(portal_list) && spawned)
+		kill()
+
+// Costs are calculated independently of event
+/datum/event/demon_incursion/event_resource_cost()
+	return list()
 
 /datum/event/demon_incursion/setup()
 	impact_area = findEventArea()
@@ -55,10 +68,11 @@
 	if(length(portal_list) > target_portals)
 		target_portals *= 2
 		prepare_spawn_elite()
+	spawned = TRUE
 
 /datum/event/demon_incursion/proc/prepare_spawn_elite()
 	var/obj/structure/spawner/nether/demon_incursion/elite_portal = pick(portal_list)
-	elite_portal.visible_message("<span class='danger'>Something within [elite_portal] stirs...</span>")
+	elite_portal.visible_message(SPAN_DANGER("Something within [elite_portal] stirs..."))
 	var/list/potentialspawns = list(/mob/living/simple_animal/hostile/asteroid/elite/broodmother,
 		/mob/living/simple_animal/hostile/asteroid/elite/pandora,
 		/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
@@ -69,7 +83,7 @@
 /datum/event/demon_incursion/proc/spawn_elite(mob/dead/observer/elitemind, obj/structure/spawner/nether/demon_incursion/elite_portal, selected_elite)
 	var/mob/living/simple_animal/hostile/asteroid/elite/created_mob = new selected_elite(elite_portal.loc)
 	created_mob.faction = list("nether")
-	elite_portal.visible_message("<span class='userdanger'>[created_mob] emerges from [elite_portal]!</span>")
+	elite_portal.visible_message(SPAN_USERDANGER("[created_mob] emerges from [elite_portal]!"))
 	notify_ghosts("\A [created_mob] has emerged from an incursion portal in \the [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = created_mob, action = NOTIFY_FOLLOW)
 	qdel(elite_portal)
 	playsound(created_mob.loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
@@ -97,18 +111,31 @@
 	spawn_time = 5 SECONDS // Short spawn time initially, it gets updated after it spawns initial mobs
 	max_mobs = 5 // We want a lot of mobs, but not too many
 	max_integrity = 200
-	mob_types = list(/mob/living/basic/netherworld/migo,
-					/mob/living/basic/netherworld,
-					/mob/living/basic/netherworld/blankbody,
-					/mob/living/basic/hellhound,
-					/mob/living/basic/skeleton,
-					/mob/living/basic/netherworld/faithless)
+	mob_types = list(/mob/living/basic/netherworld/migo = 6, // Generic mobs - just run at the target
+					/mob/living/basic/netherworld = 6,
+					/mob/living/basic/netherworld/faithless = 6,
+					/mob/living/basic/skeleton/incursion = 6,
+					/mob/living/basic/netherworld/blankbody = 5,
+					/mob/living/basic/hellhound/whelp = 5, // Specialized mobs - tank
+					/mob/living/basic/skeleton/incursion/security = 5, // Specialized mobs - ranged
+					/mob/living/basic/giant_spider/flesh_spider = 5, // Specialized mobs - poison/harasser
+					/mob/living/basic/skeleton/incursion/reanimator = 4, // Specialized mobs - Summoner
+					/mob/living/basic/skeleton/incursion/mobster = 1,) // Specialized mobs - ranged
 	icon = 'icons/obj/structures/portal.dmi'
 	icon_state = "portal"
 	light_range = 4
 	light_power = 2
 	light_color = "#780606"
 	spawner_type = /datum/component/spawner/demon_incursion_portal
+	/// Mob types that cannot have a special variant - pretty much anything with a unique AI controller
+	var/list/no_special_variants = list(
+		/mob/living/basic/hellhound/whelp,
+		/mob/living/basic/giant_spider/flesh_spider,
+		/mob/living/basic/skeleton/incursion/security,
+		/mob/living/basic/skeleton/incursion/mobster,
+		/mob/living/basic/skeleton/incursion/reanimator)
+	/// Chance that a mob type is special
+	var/special_chance = 15
 	/// The event that spawned this portal
 	var/datum/event/demon_incursion/linked_incursion
 	/// Percentage chance that a portal will spread every time spread() is called
@@ -122,10 +149,10 @@
 	/// Time until next portal
 	var/expansion_delay
 	/// How fast does the portal spawn mobs after the initial spawns?
-	var/spawn_rate = 30 SECONDS
+	var/spawn_rate = 45 SECONDS
 	/// How many initial mobs does it spawn?
 	var/initial_spawns_min = 1
-	var/initial_spawns_max = 4
+	var/initial_spawns_max = 3
 	/// Are we spawning initial mobs?
 	var/spawning_initial_mobs = TRUE
 	/// Current tile spread distance
@@ -148,11 +175,22 @@
 	if(turf_to_spread)
 		spread_turf()
 	SSticker.mode.incursion_portals += src
+	AddComponent(/datum/component/event_tracker, EVENT_DEMONIC)
+
+/obj/structure/spawner/nether/demon_incursion/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 5, ASSIGNMENT_MEDICAL = 1)
+
+/obj/structure/spawner/nether/demon_incursion/Destroy()
+	if(linked_incursion)
+		linked_incursion.portal_list -= src
+	. = ..()
 
 /obj/structure/spawner/nether/demon_incursion/examine(mob/user)
 	. = ..()
 	if(COOLDOWN_FINISHED(src, portal_repair) && obj_integrity < max_integrity)
-		. += "<span class='warning'>Dark tendrils are stabilizing the portal!</span>"
+		. += SPAN_WARNING("Dark tendrils are stabilizing the portal!")
 
 /obj/structure/spawner/nether/demon_incursion/process()
 	. = ..()
@@ -192,15 +230,53 @@
 	var/mob/living/basic/new_mob = created_mob
 	if(!istype(new_mob, /mob/living/basic))
 		return
-	if(new_mob.basic_mob_flags & DEL_ON_DEATH)
+	if(created_mob.type in no_special_variants)
 		return
-	new_mob.AddComponent(/datum/component/incursion_mob_death)
+	if(!(new_mob.basic_mob_flags & DEL_ON_DEATH))
+		new_mob.AddComponent(/datum/component/incursion_mob_death)
+	if(!prob(special_chance))
+		return
+	var/special_type = pick("grappler", "enflamed", "hastened", "electrified", "juggernaut")
+	switch(special_type)
+		if("grappler")
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/energy/demonic_grappler, burst_shots = 1, projectile_sound = 'sound/weapons/wave.ogg')
+			new_mob.name = "grappling " + new_mob.name
+			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#5494DA"
+		if("enflamed")
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/magic/fireball/small, burst_shots = 1, projectile_sound = 'sound/magic/fireball.ogg')
+			new_mob.name = "enflamed " + new_mob.name
+			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#d4341f"
+		if("hastened")
+			new_mob.name = "hastened " + new_mob.name
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#1fd437"
+			new_mob.speed = -1
+		if("electrified")
+			new_mob.AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/energy/demonic_shocker, burst_shots = 1, projectile_sound = 'sound/weapons/taser.ogg')
+			new_mob.name = "electrified " + new_mob.name
+			ADD_TRAIT(new_mob, TRAIT_SHOCKIMMUNE, "electrified")
+			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/ranged(new_mob)
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#fcf7f6"
+		if("juggernaut")
+			new_mob.name = "juggernaut " + new_mob.name
+			new_mob.ai_controller = new /datum/ai_controller/basic_controller/incursion/juggernaut(new_mob)
+			new_mob.health = new_mob.health * 2
+			new_mob.maxHealth = new_mob.maxHealth * 2
+			new_mob.speed += 6
+			new_mob.environment_smash = ENVIRONMENT_SMASH_WALLS // Puny wall.
+			new_mob.update_appearance(UPDATE_NAME)
+			new_mob.color = "#292827"
 
 /obj/structure/spawner/nether/demon_incursion/attacked_by(obj/item/attacker, mob/living/user)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
 
-/obj/structure/spawner/nether/demon_incursion/bullet_act(obj/item/projectile/P)
+/obj/structure/spawner/nether/demon_incursion/bullet_act(obj/projectile/P)
 	. = ..()
 	if(P.firer)
 		SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, P.firer)

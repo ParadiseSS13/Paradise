@@ -1,7 +1,8 @@
-import { Box, Button, LabeledList, Section } from 'tgui-core/components';
-import { CardSkin, IdCard } from './types';
-import { useBackend } from '../../backend';
+import { Box, Button, Dropdown, ImageButton, LabeledList, Section } from 'tgui-core/components';
 import { BooleanLike } from 'tgui-core/react';
+
+import { useBackend } from '../../backend';
+import { CardSkin, IdCard } from './types';
 
 type CardInformationProps = {
   card?: IdCard;
@@ -23,11 +24,11 @@ export const CardInformation = (props: CardInformationProps) => {
       </LabeledList.Item>
       <LabeledList.Item label="Account Number">
         <Button
-          icon={card?.account_number ? 'pencil-alt' : 'exclamation-triangle'}
-          selected={!!card?.account_number}
+          icon={card?.associated_account_number ? 'pencil-alt' : 'exclamation-triangle'}
+          selected={!!card?.associated_account_number}
           onClick={() => act('set_card_account_number')}
         >
-          {card?.account_number ? card?.account_number : 'None'}
+          {card?.associated_account_number ? card?.associated_account_number : 'None'}
         </Button>
       </LabeledList.Item>
     </>
@@ -44,31 +45,70 @@ type CardSkinsProps = {
 export const CardSkins = (props: CardSkinsProps) => {
   const { act } = useBackend();
   const { card_skins, card, is_centcom, all_centcom_skins } = props;
+
   return (
     <Section title="Card Skins">
       {card_skins.map((v) => (
-        <Button
+        <ImageButton
           selected={card?.current_skin === v.skin}
           key={v.skin}
+          tooltip={v.display_name}
+          dmIcon={v.icon}
+          dmIconState={v.skin}
           onClick={() => act('set_card_skin', { skin_target: v.skin })}
-        >
-          {v.display_name}
-        </Button>
+        />
       ))}
       {!!is_centcom && (
         <Box>
           {Array.isArray(all_centcom_skins) &&
             all_centcom_skins.map((v) => (
-              <Button
+              <ImageButton
                 selected={card?.current_skin === v.skin}
                 key={v.skin}
+                tooltip={v.display_name}
+                dmIcon={v.icon}
+                dmIconState={v.skin}
                 color="purple"
                 onClick={() => act('set_card_skin', { skin_target: v.skin })}
-              >
-                {v.display_name}
-              </Button>
+              />
             ))}
         </Box>
+      )}
+    </Section>
+  );
+};
+
+export const DropdownCardSkins = (props: CardSkinsProps) => {
+  const { act } = useBackend();
+  const { card_skins, card, is_centcom, all_centcom_skins } = props;
+
+  const card_skin_options = card_skins
+    .map((v) => ({ displayText: v.display_name, value: v.skin }))
+    .sort((a, b) => a.displayText.localeCompare(b.displayText));
+  const centcom_skin_options = Array.isArray(all_centcom_skins)
+    ? all_centcom_skins
+        .map((v) => ({ displayText: v.display_name, value: v.skin }))
+        .sort((a, b) => a.displayText.localeCompare(b.displayText))
+    : [];
+  const is_dept_skin = card_skin_options.filter((v) => v.value === card?.current_skin).length > 0;
+  return (
+    <Section title="Card Skins">
+      <LabeledList.Item label="Department Skins">
+        <Dropdown
+          options={card_skin_options}
+          selected={is_dept_skin ? card?.current_skin_name : null}
+          onSelected={(value) => act('set_card_skin', { skin_target: value })}
+        />
+      </LabeledList.Item>
+
+      {!!is_centcom && (
+        <LabeledList.Item label="Centcom Skins">
+          <Dropdown
+            options={centcom_skin_options}
+            selected={!is_dept_skin ? card?.current_skin_name : null}
+            onSelected={(value) => act('set_card_skin', { skin_target: value })}
+          />
+        </LabeledList.Item>
       )}
     </Section>
   );

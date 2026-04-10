@@ -29,13 +29,20 @@
 			break
 	zomboid.heal_overall_damage(healing_factor, healing_factor)
 	zomboid.adjustBrainLoss(-healing_factor)
-	if(zomboid.stat == DEAD && zomboid.getBruteLoss() <= 1 && zomboid.getFireLoss() <= 1 && (zomboid.timeofdeath + 15 SECONDS <= world.time))
+	var/list/limbs = zomboid.get_damaged_organs(TRUE, TRUE)
+	var/robotlimbbrute = 0
+	var/robotlimbburn = 0
+	for(var/obj/item/organ/external/limb in limbs)
+		if(limb.is_robotic())
+			robotlimbbrute += limb.brute_dam
+			robotlimbburn += limb.burn_dam
+	if(zomboid.stat == DEAD && (zomboid.getBruteLoss() - robotlimbbrute) <= 1 && (zomboid.getFireLoss() - robotlimbburn) <= 1 && (zomboid.timeofdeath + 15 SECONDS <= world.time))
 		var/datum/reagent/the_cure = zomboid.reagents.has_reagent("zombiecure4")
 		if(the_cure) // dead bodies dont process chemicals, so we gotta do it manually.
 			zomboid.reagents.remove_reagent("zombiecure4", the_cure.metabolization_rate * zomboid.metabolism_efficiency)
 			return
 		zombie_rejuv()
-		to_chat(zomboid, "<span class='zombielarge'>We... Awaken...</span>")
+		to_chat(zomboid, SPAN_ZOMBIELARGE("We... Awaken..."))
 		zomboid.notify_ghost_cloning("Your zombie body has risen again, re-enter your corpse to continue the feast!", source = zomboid)
 
 	// If no client, but they were a player thats not SSD (debrained, revived but hasn't returned to body, etc)

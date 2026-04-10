@@ -47,13 +47,14 @@
 	if(spawn_delay > world.time)
 		return
 	spawn_delay = world.time + spawn_time
-	var/chosen_mob_type = pick(mob_types)
+	var/chosen_mob_type = pickweight(mob_types)
 	var/mob/living/simple_animal/L = new chosen_mob_type(P.loc)
 	L.admin_spawned = P.admin_spawned
 	spawned_mobs += L
 	L.nest = src
 	L.faction = src.faction
-	P.visible_message("<span class='danger'>[L] [spawn_text] [P].</span>")
+	ADD_TRAIT(L, TRAIT_FROM_TENDRIL, INNATE_TRAIT)
+	P.visible_message(SPAN_DANGER("[L] [spawn_text] [P]."))
 	P.on_mob_spawn(L)
 	return L
 
@@ -90,5 +91,8 @@
 
 	COOLDOWN_START(src, last_rally, 30 SECONDS)
 	for(var/mob/living/basic/rallied as anything in spawned_mobs)
+		if(rallied.ventcrawler == VENTCRAWLER_ALWAYS)
+			return // Don't rally ventcrawlers - they might have to walk the entire station!
 		rallied.ai_controller.cancel_actions()
-		rallied.ai_controller.queue_behavior(/datum/ai_behavior/return_home/incursion_portal, BB_INCURSION_HOME_PORTAL)
+		rallied.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+		rallied.ai_controller.queue_behavior(/datum/ai_behavior/return_to_portal, BB_INCURSION_HOME_PORTAL)

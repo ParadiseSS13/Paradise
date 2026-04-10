@@ -10,9 +10,12 @@
  *		Egg Box
  *		Candle Box
  *		Crayon Box
+ *		Matchbox
  *		Cigarette Box
+ *		Cigar Box
  *		Vial Box
  *		Aquatic Starter Kit
+ *		Juice Box Box
  */
 
 /obj/item/storage/fancy
@@ -86,10 +89,10 @@
 
 
 /obj/item/storage/fancy/egg_box
+	name = "egg box"
 	icon_state = "eggbox"
 	icon_type = "egg"
-	item_state = "eggbox"
-	name = "egg box"
+	inhand_icon_state = "eggbox"
 	storage_slots = 12
 	can_hold = list(/obj/item/food/egg)
 
@@ -104,7 +107,7 @@
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candlebox0"
 	icon_type = "candle"
-	item_state = "candlebox5"
+	inhand_icon_state = "syringe_kit"
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
@@ -150,6 +153,21 @@
 	new /obj/item/toy/crayon/black(src)
 	update_icon()
 
+/obj/item/storage/fancy/crayons/marine
+	name = "box of TSF Standard Issue crayons"
+	desc = "A box of a SolGov Marine's favorite mid-operational snack."
+
+/obj/item/storage/fancy/crayons/marine/populate_contents()
+	new /obj/item/toy/crayon/white/marine(src)
+	new /obj/item/toy/crayon/red/marine(src)
+	new /obj/item/toy/crayon/orange/marine(src)
+	new /obj/item/toy/crayon/yellow/marine(src)
+	new /obj/item/toy/crayon/green/marine(src)
+	new /obj/item/toy/crayon/blue/marine(src)
+	new /obj/item/toy/crayon/purple/marine(src)
+	new /obj/item/toy/crayon/black/marine(src)
+	update_icon()
+
 /obj/item/storage/fancy/crayons/update_overlays()
 	. = ..()
 	. += image('icons/obj/crayons.dmi',"crayonbox")
@@ -168,16 +186,13 @@
 				return
 	..()
 
-/*
- * Matches Box
- */
-
+// MARK: MatchBox
 /obj/item/storage/fancy/matches
 	name = "matchbox"
 	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
-	item_state = "matchbox"
+	inhand_icon_state = "matchbox"
 	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
@@ -212,10 +227,10 @@
 //	MARK: Cigarette Pack
 /obj/item/storage/fancy/cigarettes
 	name = "generic cigarette packet"
-	desc = "An abstract brand of cigarette that should not exist. Make a GitHub report if you see this."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "robust_packet"
-	item_state = "robust_packet"
+	inhand_icon_state = "robust_packet"
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
@@ -234,7 +249,7 @@
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
 	if(cigarette_slogan)
-		. += "<span class='notice'>\"[cigarette_slogan]\"</span>"
+		. += SPAN_NOTICE("\"[cigarette_slogan]\"")
 
 /obj/item/storage/fancy/cigarettes/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -256,16 +271,16 @@
 				M.equip_to_slot_if_possible(C, ITEM_SLOT_MASK)
 				if(M != user)
 					user.visible_message(
-						"<span class='notice'>[user] takes \a [C.name] out of [src] and gives it to [M].</span>",
-						"<span class='notice'>You take \a [C.name] out of [src] and give it to [M].</span>"
+						SPAN_NOTICE("[user] takes \a [C.name] out of [src] and gives it to [M]."),
+						SPAN_NOTICE("You take \a [C.name] out of [src] and give it to [M].")
 					)
 				else
-					to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
+					to_chat(user, SPAN_NOTICE("You take \a [C.name] out of the pack."))
 				update_icon()
 				got_cig = TRUE
 				break
 		if(!got_cig)
-			to_chat(user, "<span class='warning'>There are no smokables in the pack!</span>")
+			to_chat(user, SPAN_WARNING("There are no smokables in the pack!"))
 	else
 		..()
 
@@ -274,13 +289,13 @@
 		var/obj/item/match/M = W
 		if(M.lit)
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>")
+				to_chat(usr, SPAN_NOTICE("Putting a lit [W] in [src] probably isn't a good idea."))
 			return FALSE
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/L = W
 		if(L.lit)
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
+				to_chat(usr, SPAN_NOTICE("Putting [W] in [src] while lit probably isn't a good idea."))
 			return FALSE
 	//if we get this far, handle the insertion checks as normal
 	. = ..()
@@ -297,7 +312,7 @@
 	desc = "Smoked mainly by spacers. The somewhat fishy notes are an acquired taste. \
 	Has a light, low-tar smoke specifically designed to reduce stress on scrubber systems."
 	icon_state = "carp_packet"
-	item_state = "carp_packet"
+	inhand_icon_state = "carp_packet"
 	cigarette_slogan = "Carp smokers would rather bite you than switch, since 2313."
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
@@ -305,7 +320,7 @@
 	desc = "An infamous brand, DromedaryCo cigarettes are unfiltered, tarry, and have a very harsh flavour. \
 	Not for beginner smokers. Enjoyed mainly by gruff types with equally gruff voices."
 	icon_state = "D_packet"
-	item_state = "D_packet"
+	inhand_icon_state = "D_packet"
 	cigarette_slogan = "Wouldn't a slow death make a change?"
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
@@ -313,7 +328,7 @@
 	desc = "True to the name, Enigmas are impossible to pin down. \
 	No two cigarettes are alike as each one is infused with unique flavours and substances, so every time is just like your first time."
 	icon_state = "enigma_packet"
-	item_state = "enigma_packet"
+	inhand_icon_state = "enigma_packet"
 	cigarette_slogan = "For the true connoisseur of exotic flavors."
 	cigarette_type = /obj/item/clothing/mask/cigarette/random
 
@@ -326,7 +341,7 @@
 	name = "\improper Midori Tabako packet"
 	desc = "Whilst you cannot decipher what the strange runes on the packet say, it bears the unmistakable scent of cannabis."
 	icon_state = "midori_packet"
-	item_state = "midori_packet"
+	inhand_icon_state = "midori_packet"
 	cigarette_slogan = ""
 	cigarette_type = /obj/item/clothing/mask/cigarette/rollie
 
@@ -336,7 +351,6 @@
 	Exported across the known Orion Spur by members of the USSP's trading bloc and vendors affiliated with the Nian Merchant Guild. \
 	The flavour is acrid, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the low price."
 	icon_state = "our_brand_packet"
-	item_state = "our_brand_packet"
 	cigarette_slogan = "Smoke, for the Union!"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
@@ -348,7 +362,7 @@
 	name = "\improper Robust Gold packet"
 	desc = "Nanotrasen's premium cigarette offering. Has a smooth, drawn-out flavour and a dense smoke. Contains real gold."
 	icon_state = "robust_g_packet"
-	item_state = "robust_g_packet"
+	inhand_icon_state = "robust_g_packet"
 	cigarette_slogan = "Smoked by the <b>truly</b> robust."
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
@@ -366,7 +380,7 @@
 	name ="\improper Shady Jim's Super Slims packet"
 	desc = "Despite the doubious appearance, these cigarettes do exactly what they say on the box. The smoke tastes like cheap berry juice and battery acid, with a bitter chemical aftertaste."
 	icon_state = "shady_jim_packet"
-	item_state = "shady_jim_packet"
+	inhand_icon_state = "shady_jim_packet"
 	cigarette_slogan = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? \
 	Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
@@ -376,14 +390,13 @@
 	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour. \
 	Whilst not actually state-owned, these cigarettes lean heavily into patriotic marketing, and are included in federal ration packs as a morale booster."
 	icon_state = "solar_packet"
-	item_state = "solar_packet"
 	cigarette_slogan = "Smoked by true patriots."
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
 	desc = "One of the most popular brands in the Orion Sector, flavoured with menthol to give a smooth cooling sensation with every puff."
 	icon_state = "uplift_packet"
-	item_state = "uplift_packet"
+	inhand_icon_state = "uplift_packet"
 	cigarette_slogan = "Sit back and relax with the soft cooling embrace that only an Uplift can provide."
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
@@ -392,7 +405,7 @@
 	desc = "A prescription packet containing six fully legal medical marijuana cigarettes. \
 	Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
 	icon_state = "med_packet"
-	item_state = "med_packet"
+	inhand_icon_state = "med_packet"
 	cigarette_slogan = "All the medical benefits, with none of the high!"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 
@@ -400,17 +413,27 @@
 	name = "suspicious cigarette packet"
 	desc = "An obscure brand of evil-looking cigarettes. Smells like Donk pockets."
 	icon_state = "syndie_packet"
-	item_state = "syndie_packet"
+	inhand_icon_state = "syndie_packet"
 	cigarette_slogan = "Strong flavour, dense smoke, infused with omnizine."
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
+
+/obj/item/storage/fancy/cigarettes/cigpack_carcinoma
+	name = "\improper Carcinoma Angel packet"
+	desc = "True to their name, Carcinoma Angels will bring your breathless body to heaven. \
+	This is an attempt to create the most cancerous cigarettes in the universe, for specific connoisseurs. \
+	These cigarettes have been banned across most of known space due to their reckless marketing strategy and obvious health risks."
+	icon_state = "death_packet"
+	inhand_icon_state = "enigma_packet"
+	cigarette_slogan = "That which does not kill us makes us stronger."
+	cigarette_type = /obj/item/clothing/mask/cigarette/carcinoma
 
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
 	desc = "A pack of Nanotrasen brand rolling papers."
-	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper_pack"
-	item_state = "cig_paper_pack"
+	inhand_icon_state = "cig_paper_pack"
+	w_class = WEIGHT_CLASS_TINY
 	storage_slots = 10
 	icon_type = "rolling paper"
 	can_hold = list(/obj/item/rollingpaper)
@@ -427,16 +450,72 @@
 	if(!length(contents))
 		. += "[icon_state]_empty"
 
+// MARK: Cigar Box
+/obj/item/storage/fancy/cigars
+	name = "plastic cigar box"
+	desc = "A cheap plastic box for holding cheap cigars. Only Nanotrasen would think something like this is a good idea."
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "cigar_box"
+	storage_slots = 6
+	max_combined_w_class = 6
+	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
+	icon_type = "cigar"
+	var/cigar_type = /obj/item/clothing/mask/cigarette/cigar
+
+/obj/item/storage/fancy/cigars/populate_contents()
+	for(var/I in 1 to storage_slots)
+		new cigar_type(src)
+
+/obj/item/storage/fancy/cigars/update_overlays()
+	. = ..()
+	for(var/I = 1 to length(contents))
+		var/obj/item/clothing/mask/cigarette/cigar/cigar = contents[I]
+		var/icon/new_cigar_icon = icon('icons/obj/cigarettes.dmi', "[initial(cigar.icon_state)]_[I]")
+		. += new_cigar_icon
+
+/obj/item/storage/fancy/cigars/update_icon_state()
+	icon_state = "[initial(icon_state)]_open"
+
+/obj/item/storage/fancy/cigars/cohiba
+	name = "wooden cigar box"
+	icon_state = "wood_cigar_box"
+	desc = "An ornate wooden box with decorative brass inlays. Perfect for storing a collection of fine cigars."
+	cigar_type = /obj/item/clothing/mask/cigarette/cigar/cohiba
+
+/obj/item/storage/fancy/havana_cigar
+	name = "\improper Cuban cigar box"
+	desc = "A small, ornate wooden box with decorative brass inlays. It has space for a single cigar inside. The bottom portion of the box has a silk-covered for holding the cigar. \
+	Underneath the insert is a folded paper with embossed gold lettering explaining the long and illustrious history of Cuban cigars."
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "cuban_cigar_box"
+	w_class = WEIGHT_CLASS_SMALL
+	can_hold = list(/obj/item/clothing/mask/cigarette/cigar/havana) // It's so powerful it refuses anything else.
+	icon_type = "cigar"
+	storage_slots = 1
+	var/cigar_type = /obj/item/clothing/mask/cigarette/cigar/havana
+
+/obj/item/storage/fancy/havana_cigar/update_icon_state()
+	icon_state = "[initial(icon_state)]_open"
+
+/obj/item/storage/fancy/havana_cigar/populate_contents()
+	new cigar_type(src)
+
+/obj/item/storage/fancy/havana_cigar/update_overlays()
+	. = ..()
+	for(var/I = 1 to length(contents))
+		var/obj/item/clothing/mask/cigarette/cigar/cigar = contents[I]
+		var/icon/new_cigar_icon = icon('icons/obj/cigarettes.dmi', "h_[initial(cigar.icon_state)]")
+		. += new_cigar_icon
 
 // MARK: Vial Box
 /obj/item/storage/fancy/vials
+	name = "vial storage box"
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox6"
+	inhand_icon_state = "syringe_kit"
 	icon_type = "vial"
-	name = "vial storage box"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
-
 
 /obj/item/storage/fancy/vials/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -498,3 +577,159 @@
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
 	new /obj/item/storage/bag/fish(src)
+
+/obj/item/storage/fancy/juice_boxes
+	name = "Stationside Juice Box Variety Pack"
+	desc = "Every flavor of juice boxes, right at your fingertips."
+	storage_slots = 12
+	// Fancier storage slots for that haphazardly-picked-over look
+	var/list/storage_slot_list[12]
+	icon = 'icons/obj/juice_box.dmi'
+	icon_state = "juice_box_box"
+	icon_type = "juice carton"
+	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
+	can_hold = list(/obj/item/reagent_containers/drinks/carton)
+
+/obj/item/storage/fancy/juice_boxes/update_icon_state()
+	return
+
+/obj/item/storage/fancy/juice_boxes/update_overlays()
+	. = ..()
+	. += image('icons/obj/juice_box.dmi', "juice_box_box")
+	for(var/index in 1 to length(storage_slot_list))
+		var/obj/item/reagent_containers/drinks/carton/juice_type = storage_slot_list[index]
+		if(!istype(juice_type))
+			continue
+		if(!(juice_type.icon_state))
+			continue
+		var/image/box_icon = image(icon, src, "[copytext(juice_type.icon_state, 1, -3)]slot")
+		box_icon.pixel_x = 3 * ((index - 1) % 6)
+		box_icon.pixel_y = -4 * (index > 6)
+		. += box_icon
+	. += image(icon, src, "juice_box_box_front")
+
+/obj/item/storage/fancy/juice_boxes/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	if(. && storage_slot_list.Find(I))
+		storage_slot_list[storage_slot_list.Find(I)] = null
+		update_icon()
+
+/obj/item/storage/fancy/juice_boxes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(length(can_hold))
+		if(!is_type_in_typecache(I, can_hold))
+			return ..()
+	if(isrobot(user))
+		return // Robots can't interact with storage items.
+
+	handle_item_insertion(I, user, params)
+	return TRUE
+
+/obj/item/storage/fancy/juice_boxes/handle_item_insertion(obj/item/juice_box, mob/user, params, prevent_warning = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(!(juice_box in contents))
+		return
+
+	var/list/paramlist = params2list(params)
+	// If we don't have info about where the user clicked, put the item at the end of the list.
+	if(!paramlist.Find("icon-x") || !paramlist.Find("icon-y") || !paramlist.Find("screen-loc"))
+		insert_into_end(juice_box)
+		return
+
+	var/src_screenxy = get_obj_screen_xy(src, user.client)
+	var/clicked_screenxy = splittext(paramlist["screen-loc"], ",")
+	// If the user clicked inside the boxes interface instead of on the icon, put the item at the end of the list.
+	if(src_screenxy["x"] != text2num(splittext(clicked_screenxy[1], ":")[1]) || \
+		src_screenxy["y"] != text2num(splittext(clicked_screenxy[2], ":")[1]))
+		insert_into_end(juice_box)
+		return
+
+	// The user clicked our very fancy icon, so figure out where the nearest slot is and put the juice box there.
+	var/storage_slot = ceil(clamp(1, (text2num(paramlist["icon-x"]) - 7), 15) / 3)
+	storage_slot += 6 * (text2num(paramlist["icon-y"]) < 20)
+	insert_into_nearest(juice_box, user, storage_slot)
+
+/// Pick the nearest empty slot in this juice box box to slot the juice box into.
+/obj/item/storage/fancy/juice_boxes/proc/insert_into_nearest(obj/item/juice_box, mob/user, storage_slot)
+	var/distance = 0
+	var/second_row_slot = storage_slot > 6 ? storage_slot - 6 : storage_slot + 6
+	while(distance < storage_slots / 2)
+		if(storage_slot - distance > 0 && !storage_slot_list[storage_slot - distance])
+			storage_slot_list[storage_slot - distance] = juice_box
+			break
+		if(storage_slot + distance <= storage_slots && !storage_slot_list[storage_slot + distance])
+			storage_slot_list[storage_slot + distance] = juice_box
+			break
+		if(second_row_slot - distance > 0 && !storage_slot_list[second_row_slot - distance])
+			storage_slot_list[second_row_slot - distance] = juice_box
+			break
+		if(second_row_slot + distance <= storage_slots && !storage_slot_list[second_row_slot + distance])
+			storage_slot_list[second_row_slot + distance] = juice_box
+			break
+		distance++
+
+	// If it somehow doesn't fit in a storage slot, it shouldn't be in the contents either.
+	if(!(juice_box in storage_slot_list))
+		to_chat(user, SPAN_WARNING("Somehow, [juice_box] doesn't seem to fit."))
+		remove_from_storage(juice_box, get_turf(src))
+
+	// Nudge the standard contents around so they're in the right order.
+	var/contents_copy = contents.Copy()
+	for(var/index = 1 to storage_slots)
+		if(!storage_slot_list[index])
+			continue
+		contents_copy -= storage_slot_list[index]
+		contents_copy += storage_slot_list[index]
+	contents = contents_copy
+
+	// Re-show any mobs viewing the contents the juice boxes in the proper order.
+	for(var/each_mob in mobs_viewing)
+		show_to(each_mob)
+
+	update_icon()
+
+/// Put the juice box into the last slot on the list, and nudge other juice boxes out of the way if necessary.
+/obj/item/storage/fancy/juice_boxes/proc/insert_into_end(obj/item/juice_box)
+	var/list/items_to_nudge = list()
+	// Find an empty slot
+	for(var/storage_slot = storage_slots; storage_slot > 0; storage_slot--)
+		if(!storage_slot_list[storage_slot])
+			break
+		items_to_nudge.Add(storage_slot_list[storage_slot])
+
+	// If the empty slot was not at the end, move each juice box found back one slot until the last slot is empty
+	while(length(items_to_nudge))
+		storage_slot_list[storage_slots - length(items_to_nudge)] = items_to_nudge[length(items_to_nudge)]
+		items_to_nudge.Remove(items_to_nudge[length(items_to_nudge)])
+
+	storage_slot_list[storage_slots] = juice_box
+	update_icon()
+
+/obj/item/storage/fancy/juice_boxes/random
+
+/obj/item/storage/fancy/juice_boxes/random/populate_contents()
+	var/index = 1
+	for(var/juice_type in typesof(/obj/item/reagent_containers/drinks/carton) - /obj/item/reagent_containers/drinks/carton)
+		if(prob(35))
+			storage_slot_list[index] = new juice_type(src)
+		index++
+	update_icon()
+
+/obj/item/storage/fancy/juice_boxes/full
+
+/obj/item/storage/fancy/juice_boxes/full/populate_contents()
+	new /obj/item/reagent_containers/drinks/carton/apple(src)
+	new /obj/item/reagent_containers/drinks/carton/banana(src)
+	new /obj/item/reagent_containers/drinks/carton/berry(src)
+	new /obj/item/reagent_containers/drinks/carton/carrot(src)
+	new /obj/item/reagent_containers/drinks/carton/grape(src)
+	new /obj/item/reagent_containers/drinks/carton/lemonade(src)
+	new /obj/item/reagent_containers/drinks/carton/orange(src)
+	new /obj/item/reagent_containers/drinks/carton/pineapple(src)
+	new /obj/item/reagent_containers/drinks/carton/plum(src)
+	new /obj/item/reagent_containers/drinks/carton/tomato(src)
+	new /obj/item/reagent_containers/drinks/carton/vegetable(src)
+	new /obj/item/reagent_containers/drinks/carton/watermelon(src)
+	storage_slot_list = contents.Copy()
+	update_icon()

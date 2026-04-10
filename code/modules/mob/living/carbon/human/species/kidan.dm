@@ -3,6 +3,7 @@
 	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	language = "Chittin"
+	meat_type = /obj/item/food/meat/human
 
 	blurb = "The Kidan are ant-like beings possessing a hardened exoskeleton and strict adherence to social castes. \
 	They originate from the planet Aurum — a barren bombarded world that suffered after the war with the Solar-Central Compact, having lost decisively after the Battle of Argos.<br/><br/> \
@@ -27,6 +28,10 @@
 	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
 
+	male_scream_sound = 'sound/voice/scream_kidan.ogg'
+	female_scream_sound = 'sound/voice/scream_kidan.ogg'
+
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/kidan,
 		"lungs" =    /obj/item/organ/internal/lungs/kidan,
@@ -38,7 +43,7 @@
 		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
-	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
+	allowed_consumed_mobs = list(/mob/living/basic/diona_nymph)
 
 	suicide_messages = list(
 		"is attempting to bite their antenna off!",

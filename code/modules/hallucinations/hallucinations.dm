@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(hallucinations, list(
+GLOBAL_LIST_INIT(hallucinations, alist(
 	HALLUCINATE_MINOR = list(
 		/obj/effect/hallucination/bolts = 10,
 		/obj/effect/hallucination/fake_danger = 10,
@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	// Overriding to not include call to [/proc/bicon] as it lags the client due to invalid image.
 	. = list(
 		"That's \a [name].",
-		"<span class='whisper'>Something seems odd about this...</span>"
+		SPAN_WHISPER("Something seems odd about this...")
 	)
 
 /obj/effect/hallucination/singularity_pull()

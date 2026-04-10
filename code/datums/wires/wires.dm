@@ -8,6 +8,8 @@
 	var/atom/holder
 	/// The holder type; used to make sure that the holder is the correct type.
 	var/holder_type
+	/// Key that enables wire assignments to be common across different holders. If null, will use the holder_type as a key.
+	var/dictionary_key = null
 	/// The display name for the TGUI window. For example, given the var is "APC"...
 	/// When the TGUI window is opened, "wires" will be appended to it's title, and it would become "APC wires".
 	var/proper_name = "Unknown"
@@ -41,12 +43,13 @@
 	if(randomize)
 		randomize()
 		return
-
-	if(!GLOB.wire_color_directory[holder_type])
+	// If there is a dictionary key set, we'll want to use that. Otherwise, use the holder type.
+	var/key = dictionary_key ? dictionary_key : holder_type
+	if(!GLOB.wire_color_directory[key])
 		randomize()
-		GLOB.wire_color_directory[holder_type] = colors
+		GLOB.wire_color_directory[key] = colors
 	else
-		colors = GLOB.wire_color_directory[holder_type]
+		colors = GLOB.wire_color_directory[key]
 
 /datum/wires/Destroy()
 	for(var/color in colors)
@@ -176,7 +179,7 @@
 		// Toggles the cut/mend status.
 		if("cut")
 			if(!istype(I, /obj/item/wirecutters) && !user.can_admin_interact())
-				to_chat(user, "<span class='error'>You need wirecutters!</span>")
+				to_chat(user, SPAN_ERROR("You need wirecutters!"))
 				return
 
 			if(istype(I))
@@ -187,7 +190,7 @@
 		// Pulse a wire.
 		if("pulse")
 			if(!istype(I, /obj/item/multitool) && !user.can_admin_interact())
-				to_chat(user, "<span class='error'>You need a multitool!</span>")
+				to_chat(user, SPAN_ERROR("You need a multitool!"))
 				return
 
 			playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
@@ -208,14 +211,14 @@
 					return TRUE
 
 			if(!istype(I, /obj/item/assembly/signaler))
-				to_chat(user, "<span class='error'>You need a remote signaller!</span>")
+				to_chat(user, SPAN_ERROR("You need a remote signaller!"))
 				return
 
 			if(user.drop_item())
 				attach_assembly(color, I)
 				return TRUE
 			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
+				to_chat(user, SPAN_WARNING("[user.get_active_hand()] is stuck to your hand!"))
 
 
 /**
@@ -373,6 +376,16 @@
  */
 /datum/wires/proc/cut_random()
 	cut(wires[rand(1, length(wires))])
+
+/**
+* Cuts a random uncut wire.
+*/
+/datum/wires/proc/cut_random_uncut_wire()
+	var/list/uncut_list = wires - cut_wires
+	if(!length(uncut_list))
+		return
+	var/random_wire = pick(uncut_list)
+	cut(random_wire)
 
 /**
  * Cuts all wires.

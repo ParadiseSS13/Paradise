@@ -1384,7 +1384,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return I
 
 //similar function to RANGE_TURFS(), but will search spiralling outwards from the center (like the above, but only turfs)
-/proc/spiral_range_turfs(dist=0, center=usr, orange=0)
+/proc/spiral_range_turfs(dist = 0, center = usr, orange = 0)
 	if(!dist)
 		if(!orange)
 			return list(center)
@@ -1548,7 +1548,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/item/organ/internal = "INT_ORG",
 			/obj/item/organ = "ORGAN",
 			/obj/item/pda = "PDA",
-			/obj/item/projectile = "PROJ",
+			/obj/projectile = "PROJ",
 			/obj/item/radio/headset = "HEADSET",
 			/obj/item/reagent_containers/glass/beaker = "BEAKER",
 			/obj/item/reagent_containers/glass/bottle = "BOTTLE",

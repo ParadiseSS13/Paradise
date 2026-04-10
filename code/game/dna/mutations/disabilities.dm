@@ -38,7 +38,7 @@
 
 /datum/mutation/disability/epilepsy/on_life(mob/living/carbon/human/H)
 	if((prob(1) && !H.IsParalyzed()))
-		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
+		H.visible_message(SPAN_DANGER("[H] starts having a seizure!"),SPAN_ALERT("You have a seizure!"))
 		H.Paralyse(20 SECONDS)
 		H.Jitter(2000 SECONDS)
 
@@ -171,7 +171,7 @@
 /datum/mutation/disability/comic
 	name = "Comic"
 	desc = "This will only bring death and destruction."
-	activation_messages = list("<span class='sans'>Uh oh!</span>")
+	activation_messages = list(SPAN_SANS("Uh oh!"))
 	deactivation_messages = list("Well thank god that's over with.")
 	traits_to_add = list(TRAIT_COMIC_SANS)
 
@@ -492,7 +492,7 @@
 /datum/spell/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
-	L.visible_message("<span class='danger'>[L.name]</b> suddenly bursts into flames!</span>")
+	L.visible_message(SPAN_DANGER("[L.name]</b> suddenly bursts into flames!"))
 	L.IgniteMob()
 	playsound(L.loc, 'sound/effects/bamf.ogg', 50, 0)
 

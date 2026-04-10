@@ -118,16 +118,16 @@
 			if(!attempt_pin || !Adjacent(ui.user))
 				return
 			if(!account_db.try_authenticate_login(detailed_account_view, attempt_pin, FALSE, FALSE, FALSE) || detailed_account_view.account_pin != attempt_pin)
-				to_chat(ui.user, "<span class='warning'>Authentification Failure: Incorrect Pin or insufficient access.</span>")
+				to_chat(ui.user, SPAN_WARNING("Authentification Failure: Incorrect Pin or insufficient access."))
 				return
 			var/new_pin = input("Enter the new pin for this account", "New Account Pin") as num
 			if(!new_pin || !Adjacent(ui.user))
 				return
 			if(new_pin < 1 || new_pin >= 1000000)
-				to_chat(ui.user, "<span class='warning'>Account Error: New pin must be a number between 000001 and 999999.</span>")
+				to_chat(ui.user, SPAN_WARNING("Account Error: New pin must be a number between 000001 and 999999."))
 				return
 			detailed_account_view.account_pin = new_pin
-			to_chat(ui.user, "<span class='notice'>The [detailed_account_view.account_name] account pin has been set to [new_pin] successfully.</span>")
+			to_chat(ui.user, SPAN_NOTICE("The [detailed_account_view.account_name] account pin has been set to [new_pin] successfully."))
 		if("toggle_suspension")
 			if(detailed_account_view)
 				detailed_account_view.suspended = !detailed_account_view.suspended

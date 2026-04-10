@@ -1,6 +1,5 @@
 /obj/item/restraints/legcuffs
-	name = "leg cuffs"
-	desc = "Use this to keep prisoners in line."
+	name = "base type legcuffs"
 	gender = PLURAL
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
@@ -9,6 +8,7 @@
 	slowdown = 7
 	breakouttime = 30 SECONDS
 
+// MARK: Beartrap
 /obj/item/restraints/legcuffs/beartrap
 	name = "bear trap"
 	throw_speed = 1
@@ -40,53 +40,65 @@
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/restraints/legcuffs/beartrap/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/restraints/legcuffs/beartrap/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
 	if(!ishuman(user) || user.restrained())
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(do_after(user, 2 SECONDS, target = user))
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now [armed ? "armed" : "disarmed"]"))
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/restraints/legcuffs/beartrap/attackby__legacy__attackchain(obj/item/I, mob/user) //Let's get explosive.
-	if(istype(I, /obj/item/grenade/iedcasing))
+/obj/item/restraints/legcuffs/beartrap/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// Let's get explosive.
+	if(istype(used, /obj/item/grenade/iedcasing))
 		if(IED)
-			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
-			return
+			to_chat(user, SPAN_WARNING("This beartrap already has an IED hooked up to it!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(sig)
-			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
-			return
+			to_chat(user, SPAN_WARNING("This beartrap already has a signaler hooked up to it!"))
+			return ITEM_INTERACT_COMPLETE
+
 		user.drop_item()
-		I.forceMove(src)
-		IED = I
+		used.forceMove(src)
+		IED = used
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		log_game("[key_name(user)] has rigged a beartrap with an IED.")
-		to_chat(user, "<span class='notice'>You sneak [IED] underneath the pressure plate and connect the trigger wire.</span>")
-		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
-	if(istype(I, /obj/item/assembly/signaler))
+		to_chat(user, SPAN_NOTICE("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
+		desc = "A trap used to catch bears and other legged creatures. [SPAN_WARNING("There is an IED hooked up to it.")]"
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/assembly/signaler))
 		if(IED)
-			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
-			return
+			to_chat(user, SPAN_WARNING("This beartrap already has an IED hooked up to it!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(sig)
-			to_chat(user, "<span class='warning'>This beartrap already has a signaler hooked up to it!</span>")
-			return
-		sig = I
+			to_chat(user, SPAN_WARNING("This beartrap already has a signaler hooked up to it!"))
+			return ITEM_INTERACT_COMPLETE
+
+		sig = used
 		if(sig.secured)
-			to_chat(user, "<span class='warning'>The signaler is secured.</span>")
+			to_chat(user, SPAN_WARNING("The signaler is secured."))
 			sig = null
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		user.drop_item()
-		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You sneak [sig] underneath the pressure plate and connect the trigger wire.</span>")
-		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
-	..()
+		used.forceMove(src)
+		to_chat(user, SPAN_NOTICE("You sneak [sig] underneath the pressure plate and connect the trigger wire."))
+		desc = "A trap used to catch bears and other legged creatures. [SPAN_WARNING("There is a remote signaler hooked up to it.")]"
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
 	if(!IED && !sig)
@@ -95,11 +107,11 @@
 	if(IED)
 		IED.forceMove(get_turf(src))
 		IED = null
-		to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove the IED from [src]."))
 	if(sig)
 		sig.forceMove(get_turf(src))
 		sig = null
-		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove the signaler from [src]."))
 	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/proc/on_atom_entered(datum/source, mob/living/entered)
@@ -111,11 +123,14 @@
 
 		if(ishuman(entered))
 			var/mob/living/carbon/H = entered
-			if(IS_HORIZONTAL(H))
+			if(H.buckled) // if you ride your wheelchair into the trap, snare that instead
+				var/obj/buckled_obj = H.buckled
+				buckled_obj.take_damage(trap_damage, BRUTE)
+			else if(IS_HORIZONTAL(H))
 				H.apply_damage(trap_damage, BRUTE, "chest")
 			else
 				H.apply_damage(trap_damage, BRUTE, pick("l_leg", "r_leg"))
-			if(!H.legcuffed && H.get_num_legs() >= 2) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+			if(!H.legcuffed && H.get_num_legs() >= 2 && !H.buckled) // beartrap can't cuff you leg if there's already a beartrap or legcuffs.
 				H.legcuffed = src
 				forceMove(H)
 				H.update_inv_legcuffed()
@@ -141,7 +156,7 @@
 	update_icon()
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
 	if(!silent_arming)
-		user.visible_message("<span class='danger'>[user] triggers [src].</span>", "<span class='userdanger'>You trigger [src].</span>")
+		user.visible_message(SPAN_DANGER("[user] triggers [src]."), SPAN_USERDANGER("You trigger [src]."))
 
 	if(sig)
 		sig.signal()
@@ -161,8 +176,8 @@
 	flags = DROPDEL
 	breakouttime = 6 SECONDS
 
-/obj/item/restraints/legcuffs/beartrap/energy/New()
-	..()
+/obj/item/restraints/legcuffs/beartrap/energy/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(dissipate)), 100)
 
 /obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
@@ -176,13 +191,13 @@
 /obj/item/restraints/legcuffs/beartrap/energy/cyborg
 	breakouttime = 20 // Cyborgs shouldn't have a strong restraint
 
+// MARK: Bola
 /obj/item/restraints/legcuffs/bola
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "bola"
-	item_state = "bola"
 	breakouttime = 3.5 SECONDS
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
@@ -217,7 +232,7 @@
 	var/range_increment = round(max_range / max_spins)
 	var/speed_increment = round(max_speed / max_spins)
 	RegisterSignal(L, COMSIG_CARBON_SWAP_HANDS, PROC_REF(reset_values), override = TRUE)
-	item_state = "[initial(item_state)]_spin"
+	inhand_icon_state = "[initial(icon_state)]_spin"
 	L.update_inv_r_hand()
 	L.update_inv_l_hand()
 	spinning = TRUE
@@ -238,7 +253,7 @@
 /obj/item/restraints/legcuffs/bola/proc/reset_values(mob/living/user)
 	throw_range = initial(throw_range)
 	throw_speed = initial(throw_speed)
-	item_state = initial(item_state)
+	inhand_icon_state = initial(inhand_icon_state)
 	spinning = FALSE
 	if(user)
 		user.update_inv_r_hand()
@@ -252,8 +267,6 @@
 		return TRUE
 	return FALSE
 
-
-
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
 	playsound(loc,'sound/weapons/bolathrow.ogg', 50, TRUE)
 	if(!..())
@@ -265,12 +278,12 @@
 		return//abort
 	var/mob/living/carbon/C = hit_atom
 	if(!C.legcuffed && C.get_num_legs() >= 2 && !IS_HORIZONTAL(C))
-		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
+		visible_message(SPAN_DANGER("[src] ensnares [C]!"))
 		C.legcuffed = src
 		forceMove(C)
 		C.update_inv_legcuffed()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-		to_chat(C, "<span class='userdanger'>[src] ensnares you!</span>")
+		to_chat(C, SPAN_USERDANGER("[src] ensnares you!"))
 		C.KnockDown(knockdown_duration)
 		playsound(loc, hitsound, 50, TRUE)
 		if(!reuseable)
@@ -281,7 +294,6 @@
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
-	item_state = "bola_r"
 	breakouttime = 7 SECONDS
 	origin_tech = "engineering=4;combat=3"
 	knockdown_duration = 2 SECONDS
@@ -291,7 +303,6 @@
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
-	item_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 4 SECONDS

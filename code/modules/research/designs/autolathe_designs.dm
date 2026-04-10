@@ -123,6 +123,15 @@
 	category = list("initial","Tools")
 	maxstack = 30
 
+/datum/design/cable_coil_heavy_duty
+	name = "Heavy Duty Cable Coil"
+	id = "cable_coil_heavy_duty"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30, MAT_GLASS = 30)
+	build_path = /obj/item/stack/cable_coil/extra_insulated
+	category = list("initial","Tools")
+	maxstack = 30
+
 /datum/design/toolbox
 	name = "Toolbox"
 	id = "tool_box"
@@ -234,7 +243,7 @@
 	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
-	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT / 2, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list("initial","Construction")
 	maxstack = 50
@@ -252,7 +261,7 @@
 	name = "Compressed Matter Cartridge"
 	id = "rcd_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 16000, MAT_GLASS=8000)
+	materials = list(MAT_METAL = 16000, MAT_GLASS = 8000)
 	build_path = /obj/item/rcd_ammo
 	category = list("initial","Construction")
 
@@ -396,7 +405,7 @@
 	name = "Cultivator"
 	id = "cultivator"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 200)
 	build_path = /obj/item/cultivator
 	category = list("initial","Miscellaneous")
 
@@ -575,6 +584,14 @@
 	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	build_path = /obj/item/ammo_box/magazine/detective/speedcharger
 	category = list("initial", "Security")
+
+/datum/design/paintball_magazine
+	name = "Paintball Magazine"
+	id = "paintball_mag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/paintball
+	category = list("initial", "Miscellaneous")
 
 /datum/design/recorder
 	name = "Universal Recorder"
@@ -784,6 +801,14 @@
 	build_path = /obj/item/weldingtool/largetank/empty
 	category = list("initial", "Tools")
 
+/datum/design/inflatable_briefcase
+	name = "Inflatable Barrier Box"
+	id = "inflatable_briefcase"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
+	build_path = /obj/item/storage/briefcase/inflatable
+	category = list("initial", "Construction")
+
 /datum/design/rcd
 	name = "Rapid Construction Device (RCD)"
 	id = "rcd"
@@ -805,7 +830,7 @@
 	id = "rcl"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000)
-	build_path = /obj/item/rcl
+	build_path = /obj/item/stack/cable_coil/rcl/empty
 	category = list("initial", "Construction")
 
 //hacked autolathe recipes
@@ -1094,3 +1119,11 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 250)
 	build_path = /obj/item/forensics/swab
 	category = list("initial", "Security")
+
+/datum/design/suture_needle
+	name = "Suture Needle"
+	id = "sutureneedle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200)
+	build_path = /obj/item/suture_needle
+	category = list("initial", "Medical")

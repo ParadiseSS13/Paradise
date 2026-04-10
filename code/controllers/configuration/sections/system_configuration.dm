@@ -14,6 +14,8 @@
 	var/api_host = null
 	/// Internal API key
 	var/api_key = null
+	/// Github API token
+	var/github_api_token = null
 	/// List of IP addresses which bypass world topic rate limiting
 	var/list/topic_ip_ratelimit_bypass = list()
 	/// Server instance ID
@@ -27,7 +29,9 @@
 	/// Map datum of the map to use, overriding the defaults, and `data/next_map.txt`
 	var/override_map = null
 	/// Assoc list of region names and their server IPs. Used for geo-routing.
+	#ifdef SERVERREGIONS
 	var/list/region_map = list()
+	#endif
 	/// Send a system toast on init completion?
 	var/toast_on_init_complete = FALSE
 	/// The URL for a ss13-yt-wrap server (https://github.com/Absolucy/ss13-yt-wrap) to use.
@@ -45,6 +49,7 @@
 	CONFIG_LOAD_STR(shutdown_shell_command, data["shutdown_shell_command"])
 	CONFIG_LOAD_STR(api_host, data["api_host"])
 	CONFIG_LOAD_STR(api_key, data["api_key"])
+	CONFIG_LOAD_STR(github_api_token, data["github_api_token"])
 
 	CONFIG_LOAD_LIST(topic_ip_ratelimit_bypass, data["topic_ip_ratelimit_bypass"])
 
@@ -54,8 +59,11 @@
 	CONFIG_LOAD_STR(override_map, data["override_map"])
 	CONFIG_LOAD_STR(ytdlp_url, data["ytdlp_url"])
 
+
 	// Load region overrides
+	#ifdef SERVERREGIONS
 	if(islist(data["regional_servers"]))
 		region_map.Cut()
 		for(var/list/kvset in data["regional_servers"])
 			region_map[kvset["name"]] = kvset["ip"]
+	#endif

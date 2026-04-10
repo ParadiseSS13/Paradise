@@ -19,24 +19,20 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/decal/cleanable/tar/Destroy()
-	if(target)
-		target.slowdown -= 10
-	return ..()
-
 /obj/effect/decal/cleanable/tar/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
 	target.slowdown -= 10
-	target = loc
-	target.slowdown += 10
-	if(!issimulatedturf(target))  // We remove slowdown in Destroy(), so we run this check after adding the slowdown.
-		qdel(src)
+
+	// Check tar hasn't been destroyed and that loc is a simulated turf. Qdel calls move moveToNullspace(), which in turn calls Moved()
+	if(!isnull(loc) && issimulatedturf(loc))
+		target = loc
+		target.slowdown += 10
 
 /obj/effect/decal/cleanable/tar/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(isliving(entered))
 		var/mob/living/L = entered
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
-		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
+		to_chat(L, SPAN_USERDANGER("[src] sticks to you!"))
 
 /obj/effect/decal/cleanable/tar/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/obj/item/weldingtool/fire_tool = used
@@ -45,6 +41,6 @@
 	playsound(fire_tool, 'sound/items/welder.ogg', 50, TRUE)
 	if(do_after(user, 3 SECONDS, FALSE, user))
 		if(fire_tool.get_heat() && Adjacent(user))
-			user.visible_message("<span class='danger'>[user] burns away [src] with [fire_tool]!</span>", "<span class='danger'>You burn away [src]!</span>")
+			user.visible_message(SPAN_DANGER("[user] burns away [src] with [fire_tool]!"), SPAN_DANGER("You burn away [src]!"))
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE

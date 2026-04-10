@@ -35,7 +35,7 @@
 /obj/item/shield/riot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_type_in_list(W, allowed_bashers))
 		if(cooldown < world.time - 2.5 SECONDS)
-			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
+			user.visible_message(SPAN_WARNING("[user] bashes [src] with [W]!"))
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
 	else
@@ -45,7 +45,6 @@
 	name = "roman shield"
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."
 	icon_state = "roman_shield"
-	item_state = "roman_shield"
 	materials = list(MAT_METAL=8500)
 
 /obj/item/shield/riot/roman/fake
@@ -59,14 +58,23 @@
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
 	icon_state = "buckler"
-	item_state = "buckler"
-	materials = list()
+	materials = list(MAT_WOOD = 20000)
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
 
 /obj/item/shield/riot/buckler/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (10 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
+/obj/item/shield/riot/bone
+	name = "bone shield"
+	desc = "A primitive yet durable shield made from bone."
+	icon_state = "bone_shield"
+	materials = list()
+	origin_tech = "materials=1;combat=3;biotech=4"
+	resistance_flags = FLAMMABLE
+
+/obj/item/shield/riot/bone/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 3, _stamina_coefficient = 0.6, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -86,10 +94,10 @@
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)
-			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
+			to_chat(owner, SPAN_WARNING("[hitby] overloaded your [src]!"))
 	return 0
 
 /obj/item/shield/energy/IsReflect()
@@ -100,7 +108,7 @@
 
 /obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !forced)
-		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
+		to_chat(user, SPAN_WARNING("You beat yourself in the head with [src]."))
 		user.take_organ_damage(5)
 	active = !active
 	icon_state = "eshield[active]"
@@ -111,14 +119,14 @@
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now active."))
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, SPAN_NOTICE("[src] can now be concealed."))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -138,7 +146,7 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(MAT_GLASS = 4000, MAT_METAL = 1000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000, MAT_SILVER = 300, MAT_TITANIUM = 200)
 
 /obj/item/shield/riot/tele/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS, _requires_activation = TRUE)
@@ -156,7 +164,7 @@
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = null
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, SPAN_NOTICE("[src] can now be concealed."))
 	else
 		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = 8
@@ -164,7 +172,7 @@
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
 		slot_flags = ITEM_SLOT_BACK
-		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+		to_chat(user, SPAN_NOTICE("You extend \the [src]."))
 	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 	if(ishuman(user))

@@ -57,7 +57,7 @@
 		return
 
 	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		to_chat(user, SPAN_WARNING("Access Denied."))
 		flick("doorctrl-denied",src)
 		return
 
@@ -130,12 +130,12 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/door_control/no_emag/emag_act(user as mob)
-	to_chat(user, "<span class='notice'>The electronic systems in this button are far too advanced for your primitive hacking peripherals.</span>")
+	to_chat(user, SPAN_NOTICE("The electronic systems in this button are far too advanced for your primitive hacking peripherals."))
 	return
 
 /obj/machinery/door_control/no_emag/no_cyborg
 	desc = "A remote control-switch for a door. Looks strangely analog in design."
 
 /obj/machinery/door_control/no_emag/no_cyborg/attack_ai(mob/user)
-	to_chat(user, "<span class='warning'>Error, no route to host.</span>")
+	to_chat(user, SPAN_WARNING("Error, no route to host."))
 	return

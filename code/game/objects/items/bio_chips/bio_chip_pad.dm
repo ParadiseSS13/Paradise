@@ -3,10 +3,11 @@
 	desc = "Used to modify bio-chips."
 	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implantpad-off"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
 	var/obj/item/bio_chip_case/case
 	var/static/list/cached_base64_icons = list()
@@ -18,7 +19,7 @@
 
 /obj/item/bio_chip_pad/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove it's stored implant.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to remove it's stored implant.")
 
 /obj/item/bio_chip_pad/update_icon_state()
 	if(case)
@@ -39,7 +40,7 @@
 	if(!user || !C)
 		return
 	if(case)
-		to_chat(user, "<span class='warning'>There's already a bio-chip in the pad!</span>")
+		to_chat(user, SPAN_WARNING("There's already a bio-chip in the pad!"))
 		return
 	user.unequip(C)
 	C.forceMove(src)

@@ -549,10 +549,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "SV" = (
-/obj/machinery/computer/monitor,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/computer/monitor/secret,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "Tv" = (

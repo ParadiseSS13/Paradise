@@ -23,39 +23,6 @@
 		/obj/item/clothing/gloves/color/black/krav_maga,
 	)
 
-/obj/item/storage/bag/garment/captain
-	name = "captain's garment bag"
-	desc = "A bag for storing extra clothes and shoes. This one belongs to the captain."
-
-/obj/item/storage/bag/garment/captain/populate_contents()
-	new /obj/item/clothing/head/caphat(src)
-	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/head/caphat/parade/white(src)
-	new /obj/item/clothing/head/beret/captain(src)
-	new /obj/item/clothing/head/beret/captain/white(src)
-	new /obj/item/clothing/head/crown/fancy(src)
-	new /obj/item/clothing/neck/cloak/captain(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket/tunic(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/coat(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/coat/white(src)
-	new /obj/item/clothing/neck/cloak/captain_mantle(src)
-	new /obj/item/clothing/under/rank/captain(src)
-	new /obj/item/clothing/under/rank/captain/skirt(src)
-	new /obj/item/clothing/under/rank/captain/white(src)
-	new /obj/item/clothing/under/rank/captain/skirt/white(src)
-	new /obj/item/clothing/under/rank/captain/parade(src)
-	new /obj/item/clothing/under/rank/captain/dress(src)
-	new /obj/item/clothing/gloves/color/captain(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/laceup(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/captain(src)
-	new /obj/item/clothing/under/plasmaman/captain(src)
-
 /obj/item/storage/bag/garment/head_of_personnel
 	name = "head of personnel's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the head of personnel."
@@ -63,10 +30,12 @@
 /obj/item/storage/bag/garment/head_of_personnel/populate_contents()
 	new /obj/item/clothing/head/hop(src)
 	new /obj/item/clothing/head/beret/hop(src)
+	new /obj/item/clothing/head/cowboyhat/command(src)
 	new /obj/item/clothing/neck/cloak/head_of_personnel(src)
 	new /obj/item/clothing/neck/cloak/hop_mantle(src)
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/suit/hopcoat(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/hop(src)
 	new /obj/item/clothing/under/rank/civilian/hop(src)
 	new /obj/item/clothing/under/rank/civilian/hop/skirt(src)
 	new /obj/item/clothing/under/rank/civilian/hop/dress(src)
@@ -103,6 +72,8 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/security/hos(src)
 	new /obj/item/clothing/under/plasmaman/security/hos(src)
+	new /obj/item/clothing/suit/hooded/highinquis (src)
+	new /obj/item/clothing/mask/highinquis (src)
 
 /obj/item/storage/bag/garment/research_director
 	name = "research director's garment bag"
@@ -111,10 +82,13 @@
 /obj/item/storage/bag/garment/research_director/populate_contents()
 	new /obj/item/clothing/head/rd (src)
 	new /obj/item/clothing/head/beret/rd(src)
+	new /obj/item/clothing/head/cowboyhat/research(src)
 	new /obj/item/clothing/neck/cloak/research_director(src)
 	new /obj/item/clothing/under/rank/rnd/rd(src)
 	new /obj/item/clothing/under/rank/rnd/rd/skirt(src)
 	new /obj/item/clothing/under/rank/rnd/rd/turtleneck(src)
+	new /obj/item/clothing/under/rank/rnd/rd/whimsy(src)
+	new /obj/item/clothing/under/rank/rnd/rd/skirt/whimsy(src)
 	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/neck/cloak/rd_mantle(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
@@ -137,6 +111,7 @@
 	new /obj/item/clothing/head/surgery/blue(src)
 	new /obj/item/clothing/head/surgery/green(src)
 	new /obj/item/clothing/head/surgery/purple(src)
+	new /obj/item/clothing/head/cowboyhat/med(src)
 	new /obj/item/clothing/neck/cloak/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/cmo(src)
 	new /obj/item/clothing/under/rank/medical/cmo/skirt(src)
@@ -160,6 +135,7 @@
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/head/beret/eng(src)
+	new /obj/item/clothing/head/cowboyhat/engie(src)
 	new /obj/item/clothing/neck/cloak/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
@@ -179,6 +155,7 @@
 
 /obj/item/storage/bag/garment/nanotrasen_representative/populate_contents()
 	new /obj/item/clothing/head/ntrep(src)
+	new /obj/item/clothing/head/cowboyhat/command(src)
 	new /obj/item/clothing/under/rank/procedure/representative(src)
 	new /obj/item/clothing/under/rank/procedure/representative/skirt(src)
 	new /obj/item/clothing/under/rank/procedure/representative/formal(src)
@@ -198,6 +175,7 @@
 /obj/item/storage/bag/garment/magistrate/populate_contents()
 	new /obj/item/clothing/head/justice_wig(src)
 	new /obj/item/clothing/head/powdered_wig(src)
+	new /obj/item/clothing/head/cowboyhat/command(src)
 	new /obj/item/clothing/under/rank/procedure/magistrate(src)
 	new /obj/item/clothing/under/rank/procedure/magistrate/skirt(src)
 	new /obj/item/clothing/under/rank/procedure/magistrate/formal(src)
@@ -215,6 +193,7 @@
 /obj/item/storage/bag/garment/blueshield/populate_contents()
 	new /obj/item/clothing/head/beret/centcom/officer(src)
 	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
+	new /obj/item/clothing/head/cowboyhat/command(src)
 	new /obj/item/clothing/under/rank/procedure/blueshield(src)
 	new /obj/item/clothing/under/rank/procedure/blueshield/skirt(src)
 	new /obj/item/clothing/under/rank/procedure/blueshield/formal(src)
@@ -246,6 +225,7 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/head/qm(src)
 	new /obj/item/clothing/head/beret/qm(src)
+	new /obj/item/clothing/head/cowboyhat/supply(src)
 	new /obj/item/clothing/neck/cloak/quartermaster(src)
 	new /obj/item/clothing/head/hardhat/orange(src)
 	new /obj/item/clothing/suit/qmcoat(src)
@@ -298,20 +278,24 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the chaplain."
 
 /obj/item/storage/bag/garment/chaplain/populate_contents()
-	new /obj/item/clothing/under/rank/civilian/chaplain(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/suit/hooded/abaya(src)
-	new /obj/item/clothing/suit/hooded/nun(src)
-	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
-	new /obj/item/clothing/suit/hooded/monk(src)
-	new /obj/item/clothing/suit/witchhunter(src)
-	new /obj/item/clothing/head/witchhunter_hat(src)
-	new /obj/item/clothing/suit/holidaypriest(src)
+	new /obj/item/clothing/suit/hooded/dark_robes(src)
 	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
 	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain(src)
-	new /obj/item/clothing/under/plasmaman/chaplain(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain/green(src)
+	new /obj/item/clothing/under/plasmaman/chaplain/green(src)
+
+/obj/item/storage/bag/garment/librarian
+	name = "librarian's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the librarian."
+
+/obj/item/storage/bag/garment/librarian/populate_contents()
+	new /obj/item/clothing/under/rank/civilian/librarian(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/suit/librarian(src)
+	new /obj/item/clothing/suit/librarian/argyle(src)
+	new /obj/item/clothing/suit/armor/vest/press(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/librarian(src)
+	new /obj/item/clothing/under/plasmaman/librarian(src)
 
 /obj/item/storage/bag/garment/psychologist
 	name = "psychologist's garment bag"
@@ -341,6 +325,7 @@
 	new /obj/item/clothing/head/beret/paramedic(src)
 	new /obj/item/clothing/suit/storage/labcoat/emt(src)
 	new /obj/item/clothing/suit/storage/hazardvest/paramedic(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/medical/paramedic(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
@@ -393,6 +378,7 @@
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/clothing/suit/storage/iaa/blackjacket(src)
 	new /obj/item/clothing/suit/blacktrenchcoat(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/syndicate(src)
 	new /obj/item/clothing/head/beret/syndicate(src)
 	new /obj/item/clothing/glasses/syndie(src)
 	new /obj/item/clothing/neck/cloak/syndicate(src)

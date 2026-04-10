@@ -92,11 +92,11 @@
 
 	if(safety)
 		safety = FALSE
-		unit.visible_message("<span class='notice'>[unit] beeps: Safety protocols disabled!</span>")
+		unit.visible_message(SPAN_NOTICE("[unit] beeps: Safety protocols disabled!"))
 		playsound(get_turf(unit), safety_off_sound, 50, FALSE)
 	else
 		safety = TRUE
-		unit.visible_message("<span class='notice'>[unit] beeps: Safety protocols enabled!</span>")
+		unit.visible_message(SPAN_NOTICE("[unit] beeps: Safety protocols enabled!"))
 		playsound(get_turf(unit), safety_on_sound, 50, FALSE)
 
 /datum/component/defib/proc/on_emag(obj/item/unit, mob/user)
@@ -148,12 +148,12 @@
 	var/application_result = SEND_SIGNAL(parent, COMSIG_DEFIB_PADDLES_APPLIED, user, target, should_cause_harm)
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_DEAD)
-		user.visible_message("<span class='notice'>[defib_ref] beeps: Unit is unpowered.</span>")
+		user.visible_message(SPAN_NOTICE("[defib_ref] beeps: Unit is unpowered."))
 		playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 		return
 
 	if(on_cooldown)
-		to_chat(user, "<span class='notice'>[defib_ref] is recharging.</span>")
+		to_chat(user, SPAN_NOTICE("[defib_ref] is recharging."))
 		return
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)
@@ -161,9 +161,9 @@
 
 	if(!istype(target))
 		if(robotic)
-			to_chat(user, "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>")
+			to_chat(user, SPAN_NOTICE("This unit is only designed to work on humanoid lifeforms."))
 		else
-			to_chat(user, "<span class='notice'>The instructions on [defib_ref] don't mention how to defibrillate that...</span>")
+			to_chat(user, SPAN_NOTICE("The instructions on [defib_ref] don't mention how to defibrillate that..."))
 		return
 
 	if(should_cause_harm && combat && heart_attack_chance == 100)
@@ -178,23 +178,23 @@
 		return
 
 	user.visible_message(
-		"<span class='warning'>[user] begins to place [parent] on [target]'s chest.</span>",
-		"<span class='warning'>You begin to place [parent] on [target.name]'s chest.</span>"
+		SPAN_WARNING("[user] begins to place [parent] on [target]'s chest."),
+		SPAN_WARNING("You begin to place [parent] on [target.name]'s chest.")
 	)
 
 	busy = TRUE
 	var/mob/dead/observer/ghost = target.get_ghost()
 	if(ghost)
-		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
+		to_chat(ghost, "[SPAN_GHOSTALERT("Your heart is being defibrillated. Return to your body if you want to be revived!")] (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 	else if(HAS_TRAIT_FROM(target, TRAIT_FAKEDEATH, CHANGELING_TRAIT))
-		to_chat(target, "<span class='ghostalert'>Your heart is being defibrillated. Click the defibrillator status to be revived!</span>")
+		to_chat(target, SPAN_GHOSTALERT("Your heart is being defibrillated. Click the defibrillator status to be revived!"))
 		window_flash(target.client)
 		SEND_SOUND(target, sound('sound/effects/genetics.ogg'))
 		target.throw_alert("cling_defib", /atom/movable/screen/alert/changeling_defib_revive, alert_args = list(parent, target))
 
-	user.visible_message("<span class='notice'>[user] places [parent] on [target]'s chest.</span>", "<span class='warning'>You place [parent] on [target]'s chest.</span>")
+	user.visible_message(SPAN_NOTICE("[user] places [parent] on [target]'s chest."), SPAN_WARNING("You place [parent] on [target]'s chest."))
 	playsound(get_turf(defib_ref), charge_sound, 50, FALSE)
 
 	if(ghost && !ghost.client && !QDELETED(ghost))
@@ -208,7 +208,7 @@
 		return
 
 	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !combat)
-		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient's chest is obscured. Operation aborted.</span>")
+		user.visible_message(SPAN_NOTICE("[defib_ref] buzzes: Patient's chest is obscured. Operation aborted."))
 		playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 		busy = FALSE
 		return
@@ -223,9 +223,9 @@
 	if(target.undergoing_cardiac_arrest() && target.stat != DEAD) // Can have a heart attack and heart is either missing, necrotic, or not beating
 		var/datum/organ/heart/heart = target.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(!heart)
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
+			user.visible_message(SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity."))
 		else if(heart.linked_organ.status & ORGAN_DEAD)
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
+			user.visible_message(SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - Heart necrosis detected."))
 		if(!heart || (heart.linked_organ.status & ORGAN_DEAD))
 			playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 			busy = FALSE
@@ -235,8 +235,8 @@
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		set_cooldown(cooldown)
-		user.visible_message("<span class='boldnotice'>[defib_ref] pings: Cardiac arrhythmia corrected.</span>")
-		target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>", "<span class='userdanger'>You feel a jolt, and your heartbeat seems to steady.</span>")
+		user.visible_message(SPAN_BOLDNOTICE("[defib_ref] pings: Cardiac arrhythmia corrected."))
+		target.visible_message(SPAN_WARNING("[target]'s body convulses a bit."), SPAN_USERDANGER("You feel a jolt, and your heartbeat seems to steady."))
 		playsound(get_turf(defib_ref), zap_sound, 50, TRUE, -1)
 		playsound(get_turf(defib_ref), "bodyfall", 50, TRUE)
 		playsound(get_turf(defib_ref), success_sound, 50, FALSE)
@@ -244,12 +244,12 @@
 		return
 
 	if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
-		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient is not in a valid state. Operation aborted.</span>")
+		user.visible_message(SPAN_NOTICE("[defib_ref] buzzes: Patient is not in a valid state. Operation aborted."))
 		playsound(get_turf(defib_ref), fail_sound, 50, FALSE)
 		busy = FALSE
 		return
 
-	target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>")
+	target.visible_message(SPAN_WARNING("[target]'s body convulses a bit."))
 	playsound(get_turf(defib_ref), "bodyfall", 50, TRUE)
 	playsound(get_turf(defib_ref), zap_sound, 50, TRUE, -1)
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
@@ -259,31 +259,31 @@
 
 	var/failure_message
 	if(!target.is_revivable())
-		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>"
+		failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.")
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180)
-		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected.</span>"
+		failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected.")
 	else if(HAS_TRAIT(target, TRAIT_HUSK))
-		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Subject is husked.</span>"
+		failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - Subject is husked.")
 	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
-		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>"
+		failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.")
 	else if(!target.get_organ_slot("brain"))  // So things like headless clings don't get outed
-		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>"
+		failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.")
 	else if(ghost)
 		if(!(ghost.ghost_flags & GHOST_CAN_REENTER) || target.suiciding) // DNR or AntagHUD
-			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>"
+			failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.")
 		else
-			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>"
+			failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.")
 	else if(HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		if(signal_result & COMPONENT_DEFIB_FAKEDEATH_DENIED)
-			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>"
+			failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.")
 		else if(signal_result & COMPONENT_DEFIB_FAKEDEATH_ACCEPTED)
 			// as much as I hate that this is here, it has to come after the `Patient is not in a valid state. Operation aborted.` check.
 			REMOVE_TRAIT(target, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
 		else
-			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>" // has a fakedeath like capulettium
+			failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed.") // has a fakedeath like capulettium
 
 	else if((signal_result & COMPONENT_BLOCK_DEFIB) || HAS_TRAIT(target, TRAIT_BADDNA) || target.suiciding)  // these are a bit more arbitrary
-		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>"
+		failure_message = SPAN_BOLDNOTICE("[defib_ref] buzzes: Resuscitation failed.")
 
 	if(failure_message)
 		user.visible_message(failure_message)
@@ -313,11 +313,11 @@
 		if(target.check_brain_threshold(BRAIN_DAMAGE_RATIO_CRITICAL))
 			// If you want to treat this with mannitol, it'll have to metabolize while the patient is alive, so it's alright to bring them back up for a minute
 			playsound(get_turf(defib_ref), safety_off_sound, 50, FALSE)
-			user.visible_message("<span class='boldnotice'>[defib_ref] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")
+			user.visible_message(SPAN_BOLDNOTICE("[defib_ref] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation."))
 		else
 			playsound(get_turf(defib_ref), success_sound, 50, FALSE)
 
-		user.visible_message("<span class='boldnotice'>[defib_ref] pings: Resuscitation successful.</span>")
+		user.visible_message(SPAN_BOLDNOTICE("[defib_ref] pings: Resuscitation successful."))
 
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		if(ishuman(target.pulledby)) // For some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
@@ -349,8 +349,8 @@
 	if(!istype(target))
 		return
 	busy = TRUE
-	target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
-			"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
+	target.visible_message(SPAN_DANGER("[user] has touched [target] with [parent]!"), \
+			SPAN_USERDANGER("[user] touches you with [parent], and you feel a strong jolt!"))
 	target.apply_damage(60, STAMINA)
 	target.KnockDown(10 SECONDS)
 	playsound(get_turf(parent), zap_sound, 50, TRUE, -1)
@@ -373,13 +373,13 @@
 	if(IS_HORIZONTAL(target) && HAS_TRAIT(target, TRAIT_HANDS_BLOCKED)) // Weakening exists which doesn't floor you while stunned
 		add_attack_logs(user, target, "Gave a heart attack with [parent]")
 		target.set_heartattack(TRUE)
-		target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
-				"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
+		target.visible_message(SPAN_DANGER("[user] has touched [target] with [parent]!"), \
+				SPAN_USERDANGER("[user] touches you with [parent], and you feel a strong jolt!"))
 		playsound(get_turf(parent), zap_sound, 50, TRUE, -1)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		set_cooldown(cooldown)
 		return
-	target.visible_message("<span class='danger'>[user] touches [target] lightly with [parent]!</span>")
+	target.visible_message(SPAN_DANGER("[user] touches [target] lightly with [parent]!"))
 	set_cooldown(2.5 SECONDS)
 
 /*
@@ -407,8 +407,8 @@
 	if(electrocute_mob(affecting, power_source, origin)) // shock anyone touching them >:)
 		var/datum/organ/heart/heart = affecting.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(heart.linked_organ.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
-			affecting.visible_message("<span class='danger'>[affecting]'s entire body shakes as a shock travels up [affecting.p_their()] arm!</span>", \
-							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
+			affecting.visible_message(SPAN_DANGER("[affecting]'s entire body shakes as a shock travels up [affecting.p_their()] arm!"), \
+							SPAN_USERDANGER("You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!"))
 			affecting.set_heartattack(TRUE)
 
 #undef DEFIB_TIME

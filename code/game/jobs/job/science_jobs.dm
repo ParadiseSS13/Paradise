@@ -34,6 +34,8 @@
 		ACCESS_XENOBIOLOGY,
 		ACCESS_WEAPONS
 	)
+	skeleton_access = list(ACCESS_CAPTAIN)
+	alt_titles = list("Senior Researcher", "Chief Research Officer")
 	minimal_player_age = 21
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	exp_map = list(EXP_TYPE_SCIENCE = 1200)
@@ -45,6 +47,9 @@
 	outfit = /datum/outfit/job/rd
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Science), basic job duties, and act professionally (roleplay)."
 	standard_paycheck = CREW_PAY_HIGH
+	difficulty = MEDIUM_DIFFICULTY
+	description = "The Research Director has the responsibility of overseeing the Science department.\n\n\
+					Difficulties: Standard Operating Procedure (General, Science), R&D, xenobiology, toxins, chemistry, robotics, genetics, AI modules, anomalies"
 
 /datum/outfit/job/rd
 	name = "Research Director"
@@ -87,6 +92,15 @@
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
 	)
+	skeleton_access = list(
+		ACCESS_ROBOTICS,
+		ACCESS_MORGUE,
+		ACCESS_TECH_STORAGE,
+		ACCESS_GENETICS,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+	)
 	alt_titles = list("Anomalist", "Plasma Researcher", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -97,6 +111,9 @@
 
 	outfit = /datum/outfit/job/scientist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Scientists have the responsibility of increasing the station's research levels.\n\n\
+					Difficulties: R&D, toxins, chemistry, anomalies, menu navigation"
 
 /datum/outfit/job/scientist
 	name = "Scientist"
@@ -138,6 +155,14 @@
 		ACCESS_EXTERNAL_AIRLOCKS,
 		ACCESS_TELEPORTER,
 	)
+	skeleton_access = list(
+		ACCESS_TOX_STORAGE,
+		ACCESS_TOX,
+		ACCESS_ROBOTICS,
+		ACCESS_MORGUE,
+		ACCESS_TECH_STORAGE,
+		ACCESS_GENETICS,
+	)
 	alt_titles = list("Xenoarcheologist", "Slime Cultivator", "Slime Rancher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
@@ -148,17 +173,21 @@
 
 	outfit = /datum/outfit/job/xenobiologist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Xenobiologists have the responsibility of researching slimes and the organs of fauna.\n\n\
+					Difficulties: Xenobiology, surgery"
 
 /datum/outfit/job/xenobiologist
 	name = "Xenobiologist"
 	jobtype = /datum/job/xenobiologist
 
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	r_pocket = /obj/item/storage/bag/bio
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	glasses = /obj/item/clothing/glasses/science
-	l_ear = /obj/item/radio/headset/headset_sci
+	l_ear = /obj/item/radio/headset/headset_xenobio
 	id = /obj/item/card/id/xenobiology
 	pda = /obj/item/pda/toxins
 
@@ -190,6 +219,14 @@
 		ACCESS_ROBOTICS,
 		ACCESS_TECH_STORAGE
 	)
+	skeleton_access = list(
+		ACCESS_TOX_STORAGE,
+		ACCESS_TOX,
+		ACCESS_GENETICS,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+	)
 	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
@@ -201,6 +238,9 @@
 
 	outfit = /datum/outfit/job/roboticist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Roboticists have the responsibility of building exosuits, cyborgs, and implants.\n\n\
+					Difficulties: Cyborg/exosuit/IPC construction/maintenance, AI modules, paperwork, MODsuits, surgery"
 
 /datum/outfit/job/roboticist
 	name = "Roboticist"
@@ -236,10 +276,25 @@
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_RESEARCH
 	)
+	skeleton_access = list(
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_TOX_STORAGE,
+		ACCESS_TOX,
+		ACCESS_ROBOTICS,
+		ACCESS_MORGUE,
+		ACCESS_TECH_STORAGE,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+	)
+	alt_titles = list("Genetic Researcher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/geneticist
 	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	description = "Geneticists have the responsibility of researching and providing genetic powers.\n\n\
+					Difficulties: Genetics, menu navigation"
 
 /datum/outfit/job/geneticist
 	name = "Geneticist"

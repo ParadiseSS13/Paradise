@@ -284,7 +284,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bz" = (
-/mob/living/simple_animal/crab,
+/mob/living/basic/crab,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bA" = (

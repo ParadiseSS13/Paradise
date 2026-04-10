@@ -34,7 +34,7 @@ GLOBAL_PROTECT(href_token)
 
 /datum/admins/New(initial_rank, initial_rights, ckey)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>Admin rank creation blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Admin rank creation blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to create a new admin rank via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to edit feedback a new admin rank via advanced proc-call")
 		return
@@ -52,7 +52,7 @@ GLOBAL_PROTECT(href_token)
 
 /datum/admins/Destroy()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>Admin rank deletion blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Admin rank deletion blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to delete an admin rank via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to delete an admin rank via advanced proc-call")
 		return
@@ -62,7 +62,7 @@ GLOBAL_PROTECT(href_token)
 
 /datum/admins/proc/associate(client/C, delay_2fa_complaint = FALSE)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>Rank association blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Rank association blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to associate an admin rank to a new client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to associate an admin rank to a new client via advanced proc-call")
 		return
@@ -79,7 +79,7 @@ GLOBAL_PROTECT(href_token)
 		restricted_by_2fa = TRUE
 		if(!delay_2fa_complaint)
 			// And tell them about it.
-			to_chat(owner,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.\nTo setup 2FA, head to the following menu: <a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]'>Game Preferences</a></span>")  // Very fucking obvious
+			to_chat(owner,SPAN_BOLDANNOUNCEOOC("<big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.\nTo setup 2FA, head to the following menu: <a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]'>Game Preferences</a>"))  // Very fucking obvious
 
 	// Regardless of client, tell BYOND if they should have profiler access.
 	if(rights & (R_DEBUG | R_VIEWRUNTIMES))
@@ -89,7 +89,7 @@ GLOBAL_PROTECT(href_token)
 		return
 
 	owner.holder = src
-	owner.add_admin_verbs()
+	owner.add_user_verbs()
 	if(isobserver(owner.mob))
 		var/mob/dead/observer/ghost = owner.mob
 		ghost.update_admin_actions()
@@ -121,7 +121,7 @@ GLOBAL_PROTECT(href_token)
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>Rank disassociation blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Rank disassociation blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to disassociate an admin rank from a client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to disassociate an admin rank from a client via advanced proc-call")
 		return
@@ -133,7 +133,7 @@ GLOBAL_PROTECT(href_token)
 
 	if(owner)
 		GLOB.admins -= owner
-		owner.hide_verbs()
+		owner.remove_user_verbs()
 		owner.holder = null
 		owner.init_verbs()
 		if(isobserver(owner.mob))
@@ -196,7 +196,7 @@ NOTE: checks usr by default, not src
 
 /client/proc/deadmin()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>Deadmin blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Deadmin blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to de-admin a client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to de-admin a client via advanced proc-call")
 		return
@@ -216,12 +216,12 @@ NOTE: checks usr by default, not src
 	set desc = "Regain your admin powers."
 
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>Readmin blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Readmin blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to re-admin a client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to re-admin a client via advanced proc-call")
 
 	if(holder)
-		to_chat(usr, "<span class='notice'>You are already an admin.</span>")
+		to_chat(usr, SPAN_NOTICE("You are already an admin."))
 	else if(ckey in (GLOB.de_admins + GLOB.de_mentors))
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
@@ -230,7 +230,7 @@ NOTE: checks usr by default, not src
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	else
-		to_chat(usr, "<span class='boldannounceooc'>Readmin blocked: You were not an admin or mentor.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Readmin blocked: You were not an admin or mentor."))
 		message_admins("[key_name(usr)] attempted to re-admin without being an admin or mentor")
 		log_admin("[key_name(usr)] attempted to re-admin without being an admin or mentor")
 

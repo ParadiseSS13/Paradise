@@ -2,8 +2,8 @@
 	name = "fire extinguisher"
 	desc = "A traditional red fire extinguisher."
 	icon_state = "fire_extinguisher0"
-	item_state = "fire_extinguisher"
 	base_icon_state = "fire_extinguisher"
+	inhand_icon_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
@@ -35,8 +35,8 @@
 	name = "atmospheric fire extinguisher"
 	desc = "An extinguisher coated in yellow paint that is pre-filled with firefighting foam."
 	icon_state = "atmoFE0"
-	item_state = "atmoFE"
 	base_icon_state = "atmoFE"
+	inhand_icon_state = "atmoFE"
 	materials = list(MAT_TITANIUM = 200)
 	dog_fashion = null
 	reagent_id = "firefighting_foam"
@@ -49,8 +49,8 @@
 	name = "pocket fire extinguisher"
 	desc = "A light and compact fibreglass-framed model fire extinguisher."
 	icon_state = "miniFE0"
-	item_state = "miniFE"
 	base_icon_state = "miniFE"
+	inhand_icon_state = "miniFE"
 	hitsound = null	// It is much lighter, after all.
 	flags = null // Non-conductive, not made of metal.
 	throwforce = 2
@@ -67,14 +67,13 @@
 	name = "integrated fire extinguisher"
 	desc = "A miniature fire extinguisher designed to store firefighting foam."
 	icon_state = "cyborgFE0"
-	item_state = "cyborgFE"
 	base_icon_state = "cyborgFE"
 	reagent_id = "firefighting_foam"
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
 	if(has_safety)
-		. += "<span class='notice'>The safety is [safety_active ? "on" : "off"].</span>"
+		. += SPAN_NOTICE("The safety is [safety_active ? "on" : "off"].")
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
@@ -96,7 +95,7 @@
 
 	safety_active = !safety_active
 	icon_state = "[base_icon_state][!safety_active]"
-	to_chat(user, "<span class='notice'>You [safety_active ? "enable" : "disable"] [src]'s safety.</span>")
+	to_chat(user, SPAN_NOTICE("You [safety_active ? "enable" : "disable"] [src]'s safety."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/extinguisher/interact_with_atom(atom/target, mob/living/user, list/modifiers)
@@ -119,16 +118,16 @@
 		return FALSE
 
 	if(reagents.total_volume == reagents.maximum_volume)
-		to_chat(user, "<span class='notice'>[src] is already full.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already full."))
 		return TRUE
 
 	var/obj/structure/reagent_dispensers/watertank/W = target
 	var/transferred = W.reagents.trans_to(src, reagent_capacity)
 	if(!transferred)
-		to_chat(user, "<span class='notice'>\The [W] is empty!</span>")
+		to_chat(user, SPAN_NOTICE("\The [W] is empty!"))
 		return TRUE
 
-	to_chat(user, "<span class='notice'>[src] has been refilled with [transferred] units.</span>")
+	to_chat(user, SPAN_NOTICE("[src] has been refilled with [transferred] units."))
 	playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
 	return TRUE
 
@@ -143,7 +142,7 @@
 		return
 
 	if(reagents.total_volume < 1)
-		to_chat(user, "<span class='danger'>[src] is empty.</span>")
+		to_chat(user, SPAN_DANGER("[src] is empty."))
 		return
 
 	if(A.loc == user)

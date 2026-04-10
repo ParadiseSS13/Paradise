@@ -3,15 +3,15 @@
 	desc = "Harsh snowstorms roam the topside of this arctic planet, burying any area unfortunate enough to be in its path."
 //	probability = 90
 
-	telegraph_message = "<span class='warning'>Drifting particles of snow begin to dust the surrounding area..</span>"
+	telegraph_message = SPAN_WARNING("Drifting particles of snow begin to dust the surrounding area..")
 	telegraph_overlay = "light_snow"
 
-	weather_message = "<span class='userdanger'><i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i></span>"
+	weather_message = SPAN_USERDANGER("<i>Harsh winds pick up as dense snow begins to fall from the sky! Seek shelter!</i>")
 	weather_overlay = "snow_storm"
 	weather_duration_lower = 600
 
 	end_duration = 100
-	end_message = "<span class='boldannounceic'>The snowfall dies down, it should be safe to go outside again.</span>"
+	end_message = SPAN_BOLDANNOUNCEIC("The snowfall dies down, it should be safe to go outside again.")
 
 //	area_type = /area/awaymission/snowdin/outside
 	target_trait = AWAY_LEVEL

@@ -3,7 +3,7 @@
 	desc = "A prototype three-round burst toy submachine gun. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "saber"
-	item_state = "saber"
+	inhand_icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
@@ -19,7 +19,7 @@
 	name = "foam force pistol"
 	desc = "A small, easily concealable toy handgun. Ages 8 and up."
 	icon_state = "pistol"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
@@ -81,7 +81,8 @@
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
 	icon_state = "crossbow"
-	item_state = "foamcrossbow"
+	worn_icon_state = "gun"
+	inhand_icon_state = "foamcrossbow"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32
@@ -124,6 +125,7 @@
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
 	icon_state = "tommygun"
+	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32
@@ -142,3 +144,113 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
+
+//////////////////////////////
+// MARK: Paintball Guns
+//////////////////////////////
+#define PAINTBALL_BLUE "blue"
+#define PAINTBALL_RED "red"
+#define PAINTBALL_GREEN "green"
+#define PAINTBALL_YELLOW "yellow"
+#define PAINTBALL_CMAGGED "cmag"
+
+/obj/item/gun/projectile/automatic/paintball_gun
+	name = "paintball gun"
+	desc = "A gas-powered gun that shoots small balls of paint! Ages 13 and up. Do not aim at the eyes."
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "paintgun"
+	inhand_icon_state = "paintgun"
+	can_suppress = FALSE
+	needs_permit = FALSE
+	mag_type = /obj/item/ammo_box/magazine/paintball
+	actions_types = list()
+	burst_size = 1
+	/// What color are we configured at?
+	var/paintball_color = PAINTBALL_BLUE
+
+/obj/item/gun/projectile/automatic/paintball_gun/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += SPAN_WARNING("The paint selector is covered in yellow sludge!")
+	else if(istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
+		. += SPAN_WARNING("A magazine of pepperballs is loaded!")
+	else
+		. += SPAN_NOTICE("It is configured to fire [paintball_color] paintballs.")
+	if(emagged)
+		. += SPAN_WARNING("The air compressor sparks dangerously.")
+
+/obj/item/gun/projectile/automatic/paintball_gun/update_icon_state()
+	icon_state = "paintgun"
+	if(istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
+		inhand_icon_state = "paintgun-pepper"
+		return
+	inhand_icon_state = "paintgun[magazine ? "-[paintball_color]" : ""]"
+
+/obj/item/gun/projectile/automatic/paintball_gun/update_overlays()
+	. = ..()
+	if(istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
+		. += "paintgun-pepper[chambered ? "" : "-empty"]"
+		return
+	if(magazine)
+		. += "paintgun-[paintball_color][chambered ? "" : "-empty"]"
+
+/obj/item/gun/projectile/automatic/paintball_gun/chamber_round()
+	. = ..()
+	if(chambered)
+		color_paintball()
+
+/obj/item/gun/projectile/automatic/paintball_gun/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(!magazine)
+		return
+	if(istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
+		return
+	paintball_color = tgui_input_list(user, "Select a color", src, list(PAINTBALL_BLUE, PAINTBALL_RED, PAINTBALL_GREEN, PAINTBALL_YELLOW))
+	color_paintball()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/gun/projectile/automatic/paintball_gun/proc/color_paintball()
+	if(!istype(magazine, /obj/item/ammo_box/magazine/paintball/pepperball))
+		switch(paintball_color)
+			if(PAINTBALL_BLUE)
+				chambered.color = "#0000CC"
+			if(PAINTBALL_RED)
+				chambered.color = "#CC0000"
+			if(PAINTBALL_GREEN)
+				chambered.color = "#00CC00"
+			if(PAINTBALL_YELLOW)
+				chambered.color = "#CCCC00"
+			if(PAINTBALL_CMAGGED)
+				chambered.color = pick("#d41e3c", "#ed7b39", "#fff540", "#77b02a", "#488bd4", "#b0fff1", "#94007a", "#ff417d")
+	chambered.BB.color = chambered.color
+	if(emagged)
+		chambered.BB.damage = 8
+		chambered.BB.muzzle_flash_intensity = 2
+
+/obj/item/gun/projectile/automatic/paintball_gun/cmag_act(mob/user)
+	. = ..()
+	to_chat(user, SPAN_WARNING("You smear bananium over [src]'s paint selector."))
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	paintball_color = PAINTBALL_CMAGGED
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/gun/projectile/automatic/paintball_gun/emag_act(mob/user)
+	. = ..()
+	emagged = TRUE
+	to_chat(user, SPAN_WARNING("You overcharge [src]'s air compressor."))
+	if(magazine)
+		color_paintball()
+
+/obj/item/gun/projectile/automatic/paintball_gun/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+	var/cmagged = HAS_TRAIT(src, TRAIT_CMAGGED)
+	. = ..()
+	if(cmagged && .)
+		paintball_color = PAINTBALL_BLUE
+		color_paintball()
+		update_icon(UPDATE_OVERLAYS)
+
+#undef PAINTBALL_BLUE
+#undef PAINTBALL_RED
+#undef PAINTBALL_GREEN
+#undef PAINTBALL_YELLOW
+#undef PAINTBALL_CMAGGED

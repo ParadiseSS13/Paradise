@@ -50,13 +50,14 @@
 /mob/living/basic/alien/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/aggro_emote, emote_list = list("hisses"), emote_chance = 20)
+	AddElement(/datum/element/ai_retaliate)
 
 /mob/living/basic/alien/proc/spread_plants()
 	if(!isturf(loc) || isspaceturf(loc))
 		return
 	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
 		return
-	visible_message("<span class='alertalien'>[src] has planted some alien weeds!</span>")
+	visible_message(SPAN_ALERTALIEN("[src] has planted some alien weeds!"))
 	new /obj/structure/alien/weeds/node(loc)
 
 /mob/living/basic/alien/proc/lay_eggs()
@@ -64,7 +65,7 @@
 		return
 	if(locate(/obj/structure/alien/egg) in get_turf(src))
 		return
-	visible_message("<span class='alertalien'>[src] has laid an egg!</span>")
+	visible_message(SPAN_ALERTALIEN("[src] has laid an egg!"))
 	new /obj/structure/alien/egg(loc)
 
 /mob/living/basic/alien/lavaland

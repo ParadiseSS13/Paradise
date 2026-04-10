@@ -2,51 +2,57 @@
 
 /obj/item/clothing/head/centhat
 	name = "\improper CentComm. hat"
-	icon_state = "centcom"
 	desc = "It's good to be emperor."
-	item_state = "centhat"
+	icon_state = "centcom"
+	inhand_icon_state = "tophat"
 	armor = list(MELEE = 20, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 80
 
+/obj/item/clothing/head/centhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/hairflower
 	name = "hair flower pin"
-	icon_state = "hairflower"
 	desc = "Smells nice."
-	item_state = "hairflower"
+	icon_state = "hairflower"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
 	desc = "A powdered wig."
 	icon_state = "pwig"
-	item_state = "pwig"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/justice_wig
 	name = "justice wig"
 	desc = "A fancy powdered wig given to arbitrators of the law. It looks itchy."
 	icon_state = "jwig"
-	item_state = "jwig"
 	dog_fashion = /datum/dog_fashion/head/justice_wig
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/that
 	name = "top-hat"
 	desc = "It's an amish looking hat."
 	icon_state = "tophat"
-	item_state = "that"
 	dog_fashion = /datum/dog_fashion/head
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+/obj/item/clothing/head/that/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
 	icon_state = "redcoat"
 	desc = "<i>'I guess it's a redhead.'</i>"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/mailman
 	name = "mailman's hat"
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
@@ -60,7 +66,11 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	)
+
+/obj/item/clothing/head/plaguedoctorhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
@@ -68,21 +78,22 @@
 	icon_state = "hasturhood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
 	dog_fashion = /datum/dog_fashion/head/nurse
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/syndicatefake
 	name = "black and red space-helmet replica"
 	icon_state = "syndicate-helm-black-red"
-	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -90,202 +101,200 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
 
-
 /obj/item/clothing/head/cueball
 	name = "cueball helmet"
 	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
 	icon_state = "cueball"
-	item_state = "cueball"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
 /obj/item/clothing/head/snowman
 	name = "snowman head"
 	desc = "A ball of white styrofoam. So festive."
 	icon_state = "snowman_h"
-	item_state = "snowman_h"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
+/obj/item/clothing/head/santahat
+	name = "\improper Santa hat"
+	desc = "A festive red hat."
+	icon_state = "santahat"
+	dog_fashion = /datum/dog_fashion/head/santa
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
+		"Grey" = 'icons/mob/clothing/species/Grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/Drask/helmet.dmi'
+		)
 
 /obj/item/clothing/head/greenbandana
 	name = "green bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "greenbandana"
-	item_state = "greenbandana"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	flags_inv = 0
-
-/obj/item/clothing/head/justice
-	name = "justice hat"
-	desc = "Fight for what's righteous!"
-	icon_state = "justicered"
-	item_state = "justicered"
-	flags = BLOCKHAIR
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-/obj/item/clothing/head/justice/blue
-	icon_state = "justiceblue"
-	item_state = "justiceblue"
-
-/obj/item/clothing/head/justice/yellow
-	icon_state = "justiceyellow"
-	item_state = "justiceyellow"
-
-/obj/item/clothing/head/justice/green
-	icon_state = "justicegreen"
-	item_state = "justicegreen"
-
-/obj/item/clothing/head/justice/pink
-	icon_state = "justicepink"
-	item_state = "justicepink"
 
 /obj/item/clothing/head/rabbitears
 	name = "rabbit ears"
 	desc = "Wearing these makes you look useless, and only good for your sex appeal."
 	icon_state = "bunny"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."
 	icon_state = "flat_cap"
-	item_state = "detective"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
 	desc = "Yarr."
 	icon_state = "pirate"
-	item_state = "pirate"
 	dog_fashion = /datum/dog_fashion/head/pirate
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/hgpiratecap
 	name = "pirate hat"
 	desc = "Yarr."
 	icon_state = "hgpiratecap"
-	item_state = "hgpiratecap"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/bandana
 	name = "pirate bandana"
 	desc = "Yarr."
 	icon_state = "bandana"
-	item_state = "bandana"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 //stylish bs12 hats
 
 /obj/item/clothing/head/bowlerhat
 	name = "bowler hat"
-	icon_state = "bowler_hat"
-	item_state = "bowler_hat"
 	desc = "For that industrial age look."
+	icon_state = "bowler_hat"
 	dog_fashion = /datum/dog_fashion/head/bowlerhat
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/beaverhat
 	name = "beaver hat"
-	icon_state = "beaver_hat"
-	item_state = "beaver_hat"
 	desc = "Like a top hat, but made of beavers."
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	icon_state = "beaver_hat"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/boaterhat
 	name = "boater hat"
-	icon_state = "boater_hat"
-	item_state = "boater_hat"
 	desc = "Goes well with celery."
-
+	icon_state = "boater_hat"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	)
 
 /obj/item/clothing/head/cowboyhat
 	name = "cowboy hat"
-	icon_state = "cowboyhat"
-	item_state = "cowboyhat"
 	desc = "For the Rancher in us all."
-
+	icon_state = "cowboyhat"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-		)
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+	)
+
+
+/obj/item/clothing/head/cowboyhat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/cowboyhat/tan
 	name = "tan cowboy hat"
-	icon_state = "cowboyhat_tan"
-	item_state = "cowboyhat_tan"
 	desc = "There's a new sheriff in town. Pass the whiskey."
+	icon_state = "cowboyhat_tan"
 
 /obj/item/clothing/head/cowboyhat/black
 	name = "black cowboy hat"
-	icon_state = "cowboyhat_black"
-	item_state = "cowboyhat_black"
 	desc = "This station ain't big enough for the two ah' us."
+	icon_state = "cowboyhat_black"
 
 /obj/item/clothing/head/cowboyhat/white
 	name = "white cowboy hat"
-	icon_state = "cowboyhat_white"
-	item_state = "cowboyhat_white"
 	desc = "Authentic Marshall hair case. Now ya can protect this here homestead. Navy Model not included."
+	icon_state = "cowboyhat_white"
 
 /obj/item/clothing/head/cowboyhat/pink
 	name = "cowgirl hat"
-	icon_state = "cowboyhat_pink"
-	item_state = "cowboyhat_pink"
 	desc = "For those buckle bunnies wanta' become a real buckaroo."
+	icon_state = "cowboyhat_pink"
 
 /obj/item/clothing/head/cowboyhat/sec
 	name = "security cowboy hat"
 	desc = "Secway is your horse."
 	icon_state = "cowboyhat_sec"
-	item_state = "cowboyhat_sec"
+
+/obj/item/clothing/head/cowboyhat/hydro
+	name = "botany cowboy hat"
+	desc = "For the Farmer in us all."
+	icon_state = "cowboyhat_botany"
+
+/obj/item/clothing/head/cowboyhat/engie
+	name = "engineering cowboy hat"
+	desc = "The Supermatter is just another bull to lasso."
+	icon_state = "cowboyhat_engie"
+
+/obj/item/clothing/head/cowboyhat/research
+	name = "research cowboy hat"
+	desc = "Bluespace is kind of a new frontier if you think about it."
+	icon_state = "cowboyhat_sci"
+
+/obj/item/clothing/head/cowboyhat/med
+	name = "medical cowboy hat"
+	desc = "Every gunslinger needs a medic after he gets hit."
+	icon_state = "cowboyhat_med"
+
+/obj/item/clothing/head/cowboyhat/supply
+	name = "supply cowboy hat"
+	desc = "Can't have gunslingers without someone to bring them guns."
+	icon_state = "cowboyhat_supply"
+
+/obj/item/clothing/head/cowboyhat/command
+	name = "command cowboy hat"
+	desc = "You're the real sheriff 'round these parts."
+	icon_state = "cowboyhat_command"
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
 	icon_state = "fedora"
-	item_state = "fedora"
 	actions_types = list(/datum/action/item_action/tip_fedora)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
-/obj/item/clothing/head/fedora/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/fedora/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
+/obj/item/clothing/head/fedora/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	tip_fedora(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("<span class='notice'>[user] tips [user.p_their()] fedora.</span>", "<span class='notice'>You tip your fedora.</span>")
+	user.visible_message(SPAN_NOTICE("[user] tips [user.p_their()] fedora."), SPAN_NOTICE("You tip your fedora."))
 
 /obj/item/clothing/head/fedora/whitefedora
 	name = "white fedora"
@@ -297,13 +306,13 @@
 
 /obj/item/clothing/head/fez
 	name = "fez"
-	icon_state = "fez"
-	item_state = "fez"
 	desc = "Put it on your monkey, make lots of cash money."
+	icon_state = "fez"
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+/obj/item/clothing/head/fez/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 2)
 
 //end bs12 hats
 
@@ -311,34 +320,40 @@
 	name = "witch costume wig"
 	desc = "Eeeee~heheheheheheh!"
 	icon_state = "witch"
-	item_state = "witch"
 	flags = BLOCKHAIR
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+/obj/item/clothing/head/witchwig/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/chicken
 	name = "chicken suit head"
 	desc = "Bkaw!"
 	icon_state = "chickenhead"
-	item_state = "chickensuit"
+	inhand_icon_state = "chickensuit"
 	flags = BLOCKHAIR
-
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
 /obj/item/clothing/head/corgi
 	name = "corgi suit head"
 	desc = "Woof!"
 	icon_state = "corgihead"
-	item_state = "chickensuit"
+	inhand_icon_state = "chickensuit"
 	flags = BLOCKHAIR
+
+/obj/item/clothing/head/corgi/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/corgi/en
 	name = "E-N suit head"
 	icon_state = "enhead"
+
+/obj/item/clothing/head/corgi/en/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/corgi/super_hero
 	name = "super-hero corgi suit head"
@@ -349,64 +364,67 @@
 	name = "E-N suit head"
 	icon_state = "enhead"
 
+/obj/item/clothing/head/corgi/super_hero/en/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/bearpelt
 	name = "space bear pelt hat"
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
-	item_state = "bearpelt"
 	flags = BLOCKHAIR
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/bearpelt/black
 	name = "black bear pelt hat"
 	icon_state = "black_bearpelt"
-	item_state = "black_bearpelt"
 
 /obj/item/clothing/head/bearpelt/brown
 	name = "brown bear pelt hat"
 	icon_state = "brown_bearpelt"
-	item_state = "brown_bearpelt"
 
 /obj/item/clothing/head/bearpelt/polar
 	name = "polar bear pelt hat"
 	desc = "Fuzzy, and also stained with blood."
 	icon_state = "polar_bearpelt"
-	item_state = "polar_bearpelt"
 
 /obj/item/clothing/head/xenos
 	name = "xeno helmet"
 	desc = "A helmet made out of chitinous alien hide."
 	icon_state = "xenos"
-	item_state = "xenos_helm"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+
+/obj/item/clothing/head/xenos/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /// Why do these exist - Because they aren't specifically Nazi Germany
 /obj/item/clothing/head/stalhelm
 	name = "clown stalhelm"
 	desc = "The typical clown soldier's helmet."
 	icon_state = "stalhelm"
-	item_state = "stalhelm"
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 
 /obj/item/clothing/head/foragecap
 	name = "clown HONKMech cap"
 	desc = "The softcap worn by HONK Mech pilots."
 	icon_state = "foragecap"
-	item_state = "foragecap"
 	flags = BLOCKHAIR
+
+/obj/item/clothing/head/foragecap/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/armyofficer
 	name = "clown officer cap"
 	desc = "The peaked clown officer's cap."
 	icon_state = "armyofficer"
-	item_state = "armyofficer"
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /// Fluff?
 /obj/item/clothing/head/beret/purple
@@ -414,31 +432,28 @@
 	desc = "A purple beret, with a small golden crescent moon sewn onto it."
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret_purple"
-	item_state = "purpleberet"
 
 /obj/item/clothing/head/sombrero
 	name = "sombrero"
-	icon_state = "sombrero"
-	item_state = "sombrero"
 	desc = "You can practically taste the fiesta."
+	icon_state = "sombrero"
 	dog_fashion = /datum/dog_fashion/head/sombrero
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+/obj/item/clothing/head/sombrero/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/sombrero/green
 	name = "green sombrero"
-	icon_state = "greensombrero"
-	item_state = "greensombrero"
 	desc = "As elegant as a dancing cactus."
+	icon_state = "greensombrero"
 	dog_fashion = null
 
 /obj/item/clothing/head/sombrero/shamebrero
 	name = "shamebrero"
-	icon_state = "shamebrero"
-	item_state = "shamebrero"
 	desc = "Once it's on, it never comes off."
+	icon_state = "shamebrero"
 	flags = NODROP
 	dog_fashion = null
 
@@ -447,7 +462,6 @@
 	desc = "This cone is trying to warn you of something!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cone"
-	item_state = "cone"
 	force = 1.0
 	throwforce = 3.0
 	throw_range = 5
@@ -455,12 +469,21 @@
 	resistance_flags = NONE
 	dog_fashion = /datum/dog_fashion/head/cone
 	magical = TRUE // It's pointy, it's funny!
+	materials = list(MAT_PLASTIC = 10000)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		)
 
 /obj/item/clothing/head/jester
 	name = "jester hat"
 	desc = "A hat with bells, to add some merryness to the suit."
 	icon_state = "jester_hat"
-
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
@@ -470,6 +493,10 @@
 	desc = "Welcome to the rice fields, motherfucker."
 	icon_state = "rice_hat"
 
+/obj/item/clothing/head/rice_hat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
@@ -478,35 +505,34 @@
 	name = "griffon head"
 	desc = "Why not 'eagle head'? Who knows."
 	icon_state = "griffinhat"
-	item_state = "griffinhat"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 	actions_types = list(/datum/action/item_action/caw)
 
-/obj/item/clothing/head/griffin/attack_self__legacy__attackchain()
+/obj/item/clothing/head/griffin/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	caw()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
 		playsound(src.loc, 'sound/creatures/caw.ogg', 50, 1)
 		cooldown = world.time
 
-
 /obj/item/clothing/head/lordadmiralhat
 	name = "lord admiral's hat"
 	desc = "A hat suitable for any man of high and exalted rank."
 	icon_state = "lordadmiralhat"
-	item_state = "lordadmiralhat"
 
 /obj/item/clothing/head/human_head
 	name = "bloated human head"
 	desc = "A horribly bloated and mismatched human head."
 	icon_state = "lingspacehelmet"
-	item_state = "lingspacehelmet"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 
 /obj/item/clothing/head/papersack
 	name = "paper sack hat"
@@ -535,65 +561,86 @@
 	resistance_flags = FIRE_PROOF
 	can_be_hat = FALSE
 
+/obj/item/clothing/head/crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/crown/fancy
 	name = "magnificent crown"
 	desc = "A crown worn by only the highest emperors of the land."
 	icon_state = "fancycrown"
 
+/obj/item/clothing/head/crown/fancy/Initialize(mapload)
+	. = ..()
+	RemoveElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 2)
+
 /obj/item/clothing/head/zepelli
 	name = "chequered diamond hat"
 	desc = "Wearing this makes you feel like a real mozzarella cheeseball. "
 	icon_state = "zepelli"
-	item_state = "zepelli"
+
+/obj/item/clothing/head/zepelli/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/cuban_hat
 	name = "rhumba hat"
 	desc = "Now just to find some maracas!"
 	icon_state = "cuban_hat"
-	item_state = "cuban_hat"
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+/obj/item/clothing/head/cuban_hat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/flower_crown
 	name = "flower crown"
 	desc = "A colorful flower crown made out of lilies, sunflowers and poppies."
 	icon_state = "flower_crown"
-	item_state = "flower_crown"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
+
+/obj/item/clothing/head/flower_crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/sunflower_crown
 	name = "sunflower crown"
 	desc = "A bright flower crown made out sunflowers that is sure to brighten up anyone's day!"
 	icon_state = "sunflower_crown"
-	item_state = "sunflower_crown"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
+
+/obj/item/clothing/head/sunflower_crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/poppy_crown
 	name = "poppy crown"
 	desc = "A flower crown made out of a string of bright red poppies."
 	icon_state = "poppy_crown"
-	item_state = "poppy_crown"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
 
+/obj/item/clothing/head/poppy_crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/lily_crown
 	name = "lily crown"
 	desc = "A leafy flower crown with a cluster of large white lilies at the front."
 	icon_state = "lily_crown"
-	item_state = "lily_crown"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
@@ -604,20 +651,33 @@
 	name = "geranium crown"
 	desc = "A flower crown made out of an array of rich purple geraniums."
 	icon_state = "geranium_crown"
-	item_state = "geranium_crown"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
+
+/obj/item/clothing/head/geranium_crown/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/cool_bandana
 	name = "badass bandana"
 	desc = "You know what time it is."
 	icon_state = "tmc_hat"
-	item_state = "armor"
+	inhand_icon_state = "armor"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
-		)
+	)
+
+/obj/item/clothing/head/hooded/dark_hood
+	name = "dark hood"
+	desc = "A dark hood for dark times."
+	icon_state = "dark_hood"
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+

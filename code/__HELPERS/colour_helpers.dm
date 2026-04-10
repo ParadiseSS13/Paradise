@@ -44,4 +44,25 @@
 	RGB[1] = clamp(RGB[1]+value,0,255)
 	RGB[2] = clamp(RGB[2]+value,0,255)
 	RGB[3] = clamp(RGB[3]+value,0,255)
-	return rgb(RGB[1],RGB[2],RGB[3])
+	return rgb(RGB[1], RGB[2], RGB[3])
+
+// Change one RGB color to match the hue of another RGB color (but not saturation or lightness)
+/proc/match_hue(color, color_to_match)
+	var/list/RGB = rgb2num(color, COLORSPACE_HSL)
+	var/list/TARGET = rgb2num(color_to_match, COLORSPACE_HSL)
+	RGB[1] = TARGET[1] //change hue to target hue
+	return rgb(RGB[1], RGB[2], RGB[3], space = COLORSPACE_HSL)
+
+// Change one RGB color to match the saturation of another RGB color (but not hue or lightness)
+/proc/match_saturation(color, color_to_match)
+	var/list/RGB = rgb2num(color, COLORSPACE_HSL)
+	var/list/TARGET = rgb2num(color_to_match, COLORSPACE_HSL)
+	RGB[2] = TARGET[2] //change saturation to target saturation
+	return rgb(RGB[1], RGB[2], RGB[3], space = COLORSPACE_HSL)
+
+// Change one RGB color to match the lightness of another RGB color (but not saturation or hue)
+/proc/match_lightness(color, color_to_match)
+	var/list/RGB = rgb2num(color, COLORSPACE_HSL)
+	var/list/TARGET = rgb2num(color_to_match, COLORSPACE_HSL)
+	RGB[3] = TARGET[3] //change lightness to target lightness
+	return rgb(RGB[1], RGB[2], RGB[3], space = COLORSPACE_HSL)

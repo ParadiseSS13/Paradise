@@ -86,7 +86,7 @@
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
 										/datum/species/tajaran, /datum/species/kidan, /datum/species/drask,
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
-										/datum/species/moth, /datum/species/vox)
+										/datum/species/moth, /datum/species/vox, /datum/species/skulk)
 	/// Species that are NOT hirable in the eyes of NT
 	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey,
 										/datum/species/shadow, /datum/species/skeleton, /datum/species/golem)
@@ -308,7 +308,7 @@
 	if(emagged)
 		return
 	if(user)
-		to_chat(user, "<span class='notice'>You override the menu and revert the game to its previous version.</span>")
+		to_chat(user, SPAN_NOTICE("You override the menu and revert the game to its previous version."))
 		add_hiddenprint(user)
 	game_status = RECRUITER_STATUS_START
 	name = "\improper NT Recruiter Simulator HARDCORE EDITION"

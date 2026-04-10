@@ -19,7 +19,7 @@
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
 	var/heat_resistance = 800
-	var/decon_speed = null
+	var/decon_speed = 2 SECONDS
 	var/fulltile = FALSE
 	var/shardtype = /obj/item/shard
 	var/glass_decal = /obj/effect/decal/cleanable/glass
@@ -41,7 +41,8 @@
 	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 	/// How much we get activated by gamma radiation
 	var/rad_conversion_amount = 0
-
+	/// Are we boarded up?
+	var/barricaded = FALSE
 
 /obj/structure/window/rad_act(atom/source, amount, emission_type)
 	if(emission_type == GAMMA_RAD && amount * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
@@ -51,20 +52,20 @@
 	. = ..()
 	if(reinf)
 		if(anchored && state == WINDOW_SCREWED_TO_FRAME)
-			. += "<span class='notice'>The window is <b>screwed</b> to the frame.</span>"
+			. += SPAN_NOTICE("The window is <b>screwed</b> to the frame.")
 		else if(anchored && state == WINDOW_IN_FRAME)
-			. += "<span class='notice'>The window is <i>unscrewed</i> but <b>pried</b> into the frame.</span>"
+			. += SPAN_NOTICE("The window is <i>unscrewed</i> but <b>pried</b> into the frame.")
 		else if(anchored && state == WINDOW_OUT_OF_FRAME)
-			. += "<span class='notice'>The window is out of the frame, but could be <i>pried</i> in. It is <b>screwed</b> to the floor.</span>"
+			. += SPAN_NOTICE("The window is out of the frame, but could be <i>pried</i> in. It is <b>screwed</b> to the floor.")
 		else if(!anchored)
-			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
+			. += SPAN_NOTICE("The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.")
 	else
 		if(anchored)
-			. += "<span class='notice'>The window is <b>screwed</b> to the floor.</span>"
+			. += SPAN_NOTICE("The window is <b>screwed</b> to the floor.")
 		else
-			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
+			. += SPAN_NOTICE("The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.")
 	if(!anchored && !fulltile)
-		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+		. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it.")
 
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
@@ -78,9 +79,6 @@
 
 	if(fulltile)
 		setDir()
-
-	if(decon_speed == null && fulltile)
-		decon_speed = 2 SECONDS
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
@@ -166,7 +164,7 @@
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message("<span class='notice'>Something knocks on [src].</span>")
+	user.visible_message(SPAN_NOTICE("Something knocks on [src]."))
 	add_fingerprint(user)
 	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 
@@ -181,8 +179,8 @@
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassbang.ogg', 100, 1)
-		user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
-							"<span class='warning'>You bang against [src]!</span>", \
+		user.visible_message(SPAN_WARNING("[user] bangs against [src]!"), \
+							SPAN_WARNING("You bang against [src]!"), \
 							"You hear a banging sound.")
 		add_fingerprint(user)
 	else
@@ -203,7 +201,7 @@
 	. = ..()
 	if(. && M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
-		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
+		M.visible_message(SPAN_DANGER("[M] smashes through [src]!"), SPAN_WARNING("You smash through [src]."), SPAN_WARNING("You hear glass breaking."))
 
 /obj/structure/window/handle_basic_attack(mob/living/basic/attacker, modifiers)
 	if(!can_be_reached(attacker))
@@ -211,18 +209,23 @@
 	. = ..()
 	if(. && attacker.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
-		attacker.visible_message("<span class='danger'>[attacker] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
+		attacker.visible_message(SPAN_DANGER("[attacker] smashes through [src]!"), SPAN_WARNING("You smash through [src]."), SPAN_WARNING("You hear glass breaking."))
 
-/obj/structure/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/obj/structure/window/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(!can_be_reached(user))
-		return 1 //skip the afterattack
+		return
 
 	add_fingerprint(user)
+	if(istype(I, /obj/item/stack/sheet/wood))
+		build_barricade(user, I)
+		return
+
 	if(istype(I, /obj/item/stack/rods) && user.a_intent == INTENT_HELP)
 		for(var/obj/structure/grille/G in get_turf(src))
 			if(!G.broken)
 				continue
-			to_chat(user, "<span class='notice'>You start rebuilding the broken grille.</span>")
+			to_chat(user, SPAN_NOTICE("You start rebuilding the broken grille."))
 			if(do_after(user, 4 SECONDS, FALSE, G))
 				G.repair(user, I)
 
@@ -234,28 +237,27 @@
 			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
 			switch(state)
 				if(1)
-					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
+					M.visible_message(SPAN_WARNING("[user] slams [M] against \the [src]!"))
 					M.apply_damage(7)
 					take_damage(10)
 				if(2)
-					M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
+					M.visible_message(SPAN_DANGER("[user] bashes [M] against \the [src]!"))
 					if(prob(50))
 						M.Weaken(2 SECONDS)
 					M.apply_damage(10)
 					take_damage(25)
 				if(3)
-					M.visible_message("<span class='danger'><big>[user] crushes [M] against \the [src]!</big></span>")
+					M.visible_message(SPAN_DANGER("<big>[user] crushes [M] against \the [src]!</big>"))
 					M.Weaken(10 SECONDS)
 					M.apply_damage(20)
 					take_damage(50)
 				if(4)
-					visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
+					visible_message(SPAN_DANGER("<big>[user] smashes [M] against \the [src]!</big>"))
 					M.Weaken(10 SECONDS)
 					M.apply_damage(30)
 					take_damage(75)
 	else
 		return ..()
-
 
 /obj/structure/window/crowbar_act(mob/user, obj/item/I)
 	if(!reinf)
@@ -270,11 +272,11 @@
 	if(!can_be_reached(user))
 		return
 	if(decon_speed) // Only show this if it actually takes time
-		to_chat(user, "<span class='notice'>You begin to lever the window [state == WINDOW_OUT_OF_FRAME ? "into":"out of"] the frame...</span>")
+		to_chat(user, SPAN_NOTICE("You begin to lever the window [state == WINDOW_OUT_OF_FRAME ? "into":"out of"] the frame..."))
 	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
-	to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
+	to_chat(user, SPAN_NOTICE("You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame."))
 
 /obj/structure/window/screwdriver_act(mob/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
@@ -285,31 +287,31 @@
 	if(reinf)
 		if(state == WINDOW_SCREWED_TO_FRAME || state == WINDOW_IN_FRAME)
 			if(decon_speed)
-				to_chat(user, "<span class='notice'>You begin to [state == WINDOW_SCREWED_TO_FRAME ? "unscrew the window from":"screw the window to"] the frame...</span>")
+				to_chat(user, SPAN_NOTICE("You begin to [state == WINDOW_SCREWED_TO_FRAME ? "unscrew the window from":"screw the window to"] the frame..."))
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
-			to_chat(user, "<span class='notice'>You [state == WINDOW_IN_FRAME ? "unfasten the window from":"fasten the window to"] the frame.</span>")
+			to_chat(user, SPAN_NOTICE("You [state == WINDOW_IN_FRAME ? "unfasten the window from":"fasten the window to"] the frame."))
 
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)
-				to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor...</span>")
+				to_chat(user, SPAN_NOTICE("You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor..."))
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			anchored = !anchored
 			recalculate_atmos_connectivity()
 			update_nearby_icons()
-			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
+			to_chat(user, SPAN_NOTICE("You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor."))
 
 	else //if we're not reinforced, we don't need to check or update state
 		if(decon_speed)
-			to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor...</span>")
+			to_chat(user, SPAN_NOTICE("You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor..."))
 		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		anchored = !anchored
 		recalculate_atmos_connectivity()
 		update_nearby_icons()
-		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You [anchored ? "fasten the window to":"unfasten the window from"] the floor."))
 
 /obj/structure/window/wrench_act(mob/user, obj/item/I)
 	if(flags & NODECONSTRUCT)
@@ -326,7 +328,7 @@
 	var/obj/item/stack/sheet/G = new glass_type(user.loc, glass_amount)
 	G.add_fingerprint(user)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>You successfully disassemble [src].</span>")
+	to_chat(user, SPAN_NOTICE("You successfully disassemble [src]."))
 	qdel(src)
 
 /obj/structure/window/welder_act(mob/user, obj/item/I)
@@ -336,7 +338,7 @@
 	if(!can_be_reached(user))
 		return
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already in good condition!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -412,7 +414,7 @@
 		return
 
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 
 	var/target_dir = turn(dir, 270)
@@ -420,7 +422,7 @@
 	if(!valid_window_location(loc, target_dir))
 		target_dir = turn(dir, 90)
 	if(!valid_window_location(loc, target_dir))
-		to_chat(user, "<span class='warning'>There is no room to rotate [src].</span>")
+		to_chat(user, SPAN_WARNING("There is no room to rotate [src]."))
 		return FALSE
 
 	setDir(target_dir)
@@ -522,6 +524,43 @@
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
 
+/obj/structure/window/proc/build_barricade(mob/living/user, obj/item/stack/sheet/wood/used)
+	if(!fulltile)
+		return
+
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
+		return
+
+	if(used.get_amount() < 2)
+		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
+		return
+
+	if(!density)
+		to_chat(user, SPAN_WARNING("[src] needs to be secured before it can be barricaded!"))
+		return
+
+	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
+	if(!do_after_once(user, 4 SECONDS, target = src))
+		return
+
+	/// Quick checks to make sure nothing has changed during the timer.
+	if(!density || barricaded)
+		return
+
+	if(!used.use(2))
+		to_chat(user, SPAN_WARNING("You've run out of planks!"))
+		return
+
+	user.visible_message(
+		SPAN_WARNING("[user] boards up [src]!"),
+		SPAN_NOTICE("You board up [src]."),
+		SPAN_WARNING("You hear planks being nailed into something!")
+	)
+	var/obj/structure/barricade/wooden/crude/boards = new(loc)
+	boards.add_fingerprint(user)
+	barricaded = TRUE
+
 /obj/structure/window/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Lacks protection from radiation."
 
@@ -535,6 +574,12 @@
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
+
+// You can't rust glass! So only reinforced glass can be impacted.
+/obj/structure/window/reinforced/rust_heretic_act()
+	color = COLOR_RUSTED_GLASS
+	take_damage(obj_integrity * 0.5)
+	max_integrity = max_integrity * 0.5
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
@@ -552,6 +597,19 @@
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	glass_amount = 2
 	var/id
+
+/obj/structure/window/reinforced/indestructible
+	resistance_flags = INDESTRUCTIBLE
+	env_smash_level = INFINITY // I am invincible!
+
+/obj/structure/window/reinforced/indestructible/screwdriver_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/window/reinforced/indestructible/crowbar_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/window/reinforced/indestructible/ex_act(severity)
+	return
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
@@ -598,7 +656,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	user.visible_message(SPAN_NOTICE("[user] starts unwrenching [src] from the wall..."), SPAN_NOTICE("You are unwrenching [src] from the wall..."), SPAN_WARNING("You hear ratcheting."))
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
@@ -651,6 +709,7 @@
 	heat_resistance = 32000
 	max_integrity = 150
 	explosion_block = 1
+	decon_speed = 3 SECONDS
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -668,6 +727,7 @@
 	heat_resistance = 32000
 	max_integrity = 500
 	explosion_block = 2
+	decon_speed = 5 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -687,6 +747,7 @@
 	heat_resistance = 32000
 	max_integrity = 600
 	explosion_block = 2
+	decon_speed = 7 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -695,7 +756,7 @@
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_conversion_amount = 2.25
 
-/obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/plasmareinforced/temperature_expose(exposed_temperature, exposed_volume)
 	return
 
 /obj/structure/window/full
@@ -707,6 +768,20 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+
+/obj/structure/window/full/screwdriver_act(mob/user, obj/item/I)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("There's boards in the way of [src]'s screws!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	return ..()
+
+/obj/structure/window/full/crowbar_act(mob/user, obj/item/I)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("There's boards stopping you from levering [src]!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	return ..()
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Has very light protection from radiation"
@@ -728,6 +803,7 @@
 	heat_resistance = 32000
 	max_integrity = 300
 	explosion_block = 1
+	decon_speed = 3 SECONDS
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
@@ -749,6 +825,7 @@
 	heat_resistance = 32000
 	max_integrity = 1000
 	explosion_block = 2
+	decon_speed = 5 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
@@ -757,7 +834,7 @@
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
 	rad_conversion_amount = 2.2
 
-/obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/full/plasmareinforced/temperature_expose(exposed_temperature, exposed_volume)
 	return
 
 /obj/structure/window/full/reinforced
@@ -799,6 +876,7 @@
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
+	decon_speed = 6 SECONDS
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 100, FIRE = 80, ACID = 100)
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
@@ -822,6 +900,7 @@
 	max_integrity = 1200
 	reinf = TRUE
 	heat_resistance = 32000
+	decon_speed = 7 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass

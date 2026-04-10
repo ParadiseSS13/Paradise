@@ -39,7 +39,7 @@
 	atmospherics to their crew."
 	if(holding_tank)
 		. += ""
-		. += "<span class='notice'>The pressure gauge on the inserted tank displays [round(holding_tank.air_contents.return_pressure())] kPa.</span>"
+		. += SPAN_NOTICE("The pressure gauge on the inserted tank displays [round(holding_tank.air_contents.return_pressure())] kPa.")
 
 /obj/machinery/atmospherics/refill_station/update_overlays()
 	. = ..()
@@ -86,14 +86,14 @@
 	if(istype(used, /obj/item/analyzer))
 		return ..()
 	if(!istype(used, /obj/item/tank))
-		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s tank slot.</span>")
+		to_chat(user, SPAN_WARNING("[used] does not fit in [src]'s tank slot."))
 		return ITEM_INTERACT_COMPLETE
 	if(!(stat & BROKEN))
 		if(used.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/tank/new_tank = used
-		to_chat(user, "<span class='notice'>[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [new_tank]" : "You insert [new_tank] into [src]"].</span>")
+		to_chat(user, SPAN_NOTICE("[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [new_tank]" : "You insert [new_tank] into [src]"]."))
 		investigate_log("[key_name(user)] started a transfer into [new_tank] at [src].<br>", "atmos")
 		if(holding_tank)
 			replace_tank(user, new_tank)
@@ -107,7 +107,7 @@
 
 /obj/machinery/atmospherics/refill_station/attack_hand(mob/living/user)
 	if(!holding_tank)
-		to_chat(user, "<span class='warning'>There is no tank to remove.</span>")
+		to_chat(user, SPAN_WARNING("There is no tank to remove."))
 		return FINISH_ATTACK
 	user.put_in_hands(holding_tank)
 	holding_tank = null
@@ -181,14 +181,14 @@
 	if(istype(used, /obj/item/analyzer))
 		return ..()
 	if(!is_type_in_typecache(used, accepted_types))
-		to_chat(user, "<span class='warning'>[used] does not fit in [src]'s tank slot.</span>")
+		to_chat(user, SPAN_WARNING("[used] does not fit in [src]'s tank slot."))
 		return ITEM_INTERACT_COMPLETE
 	if(!(stat & BROKEN))
 		if(used.flags & NODROP || !user.transfer_item_to(used, src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		var/obj/item/tank/new_tank = used
-		to_chat(user, "<span class='notice'>[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [new_tank]" : "You insert [new_tank] into [src]"].</span>")
+		to_chat(user, SPAN_NOTICE("[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [new_tank]" : "You insert [new_tank] into [src]"]."))
 		investigate_log("[key_name(user)] started a transfer into [new_tank] at [src].<br>", "atmos")
 		if(holding_tank)
 			replace_tank(user, new_tank)

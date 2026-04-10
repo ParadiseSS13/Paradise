@@ -1,6 +1,7 @@
 /datum/species/skrell
 	name = "Skrell"
 	name_plural = "Skrell"
+	max_age = 220 // they're just like space elves no way
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	language = "Qurvolious"
 	primitive_form = /datum/species/monkey/skrell
@@ -26,6 +27,7 @@
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "skrell"
 
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/skrell,
 		"lungs" =    /obj/item/organ/internal/lungs/skrell,

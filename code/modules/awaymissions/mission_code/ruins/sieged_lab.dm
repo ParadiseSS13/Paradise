@@ -37,7 +37,7 @@
 	icon_state = "syndicate_harbinger"
 	icon_living = "syndicate_harbinger"
 	speak_emote = list("snarls")
-	projectiletype = /obj/item/projectile/bullet/heavybullet
+	projectiletype = /obj/projectile/bullet/heavybullet
 	projectilesound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	internal_gps = null
 	faction = list("syndicate", "spawned_corpse")
@@ -61,7 +61,6 @@
 /obj/item/melee/razorwire/harbinger/Initialize(mapload)
 	. = ..()
 	icon_state = "razorwire"
-	item_state = "razorwire"
 	update_icon()
 
 /obj/item/organ/internal/cyberimp/arm/razorwire/harbinger

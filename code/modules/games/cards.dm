@@ -82,25 +82,25 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"]</b> card\s.</span>"
+	. += SPAN_NOTICE("It contains <b>[length(cards) ? length(cards) : "no"]</b> card\s.")
 	if(last_player_name && last_player_action)
-		. += "<span class='notice'>Most recent action: [last_player_name] [last_player_action].</span>"
+		. += SPAN_NOTICE("Most recent action: [last_player_name] [last_player_action].")
 	if(in_play_range(user) && !Adjacent(user))
-		. += "<span class='boldnotice'>You're in range of this card-hand, and can use it at a distance!</span>"
+		. += SPAN_BOLDNOTICE("You're in range of this card-hand, and can use it at a distance!")
 	else
-		. += "<span class='notice'>You're too far away from this deck to play from it.</span>"
+		. += SPAN_NOTICE("You're too far away from this deck to play from it.")
 	. += ""
-	. += "<span class='notice'>Drag [src] to yourself to pick it up.</span>"
-	. += "<span class='notice'>Examine this again to see some shortcuts for interacting with it.</span>"
+	. += SPAN_NOTICE("Drag [src] to yourself to pick it up.")
+	. += SPAN_NOTICE("Examine this again to see some shortcuts for interacting with it.")
 
 /obj/item/deck/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Click</b> to draw a card.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> to place a card.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to split [src].</span>"
-	. += "<span class='notice'>If you draw or return cards with <span class='danger'>harm</span> intent, your plays will be public!</span>"
-	. += "<span class='notice'>With cards in your active hand...</span>"
-	. += "\t<span class='notice'><b>Ctrl-Click</b> with cards to place them at the bottom of the deck.</span>"
+	. += SPAN_NOTICE("<b>Click</b> to draw a card.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> to place a card.")
+	. += SPAN_NOTICE("<b>Ctrl-Shift-Click</b> to split [src].")
+	. += SPAN_NOTICE("If you draw or return cards with [SPAN_DANGER("harm")] intent, your plays will be public!")
+	. += SPAN_NOTICE("With cards in your active hand...")
+	. += "\t[SPAN_NOTICE("<b>Ctrl-Click</b> with cards to place them at the bottom of the deck.")]"
 	. += ""
 	. += "You also notice a little number on the corner of [src]: it's tagged [main_deck_id]."
 
@@ -134,7 +134,7 @@
 	if(istype(O, /obj/item/deck))
 		var/obj/item/deck/other_deck = O
 		if(other_deck.main_deck_id != main_deck_id)
-			to_chat(user, "<span class='warning'>These aren't the same deck!</span>")
+			to_chat(user, SPAN_WARNING("These aren't the same deck!"))
 			return
 
 		merge_deck(user, O)
@@ -148,7 +148,7 @@
 		return ..()
 	var/obj/item/cardhand/H = O
 	if(H.parent_deck_id != main_deck_id)
-		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
+		to_chat(user, SPAN_WARNING("You can't mix cards from different decks!"))
 		return
 
 	draw_card(user, user.a_intent == INTENT_HARM)
@@ -168,7 +168,7 @@
 	if(!Adjacent(user) || !istype(user))
 		return
 	if(length(cards) <= 1)
-		to_chat(user, "<span class='notice'>You can't split this deck, it's too small!</span>")
+		to_chat(user, SPAN_NOTICE("You can't split this deck, it's too small!"))
 		return
 
 	var/num_cards = tgui_input_number(user, "How many cards would you like the new split deck to have?", "Split Deck", length(cards) / 2, length(cards), 0)
@@ -181,14 +181,14 @@
 	new_deck.cards = cards.Copy(1, num_cards + 1)
 	cards.Cut(1, num_cards + 1)
 	user.put_in_any_hand_if_possible(new_deck)
-	user.visible_message("<span class='notice'>[user] splits [src] in two.</span>", "<span class='notice'>You split [src] in two.</span>")
+	user.visible_message(SPAN_NOTICE("[user] splits [src] in two."), SPAN_NOTICE("You split [src] in two."))
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	new_deck.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/deck/proc/merge_deck(mob/user, obj/item/deck/other_deck)
 	if(main_deck_id != other_deck.main_deck_id)
 		if(user)
-			to_chat(user, "<span class='warning'>These decks didn't both come from the same original deck, you can't merge them!</span>")
+			to_chat(user, SPAN_WARNING("These decks didn't both come from the same original deck, you can't merge them!"))
 			return
 	for(var/card in other_deck.cards)
 		cards += card
@@ -197,7 +197,7 @@
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	if(user)
 		add_most_recent_action(user, "merged with [other_deck]")
-		user.visible_message("<span class='notice'>[user] mixes the two decks together.</span>", "<span class='notice'>You merge the two decks together.</span>")
+		user.visible_message(SPAN_NOTICE("[user] mixes the two decks together."), SPAN_NOTICE("You merge the two decks together."))
 
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user, user.a_intent == INTENT_HARM)
@@ -254,7 +254,7 @@
 		return
 
 	if(hand.parent_deck_id != main_deck_id)
-		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
+		to_chat(user, SPAN_WARNING("You can't mix cards from different decks!"))
 		return
 
 	var/side = place_on_top ? "top" : "bottom"
@@ -287,7 +287,7 @@
 				QDEL_IN(draft, 1 SECONDS)
 				sleep(1 SECONDS)
 			add_most_recent_action(user, "placed [P] on the [side]")
-			user.visible_message("<span class='notice'>[user] places [P] on the [side] of [src].</span>", "<span class='notice'>You place [P] on the [side] of [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] places [P] on the [side] of [src]."), SPAN_NOTICE("You place [P] on the [side] of [src]."))
 			user.do_attack_animation(src, hand)
 			update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 			return
@@ -295,7 +295,7 @@
 		user.do_attack_animation(src, no_effect = TRUE)
 
 	add_most_recent_action(user, "placed [length(chosen_cards)] card\s on the [side]")
-	user.visible_message("<span class='notice'>[user] returns [length(chosen_cards)] card\s to the [side] of [src].</span>", "<span class='notice'>You return [length(chosen_cards)] card\s to the [side] of [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] returns [length(chosen_cards)] card\s to the [side] of [src]."), SPAN_NOTICE("You return [length(chosen_cards)] card\s to the [side] of [src]."))
 
 
 // deck datum actions
@@ -352,12 +352,12 @@
 		return
 
 	if(!length(cards))
-		to_chat(user,"<span class='notice'>There are no cards in the deck.</span>")
+		to_chat(user,SPAN_NOTICE("There are no cards in the deck."))
 		return
 
 	var/obj/item/cardhand/H = user.get_active_card_hand()
 	if(H && (H.parent_deck_id != main_deck_id))
-		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
+		to_chat(user,SPAN_WARNING("You can't mix cards from different decks!"))
 		return
 
 	if(!H)
@@ -375,15 +375,15 @@
 	user.do_attack_animation(src, no_effect = TRUE)
 	if(public)
 		add_most_recent_action(user, "drew \a [P.name]")
-		user.visible_message("<span class='danger'>[user] draws \a [P.name]!</span>", "<span class='danger'>You draw \a [P]!</span>", "<span class='notice'>You hear a card be drawn.</span>")
+		user.visible_message(SPAN_DANGER("[user] draws \a [P.name]!"), SPAN_DANGER("You draw \a [P]!"), SPAN_NOTICE("You hear a card be drawn."))
 		var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
 		user.vis_contents += draft
 		QDEL_IN(draft, 1 SECONDS)
 		sleep(1 SECONDS)
 	else
 		add_most_recent_action(user, "drew a card")
-		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>", "<span class='notice'>You hear a card be drawn.</span>")
-		to_chat(user, "<span class='notice'>It's \a [P.name].</span>")
+		user.visible_message(SPAN_NOTICE("[user] draws a card."), SPAN_NOTICE("You draw a card."), SPAN_NOTICE("You hear a card be drawn."))
+		to_chat(user, SPAN_NOTICE("It's \a [P.name]."))
 
 // Classic action
 /obj/item/deck/proc/deal_card(mob/user)
@@ -391,7 +391,7 @@
 		return
 
 	if(!length(cards))
-		to_chat(user, "<span class='notice'>There are no cards in the deck.</span>")
+		to_chat(user, SPAN_NOTICE("There are no cards in the deck."))
 		return
 
 	var/list/players = list()
@@ -409,7 +409,7 @@
 		return
 
 	if(!length(cards))
-		to_chat(user, "<span class='notice'>There are no cards in the deck.</span>")
+		to_chat(user, SPAN_NOTICE("There are no cards in the deck."))
 		return
 
 	var/list/players = list()
@@ -438,16 +438,16 @@
 	if(user == target)
 		add_most_recent_action(user, "dealt [dcard] card\s to [user.p_themselves()]")
 		user.visible_message(
-			"<span class='notice'>[user] deals [dcard] card\s to [user.p_themselves()].</span>",
-			"<span class='notice'>You deal [dcard] card\s to yourself.</span>",
-			"<span class='notice'>You hear cards being dealt.</span>"
+			SPAN_NOTICE("[user] deals [dcard] card\s to [user.p_themselves()]."),
+			SPAN_NOTICE("You deal [dcard] card\s to yourself."),
+			SPAN_NOTICE("You hear cards being dealt.")
 		)
 	else
 		add_most_recent_action(user, "dealt [dcard] card\s to [target]")
 		user.visible_message(
-			"<span class='notice'>[user] deals [dcard] card\s to [target].</span>",
-			"<span class='notice'>You deal [dcard] card\s to [target].</span>",
-			"<span class='notice'>You hear cards being dealt.</span>"
+			SPAN_NOTICE("[user] deals [dcard] card\s to [target]."),
+			SPAN_NOTICE("You deal [dcard] card\s to [target]."),
+			SPAN_NOTICE("You hear cards being dealt.")
 		)
 	H.throw_at(get_step(target, target.dir), 3, 1, null)
 
@@ -461,9 +461,9 @@
 		if(user)
 			add_most_recent_action(user, "shuffled [src]")
 			user.visible_message(
-				"<span class='notice'>[user] shuffles [src].</span>",
-				"<span class='notice'>You shuffle [src].</span>",
-				"<span class='notice'>You hear cards being shuffled.</span>"
+				SPAN_NOTICE("[user] shuffles [src]."),
+				SPAN_NOTICE("You shuffle [src]."),
+				SPAN_NOTICE("You hear cards being shuffled.")
 			)
 			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		shuffle_cooldown = world.time
@@ -485,17 +485,17 @@
 			if("r_hand")
 				if(M.put_in_r_hand(src))
 					add_fingerprint(M)
-					usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+					usr.visible_message(SPAN_NOTICE("[usr] picks up the deck."))
 			if("l_hand")
 				if(M.put_in_l_hand(src))
 					add_fingerprint(M)
-					usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+					usr.visible_message(SPAN_NOTICE("[usr] picks up the deck."))
 		return
 
 	if(over == M && loc != M)
 		if(M.put_in_hands(src))
 			add_fingerprint(M)
-			usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+			usr.visible_message(SPAN_NOTICE("[usr] picks up the deck."))
 
 	return ..()
 
@@ -513,9 +513,9 @@
 
 /obj/item/pack/attack_self__legacy__attackchain(mob/user as mob)
 	user.visible_message(
-		"<span class='notice'>[name] rips open [src]!</span>",
-		"<span class='notice'>You rip open [src]!</span>",
-		"<span class='notice'>You hear the sound of a packet being ripped open.</span>"
+		SPAN_NOTICE("[name] rips open [src]!"),
+		SPAN_NOTICE("You rip open [src]!"),
+		SPAN_NOTICE("You hear the sound of a packet being ripped open.")
 	)
 	var/obj/item/cardhand/H = new(get_turf(user))
 
@@ -546,23 +546,23 @@
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
 	if(!concealed && length(cards))
-		. += "<span class='notice'>It contains:</span>"
+		. += SPAN_NOTICE("It contains:")
 		for(var/datum/playingcard/P as anything in cards)
-			. += "\t<span class='notice'>the [P.name].</span>"
+			. += "\t[SPAN_NOTICE("the [P.name].")]"
 
 	if(Adjacent(user))
-		. += "<span class='notice'><b>Click</b> this in-hand to select a card to draw.</span>"
-		. += "<span class='notice'><b>Ctrl-Click</b> this to flip it.</span>"
+		. += SPAN_NOTICE("<b>Click</b> this in-hand to select a card to draw.")
+		. += SPAN_NOTICE("<b>Ctrl-Click</b> this to flip it.")
 		if(loc == user)
-			. += "<span class='notice'><b>Alt-Click</b> this in-hand to see the legacy interaction menu.</span>"
+			. += SPAN_NOTICE("<b>Alt-Click</b> this in-hand to see the legacy interaction menu.")
 		else
-			. += "<span class='notice'><b>Alt-Click</b> this to add a card from your deck to it.</span>"
+			. += SPAN_NOTICE("<b>Alt-Click</b> this to add a card from your deck to it.")
 
-		. += "<span class='notice'><b>Drag</b> this to its associated deck to return all cards at once to it.</span>"
-		. += "<span class='notice'><b>Enable throw mode</b> to automatically catch cards and add them to your hand.</span>"
-		. += "<span class='notice'><b>Drag-and-Drop</b> this onto another hand to merge the cards together.</span>"
+		. += SPAN_NOTICE("<b>Drag</b> this to its associated deck to return all cards at once to it.")
+		. += SPAN_NOTICE("<b>Enable throw mode</b> to automatically catch cards and add them to your hand.")
+		. += SPAN_NOTICE("<b>Drag-and-Drop</b> this onto another hand to merge the cards together.")
 		if(loc != user)
-			. += "<span class='notice'>You can <b>Drag</b> this to yourself from here to draw cards from it.</span>"
+			. += SPAN_NOTICE("You can <b>Drag</b> this to yourself from here to draw cards from it.")
 
 /obj/item/cardhand/examine_more(mob/user)
 	. = ..()
@@ -597,10 +597,10 @@
 		return ..()
 
 	if(hand.concealed)
-		visible_message("<span class='warning'>A card lands on top of [src].</span>")
+		visible_message(SPAN_WARNING("A card lands on top of [src]."))
 	else
 		var/datum/playingcard/C = hand.cards[1]
-		visible_message("<span class='warning'>[C] lands atop [src]!</span>")
+		visible_message(SPAN_WARNING("[C] lands atop [src]!"))
 
 	cards = hand.cards + cards
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
@@ -619,8 +619,8 @@
 		return ..()
 
 	M.visible_message(
-		"<span class='warning'>[M] catches [hand] and adds it to [M.p_their()] hand!</span>",
-		"<span class='danger'>You catch [hand] and add it to your existing hand!</span>"
+		SPAN_WARNING("[M] catches [hand] and adds it to [M.p_their()] hand!"),
+		SPAN_DANGER("You catch [hand] and add it to your existing hand!")
 	)
 	add_cardhand_to_self(hand)
 
@@ -680,7 +680,7 @@
 	if(length(cards) == 1 && is_pen(O))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
-			to_chat(user,"<span class='notice'>You cannot write on this card.</span>")
+			to_chat(user,SPAN_NOTICE("You cannot write on this card."))
 			return
 		var/card_text = rename_interactive(user, O, use_prefix = FALSE, actually_rename = FALSE)
 		if(card_text && P.name == "Blank Card")
@@ -699,14 +699,14 @@
 			if(QDELETED(chosen))
 				return
 			user.visible_message(
-				"<span class='notice'>[user] adds [concealed ? "a card" : chosen.name] to [user.p_their()] hand.</span>",
+				SPAN_NOTICE("[user] adds [concealed ? "a card" : chosen.name] to [user.p_their()] hand."),
 				"<span clas='notice'>You add [chosen.name] to your deck.</span>",
-				"<span class='notice'>You hear cards being shuffled together.</span>"
+				SPAN_NOTICE("You hear cards being shuffled together.")
 			)
 			H.transfer_card_to_self(src, chosen)
 			return
 		else
-			to_chat(user, "<span class='notice'>You cannot mix cards from other decks!</span>")
+			to_chat(user, SPAN_NOTICE("You cannot mix cards from other decks!"))
 			return
 	return ..()
 
@@ -743,7 +743,7 @@
 		return
 
 	if(active_hand.parent_deck_id != parent_deck_id)
-		to_chat(user, "<span class='warning'>These cards don't all come from the same deck!</span>")
+		to_chat(user, SPAN_WARNING("These cards don't all come from the same deck!"))
 		return
 
 
@@ -753,9 +753,9 @@
 
 	transfer_card_to_self(active_hand, card_to_insert)
 	user.visible_message(
-		"<span class='notice'>[user] moves [concealed ? "a card" : "[card_to_insert]"] to the other hand.</span>",
-		"<span class='notice'>You move [concealed ? "a card" : "[card_to_insert]"] to the other hand.</span>",
-		"<span class='notice'>You hear a card being drawn, followed by a card being added to a hand.</span>"
+		SPAN_NOTICE("[user] moves [concealed ? "a card" : "[card_to_insert]"] to the other hand."),
+		SPAN_NOTICE("You move [concealed ? "a card" : "[card_to_insert]"] to the other hand."),
+		SPAN_NOTICE("You hear a card being drawn, followed by a card being added to a hand.")
 	)
 
 
@@ -771,9 +771,9 @@
 	update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 	playsound(user, 'sound/items/cardshuffle.ogg', 30, TRUE)
 	user.visible_message(
-		"<span class='notice'>[user] shuffles [user.p_their()] hand.</span>",
-		"<span class='notice'>You shuffle your hand.</span>",
-		"<span class='notice'>You hear cards shuffling.</span>"
+		SPAN_NOTICE("[user] shuffles [user.p_their()] hand."),
+		SPAN_NOTICE("You shuffle your hand."),
+		SPAN_NOTICE("You hear cards shuffling.")
 	)
 
 /// Dragging a card to your hand will let you draw from it without picking it up.
@@ -785,7 +785,7 @@
 	if(over != usr || !Adjacent(usr))
 		return ..()
 
-	to_chat(usr, "<span class='notice'>Select a card to draw from the hand.</span>")
+	to_chat(usr, SPAN_NOTICE("Select a card to draw from the hand."))
 	var/datum/playingcard/card_chosen = select_card_radial(usr)
 	if(QDELETED(card_chosen))
 		return
@@ -800,7 +800,7 @@
 		return
 	var/obj/item/cardhand/other_hand = I
 	if(other_hand.parent_deck_id != parent_deck_id)
-		to_chat(user, "<span class='warning'>These cards don't all come from the same deck!</span>")
+		to_chat(user, SPAN_WARNING("These cards don't all come from the same deck!"))
 		return
 	if(length(other_hand.cards) > 1)
 		var/response = tgui_alert(user, "Are you sure you want to merge [length(other_hand.cards)] cards into your currently held hand?", "Merge cards", list("Yes", "No"))
@@ -830,9 +830,9 @@
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message(
-		"<span class='notice'>[user] [concealed ? "conceals" : "reveals"] [user.p_their()] hand.</span>",
-		"<span class='notice'>You [concealed ? "conceal" : "reveal"] your hand.</span>",
-		"<span class='notice'>You hear a hand of cards being flipped over.</span>"
+		SPAN_NOTICE("[user] [concealed ? "conceals" : "reveals"] [user.p_their()] hand."),
+		SPAN_NOTICE("You [concealed ? "conceal" : "reveal"] your hand."),
+		SPAN_NOTICE("You hear a hand of cards being flipped over.")
 	)
 
 /obj/item/cardhand/interact(mob/user)
@@ -960,18 +960,18 @@
 	if(user.l_hand == src || user.r_hand == src)
 		// if you're drawing a card from your left hand, you probably want it in your right.
 		user.visible_message(
-			"<span class='notice'>[user] draws [concealed ? "a card" : "[picked_card]"] from [user.p_their()] hand.</span>",
-			"<span class='notice'>You take \the [picked_card] from your hand.</span>",
-			"<span class='notice'>You hear a card being drawn.</span>"
+			SPAN_NOTICE("[user] draws [concealed ? "a card" : "[picked_card]"] from [user.p_their()] hand."),
+			SPAN_NOTICE("You take \the [picked_card] from your hand."),
+			SPAN_NOTICE("You hear a card being drawn.")
 		)
 	else if(istype(active_hand))
 		// you're drawing from a hand the user isn't holding to one that the user is.
 		// try to put that card into our currently held hand.
 		active_hand.transfer_card_to_self(src, picked_card)
 		user.visible_message(
-			"<span class='notice'>[user] draws [concealed ? "a card" : "[picked_card]"] to [user.p_their()].</span>",
-			"<span class='notice'>You draw \the [picked_card] to your hand.</span>",
-			"<span class='notice'>You hear a card being drawn.</span>"
+			SPAN_NOTICE("[user] draws [concealed ? "a card" : "[picked_card]"] to [user.p_their()]."),
+			SPAN_NOTICE("You draw \the [picked_card] to your hand."),
+			SPAN_NOTICE("You hear a card being drawn.")
 		)
 		return
 
@@ -1019,9 +1019,9 @@
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(new_hand.cards))
 			user.visible_message(
-				"<span class='notice'>[user] plays \the [selected].</span>",
-				"<span class='notice'>You play \the [selected].</span>",
-				"<span class='notice'>You hear a card being played.</span>"
+				SPAN_NOTICE("[user] plays \the [selected]."),
+				SPAN_NOTICE("You play \the [selected]."),
+				SPAN_NOTICE("You hear a card being played.")
 			)
 		user.drop_item_to_ground(new_hand)
 		var/atom/drop_location = get_step(user, user.dir)

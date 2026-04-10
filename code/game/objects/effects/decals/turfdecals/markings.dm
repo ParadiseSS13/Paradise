@@ -178,9 +178,6 @@
 /obj/effect/turf_decal/box/red/corners
 	icon_state = "box_corners_red"
 
-/obj/effect/turf_decal/plaque
-	icon_state = "plaque"
-
 /obj/effect/turf_decal/woodsiding
 	icon_state = "woodsidingline"
 
@@ -226,5 +223,8 @@
 /obj/effect/turf_decal/raven/nine
 	icon_state = "RAVEN9"
 
-/obj/effect/turf_decal/blue_corner
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/yellow_siding
+	icon_state = "yellowsiding"
+
+/obj/effect/turf_decal/yellow_siding/corner
+	icon_state = "yellowcornersiding"

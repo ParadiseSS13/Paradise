@@ -62,7 +62,7 @@
 /datum/gear/glasses/goggles_job/diaghudgoggles
 	display_name = "Diagnostic HUD goggles"
 	path = /obj/item/clothing/glasses/hud/diagnostic/goggles
-	allowed_roles = list("Research Director", "Scientist", "Roboticist")
+	allowed_roles = list("Research Director", "Scientist", "Roboticist", "Xenobiologist")
 
 /datum/gear/glasses/goggles_job/hydrohudgoggles
 	display_name = "Hydroponic HUD goggles"

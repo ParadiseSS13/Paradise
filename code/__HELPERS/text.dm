@@ -505,7 +505,7 @@
 		text = replacetext(text, "\[syndielogo\]", 	"")
 
 	if(istype(P, /obj/item/toy/crayon))
-		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
+		text = "<font face=\"[crayonfont]\" color=[P ? P.color : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
 		text = replacetext(text, "\[hr\]",		"<HR>")
@@ -776,3 +776,9 @@
 /proc/wiki_link(article_name, link_text = null)
 	var/url = "[GLOB.configuration.url.wiki_url]/index.php?title=[article_name]"
 	return "<a href=\"[url]\">[link_text ? link_text : url]</a>"
+
+
+/proc/strip_byond_macros(text)
+	text = replacetext(text, "\proper", "")
+	text = replacetext(text, "\improper", "")
+	return text

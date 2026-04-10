@@ -2,7 +2,6 @@
 	name = "power bio-chip"
 	desc = "A shockingly effective bio-chip for stunning or killing all those in your way. Do it."
 	icon_state = "lighting_bolt"
-	item_color = "r"
 	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"
 	implant_data = /datum/implant_fluff/shock
 	implant_state = "implant-syndicate"
@@ -16,7 +15,7 @@
 
 /obj/item/bio_chip/shock/activate()
 	enabled = !enabled
-	to_chat(imp_in, "<span class='notice'>You toggle the implant [enabled? "on" : "off"].</span>")
+	to_chat(imp_in, SPAN_NOTICE("You toggle the implant [enabled? "on" : "off"]."))
 	if(enabled)
 		if(imp_in.middleClickOverride)
 			old_mclick_override = imp_in.middleClickOverride

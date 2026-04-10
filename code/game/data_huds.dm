@@ -7,10 +7,18 @@
 /* DATA HUD DATUMS */
 
 /atom/proc/add_to_all_human_data_huds()
-	for(var/datum/atom_hud/data/human/hud in GLOB.huds) hud.add_to_hud(src)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/human/chosen_hud = hud
+		if(!istype(chosen_hud))
+			continue
+		chosen_hud.add_to_hud(src)
 
 /atom/proc/remove_from_all_data_huds()
-	for(var/datum/atom_hud/data/hud in GLOB.huds) hud.remove_from_hud(src)
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/chosen_hud = hud
+		if(!istype(chosen_hud))
+			continue
+		chosen_hud.remove_from_hud(src)
 
 /datum/atom_hud/data
 
@@ -66,10 +74,19 @@
 /datum/atom_hud/data/pressure
 	hud_icons = list(PRESSURE_HUD)
 
+/datum/atom_hud/data/heretic
+	hud_icons = list(HERETIC_HUD)
+	ignore_invisibility_check = TRUE
+
 /// Pressure hud is special, because it doesn't use hudatoms. SSair manages its images, so tell SSair to add the initial set.
 /datum/atom_hud/data/pressure/add_hud_to(mob/user)
 	..()
 	SSair.add_pressure_hud(user)
+
+
+/datum/atom_hud/data/anomalous
+	hud_icons = list(ANOMALOUS_HUD)
+	ignore_invisibility_check = TRUE
 
 /* MED/SEC/DIAG HUD HOOKS */
 
@@ -499,11 +516,28 @@
 		holder.icon_state = ""
 
 /*~~~~~~~~~~~~~~
+	HERETIC HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/heretic_influence/proc/do_hud_stuff()
+	var/image/holder = hud_list[HERETIC_HUD]
+	holder.icon_state = "reality_smash"
+
+/*~~~~~~~~~~~~~~
 	JANI HUD
 ~~~~~~~~~~~~~~~*/
 /obj/effect/decal/cleanable/proc/jani_hud_set_sign()
 	var/image/holder = hud_list[JANI_HUD]
 	holder.icon_state = "hudjani"
+	holder.alpha = 130
+	holder.plane = ABOVE_LIGHTING_PLANE
+	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/*~~~~~~~~~~~~~~
+	ANOMALOUS HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/anomalous_particulate/proc/do_hud_stuff()
+	var/image/holder = hud_list[ANOMALOUS_HUD]
+	holder.icon_state = "hud_anom"
 	holder.alpha = 130
 	holder.plane = ABOVE_LIGHTING_PLANE
 	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM

@@ -2,6 +2,8 @@ items/thermal_drill.ogg was sampled from Builders Drilling.wav under a Sampling 
 
 creatures/dog_yelp.ogg is DogYelp.wav. It is under a CC-BY 3.0 license. It has been cropped, EQ'd, and compressed to .ogg. Source (https://freesound.org/people/TobiasKosmos/sounds/163280/)
 
+creatures/EN_yelp.ogg is "EN_yelp" by martcraft, licensed under CC-BY 4.0. Derivative of "DogYelp.wav" by TobiasKosmos which is licensed under the CC-BY 4.0 license.  (https://freesound.org/people/TobiasKosmos/sounds/163280/)
+
 standard_stamp.ogg is adapted from tom_woysky's "Stamp.wav" https://freesound.org/people/tom_woysky/sounds/348316/
 
 machines/triple_beep.ogg is taken from /tg/station. Source (https://github.com/tgstation/tgstation)
@@ -16,4 +18,20 @@ Angry Pig Oinking by Jofae (full version of above for sound/creatures/pig.ogg)--
 
 Moo 3 - Moo Moo the Cow by manofham (sound/creatures/cow.ogg)-- https://freesound.org/s/700380/ -- License: Creative Commons 0
 
+/datum/looping_sound/centrifuge sounds spliced from washing_machine.wav -- https://freesound.org/people/magnus589/sounds/372183/ -- under CC Attribution 4.0 International
+
 effects/voxfcaw.ogg and effects/voxrcaw.ogg are processed versions of https://opengameart.org/content/crow-caw from zeroisnotnull under CC0 1.0
+
+starline_pickup was spliced from Phone Receiver.mp3 at https://freesound.org/people/Percy%20Duke/sounds/23535/ under Attributions CC 3.0
+
+voice/scream_kidan.ogg is a modification of voice/scream_moth.ogg introduced from PR# 17000 https://github.com/ParadiseSS13/Paradise/pull/17000 — CC BY-SA 3.0 modified by iramoye(GitHub)
+
+effects/mob_effects/flap.ogg and effects/mob_effects/angryflap.ogg were taken from https://freesound.org/people/Elfman-Rox/sounds/238555/ under CC0
+
+effects/mob_effects/flutter.ogg was taken from https://freesound.org/people/Godowan/sounds/240476/ under CC0
+
+items/beach_chair_hit_1.ogg was compressed to ogg from "screen door open 1.wav" in https://filmcow.itch.io/filmcow-sfx 's "FilmCow Recorded SFX.zip" under their FilmCow Royalty Free SFX Library License Agreement
+
+items/pool_noodle_hit.ogg was compressed to ogg from "cardboard box hit 28.wav" in https://filmcow.itch.io/filmcow-sfx-4 's "Hits & Crunches 48kHz.zip" under their FilmCow Royalty Free SFX Library License Agreement
+
+effects/sculptures/sand_buildfinish.ogg, sand_buildstart.ogg, sand_collapse.ogg, and sand_hit.ogg were compressed to ogg from "sand foley 14.wav", "sand foley 31.wav", "sand falling 4.wav", and "sand hit ground 2.wav" in https://filmcow.itch.io/filmcow-sfx-3 's "Beads & Sand 48kHz.zip" under their FilmCow Royalty Free SFX Library License Agreement.

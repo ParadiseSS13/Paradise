@@ -105,13 +105,13 @@ const TurbineWorking = (props) => {
   } = data;
   return (
     <LabeledList>
-      <LabeledList.Item label="Turbine Speed">{rpm} RPM</LabeledList.Item>
-      <LabeledList.Item label="Effective Compression Ratio">{compressionRatio}:1</LabeledList.Item>
-      <LabeledList.Item label="Gasmix Pre Burn Temp">{preBurnTemperature} K</LabeledList.Item>
-      <LabeledList.Item label="Gasmix Post Burn Temp">{postBurnTemperature} K</LabeledList.Item>
-      <LabeledList.Item label="Compressor Temp">{temperature} K</LabeledList.Item>
-      <LabeledList.Item label="Thermal Efficiency">{thermalEfficiency * 100} %</LabeledList.Item>
-      <LabeledList.Item label="Gas Throughput">{gasThroughput / 2} mol/s</LabeledList.Item>
+      <LabeledList.Item label="Turbine Speed">{toFixed(rpm, 2)} RPM</LabeledList.Item>
+      <LabeledList.Item label="Effective Compression Ratio">{toFixed(compressionRatio, 2)}:1</LabeledList.Item>
+      <LabeledList.Item label="Gasmix Pre Burn Temp">{toFixed(preBurnTemperature, 2)} K</LabeledList.Item>
+      <LabeledList.Item label="Gasmix Post Burn Temp">{toFixed(postBurnTemperature, 2)} K</LabeledList.Item>
+      <LabeledList.Item label="Compressor Temp">{toFixed(temperature, 2)} K</LabeledList.Item>
+      <LabeledList.Item label="Thermal Efficiency">{toFixed(thermalEfficiency * 100, 2)} %</LabeledList.Item>
+      <LabeledList.Item label="Gas Throughput">{toFixed(gasThroughput, 2)} mol/s</LabeledList.Item>
       <LabeledList.Item label="Generated Power">{formatPower(power)}</LabeledList.Item>
       <LabeledList.Item label="Bearing Damage">
         <ProgressBar

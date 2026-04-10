@@ -2,10 +2,10 @@
 "ay" = (
 /obj/item/trash/spentcasing/shotgun/rubbershot,
 /obj/structure/sign/poster/official/enlist/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "aE" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -19,9 +19,7 @@
 /obj/structure/shelf/security,
 /obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_shotgun_ammo,
 /obj/effect/turf_decal/delivery/red/hollow/right,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "bl" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -34,17 +32,17 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "cT" = (
 /obj/item/trash/spentcasing/shotgun/dragonsbreath,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "da" = (
 /obj/item/stack/ore/iridium,
@@ -59,24 +57,23 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random/loot_crate,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "dT" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "dZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "el" = (
 /obj/machinery/light/small{
@@ -91,9 +88,8 @@
 /turf/template_noop,
 /area/template_noop)
 "eX" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "fm" = (
 /obj/structure/chair/wood,
@@ -127,9 +123,8 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "ha" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "hf" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -146,10 +141,10 @@
 /area/template_noop)
 "hz" = (
 /obj/machinery/computer/loreconsole/whiteship,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "ia" = (
 /obj/structure/table/wood/poker,
@@ -158,10 +153,10 @@
 /area/template_noop)
 "iM" = (
 /obj/machinery/recharge_station,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "iP" = (
 /obj/structure/table,
@@ -183,10 +178,10 @@
 /obj/machinery/computer/operating{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "jK" = (
 /obj/effect/decal/cleanable/vomit,
@@ -198,10 +193,10 @@
 /turf/template_noop,
 /area/template_noop)
 "kF" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "lq" = (
 /obj/structure/closet/crate/secure/loot{
@@ -210,19 +205,35 @@
 	},
 /obj/item/rcs,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/rare,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
+"lw" = (
+/obj/item/gps/ruin{
+	gpstag = "NT Medical Ship";
+	pixel_x = -32
+	},
+/obj/structure/shelf/supply,
+/obj/item/gun/energy/kinetic_accelerator,
+/obj/item/borg/upgrade/modkit/chassis_mod,
+/obj/item/reagent_containers/hypospray/autoinjector/survival,
+/obj/item/t_scanner/adv_mining_scanner,
+/obj/item/pickaxe/drill,
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "lA" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "lN" = (
 /obj/item/stack/rods,
@@ -245,16 +256,16 @@
 "nH" = (
 /obj/item/trash/spentcasing/shotgun,
 /obj/structure/sign/poster/official/ion_rifle/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "or" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurplecorners"
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "oT" = (
 /obj/item/stack/sheet/metal,
@@ -279,10 +290,10 @@
 /obj/effect/turf_decal/caution/red{
 	pixel_y = -19
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "qr" = (
 /turf/template_noop,
@@ -293,18 +304,6 @@
 	pixel_y = 2
 	},
 /turf/template_noop,
-/area/template_noop)
-"qG" = (
-/obj/structure/shelf/supply,
-/obj/item/gun/energy/kinetic_accelerator,
-/obj/item/borg/upgrade/modkit/chassis_mod,
-/obj/item/reagent_containers/hypospray/autoinjector/survival,
-/obj/item/t_scanner/adv_mining_scanner,
-/obj/item/pickaxe/drill,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkyellow"
-	},
 /area/template_noop)
 "qN" = (
 /obj/structure/table,
@@ -323,9 +322,7 @@
 /obj/structure/gunrack,
 /obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_c_foam,
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "ro" = (
 /obj/structure/foamedmetal{
@@ -340,26 +337,26 @@
 /area/template_noop)
 "rE" = (
 /obj/item/trash/spentcasing/bullet/large,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "rL" = (
 /obj/machinery/optable,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "rM" = (
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "sl" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/white_ship/storage,
@@ -373,10 +370,10 @@
 "sy" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "th" = (
 /obj/structure/table/wood/poker,
@@ -387,10 +384,10 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "uH" = (
 /obj/machinery/light/small{
@@ -404,10 +401,10 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "vZ" = (
 /obj/item/mounted/frame/light_fixture,
@@ -429,16 +426,15 @@
 /turf/template_noop,
 /area/template_noop)
 "zY" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "AX" = (
 /obj/item/stack/ore/palladium,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Bc" = (
 /obj/structure/table,
@@ -462,9 +458,8 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/secure/engineering,
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "BP" = (
 /obj/structure/table,
@@ -474,19 +469,18 @@
 /obj/item/stack/nanopaste{
 	pixel_x = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "BZ" = (
 /obj/machinery/economy/vending/coffee,
 /turf/template_noop,
 /area/template_noop)
 "Cf" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Dm" = (
 /obj/machinery/door/airlock/titanium/glass,
@@ -514,29 +508,28 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Ek" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
+/turf/simulated/floor/plasteel/fakestairs{
 	dir = 4
 	},
 /area/template_noop)
 "Ey" = (
 /obj/item/trash/spentcasing/shotgun/stun,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "EA" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "EH" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -546,17 +539,14 @@
 /area/template_noop)
 "Fz" = (
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "FD" = (
 /obj/structure/shelf/security,
 /obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_shotgun_ammo,
 /obj/effect/turf_decal/delivery/red/hollow/left,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "FR" = (
 /obj/structure/shuttle/engine/heater{
@@ -596,9 +586,8 @@
 /area/template_noop)
 "IL" = (
 /obj/effect/spawner/random/pool/whiteship_mob,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "IZ" = (
 /obj/effect/spawner/random/maintenance,
@@ -609,9 +598,8 @@
 /area/template_noop)
 "Jx" = (
 /obj/effect/spawner/random/pool/whiteship_mob,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Kl" = (
 /obj/machinery/light/small{
@@ -643,9 +631,8 @@
 /obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "NM" = (
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure{
@@ -676,9 +663,8 @@
 /area/template_noop)
 "Ow" = (
 /obj/machinery/door/airlock/science/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "OT" = (
 /turf/simulated/floor/plating/airless,
@@ -698,10 +684,10 @@
 /area/template_noop)
 "Ri" = (
 /obj/machinery/door/airlock/security/glass,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "RE" = (
 /obj/structure/shuttle/engine/heater{
@@ -742,20 +728,20 @@
 	pixel_y = 11;
 	pixel_x = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "TD" = (
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot,
 /obj/effect/turf_decal/caution/red{
 	pixel_y = -19
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "UP" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -774,10 +760,10 @@
 /obj/item/robot_parts/r_arm,
 /obj/item/robot_parts/r_leg,
 /obj/effect/spawner/random/pool/spaceloot/whiteship_robotics,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkpurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Vj" = (
 /obj/structure/bed,
@@ -786,23 +772,22 @@
 /turf/template_noop,
 /area/template_noop)
 "VE" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "VR" = (
 /obj/item/stack/ore/titanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Xk" = (
 /obj/item/trash/spentcasing/bullet,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
+/obj/effect/turf_decal/tiles/department/security/side,
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "XJ" = (
 /obj/effect/spawner/window/shuttle,
@@ -1413,7 +1398,7 @@ qr
 qr
 qr
 qr
-qG
+lw
 lA
 TD
 NZ

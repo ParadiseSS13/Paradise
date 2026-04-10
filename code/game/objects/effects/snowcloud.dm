@@ -94,16 +94,16 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/item/snowball/SB = new(get_turf(user))
 	user.put_in_hands(SB)
-	to_chat(user, "<span class='notice'>You scoop up some snow and make \a [SB]!</span>")
+	to_chat(user, SPAN_NOTICE("You scoop up some snow and make \a [SB]!"))
 
 /obj/effect/snow/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/shovel))
 		var/obj/item/shovel/shovel = used
-		user.visible_message("<span class='notice'>[user] is clearing away [src]...</span>", "<span class='notice'>You begin clearing away [src]...</span>", "<span class='warning'>You hear a wettish digging sound.</span>")
+		user.visible_message(SPAN_NOTICE("[user] is clearing away [src]..."), SPAN_NOTICE("You begin clearing away [src]..."), SPAN_WARNING("You hear a wettish digging sound."))
 		playsound(loc, shovel.usesound, 50, TRUE)
 		if(do_after(user, 50 * shovel.toolspeed, target = src))
-			user.visible_message("<span class='notice'>[user] clears away [src]!</span>", "<span class='notice'>You clear away [src]!</span>")
-			qdel(src)	
+			user.visible_message(SPAN_NOTICE("[user] clears away [src]!"), SPAN_NOTICE("You clear away [src]!"))
+			qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/snow/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)

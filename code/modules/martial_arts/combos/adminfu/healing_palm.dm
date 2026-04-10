@@ -6,7 +6,7 @@
 
 /datum/martial_combo/healing_palm/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target)
-	target.visible_message("<span class='warning'>[user] smacks [target] in the forehead!</span>")
+	target.visible_message(SPAN_WARNING("[user] smacks [target] in the forehead!"))
 
 		//its the staff of healing code..hush
 	if(ismob(target))
@@ -31,8 +31,8 @@
 					ghost.reenter_corpse()
 					break
 		if(old_stat != DEAD)
-			to_chat(target, "<span class='notice'>You feel great!</span>")
+			to_chat(target, SPAN_NOTICE("You feel great!"))
 		else
-			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+			to_chat(target, SPAN_NOTICE("You rise with a start, you're alive!!!"))
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

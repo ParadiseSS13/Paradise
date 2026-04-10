@@ -42,6 +42,7 @@
 	overlay_state_active = "module_defibrillator_active"
 	incompatible_modules = list(/obj/item/mod/module/defibrillator)
 	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/defibrillator/Initialize(mapload)
 	. = ..()
@@ -79,7 +80,7 @@
 /obj/item/mod_defib/proc/on_cooldown_expire(obj/item/defib)
 	SIGNAL_HANDLER // COMSIG_DEFIB_READY
 	on_cooldown = FALSE
-	visible_message("<span class='notice'>[src] beeps: Defibrillation unit ready.</span>")
+	visible_message(SPAN_NOTICE("[src] beeps: Defibrillation unit ready."))
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, FALSE)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -122,6 +123,7 @@
 	incompatible_modules = list(/obj/item/mod/module/monitor)
 	cooldown_time = 0.5 SECONDS
 	allow_flags = MODULE_ALLOW_INACTIVE
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 3000)
 	var/datum/ui_module/crew_monitor/mod/crew_monitor
 
 
@@ -131,3 +133,21 @@
 
 /obj/item/mod/module/monitor/on_use()
 	crew_monitor.ui_interact(mod.wearer)
+
+/// Health Analyzer - Gives the suit an extendable health analyzer, able to be upgraded
+/obj/item/mod/module/analyzer
+	name = "MOD health analyzer"
+	desc = "A module installed into the palm of the suit, allows the deployment of a typical upgradable health analyzer."
+	icon_state = "health"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	active_power_cost = DEFAULT_CHARGE_DRAIN
+	device = /obj/item/healthanalyzer/mod
+	incompatible_modules = list(/obj/item/mod/module/analyzer)
+	cooldown_time = 0.5 SECONDS
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000)
+
+/obj/item/healthanalyzer/mod
+	name = "MOD health analyzer"
+	desc = "A integrated body scanner that allows the user to scan vital signs of a patient."
+	flags = NODROP

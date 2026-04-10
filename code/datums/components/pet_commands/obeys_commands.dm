@@ -57,4 +57,4 @@
 		return
 	if(!(user in source.ai_controller?.blackboard[BB_FRIENDS_LIST]))
 		return
-	examine_list += "<span class='notice'>[source.p_they(TRUE)] seem[source.p_s()] happy to see you!</span>"
+	examine_list += SPAN_NOTICE("[source.p_they(TRUE)] seem[source.p_s()] happy to see you!")

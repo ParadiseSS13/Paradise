@@ -2,7 +2,7 @@
 	name = "breath mask"
 	desc = "A close-fitting mask that can be connected to an air supply."
 	icon_state = "breath"
-	item_state = "breath"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 	can_toggle = TRUE
@@ -10,6 +10,7 @@
 	permeability_coefficient = 0.50
 	actions_types = list(/datum/action/item_action/adjust)
 	resistance_flags = NONE
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -20,8 +21,12 @@
 		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/mask.dmi'
 		)
 
-/obj/item/clothing/mask/breath/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/breath/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/breath/AltClick(mob/user)
 	..()
@@ -33,7 +38,6 @@
 	name = "medical mask"
 	desc = "A close-fitting sterile mask that can be connected to an air supply."
 	icon_state = "medical"
-	item_state = "medical"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
 
@@ -41,7 +45,7 @@
 	name = "vox breath mask"
 	desc = "A weirdly-shaped breath mask."
 	icon_state = "voxmask"
-	item_state = "voxmask"
+	icon_monitor = null
 	permeability_coefficient = 0.01
 	species_restricted = list("Vox")
 	actions_types = list()
@@ -50,10 +54,10 @@
 	name = "vox respirator"
 	desc = "A weirdly-shaped breath mask, this one seems to designed for a vox beak."
 	icon_state = "voxmask2"
-	item_state = "voxmask2"
 
-/obj/item/clothing/mask/breath/vox/attack_self__legacy__attackchain(mob/user)
-	return
+/obj/item/clothing/mask/breath/vox/activate_self(mob/user)
+	. = ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/breath/vox/AltClick(mob/user)
 	return

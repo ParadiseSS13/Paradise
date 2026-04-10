@@ -24,23 +24,20 @@
 
 	new_attack_chain = TRUE
 
-/obj/item/wirecutters/Initialize(mapload)
+/obj/item/wirecutters/Initialize(mapload, param_color = null)
 	. = ..()
-	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
-	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
-
-/obj/item/wirecutters/New(loc, param_color = null)
-	..()
 	if(random_color)
 		if(!param_color)
 			param_color = pick("yellow", "red")
 		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/wirecutters/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	var/mob/living/carbon/mob = target
 	if(istype(mob) && mob.handcuffed && istype(mob.handcuffed, /obj/item/restraints/handcuffs/cable))
-		user.visible_message("<span class='notice'>[user] cuts [mob]'s restraints with [src]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] cuts [mob]'s restraints with [src]!"))
 		QDEL_NULL(mob.handcuffed)
 		if(mob.buckled && mob.buckled.buckle_requires_restraints)
 			mob.unbuckle()
@@ -48,7 +45,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/wirecutters/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, usesound, 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -68,7 +65,7 @@
 	desc = "A pair of tacticool wirecutters fitted with contoured grips and a picatinny rail. The blades are also sharper than normal."
 	icon_state = "cutters_sec"
 	belt_icon = "wirecutters_sec"
-	item_state = "cutters_red" //shh
+	inhand_icon_state = "cutters_red" //shh
 	attack_verb = list("reformed", "robusted", "102'd") //102: battery in space law
 	force = 9 //same as seclites
 	toolspeed = 0.75
@@ -78,7 +75,7 @@
 
 	if(!user)
 		return
-	user.visible_message("<span class='suicide'>[user] is cutting [user.p_themselves()] free from the mortal coil! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is cutting [user.p_themselves()] free from the mortal coil! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 
 	user.Immobilize(10 SECONDS)
@@ -118,17 +115,17 @@
 	name = "jaws of life"
 	desc = "A compact and powerful industrial tool with a modular head. This one has a set of large cutting blades attached."
 	icon_state = "jaws_cutter"
-	item_state = "jawsoflife"
+	inhand_icon_state = "jawsoflife"
 	belt_icon = "jaws"
 	origin_tech = "materials=2;engineering=2"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL
 	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is wrapping [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!"))
 
 	if(!use_tool(user, user, 3 SECONDS, volume = tool_volume))
 		return SHAME
@@ -139,13 +136,13 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
 	if(!head)
-		user.visible_message("<span class='suicide'>...but [user.p_they()] [user.p_are()] already headless! How embarassing.</span>")
+		user.visible_message(SPAN_SUICIDE("...but [user.p_they()] [user.p_are()] already headless! How embarassing."))
 		return SHAME
 
 	head.droplimb(FALSE, DROPLIMB_SHARP, FALSE, TRUE)
 
 	if(user.stat != DEAD)
-		user.visible_message("<span class='suicide'>...but [user.p_they()] didn't need it anyway! How embarassing.</span>")
+		user.visible_message(SPAN_SUICIDE("...but [user.p_they()] didn't need it anyway! How embarassing."))
 		return SHAME
 
 	return OXYLOSS
@@ -156,7 +153,7 @@
 
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
-	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You attach the pry jaws to [src]."))
 	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
 		bit.on_detached()
 		bit.forceMove(pryjaws)

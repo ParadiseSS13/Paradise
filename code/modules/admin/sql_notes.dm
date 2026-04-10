@@ -3,14 +3,14 @@
 		return
 	if(IsAdminAdvancedProcCall() && !sanitise_html)
 		// *sigh*
-		to_chat(usr, "<span class='boldannounceooc'>Unsanitized note add blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Unsanitized note add blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to possibly inject HTML into notes via advanced proc-call")
 		return
 
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, SPAN_DANGER("Failed to establish database connection."))
 		return
 
 	if(!target_ckey)
@@ -39,7 +39,7 @@
 
 	if(!ckey_found)
 		if(usr)
-			to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+			to_chat(usr, SPAN_REDTEXT("[target_ckey] has not been seen before, you can only add notes to known players."))
 		return
 
 	var/crew_number = 0
@@ -97,7 +97,7 @@
 	var/adminckey
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, SPAN_DANGER("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -134,7 +134,7 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, SPAN_DANGER("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -152,7 +152,7 @@
 		var/adminckey = query_find_note_edit.item[3]
 		var/automated = query_find_note_edit.item[4]
 		if(automated)
-			to_chat(usr, "<span class='notice'>That note is generated automatically. You can't edit it.</span>")
+			to_chat(usr, SPAN_NOTICE("That note is generated automatically. You can't edit it."))
 			return
 		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
 		if(!new_note)
@@ -254,7 +254,7 @@
 		if(!query_list_notes.warn_execute())
 			qdel(query_list_notes)
 			return
-		to_chat(usr, "<span class='notice'>Started regex note search for [search]. Please wait for results...</span>")
+		to_chat(usr, SPAN_NOTICE("Started regex note search for [search]. Please wait for results..."))
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
@@ -274,7 +274,7 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, SPAN_DANGER("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -292,10 +292,10 @@
 		var/automated = query_find_note_edit.item[4]
 		var/public = query_find_note_edit.item[5]
 		if((!adminckey || adminckey != usr.ckey) && !check_rights(R_PERMISSIONS))
-			to_chat(usr, "<span class='notice'>You cannot toggle the publicity of notes created by other users.</span>")
+			to_chat(usr, SPAN_NOTICE("You cannot toggle the publicity of notes created by other users."))
 			return
 		if(automated)
-			to_chat(usr, "<span class='notice'>That note is generated automatically. You can't edit it.</span>")
+			to_chat(usr, SPAN_NOTICE("That note is generated automatically. You can't edit it."))
 			return
 
 		if(public)

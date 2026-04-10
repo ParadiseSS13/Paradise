@@ -2,20 +2,25 @@
 	name = "MOD helmet"
 	desc = "A helmet for a MODsuit."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	icon_monitor = 'icons/mob/clothing/modsuit/species/monitor_helmets.dmi'
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
-	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	heat_protection = HEAD
 	cold_protection = HEAD
 	permeability_coefficient = 0.01
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
+		"Skrell" = 'icons/mob/clothing/modsuit/species/skrell_modsuits.dmi',
+		"Nian" = 'icons/mob/clothing/modsuit/species/nian_modsuits.dmi',
+		"Diona" = 'icons/mob/clothing/modsuit/species/diona_modsuits.dmi',
+		"Kidan" = 'icons/mob/clothing/modsuit/species/kidan_modsuits.dmi',
+		"Drask" = 'icons/mob/clothing/modsuit/species/drask_modsuits.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
-		)
+	)
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"
@@ -23,8 +28,7 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-chestplate"
 	base_icon_state = "chestplate"
-	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	blood_overlay_type = "armor"
 	allowed = list(
 		/obj/item/tank/internals,
@@ -38,12 +42,16 @@
 	insert_max = 0
 	hide_tail_by_species = list("modsuit")
 	sprite_sheets = list(
+		"Skrell" = 'icons/mob/clothing/modsuit/species/skrell_modsuits.dmi',
+		"Nian" = 'icons/mob/clothing/modsuit/species/nian_modsuits.dmi',
+		"Diona" = 'icons/mob/clothing/modsuit/species/diona_modsuits.dmi',
+		"Kidan" = 'icons/mob/clothing/modsuit/species/kidan_modsuits.dmi',
+		"Drask" = 'icons/mob/clothing/modsuit/species/drask_modsuits.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
-		)
-
+	)
 
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
@@ -51,19 +59,22 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-gauntlets"
 	base_icon_state = "gauntlets"
-	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
 	permeability_coefficient = 0.01
 	sprite_sheets = list(
+		"Skrell" = 'icons/mob/clothing/modsuit/species/skrell_modsuits.dmi',
+		"Nian" = 'icons/mob/clothing/modsuit/species/nian_modsuits.dmi',
+		"Diona" = 'icons/mob/clothing/modsuit/species/diona_modsuits.dmi',
+		"Kidan" = 'icons/mob/clothing/modsuit/species/kidan_modsuits.dmi',
+		"Drask" = 'icons/mob/clothing/modsuit/species/drask_modsuits.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
-		)
-
+	)
 
 /obj/item/clothing/shoes/mod
 	name = "MOD boots"
@@ -71,15 +82,19 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-boots"
 	base_icon_state = "boots"
-	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS
 	permeability_coefficient = 0.01
 	sprite_sheets = list(
+		"Skrell" = 'icons/mob/clothing/modsuit/species/skrell_modsuits.dmi',
+		"Nian" = 'icons/mob/clothing/modsuit/species/nian_modsuits.dmi',
+		"Diona" = 'icons/mob/clothing/modsuit/species/diona_modsuits.dmi',
+		"Kidan" = 'icons/mob/clothing/modsuit/species/kidan_modsuits.dmi',
+		"Drask" = 'icons/mob/clothing/modsuit/species/drask_modsuits.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
-		)
+	)

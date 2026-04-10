@@ -12,58 +12,59 @@
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor vest"
 	desc = "A mass-produced Level II soft armor vest that provides light protection against most sources of damage."
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-	)
 	icon_state = "armor"
-	item_state = "armor"
+	inhand_icon_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+	)
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
 	desc = "An old Federal Army surplus jacket. Armor panels sewn into the sides provide some protection against impacts and laser fire."
 	icon_state = "militaryjacket"
-	item_state = "militaryjacket"
+	inhand_icon_state = null
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"
 	desc = "A soft armor vest suitable for stopping minor impacts."
 	icon_state = "armor-combat"
-	item_state = "bulletproof"
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
 	desc = "A Level II soft armor vest used by Nanotrasen corporate security. Offers light protection against kinetic impacts and lasers, and has a clip for a holobadge."
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-	)
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
-/obj/item/clothing/suit/armor/vest/security/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge))
-		if(user.transfer_item_to(I, src))
-			add_fingerprint(user)
-			attached_badge = I
-			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
-			A.Grant(user)
-			icon_state = "armorsec"
-			user.update_inv_wear_suit()
-			desc = "A Level II soft armor vest used by Nanotrasen corporate security, offering light protection against kinetic impacts and lasers. This one has [attached_badge] attached to it."
-			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
-		return
-	..()
+/obj/item/clothing/suit/armor/vest/security/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/clothing/accessory/holobadge))
+		return ..()
 
-/obj/item/clothing/suit/armor/vest/security/attack_self__legacy__attackchain(mob/user)
+	if(user.transfer_item_to(used, src))
+		add_fingerprint(user)
+		attached_badge = used
+		var/datum/action/A = new /datum/action/item_action/remove_badge(src)
+		A.Grant(user)
+		icon_state = "armorsec"
+		user.update_inv_wear_suit()
+		desc = "A Level II soft armor vest used by Nanotrasen corporate security, offering light protection against kinetic impacts and lasers. This one has [attached_badge] attached to it."
+		to_chat(user, SPAN_NOTICE("You attach [attached_badge] to [src]."))
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/clothing/suit/armor/vest/security/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(attached_badge)
 		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
@@ -73,11 +74,9 @@
 		icon_state = "armor"
 		user.update_inv_wear_suit()
 		desc = "A Level II soft armor vest used by Nanotrasen corporate security. Offers light protection against kinetic impacts and lasers, and has a clip for a holobadge."
-		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [attached_badge] from [src]."))
 		attached_badge = null
-
-		return
-	..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/armor/vest/street_judge
 	name = "judge's security armor"
@@ -86,6 +85,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
@@ -93,18 +93,12 @@
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield's security armor"
 	desc = "A Level II soft armor vest used by Nanotrasen's Blueshield bodyguard corps. Provides identical protection to standard Security soft vests."
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-	)
 	icon_state = "blueshield"
-	item_state = "blueshield"
 
 /obj/item/clothing/suit/armor/vest/bloody
 	name = "bloodied security armor"
 	desc = "An old, gore-covered security vest with a face crudely drawn on the chest. Where the hell did they even find this?"
 	icon_state = "bloody_armor"
-	item_state = "bloody_armor"
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/press
@@ -116,7 +110,6 @@
 	name = "security jacket"
 	desc = "A stylish black jacket used by Nanotrasen corporate security. Basic kevlar weave offers minor protection, but far less than a typical Security vest."
 	icon_state = "secjacket_open"
-	item_state = "hos"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -127,6 +120,7 @@
 	adjust_flavour = "unzip"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
@@ -135,23 +129,22 @@
 	name = "security poncho"
 	desc = "A stylish black and red poncho used by Nanotrasen corporate security. Basic kevlar weave provides minor protection against most sources of damage."
 	icon_state = "security_poncho"
-	item_state = "security_poncho"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 20, ACID = 20)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
-
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
 	desc = "An intimidating black greatcoat reinforced with Level II plate inserts for moderate protection."
 	icon_state = "hos"
-	item_state = "hos"
+	inhand_icon_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 115, ACID = 450)
 	flags_inv = HIDEJUMPSUIT
@@ -161,6 +154,7 @@
 	insert_max = 2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
@@ -169,7 +163,6 @@
 	name = "armored trenchcoat"
 	desc = "A a stylish black trenchcoat fitted with Level II armored inserts for moderate protection without sacrificing aesthetics."
 	icon_state = "hostrench_open"
-	item_state = "hostrench_open"
 	flags_inv = 0
 	ignore_suitadjust = 0
 	suit_adjusted = 1
@@ -180,7 +173,6 @@
 	name = "armored trenchcoat"
 	desc = "A trenchcoat augmented with a special alloy for some protection and style."
 	icon_state = "jensencoat"
-	item_state = "jensencoat"
 	flags_inv = 0
 	sprite_sheets = null
 
@@ -196,6 +188,7 @@
 	dog_fashion = null
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
@@ -218,6 +211,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
@@ -250,6 +244,7 @@
 	// Drask look fine in the regular human version
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
 	)
@@ -258,7 +253,7 @@
 	name = "riot suit"
 	desc = "A bulky, full-body suit of layered armor and impact cushions that provides outstanding protection against blunt trauma, fire, and corrosive substances. Much less effective against all other forms of damage, however."
 	icon_state = "riot"
-	item_state = "swat_suit"
+	inhand_icon_state = "swat_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -267,6 +262,7 @@
 	put_on_delay = 60
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
@@ -280,28 +276,27 @@
 	name = "plate armour"
 	desc = "A full suit of steel plate armor, it looks like it came right out of a documentary about the Middle Ages. The plating offers excellent protection against melee, and the asbestos-lined padding provides excellent protection against fire and corrosive substances, but it won't be stopping any weapon designed in the last half-millennium."
 	icon_state = "knight_green"
-	item_state = "knight_green"
+	inhand_icon_state = null
 	slowdown = 1
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+		)
 	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
-	item_state = "knight_yellow"
 
 /obj/item/clothing/suit/armor/riot/knight/blue
 	icon_state = "knight_blue"
-	item_state = "knight_blue"
 
 /obj/item/clothing/suit/armor/riot/knight/red
 	icon_state = "knight_red"
-	item_state = "knight_red"
 
 /obj/item/clothing/suit/armor/riot/knight/templar
 	name = "crusader armour"
 	desc = "A heavy suit of cosplay-grade armor that vaguely resembles something from a low-quality documentary about the crusades. Whilst the plating provides mediocre protection against melee attacks and little else, the asbestos-lined padding does hold up quite well to fire and corrosive substances."
 	icon_state = "knight_templar"
-	item_state = "knight_templar"
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/bible)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 
@@ -309,7 +304,6 @@
 	name = "durathread vest"
 	desc = "A comfortable and low-profile vest made of durathread, reinforced with panels of tanned leather. Offers decent protection against laser discharges, but won't be stopping a bullet any time soon."
 	icon_state = "durathread"
-	item_state = "durathread"
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
@@ -318,7 +312,7 @@
 	name = "bulletproof armor"
 	desc = "A full-body suit of armor fitted with Level IV ballistic armor inserts and panelling across the body. Will stop most low-caliber kinetic projectiles and help resist the concussive force of explosions, but it does little against melee and energy attacks."
 	icon_state = "bulletproof"
-	item_state = "armor"
+	inhand_icon_state = "armor"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
@@ -328,9 +322,9 @@
 	put_on_delay = 6 SECONDS
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
-
 
 /obj/item/clothing/suit/armor/bulletproof/sec
 	name = "security bulletproof armor"
@@ -341,23 +335,18 @@
 	name = "SWAT armor"
 	desc = "A large, bulky suit of tactical armor commonly used by specialized police units. Offers moderate protection in all areas. It has a surface coating that completely resists harm from fire and corrosive attacks."
 	icon_state = "heavy"
-	item_state = "swat_suit"
+	inhand_icon_state = "swat_suit"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50,RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 12 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"
 	desc = "A high-tech armor vest specializing against energy attacks. A miniaturized energy shielding system deflects incoming shots on a short cooldown, while a reflective outer shell and \
 		specialized heat dissipation materials protect against direct energy impacts. Unfortunately, it offers little in the way of defense against solid projectiles or melee weapons."
 	icon_state = "armor_reflec"
-	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 75, ENERGY = 50, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	var/last_reflect_time
@@ -377,10 +366,6 @@
 /obj/item/clothing/suit/armor/vest/det_suit
 	name = "armor"
 	desc = "An armored vest with a detective's badge on it."
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-	)
 	icon_state = "detective-armor"
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
@@ -395,7 +380,6 @@
 	/// Is the armor disabled, and prevented from reactivating temporarly?
 	var/disabled = FALSE
 	icon_state = "reactiveoff"
-	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	actions_types = list(/datum/action/item_action/toggle)
@@ -422,7 +406,7 @@
 /obj/item/clothing/suit/armor/reactive/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>The armor is [round(cell.percent())]% charged.</span>"
+		. += SPAN_NOTICE("The armor is [round(cell.percent())]% charged.")
 
 /obj/item/clothing/suit/armor/reactive/examine_more(mob/user)
 	. = ..()
@@ -432,22 +416,25 @@
 	. += "Outside of the strange effects caused by the anomaly core, the armor provides no protection against conventional attacks. \
 	Nanotrasen cannot be held liable for injury and/or death due to misuse or proper operation of the reactive armor."
 
-/obj/item/clothing/suit/armor/reactive/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/suit/armor/reactive/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	active = !(active)
 	if(disabled)
-		to_chat(user, "<span class='warning'>[src] is disabled and rebooting!</span>")
-		return
+		to_chat(user, SPAN_WARNING("[src] is disabled and rebooting!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(active)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now active."))
 		icon_state = "reactive"
-		item_state = "reactive"
 	else
-		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is now inactive."))
 		icon_state = "reactiveoff"
-		item_state = "reactiveoff"
 		add_fingerprint(user)
 	user.update_inv_wear_suit()
 	update_action_buttons()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
 	var/emp_power = 5 + (severity-1 ? 0 : 5)
@@ -472,7 +459,6 @@
 	active = FALSE
 	disabled = TRUE
 	icon_state = "reactiveoff"
-	item_state = "reactiveoff"
 	addtimer(CALLBACK(src, PROC_REF(reboot)), disable_time SECONDS)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
@@ -482,7 +468,6 @@
 	disabled = FALSE
 	active = TRUE
 	icon_state = "reactive"
-	item_state = "reactive"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
@@ -490,8 +475,8 @@
 /obj/item/clothing/suit/armor/reactive/proc/reaction_check(hitby)
 	if(prob(hit_reaction_chance))
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
-			if(istype(P, /obj/item/projectile/ion))
+			var/obj/projectile/P = hitby
+			if(istype(P, /obj/projectile/ion))
 				return FALSE
 			if(!P.nodamage || P.stun || P.weaken)
 				return TRUE
@@ -511,7 +496,7 @@
 	if(reaction_check(hitby) && is_teleport_allowed(owner.z) && use_power())
 		var/mob/living/carbon/human/H = owner
 		if(do_teleport(owner, owner, 6, safe_turf_pick = TRUE)) //Teleport on the same spot with a precision of 6 gets a random tile near the owner.
-			owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
+			owner.visible_message(SPAN_DANGER("The reactive teleport system flings [H] clear of [attack_text]!"))
 			return TRUE
 		return FALSE
 	return FALSE
@@ -536,7 +521,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
+		owner.visible_message(SPAN_DANGER("[src] blocks [attack_text], sending out jets of flame!"))
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
 				C.fire_stacks += 8
@@ -563,13 +548,13 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out freezing bolts!</span>")
+		owner.visible_message(SPAN_DANGER("[src] blocks [attack_text], sending out freezing bolts!"))
 
 		for(var/mob/living/M in oview(get_turf(src), 7))
 			shootAt(M)
 
 		if(prob(10)) //rarely vent gasses
-			owner.visible_message("<span class='warning'>[src] vents excess coolant!</span>")
+			owner.visible_message(SPAN_WARNING("[src] vents excess coolant!"))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE)
 
 			var/turf/simulated/T = get_turf(src)
@@ -586,7 +571,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	var/obj/projectile/temp/basilisk/O = new /obj/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
 	O.current = T
 	O.yo = U.y - T.y
@@ -607,7 +592,7 @@
 		E.Copy_Parent(owner, 50)
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
-		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
+		owner.visible_message(SPAN_DANGER("[owner] is hit by [attack_text] in the chest!")) //We pretend to be hit, since blocking it would stop the message otherwise
 		owner.make_invisible()
 		disable(rand(4, 5)) //No blocking while invisible
 		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
@@ -621,7 +606,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
+		owner.visible_message(SPAN_DANGER("[src] blocks [attack_text], sending out arcs of lightning!"))
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
 				continue
@@ -647,7 +632,7 @@
 	if(!active)
 		return FALSE
 	if(reaction_check(hitby) && use_power())
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
+		owner.visible_message(SPAN_DANGER("[src] blocks [attack_text], converting the attack into a wave of force!"))
 		use_power()
 		var/list/thrown_atoms = list()
 		for(var/turf/T in range(repulse_range, owner)) //Done this way so things don't get thrown all around hilariously.
@@ -664,13 +649,13 @@
 				if(isliving(AM))
 					var/mob/living/M = AM
 					M.Weaken(6 SECONDS)
-					to_chat(M, "<span class='userdanger'>You're slammed into the floor by [owner]'s reactive armor!</span>")
+					to_chat(M, SPAN_USERDANGER("You're slammed into the floor by [owner]'s reactive armor!"))
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 			else
 				new sparkle_path(get_turf(AM), get_dir(owner, AM))
 				if(isliving(AM))
 					var/mob/living/M = AM
-					to_chat(M, "<span class='userdanger'>You're thrown back by [owner]'s reactive armor!</span>")
+					to_chat(M, SPAN_USERDANGER("You're thrown back by [owner]'s reactive armor!"))
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
 				INVOKE_ASYNC(AM, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
@@ -689,12 +674,10 @@
 
 //All of the armor below is mostly unused
 
-
 /obj/item/clothing/suit/armor/centcomm
 	name = "Cent. Com. armor"
 	desc = "A suit that protects against some damage."
 	icon_state = "centcom"
-	item_state = "centcom"
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals/emergency_oxygen)
@@ -711,7 +694,7 @@
 	name = "heavy armor"
 	desc = "A generic suit of heavy armor. Protects against damage, to the surprise of none."
 	icon_state = "heavy"
-	item_state = "swat_suit"
+	inhand_icon_state = "swat_suit"
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
@@ -736,23 +719,17 @@
 	name = "red Thunderdome armor"
 	desc = "Armor worn by the red Thunderdome team."
 	icon_state = "tdred"
-	item_state = "tdred"
 
 /obj/item/clothing/suit/armor/tdome/green
 	name = "green Thunderdome armor"
 	desc = "Armor worn by the green Thunderdome team."
 	icon_state = "tdgreen"
-	item_state = "tdgreen"
 
 //Federation
 /obj/item/clothing/suit/armor/federation/marine
 	name = "\improper Federation marine combat armor"
 	desc = "A full-body suit of semi-powered assault armor used by the Trans-Solar Marine Corps. Offers excellent protection in all areas without impairing movement."
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-	)
 	icon_state = "fedarmor_marine"
-	item_state = "fedarmor_marine"
 	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = INFINITY, ACID = 100)
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -767,21 +744,13 @@
 
 /obj/item/clothing/suit/armor/federation/marine/officer
 	name = "\improper Federation marine officer's armor"
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-	)
 	icon_state = "fedarmor_marine_officer"
-	item_state = "fedarmor_marine_officer"
 	desc = "A full-body suit of semi-powered assault armor used by the Trans-Solar Marine Corps. Offers excellent protection in all areas without impairing movement. This suit has golden stripes instead of the typical white."
 
 /obj/item/clothing/suit/armor/federation/marine/export
 	name = "\improper Federation marine combat armor (E)"
 	desc = "An export-grade suit of semi-powered assault armor commonly sold or given to allies of the Trans-Solar Federation. It has moderately reduced capabilites compared to a standard suit."
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-	)
 	armor = list(MELEE = 30, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
-
 
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert
@@ -806,7 +775,7 @@
 	name = "emergency response team paranormal armor"
 	desc = "A full suit of medieval plate armor, kitted out in crusader colors. Where the hell did they even find this? There are chipped black insignia on the shoulders."
 	icon_state = "knight_templar"
-	item_state = "knight_templar"
+	inhand_icon_state = null
 
 //Engineer
 /obj/item/clothing/suit/armor/vest/ert/engineer
@@ -841,9 +810,8 @@
 
 /obj/item/clothing/suit/hooded/drake
 	name = "drake armour"
-	icon_state = "dragon"
-	item_state = "dragon"
 	desc = "A suit of armour fashioned from the remains of an ash drake."
+	icon_state = "dragon"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
 	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/drake
@@ -852,11 +820,17 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/suit/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = list(MELEE = 45, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) // Still good. Not OP.
+		return
+	armor = list(MELEE = 115, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
-	icon_state = "dragon"
-	item_state = "dragon"
 	desc = "The skull of a dragon."
+	icon_state = "dragon"
 	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -864,11 +838,17 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
+/obj/item/clothing/head/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = list(MELEE = 45, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) // Still good. Not OP.
+		return
+	armor = list(MELEE = 115, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+
 /obj/item/clothing/suit/hooded/goliath
 	name = "goliath cloak"
-	icon_state = "goliath_cloak"
-	item_state = "goliath_cloak"
 	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
+	icon_state = "goliath_cloak"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival)
 	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 75, ACID = 75) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
@@ -878,20 +858,53 @@
 
 /obj/item/clothing/head/hooded/goliath
 	name = "goliath cloak hood"
-	icon_state = "golhood"
-	item_state = "golhood"
 	desc = "A protective & concealing hood."
+	icon_state = "golhood"
 	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 75, ACID = 75)
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
+
+/obj/item/clothing/suit/hooded/bone_light
+	name = "light bone armor"
+	desc = "A lightweight set of bone armor, crafted crudely from animal products."
+	icon_state = "light_bone_armor"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 50, ACID = 50)
+	hoodtype = /obj/item/clothing/head/hooded/bone_light
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
+	)
+
+/obj/item/clothing/head/hooded/bone_light
+	name = "light bone helmet"
+	desc = "A crude helmet crafted from the bones of animals."
+	icon_state = "light_bone_helmet"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+	heat_protection = HEAD
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
 	desc = "A tribal armor plate, crafted from animal bone."
 	icon_state = "bonearmor"
-	item_state = "bonearmor"
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS

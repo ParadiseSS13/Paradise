@@ -21,9 +21,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aj" = (
 /obj/machinery/computer/communications,
@@ -35,9 +33,7 @@
 /area/shuttle/escape)
 "am" = (
 /obj/item/toy/snappop/phoenix,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "an" = (
 /obj/machinery/computer/crew,
@@ -55,9 +51,7 @@
 /area/shuttle/escape)
 "ap" = (
 /obj/item/toy/snappop,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aq" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
@@ -76,30 +70,22 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "au" = (
 /obj/item/toy/snappop/phoenix,
 /obj/machinery/light/spot,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "av" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aw" = (
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "az" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aB" = (
 /turf/simulated/floor/mineral/plastitanium/red/brig,
@@ -126,9 +112,7 @@
 	dir = 1
 	},
 /obj/item/toy/snappop/phoenix,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
@@ -223,9 +207,7 @@
 	},
 /obj/machinery/light/spot,
 /obj/item/toy/snappop/phoenix,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aV" = (
 /obj/structure/noticeboard,
@@ -237,9 +219,7 @@
 	hackProof = 1;
 	name = "Shuttle Cargo Hatch"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aY" = (
 /obj/machinery/door/airlock/titanium{
@@ -254,9 +234,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/economy/vending/clothing,

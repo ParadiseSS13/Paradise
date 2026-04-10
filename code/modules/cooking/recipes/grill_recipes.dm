@@ -50,6 +50,18 @@
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 
+/datum/cooking/recipe/fish_skewer_bone
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/fish_skewer/bone
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),
+		PCWJ_ADD_REAGENT("flour", 10),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
 /datum/cooking/recipe/fishfingers
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/fishfingers
@@ -60,6 +72,25 @@
 		PCWJ_ADD_REAGENT("flour", 10),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
+
+/datum/cooking/recipe_step/add_item/fried_vulp/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/vulpkanin))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/frankfurrter
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/frankfurrter
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_vulp(),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
 
 /datum/cooking/recipe/goliath
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
@@ -81,11 +112,41 @@
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 
+/datum/cooking/recipe_step/add_item/fried_unathi/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/unathi))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/hiss_kebab
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/hiss_kebab
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_unathi(),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/human_kebab
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/human/kebab
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/stack/rods),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/human),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/human),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe/human_kebab_bone
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/human/kebab/bone
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),
 		PCWJ_ADD_ITEM(/obj/item/food/meat/human),
 		PCWJ_ADD_ITEM(/obj/item/food/meat/human),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
@@ -98,6 +159,17 @@
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/stack/rods),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/meatkeb_bone
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/meatkebab/bone
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),
 		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_MEATHUNK(),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
@@ -134,6 +206,20 @@
 		PCWJ_ADD_ITEM(/obj/item/food/carpmeat),
 		PCWJ_ADD_ITEM(/obj/item/food/carpmeat),
 		PCWJ_ADD_ITEM(/obj/item/stack/rods),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
+		PCWJ_ADD_REAGENT("vinegar", 5),
+		PCWJ_USE_GRILL(J_MED, 20 SECONDS),
+	)
+
+/datum/cooking/recipe/picoss_kebab_bone
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/picoss_kebab/bone
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/carpmeat),
+		PCWJ_ADD_ITEM(/obj/item/food/carpmeat),
+		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
 		PCWJ_ADD_REAGENT("vinegar", 5),
@@ -186,6 +272,19 @@
 		PCWJ_USE_GRILL(J_MED, 20 SECONDS),
 	)
 
+/datum/cooking/recipe/shrimp_skewer_bone
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/shrimp_skewer/bone
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/shrimp),
+		PCWJ_ADD_ITEM(/obj/item/food/shrimp),
+		PCWJ_ADD_ITEM(/obj/item/food/shrimp),
+		PCWJ_ADD_ITEM(/obj/item/food/shrimp),
+		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),
+		PCWJ_USE_GRILL(J_MED, 20 SECONDS),
+	)
+
 /datum/cooking/recipe/sushi_tamago
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/sliced/sushi_tamago
@@ -221,6 +320,17 @@
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 
+/datum/cooking/recipe/syntikebab_bone
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/syntikebab/bone
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/syntiflesh),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/syntiflesh),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
 /datum/cooking/recipe/telebacon
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/telebacon
@@ -237,6 +347,17 @@
 	catalog_category = COOKBOOK_CATEGORY_VEGE
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/stack/rods),
+		PCWJ_ADD_ITEM(/obj/item/food/tofu),
+		PCWJ_ADD_ITEM(/obj/item/food/tofu),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/tofukebab_bone
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/tofukebab/bone
+	catalog_category = COOKBOOK_CATEGORY_VEGE
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),
 		PCWJ_ADD_ITEM(/obj/item/food/tofu),
 		PCWJ_ADD_ITEM(/obj/item/food/tofu),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),

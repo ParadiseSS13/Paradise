@@ -10,7 +10,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	new_attack_chain = TRUE
 	var/writing = ""
 
 /obj/structure/signpost/Initialize(mapload)
@@ -64,10 +63,10 @@
 /obj/structure/signpost/wood/AltClick(mob/living/user)
 	if(!scarf)
 		scarf = TRUE
-		to_chat(user, "<span class='notice'>You tie a memorial wreath around the sign.</span>")
+		to_chat(user, SPAN_NOTICE("You tie a memorial wreath around the sign."))
 	else
 		scarf = FALSE
-		to_chat(user, "<span class='notice'>You untie the memorial wreath from the sign.</span>")
+		to_chat(user, SPAN_NOTICE("You untie the memorial wreath from the sign."))
 	update()
 
 /obj/structure/signpost/wood/update()
@@ -77,35 +76,6 @@
 	else
 		icon_state = "signpost_wood"
 
-/obj/structure/ninjatele
-	name = "Long-Distance Teleportation Console"
-	desc = "A console used to send a Spider Clan operative long distances rapidly."
-	icon = 'icons/obj/ninjaobjects.dmi'
-	icon_state = "teleconsole"
-	anchored = TRUE
-
-/obj/structure/ninjatele/attack_hand(mob/user as mob)
-	if(user.mind.special_role=="Ninja")
-		switch(tgui_alert(user, "Phase Jaunt relay primed, target locked as [station_name()], initiate VOID-shift translocation? (Warning! Internals required!)", "Void Shift", list("Yes", "No")))
-			if("Yes")
-				if(user.z != src.z)
-					return
-
-				user.loc.loc.Exited(user)
-				user.loc = pick(GLOB.carplist) // In the future, possibly make specific NinjaTele landmarks, and give him an option to teleport to North/South/East/West of SS13 instead of just hijacking a carpspawn.
-
-				playsound(user.loc, 'sound/effects/phasein.ogg', 25, 1)
-				playsound(user.loc, 'sound/effects/sparks2.ogg', 50, 1)
-				new /obj/effect/temp_visual/dir_setting/ninja/phase(get_turf(user), user.dir)
-				to_chat(user, "<span class='boldnotice'>VOID-Shift</span> translocation successful")
-
-			if("No")
-				to_chat(user, "<span class='danger'>Process aborted!</span>")
-				return
-
-			else
-				to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
-
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"
 	desc = "Top-of-the-line Nanotrasen technology allows for cloning of crew members from off-station upon bluespace request."
@@ -113,6 +83,7 @@
 	icon_state = "borgcharger1(old)"
 	anchored = TRUE
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// An outfit for ghosts to spawn with
 	var/datum/outfit/selected_outfit
 
@@ -184,7 +155,7 @@
 /obj/structure/ghost_beacon/attack_hand(mob/user)
 	if(!is_admin(user))
 		return
-	to_chat(user, "<span class='notice'>You [active ? "disable" : "enable"] \the [src].</span>")
+	to_chat(user, SPAN_NOTICE("You [active ? "disable" : "enable"] \the [src]."))
 	if(active)
 		STOP_PROCESSING(SSobj, src)
 	else

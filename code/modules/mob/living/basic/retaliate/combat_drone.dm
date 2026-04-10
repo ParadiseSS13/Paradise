@@ -15,7 +15,7 @@
 	is_ranged = TRUE
 	ranged_burst_count = 3
 	ranged_burst_interval = 0.4
-	projectile_type = /obj/item/projectile/beam/immolator/weak/hitscan
+	projectile_type = /obj/projectile/beam/immolator/weak/hitscan
 	projectile_sound = 'sound/weapons/laser3.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 0
@@ -34,6 +34,7 @@
 	set_default_language(GLOB.all_languages["Galactic Common"])
 	AddElement(/datum/element/ai_retaliate)
 	update_icons()
+	AddComponent(/datum/component/event_tracker, EVENT_DRONE)
 
 /mob/living/basic/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
 	var/turf/T = get_turf(oldloc)
@@ -77,17 +78,17 @@
 		passive = !passive
 		ai_controller.set_blackboard_key(BB_MALF_DRONE_PASSIVE, passive)
 		if(passive)
-			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
+			visible_message(SPAN_NOTICE("[src] retracts several targetting vanes."))
 			advanced_bullet_dodge_chance = 0
 			ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, null)
 		else
-			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
+			visible_message(SPAN_WARNING("[src] suddenly lights up, and additional targetting vanes slide into place."))
 			advanced_bullet_dodge_chance = 25
 		ai_controller.cancel_actions()
 		update_icons()
 
 /// We overide the basic effect, as malfunctioning drones are in space, and use jets to dodge. Also lets us do cool effects.
-/mob/living/basic/malf_drone/advanced_bullet_dodge(mob/living/source, obj/item/projectile/hitting_projectile)
+/mob/living/basic/malf_drone/advanced_bullet_dodge(mob/living/source, obj/projectile/hitting_projectile)
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
 		return NONE
 	if(source.stat != CONSCIOUS)
@@ -96,8 +97,8 @@
 		return NONE
 
 	source.visible_message(
-		"<span class='danger'>[source]'s jets [pick("boosts", "propels", "pulses", "flares up and moves", "shudders and pushes")] it out of '[hitting_projectile]'s way!</span>",
-		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
+		SPAN_DANGER("[source]'s jets [pick("boosts", "propels", "pulses", "flares up and moves", "shudders and pushes")] it out of '[hitting_projectile]'s way!"),
+		SPAN_USERDANGER("You evade [hitting_projectile]!"),
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg', 'sound/effects/refill.ogg'), 75, TRUE)
 	if(prob(50))

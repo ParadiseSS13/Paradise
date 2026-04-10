@@ -57,6 +57,10 @@
 "Q" = (
 /turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
+"Z" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -130,7 +134,7 @@ b
 c
 Q
 b
-d
+Z
 d
 d
 a

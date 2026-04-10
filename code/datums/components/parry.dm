@@ -52,7 +52,7 @@
 	else
 		parryable_attack_types = list(_parryable_attack_types)
 
-	var/static/list/attack_types_english = list(
+	var/static/alist/attack_types_english = alist(
 		MELEE_ATTACK = "melee attacks",
 		UNARMED_ATTACK = "unarmed attacks",
 		PROJECTILE_ATTACK = "projectiles",
@@ -63,7 +63,7 @@
 	for(var/attack_type in parryable_attack_types)
 		attack_list += attack_types_english[attack_type]
 
-	examine_text = "<span class='notice'>It's able to <b>parry</b> [english_list(attack_list)].</span>"
+	examine_text = SPAN_NOTICE("It's able to <b>parry</b> [english_list(attack_list)].")
 
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER

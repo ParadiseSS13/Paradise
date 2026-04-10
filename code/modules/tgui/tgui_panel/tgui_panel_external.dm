@@ -52,5 +52,5 @@
 			continue
 		window.reinitialize()
 		refreshed_count++
-	to_chat(usr, "<span class='notice'>TGUI windows refreshed - [refreshed_count].<br>If you have blank window - restart the game, or open previous TGUI window.</span>")
+	to_chat(usr, SPAN_NOTICE("TGUI windows refreshed - [refreshed_count].<br>If you have blank window - restart the game, or open previous TGUI window."))
 

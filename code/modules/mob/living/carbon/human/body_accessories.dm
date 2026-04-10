@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	icon_state = "skrell_fringetail_xlong"
 	allowed_species = list("Skrell")
 
-//Moth wings
+// Moth wings
 /datum/body_accessory/wing
 	icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
 	animated_icon = null
@@ -172,6 +172,8 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	icon_state = "plain"
 	allowed_species = list("Nian")
 	has_behind = TRUE
+	var/is_open = FALSE
+	var/open_icon = 'icons/mob/sprite_accessories/moth/moth_wingsopen.dmi'
 
 /datum/body_accessory/wing/plain
 
@@ -274,3 +276,31 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 /datum/body_accessory/wing/bluespace
 	name = "Bluespace Wings"
 	icon_state = "bluespace"
+
+// Skulk spines
+/datum/body_accessory/spines
+	icon = 'icons/mob/sprite_accessories/skulk/skulk_spines.dmi'
+	animated_icon = null
+	name = "Report this bug on github"
+	icon_state = "hunter1"
+	allowed_species = list("Skkulakin")
+	has_behind = TRUE
+
+/datum/body_accessory/spines/hunter
+	name = "Hunter"
+
+/datum/body_accessory/spines/cosmic
+	name = "Cosmic"
+	icon_state = "cosmic1"
+
+/datum/body_accessory/spines/illusive
+	name = "Illusive"
+	icon_state = "illusive1"
+
+/datum/body_accessory/spines/venom
+	name = "Venom"
+	icon_state = "venom1"
+
+/datum/body_accessory/spines/hunger1
+	name = "Hunger"
+	icon_state = "hunger1"

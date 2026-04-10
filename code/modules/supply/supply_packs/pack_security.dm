@@ -178,7 +178,6 @@
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
 					/obj/item/clothing/suit/armor/laserproof)		// Only two vests to keep costs down for balance
 	cost = 500
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ablative armor crate"
 
 /////// Weapons: Specialist
@@ -210,7 +209,6 @@
 	contains = list(/obj/item/gun/energy/gun,
 					/obj/item/gun/energy/gun)
 	cost = 500
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
 /datum/supply_packs/security/armory/eshotguns
@@ -218,8 +216,14 @@
 	contains = list(/obj/item/gun/energy/gun/shotgun,
 					/obj/item/gun/energy/gun/shotgun)
 	cost = 500
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy shotgun crate"
+
+/datum/supply_packs/security/armory/securiblades
+	name = "Securiblade Crate"
+	contains = list(/obj/item/storage/belt/sheath/secsword,
+		/obj/item/storage/belt/sheath/secsword)
+	cost = 600
+	containername = "securiblade crate"
 
 /datum/supply_packs/security/armory/stingers
 	name = "Stinger Grenade Crate"
@@ -235,7 +239,6 @@
 					/obj/item/gun/energy/gun/mini,
 					/obj/item/gun/energy/gun/mini)
 	cost = 300
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
 /datum/supply_packs/security/armory/eweapons
@@ -270,15 +273,14 @@
 	containername = "auto rifle ammo crate"
 
 /datum/supply_packs/security/armory/laserrifle
-	name = "IK-30 Security Laser Rifle Crate"
+	name = "IK-M1 Laser Rifle Crate"
 	contains = list(/obj/item/gun/projectile/automatic/laserrifle,
 					/obj/item/gun/projectile/automatic/laserrifle)
 	cost = 500
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "laser rifle crate"
 
 /datum/supply_packs/security/armory/laserammo
-	name = "IK-30 Security Laser Rifle Ammo Crate"
+	name = "IK-M1 Laser Rifle Ammo Crate"
 	contains = list(/obj/item/ammo_box/magazine/laser,
 					/obj/item/ammo_box/magazine/laser,
 					/obj/item/ammo_box/magazine/laser,
@@ -291,8 +293,28 @@
 	contains = list(/obj/item/gun/energy/laser/lever_action,
 					/obj/item/gun/energy/laser/lever_action)
 	cost = 250
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "lever action rifle crate"
+
+/datum/supply_packs/security/armory/beanammo
+	name = "Beanbag Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/beanbag,
+					/obj/item/storage/fancy/shell/beanbag)
+	cost = 175 // Just print them at cargo
+	containername = "beanbag shell crate"
+
+/datum/supply_packs/security/armory/rubberammo
+	name = "Rubbershot Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/rubbershot,
+					/obj/item/storage/fancy/shell/rubbershot)
+	cost = 175 // Just print them at cargo
+	containername = "rubbershot shell crate"
+
+/datum/supply_packs/security/armory/incendiaryammo
+	name = "Incendiary Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/incendiary,
+					/obj/item/storage/fancy/shell/incendiary)
+	cost = 225 // This is cargo printable, but slightly increased in cost due to it being lethal
+	containername = "incendiary shell crate"
 
 /datum/supply_packs/security/armory/tranqammo
 	name = "Tranquilizer Shell Crate"
@@ -308,12 +330,32 @@
 	cost = 400
 	containername = "holy water shell crate"
 
+/datum/supply_packs/security/armory/dragonsbreathammo
+	name = "Dragonsbreath Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/dragonsbreath,
+					/obj/item/storage/fancy/shell/dragonsbreath)
+	cost = 400
+	containername = "dragonsbreath shell crate"
+
+/datum/supply_packs/security/armory/ionshotammo
+	name = "Ionshot Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/ion,
+					/obj/item/storage/fancy/shell/ion)
+	cost = 400
+	containername = "ionshot shell crate"
+
+/datum/supply_packs/security/armory/lasershotammo
+	name = "Lasershot Shell Crate"
+	contains = list(/obj/item/storage/fancy/shell/lasershot,
+					/obj/item/storage/fancy/shell/lasershot)
+	cost = 400
+	containername = "lasershot shell crate"
+
 /datum/supply_packs/security/armory/disablersmg
 	name = "WT-450 Disabler SMG Crate"
 	contains = list(/obj/item/gun/energy/disabler/smg,
 					/obj/item/gun/energy/disabler/smg)
 	cost = 550
-	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "disabler smg crate"
 
 /////// Implants & etc
@@ -372,6 +414,18 @@
 	cost = 200
 	containername = "security clothing crate"
 
+/// Has a bunch of neat equipment for Skulk Officers, do note only Skkulakin can use these items
+/datum/supply_packs/security/lowinquisitor
+	name = "Low-Inquisitor Clothing Crate"
+	contains = list(/obj/item/clothing/suit/hooded/lowinquis,
+					/obj/item/clothing/suit/hooded/lowinquis,
+					/obj/item/clothing/suit/hooded/lowinquis,
+					/obj/item/clothing/mask/lowinquis,
+					/obj/item/clothing/mask/lowinquis,
+					/obj/item/clothing/mask/lowinquis)
+	cost = 300
+	containername = "low-inquisitorial clothing crate"
+
 /// Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
 /datum/supply_packs/security/officerpack
 	name = "Officer Starter Pack"
@@ -413,3 +467,14 @@
 	)
 	cost = 300
 	containername = "party ammunition crate"
+
+/datum/supply_packs/security/pepperball_ammo
+	name = "Pepperball Ammunition Crate"
+	contains = list(
+		/obj/item/ammo_box/magazine/paintball/pepperball,
+		/obj/item/ammo_box/magazine/paintball/pepperball,
+		/obj/item/ammo_box/magazine/paintball/pepperball
+	)
+	cost = 150
+	containername = "pepperball ammunition crate"
+	access = ACCESS_ARMORY

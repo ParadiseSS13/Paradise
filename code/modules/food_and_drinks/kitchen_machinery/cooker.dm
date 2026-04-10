@@ -53,7 +53,7 @@
  * Return TRUE to drop the grab or FALSE to keep the grab afterwards.
  */
 /obj/machinery/cooker/proc/special_attack(mob/user, mob/living/carbon/target, obj/item/grab/G)
-	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
+	to_chat(user, SPAN_ALERT("This is ridiculous. You can not fit [target] in this [src]."))
 	return FALSE
 
 /obj/machinery/cooker/shove_impact(mob/living/target, mob/living/attacker)
@@ -83,15 +83,15 @@
 	if(!istype(G))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
+		to_chat(user, SPAN_DANGER("Slamming [G.affecting] into [src] might hurt them!"))
 		return FALSE
 	if(!iscarbon(G.affecting))
 		if(verbose)
-			to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
+			to_chat(user, SPAN_WARNING("You can't shove that in there!"))
 		return FALSE
 	if(G.state < GRAB_AGGRESSIVE)
 		if(verbose)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, SPAN_WARNING("You need a better grip to do that!"))
 		return FALSE
 	return TRUE
 
@@ -110,22 +110,22 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is still active!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is still active!"))
 		return FALSE
 	if(has_specials && checkSpecials(check))
 		return TRUE
 	if(istype(check, /obj/item/food) || emagged)
 		if(istype(check, /obj/item/disk/nuclear)) //(1984 voice) you will not deep fry the NAD
-			to_chat(user, "<span class='notice'>The disk is more useful raw than [thiscooktype].</span>")
+			to_chat(user, SPAN_NOTICE("The disk is more useful raw than [thiscooktype]."))
 			return FALSE
 		var/obj/item/disk/nuclear/datdisk = locate() in check
 		if(datdisk)
-			to_chat(user, "<span class='notice'>You get the feeling that something very important is inside this. Something that shouldn't be [thiscooktype].</span>")
+			to_chat(user, SPAN_NOTICE("You get the feeling that something very important is inside this. Something that shouldn't be [thiscooktype]."))
 			return FALSE
 		if(check.flags & (ABSTRACT | DROPDEL | NODROP)) //you will not deep fry the armblade
 			return FALSE
 		return TRUE
-	to_chat(user, "<span class='notice'>You can only process food!</span>")
+	to_chat(user, SPAN_NOTICE("You can only process food!"))
 	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
@@ -149,7 +149,7 @@
 	var/obj/item/food/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
 	soundloop.stop()
-	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
+	to_chat(user, SPAN_WARNING("You smell burning coming from [src]!"))
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
 	smoke.set_up(5, FALSE, src)
 	smoke.start()
@@ -167,7 +167,7 @@
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	icon_state = onicon
-	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
+	to_chat(chef, SPAN_NOTICE("You put [tocook] into [src]."))
 	soundloop.start()
 	on = TRUE
 	chef.drop_item()
@@ -188,7 +188,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return ITEM_INTERACT_COMPLETE
 	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the panel first!</span>")
+		to_chat(user, SPAN_WARNING("Close the panel first!"))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/grab))
 		if(special_attack_grab(used, user))
@@ -198,7 +198,7 @@
 	if(!burns)
 		if(istype(used, /obj/item/food))
 			if(checkCooked(used))
-				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
+				to_chat(user, SPAN_WARNING("That is already [thiscooktype], it would do nothing!"))
 				return ITEM_INTERACT_COMPLETE
 	putIn(used, user)
 	for(var/mob/living/L in used.contents) //Emagged cookers - Any mob put in will not survive the trip

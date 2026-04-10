@@ -64,10 +64,10 @@
 	if(istype(used, /obj/item/stack/ore/bluespace_crystal))
 		var/obj/item/stack/ore/bluespace_crystal/B = used
 		if(crystals >= MAX_CRYSTALS)
-			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
+			to_chat(user, SPAN_WARNING("There are not enough crystal slots."))
 			return ITEM_INTERACT_COMPLETE
 		crystals += 1
-		user.visible_message("<span class='notice'>[user] inserts a [B.singular_name] into [src]'s crystal slot.</span>")
+		user.visible_message(SPAN_NOTICE("[user] inserts a [B.singular_name] into [src]'s crystal slot."))
 		B.use(1)
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
@@ -77,7 +77,7 @@
 		if(!inserted_gps)
 			inserted_gps = used
 			user.transfer_item_to(used, src)
-			user.visible_message("<span class='notice'>[user] inserts [used] into [src]'s GPS device slot.</span>")
+			user.visible_message(SPAN_NOTICE("[user] inserts [used] into [src]'s GPS device slot."))
 			SStgui.update_uis(src)
 
 		return ITEM_INTERACT_COMPLETE
@@ -90,7 +90,7 @@
 	if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
 		linked_pad_uid = M.buffer.UID()
 		M.buffer = null
-		to_chat(user, "<span class='notice'>You upload the data from [M]'s buffer.</span>")
+		to_chat(user, SPAN_NOTICE("You upload the data from [M]'s buffer."))
 		SStgui.update_uis(src)
 		return TRUE
 
@@ -99,11 +99,11 @@
 
 /obj/machinery/computer/telescience/emag_act(mob/user)
 	if(!emagged)
-		to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
+		to_chat(user, SPAN_NOTICE("You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"))
 		emagged = TRUE
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
+		to_chat(user, SPAN_WARNING("The machine seems unaffected by the card swipe..."))
 
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
@@ -112,7 +112,7 @@
 
 /obj/machinery/computer/telescience/attack_hand(mob/user)
 	if(isgolem(user)) //this is why we can't have nice things free golems
-		to_chat(user, "<span class='warning'>You can't make sense of the console or how to use it.</span>")
+		to_chat(user, SPAN_WARNING("You can't make sense of the console or how to use it."))
 		return
 
 	ui_interact(user)
@@ -125,7 +125,7 @@
 
 /obj/machinery/computer/telescience/proc/telefail()
 	sparks()
-	visible_message("<span class='warning'>The telepad weakly fizzles.</span>")
+	visible_message(SPAN_WARNING("The telepad weakly fizzles."))
 
 
 /obj/machinery/computer/telescience/proc/doteleport(mob/user, sending)
@@ -197,8 +197,7 @@
 	var/turf/source = target
 	var/turf/dest = get_turf(TP)
 
-	var/list/log_msg = list()
-	log_msg += "[key_name(user)] has teleported "
+	var/log_msg = "[key_name(user)] has teleported "
 
 	if(sending)
 		source = dest
@@ -260,7 +259,7 @@
 
 	var/area/A = get_area(target)
 	log_msg += " [sending ? "to" : "from"] [trueX], [trueY], [target_z] ([A ? A.name : "null area"])"
-	investigate_log(log_msg.Join(""), "telesci")
+	investigate_log(log_msg, "telesci")
 	SStgui.update_uis(src)
 
 

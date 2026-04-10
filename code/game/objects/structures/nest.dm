@@ -21,7 +21,7 @@
 	var/spawn_byproduct_max = 3		// Maximum number of item spawns
 	var/spawn_is_triggered = FALSE	// This is set to TRUE once the nest is triggered, preventing multiple triggers; set it to FALSE to re-activate it
 	var/spawn_max = 2				// Maximum number of mob spawns
-	var/spawn_mob_options = list(/mob/living/simple_animal/crab)	// The nest picks one mob type of this list and spawns them
+	var/spawn_mob_options = list(/mob/living/basic/crab)	// The nest picks one mob type of this list and spawns them
 	var/spawn_trigger_distance = 7	// The triggered nest will look this many tiles around itself to find other triggerable nests
 
 /obj/structure/nest/Initialize(mapload)
@@ -34,7 +34,7 @@
 /obj/structure/nest/examine(mob/user)
 	. = ..()
 	if(!spawn_is_triggered)
-		. += "<span class='warning'>You can hear a cacophony of growling snores from within.</span>"
+		. += SPAN_WARNING("You can hear a cacophony of growling snores from within.")
 
 /obj/structure/nest/attack_animal(mob/living/simple_animal/M)
 	if(faction_check(faction, M.faction, FALSE) && !M.client)
@@ -56,7 +56,7 @@
 /obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)
 
-	to_chat(L, "<span class='danger'>As you stumble across \the [name], you can hear ominous rumbling from beneath your feet!</span>")
+	to_chat(L, SPAN_DANGER("As you stumble across \the [name], you can hear ominous rumbling from beneath your feet!"))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
 	for(var/obj/structure/nest/N in range(spawn_trigger_distance, src))
 		N.spawn_is_triggered = TRUE
@@ -68,10 +68,13 @@
 
 	for(var/i in 1 to spawn_max)
 		var/mob/spawned_mob = new M(get_turf(src))
-		visible_message("<span class='danger'>\A [spawned_mob.name] crawls out of \the [name]!</span>")
+		visible_message(SPAN_DANGER("\A [spawned_mob.name] crawls out of \the [name]!"))
 
 /obj/structure/nest/lavaland
-	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/basic/mining/goldgrub)
+	spawn_mob_options = list(
+		/mob/living/basic/mining/goliath,
+		/mob/living/basic/mining/goldgrub,
+	)
 
 /obj/structure/nest/carppuppy
 	spawn_mob_options = list(/mob/living/basic/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)

@@ -35,7 +35,7 @@
 		return
 	// Box closing from here on out.
 	if(!isturf(owner.loc)) //Don't let the player use this to escape mechs/welded closets.
-		to_chat(owner, "<span class='warning'>You need more space to activate this implant!</span>")
+		to_chat(owner, SPAN_WARNING("You need more space to activate this implant!"))
 		return
 	owner.playsound_local(owner, 'sound/misc/box_deploy.ogg', 50, TRUE)
 	spawn_box()
@@ -94,7 +94,7 @@
 	if(!istype(owner.loc, /obj/structure/closet/cardboard/agent))
 		return
 	var/obj/structure/closet/cardboard/agent/box = owner.loc
-	owner.visible_message("<span class='suicide'>[owner] falls out of [box]! It looks like [owner.p_they()] committed suicide!</span>")
+	owner.visible_message(SPAN_SUICIDE("[owner] falls out of [box]! It looks like [owner.p_they()] committed suicide!"))
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 	INVOKE_ASYNC(box, TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, open))
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/atom/movable, throw_at), get_turf(owner))
@@ -109,8 +109,9 @@
 	move_speed_multiplier = 0.5 // You can move at run speed while in this box.
 	material_drop = null
 
-/obj/structure/closet/cardboard/agent/attackby__legacy__attackchain(obj/item/I, mob/living/user)
-	return
+/obj/structure/closet/cardboard/agent/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /obj/structure/closet/cardboard/agent/open()
 	. = ..()

@@ -1,6 +1,7 @@
 /turf/simulated/wall/indestructible
 	desc = "Effectively impervious to conventional methods of destruction."
 	explosion_block = 50
+	rust_resistance = RUST_RESISTANCE_ABSOLUTE
 
 /turf/simulated/wall/indestructible/Initialize(mapload)
 	. = ..()
@@ -91,8 +92,8 @@
 
 /turf/simulated/wall/indestructible/hierophant/proc/collapse()
 	if(prob(15))
-		visible_message("<span class='warning'>[src] starts to rumble and groan as the lights fade on it, and it begins to collapse to rubble!</span>",\
-		"<span class='warning'>You hear metal groaning and tearing!</span>")
+		visible_message(SPAN_WARNING("[src] starts to rumble and groan as the lights fade on it, and it begins to collapse to rubble!"),\
+		SPAN_WARNING("You hear metal groaning and tearing!"))
 		ChangeTurf(/turf/simulated/floor/indestructible/hierophant/two)
 		return
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 10 SECONDS)
@@ -225,6 +226,14 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 /turf/simulated/wall/indestructible/opsglass/limited_smooth
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+
+/turf/simulated/wall/indestructible/opsglass/titanium_window
+	name = "shuttle window"
+	icon = 'icons/turf/floors/titaniumglass.dmi'
+	icon_state = "titaniumglass-0"
+	base_icon_state = "titaniumglass"
+	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_TITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS)
 
 /turf/simulated/wall/indestructible/rock
 	name = "dense rock"

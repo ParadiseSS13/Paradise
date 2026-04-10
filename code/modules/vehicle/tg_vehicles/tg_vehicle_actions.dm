@@ -91,11 +91,12 @@
 	if(isnull(LAZYACCESS(occupants, grant_to)) || !actiontype)
 		return FALSE
 	LAZYINITLIST(occupant_actions[grant_to])
-	if(occupant_actions[grant_to][actiontype])
+	var/list/occupant_action_list = occupant_actions[grant_to]
+	if(occupant_action_list[actiontype])
 		return TRUE
 	var/datum/action/action = generate_action_type(actiontype)
 	action.Grant(grant_to)
-	occupant_actions[grant_to][action.type] = action
+	occupant_action_list[action.type] = action
 	return TRUE
 
 /**
@@ -112,8 +113,9 @@
 	if(isnull(LAZYACCESS(occupants, take_from)) || !actiontype)
 		return FALSE
 	LAZYINITLIST(occupant_actions[take_from])
-	if(occupant_actions[take_from][actiontype])
-		var/datum/action/action = occupant_actions[take_from][actiontype]
+	var/list/occupant_action_list = occupant_actions[take_from]
+	if(occupant_action_list[actiontype])
+		var/datum/action/action = occupant_action_list[actiontype]
 		// Actions don't dissipate on removal, they just sit around assuming they'll be reusued
 		// Gotta qdel
 		qdel(action)
@@ -176,9 +178,10 @@
 /obj/tgvehicle/proc/cleanup_actions_for_mob(mob/M)
 	if(!istype(M))
 		return FALSE
-	for(var/path in occupant_actions[M])
+	var/list/occupant_action_list = occupant_actions[M]
+	for(var/path in occupant_action_list)
 		stack_trace("Leftover action type [path] in vehicle type [type] for mob type [M.type] - THIS SHOULD NOT BE HAPPENING!")
-		var/datum/action/action = occupant_actions[M][path]
+		var/datum/action/action = occupant_action_list[path]
 		action.Remove(M)
 		occupant_actions[M] -= path
 	occupant_actions -= M
@@ -219,7 +222,7 @@
 		vehicle.unbuckle_mob(rider)
 		rider.throw_at(landing_turf, 2, 2)
 		rider.Weaken(5 SECONDS)
-		vehicle.visible_message("<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>")
+		vehicle.visible_message(SPAN_DANGER("[rider] misses the landing and falls on [rider.p_their()] face!"))
 		return
 	if((locate(/obj/structure/table) in landing_turf) || (locate(/obj/structure/railing) in landing_turf))
 		vehicle.grinding = TRUE
@@ -265,21 +268,21 @@
 		rider.Weaken(5 SECONDS)
 		if(prob(15))
 			rider.visible_message(
-				"<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>",
-				"<span class='userdanger'>You smack against the board, hard.</span>",
+				SPAN_DANGER("[rider] misses the landing and falls on [rider.p_their()] face!"),
+				SPAN_USERDANGER("You smack against the board, hard."),
 			)
 			rider.emote("scream")
 			rider.adjustBruteLoss(10)  // thats gonna leave a mark
 			return
 		rider.visible_message(
-			"<span class='danger'>[rider] misses the landing and falls on [rider.p_their()] face!</span>",
-			"<span class='userdanger'>You fall flat onto the board!</span>",
+			SPAN_DANGER("[rider] misses the landing and falls on [rider.p_their()] face!"),
+			SPAN_USERDANGER("You fall flat onto the board!"),
 		)
 		return
 
 	rider.visible_message(
-		"<span class='notice'>[rider] does a sick kickflip and catches [rider.p_their()] board in midair.</span>",
-		"<span class='notice'>You do a sick kickflip, catching the board in midair! Stylish.</span>",
+		SPAN_NOTICE("[rider] does a sick kickflip and catches [rider.p_their()] board in midair."),
+		SPAN_NOTICE("You do a sick kickflip, catching the board in midair! Stylish."),
 	)
 	playsound(board, 'sound/effects/skateboard_ollie.ogg', 50, vary = TRUE)
 	rider.spin(spintime = 4, speed = 1)
@@ -326,7 +329,7 @@
 	if(last_horn + horn_cooldown > world.time)
 		return
 	last_horn = world.time
-	vehicle_entered_target.visible_message("<span class='warning'>[vehicle_entered_target] loudly honks!</span>")
+	vehicle_entered_target.visible_message(SPAN_WARNING("[vehicle_entered_target] loudly honks!"))
 	to_chat(owner, "<span class=notice'>You press [vehicle_entered_target]'s horn.</span>")
 	if(istype(vehicle_entered_target.inserted_key, /obj/item/bikehorn))
 		playsound(vehicle_entered_target, 'sound/items/bikehorn.ogg', 75) // The bikehorn plays a sound instead
@@ -354,7 +357,7 @@
 	button_icon_state = "car_dump"
 
 /datum/action/vehicle/sealed/dump_kidnapped_mobs/Trigger(trigger_flags)
-	vehicle_entered_target.visible_message("<span class='warning'>[vehicle_target] starts dumping the people inside of it.</span>")
+	vehicle_entered_target.visible_message(SPAN_WARNING("[vehicle_target] starts dumping the people inside of it."))
 	vehicle_entered_target.dump_specific_mobs(VEHICLE_CONTROL_KIDNAPPED)
 
 
@@ -396,7 +399,7 @@
 	var/obj/tgvehicle/sealed/car/clowncar/clown_car = vehicle_entered_target
 	var/list/mob/drivers = clown_car.return_drivers()
 	if(!length(drivers))
-		to_chat(owner, "<span class='warning'>You prepare to thank the driver, only to realize that they don't exist.</span>")
+		to_chat(owner, SPAN_WARNING("You prepare to thank the driver, only to realize that they don't exist."))
 		return
 	var/mob/clown = pick(drivers)
 	owner.say("Thank you for the fun ride, [clown.name]!")

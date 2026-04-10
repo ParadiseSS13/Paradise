@@ -95,7 +95,7 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!IS_CULTIST(M))
-				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
+				to_chat(M, SPAN_WARNING("You feel your sanity crumble away in an instant as you gaze upon [src.name]..."))
 				M.Stun(6 SECONDS)
 
 
@@ -144,7 +144,7 @@
 		return
 	if(!target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, SPAN_CULTLARGE("[uppertext(GET_CULT_DATA(entity_name, name))] HAS LOST INTEREST IN YOU"))
 	target = food
 	if(ishuman(target))
 		to_chat(target, "<span class ='cultlarge'>[uppertext(GET_CULT_DATA(entity_name, name))] HUNGERS FOR YOUR SOUL</span>")

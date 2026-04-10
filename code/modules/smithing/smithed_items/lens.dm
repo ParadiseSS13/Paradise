@@ -45,7 +45,7 @@
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.delay = casing.delay / fire_rate_mult
 		casing.e_cost = casing.e_cost * power_mult
-		casing.lens_damage_multiplier = casing.lens_damage_multiplier * damage_mult
+		casing.lens_damage_multiplier = casing.lens_damage_multiplier * min(attached_gun.lens_damage_cap, damage_mult)
 		casing.lens_speed_multiplier = casing.lens_speed_multiplier / laser_speed_mult
 
 /obj/item/smithed_item/lens/on_detached()
@@ -56,7 +56,7 @@
 	for(var/obj/item/ammo_casing/energy/casing in attached_gun.ammo_type)
 		casing.delay = casing.delay * fire_rate_mult
 		casing.e_cost = casing.e_cost / power_mult
-		casing.lens_damage_multiplier = casing.lens_damage_multiplier / damage_mult
+		casing.lens_damage_multiplier = casing.lens_damage_multiplier / min(attached_gun.lens_damage_cap, damage_mult)
 		casing.lens_speed_multiplier = casing.lens_speed_multiplier * laser_speed_mult
 	attached_gun.current_lens = null
 	attached_gun = null
@@ -74,7 +74,7 @@
 		if(20 to 39)
 			. +=  "It's been heavily used."
 		if(0 to 19)
-			. +=  "<span class='warning'>It's falling apart!</span>"
+			. +=  SPAN_WARNING("It's falling apart!")
 
 /obj/item/smithed_item/lens/proc/damage_lens()
 	durability--

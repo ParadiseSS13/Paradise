@@ -220,4 +220,31 @@
 			ai.eyeobj.relay_speech = TRUE //surveillance upgrade. the ai gets cybernetics too.
 		return
 	var/obj/item/organ/internal/cybernetic = new cybernetic_type()
+
+	// Prevent replacing existing arm implants (protect IPC arm implant)
+	if(istype(cybernetic, /obj/item/organ/internal/cyberimp/arm))
+		var/obj/item/organ/internal/cyberimp/arm/arm_implant = cybernetic
+
+		var/obj/item/organ/external/left_arm = spawned.get_organ("l_arm")
+		var/obj/item/organ/external/right_arm = spawned.get_organ("r_arm")
+
+		var/obj/item/organ/internal/left_arm_implant = spawned.get_organ_slot("l_arm_device")
+		var/obj/item/organ/internal/right_arm_implant = spawned.get_organ_slot("r_arm_device")
+
+		// Try left arm first, then right arm, then replace left arm if both occupied, then just give up.
+		if(left_arm && !left_arm_implant)
+			arm_implant.slot = "l_arm_device"
+			arm_implant.parent_organ = "l_arm"
+		else if(right_arm && !right_arm_implant)
+			arm_implant.slot = "r_arm_device"
+			arm_implant.parent_organ = "r_arm"
+		else if(left_arm)
+			left_arm_implant.remove(spawned)
+			qdel(left_arm_implant)
+			arm_implant.slot = "l_arm_device"
+			arm_implant.parent_organ = "l_arm"
+		else
+			qdel(arm_implant)
+			return
+
 	INVOKE_ASYNC(cybernetic, TYPE_PROC_REF(/obj/item/organ/internal, insert), spawned, TRUE)

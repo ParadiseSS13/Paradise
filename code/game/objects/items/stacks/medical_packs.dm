@@ -19,74 +19,88 @@
 /obj/item/stack/medical/proc/apply(mob/living/M, mob/user)
 	if(get_amount() <= 0)
 		if(is_cyborg)
-			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
-		return TRUE
+			to_chat(user, SPAN_WARNING("You don't have enough energy to dispense more [singular_name]\s!"))
+		return FALSE
 
 	if(!iscarbon(M) && !isanimal_or_basicmob(M))
-		to_chat(user, "<span class='danger'>[src] cannot be applied to [M]!</span>")
-		return TRUE
+		to_chat(user, SPAN_DANGER("[src] cannot be applied to [M]!"))
+		return FALSE
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
-		return TRUE
-
+		to_chat(user, SPAN_DANGER("You don't have the dexterity to do this!"))
+		return FALSE
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(!H.can_inject(user, TRUE))
-			return TRUE
+			return FALSE
 
 		if(!affecting)
-			to_chat(user, "<span class='danger'>That limb is missing!</span>")
-			return TRUE
+			to_chat(user, SPAN_DANGER("That limb is missing!"))
+			return FALSE
 
 		if(affecting.is_robotic())
-			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
-			return TRUE
+			to_chat(user, SPAN_DANGER("This can't be used on a robotic limb."))
+			return FALSE
 
 		if(M == user && !unique_handling)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
+			user.visible_message(SPAN_NOTICE("[user] starts to apply [src] on [H]..."))
 			if(!do_mob(user, H, delay))
-				return TRUE
-		return
+				return FALSE
+
+		return TRUE
 
 	if(isanimal_or_basicmob(M))
 		var/mob/living/critter = M
 		if(!(critter.healable))
-			to_chat(user, "<span class='notice'>You cannot use [src] on [critter]!</span>")
-			return
-		else if(critter.health == critter.maxHealth)
-			to_chat(user, "<span class='notice'>[critter] is at full health.</span>")
-			return
-		else if(heal_brute < 1)
-			to_chat(user, "<span class='notice'>[src] won't help [critter] at all.</span>")
-			return
+			to_chat(user, SPAN_NOTICE("You cannot use [src] on [critter]!"))
+			return FALSE
+
+		if(critter.health == critter.maxHealth)
+			to_chat(user, SPAN_NOTICE("[critter] is at full health."))
+			return FALSE
+
+		if(heal_brute < 1)
+			to_chat(user, SPAN_NOTICE("[src] won't help [critter] at all."))
+			return FALSE
 
 		critter.heal_organ_damage(heal_brute, heal_burn)
-		user.visible_message("<span class='green'>[user] applies [src] on [critter].</span>", \
-							"<span class='green'>You apply [src] on [critter].</span>")
-
+		user.visible_message(
+			SPAN_GREEN("[user] applies [src] on [critter]."),
+			SPAN_GREEN("You apply [src] on [critter].")
+		)
 		use(1)
+		return TRUE
 
-	else
-		M.heal_organ_damage(heal_brute, heal_burn)
-		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", \
-							"<span class='green'>You apply [src] on [M].</span>")
-		use(1)
+	M.heal_organ_damage(heal_brute, heal_burn)
+	user.visible_message(
+		SPAN_GREEN("[user] applies [src] on [M]."),
+		SPAN_GREEN("You apply [src] on [M].")
+	)
+	use(1)
+	return TRUE
 
-/obj/item/stack/medical/attack__legacy__attackchain(mob/living/M, mob/user)
-	return apply(M, user)
+/obj/item/stack/medical/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ismob(target))
+		return ..()
 
-/obj/item/stack/medical/attack_self__legacy__attackchain(mob/user)
-	return apply(user, user)
+	apply(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/stack/medical/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	apply(user, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
-						"<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
+	user.visible_message(SPAN_GREEN("[user] [healverb]s the wounds on [H]'s [affecting.name]."), \
+						SPAN_GREEN("You [healverb] the wounds on [H]'s [affecting.name].") )
 
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
@@ -115,8 +129,8 @@
 		E.heal_damage(rembrute, remburn)
 		rembrute = nrembrute
 		remburn = nremburn
-		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
-							"<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+		user.visible_message(SPAN_GREEN("[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication."), \
+							SPAN_GREEN("You [healverb] the wounds on [H]'s [E.name] with the remaining medication.") )
 	return affecting
 
 //Bruise Packs//
@@ -130,44 +144,49 @@
 	origin_tech = "biotech=2"
 	merge_type = /obj/item/stack/medical/bruise_pack
 	max_amount = 12
-	heal_brute = 10
+	heal_brute = 5
 	stop_bleeding = 1800
 	dynamic_icon_state = TRUE
 
-/obj/item/stack/medical/bruise_pack/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.sharp)
+/obj/item/stack/medical/bruise_pack/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.sharp)
 		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
-			return
+			to_chat(user, SPAN_WARNING("You need at least two gauzes to do this!"))
+			return ITEM_INTERACT_COMPLETE
+
 		new /obj/item/stack/sheet/cloth(user.drop_location())
-		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
-					"<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
-					"<span class='italics'>You hear cutting.</span>")
+		user.visible_message(
+			SPAN_NOTICE("[user] cuts [src] into pieces of cloth with [used]."),
+			SPAN_NOTICE("You cut [src] into pieces of cloth with [used]."),
+			SPAN_ITALICS("You hear cutting.")
+		)
 		use(2)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/stack/medical/bruise_pack/apply(mob/living/M, mob/user)
-	if(..())
-		return TRUE
+	if(!..())
+		return FALSE
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(E.open >= ORGAN_ORGANIC_OPEN)
-				to_chat(user, "<span class='warning'>[E] is cut open, you'll need more than a bandage!</span>")
-				return
-		affecting.germ_level = 0
+	if(!ishuman(M))
+		return FALSE
 
-		if(stop_bleeding)
-			if(!H.bleedsuppress) //so you can't stack bleed suppression
-				H.suppress_bloodloss(stop_bleeding)
+	var/mob/living/carbon/human/H = M
+	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
+	for(var/obj/item/organ/external/E in H.bodyparts)
+		if(E.open >= ORGAN_ORGANIC_OPEN)
+			to_chat(user, SPAN_WARNING("[E] is cut open, you'll need more than a bandage!"))
+			return FALSE
 
-		heal(H, user)
-
-		H.UpdateDamageIcon()
-		use(1)
+	affecting.germ_level = 0
+	if(stop_bleeding)
+		if(!H.bleedsuppress) //so you can't stack bleed suppression
+			H.suppress_bloodloss(stop_bleeding)
+	heal(H, user)
+	H.UpdateDamageIcon()
+	use(1)
+	return TRUE
 
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
@@ -209,32 +228,31 @@
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
 	healverb = "salve"
-	heal_burn = 10
+	heal_burn = 5
 	dynamic_icon_state = TRUE
 	merge_type = /obj/item/stack/medical/ointment
 
 /obj/item/stack/medical/ointment/apply(mob/living/M, mob/user)
-	if(..())
-		return 1
+	..()
+	if(!ishuman(M))
+		return TRUE
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
+	var/mob/living/carbon/human/H = M
+	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
+	if(affecting.open >= ORGAN_ORGANIC_OPEN)
+		to_chat(user, SPAN_WARNING("[affecting] is cut open, you'll need more than some ointment!"))
+		return TRUE
 
-		if(affecting.open == ORGAN_CLOSED)
-			affecting.germ_level = 0
-
-			heal(H, user)
-
-			H.UpdateDamageIcon()
-			use(1)
-		else
-			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than some ointment!</span>")
+	affecting.germ_level = 0
+	heal(H, user)
+	H.UpdateDamageIcon()
+	use(1)
+	return TRUE
 
 /obj/item/stack/medical/ointment/heal(mob/living/M, mob/user)
 	var/obj/item/organ/external/affecting = ..()
 	if((affecting.status & ORGAN_BURNT) && !(affecting.status & ORGAN_SALVED))
-		to_chat(affecting.owner, "<span class='notice'>As [src] is applied to your burn wound, you feel a soothing cold and relax.</span>")
+		to_chat(affecting.owner, SPAN_NOTICE("As [src] is applied to your burn wound, you feel a soothing cold and relax."))
 		affecting.status |= ORGAN_SALVED
 		addtimer(CALLBACK(affecting, TYPE_PROC_REF(/obj/item/organ/external, remove_ointment), heal_burn), 3 MINUTES)
 
@@ -245,9 +263,9 @@
 		owner.updatehealth("permanent injury removal")
 	if(!perma_injury)
 		fix_burn_wound(update_health = FALSE)
-		to_chat(owner, "<span class='notice'>You feel your [src.name]'s burn wound has fully healed, and the rest of the salve absorbs into it.</span>")
+		to_chat(owner, SPAN_NOTICE("You feel your [src.name]'s burn wound has fully healed, and the rest of the salve absorbs into it."))
 	else
-		to_chat(owner, "<span class='notice'>You feel your [src.name]'s burn wound has healed a little, but the applied salve has already vanished.</span>")
+		to_chat(owner, SPAN_NOTICE("You feel your [src.name]'s burn wound has healed a little, but the applied salve has already vanished."))
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
@@ -313,39 +331,44 @@
 	var/other_delay = 0
 
 /obj/item/stack/medical/splint/apply(mob/living/M, mob/user)
-	if(..())
-		return TRUE
+	if(!..())
+		return FALSE
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-		var/limb = affecting.name
+	if(!ishuman(M))
+		return FALSE
 
-		if(affecting.status & ORGAN_SPLINTED)
-			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
-			if(tgui_alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal", list("Yes", "No")) == "Yes")
-				affecting.status &= ~ORGAN_SPLINTED
-				H.handle_splints()
-				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
-			return TRUE
+	var/mob/living/carbon/human/H = M
+	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
+	var/limb = affecting.name
+	if(affecting.status & ORGAN_SPLINTED)
+		to_chat(user, SPAN_DANGER("[H]'s [limb] is already splinted!"))
+		if(tgui_alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal", list("Yes", "No")) == "Yes")
+			affecting.status &= ~ORGAN_SPLINTED
+			H.handle_splints()
+			to_chat(user, SPAN_NOTICE("You remove the splint from [H]'s [limb]."))
+		return FALSE
 
-		if((M == user && delay > 0) || (M != user && other_delay > 0))
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You hear something being wrapped.</span>")
+	if((M == user && delay > 0) || (M != user && other_delay > 0))
+		user.visible_message(
+			SPAN_NOTICE("[user] starts to apply [src] to [H]'s [limb]."),
+			SPAN_NOTICE("You start to apply [src] to [H]'s [limb]."),
+			SPAN_NOTICE("You hear something being wrapped.")
+		)
+	if(M == user && !do_mob(user, H, delay))
+		return FALSE
 
-		if(M == user && !do_mob(user, H, delay))
-			return TRUE
-		else if(!do_mob(user, H, other_delay))
-			return TRUE
+	if(!do_mob(user, H, other_delay))
+		return FALSE
 
-		user.visible_message("<span class='notice'>[user] applies [src] to [H]'s [limb].</span>", \
-								"<span class='notice'>You apply [src] to [H]'s [limb].</span>")
-
-		affecting.status |= ORGAN_SPLINTED
-		affecting.splinted_count = H.step_count
-		H.handle_splints()
-		use(1)
+	user.visible_message(
+		SPAN_NOTICE("[user] applies [src] to [H]'s [limb]."),
+		SPAN_NOTICE("You apply [src] to [H]'s [limb].")
+	)
+	affecting.status |= ORGAN_SPLINTED
+	affecting.splinted_count = H.step_count
+	H.handle_splints()
+	use(1)
+	return TRUE
 
 /obj/item/stack/medical/splint/cyborg
 	energy_type = /datum/robot_storage/energy/medical/splint
@@ -378,42 +401,135 @@
 	var/healverb_past = "sutured"
 	var/self_delay = 3 SECONDS
 	var/mob/current_target
+	/// The type of the item we create when depleted
+	var/depleted_type = /obj/item/suture_needle
+
+/obj/item/stack/medical/suture/can_merge(obj/item/check, inhand = FALSE)
+	if(is_cyborg) // No merging cyborg stacks into other stacks
+		return FALSE
+	if(ismob(loc) && !inhand) // no merging with items that are on the mob
+		return FALSE
+	if(!istype(check, merge_type))
+		if(!istype(check, depleted_type))
+			return FALSE
+		else
+			return amount > 0
+	// it must be a stack
+	var/obj/item/stack/check_stack = check
+	if(amount <= 0 || check_stack.amount <= 0 || check_stack.merge_type != merge_type) // no merging empty stacks that are in the process of being qdel'd
+		return FALSE
+	return TRUE
+
+/obj/item/stack/medical/suture/merge_without_del(obj/item/material, mob/user = usr)
+	if(istype(material, /obj/item/stack))
+		return ..()
+	if(QDELETED(material))
+		CRASH("Stack merge attempted on qdeleted target stack.")
+	if(QDELETED(src))
+		CRASH("Stack merge attempted on qdeleted source stack.")
+	if(material == src)
+		CRASH("Stack attempted to merge into itself.")
+
+		// Get amount from user
+	var/min = 0
+	var/max = get_amount()
+	var/stackmaterial = tgui_input_number(user, "How many segments do you wish to transfer to the other needle? (Max: [max])", "Suture Split", max_value = max)
+	if(isnull(stackmaterial) || stackmaterial <= min || stackmaterial > get_amount())
+		return FALSE
+
+	if(!Adjacent(user, 1))
+		return FALSE
+
+	change_stack(user, stackmaterial, material)
+	to_chat(user, SPAN_NOTICE("You transfer [stackmaterial] segments to [material]."))
+	return stackmaterial
+
+/obj/item/stack/medical/suture/merge(obj/item/stack/material)
+	. = merge_without_del(material)
+	if(is_zero_amount(FALSE))
+		if(depleted_type)
+			var/needle = new depleted_type(src.loc)
+			if(ishuman(src.loc))
+				var/mob/living/carbon/human/human_user = src.loc
+				human_user.put_in_active_hand(needle)
+		qdel(src)
+
+/obj/item/stack/medical/suture/AltClick(mob/living/user)
+	to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+	return FALSE
+
+/obj/item/stack/medical/suture/split(mob/user, amount, obj/item/suture_needle/target_needle)
+	if(!istype(target_needle) || !user.can_reach(target_needle))
+		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+		return FALSE
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/stack/material = .
+	var/newloc = target_needle.loc
+	qdel(target_needle)
+	forceMove(material, newloc)
+
+/obj/item/stack/medical/suture/change_stack(mob/user, amount, obj/item/suture_needle/target_needle)
+	if(!istype(target_needle) || !user.can_reach(target_needle))
+		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+		return FALSE
+	. = ..()
+	if(.)
+		qdel(target_needle)
+
+/obj/item/stack/medical/suture/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!can_merge(used, TRUE))
+		return ..()
+
+	var/obj/item/stack/material = used
+	var/merge_amount = merge(material)
+	if(merge_amount)
+		if(istype(material))
+			merge_amount = material.get_amount()
+		to_chat(user, SPAN_NOTICE("Your [material.name] stack now contains [merge_amount] [singular_name]\s."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/medical/suture/apply(mob/living/carbon/human/target, mob/user)
-	. = TRUE
+	. = FALSE
 	if(current_target)
 		if(current_target != target)
-			to_chat(user, "<span class='warning'>You're already suturing [current_target].</span>")
+			to_chat(user, SPAN_WARNING("You're already suturing [current_target]."))
 			return
+
 		// Allow for cancelling of the target by clicking again
 		interrupt_do_after_once(user, current_target)
-		to_chat(user, "<span class='warning'>You stop [healverb] [target.i_yourself(user)].</span>")
+		to_chat(user, SPAN_WARNING("You stop [healverb] [target.i_yourself(user)]."))
 		return
+
 	if(!ishuman(target) || !target.can_inject(user, TRUE))
 		return
+
 	var/heal_type = (heal_brute ? BRUTE : BURN)
 	var/heal_display = (heal_brute ? BRUTE : "burn")
 	if(!target.get_damage_amount(heal_type))
-		to_chat(user, "<span class='warning'>[target.i_you(user, TRUE)] [target.i_do(user)]n't have any [heal_display] damage.</span>")
+		to_chat(user, SPAN_WARNING("[target.i_you(user, TRUE)] [target.i_do(user)]n't have any [heal_display] damage."))
 		return
 
 	var/obj/item/organ/external/current_limb = target.get_organ(user.zone_selected)
 	if(!current_limb)
-		to_chat(user, "<span class='warning'>That limb is missing!</span>")
+		to_chat(user, SPAN_WARNING("That limb is missing!"))
 		return
+
 	if(current_limb.is_robotic())
-		to_chat(user, "<span class='warning'>This can't be used on a robotic limb.</span>")
+		to_chat(user, SPAN_WARNING("This can't be used on a robotic limb."))
 		return
+
 	// Swap to another limb if the current one has no damage.
 	if(!most_damaged_limb(target))
-		to_chat(user, "<span class='warning'>[target.i_you(user, TRUE)] [target.i_do(user)]n't have any [heal_display] damage that could be [healverb_past].</span>")
+		to_chat(user, SPAN_WARNING("[target.i_you(user, TRUE)] [target.i_do(user)]n't have any [heal_display] damage that could be [healverb_past]."))
 		return
 
 	var/mend_time = delay
 	if(target == user)
 		mend_time = self_delay
 
-	user.visible_message("<span class='notice'>[user] begins [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You begin [healverb] [target.i_your(user)] [current_limb.name] with [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins [healverb] [target.e_themselves(user)] with [src]."), SPAN_NOTICE("You begin [healverb] [target.i_your(user)] [current_limb.name] with [src]."))
 	current_limb = try_swap_to_most_damaged_limb(target, user, current_limb)
 	if(!current_limb)
 		return
@@ -429,14 +545,20 @@
 			for(var/obj/item/organ/external/E in target.bodyparts)
 				if(E.open >= ORGAN_ORGANIC_OPEN)
 					cut_open = TRUE
-					to_chat(user, "<span class='warning'>[target]'s [E.name] is cut open, you'll need more than some [name] to stop [target.i_your(user)] bleeding.</span>")
+					to_chat(user, SPAN_WARNING("[target]'s [E.name] is cut open, you'll need more than some [name] to stop [target.i_your(user)] bleeding."))
 					break
 		if(!apply_to(target, user, current_limb, !cut_open))
 			break
-		if(is_zero_amount(TRUE))
+		if(is_zero_amount(FALSE))
+			if(depleted_type)
+				var/needle = new depleted_type(src.loc)
+				if(ishuman(user))
+					var/mob/living/carbon/human/human_user = user
+					human_user.put_in_active_hand(needle)
+			qdel(src)
 			break
 		if(!target.get_damage_amount(heal_type))
-			user.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
+			user.visible_message(SPAN_WARNING("[user] finishes [healverb] [target.e_themselves(user)] with [src]."), SPAN_NOTICE("You finish [healverb] [target.i_yourself(user)] with [src]."))
 			break
 
 		var/skip_swap = FALSE
@@ -446,12 +568,12 @@
 			if(new_limb && current_limb != new_limb)
 				current_limb = new_limb
 				skip_swap = TRUE
-				to_chat(user, "<span class='notice'>You switch to [healverb] [target.i_your(user)] <b>[current_limb.name]</b>.</span>")
+				to_chat(user, SPAN_NOTICE("You switch to [healverb] [target.i_your(user)] <b>[current_limb.name]</b>."))
 
 		if(!skip_swap)
 			current_limb = try_swap_to_most_damaged_limb(target, user, current_limb)
 			if(!current_limb)
-				user.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
+				user.visible_message(SPAN_WARNING("[user] finishes [healverb] [target.e_themselves(user)] with [src]."), SPAN_NOTICE("You finish [healverb] [target.i_yourself(user)] with [src]."))
 				break
 
 		if(!target.can_inject(user, TRUE, current_limb.limb_name))
@@ -498,7 +620,7 @@
 	if(!new_limb)
 		return
 	if(current_limb != new_limb)
-		to_chat(user, "<span class='notice'>You begin [healverb] [target.i_your(user)] <b>[new_limb.name]</b>.</span>")
+		to_chat(user, SPAN_NOTICE("You begin [healverb] [target.i_your(user)] <b>[new_limb.name]</b>."))
 	if(!do_after(user, delay / 2, target = target))
 		return
 	return new_limb
@@ -506,10 +628,10 @@
 /obj/item/stack/medical/suture/proc/on_target_zone_change(mob/living/carbon/human/target, mob/user)
 	var/obj/item/organ/external/new_limb = target.get_organ(user.zone_selected)
 	if(!new_limb)
-		to_chat(user, "<span class='warning'>That limb is missing!</span>")
+		to_chat(user, SPAN_WARNING("That limb is missing!"))
 		return FALSE
 	if(new_limb.is_robotic())
-		to_chat(user, "<span class='warning'>This can't be used on a robotic limb.</span>")
+		to_chat(user, SPAN_WARNING("This can't be used on a robotic limb."))
 		return FALSE
 
 	if(heal_brute && new_limb.brute_dam)
@@ -545,6 +667,7 @@
 	healverb_past = "grafted"
 	heal_brute = 0
 	heal_burn = 10
+	depleted_type = null
 	/// This var determines if the sterile packaging of the mesh has been opened.
 	var/is_open = TRUE
 
@@ -579,3 +702,30 @@
 	icon_state = "advanced_mesh"
 	merge_type = /obj/item/stack/medical/suture/regen_mesh/advanced
 	heal_burn = 15
+
+/obj/item/suture_needle
+	name = "suture needle"
+	desc = "A curved needle used for suturing wounds. It doesn't seem to have any thread attached."
+	icon = 'icons/obj/medical.dmi'
+	icon_state = "suture_needle"
+	force = 1
+	attack_verb = list("poked", "pricked", "stabbed")
+	hitsound = null
+	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_METAL = 200)
+
+/obj/item/suture_needle/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("You can add thread with the <i>crafting menu</i>.")
+
+/obj/item/biomesh
+	name = "biomesh"
+	desc = "A lattice of easily-dissolved plastics used to hold gels in place over open wounds."
+	icon = 'icons/obj/medical.dmi'
+	icon_state = "biomesh"
+	hitsound = null
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/biomesh/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("It can be made into both normal and advanced regenerative mesh with the <i>crafting menu</i>.")

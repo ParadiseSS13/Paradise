@@ -44,7 +44,11 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * role_cleanname - The name override to display to clients
   */
 /datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname, reason, dont_play_notice_sound = FALSE)
-	log_debug("Polling candidates [role ? "for [role_cleanname || role]" : "\"[question]\""] for [poll_time / 10] seconds")
+	var/mob/mob_source = source
+	if(role == ROLE_SENTIENT && istype(mob_source))
+		log_debug("Polling candidates for sentient mob `[mob_source.type]` for [poll_time / 10] seconds")
+	else
+		log_debug("Polling candidates [role ? "for [role_cleanname || role]" : "\"[question]\""] for [poll_time / 10] seconds")
 
 	// Start firing
 	polls_active = TRUE
@@ -133,7 +137,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			var/atom/atom_source = source
 			act_jump = "<a href='byond://?src=[M.UID()];jump=[atom_source.UID()]'>\[Teleport]</a>"
 		var/act_signup = "<a href='byond://?src=[A.UID()];signup=1'>\[Sign Up]</a>"
-		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [role_cleanname || role]" : "\"[question]\""]. [act_jump] [act_signup] [reason ? "<i>\nReason: [sanitize(reason)]</i>" : ""]</span></big>", MESSAGE_TYPE_DEADCHAT)
+		to_chat(M, "<big>[SPAN_BOLDNOTICE("Now looking for candidates [role ? "to play as \an [role_cleanname || role]" : "\"[question]\""]. [act_jump] [act_signup] [reason ? "<i>\nReason: [sanitize(reason)]</i>" : ""]")]</big>", MESSAGE_TYPE_DEADCHAT)
 
 		// Start processing it so it updates visually the timer
 		START_PROCESSING(SSprocessing, A)
@@ -254,18 +258,18 @@ SUBSYSTEM_DEF(ghost_spawns)
 		return
 	if(M in signed_up)
 		if(!silent)
-			to_chat(M, "<span class='warning'>You have already signed up for this!</span>")
+			to_chat(M, SPAN_WARNING("You have already signed up for this!"))
 		return
 
 	if(time_left() <= 0)
 		if(!silent)
-			to_chat(M, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
+			to_chat(M, SPAN_DANGER("Sorry, you were too late for the consideration!"))
 			SEND_SOUND(M, sound('sound/machines/buzz-sigh.ogg'))
 		return
 
 	signed_up += M
 	if(!silent)
-		to_chat(M, "<span class='notice'>You have signed up for this role! A candidate will be picked randomly soon.</span>")
+		to_chat(M, SPAN_NOTICE("You have signed up for this role! A candidate will be picked randomly soon."))
 		// Sign them up for any other polls with the same mob type
 		for(var/existing_poll in SSghost_spawns.currently_polling)
 			var/datum/candidate_poll/P = existing_poll
@@ -287,17 +291,17 @@ SUBSYSTEM_DEF(ghost_spawns)
 		return
 	if(!(M in signed_up))
 		if(!silent)
-			to_chat(M, "<span class='warning'>You aren't signed up for this!</span>")
+			to_chat(M, SPAN_WARNING("You aren't signed up for this!"))
 		return
 
 	if(time_left() <= 0)
 		if(!silent)
-			to_chat(M, "<span class='danger'>It's too late to unregister yourself, selection has already begun!</span>")
+			to_chat(M, SPAN_DANGER("It's too late to unregister yourself, selection has already begun!"))
 		return
 
 	signed_up -= M
 	if(!silent)
-		to_chat(M, "<span class='notice'>You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends.</span>")
+		to_chat(M, SPAN_NOTICE("You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends."))
 
 		for(var/existing_poll in SSghost_spawns.currently_polling)
 			var/datum/candidate_poll/P = existing_poll

@@ -1,4 +1,5 @@
 #define DEFAULT_PLAYER_OOC_COLOUR "#075FE5" // Can't initial() a global so we store the default in a macro instead
+#define BUG_REPORT_CD (5 MINUTES)
 GLOBAL_VAR_INIT(normal_ooc_colour, DEFAULT_PLAYER_OOC_COLOUR)
 
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
@@ -13,18 +14,18 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!mob)
 		return
 	if(IsGuestKey(key))
-		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
+		to_chat(src, SPAN_DANGER("Guests may not use OOC.") , MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD, 0))
 		if(!GLOB.ooc_enabled)
-			to_chat(src, "<span class='danger'>OOC is globally muted.</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
+			to_chat(src, SPAN_DANGER("OOC is globally muted.") , MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 		if(!GLOB.dooc_enabled && (mob.stat == DEAD))
-			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
+			to_chat(usr, SPAN_DANGER("OOC for dead mobs has been turned off.") , MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 		if(check_mute(ckey, MUTE_OOC))
-			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
+			to_chat(src, SPAN_DANGER("You cannot use OOC (muted).") , MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 
 	if(!msg)
@@ -35,12 +36,12 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		return
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_OOC))
-		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
+		to_chat(src, SPAN_DANGER("You have OOC muted.") )
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!GLOB.ooc_enabled)
-			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			to_chat(src, SPAN_DANGER("OOC is globally muted.") )
 			return
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
@@ -79,7 +80,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			if(GLOB.configuration.general.enable_ooc_emoji)
 				msg = emoji_parse(msg)
 
-			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
+			to_chat(C, "<font color='[display_colour]'>[SPAN_OOC("[SPAN_PREFIX("OOC:")] <EM>[display_name]:</EM> [SPAN_MESSAGE("[msg]")]")]</font>")
 
 /client/proc/get_ooc_color()
 	if(!holder || holder.fakekey)
@@ -113,18 +114,18 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!mob)
 		return
 	if(IsGuestKey(key))
-		to_chat(src, "<span class='danger'>Guests may not use LOOC.</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
+		to_chat(src, SPAN_DANGER("Guests may not use LOOC.") , MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!GLOB.looc_enabled)
-			to_chat(src, "<span class='danger'>LOOC is globally muted.</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
+			to_chat(src, SPAN_DANGER("LOOC is globally muted.") , MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 		if(!GLOB.dooc_enabled && (mob.stat == DEAD))
-			to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
+			to_chat(usr, SPAN_DANGER("LOOC for dead mobs has been turned off.") , MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 		if(check_mute(ckey, MUTE_OOC))
-			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>", MESSAGE_TYPE_WARNING, confidential = TRUE)
+			to_chat(src, SPAN_DANGER("You cannot use LOOC (muted).") , MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 
 	if(!msg)
@@ -135,7 +136,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		return
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_LOOC))
-		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
+		to_chat(src, SPAN_DANGER("You have LOOC muted.") )
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
@@ -191,7 +192,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					prefix = "(R)"
 
 			if(send)
-				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><em>[display_name][admin_stuff]:</em> <span class='message'>[msg]</span></span></span>", MESSAGE_TYPE_OOC)
+				to_chat(target, SPAN_OOC("[SPAN_LOOC("LOOC[SPAN_PREFIX("[prefix]: ")]<em>[display_name][admin_stuff]:</em> [SPAN_MESSAGE("[msg]")]")]"), MESSAGE_TYPE_OOC)
 
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
@@ -290,7 +291,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!key)
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, SPAN_DANGER("Failed to establish database connection.") )
 		return
 	var/list/output = list("<!DOCTYPE html>")
 	var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
@@ -299,7 +300,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			"targetkey" = ckey
 		))
 	if(!query_get_notes.warn_execute())
-		to_chat(src, "<span class='danger'>Unfortunately, we were not able to retrieve your notes.</span>")
+		to_chat(src, SPAN_DANGER("Unfortunately, we were not able to retrieve your notes.") )
 		qdel(query_get_notes)
 		return
 	output += "<h2><center>Notes of [ckey]</center></h2><br><center><font size='1'>Don't discuss warnings or other punishments from the admins in Paradise Discord.</font></center>"
@@ -330,4 +331,25 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	popup.set_content(output.Join(""))
 	popup.open()
 
+/client/verb/submitbug()
+	set name = "Report a Bug"
+	set desc = "Submit a bug report."
+	set category = "OOC"
+	set hidden = TRUE
+	if(!usr?.client)
+		return
+
+	if(GLOB.bug_report_time[usr.ckey] && world.time < (GLOB.bug_report_time[usr.client] + BUG_REPORT_CD))
+		var/cd_total_time = GLOB.bug_report_time[usr.ckey] + BUG_REPORT_CD - world.time
+		var/cd_minutes = round(cd_total_time / (1 MINUTES))
+		var/cd_seconds = round((cd_total_time - cd_minutes MINUTES) / (1 SECONDS))
+		tgui_alert(usr, "You must wait another [cd_minutes]:[cd_seconds < 10 ? "0" : ""][cd_seconds] minute[cd_minutes < 2 ? "" : "s"] before submitting another bug report", "Bug Report Rate Limit")
+		return
+
+	var/datum/tgui_bug_report_form/report = new(usr)
+
+	report.ui_interact(usr)
+	return
+
 #undef DEFAULT_PLAYER_OOC_COLOUR
+#undef BUG_REPORT_CD

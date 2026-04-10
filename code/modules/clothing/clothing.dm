@@ -1,29 +1,24 @@
 /obj/item/clothing
 	name = "clothing"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	w_class = WEIGHT_CLASS_SMALL
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	permeability_coefficient = 0.8
+	new_attack_chain = TRUE
 	/// Only these species can wear this kit.
 	var/list/species_restricted
+	/// If set to a sprite path, replaces the sprite for monitor heads
+	var/icon_monitor = null
 	/// Can the wearer see reagents inside transparent containers while it's equipped?
 	var/scan_reagents = FALSE
 	/// Can the wearer see reagents inside any container and identify blood types while it's equipped?
 	var/scan_reagents_advanced = FALSE
-
-	/*
-		Sprites used when the clothing item is refit. This is done by setting icon_override.
-		For best results, if this is set then sprite_sheets should be null and vice versa, but that is by no means necessary.
-		Ideally, sprite_sheets_refit should be used for "hard" clothing items that can't change shape very well to fit the wearer (e.g. helmets, hardsuits),
-		while sprite_sheets should be used for "flexible" clothing items that do not need to be refitted (e.g. vox wearing jumpsuits).
-	*/
-	var/list/sprite_sheets_refit = null
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
 	var/flash_protect = FLASH_PROTECTION_NONE		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = FLASH_PROTECTION_NONE				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/up = FALSE					//but seperated to allow items to protect but not impair vision, like space helmets
-
 	var/visor_flags = NONE			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
 	var/visor_flags_cover = NONE	//for cover flags
@@ -39,8 +34,6 @@
 	var/magical = FALSE
 	/// Do we block AI tracking?
 	var/blockTracking
-	w_class = WEIGHT_CLASS_SMALL
-
 	/// Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
 	var/can_leave_fibers = TRUE
 	/// Detective Work, firing a ballistic weapon will add a signature to this var
@@ -49,8 +42,7 @@
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return
-	/// Done as such to not break chameleon gear since you can't rely on initial states
-	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
+	icon_state = "[initial(icon_state)][up ? "_up" : ""]"
 	return TRUE
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -59,7 +51,7 @@
 
 	visor_toggling()
 
-	to_chat(user, "<span class='notice'>You adjust \the [src] [up ? "up" : "down"].</span>")
+	to_chat(user, SPAN_NOTICE("You adjust \the [src] [up ? "up" : "down"]."))
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
@@ -113,22 +105,10 @@
 					wearable = TRUE
 
 			if(!wearable)
-				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
+				to_chat(M, SPAN_WARNING("Your species cannot wear [src]."))
 				return FALSE
 
 	return TRUE
-
-/obj/item/clothing/proc/refit_for_species(target_species)
-	//Set icon
-	if(sprite_sheets && (target_species in sprite_sheets))
-		icon_override = sprite_sheets[target_species]
-	else
-		icon_override = initial(icon_override)
-
-	if(sprite_sheets_obj && (target_species in sprite_sheets_obj))
-		icon = sprite_sheets_obj[target_species]
-	else
-		icon = initial(icon)
 
 /**
   * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
@@ -179,7 +159,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
 
-/obj/item/clothing/ears/offear/New(obj/O)
+/obj/item/clothing/ears/offear/Initialize(mapload, obj/O)
 	. = ..()
 	name = O.name
 	desc = O.desc
@@ -193,9 +173,19 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
+	inhand_icon_state = "glasses"
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
-	materials = list(MAT_GLASS = 250)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
+	strip_delay = 2 SECONDS
+	put_on_delay = 2.5 SECONDS
+	resistance_flags = NONE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+	)
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
@@ -211,10 +201,6 @@
 	/// If TRUE, will hide the wearer's examines from other players.
 	var/hide_examine = FALSE
 
-	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
-	put_on_delay = 25
-	resistance_flags = NONE
-
 /*
  * SEE_SELF  // can see self, no matter what
  * SEE_MOBS  // can see all mobs, no matter what
@@ -227,7 +213,7 @@
 
 /obj/item/clothing/glasses/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to adjust if it fits over or under your mask.</span>"
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to adjust if it fits over or under your mask.")
 
 /obj/item/clothing/glasses/AltClick(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
@@ -236,7 +222,7 @@
 	over_mask = !over_mask
 	if(user.glasses == src)
 		user.update_inv_glasses()
-	to_chat(user, "<span class='notice'>You adjust [src] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	to_chat(user, SPAN_NOTICE("You adjust [src] to be worn [over_mask ? "over" : "under"] a mask."))
 
 //////////////////////////////
 // MARK: GLOVES
@@ -267,6 +253,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
 		)
@@ -275,20 +262,20 @@
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return // return TRUE to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
-		if(!clipped)
-			playsound(src.loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
-			clipped = TRUE
-			name = "mangled [name]"
-			desc = "[desc] They have had the fingertips cut off of them."
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
-		return
-	else
-		return ..()
+/obj/item/clothing/gloves/wirecutter_act(mob/living/user, obj/item/I)
+	if(clipped)
+		to_chat(user, SPAN_NOTICE("[src] have already been clipped!"))
+		return TRUE
+
+	playsound(src.loc, I.usesound, 100, 1)
+	user.visible_message(
+		SPAN_WARNING("[user] snips the fingertips off [src]."),
+		SPAN_WARNING("You snip the fingertips off [src].")
+	)
+	clipped = TRUE
+	name = "mangled [name]"
+	desc = "[desc] They have had the fingertips cut off of them."
+	update_icon()
 
 //////////////////////////////
 // MARK: SUIT SENSORS
@@ -304,30 +291,30 @@
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	if(!Adjacent(user) && !user.Adjacent(src))
-		to_chat(user, "<span class='warning'>You are too far away!</span>")
+		to_chat(user, SPAN_WARNING("You are too far away!"))
 		return
 
 	if(!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
-		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
+		to_chat(user, SPAN_WARNING("You can't use your hands!"))
 		return
 
 	if(has_sensor >= 2)
-		to_chat(user, "<span class='warning'>The controls are locked.</span>")
+		to_chat(user, SPAN_WARNING("The controls are locked."))
 		return
 
 	if(has_sensor <= SUIT_SENSOR_OFF)
-		to_chat(user, "<span class='warning'>This suit does not have any sensors.</span>")
+		to_chat(user, SPAN_WARNING("This suit does not have any sensors."))
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	// If they walk away after the menu is already open.
 	if(!Adjacent(user) && !user.Adjacent(src))
-		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+		to_chat(user, SPAN_WARNING("You have moved too far away!"))
 		return
 		// If your hands get lopped off or cuffed after the menu is open.
 	if(!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
-		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
+		to_chat(user, SPAN_WARNING("You can't use your hands!"))
 		return
 	if(!switchMode)
 		return
@@ -353,7 +340,7 @@
 		switch(sensor_mode)
 			if(SUIT_SENSOR_OFF)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("<span class='warning'>[user] disables [loc]'s remote sensing equipment.</span>", 1)
+					V.show_message(SPAN_WARNING("[user] disables [loc]'s remote sensing equipment."), 1)
 			if(SUIT_SENSOR_BINARY)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] turns [loc]'s remote sensors to binary.", 1)
@@ -377,7 +364,6 @@
 /obj/item/clothing/head
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
-	icon_override = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
 	var/HUDType = null
@@ -389,39 +375,57 @@
 	var/obj/item/clothing/under/has_under = null
 	/// the attached hats to this hat.
 	var/list/attached_hats = list()
+	/// the attached masks to this hat
+	var/list/attached_masks = list()
 	/// if this hat can have hats placed on top of it.
 	var/can_have_hats = FALSE
 	/// if this hat can be a hat of a hat. Hat^2
 	var/can_be_hat = TRUE
+	/// if this hat can have masks attached to it.
+	var/can_have_mask = FALSE
 
-/obj/item/clothing/head/update_icon_state()
-	if(..())
-		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
 
 /obj/item/clothing/head/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(!length(attached_hats))
+
+	var/list/removable_items = list()
+	removable_items += attached_hats
+	removable_items += attached_masks
+
+	if(!length(removable_items))
 		return
-	var/obj/item/clothing/head/hat
-	if(length(attached_hats) > 1)
-		var/pick = radial_menu_helper(usr, src, attached_hats, custom_check = FALSE, require_near = TRUE)
-		if(!pick || !istype(pick, /obj/item/clothing/head) || !Adjacent(usr))
+
+	var/obj/item/picked_item
+	if(length(removable_items) > 1)
+		var/pick = radial_menu_helper(usr, src, removable_items, custom_check = FALSE, require_near = TRUE)
+		if(!pick || !Adjacent(usr))
 			return
-		hat = pick
+		picked_item = pick
 	else
-		hat = attached_hats[1]
-	remove_hat(user, hat)
+		picked_item = removable_items[1]
+
+	// Remove the appropriate item type
+	if(istype(picked_item, /obj/item/clothing/head))
+		remove_hat(user, picked_item)
+	else if(istype(picked_item, /obj/item/clothing/mask))
+		remove_mask(user, picked_item)
 
 /obj/item/clothing/head/Destroy()
 	if(is_equipped())
 		var/mob/M = loc
 		for(var/obj/item/clothing/head/H as anything in attached_hats)
 			H.on_removed(M)
+		for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+			detach_mask(mask, null)
 	else
 		for(var/obj/item/clothing/head/H as anything in attached_hats)
 			H.forceMove(get_turf(src))
+		for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+			mask.attached_to_hat = null
+			mask.forceMove(get_turf(src))
 	attached_hats = null
+	attached_masks = null
 	return ..()
 
 /obj/item/clothing/head/dropped(mob/user, silent)
@@ -437,7 +441,10 @@
 	. = ..()
 	for(var/obj/item/clothing/head/hat as anything in attached_hats)
 		. += "\A [hat] is placed neatly on top."
-		. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
+	for(var/obj/item/clothing/mask/mask as anything in attached_masks)
+		. += "\A [mask] is attached to it."
+	if(length(attached_hats) || length(attached_masks))
+		. += SPAN_NOTICE("<b>Alt-Shift-Click</b> to remove an accessory.")
 
 //when user attached a hat to H (another hat)
 /obj/item/clothing/head/proc/on_attached(obj/item/clothing/head/H, mob/user as mob)
@@ -445,7 +452,7 @@
 		return
 	has_under = H
 	forceMove(has_under)
-	has_under.overlays += item_state
+	has_under.overlays += worn_icon_state
 	has_under.actions += actions
 
 	for(var/datum/action/A in actions)
@@ -454,7 +461,7 @@
 			A.Grant(M)
 
 	if(user)
-		to_chat(user, "<span class='notice'>You attach [src] to [has_under].</span>")
+		to_chat(user, SPAN_NOTICE("You attach [src] to [has_under]."))
 	add_fingerprint(user)
 
 /obj/item/clothing/head/proc/on_removed(mob/user)
@@ -490,7 +497,7 @@
 	if(!Adjacent(user))
 		return
 	detach_hat(hat, user)
-	to_chat(user, "<span class='notice'>You remove [hat] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [hat] from [src]."))
 
 /obj/item/clothing/head/proc/attached_unequip(mob/user) // If we need to do something special when clothing is removed from the user
 	return
@@ -523,15 +530,78 @@
 	else if(hat.has_under)
 		return FALSE
 	else
-		to_chat(user, "<span class='notice'>You cannot place [hat] ontop of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You cannot place [hat] ontop of [src]."))
 
 	return FALSE
 
-/obj/item/clothing/head/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/head) && can_have_hats)
-		attach_hat(I, user, TRUE)
+/obj/item/clothing/head/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/head) && can_have_hats)
+		attach_hat(used, user, TRUE)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/clothing/mask) && can_have_mask)
+		var/obj/item/clothing/mask/M = used
+		if(M.can_attach_to_hat)
+			attach_mask(M, user, TRUE)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
+
+/obj/item/clothing/head/proc/can_attach_mask(obj/item/clothing/mask/mask)
+	if(!can_have_mask)
+		return FALSE
+	if(!mask.can_attach_to_hat)
+		return FALSE
+	if(length(attached_masks) >= 1)
+		return FALSE
+	return TRUE
+
+/obj/item/clothing/head/proc/attach_mask(obj/item/clothing/mask/mask, mob/user, unequip = FALSE)
+	if(!can_attach_mask(mask))
+		to_chat(user, SPAN_NOTICE("You cannot attach [mask] to [src]."))
+		return FALSE
+
+	if(unequip && !user.drop_item_to_ground(mask))
+		return FALSE
+
+	attached_masks += mask
+	mask.attached_to_hat = src
+	mask.forceMove(src)
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_head()
+
+	to_chat(user, SPAN_NOTICE("You attach [mask] to [src]."))
+	return TRUE
+
+/obj/item/clothing/head/proc/detach_mask(obj/item/clothing/mask/mask, mob/user)
+	if(!(mask in attached_masks))
+		return FALSE
+
+	attached_masks -= mask
+	mask.attached_to_hat = null
+
+	if(user)
+		user.put_in_hands(mask)
+	else
+		mask.forceMove(get_turf(src))
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_head()
+
+	return TRUE
+
+/obj/item/clothing/head/proc/remove_mask(mob/user, obj/item/clothing/mask/mask)
+	if(!isliving(user))
+		return
+	if(user.incapacitated())
+		return
+	if(!Adjacent(user))
+		return
+	if(detach_mask(mask, user))
+		to_chat(user, SPAN_NOTICE("You remove [mask] from [src]."))
 
 //////////////////////////////
 // MARK: MASK
@@ -545,6 +615,10 @@
 	permeability_coefficient = 0.7
 
 	var/adjusted_flags = null
+	/// If this mask can be attached to a hat
+	var/can_attach_to_hat = FALSE
+	/// The head clothing that this mask is attached to
+	var/obj/item/clothing/head/attached_to_hat = null
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/user)
@@ -558,7 +632,7 @@
 	if(!up)
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
 		permeability_coefficient = initial(permeability_coefficient)
-		to_chat(user, "<span class='notice'>You push \the [src] back into place.</span>")
+		to_chat(user, SPAN_NOTICE("You push \the [src] back into place."))
 		slot_flags = initial(slot_flags)
 		if(flags_inv != initial(flags_inv))
 			if(initial(flags_inv) & HIDEFACE) //If the mask is one that hides the face and can be adjusted yet lost that trait when it was adjusted, make it hide the face again.
@@ -580,7 +654,7 @@
 					user.drop_item_to_ground(src)
 					user.put_in_hands(src)
 	else
-		to_chat(user, "<span class='notice'>You push \the [src] out of the way.</span>")
+		to_chat(user, SPAN_NOTICE("You push \the [src] out of the way."))
 		gas_transfer_coefficient = null
 		permeability_coefficient = null
 		if(adjusted_flags)
@@ -629,6 +703,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
 	)
 
@@ -659,52 +734,73 @@
 	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/match) && src.loc == user)
-		var/obj/item/match/M = I
+/obj/item/clothing/shoes/wirecutter_act(mob/living/user, obj/item/I)
+	if(cut_open)
+		to_chat(user, SPAN_WARNING("[src] have already had [p_their()] toes cut open!"))
+		return TRUE
+
+	if(can_cut_open)
+		playsound(src, I.usesound, 100, 1)
+		user.visible_message(
+			SPAN_WARNING("[user] cuts open the toes of [src]."),
+			SPAN_WARNING("You cut open the toes of [src].")
+		)
+		cut_open = TRUE
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+		return TRUE
+
+/obj/item/clothing/shoes/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/match) && src.loc == user)
+		var/obj/item/match/M = used
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
-			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike [M] on the bottom of [src] to light it.</span>")
+			user.visible_message(
+				SPAN_NOTICE("[user] strikes a [M] on the bottom of [src], lighting it."),
+				SPAN_NOTICE("You strike [M] on the bottom of [src] to light it."),
+				SPAN_NOTICE("You hear a match being lit.")
+			)
 			M.matchignite()
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-			return
+			return ITEM_INTERACT_COMPLETE
+
 		if(M.lit && !M.burnt && M.w_class <= WEIGHT_CLASS_SMALL)
-			user.visible_message("<span class='warning'>[user] crushes [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush [M] into the bottom of [src], extinguishing it.</span>")
+			user.visible_message(
+				SPAN_NOTICE("[user] crushes [M] into the bottom of [src], extinguishing it."),
+				SPAN_NOTICE("You crush [M] into the bottom of [src], extinguishing it."),
+				SPAN_WARNING("You hear a thin wooden snap!")
+			)
 			M.dropped()
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/wirecutters))
-		if(can_cut_open)
-			if(!cut_open)
-				playsound(src.loc, I.usesound, 100, 1)
-				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
-				cut_open = TRUE
-				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-			else
-				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
-		return
-
-	if(istype(I, /obj/item/kitchen/knife/combat))
+	if(istype(used, /obj/item/kitchen/knife/combat))
 		if(!knife_slot)
-			to_chat(user, "<span class='notice'>There is no place to put [I] in [src]!</span>")
-			return
+			to_chat(user, SPAN_NOTICE("There is no place to put [used] in [src]!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(hidden_blade)
-			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
-			return
-		if(!user.drop_item_to_ground(I))
-			return
+			to_chat(user, SPAN_NOTICE("There is already something in [src]!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(!user.drop_item_to_ground(used))
+			return ITEM_INTERACT_COMPLETE
+
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(45) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 
 			var/stabbed_foot = pick("l_foot", "r_foot")
-			user.visible_message("<span class='notice'>[user] tries to place [I] into [src] but stabs their own foot!</span>", \
-			"<span class='warning'>You go to put [I] into [src], but miss the boot and stab your own foot!</span>")
-			user.apply_damage(I.force, BRUTE, stabbed_foot)
-			user.drop_item(I)
-			return
-		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
-			"<span class='notice'>You place [I] into the side of your [name]!</span>")
-		I.forceMove(src)
-		hidden_blade = I
-		return
+			user.visible_message(
+				SPAN_NOTICE("[user] tries to place [used] into [src] but stabs their own foot!"),
+				SPAN_WARNING("You go to put [used] into [src], but miss the boot and stab your own foot!")
+			)
+			user.apply_damage(used.force, BRUTE, stabbed_foot)
+			user.drop_item(used)
+			return ITEM_INTERACT_COMPLETE
+
+		user.visible_message(
+			SPAN_NOTICE("[user] places [used] into their [name]!"),
+			SPAN_NOTICE("You place [used] into the side of your [name]!")
+		)
+		used.forceMove(src)
+		hidden_blade = used
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -724,21 +820,20 @@
 	if(!cut_open)
 		return
 	icon_state = "[icon_state]_opentoe"
-	item_state = "[item_state]_opentoe"
 
 /obj/item/clothing/shoes/AltClick(mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !knife_slot)
 		return
 	if(!hidden_blade)
-		to_chat(user, "<span class='warning'>There's nothing in your [name]!</span>")
+		to_chat(user, SPAN_WARNING("There's nothing in your [name]!"))
 		return
 
 	if(user.get_active_hand() && user.get_inactive_hand())
-		to_chat(user, "<span class='warning'>You need an empty hand to pull out [hidden_blade]!</span>")
+		to_chat(user, SPAN_WARNING("You need an empty hand to pull out [hidden_blade]!"))
 		return
 
-	user.visible_message("<span class='notice'>[user] pulls [hidden_blade] from their [name]!</span>", \
-		"<span class='notice'>You draw [hidden_blade] from your [name]!</span>")
+	user.visible_message(SPAN_NOTICE("[user] pulls [hidden_blade] from their [name]!"), \
+		SPAN_NOTICE("You draw [hidden_blade] from your [name]!"))
 	user.put_in_hands(hidden_blade)
 	hidden_blade.add_fingerprint(user)
 	hidden_blade = null
@@ -746,9 +841,9 @@
 /obj/item/clothing/shoes/examine(mob/user)
 	. = ..()
 	if(knife_slot)
-		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].</span>"
+		. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to remove a stored knife. Use the knife on the shoes to place one in [src].")
 		if(hidden_blade)
-			. += "<span class='notice'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
+			. += SPAN_NOTICE("Your boot has a [hidden_blade.name] hidden inside of it!")
 
 //////////////////////////////
 // MARK: SUIT
@@ -801,8 +896,8 @@
 /obj/item/clothing/suit/examine(mob/user)
 	. = ..()
 	if(length(inserts))
-		. += "<span class='notice'>Has [length(inserts)] inserts attached.</span>"
-		. += "<span class='notice'>Inserts can be removed with Alt-Click.</span>"
+		. += SPAN_NOTICE("Has [length(inserts)] inserts attached.")
+		. += SPAN_NOTICE("Inserts can be removed with Alt-Click.")
 
 ///Hierophant card shielding. Saves me time.
 /obj/item/clothing/suit/proc/setup_hierophant_shielding()
@@ -815,16 +910,16 @@
 
 /// A proc for callback when the shield breaks, since I am stupid and want custom effects.
 /obj/item/clothing/suit/proc/hierophant_shield_damaged(mob/living/wearer, attack_text, new_current_charges)
-	wearer.visible_message("<span class='danger'>[attack_text] is deflected in a burst of dark-purple sparks!</span>")
+	wearer.visible_message(SPAN_DANGER("[attack_text] is deflected in a burst of dark-purple sparks!"))
 	new /obj/effect/temp_visual/cult/sparks/hierophant(get_turf(wearer))
 	playsound(wearer,'sound/magic/blind.ogg', 200, TRUE, -2)
 	if(new_current_charges == 0)
-		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
+		wearer.visible_message(SPAN_DANGER("The runed shield around [wearer] suddenly disappears!"))
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)
 	if(ignore_suitadjust)
-		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
+		to_chat(user, SPAN_NOTICE("You attempt to button up the velcro on \the [src], before promptly realising how foolish you are."))
 		return
 	if(user.incapacitated())
 		return
@@ -838,20 +933,19 @@
 							for(var/obj/item/I in O.contents) //Dump the pocket out onto the floor below the user.
 								user.drop_item_to_ground(I, force = TRUE)
 
-			user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
+			user.visible_message(SPAN_WARNING("[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!"),SPAN_WARNING("You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!"))
 			user.drop_item_to_ground(src)
 			qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 			user.update_inv_wear_suit()
 			return
 		else
-			to_chat(user, "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>")//Yep, that's all they get. Avoids having to snowflake in a cooldown.
+			to_chat(user, SPAN_WARNING("You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!"))//Yep, that's all they get. Avoids having to snowflake in a cooldown.
 			return
 
 	if(suit_adjusted)
 		var/flavour = "close"
 		icon_state = copytext(icon_state, 1, findtext(icon_state, "_open")) /*Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will end up with a suffix of _open_open if adjusted twice, since their initial state is _open. */
-		item_state = copytext(item_state, 1, findtext(item_state, "_open"))
 		if(adjust_flavour)
 			flavour = "[copytext(adjust_flavour, 3, length(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
 		to_chat(user, "You [flavour] \the [src].")
@@ -859,7 +953,6 @@
 	else
 		var/flavour = "open"
 		icon_state += "_open"
-		item_state += "_open"
 		if(adjust_flavour)
 			flavour = "[adjust_flavour]"
 		to_chat(user, "You [flavour] \the [src].")
@@ -887,20 +980,19 @@
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
-/obj/item/clothing/suit/proc/special_overlays() // Does it have special overlays when worn?
-	return FALSE
+/obj/item/clothing/suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/smithed_item/insert))
+		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, used, user)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/clothing/suit/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	..()
-	if(istype(I, /obj/item/smithed_item/insert))
-		SEND_SIGNAL(src, COMSIG_INSERT_ATTACH, I, user)
+	return ..()
 
 /obj/item/clothing/suit/proc/detach_insert(atom/source, mob/user)
 	SIGNAL_HANDLER // COMSIG_CLICK_ALT
 	if(!Adjacent(user))
 		return
 	if(!length(inserts))
-		to_chat(user, "<span class='notice'>Your suit has no inserts to remove.</span>")
+		to_chat(user, SPAN_NOTICE("Your suit has no inserts to remove."))
 		return
 	INVOKE_ASYNC(src, PROC_REF(finish_detach_insert), user)
 
@@ -922,10 +1014,10 @@
 	if(!istype(new_insert))
 		return
 	if(length(inserts) == insert_max)
-		to_chat(user, "<span class='notice'>Your suit has no slots to add an insert.</span>")
+		to_chat(user, SPAN_NOTICE("Your suit has no slots to add an insert."))
 		return
 	if(new_insert.flags & NODROP || !user.transfer_item_to(new_insert, src))
-		to_chat(user, "<span class='warning'>[new_insert] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[new_insert] is stuck to your hand!"))
 		return
 	inserts += new_insert
 	new_insert.on_attached(src)
@@ -936,23 +1028,23 @@
 		effective_breakout_time = 5 SECONDS
 
 	if(user.has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
-		to_chat(user, "<span class='notice'>You are already trying to [break_restraints ? "break" : "remove"] your restraints.</span>")
+		to_chat(user, SPAN_NOTICE("You are already trying to [break_restraints ? "break" : "remove"] your restraints."))
 		return
 	user.apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 
-	user.visible_message("<span class='warning'>[user] attempts to [break_restraints ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_restraints ? "break" : "remove"] [src]...</span>")
-	to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
+	user.visible_message(SPAN_WARNING("[user] attempts to [break_restraints ? "break" : "remove"] [src]!"), SPAN_NOTICE("You attempt to [break_restraints ? "break" : "remove"] [src]..."))
+	to_chat(user, SPAN_NOTICE("(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)"))
 
 	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE))
 		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-		to_chat(user, "<span class='warning'>You fail to [break_restraints ? "break" : "remove"] [src]!</span>")
+		to_chat(user, SPAN_WARNING("You fail to [break_restraints ? "break" : "remove"] [src]!"))
 		return
 
 	user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 	if(loc != user || user.buckled)
 		return
 
-	user.visible_message("<span class='danger'>[user] manages to [break_restraints ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_restraints ? "break" : "remove"] [src].</span>")
+	user.visible_message(SPAN_DANGER("[user] manages to [break_restraints ? "break" : "remove"] [src]!"), SPAN_NOTICE("You successfully [break_restraints ? "break" : "remove"] [src]."))
 	user.drop_item_to_ground(src)
 
 //////////////////////////////
@@ -962,11 +1054,11 @@
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
 /obj/item/clothing/head/helmet/space
 	name = "space helmet"
-	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
+	icon_state = "space"
+	inhand_icon_state = "s_helmet"
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 50, FIRE = 200, ACID = 115)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
@@ -982,7 +1074,7 @@
 	name = "space suit"
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
 	icon_state = "space"
-	item_state = "s_suit"
+	inhand_icon_state = "s_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -1001,7 +1093,8 @@
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 	insert_max = 0 // No inserts for space suits
 
@@ -1009,8 +1102,8 @@
 // MARK: UNDER CLOTHES
 //////////////////////////////
 /obj/item/clothing/under
-	icon = 'icons/obj/clothing/under/misc.dmi'
 	name = "under"
+	icon = 'icons/obj/clothing/under/misc.dmi'
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	slot_flags = ITEM_SLOT_JUMPSUIT
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
@@ -1022,6 +1115,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
 		)
@@ -1038,7 +1132,9 @@
 	var/list/accessories = list()
 	var/displays_id = TRUE
 	var/rolled_down = FALSE
-	var/basecolor
+
+/obj/item/clothing/under/rank
+	inhand_icon_state = "bl_suit"
 
 /obj/item/clothing/under/rank/Initialize(mapload)
 	. = ..()
@@ -1083,16 +1179,16 @@
 			return FALSE
 	return TRUE
 
-/obj/item/clothing/under/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory))
-		attach_accessory(I, user, TRUE)
+/obj/item/clothing/under/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/accessory))
+		attach_accessory(used, user, TRUE)
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
-			A.attackby__legacy__attackchain(I, user, params)
-		return TRUE
+			A.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
 
-	. = ..()
+	return ..()
 
 /obj/item/clothing/under/serialize()
 	var/data = ..()
@@ -1128,7 +1224,7 @@
 
 		return TRUE
 	else
-		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You cannot attach more accessories of this type to [src]."))
 
 	return FALSE
 
@@ -1153,46 +1249,48 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "<span class='notice'><b>Alt-Click</b> to toggle the sensors mode.</span>"
+			. += SPAN_NOTICE("<b>Alt-Click</b> to toggle the sensors mode.")
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-			. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to roll down this jumpsuit.</span>"
+			. += SPAN_NOTICE("<b>Alt-Shift-Click</b> to remove an accessory.")
+	. += SPAN_NOTICE("<b>Ctrl-Shift-Click</b> to roll down this jumpsuit.")
 
+/// Suffix for jumpsuits used in .dmi files when rolled down
+#define JUMPSUIT_ROLLED_DOWN_SUFFIX "_d"
+
+/obj/item/clothing/under/proc/roll_undersuit(mob/living/carbon/human/user)
+	if(copytext(icon_state, -length(JUMPSUIT_ROLLED_DOWN_SUFFIX)) != JUMPSUIT_ROLLED_DOWN_SUFFIX)
+		base_icon_state = icon_state
+
+	var/current_worn_icon = LAZYACCESS(sprite_sheets, user.dna.species.sprite_sheet_name) || worn_icon || 'icons/mob/clothing/under/misc.dmi'
+	if(!icon_exists(current_worn_icon, "[base_icon_state][JUMPSUIT_ROLLED_DOWN_SUFFIX]_s"))
+		to_chat(user, SPAN_NOTICE("You cannot roll down this uniform!"))
+		return
+
+	rolled_down = !rolled_down
+	if(rolled_down)
+		body_parts_covered &= ~(UPPER_TORSO | LOWER_TORSO | ARMS)
+	else
+		body_parts_covered = initial(body_parts_covered)
+	worn_icon_state = "[base_icon_state][rolled_down ? "[JUMPSUIT_ROLLED_DOWN_SUFFIX]" : ""]"
+	user.update_inv_w_uniform()
+
+#undef JUMPSUIT_ROLLED_DOWN_SUFFIX
 
 /obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
-		to_chat(user, "<span class='notice'>You cannot roll down the uniform!</span>")
+		to_chat(user, SPAN_NOTICE("You cannot roll down the uniform!"))
 		return
 
-	if(copytext(item_color,-2) != "_d")
-		basecolor = item_color
-
 	if(user.get_item_by_slot(ITEM_SLOT_JUMPSUIT) != src)
-		to_chat(user, "<span class='notice'>You must wear the uniform to adjust it!</span>")
+		to_chat(user, SPAN_NOTICE("You must wear the uniform to adjust it!"))
+		return
 
-	else
-		if((basecolor + "_d_s") in icon_states(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name]))
-			if(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name] && icon_exists(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name], "[basecolor]_d_s"))
-				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-				user.update_inv_w_uniform()
-
-		else
-			if(user.w_uniform.sprite_sheets["Human"] && icon_exists(user.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
-				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-				user.update_inv_w_uniform()
-			else
-				to_chat(user, "<span class='notice'>You cannot roll down this uniform!</span>")
-	if(item_color == "[basecolor]")
-		body_parts_covered = initial(body_parts_covered)
-	else
-		body_parts_covered &= ~UPPER_TORSO
-		body_parts_covered &= ~LOWER_TORSO
-		body_parts_covered &= ~ARMS
+	roll_undersuit(user)
 
 /obj/item/clothing/under/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -1219,7 +1317,7 @@
 	if(!Adjacent(user))
 		return
 	detach_accessory(A, user)
-	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [A] from [src]."))
 
 /obj/item/clothing/under/emp_act(severity)
 	if(length(accessories))

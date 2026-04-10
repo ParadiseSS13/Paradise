@@ -6,16 +6,38 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	icon = 'icons/obj/items.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
-
-	// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
+	max_integrity = 200
+	can_be_hit = FALSE
+	suicidal_hands = TRUE
+	/// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	move_resist = null
-	/// used in item_attack.dm to make an item not show an attack message to viewers
-	var/discrete = FALSE
-	/// The icon state used to display the item in your inventory. If null then the icon_state value itself will be used
-	var/item_state = null
-	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	/**
+	 * Species-specific sprites, concept stolen from Paradise//vg/.
+	 *
+	 * ex:
+	 *
+	 *	sprite_sheets = list("Tajaran" = 'icons/cat/are/bad')
+	 *
+	 * If index term exists, this sprite sheet will be used.
+	 *
+	 * This should never have a "Human" inside - use `worn_icon` instead.
+	*/
+	var/list/sprite_sheets
+	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
+	var/list/sprite_sheets_inhand
+
+	/// Icon file for mob worn overlays. Can be ignored if sprite_sheets/sprite_sheets_inhand is set
+	var/icon/worn_icon
+	/// Icon state for mob worn overlays, if null the `icon_state` value will be used
+	var/worn_icon_state
+
+	/// Icon state for mob inhand overlays, if null the `icon_state` value will be used
+	var/inhand_icon_state
+	/// Icon file for left hand inhand overlays
+	var/icon/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	/// Icon file for right inhand overlays
+	var/icon/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	/// Dimension X of the lefthand_file and righthand_file var
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32
@@ -23,11 +45,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_y_dimension = 32
 
-	max_integrity = 200
-
-	can_be_hit = FALSE
-	suicidal_hands = TRUE
-
+	/// used in item_attack.dm to make an item not show an attack message to viewers
+	var/discrete = FALSE
 	/// Sound played when you hit something with the item
 	var/hitsound
 	/// Played when the item is used, for example tools
@@ -80,7 +99,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/dyeing_key
 	/// If this item is put into a washing machine to be dyed, can objects of this type be dyed into a different color/icon?
 	var/dyeable = FALSE
-	var/item_color
 	/// What bodyflags does this item cover? See setup.dm for appropriate bit flags
 	var/body_parts_covered = 0
 	/// For leaking gas from turf to mask and vice-versa.
@@ -147,21 +165,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// If this item is a tool, the speed multiplier. Smaller numbers are faster.
 	var/toolspeed = 1
 
-	/* Species-specific sprites, concept stolen from Paradise//vg/.
-	ex:
-	sprite_sheets = list(
-		"Tajaran" = 'icons/cat/are/bad'
-		)
-	If index term exists and icon_override is not set, this sprite sheet will be used.
-	*/
-	var/list/sprite_sheets
-	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
-	var/list/sprite_sheets_inhand
-	/// Used to override hardcoded clothing dmis in human clothing proc.
-	var/icon_override
-	/// Used to override hardcoded clothing inventory object dmis in human clothing proc.
-	var/sprite_sheets_obj
-
 	//Tooltip vars
 
 	/// Is this item equipped into an inventory slot or hand of a mob?
@@ -196,9 +199,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	scatter_distance = 5
 
-/obj/item/New()
-	..()
-
+/obj/item/Initialize(mapload)
+	. = ..()
+	for(var/path in actions_types)
+		new path(src)
+	if(isstorage(loc)) //marks all items in storage as being such
+		in_storage = TRUE
+	if(sharp)
+		AddComponent(/datum/component/surgery_initiator)
 	if(!hitsound)
 		if(damtype == "fire")
 			hitsound = 'sound/items/welder.ogg'
@@ -207,13 +215,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	LAZYINITLIST(attack_verb)
 	if(!move_resist)
 		determine_move_resist()
-
-/obj/item/Initialize(mapload)
-	. = ..()
-	for(var/path in actions_types)
-		new path(src)
-	if(isstorage(loc)) //marks all items in storage as being such
-		in_storage = TRUE
 
 /// This proc is used to add text for items with ABSTRACT flag after default examine text.
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
@@ -277,25 +278,25 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/msg = "*--------* <BR>"
 
 		if(origin_tech)
-			msg += "<span class='notice'>Testing potentials:</span><BR>"
+			msg += "[SPAN_NOTICE("Testing potentials:")]<BR>"
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
 				msg += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [techlvls[T]] <br>"
 		else
-			msg += "<span class='danger'>No tech origins detected.</span><BR>"
+			msg += "[SPAN_DANGER("No tech origins detected.")]<BR>"
 
 		if(length(materials))
 			msg += "<span class='notice'>Extractable materials:<BR>"
 			for(var/mat in materials)
 				msg += "[CallMaterialName(mat)]<BR>" //Capitize first word, remove the "$"
 		else
-			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
+			msg += "[SPAN_DANGER("No extractable materials detected.")]<BR>"
 		msg += "*--------*"
 		. += msg
 
 	if(length(attached_bits))
-		. += "<span class='notice'>Has [length(attached_bits)] bits attached.</span>"
-		. += "<span class='notice'>Bits can be removed with Alt-Click.</span>"
+		. += SPAN_NOTICE("Has [length(attached_bits)] bits attached.")
+		. += SPAN_NOTICE("Bits can be removed with Alt-Click.")
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -321,10 +322,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(user.hand)
 			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
-			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
+			to_chat(user, SPAN_WARNING("You try to use your hand, but it's missing!"))
 			return FALSE
 		if(temp && !temp.is_usable())
-			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
+			to_chat(user, SPAN_WARNING("You try to move your [temp.name], but cannot!"))
 			return FALSE
 
 	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
@@ -332,9 +333,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
 				extinguish()
-				to_chat(user, "<span class='notice'>You put out the fire on [src].</span>")
+				to_chat(user, SPAN_NOTICE("You put out the fire on [src]."))
 			else
-				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
+				to_chat(user, SPAN_WARNING("You burn your hand on [src]!"))
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
 				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
@@ -346,7 +347,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
-				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
+				to_chat(user, SPAN_WARNING("The acid on [src] burns your hand!"))
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
 				if(affecting && affecting.receive_damage(0, 5))	// 5 burn damage
 					H.UpdateDamageIcon()
@@ -381,7 +382,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!A.has_fine_manipulation && !HAS_TRAIT(src, TRAIT_XENO_INTERACTABLE))
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.drop_item_to_ground(src)
-		to_chat(user, "<span class='warning'>Your claws aren't capable of such fine manipulation!</span>")
+		to_chat(user, SPAN_WARNING("Your claws aren't capable of such fine manipulation!"))
 		return
 	attack_hand(A)
 
@@ -417,11 +418,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 						success = 1
 						S.handle_item_insertion(IT, user, TRUE)	// The TRUE stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
-						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
+						to_chat(user, SPAN_NOTICE("You put everything in [S]."))
 					else if(success)
-						to_chat(user, "<span class='notice'>You put some things in [S].</span>")
+						to_chat(user, SPAN_NOTICE("You put some things in [S]."))
 					else
-						to_chat(user, "<span class='notice'>You fail to pick anything up with [S].</span>")
+						to_chat(user, SPAN_NOTICE("You fail to pick anything up with [S]."))
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src, user)
@@ -435,32 +436,32 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/x_offset = text2num(clickparams["icon-x"])
 		var/y_offset = text2num(clickparams["icon-y"])
 		if(GetComponent(/datum/component/ducttape))
-			to_chat(user, "<span class='notice'>[src] already has some tape attached!</span>")
+			to_chat(user, SPAN_NOTICE("[src] already has some tape attached!"))
 			return
 		if(TR.use(1))
-			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
+			to_chat(user, SPAN_NOTICE("You apply some tape to [src]."))
 			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
 			anchored = TRUE
 			user.transfer_fingerprints_to(src)
 		else
-			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
+			to_chat(user, SPAN_NOTICE("You don't have enough tape to do that!"))
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
 	if(!signal_result)
 		return FALSE
 	if(hit_reaction_chance >= 0) // Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		owner.visible_message(SPAN_DANGER("[owner] blocks [attack_text] with [src]!"))
 	return signal_result
 
 /// Used to add a bit through a signal
 /obj/item/proc/add_bit(atom/source, obj/item/smithed_item/tool_bit/bit, mob/user)
 	SIGNAL_HANDLER // COMSIG_BIT_ATTACH
 	if(length(attached_bits) >= max_bits)
-		to_chat(user, "<span class='notice'>Your tool already has the maximum number of bits!</span>")
+		to_chat(user, SPAN_NOTICE("Your tool already has the maximum number of bits!"))
 		return
 	if(bit.flags & NODROP || !user.transfer_item_to(bit, src))
-		to_chat(user, "<span class='warning'>[bit] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[bit] is stuck to your hand!"))
 		return
 	attached_bits += bit
 	bit.on_attached(src)
@@ -471,7 +472,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!Adjacent(user))
 		return
 	if(!length(attached_bits))
-		to_chat(user, "<span class='notice'>Your [src] has no tool bits to remove.</span>")
+		to_chat(user, SPAN_NOTICE("Your [src] has no tool bits to remove."))
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(finish_remove_bit), user)
@@ -560,6 +561,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
@@ -604,19 +606,19 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 	if(!iscarbon(usr) || isbrain(usr)) // Is humanoid, and is not a brain
-		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
+		to_chat(usr, SPAN_WARNING("You can't pick things up!"))
 		return
 	if(anchored) // Object isn't anchored
-		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
+		to_chat(usr, SPAN_WARNING("You can't pick that up!"))
 		return
 	if(!usr.hand && usr.r_hand) // Right hand is not full
-		to_chat(usr, "<span class='warning'>Your right hand is full.</span>")
+		to_chat(usr, SPAN_WARNING("Your right hand is full."))
 		return
 	if(usr.hand && usr.l_hand) // Left hand is not full
-		to_chat(usr, "<span class='warning'>Your left hand is full.</span>")
+		to_chat(usr, SPAN_WARNING("Your left hand is full."))
 		return
 	if(!isturf(loc)) // Object is on a turf
-		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
+		to_chat(usr, SPAN_WARNING("You can't pick that up!"))
 		return
 	// All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
@@ -642,7 +644,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/eyestab(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(user, SPAN_WARNING("You don't want to harm other living beings!"))
 		return FALSE
 
 	var/mob/living/carbon/human/H = M
@@ -652,11 +654,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			(H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES) \
 		))
 		// you can't stab someone in the eyes wearing a mask!
-		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
+		to_chat(user, SPAN_DANGER("You're going to need to remove that mask/helmet/glasses first!"))
 		return
 
 	if(isalien(M) || isslime(M)) // Aliens don't have eyes, slimes also don't have eyes!
-		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
+		to_chat(user, SPAN_WARNING("You cannot locate any eyes on this creature!"))
 		return
 
 	src.add_fingerprint(user)
@@ -669,12 +671,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return FALSE
 
 	if(M != user)
-		M.visible_message("<span class='danger'>[user] has stabbed [M] in the eye with [src]!</span>", \
-							"<span class='userdanger'>[user] stabs you in the eye with [src]!</span>")
+		M.visible_message(SPAN_DANGER("[user] has stabbed [M] in the eye with [src]!"), \
+							SPAN_USERDANGER("[user] stabs you in the eye with [src]!"))
 	else
 		user.visible_message( \
-			"<span class='danger'>[user] has stabbed [user.p_themselves()] in the eyes with [src]!</span>", \
-			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
+			SPAN_DANGER("[user] has stabbed [user.p_themselves()] in the eyes with [src]!"), \
+			SPAN_USERDANGER("You stab yourself in the eyes with [src]!") \
 		)
 
 	add_attack_logs(user, M, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")
@@ -690,17 +692,17 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
 				if(!eyes.is_robotic()) // robot eyes bleeding might be a bit silly
-					to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
+					to_chat(M, SPAN_DANGER("Your eyes start to bleed profusely!"))
 			if(prob(50))
 				if(M.stat != DEAD)
-					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
+					to_chat(M, SPAN_DANGER("You drop what you're holding and clutch at your eyes!"))
 					M.drop_item()
 				M.AdjustEyeBlurry(20 SECONDS)
 				M.Paralyse(2 SECONDS)
 				M.Weaken(4 SECONDS)
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
-					to_chat(M, "<span class='danger'>You go blind!</span>")
+					to_chat(M, SPAN_DANGER("You go blind!"))
 		var/obj/item/organ/external/affecting = H.get_organ("head")
 		if(istype(affecting) && affecting.receive_damage(force))
 			H.UpdateDamageIcon()
@@ -727,7 +729,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				var/mob/living/L = hit_atom
 				L.IgniteMob()
 			var/volume = get_volume_by_throwforce_and_or_w_class()
-			if(throwforce > 0)
+			if(throwforce > 0 || ("zero_damage_hitsound" in vars))
 				if(mob_throw_hit_sound)
 					SSthrowing.playsound_capped(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
 				else if(hitsound)
@@ -768,13 +770,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/wash(mob/user, atom/source)
 	if(flags & ABSTRACT) // Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
-	to_chat(user, "<span class='notice'>You start washing [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You start washing [src]..."))
 	if(!do_after(user, 40, target = source))
 		return
 	clean_blood()
 	acid_level = 0
-	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
-						"<span class='notice'>You wash [src] using [source].</span>")
+	user.visible_message(SPAN_NOTICE("[user] washes [src] using [source]."), \
+						SPAN_NOTICE("You wash [src] using [source]."))
 	return TRUE
 
 /obj/item/proc/get_crutch_efficiency() // Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
@@ -855,6 +857,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				outline_color = COLOR_THEME_OPERATIVE
 			if("clockwork")
 				outline_color = COLOR_THEME_CLOCKWORK // if you want free gbp go fix the fact that clockwork's tooltip css is glass'
+			if("mindflayer")
+				outline_color = COLOR_THEME_MINDFLAYER
 			if("glass")
 				outline_color = COLOR_THEME_GLASS
 			else // this should never happen, hopefully
@@ -1012,8 +1016,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		pointer_mob.visible_message("<b>[pointer_mob]</b> points to [pointed_object] with [src].")
 		return TRUE
 
-	target_atom.visible_message("<span class='danger'>[pointer_mob] points [src] at [pointed_object]!</span>",
-									"<span class='userdanger'>[pointer_mob] points [src] at you!</span>")
+	target_atom.visible_message(SPAN_DANGER("[pointer_mob] points [src] at [pointed_object]!"),
+									SPAN_USERDANGER("[pointer_mob] points [src] at you!"))
 	SEND_SOUND(target_atom, sound('sound/weapons/targeton.ogg'))
 	return TRUE
 
@@ -1040,7 +1044,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
   * * direct_attackby_item - Used if the cigarette item is clicked on directly with a lighter instead of a mob wearing a cigarette.
   */
 /obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	if(!user || !target)
+	if(!user || !istype(target))
 		return null
 
 	var/obj/item/clothing/mask/cigarette/cig = direct_attackby_item ? direct_attackby_item : target.wear_mask
@@ -1051,12 +1055,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return null
 
 	if(cig.lit)
-		to_chat(user, "<span class='warning'>[cig] is already lit!</span>")
+		to_chat(user, SPAN_WARNING("[cig] is already lit!"))
 		return FALSE
 
 	// Only matches and cigars can light fancy smokables.
 	if(length(cig.fancy_lighters) && !is_type_in_list(src, cig.fancy_lighters))
-		to_chat(user, "<span class='danger'>[cig] straight out REFUSES to be lit by such uncivilized means!</span>")
+		to_chat(user, SPAN_DANGER("[cig] straight out REFUSES to be lit by such uncivilized means!"))
 		return FALSE
 
 	return cig

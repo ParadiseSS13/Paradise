@@ -2,7 +2,7 @@
 /obj/item/food/grown/citrus
 	seed = /obj/item/seeds/lime
 	name = "citrus"
-	desc = "It's so sour, your face will twist."
+	desc = ABSTRACT_TYPE_DESC
 	icon_state = "lime"
 	bitesize_mod = 2
 	wine_power = 0.3
@@ -26,6 +26,7 @@
 
 /obj/item/food/grown/citrus/lime
 	name = "lime"
+	desc = "It's so sour, your face will twist."
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 
@@ -117,8 +118,8 @@
 
 	var/area/A = get_area(user)
 	user.visible_message(
-		"<span class='warning'>[user] primes [src]!</span>",
-		"<span class='userdanger'>You prime [src]!</span>"
+		SPAN_WARNING("[user] primes [src]!"),
+		SPAN_USERDANGER("You prime [src]!")
 	)
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)

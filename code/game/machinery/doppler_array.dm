@@ -10,6 +10,8 @@
 	var/explosion_target
 	var/datum/tech/toxins/toxins_tech
 	var/max_toxins_tech = 7
+	/// List of linked machines
+	var/list/linked_machines = list()
 
 /datum/explosion_log
 	var/logged_time
@@ -39,7 +41,7 @@
 	if(istype(used, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = used
 		disk.load_tech(toxins_tech)
-		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You swipe the disk into [src]."))
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
@@ -48,6 +50,16 @@
 	if(!default_unfasten_wrench(user, I, 0))
 		return
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/doppler_array/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/multi = I
+	multi.set_multitool_buffer(user, src)
+	to_chat(user, SPAN_NOTICE("You save [src]'s linking data to the buffer."))
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
@@ -65,23 +77,23 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do that!</span>")
+		to_chat(user, SPAN_WARNING("You don't have the dexterity to do that!"))
 		return
 	dir = turn(dir, 90)
-	to_chat(user, "<span class='notice'>You rotate [src].</span>")
+	to_chat(user, SPAN_NOTICE("You rotate [src]."))
 
 /obj/machinery/doppler_array/proc/print_explosive_logs(mob/user)
 	if(!length(logged_explosions))
 		atom_say("No logs currently stored in internal database.")
 		return
 	if(active_timers)
-		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already printing something, please wait."))
 		return
 	atom_say("Printing explosive log. Standby...")
 	addtimer(CALLBACK(src, PROC_REF(print)), 50)
 
 /obj/machinery/doppler_array/proc/print()
-	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
+	visible_message(SPAN_NOTICE("[src] prints a piece of paper!"))
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 	var/obj/item/paper/explosive_log/P = new(get_turf(src))
 	for(var/D in logged_explosions)
@@ -148,6 +160,8 @@
 		messages += "Toxins technology level upgraded to [toxins_tech.level]. Swipe a technology disk to save data."
 	for(var/message in messages)
 		atom_say(message)
+	for(var/obj/machinery/anomaly_refinery/anom_refiner in linked_machines)
+		anom_refiner.refine_core(orig_light_range)
 
 /obj/machinery/doppler_array/update_icon_state()
 	if(stat & BROKEN)
@@ -194,7 +208,7 @@
 	switch(action)
 		if("delete_logs")
 			QDEL_LIST_CONTENTS(logged_explosions)
-			to_chat(usr, "<span class='notice'>All logs deleted successfully.</span>")
+			to_chat(usr, SPAN_NOTICE("All logs deleted successfully."))
 		if("delete_record")
 			var/index = text2num(params["index"])
 			if(index < 0 || index > length(logged_explosions))
@@ -203,7 +217,7 @@
 			var/datum/explosion_log/E = logged_explosions[index]
 			logged_explosions -= E
 			qdel(E)
-			to_chat(usr, "<span class='notice'>Log deletion successful.</span>")
+			to_chat(usr, SPAN_NOTICE("Log deletion successful."))
 		if("print_logs")
 			print_explosive_logs(usr)
 		else

@@ -7,6 +7,7 @@
 	icon_state = "mecha_equip"
 	force = 5
 	origin_tech = "materials=2;engineering=2"
+	materials = list(MAT_METAL = 10000)
 	max_integrity = 300
 	var/equip_cooldown = 0
 	var/equip_ready = 1
@@ -30,7 +31,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
-		chassis.occupant_message("<span class='danger'>[src] is destroyed!</span>")
+		chassis.occupant_message(SPAN_DANGER("[src] is destroyed!"))
 		chassis.log_append_to_last("[src] is destroyed.",1)
 		SEND_SOUND(chassis.occupant, sound(get_destroy_sound(), volume = 50))
 		detach(chassis)
@@ -63,6 +64,8 @@
 	if(!target)
 		return FALSE
 	if(!chassis)
+		return FALSE
+	if(!is_ranged() && !chassis.Adjacent(target))
 		return FALSE
 	if(!equip_ready)
 		return FALSE

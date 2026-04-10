@@ -58,6 +58,7 @@
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), random_time, TIMER_DELETE_ME)
 
+		traitor_datum.is_roundstart = TRUE
 		traitor.add_antag_datum(traitor_datum)
 
 /datum/game_mode/traitor/traitors_to_add()
@@ -81,7 +82,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))
-		var/list/text = list("<br><font size=3><span class='bold'>The traitors were:</span></font>")
+		var/list/text = list("<br><font size=3>[SPAN_BOLD("The traitors were:")]</font>")
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor)
@@ -150,7 +151,7 @@
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='danger'>[responses]</span>"
+		text += "<br><br><b>The code phrases were:</b> [SPAN_DANGER("[phrases]")]<br>\
+					<b>The code responses were:</b> [SPAN_DANGER("[responses]")]"
 
 		return text.Join("")

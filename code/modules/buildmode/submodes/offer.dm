@@ -6,10 +6,10 @@
 	var/hide_role
 
 /datum/buildmode_mode/offer/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left click to offer a mob</span>")
-	to_chat(user, "<span class='notice'>Right click to change amount of playtime a player needs to be able to sign up and whether to display their special role</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left click to offer a mob"))
+	to_chat(user, SPAN_NOTICE("Right click to change amount of playtime a player needs to be able to sign up and whether to display their special role"))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/offer/change_settings(mob/user)
 	hours = tgui_input_number(user, "Playtime required", "Input", 20)

@@ -2,7 +2,6 @@
 	name = "pet collar"
 	desc = "The latest fashion accessory for your favorite pets!"
 	icon_state = "petcollar"
-	item_color = "petcollar"
 	var/tagname = null
 	var/original_name
 	var/original_real_name
@@ -27,9 +26,9 @@
 				name = "[initial(name)] - [tagname]"
 		if("Remove ID")
 			if(access_id)
-				user.visible_message("<span class='warning'>[user] starts unclipping [access_id] from [src].</span>")
+				user.visible_message(SPAN_WARNING("[user] starts unclipping [access_id] from [src]."))
 				if(do_after(user, 5 SECONDS, target = user) && access_id && !QDELETED(src) && Adjacent(user))
-					user.visible_message("<span class='warning'>[user] unclips [access_id] from [src].</span>")
+					user.visible_message(SPAN_WARNING("[user] unclips [access_id] from [src]."))
 					access_id.forceMove(get_turf(user))
 					user.put_in_hands(access_id)
 					access_id = null
@@ -38,12 +37,12 @@
 	if(!istype(W))
 		return ..()
 	if(access_id)
-		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto [src].</span>")
+		to_chat(user, SPAN_WARNING("There is already \a [access_id] clipped onto [src]."))
 		return ..()
 	user.drop_item()
 	W.forceMove(src)
 	access_id = W
-	to_chat(user, "<span class='notice'>[W] clips onto [src] snugly.</span>")
+	to_chat(user, SPAN_NOTICE("[W] clips onto [src] snugly."))
 
 /obj/item/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()

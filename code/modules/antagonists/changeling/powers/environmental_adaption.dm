@@ -34,8 +34,8 @@
 /datum/action/changeling/environmental_adaptation/proc/enable_ability(mob/living/carbon/human/cling) //Enable the adaptation
 	cling.set_alpha_tracking(65, src, update_alpha = FALSE)
 	animate(cling, alpha = cling.get_alpha(), time = 3 SECONDS)
-	cling.visible_message("<span class='warning'>[cling]'s skin suddenly starts becoming translucent!</span>", \
-					"<span class='notice'>We adapt our pigmentation to suit the environment around us.</span>")
+	cling.visible_message(SPAN_WARNING("[cling]'s skin suddenly starts becoming translucent!"), \
+					SPAN_NOTICE("We adapt our pigmentation to suit the environment around us."))
 	var/datum/antagonist/changeling/changeling_data = cling.mind?.has_antag_datum(/datum/antagonist/changeling)
 	changeling_data?.chem_recharge_slowdown -= recharge_slowdown //Slows down chem regeneration
 
@@ -43,8 +43,8 @@
 	cling.set_alpha_tracking(ALPHA_VISIBLE, src, update_alpha = FALSE)
 	animate(cling, alpha = cling.get_alpha(), time = 3 SECONDS)
 	cling.visible_message(
-		"<span class='warning'>[cling] appears from thin air!</span>",
-		"<span class='notice'>We stop concentration on our pigmentation, allowing it to return to normal.</span>",
+		SPAN_WARNING("[cling] appears from thin air!"),
+		SPAN_NOTICE("We stop concentration on our pigmentation, allowing it to return to normal."),
 	)
 	animate(cling, color = null, time = 3 SECONDS)
 	var/datum/antagonist/changeling/changeling_data = cling.mind?.has_antag_datum(/datum/antagonist/changeling)

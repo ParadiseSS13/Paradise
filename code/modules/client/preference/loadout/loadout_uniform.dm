@@ -231,6 +231,10 @@
 	display_name = "Skirt, black"
 	path = /obj/item/clothing/under/dress/blackskirt
 
+/datum/gear/uniform/skirt/black_tango
+	display_name = "black tango dress"
+	path = /obj/item/clothing/under/dress/blacktango
+
 /datum/gear/uniform/skirt/blue_tango
 	display_name = "blue tango dress"
 	path = /obj/item/clothing/under/dress/blacktango/blue
@@ -240,6 +244,21 @@
 	subtype_selection_cost = FALSE
 
 //Engineering
+
+/datum/gear/uniform/eng
+	main_typepath = /datum/gear/uniform/eng
+
+/datum/gear/uniform/eng/eng_alt
+	display_name = "Uniform, engineering corporate"
+	path = /obj/item/clothing/under/rank/engineering/engineer/corporate
+	allowed_roles = list("Chief Engineer", "Station Engineer")
+
+/datum/gear/uniform/eng/atmos_alt
+	display_name = "Uniform, atmos corporate"
+	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/corporate
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
+
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "Skirt, atmos"
 	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt
@@ -261,15 +280,63 @@
 	allowed_roles = list("Chief Engineer")
 
 //Research
+/datum/gear/uniform/sci
+	main_typepath = /datum/gear/uniform/sci
+
 /datum/gear/uniform/skirt/job/sci
 	display_name = "Skirt, scientist"
 	path = /obj/item/clothing/under/rank/rnd/scientist/skirt
-	allowed_roles = list("Research Director","Scientist")
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
+
+/datum/gear/uniform/sci/sci_alt
+	display_name = "Uniform, scientist corporate"
+	path = /obj/item/clothing/under/rank/rnd/scientist/corporate
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
+
+/datum/gear/uniform/skirt/job/sci_alt
+	display_name = "Skirt, scientist corporate"
+	path = /obj/item/clothing/under/rank/rnd/scientist/skirt/corporate
+	allowed_roles = list("Research Director", "Scientist", "Xenobiologist")
 
 /datum/gear/uniform/skirt/job/roboticist
 	display_name = "Skirt, roboticist"
 	path = /obj/item/clothing/under/rank/rnd/roboticist/skirt
-	allowed_roles = list("Research Director","Roboticist")
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/uniform/sci/robo_alt
+	display_name = "Jumpsuit, bioengineer"
+	path = /obj/item/clothing/under/rank/rnd/roboticist/corporate
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/uniform/skirt/job/robo_alt
+	display_name = "Skirt, bioengineer"
+	path = /obj/item/clothing/under/rank/rnd/roboticist/skirt/corporate
+	allowed_roles = list("Research Director", "Scientist")
+
+/datum/gear/uniform/sci/robo_corp
+	display_name = "Uniform, roboticist corporate"
+	path = /obj/item/clothing/under/rank/rnd/roboticist/corporate/alt
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/uniform/overalls/job/roboticist
+	display_name = "Overalls, roboticist"
+	path = /obj/item/clothing/under/rank/rnd/roboticist/overalls
+	allowed_roles = list("Research Director", "Roboticist")
+
+/datum/gear/uniform/skirt/job/geneticist
+	display_name = "Skirt, geneticist"
+	path = /obj/item/clothing/under/rank/rnd/geneticist/skirt
+	allowed_roles = list("Research Director", "Geneticist")
+
+/datum/gear/uniform/sci/gen_alt
+	display_name = "Uniform, geneticist corporate"
+	path = /obj/item/clothing/under/rank/rnd/geneticist/corporate
+	allowed_roles = list("Research Director", "Geneticist")
+
+/datum/gear/uniform/skirt/job/gen_alt
+	display_name = "Skirt, geneticist corporate"
+	path = /obj/item/clothing/under/rank/rnd/geneticist/skirt/corporate
+	allowed_roles = list("Research Director", "Geneticist")
 
 /datum/gear/uniform/skirt/job/rd
 	display_name = "Skirt, rd"
@@ -397,6 +464,36 @@
 	path = /obj/item/clothing/under/rank/civilian/hop/turtleneck
 	allowed_roles = list("Head of Personnel")
 
+/datum/gear/uniform/suit/job/chaplain/
+	display_name = "Chaplain, black"
+	path = /obj/item/clothing/under/rank/civilian/chaplain
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/white
+	display_name = "Chaplain, white"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/white
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/bw
+	display_name = "Chaplain, black and white"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/bw
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/orange
+	display_name = "Chaplain, kasaya"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/orange
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/green
+	display_name = "Chaplain, modest"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/green
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/thobe
+	display_name = "Chaplain, thobe"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/thobe
+	allowed_roles = list("Chaplain")
+
 //Command and dignitary
 /datum/gear/uniform/skirt/captain
 	display_name = "Skirt, captain"
@@ -461,10 +558,30 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/overalls
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+/datum/gear/uniform/overalls/job/miner
+	display_name = "Overalls, miner"
+	path = /obj/item/clothing/under/rank/cargo/miner/lavaland/overalls
+	allowed_roles = list("Quartermaster", "Shaft Miner")
+
 /datum/gear/uniform/overalls/job/expedition
 	display_name = "Overalls, expedition"
 	path = /obj/item/clothing/under/rank/cargo/expedition/overalls
 	allowed_roles = list("Quartermaster", "Explorer")
+
+/datum/gear/uniform/overalls/job/smith
+	display_name = "Overalls, smith"
+	path = /obj/item/clothing/under/rank/cargo/smith/overalls
+	allowed_roles = list("Quartermaster", "Smith")
+
+/datum/gear/uniform/overalls/job/atmos
+	display_name = "Overalls, atmos"
+	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/overalls
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
+/datum/gear/uniform/overalls/job/eng
+	display_name = "Overalls, engineer"
+	path = /obj/item/clothing/under/rank/engineering/engineer/overalls
+	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec
@@ -511,6 +628,10 @@
 /datum/gear/uniform/shorts/grey
 	display_name = "Shorts, grey"
 	path = /obj/item/clothing/under/pants/shorts/grey
+
+/datum/gear/uniform/shorts/jean
+	display_name = "Shorts, jean"
+	path = /obj/item/clothing/under/pants/shorts/jeanshorts
 
 /datum/gear/uniform/pants
 	main_typepath = /datum/gear/uniform/pants
@@ -562,6 +683,10 @@
 /datum/gear/uniform/pants/caopants
 	display_name = "Pants, camo"
 	path = /obj/item/clothing/under/pants/camo
+
+/datum/gear/uniform/pants/cargo
+	display_name = "Pants, cargo"
+	path = /obj/item/clothing/under/pants/cargo
 
 /datum/gear/uniform/suit/tacticool
 	display_name = "Tacticool turtleneck"

@@ -4,13 +4,21 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
 	anchored = TRUE
-	idle_power_consumption = 5
-	active_power_consumption = 60
+	idle_power_consumption = 4
+	active_power_consumption = 200
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
-	/// Cell charge rate (Watts)
-	var/charge_rate = 500
+	/// Charge rate multiplier.
+	var/recharge_coeff = 1
+
+/obj/machinery/cell_charger/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("There's [charging ? "\a [charging.name]" : "no cell"] in [src].")
+	if(charging && !(stat & (NOPOWER|BROKEN)))
+		. += SPAN_NOTICE("Current charge: <b>[round(charging.percent(), 1)]%</b>")
+		if(charging.percent() < 100)
+			. += SPAN_NOTICE("- Recharging <b>[((charging.chargerate * recharge_coeff) / charging.maxcharge) * 100]%</b> cell charge per cycle.")
 
 /obj/machinery/cell_charger/Initialize(mapload)
 	. = ..()
@@ -53,36 +61,30 @@
 		return
 	. += "ccharger-o[chargelevel]"
 
-/obj/machinery/cell_charger/examine(mob/user)
-	. = ..()
-	. += "There's [charging ? "a" : "no"] cell in the charger."
-	if(charging)
-		. += "Current charge: [round(charging.percent(), 1)]%"
-
 /obj/machinery/cell_charger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stock_parts/cell) && !panel_open)
 		if(stat & BROKEN)
-			to_chat(user, "<span class='warning'>[src] is broken!</span>")
+			to_chat(user, SPAN_WARNING("[src] is broken!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] isn't attached to the ground!</span>")
+			to_chat(user, SPAN_WARNING("[src] isn't attached to the ground!"))
 			return ITEM_INTERACT_COMPLETE
 		if(charging)
-			to_chat(user, "<span class='warning'>There is already a cell in the charger!</span>")
+			to_chat(user, SPAN_WARNING("There is already a cell in the charger!"))
 			return ITEM_INTERACT_COMPLETE
 		else
 			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
 			if(!isarea(a))
 				return ITEM_INTERACT_COMPLETE
 			if(!a.powernet.has_power(PW_CHANNEL_EQUIPMENT)) // There's no APC in this area, don't try to cheat power!
-				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
+				to_chat(user, SPAN_WARNING("[src] blinks red as you try to insert the cell!"))
 				return ITEM_INTERACT_COMPLETE
 			if(!user.drop_item())
 				return ITEM_INTERACT_COMPLETE
 
 			used.forceMove(src)
 			charging = used
-			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
+			user.visible_message("[user] inserts a cell into the charger.", SPAN_NOTICE("You insert a cell into the charger."))
 			check_level()
 			update_icon(UPDATE_OVERLAYS)
 			return ITEM_INTERACT_COMPLETE
@@ -100,7 +102,7 @@
 /obj/machinery/cell_charger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(charging)
-		to_chat(user, "<span class='warning'>Remove the cell first!</span>")
+		to_chat(user, SPAN_WARNING("Remove the cell first!"))
 		return
 	default_unfasten_wrench(user, I, 0)
 
@@ -117,7 +119,7 @@
 	user.put_in_hands(charging)
 	charging.add_fingerprint(user)
 
-	user.visible_message("[user] removes [charging] from [src].", "<span class='notice'>You remove [charging] from [src].</span>")
+	user.visible_message("[user] removes [charging] from [src].", SPAN_NOTICE("You remove [charging] from [src]."))
 
 	removecell()
 
@@ -126,7 +128,7 @@
 		return
 
 	charging.forceMove(loc)
-	to_chat(user, "<span class='notice'>You telekinetically remove [charging] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You telekinetically remove [charging] from [src]."))
 
 	removecell()
 
@@ -143,9 +145,8 @@
 	..(severity)
 
 /obj/machinery/cell_charger/RefreshParts()
-	charge_rate = 500
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		charge_rate *= C.rating
+		recharge_coeff = C.rating
 
 /obj/machinery/cell_charger/process()
 	if(!charging || !anchored || (stat & (BROKEN|NOPOWER)))
@@ -154,8 +155,8 @@
 	if(charging.percent() >= 100)
 		return
 
-	use_power(charge_rate)
-	charging.give(charge_rate)
+	use_power(charging.chargerate * recharge_coeff)
+	charging.give(charging.chargerate * recharge_coeff)
 
 	if(check_level())
 		update_icon(UPDATE_OVERLAYS)
