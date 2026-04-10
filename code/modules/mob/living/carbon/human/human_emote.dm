@@ -731,21 +731,21 @@
 	message = "droops their antennae."
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
-/datum/emote/living/carbon/human/w_preen
-	key = "w_preen"
-	key_third_person = "w_preen"
+/datum/emote/living/carbon/human/wing_preen
+	key = "wpreen"
+	key_third_person = "wpreen"
 	message = "preens their wings."
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
-/datum/emote/living/carbon/human/a_preen
-	key = "a_preen"
-	key_third_person = "a_preen"
+/datum/emote/living/carbon/human/antenna_preen
+	key = "apreen"
+	key_third_person = "apreen"
 	message = "preens their antennae."
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
-/datum/emote/living/carbon/human/antenna_angel
-	key = "a_angle"
-	key_third_person = "a_angle"
+/datum/emote/living/carbon/human/antenna_angle
+	key = "aangle"
+	key_third_person = "aangle"
 	message = "angles their antennae."
 	message_param = "angles their antennae towards %t."
 	species_type_whitelist_typecache = list(/datum/species/moth)
