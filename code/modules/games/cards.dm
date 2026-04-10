@@ -720,7 +720,7 @@
 
 		user.visible_message(
 			SPAN_NOTICE("[user] adds [concealed ? "a card" : chosen.name] to [user.p_their()] hand."),
-			SPAN_NOTICE("You add [chosen.name] to your deck.</span>"),
+			SPAN_NOTICE("You add [chosen.name] to your deck."),
 			SPAN_NOTICE("You hear cards being shuffled together.")
 		)
 		H.transfer_card_to_self(src, chosen)
