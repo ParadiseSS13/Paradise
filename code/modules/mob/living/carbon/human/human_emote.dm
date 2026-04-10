@@ -725,17 +725,30 @@
 	species_type_whitelist_typecache = list(/datum/species/skulk)
 	muzzled_noises = list("frustrated")
 
-/datum/emote/living/carbon/human/antenna
-	key = "antenna"
-	key_third_person = "antennae"
-	message = "twitches their antennae."
+/datum/emote/living/carbon/human/droop
+	key = "droop"
+	key_third_person = "droop"
+	message = "droops their antennae."
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
-/datum/emote/living/carbon/human/antenna/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
-	if(!.)
-		return FALSE
-	mineral_scan_pulse(get_turf(src), range = world.view)
+/datum/emote/living/carbon/human/w_preen
+	key = "w_preen"
+	key_third_person = "w_preen"
+	message = "preens their wings."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/a_preen
+	key = "a_preen"
+	key_third_person = "a_preen"
+	message = "preens their antennae."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/antenna_angel
+	key = "a_angle"
+	key_third_person = "a_angle"
+	message = "angles their antennae."
+	message_param = "angles their antennae towards %t."
+	species_type_whitelist_typecache = list(/datum/species/moth)
 
 /datum/emote/living/carbon/human/quill
 	key = "quill"
