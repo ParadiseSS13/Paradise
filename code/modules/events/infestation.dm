@@ -69,7 +69,7 @@
 			max_number = 3
 			vermstring = "spiders"
 		if(VERM_ISOPODS)
-			spawn_types = list(/mob/living/basic/isopod/smol)
+			spawn_types = list(/mob/living/basic/isopod/small)
 			max_number = 2
 			vermstring = "isopods"
 	var/amount_to_spawn = rand(2, max_number)

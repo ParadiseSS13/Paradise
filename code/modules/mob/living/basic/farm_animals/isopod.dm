@@ -78,7 +78,7 @@
 		adjust_nutrition(food_reagents * 2)
 	butcher_results = list(/obj/item/food/meat = (MODULUS(nutrition, 100)))
 
-/mob/living/basic/isopod/smol
+/mob/living/basic/isopod/small
 	name = "deverka"
 	desc = "A small isopod from Kelune that is usually kept as a pet."
 	icon_state = "deverka"
@@ -91,10 +91,10 @@
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
 	holder_type = /obj/item/holder/isopod_smol
-	ai_controller = /datum/ai_controller/basic_controller/isopod/smol
+	ai_controller = /datum/ai_controller/basic_controller/isopod/small
 	max_nutrition = 400
 
-/mob/living/basic/isopod/smol/attack_hand(mob/living/carbon/human/M)
+/mob/living/basic/isopod/small/attack_hand(mob/living/carbon/human/M)
 	// Let people pick the little buggers up.
 	if(M.a_intent != INTENT_HELP)
 		return ..()
@@ -103,7 +103,7 @@
 	else
 		get_scooped(M)
 
-/mob/living/basic/isopod/smol/consume(datum/source, obj/item/potential_food)
+/mob/living/basic/isopod/small/consume(datum/source, obj/item/potential_food)
 	var/food_reagents = potential_food.reagents.get_reagent_amount("nutriment") + potential_food.reagents.get_reagent_amount("plantmatter") + potential_food.reagents.get_reagent_amount("protein") + potential_food.reagents.get_reagent_amount("vitamin")
 	if(food_reagents < 1)
 		adjust_nutrition(2)
@@ -127,7 +127,7 @@
 		/datum/ai_planning_subtree/find_food/isopod,
 	)
 
-/datum/ai_controller/basic_controller/isopod/smol
+/datum/ai_controller/basic_controller/isopod/small
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 		BB_EAT_FOOD_COOLDOWN = 4 MINUTES, // Smol isopod wants to eat, but not fast at all.

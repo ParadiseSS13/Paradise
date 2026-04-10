@@ -96,7 +96,7 @@
 
 /obj/structure/closet/critter/isopod_smol
 	name = "deverka crate"
-	content_mob = /mob/living/basic/isopod/smol
+	content_mob = /mob/living/basic/isopod/small
 
 /obj/structure/closet/critter/cat
 	name = "cat crate"
