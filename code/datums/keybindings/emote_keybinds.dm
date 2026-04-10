@@ -489,19 +489,19 @@
 	linked_emote = /datum/emote/living/carbon/human/flutter
 	name = "Flutter"
 
-/datum/keybind/emote/carbon/human/droop
+/datum/keybinding/emote/carbon/human/droop
 	linked_emote = /datum/emote/living/carbon/human/droop
 	name = "Droop"
 
-/datum/keybind/emote/carbon/human/wing_preen
+/datum/keybinding/emote/carbon/human/wing_preen
 	linked_emote = /datum/emote/living/carbon/human/wing_preen
 	name = "Preen Wings"
 
-/datum/keybind/emote/carbon/human/antennae_preen
+/datum/keybinding/emote/carbon/human/antennae_preen
 	linked_emote = /datum/emote/living/carbon/human/antenna_preen
 	name = "Preen Antennae"
 
-/datum/keybind/emote/carbon/human/antenna_angle
+/datum/keybinding/emote/carbon/human/antenna_angle
 	linked_emote = /datum/emote/living/carbon/human/antenna_angle
 	name = "Angle Antennae"
 
