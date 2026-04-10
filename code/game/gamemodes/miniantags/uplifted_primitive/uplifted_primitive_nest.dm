@@ -43,6 +43,18 @@
 	/// Whether or not to let ghosts interact with the nest to spawn without a roll.
 	var/spawn_on_demand = FALSE
 
+	/// The mapping between the path of a crafting output and a list containing
+	/// its scrap and food costs, and an optional argument to be passed to new().
+	var/list/crafting_items = alist(
+		/obj/item/stack/sheet/wood = list(5000, 0, 5),
+		/obj/item/stack/tile/grass = list(5000, 2, 10),
+		/obj/item/stack/medical/bruise_pack/comfrey = list(2000, 10, 3),
+		/obj/item/stack/medical/ointment/aloe = list(2000, 10, 3),
+		/obj/item/grown/bananapeel = list(0, 3),
+	)
+	var/list/crafting_choices_cache
+	var/list/crafting_mapping_cache
+
 /obj/structure/uplifted_primitive/nest/Initialize(mapload)
 	. = ..(mapload)
 	AddElement(/datum/element/relay_attackers)
@@ -58,7 +70,7 @@
 
 /obj/structure/uplifted_primitive/nest/deconstruct(disassembled)
 	if(available_scrap > 0 || available_food > 0)
-		new /obj/item/uplifted_nest_bundle(get_turf(src), available_scrap, available_food)
+		new /obj/item/uplifted/nest_bundle(get_turf(src), available_scrap, available_food)
 
 	return ..()
 
@@ -200,6 +212,60 @@
 	to_chat(user, SPAN_NOTICE("You finish disassembling the nest and collect the remaining scrap and food."))
 	deconstruct(TRUE)
 
+/obj/structure/uplifted_primitive/nest/CtrlClick(mob/user, modifiers)
+	if(!user.mind?.has_antag_datum(/datum/antagonist/uplifted_primitive))
+		return ..()
+
+	if(user.dna?.species.type != nest_species)
+		return ..()
+
+	show_crafting_radial(user)
+
+/obj/structure/uplifted_primitive/nest/proc/show_crafting_radial(mob/user)
+	if(!crafting_choices_cache || !crafting_mapping_cache)
+		build_crafting_caches()
+
+	var/raw_choice = show_radial_menu(user, src, crafting_choices_cache, radius = 48, require_near = TRUE)
+	if(!raw_choice)
+		return
+	var/path = crafting_mapping_cache[raw_choice]
+	var/list/data = crafting_items[path]
+	var/scrap_cost = data[1]
+	var/food_cost = data[2]
+
+	if(available_scrap < scrap_cost || available_food < food_cost)
+		to_chat(user, SPAN_WARNING("The nest does not have enough resources to make this!"))
+		return
+
+	if(!do_after(user, 5 SECONDS, target = src))
+		return
+
+	available_scrap -= scrap_cost
+	available_food -= food_cost
+
+	if(data.len >= 3)
+		new path(get_turf(src), data[3])
+	else
+		new path(get_turf(src))
+
+/obj/structure/uplifted_primitive/nest/proc/build_crafting_caches()
+	var/choices = list()
+	var/mapping = list()
+	for(var/path in crafting_items)
+		var/list/data = crafting_items[path]
+		var/list/costs = list()
+
+		if(data[1] > 0)
+			costs += "[data[1]] scrap"
+		if(data[2] > 0)
+			costs += "[data[2]] food"
+
+		var/key = "[path:name] ([costs.Join(", ")])"
+		choices[key] = image(icon = path:icon, icon_state = path:icon_state)
+		mapping[key] = path
+	crafting_choices_cache = choices
+	crafting_mapping_cache = mapping
+
 /obj/structure/uplifted_primitive/nest/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!user.mind || !user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive))
 		return NONE
@@ -226,7 +292,7 @@
 			if(nest_species.dietflags & C.diet_flags)
 				potential_food += C.nutriment_factor
 
-	var/obj/item/uplifted_nest_bundle/scrap_ball = used
+	var/obj/item/uplifted/nest_bundle/scrap_ball = used
 	if(istype(scrap_ball))
 		potential_scrap += scrap_ball.scrap
 		potential_food += scrap_ball.food
@@ -281,29 +347,6 @@
 		var/datum/ai_controller/monkey/M = defender.ai_controller
 		if(istype(M))
 			M.retaliate(attacker)
-
-/obj/item/uplifted_nest_bundle
-	name = "bundle of junk"
-	desc = "A loosely put together collection of scrap metal and food items."
-
-	icon = 'icons/obj/uplifted_primitive.dmi'
-	icon_state = "bundle"
-
-	w_class = WEIGHT_CLASS_SMALL
-
-	var/scrap = 0
-	var/food = 0
-
-/obj/item/uplifted_nest_bundle/Initialize(mapload, new_scrap, new_food)
-	. = ..()
-	scrap = new_scrap
-	food = new_food
-
-/obj/item/uplifted_nest_bundle/examine(mob/user)
-	. = ..()
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/uplifted_primitive))
-		. += SPAN_NOTICE("It contains [scrap] units of scrap.")
-		. += SPAN_NOTICE("It contains [food] units of food.")
 
 #undef INTEGRITY_REGEN_AMOUNT
 #undef INTEGRITY_REGEN_SCRAP_COST
