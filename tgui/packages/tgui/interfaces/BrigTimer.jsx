@@ -3,7 +3,6 @@ import { Box, Button, Divider, Dropdown, LabeledList, Section, Stack } from 'tgu
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { spaceLaw } from './common/SpaceLaw';
 
 export const BrigTimer = (props) => {
   const { act, data } = useBackend();
