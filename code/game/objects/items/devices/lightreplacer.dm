@@ -44,6 +44,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=3;engineering=4"
 	force = 8
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 3000)
 	var/max_uses = 20
 	var/uses = 10
 	/// How much to increase per each glass?
@@ -157,6 +158,7 @@
 
 /obj/item/lightreplacer/update_icon_state()
 	icon_state = "lightreplacer[emagged]"
+	belt_icon = emagged ? "light_replacer_red" : "light_replacer"
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."
@@ -249,7 +251,9 @@
 	name = "bluespace light replacer"
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
 	icon_state = "lightreplacer_blue"
+	belt_icon = "light_replacer_blue"
 	bluespace_toggle = TRUE
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 
 /obj/item/lightreplacer/bluespace/emag_act()
 	return  // long range explosions are stupid

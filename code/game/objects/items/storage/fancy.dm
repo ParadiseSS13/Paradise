@@ -153,6 +153,21 @@
 	new /obj/item/toy/crayon/black(src)
 	update_icon()
 
+/obj/item/storage/fancy/crayons/marine
+	name = "box of TSF Standard Issue crayons"
+	desc = "A box of a SolGov Marine's favorite mid-operational snack."
+
+/obj/item/storage/fancy/crayons/marine/populate_contents()
+	new /obj/item/toy/crayon/white/marine(src)
+	new /obj/item/toy/crayon/red/marine(src)
+	new /obj/item/toy/crayon/orange/marine(src)
+	new /obj/item/toy/crayon/yellow/marine(src)
+	new /obj/item/toy/crayon/green/marine(src)
+	new /obj/item/toy/crayon/blue/marine(src)
+	new /obj/item/toy/crayon/purple/marine(src)
+	new /obj/item/toy/crayon/black/marine(src)
+	update_icon()
+
 /obj/item/storage/fancy/crayons/update_overlays()
 	. = ..()
 	. += image('icons/obj/crayons.dmi',"crayonbox")
@@ -212,7 +227,7 @@
 //	MARK: Cigarette Pack
 /obj/item/storage/fancy/cigarettes
 	name = "generic cigarette packet"
-	desc = "An abstract brand of cigarette that should not exist. Make a GitHub report if you see this."
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "robust_packet"
 	inhand_icon_state = "robust_packet"

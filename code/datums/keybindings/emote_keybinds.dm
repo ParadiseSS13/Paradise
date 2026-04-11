@@ -275,6 +275,10 @@
 	linked_emote = /datum/emote/living/carbon/sign
 	name = "Sign"
 
+/datum/keybinding/emote/carbon/gulp
+	linked_emote = /datum/emote/living/carbon/gulp
+	name = "Gulp"
+
 /datum/keybinding/emote/carbon/alien
 	category = KB_CATEGORY_EMOTE_ALIEN
 

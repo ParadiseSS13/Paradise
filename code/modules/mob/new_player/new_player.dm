@@ -60,9 +60,9 @@
 
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)
-			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+			output += "<p><a href='byond://?src=[UID()];ready=1'><font color='lime'><b>Declare Ready</b></font></a></p>"
 		else
-			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'><font color='orange'><b>Cancel</b></font></a>)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
@@ -168,7 +168,7 @@
 			to_chat(usr, SPAN_WARNING("You must wait for the server to finish starting before you can join!"))
 			return FALSE
 
-		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
+		if(alert(usr, "Are you sure you wish to observe? There may be a delay before you can attempt to rejoin.", "Observe", "Yes", "No") == "Yes")
 			if(!client)
 				return TRUE
 			var/mob/dead/observer/observer = new(src, GHOST_FLAGS_START_AS_OBSERVER)

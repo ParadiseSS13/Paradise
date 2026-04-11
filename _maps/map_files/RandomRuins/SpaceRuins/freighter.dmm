@@ -336,10 +336,8 @@
 /area/ruin/space/powered)
 "As" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/random,
-/obj/effect/spawner/random/book{
-	pixel_x = -7
-	},
+/obj/effect/spawner/random/manual,
+/obj/effect/spawner/random/reference_book,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,

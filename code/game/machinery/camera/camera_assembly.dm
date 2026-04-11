@@ -11,7 +11,7 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "cameracase"
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=400, MAT_GLASS=250)
+	materials = list(MAT_METAL = 400, MAT_GLASS = 250)
 	//	Motion, EMP-Proof
 	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma)
 	var/list/upgrades = list()

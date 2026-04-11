@@ -125,8 +125,17 @@
 		rigged = FALSE
 		return TRUE
 
-/obj/structure/closet/crate/welder_act()
-	return
+/obj/structure/closet/crate/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!opened && user.loc == src)
+		to_chat(user, SPAN_WARNING("You can't weld [src] from inside!"))
+		return
+	if(!I.tool_use_check(user, 0) || !opened)
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		deconstruct(TRUE)
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
@@ -495,6 +504,13 @@
 	icon_state = "hydrosecurecrate"
 	icon_opened = "hydrosecurecrate_open"
 	icon_closed = "hydrosecurecrate"
+
+/obj/structure/closet/crate/secure/medisec
+	desc = "A secure medical crate."
+	name = "secure medical crate"
+	icon_state = "medicalsecurecrate"
+	icon_opened = "medicalsecurecrate_open"
+	icon_closed = "medicalsecurecrate"
 
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."

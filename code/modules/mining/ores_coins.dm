@@ -370,12 +370,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	force = 1
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
 	var/name_by_cmineral = TRUE
 	var/cooldown = 0
 	var/credits = 10
+	var/has_action = FALSE
+	var/heads_name = "heads"
 
 /obj/item/coin/Initialize(mapload)
 	. = ..()
@@ -420,10 +423,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(!QDELETED(src) && !P.nodamage && (P.damage_type == BURN))
 		log_and_set_aflame(P.firer, P)
 
-/obj/item/coin/plasma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(!I.get_heat())
-		return ..()
-	log_and_set_aflame(user, I)
+/obj/item/coin/plasma/attack_by(obj/item/attacking, mob/user, params)
+	if(..() || !attacking.get_heat())
+		return FINISH_ATTACK
+	log_and_set_aflame(user, attacking)
 
 /obj/item/coin/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
 	var/turf/T = get_turf(src)
@@ -491,14 +494,17 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	sideslist = list("valid", "salad")
 	credits = 20
 	name_by_cmineral = FALSE
+	heads_name = "valid"
 
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"
 	credits = 160
 
-/obj/item/coin/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/CC = W
+/obj/item/coin/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(istype(attacking, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/CC = attacking
 		if(string_attached)
 			to_chat(user, SPAN_NOTICE("There already is a string attached to this coin."))
 			return
@@ -511,7 +517,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			to_chat(user, SPAN_WARNING("You need one length of cable to attach a string to the coin."))
 			return
 
-	else if(istype(W,/obj/item/wirecutters))
+	else if(istype(attacking, /obj/item/wirecutters))
 		if(!string_attached)
 			..()
 			return
@@ -543,8 +549,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		user.put_in_hands(ring)
 
 
-/obj/item/coin/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/coin/activate_self(mob/user)
+	if(..())
+		return
 	if(cooldown < world.time - 15)
+		if(string_attached) //does the coin have a wire attached
+			to_chat(user, "<span class='warning'>The coin won't flip very well with something attached!</span>" )
+			return FALSE//do not flip the coin
 		var/coinflip = pick(sideslist)
 		cooldown = world.time
 		flick("coin_[cmineral]_flip", src)
@@ -553,10 +564,80 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		if(cmineral != "tranquillite")
 			playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
 			blind_sound = SPAN_NOTICE("You hear the clattering of loose change.")
-		if(do_after(user, 15, target = src))
+		if(do_after(user, 15, target = src, allow_moving = TRUE))
 			user.visible_message(SPAN_NOTICE("[user] has flipped [src]. It lands on [coinflip]."), \
 								SPAN_NOTICE("You flip [src]. It lands on [coinflip]."), \
 								blind_sound)
+		if(has_action)
+			if(coinflip == heads_name)
+				heads_action(user)
+			else
+				tails_action(user)
+
+/obj/item/coin/proc/heads_action(mob/user)
+	return
+
+/obj/item/coin/proc/tails_action(mob/user)
+	return
+
+/obj/item/coin/eldritch
+	name = "eldritch coin"
+	desc = "A surprisingly heavy, ornate coin. Its sides seem to depict a different image each time you look."
+	icon_state = "coin_heretic_heretic"
+	cmineral = "heretic"
+	materials = list(MAT_DIAMOND = 1000, MAT_PLASMA = 1000)
+	sideslist = list("heretic", "blade")
+	heads_name = "heretic"
+	has_action = TRUE
+	/// The range at which airlocks are effected.
+	var/airlock_range = 5
+
+/obj/item/coin/eldritch/heads_action(mob/user)
+	var/mob/living/living_user = user
+	if(!IS_HERETIC(user))
+		living_user.adjustBruteLoss(5)
+		if(prob(90))
+			return
+	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
+		if(target_airlock.density)
+			INVOKE_ASYNC(src, PROC_REF(try_open_airlock), target_airlock)
+			continue
+		INVOKE_ASYNC(src, PROC_REF(try_close_airlock), target_airlock)
+
+/obj/item/coin/eldritch/proc/try_open_airlock(obj/machinery/door/airlock/ourlock)
+	ourlock.open()
+
+/obj/item/coin/eldritch/proc/try_close_airlock(obj/machinery/door/airlock/ourlock)
+	if(ourlock.safe)
+		ourlock.safe = FALSE
+	ourlock.close()
+	ourlock.safe = TRUE
+
+/obj/item/coin/eldritch/tails_action(mob/user)
+	var/mob/living/living_user = user
+	if(!IS_HERETIC(user))
+		living_user.adjustFireLoss(5)
+		if(prob(90))
+			return
+	for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, user))
+		if(target_airlock.locked)
+			target_airlock.unlock()
+			continue
+		target_airlock.lock()
+
+/obj/item/coin/eldritch/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/machinery/door/airlock))
+		return NONE
+	if(!IS_HERETIC(user))
+		user.adjustBruteLoss(5)
+		user.adjustFireLoss(5)
+		return ITEM_INTERACT_COMPLETE
+	var/obj/machinery/door/airlock/target_airlock = target
+	to_chat(user, SPAN_WARNING("You insert [src] into the airlock."))
+	target_airlock.emag_act(user, src)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
 
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM

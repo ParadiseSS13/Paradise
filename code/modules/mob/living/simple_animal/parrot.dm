@@ -118,7 +118,10 @@
 		/obj/structure/computerframe,
 		/obj/structure/displaycase,
 		/obj/structure/rack,
-		/obj/structure/closet/crate
+		/obj/structure/closet/crate,
+		/obj/machinery/atmospherics/fission_reactor,
+		/obj/machinery/atmospherics/fission_reactor/roundstart,
+		/obj/machinery/atmospherics/reactor_chamber
 	)) - typecacheof(list(
 		/obj/machinery/computer/security/telescreen,
 		/obj/machinery/computer/cryopod,

@@ -5,8 +5,8 @@
 	destroy_on_removal = TRUE
 	var/tumor_size = 0 //Changed in New to be dependent on amount of osseous reagent in the system when formed, determines damage done
 
-/obj/item/organ/internal/bone_tumor/New(mob/living/carbon/holder)
-	..()
+/obj/item/organ/internal/bone_tumor/Initialize(mapload, mob/living/carbon/holder)
+	. = ..()
 	tumor_size = owner.reagents.get_reagent_amount("osseous_reagent")
 	owner.reagents.remove_all_type(/datum/reagent/medicine/osseous_reagent, tumor_size)
 
@@ -30,4 +30,3 @@
 
 /obj/item/organ/internal/bone_tumor/slime_tumor
 	name = "crystalized slime jelly"
-

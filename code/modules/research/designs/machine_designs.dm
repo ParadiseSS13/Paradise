@@ -62,6 +62,16 @@
 	build_path = /obj/item/circuitboard/smes
 	category = list ("Engineering Machinery")
 
+/datum/design/transformer
+	name = "Machine Board (Electrical Transformer)"
+	desc = "The circuit board for an electrical transformer."
+	id = "ptransformer"
+	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/transformer
+	category = list ("Engineering Machinery")
+
 /datum/design/emitter
 	name = "Machine Board (Emitter)"
 	desc = "The circuit board for an emitter."
@@ -509,6 +519,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/deepfryer
+	category = list("Misc. Machinery")
+
+/datum/design/stovetop
+	name = "Machine Board (Stovetop)"
+	desc = "The circuit board for a Stovetop."
+	id = "stove"
+	req_tech = list("biotech" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/cooking/stove
 	category = list("Misc. Machinery")
 
 /datum/design/orion_trail

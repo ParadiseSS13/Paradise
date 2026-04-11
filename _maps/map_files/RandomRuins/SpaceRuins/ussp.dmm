@@ -2199,7 +2199,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fL" = (
-/obj/structure/sign/nosmoking_1,
+/obj/structure/sign/nosmoking,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "fM" = (
@@ -2339,6 +2339,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
+"ge" = (
+/obj/structure/sign/service/bar,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/crew_quarters)
 "gf" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -2816,10 +2820,7 @@
 	},
 /area/ruin/space/derelict/solar_control)
 "ht" = (
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = 7
-	},
+/obj/structure/sign/security,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "hu" = (
@@ -4446,7 +4447,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "lz" = (
-/obj/structure/sign/botany,
+/obj/structure/sign/service/botany,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "lA" = (
@@ -4831,10 +4832,6 @@
 /turf/simulated/floor/plasteel/fakestairs{
 	dir = 1
 	},
-/area/ruin/space/derelict/arrival)
-"mK" = (
-/obj/structure/sign/directions/medical,
-/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "mL" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -5944,7 +5941,7 @@
 /turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
 "qh" = (
-/obj/structure/sign/examroom,
+/obj/structure/sign/medical/examroom,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qi" = (
@@ -6002,7 +5999,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qs" = (
-/obj/structure/sign/nosmoking_2,
+/obj/structure/sign/nosmoking/alt,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "qt" = (
@@ -6330,7 +6327,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "ro" = (
-/obj/structure/sign/greencross,
+/obj/structure/sign/medical,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "rp" = (
@@ -6815,6 +6812,10 @@
 	},
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"tc" = (
+/obj/structure/sign/security/armory,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/arrival)
 "vm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/ussp,
@@ -6858,6 +6859,30 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"HM" = (
+/obj/structure/sign/engineering,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/hallway/primary)
+"KH" = (
+/obj/structure/sign/command,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/hallway/primary)
+"Lb" = (
+/obj/structure/sign/public/laundry,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/crew_quarters)
+"Ld" = (
+/obj/structure/sign/service/chapel,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/crew_quarters)
+"Lk" = (
+/obj/structure/sign/cargo/dock,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/hallway/primary)
+"Mh" = (
+/obj/structure/sign/service/kitchen,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/hallway/primary)
 "Mi" = (
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
@@ -6886,6 +6911,17 @@
 /obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
+"UY" = (
+/obj/structure/sign/command/conference,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
+/area/ruin/space/derelict/bridge)
+"Xb" = (
+/obj/structure/sign/cargo/dock{
+	pixel_x = -32;
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/arrival)
 "XQ" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -6903,6 +6939,13 @@
 	},
 /mob/living/basic/pirate/ranged,
 /turf/simulated/floor/plasteel/white/airless,
+/area/ruin/space/derelict/arrival)
+"YC" = (
+/obj/structure/sign/cargo/dock{
+	pixel_x = -32;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "Za" = (
 /obj/structure/chair/comfy/shuttle{
@@ -7802,12 +7845,12 @@ bn
 hI
 hX
 iv
-hY
+YC
 jo
 jU
 kN
 hY
-hY
+Xb
 me
 mu
 bn
@@ -7904,7 +7947,7 @@ lw
 hY
 mf
 mv
-bn
+ro
 mR
 ni
 nw
@@ -8280,7 +8323,7 @@ lx
 iV
 iz
 mx
-mK
+bn
 mU
 nl
 nx
@@ -9004,7 +9047,7 @@ aW
 bn
 cm
 cA
-El
+tc
 cA
 do
 dD
@@ -9119,7 +9162,7 @@ ac
 ac
 ac
 dW
-eg
+Lk
 kg
 eg
 dW
@@ -10702,7 +10745,7 @@ cS
 cS
 cS
 cS
-dX
+KH
 ej
 ew
 eT
@@ -10798,7 +10841,7 @@ ac
 ac
 dW
 eg
-eg
+HM
 eU
 fp
 eg
@@ -10826,7 +10869,7 @@ eg
 eg
 ow
 oO
-eg
+Mh
 eg
 dW
 ac
@@ -11160,7 +11203,7 @@ ac
 al
 am
 am
-am
+UY
 by
 am
 am
@@ -11938,11 +11981,11 @@ eg
 eg
 ik
 iI
-eg
+HM
 jG
 kw
 li
-eg
+Mh
 lV
 mq
 eg
@@ -12485,7 +12528,7 @@ bm
 bm
 bm
 bm
-bm
+Lb
 db
 db
 ea
@@ -12874,7 +12917,7 @@ gm
 gF
 eD
 hm
-bm
+ge
 bm
 bm
 bm
@@ -13356,7 +13399,7 @@ eD
 lY
 mt
 mE
-bm
+Ld
 nh
 nv
 nE

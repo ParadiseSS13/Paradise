@@ -224,9 +224,8 @@
 			var/mouth_covered = victim.is_mouth_covered()
 			var/eyes_covered = victim.is_eyes_covered()
 
-			if(!mouth_covered)
+			if(!mouth_covered && !(victim.flags & GODMODE))
 				victim.apply_status_effect(STATUS_EFFECT_PEPPERSPRAYED)
-
 			if(!eyes_covered)
 				to_chat(victim, SPAN_DANGER("Your eyes burns!"))
 				victim.Stun(0.5 SECONDS)

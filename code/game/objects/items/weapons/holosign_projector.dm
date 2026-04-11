@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	origin_tech = "magnets=1;programming=3"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 	flags = NOBLUDGEON
 	var/list/signs = list()
 	var/max_signs = 6

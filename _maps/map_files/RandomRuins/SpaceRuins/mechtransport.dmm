@@ -205,7 +205,7 @@
 /area/ruin/space/mech_transport)
 "qE" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sign/nosmoking_1{
+/obj/structure/sign/nosmoking{
 	pixel_x = 32
 	},
 /obj/effect/mapping_helpers/turfs/burn,

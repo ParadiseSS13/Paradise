@@ -422,5 +422,5 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)
 		scan.forceMove(get_turf(src))
-	var/mob/living/simple_animal/hostile/mimic/copy/M = new(loc, src, null, 1) // it will delete src on creation and override any machine checks
+	var/mob/living/basic/mimic/copy/M = new(loc, src, null, 1) // it will delete src on creation and override any machine checks
 	M.name = "angry fax machine"

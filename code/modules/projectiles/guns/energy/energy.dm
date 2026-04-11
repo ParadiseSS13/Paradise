@@ -27,7 +27,7 @@
 /obj/item/gun/energy/gun/examine_more(mob/user)
 	..()
 	. = list()
-	. += "A hybrid fire laser gun designed and patentend by Shellguard Munitions Co. Initally designed after market demand for a versatile weapon that merges disabler and laser \
+	. += "A hybrid fire laser gun designed and patented by Shellguard Munitions Co. Initally designed after market demand for a versatile weapon that merges disabler and laser \
 	functions without the need for switching weapons during active threats. This would cause the company to experiment and produce a weapon to fit between Shellguard's own disabler and LG series weapons. \
 	This led to the creation of the EG series, positioning the EG-7 as a flagship model intended to eventually replace Shellguard's disabler pistols and LG series weapons."
 	. += ""
@@ -36,7 +36,7 @@
 	This design shift would evolve Shellguard’s traditional military style, aligning more with the aesthetics preferred by corporations which value clean, sharp, and modern looking weapons."
 	. += ""
 	. += "In modern times, the EG-7 is staple weapon among corporate security forces thanks to its relatively low price, dual fire modes, and customization potential (despite Shellguard's disclaimer that \
-	tampering with the weapon void's its warranty and can potentially damage the gun itself)."
+	tampering with the weapon voids its warranty and can potentially damage the gun itself)."
 
 /obj/item/gun/energy/gun/cyborg
 	name = "mounted EG-7 energy gun"
@@ -72,7 +72,7 @@
 	It is is commonly found in the pockets of private individuals and corporate management alike."
 	. += ""
 	. += "The pistol packs the same punch as its bigger brother, but the compact frame has come at the cost of a smaller power cell, making it less suitable for extended engagements. \
-	Despite this, it is responsible for thwarting numerous attempted muggings, kidnappings, and assassinations across the Sector ever year."
+	Despite this, it is responsible for thwarting numerous attempted muggings, kidnappings, and assassinations across the Sector every year."
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	gun_light = new /obj/item/flashlight/seclite(src)

@@ -19,7 +19,7 @@
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
 	var/heat_resistance = 800
-	var/decon_speed = null
+	var/decon_speed = 2 SECONDS
 	var/fulltile = FALSE
 	var/shardtype = /obj/item/shard
 	var/glass_decal = /obj/effect/decal/cleanable/glass
@@ -41,7 +41,8 @@
 	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 	/// How much we get activated by gamma radiation
 	var/rad_conversion_amount = 0
-
+	/// Are we boarded up?
+	var/barricaded = FALSE
 
 /obj/structure/window/rad_act(atom/source, amount, emission_type)
 	if(emission_type == GAMMA_RAD && amount * rad_conversion_amount > RAD_BACKGROUND_RADIATION)
@@ -78,9 +79,6 @@
 
 	if(fulltile)
 		setDir()
-
-	if(decon_speed == null && fulltile)
-		decon_speed = 2 SECONDS
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
@@ -219,6 +217,10 @@
 		return
 
 	add_fingerprint(user)
+	if(istype(I, /obj/item/stack/sheet/wood))
+		build_barricade(user, I)
+		return
+
 	if(istype(I, /obj/item/stack/rods) && user.a_intent == INTENT_HELP)
 		for(var/obj/structure/grille/G in get_turf(src))
 			if(!G.broken)
@@ -256,7 +258,6 @@
 					take_damage(75)
 	else
 		return ..()
-
 
 /obj/structure/window/crowbar_act(mob/user, obj/item/I)
 	if(!reinf)
@@ -523,6 +524,43 @@
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
 
+/obj/structure/window/proc/build_barricade(mob/living/user, obj/item/stack/sheet/wood/used)
+	if(!fulltile)
+		return
+
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
+		return
+
+	if(used.get_amount() < 2)
+		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
+		return
+
+	if(!density)
+		to_chat(user, SPAN_WARNING("[src] needs to be secured before it can be barricaded!"))
+		return
+
+	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
+	if(!do_after_once(user, 4 SECONDS, target = src))
+		return
+
+	/// Quick checks to make sure nothing has changed during the timer.
+	if(!density || barricaded)
+		return
+
+	if(!used.use(2))
+		to_chat(user, SPAN_WARNING("You've run out of planks!"))
+		return
+
+	user.visible_message(
+		SPAN_WARNING("[user] boards up [src]!"),
+		SPAN_NOTICE("You board up [src]."),
+		SPAN_WARNING("You hear planks being nailed into something!")
+	)
+	var/obj/structure/barricade/wooden/crude/boards = new(loc)
+	boards.add_fingerprint(user)
+	barricaded = TRUE
+
 /obj/structure/window/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Lacks protection from radiation."
 
@@ -536,6 +574,12 @@
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
+
+// You can't rust glass! So only reinforced glass can be impacted.
+/obj/structure/window/reinforced/rust_heretic_act()
+	color = COLOR_RUSTED_GLASS
+	take_damage(obj_integrity * 0.5)
+	max_integrity = max_integrity * 0.5
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
@@ -553,6 +597,19 @@
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	glass_amount = 2
 	var/id
+
+/obj/structure/window/reinforced/indestructible
+	resistance_flags = INDESTRUCTIBLE
+	env_smash_level = INFINITY // I am invincible!
+
+/obj/structure/window/reinforced/indestructible/screwdriver_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/window/reinforced/indestructible/crowbar_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/window/reinforced/indestructible/ex_act(severity)
+	return
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
@@ -652,6 +709,7 @@
 	heat_resistance = 32000
 	max_integrity = 150
 	explosion_block = 1
+	decon_speed = 3 SECONDS
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -669,6 +727,7 @@
 	heat_resistance = 32000
 	max_integrity = 500
 	explosion_block = 2
+	decon_speed = 5 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -688,6 +747,7 @@
 	heat_resistance = 32000
 	max_integrity = 600
 	explosion_block = 2
+	decon_speed = 7 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -709,6 +769,20 @@
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
 
+/obj/structure/window/full/screwdriver_act(mob/user, obj/item/I)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("There's boards in the way of [src]'s screws!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	return ..()
+
+/obj/structure/window/full/crowbar_act(mob/user, obj/item/I)
+	if(barricaded)
+		to_chat(user, SPAN_WARNING("There's boards stopping you from levering [src]!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	return ..()
+
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Has very light protection from radiation"
 	icon = 'icons/obj/smooth_structures/windows/window.dmi'
@@ -729,6 +803,7 @@
 	heat_resistance = 32000
 	max_integrity = 300
 	explosion_block = 1
+	decon_speed = 3 SECONDS
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
@@ -750,6 +825,7 @@
 	heat_resistance = 32000
 	max_integrity = 1000
 	explosion_block = 2
+	decon_speed = 5 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
@@ -800,6 +876,7 @@
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
+	decon_speed = 6 SECONDS
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 100, FIRE = 80, ACID = 100)
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
@@ -823,6 +900,7 @@
 	max_integrity = 1200
 	reinf = TRUE
 	heat_resistance = 32000
+	decon_speed = 7 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass

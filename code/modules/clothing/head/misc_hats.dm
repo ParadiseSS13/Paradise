@@ -204,8 +204,10 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
+
 
 /obj/item/clothing/head/cowboyhat/Initialize(mapload)
 	. = ..()
@@ -241,6 +243,31 @@
 	desc = "For the Farmer in us all."
 	icon_state = "cowboyhat_botany"
 
+/obj/item/clothing/head/cowboyhat/engie
+	name = "engineering cowboy hat"
+	desc = "The Supermatter is just another bull to lasso."
+	icon_state = "cowboyhat_engie"
+
+/obj/item/clothing/head/cowboyhat/research
+	name = "research cowboy hat"
+	desc = "Bluespace is kind of a new frontier if you think about it."
+	icon_state = "cowboyhat_sci"
+
+/obj/item/clothing/head/cowboyhat/med
+	name = "medical cowboy hat"
+	desc = "Every gunslinger needs a medic after he gets hit."
+	icon_state = "cowboyhat_med"
+
+/obj/item/clothing/head/cowboyhat/supply
+	name = "supply cowboy hat"
+	desc = "Can't have gunslingers without someone to bring them guns."
+	icon_state = "cowboyhat_supply"
+
+/obj/item/clothing/head/cowboyhat/command
+	name = "command cowboy hat"
+	desc = "You're the real sheriff 'round these parts."
+	icon_state = "cowboyhat_command"
+
 /obj/item/clothing/head/fedora
 	name = "fedora"
 	desc = "A great hat ruined by being within fifty yards of you."
@@ -255,8 +282,12 @@
 	. = ..()
 	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
-/obj/item/clothing/head/fedora/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/fedora/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	tip_fedora(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_HEAD)
@@ -439,6 +470,14 @@
 	dog_fashion = /datum/dog_fashion/head/cone
 	magical = TRUE // It's pointy, it's funny!
 	materials = list(MAT_PLASTIC = 10000)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		)
 
 /obj/item/clothing/head/jester
 	name = "jester hat"
@@ -472,8 +511,12 @@
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 	actions_types = list(/datum/action/item_action/caw)
 
-/obj/item/clothing/head/griffin/attack_self__legacy__attackchain()
+/obj/item/clothing/head/griffin/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	caw()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks

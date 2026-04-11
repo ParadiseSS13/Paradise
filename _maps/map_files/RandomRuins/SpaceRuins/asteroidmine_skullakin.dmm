@@ -2139,7 +2139,7 @@
 /area/ruin/skullakin_mine/temple)
 "RJ" = (
 /obj/structure/table/glass,
-/obj/effect/spawner/random/book,
+/obj/effect/spawner/random/reference_book,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "RL" = (

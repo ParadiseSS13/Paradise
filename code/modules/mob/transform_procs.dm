@@ -200,12 +200,13 @@
 	new_corgi.update_pipe_vision()
 	qdel(src)
 
-/mob/living/carbon/human/Animalize()
-
-	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a Type", mobtypes)
-
+/mob/living/carbon/human/Animalize(mob/living/mob_type)
+	var/mobpath = mob_type
 	if(!mobpath)
+		var/list/mobtypes = typesof(/mob/living/simple_animal)
+		mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a Type", mobtypes)
+
+	if(!ispath(mobpath, /mob/living))
 		return
 
 	if(notransform)
@@ -221,7 +222,7 @@
 	for(var/t in bodyparts)
 		qdel(t)
 
-	var/mob/new_mob = new mobpath(src.loc)
+	var/mob/new_mob = new mobpath(loc)
 
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
@@ -229,16 +230,17 @@
 	new_mob.update_pipe_vision()
 	qdel(src)
 
-/mob/proc/Animalize()
-
-	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	mobtypes |= subtypesof(/mob/living/basic)
-	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a Type", mobtypes)
-
+/mob/proc/Animalize(mob/living/mob_type)
+	var/mobpath = mob_type
 	if(!mobpath)
+		var/list/mobtypes = typesof(/mob/living/simple_animal)
+		mobtypes |= subtypesof(/mob/living/basic)
+		mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a Type", mobtypes)
+
+	if(!ispath(mobpath, /mob/living))
 		return
 
-	var/mob/new_mob = new mobpath(src.loc)
+	var/mob/new_mob = new mobpath(loc)
 
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM

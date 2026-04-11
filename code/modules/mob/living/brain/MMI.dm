@@ -5,6 +5,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
 	origin_tech = "biotech=2;programming=3;engineering=2"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	new_attack_chain = TRUE
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.

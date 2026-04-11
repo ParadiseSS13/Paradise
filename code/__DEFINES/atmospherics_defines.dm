@@ -18,8 +18,8 @@
 /// -14C - Temperature used for kitchen cold room, medical freezer, etc.
 #define COLD_ROOM_TEMP			259.15
 
-/// -193C - Temperature used for server rooms
-#define SERVER_ROOM_TEMP			80
+/// 1C - Temperature used for server rooms
+#define SERVER_ROOM_TEMP			274
 
 #define MOLES_CELLSTANDARD		(ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))	//moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO		(MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
@@ -199,3 +199,13 @@
 #define ONLY_CHECK_EXT_PRESSURE 1
 /// Only release until we reach this pressure
 #define ONLY_CHECK_INT_PRESSURE 2
+
+// Defines to identify each individual gas (used for death_gas component)
+#define SPAWN_GAS_OXYGEN "oxygen"
+#define SPAWN_GAS_NITROGEN "nitrogen"
+#define SPAWN_GAS_N2O "sleepy_gas"
+#define SPAWN_GAS_CO2 "carbon_dioxide"
+#define SPAWN_GAS_PLASMA "plasma"
+#define SPAWN_GAS_AGENTB "plasma"
+#define SPAWN_GAS_HYDROGEN "hydrogen"
+#define SPAWN_GAS_WATER "water_vapor"

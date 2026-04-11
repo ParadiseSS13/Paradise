@@ -1400,6 +1400,9 @@
 "hZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
+/obj/structure/sign/security{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/deepstorage)
 "ia" = (
@@ -2001,6 +2004,12 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
+"mP" = (
+/obj/structure/sign/service/kitchen{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/deepstorage)
 "mQ" = (
 /mob/living/simple_animal/hostile/spaceinfected/default/ranged,
 /turf/simulated/floor/plasteel/dark,
@@ -2468,6 +2477,13 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/deepstorage)
+"qP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/security{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/deepstorage)
 "qQ" = (
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/random/maintenance,
@@ -2720,6 +2736,9 @@
 /obj/structure/table/glass,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/tiles/department/security/corner,
+/obj/structure/sign/medical/morgue{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/deepstorage)
 "tb" = (
@@ -2923,6 +2942,13 @@
 /area/ruin/space/deepstorage)
 "uf" = (
 /turf/simulated/floor/mineral/titanium,
+/area/ruin/space/deepstorage)
+"uk" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/sign/medical{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
 "un" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -3686,6 +3712,9 @@
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 4
 	},
+/obj/structure/sign/security/evidence{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/deepstorage)
 "Ao" = (
@@ -4229,7 +4258,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/structure/sign/engineering{
+/obj/structure/sign/engineering/power{
 	pixel_y = 32
 	},
 /turf/simulated/floor/catwalk/airless,
@@ -4417,6 +4446,16 @@
 /obj/item/defibrillator,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
+"Fz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/structure/sign/security/interrogation{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/deepstorage)
 "FC" = (
 /obj/structure/railing{
 	dir = 8
@@ -4478,6 +4517,13 @@
 	dir = 6
 	},
 /turf/simulated/floor/catwalk,
+/area/ruin/space/deepstorage)
+"Gz" = (
+/obj/effect/turf_decal/tiles/department/security/corner,
+/obj/structure/sign/medical/virology{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/deepstorage)
 "GA" = (
 /obj/item/bedsheet,
@@ -5001,9 +5047,6 @@
 /area/ruin/space/deepstorage)
 "Lh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/greencross{
-	pixel_y = 32
-	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
@@ -5232,6 +5275,13 @@
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/deepstorage)
+"Ny" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/public/restroom{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/deepstorage)
 "NN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/partial,
@@ -5362,6 +5412,10 @@
 "OU" = (
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
+/area/ruin/space/deepstorage)
+"Pe" = (
+/obj/structure/sign/public/reception,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/deepstorage)
 "Pi" = (
 /obj/structure/railing,
@@ -5697,7 +5751,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
 "Ry" = (
-/obj/structure/sign/custodian{
+/obj/structure/sign/service/custodian{
 	pixel_x = 32
 	},
 /mob/living/simple_animal/hostile/spaceinfected/default/ranged,
@@ -5880,6 +5934,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/dark/side,
 /turf/simulated/floor/plasteel,
+/area/ruin/space/deepstorage)
+"Ty" = (
+/obj/structure/sign/public/arrivals,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/deepstorage)
 "TE" = (
 /obj/effect/turf_decal/tiles/dark/corner{
@@ -6271,6 +6329,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/deepstorage)
+"WF" = (
+/obj/structure/sign/service/botany,
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/deepstorage)
 "WG" = (
 /obj/machinery/door/window,
 /turf/simulated/floor/catwalk,
@@ -6304,6 +6366,16 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/deepstorage)
+"WL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/service/kitchen{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/deepstorage)
@@ -6449,6 +6521,15 @@
 	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel/white,
+/area/ruin/space/deepstorage)
+"XR" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/obj/structure/sign/security/armory{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/deepstorage)
 "XS" = (
 /obj/structure/window/reinforced{
@@ -8056,7 +8137,7 @@ Zf
 Sl
 Bf
 WH
-Zf
+Gz
 Zf
 Zf
 Bf
@@ -9051,7 +9132,7 @@ QR
 ht
 eh
 jB
-eh
+uk
 dd
 jB
 sk
@@ -10442,11 +10523,11 @@ mu
 bw
 bw
 jB
-jB
+Ty
 av
 Gl
 Je
-jB
+Ty
 jB
 bw
 bw
@@ -10756,7 +10837,7 @@ bl
 QL
 IN
 wh
-wh
+mP
 jB
 AV
 Aw
@@ -10825,7 +10906,7 @@ fk
 Vv
 Qi
 or
-jB
+WF
 wh
 wh
 jB
@@ -11048,7 +11129,7 @@ tq
 Ut
 bP
 jB
-Uk
+WL
 bP
 cT
 jB
@@ -11322,7 +11403,7 @@ SC
 xZ
 tu
 jB
-bP
+Ny
 bP
 wh
 jB
@@ -11435,12 +11516,12 @@ bU
 bU
 vL
 nM
-jB
+Pe
 bP
 wh
 dd
 bP
-bP
+qP
 jB
 LT
 aQ
@@ -11748,7 +11829,7 @@ tu
 xZ
 pL
 jB
-bP
+Ny
 wh
 jB
 Tb
@@ -12076,12 +12157,12 @@ Al
 Ai
 dt
 Ai
-Ai
+Fz
 GJ
 FE
 oB
 Ai
-GJ
+XR
 Ai
 Ai
 GJ

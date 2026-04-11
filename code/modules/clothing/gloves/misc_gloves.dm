@@ -171,20 +171,23 @@
 	if(cell)
 		. += "gloves_cell"
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby__legacy__attackchain(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		if(!cell)
-			if(!user.drop_item())
-				to_chat(user, SPAN_WARNING("[W] is stuck to you!"))
-				return
-			W.forceMove(src)
-			cell = W
-			to_chat(user, SPAN_NOTICE("You attach [W] to [src]."))
-			update_icon(UPDATE_OVERLAYS)
-		else
-			to_chat(user, SPAN_NOTICE("[src] already has a cell."))
-	else
+/obj/item/clothing/gloves/color/yellow/stun/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stock_parts/cell))
 		return ..()
+
+	if(cell)
+		to_chat(user, SPAN_WARNING("[src] already has a cell!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to you!"))
+		return ITEM_INTERACT_COMPLETE
+
+	used.forceMove(src)
+	cell = used
+	to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
+	update_icon(UPDATE_OVERLAYS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
