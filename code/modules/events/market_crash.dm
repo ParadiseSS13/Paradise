@@ -17,7 +17,7 @@
 		"vox",
 		"a clown college graduation party",
 		"a Trans-Solar Federation investigation",
-		"too many credits being invested in WetSkell.nt",
+		"too many credits being invested in WetSkrell.nt",
 	)
 
 	GLOB.minor_announcement.Announce("Due to [pick(possible_reasons)], prices for on-station vendors will be increased for a short period. We apologize for the inconvenience.", "Central Command Finance Division")
