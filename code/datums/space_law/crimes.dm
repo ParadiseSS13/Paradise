@@ -1,14 +1,20 @@
 /datum/law/crime
+	/// The crime code
 	var/code = "00"
+	/// Name of the crime
 	var/name = "Unnamed Crime"
+	/// Description of the crime
 	var/desc = "No description."
+	/// Severity tier of the crime
 	var/severity = "minor"
-	var/min_time = 1
+	/// Minimum amount of time, in minutes
+	var/min_time = 0
+	/// Maximum amount of time, in minutes
 	var/max_time = 5
 
 /datum/law/crime/minor
 	severity = "minor"
-	min_time = 1
+	min_time = 0
 	max_time = 5
 
 /datum/law/crime/medium
