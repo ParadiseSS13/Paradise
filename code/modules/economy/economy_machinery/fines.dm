@@ -76,6 +76,7 @@
 	var/datum/data/record/R = find_security_record("name", C.registered_name)
 	if(istype(R))
 		R.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
+		R.fields["comments"] += "Fined [fine_amount] credits for the crime of [crime_string]. Fine issued by [user.name] at [station_time_timestamp()]."
 		update_all_mob_security_hud()
 
 /obj/item/fine_scanner/proc/print_report(mob/living/user, obj/item/card/id/card, crime_string)
