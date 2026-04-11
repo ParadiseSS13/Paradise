@@ -12,6 +12,7 @@
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 
 	var/obj/item/noz
 	var/on = FALSE
