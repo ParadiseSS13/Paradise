@@ -337,7 +337,7 @@
  *  products that the vending machine is to carry without manually populating
  *  src.product_records.
  */
-/obj/machinery/economy/vending/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE)
+/obj/machinery/economy/vending/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE, price_mult = 1)
 	for(var/typepath in productlist)
 		var/amount = productlist[typepath]
 		if(isnull(amount))
@@ -350,7 +350,7 @@
 		if(!start_empty)
 			R.amount = amount
 		R.max_amount = amount
-		R.price = (typepath in prices) ? prices[typepath] : 0
+		R.price = (typepath in prices) ? (prices[typepath] * price_mult) : 0
 		recordlist += R
 /**
   * Refill a vending machine from a refill canister

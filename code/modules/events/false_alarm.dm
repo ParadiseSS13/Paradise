@@ -21,7 +21,8 @@
 		/datum/event/spider_infestation,
 		/datum/event/tear,
 		/datum/event/traders,
-		/datum/event/vent_clog
+		/datum/event/vent_clog,
+		/datum/event/market_crash
 	) + subtypesof(/datum/event/anomaly) + subtypesof(/datum/event/carp_migration)
 
 	var/datum/event/working_event
