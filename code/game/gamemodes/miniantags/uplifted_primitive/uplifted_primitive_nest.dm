@@ -87,6 +87,7 @@
 			? "soon" \
 			: "in [round(COOLDOWN_TIMELEFT(src, spawn_cooldown) / (1 SECONDS))] seconds"].")
 
+		. += SPAN_NOTICE("<b>Control-Click</b> to open the crafting radial.")
 		if(locateUID(antag?.nest_uid) == src)
 			. += SPAN_NOTICE("<b>Alt-Click</b> to deconstruct the nest.")
 
