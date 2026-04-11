@@ -72,13 +72,14 @@
 		return ..()
 
 	var/obj/item/flamethrower/F = used
-	if((!F.status)||(F.ptank))
+	if((!F.status) || (F.ptank))
 		return ITEM_INTERACT_COMPLETE
 
 	master = F
 	F.ptank = src
 	user.transfer_item_to(src, F)
 	F.update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/tank/internals/plasma/full/populate_gas()
 	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
