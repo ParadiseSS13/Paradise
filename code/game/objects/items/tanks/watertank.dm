@@ -95,11 +95,12 @@
 				H.put_in_l_hand(src)
 	return
 
-/obj/item/watertank/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(W == noz)
-		remove_noz()
-		return
-	..()
+/obj/item/watertank/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used != noz)
+		return ..()
+
+	remove_noz()
+	return ITEM_INTERACT_COMPLETE
 
 // This mister item is intended as an extension of the watertank and always attached to it.
 // Therefore, it's designed to be "locked" to the player's hands or extended back onto
