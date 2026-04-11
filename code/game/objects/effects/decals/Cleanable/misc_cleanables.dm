@@ -49,7 +49,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_CLEANABLE_DIRT)
 	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
 	mouse_opacity = FALSE
-	amount = 1
+	cleanable_amount = 1
 
 /obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
@@ -75,7 +75,7 @@
 	gender = PLURAL
 	layer = TURF_LAYER
 	icon_state = "flour"
-	amount = 1
+	cleanable_amount = 1
 
 /obj/effect/decal/cleanable/flour/nanofrost
 	name = "nanofrost residue"
@@ -140,7 +140,7 @@
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 	no_clear = TRUE
 	scoop_reagents = list("vomit" = 5)
-	amount = 2
+	cleanable_amount = 2
 
 
 /obj/effect/decal/cleanable/vomit/Initialize(mapload)
@@ -257,14 +257,14 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("tomato_floor1", "tomato_floor2", "tomato_floor3")
-	amount = 1
+	cleanable_amount = 1
 
 /obj/effect/decal/cleanable/plant_smudge
 	name = "plant smudge"
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_plant")
-	amount = 1
+	cleanable_amount = 1
 
 /obj/effect/decal/cleanable/egg_smudge
 	name = "smashed egg"
@@ -272,7 +272,7 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_egg1", "smashed_egg2", "smashed_egg3")
-	amount = 1
+	cleanable_amount = 1
 
 /// honk
 /obj/effect/decal/cleanable/pie_smudge
@@ -281,7 +281,7 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/tomatodecal.dmi'
 	random_icon_states = list("smashed_pie")
-	amount = 2
+	cleanable_amount = 2
 
 /obj/effect/decal/cleanable/paint_splat
 	name = "paint splat"
@@ -291,7 +291,7 @@
 	icon_state = "splatter-1"
 	random_icon_states = list("splatter-1", "splatter-2", "splatter-3")
 	mergeable_decal = FALSE
-	amount = 1
+	cleanable_amount = 1
 
 /obj/effect/decal/cleanable/paint_splat/Initialize(mapload)
 	pixel_x = rand(-10, 10)
@@ -347,7 +347,7 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
-	amount = 2
+	cleanable_amount = 2
 
 /obj/effect/decal/cleanable/reagent
 	name = "fluid"
@@ -356,7 +356,7 @@
 	icon_state = "xfloor1"
 	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
 	var/basecolor = "#909090"
-	amount = 5
+	cleanable_amount = 5
 
 /obj/effect/decal/cleanable/reagent/Initialize(mapload, decal_color)
 	. = ..()
@@ -371,6 +371,6 @@
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
 	random_icon_states = list("1", "2", "3", "4", "5")
-	amount = 1
+	cleanable_amount = 1
 
 #undef ALWAYS_IN_GRAVITY

@@ -17,9 +17,9 @@
 		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi'
 	)
 	/// Tracks how wet the towel is. Wet towels dampen their targets instead of drying them.
-	var/wetlevel = 0
+	var/wet_level = 0
 	/// Tracks how much yuck the towel has on it. Grime levels higher than 1 can be spread.
-	var/grimelevel = 0
+	var/grime_level = 0
 	/// A list of stuff we can towel off.
 	var/list/obj/effect/decal/cleanable/grime_sources = list(
 		/obj/effect/decal/cleanable/blood/drip,
@@ -45,12 +45,12 @@
 /obj/item/clothing/neck/towel/examine()
 	. = ..()
 
-	switch(wetlevel)
+	switch(wet_level)
 		if(0) . += SPAN_NOTICE("It looks dry.")
 		if(1 to 4) . += SPAN_NOTICE("It looks damp.")
 		if(5) . += SPAN_WARN("It looks sopping wet.")
 
-	switch(grimelevel)
+	switch(grime_level)
 		if(0) . += SPAN_NOTICE("It looks clean.")
 		if(1) . += SPAN_NOTICE("It looks a bit grimy.")
 		if(2 to 5) . += SPAN_WARN("It looks filthy.")
@@ -100,14 +100,14 @@
 		if(!(target_decal.type in grime_sources))
 			// we can't pick this up, it's glass shards or some other not-really-towelable mess
 			continue
-		if(!grimiest_decal || target_decal.amount > grimiest_decal.amount)
+		if(!grimiest_decal || target_decal.cleanable_amount > grimiest_decal.cleanable_amount)
 			grimiest_decal = target_decal
-	var/target_grime_level = grimiest_decal ? grimiest_decal.amount : length(target.blood_DNA)
+	var/target_grime_level = grimiest_decal ? grimiest_decal.cleanable_amount : length(target.blood_DNA)
 
 	// if the towel is grimy, add grime to the target. do this before adding more grime to the towel
-	if(grimelevel > 1)
+	if(grime_level > 1)
 		for(var/obj/effect/decal/cleanable/towel_decal in src)
-			if(towel_decal.amount < 1)
+			if(towel_decal.cleanable_amount < 1)
 				continue
 			if(istype(towel_decal, /obj/effect/decal/cleanable/blood))
 				var/obj/effect/decal/cleanable/blood/towel_blood_decal = towel_decal
@@ -115,17 +115,17 @@
 				if(istype(target, /turf/simulated))
 					var/turf/simulated/target_turf = target
 					for(var/obj/effect/decal/cleanable/blood/turf_decal in target_turf)
-						turf_decal.amount = 1
+						turf_decal.cleanable_amount = 1
 			else if(istype(target, /turf/simulated))
 				var/obj/effect/decal/cleanable/turf_decal = new towel_decal.type(target)
-				turf_decal.amount = 1
-			target.germ_level += 20 * grimelevel
-			towel_decal.amount -= 1
-		grimelevel -= 1
+				turf_decal.cleanable_amount = 1
+			target.germ_level += 20 * grime_level
+			towel_decal.cleanable_amount -= 1
+		grime_level -= 1
 		toweling_result |= TOWEL_GRIME_SPREAD
 
 	// if the grimiest decal (above) is grimier than the towel, add it to the towel.
-	if(target_grime_level > grimelevel)
+	if(target_grime_level > grime_level)
 		if(!grimiest_decal)
 			add_blood(target.blood_DNA, target.blood_color)
 		else if(istype(grimiest_decal, /obj/effect/decal/cleanable/blood))
@@ -133,7 +133,7 @@
 			add_blood(grimiest_blood_decal.blood_DNA, grimiest_blood_decal.basecolor)
 
 			grimiest_blood_decal.bloodiness = 0
-			grimiest_blood_decal.amount = 0
+			grimiest_blood_decal.cleanable_amount = 0
 		else
 			new grimiest_decal.type(src)
 		toweling_result |= TOWEL_GRIME_ABSORBED
@@ -144,7 +144,7 @@
 				qdel(target_decal)
 			target.clean_blood()
 			toweling_result |= TOWEL_CLEANED_TARGET
-		grimelevel = min(max(grimelevel + 1, target_grime_level - 1), 5)
+		grime_level = min(max(grime_level + 1, target_grime_level - 1), 5)
 	return toweling_result
 
 /obj/item/clothing/neck/towel/proc/exchange_water(atom/target, mob/living/user, list/modifiers)
@@ -152,15 +152,15 @@
 		if(issimulatedturf(target))
 			var/turf/simulated/T = target
 			// dry a turf that's wetter than the towel
-			if(T.wet == TURF_WET_WATER && wetlevel < 5)
+			if(T.wet == TURF_WET_WATER && wet_level < 5)
 				T.MakeDry()
-				wetlevel += 1
+				wet_level += 1
 				return TOWEL_WATER_ABSORBED
 
 			// wet a dry turf with a sopping wet towel
-			else if(wetlevel > 4 && T.wet == NONE)
+			else if(wet_level > 4 && T.wet == NONE)
 				T.MakeSlippery()
-				wetlevel -= 1
+				wet_level -= 1
 				return TOWEL_WATER_SPREAD
 
 		// it's not a mob or a turf so its wetness is irrelevant
@@ -168,15 +168,15 @@
 
 	var/mob/living/carbon/toweling_target = target
 	// towel sopping wet, target dryish. wet the target
-	if(wetlevel > 4 && toweling_target.wetlevel < 2)
+	if(wet_level > 4 && toweling_target.wetlevel < 2)
 		toweling_target.wetlevel = max(toweling_target.wetlevel + 1, 1)
-		wetlevel -= 1
+		wet_level -= 1
 		return TOWEL_WATER_SPREAD
 
 	// towel drier than creature. dries target
-	else if(wetlevel < toweling_target.wetlevel)
+	else if(wet_level < toweling_target.wetlevel)
 		toweling_target.wetlevel = max(toweling_target.wetlevel - 2, 0)
-		wetlevel += 1
+		wet_level += 1
 		return TOWEL_WATER_ABSORBED
 
 	return NONE
@@ -191,25 +191,26 @@
 	. = ..()
 	if(volume < 10)
 		return
-	wetlevel = min(wetlevel + 1, 5)
+	wet_level = min(wet_level + 1, 5)
 	if(temperature > VIRUS_DISINFECTION_TEMP || volume > 99)
-		grimelevel = max(grimelevel - 1, 0)
+		grime_level = max(grime_level - 1, 0)
 		for(var/obj/effect/decal/cleanable/towel_decal in src)
-			towel_decal.amount -= 1
-			if(towel_decal.amount < 1)
+			towel_decal.cleanable_amount -= 1
+			if(towel_decal.cleanable_amount < 1)
 				qdel(towel_decal)
 
 /obj/item/clothing/neck/towel/can_clean()
-	return !grimelevel
+	return !grime_level
 
 /obj/item/clothing/neck/towel/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname, skip_do_after)
 	if(..())
-		grimelevel = 0
+		grime_level = 0
 
 /obj/item/clothing/neck/towel/machine_wash(obj/machinery/washing_machine/source)
 	. = ..()
-	wetlevel = 0
-	grimelevel = source.bloody_mess ? 5 : 0
+	wet_level = 0
+	// if the washing machine has a bloody mess in it, make the towel maximum grimy
+	grime_level = source.bloody_mess ? 5 : 0
 
 /obj/item/clothing/neck/towel/beach
 	name = "balmy beach towel"

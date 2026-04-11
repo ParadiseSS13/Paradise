@@ -3,7 +3,7 @@
 	name = "tar"
 	desc = "A sticky substance."
 	icon_state = "tar2"
-	amount = 5
+	cleanable_amount = 5
 	/// The turf that the tar is sitting on
 	var/turf/simulated/target
 

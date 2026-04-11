@@ -7,7 +7,7 @@
 	var/bloodiness = 0
 	///How much yuck there is this decal, usually from 0-5.
 	///Used to calculate drying times, blood writing uses, and similar things.
-	var/amount = 0
+	var/cleanable_amount = 0
 	///when another of the same type is made on the same tile will they merge --- YES=TRUE; NO=FLASE
 	var/mergeable_decal = TRUE
 	///prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall

@@ -2,16 +2,16 @@
 	//Liquid fuel is used for things that used to rely on volatile fuels or plasma being contained to a couple tiles.
 	icon_state = "fuel"
 	layer = ABOVE_NORMAL_TURF_LAYER
-	amount = 1 //Basically moles.
+	cleanable_amount = 1 //Basically moles.
 
 /obj/effect/decal/cleanable/liquid_fuel/Initialize(mapload, amt = 1)
 	. = ..()
-	amount = amt
+	cleanable_amount = amt
 
 	//Be absorbed by any other liquid fuel in the tile.
 	for(var/obj/effect/decal/cleanable/liquid_fuel/other in loc)
 		if(other != src)
-			other.amount += amount
+			other.cleanable_amount += cleanable_amount
 			spawn other.Spread()
 			qdel(src)
 
@@ -19,7 +19,7 @@
 
 /obj/effect/decal/cleanable/liquid_fuel/proc/Spread()
 	//Allows liquid fuels to sometimes flow into other tiles.
-	if(amount < 0.5)
+	if(cleanable_amount < 0.5)
 		return
 	var/turf/simulated/S = loc
 	if(!istype(S))
@@ -30,8 +30,8 @@
 			var/turf/simulated/origin = get_turf(src)
 			if(origin.CanPass(null, target, 0, 0) && target.CanPass(null, origin, 0, 0))
 				if(!locate(/obj/effect/decal/cleanable/liquid_fuel) in target)
-					new/obj/effect/decal/cleanable/liquid_fuel(target, amount * 0.25)
-					amount *= 0.75
+					new/obj/effect/decal/cleanable/liquid_fuel(target, cleanable_amount * 0.25)
+					cleanable_amount *= 0.75
 
 /obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel
 	icon_state = "mustard"
@@ -43,7 +43,7 @@
 
 /obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel/Spread()
 	//The spread for flamethrower fuel is much more precise, to create a wide fire pattern.
-	if(amount < 0.1)
+	if(cleanable_amount < 0.1)
 		return
 	var/turf/simulated/S = loc
 	if(!istype(S))
@@ -54,7 +54,7 @@
 		if(locate(/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel) in O)
 			continue
 		if(O.CanPass(null, S, 0, 0) && S.CanPass(null, O, 0, 0))
-			new/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel(O, amount * 0.25, d)
+			new/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel(O, cleanable_amount * 0.25, d)
 			O.hotspot_expose((T20C*2) + 380,500) //Light flamethrower fuel on fire immediately.
 
-	amount *= 0.25
+	cleanable_amount *= 0.25
