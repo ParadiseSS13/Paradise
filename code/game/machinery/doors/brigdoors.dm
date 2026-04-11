@@ -324,6 +324,8 @@
 	data["prisoner_notes"] = prisoner_notes
 	data["prisoner_time"] = prisoner_time
 	data["prisoner_hasrec"] = prisoner_hasrecord
+	data["all_crimes"] = GLOB.all_crimes
+	data["all_modifiers"] = GLOB.all_crime_modifiers
 	return data
 
 /obj/machinery/door_timer/allowed(mob/user)

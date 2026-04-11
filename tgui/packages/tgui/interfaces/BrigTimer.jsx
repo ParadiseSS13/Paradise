@@ -212,7 +212,7 @@ export const BrigTimer = (props) => {
                   <Stack.Item align="center">
                     <Box bold>Crimes</Box>
                   </Stack.Item>
-                  {Object.entries(spaceLaw.codes).map(([code, category]) => (
+                  {Object.entries(data.all_crimes).map(([code, category]) => (
                     <Stack.Item key={code}>
                       <Stack>
                         {Object.entries(category).map(([key, crime]) => (
@@ -241,7 +241,7 @@ export const BrigTimer = (props) => {
                   <Stack.Item align="center">
                     <Box bold>Modifiers</Box>
                   </Stack.Item>
-                  {Object.entries(spaceLaw.modifiers).map(([modifierGroup, category]) => (
+                  {Object.entries(data.all_modifiers).map(([modifierGroup, category]) => (
                     <Stack.Item key={modifierGroup}>
                       <Stack>
                         {Object.entries(category).map(([key, modifier]) => (

@@ -104,3 +104,41 @@ GLOBAL_LIST_INIT(blacklisted_heretic_areas, list(
 	/area/station/aisat,
 	/area/station/science/toxins/test,
 	))
+
+/// List of all crimes and their data
+GLOBAL_LIST_INIT(all_crimes, list(
+	/datum/law/crime/minor/damage_station_assets,
+	/datum/law/crime/minor/battery,
+	/datum/law/crime/minor/drug_possession,
+	/datum/law/crime/minor/indecent_exposure,
+	/datum/law/crime/minor/abuse_equipment,
+	/datum/law/crime/minor/petty_theft,
+	/datum/law/crime/minor/trespass,
+	/datum/law/crime/medium/robbery,
+	/datum/law/crime/medium/abuse_confiscated,
+	/datum/law/crime/medium/rioting,
+	/datum/law/crime/medium/weapon_possession,
+	/datum/law/crime/medium/narcotics_distribution,
+	/datum/law/crime/medium/assault,
+	/datum/law/crime/medium/kidnapping,
+	/datum/law/crime/medium/workplace_hazard,
+	/datum/law/crime/major/sabotage,
+	/datum/law/crime/major/aggravated_assault,
+	/datum/law/crime/major/restricted_weapon,
+	/datum/law/crime/major/inciting_riot,
+	/datum/law/crime/major/contraband_possession,
+	/datum/law/crime/major/theft,
+	/datum/law/crime/major/major_trespass,
+))
+
+/// List of all crime modifiers
+GLOBAL_LIST_INIT(all_crime_modifiers, list(
+	/datum/law/modifier/cooperate,
+	/datum/law/modifier/refuse_cooperate,
+	/datum/law/modifier/resisting_arrest,
+	/datum/law/modifier/surrender,
+	/datum/law/modifier/aiding_abetting,
+	/datum/law/modifier/against_an_officer,
+	/datum/law/modifier/repeat_offender_first,
+	/datum/law/modifier/repeat_offender_second
+))
