@@ -17279,7 +17279,7 @@
 	},
 /obj/machinery/economy/vending/scidrobe,
 /obj/effect/turf_decal/tiles/department/science/side{
-	dir = 8
+	dir = 10
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -18156,9 +18156,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics/showroom)
 "bYQ" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
@@ -20564,13 +20561,20 @@
 	pixel_x = 32
 	},
 /obj/structure/table,
-/obj/effect/spawner/random/cobweb/right/frequent,
-/obj/item/reagent_containers/drinks/coffee{
-	pixel_x = -5;
-	pixel_y = -2
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
+	},
+/obj/item/camera{
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/obj/effect/spawner/random/cobweb/right/frequent,
+/obj/item/book/manual/wiki/sop_science{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/drinks/coffee{
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -21921,15 +21925,19 @@
 "cta" = (
 /obj/structure/table,
 /obj/machinery/firealarm/directional/east,
-/obj/item/book/manual/wiki/sop_science{
-	pixel_x = 4;
-	pixel_y = 1
-	},
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/scientist,
-/obj/item/camera,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = 3
+	},
+/obj/item/toy/figure/crew/scientist{
+	pixel_x = 9;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -22245,7 +22253,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "cux" = (
@@ -24988,9 +24995,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/exam_room)
 "cHK" = (
-/obj/structure/disposalpipe/segment,
-/mob/living/simple_animal/pet/dog/corgi/borgi,
-/obj/structure/bed/dogbed,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
@@ -26573,21 +26577,26 @@
 /area/station/aisat)
 "cQe" = (
 /obj/structure/table,
-/obj/item/disk/tech_disk{
-	pixel_x = -6
-	},
-/obj/item/disk/tech_disk{
-	pixel_x = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
+	},
+/obj/item/clipboard{
+	pixel_x = 6
+	},
+/obj/item/disk/tech_disk{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/disk/tech_disk{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/disk/tech_disk{
+	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -33033,11 +33042,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "eza" = (
-/obj/structure/table,
-/obj/item/storage/belt/utility,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "ezj" = (
@@ -34568,7 +34577,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel/white,
 /area/station/maintenance/starboard2)
 "eYN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -37149,6 +37159,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"fSH" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/rnd)
 "fSW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -41367,14 +41383,25 @@
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "hoq" = (
-/obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin{
-	pixel_x = 3;
-	pixel_y = 3
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/stock_parts/matter_bin{
+	pixel_x = 6;
+	pixel_y = 6
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 1
+	},
+/obj/item/stock_parts/scanning_module{
+	pixel_x = -7;
+	pixel_y = 8
+	},
+/obj/item/stock_parts/micro_laser{
+	pixel_x = -7;
+	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -43285,9 +43312,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/bridge)
 "hYA" = (
-/obj/machinery/camera{
-	c_tag = "Science - Research Fore"
-	},
 /obj/machinery/requests_console/directional/north,
 /obj/machinery/r_n_d/scientific_analyzer,
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -53290,17 +53314,12 @@
 /turf/simulated/floor/plasteel/white/full,
 /area/station/service/kitchen/freezer)
 "ljS" = (
-/obj/structure/table,
-/obj/item/stack/sheet/metal/fifty{
-	pixel_y = -3;
-	pixel_x = 4
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -10;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -55628,18 +55647,28 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "maT" = (
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/scanning_module{
-	pixel_x = 2;
-	pixel_y = 3
+/obj/item/stock_parts/manipulator{
+	pixel_x = 5;
+	pixel_y = 11
 	},
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
 /obj/structure/table,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
+	},
+/obj/item/stock_parts/manipulator{
+	pixel_x = 4;
+	pixel_y = 9
+	},
+/obj/item/stock_parts/capacitor{
+	pixel_x = -3
+	},
+/obj/item/stock_parts/capacitor{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/stock_parts/capacitor{
+	pixel_x = -5;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -55674,6 +55703,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "mbM" = (
@@ -58640,11 +58670,13 @@
 /area/station/maintenance/fore2)
 "ndC" = (
 /obj/structure/table,
-/obj/item/stock_parts/capacitor,
-/obj/item/stock_parts/capacitor,
-/obj/item/stock_parts/capacitor,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
+	},
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil{
+	pixel_x = 1;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -60542,13 +60574,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
-"nLV" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 8;
-	sort_type_txt = "12"
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/rnd)
 "nMb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -62134,7 +62159,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tiles/department/science/side{
-	dir = 1
+	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
@@ -63266,7 +63291,9 @@
 	network = list("Research","SS13")
 	},
 /obj/structure/closet/secure_closet/scientist,
-/obj/effect/turf_decal/tiles/department/science/side,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "oHv" = (
@@ -66762,6 +66789,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
+"pRD" = (
+/obj/structure/disposalpipe/sortjunction/reversed{
+	dir = 8;
+	sort_type_txt = "12"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/rnd)
 "pRE" = (
 /obj/effect/spawner/random/food_trash,
 /obj/effect/turf_decal/stripes/line{
@@ -68615,8 +68649,12 @@
 "qxW" = (
 /obj/machinery/light,
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 2;
+	pixel_y = 12
+	},
 /obj/effect/turf_decal/tiles/department/science/side,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "qxZ" = (
@@ -73952,7 +73990,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
-/obj/effect/turf_decal/tiles/department/science,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "soQ" = (
@@ -81936,7 +81973,8 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel/white,
 /area/station/maintenance/starboard2)
 "vdj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -90437,11 +90475,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "xOz" = (
-/obj/structure/table,
-/obj/item/stack/sheet/glass,
-/obj/item/stack/sheet/glass,
-/obj/item/stack/sheet/glass,
-/obj/item/stack/sheet/glass,
 /obj/machinery/camera{
 	c_tag = "Science - Research Fore";
 	dir = 8;
@@ -90450,6 +90483,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/structure/machine_frame,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "xOC" = (
@@ -121951,7 +121985,7 @@ apq
 hoq
 cbz
 sbg
-bYq
+fSH
 oHk
 cvl
 wTJ
@@ -122977,7 +123011,7 @@ cta
 xOz
 bYQ
 cHK
-nLV
+gqN
 bYq
 gvN
 qxW
@@ -123234,7 +123268,7 @@ cmB
 cmB
 cmB
 onF
-gqN
+pRD
 ljS
 eza
 oDj
