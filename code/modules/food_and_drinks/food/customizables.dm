@@ -31,11 +31,12 @@ do {\
 		return ITEM_INTERACT_COMPLETE
 	..()
 
-/obj/item/trash/plate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/fullycustom)
-		return
-	..()
+/obj/item/trash/plate/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/fullycustom)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 #undef MAKE_CUSTOM_FOOD
 
@@ -45,13 +46,14 @@ do {\
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "soup"
 
-/obj/item/trash/bowl/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food) && !(I.flags & NODROP))
+/obj/item/trash/bowl/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
 		var/obj/item/food/customizable/soup/S = new(get_turf(user))
-		S.item_interaction(I, user, params)
+		S.item_interaction(used, user, modifiers)
 		qdel(src)
-	else
-		..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/food/customizable
 	name = "sandwich"
