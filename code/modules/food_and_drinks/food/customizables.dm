@@ -49,7 +49,7 @@ do {\
 /obj/item/trash/bowl/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
 		var/obj/item/food/customizable/soup/S = new(get_turf(user))
-		S.item_interaction(used, user, modifiers)
+		S.item_interaction(user, used, modifiers)
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
