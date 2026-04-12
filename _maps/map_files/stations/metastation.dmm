@@ -9650,7 +9650,8 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/spawner/random/dirt/frequent,
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "blr" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
