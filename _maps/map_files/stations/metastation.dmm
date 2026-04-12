@@ -2237,6 +2237,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
+"aww" = (
+/obj/item/stack/rods,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "awB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -2688,16 +2693,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
-"aAl" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/station/engineering/solar/fore_port)
 "aAn" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
@@ -14651,13 +14646,6 @@
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
 /turf/simulated/floor/plasteel,
 /area/station/service/bar)
-"bHJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/station/engineering/solar/fore_port)
 "bHK" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -20258,10 +20246,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
-"cjU" = (
-/obj/item/stack/rods,
-/turf/space,
-/area/space)
 "cjX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30152,13 +30136,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"dBq" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/station/engineering/solar/fore_port)
 "dBS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/extinguisher_cabinet{
@@ -44292,16 +44269,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/equipmentstorage)
-"itx" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/station/engineering/solar/fore_port)
 "itH" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
@@ -55413,6 +55380,11 @@
 /obj/effect/spawner/random/barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
+"lWr" = (
+/obj/structure/lattice,
+/obj/item/stack/cable_coil/yellow,
+/turf/space,
+/area/station/engineering/solar/fore_port)
 "lWR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -59803,6 +59775,11 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
+"nyb" = (
+/obj/item/shard,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "nyg" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
@@ -70882,9 +70859,6 @@
 /obj/item/mecha_parts/mecha_equipment/extinguisher,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
-"rol" = (
-/turf/space,
-/area/station/engineering/solar/fore_port)
 "rot" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
@@ -97251,8 +97225,8 @@ arB
 arB
 aup
 arB
-aaa
-aaa
+arB
+arB
 aaa
 aaa
 aaa
@@ -97507,7 +97481,7 @@ abq
 aaa
 aaa
 aaa
-lPV
+nyb
 aaa
 aaa
 aaa
@@ -97764,7 +97738,7 @@ abq
 aaa
 aaa
 aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -98011,18 +97985,18 @@ aaa
 ceZ
 gOP
 dvJ
-aaa
+abq
 ceZ
 gOP
 dvJ
-aaa
+abq
 ceZ
 gOP
 dvJ
-aaa
+abq
 ceZ
-bHJ
-rol
+gOP
+dvJ
 aaa
 aaa
 aaa
@@ -98268,18 +98242,18 @@ aaa
 ceZ
 kjl
 dvJ
-aaa
+abq
 ceZ
 kjl
 dvJ
-aaa
+abq
 ceZ
 kjl
 dvJ
-aaa
+abq
 ceZ
-aAl
-rol
+kjl
+dvJ
 aaa
 aaa
 aaa
@@ -98525,18 +98499,19 @@ aaa
 ceZ
 kjl
 dvJ
-aaa
+abq
+ceZ
+kjl
+dvJ
+abq
+ceZ
+kjl
+dvJ
+abq
 ceZ
 kjl
 dvJ
 aaa
-ceZ
-kjl
-dvJ
-aaa
-ceZ
-aAl
-rol
 aaa
 aaa
 aaa
@@ -98544,12 +98519,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+arB
+aup
+arB
+aup
+arB
 aaa
 aaa
 aaa
@@ -98782,18 +98756,19 @@ aaa
 ceZ
 kjl
 dvJ
-aaa
+abq
+ceZ
+kjl
+dvJ
+abq
+ceZ
+kjl
+dvJ
+abq
 ceZ
 kjl
 dvJ
 aaa
-ceZ
-kjl
-dvJ
-aaa
-ceZ
-aAl
-rol
 aaa
 aaa
 aaa
@@ -98802,12 +98777,11 @@ aaa
 aaa
 arB
 arB
-arB
-aup
-arB
-aup
-arB
 aaa
+abq
+aaa
+arB
+arB
 aaa
 aaa
 aaa
@@ -99057,14 +99031,14 @@ aaa
 aaa
 aaa
 aaa
-lPV
 aaa
+nyb
 aaa
 aaa
 abq
 aaa
-arB
 aaa
+arB
 aaa
 aaa
 aaa
@@ -99307,7 +99281,7 @@ agM
 agM
 agM
 agM
-wAU
+lWr
 wAU
 wAU
 wAU
@@ -99320,8 +99294,8 @@ gRX
 gRX
 kMe
 abq
+abq
 aup
-aaa
 aaa
 aaa
 aaa
@@ -99571,14 +99545,14 @@ aaa
 aaa
 aaa
 aaa
-cjU
-lPV
 aaa
+aww
+lPV
 aaa
 abq
 aaa
-aup
 aaa
+aup
 aaa
 aaa
 aaa
@@ -99810,18 +99784,19 @@ aaa
 ceZ
 iFh
 dvJ
-aaa
+abq
 ceZ
 iFh
 dvJ
-aaa
+abq
 ceZ
 iFh
 dvJ
-aaa
+abq
 ceZ
-itx
-rol
+gOP
+dvJ
+aaa
 aaa
 aaa
 aaa
@@ -99830,12 +99805,11 @@ aaa
 aaa
 arB
 arB
-aup
-arB
-arB
-arB
-arB
 aaa
+abq
+aaa
+arB
+arB
 aaa
 aaa
 aaa
@@ -100067,18 +100041,18 @@ aaa
 ceZ
 iFh
 dvJ
-aaa
+abq
 ceZ
 iFh
 dvJ
-aaa
+abq
 ceZ
 iFh
 dvJ
-lPV
+nyb
 ceZ
-itx
-rol
+kjl
+dvJ
 aaa
 aaa
 aaa
@@ -100087,11 +100061,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aup
+arB
+arB
+arB
+arB
 aaa
 aaa
 aaa
@@ -100324,18 +100298,18 @@ aaa
 ceZ
 iFh
 dvJ
-aaa
+abq
 ceZ
 iFh
 dvJ
-aaa
+abq
 ceZ
 iFh
 dvJ
-aaa
+abq
 ceZ
-itx
-rol
+kjl
+dvJ
 aaa
 aaa
 aaa
@@ -100581,18 +100555,18 @@ aaa
 ceZ
 tph
 dvJ
-aaa
+abq
 ceZ
 tph
 dvJ
-aaa
+abq
 ceZ
 tph
 dvJ
-aaa
+abq
 ceZ
-dBq
-rol
+kjl
+dvJ
 aaa
 aaa
 aaa
@@ -100848,7 +100822,7 @@ abq
 aaa
 aaa
 aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -101105,7 +101079,7 @@ abq
 aaa
 aaa
 lPV
-cjU
+aww
 aaa
 aaa
 aaa
@@ -101363,8 +101337,8 @@ arB
 arB
 arB
 arB
-aaa
-aaa
+arB
+arB
 aaa
 aaa
 aaa
