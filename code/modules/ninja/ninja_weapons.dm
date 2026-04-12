@@ -82,7 +82,7 @@
 /obj/item/energy_shuriken/Initialize(mapload)
 	. = ..()
 	// Only lasts so long. Delete self after some time.
-	addtimer(CALLBACK(src, PROC_REF(disintegrate)), 30 SECONDS)
+	addtimer(CALLBACK(src, GLOBAL_PROC_REF(qdel), src), 30 SECONDS)
 
 /obj/item/energy_shuriken/throw_impact(atom/target)
 	. = ..()
@@ -90,9 +90,6 @@
 		return
 	var/mob/living/carbon/human/H = target
 	H.apply_damage(60, STAMINA)
-
-/obj/item/energy_shuriken/proc/disintegrate()
-	qdel(src)
 
 /obj/item/shuriken_printer
 	name = "shuriken printer"
