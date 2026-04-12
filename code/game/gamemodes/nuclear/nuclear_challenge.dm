@@ -72,7 +72,7 @@
 	qdel(src)
 
 /obj/item/nuclear_challenge/proc/add_new_operatives(number)
-	var/poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate_space_sword")
+	var/poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate")
 	var/list/turf/synd_spawn = list()
 
 	for(var/obj/effect/landmark/spawner/syndie/S in GLOB.landmarks_list)

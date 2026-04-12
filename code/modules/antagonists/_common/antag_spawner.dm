@@ -23,7 +23,7 @@
 
 /obj/item/antag_spawner/nuke_ops/Initialize(mapload)
 	. = ..()
-	poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate_space_sword")
+	poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate")
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
 	return TRUE
