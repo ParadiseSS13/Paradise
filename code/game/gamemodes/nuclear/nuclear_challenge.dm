@@ -88,7 +88,7 @@
 			var/client/C = G.client
 			var/mob/living/carbon/human/M = new/mob/living/carbon/human(synd_spawn[operative_number])
 
-			var/agent_number = LAZYLEN(SSticker.mode.syndicates) - 1
+			var/agent_number = LAZYLEN(SSticker.mode.syndicates)
 			M.real_name = "[syndicate_name()] Operative #[agent_number]"
 
 			M.key = C.key
