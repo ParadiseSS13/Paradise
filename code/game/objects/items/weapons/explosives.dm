@@ -9,7 +9,7 @@
 	display_timer = FALSE
 	origin_tech = "syndicate=1"
 	custom_activation = TRUE
-	var/atom/target = null
+	var/atom/target_atom = null
 	var/image_overlay = null
 	var/obj/item/assembly/nadeassembly = null
 	var/assemblyattacher
@@ -29,7 +29,7 @@
 
 /obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
-	target = null
+	target_atom = null
 	plastic_overlay_target = null
 	return ..()
 
@@ -111,7 +111,8 @@
 			to_chat(user, SPAN_DANGER("[src] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 
-		loc = target
+		target_atom = target
+		loc = null
 		if(notify_admins)
 			message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse", 0, 1)
 			log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
@@ -162,7 +163,7 @@
 			else if(role == SPECIAL_ROLE_DEATHSQUAD || role == ROLE_ERT)
 				message_say = "FOR NANOTRASEN!"
 	user.say(message_say)
-	target = user
+	target_atom = user
 	sleep(10)
 	prime()
 	user.gib()
@@ -206,14 +207,14 @@
 		plastic_overlay_target.cut_overlay(plastic_overlay, TRUE)
 		if(istype(plastic_overlay_target, /obj/effect/plastic))
 			qdel(plastic_overlay_target)
-	if(target)
-		if(!QDELETED(target))
-			location = get_turf(target)
-			if(!ex_breach && iswallturf(target)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
-				var/turf/simulated/wall/W = target
+	if(target_atom)
+		if(!QDELETED(target_atom))
+			location = get_turf(target_atom)
+			if(!ex_breach && iswallturf(target_atom)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
+				var/turf/simulated/wall/W = target_atom
 				W.dismantle_wall(TRUE, TRUE)
 			else
-				target.ex_act(EXPLODE_DEVASTATE)
+				target_atom.ex_act(EXPLODE_DEVASTATE)
 	else
 		location = get_turf(src)
 	if(location)
@@ -250,10 +251,10 @@
 
 /obj/item/grenade/plastic/c4/shaped/flash/prime()
 	var/turf/T
-	if(target && target.density)
-		T = get_step(get_turf(target), aim_dir)
-	else if(target)
-		T = get_turf(target)
+	if(target_atom && target_atom.density)
+		T = get_step(get_turf(target_atom), aim_dir)
+	else if(target_atom)
+		T = get_turf(target_atom)
 	else
 		T = get_turf(src)
 
@@ -275,15 +276,15 @@
 		plastic_overlay_target.cut_overlay(plastic_overlay, TRUE)
 		if(istype(plastic_overlay_target, /obj/effect/plastic))
 			qdel(plastic_overlay_target)
-	if(target)
-		if(!QDELETED(target))
-			location = get_turf(target)
+	if(target_atom)
+		if(!QDELETED(target_atom))
+			location = get_turf(target_atom)
 	else
 		location = get_turf(src)
 	if(location)
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(8, FALSE, location, aim_dir)
-		if(target && target.density)
+		if(target_atom && target_atom.density)
 			var/turf/T = get_step(location, aim_dir)
 			for(var/turf/simulated/wall/W in range(1, location))
 				W.thermitemelt(speed = 30)
@@ -294,8 +295,8 @@
 			addtimer(CALLBACK(null, GLOBAL_PROC_REF(explosion), T, 0, 0, 2), 3)
 			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
 
-	if(isliving(target))
-		var/mob/living/M = target
+	if(isliving(target_atom))
+		var/mob/living/M = target_atom
 		M.adjust_fire_stacks(2)
 		M.IgniteMob()
 	qdel(src)
