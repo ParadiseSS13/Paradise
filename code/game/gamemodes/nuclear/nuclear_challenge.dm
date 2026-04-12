@@ -61,52 +61,63 @@
 	// No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
 	total_tc = CHALLENGE_TELECRYSTALS + round(((length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS)
 	total_tc = total_tc / 5 // Total TC per nukie
-	total_tc = total_tc * length(GLOB.nuclear_uplink_list) // Adds it based on number of operatives
 	declaring_war = TRUE
 	if(length(GLOB.nuclear_uplink_list) < min(5, round_down(1 + ((length(GLOB.player_list) - 10) / 5)))) // 1 nukie at 10, 2 at 15, 3 at 20, 4 at 25, full team at 30
 		add_new_operatives(min(4, round_down((length(GLOB.player_list) - 10) / 5)))
 	else
+		total_tc = total_tc * length(GLOB.nuclear_uplink_list) // Adds it based on number of operatives
 		share_telecrystals()
 	declaring_war = FALSE
 	SSshuttle.refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
 
 /obj/item/nuclear_challenge/proc/add_new_operatives(number)
-	var/poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate")
 	var/list/turf/synd_spawn = list()
-
 	for(var/obj/effect/landmark/spawner/syndie/S in GLOB.landmarks_list)
 		synd_spawn += get_turf(S)
 
+	var/initial_tc = 100
+
+	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+		initial_tc = U.hidden_uplink.uses
+
 	var/operative_number = 2
 	for(var/i in 1 to number)
-		var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a Nuclear Operative?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = poll_icon)
-		if(length(nuke_candidates))
-			if(QDELETED(src))
-				return
-			var/mob/dead/observer/G = pick(nuke_candidates)
-			var/client/C = G.client
-			var/mob/living/carbon/human/M = new/mob/living/carbon/human(synd_spawn[operative_number])
+		INVOKE_ASYNC(src, PROC_REF(spawn_new_operative), initial_tc, operative_number, synd_spawn)
+		operative_number++
+	addtimer(CALLBACK(src, PROC_REF(finalize_team)), 16 SECONDS)
 
-			var/agent_number = LAZYLEN(SSticker.mode.syndicates)
-			M.real_name = "[syndicate_name()] Operative #[agent_number]"
+/obj/item/nuclear_challenge/proc/spawn_new_operative(tc_amount, operative_number, list/synd_spawn)
+	var/poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate")
+	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a Nuclear Operative?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = poll_icon)
+	if(length(nuke_candidates))
+		if(QDELETED(src))
+			return
+		var/mob/dead/observer/G = pick(nuke_candidates)
+		var/client/C = G.client
+		var/mob/living/carbon/human/M = new/mob/living/carbon/human(synd_spawn[operative_number])
 
-			M.key = C.key
+		var/agent_number = LAZYLEN(SSticker.mode.syndicates)
+		M.real_name = "[syndicate_name()] Operative #[agent_number]"
 
-			SSticker.mode.syndicates += M.mind
-			SSticker.mode.update_synd_icons_added(M.mind)
+		M.key = C.key
 
-			M.mind.assigned_role = SPECIAL_ROLE_NUKEOPS
-			M.mind.special_role = SPECIAL_ROLE_NUKEOPS
-			M.mind.offstation_role = TRUE
+		SSticker.mode.syndicates += M.mind
+		SSticker.mode.update_synd_icons_added(M.mind)
 
-			M.faction = list("syndicate")
-			SSticker.mode.forge_syndicate_objectives(M.mind)
-			SSticker.mode.greet_syndicate(M.mind)
-			SSticker.mode.create_syndicate(M.mind)
-			SSticker.mode.equip_syndicate(M, 0)
-			SSticker.mode.update_syndicate_id(M.mind, FALSE)
-			dust_if_respawnable(G)
+		M.mind.assigned_role = SPECIAL_ROLE_NUKEOPS
+		M.mind.special_role = SPECIAL_ROLE_NUKEOPS
+		M.mind.offstation_role = TRUE
+
+		M.faction = list("syndicate")
+		SSticker.mode.forge_syndicate_objectives(M.mind)
+		SSticker.mode.greet_syndicate(M.mind)
+		SSticker.mode.create_syndicate(M.mind)
+		SSticker.mode.equip_syndicate(M, tc_amount)
+		SSticker.mode.update_syndicate_id(M.mind, FALSE)
+		dust_if_respawnable(G)
+
+/obj/item/nuclear_challenge/proc/finalize_team()
 	total_tc = total_tc * length(GLOB.nuclear_uplink_list) // Adds it based on number of operatives
 	share_telecrystals()
 
