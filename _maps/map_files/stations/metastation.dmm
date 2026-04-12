@@ -40805,10 +40805,6 @@
 /obj/effect/spawner/random/manual,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
-"hdi" = (
-/obj/item/stack/cable_coil/yellow,
-/turf/space,
-/area/space)
 "hdo" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -62573,6 +62569,11 @@
 	},
 /turf/simulated/floor/plasteel/dark/full,
 /area/station/security/permabrig)
+"owD" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/cable_coil/yellow,
+/turf/space,
+/area/station/engineering/solar/fore_port)
 "owE" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 4
@@ -85401,6 +85402,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
+"wlk" = (
+/obj/structure/lattice,
+/obj/item/stack/cable_coil/yellow,
+/turf/space,
+/area/space/nearstation)
 "wlo" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -99264,7 +99270,7 @@ arA
 eor
 arI
 agM
-agM
+owD
 agM
 agM
 agM
@@ -99524,7 +99530,7 @@ aaa
 aaa
 aaa
 aaa
-hdi
+aaa
 ewa
 aaa
 aaa
@@ -99806,7 +99812,7 @@ aaa
 arB
 arB
 aaa
-abq
+wlk
 aaa
 arB
 arB
