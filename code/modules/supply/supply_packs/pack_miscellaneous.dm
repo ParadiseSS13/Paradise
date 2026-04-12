@@ -54,6 +54,14 @@
 	cost = 300
 	containername = "laser tag crate"
 
+/datum/supply_packs/misc/dueling_pistols
+	name = "Dueling Pistols Crate"
+	contains = list(/obj/item/storage/box/dueling_pistols,
+					/obj/item/storage/box/dueling_pistols)
+	cost = 650
+	containername = "dueling pistols crate"
+	contraband = TRUE
+
 /datum/supply_packs/misc/religious_supplies
 	name = "Religious Supplies Crate"
 	contains = list(/obj/item/reagent_containers/drinks/bottle/holywater,

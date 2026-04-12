@@ -23,7 +23,7 @@
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER // Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
-	initial_traits = list(TRAIT_FLYING)
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE)
 	/// The loot the mob should drop if killed with a crusher
 	var/list/crusher_loot = list()
 	/// The type of medal it drops if on hard mode

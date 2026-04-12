@@ -198,6 +198,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		base_icon = chest.get_icon(skeleton)
 
 		for(var/obj/item/organ/external/part in bodyparts)
+			part.sync_colour_to_human(src)
+
 			// We just drew the chest, don't draw it twice.
 			if(part == chest)
 				continue
@@ -762,11 +764,24 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		left_ear_inv?.update_icon()
 		right_ear_inv?.update_icon()
 
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+
 	if(l_ear)
 		update_hud_l_ear(l_ear)
 
+		var/obj/item/radio/headset/ear_radio
+		var/obj/item/clothing/ear_clothes
+		var/icon/monitor_icon
+		if(istype(l_ear, /obj/item/radio/headset))
+			ear_radio = l_ear
+			monitor_icon = ear_radio.icon_monitor
+		else if(istype(l_ear, /obj/item/clothing))
+			ear_clothes = l_ear
+			monitor_icon = ear_clothes.icon_monitor
+
 		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)) && !HAS_TRAIT(l_ear, TRAIT_NO_WORN_ICON))
-			var/worn_icon = listgetindex(l_ear.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/ears.dmi'
+			var/worn_icon = listgetindex(l_ear.sprite_sheets, dna.species.sprite_sheet_name) || (robohead && robohead.is_monitor && (ear_clothes || ear_radio) ? monitor_icon : FALSE) || 'icons/mob/clothing/ears.dmi'
 			var/worn_state = l_ear.worn_icon_state || l_ear.icon_state
 
 			overlays_standing[LEFT_EAR_LAYER] = mutable_appearance(worn_icon, worn_state, layer = -LEFT_EAR_LAYER)
@@ -774,8 +789,18 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(r_ear)
 		update_hud_r_ear(r_ear)
 
+		var/obj/item/radio/headset/ear_radio
+		var/obj/item/clothing/ear_clothes
+		var/icon/monitor_icon
+		if(istype(r_ear, /obj/item/radio/headset))
+			ear_radio = r_ear
+			monitor_icon = ear_radio.icon_monitor
+		else if(istype(r_ear, /obj/item/clothing))
+			ear_clothes = r_ear
+			monitor_icon = ear_clothes.icon_monitor
+
 		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)) && !HAS_TRAIT(r_ear, TRAIT_NO_WORN_ICON))
-			var/worn_icon = listgetindex(r_ear.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/ears.dmi'
+			var/worn_icon = listgetindex(r_ear.sprite_sheets, dna.species.sprite_sheet_name) || (robohead && robohead.is_monitor && (ear_clothes || ear_radio) ? monitor_icon : FALSE) || 'icons/mob/clothing/ears.dmi'
 			var/worn_state = r_ear.worn_icon_state || r_ear.icon_state
 
 			overlays_standing[RIGHT_EAR_LAYER] = mutable_appearance(worn_icon, worn_state, layer = -RIGHT_EAR_LAYER)
@@ -847,7 +872,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
 			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 			var/obj/item/clothing/head/head_clothes
-			if(istype(head, /obj/item/clothing/head))
+			if(istype(head, /obj/item/clothing))
 				head_clothes = head
 
 			var/worn_icon = (head_clothes && robohead && robohead.is_monitor ? head_clothes.icon_monitor : FALSE) || listgetindex(head.sprite_sheets, dna.species.sprite_sheet_name) || head.worn_icon || 'icons/mob/clothing/head.dmi'
@@ -982,13 +1007,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		update_hud_wear_mask(wear_mask)
 		if(!(check_obscured_slots() & ITEM_SLOT_MASK) && !HAS_TRAIT(wear_mask, TRAIT_NO_WORN_ICON))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
+			var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 			if(!istype(head_organ))
 				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
 				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
 
-			var/icon/worn_icon = new(listgetindex(wear_mask.sprite_sheets, dna.species.sprite_sheet_name) || wear_mask.worn_icon || 'icons/mob/clothing/mask.dmi')
+			var/obj/item/clothing/worn_mask = wear_mask
+			var/icon/worn_icon = new(listgetindex(wear_mask.sprite_sheets, dna.species.sprite_sheet_name) || (robohead && robohead.is_monitor ? worn_mask.icon_monitor : FALSE) || wear_mask.worn_icon || 'icons/mob/clothing/mask.dmi')
 			var/worn_icon_state = wear_mask.worn_icon_state || wear_mask.icon_state
 			if(alternate_head && ("[worn_icon_state]_[alternate_head.suffix]" in worn_icon.IconStates()))
 				worn_icon_state += "_[alternate_head.suffix]"

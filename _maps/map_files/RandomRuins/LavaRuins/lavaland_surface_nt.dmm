@@ -1202,10 +1202,6 @@
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 4
 	},
-/obj/machinery/computer/cryopod{
-	pixel_x = 30;
-	dir = 8
-	},
 /obj/machinery/computer/prisoner{
 	dir = 8
 	},
@@ -8173,6 +8169,10 @@
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 10
+	},
+/obj/machinery/computer/cryopod{
+	pixel_x = -30;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)

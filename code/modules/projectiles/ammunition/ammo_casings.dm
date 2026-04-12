@@ -44,6 +44,15 @@
 /obj/item/ammo_casing/c38/invisible/fake
 	projectile_type = /obj/projectile/bullet/mime/fake
 
+/obj/item/ammo_casing/dueling
+	name = "dueling round"
+	desc = "A heavy pistol cartridge, modified to fit in a dueling pistol."
+	caliber = "50AE"
+	projectile_type = /obj/projectile/bullet/dueling
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	variance = 15
+
 /obj/item/ammo_casing/c10mm
 	name = "10mm round"
 	desc = "A 10mm pistol cartridge, commonly used in Syndicate sidearms."

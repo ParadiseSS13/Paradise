@@ -245,6 +245,9 @@
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
 
+	/// Are we being stolen?
+	var/being_stolen = FALSE
+
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
@@ -697,12 +700,31 @@
 			countdown()
 	return 1
 
+/obj/machinery/atmospherics/supermatter_crystal/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(being_stolen)
+		. += "causality_field"
+		color = COLOR_GREEN
+	else
+		color = COLOR_WHITE
+
 /obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/projectile/proj)
 	var/turf/L = loc
 	if(!istype(L))
 		return FALSE
 	if(!istype(proj, /obj/projectile/beam/emitter/hitscan) && power_changes)
 		investigate_log("has been hit by [proj] fired by [key_name(proj.firer)]", INVESTIGATE_SUPERMATTER)
+	if(istype(proj, /obj/projectile/energy/net))
+		var/mob/living/carbon/user = proj.firer
+		var/list/obj_list = user.mind.get_all_objectives()
+		for(var/datum/objective/ninja/ninja_obj in obj_list)
+			if(ninja_obj.completed)
+				continue
+			if(!istype(ninja_obj, /datum/objective/ninja/steal_supermatter))
+				continue
+			begin_theft()
+			return FALSE
 	if(proj.flag != BULLET)
 		if(power_changes) //This needs to be here I swear
 			power += proj.damage * bullet_energy
@@ -711,6 +733,32 @@
 	else if(takes_damage)
 		damage += proj.damage * bullet_energy
 	return FALSE
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/begin_theft(mob/living/carbon/thief)
+	if(being_stolen)
+		return
+	message_admins("Ninja [thief] is beginning to steal the Supermatter Crystal.")
+	addtimer(src, CALLBACK(PROC_REF(complete_theft), thief), 3 MINUTES)
+	being_stolen = TRUE
+	update_icon()
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/complete_theft(mob/living/carbon/thief)
+	if(!being_stolen)
+		return
+	if(!thief.mind)
+		return
+	var/list/obj_list = thief.mind.get_all_objectives()
+	if(!length(obj_list))
+		return
+	for(var/datum/objective/ninja/ninja_obj in obj_list)
+		if(ninja_obj.completed)
+			continue
+		if(!istype(ninja_obj, /datum/objective/ninja/steal_supermatter))
+			continue
+		ninja_obj.complete_objective()
+		break
+	message_admins("Ninja [thief] has stolen the Supermatter Crystal.")
+	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/singularity_act()
 	var/gain = 100
@@ -796,6 +844,15 @@
 /obj/machinery/atmospherics/supermatter_crystal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used) || (used.flags & ABSTRACT) || !istype(user))
 		return ITEM_INTERACT_COMPLETE
+
+	if(being_stolen)
+		to_chat(user, SPAN_WARNING("You begin to very carefully unfasten the net tangled around [src]!"))
+		if(!do_after_once(user, 5 SECONDS, TRUE, src))
+			return ITEM_INTERACT_COMPLETE
+		being_stolen = FALSE
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
 	if(moveable && default_unfasten_wrench(user, used, time = 20))
 		return ITEM_INTERACT_COMPLETE
 

@@ -25,9 +25,6 @@
 /obj/structure/window/reinforced,
 /turf/simulated/wall/indestructible/riveted,
 /area/space/centcomm)
-"ag" = (
-/turf/simulated/wall/indestructible/fakedoor,
-/area/ninja/holding)
 "ah" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
@@ -107,9 +104,6 @@
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
-"at" = (
-/turf/simulated/wall/indestructible/fakedoor,
-/area/ninja/outpost)
 "au" = (
 /obj/machinery/abductor/experiment{
 	team = 1
@@ -399,11 +393,14 @@
 /obj/item/hemostat/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
-"bz" = (
-/obj/structure/ninjatele{
-	pixel_y = 25
+"bx" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_x = -3;
+	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/full,
 /area/ninja/outpost)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
@@ -473,13 +470,6 @@
 "bM" = (
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_emptycourt)
-"bN" = (
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
-"bO" = (
-/obj/structure/closet/secure_closet/bar,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
 "bP" = (
 /obj/effect/landmark/abductor/scientist{
 	team = 4
@@ -491,9 +481,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "bR" = (
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
+/turf/simulated/floor/plasteel/full,
+/area/ninja/outpost)
 "bS" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -525,10 +514,6 @@
 /obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_emptycourt)
-"bY" = (
-/obj/machinery/economy/vending/boozeomat,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
 "bZ" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet/black,
@@ -581,26 +566,6 @@
 "ch" = (
 /turf/simulated/floor/holofloor/space,
 /area/holodeck/source_space)
-"ci" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
 "cj" = (
 /obj/machinery/abductor/gland_dispenser,
 /turf/simulated/floor/plating/abductor,
@@ -621,12 +586,6 @@
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_basketball)
-"co" = (
-/obj/structure/rack,
-/obj/item/camera,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
 "cp" = (
 /obj/structure/table/abductor,
 /obj/item/bonegel/alien,
@@ -646,29 +605,12 @@
 /obj/structure/bed/abductor,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
-"cs" = (
-/obj/structure/rack,
-/obj/item/toy/sword,
-/obj/item/gun/projectile/revolver/capgun,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"ct" = (
-/obj/machinery/prize_counter,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
 "cu" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
-"cv" = (
-/obj/machinery/computer/arcade,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
 "cw" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
@@ -683,14 +625,6 @@
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_boxingcourt)
-"cy" = (
-/turf/simulated/floor/beach/away/sand,
-/area/ninja/holding)
-"cz" = (
-/obj/effect/overlay/palmtree_r,
-/obj/effect/overlay/coconut,
-/turf/simulated/floor/beach/away/sand,
-/area/ninja/holding)
 "cA" = (
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/holofloor{
@@ -728,9 +662,9 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_basketball)
 "cG" = (
-/obj/effect/overlay/palmtree_l,
-/turf/simulated/floor/beach/away/sand,
-/area/ninja/holding)
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/outpost)
 "cH" = (
 /obj/structure/table/wood,
 /obj/item/tank/internals/emergency_oxygen/double/vox,
@@ -822,32 +756,10 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
-"cY" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave/upgraded,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
-"cZ" = (
-/obj/structure/table,
-/obj/item/clothing/head/that{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
 "da" = (
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"db" = (
-/obj/structure/chair/stool,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"dc" = (
-/obj/item/camera,
-/turf/simulated/floor/beach/away/sand,
-/area/ninja/holding)
+/obj/structure/showcase,
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "dd" = (
 /obj/item/electropack{
 	pixel_x = -5
@@ -864,21 +776,6 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
-"df" = (
-/turf/simulated/wall/indestructible/fakeglass,
-/area/ninja/outpost)
-"dh" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/sleeper/upgraded,
-/turf/simulated/floor/carpet/grimey,
-/area/ninja/outpost)
-"di" = (
-/obj/structure/table,
-/obj/machinery/recharger,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
 "dj" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
@@ -937,9 +834,7 @@
 /turf/simulated/floor/plasteel/stairs/right,
 /area/syndicate_mothership)
 "du" = (
-/obj/structure/table,
-/obj/item/reagent_containers/drinks/shaker,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/dark,
 /area/ninja/holding)
 "dv" = (
 /obj/machinery/atmospherics/unary/cryo_cell/upgraded,
@@ -948,25 +843,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
-"dw" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
-"dx" = (
-/obj/structure/table,
-/obj/item/lighter/zippo,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
-"dy" = (
-/obj/structure/table,
-/obj/item/reagent_containers/drinks/cans/cola,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
-"dz" = (
-/obj/structure/table,
-/obj/item/dice/d20,
-/turf/simulated/floor/plasteel/freezer,
-/area/ninja/holding)
 "dA" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/holofloor{
@@ -995,18 +871,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"dE" = (
-/obj/structure/chair/stool,
-/obj/item/clothing/head/bandana{
-	pixel_y = -10
-	},
-/obj/item/clothing/glasses/sunglasses,
-/turf/simulated/floor/beach/away/sand,
-/area/ninja/holding)
-"dF" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/beach/away/sand,
-/area/ninja/holding)
 "dG" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
@@ -1050,32 +914,10 @@
 /obj/structure/closet/wardrobe/mixed,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
-"dT" = (
-/obj/effect/landmark/spawner/ninjastart,
-/turf/simulated/floor/carpet/grimey,
-/area/ninja/outpost)
-"dU" = (
-/turf/simulated/floor/carpet/grimey,
-/area/ninja/outpost)
-"dV" = (
-/obj/structure/rack,
-/obj/item/clothing/head/that{
-	pixel_x = 4;
-	pixel_y = 6
+"dS" = (
+/turf/simulated/wall/indestructible/fakedoor{
+	name = "Spider Clan Jail Cell"
 	},
-/obj/item/clothing/under/suit/black,
-/obj/item/clothing/suit/wcoat,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"dW" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"dX" = (
-/obj/item/beach_ball,
-/turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "dY" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
@@ -1101,12 +943,6 @@
 "ed" = (
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"ee" = (
-/obj/structure/rack,
-/obj/item/storage/fancy/crayons,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
 "ef" = (
 /obj/machinery/chem_dispenser/beer,
 /obj/structure/table/reinforced,
@@ -1119,14 +955,6 @@
 /obj/effect/landmark/spawner/prisonwarp,
 /turf/simulated/floor/plating,
 /area/centcom)
-"eh" = (
-/obj/machinery/economy/vending/coffee,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
 "ei" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
 /obj/machinery/door/airlock/centcom{
@@ -1201,25 +1029,6 @@
 /obj/structure/sign/public/cryo,
 /turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
-"ey" = (
-/obj/structure/chair/stool,
-/obj/machinery/computer/security/telescreen{
-	desc = "Damn, they better have /tg/thechannel on these things.";
-	icon_state = "entertainment";
-	name = "Entertainment monitor";
-	pixel_y = -30
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"ez" = (
-/obj/machinery/economy/vending/snack,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
 "eA" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -1238,13 +1047,6 @@
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_basketball)
-"eE" = (
-/turf/simulated/floor/beach/away/coastline,
-/area/ninja/holding)
-"eF" = (
-/obj/item/clothing/head/collectable/paper,
-/turf/simulated/floor/beach/away/coastline,
-/area/ninja/holding)
 "eG" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
@@ -1349,33 +1151,6 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
-"eY" = (
-/obj/machinery/economy/vending/cigarette,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"eZ" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"fa" = (
-/obj/structure/chair/stool,
-/obj/machinery/light/spot,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"fb" = (
-/obj/machinery/economy/vending/cola,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ninja/holding)
-"fc" = (
-/turf/simulated/floor/beach/away/water,
-/area/ninja/holding)
 "fd" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -1386,21 +1161,8 @@
 /obj/item/clipboard,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"fe" = (
-/obj/machinery/poolcontroller/invisible,
-/turf/simulated/floor/beach/away/water,
-/area/ninja/holding)
 "fg" = (
 /turf/simulated/wall/indestructible/wood,
-/area/ninja/holding)
-"fi" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/ninja/holding)
-"fj" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
 /area/ninja/holding)
 "fk" = (
 /obj/machinery/door/airlock/hatch/syndicate{
@@ -1454,10 +1216,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"fu" = (
-/obj/effect/landmark/spawner/holding_facility,
-/turf/simulated/floor/engine,
-/area/ninja/holding)
 "fv" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/mug/novelty,
@@ -1490,6 +1248,10 @@
 /obj/structure/sign/service/bar,
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
+"fD" = (
+/obj/machinery/economy/vending/coffee/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/outpost)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -1655,6 +1417,10 @@
 /obj/effect/baseturf_helper/asteroid/snow,
 /turf/simulated/wall/indestructible/rock/snow,
 /area/syndicate_mothership)
+"gg" = (
+/obj/structure/showcase,
+/turf/simulated/floor/wood,
+/area/ninja/holding)
 "gh" = (
 /turf/simulated/wall/indestructible/opsglass,
 /area/centcom)
@@ -2295,10 +2061,10 @@
 /area/tdome/tdomeobserve)
 "ib" = (
 /obj/structure/table/wood,
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
 /obj/machinery/chem_dispenser/soda{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/jobs/bar/checker,
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
 "ic" = (
@@ -3552,6 +3318,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"md" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/bamboo,
+/area/ninja/outpost)
 "me" = (
 /obj/structure/rack,
 /obj/item/clothing/glasses/sunglasses{
@@ -3629,6 +3399,10 @@
 /obj/mecha/combat/marauder/seraph/loaded,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"mn" = (
+/obj/effect/landmark/spawner/ninja_prison_warp,
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/holding)
 "mo" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel/freezer,
@@ -3730,6 +3504,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"mE" = (
+/obj/structure/bed/wood,
+/obj/item/bedsheet/black,
+/obj/effect/landmark/spawner/ninja,
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "mF" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass{
@@ -4490,6 +4270,13 @@
 	},
 /turf/simulated/floor/backrooms_carpet,
 /area/backrooms)
+"pa" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/chem_dispenser/soda{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/full,
+/area/ninja/outpost)
 "pc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -4960,6 +4747,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
+"qQ" = (
+/turf/simulated/floor/bamboo/tatami/black,
+/area/ninja/outpost)
 "qR" = (
 /turf/simulated/wall/indestructible,
 /area/ghost_bar)
@@ -5845,6 +5635,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation/centcom)
+"tM" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/bamboo,
+/area/ninja/outpost)
 "tN" = (
 /obj/machinery/door/window/classic/normal{
 	dir = 1
@@ -6251,6 +6047,9 @@
 	},
 /turf/simulated/floor/carpet,
 /area/admin)
+"vo" = (
+/turf/simulated/floor/carpet/black,
+/area/ninja/outpost)
 "vq" = (
 /obj/structure/chair/sofa/corp,
 /turf/simulated/floor/transparent/glass,
@@ -6464,6 +6263,11 @@
 /obj/item/soap,
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
+"we" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/cooking/sushimat,
+/turf/simulated/floor/plasteel/full,
+/area/ninja/outpost)
 "wf" = (
 /obj/structure/mirror{
 	pixel_x = 28
@@ -7059,6 +6863,9 @@
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
+"yi" = (
+/turf/simulated/wall/indestructible/syndicate,
+/area/ninja/holding)
 "yj" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/gun/projectile/automatic/pistol,
@@ -7455,6 +7262,9 @@
 	},
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
+"zX" = (
+/turf/simulated/wall/indestructible/syndicate,
+/area/ninja/outpost)
 "zY" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cooking/stovetop,
@@ -7893,12 +7703,6 @@
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
-"Bw" = (
-/obj/structure/ninjatele{
-	pixel_x = -28
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/admin)
 "Bx" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7906,11 +7710,10 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
 "By" = (
-/obj/structure/ninjatele{
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/admin)
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/tea,
+/turf/simulated/floor/bamboo,
+/area/ninja/outpost)
 "Bz" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -8339,7 +8142,7 @@
 /area/space/centcomm)
 "Dd" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/space_ninja,
+/obj/item/clothing/suit/space_ninja,
 /turf/simulated/floor/engine,
 /area/admin)
 "De" = (
@@ -8398,7 +8201,7 @@
 /area/ghost_bar)
 "Dv" = (
 /obj/structure/rack,
-/obj/item/clothing/head/helmet/space/space_ninja,
+/obj/item/clothing/head/helmet/space_ninja,
 /turf/simulated/floor/engine,
 /area/admin)
 "Dw" = (
@@ -8647,6 +8450,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
+"En" = (
+/obj/structure/closet/crate,
+/obj/item/storage/box/donkpockets,
+/turf/simulated/floor/plasteel/full,
+/area/ninja/outpost)
 "Eo" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "sand";
@@ -8943,6 +8751,12 @@
 /obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
+"FB" = (
+/obj/structure/mineral_door/wood{
+	name = "Main chamber"
+	},
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "FC" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -9324,12 +9138,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "GV" = (
-/obj/item/rcl,
-/obj/item/rcl,
-/obj/item/rcl,
-/obj/item/rcl,
-/obj/item/rcl,
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
+/obj/item/stack/cable_coil/rcl,
 /obj/structure/shelf/engineering,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -9368,6 +9182,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
+"He" = (
+/turf/simulated/floor/bamboo,
+/area/ninja/outpost)
 "Hg" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
@@ -9496,6 +9313,10 @@
 /obj/structure/sign/public/drop,
 /turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/syndicate_mothership)
+"HM" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/plasteel/full,
+/area/ninja/outpost)
 "HN" = (
 /turf/simulated/floor/indestructible/necropolis,
 /area/ruin/space/bubblegum_arena)
@@ -9929,6 +9750,10 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
+"JC" = (
+/obj/structure/dresser,
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "JE" = (
 /obj/item/stack/sheet/plasmaglass/fifty,
 /obj/item/stack/sheet/plasmaglass/fifty,
@@ -9971,6 +9796,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
+"JN" = (
+/obj/structure/bed,
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/holding)
 "JO" = (
 /obj/structure/sign/cargo/dock,
 /turf/simulated/wall/indestructible/riveted,
@@ -10544,6 +10373,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
+"LR" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/full,
+/area/ninja/outpost)
 "LT" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/storage/fancy/matches,
@@ -10575,6 +10408,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"Mc" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "Md" = (
 /obj/structure/sign/public/arcade,
 /turf/simulated/wall/indestructible/syndicate/no_diagonal,
@@ -10603,6 +10440,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
+"Mi" = (
+/obj/item/throwing_star,
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/outpost)
 "Mk" = (
 /obj/machinery/door_control/no_emag{
 	id = "thunderdomegen";
@@ -10627,6 +10468,12 @@
 /obj/item/storage/box/trackimp,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"Mp" = (
+/obj/structure/mirror{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "Mq" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/computer/security/telescreen,
@@ -10676,6 +10523,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
+"MA" = (
+/obj/machinery/door/airlock/hatch{
+	desc = "Danger: May contain robustness";
+	name = "Dojo"
+	},
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "MD" = (
 /obj/machinery/door/airlock/centcom{
 	hackProof = 1;
@@ -11028,6 +10882,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"NL" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/bamboo,
+/area/ninja/outpost)
 "NN" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -11292,6 +11150,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"OJ" = (
+/turf/simulated/floor/wood,
+/area/ninja/holding)
 "OK" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/space/nearstation/centcom)
@@ -11549,6 +11410,10 @@
 /obj/structure/sign/service/bar,
 /turf/simulated/wall/indestructible/syndicate/no_diagonal,
 /area/ghost_bar)
+"PL" = (
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/outpost)
 "PM" = (
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
@@ -12254,6 +12119,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"Sg" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/reagent_containers/cooking/board,
+/turf/simulated/floor/plasteel/full,
+/area/ninja/outpost)
 "Sh" = (
 /obj/structure/table/wood,
 /obj/item/storage/bag/dice,
@@ -12388,6 +12258,24 @@
 /obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"SJ" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/food/sliced/sushi_sake,
+/obj/item/food/sliced/sushi_sake,
+/obj/item/food/sliced/sushi_masago,
+/obj/item/food/sliced/sushi_masago,
+/obj/item/food/sliced/sushi_ikura,
+/obj/item/food/sliced/sushi_ikura,
+/obj/item/food/sliced/sushi_ebi,
+/obj/item/food/sliced/sushi_ebi,
+/obj/item/food/sliced/sushi_tobiko,
+/obj/item/food/sliced/sushi_tobiko,
+/obj/item/food/sliced/sushi_tai,
+/obj/item/food/sliced/sushi_tai,
+/obj/item/food/sushi_unagi,
+/obj/item/food/sushi_unagi,
+/turf/simulated/floor/plasteel/full,
+/area/ninja/outpost)
 "SK" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -12574,6 +12462,9 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"TE" = (
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "TF" = (
 /obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
@@ -13145,6 +13036,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"VM" = (
+/obj/structure/toilet/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/holding)
 "VN" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -13499,6 +13394,10 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/control)
+"WY" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/wood,
+/area/ninja/outpost)
 "WZ" = (
 /obj/structure/table/reinforced,
 /obj/item/crowbar/red,
@@ -13572,6 +13471,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"Xm" = (
+/obj/structure/target_stake,
+/obj/item/target,
+/turf/simulated/floor/plasteel/dark,
+/area/ninja/outpost)
 "Xn" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/triple{
@@ -50033,10 +49937,10 @@ aN
 aN
 aN
 aN
-ac
-df
-df
-ac
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -50290,10 +50194,10 @@ aN
 aN
 aN
 aN
-ac
-dU
-dT
-ac
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -50545,12 +50449,12 @@ aN
 aN
 aN
 aN
-ac
-at
-ac
-dh
-dU
-ac
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -50802,12 +50706,12 @@ aN
 aN
 aN
 aN
-ac
-aB
-aB
-aB
-aB
-ac
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -51059,12 +50963,12 @@ aN
 aN
 aN
 aN
-ac
-bz
-aB
-aB
-aB
-ac
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -51316,12 +51220,12 @@ aN
 aN
 aN
 aN
-ac
-aB
-aB
-aB
-aB
-ac
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -51573,12 +51477,12 @@ aN
 aN
 aN
 aN
-ac
-ac
-ac
-ac
-ac
-ac
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -51830,15 +51734,15 @@ aN
 aN
 aN
 aN
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -52086,27 +51990,27 @@ aN
 aN
 aN
 aN
-aN
-fg
-cY
-cY
-di
-dV
-ee
-ee
-eY
-fg
-fg
-fg
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
+yi
 aN
 aN
 aN
@@ -52343,27 +52247,27 @@ aN
 aN
 aN
 aN
-aN
-ae
-bN
-bN
-bN
-da
-da
-da
-da
-fi
-fu
-fu
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yi
+VM
+mn
+JN
+yi
+VM
+mn
+JN
+yi
+VM
+mn
+JN
+yi
+VM
+mn
+JN
+yi
+VM
+mn
+JN
+yi
 aN
 aN
 aN
@@ -52600,27 +52504,27 @@ aN
 aN
 aN
 aN
-aN
-ae
-bO
-bN
+yi
 du
-dW
-da
-da
-da
-fj
-fu
-fu
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+du
+du
+ae
+du
+du
+du
+ae
+du
+du
+du
+ae
+du
+du
+du
+ae
+du
+du
+du
+yi
 aN
 aN
 aN
@@ -52857,27 +52761,27 @@ aN
 aN
 aN
 aN
-aN
+yi
+dS
 ae
-bR
-bN
-dw
-dW
-da
-da
-da
-fj
-fu
-fu
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ae
+yi
+dS
+ae
+ae
+yi
+dS
+ae
+ae
+yi
+dS
+ae
+ae
+yi
+dS
+ae
+ae
+yi
 aN
 aN
 aN
@@ -53113,29 +53017,29 @@ aN
 aN
 aN
 aN
-aN
-aN
-ae
-bR
-bN
-dx
-dW
-da
-da
-da
-fi
-fu
-fu
+yi
 fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+fg
+yi
 aN
 aN
 aN
@@ -53370,29 +53274,29 @@ aN
 aN
 aN
 aN
-aN
-aN
+yi
 fg
-bY
-bN
-dy
-dW
-da
-da
-db
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+gg
+OJ
+gg
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
 fg
-fg
-fg
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yi
 aN
 aN
 aN
@@ -53627,29 +53531,29 @@ aN
 aN
 aN
 aN
-aN
-aN
-fg
-ci
-cZ
-dz
-dW
-da
-ey
-eZ
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+MA
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+zX
 aN
 aN
 aN
@@ -53884,29 +53788,29 @@ aN
 aN
 aN
 aN
-aN
-aN
-fg
-co
+zX
+zX
+ac
 da
-da
-da
-da
-da
-fa
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+PL
+fD
+aB
+aB
+cG
+we
+bR
+pa
+ac
+zX
 aN
 aN
 aN
@@ -54142,28 +54046,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-cs
-da
-da
-da
-da
-da
-db
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+aB
+aB
+aB
+aB
+cG
+LR
+bR
+bx
+ac
+zX
 aN
 aN
 aN
@@ -54399,28 +54303,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-ct
-da
-da
-da
-da
-ey
-eZ
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+Mc
+TE
+He
+He
+He
+He
+He
+He
+TE
+TE
+aB
+qQ
+qQ
+qQ
+cG
+Sg
+bR
+HM
+ac
+zX
 aN
 aN
 aN
@@ -54656,28 +54560,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-cv
-db
-da
-da
-da
-da
-db
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+WY
+TE
+He
+md
+By
+NL
+tM
+He
+TE
+TE
+aB
+qQ
+qQ
+qQ
+cG
+LR
+bR
+En
+ac
+zX
 aN
 aN
 aN
@@ -54913,28 +54817,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-cy
-cy
-cy
-cy
-eh
-ez
-fb
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+WY
+TE
+He
+md
+NL
+NL
+tM
+He
+TE
+TE
+aB
+qQ
+qQ
+qQ
+cG
+LR
+bR
+SJ
+ac
+zX
 aN
 aN
 aN
@@ -55170,28 +55074,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-cz
-cy
-cy
-cy
-cy
-eE
-fc
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+WY
+TE
+He
+md
+NL
+By
+tM
+He
+TE
+TE
+aB
+aB
+aB
+aB
+aB
+bR
+bR
+bR
+ac
+zX
 aN
 aN
 aN
@@ -55427,28 +55331,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-cy
-cy
-dE
-cy
-cy
-eE
-fc
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+WY
+TE
+He
+md
+By
+NL
+tM
+He
+TE
+TE
+aB
+aB
+aB
+ac
+ac
+ac
+ac
+ac
+ac
+zX
 aN
 aN
 aN
@@ -55684,28 +55588,28 @@ aN
 aN
 aN
 aN
-aN
-ag
-cy
-dc
-cy
-dX
-cy
-eE
-fc
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+Mc
+TE
+He
+He
+He
+He
+He
+He
+TE
+TE
+aB
+aB
+aB
+ac
+Mc
+TE
+TE
+TE
+ac
+zX
 aN
 aN
 aN
@@ -55941,28 +55845,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-cy
-cy
-dF
-cy
-cy
-eF
-fc
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+aB
+aB
+aB
+FB
+TE
+vo
+vo
+mE
+ac
+zX
 aN
 aN
 aN
@@ -56198,28 +56102,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-cG
-cy
-cz
-cy
-cy
-eE
-fe
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+da
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+TE
+aB
+aB
+aB
+ac
+JC
+Mp
+TE
+TE
+ac
+zX
 aN
 aN
 aN
@@ -56455,28 +56359,28 @@ aN
 aN
 aN
 aN
-aN
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aB
+Mi
+aB
+ac
+ac
+ac
+ac
+ac
+ac
+zX
 aN
 aN
 aN
@@ -56712,28 +56616,28 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+zX
+zX
+zX
+zX
+zX
+zX
+zX
+zX
+zX
+zX
+ac
+Mi
+Xm
+Mi
+ac
+zX
+zX
+zX
+zX
+zX
+zX
 aN
 aN
 aN
@@ -56979,13 +56883,13 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+ac
+ac
+ac
+ac
+ac
+zX
 aN
 aN
 aN
@@ -57236,13 +57140,13 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+zX
+zX
+zX
+zX
+zX
+zX
+zX
 aN
 aN
 aN
@@ -72507,7 +72411,7 @@ wk
 vK
 Bf
 Bp
-Bw
+vK
 wk
 wk
 wk
@@ -74049,7 +73953,7 @@ wk
 vK
 Bg
 Bq
-By
+vK
 wk
 wk
 wk
