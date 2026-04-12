@@ -8429,9 +8429,6 @@
 /obj/structure/sign/public/cryo,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
-"bfG" = (
-/turf/simulated/wall,
-/area/station/hallway/secondary/entry/lounge)
 "bfH" = (
 /obj/machinery/light{
 	dir = 4
@@ -106469,7 +106466,7 @@ vXe
 mZP
 mZP
 mZP
-bfG
+hSu
 qrO
 gLO
 wDL
