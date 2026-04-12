@@ -163,18 +163,18 @@
 	. = ..()
 	. += SPAN_NOTICE("This scanner has an extra port for overriding mining charge safeties.")
 
-/obj/item/t_scanner/adv_mining_scanner/syndicate/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+/obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/item/grenade/plastic/miningcharge))
-		return NONE
+		return
 
 	var/obj/item/grenade/plastic/miningcharge/charge = target
 	if(charge.hacked)
 		to_chat(user, SPAN_NOTICE("[src] is already overridden!"))
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	if(charges <= 0)
 		to_chat(user, SPAN_NOTICE("Its overriding function is depleted."))
-		return ITEM_INTERACT_COMPLETE
+		return
 
 	charge.override_safety()
 	visible_message(SPAN_WARNING("Sparks fly out of [src]!"))
@@ -182,7 +182,6 @@
 	charges--
 	if(charges <= 0)
 		to_chat(user, SPAN_WARNING("[src]'s internal battery for overriding mining charges has run dry!"))
-	return ITEM_INTERACT_COMPLETE
 
 // MINING CHARGES DETONATOR
 
