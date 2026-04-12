@@ -1320,23 +1320,13 @@
 /area/station/maintenance/apmaint)
 "ape" = (
 /obj/machinery/door/firedoor,
-/obj/structure/sign/directions/medical{
-	pixel_x = -32;
-	pixel_y = 8
-	},
-/obj/structure/sign/directions/engineering{
-	pixel_x = -32
-	},
-/obj/structure/sign/directions/evac{
-	pixel_x = -32;
-	pixel_y = -8
-	},
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/lounge)
 "apl" = (
@@ -32798,6 +32788,17 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/structure/sign/directions/science{
+	pixel_x = 32;
+	pixel_y = -8
+	},
+/obj/structure/sign/directions/bridge{
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/security{
+	pixel_x = 32;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/lounge)
 "evr" = (
@@ -40948,6 +40949,17 @@
 	},
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
+	},
+/obj/structure/sign/directions/evac{
+	pixel_x = -32;
+	pixel_y = -8
+	},
+/obj/structure/sign/directions/engineering{
+	pixel_x = -32
+	},
+/obj/structure/sign/directions/medical{
+	pixel_x = -32;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
@@ -52434,7 +52446,6 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "kWj" = (
@@ -57633,7 +57644,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/access_button/offset/north,
+/obj/machinery/access_button/offset/southeast,
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "mNp" = (
@@ -81726,17 +81737,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/sign/directions/security{
-	pixel_x = 32;
-	pixel_y = 8
-	},
-/obj/structure/sign/directions/bridge{
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/science{
-	pixel_x = 32;
-	pixel_y = -8
-	},
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 4
 	},
@@ -81744,6 +81744,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "vaG" = (
@@ -86341,6 +86342,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel/full,
 /area/station/hallway/secondary/entry/west)
 "wzx" = (
