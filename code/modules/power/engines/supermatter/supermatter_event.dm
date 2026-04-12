@@ -270,5 +270,5 @@
 	air.set_toxins(20000)
 	air.set_oxygen(15000)
 	supermatter_turf.blind_release_air(air) // WHO HAS AN RCD, SPACE IT
-	supermatter.gas_multiplier = 15
+	supermatter.gas_multiplier = 40
 	empulse(supermatter, 3, 6, TRUE, "S-flood event")
