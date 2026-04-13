@@ -153,7 +153,7 @@
 	id = "reactor_chamber"
 	req_tech = list("programming" = 4, "materials" = 4, "magnets" = 4, "plasmatech" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 2000)
+	materials = list(MAT_GLASS = 2000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000)
 	build_path = /obj/item/circuitboard/machine/reactor_chamber
 	category = list("Power", "Engineering Machinery", "Misc")
 
