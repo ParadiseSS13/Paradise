@@ -615,7 +615,7 @@
 	product_type = /obj/item/food/syntisteak_cactus
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat/syntiflesh),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/syntiflesh, exact = TRUE),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/prickly_pear),
 		PCWJ_ADD_REAGENT("sodiumchloride", 1),
 		PCWJ_ADD_REAGENT("blackpepper", 1),

@@ -30,9 +30,15 @@
 	slices_num = 2
 
 // We need the food class for the slicing mechanics but I'm sorry, you can't just eat a coconut by biting into it
-/obj/item/food/grown/coconut/On_Consume(mob/M, mob/user)
-	to_chat(user, SPAN_NOTICE("[src] is too hard to bite into!"))
-	return FALSE
+/obj/item/food/grown/coconut/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(user.a_intent == INTENT_HARM && force)
+		return NONE
+
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(iscarbon(target))
+		to_chat(user, SPAN_NOTICE("[src] is too hard to bite into!"))
+
+	return NONE
 
 //Here's the drink
 /obj/item/food/sliced/coconut

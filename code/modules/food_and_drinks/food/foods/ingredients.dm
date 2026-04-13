@@ -191,7 +191,7 @@
 /obj/item/food/dough/corn
 	name = "maize dough"
 	desc = "Perfect for making arepas, usable in place of wheat dough."
-	color = "#FFEEBB"
+	color = "#FFEE99"
 
 // Dough + rolling pin = flat dough
 /obj/item/food/dough/item_interaction(mob/living/user, obj/item/used, list/modifiers)

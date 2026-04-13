@@ -61,6 +61,6 @@
 /obj/item/food/grown/prickly_pear/san_pedro/peyote
 	seed = /obj/item/seeds/prickly_pear/san_pedro/peyote
 	name = "peyote"
-	desc = "Now i can see the future, the past and all the true."
+	desc = "Now I can see the future, the past and all the true."
 	icon_state = "peyote"
 	tastes = list("fun" = 1)

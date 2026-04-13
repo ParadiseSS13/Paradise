@@ -300,7 +300,8 @@
 	name = "Cream Cheese"
 	id = "cream_cheese"
 	result = "cream_cheese"
-	required_reagents = list("cream" = 20, "milk" = 10, "sodiumchloride" = 1)
+	required_reagents = list("cream" = 15, "milk" = 15, "sodiumchloride" = 1)
+	required_catalysts = list("enzyme" = 5)
 	result_amount = 20
 	mix_message = "The cream combines into a smooth cheese."
 
