@@ -495,12 +495,11 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/reactor_chamber
 	origin_tech = "engineering=2"
-	materials = list(MAT_GLASS = 2000)
+	materials = list(MAT_GLASS = 2000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000)
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/metal = 2,
-		/obj/item/stack/sheet/mineral/plastitanium = 2,
 	)
 
 /obj/item/circuitboard/recharger
