@@ -46,6 +46,7 @@
 #define ROLE_GHOST				"ghost role"
 #define ROLE_ELITE				"lavaland elite"
 #define ROLE_NINJA				"ninja"
+#define ROLE_IRRADIATED_MOUSE	"irradiated mouse"
 
 // Misc jobban categories
 #define ROLEBAN_AHUD			"AntagHUD"
@@ -73,6 +74,7 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_MIND_FLAYER,
 	ROLE_HERETIC,
 	ROLE_NINJA,
+	ROLE_IRRADIATED_MOUSE,
 
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,

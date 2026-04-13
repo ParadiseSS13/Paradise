@@ -65,6 +65,7 @@
 #define SPECIAL_ROLE_HERETIC "Heretic"
 #define SPECIAL_ROLE_EVENTMISC "Event Role"
 #define SPECIAL_ROLE_NINJA "Space Ninja"
+#define SPECIAL_ROLE_IRRADIATED_MOUSE "Irradiated Mouse"
 
 // Constants used by code which checks the status of nuclear blasts during a
 // round, regardless of original game mode, e.g. setting the ending cinematic.
