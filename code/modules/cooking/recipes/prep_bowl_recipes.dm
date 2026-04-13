@@ -197,4 +197,18 @@
 		PCWJ_ADD_ITEM(/obj/item/food/baguette),
 	)
 
+/datum/cooking/recipe/guacamole
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/reagent_containers/condiment/guacamole
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/avocado),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/avocado),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+	)
+
 // ----------- END of recipe imports from Hispania!

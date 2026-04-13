@@ -4,7 +4,7 @@
 //	leave empty containers when used up and can be filled/re-filled with other items. Formatting for first section is identical
 //	to mixed-drinks code. If you want an object that starts pre-loaded, you need to make it in addition to the other code.
 
-//Food items that aren't eaten normally and leave an empty container behind.
+// Food items that aren't eaten normally and leave an empty container behind.
 /obj/item/reagent_containers/condiment
 	name = "condiment container"
 	desc = "Just your average condiment container."
@@ -13,7 +13,7 @@
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	volume = 50
-	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
+	// Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
 	"bbqsauce" = list("bbqsauce", "BBQ sauce bottle", "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."),
 	"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
@@ -37,7 +37,8 @@
 	"flour" = list("flour", "flour sack", "A big bag of flour. Good for baking!"),
 	"rice" = list("rice", "rice sack", "A big bag of rice. Good for cooking!"),
 	"butter" = list("butter", "butter tub", "Delicious milk fat."),
-	"cream_cheese" = list("cream_cheese", "cream cheese tub", "Thick liquid cheese."))
+	"cream_cheese" = list("cream_cheese", "cream cheese tub", "Thick liquid cheese."),
+	"guacamole" = list("guacamole", "guacamole tub", "Creamy, tangy, avocado paste."))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/condiment/mob_act(mob/target, mob/living/user)
@@ -313,6 +314,13 @@
 	desc = "Thick liquid cheese."
 	icon_state = "cream_cheese"
 	list_reagents = list("cream_cheese" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/condiment/guacamole
+	name = "guacamole"
+	desc = "Creamy, tangy avocado paste."
+	icon_state = "guacamole"
+	list_reagents = list("guacamole" = 50)
 	possible_states = list()
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!

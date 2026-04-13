@@ -627,7 +627,7 @@
 	product_type = /obj/item/food/meatsteak_cactus
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
-		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(exact = TRUE),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/prickly_pear),
 		PCWJ_ADD_REAGENT("sodiumchloride", 1),
 		PCWJ_ADD_REAGENT("blackpepper", 1),

@@ -22,3 +22,4 @@
 	icon_state = "agave"
 	wine_power = 0.5
 	tastes = list("bland" = 1)
+	distill_reagent = "tequila"

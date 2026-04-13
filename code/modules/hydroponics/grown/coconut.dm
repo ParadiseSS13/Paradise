@@ -37,6 +37,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iscarbon(target))
 		to_chat(user, SPAN_NOTICE("[src] is too hard to bite into!"))
+		return ITEM_INTERACT_COMPLETE
 
 	return NONE
 

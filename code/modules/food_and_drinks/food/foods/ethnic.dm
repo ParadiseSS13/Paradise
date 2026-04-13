@@ -383,7 +383,7 @@
 /obj/item/food/ensaladacactus
 	name = "Salad of Pickly Pear"
 	desc = "An salad everyday keeps you away from a doctor."
-	icon_state = "salad"
+	icon_state = "cactus_salad"
 	filling_color = "#89F834"
 	bitesize = 1
 	trash = /obj/item/trash/empty_plasticcup
