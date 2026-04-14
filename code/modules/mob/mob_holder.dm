@@ -100,6 +100,13 @@
 	icon_state = "mothroach"
 	slot_flags = ITEM_SLOT_HEAD
 
+/obj/item/holder/isopod_small
+	name = "deverka"
+	desc = "A tiny isopod that wriggles and chitters!"
+	icon_state = "deverka"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = null
+
 /obj/item/holder/drone/emagged
 	icon_state = "drone-emagged"
 
