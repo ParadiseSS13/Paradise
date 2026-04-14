@@ -249,7 +249,7 @@
 	contains_special = list(
 		"Ahuitz"
 	)
-	containertype = /obj/structure/closet/critter/cow
+	containertype = /obj/structure/closet/critter/isopod
 	containername = "ahuitz crate"
 
 /datum/supply_packs/organic/goat
