@@ -90,7 +90,7 @@
 	melee_damage_upper = 5
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
-	holder_type = /obj/item/holder/isopod_smol
+	holder_type = /obj/item/holder/isopod_small
 	ai_controller = /datum/ai_controller/basic_controller/isopod/small
 	max_nutrition = 400
 

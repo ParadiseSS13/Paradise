@@ -249,7 +249,7 @@
 	contains_special = list(
 		"Ahuitz"
 	)
-	containertype = /obj/structure/closet/critter/cow
+	containertype = /obj/structure/closet/critter/isopod
 	containername = "ahuitz crate"
 
 /datum/supply_packs/organic/goat
@@ -300,13 +300,13 @@
 					/obj/item/toy/cattoy)
 	containername = "cat crate"
 
-/datum/supply_packs/organic/isopod_smol
+/datum/supply_packs/organic/isopod_small
 	name = "Deverka Crate"
 	cost = 300
 	contains_special = list(
 		"Deverka"
 	)
-	containertype = /obj/structure/closet/critter/isopod_smol
+	containertype = /obj/structure/closet/critter/isopod_small
 	containername = "deverka crate"
 
 /datum/supply_packs/organic/pug
