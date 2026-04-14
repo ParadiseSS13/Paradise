@@ -243,6 +243,15 @@
 	containertype = /obj/structure/closet/critter/pig
 	containername = "pig crate"
 
+/datum/supply_packs/organic/isopod
+	name = "Ahuitz Crate"
+	cost = 100
+	contains_special = list(
+		"Ahuitz"
+	)
+	containertype = /obj/structure/closet/critter/cow
+	containername = "ahuitz crate"
+
 /datum/supply_packs/organic/goat
 	name = "Goat Crate"
 	cost = 100
@@ -290,6 +299,15 @@
 	contains = list(/obj/item/petcollar,
 					/obj/item/toy/cattoy)
 	containername = "cat crate"
+
+/datum/supply_packs/organic/isopod_smol
+	name = "Deverka Crate"
+	cost = 300
+	contains_special = list(
+		"Deverka"
+	)
+	containertype = /obj/structure/closet/critter/isopod_smol
+	containername = "deverka crate"
 
 /datum/supply_packs/organic/pug
 	name = "Pug Crate"
