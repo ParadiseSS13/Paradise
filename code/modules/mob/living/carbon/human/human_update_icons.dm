@@ -764,11 +764,24 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		left_ear_inv?.update_icon()
 		right_ear_inv?.update_icon()
 
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+
 	if(l_ear)
 		update_hud_l_ear(l_ear)
 
+		var/obj/item/radio/headset/ear_radio
+		var/obj/item/clothing/ear_clothes
+		var/icon/monitor_icon
+		if(istype(l_ear, /obj/item/radio/headset))
+			ear_radio = l_ear
+			monitor_icon = ear_radio.icon_monitor
+		else if(istype(l_ear, /obj/item/clothing))
+			ear_clothes = l_ear
+			monitor_icon = ear_clothes.icon_monitor
+
 		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)) && !HAS_TRAIT(l_ear, TRAIT_NO_WORN_ICON))
-			var/worn_icon = listgetindex(l_ear.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/ears.dmi'
+			var/worn_icon = listgetindex(l_ear.sprite_sheets, dna.species.sprite_sheet_name) || (robohead && robohead.is_monitor && (ear_clothes || ear_radio) ? monitor_icon : FALSE) || 'icons/mob/clothing/ears.dmi'
 			var/worn_state = l_ear.worn_icon_state || l_ear.icon_state
 
 			overlays_standing[LEFT_EAR_LAYER] = mutable_appearance(worn_icon, worn_state, layer = -LEFT_EAR_LAYER)
@@ -776,8 +789,18 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(r_ear)
 		update_hud_r_ear(r_ear)
 
+		var/obj/item/radio/headset/ear_radio
+		var/obj/item/clothing/ear_clothes
+		var/icon/monitor_icon
+		if(istype(r_ear, /obj/item/radio/headset))
+			ear_radio = r_ear
+			monitor_icon = ear_radio.icon_monitor
+		else if(istype(r_ear, /obj/item/clothing))
+			ear_clothes = r_ear
+			monitor_icon = ear_clothes.icon_monitor
+
 		if((!head || !(head.flags_inv & HIDEEARS)) && (!wear_mask || !(wear_mask.flags_inv & HIDEEARS)) && !HAS_TRAIT(r_ear, TRAIT_NO_WORN_ICON))
-			var/worn_icon = listgetindex(r_ear.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/ears.dmi'
+			var/worn_icon = listgetindex(r_ear.sprite_sheets, dna.species.sprite_sheet_name) || (robohead && robohead.is_monitor && (ear_clothes || ear_radio) ? monitor_icon : FALSE) || 'icons/mob/clothing/ears.dmi'
 			var/worn_state = r_ear.worn_icon_state || r_ear.icon_state
 
 			overlays_standing[RIGHT_EAR_LAYER] = mutable_appearance(worn_icon, worn_state, layer = -RIGHT_EAR_LAYER)

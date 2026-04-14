@@ -122,6 +122,8 @@
 
 /mob/living/basic/spiderling/terror_spiderling/Life(seconds, times_fired)
 	. = ..()
+	if(!isturf(loc))
+		return
 	var/turf/T = get_turf(src)
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)

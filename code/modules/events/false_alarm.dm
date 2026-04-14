@@ -19,9 +19,15 @@
 		/datum/event/rogue_drone,
 		/datum/event/solar_flare,
 		/datum/event/spider_infestation,
+		/datum/event/spider_terror,
 		/datum/event/tear,
+		/datum/event/tear/honk,
 		/datum/event/traders,
-		/datum/event/vent_clog
+		/datum/event/disease_outbreak,
+		/datum/event/vent_clog,
+		/datum/event/disposals_clog,
+		/datum/event/demon_incursion,
+		/datum/event/shuttle_loan,
 	) + subtypesof(/datum/event/anomaly) + subtypesof(/datum/event/carp_migration)
 
 	var/datum/event/working_event
