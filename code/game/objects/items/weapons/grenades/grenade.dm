@@ -39,6 +39,12 @@
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
+		var/turf/bombturf = get_turf(src)
+		var/area/A = get_area(bombturf)
+		message_admins("Damage has caused [src] to be primed for detonation at <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+		log_game("Damage has caused [src] has be primed for detonation at [A] ([bombturf.x],[bombturf.y],[bombturf.z])")
+		investigate_log("Damage has caused [src] has be primed for detonation at [A] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
+		add_attack_logs(null, src, "has primed for detonation by damage.", ATKLOG_FEW)
 		prime()
 	if(!QDELETED(src))
 		qdel(src)

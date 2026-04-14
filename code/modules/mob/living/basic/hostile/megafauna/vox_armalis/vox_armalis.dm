@@ -25,7 +25,7 @@
 	projectile_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_burst_count = 2
 	ranged_cooldown = 0.5 SECONDS // It's player controlled, it can have player fire rates.
-	initial_traits = list()
+	initial_traits = list(TRAIT_NOFIRE)
 	blood_color = "#2299FC"
 	butcher_time = 40 SECONDS
 	butcher_results = list(

@@ -401,6 +401,8 @@
 	H.anchored = initial(H.anchored)
 
 	eating = FALSE
+	stage = STAGE_HAUNT
+	interest = 0
 	if(prob(2))
 		switch_stage = max(switch_stage * 0.75, switch_stage_min) //he gets a chance to be faster after each feast
 	if(smiting)
@@ -408,8 +410,6 @@
 		qdel(src)
 	else
 		Acquire_Victim()
-
-		interest = 0
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/client_kill_animation(mob/living/carbon/human/H)
 	if(!H.client)

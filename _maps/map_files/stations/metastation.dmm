@@ -53235,10 +53235,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
-"lil" = (
-/obj/effect/spawner/random/barrier/obstruction,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "lio" = (
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/solar/aft_port)
@@ -71546,7 +71542,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/equipmentstorage)
 "rye" = (
@@ -109095,7 +109091,7 @@ cjo
 qrk
 wBn
 loD
-lil
+bZP
 crG
 crG
 qXm

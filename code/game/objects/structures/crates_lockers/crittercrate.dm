@@ -75,6 +75,10 @@
 	name = "pig crate"
 	content_mob = /mob/living/basic/pig
 
+/obj/structure/closet/critter/isopod
+	name = "ahuitz crate"
+	content_mob = /mob/living/basic/isopod
+
 /obj/structure/closet/critter/goat
 	name = "goat crate"
 	content_mob = /mob/living/basic/goat
@@ -89,6 +93,10 @@
 
 /obj/structure/closet/critter/chick/populate_contents()
 	amount = rand(1, 3)
+
+/obj/structure/closet/critter/isopod_smol
+	name = "deverka crate"
+	content_mob = /mob/living/basic/isopod/small
 
 /obj/structure/closet/critter/cat
 	name = "cat crate"
