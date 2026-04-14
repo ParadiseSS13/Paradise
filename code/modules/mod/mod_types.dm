@@ -161,6 +161,7 @@
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
+		/obj/item/mod/module/analyzer,
 	)
 
 /obj/item/mod/control/pre_equipped/rescue
@@ -173,9 +174,11 @@
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/defibrillator,
 		/obj/item/mod/module/monitor,
+		/obj/item/mod/module/analyzer,
 	)
 	default_pins = list(
 		/obj/item/mod/module/defibrillator,
+		/obj/item/mod/module/analyzer,
 	)
 
 /obj/item/mod/control/pre_equipped/research
