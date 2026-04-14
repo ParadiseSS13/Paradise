@@ -102,7 +102,13 @@
 			continue
 		if(!grimiest_decal || target_decal.cleanable_amount > grimiest_decal.cleanable_amount)
 			grimiest_decal = target_decal
-	var/target_grime_level = grimiest_decal ? grimiest_decal.cleanable_amount : length(target.blood_DNA)
+
+	// In the case of no decals, compare how much blood DNA is on there that isn't already on the towel.
+	var/list/blood_DNA_copy = list()
+	if(target.blood_DNA)
+		blood_DNA_copy = target.blood_DNA.Copy()
+		blood_DNA_copy.Remove(blood_DNA)
+	var/target_grime_level = grimiest_decal ? grimiest_decal.cleanable_amount : length(blood_DNA_copy)
 
 	// if the towel is grimy, add grime to the target. do this before adding more grime to the towel
 	if(grime_level > 1)
