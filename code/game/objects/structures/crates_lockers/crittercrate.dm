@@ -94,7 +94,7 @@
 /obj/structure/closet/critter/chick/populate_contents()
 	amount = rand(1, 3)
 
-/obj/structure/closet/critter/isopod_smol
+/obj/structure/closet/critter/isopod_small
 	name = "deverka crate"
 	content_mob = /mob/living/basic/isopod/small
 

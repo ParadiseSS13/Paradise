@@ -100,7 +100,7 @@
 	icon_state = "mothroach"
 	slot_flags = ITEM_SLOT_HEAD
 
-/obj/item/holder/isopod_smol
+/obj/item/holder/isopod_small
 	name = "deverka"
 	desc = "A tiny isopod that wriggles and chitters!"
 	icon_state = "deverka"
