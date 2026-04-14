@@ -31,9 +31,6 @@
 	icon_state = "banana_casing"
 	deliveryamt = 0
 
-/obj/item/grenade/bananade/casing/attack_hand()
-	return // No activating an empty grenade
-
 /obj/item/grenade/bananade/casing/attack_self__legacy__attackchain()
 	return // Stop trying to break stuff
 
