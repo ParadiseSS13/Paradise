@@ -173,6 +173,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 12),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/grid_check, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/electrical_storm, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/radiation_storm, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spider_infestation, 10, TRUE),
