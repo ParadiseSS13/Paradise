@@ -23,11 +23,13 @@
 		/datum/event/tear,
 		/datum/event/tear/honk,
 		/datum/event/traders,
+		/datum/event/vent_clog,
 		/datum/event/disease_outbreak,
 		/datum/event/vent_clog,
 		/datum/event/disposals_clog,
 		/datum/event/demon_incursion,
 		/datum/event/shuttle_loan,
+		/datum/event/grid_check,
 	) + subtypesof(/datum/event/anomaly) + subtypesof(/datum/event/carp_migration)
 
 	var/datum/event/working_event

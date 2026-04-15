@@ -75,7 +75,7 @@
 	if(!istype(target, /obj/item/stack/cable_coil))	
 		..()
 		is_empty(user)
-		return ITEM_INTERACT_COMPLETE
+		return NONE
 
 	load_cable(user, target)
 	return ITEM_INTERACT_COMPLETE
