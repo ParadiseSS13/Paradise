@@ -53235,10 +53235,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
-"lil" = (
-/obj/effect/spawner/random/barrier/obstruction,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "lio" = (
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/solar/aft_port)
@@ -109095,7 +109091,7 @@ cjo
 qrk
 wBn
 loD
-lil
+bZP
 crG
 crG
 qXm

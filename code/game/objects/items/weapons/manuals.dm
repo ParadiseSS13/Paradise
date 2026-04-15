@@ -860,8 +860,8 @@
 				Mix two parts gin to one part tonic water.
 				<h2>Grog:</h2>
 				Mix one part rum to one part water.
-				<h2>Howler: (a Vulpkanin favorite!)</h2>
-				Mix two parts tequila to one part each of lime juice, lemon-lime, and orange juice.
+				<h2>Durkehiet: (a Vulpkanin favorite!)</h2>
+				Mix two parts vodka to one part each of triple citrus and honey.
 				<h2>Dublin Drop:</h2>
 				Mix one part each of Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>), stout, and whiskey.
 				<h2>Irish Coffee:</h2>
