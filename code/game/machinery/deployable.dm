@@ -253,8 +253,6 @@
 	inhand_icon_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	var/mode = SINGLE
-	/// Mob who armed it. Needed for the get_dir proc
-	var/armer
 
 /obj/item/grenade/barrier/examine(mob/user)
 	. = ..()
@@ -368,6 +366,8 @@
 	var/uptime = DROPWALL_UPTIME
 	/// If this is true we do not arm again, due to the sleep
 	var/deployed = FALSE
+	/// Mob who armed it. Needed for the get_dir proc
+	var/armer
 
 /obj/item/grenade/barrier/dropwall/toggle_mode(mob/user)
 	switch(mode)
@@ -384,7 +384,7 @@
 
 	to_chat(user, "[src] is now in [mode == AUTO ? mode : dir2text(mode)] mode.")
 
-/obj/item/grenade/barrier/activate_self(mob/user)
+/obj/item/grenade/barrier/dropwall/activate_self(mob/user)
 	armer = user
 	return ..()
 
