@@ -1328,7 +1328,7 @@
 	},
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
+/area/station/hallway/secondary/entry/east)
 "apl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -13965,7 +13965,7 @@
 "bDC" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
+/area/station/hallway/secondary/entry/east)
 "bDE" = (
 /obj/machinery/economy/vending/snack,
 /obj/machinery/light,
@@ -32797,7 +32797,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
+/area/station/hallway/secondary/entry/east)
 "evr" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/xenobio_south)
@@ -48958,7 +48958,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "jPv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -106209,7 +106209,7 @@ vXe
 vXe
 vXe
 vXe
-hSu
+vXe
 hSu
 ody
 wIK
@@ -106466,7 +106466,7 @@ vXe
 mZP
 mZP
 mZP
-hSu
+vXe
 qrO
 gLO
 wDL
@@ -107494,7 +107494,7 @@ vXe
 auu
 bAQ
 eFl
-hSu
+vXe
 hZZ
 vzv
 bvD
