@@ -2,6 +2,20 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dyeable = TRUE
 
+/obj/item/clothing/under/misc/pj/Initialize(mapload)
+	. = ..()
+	if(!ispath(src.type, /obj/item/clothing/under/misc/pj))
+		return
+	var/obj/item/clothing/picked_pj = pick(
+		/obj/item/clothing/under/misc/pj/red,
+		/obj/item/clothing/under/misc/pj/blue,
+	)
+	name = picked_pj::name
+	desc = picked_pj::desc
+	icon_state = picked_pj::icon_state
+	base_icon_state = picked_pj::icon_state
+	update_icon()
+
 /obj/item/clothing/under/misc/pj/red
 	name = "red pj's"
 	desc = "Sleepwear."
