@@ -22,7 +22,7 @@
 	player.click_on(borg)
 	TEST_ASSERT_LAST_CHATLOG(player, "You remove the high-capacity power cell")
 	player.click_on(borg)
-	TEST_ASSERT_LAST_CHATLOG(player, "You insert the power cell")
+	TEST_ASSERT_LAST_CHATLOG(player, "You insert the high-capacity cell")
 	player.retrieve(crowbar)
 	player.click_on(borg)
 	TEST_ASSERT_LAST_CHATLOG(player, "You close the cover")
