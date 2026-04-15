@@ -146,7 +146,7 @@
 				H.Paralyse(6 SECONDS)
 				H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
 				H.throw_alert("too_much_co2", /atom/movable/screen/alert/too_much_co2)
-				if(world.time - H.co2overloadtime > 240) // They've been in here 30s now, lets start to kill them for their own good!
+				if(world.time - H.co2overloadtime > 240) // They've been in here 24s now, lets start to kill them for their own good!
 					H.apply_damage_type(15, co2_damage_type)
 
 			if(prob(60)) // Lets give them some chance to know somethings not right.
