@@ -2004,6 +2004,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel/full,
 /area/station/hallway/secondary/entry/east)
 "auy" = (
@@ -86339,7 +86343,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/firealarm/directional/north,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel/full,
 /area/station/hallway/secondary/entry/west)
 "wzx" = (
