@@ -57,7 +57,12 @@
 			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
 		return
 	if(modifiers["shift"])
-		ShiftClickOn(A)
+		if(isturf(A))
+			var/turf/clicked_turf = A
+			for(var/obj/machinery/door/AL in clicked_turf.contents)
+				AL.try_to_activate_door(src)
+		else
+			ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
 		AltClickOn(A)

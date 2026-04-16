@@ -20050,7 +20050,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "dfG" = (
@@ -40931,7 +40931,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "hMA" = (

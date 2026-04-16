@@ -285,6 +285,13 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 	build_path = /obj/item/mod/module/defibrillator
 
+/datum/design/module/analyzer
+	name = "Health Analyzer Module"
+	id = "mod_analyzer"
+	req_tech = list("biotech" = 3, "materials" = 5)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000)
+	build_path = /obj/item/mod/module/analyzer
+
 /datum/design/module/mod_bikehorn
 	name = "Bike Horn Module"
 	id = "mod_bikehorn"
