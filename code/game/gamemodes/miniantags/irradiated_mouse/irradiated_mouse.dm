@@ -42,29 +42,55 @@
 	butcher_results = list(/obj/item/food/meat = 1, /obj/item/stack/sheet/mineral/uranium = 1)
 	gold_core_spawnable = NO_SPAWN
 	minimum_survivable_temperature = 0
-	initial_traits = (TRAIT_SHOCKIMMUNE, TRAIT_AI_PAUSED) // shock immune so you can chew on those yummy wires
+	initial_traits = list(TRAIT_SHOCKIMMUNE, TRAIT_AI_PAUSED, TRAIT_RADIMMUNE) // shock immune so you can chew on those yummy wires
+	a_intent = INTENT_HARM
+
+	var/available_upgrades = 0
 	var/radiation_upgrades = 0
 	var/speed_upgrades = 0
 	var/damage_upgrades = 0
 	var/level_cap = 3
+
 	var/alpha_rad = 0
 	var/beta_rad = 0
 	var/gamma_rad = 0
-	var/alpha_rad_per_level = 200
-	var/beta_rad_per_level = 100
+	var/alpha_rad_per_level = 500
+	var/beta_rad_per_level = 500
 	var/gamma_rad_per_level = 0
 	var/radiation_cooldown = 0.1
+
 	var/speed_per_level = -0.5
 	var/speed_capstone_alpha = 100
+
+	var/has_exited_vents = FALSE
+	var/datum/spell/irradiated_mouse_spell/upgrade_radiation/upgrade_radiation_spell
+	var/datum/spell/irradiated_mouse_spell/upgrade_speed/upgrade_speed_spell
+	var/datum/spell/irradiated_mouse_spell/upgrade_damage/upgrade_damage_spell
 
 /mob/living/basic/mouse/irradiated_mouse/Initialize(mapload)
 	. = ..()
 	add_language("Galactic Common")
 	set_default_language(GLOB.all_languages["Galactic Common"])
 
-	upgrade_radiation()
-	upgrade_speed()
-	upgrade_damage()
+	upgrade_radiation_spell = new
+	upgrade_speed_spell = new
+	upgrade_damage_spell = new
+	AddSpell(upgrade_radiation_spell)
+	AddSpell(upgrade_speed_spell)
+	AddSpell(upgrade_damage_spell)
+
+/mob/living/basic/mouse/irradiated_mouse/remove_ventcrawl()
+	. = ..()
+	if(!has_exited_vents)
+		upgrade_radiation()
+		upgrade_speed()
+		upgrade_damage()
+	has_exited_vents = TRUE
+
+/mob/living/basic/mouse/irradiated_mouse/Life(seconds, times_fired)
+	. = ..()
+	if(has_exited_vents)
+		adjustBruteLoss(1)
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_radiation()
 	radiation_upgrades++
@@ -87,6 +113,48 @@
 	melee_damage_upper = melee_damage_lower + 5
 	if(damage_upgrades > level_cap)
 		environment_smash = ENVIRONMENT_SMASH_WALLS
+
+/datum/spell/irradiated_mouse_spell/
+	action_background_icon_state = "shadow_demon_bg"
+	clothes_req = FALSE
+	base_cooldown = 5 SECONDS
+
+/datum/spell/irradiated_mouse_spell/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/datum/spell/irradiated_mouse_spell/upgrade_radiation
+	name = "Upgrade Radiation"
+	desc = "Upgrade the amount of radiation you emit. You will start producing radioactive sludge at level 3."
+	action_icon_state = "summon_supermatter"
+
+/datum/spell/irradiated_mouse_spell/upgrade_radiation/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
+	user.upgrade_radiation()
+	if(user.radiation_upgrades > user.level_cap)
+		user.RemoveSpell(user.upgrade_radiation_spell)
+
+/datum/spell/irradiated_mouse_spell/upgrade_speed
+	name = "Upgrade Speed"
+	desc = "Upgrade your speed. You will become semi-transparent at level 3."
+	action_icon_state = "vampire_cloak"
+
+/datum/spell/irradiated_mouse_spell/upgrade_speed/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
+	user.upgrade_speed()
+	if(user.speed_upgrades > user.level_cap)
+		user.RemoveSpell(user.speed_upgrades)
+
+/datum/spell/irradiated_mouse_spell/upgrade_damage
+	name = "Upgrade Damage"
+	desc = "Upgrade your damage. You will become able to damage walls and windows at level 3."
+	action_icon_state = "genetic_hulk"
+
+/datum/spell/irradiated_mouse_spell/upgrade_damage/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
+	user.upgrade_damage()
+	if(user.damage_upgrades > user.level_cap)
+		user.RemoveSpell(user.upgrade_damage_spell)
+
+/mob/living/basic/mouse/irradiated_mouse/death(gibbed)
+	DeleteComponentsType(/datum/component/inherent_radioactivity)
+	. = ..()
 
 /mob/living/basic/mouse/irradiated_mouse/proc/make_irradiated_mouse_antag()
 	if(!mind)
