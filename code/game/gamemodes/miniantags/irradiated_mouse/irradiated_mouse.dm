@@ -46,6 +46,7 @@
 	a_intent = INTENT_HARM
 
 	var/available_upgrades = 0
+	var/upgrade_cooldown = 120 SECONDS
 	var/radiation_upgrades = 0
 	var/speed_upgrades = 0
 	var/damage_upgrades = 0
@@ -63,6 +64,8 @@
 	var/speed_capstone_alpha = 100
 
 	var/has_exited_vents = FALSE
+	var/time_till_death = 1 MINUTES
+
 	var/datum/spell/irradiated_mouse_spell/upgrade_radiation/upgrade_radiation_spell
 	var/datum/spell/irradiated_mouse_spell/upgrade_speed/upgrade_speed_spell
 	var/datum/spell/irradiated_mouse_spell/upgrade_damage/upgrade_damage_spell
@@ -89,8 +92,17 @@
 
 /mob/living/basic/mouse/irradiated_mouse/Life(seconds, times_fired)
 	. = ..()
-	if(has_exited_vents)
-		adjustBruteLoss(1)
+	if(!has_exited_vents)
+		return
+
+	adjustBruteLoss(health * seconds / time_till_death)
+
+	upgrade_cooldown -= seconds SECONDS
+	if(upgrade_cooldown <= 0)
+		upgrade_cooldown += 120 SECONDS
+		available_upgrades++
+
+	log_debug("health: [health] seconds: [seconds] available_upgrades: [available_upgrades] ([upgrade_cooldown])s")
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_radiation()
 	radiation_upgrades++
