@@ -36,6 +36,8 @@
 	var/dynamic_icon_state = FALSE
 	/// Whether this stack can't stack with subtypes.
 	var/parent_stack = FALSE
+	/// Whether this stack can be split into multiple independent stacks.
+	var/allow_splitting = TRUE
 
 /obj/item/stack/examine(mob/user)
 	. = ..()
@@ -196,8 +198,10 @@
 
 /obj/item/stack/attack_hand(mob/user)
 	if(!user.is_in_inactive_hand(src) && get_amount() > 1)
-		..()
-		return
+		return ..()
+
+	if(!allow_splitting)
+		return ..()
 
 	change_stack(user, 1)
 	if(src && user.machine == src)
@@ -316,6 +320,9 @@
 	return to_transfer
 
 /obj/item/stack/proc/split(mob/user, amount)
+	if(!allow_splitting)
+		return
+
 	var/obj/item/stack/material = new type(loc, amount, FALSE)
 	material.copy_evidences(src)
 	if(isliving(user))
@@ -326,6 +333,9 @@
 	return material
 
 /obj/item/stack/proc/change_stack(mob/user,amount)
+	if(!allow_splitting)
+		return
+
 	var/obj/item/stack/material = new type(user, amount, FALSE)
 	. = material
 	material.copy_evidences(src)
