@@ -345,7 +345,7 @@
 		if(defender == attacker) // Do not commit suicide attacking yourself
 			continue
 
-		var/datum/ai_controller/monkey/M = defender.ai_controller
+		var/datum/ai_controller/monkey/uplifted_npc/M = defender.ai_controller
 		if(istype(M))
 			M.retaliate(attacker)
 
