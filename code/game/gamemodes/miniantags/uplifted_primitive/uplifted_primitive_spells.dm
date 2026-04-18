@@ -21,8 +21,7 @@
 	if(!do_after(user, 10 SECONDS, target = user))
 		return
 
-	var/obj/structure/uplifted_primitive/nest/nest = new(get_turf(user))
-	nest.nest_species = user.dna.species.type
+	var/obj/structure/uplifted_primitive/nest/nest = new(get_turf(user), U.initial_species)
 	U.nest_uid = nest.UID()
 
 /datum/spell/uplifted_make_nest/can_cast(mob/user, charge_check, show_message)

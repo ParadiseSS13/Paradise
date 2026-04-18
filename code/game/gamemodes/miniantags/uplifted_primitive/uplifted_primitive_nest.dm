@@ -26,7 +26,7 @@
 	max_integrity = 200
 
 	/// The species of lesser human to spawn.
-	var/datum/species/nest_species = /datum/species/monkey
+	var/datum/species/nest_species
 
 	/// The amount of scrap (recycled materials) currently stored in the nest.
 	var/available_scrap = 0
@@ -40,8 +40,8 @@
 	/// The probability that the next spawned mob will be sentient.
 	var/sentient_probability = 5
 
-	/// Whether or not to let ghosts interact with the nest to spawn without a roll.
-	var/spawn_on_demand = FALSE
+	/// The spawner used to let ghosts spawn without a roll. If null, the nest is not in on demand mode.
+	var/obj/effect/mob_spawn/uplifted_primitive/on_demand_spawner
 
 	/// The mapping between the path of a crafting output and a list containing
 	/// its scrap and food costs, and an optional argument to be passed to new().
@@ -55,14 +55,16 @@
 	var/list/crafting_choices_cache
 	var/list/crafting_mapping_cache
 
-/obj/structure/uplifted_primitive/nest/Initialize(mapload)
+/obj/structure/uplifted_primitive/nest/Initialize(mapload, datum/species/species = /datum/species/monkey)
 	. = ..(mapload)
 	AddElement(/datum/element/relay_attackers)
 	RegisterSignal(src, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(rally_retaliation))
 	START_PROCESSING(SSobj, src)
 	COOLDOWN_START(src, spawn_cooldown, SPAWN_COOLDOWN_TIME)
+	nest_species = species
 
 /obj/structure/uplifted_primitive/nest/Destroy()
+	QDEL_NULL(on_demand_spawner)
 	STOP_PROCESSING(SSobj, src)
 	UnregisterSignal(src, COMSIG_ATOM_WAS_ATTACKED)
 	RemoveElement(/datum/element/relay_attackers)
@@ -99,7 +101,7 @@
 		available_scrap -= INTEGRITY_REGEN_SCRAP_COST
 		obj_integrity = min(obj_integrity + INTEGRITY_REGEN_AMOUNT, max_integrity)
 
-	if(!spawn_on_demand && available_scrap >= SPAWN_SCRAP_COST && available_food >= SPAWN_FOOD_COST && COOLDOWN_FINISHED(src, spawn_cooldown))
+	if(!on_demand_spawner && available_scrap >= SPAWN_SCRAP_COST && available_food >= SPAWN_FOOD_COST && COOLDOWN_FINISHED(src, spawn_cooldown))
 		COOLDOWN_START(src, spawn_cooldown, SPAWN_COOLDOWN_TIME)
 
 		var/rolled = roll_sentience()
@@ -115,8 +117,8 @@
 				spawn_npc()
 				available_scrap -= SPAWN_SCRAP_COST
 				available_food -= SPAWN_FOOD_COST
-			else
-				spawn_on_demand = rolled
+			else if(rolled)
+				on_demand_spawner = new(src)
 			// accumulating probability ensures a sentient spawn occurs in a finite number of iterations
 			sentient_probability = min(sentient_probability + SPAWN_SENTIENT_PROB_INCREASE, 100)
 
@@ -186,7 +188,11 @@
 	if(..() || !istype(user))
 		return TRUE
 
-	if(spawn_on_demand \
+	if(!SSghost_spawns.is_eligible(user, role_text = ROLE_UPLIFTED_PRIMITIVE, check_antaghud = TRUE))
+		to_chat(user, SPAN_WARNING("You are not eligible to spawn as an uplifted primitive!"))
+		return TRUE
+
+	if(on_demand_spawner \
 	&& available_scrap >= SPAWN_SCRAP_COST \
 	&& available_food >= SPAWN_FOOD_COST \
 	&& COOLDOWN_FINISHED(src, spawn_cooldown))
@@ -196,7 +202,8 @@
 		available_scrap -= SPAWN_SCRAP_COST
 		available_food -= SPAWN_FOOD_COST
 		sentient_probability = initial(sentient_probability)
-		spawn_on_demand = FALSE
+		QDEL_NULL(on_demand_spawner)
+		COOLDOWN_START(src, spawn_cooldown, SPAWN_COOLDOWN_TIME)
 	else
 		to_chat(user, SPAN_WARNING("This nest is not ready to spawn another primitive!"))
 
@@ -348,6 +355,20 @@
 		var/datum/ai_controller/monkey/uplifted_npc/M = defender.ai_controller
 		if(istype(M))
 			M.retaliate(attacker)
+
+/obj/effect/mob_spawn/uplifted_primitive
+	name = "Uplifted Primitive"
+	description = "You are a primitive being who has awoken with sentience. Survive on station with your fellow primitives and complete objectives."
+	roundstart = FALSE
+
+/obj/effect/mob_spawn/uplifted_primitive/Initialize(mapload)
+	var/obj/structure/uplifted_primitive/nest/N = loc
+	if(istype(N))
+		name = "Uplifted [N.nest_species::name]"
+	return ..()
+
+/obj/effect/mob_spawn/uplifted_primitive/attack_ghost(mob/user)
+	return loc.attack_ghost(user)
 
 #undef INTEGRITY_REGEN_AMOUNT
 #undef INTEGRITY_REGEN_SCRAP_COST
