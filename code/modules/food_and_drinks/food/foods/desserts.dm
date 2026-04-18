@@ -154,7 +154,6 @@
 	name = "honey mugcake"
 	desc = "A delicious and spongy little honey cake inside a coffee mug."
 	icon_state = "honey_mugcake"
-	filling_color = "#EFD8A7"
 	list_reagents = list("nutriment" = 6)
 
 
