@@ -30,9 +30,6 @@
 	set_icon_from_cache()
 
 /obj/item/clothing/under/proc/set_icon_from_cache(palette_key = null, dye_key = null)
-	if(!palette_key && ("icon_palette_key" in vars))
-		var/obj/item/clothing/under/color/colored_jumpsuit = src
-		palette_key = palette_key || colored_jumpsuit.icon_palette_key
 	if(!palette_key)
 		return FALSE
 	dye_key = dye_key || dyeing_key
@@ -53,6 +50,10 @@
 	var/icon_state_skirt = dye_key == "under" ? "" : "skirt"
 	icon_state = "[icon_state_prefix][icon_state_skirt]"
 	inhand_icon_state = "[icon_state_prefix]_suit"
+
+/obj/item/clothing/under/color/set_icon_from_cache(palette_key, dye_key)
+	palette_key = palette_key || icon_palette_key
+	. = ..(palette_key, dye_key)
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	var/list/excluded = list(/obj/item/clothing/under/color/random,
