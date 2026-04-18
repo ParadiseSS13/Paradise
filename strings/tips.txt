@@ -30,15 +30,18 @@ If there's something you need from another department, try asking! This game isn
 You'll quickly lose your interest in the game if you play to win and kill. If you find yourself doing this, take a step back and talk to people - it's a much better experience!
 Don't be afraid to ask for help, whether from your peers or from mentors.
 If someone is in critical condition, you can interact with them to start performing CPR. This will heal oxygen damage and help restart breathing. Additionally, if the patient is dead but still revivable, it will extend the defibrillation window for as long as CPR continues. If you or the patient is wearing a mask or you are a species that doesn't breathe the same kind of air as the patient, it will be less effective.
-As the Captain, you are one of the highest priority targets on the station. Everything from nuclear operatives to traitors that need to rob you of your unique lasergun or your life are things to worry about.
+As the Captain, you are one of the highest priority targets on the station. Everything from nuclear operatives to traitors that need to rob you of your unique laser gun or your life are things to worry about.
 As the Captain, always take the nuclear disk and pinpointer with you every shift. It's a good idea to give one of these to another head or Blueshield you can trust with keeping it safe.
 As the Captain, you have absolute access and control over the station, but this does not mean that being a horrible person won't result in mutiny and a ban.
+As the Captain, your Magnate MODsuit is the best on the entire station. It's immune to atmospheric conditions, fire, electricity, has space for any upgrades you want, and boasts exceptional armor that's only met by a Syndicate Elite MODsuit in combat mode!
 As the Chief Medical Officer, your advanced hypospray is a refillable instant injection syringe that can hold 100 units of any chemical, including harmful reagents restricted by the standard hypospray! Additionally, your hypospray does not tell anyone what exactly you've injected into someone.
-As the Chief Medical Officer, coordinate and communicate with your doctors, chemists, and geneticists during a nuclear emergency, blob infestation, or some other crisis to keep people alive and fighting.
+As the Chief Medical Officer, coordinate and communicate with your doctors, and chemists during a nuclear emergency, blob infestation, or some other crisis to keep people alive and fighting.
+As the Chief Medical Officer, your advanced hypospray starts pre-filled with 30 units of omnizine, able to heal most types of damage. Chemistry can also use it to produce lazarus reagent, which can revive non-defibrillatable patients without the need to clone them.
 As a Medical Doctor, you can surgically implant or extract things from people's chests. This can range from putting in a bomb to pulling out an alien larva.
 As a Medical Doctor, you must target the correct limb and be on help intent when trying to perform surgery on someone.
 As a Medical Doctor, corpses with the "...and their soul has departed" description no longer have a ghost attached to them and aren't revivable or clonable right now, but they might be clonable later.
 As a Medical Doctor, remember to have either a shower or fire extinguisher at the ready when cloning plasmamen along with their envirosuit.
+As a Medical Doctor, you can use the 'tend wounds' and 'tend burns' surgeries to heal brute and burn damage without needing to use any consumables or chems.
 As a Chemist, there are dozens of chemicals that can heal, and even more that can cause harm. Experiment!
 As a Chemist, some chemicals can only be synthesized by heating up the contents with a chemical heater or manually with lighters and similar tools.
 As a Chemist, you will be expected to supply crew with certain chemicals. For example, cryoxadone and mannitol for the cryo tubes, unstable mutagen and saltpetre for botany as well as healing pills and patches for the front desk.
@@ -59,8 +62,10 @@ Not all alien organs are created equal. The quality of extracted organs can ampl
 As a Xenobiologist, get out of your basement and actually do some field work to get those organs you lazy bums!
 As a Roboticist, keep an ear out for anomaly announcements. If you get your hands on a bluespace anomaly core, you can build a Phazon mech!
 As a Roboticist, you can repair your cyborgs with a welding tool. If they have taken burn damage, you can remove their battery, expose the wiring with a screwdriver and replace their wires with a cable coil.
+As a Roboticist, you can recharge a cyborg's power cell by pressing another power cell against them on help intent.
 As a Roboticist, you can use a multitool on an empty cyborg shell to alter various settings, including whether it will connect to the AI.
 As a Roboticist, you can augment people with cyborg limbs. Augmented limbs can easily be repaired with cables and welders.
+As a Roboticist, you get paid a bonus for every mech and cyborg that you build.
 As the AI, you can click on people's names to look at them. This only works if there are cameras that can see them, they aren't wearing agent IDs, or aren't using digital camouflage as changelings.
 As the AI, you can quickly open and close doors by holding shift while clicking them, bolt them when holding ctrl, and even shock them while holding alt.
 As the AI, you can take pictures with your camera and upload them to newscasters.
@@ -71,27 +76,30 @@ As a Cyborg, choose your module carefully, as only a cyborg reset module will le
 As a Cyborg, you are immune to most forms of stunning, and excel at almost everything far better than humans. However, flashes can easily stunlock you and there are many tasks you cannot perform as your grippers will not allow you to.
 As a Cyborg, you are impervious to fires and heat. If you are rogue, you can release plasma fires everywhere and walk through them without a care in the world!
 As a Cyborg, you are extremely vulnerable to EMPs as EMPs both stun you and damage you. The ion rifle in the armory or a traitor with an EMP kit can kill you in seconds.
-As an Engineering Cyborg, you can attach air alarm/fire alarm/APC frames to walls by using your magnetic gripper.
-As a Medical Cyborg, the Hydrocodone in your Cyborg you can perform most surgery procedures even in the field with the help of your cyborg hypospray's Hydrocodone and roller bed rack module.
+As an Engineering Cyborg, you can attach air alarm/fire alarm/APC frames to walls by using your engineering gripper.
+As a Medical Cyborg, you can perform most surgery procedures in the field with the help of your cyborg hypospray's Hydrocodone and roller bed rack module.
 As a Janitor Cyborg, you are the bane of all slaughter demons. Cleaning up blood stains will severely hinder them.
-As the Chief Engineer, you can rename areas or create entirely new ones using your station blueprints.
-As the Chief Engineer, your hardsuit is significantly better than everybody else's. It has the best features of both engineering and atmospherics hardsuits, boasting nigh-invulnerability to radiation and all atmospheric conditions. It even has a built in jet-pack!
+As a Mining Cyborg, you're immune to ash storms from the get-go, and can be upgraded to be immune to lava too!
+As the Chief Engineer, you can rename areas or create entirely new ones using your station blueprints. The blueprints also let you see what each wire in a device does.
+As the Chief Engineer, your MODsuit is significantly better than everybody else's except for the Captain's. It has the best features of both engineering and atmospherics hardsuits, invulnerability to radiation and all atmospheric conditions, and very strong melee armor. It even has a built in jetpack!
 As the Chief Engineer, using the power monitor consoles gives you a good overview of all the station APC units and their status. You can also use your PDA to remotely view this by connecting to a monitor console.
 As an Engineer, you can electrify grilles and fences by placing wire "nodes" beneath them: the big seemingly unconnected bulges from a half completed wiring job. The wire will be need to be connected to an active power source in order to function.
-As an Engineer, return to Engineering once in a while to check on the engines and SMES cells. It's always a good idea to make sure containment isn't compromised or if the SM is still properly being cooled.
+As an Engineer, return to Engineering once in a while to check on the engines and SMES cells. It's always a good idea to make the engine isn't currently on fire.
 As an Engineer, you can power the station solely with the solar arrays. They will provide just enough electricity to power the station, however their output is still much worse compared to the true engine.
 As an Engineer, you can cool a supermatter shard by spraying it with a fire extinguisher. Only for the brave!
-As an Engineer, you can repair windows by using a welding tool on them while on help intent.
+As an Engineer, you can repair windows by using a welding tool on them while on help intent. You can also repair damaged grilles underneath windows by using rods on the window itself.
 As an Engineer, you can lock APCs, fire alarms, emitters, and radiation collectors using your ID card to prevent others from disabling them.
 As an Engineer, don't underestimate the humble P.A.C.M.A.N. generators. With upgraded parts, a couple units working in tandem are sufficient to take over for an exploded engine or shattered solars.
 As an Engineer, you can pry open secure storage blast doors by turning off the secure storage APC's enviroment power channel.
 As an Engineer, you can set up the SMES units before working on the engine. This will stop the station from running out of power before the engine is online.
+As an Engineer, remember to patrol maintenance for broken cables and mice. Mice will cause power issues by eating electrical cables, so get rid of them!
 As an Atmospheric Technician, look into replacing your gas pumps with volumetric gas pumps, as those move air in flat numerical amounts, rather than percentages which leave trace gases.
 As an Atmospheric Technician, you are better suited to fighting fires than anyone else. As such, you have access to better firesuits, backpack firefighter tanks, and a completely heat and fire proof hardsuit.
 As an Atmospheric Technician, your backpack firefighter tank can launch cryofrost. This resin will extinguish fires and very quickly; it's ideal for plasma fires!
 As an Atmospheric Technician, your ATMOS holofan projector blocks gases while allowing objects to pass through. With it, you can quickly contain gas spills, fires and hull breaches. Or, use it to seal a plasmaman cloning room.
 As the Head of Security, you are expected to coordinate your security force to handle any threat that comes to the station. Sometimes it means making use of the armory to handle a blob, sometimes it means being ruthless during a vampire or cult incursion.
 As the Head of Security, don't let the power go to your head. You may have high access, great equipment, and a miniature army at your side, but being a terrible person without a good reason is grounds for banning.
+As the Head of Security, consider giving the Warden access to the Security account so they can order equipment. Maintaining the armory is part of the Warden's job, after all.
 As the Warden, your duty is to be the watchdog of the brig and handler of prisoners when little is happening, and to hand out equipment and weapons to the security officers when a crisis strikes.
 As the Warden, keep a close eye on the armory at all times, as it is a favored strike point of nuclear operatives and cocky traitors.
 As the Warden, if a prisoner's crimes are heinous enough you can put them in permabrig or the gulag. Make sure to check on them once in a while!
@@ -100,20 +108,28 @@ As a Security Officer, communicate and coordinate with your fellow officers usin
 As a Security Officer, your sechuds or HUDsunglasses let you see crewmates' job assignments, their criminal status, and whether they have a mindshield or not. A flashing green border around their job icon means they are mindshielded.
 As a Security Officer, mindshield implants can only prevent someone from being turned into a cultist. It will not de-cult them if they have already been converted.
 As a Security Officer, examining someone while wearing sechuds or HUDsunglasses will let you set their arrest level, which will cause Beepsky and other security bots to chase after them.
-As the Detective, keep in mind that people leave fingerprints everywhere and on everything. With the exception of white latex, gloves will hide them. All is not lost, however, as gloves leave fibers specific to their kind such as black or nitrile, pointing to a general department.
-As the Detective, you can use your forensics scanner from a distance.
+As a Security Officer, your pepper spray (and tear gas grenades in the armory) will very quickly incapacitate anyone without eye and mouth protection.
+As a Security Officer, You can stun or knock out rogue cyborgs using flashbang grenades.
+As a Security Officer, remember that correlation does not equal causation. Someone may have just been at the wrong place at the wrong time!
+As a Security Officer, remember that you can attach a sec-lite to your disabler!
+As a Security Officer, you can store shotgun shell boxes in your belt.
+As the Detective, keep in mind that people leave fingerprints everywhere and on everything. With the exception of white latex, gloves will hide them. All is not lost, however, as gloves leave fibers specific to their kind such as black or nitrile, pointing to a general department. Remember to wear your own fiber-free forensic gloves!
 As the Detective, your energy revolver has a tracking mode. Shoot a fleeing suspect with it and use a crew pinpointer to track their position!
+As the Detective, you can use a multitool to overcharge your energy revolver, causing it to deal significantly more damage. Be aware that it has a chance to explode in your hand, which is preportional to how much charge is left in the gun.
 As the IAA, try to negotiate with the Warden if sentences seem too high for the crime.
 As the IAA, you can try to convince the Captain and Head of Security to hold trials for prisoners in the courtroom.
 As the Head of Personnel, you are not higher ranking than other heads of staff, even though you are expected to take the Captain's place first should he go missing. If the situation seems too rough for you, consider allowing another head to become temporary Captain.
 As the Head of Personnel, you are just as large a target as the Captain because of the potential power your ID and computer can hand out.
 As the Mime, your invisible wall power blocks people as well as projectiles. You can use it in a pinch to delay your pursuer.
 As the Mime, your oath of silence is your source of power. Breaking it robs you of your powers and of your honor.
-As the Clown, if you lose your banana peel, you can still slip people with your PDA! Honk!
-As the Clown, your Grail is the mineral bananium, which can be given to the Roboticist to build you a fun and robust mech beloved by everyone.
+As the Clown, if you lose your banana peel, you can still slip people with your PDA! Honk! If you lose your PDA, you can lie down to make people slip over your body! HONK!
+As the Clown, your holy grail is the mineral bananium, which can be given to the Roboticist to build you a fun and robust mech beloved by everyone.
 As the Clown, you can use your stamp on a sheet of cardboard as the first step of making a honkbot. Fun for the whole crew!
 As the Clown, spice your gimmicks up! Nobody likes a one-trick pony.
 As the Chaplain, your null rod has anti magic functions: it can destroy cultist runes by hitting them, and it makes you immune to cult magic.
+As the Chaplain, your holy nature makes you immune to the abilities of vampires.
+As the Chaplain, you can bless a tank of water by hitting it with your bible, turning it into holy water.
+As the Chaplain, you can use your thurible to rapidly spread holy water across many tiles to bless them, preventing revenants from passing over them.
 As the Chaplain, your bible is also a container that can store small items.
 As the Chaplain, you are much more likely to get a response by praying to the gods than most people. To boost your chances, perform blessings, make altars with colorful crayon runes, lit candles, and wire art.
 As a Botanist, you can hack the MegaSeed Vendor to get access to more exotic seeds. These seeds can alternatively be ordered from cargo.
@@ -123,18 +139,27 @@ As a Botanist, you can combine production trait chemicals just like a Chemist. C
 As the Chef, you can create a very wide variety of food. Most recipes are listed in the cookbook app in your PDA.
 As the Chef, you can rename your custom made food with a pen.
 As the Chef, if you are low on ingredients, consider making something that has several servings to last longer among the crew.
+As the Chef, you have access to the very powerful CQC martial art while inside the kitchen and bar!
+As the Chef or Bartender, you can vault over tables almost instantly.
 As the Bartender, you can use a circular saw on your shotgun to make it easier to store. Remember to unload it first!
+As the Bartender, while you are inside the bar, you can instantly reload your shotgun as long as you still have shells left in your bandoiler by simply using it in-hand.
 As a Janitor, if someone steals your janicart, you can instead use your space cleaner spray, grenades, water sprayer or order another from Cargo.
+As a Janitor, you have a PDA app that tells you the exact, live location of every single janitorial cart, pimpin' ride, and mop in the current Z-level. It also tells you your own exact coordinates, allowing it to function as a makeshift GPS.
+As a Janitor, you can get get a Chemist to upgrade your galoshies with drying agent, making them instantly dry up any water you step on!
 As a Janitor, mousetraps can be used to create bombs or booby-trap containers.
 As the Librarian, be sure to keep the shelves stocked and the library clean for crew.
+As the Librarian, you can speak and undertsand almost every single language.
 As a Cargo Technician, you can hack MULEbots to make them faster, run over people in their way, and even let you ride them!
 As a Cargo Technician, you can order contraband items from the supply shuttle console by de-constructing it and using a multitool on the circuit board, the re-assembling it.
 As a Cargo Technician, you can earn more cargo points by shipping back crates from maintenance, plasma sheets, rare seeds from hydroponics, technology disks from R&D, and more!
 As a Shaft Miner, the north side of Lavaland has a lot more rare minerals than on the south, but is a lot more dangerous.
-As a Shaft Miner, always have a GPS on you, so a fellow miner or cyborg can come to save you if you die.
+As a Shaft Miner, always have a GPS on you, so a fellow miner or cyborg can come to save you if you die. It also lets you track the locations of survival pods and megafauna.
+As a Shaft Miner, you can cover your mining suit in golath plates to make it stronger against melee attacks.
+As a Shaft Miner, remember to use a shovel on the ground to gather volcanic ash for smelting into glass. A single full satchel will probably last the entire shift even without any upgrades to the ORM/crucible.
 As the Smith, examining is your friend! Your trained eye can tell if something is too hot to touch, how many strikes it takes to complete something, and how to use and configure your machines and casts!
-As the Smith, you start with a Rapid Crate Sender in your locker. Using it and some metal to make a locker can save you a lot of time walking back and forth to the ORM!
+As the Smith, you start with a Rapid Crate Sender in your locker. Using it and some metal to make a locker lets you send processed minerals directly to Cargo or Science!
 As the Smith, your apron and bomber jacket can carry more plates than normal, allowing for unique modification combinations not available to most others!
+As an Explorer, you may find rare items that will unlock normally unobtainable technologies when broken down at R&D.
 As an Explorer, you may find rare ore exclusive to space-bound asteroids. This ore is quite valuable, as it is worth many points to smelt, and can be used to create advanced modifications by the smith!
 As an Explorer, the whiteship's docking area signaller can be alt-clicked to send the ship to any available port. Create a port and use the signaller to instantly call the ship to you from anywhere!
 As a Traitor, the cryptographic sequencer (emag) can not only open doors, but also lockers, crates, APCs and more. It can hack cyborgs, and even cause bots to go berserk. Use it on the right machines, and you can even order more traitor gear or contact the Syndicate. Experiment!
@@ -188,8 +213,6 @@ As a Revenant, your Overload Lights ability will only shock humans with lights i
 As a Revenant, your Malfunction ability in general damages machinery and mechanical objects, possibly even emagging some objects. Experiment!
 As a Revenant, space is your friend. Breaking windows to space can cause massive damage and mayhem.
 As a Ghost, you can double click on just about anything to follow it. Or just warp around!
-As a Security Officer, remember that correlation does not equal causation. Someone may have just been at the wrong place at the wrong time!
-As a Security Officer, remember that you can attach a sec-lite to your disabler!
 As a Terror Spider, leave wrapping of corpses to green spiders unless absolutely necessary. They need it to lay eggs!
 As a Prince of Terror, you are powerful but usually on your own. Consider hit and run tactics to regenerate your health between engagements.
 As a Brown Terror Spider, focus on smashing welded vents. You are weak in direct combat, but you can enable your comrades to go almost anywhere.
@@ -218,3 +241,5 @@ Luxury bluespace shelters protect you from all weather on Lavaland, even acid ra
 The doppler radar on the mining station can be upgraded by R&D to predict the time and type of the next weather pattern.
 Unlike other energy weapons, the SPRK-12 pistol is not only immune to EMPs, but fully recharges when hit by one!
 Volcanic activity can be just as helpful as harmful. Those boulders are full of precious minerals!
+Zombies' claws cannot infect you if you have spaceacillin in your system. Plunge a syringe into your viens if you're about to get into a melee fight with one.
+If you manage to take down a lone zombie, loot their equipment. The living can put it to better use, and if you take away a zombie's armor, it'll be easier to kill it again when it gets back up.
