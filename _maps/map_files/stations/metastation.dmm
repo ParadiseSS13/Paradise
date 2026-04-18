@@ -1320,25 +1320,15 @@
 /area/station/maintenance/apmaint)
 "ape" = (
 /obj/machinery/door/firedoor,
-/obj/structure/sign/directions/medical{
-	pixel_x = -32;
-	pixel_y = 8
-	},
-/obj/structure/sign/directions/engineering{
-	pixel_x = -32
-	},
-/obj/structure/sign/directions/evac{
-	pixel_x = -32;
-	pixel_y = -8
-	},
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
+/area/station/hallway/secondary/entry/east)
 "apl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2013,6 +2003,10 @@
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel/full,
 /area/station/hallway/secondary/entry/east)
@@ -8438,9 +8432,6 @@
 /obj/structure/sign/public/cryo,
 /turf/simulated/wall,
 /area/station/maintenance/fore)
-"bfG" = (
-/turf/simulated/wall,
-/area/station/hallway/secondary/entry/lounge)
 "bfH" = (
 /obj/machinery/light{
 	dir = 4
@@ -13978,7 +13969,7 @@
 "bDC" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
+/area/station/hallway/secondary/entry/east)
 "bDE" = (
 /obj/machinery/economy/vending/snack,
 /obj/machinery/light,
@@ -32781,8 +32772,19 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/structure/sign/directions/science{
+	pixel_x = 32;
+	pixel_y = -8
+	},
+/obj/structure/sign/directions/bridge{
+	pixel_x = 32
+	},
+/obj/structure/sign/directions/security{
+	pixel_x = 32;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
+/area/station/hallway/secondary/entry/east)
 "evr" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/xenobio_south)
@@ -40934,6 +40936,17 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
+/obj/structure/sign/directions/evac{
+	pixel_x = -32;
+	pixel_y = -8
+	},
+/obj/structure/sign/directions/engineering{
+	pixel_x = -32
+	},
+/obj/structure/sign/directions/medical{
+	pixel_x = -32;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "hfb" = (
@@ -48932,7 +48945,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "jPv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -52422,7 +52435,6 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "kWj" = (
@@ -57624,7 +57636,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/machinery/access_button/offset/north,
+/obj/machinery/access_button/offset/southeast,
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry/west)
 "mNp" = (
@@ -81765,17 +81777,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/sign/directions/security{
-	pixel_x = 32;
-	pixel_y = 8
-	},
-/obj/structure/sign/directions/bridge{
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/science{
-	pixel_x = 32;
-	pixel_y = -8
-	},
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 4
 	},
@@ -81783,6 +81784,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "vaG" = (
@@ -86385,6 +86387,10 @@
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel/full,
 /area/station/hallway/secondary/entry/west)
@@ -106258,7 +106264,7 @@ vXe
 vXe
 vXe
 vXe
-hSu
+vXe
 hSu
 ody
 wIK
@@ -106515,7 +106521,7 @@ vXe
 mZP
 mZP
 mZP
-bfG
+vXe
 qrO
 gLO
 wDL
@@ -107543,7 +107549,7 @@ vXe
 auu
 bAQ
 eFl
-hSu
+vXe
 hZZ
 vzv
 bvD
