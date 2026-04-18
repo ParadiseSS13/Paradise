@@ -109,13 +109,13 @@ As a Security Officer, your sechuds or HUDsunglasses let you see crewmates' job 
 As a Security Officer, mindshield implants can only prevent someone from being turned into a cultist. It will not de-cult them if they have already been converted.
 As a Security Officer, examining someone while wearing sechuds or HUDsunglasses will let you set their arrest level, which will cause Beepsky and other security bots to chase after them.
 As a Security Officer, your pepper spray (and tear gas grenades in the armory) will very quickly incapacitate anyone without eye and mouth protection.
-As a Security Officer, You can stun or knock out rogue cyborgs using flashbang grenades.
+As a Security Officer, you can stun or knock out rogue cyborgs using flashbang grenades.
 As a Security Officer, remember that correlation does not equal causation. Someone may have just been at the wrong place at the wrong time!
 As a Security Officer, remember that you can attach a sec-lite to your disabler!
 As a Security Officer, you can store shotgun shell boxes in your belt.
 As the Detective, keep in mind that people leave fingerprints everywhere and on everything. With the exception of white latex, gloves will hide them. All is not lost, however, as gloves leave fibers specific to their kind such as black or nitrile, pointing to a general department. Remember to wear your own fiber-free forensic gloves!
 As the Detective, your energy revolver has a tracking mode. Shoot a fleeing suspect with it and use a crew pinpointer to track their position!
-As the Detective, you can use a multitool to overcharge your energy revolver, causing it to deal significantly more damage. Be aware that it has a chance to explode in your hand, which is preportional to how much charge is left in the gun.
+As the Detective, you can use a multitool to overcharge your energy revolver, causing it to deal significantly more damage. Be aware that it has a chance to explode in your hand, which is proportional to how much charge is left in the gun.
 As the IAA, try to negotiate with the Warden if sentences seem too high for the crime.
 As the IAA, you can try to convince the Captain and Head of Security to hold trials for prisoners in the courtroom.
 As the Head of Personnel, you are not higher ranking than other heads of staff, even though you are expected to take the Captain's place first should he go missing. If the situation seems too rough for you, consider allowing another head to become temporary Captain.
@@ -241,5 +241,5 @@ Luxury bluespace shelters protect you from all weather on Lavaland, even acid ra
 The doppler radar on the mining station can be upgraded by R&D to predict the time and type of the next weather pattern.
 Unlike other energy weapons, the SPRK-12 pistol is not only immune to EMPs, but fully recharges when hit by one!
 Volcanic activity can be just as helpful as harmful. Those boulders are full of precious minerals!
-Zombies' claws cannot infect you if you have spaceacillin in your system. Plunge a syringe into your viens if you're about to get into a melee fight with one.
+Zombies' claws cannot infect you if you have spaceacillin in your system. Plunge a syringe into your veins if you're about to get into a melee fight with one.
 If you manage to take down a lone zombie, loot their equipment. The living can put it to better use, and if you take away a zombie's armor, it'll be easier to kill it again when it gets back up.
