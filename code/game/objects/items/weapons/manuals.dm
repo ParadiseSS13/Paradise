@@ -1287,6 +1287,60 @@
 				</html>
 				"})
 
+/obj/item/book/manual/mug_cakes
+	name = "Harried Intern's Guide to Mug Cakes"
+	desc = "A tiny recipe book written in ballpoint pen."
+	summary = "How to cook your own mug cakes when the chef is nowhere to be found!"
+	icon_state ="cook_book"
+	author = "Intern Kołodziejczyk"
+	title = "Harried Intern's Guide to Mug Cakes"
+	pages = list({"<html><meta charset='utf-8'>
+				<head>
+				<style>
+				body {font-family: sans-serif; color: #104;}
+				h1 {font-size: 18px; margin: 15px 0px 5px;}
+				h2 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ul li {margin: 2px 0 1em 0;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<h1>Making Mug Cakes!!</h1>
+
+				<p>The chef would have you believe that cooking is specialist knowledge that needs fancy equipment,
+				but when there's a trail of blood leading to the freezers and they're nowhere to be found,
+				they can't help you anymore, can they! All you need to start these recipes is a mug,
+				a food crate from cargo, and a microwave. Good luck!</p>
+
+				<h2>Basic mug cake!</h2>
+				<ol>
+				<li>Put 5u milk, 5u flour, and 5u sugar in your mug.</li>
+				<li>Put the mug in the microwave.</li>
+				<li>Put an egg in the microwave.</li>
+				<li>Turn it on!</li>
+				</ol>
+
+				<p>Now you have a mug cake. Hopefully it staves off starvation until the shift change shuttle arrives.
+				If you want it to taste a little better, try some of these modifications.</p>
+
+				<ul>
+				<li>Add a banana to the microwave. Bananas come in the food crate.</li>
+				<li>Add 5u vanilla to the mug.</li>
+				<li>Instead of 5u milk, use 10u chocolate milk.</li>
+				<li>Add a cherry to the microwave. The botanist won't give me blue ones.</li>
+				<li>Add a lime to the microwave.</li>
+				<li>Add 5u honey to the mug.</li>
+				<li>DO NOT add the red mushrooms, it's not worth it!</li>
+				</ul>
+
+				<p>Oh god I think I hear it in the vents again. Wish me lu</p>
+
+				</body>
+				</html>
+				"})
+
 /**
   * # Wiki Page Based Book Manuals
   *
