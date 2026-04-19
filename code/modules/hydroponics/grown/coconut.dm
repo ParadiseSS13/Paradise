@@ -53,7 +53,7 @@
 
 /obj/item/seeds/coconut/bombonut
 	name = "pack of bombonut seeds"
-	desc = "These seeds grow bombonuts, the explosively refreshing cousing of the coconut"
+	desc = "These seeds grow bombonuts, the explosively refreshing cousin of the coconut"
 	icon_state = "bombonut-seeds"
 	species = "bombo"
 	plantname = "Bombonout Palm"
