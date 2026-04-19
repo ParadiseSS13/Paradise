@@ -114,8 +114,8 @@
 	*/
 	luminosity = TRUE
 	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
-	var/area_light_color = "#FFFFFF"
-	var/area_nightlight_color = "#fafaeb"
+	var/area_light_color = null
+	var/area_nightlight_color = null
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent

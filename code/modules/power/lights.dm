@@ -379,9 +379,6 @@
 	if(A && !A.requires_power)
 		on = TRUE
 
-	brightness_color = A.area_light_color
-	nightshift_light_color = A.area_nightlight_color
-
 	switch(base_state)
 		if("tube")
 			brightness_range = 8
@@ -396,6 +393,12 @@
 			if(prob(3))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
+
+	if(A.area_light_color == null)
+		return
+	else
+		brightness_color = A.area_light_color
+		nightshift_light_color = A.area_nightlight_color
 
 /obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
