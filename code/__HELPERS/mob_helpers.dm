@@ -128,8 +128,7 @@
 
 	return rgb(R, G, B)
 
-/proc/random_head_accessory(species = "Human")
-	var/ha_style = "None"
+/proc/list_valid_head_accessories(species = "Human")
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
 		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
@@ -138,10 +137,12 @@
 			continue
 		valid_head_accessories += head_accessory
 
-	if(length(valid_head_accessories))
-		ha_style = pick(valid_head_accessories)
+	return length(valid_head_accessories) ? sortTim(valid_head_accessories, GLOBAL_PROC_REF(cmp_text_asc)) : list("None")
 
-	return ha_style
+/proc/random_head_accessory(species = "Human")
+	var/list/valid_head_accessories = list_valid_head_accessories(species)
+
+	return pick(valid_head_accessories)
 
 /proc/list_valid_marking_styles(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/list/valid_markings = list()

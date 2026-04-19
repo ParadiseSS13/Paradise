@@ -319,31 +319,16 @@
 								active_character.h_sec_colour = new_hair
 
 				if("h_style")
-					var/list/valid_hairstyles = list()
-					for(var/hairstyle in GLOB.hair_styles_public_list)
-						var/datum/sprite_accessory/SA = GLOB.hair_styles_public_list[hairstyle]
+					var/datum/robolimb/robohead
+					if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
+						var/head_model
+						if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
+							head_model = "Morpheus Cyberkinetics"
+						else
+							head_model = active_character.rlimb_data["head"]
+						robohead = GLOB.all_robolimbs[head_model]
 
-						if(hairstyle == "Bald") //Just in case.
-							valid_hairstyles += hairstyle
-							continue
-						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
-							var/head_model
-							if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
-								head_model = "Morpheus Cyberkinetics"
-							else
-								head_model = active_character.rlimb_data["head"]
-							var/datum/robolimb/robohead = GLOB.all_robolimbs[head_model]
-							if((active_character.species in SA.species_allowed) && robohead.is_monitor && ((SA.models_allowed && (robohead.company in SA.models_allowed)) || !SA.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-								valid_hairstyles += hairstyle //Give them their hairstyles if they do.
-							else
-								if(!robohead.is_monitor && ("Human" in SA.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
-																							But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
-									valid_hairstyles += hairstyle
-						else //If the user is not a species who can have robotic heads, use the default handling.
-							if(active_character.species in SA.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
-								valid_hairstyles += hairstyle
-
-					sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) //this alphabetizes the list
+					var/list/valid_hairstyles = list_valid_hairstyles(active_character.species, robohead)
 					var/new_h_style = tgui_input_list(user, "Choose your character's hair style:", "Character Preference", valid_hairstyles)
 					if(new_h_style)
 						active_character.h_style = new_h_style
@@ -389,15 +374,7 @@
 
 				if("ha_style")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
-						var/list/valid_head_accessory_styles = list()
-						for(var/head_accessory_style in GLOB.head_accessory_styles_list)
-							var/datum/sprite_accessory/H = GLOB.head_accessory_styles_list[head_accessory_style]
-							if(!(active_character.species in H.species_allowed))
-								continue
-
-							valid_head_accessory_styles += head_accessory_style
-
-						sortTim(valid_head_accessory_styles, GLOBAL_PROC_REF(cmp_text_asc))
+						var/list/valid_head_accessory_styles = list_valid_head_accessories(active_character.species)
 						var/new_head_accessory_style = tgui_input_list(user, "Choose the style of your character's head accessory", "Character Preference", valid_head_accessory_styles)
 						if(new_head_accessory_style)
 							active_character.ha_style = new_head_accessory_style
@@ -425,35 +402,15 @@
 
 				if("m_style_head")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						var/list/valid_markings = list()
-						for(var/markingstyle in GLOB.marking_styles_list)
-							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
-							if(!(active_character.species in M.species_allowed))
-								continue
-							if(M.marking_location != "head")
-								continue
-							if(active_character.alt_head && active_character.alt_head != "None")
-								if(!("All" in M.heads_allowed) && !(active_character.alt_head in M.heads_allowed))
-									continue
+						var/datum/robolimb/robohead
+						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
+							var/head_model
+							if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
+								head_model = "Morpheus Cyberkinetics"
 							else
-								if(M.heads_allowed && !("All" in M.heads_allowed))
-									continue
-
-							if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
-								var/head_model
-								if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
-									head_model = "Morpheus Cyberkinetics"
-								else
-									head_model = active_character.rlimb_data["head"]
-								var/datum/robolimb/robohead = GLOB.all_robolimbs[head_model]
-								if(robohead.is_monitor && M.name != "None") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
-									continue
-								else if(!robohead.is_monitor && M.name != "None") //Otherwise, if they DON'T have the default head and the head's not a monitor but the head's not in the style's list of allowed models, skip.
-									if(!(robohead.company in M.models_allowed))
-										continue
-
-							valid_markings += markingstyle
-						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
+								head_model = active_character.rlimb_data["head"]
+							robohead = GLOB.all_robolimbs[head_model]
+						var/list/valid_markings = list_valid_marking_styles("head", active_character.species, robohead, active_character.body_accessory, active_character.alt_head)
 						if(!length(valid_markings)) // Some IPC head models do have head markings, some don't; This is here to prevent us from attempting to open an empty TGUI list
 							tgui_alert(user, "No head markings available for this head!", "Character Preference")
 							return
@@ -470,16 +427,8 @@
 
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-						var/list/valid_markings = list()
-						for(var/markingstyle in GLOB.marking_styles_list)
-							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
-							if(!(active_character.species in M.species_allowed))
-								continue
-							if(M.marking_location != "body")
-								continue
+						var/list/valid_markings = list_valid_marking_styles("body", active_character.species, null, active_character.body_accessory, active_character.alt_head)
 
-							valid_markings += markingstyle
-						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's body markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["body"] = new_marking_style
@@ -493,22 +442,8 @@
 
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						var/list/valid_markings = list()
-						for(var/markingstyle in GLOB.marking_styles_list)
-							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
-							if(M.marking_location != "tail")
-								continue
-							if(!(active_character.species in M.species_allowed))
-								continue
-							if(!active_character.body_accessory)
-								if(M.tails_allowed)
-									continue
-							else
-								if(!M.tails_allowed || !(active_character.body_accessory in M.tails_allowed))
-									continue
+						var/list/valid_markings = list_valid_marking_styles("tail", active_character.species, null, active_character.body_accessory, active_character.alt_head)
 
-							valid_markings += markingstyle
-						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's tail markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["tail"] = new_marking_style
@@ -522,17 +457,12 @@
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
-					if(check_rights(R_ADMIN, 1, user))
+					if(check_rights(R_ADMIN, 0, user))
 						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
 					else
-						for(var/B in GLOB.body_accessory_by_name)
-							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
-							if(isnull(accessory)) // None
-								continue
-							if(active_character.species in accessory.allowed_species)
-								possible_body_accessories += B
+						possible_body_accessories = list_valid_body_accessories(active_character.body_accessory, S.optional_body_accessory)
 					if(S.optional_body_accessory)
-						possible_body_accessories += "None" //the only null entry should be the "None" option
+						possible_body_accessories |= "None" //the only null entry should be the "None" option
 					else
 						possible_body_accessories -= "None" // in case an admin is viewing it
 					sortTim(possible_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
@@ -558,30 +488,16 @@
 							active_character.f_sec_colour = new_facial
 
 				if("f_style")
-					var/list/valid_facial_hairstyles = list()
-					for(var/facialhairstyle in GLOB.facial_hair_styles_list)
-						var/datum/sprite_accessory/SA = GLOB.facial_hair_styles_list[facialhairstyle]
+					var/datum/robolimb/robohead
+					if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
+						var/head_model
+						if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
+							head_model = "Morpheus Cyberkinetics"
+						else
+							head_model = active_character.rlimb_data["head"]
+						robohead = GLOB.all_robolimbs[head_model]
+					var/list/valid_facial_hairstyles = list_valid_facial_hairstyles(active_character.species, robohead)
 
-						if(facialhairstyle == "Shaved") //Just in case.
-							valid_facial_hairstyles += facialhairstyle
-							continue
-						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
-							var/head_model
-							if(!active_character.rlimb_data["head"]) //Handle situations where the head is default.
-								head_model = "Morpheus Cyberkinetics"
-							else
-								head_model = active_character.rlimb_data["head"]
-							var/datum/robolimb/robohead = GLOB.all_robolimbs[head_model]
-							if((active_character.species in SA.species_allowed) && robohead.is_monitor && ((SA.models_allowed && (robohead.company in SA.models_allowed)) || !SA.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-								valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
-							else
-								if(!robohead.is_monitor && ("Human" in SA.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
-																							But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
-									valid_facial_hairstyles += facialhairstyle
-						else //If the user is not a species who can have robotic heads, use the default handling.
-							if(active_character.species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
-								valid_facial_hairstyles += facialhairstyle
-					sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_f_style = tgui_input_list(user, "Choose your character's facial-hair style", "Character Preference", valid_facial_hairstyles)
 					if(new_f_style)
 						active_character.f_style = new_f_style

@@ -401,19 +401,11 @@
 	return list_valid_facial_hairstyles(H.dna.species.name, robohead)
 
 /mob/living/carbon/human/proc/generate_valid_head_accessories()
-	var/list/valid_head_accessories = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no head accessory.
 
-	for(var/head_accessory in GLOB.head_accessory_styles_list)
-		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
-
-		if(!(H.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
-			continue
-		valid_head_accessories += head_accessory
-
-	return sortTim(valid_head_accessories, GLOBAL_PROC_REF(cmp_text_asc))
+	return list_valid_head_accessories(H.dna.species.name)
 
 /mob/living/carbon/human/proc/generate_valid_markings(location = "body")
 	var/obj/item/organ/external/head/H = get_organ("head")
