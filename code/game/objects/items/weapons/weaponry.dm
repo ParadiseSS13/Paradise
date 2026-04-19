@@ -214,7 +214,6 @@
 			playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
 			do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			hit_object(owner, I, TRUE)
-			homerun_ready = FALSE
 			return TRUE
 		else
 			visible_message(SPAN_WARNING("[owner] swings and deflects [I]!"), SPAN_WARNING("You swing and deflect [I]!"))
@@ -227,15 +226,16 @@
 			return TRUE
 
 /obj/item/melee/baseball_bat/proc/hit_object(mob/living/carbon/human/owner, obj/item/I, homerun = FALSE)
-	var/deflect_dir = round(get_angle(owner, I)) + (rand() - 0.5) * 120 // 90 degree angle in front of the user.
+	var/deflect_dir = round(get_angle(owner, I)) + (rand() - 0.5) * 180 // 180 degree angle in front of the user.
 	var/deflect_range = rand(5, 10)
 	if(homerun)
-		deflect_dir = round(get_angle(owner, I)) + (rand() - 0.5) * 90
+		deflect_dir = round(get_angle(owner, I)) + (rand() - 0.5) * 120
 		deflect_range = 20
 		I.pass_flags |= PASSMOB
 		addtimer(CALLBACK(PROC_REF(reset_flags), I), 0.3 SECONDS)
 	I.throw_at(get_angle_target_turf(owner, deflect_dir, deflect_range), deflect_range, 14, owner)
 	deflectmode = FALSE
+	homerun_ready = FALSE
 	if(!istype(I, /obj/item/beach_ball))
 		COOLDOWN_START(src, last_deflect, deflect_cooldown)
 
