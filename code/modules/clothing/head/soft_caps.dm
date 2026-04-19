@@ -161,7 +161,7 @@
 
 /obj/item/clothing/head/soft/baseball_nt
 	name = "baseball cap"
-	desc = "It's a white baseball hat with a blue trim, belonging to the Cerebron Catchers."
+	desc = "It's a white baseball hat with a blue brim, belonging to the Cerebron Catchers."
 	icon_state = "baseballnt"
 
 /obj/item/clothing/head/soft/sec

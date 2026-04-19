@@ -152,6 +152,14 @@
 	display_name = "Cap, yellow"
 	path = /obj/item/clothing/head/soft/yellow
 
+/datum/gear/hat/capbaseballtsf
+	display_name = "Cap, trans-solar federation baseball"
+	path = /obj/item/clothing/head/soft/baseball_tsf
+
+/datum/gear/hat/capbaseballnt
+	display_name = "Cap, nanotrasen baseball"
+	path = /obj/item/clothing/head/soft/baseball_nt
+
 /datum/gear/hat/cowboyhat
 	display_name = "Cowboy hat, brown"
 	path = /obj/item/clothing/head/cowboyhat
