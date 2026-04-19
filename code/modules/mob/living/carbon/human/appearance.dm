@@ -383,57 +383,22 @@
 	return sortTim(valid_species, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
-	var/list/valid_hairstyles = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
+	var/datum/robolimb/robohead
 	if(!H)
 		return //No head, no hair.
-
-	for(var/hairstyle in GLOB.hair_styles_public_list)
-		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
-
-		if(hairstyle == "Bald") //Just in case.
-			valid_hairstyles += hairstyle
-			continue
-		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
-			if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
-			else
-				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
-																			But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
-					valid_hairstyles += hairstyle
-		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(H.dna.species.name in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
-				valid_hairstyles += hairstyle
-
-	return sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
+	if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+		robohead = GLOB.all_robolimbs[H.model]
+	return list_valid_hairstyles(H.dna.species.name, robohead)
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
-	var/list/valid_facial_hairstyles = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
+	var/datum/robolimb/robohead
 	if(!H)
 		return //No head, no hair.
-
-	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
-		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
-
-		if(facialhairstyle == "Shaved") //Just in case.
-			valid_facial_hairstyles += facialhairstyle
-			continue
-		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
-			if(H.dna.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
-				if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-					valid_facial_hairstyles += facialhairstyle
-			else
-				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
-																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
-					valid_facial_hairstyles += facialhairstyle
-		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(H.dna.species.name in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
-				valid_facial_hairstyles += facialhairstyle
-
-	return sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
+	if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+		robohead = GLOB.all_robolimbs[H.model]
+	return list_valid_facial_hairstyles(H.dna.species.name, robohead)
 
 /mob/living/carbon/human/proc/generate_valid_head_accessories()
 	var/list/valid_head_accessories = list()

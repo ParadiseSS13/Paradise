@@ -34,8 +34,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(gender, species = "Human", datum/robolimb/robohead)
-	var/h_style = "Bald"
+/proc/list_valid_hairstyles(species = "Human", datum/robolimb/robohead)
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
@@ -55,14 +54,14 @@
 		else //If the user is not a species who can have robotic heads, use the default handling.
 			if(species in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 				valid_hairstyles += hairstyle
+	return length(valid_hairstyles) ? sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) : list("Bald")
 
-	if(length(valid_hairstyles))
-		h_style = pick(valid_hairstyles)
+/proc/random_hair_style(species = "Human", datum/robolimb/robohead)
+	var/list/valid_hairstyles = list_valid_hairstyles(species, robohead)
 
-	return h_style
+	return pick(valid_hairstyles)
 
-/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
-	var/f_style = "Shaved"
+/proc/list_valid_facial_hairstyles(species = "Human", datum/robolimb/robohead)
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
 		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
@@ -83,10 +82,12 @@
 			if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
-	if(length(valid_facial_hairstyles))
-		f_style = pick(valid_facial_hairstyles)
+	return length(valid_facial_hairstyles) ? sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) : list("Shaved")
 
-	return f_style
+/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
+	var/list/valid_facial_hairstyles = list_valid_facial_hairstyles(species, robohead)
+
+	return pick(valid_facial_hairstyles)
 
 // it might be made species related, but it is pretty okay now
 /proc/random_hair_color(tint = TRUE, range)

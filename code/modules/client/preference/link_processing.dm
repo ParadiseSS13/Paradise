@@ -106,7 +106,7 @@
 					if(!(S.bodyflags & BALD))
 						active_character.h_sec_colour = rand_hex_color()
 				if("h_style")
-					active_character.h_style = random_hair_style(active_character.gender, active_character.species, robohead)
+					active_character.h_style = random_hair_style(active_character.species, robohead)
 				if("facial")
 					if(!(S.bodyflags & SHAVED))
 						active_character.f_colour = rand_hex_color()
@@ -114,7 +114,7 @@
 					if(!(S.bodyflags & SHAVED))
 						active_character.f_sec_colour = rand_hex_color()
 				if("f_style")
-					active_character.f_style = random_facial_hair_style(active_character.gender, active_character.species, robohead)
+					active_character.f_style = random_facial_hair_style(active_character.species, robohead)
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
 						active_character.hacc_colour = rand_hex_color()
@@ -206,10 +206,10 @@
 							var/head_model = "[!active_character.rlimb_data["head"] ? "Morpheus Cyberkinetics" : active_character.rlimb_data["head"]]"
 							robohead = GLOB.all_robolimbs[head_model]
 						//grab one of the valid hair styles for the newly chosen species
-						active_character.h_style = random_hair_style(active_character.gender, active_character.species, robohead)
+						active_character.h_style = random_hair_style(active_character.species, robohead)
 
 						//grab one of the valid facial hair styles for the newly chosen species
-						active_character.f_style = random_facial_hair_style(active_character.gender, active_character.species, robohead)
+						active_character.f_style = random_facial_hair_style(active_character.species, robohead)
 
 						if(NS.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
 							active_character.ha_style = random_head_accessory(active_character.species)
