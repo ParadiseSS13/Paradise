@@ -185,6 +185,28 @@
 	desc = "An orange and blue wetsuit with long legs and no sleeves."
 	icon_state = "wetsuit_orange"
 
+/obj/item/clothing/under/misc/baseball
+	name = "baseball uniform"
+	desc = "A generic white and black uniform belonging to no team. Socks included!"
+	icon_state = "baseball"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
+		)
+
+/obj/item/clothing/under/misc/baseball/solgov
+	name = "federation baseball uniform"
+	desc = "A blue and gold uniform belonging to the Trans-Solar Flares, which won a match against the Cerebron Catchers scoring 11 points. Socks included!"
+	icon_state = "baseball_tsf"
+
+/obj/item/clothing/under/misc/baseball/nanotrasen
+	name = "nanotrasen baseball uniform"
+	desc = "A white and blue uniform belonging to the Cerebron Catchers, which lost a match against the Trans-Solar Flares scoring 5 points. Socks included!"
+	icon_state = "baseball_nt"
+
 /obj/item/clothing/under/misc/acj
 	name = "administrative cybernetic jumpsuit"
 	desc = "it's a cybernetically enhanced jumpsuit used for administrative duties."

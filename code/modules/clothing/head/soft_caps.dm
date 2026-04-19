@@ -154,6 +154,16 @@
 	desc = "It's a black baseball hat with a red research shield."
 	icon_state = "robo"
 
+/obj/item/clothing/head/soft/baseball_tsf
+	name = "baseball cap"
+	desc = "It's a blue baseball hat with a gold brim, belonging to the Trans-Solar Flares."
+	icon_state = "baseballtsf"
+
+/obj/item/clothing/head/soft/baseball_nt
+	name = "baseball cap"
+	desc = "It's a white baseball hat with a blue trim, belonging to the Cerebron Catchers."
+	icon_state = "baseballnt"
+
 /obj/item/clothing/head/soft/sec
 	name = "security cap"
 	desc = "It's baseball hat in tasteful red colour."
