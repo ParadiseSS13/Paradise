@@ -270,7 +270,7 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#e0eeff"
+	var/nightshift_light_color = "#fafaeb"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
@@ -291,7 +291,7 @@
 	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
-	brightness_color = "#faca92"
+	brightness_color = "#fac192"
 	nightshift_light_range = 4
 	nightshift_light_color = "#e29a5f" // #a0a080
 	light_type = /obj/item/light/bulb
@@ -378,6 +378,9 @@
 	var/area/A = get_area(src)
 	if(A && !A.requires_power)
 		on = TRUE
+
+	brightness_color = A.area_light_color
+	nightshift_light_color = A.area_nightlight_color
 
 	switch(base_state)
 		if("tube")
