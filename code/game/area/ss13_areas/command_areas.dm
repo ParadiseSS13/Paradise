@@ -3,6 +3,8 @@
 
 /area/station/command
 	airlock_wires = /datum/wires/airlock/command
+	area_light_color = "#fae5c9"
+	area_nightlight_color = "#fcd3b1"
 
 /area/station/command/bridge
 	name = "\improper Bridge"
@@ -19,6 +21,10 @@
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Bridge"
 	request_console_announces = TRUE
+
+/area/station/command/office
+	area_light_color = "#fac192"
+	area_nightlight_color =  "#e29a5f"
 
 /area/station/command/office/captain
 	name = "\improper Captain's Office"

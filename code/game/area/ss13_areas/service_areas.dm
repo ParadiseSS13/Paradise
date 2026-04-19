@@ -1,5 +1,7 @@
 /area/station/service
 	airlock_wires = /datum/wires/airlock/service
+	area_light_color = "#fae5c9"
+	area_nightlight_color = "#fcd3b1"
 
 /area/station/service/cafeteria
 	name = "\improper Cafe"

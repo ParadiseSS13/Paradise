@@ -3,6 +3,8 @@
 	ambientsounds = HIGHSEC_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_wires = /datum/wires/airlock/security
+	area_light_color = "#fae5c9"
+	area_nightlight_color = "#fcd3b1"
 
 /area/station/security/main
 	name = "\improper Security Office"

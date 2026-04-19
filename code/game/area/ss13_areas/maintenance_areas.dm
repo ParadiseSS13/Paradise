@@ -5,6 +5,9 @@
 	valid_territory = FALSE
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	airlock_wires = /datum/wires/airlock/maint
+	area_light_color = "#fac192"
+	area_nightlight_color = "#e29a5f"
+
 
 /area/station/maintenance/engimaint
 	name = "Engineering Maintenance"
