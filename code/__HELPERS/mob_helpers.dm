@@ -143,8 +143,7 @@
 
 	return ha_style
 
-/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
-	var/m_style = "None"
+/proc/list_valid_marking_styles(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
 		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
@@ -177,10 +176,23 @@
 					continue
 		valid_markings += marking
 
-	if(length(valid_markings))
-		m_style = pick(valid_markings)
+	return length(valid_markings) ? sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc)) : list("None")
 
-	return m_style
+/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
+	var/list/valid_markings = list_valid_marking_styles(location, species, robohead, body_accessory, alt_head)
+
+	return pick(valid_markings)
+
+/proc/list_valid_body_accessories(species = "Vulpkanin", is_optional = TRUE)
+	var/list/valid_body_accessories = list()
+	if(is_optional)
+		valid_body_accessories += null
+
+	if(GLOB.body_accessory_by_species[species])
+		for(var/name in GLOB.body_accessory_by_species[species])
+			valid_body_accessories += name
+
+	return length(valid_body_accessories) ? sortTim(valid_body_accessories, GLOBAL_PROC_REF(cmp_text_asc)) : null
 
 /**
   * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
@@ -190,13 +202,7 @@
   * * is_optional - Whether *no* body accessory (null) is an option.
  */
 /proc/random_body_accessory(species = "Vulpkanin", is_optional = TRUE)
-	var/list/valid_body_accessories = list()
-	if(is_optional)
-		valid_body_accessories += null
-
-	if(GLOB.body_accessory_by_species[species])
-		for(var/name in GLOB.body_accessory_by_species[species])
-			valid_body_accessories += name
+	var/list/valid_body_accessories = list_valid_body_accessories(species, is_optional)
 
 	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 

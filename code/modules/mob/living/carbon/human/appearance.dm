@@ -416,57 +416,21 @@
 	return sortTim(valid_head_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_markings(location = "body")
-	var/list/valid_markings = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
+	var/datum/robolimb/robohead
 	if(!H && location == "head")
 		return //No head, no head markings.
+	if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+		robohead = GLOB.all_robolimbs[H.model]
 
-	for(var/marking in GLOB.marking_styles_list)
-		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
-		if(S.name == "None")
-			valid_markings += marking
-			continue
-		if(S.marking_location != location) //If the marking isn't for the location we desire, skip.
-			continue
-		if(!(dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
-			continue
-		if(location == "tail")
-			if(!body_accessory)
-				if(S.tails_allowed)
-					continue
-			else
-				if(!S.tails_allowed || !(body_accessory.name in S.tails_allowed))
-					continue
-		if(location == "head")
-			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
-			if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species that can have a robotic head...
-				var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
-				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
-					continue
-			else if(H.alt_head && H.alt_head != "None") //If the user's got an alt head, validate markings for that head.
-				if(!M.heads_allowed || (!("All" in M.heads_allowed) && !(H.alt_head in M.heads_allowed)))
-					continue
-			else
-				if(M.heads_allowed && !("All" in M.heads_allowed))
-					continue
-		valid_markings += marking
-
-	return sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
+	return list_valid_marking_styles(location, H.dna.species.name, robohead, body_accessory, H.alt_head)
 
 /mob/living/carbon/human/proc/generate_valid_body_accessories()
-	var/list/valid_body_accessories = list()
-	for(var/B in GLOB.body_accessory_by_name)
-		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(isnull(A))
-			continue
-		else if(check_rights(R_ADMIN, FALSE, src))
-			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
-			break
-		else if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-			valid_body_accessories += B
+	if(check_rights(R_ADMIN, FALSE, src))
+		return GLOB.body_accessory_by_name.Copy()
+	var/list/valid_body_accessories = list_valid_body_accessories(dna.species.name, FALSE)
 	if(dna.species.optional_body_accessory)
 		valid_body_accessories += "None"
-
 	return sortTim(valid_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_alt_heads()
