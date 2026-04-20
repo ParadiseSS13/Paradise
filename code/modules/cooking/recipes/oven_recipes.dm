@@ -387,8 +387,7 @@
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_REAGENT("cream_cheese", 20),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
