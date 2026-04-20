@@ -20304,6 +20304,14 @@
 /obj/structure/table,
 /obj/item/food/mint,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/holomenu{
+	pixel_x = 9;
+	pixel_y = 17
+	},
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 17
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "buu" = (
@@ -42409,6 +42417,10 @@
 /obj/item/book/manual/barman_recipes,
 /obj/item/lighter/zippo,
 /obj/item/reagent_containers/drinks/mug,
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/bar)
 "dji" = (

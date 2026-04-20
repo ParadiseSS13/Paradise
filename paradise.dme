@@ -1303,6 +1303,7 @@
 #include "code\game\objects\items\flag.dm"
 #include "code\game\objects\items\hand_item.dm"
 #include "code\game\objects\items\his_grace.dm"
+#include "code\game\objects\items\holomenu.dm"
 #include "code\game\objects\items\latexballoon.dm"
 #include "code\game\objects\items\lighters.dm"
 #include "code\game\objects\items\paint_bucket.dm"

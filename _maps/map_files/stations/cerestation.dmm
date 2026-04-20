@@ -55157,6 +55157,14 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
+	},
+/obj/item/holomenu{
+	pixel_x = 9;
+	pixel_y = 17
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "kKQ" = (
@@ -64016,6 +64024,10 @@
 /obj/item/lighter/zippo,
 /obj/item/pen/blue{
 	pixel_y = 4
+	},
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/service/bar)

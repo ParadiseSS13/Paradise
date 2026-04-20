@@ -5759,6 +5759,10 @@
 	},
 /obj/effect/turf_decal/tiles/dark/checker,
 /obj/item/kitchen/rollingpin,
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "aRA" = (
@@ -59033,6 +59037,10 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/item/holomenu{
+	pixel_x = -11;
+	pixel_y = 19
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/bar)
 "nhR" = (
