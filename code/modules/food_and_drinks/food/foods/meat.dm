@@ -719,14 +719,14 @@
 	tastes = list("sweet" = 1, "beefy" = 1)
 
 /obj/item/food/baconrolled
-	name = "Bacon Rolls"
+	name = "Avocado Bacon Rolls"
 	desc = "Rolls of bacon filled up with avocado!"
 	icon_state = "bacon_roll"
 	list_reagents = list("protein" = 1, "nutriment" = 2)
 	tastes = list("meat with vegetables" = 1)
 
 /obj/item/food/meatsteak_cactus
-	name = "meat steak"
+	name = "cactus steak"
 	desc = "A piece of hot spicy meat. With some prickly pear cactus on top."
 	icon_state = "meatstake_cactus"
 	trash = /obj/item/trash/plate
@@ -736,7 +736,7 @@
 	tastes = list("meat" = 1, "cactus" = 1)
 
 /obj/item/food/syntisteak_cactus
-	name = "synthetic meat"
+	name = "cactus synthisteak"
 	desc = "A synthetic slab of flesh. With some prickly pear cactus on top."
 	icon_state = "meatstake_cactus"
 	trash = /obj/item/trash/plate

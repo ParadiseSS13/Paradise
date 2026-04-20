@@ -422,7 +422,7 @@
 	tastes = list("mango" = 1)
 
 /obj/item/food/mushrooms_curry
-	name = "Mushrooms Curry"
+	name = "Mushroom Curry"
 	icon_state = "mushrooms_curry"
 	bitesize = 5
 	desc = "A slight twist to the traditional recipe, rare but delicious"

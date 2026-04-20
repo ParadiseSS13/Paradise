@@ -543,13 +543,23 @@
 		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
 	)
 
+/datum/cooking/recipe_step/add_item/robot_head
+
+/datum/cooking/recipe_step/add_item/robot_head/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	if(!istype(added_item, /obj/item/robot_parts/head))
+		return PCWJ_CHECK_INVALID
+	return PCWJ_CHECK_VALID
+
+/datum/cooking/recipe_step/add_item/robot_head/get_pda_formatted_desc()
+	return "Add a robot head."
+
 /datum/cooking/recipe/arepa_industrial
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/arepa/industrial
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/arepa),
-		PCWJ_ADD_ITEM(/obj/item/robot_parts/head),
+		new /datum/cooking/recipe_step/add_item/robot_head(),
 		PCWJ_USE_GRILL(J_HI, 15 SECONDS),
 	)
 

@@ -48,7 +48,7 @@
 /obj/item/food/grown/prickly_pear/san_pedro
 	seed = /obj/item/seeds/prickly_pear/san_pedro
 	name = "san pedro cactus"
-	desc = "I can see colors now"
+	desc = "A cactus from the Earth Andes mountains. Medicinal, ornamental, symbolic of life for the indigenous people."
 	icon_state = "sanpedrocactus"
 	force = 7
 	throwforce = 7
@@ -61,6 +61,6 @@
 /obj/item/food/grown/prickly_pear/san_pedro/peyote
 	seed = /obj/item/seeds/prickly_pear/san_pedro/peyote
 	name = "peyote"
-	desc = "Now I can see the future, the past and all the true."
+	desc = "Now I can see the future, the past and all that is true."
 	icon_state = "peyote"
 	tastes = list("fun" = 1)

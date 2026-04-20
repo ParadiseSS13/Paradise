@@ -185,7 +185,7 @@
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/bun),
-		PCWJ_ADD_ITEM(/obj/item/robot_parts/head),
+		new /datum/cooking/recipe_step/add_item/robot_head(),
 	)
 
 /datum/cooking/recipe/hotdog

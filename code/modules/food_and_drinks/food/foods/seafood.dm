@@ -393,7 +393,7 @@
 ////////////////////////
 
 /obj/item/food/smokedsalmon
-	name = "salmon smoked steak"
+	name = "smoked salmon steak"
 	desc = "A fillet of freshly-grilled and smoked salmon meat."
 	icon_state = "smokedsalmon"
 	trash = /obj/item/trash/plate
