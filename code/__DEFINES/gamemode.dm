@@ -53,6 +53,7 @@
 #define SPECIAL_ROLE_MIND_FLAYER "Mind Flayer"
 #define SPECIAL_ROLE_VAMPIRE_THRALL "Vampire Thrall"
 #define SPECIAL_ROLE_WIZARD "Wizard"
+#define SPECIAL_ROLE_WIZARD_ADEPT "Wizard Adept"
 #define SPECIAL_ROLE_WIZARD_APPRENTICE "Wizard Apprentice"
 #define SPECIAL_ROLE_XENOMORPH "Xenomorph"
 #define SPECIAL_ROLE_XENOMORPH_QUEEN "Xenomorph Queen"
@@ -64,6 +65,7 @@
 #define SPECIAL_ROLE_TOURIST "Tourist"
 #define SPECIAL_ROLE_HERETIC "Heretic"
 #define SPECIAL_ROLE_EVENTMISC "Event Role"
+#define SPECIAL_ROLE_NINJA "Space Ninja"
 
 // Constants used by code which checks the status of nuclear blasts during a
 // round, regardless of original game mode, e.g. setting the ending cinematic.

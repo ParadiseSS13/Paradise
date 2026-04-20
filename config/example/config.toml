@@ -42,7 +42,7 @@
 # Set this to true if you are using database-based admins, or false if you want to define them in this file
 # If the database fails, this file will be used as fallback
 use_database_admins = false
-# Auto authenticate localhost users as admin? Useful for test servers, disable in producation
+# Auto authenticate localhost users as admin? Useful for test servers, disable in production
 enable_localhost_autoadmin = true
 # List of admin rank assignments and their permissions
 # These names ARE CASE SENSITIVE
@@ -180,7 +180,7 @@ fluff_undershirts = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 71
+sql_version = 72
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -779,6 +779,7 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_watcher_grave.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_wooden_cabin.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_basalt_lab.dmm",
 ]

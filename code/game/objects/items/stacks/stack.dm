@@ -10,6 +10,7 @@
  */
 /obj/item/stack
 	origin_tech = "materials=1"
+	new_attack_chain = TRUE
 	/// Whether this stack is a `/cyborg` subtype or not.
 	var/is_cyborg = FALSE
 	/// The storage datum that will be used with this stack. Used only with `/cyborg` type stacks.
@@ -35,6 +36,26 @@
 	var/dynamic_icon_state = FALSE
 	/// Whether this stack can't stack with subtypes.
 	var/parent_stack = FALSE
+	/// Whether this stack can be split into multiple independent stacks.
+	var/allow_splitting = TRUE
+
+/obj/item/stack/examine(mob/user)
+	. = ..()
+	if(!in_range(user, src))
+		return
+
+	if(is_cyborg)
+		if(singular_name)
+			. += "There is enough energy for [get_amount()] [singular_name]\s."
+		else
+			. += "There is enough energy for [get_amount()]."
+		return
+
+	if(singular_name)
+		. += "There are [amount] [singular_name]\s in the stack."
+	else
+		. += "There are [amount] [name]\s in the stack."
+	. +=SPAN_NOTICE("Alt-click to take a custom amount.")
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	if(dynamic_icon_state && isnull(inhand_icon_state)) //If we have a dynamic icon state, we don't want inhand icon states to follow the same pattern.
@@ -67,6 +88,25 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/stack/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	// Don't bring up the crafting UI if there's nothing to craft.
+	if(!LAZYLEN(recipes))
+		return
+
+	ui_interact(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/stack/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!can_merge(used, TRUE))
+		return ..()
+
+	var/obj/item/stack/material = used
+	if(merge(material))
+		to_chat(user, SPAN_NOTICE("Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s."))
+
 /obj/item/stack/update_icon_state()
 	. = ..()
 	if(!dynamic_icon_state)
@@ -97,24 +137,6 @@
 		merge(hitting)
 	. = ..()
 
-/obj/item/stack/examine(mob/user)
-	. = ..()
-	if(!in_range(user, src))
-		return
-
-	if(is_cyborg)
-		if(singular_name)
-			. += "There is enough energy for [get_amount()] [singular_name]\s."
-		else
-			. += "There is enough energy for [get_amount()]."
-		return
-
-	if(singular_name)
-		. += "There are [amount] [singular_name]\s in the stack."
-	else
-		. += "There are [amount] [name]\s in the stack."
-	. +=SPAN_NOTICE("Alt-click to take a custom amount.")
-
 /obj/item/stack/proc/add(newamount)
 	if(is_cyborg)
 		source.add_charge(newamount * cost)
@@ -140,8 +162,22 @@
 		return FALSE
 	return TRUE
 
-/obj/item/stack/attack_self__legacy__attackchain(mob/user)
-	ui_interact(user)
+/obj/item/stack/use(used, check = TRUE)
+	if(check && is_zero_amount(TRUE))
+		return FALSE
+
+	if(is_cyborg)
+		return source.use_charge(used * cost)
+
+	if(amount < used)
+		return FALSE
+
+	amount -= used
+	if(check && is_zero_amount(TRUE))
+		return TRUE
+
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
 /obj/item/stack/attack_self_tk(mob/user)
 	ui_interact(user)
@@ -162,37 +198,14 @@
 
 /obj/item/stack/attack_hand(mob/user)
 	if(!user.is_in_inactive_hand(src) && get_amount() > 1)
-		..()
-		return
+		return ..()
+
+	if(!allow_splitting)
+		return ..()
 
 	change_stack(user, 1)
 	if(src && user.machine == src)
 		ui_interact(user)
-
-/obj/item/stack/attackby__legacy__attackchain(obj/item/thing, mob/user, params)
-	if(!can_merge(thing, TRUE))
-		return ..()
-
-	var/obj/item/stack/material = thing
-	if(merge(material))
-		to_chat(user, SPAN_NOTICE("Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s."))
-
-/obj/item/stack/use(used, check = TRUE)
-	if(check && is_zero_amount(TRUE))
-		return FALSE
-
-	if(is_cyborg)
-		return source.use_charge(used * cost)
-
-	if(amount < used)
-		return FALSE
-
-	amount -= used
-	if(check && is_zero_amount(TRUE))
-		return TRUE
-
-	update_icon(UPDATE_ICON_STATE)
-	return TRUE
 
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
@@ -307,6 +320,9 @@
 	return to_transfer
 
 /obj/item/stack/proc/split(mob/user, amount)
+	if(!allow_splitting)
+		return
+
 	var/obj/item/stack/material = new type(loc, amount, FALSE)
 	material.copy_evidences(src)
 	if(isliving(user))
@@ -317,6 +333,9 @@
 	return material
 
 /obj/item/stack/proc/change_stack(mob/user,amount)
+	if(!allow_splitting)
+		return
+
 	var/obj/item/stack/material = new type(user, amount, FALSE)
 	. = material
 	material.copy_evidences(src)
