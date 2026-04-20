@@ -41,8 +41,8 @@
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	airlock_wires = /datum/wires/airlock/engineering
-	area_light_color = "#fae5c9"
-	area_nightlight_color = "#fcd3b1"
+	area_light_color = LIGHT_COLOR_STATION_WORK
+	area_nightlight_color = LIGHT_COLOR_STATION_WORK_NIGHT
 
 /area/station/engineering/smes
 	name = "\improper Engineering SMES"

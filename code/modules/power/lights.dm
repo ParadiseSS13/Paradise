@@ -394,10 +394,9 @@
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
 
-	if(A.area_light_color == null)
-		return
-	else
+	if(A.area_light_color)
 		brightness_color = A.area_light_color
+	if(A.area_nightlight_color)
 		nightshift_light_color = A.area_nightlight_color
 
 /obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)

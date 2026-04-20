@@ -3,8 +3,8 @@
 
 /area/station/command
 	airlock_wires = /datum/wires/airlock/command
-	area_light_color = "#fae5c9"
-	area_nightlight_color = "#fcd3b1"
+	area_light_color = LIGHT_COLOR_STATION_WORK
+	area_nightlight_color = LIGHT_COLOR_STATION_WORK_NIGHT
 
 /area/station/command/bridge
 	name = "\improper Bridge"
@@ -23,8 +23,8 @@
 	request_console_announces = TRUE
 
 /area/station/command/office
-	area_light_color = "#fac192"
-	area_nightlight_color =  "#e29a5f"
+	area_light_color = LIGHT_COLOR_STATION_OFFICE
+	area_nightlight_color = LIGHT_COLOR_STATION_OFFICE_NIGHT
 
 /area/station/command/office/captain
 	name = "\improper Captain's Office"

@@ -6,8 +6,8 @@
 /area/station/hallway
 	valid_territory = FALSE //too many areas with similar/same names, also not very interesting summon spots
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	area_light_color = "#fafaeb"
-	area_nightlight_color = "#fcf4dc"
+	area_light_color = LIGHT_COLOR_STATION_HALL
+	area_nightlight_color = LIGHT_COLOR_STATION_HALL
 
 /area/station/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"
@@ -175,8 +175,8 @@
 // Other public areas
 
 /area/station/public
-	area_light_color = "#fafaeb"
-	area_nightlight_color = "#fcf4dc"
+	area_light_color = LIGHT_COLOR_STATION_HALL
+	area_nightlight_color = LIGHT_COLOR_STATION_HALL_NIGHT
 
 /area/station/public/dorms
 	name = "\improper Dormitories"

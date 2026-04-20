@@ -72,6 +72,15 @@
 #define LIGHT_COLOR_TUNGSTEN   "#FAE1AF" //Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
 #define LIGHT_COLOR_HALOGEN    "#F0FAFA" //Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
 
+// Station Area Lights
+#define LIGHT_COLOR_STATION_HALL		 "#fafaeb" // Slight warm, for station halls.
+#define LIGHT_COLOR_STATION_HALL_NIGHT	 "#fcf4dc" // ^Ditto^, but warmer.
+#define LIGHT_COLOR_STATION_WORK		 "#fae5c9" // Moderately warm, for standard work environments.
+#define LIGHT_COLOR_STATION_WORK_NIGHT	 "#fcd3b1" // ^Ditto^, but warmer.
+#define LIGHT_COLOR_STATION_OFFICE		 "#fac192" // Quite warm, for offices and private rooms.
+#define LIGHT_COLOR_STATION_OFFICE_NIGHT "#e29a5f" // ^Ditto^, but warmer.
+
+
 #define LIGHT_RANGE_FIRE		3 //How many tiles standard fires glow.
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255
