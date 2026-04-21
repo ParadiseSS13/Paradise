@@ -48,6 +48,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "coconut-slice"
 	filling_color = "#FF4500"
+	list_reagents = list("coconutwater" = 1)
 
 //BOMBONUT HERE//
 

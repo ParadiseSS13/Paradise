@@ -30,6 +30,7 @@
 	desc = "A slice of green goodness."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "avocado_cut"
+	list_reagents = list("vitamin" = 1)
 
 /obj/item/seeds/avocado/aircado
 	name = "pack of aircado seeds"
