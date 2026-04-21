@@ -218,7 +218,7 @@
 	name = "A-4"
 
 /datum/engi_event/supermatter_event/alpha_tier/integrity_hit/on_start()
-	supermatter.damage += rand(350,650)
+	supermatter.damage += rand(350, 650)
 	if(supermatter.damage >= 1000)
 		clamp(supermatter.damage, 0, 1000)
 
