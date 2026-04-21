@@ -24,9 +24,10 @@
 			"Lefthand" = jumpsuit_type::lefthand_file,
 			"Righthand" = jumpsuit_type::righthand_file)
 		var/list/state_names = list(jumpsuit_type::icon_state,
-			"[jumpsuit_type::worn_icon_state || jumpsuit_type::icon_state]_s",
-			"[jumpsuit_type::worn_icon_state || jumpsuit_type::icon_state]_d_s",
+			"[jumpsuit_type::worn_icon_state || jumpsuit_type::icon_state]",
+			"[jumpsuit_type::worn_icon_state || jumpsuit_type::icon_state]_d",
 			jumpsuit_type::inhand_icon_state,)
+		state_names = uniquelist(state_names)
 		// For every sprite sheet...
 		for(var/sheet_key in all_sheets)
 			var/filepath = all_sheets[sheet_key]
