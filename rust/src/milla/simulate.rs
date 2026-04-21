@@ -761,6 +761,8 @@ pub(crate) fn do_turf_effects(
         my_next_tile
             .gases
             .set_water_vapor(my_next_tile.gases.water_vapor() - condensed_water);
+
+        my_next_tile.thermal_energy += WATER_VAPOR_BREAKDOWN_ENERGY * condensed_water;
         //We lose gas, so we lose the thermal energy it had
         my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
         // Make the floor wet
