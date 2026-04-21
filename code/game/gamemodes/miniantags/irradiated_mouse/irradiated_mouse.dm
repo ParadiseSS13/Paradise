@@ -9,7 +9,7 @@
 	INVOKE_ASYNC(src, PROC_REF(spawn_mouse))
 
 /datum/event/spawn_irradiated_mouse/proc/spawn_mouse()
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as an irradiated mouse?", ROLE_IRRADIATED_MOUSE, TRUE, source = /mob/living/basic/mouse/)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as an irradiated mouse?", ROLE_IRRADIATED_MOUSE, TRUE, source = /mob/living/basic/mouse/irradiated_mouse)
 	if(!length(candidates))
 		kill()
 		return
@@ -43,6 +43,8 @@
 	gold_core_spawnable = NO_SPAWN
 	minimum_survivable_temperature = 0
 	initial_traits = list(TRAIT_SHOCKIMMUNE, TRAIT_AI_PAUSED, TRAIT_RADIMMUNE) // shock immune so you can chew on those yummy wires
+	mouse_color = "green"
+	icon_state = "mouse_green"
 	a_intent = INTENT_HARM
 
 	var/available_upgrades = 0
@@ -127,7 +129,7 @@
 		environment_smash = ENVIRONMENT_SMASH_WALLS
 
 /datum/spell/irradiated_mouse_spell/
-	action_background_icon_state = "shadow_demon_bg"
+	action_background_icon_state = "bg_irradiated_mouse"
 	clothes_req = FALSE
 	base_cooldown = 5 SECONDS
 
@@ -137,7 +139,7 @@
 /datum/spell/irradiated_mouse_spell/upgrade_radiation
 	name = "Upgrade Radiation"
 	desc = "Upgrade the amount of radiation you emit. You will start producing radioactive sludge at level 3."
-	action_icon_state = "summon_supermatter"
+	action_icon_state = "irradiated_mouse_radiation"
 
 /datum/spell/irradiated_mouse_spell/upgrade_radiation/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
 	user.upgrade_radiation()
@@ -147,7 +149,7 @@
 /datum/spell/irradiated_mouse_spell/upgrade_speed
 	name = "Upgrade Speed"
 	desc = "Upgrade your speed. You will become semi-transparent at level 3."
-	action_icon_state = "vampire_cloak"
+	action_icon_state = "irradiated_mouse_speed"
 
 /datum/spell/irradiated_mouse_spell/upgrade_speed/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
 	user.upgrade_speed()
@@ -157,7 +159,7 @@
 /datum/spell/irradiated_mouse_spell/upgrade_damage
 	name = "Upgrade Damage"
 	desc = "Upgrade your damage. You will become able to damage walls and windows at level 3."
-	action_icon_state = "genetic_hulk"
+	action_icon_state = "irradiated_mouse_damage"
 
 /datum/spell/irradiated_mouse_spell/upgrade_damage/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
 	user.upgrade_damage()

@@ -140,14 +140,23 @@
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
 		for(var/mob/living/basic/mouse/M in view(1, src))
-			if(!M.stat && Adjacent(M))
-				custom_emote(EMOTE_VISIBLE, "splats \the [M]!")
-				M.death()
-				M.splat()
-				movement_target = null
-				walk(src, 0)
-				stop_automated_movement = FALSE
-				break
+			if(M.stat == DEAD || !Adjacent(M))
+				continue
+
+			if(istype(M, /mob/living/basic/mouse/irradiated_mouse))
+				if(prob(50))
+					death()
+					return
+				else
+					name = "Schrödinger's [name]"
+
+			custom_emote(EMOTE_VISIBLE, "splats \the [M]!")
+			M.death()
+			M.splat()
+			movement_target = null
+			walk(src, 0)
+			stop_automated_movement = FALSE
+			break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
 			if(T.cooldown < (world.time - 400))
 				custom_emote(EMOTE_VISIBLE, "bats \the [T] around with its paw!")
