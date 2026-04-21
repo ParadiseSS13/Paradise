@@ -1438,15 +1438,15 @@
 	taste_description = "pulp"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
-/datum/reagent/consumable/drink/mate
+/datum/reagent/consumable/drink/tea/mate
 	name = "Mate"
-	id = "matejuice"
-	description = "Hipster stuff."
+	id = "mate"
+	description = "A robustly bitter, earthy tea."
 	color = "#948870"
 	drink_icon = "mate"
 	drink_name = "Glass of Mate"
-	drink_desc = "Hipster stuff."
-	taste_description = "hipster"
+	drink_desc = "A robustly bitter, earthy tea."
+	taste_description = "bitterness"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/drink/nisperojuice

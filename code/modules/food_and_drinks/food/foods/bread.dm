@@ -298,7 +298,7 @@
 	tastes = list("bread" = 10, "honey" = 10)
 
 /obj/item/food/sliced/honeybread
-	name = "honeybread slice"
+	name = "honey bread slice"
 	desc = "A slice of a honeybread."
 	icon_state = "honeybreadslice"
 	trash = /obj/item/trash/plate

@@ -334,7 +334,7 @@
 
 /obj/item/food/soup/garlic
 	name = "Garlic Soup"
-	desc = "a garlic soup with an egg on top"
+	desc = "A garlic soup with an egg on top."
 	icon_state = "garlic_soup"
 	bitesize = 4
 	list_reagents = list("nutriment" = 6, "vitamin" = 3)
@@ -348,7 +348,7 @@
 
 /obj/item/food/soup/fishconsome
 	name = "Fish Consome"
-	desc = "a warm consome with tasty fish meat"
+	desc = "A warm consome with tasty fish meat."
 	icon_state = "carpconsomme"
 	bitesize = 4
 	list_reagents = list("nutriment" = 3, "vitamin" = 2, "blackpepper" = 1)

@@ -505,9 +505,7 @@
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/arepa),
-		PCWJ_ADD_ITEM(/obj/item/slime_extract),
-		PCWJ_ADD_REAGENT("slimejelly", 5),
-		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_ADD_REAGENT("sugar", 10),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 

@@ -261,7 +261,7 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 5)
 
 /obj/item/food/arepa/ham_cheese
-	name = "cheese and ham arepa"
+	name = "ham and cheese arepa"
 	desc = "Venezuelan flavor but with ham and cheese."
 	icon_state = "arepa_ham_cheese"
 	bitesize = 6
@@ -337,7 +337,7 @@
 	list_reagents = list("nutriment" = 5, "vitamin" = 8)
 
 /obj/item/food/arepa/industrial
-	name = "arepa industrial"
+	name = "industrial arepa"
 	desc = "Beep Boop VENEZUELA RISE UP Beep."
 	icon_state = "arepa_industrial"
 	bitesize = 7
@@ -352,7 +352,7 @@
 
 /obj/item/food/arepa/ice
 	name = "iced arepa"
-	desc = "A solid ice cube, with an arepa in it."
+	desc = "A solid ice cube with an arepa in it."
 	icon_state = "arepa_ice"
 	bitesize = 5
 	list_reagents = list("nutriment" = 3, "vitamin" = 3, "frostoil" = 25)
@@ -437,7 +437,7 @@
 	list_reagents = list("nutriment" = 4,  "vitamin" = 4)
 
 /obj/item/food/avocadosandwich
-	name = "Sandwich of Avocado"
+	name = "Avocado Sandwich"
 	desc = "Made of avocado and lots of mayonnaise."
 	icon_state = "avocado_sandwich"
 	filling_color = "#fff98f"
@@ -445,7 +445,7 @@
 	tastes = list("bread" = 1, "avocado" = 2)
 
 /obj/item/food/salmoncreamtoast
-	name = "Salmon Cream cheese toast"
+	name = "Salmon Cream Cheese Toast"
 	desc = "Bite size toast with salmon and thick cream cheese"
 	icon_state = "scc_toast"
 	filling_color = "#ff8c69"

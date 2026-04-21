@@ -710,8 +710,8 @@
 	tastes = list("nasty" = 1)
 
 /obj/item/food/peach_meat
-	name = "Peach Meat"
-	desc = "A good steak dipped in peach sauce, with an avocado base"
+	name = "Steak in Peach Sauce"
+	desc = "A good steak dipped in peach sauce with an avocado base."
 	icon_state = "peach_meat"
 	trash = /obj/item/trash/plate
 	bitesize = 3

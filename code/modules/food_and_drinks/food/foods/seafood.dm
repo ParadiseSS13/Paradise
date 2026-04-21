@@ -404,7 +404,7 @@
 
 /obj/item/food/avocadosalmon
 	name = "avocado salmon"
-	desc = "A fillet of freshly-grilled of salmon meat with some avocado."
+	desc = "A fillet of freshly-grilled of salmon meat with avocado."
 	icon_state = "salmonavocado"
 	trash = /obj/item/trash/plate
 	filling_color = "#7A3D11"

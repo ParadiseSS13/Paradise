@@ -75,7 +75,7 @@
 ////////////////////////
 
 /obj/item/food/mousse_avocado
-	name = "Mousse"
+	name = "Avocado Chocolate Mousse"
 	desc = "A mousse made of avocado and cacao."
 	icon_state = "mousse_avocado"
 	bitesize = 1
