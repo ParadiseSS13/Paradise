@@ -66,7 +66,7 @@
 	if(!.)
 		return
 	var/obj/item/grenade/mirage/grenade = .
-	grenade.attack_self__legacy__attackchain(mod.wearer)
+	grenade.activate_self(mod.wearer)
 
 /obj/item/grenade/mirage
 	name = "mirage grenade"
@@ -76,14 +76,13 @@
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
 
-
 /obj/item/grenade/mirage/Destroy()
 	thrower = null
 	return ..()
 
-/obj/item/grenade/mirage/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/grenade/mirage/activate_self(mob/user)
 	thrower = user
+	return ..()
 
 /obj/item/grenade/mirage/prime()
 	do_sparks(rand(3, 6), FALSE, src)
@@ -191,7 +190,7 @@
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
 	drain_power(use_power_cost)
 	var/obj/item/grenade/grenade = dispensed
-	grenade.attack_self__legacy__attackchain(mod.wearer)
+	grenade.activate_self(mod.wearer)
 	return grenade
 
 /obj/item/mod/module/anomaly_locked/firewall/prebuilt
@@ -245,7 +244,7 @@
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
 	drain_power(use_power_cost)
 	var/obj/item/grenade/grenade = dispensed
-	grenade.attack_self__legacy__attackchain(mod.wearer)
+	grenade.activate_self(mod.wearer)
 	return grenade
 
 /obj/item/mod/module/anomaly_locked/cryogrenade/prebuilt
@@ -267,9 +266,9 @@
 	thrower = null
 	return ..()
 
-/obj/item/grenade/cryogrenade_mod/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/grenade/cryogrenade_mod/activate_self(mob/user)
 	thrower = user
+	return ..()
 
 /obj/item/grenade/cryogrenade_mod/prime()
 	update_mob()
@@ -302,4 +301,4 @@
 	var/obj/item/grenade/smokebomb/grenade = ..()
 	if(!grenade)
 		return
-	grenade.attack_self__legacy__attackchain(mod.wearer)
+	grenade.activate_self(mod.wearer)
