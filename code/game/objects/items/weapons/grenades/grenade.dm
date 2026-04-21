@@ -13,6 +13,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	flags_2 = RANDOM_BLOCKER_2
+	new_attack_chain = TRUE
 	/// Has the pin been pulled?
 	var/active = FALSE
 	/// Time between the pin being pulled and detonation.
@@ -21,6 +22,8 @@
 	var/display_timer = TRUE
 	/// Can the grenade's fuze time be changed?
 	var/modifiable_timer = TRUE
+	/// Allows the default `activate_self()` behavour to be fully overriden.
+	var/custom_activation = FALSE
 
 /obj/item/grenade/examine(mob/user)
 	. = ..()
@@ -62,11 +65,18 @@
 		return FALSE
 	return TRUE
 
-/obj/item/grenade/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/grenade/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(custom_activation)
+		return // Let the child proc cook.
+
 	if(active)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(!clown_check(user))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, SPAN_DANGER("You prime [src]! [det_time / 10] seconds!"))
 	active = TRUE
@@ -83,6 +93,7 @@
 		C.throw_mode_on()
 	spawn(det_time)
 		prime()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grenade/proc/prime()
 	return
