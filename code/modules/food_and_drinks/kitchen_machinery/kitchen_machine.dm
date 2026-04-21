@@ -3,7 +3,7 @@
 
 /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
-	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
+	desc = ABSTRACT_TYPE_DESC
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -352,7 +352,6 @@
 	if(!recipes_to_make)
 		return
 
-	var/datum/reagents/temp_reagents = new(500)
 	for(var/list/L as anything in recipes_to_make)
 		var/obj/source = L[1] // The machine or a mixing bowl
 		var/datum/recipe/recipe = L[2] // Valid recipe or RECIPE_FAIL
@@ -361,26 +360,7 @@
 			fail()
 			continue
 
-		for(var/obj/O in source.contents) // Process supplied ingredients
-			if(O.reagents)
-				O.reagents.del_reagent("nutriment")
-				O.reagents.update_total()
-				O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
-
-			qdel(O)
-		source.reagents.clear_reagents()
-		var/portions = recipe.duplicate ? efficiency : 1
-		var/reagents_per_serving = temp_reagents.total_volume / portions
-		for(var/i in 1 to portions) // Extra servings when upgraded, ingredient reagents split equally
-			var/obj/cooked = new recipe.result(loc)
-			cooked.pixel_y = rand(-5, 5)
-			cooked.pixel_x = rand(-5, 5)
-			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
-		temp_reagents.clear_reagents()
-
-		var/obj/byproduct = recipe.get_byproduct()
-		if(byproduct)
-			new byproduct(loc)
+		recipe.make_food(source)
 
 	stop()
 
