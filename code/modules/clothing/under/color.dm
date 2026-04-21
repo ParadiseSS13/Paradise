@@ -2,7 +2,7 @@
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	icon = 'icons/obj/clothing/under/color.dmi'
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
-	icon_state = "color"
+	icon_state = "solid"
 	inhand_icon_state = "color_suit"
 	dyeable = TRUE
 	var/default_palette_key = DYE_WHITE
@@ -18,7 +18,7 @@
 /obj/item/clothing/under/color/jumpskirt
 	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	icon_state = "colorskirt"
+	icon_state = "solidskirt"
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/color/Initialize(mapload)
@@ -46,8 +46,8 @@
 	righthand_file = icon_cache.sprite_sheets[dye_key][palette_key]["Righthand"]
 
 	// Set icon states
-	var/icon_state_prefix = findtext(palette_key, "psyche") ? "psyche" : "color"
-	var/icon_state_skirt = dye_key == "under" ? "" : "skirt"
+	var/icon_state_prefix = findtext(palette_key, "psyche") ? "psyche" : "solid"
+	var/icon_state_skirt = dye_key == DYE_REGISTRY_UNDER ? "" : "skirt"
 	icon_state = "[icon_state_prefix][icon_state_skirt]"
 	inhand_icon_state = "[icon_state_prefix]_suit"
 
