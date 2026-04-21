@@ -9814,7 +9814,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^5.8.5":
+"fastify@npm:^5.8.3":
   version: 5.8.5
   resolution: "fastify@npm:5.8.5"
   dependencies:
@@ -19538,7 +19538,7 @@ __metadata:
     "@types/react": "npm:^19.2.2"
     "@types/react-dom": "npm:^19.2.1"
     common: "workspace:*"
-    fastify: "npm:^5.8.5"
+    fastify: "npm:^5.8.3"
     lodash: "npm:^4.18.1"
     platform: "npm:^1.3.6"
     react: "npm:^19.2.0"
