@@ -573,9 +573,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "agT" = (
-/obj/machinery/conveyor/west{
-	id = "garbage";
-	dir = 5
+/obj/machinery/conveyor/southwest/ccw{
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -38849,11 +38848,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "gvk" = (
-/obj/machinery/conveyor/west{
-	id = "garbage";
-	dir = 4
-	},
 /obj/machinery/recycler,
+/obj/machinery/conveyor/east{
+	id = "garbage"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "gvJ" = (
@@ -56819,9 +56817,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "msY" = (
-/obj/machinery/conveyor/west{
-	id = "garbage";
-	dir = 10
+/obj/machinery/conveyor/southwest{
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -66789,9 +66786,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "pOl" = (
-/obj/machinery/conveyor/west{
-	id = "garbage";
-	dir = 9
+/obj/machinery/conveyor/southeast/ccw{
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -67257,6 +67253,7 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/aft)
 "pUA" = (
@@ -82862,9 +82859,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "vpk" = (
-/obj/machinery/conveyor/west{
-	id = "garbage";
-	dir = 6
+/obj/machinery/conveyor/southeast{
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
