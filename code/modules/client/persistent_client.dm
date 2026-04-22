@@ -1,7 +1,7 @@
 ///assoc list of ckey -> /datum/persistent_client
 GLOBAL_LIST_EMPTY_TYPED(persistent_clients_by_ckey, /datum/persistent_client)
 /// A flat list of all persistent clients, for her looping pleasure.
-GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
+//GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 
 /// Tracks information about a client between log in and log outs
 /datum/persistent_client

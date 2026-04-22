@@ -1,6 +1,6 @@
-import { BooleanLike } from 'common/react';
 import { useState } from 'react';
-import { Box, Flex, Icon, Image, ProgressBar, Table, Tabs, Tooltip } from 'tgui/components';
+import { Box, Flex, Icon, Image, ProgressBar, Table, Tabs, Tooltip } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -53,7 +53,7 @@ export const Achievements = (_props) => {
   const { categories } = data;
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   return (
-    <Window title="Достижения" width={540} height={680}>
+    <Window title="Achievements" width={540} height={680}>
       <Window.Content scrollable>
         <Tabs>
           {categories.map((category) => (
@@ -96,10 +96,10 @@ const AchievementTable = (props) => {
             {achievement.desc}
             {(achievement.score && (
               <Box color={achievement.value > 0 ? 'good' : 'bad'}>
-                {achievement.value > 0 ? `Получено ${achievement.value} раз` : 'Не получено'}
+                {achievement.value > 0 ? `Recieved ${achievement.value} once` : 'Not Recieved'}
               </Box>
             )) || (
-              <Box color={achievement.value ? 'good' : 'bad'}>{achievement.value ? 'Получено' : 'Не получено'}</Box>
+              <Box color={achievement.value ? 'good' : 'bad'}>{achievement.value ? 'Recieved' : 'Not Recieved'}</Box>
             )}
             {!!achievement.achieve_info && (
               <Tooltip position="bottom" content={achievement.achieve_tooltip}>

@@ -784,4 +784,5 @@
 	return text
 
 /proc/format_table_name(table as text)
-	return CONFIG_GET(string/feedback_tableprefix) + table
+	return table
+	#warn maybe
