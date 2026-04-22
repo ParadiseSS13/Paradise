@@ -140,6 +140,8 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	/// Map preferences for the first past the post system
 	var/list/map_vote_pref_json = list()
 
+	var/achivements_sound = CHEEVO_SOUND_PING
+
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
 
@@ -459,6 +461,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 			dat += "<b>Lighting settings:</b><br>"
 			dat += "<b> - New Lighting:</b> <a href='byond://?_src_=prefs;preference=enablelighting'>[(light & LIGHT_NEW_LIGHTING) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - Glow Level:</b> <a href='byond://?_src_=prefs;preference=glowlevel'>"
+			dat += "<b>Play Achievement Sound:</b> <a href='byond://?_src_=prefs;preference=achievement_sound'>[achivements_sound]</a><br>"
 			switch(glowlevel)
 				if(GLOW_LOW)
 					dat += "Low"
