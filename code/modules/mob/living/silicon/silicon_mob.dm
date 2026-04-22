@@ -83,16 +83,9 @@
 	/// The delay used when toggling door bolts or electrification
 	var/door_bolt_delay = 3 SECONDS
 
-/mob/living/silicon/New()
-	GLOB.silicon_mob_list |= src
-	..()
-	add_language("Galactic Common")
-	init_subsystems()
-	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
-
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
+	GLOB.silicon_mob_list |= src
 	for(var/hud_key, hud in GLOB.huds)
 		var/datum/atom_hud/data/diagnostic/diag_hud = hud
 		if(!istype(diag_hud))
@@ -108,6 +101,10 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	regenerate_icons()
 
+	add_language("Galactic Common")
+	init_subsystems()
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud

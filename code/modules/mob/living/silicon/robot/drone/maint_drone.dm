@@ -57,8 +57,8 @@
 		/mob/living/silicon/proc/subsystem_power_monitor)
 
 
-/mob/living/silicon/robot/drone/New()
-	..()
+/mob/living/silicon/robot/drone/Initialize(mapload, unfinished, alien, connect_to_AI, mob/living/silicon/ai/ai_to_sync_to)
+	. = ..()
 
 	remove_language("Robot Talk")
 	remove_language("Galactic Common")

@@ -22,8 +22,8 @@
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
 							<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/New(loc)
-	..()
+/mob/living/silicon/robot/syndicate/Initialize(mapload, unfinished, alien, connect_to_AI, mob/living/silicon/ai/ai_to_sync_to)
+	. = ..()
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
 /mob/living/silicon/robot/syndicate/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
