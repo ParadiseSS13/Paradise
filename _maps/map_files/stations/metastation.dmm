@@ -40808,11 +40808,6 @@
 /obj/effect/turf_decal/tiles/department/medical/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/exam_room)
-"hcn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/station/public/construction)
 "hcI" = (
 /obj/item/kirbyplants/large/plant4,
 /obj/machinery/light/small{
@@ -57493,6 +57488,7 @@
 /area/station/science/xenobiology)
 "mIh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
@@ -63963,9 +63959,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "oPA" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "oPE" = (
@@ -80467,6 +80463,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
+"uBM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/construction)
 "uBX" = (
 /turf/simulated/wall,
 /area/station/service/chapel/funeral)
@@ -84715,6 +84718,14 @@
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
+"vTK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/construction)
 "vTZ" = (
 /obj/structure/showcase{
 	density = 0;
@@ -102396,7 +102407,7 @@ yaT
 aML
 iUA
 qGL
-qGL
+uBM
 sct
 vZi
 egD
@@ -102651,9 +102662,9 @@ jQJ
 jPu
 iXo
 oPA
-ttK
+vTK
 mIh
-hcn
+ttK
 kVd
 jRb
 xHg
