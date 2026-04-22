@@ -88,6 +88,7 @@
 			result = "JACKPOT! You win two thousand credits!"
 			resultlvl = "teal"
 			win_money(2000, 'sound/goonstation/misc/airraid_loop.ogg')
+			usr.client.give_award(/datum/award/achievement/misc/jackpot)
 		if(2 to 20)
 			atom_say("Big Winner! [userName] has won two hundred credits!")
 			result = "You win a two hundred credits!"

@@ -39,3 +39,9 @@ GLOBAL_LIST_EMPTY(string_filename_current_key)
 		GLOB.string_cache[filename] = json_load("strings/[filename]")
 	else
 		CRASH("file not found: strings/[filename]")
+
+///Return a list with no duplicate entries
+/proc/unique_list(list/inserted_list)
+	. = list()
+	for(var/i in inserted_list)
+		. |= LIST_VALUE_WRAP_LISTS(i)

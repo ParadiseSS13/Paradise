@@ -72,8 +72,9 @@ Difficulty: Hard
 	loot = list(/obj/item/pinpointer/tendril)
 	crusher_loot = list(/obj/item/crusher_trophy/adaptive_intelligence_core)
 	internal_gps = /obj/item/gps/internal/ancient
-	medal_type = BOSS_MEDAL_ROBOT
-	score_type = ROBOT_SCORE
+	achievement_type = /datum/award/achievement/boss/ancient_robot_kill
+	crusher_achievement_type = /datum/award/achievement/boss/ancient_robot_crusher
+	score_achievement_type = /datum/award/score/ancient_robot_score
 	deathmessage = "explodes into a shower of alloys"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()

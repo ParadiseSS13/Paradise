@@ -170,6 +170,9 @@
 	/// Stores the icon size we use for skins. As the server has control freak enabled, this is always static
 	var/ViewPreferedIconSize = 0
 
+	///these persist between logins/logouts during the same round.
+	var/datum/persistent_client/persistent_client
+
 	/// Basically a local variable on a client datum. Used when setting macros and nowhere else
 	var/list/macro_sets
 

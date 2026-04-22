@@ -45,8 +45,8 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	var/doors_opened = FALSE
 	pixel_x = 0
-	medal_type = null
-	score_type = null
+	achievement_type = null
+	score_achievement_type = null
 	crusher_loot = list()
 	health = 750
 	maxHealth = 750
