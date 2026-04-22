@@ -24118,6 +24118,7 @@
 	},
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/drinks/shaker,
+/obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "cEk" = (
@@ -24793,7 +24794,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "cHd" = (
-/obj/structure/sign/poster/contraband/random/directional/west,
 /obj/structure/bed/dogbed,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -31312,9 +31312,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/research)
 "dYc" = (
-/obj/machinery/mineral/stacking_unit_console{
-	pixel_y = 32
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -39965,6 +39962,9 @@
 /obj/machinery/mass_driver{
 	dir = 8;
 	id_tag = "trash"
+	},
+/obj/structure/sign/public/deathsposal{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -61401,6 +61401,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"nWq" = (
+/obj/machinery/mineral/stacking_machine{
+	output_dir = 2;
+	input_dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/disposal)
 "nWH" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
@@ -65403,6 +65410,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
+"pqx" = (
+/obj/structure/table,
+/obj/effect/spawner/random/food_or_drink,
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/disposal)
 "pqK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -67866,15 +67878,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/fsmaint2)
-"qfp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/disposal)
 "qfs" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -69624,10 +69627,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "qNF" = (
-/obj/machinery/conveyor_switch/oneway{
-	id = "garbage";
-	name = "disposal coveyor"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -73591,10 +73590,10 @@
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "sbL" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/disposal)
 "sbO" = (
@@ -74822,12 +74821,13 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/engine/reactor)
 "sAi" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes,
 /obj/machinery/door/poddoor{
 	id_tag = "trash";
 	name = "disposal bay door";
 	protected = 0
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "sAH" = (
@@ -81517,12 +81517,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
-"uSA" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
 "uSJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -84591,13 +84585,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/research)
 "vRn" = (
-/obj/structure/table,
 /obj/machinery/driver_button{
 	id_tag = "trash";
 	pixel_x = -24;
 	pixel_y = -8
 	},
-/obj/effect/spawner/random/food_or_drink,
+/obj/machinery/mineral/stacking_unit_console{
+	pixel_x = -32;
+	pixel_y = -32
+	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/disposal)
 "vRv" = (
@@ -84980,9 +84976,9 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "vYU" = (
-/obj/machinery/mineral/stacking_machine{
-	output_dir = 2;
-	input_dir = 8
+/obj/machinery/conveyor_switch/oneway{
+	id = "garbage";
+	name = "disposal coveyor"
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/disposal)
@@ -86659,6 +86655,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
+"wzy" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/disposal)
 "wzP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -102450,9 +102450,9 @@ aaa
 aaa
 aaa
 aaa
+fCU
 aaa
-aaa
-aaa
+fCU
 aaa
 aaa
 aaa
@@ -102707,9 +102707,9 @@ aaa
 aaa
 aaa
 aaa
+abq
 aaa
-aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -102963,11 +102963,11 @@ aaa
 aaa
 aaa
 aaa
+abq
+abq
 aaa
-aaa
-aaa
-aaa
-aaa
+abq
+abq
 aaa
 aaa
 aaa
@@ -103218,15 +103218,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+abq
+abq
+abq
 akt
 sAi
 akt
-aaa
-aaa
-aaa
+abq
+abq
+abq
 aaa
 aaa
 aaa
@@ -103468,22 +103468,22 @@ pcI
 kJs
 kJs
 lsJ
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abq
+abq
+abq
+abq
+abq
+abq
+abq
+abq
 akt
 akt
 akt
 gOL
 akt
 akt
-aaa
-aaa
+akt
+abq
 aaa
 aaa
 aaa
@@ -103738,9 +103738,9 @@ agT
 pOl
 sIv
 vRn
+wzy
 akt
-aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -103994,10 +103994,10 @@ akt
 nkm
 gvk
 jJE
-geF
+nWq
+dnw
 spB
-aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -104251,10 +104251,10 @@ akt
 jJE
 vpk
 msY
-eLu
+geF
+dnw
 spB
-aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -104509,9 +104509,9 @@ wWp
 vYU
 dnw
 eLu
+dnw
 spB
-aaa
-aaa
+abq
 aaa
 aaa
 aaa
@@ -104766,18 +104766,18 @@ jDG
 qNF
 tTs
 sbL
+pqx
 akt
-aaa
-aaa
-aaa
-uSA
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abq
+abq
+abq
+abq
+abq
+abq
+abq
+abq
+abq
+abq
 aaa
 aaa
 aaa
@@ -105020,22 +105020,22 @@ lAF
 lAf
 akt
 aqq
-ikc
-laY
-ilz
-ilz
-tIb
-tIb
-ilz
+eLu
+dnw
 ilz
 ilz
 ilz
 tIb
 tIb
+ilz
+ilz
+ilz
 tIb
 tIb
-aaa
-aaa
+tIb
+tIb
+abq
+abq
 aaa
 aaa
 aaa
@@ -105277,8 +105277,8 @@ bTY
 jyL
 akt
 dYc
-qfp
-dnw
+ikc
+laY
 wNc
 chT
 cEj
