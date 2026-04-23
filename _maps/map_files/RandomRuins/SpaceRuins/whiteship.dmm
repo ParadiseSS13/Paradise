@@ -43,6 +43,10 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
+"gq" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
 "hz" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -92,18 +96,6 @@
 /obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"sm" = (
-/obj/effect/spawner/random/dirt/often,
-/obj/machinery/door/airlock/titanium,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"tV" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
 "ux" = (
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
@@ -122,10 +114,6 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "vB" = (
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
-"wh" = (
-/obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "wF" = (
@@ -255,11 +243,25 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"Vi" = (
+/obj/effect/spawner/random/dirt/often,
+/obj/machinery/door/airlock/titanium{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/shuttle/abandoned)
 "Yr" = (
 /obj/machinery/computer/shuttle/white_ship{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
+"Yu" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
@@ -350,7 +352,7 @@ zO
 zO
 zO
 wF
-tV
+gq
 zO
 zO
 zO
@@ -380,7 +382,7 @@ zM
 zO
 AS
 bE
-wh
+Yu
 vB
 vB
 zO
@@ -508,7 +510,7 @@ zM
 zO
 ri
 cf
-sm
+Vi
 Kd
 vz
 zO

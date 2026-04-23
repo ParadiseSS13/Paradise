@@ -50,9 +50,6 @@
 "al" = (
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/bridge)
-"am" = (
-/turf/simulated/wall/indestructible/titanium/soviet,
-/area/ruin/space/derelict/bridge)
 "an" = (
 /obj/effect/spawner/window/shuttle,
 /obj/machinery/door/poddoor/shutters{
@@ -461,12 +458,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
-"bm" = (
-/turf/simulated/wall/indestructible/titanium/soviet,
-/area/ruin/space/derelict/crew_quarters)
-"bn" = (
-/turf/simulated/wall/indestructible/titanium/soviet,
-/area/ruin/space/derelict/arrival)
 "bo" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -850,12 +841,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
-"cq" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Command Wing"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/derelict/bridge)
 "cr" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
@@ -954,20 +939,6 @@
 /obj/structure/sign/poster/contraband/communist_state/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
-"cF" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "ruslockcom";
-	layer = 3;
-	name = "Bridge Lockdown"
-	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Command Wing"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/derelict/bridge)
 "cG" = (
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/random/maintenance,
@@ -986,15 +957,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
-"cI" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Bathroom"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/ruin/space/derelict/crew_quarters)
 "cJ" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1017,14 +979,15 @@
 /obj/structure/sign/mech,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/arrival)
-"cN" = (
-/obj/machinery/door/airlock/hatch{
-	desc = "A sturdy armoury door. If you listen closely, you can barely make out a soviet marching tune coming from the other side of the door.";
-	name = "Armoury"
+"cM" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Eastern Annex";
+	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks/mapped,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/derelict/arrival)
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_stairs"
+	},
+/area/ruin/space/derelict/crew_quarters)
 "cO" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower/directional/west,
@@ -1375,12 +1338,6 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/ruin/space/derelict/crew_quarters)
-"dI" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Dormitories"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/crew_quarters)
 "dJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1475,26 +1432,23 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
+"dV" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/titanium{
+	name = "Central Annex";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
 "dW" = (
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/hallway/primary)
 "dX" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/indestructible/titanium/soviet,
-/area/ruin/space/derelict/hallway/primary)
-"dY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "ruslock";
-	layer = 3;
-	name = "Central Annex Lockdown"
-	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Command Wing"
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "dZ" = (
 /obj/structure/closet/crate/can,
@@ -1539,9 +1493,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
-"eg" = (
-/turf/simulated/wall/indestructible/titanium/soviet,
-/area/ruin/space/derelict/hallway/primary)
 "eh" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -1569,12 +1520,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
-"ek" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Dormitories"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/derelict/crew_quarters)
 "el" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -1749,20 +1694,6 @@
 /obj/item/trash/spentcasing/bullet/medium,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
-"eJ" = (
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "ruslocksec";
-	layer = 2.9;
-	name = "Security Wing Lockdown"
-	},
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Security Wing"
-	},
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/derelict/arrival)
 "eK" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "ruslocksec";
@@ -2823,21 +2754,6 @@
 /obj/structure/sign/security,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/arrival)
-"hu" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Wing"
-	},
-/turf/simulated/floor/plasteel/fakestairs,
-/area/ruin/space/derelict/arrival)
-"hv" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Wing"
-	},
-/turf/simulated/floor/plasteel/fakestairs,
-/area/ruin/space/derelict/arrival)
 "hw" = (
 /obj/structure/sink/directional/west,
 /obj/effect/turf_decal/tiles/department/science/side{
@@ -2902,25 +2818,6 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
-"hE" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/public/glass{
-	name = "Eastern Annex"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs"
-	},
-/area/ruin/space/derelict/crew_quarters)
-"hH" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Eastern Annex"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs"
-	},
-/area/ruin/space/derelict/crew_quarters)
 "hI" = (
 /obj/structure/closet/crate{
 	opened = 1
@@ -3369,37 +3266,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
-"iW" = (
-/obj/machinery/door/airlock/science{
-	name = "Science Wing"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "ruslock";
-	layer = 3;
-	name = "Central Annex Lockdown"
-	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
-"iX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/science{
-	name = "Science Wing"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "ruslock";
-	layer = 3;
-	name = "Central Annex Lockdown"
-	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
 "iY" = (
 /obj/structure/lattice,
 /obj/item/stack/ore/iron,
@@ -3416,31 +3282,6 @@
 "ja" = (
 /obj/structure/lattice,
 /turf/template_noop,
-/area/ruin/space/derelict/hallway/primary)
-"jb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Wing"
-	},
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
-"jc" = (
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Wing"
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/dark/corner,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "jd" = (
 /obj/structure/cable{
@@ -4450,26 +4291,6 @@
 /obj/structure/sign/service/botany,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/hallway/primary)
-"lA" = (
-/obj/machinery/door/airlock/glass{
-	name = "Hydroponics";
-	welded = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
-"lB" = (
-/obj/machinery/door/airlock/glass{
-	name = "Hydroponics";
-	welded = 1
-	},
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
 "lC" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -4486,23 +4307,6 @@
 "lD" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine/vacuum,
-/area/ruin/space/derelict/hallway/primary)
-"lE" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/public/glass{
-	name = "Mess Hall"
-	},
-/obj/effect/turf_decal/tiles/jobs/bar/checker,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
-"lF" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Mess Hall"
-	},
-/obj/effect/turf_decal/tiles/jobs/bar/checker,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "lG" = (
 /obj/machinery/light/spot{
@@ -4808,30 +4612,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
-"mH" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Medical Wing";
-	welded = 1
-	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 1
-	},
-/area/ruin/space/derelict/arrival)
 "mI" = (
 /obj/structure/sign/greencross,
 /turf/simulated/wall/indestructible/titanium/soviet,
-/area/ruin/space/derelict/arrival)
-"mJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/medical/glass{
-	name = "Medical Wing";
-	welded = 1
-	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 1
-	},
 /area/ruin/space/derelict/arrival)
 "mL" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -4867,14 +4650,6 @@
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
-"mQ" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Eastern Annex"
-	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 1
-	},
-/area/ruin/space/derelict/crew_quarters)
 "mR" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
@@ -5335,6 +5110,21 @@
 /obj/item/stack/tile/plasteel,
 /turf/template_noop,
 /area/ruin/space/derelict/arrival)
+"oo" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "ruslock";
+	layer = 3;
+	name = "Central Annex Lockdown"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Command Wing";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/hallway/primary)
 "op" = (
 /obj/item/stack/ore/iron,
 /obj/effect/turf_decal/tiles/department/virology/side,
@@ -5639,16 +5429,16 @@
 "pk" = (
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/space/nearstation)
-"pl" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+"pm" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Medical Wing";
+	welded = 1;
+	dir = 4
 	},
-/obj/machinery/door/airlock/titanium{
-	name = "Central Annex"
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
+/area/ruin/space/derelict/arrival)
 "po" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/arrival)
@@ -6024,15 +5814,6 @@
 "qw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/department/security,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/arrival)
-"qx" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/titanium{
-	name = "Central Annex"
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "qy" = (
@@ -6816,6 +6597,13 @@
 /obj/structure/sign/security/armory,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/arrival)
+"uy" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Wing";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/fakestairs,
+/area/ruin/space/derelict/arrival)
 "vm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/ussp,
@@ -6824,6 +6612,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
+"wF" = (
+/obj/machinery/door/airlock/glass{
+	name = "Hydroponics";
+	welded = 1;
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
+"xg" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Mess Hall";
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
 "xi" = (
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet,
@@ -6832,6 +6642,14 @@
 /mob/living/basic/giant_spider/hunter,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
+"Be" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Mess Hall";
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
 "Bx" = (
 /obj/machinery/door_control{
 	id = "ruslock";
@@ -6844,10 +6662,40 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
+"Cf" = (
+/obj/machinery/door/airlock/hatch{
+	locked = 1;
+	name = "Storage Bay";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/crew_quarters)
 "Ci" = (
 /mob/living/basic/pirate/ranged,
 /turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
+"Cp" = (
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "ruslocksec";
+	layer = 2.9;
+	name = "Security Wing Lockdown"
+	},
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Security Wing";
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/arrival)
+"CB" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Dormitories";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/derelict/crew_quarters)
 "Ef" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/barsign{
@@ -6859,10 +6707,61 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/arrival)
+"EF" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Bathroom";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/derelict/crew_quarters)
+"FX" = (
+/obj/machinery/door/airlock/science{
+	name = "Science Wing";
+	dir = 4
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "ruslock";
+	layer = 3;
+	name = "Central Annex Lockdown"
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
 "HM" = (
 /obj/structure/sign/engineering,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/hallway/primary)
+"IU" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Wing";
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
+"JZ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Wing";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/fakestairs,
+/area/ruin/space/derelict/arrival)
 "KH" = (
 /obj/structure/sign/command,
 /turf/simulated/wall/indestructible/titanium/soviet,
@@ -6879,6 +6778,15 @@
 /obj/structure/sign/cargo/dock,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/hallway/primary)
+"Mf" = (
+/obj/machinery/door/airlock/hatch{
+	desc = "A sturdy armoury door. If you listen closely, you can barely make out a soviet marching tune coming from the other side of the door.";
+	name = "Armoury";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/arrival)
 "Mh" = (
 /obj/structure/sign/service/kitchen,
 /turf/simulated/wall/indestructible/titanium/soviet,
@@ -6887,6 +6795,24 @@
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/ruin/space/derelict/crew_quarters)
+"Nu" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/science{
+	name = "Science Wing";
+	dir = 4
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "ruslock";
+	layer = 3;
+	name = "Central Annex Lockdown"
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
 "Nv" = (
 /obj/effect/spawner/airlock,
 /turf/simulated/wall/indestructible/titanium/soviet,
@@ -6899,6 +6825,17 @@
 /mob/living/basic/pirate,
 /turf/simulated/floor/plasteel/white/airless,
 /area/ruin/space/derelict/arrival)
+"RB" = (
+/obj/machinery/door/airlock/glass{
+	name = "Hydroponics";
+	welded = 1;
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
 "Sv" = (
 /obj/item/flag/ussp,
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -6911,9 +6848,50 @@
 /obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
+"TF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/titanium{
+	name = "Central Annex";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/arrival)
+"TY" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Wing";
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
 "UY" = (
 /obj/structure/sign/command/conference,
 /turf/simulated/wall/indestructible/titanium/soviet,
+/area/ruin/space/derelict/bridge)
+"VH" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "Medical Wing";
+	welded = 1;
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
+	},
+/area/ruin/space/derelict/arrival)
+"Wl" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Command Wing";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "Xb" = (
 /obj/structure/sign/cargo/dock{
@@ -6922,6 +6900,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
+"XC" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Eastern Annex";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
+	},
+/area/ruin/space/derelict/crew_quarters)
+"XK" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Dormitories";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/crew_quarters)
 "XQ" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -6947,6 +6941,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
+"YU" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Eastern Annex";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_stairs"
+	},
+/area/ruin/space/derelict/crew_quarters)
 "Za" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -6954,6 +6960,21 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/derelict/arrival)
+"ZV" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "ruslockcom";
+	layer = 3;
+	name = "Bridge Lockdown"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Command Wing";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/derelict/bridge)
 
 (1,1,1) = {"
 ac
@@ -7562,14 +7583,14 @@ ac
 ac
 ac
 ac
-bn
-bn
+aW
+aW
 jm
-bn
-bn
+aW
+aW
 lu
-bn
-bn
+aW
+aW
 ac
 ac
 ac
@@ -7656,14 +7677,14 @@ ac
 ac
 ac
 ac
-bn
+aW
 iS
 jn
 jS
 kL
 hY
 lK
-bn
+aW
 ac
 ac
 ac
@@ -7748,17 +7769,17 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+aW
+aW
+aW
 iT
 hY
 jT
 kM
 lv
 lL
-bn
-bn
+aW
+aW
 aW
 ac
 ac
@@ -7838,10 +7859,10 @@ ac
 ac
 ac
 aW
-bn
+aW
 xi
-bn
-bn
+aW
+aW
 hI
 hX
 iv
@@ -7853,10 +7874,10 @@ hY
 Xb
 me
 mu
-bn
-bn
-bn
-bn
+aW
+aW
+aW
+aW
 aW
 ac
 ac
@@ -7929,9 +7950,9 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+aW
+aW
+aW
 gq
 gK
 ha
@@ -7951,9 +7972,9 @@ ro
 mR
 ni
 nw
-bn
-bn
-bn
+aW
+aW
+aW
 aW
 ac
 ai
@@ -8022,14 +8043,14 @@ ac
 ac
 ac
 aW
-bn
+aW
 ff
 fA
 dL
 gr
 gL
 dn
-hu
+uy
 hK
 hY
 hY
@@ -8041,7 +8062,7 @@ hY
 hY
 hY
 iw
-mH
+pm
 mS
 nj
 mS
@@ -8114,16 +8135,16 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+aW
+aW
+aW
 de
 do
 do
 do
 do
 hb
-bn
+aW
 hK
 hY
 ix
@@ -8207,7 +8228,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 ed
 en
 El
@@ -8217,7 +8238,7 @@ fX
 fX
 fX
 fX
-hv
+JZ
 hL
 hZ
 iy
@@ -8229,7 +8250,7 @@ iy
 iy
 iy
 iy
-mJ
+VH
 mT
 mT
 Yi
@@ -8300,18 +8321,18 @@ ac
 ac
 ac
 aW
-bn
+aW
 dU
 do
 do
-eJ
+Cp
 do
 fC
 do
 do
 gM
 hc
-bn
+aW
 hM
 ia
 iz
@@ -8323,7 +8344,7 @@ lx
 iV
 iz
 mx
-bn
+aW
 mU
 nl
 nx
@@ -8393,7 +8414,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 dP
 fX
 fX
@@ -8405,19 +8426,19 @@ fY
 do
 gN
 hd
-bn
-bn
-bn
-bn
-bn
+aW
+aW
+aW
+aW
+aW
 jr
 ka
 kT
 ly
-bn
-bn
-bn
-bn
+aW
+aW
+aW
+aW
 mV
 nm
 mS
@@ -8485,9 +8506,9 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+aW
+aW
+aW
 dQ
 do
 do
@@ -8497,23 +8518,23 @@ de
 fE
 fZ
 gs
-bn
-bn
+aW
+aW
 aW
 ac
 ac
 ac
 aW
-bn
+aW
 kb
-bn
-bn
+aW
+aW
 aW
 ac
 ac
 aW
-bn
-bn
+aW
+aW
 ny
 nK
 ob
@@ -8578,7 +8599,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 dm
 dA
 dL
@@ -8586,10 +8607,10 @@ do
 do
 do
 eo
-bn
+aW
 fh
 fF
-bn
+aW
 fG
 aW
 ac
@@ -8671,7 +8692,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 dd
 dn
 do
@@ -8680,8 +8701,8 @@ do
 do
 ee
 ep
-bn
-bn
+aW
+aW
 fG
 aW
 ac
@@ -8764,7 +8785,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 cL
 de
 do
@@ -8774,7 +8795,7 @@ do
 do
 ef
 eq
-bn
+aW
 aW
 ac
 ac
@@ -8857,16 +8878,16 @@ ac
 ac
 ac
 aW
-bn
-bn
-bn
+aW
+aW
+aW
 df
 dp
 dB
 do
 do
 dR
-bn
+aW
 dF
 aW
 ac
@@ -8904,7 +8925,7 @@ mS
 oc
 oS
 qg
-bn
+aW
 aW
 ac
 ac
@@ -8950,16 +8971,16 @@ ac
 ac
 ac
 ac
-bn
+aW
 cl
 cz
-bn
+aW
 de
 dq
 dC
 do
 dR
-bn
+aW
 aW
 ac
 ac
@@ -9044,7 +9065,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 cm
 cA
 tc
@@ -9052,7 +9073,7 @@ cA
 do
 dD
 dM
-bn
+aW
 aW
 ac
 ac
@@ -9137,15 +9158,15 @@ ac
 ac
 ac
 aW
-bn
+aW
 bS
 cn
 cB
-cN
+Mf
 cB
 dr
 dE
-bn
+aW
 aW
 ac
 ac
@@ -9164,7 +9185,7 @@ ac
 dW
 Lk
 kg
-eg
+dW
 dW
 ac
 ac
@@ -9230,7 +9251,7 @@ ac
 ac
 ac
 ac
-bn
+aW
 bF
 bT
 co
@@ -9238,7 +9259,7 @@ cA
 El
 dg
 ds
-bn
+aW
 aW
 ac
 ac
@@ -9253,15 +9274,15 @@ ac
 ac
 ac
 dW
-eg
-eg
-eg
+dW
+dW
+dW
 js
 kh
 kU
-eg
-eg
-eg
+dW
+dW
+dW
 dW
 ac
 ac
@@ -9284,7 +9305,7 @@ Ci
 qC
 mU
 qY
-bn
+aW
 ac
 ac
 ac
@@ -9324,12 +9345,12 @@ ac
 ac
 ac
 aW
-bn
+aW
 bG
 bU
 cp
 cC
-bn
+aW
 dh
 dt
 dF
@@ -9345,8 +9366,8 @@ ac
 ac
 ac
 dW
-eg
-eg
+dW
+dW
 ib
 iA
 et
@@ -9356,7 +9377,7 @@ kV
 lz
 lM
 mg
-eg
+dW
 gy
 ja
 cR
@@ -9370,7 +9391,7 @@ ac
 ac
 ac
 ag
-bn
+aW
 pT
 mU
 mU
@@ -9378,7 +9399,7 @@ mS
 qC
 mS
 qZ
-bn
+aW
 aW
 ac
 ac
@@ -9417,15 +9438,15 @@ ac
 ac
 ac
 al
-am
-am
-am
-am
-am
-am
-am
-am
-am
+al
+al
+al
+al
+al
+al
+al
+al
+al
 al
 ag
 ac
@@ -9438,16 +9459,16 @@ ac
 ac
 dW
 eL
-eg
+dW
 hw
 hN
 eP
 eP
-iW
+FX
 js
 kj
 kW
-lA
+wF
 lN
 lO
 jA
@@ -9465,15 +9486,15 @@ aj
 ac
 ag
 aW
-bn
-bn
+aW
+aW
 qh
 qs
 qD
 qL
-bn
+aW
 ro
-bn
+aW
 aW
 ac
 ac
@@ -9515,10 +9536,10 @@ aX
 bo
 bH
 bK
-am
+al
 cD
 cO
-am
+al
 al
 ag
 ag
@@ -9530,18 +9551,18 @@ ac
 ac
 ac
 dW
-eg
+dW
 gO
 he
 hk
 hk
 hk
 hk
-iX
+Nu
 ju
 fJ
 kX
-lB
+RB
 lO
 mz
 my
@@ -9560,7 +9581,7 @@ ag
 ag
 ag
 aW
-bn
+aW
 qi
 qt
 ka
@@ -9568,7 +9589,7 @@ hY
 ra
 qy
 rw
-bn
+aW
 ac
 ac
 ac
@@ -9609,10 +9630,10 @@ aY
 bp
 bI
 bV
-cq
+Wl
 ba
 cP
-am
+al
 ag
 ag
 ag
@@ -9623,7 +9644,7 @@ ac
 ac
 ac
 dW
-eg
+dW
 gt
 gP
 fk
@@ -9631,11 +9652,11 @@ eP
 eP
 ic
 iB
-eg
+dW
 jv
 eP
 kY
-eg
+dW
 lP
 mj
 mz
@@ -9662,7 +9683,7 @@ iy
 rb
 qM
 rx
-bn
+aW
 aW
 ac
 ac
@@ -9703,10 +9724,10 @@ aZ
 bq
 bJ
 ba
-am
+al
 cE
 cQ
-am
+al
 ac
 ac
 ac
@@ -9716,7 +9737,7 @@ ac
 ac
 ag
 dW
-eg
+dW
 ga
 gu
 gQ
@@ -9725,11 +9746,11 @@ eP
 eP
 id
 iC
-eg
+dW
 jw
 kk
 kZ
-eg
+dW
 lQ
 jA
 lO
@@ -9749,7 +9770,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 qv
 hY
 qM
@@ -9797,9 +9818,9 @@ ba
 br
 bK
 ba
-am
-am
-am
+al
+al
+al
 al
 ac
 ac
@@ -9809,7 +9830,7 @@ ag
 ac
 ag
 dW
-eg
+dW
 fH
 gb
 gv
@@ -9818,13 +9839,13 @@ fJ
 eP
 fK
 ie
-eg
-eg
-eg
+dW
+dW
+dW
 kl
-eg
-eg
-eg
+dW
+dW
+dW
 mk
 mA
 ja
@@ -9910,7 +9931,7 @@ fj
 fJ
 fR
 hx
-eg
+dW
 eL
 dW
 ac
@@ -9918,7 +9939,7 @@ jy
 km
 lb
 ac
-eg
+dW
 ml
 ii
 ii
@@ -9938,14 +9959,14 @@ ac
 ac
 ac
 aW
-bn
+aW
 qF
 hY
 re
 qM
 hY
 qw
-bn
+aW
 aW
 ac
 ac
@@ -9996,7 +10017,7 @@ ac
 ac
 ac
 dW
-eg
+dW
 fi
 eP
 fj
@@ -10040,7 +10061,7 @@ hY
 hY
 qy
 rJ
-bn
+aW
 ac
 ac
 ac
@@ -10073,13 +10094,13 @@ ac
 ac
 ac
 al
-am
-am
-am
+al
+al
+al
 bu
-am
-am
-am
+al
+al
+al
 al
 ac
 ac
@@ -10089,7 +10110,7 @@ ac
 ac
 ac
 ac
-eg
+dW
 eN
 eP
 fj
@@ -10097,7 +10118,7 @@ fJ
 eP
 fK
 hg
-eg
+dW
 dW
 ac
 ac
@@ -10117,7 +10138,7 @@ nN
 jA
 or
 oK
-eg
+dW
 ag
 ac
 ac
@@ -10127,7 +10148,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 qN
 rf
 hY
@@ -10166,7 +10187,7 @@ ac
 ak
 ac
 ac
-am
+al
 at
 aI
 bc
@@ -10183,13 +10204,13 @@ ac
 ac
 ac
 dW
-eg
+dW
 eO
 fj
 fJ
 eP
 gw
-eg
+dW
 eL
 dW
 ag
@@ -10211,7 +10232,7 @@ jA
 lO
 lO
 oL
-eg
+dW
 dW
 ac
 ac
@@ -10276,7 +10297,7 @@ ac
 ac
 ac
 ac
-eg
+dW
 er
 eP
 fk
@@ -10290,9 +10311,9 @@ ac
 ac
 ac
 dW
-eg
+dW
 kn
-eg
+dW
 ii
 ac
 ac
@@ -10306,7 +10327,7 @@ lO
 os
 lO
 oT
-eg
+dW
 ac
 ac
 ac
@@ -10370,20 +10391,20 @@ ac
 ac
 ac
 ac
-eg
+dW
 es
 eP
 fk
 fK
 gd
-eg
+dW
 dW
 ac
 ac
 ag
 ac
 dW
-eg
+dW
 dW
 iE
 ii
@@ -10394,13 +10415,13 @@ mX
 ac
 ac
 dW
-eg
+dW
 nO
 lN
 lN
 lN
 oU
-eg
+dW
 ac
 ac
 ac
@@ -10416,7 +10437,7 @@ hY
 hY
 rk
 rN
-bn
+aW
 ac
 ac
 ac
@@ -10455,8 +10476,8 @@ be
 bw
 bi
 bZ
-am
-am
+al
+al
 ac
 ac
 ac
@@ -10464,19 +10485,19 @@ ac
 ac
 ac
 dW
-eg
+dW
 et
 eQ
 fl
 fL
 Ye
-eg
+dW
 ac
 ac
 ac
 ag
 dW
-eg
+dW
 dW
 iE
 ko
@@ -10488,13 +10509,13 @@ ac
 iq
 ac
 ac
-eg
-eg
-eg
+dW
+dW
+dW
 ot
 oM
 lz
-eg
+dW
 dW
 ac
 ac
@@ -10510,8 +10531,8 @@ rq
 rq
 hY
 rO
-bn
-bn
+aW
+aW
 Nv
 ac
 ac
@@ -10550,7 +10571,7 @@ bw
 bi
 bi
 ct
-am
+al
 cS
 di
 du
@@ -10564,12 +10585,12 @@ eR
 fm
 fM
 gf
-eg
+dW
 ac
 ac
 ac
 ac
-eg
+dW
 dW
 iE
 jz
@@ -10582,21 +10603,21 @@ ac
 ac
 ac
 ac
-eg
+dW
 nP
 of
 of
 of
 oV
 pe
-eg
+dW
 if
 if
 if
 if
 if
 if
-bn
+aW
 qy
 qR
 ri
@@ -10636,7 +10657,7 @@ ac
 ac
 ac
 ac
-am
+al
 ay
 aM
 bf
@@ -10644,14 +10665,14 @@ bx
 bL
 bL
 cu
-cF
+ZV
 cT
 dj
 cT
 cT
 dj
 cT
-dY
+oo
 ei
 ev
 eS
@@ -10683,14 +10704,14 @@ ou
 oN
 oW
 hk
-pl
+dV
 ps
 pB
 hk
 ps
 qb
 hk
-qx
+TF
 qH
 iy
 rj
@@ -10698,8 +10719,8 @@ rs
 rz
 qu
 rQ
-bn
-bn
+aW
+aW
 Nv
 sh
 ac
@@ -10738,7 +10759,7 @@ bi
 bi
 bi
 cv
-am
+al
 cS
 cS
 cS
@@ -10752,7 +10773,7 @@ eT
 fo
 fO
 gh
-eg
+dW
 ac
 ac
 cR
@@ -10765,26 +10786,26 @@ ii
 ld
 iE
 dW
-eg
+dW
 ac
 ac
 ac
 ac
-eg
+dW
 nR
 og
 ov
 of
 oX
 eP
-eg
+dW
 if
 if
 if
 if
 if
 if
-bn
+aW
 qw
 qS
 rk
@@ -10831,8 +10852,8 @@ bg
 bi
 bi
 ca
-am
-am
+al
+al
 ac
 ac
 ac
@@ -10840,13 +10861,13 @@ ac
 ac
 ac
 dW
-eg
+dW
 HM
 eU
 fp
-eg
-eg
-eg
+dW
+dW
+dW
 ac
 ac
 ac
@@ -10858,19 +10879,19 @@ iE
 kp
 iE
 dW
-eg
+dW
 dW
 ac
 ac
 ac
 ac
-eg
-eg
-eg
+dW
+dW
+dW
 ow
 oO
 Mh
-eg
+dW
 dW
 ac
 ac
@@ -10879,7 +10900,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 vm
 hY
 ru
@@ -10887,8 +10908,8 @@ ru
 hY
 rS
 rZ
-bn
-bn
+aW
+aW
 ac
 ac
 jO
@@ -10934,7 +10955,7 @@ ac
 ac
 ac
 ac
-eg
+dW
 ex
 eV
 fq
@@ -10951,20 +10972,20 @@ iZ
 dW
 kq
 dW
-eg
+dW
 dW
 ac
 ac
 ac
 ac
 dW
-eg
+dW
 mo
 lU
 ox
 lU
 oY
-eg
+dW
 ac
 ac
 ac
@@ -10980,7 +11001,7 @@ hY
 hY
 rk
 rT
-bn
+aW
 ac
 ac
 ac
@@ -11028,7 +11049,7 @@ ac
 ac
 ac
 ac
-eg
+dW
 ey
 eW
 fr
@@ -11041,10 +11062,10 @@ ac
 ac
 ak
 ac
-eg
-eg
+dW
+dW
 kr
-eg
+dW
 dW
 ac
 ag
@@ -11058,7 +11079,7 @@ lU
 ox
 lU
 oZ
-eg
+dW
 ac
 ac
 ac
@@ -11106,7 +11127,7 @@ ac
 ac
 ac
 ac
-am
+al
 aD
 aR
 bh
@@ -11151,7 +11172,7 @@ lU
 mZ
 ox
 lS
-eg
+dW
 dW
 ac
 ac
@@ -11201,13 +11222,13 @@ ag
 ac
 ac
 al
-am
-am
+al
+al
 UY
 by
-am
-am
-am
+al
+al
+al
 al
 ac
 ac
@@ -11217,7 +11238,7 @@ ac
 ac
 ac
 ag
-eg
+dW
 eY
 eP
 fs
@@ -11237,7 +11258,7 @@ ac
 ac
 ac
 dW
-eg
+dW
 mY
 lU
 lU
@@ -11245,7 +11266,7 @@ lU
 oh
 oy
 oP
-eg
+dW
 ag
 ac
 ac
@@ -11255,7 +11276,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 qN
 qt
 hY
@@ -11302,7 +11323,7 @@ bi
 bc
 ce
 cw
-am
+al
 ac
 ac
 ac
@@ -11312,7 +11333,7 @@ ac
 ac
 ag
 dW
-eg
+dW
 ft
 eP
 fs
@@ -11356,7 +11377,7 @@ hY
 hY
 qy
 rX
-bn
+aW
 ac
 ac
 ac
@@ -11396,7 +11417,7 @@ bz
 bz
 bz
 cx
-am
+al
 al
 ac
 ac
@@ -11414,7 +11435,7 @@ gB
 fQ
 eP
 hB
-eg
+dW
 eL
 dW
 ac
@@ -11442,14 +11463,14 @@ ac
 ac
 ac
 aW
-bn
+aW
 qt
 hY
 hY
 hY
 hY
 rG
-bn
+aW
 aW
 ac
 ac
@@ -11491,7 +11512,7 @@ bO
 cf
 bi
 cG
-am
+al
 al
 ac
 ac
@@ -11501,7 +11522,7 @@ ag
 ag
 ag
 dW
-eg
+dW
 fS
 gj
 fJ
@@ -11510,13 +11531,13 @@ eP
 eP
 hP
 ij
-eg
-eg
-eg
+dW
+dW
+dW
 kt
-eg
-eg
-eg
+dW
+dW
+dW
 mn
 lU
 lU
@@ -11525,7 +11546,7 @@ no
 np
 nB
 oj
-eg
+dW
 dW
 ag
 ag
@@ -11578,7 +11599,7 @@ ac
 ac
 ac
 al
-am
+al
 bj
 bB
 bP
@@ -11596,8 +11617,8 @@ ag
 ag
 ag
 dW
-eg
-eg
+dW
+dW
 gC
 gT
 hk
@@ -11605,11 +11626,11 @@ hk
 fQ
 eP
 iH
-eg
+dW
 jC
 ku
 le
-eg
+dW
 lR
 mo
 lU
@@ -11629,7 +11650,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 qt
 hY
 hY
@@ -11691,7 +11712,7 @@ ac
 ac
 ac
 dW
-eg
+dW
 gD
 eP
 eP
@@ -11699,11 +11720,11 @@ eP
 fk
 eP
 gA
-eg
+dW
 jD
 fk
 lf
-eg
+dW
 lS
 lU
 mn
@@ -11730,7 +11751,7 @@ hY
 hY
 hY
 rC
-bn
+aW
 aW
 ac
 ac
@@ -11774,7 +11795,7 @@ ch
 bh
 cH
 cW
-am
+al
 al
 ag
 ag
@@ -11786,25 +11807,25 @@ ac
 ac
 ac
 dW
-eg
+dW
 gU
 hl
 hC
 hQ
 hk
 hk
-jb
+IU
 jE
 kv
 lg
-lE
+xg
 lT
 mp
 mp
 mO
 nc
 nr
-eg
+dW
 dW
 ac
 ac
@@ -11816,7 +11837,7 @@ ac
 ag
 ag
 aW
-bn
+aW
 qm
 qz
 jn
@@ -11824,7 +11845,7 @@ hY
 rl
 rv
 rD
-bn
+aW
 ac
 ac
 ac
@@ -11861,15 +11882,15 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
-bm
-bm
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
+aV
+aV
+aV
+aV
+aV
 aV
 ag
 ac
@@ -11882,16 +11903,16 @@ ac
 ac
 dW
 eL
-eg
+dW
 hD
 hR
 eP
 eP
-jc
+TY
 jF
 fk
 lh
-lF
+Be
 lU
 lU
 mo
@@ -11909,15 +11930,15 @@ ac
 ac
 ag
 aV
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
 qJ
 qW
-bm
-bm
-bm
+aV
+aV
+aV
 aV
 ac
 ac
@@ -11956,11 +11977,11 @@ ac
 ac
 ac
 aV
-bm
+aV
 bR
 ci
 cy
-bm
+aV
 cX
 dk
 dv
@@ -11977,8 +11998,8 @@ ac
 ac
 ac
 dW
-eg
-eg
+dW
+dW
 ik
 iI
 HM
@@ -11988,8 +12009,8 @@ li
 Mh
 lV
 mq
-eg
-eg
+dW
+dW
 dW
 ac
 ac
@@ -12002,7 +12023,7 @@ ac
 ac
 ac
 ag
-bm
+aV
 pU
 qc
 qn
@@ -12010,7 +12031,7 @@ dJ
 py
 pw
 rm
-bm
+aV
 aV
 ac
 ac
@@ -12050,15 +12071,15 @@ ac
 ac
 ac
 ac
-bm
+aV
 bR
 cj
 cj
-cI
+EF
 cY
 db
 dw
-bm
+aV
 aV
 ac
 ac
@@ -12073,15 +12094,15 @@ ac
 ac
 ac
 dW
-eg
-eg
-eg
+dW
+dW
+dW
 jH
 fk
 lj
-eg
-eg
-eg
+dW
+dW
+dW
 dW
 ac
 ac
@@ -12096,7 +12117,7 @@ ac
 ac
 ac
 aV
-bm
+aV
 pV
 qd
 pZ
@@ -12104,7 +12125,7 @@ dJ
 db
 pw
 rm
-bm
+aV
 ac
 ac
 ac
@@ -12145,14 +12166,14 @@ ac
 ac
 ac
 aV
-bm
+aV
 ck
 ck
-bm
+aV
 cZ
 db
 dx
-bm
+aV
 aV
 aV
 ac
@@ -12170,9 +12191,9 @@ ac
 ac
 ac
 dW
-eg
+dW
 kx
-eg
+dW
 dW
 ac
 ac
@@ -12197,7 +12218,7 @@ pZ
 db
 db
 qX
-bm
+aV
 aV
 ac
 ac
@@ -12240,13 +12261,13 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
+aV
+aV
+aV
 da
 db
 db
-dI
+XK
 db
 aV
 aV
@@ -12290,7 +12311,7 @@ qe
 qo
 db
 qK
-bm
+aV
 aV
 ac
 ac
@@ -12334,13 +12355,13 @@ ac
 ac
 ac
 ac
-bm
+aV
 aV
 cJ
 db
 db
 db
-dI
+XK
 db
 db
 aV
@@ -12375,7 +12396,7 @@ ac
 ac
 ac
 aV
-bm
+aV
 pt
 Ae
 pM
@@ -12434,11 +12455,11 @@ cK
 dc
 dc
 dy
-bm
+aV
 db
 dJ
 dZ
-bm
+aV
 dH
 aV
 ac
@@ -12468,8 +12489,8 @@ ac
 ac
 aV
 dH
-bm
-bm
+aV
+aV
 pu
 pD
 pN
@@ -12524,15 +12545,15 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
 Lb
 db
 db
 ea
-bm
+aV
 eB
 aV
 aV
@@ -12563,7 +12584,7 @@ aV
 aV
 pa
 pf
-bm
+aV
 pv
 pE
 pO
@@ -12619,14 +12640,14 @@ ac
 ac
 ac
 aV
-bm
+aV
 Mi
 dz
 dJ
 db
 db
 eb
-bm
+aV
 eC
 eD
 aV
@@ -12657,7 +12678,7 @@ aV
 db
 db
 db
-qW
+Cf
 pw
 pw
 db
@@ -12714,18 +12735,18 @@ ac
 ac
 ac
 aV
-bm
+aV
 dz
 db
 db
 db
 eb
-ek
+CB
 eD
 fb
 eD
 Bx
-bm
+aV
 dH
 aV
 ac
@@ -12745,13 +12766,13 @@ ac
 ac
 aV
 dH
-bm
+aV
 db
 db
 db
 db
 db
-qW
+Cf
 px
 db
 db
@@ -12809,35 +12830,35 @@ ac
 ac
 ac
 aV
-bm
+aV
 dK
 db
 dJ
 ec
-bm
+aV
 eE
 fc
 fv
 eD
 gl
 gE
-bm
-bm
+aV
+aV
 aV
 ac
 ac
 ac
 aV
-bm
+aV
 kz
-bm
+aV
 aV
 ac
 ac
 ac
 aV
-bm
-bm
+aV
+aV
 nD
 nV
 ok
@@ -12845,7 +12866,7 @@ oB
 ok
 pb
 nV
-bm
+aV
 py
 dJ
 pP
@@ -12907,8 +12928,8 @@ aV
 aV
 dN
 dT
-bm
-bm
+aV
+aV
 eF
 eD
 fw
@@ -12918,18 +12939,18 @@ gF
 eD
 hm
 ge
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
 je
 kA
 lk
-bm
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
+aV
 ne
 ns
 db
@@ -12939,10 +12960,10 @@ db
 db
 db
 oR
-bm
+aV
 pz
 pF
-bm
+aV
 aV
 ac
 ac
@@ -12999,9 +13020,9 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
+aV
+aV
+aV
 el
 eG
 fd
@@ -13011,7 +13032,7 @@ fd
 fd
 eG
 fd
-hE
+YU
 hS
 im
 iJ
@@ -13023,7 +13044,7 @@ je
 lW
 mr
 mD
-bm
+aV
 nf
 nt
 db
@@ -13033,9 +13054,9 @@ db
 oR
 db
 ph
-bm
+aV
 Mi
-bm
+aV
 aV
 ac
 ac
@@ -13095,7 +13116,7 @@ ac
 ac
 ac
 aV
-bm
+aV
 em
 eH
 eD
@@ -13117,7 +13138,7 @@ je
 lX
 ms
 hT
-mQ
+XC
 db
 db
 dJ
@@ -13127,7 +13148,7 @@ db
 db
 db
 pi
-bm
+aV
 aV
 ac
 ac
@@ -13190,8 +13211,8 @@ ac
 ac
 ac
 aV
-bm
-bm
+aV
+aV
 fe
 fy
 fV
@@ -13211,7 +13232,7 @@ hU
 hU
 hU
 hT
-bm
+aV
 db
 dJ
 db
@@ -13220,7 +13241,7 @@ ol
 ol
 ol
 pc
-bm
+aV
 aV
 ac
 ac
@@ -13293,7 +13314,7 @@ gp
 gH
 gW
 gH
-hH
+cM
 hT
 hU
 iL
@@ -13305,15 +13326,15 @@ eD
 hU
 hU
 hU
-mQ
+XC
 db
 db
 db
 nX
 om
 oC
-bm
-bm
+aV
+aV
 pk
 ac
 ac
@@ -13383,11 +13404,11 @@ ac
 aV
 dH
 dH
-bm
+aV
 gI
 gX
 ho
-bm
+aV
 hV
 io
 iM
@@ -13403,7 +13424,7 @@ Ld
 nh
 nv
 nE
-bm
+aV
 dH
 dH
 aV
@@ -13478,10 +13499,10 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
 hW
 ip
 iN
@@ -13493,10 +13514,10 @@ lG
 lZ
 ms
 mF
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
 aV
 ac
 ac
@@ -13576,7 +13597,7 @@ ac
 ac
 ac
 aV
-bm
+aV
 dH
 dH
 kG
@@ -13586,7 +13607,7 @@ lo
 Oh
 dH
 dH
-bm
+aV
 aV
 ac
 ac
@@ -13673,11 +13694,11 @@ ac
 ac
 ac
 ac
-bm
+aV
 jL
-bm
+aV
 lp
-bm
+aV
 ac
 ag
 ac
@@ -13767,11 +13788,11 @@ ac
 ac
 ac
 ac
-bm
+aV
 lo
-bm
+aV
 lo
-bm
+aV
 ag
 ag
 ac
