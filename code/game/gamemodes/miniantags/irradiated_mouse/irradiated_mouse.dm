@@ -29,10 +29,17 @@
 	spawned_mouse.mind = new
 	spawned_mouse.mind.bind_to(spawned_mouse)
 	spawned_mouse.mind.set_original_mob(spawned_mouse)
+	spawned_mouse.mind.wipe_memory()
+	spawned_mouse.mind.assigned_role = SPECIAL_ROLE_IRRADIATED_MOUSE
+	spawned_mouse.mind.special_role = SPECIAL_ROLE_IRRADIATED_MOUSE
+	SEND_SOUND(spawned_mouse, sound('sound/items/geiger/ext1.ogg'))
+	spawned_mouse.mind.add_mind_objective(/datum/objective/irradiated_mouse_objective)
+	spawned_mouse.give_intro_text()
 
-
-
-
+/datum/objective/irradiated_mouse_objective
+	explanation_text = "Enjoy the remainder of your life the best you can! Whether by gorging on cheese, pestering the crew or exploring the station."
+	completed = TRUE
+	needs_target = FALSE
 
 
 /mob/living/basic/mouse/irradiated_mouse
@@ -85,6 +92,14 @@
 	AddSpell(upgrade_speed_spell)
 	AddSpell(upgrade_damage_spell)
 
+/mob/living/basic/mouse/irradiated_mouse/proc/give_intro_text()
+	var/list/messages = list()
+	messages.Add(SPAN_USERDANGER("<center>You are an Irradiated Mouse!</center>"))
+	messages.Add(SPAN_NOTICE("<center>Due to radioactive material laying around you've started rapidly mutating! Unfortunately this comes at the cost of your life, [SPAN_BOLDNOTICE("once you exit the vents you will have 15 minutes to live.")]"))
+	messages.Add(mind.prepare_announce_objectives(FALSE))
+	messages.Add("<center>[SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Irradiated_Mouse) ")]</center>")
+	to_chat(src, chat_box_red(messages.Join("<br>")))
+
 /mob/living/basic/mouse/irradiated_mouse/remove_ventcrawl()
 	. = ..()
 	if(!has_exited_vents)
@@ -110,7 +125,7 @@
 	if(!produce_radioactive_sludge)
 		return
 
-	var/chance = clamp(100 - health, 50, 100) // 50% chance if above 100 health, more likely as health drops
+	var/chance = 50 - (health/maxHealth * 50)  // more likely as health drops, fastest you can get this is after 6 minutes, giving a 20% spawn chance per 2 seconds
 	if(prob(chance))
 		new /obj/effect/decal/cleanable/radioactive_sludge(get_turf(src))
 
@@ -204,7 +219,5 @@
 /mob/living/basic/mouse/irradiated_mouse/proc/make_irradiated_mouse_antag()
 	if(!mind)
 		return
-	mind.wipe_memory()
-	mind.assigned_role = SPECIAL_ROLE_IRRADIATED_MOUSE
-	mind.special_role = SPECIAL_ROLE_IRRADIATED_MOUSE
+
 	SSticker.mode.traitors |= mind
