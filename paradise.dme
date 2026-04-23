@@ -1212,6 +1212,7 @@
 #include "code\game\objects\effects\decals\Cleanable\fuel.dm"
 #include "code\game\objects\effects\decals\Cleanable\humans.dm"
 #include "code\game\objects\effects\decals\Cleanable\misc_cleanables.dm"
+#include "code\game\objects\effects\decals\Cleanable\radioactive_sludge.dm"
 #include "code\game\objects\effects\decals\Cleanable\robots.dm"
 #include "code\game\objects\effects\decals\Cleanable\tar.dm"
 #include "code\game\objects\effects\decals\Cleanable\tracks.dm"

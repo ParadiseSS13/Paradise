@@ -48,7 +48,7 @@
 	a_intent = INTENT_HARM
 
 	var/available_upgrades = 0
-	var/upgrade_cooldown = 120 SECONDS
+	var/upgrade_cooldown_in_seconds = 120
 	var/radiation_upgrades = 0
 	var/speed_upgrades = 0
 	var/damage_upgrades = 0
@@ -61,12 +61,13 @@
 	var/beta_rad_per_level = 500
 	var/gamma_rad_per_level = 0
 	var/radiation_cooldown = 0.1
+	var/produce_radioactive_sludge = FALSE
 
 	var/speed_per_level = -0.5
-	var/speed_capstone_alpha = 100
+	var/speed_capstone_alpha = 50
 
 	var/has_exited_vents = FALSE
-	var/time_till_death = 1 MINUTES
+	var/seconds_time_till_death = 60 * 15
 
 	var/datum/spell/irradiated_mouse_spell/upgrade_radiation/upgrade_radiation_spell
 	var/datum/spell/irradiated_mouse_spell/upgrade_speed/upgrade_speed_spell
@@ -96,15 +97,23 @@
 	. = ..()
 	if(!has_exited_vents)
 		return
+	log_debug("health: [health] seconds: [seconds] available_upgrades: [available_upgrades] ([upgrade_cooldown_in_seconds])s")
 
-	adjustBruteLoss(health * seconds / time_till_death)
+	adjustBruteLoss(maxHealth * seconds / seconds_time_till_death)
 
-	upgrade_cooldown -= seconds SECONDS
-	if(upgrade_cooldown <= 0)
-		upgrade_cooldown += 120 SECONDS
+	upgrade_cooldown_in_seconds -= seconds
+	if(upgrade_cooldown_in_seconds <= 0)
+		upgrade_cooldown_in_seconds += 120
 		available_upgrades++
+		to_chat(src, SPAN_NOTICE("You have [available_upgrades] upgrades available."))
 
-	log_debug("health: [health] seconds: [seconds] available_upgrades: [available_upgrades] ([upgrade_cooldown])s")
+	if(!produce_radioactive_sludge)
+		return
+
+	var/chance = clamp(100 - health, 50, 100) // 50% chance if above 100 health, more likely as health drops
+	if(prob(chance))
+		new /obj/effect/decal/cleanable/radioactive_sludge(get_turf(src))
+
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_radiation()
 	radiation_upgrades++
@@ -136,15 +145,27 @@
 /datum/spell/irradiated_mouse_spell/create_new_targeting()
 	return new /datum/spell_targeting/self
 
+/datum/spell/irradiated_mouse_spell/proc/has_upgrades(mob/living/basic/mouse/irradiated_mouse/user)
+	if(!user.available_upgrades)
+		to_chat(user, SPAN_WARN("You dont have any available upgrades"))
+		return FALSE
+	return TRUE
+
 /datum/spell/irradiated_mouse_spell/upgrade_radiation
 	name = "Upgrade Radiation"
 	desc = "Upgrade the amount of radiation you emit. You will start producing radioactive sludge at level 3."
 	action_icon_state = "irradiated_mouse_radiation"
 
 /datum/spell/irradiated_mouse_spell/upgrade_radiation/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
+	. = ..()
+	if(!has_upgrades(user))
+		return
+
+	user.available_upgrades--
 	user.upgrade_radiation()
 	if(user.radiation_upgrades > user.level_cap)
 		user.RemoveSpell(user.upgrade_radiation_spell)
+		user.produce_radioactive_sludge = TRUE
 
 /datum/spell/irradiated_mouse_spell/upgrade_speed
 	name = "Upgrade Speed"
@@ -152,9 +173,14 @@
 	action_icon_state = "irradiated_mouse_speed"
 
 /datum/spell/irradiated_mouse_spell/upgrade_speed/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
+	. = ..()
+	if(!has_upgrades(user))
+		return
+
+	user.available_upgrades--
 	user.upgrade_speed()
 	if(user.speed_upgrades > user.level_cap)
-		user.RemoveSpell(user.speed_upgrades)
+		user.RemoveSpell(user.upgrade_speed_spell)
 
 /datum/spell/irradiated_mouse_spell/upgrade_damage
 	name = "Upgrade Damage"
@@ -162,6 +188,11 @@
 	action_icon_state = "irradiated_mouse_damage"
 
 /datum/spell/irradiated_mouse_spell/upgrade_damage/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
+	. = ..()
+	if(!has_upgrades(user))
+		return
+
+	user.available_upgrades--
 	user.upgrade_damage()
 	if(user.damage_upgrades > user.level_cap)
 		user.RemoveSpell(user.upgrade_damage_spell)
