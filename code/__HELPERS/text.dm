@@ -785,4 +785,3 @@
 
 /proc/format_table_name(table as text)
 	return table
-	#warn maybe

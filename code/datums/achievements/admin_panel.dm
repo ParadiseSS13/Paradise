@@ -1,14 +1,30 @@
-/// Panel for achievement management
-/datum/achievement_admin_panel
+RESTRICT_TYPE(/datum/ui_module/admin/achievement_admin_panel)
+
+/datum/ui_module/admin/achievement_admin_panel
+	name = "Achievements Admin"
 	var/list/orphaned_keys
 
-/datum/achievement_admin_panel/proc/reload_data()
+/datum/ui_module/admin/achievement_admin_panel/New()
+	. = ..()
+	reload_data()
+
+/datum/ui_module/admin/achievement_admin_panel/proc/reload_data()
 	if(!SSachievements.achievements_enabled)
+		orphaned_keys = list()
 		return
 
 	orphaned_keys = SSachievements.get_orphaned_keys()
 
-/datum/achievement_admin_panel/ui_data()
+/datum/ui_module/admin/achievement_admin_panel/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/ui_module/admin/achievement_admin_panel/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AchievementsAdminPanel", name)
+		ui.open()
+
+/datum/ui_module/admin/achievement_admin_panel/ui_data(mob/user)
 	. = list()
 	var/list/orphaned_only = list()
 	var/list/archived_only = list()
@@ -20,16 +36,7 @@
 	.["orphaned_keys"] = orphaned_only
 	.["archived_keys"] = archived_only
 
-/datum/achievement_admin_panel/ui_state(mob/user)
-	return GLOB.admin_state
-
-/datum/achievement_admin_panel/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "AchievementsAdminPanel")
-		ui.open()
-
-/datum/achievement_admin_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/ui_module/admin/achievement_admin_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 
 	if(.)
@@ -48,7 +55,7 @@
 			reload_data()
 			return TRUE
 
-/datum/achievement_admin_panel/proc/cleanup_outdated_achievement(achievement_key)
+/datum/ui_module/admin/achievement_admin_panel/proc/cleanup_outdated_achievement(achievement_key)
 	// ensure key is actually orphaned just in case
 	if(!(achievement_key in orphaned_keys))
 		return
@@ -59,7 +66,7 @@
 		SSdbcore.NewQuery("DELETE FROM [format_table_name("achievements")] WHERE achievement_key = :key", list("key" = achievement_key)),
 	), warn = TRUE, qdel = TRUE)
 
-/datum/achievement_admin_panel/proc/archive_achievement(achievement_key)
+/datum/ui_module/admin/achievement_admin_panel/proc/archive_achievement(achievement_key)
 	// ensure key is actually orphaned just in case
 	if(!(achievement_key in orphaned_keys))
 		return
@@ -69,14 +76,11 @@
 		SSdbcore.NewQuery("UPDATE [format_table_name("achievement_metadata")] SET achievement_version = :version WHERE achievement_key = :key", list("key" = achievement_key, "version" = ACHIEVEMENT_ARCHIVED_VERSION)),
 	), warn = TRUE, qdel = TRUE)
 
-/client/proc/achievements_cleanup()
-	set name = "Achievements Admin Panel"
-	set desc = "View achievements management panel."
-	set category = VERB_CATEGORY_ADMIN
+USER_VERB(achievement_admin_panel, R_ADMIN, "Achievements Admin Panel", "View achievements management panel", VERB_CATEGORY_ADMIN)
 
-	if(!check_rights(R_ADMIN))
-		return
+	message_admins("[key_name_admin(client)] is using the Achievement Admin Management panel")
 
-	var/datum/achievement_admin_panel/panel = new /datum/achievement_admin_panel()
-	panel.reload_data()
-	panel.ui_interact(usr)
+	var/datum/ui_module/admin/achievement_admin_panel/AAP = get_admin_ui_module(/datum/ui_module/admin/achievement_admin_panel)
+	AAP.ui_interact(client.mob)
+
+

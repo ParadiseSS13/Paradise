@@ -1347,10 +1347,6 @@
 
 	src << link("https://secure.byond.com/download/")
 
-/datum/persistent_client/New(ckey)
-	// Create a PM tracker bound to this ckey.
-	pm_tracker = new(ckey)
-
 ///Redirect proc that makes it easier to call the unlock achievement proc. Achievement type is the typepath to the award, user is the mob getting the award, and value is an optional variable used for leaderboard value increments
 /client/proc/give_award(achievement_type, mob/user, value = 1)
 	return persistent.achievements.unlock(achievement_type, user, value)

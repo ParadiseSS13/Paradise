@@ -66,10 +66,10 @@ export const Achievements = (_props) => {
             </Tabs.Tab>
           ))}
           <Tabs.Tab selected={selectedCategory === 'High Scores'} onClick={() => setSelectedCategory('High Scores')}>
-            Рекорды
+            Leaderboard
           </Tabs.Tab>
           <Tabs.Tab selected={selectedCategory === 'Progress'} onClick={() => setSelectedCategory('Progress')}>
-            Прогресс
+            Progress
           </Tabs.Tab>
         </Tabs>
         {(selectedCategory === 'High Scores' && <HighScoreTable />) ||
@@ -193,9 +193,9 @@ const HighScoreTable = () => {
       <Flex.Item grow={1} basis={0}>
         <Table>
           <Table.Row header>
-            <Table.Cell textAlign="center">#</Table.Cell>
-            <Table.Cell textAlign="center">Сикей</Table.Cell>
-            <Table.Cell textAlign="center">Результат</Table.Cell>
+            <Table.Cell textAlign="center">Position</Table.Cell>
+            <Table.Cell textAlign="center">Ckey</Table.Cell>
+            <Table.Cell textAlign="center">Results</Table.Cell>
           </Table.Row>
           {highscore.scores.map((score, i) => (
             <Table.Row key={score.ckey} className="candystripe" m={2}>

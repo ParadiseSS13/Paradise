@@ -154,12 +154,9 @@
 	set name = "Check Achievements"
 	set desc = "View all your achievements!"
 
-	if(!usr.client.persistent)
-		to_chat(usr, "<span class='warning'>Error: persistent client not initialized</span>")
-		return
+	var/datum/achievement_data/achievements = usr.client.persistent.achievements
+	if(!achievements.initialized)
+		achievements.InitializeData()
 
-	if(!usr.client.persistent.achievements)
-		to_chat(usr, "<span class='warning'>Error: achievements not initialized</span>")
-		return
+	achievements.ui_interact(usr)
 
-	usr.client.persistent.achievements.ui_interact(usr)

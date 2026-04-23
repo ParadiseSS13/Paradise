@@ -11,7 +11,7 @@
 /datum/award/achievement/misc/jackpot
 	name = "Jackpot!"
 	desc = "Win the jackpot at a slot machine!"
-	#warn icon will prob need updating
+	//#warn icon will prob need updating
 	database_id = MEDAL_PULSE
 	icon_state = "jackpot"
 
@@ -26,13 +26,13 @@
 	database_id = MEDAL_VENDORSQUISH
 
 /datum/award/achievement/misc/swirlie
-	name = "A While New Bowl"
+	name = "A Whole New Bowl"
 	desc = "There are plenty of gruesome ways to die in Epsilon Eridani, but drowning in a toilet is not the one that you dreamt of. Probably."
 	database_id = MEDAL_SWIRLIE
 
 /datum/award/achievement/misc/selfouch
 	name = "How Do I Switch Hands???"
-	desc = "If you saw someone smack themselves with a toolbox ANYWAY else in the galaxy, you'd be very concerned for them."
+	desc = "If you saw someone smack themselves with a toolbox ANYWHERE else in the galaxy, you'd be very concerned for them."
 	database_id = MEDAL_SELFOUCH
 
 /datum/award/achievement/misc/speed_round

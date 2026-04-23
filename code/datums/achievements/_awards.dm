@@ -204,7 +204,7 @@
 
 ///Defining this here 'cause it's the first score a player should see in the Scores category.
 /datum/award/score/achievements_score
-	name = "Получено достижений"
+	name = "Achievements Earned"
 	desc = "Don't worry, metagaming is important."
 	icon_state = "elephant" //Obey the reference
 	database_id = ACHIEVEMENTS_SCORE
