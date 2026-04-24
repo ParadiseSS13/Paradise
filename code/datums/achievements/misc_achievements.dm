@@ -55,6 +55,6 @@
 
 /datum/award/achievement/misc/the_best_driver
 	name = "The Best Driver"
-	desc = "100 honks later"
+	desc = "50 honks later"
 	database_id = MEDAL_THANKSALOT
 	icon_state = "clownthanks"

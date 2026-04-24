@@ -75,12 +75,13 @@
 		working = TRUE
 		icon_state = "slots-on"
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-		addtimer(CALLBACK(src, PROC_REF(spin_slots), ui.user.name), 25)
+		addtimer(CALLBACK(src, PROC_REF(spin_slots), ui.user), 25)
 
 		if(emagged)
 			emagged_spinning(ui.user)
 
-/obj/machinery/economy/slot_machine/proc/spin_slots(userName)
+/obj/machinery/economy/slot_machine/proc/spin_slots(mob/living/user)
+	var/userName = user.name
 	switch(rand(1, 5000))
 		if(1)
 			atom_say("JACKPOT! [userName] has won two thousand credits!")
@@ -88,7 +89,7 @@
 			result = "JACKPOT! You win two thousand credits!"
 			resultlvl = "teal"
 			win_money(2000, 'sound/goonstation/misc/airraid_loop.ogg')
-			usr.client.give_award(/datum/award/achievement/misc/jackpot)
+			user.client?.give_award(/datum/award/achievement/misc/jackpot, user)
 		if(2 to 20)
 			atom_say("Big Winner! [userName] has won two hundred credits!")
 			result = "You win a two hundred credits!"

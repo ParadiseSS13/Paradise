@@ -26,7 +26,7 @@
 	icon_state = "bbgum"
 
 /datum/award/achievement/boss/colossus_kill
-	name = "Убийца Колосса"
+	name = "Colossus Killer"
 	desc = "The bigger the enemy, the bigger the prize!"
 	database_id = BOSS_MEDAL_COLOSSUS
 	icon_state = "colossus"

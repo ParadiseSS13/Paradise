@@ -213,3 +213,23 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	end = get_edge_target_turf(src, direction)
 	GLOB.move_manager.stop_looping(src)
 	GLOB.move_manager.move_towards(src, end, move_delay, timeout = 1 MINUTES)
+
+/obj/effect/immovablerod/attack_hand(mob/living/user)
+	if(ishuman(user) && try_suplex(user))
+		return TRUE
+	. = ..()
+
+/obj/effect/immovablerod/proc/try_suplex(mob/living/carbon/human/human)
+	playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	for(var/mob/mob in urange(8, src))
+		if(mob.stat)
+			continue
+		shake_camera(mob, duration = 2, strength = 3)
+	suplex_effect(human)
+
+/obj/effect/immovablerod/proc/suplex_effect(mob/living/carbon/human/human)
+	human.client.give_award(/datum/award/achievement/jobs/feat_of_strength, human) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
+	human.visible_message(
+		SPAN_BOLDWARNING("You grab the [src] and throw it to the ground!")
+	)
+	qdel(src)

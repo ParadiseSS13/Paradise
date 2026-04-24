@@ -89,6 +89,7 @@
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		var/crusher_kill = FALSE
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
+			crusher_kill = TRUE
 			spawn_crusher_loot()
 		if(enraged && length(loot) && enraged_loot) //Don't drop a disk if the boss drops no loot. Important for legion.
 			for(var/mob/living/M in urange(20, src)) //Yes big range, but for bubblegum arena
