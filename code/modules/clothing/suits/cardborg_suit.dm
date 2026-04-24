@@ -27,6 +27,7 @@ CONTENTS:
 	)
 	/// All the borg skins that this can disguise you as.
 	var/list/available_disguises = list("Standard")
+	materials = list(MAT_CARDBOARD = 2000)
 
 /obj/item/clothing/head/cardborg/examine_more(mob/user)
 	. = ..()
@@ -114,6 +115,7 @@ CONTENTS:
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 	species_disguise = "High-tech robot"
+	materials = list(MAT_CARDBOARD = 6000)
 
 /obj/item/clothing/suit/cardborg/examine_more(mob/user)
 	. = ..()

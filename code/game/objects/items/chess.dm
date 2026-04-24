@@ -4,6 +4,7 @@
 	name = "Chess Piece"
 	desc = "A generic chess piece used in a game of chess."
 	icon = 'icons/obj/chess.dmi'
+	materials = list(MAT_CARDBOARD = 2000)
 
 //Black chess pieces.
 

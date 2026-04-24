@@ -6,6 +6,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	pressure_resistance = 2
 	resistance_flags = FLAMMABLE
+	materials = list(MAT_CARDBOARD = 2000)
 
 /obj/item/folder/emp_act(severity)
 	..()

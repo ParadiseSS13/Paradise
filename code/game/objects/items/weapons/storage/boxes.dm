@@ -28,6 +28,7 @@
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
+	materials = list(MAT_CARDBOARD = 2000)
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 	/// list containing a list of what this box can change into when colored, probably don't want to manually edit this, use `add_to_colorable_lists()`
@@ -377,6 +378,7 @@
 	desc = "You could build a fort with this."
 	icon_state = "large_box"
 	w_class = 4 // Big, bulky.
+	materials = list(MAT_CARDBOARD = 8000)
 	foldable_amt = 4
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
@@ -1212,6 +1214,7 @@
 	icon = 'icons/obj/shell_boxes.dmi'
 	storage_slots = 8
 	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
+	materials = list(MAT_CARDBOARD = 4000)
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 	/// What shell do we fill the box with
 	var/shell_type
