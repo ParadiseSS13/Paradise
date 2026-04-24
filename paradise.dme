@@ -978,6 +978,7 @@
 #include "code\game\gamemodes\miniantags\guardian\types\ranged.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\standard_guardian.dm"
 #include "code\game\gamemodes\miniantags\irradiated_mouse\irradiated_mouse.dm"
+#include "code\game\gamemodes\miniantags\irradiated_mouse\irradiated_mouse_spells.dm"
 #include "code\game\gamemodes\miniantags\morph\morph.dm"
 #include "code\game\gamemodes\miniantags\morph\morph_event.dm"
 #include "code\game\gamemodes\miniantags\morph\spells\ambush.dm"

@@ -9,29 +9,38 @@
 	INVOKE_ASYNC(src, PROC_REF(spawn_mouse))
 
 /datum/event/spawn_irradiated_mouse/proc/spawn_mouse()
+	// poll for ghosts
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as an irradiated mouse?", ROLE_IRRADIATED_MOUSE, TRUE, source = /mob/living/basic/mouse/irradiated_mouse)
 	if(!length(candidates))
 		kill()
 		return
+
 	var/mob/candidate = pick(candidates)
-	//var/datum/mind/player_mind = new /datum/mind(candidate.key)
-	var/obj/vents = get_valid_vent_spawns(TRUE, TRUE, 0)
+	var/obj/vents = get_valid_vent_spawns(TRUE, TRUE, 0) // find an unwelded vent with nobody nearby
 	if (!length(vents))
 		message_admins("Warning: No suitable vents detected for spawning an irradiated mouse.")
 		return
+
+	// pick a vent and spawn a mouse inside of it
 	var/obj/vent = pick(vents)
 	var/mob/living/basic/mouse/irradiated_mouse/spawned_mouse = new /mob/living/basic/mouse/irradiated_mouse(vent.loc)
 	spawned_mouse.forceMove(vent)
 	spawned_mouse.add_ventcrawl(vent)
 
+	// put the ghost inside the mouse
 	spawned_mouse.ckey = candidate.ckey
 	dust_if_respawnable(spawned_mouse)
+
+	// objectives
 	spawned_mouse.mind = new
 	spawned_mouse.mind.bind_to(spawned_mouse)
 	spawned_mouse.mind.set_original_mob(spawned_mouse)
 	spawned_mouse.mind.wipe_memory()
 	spawned_mouse.mind.assigned_role = SPECIAL_ROLE_IRRADIATED_MOUSE
 	spawned_mouse.mind.special_role = SPECIAL_ROLE_IRRADIATED_MOUSE
+	SSticker.mode.traitors |= spawned_mouse.mind
+
+	// start sound + intro message
 	SEND_SOUND(spawned_mouse, sound('sound/items/geiger/ext1.ogg'))
 	spawned_mouse.mind.add_mind_objective(/datum/objective/irradiated_mouse_objective)
 	spawned_mouse.give_intro_text()
@@ -95,7 +104,8 @@
 /mob/living/basic/mouse/irradiated_mouse/proc/give_intro_text()
 	var/list/messages = list()
 	messages.Add(SPAN_USERDANGER("<center>You are an Irradiated Mouse!</center>"))
-	messages.Add(SPAN_NOTICE("<center>Due to radioactive material laying around you've started rapidly mutating! Unfortunately this comes at the cost of your life, [SPAN_BOLDNOTICE("once you exit the vents you will have 15 minutes to live.")]"))
+	messages.Add(SPAN_NOTICE("<center>Due to your proximity to radioactive material laying around you've started rapidly mutating! Unfortunately this comes at the cost of your life,"))
+	messages.Add(SPAN_BOLDNOTICE("once you exit the vents you will have 15 minutes to live."))
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	messages.Add("<center>[SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Irradiated_Mouse) ")]</center>")
 	to_chat(src, chat_box_red(messages.Join("<br>")))
@@ -110,9 +120,11 @@
 
 /mob/living/basic/mouse/irradiated_mouse/Life(seconds, times_fired)
 	. = ..()
+	if(stat != CONSCIOUS)
+		return
+
 	if(!has_exited_vents)
 		return
-	log_debug("health: [health] seconds: [seconds] available_upgrades: [available_upgrades] ([upgrade_cooldown_in_seconds])s")
 
 	adjustBruteLoss(maxHealth * seconds / seconds_time_till_death)
 
@@ -151,73 +163,3 @@
 	melee_damage_upper = melee_damage_lower + 5
 	if(damage_upgrades > level_cap)
 		environment_smash = ENVIRONMENT_SMASH_WALLS
-
-/datum/spell/irradiated_mouse_spell/
-	action_background_icon_state = "bg_irradiated_mouse"
-	clothes_req = FALSE
-	base_cooldown = 5 SECONDS
-
-/datum/spell/irradiated_mouse_spell/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/datum/spell/irradiated_mouse_spell/proc/has_upgrades(mob/living/basic/mouse/irradiated_mouse/user)
-	if(!user.available_upgrades)
-		to_chat(user, SPAN_WARN("You dont have any available upgrades"))
-		return FALSE
-	return TRUE
-
-/datum/spell/irradiated_mouse_spell/upgrade_radiation
-	name = "Upgrade Radiation"
-	desc = "Upgrade the amount of radiation you emit. You will start producing radioactive sludge at level 3."
-	action_icon_state = "irradiated_mouse_radiation"
-
-/datum/spell/irradiated_mouse_spell/upgrade_radiation/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
-	. = ..()
-	if(!has_upgrades(user))
-		return
-
-	user.available_upgrades--
-	user.upgrade_radiation()
-	if(user.radiation_upgrades > user.level_cap)
-		user.RemoveSpell(user.upgrade_radiation_spell)
-		user.produce_radioactive_sludge = TRUE
-
-/datum/spell/irradiated_mouse_spell/upgrade_speed
-	name = "Upgrade Speed"
-	desc = "Upgrade your speed. You will become semi-transparent at level 3."
-	action_icon_state = "irradiated_mouse_speed"
-
-/datum/spell/irradiated_mouse_spell/upgrade_speed/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
-	. = ..()
-	if(!has_upgrades(user))
-		return
-
-	user.available_upgrades--
-	user.upgrade_speed()
-	if(user.speed_upgrades > user.level_cap)
-		user.RemoveSpell(user.upgrade_speed_spell)
-
-/datum/spell/irradiated_mouse_spell/upgrade_damage
-	name = "Upgrade Damage"
-	desc = "Upgrade your damage. You will become able to damage walls and windows at level 3."
-	action_icon_state = "irradiated_mouse_damage"
-
-/datum/spell/irradiated_mouse_spell/upgrade_damage/cast(list/targets, mob/living/basic/mouse/irradiated_mouse/user)
-	. = ..()
-	if(!has_upgrades(user))
-		return
-
-	user.available_upgrades--
-	user.upgrade_damage()
-	if(user.damage_upgrades > user.level_cap)
-		user.RemoveSpell(user.upgrade_damage_spell)
-
-/mob/living/basic/mouse/irradiated_mouse/death(gibbed)
-	DeleteComponentsType(/datum/component/inherent_radioactivity)
-	. = ..()
-
-/mob/living/basic/mouse/irradiated_mouse/proc/make_irradiated_mouse_antag()
-	if(!mind)
-		return
-
-	SSticker.mode.traitors |= mind
