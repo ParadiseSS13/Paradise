@@ -6,5 +6,5 @@
 
 /obj/effect/decal/cleanable/radioactive_sludge/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/inherent_radioactivity, 400, 400, 0, 1.5)
+	AddComponent(/datum/component/inherent_radioactivity, 800, 800, 0, 1.5)
 

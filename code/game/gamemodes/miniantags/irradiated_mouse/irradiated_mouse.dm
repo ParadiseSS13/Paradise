@@ -104,8 +104,7 @@
 /mob/living/basic/mouse/irradiated_mouse/proc/give_intro_text()
 	var/list/messages = list()
 	messages.Add(SPAN_USERDANGER("<center>You are an Irradiated Mouse!</center>"))
-	messages.Add(SPAN_NOTICE("<center>Due to your proximity to radioactive material laying around you've started rapidly mutating! Unfortunately this comes at the cost of your life,"))
-	messages.Add(SPAN_BOLDNOTICE("once you exit the vents you will have 15 minutes to live."))
+	messages.Add("<center>[SPAN_NOTICE("Due to your proximity to radioactive material laying around you've started rapidly mutating! Unfortunately this comes at the cost of your life, [SPAN_BOLDNOTICE("once you exit the vents you will have 15 minutes to live.")]")]</center>")
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	messages.Add("<center>[SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Irradiated_Mouse) ")]</center>")
 	to_chat(src, chat_box_red(messages.Join("<br>")))
@@ -141,6 +140,11 @@
 	if(prob(chance))
 		new /obj/effect/decal/cleanable/radioactive_sludge(get_turf(src))
 
+/*
+/mob/living/basic/attack_hand(mob/living/carbon/human/M)
+	. = ..()
+	M.apply_effect(1000, IRRADIATE)
+*/
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_radiation()
 	radiation_upgrades++
@@ -156,6 +160,7 @@
 	speed = initial(speed) + speed_per_level * speed_upgrades
 	if(speed_upgrades > level_cap)
 		alpha = speed_capstone_alpha
+		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement))
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_damage()
 	damage_upgrades++
@@ -163,3 +168,18 @@
 	melee_damage_upper = melee_damage_lower + 5
 	if(damage_upgrades > level_cap)
 		environment_smash = ENVIRONMENT_SMASH_WALLS
+
+/mob/living/basic/mouse/irradiated_mouse/proc/on_movement(mob/living/mob, atom/old_loc)
+	if(stat != CONSCIOUS)
+		return
+
+	new /obj/effect/temp_visual/decoy/irradiated_mouse_afterimage(old_loc, mob)
+
+/obj/effect/temp_visual/decoy/irradiated_mouse_afterimage
+	duration = 0.75 SECONDS
+
+/obj/effect/temp_visual/decoy/irradiated_mouse_afterimage/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
+	//duration = our_duration
+	animate(src, alpha = 0, time = duration, easing = EASE_OUT)
+
