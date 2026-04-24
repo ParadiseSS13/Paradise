@@ -230,15 +230,3 @@
 
 	/// If this client has any windows scaling applied
 	var/window_scaling
-
-/datum/persistent_client
-	/// Holds admin/mentor PM history.
-	var/datum/pm_tracker/pm_tracker
-	/// The Global Antag Candidacy setting from the new player menu.
-	var/skip_antag = FALSE
-	/// Used to prevent rapid mouse spamming.
-	var/time_died_as_mouse = null
-	/// All of the minds this client has been associated with.
-	var/list/minds = list()
-	/// Ckeys that sent us kudos.
-	var/list/kudos_received_from = list()

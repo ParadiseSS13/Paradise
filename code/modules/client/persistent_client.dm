@@ -36,6 +36,17 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients_by_ckey, /datum/persistent_client)
 	/// World.time this player last died
 	var/time_of_death = 0
 
+	/// Holds admin/mentor PM history.
+	var/datum/pm_tracker/pm_tracker
+	/// The Global Antag Candidacy setting from the new player menu.
+	var/skip_antag = FALSE
+	/// Used to prevent rapid mouse spamming.
+	var/time_died_as_mouse = null
+	/// All of the minds this client has been associated with.
+	var/list/minds = list()
+	/// Ckeys that sent us kudos.
+	var/list/kudos_received_from = list()
+
 /datum/persistent_client/New(ckey, client)
 	src.client = client
 	achievements = new(ckey)
