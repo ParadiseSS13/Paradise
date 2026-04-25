@@ -5116,9 +5116,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/public/sleep)
 "aNN" = (
-/obj/machinery/economy/vending/cart,
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
@@ -29144,6 +29147,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 5
 	},
+/obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "dhZ" = (
@@ -37040,7 +37044,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
-/obj/item/kirbyplants/large,
+/obj/machinery/economy/vending/cart,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "fQE" = (
@@ -42089,6 +42093,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/machinery/economy/merch,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "hBx" = (
@@ -86232,9 +86237,18 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "wxM" = (
-/obj/machinery/economy/merch,
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
+	},
+/obj/machinery/bounty_redemption{
+	input_dir = 3;
+	output_dir = 4
+	},
+/obj/effect/turf_decal/delivery/green/partial{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)

@@ -54,6 +54,31 @@
 		bounty_count += component.rating
 	SStgui.update_uis(src)
 
+/obj/machinery/bounty_redemption/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!has_power())
+		return
+	if(!I.tool_start_check(src, user, 0))
+		return
+	input_dir = turn(input_dir, -90)
+	output_dir = turn(output_dir, -90)
+	to_chat(user, SPAN_NOTICE("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
+
+/obj/machinery/bounty_redemption/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
+		SStgui.update_uis(src)
+		return TRUE
+
+/obj/machinery/bounty_redemption/wrench_act(mob/user, obj/item/I)
+	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
+		return TRUE
+
+/obj/machinery/bounty_redemption/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
 /obj/machinery/bounty_redemption/proc/RefreshBounties()
 	while(length(GLOB.active_supply_bounties) < bounty_count)
 		var/datum/supply_bounty/new_bounty = pick(GLOB.supply_bounties)
