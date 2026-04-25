@@ -29,6 +29,13 @@
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/bounty_redemption/update_icon_state()
+	. = ..()
+	icon_state = "salvage_redemption"
+	if(panel_open)
+		icon_state += "-open"
+		return
+
 /obj/machinery/bounty_redemption/process()
 	if(panel_open || !has_power())
 		return
@@ -67,9 +74,10 @@
 	to_chat(user, SPAN_NOTICE("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
 
 /obj/machinery/bounty_redemption/screwdriver_act(mob/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
-		SStgui.update_uis(src)
-		return TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
 /obj/machinery/bounty_redemption/wrench_act(mob/user, obj/item/I)
 	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
