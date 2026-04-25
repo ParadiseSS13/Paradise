@@ -103,7 +103,7 @@
 		M.drop_item_to_ground(src)
 
 /obj/item/grown/bombonut/ex_act(severity)
-	qdel(src) //Ensuring that it's deleted by its own explosion
+	qdel(src) // Ensuring that it's deleted by its own explosion.
 
 /obj/item/grown/bombonut/proc/prime()
 	switch(seed.potency) //Bombonaut are alot like IEDs, lots of flame, very little bang.

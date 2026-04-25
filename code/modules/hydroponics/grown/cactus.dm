@@ -2,7 +2,7 @@
 //Semillas
 /obj/item/seeds/prickly_pear
 	name = "pack of prickly pear cactus"
-	desc = "These seeds will grow into a prickly pear cactus, it's fruit can be eaten."
+	desc = "These seeds will grow into a prickly pear cactus, its fruit can be eaten."
 	icon_state = "pricklypearlcactus-seed"
 	species = "prickly"
 	plantname = "Prickly Cactus"

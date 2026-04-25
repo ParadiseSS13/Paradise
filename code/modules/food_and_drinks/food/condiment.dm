@@ -323,7 +323,7 @@
 	list_reagents = list("guacamole" = 50)
 	possible_states = list()
 
-//Food packs. To easily apply deadly toxi... delicious sauces to your food!
+// Food packs. To easily apply deadly toxi- delicious sauces to your food!
 
 /obj/item/reagent_containers/condiment/pack
 	name = "condiment pack"

@@ -290,7 +290,7 @@
 
 /obj/item/food/arepa/spider
 	name = "spider arepa"
-	desc = "I think it's still moving ... Ok, I swear it moved."
+	desc = "I think it's still moving... Ok, I swear it moved."
 	icon_state = "spider_arepa"
 	bitesize = 7
 	list_reagents = list("nutriment" = 7, "vitamin" = 6, "toxin" = 2, "charcoal" = 2)
