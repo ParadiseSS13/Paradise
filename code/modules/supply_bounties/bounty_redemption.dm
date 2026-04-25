@@ -59,6 +59,7 @@
 	bounty_count = 0
 	for(var/obj/item/stock_parts/component in component_parts)
 		bounty_count += component.rating
+	RefreshBounties()
 	SStgui.update_uis(src)
 
 /obj/machinery/bounty_redemption/multitool_act(mob/user, obj/item/I)
