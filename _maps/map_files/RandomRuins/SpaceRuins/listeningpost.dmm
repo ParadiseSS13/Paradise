@@ -112,7 +112,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
 "kJ" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "le" = (
 /turf/simulated/floor/plasteel/dark,
@@ -176,7 +176,7 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "se" = (
 /obj/effect/spawner/airlock/w_to_e,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "sf" = (
 /obj/structure/cable/yellow{
@@ -587,7 +587,7 @@
 /obj/item/gps/ruin{
 	gpstag = "Encrypted Signal"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "UC" = (
 /obj/effect/spawner/random/cobweb/right/rare,
@@ -628,13 +628,13 @@
 /area/ruin/space/syndicate_listening_station)
 "Wc" = (
 /obj/effect/spawner/airlock/e_to_w,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "Wf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "WN" = (
 /obj/structure/cable/yellow{

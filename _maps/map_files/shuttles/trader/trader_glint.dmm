@@ -422,7 +422,7 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
 "Ze" = (
-/turf/simulated/wall/mineral/titanium/survival/nodiagonal,
+/turf/simulated/wall/mineral/titanium/survival,
 /area/shuttle/trade/sol)
 "Zm" = (
 /obj/structure/fans/tiny,

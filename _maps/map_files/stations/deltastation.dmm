@@ -889,13 +889,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "agD" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "agE" = (
 /turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "agF" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "agH" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -74742,7 +74742,7 @@
 	},
 /area/station/public/sleep)
 "oHy" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "oHR" = (
 /turf/simulated/floor/plating/airless,
