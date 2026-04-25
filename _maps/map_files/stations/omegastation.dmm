@@ -3601,14 +3601,13 @@
 	name = "north bump";
 	pixel_x = 8
 	},
-/obj/item/rcl,
-/obj/item/rcl,
 /obj/machinery/door_control{
 	id = "ceblast";
 	name = "Engineering Lockdown Control";
 	pixel_x = -7;
 	pixel_y = 27
 	},
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "apr" = (
@@ -20518,7 +20517,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "eRh" = (
-/obj/machinery/door/airlock/titanium/glass,
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
 "eRl" = (
@@ -41914,7 +41915,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "rba" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "rbu" = (
 /obj/structure/cable/extra_insulated{
@@ -53424,8 +53425,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/item/rcl,
-/obj/item/rcl,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "xbg" = (
