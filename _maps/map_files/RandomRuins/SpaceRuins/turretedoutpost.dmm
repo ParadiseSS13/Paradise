@@ -85,7 +85,7 @@
 /area/ruin/space/turreted_outpost/vault)
 "iq" = (
 /obj/effect/spawner/airlock/w_to_e/long/square,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/turreted_outpost)
 "ju" = (
 /obj/structure/bed,
@@ -155,7 +155,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "qa" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/turreted_outpost)
 "qy" = (
 /obj/structure/cable/yellow{

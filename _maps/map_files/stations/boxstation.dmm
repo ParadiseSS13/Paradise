@@ -12908,7 +12908,7 @@
 /turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "aVY" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "aWb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -31602,7 +31602,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "cqY" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "cra" = (
 /obj/structure/extinguisher_cabinet{
@@ -68407,7 +68407,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "oqF" = (
 /obj/machinery/door/firedoor,

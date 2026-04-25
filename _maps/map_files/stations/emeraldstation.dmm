@@ -13626,7 +13626,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/incinerator)
 "cJq" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "cJx" = (
 /obj/item/shard,
@@ -112525,7 +112525,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "wAh" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "wAu" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
