@@ -18958,13 +18958,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "cdq" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/medmaint)
 "cdw" = (
@@ -19078,10 +19082,14 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "cdZ" = (
@@ -20263,9 +20271,13 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/maintenance,
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "cjZ" = (
@@ -23347,7 +23359,6 @@
 /area/station/maintenance/xenobio_south)
 "cAf" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -23355,7 +23366,12 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/apmaint)
 "cAi" = (
@@ -23765,7 +23781,9 @@
 	id_tag = "maintwarehouse";
 	name = "Abandoned Warehouse Shutters"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "cCm" = (
@@ -24615,11 +24633,15 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/aft)
 "cGo" = (
@@ -26412,10 +26434,14 @@
 /area/station/maintenance/maintcentral)
 "cPv" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "cPA" = (
@@ -26425,10 +26451,14 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "cPC" = (
@@ -28952,10 +28982,14 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "dgI" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "dgO" = (
@@ -29170,10 +29204,14 @@
 /turf/space,
 /area/station/engineering/solar/fore_starboard)
 "diT" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/aft)
 "diY" = (
@@ -29705,9 +29743,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Power Monitoring"
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/port)
@@ -40846,10 +40886,13 @@
 "hds" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /obj/machinery/door/airlock/atmos{
-	name = "Port Atmospherics Maintenance"
+	name = "Port Atmospherics Maintenance";
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -46076,9 +46119,11 @@
 "iQp" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/airlock/external/glass,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
@@ -49041,7 +49086,6 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "jPu" = (
-/obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
@@ -49049,7 +49093,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "jPv" = (
@@ -51565,10 +51614,14 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/maintenance/external,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance/external{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
@@ -55251,10 +55304,10 @@
 "lQQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tiles/department/medical,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "abandonedshutters"
 	},
-/obj/effect/turf_decal/tiles/department/medical,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/medmaint)
 "lRg" = (
@@ -58150,16 +58203,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
-"mUv" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/aft)
 "mUI" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/noslip,
@@ -59015,10 +59058,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
-"ngl" = (
-/obj/effect/mapping_helpers/turfs/rust/probably,
-/turf/simulated/wall,
-/area/station/public/construction)
 "ngG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/extra_insulated{
@@ -59850,7 +59889,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "nuG" = (
@@ -59887,14 +59928,16 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Power Monitoring"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/engineering/glass{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/port)
 "nwE" = (
@@ -59963,6 +60006,9 @@
 	dir = 2;
 	id_tag = "cargowarehouse";
 	name = "Supply Warehouse Shutters"
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
@@ -62208,7 +62254,6 @@
 	},
 /area/station/engineering/solar/aft_port)
 "ojt" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/machinery/door/poddoor{
@@ -62218,8 +62263,13 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "ojN" = (
@@ -64622,10 +64672,14 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/maintenance/external,
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/maintenance/external{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "oZv" = (
@@ -64652,10 +64706,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "oZX" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/aft)
 "pah" = (
@@ -67248,7 +67306,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "pUx" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -67261,7 +67318,12 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/aft)
 "pUA" = (
@@ -69464,13 +69526,17 @@
 "qLb" = (
 /obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/mining/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/mining/glass{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
 "qLd" = (
@@ -70640,15 +70706,19 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "rfC" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "rfD" = (
@@ -72465,12 +72535,16 @@
 /turf/simulated/floor/carpet,
 /area/station/hallway/secondary/entry/lounge)
 "rJs" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
@@ -74413,11 +74487,14 @@
 /area/station/maintenance/fore2)
 "srJ" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Abandoned Warehouse"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	name = "Abandoned Warehouse";
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "srS" = (
@@ -75810,10 +75887,14 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/medmaint)
 "sSH" = (
@@ -76533,10 +76614,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/medmaint)
 "tfH" = (
@@ -78272,12 +78357,16 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/asmaint)
 "tLR" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "tLT" = (
@@ -86167,10 +86256,14 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering{
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/solar_maintenance/aft_port)
 "wsN" = (
@@ -88463,10 +88556,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
-"xck" = (
-/obj/effect/mapping_helpers/turfs/rust/maybe,
-/turf/simulated/wall,
-/area/station/public/construction)
 "xcl" = (
 /obj/structure/sign/engineering/cans,
 /turf/simulated/wall/r_wall,
@@ -91339,8 +91428,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "xZM" = (
@@ -101894,7 +101985,7 @@ qGL
 qGL
 clD
 kuG
-xck
+aHk
 sSt
 bgA
 tup
@@ -102151,7 +102242,7 @@ qGL
 qGL
 xLn
 smd
-ngl
+aHk
 hRr
 bgA
 qVp
@@ -118670,7 +118761,7 @@ chy
 gfY
 hSf
 hSf
-mUv
+cdX
 hSf
 hSf
 hSf
