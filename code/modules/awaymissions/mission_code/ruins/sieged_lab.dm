@@ -52,6 +52,8 @@
 	maxHealth = 750
 	rapid_melee = 3
 	move_force = MOVE_FORCE_DEFAULT
+	achievement_type = /datum/award/achievement/boss/harbinger_kill
+	score_achievement_type = /datum/award/score/harbinger_score
 	loot = list(/obj/item/organ/internal/cyberimp/arm/razorwire/harbinger)
 	death_simplemob_representation = /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
 

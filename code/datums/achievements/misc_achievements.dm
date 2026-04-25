@@ -11,7 +11,7 @@
 /datum/award/achievement/misc/jackpot
 	name = "Jackpot!"
 	desc = "Win the jackpot at a slot machine!"
-	//#warn icon will prob need updating
+	#warn icon will prob need updating
 	database_id = MEDAL_PULSE
 	icon_state = "jackpot"
 
@@ -58,3 +58,15 @@
 	desc = "50 honks later"
 	database_id = MEDAL_THANKSALOT
 	icon_state = "clownthanks"
+
+/datum/award/achievement/misc/loudmouth
+	name = "Loudmouth"
+	desc = "Speak with AUTHORITY as Captain."
+	database_id = MEDAL_LOUDMOUTH
+	icon_state = "loudmouth"
+
+/datum/award/achievement/misc/die
+	name = "Die"
+	desc = "Do I really need to explain this one to you?"
+	database_id = MEDAL_DIE
+	icon_state = "die"

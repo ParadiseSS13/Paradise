@@ -42,3 +42,13 @@
 	name = "Vetus Speculators Killed"
 	desc = "How many have you killed?"
 	database_id = ROBOT_SCORE
+
+/datum/award/score/fleshling_score
+	name = "Fleshlings Killed"
+	desc = "How many Fleshlings have you killed?"
+	database_id = FLESHLING_SCORE
+
+/datum/award/score/harbinger_score
+	name = "Syndicate Harbingers Killed"
+	desc = "How many Syndicate Harbingers have you killed?"
+	database_id =  HARBINGER_SCORE

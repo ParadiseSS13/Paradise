@@ -49,12 +49,22 @@
 	database_id = BOSS_MEDAL_LEGION
 	icon_state = "legion"
 
-
 /datum/award/achievement/boss/ancient_robot_kill
 	name = "The Vetus Speculator Killer"
 	desc = "Just a pile of scrap metal!"
 	database_id = BOSS_MEDAL_ROBOT
 	icon_state = "robot"
+
+/datum/award/achievement/boss/fleshling_kill
+	name = "The Fleshling Killer"
+	desc = "Just another unnatural horror destroyed."
+	database_id = BOSS_MEDAL_FLESHLING
+	icon_state = "fleshling"
+
+/datum/award/achievement/boss/harbinger_kill
+	name = "The Harbinger"
+	desc = "You are the harbinger of its demise."
+	database_id = BOSS_MEDAL_HARBINGER
 
 /datum/award/achievement/boss/blood_miner_crusher
 	name = "Crush the Miner!"
