@@ -29015,10 +29015,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -37314,10 +37310,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/north)
 "orZ" = (
-/obj/structure/sign/poster/random/directional/south,
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
+/obj/structure/sign/poster/random/directional/west,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "osC" = (
@@ -37440,6 +37436,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 4
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "owF" = (
@@ -39349,9 +39346,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/binary/pump/on{
-	dir = 4;
-	name = "Oxygen to Airmix"
+/obj/machinery/atmospherics/binary/valve/digital/open{
+	name = "Oxygen Outlet Valve";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -42558,16 +42555,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
-"ryk" = (
-/obj/machinery/turretid/lethal{
-	check_synth = 1;
-	name = "AI Chamber Turret Control";
-	pixel_x = 5;
-	pixel_y = -24;
-	req_access = list(75)
-	},
-/turf/simulated/wall/r_wall,
-/area/station/turret_protected/ai)
 "ryz" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -44446,9 +44433,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/binary/pump/on{
-	dir = 4;
-	name = "Nitrogen to Airmix"
+/obj/machinery/atmospherics/binary/valve/digital/open{
+	name = "Nitrogen Outlet Valve";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -53591,6 +53578,10 @@
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
@@ -103326,7 +103317,7 @@ hDl
 agt
 agt
 mtz
-ryk
+agt
 eeC
 wwi
 agt
