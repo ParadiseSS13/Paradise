@@ -288,6 +288,12 @@
 
 	to_chat(mod.wearer, SPAN_WARNING("Your [name] shuts off!"))
 
+/obj/item/mod/module/flashlight/search
+	name = "MOD searchlight module"
+	complexity = 0
+	removable = FALSE
+	max_range = 8
+
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
 	name = "MOD burger dispenser module"
