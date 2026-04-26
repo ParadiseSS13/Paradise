@@ -558,6 +558,68 @@
 /obj/item/mod/armor/mod_theme_rescue
 	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 250, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
 
+/datum/mod_theme/salvation
+	name = "'Salvation' hazard"
+	desc = "An experimental medical suit designed for emergency care in conflict zones and extreme environmental hazards."
+	extended_desc = "An experimental upgrade to the Apollo and Valkyrie lines, the D-142E 'Salvation' is a bulky, armored medical modsuit designed by DeForest Medical Corperation. \
+	Sacrificing the light-weight design of previous iterations for additional protection from both weapons and environmental factors, while boasting a more powerful core and servos to partially offset the excess weight. \
+	The suit's armor has seen even more improvements with a careful mix of composite and standard ballistic armor, in addition to a coating similar of that to the Daedalus line and integrated cooling offering complete thermal protection. \
+	This suit's experimental nature makes it exclusive to the most practical and wealthy positions outside DeForest testing."
+	default_skin = "salvation"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_salvation
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	charge_drain = DEFAULT_CHARGE_DRAIN * 2
+	slowdown_inactive = 1 // heavier plate without support
+	slowdown_active = 0.35 // between the valkyrie and apollo
+	inbuilt_modules = list(/obj/item/mod/module/flashlight/search) // larger flashlight
+	allowed_suit_storage = list(
+		/obj/item/healthanalyzer,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/stack/medical,
+		/obj/item/sensor_device,
+		/obj/item/storage/pill_bottle,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/bag/bio,
+		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/gun
+	)
+	skins = list(
+		"salvation" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL | STOPSPRESSUREDMAGE | BLOCK_GAS_SMOKE_EFFECT | BLOCKHAIR,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK | HIDEEYES | HIDEEARS | HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH | HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT | HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_salvation
+	armor = list(MELEE = 25, BULLET = 20, LASER = 10, ENERGY = 10, BOMB = 25, RAD = 250, FIRE = INFINITY, ACID = 150) //Extra armor in compensation of being slower then, and an improvement of the valkyrie.
+
+
 /datum/mod_theme/research
 	name = "'Minerva' research"
 	desc = "A powered EOD suit produced by Aussec Armory. Absolutely unmatched explosive and acid protection, along with heavy conventional armor and high modding potential."
