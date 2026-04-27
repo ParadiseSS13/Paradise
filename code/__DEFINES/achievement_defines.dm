@@ -14,8 +14,6 @@
 #define MEDAL_CLOWNCARKING "Round and Full"
 #define MEDAL_THANKSALOT "The Best Driver"
 #define MEDAL_HELBITALJANKEN "Hel-bent on Winning"
-#define MEDAL_MATERIALCRAFT "Getting an Upgrade"
-#define MEDAL_DISKPLEASE "Disk, Please!"
 #define MEDAL_GAMER	"I'm Not Important"
 #define MEDAL_VENDORSQUISH "Teenage Anarchist"
 #define MEDAL_SWIRLIE "Bowl-d"
@@ -37,6 +35,8 @@
 #define MEDAL_MASTERMINER "Master Miner"
 #define MEDAL_POWERGAMERMINER "Powergamer Miner"
 #define MEDAL_CHASM "Fall Into a Chasm"
+#define MEDAL_GIBTONITE_EXPLODE "Set Off Gibtonite"
+#define MEDAL_GIBTONITE_DEFUSE "Defuse Gibtonite"
 #define MEDAL_SINGULARITY_SIGHT "Singularity Sight"
 #define MEDAL_BLESS "Bless"
 

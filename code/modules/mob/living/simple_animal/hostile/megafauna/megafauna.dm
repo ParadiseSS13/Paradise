@@ -249,10 +249,6 @@
 		C.density = FALSE //I hate it.
 		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
 
-/mob/living/simple_animal/hostile/megafauna/attackby(obj/item/I, mob/living/user, params)
-    if(istype(I, /obj/item/slapper) && user.client)
-        user.client.give_award(/datum/award/achievement/jobs/slapper, user)
-
 /mob/living/simple_animal/hostile/megafauna/proc/hoverboard_deactivation(source, target)
 	SIGNAL_HANDLER // COMSIG_HOSTILE_FOUND_TARGET
 	if(!isliving(target))

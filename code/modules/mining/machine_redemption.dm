@@ -180,13 +180,13 @@
 		if(anyone_claim || (req_access_claim in ID.access))
 			ID.mining_points += points
 			ID.total_mining_points += points
-			if(ID.total_mining_points >= 5000)
+			if(ID.total_mining_points >= 20000)
 				user.client?.give_award(/datum/award/achievement/jobs/rookie_miner, user)
-			if(ID.total_mining_points >= 10000)
+			if(ID.total_mining_points >= 40000)
 				user.client?.give_award(/datum/award/achievement/jobs/amateur_miner, user)
-			if(ID.total_mining_points >= 25000)
+			if(ID.total_mining_points >= 100000)
 				user.client?.give_award(/datum/award/achievement/jobs/master_miner, user)
-			if(ID.total_mining_points >= 50000)
+			if(ID.total_mining_points >= 200000)
 				user.client?.give_award(/datum/award/achievement/jobs/powergamer_miner, user)
 			to_chat(usr, SPAN_NOTICE("<b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!"))
 			points = 0

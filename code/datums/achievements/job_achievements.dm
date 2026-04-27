@@ -26,25 +26,25 @@
 // MARK: Supply
 /datum/award/achievement/jobs/rookie_miner
 	name = "Rookie Miner"
-	desc = "Obtain 5,000 mining points. Baby's first mining shift."
+	desc = "Obtain 20,000 mining points. Baby's first mining shift."
 	database_id = MEDAL_ROOKIEMINER
 	icon_state = "rookieminer"
 
 /datum/award/achievement/jobs/amateur_miner
 	name = "Amateur Miner"
-	desc = "Obtain 10,000 mining points. Now you're starting to get a hang of it."
+	desc = "Obtain 40,000 mining points. Now you're starting to get a hang of it."
 	database_id = MEDAL_AMATEURMINER
 	icon_state = "amateurminer"
 
 /datum/award/achievement/jobs/master_miner
 	name = "Master Miner"
-	desc = "Obtain 25,000 mining points. Engineering and Science must love you."
+	desc = "Obtain 100,000 mining points. Engineering and Science must love you."
 	database_id = MEDAL_MASTERMINER
 	icon_state = "masterminer"
 
 /datum/award/achievement/jobs/powergamer_miner
 	name = "Powergamer Miner"
-	desc = "Obtain 50,000 mining points."
+	desc = "Obtain 200,000 mining points."
 	database_id = MEDAL_POWERGAMERMINER
 	icon_state = "powergamerminer"
 
@@ -53,6 +53,18 @@
 	desc = "Watch your step."
 	database_id = MEDAL_CHASM
 	icon_state = "chasm"
+
+/datum/award/achievement/jobs/gibtonite_explode
+	name = "Set Off Gibtonite"
+	desc = "It might not be a good idea to see if this gibs you."
+	database_id = MEDAL_GIBTONITE_EXPLODE
+	icon_state = "gibtonite_explode"
+
+/datum/award/achievement/jobs/gibtonite_defuse
+	name = "Defuse Gibtonite"
+	desc = "I'm sure running towards the exploding rock with a Mining Scanner is a good idea."
+	database_id = MEDAL_GIBTONITE_DEFUSE
+	icon_state = "gibtonite_defuse"
 
 // MARK: Engineering
 /datum/award/achievement/jobs/singulo_sight
