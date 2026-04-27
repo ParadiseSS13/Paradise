@@ -561,7 +561,7 @@
 /datum/mod_theme/salvation
 	name = "'Salvation' hazard"
 	desc = "An experimental medical suit designed for emergency care in conflict zones and extreme environmental hazards."
-	extended_desc = "An experimental upgrade to the Apollo and Valkyrie lines, the D-142E 'Salvation' is a bulky, armored medical modsuit designed by DeForest Medical Corperation. \
+	extended_desc = "An experimental upgrade to the Apollo and Valkyrie lines, the D-142E 'Salvation' is a bulky, moderately-armored medical modsuit designed by DeForest Medical Corperation. \
 	Sacrificing the light-weight design of previous iterations for additional protection from both weapons and environmental factors, while boasting a more powerful core and servos to partially offset the excess weight. \
 	The suit's armor has seen even more improvements with a careful mix of composite and standard ballistic armor, in addition to a coating similar of that to the Daedalus line and integrated cooling offering complete thermal protection. \
 	This suit's experimental nature makes it exclusive to the most practical and wealthy positions outside DeForest testing."
@@ -570,7 +570,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
-	slowdown_inactive = 1 // heavier plate without support
+	slowdown_inactive = 1.25 // heavier plate without support
 	slowdown_active = 0.35 // between the valkyrie and apollo
 	inbuilt_modules = list(/obj/item/mod/module/flashlight/search) // larger flashlight
 	allowed_suit_storage = list(
@@ -617,7 +617,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_salvation
-	armor = list(MELEE = 25, BULLET = 20, LASER = 10, ENERGY = 10, BOMB = 25, RAD = 250, FIRE = INFINITY, ACID = 150) //Extra armor in compensation of being slower then, and an improvement of the valkyrie.
+	armor = list(MELEE = 25, BULLET = 20, LASER = 15, ENERGY = 10, BOMB = 25, RAD = 250, FIRE = INFINITY, ACID = 150) //Extra armor in compensation of being slower then, and an improvement of the valkyrie.
 
 
 /datum/mod_theme/research
