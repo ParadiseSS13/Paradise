@@ -57,7 +57,7 @@
 		/mob/living/silicon/proc/subsystem_power_monitor)
 
 
-/mob/living/silicon/robot/drone/Initialize(mapload, unfinished, alien, connect_to_AI, mob/living/silicon/ai/ai_to_sync_to)
+/mob/living/silicon/robot/drone/Initialize(mapload, connect_to_AI, mob/living/silicon/ai/ai_to_sync_to)
 	. = ..()
 
 	remove_language("Robot Talk")
@@ -112,7 +112,7 @@
 	// Drones have laws to not attack people
 	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
 
-/mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/drone/init(mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
 	set_connected_ai(null)
 
