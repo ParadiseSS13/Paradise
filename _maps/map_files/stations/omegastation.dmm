@@ -10719,7 +10719,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/beacon,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
 	dir = 1
 	},
@@ -13728,6 +13727,12 @@
 /obj/machinery/smartfridge/secure/circuits/aiupload/highrisk,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
+"bqs" = (
+/mob/living/basic/lizard{
+	name = "Greentext"
+	},
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "bqw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -80572,7 +80577,7 @@ psv
 psv
 psv
 fBh
-aYx
+bqs
 apa
 apc
 rDq
