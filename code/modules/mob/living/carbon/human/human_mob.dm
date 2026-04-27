@@ -1665,9 +1665,9 @@
     var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
     var/obj/item/clothing/glasses/glasses = get_item_by_slot(ITEM_SLOT_EYES)
     if(glasses) // when you decide to make worn icon building into a proc, i won't have to do this shit anymore
-        var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
-        var/worn_icon = glasses.worn_icon || (robohead && robohead.is_monitor ? glasses.icon_monitor : FALSE) || listgetindex(glasses.sprite_sheets, head_organ.dna.species.sprite_sheet_name) || 'icons/mob/clothing/eyes.dmi'
-        var/worn_icon_state = glasses.worn_icon_state || glasses.icon_state
+    	var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+    	var/worn_icon = glasses.worn_icon || (robohead && robohead.is_monitor ? glasses.icon_monitor : FALSE) || listgetindex(glasses.sprite_sheets, head_organ.dna.species.sprite_sheet_name) || 'icons/mob/clothing/eyes.dmi'
+		var/worn_icon_state = glasses.worn_icon_state || glasses.icon_state
         var/icon/glasses_icon = new /icon("icon" = worn_icon, "icon_state" = worn_icon_state)
         hair.Blend(glasses_icon, ICON_UNDERLAY)
     var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
