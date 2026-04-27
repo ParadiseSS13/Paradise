@@ -27542,6 +27542,15 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/obj/item/clothing/head/cone,
+/obj/item/clothing/head/cone{
+	pixel_x = 8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "iJF" = (
@@ -33535,6 +33544,13 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
+"mlp" = (
+/mob/living/basic/bunny{
+	desc = "It's Spaghetti, the official bnuy of Atmospherics. Appropriately named after the jumbled mess of piping.";
+	name = "Spaghetti"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "mlt" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -37112,7 +37128,22 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/obj/machinery/power/electrolyzer,
+/obj/item/clothing/glasses/meson{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_x = 9;
+	pixel_y = 9
+	},
+/obj/structure/table/reinforced,
+/obj/item/stack/cable_coil/random{
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "omR" = (
@@ -43897,10 +43928,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/mob/living/basic/bunny{
-	desc = "It's Spaghetti, the official bnuy of Atmospherics. Appropriately named after the jumbled mess of piping.";
-	name = "Spaghetti"
-	},
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "slO" = (
@@ -79085,7 +79113,7 @@ ncb
 olk
 oTp
 paO
-uSs
+mlp
 bxl
 ncV
 sWt
