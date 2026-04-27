@@ -136,6 +136,7 @@
 	if(isitem(AM0))
 		to_eat += AM0.GetAllContents()
 	var/items_recycled = 0
+	var/list/atom/movable/atoms_to_qdel = list()
 
 	for(var/i in to_eat)
 		var/atom/movable/AM = i
@@ -150,6 +151,7 @@
 				emergency_stop(AM)
 		else if(isitem(AM))
 			recycle_item(AM)
+			atoms_to_qdel += AM
 			items_recycled++
 		else
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
@@ -158,6 +160,10 @@
 	if(items_recycled && sound && (last_consumption_sound + SOUND_COOLDOWN) < world.time)
 		playsound(loc, item_recycle_sound, 100, 0)
 		last_consumption_sound = world.time
+		for(var/atom/movable/AM in atoms_to_qdel)
+			if(QDELETED(AM))
+				continue
+			qdel(AM)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	I.forceMove(loc)
@@ -165,10 +171,8 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(I)
 	if(!material_amount)
-		qdel(I)
 		return
 	materials.insert_item(I, multiplier = (amount_produced / 100))
-	qdel(I)
 	materials.retrieve_all()
 
 
