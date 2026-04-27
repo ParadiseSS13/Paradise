@@ -220,8 +220,6 @@
 	eye_color ="#FEE5A3"
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight_eyes"
-	flash_protect = FLASH_PROTECTION_WELDER
-	tint = INFINITY
 	var/obj/item/flashlight/eyelight/eye
 
 /obj/item/organ/internal/eyes/cybernetic/flashlight/emp_act(severity)
@@ -234,7 +232,9 @@
 	eye.on = TRUE
 	eye.forceMove(M)
 	eye.update_brightness(M)
-	M.become_blind("flashlight_eyes")
+	// Slime people start with no eyes, so the fact these "eyes" cannot see shouldn't affect them.
+	if(!isslimeperson(M))
+		M.become_blind("flashlight_eyes")
 
 
 /obj/item/organ/internal/eyes/cybernetic/flashlight/remove(mob/living/carbon/M, special = FALSE)
