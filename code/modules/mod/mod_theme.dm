@@ -570,7 +570,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
-	slowdown_inactive = 1.25 // heavier plate without support
 	slowdown_active = 0.35 // between the valkyrie and apollo
 	inbuilt_modules = list(/obj/item/mod/module/flashlight/search) // larger flashlight
 	allowed_suit_storage = list(
