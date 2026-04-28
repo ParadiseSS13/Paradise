@@ -540,8 +540,6 @@
 				step_towards(O, src)
 		for(var/mob/living/M in T.contents)
 			step_towards(M, src)
-			if(drops_core || canister_spawned)
-				M.Weaken(3.5 SECONDS) //You ran into a black hole, you ride the pain train.
 			M.KnockDown(7 SECONDS)
 
 	//Damaging the turf
