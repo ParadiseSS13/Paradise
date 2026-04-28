@@ -540,6 +540,9 @@
 				step_towards(O, src)
 		for(var/mob/living/M in T.contents)
 			step_towards(M, src)
+			if(HAS_TRAIT(M, TRAIT_MAGPULSE))
+				return
+			to_chat(M, SPAN_WARNING("You lose your footing and fall!"))
 			M.KnockDown(7 SECONDS)
 
 	//Damaging the turf
