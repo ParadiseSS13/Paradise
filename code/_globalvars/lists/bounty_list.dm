@@ -25,22 +25,7 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 	new /datum/supply_bounty(/obj/item/taperecorder,			FALSE,			SUPPLY_BOUNTY_QUANTITY_ONE,			SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/supply_bounty(/obj/item/storage/fancy/cigarettes,				FALSE,			SUPPLY_BOUNTY_QUANTITY_MEDIUM,		SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/supply_bounty(/obj/item/paicard,				FALSE,			SUPPLY_BOUNTY_QUANTITY_ONE,			SUPPLY_BOUNTY_REWARD_MEDIUM),
-	new /datum/supply_bounty(/obj/item/food/chips
-	new /datum/supply_bounty(/obj/item/food/twimsts
-	new /datum/supply_bounty(/obj/item/food/sosjerky
-	new /datum/supply_bounty(/obj/item/food/no_raisin
-	new /datum/supply_bounty(/obj/item/food/pistachios
-	new /datum/supply_bounty(/obj/item/food/spacetwinkie
-	new /datum/supply_bounty(/obj/item/food/cheesiehonkers
-	new /datum/supply_bounty(/obj/item/food/tastybread
-	new /datum/supply_bounty(/obj/item/food/deluxe_chocolate_bar
-	new /datum/supply_bounty(/obj/item/food/stroopwafel
-	new /datum/supply_bounty(/obj/item/food/chinese/chowmein
-	new /datum/supply_bounty(/obj/item/food/chinese/tao
-	new /datum/supply_bounty(/obj/item/food/chinese/sweetsourchickenball
-	new /datum/supply_bounty(/obj/item/food/chinese/newdles
-	new /datum/supply_bounty(/obj/item/food/chinese/rice
-	new /datum/supply_bounty(/obj/item/food/fortunecookie
+
 
 	// MARK: SUPPLY
 	new /datum/supply_bounty(/obj/item/wrench, 				TRUE, 			SUPPLY_BOUNTY_QUANTITY_HIGH, 		SUPPLY_BOUNTY_REWARD_CHEAP),
