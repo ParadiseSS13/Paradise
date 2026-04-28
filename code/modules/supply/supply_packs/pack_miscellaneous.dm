@@ -110,6 +110,12 @@
 					/obj/structure/closet/crate/secure/personal)
 	containername = "personal crates pack"
 
+/datum/supply_packs/misc/blindcane
+	name = "Blind Cane Crate"
+	cost = 200
+	contains = list(/obj/item/blindcane)
+	containername = "Blind Cane Crate"
+
 
 ///////////// Paper Work
 
