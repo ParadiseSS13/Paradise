@@ -970,16 +970,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 2
 
 
-/mob/living/silicon/robot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+/mob/living/silicon/robot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Check if the user is trying to insert another component like a radio, actuator, armor etc.
-	if(istype(W, /obj/item/stock_parts/cell) && user.mind && HAS_TRAIT(user.mind, TRAIT_CYBORG_SPECIALIST) && !opened && user.a_intent != INTENT_HARM)
-		var/obj/item/stock_parts/cell/donor = W
+	if(istype(used, /obj/item/stock_parts/cell) && user.mind && HAS_TRAIT(user.mind, TRAIT_CYBORG_SPECIALIST) && !opened && user.a_intent != INTENT_HARM)
+		var/obj/item/stock_parts/cell/donor = used
 		if(being_charged)
-			to_chat(user, "<span class='warning'>You are already charging [src]!")
+			to_chat(user, SPAN_WARNING("You are already charging [src]!"))
 			return ITEM_INTERACT_COMPLETE
+
 		if(donor.charge == 0)
-			to_chat(user, "<span class='warning'>[donor] has no charge to donate!")
+			to_chat(user, SPAN_WARNING("[donor] has no charge to donate!"))
 			return ITEM_INTERACT_COMPLETE
+
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		being_charged = TRUE
 		to_chat(src, SPAN_NOTICE("[user] begins to manually charge your internal cell."))
@@ -1000,108 +1002,133 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			cell.update_icon(UPDATE_OVERLAYS)
 		being_charged = FALSE
 		return ITEM_INTERACT_COMPLETE
-	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
+
+	if(istype(used, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
-			if(!C.is_missing() || !istype(W, C.external_type))
+			if(!C.is_missing() || !istype(used, C.external_type))
 				continue
 			if(!user.drop_item())
-				to_chat(user, SPAN_WARNING("[W] seems to be stuck in your hand!"))
+				to_chat(user, SPAN_WARNING("[used] seems to be stuck in your hand!"))
 				return ITEM_INTERACT_COMPLETE
-			var/obj/item/robot_parts/robot_component/WC = W
+
+			var/obj/item/robot_parts/robot_component/WC = used
 			C.brute_damage = WC.brute
 			C.electronics_damage = WC.burn
 			C.install(WC)
-			to_chat(usr, SPAN_NOTICE("You install [W]."))
+			to_chat(usr, SPAN_NOTICE("You install [used]."))
 			return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
+	if(istype(used, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, SPAN_NOTICE("Nothing to fix!"))
 			return ITEM_INTERACT_COMPLETE
+
 		else if(!getFireLoss(TRUE))
 			to_chat(user, SPAN_WARNING("The damaged components are beyond saving!"))
 			return ITEM_INTERACT_COMPLETE
-		var/obj/item/stack/cable_coil/coil = W
+
+		var/obj/item/stack/cable_coil/coil = used
 		adjustFireLoss(-30)
 		updatehealth()
 		add_fingerprint(user)
 		coil.use(1)
-		user.visible_message(SPAN_ALERT("\The [user] fixes some of the burnt wires on \the [src] with \the [coil]."))
+		user.visible_message(SPAN_ALERT("[user] fixes some of the burnt wires on [src] with [coil]."))
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
+	if(istype(used, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		var/datum/robot_component/cell/C = components["power cell"]
 		if(wiresexposed)
-			to_chat(user, "Close the panel first.")
-		else if(cell)
-			to_chat(user, "There is a power cell already installed.")
-		else
-			user.drop_item()
-			to_chat(user, "You insert the power cell.")
-			C.install(W)
+			to_chat(user, SPAN_WARNING("Close the panel first!"))
+			return ITEM_INTERACT_COMPLETE
 
-			var/been_hijacked = FALSE
-			for(var/mob/living/basic/demon/pulse_demon/demon in cell)
-				if(!been_hijacked)
-					demon.do_hijack_robot(src)
-					been_hijacked = TRUE
-				else
-					demon.exit_to_turf()
-			if(been_hijacked)
-				cell.rigged = FALSE
+		if(cell)
+			to_chat(user, SPAN_WARNING("There is already a power cell inside!"))
+			return ITEM_INTERACT_COMPLETE
 
-			module?.update_cells()
-			diag_hud_set_borgcell()
-		return ITEM_INTERACT_COMPLETE
-	else if(istype(W, /obj/item/encryptionkey/) && opened)
-		if(radio)//sanityyyyyy
-			radio.attackby__legacy__attackchain(W,user)//GTFO, you have your own procs
-		else
-			to_chat(user, "Unable to locate a radio.")
-		return ITEM_INTERACT_COMPLETE
-	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
-		if(emagged)//still allow them to open the cover
-			to_chat(user, "The interface seems slightly damaged.")
-		if(opened)
-			to_chat(user, "You must close the cover to swipe an ID card.")
-		else
-			if(allowed(W))
-				locked = !locked
-				to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
-				to_chat(src, SPAN_NOTICE("[user] [ locked ? "locked" : "unlocked"] your interface."))
-				update_icons()
+		if(!user.drop_item())
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You insert [used]."))
+		C.install(used)
+		var/been_hijacked = FALSE
+		for(var/mob/living/basic/demon/pulse_demon/demon in cell)
+			if(!been_hijacked)
+				demon.do_hijack_robot(src)
+				been_hijacked = TRUE
 			else
-				to_chat(user, SPAN_WARNING("Access denied."))
-		return ITEM_INTERACT_COMPLETE
-	else if(istype(W, /obj/item/borg/upgrade/))
-		var/obj/item/borg/upgrade/U = W
-		if(!opened)
-			to_chat(user, SPAN_WARNING("You must access the borg's internals!"))
-		else if(!src.module && U.require_module)
-			to_chat(user, SPAN_WARNING("The borg must choose a module before it can be upgraded!"))
-		else
-			if(U.action(user, src))
-				user.visible_message(SPAN_NOTICE("[user] applied [U] to [src]."), SPAN_NOTICE("You apply [U] to [src]."))
+				demon.exit_to_turf()
+		if(been_hijacked)
+			cell.rigged = FALSE
+		module?.update_cells()
+		diag_hud_set_borgcell()
 		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/mmi_radio_upgrade))
+	if(istype(used, /obj/item/encryptionkey/) && opened)
+		if(radio)
+			to_chat(user, SPAN_NOTICE("You install [used] into [src]'s radio."))
+			radio.attackby__legacy__attackchain(used, user)//GTFO, you have your own procs
+		else
+			to_chat(user, SPAN_WARNING("[src] has no radio!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
+		if(opened)
+			to_chat(user, SPAN_WARNING("You must close [src]'s cover to swipe an ID card!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(emagged) // Still allow them to open the cover.
+			to_chat(user, SPAN_WARNING("The card reader interface seems slightly damaged..."))
+
+		if(allowed(used))
+			locked = !locked
+			to_chat(user, SPAN_NOTICE("You [ locked ? "lock" : "unlock"] [src]'s interface."))
+			to_chat(src, SPAN_NOTICE("[user] [ locked ? "locked" : "unlocked"] your interface."))
+			update_icons()
+		else
+			to_chat(user, SPAN_WARNING("Access denied!"))
+		return ITEM_INTERACT_COMPLETE
+	
+	if(istype(used, /obj/item/borg/upgrade/))
+		var/obj/item/borg/upgrade/U = used
 		if(!opened)
-			to_chat(user, SPAN_WARNING("You must access the borg's internals!"))
+			to_chat(user, SPAN_WARNING("You must access the [src]'s internals!"))
 			return ITEM_INTERACT_COMPLETE
-		else if(!mmi)
-			to_chat(user, SPAN_WARNING("This cyborg does not have an MMI to augment!"))
+
+		if(!src.module && U.require_module)
+			to_chat(user, SPAN_WARNING("[src] must choose a module before [p_they()] can be upgraded!"))
 			return ITEM_INTERACT_COMPLETE
-		else if(mmi.radio)
-			to_chat(user, SPAN_WARNING("A radio upgrade is already installed in the MMI!"))
+
+		if(U.action(user, src))
+			user.visible_message(
+				SPAN_NOTICE("[user] applies [U] to [src]."),
+				SPAN_NOTICE("You apply [U] to [src].")
+			)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/mmi_radio_upgrade))
+		if(!opened)
+			to_chat(user, SPAN_WARNING("You must access the [src]'s' internals!"))
 			return ITEM_INTERACT_COMPLETE
-		else if(user.drop_item())
-			to_chat(user, SPAN_NOTICE("You apply the upgrade to [src]."))
+
+		if(!mmi)
+			to_chat(user, SPAN_WARNING("[src] does not have an MMI to augment!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(mmi.radio)
+			to_chat(user, SPAN_WARNING("A radio upgrade is already installed in [src]'s MMI!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(user.drop_item())
+			to_chat(user, SPAN_NOTICE("You apply \the [used] to [src]."))
 			to_chat(src, SPAN_NOTICE("MMI radio capability installed."))
 			mmi.install_radio()
-			qdel(W)
-	else
-		return ..()
+			qdel(used)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/silicon/robot/wirecutter_act(mob/user, obj/item/I)
 	if(!opened)
