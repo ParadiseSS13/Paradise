@@ -168,7 +168,6 @@
 	var/speed_lowered = 0.15
 	/// Original armor of the suit, simpler solution to resolve subtracting infinities
 	var/original_armor = null
-	/// Armor values added to the suit parts.
 
 /obj/item/mod/module/cbrn/on_activation()
 	. = ..()
