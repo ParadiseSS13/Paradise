@@ -889,13 +889,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "agD" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "agE" = (
 /turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "agF" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "agH" = (
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -5426,9 +5426,11 @@
 /turf/simulated/wall,
 /area/station/supply/sorting)
 "ayB" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/machinery/economy/merch{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "ayC" = (
@@ -15573,6 +15575,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "blu" = (
@@ -15589,11 +15592,9 @@
 /turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bly" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/structure/table,
+/obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "blB" = (
@@ -52499,7 +52500,7 @@
 "foI" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tiles/neutral,
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "foU" = (
@@ -74155,15 +74156,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "ova" = (
-/obj/machinery/economy/merch{
-	dir = 1
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 6
 	},
 /obj/structure/sign/cargo/smith{
 	pixel_x = 32
 	},
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "ovn" = (
@@ -74742,7 +74744,7 @@
 	},
 /area/station/public/sleep)
 "oHy" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "oHR" = (
 /turf/simulated/floor/plating/airless,
@@ -86185,6 +86187,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/machinery/economy/vending/cart,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "tjM" = (
@@ -95616,8 +95619,17 @@
 /turf/simulated/wall,
 /area/station/maintenance/fore)
 "wVi" = (
-/obj/machinery/economy/vending/cart,
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/machinery/bounty_redemption{
+	input_dir = 4;
+	output_dir = 3
+	},
+/obj/effect/turf_decal/delivery/green/partial{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/partial{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "wVj" = (

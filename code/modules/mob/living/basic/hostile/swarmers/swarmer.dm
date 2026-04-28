@@ -36,7 +36,7 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	death_message = "explodes with a sharp pop!"
 	basic_mob_flags = DEL_ON_DEATH
-	initial_traits = list(TRAIT_FLYING)
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE)
 	sentience_type = SENTIENCE_OTHER // No, you cannot sentience or mind-transfer into them
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // EAT EVERYTHING
 	step_type = FOOTSTEP_MOB_CLAW

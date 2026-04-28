@@ -3456,7 +3456,7 @@
 /area/space/nearstation)
 "aBe" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "aBj" = (
 /obj/machinery/newscaster/security_unit/directional/east,
@@ -16921,7 +16921,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "cFY" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "cFZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -20046,7 +20046,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "dfG" = (
@@ -40927,7 +40927,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "hMA" = (
@@ -41496,6 +41496,8 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
 	},
+/obj/structure/chair,
+/obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "hRR" = (
@@ -45274,7 +45276,6 @@
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/disposal/southwest)
 "iGO" = (
-/obj/machinery/economy/vending/cart,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -48848,8 +48849,11 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "jsT" = (
-/obj/machinery/economy/merch,
 /obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -50030,9 +50034,17 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
 "jES" = (
-/obj/structure/chair,
-/obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/machinery/bounty_redemption{
+	input_dir = 3;
+	output_dir = 4
+	},
+/obj/effect/turf_decal/delivery/green/partial{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -52816,6 +52828,7 @@
 /area/station/science/hallway)
 "kme" = (
 /obj/effect/turf_decal/tiles/department/cargo/corner,
+/obj/machinery/economy/vending/cart,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "kmj" = (
@@ -55786,6 +55799,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "kSc" = (
@@ -59780,7 +59794,7 @@
 /area/station/service/clown/secret)
 "lHH" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "lHI" = (
 /obj/structure/sign/directions/medical{
@@ -61517,6 +61531,7 @@
 	pixel_y = -28
 	},
 /obj/effect/turf_decal/tiles/department/cargo/corner,
+/obj/machinery/economy/merch,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "mck" = (
@@ -75223,7 +75238,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
 "pkt" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "pku" = (
 /obj/structure/cable{

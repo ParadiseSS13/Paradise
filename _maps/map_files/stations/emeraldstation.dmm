@@ -8664,13 +8664,6 @@
 /obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
-"bKW" = (
-/obj/machinery/economy/vending/wallmed/directional/east,
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/office)
 "bKZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -13626,7 +13619,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/incinerator)
 "cJq" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "cJx" = (
 /obj/item/shard,
@@ -23137,6 +23130,17 @@
 /obj/effect/turf_decal/tiles/department/security/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
+"eHa" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/green,
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "eHd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
@@ -40262,7 +40266,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "idP" = (
@@ -41470,7 +41474,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "iqw" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -45277,21 +45280,6 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/storage)
-"jcl" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 1
-	},
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/office)
 "jcs" = (
 /obj/structure/railing{
 	dir = 1
@@ -65171,6 +65159,9 @@
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
+/obj/structure/sign/cargo{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "niU" = (
@@ -67907,17 +67898,10 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
 "nIX" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/pen/red{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/wall,
 /area/station/supply/office)
 "nJa" = (
 /obj/structure/closet/secure_closet/hop,
@@ -71989,16 +71973,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
-"owl" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/sw)
 "own" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/meter,
@@ -72190,6 +72164,22 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/station/telecomms/computer)
+"oyZ" = (
+/obj/machinery/economy/vending/wallmed/directional/east,
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/office)
 "ozf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -82595,9 +82585,6 @@
 "qEZ" = (
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 1
-	},
-/obj/structure/sign/cargo{
-	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
@@ -97332,6 +97319,21 @@
 /obj/item/clothing/head/soft/cargo,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"tvH" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/partial,
+/obj/effect/turf_decal/delivery/green/partial{
+	dir = 1
+	},
+/obj/machinery/bounty_redemption,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "tvZ" = (
 /obj/item/kirbyplants/large,
 /obj/effect/turf_decal/tiles/department/security/corner{
@@ -106953,6 +106955,17 @@
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"vub" = (
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "vuu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -112525,7 +112538,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "wAh" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "wAu" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -117638,10 +117651,6 @@
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
-"xDW" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel,
-/area/station/supply/office)
 "xEs" = (
 /obj/machinery/camera{
 	c_tag = "Central Hallway North-West";
@@ -142735,12 +142744,12 @@ xBo
 hGT
 loD
 vGF
+vGF
 dhZ
 pGI
-hTl
 nIX
-eZs
-xDW
+oyZ
+jyq
 hwC
 ceU
 lNK
@@ -142994,10 +143003,10 @@ qUN
 dbR
 dbR
 dbR
+dbR
 hTl
-jcl
-bKW
-jyq
+hTl
+hTl
 oBx
 sPg
 vTd
@@ -143251,9 +143260,9 @@ dbR
 dbR
 cEq
 gcT
-hTl
-hTl
-hTl
+vub
+tvH
+eHa
 hTl
 fkK
 nua
@@ -143509,8 +143518,8 @@ iaF
 hLy
 hLy
 qEZ
-owl
-eEd
+snX
+tuQ
 niR
 ter
 tuQ

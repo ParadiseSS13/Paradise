@@ -12908,7 +12908,7 @@
 /turf/simulated/floor/indestructible/titanium/blue,
 /area/shuttle/arrival/station)
 "aVY" = (
-/turf/simulated/wall/indestructible/opsglass/titanium_window,
+/turf/simulated/wall/indestructible/fakeglass/titanium_window,
 /area/shuttle/arrival/station)
 "aWb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -17125,12 +17125,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
-"bku" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
 "bkv" = (
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 8
@@ -19832,11 +19826,6 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
-"bsY" = (
-/obj/machinery/alarm/directional/south,
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/plasteel,
-/area/station/supply/lobby)
 "bta" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -26854,8 +26843,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bWU" = (
-/obj/machinery/light,
-/obj/machinery/economy/merch,
+/obj/machinery/bounty_redemption{
+	input_dir = 2;
+	output_dir = 1
+	},
+/obj/effect/turf_decal/delivery/green/partial,
+/obj/effect/turf_decal/delivery/partial{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "bWV" = (
@@ -27659,17 +27654,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
-"caq" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/eftpos/register,
-/obj/effect/turf_decal/tiles/department/cargo/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
 "cat" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/cobweb/right/frequent,
@@ -28052,15 +28036,6 @@
 /obj/effect/turf_decal/tiles/department/medical,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
-"cbR" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/cargo/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
 "cbT" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -28554,14 +28529,6 @@
 /obj/effect/turf_decal/tiles/department/science/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
-"cdQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster/directional/west,
-/obj/effect/turf_decal/tiles/department/cargo/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/smith_office)
 "cdS" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -28841,11 +28808,6 @@
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
-	},
-/obj/machinery/camera{
-	c_tag = "AI Satellite Atmospherics";
-	dir = 4;
-	network = list("SS13","MiniSat")
 	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 8
@@ -30104,6 +30066,11 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "AI Satellite Atmospherics";
+	dir = 4;
+	network = list("SS13","MiniSat")
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "ckB" = (
@@ -31118,11 +31085,11 @@
 /area/station/maintenance/asmaint2)
 "coH" = (
 /obj/effect/spawner/random/cobweb/right/frequent,
-/obj/structure/sign/poster/random/directional/north,
 /obj/structure/closet/secure_closet/smith,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 5
 	},
+/obj/structure/sign/poster/random/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "coK" = (
@@ -31602,7 +31569,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "cqY" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "cra" = (
 /obj/structure/extinguisher_cabinet{
@@ -35297,6 +35264,8 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 6
 	},
+/obj/structure/table/reinforced,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
 "cFP" = (
@@ -38331,7 +38300,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/rcl,
+/obj/item/stack/cable_coil/rcl,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "cRR" = (
@@ -47056,6 +47025,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
+"evi" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/smith_office)
 "evo" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -53895,6 +53873,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
+"hEC" = (
+/obj/machinery/alarm/directional/south,
+/obj/machinery/firealarm/directional/west,
+/obj/machinery/economy/merch,
+/turf/simulated/floor/plasteel,
+/area/station/supply/lobby)
 "hEN" = (
 /obj/structure/cable/extra_insulated,
 /obj/structure/cable/extra_insulated{
@@ -66439,6 +66423,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
+"nys" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/lobby)
 "nyC" = (
 /obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
@@ -68407,7 +68400,7 @@
 /obj/machinery/status_display{
 	layer = 4
 	},
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "oqF" = (
 /obj/machinery/door/firedoor,
@@ -78772,6 +78765,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
+"tcg" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/lobby)
 "tcm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -82287,6 +82288,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"uHq" = (
+/obj/structure/table,
+/obj/effect/turf_decal/delivery/green,
+/turf/simulated/floor/plasteel,
+/area/station/supply/lobby)
 "uHC" = (
 /obj/machinery/computer/communications{
 	dir = 4
@@ -86650,7 +86656,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/genetics,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -87173,6 +87179,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
+"xci" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/lobby)
 "xcm" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -89993,6 +90005,15 @@
 /obj/structure/chair/sofa/corp,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"ylM" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/smith_office)
 "ylO" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
@@ -113057,7 +113078,7 @@ bDX
 bDX
 rwR
 bzJ
-pnc
+bzJ
 pnc
 pnc
 pnc
@@ -113313,10 +113334,10 @@ bHi
 bUU
 bUU
 hLL
-bsY
+bVt
+hEC
 pnc
 cao
-cdQ
 cfd
 nrD
 ckx
@@ -113570,10 +113591,10 @@ fTS
 nxW
 rJJ
 bXk
+nys
 bYD
 kZX
 cap
-bku
 cHB
 cHB
 kEs
@@ -113827,10 +113848,10 @@ bUo
 bUV
 bVL
 bXj
+xci
 fIS
 pnc
-caq
-umQ
+ylM
 umQ
 eSb
 ckG
@@ -114083,14 +114104,14 @@ bSQ
 bUp
 hLL
 tum
-bVt
+uHq
 bWU
+tcg
 pnc
 cat
-cbR
 qjo
 cvm
-cqB
+evi
 uro
 umQ
 bPH
@@ -114342,7 +114363,7 @@ bUW
 bPW
 jPF
 jPF
-pnc
+jPF
 pnc
 pnc
 gba

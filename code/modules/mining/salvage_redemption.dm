@@ -166,3 +166,6 @@
 	value = new_value
 	name += " ([value * (1- department_cut)])"
 	department_account = GLOB.station_money_database.get_account_by_department(department)
+
+/obj/item/credit_redemption_slip/no_cut
+	department_cut = 0

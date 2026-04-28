@@ -66,31 +66,59 @@
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	flags_inv = HIDESHOES
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/dress.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/dress.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/dress.dmi'
+	)
 
 /obj/item/clothing/under/dress/dress_fire
 	name = "flame dress"
 	desc = "A small black dress with blue flames print on it."
 	icon_state = "dress_fire"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/dress.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/dress.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/dress.dmi'
+	)
 
 /obj/item/clothing/under/dress/dress_orange
 	name = "orange dress"
 	desc = "A fancy orange gown for those who like to show leg."
 	icon_state = "dress_orange"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/dress.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/dress.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/dress.dmi'
+	)
 
 /obj/item/clothing/under/dress/dress_pink
 	name = "pink dress"
 	desc = "A simple, tight fitting pink dress."
 	icon_state = "dress_pink"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/dress.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/dress.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/dress.dmi'
+	)
 
 /obj/item/clothing/under/dress/dress_green
 	name = "green dress"
 	desc = "A simple, tight fitting green dress."
 	icon_state = "dress_green"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/dress.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/dress.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/dress.dmi'
+	)
 
 /obj/item/clothing/under/dress/dress_yellow
 	name = "yellow dress"
 	desc = "A flirty, little yellow dress."
 	icon_state = "dress_yellow"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/dress.dmi'
+	)
 
 /obj/item/clothing/under/dress/dress_saloon
 	name = "saloon girl dress"

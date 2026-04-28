@@ -11,6 +11,55 @@
 #define SUPPLY_BOUNTY_REWARD_MEDIUM 75
 #define SUPPLY_BOUNTY_REWARD_HIGH 100
 #define SUPPLY_BOUNTY_REWARD_GRAND 200
+
+/// List of all active bounties
+GLOBAL_LIST_EMPTY(active_supply_bounties)
+
+/// List of possible bonus rewards for bounties
+GLOBAL_LIST_INIT(supply_bounty_bonuses, list(
+	/// Bonus cash
+	/obj/item/stack/spacecash/c500 = 1,
+	/obj/item/stack/spacecash/c200 = 10,
+	/obj/item/stack/spacecash/c100 = 50,
+	/obj/item/stack/spacecash/c50 = 100,
+	/obj/item/stack/spacecash/c20 = 200,
+	/// Bonus minerals
+	/obj/item/stack/sheet/mineral/gold/five = 10,
+	/obj/item/stack/sheet/mineral/silver/five = 10,
+	/obj/item/stack/sheet/mineral/bananium/five = 2,
+	/obj/item/stack/sheet/mineral/tranquillite/five = 2,
+	/obj/item/stack/sheet/mineral/titanium/five = 4,
+	/obj/item/stack/sheet/mineral/iridium/two = 10,
+	/obj/item/stack/sheet/mineral/palladium/two = 10,
+	/obj/item/stack/sheet/mineral/platinum/two = 10,
+	/// Bonus commodities
+	/obj/item/soap/nanotrasen = 20,
+	/obj/item/soap/deluxe = 15,
+	/obj/item/soap/syndie = 5,
+	/obj/item/clothing/mask/chameleon = 5,
+	/obj/item/clothing/under/chameleon = 5,
+	/obj/item/grenade/smokebomb = 5,
+	/obj/item/grenade/clown_grenade = 5,
+	/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 5,
+	/obj/item/storage/fancy/cigars/cohiba = 5,
+	/obj/item/storage/fancy/havana_cigar = 1,
+	/obj/item/clothing/shoes/chameleon/noslip = 4,
+	/obj/item/storage/firstaid/regular = 10,
+	/obj/item/whetstone = 5,
+	/obj/item/storage/box/enforcer_rubber = 3,
+	/obj/item/clothing/gloves/combat = 5,
+	/obj/item/clothing/glasses/meson/sunglasses = 3,
+	/obj/item/clothing/suit/armor/vest/combat = 3,
+	/obj/item/melee/energy/sword/pirate = 1,
+	/obj/item/storage/box/characters = 20,
+	/obj/item/storage/box/large/glowstick/emergency = 25,
+	/obj/item/storage/box/glowstick/premium = 15,
+	/obj/item/storage/fancy/shell/beanbag = 10,
+	/obj/item/storage/fancy/shell/rubbershot = 10,
+	/obj/item/storage/box/donkpockets = 25,
+	/obj/item/storage/box/snappops = 25,
+))
+
 /// List of all bounty datums.
 GLOBAL_LIST_INIT(supply_bounties, list(
 	/// MARK: GENERAL
@@ -48,7 +97,7 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 	new /datum/supply_bounty(/obj/item/stack/sheet/sinew,			TRUE,	SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_MEDIUM),
 	new /datum/supply_bounty(/obj/item/stack/sheet/bone,			TRUE,	SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_LOW),
 	new /datum/supply_bounty(/obj/item/gps,					TRUE,			SUPPLY_BOUNTY_QUANTITY_LOW,			SUPPLY_BOUNTY_REWARD_MEDIUM),
-	new /datum/supply_bounty(/obj/item/organ/internal/regenerative_core,	TRUE,	SUPPLY_BOUNTY_QUANTITY_ONE,	SUPPLY_BOUNTY_REWARD_HIGH), // good luck shipping these on time
+	new /datum/supply_bounty(/obj/item/organ/internal/regenerative_core,	TRUE,	SUPPLY_BOUNTY_QUANTITY_ONE,	SUPPLY_BOUNTY_REWARD_GRAND), // good luck shipping these on time
 	new /datum/supply_bounty(/obj/item/wormhole_jaunter,			TRUE,	SUPPLY_BOUNTY_QUANTITY_ONE,			SUPPLY_BOUNTY_REWARD_HIGH),
 	new /datum/supply_bounty(/obj/item/stack/marker_beacon,			TRUE,	SUPPLY_BOUNTY_QUANTITY_ONE,			SUPPLY_BOUNTY_REWARD_MEDIUM),
 
@@ -316,20 +365,8 @@ GLOBAL_LIST_INIT(supply_bounties, list(
 
 
 
-
-
-
-
 	// MARK: SCIENCE
 	// TODO: circuits, robotics, robotic organs, implants, mech parts(?), gun kits, etc
-
-
-
-
-
-
-
-
 
 
 
