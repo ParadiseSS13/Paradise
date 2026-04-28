@@ -287,7 +287,7 @@
 	autolink_id = "voxwest_btn_int";
 	req_access = list(152)
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
 "ci" = (
 /obj/effect/spawner/window/plastitanium,
@@ -326,7 +326,7 @@
 	autolink_id = "voxeast_btn_int";
 	req_access = list(152)
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
 "co" = (
 /obj/effect/mapping_helpers/airlock/access/all/shuttles/vox,

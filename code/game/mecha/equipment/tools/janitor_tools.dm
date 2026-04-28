@@ -132,11 +132,11 @@
 	to_chat(user, SPAN_NOTICE("You short out the safeties on [src]."))
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/action(atom/target)
-	if(istype(target, /obj/machinery/light))
-		chassis.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	var/turf/T = get_turf(target)
+	for(var/obj/machinery/light/bulb in T)
+		chassis.Beam(bulb, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-		var/obj/machinery/light/light_to_fix = target
-		light_to_fix.fix(chassis.occupant, src, emagged)
+		bulb.fix(chassis.occupant, src, emagged)
 
 // Mecha spray
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray

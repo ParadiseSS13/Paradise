@@ -43,7 +43,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "ai" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "am" = (
 /turf/simulated/floor/plasteel/dark,
@@ -91,7 +91,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "az" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "aA" = (
 /obj/structure/disposalpipe/segment{
@@ -521,7 +521,7 @@
 /turf/template_noop,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "dD" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "dG" = (
 /obj/structure/cable/green{
@@ -572,7 +572,7 @@
 /obj/structure/cable/green{
 	icon_state = "4-8"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "dP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -777,7 +777,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "eW" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fb" = (
 /turf/simulated/floor/wood,
@@ -971,7 +971,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "fX" = (
 /obj/structure/sign/science/genetics,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "fY" = (
 /obj/machinery/cooking/deepfryer,
@@ -1227,7 +1227,7 @@
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "hs" = (
 /obj/structure/sign/science/toxins,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "hx" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -1448,7 +1448,7 @@
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "iF" = (
 /obj/structure/cable/yellow{
@@ -2108,7 +2108,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "nj" = (
 /obj/structure/sign/engineering,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "nm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2277,7 +2277,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "nV" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "nW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2451,7 +2451,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "oW" = (
 /obj/structure/sign/command/vault,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "pe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2554,7 +2554,7 @@
 	name = "Test Lab Monitor";
 	network = list("SyndicateTestLab")
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "pD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -2791,7 +2791,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "rd" = (
 /obj/structure/sign/electricshock,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/main)
 "rg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2991,7 +2991,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "sH" = (
 /obj/structure/sign/public/cryo,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "sR" = (
 /obj/machinery/light{
@@ -3124,7 +3124,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "tG" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "tJ" = (
 /obj/machinery/door/poddoor/shutters{
@@ -3143,7 +3143,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "tN" = (
 /obj/structure/sign/medical/virology,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/virology)
 "tP" = (
 /obj/machinery/light{
@@ -3678,7 +3678,7 @@
 	id = "SSBtestchamber";
 	name = "Blast Door Control"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "wu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3816,7 +3816,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "xn" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "xo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3854,7 +3854,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "xB" = (
 /obj/structure/sign/security/armory,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "xD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3889,7 +3889,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
 "xW" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "xZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -4240,7 +4240,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Ai" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/control)
 "Aj" = (
 /obj/machinery/light,
@@ -4628,7 +4628,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "CQ" = (
 /obj/structure/sign/service/kitchen,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/service)
 "CR" = (
 /obj/machinery/alarm/syndicate/directional/north,
@@ -4711,7 +4711,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/control)
 "Dy" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/service)
 "DG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -4755,11 +4755,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/virology)
 "DX" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "DY" = (
 /obj/structure/sign/medical,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "DZ" = (
 /turf/simulated/floor/plasteel/dark,
@@ -4846,7 +4846,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "EB" = (
 /obj/structure/sign/service/library,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "EC" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate,
@@ -5195,7 +5195,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/virology)
 "Gg" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Gh" = (
 /obj/machinery/door/airlock/hatch/syndicate,
@@ -5601,7 +5601,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "IJ" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "IL" = (
 /obj/machinery/light,
@@ -5632,7 +5632,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "IX" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "IY" = (
 /obj/machinery/tcomms/relay/ruskie{
@@ -5869,7 +5869,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Kh" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "Km" = (
 /obj/machinery/autolathe/syndicate,
@@ -6028,7 +6028,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "LC" = (
 /obj/structure/sign/public/arcade,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "LD" = (
 /obj/machinery/light{
@@ -6082,7 +6082,7 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "LQ" = (
 /obj/structure/sign/engineering/power,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "LR" = (
 /obj/machinery/light{
@@ -6306,7 +6306,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "NH" = (
 /obj/structure/sign/science/chemistry_sci,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "NI" = (
 /obj/structure/reagent_dispensers/spacecleanertank{
@@ -6320,7 +6320,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "NN" = (
 /obj/structure/sign/science/cans_sci,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "NS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6415,7 +6415,7 @@
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "Oq" = (
 /obj/structure/sign/science/toxins,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Ox" = (
 /turf/simulated/mineral/ancient/outer,
@@ -6456,7 +6456,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "OR" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "OS" = (
 /obj/machinery/door/firedoor,
@@ -6560,7 +6560,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "PL" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/virology)
 "PM" = (
 /obj/machinery/conveyor/east{
@@ -6868,7 +6868,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_space_base/main)
 "RX" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/main)
 "RZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -7497,7 +7497,7 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "VT" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "VU" = (
 /obj/structure/table/glass,
@@ -7582,7 +7582,7 @@
 /area/ruin/unpowered/syndicate_space_base/virology)
 "Ww" = (
 /obj/structure/sign/service/custodian,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "Wz" = (
 /obj/machinery/door/airlock/hatch/syndicate,
@@ -7890,7 +7890,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Ym" = (
 /obj/structure/sign/service/bar,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Yo" = (
 /obj/structure/window/plasmareinforced{
@@ -8084,7 +8084,7 @@
 	desc = "A warning sign which reads 'CHEMICAL TESTING ZONsE";
 	name = "CHEMICAL TESTING ZONE"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "ZI" = (
 /obj/structure/rack{

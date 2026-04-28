@@ -173,6 +173,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 12),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/grid_check, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/electrical_storm, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/radiation_storm, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spider_infestation, 10, TRUE),
@@ -197,6 +198,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 40, TRUE, _first_run_time = 35 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/shuttle_loan, 50, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/anomalous_particulate_event, 60, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/cargo_pods, 50),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3),
 	)
 
@@ -217,7 +219,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 8, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 9),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/space_ninja, 9),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/wizard_adept, 5),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 16, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/aurora_caelus, 5, is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
 

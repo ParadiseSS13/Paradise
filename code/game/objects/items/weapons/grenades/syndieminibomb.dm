@@ -19,12 +19,12 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY))
 		. += SPAN_SANS("There are small glue ejectors all over the bomb.")
 
-/obj/item/grenade/syndieminibomb/fake/attack_self__legacy__attackchain(mob/user)
+/obj/item/grenade/syndieminibomb/fake/activate_self(mob/user)
 	if(!active)
 		set_nodrop(TRUE, user)
 		to_chat(user, SPAN_USERDANGER("As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!"))
 		to_chat(user, SPAN_SANS("Uh oh."))
-	. = ..()
+	return ..()
 
 /obj/item/grenade/syndieminibomb/pen
 	name = "pen"
@@ -35,7 +35,8 @@
 	inhand_icon_state = "pen"
 	explosion_cause = "Syndicate minibomb (disguised as a black pen)"
 
-/obj/item/grenade/syndieminibomb/pen/attack_self__legacy__attackchain(mob/user)
+/obj/item/grenade/syndieminibomb/pen/activate_self(mob/user)
 	if(!active)
+		..()
 		visible_message(SPAN_NOTICE("[user] fumbles with [src]!"))
-	. = ..()
+	return ITEM_INTERACT_COMPLETE

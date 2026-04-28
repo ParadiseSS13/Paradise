@@ -838,7 +838,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "sC" = (
-/obj/machinery/door/airlock/bloody,
+/obj/machinery/door/airlock/public,
 /turf/template_noop,
 /area/template_noop)
 "sF" = (
