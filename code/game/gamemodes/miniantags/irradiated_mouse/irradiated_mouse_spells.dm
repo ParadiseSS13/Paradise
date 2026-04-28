@@ -22,11 +22,15 @@
 	if(!has_upgrades(user))
 		return
 
+	to_chat(user, SPAN_NOTICE("You upgrade your the amount of radiation you give off."))
+
 	user.available_upgrades--
 	user.upgrade_radiation()
 	if(user.radiation_upgrades > user.level_cap)
 		user.RemoveSpell(user.upgrade_radiation_spell)
 		user.produce_radioactive_sludge = TRUE
+		to_chat(user, SPAN_NOTICE("You feel like shedding some weight."))
+
 
 /datum/spell/irradiated_mouse_spell/upgrade_speed
 	name = "Upgrade Speed"
@@ -38,10 +42,13 @@
 	if(!has_upgrades(user))
 		return
 
+	to_chat(user, SPAN_NOTICE("You upgrade your speed."))
+
 	user.available_upgrades--
 	user.upgrade_speed()
 	if(user.speed_upgrades > user.level_cap)
 		user.RemoveSpell(user.upgrade_speed_spell)
+		to_chat(user, SPAN_NOTICE("You feel like the wind."))
 
 /datum/spell/irradiated_mouse_spell/upgrade_damage
 	name = "Upgrade Damage"
@@ -53,7 +60,11 @@
 	if(!has_upgrades(user))
 		return
 
+	to_chat(user, SPAN_NOTICE("You upgrade your damage."))
+
 	user.available_upgrades--
 	user.upgrade_damage()
 	if(user.damage_upgrades > user.level_cap)
 		user.RemoveSpell(user.upgrade_damage_spell)
+		to_chat(user, SPAN_NOTICE("You feel much stronger."))
+

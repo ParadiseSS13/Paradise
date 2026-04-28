@@ -101,6 +101,11 @@
 	AddSpell(upgrade_speed_spell)
 	AddSpell(upgrade_damage_spell)
 
+/mob/living/basic/mouse/irradiated_mouse/update_desc()
+	. = ..()
+	desc = initial(desc) // we dont want the standard description auto added by mice
+
+
 /mob/living/basic/mouse/irradiated_mouse/proc/give_intro_text()
 	var/list/messages = list()
 	messages.Add(SPAN_USERDANGER("<center>You are an Irradiated Mouse!</center>"))
@@ -125,11 +130,17 @@
 	if(!has_exited_vents)
 		return
 
+	// telegraph the radiation by giving tiles harmless alpha radiation
+	for(var/turf/turf in range(1, src))
+		contaminate_target(turf, src, alpha_rad, ALPHA_RAD)
+
+	// reduce health by a constant so the mouse eventually dies
 	adjustBruteLoss(maxHealth * seconds / seconds_time_till_death)
 
+	// subtract time after you've left a vent
 	upgrade_cooldown_in_seconds -= seconds
 	if(upgrade_cooldown_in_seconds <= 0)
-		upgrade_cooldown_in_seconds += 120
+		upgrade_cooldown_in_seconds += initial(upgrade_cooldown_in_seconds)
 		available_upgrades++
 		to_chat(src, SPAN_NOTICE("You have [available_upgrades] upgrades available."))
 
@@ -140,34 +151,29 @@
 	if(prob(chance))
 		new /obj/effect/decal/cleanable/radioactive_sludge(get_turf(src))
 
-/*
-/mob/living/basic/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	M.apply_effect(1000, IRRADIATE)
-*/
-
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_radiation()
 	radiation_upgrades++
 	alpha_rad = alpha_rad_per_level * radiation_upgrades
 	beta_rad = beta_rad_per_level * radiation_upgrades
 	gamma_rad = gamma_rad_per_level * radiation_upgrades
 
+	// update your radiation component
 	DeleteComponentsType(/datum/component/inherent_radioactivity)
 	AddComponent(/datum/component/inherent_radioactivity, alpha_rad, beta_rad, gamma_rad, radiation_cooldown)
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_speed()
 	speed_upgrades++
-	speed = initial(speed) + speed_per_level * speed_upgrades
+	speed = initial(speed) + speed_per_level * speed_upgrades // this will tend towards a negative value (due to speed_per_level being negative) which is faster
 	if(speed_upgrades > level_cap)
 		alpha = speed_capstone_alpha
-		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement))
+		RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement)) // handles afterimages
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_damage()
 	damage_upgrades++
 	melee_damage_lower = damage_upgrades * 5
 	melee_damage_upper = melee_damage_lower + 5
 	if(damage_upgrades > level_cap)
-		environment_smash = ENVIRONMENT_SMASH_WALLS
+		environment_smash = ENVIRONMENT_SMASH_WALLS // what allows wall smashing
 
 /mob/living/basic/mouse/irradiated_mouse/proc/on_movement(mob/living/mob, atom/old_loc)
 	if(stat != CONSCIOUS)
@@ -180,6 +186,5 @@
 
 /obj/effect/temp_visual/decoy/irradiated_mouse_afterimage/Initialize(mapload, atom/mimiced_atom)
 	. = ..()
-	//duration = our_duration
-	animate(src, alpha = 0, time = duration, easing = EASE_OUT)
+	animate(src, alpha = 0, time = duration, easing = EASE_OUT) // gradually fading out after image
 
