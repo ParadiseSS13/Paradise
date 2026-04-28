@@ -292,8 +292,6 @@
 	name = "MOD searchlight module"
 	desc = "A powerful pair of configurable flashlights installed on the left and right sides of the helmet, \
 		useful for providing light in a variety of ranges and colors."
-	complexity = 0
-	removable = FALSE
 	max_range = 8
 
 ///Dispenser - Dispenses an item after a time passes.

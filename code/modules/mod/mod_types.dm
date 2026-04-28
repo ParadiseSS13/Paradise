@@ -195,7 +195,7 @@
 	default_pins = list(
 		/obj/item/mod/module/defibrillator,
 		/obj/item/mod/module/analyzer,
-		/obj/item/mod/module/flashlight/search,
+		/obj/item/mod/module/cbrn,
 	)
 
 /obj/item/mod/control/pre_equipped/research
