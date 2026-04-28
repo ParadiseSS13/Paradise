@@ -617,7 +617,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_salvation
-	armor = list(MELEE = 25, BULLET = 20, LASER = 15, ENERGY = 10, BOMB = 25, RAD = 250, FIRE = INFINITY, ACID = 150) //Extra armor in compensation of being slower then, and an improvement of the valkyrie.
+	armor = list(MELEE = 25, BULLET = 20, LASER = 15, ENERGY = 10, BOMB = 25, RAD = 150, FIRE = INFINITY, ACID = 150) //Extra armor in compensation of being slower then, and an improvement of the valkyrie.
 
 
 /datum/mod_theme/research
