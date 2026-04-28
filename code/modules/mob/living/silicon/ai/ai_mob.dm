@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
 	hud_type = /datum/hud/ai
-	hat_offset_y = 3
+	hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 	is_centered = TRUE
 	can_be_hatted = TRUE
 	var/list/network = list("SS13", "Mining Outpost", "Labor Camp")

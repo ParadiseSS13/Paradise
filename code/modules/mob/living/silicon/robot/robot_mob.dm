@@ -589,73 +589,81 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
 			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
 			can_wear_restricted_hats = TRUE
-		if("Rover")
-			can_be_hatted = FALSE
-			hat_offset_y = -1
+		if("Rover") // bit of an oddball with different shapes per department
+			can_be_hatted = TRUE
+			switch(module.module_type)
+				if("Engineer")
+					hat_offsets = alist(SOUTH = list(0, -2), NORTH = list(0, 1), EAST = list(-8, -1), WEST = list(8, -1))
+				if("Medical")
+					hat_offsets = alist(SOUTH = list(0, -9), NORTH = list(0, -2), EAST = list(-8, -6), WEST = list(8, -6))
+				if("Service")
+					hat_offsets = alist(SOUTH = list(0, -7), NORTH = list(0, 1), EAST = list(-8, -4), WEST = list(8, -4))
+				if("Janitor")
+					hat_offsets = alist(SOUTH = list(0, -5), NORTH = list(0, -1), EAST = list(-8, -4), WEST = list(8, -4))
 		if("Noble")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = 4
+			hat_offsets = alist(SOUTH = list(0, 4), NORTH = list(0, 4), EAST = list(0, 4), WEST = list(0, 4))
 		if("Droid_Medical")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = 4
+			hat_offsets = alist(SOUTH = list(0, 4), NORTH = list(0, 4), EAST = list(0, 4), WEST = list(0, 4))
 		if("Droid_Mining", "mk2", "mk3")
 			can_be_hatted = TRUE
 			is_centered = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Bloodhound", "Bloodhound_Deathsquad", "syndie_bloodhound", "Bloodhound_Combat")
 			can_be_hatted = TRUE
-			hat_offset_y = 1
+			hat_offsets = alist(SOUTH = list(0, 1), NORTH = list(0, 1), EAST = list(0, 1), WEST = list(0, 1))
 		if("Cricket")
 			can_be_hatted = TRUE
-			hat_offset_y = 2
+			hat_offsets = alist(SOUTH = list(0, 2), NORTH = list(0, 2), EAST = list(0, 2), WEST = list(0, 2))
 		if("Droid_Combat")
 			can_be_hatted = TRUE
 			hat_alpha = 255
-			hat_offset_y = 2
+			hat_offsets = alist(SOUTH = list(0, 2), NORTH = list(0, 2), EAST = list(0, 2), WEST = list(0, 2))
 		if("Droid_Combat_Roll")
 			can_be_hatted = TRUE
 			hat_alpha = 0
 		if("syndi_medi", "surgeon", "toiletbot", "custodiborg")
 			can_be_hatted = TRUE
 			is_centered = TRUE
-			hat_offset_y = 1
+			hat_offsets = alist(SOUTH = list(0, 1), NORTH = list(0, 1), EAST = list(0, 1), WEST = list(0, 1))
 		if("Security", "janitorrobot", "medicalrobot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Brobot", "Service", "Service2", "robot_old", "securityrobot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Miner", "lavaland")
 			can_be_hatted = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Standard")
 			can_be_hatted = TRUE
-			hat_offset_y = -3
+			hat_offsets = alist(SOUTH = list(0, -3), NORTH = list(0, -3), EAST = list(0, -3), WEST = list(0, -3))
 		if("Droid")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -4
+			hat_offsets = alist(SOUTH = list(0, -4), NORTH = list(0, -4), EAST = list(0, -4), WEST = list(0, -4))
 		if("Landmate", "syndi_engi")
 			can_be_hatted = TRUE
-			hat_offset_y = -7
+			hat_offsets = alist(SOUTH = list(0, -7), NORTH = list(0, -7), EAST = list(0, -7), WEST = list(0, -7))
 		if("Mop_Gear_Rex")
 			can_be_hatted = TRUE
-			hat_offset_y = -6
+			hat_offsets = alist(SOUTH = list(0, -6), NORTH = list(0, -6), EAST = list(0, -6), WEST = list(0, -6))
 		if("Qualified_Doctor")
 			can_be_hatted = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Squat_Miner")
 			can_be_hatted = TRUE
 		if("Coffin_Miner")
 			can_be_hatted = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Heavy_Sec")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
