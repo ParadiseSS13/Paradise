@@ -23,6 +23,19 @@
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
+/obj/machinery/atmospherics/binary/passive_gate/AICtrlClick(mob/living/silicon/user)
+	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
+
+/obj/machinery/atmospherics/binary/passive_gate/AltClick(mob/living/user)
+	if(can_use_shortcut(user))
+		set_max(user)
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
+
+/obj/machinery/atmospherics/binary/passive_gate/AIAltClick(mob/living/silicon/user)
+	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
+
 /obj/machinery/atmospherics/binary/passive_gate/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("This is a one-way regulator, allowing gas to flow only at a specific pressure and flow rate. If the light is green, gas is flowing.")
