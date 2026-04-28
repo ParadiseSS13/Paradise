@@ -563,15 +563,16 @@
 	desc = "An experimental medical suit designed for emergency care in conflict zones and extreme environmental hazards."
 	extended_desc = "An experimental upgrade to the Apollo and Valkyrie lines, the D-142E 'Salvation' is a bulky, moderately-armored medical modsuit designed by DeForest Medical Corperation. \
 	Sacrificing the light-weight design of previous iterations for additional protection from both weapons and environmental factors, while boasting a more powerful core and servos to partially offset the excess weight. \
-	The suit's armor has seen even more improvements with a careful mix of composite and standard ballistic armor, in addition to a coating similar of that to the Daedalus line and integrated cooling offering complete thermal protection. \
-	This suit's experimental nature makes it exclusive to the most practical and wealthy positions outside DeForest testing."
+	The suit's armor has seen even more improvements with a careful mix of composite and standard ballistic armor, along with an advanced CBRN active protection system. \
+	The experimental nature of this suit makes it exclusive to the most practical and wealthy positions outside DeForest testing."
 	default_skin = "salvation"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_salvation
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flag_2_flags = RAD_PROTECT_CONTENTS_2 // only protects stored items
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
-	slowdown_active = 0.35 // between the valkyrie and apollo
-	inbuilt_modules = list(/obj/item/mod/module/flashlight/search) // larger flashlight
+	slowdown_active = 0.35
+	inbuilt_modules = list(/obj/item/mod/module/cbrn)
 	allowed_suit_storage = list(
 		/obj/item/healthanalyzer,
 		/obj/item/reagent_containers/dropper,
