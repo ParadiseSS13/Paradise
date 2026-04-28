@@ -158,7 +158,6 @@
 		greatly limiting movement and spiking power usage to completely protect against chemical, biological, radiological, and nuclear hazards."
 	icon_state = "cbrn"
 	module_type = MODULE_TOGGLE
-	complexity = 0
 	cooldown_time = 0.5 SECONDS
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 6 // Eats power for its protection
 	incompatible_modules = list(/obj/item/mod/module/cbrn)
