@@ -12,4 +12,5 @@
 
 /datum/gear/custom
 	sort_category = "Custom Items"
+	main_typepath = /datum/gear/custom
 	cost = 0
