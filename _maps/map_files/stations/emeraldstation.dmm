@@ -40209,9 +40209,6 @@
 /obj/item/stack/tile/wood,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
-"idk" = (
-/turf/simulated/wall/indestructible/titanium,
-/area/shuttle/arrival/station)
 "idq" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -67897,12 +67894,6 @@
 /obj/structure/window/reinforced/indestructible,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
-"nIX" = (
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 1
-	},
-/turf/simulated/wall,
-/area/station/supply/office)
 "nJa" = (
 /obj/structure/closet/secure_closet/hop,
 /turf/simulated/floor/carpet,
@@ -142747,7 +142738,7 @@ vGF
 vGF
 dhZ
 pGI
-nIX
+hTl
 oyZ
 jyq
 hwC
@@ -150507,9 +150498,9 @@ wdV
 jaj
 bQO
 iYm
-idk
-idk
-idk
+cJq
+cJq
+cJq
 iYm
 tls
 iYm
@@ -150767,15 +150758,15 @@ iYm
 kbY
 cJq
 cJq
-idk
+cJq
 nYn
-idk
+cJq
 wAh
 wAh
-idk
+cJq
 sgc
-idk
-idk
+cJq
+cJq
 aZS
 aZS
 aZS
@@ -151033,7 +151024,7 @@ jNB
 asq
 heu
 cJq
-idk
+cJq
 wAh
 wAh
 aZS
@@ -151289,7 +151280,7 @@ asq
 asq
 asq
 bLd
-idk
+cJq
 bIo
 vVR
 wAh
@@ -151803,7 +151794,7 @@ asq
 asq
 asq
 bdf
-idk
+cJq
 okY
 pzy
 wAh
@@ -152061,7 +152052,7 @@ cOV
 asq
 uHu
 cJq
-idk
+cJq
 wAh
 wAh
 aZS
@@ -152309,15 +152300,15 @@ iYm
 kbY
 cJq
 cJq
-idk
+cJq
 nYn
-idk
+cJq
 wAh
 wAh
-idk
+cJq
 sgc
-idk
-idk
+cJq
+cJq
 aZS
 aZS
 aZS
@@ -152563,9 +152554,9 @@ dvh
 jaj
 bQO
 iYm
-idk
-idk
-idk
+cJq
+cJq
+cJq
 iYm
 tls
 iYm
