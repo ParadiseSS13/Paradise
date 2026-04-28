@@ -73,6 +73,21 @@
 	database_id = MEDAL_SINGULARITY_SIGHT
 	icon_state = "singulosight"
 
+/datum/award/achievement/jobs/enrich_uranium
+	name = "Enrich Uranium-238"
+	desc = "Baby's first enrichment!"
+	database_id = MEDAL_ENRICH_U238
+
+/datum/award/achievement/jobs/americium_rod
+	name = "Enrich All The Way To Americium"
+	desc = "You've come a long way since enriching uranium for the first time!"
+	database_id = MEDAL_AMERICIUM_ROD
+
+/datum/award/achievement/jobs/bananium_rod
+	name = "The Power of the Honk"
+	desc = "Untold tragedy or fortune will be unleashed on your nuclear reactor."
+	database_id = MEDAL_BANANIUM_ROD
+
 //MARK: Service
 /datum/award/achievement/jobs/bless
 	name = "Bless Someone"

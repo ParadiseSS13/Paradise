@@ -70,3 +70,9 @@
 	desc = "Do I really need to explain this one to you?"
 	database_id = MEDAL_DIE
 	icon_state = "die"
+
+/datum/award/achievement/misc/arcade_win
+	name = "Win An Arcade Game"
+	desc = "Those tickets can be used for SO much!"
+	database_id = MEDAL_ARCADE_WIN
+	icon_state = "arcade_win"

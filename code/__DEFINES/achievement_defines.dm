@@ -27,6 +27,8 @@
 #define MEDAL_CLICKBAIT "Clickbait"
 #define MEDAL_HEALTHY "Heart Healthy"
 #define MEDAL_DIE "Die"
+#define MEDAL_ARCADE_WIN "Win An Arcade Game"
+
 
 // Job specific hub IDs
 #define MEDAL_LOUDMOUTH "Loudmouth"
@@ -38,6 +40,9 @@
 #define MEDAL_GIBTONITE_EXPLODE "Set Off Gibtonite"
 #define MEDAL_GIBTONITE_DEFUSE "Defuse Gibtonite"
 #define MEDAL_SINGULARITY_SIGHT "Singularity Sight"
+#define MEDAL_ENRICH_U238 "Enrich Uranium-238"
+#define MEDAL_AMERICIUM_ROD "Enrich All The Way To Americium"
+#define MEDAL_BANANIUM_ROD "The Power of the Honk"
 #define MEDAL_BLESS "Bless"
 
 //Skill medal hub IDs
@@ -56,6 +61,7 @@
 #define BOSS_MEDAL_ROBOT "Ancient Robot"
 #define BOSS_MEDAL_FLESHLING "Fleshling Killer"
 #define BOSS_MEDAL_HARBINGER "Syndicate Harbinger Killer"
+#define BOSS_MEDAL_DVORAK "Shutting Down D.V.O.R.A.K"
 
 #define BOSS_MEDAL_MINER_CRUSHER "Blood-drunk Miner Crusher"
 #define BOSS_MEDAL_BUBBLEGUM_CRUSHER "Bubblegum Crusher"

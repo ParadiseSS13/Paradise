@@ -941,6 +941,8 @@
 	playing = 0
 	turns = 1
 	atom_say("Congratulations, you made it to Orion!")
+	if(usr && usr.client)
+		usr.client.give_award(/datum/award/achievement/misc/arcade_win, usr)
 	if(emagged)
 		new /obj/item/orion_ship(get_turf(src))
 		message_admins("[key_name_admin(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")

@@ -72,6 +72,11 @@
 	desc = "You are the harbinger of its demise."
 	database_id = BOSS_MEDAL_HARBINGER
 
+/datum/award/achievement/boss/dvorak
+	name = "Shutting Down D.V.O.R.A.K"
+	desc = "After all those stupid traps, D.V.O.R.A.K deserves it"
+	database_id = BOSS_MEDAL_DVORAK
+
 /datum/award/achievement/boss/blood_miner_crusher
 	name = "Crush the Miner!"
 	desc = "You killed the Blood-Drunk Miner with a Kinetic Crusher."
