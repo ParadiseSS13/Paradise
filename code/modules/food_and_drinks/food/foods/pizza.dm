@@ -287,6 +287,7 @@
 	var/box_tag = ""
 	/// The type of pizza that's spawned in the box.
 	var/pizza_type
+	materials = list(MAT_CARDBOARD = 2000)
 
 /obj/item/pizzabox/Initialize(mapload)
 	. = ..()

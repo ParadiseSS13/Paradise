@@ -15,6 +15,7 @@
 	var/pushed_over = FALSE
 	/// If the cutout actually appears as what it portray and not a discolored version
 	var/deceptive = FALSE
+	materials = list(MAT_CARDBOARD = 10000)
 
 /obj/item/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
