@@ -29001,6 +29001,9 @@
 	network = list("Prison","SS13");
 	dir = 10
 	},
+/obj/item/toner{
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "fNb" = (
@@ -35206,7 +35209,7 @@
 /area/station/supply/sorting)
 "hcq" = (
 /obj/structure/table,
-/obj/machinery/computer/library{
+/obj/machinery/computer/library/perma{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -62990,6 +62993,10 @@
 	pixel_y = 3
 	},
 /obj/item/pen/multi,
+/obj/item/toner{
+	pixel_y = -4;
+	pixel_x = -4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -96485,6 +96492,9 @@
 "tnB" = (
 /obj/structure/table,
 /obj/item/storage/photo_album,
+/obj/item/toner{
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "tnK" = (

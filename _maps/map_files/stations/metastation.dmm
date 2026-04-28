@@ -7127,6 +7127,10 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
+/obj/item/toner{
+	pixel_y = -2;
+	pixel_x = -5
+	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "aZP" = (
@@ -79963,12 +79967,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "uuu" = (
-/obj/machinery/computer/library{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/computer/library/perma{
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
@@ -80605,6 +80609,9 @@
 	},
 /obj/item/book/manual/wiki/sop_legal{
 	pixel_y = 7
+	},
+/obj/item/toner{
+	pixel_y = -3
 	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)

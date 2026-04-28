@@ -45,11 +45,48 @@
 	var/checkoutperiod = 15 MINUTES
 	///Wait period for printing books
 	var/print_cooldown = 5 SECONDS
-
+	///How much toner the computer has left
+	var/toner = 0
+	///When the computer checks whether or not there's an overdue book
+	var/next_overdue_check = 0
+	///The internal radio used to state if books are overdue
+	var/obj/item/radio/radio
 
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
 	END_OF_TICK(CALLBACK(src, PROC_REF(populate_booklist)))
+	START_PROCESSING(SSobj, src)
+
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Service" = 0))
+
+/obj/machinery/computer/library/process()
+	///The computer that is sending the radio message
+	var/branch_name = "Nanotrasen Main Library Branch"
+	if(world.time < next_overdue_check)
+		return
+	next_overdue_check = world.time + 5 MINUTES
+	for(var/datum/borrowbook/book in checkouts)
+		if(world.time > book.duedate && !book.announced_overdue)
+			book.announced_overdue = TRUE
+			radio.autosay("Attention! The book checked out by [book.patron_name] is now overdue!", branch_name, "Service")
+			print_overdue_notice(book)
+			charge_overdue_fine(book)
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 15, TRUE)
+
+/obj/machinery/computer/library/Destroy() // no need to track overdue books if the computer is destroyed
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/machinery/computer/library/examine(mob/user)
+	. = ..()
+	if(user.Adjacent(src))
+		if(toner > 0)
+			. += SPAN_NOTICE("There is [toner] toner left according to the [src]'s screen.")
+		else
+			. += SPAN_WARNING("The [src]'s screen displays that the toner is EMPTY.")
 
 /obj/machinery/computer/library/attack_ai(mob/user)
 	return attack_hand(user)
@@ -72,8 +109,7 @@
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, SPAN_WARNING("ERROR: No Connection Established!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, SPAN_NOTICE("Barcode Scanner Successfully Connected to Computer."))
-		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
+		atom_say("Barcode Scanner Successfully Connected to [src].")
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/card/id))
@@ -92,6 +128,18 @@
 		else
 			user_data.patron_account = null
 			to_chat(user, SPAN_NOTICE("[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'"))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/toner))
+		if(toner > 0)
+			atom_say("Please use the remaining toner before inserting a new cartridge.")
+			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/toner/T = used
+		user.drop_item()
+		toner += T.toner_amount
+		qdel(used)
+		to_chat(user, SPAN_NOTICE("The [src] beeps happily as it accepts a new toner cartridge!"))
+		playsound(src, 'sound/machines/synth_yes.ogg', 15, TRUE)
 		return ITEM_INTERACT_COMPLETE
 
 	if(default_unfasten_wrench(user, used, time = 60))
@@ -293,6 +341,17 @@
 					return
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 				atom_say("Deletion Failed!")
+		if("order_random_book")
+			if(print_cooldown <= world.time)
+				var/list/results = GLOB.library_catalog.get_random_book(1)
+				if(length(results))
+					var/datum/cachedbook/randombook = results[1]
+					print_cooldown = world.time + PRINTING_COOLDOWN
+					make_external_book(randombook)
+				else
+					atom_say("No books were found!")
+					log_debug("An attempt to print a random book from an empty library database was attempted.")
+					playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 
 
 		//rating acts
@@ -513,7 +572,7 @@
 	P.bookname = sanitize(B.title)
 	P.libraryid = B.libraryid
 	P.patron_name = sanitize(user_data.patron_name)
-	P.patron_account = sanitize(user_data.patron_account)
+	P.patron_account = user_data.patron_account
 	P.duedate = world.time + (checkoutperiod)
 	checkouts.Add(P)
 	return TRUE
@@ -573,25 +632,82 @@
 /obj/machinery/computer/library/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook?.id)
 		return
+	if(!check_toner())
+		return
+	atom_say("Printing your book...")
+	sleep(2 SECONDS)
 	new /obj/item/book(loc, newbook, TRUE, FALSE)
-	visible_message(SPAN_NOTICE("[src]'s printer hums as it produces a completely bound book. How did it do that?"))
+	atom_say("Your book is now done printing!")
 
 /obj/machinery/computer/library/proc/make_programmatic_book(datum/programmatic_book/newbook)
 	if(!newbook?.book_type)
 		return
-
+	if(!check_toner())
+		return
+	atom_say("Printing your book...")
+	sleep(2 SECONDS)
 	new newbook.book_type(loc)
-	visible_message(SPAN_NOTICE("[src]'s printer hums as it produces a completely bound book. How did it do that?"))
+	atom_say("Your book is now done printing!")
+
+/obj/machinery/computer/library/proc/check_toner()
+	if(toner <= 0)
+		atom_say("No toner is loaded!")
+		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+		return FALSE
+	toner--
+	return TRUE
+
+/obj/machinery/computer/library/proc/print_overdue_notice(datum/borrowbook/book)
+	var/due_time = book.duedate / 600 // convert from ticks to in-game minutes
+	due_time = round(due_time)
+
+	var/obj/item/paper/notice = new(loc)
+	notice.name = "overdue notice - [book.bookname]"
+	notice.info = {"<b>NANOTRASEN LIBRARY SERVICES</b><br>
+<b>OVERDUE NOTICE</b><hr>
+<b>Dear patron,</b><br>
+While we here at the Nanotrasen Main Library Branch do enjoy our employees utilizing our services, we must <i>kindly</i> remind you that books do have a due date and your on-board Librarian has been notified of your tardiness to return your book which has recently become overdue.
+<br> <br>Failure to return your checked out book(s) may incur further fees and loss of library privileges."}
+	notice.update_icon()
+
+/obj/machinery/computer/library/proc/charge_overdue_fine(datum/borrowbook/book)
+	if(!book.patron_account)
+		log_debug("A non-existant library patron account was attempted to be charged")
+		return
+
+	var/datum/money_account_database/main_station/database = GLOB.station_money_database
+	if(!database)
+		return
+
+	var/datum/money_account/patron_account = database.find_user_account(book.patron_account)
+	if(!patron_account)
+		log_debug("A non-existant library account was attempted to be charged.")
+		return
+
+	var/datum/money_account/service_account = database.get_account_by_department(DEPARTMENT_SERVICE)
+	if(!service_account)
+		log_debug("The Service account does not exist.")
+		return
+
+	var/fine = 25
+	if(!database.charge_account(patron_account, fine, "Overdue library book fine - '[book.bookname]'", src.name, FALSE, FALSE))
+		return
+
+	database.credit_account(service_account, fine, "Overdue library book fine - '[book.bookname]'", "Nanotrasen Library Servies", FALSE)
+	log_debug("Patron [book.patron_name] has been fined for an overdue book.")
 
 /obj/machinery/computer/library/emag_act(mob/user)
 	if(print_cooldown <= world.time)
 		new /obj/item/storage/bible/syndi(loc)
-		visible_message(SPAN_NOTICE("[src]'s printer ominously hums as it produces a completely bound book. How did it do that?"))
+		atom_say("Your ominous book is now done printing!")
 		print_cooldown = world.time + PRINTING_COOLDOWN
 		return TRUE
 
 /obj/machinery/computer/library/syndie
 	req_one_access = list(ACCESS_SYNDICATE)
+
+/obj/machinery/computer/library/perma
+	req_one_access = list()
 
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL
