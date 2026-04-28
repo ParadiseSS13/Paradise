@@ -351,6 +351,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "It is widely used in the production of advanced electronics and chemical catalysts, as well as a few specialised medicines. Also used as a relatively safe store of wealth that is not affected by the economics of cash."
 
+/obj/item/stack/sheet/mineral/gold/five
+	amount = 5
+
 /obj/item/stack/sheet/mineral/gold/twenty
 	amount = 20
 
@@ -371,6 +374,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/silver/five
+	amount = 5
 
 /obj/item/stack/sheet/mineral/silver/twenty
 	amount = 20
@@ -407,6 +413,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "It is sought after by clowns all across the known galaxy and is used in the creation of many clownish contraptions."
 
+/obj/item/stack/sheet/mineral/bananium/five
+	amount = 5
+
 /obj/item/stack/sheet/mineral/bananium/ten
 	amount = 10
 
@@ -440,6 +449,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "It is sought after by mimes all across the known galaxy and is used in the creation of many of their mysterious contraptions. Various other groups also express an interest in its unusual properites."
 
+/obj/item/stack/sheet/mineral/tranquillite/five
+	amount = 5
+
 /obj/item/stack/sheet/mineral/tranquillite/ten
 	amount = 10
 
@@ -464,6 +476,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_PLATINUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 25
 
+/obj/item/stack/sheet/mineral/platinum/two
+	amount = 2
+
 /obj/item/stack/sheet/mineral/palladium
 	name = "palladium"
 	desc = "A valuable space mineral."
@@ -475,6 +490,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_PALLADIUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 25
 
+/obj/item/stack/sheet/mineral/palladium/two
+	amount = 2
+
 /obj/item/stack/sheet/mineral/iridium
 	name = "iridium"
 	desc = "A dense mineral found in abundance in space and extremely rare on planets."
@@ -485,6 +503,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	merge_type = /obj/item/stack/sheet/mineral/iridium
 	materials = list(MAT_IRIDIUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 25
+
+/obj/item/stack/sheet/mineral/iridium/two
+	amount = 2
 
 /*
  * Titanium
@@ -518,6 +539,9 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 /obj/item/stack/sheet/mineral/titanium/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.titanium_recipes
+
+/obj/item/stack/sheet/mineral/titanium/five
+	amount = 5
 
 /obj/item/stack/sheet/mineral/titanium/fifty
 	amount = 50
