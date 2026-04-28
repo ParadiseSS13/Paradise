@@ -1804,3 +1804,44 @@
 	var/datum/antagonist/heretic/A = H.mind.has_antag_datum(/datum/antagonist/heretic)
 	A.knowledge_points = 9999
 	A.force_unlock_ascension = TRUE
+
+/datum/outfit/admin/patient
+	name = "Patient"
+	uniform = /obj/item/clothing/under/misc/pj
+	back = /obj/item/storage/backpack/satchel
+	l_ear = /obj/item/radio/headset
+	shoes = /obj/item/clothing/shoes/sandal/white
+	id = /obj/item/card/id/assistant
+	box = /obj/item/storage/box/survival
+	pda = /obj/item/pda/clear
+
+	backpack_contents = list(
+		/obj/item/clothing/under/color/random,
+		/obj/item/clothing/shoes/black,
+	)
+
+/datum/outfit/admin/patient/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	// Sets the ID and secHUD icon!
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name, "patient")
+		// Checking if the person has an account already
+		var/datum/money_account/account = H.mind.initial_account
+		if(!account)
+			// If they don't, we create a new one and get it's account number.
+			SSjobs.CreateMoneyAccount(H, null, null)
+			account = H.mind.initial_account
+			I.associated_account_number = account.account_number
+		I.associated_account_number = account.account_number
+	H.sec_hud_set_ID()
+
+	// PDA setup
+	var/obj/item/pda/P = H.wear_pda
+	if(istype(P))
+		P.owner = H.real_name
+		P.ownjob = "Visitor"
+		P.name = "PDA-[H.real_name] ([P.ownjob])"
