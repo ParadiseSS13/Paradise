@@ -27,6 +27,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/subtype_selection_cost = TRUE
 	/// Patreon donator tier needed to select this item listing.
 	var/donator_tier = 0
+	/// If it's a custom user item, store the datum here
+	var/datum/custom_user_item/cui
 
 /datum/gear/New()
 	..()
