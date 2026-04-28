@@ -93,7 +93,7 @@
 		var/datum/supply_bounty/new_bounty = pick(GLOB.supply_bounties)
 		if(prob(5))
 			new_bounty.special_reward_type = pickweight(GLOB.supply_bounty_bonuses)
-		GLOB.active_supply_bounties += new new_bounty()
+		GLOB.active_supply_bounties += new_bounty
 
 /obj/machinery/bounty_redemption/proc/print_slip(datum/supply_bounty/bounty)
 	// Print the credit slip
