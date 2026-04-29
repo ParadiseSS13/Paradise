@@ -92,9 +92,10 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"q" = (
+"p" = (
 /obj/machinery/door/airlock/titanium/glass{
-	name = "Cockpit"
+	name = "Cockpit";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plating,
@@ -264,7 +265,7 @@ n
 j
 m
 m
-q
+p
 m
 m
 m

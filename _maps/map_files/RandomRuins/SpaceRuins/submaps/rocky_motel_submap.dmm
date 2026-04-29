@@ -311,11 +311,6 @@
 /obj/effect/decal/cleanable/molten_object/large,
 /turf/simulated/floor/carpet/royalblack,
 /area/template_noop)
-"Hc" = (
-/obj/machinery/door/airlock/hatch/syndicate,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood,
-/area/template_noop)
 "Ir" = (
 /obj/structure/chair{
 	dir = 4
@@ -392,14 +387,16 @@
 /obj/structure/closet/syndicate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/template_noop)
-"Qy" = (
-/turf/simulated/wall/indestructible/syndicate,
-/area/template_noop)
-"Rg" = (
-/obj/machinery/door/airlock/hatch/syndicate,
+"Oh" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
+/area/template_noop)
+"Qy" = (
+/turf/simulated/wall/indestructible/syndicate,
 /area/template_noop)
 "RW" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -450,9 +447,22 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
+"Xr" = (
+/obj/machinery/door/airlock/titanium{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/template_noop)
 "Yw" = (
 /obj/structure/machine_frame,
 /turf/space,
+/area/template_noop)
+"YB" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
 /area/template_noop)
 "Zy" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -1157,7 +1167,7 @@ hB
 mJ
 mJ
 mJ
-Rg
+Oh
 DF
 DF
 fZ
@@ -1226,11 +1236,11 @@ fZ
 Ga
 LT
 rK
-Hc
+YB
 DF
 DF
 DF
-Hc
+YB
 DF
 DF
 DF
@@ -1326,7 +1336,7 @@ DF
 iy
 kT
 kT
-lB
+Xr
 DF
 DF
 DF

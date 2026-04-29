@@ -73,6 +73,7 @@
 
 /obj/item/zombie_claw/Initialize(mapload, new_parent_spell)
 	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 	if(new_parent_spell)
 		parent_spell = new_parent_spell
 		RegisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))

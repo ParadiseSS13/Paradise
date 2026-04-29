@@ -165,18 +165,20 @@
 /obj/effect/spawner/random/rarely_meteor_strike,
 /turf/simulated/floor/pod,
 /area/ruin/lavaland_relay)
-"O" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/effect/spawner/random/rarely_meteor_strike,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod,
-/area/ruin/lavaland_relay)
 "Q" = (
 /obj/structure/railing{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
+"U" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 4
+	},
+/obj/effect/spawner/random/rarely_meteor_strike,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod,
+/area/ruin/lavaland_relay)
 "X" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/turf_decal/stripes/line,
@@ -241,7 +243,7 @@ E
 J
 m
 q
-O
+U
 p
 a
 "}

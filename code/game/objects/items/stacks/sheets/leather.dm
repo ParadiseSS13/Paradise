@@ -147,6 +147,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 		)),
 	null,
 	new /datum/stack_recipe("card box", /obj/item/deck/holder, 1),
+	new /datum/stack_recipe("baseball", /obj/item/beach_ball/baseball, 1),
 	new /datum/stack_recipe("muzzle", /obj/item/clothing/mask/muzzle, 2),
 	new /datum/stack_recipe("botany gloves", /obj/item/clothing/gloves/botanic_leather, 3),
 	new /datum/stack_recipe("leather jacket", /obj/item/clothing/suit/jacket/leather, 7),

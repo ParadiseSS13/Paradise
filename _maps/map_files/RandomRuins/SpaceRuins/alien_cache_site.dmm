@@ -29,11 +29,6 @@
 /obj/item/weldingtool/largetank,
 /turf/simulated/floor/plating/abductor,
 /area/ruin/space/powered/alien_cache_site)
-"fA" = (
-/obj/structure/fans/tiny/invisible,
-/obj/machinery/door/airlock/abductor/secure,
-/turf/simulated/floor/plating/abductor,
-/area/ruin/space/powered/alien_cache_site)
 "gf" = (
 /obj/effect/spawner/random/glowstick,
 /obj/structure/table/abductor,
@@ -115,6 +110,13 @@
 "Ha" = (
 /turf/simulated/wall/indestructible/abductor,
 /area/ruin/space/powered/alien_cache_site/cache_room)
+"IP" = (
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/abductor/secure{
+	dir = 4
+	},
+/turf/simulated/floor/plating/abductor,
+/area/ruin/space/powered/alien_cache_site)
 "JC" = (
 /obj/structure/curtain/open,
 /turf/simulated/floor/plating/abductor,
@@ -125,13 +127,15 @@
 	desc = "Effectively impervious to conventional methods of destruction. It looks like someone tried to break it, but failed"
 	},
 /area/ruin/space/powered/alien_cache_site)
-"TW" = (
-/turf/simulated/wall/mineral/wood,
-/area/ruin/space/powered/alien_cache_site)
-"Yg" = (
-/obj/machinery/door/airlock/abductor,
+"PB" = (
+/obj/machinery/door/airlock/abductor{
+	dir = 4
+	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating/abductor,
+/area/ruin/space/powered/alien_cache_site)
+"TW" = (
+/turf/simulated/wall/mineral/wood,
 /area/ruin/space/powered/alien_cache_site)
 "YA" = (
 /obj/effect/spawner/random/engineering/toolbox,
@@ -664,7 +668,7 @@ et
 et
 et
 et
-fA
+IP
 wy
 wy
 wy
@@ -674,7 +678,7 @@ wy
 wy
 kY
 wy
-Yg
+PB
 mQ
 mQ
 mQ

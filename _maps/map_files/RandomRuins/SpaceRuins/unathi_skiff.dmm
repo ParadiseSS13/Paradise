@@ -1,11 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aZ" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/engineering)
 "bF" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -274,6 +267,14 @@
 /obj/machinery/suit_storage_unit,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
+"vK" = (
+/obj/machinery/door/poddoor,
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1;
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/dorms)
 "vY" = (
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 1
@@ -291,13 +292,6 @@
 /obj/item/stack/sheet/mineral/plastitanium,
 /turf/template_noop,
 /area/template_noop)
-"yi" = (
-/obj/machinery/door/poddoor,
-/obj/machinery/door/airlock/survival_pod{
-	locked = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/bar)
 "yx" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/unathi_breacher/bridge)
@@ -483,6 +477,14 @@
 /obj/structure/window/full/shuttle/survival_pod/tinted,
 /turf/simulated/floor/plating,
 /area/ruin/space/unathi_breacher/bar)
+"NQ" = (
+/obj/machinery/door/poddoor,
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1;
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/bar)
 "NT" = (
 /turf/simulated/wall/mineral/titanium/survival/pod,
 /area/ruin/space/unathi_breacher/engineering)
@@ -557,6 +559,15 @@
 /mob/living/basic/drakehound_breacher,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
+"Rl" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unathi_breacher/engineering)
 "RI" = (
 /obj/item/stack/rods,
 /obj/structure/table_frame,
@@ -617,13 +628,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
-"Xq" = (
-/obj/machinery/door/poddoor,
-/obj/machinery/door/airlock/survival_pod{
-	locked = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unathi_breacher/dorms)
 "XA" = (
 /obj/item/toy/plushie/lizardplushie,
 /obj/structure/table,
@@ -816,11 +820,11 @@ Zl
 hB
 CZ
 iF
-aZ
+Rl
 fN
 yy
 kf
-aZ
+Rl
 dK
 mH
 mH
@@ -863,7 +867,7 @@ Gb
 "}
 (13,1,1) = {"
 Gb
-Xq
+vK
 li
 CZ
 LX
@@ -875,7 +879,7 @@ GR
 Wu
 mH
 pZ
-yi
+NQ
 Gb
 "}
 (14,1,1) = {"
