@@ -144,11 +144,13 @@
 		else
 			recipes_last_completed_step[step_attempt.recipe] = previous_step
 
+	#ifdef PCWJ_DEBUG
 	if(length(step_datas) > 1)
 		var/list/types = list()
 		for(var/step_type in step_datas)
 			types += "[step_type]"
-		log_debug("More than one valid step data at the same step, this shouldn't happen. Valid steps: [jointext(types, ", ")]")
+		log_debug("Multiple valid cooking step types, which may cause unexpected results: [jointext(types, ", ")]")
+	#endif
 
 	var/obj/item/reagent_containers/cooking/container = locateUID(container_uid)
 	if(completed_steps)

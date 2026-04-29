@@ -22,14 +22,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_south)
-"aB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/command/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/drakehound_mine/bridge)
 "bh" = (
 /obj/machinery/light{
 	dir = 8
@@ -116,13 +108,6 @@
 "dE" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_north)
-"dM" = (
-/obj/machinery/door/airlock/survival_pod{
-	locked = 1
-	},
-/obj/machinery/door/poddoor,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/drakehound_mine/ship)
 "dS" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_south)
@@ -418,10 +403,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/bar)
-"kN" = (
-/obj/machinery/door/airlock/command/glass,
-/turf/simulated/floor/plasteel,
-/area/ruin/drakehound_mine/bridge)
 "kQ" = (
 /obj/machinery/light{
 	dir = 4
@@ -472,6 +453,13 @@
 	},
 /turf/space,
 /area/ruin/drakehound_mine/solars)
+"lY" = (
+/obj/machinery/door/airlock/maintenance/external{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plating,
+/area/ruin/drakehound_mine/hallway_south)
 "mh" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
@@ -678,6 +666,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/bar)
+"rb" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_north)
 "re" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
@@ -758,11 +752,6 @@
 	},
 /turf/space,
 /area/ruin/drakehound_mine/solars)
-"th" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/ruin/drakehound_mine/hallway_south)
 "ti" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -995,6 +984,19 @@
 	},
 /turf/space,
 /area/ruin/drakehound_mine/solars)
+"BM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/arrivals)
 "BV" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -1082,13 +1084,6 @@
 "DV" = (
 /turf/simulated/mineral/ancient,
 /area/ruin/drakehound_mine/hallway_north)
-"DZ" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/drakehound_mine/hallway_south)
 "Ef" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -1164,11 +1159,16 @@
 /obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_south)
-"FZ" = (
-/obj/machinery/door/airlock/maintenance/external,
-/obj/effect/mapping_helpers/airlock/locked,
-/turf/simulated/floor/plating,
-/area/ruin/drakehound_mine/hallway_south)
+"Gs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/command/glass{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/drakehound_mine/bridge)
 "GE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1275,6 +1275,22 @@
 "Kx" = (
 /turf/simulated/wall/mineral/titanium/survival/pod,
 /area/ruin/drakehound_mine/ship)
+"Lj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
+"Lk" = (
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
 "Lm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1356,10 +1372,6 @@
 "NT" = (
 /turf/simulated/floor/pod/dark,
 /area/ruin/drakehound_mine/ship)
-"Oa" = (
-/obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/plasteel,
-/area/ruin/drakehound_mine/hallway_north)
 "Oh" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -1385,11 +1397,6 @@
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/unpowered)
-"OS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/multi_tile/glass,
-/turf/simulated/floor/plasteel,
-/area/ruin/drakehound_mine/hallway_south)
 "Pm" = (
 /turf/simulated/mineral/random/space,
 /area/ruin/drakehound_mine/bar)
@@ -1455,6 +1462,14 @@
 /obj/structure/foamedmetal,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/unpowered)
+"QO" = (
+/obj/machinery/door/airlock/survival_pod{
+	locked = 1;
+	dir = 4
+	},
+/obj/machinery/door/poddoor,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
 "Ro" = (
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/unpowered)
@@ -1495,21 +1510,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/drakehound_mine/ship)
-"Tf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/drakehound_mine/arrivals)
 "Tk" = (
 /turf/simulated/mineral/ancient,
 /area/ruin/drakehound_mine/hallway_south)
@@ -1539,6 +1539,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/mechbay)
+"TS" = (
+/obj/machinery/door/airlock/command/glass{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bridge)
 "TZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -1705,6 +1711,13 @@
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/bar)
+"Zg" = (
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
 "Zx" = (
 /obj/structure/rack,
 /obj/item/pickaxe/gold,
@@ -2334,7 +2347,7 @@ fV
 mr
 ee
 ii
-FZ
+lY
 Ro
 Ro
 Ro
@@ -2396,7 +2409,7 @@ vo
 mr
 ii
 ii
-FZ
+lY
 Ro
 Ro
 Ro
@@ -2505,14 +2518,14 @@ jg
 rw
 rw
 FK
-Oa
+rb
 rf
 Cq
 dE
 dE
 dE
 rw
-OS
+Lj
 gG
 XX
 Qx
@@ -2827,7 +2840,7 @@ wl
 mE
 mG
 NP
-kN
+TS
 az
 dS
 tV
@@ -2889,7 +2902,7 @@ mE
 EO
 mE
 qV
-aB
+Gs
 Xd
 ii
 tV
@@ -3151,7 +3164,7 @@ FB
 mr
 lw
 Ot
-th
+Zg
 cb
 dl
 PF
@@ -3272,7 +3285,7 @@ rI
 FB
 FQ
 fX
-DZ
+Lk
 TH
 mC
 mr
@@ -3336,7 +3349,7 @@ FB
 ga
 FB
 uU
-Tf
+BM
 ZC
 Oh
 DA
@@ -3564,7 +3577,7 @@ Xf
 Xf
 oK
 Ss
-dM
+QO
 jJ
 kr
 Kx
@@ -3572,7 +3585,7 @@ Zx
 Kx
 kr
 VB
-dM
+QO
 Ss
 Ss
 Ss

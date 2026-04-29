@@ -55,12 +55,6 @@
 /obj/machinery/sleeper/clockwork,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
-"eS" = (
-/obj/machinery/door/airlock/clockwork{
-	name = "Inner Narthex"
-	},
-/turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_monastery)
 "gV" = (
 /turf/template_noop,
 /area/template_noop)
@@ -69,12 +63,6 @@
 /obj/item/bedsheet/clockwork,
 /obj/machinery/light/clockwork{
 	dir = 4
-	},
-/turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_monastery)
-"hV" = (
-/obj/machinery/door/airlock/clockwork/glass{
-	name = "Feretory"
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
@@ -122,14 +110,15 @@
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
-"mn" = (
-/obj/structure/table/reinforced/brass,
+"mk" = (
+/obj/machinery/door/airlock/clockwork{
+	name = "Chapel";
+	dir = 4
+	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
-"oc" = (
-/obj/machinery/door/airlock/clockwork{
-	name = "Rotunda"
-	},
+"mn" = (
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "of" = (
@@ -140,6 +129,13 @@
 "ow" = (
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/unpowered)
+"oS" = (
+/obj/machinery/door/airlock/clockwork/glass{
+	name = "Feretory";
+	dir = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_monastery)
 "oW" = (
 /turf/simulated/wall/clockwork,
 /area/ruin/space/clockwork_monastery)
@@ -237,12 +233,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/lava/plasma,
-/area/ruin/space/clockwork_monastery)
-"xv" = (
-/obj/machinery/door/airlock/clockwork/glass{
-	name = "Workshop"
-	},
-/turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "yn" = (
 /obj/structure/table/reinforced/brass,
@@ -399,13 +389,6 @@
 	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
-"HF" = (
-/obj/machinery/door/airlock/clockwork{
-	name = "Outer Narthex"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_monastery)
 "Ib" = (
 /obj/structure/chair/brass{
 	dir = 1
@@ -501,6 +484,27 @@
 /obj/item/clockwork/component/belligerent_eye/lens_gem,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
+"Of" = (
+/obj/machinery/door/airlock/clockwork/glass{
+	name = "Workshop";
+	dir = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_monastery)
+"Pc" = (
+/obj/machinery/door/airlock/clockwork{
+	name = "Rotunda";
+	dir = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_monastery)
+"PJ" = (
+/obj/machinery/door/airlock/clockwork{
+	name = "Inner Narthex";
+	dir = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_monastery)
 "Rv" = (
 /obj/machinery/light/clockwork{
 	dir = 8
@@ -530,6 +534,14 @@
 /obj/item/clockwork/component/hierophant_ansible/obelisk,
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
+"Sv" = (
+/obj/machinery/door/airlock/clockwork{
+	name = "Outer Narthex";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/clockwork_monastery)
 "Vh" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
@@ -551,12 +563,6 @@
 /area/ruin/space/clockwork_monastery)
 "WR" = (
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/hostile,
-/turf/simulated/floor/clockwork,
-/area/ruin/space/clockwork_monastery)
-"Xk" = (
-/obj/machinery/door/airlock/clockwork{
-	name = "Chapel"
-	},
 /turf/simulated/floor/clockwork,
 /area/ruin/space/clockwork_monastery)
 "Xw" = (
@@ -1399,7 +1405,7 @@ rJ
 rJ
 rJ
 rJ
-hV
+oS
 rJ
 rJ
 MU
@@ -2076,7 +2082,7 @@ kC
 kC
 kC
 Xw
-HF
+Sv
 rJ
 rJ
 rJ
@@ -2087,7 +2093,7 @@ rJ
 rJ
 rJ
 rJ
-eS
+PJ
 rJ
 bg
 bg
@@ -2095,7 +2101,7 @@ bg
 bg
 bg
 rJ
-oc
+Pc
 rJ
 rJ
 rJ
@@ -2111,7 +2117,7 @@ rJ
 rJ
 rJ
 rJ
-Xk
+mk
 bg
 bg
 bg
@@ -2146,7 +2152,7 @@ Ht
 kC
 kC
 Xw
-HF
+Sv
 rJ
 rJ
 rJ
@@ -2157,7 +2163,7 @@ rJ
 rJ
 rJ
 rJ
-eS
+PJ
 rJ
 bg
 bg
@@ -2165,7 +2171,7 @@ bg
 bg
 bg
 rJ
-oc
+Pc
 rJ
 rJ
 rJ
@@ -2181,7 +2187,7 @@ rJ
 rJ
 rJ
 rJ
-Xk
+mk
 bg
 bg
 bg
@@ -2869,7 +2875,7 @@ rJ
 rJ
 rJ
 rJ
-xv
+Of
 rJ
 Jx
 yn

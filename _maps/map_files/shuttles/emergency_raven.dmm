@@ -358,13 +358,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"bx" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
 "by" = (
 /obj/structure/closet/crate/freezer/iv_storage,
 /obj/effect/turf_decal/tiles/department/medical/side{
@@ -438,12 +431,6 @@
 "bS" = (
 /obj/structure/sign/lifestar,
 /turf/simulated/wall/mineral/plastitanium,
-/area/shuttle/escape)
-"bT" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "bU" = (
 /obj/structure/closet/emcloset,
@@ -717,12 +704,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"da" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Seating"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
 "db" = (
 /obj/structure/closet/crate/medical,
 /obj/item/healthanalyzer{
@@ -740,13 +721,6 @@
 "dd" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
-"de" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Seating"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "df" = (
@@ -880,14 +854,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"dA" = (
-/obj/machinery/door/airlock/engineering{
-	name = "Emergency Shuttle Engineering"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "dB" = (
 /obj/structure/sign/engineering,
 /turf/simulated/wall/mineral/plastitanium,
@@ -1007,6 +973,13 @@
 "hu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"it" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1137,6 +1110,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"uL" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 "uM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/spot,
@@ -1186,6 +1167,14 @@
 "yY" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"zc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Seating";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -1263,11 +1252,28 @@
 /obj/effect/turf_decal/raven/nine,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"Fh" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Holding Area";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 "Ge" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"GJ" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Emergency Shuttle Engineering";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "GL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1304,6 +1310,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"IQ" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Emergency Shuttle Seating";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 "Jx" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -1329,14 +1342,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
-/area/shuttle/escape)
-"Kk" = (
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/machinery/door/airlock/engineering{
-	name = "Emergency Shuttle Engineering"
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Ls" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1452,6 +1457,15 @@
 "Xd" = (
 /obj/effect/turf_decal/raven/seven,
 /turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"XE" = (
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/machinery/door/airlock/engineering{
+	name = "Emergency Shuttle Engineering";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "YX" = (
 /obj/effect/turf_decal/raven/six,
@@ -1664,7 +1678,7 @@ aY
 aY
 aY
 bE
-bk
+Fh
 Ia
 Jx
 Jx
@@ -1674,11 +1688,11 @@ Jx
 ak
 ak
 ak
-da
+IQ
 dh
 ak
 ak
-dA
+GJ
 dE
 dE
 Nd
@@ -1795,10 +1809,10 @@ Ge
 Xd
 NQ
 ph
-bx
+uL
 bc
 bl
-bx
+uL
 BW
 ak
 ak
@@ -1863,10 +1877,10 @@ Ge
 Db
 YX
 ml
-bx
+uL
 bc
 bn
-bx
+uL
 lC
 ac
 ak
@@ -2004,7 +2018,7 @@ bf
 bf
 bf
 US
-bT
+it
 ss
 Rw
 Rw
@@ -2014,11 +2028,11 @@ Rw
 ak
 ak
 ak
-de
+zc
 dn
 ak
 ak
-Kk
+XE
 dE
 dE
 NK
