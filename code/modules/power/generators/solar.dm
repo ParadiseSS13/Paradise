@@ -46,20 +46,20 @@
 		S.glass_type = /obj/item/stack/sheet/glass
 		S.anchored = TRUE
 	S.loc = src
-	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
-		max_integrity *= 1.1 //this need to be placed here, because panels already on the map don't have an assembly linked to
+	if(S.glass_type == /obj/item/stack/sheet/rglass) // if the panel is made of reinforced glass
+		max_integrity *= RGLASS_SOLAR_MULT
 		obj_integrity = max_integrity
 		solar_type = "solar_panel"
-	if(S.glass_type == /obj/item/stack/sheet/plasmaglass) //if the panel is in plasma glass
-		max_integrity *= 1.7
+	if(S.glass_type == /obj/item/stack/sheet/plasmaglass) // if the panel is made of plasma glass
+		max_integrity *= PLASMAGLASS_SOLAR_MULT
 		obj_integrity = max_integrity
 		solar_type = "solar_panel_p"
-	if(S.glass_type == /obj/item/stack/sheet/plasmarglass) //if the panel is in reinforced plasma glass
-		max_integrity *= 1.8
+	if(S.glass_type == /obj/item/stack/sheet/plasmarglass) // if the panel is made of reinforced plasma glass
+		max_integrity *= PLASMARGLASS_SOLAR_MULT
 		obj_integrity = max_integrity
 		solar_type = "solar_panel_p"
-	if(S.glass_type == /obj/item/stack/sheet/plastitaniumglass) //if the panel is in plastitanium glass
-		max_integrity *= 2.4
+	if(S.glass_type == /obj/item/stack/sheet/plastitaniumglass) // if the panel is made of plastitanium glass
+		max_integrity *= PLASTITANIUMGLASS_SOLAR_MULT
 		obj_integrity = max_integrity
 		solar_type = "solar_panel_t"
 	update_icon(UPDATE_OVERLAYS)
