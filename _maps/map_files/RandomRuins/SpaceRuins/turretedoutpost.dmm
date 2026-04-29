@@ -85,7 +85,7 @@
 /area/ruin/space/turreted_outpost/vault)
 "iq" = (
 /obj/effect/spawner/airlock/w_to_e/long/square,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/turreted_outpost)
 "ju" = (
 /obj/structure/bed,
@@ -155,7 +155,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "qa" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/turreted_outpost)
 "qy" = (
 /obj/structure/cable/yellow{
@@ -165,6 +165,16 @@
 /area/ruin/space/turreted_outpost)
 "qK" = (
 /obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"rh" = (
+/obj/machinery/door/airlock/public/glass{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "rL" = (
@@ -559,14 +569,6 @@
 /obj/structure/foamedmetal,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost/vault)
-"TD" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/turreted_outpost)
 "TV" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -1044,7 +1046,7 @@ qa
 Oc
 xB
 TV
-TD
+rh
 Hb
 Hb
 Hb

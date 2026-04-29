@@ -53,6 +53,7 @@
 #define SPECIAL_ROLE_MIND_FLAYER "Mind Flayer"
 #define SPECIAL_ROLE_VAMPIRE_THRALL "Vampire Thrall"
 #define SPECIAL_ROLE_WIZARD "Wizard"
+#define SPECIAL_ROLE_WIZARD_ADEPT "Wizard Adept"
 #define SPECIAL_ROLE_WIZARD_APPRENTICE "Wizard Apprentice"
 #define SPECIAL_ROLE_XENOMORPH "Xenomorph"
 #define SPECIAL_ROLE_XENOMORPH_QUEEN "Xenomorph Queen"

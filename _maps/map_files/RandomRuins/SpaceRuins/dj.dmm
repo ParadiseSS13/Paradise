@@ -15,7 +15,7 @@
 /area/space/nearstation)
 "af" = (
 /obj/effect/spawner/airlock,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/djstation)
 "ag" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -203,7 +203,7 @@
 /area/ruin/space/djstation)
 "aH" = (
 /obj/effect/spawner/airlock/s_to_n,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/djstation)
 "aJ" = (
 /obj/item/clothing/head/ushanka,
@@ -277,7 +277,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aS" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/djstation)
 "aT" = (
 /obj/structure/lattice/catwalk,
@@ -582,14 +582,6 @@
 /obj/machinery/sleeper,
 /turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
-"bE" = (
-/obj/machinery/door/airlock{
-	name = "Restroom"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/ruin/space/djstation)
 "bF" = (
 /obj/effect/spawner/window/shuttle,
 /obj/structure/cable,
@@ -609,17 +601,6 @@
 /obj/machinery/power/tracker,
 /turf/template_noop,
 /area/ruin/space/djstation/solars)
-"bI" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering"
-	},
-/turf/simulated/floor/plasteel/fakestairs{
-	dir = 1
-	},
-/area/ruin/space/djstation)
 "bJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -760,6 +741,15 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/djstation)
+"ib" = (
+/obj/machinery/door/airlock{
+	name = "Restroom";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/ruin/space/djstation)
 "mL" = (
 /obj/machinery/light/small{
@@ -918,6 +908,18 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/djstation)
+"Ic" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/fakestairs{
+	dir = 1
+	},
 /area/ruin/space/djstation)
 "Mj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1596,7 +1598,7 @@ aS
 ba
 bx
 bm
-bE
+ib
 aY
 bQ
 aS
@@ -1791,7 +1793,7 @@ ah
 bn
 UP
 uf
-bI
+Ic
 bj
 aU
 bp

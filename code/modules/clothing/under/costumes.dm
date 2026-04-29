@@ -12,11 +12,19 @@
 	name = "rogue captains uniform"
 	desc = "For the man who doesn't care because he's still free."
 	icon_state = "captain_fly"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi',
+	)
 
 /obj/item/clothing/under/costume/patriotsuit
 	name = "Patriotic Suit"
 	desc = "Motorcycle not included."
 	icon_state = "ek"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi',
+	)
 
 /obj/item/clothing/under/costume/flappers
 	name = "flappers"
@@ -54,6 +62,11 @@
 	name = "jester suit"
 	desc = "A jolly dress, well suited to entertain your master, nuncle."
 	icon_state = "jester"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/mankini
 	name = "the mankini"
@@ -70,29 +83,52 @@
 	name = "noble clothes"
 	desc = "They fall just short of majestic."
 	icon_state = "noble_clothes"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/officeruniform
 	name = "clown officer's uniform"
 	desc = "For the officers of the Clown army."
 	icon_state = "officeruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/soldieruniform
 	name = "clown soldier's uniform"
 	desc = "For the basic grunt of the Clown army."
 	icon_state = "soldieruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/pennywise
 	name = "\improper Pennywise costume"
 	desc = "It's everything you ever were afraid of."
 	icon_state = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/pirate
 	name = "pirate outfit"
 	desc = "Yarr."
 	icon_state = "pirate"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/pirate_rags
 	name = "pirate rags"
@@ -103,6 +139,11 @@
 	name = "psychic amp jumpsuit"
 	desc = "A suit made of strange materials."
 	icon_state = "psyamp"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi'
+	)
 
 /// Don't modify the path, used by a fluff item
 /obj/item/clothing/under/psysuit
@@ -123,6 +164,11 @@
 	name = "redcoat uniform"
 	desc = "Looks old."
 	icon_state = "redcoat"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/roman
 	name = "roman armor"
@@ -131,6 +177,11 @@
 	inhand_icon_state = "armor"
 	strip_delay = 100
 	resistance_flags = NONE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/costumes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/soviet
 	name = "old soviet uniform"
@@ -146,11 +197,19 @@
 	name = "yellow performer's outfit"
 	desc = "Just looking at this makes you want to sing."
 	icon_state = "ysing"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/singerb
 	name = "blue performer's outfit"
 	desc = "Just looking at this makes you want to sing."
 	icon_state = "bsing"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/costumes.dmi'
+	)
 
 /obj/item/clothing/under/costume/cuban_suit
 	name = "rhumba outfit"

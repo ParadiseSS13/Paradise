@@ -83,10 +83,6 @@
 "aw" = (
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
-"az" = (
-/obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/plasteel/white,
-/area/shuttle/escape)
 "aB" = (
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -213,14 +209,6 @@
 /obj/structure/noticeboard,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
-"aW" = (
-/obj/machinery/door/airlock/titanium{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Shuttle Cargo Hatch"
-	},
-/turf/simulated/floor/plasteel/white,
-/area/shuttle/escape)
 "aY" = (
 /obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
@@ -229,12 +217,6 @@
 	name = "Shuttle Hatch"
 	},
 /turf/simulated/floor/noslip,
-/area/shuttle/escape)
-"bb" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/economy/vending/clothing,
@@ -336,14 +318,36 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"nG" = (
+/obj/machinery/door/airlock/public/glass{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/shuttle/escape)
 "tH" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
+/area/shuttle/escape)
+"Ct" = (
+/obj/machinery/door/airlock/titanium{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Shuttle Cargo Hatch";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "Dr" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/shuttle/escape)
 "MA" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
+/area/shuttle/escape)
+"RA" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "Uo" = (
 /obj/structure/chair/comfy/shuttle{
@@ -449,7 +453,7 @@ aD
 aD
 am
 am
-aW
+Ct
 aw
 aw
 bk
@@ -515,7 +519,7 @@ ai
 am
 am
 am
-az
+nG
 am
 am
 am
@@ -605,7 +609,7 @@ aD
 aD
 am
 am
-bb
+RA
 aw
 aw
 aw

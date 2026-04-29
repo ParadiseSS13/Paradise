@@ -9,6 +9,7 @@
 	resistance_flags = FLAMMABLE
 	// Recycle your litter, kids!
 	materials = list(MAT_PLASTIC = 100)
+	new_attack_chain = TRUE
 
 /obj/item/trash/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user))
@@ -18,9 +19,6 @@
 		qdel(src)
 		return TRUE
 	return ..()
-
-/obj/item/trash/attack__legacy__attackchain(mob/M as mob, mob/living/user as mob)
-	return
 
 /obj/item/trash/raisins
 	name = "4no raisins"

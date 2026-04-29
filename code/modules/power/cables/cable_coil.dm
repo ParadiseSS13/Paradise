@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	icon_state = "coil"
 	inhand_icon_state = "coil"
 	belt_icon = "cable_coil"
+	hitsound = 'sound/weapons/whip.ogg'
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
@@ -41,6 +42,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	update_icon()
 	recipes = GLOB.cable_coil_recipes
 	update_wclass()
+
+/obj/item/stack/cable_coil/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/stack/cable_coil/random/change_stack(mob/user, amount)
 	var/obj/item/stack/cable_coil/new_stack = ..()

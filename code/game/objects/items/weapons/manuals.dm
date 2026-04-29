@@ -128,30 +128,34 @@
 
 			D Class: Events that only affect certain types of NON-STANDARD setups, minimial operator intervention required. These events occur instantly and engineering will be alerted on telecomms.</br></br>
 
-			D-1: About 200 moles of nitrous oxide are released by the crystal.</br>
-			D-2: About 200 moles of nitrogen are released by the crystal</br>
-			D-3: About 250 moles of CO2 are released by the crystal</br></br></br>
+			D-1: About 2000 moles of nitrous oxide are released by the crystal.</br>
+			D-2: About 2000 moles of nitrogen are released by the crystal.</br>
+			D-3: About 2000 moles of CO2 are released by the crystal.</br>
+			D-4: About 2000 moles of hydrogen are released by the crystal.</br></br></br>
 
 			C Class: Events with mild effects to standard setups. Operator intervention MAY be required. Engineering will be alerted on telecomms.</br></br>
-			C-1: 2000 moles of oxygen are released by the crystal</br>
-			C-2: 2000 moles of plasma are released by the crystal</br>
-			C-3: The temperature at which the engine starts to lose integrity is lowered for a few minutes.
-			C-4: 2000 moles of hydrogen are released by the crystal.
+			C-1: 2000 moles of oxygen are released by the crystal.</br>
+			C-2: 2000 moles of plasma are released by the crystal.</br>
+			C-3: The temperature at which the engine starts to lose integrity is lowered for a few minutes.</br>
+			C-4: 2000 moles of hydrogen are released by the crystal.</br>
 			C-5: 2000 moles of water vapor are released by the crystal.</br></br></br>
 
 			B Class: Events with significant effects to standard setups. Action may need to be taken to prevent a delamination event.</br></br>
 			B-1: The amount of plasma and O2 released by the engine is doubled for a few minutes.</br>
 			B-2: The amount of heat released by the engine is increased for a few minutes.</br>
-			B-3: The engine's EER is raised slightly above critically for several minutes, regardless of outside factors.</br></br></br>
+			B-3: The engine's EER is raised slightly above critically for several minutes, regardless of outside factors.</br>
+			B-4: The engine's EER spikes, leading to the likely outcome of the engine arcing.</br></br></br>
 
 			A Class: Events with SEVERE effects to standard setups. Action will need to be taken to prevent a delamination event.</br></br>
 			A-1: The engine's APC is shorted due to a power spike, requiring its wires to be mended.</br>
 			A-2: The engine's air alarm resets its self as an effect of radiological interference.</br>
-			A-3: The amount of plasma and O2 released by the engine is quadrupled for a few minutes.</br></br>
+			A-3: The amount of plasma and O2 released by the engine is quadrupled for a few minutes.</br>
+			A-4: The engine's integrity drops a random amount, leading to unexpected damage.</br></br>
 
 			S Class events: Events that require immediate intervention and a specialized response to prevent a delamination event. Coordination with other departments is HIGHLY recommended. A warning will be broadcasted on engineering communications before these events.</br></br>
 			Arc Type: The engine's EER is raised massively several minutes, resulting it a supercritical state.</br>
-			Heat Type: The amount of heat released by the engine is massively increased for several minutes.</br></br>
+			Heat Type: The amount of heat released by the engine is massively increased for several minutes.</br>
+			Flood Type: The engine releases a large amount of plasma and oxygen, followed by a massive increase of gas output.</br>
 
 			In the event that an anomaly NOT on this list presents itself, contact your local Nanotrasen Engineering Officer as soon as possible.</br>
 			-Vroo-Looum-Kloo, Senior Engine Technician."})
@@ -1282,6 +1286,60 @@
 				</ol>
 				<p>
 				It really is that easy! Good luck!
+
+				</body>
+				</html>
+				"})
+
+/obj/item/book/manual/mug_cakes
+	name = "Harried Intern's Guide to Mug Cakes"
+	desc = "A tiny recipe book written in ballpoint pen."
+	summary = "How to cook your own mug cakes when the chef is nowhere to be found!"
+	icon_state ="cook_book"
+	author = "Intern Kołodziejczyk"
+	title = "Harried Intern's Guide to Mug Cakes"
+	pages = list({"<html><meta charset='utf-8'>
+				<head>
+				<style>
+				body {font-family: sans-serif; color: #104;}
+				h1 {font-size: 18px; margin: 15px 0px 5px;}
+				h2 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ul li {margin: 2px 0 1em 0;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<h1>Making Mug Cakes!!</h1>
+
+				<p>The chef would have you believe that cooking is specialist knowledge that needs fancy equipment,
+				but when there's a trail of blood leading to the freezers and they're nowhere to be found,
+				they can't help you anymore, can they! All you need to start these recipes is a mug,
+				a food crate from cargo, and a microwave. Good luck!</p>
+
+				<h2>Basic mug cake!</h2>
+				<ol>
+				<li>Put 5u milk, 5u flour, and 5u sugar in your mug.</li>
+				<li>Put the mug in the microwave.</li>
+				<li>Put an egg in the microwave.</li>
+				<li>Turn it on!</li>
+				</ol>
+
+				<p>Now you have a mug cake. Hopefully it staves off starvation until the shift change shuttle arrives.
+				If you want it to taste a little better, try some of these modifications.</p>
+
+				<ul>
+				<li>Add a banana to the microwave. Bananas come in the food crate.</li>
+				<li>Add 5u vanilla to the mug.</li>
+				<li>Instead of 5u milk, use 10u chocolate milk.</li>
+				<li>Add a cherry to the microwave. The botanist won't give me blue ones.</li>
+				<li>Add a lime to the microwave.</li>
+				<li>Add 5u honey to the mug.</li>
+				<li>DO NOT add the red mushrooms, it's not worth it!</li>
+				</ul>
+
+				<p>Oh god I think I hear it in the vents again. Wish me lu</p>
 
 				</body>
 				</html>
