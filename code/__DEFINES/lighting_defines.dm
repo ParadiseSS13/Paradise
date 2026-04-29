@@ -80,7 +80,6 @@
 #define LIGHT_COLOR_STATION_OFFICE		 "#fac192" // Quite warm, for offices and private rooms.
 #define LIGHT_COLOR_STATION_OFFICE_NIGHT "#e29a5f" // ^Ditto^, but warmer.
 
-
 #define LIGHT_RANGE_FIRE		3 //How many tiles standard fires glow.
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255
@@ -95,7 +94,6 @@
 #define DYNAMIC_LIGHTING_FORCED 2 //dynamic lighting enabled even if the area doesn't require power
 #define DYNAMIC_LIGHTING_IFSTARLIGHT 3 //dynamic lighting enabled only if starlight is.
 #define IS_DYNAMIC_LIGHTING(A) A.dynamic_lighting
-
 
 //code assumes higher numbers override lower numbers.
 #define LIGHTING_NO_UPDATE 0
