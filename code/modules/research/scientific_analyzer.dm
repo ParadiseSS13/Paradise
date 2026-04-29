@@ -24,9 +24,9 @@ Note: Must be placed within 3 tiles of the R&D Console
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/scientific_analyzer(null)
-	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
 	RefreshParts()
 
 /obj/machinery/r_n_d/scientific_analyzer/Destroy()

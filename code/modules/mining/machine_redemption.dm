@@ -53,7 +53,10 @@
 	mat_container = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLATINUM, MAT_IRIDIUM, MAT_PALLADIUM), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
 	ore_buffer = list()
 	files = new /datum/research/smelter(src)
-	// Stock parts
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/mineral/ore_redemption/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -61,18 +64,15 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
 
-/obj/machinery/mineral/ore_redemption/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/mineral/ore_redemption/upgraded/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
 
 /**
   * # Ore Redemption Machine (Labor Camp)
@@ -84,8 +84,7 @@
 	req_access = list()
 	anyone_claim = TRUE
 
-/obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)
-	. = ..()
+/obj/machinery/mineral/ore_redemption/labor/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -93,7 +92,6 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	// Move any stuff inside us out

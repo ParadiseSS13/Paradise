@@ -54,6 +54,10 @@
 /obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
 	. = ..()
 	initialize_directions = dir
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/atmospherics/unary/cryo_cell/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -62,19 +66,20 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/Initialize(mapload)
+/obj/machinery/atmospherics/unary/cryo_cell/loaded/Initialize(mapload)
 	. = ..()
+	beaker = new /obj/item/reagent_containers/glass/beaker/cryoxadone(null)
+
+/obj/machinery/atmospherics/unary/cryo_cell/loaded/upgraded/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	RefreshParts()
 
 /obj/machinery/atmospherics/unary/cryo_cell/on_construction()
 	..(dir,dir)

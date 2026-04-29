@@ -100,12 +100,22 @@
 
 /obj/machinery/reagentgrinder/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/reagentgrinder/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	RefreshParts()
+
+/obj/machinery/reagentgrinder/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 
 /obj/machinery/reagentgrinder/RefreshParts()
 	var/H

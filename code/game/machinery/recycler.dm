@@ -26,12 +26,21 @@
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_TITANIUM, MAT_URANIUM, MAT_DIAMOND, MAT_BLUESPACE, MAT_WOOD, MAT_PLASTIC, MAT_BANANIUM, MAT_TRANQUILLITE), 0, TRUE, null, null, null, TRUE)
+	initialize_parts()
+	RefreshParts()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/recycler/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	RefreshParts()
-	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/recycler/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/recycler(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0

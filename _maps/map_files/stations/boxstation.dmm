@@ -12696,7 +12696,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "aWj" = (
-/obj/machinery/biogenerator,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "aWk" = (
@@ -13505,7 +13505,6 @@
 /obj/item/hatchet,
 /obj/item/crowbar,
 /obj/item/plant_analyzer,
-/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
 "aZk" = (
@@ -16981,8 +16980,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
 "ble" = (
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "blf" = (
@@ -23354,10 +23352,6 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
 	},
-/obj/machinery/r_n_d/circuit_imprinter{
-	pixel_x = 3;
-	pixel_y = 5
-	},
 /obj/machinery/button/windowtint{
 	id = "rnd";
 	pixel_x = -24;
@@ -23367,6 +23361,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "bJs" = (
@@ -24107,7 +24102,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
 "bNj" = (
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/loaded/station,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
@@ -24122,7 +24117,7 @@
 	dir = 5
 	},
 /obj/item/stack/sheet/plasteel{
-	amount = 10
+	amount = 20
 	},
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel/dark,
@@ -24173,10 +24168,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "bNt" = (
-/obj/machinery/r_n_d/protolathe,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 10
 	},
+/obj/machinery/r_n_d/protolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "bNu" = (
@@ -24736,11 +24731,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "bPy" = (
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/loaded/station,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "bPz" = (
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -24752,6 +24746,7 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "bPA" = (
@@ -25162,12 +25157,12 @@
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "bRM" = (
-/obj/machinery/autolathe,
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bRN" = (
@@ -25380,7 +25375,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "bSB" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -25641,14 +25636,6 @@
 /obj/machinery/camera{
 	c_tag = "Cargo Office";
 	dir = 4
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
 	},
 /obj/item/multitool,
 /turf/simulated/floor/plasteel,
@@ -26497,10 +26484,6 @@
 	pixel_x = -2;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -26516,7 +26499,7 @@
 	},
 /area/station/medical/cloning)
 "bXM" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -29164,18 +29147,11 @@
 "ciE" = (
 /obj/machinery/alarm/directional/south,
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Medbay Cryogenics";
 	dir = 1
 	},
+/obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -30715,7 +30691,6 @@
 	pixel_x = -2;
 	pixel_y = 10
 	},
-/obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -36525,7 +36500,7 @@
 /area/station/engineering/break_room)
 "cMX" = (
 /obj/machinery/alarm/directional/east,
-/obj/machinery/autolathe,
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "cNb" = (
@@ -67441,18 +67416,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "nLa" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = -2;
-	pixel_y = -2
-	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
@@ -79080,7 +79043,6 @@
 /area/station/science/hallway)
 "sSX" = (
 /obj/structure/sink/kitchen/old/directional/west,
-/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "sTc" = (
@@ -80154,18 +80116,6 @@
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass{
-	amount = 10;
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/stack/sheet/glass{
-	amount = 10;
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/item/robotanalyzer,
 /obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel/dark,
@@ -89779,8 +89729,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "xNV" = (
-/obj/machinery/biogenerator,
 /obj/machinery/light,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xOh" = (

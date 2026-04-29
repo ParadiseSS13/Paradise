@@ -86,17 +86,6 @@
 	container.make_mini()
 	vis_contents += container
 
-/obj/machinery/cooking/oven/upgraded/InitializeParts()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/cooking/oven(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-
-	RefreshParts()
-
 /obj/item/circuitboard/cooking/oven
 	board_name = "Convection Oven"
 	build_path = /obj/machinery/cooking/oven
@@ -116,3 +105,13 @@
 		var/datum/cooking_surface/surface = surfaces[i]
 		surface.container = new /obj/item/reagent_containers/cooking/oven(src)
 	update_appearance()
+
+/obj/machinery/cooking/oven/loaded/upgraded/InitializeParts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/cooking/oven(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	RefreshParts()

@@ -17,7 +17,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "br" = (
-/obj/machinery/r_n_d/circuit_imprinter/upgraded,
+/obj/machinery/r_n_d/circuit_imprinter/loaded/upgraded,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "ch" = (
@@ -616,7 +616,7 @@
 /obj/machinery/keycard_auth{
 	pixel_y = 28
 	},
-/obj/machinery/r_n_d/protolathe/upgraded,
+/obj/machinery/r_n_d/protolathe/loaded/upgraded,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "Gv" = (

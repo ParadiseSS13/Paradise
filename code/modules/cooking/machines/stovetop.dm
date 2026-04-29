@@ -139,3 +139,12 @@
 		else
 			surface.container = new /obj/item/reagent_containers/cooking/pan(src)
 	update_appearance()
+
+/obj/machinery/cooking/stovetop/loaded/upgraded/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/cooking/stove(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	RefreshParts()
