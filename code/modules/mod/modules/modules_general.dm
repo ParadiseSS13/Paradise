@@ -288,12 +288,6 @@
 
 	to_chat(mod.wearer, SPAN_WARNING("Your [name] shuts off!"))
 
-/obj/item/mod/module/flashlight/search
-	name = "MOD searchlight module"
-	desc = "A powerful pair of configurable flashlights installed on the left and right sides of the helmet, \
-		useful for providing light in a variety of ranges and colors."
-	max_range = 8
-
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
 	name = "MOD burger dispenser module"
