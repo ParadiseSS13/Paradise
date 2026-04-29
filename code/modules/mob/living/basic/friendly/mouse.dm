@@ -12,7 +12,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	butcher_results = list(/obj/item/food/meat = 1)
+	butcher_results = list(/obj/item/food/rawmouse = 1)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
