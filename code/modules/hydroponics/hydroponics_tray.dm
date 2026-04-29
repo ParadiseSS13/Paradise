@@ -105,6 +105,16 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/hydroponics/constructable/upgraded/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/hydroponics(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
 /obj/machinery/hydroponics/constructable/RefreshParts()
 	var/tmp_capacity = 0
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)

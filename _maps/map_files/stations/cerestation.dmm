@@ -6665,15 +6665,8 @@
 /area/station/maintenance/storage)
 "beo" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -3;
-	pixel_y = 1
-	},
 /obj/machinery/alarm/directional/east,
+/obj/item/wrench/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -10910,8 +10903,8 @@
 	},
 /area/station/maintenance/security/starboard)
 "bKq" = (
-/obj/machinery/r_n_d/protolathe,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/r_n_d/protolathe/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "bKv" = (
@@ -34067,9 +34060,6 @@
 /area/station/hallway/primary/aft/west)
 "giI" = (
 /obj/structure/table,
-/obj/item/clipboard{
-	pixel_y = 4
-	},
 /obj/item/storage/belt/utility,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
@@ -34254,7 +34244,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/wrench/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -40005,7 +39994,6 @@
 /turf/simulated/floor/carpet,
 /area/station/service/bar)
 "hyB" = (
-/obj/machinery/autolathe,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -40013,6 +40001,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "hyT" = (
@@ -44721,7 +44710,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/entry)
 "ixW" = (
-/obj/machinery/biogenerator,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "iyh" = (
@@ -61157,7 +61146,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/loaded/station,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "lRL" = (
@@ -65685,8 +65674,6 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty,
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel/white,
@@ -66636,15 +66623,11 @@
 /area/station/maintenance/starboard)
 "ngz" = (
 /obj/structure/table,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = 4
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
+	},
+/obj/item/clipboard{
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/office)
@@ -68305,7 +68288,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/loaded/station,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "nzX" = (
@@ -84946,11 +84929,10 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
 	},
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "rjM" = (
@@ -84966,8 +84948,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "rkb" = (
-/obj/machinery/biogenerator,
 /obj/effect/turf_decal/tiles/department/virology,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "rkc" = (
@@ -95411,12 +95393,12 @@
 /turf/simulated/floor/plating,
 /area/station/public/quantum/engineering)
 "tyF" = (
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/requests_console/directional/west,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "tyK" = (
@@ -96885,7 +96867,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "tPB" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -99630,10 +99612,12 @@
 /area/station/supply/sorting)
 "utp" = (
 /obj/structure/rack,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/alarm/directional/north,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
@@ -99644,14 +99628,9 @@
 	amount = 50
 	},
 /obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
-/obj/item/stack/sheet/glass{
-	amount = 20
-	},
-/obj/machinery/alarm/directional/north,
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 9
+	amount = 20;
+	pixel_x = 6;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
@@ -100381,10 +100360,10 @@
 /turf/simulated/wall,
 /area/station/maintenance/electrical/fore_port)
 "uAb" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -103130,11 +103109,11 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/service/aft_starboard)
 "vgs" = (
-/obj/machinery/autolathe,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
 /obj/machinery/requests_console/directional/north,
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/supply/office)
 "vgw" = (
@@ -103170,7 +103149,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay2)
 "vgV" = (
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28;
 	name = "custom placement"
@@ -103178,6 +103156,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "vhk" = (
@@ -108003,10 +107982,6 @@
 	pixel_y = 10
 	},
 /obj/item/book/manual/medical_cloning,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -115061,10 +115036,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"xIx" = (
-/obj/item/reagent_containers/glass/bucket/wooden,
-/turf/simulated/floor/grass/jungle,
-/area/station/hallway/secondary/garden)
 "xIz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -149872,7 +149843,7 @@ aXO
 aXO
 aXO
 kZW
-xIx
+aXP
 bMG
 qQU
 lzH

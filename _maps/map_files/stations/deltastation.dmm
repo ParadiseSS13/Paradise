@@ -11496,19 +11496,11 @@
 /area/station/engineering/atmos)
 "aUN" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/machinery/newscaster/directional/west,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 9
 	},
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "aUO" = (
@@ -11516,7 +11508,6 @@
 /obj/item/folder/yellow,
 /obj/item/multitool,
 /obj/item/pen/red,
-/obj/item/screwdriver/cargo,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
@@ -13031,7 +13022,6 @@
 /area/station/service/bar)
 "baV" = (
 /obj/machinery/alarm/directional/south,
-/obj/machinery/autolathe,
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
@@ -13040,6 +13030,7 @@
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 10
 	},
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "baW" = (
@@ -39011,7 +39002,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "cWS" = (
-/obj/machinery/r_n_d/protolathe,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -39019,6 +39009,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
+/obj/machinery/r_n_d/protolathe/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "cWT" = (
@@ -39296,11 +39287,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "cYr" = (
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/machinery/requests_console/directional/east,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "cYw" = (
@@ -39838,11 +39829,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -5;
-	pixel_y = 5
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "daM" = (
@@ -43439,46 +43425,24 @@
 /area/station/command/office/rd)
 "dsJ" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
 /obj/machinery/light_switch{
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 20;
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/stack/sheet/plasteel{
-	amount = 10;
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/stack/cable_coil/random,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/plasteel{
+	amount = 20;
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dsK" = (
@@ -43499,7 +43463,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dsL" = (
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/loaded/station,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
@@ -48048,10 +48012,10 @@
 /obj/structure/window/reinforced/polarized{
 	id = "RoboSurgery"
 	},
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dXs" = (
@@ -52468,7 +52432,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "fAW" = (
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/loaded/station,
 /obj/machinery/firealarm/directional/north,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
@@ -57752,8 +57716,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "hET" = (
-/obj/machinery/autolathe,
 /obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "hFx" = (
@@ -58903,14 +58867,6 @@
 /area/station/maintenance/fsmaint)
 "ieS" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -3;
-	pixel_y = 1
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -58925,6 +58881,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "ieW" = (
@@ -62976,7 +62933,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "jQv" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -76390,7 +76347,6 @@
 "pmO" = (
 /obj/structure/table/glass,
 /obj/item/roller,
-/obj/item/soap/nanotrasen,
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
@@ -79475,10 +79431,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "qAe" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "qAz" = (
@@ -88540,8 +88496,7 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bucket,
-/obj/machinery/biogenerator,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
 "tUf" = (
@@ -89358,8 +89313,7 @@
 /turf/simulated/wall,
 /area/station/security/checkpoint/secondary)
 "uhU" = (
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "uic" = (
@@ -90518,10 +90472,6 @@
 "uGj" = (
 /obj/structure/table/glass,
 /obj/item/roller,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 9;
-	pixel_y = 3
-	},
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
@@ -94055,10 +94005,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "wcu" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "wcM" = (
@@ -97227,11 +97177,10 @@
 /turf/simulated/floor/plating,
 /area/station/command/teleporter)
 "xmW" = (
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 6
 	},
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xmZ" = (

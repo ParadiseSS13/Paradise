@@ -12833,10 +12833,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "cBM" = (
-/obj/machinery/r_n_d/circuit_imprinter{
-	pixel_x = 3;
-	pixel_y = 5
-	},
 /obj/machinery/door_control{
 	id = "rndlab2";
 	name = "Research and Development Lab Shutters Control";
@@ -12847,6 +12843,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "cBP" = (
@@ -17075,10 +17072,6 @@
 /area/station/maintenance/dorms/starboard)
 "dti" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = -3
 	},
@@ -31783,8 +31776,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
 "gnI" = (
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/garden)
 "gnJ" = (
@@ -34200,27 +34192,6 @@
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/lobby)
-"gPU" = (
-/obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/office)
 "gQc" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/spawner/random/oil/maybe,
@@ -38770,10 +38741,10 @@
 	},
 /area/station/science/robotics)
 "hHn" = (
-/obj/machinery/r_n_d/protolathe,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/r_n_d/protolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "hHu" = (
@@ -41650,28 +41621,19 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "ioL" = (
-/obj/item/stack/sheet/glass{
-	amount = 20;
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/stack/sheet/glass{
-	amount = 20;
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/plasteel{
-	amount = 10;
-	pixel_x = 4;
-	pixel_y = -4
-	},
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/rack,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/plasteel{
+	amount = 20;
+	pixel_x = 6;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "ioO" = (
@@ -48835,7 +48797,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
 "jKH" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -55853,7 +55815,6 @@
 "lhT" = (
 /obj/structure/sink/directional/south,
 /obj/effect/turf_decal/delivery/blue/hollow,
-/obj/item/reagent_containers/glass/bucket,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -56477,10 +56438,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "loZ" = (
-/obj/machinery/biogenerator,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "lph" = (
@@ -56880,10 +56841,6 @@
 "lsM" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -58793,10 +58750,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "lNp" = (
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "lNy" = (
@@ -77608,13 +77565,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/vault)
 "puY" = (
-/obj/machinery/autolathe,
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "pvb" = (
@@ -79857,7 +79814,7 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "pTg" = (
-/obj/machinery/mecha_part_fabricator/station{
+/obj/machinery/mecha_part_fabricator/loaded/station{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -86119,7 +86076,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "rgI" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -102941,18 +102898,6 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "uww" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = -2;
-	pixel_y = -2
-	},
 /obj/machinery/light,
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -103818,9 +103763,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "uFD" = (
-/obj/machinery/autolathe,
 /obj/machinery/requests_console/directional/south,
 /obj/effect/turf_decal/tiles/department/cargo/corner,
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "uFE" = (
@@ -105011,7 +104956,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "uRq" = (
-/obj/machinery/biogenerator,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "uRw" = (
@@ -106411,10 +106356,6 @@
 "vha" = (
 /obj/structure/table/glass,
 /obj/item/crowbar,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
 /obj/item/reagent_containers/glass/bottle/epinephrine,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -143069,7 +143010,7 @@ rnh
 hxS
 rje
 hxS
-gPU
+xKW
 uFD
 hTl
 hTl
