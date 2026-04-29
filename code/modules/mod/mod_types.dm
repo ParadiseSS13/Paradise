@@ -181,6 +181,23 @@
 		/obj/item/mod/module/analyzer,
 	)
 
+/obj/item/mod/control/pre_equipped/salvation
+	icon_state = "salvation-control"
+	theme = /datum/mod_theme/salvation
+	applied_cell = /obj/item/stock_parts/cell/super
+	applied_modules = list(
+		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/injector,
+		/obj/item/mod/module/defibrillator,
+		/obj/item/mod/module/monitor,
+		/obj/item/mod/module/analyzer,
+	)
+	default_pins = list(
+		/obj/item/mod/module/defibrillator,
+		/obj/item/mod/module/analyzer,
+		/obj/item/mod/module/cbrn,
+	)
+
 /obj/item/mod/control/pre_equipped/research
 	icon_state = "research-control"
 	theme = /datum/mod_theme/research
