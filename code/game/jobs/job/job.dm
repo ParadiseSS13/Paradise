@@ -240,12 +240,7 @@
 					continue
 
 				if(G.slot)
-					var/atom/I = G.spawn_item(H, H.client.prefs.active_character.get_gear_metadata(G))
-					if(G.cui && G.cui.item_name_override)
-						I.name = G.cui.item_name_override
-					if(G.cui && G.cui.item_desc_override)
-						I.desc = G.cui.item_desc_override
-					if(H.equip_to_slot_or_del(I, G.slot, TRUE))
+					if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.active_character.get_gear_metadata(G)), G.slot, TRUE))
 						to_chat(H, SPAN_NOTICE("Equipping you with [G.display_name]!"))
 					else
 						gear_leftovers += G
@@ -269,12 +264,7 @@
 			leftover_items += new_item
 
 	for(var/datum/gear/G in gear_leftovers)
-		var/atom/I = G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G))
-		if(G.cui && G.cui.item_name_override)
-			I.name = G.cui.item_name_override
-		if(G.cui && G.cui.item_desc_override)
-			I.desc = G.cui.item_desc_override
-		leftover_items += I
+		leftover_items += G.spawn_item(null, H.client.prefs.active_character.get_gear_metadata(G))
 
 	for(var/obj/item/item in leftover_items)
 		var/atom/placed_in = H.equip_or_collect(item)

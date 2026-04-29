@@ -53,7 +53,11 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/datum/gear_data/gear_data = new(path, location)
 	for(var/datum/gear_tweak/tweak in gear_tweaks)
 		tweak.tweak_gear_data(metadata["[tweak]"], gear_data)
-	var/item = new gear_data.path(gear_data.location)
+	var/atom/item = new gear_data.path(gear_data.location)
+	if(cui && cui.item_name_override)
+		item.name = cui.item_name_override
+	if(cui && cui.item_desc_override)
+		item.desc = cui.item_desc_override
 	for(var/datum/gear_tweak/tweak in gear_tweaks)
 		tweak.tweak_item(item, metadata["[tweak]"])
 	return item
