@@ -217,7 +217,7 @@
 		return TRUE
 
 /obj/machinery/clonescanner/upgraded/Initialize(mapload)
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)

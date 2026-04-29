@@ -21,7 +21,7 @@
 	RefreshParts()
 
 /obj/machinery/processor/upgraded/Initialize(mapload)
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/processor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
