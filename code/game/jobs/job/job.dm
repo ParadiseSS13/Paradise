@@ -225,6 +225,10 @@
 			if(G)
 				var/permitted = FALSE
 
+				if(G.cui.characer_name == H.real_name || G.cui.all_characters_allowed)
+					to_chat(H, SPAN_WARNING("Your current character name does not allow you to spawn with [G.display_name]!"))
+					continue
+
 				if(G.allowed_roles)
 					if(name in G.allowed_roles)
 						permitted = TRUE

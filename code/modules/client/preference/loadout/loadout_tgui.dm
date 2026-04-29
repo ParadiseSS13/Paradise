@@ -20,8 +20,23 @@ GLOBAL_LIST_EMPTY(gear_tgui_info)
 	return data
 
 /datum/ui_module/loadout/ui_static_data(mob/user)
+	// Build custom item list
+	var/list/cui_list = list()
+	if(user?.client) // If they are spawning without a client (somehow), they *cant* have a CUI list
+		for(var/datum/custom_user_item/cui in user.client.cui_entries)
+			var/datum/gear/custom/new_custom = new /datum/gear/custom()
+			var/obj/item/I = cui.object_typepath
+			new_custom.display_name = I.name
+			new_custom.description = I.desc
+			new_custom.path = cui.object_typepath
+			new_custom.slot = I.slot_flags
+			new_custom.allowed_roles = cui.allowed_jobs
+			new_custom.main_typepath = /datum/gear/custom
+			new_custom.cui = cui
+			cui_list += new_custom
+
 	var/list/data = list()
-	data["gears"] = GLOB.gear_tgui_info
+	data["gears"] = GLOB.gear_tgui_info + cui_list
 	data["max_gear_slots"] = user?.client?.prefs?.max_gear_slots
 	data["user_tier"] = user?.client?.donator_level
 	return data

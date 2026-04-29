@@ -2078,6 +2078,7 @@
 #include "code\modules\client\preference\loadout\loadout.dm"
 #include "code\modules\client\preference\loadout\loadout_accessories.dm"
 #include "code\modules\client\preference\loadout\loadout_cosmetics.dm"
+#include "code\modules\client\preference\loadout\loadout_custom.dm"
 #include "code\modules\client\preference\loadout\loadout_donor.dm"
 #include "code\modules\client\preference\loadout\loadout_general.dm"
 #include "code\modules\client\preference\loadout\loadout_glasses.dm"
