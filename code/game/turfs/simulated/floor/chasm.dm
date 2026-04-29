@@ -252,7 +252,9 @@
 		fallen_mob.notransform = FALSE
 		if(fallen_mob.stat != DEAD)
 			fallen_mob.death()
-			fallen_mob.adjustBruteLoss(1000) //crunch from long fall, want it to be like legion in damage
+			fallen_mob.adjustBruteLoss(1000) //crunch from long fall, want it to be like legion in
+		if(fallen_mob.client)
+			fallen_mob.client.give_award(/datum/award/achievement/jobs/chasm, fallen_mob)
 		fallen_mob.forceMove(storage)
 		return
 

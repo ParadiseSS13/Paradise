@@ -277,6 +277,12 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 		goal = found_goal
 		return
 
+/obj/effect/meteor/examine(mob/user, infix, suffix)
+	. = ..()
+	if(admin_spawned || !isliving(user))
+		return
+	user.client.give_award(/datum/award/achievement/misc/meteor_examine, user)
+
 /obj/effect/meteor/fake/Destroy()
 	if(!failed)
 		succeed()

@@ -524,6 +524,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	in_inventory = TRUE
 
+/obj/item/proc/grant_pickup_achievement(mob/user, achievement_type)
+	if(!user || !user.client)
+		return FALSE
+	user.client.give_award(achievement_type, user)
+	return TRUE
+
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
 	in_storage = FALSE

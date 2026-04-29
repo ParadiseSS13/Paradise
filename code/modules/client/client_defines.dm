@@ -170,6 +170,9 @@
 	/// Stores the icon size we use for skins. As the server has control freak enabled, this is always static
 	var/ViewPreferedIconSize = 0
 
+	///these persist between logins/logouts during the same round.
+	var/datum/persistent_client/persistent_client
+
 	/// Basically a local variable on a client datum. Used when setting macros and nowhere else
 	var/list/macro_sets
 
@@ -227,15 +230,3 @@
 
 	/// If this client has any windows scaling applied
 	var/window_scaling
-
-/datum/persistent_client
-	/// Holds admin/mentor PM history.
-	var/datum/pm_tracker/pm_tracker
-	/// The Global Antag Candidacy setting from the new player menu.
-	var/skip_antag = FALSE
-	/// Used to prevent rapid mouse spamming.
-	var/time_died_as_mouse = null
-	/// All of the minds this client has been associated with.
-	var/list/minds = list()
-	/// Ckeys that sent us kudos.
-	var/list/kudos_received_from = list()

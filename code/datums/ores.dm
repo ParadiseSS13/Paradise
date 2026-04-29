@@ -182,6 +182,7 @@
 
 	if(istype(attacker, /obj/item/mining_scanner) || istype(attacker, /obj/item/t_scanner/adv_mining_scanner) && stage == GIBTONITE_ACTIVE)
 		user.visible_message(SPAN_NOTICE("[user] holds [attacker] to [source]..."), SPAN_NOTICE("You use [attacker] to locate where to cut off the chain reaction and attempt to stop it..."))
+		user.client?.give_award(/datum/award/achievement/jobs/gibtonite_defuse, user)
 		defuse(source)
 		return COMPONENT_SKIP_AFTERATTACK
 
