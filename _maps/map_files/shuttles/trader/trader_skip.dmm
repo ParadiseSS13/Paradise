@@ -41,20 +41,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
-"ek" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/docking_port/mobile/trader{
-	height = 18;
-	width = 14;
-	dwidth = 7;
-	preferred_direction = 1;
-	dir = 2
-	},
-/turf/simulated/floor/pod/dark,
-/area/shuttle/trade/sol)
 "gg" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -110,11 +96,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
-"mT" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/trade/sol)
 "nh" = (
 /obj/effect/spawner/random/traders/large_item,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -158,11 +139,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
-"qk" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/plating,
-/area/shuttle/trade/sol)
 "rj" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/civilian,
@@ -195,6 +171,14 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
+"um" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/trade/sol)
 "uE" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/donksoft,
@@ -213,16 +197,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/trade/sol)
-"xb" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/trade/sol)
-"yv" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
 "yH" = (
 /obj/effect/turf_decal/siding{
@@ -310,6 +284,13 @@
 "Ht" = (
 /turf/simulated/wall/mineral/titanium/survival/pod,
 /area/shuttle/trade/sol)
+"IO" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
 "Jo" = (
 /obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/pod/dark,
@@ -341,6 +322,13 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Kq" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
 "KJ" = (
 /obj/structure/bed,
@@ -374,6 +362,13 @@
 	},
 /obj/effect/landmark/spawner/tradergearminor,
 /turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"Nh" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
 "Nt" = (
 /obj/structure/extinguisher_cabinet{
@@ -410,6 +405,13 @@
 /obj/machinery/computer/shuttle/trade/sol,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
+"Qy" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/pod/dark,
+/area/shuttle/trade/sol)
 "QI" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -428,6 +430,21 @@
 /area/shuttle/trade/sol)
 "Sg" = (
 /turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/trade/sol)
+"SA" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/docking_port/mobile/trader{
+	height = 18;
+	width = 14;
+	dwidth = 7;
+	preferred_direction = 1;
+	dir = 2
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
 "SE" = (
 /obj/effect/turf_decal/siding{
@@ -449,13 +466,6 @@
 "VX" = (
 /obj/machinery/door/airlock/survival_pod,
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/pod/dark,
-/area/shuttle/trade/sol)
-"WG" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass{
-	id_tag = "s_docking_airlock"
-	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
 "YG" = (
@@ -517,7 +527,7 @@ aE
 aE
 VF
 cl
-qk
+Kq
 VF
 FB
 FB
@@ -563,7 +573,7 @@ FB
 uE
 gg
 Nt
-mT
+Nh
 RI
 gg
 yV
@@ -591,7 +601,7 @@ Ht
 Le
 "}
 (7,1,1) = {"
-ek
+SA
 yM
 AY
 gg
@@ -611,7 +621,7 @@ Ht
 zQ
 "}
 (8,1,1) = {"
-WG
+um
 yM
 AY
 gg
@@ -663,7 +673,7 @@ Sg
 KP
 yV
 kS
-xb
+IO
 yV
 AP
 yV
@@ -698,7 +708,7 @@ Ht
 AY
 Bd
 CH
-yv
+Qy
 yV
 yV
 yV

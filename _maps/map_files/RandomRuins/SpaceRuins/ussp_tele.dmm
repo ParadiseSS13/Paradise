@@ -126,16 +126,6 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/derelict/teleporter)
-"od" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "experimental teleporter access"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor/closed,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/derelict/teleporter)
 "og" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
@@ -321,6 +311,19 @@
 "Io" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/mineral/titanium,
+/area/ruin/space/derelict/teleporter)
+"Mb" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "experimental teleporter access";
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor/closed{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "NU" = (
 /obj/effect/turf_decal/stripes/line{
@@ -512,7 +515,7 @@ Av
 Vu
 Um
 og
-od
+Mb
 pD
 wh
 oy

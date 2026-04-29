@@ -491,12 +491,6 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
-"vR" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "SC-Eridani"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/syndicakefactory)
 "wd" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/kitchen/knife/butcher,
@@ -566,6 +560,13 @@
 /obj/effect/decal/cleanable/blood,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
+/area/ruin/space/syndicakefactory)
+"yW" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "SC-Eridani";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "zc" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -823,6 +824,12 @@
 /obj/effect/decal/cleanable/flour,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
+/area/ruin/space/syndicakefactory)
+"KE" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicakefactory)
 "KS" = (
 /obj/machinery/door/poddoor{
@@ -1925,7 +1932,7 @@ Ii
 xO
 xO
 xO
-vR
+yW
 LN
 hF
 LN
@@ -1933,7 +1940,7 @@ hF
 zt
 Hy
 lZ
-Hy
+KE
 pd
 "}
 (21,1,1) = {"

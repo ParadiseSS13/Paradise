@@ -53,6 +53,15 @@
 	},
 /turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
+"k" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark/airless,
+/area/ruin/space/sec_shuttle)
 "m" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood,
@@ -254,7 +263,7 @@ z
 z
 z
 z
-c
+k
 H
 H
 w
