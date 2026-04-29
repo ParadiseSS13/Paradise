@@ -22349,6 +22349,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
+"fQf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/item/clothing/neck/stethoscope{
+	pixel_x = -33;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/reception)
 "fQC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -23187,14 +23200,24 @@
 "gpQ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers{
-	pixel_x = 3;
-	pixel_y = 3
+	pixel_x = 7;
+	pixel_y = 11
 	},
-/obj/item/storage/box/syringes,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/box/syringes{
+	pixel_x = -10;
+	pixel_y = 9
+	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
+	},
+/obj/item/storage/box/pillbottles{
+	layer = 4;
+	pixel_x = -7;
+	pixel_y = -5
+	},
+/obj/item/storage/box/patch_packs{
+	pixel_x = 9;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
@@ -89164,7 +89187,7 @@ etL
 bSH
 new
 mlA
-uCf
+fQf
 uCf
 hSw
 rDs
