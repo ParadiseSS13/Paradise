@@ -20,7 +20,7 @@
 	initialize_parts()
 	RefreshParts()
 
-/obj/machinery/cooking/stovetop/initialize_parts()
+/obj/machinery/cooking/stovetop/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cooking/stove(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
