@@ -542,7 +542,7 @@
 			step_towards(M, src)
 			if(HAS_TRAIT(M, TRAIT_MAGPULSE))
 				return
-			to_chat(M, SPAN_WARNING("The vortex pulls you to the floor!"))
+			to_chat(M, SPAN_WARNING("[src]'s attractive pull causes you to lose your footing and fall!"))
 			M.KnockDown(7 SECONDS)
 
 	//Damaging the turf
