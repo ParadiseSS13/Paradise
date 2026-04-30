@@ -43596,13 +43596,13 @@
 "rNh" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = -3
-	},
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
 	pixel_x = 3
 	},
 /obj/item/clothing/mask/cigarette/cigar,
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 3
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "rOg" = (
