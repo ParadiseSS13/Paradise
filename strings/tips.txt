@@ -148,7 +148,7 @@ As a Janitor, you have a PDA app that tells you the exact, live location of ever
 As a Janitor, you can get get a Chemist to upgrade your galoshies with drying agent, making them instantly dry up any water you step on!
 As a Janitor, mousetraps can be used to create bombs or booby-trap containers.
 As the Librarian, be sure to keep the shelves stocked and the library clean for crew.
-As the Librarian, you can speak and undertsand almost every single language.
+As the Librarian, you can speak and understand almost every single language.
 As a Cargo Technician, you can hack MULEbots to make them faster, run over people in their way, and even let you ride them!
 As a Cargo Technician, you can order contraband items from the supply shuttle console by de-constructing it and using a multitool on the circuit board, the re-assembling it.
 As a Cargo Technician, you can earn more cargo points by shipping back crates from maintenance, plasma sheets, rare seeds from hydroponics, technology disks from R&D, and more!
