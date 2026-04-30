@@ -1814,9 +1814,6 @@
 /turf/simulated/floor/catwalk/grey,
 /area/station/maintenance/port)
 "asu" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -1834,27 +1831,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/aft)
@@ -15696,9 +15672,6 @@
 /turf/space,
 /area/space/nearstation)
 "bNR" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/disposalpipe/segment,
@@ -15712,24 +15685,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance/external{
-	dir = 4
-	},
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
@@ -17524,9 +17479,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "bXs" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable/extra_insulated{
@@ -17537,20 +17489,6 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/medmaint)
@@ -29591,6 +29529,9 @@
 /obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dEu" = (
@@ -30603,9 +30544,6 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "dXw" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
 /obj/machinery/door/airlock/maintenance{
@@ -30613,17 +30551,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/aft)
@@ -32928,9 +32855,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "eJg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/airlock/maintenance{
@@ -32938,17 +32862,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/aft)
@@ -35305,9 +35218,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "fwt" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/machinery/door/poddoor{
@@ -35323,24 +35233,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -39064,9 +38956,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "gGK" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
@@ -39077,21 +38966,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -39827,15 +39701,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
-"gRp" = (
-/obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
-/obj/machinery/door/airlock/external/glass{
-	name = "Cargo Docking Hatch";
-	id_tag = "supply_home"
-	},
-/obj/effect/mapping_helpers/airlock/locked,
-/turf/simulated/floor/plating,
-/area/station/supply/storage)
 "gRt" = (
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tiles/department/virology/side,
@@ -40783,9 +40648,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/prisonlockers)
 "hhZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -40799,23 +40661,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/apmaint)
@@ -41335,9 +41180,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply/aft)
 "htj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/extra_insulated{
@@ -41350,24 +41192,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
@@ -43423,9 +43247,6 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "ict" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
@@ -43438,23 +43259,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/warehouse)
@@ -45096,6 +44900,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "iEH" = (
@@ -46172,9 +45977,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "iTw" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -46188,22 +45990,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -46522,7 +46308,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/station/supply/storage)
 "jaf" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -50149,9 +49935,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/west)
 "kdt" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable/extra_insulated{
@@ -50162,23 +49945,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
@@ -50345,32 +50111,16 @@
 /turf/simulated/floor/carpet,
 /area/station/service/chapel/funeral)
 "kfO" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /obj/machinery/door/airlock/atmos{
 	name = "Port Atmospherics Maintenance";
 	dir = 4
 	},
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/atmos{
-	name = "Atmospherics Maintenance";
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "kfT" = (
@@ -57427,9 +57177,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "mAr" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
@@ -57442,21 +57189,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Power Monitoring";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/port)
@@ -58322,9 +58054,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "mPQ" = (
@@ -58683,9 +58417,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/west)
 "mXp" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/airlock/maintenance{
@@ -58693,16 +58424,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -60483,9 +60204,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "nBW" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -60501,24 +60219,7 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/aft)
 "nBZ" = (
@@ -60855,9 +60556,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "nHK" = (
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "nIc" = (
@@ -61384,9 +61087,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "nQL" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
@@ -61395,18 +61095,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -64618,9 +64306,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "oUk" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/airlock/maintenance{
@@ -64629,18 +64314,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Abandoned Warehouse";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -65704,9 +65377,6 @@
 /turf/space,
 /area/space)
 "pox" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -65716,22 +65386,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
@@ -67043,9 +66697,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply)
 "pLn" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/extra_insulated{
@@ -67053,20 +66704,6 @@
 	},
 /obj/machinery/door/airlock/external/glass{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/airlock/external/glass{
-	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
@@ -67230,9 +66867,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "pOi" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable{
@@ -67243,23 +66877,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Power Monitoring";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/port)
@@ -67395,9 +67012,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "pQI" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
@@ -67408,20 +67022,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/engineering{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/solar_maintenance/aft_port)
@@ -72171,14 +71771,17 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "rul" = (
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
+/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/external/glass{
 	name = "Cargo Docking Hatch";
-	id_tag = "supply_home"
+	id_tag = "supply_home";
+	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/locked,
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/supply/storage)
 "ruo" = (
 /obj/structure/rack,
@@ -73416,9 +73019,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "rOg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -73429,19 +73029,6 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/medmaint)
@@ -74974,9 +74561,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "spv" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -74989,24 +74573,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -75640,22 +75206,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/bar)
 "sAS" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -75668,9 +75219,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -79462,6 +79010,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "tNL" = (
@@ -79794,7 +79343,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/station/supply/storage)
 "tUS" = (
 /obj/structure/disposalpipe/segment{
@@ -84082,9 +83631,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "voj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -84096,24 +83642,6 @@
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/maintenance/external{
-	dir = 4
-	},
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
@@ -88119,6 +87647,9 @@
 	dir = 4;
 	name = "Grid Power Monitoring Computer"
 	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/port)
 "wCm" = (
@@ -91326,37 +90857,6 @@
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"xzY" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/maintenance{
-	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/aft)
 "xAe" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -109388,7 +108888,7 @@ aaa
 aaa
 aaa
 gnJ
-gRp
+rul
 tUP
 rul
 itH
@@ -109902,7 +109402,7 @@ aaa
 aaa
 aaa
 aaa
-gRp
+rul
 jad
 rul
 itH
@@ -111728,7 +111228,7 @@ crG
 mCD
 wDT
 nHK
-bMZ
+crG
 mtw
 jvn
 crG
@@ -120224,7 +119724,7 @@ chy
 gfY
 hSf
 hSf
-xzY
+gGK
 hSf
 hSf
 hSf
