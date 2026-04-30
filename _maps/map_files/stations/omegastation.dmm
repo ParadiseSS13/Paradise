@@ -47745,6 +47745,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "tFe" = (
@@ -49361,7 +49362,7 @@
 /obj/machinery/computer/card/minor/ce{
 	dir = 8
 	},
-/obj/item/paper/monitorkey,
+/obj/item/paper/tcommskey,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "uEC" = (
