@@ -122,11 +122,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "W" = (
-/obj/machinery/door/airlock/survival_pod/glass{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 

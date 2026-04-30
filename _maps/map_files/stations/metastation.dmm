@@ -20024,7 +20024,8 @@
 "cmn" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth (Chaplain)";
-	req_access = list(22)
+	req_access = list(22);
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
@@ -20964,7 +20965,8 @@
 /area/station/engineering/atmos)
 "cqY" = (
 /obj/machinery/door/morgue{
-	name = "Study #1"
+	name = "Study #1";
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -21691,7 +21693,8 @@
 /area/station/medical/surgery/observation)
 "cuz" = (
 /obj/machinery/door/morgue{
-	name = "Study #2"
+	name = "Study #2";
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -25258,7 +25261,8 @@
 "cMz" = (
 /obj/machinery/door/morgue{
 	name = "Relic Closet";
-	req_access = list(22)
+	req_access = list(22);
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -70064,7 +70068,8 @@
 /area/station/science/robotics/showroom)
 "qVA" = (
 /obj/machinery/door/morgue{
-	name = "Confession Booth"
+	name = "Confession Booth";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
@@ -75716,7 +75721,8 @@
 /area/station/science/storage)
 "sNj" = (
 /obj/machinery/door/morgue{
-	name = "Chapel Garden"
+	name = "Chapel Garden";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -87599,7 +87605,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
 "wHg" = (
-/obj/machinery/door/morgue,
+/obj/machinery/door/morgue{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},

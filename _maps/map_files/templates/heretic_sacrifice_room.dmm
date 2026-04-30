@@ -357,6 +357,11 @@
 /obj/structure/barricade/wooden/crude/snow,
 /turf/simulated/wall/indestructible/fakedoor,
 /area/centcom/heretic_sacrifice/void)
+"Lf" = (
+/turf/simulated/wall/indestructible/fakedoor{
+	dir = 4
+	},
+/area/centcom/heretic_sacrifice/lock)
 "Ml" = (
 /obj/item/instrument/saxophone,
 /turf/simulated/floor/carpet/cyan,
@@ -837,7 +842,7 @@ hm
 hm
 vN
 Um
-ye
+Lf
 hc
 Ah
 Ah
@@ -848,7 +853,7 @@ hc
 hc
 hc
 Ah
-ye
+Lf
 Um
 IR
 Xh
@@ -892,7 +897,7 @@ hm
 hm
 vN
 Um
-ye
+Lf
 Ah
 hc
 hc
@@ -903,7 +908,7 @@ hc
 hc
 Ah
 hc
-ye
+Lf
 Um
 IR
 Xh

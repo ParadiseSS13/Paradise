@@ -1580,7 +1580,9 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
 "gz" = (
-/turf/simulated/wall/indestructible/fakedoor,
+/turf/simulated/wall/indestructible/fakedoor{
+	dir = 8
+	},
 /area/centcom)
 "gA" = (
 /obj/structure/window/reinforced,

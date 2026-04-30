@@ -39174,7 +39174,8 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/morgue{
 	name = "Private Study";
-	req_access = list(37)
+	req_access = list(37);
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -62018,7 +62019,8 @@
 /area/station/science/xenobiology)
 "mxo" = (
 /obj/machinery/door/morgue{
-	name = "Confession Booth"
+	name = "Confession Booth";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
@@ -67473,7 +67475,8 @@
 "nAB" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth (Chaplain)";
-	req_access = list(22)
+	req_access = list(22);
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
@@ -78853,7 +78856,8 @@
 "pHY" = (
 /obj/machinery/door/morgue{
 	name = "Private Study";
-	req_access = list(37)
+	req_access = list(37);
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4

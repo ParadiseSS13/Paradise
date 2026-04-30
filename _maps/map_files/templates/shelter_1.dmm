@@ -66,9 +66,7 @@
 /area/survivalpod)
 "L" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass{
-	dir = 4
-	},
+/obj/machinery/door/airlock/survival_pod/glass,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 

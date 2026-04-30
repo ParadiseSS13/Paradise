@@ -16454,7 +16454,8 @@
 "bjp" = (
 /obj/machinery/door/morgue{
 	name = "Confession Booth (Chaplain)";
-	req_access = list(22)
+	req_access = list(22);
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
@@ -17271,7 +17272,8 @@
 /area/station/hallway/primary/port/east)
 "bmg" = (
 /obj/machinery/door/morgue{
-	name = "Confession Booth"
+	name = "Confession Booth";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
@@ -18076,7 +18078,8 @@
 "boy" = (
 /obj/machinery/door/morgue{
 	name = "Private Study";
-	req_access = list(37)
+	req_access = list(37);
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"

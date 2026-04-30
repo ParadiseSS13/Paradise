@@ -172,11 +172,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "U" = (
-/obj/machinery/door/airlock/survival_pod/glass{
-	dir = 4
-	},
 /obj/effect/spawner/random/rarely_meteor_strike,
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass,
 /turf/simulated/floor/pod,
 /area/ruin/lavaland_relay)
 "X" = (

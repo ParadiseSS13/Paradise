@@ -163,10 +163,8 @@
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 1
 	},
-/obj/machinery/door/airlock/survival_pod/glass{
-	dir = 4
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "Q" = (

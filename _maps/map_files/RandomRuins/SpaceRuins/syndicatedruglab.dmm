@@ -181,8 +181,7 @@
 "uz" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/survival_pod{
-	name = "Syndicate Drug Lab";
-	dir = 4
+	name = "Syndicate Drug Lab"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
@@ -328,8 +327,7 @@
 "JN" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/survival_pod{
-	name = "Syndicate Drug Lab";
-	dir = 4
+	name = "Syndicate Drug Lab"
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)

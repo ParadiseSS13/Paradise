@@ -26858,7 +26858,9 @@
 /turf/simulated/wall,
 /area/station/service/library)
 "cdC" = (
-/obj/machinery/door/morgue,
+/obj/machinery/door/morgue{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cdD" = (
@@ -46919,7 +46921,8 @@
 /area/station/medical/medbay)
 "dQh" = (
 /obj/machinery/door/morgue{
-	name = "Confession Booth"
+	name = "Confession Booth";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)

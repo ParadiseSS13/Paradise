@@ -23760,7 +23760,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/morgue{
 	name = "Private Study";
-	req_access = list(37)
+	req_access = list(37);
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
