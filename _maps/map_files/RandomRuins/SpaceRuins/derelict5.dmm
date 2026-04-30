@@ -226,6 +226,13 @@
 "Dt" = (
 /turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
+"Ed" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
 "Gx" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
@@ -258,6 +265,14 @@
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"LF" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/structure/barricade/wooden/crude,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
 "LZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
@@ -270,12 +285,6 @@
 "Oc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"Oj" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/barricade/wooden/crude,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Pq" = (
@@ -349,11 +358,6 @@
 /area/ruin/space/unpowered)
 "ZP" = (
 /obj/structure/table_frame,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"ZZ" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 
@@ -1343,10 +1347,10 @@ zN
 Pq
 kO
 vE
-Oj
+LF
 vE
 vE
-ZZ
+Ed
 Nv
 WA
 WA

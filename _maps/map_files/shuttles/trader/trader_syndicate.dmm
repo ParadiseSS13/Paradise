@@ -4,6 +4,21 @@
 /obj/item/toy/figure/crew/syndie,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
+"bu" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/docking_port/mobile/trader{
+	height = 21;
+	width = 14;
+	dwidth = 7;
+	preferred_direction = 1;
+	dir = 2
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
 "bZ" = (
 /turf/template_noop,
 /area/template_noop)
@@ -157,6 +172,14 @@
 /obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
+"lB" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
 "nc" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/plastitanium{
@@ -167,20 +190,6 @@
 "nY" = (
 /obj/machinery/light/spot,
 /obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/trade/sol)
-"oZ" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/hatch{
-	id_tag = "s_docking_airlock"
-	},
-/obj/docking_port/mobile/trader{
-	height = 21;
-	width = 14;
-	dwidth = 7;
-	preferred_direction = 1;
-	dir = 2
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
 "ps" = (
@@ -236,13 +245,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
-"uK" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/hatch{
-	id_tag = "s_docking_airlock"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/trade/sol)
 "vM" = (
 /obj/machinery/computer/shuttle/trade/sol,
 /obj/effect/turf_decal/woodsiding{
@@ -292,11 +294,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/trade/sol)
-"ye" = (
-/obj/machinery/door/airlock/hatch,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
 "yH" = (
 /obj/effect/turf_decal/woodsiding{
@@ -481,6 +478,13 @@
 /obj/item/scalpel,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
+"Qp" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
 "RQ" = (
 /obj/structure/shelf,
 /obj/effect/turf_decal/siding{
@@ -591,7 +595,7 @@ LQ
 eK
 iA
 kM
-ye
+Qp
 kc
 SY
 LQ
@@ -678,7 +682,7 @@ nc
 Jn
 "}
 (7,1,1) = {"
-oZ
+bu
 jy
 kc
 kc
@@ -689,7 +693,7 @@ kc
 kc
 kc
 Zu
-ye
+Qp
 kc
 kc
 kc
@@ -701,7 +705,7 @@ LQ
 LQ
 "}
 (8,1,1) = {"
-uK
+lB
 jy
 kc
 kc
@@ -712,7 +716,7 @@ kc
 kc
 kc
 Zu
-ye
+Qp
 kc
 kc
 kc
@@ -798,7 +802,7 @@ LQ
 eK
 DB
 kM
-ye
+Qp
 kc
 hF
 LQ

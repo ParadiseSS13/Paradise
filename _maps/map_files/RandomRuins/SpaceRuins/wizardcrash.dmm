@@ -374,10 +374,6 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/powered)
-"bv" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/wood,
-/area/ruin/space/powered)
 "bw" = (
 /obj/item/storage/toolbox/electrical,
 /obj/structure/table,
@@ -486,6 +482,12 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/structure/table,
 /turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"xW" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "EZ" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
@@ -769,7 +771,7 @@ aC
 aC
 aC
 aC
-bv
+xW
 bI
 bK
 bM

@@ -168,6 +168,9 @@
 	return cure_stage >= required_reagent
 
 /datum/disease/zombie/cure()
+	var/obj/item/zombie_claw/claws = affected_mob.get_active_hand()
+	if(claws)
+		claws.activate_self()
 	affected_mob.mind?.remove_antag_datum(/datum/antagonist/zombie)
 	REMOVE_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
 	var/mob/living/carbon/human/H = affected_mob
