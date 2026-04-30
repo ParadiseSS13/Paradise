@@ -32322,7 +32322,8 @@
 /area/station/engineering/atmos)
 "lvy" = (
 /obj/effect/spawner/airlock/s_to_n,
-/turf/simulated/mineral/ancient/outer,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/space,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "lww" = (
 /obj/effect/turf_decal/tiles/department/science/corner{
@@ -35025,6 +35026,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port)
+"mST" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/space,
+/area/station/maintenance/solar_maintenance/fore_starboard)
 "mTh" = (
 /obj/effect/turf_decal/alphanumeric/air{
 	dir = 4
@@ -95307,7 +95312,7 @@ sxy
 drK
 aZD
 aZD
-ylz
+mST
 ylz
 ylz
 ylz
@@ -95562,14 +95567,14 @@ aZD
 aZD
 hMc
 aZD
-ylz
-ylz
+mST
+mST
 lvy
 vLk
 jVO
 kzC
 ylz
-ylz
+hQL
 nee
 aDh
 sqH
@@ -96076,14 +96081,14 @@ aZD
 aZD
 bMT
 aZD
-ylz
-ylz
-ylz
+mST
+mST
+mST
 rcl
 wNm
 aiz
 ylz
-ylz
+hQL
 emS
 emS
 oVx
@@ -96335,7 +96340,7 @@ qFZ
 drK
 aZD
 qio
-hQL
+mST
 pny
 pny
 hQL
