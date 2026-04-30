@@ -82,6 +82,8 @@
 
 #define STATUS_EFFECT_OVERCLOCK /datum/status_effect/overclock
 
+#define STATUS_EFFECT_DUELING /datum/status_effect/dueling
+
 /////////////
 // DEBUFFS //
 /////////////

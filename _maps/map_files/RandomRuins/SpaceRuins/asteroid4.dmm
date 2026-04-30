@@ -44,18 +44,19 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/unpowered)
-"m" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Escape Pod Airlock"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/space/unpowered)
 "p" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "Q" = (
 /turf/simulated/mineral/random/low_chance/space,
+/area/ruin/space/unpowered)
+"Y" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod Airlock";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/unpowered)
 "Z" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
@@ -344,7 +345,7 @@ e
 h
 j
 k
-m
+Y
 a
 a
 "}

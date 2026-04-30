@@ -1,4 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aQ" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Telecommunications";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/syndicate_listening_station)
 "aW" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -75,6 +82,17 @@
 	icon_state = "asteroidplating"
 	},
 /area/ruin/space/syndicate_listening_station/asteroid)
+"hI" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Engineering";
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/syndicate_listening_station)
 "hQ" = (
 /obj/structure/sink/directional/east,
 /obj/structure/mirror{
@@ -112,7 +130,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
 "kJ" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "le" = (
 /turf/simulated/floor/plasteel/dark,
@@ -155,6 +173,13 @@
 /obj/item/flag/syndi,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
+"qD" = (
+/obj/machinery/door/airlock/silver{
+	name = "Bathroom";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/silver,
+/area/ruin/space/syndicate_listening_station)
 "qW" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -176,7 +201,7 @@
 /area/ruin/space/syndicate_listening_station/asteroid)
 "se" = (
 /obj/effect/spawner/airlock/w_to_e,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "sf" = (
 /obj/structure/cable/yellow{
@@ -269,18 +294,6 @@
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
-"wj" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "Telecommunications"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/syndicate_listening_station)
-"wr" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "Cabin"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/syndicate_listening_station)
 "wF" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/decal/cleanable/dirt,
@@ -295,6 +308,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
+"xG" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Cabin";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/syndicate_listening_station)
 "xK" = (
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
@@ -551,12 +571,6 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/ruin/space/syndicate_listening_station)
-"RN" = (
-/obj/machinery/door/airlock/silver{
-	name = "Bathroom"
-	},
-/turf/simulated/floor/mineral/silver,
-/area/ruin/space/syndicate_listening_station)
 "Sq" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/food/soup/chicken_noodle_soup,
@@ -587,7 +601,7 @@
 /obj/item/gps/ruin{
 	gpstag = "Encrypted Signal"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "UC" = (
 /obj/effect/spawner/random/cobweb/right/rare,
@@ -600,16 +614,6 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/syndicate_listening_station)
-"UM" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	name = "Engineering"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "UT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -628,13 +632,13 @@
 /area/ruin/space/syndicate_listening_station)
 "Wc" = (
 /obj/effect/spawner/airlock/e_to_w,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "Wf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/syndicate_listening_station)
 "WN" = (
 /obj/structure/cable/yellow{
@@ -1328,7 +1332,7 @@ bU
 kJ
 Fx
 Lj
-wr
+xG
 le
 le
 kJ
@@ -1454,13 +1458,13 @@ UC
 tF
 tF
 Bt
-UM
+hI
 yv
 yv
 yv
 dS
 le
-wj
+aQ
 le
 Go
 Vn
@@ -1582,7 +1586,7 @@ yn
 kJ
 mn
 Nd
-RN
+qD
 le
 le
 le

@@ -158,8 +158,6 @@
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "c_tube"
 	hitsound = 'sound/items/cardboard_tube.ogg'
-	throwforce = 1
-	force = 1
 	attack_verb = list("bonked", "thunked")
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
@@ -169,7 +167,8 @@
 	qdel(src)
 	return TRUE
 
-
+/obj/item/c_tube/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/fan
 	name = "desk fan"

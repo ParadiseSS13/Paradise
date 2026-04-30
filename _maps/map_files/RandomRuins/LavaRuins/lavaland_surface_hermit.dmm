@@ -126,14 +126,6 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered)
-"D" = (
-/obj/effect/decal/cleanable/blood/footprints{
-	dir = 1
-	},
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered)
 "E" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -166,6 +158,16 @@
 "K" = (
 /obj/effect/baseturf_helper,
 /turf/simulated/floor/plating,
+/area/ruin/powered)
+"P" = (
+/obj/effect/decal/cleanable/blood/footprints{
+	dir = 1
+	},
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
 /area/ruin/powered)
 "Q" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -228,7 +230,7 @@ t
 w
 y
 y
-D
+P
 Q
 Q
 a

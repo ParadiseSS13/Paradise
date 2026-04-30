@@ -169,14 +169,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
-"aE" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	normalspeed = 0
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
 "aF" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -192,13 +184,6 @@
 /area/shuttle/escape)
 "aH" = (
 /turf/simulated/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"aI" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/obj/effect/turf_decal/tiles/department/medical/checker,
-/turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/table/reinforced,
@@ -348,14 +333,6 @@
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
-/area/shuttle/escape)
-"bj" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Cell";
-	normalspeed = 0
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bk" = (
 /obj/machinery/door/airlock/mining/glass{
@@ -739,6 +716,14 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"kg" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/turf/simulated/floor/plasteel/white,
+/area/shuttle/escape)
 "mj" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -760,6 +745,15 @@
 /obj/item/flag/cargo,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
+/area/shuttle/escape)
+"nB" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Medical Seating";
+	normalspeed = 0;
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "oe" = (
 /obj/structure/chair/comfy/shuttle{
@@ -798,14 +792,6 @@
 /obj/item/clothing/suit/storage/hazardvest/staff,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
-"sc" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Medical Seating";
-	normalspeed = 0
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "sg" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -835,14 +821,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/shuttle/escape)
-"tG" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	normalspeed = 0
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "vv" = (
 /obj/machinery/recharge_station/upgraded,
@@ -956,6 +934,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"Em" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	normalspeed = 0;
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 "EG" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/science,
@@ -968,6 +955,15 @@
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"Fa" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Escape Shuttle Cell";
+	normalspeed = 0;
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
 "Hg" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -976,6 +972,15 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"IK" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Escape Shuttle Brig";
+	normalspeed = 0;
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "IN" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1008,12 +1013,13 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"Lh" = (
+"Li" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	normalspeed = 0
+	normalspeed = 0;
+	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Ly" = (
@@ -1030,6 +1036,15 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"MU" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	normalspeed = 0;
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Pj" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1272,7 +1287,7 @@ ac
 aH
 aH
 aH
-bj
+Fa
 aH
 aH
 aH
@@ -1370,7 +1385,7 @@ aJ
 aH
 aH
 aH
-aW
+IK
 re
 re
 re
@@ -1401,7 +1416,7 @@ UN
 aG
 aH
 aH
-aW
+IK
 re
 SQ
 Hg
@@ -1458,12 +1473,12 @@ ah
 ao
 sk
 Qr
-Lh
+MU
 Qr
 Qr
 Qr
 Qr
-tG
+Li
 re
 re
 re
@@ -1489,12 +1504,12 @@ ai
 ao
 sk
 Qr
-aE
+Em
 Qr
 Qr
 Qr
 Qr
-tG
+Li
 re
 re
 re
@@ -1556,7 +1571,7 @@ bm
 cp
 cp
 cp
-aI
+kg
 re
 Sw
 BN
@@ -1587,7 +1602,7 @@ bm
 fz
 fz
 cp
-aI
+kg
 re
 re
 re
@@ -1675,7 +1690,7 @@ ac
 fz
 fz
 fz
-sc
+nB
 fz
 fz
 fz

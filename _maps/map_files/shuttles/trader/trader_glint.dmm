@@ -9,6 +9,13 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
+"ck" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
 "cH" = (
 /obj/structure/shelf,
 /obj/effect/turf_decal/siding/end{
@@ -168,6 +175,14 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
+"vX" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/shuttle/trade/sol)
 "wB" = (
 /obj/structure/shelf,
 /obj/effect/turf_decal/siding/end{
@@ -220,13 +235,6 @@
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/engineering,
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/trade/sol)
-"Bd" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass{
-	id_tag = "s_docking_airlock"
-	},
-/turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
 "BY" = (
 /turf/template_noop,
@@ -375,11 +383,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
-"Pu" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/trade/sol)
 "Qi" = (
 /obj/effect/spawner/window/shuttle/survival_pod,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -422,21 +425,7 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
 "Ze" = (
-/turf/simulated/wall/mineral/titanium/survival/nodiagonal,
-/area/shuttle/trade/sol)
-"Zm" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/docking_port/mobile/trader{
-	height = 18;
-	width = 14;
-	dwidth = 7;
-	preferred_direction = 1;
-	dir = 2
-	},
-/turf/simulated/floor/pod/dark,
+/turf/simulated/wall/mineral/titanium/survival,
 /area/shuttle/trade/sol)
 "ZH" = (
 /obj/effect/turf_decal/siding{
@@ -448,6 +437,21 @@
 "ZP" = (
 /obj/item/flag/species/unathi,
 /turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
+"ZW" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/docking_port/mobile/trader{
+	height = 18;
+	width = 14;
+	dwidth = 7;
+	preferred_direction = 1;
+	dir = 2
+	},
+/turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
 
 (1,1,1) = {"
@@ -498,7 +502,7 @@ Ze
 iO
 Lw
 uV
-Pu
+ck
 li
 li
 li
@@ -543,7 +547,7 @@ Lv
 li
 li
 IX
-Pu
+ck
 li
 Gr
 li
@@ -571,7 +575,7 @@ FX
 Ze
 "}
 (7,1,1) = {"
-Zm
+ZW
 mK
 iO
 iO
@@ -591,7 +595,7 @@ FX
 BY
 "}
 (8,1,1) = {"
-Bd
+vX
 mK
 iO
 iO
@@ -643,7 +647,7 @@ Et
 li
 li
 yR
-Pu
+ck
 li
 hv
 li
@@ -678,7 +682,7 @@ Ze
 iO
 tt
 oh
-Pu
+ck
 li
 li
 li

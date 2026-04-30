@@ -111,6 +111,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/warden
+	important_information = "Space Law is the law, not a suggestion."
 	standard_paycheck = CREW_PAY_MEDIUM
 	difficulty = HARD_DIFFICULTY
 	description = "The Warden has the responsibility of monitoring prisoners.\n\n\
@@ -173,7 +174,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_PARAPLEGIC)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/detective
-	important_information = "Track, investigate, and look cool while doing it."
+	important_information = "Track, investigate, and look cool while doing it. Space Law is not a suggestion."
 	standard_paycheck = CREW_PAY_MEDIUM
 	difficulty = MEDIUM_DIFFICULTY
 	description = "The Detective has the responsibility of solving crimes and uncovering criminals.\n\n\

@@ -546,6 +546,9 @@
 
 	return ..()
 
+/datum/cooking/recipe_step/add_item/supermatter_sliver/get_pda_formatted_desc()
+	return "Add a sliver of a supermatter crystal."
+
 /datum/cooking/recipe/supermatter_sandwich
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/supermatter_sandwich
@@ -669,4 +672,13 @@
 	catalog_category = COOKBOOK_CATEGORY_SIDES
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/tapiocadough)
+	)
+
+/datum/cooking/recipe/nothingburger
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/burger/nothing
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_ADD_REAGENT("nothing", 10),
 	)

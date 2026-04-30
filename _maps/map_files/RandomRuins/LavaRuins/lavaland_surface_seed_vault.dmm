@@ -163,6 +163,12 @@
 /obj/item/book/manual/wiki/hydroponics,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"pA" = (
+/obj/machinery/door/airlock{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
 "qI" = (
 /obj/machinery/smartfridge,
 /turf/simulated/floor/plasteel/freezer,
@@ -689,14 +695,14 @@ no
 Pg
 vt
 vt
-Bf
+pA
 vt
 no
 Bf
 Bf
 no
 vt
-Bf
+pA
 vt
 vt
 AG
@@ -949,14 +955,14 @@ no
 vJ
 vt
 vt
-Bf
+pA
 vt
 vt
 ZQ
 oy
 vt
 vt
-Bf
+pA
 vt
 vt
 iV

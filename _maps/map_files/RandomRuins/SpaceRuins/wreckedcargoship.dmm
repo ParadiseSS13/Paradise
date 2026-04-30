@@ -101,10 +101,6 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
-"eQ" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/wreck_cargoship)
 "eV" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/tiles/department/engineering/corner{
@@ -153,12 +149,6 @@
 /area/ruin/space/wreck_cargoship)
 "gE" = (
 /turf/simulated/wall/mineral/plastitanium,
-/area/ruin/space/wreck_cargoship)
-"he" = (
-/obj/machinery/door/firedoor/border_only/closed{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "hh" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -385,9 +375,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/wreck_cargoship)
-"ny" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/wreck_cargoship)
 "nB" = (
 /obj/effect/turf_decal/delivery/white/partial{
 	dir = 1
@@ -424,13 +411,6 @@
 	dir = 1
 	},
 /area/ruin/space/wreck_cargoship)
-"pv" = (
-/obj/machinery/door/firedoor/border_only/closed{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating,
-/area/ruin/space/wreck_cargoship)
 "py" = (
 /obj/structure/railing{
 	dir = 1
@@ -442,14 +422,6 @@
 	icon_state = "titanium";
 	dir = 4
 	},
-/area/ruin/space/wreck_cargoship)
-"pz" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/barricade/wooden/crude{
-	layer = 4
-	},
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "pD" = (
 /obj/structure/closet/walllocker/emerglocker/directional/north,
@@ -502,6 +474,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
+"qT" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
 "qY" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/glass/bucket,
@@ -516,7 +494,7 @@
 	name = "interior warehouse shutters";
 	id = "cargoshipblastdoor2"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/wreck_cargoship)
 "ru" = (
 /obj/effect/spawner/window/plastitanium,
@@ -570,6 +548,12 @@
 /obj/effect/decal/cleanable/molten_object/large,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/wreck_cargoship)
+"tB" = (
+/obj/machinery/door/firedoor/border_only/closed{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
 "tD" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/reagent_dispensers/fueltank,
@@ -610,10 +594,6 @@
 "wp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
-/area/ruin/space/wreck_cargoship)
-"xX" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "yb" = (
 /obj/structure/railing,
@@ -686,6 +666,13 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/wreck_cargoship)
+"Bo" = (
+/obj/machinery/door/firedoor/border_only/closed{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
 "Bt" = (
 /obj/structure/rack,
 /obj/item/stack/cable_coil,
@@ -717,9 +704,9 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
-"BP" = (
+"Co" = (
 /obj/machinery/door/firedoor/border_only/closed{
-	dir = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -1043,6 +1030,12 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
+"PZ" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/space/wreck_cargoship)
 "QH" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/mineral/plasma{
@@ -1313,6 +1306,16 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
+"XR" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/barricade/wooden/crude{
+	layer = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/wreck_cargoship)
 "XX" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -1416,11 +1419,11 @@ ea
 ea
 ea
 gE
-ny
+gE
 NR
 NR
 Yk
-ny
+gE
 gE
 ea
 ea
@@ -1650,7 +1653,7 @@ GR
 lW
 tm
 Ll
-pz
+XR
 yb
 Vb
 gE
@@ -1709,7 +1712,7 @@ gE
 NR
 NR
 gE
-ny
+gE
 ah
 jN
 Wx
@@ -1750,7 +1753,7 @@ ea
 gE
 Xn
 Nf
-xX
+qT
 NI
 NM
 cT
@@ -1758,7 +1761,7 @@ NM
 RM
 qY
 NM
-xX
+qT
 Ih
 pR
 gE
@@ -1818,7 +1821,7 @@ Uq
 Mx
 zm
 kf
-ny
+gE
 gE
 gE
 gE
@@ -1834,7 +1837,7 @@ ea
 ea
 DY
 ea
-BP
+Co
 DI
 hD
 Ei
@@ -1855,12 +1858,12 @@ ea
 DY
 VZ
 DY
-pv
+Bo
 BA
 CB
 kP
 Vw
-eQ
+PZ
 wp
 Vs
 oE
@@ -1876,7 +1879,7 @@ DY
 ea
 DY
 DY
-he
+tB
 ET
 mm
 ET
@@ -1902,7 +1905,7 @@ Aa
 tn
 kO
 PB
-ny
+gE
 gE
 Mc
 gE
@@ -1918,7 +1921,7 @@ ea
 ea
 DY
 gE
-ny
+gE
 pD
 sL
 sL
@@ -1926,7 +1929,7 @@ ca
 AP
 KJ
 nG
-ny
+gE
 gE
 ea
 ea
@@ -2002,7 +2005,7 @@ ea
 ea
 ea
 gE
-ny
+gE
 ES
 Zc
 eC
@@ -2010,7 +2013,7 @@ eV
 JK
 VF
 TS
-ny
+gE
 gE
 ea
 ea
