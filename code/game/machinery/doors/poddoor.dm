@@ -80,7 +80,7 @@
 		crush()
 	return TRUE
 
-/obj/machinery/door/poddoor//manual_rotation
+/obj/machinery/door/poddoor/manual_rotation
 	manual_dir = TRUE
 
 /obj/machinery/door/poddoor/preopen
