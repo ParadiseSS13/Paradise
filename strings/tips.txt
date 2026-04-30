@@ -77,9 +77,13 @@ As a Cyborg, you are immune to most forms of stunning, and excel at almost every
 As a Cyborg, you are impervious to fires and heat. If you are rogue, you can release plasma fires everywhere and walk through them without a care in the world!
 As a Cyborg, you are extremely vulnerable to EMPs as EMPs both stun you and damage you. The ion rifle in the armory or a traitor with an EMP kit can kill you in seconds.
 As an Engineering Cyborg, you can attach air alarm/fire alarm/APC frames to walls by using your engineering gripper.
+As an Engineering Cyborg, your inflatable membranes can be used to plug up large hull breaches in seconds! Beware, they're very fragile!
 As a Medical Cyborg, you can perform most surgery procedures in the field with the help of your cyborg hypospray's Hydrocodone and roller bed rack module.
 As a Janitor Cyborg, you are the bane of all slaughter demons. Cleaning up blood stains will severely hinder them.
 As a Mining Cyborg, you're immune to ash storms from the get-go, and can be upgraded to be immune to lava too!
+As a Mining Cyborg, you can use your gripper to cover yourself in goliath plates for increased protection, just like the regular miners!
+As a Mining Cyborg, you can drill the ground on Lavaland to get volcanic ash, which can be smelted into glass.
+As a Mining Cyborg, you're not just restricted to mining on Lavaland. Get an upgraded power cell, exit the station through an external airlock, and you can go mine a space asteroid for the bountiful ores contained within.
 As the Chief Engineer, you can rename areas or create entirely new ones using your station blueprints. The blueprints also let you see what each wire in a device does.
 As the Chief Engineer, your MODsuit is significantly better than everybody else's except for the Captain's. It has the best features of both engineering and atmospherics hardsuits, invulnerability to radiation and all atmospheric conditions, and very strong melee armor. It even has a built in jetpack!
 As the Chief Engineer, using the power monitor consoles gives you a good overview of all the station APC units and their status. You can also use your PDA to remotely view this by connecting to a monitor console.
@@ -220,15 +224,16 @@ As a Terror Spider, protect the queen at all cost!
 As a Terror Spider, don't forget you can move your nest if the crew is pressuring you too badly.
 As a Terror Spider, try putting webs on white floor tiles, they are much harder to see there.
 As a Terror Spider, sometimes quickly pulling an enemy into a web can ensure victory in melee combat.
-Remote signalers are extremely versatile. They can be used in bombs, hacking, counteracting anomalies, and much more. Get creative!
 Need to perform surgery? No surgery kit? No worries! You can use a wide variety of improvised tools to perform ghetto surgery! For example, using a wrench as a stand-in for a bone setter, or a cigarette as a cautery. You can even use alcohol as a makeshift painkiller. Just be aware that these tools may not work as well as proper ones.
+Sleeping in a bed can heal minor amounts of brute and burn damage. It can also cure the common cold.
+Gauze and Advanced Trauma Kits will completely stop any non-internal bleeding with a single application. You can also make improvised gauze with cloth in an emergency. Keep your blood inside!
+Remote signalers are extremely versatile. They can be used in bombs, hacking, counteracting anomalies, and much more. Get creative!
 If you examine something twice in quick succession, you will perform an extended examination. Many items have extended descriptions that give you more information about the world.
 You can dip cigarettes into beakers or inject reagents into them. This can be used to infuse cigarettes with powerful medications or poisons which will slowly release over time. Welding fuel and plasma make them explode when lit!
 You can swap floor tiles by holding a crowbar in one hand and a stack of tiles in the other.
 When hacking doors, cutting and mending a "test light wire" will restore power to the door.
 When crafting most items, you can either manually combine parts or use the crafting menu.
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
-Sleeping in a bed can heal minor amounts of brute and burn damage. It can also cure the common cold.
 Space ruins can contain all kinds of interesting goodies, even a wand that can raise the dead!
 Having a mindshield, or having an agent ID card will make officer Beepsky consider you less arrest-worthy.
 You can make lasertag turrets, for the ultimate lasertag tournament.
