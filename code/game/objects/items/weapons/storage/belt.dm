@@ -323,6 +323,7 @@
 		/obj/item/sample/print,
 		/obj/item/forensics/swab,
 		/obj/item/forensics/sample_kit,
+		/obj/item/fine_scanner,
 	)
 
 /obj/item/storage/belt/security/full/populate_contents()
