@@ -1,0 +1,115 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating,
+/area/space)
+"d" = (
+/obj/item/food/sliced/mothmallow,
+/turf/simulated/floor/plating,
+/area/space)
+"m" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"q" = (
+/turf/template_noop,
+/area/template_noop)
+"t" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"w" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"y" = (
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/space)
+"A" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"B" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"T" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"X" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/space)
+"Z" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/space)
+
+(1,1,1) = {"
+w
+X
+X
+X
+X
+B
+q
+"}
+(2,1,1) = {"
+T
+a
+a
+a
+a
+y
+q
+"}
+(3,1,1) = {"
+T
+a
+a
+d
+a
+y
+A
+"}
+(4,1,1) = {"
+T
+a
+a
+a
+a
+y
+q
+"}
+(5,1,1) = {"
+Z
+t
+t
+t
+t
+m
+q
+"}

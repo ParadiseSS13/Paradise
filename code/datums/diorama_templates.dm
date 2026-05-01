@@ -5,13 +5,13 @@
 
 /datum/map_template/diorama/snowy
 	name = "test1"
-	description = "ARGH"
+	description = "well, how cool is this"
 	mappath = "_maps/map_files/dioramas/snowy_diorama.dmm"
 
-// /datum/map_template/diorama/lavaland
-// 	name = "Lavaland Diorama"
-// 	description = "miners don't die"
-// 	mappath = "_maps/map_files/dioramas/lavaland_diorama.dmm"
+/datum/map_template/diorama/lavaland
+	name = "Lavaland Diorama"
+	description = "'miners don't die' by hayden"
+	mappath = "_maps/map_files/dioramas/lavaland_diorama.dmm"
 
 /obj/structure/diorama_sign
 	name = "Diorama Sign"
