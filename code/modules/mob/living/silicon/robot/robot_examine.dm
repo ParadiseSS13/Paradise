@@ -33,6 +33,7 @@
 
 	if(cell && cell.charge <= 0)
 		msg += "[SPAN_WARNING("Its battery indicator is blinking red!")]\n"
+
 	if(shell)
 		msg += "It appears to be an [deployed ? "active" : "empty"] AI shell.\n"
 	else
