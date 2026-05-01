@@ -169,6 +169,13 @@
 "pL" = (
 /turf/simulated/floor/catwalk,
 /area/shuttle/freegolem)
+"qF" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plating,
+/area/shuttle/freegolem)
 "qT" = (
 /obj/structure/table,
 /obj/item/book/manual/research_and_development{
@@ -215,6 +222,12 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/tiles/white/corner{
 	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/freegolem)
+"uQ" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
@@ -302,6 +315,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/shuttle/freegolem)
+"Ah" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "Aw" = (
 /obj/structure/chair/comfy/purp{
@@ -645,7 +666,7 @@ xQ
 ca
 AT
 Jg
-Ob
+uQ
 YN
 zn
 hg
@@ -720,10 +741,10 @@ wN
 ca
 AT
 Jg
-bQ
+qF
 pa
 Sz
-MD
+Ah
 EE
 "}
 (12,1,1) = {"
@@ -742,10 +763,10 @@ oD
 oD
 oD
 hu
-bQ
+qF
 pL
 Sz
-MD
+Ah
 EE
 "}
 (13,1,1) = {"

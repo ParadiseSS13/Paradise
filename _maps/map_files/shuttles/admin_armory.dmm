@@ -7,6 +7,12 @@
 /obj/item/folder,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"at" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/administration)
 "aI" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -282,6 +288,20 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"um" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "uW" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -420,6 +440,22 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
+"zk" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/access/any/security/brig,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "AH" = (
 /obj/machinery/light/spot,
 /obj/machinery/porta_turret{
@@ -447,20 +483,6 @@
 	pixel_y = -4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"Bj" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "Bn" = (
 /obj/machinery/door/window/reinforced/normal{
@@ -510,10 +532,6 @@
 /obj/machinery/light/spot,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"EQ" = (
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Fd" = (
 /obj/structure/rack,
@@ -573,25 +591,6 @@
 	},
 /obj/item/gun/projectile/shotgun/riot,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"Gx" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/docking_port/mobile/admin{
-	dwidth = 9;
-	height = 18;
-	name = "armory";
-	roundstart_move = "cc_bay_1";
-	width = 19
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "Gy" = (
 /obj/structure/chair{
@@ -792,6 +791,27 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"So" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/docking_port/mobile/admin{
+	dwidth = 9;
+	height = 18;
+	name = "armory";
+	roundstart_move = "cc_bay_1";
+	width = 19
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "TD" = (
 /obj/machinery/door/airlock/command{
 	name = "Command Center"
@@ -844,18 +864,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/administration)
-"UX" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "VC" = (
 /obj/machinery/door/airlock/titanium{
@@ -967,7 +975,7 @@ Op
 Kh
 Kh
 Kh
-Bj
+zk
 "}
 (4,1,1) = {"
 vk
@@ -987,7 +995,7 @@ Jt
 Kh
 Kh
 Kh
-Bj
+zk
 "}
 (5,1,1) = {"
 vk
@@ -1070,14 +1078,14 @@ fQ
 NQ
 "}
 (9,1,1) = {"
-UX
+um
 mw
 mw
 mw
 mw
 mw
 mw
-EQ
+at
 mw
 mw
 mw
@@ -1090,14 +1098,14 @@ fQ
 NQ
 "}
 (10,1,1) = {"
-Gx
+So
 mw
 mw
 mw
 mw
 mw
 mw
-EQ
+at
 mw
 mw
 mw

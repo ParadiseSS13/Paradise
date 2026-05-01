@@ -94,16 +94,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
-"gK" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/trade/sol)
-"gR" = (
+"gH" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
+	id_tag = "s_docking_airlock";
+	dir = 4
 	},
 /obj/docking_port/mobile/trader{
 	height = 19;
@@ -114,15 +109,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
-"hc" = (
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/trade/sol)
-"iv" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
+"gK" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
+/area/shuttle/trade/sol)
+"hc" = (
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/trade/sol)
 "jb" = (
 /obj/machinery/flasher_button{
@@ -340,6 +334,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
+"Bm" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/plasteel,
+/area/shuttle/trade/sol)
 "Bt" = (
 /obj/machinery/economy/atm/directional/east,
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -497,6 +498,13 @@
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
+"NN" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
 "NU" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 9
@@ -522,6 +530,14 @@
 	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/plasteel,
+/area/shuttle/trade/sol)
+"OP" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "Pq" = (
@@ -560,11 +576,6 @@
 /obj/item/flag/ussp,
 /obj/effect/turf_decal/box/red,
 /obj/effect/turf_decal/tiles/department/security/side,
-/turf/simulated/floor/plasteel,
-/area/shuttle/trade/sol)
-"RE" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "RG" = (
@@ -610,11 +621,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/shuttle/trade/sol)
-"YV" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
 
 (1,1,1) = {"
@@ -665,7 +671,7 @@ EK
 Go
 KF
 Ao
-YV
+NN
 Dj
 ah
 ah
@@ -713,7 +719,7 @@ kd
 xC
 bE
 ah
-RE
+Bm
 ah
 ah
 uM
@@ -744,7 +750,7 @@ Mv
 oM
 "}
 (7,1,1) = {"
-gR
+gH
 yx
 ah
 ah
@@ -765,7 +771,7 @@ Mv
 oM
 "}
 (8,1,1) = {"
-iv
+OP
 RR
 ah
 ah
@@ -818,7 +824,7 @@ jo
 xC
 NU
 ah
-RE
+Bm
 ah
 ah
 rw
@@ -854,7 +860,7 @@ EK
 Go
 Ao
 KF
-YV
+NN
 Dj
 ah
 ah
