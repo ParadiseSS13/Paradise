@@ -19,6 +19,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/custom_name = ""
 	var/custom_sprite = FALSE // Due to all the sprites involved, a var for our custom borgs may be best.
 
+	//AI shell
+	var/shell = FALSE
+	var/deployed = FALSE
+	var/mob/living/silicon/ai/mainframe = null
+	var/datum/action/innate/undeployment/undeployment_action = new
+
 	// HUD stuff.
 	var/atom/movable/screen/hands = null
 	var/list/inventory_screens = list()
@@ -142,7 +148,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// When the camera moved signal was sent last. Avoid overdoing it.
 	var/last_camera_update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
 	/// Does the robot have ion thrusters installed?
@@ -192,7 +198,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.turn_off(src, FALSE)
 
-	if(mmi == null)
+	//If this body is meant to be a borg controlled by the AI player
+	if(shell)
+		make_shell()
+	else if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
 
@@ -252,6 +261,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
 /mob/living/silicon/robot/rename_character(oldname, newname)
+	if(shell)
+		return
 	if(!..(oldname, newname))
 		return FALSE
 
@@ -348,6 +359,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/Destroy()
 	remove_robot_mindslave() // You cannot be connected to the malf AI if you are a pile of debris.
 	SStgui.close_uis(wires)
+	if(shell)
+		undeploy()
+		revert_shell()
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)
@@ -772,6 +786,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	ionpulse = FALSE
 	weapons_unlock = FALSE
 	add_language("Robot Talk", TRUE)
+	revert_shell()
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 	armor = getArmor(arglist(initial(armor)))
@@ -1055,6 +1070,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			diag_hud_set_borgcell()
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
+		if(shell)
+			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft
 		if(radio)//sanityyyyyy
 			radio.attackby__legacy__attackchain(W,user)//GTFO, you have your own procs
 		else
@@ -1240,10 +1257,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		to_chat(user, SPAN_NOTICE("You emag the cover lock."))
 		locked = FALSE
+		if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
+			to_chat(user, "<span class='boldwarning'>[src] seems to be controlled remotely! Emagging the interface may not work as expected.</span>")
 		log_game("[user]([user.key]) emagged [src]'s cover.")
 		return TRUE
 
 	if(opened)
+		if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
+			to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempts to disable ai control!</span>")
+			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
+			revert_shell()
+			reset_module()
+			return
 		if(emagged)
 			to_chat(user, SPAN_WARNING("The emag sparks, and flashes red. [src] has already been emagged!"))
 			return
@@ -1527,6 +1552,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(3) //New Name
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
+		if(4) //New Shell
+			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg shell detected: <a href='?src=\ref[connected_ai];track=[html_encode(name)]'>[name]</a></span><br>")
+		if(5) //Disconnect
+			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Remote telemetry lost with [name].</span><br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1683,6 +1712,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emp_protection)
 		return
 	..()
+	if(shell)
+		undeploy()
 	adjustStaminaLoss((30 / severity)) //They also get flashed for an additional 30
 	switch(severity)
 		if(EMP_HEAVY)

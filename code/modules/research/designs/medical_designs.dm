@@ -173,6 +173,18 @@
 	build_path = /obj/item/mmi/robotic_brain
 	category = list("Medical")
 
+/datum/design/boris_ai_controller
+	name = "B.O.R.I.S."
+	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
+	id = "borg_ai_control"
+	req_tech = list("programming" = 5, "magnets" = 4, "engineering" = 3)
+	build_type = MECHFAB | PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 1500, MAT_GOLD = 1500) //same as robo brain
+	construction_time = 75
+	build_path = /obj/item/borg/upgrade/ai
+	category = list("Medical")
+
+
 /datum/design/mmi_radio_upgrade
 	name = "Man-Machine Interface Radio Upgrade"
 	desc = "Enables radio capability on MMIs when either installed directly on the MMI, or through a cyborg's chassis."

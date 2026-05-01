@@ -33,18 +33,19 @@
 
 	if(cell && cell.charge <= 0)
 		msg += "[SPAN_WARNING("Its battery indicator is blinking red!")]\n"
-
-	switch(stat)
-		if(CONSCIOUS)
-			if(!client)
+	if(shell)
+		msg += "It appears to be an [deployed ? "active" : "empty"] AI shell.\n"
+	else
+		switch(stat)
+			if(CONSCIOUS && !client)
 				msg += "It appears to be in stand-by mode.\n" //afk
-		if(UNCONSCIOUS)
-			msg += "[SPAN_WARNING("It doesn't seem to be responding.")]\n"
-		if(DEAD)
-			if(!suiciding)
-				msg += "[SPAN_DEADSAY("It looks like its internal subsystems are beyond repair and require replacing.")]\n"
-			else
-				msg += "[SPAN_WARNING("It looks like its system is corrupted beyond repair. There is no hope of recovery.")]\n"
+			if(UNCONSCIOUS)
+				msg += "[SPAN_WARNING("It doesn't seem to be responding.")]\n"
+			if(DEAD)
+				if(!suiciding)
+					msg += "[SPAN_DEADSAY("It looks like its internal subsystems are beyond repair and require replacing.")]\n"
+				else
+					msg += "[SPAN_WARNING("It looks like its system is corrupted beyond repair. There is no hope of recovery.")]\n"
 	msg += "</span>"
 
 	if(print_flavor_text())

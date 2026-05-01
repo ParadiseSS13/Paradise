@@ -34,9 +34,12 @@
 	return
 
 /mob/living/silicon/robot/attack_ai(mob/user)
-	if(user.a_intent == INTENT_HELP && is_ai(user))
+	if(user.a_intent == INTENT_HELP && is_ai(user) && !shell)
 		to_chat(src, SPAN_ROBOTEMOTE("[user] gives you a digital headpat."))
 		to_chat(user, SPAN_ROBOTEMOTE("You give [src] a digital headpat."))
+	if(shell && (!connected_ai || connected_ai == user))
+		var/mob/living/silicon/ai/AI = user
+		AI.deploy_to_shell(src)
 
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
