@@ -344,7 +344,6 @@
 				O.lawupdate = FALSE
 				O.make_laws()
 
-
 			O.cell = chest.cell
 			chest.cell.loc = O
 			chest.cell = null
