@@ -1,18 +1,18 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "d" = (
 /obj/item/food/sliced/mothmallow,
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "m" = (
 /obj/structure/window/plastitanium,
 /obj/structure/window/plastitanium{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "q" = (
 /turf/template_noop,
 /area/template_noop)
@@ -21,7 +21,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "w" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -30,11 +30,11 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "y" = (
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "A" = (
 /obj/structure/diorama_sign,
 /turf/template_noop,
@@ -45,19 +45,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "T" = (
 /obj/structure/window/plastitanium{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "X" = (
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 "Z" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -66,7 +66,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/template_noop)
+/area/lavaland/surface/outdoors/explored)
 
 (1,1,1) = {"
 w
