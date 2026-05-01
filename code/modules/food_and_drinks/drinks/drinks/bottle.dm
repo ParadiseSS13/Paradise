@@ -352,6 +352,16 @@
 	gender = PLURAL
 	list_reagents = list("milk" = 100)
 
+/obj/item/reagent_containers/drinks/bottle/chocolate_milk
+	name = "chocolate milk"
+	desc = "Brown milk from brown cows. Maybe."
+	icon_state = "chocolatebox"
+	inhand_icon_state = "contvapour"
+	throwforce = 0
+	is_glass = FALSE
+	gender = PLURAL
+	list_reagents = list("chocolate_milk" = 50)
+
 ////////////////////////// MOLOTOV ///////////////////////
 /obj/item/reagent_containers/drinks/bottle/molotov
 	name = "molotov cocktail"
