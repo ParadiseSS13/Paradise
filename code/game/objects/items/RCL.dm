@@ -12,6 +12,7 @@
 	max_amount = RCL_MAX_SPOOL_SIZE
 	amount = RCL_MAX_SPOOL_SIZE
 	color = null
+	allow_splitting = FALSE
 	/// Are we rapidly laying cable?
 	var/active = FALSE
 	var/spool_color
@@ -75,7 +76,7 @@
 	if(!istype(target, /obj/item/stack/cable_coil))	
 		..()
 		is_empty(user)
-		return ITEM_INTERACT_COMPLETE
+		return NONE
 
 	load_cable(user, target)
 	return ITEM_INTERACT_COMPLETE

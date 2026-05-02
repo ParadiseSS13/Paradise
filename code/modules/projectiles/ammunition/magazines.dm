@@ -129,6 +129,7 @@
 
 /obj/item/ammo_box/magazine/internal/shot/dueling_pistol
 	name = "dueling pistol internal magazine"
+	caliber = "50AE"
 	ammo_type = /obj/item/ammo_casing/dueling
 	max_ammo = 1
 

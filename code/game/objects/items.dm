@@ -718,6 +718,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	else
 		return
 
+/obj/item/proc/should_play_hitsound(damage)
+	return damage > 0
+
 /obj/item/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(hit_atom && !QDELETED(hit_atom))
 		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
@@ -729,7 +732,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				var/mob/living/L = hit_atom
 				L.IgniteMob()
 			var/volume = get_volume_by_throwforce_and_or_w_class()
-			if(throwforce > 0 || ("zero_damage_hitsound" in vars))
+			if(should_play_hitsound(throwforce))
 				if(mob_throw_hit_sound)
 					SSthrowing.playsound_capped(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
 				else if(hitsound)

@@ -81,6 +81,11 @@
 	name = "burial garments"
 	desc = "Traditional burial garments from the early 22nd century."
 	icon_state = "burial"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi'
+	)
 
 /obj/item/clothing/under/misc/redhawaiianshirt
 	name = "red hawaiian shirt"

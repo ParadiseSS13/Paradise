@@ -160,6 +160,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		max_integrity = normal_integrity
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
+	var/direction = get_current_direction()
+	dir = direction ? direction : NORTH
 	update_icon()
 	prepare_huds()
 	for(var/hud_key, hud in GLOB.huds)

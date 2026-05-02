@@ -89,3 +89,9 @@ _maps/map_files/**/*.mapmanipout.dmm
 # dmdoc and output
 dmdoc.exe
 dmdoc/
+
+# don't share our secrets
+/secret
+
+# don't share database dumps from docker containers
+/paradise_db.sql

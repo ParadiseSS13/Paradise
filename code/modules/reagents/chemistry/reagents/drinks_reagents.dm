@@ -1137,8 +1137,8 @@
 	var/drop_type = /obj/effect/decal/cleanable/reagent/drip
 	var/obj/effect/decal/cleanable/reagent/drip/drop = locate() in T
 	if(drop)
-		if(drop.amount < 5)
-			drop.amount++
+		if(drop.cleanable_amount < 5)
+			drop.cleanable_amount++
 			var/image/I = image(drop.icon, drop.random_icon_states)
 			I.icon += drop.basecolor
 			drop.overlays |= I
