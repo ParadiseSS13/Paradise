@@ -46,43 +46,47 @@ const SEVERITIES = {
 
 export const BrigTimer = (props: any) => {
   const { act, data } = useBackend<BrigData>();
-  const {
-    all_crimes = [],
-    all_modifiers = [],
-  } = data;
+  const { all_crimes = [], all_modifiers = [] } = data;
 
   const [selectedCrimes, setSelectedCrimes] = useState<Record<string, string | null>>({});
   const [selectedModifiers, setSelectedModifiers] = useState<Record<string, string | null>>({});
 
-  const selectedCrimesList = all_crimes.filter(c => selectedCrimes[c.name]);
-  const selectedModsList = all_modifiers.filter(m => selectedModifiers[m.name]);
+  const selectedCrimesList = all_crimes.filter((c) => selectedCrimes[c.name]);
+  const selectedModsList = all_modifiers.filter((m) => selectedModifiers[m.name]);
 
-  const formattedCrimes = selectedCrimesList.map(c => c.name).join(', ');
-  const formattedModifiers = selectedModsList.map(m => m.name).join(', ');
+  const formattedCrimes = selectedCrimesList.map((c) => c.name).join(', ');
+  const formattedModifiers = selectedModsList.map((m) => m.name).join(', ');
 
-  const crimeSummary = [
-    data.prisoner_notes,
-    formattedCrimes,
-    formattedModifiers ? `(${formattedModifiers})` : '',
-  ].filter(Boolean).join(' - ');
+  const crimeSummary = [data.prisoner_notes, formattedCrimes, formattedModifiers ? `(${formattedModifiers})` : '']
+    .filter(Boolean)
+    .join(' - ');
 
-  const baseTimer = selectedCrimesList.reduce((acc, crime) => {
-    const sev = SEVERITIES[crime.severity] || { minTime: 0, maxTime: 0 };
-    return {
-      minTime: acc.minTime + sev.minTime,
-      maxTime: acc.maxTime + sev.maxTime,
-    };
-  }, { minTime: 0, maxTime: 0 });
+  const baseTimer = selectedCrimesList.reduce(
+    (acc, crime) => {
+      const sev = SEVERITIES[crime.severity] || { minTime: 0, maxTime: 0 };
+      return {
+        minTime: acc.minTime + sev.minTime,
+        maxTime: acc.maxTime + sev.maxTime,
+      };
+    },
+    { minTime: 0, maxTime: 0 }
+  );
 
-  const summedTimer = selectedModsList.reduce((acc, val) => ({
-    minTime: acc.minTime + (val.time_added ?? 0),
-    maxTime: acc.maxTime + (val.time_added ?? 0),
-  }), baseTimer);
+  const summedTimer = selectedModsList.reduce(
+    (acc, val) => ({
+      minTime: acc.minTime + (val.time_added ?? 0),
+      maxTime: acc.maxTime + (val.time_added ?? 0),
+    }),
+    baseTimer
+  );
 
-  const multipliedTimer = selectedModsList.reduce((acc, val) => ({
-    minTime: acc.minTime * (val.time_multiplier ?? 1),
-    maxTime: acc.maxTime * (val.time_multiplier ?? 1),
-  }), summedTimer);
+  const multipliedTimer = selectedModsList.reduce(
+    (acc, val) => ({
+      minTime: acc.minTime * (val.time_multiplier ?? 1),
+      maxTime: acc.maxTime * (val.time_multiplier ?? 1),
+    }),
+    summedTimer
+  );
 
   const suggestedMin = Math.min(Math.ceil(multipliedTimer.minTime), 60);
   const suggestedMax = Math.min(Math.ceil(multipliedTimer.maxTime), 60);
@@ -97,19 +101,27 @@ export const BrigTimer = (props: any) => {
 
   const nameText = data.timing ? (
     <Box color={data.prisoner_hasrec ? 'green' : 'red'}>{data.occupant}</Box>
-  ) : data.occupant;
+  ) : (
+    data.occupant
+  );
 
-  const crimesByCode = all_crimes.reduce((acc, c) => {
-    if (!acc[c.code]) acc[c.code] = [];
-    acc[c.code].push(c);
-    return acc;
-  }, {} as Record<string, Crime[]>);
+  const crimesByCode = all_crimes.reduce(
+    (acc, c) => {
+      if (!acc[c.code]) acc[c.code] = [];
+      acc[c.code].push(c);
+      return acc;
+    },
+    {} as Record<string, Crime[]>
+  );
 
-  const modsByCategory = all_modifiers.reduce((acc, m) => {
-    if (!acc[m.category]) acc[m.category] = [];
-    acc[m.category].push(m);
-    return acc;
-  }, {} as Record<string, Modifier[]>);
+  const modsByCategory = all_modifiers.reduce(
+    (acc, m) => {
+      if (!acc[m.category]) acc[m.category] = [];
+      acc[m.category].push(m);
+      return acc;
+    },
+    {} as Record<string, Modifier[]>
+  );
 
   return (
     <Window width={580} height={data.timing ? 270 : 710}>
@@ -125,10 +137,18 @@ export const BrigTimer = (props: any) => {
               <LabeledList.Item label="Time Left">{data.time_left}</LabeledList.Item>
               <LabeledList.Item label="Actions">
                 <Stack fill>
-                  <Stack.Item grow={1} basis={0}><Button fluid icon="lightbulb-o" onClick={() => act('flash')} /></Stack.Item>
-                  <Stack.Item grow={1} basis={0}><Button fluid icon="plus" content="+10m" onClick={() => act('add_time')} /></Stack.Item>
-                  <Stack.Item grow={1} basis={0}><Button fluid icon="sync" content="Reset" onClick={() => act('restart_timer')} /></Stack.Item>
-                  <Stack.Item grow={1} basis={0}><Button fluid icon="eject" content="Release" onClick={() => act('stop')} /></Stack.Item>
+                  <Stack.Item grow={1} basis={0}>
+                    <Button fluid icon="lightbulb-o" onClick={() => act('flash')} />
+                  </Stack.Item>
+                  <Stack.Item grow={1} basis={0}>
+                    <Button fluid icon="plus" content="+10m" onClick={() => act('add_time')} />
+                  </Stack.Item>
+                  <Stack.Item grow={1} basis={0}>
+                    <Button fluid icon="sync" content="Reset" onClick={() => act('restart_timer')} />
+                  </Stack.Item>
+                  <Stack.Item grow={1} basis={0}>
+                    <Button fluid icon="eject" content="Release" onClick={() => act('stop')} />
+                  </Stack.Item>
                 </Stack>
               </LabeledList.Item>
             </LabeledList>
@@ -173,10 +193,14 @@ export const BrigTimer = (props: any) => {
                     </LabeledList>
                   </Stack.Item>
                   <Stack.Item grow={1} basis={0} ml={2}>
-                    <Box bold color="label">Selected Charges:</Box>
+                    <Box bold color="label">
+                      Selected Charges:
+                    </Box>
                     <Box italic>{formattedCrimes || 'None'}</Box>
                     <Divider />
-                    <Box bold color="label">Modifiers:</Box>
+                    <Box bold color="label">
+                      Modifiers:
+                    </Box>
                     <Box italic>{formattedModifiers || 'N/A'}</Box>
                   </Stack.Item>
                 </Stack>
@@ -185,7 +209,9 @@ export const BrigTimer = (props: any) => {
             <Stack.Item grow={1}>
               <Section title="Law Selection">
                 <Stack vertical fill>
-                  <Box textAlign="center" bold color="label" mb={1}>CRIMES</Box>
+                  <Box textAlign="center" bold color="label" mb={1}>
+                    CRIMES
+                  </Box>
                   {Object.entries(crimesByCode).map(([code, category]) => (
                     <Stack.Item key={code}>
                       <Stack fill>
@@ -196,10 +222,12 @@ export const BrigTimer = (props: any) => {
                               textAlign="center"
                               tooltip={crime.desc}
                               selected={!!selectedCrimes[crime.name]}
-                              onClick={() => setSelectedCrimes({
-                                ...selectedCrimes,
-                                [crime.name]: selectedCrimes[crime.name] ? null : crime.name,
-                              })}
+                              onClick={() =>
+                                setSelectedCrimes({
+                                  ...selectedCrimes,
+                                  [crime.name]: selectedCrimes[crime.name] ? null : crime.name,
+                                })
+                              }
                             >
                               {crime.name}
                             </Button>
@@ -209,7 +237,9 @@ export const BrigTimer = (props: any) => {
                     </Stack.Item>
                   ))}
                   <Divider />
-                  <Box textAlign="center" bold color="label" mb={1}>MODIFIERS</Box>
+                  <Box textAlign="center" bold color="label" mb={1}>
+                    MODIFIERS
+                  </Box>
                   {Object.entries(modsByCategory).map(([modifierGroup, category]) => (
                     <Stack.Item key={modifierGroup}>
                       <Stack fill>
@@ -220,10 +250,12 @@ export const BrigTimer = (props: any) => {
                               textAlign="center"
                               tooltip={modifier.desc}
                               color={selectedModifiers[modifier.name] ? 'green' : ''}
-                              onClick={() => setSelectedModifiers({
-                                ...selectedModifiers,
-                                [modifier.name]: selectedModifiers[modifier.name] ? null : modifier.name,
-                              })}
+                              onClick={() =>
+                                setSelectedModifiers({
+                                  ...selectedModifiers,
+                                  [modifier.name]: selectedModifiers[modifier.name] ? null : modifier.name,
+                                })
+                              }
                             >
                               {modifier.name}
                             </Button>
