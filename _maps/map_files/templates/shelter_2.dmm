@@ -106,11 +106,6 @@
 	dir = 1
 	},
 /area/survivalpod/luxurypod)
-"aw" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass,
-/turf/simulated/floor/pod,
-/area/survivalpod/luxurypod)
 "ax" = (
 /obj/structure/sign/mining/survival{
 	dir = 4
@@ -168,6 +163,13 @@
 /obj/structure/sink/kitchen/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod/luxurypod)
+"fL" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 4
+	},
+/turf/simulated/floor/pod,
+/area/survivalpod/luxurypod)
 "hp" = (
 /obj/structure/toilet/directional/north,
 /turf/simulated/floor/pod,
@@ -212,7 +214,7 @@ at
 au
 av
 ar
-aw
+fL
 "}
 (5,1,1) = {"
 aa

@@ -470,7 +470,7 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
-		/obj/item/rcl/robot,
+		/obj/item/stack/cable_coil/rcl/robot,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/inflatable/cyborg,
@@ -766,7 +766,7 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
-		/obj/item/rcl/robot,
+		/obj/item/stack/cable_coil/rcl/robot,
 		/obj/item/stack/sheet/glass/cyborg/drone,
 		/obj/item/stack/sheet/rglass/cyborg/drone,
 		/obj/item/stack/sheet/wood/cyborg,
@@ -876,7 +876,7 @@
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
-		/obj/item/rcl/robot,
+		/obj/item/stack/cable_coil/rcl/robot,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)
@@ -1121,3 +1121,9 @@
 	statpanel_name = "Metal"
 	stack = /obj/item/stack/sheet/metal
 	add_to_storage = TRUE
+
+/datum/robot_storage/material/cable
+	name = "Cable Storage"
+	statpanel_name = "Cable"
+	max_amount = 90
+	stack = /obj/item/stack/cable_coil/rcl

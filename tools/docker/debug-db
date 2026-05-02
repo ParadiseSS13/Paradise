@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# debug-db
+# Connect to the database with a MariaDB shell
+
+set -euo pipefail
+
+BACKUP_FILE="paradise_db.sql"
+DB_CONTAINER="paradise_db"
+MYSQL_DATABASE="paradise_gamedb"
+ROOT_PW_FILE="secret/db-root-password.txt"
+
+# make sure we're at the root of the repository
+if [ ! -f "Dockerfile" ]; then
+    echo >&2 "Error: No Dockerfile found. Are you at the repository root?"
+    exit 1
+fi
+
+# make sure the credentials we need to access the database exist
+if [ ! -f "${ROOT_PW_FILE}" ]; then
+    echo >&2 "Error: missing ${ROOT_PW_FILE}. Run tools/docker/init-db first."
+    exit 1
+fi
+
+# make sure the database is running, so we can back it up!
+if ! docker ps --format '{{.Names}}' | grep -qx "${DB_CONTAINER}"; then
+    echo >&2 "Error: container '${DB_CONTAINER}' is not running."
+    echo >&2 "Start it (or recreate it) before connecting with a shell."
+    exit 1
+fi
+
+# run a mariadb shell and connect to the database container
+MYSQL_ROOT_PASSWORD=$(<"${ROOT_PW_FILE}")
+docker exec --interactive --tty "${DB_CONTAINER}" \
+    mariadb --password="${MYSQL_ROOT_PASSWORD}" "${MYSQL_DATABASE}"

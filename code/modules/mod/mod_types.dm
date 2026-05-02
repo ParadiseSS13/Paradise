@@ -161,6 +161,7 @@
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
+		/obj/item/mod/module/analyzer,
 	)
 
 /obj/item/mod/control/pre_equipped/rescue
@@ -173,9 +174,11 @@
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/defibrillator,
 		/obj/item/mod/module/monitor,
+		/obj/item/mod/module/analyzer,
 	)
 	default_pins = list(
 		/obj/item/mod/module/defibrillator,
+		/obj/item/mod/module/analyzer,
 	)
 
 /obj/item/mod/control/pre_equipped/research
@@ -567,6 +570,25 @@
 		/obj/item/mod/module/stealth/ninja,
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
+	)
+
+/obj/item/mod/control/pre_equipped/ninja
+	icon_state = "ninja-control"
+	theme = /datum/mod_theme/ninja
+	starting_frequency = MODLINK_FREQ_SYNDICATE
+	applied_cell = /obj/item/stock_parts/cell/bluespace
+	applied_modules = list(
+		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/dispenser/smoke,
+		/obj/item/mod/module/shinobi_stealth,
+		/obj/item/mod/module/shinobi_freedom,
+		/obj/item/mod/module/shinobi_stims,
+		/obj/item/mod/module/noslip,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/dispenser/smoke,
 	)
 
 //these exist for the prefs menu

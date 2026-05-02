@@ -433,8 +433,8 @@
 		if(length(SSticker.mode.apprentices))
 			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
 
-		/*if(length(ticker.mode.ninjas))
-			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
+		if(length(SSticker.mode.ninjas))
+			dat += check_role_table("Ninjas", SSticker.mode.ninjas)
 
 		if(SSticker.mode.cult_team)
 			dat += check_role_table("Cultists", SSticker.mode.cult_team.members)

@@ -203,6 +203,7 @@
 	mask_type = /obj/item/clothing/mask/gas
 
 /obj/machinery/suit_storage_unit/cmo/sec_storage/secure
+	req_access = list(ACCESS_MEDICAL)
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/clown

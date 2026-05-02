@@ -72,8 +72,12 @@
 	var/list/datum/mind/pre_mindflayers = list()
 	/// A list of all minds which have the wizard special role
 	var/list/datum/mind/wizards = list()
+		/// A list of all minds that are wizard adepts
+	var/list/datum/mind/adepts = list()
 	/// A list of all minds that are wizard apprentices
 	var/list/datum/mind/apprentices = list()
+	/// A list of all minds that are ninjas
+	var/list/datum/mind/ninjas = list()
 
 	/// The cult team datum
 	var/datum/team/cult/cult_team

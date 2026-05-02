@@ -1160,6 +1160,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				"Cockroach",
 				"Nian Caterpillar",
 				"Slime",
+				"Isopod",
 				"Mecha-Cat",
 				"Mecha-Fairy",
 				"Mecha-Fox",
@@ -1228,6 +1229,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/monkey.dmi', "mothroach"), FALSE, hologram_color)
 					if("Slime")
 						holo_icon = getHologramIcon(icon('icons/mob/slimes.dmi', "grey baby slime"), FALSE, hologram_color)
+					if("Isopod")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi', "ahuitz"), FALSE, hologram_color)
 					if("Mecha-Cat")
 						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi', "cat"), FALSE, hologram_color)
 					if("Mecha-Fairy")

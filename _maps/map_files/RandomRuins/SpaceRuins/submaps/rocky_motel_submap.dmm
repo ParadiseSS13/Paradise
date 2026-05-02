@@ -155,7 +155,7 @@
 /area/template_noop)
 "pp" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/rocky_motel,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/template_noop)
 "pJ" = (
 /obj/structure/closet/cabinet,
@@ -260,9 +260,6 @@
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating,
 /area/template_noop)
-"zj" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/template_noop)
 "An" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/burnt,
@@ -313,11 +310,6 @@
 /obj/item/toy/plushie/nianplushie,
 /obj/effect/decal/cleanable/molten_object/large,
 /turf/simulated/floor/carpet/royalblack,
-/area/template_noop)
-"Hc" = (
-/obj/machinery/door/airlock/hatch/syndicate,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood,
 /area/template_noop)
 "Ir" = (
 /obj/structure/chair{
@@ -395,14 +387,16 @@
 /obj/structure/closet/syndicate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/template_noop)
-"Qy" = (
-/turf/simulated/wall/indestructible/syndicate,
-/area/template_noop)
-"Rg" = (
-/obj/machinery/door/airlock/hatch/syndicate,
+"Oh" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
+/area/template_noop)
+"Qy" = (
+/turf/simulated/wall/indestructible/syndicate,
 /area/template_noop)
 "RW" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -453,9 +447,22 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
+"Xr" = (
+/obj/machinery/door/airlock/titanium{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/template_noop)
 "Yw" = (
 /obj/structure/machine_frame,
 /turf/space,
+/area/template_noop)
+"YB" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
 /area/template_noop)
 "Zy" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -1099,7 +1106,7 @@ DF
 DF
 DF
 DF
-zj
+fZ
 fZ
 fZ
 fZ
@@ -1115,7 +1122,7 @@ DF
 DF
 DF
 DF
-zj
+fZ
 fZ
 fZ
 fZ
@@ -1149,7 +1156,7 @@ DF
 "}
 (37,1,1) = {"
 DF
-zj
+fZ
 fZ
 fZ
 fZ
@@ -1160,7 +1167,7 @@ hB
 mJ
 mJ
 mJ
-Rg
+Oh
 DF
 DF
 fZ
@@ -1229,11 +1236,11 @@ fZ
 Ga
 LT
 rK
-Hc
+YB
 DF
 DF
 DF
-Hc
+YB
 DF
 DF
 DF
@@ -1282,9 +1289,9 @@ DF
 "}
 (44,1,1) = {"
 DF
-zj
 fZ
-zj
+fZ
+fZ
 DF
 VT
 fZ
@@ -1296,7 +1303,7 @@ fZ
 fZ
 fZ
 fZ
-zj
+fZ
 gK
 "}
 (45,1,1) = {"
@@ -1322,14 +1329,14 @@ DF
 DF
 DF
 DF
-zj
+fZ
 DF
-zj
+fZ
 DF
 iy
 kT
 kT
-lB
+Xr
 DF
 DF
 DF

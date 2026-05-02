@@ -242,7 +242,7 @@
 	name = "white jumpsuit"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
 	icon = 'icons/obj/clothing/under/color.dmi'
-	icon_state = "color"
+	icon_state = "solid"
 	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	inhand_icon_state = "color_suit"
 	random_sensor = FALSE

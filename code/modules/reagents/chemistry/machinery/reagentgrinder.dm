@@ -343,6 +343,8 @@
 		return
 	if(!Adjacent(user))
 		return
+	if(operating)
+		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	beaker.forceMove(get_turf(src))

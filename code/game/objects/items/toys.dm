@@ -1233,6 +1233,32 @@
 	icon_state = "plushie_kidansad"
 	sadbug = TRUE
 
+/obj/item/toy/plushie_picker
+	name = "plushie box"
+	desc = "Exactly the plushie you ordered, no funny business."
+	icon = 'icons/obj/boxes.dmi'
+	icon_state = "toy_box"
+
+/obj/item/toy/plushie_picker/activate_self(mob/user)
+	if(..())
+		return
+
+	var/list/obj/item/toy/plushie/valid_plushies = subtypesof(/obj/item/toy/plushie) - (
+		typesof(/obj/item/toy/plushie/fluff) | list(/obj/item/toy/plushie/borgplushie/random))
+	var/list/picking_list = list()
+	for(var/each_plush in valid_plushies)
+		var/obj/item/toy/plushie/valid_plush = each_plush
+		picking_list |= list(valid_plush::name = valid_plush)
+	var/chosen_plush = tgui_input_list(user, "Choose a plushie:", "Choosing plushie", picking_list)
+	if(!chosen_plush)
+		return
+
+	user.drop_item_to_ground(src)
+	chosen_plush = picking_list[chosen_plush]
+	var/spawned_plush = new chosen_plush(loc)
+	user.put_in_hands(spawned_plush)
+	qdel(src)
+
 /*
  * Foam Armblade
  */
@@ -2097,8 +2123,6 @@
 	icon_state = "pool_noodle"
 	attack_verb = list("bopped", "splatted", "smacked", "thwapped", "slapped")
 	hitsound = 'sound/items/pool_noodle_hit.ogg'
-	// Having this var at all should play hitsound even if damage is zero
-	var/zero_damage_hitsound = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/toy/pool_noodle/Initialize(mapload)
@@ -2107,6 +2131,9 @@
 	name = "pool noodle"
 	desc = "A damp, flexible tube for unrestrained summer fun."
 	return ..()
+
+/obj/item/toy/pool_noodle/should_play_hitsound(damage)
+	return TRUE
 
 /obj/item/toy/pool_noodle/pink
 	color = COLOR_PINK
@@ -2122,3 +2149,218 @@
 
 /obj/item/toy/pool_noodle/orange
 	color = COLOR_ORANGE
+
+/obj/item/toy/bucket_and_spade
+	name = "small bucket and spade"
+	desc = "Only useful for sculpting."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "bucket_and_spade"
+	materials = list(MAT_PLASTIC = 2000)
+
+/obj/item/toy/bucket_and_spade/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /turf/simulated/floor/beach/sand))
+		return ..()
+	if(length(target.contents))
+		var/obj/structure/sand_sculpture/sculpture = (locate(/obj/structure/sand_sculpture) in target)
+		if(!sculpture)
+			to_chat(user, SPAN_NOTICE("There are too many things in the way to build a sculpture here."))
+			return ITEM_INTERACT_COMPLETE
+		if(user.a_intent == INTENT_HARM)
+			sculpture.take_damage(5, BRUTE)
+			return ITEM_INTERACT_COMPLETE
+		sculpture.interact_sculpture(user, src)
+		return ITEM_INTERACT_COMPLETE
+
+	var/list/obj/structure/sand_sculpture/valid_sculptures = typesof(/obj/structure/sand_sculpture)
+	var/list/picker_list = list()
+	for(var/each_sculpture in valid_sculptures)
+		var/obj/structure/sand_sculpture/picker_sculpture = each_sculpture
+		picker_list |= list(picker_sculpture::name = picker_sculpture)
+	var/obj/structure/sand_sculpture/chosen_sculpture = tgui_input_list(user, "Choose which sculpture to build:", "Choosing sculpture", picker_list)
+
+	if(!chosen_sculpture)
+		return ITEM_INTERACT_COMPLETE
+	if(!user.can_reach(target))
+		return ..()
+
+	chosen_sculpture = picker_list[chosen_sculpture]
+
+	visible_message(
+			SPAN_NOTICE("[user] starts sculpting on [target] with [src]."),
+			SPAN_NOTICE("You start sculpting on [target] with [src]."),
+			SPAN_NOTICE("You hear shuffling and packing of sand nearby."))
+	playsound(loc, 'sound/effects/sculptures/sand_buildstart.ogg', 80, TRUE)
+
+	if(!do_after(user = user, delay = 8 SECONDS, target = target))
+		to_chat(user, SPAN_NOTICE("You stop building [chosen_sculpture::name]."))
+		return ITEM_INTERACT_COMPLETE
+	visible_message(
+		SPAN_NOTICE("[user] builds \a [chosen_sculpture::name] on [target]."),
+		SPAN_NOTICE("You finish building \the [chosen_sculpture::name] on [target]."))
+	playsound(loc, 'sound/effects/sculptures/sand_buildfinish.ogg', 80, TRUE)
+	new chosen_sculpture(target)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/sand_sculpture
+	name = "ruined sand sculpture"
+	desc = "Oh. That's unfortunate."
+	icon = 'icons/obj/sculptures.dmi'
+	var/base_icon = 'icons/obj/sculptures.dmi'
+	icon_state = "sand_ruined"
+	// easy to destroy
+	max_integrity = 100
+	integrity_failure = 99
+
+/obj/structure/sand_sculpture/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	update_icon()
+
+/obj/structure/sand_sculpture/update_overlays()
+	. = ..()
+	overlays.Cut()
+
+	var/icon/silhouette = icon(icon, icon_state + "_mask")
+	var/turf/simulated/underlay_source = get_turf(src)
+	var/icon/underlay_icon = icon(underlay_source.icon, underlay_source.icon_state)
+	silhouette.Blend(underlay_icon, ICON_MULTIPLY)
+	. += silhouette
+	. += icon(base_icon, icon_state)
+
+/obj/structure/sand_sculpture/proc/on_atom_entered(datum/source, mob/living/entered)
+	if(istype(entered))
+		take_damage(5, BRUTE)
+
+/obj/structure/sand_sculpture/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/toy/bucket_and_spade) || user.a_intent == INTENT_HARM)
+		return ..()
+
+	interact_sculpture(user, used)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/sand_sculpture/attacked_by(obj/item/attacker, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	take_damage(5, BRUTE)
+	return FINISH_ATTACK
+
+/obj/structure/sand_sculpture/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM)
+		take_damage(5, BRUTE)
+		return
+	interact_sculpture(user)
+
+/obj/structure/sand_sculpture/proc/interact_sculpture(mob/user, obj/item/tool = null)
+	if(!user.can_reach(src))
+		return
+	// repairing or dismantling with hands only will take longer
+	var/speed_modifier = istype(tool, /obj/item/toy/bucket_and_spade) ? 1 : 2
+	var/choice = "Nothing"
+	if(icon_state == initial(icon_state))
+		choice = tgui_alert(usr, "What would you like to do with the sculpture?", "Sculpture action", list("Dismantle", "Nothing"))
+	else
+		choice = tgui_alert(usr, "What would you like to do with the sculpture?", "Sculpture action", list("Repair", "Dismantle", "Nothing"))
+	if(choice == "Nothing" || !choice)
+		return
+	if(!user.can_reach(src))
+		return
+
+	visible_message(
+		SPAN_NOTICE("[user] starts [choice == "Repair" ? "repairing" : "dismantling"] \the [src]."),
+		SPAN_NOTICE("You start [choice == "Repair" ? "repairing" : "dismantling"] \the [src]."),
+		SPAN_NOTICE("You hear shuffling and packing of sand nearby."))
+	playsound(loc, 'sound/effects/sculptures/sand_buildstart.ogg', 80, TRUE)
+
+	if(do_after(user = user, delay = (choice == "Repair" ? 50 * speed_modifier : 20 * speed_modifier), target = src))
+		if(choice == "Repair")
+			icon_state = initial(icon_state)
+			name = initial(name)
+			desc = initial(desc)
+			update_icon()
+			obj_integrity = max_integrity
+			visible_message(
+				SPAN_NOTICE("[user] repairs [src]."),
+				SPAN_NOTICE("You finish repairing [src]."))
+			playsound(loc, 'sound/effects/sculptures/sand_buildfinish.ogg', 80, TRUE)
+		else
+			qdel(src)
+		return
+	take_damage(5, BRUTE)
+
+/obj/structure/sand_sculpture/move_from_pull(atom/movable/puller, turf/target_turf, puller_glide_size)
+	take_damage(5, BRUTE, sound_effect = FALSE)
+	puller.stop_pulling()
+
+/obj/structure/sand_sculpture/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(loc, 'sound/effects/sculptures/sand_hit.ogg', 90, TRUE)
+		if(BURN)
+			playsound(loc, 'sound/effects/sculptures/sand_hit.ogg', 70, TRUE)
+
+/obj/structure/sand_sculpture/obj_break(damage_flag)
+	if(icon_state == "sand_ruined")
+		return
+	visible_message(
+		SPAN_WARNING("[src] collapses!"),
+		SPAN_WARNING("[src] collapses before you!"),
+		SPAN_NOTICE("You hear a pile of sand collapse."))
+	playsound(loc, 'sound/effects/sculptures/sand_collapse.ogg', 100, TRUE)
+	name = "ruined sand sculpture"
+	desc = "Oh. That's unfortunate."
+	icon_state = "sand_ruined"
+	update_icon()
+
+/obj/structure/sand_sculpture/mermaid
+	name = "mermaid sand sculpture"
+	desc = "Legend has it this creature exists, somewhere out there among the stars."
+	icon_state = "sand_mermaid"
+
+/obj/structure/sand_sculpture/merman
+	name = "merman sand sculpture"
+	desc = "Legend has it this creature exists, somewhere out there among the stars."
+	icon_state = "sand_merman"
+
+/obj/structure/sand_sculpture/starship
+	name = "sandship sculpture"
+	desc = "Boldly building where no man has built before."
+	icon_state = "sand_starship"
+
+/obj/structure/sand_sculpture/bar
+	name = "sand bar"
+	desc = "You can order a beach feast, but good luck drinking it."
+	icon_state = "sand_bar"
+
+/obj/structure/sand_sculpture/castle
+	name = "sand castle"
+	desc = "A classic fortress to guard your valuable shells and seaweed."
+	icon_state = "sand_castle"
+
+/obj/structure/sand_sculpture/corgi
+	name = "sand corgi"
+	desc = "Legend has it theis creature exists inside the very halls of a Nanotrasen station."
+	icon_state = "sand_corgi"
+
+/obj/structure/sand_sculpture/secbot
+	name = "sandbot"
+	desc = "You're fairly sure it would try to arrest you if it had any moving parts."
+	icon_state = "sand_secbot"
+
+/obj/structure/sand_sculpture/oyster
+	name = "sand pearl oyster"
+	desc = "That's the second biggest pearl you've ever seen. It must be worth a lot of sand dollars."
+	icon_state = "sand_shell"
+
+/obj/structure/sand_sculpture/crab
+	name = "sand crab"
+	desc = "If you add just enough water, it could become a mud crab."
+	icon_state = "sand_crab"
+
+/obj/structure/sand_sculpture/nad
+	name = "nuclear authentication dune"
+	desc = "The codes are crudely scored into the flat sand."
+	icon_state = "sand_nad"

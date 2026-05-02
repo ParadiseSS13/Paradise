@@ -278,6 +278,13 @@
 	description = "A humble self-sustaining lab that was set up to study the Necropolis' activities on Lavaland that soon got overrun by the thing it was researching."
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/lavaland/comfy_cabin
+	id = "basalt_lab"
+	suffix = "lavaland_surface_wooden_cabin.dmm"
+	name = "Comfy Cabin"
+	description = "A small wooden cabin that was once lived in by a hermit who is now nowhere to be found."
+	allow_duplicates = FALSE
+
 // MARK: Bridges
 
 /datum/map_template/ruin/lavaland/zlvl_bridge

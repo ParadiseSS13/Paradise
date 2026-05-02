@@ -354,6 +354,11 @@
 	icon_state = "longsidepart"
 	species_allowed = list("Human", "Slime People")
 
+/datum/sprite_accessory/hair/elephanttrunk
+	name = "Elephant Trunk"
+	icon_state = "elephanttrunk"
+	species_allowed = list("Human", "Slime People", "Unathi", "Tajaran", "Vulpkanin", "Nian")
+
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////

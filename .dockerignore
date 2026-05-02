@@ -1,0 +1,73 @@
+# .dockerignore
+
+# -------------------------
+# Git & VCS
+# -------------------------
+.git
+.gitignore
+.gitattributes
+
+# -------------------------
+# Editor / OS junk
+# -------------------------
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+
+# -------------------------
+# Build artifacts (BYOND)
+# -------------------------
+*.dmb
+*.rsc
+*.log
+
+# -------------------------
+# TGUI build artifacts
+# (we rebuild these in Docker)
+# -------------------------
+tgui/node_modules
+tgui/public/tgui.bundle.js
+
+# -------------------------
+# Rust build artifacts
+# -------------------------
+rust/target
+**/target
+
+# -------------------------
+# Docker / CI artifacts
+# -------------------------
+docker-compose.yml
+docker-compose.*.yml
+
+# -------------------------
+# SQL / runtime data
+# (keep schemas, drop local data)
+# -------------------------
+SQL/*.db
+SQL/*.sqlite
+
+# -------------------------
+# Secrets (never bake these)
+# -------------------------
+secret/*
+!secret/.gitkeep
+
+# -------------------------
+# Local tooling outputs
+# -------------------------
+SpacemanDMM.log
+odlint.log
+
+# -------------------------
+# BYOND Windows-only binaries
+# (not used in Linux containers)
+# -------------------------
+dreamchecker.exe
+prof.dll
+rustlibs.dll
+rustlibs_prod.dll

@@ -168,6 +168,7 @@
 	icon_state = "ash_walker"
 	icon_living = "ash_walker"
 	status_flags = CANPUSH
+	maximum_survivable_temperature = INFINITY // The fire creature should be immune to fire
 	maxHealth = 75
 	health = 75
 	melee_damage_lower = 15

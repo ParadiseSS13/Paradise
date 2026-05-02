@@ -95,7 +95,7 @@
 		/obj/item/robotanalyzer,
 		/obj/item/rpd/bluespace,
 		/obj/item/hammer,
-		/obj/item/rcl,
+		/obj/item/stack/cable_coil/rcl,
 		/obj/item/melee/sickly_blade/lock,
 	)
 
@@ -143,7 +143,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
-	new /obj/item/rcl(src)
+	new /obj/item/stack/cable_coil/rcl(src)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()

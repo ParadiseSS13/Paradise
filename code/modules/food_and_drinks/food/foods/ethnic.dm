@@ -84,7 +84,7 @@
 	icon_state = "chickenball"
 	inhand_icon_state = "chinese3"
 	junkiness = 25
-	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
+	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2, "protein" = 1)
 	tastes = list("chicken" = 1, "sweetness" = 1)
 
 /obj/item/food/chinese/tao

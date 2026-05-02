@@ -81,6 +81,11 @@
 	name = "burial garments"
 	desc = "Traditional burial garments from the early 22nd century."
 	icon_state = "burial"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi'
+	)
 
 /obj/item/clothing/under/misc/redhawaiianshirt
 	name = "red hawaiian shirt"
@@ -108,6 +113,17 @@
 	icon_state = "durathread"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 5, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 0)
 
+/obj/item/clothing/under/misc/swimsuit
+	name = "abstract swimsuit"
+	desc = ABSTRACT_TYPE_DESC
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
+		)
+
 /obj/item/clothing/under/misc/swimsuit/black
 	name = "black swimsuit"
 	desc = "An oldfashioned black swimsuit."
@@ -132,6 +148,42 @@
 	name = "red swimsuit"
 	desc = "An oldfashioned red swimsuit."
 	icon_state = "swim_red"
+
+/obj/item/clothing/under/misc/wetsuit
+	name = "abstract wetsuit"
+	desc = ABSTRACT_TYPE_DESC
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/under/misc.dmi'
+		)
+
+/obj/item/clothing/under/misc/wetsuit/green
+	name = "white and green wetsuit"
+	desc = "A white and green wetsuit with cropped legs and long sleeves."
+	icon_state = "wetsuit_green"
+
+/obj/item/clothing/under/misc/wetsuit/gold
+	name = "black and gold wetsuit"
+	desc = "A black and gold wetsuit with cropped legs and short sleeves."
+	icon_state = "wetsuit_gold"
+
+/obj/item/clothing/under/misc/wetsuit/pink
+	name = "navy and pink wetsuit"
+	desc = "A navy and pink wetsuit with short legs and long sleeves."
+	icon_state = "wetsuit_pink"
+
+/obj/item/clothing/under/misc/wetsuit/purple
+	name = "black and purple wetsuit"
+	desc = "A black and purple wetsuit with long legs and long sleeves."
+	icon_state = "wetsuit_purple"
+
+/obj/item/clothing/under/misc/wetsuit/orange
+	name = "orange and blue wetsuit"
+	desc = "An orange and blue wetsuit with long legs and no sleeves."
+	icon_state = "wetsuit_orange"
 
 /obj/item/clothing/under/misc/acj
 	name = "administrative cybernetic jumpsuit"

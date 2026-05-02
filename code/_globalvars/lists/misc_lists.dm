@@ -142,3 +142,5 @@ GLOBAL_LIST_INIT(all_crime_modifiers, list(
 	/datum/law/modifier/repeat_offender_first,
 	/datum/law/modifier/repeat_offender_second
 ))
+
+GLOBAL_LIST_EMPTY(starlight) // Turfs that emit starlight
