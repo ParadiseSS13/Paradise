@@ -310,8 +310,6 @@
 
 /area/ruin/space/kappa_lab
 	name = "\improper Kappa Lab"
-	icon_state = "away"
-	requires_power = TRUE
 
 /area/ruin/space/kappa_lab/entrance
 	name = "\improper Kappa Lab Entrance"
