@@ -1,7 +1,7 @@
-import {ReactNode, useState} from 'react';
-import {Box, Button, Divider, Dropdown, LabeledList, Section, Stack} from 'tgui-core/components';
-import {useBackend} from '../backend';
-import {Window} from '../layouts';
+import { ReactNode, useState } from 'react';
+import { Box, Button, Divider, Dropdown, LabeledList, Section, Stack } from 'tgui-core/components';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 interface SpaceLawEntry {
   name: string;
@@ -116,11 +116,7 @@ export const BrigTimer = (props: any) => {
 
   let nameText: ReactNode = data.occupant;
   if (data.timing) {
-    nameText = (
-      <Box color={data.prisoner_hasrec ? "green" : "red"}>
-        {data.occupant}
-      </Box>
-    );
+    nameText = <Box color={data.prisoner_hasrec ? 'green' : 'red'}>{data.occupant}</Box>;
   }
 
   let nameIcon = 'pencil-alt';
@@ -144,16 +140,40 @@ export const BrigTimer = (props: any) => {
                 <LabeledList.Item label="Actions">
                   <Stack fill>
                     <Stack.Item grow={1} basis={0}>
-                      <Button fluid icon="lightbulb-o" content="Flash" disabled={!data.isAllowed} onClick={() => act('flash')} />
+                      <Button
+                        fluid
+                        icon="lightbulb-o"
+                        content="Flash"
+                        disabled={!data.isAllowed}
+                        onClick={() => act('flash')}
+                      />
                     </Stack.Item>
                     <Stack.Item grow={1} basis={0}>
-                      <Button fluid icon="plus" content="+10m" disabled={!data.timing || !data.isAllowed} onClick={() => act('add_time')} />
+                      <Button
+                        fluid
+                        icon="plus"
+                        content="+10m"
+                        disabled={!data.timing || !data.isAllowed}
+                        onClick={() => act('add_time')}
+                      />
                     </Stack.Item>
                     <Stack.Item grow={1} basis={0}>
-                      <Button fluid icon="sync" content="Reset" disabled={!data.timing || !data.isAllowed} onClick={() => act('restart_timer')} />
+                      <Button
+                        fluid
+                        icon="sync"
+                        content="Reset"
+                        disabled={!data.timing || !data.isAllowed}
+                        onClick={() => act('restart_timer')}
+                      />
                     </Stack.Item>
                     <Stack.Item grow={1} basis={0}>
-                      <Button fluid icon="eject" content="Release" disabled={!data.timing || !data.isAllowed} onClick={() => act('stop')} />
+                      <Button
+                        fluid
+                        icon="eject"
+                        content="Release"
+                        disabled={!data.timing || !data.isAllowed}
+                        onClick={() => act('stop')}
+                      />
                     </Stack.Item>
                   </Stack>
                 </LabeledList.Item>
@@ -219,10 +239,14 @@ export const BrigTimer = (props: any) => {
                     </LabeledList>
                   </Stack.Item>
                   <Stack.Item grow={1} basis={0} ml={2}>
-                    <Box bold color="label">Selected Charges:</Box>
+                    <Box bold color="label">
+                      Selected Charges:
+                    </Box>
                     <Box italic>{formattedCrimes || 'None'}</Box>
                     <Divider />
-                    <Box bold color="label">Modifiers:</Box>
+                    <Box bold color="label">
+                      Modifiers:
+                    </Box>
                     <Box italic>{formattedModifiers || 'N/A'}</Box>
                   </Stack.Item>
                 </Stack>
@@ -231,7 +255,9 @@ export const BrigTimer = (props: any) => {
             <Stack.Item grow={1}>
               <Section title="Law Selection">
                 <Stack vertical fill>
-                  <Box textAlign="center" bold color="label" mb={1}>CRIMES</Box>
+                  <Box textAlign="center" bold color="label" mb={1}>
+                    CRIMES
+                  </Box>
                   {Object.entries(data.all_crimes).map(([code, category]) => (
                     <Stack.Item key={code}>
                       <Stack fill>
@@ -242,10 +268,12 @@ export const BrigTimer = (props: any) => {
                               textAlign="center"
                               tooltip={crime.description}
                               selected={selectedCrimes[code] === key}
-                              onClick={() => setSelectedCrimes({
-                                ...selectedCrimes,
-                                [code]: selectedCrimes[code] === key ? null : key,
-                              })}
+                              onClick={() =>
+                                setSelectedCrimes({
+                                  ...selectedCrimes,
+                                  [code]: selectedCrimes[code] === key ? null : key,
+                                })
+                              }
                             >
                               {crime.name}
                             </Button>
@@ -255,7 +283,9 @@ export const BrigTimer = (props: any) => {
                     </Stack.Item>
                   ))}
                   <Divider />
-                  <Box textAlign="center" bold color="label" mb={1}>MODIFIERS</Box>
+                  <Box textAlign="center" bold color="label" mb={1}>
+                    MODIFIERS
+                  </Box>
                   {Object.entries(data.all_modifiers).map(([modifierGroup, category]) => (
                     <Stack.Item key={modifierGroup}>
                       <Stack fill>
@@ -266,10 +296,12 @@ export const BrigTimer = (props: any) => {
                               textAlign="center"
                               tooltip={modifier.description}
                               color={selectedModifiers[modifierGroup] === key ? 'green' : ''}
-                              onClick={() => setSelectedModifiers({
-                                ...selectedModifiers,
-                                [modifierGroup]: selectedModifiers[modifierGroup] === key ? null : key,
-                              })}
+                              onClick={() =>
+                                setSelectedModifiers({
+                                  ...selectedModifiers,
+                                  [modifierGroup]: selectedModifiers[modifierGroup] === key ? null : key,
+                                })
+                              }
                             >
                               {modifier.name}
                             </Button>
