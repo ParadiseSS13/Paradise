@@ -475,3 +475,9 @@
 	suffix = "engineering_vessel.dmm"
 	name = "Engineering Vessel"
 	description = "A small vessel able to have a telecoms relay built inside of it, as well as some miscellaneous cargo."
+
+/datum/map_template/ruin/space/kappa_lab
+	id = "kappa_lab"
+	suffix = "kappalab.dmm"
+	name = "The Kappa Lab"
+	description = "An all-around lab held once in pristine condition has now fallen to into less desirable hands."

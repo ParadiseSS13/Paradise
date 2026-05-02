@@ -1,0 +1,4415 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"au" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/entrance)
+"av" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"aI" = (
+/obj/machinery/light/exterior/outdoors,
+/obj/structure/flora/ash/rock/style_2,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"aL" = (
+/obj/machinery/door/airlock/medical,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"aP" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/airlock_controller/air_cycler/directional/west,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/entrance)
+"aU" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"aX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"bb" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/entrance)
+"bk" = (
+/obj/structure/flora/ash/rock/style_2,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"bD" = (
+/obj/machinery/door/airlock/mining{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"bG" = (
+/obj/structure/closet/crate/freezer/iv_storage,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"bP" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"bZ" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"cL" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"cN" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"db" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"df" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"do" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"dq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"dt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"dO" = (
+/obj/structure/table/glass,
+/obj/machinery/alarm/directional/north,
+/obj/machinery/recharger,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"dW" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"ea" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"eq" = (
+/obj/structure/table/reinforced,
+/obj/item/flashlight/lamp,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"ew" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"ex" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"eF" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 6
+	},
+/obj/structure/table,
+/obj/item/storage/firstaid/machine,
+/obj/item/robotanalyzer,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"eH" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"eM" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"fv" = (
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"fE" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"fQ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"gl" = (
+/obj/structure/closet/secure_closet/scientist,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"gn" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/diner)
+"gu" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/quarters)
+"gC" = (
+/obj/effect/spawner/random/space_pirate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"gD" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/kappa_lab/diner)
+"gE" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/obj/structure/curtain/black,
+/obj/effect/spawner/random/plushies,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"gK" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"gM" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"gR" = (
+/obj/machinery/light/exterior/outdoors{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"hb" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"hc" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/purple{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"he" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"hg" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"hp" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"hz" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"hA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"hL" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"hS" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/kappa_lab/diner)
+"hW" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"ia" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"ik" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/structure/sign/public/restroom{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"it" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/structure/sign/service/kitchen{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"iu" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/storage/box/kitchen_utensils{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/storage/box/kitchen_utensils{
+	pixel_y = 4;
+	pixel_x = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"iG" = (
+/obj/machinery/sleeper{
+	dir = 2
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"iO" = (
+/obj/structure/flora/ash/rock,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"iV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/alarm/directional/south,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"iZ" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"jt" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/entrance)
+"jB" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/food/yakiimo,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"jK" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"jP" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"jT" = (
+/obj/machinery/computer/operating{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"jW" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/food_or_drink,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"kc" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/obj/structure/curtain/black,
+/obj/effect/spawner/random/plushies,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"ko" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"kA" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/quarters)
+"kG" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
+	},
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"kI" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"kT" = (
+/obj/structure/cable/yellow,
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/unpowered)
+"la" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/chem_dispenser/soda/upgraded{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"lg" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"lk" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/filingcabinet/chestdrawer,
+/obj/item/paper/sieged_lab_research_paper,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"lm" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 5
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"lp" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"lx" = (
+/obj/structure/closet/emcloset,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"lH" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/stovetop/loaded,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"lL" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"lP" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/cable,
+/obj/machinery/power/apc/off_station/directional/west,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"ma" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/research)
+"mo" = (
+/obj/structure/curtain/medical,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"mt" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"my" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ruin/space/kappa_lab/bridge)
+"mz" = (
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen/red{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/item/clipboard{
+	pixel_x = 6;
+	pixel_y = -1
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"mU" = (
+/obj/structure/table/tray,
+/obj/item/storage/surgical_tray,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"mV" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"na" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"ne" = (
+/obj/structure/table/glass,
+/obj/item/flashlight/lamp,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"nf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"ng" = (
+/obj/machinery/door/airlock{
+	name = "Unisex Restrooms";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/kappa_lab/diner)
+"np" = (
+/obj/machinery/door/airlock/research,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"nq" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/food/waffles,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"nu" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"nw" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/reagent_dispensers/watertank/firetank,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"nB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"nN" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/effect/spawner/random/food_or_drink,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"ow" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"oA" = (
+/obj/effect/turf_decal/tiles/department/science/side,
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"oE" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"oK" = (
+/obj/structure/curtain/open/shower,
+/obj/structure/window/reinforced/tinted,
+/obj/structure/toilet/directional/west,
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/kappa_lab/diner)
+"pb" = (
+/obj/machinery/cooking/oven/loaded,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"pd" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"pe" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"pq" = (
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ruin/space/kappa_lab/engineering)
+"pG" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/wall/indestructible/fakeglass,
+/area/ruin/space/kappa_lab/engineering)
+"pP" = (
+/obj/structure/table/reinforced,
+/obj/item/taperecorder{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/storage/box/tapes{
+	pixel_x = 8
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"pQ" = (
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"qi" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/entrance)
+"qj" = (
+/obj/machinery/power/solar,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/unpowered)
+"qp" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"qx" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"qz" = (
+/obj/machinery/economy/vending/snack,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"qA" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"qC" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"qG" = (
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"qJ" = (
+/obj/machinery/power/solar_control/autostart{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"qQ" = (
+/obj/structure/gunrack,
+/obj/item/gun/energy/kinetic_accelerator{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/gun/energy/kinetic_accelerator,
+/obj/item/gun/energy/kinetic_accelerator{
+	pixel_x = 3;
+	pixel_y = -10
+	},
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"rr" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"rv" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"rx" = (
+/turf/template_noop,
+/area/template_noop)
+"rA" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/obj/structure/curtain/black,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"rF" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"rL" = (
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/space/unpowered)
+"rW" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"rZ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"sa" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"sd" = (
+/obj/structure/curtain/open/shower,
+/obj/structure/window/reinforced/tinted,
+/obj/structure/toilet/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/kappa_lab/diner)
+"sf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"si" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"sv" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"sw" = (
+/obj/machinery/bodyscanner{
+	dir = 2
+	},
+/obj/machinery/alarm/directional/north,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"sB" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"sC" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"sH" = (
+/obj/machinery/atmospherics/unary/tank/air,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"sS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"tc" = (
+/turf/simulated/mineral,
+/area/ruin/space/unpowered)
+"tg" = (
+/obj/machinery/light/exterior/outdoors,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"tl" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black,
+/obj/structure/curtain/black,
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"tm" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"tB" = (
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"ui" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"uU" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"vk" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"vp" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"vr" = (
+/obj/structure/table/glass,
+/obj/item/flashlight/lamp,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"vx" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"vz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"vD" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"vM" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/dropper{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/syringe/epinephrine,
+/obj/item/storage/box/autoinjectors{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"vO" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"vS" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"wh" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/entrance)
+"wy" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/clothing/mask/breath{
+	pixel_x = -12;
+	pixel_y = 6
+	},
+/obj/item/shovel{
+	pixel_y = -4
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = 10;
+	pixel_y = 8
+	},
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/mining_scanner,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"wK" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	layer = 2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"wL" = (
+/obj/machinery/power/emitter{
+	anchored = 1;
+	state = 2
+	},
+/obj/structure/cable,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/kappa_lab/research)
+"wO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"wT" = (
+/obj/structure/mecha_wreckage/ripley,
+/obj/item/toy/figure/mech/ripley,
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/ruin/space/kappa_lab/eva)
+"xb" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/item/stack/sheet/bone,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"xd" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"xg" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"xj" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"xz" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"xB" = (
+/obj/machinery/optable,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"xG" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"xM" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/off_station/directional/east,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"xR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"yb" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/off_station/directional/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"yd" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/jumpskirt/lightgreen,
+/obj/item/clothing/shoes/laceup,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"yg" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"yt" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"yL" = (
+/obj/structure/table/glass,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/flashlight/lamp,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"yU" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"za" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/science,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"zb" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"ze" = (
+/obj/structure/table/glass,
+/obj/item/stamp/denied{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/item/stamp/granted{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/stamp/chameleon{
+	pixel_x = 7;
+	pixel_y = 9
+	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"zi" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"zp" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/beakers{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"zr" = (
+/obj/machinery/economy/vending/engivend,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"zu" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"zy" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"zT" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"Ae" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"Af" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Aj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"Az" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"AA" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"AG" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"AT" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/bridge)
+"Ba" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/effect/spawner/random/trash,
+/obj/item/pen/blue,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Bb" = (
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	name = "Waste In";
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"Br" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Bs" = (
+/obj/machinery/door/airlock/glass,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Bt" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"BJ" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	layer = 2
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"Ca" = (
+/obj/effect/turf_decal/tiles/department/command/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Ch" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"Cu" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/obj/machinery/access_button/offset/west,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/entrance)
+"Cx" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/purple{
+	dir = 1
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"CL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"CM" = (
+/obj/machinery/power/tracker,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/unpowered)
+"CS" = (
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"CY" = (
+/obj/structure/shelf/science,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"Di" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/medical)
+"Dj" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Do" = (
+/obj/machinery/light/exterior/outdoors{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"DD" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/computer/nonfunctional,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"DG" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"DL" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"DP" = (
+/obj/structure/flora/grass/jungle,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/kappa_lab/bridge)
+"Eu" = (
+/obj/machinery/door/airlock/glass,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"EC" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"EL" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"EM" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/obj/machinery/economy/vending/chinese,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"EN" = (
+/obj/structure/cable,
+/obj/machinery/power/apc/off_station/directional/south,
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"Fa" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"Fb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/spawner/random/space_pirate,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"Fl" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/access_button/offset/southwest,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/entrance)
+"Ft" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"FF" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/condiment/wasabi{
+	pixel_x = -9;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/condiment/mayonnaise{
+	pixel_x = 10;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/condiment/ketchup{
+	pixel_x = 1;
+	pixel_y = 13
+	},
+/obj/item/nullrod/salt{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"FJ" = (
+/obj/machinery/door/airlock/engineering,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"FK" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"FY" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"FZ" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Gc" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"Gi" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"Gk" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/sign/service/kitchen{
+	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"GG" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"GK" = (
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/kappa_lab/bridge)
+"Hp" = (
+/obj/effect/turf_decal/tiles/department/cargo/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"Ht" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"HE" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"HH" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"IC" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"IF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"IL" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8";
+	tag = ""
+	},
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"Jx" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"Jz" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"JF" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"JG" = (
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"JL" = (
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"JN" = (
+/obj/machinery/alarm/directional/south,
+/obj/structure/closet/firecloset/full,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"JR" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"Ka" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/jumpskirt/orange,
+/obj/item/clothing/shoes/cowboy,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"Kh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"Ki" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"Kn" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"Ky" = (
+/obj/structure/sink/puddle,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/kappa_lab/bridge)
+"KM" = (
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"KX" = (
+/obj/machinery/light,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"La" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Le" = (
+/obj/machinery/light,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"Ll" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"Ln" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"Ls" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"Lv" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"LD" = (
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"LF" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/engineering)
+"LG" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"LK" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/economy/vending/dinnerware,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = -8;
+	pixel_y = 22
+	},
+/obj/item/reagent_containers/condiment/vinegar{
+	pixel_x = 8;
+	pixel_y = 22
+	},
+/obj/item/reagent_containers/condiment/oliveoil{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"LR" = (
+/obj/machinery/atmospherics/unary/tank{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"LX" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"LZ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"Mh" = (
+/obj/machinery/door/airlock/mining,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"Ml" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"Mo" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"MO" = (
+/obj/machinery/door/airlock/medical{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"Nd" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"Nu" = (
+/obj/machinery/photocopier,
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"NK" = (
+/obj/machinery/power/apc/off_station/directional/south,
+/obj/structure/cable,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"NP" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"NS" = (
+/obj/machinery/iv_drip,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"NT" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Ob" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"Of" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"OS" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow,
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"Pe" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"PB" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"PS" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"PU" = (
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"PX" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/entrance)
+"Qc" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Qd" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"Qf" = (
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"Qn" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"Qz" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/under/color/jumpskirt/green,
+/obj/item/clothing/shoes/red,
+/obj/item/clothing/suit/hooded/hoodie,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"QE" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"QG" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/ruin/space/kappa_lab/bridge)
+"QX" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/item/raw_anomaly_core,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
+	},
+/obj/effect/spawner/random/loot_crate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"Ra" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"Rf" = (
+/obj/machinery/light/exterior/outdoors{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"Rl" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"Rn" = (
+/obj/structure/dispenser/oxygen,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"Rv" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"Rx" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/bodybags{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
+	},
+/obj/item/soap/deluxe{
+	pixel_x = 10;
+	pixel_y = 4
+	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"Rz" = (
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"RA" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"RP" = (
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"RT" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"RX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"Sa" = (
+/obj/machinery/door/airlock/engineering/glass{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"Sw" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Sy" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"SB" = (
+/obj/machinery/power/apc/off_station/directional/east,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"SM" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"SP" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Tc" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"Tf" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Tg" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Th" = (
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/spawner/random/space_pirate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"Tp" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Tv" = (
+/obj/machinery/suit_storage_unit/expedition,
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 8
+	},
+/obj/machinery/alarm/directional/west,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"TP" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/ruin/space/kappa_lab/diner)
+"Un" = (
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/eva)
+"UM" = (
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"UN" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/hallway)
+"UR" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/solar,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/unpowered)
+"UT" = (
+/obj/structure/table/glass,
+/obj/item/storage/fancy/donut_box,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"Vc" = (
+/obj/item/flag/chameleon/depot,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"VN" = (
+/obj/structure/sign/poster/ripped/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"VP" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"VS" = (
+/obj/structure/chair/sofa/bench/left{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"VY" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Wj" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Wo" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/obj/structure/curtain/black,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"Wq" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4;
+	name = "Kitchen"
+	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"Ww" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"WE" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"WH" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"WM" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"WP" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"WR" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"WT" = (
+/obj/machinery/light/small,
+/obj/machinery/light/small,
+/turf/simulated/floor/catwalk/airless,
+/area/ruin/space/kappa_lab/engineering)
+"WU" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"WW" = (
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/entrance)
+"Xg" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"Xu" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Xy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing/corner,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"XB" = (
+/obj/machinery/door/airlock/engineering{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"XU" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"XZ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/medical)
+"Yd" = (
+/obj/machinery/economy/vending/tool/free,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"Yg" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"Yj" = (
+/obj/structure/closet/secure_closet/scientist,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"Yn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"Yw" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/engineering)
+"YE" = (
+/obj/machinery/cooking/deepfryer/loaded,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+"YH" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/eva)
+"YI" = (
+/obj/item/circuitboard/chem_dispenser,
+/obj/structure/machine_frame,
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
+"Zb" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Zn" = (
+/obj/effect/turf_decal/tiles/department/virology/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
+"Zu" = (
+/obj/machinery/power/solar,
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/unpowered)
+"ZM" = (
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	dir = 8;
+	name = "Air To Distro"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
+"ZZ" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/sink/kitchen/directional/north,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/kappa_lab/diner)
+
+(1,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+tc
+jP
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+"}
+(2,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+rx
+jP
+jP
+tc
+tc
+tc
+tc
+jP
+jP
+rx
+jP
+jP
+jP
+jP
+jP
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+"}
+(3,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+jP
+jP
+jP
+jP
+tc
+tc
+tc
+tc
+jP
+jP
+Do
+jP
+jP
+jP
+jP
+jP
+jP
+jP
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+"}
+(4,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+Do
+jP
+jP
+jP
+jP
+gn
+gn
+gn
+gn
+gn
+gn
+gn
+gn
+gn
+gn
+gn
+gn
+gn
+jP
+tc
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+"}
+(5,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+LF
+LF
+LF
+LF
+tc
+jP
+gn
+LK
+lH
+pb
+YE
+sB
+JF
+WE
+gn
+gn
+sd
+oK
+gn
+tc
+tc
+rL
+jP
+rx
+jP
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+"}
+(6,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+jP
+LF
+LR
+qx
+LF
+tc
+bk
+gn
+ZZ
+Lv
+Lv
+Lv
+jW
+yU
+ik
+gn
+gD
+gD
+TP
+gn
+tc
+rL
+tc
+tc
+jP
+jP
+jP
+jP
+jP
+rx
+rx
+rx
+rx
+"}
+(7,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+jP
+bk
+LF
+LF
+hc
+xz
+LF
+rL
+tc
+gn
+Lv
+Lv
+Lv
+Lv
+sB
+yU
+HE
+ng
+gD
+gD
+gD
+gn
+bP
+tc
+jP
+Do
+jP
+jP
+jP
+jP
+jP
+jP
+rx
+rx
+rx
+"}
+(8,1,1) = {"
+rx
+rx
+rx
+rx
+jP
+jP
+jP
+LF
+nw
+Cx
+lm
+LF
+tc
+rL
+gn
+Wq
+la
+Tc
+FF
+iu
+yU
+AA
+gn
+hS
+hS
+UN
+UN
+UN
+UN
+YH
+YH
+YH
+YH
+YH
+YH
+jP
+jP
+rx
+rx
+rx
+"}
+(9,1,1) = {"
+rx
+rx
+rx
+rx
+jP
+jP
+tg
+LF
+wK
+xz
+Bb
+LF
+rL
+bP
+gn
+JF
+gK
+gK
+gK
+gK
+Tg
+HH
+gn
+gn
+gn
+UN
+Ba
+qz
+UN
+Rn
+wy
+Tv
+oE
+QE
+YH
+YH
+bk
+jP
+rx
+rx
+"}
+(10,1,1) = {"
+rx
+rx
+rx
+rx
+jP
+jP
+tc
+LF
+zT
+pe
+Gi
+LF
+LF
+LF
+gn
+yU
+AG
+df
+La
+La
+SP
+Zn
+lP
+Af
+WE
+UN
+mV
+fE
+bD
+RP
+wO
+qA
+nf
+LD
+jK
+YH
+jP
+jP
+rx
+rx
+"}
+(11,1,1) = {"
+rx
+rx
+rx
+rx
+tc
+tc
+tc
+LF
+LF
+JL
+dq
+db
+Sa
+RX
+gn
+yU
+AG
+Br
+Tf
+Tf
+vp
+Tp
+XU
+ew
+HH
+UN
+ea
+vS
+UN
+PS
+nu
+Th
+aX
+Ra
+wT
+YH
+Rf
+jP
+rx
+rx
+"}
+(12,1,1) = {"
+rx
+rx
+rx
+rL
+rL
+tc
+rL
+tc
+LF
+gC
+Gi
+pe
+LF
+iV
+gn
+Ww
+RT
+qp
+nN
+jB
+FZ
+Sw
+nq
+yt
+NT
+UN
+ea
+vS
+UN
+qQ
+Un
+vz
+Hp
+xM
+Rl
+YH
+jP
+jP
+rx
+rx
+"}
+(13,1,1) = {"
+rx
+rx
+rx
+jP
+tc
+tc
+tc
+jP
+LF
+pe
+ZM
+LF
+LF
+Fb
+gn
+gn
+Bs
+Eu
+AT
+AT
+Ll
+AT
+AT
+AT
+AT
+AT
+na
+vS
+UN
+YH
+iZ
+FY
+eF
+YH
+YH
+YH
+jP
+jP
+rx
+rx
+"}
+(14,1,1) = {"
+rx
+rx
+jP
+jP
+jP
+iO
+jP
+jP
+LF
+sH
+FK
+LF
+Yd
+sf
+Yw
+UN
+it
+Gk
+AT
+cN
+IF
+xG
+xG
+hW
+ne
+AT
+ea
+vS
+UN
+bb
+bb
+Mh
+bb
+bb
+tc
+tc
+jP
+rx
+rx
+rx
+"}
+(15,1,1) = {"
+rx
+qj
+gM
+kT
+jP
+qj
+lg
+Zu
+LF
+sH
+WU
+LF
+zr
+Ft
+kI
+UN
+xd
+Wj
+AT
+KM
+Aj
+CL
+CL
+LX
+ze
+AT
+LG
+vD
+UN
+bb
+Ki
+Ob
+lx
+bb
+tc
+jP
+jP
+jP
+rx
+rx
+"}
+(16,1,1) = {"
+jP
+qj
+Yg
+kT
+jP
+qj
+fQ
+Zu
+LF
+BJ
+hb
+LF
+Fa
+nB
+xR
+XB
+Qc
+NP
+my
+Sy
+Xy
+Pe
+Pe
+zu
+do
+my
+ea
+vS
+UN
+Vc
+Ln
+RA
+dW
+bb
+bb
+bb
+bb
+Rf
+jP
+rx
+"}
+(17,1,1) = {"
+jP
+qj
+Yg
+kT
+jP
+qj
+fQ
+Zu
+LF
+LF
+LF
+LF
+LF
+FJ
+LF
+UN
+hp
+xj
+my
+Sy
+hA
+DP
+Ky
+rZ
+Nd
+my
+ea
+EL
+UN
+WW
+PB
+Ls
+ow
+Cu
+PX
+aP
+Fl
+jP
+jP
+rx
+"}
+(18,1,1) = {"
+jP
+jP
+Kn
+Az
+jP
+jP
+Kn
+jP
+jP
+jP
+aI
+LF
+pQ
+IL
+EN
+UN
+hp
+xj
+my
+bZ
+hA
+QG
+GK
+rZ
+do
+my
+ea
+vS
+UN
+VN
+eH
+Kh
+Ln
+jt
+qi
+au
+wh
+jP
+jP
+rx
+"}
+(19,1,1) = {"
+CM
+Qn
+tm
+Qn
+Qn
+Qn
+vk
+Qn
+Qn
+Qn
+Qn
+pG
+OS
+CS
+WT
+UN
+hp
+xj
+my
+Sy
+Ch
+VP
+VP
+IC
+do
+my
+ia
+uU
+UN
+PU
+Ln
+pd
+Le
+bb
+bb
+bb
+bb
+Rf
+rx
+rx
+"}
+(20,1,1) = {"
+jP
+jP
+Kn
+jP
+jP
+jP
+Kn
+jP
+jP
+Az
+jP
+pq
+Ae
+DL
+he
+UN
+xd
+xj
+AT
+dO
+WR
+Ht
+Ht
+EC
+Nu
+AT
+ea
+vS
+UN
+bb
+xg
+Kh
+JN
+bb
+rL
+tc
+tc
+jP
+rx
+rx
+"}
+(21,1,1) = {"
+jP
+qj
+SM
+kT
+jP
+UR
+ex
+kT
+jP
+jP
+tg
+LF
+LF
+JG
+qJ
+UN
+VY
+rF
+AT
+yL
+mz
+lL
+lL
+UT
+vr
+AT
+na
+vS
+UN
+bb
+bb
+aL
+bb
+bb
+Di
+rL
+tc
+tc
+jP
+rx
+"}
+(22,1,1) = {"
+jP
+qj
+SM
+kT
+jP
+UR
+ex
+kT
+jP
+tc
+tc
+rL
+LF
+LF
+LF
+UN
+hp
+xj
+AT
+AT
+AT
+AT
+AT
+AT
+AT
+AT
+ea
+rv
+zb
+Di
+ui
+Qd
+XZ
+Rx
+Di
+rL
+rL
+tc
+jP
+rx
+"}
+(23,1,1) = {"
+rx
+qj
+vx
+kT
+jP
+UR
+vx
+kT
+jP
+tc
+rL
+rL
+tc
+tc
+UN
+aU
+WH
+DG
+hz
+hz
+hz
+hz
+hz
+rW
+hz
+hz
+Dj
+Mo
+Mo
+MO
+JR
+sv
+yg
+vM
+Di
+Di
+Di
+Di
+jP
+rx
+"}
+(24,1,1) = {"
+rx
+rx
+jP
+jP
+Az
+jP
+jP
+jP
+rL
+rL
+rL
+tc
+tc
+jP
+UN
+cL
+Zb
+qC
+WP
+Zb
+Zb
+WP
+Zb
+Xu
+Zb
+WP
+kG
+Ca
+zy
+Di
+iG
+mt
+qG
+Qf
+Di
+qG
+mU
+Di
+jP
+rx
+"}
+(25,1,1) = {"
+rx
+rx
+rx
+jP
+jP
+jP
+jP
+rL
+rL
+rL
+rL
+ma
+ma
+ma
+ma
+np
+ma
+ma
+ma
+eM
+VS
+kA
+kA
+gu
+kA
+kA
+EM
+lp
+UN
+Di
+sw
+av
+Jx
+Qf
+mo
+qG
+xB
+Di
+Rf
+rx
+"}
+(26,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+tc
+tc
+rL
+ma
+gl
+WM
+LZ
+ko
+rr
+wL
+QX
+ma
+kA
+kA
+UM
+hg
+UM
+kA
+kA
+UN
+UN
+Di
+bG
+SB
+NS
+Gc
+Di
+si
+jT
+Di
+jP
+jP
+"}
+(27,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+tc
+tc
+ma
+Yj
+Rz
+sS
+hL
+sa
+GG
+Of
+ma
+kA
+gE
+UM
+hg
+UM
+kc
+kA
+tc
+tc
+Di
+Di
+Di
+Di
+Di
+Di
+Di
+Di
+Di
+jP
+jP
+"}
+(28,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+rL
+ma
+ma
+yb
+GG
+DD
+Bt
+GG
+oA
+ma
+kA
+kA
+vO
+Ml
+NK
+kA
+kA
+tc
+tc
+rL
+rL
+rL
+tc
+jP
+gR
+jP
+jP
+jP
+jP
+jP
+"}
+(29,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+rL
+jP
+ma
+CY
+GG
+lk
+GG
+GG
+fv
+ma
+kA
+Wo
+UM
+Yn
+UM
+tl
+kA
+tc
+rL
+tc
+rL
+rL
+tc
+jP
+jP
+rL
+jP
+jP
+jP
+rx
+"}
+(30,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+tg
+ma
+pP
+sC
+za
+GG
+Jz
+YI
+ma
+kA
+kA
+tB
+dt
+KX
+kA
+kA
+tc
+rL
+tc
+tc
+tc
+jP
+rx
+jP
+jP
+jP
+rx
+rx
+rx
+"}
+(31,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+ma
+eq
+Rv
+xb
+zi
+Xg
+zp
+ma
+kA
+gE
+UM
+UM
+UM
+rA
+kA
+tc
+tc
+tc
+rx
+rx
+rx
+rx
+rx
+jP
+rx
+rx
+rx
+rx
+"}
+(32,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+iO
+ma
+ma
+ma
+ma
+ma
+ma
+ma
+ma
+kA
+kA
+Ka
+Qz
+yd
+kA
+kA
+tc
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+"}
+(33,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+jP
+jP
+tc
+rL
+rL
+rL
+rL
+rL
+tc
+kA
+kA
+kA
+kA
+kA
+iO
+jP
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+"}
+(34,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+tc
+tc
+rL
+rL
+rL
+tc
+jP
+jP
+jP
+gR
+jP
+jP
+jP
+jP
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+"}
+(35,1,1) = {"
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+jP
+jP
+rL
+tc
+rx
+rx
+rx
+rx
+jP
+iO
+jP
+jP
+rx
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+"}

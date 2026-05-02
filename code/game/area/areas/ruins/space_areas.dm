@@ -308,3 +308,34 @@
 	name = "Nanotrasen Bluespace Relay #[rand(1, 1000)]" //Give it a random relay name
 	return ..()
 
+/area/ruin/space/kappa_lab
+	name = "\improper Kappa Lab"
+	icon_state = "away"
+	requires_power = TRUE
+
+/area/ruin/space/kappa_lab/entrance
+	name = "\improper Kappa Lab Entrance"
+
+/area/ruin/space/kappa_lab/eva
+	name = "\improper Kappa Lab EVA Storage"
+
+/area/ruin/space/kappa_lab/medical
+	name = "\improper Kappa Lab Medical Bay"
+
+/area/ruin/space/kappa_lab/hallway
+	name = "\improper Kappa Lab Hallways"
+
+/area/ruin/space/kappa_lab/quarters
+	name = "\improper Kappa Lab Crew Quarters"
+
+/area/ruin/space/kappa_lab/research
+	name = "\improper Kappa Lab Research Wing"
+
+/area/ruin/space/kappa_lab/engineering
+	name = "\improper Kappa Lab Engieering Storage"
+
+/area/ruin/space/kappa_lab/diner
+	name = "\improper Kappa Lab Dining Hall"
+
+/area/ruin/space/kappa_lab/bridge
+	name = "\improper Kappa Lab Bridge"
