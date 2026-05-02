@@ -1764,6 +1764,7 @@
 	sprite_sheets = list("Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/vox/neck.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
 
 /obj/item/clothing/neck/necklace/reward/brass_watch/examine(mob/user)
