@@ -311,44 +311,45 @@
 	return data
 
 /obj/machinery/door_timer/ui_data(mob/user)
-    var/list/data = list()
-    data["cell_id"] = name
-    data["occupant"] = occupant
-    data["crimes"] = crimes
-    data["brigged_by"] = officer
-    data["time_set"] = seconds_to_clock(timetoset / 10)
-    data["time_left"] = seconds_to_clock(timeleft())
-    data["timing"] = timing
-    data["isAllowed"] = allowed(user)
-    data["prisoner_name"] = prisoner_name
-    data["prisoner_notes"] = prisoner_notes
-    data["prisoner_time"] = prisoner_time
-    data["prisoner_hasrec"] = prisoner_hasrecord
+	var/list/data = list()
+	data["cell_id"] = name
+	data["occupant"] = occupant
+	data["crimes"] = crimes
+	data["brigged_by"] = officer
+	data["time_set"] = seconds_to_clock(timetoset / 10)
+	data["time_left"] = seconds_to_clock(timeleft())
+	data["timing"] = timing
+	data["isAllowed"] = allowed(user)
+	data["prisoner_name"] = prisoner_name
+	data["prisoner_notes"] = prisoner_notes
+	data["prisoner_time"] = prisoner_time
+	data["prisoner_hasrec"] = prisoner_hasrecord
 
-    var/list/crimes_data = list()
-    for(var/datum/law/crime/C in GLOB.all_crimes)
-        crimes_data += list(list(
-            "name" = C.name,
-            "desc" = C.desc,
-            "severity" = C.severity,
-            "code" = C.code,
-            "min_time" = C.min_time,
-            "max_time" = C.max_time
-        ))
-    data["all_crimes"] = crimes_data
+	var/list/crimes_data = list()
+	for(var/datum/law/crime/C in GLOB.all_crimes)
+		crimes_data += list(list(
+			"name" = C.name,
+			"desc" = C.desc,
+			"severity" = C.severity,
+			"code" = C.code,
+			"min_time" = C.min_time,
+			"max_time" = C.max_time
+		))
+	data["all_crimes"] = crimes_data
 
-    var/list/mods_data = list()
-    for(var/datum/law/modifier/M in GLOB.all_crime_modifiers)
-        mods_data += list(list(
-            "name" = M.name,
-            "desc" = M.desc,
-            "category" = M.category,
-            "time_added" = M.time_added,
-            "time_multiplier" = M.time_multiplier
-        ))
-    data["all_modifiers"] = mods_data
+	var/list/mods_data = list()
+	for(var/datum/law/modifier/M in GLOB.all_crime_modifiers)
+		mods_data += list(list(
+			"name" = M.name,
+			"desc" = M.desc,
+			"category" = M.category,
+			"time_added" = M.time_added,
+			"time_multiplier" = M.time_multiplier
+		))
+	data["all_modifiers"] = mods_data
 
-    return data
+	return data
+
 /obj/machinery/door_timer/allowed(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
