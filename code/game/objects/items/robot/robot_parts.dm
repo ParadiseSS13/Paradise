@@ -353,7 +353,7 @@
 			O.robot_suit = src
 			if(!locomotion)
 				O.lockcharge = TRUE
-				O.update_canmove()
+				O.update_stamina_hud()
 
 
 	if(is_pen(W))
