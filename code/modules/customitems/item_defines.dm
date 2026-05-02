@@ -1756,5 +1756,19 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
 
+/obj/item/clothing/neck/necklace/reward/brass_watch
+	name = "brass pocketwatch"
+	desc = "A classy brass pocketwatch, complete with a matching chain to attach it to your uniform. It has 'Event Extravaganza 26' engraved on the inside of the lid."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "brass_pocketwatch"
+	sprite_sheets = list("Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
+
+/obj/item/clothing/neck/necklace/reward/brass_watch/examine(mob/user)
+	. = ..()
+	. += "It is currently [station_time_timestamp()]."
+
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
