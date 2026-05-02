@@ -276,17 +276,17 @@
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
 
 //When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
-/proc/freeborg()
-	var/select = null
+/proc/freeborg(mob/user)
+	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone) || A.shell) //shell for AI shell
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || A.shell) //shell for AI shell
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
 
-	if(borgs.len)
-		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
+	if(length(borgs))
+		select = tgui_input_list(user, "Unshackled borg signals detected:", "Borg selection", borgs)
 		return borgs[select]
 
 //When a borg is activated, it can choose which AI it wants to be slaved to

@@ -1,6 +1,7 @@
 GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
 ))
+GLOBAL_LIST_INIT(available_ai_shells, list())
 
 /mob/living/silicon/robot
 	name = "Cyborg"
@@ -2018,8 +2019,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(curse_time == -1)
 		QDEL_NULL(mmi)
 	return ..()
-
-GLOBAL_LIST_INIT(available_ai_shells, list())
 
 /mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)//no entiendo por qué esto necesita un argumento
 	shell = TRUE

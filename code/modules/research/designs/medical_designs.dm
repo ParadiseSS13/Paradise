@@ -179,10 +179,10 @@
 	id = "borg_ai_control"
 	req_tech = list("programming" = 5, "magnets" = 4, "engineering" = 3)
 	build_type = MECHFAB | PROTOLATHE
-	materials = list(MAT_METAL = 500, MAT_GLASS = 1500, MAT_GOLD = 1500) //same as robo brain
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500) //same as robo brain
 	construction_time = 75
 	build_path = /obj/item/borg/upgrade/ai
-	category = list("Medical")
+	category = list("Medical") //didnt know where to put it, so i just put it in the same category as robo brain.
 
 
 /datum/design/mmi_radio_upgrade

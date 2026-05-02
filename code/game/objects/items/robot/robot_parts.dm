@@ -354,8 +354,6 @@
 			if(!locomotion)
 				O.lockcharge = TRUE
 				O.update_stamina_hud()
-
-
 	if(is_pen(W))
 		to_chat(user, SPAN_WARNING("You need to use a multitool to name [src]!"))
 	return

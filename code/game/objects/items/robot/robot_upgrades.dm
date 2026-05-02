@@ -553,6 +553,10 @@
 		/obj/item/lightreplacer/bluespace/abductor
 	)
 
+/***********************/
+// MARK: B.O.R.I.S.
+/***********************/
+
 /obj/item/borg/upgrade/ai
 	name = "B.O.R.I.S. module"
 	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
