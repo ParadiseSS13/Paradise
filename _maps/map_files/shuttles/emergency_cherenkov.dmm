@@ -47,7 +47,7 @@
 /area/shuttle/escape)
 "bf" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "bw" = (
 /obj/structure/chair/comfy/shuttle{
@@ -284,6 +284,14 @@
 /obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"iJ" = (
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "iO" = (
 /obj/machinery/optable,
 /obj/machinery/light{
@@ -370,9 +378,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
-"lB" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/escape)
 "lH" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/pod/dark,
@@ -402,15 +407,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine/airless,
-/area/shuttle/escape)
-"mM" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "mW" = (
 /obj/machinery/atmospherics/supermatter_crystal/shard/engine,
@@ -545,13 +541,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
-"pk" = (
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "pR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -627,6 +616,17 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"us" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/purple,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "uv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
@@ -889,12 +889,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"CN" = (
-/obj/machinery/door/airlock/survival_pod/glass{
-	name = "Shuttle Airlock"
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "CP" = (
 /obj/machinery/optable,
 /obj/item/radio/intercom{
@@ -944,14 +938,9 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
-"Dh" = (
-/obj/effect/mapping_helpers/airlock/access/any/security/doors,
-/obj/machinery/door/airlock/command/glass,
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "DA" = (
 /obj/structure/sign/radiation,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "DF" = (
 /obj/structure/reflector/single{
@@ -1291,6 +1280,13 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
+"Or" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	name = "Shuttle Airlock";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "Os" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -1387,6 +1383,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/catwalk,
+/area/shuttle/escape)
+"RY" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "So" = (
 /obj/structure/railing/corner{
@@ -1535,12 +1538,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
-"Xs" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "XM" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -1628,6 +1625,13 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
+"ZX" = (
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/machinery/door/airlock/command/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "ZZ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -1654,16 +1658,16 @@ cw
 cw
 cw
 Wf
-lB
-lB
+Wf
+Wf
 Fz
-lB
+Wf
 Dd
-lB
+Wf
 aI
 aI
 aI
-lB
+Wf
 Ji
 DA
 Ji
@@ -1692,15 +1696,15 @@ cw
 cw
 cw
 Wf
-lB
+Wf
 aI
 aI
 aI
-lB
+Wf
 Ks
 hJ
 fR
-lB
+Wf
 qF
 XM
 Kb
@@ -1711,7 +1715,7 @@ NO
 YP
 NO
 nf
-lB
+Wf
 cw
 cw
 cw
@@ -1734,7 +1738,7 @@ cw
 cw
 cw
 cw
-lB
+Wf
 Wy
 Ks
 Ks
@@ -1749,7 +1753,7 @@ gy
 ZK
 kJ
 Kb
-CN
+Or
 bV
 bV
 bV
@@ -1777,7 +1781,7 @@ cw
 cw
 cw
 cw
-lB
+Wf
 Wy
 FE
 FE
@@ -1789,7 +1793,7 @@ FE
 aI
 Kb
 fi
-lB
+Wf
 Qk
 Kb
 aI
@@ -1820,7 +1824,7 @@ cw
 cw
 cw
 Wf
-lB
+Wf
 dl
 FE
 FE
@@ -1835,7 +1839,7 @@ fi
 Td
 jU
 Kb
-lB
+Wf
 Mu
 Ir
 Mu
@@ -1862,8 +1866,8 @@ cw
 Wf
 aI
 aI
-lB
-lB
+Wf
+Wf
 PV
 ce
 FE
@@ -1872,16 +1876,16 @@ ce
 Gx
 ce
 Ya
-lB
+Wf
 IE
 fi
 Td
 aw
 qZ
-lB
-lB
-lB
-lB
+Wf
+Wf
+Wf
+Wf
 DA
 Wf
 cw
@@ -1901,13 +1905,13 @@ cw
 "}
 (7,1,1) = {"
 Wf
-lB
-lB
+Wf
+Wf
 dj
 cJ
 ab
-lB
-lB
+Wf
+Wf
 aI
 TR
 aI
@@ -1915,14 +1919,14 @@ aI
 bf
 aI
 aI
-lB
+Wf
 Bz
 fi
-lB
+Wf
 Xd
 Kb
 Kp
-lB
+Wf
 Wf
 cw
 ib
@@ -1992,13 +1996,13 @@ Kb
 Kb
 Kb
 Kb
-pk
+iJ
 Kb
 gy
 NO
 kJ
 Kb
-Dh
+ZX
 Kb
 Yp
 JJ
@@ -2051,7 +2055,7 @@ AT
 yh
 kw
 kw
-mM
+us
 uZ
 uZ
 uI
@@ -2078,13 +2082,13 @@ Kb
 Kb
 Kb
 Kb
-pk
+iJ
 Kb
 mX
 jQ
 Yj
 Kb
-Dh
+ZX
 Kb
 By
 ob
@@ -2159,13 +2163,13 @@ cw
 "}
 (13,1,1) = {"
 Wf
-lB
-lB
+Wf
+Wf
 Cw
 eH
 Fy
-lB
-lB
+Wf
+Wf
 ov
 LO
 ov
@@ -2173,14 +2177,14 @@ aI
 bf
 aI
 aI
-lB
+Wf
 Bz
 fi
-lB
+Wf
 Xd
 Kb
 Kp
-lB
+Wf
 Wf
 cw
 bM
@@ -2206,8 +2210,8 @@ cw
 Wf
 aI
 aI
-lB
-lB
+Wf
+Wf
 Jh
 rG
 rG
@@ -2216,16 +2220,16 @@ oU
 iO
 Hi
 sw
-lB
+Wf
 IE
 fi
 Td
 cN
 qZ
-lB
-lB
-lB
-lB
+Wf
+Wf
+Wf
+Wf
 DA
 Wf
 cw
@@ -2250,7 +2254,7 @@ cw
 cw
 cw
 Wf
-lB
+Wf
 ju
 rG
 rG
@@ -2265,7 +2269,7 @@ fi
 Td
 ej
 Kb
-lB
+Wf
 Mu
 GB
 Mu
@@ -2293,7 +2297,7 @@ cw
 cw
 cw
 cw
-lB
+Wf
 KY
 rG
 rG
@@ -2302,10 +2306,10 @@ rG
 rG
 rG
 rG
-Xs
+RY
 Kb
 fi
-lB
+Wf
 Qk
 Kb
 aI
@@ -2336,7 +2340,7 @@ cw
 cw
 cw
 cw
-lB
+Wf
 Jh
 rG
 zx
@@ -2351,7 +2355,7 @@ mX
 pg
 Yj
 Kb
-CN
+Or
 bV
 bV
 bV
@@ -2380,15 +2384,15 @@ cw
 cw
 cw
 Wf
-lB
+Wf
 aI
 aI
 aI
-lB
+Wf
 wY
 CP
 Hi
-lB
+Wf
 Kb
 JK
 Kb
@@ -2399,7 +2403,7 @@ jQ
 fS
 jQ
 ZZ
-lB
+Wf
 cw
 cw
 cw
@@ -2428,16 +2432,16 @@ cw
 cw
 cw
 Wf
-lB
-lB
+Wf
+Wf
 aI
-lB
+Wf
 aI
-lB
+Wf
 aI
 aI
 aI
-lB
+Wf
 ag
 DA
 ag

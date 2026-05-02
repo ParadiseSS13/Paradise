@@ -3,7 +3,7 @@
 /// wall piece
 /turf/simulated/mineral
 	name = "rock"
-	icon = 'icons/turf/walls/smoothrocks.dmi'
+	icon = 'icons/turf/walls/32x40smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
