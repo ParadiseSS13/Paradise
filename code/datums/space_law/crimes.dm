@@ -13,9 +13,6 @@
 	var/max_time = 5
 
 /datum/law/crime/minor
-	severity = "minor"
-	min_time = 0
-	max_time = 5
 
 /datum/law/crime/medium
 	severity = "medium"
@@ -30,17 +27,14 @@
 // category 00
 
 /datum/law/crime/minor/damage_station_assets
-	code = "00"
 	name = "Damage to Station Assets"
 	desc = "To deliberately damage the station or station property to a minor degree with malicious intent."
 
 /datum/law/crime/medium/workplace_hazard
-	code = "00"
 	name = "Workplace Hazard"
 	desc = "To endanger the crew or station through negligent but not deliberately malicious actions."
 
 /datum/law/crime/major/sabotage
-	code = "00"
 	name = "Sabotage"
 	desc = "To hinder the work of the crew or station through malicious actions."
 
