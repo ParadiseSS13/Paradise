@@ -3,183 +3,136 @@ import { Box, Button, Divider, Dropdown, LabeledList, Section, Stack } from 'tgu
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-interface SpaceLawEntry {
+interface Crime {
   name: string;
-  description?: string;
+  desc: string;
   severity: string;
-  timeAdded?: number;
-  timeMultiplier?: number;
+  code: string;
+  min_time: number;
+  max_time: number;
 }
 
-interface Severity {
-  minTime: number;
-  maxTime: number;
+interface Modifier {
+  name: string;
+  desc: string;
+  category: string;
+  time_added: number;
+  time_multiplier: number;
 }
-
-interface SpaceLaw {
-  codes: Record<string, Record<string, SpaceLawEntry>>;
-  modifiers: Record<string, Record<string, SpaceLawEntry>>;
-  severities: Record<string, Severity>;
-}
-
-declare const spaceLaw: SpaceLaw;
 
 interface BrigData {
-  isAllowed: boolean;
+  cell_id: string;
+  occupant: string;
+  crimes: string;
+  brigged_by: string;
+  time_set: string;
+  time_left: string;
   timing: boolean;
-  cell_id?: string;
-  occupant?: string;
-  crimes?: string;
-  brigged_by?: string;
-  time_set?: string;
-  time_left?: string;
-  prisoner_name?: string;
-  prisoner_notes?: string;
-  prisoner_time?: string;
-  prisoner_hasrec?: boolean;
+  isAllowed: boolean;
+  prisoner_name: string | null;
+  prisoner_notes: string | null;
+  prisoner_time: number | null;
+  prisoner_hasrec: boolean;
   spns: string[];
-  all_crimes: Record<string, Record<string, any>>;
-  all_modifiers: Record<string, Record<string, any>>;
-  nameText?: ReactNode;
+  all_crimes: Crime[];
+  all_modifiers: Modifier[];
 }
+
+const SEVERITIES = {
+  minor: { minTime: 0, maxTime: 5 },
+  medium: { minTime: 5, maxTime: 10 },
+  major: { minTime: 10, maxTime: 15 },
+};
 
 export const BrigTimer = (props: any) => {
   const { act, data } = useBackend<BrigData>();
+  const {
+    all_crimes = [],
+    all_modifiers = [],
+  } = data;
 
-  const [selectedCrimes, setSelectedCrimes] = useState<Record<string, string | null>>(
-    Object.fromEntries(Object.keys(spaceLaw.codes).map((code) => [code, null]))
-  );
+  const [selectedCrimes, setSelectedCrimes] = useState<Record<string, string | null>>({});
+  const [selectedModifiers, setSelectedModifiers] = useState<Record<string, string | null>>({});
 
-  const [selectedModifiers, setSelectedModifiers] = useState<Record<string, string | null>>(
-    Object.fromEntries(Object.keys(spaceLaw.modifiers).map((modifier) => [modifier, null]))
-  );
+  const selectedCrimesList = all_crimes.filter(c => selectedCrimes[c.name]);
+  const selectedModsList = all_modifiers.filter(m => selectedModifiers[m.name]);
 
-  const formattedCrimes = Object.entries(selectedCrimes)
-    .filter(([_, value]) => value !== null)
-    .map(([code, crime]) => spaceLaw.codes[code][crime!].name)
-    .join(', ');
+  const formattedCrimes = selectedCrimesList.map(c => c.name).join(', ');
+  const formattedModifiers = selectedModsList.map(m => m.name).join(', ');
 
-  const formattedModifiers = Object.entries(selectedModifiers)
-    .filter(([_, value]) => value !== null)
-    .map(([modifierGroup, modifier]) => spaceLaw.modifiers[modifierGroup][modifier!].name)
-    .join(', ');
+  const crimeSummary = [
+    data.prisoner_notes,
+    formattedCrimes,
+    formattedModifiers ? `(${formattedModifiers})` : '',
+  ].filter(Boolean).join(' - ');
 
-  const crimeSummary =
-    (data.prisoner_notes
-      ? data.prisoner_notes && formattedCrimes
-        ? `${data.prisoner_notes} - `
-        : data.prisoner_notes
-      : '') +
-    (formattedCrimes ? formattedCrimes : '') +
-    (formattedModifiers ? ` (${formattedModifiers})` : '');
+  const baseTimer = selectedCrimesList.reduce((acc, crime) => {
+    const sev = SEVERITIES[crime.severity] || { minTime: 0, maxTime: 0 };
+    return {
+      minTime: acc.minTime + sev.minTime,
+      maxTime: acc.maxTime + sev.maxTime,
+    };
+  }, { minTime: 0, maxTime: 0 });
 
-  const baseTimer = Object.entries(selectedCrimes)
-    .filter(([_, value]) => value !== null)
-    .map(([code, crime]) => spaceLaw.codes[code][crime!].severity)
-    .map((testingseverity) => spaceLaw.severities[testingseverity])
-    .reduce((acc, val) => ({ minTime: acc.minTime + val.minTime, maxTime: acc.maxTime + val.maxTime }), {
-      minTime: 0,
-      maxTime: 0,
-    });
+  const summedTimer = selectedModsList.reduce((acc, val) => ({
+    minTime: acc.minTime + (val.time_added ?? 0),
+    maxTime: acc.maxTime + (val.time_added ?? 0),
+  }), baseTimer);
 
-  const baseModifiers = Object.entries(selectedModifiers)
-    .filter(([_, value]) => value !== null)
-    .map(([modifierGroup, modifier]) => spaceLaw.modifiers[modifierGroup][modifier!]);
+  const multipliedTimer = selectedModsList.reduce((acc, val) => ({
+    minTime: acc.minTime * (val.time_multiplier ?? 1),
+    maxTime: acc.maxTime * (val.time_multiplier ?? 1),
+  }), summedTimer);
 
-  const summedTimer = baseModifiers.reduce(
-    (acc, val) => ({ minTime: acc.minTime + (val.timeAdded ?? 0), maxTime: acc.maxTime + (val.timeAdded ?? 0) }),
-    baseTimer
-  );
+  const suggestedMin = Math.min(Math.ceil(multipliedTimer.minTime), 60);
+  const suggestedMax = Math.min(Math.ceil(multipliedTimer.maxTime), 60);
 
-  const multipliedTimer = baseModifiers.reduce(
-    (acc, val) => ({
-      minTime: acc.minTime * (val.timeMultiplier ?? 1),
-      maxTime: acc.maxTime * (val.timeMultiplier ?? 1),
-    }),
-    summedTimer
-  );
-
-  const suggestedTime = {
-    suggestedMin: Math.min(Math.ceil(multipliedTimer.minTime), 60),
-    suggestedMax: Math.min(Math.ceil(multipliedTimer.maxTime), 60),
-  };
-
-  const formatSuggestedTimer = ({ suggestedMin, suggestedMax }: { suggestedMin: number; suggestedMax: number }) => {
+  const getTimerText = () => {
     if (suggestedMin === 60 && suggestedMax === 60) return 'Permanent Confinement';
     if (suggestedMax === 60) return `${suggestedMin} Minutes to Permanent Confinement`;
     if (suggestedMin === suggestedMax && suggestedMin !== 0) return `${suggestedMin} Minutes`;
-    if (suggestedMin && suggestedMax) return `${suggestedMin} to ${suggestedMax} Minutes`;
+    if (suggestedMin || suggestedMax) return `${suggestedMin} to ${suggestedMax} Minutes`;
     return 'Select Crimes for Suggestion';
   };
 
-  const formattedSuggestedTimer = formatSuggestedTimer(suggestedTime);
+  const nameText = data.timing ? (
+    <Box color={data.prisoner_hasrec ? 'green' : 'red'}>{data.occupant}</Box>
+  ) : data.occupant;
 
-  let nameText: ReactNode = data.occupant;
-  if (data.timing) {
-    nameText = <Box color={data.prisoner_hasrec ? 'green' : 'red'}>{data.occupant}</Box>;
-  }
+  const crimesByCode = all_crimes.reduce((acc, c) => {
+    if (!acc[c.code]) acc[c.code] = [];
+    acc[c.code].push(c);
+    return acc;
+  }, {} as Record<string, Crime[]>);
 
-  let nameIcon = 'pencil-alt';
-  if (data.prisoner_name && !data.prisoner_hasrec) {
-    nameIcon = 'exclamation-triangle';
-  }
+  const modsByCategory = all_modifiers.reduce((acc, m) => {
+    if (!acc[m.category]) acc[m.category] = [];
+    acc[m.category].push(m);
+    return acc;
+  }, {} as Record<string, Modifier[]>);
 
   return (
     <Window width={580} height={data.timing ? 270 : 710}>
       <Window.Content scrollable>
         {data.timing ? (
-          <Stack fill>
-            <Section title="Cell Information" fill>
-              <LabeledList>
-                <LabeledList.Item label="Cell ID">{data.cell_id}</LabeledList.Item>
-                <LabeledList.Item label="Occupant">{nameText}</LabeledList.Item>
-                <LabeledList.Item label="Crimes">{data.crimes}</LabeledList.Item>
-                <LabeledList.Item label="Brigged By">{data.brigged_by}</LabeledList.Item>
-                <LabeledList.Item label="Time Brigged For">{data.time_set}</LabeledList.Item>
-                <LabeledList.Item label="Time Left">{data.time_left}</LabeledList.Item>
-                <LabeledList.Item label="Actions">
-                  <Stack fill>
-                    <Stack.Item grow={1} basis={0}>
-                      <Button
-                        fluid
-                        icon="lightbulb-o"
-                        content="Flash"
-                        disabled={!data.isAllowed}
-                        onClick={() => act('flash')}
-                      />
-                    </Stack.Item>
-                    <Stack.Item grow={1} basis={0}>
-                      <Button
-                        fluid
-                        icon="plus"
-                        content="+10m"
-                        disabled={!data.timing || !data.isAllowed}
-                        onClick={() => act('add_time')}
-                      />
-                    </Stack.Item>
-                    <Stack.Item grow={1} basis={0}>
-                      <Button
-                        fluid
-                        icon="sync"
-                        content="Reset"
-                        disabled={!data.timing || !data.isAllowed}
-                        onClick={() => act('restart_timer')}
-                      />
-                    </Stack.Item>
-                    <Stack.Item grow={1} basis={0}>
-                      <Button
-                        fluid
-                        icon="eject"
-                        content="Release"
-                        disabled={!data.timing || !data.isAllowed}
-                        onClick={() => act('stop')}
-                      />
-                    </Stack.Item>
-                  </Stack>
-                </LabeledList.Item>
-              </LabeledList>
-            </Section>
-          </Stack>
+          <Section title="Cell Information" fill>
+            <LabeledList>
+              <LabeledList.Item label="Cell ID">{data.cell_id}</LabeledList.Item>
+              <LabeledList.Item label="Occupant">{nameText}</LabeledList.Item>
+              <LabeledList.Item label="Crimes">{data.crimes}</LabeledList.Item>
+              <LabeledList.Item label="Brigged By">{data.brigged_by}</LabeledList.Item>
+              <LabeledList.Item label="Time Brigged For">{data.time_set}</LabeledList.Item>
+              <LabeledList.Item label="Time Left">{data.time_left}</LabeledList.Item>
+              <LabeledList.Item label="Actions">
+                <Stack fill>
+                  <Stack.Item grow={1} basis={0}><Button fluid icon="lightbulb-o" onClick={() => act('flash')} /></Stack.Item>
+                  <Stack.Item grow={1} basis={0}><Button fluid icon="plus" content="+10m" onClick={() => act('add_time')} /></Stack.Item>
+                  <Stack.Item grow={1} basis={0}><Button fluid icon="sync" content="Reset" onClick={() => act('restart_timer')} /></Stack.Item>
+                  <Stack.Item grow={1} basis={0}><Button fluid icon="eject" content="Release" onClick={() => act('stop')} /></Stack.Item>
+                </Stack>
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
         ) : (
           <Stack vertical fill>
             <Stack.Item>
@@ -188,43 +141,24 @@ export const BrigTimer = (props: any) => {
                   <Stack.Item grow={1} basis={0}>
                     <LabeledList>
                       <LabeledList.Item label="Prisoner Name">
-                        <Button
-                          fluid
-                          icon={nameIcon}
-                          content={data.prisoner_name ? data.prisoner_name : '-----'}
-                          disabled={!data.isAllowed}
-                          onClick={() => act('prisoner_name')}
-                        />
+                        <Button fluid content={data.prisoner_name || '-----'} onClick={() => act('prisoner_name')} />
                         {!!data.spns.length && (
                           <Box mt="0.3rem">
                             <Dropdown
                               fluid
-                              disabled={!data.isAllowed || !data.spns.length}
                               options={data.spns}
-                              selected={data.prisoner_name}
+                              selected={data.prisoner_name || ''}
                               onSelected={(value) => act('prisoner_name', { prisoner_name: value })}
                             />
                           </Box>
                         )}
                       </LabeledList.Item>
                       <LabeledList.Item label="Notes">
-                        <Button
-                          fluid
-                          icon="pencil-alt"
-                          content={data.prisoner_notes ? data.prisoner_notes : '-----'}
-                          disabled={!data.isAllowed}
-                          onClick={() => act('prisoner_notes')}
-                        />
+                        <Button fluid content={data.prisoner_notes || '-----'} onClick={() => act('prisoner_notes')} />
                       </LabeledList.Item>
-                      <LabeledList.Item label="Timer">{formattedSuggestedTimer}</LabeledList.Item>
+                      <LabeledList.Item label="Timer">{getTimerText()}</LabeledList.Item>
                       <LabeledList.Item label="Set Time">
-                        <Button
-                          fluid
-                          icon="clock-o"
-                          content={data.prisoner_time ? data.prisoner_time : '-----'}
-                          disabled={!data.isAllowed}
-                          onClick={() => act('prisoner_time')}
-                        />
+                        <Button fluid content={data.prisoner_time || '-----'} onClick={() => act('prisoner_time')} />
                       </LabeledList.Item>
                       <LabeledList.Item label="Action">
                         <Button
@@ -232,21 +166,17 @@ export const BrigTimer = (props: any) => {
                           icon="gavel"
                           content="Start Sentence"
                           color="success"
-                          disabled={!data.prisoner_name || !crimeSummary || !data.prisoner_time || !data.isAllowed}
+                          disabled={!data.prisoner_name || !selectedCrimesList.length || !data.prisoner_time}
                           onClick={() => act('start', { final_crimes: crimeSummary })}
                         />
                       </LabeledList.Item>
                     </LabeledList>
                   </Stack.Item>
                   <Stack.Item grow={1} basis={0} ml={2}>
-                    <Box bold color="label">
-                      Selected Charges:
-                    </Box>
+                    <Box bold color="label">Selected Charges:</Box>
                     <Box italic>{formattedCrimes || 'None'}</Box>
                     <Divider />
-                    <Box bold color="label">
-                      Modifiers:
-                    </Box>
+                    <Box bold color="label">Modifiers:</Box>
                     <Box italic>{formattedModifiers || 'N/A'}</Box>
                   </Stack.Item>
                 </Stack>
@@ -255,25 +185,21 @@ export const BrigTimer = (props: any) => {
             <Stack.Item grow={1}>
               <Section title="Law Selection">
                 <Stack vertical fill>
-                  <Box textAlign="center" bold color="label" mb={1}>
-                    CRIMES
-                  </Box>
-                  {Object.entries(data.all_crimes).map(([code, category]) => (
+                  <Box textAlign="center" bold color="label" mb={1}>CRIMES</Box>
+                  {Object.entries(crimesByCode).map(([code, category]) => (
                     <Stack.Item key={code}>
                       <Stack fill>
-                        {Object.entries(category).map(([key, crime]) => (
-                          <Stack.Item grow={1} basis={0} key={key}>
+                        {category.map((crime) => (
+                          <Stack.Item grow={1} basis={0} key={crime.name}>
                             <Button
                               fluid
                               textAlign="center"
-                              tooltip={crime.description}
-                              selected={selectedCrimes[code] === key}
-                              onClick={() =>
-                                setSelectedCrimes({
-                                  ...selectedCrimes,
-                                  [code]: selectedCrimes[code] === key ? null : key,
-                                })
-                              }
+                              tooltip={crime.desc}
+                              selected={!!selectedCrimes[crime.name]}
+                              onClick={() => setSelectedCrimes({
+                                ...selectedCrimes,
+                                [crime.name]: selectedCrimes[crime.name] ? null : crime.name,
+                              })}
                             >
                               {crime.name}
                             </Button>
@@ -283,25 +209,21 @@ export const BrigTimer = (props: any) => {
                     </Stack.Item>
                   ))}
                   <Divider />
-                  <Box textAlign="center" bold color="label" mb={1}>
-                    MODIFIERS
-                  </Box>
-                  {Object.entries(data.all_modifiers).map(([modifierGroup, category]) => (
+                  <Box textAlign="center" bold color="label" mb={1}>MODIFIERS</Box>
+                  {Object.entries(modsByCategory).map(([modifierGroup, category]) => (
                     <Stack.Item key={modifierGroup}>
                       <Stack fill>
-                        {Object.entries(category).map(([key, modifier]) => (
-                          <Stack.Item grow={1} basis={0} key={key}>
+                        {category.map((modifier) => (
+                          <Stack.Item grow={1} basis={0} key={modifier.name}>
                             <Button
                               fluid
                               textAlign="center"
-                              tooltip={modifier.description}
-                              color={selectedModifiers[modifierGroup] === key ? 'green' : ''}
-                              onClick={() =>
-                                setSelectedModifiers({
-                                  ...selectedModifiers,
-                                  [modifierGroup]: selectedModifiers[modifierGroup] === key ? null : key,
-                                })
-                              }
+                              tooltip={modifier.desc}
+                              color={selectedModifiers[modifier.name] ? 'green' : ''}
+                              onClick={() => setSelectedModifiers({
+                                ...selectedModifiers,
+                                [modifier.name]: selectedModifiers[modifier.name] ? null : modifier.name,
+                              })}
                             >
                               {modifier.name}
                             </Button>
