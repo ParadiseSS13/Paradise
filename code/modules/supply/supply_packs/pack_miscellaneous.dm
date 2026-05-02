@@ -112,7 +112,7 @@
 
 /datum/supply_packs/misc/blindcane
 	name = "Blind Cane Crate"
-	cost = 200
+	cost = 75
 	contains = list(/obj/item/blindcane)
 	containername = "Blind Cane Crate"
 
