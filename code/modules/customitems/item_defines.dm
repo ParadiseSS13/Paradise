@@ -1758,7 +1758,7 @@
 
 /obj/item/clothing/neck/necklace/reward/brass_watch
 	name = "brass pocketwatch"
-	desc = "A classy brass pocketwatch, complete with a matching chain to attach it to your uniform. It has 'Event Extravaganza 26' engraved on the inside of the lid."
+	desc = "A classy brass pocketwatch, complete with a matching chain to attach it to your uniform. It has \"Event Extravaganza '26\" engraved on the inside of the lid."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "brass_pocketwatch"
 	sprite_sheets = list("Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
