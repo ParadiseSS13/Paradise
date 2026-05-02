@@ -38,13 +38,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/wood,
 /area/shuttle/escape)
-"al" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/escape)
 "am" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light/spot{
@@ -160,13 +153,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/shuttle/escape)
-"aJ" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/closet/crate/internals,
@@ -301,14 +287,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
-"bi" = (
-/obj/machinery/door/airlock{
-	name = "Toilet"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/escape)
 "bn" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -337,30 +315,6 @@
 /obj/item/ashtray/glass,
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/carpet/royalblack,
-/area/shuttle/escape)
-"bt" = (
-/obj/machinery/door/airlock{
-	name = "Unit 1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/escape)
-"bv" = (
-/obj/machinery/door/airlock{
-	name = "Unit 2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/escape)
-"bw" = (
-/obj/machinery/door/airlock{
-	name = "Unit 3"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
 /area/shuttle/escape)
 "bx" = (
 /obj/machinery/sleeper{
@@ -416,6 +370,15 @@
 "bL" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"bY" = (
+/obj/machinery/door/airlock{
+	name = "Unit 1";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/shuttle/escape)
 "cE" = (
 /obj/effect/turf_decal/woodsiding{
@@ -478,6 +441,14 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
+"lu" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
 "lA" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -493,6 +464,13 @@
 	},
 /obj/structure/musician/piano,
 /turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"mj" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "mV" = (
 /obj/structure/chair/wood/wings,
@@ -603,6 +581,14 @@
 /obj/structure/bed/roller,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"vu" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
 "wk" = (
 /obj/structure/sign/poster/contraband/borg_fancy_2/directional/west,
 /obj/machinery/light/small,
@@ -675,6 +661,15 @@
 /obj/structure/table/wood,
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"As" = (
+/obj/machinery/door/airlock{
+	name = "Unit 3";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/shuttle/escape)
 "AA" = (
 /obj/structure/chair/wood/wings{
@@ -763,6 +758,15 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"EQ" = (
+/obj/machinery/door/airlock{
+	name = "Unit 2";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/escape)
 "FK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -840,6 +844,15 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"KG" = (
+/obj/machinery/door/airlock{
+	name = "Toilet";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/shuttle/escape)
 "LD" = (
 /obj/machinery/status_display{
@@ -1071,12 +1084,6 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/escape)
-"Uq" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "Uv" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 10
@@ -1172,7 +1179,7 @@ aA
 ab
 NQ
 bo
-bt
+bY
 ao
 ab
 qr
@@ -1239,10 +1246,10 @@ Dy
 aA
 aA
 aA
-bi
+KG
 bo
 bo
-bv
+EQ
 ao
 ab
 bJ
@@ -1312,7 +1319,7 @@ IJ
 ab
 bo
 bo
-bw
+As
 wk
 ab
 qr
@@ -1362,12 +1369,12 @@ Rt
 zU
 Qy
 an
-aJ
+lu
 br
 br
 br
 br
-al
+vu
 aA
 aA
 aA
@@ -1519,7 +1526,7 @@ Zz
 Ai
 aM
 aA
-Uq
+mj
 bn
 bn
 bn

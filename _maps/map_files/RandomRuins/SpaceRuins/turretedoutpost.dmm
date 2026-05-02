@@ -167,6 +167,16 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
+"rh" = (
+/obj/machinery/door/airlock/public/glass{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
 "rL" = (
 /obj/structure/rack,
 /obj/structure/cable{
@@ -559,14 +569,6 @@
 /obj/structure/foamedmetal,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/turreted_outpost/vault)
-"TD" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/turreted_outpost)
 "TV" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -1044,7 +1046,7 @@ qa
 Oc
 xB
 TV
-TD
+rh
 Hb
 Hb
 Hb

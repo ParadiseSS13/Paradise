@@ -554,6 +554,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	icon_state = "sheet-card"
 	singular_name = "cardboard sheet"
 	resistance_flags = FLAMMABLE
+	materials = list(MAT_CARDBOARD = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/cardboard
 
 /obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge)

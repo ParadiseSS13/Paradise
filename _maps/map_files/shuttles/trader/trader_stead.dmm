@@ -26,6 +26,13 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
+"eJ" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/shuttle/trade/sol)
 "eM" = (
 /obj/effect/spawner/random/traders/vehicle,
 /turf/simulated/floor/mineral/titanium,
@@ -42,28 +49,6 @@
 "hE" = (
 /obj/item/flag/species/vulp,
 /turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
-"il" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/docking_port/mobile/trader{
-	height = 17;
-	width = 16;
-	dwidth = 8;
-	preferred_direction = 1;
-	dir = 1;
-	port_direction = 8
-	},
-/turf/simulated/floor/mineral/titanium{
-	color = "#63D335"
-	},
-/area/shuttle/trade/sol)
-"iC" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "iV" = (
 /turf/template_noop,
@@ -82,6 +67,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"jR" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium{
+	color = "#63D335"
+	},
 /area/shuttle/trade/sol)
 "kM" = (
 /turf/simulated/floor/mineral/titanium/blue,
@@ -211,15 +206,6 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
-"Dx" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/turf/simulated/floor/mineral/titanium{
-	color = "#63D335"
-	},
-/area/shuttle/trade/sol)
 "Fx" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -260,11 +246,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
-"Ht" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/shuttle/trade/sol)
 "HT" = (
 /obj/structure/table/wood,
 /obj/item/stack/wrapping_paper,
@@ -283,6 +264,13 @@
 /turf/simulated/floor/mineral/titanium{
 	color = "#63D335"
 	},
+/area/shuttle/trade/sol)
+"Jg" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "Ji" = (
 /obj/machinery/light/spot{
@@ -442,6 +430,24 @@
 /obj/effect/spawner/random/traders/donksoft,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
+"YH" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/docking_port/mobile/trader{
+	height = 17;
+	width = 16;
+	dwidth = 8;
+	preferred_direction = 1;
+	dir = 1;
+	port_direction = 8
+	},
+/turf/simulated/floor/mineral/titanium{
+	color = "#63D335"
+	},
+/area/shuttle/trade/sol)
 
 (1,1,1) = {"
 iV
@@ -512,7 +518,7 @@ Aj
 Aj
 MK
 Ro
-Ht
+eJ
 rb
 rb
 ut
@@ -562,7 +568,7 @@ Dq
 kM
 Ji
 kM
-iC
+Jg
 MK
 MK
 MK
@@ -593,7 +599,7 @@ bT
 Na
 Na
 Na
-Dx
+jR
 "}
 (9,1,1) = {"
 Dq
@@ -612,14 +618,14 @@ bT
 Na
 Na
 Na
-il
+YH
 "}
 (10,1,1) = {"
 Dq
 kM
 bW
 kM
-iC
+Jg
 MK
 MK
 MK
@@ -683,7 +689,7 @@ Aj
 Aj
 MK
 bP
-Ht
+eJ
 rb
 rb
 ut
