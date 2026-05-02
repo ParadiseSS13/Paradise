@@ -284,6 +284,14 @@
 /obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"iJ" = (
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "iO" = (
 /obj/machinery/optable,
 /obj/machinery/light{
@@ -399,15 +407,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine/airless,
-/area/shuttle/escape)
-"mM" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "mW" = (
 /obj/machinery/atmospherics/supermatter_crystal/shard/engine,
@@ -542,13 +541,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
-"pk" = (
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "pR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -624,6 +616,17 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"us" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/purple,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "uv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
@@ -886,12 +889,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"CN" = (
-/obj/machinery/door/airlock/survival_pod/glass{
-	name = "Shuttle Airlock"
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "CP" = (
 /obj/machinery/optable,
 /obj/item/radio/intercom{
@@ -940,11 +937,6 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating/airless,
-/area/shuttle/escape)
-"Dh" = (
-/obj/effect/mapping_helpers/airlock/access/any/security/doors,
-/obj/machinery/door/airlock/command/glass,
-/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "DA" = (
 /obj/structure/sign/radiation,
@@ -1288,6 +1280,13 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
+"Or" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	name = "Shuttle Airlock";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "Os" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -1384,6 +1383,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/catwalk,
+/area/shuttle/escape)
+"RY" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "So" = (
 /obj/structure/railing/corner{
@@ -1532,12 +1538,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
-"Xs" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "XM" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -1624,6 +1624,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/pod/dark,
+/area/shuttle/escape)
+"ZX" = (
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/machinery/door/airlock/command/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "ZZ" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1746,7 +1753,7 @@ gy
 ZK
 kJ
 Kb
-CN
+Or
 bV
 bV
 bV
@@ -1989,13 +1996,13 @@ Kb
 Kb
 Kb
 Kb
-pk
+iJ
 Kb
 gy
 NO
 kJ
 Kb
-Dh
+ZX
 Kb
 Yp
 JJ
@@ -2048,7 +2055,7 @@ AT
 yh
 kw
 kw
-mM
+us
 uZ
 uZ
 uI
@@ -2075,13 +2082,13 @@ Kb
 Kb
 Kb
 Kb
-pk
+iJ
 Kb
 mX
 jQ
 Yj
 Kb
-Dh
+ZX
 Kb
 By
 ob
@@ -2299,7 +2306,7 @@ rG
 rG
 rG
 rG
-Xs
+RY
 Kb
 fi
 Wf
@@ -2348,7 +2355,7 @@ mX
 pg
 Yj
 Kb
-CN
+Or
 bV
 bV
 bV

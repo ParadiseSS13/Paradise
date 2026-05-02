@@ -2,33 +2,6 @@
 "aa" = (
 /turf/space,
 /area/space)
-"ad" = (
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
-"ae" = (
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
-	},
-/obj/docking_port/mobile/admin{
-	dir = 2;
-	dwidth = 8;
-	height = 15;
-	id = "admin";
-	name = "admin";
-	timid = 1;
-	width = 18
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
 "ag" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -88,19 +61,6 @@
 "aq" = (
 /obj/machinery/light/spot{
 	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/administration)
-"ar" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "adminshuttleblast";
-	name = "Blast Doors";
-	req_access = list(101)
-	},
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
-/obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
-	name = "General Access"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -493,6 +453,49 @@
 "vg" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
+"yy" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"Fr" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	dir = 4
+	},
+/obj/docking_port/mobile/admin{
+	dir = 2;
+	dwidth = 8;
+	height = 15;
+	id = "admin";
+	name = "admin";
+	timid = 1;
+	width = 18
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"Yl" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "adminshuttleblast";
+	name = "Blast Doors";
+	req_access = list(101)
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/general,
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "General Access";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
 
 (1,1,1) = {"
 aa
@@ -655,9 +658,9 @@ aa
 aa
 "}
 (9,1,1) = {"
-ad
+yy
 al
-ar
+Yl
 aA
 am
 am
@@ -675,9 +678,9 @@ aa
 aa
 "}
 (10,1,1) = {"
-ae
+Fr
 am
-ar
+Yl
 am
 am
 am

@@ -23,37 +23,6 @@
 	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/administration)
-"ai" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
-"aj" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
-/obj/docking_port/mobile/admin{
-	dwidth = 9;
-	height = 18;
-	name = "hospital";
-	roundstart_move = "cc_bay_1";
-	width = 19
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
 "ap" = (
 /obj/machinery/chem_master,
 /turf/simulated/floor/mineral/titanium,
@@ -559,6 +528,26 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"fz" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"hM" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
 "ia" = (
 /obj/machinery/camera{
 	dir = 8;
@@ -663,6 +652,27 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"EU" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/docking_port/mobile/admin{
+	dwidth = 9;
+	height = 18;
+	name = "hospital";
+	roundstart_move = "cc_bay_1";
+	width = 19
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/administration)
 "Jz" = (
 /obj/machinery/light,
@@ -868,14 +878,14 @@ cr
 ab
 "}
 (9,1,1) = {"
-ai
+hM
 aw
 aw
 aw
 aw
 aw
 aw
-aU
+fz
 aw
 aw
 aw
@@ -888,14 +898,14 @@ bR
 ab
 "}
 (10,1,1) = {"
-aj
+EU
 aw
 aw
 aw
 aw
 aw
 aw
-aU
+fz
 aw
 aw
 aw
