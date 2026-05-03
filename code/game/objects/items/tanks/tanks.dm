@@ -11,6 +11,7 @@
 	throw_range = 4
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 80, ACID = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
+	new_attack_chain = TRUE
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
@@ -135,21 +136,27 @@
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-/obj/item/tank/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	..()
-
+/obj/item/tank/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 	if(istype(loc, /obj/item/assembly))
 		icon = loc
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/assembly_holder))
-		bomb_assemble(W,user)
+	if(istype(used, /obj/item/assembly_holder))
+		bomb_assemble(used, user)
+		return ITEM_INTERACT_COMPLETE
+	
+	return ..()
 
-/obj/item/tank/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/tank/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!(air_contents))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	ui_interact(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/tank/ui_state(mob/user)
 	return GLOB.inventory_state

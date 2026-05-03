@@ -3,6 +3,7 @@
 	worn_icon = 'icons/mob/clothing/under/retro.dmi'
 	inhand_icon_state = "bl_suit"
 	displays_id = FALSE
+	sprite_sheets = list()
 
 /obj/item/clothing/under/retro/security
 	name = "retro security officer's uniform"

@@ -546,6 +546,9 @@
 
 	return ..()
 
+/datum/cooking/recipe_step/add_item/supermatter_sliver/get_pda_formatted_desc()
+	return "Add a sliver of a supermatter crystal."
+
 /datum/cooking/recipe/supermatter_sandwich
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/supermatter_sandwich
