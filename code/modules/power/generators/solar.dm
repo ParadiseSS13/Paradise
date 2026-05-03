@@ -3,7 +3,7 @@
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "A solar panel. Generates electricity when in contact with sunlight."
-	icon = 'icons/goonstation/objects/power.dmi'
+	icon = 'icons/obj/solars.dmi'
 	icon_state = "sp_base"
 	density = TRUE
 	max_integrity = 150
@@ -15,6 +15,7 @@
 	var/ndir = SOUTH // target dir
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
+	var/solar_type = "solar_panel"
 
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
@@ -45,9 +46,22 @@
 		S.glass_type = /obj/item/stack/sheet/glass
 		S.anchored = TRUE
 	S.loc = src
-	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
-		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
+	if(S.glass_type == /obj/item/stack/sheet/rglass) // if the panel is made of reinforced glass
+		max_integrity *= RGLASS_SOLAR_MULT
 		obj_integrity = max_integrity
+		solar_type = "solar_panel"
+	if(S.glass_type == /obj/item/stack/sheet/plasmaglass) // if the panel is made of plasma glass
+		max_integrity *= PLASMAGLASS_SOLAR_MULT
+		obj_integrity = max_integrity
+		solar_type = "solar_panel_p"
+	if(S.glass_type == /obj/item/stack/sheet/plasmarglass) // if the panel is made of reinforced plasma glass
+		max_integrity *= PLASMARGLASS_SOLAR_MULT
+		obj_integrity = max_integrity
+		solar_type = "solar_panel_p"
+	if(S.glass_type == /obj/item/stack/sheet/plastitaniumglass) // if the panel is made of plastitanium glass
+		max_integrity *= PLASTITANIUMGLASS_SOLAR_MULT
+		obj_integrity = max_integrity
+		solar_type = "solar_panel_t"
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -94,9 +108,9 @@
 /obj/machinery/power/solar/update_overlays()
 	. = ..()
 	if(stat & BROKEN)
-		. += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
+		. += image('icons/obj/solars.dmi', icon_state = "[solar_type]-b", layer = FLY_LAYER)
 	else
-		var/image/panel = image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
+		var/image/panel = image('icons/obj/solars.dmi', icon_state = solar_type, layer = FLY_LAYER)
 		var/matrix/M = matrix()
 		M.Turn(adir)
 		panel.transform = M
@@ -128,7 +142,7 @@
 		if(powernet == control.powernet)//check if the panel is still connected to the computer
 			if(obscured) //get no light from the sun, so don't generate power
 				return
-			var/sgen = SSsun.solar_gen_rate * sunfrac
+			var/sgen = SSsun.solar_gen_rate * sunfrac * obj_integrity
 			produce_direct_power(sgen)
 			control.gen += sgen
 		else //if we're no longer on the same powernet, remove from control computer
@@ -177,7 +191,7 @@
 /obj/item/solar_assembly
 	name = "solar panel assembly"
 	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker."
-	icon = 'icons/goonstation/objects/power.dmi'
+	icon = 'icons/obj/solars.dmi'
 	icon_state = "sp_base"
 	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
@@ -208,7 +222,7 @@
 /obj/item/solar_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 
 	if(anchored || !isturf(loc))
-		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
+		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass) || istype(W, /obj/item/stack/sheet/plasmaglass) || istype(W, /obj/item/stack/sheet/plasmarglass) || istype(W, /obj/item/stack/sheet/plastitaniumglass))
 			var/obj/item/stack/sheet/S = W
 			if(S.use(2))
 				glass_type = S.merge_type

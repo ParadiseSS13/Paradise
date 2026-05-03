@@ -25,7 +25,7 @@
 
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_TITANIUM, MAT_URANIUM, MAT_DIAMOND, MAT_BLUESPACE, MAT_WOOD, MAT_PLASTIC, MAT_BANANIUM, MAT_TRANQUILLITE), 0, TRUE, null, null, null, TRUE)
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_TITANIUM, MAT_URANIUM, MAT_DIAMOND, MAT_BLUESPACE, MAT_WOOD, MAT_PLASTIC, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_CARDBOARD), 0, TRUE, null, null, null, TRUE)
 	initialize_parts()
 	RefreshParts()
 	update_icon(UPDATE_ICON_STATE)
