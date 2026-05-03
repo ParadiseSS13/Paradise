@@ -20361,10 +20361,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "bwu" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 6
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bwv" = (
@@ -44529,7 +44527,8 @@
 /area/station/supply/sorting)
 "dHN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/space_heater,
+/obj/structure/closet/firecloset,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "dHT" = (
@@ -46287,6 +46286,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "eqE" = (
@@ -90258,6 +90258,8 @@
 "xWJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
+/obj/structure/closet/emcloset,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "xWL" = (
@@ -111775,7 +111777,7 @@ blQ
 blQ
 blQ
 bsc
-bwy
+bnK
 dHN
 mBl
 blQ
