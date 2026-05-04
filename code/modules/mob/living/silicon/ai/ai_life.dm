@@ -154,7 +154,6 @@
 		update_stat("updatehealth([reason])")
 		diag_hud_set_health()
 
-
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)

@@ -2042,7 +2042,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	real_name = name
 	if(camera)
 		camera.c_tag = real_name
-	//diag_hud_set_aishell()
+	diag_hud_set_aishell()
 
 /mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
 	real_name = "[AI.real_name] shell [rand(100, 999)] [designation ? "-[designation]" : "[null]"]"	//Randomizing the name so it shows up seperately in the shells list
@@ -2062,7 +2062,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		for(var/chan in radio.channels)
 			radio.secure_radio_connections[chan] = SSradio.add_object(radio, SSradio.radiochannels[chan],  RADIO_CHAT)
 
-	//diag_hud_set_aishell()
+	diag_hud_set_aishell()
 	undeployment_action.Grant(src)
 
 /datum/action/innate/undeployment
@@ -2092,7 +2092,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		radio.recalculateChannels()
 	if(camera)
 		camera.c_tag = real_name	//update the camera name too
-	//diag_hud_set_aishell()
+	diag_hud_set_aishell()
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
