@@ -5737,6 +5737,7 @@
 "bjf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/shelf,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)
 "bjm" = (
@@ -69603,6 +69604,9 @@
 	name = "Storefront Shutters";
 	id_tag = "store1";
 	dir = 2
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)

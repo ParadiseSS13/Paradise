@@ -20390,6 +20390,7 @@
 "bwz" = (
 /obj/structure/shelf,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)
 "bwA" = (
@@ -74700,6 +74701,7 @@
 	name = "Storefront Shutters";
 	id_tag = "store2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)
 "qRr" = (

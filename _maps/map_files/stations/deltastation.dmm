@@ -61214,6 +61214,7 @@
 /obj/effect/turf_decal/tiles/neutral,
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)
 "jac" = (
@@ -84599,6 +84600,7 @@
 	name = "Storefront Shutters";
 	id_tag = "store2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)
 "ssO" = (
@@ -97454,6 +97456,7 @@
 	name = "Storefront Shutters";
 	id_tag = "store2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/storefront)
 "xpf" = (
