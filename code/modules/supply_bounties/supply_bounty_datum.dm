@@ -18,8 +18,6 @@
 
 /datum/supply_bounty/New(type_input, exact_input = FALSE, quantity_input = 1, reward_input = 25, special_reward_type_input = null)
 	. = ..()
-	name = GenerateName()
-	reason = GenerateReason()
 	bounty_target_type = type_input
 	exact_type = exact_input
 	quantity = quantity_input
