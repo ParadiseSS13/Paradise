@@ -165,10 +165,10 @@ const AirStatus = (props) => {
           <LabeledList.Item label="Fire Alarm Status">
             {!locked && (
               <Button
-                  content={fireAlarmActivated ? 'Reset Fire Alarm' : 'Activate Fire Alarm'}
-                  selected={fireAlarmActivated}
-                  onClick={() => act('set_fire_alarm')}
-                />
+                content={fireAlarmActivated ? 'Reset Fire Alarm' : 'Activate Fire Alarm'}
+                selected={fireAlarmActivated}
+                onClick={() => act('set_fire_alarm')}
+              />
             )}
           </LabeledList.Item>
           <LabeledList.Item label="Remote Control Settings">
