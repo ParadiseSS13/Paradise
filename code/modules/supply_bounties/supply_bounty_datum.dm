@@ -18,12 +18,19 @@
 
 /datum/supply_bounty/New(type_input, exact_input = FALSE, quantity_input = 1, reward_input = 25, special_reward_type_input = null)
 	. = ..()
+	name = GenerateName()
 	reason = GenerateReason()
 	bounty_target_type = type_input
 	exact_type = exact_input
 	quantity = quantity_input
 	reward = reward_input
 	special_reward_type = special_reward_type_input
+
+/datum/supply_bounty/proc/GenerateName()
+	var/first = pick("Urgent ", "Standard ", "General ", "Routine ", "Priority ", "Basic ", "Immediate ", "Regular ", "")
+	var/second = pick("Supply", "Item", "Resource", "Product", "Asset", "Package", "Stock", "Unit", "Cache")
+	var/third = pick("Request", "Order", "Inquiry", "Submission", "Ticket", "Entry", "Bounty", "Form", "Notice", "Demand")
+	return "[first][second] [third]"
 
 /datum/supply_bounty/proc/GenerateReason()
 	var/faction = pick("Central Command", "The Trans-Solar Federation", "The USSP")

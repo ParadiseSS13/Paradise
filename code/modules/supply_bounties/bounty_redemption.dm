@@ -91,7 +91,7 @@
 /obj/machinery/bounty_redemption/proc/RefreshBounties()
 	while(length(GLOB.active_supply_bounties) < bounty_count)
 		var/datum/supply_bounty/new_bounty = pick(GLOB.supply_bounties)
-		if(prob(5))
+		if(prob(20))
 			new_bounty.special_reward_type = pickweight(GLOB.supply_bounty_bonuses)
 		GLOB.active_supply_bounties += new_bounty
 
