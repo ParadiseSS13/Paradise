@@ -48,7 +48,7 @@ const Danger2Colour = (danger) => {
 
 const AirStatus = (props) => {
   const { act, data } = useBackend();
-  const { air, mode, atmos_alarm, locked, alarmActivated, rcon, target_temp } = data;
+  const { air, mode, atmos_alarm, locked, alarmActivated, fireAlarmActivated, rcon, target_temp } = data;
 
   let areaStatus;
   if (air.danger.overall === 0) {
@@ -161,6 +161,15 @@ const AirStatus = (props) => {
                 </>
               )}
             </Box>
+          </LabeledList.Item>
+          <LabeledList.Item label="Fire Alarm Status">
+            {!locked && (
+              <Button
+                  content={fireAlarmActivated ? 'Reset Fire Alarm' : 'Activate Fire Alarm'}
+                  selected={fireAlarmActivated}
+                  onClick={() => act('set_fire_alarm')}
+                />
+            )}
           </LabeledList.Item>
           <LabeledList.Item label="Remote Control Settings">
             <Button content="Off" selected={rcon === 1} onClick={() => act('set_rcon', { rcon: 1 })} />
