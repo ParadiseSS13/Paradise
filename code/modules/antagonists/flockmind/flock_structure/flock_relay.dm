@@ -1,5 +1,5 @@
 /obj/structure/flock/relay
-	icon = 'goon/icons/obj/featherzone-160x160.dmi'
+	icon = 'icons/goonstation/obj/featherzone-160x160.dmi'
 	icon_state = "structure-relay"
 
 	name = "titanic polyhedron"

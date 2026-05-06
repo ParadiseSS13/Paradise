@@ -13,7 +13,7 @@
 	return "Light emitter"
 
 /obj/machinery/light/flock
-	icon = 'goon/icons/obj/lighting.dmi'
+	icon = 'icons/goonstation/obj/lighting.dmi'
 
 	light_color = "#72bfac"
 	use_power = NO_POWER_USE

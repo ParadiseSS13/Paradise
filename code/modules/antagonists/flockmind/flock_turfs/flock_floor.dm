@@ -1,6 +1,6 @@
 /turf/simulated/floor/flock
 	name = "weird floor"
-	icon = 'goon/icons/mob/featherzone.dmi'
+	icon = 'icons/goonstation/mob/featherzone.dmi'
 	icon_state = "floor"
 	base_icon_state = "floor"
 

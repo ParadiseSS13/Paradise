@@ -1,6 +1,6 @@
 /mob/camera/flock
 	name = "BROKEN VERY BAD"
-	icon = 'goon/icons/mob/featherzone.dmi'
+	icon = 'icons/goonstation/mob/featherzone.dmi'
 	icon_state = "flockmind"
 	base_icon_state = "flockmind"
 

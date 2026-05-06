@@ -111,7 +111,7 @@
 /turf/simulated/wall/gnesis
 	name = "gnesis wall"
 	desc = "A thick metal wall, it look very old."
-	icon = 'goon/icons/turf/flock.dmi'
+	icon = 'icons/goonstation/turf/flock.dmi'
 	color = "#1bdebd"
 	sheet_type = /obj/item/stack/sheet/gnesis
 	sheet_amount = 2

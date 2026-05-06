@@ -519,7 +519,7 @@
 /// Instantiates all of the flock notice image singletons.
 /datum/flock/proc/create_hud_images()
 	notice_images[FLOCK_NOTICE_RESERVED] = new /image{
-		icon = 'goon/icons/mob/featherzone.dmi';
+		icon = 'icons/goonstation/mob/featherzone.dmi';
 		icon_state = "frontier";
 		plane = ABOVE_LIGHTING_PLANE;
 		appearance_flags = RESET_ALPHA | RESET_COLOR | PIXEL_SCALE | RESET_TRANSFORM;
@@ -527,7 +527,7 @@
 	}
 
 	notice_images[FLOCK_NOTICE_PRIORITY] = new /image{
-		icon = 'goon/icons/mob/featherzone.dmi';
+		icon = 'icons/goonstation/mob/featherzone.dmi';
 		icon_state = "frontier";
 		plane = ABOVE_LIGHTING_PLANE;
 		appearance_flags = RESET_ALPHA | RESET_COLOR | PIXEL_SCALE | RESET_TRANSFORM;
@@ -535,7 +535,7 @@
 	}
 
 	notice_images[FLOCK_NOTICE_ENEMY] = new /image{
-		icon = 'goon/icons/mob/featherzone.dmi';
+		icon = 'icons/goonstation/mob/featherzone.dmi';
 		icon_state = "hazard";
 		pixel_y = 16;
 		plane = ABOVE_LIGHTING_PLANE;
@@ -543,7 +543,7 @@
 	}
 
 	notice_images[FLOCK_NOTICE_IGNORE] = new /image{
-		icon = 'goon/icons/mob/featherzone.dmi';
+		icon = 'icons/goonstation/mob/featherzone.dmi';
 		icon_state = "ignore";
 		pixel_y = 16;
 		plane = ABOVE_LIGHTING_PLANE;
@@ -551,7 +551,7 @@
 	}
 
 	notice_images[FLOCK_NOTICE_FLOCKMIND_CONTROL] = new /image{
-		icon = 'goon/icons/mob/featherzone.dmi';
+		icon = 'icons/goonstation/mob/featherzone.dmi';
 		icon_state = "flockmind_face";
 		pixel_y = 16;
 		plane = ABOVE_LIGHTING_PLANE;
@@ -559,7 +559,7 @@
 	}
 
 	notice_images[FLOCK_NOTICE_FLOCKTRACE_CONTROL] = new /image{
-		icon = 'goon/icons/mob/featherzone.dmi';
+		icon = 'icons/goonstation/mob/featherzone.dmi';
 		icon_state = "flocktrace_face";
 		pixel_y = 16;
 		plane = ABOVE_LIGHTING_PLANE;
@@ -567,7 +567,7 @@
 	}
 
 	notice_images[FLOCK_NOTICE_DECONSTRUCT] = new /image{
-		icon = 'goon/icons/mob/featherzone.dmi';
+		icon = 'icons/goonstation/mob/featherzone.dmi';
 		icon_state = "deconstruct";
 		pixel_y = 16;
 		plane = ABOVE_LIGHTING_PLANE;
@@ -575,7 +575,7 @@
 	}
 
 	notice_images[FLOCK_NOTICE_HEALTH] = new /image{
-		icon = 'goon/icons/mob/featherzone.dmi';
+		icon = 'icons/goonstation/mob/featherzone.dmi';
 		icon_state = "hp-100";
 		pixel_x = 10;
 		pixel_y = 16;

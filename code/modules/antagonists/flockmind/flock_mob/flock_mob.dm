@@ -1,6 +1,6 @@
 /mob/living/basic/flock
 	name = "flockdrone"
-	icon = 'goon/icons/mob/featherzone.dmi'
+	icon = 'icons/goonstation/mob/featherzone.dmi'
 	icon_state = "drone"
 	icon_living = "drone"
 	icon_dead = "drone-dead"

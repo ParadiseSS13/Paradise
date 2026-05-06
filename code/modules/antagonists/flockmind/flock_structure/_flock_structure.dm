@@ -4,7 +4,7 @@ TYPEINFO_DEF(/obj/structure/flock)
 /obj/structure/flock
 
 	name = "CALL A CODER AAAAAAAAAA"
-	icon = 'goon/icons/mob/featherzone.dmi'
+	icon = 'icons/goonstation/mob/featherzone.dmi'
 	anchored = TRUE
 	density = TRUE
 

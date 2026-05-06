@@ -4,7 +4,7 @@ TYPEINFO_DEF(/obj/structure/window/flock)
 	)
 
 /obj/structure/window/flock
-	icon = 'goon/icons/mob/featherzone.dmi'
+	icon = 'icons/goonstation/mob/featherzone.dmi'
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	heat_resistance = /obj/structure/window/plasma::heat_resistance
 	melting_point = /obj/structure/window/plasma::melting_point
