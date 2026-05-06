@@ -45,7 +45,7 @@
 /obj/item/fine_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(istype(used, /obj/item/card/id))
-		var/crime_string = tgui_input_text(user, "Enter the crime being fined for.", "Issue Fine")
+		var/crime_string = tgui_input_text(user, "Enter the crime a fine is being issued for.", "Issue Fine")
 		if(!Adjacent(user))
 			return
 		if(!account_database)
@@ -58,11 +58,11 @@
 
 /obj/item/fine_scanner/proc/issue_fine(mob/living/user, obj/item/card/id/C, crime_string)
 	if(!crime_string || crime_string == "")
-		crime_string = "(NO CRIME LISTED.)"
+		crime_string = "(NO CRIME LISTED)"
 	visible_message(SPAN_NOTICE("[user] swipes a card through [src]."))
 	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number, include_departments = FALSE)
 	if(!D)
-		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Invalid Account Link.\"")]", SPAN_NOTICE("You hear something buzz."))
+		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Invalid account link.\"")]", SPAN_NOTICE("You hear something buzz."))
 		playsound(src, fail_sound, 50, TRUE)
 		return
 	if(!GLOB.station_money_database.charge_account(D, fine_amount, "Security Fine", user.name, FALSE, FALSE))
@@ -83,7 +83,7 @@
 	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
 		P.name = "Fine log - [card.registered_name] [station_time_timestamp()]"
-		P.info =  "<center><b>Fine record</b></center><br><hr><br>"
+		P.info =  "<center><b>Fine Record</b></center><br><hr><br>"
 		P.info += {"<center>[station_name()] - Security Department</center><br>
 					<center><small><b>Admission data:</b></small></center><br>
 					<small><b>Log generated at:</b>		[station_time_timestamp()]<br>
@@ -96,7 +96,7 @@
 
 	var/obj/item/paper/P = new /obj/item/paper(src)
 	P.name = "Fine ticket - [card.registered_name] [station_time_timestamp()]"
-	P.info =  "<center><b>Fine record</b></center><br><hr><br>"
+	P.info =  "<center><b>Fine Record</b></center><br><hr><br>"
 	P.info += {"<center>[station_name()] - Security Department</center><br>
 				<center><small><b>Admission data:</b></small></center><br>
 				<small><b>Log generated at:</b>		[station_time_timestamp()]<br>
