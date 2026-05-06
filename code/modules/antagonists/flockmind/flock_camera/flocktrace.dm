@@ -16,7 +16,7 @@
 
 /mob/camera/flock/trace/Initialize(mapload, join_flock)
 	. = ..()
-	set_real_name(flock_realname(FLOCK_TYPE_TRACE))
+	real_name = flock_realname(FLOCK_TYPE_TRACE)
 	flock.add_unit(src)
 	flock.stat_traces_made++
 
@@ -29,13 +29,13 @@
 		return ..()
 
 	. = list(
-		span_flocksay("<b>###=- Ident confirmed, data packet received.</b>"),
-		span_flocksay("<b>ID:</b> [real_name]"),
-		span_flocksay("<b>Flock:</b> [flock.name || "N/A"]"),
-		span_flocksay("<b>Bandwidth:</b> [flock.bandwidth.has_points()]"),
-		span_flocksay("<b>System Integrity: [flock.get_total_health_percentage()]%</b>"),
-		span_flocksay("<b>Cognition:</b> SYNAPTIC PROCESS"),
-		span_flocksay("<b>###=-</b>"),
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		SPAN_FLOCKSAY("<b>ID:</b> [real_name]"),
+		SPAN_FLOCKSAY("<b>Flock:</b> [flock.name || "N/A"]"),
+		SPAN_FLOCKSAY("<b>Bandwidth:</b> [flock.bandwidth.has_points()]"),
+		SPAN_FLOCKSAY("<b>System Integrity: [flock.get_total_health_percentage()]%</b>"),
+		SPAN_FLOCKSAY("<b>Cognition:</b> SYNAPTIC PROCESS"),
+		SPAN_FLOCKSAY("<b>###=-</b>"),
 	)
 
 /mob/camera/flock/trace/vv_edit_var(var_name, var_value)

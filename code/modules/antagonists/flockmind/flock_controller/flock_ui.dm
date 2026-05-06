@@ -78,7 +78,7 @@
 			var/atom/movable/target = locate(params["origin"])
 			var/turf/T = get_turf(target)
 			if(isnull(T) || !is_on_safe_z(target))
-				to_chat(user, span_alert("They are beyond our reach."))
+				to_chat(user, SPAN_ALERT("They are beyond our reach."))
 				return
 
 			if(isflockdrone(user))
@@ -114,6 +114,6 @@
 
 			if(tgui_alert(user, "This will destroy the Flocktrace. Are you sure you want to do this?", "Confirmation", list("Yes", "No")) == "Yes")
 				flock_talk(null, "Partition [flocktrace.real_name] has been reintegrated into flock background processes.", src, involuntary = TRUE)
-				to_chat(flocktrace, span_flocksay("Your higher cognition has been forcibly reintegrated into the collective will of the flock."))
+				to_chat(flocktrace, SPAN_FLOCKSAY("Your higher cognition has been forcibly reintegrated into the collective will of the flock."))
 				flocktrace.so_very_sad_death()
 			return TRUE

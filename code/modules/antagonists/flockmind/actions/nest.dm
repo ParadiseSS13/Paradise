@@ -7,19 +7,19 @@
 	var/mob/living/basic/flock/drone/bird = owner
 	var/turf/simulated/floor/flock/flockfloor = get_turf(cast_on)
 	if(!istype(flockfloor) || flockfloor.is_blocked_turf(source_atom = owner))
-		to_chat(owner, span_warning("The egg must be placed on an open flock tile."))
+		to_chat(owner, SPAN_WARNING("The egg must be placed on an open flock tile."))
 		return FALSE
 
 	if(!bird.flock)
-		to_chat(owner, span_warning("Our prime directives prohibit us from synthesizing an egg."))
+		to_chat(owner, SPAN_WARNING("Our prime directives prohibit us from synthesizing an egg."))
 		return FALSE
 
 	if(!bird.substrate.has_points(bird.flock.current_egg_cost))
-		to_chat(owner, span_warning("Error: Not enough resources. (We need [bird.flock.current_egg_cost])"))
+		to_chat(owner, SPAN_WARNING("Error: Not enough resources. (We need [bird.flock.current_egg_cost])"))
 		return FALSE
 
 	if(HAS_TRAIT(bird, TRAIT_FLOCKPHASE))
-		to_chat(owner, span_warning("We can not synthesize eggs while flockrunning."))
+		to_chat(owner, SPAN_WARNING("We can not synthesize eggs while flockrunning."))
 		return FALSE
 
 	return TRUE
@@ -30,13 +30,13 @@
 	var/turf/simulated/floor/flock/flockfloor = get_turf(target)
 	bird.stop_flockphase(TRUE)
 
-	to_chat(bird, span_notice("Our internal fabricators spring into action, we must hold still."))
+	to_chat(bird, SPAN_NOTICE("Our internal fabricators spring into action, we must hold still."))
 
 	if(!do_after(bird, 8 SECONDS, interaction_key = "flock_lay_egg", action_type = /datum/timed_action/flock_lay_egg))
 		return FALSE
 
 	bird.substrate.remove_points(bird.flock.current_egg_cost)
-	bird.visible_message(span_notice("[bird] deploys some sort of device."))
+	bird.visible_message(SPAN_NOTICE("[bird] deploys some sort of device."))
 	playsound(bird, 'goon/sounds/Metal_Clang_1.ogg', 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
 	new /obj/structure/flock/egg(flockfloor)

@@ -32,7 +32,7 @@
 
 /obj/structure/flock/fabricator/flock_structure_examine(mob/user)
 	. = ..()
-	. += span_flocksay("<b>Substrate remaining:</b> [substrate_remaining.has_points()].")
+	. += SPAN_FLOCKSAY("<b>Substrate remaining:</b> [substrate_remaining.has_points()].")
 
 /obj/structure/flock/fabricator/update_info_tag()
 	info_tag.set_text("Substrate remaining: [substrate_remaining.has_points()]")

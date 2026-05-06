@@ -17,7 +17,7 @@
 	. = ..()
 	flock?.stat_bits_made++
 	AddComponent(/datum/component/flock_protection)
-	set_real_name(flock_realname(FLOCK_TYPE_BIT))
+	real_name = flock_realname(FLOCK_TYPE_BIT)
 	name = flock_name(FLOCK_TYPE_BIT)
 
 /mob/living/basic/flock/bit/examine(mob/user)
@@ -25,12 +25,12 @@
 		return ..()
 
 	. = list(
-		span_flocksay("<b>###=- Ident confirmed, data packet received.</b>"),
-		span_flocksay("<b>ID:</b> [real_name]"),
-		span_flocksay("<b>Flock:</b> [flock?.name || "N/A"]"),
-		span_flocksay("<b>System Integrity: [round(health / maxHealth, 0.1) * 100]</b>"),
-		span_flocksay("<b>Cognition:</b> [HAS_TRAIT(src, TRAIT_AI_PAUSED) ? "AWARE" : "PREDEFINED"]"),
-		span_flocksay("<b>###=-</b>"),
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		SPAN_FLOCKSAY("<b>ID:</b> [real_name]"),
+		SPAN_FLOCKSAY("<b>Flock:</b> [flock?.name || "N/A"]"),
+		SPAN_FLOCKSAY("<b>System Integrity: [round(health / maxHealth, 0.1) * 100]</b>"),
+		SPAN_FLOCKSAY("<b>Cognition:</b> [HAS_TRAIT(src, TRAIT_AI_PAUSED) ? "AWARE" : "PREDEFINED"]"),
+		SPAN_FLOCKSAY("<b>###=-</b>"),
 	)
 
 /mob/living/basic/flock/bit/proc/i_just_split(turf/avoid)

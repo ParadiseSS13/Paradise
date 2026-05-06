@@ -11,10 +11,8 @@
 	light_power = 0.2
 	light_range = 2
 
-	faction = list(FACTION_FLOCK)
+	faction = list("flockmind")
 	ai_controller = /datum/ai_controller/flock
-
-	initial_language_holder = /datum/language_holder/flock
 
 	minimum_survivable_temperature = 0
 	maximum_survivable_temperature = 1000

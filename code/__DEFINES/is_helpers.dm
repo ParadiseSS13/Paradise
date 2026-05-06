@@ -33,7 +33,7 @@
 
 #define isaicamera(A) (istype(A, /mob/camera/ai_eye))
 
-#define isflockmob(A) (istype(A, /mob/camera/flock) || istype(A, /mob/living/simple_animal/flock))
+#define isflockmob(A) (istype(A, /mob/camera/flock) || istype(A, /mob/living/basic/flock))
 
 #define isflockdrone(A) (istype(A, /mob/living/basic/flock/drone))
 

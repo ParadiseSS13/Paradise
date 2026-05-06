@@ -13,9 +13,9 @@
 
 /obj/structure/flock/compute/Initialize(mapload, datum/flock/join_flock)
 	. = ..()
-	set_light_range(1)
-	set_light_color("#7BFFFFa2")
-	set_light_power(0.3)
+	light_range = 1
+	light_color = "#7BFFFFa2"
+	light_power = 0.3
 
 	update_appearance()
 
@@ -27,7 +27,7 @@
 
 /obj/structure/flock/compute/flock_structure_examine(mob/user)
 	return list(
-		span_flocksay("<b>Bandwidth Provided:</b> [bandwidth_provided].")
+		SPAN_FLOCKSAY("<b>Bandwidth Provided:</b> [bandwidth_provided].")
 	)
 
 /obj/structure/flock/compute/update_info_tag()

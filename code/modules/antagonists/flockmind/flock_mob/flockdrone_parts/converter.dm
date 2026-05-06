@@ -24,7 +24,7 @@
 
 /datum/flockdrone_part/converter/proc/try_cage(mob/living/victim)
 	if(isflockmob(victim))
-		to_chat(drone, span_warning("ERROR: Unable to imprison substrate construct."))
+		to_chat(drone, SPAN_WARNING("ERROR: Unable to imprison substrate construct."))
 		return FALSE
 
 	var/datum/action/cooldown/flock/cage_mob/cage_action = locate() in drone.actions

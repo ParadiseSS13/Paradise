@@ -12,18 +12,18 @@
 /datum/action/cooldown/flock/partition_mind/is_valid_target(atom/cast_on)
 	var/mob/camera/flock/overmind/ghost_bird = owner
 	if(awaiting_partition)
-		to_chat(ghost_bird, span_warning("We are currently partitioning."))
+		to_chat(ghost_bird, SPAN_WARNING("We are currently partitioning."))
 		return FALSE
 
 	if(!ghost_bird.flock.can_afford(FLOCK_COMPUTE_COST_FLOCKTRACE))
-		to_chat(ghost_bird, span_warning("The Flock does not have enough spare computaional power to support another thread."))
+		to_chat(ghost_bird, SPAN_WARNING("The Flock does not have enough spare computaional power to support another thread."))
 		return FALSE
 
 	if(length(ghost_bird.flock.traces) >= ghost_bird.flock.max_traces)
 		if(length(ghost_bird.flock.traces) < floor(FLOCK_COMPUTE_COST_RELAY / FLOCK_COMPUTE_COST_FLOCKTRACE))
-			to_chat(ghost_bird, span_warning("The Flock needs more total computational power to support another thread."))
+			to_chat(ghost_bird, SPAN_WARNING("The Flock needs more total computational power to support another thread."))
 		else
-			to_chat(ghost_bird, span_warning("The Flock has hit it's thread limit."))
+			to_chat(ghost_bird, SPAN_WARNING("The Flock has hit it's thread limit."))
 		return FALSE
 	return TRUE
 
@@ -37,7 +37,7 @@
 	awaiting_partition = TRUE
 	var/mob/camera/flock/overmind/ghost_bird = owner
 
-	to_chat(ghost_bird, span_flocksay("Partitioning initiated, stand by..."))
+	to_chat(ghost_bird, SPAN_FLOCKSAY("Partitioning initiated, stand by..."))
 
 	message_admins("Sending Flocktrace offer to ghosts, they have [30 SECONDS] to respond.")
 	var/list/candidates = poll_ghost_candidates("Would you like to join the Flock as a new partition?", ROLE_FLOCK, ROLE_FLOCK, 30 SECONDS, flashwindow = TRUE)
@@ -50,12 +50,12 @@
 
 	if(!length(candidates))
 		message_admins("No ghosts responded to the flocktrace offer from [ghost_bird.real_name]")
-		to_chat(ghost_bird, span_flocksay("Partition failure: unable to coalesce sentience."))
+		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: unable to coalesce sentience."))
 		return
 
 	if(!ghost_bird.flock.can_afford(FLOCK_COMPUTE_COST_FLOCKTRACE))
 		message_admins("The Flock was unable to support another flocktrace, partition aborted.")
-		to_chat(ghost_bird, span_flocksay("Partition failure: bandwidth required is unavailable."))
+		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: bandwidth required is unavailable."))
 		return
 
 

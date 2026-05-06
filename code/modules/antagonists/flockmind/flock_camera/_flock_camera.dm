@@ -91,10 +91,10 @@
 	update_z(new_turf?.z)
 
 	if(flock && !flock.is_on_safe_z(src))
-		var/turf/destination = get_turf(pick_safe(flock.drones)) || get_safe_random_station_turf()
+		var/turf/destination = get_turf(get_safe_random_station_turf())
 
 		forceMove(destination)
-		to_chat(src, span_warning("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
+		to_chat(src, SPAN_WARNING("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
 
 /mob/camera/flock/proc/update_z(new_z) // 1+ to register, null to unregister
 	if (registered_z != new_z)
@@ -124,12 +124,12 @@
 
 /mob/camera/flock/proc/so_very_sad_death()
 	if(client)
-		to_chat(src, span_alert("You cease to exist."))
+		to_chat(src, SPAN_ALERT("You cease to exist."))
 
 	ghostize(FALSE)
 	flock?.free_unit(src)
 
-	invisibility = INVISIBILITY_VISIBLE
+	invisibility = 0
 	notransform = TRUE
 	icon_state = "blank"
 	flick("[base_icon_state]-death", src)

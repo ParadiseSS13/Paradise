@@ -29,7 +29,7 @@
 /mob/camera/flock/overmind/Initialize(mapload, join_flock)
 	. = ..()
 	flock.register_overmind(src)
-	set_real_name("Flockmind [flock.name]")
+	real_name = "Flockmind [flock.name]"
 
 /mob/camera/flock/overmind/Destroy()
 	flock?.overmind = null // This shouldnt really happen
@@ -50,14 +50,14 @@
 		return ..()
 
 	. = list(
-		span_flocksay("<b>###=- Ident confirmed, data packet received.</b>"),
-		span_flocksay("<b>ID:</b> [real_name]"),
-		span_flocksay("<b>Flock:</b> [flock.name || "N/A"]"),
-		span_flocksay("<b>Bandwidth:</b> [flock.bandwidth.has_points()]"),
-		span_flocksay("<b>Substrate:</b> [flock.get_total_substrate()]"),
-		span_flocksay("<b>System Integrity: [flock.get_total_health_percentage()]%</b>"),
-		span_flocksay("<b>Cognition:</b> COMPUTATIONAL NEXUS"),
-		span_flocksay("<b>###=-</b>"),
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		SPAN_FLOCKSAY("<b>ID:</b> [real_name]"),
+		SPAN_FLOCKSAY("<b>Flock:</b> [flock.name || "N/A"]"),
+		SPAN_FLOCKSAY("<b>Bandwidth:</b> [flock.bandwidth.has_points()]"),
+		SPAN_FLOCKSAY("<b>Substrate:</b> [flock.get_total_substrate()]"),
+		SPAN_FLOCKSAY("<b>System Integrity: [flock.get_total_health_percentage()]%</b>"),
+		SPAN_FLOCKSAY("<b>Cognition:</b> COMPUTATIONAL NEXUS"),
+		SPAN_FLOCKSAY("<b>###=-</b>"),
 	)
 
 /mob/camera/flock/overmind/get_status_tab_items()

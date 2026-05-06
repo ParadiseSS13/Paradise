@@ -38,8 +38,8 @@
 
 /obj/structure/flock/tealprint/flock_structure_examine(mob/user)
 	return list(
-		span_flocksay("<b>Construction Percentage:</b> [floor(substrate.has_points() / substrate.get_max_points() * 100)]"),
-		span_flocksay("<b>Construction Progress:</b> [substrate.has_points()] added, [substrate.get_max_points()] needed")
+		SPAN_FLOCKSAY("<b>Construction Percentage:</b> [floor(substrate.has_points() / substrate.get_max_points() * 100)]"),
+		SPAN_FLOCKSAY("<b>Construction Progress:</b> [substrate.has_points()] added, [substrate.get_max_points()] needed")
 	)
 
 /// Complete the structure.

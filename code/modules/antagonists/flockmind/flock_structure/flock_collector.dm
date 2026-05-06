@@ -49,9 +49,9 @@
 	var/obj/machinery/power/apc/apc = get_apc()
 
 	return list(
-		span_flocksay("<b>Connections:</b> Connected to [length(connected_flockturfs)] tile\s."),
-		span_flocksay("<b>Bandwidth Provided:</b> [bandwidth_provided]."),
-		span_flocksay("<b>APC Connected:</b> [(!apc?.cell || apc.cell.charge >= apc.cell.maxcharge) ? "Not charging." : "Charging local APC at [charge_per_cycle]% every [cycle_interval / 10] seconds."]")
+		SPAN_FLOCKSAY("<b>Connections:</b> Connected to [length(connected_flockturfs)] tile\s."),
+		SPAN_FLOCKSAY("<b>Bandwidth Provided:</b> [bandwidth_provided]."),
+		SPAN_FLOCKSAY("<b>APC Connected:</b> [(!apc?.cell || apc.cell.charge >= apc.cell.maxcharge) ? "Not charging." : "Charging local APC at [charge_per_cycle]% every [cycle_interval / 10] seconds."]")
 	)
 
 /obj/structure/flock/collector/process(delta_time)

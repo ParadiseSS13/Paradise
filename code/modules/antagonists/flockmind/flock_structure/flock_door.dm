@@ -34,13 +34,13 @@
 		return ..()
 
 	. = list(
-		span_flocksay("<b>###=- Ident confirmed, data packet received.</b>"),
-		span_flocksay("<b>ID:</b> [get_flock_id()]"),
-		span_flocksay("<b>System Integrity:</b> [get_integrity_percentage()]%"),
-		span_flocksay("<b>Volume:</b> [reagents.get_reagent_amount(/datum/reagent/toxin/gnesis)]"),
-		span_flocksay("<b>###=-</b>"),
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		SPAN_FLOCKSAY("<b>ID:</b> [get_flock_id()]"),
+		SPAN_FLOCKSAY("<b>System Integrity:</b> [get_integrity_percentage()]%"),
+		SPAN_FLOCKSAY("<b>Volume:</b> [reagents.get_reagent_amount(/datum/reagent/toxin/gnesis)]"),
+		SPAN_FLOCKSAY("<b>###=-</b>"),
 	)
 
 	if(machine_stat & BROKEN)
-		. += span_flocksay("<b>FUNCTION CRITICALLY IMPAIRED, REPAIRS REQUIRED</>")
-		. += span_flocksay("<b>###=-</b>")
+		. += SPAN_FLOCKSAY("<b>FUNCTION CRITICALLY IMPAIRED, REPAIRS REQUIRED</>")
+		. += SPAN_FLOCKSAY("<b>###=-</b>")

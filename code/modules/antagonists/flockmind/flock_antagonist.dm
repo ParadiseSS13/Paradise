@@ -17,7 +17,7 @@
 	var/list/out = list()
 	out += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
 	if(description)
-		out += span_flocksay("<div style='text-align: center'>[description]</div>")
+		out += SPAN_FLOCKSAY("<div style='text-align: center'>[description]</div>")
 	return jointext(out, "")
 
 /datum/antagonist/flock/on_gain()

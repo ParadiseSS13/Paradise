@@ -77,4 +77,4 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	appearance_flags = parent_type::appearance_flags | RESET_COLOR
-	vis_flags = parent_type::vis_flags | VIS_INHERIT_LAYER
+	vis_flags = VIS_INHERIT_LAYER

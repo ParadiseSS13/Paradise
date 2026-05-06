@@ -39,7 +39,7 @@
 		reagents.expose(get_turf(src), TOUCH)
 
 	if(victim)
-		visible_message(span_warning("[victim] breaks free from [src]."))
+		visible_message(SPAN_WARNING("[victim] breaks free from [src]."))
 		set_victim(null)
 
 	var/drop_loc = drop_location()
@@ -64,7 +64,7 @@
 			playsound(src, 'goon/sounds/weapons/nano-blade-1.ogg', 50, TRUE)
 
 			if(victim?.stat == CONSCIOUS)
-				to_chat(victim, span_warning("[eating] begins to melt away."))
+				to_chat(victim, SPAN_WARNING("[eating] begins to melt away."))
 
 		else
 			chew_on_mob(delta_time)
@@ -77,7 +77,7 @@
 
 	if(victim && COOLDOWN_FINISHED(src, flock_message_cd))
 		COOLDOWN_START(src, flock_message_cd, rand(10, 25) SECONDS)
-		to_chat(victim, span_flocksay("<i>[pick(strings("flock.json", "conversion"))]</i>"))
+		to_chat(victim, SPAN_FLOCKSAY("<i>[pick(strings("flock.json", "conversion"))]</i>"))
 
 	if(!victim) // Victim gibbed
 		deconstruct(TRUE)
@@ -122,8 +122,8 @@
 
 /obj/structure/flock/cage/flock_structure_examine(mob/user)
 	return list(
-		span_flocksay("<b>Volume:</b> [reagents.get_reagent_amount(/datum/reagent/toxin/gnesis)]"),
-		span_flocksay("<b>Needed volume:</b> [egg_gnesis_cost]<br>"),
+		SPAN_FLOCKSAY("<b>Volume:</b> [reagents.get_reagent_amount(/datum/reagent/toxin/gnesis)]"),
+		SPAN_FLOCKSAY("<b>Needed volume:</b> [egg_gnesis_cost]<br>"),
 	)
 
 /// Picks an item, organ, or bodypart, to munch on.
@@ -131,7 +131,7 @@
 	if(!ishuman(victim))
 		victim.adjustBruteLoss(absorption_rate * delta_time)
 		if(victim.stat == DEAD)
-			visible_message(span_danger("[src] rips apart what remains of [victim]."))
+			visible_message(SPAN_DANGER("[src] rips apart what remains of [victim]."))
 			set_victim(null)
 			victim.gib(TRUE, TRUE, TRUE)
 		return
@@ -146,7 +146,7 @@
 				set_eating_target(candidate)
 
 		if(eating)
-			visible_message(span_warning("[src] pulls [eating] from [human_victim] and begins ripping it apart."))
+			visible_message(SPAN_WARNING("[src] pulls [eating] from [human_victim] and begins ripping it apart."))
 			playsound(src, 'goon/sounds/weapons/nano-blade-1.ogg', 50, TRUE)
 		return
 
@@ -166,7 +166,7 @@
 
 		chest.clamp_wounds() // Haha bitch
 
-		visible_message(span_danger("[src] tears [eating] from [human_victim] and begins ripping it apart."))
+		visible_message(SPAN_DANGER("[src] tears [eating] from [human_victim] and begins ripping it apart."))
 		return
 
 	var/list/organs = human_victim.processing_organs.Copy()
@@ -190,10 +190,10 @@
 			set_eating_target(yummy_organ)
 			eating.forceMove(src)
 
-		visible_message(span_danger("[src] tears [eating] from [human_victim]'s [organ_loc_str] and begins ripping it apart."))
+		visible_message(SPAN_DANGER("[src] tears [eating] from [human_victim]'s [organ_loc_str] and begins ripping it apart."))
 		return
 
-	visible_message(span_danger("[src] rips apart what remains of [human_victim]."))
+	visible_message(SPAN_DANGER("[src] rips apart what remains of [human_victim]."))
 	set_victim(null)
 	human_victim.gib(TRUE, TRUE, TRUE)
 
@@ -201,7 +201,7 @@
 /obj/structure/flock/cage/proc/cage_mob(mob/living/L)
 	L.forceMove(src)
 	set_victim(L)
-	victim.visible_message(span_danger("A [name] materializes around [victim],"))
+	victim.visible_message(SPAN_DANGER("A [name] materializes around [victim],"))
 
 /// Spends gnesis on eggs or a cube. Only spends on eggs by default.
 /obj/structure/flock/cage/proc/spend_gnesis(all = FALSE)

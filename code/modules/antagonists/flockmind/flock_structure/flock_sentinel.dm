@@ -102,8 +102,8 @@
 	addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_SHOCKED_BY_SENTINEL, ref(src)), 2 SECONDS)
 
 	target.visible_message(
-		span_danger("<b>[target]</b> is struck by a bolt of energy arcing off of <b>[src]</b>."),
-		blind_message = span_hear("You hear a loud electrical crackle."),
+		SPAN_DANGER("<b>[target]</b> is struck by a bolt of energy arcing off of <b>[src]</b>."),
+		blind_message = SPAN_HEAR("You hear a loud electrical crackle."),
 	)
 
 	log_combat(src, target, "fires at", addition = "owned by [flock.name]")
@@ -127,8 +127,8 @@
 			hit_mobs += M
 			tesla_zap_target(previous_hit, M, TESLA_MOB_DAMAGE_TO_POWER(damage_per_zap * 0.66))
 			target.visible_message(
-				span_danger("<b>[M]</b> is struck by a bolt of energy arcing off of <b>[previous_hit]</b>."),
-				blind_message = span_hear("You hear a loud electrical crackle."),
+				SPAN_DANGER("<b>[M]</b> is struck by a bolt of energy arcing off of <b>[previous_hit]</b>."),
+				blind_message = SPAN_HEAR("You hear a loud electrical crackle."),
 			)
 
 			previous_hit = M
@@ -158,8 +158,8 @@
 			charge_status_str = "Charged"
 
 	return list(
-		span_flocksay("<b>Status:</b> [charge_status_str]"),
-		span_flocksay("<b>Charge Percentage: [charge.has_points()]%"),
+		SPAN_FLOCKSAY("<b>Status:</b> [charge_status_str]"),
+		SPAN_FLOCKSAY("<b>Charge Percentage: [charge.has_points()]%"),
 	)
 
 /obj/structure/flock/sentinel/update_info_tag()

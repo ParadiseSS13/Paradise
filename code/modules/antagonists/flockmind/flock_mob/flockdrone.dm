@@ -34,7 +34,7 @@
 	flock?.stat_drones_made++
 
 	AddComponent(/datum/component/flock_protection, FALSE, TRUE, FALSE, FALSE)
-	set_real_name(flock_realname(FLOCK_TYPE_DRONE))
+	real_name = flock_realname(FLOCK_TYPE_DRONE)
 	name = flock_name(FLOCK_TYPE_DRONE)
 
 	if(stat == CONSCIOUS)
@@ -62,20 +62,20 @@
 		cognition = "HIBERNATING"
 
 	. = list(
-		span_flocksay("<b>###=- Ident confirmed, data packet received.</b>"),
-		controlled_by ? span_flocksay("<b>ID:</b> [controlled_by.real_name] (controlling [real_name])") : span_flocksay("<b>ID:</b> [real_name]"),
-		span_flocksay("<b>Flock:</b> [flock?.name || "N/A"]"),
-		span_flocksay("<b>Substrate: [substrate.has_points()]</b>"),
-		span_flocksay("<b>System Integrity: [round(health / maxHealth, 0.1) * 100]</b>"),
-		span_flocksay("<b>Cognition:</b> [cognition]"),
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		controlled_by ? SPAN_FLOCKSAY("<b>ID:</b> [controlled_by.real_name] (controlling [real_name])") : SPAN_FLOCKSAY("<b>ID:</b> [real_name]"),
+		SPAN_FLOCKSAY("<b>Flock:</b> [flock?.name || "N/A"]"),
+		SPAN_FLOCKSAY("<b>Substrate: [substrate.has_points()]</b>"),
+		SPAN_FLOCKSAY("<b>System Integrity: [round(health / maxHealth, 0.1) * 100]</b>"),
+		SPAN_FLOCKSAY("<b>Cognition:</b> [cognition]"),
 	)
 
 	if(cognition == "TORPID" && length(ai_controller?.current_behaviors))
 		var/datum/ai_behavior/flock/flock_behavior = locate() in ai_controller.current_behaviors
 		if(istype(flock_behavior))
-			. += span_flocksay("<b>Task: [flock_behavior.name]")
+			. += SPAN_FLOCKSAY("<b>Task: [flock_behavior.name]")
 
-	. += span_flocksay("<b>###=-</b>")
+	. += SPAN_FLOCKSAY("<b>###=-</b>")
 
 /mob/living/basic/flock/drone/death(gibbed, cause_of_death)
 	stop_flockphase(TRUE)
@@ -380,11 +380,11 @@
 
 /mob/living/basic/flock/drone/proc/take_control(mob/camera/flock/master_bird)
 	if(HAS_TRAIT_FROM(src, TRAIT_AI_DISABLE_PLANNING, FLOCK_CONTROLLED_BY_OVERMIND_SOURCE))
-		to_chat(master_bird, span_alert("This drone is recieving a sentient-level instruction."))
+		to_chat(master_bird, SPAN_ALERT("This drone is recieving a sentient-level instruction."))
 		return FALSE
 
 	if(controlled_by)
-		to_chat(master_bird, span_alert("This drone is already under another partition's command."))
+		to_chat(master_bird, SPAN_ALERT("This drone is already under another partition's command."))
 		return FALSE
 
 	stop_flockphase()
@@ -402,7 +402,7 @@
 	else
 		flock.add_notice(src, FLOCK_NOTICE_FLOCKMIND_CONTROL)
 
-	to_chat(src, "<span class='flocksay'><b>\[SYSTEM: Control of drone [real_name] established.\]</b></span>")
+	to_chat(src, SPAN_FLOCKSAY("<b>\[SYSTEM: Control of drone [real_name] established.\]</b>"))
 	return TRUE
 
 /mob/living/basic/flock/drone/proc/release_control(go_dormant = FALSE)
@@ -439,7 +439,7 @@
 
 	flock_talk(null, "Control of [real_name] surrendered.", flock, involuntary = TRUE)
 	if(!dest_was_safe)
-		to_chat(master_bird, span_warning("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
+		to_chat(master_bird, SPAN_WARNING("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
 
 	if(!flock && go_dormant)
 		dormantize()

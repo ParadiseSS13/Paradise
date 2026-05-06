@@ -56,7 +56,7 @@
 
 /atom/movable/screen/flockdrone_part/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
-	var/mob/living/simple_animal/flock/drone/drone = hud?.mymob
+	var/mob/living/basic/flock/drone/drone = hud?.mymob
 	part_ref = locate(part_type) in drone?.parts // create n destroy
 	part_ref?.screen_obj = src
 
@@ -79,7 +79,7 @@
 	if(.)
 		return
 
-	var/mob/living/simple_animal/flock/drone/drone = hud?.mymob
+	var/mob/living/basic/flock/drone/drone = hud?.mymob
 	drone.set_active_part(part_ref)
 
 /atom/movable/screen/flockdrone_part/converter

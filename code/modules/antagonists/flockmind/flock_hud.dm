@@ -9,7 +9,7 @@
 /datum/atom_hud/alternate_appearance/basic/flock_simplemob
 
 /datum/atom_hud/alternate_appearance/basic/flock_simplemob/mobShouldSee(mob/M)
-	return istype(M, /mob/living/simple_animal/flock)
+	return istype(M, /mob/living/basic/flock)
 
 // Shows an image to non-observer non-flock mobs.
 /datum/atom_hud/alternate_appearance/basic/not_flock

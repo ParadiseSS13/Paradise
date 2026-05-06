@@ -123,7 +123,7 @@ TYPEINFO_DEF(/obj/structure/flock)
 	.["area"] = get_area_name(src, TRUE) || "???"
 
 /obj/structure/flock/deconstruct(disassembled)
-	visible_message(span_warning("[src] dissolves into nothingness."))
+	visible_message(SPAN_WARNING("[src] dissolves into nothingness."))
 	var/refund = round(get_integrity_percentage() * (disassembled ? 1 : 0.5) * resource_cost, 1)
 	if(refund)
 		var/obj/item/flock_cube/cube = new(drop_location())
@@ -145,11 +145,11 @@ TYPEINFO_DEF(/obj/structure/flock)
 		return
 
 	if(user.combat_mode)
-		user.visible_message(span_danger("<b>[user]</b> punches <b>[src]."))
+		user.visible_message(SPAN_DANGER("<b>[user]</b> punches <b>[src]."))
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		//playsound(src, 'sound/impact_sounds/Crystal_Hit_1.ogg', 50, TRUE, -1)
 		bitch_and_moan()
-		take_damage(1, BRUTE, BLUNT)
+		take_damage(1, BRUTE)
 		return TRUE
 
 /obj/structure/flock/attacked_by(obj/item/attacking_item, mob/living/user)
@@ -215,20 +215,20 @@ TYPEINFO_DEF(/obj/structure/flock)
 		return ..()
 
 	. = list(
-		span_flocksay("<b>###=- Ident confirmed, data packet received.</b>"),
-		span_flocksay("<b>ID:</b> [get_flock_id()]"),
-		span_flocksay("<b>Flock:</b> [flock?.name || "N/A"]"),
-		span_flocksay("<b>System Integrity:</b> [get_integrity_percentage()]%"),
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		SPAN_FLOCKSAY("<b>ID:</b> [get_flock_id()]"),
+		SPAN_FLOCKSAY("<b>Flock:</b> [flock?.name || "N/A"]"),
+		SPAN_FLOCKSAY("<b>System Integrity:</b> [get_integrity_percentage()]%"),
 	)
 
 	if(!fully_built)
-		. += span_flocksay("<b>Time Left:</b> [build_time_left()] seconds")
+		. += SPAN_FLOCKSAY("<b>Time Left:</b> [build_time_left()] seconds")
 
 	var/list/additional_lines = flock_structure_examine(user)
 	if(length(additional_lines))
 		. += additional_lines
 
-	. += span_flocksay("<b>###=-</b>")
+	. += SPAN_FLOCKSAY("<b>###=-</b>")
 
 /obj/structure/flock/proc/flock_structure_examine(mob/user)
 	return

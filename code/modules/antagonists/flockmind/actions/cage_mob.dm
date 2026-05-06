@@ -26,8 +26,8 @@
 	var/turf/T = get_turf(target)
 
 	owner.visible_message(
-		span_notice("<b>[owner]</b> begins forming a cuboid structure around <b>[target]</b>."),
-		blind_message = span_hear("You hear a strange synthetic whirring."),
+		SPAN_NOTICE("<b>[owner]</b> begins forming a cuboid structure around <b>[target]</b>."),
+		blind_message = SPAN_HEAR("You hear a strange synthetic whirring."),
 	)
 
 	T.add_viscontents(turf_effect)
@@ -35,7 +35,7 @@
 		turf_effect.icon_state = "spawn-wall-loop"
 		flick("spawn-wall", turf_effect)
 
-	log_combat(owner, target, "attempted to cage")
+	log_attack(owner, target, "attempted to cage")
 
 	. = TRUE
 	playsound(owner, 'goon/sounds/flockmind/flockdrone_build.ogg', 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
@@ -46,7 +46,7 @@
 	if(!.)
 		return
 
-	log_combat(owner, target, "caged")
+	log_attack(owner, target, "caged")
 
 	playsound(owner, 'goon/sounds/flockmind/flockdrone_build_complete.ogg', 70, TRUE)
 	var/obj/structure/flock/cage/cage = new(T, bird.flock)

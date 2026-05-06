@@ -6,19 +6,19 @@
 /datum/action/cooldown/flock/create_structure/is_valid_target(atom/cast_on)
 	var/turf/simulated/floor/flock/T = get_turf(owner)
 	if(!istype(T))
-		to_chat(owner, span_warning("We are unable to perform complex substrate manipulation outside of our tiles."))
+		to_chat(owner, SPAN_WARNING("We are unable to perform complex substrate manipulation outside of our tiles."))
 		return FALSE
 
 	if(T.broken)
-		to_chat(owner, span_warning("The tile we are above is broken."))
+		to_chat(owner, SPAN_WARNING("The tile we are above is broken."))
 		return FALSE
 
 	if(locate(/obj/structure/flock/tealprint) in T)
-		to_chat(owner, span_warning("We are currently building something there."))
+		to_chat(owner, SPAN_WARNING("We are currently building something there."))
 		return FALSE
 
 	if(locate(/obj/structure/flock) in T)
-		to_chat(owner, span_warning("An existing structure is occupying that tile."))
+		to_chat(owner, SPAN_WARNING("An existing structure is occupying that tile."))
 		return FALSE
 
 	return TRUE

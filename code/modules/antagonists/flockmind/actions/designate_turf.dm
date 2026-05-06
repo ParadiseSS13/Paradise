@@ -14,17 +14,17 @@
 /datum/action/cooldown/flock/designate_tile/Activate(atom/target)
 	var/turf/turf_target = get_turf(target)
 	if(isflockturf(target))
-		to_chat(owner, span_alert("That tile has already been converted by the flock."))
+		to_chat(owner, SPAN_ALERT("That tile has already been converted by the flock."))
 		return FALSE
 
 	if(!turf_target.can_flock_convert())
-		to_chat(owner, span_alert("The flock is unable to convert that."))
+		to_chat(owner, SPAN_ALERT("The flock is unable to convert that."))
 		return FALSE
 
 	var/mob/camera/flock/ghost_bird = owner
 	if(!ghost_bird.flock.marked_for_conversion[turf_target])
 		if(ghost_bird.flock.turf_reservations[turf_target])
-			to_chat(ghost_bird, span_alert("That tile is already scheduled for conversion."))
+			to_chat(ghost_bird, SPAN_ALERT("That tile is already scheduled for conversion."))
 			return FALSE
 
 		ghost_bird.flock.marked_for_conversion[turf_target] = TRUE

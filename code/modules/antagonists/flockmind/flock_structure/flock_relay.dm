@@ -42,7 +42,7 @@
 
 	to_chat(
 		flock.overmind,
-		span_flocksay(span_big("You pool the collective processing power of The Flock to transmit The Signal. If the relay is destroyed, so to will be The Flock!"))
+		SPAN_FLOCKSAY(SPAN_BIG("You pool the collective processing power of The Flock to transmit The Signal. If the relay is destroyed, so to will be The Flock!"))
 	)
 
 	flock_talk(null, "THE RELAY HAS BEEN CONSTRUCTED! DEFEND IT AT ALL COSTS, BRING FORTH THE FULL BREADTH OF THE DIVINE FLOCK!", flock)
@@ -74,17 +74,17 @@
 /obj/structure/flock/relay/examine(mob/user)
 	. = ..()
 	if(flock_won_da_game && !isflockmob(user))
-		. += span_flocksay("Your life flashes before your eyes.")
+		. += SPAN_FLOCKSAY("Your life flashes before your eyes.")
 
 /obj/structure/flock/relay/flock_structure_examine(mob/user)
 	var/timeleft = (started_time + win_time - world.time) / 10
 	if(timeleft)
 		return list(
-			span_flocksay("<b>Broadcast In:</b> [(started_time + win_time - world.time) / 10] second\s.")
+			SPAN_FLOCKSAY("<b>Broadcast In:</b> [(started_time + win_time - world.time) / 10] second\s.")
 		)
 	else
 		return list(
-			span_flocksay("<b><i>BROADCASTING IN PROGRESS.</i></b>")
+			SPAN_FLOCKSAY("<b><i>BROADCASTING IN PROGRESS.</i></b>")
 		)
 
 /obj/structure/flock/relay/update_info_tag()
@@ -137,7 +137,7 @@
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in z_levels) && M.can_hear())
 			M.playsound_local(M, 'goon/sounds/flockmind/Flock_Reactor.ogg', 30, FALSE)
-			to_chat(M, span_flocksay("<b>A horrible, otherworldly wave eminates from the <i>[dir2text(get_dir(mob_turf, loc))]</i>."))
+			to_chat(M, SPAN_FLOCKSAY("<b>A horrible, otherworldly wave eminates from the <i>[dir2text(get_dir(mob_turf, loc))]</i>."))
 
 /obj/structure/flock/relay/proc/announce_relay()
 	var/message = stars("The Signal is coming.", 10)
@@ -202,7 +202,7 @@
 		if(!radio.equipped_to)
 			continue
 
-		to_chat(radio.equipped_to, span_warning("A final scream of horrific static bursts from your [radio.name]."))
+		to_chat(radio.equipped_to, SPAN_WARNING("A final scream of horrific static bursts from your [radio.name]."))
 		if(radio.equipped_to.soundbang_act(3, 0))
 			radio.equipped_to.Disorient(60 SECONDS, 0, TRUE, 6 SECONDS, 3 SECONDS)
 

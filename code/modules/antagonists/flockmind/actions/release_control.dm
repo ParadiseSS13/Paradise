@@ -7,7 +7,7 @@
 	. = ..()
 	var/mob/living/basic/flock/drone/bird = owner
 	if(!bird.flock)
-		to_chat(bird, span_warning("You have no flock to return to."))
+		to_chat(bird, SPAN_WARNING("You have no flock to return to."))
 		return
 
 	bird.release_control(TRUE)

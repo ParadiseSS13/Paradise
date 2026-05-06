@@ -28,7 +28,7 @@
 	astype(bird, /mob/living/basic/flock/drone)?.stop_flockphase(TRUE)
 	bird.face_atom(target)
 
-	bird.visible_message(span_notice("[bird] begins to deconstruct [target]."), blind_message = span_hear("You hear an otherwordly whirring."))
+	bird.visible_message(SPAN_NOTICE("[bird] begins to deconstruct [target]."), blind_message = SPAN_HEAR("You hear an otherwordly whirring."))
 	if(!do_after(bird, 6 SECONDS, target = target, interaction_key = "flock_deconstruct"))
 		return FALSE
 

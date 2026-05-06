@@ -16,12 +16,12 @@
 
 
 	if(!length(targets))
-		to_chat(owner, span_notice("No targets in range that can be opened via radio."))
+		to_chat(owner, SPAN_NOTICE("No targets in range that can be opened via radio."))
 		return FALSE
 
 	..()
 
-	to_chat(owner, span_notice("You force open all powered doors around you."))
+	to_chat(owner, SPAN_NOTICE("You force open all powered doors around you."))
 	playsound(owner, 'goon/sounds/flockmind/flockmind_cast.ogg', 50)
 
 	addtimer(CALLBACK(src, PROC_REF(async_open_doors), targets), 1.5 SECONDS)
