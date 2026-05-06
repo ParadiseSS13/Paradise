@@ -130,3 +130,4 @@
 #define SPAN_WHISPER(str) ("<span class='whisper'>" + str + "</span>")
 #define SPAN_ZOMBIE(str) ("<span class='zombie'>" + str + "</span>")
 #define SPAN_ZOMBIELARGE(str) ("<span class='zombielarge'>" + str + "</span>")
+#define SPAN_FLOCKSAY(str) ("<span class='flocksay'>" + str + "</span>")

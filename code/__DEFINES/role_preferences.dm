@@ -46,6 +46,7 @@
 #define ROLE_GHOST				"ghost role"
 #define ROLE_ELITE				"lavaland elite"
 #define ROLE_NINJA				"ninja"
+#define ROLE_FLOCK				"flockmind"
 
 // Misc jobban categories
 #define ROLEBAN_AHUD			"AntagHUD"

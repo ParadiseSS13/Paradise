@@ -84,6 +84,8 @@
 #define MAT_PLATINUM		"platinum"
 #define MAT_IRIDIUM			"iridium"
 #define MAT_SILK			"silk"
+#define MAT_GNESIS			"gnesis"
+#define MAT_GNESIS_GLASS	"gnesisglass"
 
 /// The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
 #define MINERAL_MATERIAL_AMOUNT 2000

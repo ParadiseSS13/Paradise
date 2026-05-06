@@ -558,6 +558,35 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return starting_turf
 
+/// returns a turf at the outer edge of a given radius
+/proc/get_random_perimeter_turf(atom/origin, radius)
+	var/turf/origin_turf = get_turf(origin)
+	if(isnull(origin_turf))
+		return null
+
+	if(radius == 0)
+		return origin_turf
+
+	var/upper_x = clamp(origin_turf.x + radius, 1, world.maxx)
+	var/lower_x = clamp(origin_turf.x - radius, 1, world.maxx)
+
+	var/upper_y = clamp(origin_turf.y + radius, 1, world.maxy)
+	var/lower_y = clamp(origin_turf.y - radius, 1, world.maxy)
+
+
+	var/x
+	var/y
+	var/z = origin_turf.z
+
+	if(prob(50))
+		x = pick(lower_x, upper_x)
+		y = rand(lower_y, upper_y)
+	else
+		x = rand(lower_x, upper_x)
+		y = pick(lower_y, upper_y)
+
+	return locate(x, y ,z)
+
 // returns turf relative to A for a given clockwise angle at set range
 // result is bounded to map size
 /proc/get_angle_target_turf(atom/A, angle, range)

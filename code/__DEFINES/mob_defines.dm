@@ -183,6 +183,8 @@
 #define SHOCK_ILLUSION 	(1<<2)
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN 	(1<<3)
+/// Shock damage is reduced by the average siemen's coeff
+#define SHOCK_USE_AVG_SIEMENS (1 << 4)
 
 #define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
 

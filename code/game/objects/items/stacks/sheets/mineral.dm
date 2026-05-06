@@ -13,6 +13,7 @@ Mineral Sheets
 		- Platinum
 		- Alien Alloy
 		- Adamantine
+		- Gnesis
 */
 
 GLOBAL_LIST_INIT(sandstone_recipes, list (
@@ -599,6 +600,17 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 
 /obj/item/stack/sheet/mineral/adamantine/fifty
 	amount = 50
+
+/*
+ * Gnesis
+ */
+
+/obj/item/stack/sheet/gnesis
+	name = "wafers"
+	singular_name = "wafer"
+	icon_state = ""
+	materials = list(MAT_GNESIS = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/gnesis
 
 /*
  * Snow

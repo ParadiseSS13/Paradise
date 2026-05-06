@@ -5,6 +5,7 @@
  *	4. REINFORCED PLASMA GLASS
  *	5. TITANIUM GLASS
  *	6. PLASTITANIUM GLASS
+ *	7. GNESIS GLASS
 
  Todo: Create a unified construct_window(sheet, user, created_window, full_window)
 
@@ -312,3 +313,15 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	. = ..()
 	recipes = GLOB.plastitaniumglass_recipes
 
+//////////////////////////////
+// MARK: GNESIS GLASS
+//////////////////////////////
+/obj/item/stack/sheet/gnesis_glass
+	name = "transculent wafers"
+	singular_name = "transculent wafer"
+	desc = "A shimmering, translucent block of weird alien computer crystal stuff."
+	mats_per_unit = list(MAT_GNESIS_GLASS = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/gnesis_glass
+	armor = list(MELEE = 20, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 50, FIRE = 100, ACID = 20)
+	resistance_flags = FIRE_PROOF
+	point_value = 5

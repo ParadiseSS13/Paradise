@@ -162,6 +162,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
 #define TRAIT_TESLA_SHOCKIMMUNE	"tesla_shock_immunity"
+/// Are we being shocked by a flock sentinel?
+#define TRAIT_SHOCKED_BY_SENTINEL "shocked_by_flock_sentinel"
 #define TRAIT_TELEKINESIS 		"telekinesis"
 #define TRAIT_RESISTHEAT		"resist_heat"
 #define TRAIT_RESISTHEATHANDS	"resist_heat_handsonly" //For when you want to be able to touch hot things, but still want fire to be an issue.
@@ -296,6 +298,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "trait_ai_paused"
 
+/// This mob's speech is heard through walls by dead players/observers even if it has no client. Idk a better name
+#define TRAIT_IMPORTANT_SPEAKER "important_speaker"
+/// Ignores line of sight for the purposes of send_speech()
+#define TRAIT_HEAR_THROUGH_WALLS "hear_through_walls"
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -620,6 +626,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 ///every object that is currently the active storage of some client mob has this trait
 #define TRAIT_ACTIVE_STORAGE "active_storage"
+
+// Flock trait sources
+/// Under control
+#define FLOCK_CONTROLLED_BY_OVERMIND_SOURCE "FLOCK_CONTROLLED_BY_OVERMIND_SOURCE"
+
+#define TRAIT_FLOCKPHASE "TRAIT_FLOCKPHASE"
+#define TRAIT_FLOCK_THING "TRAIT_FLOCK_THING"
 
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.

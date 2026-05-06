@@ -148,6 +148,8 @@
 #define PASSGIRDER		(1<<8)
 #define PASSTAKE    	(1<<9)
 #define PASSBARRICADE	(1<<10)
+/// Pass through flock objects and mobs
+#define PASSFLOCK (1<<11)
 
 //turf-only flags, under the flags variable
 #define BLESSED_TILE	(1<<0)
@@ -185,8 +187,9 @@
 #define ZAP_MOB_DAMAGE			(1<<3)
 #define ZAP_MOB_STUN			(1<<4)
 #define ZAP_GENERATES_POWER		(1<<5)
+#define ZAP_NO_COOLDOWN 		(1<<6)
 
-#define ZAP_DEFAULT_FLAGS (ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
+#define ZAP_DEFAULT_FLAGS (ZAP_MOB_STUN | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_NO_COOLDOWN)
 #define ZAP_FUSION_FLAGS (ZAP_OBJ_DAMAGE | ZAP_MOB_DAMAGE | ZAP_MOB_STUN)
 #define ZAP_SUPERMATTER_FLAGS (ZAP_GENERATES_POWER)
 

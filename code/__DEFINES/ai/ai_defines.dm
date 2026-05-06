@@ -3,6 +3,13 @@
 #define HAS_AI_CONTROLLER_TYPE(thing, type) istype(thing?.ai_controller, type)
 
 //AI controller flags
+
+#ifdef DEBUG_AI
+#define DEBUG_AI_LOG(controller, message) if(controller.debug_focus) { to_chat(world, span_debug("AI DBG: [message]")) }
+#else
+#define DEBUG_AI_LOG(...)
+#endif
+
 //If you add a new status, be sure to add it to the ai_controllers subsystem's ai_controllers_by_status list.
 /// The AI is currently active.
 #define AI_STATUS_ON "ai_on"
