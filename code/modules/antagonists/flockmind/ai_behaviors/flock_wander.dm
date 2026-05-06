@@ -8,8 +8,8 @@
 	var/turf/destination = get_destination(controller)
 	if(destination)
 		controller.set_move_target(destination)
-		return BEHAVIOR_PERFORM_SUCCESS
-	return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_SUCCEEDED
+	return AI_BEHAVIOR_FAILED
 
 /datum/ai_behavior/flock/wander/next_behavior(datum/ai_controller/controller, success)
 	if(success)

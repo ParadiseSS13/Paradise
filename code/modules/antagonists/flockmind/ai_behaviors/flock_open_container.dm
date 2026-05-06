@@ -26,11 +26,11 @@
 	..()
 	var/atom/target = get_target(controller, TRUE)
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_CONTAINER_TARGET, target)
 	controller.set_move_target(target)
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_closed_container/finish_action(datum/ai_controller/controller, succeeded, turf/overmind_target)
 	. = ..()
@@ -52,8 +52,8 @@
 		bird.animate_interact(target, INTERACT_HELP)
 		target.open(bird, TRUE)
 	else
-		return BEHAVIOR_PERFORM_FAILURE
-	return BEHAVIOR_PERFORM_SUCCESS
+		return AI_BEHAVIOR_FAILED
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/perform_open_container/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

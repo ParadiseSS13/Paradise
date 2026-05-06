@@ -42,21 +42,21 @@
 	..()
 	var/atom/target = controller.blackboard[BB_FLOCK_ATTACK_TARGET]
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	if(!goap_is_valid_target(controller, target))
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	if(!COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_COOLDOWN]))
 		controller.set_blackboard_key(BB_FLOCK_ATTACK_FRUSTRATION, world.time) // Reset frustration if we're on cooldown.
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
 	var/mob/living/basic/flock/drone/bird = controller.pawn
 	if(!can_see(bird, target))
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
 	if(get_dist(bird, target) > 6) // Too far to shoot!
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
 	// Run away!
 	if(DT_PROB(40, delta_time) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_RUN_COOLDOWN]) && get_dist(bird, target) < 3)
@@ -77,7 +77,7 @@
 	controller.set_blackboard_key(BB_FLOCK_ATTACK_FRUSTRATION, world.time) // Reset frustration
 
 	bird.RangedAttack(target)
-	return BEHAVIOR_PERFORM_COOLDOWN
+	return AI_BEHAVIOR_DELAY
 
 /datum/ai_behavior/flock/attack_target/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

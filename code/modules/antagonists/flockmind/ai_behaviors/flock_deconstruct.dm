@@ -54,7 +54,7 @@
 	..()
 	var/atom/target = overmind_target || get_target(controller, TRUE)
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DECON_TARGET, target)
 	controller.set_move_target(target)
@@ -63,7 +63,7 @@
 	if(bird.flock)
 		bird.flock.reserve_turf(bird, get_turf(target), remove_on_change = FALSE)
 
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_deconstruct_target/finish_action(datum/ai_controller/controller, succeeded, turf/overmind_target)
 	. = ..()
@@ -92,9 +92,9 @@
 			deconstruct_action.Trigger(target = target)
 
 	if(DOING_INTERACTION(bird, "flock_deconstruct"))
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/perform_deconstruct/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

@@ -36,11 +36,11 @@
 	..()
 	var/atom/target = overmind_target || get_target(controller, TRUE)
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_HARVEST_TARGET, target)
 	controller.set_move_target(target)
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_harvest_target/finish_action(datum/ai_controller/controller, succeeded, obj/item/overmind_target)
 	. = ..()
@@ -63,13 +63,13 @@
 	var/mob/living/basic/flock/drone/bird = controller.pawn
 	var/obj/item/target = controller.blackboard[BB_FLOCK_HARVEST_TARGET]
 	if(!isturf(target?.loc))
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	var/datum/flockdrone_part/absorber/absorber = locate() in bird.parts
 	if(!absorber.try_pickup_item(target))
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/perform_harvest/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

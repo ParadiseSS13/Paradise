@@ -26,11 +26,11 @@
 	..()
 	var/atom/target = get_target(controller, TRUE)
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_RUMMAGE_TARGET, target)
 	controller.set_move_target(target)
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_storage_item/finish_action(datum/ai_controller/controller, succeeded, turf/overmind_target)
 	. = ..()
@@ -49,14 +49,14 @@
 	var/mob/living/basic/flock/bird = controller.pawn
 	var/obj/item/target = controller.blackboard[BB_FLOCK_RUMMAGE_TARGET]
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	if(DOING_INTERACTION(bird, "flock_rummage"))
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
 	bird.animate_interact(target, INTERACT_HELP)
 	rummage_till_empty(controller, bird, target)
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/perform_rummage/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

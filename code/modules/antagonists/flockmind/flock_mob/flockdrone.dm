@@ -437,7 +437,7 @@
 	if(mind)
 		mind.transfer_to(master_bird)
 
-	flock_talk(null, "Control of [real_name] surrendered.", flock, involuntary = TRUE)
+	flock_talk(null, "Control of [real_name] surrendered.", flock)
 	if(!dest_was_safe)
 		to_chat(master_bird, SPAN_WARNING("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
 
@@ -446,7 +446,7 @@
 
 /mob/living/basic/flock/drone/proc/split_into_bits()
 	ai_controller.PauseAi(3 SECONDS)
-	say("\[System notification: drone diffracting.\]", forced = "flock diffract")
+	say("\[System notification: drone diffracting.\]")
 	emote("scream")
 	flock?.free_unit(src)
 

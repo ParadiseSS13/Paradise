@@ -36,11 +36,11 @@
 	..()
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DEPOSIT_TARGET, target)
 	controller.set_move_target(target)
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_deposit_target/finish_action(datum/ai_controller/controller, succeeded, overmind_target)
 	. = ..()
@@ -72,7 +72,7 @@
 	var/obj/structure/flock/tealprint/target = controller.blackboard[BB_FLOCK_DEPOSIT_TARGET]
 	if(target)
 		if(!goap_is_valid_target(controller, target))
-			return BEHAVIOR_PERFORM_FAILURE
+			return AI_BEHAVIOR_FAILED
 
 		controller.clear_blackboard_key(BB_FLOCK_DEPOSIT_TARGET)
 
@@ -81,9 +81,9 @@
 			deposit_action.Trigger(target = target)
 
 	if(DOING_INTERACTION(bird, "flock_cage"))
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/perform_deposit/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

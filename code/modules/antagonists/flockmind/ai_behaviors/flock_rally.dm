@@ -10,7 +10,7 @@
 
 /datum/ai_behavior/flock/rally/perform(delta_time, datum/ai_controller/controller, turf/destination)
 	..()
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/rally/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

@@ -25,12 +25,12 @@
 	..()
 	var/turf/target = get_target(controller, TRUE)
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_REPLICATE_TARGET, target)
 	controller.set_move_target(target)
 
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_existing_nest/finish_action(datum/ai_controller/controller, succeeded, turf/overmind_target)
 	. = ..()
@@ -56,9 +56,9 @@
 			nest_action.Trigger(target = target)
 
 	if(DOING_INTERACTION(bird, "flock_lay_egg"))
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/perform_nest/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

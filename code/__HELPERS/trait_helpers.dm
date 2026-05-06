@@ -632,7 +632,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define FLOCK_CONTROLLED_BY_OVERMIND_SOURCE "FLOCK_CONTROLLED_BY_OVERMIND_SOURCE"
 
 #define TRAIT_FLOCKPHASE "TRAIT_FLOCKPHASE"
+/// Is a flock object. Because of type fuckery.
 #define TRAIT_FLOCK_THING "TRAIT_FLOCK_THING"
+/// Flockdrones cannot deconstruct this object.
+#define TRAIT_FLOCK_NODECON "TRAIT_FLOCK_NODECON"
+/// Implements flock_examine() proc.
+#define TRAIT_FLOCK_EXAMINE "TRAIT_FLOCK_EXAMINE"
+
+/// Trait from mob/living/update_transform()
+#define UPDATE_TRANSFORM_TRAIT "update_transform"
 
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.

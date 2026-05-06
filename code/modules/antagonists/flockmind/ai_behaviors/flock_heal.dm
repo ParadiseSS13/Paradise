@@ -40,11 +40,11 @@
 	..()
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_HEAL_TARGET, target)
 	controller.set_move_target(target)
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_heal_target/finish_action(datum/ai_controller/controller, succeeded, overmind_target)
 	. = ..()
@@ -69,16 +69,16 @@
 		controller.set_blackboard_key(BB_FLOCK_HEAL_FRUSTRATION, world.time + 3 SECONDS)
 
 	if(DOING_INTERACTION(bird, "flock_repair"))
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
 	var/datum/action/cooldown/flock/flock_heal/repair = locate() in bird.actions
 	spawn(-1)
 		repair.Trigger(target = controller.blackboard[BB_FLOCK_HEAL_TARGET])
 
 	if(controller.blackboard[BB_FLOCK_HEAL_FRUSTRATION] >= world.time)
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
-	return BEHAVIOR_PERFORM_FAILURE
+	return AI_BEHAVIOR_FAILED
 
 /datum/ai_behavior/flock/heal/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

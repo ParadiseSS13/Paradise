@@ -22,9 +22,9 @@
 	var/list/targets = get_targets(controller)
 	if(length(targets))
 		controller.set_blackboard_key(BB_FLOCK_STARE_TARGET, pick(targets))
-		return BEHAVIOR_PERFORM_COOLDOWN | BEHAVIOR_PERFORM_SUCCESS
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
-	return BEHAVIOR_PERFORM_FAILURE
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/stare/next_behavior(datum/ai_controller/controller, success)
 	if(success)
@@ -44,16 +44,16 @@
 			living_pawn.manual_emote("whistles.")
 
 	if(!controller.blackboard[BB_FLOCK_STARE_TARGET])
-		return BEHAVIOR_PERFORM_SUCCESS
+		return AI_BEHAVIOR_SUCCEEDED
 
 	if(!can_see(living_pawn,controller.blackboard[BB_FLOCK_STARE_TARGET]))
-		return BEHAVIOR_PERFORM_SUCCESS
+		return AI_BEHAVIOR_SUCCEEDED
 
 	if(controller.blackboard[BB_FLOCK_STARING_ACTIVE] <= world.time)
-		return BEHAVIOR_PERFORM_SUCCESS
+		return AI_BEHAVIOR_SUCCEEDED
 
 	living_pawn.face_atom(controller.blackboard[BB_FLOCK_STARE_TARGET])
-	return BEHAVIOR_PERFORM_COOLDOWN
+	return AI_BEHAVIOR_DELAY
 
 /datum/ai_behavior/flock/stare_at_bird/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

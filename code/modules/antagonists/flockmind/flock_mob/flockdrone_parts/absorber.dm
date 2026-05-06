@@ -44,7 +44,6 @@
 		return FALSE
 
 	drone.face_atom(I)
-	I.do_pickup_animation(drone, I.loc)
 	I.forceMove(drone)
 	if(QDELETED(I))
 		return FALSE

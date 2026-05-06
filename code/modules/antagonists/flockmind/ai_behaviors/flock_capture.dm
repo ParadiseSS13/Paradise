@@ -30,11 +30,11 @@
 	..()
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
 	if(!target)
-		return BEHAVIOR_PERFORM_FAILURE
+		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_CAPTURE_TARGET, target)
 	controller.set_move_target(target)
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_capture_target/finish_action(datum/ai_controller/controller, succeeded, obj/item/overmind_target)
 	. = ..()
@@ -58,16 +58,16 @@
 	var/mob/living/target = controller.blackboard[BB_FLOCK_CAPTURE_TARGET]
 	if(target)
 		if(!isturf(target?.loc) || !(target.incapacitated(IGNORE_GRAB | IGNORE_RESTRAINTS | IGNORE_STASIS) || target.IsKnockdown()))
-			return BEHAVIOR_PERFORM_FAILURE
+			return AI_BEHAVIOR_FAILED
 		controller.clear_blackboard_key(BB_FLOCK_CAPTURE_TARGET)
 		var/datum/action/cooldown/flock/cage_mob/cage_action = locate() in bird.actions
 		spawn(-1)
 			cage_action.Trigger(target = target)
 
 	if(DOING_INTERACTION(bird, "flock_cage"))
-		return BEHAVIOR_PERFORM_COOLDOWN
+		return AI_BEHAVIOR_DELAY
 
-	return BEHAVIOR_PERFORM_SUCCESS
+	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/perform_capture/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()
