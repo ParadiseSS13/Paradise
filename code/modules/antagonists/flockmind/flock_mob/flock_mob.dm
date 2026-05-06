@@ -5,7 +5,7 @@
 	icon_living = "drone"
 	icon_dead = "drone-dead"
 
-	pass_flags_self = parent_type::pass_flags_self | PASSFLOCK
+	pass_flags_self = PASSTABLE | PASSFLOCK
 
 	light_color = "#26ffe6"
 	light_power = 0.2
@@ -16,22 +16,11 @@
 
 	initial_language_holder = /datum/language_holder/flock
 
-	minbodytemp = 0
-	maxbodytemp = 1000
-	atmos_requirements = list(
-		"min_oxy" = 0,
-		"max_oxy" = 0,
-		"min_plas" = 0,
-		"max_plas" = 0,
-		"min_co2" = 0,
-		"max_co2" = 0,
-		"min_n2" = 0,
-		"max_n2" = 0
-	)
+	minimum_survivable_temperature = 0
+	maximum_survivable_temperature = 1000
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-
-	stop_automated_movement = TRUE
-	movement_type = FLOATING
+	initial_traits = list(TRAIT_FLYING, TRAIT_FLOCK_THING)
 
 	var/list/actions_to_grant = list(
 		/datum/action/cooldown/flock/convert,
@@ -44,6 +33,7 @@
 
 	/// Physical resources for constructing structures or flockrunning.
 	var/tmp/datum/point_holder/substrate
+
 	/// Type of point holder to use
 	var/point_holder_type = /datum/point_holder
 
@@ -65,11 +55,6 @@
 		var/datum/action/action = new action_path
 		action.Grant(src)
 
-	set_combat_mode(TRUE)
-
-	ADD_TRAIT(src, TRAIT_FREE_FLOAT_MOVEMENT, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_FLOCK_THING, INNATE_TRAIT)
-
 	flock = join_flock || get_default_flock()
 	flock?.add_unit(src)
 
@@ -82,7 +67,8 @@
 	task_tag.set_parent(src)
 
 	update_health_notice()
-	update_light_state()
+	add_language("Symphonic")
+	set_default_language(GLOB.all_languages["Symphonic"])
 
 /mob/living/basic/flock/Destroy()
 	flock?.free_unit(src)
@@ -91,35 +77,23 @@
 	QDEL_NULL(task_tag)
 	return ..()
 
-/mob/living/basic/flock/create_mood()
-	return // THEY DO NOT FEEEEEEEEEEEEEEEL
-
 /mob/living/basic/flock/set_stat(new_stat)
 	. = ..()
 	switch(stat)
-		if(CONSCIOUS)
-			ADD_TRAIT(src, TRAIT_MOVE_FLOATING, STAT_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_NO_FLOATING_ANIM, STAT_TRAIT)
+		if(stat != DEAD)
+			ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 		else
-			REMOVE_TRAIT(src, TRAIT_MOVE_FLOATING, STAT_TRAIT)
-			ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, STAT_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 
 /mob/living/basic/flock/update_name(updates)
 	. = ..()
 	name_tag?.set_text(real_name)
 
-/mob/living/basic/flock/say(message, bubble_type, list/spans, sanitize, datum/language/language, ignore_spam, forced, filterproof, range)
+/mob/living/basic/flock/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages, automatic, bigvoice)
 	. = ..()
 	if(!.)
 		return
-
-	language = GET_LANGUAGE_DATUM(language) || get_selected_language()
-	if(flock && istype(language, /datum/language/flock))
-		flock_talk(src, message, flock, forced)
-
-// changing the default arg value here
-/mob/living/basic/flock/treat_message(message, correct_grammar = FALSE)
-	. = ..()
+	flock_talk(src, message, flock)
 
 /mob/living/basic/flock/update_icon_state()
 	if(stat == DEAD)

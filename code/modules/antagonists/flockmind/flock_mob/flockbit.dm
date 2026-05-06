@@ -2,6 +2,7 @@
 	name = "flockbit"
 	icon_state = "flockbit"
 	icon_dormant = "bit-dormant"
+	desc = "The simplest partition of the flockmind, working autonomously without heed for itself as it dutifully serves the flockmind."
 
 	move_force = MOVE_FORCE_VERY_WEAK
 	maxHealth = 10

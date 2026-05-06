@@ -104,6 +104,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "revenantspawn"
 	icon_state = "Rev"
 
+/obj/effect/landmark/spawner/flock
+	name = "flockspawn"
+	icon_state = "Flock"
+
 /obj/effect/landmark/spawner/ninja
 	name = "ninjaspawn"
 

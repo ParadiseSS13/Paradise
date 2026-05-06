@@ -22,9 +22,11 @@
 	move_on_shuttle = FALSE
 	movement_type = PHASING
 
+	/// Flock datum
 	var/datum/flock/flock
 	var/list/actions_to_grant = list()
 
+	/// The drone we're controlling if we are controlling one
 	var/mob/living/basic/flock/drone/controlling_bird
 
 /mob/camera/flock/Initialize(mapload, join_flock)
@@ -36,7 +38,8 @@
 		var/datum/action/action = new action_path
 		action.Grant(src)
 
-	add_client_colour(/datum/client_colour/flockmind)
+	add_language("Symphonic")
+	set_default_language(GLOB.all_languages["Symphonic"])
 	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_WALLS, INNATE_TRAIT)
 
 /mob/camera/flock/Destroy()

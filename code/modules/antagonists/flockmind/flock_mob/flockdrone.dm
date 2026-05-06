@@ -1,4 +1,6 @@
 /mob/living/basic/flock/drone
+	name = "flockdrone"
+	desc = "The physical partitions of the flockmind, forever enacting its will until its job is complete."
 	hud_type = /datum/hud/flockdrone
 	ai_controller = /datum/ai_controller/flock/drone
 
@@ -16,6 +18,8 @@
 
 	bandwidth_provided = FLOCK_COMPUTE_COST_DRONE
 
+	initial_traits = list(TRAIT_FLYING, TRAIT_FLOCK_THING, TRAIT_IMPORTANT_SPEAKER)
+
 	/// A mob possessing this mob.
 	var/tmp/mob/camera/flock/controlled_by
 
@@ -28,9 +32,6 @@
 	set_active_part(parts[1])
 	. = ..()
 	flock?.stat_drones_made++
-
-	ADD_TRAIT(src, TRAIT_IMPORTANT_SPEAKER, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_ALWAYS_BUTCHERABLE, INNATE_TRAIT)
 
 	AddComponent(/datum/component/flock_protection, FALSE, TRUE, FALSE, FALSE)
 	set_real_name(flock_realname(FLOCK_TYPE_DRONE))
@@ -239,7 +240,7 @@
 		var/path = pick_weight(loot)
 		new path(drop_location())
 
-	playsound(src, SFX_SHATTER, 30, TRUE, SILENCED_SOUND_EXTRARANGE)
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 30, TRUE, SILENCED_SOUND_EXTRARANGE)
 
 	// Spawn flock organs here
 	qdel(src)
