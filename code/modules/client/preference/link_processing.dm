@@ -457,7 +457,7 @@
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
-					if(check_rights(R_ADMIN, 0, user))
+					if(check_rights(R_ADMIN, FALSE, user))
 						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
 					else
 						possible_body_accessories = list_valid_body_accessories(active_character.body_accessory, S.optional_body_accessory)
