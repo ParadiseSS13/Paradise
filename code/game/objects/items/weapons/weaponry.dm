@@ -189,7 +189,13 @@
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(!deflectmode)
 			return
-		if(prob(10))
+		if(prob(5) || homerun_ready)
+			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] far into the air! It's a homerun!"), SPAN_BOLDWARNING("You deflect [I] far into the air! It's a homerun!"))
+			playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
+			do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			hit_object(owner, I, TRUE)
+			return TRUE
+		else if(prob(10))
 			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] directly back at the thrower!"), SPAN_BOLDWARNING("You deflect [I] directly back at the thrower!"))
 			var/sound = 'sound/weapons/baseball_hit.ogg'
 			if(is_metal)
@@ -209,12 +215,6 @@
 			if(!istype(I, /obj/item/beach_ball))
 				COOLDOWN_START(src, last_deflect, deflect_cooldown)
 			return FALSE
-		else if(prob(5) || homerun_ready)
-			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] far into the air! It's a homerun!"), SPAN_BOLDWARNING("You deflect [I] far into the air! It's a homerun!"))
-			playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
-			do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			hit_object(owner, I, TRUE)
-			return TRUE
 		else
 			visible_message(SPAN_WARNING("[owner] swings and deflects [I]!"), SPAN_WARNING("You swing and deflect [I]!"))
 			var/sound = 'sound/weapons/baseball_hit.ogg'
