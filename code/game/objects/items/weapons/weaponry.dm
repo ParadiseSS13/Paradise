@@ -190,7 +190,7 @@
 		if(!deflectmode)
 			return
 		if(prob(10))
-			visible_message(SPAN_BOLDWARNING("[owner] Deflects [I] directly back at the thrower!"), SPAN_BOLDWARNING("You deflect [I] directly back at the thrower!"))
+			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] directly back at the thrower!"), SPAN_BOLDWARNING("You deflect [I] directly back at the thrower!"))
 			var/sound = 'sound/weapons/baseball_hit.ogg'
 			if(is_metal)
 				sound = 'sound/weapons/effects/batreflect1.ogg'
