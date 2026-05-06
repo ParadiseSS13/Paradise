@@ -80,7 +80,7 @@ export async function reloadByondCache(bundleDir) {
   }
 
   const pids = cacheDirs.map((cacheDir) => {
-    return parseInt(cacheDir.split('\\cache\\tmp')[1], 10);
+    return parseInt(cacheDir.split('tmp')[1], 10);
   });
 
   const dssPromise = DreamSeeker.getInstancesByPids(pids);

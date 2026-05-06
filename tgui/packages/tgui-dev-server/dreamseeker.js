@@ -6,6 +6,8 @@
 
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
+import fs from "fs/promises";
+import os from 'node:os';
 
 import axios, { isAxiosError } from 'axios';
 
@@ -74,32 +76,10 @@ export class DreamSeeker {
       return instances;
     }
 
-    const command = 'netstat -ano | findstr TCP | findstr 0.0.0.0:0';
-
     try {
-      const { stdout } = await promisify(exec)(command, {
-        // Max buffer of 1MB (default is 200KB)
-        maxBuffer: 1024 * 1024,
-      });
-
-      // Line format:
-      // proto addr mask mode pid
-      const entries = [];
-      const lines = stdout.split('\r\n');
-
-      for (let line of lines) {
-        const words = line.match(/\S+/g);
-        if (!words || words.length === 0) {
-          continue;
-        }
-        const entry = {
-          addr: words[1],
-          pid: parseInt(words[4], 10),
-        };
-        if (pidsToResolve.includes(entry.pid)) {
-          entries.push(entry);
-        }
-      }
+      const entries = os.platform() === 'win32'
+        ? await getWindowsEntries(pidsToResolve)
+        : await getLinuxEntries(pidsToResolve);
 
       const len = entries.length;
       logger.log('found', len, plural('instance', len));
@@ -119,6 +99,87 @@ export class DreamSeeker {
     }
     return instances;
   }
+}
+
+async function getWindowsEntries(pidsToResolve) {
+  const { stdout } = await run('netstat -ano | findstr TCP | findstr 0.0.0.0:0')
+
+  // Line format:
+  // proto addr mask mode pid
+  const entries = [];
+  const lines = stdout.split('\r\n');
+
+  for (let line of lines) {
+    const words = line.match(/\S+/g);
+    if (!words || words.length === 0) {
+      continue;
+    }
+    const entry = {
+      addr: words[1],
+      pid: parseInt(words[4], 10),
+    };
+    if (pidsToResolve.includes(entry.pid)) {
+      entries.push(entry);
+    }
+  }
+  return entries;
+}
+
+async function getLinuxEntries(pidsToResolve) {
+  const { stdout } = await run('ss -tlnp');
+  
+  const wineServers = new Map();
+
+  for (const line of stdout.split('\n')) {
+    if (!line.includes('wineserver') || !line.includes('127.0.0.1')) continue;
+
+    const parts = line.trim().split(/\s+/);
+    const addr = parts[3]
+
+    const pidMatch = line.match(/pid=(\d+)/);
+    if (!pidMatch) continue;
+
+    const linuxPid = pidMatch[1];
+    if (!wineServers.has(linuxPid)) wineServers.set(linuxPid, [])
+    wineServers.get(linuxPid).push(addr);
+  }
+
+  const entries = [];
+
+  for (const [linuxPid, addrs] of wineServers) {
+    try {
+      const env = await fs.readFile(`/proc/${linuxPid}/environ`);
+      const prefix = env.split('\0').find(l => l.startsWith("WINEPREFIX"))?.split('=')[1];
+      if(!prefix) continue;
+
+      const { stdout: winedbgOut } = await run(`WINEPREFIX=${prefix} winedbg --command "info proc"`);
+      const winPids = winedbgOut.split('\n');
+
+      for (const line of winPids) {
+        if(!line.includes('dreamseeker.exe')) continue;
+
+        const parts = line.trim().split(/\s+/);
+        const winPid = parseInt(parts[0], 16)
+
+        if(pidsToResolve.includes(winPid)) {
+          for (const addr of addrs) {
+            entries.push({addr, pid: winPid})
+          }
+        }
+      }
+    } catch (e) {
+      logger.log(`something broke but nobody knows what`);
+      continue;
+    }
+  }
+
+  return entries
+}
+
+async function run(command) {
+  return promisify(exec)(command, {
+    maxBuffer: 1024 * 1024,
+  });
 }
 
 function plural(word, n) {
