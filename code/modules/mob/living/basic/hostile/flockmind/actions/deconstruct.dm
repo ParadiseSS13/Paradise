@@ -29,7 +29,7 @@
 	bird.face_atom(target)
 
 	bird.visible_message(span_notice("[bird] begins to deconstruct [target]."), blind_message = span_hear("You hear an otherwordly whirring."))
-	if(!do_after(bird, target, 6 SECONDS, DO_PUBLIC | DO_RESTRICT_USER_DIR_CHANGE, interaction_key = "flock_deconstruct"))
+	if(!do_after(bird, 6 SECONDS, target = target, interaction_key = "flock_deconstruct"))
 		return FALSE
 
 	if(!is_valid_target(target))

@@ -15,7 +15,7 @@
 
 	playsound(target, 'goon/sounds/flockmind/flockdrone_quickbuild.ogg', 50, TRUE)
 
-	while(do_after(bird, target, 1 SECONDS, DO_PUBLIC | DO_RESTRICT_USER_DIR_CHANGE, interaction_key = "flock_deposit"))
+	while(do_after(bird, 1 SECONDS, target =  target, interaction_key = "flock_deposit"))
 		bird.visible_message(span_notice("[bird] deposits materials into [target]."), blind_message = span_hear("You hear an otherwordly whirring."))
 
 		var/obj/structure/flock/tealprint/tealprint = target

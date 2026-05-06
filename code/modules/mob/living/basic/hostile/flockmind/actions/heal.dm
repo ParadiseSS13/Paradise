@@ -14,7 +14,7 @@
 		var/mob/living/basic/flock/bird = target
 		ADD_TRAIT(bird, TRAIT_AI_PAUSED, ref(src))
 
-		if(!do_after(owner, target, 1 SECOND, DO_PUBLIC, interaction_key = "flock_repair"))
+		if(!do_after(owner, 1 SECONDS, target = target, interaction_key = "flock_repair"))
 			REMOVE_TRAIT(bird, TRAIT_AI_PAUSED, ref(src))
 			return FALSE
 

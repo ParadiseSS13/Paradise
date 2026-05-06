@@ -39,7 +39,7 @@
 
 	. = TRUE
 	playsound(owner, 'goon/sounds/flockmind/flockdrone_build.ogg', 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
-	if(!do_after(owner, target, 4.5 SECONDS, DO_PUBLIC, interaction_key = "flock_cage"))
+	if(!do_after(owner, 4.5 SECONDS,  target = target, interaction_key = "flock_cage"))
 		. = FALSE
 
 	T.remove_viscontents(turf_effect)

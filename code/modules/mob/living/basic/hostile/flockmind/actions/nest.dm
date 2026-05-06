@@ -32,7 +32,7 @@
 
 	to_chat(bird, span_notice("Our internal fabricators spring into action, we must hold still."))
 
-	if(!do_after(bird, bird, 8 SECONDS, DO_PUBLIC, interaction_key = "flock_lay_egg", action_type = /datum/timed_action/flock_lay_egg))
+	if(!do_after(bird, 8 SECONDS, interaction_key = "flock_lay_egg", action_type = /datum/timed_action/flock_lay_egg))
 		return FALSE
 
 	bird.substrate.remove_points(bird.flock.current_egg_cost)

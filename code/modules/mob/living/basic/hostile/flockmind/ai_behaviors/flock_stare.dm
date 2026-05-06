@@ -32,7 +32,7 @@
 
 /datum/ai_behavior/flock/stare_at_bird
 	name = "analyzing"
-	action_cooldown = 1 SECOND
+	action_cooldown = 1 SECONDS
 
 /datum/ai_behavior/flock/stare_at_bird/perform(delta_time, datum/ai_controller/controller, ...)
 	..()

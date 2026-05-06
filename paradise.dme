@@ -2707,8 +2707,6 @@
 #include "code\modules\mob\living\basic\hostile\flockmind\gnesis_reagent.dm"
 #include "code\modules\mob\living\basic\hostile\flockmind\actions\cage_mob.dm"
 #include "code\modules\mob\living\basic\hostile\flockmind\actions\control_drone.dm"
-#include "code\modules\mob\living\basic\hostile\flockmind\actions\control_panel.dm"
-#include "code\modules\mob\living\basic\hostile\flockmind\actions\convert.dm"
 #include "code\modules\mob\living\basic\hostile\flockmind\actions\create_rift.dm"
 #include "code\modules\mob\living\basic\hostile\flockmind\actions\create_structure.dm"
 #include "code\modules\mob\living\basic\hostile\flockmind\actions\deconstruct.dm"

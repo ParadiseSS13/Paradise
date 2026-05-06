@@ -66,7 +66,7 @@
 	set waitfor = FALSE
 
 	while(target == controller.blackboard[BB_FLOCK_RUMMAGE_TARGET] && length(target.contents))
-		if(!do_after(bird, target, 1 SECOND, DO_PUBLIC | DO_RESTRICT_USER_DIR_CHANGE, interaction_key = "flock_rummage", display = target))
+		if(!do_after(bird, 1 SECONDS, target = target, interaction_key = "flock_rummage"))
 			return
 
 		if(target != controller.blackboard[BB_FLOCK_RUMMAGE_TARGET] || !length(target.contents))

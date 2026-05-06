@@ -56,7 +56,7 @@
 	owner.face_atom(T)
 
 	bird.flock?.reserve_turf(bird, T)
-	if(!do_after(owner, T, 4.5 SECONDS, DO_PUBLIC, interaction_key = "flock_convert"))
+	if(!do_after(owner, 4.5 SECONDS, target = T, interaction_key = "flock_convert"))
 		T.vis_contents -= turf_effect
 		bird.flock?.free_turf(bird)
 		return FALSE
