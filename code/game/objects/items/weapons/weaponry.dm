@@ -210,7 +210,7 @@
 				COOLDOWN_START(src, last_deflect, deflect_cooldown)
 			return FALSE
 		else if(prob(5) || homerun_ready)
-			visible_message(SPAN_BOLDWARNING("[owner] Deflects [I] far into the air! It's a homerun!"), SPAN_BOLDWARNING("You deflect [I] far into the air! It's a homerun!"))
+			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] far into the air! It's a homerun!"), SPAN_BOLDWARNING("You deflect [I] far into the air! It's a homerun!"))
 			playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
 			do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			hit_object(owner, I, TRUE)
