@@ -105434,7 +105434,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
+	dir = 9
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/disposal/south)
