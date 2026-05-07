@@ -31,8 +31,8 @@
 	return "[first][second] [third]"
 
 /datum/supply_bounty/proc/GenerateReason()
-	var/faction = pick("Central Command", "The Trans-Solar Federation", "The USSP", "The Royal Domain of Qerballak", "The Hoorlm Coalition", "The Technocracy", "A Diona gestalt", "The Coalition for Progress of IPC Society ", "A Kidan Clan", "A community from Boron", "The Assembly", "The Nionic Trade League")
-	return pick(list("[faction] has made an urgent request for [bounty_target_type]. Payment guaranteed.",
+	var/faction = pick("Central Command", "the Trans-Solar Federation", "the USSP", "the Royal Domain of Qerballak", "the Hoorlm Coalition", "the Technocracy", "a Diona gestalt", "the Coalition for Progress of IPC Society ", "a Kidan Clan", "a community from Boron", "the Assembly", "the Nionic Trade League")
+	return capitalize(pick(list("[faction] has made an urgent request for [bounty_target_type]. Payment guaranteed.",
 		"[faction] has experienced a recent disaster and needs [bounty_target_type] in order to re-establish order.",
 		"[faction] has offered to pay a decent sum of credits if we can supply them with [bounty_target_type].",
 		"An anonymous buyer has placed a bid on [bounty_target_type].",
@@ -44,4 +44,4 @@
 		"A shortage of [bounty_target_type] at [faction] presents the perfect oportunity to sell at a markup."
 		"The Captain of a fellow Nanotrasen Science Station in this sector has asked if your station has spare [bounty_target_type]."
 		"A medical ship has sent out several requests for [bounty_target_type]. A plasma leak in a refueling station requires their servives, and have no time to dock at a supply outpost."
-	))
+	)))
