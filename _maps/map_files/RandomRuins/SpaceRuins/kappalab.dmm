@@ -38,22 +38,14 @@
 /area/ruin/space/kappa_lab/entrance)
 "aU" = (
 /obj/effect/turf_decal/tiles/department/command/side{
-	dir = 9
+	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/power/apc/off_station/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
 "aX" = (
@@ -70,6 +62,25 @@
 /obj/structure/flora/ash/rock/style_2,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"bw" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "bD" = (
 /obj/machinery/door/airlock/mining{
 	dir = 4
@@ -101,29 +112,33 @@
 /area/ruin/space/kappa_lab/bridge)
 "cL" = (
 /obj/effect/turf_decal/tiles/department/command/side{
-	dir = 5
+	dir = 9
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 8
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
 "cN" = (
-/obj/machinery/light{
-	dir = 8
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/turf/simulated/wall/r_wall,
+/area/ruin/space/kappa_lab/hallway)
 "cQ" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
@@ -186,14 +201,12 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/kappa_lab/quarters)
 "dO" = (
-/obj/structure/table/glass,
-/obj/machinery/alarm/directional/north,
-/obj/machinery/recharger,
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/obj/effect/spawner/random/trash/spread_tiles,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
 "dW" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -223,14 +236,18 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/research)
 "ew" = (
-/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
+	dir = 9
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
 "ex" = (
@@ -271,12 +288,20 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/research)
 "fE" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/command/side,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
 "fQ" = (
@@ -316,7 +341,9 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/kappa_lab/diner)
 "gu" = (
-/obj/structure/mineral_door/wood,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "4-8";
 	tag = ""
@@ -327,8 +354,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/quarters)
+/area/ruin/space/kappa_lab/hallway)
 "gy" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
@@ -417,16 +448,18 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
 "hz" = (
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/obj/effect/spawner/random/trash/spread_tiles,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "hA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -435,15 +468,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/kappa_lab/bridge)
 "hB" = (
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
 "hL" = (
@@ -562,6 +595,26 @@
 /obj/effect/map_effect/dynamic_airlock/door/interior,
 /turf/simulated/floor/plating,
 /area/ruin/space/kappa_lab/entrance)
+"jx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "jB" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 4
@@ -602,25 +655,10 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/kappa_lab/quarters)
 "ko" = (
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/structure/cable{
-	icon_state = "2-8";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/research)
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
 "kA" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/kappa_lab/quarters)
@@ -696,14 +734,24 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/diner)
 "lL" = (
-/obj/machinery/computer/nonfunctional{
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/command/side{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
 "lP" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 8
@@ -1026,12 +1074,15 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/kappa_lab/engineering)
 "qz" = (
-/obj/machinery/economy/vending/snack,
+/obj/structure/table/glass,
+/obj/machinery/alarm/directional/north,
+/obj/machinery/recharger,
 /obj/effect/turf_decal/tiles/department/command/side{
-	dir = 10
+	dir = 1
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "qA" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -1086,21 +1137,38 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/eva)
 "rr" = (
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 8
-	},
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "4-8";
+	tag = ""
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/research)
-"rv" = (
-/obj/effect/turf_decal/tiles/department/command/corner{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
+"rv" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/area/ruin/space/kappa_lab/quarters)
 "rx" = (
 /turf/template_noop,
 /area/template_noop)
@@ -1143,25 +1211,10 @@
 /turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "rW" = (
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8;
-	initialize_directions = 11
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "rZ" = (
 /obj/structure/railing{
 	dir = 1
@@ -1169,8 +1222,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/kappa_lab/bridge)
 "sa" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/research)
@@ -1283,14 +1336,25 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/medical)
-"uU" = (
+"uO" = (
 /obj/effect/turf_decal/tiles/department/command/side,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
+"uU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "vk" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -1304,19 +1368,12 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "vp" = (
-/obj/effect/turf_decal/tiles/department/virology/checker,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/diner)
+/area/ruin/space/kappa_lab/hallway)
 "vr" = (
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp,
@@ -1351,13 +1408,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/eva)
-"vD" = (
-/obj/effect/turf_decal/tiles/department/command/side,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+"vB" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
+"vD" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/area/ruin/space/kappa_lab/diner)
 "vM" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/dropper{
@@ -1387,9 +1454,17 @@
 	},
 /area/ruin/space/kappa_lab/diner)
 "vS" = (
-/obj/effect/turf_decal/tiles/department/command/side,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "wh" = (
 /obj/machinery/door/airlock/external/glass{
 	dir = 4
@@ -1510,6 +1585,14 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/medical)
+"xC" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/trash/spread_tiles,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
 "xE" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 9
@@ -1567,17 +1650,16 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/medical)
 "yt" = (
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/structure/table/reinforced,
+/obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/chair/stool/bar{
-	dir = 1
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/diner)
+/area/ruin/space/kappa_lab/research)
 "yL" = (
 /obj/structure/table/glass,
 /obj/machinery/light{
@@ -1596,6 +1678,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
+"yX" = (
+/obj/machinery/light/exterior/outdoors{
+	dir = 4
+	},
+/turf/simulated/mineral,
+/area/ruin/space/unpowered)
 "za" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1631,14 +1719,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/kappa_lab/bridge)
 "zi" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/research)
+/obj/effect/spawner/random/trash/spread_tiles,
+/turf/simulated/floor/wood,
+/area/ruin/space/kappa_lab/quarters)
 "zp" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers{
@@ -1697,23 +1780,37 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
 "Aj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Ao" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
-"Ao" = (
-/obj/effect/turf_decal/tiles/department/virology/side,
-/obj/machinery/light,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/effect/spawner/random/trash/spread_tiles,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/diner)
+/area/ruin/space/kappa_lab/entrance)
+"Ap" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
 "Az" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1731,10 +1828,9 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/kappa_lab/bridge)
 "AU" = (
-/obj/effect/turf_decal/tiles/department/command/side,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "Ba" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -1773,12 +1869,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
 "Bt" = (
-/obj/structure/chair/office/dark{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/effect/spawner/random/space_pirate,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/research)
+/obj/structure/railing/corner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "BJ" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -1816,9 +1913,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/kappa_lab/engineering)
 "CL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/structure/chair/stool/bar,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
 "CM" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable/yellow{
@@ -1850,25 +1949,15 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/kappa_lab/medical)
 "Dj" = (
-/obj/effect/turf_decal/tiles/department/command/corner{
+/obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+/obj/effect/spawner/random/space_pirate,
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/area/ruin/space/kappa_lab/research)
 "Do" = (
 /obj/machinery/light/exterior/outdoors{
 	dir = 4
@@ -1883,28 +1972,23 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/research)
 "DF" = (
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 1
+/obj/structure/railing{
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "DG" = (
-/obj/effect/turf_decal/tiles/department/command/corner{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11
-	},
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
 "DL" = (
@@ -1933,8 +2017,14 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
 "EC" = (
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/structure/disposaloutlet{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 "EH" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
@@ -1943,10 +2033,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
 "EL" = (
-/obj/effect/turf_decal/tiles/department/command/side,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/hallway)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/mineral,
+/area/ruin/space/unpowered)
 "EM" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
@@ -2056,21 +2147,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/eva)
 "FZ" = (
-/obj/effect/turf_decal/tiles/department/virology/side{
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/diner)
+/area/ruin/space/kappa_lab/hallway)
 "Gc" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -2167,6 +2249,18 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
+"HQ" = (
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
 "IC" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -2174,6 +2268,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/kappa_lab/bridge)
 "IF" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -2184,11 +2279,11 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 8
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
 "IL" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -2221,13 +2316,18 @@
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/kappa_lab/engineering)
 "JL" = (
-/obj/machinery/power/apc/off_station/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
+/obj/machinery/light{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/ruin/space/kappa_lab/engineering)
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
 "JN" = (
 /obj/machinery/alarm/directional/south,
 /obj/structure/closet/firecloset/full,
@@ -2274,14 +2374,22 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "Ko" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/economy/vending/snack,
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
+"Kr" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "Ky" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/grass/jungle/no_creep,
@@ -2321,50 +2429,51 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/entrance)
 "Ll" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Bridge"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
 "Ln" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/entrance)
 "Ls" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/entrance)
+/area/ruin/space/kappa_lab/research)
 "Lv" = (
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/diner)
 "LD" = (
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/eva)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "LF" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/kappa_lab/engineering)
@@ -2402,6 +2511,19 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/diner)
+"LP" = (
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
 "LR" = (
 /obj/machinery/atmospherics/unary/tank{
 	dir = 4
@@ -2409,11 +2531,26 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/kappa_lab/engineering)
 "LX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
 "LZ" = (
 /obj/machinery/light{
 	dir = 8
@@ -2449,6 +2586,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/kappa_lab/quarters)
+"Mm" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "Mo" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2478,6 +2620,15 @@
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/kappa_lab/bridge)
+"NJ" = (
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/effect/spawner/random/trash/spread_tiles,
+/turf/simulated/floor/plating,
+/area/ruin/space/kappa_lab/engineering)
 "NK" = (
 /obj/machinery/power/apc/off_station/directional/south,
 /obj/structure/cable,
@@ -2507,11 +2658,15 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/medical)
 "NT" = (
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 6
+/obj/machinery/computer/nonfunctional{
+	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/diner)
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "Ob" = (
 /obj/structure/cable{
 	icon_state = "4-8";
@@ -2529,6 +2684,18 @@
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/research)
+"OG" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
 "OS" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -2646,6 +2813,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"Rg" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/structure/table,
+/obj/effect/spawner/random/food_or_drink/juice_boxes,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
 "Rl" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 8
@@ -2663,15 +2840,15 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/eva)
 "Rv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 4
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
+/obj/effect/spawner/random/trash/spread_tiles,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/research)
+/area/ruin/space/kappa_lab/eva)
 "Rx" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/bodybags{
@@ -2850,10 +3027,24 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/eva)
 "Tp" = (
-/obj/effect/turf_decal/tiles/department/virology/checker,
-/obj/structure/chair/stool/bar,
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/diner)
+/area/ruin/space/kappa_lab/hallway)
 "Tv" = (
 /obj/machinery/suit_storage_unit/expedition,
 /obj/effect/turf_decal/tiles/department/cargo/side{
@@ -2868,12 +3059,48 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/kappa_lab/diner)
+"TV" = (
+/obj/effect/turf_decal/tiles/department/command/side,
+/obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/hallway)
+"Uf" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/research)
 "Un" = (
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/eva)
+"Uw" = (
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
 "UM" = (
 /turf/simulated/floor/wood,
 /area/ruin/space/kappa_lab/quarters)
@@ -2919,6 +3146,19 @@
 /obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
+"VW" = (
+/obj/effect/turf_decal/tiles/department/virology/checker,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/trash/spread_tiles,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
 "VY" = (
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
@@ -2927,6 +3167,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
+"Wd" = (
+/obj/effect/turf_decal/tiles/department/virology/side,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/junction/reversed,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/kappa_lab/diner)
 "Wj" = (
 /obj/effect/turf_decal/tiles/department/command/side,
 /obj/structure/cable{
@@ -2969,14 +3215,24 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
 "WH" = (
-/obj/effect/turf_decal/tiles/department/command/corner{
-	dir = 1
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/junction/reversed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
 "WM" = (
@@ -3034,26 +3290,17 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/trash/spread_tiles,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/hallway)
 "Xy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_kappa_lab";
+	name = "Kappa Lab"
 	},
-/obj/structure/railing/corner,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/kappa_lab/bridge)
+/turf/template_noop,
+/area/template_noop)
 "XB" = (
 /obj/machinery/door/airlock/engineering{
 	dir = 4
@@ -3066,14 +3313,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/engineering)
 "XU" = (
-/obj/effect/turf_decal/tiles/department/virology/checker,
-/obj/structure/table,
-/obj/effect/spawner/random/food_or_drink/juice_boxes,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+/obj/machinery/door/airlock/glass{
+	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/kappa_lab/diner)
+/area/ruin/space/kappa_lab/hallway)
 "XZ" = (
 /obj/machinery/light{
 	dir = 8
@@ -3214,9 +3459,16 @@ rx
 rx
 rx
 rx
-jP
-jP
-jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -3256,9 +3508,16 @@ rx
 jP
 jP
 jP
-jP
-jP
-jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -3300,8 +3559,15 @@ jP
 jP
 jP
 jP
+rx
 jP
-jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -3355,6 +3621,13 @@ rx
 rx
 rx
 rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 "}
 (5,1,1) = {"
 rx
@@ -3384,13 +3657,20 @@ gn
 sd
 oK
 gn
-tc
+EC
 tc
 rL
 jP
 rx
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -3426,7 +3706,7 @@ gD
 gD
 TP
 gn
-tc
+EL
 rL
 tc
 tc
@@ -3435,6 +3715,13 @@ jP
 jP
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -3468,16 +3755,23 @@ vR
 vR
 vR
 gn
-bP
+EL
 tc
-jP
-Do
-jP
-jP
+bP
+yX
 jP
 jP
 jP
 jP
+jP
+jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -3510,7 +3804,7 @@ hS
 Ym
 UN
 UN
-UN
+cN
 UN
 YH
 YH
@@ -3520,6 +3814,13 @@ YH
 YH
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -3552,7 +3853,7 @@ gn
 gn
 UN
 Ba
-qz
+Ko
 UN
 Rn
 wy
@@ -3563,6 +3864,13 @@ YH
 YH
 bk
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 "}
@@ -3594,17 +3902,24 @@ Af
 fR
 UN
 mV
-fE
+OG
 bD
 RP
 wO
 qA
 nf
-LD
+Rv
 jK
 YH
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 "}
@@ -3618,7 +3933,7 @@ tc
 tc
 LF
 LF
-JL
+NJ
 dq
 db
 Sa
@@ -3629,14 +3944,14 @@ AG
 Br
 pL
 Tf
-vp
-Tp
+IF
+CL
+Rg
+VW
+Wd
 XU
-ew
-Ao
-UN
-ea
-vS
+fE
+vp
 UN
 PS
 nu
@@ -3647,6 +3962,13 @@ wT
 YH
 Rf
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 "}
@@ -3671,14 +3993,14 @@ RT
 qp
 nN
 jB
-FZ
+Uw
 Sw
 nq
-yt
-NT
+ew
+vD
 UN
 ea
-vS
+FZ
 UN
 qQ
 Un
@@ -3689,6 +4011,13 @@ Rl
 YH
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+Xy
 rx
 rx
 "}
@@ -3713,14 +4042,14 @@ Bs
 Eu
 AT
 AT
-Ll
+bw
 AT
 AT
 AT
 AT
 AT
 na
-AU
+Ll
 UN
 YH
 iZ
@@ -3731,6 +4060,13 @@ YH
 YH
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 "}
@@ -3754,15 +4090,15 @@ UN
 it
 Gk
 AT
-cN
-IF
-xG
+vS
+jx
+LD
 xG
 hW
 ne
 AT
 HD
-vS
+FZ
 UN
 bb
 bb
@@ -3772,6 +4108,13 @@ bb
 tc
 tc
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -3797,14 +4140,14 @@ xd
 Wj
 AT
 KM
-Aj
-CL
-CL
-LX
+hz
+rW
+rW
+vB
 ze
 AT
 LG
-vD
+Aj
 UN
 bb
 Ki
@@ -3815,6 +4158,13 @@ tc
 jP
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 "}
@@ -3839,14 +4189,14 @@ Qc
 NP
 my
 Sy
-Xy
-Pe
+Bt
+DF
 Pe
 zu
 do
 my
 rC
-vS
+FZ
 UN
 Vc
 Ln
@@ -3858,6 +4208,13 @@ bb
 bb
 Rf
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 "}
 (17,1,1) = {"
@@ -3880,19 +4237,19 @@ UN
 hp
 oj
 my
-Sy
-hA
+Kr
+uU
 DP
 Ky
 rZ
 Nd
 my
 rC
-EL
+TV
 UN
 WW
 PB
-Ls
+Ao
 ow
 Cu
 PX
@@ -3900,6 +4257,13 @@ aP
 Fl
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 "}
 (18,1,1) = {"
@@ -3919,7 +4283,7 @@ pQ
 IL
 EN
 UN
-DF
+xC
 oj
 my
 bZ
@@ -3930,7 +4294,7 @@ rZ
 do
 my
 rC
-AU
+Ll
 UN
 VN
 eH
@@ -3942,6 +4306,13 @@ au
 wh
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 "}
 (19,1,1) = {"
@@ -3969,10 +4340,10 @@ Ch
 VP
 VP
 IC
-do
+Mm
 my
 ia
-uU
+uO
 UN
 PU
 Ln
@@ -3983,6 +4354,13 @@ bb
 bb
 bb
 Rf
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 "}
@@ -4006,15 +4384,15 @@ UN
 gy
 xj
 AT
-dO
+qz
 WR
 Ht
 Ht
-EC
+AU
 Nu
 AT
 ea
-AU
+Ll
 UN
 bb
 xg
@@ -4025,6 +4403,13 @@ rL
 tc
 tc
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 "}
@@ -4050,13 +4435,13 @@ rF
 AT
 yL
 mz
-lL
-lL
+NT
+NT
 UT
 vr
 AT
 cQ
-vS
+FZ
 UN
 bb
 bb
@@ -4068,6 +4453,13 @@ rL
 tc
 tc
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 "}
 (22,1,1) = {"
@@ -4098,7 +4490,7 @@ AT
 AT
 AT
 Gf
-rv
+Ap
 zb
 Di
 ui
@@ -4110,6 +4502,13 @@ rL
 rL
 tc
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 "}
 (23,1,1) = {"
@@ -4128,19 +4527,19 @@ rL
 tc
 tc
 UN
+cL
+HQ
+Tp
+DG
+DG
+DG
+aU
 aU
 WH
 DG
+DG
+LX
 hB
-hB
-hB
-hz
-hz
-rW
-hB
-hB
-Dj
-Ko
 Mo
 MO
 JR
@@ -4152,6 +4551,13 @@ Di
 Di
 Di
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 "}
 (24,1,1) = {"
@@ -4170,15 +4576,15 @@ tc
 tc
 jP
 UN
-cL
+lL
 RG
 qC
 WP
-Zb
+Xu
 RG
 WP
 RG
-Xu
+gu
 Zb
 WP
 kG
@@ -4194,6 +4600,13 @@ qG
 mU
 Di
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 "}
 (25,1,1) = {"
@@ -4220,7 +4633,7 @@ eM
 VS
 kA
 kA
-gu
+rv
 kA
 kA
 EM
@@ -4236,6 +4649,13 @@ qG
 xB
 Di
 Rf
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 "}
 (26,1,1) = {"
@@ -4254,16 +4674,16 @@ ma
 gl
 WM
 LZ
-ko
-rr
+Ls
+LP
 wL
 QX
 ma
 kA
 kA
-UM
-hg
-UM
+ko
+rr
+zi
 kA
 kA
 UN
@@ -4279,6 +4699,13 @@ jT
 Di
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 "}
 (27,1,1) = {"
 rx
@@ -4297,7 +4724,7 @@ Yj
 Rz
 sS
 hL
-sa
+Uf
 GG
 Of
 ma
@@ -4321,6 +4748,13 @@ Di
 Di
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 "}
 (28,1,1) = {"
 rx
@@ -4339,7 +4773,7 @@ ma
 yb
 FP
 DD
-Bt
+Dj
 FP
 oA
 ma
@@ -4363,6 +4797,13 @@ jP
 jP
 jP
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 "}
 (29,1,1) = {"
 rx
@@ -4381,7 +4822,7 @@ ma
 CY
 GG
 lk
-GG
+dO
 GG
 fv
 ma
@@ -4405,6 +4846,13 @@ jP
 jP
 jP
 rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 "}
 (30,1,1) = {"
 rx
@@ -4423,7 +4871,7 @@ ma
 pP
 sC
 za
-GG
+sa
 Jz
 YI
 ma
@@ -4447,6 +4895,13 @@ jP
 rx
 rx
 rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 "}
 (31,1,1) = {"
 rx
@@ -4463,16 +4918,16 @@ jP
 jP
 ma
 eq
-Rv
+yt
 xb
-zi
+JL
 Xg
 zp
 ma
 kA
 gE
 UM
-UM
+zi
 UM
 rA
 kA
@@ -4485,6 +4940,13 @@ rx
 rx
 rx
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -4520,6 +4982,13 @@ kA
 kA
 tc
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
@@ -4573,6 +5042,13 @@ rx
 rx
 rx
 rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 "}
 (34,1,1) = {"
 rx
@@ -4615,6 +5091,13 @@ rx
 rx
 rx
 rx
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 "}
 (35,1,1) = {"
 rx
@@ -4645,6 +5128,13 @@ jP
 jP
 rx
 jP
+rx
+rx
+rx
+rx
+rx
+rx
+rx
 rx
 rx
 rx
