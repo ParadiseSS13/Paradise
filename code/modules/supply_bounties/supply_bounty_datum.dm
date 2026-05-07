@@ -36,5 +36,12 @@
 		"[faction] has experienced a recent disaster and needs [bounty_target_type] in order to re-establish order.",
 		"[faction] has offered to pay a decent sum of credits if we can supply them with [bounty_target_type].",
 		"An anonymous buyer has placed a bid on [bounty_target_type].",
-		"[faction] is offering a reward for [bounty_target_type]."
+		"[faction] is offering a reward for [bounty_target_type].",
+		"A research team of [faction] has problems confirming our latest discovery, and require the same model of [bounty_target_type] we used.",
+		">*AUTOMATED WAREHOUSE REQUEST* - ITEM(S):[bounty_target_type] - SEND TO:[faction] - REASON: Confidential - PAYMENT: Approved",
+		"A clown troupe is performing its final act at an outpost of [faction]. They insist a mime agent has stolen their [bounty_target_type], the central piece of the show.",
+		"A shipping carrier heading to [faction] is short on [bounty_target_type]. They have offered ample payment to \"fix\" their cargo manifest.",
+		"A shortage of [bounty_target_type] at [faction] presents the perfect oportunity to sell at a markup."
+		"The Captain of a fellow Nanotrasen Science Station in this sector has asked if your station has spare [bounty_target_type]."
+		"A medical ship has sent out several requests for [bounty_target_type]. A plasma leak in a refueling station requires their servives, and have no time to dock at a supply outpost."
 	))
