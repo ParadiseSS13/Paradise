@@ -34,7 +34,7 @@
 	)
 
 /mob/living/basic/flock/bit/proc/i_just_split(turf/avoid)
-	ai_controller.PauseAi(0.3 SECONDS)
+	ai_controller.pause_ai(0.3 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(step_away_from), avoid), 0.2 SECONDS)
 
 /mob/living/basic/flock/bit/proc/step_away_from(turf/avoid)

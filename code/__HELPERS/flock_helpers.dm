@@ -16,12 +16,12 @@
 
 	return TRUE
 
-/proc/flock_pointer(atom/from, atom/towards)
+/proc/pointer_image_to(atom/from, atom/towards, color = "#00ff9dff")
 	var/image/pointer = image(icon = 'icons/hud/screen1.dmi', icon_state = "arrow_greyscale", loc = from)
 
 	pointer.plane = HUD_PLANE
 	pointer.appearance_flags |= RESET_COLOR
-	pointer.color = "#00ff9dff"
+	pointer.color = color
 
 	var/angle = 180 + get_angle(from, towards)
 	var/matrix/final_matrix = pointer.transform.Scale(2,2)

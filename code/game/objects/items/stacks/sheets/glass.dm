@@ -319,8 +319,8 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 /obj/item/stack/sheet/gnesis_glass
 	name = "transculent wafers"
 	singular_name = "transculent wafer"
-	desc = "A shimmering, translucent block of weird alien computer crystal stuff."
-	mats_per_unit = list(MAT_GNESIS_GLASS = MINERAL_MATERIAL_AMOUNT)
+	desc = "A rare, complex crystalline matrix with a lazily shifting internal structure. The layers are arranged to let light through."
+	materials = list(MAT_GNESIS_GLASS = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/gnesis_glass
 	armor = list(MELEE = 20, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 50, FIRE = 100, ACID = 20)
 	resistance_flags = FIRE_PROOF

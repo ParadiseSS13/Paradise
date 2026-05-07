@@ -452,12 +452,10 @@
 
 /datum/material/gnesis
 	name = "gnesis"
-	desc = "A rare, complex crystalline matrix with a lazily shifting internal structure. Not to be confused with gneiss, a metamorphic rock."
 	sheet_type = /obj/item/stack/sheet/gnesis
 
 /datum/material/gnesis_glass
 	name = "translucent gnesis"
-	desc = "A rare, complex crystalline matrix with a lazily shifting internal structure. The layers are arranged to let light through."
 	sheet_type = /obj/item/stack/sheet/gnesis_glass
 
 /datum/material/bananium

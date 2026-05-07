@@ -367,7 +367,7 @@
 	src.is_bot = isbot(construct_from)
 	if(isflockdrone(construct_from))
 		var/mob/living/basic/flock/drone/bird = construct_from
-		if(HAS_TRAIT(bird, TRAIT_FLOCKPHASE) || bird.resources.has_points(10))
+		if(HAS_TRAIT(bird, TRAIT_FLOCKPHASE) || bird.substrate.has_points(10))
 			able_to_flockphase = TRUE
 
 	if(construct_from.pulling)

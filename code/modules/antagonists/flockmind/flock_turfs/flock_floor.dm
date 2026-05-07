@@ -61,5 +61,8 @@
 		return
 
 	is_on = should_be_on
-	set_light_on(is_on)
+	if(is_on)
+		light_range = 4
+	else
+		light_range = 0
 	update_appearance(UPDATE_ICON_STATE)

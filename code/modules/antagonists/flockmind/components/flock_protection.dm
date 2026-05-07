@@ -27,7 +27,7 @@
 /// Protect against punches/kicks/etc.
 /datum/component/flock_protection/proc/handle_attackhand(atom/source, mob/living/user, modifiers)
 	SIGNAL_HANDLER
-	if(user.combat_mode == TRUE && report_unarmed && trigger(source, user, TRUE))
+	if(user.a_intent == INTENT_HARM && report_unarmed && trigger(source, user, TRUE))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /// Protect against being hit by something.

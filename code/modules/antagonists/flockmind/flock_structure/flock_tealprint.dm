@@ -17,8 +17,6 @@
 	if(!T.can_flock_occupy(src))
 		return INITIALIZE_HINT_QDEL
 
-	SET_TRACKING(type)
-
 	building_type = desired_type
 	icon = initial(building_type.icon)
 	icon_state = initial(building_type.icon_state)
@@ -29,7 +27,6 @@
 	substrate.owner = src
 
 /obj/structure/flock/tealprint/Destroy()
-	UNSET_TRACKING(type)
 	QDEL_NULL(substrate)
 	return ..()
 

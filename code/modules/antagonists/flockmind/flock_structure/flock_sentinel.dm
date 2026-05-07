@@ -84,7 +84,7 @@
 		if(HAS_TRAIT(L, TRAIT_SHOCKED_BY_SENTINEL) || !flock.is_mob_enemy(L))
 			continue
 
-		if(L.stat != CONSCIOUS || L.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+		if(L.stat != CONSCIOUS || L.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE))
 			continue
 
 		target = L
@@ -98,15 +98,13 @@
 	charge.adjust_points(-100)
 	update_info_tag()
 
-	tesla_zap_target(src, target, TESLA_MOB_DAMAGE_TO_POWER(damage_per_zap))
-	addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_SHOCKED_BY_SENTINEL, ref(src)), 2 SECONDS)
+	target.electrocute_act(30, src, 0)
+	addtimer(CALLBACK(src, PROC_REF(clear_trait), target), 2 SECONDS)
 
 	target.visible_message(
 		SPAN_DANGER("<b>[target]</b> is struck by a bolt of energy arcing off of <b>[src]</b>."),
 		blind_message = SPAN_HEAR("You hear a loud electrical crackle."),
 	)
-
-	log_combat(src, target, "fires at", addition = "owned by [flock.name]")
 
 	var/list/hit_mobs = list(target)
 	var/mob/previous_hit = target
@@ -119,20 +117,20 @@
 			if((M in hit_mobs) || !flock.is_mob_enemy(M))
 				continue
 
-			if(M.stat == DEAD || M.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+			if(M.stat == DEAD || M.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE))
 				continue
 
 			end_of_chain = FALSE
 
 			hit_mobs += M
-			tesla_zap_target(previous_hit, M, TESLA_MOB_DAMAGE_TO_POWER(damage_per_zap * 0.66))
+			M.electrocute_act(20, src, 0)
 			target.visible_message(
 				SPAN_DANGER("<b>[M]</b> is struck by a bolt of energy arcing off of <b>[previous_hit]</b>."),
 				blind_message = SPAN_HEAR("You hear a loud electrical crackle."),
 			)
 
 			previous_hit = M
-			log_combat(src, target, "damages with an arc chain", addition = "owned by [flock.name]")
+			log_attack(src, target, "damages with an arc chain owned by [flock.name]")
 			break
 
 		if(end_of_chain)
@@ -164,6 +162,9 @@
 
 /obj/structure/flock/sentinel/update_info_tag()
 	info_tag.set_text("Charge: [charge.has_points()]%")
+
+/obj/structure/flock/sentinel/proc/clear_trait(mob/living/target)
+	REMOVE_TRAIT(target, TRAIT_SHOCKED_BY_SENTINEL, ref(src))
 
 #undef NOT_CHARGED
 #undef LOSING_CHARGE

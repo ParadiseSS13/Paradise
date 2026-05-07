@@ -2,7 +2,7 @@
 	name = "repairing"
 	goap_weight = FLOCK_BEHAVIOR_WEIGHT_REPAIR
 
-/datum/ai_behavior/flock/find_heal_target/setup(datum/ai_controller/controller, mob/living/simple_animal/flock/overmind_target)
+/datum/ai_behavior/flock/find_heal_target/setup(datum/ai_controller/controller, mob/living/basic/flock/overmind_target)
 	. = ..()
 	if(overmind_target)
 		var/mob/living/basic/flock/drone/bird = controller.pawn
@@ -36,7 +36,7 @@
 	if((other_bird.getBruteLoss() + other_bird.getFireLoss()) / other_bird.maxHealth >= 0.4)
 		return TRUE
 
-/datum/ai_behavior/flock/find_heal_target/perform(delta_time, datum/ai_controller/controller, mob/living/simple_animal/flock/overmind_target)
+/datum/ai_behavior/flock/find_heal_target/perform(delta_time, datum/ai_controller/controller, mob/living/basic/flock/overmind_target)
 	..()
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
 	if(!target)

@@ -1,13 +1,8 @@
-TYPEINFO_DEF(/obj/structure/window/flock)
-	default_materials = list(
-		/datum/material/gnesis_glass = 4000
-	)
-
 /obj/structure/window/flock
 	icon = 'icons/goonstation/mob/featherzone.dmi'
 	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
-	heat_resistance = /obj/structure/window/plasma::heat_resistance
-	melting_point = /obj/structure/window/plasma::melting_point
+	heat_resistance = 32000
+	glass_type = /obj/item/stack/sheet/gnesis_glass
 
 /obj/structure/window/flock/Initialize(mapload, direct)
 	. = ..()

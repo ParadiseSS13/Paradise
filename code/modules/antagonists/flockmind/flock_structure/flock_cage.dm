@@ -70,7 +70,7 @@
 			chew_on_mob(delta_time)
 
 	else
-		eating.take_damage(absorption_rate * delta_time * 25, BRUTE, armor_penetration = 100)
+		eating.take_damage(absorption_rate * delta_time * 25, BRUTE, armor_penetration_percentage = 100)
 		reagents.add_reagent(/datum/reagent/toxin/gnesis, absorption_rate * delta_time)
 		if(eating.is_destroyed())
 			QDEL_NULL(eating)
@@ -88,7 +88,7 @@
 
 	COOLDOWN_START(src, resist_cd, 3 SECONDS)
 
-	audible_message("[src] [pick("cracks","bends","shakes","groans")].", hearing_distance = COMBAT_MESSAGE_RANGE)
+	audible_message("[src] [pick("cracks","bends","shakes","groans")].")
 	take_damage(6, BRUTE)
 
 	playsound(
@@ -108,7 +108,7 @@
 	if(!COOLDOWN_FINISHED(src, relaymove_cd))
 		return
 
-	COOLDOWN_START(src, relaymove_cd, 1 SECOND)
+	COOLDOWN_START(src, relaymove_cd, 1 SECONDS)
 
 	if(!prob(80))
 		return

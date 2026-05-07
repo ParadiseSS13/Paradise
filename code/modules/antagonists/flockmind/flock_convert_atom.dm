@@ -28,7 +28,7 @@
 	return
 
 /obj/machinery/camera/try_flock_convert(datum/flock/flock, force)
-	atom_break()
+	deconstruct()
 
 /obj/structure/window/try_flock_convert(datum/flock/flock, force)
 	var/turf/T = loc

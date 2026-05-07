@@ -27,20 +27,20 @@
 		qdel(cube)
 		to_chat(drone, SPAN_NOTICE("We decompile the resource cache, adding <b>[added]</b> substrate to our reserves."))
 	else
-		added = eating.take_damage(absorption_rate * delta_time, BRUTE, ACID, sound_effect = FALSE, armor_penetration = 100)
+		added = eating.take_damage(absorption_rate * delta_time, BRUTE, ACID, sound_effect = FALSE, armor_penetration_percentage = 100)
 		drone.substrate.add_points(added * integrity_substrate_ratio)
 
 	if(!held_item) // if take_damage qdeletes it, it becomes null due to signal stuff.
 		to_chat(drone, SPAN_NOTICE("We finish converting [eating] into substrate."))
 		return
 
-	playsound(drone, SFX_SPARKS, 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
+	playsound(drone, "sparks", 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
 /datum/flockdrone_part/absorber/proc/try_pickup_item(obj/item/I)
 	if(held_item)
 		return FALSE
 
-	if(I.item_flags & ABSTRACT)
+	if(I.flags & ABSTRACT)
 		return FALSE
 
 	drone.face_atom(I)

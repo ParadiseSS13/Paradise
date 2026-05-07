@@ -96,7 +96,7 @@
 	if(istype(our_turf, /turf/simulated/floor/flock))
 		considered_flockturfs += our_turf
 
-	for(var/direction in GLOB.cardinals)
+	for(var/direction in GLOB.cardinal)
 		var/turf/simulated/floor/flock/iter_turf = our_turf
 		var/keep_flockturfs = isflockturf(our_turf)
 		for(var/i in 1 to max_range)

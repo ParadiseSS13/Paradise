@@ -9,8 +9,6 @@
 	icon_state = "compute"
 	bandwidth_provided = 30
 
-	light_system = OVERLAY_LIGHT
-
 /obj/structure/flock/compute/Initialize(mapload, datum/flock/join_flock)
 	. = ..()
 	light_range = 1

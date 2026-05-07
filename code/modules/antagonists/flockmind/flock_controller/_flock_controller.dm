@@ -134,7 +134,7 @@
 	UnregisterSignal(T, COMSIG_TURF_CHANGE)
 
 /// Reserves a turf, making AI ignore it for the purposes of targetting.
-/datum/flock/proc/reserve_turf(mob/living/simple_animal/flock/user, turf/target, remove_on_change = TRUE)
+/datum/flock/proc/reserve_turf(mob/living/basic/flock/user, turf/target, remove_on_change = TRUE)
 	if(turf_reservations_by_flock[user])
 		return FALSE
 	if(turf_reservations[target])
@@ -148,7 +148,7 @@
 	return TRUE
 
 /// Free a turf from reservation, allowing AI to target it again. override_turf can be given to lookup the user if there isnt a user in this context.
-/datum/flock/proc/free_turf(mob/living/simple_animal/flock/user, turf/override_turf)
+/datum/flock/proc/free_turf(mob/living/basic/flock/user, turf/override_turf)
 	var/turf/to_free
 	if(user)
 		to_free = turf_reservations_by_flock[user]
@@ -400,7 +400,7 @@
 	target.remove_alt_appearance(notice_type)
 
 /// Returns a list of turfs marked for conversion, minus turfs that drones have already reserved.
-/datum/flock/proc/get_priority_turfs(mob/living/simple_animal/flock/bird)
+/datum/flock/proc/get_priority_turfs(mob/living/basic/flock/bird)
 	if(!length(marked_for_conversion))
 		return null
 
@@ -409,7 +409,7 @@
 /// Pings a location, alerting all flocktraces.
 /datum/flock/proc/ping(turf/T, mob/camera/flock/pinger)
 	var/message = "System interrupt. Designating new target: [T] in [get_area(T)]."
-	flock_talk(pinger, message, src, TRUE, list("italics"))
+	flock_talk(pinger, message, src, TRUE)
 	T.AddComponent(/datum/component/flock_ping, 5 SECONDS)
 
 	for(var/mob/camera/flock/ghost_bird in (traces + overmind))

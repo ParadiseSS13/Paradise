@@ -1,19 +1,19 @@
-TYPEINFO_DEF(/obj/structure/flock)
-	default_armor = list(BLUNT = -20, PUNCTURE = -20, SLASH = -20, LASER = 80, ENERGY = 80, BOMB = 0, BIO = 100, FIRE = 80, ACID = 100)
-
 /obj/structure/flock
-
 	name = "CALL A CODER AAAAAAAAAA"
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/goonstation/mob/featherzone.dmi'
 	anchored = TRUE
 	density = TRUE
 
 	max_integrity = 50
 
+	armor = list(BRUTE = -20, BULLET = -20, LASER = 80, ENERGY = 80, BOMB = 0, RAD = 100, FIRE = 80, ACID = 100)
+
 	var/datum/flock/flock
 
 	/// Info tag for the flock name of the structure.
 	var/obj/effect/abstract/info_tag/flock/name_tag
+
 	/// Info tag for the actual information of the structure.
 	var/obj/effect/abstract/info_tag/flock/info/info_tag
 
@@ -111,7 +111,7 @@ TYPEINFO_DEF(/obj/structure/flock)
 	for(var/i in 1 to 3)
 		animate(src, pixel_x = rand(-2, 2), pixel_y = rand(-2, 2), time = 0.5, flags = ANIMATION_RELATIVE | ANIMATION_CONTINUE)
 
-	animate(src, pixel_x = base_pixel_x, pixel_y = base_pixel_y, time = 0.5, flags = ANIMATION_CONTINUE)
+	animate(src, pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 0.5, flags = ANIMATION_CONTINUE)
 
 /obj/structure/flock/proc/get_flock_data()
 	. = list()
@@ -131,7 +131,7 @@ TYPEINFO_DEF(/obj/structure/flock)
 
 	return ..()
 
-/obj/structure/flock/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/flock/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(allow_flockpass)
 		return isflockdrone(mover)
@@ -144,7 +144,7 @@ TYPEINFO_DEF(/obj/structure/flock)
 	if(.)
 		return
 
-	if(user.combat_mode)
+	if(user.a_intent == INTENT_HARM)
 		user.visible_message(SPAN_DANGER("<b>[user]</b> punches <b>[src]."))
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		//playsound(src, 'sound/impact_sounds/Crystal_Hit_1.ogg', 50, TRUE, -1)
@@ -171,11 +171,9 @@ TYPEINFO_DEF(/obj/structure/flock)
 	if(!flock)
 		return
 
-	var/datum/atom_hud/alternate_appearance/basic/flock/notice = get_alt_appearance(FLOCK_NOTICE_HEALTH)
 	if(!notice)
 		notice = flock.add_notice(src, FLOCK_NOTICE_HEALTH)
 
-	var/image/I = notice.image
 	I.icon_state = "hp-[get_integrity_percentage()]"
 
 /obj/structure/flock/process(delta_time)

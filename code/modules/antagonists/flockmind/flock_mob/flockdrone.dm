@@ -38,12 +38,12 @@
 	name = flock_name(FLOCK_TYPE_DRONE)
 
 	if(stat == CONSCIOUS)
-		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), pick(GLOB.flockdrone_created_phrases), null, null, null, null, null, "flock spawn")
+		INVOKE_ASYNC(src, PROC_REF(say), pick(GLOB.flockdrone_created_phrases))
 
 /mob/living/basic/flock/drone/Destroy()
 	release_control()
 	QDEL_NULL(substrate)
-	QDEL_LIST(parts)
+	QDEL_LIST_CONTENTS(parts)
 	active_part = null // whatever was here was qdeleted by qdel_list(parts)
 	return ..()
 
@@ -437,7 +437,7 @@
 	if(mind)
 		mind.transfer_to(master_bird)
 
-	flock_talk(null, "Control of [real_name] surrendered.", flock)
+	flock_talk(null, "Control of [real_name] surrendered.", flock, involuntary = TRUE)
 	if(!dest_was_safe)
 		to_chat(master_bird, SPAN_WARNING("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
 
@@ -445,7 +445,7 @@
 		dormantize()
 
 /mob/living/basic/flock/drone/proc/split_into_bits()
-	ai_controller.PauseAi(3 SECONDS)
+	ai_controller.pause_ai(3 SECONDS)
 	say("\[System notification: drone diffracting.\]")
 	emote("scream")
 	flock?.free_unit(src)

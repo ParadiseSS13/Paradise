@@ -607,6 +607,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 
 /obj/item/stack/sheet/gnesis
 	name = "wafers"
+	desc = "A rare, complex crystalline matrix with a lazily shifting internal structure. Not to be confused with gneiss, a metamorphic rock."
 	singular_name = "wafer"
 	icon_state = ""
 	materials = list(MAT_GNESIS = MINERAL_MATERIAL_AMOUNT)

@@ -42,7 +42,7 @@
 
 	to_chat(
 		flock.overmind,
-		SPAN_FLOCKSAY(SPAN_BIG("You pool the collective processing power of The Flock to transmit The Signal. If the relay is destroyed, so to will be The Flock!"))
+		SPAN_FLOCKSAY(SPAN_BIG("You pool the collective processing power of The Flock to transmit The Signal. If the relay is destroyed, so too will be The Flock!"))
 	)
 
 	flock_talk(null, "THE RELAY HAS BEEN CONSTRUCTED! DEFEND IT AT ALL COSTS, BRING FORTH THE FULL BREADTH OF THE DIVINE FLOCK!", flock)
@@ -128,26 +128,20 @@
 	for(var/i in 1 to min(5, length(turfs_to_convert)))
 		var/turf/conversion_target = turfs_to_convert[length(turfs_to_convert)]
 		turfs_to_convert.len--
-		if(!isflockturf(conversion_target) && !isspaceturf(conversion_target) && !isopenspaceturf(conversion_target))
+		if(!isflockturf(conversion_target) && !isspaceturf(conversion_target) && !isspaceturf(conversion_target))
 			flock.claim_turf(conversion_target)
 
 /obj/structure/flock/relay/proc/alert_organics()
-	var/list/z_levels = SSmapping.get_zstack(z)
 	for(var/mob/M as anything in GLOB.player_list)
-		var/turf/mob_turf = get_turf(M)
-		if(mob_turf && (mob_turf.z in z_levels) && M.can_hear())
+		if(is_station_level(get_turf(M).z) && M.can_hear())
 			M.playsound_local(M, 'goon/sounds/flockmind/Flock_Reactor.ogg', 30, FALSE)
 			to_chat(M, SPAN_FLOCKSAY("<b>A horrible, otherworldly wave eminates from the <i>[dir2text(get_dir(mob_turf, loc))]</i>."))
 
 /obj/structure/flock/relay/proc/announce_relay()
 	var/message = stars("The Signal is coming.", 10)
-	priority_announce(
-		message,
-		null,
-		null,
-		ANNOUNCER_SPANOMALIES,
-		FALSE,
-		TRUE,
+	GLOB.major_announcement.Announce(message,
+		"Hijacked Signal",
+		'sound/misc/announce.ogg'
 	)
 
 /// GG

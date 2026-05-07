@@ -113,7 +113,7 @@
 				return TRUE
 
 			if(tgui_alert(user, "This will destroy the Flocktrace. Are you sure you want to do this?", "Confirmation", list("Yes", "No")) == "Yes")
-				flock_talk(null, "Partition [flocktrace.real_name] has been reintegrated into flock background processes.", src)
+				flock_talk(null, "Partition [flocktrace.real_name] has been reintegrated into flock background processes.", src, involuntary = TRUE)
 				to_chat(flocktrace, SPAN_FLOCKSAY("Your higher cognition has been forcibly reintegrated into the collective will of the flock."))
 				flocktrace.so_very_sad_death()
 			return TRUE

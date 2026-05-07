@@ -344,7 +344,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 		qdel(src)
 
 /datum/ai_controller/proc/setup_able_to_run()
-	// paused_until is handled by PauseAi() manually
+	// paused_until is handled by pause_ai() manually
 	RegisterSignals(pawn, list(SIGNAL_ADDTRAIT(TRAIT_AI_PAUSED), SIGNAL_REMOVETRAIT(TRAIT_AI_PAUSED)), PROC_REF(update_able_to_run))
 
 /datum/ai_controller/proc/clear_able_to_run()

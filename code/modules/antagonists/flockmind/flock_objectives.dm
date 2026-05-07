@@ -1,7 +1,6 @@
 /datum/objective/flock_relay
 	name = "Broadcast"
-	objective_name = "Directive"
-	explanation_text = "Broadcast the Signal"
+	explanation_text = "Broadcast the Signal."
 
 /datum/objective/flock_relay/check_completion()
 	var/mob/camera/flock/ghostbird = owner.current

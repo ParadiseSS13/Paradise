@@ -62,7 +62,7 @@
 	. = ..()
 	controller.clear_blackboard_key(BB_FLOCK_RUMMAGE_TARGET)
 
-/datum/ai_behavior/flock/perform_rummage/proc/rummage_till_empty(datum/ai_controller/controller, mob/living/simple_animal/flock/bird, obj/item/target)
+/datum/ai_behavior/flock/perform_rummage/proc/rummage_till_empty(datum/ai_controller/controller, mob/living/basic/flock/bird, obj/item/target)
 	set waitfor = FALSE
 
 	while(target == controller.blackboard[BB_FLOCK_RUMMAGE_TARGET] && length(target.contents))

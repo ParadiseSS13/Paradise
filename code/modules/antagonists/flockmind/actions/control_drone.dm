@@ -47,7 +47,7 @@
 	. = ..()
 	free_drone()
 
-/datum/action/cooldown/flock/control_drone/proc/bind_drone(mob/living/simple_animal/flock/drone/bird)
+/datum/action/cooldown/flock/control_drone/proc/bind_drone(mob/living/basic/flock/drone/bird)
 	selected_bird = bird
 	RegisterSignal(bird, COMSIG_PARENT_QDELETING, PROC_REF(drone_gone))
 	ADD_TRAIT(bird, TRAIT_AI_DISABLE_PLANNING, FLOCK_CONTROLLED_BY_OVERMIND_SOURCE)

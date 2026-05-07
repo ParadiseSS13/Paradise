@@ -93,7 +93,7 @@
 		return FALSE
 
 	playsound(src, 'goon/sounds/flockmind/flockdrone_fart.ogg', 50, TRUE) // It honestly kind of fits??
-	Beam(get_turf(P), "rped_upgrade", time = 0.8 SECONDS, override_origin_pixel_y = 24, override_target_pixel_x = P.pixel_x, override_target_pixel_y = P.pixel_y)
+	Beam(get_turf(P), icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	qdel(P)
 
 	begin_charging()

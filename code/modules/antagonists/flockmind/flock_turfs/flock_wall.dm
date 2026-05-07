@@ -20,24 +20,7 @@
 	qdel(GetComponent(/datum/component/flock_protection))
 	return ..()
 
-/turf/simulated/wall/flock/atom_break(damage_flag)
-	. = ..()
-	ScrapeAway()
-
-/turf/simulated/wall/flock/attacked_by(obj/item/attacking_item, mob/living/user)
-	. = ..()
-	if(!.)
-		return
-	//playsound here?
-
-/turf/simulated/wall/flock/CanAStarPass(to_dir, datum/can_pass_info/pass_info, leaving)
-	. = ..()
-	if(.)
-		return
-
-	return pass_info.able_to_flockphase
-
-/turf/simulated/wall/flock/CanAllowThrough(atom/movable/mover, border_dir)
+/turf/simulated/wall/flock/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return

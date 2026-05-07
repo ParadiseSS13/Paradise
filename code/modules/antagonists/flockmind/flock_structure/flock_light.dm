@@ -1,10 +1,10 @@
 /obj/machinery/light/floor/has_bulb/flock
 	light_color = "#72bfac"
-	use_power = NO_POWER_USE
+	power_channel = PW_ALWAYS_POWERED
 
 	base_state = "flock_floor"
-	start_with_cell = FALSE
-	removable_bulb = FALSE
+	nightshift_allowed = FALSE
+	no_emergency = TRUE
 
 /obj/machinery/light/floor/has_bulb/flock/try_flock_convert(datum/flock/flock, force)
 	return
@@ -16,11 +16,11 @@
 	icon = 'icons/goonstation/obj/lighting.dmi'
 
 	light_color = "#72bfac"
-	use_power = NO_POWER_USE
+	power_channel = PW_ALWAYS_POWERED
 
 	base_state = "flock"
-	start_with_cell = FALSE
-	removable_bulb = FALSE
+	nightshift_allowed = FALSE
+	no_emergency = TRUE
 
 /obj/machinery/light/flock/try_flock_convert(datum/flock/flock, force)
 	return

@@ -64,8 +64,6 @@
 	var/obj/projectile/boolet = new projectile_type
 	boolet.preparePixelProjectile(current_target, loc, deviation = rand(-5, 5))
 	boolet.firer = src
-	boolet.fired_from = src
-	boolet.ignored_factions = list(FACTION_FLOCK)
 	boolet.fire()
 
 	bullets--
@@ -99,7 +97,7 @@
 	if(!flock.is_mob_enemy(L))
 		return FALSE
 
-	if(L.incapacitated(IGNORE_GRAB | IGNORE_RESTRAINTS))
+	if(L.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE))
 		return FALSE
 
 	if(!can_see(src, L, range))

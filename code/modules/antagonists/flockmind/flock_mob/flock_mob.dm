@@ -37,6 +37,7 @@
 
 	/// Flock ID nametag
 	var/tmp/obj/effect/abstract/info_tag/flock/name_tag
+
 	/// Tag for the mob's current AI task.
 	var/tmp/obj/effect/abstract/info_tag/flock/info/task_tag
 
@@ -192,5 +193,12 @@
 			..()
 			flock?.bandwidth.adjust_points(bandwidth_provided)
 			return TRUE
+
+/mob/living/basic/flock/CanPass(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/projectile/bullet/dart/piercing/gnesis))
+		return TRUE
+	if(istype(mover, /obj/projectile/energy/flock_bolt))
+		return TRUE
 
 	return ..()

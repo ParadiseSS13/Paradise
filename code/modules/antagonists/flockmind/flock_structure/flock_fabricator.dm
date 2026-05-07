@@ -62,22 +62,10 @@
 //
 // All of the try_flock_convert shit
 //
-/obj/machinery/vending/try_flock_convert(datum/flock/flock, force)
+/obj/machinery/economy/vending/try_flock_convert(datum/flock/flock, force)
 	var/substrate
-	for(var/datum/data/vending_product/product as anything in product_records)
+	for(var/datum/data/vending_product/product as anything in products)
 		substrate += 3 * product.amount
-
-	if(!substrate)
-		qdel(src)
-		return
-
-	var/obj/structure/flock/fabricator/fab = new(get_turf(src), flock)
-	fab.substrate_remaining.add_points(substrate)
-	fab.update_info_tag()
-	qdel(src)
-
-/obj/machinery/chem_dispenser/try_flock_convert(datum/flock/flock, force)
-	var/substrate = 3 * length(cartridges)
 
 	if(!substrate)
 		qdel(src)
@@ -90,20 +78,6 @@
 
 /obj/structure/reagent_dispensers/try_flock_convert(datum/flock/flock, force)
 	var/substrate = reagents.total_volume / 10 // 100 substrate for a full tank of 1000u
-
-	if(!substrate)
-		qdel(src)
-		return
-
-	var/obj/structure/flock/fabricator/fab = new(get_turf(src), flock)
-	fab.substrate_remaining.add_points(substrate)
-	fab.update_info_tag()
-	qdel(src)
-
-/obj/structure/reagent_dispensers/try_flock_convert(datum/flock/flock, force)
-	var/substrate
-	for(var/obj/item/tank/tank in src)
-		substrate += 3
 
 	if(!substrate)
 		qdel(src)

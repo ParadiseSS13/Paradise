@@ -3,8 +3,8 @@
 	name = "weird imposing wall"
 	desc = "It sounds like it's hollow."
 
-	autoclose_delay = 5 SECONDS
-	dont_close_on_dense_objects = FALSE
+	auto_close_time = 5 SECONDS
+	safe = FALSE
 
 /obj/machinery/door/flock/Initialize(mapload)
 	. = ..()
@@ -41,6 +41,6 @@
 		SPAN_FLOCKSAY("<b>###=-</b>"),
 	)
 
-	if(machine_stat & BROKEN)
+	if(stat & BROKEN)
 		. += SPAN_FLOCKSAY("<b>FUNCTION CRITICALLY IMPAIRED, REPAIRS REQUIRED</>")
 		. += SPAN_FLOCKSAY("<b>###=-</b>")

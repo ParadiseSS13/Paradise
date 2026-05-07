@@ -43,7 +43,7 @@
 
 	else if(isflockturf(target))
 		var/turf/turf = target
-		turf.ChangeTurf(/turf/simulated/floor/flock, flags = CHANGETURF_INHERIT_AIR)
+		turf.ChangeTurf(/turf/simulated/floor/flock, ignore_air = TRUE)
 	else
 		CRASH("Tried to flock deconstruct incompatible object of type: [target.type]")
 	return TRUE
