@@ -221,8 +221,8 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	head_organ.sec_hair_colour = hair_c
 	new_commando.change_eye_color(eye_c)
 	new_commando.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(new_commando.gender, head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(new_commando.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(head_organ.dna.species.name)
+	head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
 
 	new_commando.regenerate_icons()
 	new_commando.update_body()
