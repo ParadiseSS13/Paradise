@@ -5,11 +5,11 @@
  */
 
 import { exec } from 'node:child_process';
-import { promisify } from 'node:util';
-import fs from "fs/promises";
 import os from 'node:os';
+import { promisify } from 'node:util';
 
 import axios, { isAxiosError } from 'axios';
+import fs from 'fs/promises';
 
 import { createLogger } from './logging.js';
 
@@ -77,9 +77,8 @@ export class DreamSeeker {
     }
 
     try {
-      const entries = os.platform() === 'win32'
-        ? await getWindowsEntries(pidsToResolve)
-        : await getLinuxEntries(pidsToResolve);
+      const entries =
+        os.platform() === 'win32' ? await getWindowsEntries(pidsToResolve) : await getLinuxEntries(pidsToResolve);
 
       const len = entries.length;
       logger.log('found', len, plural('instance', len));
@@ -102,7 +101,7 @@ export class DreamSeeker {
 }
 
 async function getWindowsEntries(pidsToResolve) {
-  const { stdout } = await run('netstat -ano | findstr TCP | findstr 0.0.0.0:0')
+  const { stdout } = await run('netstat -ano | findstr TCP | findstr 0.0.0.0:0');
 
   // Line format:
   // proto addr mask mode pid
@@ -127,20 +126,20 @@ async function getWindowsEntries(pidsToResolve) {
 
 async function getLinuxEntries(pidsToResolve) {
   const { stdout } = await run('ss -tlnp');
-  
+
   const wineServers = new Map();
 
   for (const line of stdout.split('\n')) {
     if (!line.includes('wineserver') || !line.includes('127.0.0.1')) continue;
 
     const parts = line.trim().split(/\s+/);
-    const addr = parts[3]
+    const addr = parts[3];
 
     const pidMatch = line.match(/pid=(\d+)/);
     if (!pidMatch) continue;
 
     const linuxPid = pidMatch[1];
-    if (!wineServers.has(linuxPid)) wineServers.set(linuxPid, [])
+    if (!wineServers.has(linuxPid)) wineServers.set(linuxPid, []);
     wineServers.get(linuxPid).push(addr);
   }
 
@@ -149,21 +148,24 @@ async function getLinuxEntries(pidsToResolve) {
   for (const [linuxPid, addrs] of wineServers) {
     try {
       const env = await fs.readFile(`/proc/${linuxPid}/environ`, 'utf8');
-      const prefix = env.split('\0').find(l => l.startsWith("WINEPREFIX"))?.split('=')[1];
-      if(!prefix) continue;
+      const prefix = env
+        .split('\0')
+        .find((l) => l.startsWith('WINEPREFIX'))
+        ?.split('=')[1];
+      if (!prefix) continue;
 
       const { stdout: winedbgOut } = await run(`WINEPREFIX=${prefix} winedbg --command "info proc"`);
       const winPids = winedbgOut.split('\n');
 
       for (const line of winPids) {
-        if(!line.includes('dreamseeker.exe')) continue;
+        if (!line.includes('dreamseeker.exe')) continue;
 
         const parts = line.trim().split(/\s+/);
-        const winPid = parseInt(parts[0], 16)
+        const winPid = parseInt(parts[0], 16);
 
-        if(pidsToResolve.includes(winPid)) {
+        if (pidsToResolve.includes(winPid)) {
           for (const addr of addrs) {
-            entries.push({addr, pid: winPid})
+            entries.push({ addr, pid: winPid });
           }
         }
       }
@@ -173,7 +175,7 @@ async function getLinuxEntries(pidsToResolve) {
     }
   }
 
-  return entries
+  return entries;
 }
 
 async function run(command) {
