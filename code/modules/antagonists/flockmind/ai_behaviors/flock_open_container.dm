@@ -22,14 +22,14 @@
 
 	return get_best_target_by_distance_score(controller, options, path_to)
 
-/datum/ai_behavior/flock/find_closed_container/perform(delta_time, datum/ai_controller/controller, turf/overmind_target)
+/datum/ai_behavior/flock/find_closed_container/perform(seconds_per_tick, datum/ai_controller/controller, turf/overmind_target)
 	..()
 	var/atom/target = get_target(controller, TRUE)
 	if(!target)
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_CONTAINER_TARGET, target)
-	controller.set_move_target(target)
+	set_movement_target(target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_closed_container/finish_action(datum/ai_controller/controller, succeeded, turf/overmind_target)
@@ -44,12 +44,11 @@
 	name = "opening container"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
 
-/datum/ai_behavior/flock/perform_open_container/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/perform_open_container/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/basic/flock/bird = controller.pawn
 	var/obj/structure/closet/target = controller.blackboard[BB_FLOCK_CONTAINER_TARGET]
 	if(target)
-		bird.animate_interact(target, INTERACT_HELP)
 		target.open(bird, TRUE)
 	else
 		return AI_BEHAVIOR_FAILED

@@ -36,5 +36,6 @@
 		guy.SetConfused(20 SECONDS)
 		guy.do_jitter_animation(10)
 
-		var/obj/item/organ/ears/ears = guy.getorganslot(E)
-		ears.adjustEarDamage(rand(2, 6), rand(3, 6))
+		var/obj/item/organ/internal/ears/ears = guy.get_int_organ(/obj/item/organ/internal/ears)
+		if(istype(ears))
+			ears.receive_damage(rand(3, 6))

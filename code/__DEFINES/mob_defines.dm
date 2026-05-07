@@ -228,6 +228,9 @@
 
 #define DIRECTION_LOCK_SLOWDOWN 3
 
+// Helpers
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
+
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))

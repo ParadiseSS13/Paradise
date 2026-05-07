@@ -53,13 +53,6 @@
 /obj/machinery/door/firedoor/try_flock_convert(datum/flock/flock, force)
 	return
 
-/obj/structure/low_wall/try_flock_convert(datum/flock/flock, force)
-	set_material(/datum/material/gnesis, TRUE)
-	AddComponent(/datum/component/flock_object)
-	AddComponent(/datum/component/flock_protection, report_unarmed=FALSE)
-	AddComponent(/datum/component/flock_interest, flock)
-	return src
-
 /obj/machinery/light/try_flock_convert(datum/flock/flock, force)
 	var/obj/L = new /obj/machinery/light/flock(loc)
 	L.setDir(dir)

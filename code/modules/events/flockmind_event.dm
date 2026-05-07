@@ -42,5 +42,5 @@
 	player_mind.special_role = SPECIAL_ROLE_FLOCK
 	player_mind.add_antag_datum(/datum/antagonist/flock)
 	SSticker.mode.traitors |= player_mind
-	message_admins("[player_key] has been made into a flockmind by an event.")
+	log_admin("[player_key] has been made into a flockmind by an event.")
 	log_game("[player_key] was spawned as a flockmind by an event.")

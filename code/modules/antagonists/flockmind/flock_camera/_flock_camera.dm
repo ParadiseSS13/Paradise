@@ -17,10 +17,8 @@
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 
 	hud_type = /datum/hud/flockghost
-	initial_language_holder = /datum/language_holder/flock
 
 	move_on_shuttle = FALSE
-	movement_type = PHASING
 
 	/// Flock datum
 	var/datum/flock/flock
@@ -111,11 +109,11 @@
 	var/list/data = list()
 	data["name"] = real_name
 	data["area"] = get_area_name(src, TRUE) || "???"
-	data["ref"] = REF(src)
+	data["ref"] = ref(src)
 
 	if(controlling_bird)
 		data["host"] = controlling_bird.real_name
-		data["health"] = controlling_bird.getHealthPercent()
+		data["health"] = controlling_bird.get_damage_percent()
 	else
 		data["host"] = null
 		data["health"] = 100

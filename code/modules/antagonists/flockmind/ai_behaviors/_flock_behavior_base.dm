@@ -2,7 +2,7 @@
 	/// The name of the behavior in the UI for flock drones.
 	var/name = ""
 
-/datum/ai_behavior/flock/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	. = ..()
 	var/mob/living/basic/flock/drone/bird = controller.pawn

@@ -54,7 +54,7 @@
 		SPAN_FLOCKSAY("<b>APC Connected:</b> [(!apc?.cell || apc.cell.charge >= apc.cell.maxcharge) ? "Not charging." : "Charging local APC at [charge_per_cycle]% every [cycle_interval / 10] seconds."]")
 	)
 
-/obj/structure/flock/collector/process(delta_time)
+/obj/structure/flock/collector/process()
 	if(need_turfs_update)
 		update_connections()
 

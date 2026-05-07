@@ -15,21 +15,21 @@
 
 	var/list/options = list()
 	for(var/obj/item/storage/item in view(controller.target_search_radius, bird))
-		if(!item.atom_storage || item.atom_storage.locked || !length(item.contents))
+		if(!length(item.contents))
 			continue
 
 		options += item
 
 	return get_best_target_by_distance_score(controller, options, path_to)
 
-/datum/ai_behavior/flock/find_storage_item/perform(delta_time, datum/ai_controller/controller, turf/overmind_target)
+/datum/ai_behavior/flock/find_storage_item/perform(seconds_per_tick, datum/ai_controller/controller, turf/overmind_target)
 	..()
 	var/atom/target = get_target(controller, TRUE)
 	if(!target)
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_RUMMAGE_TARGET, target)
-	controller.set_move_target(target)
+	set_movement_target(target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_storage_item/finish_action(datum/ai_controller/controller, succeeded, turf/overmind_target)
@@ -44,7 +44,7 @@
 	name = "rummaging"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
 
-/datum/ai_behavior/flock/perform_rummage/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/perform_rummage/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/basic/flock/bird = controller.pawn
 	var/obj/item/target = controller.blackboard[BB_FLOCK_RUMMAGE_TARGET]
@@ -54,7 +54,6 @@
 	if(DOING_INTERACTION(bird, "flock_rummage"))
 		return AI_BEHAVIOR_DELAY
 
-	bird.animate_interact(target, INTERACT_HELP)
 	rummage_till_empty(controller, bird, target)
 	return AI_BEHAVIOR_SUCCEEDED
 
@@ -74,5 +73,4 @@
 
 		var/obj/item/contained_item = target.contents[1]
 		contained_item.forceMove(bird.drop_location())
-		contained_item.do_drop_animation(target)
 

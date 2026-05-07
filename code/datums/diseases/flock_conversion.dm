@@ -38,5 +38,5 @@
 				affected_mob.adjustOxyLoss(75)
 				affected_mob.Weaken(20 SECONDS)
 		if(5)
-			new /mob/living/basic/flock/flockbit(get_turf(affected_mob))
+			new /mob/living/basic/flock/bit(get_turf(affected_mob))
 			affected_mob.gib()

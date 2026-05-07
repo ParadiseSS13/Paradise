@@ -27,12 +27,14 @@
 /datum/action/cooldown/flock/nest/Activate(atom/target)
 	. = ..()
 	var/mob/living/basic/flock/drone/bird = owner
+	if(!bird.substrate.has_points(bird.flock?.current_egg_cost || FLOCK_SUBSTRATE_COST_LAY_EGG))
+		return FALSE
 	var/turf/simulated/floor/flock/flockfloor = get_turf(target)
 	bird.stop_flockphase(TRUE)
 
 	to_chat(bird, SPAN_NOTICE("Our internal fabricators spring into action, we must hold still."))
 
-	if(!do_after(bird, 8 SECONDS, interaction_key = "flock_lay_egg", action_type = /datum/timed_action/flock_lay_egg))
+	if(!do_after(bird, 8 SECONDS, interaction_key = "flock_lay_egg"))
 		return FALSE
 
 	bird.substrate.remove_points(bird.flock.current_egg_cost)

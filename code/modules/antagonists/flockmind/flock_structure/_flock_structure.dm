@@ -163,20 +163,8 @@
 	// else
 	// 	playsound(src, 'sound/impact_sounds/Glass_Shards_Hit_1.ogg', 50, TRUE)
 
-/obj/structure/flock/update_integrity(new_value)
-	. = ..()
-	if(isnull(.))
-		return
 
-	if(!flock)
-		return
-
-	if(!notice)
-		notice = flock.add_notice(src, FLOCK_NOTICE_HEALTH)
-
-	I.icon_state = "hp-[get_integrity_percentage()]"
-
-/obj/structure/flock/process(delta_time)
+/obj/structure/flock/process()
 	update_info_tag()
 	if(spawn_time + build_time <= world.time)
 		finish_building()

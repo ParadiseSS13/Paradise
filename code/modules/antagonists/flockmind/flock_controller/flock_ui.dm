@@ -44,7 +44,7 @@
 				var/list/mob_data = list()
 				mob_data["name"] = enemy.name
 				mob_data["area"] = enemies[enemy]
-				mob_data["ref"] = REF(enemy)
+				mob_data["ref"] = ref(enemy)
 				enemy_info[++enemy_info.len] = mob_data
 
 		if(FLOCK_UI_STRUCTURES)

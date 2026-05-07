@@ -2,7 +2,6 @@
 	name = "Deposit"
 	click_to_activate = TRUE
 	check_flags = AB_CHECK_CONSCIOUS
-	render_button = FALSE
 
 /datum/action/cooldown/flock/deposit/is_valid_target(atom/cast_on)
 	return istype(cast_on, /obj/structure/flock/tealprint)

@@ -9,5 +9,5 @@
 	if (!message)
 		return
 
-	var/datum/language/symphonic = GLOB.all_languages["Symphonic"]
+	var/datum/language/flock/symphonic = GLOB.all_languages["Symphonic"]
 	symphonic.broadcast(speaker, message, involuntary = involuntary)

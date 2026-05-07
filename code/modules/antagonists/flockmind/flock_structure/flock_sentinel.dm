@@ -38,7 +38,7 @@
 	QDEL_NULL(charge)
 	return ..()
 
-/obj/structure/flock/sentinel/process(delta_time)
+/obj/structure/flock/sentinel/process(seconds_per_tick)
 	if(isnull(flock))
 		set_active(FALSE)
 		return PROCESS_KILL
@@ -53,7 +53,7 @@
 
 	if(!active)
 		if(charge.has_points())
-			charge.adjust_points((charge_per_second / 2) * delta_time)
+			charge.adjust_points((charge_per_second / 2) * seconds_per_tick)
 			update_info_tag()
 			charge_status = LOSING_CHARGE
 		else
@@ -63,7 +63,7 @@
 
 	// Gain more charge
 	if(charge_status != CHARGED)
-		charge.adjust_points(charge_per_second * delta_time)
+		charge.adjust_points(charge_per_second * seconds_per_tick)
 		update_info_tag()
 		if(charge.has_points(100))
 			charge_status = CHARGED
@@ -78,7 +78,7 @@
 		return
 
 	// Select target
-	var/mob/target
+	var/mob/living/target
 	for(var/mob/living/L in viewers(range, src))
 
 		if(HAS_TRAIT(L, TRAIT_SHOCKED_BY_SENTINEL) || !flock.is_mob_enemy(L))

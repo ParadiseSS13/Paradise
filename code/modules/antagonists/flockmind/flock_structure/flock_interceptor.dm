@@ -46,7 +46,7 @@
 	. = ..()
 	. += "[get_status()]."
 
-/obj/structure/flock/interceptor/process(delta_time)
+/obj/structure/flock/interceptor/process()
 	if(active)
 		if(flock.available_bandwidth() < 0)
 			set_active(FALSE)

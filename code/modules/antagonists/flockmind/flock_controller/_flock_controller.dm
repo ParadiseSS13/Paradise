@@ -84,7 +84,7 @@
 		unlockables += new unlockable
 
 // Called by gamemode code
-/datum/flock/process(delta_time)
+/datum/flock/process()
 	if(flock_game_status == FLOCK_ENDGAME_LOST)
 		return
 

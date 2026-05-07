@@ -2,7 +2,6 @@
 	name = "Deconstruct"
 	click_to_activate = TRUE
 	check_flags = AB_CHECK_CONSCIOUS
-	render_button = FALSE
 
 /datum/action/cooldown/flock/deconstruct/is_valid_target(atom/cast_on)
 	var/turf/clicked_atom_turf = get_turf(cast_on)

@@ -24,7 +24,7 @@
 	//this cast looks horribly unsafe, but we've guaranteed that parent is a type with vis_contents in Initialize
 	var/atom/movable/target = parent
 
-	target.render_target = REF(target)
+	target.render_target = ref(target)
 
 	var/image/outline_container = new()
 	outline_container.plane = HUD_PLANE
@@ -34,7 +34,7 @@
 	dummy ||= new()
 	dummy.vis_flags = VIS_INHERIT_PLANE | VIS_INHERIT_LAYER
 	dummy.appearance_flags = PIXEL_SCALE | RESET_TRANSFORM | RESET_COLOR | PASS_MOUSE
-	dummy.render_source = REF(target)
+	dummy.render_source = ref(target)
 
 	dummy.add_filter("outline", 1, outline_filter(size = outline_thickness, color = outline_color))
 	if (isturf(target))
@@ -46,17 +46,12 @@
 		animate(dummy, time = 0.5 SECONDS, alpha = 100, loop = -1)
 		animate(time = 0.5 SECONDS, alpha = 255)
 
-	hud_ref = target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/flock, "ping-[type]-[REF(target)]", outline_container)
+	hud_ref = target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/flock, "ping-[type]-[ref(target)]", outline_container)
 
 	if(duration == INFINITY)
 		return
 
 	addtimer(CALLBACK(src, PROC_REF(cleanup)), duration)
-
-/datum/component/flock_ping/UnregisterFromParent()
-	. = ..()
-	var/atom/movable/target = parent
-	target.remove_alt_appearance(hud_ref.appearance_key)
 
 /datum/component/flock_ping/proc/cleanup()
 	qdel(src)

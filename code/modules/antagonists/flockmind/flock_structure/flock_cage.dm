@@ -36,7 +36,7 @@
 	if(disassembled)
 		spend_gnesis(TRUE)
 	else
-		reagents.expose(get_turf(src), TOUCH)
+		reagents.reaction(get_turf(src), REAGENT_TOUCH)
 
 	if(victim)
 		visible_message(SPAN_WARNING("[victim] breaks free from [src]."))
@@ -48,7 +48,7 @@
 
 	. = ..()
 
-/obj/structure/flock/cage/process(delta_time)
+/obj/structure/flock/cage/process(seconds_per_tick)
 	spend_gnesis()
 
 	if(victim && flock)
@@ -67,12 +67,12 @@
 				to_chat(victim, SPAN_WARNING("[eating] begins to melt away."))
 
 		else
-			chew_on_mob(delta_time)
+			chew_on_mob()
 
 	else
-		eating.take_damage(absorption_rate * delta_time * 25, BRUTE, armor_penetration_percentage = 100)
-		reagents.add_reagent(/datum/reagent/toxin/gnesis, absorption_rate * delta_time)
-		if(eating.is_destroyed())
+		eating.take_damage(absorption_rate * seconds_per_tick * 25, BRUTE, armor_penetration_percentage = 100)
+		reagents.add_reagent(/datum/reagent/toxin/gnesis, absorption_rate * seconds_per_tick)
+		if(eating.obj_integrity < 0)
 			QDEL_NULL(eating)
 
 	if(victim && COOLDOWN_FINISHED(src, flock_message_cd))
@@ -115,7 +115,7 @@
 
 	playsound(src, 'goon/sounds/Crystal_Hit_1.ogg', 50, TRUE)
 	if(prob(20))
-		audible_message("[src] [pick("cracks","bends","shakes","groans")].", hearing_distance = COMBAT_MESSAGE_RANGE)
+		audible_message("[src] [pick("cracks","bends","shakes","groans")].")
 
 	take_damage(1, BRUTE)
 	do_hurt_animation()
@@ -127,9 +127,9 @@
 	)
 
 /// Picks an item, organ, or bodypart, to munch on.
-/obj/structure/flock/cage/proc/chew_on_mob(delta_time)
+/obj/structure/flock/cage/proc/chew_on_mob()
 	if(!ishuman(victim))
-		victim.adjustBruteLoss(absorption_rate * delta_time)
+		victim.adjustBruteLoss(absorption_rate * seconds_per_tick)
 		if(victim.stat == DEAD)
 			visible_message(SPAN_DANGER("[src] rips apart what remains of [victim]."))
 			set_victim(null)
@@ -176,7 +176,7 @@
 			organs -= O
 
 	/// We dont want it to tear out their lungs and have them instantly pass out and die of brain damage shortly after.
-	var/obj/item/organ/lungs/lungs = locate() in organs
+	var/obj/item/organ/internal/lungs/lungs = locate() in organs
 	if(lungs && length(organs) > 1)
 		organs -= lungs
 

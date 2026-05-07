@@ -20,9 +20,8 @@
 
 /datum/component/flock_protection/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(handle_attackhand))
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY,  PROC_REF(handle_attackby))
+	RegisterSignal(parent, COMSIG_ATTACK_BY,  PROC_REF(handle_attackby))
 	RegisterSignal(parent, COMSIG_ATOM_HITBY,  PROC_REF(handle_hitby_thrown))
-	RegisterSignal(parent, COMSIG_PROJECTILE_SELF_ON_HIT,  PROC_REF(handle_hitby_proj))
 
 /// Protect against punches/kicks/etc.
 /datum/component/flock_protection/proc/handle_attackhand(atom/source, mob/living/user, modifiers)
@@ -34,13 +33,13 @@
 /datum/component/flock_protection/proc/handle_attackby(atom/source, obj/item/weapon, mob/user, modifiers)
 	SIGNAL_HANDLER
 	if(weapon &&  report_attack && trigger(source, user, TRUE))
-		return COMPONENT_NO_AFTERATTACK
+		return COMPONENT_NO_ATTACK
 
 /// Protect against someone chucking stuff at the parent.
 /datum/component/flock_protection/proc/handle_hitby_thrown(atom/source, atom/movable/hitting_atom, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SIGNAL_HANDLER
-	if(ismob(throwingdatum.thrower) && report_thrown)
-		trigger(source, throwingdatum.thrower, FALSE, null)
+	if(ismob(throwingdatum.get_thrower()) && report_thrown)
+		trigger(source, throwingdatum.get_thrower(), FALSE, null)
 
 /// Protect against someone shooting the parent.
 /datum/component/flock_protection/proc/handle_hitby_proj(atom/source, firer, target, Angle, def_zone)

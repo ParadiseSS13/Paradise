@@ -65,7 +65,6 @@
 	task_tag = new()
 	task_tag.set_parent(src)
 
-	update_health_notice()
 	add_language("Symphonic")
 	set_default_language(GLOB.all_languages["Symphonic"])
 
@@ -88,11 +87,11 @@
 	. = ..()
 	name_tag?.set_text(real_name)
 
-/mob/living/basic/flock/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages, automatic, bigvoice)
+/mob/living/basic/flock/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages, automatic, bigvoice, forced = FALSE)
 	. = ..()
 	if(!.)
 		return
-	flock_talk(src, message, flock)
+	flock_talk(src, message, flock, involuntary = forced)
 
 /mob/living/basic/flock/update_icon_state()
 	if(stat == DEAD)
@@ -109,10 +108,6 @@
 	if(flock && new_turf && !flock.is_on_safe_z(new_turf))
 		dormantize()
 
-/mob/living/basic/flock/updatehealth(cause_of_death)
-	. = ..()
-	update_health_notice()
-
 /mob/living/basic/flock/death(gibbed, cause_of_death)
 	flock?.remove_notice(src, FLOCK_NOTICE_HEALTH)
 	flock?.free_unit(src)
@@ -122,24 +117,13 @@
 /mob/living/basic/flock/get_flock_id()
 	return real_name
 
-/mob/living/basic/flock/proc/update_health_notice()
-	if(!flock)
-		return
-
-	var/datum/atom_hud/alternate_appearance/basic/flock/notice = get_alt_appearance(FLOCK_NOTICE_HEALTH)
-	if(!notice)
-		notice = flock.add_notice(src, FLOCK_NOTICE_HEALTH)
-
-	var/image/I = notice.image
-	I.icon_state = "hp-[round(getHealthPercent(), 10)]"
-
 /mob/living/basic/flock/proc/get_flock_data()
 	var/list/data = list()
 	data["name"] = real_name
-	data["health"] = getHealthPercent()
+	data["health"] = get_damage_percent()
 	data["resources"] = substrate.has_points()
 	data["area"] = get_area_name(src, TRUE) || "???"
-	data["ref"] = REF(src)
+	data["ref"] = ref(src)
 	return data
 
 /// Become dormant. A husk. A shell.
@@ -163,7 +147,7 @@
 	if(ai_controller.ai_status == AI_STATUS_OFF || ckey)
 		return
 
-	ai_controller.CancelActions()
+	ai_controller.cancel_actions()
 	ai_controller.queue_behavior(/datum/ai_behavior/flock/rally, location)
 
 /// Helper for keeping consistency across tesk name sets.
@@ -173,14 +157,14 @@
 /// Turn the light on or off, based on if the mob is doing shit or not.
 /mob/living/basic/flock/proc/update_light_state()
 	if(stat == DEAD || dormant)
-		set_light_on(FALSE)
+		set_light(0, 0, light_color)
 		return
 
 	if(ai_controller.ai_status == AI_ON || ckey)
-		set_light_on(TRUE)
+		set_light(2, 0.2, light_color)
 		return
 
-	set_light_on(FALSE)
+	set_light(0, 0, light_color)
 
 /mob/living/basic/flock/proc/on_ai_status_change(datum/ai_controller/source, ai_status)
 	SIGNAL_HANDLER

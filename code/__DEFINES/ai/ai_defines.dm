@@ -58,6 +58,9 @@
 /// Does this behavior NOT block planning?
 #define AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION (1<<4)
 
+/// Magic value to tell the G.O.A.P selector to ignore a behavior.
+#define AI_GOAP_SKIP_BEHAVIOR (-1000001)
+
 // AI flags
 
 /// Don't move if being pulled

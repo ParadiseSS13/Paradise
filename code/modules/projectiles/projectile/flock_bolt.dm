@@ -11,8 +11,7 @@
 	damage = 4
 	damage_type = BURN
 
-	disorient_damage = 25
-	disorient_length = 2.5 SECONDS
+	stamina = 25
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 
@@ -24,16 +23,8 @@
 
 /obj/projectile/energy/flock_bolt/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
-	if(. != BULLET_ACT_HIT)
-		return
-
 	if(!isliving(target))
 		return
 
 	var/mob/living/victim = target
-	victim.Disorient(2.5 SECONDS, ceil(STAMINA_MAX / 4), knockdown = 2.5 SECONDS, overstam = TRUE)
-
-/obj/projectile/energy/flock_bolt/can_hit_target(atom/target, direct_target, ignore_loc, cross_failed)
-	if(isflockmob(target))
-		return FALSE
-	return ..()
+	victim.SetConfused(2.5 SECONDS)

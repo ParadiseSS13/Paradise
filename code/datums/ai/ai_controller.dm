@@ -45,6 +45,8 @@ RESTRICT_TYPE(/datum/ai_controller)
 	var/continue_processing_when_client = FALSE
 	/// Distance to give up on target.
 	var/max_target_distance = 14
+	/// The search radius when looking for interesting things.
+	var/target_search_radius = 5
 	/// Cooldown for new plans, to prevent AI from going nuts if it can't think of new plans and looping on end
 	COOLDOWN_DECLARE(failed_planning_cooldown)
 	/// All subtrees this AI has available. Will run them in order, so make sure

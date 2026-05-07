@@ -9,9 +9,9 @@
 		if(isitem(overmind_target) && isturf(overmind_target.loc))
 			controller.set_blackboard_key(BB_FLOCK_OVERMIND_CONTROL, TRUE)
 			controller.set_blackboard_key(BB_PATH_MAX_LENGTH, 200)
-			bird.say("instruction confirmed: convert object to substrate")
+			bird.say("instruction confirmed: convert object to substrate", forced = TRUE)
 		else
-			bird.say("invalid harvest target provided by sentient-level instruction")
+			bird.say("invalid harvest target provided by sentient-level instruction", forced = TRUE)
 			return FALSE
 
 /datum/ai_behavior/flock/find_harvest_target/goap_precondition(datum/ai_controller/controller)
@@ -32,14 +32,14 @@
 
 	return get_best_target_by_distance_score(controller, options, path_to)
 
-/datum/ai_behavior/flock/find_harvest_target/perform(delta_time, datum/ai_controller/controller, obj/item/overmind_target)
+/datum/ai_behavior/flock/find_harvest_target/perform(seconds_per_tick, datum/ai_controller/controller, obj/item/overmind_target)
 	..()
 	var/atom/target = overmind_target || get_target(controller, TRUE)
 	if(!target)
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_HARVEST_TARGET, target)
-	controller.set_move_target(target)
+	set_movement_target(target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_harvest_target/finish_action(datum/ai_controller/controller, succeeded, obj/item/overmind_target)
@@ -58,7 +58,7 @@
 	name = "harvesting"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
 
-/datum/ai_behavior/flock/perform_harvest/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/perform_harvest/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/basic/flock/drone/bird = controller.pawn
 	var/obj/item/target = controller.blackboard[BB_FLOCK_HARVEST_TARGET]
@@ -78,7 +78,7 @@
 
 	if(!succeeded && controller.blackboard[BB_FLOCK_OVERMIND_CONTROL] && !QDELETED(controller.pawn))
 		var/mob/living/basic/flock/bird = controller.pawn
-		bird.say("unable to reach target provided by sentient level instruction, aborting subroutine", forced = "overmind control action cancelled")
+		bird.say("unable to reach target provided by sentient level instruction, aborting subroutine", forced = TRUE)
 
 	controller.clear_blackboard_key(BB_PATH_MAX_LENGTH)
 	controller.clear_blackboard_key(BB_FLOCK_OVERMIND_CONTROL)

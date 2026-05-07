@@ -1,6 +1,5 @@
 /obj/structure/window/flock
 	icon = 'icons/goonstation/mob/featherzone.dmi'
-	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	heat_resistance = 32000
 	glass_type = /obj/item/stack/sheet/gnesis_glass
 

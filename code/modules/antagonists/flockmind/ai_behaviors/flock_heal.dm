@@ -9,9 +9,9 @@
 		if(goap_is_valid_target(controller, overmind_target))
 			controller.set_blackboard_key(BB_FLOCK_OVERMIND_CONTROL, TRUE)
 			controller.set_blackboard_key(BB_PATH_MAX_LENGTH, 200)
-			bird.say("instruction confirmed: repair construct")
+			bird.say("instruction confirmed: repair construct", forced = TRUE)
 		else
-			bird.say("invalid repair target provided by sentient-level instruction")
+			bird.say("invalid repair target provided by sentient-level instruction", forced = TRUE)
 			return FALSE
 
 /datum/ai_behavior/flock/find_heal_target/goap_precondition(datum/ai_controller/controller)
@@ -36,14 +36,14 @@
 	if((other_bird.getBruteLoss() + other_bird.getFireLoss()) / other_bird.maxHealth >= 0.4)
 		return TRUE
 
-/datum/ai_behavior/flock/find_heal_target/perform(delta_time, datum/ai_controller/controller, mob/living/basic/flock/overmind_target)
+/datum/ai_behavior/flock/find_heal_target/perform(seconds_per_tick, datum/ai_controller/controller, mob/living/basic/flock/overmind_target)
 	..()
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
 	if(!target)
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_HEAL_TARGET, target)
-	controller.set_move_target(target)
+	set_movement_target(target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_heal_target/finish_action(datum/ai_controller/controller, succeeded, overmind_target)
@@ -61,7 +61,7 @@
 	name = "repairing"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-/datum/ai_behavior/flock/heal/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/heal/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/basic/flock/drone/bird = controller.pawn
 

@@ -9,9 +9,9 @@
 		if(goap_is_valid_target(controller, overmind_target))
 			controller.set_blackboard_key(BB_FLOCK_OVERMIND_CONTROL, TRUE)
 			controller.set_blackboard_key(BB_PATH_MAX_LENGTH, 200)
-			bird.say("instruction confirmed: deposit substrate")
+			bird.say("instruction confirmed: deposit substrate", forced = TRUE)
 		else
-			bird.say("invalid deposit target provided by sentient-level instruction")
+			bird.say("invalid deposit target provided by sentient-level instruction", forced = TRUE)
 			return FALSE
 
 /datum/ai_behavior/flock/find_deposit_target/goap_precondition(datum/ai_controller/controller)
@@ -32,14 +32,14 @@
 	var/mob/living/basic/flock/bird = controller.pawn
 	return (tealprint.flock == bird.flock) && !tealprint.substrate.is_full()
 
-/datum/ai_behavior/flock/find_deposit_target/perform(delta_time, datum/ai_controller/controller, overmind_target)
+/datum/ai_behavior/flock/find_deposit_target/perform(seconds_per_tick, datum/ai_controller/controller, overmind_target)
 	..()
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
 	if(!target)
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DEPOSIT_TARGET, target)
-	controller.set_move_target(target)
+	set_movement_target(target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_deposit_target/finish_action(datum/ai_controller/controller, succeeded, overmind_target)
@@ -66,7 +66,7 @@
 	var/mob/living/basic/flock/bird = controller.pawn
 	return (tealprint.flock == bird.flock) && !tealprint.substrate.is_full()
 
-/datum/ai_behavior/flock/perform_deposit/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/perform_deposit/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/basic/flock/drone/bird = controller.pawn
 	var/obj/structure/flock/tealprint/target = controller.blackboard[BB_FLOCK_DEPOSIT_TARGET]
@@ -91,7 +91,7 @@
 
 	if(!succeeded && controller.blackboard[BB_FLOCK_OVERMIND_CONTROL] && !QDELETED(controller.pawn))
 		var/mob/living/basic/flock/bird = controller.pawn
-		bird.say("unable to reach target provided by sentient level instruction, aborting subroutine", forced = "overmind control action cancelled")
+		bird.say("unable to reach target provided by sentient level instruction, aborting subroutine", forced = TRUE)
 
 	controller.clear_blackboard_key(BB_PATH_MAX_LENGTH)
 	controller.clear_blackboard_key(BB_FLOCK_OVERMIND_CONTROL)

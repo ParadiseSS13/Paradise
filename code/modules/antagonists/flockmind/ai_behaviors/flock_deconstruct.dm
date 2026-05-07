@@ -9,9 +9,9 @@
 		if(is_valid_target(overmind_target))
 			controller.set_blackboard_key(BB_FLOCK_OVERMIND_CONTROL, TRUE)
 			controller.set_blackboard_key(BB_PATH_MAX_LENGTH, 200)
-			bird.say("instruction confirmed: deconstruct object")
+			bird.say("instruction confirmed: deconstruct object", forced = TRUE)
 		else
-			bird.say("invalid deconstruct target provided by sentient-level instruction")
+			bird.say("invalid deconstruct target provided by sentient-level instruction", forced = TRUE)
 			return FALSE
 
 /datum/ai_behavior/flock/find_deconstruct_target/goap_precondition(datum/ai_controller/controller)
@@ -50,14 +50,14 @@
 /datum/ai_behavior/flock/find_deconstruct_target/proc/is_valid_target(atom/target)
 	return !ismob(target) && HAS_TRAIT(target, TRAIT_FLOCK_THING) && !HAS_TRAIT(target, TRAIT_FLOCK_NODECON)
 
-/datum/ai_behavior/flock/find_deconstruct_target/perform(delta_time, datum/ai_controller/controller, turf/overmind_target)
+/datum/ai_behavior/flock/find_deconstruct_target/perform(seconds_per_tick, datum/ai_controller/controller, turf/overmind_target)
 	..()
 	var/atom/target = overmind_target || get_target(controller, TRUE)
 	if(!target)
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DECON_TARGET, target)
-	controller.set_move_target(target)
+	set_movement_target(target)
 
 	var/mob/living/basic/flock/bird = controller.pawn
 	if(bird.flock)
@@ -81,7 +81,7 @@
 	name = "deconstructing"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-/datum/ai_behavior/flock/perform_deconstruct/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/perform_deconstruct/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/basic/flock/bird = controller.pawn
 	var/turf/target = controller.blackboard[BB_FLOCK_DECON_TARGET]
@@ -102,7 +102,7 @@
 	bird.flock?.free_turf(bird)
 
 	if(!succeeded && controller.blackboard[BB_FLOCK_OVERMIND_CONTROL] && !QDELETED(controller.pawn))
-		bird.say("unable to reach target provided by sentient level instruction, aborting subroutine", forced = "overmind control action cancelled")
+		bird.say("unable to reach target provided by sentient level instruction, aborting subroutine", forced = TRUE)
 
 	controller.clear_blackboard_key(BB_FLOCK_DECON_TARGET)
 	controller.clear_blackboard_key(BB_PATH_MAX_LENGTH)

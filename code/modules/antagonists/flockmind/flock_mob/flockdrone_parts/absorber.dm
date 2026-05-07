@@ -16,7 +16,7 @@
 
 	return try_pickup_item(I)
 
-/datum/flockdrone_part/absorber/process(delta_time)
+/datum/flockdrone_part/absorber/process(seconds_per_tick)
 	var/added = 0
 	var/obj/item/eating = held_item
 
@@ -27,7 +27,7 @@
 		qdel(cube)
 		to_chat(drone, SPAN_NOTICE("We decompile the resource cache, adding <b>[added]</b> substrate to our reserves."))
 	else
-		added = eating.take_damage(absorption_rate * delta_time, BRUTE, ACID, sound_effect = FALSE, armor_penetration_percentage = 100)
+		added = eating.take_damage(absorption_rate * seconds_per_tick, BRUTE, ACID, sound_effect = FALSE, armor_penetration_percentage = 100)
 		drone.substrate.add_points(added * integrity_substrate_ratio)
 
 	if(!held_item) // if take_damage qdeletes it, it becomes null due to signal stuff.

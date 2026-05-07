@@ -32,36 +32,46 @@
 	do_partition()
 
 /datum/action/cooldown/flock/partition_mind/proc/do_partition()
+	var/mob/camera/flock/overmind/ghost_bird = owner
+	if(!ghost_bird.flock.can_afford(FLOCK_COMPUTE_COST_FLOCKTRACE))
+		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: bandwidth required is unavailable."))
+		return
+
 	set waitfor = FALSE
 
 	awaiting_partition = TRUE
-	var/mob/camera/flock/overmind/ghost_bird = owner
 
 	to_chat(ghost_bird, SPAN_FLOCKSAY("Partitioning initiated, stand by..."))
 
-	message_admins("Sending Flocktrace offer to ghosts, they have [30 SECONDS] to respond.")
-	var/list/candidates = poll_ghost_candidates("Would you like to join the Flock as a new partition?", ROLE_FLOCK, ROLE_FLOCK, 30 SECONDS, flashwindow = TRUE)
+	log_admin("Sending Flocktrace offer to ghosts, they have [30 SECONDS] to respond.")
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Flocktrace?", ROLE_FLOCK, TRUE, source = /mob/camera/flock/trace)
 
 	awaiting_partition = FALSE
 
 	if(QDELETED(owner))
-		message_admins("The Flockmind lost before the partition could complete.")
+		log_admin("The Flockmind lost before the partition could complete.")
 		return
 
 	if(!length(candidates))
-		message_admins("No ghosts responded to the flocktrace offer from [ghost_bird.real_name]")
+		log_admin("No ghosts responded to the flocktrace offer from [ghost_bird.real_name]")
 		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: unable to coalesce sentience."))
 		return
 
 	if(!ghost_bird.flock.can_afford(FLOCK_COMPUTE_COST_FLOCKTRACE))
-		message_admins("The Flock was unable to support another flocktrace, partition aborted.")
+		log_admin("The Flock was unable to support another flocktrace, partition aborted.")
 		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: bandwidth required is unavailable."))
 		return
 
-
 	var/mob/candidate = pick(candidates)
-	message_admins("[key_name_admin(candidate)] respawned as a Flocktrace.")
+	var/player_key = candidate.key
+	log_admin("[key_name_admin(candidate)] respawned as a Flocktrace.")
 
 	var/mob/camera/flock/trace/new_ghostbird = new(get_turf(ghost_bird), ghost_bird.flock)
-	new_ghostbird.PossessByPlayer(candidate.key)
-	new_ghostbird.mind.add_antag_datum(/datum/antagonist/flock)
+	var/datum/mind/player_mind = new /datum/mind(player_key)
+	player_mind.active = TRUE
+	player_mind.transfer_to(new_ghostbird)
+	dust_if_respawnable(candidate)
+	player_mind.assigned_role = SPECIAL_ROLE_FLOCK
+	player_mind.special_role = SPECIAL_ROLE_FLOCK
+	player_mind.add_antag_datum(/datum/antagonist/flock)
+	SSticker.mode.traitors |= player_mind

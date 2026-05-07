@@ -13,9 +13,9 @@
 		if(!goap_is_valid_target(controller, overmind_target))
 			controller.set_blackboard_key(BB_FLOCK_OVERMIND_CONTROL, TRUE)
 			controller.set_blackboard_key(BB_PATH_MAX_LENGTH, 200)
-			bird.say("instruction confirmed: incapacitate lifeform")
+			bird.say("instruction confirmed: incapacitate lifeform", forced = TRUE)
 		else
-			bird.say("invalid attack target provided by sentient-level instruction")
+			bird.say("invalid attack target provided by sentient-level instruction", forced = TRUE)
 			return FALSE
 
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
@@ -23,7 +23,7 @@
 		return FALSE
 
 	controller.set_blackboard_key(BB_FLOCK_ATTACK_TARGET, target)
-	controller.set_move_target(target)
+	set_movement_target(target)
 	controller.queue_behavior(/datum/ai_behavior/frustration, BB_FLOCK_ATTACK_FRUSTRATION, 10 SECONDS)
 
 /datum/ai_behavior/flock/attack_target/goap_precondition(datum/ai_controller/controller)
@@ -36,9 +36,9 @@
 
 /datum/ai_behavior/flock/attack_target/goap_is_valid_target(datum/ai_controller/controller, atom/target)
 	var/mob/living/target_mob = target
-	return ismob(target_mob) && isturf(target_mob.loc) && !target_mob.incapacitated(IGNORE_STASIS | IGNORE_GRAB | IGNORE_RESTRAINTS) && !target_mob.IsKnockdown()
+	return ismob(target_mob) && isturf(target_mob.loc) && !target_mob.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE) && !target_mob.IsKnockedDown()
 
-/datum/ai_behavior/flock/attack_target/perform(delta_time, datum/ai_controller/controller, mob/overmind_target)
+/datum/ai_behavior/flock/attack_target/perform(seconds_per_tick, datum/ai_controller/controller, mob/overmind_target)
 	..()
 	var/atom/target = controller.blackboard[BB_FLOCK_ATTACK_TARGET]
 	if(!target)
@@ -59,12 +59,12 @@
 		return AI_BEHAVIOR_DELAY
 
 	// Run away!
-	if(DT_PROB(40, delta_time) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_RUN_COOLDOWN]) && get_dist(bird, target) < 3)
+	if(DT_PROB(40, ) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_RUN_COOLDOWN]) && get_dist(bird, target) < 3)
 		controller.set_blackboard_key(BB_FLOCK_ATTACK_RUN_COOLDOWN, world.time + 5 SECONDS)
 		SSmove_manager.move_away(bird, target, 6, bird.movement_delay, bird.movement_delay * 4, priority = MOVEMENT_DEFAULT_PRIORITY + 1)
 
 	// Strafe!
-	else if(DT_PROB(60, delta_time) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_STRAFE_COOLDOWN]))
+	else if(DT_PROB(60, ) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_STRAFE_COOLDOWN]))
 		controller.set_blackboard_key(BB_FLOCK_ATTACK_STRAFE_COOLDOWN, bird.movement_delay * 3)
 		var/step_dir = turn(get_dir(bird, target), prob(50) ? 90 : -90)
 		step(bird, step_dir)

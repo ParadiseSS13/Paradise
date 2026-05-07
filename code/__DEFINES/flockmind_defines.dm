@@ -51,6 +51,9 @@
 #define FLOCK_ENDGAME_RELAY_ACTIVATING 3
 #define FLOCK_ENDGAME_VICTORY 4
 
+/// The list of behaviors for the planners to select from. THIS IS ACTUALLY A SUBKEY!
+#define BB_PLANNER_BEHAVIORS "BB_planner_behaviors"
+
 // G.O.A.P weights for flock behaviors, for easy comparison/adjustment.
 #define FLOCK_BEHAVIOR_WEIGHT_WANDER 1
 #define FLOCK_BEHAVIOR_WEIGHT_STARE 1

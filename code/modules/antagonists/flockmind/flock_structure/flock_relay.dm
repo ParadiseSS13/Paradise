@@ -93,7 +93,7 @@
 	else
 		info_tag?.set_text("Transmitting")
 
-/obj/structure/flock/relay/process(delta_time)
+/obj/structure/flock/relay/process()
 	if(world.time >= (started_time + win_time))
 		lorimer_burst()
 		return PROCESS_KILL
@@ -133,9 +133,10 @@
 
 /obj/structure/flock/relay/proc/alert_organics()
 	for(var/mob/M as anything in GLOB.player_list)
-		if(is_station_level(get_turf(M).z) && M.can_hear())
+		var/turf/T = get_turf(M)
+		if(is_station_level(T.z) && M.can_hear())
 			M.playsound_local(M, 'goon/sounds/flockmind/Flock_Reactor.ogg', 30, FALSE)
-			to_chat(M, SPAN_FLOCKSAY("<b>A horrible, otherworldly wave eminates from the <i>[dir2text(get_dir(mob_turf, loc))]</i>."))
+			to_chat(M, SPAN_FLOCKSAY("<b>A horrible, otherworldly wave eminates from the <i>[dir2text(get_dir(get_turf(M), loc))]</i>."))
 
 /obj/structure/flock/relay/proc/announce_relay()
 	var/message = stars("The Signal is coming.", 10)
@@ -156,13 +157,11 @@
 	flock_talk(null, "!!! TRASMITTING SIGNAL !!!", flock)
 	visible_message(gradient_text("[src] begins sparking wildly! The air is charged with static!", "#3cb5a3", "#124e43"))
 
-	var/sound_len = SSsound_cache.get_sound_length('goon/sounds/flockmind/flock_broadcast_charge.ogg')
-
 	for(var/mob/M as anything in GLOB.player_list)
 		if(M.can_hear())
 			M.playsound_local(M, 'goon/sounds/flockmind/flock_broadcast_charge.ogg', 30, FALSE)
 
-	sleep(sound_len)
+	sleep(20 SECONDS)
 
 	for(var/mob/M as anything in GLOB.player_list)
 		if(M.can_hear())
@@ -170,36 +169,14 @@
 
 		if(isliving(M))
 			var/mob/living/L = M
-			L.flash_act(3, TRUE, TRUE, TRUE, length = 3 SECONDS)
+			L.flash_eyes(3, TRUE, TRUE, TRUE)
 
 	sleep(2 SECONDS)
 
 	flock.set_flock_game_status(FLOCK_ENDGAME_VICTORY)
-	explosion(src, 50, ignorecap = TRUE, explosion_cause = src)
+	explosion(src, 50, ignorecap = TRUE, cause = src)
 
 	sleep(2 SECONDS)
 
-	for(var/obj/machinery/telecomms/T in GLOB.telecomms_list)
+	for(var/obj/machinery/telecomms/T in SSmachines.get_by_type(/obj/machinery/telecomms))
 		T.emp_act(EMP_HEAVY)
-
-	for(var/obj/item/radio/radio as anything in INSTANCES_OF(/obj/item/radio))
-		radio.emped = INFINITY
-		radio.set_on(FALSE)
-
-		playsound(
-			radio,
-			pick('goon/sounds/radio_sweep1.ogg','goon/sounds/radio_sweep2.ogg','goon/sounds/radio_sweep3.ogg','goon/sounds/radio_sweep4.ogg','goon/sounds/radio_sweep5.ogg'),
-			70,
-			TRUE,
-		)
-
-		if(!radio.equipped_to)
-			continue
-
-		to_chat(radio.equipped_to, SPAN_WARNING("A final scream of horrific static bursts from your [radio.name]."))
-		if(radio.equipped_to.soundbang_act(3, 0))
-			radio.equipped_to.Disorient(60 SECONDS, 0, TRUE, 6 SECONDS, 3 SECONDS)
-
-		if(prob(20))
-			sleep(0.1 SECONDS)
-

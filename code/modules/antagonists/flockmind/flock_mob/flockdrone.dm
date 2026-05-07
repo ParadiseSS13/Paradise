@@ -88,14 +88,13 @@
 	absorber.try_drop_item()
 	return ..()
 
-/mob/living/basic/flock/drone/Life(delta_time, times_fired)
+/mob/living/basic/flock/drone/Life(seconds_per_tick, times_fired)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
 		if(avoid_stop_flockphase())
 			flockphase_tax()
 		else
 			stop_flockphase()
-
 
 /mob/living/basic/flock/drone/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
@@ -169,7 +168,7 @@
 	I = image('icons/hud/radial.dmi', "radial_control")
 	choices["control"] = I
 
-	var/result = show_radial_menu(usr, get_turf(src), choices, "[REF(usr)]_flock_click")
+	var/result = show_radial_menu(usr, get_turf(src), choices, "[ref(usr)]_flock_click")
 	switch(result)
 		if("control")
 			take_control(ghost_bird)
@@ -199,11 +198,11 @@
 	else
 		active_part?.left_click_on(A, FALSE)
 
-/mob/living/simple_animal/update_health_hud()
+/mob/living/basic/flock/update_health_hud()
 	var/severity = 0
 	var/healthpercent = ceil((health/maxHealth) * 100)
-	if(hud_used?.healthdoll) //to really put you in the boots of a simplemob
-		var/atom/movable/screen/flockdrone_health/healthdoll = hud_used.healthdoll
+	if(healthdoll) //to really put you in the boots of a simplemob
+		var/atom/movable/screen/flockdrone_health/healthdoll = healthdoll
 		switch(healthpercent)
 			if(100 to INFINITY)
 				severity = 0
@@ -224,10 +223,6 @@
 
 		healthdoll.icon_state = "health[severity]"
 
-	if(severity > 0)
-		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, min(severity, 6))
-	else
-		clear_fullscreen("brute")
 
 
 /mob/living/basic/flock/drone/harvest(mob/living/user)
@@ -237,7 +232,7 @@
 	)
 
 	for(var/i in 3 to 6)
-		var/path = pick_weight(loot)
+		var/path = pickweight(loot)
 		new path(drop_location())
 
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 30, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -251,7 +246,7 @@
 
 	if(controlled_by)
 		data["task"] = "controlled"
-		data["controller_ref"] = REF(controlled_by)
+		data["controller_ref"] = ref(controlled_by)
 
 	else if((ai_controller.ai_status == AI_ON) && length(ai_controller.current_behaviors))
 		var/datum/ai_behavior/flock/current_task = ai_controller.current_behaviors[1]

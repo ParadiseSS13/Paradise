@@ -2,7 +2,6 @@
 	name = "Cage"
 	cooldown_time = 5 SECONDS
 	click_to_activate = TRUE
-	render_button = FALSE
 
 	var/obj/effect/abstract/flock_conversion/turf_effect
 
@@ -30,7 +29,7 @@
 		blind_message = SPAN_HEAR("You hear a strange synthetic whirring."),
 	)
 
-	T.add_viscontents(turf_effect)
+	T.vis_contents += turf_effect
 	if(iswallturf(T))
 		turf_effect.icon_state = "spawn-wall-loop"
 		flick("spawn-wall", turf_effect)
@@ -42,7 +41,7 @@
 	if(!do_after(owner, 4.5 SECONDS,  target = target, interaction_key = "flock_cage"))
 		. = FALSE
 
-	T.remove_viscontents(turf_effect)
+	T.vis_contents -= turf_effect
 	if(!.)
 		return
 

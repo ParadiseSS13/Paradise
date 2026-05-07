@@ -17,7 +17,7 @@
 	return TRUE
 
 /proc/pointer_image_to(atom/from, atom/towards, color = "#00ff9dff")
-	var/image/pointer = image(icon = 'icons/hud/screen1.dmi', icon_state = "arrow_greyscale", loc = from)
+	var/image/pointer = image(icon = 'icons/mob/screen_gen.dmi', icon_state = "arrow_greyscale", loc = from)
 
 	pointer.plane = HUD_PLANE
 	pointer.appearance_flags |= RESET_COLOR

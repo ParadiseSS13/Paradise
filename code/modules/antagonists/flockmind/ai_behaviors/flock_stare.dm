@@ -14,10 +14,10 @@
 /datum/ai_behavior/flock/stare/proc/get_targets(datum/ai_controller/controller)
 	. = list()
 	for(var/mob/living/viewer in viewers(controller.pawn, controller.target_search_radius))
-		if(isteshari(viewer) || isvox(viewer) || istype(viewer, /mob/living/simple_animal/parrot))
+		if(isvox(viewer) || istype(viewer, /mob/living/simple_animal/parrot))
 			. += viewer
 
-/datum/ai_behavior/flock/stare/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/stare/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/list/targets = get_targets(controller)
 	if(length(targets))
@@ -34,7 +34,7 @@
 	name = "analyzing"
 	action_cooldown = 1 SECONDS
 
-/datum/ai_behavior/flock/stare_at_bird/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/stare_at_bird/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/living_pawn = controller.pawn
 	if(!controller.blackboard[BB_FLOCK_STARING_ACTIVE])

@@ -7,11 +7,11 @@
 
 /datum/action/cooldown/flock/gatecrash/Activate(atom/target)
 	var/list/targets = list()
-	for(var/obj/machinery/door/airlock/airlock in INSTANCES_OF(/obj/machinery/door))
+	for(var/obj/machinery/door/airlock/airlock in range(10, src))
 		if(airlock.z != owner.z)
 			continue
 
-		if(get_dist(airlock, owner) <= 10 && airlock.canAIControl())
+		if(airlock.canAIControl())
 			targets += airlock
 
 

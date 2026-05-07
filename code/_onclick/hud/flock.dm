@@ -1,6 +1,4 @@
 /datum/hud/flockdrone
-	ui_style = 'goon/icons/hud/flock_ui.dmi'
-
 	var/atom/movable/screen/flock_relay_status/relay_status
 
 /datum/hud/flockdrone/New(mob/owner)
@@ -16,8 +14,8 @@
 	using = new /atom/movable/screen/flockdrone_part/absorber(null, src)
 	static_inventory += using
 
-	healthdoll = new /atom/movable/screen/flockdrone_health(null, src)
-	infodisplay += healthdoll
+	mymob.healths = new /atom/movable/screen/flockdrone_health(null, src)
+	infodisplay += mymob.healths
 
 	relay_status = new(null, src)
 	infodisplay += relay_status
@@ -28,8 +26,6 @@
 
 // Used for flock traces and the overmind
 /datum/hud/flockghost
-	ui_style = 'goon/icons/hud/flock_ui.dmi'
-
 	var/atom/movable/screen/flock_relay_status/relay_status
 
 /datum/hud/flockghost/New(mob/owner)
@@ -44,7 +40,6 @@
 /atom/movable/screen/flockdrone_health
 	icon = 'goon/icons/hud/flock_ui.dmi'
 	icon_state = "health1"
-	screen_loc = ui_living_healthdoll
 
 /atom/movable/screen/flockdrone_part
 	icon = 'goon/icons/hud/flock_ui.dmi'
@@ -110,12 +105,13 @@
 	. = ..()
 	charge_overlay.vis_flags = VIS_INHERIT_ID | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ICON
 	charge_overlay.icon_state = "charge_overlay"
-	add_viscontents(charge_overlay)
+	managed_vis_overlays += charge_overlay
 
 	overlay_mask = icon('goon/icons/hud/flock_ui.dmi', "darkener")
 	charge_overlay.add_filter("mask", 1, alpha_mask_filter(0, 0, overlay_mask))
 
 /atom/movable/screen/flockdrone_part/incapacitator/Destroy()
+	managed_vis_overlays -= charge_overlay
 	QDEL_NULL(charge_overlay)
 	return ..()
 

@@ -3,11 +3,11 @@
 	required_distance = 0
 	goap_weight = FLOCK_BEHAVIOR_WEIGHT_WANDER
 
-/datum/ai_behavior/flock/wander/perform(delta_time, datum/ai_controller/controller, ...)
+/datum/ai_behavior/flock/wander/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/turf/destination = get_destination(controller)
 	if(destination)
-		controller.set_move_target(destination)
+		controller.set_movement_target(destination)
 		return AI_BEHAVIOR_SUCCEEDED
 	return AI_BEHAVIOR_FAILED
 
@@ -41,7 +41,7 @@
 
 	// In space, move towards the station!
 	if(!length(options))
-		var/obj/effect/landmark/observer_start/landmark = locate() in GLOB.landmarks_list
+		var/obj/effect/landmark/start/landmark = locate() in GLOB.landmarks_list
 		var/target_turf = get_turf(landmark)
 		return get_step_towards(get_step_towards(start_loc, target_turf), target_turf)
 
