@@ -4240,7 +4240,7 @@
 /obj/item/pickaxe/mini,
 /obj/item/gun/energy/kinetic_accelerator,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "aHn" = (
 /obj/structure/railing{
 	dir = 8
@@ -13338,7 +13338,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "cag" = (
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor2";
@@ -27879,7 +27879,7 @@
 "eLb" = (
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "eLl" = (
 /obj/machinery/door_control{
 	id = "auxincineratorvent";
@@ -30930,9 +30930,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
-"ftr" = (
-/turf/simulated/wall,
-/area/station/maintenance/apmaint)
 "ftt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -31297,7 +31294,7 @@
 	},
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "fxp" = (
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics/chargebay)
@@ -42682,7 +42679,7 @@
 /obj/item/clothing/head/cone,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "hYA" = (
 /obj/structure/sign/directions/cargo{
 	pixel_y = 41;
@@ -44712,7 +44709,7 @@
 "ivv" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "ivB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -44987,7 +44984,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "iyK" = (
 /obj/machinery/economy/slot_machine,
 /turf/simulated/floor/carpet,
@@ -51590,7 +51587,7 @@
 	total_amount = 20
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "jPc" = (
 /obj/structure/sign/engineering/atmos,
 /turf/simulated/wall/r_wall,
@@ -59736,7 +59733,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "lyy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -61240,7 +61237,7 @@
 /obj/item/clothing/head/cone,
 /obj/item/clothing/head/cone,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "lPi" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -61637,7 +61634,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating/airless,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "lSZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/disposalpipe/segment,
@@ -73638,9 +73635,6 @@
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/station/hallway/primary/port/south)
-"oBP" = (
-/turf/simulated/mineral/ancient/outer,
-/area/station/maintenance/apmaint)
 "oCg" = (
 /turf/simulated/mineral/ancient,
 /area/station/aisat/atmos)
@@ -73874,7 +73868,7 @@
 "oEJ" = (
 /obj/structure/sign/cargo,
 /turf/simulated/wall,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "oEL" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -75525,7 +75519,7 @@
 /obj/machinery/light/small,
 /obj/structure/table,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "oXs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -85846,7 +85840,7 @@
 "roL" = (
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "rpa" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -96085,7 +96079,7 @@
 /obj/structure/fans/tiny,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "tzq" = (
 /obj/machinery/door/firedoor{
 	dir = 4
@@ -99190,10 +99184,6 @@
 /obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
-"uhS" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "uhW" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating{
@@ -110403,7 +110393,7 @@
 /obj/structure/table,
 /obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "wAw" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -112015,7 +112005,7 @@
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "wPI" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/structure/table,
@@ -116884,7 +116874,7 @@
 /obj/item/stack/ore/gold,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
+/area/station/maintenance/science/fore)
 "xTb" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -146635,11 +146625,11 @@ rNK
 rNK
 rWw
 ccW
-ftr
-ftr
-ftr
-ftr
-ftr
+lwl
+lwl
+lwl
+lwl
+lwl
 ccW
 ccW
 ccW
@@ -146892,11 +146882,11 @@ rNK
 rNK
 rWw
 rWw
-ftr
+lwl
 iyA
 hYr
 ivv
-ftr
+lwl
 ccW
 ccW
 ccW
@@ -147149,11 +147139,11 @@ rNK
 rNK
 rNK
 rWw
-ftr
+lwl
 lym
 lOY
 wAp
-ftr
+lwl
 ccW
 ccW
 ccW
@@ -147406,11 +147396,11 @@ rNK
 rNK
 rNK
 rWw
-ftr
+lwl
 aHh
 fxo
 eLb
-ftr
+lwl
 ccW
 ccW
 ccW
@@ -147663,12 +147653,12 @@ rNK
 rNK
 rNK
 rWw
-ftr
-ftr
+lwl
+lwl
 roL
 roL
-ftr
-ftr
+lwl
+lwl
 rWw
 rWw
 rWw
@@ -147920,12 +147910,12 @@ rNK
 rNK
 rNK
 rNK
-oBP
-ftr
+ntq
+lwl
 wPE
-uhS
+oko
 xSZ
-ftr
+lwl
 rWw
 lzH
 lzH
@@ -148177,12 +148167,12 @@ rNK
 rNK
 rNK
 qJG
-ftr
-ftr
+lwl
+lwl
 oEJ
 jOT
 oXr
-ftr
+lwl
 rWw
 rNK
 rNK
@@ -148438,8 +148428,8 @@ lST
 tyP
 cad
 roL
-ftr
-ftr
+lwl
+lwl
 rWw
 rNK
 rNK
@@ -148692,10 +148682,10 @@ rNK
 rNK
 qJG
 oEJ
-ftr
-ftr
-ftr
-ftr
+lwl
+lwl
+lwl
+lwl
 rWw
 rWw
 rNK
