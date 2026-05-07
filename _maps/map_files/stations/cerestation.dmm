@@ -78278,7 +78278,7 @@
 /area/station/hallway/primary/starboard/south)
 "pCG" = (
 /obj/machinery/mecha_part_fabricator,
-/obj/effect/turf_decal/tiles/department/science/corner{
+/obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -83564,11 +83564,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/spacebridge/cargocom)
 "qMj" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/tiles/department/science/corner,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/electrical/aft_port)
 "qMm" = (
@@ -84426,6 +84427,10 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/service/bar)
+"qVh" = (
+/obj/item/flag/rnd,
+/turf/simulated/floor/plating,
+/area/station/maintenance/electrical/aft_port)
 "qVx" = (
 /obj/effect/spawner/random/fungus/maybe,
 /obj/effect/mapping_helpers/turfs/rust,
@@ -105257,9 +105262,18 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/fore_port)
 "vvQ" = (
-/obj/item/flag/rnd,
 /obj/machinery/alarm/directional/north,
-/turf/simulated/floor/plating,
+/obj/structure/shelf/science,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/obj/item/robot_parts/robot_component/actuator,
+/obj/item/robot_parts/robot_component/armour,
+/obj/item/robot_parts/robot_component/binary_communication_device,
+/obj/item/robot_parts/robot_component/camera,
+/obj/item/robot_parts/robot_component/diagnosis_unit,
+/obj/item/robot_parts/robot_component/radio,
+/turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/electrical/aft_port)
 "vvY" = (
 /obj/machinery/light/small{
@@ -107219,7 +107233,10 @@
 "vQl" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/sign/poster/contraband/random/directional/west,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/electrical/aft_port)
 "vQq" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -147421,7 +147438,7 @@ xEi
 hNu
 dGU
 iwD
-bxf
+qVh
 aOi
 szD
 eCl
