@@ -148,7 +148,7 @@ async function getLinuxEntries(pidsToResolve) {
 
   for (const [linuxPid, addrs] of wineServers) {
     try {
-      const env = await fs.readFile(`/proc/${linuxPid}/environ`);
+      const env = await fs.readFile(`/proc/${linuxPid}/environ`, 'utf8');
       const prefix = env.split('\0').find(l => l.startsWith("WINEPREFIX"))?.split('=')[1];
       if(!prefix) continue;
 
@@ -167,8 +167,8 @@ async function getLinuxEntries(pidsToResolve) {
           }
         }
       }
-    } catch (e) {
-      logger.log(`something broke but nobody knows what`);
+    } catch (err) {
+      logger.log(err);
       continue;
     }
   }
