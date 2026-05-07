@@ -1353,3 +1353,33 @@
 	tastes = list("tapioca" = 0.5, "flat" = 0.25, "bread" = 0.25)
 	goal_difficulty = FOOD_GOAL_HARD
 
+//////////////////////
+//		Hispania!		//
+//////////////////////
+
+/obj/item/food/honey_pie
+	name = "honey pie"
+	desc = "A honey pie!"
+	icon_state = "honey_pie"
+	trash = /obj/item/trash/plate
+	filling_color = "#FBFFB8"
+	bitesize = 3
+	list_reagents = list("nutriment" = 10, "vitamin" = 5)
+
+// further adapted to fit our existing pancake profiles -- alfalfascout
+/obj/item/food/pancake/mermelada_pancake
+	name = "fluffy mermelada pancake"
+	desc = "A fluffy pancake. The softer, superior relative of the waffle. This time with a top of a jelly made of nispero and citrus."
+	icon_state = "mermelada_pancake"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1, "sugar" = 6)
+	tastes = list("soft dough" = 10, "sweet jelly" = 10)
+
+//Stuffed mushrooms//
+/obj/item/food/stuffed_mushrooms
+	name = "Stuffed Mushrooms"
+	desc = "Two mushrooms stuffed with bacon and cheese, delicious!"
+	icon_state = "stuffed_mushrooms"
+	list_reagents = list("nutriment" = 3, "vitamin" = 2)
+	tastes = list("bacon" = 1,"cheesy" = 1,"earthy" = 1)
+
+// ----------- END of imports from Hispania!
