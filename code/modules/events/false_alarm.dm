@@ -23,7 +23,7 @@
 		/datum/event/tear,
 		/datum/event/tear/honk,
 		/datum/event/traders,
-		/datum/event/vent_clog,
+		/datum/event/market_crash,
 		/datum/event/disease_outbreak,
 		/datum/event/vent_clog,
 		/datum/event/disposals_clog,
