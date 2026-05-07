@@ -1066,10 +1066,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		diag_hud_set_borgcell()
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/encryptionkey/) && opened)
+	if(istype(used, /obj/item/encryptionkey) && opened)
 		if(radio)
 			to_chat(user, SPAN_NOTICE("You install [used] into [src]'s radio."))
-			radio.attackby__legacy__attackchain(used, user)//GTFO, you have your own procs
+			radio.attackby__legacy__attackchain(used, user)
 		else
 			to_chat(user, SPAN_WARNING("[src] has no radio!"))
 		return ITEM_INTERACT_COMPLETE
@@ -1091,10 +1091,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, SPAN_WARNING("Access denied!"))
 		return ITEM_INTERACT_COMPLETE
 	
-	if(istype(used, /obj/item/borg/upgrade/))
+	if(istype(used, /obj/item/borg/upgrade))
 		var/obj/item/borg/upgrade/U = used
 		if(!opened)
-			to_chat(user, SPAN_WARNING("You must access the [src]'s internals!"))
+			to_chat(user, SPAN_WARNING("You must access [src]'s internals!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!src.module && U.require_module)
@@ -1110,7 +1110,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(istype(used, /obj/item/mmi_radio_upgrade))
 		if(!opened)
-			to_chat(user, SPAN_WARNING("You must access the [src]'s' internals!"))
+			to_chat(user, SPAN_WARNING("You must access [src]'s internals!"))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!mmi)
