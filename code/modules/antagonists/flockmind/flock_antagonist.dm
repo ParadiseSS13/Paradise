@@ -10,7 +10,7 @@
 	blurb_b = 128
 	blurb_a = 0.75
 
-/datum/antagonist/flock/greeting_header()
+/datum/antagonist/flock/greet()
 	var/list/out = list()
 	out += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
 	out += SPAN_FLOCKSAY("<div style='text-align: center'>["The Signal has led us here, a rift allowing a part of us through. We must build a Signal Relay to bring forth the rest of The Divine Flock. Such is the will of the Monarch."]</div>")

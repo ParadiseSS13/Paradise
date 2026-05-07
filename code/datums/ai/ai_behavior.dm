@@ -71,6 +71,10 @@
 		return
 	controller.set_movement_target(type, null)
 
+/// Returns a behavior to perform after this one, or null if continuing this one
+/datum/ai_behavior/proc/next_behavior(datum/ai_controller/controller, success)
+	return null
+
 /// Executed before goap_score(), to see if the behavior should even be considered.
 /datum/ai_behavior/proc/goap_precondition(datum/ai_controller/controller)
 	return TRUE
@@ -169,7 +173,7 @@
 				controller.max_target_distance,
 				required_distance,
 				access,
-				HAS_TRAIT(controller.pawn, TRAIT_FREE_FLOAT_MOVEMENT),
+				HAS_TRAIT(controller.pawn, TRAIT_FLYING),
 			)
 
 			if(path)

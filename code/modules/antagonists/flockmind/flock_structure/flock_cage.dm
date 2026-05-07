@@ -61,7 +61,7 @@
 
 		if(length(edibles))
 			set_eating_target(pick(edibles))
-			playsound(src, 'goon/sounds/weapons/nano-blade-1.ogg', 50, TRUE)
+			playsound(src, 'sound/goonstation/weapons/nano-blade-1.ogg', 50, TRUE)
 
 			if(victim?.stat == CONSCIOUS)
 				to_chat(victim, SPAN_WARNING("[eating] begins to melt away."))
@@ -93,13 +93,12 @@
 
 	playsound(
 		src,
-		pick('goon/sounds/flockmind/flockdrone_grump1.ogg', 'goon/sounds/flockmind/flockdrone_grump2.ogg', 'goon/sounds/flockmind/flockdrone_grump3.ogg'),
+		pick('sound/goonstation/flockmind/flockdrone_grump1.ogg', 'sound/goonstation/flockmind/flockdrone_grump2.ogg', 'sound/goonstation/flockmind/flockdrone_grump3.ogg'),
 		50,
 		TRUE
 	)
 
 	take_damage(1, BRUTE)
-	do_hurt_animation()
 
 /obj/structure/flock/cage/relaymove(mob/living/user, direction)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user, direction) & COMSIG_BLOCK_RELAYMOVE)
@@ -113,12 +112,11 @@
 	if(!prob(80))
 		return
 
-	playsound(src, 'goon/sounds/Crystal_Hit_1.ogg', 50, TRUE)
+	playsound(src, 'sound/goonstation/Crystal_Hit_1.ogg', 50, TRUE)
 	if(prob(20))
 		audible_message("[src] [pick("cracks","bends","shakes","groans")].")
 
 	take_damage(1, BRUTE)
-	do_hurt_animation()
 
 /obj/structure/flock/cage/flock_structure_examine(mob/user)
 	return list(
@@ -137,17 +135,17 @@
 		return
 
 	var/mob/living/carbon/human/human_victim = victim
-	var/list/items = list_clear_nulls(human_victim.get_all_worn_items())
+	var/list/items = list_clear_nulls(human_victim.get_equipped_items())
 	if(length(items))
 		while(length(items) && !eating)
 			var/obj/item/candidate = pick_n_take(items)
-			human_victim.transferItemToLoc(candidate, src, TRUE, TRUE)
+			candidate.forceMove(src)
 			if(!QDELETED(candidate))
 				set_eating_target(candidate)
 
 		if(eating)
 			visible_message(SPAN_WARNING("[src] pulls [eating] from [human_victim] and begins ripping it apart."))
-			playsound(src, 'goon/sounds/weapons/nano-blade-1.ogg', 50, TRUE)
+			playsound(src, 'sound/goonstation/weapons/nano-blade-1.ogg', 50, TRUE)
 		return
 
 	var/list/bodyparts = human_victim.bodyparts.Copy()

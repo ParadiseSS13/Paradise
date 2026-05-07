@@ -38,11 +38,11 @@
 	return ..()
 
 /atom/movable/screen/flockdrone_health
-	icon = 'goon/icons/hud/flock_ui.dmi'
+	icon = 'icons/goonstation/hud/flock_ui.dmi'
 	icon_state = "health1"
 
 /atom/movable/screen/flockdrone_part
-	icon = 'goon/icons/hud/flock_ui.dmi'
+	icon = 'icons/goonstation/hud/flock_ui.dmi'
 	var/active_state = ""
 	var/inactive_state = ""
 
@@ -107,7 +107,7 @@
 	charge_overlay.icon_state = "charge_overlay"
 	managed_vis_overlays += charge_overlay
 
-	overlay_mask = icon('goon/icons/hud/flock_ui.dmi', "darkener")
+	overlay_mask = icon('icons/goonstation/hud/flock_ui.dmi', "darkener")
 	charge_overlay.add_filter("mask", 1, alpha_mask_filter(0, 0, overlay_mask))
 
 /atom/movable/screen/flockdrone_part/incapacitator/Destroy()
@@ -142,7 +142,7 @@
 
 /atom/movable/screen/flock_relay_status
 	name = "relay progress"
-	icon = 'goon/icons/hud/flock_ui.dmi'
+	icon = 'icons/goonstation/hud/flock_ui.dmi'
 	icon_state = "structure-relay"
 
 	screen_loc = "EAST-1:28,CENTER-2:15"

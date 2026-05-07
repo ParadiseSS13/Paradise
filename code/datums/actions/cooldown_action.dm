@@ -269,6 +269,9 @@
 /datum/action/cooldown/proc/PreActivate(atom/target)
 	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src, target) & COMPONENT_BLOCK_ABILITY_START)
 		return
+
+	if(!is_valid_target(target))
+		return
 	// Note, that PreActivate handles no cooldowns at all by default.
 	// Be sure to call StartCooldown() in Activate() where necessary.
 	. = Activate(target)
@@ -360,5 +363,15 @@
 	SEND_SIGNAL(src, COMSIG_ACTION_SET_STATPANEL, stat_panel_data)
 
 	return stat_panel_data
+
+/**
+ * Check if the target we're casting on is a valid target.
+ * For no-target (self cast) actions, the target being checked (cast_on) is the caster.
+ * For click_to_activate actions, the target being checked is the clicked atom.
+ *
+ * Return TRUE if cast_on is valid, FALSE otherwise
+ */
+/datum/action/cooldown/proc/is_valid_target(atom/cast_on)
+	return TRUE
 
 #undef COOLDOWN_NO_DISPLAY_TIME

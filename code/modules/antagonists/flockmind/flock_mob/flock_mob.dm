@@ -77,11 +77,10 @@
 
 /mob/living/basic/flock/set_stat(new_stat)
 	. = ..()
-	switch(stat)
-		if(stat != DEAD)
-			ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
-		else
-			REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+	if(stat != DEAD)
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 
 /mob/living/basic/flock/update_name(updates)
 	. = ..()
@@ -133,7 +132,6 @@
 
 	dormant = TRUE
 
-	cancel_do_afters()
 	ai_controller.set_ai_status(AI_STATUS_OFF)
 	flock?.free_unit(src)
 	update_light_state()

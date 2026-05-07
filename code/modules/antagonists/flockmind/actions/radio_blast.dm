@@ -27,7 +27,7 @@
 	. = ..()
 
 	to_chat(owner, SPAN_NOTICE("You transmit the worst static you can weave into the headsets around you."))
-	playsound(owner, 'goon/sounds/flockmind/flockmind_cast.ogg', 50, FALSE)
+	playsound(owner, 'sound/goonstation/flockmind/flockmind_cast.ogg', 50, FALSE)
 
 	for(var/mob/living/carbon/human/guy as anything in targets)
 		to_chat(guy, SPAN_ALERT("Horrifying static bursts into your headset, disorienting you severely!"))

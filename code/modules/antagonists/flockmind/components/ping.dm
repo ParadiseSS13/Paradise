@@ -46,8 +46,6 @@
 		animate(dummy, time = 0.5 SECONDS, alpha = 100, loop = -1)
 		animate(time = 0.5 SECONDS, alpha = 255)
 
-	hud_ref = target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/flock, "ping-[type]-[ref(target)]", outline_container)
-
 	if(duration == INFINITY)
 		return
 

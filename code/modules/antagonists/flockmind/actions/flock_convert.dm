@@ -33,7 +33,7 @@
 
 /datum/action/cooldown/flock/convert/Activate(atom/target)
 	. = ..()
-	playsound(owner, 'goon/sounds/flockmind/flockdrone_convert.ogg', 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
+	playsound(owner, 'sound/goonstation/flockmind/flockdrone_convert.ogg', 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
 	var/turf/clicked_atom_turf = get_turf(target)
 

@@ -82,7 +82,7 @@
 	if(is_charged)
 		return "Ready"
 
-	return "Recharging: [(timeleft(recharge_timer_id)) / 10] seconds"
+	return "Recharging."
 
 /// Called when a projectile enters the view of the interceptor.
 /obj/structure/flock/interceptor/proc/try_intercept_projectile(obj/projectile/P)
@@ -92,7 +92,7 @@
 	if(!istype(P, /obj/projectile/bullet))
 		return FALSE
 
-	playsound(src, 'goon/sounds/flockmind/flockdrone_fart.ogg', 50, TRUE) // It honestly kind of fits??
+	playsound(src, 'sound/goonstation/flockmind/flockdrone_fart.ogg', 50, TRUE) // It honestly kind of fits??
 	Beam(get_turf(P), icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	qdel(P)
 

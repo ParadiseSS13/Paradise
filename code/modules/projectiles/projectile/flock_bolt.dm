@@ -1,10 +1,10 @@
 /obj/projectile/energy/flock_bolt
 	name = "incapacitor bolt"
-	icon = 'goon/icons/mob/featherzone.dmi'
+	icon = 'icons/goonstation/mob/featherzone.dmi'
 	icon_state = "stunbolt"
 
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
-	hitsound = 'goon/sounds/weapons/sparks6.ogg'
+	hitsound = 'sound/goonstation/weapons/sparks6.ogg'
 
 	pass_flags = PASSGLASS
 	speed = 0.7

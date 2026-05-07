@@ -13,7 +13,7 @@
 		return AI_BEHAVIOR_SUCCEEDED
 
 	if(world.time >= duration + controller.blackboard[frustration_key])
-		controller.CancelActions()
+		controller.cancel_actions()
 		DEBUG_AI_LOG(controller, "AI got frustrated and cancelled current actions.")
 		return AI_BEHAVIOR_FAILED
 

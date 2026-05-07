@@ -393,7 +393,6 @@
 /// Places a flock notice on an atom. See flock_defines.dm
 /datum/flock/proc/add_notice(atom/target, notice_type)
 	var/image/I = image(notice_images[notice_type], loc = target)
-	return target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/flock, notice_type, I, NONE, src)
 
 /// Removes a flock notice from an atom.
 /datum/flock/proc/remove_notice(atom/target, notice_type)
@@ -419,7 +418,7 @@
 				continue
 			target_client = ghost_bird.controlling_bird.client
 
-		target_client.mob.playsound_local(null, 'goon/sounds/flockmind/ping.ogg', 50, TRUE)
+		target_client.mob.playsound_local(null, 'sound/goonstation/flockmind/ping.ogg', 50, TRUE)
 		if(ghost_bird == pinger)
 			continue
 

@@ -1,5 +1,5 @@
 /obj/structure/flock/relay
-	icon = 'icons/goonstation/obj/featherzone-160x160.dmi'
+	icon = 'icons/goonstation/objects/featherzone-160x160.dmi'
 	icon_state = "structure-relay"
 
 	name = "titanic polyhedron"
@@ -60,9 +60,6 @@
 
 	turfs_to_convert = null
 	return ..()
-
-/obj/structure/flock/relay/do_hurt_animation()
-	return
 
 /obj/structure/flock/relay/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armor_penetration, allow_break)
 	. = ..()
@@ -135,7 +132,7 @@
 	for(var/mob/M as anything in GLOB.player_list)
 		var/turf/T = get_turf(M)
 		if(is_station_level(T.z) && M.can_hear())
-			M.playsound_local(M, 'goon/sounds/flockmind/Flock_Reactor.ogg', 30, FALSE)
+			M.playsound_local(M, 'sound/goonstation/flockmind/Flock_Reactor.ogg', 30, FALSE)
 			to_chat(M, SPAN_FLOCKSAY("<b>A horrible, otherworldly wave eminates from the <i>[dir2text(get_dir(get_turf(M), loc))]</i>."))
 
 /obj/structure/flock/relay/proc/announce_relay()
@@ -159,13 +156,13 @@
 
 	for(var/mob/M as anything in GLOB.player_list)
 		if(M.can_hear())
-			M.playsound_local(M, 'goon/sounds/flockmind/flock_broadcast_charge.ogg', 30, FALSE)
+			M.playsound_local(M, 'sound/goonstation/flockmind/flock_broadcast_charge.ogg', 30, FALSE)
 
 	sleep(20 SECONDS)
 
 	for(var/mob/M as anything in GLOB.player_list)
 		if(M.can_hear())
-			M.playsound_local(M, 'goon/sounds/flockmind/flock_broadcast_kaboom.ogg', 30, FALSE)
+			M.playsound_local(M, 'sound/goonstation/flockmind/flock_broadcast_kaboom.ogg', 30, FALSE)
 
 		if(isliving(M))
 			var/mob/living/L = M

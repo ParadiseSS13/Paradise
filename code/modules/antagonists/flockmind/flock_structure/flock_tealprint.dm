@@ -55,7 +55,7 @@
 		cube.substrate = substrate.has_points()
 
 	flock_talk(src, "Tealprint dematerializing", flock, involuntary = TRUE)
-	playsound(src, 'goon/sounds/flockmind/flockdrone_door_deny.ogg', 30, TRUE, extrarange = -10)
+	playsound(src, 'sound/goonstation/flockmind/flockdrone_door_deny.ogg', 30, TRUE, extrarange = -10)
 	qdel(src)
 	return TRUE
 

@@ -39,7 +39,6 @@
 
 	bird.substrate.remove_points(bird.flock.current_egg_cost)
 	bird.visible_message(SPAN_NOTICE("[bird] deploys some sort of device."))
-	playsound(bird, 'goon/sounds/Metal_Clang_1.ogg', 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 
 	new /obj/structure/flock/egg(flockfloor)
 	return TRUE

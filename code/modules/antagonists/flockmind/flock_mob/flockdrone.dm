@@ -142,9 +142,9 @@
 	. = ..()
 	. += "Substrate: [substrate.has_points()]"
 
-/mob/living/basic/flock/drone/MouseDroppedOn(atom/dropping, atom/user)
+/mob/living/basic/flock/drone/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
-	if(dropping != user || !istype(user, /mob/camera/flock))
+	if(M != user || !istype(user, /mob/camera/flock))
 		return
 
 	var/mob/camera/flock/ghost_bird = user
@@ -201,7 +201,7 @@
 /mob/living/basic/flock/update_health_hud()
 	var/severity = 0
 	var/healthpercent = ceil((health/maxHealth) * 100)
-	if(healthdoll) //to really put you in the boots of a simplemob
+	if(healthdoll) // to really put you in the boots of a basic mob
 		var/atom/movable/screen/flockdrone_health/healthdoll = healthdoll
 		switch(healthpercent)
 			if(100 to INFINITY)
@@ -291,16 +291,17 @@
 	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
 		return FALSE
 
-	playsound(src, 'goon/sounds/flockmind/flockdrone_floorrun.ogg', 30, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, 'sound/goonstation/flockmind/flockdrone_floorrun.ogg', 30, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 	ADD_TRAIT(src, TRAIT_FLOCKPHASE, INNATE_TRAIT)
 	pass_flags_self |= LETPASSTHROW | PASSFLOCK
 
-	current_size = 0
+	mob_size = 0
 
 	set_density(FALSE)
-	release_all_grabs()
-	add_movespeed_modifier(/datum/movespeed_modifier/flockphase)
+	for(var/obj/item/hand_item/grab/G in contents)
+		qdel(G)
+	move_speed -= 0.4
 
 	var/list/color_matrix = list(1,0,0, 0,1,0, 0,0,1, 0.15,0.77,0.66)
 	var/matrix/shrink = matrix().Scale(0)
@@ -314,13 +315,13 @@
 	if(!force && avoid_stop_flockphase())
 		return FALSE
 
-	playsound(src, 'goon/sounds/flockmind/flockdrone_floorrun.ogg', 30, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, 'sound/goonstation/flockmind/flockdrone_floorrun.ogg', 30, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 	REMOVE_TRAIT(src, TRAIT_FLOCKPHASE, INNATE_TRAIT)
 	pass_flags_self &= ~(LETPASSTHROW | PASSFLOCK)
-	current_size = initial_size
+	mob_size = initial(mob_size)
 	set_density(TRUE)
-	remove_movespeed_modifier(/datum/movespeed_modifier/flockphase)
+	move_speed += 0.4
 
 	animate(src, color = null, transform = null, time = 0.5 SECONDS, easing = SINE_EASING)
 
@@ -345,8 +346,9 @@
 /mob/living/basic/flock/drone/proc/avoid_stop_flockphase()
 	if(!can_flockphase())
 		return FALSE
+	var/turf/T = loc
 
-	if(isclosedturf(loc))
+	if(T.density)
 		return TRUE
 
 	if(client?.keys_held["Shift"])
@@ -389,8 +391,6 @@
 
 	if(controlled_by.mind)
 		controlled_by.mind.transfer_to(src)
-	else
-		PossessByPlayer(controlled_by.key)
 
 	if(isflocktrace(controlled_by))
 		flock.add_notice(src, FLOCK_NOTICE_FLOCKTRACE_CONTROL)
@@ -410,7 +410,7 @@
 	var/turf/destination = get_turf(src)
 	if(!flock.is_on_safe_z(destination))
 		dest_was_safe = FALSE
-		destination = get_turf(pick_safe(flock.drones)) || get_safe_random_station_turf()
+		destination = get_turf(pick(flock.drones)) || get_safe_random_station_turf()
 
 	var/mob/camera/flock/master_bird = controlled_by
 	controlled_by = null

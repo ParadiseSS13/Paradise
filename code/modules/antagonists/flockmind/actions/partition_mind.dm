@@ -32,12 +32,11 @@
 	do_partition()
 
 /datum/action/cooldown/flock/partition_mind/proc/do_partition()
+	set waitfor = FALSE
 	var/mob/camera/flock/overmind/ghost_bird = owner
 	if(!ghost_bird.flock.can_afford(FLOCK_COMPUTE_COST_FLOCKTRACE))
 		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: bandwidth required is unavailable."))
 		return
-
-	set waitfor = FALSE
 
 	awaiting_partition = TRUE
 

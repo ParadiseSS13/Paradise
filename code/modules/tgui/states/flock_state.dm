@@ -9,6 +9,6 @@ GLOBAL_DATUM_INIT(flock_state, /datum/ui_state/flockmind, new)
 /datum/ui_state/flockmind/can_use_topic(src_object, mob/user)
 	if(istype(user, /mob/camera/flock/overmind))
 		return UI_INTERACTIVE
-	if(check_rights_for(user.client, R_ADMIN))
+	if(is_admin(user))
 		return UI_INTERACTIVE
 	return UI_CLOSE

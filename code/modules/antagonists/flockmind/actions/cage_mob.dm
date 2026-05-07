@@ -37,7 +37,7 @@
 	log_attack(owner, target, "attempted to cage")
 
 	. = TRUE
-	playsound(owner, 'goon/sounds/flockmind/flockdrone_build.ogg', 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
+	playsound(owner, 'sound/goonstation/flockmind/flockdrone_build.ogg', 30, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE)
 	if(!do_after(owner, 4.5 SECONDS,  target = target, interaction_key = "flock_cage"))
 		. = FALSE
 
@@ -47,7 +47,7 @@
 
 	log_attack(owner, target, "caged")
 
-	playsound(owner, 'goon/sounds/flockmind/flockdrone_build_complete.ogg', 70, TRUE)
+	playsound(owner, 'sound/goonstation/flockmind/flockdrone_build_complete.ogg', 70, TRUE)
 	var/obj/structure/flock/cage/cage = new(T, bird.flock)
 	cage.cage_mob(target)
 	..()

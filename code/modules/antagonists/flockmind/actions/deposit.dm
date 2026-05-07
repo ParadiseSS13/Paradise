@@ -12,7 +12,7 @@
 	astype(bird, /mob/living/basic/flock/drone)?.stop_flockphase(TRUE)
 	bird.face_atom(target)
 
-	playsound(target, 'goon/sounds/flockmind/flockdrone_quickbuild.ogg', 50, TRUE)
+	playsound(target, 'sound/goonstation/flockmind/flockdrone_quickbuild.ogg', 50, TRUE)
 
 	while(do_after(bird, 1 SECONDS, target =  target, interaction_key = "flock_deposit"))
 		bird.visible_message(SPAN_NOTICE("[bird] deposits materials into [target]."), blind_message = SPAN_HEAR("You hear an otherwordly whirring."))

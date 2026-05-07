@@ -107,12 +107,6 @@
 // 	if(!usr.client?.keys_held?["Shift"])
 // 		info_tag.hide_from(usr)
 
-/obj/structure/flock/cage/do_hurt_animation()
-	for(var/i in 1 to 3)
-		animate(src, pixel_x = rand(-2, 2), pixel_y = rand(-2, 2), time = 0.5, flags = ANIMATION_RELATIVE | ANIMATION_CONTINUE)
-
-	animate(src, pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 0.5, flags = ANIMATION_CONTINUE)
-
 /obj/structure/flock/proc/get_flock_data()
 	. = list()
 	.["ref"] = ref(src)
