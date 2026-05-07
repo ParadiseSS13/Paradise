@@ -31,7 +31,7 @@
 	return "[first][second] [third]"
 
 /datum/supply_bounty/proc/GenerateReason()
-	var/faction = pick("Central Command", "The Trans-Solar Federation", "The USSP")
+	var/faction = pick("Central Command", "The Trans-Solar Federation", "The USSP", "The Royal Domain of Qerballak", "The Hoorlm Coalition", "The Technocracy", "A Diona gestalt", "The Coalition for Progress of IPC Society ", "A Kidan Clan", "A community from Boron", "The Assembly", "The Nionic Trade League")
 	return pick(list("[faction] has made an urgent request for [bounty_target_type]. Payment guaranteed.",
 		"[faction] has experienced a recent disaster and needs [bounty_target_type] in order to re-establish order.",
 		"[faction] has offered to pay a decent sum of credits if we can supply them with [bounty_target_type].",
