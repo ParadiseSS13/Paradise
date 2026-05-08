@@ -35,6 +35,8 @@
 	return TRUE
 
 /obj/item/assembly/shock_kit/activate_self(mob/user as mob)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!part1 || !part2)
 		return
 	part1.activate_self(user)

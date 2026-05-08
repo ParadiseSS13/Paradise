@@ -46,6 +46,8 @@
 
 
 /obj/item/assembly/voice/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!user || !secured)
 		return FALSE
 

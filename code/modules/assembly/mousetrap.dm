@@ -78,6 +78,8 @@
 	pulse(0)
 
 /obj/item/assembly/mousetrap/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!armed)
 		to_chat(user, SPAN_NOTICE("You arm [src]."))
 	else
