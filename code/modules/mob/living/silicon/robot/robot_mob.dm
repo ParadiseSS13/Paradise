@@ -20,12 +20,13 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	var/custom_name = ""
 	var/custom_sprite = FALSE // Due to all the sprites involved, a var for our custom borgs may be best.
 
-	//AI shell
+	//AI shell stuff
+	/// is this borg a shell?
 	var/shell = FALSE
+	/// is this shell currently deployed?
 	var/deployed = FALSE
 	var/mob/living/silicon/ai/mainframe = null
 	var/datum/action/innate/undeployment/undeployment_action = new
-
 	// HUD stuff.
 	var/atom/movable/screen/hands = null
 	var/list/inventory_screens = list()
@@ -1543,6 +1544,14 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		for(var/datum/action/innate/robot_override_lock/override in actions)
 			override.Remove(src)
 
+/**
+ * Notifies the AI of a certain event related to borgs and shells.
+ *
+ * Arguments: (only the notifytype argument is necessary)
+ * * notifytype - The type of notification to send.
+ * * oldname - The old name of the cyborg.
+ * * newname - The new name of the cyborg.
+ */
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
@@ -2020,7 +2029,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		QDEL_NULL(mmi)
 	return ..()
 
-/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)//no entiendo por qué esto necesita un argumento
+/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)//I don't understand why this needs an argument
 	shell = TRUE
 	braintype = "AI Shell"
 	name = "[designation] AI Shell [rand(100,999)]"
@@ -2079,6 +2088,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	R.undeploy()
 	return TRUE
 
+/// undeploys the AI from its shell.
 /mob/living/silicon/robot/proc/undeploy()
 	if(!deployed || !mind || !mainframe)
 		return

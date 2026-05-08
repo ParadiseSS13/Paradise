@@ -2,6 +2,9 @@
 	..(reason)
 	check_module_damage()
 
+	if(shell && deployed)
+		undeploy()
+
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
 	var/amount = 0
 	for(var/V in components)
