@@ -40,17 +40,17 @@
 		attached_signaler = null
 	return ..()
 
-/obj/item/desk_bell/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(!istype(I, /obj/item/assembly/signaler))
+/obj/item/desk_bell/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/signaler))
 		return ..()
 	// can only attach its on your person
 	if(!in_inventory)
-		to_chat(user, SPAN_WARNING("[src] needs to be in your inventory if you want to attach [I] to it!"))
+		to_chat(user, SPAN_WARNING("[src] needs to be in your inventory if you want to attach [used] to it!"))
 		return ITEM_INTERACT_COMPLETE
 	if(!isnull(attached_signaler))
 		to_chat(user, SPAN_NOTICE("There's already a signaler attached!"))
 		return ITEM_INTERACT_COMPLETE
-	var/obj/item/assembly/signaler/signal = I
+	var/obj/item/assembly/signaler/signal = used
 	user.transfer_item_to(signal, src)
 	attached_signaler = signal
 	if(signal.receiving)
