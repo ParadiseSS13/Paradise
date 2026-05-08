@@ -4,7 +4,9 @@
  * @author LeahTheTech (https://github.com/TobleroneSwordfish)
  * @license MIT
  */
+import { useMemo } from 'react';
 import { Box, Button, Dropdown, Icon, Section, Stack, Tabs, Tooltip } from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
 
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
@@ -68,6 +70,35 @@ type FlockVitals = {
   name: string;
 };
 
+const TASK_ICONS: Record<string, string> = {
+  thinking: 'brain',
+  shooting: 'bolt',
+  rummaging: 'dumpster',
+  wandering: 'route',
+  building: 'hammer',
+  nesting: 'hammer',
+  harvesting: 'cogs',
+  controlled: 'wifi',
+  replicating: 'egg',
+  rallying: 'map-marker',
+  'opening container': 'box-open',
+  butchering: 'recycle',
+  repairing: 'tools',
+  capturing: 'bars',
+  depositing: 'border-style',
+  observing: 'eye',
+  deconstructing: 'trash',
+  hibernating: 'stop-circle',
+};
+
+const TABS = [
+  { id: 'drones', label: 'Drones' },
+  { id: 'traces', label: 'Partitions' },
+  { id: 'structures', label: 'Structures' },
+  { id: 'enemies', label: 'Enemies' },
+  { id: 'stats', label: 'Stats' },
+];
+
 export const FlockPanel = (props) => {
   const { act, data } = useBackend<FlockPanelData>();
   const [sortBy, setSortBy] = useLocalState('sortBy', 'resources');
@@ -77,46 +108,11 @@ export const FlockPanel = (props) => {
     <Window theme="flock" title={'Flockmind ' + vitals.name} width={600} height={450}>
       <Window.Content scrollable>
         <Tabs>
-          <Tabs.Tab
-            selected={category === 'drones'}
-            onClick={() => {
-              act('change_tab', { tab: 'drones' });
-            }}
-          >
-            Drones {`(${category_lengths['drones']})`}
-          </Tabs.Tab>
-          <Tabs.Tab
-            selected={category === 'traces'}
-            onClick={() => {
-              act('change_tab', { tab: 'traces' });
-            }}
-          >
-            Partitions {`(${category_lengths['traces']})`}
-          </Tabs.Tab>
-          <Tabs.Tab
-            selected={category === 'structures'}
-            onClick={() => {
-              act('change_tab', { tab: 'structures' });
-            }}
-          >
-            Structures {`(${category_lengths['structures']})`}
-          </Tabs.Tab>
-          <Tabs.Tab
-            selected={category === 'enemies'}
-            onClick={() => {
-              act('change_tab', { tab: 'enemies' });
-            }}
-          >
-            Enemies {`(${category_lengths['enemies']})`}
-          </Tabs.Tab>
-          <Tabs.Tab
-            selected={category === 'stats'}
-            onClick={() => {
-              act('change_tab', { tab: 'stats' });
-            }}
-          >
-            Stats
-          </Tabs.Tab>
+          {TABS.map((tab) => (
+            <Tabs.Tab key={tab.id} selected={category === tab.id} onClick={() => act('change_tab', { tab: tab.id })}>
+              {tab.label} ({category_lengths[tab.id]})
+            </Tabs.Tab>
+          ))}
         </Tabs>
 
         {category === 'drones' && (
@@ -208,44 +204,15 @@ const FlockPartitions = (props: FlockPartitionsProps) => {
 };
 
 // basic sorting function for numbers and strings
-const compare = function (a, b, sortBy) {
-  if (!isNaN(a[sortBy]) && !isNaN(b[sortBy])) {
-    return b[sortBy] - a[sortBy];
-  }
-  return ('' + a[sortBy]).localeCompare(b[sortBy]);
-};
+const compare = (a, b, sortBy) => {
+  const valA = a[sortBy];
+  const valB = b[sortBy];
 
-// maps drone tasks to icons
-const iconLookup = {
-  thinking: 'brain',
-  shooting: 'bolt',
-  rummaging: 'dumpster',
-  wandering: 'route',
-  building: 'hammer',
-  nesting: 'hammer',
-  harvesting: 'cogs',
-  controlled: 'wifi',
-  replicating: 'egg',
-  rallying: 'map-marker',
-  'opening container': 'box-open',
-  butchering: 'recycle',
-  repairing: 'tools',
-  capturing: 'bars',
-  depositing: 'border-style',
-  observing: 'eye',
-  deconstructing: 'trash',
-  hibernating: 'stop-circle',
-};
-const taskIcon = function (task) {
-  let iconString = iconLookup[task];
-  if (iconString) {
-    return <Icon size={3} name={iconString} />;
+  if (typeof valA === 'number' && typeof valB === 'number') {
+    return valB - valA;
   }
-  return '';
-};
 
-const capitalizeString = function (string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return String(valA).localeCompare(String(valB));
 };
 
 type FlockDronesProps = {
@@ -256,70 +223,81 @@ type FlockDronesProps = {
 const FlockDrones = (props: FlockDronesProps) => {
   const { act } = useBackend();
   const { drones, sortBy } = props;
+
+  const sortedDrones = useMemo(() => {
+    return [...drones].sort((a, b) => compare(a, b, sortBy));
+  }, [drones, sortBy]);
+
   return (
     <Stack vertical>
-      {drones
-        .sort((a, b) => compare(a, b, sortBy))
-        .map((drone) => {
-          return (
-            <Stack.Item key={drone.ref}>
-              <Stack>
-                {/* name, health and resources */}
-                <Stack.Item width="20%">
-                  <Section height="100%">
-                    <Stack vertical align="center">
-                      <Stack.Item>{drone.name}</Stack.Item>
-                      <Stack.Item>
-                        {drone.health}
-                        <Icon name="heart" /> {drone.resources}
-                        <Icon name="cog" />
-                      </Stack.Item>
-                    </Stack>
-                  </Section>
-                </Stack.Item>
-                {/* area and task */}
-                <Stack.Item grow={1}>
-                  <Section height="100%">
-                    <Stack align="center">
-                      <Stack.Item width="50px">
-                        <Box align="center">{taskIcon(drone.task)}</Box>
-                      </Stack.Item>
-                      <Stack.Item>
-                        <b>{drone.area}</b> <br /> {drone.task && capitalizeString(drone.task)}
-                      </Stack.Item>
-                    </Stack>
-                  </Section>
-                </Stack.Item>
-                {/* buttons */}
-                <Stack.Item>
-                  <Section height="100%">
-                    <Stack>
-                      {drone.task === 'controlled' && (
-                        <Stack.Item>
-                          <Button
-                            onClick={() =>
-                              act('eject_trace', {
-                                origin: drone.controller_ref,
-                              })
-                            }
-                          >
-                            Eject Trace
-                          </Button>
-                        </Stack.Item>
-                      )}
-                      <Stack.Item>
-                        <Button onClick={() => act('rally', { origin: drone.ref })}>Rally</Button>
-                      </Stack.Item>
-                      <Stack.Item>
-                        <Button onClick={() => act('jump_to', { origin: drone.ref })}>Jump</Button>
-                      </Stack.Item>
-                    </Stack>
-                  </Section>
-                </Stack.Item>
-              </Stack>
+      {sortedDrones.map((drone) => (
+        <Stack.Item key={drone.ref}>
+          <Stack>
+            {/* name, health and resources */}
+            <Stack.Item width="20%">
+              <Section height="100%">
+                <Stack vertical align="center">
+                  <Stack.Item>{drone.name}</Stack.Item>
+                  <Stack.Item>
+                    {drone.health}
+                    <Icon name="heart" /> {drone.resources}
+                    <Icon name="cog" />
+                  </Stack.Item>
+                </Stack>
+              </Section>
             </Stack.Item>
-          );
-        })}
+            {/* area and task */}
+            <Stack.Item grow={1}>
+              <Section height="100%">
+                <Stack align="center">
+                  <Stack.Item width="50px">
+                    <Box align="center">
+                      {TASK_ICONS[drone.task] && <Icon size={3} name={TASK_ICONS[drone.task]} />}
+                    </Box>
+                  </Stack.Item>
+                  <Stack.Item grow={1}>
+                    <b>{drone.area}</b>
+                    {drone.task && (
+                      <>
+                        <br />
+                        <Box color="label" italic>
+                          {capitalize(drone.task)}
+                        </Box>
+                      </>
+                    )}
+                  </Stack.Item>
+                </Stack>
+              </Section>
+            </Stack.Item>
+            {/* buttons */}
+            <Stack.Item>
+              <Section height="100%">
+                <Stack>
+                  {drone.task === 'controlled' && (
+                    <Stack.Item>
+                      <Button
+                        onClick={() =>
+                          act('eject_trace', {
+                            origin: drone.controller_ref,
+                          })
+                        }
+                      >
+                        Eject Trace
+                      </Button>
+                    </Stack.Item>
+                  )}
+                  <Stack.Item>
+                    <Button onClick={() => act('rally', { origin: drone.ref })}>Rally</Button>
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Button onClick={() => act('jump_to', { origin: drone.ref })}>Jump</Button>
+                  </Stack.Item>
+                </Stack>
+              </Section>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      ))}
     </Stack>
   );
 };
