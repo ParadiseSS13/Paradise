@@ -62,7 +62,7 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE)
-	visible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
+	audible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
@@ -182,4 +182,4 @@
 		return
 
 	if(usr)
-		attack_self__legacy__attackchain(usr)
+		activate_self(usr)

@@ -32,14 +32,15 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	to_chat(user, SPAN_NOTICE("You activate [src]."))
 	activate()
 
-/obj/item/assembly/signaler/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(issignaler(W))
-		var/obj/item/assembly/signaler/signaler2 = W
-		if(secured && signaler2.secured)
-			code = signaler2.code
-			frequency = signaler2.frequency
-			to_chat(user, "You transfer the frequency and code to [src].")
-	return ..()
+/obj/item/assembly/signaler/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(!issignaler(I))
+		return ..()
+	var/obj/item/assembly/signaler/signaler2 = I
+	if(!secured || !signaler2.secured)
+		return ITEM_INTERACT_COMPLETE
+	code = signaler2.code
+	frequency = signaler2.frequency
+	to_chat(user, "You transfer the frequency and code to [src].")
 
 /// Called from activate(), actually invokes the signal on other signallers in the world
 /obj/item/assembly/signaler/proc/signal()
@@ -58,7 +59,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)
-	visible_message("[bicon(src)] *beep* *beep* *beep*")
+	audible_message("[bicon(src)] *beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 
 // Activation pre-runner, handles cooldown and calls signal(), invoked from ui_act()
@@ -74,7 +75,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 // UI STUFF //
 
-/obj/item/assembly/signaler/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/signaler/activate_self(mob/user)
 	ui_interact(user)
 
 /obj/item/assembly/signaler/ui_state(mob/user)

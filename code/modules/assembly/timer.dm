@@ -43,7 +43,7 @@
 	cooldown = 2
 	pulse(FALSE)
 	if(loc)
-		loc.visible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
+		loc.audible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
 		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
@@ -125,4 +125,4 @@
 		return
 
 	if(usr)
-		attack_self__legacy__attackchain(usr)
+		activate_self(usr)

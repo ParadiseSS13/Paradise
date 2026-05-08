@@ -45,7 +45,7 @@
 	return ..() // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.
 
 
-/obj/item/assembly/voice/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/voice/activate_self(mob/user)
 	if(!user || !secured)
 		return FALSE
 
@@ -65,7 +65,7 @@
 	materials = list(MAT_METAL = 210, MAT_GLASS = 50)
 	bomb_name = "noise-activated bomb"
 
-/obj/item/assembly/voice/noise/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/voice/noise/activate_self(mob/user)
 	return
 
 /obj/item/assembly/voice/noise/examine(mob/user)

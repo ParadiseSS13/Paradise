@@ -77,7 +77,7 @@
 	update_icon()
 	pulse(0)
 
-/obj/item/assembly/mousetrap/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/assembly/mousetrap/activate_self(mob/living/user)
 	if(!armed)
 		to_chat(user, SPAN_NOTICE("You arm [src]."))
 	else
@@ -97,16 +97,17 @@
 	playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE, -3)
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
-	if(armed)
-		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
-			var/which_hand = "l_hand"
-			if(!user.hand)
-				which_hand = "r_hand"
+	if(!armed)
+		return ..()
+	if(!((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50)))
+		return ..()
+	var/which_hand = "l_hand"
+	if(!user.hand)
+		which_hand = "r_hand"
 
-			triggered(user, which_hand)
-			user.visible_message(SPAN_WARNING("[user] accidentally sets off [src], breaking [user.p_their()] fingers."), SPAN_WARNING("You accidentally trigger [src]!"))
-			return
-	..()
+	triggered(user, which_hand)
+	user.visible_message(SPAN_WARNING("[user] accidentally sets off [src], breaking [user.p_their()] fingers."), SPAN_WARNING("You accidentally trigger [src]!"))
+
 
 /obj/item/assembly/mousetrap/on_atom_entered(datum/source, atom/movable/entered)
 	if(armed)
@@ -128,7 +129,7 @@
 	if(armed)
 		finder.visible_message(SPAN_WARNING("[finder] accidentally sets off [src], breaking [finder.p_their()] fingers."), SPAN_WARNING("You accidentally trigger [src]!"))
 		triggered(finder, finder.hand ? "l_hand" : "r_hand")
-		return TRUE	//end the search!
+		return TRUE //end the search!
 
 	return FALSE
 

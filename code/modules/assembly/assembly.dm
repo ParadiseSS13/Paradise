@@ -13,6 +13,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 	pickup_sound =  'sound/items/handling/component_pickup.ogg'
+	new_attack_chain = TRUE
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
@@ -34,7 +35,7 @@
 /obj/item/assembly/proc/holder_movement()
 	return
 
-/// Called when attack_self is called
+/// Called when activate_self is called
 /obj/item/assembly/interact(mob/user)
 	return
 
@@ -130,14 +131,13 @@
 		return TRUE
 	return FALSE
 
-/obj/item/assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(isassembly(W))
-		var/obj/item/assembly/A = W
-		if(!A.secured && !secured)
-			attach_assembly(A, user)
-		return
-
-	return ..()
+/obj/item/assembly/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(!isassembly(I))
+		return ..()
+	var/obj/item/assembly/A = I
+	if(!A.secured && !secured)
+		attach_assembly(A, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/assembly/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -159,9 +159,9 @@
 		else
 			. += "[src] can be attached!"
 
-/obj/item/assembly/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/activate_self(mob/user)
 	if(!user)
-		return
+		return ..()
 	user.set_machine(src)
 	interact(user)
 	return TRUE
