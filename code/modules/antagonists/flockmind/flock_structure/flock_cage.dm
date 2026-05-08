@@ -67,7 +67,7 @@
 				to_chat(victim, SPAN_WARNING("[eating] begins to melt away."))
 
 		else
-			chew_on_mob()
+			chew_on_mob(seconds_per_tick)
 
 	else
 		eating.take_damage(absorption_rate * seconds_per_tick * 25, BRUTE, armor_penetration_percentage = 100)
@@ -82,7 +82,7 @@
 	if(!victim) // Victim gibbed
 		deconstruct(TRUE)
 
-/obj/structure/flock/cage/container_resist_act(mob/living/user)
+/obj/structure/flock/cage/container_resist(mob/living/user)
 	if(!COOLDOWN_FINISHED(src, resist_cd))
 		return
 
@@ -101,9 +101,6 @@
 	take_damage(1, BRUTE)
 
 /obj/structure/flock/cage/relaymove(mob/living/user, direction)
-	if(SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user, direction) & COMSIG_BLOCK_RELAYMOVE)
-		return
-
 	if(!COOLDOWN_FINISHED(src, relaymove_cd))
 		return
 
@@ -112,7 +109,6 @@
 	if(!prob(80))
 		return
 
-	playsound(src, 'sound/goonstation/Crystal_Hit_1.ogg', 50, TRUE)
 	if(prob(20))
 		audible_message("[src] [pick("cracks","bends","shakes","groans")].")
 
@@ -125,13 +121,13 @@
 	)
 
 /// Picks an item, organ, or bodypart, to munch on.
-/obj/structure/flock/cage/proc/chew_on_mob()
+/obj/structure/flock/cage/proc/chew_on_mob(seconds_per_tick)
 	if(!ishuman(victim))
 		victim.adjustBruteLoss(absorption_rate * seconds_per_tick)
 		if(victim.stat == DEAD)
 			visible_message(SPAN_DANGER("[src] rips apart what remains of [victim]."))
 			set_victim(null)
-			victim.gib(TRUE, TRUE, TRUE)
+			victim.gib()
 		return
 
 	var/mob/living/carbon/human/human_victim = victim
@@ -149,41 +145,31 @@
 		return
 
 	var/list/bodyparts = human_victim.bodyparts.Copy()
-	for(var/obj/item/bodypart/BP in bodyparts)
-		if(BP.body_part & (HEAD | CHEST))
+	for(var/obj/item/organ/external/BP in bodyparts)
+		if(BP.body_part in list(HEAD, UPPER_TORSO, LOWER_TORSO))
 			bodyparts -= BP
 
 	if(length(bodyparts))
-		var/obj/item/bodypart/chest/chest = human_victim.get_bodypart(BODY_ZONE_CHEST)
-		var/obj/item/bodypart/yummy_appendage = pick(bodyparts)
+		var/obj/item/organ/external/yummy_appendage = pick(bodyparts)
 
-		human_victim.notify_pain(PAIN_AMT_AGONIZING, "A surge of pain eminates from where your [yummy_appendage.plaintext_zone] used to be.", ignore_cd = TRUE)
-		yummy_appendage.dismember(DROPLIMB_EDGE, FALSE)
+		human_victim.pain(yummy_appendage.name, 85)
+		yummy_appendage.droplimb(FALSE)
 		set_eating_target(yummy_appendage)
 		eating.forceMove(src)
-
-		chest.clamp_wounds() // Haha bitch
 
 		visible_message(SPAN_DANGER("[src] tears [eating] from [human_victim] and begins ripping it apart."))
 		return
 
-	var/list/organs = human_victim.processing_organs.Copy()
-	var/list/skip_organs = list(ORGAN_SLOT_BRAIN, ORGAN_SLOT_HEART, ORGAN_SLOT_TONGUE, ORGAN_SLOT_EYES, ORGAN_SLOT_EARS)
-	for(var/obj/item/organ/O in organs)
+	var/list/skip_organs = list("eyes", "ears", "brain", "heart", "lungs")
+	for(var/obj/item/organ/internal/O in bodyparts)
 		if(O.slot in skip_organs)
-			organs -= O
+			bodyparts -= O
 
-	/// We dont want it to tear out their lungs and have them instantly pass out and die of brain damage shortly after.
-	var/obj/item/organ/internal/lungs/lungs = locate() in organs
-	if(lungs && length(organs) > 1)
-		organs -= lungs
-
-	if(length(organs))
-		var/obj/item/organ/yummy_organ = pick(organs)
-		var/organ_loc_str = yummy_organ.ownerlimb.plaintext_zone
-
-		human_victim.notify_pain(PAIN_AMT_AGONIZING, "Pain explodes from your [organ_loc_str].", ignore_cd = TRUE)
-		yummy_organ.Remove(human_victim)
+	if(length(bodyparts))
+		var/obj/item/organ/internal/yummy_organ = pick(bodyparts)
+		var/organ_loc_str = yummy_organ.parent_organ
+		human_victim.pain(organ_loc_str, 85)
+		yummy_organ.remove(human_victim)
 		if(!QDELING(yummy_organ))
 			set_eating_target(yummy_organ)
 			eating.forceMove(src)

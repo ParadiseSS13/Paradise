@@ -119,7 +119,7 @@
 		return
 
 	// Either the client wants to flockphase, of if uncliented, already flockphasing.
-	var/wants_to_flockphase = client ? client.keys_held["Shift"] : HAS_TRAIT(src, TRAIT_FLOCKPHASE)
+	var/wants_to_flockphase = client ? client.input_data.key_combos_held["Shift"] : HAS_TRAIT(src, TRAIT_FLOCKPHASE)
 	if(!wants_to_flockphase)
 		stop_flockphase()
 		return
@@ -202,7 +202,7 @@
 	var/severity = 0
 	var/healthpercent = ceil((health/maxHealth) * 100)
 	if(healthdoll) // to really put you in the boots of a basic mob
-		var/atom/movable/screen/flockdrone_health/healthdoll = healthdoll
+		var/atom/movable/screen/flockdrone_health/HD = healthdoll
 		switch(healthpercent)
 			if(100 to INFINITY)
 				severity = 0
@@ -221,7 +221,7 @@
 			else
 				severity = 7
 
-		healthdoll.icon_state = "health[severity]"
+		HD.icon_state = "health[severity]"
 
 
 
@@ -299,7 +299,7 @@
 	mob_size = 0
 
 	set_density(FALSE)
-	for(var/obj/item/hand_item/grab/G in contents)
+	for(var/obj/item/grab/G in contents)
 		qdel(G)
 	move_speed -= 0.4
 
@@ -351,7 +351,7 @@
 	if(T.density)
 		return TRUE
 
-	if(client?.keys_held["Shift"])
+	if(client?.input_data.key_combos_held["Shift"])
 		return TRUE
 
 /// Returns TRUE if the drone can flockphase.

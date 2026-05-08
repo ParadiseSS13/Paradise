@@ -59,13 +59,13 @@
 		return AI_BEHAVIOR_DELAY
 
 	// Run away!
-	if(DT_PROB(40, ) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_RUN_COOLDOWN]) && get_dist(bird, target) < 3)
+	if(SPT_PROB(40, seconds_per_tick) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_RUN_COOLDOWN]) && get_dist(bird, target) < 3)
 		controller.set_blackboard_key(BB_FLOCK_ATTACK_RUN_COOLDOWN, world.time + 5 SECONDS)
-		SSmove_manager.move_away(bird, target, 6, bird.movement_delay, bird.movement_delay * 4, priority = MOVEMENT_DEFAULT_PRIORITY + 1)
+		controller.queue_behavior(/datum/ai_behavior/run_away_from_target, target)
 
 	// Strafe!
-	else if(DT_PROB(60, ) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_STRAFE_COOLDOWN]))
-		controller.set_blackboard_key(BB_FLOCK_ATTACK_STRAFE_COOLDOWN, bird.movement_delay * 3)
+	else if(SPT_PROB(60, seconds_per_tick) && COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_STRAFE_COOLDOWN]))
+		controller.set_blackboard_key(BB_FLOCK_ATTACK_STRAFE_COOLDOWN, controller.movement_delay * 3)
 		var/step_dir = turn(get_dir(bird, target), prob(50) ? 90 : -90)
 		step(bird, step_dir)
 

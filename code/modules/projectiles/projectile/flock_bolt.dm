@@ -4,7 +4,7 @@
 	icon_state = "stunbolt"
 
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
-	hitsound = 'sound/goonstation/weapons/sparks6.ogg'
+	hitsound = 'sound/effects/sparks3.ogg'
 
 	pass_flags = PASSGLASS
 	speed = 0.7

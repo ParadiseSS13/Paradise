@@ -13,7 +13,7 @@
 	return "Light emitter"
 
 /obj/machinery/light/flock
-	icon = 'icons/goonstation/obj/lighting.dmi'
+	icon = 'icons/goonstation/objects/lighting.dmi'
 
 	light_color = "#72bfac"
 	power_channel = PW_ALWAYS_POWERED

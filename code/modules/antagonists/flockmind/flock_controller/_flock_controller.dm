@@ -77,10 +77,7 @@
 	bandwidth = new
 	create_hud_images()
 
-	unlockables = list()
-	for(var/datum/flock_unlockable/unlockable as anything in typesof(/datum/flock_unlockable))
-		if(isabstract(unlockable))
-			continue
+	for(var/datum/flock_unlockable/unlockable as anything in subtypesof(/datum/flock_unlockable))
 		unlockables += new unlockable
 
 // Called by gamemode code
@@ -393,6 +390,7 @@
 /// Places a flock notice on an atom. See flock_defines.dm
 /datum/flock/proc/add_notice(atom/target, notice_type)
 	var/image/I = image(notice_images[notice_type], loc = target)
+	return target.add_alt_appearance(notice_type, I, list(overmind))
 
 /// Removes a flock notice from an atom.
 /datum/flock/proc/remove_notice(atom/target, notice_type)
