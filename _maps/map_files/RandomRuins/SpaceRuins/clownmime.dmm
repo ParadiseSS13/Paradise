@@ -19,11 +19,6 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
-"cz" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/ruin/space/clown_mime_ruin)
 "cB" = (
 /obj/effect/spawner/random/blood/often,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -82,6 +77,13 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
+"gq" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Bay";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "gE" = (
 /obj/item/grenade/bananade,
@@ -166,10 +168,6 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/clown_mime_ruin)
-"kv" = (
-/obj/machinery/door/airlock/external/glass,
-/turf/simulated/floor/mineral/tranquillite,
-/area/ruin/space/powered)
 "kQ" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge"
@@ -205,6 +203,12 @@
 /obj/machinery/atmospherics/pipe/cap,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/clown_mime_ruin)
+"nc" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
 "nF" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -231,7 +235,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "nX" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "ok" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -359,10 +363,6 @@
 	},
 /obj/effect/mob_spawn/human/corpse/mime,
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plating,
-/area/ruin/space/clown_mime_ruin)
-"sZ" = (
-/obj/machinery/door/airlock/external/glass,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "tg" = (
@@ -505,10 +505,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
-"Au" = (
-/obj/machinery/door/airlock/external/glass,
-/turf/simulated/floor/mineral/bananium,
-/area/ruin/space/powered)
 "Ax" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
@@ -700,6 +696,13 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
+"Mf" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
 "MF" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/clown_mime_ruin)
@@ -745,6 +748,12 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
+"QG" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/powered)
 "QS" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 4
@@ -768,6 +777,12 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
+"SV" = (
+/obj/machinery/door/airlock/external/glass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/tranquillite,
+/area/ruin/space/powered)
 "TC" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -829,14 +844,8 @@
 /obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
-"Xi" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Cargo Bay"
-	},
-/turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/clown_mime_ruin)
 "Xq" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/powered)
 "Xu" = (
 /obj/effect/mob_spawn/human/corpse/mime,
@@ -1147,7 +1156,7 @@ lS
 nX
 pj
 Gx
-kv
+SV
 xB
 xB
 Oz
@@ -1201,10 +1210,10 @@ Xq
 Bb
 Bb
 ub
-Xi
+gq
 vC
 gS
-Xi
+gq
 tz
 VH
 Gx
@@ -1231,10 +1240,10 @@ tN
 tN
 Bb
 Vh
-Xi
+gq
 gS
 gS
-Xi
+gq
 qc
 VL
 DZ
@@ -1258,7 +1267,7 @@ bz
 UC
 UC
 UC
-Au
+QG
 Bb
 GS
 BW
@@ -1407,18 +1416,18 @@ qh
 qh
 qh
 qh
-cz
+Mf
 qJ
 wb
-sZ
+nc
 Ht
 Cs
 OK
 gS
-sZ
+nc
 wb
 qE
-cz
+Mf
 qh
 qh
 qh
@@ -1437,18 +1446,18 @@ qh
 qh
 qh
 qh
-cz
+Mf
 ri
 IR
-sZ
+nc
 gS
 OK
 gS
 Cs
-sZ
+nc
 me
 qE
-cz
+Mf
 qh
 qh
 qh
