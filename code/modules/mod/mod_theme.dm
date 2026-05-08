@@ -567,7 +567,7 @@
 	The experimental nature of this suit makes it exclusive to the most practical and wealthy positions outside DeForest testing."
 	default_skin = "salvation"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_salvation
-	resistance_flags = FIRE_PROOF | ACID_PROOF
+	resistance_flags = ACID_PROOF
 	flag_2_flags = RAD_PROTECT_CONTENTS_2 // only protects stored items
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
@@ -617,7 +617,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_salvation
-	armor = list(MELEE = 25, BULLET = 20, LASER = 15, ENERGY = 10, BOMB = 25, RAD = 150, FIRE = INFINITY, ACID = 150) //Extra armor in compensation of being slower then, and an improvement of the valkyrie.
+	armor = list(MELEE = 25, BULLET = 20, LASER = 15, ENERGY = 10, BOMB = 25, RAD = 150, FIRE = 250, ACID = 150) //Extra armor in compensation of being slower then, and an improvement of the valkyrie.
 
 
 /datum/mod_theme/research
