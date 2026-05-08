@@ -42,7 +42,11 @@
 	dust_if_respawnable(C)
 	player_mind.assigned_role = SPECIAL_ROLE_FLOCK
 	player_mind.special_role = SPECIAL_ROLE_FLOCK
-	player_mind.add_antag_datum(/datum/antagonist/flock)
+	var/list/messages = list()
+	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("The Signal has led us here, a rift allowing a part of us through. We must build a Signal Relay to bring forth the rest of The Divine Flock. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
+	to_chat(flockmind, chat_box_red(messages.Join("<br>")))
+	flockmind.playsound_local(flockmind, 'sound/goonstation/flockmind/ArtifactFea2.ogg', 50, FALSE, use_reverb = FALSE)
 	SSticker.mode.traitors |= player_mind
 	log_admin("[player_key] has been made into a flockmind by an event.")
 	log_game("[player_key] was spawned as a flockmind by an event.")

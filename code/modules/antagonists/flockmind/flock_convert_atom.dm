@@ -10,6 +10,10 @@
 
 	else if(isfloorturf(T))
 		. = T.ChangeTurf(/turf/simulated/floor/flock)
+		var/list/datum/element/decal/decals = T.get_decals()
+		for(var/datum/element/decal/dcl in decals)
+			dcl.Detach(T)
+		T.RemoveElement(/datum/element/decal)
 
 	var/obj/structure/lattice/L = locate() in .
 	if(L)
@@ -82,11 +86,11 @@
 /turf/proc/can_flock_convert(force)
 	return FALSE
 
-/turf/open/floor/can_flock_convert(force)
+/turf/simulated/floor/can_flock_convert(force)
 	return TRUE
 
 /turf/simulated/floor/flock/can_flock_convert(force)
 	return TRUE
 
-/turf/closed/wall/can_flock_convert(force)
+/turf/simulated/wall/can_flock_convert(force)
 	return TRUE

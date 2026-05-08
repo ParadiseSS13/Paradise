@@ -43,7 +43,7 @@
 	/// A k:V list of client : image, see ping().
 	var/list/active_pings = list()
 
-	var/list/unlockables
+	var/list/datum/flock_unlockable/unlockables
 	/// The total amount of computational power available, before whats being used.
 	var/datum/point_holder/bandwidth
 	/// The computational power being used.
@@ -77,7 +77,7 @@
 	bandwidth = new
 	create_hud_images()
 
-	for(var/datum/flock_unlockable/unlockable as anything in subtypesof(/datum/flock_unlockable))
+	for(var/datum/flock_unlockable/unlockable in subtypesof(/datum/flock_unlockable))
 		unlockables += new unlockable
 
 // Called by gamemode code

@@ -98,8 +98,11 @@
 	charge.adjust_points(-100)
 	update_info_tag()
 
-	target.electrocute_act(30, src, 0)
+	target.electrocute_act(30, src, 1)
 	addtimer(CALLBACK(src, PROC_REF(clear_trait), target), 2 SECONDS)
+
+	Beam(target, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', 0.5 SECONDS, INFINITY)
+	playsound(loc, 'sound/magic/lightningbolt.ogg', 60, TRUE)
 
 	target.visible_message(
 		SPAN_DANGER("<b>[target]</b> is struck by a bolt of energy arcing off of <b>[src]</b>."),
@@ -124,6 +127,7 @@
 
 			hit_mobs += M
 			M.electrocute_act(20, src, 0)
+			previous_hit.Beam(M, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', 0.5 SECONDS, INFINITY)
 			target.visible_message(
 				SPAN_DANGER("<b>[M]</b> is struck by a bolt of energy arcing off of <b>[previous_hit]</b>."),
 				blind_message = SPAN_HEAR("You hear a loud electrical crackle."),

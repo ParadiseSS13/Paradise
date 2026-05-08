@@ -1,5 +1,5 @@
 /obj/structure/flock/cage
-	name = "weird energy cage"
+	name = "energy cage"
 
 	icon_state = "cage"
 	alpha = 190

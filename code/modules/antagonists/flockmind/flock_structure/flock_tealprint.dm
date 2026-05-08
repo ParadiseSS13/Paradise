@@ -1,5 +1,5 @@
 /obj/structure/flock/tealprint
-	name = "weird lookin ghost building"
+	name = "building ghost"
 	desc = "It's some weird looking ghost building. Seems like its under construction, You can see faint strands of material floating in it."
 
 	density = FALSE

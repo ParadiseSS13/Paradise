@@ -94,7 +94,7 @@
 	. = ..()
 	if(!.)
 		return
-	flock_talk(src, message, flock, involuntary = forced)
+	//flock_talk(src, message, flock, involuntary = forced)
 
 /mob/living/basic/flock/update_icon_state()
 	if(stat == DEAD)

@@ -1,5 +1,5 @@
 /obj/structure/flock/compute
-	name = "weird lookin' thinking thing"
+	name = "strange computer"
 	desc = "It almost looks like a terminal of some kind."
 
 	flock_desc = "A computing node that provides bandwidth to the Flock."

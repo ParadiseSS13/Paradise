@@ -1,5 +1,5 @@
 /obj/structure/flock/collector
-	name = "weird lookin' pulsing thing"
+	name = "pulsing node"
 	desc = "Seems to be pulsing."
 
 	flock_desc = "Provides compute power and charges a nearby APC based on the number of Flock floor tiles it is connected to."

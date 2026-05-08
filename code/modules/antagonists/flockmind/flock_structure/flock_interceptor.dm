@@ -1,5 +1,5 @@
 /obj/structure/flock/interceptor
-	name = "weird fountain"
+	name = "glowing fountain"
 	desc = "Some kind of fountain. The fluid inside ripples with energy."
 	icon_state = "interceptor-off"
 

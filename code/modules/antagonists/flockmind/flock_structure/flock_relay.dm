@@ -136,7 +136,7 @@
 			to_chat(M, SPAN_FLOCKSAY("<b>A horrible, otherworldly wave eminates from the <i>[dir2text(get_dir(get_turf(M), loc))]</i>."))
 
 /obj/structure/flock/relay/proc/announce_relay()
-	var/message = stars("The Signal is coming.", 10)
+	var/message = Gibberish("The Signal is coming.", 70, replace_rate = 50)
 	GLOB.major_announcement.Announce(message,
 		"Hijacked Signal",
 		'sound/misc/announce.ogg'
@@ -171,7 +171,7 @@
 	sleep(2 SECONDS)
 
 	flock.set_flock_game_status(FLOCK_ENDGAME_VICTORY)
-	explosion(src, 50, ignorecap = TRUE, cause = src)
+	explosion(src, 30, 45, 60, 75, ignorecap = TRUE, cause = src)
 
 	sleep(2 SECONDS)
 

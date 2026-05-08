@@ -7,13 +7,9 @@
 
 /datum/action/cooldown/flock/gatecrash/Activate(atom/target)
 	var/list/targets = list()
-	for(var/obj/machinery/door/airlock/airlock in range(10, src))
-		if(airlock.z != owner.z)
-			continue
-
+	for(var/obj/machinery/door/airlock/airlock in range(10, get_turf(owner)))
 		if(airlock.canAIControl())
 			targets += airlock
-
 
 	if(!length(targets))
 		to_chat(owner, SPAN_NOTICE("No targets in range that can be opened via radio."))

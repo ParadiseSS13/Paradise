@@ -8,7 +8,7 @@
 /datum/action/cooldown/flock/radio_blast/Activate(atom/target)
 	var/list/targets = list()
 	for(var/mob/living/carbon/human/guy in range(3, get_turf(target)))
-		var/obj/item/radio/worn_radio = guy.get_item_by_slot(ITEM_SLOT_BOTH_EARS)
+		var/obj/item/radio/worn_radio = guy.get_item_by_slot(ITEM_SLOT_LEFT_EAR) || guy.get_item_by_slot(ITEM_SLOT_RIGHT_EAR)
 		if(!istype(worn_radio))
 			continue
 

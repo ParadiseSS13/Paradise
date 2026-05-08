@@ -41,6 +41,12 @@
 
 #define isflocktrace(A) (istype(A, /mob/camera/flock/trace))
 
+#define isflockmind(A) (istype(A, /mob/camera/flock/overmind))
+
+#define isflockcontroller(A) (isflockmind(A) || isflocktrace(A))
+
+#define isflockworker(A) (isflockdrone(A) || isflockbit(A))
+
 // Simple animals
 
 #define isanimal(A) (istype(A, /mob/living/simple_animal))

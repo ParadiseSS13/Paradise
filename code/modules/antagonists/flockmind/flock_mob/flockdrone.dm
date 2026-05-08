@@ -118,8 +118,8 @@
 			return
 		return
 
-	// Either the client wants to flockphase, of if uncliented, already flockphasing.
-	var/wants_to_flockphase = client ? client.input_data.key_combos_held["Shift"] : HAS_TRAIT(src, TRAIT_FLOCKPHASE)
+	// Either the client wants to flockphase, or if uncliented, already flockphasing.
+	var/wants_to_flockphase = client ? client.input_data.keys_held["Shift"] : HAS_TRAIT(src, TRAIT_FLOCKPHASE)
 	if(!wants_to_flockphase)
 		stop_flockphase()
 		return

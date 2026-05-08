@@ -1,5 +1,5 @@
 /turf/simulated/wall/flock
-	name = "weird wall"
+	name = "cybernetic wall"
 	icon = 'icons/goonstation/turf/flock.dmi'
 	icon_state = "flock-0"
 	base_icon_state = "flock"

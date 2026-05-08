@@ -35,12 +35,12 @@
 	set waitfor = FALSE
 	var/mob/camera/flock/overmind/ghost_bird = owner
 	if(!ghost_bird.flock.can_afford(FLOCK_COMPUTE_COST_FLOCKTRACE))
-		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: bandwidth required is unavailable."))
+		to_chat(ghost_bird, SPAN_WARNING("Partition failure: bandwidth required is unavailable."))
 		return
 
 	awaiting_partition = TRUE
 
-	to_chat(ghost_bird, SPAN_FLOCKSAY("Partitioning initiated, stand by..."))
+	to_chat(ghost_bird, SPAN_NOTICE("Partitioning initiated, stand by..."))
 
 	log_admin("Sending Flocktrace offer to ghosts, they have [30 SECONDS] to respond.")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Flocktrace?", ROLE_FLOCK, TRUE, source = /mob/camera/flock/trace)
@@ -53,12 +53,12 @@
 
 	if(!length(candidates))
 		log_admin("No ghosts responded to the flocktrace offer from [ghost_bird.real_name]")
-		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: unable to coalesce sentience."))
+		to_chat(ghost_bird, SPAN_WARNING("Partition failure: unable to coalesce sentience."))
 		return
 
 	if(!ghost_bird.flock.can_afford(FLOCK_COMPUTE_COST_FLOCKTRACE))
 		log_admin("The Flock was unable to support another flocktrace, partition aborted.")
-		to_chat(ghost_bird, SPAN_FLOCKSAY("Partition failure: bandwidth required is unavailable."))
+		to_chat(ghost_bird, SPAN_WARNING("Partition failure: bandwidth required is unavailable."))
 		return
 
 	var/mob/candidate = pick(candidates)
@@ -68,9 +68,14 @@
 	var/mob/camera/flock/trace/new_ghostbird = new(get_turf(ghost_bird), ghost_bird.flock)
 	var/datum/mind/player_mind = new /datum/mind(player_key)
 	player_mind.active = TRUE
-	player_mind.transfer_to(new_ghostbird)
+	new_ghostbird.key = candidate.key
+	new_ghostbird.mind = player_mind
 	dust_if_respawnable(candidate)
 	player_mind.assigned_role = SPECIAL_ROLE_FLOCK
 	player_mind.special_role = SPECIAL_ROLE_FLOCK
-	player_mind.add_antag_datum(/datum/antagonist/flock)
+	var/list/messages = list()
+	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("The Signal has led us here, a rift allowing a part of us through. We must build a Signal Relay to bring forth the rest of The Divine Flock. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
+	to_chat(new_ghostbird, chat_box_red(messages.Join("<br>")))
+	new_ghostbird.playsound_local(new_ghostbird, 'sound/goonstation/flockmind/ArtifactFea2.ogg', 50, FALSE, use_reverb = FALSE)
 	SSticker.mode.traitors |= player_mind

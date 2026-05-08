@@ -1,6 +1,6 @@
 /obj/machinery/door/flock
 	icon = 'icons/goonstation/mob/featherzone.dmi'
-	name = "weird imposing wall"
+	name = "imposing wall"
 	desc = "It sounds like it's hollow."
 
 	auto_close_time = 5 SECONDS
@@ -37,7 +37,6 @@
 		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
 		SPAN_FLOCKSAY("<b>ID:</b> [get_flock_id()]"),
 		SPAN_FLOCKSAY("<b>System Integrity:</b> [get_integrity_percentage()]%"),
-		SPAN_FLOCKSAY("<b>Volume:</b> [reagents.get_reagent_amount(/datum/reagent/toxin/gnesis)]"),
 		SPAN_FLOCKSAY("<b>###=-</b>"),
 	)
 

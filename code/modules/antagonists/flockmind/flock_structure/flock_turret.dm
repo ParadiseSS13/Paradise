@@ -1,5 +1,5 @@
 /obj/structure/flock/gnesis_turret
-	name = "spiky fluid vat"
+	name = "fluid vat"
 	desc = "A vat of bubbling teal fluid, covered in hollow spikes."
 	flock_desc = "A turret that fires gnesis-filled spikes at enemies, beginning their conversion to Flockbits. Consumes 50 bandwidth passively."
 	icon_state = "teleblocker-off"

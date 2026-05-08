@@ -1,6 +1,6 @@
 /obj/structure/flock/egg
 	icon_state = "egg"
-	name = "glowing doodad"
+	name = "glowing orb"
 	desc = "Some sort of small machine. It looks like its getting ready for something."
 	flock_desc = "Will soon hatch into a Flockdrone."
 

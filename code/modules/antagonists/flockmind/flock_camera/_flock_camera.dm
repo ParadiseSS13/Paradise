@@ -18,6 +18,7 @@
 
 	hud_type = /datum/hud/flockghost
 
+
 	move_on_shuttle = FALSE
 
 	simulated = FALSE
@@ -101,6 +102,18 @@
 
 		forceMove(destination)
 		to_chat(src, SPAN_WARNING("You feel your consciousness weaking as you are ripped further from your rift, and you retreat back to safety."))
+
+/mob/camera/flock/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
+	..()
+	if(isliving(speaker) && !isflockmob(speaker))
+		var/mob/living/L = speaker
+		var/message = combine_message(message_pieces, verb, L)
+		var/name_used = L.GetVoice()
+		var/rendered = "<i><span class='game say'>Relayed Speech: [SPAN_NAME("[name_used]")] [message]</span></i>"
+		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			var/message_clean = combine_message(message_pieces, null, L)
+			create_chat_message(locateUID(L.runechat_msg_location), message_clean)
+		show_message(rendered, 2)
 
 /mob/camera/flock/proc/update_z(new_z) // 1+ to register, null to unregister
 	if (registered_z != new_z)

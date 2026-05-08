@@ -4,7 +4,7 @@
 	space_chance = 60
 	key = "f"
 	flags = RESTRICTED | HIVEMIND | NOLIBRARIAN | NOBABEL | NO_STUTTER
-	colour = "#008080"
+	colour = "flocksay"
 	syllables = list("zx", "q#x", "x_t", "k!t", "d~t", "t^t", "k%k", "xtx", "q=z", "x/z", "c*z", "t+z", "d9g", "g@g", "v|k", "b?k", "p&q", "c:q", "r$x", "t>x")
 
 /datum/language/flock/get_spoken_verb(msg_end)
@@ -15,9 +15,43 @@
 			return ask_verb
 	return pick("sings", "clicks", "whistles", "intones", "transmits", "submits", "uploads", "caws")
 
-/datum/language/flock/broadcast(mob/living/speaker, message, speaker_mask, involuntary = FALSE)
-	. = ..()
-	var/silicon_message = stars(message, 50)
-	if(!involuntary && speaker && prob(30))
-		var/datum/language/binary = GLOB.all_languages["Robot Talk"]
-		binary.broadcast(speaker, silicon_message)
+/datum/language/flock/broadcast(mob/speaker, message, speaker_mask, involuntary = FALSE)
+	var/log_message = "(FLOCK) [message]"
+	log_say(log_message, speaker)
+
+	var/list/message_start = list("<i><span class='game say'>[name]: [SPAN_NAME("[speaker.real_name]")]")
+	var/list/message_body
+
+	if(isflockcontroller(speaker))
+		message_start = list("<i><font size=4><span class='game say'>[name]</i>: ", gradient_text("[speaker.real_name]", "#3cb5a3", "#1e806e"))
+		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"), "</font>")
+	else if (isflockworker(speaker))
+		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("[speaker.real_name]", "#3cb5a3", "#1e806e"))
+		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
+
+	for(var/mob/M in GLOB.dead_mob_list)
+		if(!isnewplayer(M) && !isbrain(M))
+			var/list/message_start_dead = list("<i><span class='game say'>[name], [SPAN_NAME("[speaker.name] ([ghost_follow_link(speaker, ghost=M)])")]")
+			var/list/dead_message = message_start_dead + message_body
+			M.show_message(dead_message.Join(" "), 2)
+
+	for(var/mob/F in GLOB.alive_mob_list)
+		if(!isflockmob(F))
+			continue
+		var/list/final_message = message_start + message_body
+		F.show_message(final_message.Join(" "), 2)
+		if(F.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			F.create_chat_message(locateUID(speaker.runechat_msg_location), message)
+
+	var/list/silicon_message_start = list("<i><span class='game say'>Robot Talk, [SPAN_NAME("Strange Static")]")
+	var/silicon_message_content = Gibberish(message, 70, replace_rate = 50)
+	var/silicon_message = SPAN_ROBOT(silicon_message_content)
+	var/list/final_message_silicon = silicon_message_start + silicon_message
+	if(involuntary || !prob(30))
+		return
+	for(var/mob/living/silicon/S in GLOB.alive_mob_list)
+		if(!S.binarycheck())
+			continue
+		S.show_message(final_message_silicon.Join(" "), 2)
+		if(isflockworker(speaker) && S.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			S.create_chat_message(locateUID(speaker.runechat_msg_location), silicon_message_content)
