@@ -43,7 +43,7 @@
 	/// A k:V list of client : image, see ping().
 	var/list/active_pings = list()
 
-	var/list/datum/flock_unlockable/unlockables
+	var/list/unlockables
 	/// The total amount of computational power available, before whats being used.
 	var/datum/point_holder/bandwidth
 	/// The computational power being used.

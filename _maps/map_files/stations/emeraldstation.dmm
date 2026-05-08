@@ -28575,6 +28575,7 @@
 	dir = 5
 	},
 /obj/machinery/ai_node/processing_node,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "fHd" = (
@@ -38890,6 +38891,7 @@
 "hJb" = (
 /obj/structure/sign/poster/official/random/directional/east,
 /obj/machinery/tcomms/core/station,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit"
 	},
@@ -78690,6 +78692,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "pGM" = (
@@ -113357,6 +113360,7 @@
 	dir = 6
 	},
 /obj/machinery/ai_node/network_node,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "wAw" = (

@@ -45649,6 +45649,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "ecJ" = (
@@ -49030,6 +49031,7 @@
 	c_tag = "Telecommunications Core";
 	dir = 4
 	},
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/telecomms/chamber)
 "fAH" = (
@@ -55354,6 +55356,7 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/effect/turf_decal/tiles/department/command,
 /obj/machinery/ai_node/processing_node,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "iqM" = (
@@ -81889,6 +81892,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/server)
 "uhl" = (
@@ -84977,6 +84981,7 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/effect/turf_decal/tiles/department/command,
 /obj/machinery/ai_node/network_node,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "vJm" = (

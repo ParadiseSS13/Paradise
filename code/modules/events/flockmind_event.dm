@@ -4,10 +4,11 @@
 	nominal_severity = EVENT_LEVEL_DISASTER
 	role_weights = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 0.7, ASSIGNMENT_MEDICAL = 2)
 	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 40, ASSIGNMENT_MEDICAL = 3)
-	/// So we don't make a command report if nothing gets spawned.
-	var/successSpawn = FALSE
 
-/datum/event/flockmind/proc/make_blob()
+/datum/event/flockmind/start()
+	INVOKE_ASYNC(src, PROC_REF(create_flock))
+
+/datum/event/flockmind/proc/create_flock()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Flockmind?", ROLE_FLOCK, TRUE, source = /mob/camera/flock/overmind)
 	if(!length(candidates))
 		return kill()
@@ -36,7 +37,8 @@
 		kill()
 		return
 	var/mob/camera/flock/overmind/flockmind = new /mob/camera/flock/overmind(pick(spawn_locs))
-	player_mind.transfer_to(flockmind)
+	flockmind.key = C.key
+	flockmind.mind = player_mind
 	dust_if_respawnable(C)
 	player_mind.assigned_role = SPECIAL_ROLE_FLOCK
 	player_mind.special_role = SPECIAL_ROLE_FLOCK

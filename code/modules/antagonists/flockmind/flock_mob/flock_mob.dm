@@ -17,6 +17,7 @@
 	minimum_survivable_temperature = 0
 	maximum_survivable_temperature = 1000
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	damage_coeff = list(BRUTE = 1.5, BURN = 0.2, TOX = 0.2, CLONE = 0, STAMINA = 0, OXY = 0)
 
 	initial_traits = list(TRAIT_FLYING, TRAIT_FLOCK_THING)
 
@@ -74,6 +75,9 @@
 	QDEL_NULL(name_tag)
 	QDEL_NULL(task_tag)
 	return ..()
+
+/mob/living/basic/flock/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+	return TRUE
 
 /mob/living/basic/flock/set_stat(new_stat)
 	. = ..()

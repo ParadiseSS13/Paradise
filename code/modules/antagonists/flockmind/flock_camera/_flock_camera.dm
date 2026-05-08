@@ -20,6 +20,8 @@
 
 	move_on_shuttle = FALSE
 
+	simulated = FALSE
+
 	/// Flock datum
 	var/datum/flock/flock
 	var/list/actions_to_grant = list()
@@ -58,6 +60,12 @@
 /mob/camera/flock/Logout()
 	update_z(null)
 	return ..()
+
+/mob/camera/flock/Move(atom/newloc, direct, glide_size_override, update_dir, momentum_change)
+	var/turf/next_step = get_turf(get_step(src, direct))
+	setDir(direct)
+	if(next_step)
+		set_loc(next_step)
 
 /mob/camera/flock/Topic(href, href_list)
 	. = ..()
@@ -135,4 +143,3 @@
 
 /mob/camera/flock/proc/cleanup(datum/source)
 	qdel(src)
-

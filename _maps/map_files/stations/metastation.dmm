@@ -36974,6 +36974,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/tcomms/core/station,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
 "gam" = (
@@ -38499,6 +38500,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "gBj" = (
@@ -40379,6 +40381,7 @@
 	dir = 8
 	},
 /obj/machinery/ai_node/processing_node,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "hdX" = (
@@ -68390,6 +68393,7 @@
 	dir = 4
 	},
 /obj/machinery/ai_node/network_node,
+/obj/effect/landmark/spawner/flock,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "quc" = (
