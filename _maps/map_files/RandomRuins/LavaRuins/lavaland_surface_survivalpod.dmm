@@ -94,12 +94,6 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"t" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered)
 "v" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood,
@@ -127,6 +121,14 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"W" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered)
 
 (1,1,1) = {"
 a
@@ -188,7 +190,7 @@ d
 g
 l
 q
-t
+W
 v
 b
 b
