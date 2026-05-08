@@ -4,18 +4,9 @@
  * @author LeahTheTech (https://github.com/TobleroneSwordfish)
  * @license MIT
  */
-import { Tooltip } from 'tgui-core/components';
+import { Box, Button, Dropdown, Icon, Section, Stack, Tabs, Tooltip } from 'tgui-core/components';
 
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Icon,
-  Section,
-  Stack,
-  Tabs,
-} from '../components';
 import { Window } from '../layouts';
 
 type FlockPanelData = {
@@ -80,24 +71,10 @@ type FlockVitals = {
 export const FlockPanel = (props) => {
   const { act, data } = useBackend<FlockPanelData>();
   const [sortBy, setSortBy] = useLocalState('sortBy', 'resources');
-  const {
-    vitals,
-    partitions,
-    drones,
-    structures,
-    enemies,
-    stats,
-    category_lengths,
-    category,
-  } = data;
+  const { vitals, partitions, drones, structures, enemies, stats, category_lengths, category } = data;
 
   return (
-    <Window
-      theme="flock"
-      title={'Flockmind ' + vitals.name}
-      width={600}
-      height={450}
-    >
+    <Window theme="flock" title={'Flockmind ' + vitals.name} width={600} height={450}>
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab
@@ -146,16 +123,14 @@ export const FlockPanel = (props) => {
           <Box>
             <Dropdown
               options={['name', 'health', 'resources', 'area']}
-              selected="resources"
+              selected={sortBy}
               onSelected={(value) => setSortBy(value)}
             />
             <FlockDrones drones={drones} sortBy={sortBy} />
           </Box>
         )}
         {category === 'traces' && <FlockPartitions partitions={partitions} />}
-        {category === 'structures' && (
-          <FlockStructures structures={structures} />
-        )}
+        {category === 'structures' && <FlockStructures structures={structures} />}
         {category === 'enemies' && <FlockEnemies enemies={enemies} />}
         {category === 'stats' && <FlockStats stats={stats} />}
       </Window.Content>
@@ -209,41 +184,17 @@ const FlockPartitions = (props: FlockPartitionsProps) => {
                   <Stack>
                     {partition.host && (
                       <Stack.Item>
-                        <Button
-                          onClick={() =>
-                            act('eject_trace', { origin: partition.ref })
-                          }
-                        >
-                          Eject
-                        </Button>
+                        <Button onClick={() => act('eject_trace', { origin: partition.ref })}>Eject</Button>
                       </Stack.Item>
                     )}
                     <Stack.Item>
-                      <Button
-                        onClick={() =>
-                          act('promote_trace', { origin: partition.ref })
-                        }
-                      >
-                        Promote sentience
-                      </Button>
+                      <Button onClick={() => act('promote_trace', { origin: partition.ref })}>Promote sentience</Button>
                     </Stack.Item>
                     <Stack.Item>
-                      <Button
-                        onClick={() =>
-                          act('delete_trace', { origin: partition.ref })
-                        }
-                      >
-                        Remove sentience
-                      </Button>
+                      <Button onClick={() => act('delete_trace', { origin: partition.ref })}>Remove sentience</Button>
                     </Stack.Item>
                     <Stack.Item>
-                      <Button
-                        onClick={() =>
-                          act('jump_to', { origin: partition.ref })
-                        }
-                      >
-                        Jump
-                      </Button>
+                      <Button onClick={() => act('jump_to', { origin: partition.ref })}>Jump</Button>
                     </Stack.Item>
                   </Stack>
                 </Section>
@@ -334,8 +285,7 @@ const FlockDrones = (props: FlockDronesProps) => {
                         <Box align="center">{taskIcon(drone.task)}</Box>
                       </Stack.Item>
                       <Stack.Item>
-                        <b>{drone.area}</b> <br />{' '}
-                        {drone.task && capitalizeString(drone.task)}
+                        <b>{drone.area}</b> <br /> {drone.task && capitalizeString(drone.task)}
                       </Stack.Item>
                     </Stack>
                   </Section>
@@ -358,18 +308,10 @@ const FlockDrones = (props: FlockDronesProps) => {
                         </Stack.Item>
                       )}
                       <Stack.Item>
-                        <Button
-                          onClick={() => act('rally', { origin: drone.ref })}
-                        >
-                          Rally
-                        </Button>
+                        <Button onClick={() => act('rally', { origin: drone.ref })}>Rally</Button>
                       </Stack.Item>
                       <Stack.Item>
-                        <Button
-                          onClick={() => act('jump_to', { origin: drone.ref })}
-                        >
-                          Jump
-                        </Button>
+                        <Button onClick={() => act('jump_to', { origin: drone.ref })}>Jump</Button>
                       </Stack.Item>
                     </Stack>
                   </Section>
@@ -411,10 +353,8 @@ const FlockStructures = (props: FlockStructuresProps) => {
               </Stack.Item>
               <Stack.Item grow={1}>
                 <Section height="100%">
-                  {structure.compute > 0 &&
-                    'Bandwidth Provided: ' + structure.compute}
-                  {structure.compute < 0 &&
-                    'Bandwidth Cost: ' + -structure.compute}
+                  {structure.compute > 0 && 'Bandwidth Provided: ' + structure.compute}
+                  {structure.compute < 0 && 'Bandwidth Cost: ' + -structure.compute}
                 </Section>
               </Stack.Item>
               {/* buttons */}
@@ -423,23 +363,11 @@ const FlockStructures = (props: FlockStructuresProps) => {
                   <Stack>
                     {structure.name === 'Construction Tealprint' && (
                       <Stack.Item>
-                        <Button
-                          onClick={() =>
-                            act('cancel_tealprint', { origin: structure.ref })
-                          }
-                        >
-                          Cancel
-                        </Button>
+                        <Button onClick={() => act('cancel_tealprint', { origin: structure.ref })}>Cancel</Button>
                       </Stack.Item>
                     )}
                     <Stack.Item>
-                      <Button
-                        onClick={() =>
-                          act('jump_to', { origin: structure.ref })
-                        }
-                      >
-                        Jump
-                      </Button>
+                      <Button onClick={() => act('jump_to', { origin: structure.ref })}>Jump</Button>
                     </Stack.Item>
                   </Stack>
                 </Section>
@@ -483,21 +411,12 @@ const FlockEnemies = (props: FlockEnemiesProps) => {
                 <Section height="100%">
                   <Stack>
                     <Stack.Item>
-                      <Button
-                        icon="times"
-                        onClick={() =>
-                          act('remove_enemy', { origin: enemy.ref })
-                        }
-                      >
+                      <Button icon="times" onClick={() => act('remove_enemy', { origin: enemy.ref })}>
                         Remove
                       </Button>
                     </Stack.Item>
                     <Stack.Item>
-                      <Button
-                        onClick={() => act('jump_to', { origin: enemy.ref })}
-                      >
-                        Jump
-                      </Button>
+                      <Button onClick={() => act('jump_to', { origin: enemy.ref })}>Jump</Button>
                     </Stack.Item>
                   </Stack>
                 </Section>

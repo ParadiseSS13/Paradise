@@ -84,12 +84,9 @@
 #define MAT_PLATINUM		"platinum"
 #define MAT_IRIDIUM			"iridium"
 #define MAT_SILK			"silk"
-<<<<<<< divine-flock
+#define MAT_CARDBOARD		"cardboard"
 #define MAT_GNESIS			"gnesis"
 #define MAT_GNESIS_GLASS	"gnesisglass"
-=======
-#define MAT_CARDBOARD		"cardboard"
->>>>>>> master
 
 /// The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
 #define MINERAL_MATERIAL_AMOUNT 2000
