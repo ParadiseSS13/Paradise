@@ -445,7 +445,6 @@
 	desc = "Big enough to contain enough protein to get perfectly swole. Don't mind the bits."
 	icon_state = "fitness_cup_black"
 	materials = list(MAT_PLASTIC = 500)
-	volume = 50
 	list_reagents = list("nutriment" = 5, "iron" = 15, "protein" = 5, "water" = 25)
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/red
