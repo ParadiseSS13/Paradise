@@ -783,7 +783,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/medical)
 "my" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
 /area/ruin/space/kappa_lab/bridge)
 "mz" = (
 /obj/structure/table/glass,
@@ -999,13 +1000,15 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/kappa_lab/engineering)
 "pq" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
 /area/ruin/space/kappa_lab/engineering)
 "pG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/simulated/wall/indestructible/fakeglass,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
 /area/ruin/space/kappa_lab/engineering)
 "pL" = (
 /obj/effect/turf_decal/tiles/department/virology/checker,
@@ -1678,12 +1681,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/kappa_lab/diner)
-"yX" = (
-/obj/machinery/light/exterior/outdoors{
-	dir = 4
-	},
-/turf/simulated/mineral,
-/area/ruin/space/unpowered)
 "za" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3758,9 +3755,9 @@ gn
 EL
 tc
 bP
-yX
+tc
 jP
-jP
+Do
 jP
 jP
 jP
