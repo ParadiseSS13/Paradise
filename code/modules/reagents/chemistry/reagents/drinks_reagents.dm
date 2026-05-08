@@ -1098,6 +1098,7 @@
 	drink_desc = "Spicy and fizzy soda."
 	taste_description = "sweet, carbonated ginger"
 
+// This is not in the barman's recipes because it's intentionally Not A Real Menu Item.
 /datum/reagent/consumable/drink/smooth_regular
 	name = "Smooth Regular"
 	description = "It smells real sweet and also fake sweet."
