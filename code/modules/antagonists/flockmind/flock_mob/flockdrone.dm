@@ -152,14 +152,10 @@
 	if(istype(user) && ghost_bird.flock == flock)
 		take_control(user)
 
-/mob/living/basic/flock/drone/Click(location, control, params)
+/mob/living/basic/flock/drone/AltClick(mob/user, modifiers)
 	. = ..()
-	var/mob/camera/flock/ghost_bird = usr
+	var/mob/camera/flock/ghost_bird = user
 	if(!istype(ghost_bird))
-		return
-
-	var/list/modifiers = params2list(params)
-	if(!modifiers.Find(RIGHT_CLICK))
 		return
 
 	var/list/choices = list()
@@ -169,7 +165,7 @@
 	I = image('icons/hud/radial.dmi', "radial_control")
 	choices["control"] = I
 
-	var/result = show_radial_menu(usr, get_turf(src), choices, "[ref(usr)]_flock_click")
+	var/result = show_radial_menu(user, user, choices, "[ref(usr)]_flock_click", 40)
 	switch(result)
 		if("control")
 			take_control(ghost_bird)
@@ -387,7 +383,8 @@
 	controlled_by.controlling_bird = src
 
 	if(controlled_by.mind)
-		controlled_by.mind.transfer_to(src)
+		key = controlled_by.key
+		mind = controlled_by.mind
 
 	if(isflocktrace(controlled_by))
 		flock.add_notice(src, FLOCK_NOTICE_FLOCKTRACE_CONTROL)
@@ -427,7 +424,8 @@
 
 	master_bird.forceMove(destination)
 	if(mind)
-		mind.transfer_to(master_bird)
+		master_bird.key = key
+		master_bird.mind = mind
 
 	flock_talk(null, "Control of [real_name] surrendered.", flock, involuntary = TRUE)
 	if(!dest_was_safe)

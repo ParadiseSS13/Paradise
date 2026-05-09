@@ -93,7 +93,7 @@
 /obj/structure/grille/flock/proc/on_crossed(atom/source, atom/movable/crosser)
 	SIGNAL_HANDLER
 
-	if(!allow_flockpass || !isflockdrone(crosser) || broken)
+	if(!isflockdrone(crosser) || broken)
 		return
 
 	if(!HAS_TRAIT(crosser, TRAIT_FLOCKPHASE))

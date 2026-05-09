@@ -144,7 +144,7 @@
 	if(!active || charge_status == NOT_CHARGED)
 		icon_state = "sentinel"
 	else
-		icon_state = "sentinel"
+		icon_state = "sentinelon"
 	return ..()
 
 /obj/structure/flock/sentinel/flock_structure_examine(mob/user)
