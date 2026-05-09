@@ -39,7 +39,7 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_HARVEST_TARGET, target)
-	set_movement_target(target)
+	set_movement_target(controller, target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_harvest_target/finish_action(datum/ai_controller/controller, succeeded, obj/item/overmind_target)

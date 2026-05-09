@@ -3,16 +3,6 @@
 	cooldown_time = 5 SECONDS
 	click_to_activate = TRUE
 
-	var/obj/effect/abstract/flock_conversion/turf_effect
-
-/datum/action/cooldown/flock/cage_mob/New(Target)
-	. = ..()
-	turf_effect = new(null)
-
-/datum/action/cooldown/flock/cage_mob/Destroy()
-	QDEL_NULL(turf_effect)
-	return ..()
-
 /datum/action/cooldown/flock/cage_mob/is_valid_target(atom/cast_on)
 	return isliving(cast_on) && !isflockmob(cast_on) && isturf(cast_on.loc)
 
@@ -29,10 +19,9 @@
 		blind_message = SPAN_HEAR("You hear a strange synthetic whirring."),
 	)
 
-	T.vis_contents += turf_effect
+	var/obj/effect/temp_visual/flock_effect
 	if(iswallturf(T))
-		turf_effect.icon_state = "spawn-wall-loop"
-		flick("spawn-wall", turf_effect)
+		flock_effect = new /obj/effect/temp_visual/flock/wall_convert(T)
 
 	log_attack(owner, target, "attempted to cage")
 
@@ -41,7 +30,7 @@
 	if(!do_after(owner, 4.5 SECONDS,  target = target, interaction_key = "flock_cage"))
 		. = FALSE
 
-	T.vis_contents -= turf_effect
+	qdel(flock_effect)
 	if(!.)
 		return
 

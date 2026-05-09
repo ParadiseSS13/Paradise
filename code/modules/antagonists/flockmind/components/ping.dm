@@ -37,7 +37,7 @@
 	dummy.render_source = ref(target)
 
 	dummy.add_filter("outline", 1, outline_filter(size = outline_thickness, color = outline_color))
-	if (isturf(target))
+	if(isturf(target))
 		dummy.add_filter("mask", 2, alpha_mask_filter(render_source = target.render_target, flags = MASK_INVERSE))
 
 	outline_container.vis_contents += dummy

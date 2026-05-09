@@ -17,28 +17,29 @@
 
 /datum/language/flock/broadcast(atom/speaker, message, speaker_mask, involuntary = FALSE)
 	var/log_message = "(FLOCK) [message]"
-	log_say(log_message, speaker)
+	if(ismob(speaker))
+		log_say(log_message, speaker)
 
 	var/list/message_start
 	var/list/message_body
 
 	if(!speaker)
-		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("Flockprint", "#3cb5a3", "#1e806e"))
+		message_start = list("<i><span class='game say'>[name]</i>: ")
 		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
-	if(!ismob(speaker))
+	else if(!ismob(speaker))
 		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("[speaker.name]", "#3cb5a3", "#1e806e"))
 		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
 	else if(isflockcontroller(speaker))
 		var/mob/speaking_mob = speaker
 		message_start = list("<i><font size=4><span class='game say'>[name]</i>: ", gradient_text("[speaking_mob.real_name]", "#3cb5a3", "#1e806e"))
 		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"), "</font>")
-	else if (isflockworker(speaker))
+	else if(isflockworker(speaker))
 		var/mob/speaking_mob = speaker
 		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("[speaking_mob.real_name]", "#3cb5a3", "#1e806e"))
 		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
 
 	for(var/mob/M in GLOB.dead_mob_list)
-		if(!isnewplayer(M) && !isbrain(M))
+		if(!isnewplayer(M) && !isbrain(M) && speaker)
 			var/list/message_start_dead = list("<i><span class='game say'>[name], [SPAN_NAME("[speaker.name] ([ghost_follow_link(speaker, ghost=M)])")]")
 			var/list/dead_message = message_start_dead + message_body
 			M.show_message(dead_message.Join(" "), 2)

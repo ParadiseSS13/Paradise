@@ -74,6 +74,7 @@
 		reagents.add_reagent(/datum/reagent/toxin/gnesis, absorption_rate * seconds_per_tick)
 		if(eating.obj_integrity < 0)
 			QDEL_NULL(eating)
+			eating = null
 
 	if(victim && COOLDOWN_FINISHED(src, flock_message_cd))
 		COOLDOWN_START(src, flock_message_cd, rand(10, 25) SECONDS)

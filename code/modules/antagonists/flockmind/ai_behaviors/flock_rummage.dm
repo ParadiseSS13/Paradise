@@ -29,7 +29,7 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_RUMMAGE_TARGET, target)
-	set_movement_target(target)
+	set_movement_target(controller, target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_storage_item/finish_action(datum/ai_controller/controller, succeeded, turf/overmind_target)

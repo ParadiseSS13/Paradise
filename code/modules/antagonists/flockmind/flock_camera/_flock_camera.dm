@@ -55,7 +55,7 @@
 		return FALSE
 
 	var/turf/T = get_turf(src)
-	if (isturf(T))
+	if(isturf(T))
 		update_z(T.z)
 
 /mob/camera/flock/Logout()
@@ -80,14 +80,14 @@
 	if(QDELETED(origin))
 		return
 
-	if (isflockdrone(origin))
+	if(isflockdrone(origin))
 		var/mob/living/basic/flock/drone/other_bird = origin
-		if (other_bird.flock != flock)
+		if(other_bird.flock != flock)
 			return
 
 	forceMove(get_turf(origin))
 
-	if (href_list["ping"])
+	if(href_list["ping"])
 		origin.AddComponent(/datum/component/flock_ping)
 
 /mob/camera/flock/broadcast_examine(atom/examined)
@@ -116,11 +116,11 @@
 		show_message(rendered, 2)
 
 /mob/camera/flock/proc/update_z(new_z) // 1+ to register, null to unregister
-	if (registered_z != new_z)
-		if (registered_z)
+	if(registered_z != new_z)
+		if(registered_z)
 			SSmobs.flock_cameras_by_zlevel[registered_z] -= src
-		if (client)
-			if (new_z)
+		if(client)
+			if(new_z)
 				SSmobs.flock_cameras_by_zlevel[new_z] += src
 			registered_z = new_z
 		else

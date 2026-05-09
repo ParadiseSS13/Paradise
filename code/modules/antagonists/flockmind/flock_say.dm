@@ -6,7 +6,7 @@
 /proc/flock_talk(atom/speaker, message, datum/flock/flock, involuntary = FALSE)
 
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
-	if (!message)
+	if(!message)
 		return
 
 	var/datum/language/flock/symphonic = GLOB.all_languages["Symphonic"]

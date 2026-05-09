@@ -1795,6 +1795,7 @@
 #include "code\modules\antagonists\flockmind\flock_ai_controller.dm"
 #include "code\modules\antagonists\flockmind\flock_antagonist.dm"
 #include "code\modules\antagonists\flockmind\flock_convert_atom.dm"
+#include "code\modules\antagonists\flockmind\flock_effects.dm"
 #include "code\modules\antagonists\flockmind\flock_global_lists.dm"
 #include "code\modules\antagonists\flockmind\flock_hooks.dm"
 #include "code\modules\antagonists\flockmind\flock_language.dm"

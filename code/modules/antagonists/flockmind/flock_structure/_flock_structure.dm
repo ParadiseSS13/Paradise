@@ -152,7 +152,7 @@
 		return
 
 	bitch_and_moan()
-	// if (. < 5)
+	// if(. < 5)
 	// 	playsound(src, 'sound/impact_sounds/Crystal_Hit_1.ogg', 50, TRUE)
 	// else
 	// 	playsound(src, 'sound/impact_sounds/Glass_Shards_Hit_1.ogg', 50, TRUE)

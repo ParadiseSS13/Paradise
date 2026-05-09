@@ -69,8 +69,8 @@
 
 	var/mob/user = ui.user
 	switch(action)
-		if ("change_tab")
-			if (ui_tab != params["tab"])
+		if("change_tab")
+			if(ui_tab != params["tab"])
 				ui_tab = params["tab"]
 				return TRUE
 

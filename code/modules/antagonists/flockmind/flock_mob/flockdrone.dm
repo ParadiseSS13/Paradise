@@ -23,14 +23,15 @@
 	/// A mob possessing this mob.
 	var/tmp/mob/camera/flock/controlled_by
 
-	var/list/datum/flockdrone_part/parts = list()
+	var/list/parts = list()
 	/// Active flockdrone part.
 	var/datum/flockdrone_part/active_part
 
 /mob/living/basic/flock/drone/Initialize(mapload, join_flock)
-	create_parts()
-	set_active_part(parts[1])
 	. = ..()
+	create_parts()
+	var/datum/flockdrone_part/part = parts[1]
+	set_active_part(part)
 	flock?.stat_drones_made++
 
 	AddComponent(/datum/component/flock_protection, FALSE, TRUE, FALSE, FALSE)
@@ -139,8 +140,9 @@
 		return
 
 /mob/living/basic/flock/drone/get_status_tab_items()
-	. = ..()
-	. += "Substrate: [substrate.has_points()]"
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Substrate: [substrate.has_points()]")
 
 /mob/living/basic/flock/drone/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
@@ -158,7 +160,7 @@
 		return
 
 	var/list/modifiers = params2list(params)
-	if(!modifiers?[RIGHT_CLICK])
+	if(!modifiers.Find(RIGHT_CLICK))
 		return
 
 	var/list/choices = list()
@@ -183,7 +185,8 @@
 					order_action.Trigger(target = src)
 
 /mob/living/basic/flock/drone/resolve_unarmed_attack(atom/attack_target, list/modifiers)
-	if(modifiers?[RIGHT_CLICK])
+	var/list/mods = params2list(modifiers)
+	if(mods.Find(RIGHT_CLICK))
 		active_part?.right_click_on(attack_target, TRUE)
 	else
 		active_part?.left_click_on(attack_target, TRUE)
@@ -192,8 +195,8 @@
 	. = ..()
 	if(.)
 		return
-
-	if(modifiers?[RIGHT_CLICK])
+	var/list/mods = params2list(modifiers)
+	if(mods.Find(RIGHT_CLICK))
 		active_part?.right_click_on(A, FALSE)
 	else
 		active_part?.left_click_on(A, FALSE)

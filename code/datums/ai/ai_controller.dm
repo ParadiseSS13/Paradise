@@ -144,8 +144,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 		return
 	var/list/temp_subtree_list = list()
 	for(var/subtree in planning_subtrees)
-		var/subtree_instance = GLOB.ai_subtrees[subtree]
+		var/datum/ai_planning_subtree/subtree_instance = GLOB.ai_subtrees[subtree]
 		temp_subtree_list += subtree_instance
+		subtree_instance.setup(src)
 	planning_subtrees = temp_subtree_list
 
 /// Proc to move from one pawn to another. This will destroy the target's existing controller.
@@ -522,6 +523,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 		CRASH("Behavior [behavior_type] not found.")
 	var/list/arguments = args.Copy()
 	arguments[1] = src
+
+	if(!behavior.setup(arglist(arguments)))
+		return FALSE
 
 	// It's still in the plan, don't add it again to current_behaviors
 	// but do keep it in the planned behavior list so its not cancelled

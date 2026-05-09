@@ -39,7 +39,7 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DEPOSIT_TARGET, target)
-	set_movement_target(target)
+	set_movement_target(controller, target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_deposit_target/finish_action(datum/ai_controller/controller, succeeded, overmind_target)

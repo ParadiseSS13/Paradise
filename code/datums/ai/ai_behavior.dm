@@ -55,6 +55,7 @@
 	controller.behavior_args -= type
 	// If this was a movement task, reset our movement target if necessary
 	if(!(behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT))
+		next_behavior(controller, succeeded)
 		return
 	if(behavior_flags & AI_BEHAVIOR_KEEP_MOVE_TARGET_ON_FINISH)
 		return

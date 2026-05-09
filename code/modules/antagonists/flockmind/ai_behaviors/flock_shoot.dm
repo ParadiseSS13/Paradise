@@ -23,7 +23,7 @@
 		return FALSE
 
 	controller.set_blackboard_key(BB_FLOCK_ATTACK_TARGET, target)
-	set_movement_target(target)
+	set_movement_target(controller, target)
 	controller.queue_behavior(/datum/ai_behavior/frustration, BB_FLOCK_ATTACK_FRUSTRATION, 10 SECONDS)
 
 /datum/ai_behavior/flock/attack_target/goap_precondition(datum/ai_controller/controller)

@@ -57,7 +57,7 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DECON_TARGET, target)
-	set_movement_target(target)
+	set_movement_target(controller, target)
 
 	var/mob/living/basic/flock/bird = controller.pawn
 	if(bird.flock)

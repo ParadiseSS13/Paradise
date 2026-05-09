@@ -61,11 +61,12 @@
 	)
 
 /mob/camera/flock/overmind/get_status_tab_items()
-	. = ..()
-	. += ""
-	. += "Total Bandwidth: [flock.bandwidth.has_points()]"
-	. += "Used Bandwidth: [flock.used_bandwidth]"
-	. += "Available Bandwidth: [flock.available_bandwidth()]"
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("")
+	status_tab_data[++status_tab_data.len] = list("Total Bandwidth: [flock.bandwidth.has_points()]")
+	status_tab_data[++status_tab_data.len] = list("Used Bandwidth: [flock.used_bandwidth]")
+	status_tab_data[++status_tab_data.len] = list("Available Bandwidth: [flock.available_bandwidth()]")
 
 /mob/camera/flock/overmind/so_very_sad_death()
 	var/datum/flock/old_flock = flock

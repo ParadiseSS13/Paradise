@@ -150,13 +150,13 @@
 /obj/structure/flock/sentinel/flock_structure_examine(mob/user)
 	var/charge_status_str
 	switch (charge_status)
-		if (NOT_CHARGED)
+		if(NOT_CHARGED)
 			charge_status_str = "Idle"
-		if (LOSING_CHARGE)
+		if(LOSING_CHARGE)
 			charge_status_str = "Losing charge"
-		if (CHARGING)
+		if(CHARGING)
 			charge_status_str = "Charging"
-		if (CHARGED)
+		if(CHARGED)
 			charge_status_str = "Charged"
 
 	return list(

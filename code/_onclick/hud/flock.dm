@@ -51,8 +51,11 @@
 
 /atom/movable/screen/flockdrone_part/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
-	var/mob/living/basic/flock/drone/drone = hud?.mymob
-	part_ref = locate(part_type) in drone?.parts // create n destroy
+	var/mob/living/basic/flock/drone/drone = usr
+	for(var/datum/flockdrone_part/part in drone.parts)
+		if(istype(part, part_type))
+			part_ref = part
+			break
 	part_ref?.screen_obj = src
 
 	update_appearance(UPDATE_ICON_STATE)
@@ -74,7 +77,7 @@
 	if(.)
 		return
 
-	var/mob/living/basic/flock/drone/drone = hud?.mymob
+	var/mob/living/basic/flock/drone/drone = usr
 	drone.set_active_part(part_ref)
 
 /atom/movable/screen/flockdrone_part/converter
