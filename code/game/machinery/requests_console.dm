@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("You can Alt-Click to quickly swipe your ID.")
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> to quickly swipe your ID.")
 
 /obj/machinery/requests_console/power_change()
 	if(!..())

@@ -329,7 +329,7 @@
 	else
 		. += "[src] is in pristine condition."
 
-	. += SPAN_NOTICE("You can Alt-Click to quickly swipe your ID.")
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> to quickly swipe your ID.")
 
 /mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
 	if(amount > 0 && prob(10))
