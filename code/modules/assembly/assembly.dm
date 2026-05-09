@@ -131,10 +131,10 @@
 		return TRUE
 	return FALSE
 
-/obj/item/assembly/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(!isassembly(I))
+/obj/item/assembly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!isassembly(used))
 		return ..()
-	var/obj/item/assembly/A = I
+	var/obj/item/assembly/A = used
 	if(!A.secured && !secured)
 		attach_assembly(A, user)
 	return ITEM_INTERACT_COMPLETE

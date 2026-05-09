@@ -32,10 +32,10 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	to_chat(user, SPAN_NOTICE("You activate [src]."))
 	activate()
 
-/obj/item/assembly/signaler/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(!issignaler(I))
+/obj/item/assembly/signaler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!issignaler(used))
 		return ..()
-	var/obj/item/assembly/signaler/signaler2 = I
+	var/obj/item/assembly/signaler/signaler2 = used
 	if(!secured || !signaler2.secured)
 		return ITEM_INTERACT_COMPLETE
 	code = signaler2.code
