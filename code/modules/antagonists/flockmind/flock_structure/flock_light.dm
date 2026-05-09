@@ -1,7 +1,10 @@
 /obj/machinery/light/floor/has_bulb/flock
+	color = "#72bfac"
 	light_color = "#72bfac"
-
+	brightness_color = "#72bfac"
 	base_state = "flock_floor"
+	glow_icon = 'icons/goonstation/objects/lighting.dmi'
+	glow_icon_state = "flock_floor"
 	nightshift_allowed = FALSE
 	no_emergency = TRUE
 
@@ -13,10 +16,12 @@
 
 /obj/machinery/light/flock
 	icon = 'icons/goonstation/objects/lighting.dmi'
-	icon_state = "flock"
+	color = "#72bfac"
 	light_color = "#72bfac"
-
+	brightness_color = "#72bfac"
 	base_state = "flock"
+	glow_icon = 'icons/goonstation/objects/lighting.dmi'
+	glow_icon_state = "flock"
 	nightshift_allowed = FALSE
 	no_emergency = TRUE
 
