@@ -1823,6 +1823,7 @@
 #include "code\modules\antagonists\flockmind\actions\gatecrash.dm"
 #include "code\modules\antagonists\flockmind\actions\partition_mind.dm"
 #include "code\modules\antagonists\flockmind\actions\radio_blast.dm"
+#include "code\modules\antagonists\flockmind\actions\radio_talk.dm"
 #include "code\modules\antagonists\flockmind\actions\release_control.dm"
 #include "code\modules\antagonists\flockmind\ai_behaviors\_flock_behavior_base.dm"
 #include "code\modules\antagonists\flockmind\ai_behaviors\flock_capture.dm"

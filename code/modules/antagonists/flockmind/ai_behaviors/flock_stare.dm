@@ -40,7 +40,7 @@
 		controller.set_blackboard_key(BB_FLOCK_STARING_ACTIVE, world.time + (10 SECONDS))
 
 		if(prob(30))
-			living_pawn.manual_emote("whistles.")
+			living_pawn.emote("stare")
 
 	if(!controller.blackboard[BB_FLOCK_STARE_TARGET])
 		return AI_BEHAVIOR_SUCCEEDED
