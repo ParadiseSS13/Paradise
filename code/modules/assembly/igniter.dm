@@ -57,7 +57,7 @@
 
 	return TRUE
 
-/obj/item/assembly/igniter/attack(mob/living/target, mob/living/user)
+/obj/item/assembly/igniter/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
 
