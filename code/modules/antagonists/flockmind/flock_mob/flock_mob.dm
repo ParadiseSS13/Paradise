@@ -57,6 +57,7 @@
 
 	flock = join_flock || get_default_flock()
 	flock?.add_unit(src)
+	flock.add_notice(src, FLOCK_NOTICE_HEALTH)
 
 	substrate = new point_holder_type
 
@@ -90,12 +91,6 @@
 	. = ..()
 	name_tag?.set_text(real_name)
 
-/mob/living/basic/flock/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages, automatic, bigvoice, forced = FALSE)
-	. = ..()
-	if(!.)
-		return
-	//flock_talk(src, message, flock, involuntary = forced)
-
 /mob/living/basic/flock/update_icon_state()
 	if(stat == DEAD)
 		icon_state = icon_dead
@@ -105,6 +100,26 @@
 		else
 			icon_state = icon_living
 	return ..()
+
+/mob/living/basic/flock/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages, automatic, bigvoice, forced = FALSE)
+	. = ..()
+	if(!.)
+		return
+
+/mob/living/basic/flock/updatehealth(cause_of_death)
+	. = ..()
+	update_health_notice()
+
+/mob/living/basic/flock/proc/update_health_notice()
+	if(!flock)
+		return
+
+	var/datum/alternate_appearance/notice = get_alt_appearance(FLOCK_NOTICE_HEALTH)
+	if(!notice)
+		notice = flock.add_notice(src, FLOCK_NOTICE_HEALTH)
+
+	var/image/I = notice.img
+	I.icon_state = "hp-[round(get_damage_percent(), 10)]"
 
 /mob/living/basic/flock/on_changed_z_level(turf/old_turf, turf/new_turf)
 	. = ..()

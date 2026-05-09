@@ -437,7 +437,6 @@
 /mob/living/basic/flock/drone/proc/split_into_bits()
 	ai_controller.pause_ai(3 SECONDS)
 	say("\[System notification: drone diffracting.\]")
-	emote("scream")
 	flock?.free_unit(src)
 
 	var/turf/T = get_turf(src)
