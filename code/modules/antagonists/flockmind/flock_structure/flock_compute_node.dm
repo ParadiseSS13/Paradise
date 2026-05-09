@@ -19,9 +19,13 @@
 
 /obj/structure/flock/compute/update_overlays()
 	. = ..()
-	var/image/I = image(icon, "compute_screen[rand(1, 9)]")
-	I.pixel_y = 16
-	. += I
+	overlays.Cut()
+	var/image/screen = image(icon, "compute_screen")
+	screen.pixel_y = 16
+	. += screen
+	var/image/display = image(icon, "compute_display[rand(1, 9)]")
+	display.pixel_y = 19
+	. += display
 
 /obj/structure/flock/compute/flock_structure_examine(mob/user)
 	return list(

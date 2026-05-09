@@ -293,8 +293,6 @@
 	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
 		return FALSE
 
-	to_chat(src, SPAN_NOTICE("You are now phasing!"))
-
 	playsound(src, 'sound/goonstation/flockmind/flockdrone_floorrun.ogg', 30, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 	ADD_TRAIT(src, TRAIT_FLOCKPHASE, INNATE_TRAIT)
@@ -320,8 +318,6 @@
 		return FALSE
 
 	playsound(src, 'sound/goonstation/flockmind/flockdrone_floorrun.ogg', 30, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
-
-	to_chat(src, SPAN_NOTICE("You are no longer phasing."))
 
 	REMOVE_TRAIT(src, TRAIT_FLOCKPHASE, INNATE_TRAIT)
 	pass_flags_self &= ~(LETPASSTHROW | PASSFLOCK)
@@ -355,21 +351,17 @@
 	var/turf/T = loc
 
 	if(T.density)
-		to_chat(src, SPAN_WARNING("You are unable to stop phasing here!"))
 		return TRUE
 
 /// Returns TRUE if the drone can flockphase.
 /mob/living/basic/flock/drone/proc/can_flockphase()
 	if(stat != CONSCIOUS)
-		to_chat(src, SPAN_WARNING("You are not able to phase!"))
 		return FALSE
 
 	if(length(grabbed_by))
-		to_chat(src, SPAN_WARNING("You are not able to phase while grabbed!"))
 		return FALSE
 
 	if(!substrate.has_points())
-		to_chat(src, SPAN_WARNING("You do not have enough substrate to phase!"))
 		return FALSE
 
 	return TRUE

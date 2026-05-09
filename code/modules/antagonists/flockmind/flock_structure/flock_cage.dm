@@ -71,7 +71,7 @@
 
 	else
 		eating.take_damage(absorption_rate * seconds_per_tick * 25, BRUTE, armor_penetration_percentage = 100)
-		reagents.add_reagent(/datum/reagent/toxin/gnesis, absorption_rate * seconds_per_tick)
+		reagents.add_reagent(/datum/reagent/gnesis, absorption_rate * seconds_per_tick)
 		if(eating.obj_integrity < 0)
 			QDEL_NULL(eating)
 			eating = null
@@ -117,7 +117,7 @@
 
 /obj/structure/flock/cage/flock_structure_examine(mob/user)
 	return list(
-		SPAN_FLOCKSAY("<b>Volume:</b> [reagents.get_reagent_amount(/datum/reagent/toxin/gnesis)]"),
+		SPAN_FLOCKSAY("<b>Volume:</b> [reagents.get_reagent_amount(/datum/reagent/gnesis)]"),
 		SPAN_FLOCKSAY("<b>Needed volume:</b> [egg_gnesis_cost]<br>"),
 	)
 
@@ -194,8 +194,8 @@
 	var/spend_on_cube = 0
 
 	// Get egg count and spend the gnesis.
-	while(reagents.has_reagent(/datum/reagent/toxin/gnesis, egg_gnesis_cost))
-		reagents.remove_reagent(/datum/reagent/toxin/gnesis, egg_gnesis_cost)
+	while(reagents.has_reagent(/datum/reagent/gnesis, egg_gnesis_cost))
+		reagents.remove_reagent(/datum/reagent/gnesis, egg_gnesis_cost)
 		egg_spawn_count++
 
 	// Spawn eggs or pool it to the cube
@@ -208,11 +208,11 @@
 
 	// If we're dumping it all, collect the remaining gnesis
 	if(all)
-		spend_on_cube += reagents.get_reagent_amount(/datum/reagent/toxin/gnesis)
+		spend_on_cube += reagents.get_reagent_amount(/datum/reagent/gnesis)
 
 	// Cube
 	if(spend_on_cube)
-		reagents.remove_reagent(/datum/reagent/toxin/gnesis, spend_on_cube)
+		reagents.remove_reagent(/datum/reagent/gnesis, spend_on_cube)
 
 		var/obj/item/flock_cube/cube = new
 		cube.substrate = spend_on_cube

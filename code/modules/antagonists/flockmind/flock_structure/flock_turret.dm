@@ -125,7 +125,7 @@
 
 /obj/projectile/bullet/dart/piercing/gnesis/Initialize(mapload)
 	. = ..()
-	reagents.add_reagent(/datum/reagent/toxin/gnesis, 2)
+	reagents.add_reagent(/datum/reagent/gnesis, 2)
 
 	// commented out until i rewrite embedding :)
 	// embedding = list(
