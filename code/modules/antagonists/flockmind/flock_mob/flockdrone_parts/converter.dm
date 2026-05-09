@@ -1,4 +1,5 @@
 /datum/flockdrone_part/converter
+	alt_attack = TRUE
 
 /datum/flockdrone_part/converter/left_click_on(atom/target, in_reach)
 	if(!in_reach)

@@ -184,7 +184,7 @@
 					order_action.Trigger(target = src)
 
 /mob/living/basic/flock/drone/resolve_unarmed_attack(atom/attack_target, list/modifiers)
-	if(a_intent == INTENT_GRAB || a_intent == INTENT_HARM)
+	if((a_intent == INTENT_GRAB || a_intent == INTENT_HARM) && active_part?.alt_attack)
 		active_part?.right_click_on(attack_target, TRUE)
 	else
 		active_part?.left_click_on(attack_target, TRUE)
@@ -193,7 +193,7 @@
 	. = ..()
 	if(.)
 		return
-	if(a_intent == INTENT_GRAB || a_intent == INTENT_HARM)
+	if((a_intent == INTENT_GRAB || a_intent == INTENT_HARM) && active_part?.alt_attack)
 		active_part?.right_click_on(A, FALSE)
 	else
 		active_part?.left_click_on(A, FALSE)

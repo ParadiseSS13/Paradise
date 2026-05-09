@@ -2,6 +2,8 @@
 	var/mob/living/basic/flock/drone/drone
 	/// Reference to the associated screen object, if it exists (grr mobs that havent had a player connected)
 	var/atom/movable/screen/flockdrone_part/screen_obj
+	/// If the part has an alt-attack
+	var/alt_attack = FALSE
 
 /datum/flockdrone_part/New(drone)
 	src.drone = drone
