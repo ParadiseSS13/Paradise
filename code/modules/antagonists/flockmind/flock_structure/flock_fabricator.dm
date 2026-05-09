@@ -4,6 +4,7 @@
 
 	flock_id = "Fabricator"
 	flock_desc = "A converter that turns its contents into substrate cubes."
+	icon_state = "reclaimer"
 
 	max_integrity = 20
 
@@ -64,7 +65,7 @@
 //
 /obj/machinery/economy/vending/try_flock_convert(datum/flock/flock, force)
 	var/substrate
-	for(var/datum/data/vending_product/product as anything in products)
+	for(var/datum/data/vending_product/product as anything in product_records)
 		substrate += 3 * product.get_amount_left()
 
 	if(!substrate)
@@ -74,6 +75,7 @@
 	var/obj/structure/flock/fabricator/fab = new(get_turf(src), flock)
 	fab.substrate_remaining.add_points(substrate)
 	fab.update_info_tag()
+	update_appearance(UPDATE_ICON_STATE)
 	qdel(src)
 
 /obj/structure/reagent_dispensers/try_flock_convert(datum/flock/flock, force)
@@ -86,4 +88,5 @@
 	var/obj/structure/flock/fabricator/fab = new(get_turf(src), flock)
 	fab.substrate_remaining.add_points(substrate)
 	fab.update_info_tag()
+	update_appearance(UPDATE_ICON_STATE)
 	qdel(src)

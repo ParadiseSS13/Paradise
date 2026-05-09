@@ -181,9 +181,6 @@
 			return TRUE
 
 /mob/living/basic/flock/CanPass(atom/movable/mover, border_dir)
-	. = ..()
-	if(istype(mover, /obj/projectile/bullet/dart/piercing/gnesis))
-		return TRUE
 	if(istype(mover, /obj/projectile/energy/flock_bolt))
 		return TRUE
 

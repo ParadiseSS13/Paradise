@@ -14,8 +14,27 @@
 	using = new /atom/movable/screen/flockdrone_part/absorber(null, src)
 	static_inventory += using
 
-	mymob.healths = new /atom/movable/screen/flockdrone_health(null, src)
+	using = new /atom/movable/screen/flockphasing()
+	using.icon_state = (HAS_TRAIT(mymob, TRAIT_FLOCKPHASE) ? "running" : "walking")
+	infodisplay += using
+
+	using = new /atom/movable/screen/act_intent/flock()
+	using.icon_state = mymob.a_intent
+	static_inventory += using
+	action_intent = using
+
+	mymob.healths = new /atom/movable/screen/healths/flockdrone_health(null, src)
 	infodisplay += mymob.healths
+
+	mymob.pullin = new /atom/movable/screen/pull/flock()
+	mymob.pullin.hud = src
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
+	hotkeybuttons += mymob.pullin
+
+	zone_select = new /atom/movable/screen/zone_sel/flock()
+	zone_select.hud = src
+	zone_select.update_icon(UPDATE_OVERLAYS)
+	static_inventory += zone_select
 
 	relay_status = new(null, src)
 	infodisplay += relay_status
@@ -37,9 +56,51 @@
 	QDEL_NULL(relay_status)
 	return ..()
 
-/atom/movable/screen/flockdrone_health
+/atom/movable/screen/healths/flockdrone_health
 	icon = 'icons/goonstation/hud/flock_ui.dmi'
 	icon_state = "health1"
+	screen_loc = UI_BORG_HEALTH
+
+/atom/movable/screen/pull/flock
+	icon = 'icons/goonstation/hud/flock_ui.dmi'
+	icon_state = "pull0"
+	screen_loc = UI_MOVI
+
+/atom/movable/screen/act_intent/flock
+	icon = 'icons/goonstation/hud/flock_ui.dmi'
+
+/atom/movable/screen/act_intent/flock/Click(location, control, params)
+	var/_x = text2num(params2list(params)["icon-x"])
+	var/_y = text2num(params2list(params)["icon-y"])
+	if(_x<=16 && _y<=16)
+		usr.a_intent_change(INTENT_GRAB)
+	else if(_x<=16 && _y>=17)
+		usr.a_intent_change(INTENT_HELP)
+	else if(_x>=17 && _y<=16)
+		usr.a_intent_change(INTENT_HARM)
+	else if(_x>=17 && _y>=17)
+		usr.a_intent_change(INTENT_DISARM)
+
+/atom/movable/screen/flockphasing
+
+	icon = 'icons/goonstation/hud/flock_ui.dmi'
+	name = "flockphase toggle"
+	icon_state = "walking"
+	screen_loc = UI_MOVI
+
+/atom/movable/screen/flockphasing/Click(location, control, params)
+	var/mob/living/basic/flock/drone/M = usr
+	if(!istype(M))
+		return
+	if(HAS_TRAIT(M, TRAIT_FLOCKPHASE))
+		M.stop_flockphase()
+	else
+		if(M.can_flockphase() && M.flockphase_tax())
+			M.start_flockphase()
+
+/atom/movable/screen/zone_sel/flock
+	icon = 'icons/goonstation/hud/flock_ui.dmi'
+	overlay_file = 'icons/goonstation/hud/flock_ui.dmi'
 
 /atom/movable/screen/flockdrone_part
 	icon = 'icons/goonstation/hud/flock_ui.dmi'

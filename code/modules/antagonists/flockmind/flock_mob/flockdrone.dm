@@ -7,11 +7,11 @@
 
 	actions_to_grant = list(
 		/datum/action/cooldown/flock/release_control,
+		/datum/action/cooldown/flock/nest,
 		/datum/action/cooldown/flock/convert,
 		/datum/action/cooldown/flock/deconstruct,
 		/datum/action/cooldown/flock/flock_heal,
 		/datum/action/cooldown/flock/cage_mob,
-		/datum/action/cooldown/flock/nest,
 		/datum/action/cooldown/flock/deposit,
 	)
 
@@ -119,7 +119,7 @@
 		return
 
 	// Either the client wants to flockphase, or if uncliented, already flockphasing.
-	var/wants_to_flockphase = client ? client.input_data.keys_held["Shift"] : HAS_TRAIT(src, TRAIT_FLOCKPHASE)
+	var/wants_to_flockphase = HAS_TRAIT(src, TRAIT_FLOCKPHASE)
 	if(!wants_to_flockphase)
 		stop_flockphase()
 		return
@@ -203,8 +203,8 @@
 /mob/living/basic/flock/update_health_hud()
 	var/severity = 0
 	var/healthpercent = ceil((health/maxHealth) * 100)
-	if(healthdoll) // to really put you in the boots of a basic mob
-		var/atom/movable/screen/flockdrone_health/HD = healthdoll
+	if(healths) // to really put you in the boots of a basic mob
+		var/atom/movable/screen/healths/flockdrone_health/HD = healths
 		switch(healthpercent)
 			if(100 to INFINITY)
 				severity = 0
@@ -293,6 +293,8 @@
 	if(HAS_TRAIT(src, TRAIT_FLOCKPHASE))
 		return FALSE
 
+	to_chat(src, SPAN_NOTICE("You are now phasing!"))
+
 	playsound(src, 'sound/goonstation/flockmind/flockdrone_floorrun.ogg', 30, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 
 	ADD_TRAIT(src, TRAIT_FLOCKPHASE, INNATE_TRAIT)
@@ -318,6 +320,8 @@
 		return FALSE
 
 	playsound(src, 'sound/goonstation/flockmind/flockdrone_floorrun.ogg', 30, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+
+	to_chat(src, SPAN_NOTICE("You are no longer phasing."))
 
 	REMOVE_TRAIT(src, TRAIT_FLOCKPHASE, INNATE_TRAIT)
 	pass_flags_self &= ~(LETPASSTHROW | PASSFLOCK)
@@ -351,20 +355,21 @@
 	var/turf/T = loc
 
 	if(T.density)
-		return TRUE
-
-	if(client?.input_data.key_combos_held["Shift"])
+		to_chat(src, SPAN_WARNING("You are unable to stop phasing here!"))
 		return TRUE
 
 /// Returns TRUE if the drone can flockphase.
 /mob/living/basic/flock/drone/proc/can_flockphase()
 	if(stat != CONSCIOUS)
+		to_chat(src, SPAN_WARNING("You are not able to phase!"))
 		return FALSE
 
 	if(length(grabbed_by))
+		to_chat(src, SPAN_WARNING("You are not able to phase while grabbed!"))
 		return FALSE
 
 	if(!substrate.has_points())
+		to_chat(src, SPAN_WARNING("You do not have enough substrate to phase!"))
 		return FALSE
 
 	return TRUE
