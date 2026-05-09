@@ -22,6 +22,9 @@
 	if(!shot_count)
 		return FALSE
 
+	if(istype(target, /atom/movable/screen))
+		return FALSE
+
 	shot_count -= 1
 	screen_obj?.update_appearance()
 
