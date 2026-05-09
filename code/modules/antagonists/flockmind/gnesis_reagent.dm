@@ -5,6 +5,6 @@
 	taste_description = "oily, with a sweet aftertaste"
 
 /datum/reagent/toxin/gnesis/on_mob_life(mob/living/M)
-	if(volume > 50)
+	if(volume > 12)
 		M.ForceContractDisease(new /datum/disease/flock(0))
 	return ..()
