@@ -1,4 +1,6 @@
 /obj/machinery/light/floor/has_bulb/flock
+	icon = 'icons/goonstation/objects/lighting.dmi'
+	icon_state = "flock_floor"
 	color = "#72bfac"
 	light_color = "#72bfac"
 	brightness_color = "#72bfac"
@@ -16,6 +18,7 @@
 
 /obj/machinery/light/flock
 	icon = 'icons/goonstation/objects/lighting.dmi'
+	icon_state = "flock"
 	color = "#72bfac"
 	light_color = "#72bfac"
 	brightness_color = "#72bfac"
