@@ -6,7 +6,6 @@
 	flock_desc = "A defense turret that fires high speed gnesis bolts at nearby projectiles, annihilating them."
 	flock_id = "Interceptor"
 
-	max_integrity = 50
 	resource_cost = 100
 
 	var/tmp/datum/proximity_monitor/advanced/interceptor/proxmon
@@ -22,7 +21,7 @@
 
 /obj/structure/flock/interceptor/Initialize(mapload, datum/flock/join_flock)
 	. = ..()
-	proxmon = new(src, 2, TRUE)
+	proxmon = new(src, 3, TRUE)
 	process()
 
 /obj/structure/flock/interceptor/Destroy()
