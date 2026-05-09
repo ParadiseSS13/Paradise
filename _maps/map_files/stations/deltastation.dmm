@@ -25799,15 +25799,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
-"bZw" = (
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "bZx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -45697,9 +45688,6 @@
 /area/station/maintenance/apmaint)
 "dGk" = (
 /obj/effect/turf_decal/tiles/department/command/side{
-	dir = 8
-	},
-/obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/sign/command/conference{
@@ -90506,6 +90494,14 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
+"uyc" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/station/command/bridge)
 "uyi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -92716,6 +92712,14 @@
 	},
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/fsmaint)
+"vrK" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/station/command/bridge)
 "vrP" = (
 /obj/structure/window/basic{
 	dir = 8
@@ -138275,7 +138279,7 @@ uKV
 bKN
 bHk
 qPi
-qPi
+vrK
 rFo
 bOZ
 cab
@@ -140843,7 +140847,7 @@ ydn
 vNj
 wbp
 xzy
-bZw
+oXw
 oXw
 oXw
 vjr
@@ -141359,7 +141363,7 @@ fUl
 bOU
 bWX
 rFo
-qPi
+uyc
 qPi
 bQI
 cal
