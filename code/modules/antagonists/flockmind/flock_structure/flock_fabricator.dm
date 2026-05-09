@@ -65,7 +65,7 @@
 /obj/machinery/economy/vending/try_flock_convert(datum/flock/flock, force)
 	var/substrate
 	for(var/datum/data/vending_product/product as anything in products)
-		substrate += 3 * product
+		substrate += 3 * product.get_amount_left()
 
 	if(!substrate)
 		qdel(src)
