@@ -33,6 +33,8 @@
 	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_move))
 	RegisterSignal(loop, COMSIG_MOVELOOP_ASTAR_REPATH, PROC_REF(repath_incoming))
 
+	return loop
+
 /datum/ai_movement/astar/proc/repath_incoming(datum/move_loop/has_target/astar/source)
 	SIGNAL_HANDLER
 	var/datum/ai_controller/controller = source.extra_info

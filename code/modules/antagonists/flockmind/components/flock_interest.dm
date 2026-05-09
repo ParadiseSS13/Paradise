@@ -38,7 +38,7 @@
 		return
 
 	var/mob/living/basic/flock/drone/snitch
-	for (var/mob/living/basic/flock/drone/bird in viewers(attacker))
+	for(var/mob/living/basic/flock/drone/bird in viewers(attacker))
 		if(bird == attacker)
 			continue
 		if(bird.stat != CONSCIOUS)

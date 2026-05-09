@@ -43,7 +43,6 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_HEAL_TARGET, target)
-	set_movement_target(controller, target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_heal_target/finish_action(datum/ai_controller/controller, succeeded, overmind_target)
@@ -60,6 +59,11 @@
 /datum/ai_behavior/flock/heal
 	name = "repairing"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
+
+/datum/ai_behavior/flock/heal/setup(datum/ai_controller/controller, ...)
+	var/atom/target = controller.blackboard[BB_FLOCK_HEAL_TARGET]
+	set_movement_target(controller, target)
+	return ..()
 
 /datum/ai_behavior/flock/heal/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()

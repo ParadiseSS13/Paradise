@@ -94,7 +94,7 @@
 		stack_trace("Invalid A* destination")
 		return FALSE
 
-	if(start.z != end.z || start == end ) //no pathfinding between z levels
+	if(start.z != end.z || start == end) //no pathfinding between z levels
 		return FALSE
 
 	// If the turf is out of the step range we already know it's too far.

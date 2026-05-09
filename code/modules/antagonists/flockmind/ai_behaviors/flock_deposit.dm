@@ -39,7 +39,6 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DEPOSIT_TARGET, target)
-	set_movement_target(controller, target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_deposit_target/finish_action(datum/ai_controller/controller, succeeded, overmind_target)
@@ -57,6 +56,11 @@
 /datum/ai_behavior/flock/perform_deposit
 	name = "depositing"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
+
+/datum/ai_behavior/flock/perform_deposit/setup(datum/ai_controller/controller, ...)
+	var/turf/target_turf = controller.blackboard[BB_FLOCK_DEPOSIT_TARGET]
+	set_movement_target(controller, target_turf)
+	return ..()
 
 /datum/ai_behavior/flock/perform_deposit/goap_is_valid_target(datum/ai_controller/controller, atom/target)
 	var/obj/structure/flock/tealprint/tealprint = target

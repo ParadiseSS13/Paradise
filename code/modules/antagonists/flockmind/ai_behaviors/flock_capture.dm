@@ -33,7 +33,6 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_CAPTURE_TARGET, target)
-	set_movement_target(controller, target)
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/find_capture_target/finish_action(datum/ai_controller/controller, succeeded, obj/item/overmind_target)
@@ -51,6 +50,11 @@
 /datum/ai_behavior/flock/perform_capture
 	name = "capturing"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
+
+/datum/ai_behavior/flock/perform_capture/setup(datum/ai_controller/controller, ...)
+	var/atom/target = controller.blackboard[BB_FLOCK_CAPTURE_TARGET]
+	set_movement_target(controller, target)
+	return ..()
 
 /datum/ai_behavior/flock/perform_capture/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()

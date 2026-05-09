@@ -142,7 +142,7 @@
 /mob/living/basic/flock/drone/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Substrate: [substrate.has_points()]")
+	status_tab_data[++status_tab_data.len] = list("Substrate: ",  "[substrate.has_points()]")
 
 /mob/living/basic/flock/drone/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()

@@ -57,7 +57,6 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DECON_TARGET, target)
-	set_movement_target(controller, target)
 
 	var/mob/living/basic/flock/bird = controller.pawn
 	if(bird.flock)
@@ -80,6 +79,11 @@
 /datum/ai_behavior/flock/perform_deconstruct
 	name = "deconstructing"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
+
+/datum/ai_behavior/flock/perform_deconstruct/setup(datum/ai_controller/controller, ...)
+	var/turf/target_turf = controller.blackboard[BB_FLOCK_DECON_TARGET]
+	set_movement_target(controller, target_turf)
+	return ..()
 
 /datum/ai_behavior/flock/perform_deconstruct/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()

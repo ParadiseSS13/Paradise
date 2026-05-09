@@ -44,6 +44,11 @@
 	name = "rummaging"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
 
+/datum/ai_behavior/flock/perform_rummage/setup(datum/ai_controller/controller, ...)
+	var/atom/target = controller.blackboard[BB_FLOCK_RUMMAGE_TARGET]
+	set_movement_target(controller, target)
+	return ..()
+
 /datum/ai_behavior/flock/perform_rummage/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/basic/flock/bird = controller.pawn

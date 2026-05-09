@@ -48,15 +48,17 @@
 	if(!isturf(T))
 		return FALSE
 
+	if(!T.can_flock_convert())
+		return FALSE
+
+	if(isflockturf(T))
+		return FALSE
 
 	var/mob/living/basic/flock/bird = controller.pawn
 	if(isnull(bird.flock))
 		return TRUE
 
-	if(isflockturf(T) && (bird.flock.claimed_floors[T] || bird.flock.claimed_walls[T]))
-		return FALSE
-
-	if(!T.can_flock_convert())
+	if(bird.flock.claimed_floors[T] || bird.flock.claimed_walls[T])
 		return FALSE
 
 	return bird.flock.is_turf_free(T)
@@ -68,7 +70,6 @@
 		return AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_CONVERT_TARGET, target)
-	set_movement_target(controller, target)
 
 	var/mob/living/basic/flock/bird = controller.pawn
 	if(bird.flock)
@@ -90,6 +91,11 @@
 /datum/ai_behavior/flock/perform_conversion
 	name = "building"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
+
+/datum/ai_behavior/flock/perform_conversion/setup(datum/ai_controller/controller, ...)
+	var/turf/target_turf = controller.blackboard[BB_FLOCK_CONVERT_TARGET]
+	set_movement_target(controller, target_turf)
+	return ..()
 
 /datum/ai_behavior/flock/perform_conversion/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()

@@ -24,7 +24,7 @@
 	var/list/message_body
 
 	if(!speaker)
-		message_start = list("<i><span class='game say'>[name]</i>: ")
+		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("System", "#3cb5a3", "#1e806e"))
 		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
 	else if(!ismob(speaker))
 		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("[speaker.name]", "#3cb5a3", "#1e806e"))

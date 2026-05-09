@@ -45,6 +45,11 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 	required_distance = 0
 
+/datum/ai_behavior/flock/perform_replicate/setup(datum/ai_controller/controller, ...)
+	var/atom/target = controller.blackboard[BB_FLOCK_REPLICATE_TARGET]
+	set_movement_target(controller, target)
+	return ..()
+
 /datum/ai_behavior/flock/perform_replicate/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	. = ..()
 	var/mob/living/basic/flock/bird = controller.pawn
