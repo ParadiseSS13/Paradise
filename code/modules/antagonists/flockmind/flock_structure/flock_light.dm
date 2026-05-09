@@ -13,7 +13,7 @@
 
 /obj/machinery/light/flock
 	icon = 'icons/goonstation/objects/lighting.dmi'
-
+	icon_state = "flock"
 	light_color = "#72bfac"
 
 	base_state = "flock"

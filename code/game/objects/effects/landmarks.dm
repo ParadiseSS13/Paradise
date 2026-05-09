@@ -106,7 +106,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/flock
 	name = "flockspawn"
-	icon_state = "Flock"
+	icon_state = "flockmind"
 
 /obj/effect/landmark/spawner/ninja
 	name = "ninjaspawn"
