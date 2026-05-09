@@ -68,6 +68,8 @@
 	bomb_name = "noise-activated bomb"
 
 /obj/item/assembly/voice/noise/activate_self(mob/user)
+	if(!user)
+		return ..()
 	return
 
 /obj/item/assembly/voice/noise/examine(mob/user)
