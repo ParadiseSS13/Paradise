@@ -54,7 +54,7 @@
 	stats_info[++stats_info.len] = list(name = "Drones realized: ", "value" = stat_drones_made)
 	stats_info[++stats_info.len] = list(name = "Bits formed: ", "value" = stat_bits_made)
 	stats_info[++stats_info.len] = list(name = "Total deaths: ", "value" = stat_deaths)
-	stats_info[++stats_info.len] = list(name = "Resources gianed: ", "value" = stat_resources_gained)
+	stats_info[++stats_info.len] = list(name = "Resources gained: ", "value" = stat_resources_gained)
 	stats_info[++stats_info.len] = list(name = "Partitions divided: ", "value" = stat_traces_made)
 	stats_info[++stats_info.len] = list(name = "Tiles converted: ", "value" = stat_tiles_made)
 	stats_info[++stats_info.len] = list(name = "Structures materialized: ", "value" = stat_structures_made)

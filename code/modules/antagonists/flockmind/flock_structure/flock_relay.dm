@@ -177,3 +177,6 @@
 
 	for(var/obj/machinery/telecomms/T in SSmachines.get_by_type(/obj/machinery/telecomms))
 		T.emp_act(EMP_HEAVY)
+
+	SSshuttle.emergency.request(null, 0.3)
+	SSshuttle.emergency.canRecall = FALSE // Cannot recall

@@ -101,7 +101,7 @@
 	if(max_distance && (max_distance < get_dist_manhattan(start, end)))
 		return FALSE
 
-	var/datum/astar_node/start_node = new /datum/astar_node
+	var/datum/astar_node/start_node = new /datum/astar_node()
 	start_node.turf = start
 	start_node.total_cost_f = 0
 	start_node.dist_from_start_g = 0
@@ -208,7 +208,7 @@
 				continue
 
 			// Node is not known, create it.
-			var/datum/astar_node/new_node = new /datum/astar_node
+			var/datum/astar_node/new_node = new /datum/astar_node()
 			new_node.turf = searching_turf
 			new_node.total_cost_f = distance_g + heuristic_h
 			new_node.dist_from_start_g = distance_g

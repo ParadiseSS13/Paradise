@@ -1,6 +1,4 @@
 /datum/flock_unlockable
-	var/abstract_type = /datum/flock_unlockable
-
 	// auto populated field
 	var/name
 	// auto populated field

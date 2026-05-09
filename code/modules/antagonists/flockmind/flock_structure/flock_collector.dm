@@ -76,12 +76,16 @@
 	if(isnull(apc))
 		return
 
+
 	apc.cell?.give(charge_per_cycle / 100 * apc.cell.maxcharge)
 	apc.AddComponent(/datum/component/flock_ping/apc_power)
 
 /obj/structure/flock/collector/proc/get_apc() as /obj/machinery/power/apc
 	var/area/A = get_area(src)
-	return A?.apc
+	var/obj/machinery/power/apc/apc
+	if(A.apc)
+		apc = A.apc[0]
+	return apc
 
 /// Recalculate the turf connections and tracking.
 /obj/structure/flock/collector/proc/update_connections()
