@@ -26167,9 +26167,6 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel/stairs/right,
 /area/station/command/bridge)
 "caH" = (
@@ -38455,12 +38452,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/medical/medbay)
 "cTY" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/effect/spawner/window,
+/turf/simulated/floor/grass/no_creep,
 /area/station/command/bridge)
 "cUa" = (
 /obj/effect/spawner/window/reinforced,
@@ -50496,12 +50491,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"eJn" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "eJt" = (
 /obj/structure/mirror{
 	pixel_x = -28
@@ -54333,9 +54322,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "gdJ" = (
@@ -56584,15 +56570,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
-"hbu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "hbv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -60304,9 +60281,6 @@
 "iCf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
@@ -60702,9 +60676,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/structure/cable{
 	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor{
 	dir = 4
@@ -61972,15 +61943,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
-"jkt" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "jkv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -63103,15 +63065,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall,
 /area/station/aisat)
-"jMa" = (
-/obj/effect/turf_decal/tiles/department/command/side{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "jMb" = (
 /obj/machinery/door/window{
 	base_state = "right";
@@ -63269,14 +63222,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "jPB" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
+/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/effect/spawner/window,
+/turf/simulated/floor/grass/no_creep,
 /area/station/command/bridge)
 "jPD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -63704,9 +63653,6 @@
 	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -67063,14 +67009,9 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "lre" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/effect/spawner/window,
+/turf/simulated/floor/grass/no_creep,
 /area/station/command/bridge)
 "lrh" = (
 /obj/machinery/optable,
@@ -80572,6 +80513,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
+"qPi" = (
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/station/command/bridge)
 "qPj" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -82908,6 +82854,14 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/north)
+"rFo" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi{
+	sentience_type = 3
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/station/command/bridge)
 "rFv" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -85684,9 +85638,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/interrogation)
 "sIF" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/effect/spawner/window,
+/turf/simulated/floor/grass/no_creep,
 /area/station/command/bridge)
 "sJe" = (
 /obj/machinery/light{
@@ -89319,9 +89273,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "tZy" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
@@ -90087,12 +90038,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "umj" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plating,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/effect/spawner/window,
+/turf/simulated/floor/grass/no_creep,
 /area/station/command/bridge)
 "unk" = (
 /obj/machinery/door/airlock/command/glass{
@@ -92584,6 +92533,12 @@
 /obj/effect/turf_decal/tiles/department/medical/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
+"vnv" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/effect/spawner/window,
+/turf/simulated/floor/grass/no_creep,
+/area/station/command/bridge)
 "vnQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -93631,9 +93586,6 @@
 	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -138322,9 +138274,9 @@ bCG
 uKV
 bKN
 bHk
-abj
-abj
-abj
+qPi
+qPi
+rFo
 bOZ
 cab
 cbW
@@ -138836,7 +138788,7 @@ pBS
 tUy
 tdU
 dGk
-hbu
+tdU
 tdU
 pbI
 bOZ
@@ -139091,9 +139043,9 @@ bAB
 iLA
 caG
 vJv
-jMa
+oXw
 tZy
-eJn
+byU
 byU
 bFy
 bOZ
@@ -140892,7 +140844,7 @@ vNj
 wbp
 xzy
 bZw
-jkt
+oXw
 oXw
 vjr
 bsS
@@ -141151,7 +141103,7 @@ auN
 bWX
 lre
 umj
-sIF
+vnv
 bQI
 dNR
 ccf
@@ -141406,9 +141358,9 @@ iDU
 fUl
 bOU
 bWX
-abj
-abj
-abj
+rFo
+qPi
+qPi
 bQI
 cal
 ccg
