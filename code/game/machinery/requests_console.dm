@@ -69,6 +69,10 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/reminder_timer_id = TIMER_ID_NULL
 	var/has_active_secondary_goal = FALSE
 
+/obj/machinery/requests_console/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("You can Alt-Click to quickly swipe your ID.")
+
 /obj/machinery/requests_console/power_change()
 	if(!..())
 		return

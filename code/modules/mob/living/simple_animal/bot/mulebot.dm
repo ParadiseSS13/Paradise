@@ -138,11 +138,7 @@
 	update_controls()
 	update_icon()
 
-/mob/living/simple_animal/bot/mulebot/AltClick(mob/user)
-	if(Adjacent(user))
-		toggle_lock(user)
-
-/mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
+/mob/living/simple_animal/bot/mulebot/toggle_lock(mob/user)
 	if(allowed(user))
 		locked = !locked
 		update_controls()
