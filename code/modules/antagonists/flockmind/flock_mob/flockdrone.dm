@@ -1,5 +1,4 @@
 /mob/living/basic/flock/drone
-	name = "flockdrone"
 	desc = "The physical partitions of the flockmind, forever enacting its will until its job is complete."
 	hud_type = /datum/hud/flockdrone
 	ai_controller = /datum/ai_controller/flock/drone

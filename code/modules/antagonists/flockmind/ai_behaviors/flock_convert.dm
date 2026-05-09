@@ -1,6 +1,6 @@
 /datum/ai_behavior/flock/find_conversion_target
 	name = "building"
-	goap_weight = FLOCK_BEHAVIOR_WEIGHT_CONVERT
+	goap_weight
 
 /datum/ai_behavior/flock/find_conversion_target/setup(datum/ai_controller/controller, turf/overmind_target)
 	. = ..()

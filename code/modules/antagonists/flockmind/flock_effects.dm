@@ -2,7 +2,6 @@
 	icon = 'icons/goonstation/mob/featherzone.dmi'
 	icon_state = "blank"
 	layer = ABOVE_NORMAL_TURF_LAYER
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	duration = 4.5 SECONDS
 	var/animation
 

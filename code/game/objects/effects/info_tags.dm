@@ -60,7 +60,4 @@
 	return (M != parent) && isflockmob(M)
 
 /obj/effect/abstract/info_tag/flock/info
-	maptext_x = -64
 	maptext_y = -14
-	maptext_width = 160
-	maptext_height = 48

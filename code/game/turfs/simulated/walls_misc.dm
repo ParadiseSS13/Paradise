@@ -114,4 +114,3 @@
 	icon = 'icons/goonstation/turf/flock.dmi'
 	color = "#1bdebd"
 	sheet_type = /obj/item/stack/sheet/gnesis
-	sheet_amount = 2

@@ -9,7 +9,6 @@
 	pass_flags = PASSGLASS
 	speed = 0.7
 	damage = 4
-	damage_type = BURN
 
 	stamina = 25
 

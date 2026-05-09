@@ -1,9 +1,7 @@
 /mob/camera/flock/overmind
 	name = "Flockmind"
 	desc = "A ghostly conglomerate of signals and sentient radio waves."
-	icon_state ="flockmind"
 
-	invisibility = INVISIBILITY_FLOCK
 	see_invisible = SEE_INVISIBLE_FLOCK
 
 	actions_to_grant = list(

@@ -1,6 +1,5 @@
 /obj/machinery/light/floor/has_bulb/flock
 	light_color = "#72bfac"
-	power_channel = PW_ALWAYS_POWERED
 
 	base_state = "flock_floor"
 	nightshift_allowed = FALSE
@@ -16,7 +15,6 @@
 	icon = 'icons/goonstation/objects/lighting.dmi'
 
 	light_color = "#72bfac"
-	power_channel = PW_ALWAYS_POWERED
 
 	base_state = "flock"
 	nightshift_allowed = FALSE

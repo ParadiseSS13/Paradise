@@ -1,6 +1,5 @@
 /datum/ai_behavior/flock/stare
 	name = "analyzing"
-	goap_weight = FLOCK_BEHAVIOR_WEIGHT_STARE
 
 /datum/ai_behavior/flock/stare/goap_score(datum/ai_controller/controller)
 	if(controller.behavior_cooldowns[src] > world.time)

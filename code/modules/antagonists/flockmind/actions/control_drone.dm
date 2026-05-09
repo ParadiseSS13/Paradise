@@ -2,7 +2,6 @@
 	name = "Control Drone"
 	desc = "Direct a drone to perform an action."
 	button_icon_state = "ping"
-	cooldown_time = 0
 	click_to_activate = TRUE
 	unset_after_click = FALSE
 	click_cd_override = 0

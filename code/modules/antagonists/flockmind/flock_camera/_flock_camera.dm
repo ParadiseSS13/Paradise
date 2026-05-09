@@ -18,9 +18,6 @@
 
 	hud_type = /datum/hud/flockghost
 
-
-	move_on_shuttle = FALSE
-
 	simulated = FALSE
 
 	/// Flock datum
