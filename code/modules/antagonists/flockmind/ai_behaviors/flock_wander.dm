@@ -6,7 +6,7 @@
 	..()
 	var/turf/destination = get_destination(controller)
 	if(destination)
-		controller.set_movement_target(destination)
+		controller.set_movement_target(controller, destination)
 		return AI_BEHAVIOR_SUCCEEDED
 	return AI_BEHAVIOR_FAILED
 
