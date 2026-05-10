@@ -19,6 +19,9 @@
 	allow_flockpass = FALSE
 	no_flock_decon = TRUE
 
+	/// The object showing admins/dchat the time left
+	var/obj/effect/countdown/flock/counter
+
 	/// Time the structure started.
 	var/tmp/started_time
 	/// How long it takes until the signal is broadcast and the flock wins :D
@@ -45,7 +48,9 @@
 		SPAN_FLOCKSAY(SPAN_BIG("You pool the collective processing power of The Flock to transmit The Signal. If the relay is destroyed, so too will be The Flock!"))
 	)
 
-	flock_talk(null, "THE RELAY HAS BEEN CONSTRUCTED! DEFEND IT AT ALL COSTS, BRING FORTH THE FULL BREADTH OF THE DIVINE FLOCK!", flock)
+	flock_talk(null, "THE RELAY HAS BEEN CONSTRUCTED! DEFEND IT AT ALL COSTS! BRING FORTH THE FULL BREADTH OF THE DIVINE FLOCK!", flock)
+	counter = new(src)
+	counter.start()
 	addtimer(CALLBACK(src, PROC_REF(announce_relay)), 10 SECONDS)
 
 	START_PROCESSING(SSprocessing, src)
