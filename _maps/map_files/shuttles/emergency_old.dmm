@@ -86,13 +86,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"ay" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "aA" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -173,20 +166,6 @@
 	pixel_y = -30
 	},
 /obj/machinery/light/spot,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"aT" = (
-/obj/machinery/door/airlock/titanium{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Shuttle Cargo Hatch"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"aV" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aW" = (
@@ -271,6 +250,22 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"dm" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"dZ" = (
+/obj/machinery/door/airlock/titanium{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Shuttle Cargo Hatch";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
 "ev" = (
 /obj/machinery/sleeper{
 	dir = 1;
@@ -321,6 +316,14 @@
 /obj/machinery/economy/vending/wallmed/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
+"uB" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "xo" = (
 /obj/machinery/recharge_station,
@@ -431,7 +434,7 @@ aC
 aC
 an
 an
-aT
+dZ
 DZ
 DZ
 xo
@@ -497,7 +500,7 @@ ai
 an
 an
 an
-ay
+uB
 an
 an
 an
@@ -587,7 +590,7 @@ aA
 aA
 an
 an
-aV
+dm
 aI
 aI
 aI

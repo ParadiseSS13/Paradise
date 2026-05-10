@@ -26,13 +26,6 @@
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
-"e" = (
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "f" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
@@ -130,11 +123,6 @@
 /obj/item/toy/plushie/ipcplushie,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
-"u" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "v" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/science,
@@ -175,6 +163,14 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
+"B" = (
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/trade/sol)
 "C" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/security,
@@ -209,6 +205,13 @@
 "H" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"I" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "J" = (
 /obj/effect/spawner/random/traders/vehicle,
@@ -303,20 +306,6 @@
 /obj/structure/sign/securearea,
 /turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
-"O" = (
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile/trader{
-	height = 12;
-	width = 12;
-	dwidth = 6;
-	preferred_direction = 1;
-	dir = 2
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "P" = (
 /obj/item/flag/species/machine,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -335,6 +324,21 @@
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/civilian,
 /turf/simulated/floor/mineral/titanium,
+/area/shuttle/trade/sol)
+"V" = (
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile/trader{
+	height = 12;
+	width = 12;
+	dwidth = 6;
+	preferred_direction = 1;
+	dir = 2
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "W" = (
 /obj/effect/spawner/window/shuttle,
@@ -377,7 +381,7 @@ W
 P
 R
 G
-u
+I
 f
 E
 i
@@ -429,7 +433,7 @@ K
 H
 "}
 (6,1,1) = {"
-O
+V
 Y
 R
 S
@@ -443,7 +447,7 @@ K
 H
 "}
 (7,1,1) = {"
-e
+B
 Y
 R
 S
@@ -503,7 +507,7 @@ W
 P
 R
 G
-u
+I
 l
 E
 q

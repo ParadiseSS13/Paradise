@@ -136,3 +136,9 @@
 /// Salvage machine point defines
 #define SALVAGE_REDEMPTION_BASE_POINT_MULT 0.6
 #define SALVAGE_REDEMPTION_POINT_MULT_ADD_PER_RATING 0.1
+
+/// Solar panel material multiplier defines
+#define RGLASS_SOLAR_MULT 1.1
+#define PLASMAGLASS_SOLAR_MULT 1.7
+#define PLASMARGLASS_SOLAR_MULT 1.8
+#define PLASTITANIUMGLASS_SOLAR_MULT 2.4

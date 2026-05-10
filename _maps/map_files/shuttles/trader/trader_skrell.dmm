@@ -39,11 +39,6 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/shuttle/trade/sol)
-"fR" = (
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/wood,
-/area/shuttle/trade/sol)
 "fZ" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/jungle/no_creep,
@@ -53,6 +48,13 @@
 /obj/item/bedsheet/blue,
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"ht" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
@@ -110,6 +112,22 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/trade/sol)
+"rN" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/docking_port/mobile/trader{
+	height = 21;
+	width = 18;
+	dwidth = 9;
+	preferred_direction = 1;
+	dir = 1;
+	port_direction = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
 "se" = (
 /obj/item/flag/species/skrell,
 /obj/machinery/light/spot,
@@ -131,6 +149,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"vz" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "vQ" = (
 /obj/machinery/light/spot,
@@ -302,11 +327,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
-"KW" = (
-/obj/machinery/door/airlock/titanium/glass,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/wood,
-/area/shuttle/trade/sol)
 "Ln" = (
 /turf/template_noop,
 /area/template_noop)
@@ -335,13 +355,6 @@
 "Ot" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
-/area/shuttle/trade/sol)
-"Pa" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "QN" = (
 /obj/machinery/computer/shuttle/trade/sol,
@@ -386,18 +399,11 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
-"Un" = (
+"UJ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/docking_port/mobile/trader{
-	height = 21;
-	width = 18;
-	dwidth = 9;
-	preferred_direction = 1;
-	dir = 1;
-	port_direction = 8
+	id_tag = "s_docking_airlock";
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
@@ -495,7 +501,7 @@ Tm
 Tm
 Tm
 Tm
-fR
+ht
 Os
 FM
 lf
@@ -522,7 +528,7 @@ rF
 Os
 Os
 Os
-KW
+vz
 Os
 Os
 sV
@@ -643,7 +649,7 @@ Os
 Os
 Os
 Os
-Pa
+UJ
 "}
 (10,1,1) = {"
 Ln
@@ -666,7 +672,7 @@ Os
 Os
 Os
 Os
-Un
+rN
 "}
 (11,1,1) = {"
 Ln
@@ -775,7 +781,7 @@ rF
 Os
 Os
 Os
-KW
+vz
 Os
 Os
 Ue
@@ -794,7 +800,7 @@ Zd
 Tm
 Tm
 Tm
-fR
+ht
 Os
 zY
 JM

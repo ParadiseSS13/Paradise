@@ -113,10 +113,6 @@
 /obj/effect/mob_spawn/human/corpse/random_species/doctor,
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
-"B" = (
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/unpowered)
 "C" = (
 /obj/effect/spawner/random/trash,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -144,6 +140,12 @@
 "H" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/random/food_or_drink/dinner,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/unpowered)
+"I" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/unpowered)
 "K" = (
@@ -1195,7 +1197,7 @@ b
 b
 b
 d
-B
+I
 x
 t
 h

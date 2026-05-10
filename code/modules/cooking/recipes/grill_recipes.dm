@@ -384,3 +384,299 @@
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 
+// ----------- Grill recipes imported from Hispania!
+
+//HISPANIA GRILL RECIPES
+/datum/cooking/recipe/arepa
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/dough/corn),
+		PCWJ_ADD_REAGENT("sodiumchloride", 5),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_cheese
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/cheese
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_ham
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/ham
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/food/rawcutlet),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_ham_cheese
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/ham_cheese
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/rawcutlet),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_plasma
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/plasma
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_REAGENT("plasma_dust", 10),
+		PCWJ_USE_GRILL(J_LO, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/ghost_arepa
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/ghost
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/food/ectoplasm),
+		PCWJ_ADD_REAGENT("enzyme", 5),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/xeno_arepa
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/xeno
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/xenomeat),
+		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_ADD_REAGENT("enzyme", 5),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/spider_arepa
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/spider
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spiderleg),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spiderleg),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spiderleg),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/spiderleg),
+		PCWJ_ADD_REAGENT("sodiumchloride", 5),
+		PCWJ_ADD_REAGENT("charcoal", 1),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_life
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/life
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_REAGENT("lazarus_reagent", 5),
+		PCWJ_ADD_REAGENT("holywater", 1),
+		PCWJ_USE_GRILL(J_LO, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_slime
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/slime
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/slime_extract),
+		PCWJ_ADD_REAGENT("water", 10),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/sweet_arepa
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/sweet
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_REAGENT("sugar", 10),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_cheesier
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/cheesier
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/cheesewheel),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/fruit_arepa
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/fruit
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/apple),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_salmon
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/salmon
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe_step/add_item/robot_head
+
+/datum/cooking/recipe_step/add_item/robot_head/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	if(!istype(added_item, /obj/item/robot_parts/head))
+		return PCWJ_CHECK_INVALID
+	return PCWJ_CHECK_VALID
+
+/datum/cooking/recipe_step/add_item/robot_head/get_pda_formatted_desc()
+	return "Add a robot head."
+
+/datum/cooking/recipe/arepa_industrial
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/industrial
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		new /datum/cooking/recipe_step/add_item/robot_head(),
+		PCWJ_USE_GRILL(J_HI, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_infernal
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/infernal
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_REAGENT("capsaicin", 10),
+		PCWJ_ADD_REAGENT("napalm", 1),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_ice
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/ice
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_REAGENT("frostoil", 10),
+		PCWJ_ADD_REAGENT("water", 10),
+		PCWJ_USE_GRILL(J_LO, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_plumphelmet
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/plumphelmet
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/plumphelmet),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/plumphelmet),
+		PCWJ_ADD_REAGENT("enzyme", 5),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/arepa_magma
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/arepa/magma
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/arepa),
+		PCWJ_ADD_REAGENT("capsaicin", 10),
+		PCWJ_ADD_REAGENT("blood", 10),
+		PCWJ_ADD_REAGENT("plasma_dust", 10),
+		PCWJ_USE_GRILL(J_HI, 20 SECONDS),
+	)
+
+// Toast //
+/datum/cooking/recipe/toast
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/toast
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_USE_GRILL(J_HI, 10 SECONDS),
+	)
+
+// CHULETA //
+/datum/cooking/recipe/syntisteak_cactus
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/syntisteak_cactus
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/meat/syntiflesh, exact = TRUE),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/prickly_pear),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/meatsteak_cactus
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/meatsteak_cactus
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_MEATHUNK(exact = TRUE),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/prickly_pear),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_GRILL(J_MED, 15 SECONDS),
+	)
+
+// SALMON STUFF //
+/datum/cooking/recipe/smokedsalmon
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/smokedsalmon
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_REAGENT("water", 5),
+		PCWJ_USE_GRILL(J_HI, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/avocadosalmon
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/avocadosalmon
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/avocado),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_GRILL(J_HI, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/citrussalmon
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/citrussalmon
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_USE_GRILL(J_HI, 15 SECONDS),
+	)
+
+// ----------- END of recipe imports from Hispania!
