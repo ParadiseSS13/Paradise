@@ -35,7 +35,30 @@
 
 /obj/structure/flock/relay/Initialize(mapload, datum/flock/join_flock)
 	. = ..()
+	for(var/turf/simulated/T in range(3, src))
+		T.ChangeTurf(/turf/simulated/floor/flock)
+	for(var/obj/structure/S in orange(3, src))
+		if(!S.flags |= INDESTRUCTIBLE && !istype(S, /obj/structure/flock))
+			S.Destroy()
+	for(var/obj/machinery/MA in orange(3, src))
+		if(!MA.flags |= INDESTRUCTIBLE)
+			MA.Destroy()
+	for(var/obj/item/I in range(2, src))
+		var/turf/T = get_edge_target_turf(src, get_dir(src, I))
+		I.throw_at(T, 3, 1)
+	for(var/mob/M in range(2, src))
+		var/turf/T = get_edge_target_turf(src, get_dir(src, M))
+		M.throw_at(T, 3, 1)
 
+	AddComponent(/datum/component/multitile, list(
+		list(
+		list(1, 1, 1,		   1, 1),
+		list(1, 1, 1,		   1, 1),
+		list(1, 1, MACH_CENTER, 1, 1),
+		list(1, 1, 1,		   1, 1),
+		list(1, 1, 1,		   1, 1)
+		)
+	))
 	started_time = world.time
 	flock.set_flock_game_status(FLOCK_ENDGAME_RELAY_BUILT)
 
