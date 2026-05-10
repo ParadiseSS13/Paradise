@@ -6,7 +6,7 @@
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	hitsound = 'sound/effects/sparks3.ogg'
 
-	pass_flags = PASSGLASS
+	pass_flags = PASSGLASS | PASSTABLE | PASSGRILLE | PASSFLOCK
 	speed = 0.7
 	damage = 4
 
