@@ -46651,12 +46651,12 @@
 /turf/simulated/wall,
 /area/station/maintenance/disposal/southwest)
 "iPr" = (
-/obj/item/clothing/head/soft/white,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/under/color/white,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/shoes/combat,
+/obj/item/clothing/under/misc/baseball,
+/obj/item/clothing/head/soft/black,
 /obj/item/beach_ball/baseball,
 /obj/item/melee/baseball_bat,
-/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/station/maintenance/science/starboard)
 "iPu" = (
