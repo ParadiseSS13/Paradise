@@ -50,7 +50,6 @@
 	completed = TRUE
 	needs_target = FALSE
 
-
 /mob/living/basic/mouse/irradiated_mouse
 	desc = "It's a small, disease-ridden rodent... Thats glowing?"
 	maxHealth = 150
@@ -94,9 +93,9 @@
 	add_language("Galactic Common")
 	set_default_language(GLOB.all_languages["Galactic Common"])
 
-	upgrade_radiation_spell = new
-	upgrade_speed_spell = new
-	upgrade_damage_spell = new
+	upgrade_radiation_spell = new()
+	upgrade_speed_spell = new()
+	upgrade_damage_spell = new()
 	AddSpell(upgrade_radiation_spell)
 	AddSpell(upgrade_speed_spell)
 	AddSpell(upgrade_damage_spell)
@@ -105,11 +104,10 @@
 	. = ..()
 	desc = initial(desc) // we dont want the standard description auto added by mice
 
-
 /mob/living/basic/mouse/irradiated_mouse/proc/give_intro_text()
 	var/list/messages = list()
 	messages.Add(SPAN_USERDANGER("<center>You are an Irradiated Mouse!</center>"))
-	messages.Add("<center>[SPAN_NOTICE("Due to your proximity to radioactive material laying around you've started rapidly mutating! Unfortunately this comes at the cost of your life, [SPAN_BOLDNOTICE("once you exit the vents you will have 15 minutes to live.")]")]</center>")
+	messages.Add("<center>[SPAN_NOTICE("Due to your proximity to radioactive material laying around you've started rapidly mutating! Unfortunately this comes at the cost of your life: [SPAN_BOLDNOTICE("once you exit the vents you will have 15 minutes to live.")]")]</center>")
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	messages.Add("<center>[SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Irradiated_Mouse) ")]</center>")
 	to_chat(src, chat_box_red(messages.Join("<br>")))

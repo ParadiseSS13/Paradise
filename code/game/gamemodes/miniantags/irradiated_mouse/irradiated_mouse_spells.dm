@@ -31,7 +31,6 @@
 		user.produce_radioactive_sludge = TRUE
 		to_chat(user, SPAN_NOTICE("You feel like shedding some weight."))
 
-
 /datum/spell/irradiated_mouse_spell/upgrade_speed
 	name = "Upgrade Speed"
 	desc = "Upgrade your speed. You will become semi-transparent at level 3."
