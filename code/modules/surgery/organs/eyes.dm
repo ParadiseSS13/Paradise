@@ -223,7 +223,8 @@
 	var/obj/item/flashlight/eyelight/eye
 
 /obj/item/organ/internal/eyes/cybernetic/flashlight/emp_act(severity)
-	return
+	eye.on = FALSE
+	eye.update_brightness()
 
 /obj/item/organ/internal/eyes/cybernetic/flashlight/insert(mob/living/carbon/M, special = FALSE)
 	..()
