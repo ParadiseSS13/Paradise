@@ -21,7 +21,6 @@
 	//var/altitude = 40000
 	var/const/period_multiplier = 80000//4000
 	var/period = 20 MINUTES // probably breaks physics, but its a video game
-	//var/gravitational_constant = 6.67408
 	//var/planet_mass = 5 // lavaland is less dense than earth, and will have a lower gravity
 	var/launch_time = INFINITY
 
@@ -30,6 +29,16 @@
 	var/orbit_progress = 0 // 0, 1 - 0(periapsis), 0.5(apoapsis)
 	var/list/planned_maneuvers = new()
 	var/datum/satellite_stats/owner
+
+
+	var/gravitational_constant = 6.67408
+
+	var/posX = 0
+	var/posY = 0
+	var/posZ = 0
+	var/velX = 0
+	var/velY = 0
+	var/velZ = 0
 
 /*
 /datum/orbit_data/Initialize()
@@ -65,7 +74,7 @@
 /datum/orbit_data/proc/get_orbit_progress()
 	return LERP(0, 1, abs(velocity))
 
-
+/// Called by `SSscience_satellitel.dm` in order to make the satellite move
 /datum/orbit_data/proc/heartbeat()
 	velocity = get_velocity()
 	orbit_progress = get_orbit_progress()
