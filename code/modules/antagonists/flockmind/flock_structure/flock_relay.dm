@@ -22,6 +22,9 @@
 	/// The object showing admins/dchat the time left
 	var/obj/effect/countdown/flock/counter
 
+	/// Background noise
+	var/datum/looping_sound/flock_relay/soundloop
+
 	/// Time the structure started.
 	var/tmp/started_time
 	/// How long it takes until the signal is broadcast and the flock wins :D
@@ -29,7 +32,7 @@
 	var/tmp/flock_won_da_game = FALSE
 
 	/// Radius for turf conversion. Automatically increments during processing.
-	var/tmp/conversion_radius = 1
+	var/tmp/conversion_radius = 3
 
 	var/tmp/list/turfs_to_convert = list()
 
@@ -37,6 +40,7 @@
 	. = ..()
 	for(var/turf/simulated/T in range(3, src))
 		T.ChangeTurf(/turf/simulated/floor/flock)
+		flock.claim_turf(T)
 	for(var/obj/structure/S in orange(3, src))
 		if(!(S.flags & INDESTRUCTIBLE) && !istype(S, /obj/structure/flock))
 			S.Destroy()
@@ -59,6 +63,7 @@
 		list(1, 1, 1,		   1, 1)
 		)
 	))
+	soundloop = new(get_turf(src), start_immediately = TRUE)
 	started_time = world.time
 	flock.set_flock_game_status(FLOCK_ENDGAME_RELAY_BUILT)
 
@@ -87,6 +92,8 @@
 		flock.game_over(completely_destroy = TRUE)
 
 	turfs_to_convert = null
+	qdel(soundloop)
+	qdel(counter)
 	return ..()
 
 /obj/structure/flock/relay/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armor_penetration, allow_break)
@@ -100,6 +107,12 @@
 	. = ..()
 	if(flock_won_da_game && !isflockmob(user))
 		. += SPAN_FLOCKSAY("Your life flashes before your eyes.")
+
+/obj/structure/flock/relay/update_overlays()
+	. = ..()
+	overlays.Cut()
+	if(flock_won_da_game)
+		. += "structure-relay-sparks"
 
 /obj/structure/flock/relay/flock_structure_examine(mob/user)
 	var/timeleft = (started_time + win_time - world.time) / 10
@@ -177,10 +190,12 @@
 	flock.set_flock_game_status(FLOCK_ENDGAME_RELAY_ACTIVATING)
 
 	log_game("The Flock ([flock?.name || "NULL"]) has successfully broadcast The Signal at [AREACOORD(src)].")
-	add_overlay("structure_relay_sparks")
+	update_appearance(UPDATE_OVERLAYS)
 
 	flock_talk(null, "!!! TRASMITTING SIGNAL !!!", flock)
-	visible_message(gradient_text("[src] begins sparking wildly! The air is charged with static!", "#3cb5a3", "#124e43"))
+	visible_message("<span size=5>[gradient_text("[src] begins sparking wildly! The air is charged with static!", "#3cb5a3", "#124e43")]</span>")
+	soundloop.stop()
+	qdel(counter)
 
 	for(var/mob/M as anything in GLOB.player_list)
 		if(M.can_hear())
@@ -199,7 +214,7 @@
 	sleep(2 SECONDS)
 
 	flock.set_flock_game_status(FLOCK_ENDGAME_VICTORY)
-	explosion(src, 30, 45, 60, 75, ignorecap = TRUE, cause = src)
+	explosion(src, 20, 50, 60, 75, ignorecap = TRUE, cause = src)
 
 	sleep(2 SECONDS)
 
