@@ -1082,11 +1082,11 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		module?.update_cells()
 		diag_hud_set_borgcell()
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(W, /obj/item/encryptionkey/) && opened)
+	else if(istype(used, /obj/item/encryptionkey/) && opened)
 		if(shell)
 			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft
-		if(radio)//sanityyyyyy
-			radio.attackby__legacy__attackchain(W,user)//GTFO, you have your own procs
+		if(radio)
+			radio.attackby__legacy__attackchain(used,user)
 		else
 			to_chat(user, SPAN_WARNING("[src] has no radio!"))
 		return ITEM_INTERACT_COMPLETE
@@ -1107,8 +1107,8 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		else
 			to_chat(user, SPAN_WARNING("Access denied!"))
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(W, /obj/item/borg/upgrade/))
-		var/obj/item/borg/upgrade/U = W
+	else if(istype(used, /obj/item/borg/upgrade/))
+		var/obj/item/borg/upgrade/U = used
 		if(!opened)
 			to_chat(user, SPAN_WARNING("You must access [src]'s internals!"))
 			return ITEM_INTERACT_COMPLETE
