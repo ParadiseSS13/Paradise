@@ -76,8 +76,8 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 // UI STUFF //
 
 /obj/item/assembly/signaler/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!user)
+		return ..()
 	ui_interact(user)
 
 /obj/item/assembly/signaler/ui_state(mob/user)

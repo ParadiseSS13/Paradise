@@ -83,8 +83,8 @@
 	return TRUE
 
 /obj/item/assembly/igniter/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
+	if(!user)
+		return ..()
 	if(!istype(loc, /obj/item/assembly_holder))
 		activate()
 	add_fingerprint(user)
