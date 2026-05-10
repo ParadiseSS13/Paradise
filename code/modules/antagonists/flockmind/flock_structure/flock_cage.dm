@@ -1,6 +1,6 @@
 /obj/structure/flock/cage
 	name = "energy cage"
-
+	desc = "A digitized energy structure that appears to turn matter into gnesis."
 	icon_state = "cage"
 	alpha = 190
 
@@ -18,6 +18,8 @@
 	var/egg_gnesis_cost = 100
 	/// Per second, how much gnesis is generated.
 	var/absorption_rate = 2
+	/// Timer until you can ghost from your body without penalty
+	var/ghost_timer
 
 	COOLDOWN_DECLARE(flock_message_cd)
 	COOLDOWN_DECLARE(resist_cd)
@@ -54,6 +56,9 @@
 	if(victim && flock)
 		flock.update_enemy(victim)
 
+	if(QDELETED(eating))
+		eating = null
+
 	if(!eating)
 		var/obj/item/edibles = list()
 		for(var/obj/item/edible in src)
@@ -70,11 +75,8 @@
 			chew_on_mob(seconds_per_tick)
 
 	else
-		eating.take_damage(absorption_rate * seconds_per_tick * 25, BRUTE, armor_penetration_percentage = 100)
+		eating.take_damage(absorption_rate * seconds_per_tick * 25, ACID, armor_penetration_percentage = 100)
 		reagents.add_reagent(/datum/reagent/gnesis, absorption_rate * seconds_per_tick)
-		if(eating.obj_integrity < 0)
-			QDEL_NULL(eating)
-			eating = null
 
 	if(victim && COOLDOWN_FINISHED(src, flock_message_cd))
 		COOLDOWN_START(src, flock_message_cd, rand(10, 25) SECONDS)
@@ -111,7 +113,7 @@
 		return
 
 	if(prob(20))
-		audible_message("[src] [pick("cracks","bends","shakes","groans")].")
+		audible_message("[src] [pick("cracks", "bends", "shakes", "groans")].")
 
 	take_damage(1, BRUTE)
 
@@ -132,10 +134,14 @@
 		return
 
 	var/mob/living/carbon/human/human_victim = victim
-	var/list/items = list_clear_nulls(human_victim.get_equipped_items())
+	var/list/items = human_victim.get_equipped_items()
 	if(length(items))
 		while(length(items) && !eating)
 			var/obj/item/candidate = pick_n_take(items)
+			if(candidate.resistance_flags & INDESTRUCTIBLE)
+				candidate.forceMove(get_turf(src))
+				visible_message(SPAN_WARNING("[src] pulls [eating] from [human_victim] and drops it!"))
+				continue
 			candidate.forceMove(src)
 			if(!QDELETED(candidate))
 				set_eating_target(candidate)
@@ -187,6 +193,7 @@
 	L.forceMove(src)
 	set_victim(L)
 	victim.visible_message(SPAN_DANGER("A [name] materializes around [victim],"))
+	ghost_timer = addtimer(CALLBACK(src, PROC_REF(ghost_check), L), 15 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 /// Spends gnesis on eggs or a cube. Only spends on eggs by default.
 /obj/structure/flock/cage/proc/spend_gnesis(all = FALSE)
@@ -254,6 +261,13 @@
 /obj/structure/flock/cage/proc/target_gone(datum/source)
 	SIGNAL_HANDLER
 	set_eating_target(null)
+
+/obj/structure/flock/cage/proc/ghost_check(mob/user)
+	victim.throw_alert("ghost_cage", /atom/movable/screen/alert/ghost/flock)
+	to_chat(victim, SPAN_GHOSTALERT("You may now click on the ghost prompt on your screen to leave your body. You will be alerted when you're removed from the cage."))
+	if(tgui_alert(victim, "You may now ghost and keep respawnability, you will be notified if you leave the cage, would you like to do so?", "Ghosting", list("Yes", "No")) != "Yes")
+		return
+	victim.ghostize()
 
 /mob/living/proc/test_cage()
 	var/obj/structure/flock/cage/cage = new(get_turf(src))
