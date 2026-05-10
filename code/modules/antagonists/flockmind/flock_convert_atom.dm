@@ -6,10 +6,10 @@
 		. = T
 
 	else if(iswallturf(T))
-		. = T.ChangeTurf(/turf/simulated/wall/flock)
+		. = T.ChangeTurf(/turf/simulated/wall/flock, ignore_air = TRUE)
 
 	else if(isfloorturf(T))
-		. = T.ChangeTurf(/turf/simulated/floor/flock)
+		. = T.ChangeTurf(/turf/simulated/floor/flock, ignore_air = TRUE)
 		var/list/datum/element/decal/decals = T.get_decals()
 		for(var/datum/element/decal/dcl in decals)
 			dcl.Detach(T)
