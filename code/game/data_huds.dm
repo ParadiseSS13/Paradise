@@ -609,7 +609,7 @@
 		R.fields["comments"] = list()
 	R.fields["comments"] += list(comment_text)
 
-	//borg-AI shell tracking
+//borg-AI shell tracking
 /mob/living/silicon/robot/proc/diag_hud_set_aishell() //Shows tracking beacons on the mech
 	var/image/holder = hud_list[DIAG_TRACK_HUD]
 	var/icon/I = icon(icon, icon_state, dir)

@@ -275,7 +275,7 @@
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
 
-//When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
+// Selects an unlinked borg, used in the robot upload console
 /proc/freeborg(mob/user)
 	var/select
 	var/list/borgs = list()

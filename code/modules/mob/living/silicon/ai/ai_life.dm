@@ -150,7 +150,7 @@
 		return
 
 	var/old_health = health
-	health = maxHealth - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss()
+	health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss()
 
 	var/old_stat = stat
 	update_stat()

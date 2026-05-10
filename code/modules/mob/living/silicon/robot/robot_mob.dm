@@ -2029,7 +2029,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		QDEL_NULL(mmi)
 	return ..()
 
-/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)//I don't understand why this needs an argument
+/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
 	shell = TRUE
 	braintype = "AI Shell"
 	name = "[designation] AI Shell [rand(100,999)]"
