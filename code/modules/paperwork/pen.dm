@@ -148,7 +148,7 @@
 
 /obj/item/pen/sleepy/attack(mob/living/target, mob/user)
 	if(!istype(target))
-		return
+		return ..()
 
 	if(!target.can_inject(user, TRUE))
 		return
