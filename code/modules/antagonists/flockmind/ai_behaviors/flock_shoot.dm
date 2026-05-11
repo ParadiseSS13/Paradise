@@ -2,7 +2,6 @@
 	name = "incapacitating"
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
 	goap_weight = FLOCK_BEHAVIOR_WEIGHT_SHOOT
-	required_distance = 1
 
 	search_radius_override = 12
 
