@@ -307,9 +307,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					if(O.orbiting_uid)
 						continue
 					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
-						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), GHOST_LAYER, SOUTH))
 					else
-						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", GHOST_LAYER, SOUTH))
 				else//its not a ghost
 					continue
 			else//not invisable, not a spookyghost add it.
@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				if(user.viewing_alternate_appearances && length(user.viewing_alternate_appearances) && ishuman(A) && A.alternate_appearances && length(A.alternate_appearances)) //This whole thing and the stuff below just checks if the atom is a Solid Snake cosplayer.
 					for(var/datum/alternate_appearance/alt_appearance in user.viewing_alternate_appearances)
 						if(alt_appearance.owner == A) //If it turns out they are, don't blow their cover. That'd be rude.
-							atoms.Add(image(alt_appearance.img, A.loc, layer = 4, dir = A.dir)) //Render their disguise.
+							atoms.Add(image(alt_appearance.img, A.loc, layer = MOB_LAYER, dir = A.dir)) //Render their disguise.
 							atoms.Remove(A) //Don't blow their cover.
 							disguised = 1
 							continue
