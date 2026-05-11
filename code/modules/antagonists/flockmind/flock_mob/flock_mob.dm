@@ -14,6 +14,8 @@
 	faction = list("flockmind")
 	ai_controller = /datum/ai_controller/flock
 
+	sentience_type = SENTIENCE_OTHER
+
 	minimum_survivable_temperature = 0
 	maximum_survivable_temperature = 1000
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
