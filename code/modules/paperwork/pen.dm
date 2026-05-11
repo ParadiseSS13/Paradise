@@ -21,6 +21,7 @@
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
+	new_attack_chain = TRUE
 
 /obj/item/pen/suicide_act(mob/user)
 	to_chat(viewers(user), SPAN_SUICIDE("[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!"))
