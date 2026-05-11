@@ -71,7 +71,9 @@
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
 		update_icon()
 
-/obj/item/pen/multi/attack_self__legacy__attackchain(mob/living/user as mob)
+/obj/item/pen/multi/activate_self(mob/living/user)
+	if(!user)
+		return ..()
 	select_colour(user)
 
 /obj/item/pen/multi/update_overlays()
@@ -143,25 +145,24 @@
 	origin_tech = "engineering=4;syndicate=2"
 	var/transfer_amount = 50
 
-/obj/item/pen/sleepy/attack__legacy__attackchain(mob/living/M, mob/user)
-	if(!istype(M))
+/obj/item/pen/sleepy/attack(mob/living/target, mob/user)
+	if(!istype(target))
 		return
 
-	if(!M.can_inject(user, TRUE))
+	if(!target.can_inject(user, TRUE))
 		return
 	var/transfered = 0
 	var/contained = list()
 
-	for(var/R in reagents.reagent_list)
-		var/datum/reagent/reagent = R
+	for(var/datum/reagent/reagent in reagents.reagent_list)
 		contained += "[round(reagent.volume, 0.01)]u [reagent]"
 
-	if(reagents.total_volume && M.reagents)
+	if(reagents.total_volume && target.reagents)
 		var/fraction = min(transfer_amount / reagents.total_volume, 1)
-		reagents.reaction(M, REAGENT_INGEST, fraction)
-		transfered = reagents.trans_to(M, transfer_amount)
-	to_chat(user, SPAN_WARNING("You sneakily stab [M] with the pen."))
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
+		reagents.reaction(target, REAGENT_INGEST, fraction)
+		transfered = reagents.trans_to(target, transfer_amount)
+	to_chat(user, SPAN_WARNING("You sneakily stab [target] with the pen."))
+	add_attack_logs(user, target, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
 
 /obj/item/pen/sleepy/Initialize(mapload)
@@ -213,19 +214,20 @@
 	armor_penetration_flat = 20
 	throw_speed = 4
 
-/obj/item/pen/edagger/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	if(cigarette_lighter_act(user, M))
-		return
+/obj/item/pen/edagger/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
+	if(cigarette_lighter_act(user, target))
+		return ITEM_INTERACT_COMPLETE
 
+/obj/item/pen/edagger/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	var/extra_force_applied = FALSE
-	if(active && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
+	if(active && user.dir == target.dir && !HAS_TRAIT(target, TRAIT_FLOORED) && user != target)
 		force += backstab_damage
 		extra_force_applied = TRUE
-		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
-		M.apply_damage(40, STAMINA) //Just enough to slow
-		M.KnockDown(2 SECONDS)
-		M.visible_message(
-			SPAN_WARNING("[user] stabs [M] in the back!"),
+		add_attack_logs(user, target, "Backstabbed with [src]", ATKLOG_ALL)
+		target.apply_damage(40, STAMINA) //Just enough to slow
+		target.KnockDown(2 SECONDS)
+		target.visible_message(
+			SPAN_WARNING("[user] stabs [target] in the back!"),
 			SPAN_USERDANGER("[user] stabs you in the back! The energy blade makes you collapse in pain!")
 		)
 
@@ -267,7 +269,10 @@
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return FALSE
 
-/obj/item/pen/edagger/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/pen/edagger/activate_self(mob/living/user)
+	if(!user)
+		return ..()
+
 	if(active)
 		active = FALSE
 		force = initial(force)
@@ -309,7 +314,7 @@
 /obj/item/pen/multi/poison
 	var/current_poison = null
 
-/obj/item/pen/multi/poison/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/pen/multi/poison/activate_self(mob/living/user)
 	. = ..()
 	switch(colour)
 		if("black")
@@ -338,7 +343,9 @@
 /obj/item/pen/chameleon
 	var/forge_name
 
-/obj/item/pen/chameleon/attack_self__legacy__attackchain(mob/user)
+/obj/item/pen/chameleon/activate_self(mob/user)
+	if(!user)
+		return ..()
 	if(!iscarbon(user))
 		return
 
@@ -346,4 +353,3 @@
 		return
 
 	forge_name = tgui_input_text(user, "Enter the name of the person whose signature you want to forge", "Forge name", max_length = MAX_NAME_LEN)
-
