@@ -14350,6 +14350,18 @@
 /area/station/hallway/spacebridge/comeng)
 "ckn" = (
 /obj/structure/sign/poster/official/random/directional/north,
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker{
+	pixel_x = 1
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/blue{
+	pixel_x = -9;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/red{
+	pixel_x = 9;
+	pixel_y = 11
+	},
+/obj/structure/table,
 /turf/simulated/floor/carpet/cyan,
 /area/station/public/fitness)
 "ckp" = (

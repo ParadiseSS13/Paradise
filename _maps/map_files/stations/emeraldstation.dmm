@@ -74130,6 +74130,17 @@
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/red{
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/blue{
+	pixel_x = -10;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker{
+	pixel_x = 10;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "oNG" = (

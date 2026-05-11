@@ -77093,6 +77093,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/red,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "tfW" = (
