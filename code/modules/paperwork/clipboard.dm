@@ -15,6 +15,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 	var/obj/item/toppaper
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
+	new_attack_chain = TRUE
 
 /obj/item/clipboard/Initialize(mapload)
 	. = ..()
@@ -95,29 +96,31 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 			break
 	. += "clipboard_over"
 
-/obj/item/clipboard/attackby__legacy__attackchain(obj/item/W, mob/user)
-	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
-		user.unequip(W)
-		W.forceMove(src)
-		to_chat(user, SPAN_NOTICE("You clip [W] onto [src]."))
+/obj/item/clipboard/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(isPaperwork(used)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
+		user.unequip(used)
+		used.forceMove(src)
+		to_chat(user, SPAN_NOTICE("You clip [used] onto [src]."))
 		playsound(loc, "pageturn", 50, 1)
-		if(isPaperwork(W) == PAPERWORK)
-			toppaper = W
+		if(isPaperwork(used) == PAPERWORK)
+			toppaper = used
 		update_icon()
-	else if(is_pen(W))
+	else if(is_pen(used))
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
-			penPlacement(user, W, TRUE)
+			penPlacement(user, used, TRUE)
 			return
 		if(!Adjacent(user) || user.incapacitated())
 			return
-		toppaper.attackby__legacy__attackchain(W, user)
-	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
-		toppaper.attackby__legacy__attackchain(W, user)
+		toppaper.attackby__legacy__attackchain(used, user)
+	else if(istype(used, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
+		toppaper.attackby__legacy__attackchain(used, user)
 		update_icon()
 	else
 		return ..()
 
-/obj/item/clipboard/attack_self__legacy__attackchain(mob/user)
+/obj/item/clipboard/activate_self(mob/user)
+	if(!user)
+		return ..()
 	showClipboard(user)
 
 /obj/item/clipboard/Topic(href, href_list)
