@@ -11,6 +11,8 @@ import { capitalize } from 'tgui-core/string';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
+type ActFn = ReturnType<typeof useBackend>['act'];
+
 type FlockPanelData = {
   category: string;
   category_lengths: FlockCategoryLengths;
@@ -70,6 +72,31 @@ type FlockVitals = {
   name: string;
 };
 
+type FlockPartitionsProps = {
+  partitions: FlockTraceInfo[];
+  act: ActFn;
+};
+
+type FlockDronesProps = {
+  drones: FlockDroneInfo[];
+  sortBy: string;
+  act: ActFn;
+};
+
+type FlockStructuresProps = {
+  structures: FlockStructureInfo[];
+  act: ActFn;
+};
+
+type FlockEnemiesProps = {
+  enemies: FlockEnemy[];
+  act: ActFn;
+};
+
+type FlockStatsProps = {
+  stats: FlockStat[];
+};
+
 const TASK_ICONS: Record<string, string> = {
   thinking: 'brain',
   shooting: 'bolt',
@@ -99,6 +126,17 @@ const TABS = [
   { id: 'stats', label: 'Stats' },
 ];
 
+const compare = (a: any, b: any, sortBy: string) => {
+  const valA = a[sortBy];
+  const valB = b[sortBy];
+
+  if (typeof valA === 'number' && typeof valB === 'number') {
+    return valB - valA; // Descending
+  }
+
+  return String(valA || '').localeCompare(String(valB || ''));
+};
+
 export const FlockPanel = (props) => {
   const { act, data } = useBackend<FlockPanelData>();
   const [sortBy, setSortBy] = useLocalState('sortBy', 'resources');
@@ -122,25 +160,20 @@ export const FlockPanel = (props) => {
               selected={sortBy}
               onSelected={(value) => setSortBy(value)}
             />
-            <FlockDrones drones={drones} sortBy={sortBy} />
+            <FlockDrones drones={drones} sortBy={sortBy} act={act} />
           </Box>
         )}
-        {category === 'traces' && <FlockPartitions partitions={partitions} />}
-        {category === 'structures' && <FlockStructures structures={structures} />}
-        {category === 'enemies' && <FlockEnemies enemies={enemies} />}
+        {category === 'traces' && <FlockPartitions partitions={partitions} act={act} />}
+        {category === 'structures' && <FlockStructures structures={structures} act={act} />}
+        {category === 'enemies' && <FlockEnemies enemies={enemies} act={act} />}
         {category === 'stats' && <FlockStats stats={stats} />}
       </Window.Content>
     </Window>
   );
 };
 
-type FlockPartitionsProps = {
-  partitions: FlockTraceInfo[];
-};
-
 const FlockPartitions = (props: FlockPartitionsProps) => {
-  const { act } = useBackend();
-  const { partitions } = props;
+  const { act, partitions } = props;
   return (
     <Stack vertical>
       {partitions.map((partition) => {
@@ -203,26 +236,8 @@ const FlockPartitions = (props: FlockPartitionsProps) => {
   );
 };
 
-// basic sorting function for numbers and strings
-const compare = (a, b, sortBy) => {
-  const valA = a[sortBy];
-  const valB = b[sortBy];
-
-  if (typeof valA === 'number' && typeof valB === 'number') {
-    return valB - valA;
-  }
-
-  return String(valA).localeCompare(String(valB));
-};
-
-type FlockDronesProps = {
-  drones: FlockDroneInfo[];
-  sortBy: string;
-};
-
 const FlockDrones = (props: FlockDronesProps) => {
-  const { act } = useBackend();
-  const { drones, sortBy } = props;
+  const { act, drones, sortBy } = props;
 
   const sortedDrones = useMemo(() => {
     return [...drones].sort((a, b) => compare(a, b, sortBy));
@@ -302,14 +317,9 @@ const FlockDrones = (props: FlockDronesProps) => {
   );
 };
 
-type FlockStructuresProps = {
-  structures: FlockStructureInfo[];
-};
-
 // TODO: actual structure information (power draw/generation etc.)
 const FlockStructures = (props: FlockStructuresProps) => {
-  const { act } = useBackend();
-  const { structures } = props;
+  const { act, structures } = props;
   return (
     <Stack vertical>
       {structures.map((structure) => {
@@ -358,13 +368,8 @@ const FlockStructures = (props: FlockStructuresProps) => {
   );
 };
 
-type FlockEnemiesProps = {
-  enemies: FlockEnemy[];
-};
-
 const FlockEnemies = (props: FlockEnemiesProps) => {
-  const { act } = useBackend();
-  const { enemies } = props;
+  const { act, enemies } = props;
   return (
     <Stack vertical>
       {enemies.map((enemy) => {
@@ -405,10 +410,6 @@ const FlockEnemies = (props: FlockEnemiesProps) => {
       })}
     </Stack>
   );
-};
-
-type FlockStatsProps = {
-  stats: FlockStat[];
 };
 
 const FlockStats = (props: FlockStatsProps) => {
