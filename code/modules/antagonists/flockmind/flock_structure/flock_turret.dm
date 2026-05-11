@@ -127,13 +127,7 @@
 	. = ..()
 	reagents.add_reagent(/datum/reagent/gnesis, 2)
 
-	// commented out until i rewrite embedding :)
-	// embedding = list(
-	// 	embed_chance = 25,
-	// 	ignore_throwspeed_threshold = TRUE,
-	// 	fall_chance = 1
-	// )
-
-// commented out until i rewrite embedding :)
-// /obj/projectile/bullet/dart/piercing/gnesis/inject_hit_target(mob/living/carbon/hit)
-// 	return // Don't instantly dump the payload, slowly inject it.
+/obj/machinery/porta_turret/try_flock_convert(datum/flock/flock, force)
+	. = ..()
+	var/obj/structure/flock/gnesis_turret/turret = new(get_turf(src), flock)
+	qdel(src)
