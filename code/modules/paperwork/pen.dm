@@ -219,7 +219,7 @@
 	if(cigarette_lighter_act(user, target))
 		return ITEM_INTERACT_COMPLETE
 
-/obj/item/pen/edagger/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/pen/edagger/attack(mob/living/target, mob/living/user)
 	var/extra_force_applied = FALSE
 	if(active && user.dir == target.dir && !HAS_TRAIT(target, TRAIT_FLOORED) && user != target)
 		force += backstab_damage

@@ -6,8 +6,10 @@
 	name = "Printing Pen"
 	var/mode = 1
 
-/obj/item/pen/multi/robopen/attack_self__legacy__attackchain(mob/user as mob)
-	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour","Mode"))
+/obj/item/pen/multi/robopen/activate_self(mob/user)
+	if(!user)
+		return ..()
+	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour", "Mode"))
 	if(!choice)
 		return
 
