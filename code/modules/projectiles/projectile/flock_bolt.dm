@@ -25,5 +25,15 @@
 	if(!isliving(target))
 		return
 
+	if(isflockmob(target))
+		return
+
+	if(issilicon(target))
+		var/mob/living/silicon/S = target
+		S.adjustStaminaLoss(25)
+
 	var/mob/living/victim = target
 	victim.SetConfused(2.5 SECONDS)
+
+	if(isanimal_or_basicmob(victim))
+		victim.Stun(10 SECONDS)
