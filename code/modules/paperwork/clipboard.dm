@@ -105,16 +105,17 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		if(isPaperwork(used) == PAPERWORK)
 			toppaper = used
 		update_icon()
+		return ITEM_INTERACT_COMPLETE
 	else if(is_pen(used))
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
 			penPlacement(user, used, TRUE)
-			return
-		if(!Adjacent(user) || user.incapacitated())
-			return
-		toppaper.attackby__legacy__attackchain(used, user)
+			return ITEM_INTERACT_COMPLETE
+		toppaper.item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
-		toppaper.attackby__legacy__attackchain(used, user)
+		toppaper.item_interaction(user, used, modifiers)
 		update_icon()
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -146,7 +147,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		if(!isPaperwork(P))
 			return
 		if(is_pen(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
-			P.attackby__legacy__attackchain(I, usr)
+			P.item_interaction(usr, I)
 		else if(isPaperwork(P) == PAPERWORK) //Why can't these be subtypes of paper
 			P.examine(usr)
 		else if(isPaperwork(P) == PHOTO)

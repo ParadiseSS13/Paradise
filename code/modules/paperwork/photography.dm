@@ -34,38 +34,41 @@
 	var/photo_size = 3
 	var/max_length = 64
 	scatter_distance = 8
+	new_attack_chain = TRUE
 
-/obj/item/photo/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/photo/activate_self(mob/user)
+	if(!user)
+		return ..()
 	user.examinate(src)
 
-/obj/item/photo/attackby__legacy__attackchain(obj/item/P as obj, mob/user as mob, params)
-	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
+/obj/item/photo/item_interaction(mob/user, obj/item/used, params)
+	if(is_pen(used) || istype(used, /obj/item/toy/crayon))
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
 		if(!txt)
 			return
 		txt = copytext(txt, 1, max_length)
 		if(loc == user && user.stat == CONSCIOUS)
 			scribble = txt
-	else if(P.get_heat())
-		burnphoto(P, user)
+	else if(used.get_heat())
+		burnphoto(used, user)
 	..()
 
-/obj/item/photo/proc/burnphoto(obj/item/P, mob/user)
+/obj/item/photo/proc/burnphoto(obj/item/used, mob/user)
 	if(user.restrained())
 		return
 
 	var/class = "warning"
-	if(istype(P, /obj/item/lighter/zippo))
+	if(istype(used, /obj/item/lighter/zippo))
 		class = "rose"
 
-	user.visible_message("<span class='[class]'>[user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-	"<span class='[class]'>You hold [P] up to [src], burning it slowly.</span>")
+	user.visible_message("<span class='[class]'>[user] holds [used] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+	"<span class='[class]'>You hold [used] up to [src], burning it slowly.</span>")
 
 	if(!do_after(user, 5 SECONDS, target = src))
 		return
 
-	if(user.get_active_hand() != P || !P.get_heat())
-		to_chat(user, SPAN_WARNING("You must hold [P] steady to burn [src]."))
+	if(user.get_active_hand() != used || !used.get_heat())
+		to_chat(user, SPAN_WARNING("You must hold [used] steady to burn [src]."))
 		return
 
 	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
@@ -625,6 +628,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
+	new_attack_chain = TRUE
 
 	COOLDOWN_DECLARE(video_cooldown)
 
@@ -660,11 +664,14 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		QDEL_NULL(camera)
 		visible_message(SPAN_NOTICE("The video camera turns off."))
 
-/obj/item/videocam/attack_self__legacy__attackchain(mob/user)
+/obj/item/videocam/activate_self(mob/user)
+	if(!user)
+		return ..()
 	if(!COOLDOWN_FINISHED(src, video_cooldown))
 		to_chat(user, SPAN_WARNING("[src] is overheating, give it some time."))
-		return
+		return ITEM_INTERACT_COMPLETE
 	camera_state(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/videocam/examine(mob/user)
 	. = ..()
