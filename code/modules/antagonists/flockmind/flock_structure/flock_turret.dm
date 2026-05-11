@@ -129,5 +129,5 @@
 
 /obj/machinery/porta_turret/try_flock_convert(datum/flock/flock, force)
 	. = ..()
-	var/obj/structure/flock/gnesis_turret/turret = new(get_turf(src), flock)
+	new /obj/structure/flock/gnesis_turret(get_turf(src), flock)
 	qdel(src)
