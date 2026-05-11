@@ -1818,6 +1818,7 @@
 #include "code\modules\antagonists\flockmind\actions\flock_control_panel.dm"
 #include "code\modules\antagonists\flockmind\actions\flock_convert_action.dm"
 #include "code\modules\antagonists\flockmind\actions\flock_heal_action.dm"
+#include "code\modules\antagonists\flockmind\actions\flock_heal_surge.dm"
 #include "code\modules\antagonists\flockmind\actions\flock_nest_action.dm"
 #include "code\modules\antagonists\flockmind\actions\flock_ping_action.dm"
 #include "code\modules\antagonists\flockmind\actions\gatecrash.dm"

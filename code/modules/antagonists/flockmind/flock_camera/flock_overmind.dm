@@ -20,6 +20,7 @@
 		/datum/action/cooldown/flock/designate_enemy,
 		/datum/action/cooldown/flock/designate_ignore,
 		/datum/action/cooldown/flock/ping,
+		/datum/action/cooldown/flock/repair_burst,
 		/datum/action/cooldown/flock/radio_blast,
 		/datum/action/cooldown/flock/radio_talk,
 		/datum/action/cooldown/flock/gatecrash,
