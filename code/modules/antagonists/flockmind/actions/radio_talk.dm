@@ -1,5 +1,5 @@
 /datum/action/cooldown/flock/radio_talk
-	name = "Radio Transmission"
+	name = "Narrowbeam Transmission"
 	desc = "Hijack a radio headset of a target to broadcast a message."
 	button_icon_state = "talk"
 	cooldown_time = 2 SECONDS
@@ -7,15 +7,27 @@
 
 /datum/action/cooldown/flock/radio_talk/Activate(atom/target)
 	var/obj/item/radio/worn_radio
-	if(!ishuman(target))
+
+
+	if(!ishuman(target) && !istype(target, /obj/item/radio) )
 		to_chat(owner, SPAN_ALERT("[target] is not a valid target!"))
 		return FALSE
 
-	var/mob/living/carbon/human/schmuck = target
-	worn_radio = schmuck.get_item_by_slot(ITEM_SLOT_LEFT_EAR) || schmuck.get_item_by_slot(ITEM_SLOT_RIGHT_EAR)
-	if(!istype(worn_radio))
-		to_chat(owner, SPAN_ALERT("[target] does not have a working radio!"))
-		return FALSE
+	if(istype(target, /obj/item/radio))
+		worn_radio = target
+		if(!worn_radio.listening)
+			to_chat(owner, SPAN_ALERT("[target] is not turned on!"))
+			return FALSE
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/schmuck = target
+		for(var/obj/item/I in schmuck.get_contents())
+			if(istype(I, /obj/item/radio))
+				worn_radio = I
+				break
+		if(!istype(worn_radio) || !worn_radio.listening)
+			to_chat(owner, SPAN_ALERT("[target] does not have a working radio!"))
+			return FALSE
 
 	var/msg = tgui_input_text(usr, "What do you wish to broadcast?", null, "")
 	if(!msg)
@@ -23,6 +35,6 @@
 
 	. = ..()
 
-	to_chat(owner, SPAN_NOTICE("You transmit a message through [schmuck]'s [worn_radio]!"))
-	playsound(schmuck, "sound/effects/radio_sweep[rand(1,5)].ogg", 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	worn_radio.autosay(msg, "Strange Static", null)
+	playsound(get_turf(worn_radio), "sound/effects/radio_sweep[rand(1,5)].ogg", 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(owner, SPAN_NOTICE("You transmit a message through [worn_radio]!"))
+	worn_radio.autosay(istype(target, /obj/item/radio) ? Gibberish(msg, 70, 50) : msg, "Strange Static", null)
