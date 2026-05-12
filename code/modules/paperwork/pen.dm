@@ -147,7 +147,7 @@
 	origin_tech = "engineering=4;syndicate=2"
 	var/transfer_amount = 50
 
-/obj/item/pen/sleepy/attack(mob/living/target, mob/user)
+/obj/item/pen/sleepy/interact_with_atom(mob/living/target, mob/user, list/modifiers)
 	if(!istype(target))
 		return ..()
 
