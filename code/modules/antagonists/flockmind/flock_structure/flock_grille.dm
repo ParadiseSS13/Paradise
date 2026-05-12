@@ -123,13 +123,6 @@
 	grille_type = /obj/structure/grille/flock
 	broken_type = null
 
-/obj/structure/grille/try_flock_convert(datum/flock/flock, force)
-	if(istype(src, /obj/structure/grille/flock))
-		return
-	var/obj/structure/grille/G
-	if(broken)
-		G = new /obj/structure/grille/flock/broken(get_turf(src))
-	else
-		G = new /obj/structure/grille/flock(get_turf(src))
-	G.AddComponent(/datum/component/flock_interest, flock)
-	qdel(src)
+
+/obj/structure/grille/flock/try_flock_convert(datum/flock/flock, force)
+	return

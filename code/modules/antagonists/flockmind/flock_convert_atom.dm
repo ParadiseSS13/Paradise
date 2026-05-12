@@ -109,6 +109,15 @@
 	new /obj/structure/flock/gnesis_turret(get_turf(src), flock)
 	qdel(src)
 
+/obj/structure/grille/try_flock_convert(datum/flock/flock, force)
+	var/obj/structure/grille/G
+	if(broken)
+		G = new /obj/structure/grille/flock/broken(get_turf(src))
+	else
+		G = new /obj/structure/grille/flock(get_turf(src))
+	G.AddComponent(/datum/component/flock_interest, flock)
+	qdel(src)
+
 /turf/proc/can_flock_convert(force)
 	return FALSE
 
