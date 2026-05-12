@@ -40,18 +40,19 @@
 	if(!user)
 		return ..()
 	user.examinate(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/photo/item_interaction(mob/user, obj/item/used, params)
 	if(is_pen(used) || istype(used, /obj/item/toy/crayon))
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
 		if(!txt)
-			return
+			return ITEM_INTERACT_COMPLETE
 		txt = copytext(txt, 1, max_length)
 		if(loc == user && user.stat == CONSCIOUS)
 			scribble = txt
 	else if(used.get_heat())
 		burnphoto(used, user)
-	..()
+	return ..()
 
 /obj/item/photo/proc/burnphoto(obj/item/used, mob/user)
 	if(user.restrained())

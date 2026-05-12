@@ -106,23 +106,25 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 			toppaper = used
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
-	else if(is_pen(used))
+
+	if(is_pen(used))
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
 			penPlacement(user, used, TRUE)
 			return ITEM_INTERACT_COMPLETE
 		toppaper.item_interaction(user, used, modifiers)
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(used, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
+
+	if(istype(used, /obj/item/stamp) && toppaper) // We can stamp the topmost piece of paper.
 		toppaper.item_interaction(user, used, modifiers)
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
-	else
-		return ..()
+	return ..()
 
 /obj/item/clipboard/activate_self(mob/user)
 	if(!user)
 		return ..()
 	showClipboard(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clipboard/Topic(href, href_list)
 	..()
