@@ -102,7 +102,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/paper_bin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/item/paper_bin/item_interaction(mob/living/user, obj/item/paper/used, list/modifiers)
 	if(!istype(used))
 		return ..()
 	user.drop_item()
