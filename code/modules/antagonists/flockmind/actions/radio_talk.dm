@@ -9,7 +9,7 @@
 	var/obj/item/radio/worn_radio
 
 
-	if(!ishuman(target) && !istype(target, /obj/item/radio) )
+	if(!ishuman(target) && !istype(target, /obj/item/radio))
 		to_chat(owner, SPAN_ALERT("[target] is not a valid target!"))
 		return FALSE
 
