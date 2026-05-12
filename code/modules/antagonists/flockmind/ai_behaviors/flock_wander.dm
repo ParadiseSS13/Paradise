@@ -46,8 +46,10 @@
 
 	while(length(options))
 		var/turf/T = pick_n_take(options)
-		if(T)
-			controller.set_movement_target(controller, T)
+		var/list/path = SSpathfinder.astar_pathfind_now(controller.pawn, T, 4, access = access, use_diagonals = FALSE)
+		if(path)
+			controller.clear_blackboard_key(BB_PATH_TO_USE)
+			controller.set_blackboard_key(BB_PATH_TO_USE, path)
 			return T
 
 /datum/ai_behavior/move_to_target/flock_wander
