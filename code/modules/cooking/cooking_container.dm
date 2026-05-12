@@ -425,6 +425,10 @@
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
 	removal_penalty = 2
 
+/obj/item/reagent_containers/cooking/bowl/wood
+	name = "wooden prep bowl"
+	icon_state = "bowl" // Needs wood variant
+
 /obj/item/reagent_containers/cooking/icecream_bowl
 	name = "freezing bowl"
 	desc = "A stainless steel bowl that fits into the ice cream mixer."

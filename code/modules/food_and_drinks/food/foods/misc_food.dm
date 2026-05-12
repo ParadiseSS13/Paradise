@@ -94,6 +94,13 @@
 	list_reagents = list("nutriment" = 12, "protein" = 6, "vitamin" = 6)
 	tastes = list("lettuce" = 2, "salami" = 2, "mozzarella cheese" = 2, "tomatoes" = 2, "dressing" = 1)
 
+/obj/item/food/salad/ash_salad
+	name = "Ashlander Salad"
+	desc = "A salad of edible fauna and flora from an ashy wasteland."
+	icon_state = "caesar_salad" // Needs actual sprite
+	list_reagents = list("protein" = 6, "vitamin" = 8, "plantmatter" = 9, "vitfro" = 8, "nicotine" = 4)
+	tastes = list("meat" = 1, "cactus fruit" = 1, "mushroomy cabbage" = 2, "ash" = 1)
+
 /obj/item/food/salad/caesar
 	name = "Caesar salad"
 	desc = "A simple yet flavorful salad of onions, lettuce, croutons, and shreds of cheese dressed in oil. Comes with a slice of pita bread!"
