@@ -46,6 +46,15 @@
 			var/list/dead_message = message_start_dead + message_body
 			M.show_message(dead_message.Join(" "), 2)
 
+	if(speaker && !isflockcontroller(speaker))
+		var/scrambled = SPAN_FLOCKSAY_GRADIENT(scramble(message))
+		var/living_msg = "[speaker.name] [get_spoken_verb(message)] \"[scrambled]\""
+		for(var/mob/M in hearers(5, get_turf(speaker)))
+			M.show_message(living_msg, 2)
+			if(M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT && ismob(speaker))
+				var/mob/speaking_mob = speaker
+				M.create_chat_message(locateUID(speaking_mob.runechat_msg_location), scrambled)
+
 	for(var/mob/F in GLOB.alive_mob_list)
 		if(!isflockmob(F))
 			continue
