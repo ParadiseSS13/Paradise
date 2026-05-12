@@ -93,20 +93,6 @@
 /obj/structure/flock/get_flock_id()
 	return flock_id
 
-// /obj/structure/flock/on_mouse_enter(client/client)
-// 	. = ..()
-// 	if(client?.keys_held?["Shift"])
-// 		return
-
-// 	var/mob/M = client.mob
-// 	if(info_tag.mob_should_see(M))
-// 		info_tag.show_to(M)
-
-// /obj/structure/flock/MouseExited(location, control, params)
-// 	. = ..()
-// 	if(!usr.client?.keys_held?["Shift"])
-// 		info_tag.hide_from(usr)
-
 /obj/structure/flock/proc/get_flock_data()
 	. = list()
 	.["ref"] = ref(src)

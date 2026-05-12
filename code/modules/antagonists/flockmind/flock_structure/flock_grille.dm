@@ -12,10 +12,24 @@
 
 /obj/structure/grille/flock/Initialize(mapload)
 	. = ..()
+
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_crossed),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	AddComponent(/datum/component/flock_protection, FALSE, TRUE, FALSE, FALSE)
+	ADD_TRAIT(src, TRAIT_FLOCK_EXAMINE, INNATE_TRAIT)
+
+/obj/structure/grille/flock/examine(mob/user)
+	if(!isflockmob(user))
+		return ..()
+
+	. = list(
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		SPAN_FLOCKSAY("<b>ID:</b> Barricade"),
+		SPAN_FLOCKSAY("<b>System Integrity:</b> [get_integrity_percentage()]%"),
+		SPAN_FLOCKSAY("<b>###=-</b>")
+	)
 
 /obj/structure/grille/flock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -110,8 +124,12 @@
 	broken_type = null
 
 /obj/structure/grille/try_flock_convert(datum/flock/flock, force)
+	if(istype(src, /obj/structure/grille/flock))
+		return
+	var/obj/structure/grille/G
 	if(broken)
-		new /obj/structure/grille/flock/broken(get_turf(src))
+		G = new /obj/structure/grille/flock/broken(get_turf(src))
 	else
-		new /obj/structure/grille/flock(get_turf(src))
+		G = new /obj/structure/grille/flock(get_turf(src))
+	G.AddComponent(/datum/component/flock_interest, flock)
 	qdel(src)

@@ -23,7 +23,7 @@
  * Retrieves the objects's current damage as a percentage where `100%` is `100`.
  */
 /obj/proc/get_integrity_percentage()
-	return ceil(obj_integrity/max_integrity * 100)
+	return ceil(obj_integrity / max_integrity * 100)
 
 /obj/proc/get_integrity_lost()
 	return max_integrity - obj_integrity

@@ -27,6 +27,12 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	new /datum/stack_recipe("dropper", /obj/item/reagent_containers/dropper, 1, time = 1 SECONDS),
 ))
 
+GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
+	new /datum/stack_recipe("bright shard", /obj/item/shard/gnesis_glass, time = 0 SECONDS),
+	new /datum/stack_recipe/window("directional gnesis window", /obj/structure/window/flock, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile gnesis window", /obj/structure/window/flock/fulltile, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
+))
+
 /obj/item/stack/sheet/glass
 	name = "glass"
 	desc = "HOLY SHEET! That is a lot of glass."
@@ -320,8 +326,14 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	name = "transculent wafers"
 	singular_name = "transculent wafer"
 	desc = "A rare, complex crystalline matrix with a lazily shifting internal structure. The layers are arranged to let light through."
+	icon_state = "gnesisglass"
 	materials = list(MAT_GNESIS_GLASS = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/gnesis_glass
 	armor = list(MELEE = 20, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 50, FIRE = 100, ACID = 20)
 	resistance_flags = FIRE_PROOF
 	point_value = 5
+	dynamic_icon_state = FALSE
+
+/obj/item/stack/sheet/gnesis_glass/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.gnesis_glass_recipes

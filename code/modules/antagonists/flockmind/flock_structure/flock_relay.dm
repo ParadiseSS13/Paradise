@@ -42,7 +42,7 @@
 		T.ChangeTurf(/turf/simulated/floor/flock)
 		flock.claim_turf(T)
 	for(var/obj/structure/S in orange(3, src))
-		if(!(S.flags & INDESTRUCTIBLE) && !istype(S, /obj/structure/flock))
+		if(!(S.flags & INDESTRUCTIBLE) && !istype(S, /obj/structure/flock) && !istype(S, /obj/machinery/atmospherics) && !istype(S, /obj/structure/cable))
 			S.Destroy()
 	for(var/obj/machinery/MA in orange(3, src))
 		if(!(MA.flags & INDESTRUCTIBLE))
@@ -166,7 +166,7 @@
 	for(var/i in 1 to min(5, length(turfs_to_convert)))
 		var/turf/conversion_target = turfs_to_convert[length(turfs_to_convert)]
 		turfs_to_convert.len--
-		if(!isflockturf(conversion_target) && !isspaceturf(conversion_target) && !isspaceturf(conversion_target))
+		if(!isflockturf(conversion_target) && !isspaceturf(conversion_target))
 			flock.claim_turf(conversion_target)
 
 /obj/structure/flock/relay/proc/alert_organics()

@@ -21,6 +21,14 @@
 /obj/machinery/door/flock/allowed(mob/M)
 	return isflockmob(M)
 
+/obj/machinery/door/flock/deconstruct(disassembled)
+	. = ..()
+	var/turf/T = get_turf(src)
+	if(disassembled)
+		new /obj/item/stack/sheet/gnesis(T, 2)
+		return
+	new /obj/item/stack/sheet/gnesis(T, 1)
+
 /obj/machinery/door/flock/do_animate(animation)
 	. = ..()
 	if(animation == "deny")

@@ -22,6 +22,20 @@
 	if(!HAS_TRAIT(crosser, TRAIT_FLOCKPHASE))
 		animate_flockpass(crosser)
 
+/obj/structure/window/flock/examine(mob/user)
+	if(!isflockmob(user))
+		return ..()
+
+	. = list(
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		SPAN_FLOCKSAY("<b>ID:</b> Transparent Barrier"),
+		SPAN_FLOCKSAY("<b>System Integrity:</b> [get_integrity_percentage()]%"),
+		SPAN_FLOCKSAY("<b>###=-</b>")
+	)
+
 /obj/structure/window/flock/fulltile
 	dir = SOUTHWEST
 	fulltile = TRUE
+
+/obj/structure/window/flock/try_flock_convert(datum/flock/flock, force)
+	return

@@ -126,8 +126,3 @@
 /obj/projectile/bullet/dart/piercing/gnesis/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/gnesis, 2)
-
-/obj/machinery/porta_turret/try_flock_convert(datum/flock/flock, force)
-	. = ..()
-	new /obj/structure/flock/gnesis_turret(get_turf(src), flock)
-	qdel(src)

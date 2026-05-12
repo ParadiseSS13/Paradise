@@ -83,7 +83,39 @@
 	. = new /obj/structure/flock/compute(loc, flock)
 	qdel(src)
 
+/obj/structure/chair/try_flock_convert(datum/flock/flock, force)
+	. = ..()
+	var/obj/structure/chair/comfy/flock/F = new /obj/structure/chair/comfy/flock(get_turf(src), flock)
+	F.AddComponent(/datum/component/flock_interest, flock)
+	F.setDir(dir)
+	qdel(src)
+
+/obj/structure/lattice/try_flock_convert(datum/flock/flock, force)
+	. = ..()
+	var/obj/structure/lattice/flock/F = new /obj/structure/lattice/flock(get_turf(src))
+	F.AddComponent(/datum/component/flock_interest, flock)
+	qdel(src)
+
+/obj/structure/closet/try_flock_convert(datum/flock/flock, force)
+	. = ..()
+	dump_contents()
+	var/obj/structure/closet/flock/F = new(get_turf(src), flock)
+	F.take_contents()
+	F.AddComponent(/datum/component/flock_interest, flock)
+	qdel(src)
+
+/obj/machinery/porta_turret/try_flock_convert(datum/flock/flock, force)
+	. = ..()
+	new /obj/structure/flock/gnesis_turret(get_turf(src), flock)
+	qdel(src)
+
 /turf/proc/can_flock_convert(force)
+	return FALSE
+
+/turf/space/can_flock_convert(force)
+	var/obj/structure/lattice/L = locate() in src
+	if(L)
+		return TRUE
 	return FALSE
 
 /turf/simulated/floor/can_flock_convert(force)
