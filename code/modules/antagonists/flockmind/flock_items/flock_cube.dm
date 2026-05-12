@@ -6,6 +6,7 @@
 	icon = 'icons/goonstation/mob/featherzone.dmi'
 
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000, MAT_GNESIS = 2000, MAT_GNESIS_GLASS = 2000)
+	origin_tech = "materials=5;biotech=5;programming=5"
 
 	/// How much shit in da cube
 	var/substrate = 10
