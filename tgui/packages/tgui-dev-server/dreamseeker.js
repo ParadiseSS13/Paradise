@@ -9,7 +9,6 @@ import os from 'node:os';
 import { promisify } from 'node:util';
 
 import axios, { isAxiosError } from 'axios';
-import fs from 'fs/promises';
 
 import { createLogger } from './logging.js';
 
@@ -127,7 +126,7 @@ async function getWindowsEntries(pidsToResolve) {
 async function getLinuxEntries(pidsToResolve) {
   const { stdout } = await run('ss -tlnp');
 
-  const wineServers = new Map();
+  const addrs = [];
 
   for (const line of stdout.split('\n')) {
     if (!line.includes('wineserver') || !line.includes('127.0.0.1')) continue;
@@ -135,45 +134,21 @@ async function getLinuxEntries(pidsToResolve) {
     const parts = line.trim().split(/\s+/);
     const addr = parts[3];
 
-    const pidMatch = line.match(/pid=(\d+)/);
-    if (!pidMatch) continue;
-
-    const linuxPid = pidMatch[1];
-    if (!wineServers.has(linuxPid)) wineServers.set(linuxPid, []);
-    wineServers.get(linuxPid).push(addr);
+    addrs.push(addr);
   }
 
-  const entries = [];
+  const entries = (await Promise.all(
+    addrs.map(async (addr) => {
+      try {
+        const result = await axios.get(`http://${addr}/pid.htm`, { timeout: 300 });
 
-  for (const [linuxPid, addrs] of wineServers) {
-    try {
-      const env = await fs.readFile(`/proc/${linuxPid}/environ`, 'utf8');
-      const prefix = env
-        .split('\0')
-        .find((l) => l.startsWith('WINEPREFIX'))
-        ?.split('=')[1];
-      if (!prefix) continue;
-
-      const { stdout: winedbgOut } = await run(`WINEPREFIX=${prefix} winedbg --command "info proc"`);
-      const winPids = winedbgOut.split('\n');
-
-      for (const line of winPids) {
-        if (!line.includes('dreamseeker.exe')) continue;
-
-        const parts = line.trim().split(/\s+/);
-        const winPid = parseInt(parts[0], 16);
-
-        if (pidsToResolve.includes(winPid)) {
-          for (const addr of addrs) {
-            entries.push({ addr, pid: winPid });
-          }
-        }
+        const pid = parseInt(result.data, 10);
+        return Number.isNaN(pid) ? null : { pid, addr };
+      } catch {
+        return null;
       }
-    } catch (err) {
-      logger.log(err);
-      continue;
-    }
-  }
+    })
+  )).filter(Boolean);
 
   return entries;
 }
