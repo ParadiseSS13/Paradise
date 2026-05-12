@@ -44,7 +44,6 @@
 		var/target_turf = get_turf(landmark)
 		return get_step_towards(get_step_towards(start_loc, target_turf), target_turf)
 
-	var/list/access = controller.get_access()
 	while(length(options))
 		var/turf/T = pick_n_take(options)
 		var/list/path = SSpathfinder.astar_pathfind_now(controller.pawn, T, 4, access = access, use_diagonals = FALSE)
