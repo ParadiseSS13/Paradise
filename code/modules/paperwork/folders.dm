@@ -43,11 +43,11 @@
 		to_chat(user, SPAN_NOTICE("You put [used] into [src]."))
 		update_icon(UPDATE_OVERLAYS)
 		return ITEM_INTERACT_COMPLETE
-	else if(is_pen(used))
+
+	if(is_pen(used))
 		rename_interactive(user, used)
 		return ITEM_INTERACT_COMPLETE
-	else
-		return ..()
+	return ..()
 
 /obj/item/folder/activate_self(mob/user)
 	if(!user)
