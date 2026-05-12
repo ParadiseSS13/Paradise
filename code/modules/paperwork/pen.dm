@@ -76,6 +76,7 @@
 	if(!user)
 		return ..()
 	select_colour(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pen/multi/update_overlays()
 	. = ..()
@@ -300,6 +301,7 @@
 		set_light(brightness_on, 1)
 	set_sharpness(active)
 	update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pen/edagger/update_icon_state()
 	if(active)
@@ -328,7 +330,7 @@
 			current_poison = "teslium"
 		if("yellow")
 			current_poison = "pancuronium"
-
+	return ITEM_INTERACT_COMPLETE
 /obj/item/pen/multi/poison/on_write(obj/item/paper/P, mob/user)
 	if(current_poison)
 		if(P.contact_poison)
@@ -354,3 +356,4 @@
 		return
 
 	forge_name = tgui_input_text(user, "Enter the name of the person whose signature you want to forge", "Forge name", max_length = MAX_NAME_LEN)
+	return ITEM_INTERACT_COMPLETE
