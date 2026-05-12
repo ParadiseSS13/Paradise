@@ -9,6 +9,7 @@
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 	var/letterhead_type
+	new_attack_chain = TRUE
 
 /obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
@@ -101,17 +102,15 @@
 	add_fingerprint(user)
 	return
 
-
-/obj/item/paper_bin/attackby__legacy__attackchain(obj/item/paper/i as obj, mob/user as mob, params)
-	if(istype(i))
-		user.drop_item()
-		i.loc = src
-		to_chat(user, SPAN_NOTICE("You put [i] in [src]."))
-		papers.Add(i)
-		amount++
-	else
+/obj/item/paper_bin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used))
 		return ..()
-
+	user.drop_item()
+	used.forceMove(src)
+	to_chat(user, SPAN_NOTICE("You put [used] in [src]."))
+	papers.Add(used)
+	amount++
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/paper_bin/examine(mob/user)
 	. = ..()
@@ -120,7 +119,6 @@
 			. += SPAN_NOTICE("There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.")
 		else
 			. += SPAN_NOTICE("There are no papers in the bin.")
-
 
 /obj/item/paper_bin/update_icon_state()
 	if(amount < 1)
@@ -152,7 +150,6 @@
 
 	add_fingerprint(user)
 	return
-
 
 /obj/item/paper_bin/nanotrasen
 	name = "nanotrasen paper bin"
