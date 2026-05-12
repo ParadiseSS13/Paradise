@@ -77,7 +77,7 @@
 
 	. += SPAN_FLOCKSAY("<b>###=-</b>")
 
-/mob/living/basic/flock/drone/death(gibbed, cause_of_death)
+/mob/living/basic/flock/drone/death(gibbed)
 	stop_flockphase(TRUE)
 	release_control()
 	say(pick(GLOB.flockdrone_death_phrases))
