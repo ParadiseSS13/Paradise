@@ -137,18 +137,20 @@ async function getLinuxEntries(pidsToResolve) {
     addrs.push(addr);
   }
 
-  const entries = (await Promise.all(
-    addrs.map(async (addr) => {
-      try {
-        const result = await axios.get(`http://${addr}/pid.htm`, { timeout: 300 });
+  const entries = (
+    await Promise.all(
+      addrs.map(async (addr) => {
+        try {
+          const result = await axios.get(`http://${addr}/pid.htm`, { timeout: 300 });
 
-        const pid = parseInt(result.data, 10);
-        return Number.isNaN(pid) ? null : { pid, addr };
-      } catch {
-        return null;
-      }
-    })
-  )).filter(Boolean);
+          const pid = parseInt(result.data, 10);
+          return Number.isNaN(pid) ? null : { pid, addr };
+        } catch {
+          return null;
+        }
+      })
+    )
+  ).filter(Boolean);
 
   return entries;
 }

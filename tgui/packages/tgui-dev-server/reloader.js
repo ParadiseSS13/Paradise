@@ -86,7 +86,7 @@ export async function reloadByondCache(bundleDir) {
     pids.push(pid);
 
     const pidFile = cacheDir + '/pid.htm';
-    if(!fs.existsSync(pidFile)) {
+    if (!fs.existsSync(pidFile)) {
       fs.writeFileSync(pidFile, String(pid), 'utf8');
     }
   }
