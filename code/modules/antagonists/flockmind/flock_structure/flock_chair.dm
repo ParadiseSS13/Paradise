@@ -3,7 +3,6 @@
 	desc = "It's a chair made of a strange material. Surprisingly soft to the touch, and extremely out of style."
 	icon_state = "chair_flock"
 	buildstacktype = /obj/item/stack/sheet/gnesis
-	buildstackamount = 2
 	max_integrity = 50
 	armor = list(MELEE = -20, BULLET = -20, LASER = 80, ENERGY = 80, BOMB = 0, RAD = 100, FIRE = 80, ACID = 100)
 
