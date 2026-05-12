@@ -5,7 +5,7 @@
 	key = "f"
 	flags = RESTRICTED | HIVEMIND | NOLIBRARIAN | NOBABEL | NO_STUTTER
 	colour = "flocksay"
-	syllables = list("zx", "q#x", "x_t", "k!t", "d~t", "t^t", "k%k", "xtx", "q=z", "x/z", "c*z", "t+z", "d9g", "g@g", "v|k", "b?k", "p&q", "c:q", "r$x", "t>x")
+	syllables = list("c#aw", "kr%k", "c@rk", "ka~w", "cr!k", "sk^a", "r#aw", "c*rr", "ka%x", "t~ch", "gr!k", "c&aw", "k!rr", "ch#k", "ra%k", "sk@w", "tr^k", "c~ra", "kw!p", "z#aw", "cl%k", "r@rk", "sh^k", "k~ra", "v!aw")
 
 /datum/language/flock/get_spoken_verb(msg_end)
 	switch(msg_end)
@@ -31,11 +31,11 @@
 		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
 	else if(isflockcontroller(speaker))
 		var/mob/speaking_mob = speaker
-		message_start = list("<i><font size=4><span class='game say'>[name]</i>: ", gradient_text("[speaking_mob.real_name]", "#3cb5a3", "#1e806e"))
+		message_start = list("<i><font size=4><span class='game say'>[name]</i>: ", gradient_text("[isflockmind(speaker) ? "" : "Flocktrace "][speaking_mob.real_name]", "#3cb5a3", "#1e806e"))
 		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"), "</font>")
 	else if(isflockworker(speaker))
 		var/mob/speaking_mob = speaker
-		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("[speaking_mob.real_name]", "#3cb5a3", "#1e806e"))
+		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("Drone [speaking_mob.real_name]", "#3cb5a3", "#1e806e"))
 		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
 
 	for(var/mob/M in GLOB.dead_mob_list)
