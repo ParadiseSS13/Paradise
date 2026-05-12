@@ -56,10 +56,12 @@
 /datum/ai_behavior/move_to_target/flock_wander/setup(datum/ai_controller/controller, ...)
 	. = ..()
 	controller.set_blackboard_key(BB_PATH_MAX_LENGTH, 4)
+
 /datum/ai_behavior/move_to_target/flock_wander/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
-	var/mob/living/simple_animal/flock/drone/bird = controller.pawn
+	var/mob/living/basic/flock/drone/bird = controller.pawn
 	bird.set_task_desc("wandering")
+
 /datum/ai_behavior/move_to_target/flock_wander/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()
 	controller.clear_blackboard_key(BB_FLOCK_WANDER_FRUSTRATION)
