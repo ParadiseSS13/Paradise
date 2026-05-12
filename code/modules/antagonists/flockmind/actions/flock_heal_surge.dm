@@ -26,4 +26,5 @@
 
 	for(var/mob/living/basic/flock/drone/bird as anything in targets)
 		playsound(bird, "sound/effects/radio_sweep[rand(1,5)].ogg", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		new /obj/effect/temp_visual/flock/flock_heal_burst(get_turf(bird))
 		bird.adjustHealth(-50)

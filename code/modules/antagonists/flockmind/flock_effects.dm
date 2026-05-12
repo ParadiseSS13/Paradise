@@ -13,7 +13,11 @@
 	icon_state = "spawn-wall-loop"
 	animation = "spawn-wall"
 
-
 /obj/effect/temp_visual/flock/floor_convert
 	icon_state = "spawn-floor-loop"
 	animation = "spawn-floor"
+
+/obj/effect/temp_visual/flock/flock_heal_burst
+	duration = 0.7 SECONDS
+	icon_state = "telemarker"
+	animation = "telemarker"
