@@ -98,8 +98,8 @@
 	name = "Ashlander Salad"
 	desc = "A salad of edible fauna and flora from an ashy wasteland."
 	icon_state = "caesar_salad" // Needs actual sprite
-	list_reagents = list("protein" = 6, "vitamin" = 8, "plantmatter" = 9, "vitfro" = 8, "nicotine" = 4)
-	tastes = list("meat" = 1, "cactus fruit" = 1, "mushroomy cabbage" = 2, "ash" = 1)
+	list_reagents = list("protein" = 6, "vitamin" = 8, "plantmatter" = 10, "vitfro" = 8, "nicotine" = 4) // Uses ingredient nutrition and adds a tad on for the plant stuff
+	tastes = list("meat" = 1, "cactus fruit" = 2, "mushroomy cabbage" = 1, "ash" = 1)
 
 /obj/item/food/salad/caesar
 	name = "Caesar salad"
