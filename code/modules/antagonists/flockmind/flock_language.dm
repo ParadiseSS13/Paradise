@@ -15,28 +15,30 @@
 			return ask_verb
 	return pick("sings", "clicks", "whistles", "intones", "transmits", "submits", "uploads", "caws")
 
+/datum/language/flock/format_message(message)
+	return SPAN_FLOCKSAY_GRADIENT("[get_spoken_verb(message)] \"[message]\"")
+
 /datum/language/flock/broadcast(atom/speaker, message, speaker_mask, involuntary = FALSE)
 	var/log_message = "(FLOCK) [message]"
 	if(ismob(speaker))
+		var/mob/M = speaker
 		log_say(log_message, speaker)
+		M.create_log(SAY_LOG, log_message)
 
 	var/list/message_start
-	var/list/message_body
+	var/list/message_body = list(format_message(message))
 
 	if(!speaker)
-		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("System", "#3cb5a3", "#1e806e"))
-		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
+		message_start = list("<i><span class='game say'>[name]</i>: ", SPAN_FLOCKSAY_GRADIENT("System"))
 	else if(!ismob(speaker))
-		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("[speaker.name]", "#3cb5a3", "#1e806e"))
-		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
+		message_start = list("<i><span class='game say'>[name]</i>: ", SPAN_FLOCKSAY_GRADIENT("[speaker.name]"))
 	else if(isflockcontroller(speaker))
 		var/mob/speaking_mob = speaker
-		message_start = list("<i><font size=4><span class='game say'>[name]</i>: ", gradient_text("[isflockmind(speaker) ? "" : "Flocktrace "][speaking_mob.real_name]", "#3cb5a3", "#1e806e"))
-		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"), "</font>")
+		message_start = list("<i><font size=4><span class='game say'>[name]</i>: ", SPAN_FLOCKSAY_GRADIENT("[isflockmind(speaker) ? "" : "Flocktrace "][speaking_mob.real_name]"))
+		message_body += "</font>"
 	else if(isflockworker(speaker))
 		var/mob/speaking_mob = speaker
-		message_start = list("<i><span class='game say'>[name]</i>: ", gradient_text("Drone [speaking_mob.real_name]", "#3cb5a3", "#1e806e"))
-		message_body = list(gradient_text("[get_spoken_verb(message)] \"[message]\"", "#3cb5a3", "#1e806e"))
+		message_start = list("<i><span class='game say'>[name]</i>: ", SPAN_FLOCKSAY_GRADIENT("Drone [speaking_mob.real_name]"))
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M) && speaker)
