@@ -62,6 +62,7 @@
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
 #define SPECIAL_ROLE_ZOMBIE "Zombie"
+#define SPECIAL_ROLE_UPLIFTED_PRIMITIVE "Uplifted Primitive"
 #define SPECIAL_ROLE_TOURIST "Tourist"
 #define SPECIAL_ROLE_HERETIC "Heretic"
 #define SPECIAL_ROLE_EVENTMISC "Event Role"
