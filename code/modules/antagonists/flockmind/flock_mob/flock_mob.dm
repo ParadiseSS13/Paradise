@@ -103,11 +103,6 @@
 			icon_state = icon_living
 	return ..()
 
-/mob/living/basic/flock/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages, automatic, bigvoice, forced = FALSE)
-	. = ..()
-	if(!.)
-		return
-
 /mob/living/basic/flock/updatehealth(cause_of_death)
 	. = ..()
 	update_health_notice()
