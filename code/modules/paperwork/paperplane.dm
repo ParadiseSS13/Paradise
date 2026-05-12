@@ -51,6 +51,8 @@
 			. += "paperplane_[initial(stamp.icon_state)]"
 
 /obj/item/paperplane/activate_self(mob/user) // Unfold the paper plane
+	if(!user)
+		return ..()
 	to_chat(user, SPAN_NOTICE("You unfold [src]."))
 	if(!internal_paper)
 		return ITEM_INTERACT_COMPLETE
