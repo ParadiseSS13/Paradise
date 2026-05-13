@@ -11,4 +11,3 @@
 
 /area/ruin/space/gas_station
 	name = "\improper The Gas Station Name Pending"
-	icon_state = "away"

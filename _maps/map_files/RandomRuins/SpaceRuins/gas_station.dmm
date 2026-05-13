@@ -3,6 +3,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "aQ" = (
@@ -21,6 +22,7 @@
 	dir = 8
 	},
 /obj/structure/sign/poster/ripped/directional/north,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "bE" = (
@@ -41,6 +43,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel/dark/edge{
 	dir = 1
 	},
@@ -68,6 +71,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "dp" = (
@@ -113,7 +117,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "gg" = (
 /obj/structure/marker_beacon/dock_marker/collision,
@@ -153,6 +157,7 @@
 /obj/effect/spawner/random/loot/bluespace_tap/food_mixed,
 /obj/effect/spawner/random/bluespace_tap/food_rare,
 /obj/structure/rack,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "iy" = (
@@ -184,6 +189,7 @@
 	pixel_x = -25;
 	pixel_y = 8
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel/dark/corner,
 /area/ruin/space/gas_station)
 "ko" = (
@@ -200,6 +206,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/red,
+/obj/effect/spawner/random/dirt,
+/obj/effect/spawner/random/trash/spread_tiles,
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "le" = (
@@ -217,6 +225,7 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /obj/structure/rack,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "mf" = (
@@ -234,6 +243,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "mn" = (
@@ -246,13 +256,15 @@
 /obj/machinery/door/airlock/maintenance{
 	dir = 4
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "nc" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2
+	dir = 2;
+	id_tag = "fuel_storage"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
@@ -309,6 +321,7 @@
 /obj/effect/turf_decal/tiles/white/side{
 	dir = 10
 	},
+/obj/effect/spawner/random/trash/spread_tiles,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "rF" = (
@@ -316,6 +329,7 @@
 	dir = 4
 	},
 /obj/structure/sign/poster/random/directional/east,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "rJ" = (
@@ -337,6 +351,7 @@
 /obj/effect/turf_decal/tiles/white/side{
 	dir = 5
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "sN" = (
@@ -346,6 +361,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "tm" = (
@@ -360,6 +376,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "tN" = (
@@ -372,12 +389,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "uU" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 1
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "uY" = (
@@ -396,6 +415,7 @@
 	dir = 1
 	},
 /obj/machinery/smartfridge/drying_rack,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "vM" = (
@@ -419,6 +439,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "xc" = (
@@ -428,10 +449,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
+"xe" = (
+/obj/effect/turf_decal/tiles/white/side,
+/obj/effect/spawner/random/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gas_station)
 "xI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/spawner/random/trash/spread_tiles,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "yy" = (
@@ -454,6 +481,7 @@
 /obj/effect/turf_decal/tiles/white/side{
 	dir = 4
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "Cy" = (
@@ -465,6 +493,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel/dark/corner{
 	dir = 4
 	},
@@ -479,6 +508,16 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/gas_station)
+"FZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/random/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/gas_station)
 "Gm" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -489,7 +528,7 @@
 /obj/structure/disposaloutlet{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "Hh" = (
 /obj/effect/turf_decal/tiles/white/side,
@@ -510,6 +549,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "IK" = (
@@ -520,6 +560,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "IR" = (
@@ -532,7 +573,8 @@
 "Jk" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2
+	dir = 2;
+	id_tag = "fuel_storage"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
@@ -548,6 +590,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/blue{
 	dir = 6
 	},
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/gas_station)
 "Lp" = (
@@ -568,6 +611,7 @@
 	pixel_x = -10;
 	pixel_y = 9
 	},
+/obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/plasteel/dark/corner{
 	dir = 1
 	},
@@ -581,6 +625,7 @@
 	},
 /obj/effect/turf_decal/tiles/white/side,
 /obj/machinery/light,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "MR" = (
@@ -606,6 +651,13 @@
 	dir = 5
 	},
 /turf/simulated/floor/catwalk/airless,
+/area/ruin/space/gas_station)
+"Pt" = (
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "Qn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -655,6 +707,7 @@
 "SE" = (
 /obj/effect/spawner/random/loot/bluespace_tap/food_mixed,
 /obj/structure/rack,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gas_station)
 "Td" = (
@@ -674,6 +727,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/sign/poster/random/directional/west,
+/obj/effect/spawner/random/dirt,
 /turf/simulated/floor/plasteel/dark/edge{
 	dir = 8
 	},
@@ -832,7 +886,7 @@ lI
 ck
 HF
 Td
-gh
+Pt
 Mo
 lI
 lI
@@ -889,7 +943,7 @@ tN
 tN
 wi
 Jk
-gh
+Pt
 ez
 iG
 lI
@@ -968,7 +1022,7 @@ lI
 Yd
 oD
 TX
-iG
+xe
 NR
 yy
 AZ
@@ -987,7 +1041,7 @@ lI
 pU
 oD
 SE
-iG
+xe
 NR
 yy
 EI
@@ -1004,9 +1058,9 @@ gX
 cw
 lI
 qL
-oD
+FZ
 hC
-iG
+xe
 NR
 yy
 yy
