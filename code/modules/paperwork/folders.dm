@@ -42,10 +42,12 @@
 		used.forceMove(src)
 		to_chat(user, SPAN_NOTICE("You put [used] into [src]."))
 		update_icon(UPDATE_OVERLAYS)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(is_pen(used))
 		rename_interactive(user, used)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
