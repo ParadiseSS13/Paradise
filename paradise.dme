@@ -1029,6 +1029,7 @@
 #include "code\game\machinery\ai_display.dm"
 #include "code\game\machinery\ai_resource.dm"
 #include "code\game\machinery\ai_slipper.dm"
+#include "code\game\machinery\autoclave.dm"
 #include "code\game\machinery\autolathe.dm"
 #include "code\game\machinery\Beacon.dm"
 #include "code\game\machinery\buttons.dm"
