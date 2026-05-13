@@ -148,24 +148,35 @@
 /obj/item/food/raw_ash_kebab
 	name = "Uncooked Ash Kebab"
 	desc = "A kebab of edible fauna and flora from an ashy wasteland, the meat is still raw."
-	icon_state = "picoss_skewer" // Change for actual sprites
+	icon_state = "ash_kebab_raw"
 	trash = /obj/item/stack/rods
-	list_reagents = list("protein" = 3, "vitamin" = 7, "plantmatter" = 7, "vitfro" = 10, "nicotine" = 2, "toxin" = 5) // The ingredients are very nutritious, this is just the numbers combined
+	list_reagents = list("vitamin" = 1, "plantmatter" = 1, "vitfro" = 1)
 
 /obj/item/food/raw_ash_kebab/burn()
 	visible_message(SPAN_NOTICE("[src] finishes cooking!"))
 	new /obj/item/food/ash_kebab(loc)
 	qdel(src)
 
+/obj/item/food/raw_ash_kebab/bone
+	icon_state = "ash_kebab_raw_bone"
+	trash = /obj/item/stack/bone_rods
+
+/obj/item/food/raw_ash_kebab/bone/burn()
+	visible_message(SPAN_NOTICE("[src] finishes cooking!"))
+	new /obj/item/food/ash_kebab/bone(loc)
+	qdel(src)
+
 /obj/item/food/ash_kebab
 	name = "Ash Kebab"
 	desc = "A kebab of edible fauna and flora from an ashy wasteland."
-	icon_state = "kebab" // Change for actual sprites
+	icon_state = "ash_kebab"
 	trash = /obj/item/stack/rods
-	list_reagents = list("protein" = 6, "vitamin" = 8, "plantmatter" = 9, "vitfro" = 10, "nicotine" = 2)
+	list_reagents = list("protein" = 2, "vitamin" = 2, "plantmatter" = 2, "vitfro" = 2) // Nutritious, and addictive from the leaf shroom ingredient
 	tastes = list("meat" = 1, "cactus fruit" = 2, "mushroomy cabbage" = 1, "ash" = 1)
 
-/obj/item/food/ash_kebab/bone // Add bone variant
+/obj/item/food/ash_kebab/bone
+	icon_state = "ash_kebab_bone"
+	trash = /obj/item/stack/bone_rods
 
 /obj/item/food/meatkebab
 	name = "meat-kebab"

@@ -97,8 +97,8 @@
 /obj/item/food/salad/ash_salad
 	name = "Ashlander Salad"
 	desc = "A salad of edible fauna and flora from an ashy wasteland."
-	icon_state = "caesar_salad" // Needs actual sprite
-	list_reagents = list("protein" = 6, "vitamin" = 8, "plantmatter" = 10, "vitfro" = 8, "nicotine" = 4) // Uses ingredient nutrition and adds a tad on for the plant stuff
+	icon_state = "ash_salad"
+	list_reagents = list("protein" = 2, "vitamin" = 2, "plantmatter" = 2, "vitfro" = 1, "nicotine" = 2) // Nutritious and addictive
 	tastes = list("meat" = 1, "cactus fruit" = 2, "mushroomy cabbage" = 1, "ash" = 1)
 
 /obj/item/food/salad/caesar

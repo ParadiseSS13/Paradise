@@ -10,6 +10,18 @@
 	category = CAT_FOOD
 	subcategory = CAT_MEAT
 
+/datum/crafting_recipe/raw_ash_kebab_bone
+	name = "Uncooked Ash Kebab"
+	reqs = list(
+		/obj/item/stack/bone_rods = 1,
+		/obj/item/food/grown/ash_flora/mushroom_leaf = 1,
+		/obj/item/food/grown/ash_flora/cactus_fruit = 2,
+		/obj/item/food/monstermeat/goliath = 1
+	)
+	result = list(/obj/item/food/raw_ash_kebab)
+	category = CAT_FOOD
+	subcategory = CAT_MEAT
+
 /datum/crafting_recipe/sandwich
 	name = "Sandwich"
 	reqs = list(

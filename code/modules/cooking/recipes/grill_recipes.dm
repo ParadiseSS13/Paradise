@@ -10,6 +10,18 @@
 		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/goliath)
 	)
 
+/datum/cooking/recipe/ash_kebab_bone
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/ash_kebab/bone
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/mushroom_leaf),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/cactus_fruit),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/cactus_fruit),
+		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/goliath)
+	)
+
 /datum/cooking/recipe/bacon
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/bacon
