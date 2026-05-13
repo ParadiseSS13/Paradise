@@ -64,7 +64,7 @@
 	if(holder)
 		holder.update_icon()
 
-/obj/item/assembly/timer/interact(mob/user as mob)//TODO: Have this use the wires
+/obj/item/assembly/timer/interact(mob/user)//TODO: Have this use the wires
 	if(!secured)
 		user.show_message(SPAN_WARNING("[src] is unsecured!"))
 		return FALSE
@@ -92,6 +92,7 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "timer")
+	return ..()
 
 /obj/item/assembly/timer/Topic(href, href_list)
 	..()

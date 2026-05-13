@@ -157,6 +157,7 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "prox")
+	return ..()
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()

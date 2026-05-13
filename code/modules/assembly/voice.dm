@@ -46,15 +46,14 @@
 
 
 /obj/item/assembly/voice/activate_self(mob/user)
-	if(!user)
-		return ..()
+	. = ..()
 	if(!user || !secured)
 		return FALSE
 
 	listening = !listening
 	var/turf/T = get_turf(src)
 	T.visible_message("[bicon(src)] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 
 /obj/item/assembly/voice/toggle_secure()
@@ -70,6 +69,7 @@
 /obj/item/assembly/voice/noise/activate_self(mob/user)
 	if(!user)
 		return ..()
+	add_fingerprint(user)
 	return
 
 /obj/item/assembly/voice/noise/examine(mob/user)

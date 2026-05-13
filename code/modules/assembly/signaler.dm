@@ -41,6 +41,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	code = signaler2.code
 	frequency = signaler2.frequency
 	to_chat(user, "You transfer the frequency and code to [src].")
+	return ITEM_INTERACT_COMPLETE
 
 /// Called from activate(), actually invokes the signal on other signallers in the world
 /obj/item/assembly/signaler/proc/signal()
@@ -76,8 +77,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 // UI STUFF //
 
 /obj/item/assembly/signaler/activate_self(mob/user)
-	if(!user)
-		return ..()
+	. = ..()
 	ui_interact(user)
 
 /obj/item/assembly/signaler/ui_state(mob/user)

@@ -37,6 +37,7 @@
 
 /// Called when activate_self is called
 /obj/item/assembly/interact(mob/user)
+	add_fingerprint(user)
 	return
 
 /obj/item/assembly/proc/on_atom_entered(datum/source, atom/movable/entered)
@@ -164,4 +165,4 @@
 		return ..()
 	user.set_machine(src)
 	interact(user)
-	return TRUE
+	return ITEM_INTERACT_COMPLETE

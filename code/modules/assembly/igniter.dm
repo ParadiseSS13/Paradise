@@ -60,6 +60,7 @@
 /obj/item/assembly/igniter/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -83,11 +84,9 @@
 	return TRUE
 
 /obj/item/assembly/igniter/activate_self(mob/user)
-	if(!user)
-		return ..()
+	. = ..()
 	if(!istype(loc, /obj/item/assembly_holder))
 		activate()
-	add_fingerprint(user)
 
 /obj/item/assembly/igniter/get_heat()
 	return 2000

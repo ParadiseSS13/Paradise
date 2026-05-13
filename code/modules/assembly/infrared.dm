@@ -146,6 +146,7 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "infra")
+	return ..()
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()

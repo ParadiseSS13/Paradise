@@ -71,8 +71,7 @@
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/assembly/health/activate_self(mob/user)
-	if(!user)
-		return ..()
+	. = ..()
 	ui_interact(user)
 
 /obj/item/assembly/health/ui_state(mob/user)
