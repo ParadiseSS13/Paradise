@@ -11,6 +11,15 @@
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 
+/datum/cooking/recipe/ash_kebab_crafted
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/meat/ash_kebab
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = (
+		PCWJ_ADD_ITEM(/obj/item/food/meat/raw_ash_kebab),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
 /datum/cooking/recipe/ash_kebab_bone
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meat/ash_kebab/bone
@@ -21,6 +30,15 @@
 		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/cactus_fruit),
 		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/cactus_fruit),
 		PCWJ_ADD_ITEM(/obj/item/food/monstermeat/goliath),
+		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
+	)
+
+/datum/cooking/recipe/ash_kebab_bone_crafted
+	container_type = /obj/item/reagent_containers/cooking/grill_grate
+	product_type = /obj/item/food/meat/ash_kebab/bone
+	catalog_category = COOKBOOK_CATEGORY_MEAT
+	steps = (
+		PCWJ_ADD_ITEM(/obj/item/food/meat/raw_ash_kebab/bone),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
 
