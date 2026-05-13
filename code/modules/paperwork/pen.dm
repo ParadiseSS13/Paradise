@@ -152,7 +152,7 @@
 		return ..()
 
 	if(!target.can_inject(user, TRUE))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/transfered = 0
 	var/contained = list()
 
@@ -165,7 +165,7 @@
 		transfered = reagents.trans_to(target, transfer_amount)
 	to_chat(user, SPAN_WARNING("You sneakily stab [target] with the pen."))
 	add_attack_logs(user, target, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
