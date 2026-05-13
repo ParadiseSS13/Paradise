@@ -15,7 +15,7 @@
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meat/ash_kebab
 	catalog_category = COOKBOOK_CATEGORY_MEAT
-	steps = (
+	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meat/raw_ash_kebab),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
@@ -37,7 +37,7 @@
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
 	product_type = /obj/item/food/meat/ash_kebab/bone
 	catalog_category = COOKBOOK_CATEGORY_MEAT
-	steps = (
+	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/meat/raw_ash_kebab/bone),
 		PCWJ_USE_GRILL(J_MED, 10 SECONDS),
 	)
