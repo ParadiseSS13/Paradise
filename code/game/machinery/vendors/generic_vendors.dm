@@ -35,7 +35,7 @@
 /obj/machinery/economy/vending/boozeomat
 	name = "\improper Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	icon_state = "boozeomat"        //////////////18 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
+	icon_state = "boozeomat"        //////////////22 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	icon_deny = "boozeomat_deny"
 	icon_lightmask = "smartfridge"
 	icon_panel = "smartfridge"
@@ -126,6 +126,7 @@
 					/obj/item/reagent_containers/drinks/tea = 25,
 					/obj/item/reagent_containers/drinks/h_chocolate = 25,
 					/obj/item/reagent_containers/drinks/chocolate = 10,
+					/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 10,
 					/obj/item/reagent_containers/drinks/chicken_soup = 10,
 					/obj/item/reagent_containers/drinks/weightloss = 10,
 					/obj/item/reagent_containers/drinks/mug = 15,
@@ -137,6 +138,7 @@
 				/obj/item/reagent_containers/drinks/tea = 80,
 				/obj/item/reagent_containers/drinks/h_chocolate = 64,
 				/obj/item/reagent_containers/drinks/chocolate = 120,
+				/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 64,
 				/obj/item/reagent_containers/drinks/chicken_soup = 100,
 				/obj/item/reagent_containers/drinks/weightloss = 50,
 				/obj/item/reagent_containers/drinks/mug = 75,
@@ -753,6 +755,12 @@
 					/obj/item/clothing/under/misc/pinkhawaiianshirt = 1,
 					/obj/item/clothing/under/misc/bluehawaiianshirt = 1,
 					/obj/item/clothing/under/misc/orangehawaiianshirt = 1,
+					/obj/item/clothing/under/misc/baseball = 1,
+					/obj/item/clothing/under/misc/baseball/solgov = 1,
+					/obj/item/clothing/under/misc/baseball/nanotrasen = 1,
+					/obj/item/clothing/head/soft/black = 1,
+					/obj/item/clothing/head/soft/baseball_tsf = 1,
+					/obj/item/clothing/head/soft/baseball_nt = 1,
 					/obj/item/clothing/suit/jacket/varsity = 1,
 					/obj/item/clothing/suit/jacket/varsity_sport = 1,
 					/obj/item/clothing/suit/jacket/varsity_blood = 1,
@@ -892,6 +900,12 @@
 				/obj/item/clothing/under/misc/pinkhawaiianshirt = 75,
 				/obj/item/clothing/under/misc/bluehawaiianshirt = 75,
 				/obj/item/clothing/under/misc/orangehawaiianshirt = 75,
+				/obj/item/clothing/under/misc/baseball = 75,
+				/obj/item/clothing/under/misc/baseball/solgov = 75,
+				/obj/item/clothing/under/misc/baseball/nanotrasen = 75,
+				/obj/item/clothing/head/soft/black = 50,
+				/obj/item/clothing/head/soft/baseball_tsf = 50,
+				/obj/item/clothing/head/soft/baseball_nt = 50,
 				/obj/item/clothing/suit/jacket/varsity = 200,
 				/obj/item/clothing/suit/jacket/varsity_sport = 200,
 				/obj/item/clothing/suit/jacket/varsity_blood = 200,
@@ -1094,6 +1108,7 @@
 					/obj/item/reagent_containers/drinks/cans/grape_juice = 10,
 					/obj/item/reagent_containers/drinks/cans/ginger_ale = 10,
 					/obj/item/reagent_containers/drinks/cans/electrolytes = 10,
+					/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 10,
 					/obj/item/reagent_containers/glass/beaker/waterbottle = 10)
 
 	contraband = list(/obj/item/reagent_containers/drinks/cans/thirteenloko = 5)
@@ -1106,6 +1121,7 @@
 				/obj/item/reagent_containers/drinks/cans/grape_juice = 50,
 				/obj/item/reagent_containers/drinks/cans/ginger_ale = 50,
 				/obj/item/reagent_containers/drinks/cans/electrolytes = 40,
+				/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 64,
 				/obj/item/reagent_containers/glass/beaker/waterbottle = 20)
 
 	refill_canister = /obj/item/vending_refill/cola
