@@ -50,7 +50,7 @@
 /obj/structure/closet/walllocker/emerglocker/empty
 
 /obj/structure/closet/walllocker/emerglocker/empty/populate_contents()
-
+	return
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32, 32)
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker/empty, 32, 32)
