@@ -351,8 +351,9 @@
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
 
-	// If our target is dead, try to revive them
+	// If our target is dead, try to revive them. We will restore their organs because they get ripped out alot.
 	// and if we fail to revive them, don't proceede the chain
+	sac_target.check_and_regenerate_organs()
 	if(sac_target.stat & DEAD)
 		sac_target.adjustOxyLoss(-100, FALSE)
 		if(!sac_target.heal_and_revive(50, SPAN_DANGER("[sac_target]'s heart begins to beat with an unholy force as they return from death!")))
@@ -392,6 +393,8 @@
 	// The target disconnected or something, we shouldn't bother sending them along.
 	if(!sac_target.client || !sac_target.mind)
 		return
+
+	window_flash(sac_target.client)
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
 	if(!destination || SEND_SIGNAL(sac_target, COMSIG_MOVABLE_TELEPORTING, destination) & COMPONENT_BLOCK_TELEPORT)

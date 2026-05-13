@@ -583,12 +583,18 @@
 	if(isrobot(user))
 		return //Robots can't interact with storage items.
 
+	try_insert_item(I, user)
+
+/// Checks if an item can be inserted, then insertsit. Riveting, I know.
+/// Mostly exists to bypass the robot restriction for using storage (for like ore bags).
+/obj/item/storage/proc/try_insert_item(obj/item/I, mob/user)
 	if(!can_be_inserted(I))
 		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
 			return TRUE
 		return FALSE
 
 	handle_item_insertion(I, user)
+	return TRUE
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))

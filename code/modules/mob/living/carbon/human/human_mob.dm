@@ -140,20 +140,69 @@
 	log_debug("Fire rate = [hits_per_sec] hits/sec")
 	log_debug("Total damage = [total_damage], DPS = [damage_per_sec]")
 	log_debug("############### End hit report ################")
+
+/mob/living/carbon/human/ai_controlled/Initialize(mapload, datum/species/new_species)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/ai_controlled/angry/Initialize(mapload, datum/species/new_species)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	. = ..(mapload, /datum/species/skrell)
+
+/mob/living/carbon/human/skrell/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/skrell/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/tajaran/Initialize(mapload)
 	. = ..(mapload, /datum/species/tajaran)
 
+/mob/living/carbon/human/tajaran/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/tajaran/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
 	. = ..(mapload, /datum/species/vulpkanin)
+
+/mob/living/carbon/human/vulpkanin/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/vulpkanin/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/unathi/Initialize(mapload)
 	. = ..(mapload, /datum/species/unathi)
 
+/mob/living/carbon/human/unathi/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/unathi/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
+
+/mob/living/carbon/human/vox/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/vox/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
@@ -167,14 +216,46 @@
 /mob/living/carbon/human/kidan/Initialize(mapload)
 	. = ..(mapload, /datum/species/kidan)
 
+/mob/living/carbon/human/kidan/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/kidan/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/plasma/Initialize(mapload)
 	. = ..(mapload, /datum/species/plasmaman)
+
+/mob/living/carbon/human/plasma/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/plasma/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/slime/Initialize(mapload)
 	. = ..(mapload, /datum/species/slime)
 
+/mob/living/carbon/human/slime/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/slime/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/grey/Initialize(mapload)
 	. = ..(mapload, /datum/species/grey)
+
+/mob/living/carbon/human/grey/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/grey/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/abductor/Initialize(mapload)
 	. = ..(mapload, /datum/species/abductor)
@@ -182,11 +263,27 @@
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
 
+/mob/living/carbon/human/diona/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/diona/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
 
 /mob/living/carbon/human/machine/Initialize(mapload)
 	. = ..(mapload, /datum/species/machine)
+
+/mob/living/carbon/human/machine/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/machine/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
@@ -213,6 +310,14 @@
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
+/mob/living/carbon/human/drask/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/drask/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
 	ai_controller = new /datum/ai_controller/monkey(src)
@@ -237,13 +342,53 @@
 	. = ..(mapload, /datum/species/monkey/nian_worme)
 	ai_controller = new /datum/ai_controller/monkey(src)
 
+/mob/living/carbon/human/monkey/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/farwa/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/wolpin/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/neara/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/stok/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
+/mob/living/carbon/human/nian_worme/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/moth/Initialize(mapload)
 	. = ..(mapload, /datum/species/moth)
 	if(!body_accessory)
 		change_body_accessory("Plain Wings")
 
+/mob/living/carbon/human/moth/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/moth/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
+
 /mob/living/carbon/human/skulk/Initialize(mapload)
 	. = ..(mapload, /datum/species/skulk)
+
+/mob/living/carbon/human/skulk/ai_controlled/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey(src)
+
+/mob/living/carbon/human/skulk/ai_controlled/angry/Initialize(mapload)
+	. = ..()
+	ai_controller = new /datum/ai_controller/monkey/angry(src)
 
 /mob/living/carbon/human/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -1518,6 +1663,13 @@
 		return
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
+	var/obj/item/clothing/glasses/glasses = get_item_by_slot(ITEM_SLOT_EYES)
+	if(glasses)
+		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+		var/worn_icon = glasses.worn_icon || (robohead && robohead.is_monitor ? glasses.icon_monitor : FALSE) || listgetindex(glasses.sprite_sheets, head_organ.dna.species.sprite_sheet_name) || 'icons/mob/clothing/eyes.dmi'
+		var/worn_icon_state = glasses.worn_icon_state || glasses.icon_state
+		var/icon/glasses_icon = new /icon("icon" = worn_icon, "icon_state" = worn_icon_state)
+		hair.Blend(glasses_icon, ICON_UNDERLAY)
 	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
 	MA.plane = ABOVE_LIGHTING_PLANE
 	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
@@ -1527,8 +1679,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/eyes_shine()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(!get_location_accessible(src, "eyes"))
-		return FALSE
 	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
 	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		return TRUE

@@ -82,6 +82,8 @@
 	..()
 	var/datum/action/innate/cocoon/cocoon = new()
 	cocoon.Grant(H)
+	var/datum/action/innate/toggle_wings/wings_toggle = new()
+	wings_toggle.Grant(H)
 	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, PROC_REF(check_burn_wings))
 	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
@@ -91,6 +93,8 @@
 	..()
 	for(var/datum/action/innate/cocoon/cocoon in H.actions)
 		cocoon.Remove(H)
+	for(var/datum/action/innate/toggle_wings/wings_toggle in H.actions)
+		wings_toggle.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
@@ -193,6 +197,16 @@
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, SPAN_WARNING("You need to hold still in order to weave a cocoon!"))
+
+/datum/action/innate/toggle_wings
+	name = "Toggle Wings"
+	desc = "Open or close your wings! While your wings are open, you can fly in pressurized 0G environments!"
+	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
+	button_icon = 'icons/mob/sprite_accessories/moth/moth_wings.dmi'
+	button_icon_state = "monarch_BEHIND"
+
+/datum/action/innate/toggle_wings/Activate()
+	owner.emote("wings")
 
 /**
  * Removes moth from cocoon, restores burnt wings

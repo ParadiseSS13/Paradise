@@ -97,6 +97,11 @@
 		var/raffle_name = pick("Galactic Getaway Raffle", "Cosmic Jackpot Raffle", "Nebula Nonsense Raffle", "Greytide Giveaway Raffle", "Toolbox Treasure Raffle")
 		GLOB.minor_announcement.Announce("The lucky winners of the Nanotrasen raffle, 'Nanotrasen [raffle_name],' are arriving at [station_name()] shortly. Please welcome them warmly, they'll be staying with you until the end of your shift!")
 
+/datum/event/tourist_arrivals/fake_announce()
+	var/raffle_name = pick("Galactic Getaway Raffle", "Cosmic Jackpot Raffle", "Nebula Nonsense Raffle", "Greytide Giveaway Raffle", "Toolbox Treasure Raffle")
+	GLOB.minor_announcement.Announce("The lucky winners of the Nanotrasen raffle, 'Nanotrasen [raffle_name],' are arriving at [station_name()] shortly. Please welcome them warmly, they'll be staying with you until the end of your shift!")
+	return TRUE
+
 // Greets the player, announces objectives!
 /datum/event/tourist_arrivals/proc/greeting(mob/living/carbon/human/M)
 	var/list/greeting = list()
@@ -121,8 +126,8 @@
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(head_organ.dna.species.name)
+	head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
 
 	M.regenerate_icons()
 	M.update_body()

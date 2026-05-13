@@ -348,6 +348,16 @@
 		if(istype(affecting))
 			affecting.disfigure()
 
+	var/was_skin_removed = FALSE
+	for(var/obj/item/organ/external/limb in H.bodyparts)
+		if(limb.has_synthetic_skin)
+			was_skin_removed = TRUE
+			limb.remove_synthetic_skin(TRUE)
+
+	if(was_skin_removed)
+		H.visible_message("<span class='warning'>The synthetic skin on [H]'s body bubbles and melts away.</span>", \
+						"<span class='warning'>The synthetic skin on your body bubbles and melts away.</span>")
+
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()
 		return
@@ -443,6 +453,42 @@
 		H.emote("scream")
 	else
 		H.adjustBruteLoss(min(5, volume * 0.25))
+
+/datum/reagent/phosacid
+	name = "Phosphoric acid"
+	id = "phosacid"
+	description = "A clear and odourless moderately strong acid. It's a pretty good rust remover."
+	color = "#0080ff"
+	taste_description = "sour"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/phosacid/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
+	if(method != REAGENT_TOUCH)
+		to_chat(H, SPAN_WARNING("The transparent acidic substance stings[volume < 15 ? " you, but isn't concentrated enough to harm you" : null]!"))
+		if(volume >= 15)
+			H.adjustBruteLoss(2)
+			H.emote("scream")
+		return
+
+	if(H.wear_mask || H.head)
+		return
+
+	if(volume >= 25 && prob(75))
+		var/obj/item/organ/external/affecting = H.get_organ("head")
+		if(istype(affecting))
+			affecting.disfigure()
+		H.adjustBruteLoss(5)
+		H.adjustFireLoss(15)
+		H.emote("scream")
+	else
+		H.adjustBruteLoss(min(5, volume * 0.25))
+
+/datum/reagent/phosacid/reaction_turf(turf/T)
+	if(!HAS_TRAIT(T, TRAIT_RUSTY))
+		return
+	T.RemoveElement(/datum/element/rust)
+	T.RemoveElement(/datum/element/rust/heretic)
 
 /datum/reagent/carpotoxin
 	name = "Carpotoxin"

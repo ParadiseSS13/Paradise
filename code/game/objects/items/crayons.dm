@@ -204,7 +204,7 @@
 	name = "purple crayon"
 	icon_state = "crayonpurple"
 	crayon_color = COLOR_PURPLE
-	dye_color = DYE_PURPLE
+	dye_color = DYE_LIGHTPURPLE
 
 /obj/item/toy/crayon/random/Initialize(mapload)
 	. = ..()

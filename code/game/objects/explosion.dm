@@ -8,14 +8,14 @@
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, cause = "Unknown Cause!", breach = TRUE)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, cause = "Unknown Cause!", breach = TRUE, investigate_logging = FALSE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
 
 	// If we are in end round, make explosions gib the user
 	// Why? Its funny
-	if(GLOB.disable_explosions && usr && istype(usr, /mob/living/carbon/human))
+	if(GLOB.disable_explosions && istype(usr, /mob/living/carbon/human))
 		to_chat(usr, SPAN_USERDANGER("Your explosive backfires!"))
 		var/mob/living/carbon/human/H = usr
 		H.gib() // lol
@@ -46,7 +46,7 @@
 	spawn(0)
 		var/watch = start_watch()
 
-		var/list/cached_exp_block = list()
+		var/alist/cached_exp_block = alist()
 
 		if(adminlog)
 			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] (Cause: [cause]) [ADMIN_COORDJMP(epicenter)] ")
@@ -79,48 +79,51 @@
 			if(prob(devastation_range * DEVASTATION_PROB + heavy_impact_range * HEAVY_IMPACT_PROB) && on_station) // Huge explosions are near guaranteed to make the station creak and whine, smaller ones might.
 				creaking_explosion = TRUE // prob over 100 always returns true
 
-			for(var/MN in GLOB.player_list)
-				var/mob/M = MN
-				// Double check for client
+			for(var/mob/M as anything in GLOB.player_list)
 				var/turf/M_turf = get_turf(M)
-				if(M_turf && M_turf.z == z0)
-					var/dist = get_dist(M_turf, epicenter)
-					if(isliving(M) && dist <= flash_range && !HAS_TRAIT(M, TRAIT_EXPLOSION_PROOF))
-						var/mob/living/to_flash = M
-						var/is_very_close_to_the_explosion = flash_range > (dist * 2)
-						to_flash.flash_eyes(is_very_close_to_the_explosion * 2, is_very_close_to_the_explosion, is_very_close_to_the_explosion) // Gets past sunglasses
-					var/baseshakeamount
-					if(orig_max_distance - dist > 0)
-						baseshakeamount = sqrt((orig_max_distance - dist) * 0.1)
-					// If inside the blast radius + world.view - 2
-					if(dist <= round(max_range + world.view - 2, 1))
-						M.playsound_local(epicenter, null, 100, 1, frequency, S = explosion_sound)
-						if(baseshakeamount > 0)
-							shake_camera(M, 25, clamp(baseshakeamount, 0, 10))
-					// You hear a far explosion if you're outside the blast radius. Small bombs shouldn't be heard all over the station.
-					else if(dist <= far_dist)
-						var/far_volume = clamp(far_dist / 2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and dist
-						if(creaking_explosion)
-							M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
-						else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
-							M.playsound_local(epicenter, null, far_volume, 1, frequency, S = far_explosion_sound, distance_multiplier = 0) // Far sound
-						else
-							M.playsound_local(epicenter, null, far_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0) // Echo sound
+				if(M_turf.z != z0)
+					continue
 
-						if(baseshakeamount > 0 || devastation_range)
-							if(!baseshakeamount) // Devastating explosions rock the station and ground
-								baseshakeamount = devastation_range * 3
-							shake_camera(M, 10, clamp(baseshakeamount * 0.25, 0, SHAKE_CLAMP))
-					else if(!isspaceturf(get_turf(M)) && heavy_impact_range) // Big enough explosions echo throughout the hull
-						var/echo_volume = 40
-						if(devastation_range)
-							baseshakeamount = devastation_range
-							shake_camera(M, 10, clamp(baseshakeamount * 0.25, 0, SHAKE_CLAMP))
-							echo_volume = 60
-						M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
+				var/dist = get_dist(M_turf, epicenter)
+				if(isliving(M) && dist <= flash_range && !HAS_TRAIT(M, TRAIT_EXPLOSION_PROOF))
+					var/mob/living/to_flash = M
+					var/is_very_close_to_the_explosion = (dist * 2) < flash_range
+					to_flash.flash_eyes(is_very_close_to_the_explosion * 2, is_very_close_to_the_explosion, is_very_close_to_the_explosion) // Gets past sunglasses
 
-					if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
-						addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
+				var/baseshakeamount
+				if(orig_max_distance - dist > 0)
+					baseshakeamount = sqrt((orig_max_distance - dist) * 0.1)
+				// If inside the blast radius + world.view - 2
+				if(dist <= round(max_range + world.view - 2, 1))
+					M.playsound_local(epicenter, null, 100, 1, frequency, S = explosion_sound)
+					if(baseshakeamount)
+						shake_camera(M, 25, clamp(baseshakeamount, 0, 10))
+
+				// You hear a far explosion if you're outside the blast radius. Small bombs shouldn't be heard all over the station.
+				else if(dist <= far_dist)
+					var/far_volume = clamp(far_dist / 2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and dist
+					if(creaking_explosion)
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
+					else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = far_explosion_sound, distance_multiplier = 0) // Far sound
+					else
+						M.playsound_local(epicenter, null, far_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0) // Echo sound
+
+					if(baseshakeamount > 0 || devastation_range)
+						if(!baseshakeamount) // Devastating explosions rock the station and ground
+							baseshakeamount = devastation_range * 3
+						shake_camera(M, 10, clamp(baseshakeamount * 0.25, 0, SHAKE_CLAMP))
+
+				else if(!isspaceturf(get_turf(M)) && heavy_impact_range) // Big enough explosions echo throughout the hull
+					var/echo_volume = 40
+					if(devastation_range)
+						baseshakeamount = devastation_range
+						shake_camera(M, 10, clamp(baseshakeamount * 0.25, 0, SHAKE_CLAMP))
+						echo_volume = 60
+					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
+
+				if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
+					addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
 
 		if(devastation_range > 0)
 			new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, TRUE)
@@ -132,21 +135,22 @@
 		var/list/affected_turfs = spiral_range_turfs(max_range, epicenter)
 
 		if(GLOB.configuration.general.reactionary_explosions)
-			for(var/A in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
-				var/turf/T = A
-				cached_exp_block[T] = 0
+			for(var/turf/T as anything in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
+				var/blocked = 0
+
 				if(T.density && T.explosion_block)
-					cached_exp_block[T] += T.explosion_block
+					blocked += T.explosion_block
 
 				for(var/obj/O in T)
 					var/the_block = O.explosion_block
-					cached_exp_block[T] += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
+					blocked += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
+
+				// Only add item to the list if it actually blocks
+				if(blocked != 0)
+					cached_exp_block[T] = blocked
 				CHECK_TICK
 
-		for(var/A in affected_turfs)
-			var/turf/T = A
-			if(!T)
-				continue
+		for(var/turf/T as anything in affected_turfs)
 			var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
 			if(GLOB.configuration.general.reactionary_explosions)
@@ -154,63 +158,57 @@
 				while(Trajectory != epicenter)
 					Trajectory = get_step_towards(Trajectory, epicenter)
 					dist += cached_exp_block[Trajectory]
+					if(dist > max_range)
+						break
 
-			var/flame_dist = 0
-//			var/throw_dist = max_range - dist
-
-			if(dist < flame_range)
-				flame_dist = 1
-
-			if(dist < devastation_range)		dist = 1
-			else if(dist < heavy_impact_range)	dist = 2
-			else if(dist < light_impact_range)	dist = 3
-			else 								dist = 0
+			var/explosion_strength = EXPLODE_NONE
+			if(dist < devastation_range)
+				explosion_strength = EXPLODE_DEVASTATE
+			else if(dist < heavy_impact_range)
+				explosion_strength = EXPLODE_HEAVY
+			else if(dist < light_impact_range)
+				explosion_strength = EXPLODE_LIGHT
 
 			//------- TURF FIRES -------
 
-			if(T)
-				if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
-					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T) //Mostly for ambience!
-					hotspot.temperature = 1000
-					hotspot.recolor()
-				if(dist > 0)
-					if(issimulatedturf(T))
-						var/turf/simulated/S = T
-						var/affecting_level
-						if(dist == 1)
-							affecting_level = 1
-						else
-							affecting_level = S.is_shielded() ? 2 : (S.intact ? 2 : 1)
-						for(var/atom in S.contents)	//bypass type checking since only atom can be contained by turfs anyway
-							var/atom/AM = atom
-							if(!QDELETED(AM) && AM.simulated)
-								if(AM.level >= affecting_level)
-									AM.ex_act(dist)
-					else
-						for(var/atom in T.contents)	//see above
-							var/atom/AM = atom
-							if(!QDELETED(AM) && AM.simulated)
-								AM.ex_act(dist)
-							CHECK_TICK
-					if(breach)
-						T.ex_act(dist)
-					else
-						T.ex_act(EXPLODE_LIGHT)
+			if((dist < flame_range) && prob(40) && !isspaceturf(T) && !T.density)
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T) //Mostly for ambience!
+				hotspot.temperature = 1000
+				hotspot.recolor()
 
-			CHECK_TICK
+			if(explosion_strength == EXPLODE_NONE)
+				continue
+
+			if(breach)
+				T.ex_act(explosion_strength)
+			else
+				T.ex_act(EXPLODE_LIGHT)
+
+			if(!issimulatedturf(T))
+				for(var/atom/AM as anything in T)
+					if(!QDELETED(AM) && AM.simulated)
+						AM.ex_act(explosion_strength)
+					CHECK_TICK
+				continue
+
+			var/turf/simulated/S = T
+			var/affecting_level = 1
+			if(explosion_strength == EXPLODE_DEVASTATE)
+				affecting_level = 1
+			else if(S.is_shielded() || S.intact)
+				affecting_level = 2
+
+			for(var/atom/AM as anything in S)
+				if(!QDELETED(AM) && AM.simulated && (AM.level >= affecting_level))
+					AM.ex_act(explosion_strength)
+				CHECK_TICK
 
 		var/took = stop_watch(watch)
-		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
-		log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
+		// Log this to the investigate log because we have no better place
+		epicenter.investigate_log("## DEBUG: Explosion([x0],[y0],[z0]) - (d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.", INVESTIGATE_BOMB)
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
-	return 1
-
-
-
-/proc/secondaryexplosion(turf/epicenter, range)
-	for(var/turf/tile in spiral_range_turfs(range, epicenter))
-		tile.ex_act(EXPLODE_HEAVY)
+	return TRUE
 
 USER_VERB(check_bomb_impact, R_DEBUG, "Check Bomb Impact", "Test bomb impact ranges.", VERB_CATEGORY_DEBUG)
 	var/newmode = alert(client, "Use reactionary explosions?","Check Bomb Impact", "Yes", "No")

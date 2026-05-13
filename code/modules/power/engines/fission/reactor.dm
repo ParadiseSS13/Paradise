@@ -273,7 +273,7 @@
 	icon_state = "meltdown"
 	sleep(2.5 SECONDS)
 	var/explosion_modifier = clamp(reactivity_multiplier * EXPLOSION_MODIFIER, 8, 40)
-	explosion(get_turf(src), explosion_modifier / 2, explosion_modifier, explosion_modifier + 3, explosion_modifier + 6, ignorecap = TRUE, smoke = TRUE)
+	explosion(get_turf(src), explosion_modifier / 2, explosion_modifier, explosion_modifier + 3, explosion_modifier + 6, ignorecap = TRUE)
 	icon_state = "broken"
 
 /obj/machinery/atmospherics/fission_reactor/proc/set_fixed()
@@ -605,6 +605,7 @@
 		final_heat += heat_total
 		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
+		chamber.held_rod.do_special_effect()
 
 	if(final_heat)
 		average_heatgen = final_heat / active_chambers

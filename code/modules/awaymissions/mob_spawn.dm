@@ -305,12 +305,12 @@
 		if(hair_style)
 			D.h_style = hair_style
 		else
-			D.h_style = random_hair_style(H.gender, D.dna.species.name)
+			D.h_style = random_hair_style(D.dna.species.name)
 
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else if(H.gender != FEMALE) // no beard for women
-			D.f_style = random_facial_hair_style(H.gender, D.dna.species.name)
+			D.f_style = random_facial_hair_style(D.dna.species.name)
 
 		if(hair_color)
 			D.hair_colour = hair_color

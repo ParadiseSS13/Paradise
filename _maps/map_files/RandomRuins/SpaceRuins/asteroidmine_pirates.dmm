@@ -50,11 +50,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/unpowered)
-"m" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered)
 "n" = (
 /turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
@@ -237,6 +232,13 @@
 /area/ruin/space/unpowered)
 "X" = (
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
+"Z" = (
+/obj/machinery/door/airlock/maintenance{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 
@@ -733,7 +735,7 @@ X
 j
 x
 P
-m
+Z
 o
 p
 n

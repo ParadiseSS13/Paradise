@@ -50,6 +50,8 @@
 	COOLDOWN_DECLARE(cooldown_timer) //sohtgdoiuduhnfipguhndshnfigdnghd
 	///The UID of the module. Don't ask.
 	var/module_UID = null
+	/// Replaces the sprite for monitor heads
+	var/icon_monitor = null
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/modules_vulp.dmi',
@@ -304,7 +306,11 @@
 	else
 		return
 	var/image/final_overlay
-	if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
+	var/obj/item/organ/external/head/head_organ = user.get_organ("head")
+	var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+	if(robohead && robohead.is_monitor && icon_monitor)
+		final_overlay = image(icon = icon_monitor, icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
+	else if(sprite_sheets && sprite_sheets[user.dna.species.sprite_sheet_name])
 		final_overlay = image(icon = sprite_sheets[user.dna.species.sprite_sheet_name], icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)
 	else
 		final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = -HEAD_LAYER + 0.1)

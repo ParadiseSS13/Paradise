@@ -10,6 +10,7 @@
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/welding, /obj/item/mod/module/armor_booster)
 	overlay_state_inactive = "module_welding"
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 
 /obj/item/mod/module/welding/on_suit_activation()
 	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER

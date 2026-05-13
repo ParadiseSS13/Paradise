@@ -187,6 +187,9 @@
 	return 0
 
 /obj/machinery/processor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(processing)
 		to_chat(user, SPAN_WARNING("\the [src] is already processing something!"))
 		return ITEM_INTERACT_COMPLETE

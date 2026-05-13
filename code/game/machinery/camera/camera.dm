@@ -428,6 +428,9 @@
 	..()
 	return TRUE
 
+/obj/machinery/camera/get_internal_wires()
+	return wires
+
 /// Cameras which are placed inside of things, such as helmets.
 /obj/machinery/camera/portable
 	start_active = TRUE // theres no real way to reactivate these, so never break them when they init

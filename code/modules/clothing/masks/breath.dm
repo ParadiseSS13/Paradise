@@ -2,6 +2,7 @@
 	name = "breath mask"
 	desc = "A close-fitting mask that can be connected to an air supply."
 	icon_state = "breath"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 	can_toggle = TRUE
@@ -44,6 +45,7 @@
 	name = "vox breath mask"
 	desc = "A weirdly-shaped breath mask."
 	icon_state = "voxmask"
+	icon_monitor = null
 	permeability_coefficient = 0.01
 	species_restricted = list("Vox")
 	actions_types = list()

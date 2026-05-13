@@ -34,7 +34,7 @@
 
 /obj/item/onetankbomb/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))
-		bombtank.attackby__legacy__attackchain(W, user, params)
+		bombtank.item_interaction(user, W)
 		return
 	return ..()
 

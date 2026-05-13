@@ -197,18 +197,20 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "empty-sandbags"
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 
-/obj/item/emptysandbag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/ore/glass))
-		var/obj/item/stack/ore/glass/G = I
-		to_chat(user, SPAN_NOTICE("You fill the sandbag."))
-		var/obj/item/stack/sheet/mineral/sandbags/S = new /obj/item/stack/sheet/mineral/sandbags(drop_location())
-		qdel(src)
-		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(S)
-		G.use(1)
-	else
+/obj/item/emptysandbag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/ore/glass))
 		return ..()
+
+	to_chat(user, SPAN_NOTICE("You fill the sandbag."))
+	var/obj/item/stack/sheet/mineral/sandbags/S = new /obj/item/stack/sheet/mineral/sandbags(drop_location())
+	if(Adjacent(user) && ishuman(user))
+		user.put_in_hands(S)
+	var/obj/item/stack/ore/glass/G = used
+	G.use(1)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
@@ -311,11 +313,12 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 		log_and_set_aflame(user, I)
 	return TRUE
 
-/obj/item/stack/sheet/mineral/plasma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(I.get_heat())
-		log_and_set_aflame(user, I)
-	else
+/obj/item/stack/sheet/mineral/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.get_heat())
 		return ..()
+
+	log_and_set_aflame(user, used)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/sheet/mineral/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
 	var/turf/T = get_turf(src)

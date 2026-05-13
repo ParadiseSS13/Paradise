@@ -187,6 +187,7 @@
 	new /obj/item/clothing/head/beret/captain(src)
 	new /obj/item/clothing/head/beret/captain/white(src)
 	new /obj/item/clothing/head/crown/fancy(src)
+	new /obj/item/clothing/head/cowboyhat/command(src)
 	new /obj/item/clothing/neck/cloak/captain(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)

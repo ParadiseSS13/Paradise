@@ -2029,28 +2029,32 @@
 		to_chat(M, SPAN_NOTICE("You feel a surge of energy in your muscles, you feel like you can smash anything!"))
 	// No need to change the damage modifier when turning into a non-Kidan, it gets reset when species changes.
 
-/datum/reagent/consumable/ethanol/howler
-	name = "Howler"
-	id = "howler"
-	description = "Old classic human drink that was adopted by Vulpkanin."
+/datum/reagent/consumable/ethanol/durkehiet
+	name = "Durkehiet"
+	id = "durkehiet"
+	description = "A traditional sweet spirit from Kelune dating back to the Vulpkanin's pre-spaceflight era. Even though it was originally concocted as a traditional medicine, it was (and still is) enjoyed recreationally as well."
 	color = "#9c0b0c"
 	alcohol_perc = 0.2
-	drink_icon = "howler"
-	drink_name = "Howler"
-	drink_desc = "Old classic human drink that was adopted by Vulpkanin."
-	taste_description = "citrus"
-	goal_difficulty = REAGENT_GOAL_EASY
+	drink_icon = "durkehiet"
+	drink_name = "durkehiet"
+	drink_desc = "A traditional sweet spirit from Kelune dating back to the Vulpkanin's pre-spaceflight era. Even though it was originally concocted as a traditional medicine, it was (and still is) enjoyed recreationally as well."
+	taste_description = "citrusy sweetness, with faint numbing bitter notes"
+	goal_difficulty = REAGENT_GOAL_HARD
 
-/datum/reagent/consumable/ethanol/howler/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
+/datum/reagent/consumable/ethanol/durkehiet/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
 	if(isvulpkanin(M))
-		M.emote("howl", intentional = TRUE)
+		to_chat(M, SPAN_NOTICE("You feel healthy and invigorated."))
 	return ..()
 
-/datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
-	if(isvulpkanin(M))
-		var/mob/living/carbon/human/H = M
-		H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
-	return ..()
+/datum/reagent/consumable/ethanol/durkehiet/on_mob_life(mob/living/M)
+	if(!isvulpkanin(M))
+		return ..()
+
+	var/mob/living/carbon/human/H = M
+	var/update_flags = STATUS_UPDATE_NONE
+	M.reagents.add_reagent("spaceacillin", 0.4)
+	update_flags |= H.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER)
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/islay_whiskey
 	name = "Islay Whiskey"

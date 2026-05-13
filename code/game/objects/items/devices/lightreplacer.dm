@@ -255,5 +255,9 @@
 	bluespace_toggle = TRUE
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 
+/obj/item/lightreplacer/bluespace/update_icon_state() // Does not have an emagged icon state
+	icon_state = "lightreplacer_blue"
+	belt_icon = "lightreplacer_blue"
+
 /obj/item/lightreplacer/bluespace/emag_act()
 	return  // long range explosions are stupid

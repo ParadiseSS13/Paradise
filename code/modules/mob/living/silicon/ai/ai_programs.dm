@@ -743,27 +743,35 @@
 		to_chat(user, SPAN_WARNING("No valid target!"))
 		revert_cast()
 		return
-	var/obj/machinery/light/target = targets[1]
-	if(!check_camera_vision(user, target))
-		revert_cast()
-		return
-	if(!istype(target))
-		to_chat(user, SPAN_WARNING("You can only repair lights!"))
-		revert_cast()
-		return
+	var/turf/target_turf = targets[1]
 	var/mob/living/silicon/ai/AI = user
+	if(!check_camera_vision(user, target_turf))
+		revert_cast()
+		return
+	var/repaired = FALSE
 	if(!AI.program_picker.spend_nanites(program.nanite_cost))
 		to_chat(user, SPAN_WARNING("Not enough nanites!"))
 		revert_cast()
 		return
-	// Handle repairs here since we're using a spell and not a tool
-	target.status = LIGHT_OK
-	target.switchcount = 0
-	target.emagged = FALSE
-	target.on = target.has_power()
-	target.update(TRUE, TRUE, FALSE)
-	AI.play_sound_remote(target, 'sound/machines/ding.ogg', 50)
-	camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
+	for(var/obj/machinery/light/target in target_turf.contents)
+		// Handle repairs here since we're using a spell and not a tool
+		if(target.status == LIGHT_OK)
+			continue
+		target.status = LIGHT_OK
+		target.switchcount = 0
+		target.emagged = FALSE
+		target.on = target.has_power()
+		target.update(TRUE, TRUE, FALSE)
+		AI.play_sound_remote(target, 'sound/machines/ding.ogg', 50)
+		camera_beam(target, "rped_upgrade", 'icons/effects/effects.dmi', 5)
+		repaired = TRUE
+
+	if(!repaired)
+		to_chat(user, SPAN_WARNING("You can only repair lights!"))
+		AI.program_picker.refund_nanites(program.nanite_cost)
+		revert_cast()
+		return
+
 
 /datum/spell/ai_spell/ranged/light_repair/on_purchase_upgrade()
 	cooldown_handler.recharge_duration = max(base_cooldown - (spell_level * 5 SECONDS), cooldown_min)

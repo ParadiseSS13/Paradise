@@ -110,12 +110,6 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/space/powered)
-"aB" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Escape Pod Airlock"
-	},
-/turf/simulated/floor/mineral/titanium/blue/airless,
-/area/ruin/space/powered)
 "aD" = (
 /turf/template_noop,
 /area/space/nearstation)
@@ -207,13 +201,6 @@
 /obj/effect/spawner/random/cobweb/left/rare,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/bar)
-"aX" = (
-/obj/machinery/door/airlock/multi_tile/glass,
-/obj/effect/turf_decal/tiles/dark/side{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
 "aY" = (
 /obj/item/clothing/neck/stethoscope,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -227,16 +214,6 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"ba" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 4
-	},
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/tiles/dark/side{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
 "bb" = (
 /obj/machinery/door/poddoor,
 /turf/simulated/floor/plasteel,
@@ -385,6 +362,13 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"hr" = (
+/obj/machinery/door/airlock{
+	name = "Unisex Bathroom";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered/bar)
 "iM" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel/dark,
@@ -450,6 +434,14 @@
 "oJ" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
+"oK" = (
+/obj/machinery/door/airlock{
+	name = "Bar Storage";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/service/bar,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/bar)
 "pb" = (
 /obj/item/stack/tile/plasteel,
 /obj/machinery/door_control{
@@ -549,6 +541,15 @@
 /obj/structure/mopbucket/full,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/bar)
+"xt" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/bar)
 "xZ" = (
 /obj/item/beacon,
 /turf/simulated/floor/plasteel/dark,
@@ -587,12 +588,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/powered/bar)
-"Ad" = (
-/obj/machinery/door/airlock{
-	name = "Unisex Bathroom"
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/bar)
 "AX" = (
 /obj/effect/turf_decal/tiles/dark/corner{
@@ -653,6 +648,14 @@
 /obj/machinery/economy/vending/coffee,
 /obj/effect/turf_decal/tiles/dark/side{
 	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered/bar)
+"Fo" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
@@ -802,6 +805,13 @@
 "Ow" = (
 /obj/item/stack/ore/glass/basalt,
 /turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/powered)
+"Oy" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod Airlock";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered)
 "Pr" = (
 /obj/structure/chair/stool,
@@ -1417,7 +1427,7 @@ JK
 ak
 Cx
 ax
-aB
+Oy
 JK
 JK
 JK
@@ -1689,7 +1699,7 @@ JK
 ak
 ax
 ax
-aB
+Oy
 JK
 JK
 bj
@@ -1697,7 +1707,7 @@ JK
 ak
 ax
 ax
-aB
+Oy
 JK
 JK
 JK
@@ -1962,7 +1972,7 @@ am
 am
 aQ
 fg
-ba
+Fo
 aQ
 am
 am
@@ -2343,7 +2353,7 @@ aO
 aO
 aO
 AX
-aX
+xt
 bg
 bF
 bk
@@ -2444,7 +2454,7 @@ av
 as
 bc
 as
-ay
+oK
 cE
 aT
 zC
@@ -2564,7 +2574,7 @@ bk
 xZ
 qZ
 bk
-Ad
+hr
 bk
 bN
 am
@@ -2660,7 +2670,7 @@ am
 LB
 as
 as
-ay
+oK
 bk
 bk
 bk

@@ -26,3 +26,8 @@
 		/obj/item/toy/spinningtoy,
 	)
 	loot_subtype_path = /obj/item/toy/figure/mech
+
+// author requests these be exempt from maints loot. intended to be an off-station or beach-specific item
+/obj/effect/spawner/random/toy/shell
+	name = "random beach shell"
+	loot_type_path = /obj/item/toy/shell

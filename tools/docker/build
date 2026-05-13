@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# build
+# Build a Docker image for Paradise
+
+set -euo pipefail
+
+SERVER_IMAGE="paradise:latest"
+
+# make sure we're at the root of the repository
+if [ ! -f "Dockerfile" ]; then
+    echo >&2 "Error: No Dockerfile found. Are you at the repository root?"
+    exit 1
+fi
+
+# determine which versions to use in order to build everything
+source _build_dependencies.sh
+
+# build the docker image
+docker build "$@" \
+    --build-arg "NODE_VERSION=${NODE_VERSION}" \
+    --build-arg "RUST_VERSION=${RUST_VERSION}" \
+    --build-arg "STABLE_BYOND_MAJOR=${STABLE_BYOND_MAJOR}" \
+    --build-arg "STABLE_BYOND_MINOR=${STABLE_BYOND_MINOR}" \
+    --tag "${SERVER_IMAGE}" \
+    .
+
+## uncomment to also tag the current git commit hash (short)
+# GIT_HASH_TAG="$(git rev-parse --short=12 HEAD)"
+# docker image tag paradise:latest paradise:${GIT_HASH_TAG}
+
+## uncomment to also tag the current timestamp
+# ISO8601_TAG="$(date --utc +%Y%m%dT%H%M%SZ)"
+# docker image tag paradise:latest paradise:${ISO8601_TAG}

@@ -133,7 +133,7 @@
 /mob/living/basic/malfborg/mining
 	name = "mining cyborg"
 	desc = "It digs holes in organic flesh."
-	icon_state = "Noble-DIG"
+	icon_state = "Noble-Mining"
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	attack_verb_simple = "mine"
