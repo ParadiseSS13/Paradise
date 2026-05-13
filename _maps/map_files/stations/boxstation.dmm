@@ -16451,9 +16451,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bjp" = (
-/obj/machinery/door/morgue{
-	name = "Confession Booth (Chaplain)";
-	req_access = list(22)
+/obj/machinery/door/morgue/manual_rotation{
+	name = "Confession Booth (Chaplain)"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel)
@@ -17268,7 +17267,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "bmg" = (
-/obj/machinery/door/morgue{
+/obj/machinery/door/morgue/manual_rotation{
 	name = "Confession Booth"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -18072,7 +18071,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "boy" = (
-/obj/machinery/door/morgue{
+/obj/machinery/door/morgue/manual_rotation{
 	name = "Private Study";
 	req_access = list(37)
 	},
