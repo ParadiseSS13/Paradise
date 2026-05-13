@@ -1,6 +1,6 @@
 /datum/cooking/recipe/ash_kebab
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/ash_kebab
+	product_type = /obj/item/food/meat/ash_kebab
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/stack/rods),
@@ -13,7 +13,7 @@
 
 /datum/cooking/recipe/ash_kebab_bone
 	container_type = /obj/item/reagent_containers/cooking/grill_grate
-	product_type = /obj/item/food/ash_kebab/bone
+	product_type = /obj/item/food/meat/ash_kebab/bone
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/stack/bone_rods),

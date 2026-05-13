@@ -6,7 +6,7 @@
 		/obj/item/food/grown/ash_flora/cactus_fruit = 2,
 		/obj/item/food/monstermeat/goliath = 1
 	)
-	result = list(/obj/item/food/raw_ash_kebab)
+	result = list(/obj/item/food/meat/raw_ash_kebab)
 	category = CAT_FOOD
 	subcategory = CAT_MEAT
 
@@ -18,7 +18,7 @@
 		/obj/item/food/grown/ash_flora/cactus_fruit = 2,
 		/obj/item/food/monstermeat/goliath = 1
 	)
-	result = list(/obj/item/food/raw_ash_kebab/bone)
+	result = list(/obj/item/food/meat/raw_ash_kebab/bone)
 	category = CAT_FOOD
 	subcategory = CAT_MEAT
 
