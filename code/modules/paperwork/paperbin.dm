@@ -110,6 +110,7 @@
 	to_chat(user, SPAN_NOTICE("You put [used] in [src]."))
 	papers.Add(used)
 	amount++
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/paper_bin/examine(mob/user)
