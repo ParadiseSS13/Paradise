@@ -27,6 +27,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 			penPlacement(user, user.get_active_hand(), TRUE)
 		else
 			removePen(user)
+
 		return
 	. = ..()
 
@@ -57,6 +58,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		to_chat(user, SPAN_NOTICE("You slide [P] into [src]."))
 		user.transfer_item_to(P, src)
 		containedpen = P
+		add_fingerprint(user)
 	else
 		if(!containedpen)
 			to_chat(user, SPAN_WARNING("There isn't a pen in [src] for you to remove!"))
@@ -64,6 +66,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		to_chat(user, SPAN_NOTICE("You remove [containedpen] from [src]."))
 		user.put_in_hands(containedpen)
 		containedpen = null
+		add_fingerprint(user)
 	update_icon()
 
 /obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
@@ -105,6 +108,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		if(isPaperwork(used) == PAPERWORK)
 			toppaper = used
 		update_icon()
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(is_pen(used))
@@ -112,11 +116,13 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 			penPlacement(user, used, TRUE)
 			return ITEM_INTERACT_COMPLETE
 		toppaper.item_interaction(user, used, modifiers)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stamp) && toppaper) // We can stamp the topmost piece of paper.
 		toppaper.item_interaction(user, used, modifiers)
 		update_icon()
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
@@ -124,6 +130,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 	if(!user)
 		return ..()
 	showClipboard(user)
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clipboard/Topic(href, href_list)

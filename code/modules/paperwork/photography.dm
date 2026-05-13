@@ -50,6 +50,7 @@
 		txt = copytext(txt, 1, max_length)
 		if(loc == user && user.stat == CONSCIOUS)
 			scribble = txt
+			add_fingerprint(user)
 	else if(used.get_heat())
 		burnphoto(used, user)
 	return ..()
@@ -251,6 +252,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(nsize)
 		size = nsize
 		to_chat(user, SPAN_NOTICE("Camera will now take [size]x[size] photos."))
+		add_fingerprint(user)
 
 /obj/item/camera/pre_attack(atom/target, mob/living/user, params)
 	if(..() || ismob(target))
@@ -267,6 +269,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	else
 		icon_state = icon_off
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
+	add_fingerprint(user)
 
 /obj/item/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/camera_film))
@@ -277,6 +280,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		user.drop_item()
 		qdel(used)
 		pictures_left = pictures_max
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
@@ -433,6 +437,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	handle_haunt(user)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // fucking magic numbers
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/camera/proc/reset_cooldown()
@@ -560,6 +565,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	on = FALSE
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // magic numbers here too
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user)
@@ -600,6 +606,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(picture)
 		printpicture(user, picture)
 		pictures_left --
+	add_fingerprint(user)
 
 /obj/item/camera/digital/CtrlShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -612,6 +619,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	picture = tgui_input_list(user, "Select image to delete", "Delete image", saved_pictures)
 	if(picture)
 		saved_pictures -= picture
+	add_fingerprint(user)
 
 /**************
 *video camera *
@@ -668,6 +676,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam/activate_self(mob/user)
 	if(!user)
 		return ..()
+	add_fingerprint(user)
 	if(!COOLDOWN_FINISHED(src, video_cooldown))
 		to_chat(user, SPAN_WARNING("[src] is overheating, give it some time."))
 		return ITEM_INTERACT_COMPLETE
