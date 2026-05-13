@@ -80,10 +80,16 @@
 		crush()
 	return TRUE
 
+/obj/machinery/door/poddoor/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
 	density = FALSE
 	opacity = FALSE
+
+/obj/machinery/door/poddoor/preopen/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/poddoor/impassable
 	name = "reinforced blast door"
@@ -91,8 +97,14 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
 
+/obj/machinery/door/poddoor/impassable/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/poddoor/impassable/gamma
 	name = "gamma armory hatch"
+
+/obj/machinery/door/poddoor/impassable/gamma/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/poddoor/impassable/hostile_lockdown()
 	return
@@ -158,18 +170,30 @@
 	layer = CLOSED_BLASTDOOR_LAYER
 	width = 2
 
+/obj/machinery/door/poddoor/multi_tile/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/poddoor/multi_tile/triple
 	icon = 'icons/obj/doors/blastdoor_1x3.dmi'
 	width = 3
+
+/obj/machinery/door/poddoor/multi_tile/triple/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/poddoor/multi_tile/quad
 	icon = 'icons/obj/doors/blastdoor_1x4.dmi'
 	width = 4
 
+/obj/machinery/door/poddoor/multi_tile/quad/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/poddoor/multi_tile/impassable
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
+
+/obj/machinery/door/poddoor/multi_tile/impassable/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/poddoor/multi_tile/impassable/hostile_lockdown()
 	return
@@ -185,6 +209,12 @@
 	icon = 'icons/obj/doors/blastdoor_1x3.dmi'
 	width = 3
 
+/obj/machinery/door/poddoor/multi_tile/impassable/triple/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/poddoor/multi_tile/impassable/quad
 	icon = 'icons/obj/doors/blastdoor_1x4.dmi'
 	width = 4
+
+/obj/machinery/door/poddoor/multi_tile/impassable/quad/manual_rotation
+	manual_dir = TRUE
