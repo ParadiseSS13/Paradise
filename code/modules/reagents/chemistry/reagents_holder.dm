@@ -935,19 +935,19 @@
 		trans_data["viruses"] = temp
 	return trans_data
 
-/datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL)
+/datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL, taste_category = TASTE_CATEGORY_ORGANIC)
 	var/list/out = list()
 	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
 	//mobs should get this message when either they cannot taste, the tastes are all too weak for them to detect, or the tastes somehow don't have any strength
 	var/no_taste_text = "something indescribable"
-	if(minimum_percent > 100)
+	if(minimum_percent > 100 || taste_category == TASTE_CATEGORY_NONE)
 		return no_taste_text
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(!R.taste_mult)
 			continue
 		//nutriment carries a list of tastes that originates from the snack food that the nutriment came from
-		if(istype(R, /datum/reagent/consumable/nutriment))
+		if(istype(R, /datum/reagent/consumable/nutriment) && taste_category & TASTE_CATEGORY_ORGANIC)
 			var/list/nutriment_taste_data = R.data
 			for(var/nutriment_taste in nutriment_taste_data)
 				var/ratio = nutriment_taste_data[nutriment_taste]
@@ -957,14 +957,18 @@
 				else
 					reagent_tastes[nutriment_taste] = amount
 		else
-			var/taste_desc = R.taste_description
+			var/taste_desc = R.yuck_description
+			if(taste_category & R.taste_flag) // if they can taste this category, give them the real taste description
+				taste_desc = R.taste_description
+			if(!taste_desc) // if the description ends up empty, skip this taste
+				continue
 			var/taste_amount = R.volume * R.taste_mult
 			if(taste_desc in reagent_tastes)
 				reagent_tastes[taste_desc] += taste_amount
 			else
 				reagent_tastes[taste_desc] = taste_amount
 	//deal with percentages
-	//TODO: may want to sort these from strong to weak
+	sortTim(reagent_tastes)
 	var/total_taste = counterlist_sum(reagent_tastes)
 	if(total_taste <= 0)
 		return no_taste_text
@@ -972,7 +976,7 @@
 		var/percent = (reagent_tastes[taste_desc] / total_taste) * 100
 		if(percent < minimum_percent) //the lower the minimum percent, the more sensitive the message is
 			continue
-		var/intensity_desc = "a hint of"
+		var/intensity_desc = pick("a hint of", "a dash of", "a bit of")
 		if(percent > minimum_percent * 3 && percent != 100)
 			intensity_desc = "a strong flavor of"
 		else if(percent > minimum_percent * 2 || percent == 100)

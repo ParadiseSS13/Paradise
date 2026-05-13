@@ -14,6 +14,7 @@
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	taste_description = "water"
+	taste_flag = ORGANIC | SYNTHETIC
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
@@ -38,6 +39,7 @@
 	color = "#1BB1AB"
 	harmless = TRUE
 	taste_description = "cherry"
+	yuck_description = "smooth joints"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -51,7 +53,9 @@
 	reagent_state = LIQUID
 	color = "#61C2C2"
 	harmless = TRUE
-	taste_description = "floor cleaner"
+	taste_description = "squeaky clean components"
+	taste_flag = SYNTHETIC
+	yuck_description = "floor cleaner"
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
@@ -96,6 +100,7 @@
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
 	taste_description = SPAN_WARNING("blood")
+	yuck_description = "grime in your gears"
 	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -253,6 +258,7 @@
 	reagent_state = LIQUID
 	color = "#757547"
 	taste_description = "puke"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -273,6 +279,7 @@
 	id = "toiletwater"
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
 	taste_description = "the inside of a toilet... or worse"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
 	return
@@ -288,6 +295,7 @@
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
 	taste_description = "water"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -456,6 +464,7 @@
 		but is incredibly harmful to the closed-minded. It metabolizes very quickly."
 	taste_description = "Ag'hsj'saje'sh"
 	process_flags = ORGANIC | SYNTHETIC
+	taste_flag = ORGANIC | SYNTHETIC
 	color = "#1f8016"
 	metabolization_rate = 1
 
@@ -524,6 +533,7 @@
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
 	taste_description = "burning"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -541,6 +551,7 @@
 	description = "You don't even want to think about what's in here."
 	reagent_state = LIQUID
 	taste_description = "meat"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
@@ -554,6 +565,7 @@
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
 	taste_description = SPAN_USERDANGER("ACID")//don't drink lye, kids
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
@@ -562,6 +574,7 @@
 	reagent_state = LIQUID
 	color = "#A70FFF"
 	taste_description = "dry mouth"
+	yuck_description = "dry chassis"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
 	if(istype(T) && T.wet)
@@ -580,6 +593,7 @@
 	reagent_state = LIQUID
 	color = "#29262b"
 	taste_description = "burnt dirt"
+	yuck_description = "powder coating"
 
 /datum/reagent/tar_compound
 	name = "Sticky tar"
@@ -588,6 +602,7 @@
 	reagent_state = LIQUID
 	color = "#4B4B4B"
 	taste_description = "processed sludge"
+	yuck_description = "sticky grime in your gears"
 
 /datum/reagent/tar_compound/reaction_turf(turf/simulated/T, volume)
 	if(volume < 1 || !issimulatedturf(T))
