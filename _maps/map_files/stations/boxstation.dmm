@@ -34027,6 +34027,10 @@
 	pixel_x = 3;
 	pixel_y = -7
 	},
+/obj/item/lightreplacer{
+	pixel_y = 6;
+	pixel_x = -2
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cDc" = (
@@ -52872,7 +52876,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "hjH" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -60377,6 +60380,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/hop{
 	dir = 8
 	},
+/obj/item/desk_bell{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/hop)
 "kBr" = (
@@ -64144,6 +64150,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"mjr" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/wood,
+/area/station/public/vacant_office)
 "mjE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
@@ -66144,6 +66154,25 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/indestructible/titanium,
 /area/shuttle/arrival/station)
+"ngy" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
+	dir = 1
+	},
+/obj/item/desk_bell{
+	anchored = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hydroponics)
 "ngD" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
@@ -66742,6 +66771,11 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/general{
 	dir = 4
+	},
+/obj/item/desk_bell{
+	pixel_x = -5;
+	pixel_y = 4;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
@@ -105068,7 +105102,7 @@ bmo
 brl
 bss
 bqr
-brU
+mjr
 brU
 wbo
 bBH
@@ -131286,7 +131320,7 @@ brr
 brr
 brr
 bxL
-gLf
+ngy
 bAr
 boi
 wBF
