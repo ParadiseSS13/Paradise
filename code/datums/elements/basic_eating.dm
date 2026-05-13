@@ -109,8 +109,6 @@
 		var/obj/item/stack/food_stack = target
 		final_target = food_stack.split(eater, 1)
 
-	add_attack_logs(eater, target, "eaten, [add_to_contents ? "consuming it" : "destroying it"]")
-
 	if(add_to_contents)
 		var/atom/movable/movable_target = final_target
 		movable_target.forceMove(eater)
