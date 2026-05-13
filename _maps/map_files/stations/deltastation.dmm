@@ -17020,7 +17020,8 @@
 /obj/structure/cable,
 /obj/item/desk_bell{
 	pixel_y = 9;
-	pixel_x = -4
+	pixel_x = -4;
+	anchored = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
@@ -67029,7 +67030,8 @@
 	},
 /obj/item/desk_bell{
 	pixel_y = 9;
-	pixel_x = -4
+	pixel_x = -4;
+	anchored = 1
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "rnd"
@@ -81903,7 +81905,8 @@
 	},
 /obj/item/desk_bell{
 	pixel_y = 9;
-	pixel_x = -4
+	pixel_x = -4;
+	anchored = 1
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "genetics_shutters";
@@ -82422,7 +82425,8 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/desk_bell{
 	pixel_y = 9;
-	pixel_x = -4
+	pixel_x = -4;
+	anchored = 1
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "robo"
@@ -89117,7 +89121,8 @@
 	},
 /obj/item/desk_bell{
 	pixel_y = 9;
-	pixel_x = -4
+	pixel_x = -4;
+	anchored = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance{
 	dir = 8
