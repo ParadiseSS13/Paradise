@@ -279,7 +279,6 @@
 	id = "toiletwater"
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
 	taste_description = "the inside of a toilet... or worse"
-	yuck_description = "grime in your gears"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
 	return

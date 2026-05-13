@@ -406,7 +406,6 @@
 	drink_name = "Cafe Mocha"
 	drink_desc = "The perfect blend of coffee, milk, and chocolate."
 	taste_description = "chocolatey coffee"
-	yuck_description = "sticky grit in your tubes"
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/pumpkin_latte
 	name = "Pumpkin Latte"
@@ -418,7 +417,6 @@
 	drink_name = "Pumpkin Latte"
 	drink_desc = "A mix of coffee and pumpkin juice."
 	taste_description = "overpriced hipster spices"
-	yuck_description = "sticky grit in your tubes"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/tea
