@@ -59,6 +59,7 @@
 		SPAN_NOTICE("[user] attaches [signal] to [src]."),
 		SPAN_NOTICE("You attach [signal] to [src].")
 	)
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/desk_bell/proc/on_signal()
@@ -71,12 +72,14 @@
 	if(!ring_bell(user, from_signaler) && user)
 		to_chat(user, SPAN_NOTICE("[src] is silent. Some idiot broke it."))
 	ring_cooldown = world.time + ring_cooldown_length
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/desk_bell/attack_hand(mob/living/user)
 	if(in_inventory && ishuman(user))
 		if(!user.get_active_hand())
 			user.put_in_hands(src)
+			add_fingerprint(user)
 			return TRUE
 	return try_ring(user)
 
