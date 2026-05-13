@@ -97,9 +97,15 @@
 /obj/item/food/salad/ash_salad
 	name = "Ashlander Salad"
 	desc = "A salad of edible fauna and flora from an ashy wasteland."
+	resistance_flags = FIRE_PROOF
 	icon_state = "ash_salad"
 	list_reagents = list("protein" = 2, "vitamin" = 2, "plantmatter" = 2, "vitfro" = 1, "nicotine" = 2) // Nutritious and addictive
 	tastes = list("meat" = 1, "cactus fruit" = 2, "mushroomy cabbage" = 1, "ash" = 1)
+
+/obj/item/food/salad/ash_salad/burn()
+	visible_message(SPAN_NOTICE("[src] burns, leaving only the Goliath Steak!")) // The steak is lavaproof, the rest is only fireproof
+	new /obj/item/food/goliath_steak(loc)
+	qdel(src)
 
 /obj/item/food/salad/caesar
 	name = "Caesar salad"
