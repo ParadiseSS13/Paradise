@@ -58,6 +58,7 @@
 		return ITEM_INTERACT_COMPLETE
 	internal_paper.forceMove(get_turf(src))
 	user.put_in_hands(internal_paper)
+	internal_paper.add_fingerprint(user)
 	internal_paper = null
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
@@ -70,6 +71,7 @@
 	if(istype(used, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
 		internal_paper.item_interaction(user, used) // spoofed attack to update internal paper.
 		update_icon()
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(used.get_heat())
@@ -120,5 +122,7 @@
 		user.unequip(src) // forceMove happens in paperplane/Initialize
 		I = new /obj/item/paperplane(user, src)
 		user.put_in_hands(I)
+		add_fingerprint(user)
+		I.add_fingerprint(user)
 	else
 		to_chat(user, SPAN_NOTICE("You lack the dexterity to fold [src]."))
