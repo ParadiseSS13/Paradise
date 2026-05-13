@@ -5,4 +5,4 @@
 
 
 /datum/event/carp_migration/whale/start()
-	spawn_fish(rand(1, 2), 1, 3) //Whales are rather big and can cause good damage if angered so keeping numbers low
+	spawn_fish(rand(1, 2), 1, 3) // Whales are rather big and can cause good damage if angered so keeping numbers low
