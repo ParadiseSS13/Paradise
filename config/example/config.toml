@@ -686,6 +686,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/emptyshell.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/engineering_vessel.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/gas_station.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",

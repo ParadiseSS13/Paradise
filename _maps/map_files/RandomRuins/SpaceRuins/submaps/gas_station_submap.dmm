@@ -1,0 +1,128 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"d" = (
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "gas_station_sensor";
+	output = 127
+	},
+/turf/simulated/floor/engine/hydrogen,
+/area/template_noop)
+"e" = (
+/turf/simulated/floor/engine/plasma,
+/area/template_noop)
+"i" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	autolink_id = "gas_station_outlet_scrubber"
+	},
+/turf/simulated/floor/engine/hydrogen,
+/area/template_noop)
+"k" = (
+/obj/item/toy/plushie/plasmamanplushie,
+/obj/item/clothing/mask/cigarette/rollie{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/turf/simulated/floor/engine/plasma,
+/area/template_noop)
+"p" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/gas_station/fuel,
+/turf/simulated/floor/engine/plasma,
+/area/template_noop)
+"r" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine/hydrogen,
+/area/template_noop)
+"x" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine/plasma,
+/area/template_noop)
+"A" = (
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "gas_station_sensor";
+	output = 127
+	},
+/turf/simulated/floor/engine/plasma,
+/area/template_noop)
+"D" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	autolink_id = "gas_station_outlet_scrubber"
+	},
+/turf/simulated/floor/engine/plasma,
+/area/template_noop)
+"J" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/gas_station/fuel,
+/turf/simulated/floor/engine/hydrogen,
+/area/template_noop)
+"Q" = (
+/turf/simulated/floor/engine/hydrogen,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+e
+e
+p
+a
+"}
+(3,1,1) = {"
+a
+e
+A
+D
+a
+"}
+(4,1,1) = {"
+a
+x
+k
+e
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+Q
+Q
+J
+a
+"}
+(7,1,1) = {"
+a
+Q
+d
+i
+a
+"}
+(8,1,1) = {"
+a
+r
+k
+Q
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+a
+a
+"}
