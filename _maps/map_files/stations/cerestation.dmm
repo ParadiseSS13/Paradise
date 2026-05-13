@@ -23907,11 +23907,11 @@
 /area/station/supply/storage)
 "dSn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/morgue{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/morgue/manual_rotation{
 	name = "Private Study";
 	req_access = list(37)
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "dSo" = (

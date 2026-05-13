@@ -201,6 +201,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/market_crash, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/cargo_pods, 50),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_irradiated_mouse, 20),
 	)
 
 /datum/event_container/major
