@@ -968,7 +968,7 @@
 			else
 				reagent_tastes[taste_desc] = taste_amount
 	//deal with percentages
-	sortTim(reagent_tastes)
+	sortTim(reagent_tastes, cmp = GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
 	var/total_taste = counterlist_sum(reagent_tastes)
 	if(total_taste <= 0)
 		return no_taste_text
