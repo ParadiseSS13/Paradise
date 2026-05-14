@@ -27224,7 +27224,9 @@
 /obj/machinery/camera/toxins{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/airless,
+/turf/simulated/floor/indestructible/airless{
+	icon_state = "engine"
+	},
 /area/station/science/toxins/test)
 "cZc" = (
 /obj/structure/cable/yellow,
