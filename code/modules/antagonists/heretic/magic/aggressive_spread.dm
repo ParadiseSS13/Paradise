@@ -33,10 +33,12 @@
 		if(prob(chance_of_not_rusting))
 			continue
 		for(var/atom/victim in target_turfs)
+			if(isairlock(victim))
+				continue
 			if(isliving(user))
 				user.do_rust_heretic_act(victim)
-			else
-				victim.rust_heretic_act()
+				continue
+			victim.rust_heretic_act()
 		if(isliving(user))
 			user.do_rust_heretic_act(target_turfs)
 		else

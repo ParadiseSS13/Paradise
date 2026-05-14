@@ -16,7 +16,7 @@
 	/// How many times a Drask has chewed on this bar of soap.
 	var/times_eaten = 0
 	/// The maximum amount of bites before the soap is depleted.
-	var/max_bites = 30 
+	var/max_bites = 30
 
 /obj/item/soap/Initialize(mapload)
 	. = ..()
@@ -41,7 +41,7 @@
 		SPAN_WARNING("[user] starts washing [target == user ? "[target.p_their()] own" : "[target]'s"] mouth out with [src]!"),
 		SPAN_NOTICE("You start washing [target == user ? "your own" : "[target]'s"] mouth out with [src]!")
 	)
-	if(do_after(user, cleanspeed, target = target))
+	if(do_after_once(user, cleanspeed, target = target))
 		user.visible_message(
 			SPAN_WARNING("[user] washes [target == user ? "[target.p_their()] own" : "[target]'s"] mouth out with [src]!"),
 			SPAN_WARNING("You wash [target == user ? "your own" : "[target]'s"] mouth out with [src]!")

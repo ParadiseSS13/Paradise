@@ -52,7 +52,6 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/reactor_chamber(src)
 	component_parts += new /obj/item/stock_parts/manipulator(src)
-	component_parts += new /obj/item/stack/sheet/mineral/plastitanium(src, 2)
 	component_parts += new /obj/item/stack/sheet/metal(src, 2)
 	component_parts += new /obj/item/stack/cable_coil(src, 5)
 	RefreshParts()

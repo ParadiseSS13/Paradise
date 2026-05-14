@@ -124,6 +124,22 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"db" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_int";
+	locked = 1;
+	name = "Supermatter Interior Access";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "de" = (
 /obj/effect/turf_decal/trimline/misc/toxins/filled/shrink_cw{
 	dir = 4
@@ -135,14 +151,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"dh" = (
-/obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1;
-	name = "Supermatter Chamber"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/supermatter)
 "du" = (
 /obj/machinery/light{
 	dir = 8
@@ -168,21 +176,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/station/engineering/control)
-"dI" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	locked = 1;
-	name = "Supermatter Interior Access"
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "dJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -220,17 +213,18 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"eT" = (
+"fa" = (
+/obj/machinery/door/airlock/engineering/glass{
+	heat_proof = 1;
+	name = "Supermatter Chamber";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Laser Room"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
-/area/station/engineering/control)
+/area/station/engineering/engine/supermatter)
 "fb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -473,6 +467,20 @@
 	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine,
+/area/station/engineering/control)
+"hQ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_int";
+	locked = 1;
+	name = "Supermatter Interior Access";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "hV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -953,6 +961,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"or" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Laser Room";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/engine,
+/area/station/engineering/control)
 "ox" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1020,6 +1040,17 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"oS" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_ext";
+	locked = 1;
+	name = "Supermatter Exterior Access";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/control)
 "pi" = (
 /obj/structure/rack{
 	dir = 1
@@ -1051,16 +1082,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"pJ" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	locked = 1;
-	name = "Reactor Interior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/control)
 "pK" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/delivery/hollow,
@@ -1070,6 +1091,17 @@
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
+"pS" = (
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_int";
+	locked = 1;
+	name = "Reactor Interior Access";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "qe" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -1084,21 +1116,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"qq" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_ext";
-	locked = 1;
-	name = "Reactor Exterior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/control)
 "qu" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -1169,16 +1186,6 @@
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
-"rB" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Fabrication"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/control)
 "rE" = (
 /obj/machinery/atmospherics/unary/reactor_gas_node{
 	dir = 1
@@ -1319,16 +1326,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"tF" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_ext";
-	locked = 1;
-	name = "Reactor Exterior Access"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/control)
 "tI" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -1348,19 +1345,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"tP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	locked = 1;
-	name = "Supermatter Interior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/control)
 "tR" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1377,6 +1361,17 @@
 	filter_type = 2
 	},
 /turf/simulated/floor/engine,
+/area/station/engineering/control)
+"uf" = (
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_int";
+	locked = 1;
+	name = "Supermatter Interior Access";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "up" = (
 /obj/structure/table/reinforced,
@@ -1467,21 +1462,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/control)
-"vJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	locked = 1;
-	name = "Reactor Interior Access"
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "vL" = (
 /obj/machinery/access_button{
@@ -1579,27 +1559,6 @@
 /obj/structure/reflector/single{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/control)
-"xr" = (
-/obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1;
-	name = "Supermatter Chamber"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/supermatter)
-"xy" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	locked = 1;
-	name = "Supermatter Interior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "xE" = (
@@ -2039,6 +1998,18 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/reactor_pool,
 /area/station/engineering/engine/reactor)
+"Ce" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Laser Room";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/station/engineering/control)
 "CA" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution{
@@ -2148,16 +2119,6 @@
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"EK" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_ext";
-	locked = 1;
-	name = "Supermatter Exterior Access"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/control)
 "EM" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/delivery/hollow,
@@ -2272,21 +2233,6 @@
 /obj/machinery/alarm/engine/directional/east,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
-"GH" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_ext";
-	locked = 1;
-	name = "Supermatter Exterior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/control)
 "GM" = (
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
@@ -2504,6 +2450,17 @@
 /obj/machinery/atmospherics/supermatter_crystal,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
+"KP" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Fabrication";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "Lc" = (
 /obj/structure/girder,
 /turf/simulated/floor/plasteel/dark,
@@ -2651,17 +2608,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"Ns" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Laser Room"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/engine,
-/area/station/engineering/control)
 "NM" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -2799,6 +2745,22 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"OL" = (
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_ext";
+	locked = 1;
+	name = "Reactor Exterior Access";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/control)
 "OV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -3211,6 +3173,17 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"UM" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_ext";
+	locked = 1;
+	name = "Reactor Exterior Access";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/control)
 "UO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 5
@@ -3254,6 +3227,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"Vr" = (
+/obj/machinery/door/airlock/engineering/glass{
+	heat_proof = 1;
+	name = "Supermatter Chamber";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/supermatter)
 "Vv" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
@@ -3339,6 +3321,22 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine,
+/area/station/engineering/control)
+"WF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_int";
+	locked = 1;
+	name = "Reactor Interior Access";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "WG" = (
 /obj/effect/turf_decal/trimline/misc/toxins/line{
@@ -3503,6 +3501,22 @@
 	dir = 5
 	},
 /turf/simulated/floor/engine,
+/area/station/engineering/control)
+"Yr" = (
+/obj/machinery/door/airlock/engineering/glass{
+	autoclose = 0;
+	id_tag = "engsm_door_ext";
+	locked = 1;
+	name = "Supermatter Exterior Access";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
 /area/station/engineering/control)
 "Yu" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
@@ -3848,7 +3862,7 @@ SJ
 ld
 bH
 aN
-rB
+KP
 Tk
 MY
 VN
@@ -4208,10 +4222,10 @@ TJ
 TJ
 TJ
 TJ
-tF
+UM
 Ti
 CA
-pJ
+pS
 fq
 lU
 tk
@@ -4312,10 +4326,10 @@ TJ
 TJ
 TJ
 TJ
-qq
+OL
 vA
 fs
-vJ
+WF
 kn
 CY
 zf
@@ -5043,7 +5057,7 @@ TJ
 SJ
 TQ
 oz
-tP
+hQ
 Xu
 Oe
 iI
@@ -5109,7 +5123,7 @@ YG
 ju
 Qb
 mQ
-eT
+Ce
 cs
 NW
 QI
@@ -5307,9 +5321,9 @@ Qv
 Tp
 mg
 Px
-xr
+fa
 Zn
-dh
+Vr
 BS
 KO
 BS
@@ -5404,10 +5418,10 @@ TJ
 TJ
 TJ
 TJ
-EK
+oS
 Ti
 oo
-xy
+uf
 ft
 zZ
 IP
@@ -5508,10 +5522,10 @@ TJ
 TJ
 TJ
 TJ
-GH
+Yr
 vA
 SL
-dI
+db
 zB
 RL
 Dc
@@ -5525,7 +5539,7 @@ YG
 Wq
 Rr
 FO
-Ns
+or
 yX
 Mt
 hC

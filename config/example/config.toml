@@ -42,7 +42,7 @@
 # Set this to true if you are using database-based admins, or false if you want to define them in this file
 # If the database fails, this file will be used as fallback
 use_database_admins = false
-# Auto authenticate localhost users as admin? Useful for test servers, disable in producation
+# Auto authenticate localhost users as admin? Useful for test servers, disable in production
 enable_localhost_autoadmin = true
 # List of admin rank assignments and their permissions
 # These names ARE CASE SENSITIVE
@@ -687,6 +687,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/engineering_vessel.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/freighter.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/intactemptyship.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/kappalab.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/listeningpost.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/meatpackers.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/mechtransport.dmm",

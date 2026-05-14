@@ -104,3 +104,5 @@ GLOBAL_LIST_INIT(blacklisted_heretic_areas, list(
 	/area/station/aisat,
 	/area/station/science/toxins/test,
 	))
+
+GLOBAL_LIST_EMPTY(starlight) // Turfs that emit starlight

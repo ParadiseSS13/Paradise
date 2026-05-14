@@ -55,6 +55,9 @@
 		origin_machine_defeated()
 		return
 
+	if(activeFor < 4) // Early check to prevent the event from dying on spawn
+		return
+
 	if(!length(vendingMachines))	//if every machine is infected
 		for(var/thing in infectedMachines)
 			var/obj/machinery/economy/vending/upriser = thing

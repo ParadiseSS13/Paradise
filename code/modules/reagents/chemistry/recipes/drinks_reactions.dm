@@ -1116,11 +1116,11 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/howler
-	name = "Howler"
-	id = "howler"
-	result = "howler"
-	required_reagents = list("limejuice" = 1, "lemon_lime" = 1, "orangejuice" = 1, "tequila" = 2)
+/datum/chemical_reaction/durkehiet
+	name = "Durkehiet"
+	id = "durkehiet"
+	result = "durkehiet"
+	required_reagents = list("vodka" = 2, "triple_citrus" = 1, "honey" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 

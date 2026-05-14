@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# init-db
+# Initialize a MariaDB container to act as a database
+
+set -euo pipefail
+
+DB_CONTAINER="paradise_db"
+DB_VOLUME="paradise_db_data"
+MYSQL_DATABASE="paradise_gamedb"
+MYSQL_USER="ss13"
+NETWORK_NAME="paradise_net"
+ROOT_PW_FILE="secret/db-root-password.txt"
+SS13_PW_FILE="secret/db-ss13-password.txt"
+
+# make sure we're at the root of the repository
+if [ ! -f "Dockerfile" ]; then
+    echo >&2 "Error: No Dockerfile found. Are you at the repository root?"
+    exit 1
+fi
+
+# verify schema exists
+if [ ! -f "SQL/paradise_schema.sql" ]; then
+    echo >&2 "Error: Unable to find SQL/paradise_schema.sql (run this from the repo root)."
+    exit 1
+fi
+
+# make sure we've got a secrets directory to save things
+mkdir -p secret
+
+# refuse to clobber an existing container
+if docker ps -a --format '{{.Names}}' | grep -qx "${DB_CONTAINER}"; then
+    echo >&2 "Error: A container named '${DB_CONTAINER}' already exists."
+    echo >&2 "If you meant to re-create it, run: docker rm -f ${DB_CONTAINER}"
+    echo >&2 "Your data volume is: ${DB_VOLUME}"
+    exit 1
+fi
+
+# if the data volume already exists
+if docker volume inspect "${DB_VOLUME}" >/dev/null 2>&1; then
+    echo "Found existing volume '${DB_VOLUME}'. Reusing existing database volume and credentials."
+
+    # ensure credentials exist; if not, fail loudly (don't invent new ones)
+    if [ ! -f "${ROOT_PW_FILE}" ] || [ ! -f "${SS13_PW_FILE}" ]; then
+        echo >&2 "Error: Volume '${DB_VOLUME}' exists, but credential files are missing:"
+        echo >&2 "  ${ROOT_PW_FILE}"
+        echo >&2 "  ${SS13_PW_FILE}"
+        echo >&2 "Without the original passwords, you must either:"
+        echo >&2 "  A) recover the password files from backups, or"
+        echo >&2 "  B) delete the volume to re-initialize (DATA LOSS): docker volume rm ${DB_VOLUME}"
+        exit 1
+    fi
+
+    # read existing credentials
+    MYSQL_ROOT_PASSWORD="$(<"${ROOT_PW_FILE}")"
+    MYSQL_PASSWORD="$(<"${SS13_PW_FILE}")"
+
+# since the data volume doesn't already exist
+else
+    echo "No existing volume '${DB_VOLUME}'. Initializing a fresh database volume."
+
+    # create the persistent volume for MariaDB data
+    docker volume create "${DB_VOLUME}" >/dev/null
+
+    # generate secure passwords (32 chars)
+    MYSQL_PASSWORD="$(dd if=/dev/urandom bs=1 count=32 2>/dev/null | base64 | head -c 32)"
+    MYSQL_ROOT_PASSWORD="$(dd if=/dev/urandom bs=1 count=32 2>/dev/null | base64 | head -c 32)"
+
+    # save credentials (overwrite intentionally on first init)
+    echo "${MYSQL_ROOT_PASSWORD}" >secret/db-root-password.txt
+    echo "${MYSQL_PASSWORD}" >secret/db-ss13-password.txt
+fi
+
+# make sure the server can connect to this database via a docker network
+docker network create "${NETWORK_NAME}" >/dev/null 2>&1 || true
+
+# create the container and import the Paradise database schema
+    # --publish 3306:3306 \  <== add this below if you want to connect to the database from outside Docker
+docker run \
+    --detach \
+    --env MYSQL_DATABASE="${MYSQL_DATABASE}" \
+    --env MYSQL_PASSWORD="${MYSQL_PASSWORD}" \
+    --env MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}" \
+    --env MYSQL_USER="${MYSQL_USER}" \
+    --mount type=bind,src="${PWD}/SQL",dst=/docker-entrypoint-initdb.d,readonly \
+    --name "${DB_CONTAINER}" \
+    --network "${NETWORK_NAME}" \
+    --volume "${DB_VOLUME}:/var/lib/mysql" \
+    mariadb:12

@@ -121,6 +121,22 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/welded
 	welded = TRUE
 
+/// Special case so spawners with doors autorotate, otherwise identicle
+/obj/machinery/door/airlock/spawner
+
+/obj/machinery/door/airlock/spawner/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/// Lateint required to actually rotate
+/obj/machinery/door/airlock/spawner/LateInitialize()
+	. = ..()
+	var/direction = get_current_direction()
+	dir = direction
+
+/obj/machinery/door/airlock/spawner/welded
+	welded = TRUE
+
 /*
  * reimp, imitate an access denied event.
  */
@@ -160,6 +176,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		max_integrity = normal_integrity
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
+	var/direction = get_current_direction()
+	dir = direction ? direction : NORTH
 	update_icon()
 	prepare_huds()
 	for(var/hud_key, hud in GLOB.huds)
