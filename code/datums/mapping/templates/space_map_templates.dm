@@ -481,4 +481,10 @@
 	suffix = "gas_station.dmm"
 	name = "Gas Station Name Pending"
 	description = "A small locally owned station to get that good stuff! We mean fuel of course."
+
+/datum/map_template/ruin/space/kappa_lab
+	id = "kappa_lab"
+	suffix = "kappalab.dmm"
+	name = "The Kappa Lab"
+	description = "An all-around lab held once in pristine condition has now fallen to into less desirable hands."
 	allow_duplicates = FALSE
