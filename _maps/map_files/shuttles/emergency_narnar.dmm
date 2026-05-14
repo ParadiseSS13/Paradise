@@ -280,6 +280,13 @@
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
+"dy" = (
+/obj/machinery/door/airlock/cult/glass/friendly{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
 "dG" = (
 /obj/effect/rune/empower,
 /turf/simulated/floor/engine/cult,
@@ -467,11 +474,6 @@
 /obj/item/melee/cultblade/dagger,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
-"Fa" = (
-/obj/machinery/door/airlock/cult/glass/friendly,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
 "Gi" = (
 /obj/structure/table/reinforced/cult/no_metal,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
@@ -498,6 +500,12 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"Hz" = (
+/obj/machinery/door/airlock/cult/glass/friendly{
+	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -546,6 +554,13 @@
 "Mb" = (
 /obj/structure/table/reinforced/cult/no_metal,
 /obj/item/tome,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"MF" = (
+/obj/machinery/door/airlock/cult/glass/friendly{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "MR" = (
@@ -733,7 +748,7 @@ aj
 aj
 aj
 aj
-aa
+Hz
 aj
 aj
 aj
@@ -896,13 +911,13 @@ aj
 az
 aj
 af
-Fa
+dy
 aj
 aj
 LV
 aj
 aj
-OM
+MF
 aj
 aj
 ah

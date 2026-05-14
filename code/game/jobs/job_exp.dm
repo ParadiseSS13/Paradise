@@ -30,6 +30,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_CULTIST = 20,
 	ROLE_ALIEN = 10,
 	ROLE_ABDUCTOR = 20,
+	ROLE_UPLIFTED_PRIMITIVE = 10,
 ))
 
 // Admin Verbs
