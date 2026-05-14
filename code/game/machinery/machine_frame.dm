@@ -777,7 +777,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/autoclave
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;biotech=3"
+	origin_tech = "biotech=2;materials=2;magnets=3"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/sheet/glass = 1
