@@ -22990,7 +22990,6 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
 	},
-/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "dHN" = (
@@ -49744,32 +49743,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
 "jvU" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/turf_decal/tiles/department/science/side,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/science/side,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 6;
-	pixel_y = 3
-	},
 /obj/structure/table/reinforced,
 /obj/item/storage/belt/utility,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "jvX" = (
