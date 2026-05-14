@@ -47,6 +47,7 @@
 #define ROLE_ELITE				"lavaland elite"
 #define ROLE_NINJA				"ninja"
 #define ROLE_FLOCK				"flockmind"
+#define ROLE_IRRADIATED_MOUSE	"irradiated mouse"
 #define ROLE_UPLIFTED_PRIMITIVE	"uplifted primitive"
 
 // Misc jobban categories
@@ -75,6 +76,8 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_MIND_FLAYER,
 	ROLE_HERETIC,
 	ROLE_NINJA,
+	ROLE_IRRADIATED_MOUSE,
+
 	ROLE_UPLIFTED_PRIMITIVE,
 	ROLE_FLOCK,
 	// UNUSED/BROKEN ANTAGS

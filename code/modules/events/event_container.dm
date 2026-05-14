@@ -201,6 +201,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/market_crash, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/cargo_pods, 50),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spawn_floor_cluwne, 3),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_irradiated_mouse, 20),
 	)
 
 /datum/event_container/major
@@ -224,6 +225,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 16, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_uplifted_primitive, 16, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/aurora_caelus, 5, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration/whale, 10, is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
 

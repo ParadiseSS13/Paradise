@@ -62019,7 +62019,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "mxo" = (
-/obj/machinery/door/morgue{
+/obj/machinery/door/morgue/manual_rotation{
 	name = "Confession Booth"
 	},
 /turf/simulated/floor/plating,
@@ -67473,9 +67473,8 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "nAB" = (
-/obj/machinery/door/morgue{
-	name = "Confession Booth (Chaplain)";
-	req_access = list(22)
+/obj/machinery/door/morgue/manual_rotation{
+	name = "Confession Booth (Chaplain)"
 	},
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
@@ -72614,7 +72613,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "oyD" = (
-/obj/machinery/door/morgue{
+/obj/machinery/door/morgue/manual_rotation{
 	name = "Study #2"
 	},
 /turf/simulated/floor/wood,
@@ -78854,10 +78853,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "pHY" = (
-/obj/machinery/door/morgue{
-	name = "Private Study";
-	req_access = list(37)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -78865,6 +78860,10 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/morgue/manual_rotation{
+	name = "Private Study";
+	req_access = list(37)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -118474,7 +118473,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/apmaint)
 "xDO" = (
-/obj/machinery/door/morgue{
+/obj/machinery/door/morgue/manual_rotation{
 	name = "Study #1"
 	},
 /turf/simulated/floor/wood,
