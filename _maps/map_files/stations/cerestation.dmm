@@ -27853,7 +27853,7 @@
 /area/station/science/toxins/launch)
 "eMb" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable/orange,
+/obj/structure/cable/extra_insulated,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "eMc" = (
