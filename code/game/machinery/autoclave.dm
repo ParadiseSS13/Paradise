@@ -27,7 +27,7 @@
 	/// What is currently inside the autoclave
 	var/obj/item/occupant
 	/// Visual
-	var/obj/effect/occupant_overlay = null
+	var/obj/effect/occupant_overlay
 
 /obj/machinery/autoclave/Initialize(mapload)
 	. = ..()
@@ -36,10 +36,10 @@
 	update_appearance(UPDATE_OVERLAYS)
 	// Stock parts
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/autoclave(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/circuitboard/autoclave(src)
+	component_parts += new /obj/item/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/stack/sheet/glass(src)
 	RefreshParts()
 
 /obj/machinery/autoclave/Destroy()
