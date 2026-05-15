@@ -90272,12 +90272,11 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
-/obj/machinery/door/airlock/command/glass{
-	dir = 4;
-	id = NT
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "NT"
+	},
+/obj/machinery/door/airlock/command/glass{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -96334,12 +96333,11 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
-/obj/machinery/door/airlock/command/glass{
-	dir = 4;
-	id = BS
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "BS"
+	},
+/obj/machinery/door/airlock/command/glass{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
