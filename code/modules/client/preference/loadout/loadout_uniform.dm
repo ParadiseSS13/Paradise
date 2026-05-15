@@ -722,3 +722,15 @@
 	display_name = "Orange Hawaiian T-Shirt"
 	description = "A nice t-shirt to remind about warm beaches. This one is orange."
 	path = /obj/item/clothing/under/misc/orangehawaiianshirt
+
+/datum/gear/uniform/suit/baseball
+	display_name = "Baseball Uniform, Generic"
+	path = /obj/item/clothing/under/misc/baseball
+
+/datum/gear/uniform/suit/baseballtsf
+	display_name = "Baseball Uniform, Trans-Solar Federation"
+	path = /obj/item/clothing/under/misc/baseball/solgov
+
+/datum/gear/uniform/suit/baseballnt
+	display_name = "Baseball Uniform, Nanotrasen"
+	path = /obj/item/clothing/under/misc/baseball/nanotrasen

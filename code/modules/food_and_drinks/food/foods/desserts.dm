@@ -70,9 +70,20 @@
 	tastes = list("vanilla" = 2, "chewiness" = 1)
 	goal_difficulty = FOOD_GOAL_HARD
 
-//////////////////////
-//	Mug Cakes from Hispania!	//
-//////////////////////
+////////////////////////
+// 		Hispania!		//
+////////////////////////
+
+/obj/item/food/mousse_avocado
+	name = "Avocado Chocolate Mousse"
+	desc = "A mousse made of avocado and cacao."
+	icon_state = "mousse_avocado"
+	bitesize = 1
+	trash = /obj/item/trash/empty_plasticcup
+	list_reagents = list("nutriment" = 1, "chocolate" = 4, "cream" = 3)
+	filling_color = "#462B00"
+	tastes = list("quality chocolate" = 1)
+
 /obj/item/food/mugcake
 	name = "mugcake"
 	desc = "A delicious and spongy little cake inside a coffee mug."
@@ -155,6 +166,5 @@
 	desc = "A delicious and spongy little honey cake inside a coffee mug."
 	icon_state = "honey_mugcake"
 	list_reagents = list("nutriment" = 6)
-
 
 // ---------- END of imports from Hispania!
