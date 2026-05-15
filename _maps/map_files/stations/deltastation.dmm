@@ -90276,7 +90276,9 @@
 	dir = 4;
 	id = NT
 	},
-/obj/effect/mapping_helpers/airlock/polarized,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "NT"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "urr" = (
@@ -96336,7 +96338,9 @@
 	dir = 4;
 	id = BS
 	},
-/obj/effect/mapping_helpers/airlock/polarized,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "BS"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "wLb" = (
