@@ -24,7 +24,7 @@
 	faction = list("neutral", "whale")
 	weather_immunities = list("lava","ash", "burn", "rad")
 	step_type = FOOTSTEP_MOB_HEAVY
-	true_spawn = FALSE
+	true_spawn = TRUE
 	internal_gps = /obj/item/gps/internal/space_whale
 	ai_controller = /datum/ai_controller/basic_controller/space_whale
 	innate_actions = list(
