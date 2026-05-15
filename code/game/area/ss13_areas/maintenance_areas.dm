@@ -393,3 +393,40 @@
 /area/station/maintenance/service/port
 	name = "\improper Port Service Maintenance"
 	icon_state = "serv_maint_port"
+
+// MARK: Science
+/area/station/maintenance/science
+	name = "\improper Science Maintenance"
+	icon_state = "sci_maint"
+
+/area/station/maintenance/science/fore
+	name = "\improper Fore Science Maintenance"
+	icon_state = "sci_maint_fore"
+
+/area/station/maintenance/science/fore_starboard
+	name = "\improper Fore-Starboard Science Maintenance"
+	icon_state = "sci_maint_fore_starboard"
+
+/area/station/maintenance/science/fore_port
+	name = "\improper Fore-Port Science Maintenance"
+	icon_state = "sci_maint_fore_port"
+
+/area/station/maintenance/science/aft
+	name = "\improper Aft Science Maintenance"
+	icon_state = "sci_maint_aft"
+
+/area/station/maintenance/science/aft_starboard
+	name = "\improper Aft-Starboard Science Maintenance"
+	icon_state = "sci_maint_aft_starboard"
+
+/area/station/maintenance/science/aft_port
+	name = "\improper Aft-Port Science Maintenance"
+	icon_state = "sci_maint_aft_port"
+
+/area/station/maintenance/science/starboard
+	name = "\improper Starboard Science Maintenance"
+	icon_state = "sci_maint_starboard"
+
+/area/station/maintenance/science/port
+	name = "\improper Port Science Maintenance"
+	icon_state = "sci_maint_port"

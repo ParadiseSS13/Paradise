@@ -26858,7 +26858,9 @@
 /turf/simulated/wall,
 /area/station/service/library)
 "cdC" = (
-/obj/machinery/door/morgue,
+/obj/machinery/door/morgue/manual_rotation{
+	name = "Study #2"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cdD" = (
@@ -30886,12 +30888,12 @@
 /turf/simulated/wall,
 /area/station/service/library)
 "csI" = (
-/obj/machinery/door/morgue{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/morgue/manual_rotation{
 	name = "Private Study";
 	req_access = list(37)
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "csJ" = (
@@ -33089,9 +33091,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "czG" = (
-/obj/machinery/space_heater,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/maintenance/port)
+/area/station/public/storefront)
 "czH" = (
 /obj/machinery/light{
 	dir = 8
@@ -33542,19 +33544,25 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
 "cBb" = (
-/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/neutral,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
-"cBd" = (
 /obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/storefront)
+"cBd" = (
 /obj/effect/turf_decal/tiles/neutral/side{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
+/area/station/public/storefront)
 "cBe" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/glass/fifty{
@@ -34287,23 +34295,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cDX" = (
-/obj/effect/turf_decal/tiles/neutral,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
+/turf/simulated/wall,
+/area/station/public/storefront)
 "cDZ" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/port)
-"cEa" = (
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/neutral/side{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "cEh" = (
 /obj/machinery/camera{
@@ -46931,8 +46929,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "dQh" = (
-/obj/machinery/door/morgue{
-	name = "Confession Booth"
+/obj/machinery/door/morgue/manual_rotation{
+	name = "Confession Booth (Chaplain)"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
@@ -47245,7 +47243,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "dRN" = (
-/obj/machinery/door/morgue{
+/obj/machinery/door/morgue/manual_rotation{
 	name = "Confession Booth"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -50947,6 +50945,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "eTZ" = (
@@ -60167,15 +60168,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
 "iEX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -61224,6 +61224,14 @@
 /obj/effect/turf_decal/tiles/department/virology/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
+"iZV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/neutral,
+/obj/structure/closet,
+/obj/effect/spawner/random/maintenance,
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/public/storefront)
 "jac" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -64711,6 +64719,11 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
+"kAu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "kAw" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -66730,6 +66743,15 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
+"lrt" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/station/public/storefront)
 "lrF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -74397,6 +74419,15 @@
 "ovL" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/north)
+"owq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "owJ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/service/chapel{
@@ -78734,6 +78765,19 @@
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/station/science/robotics/showroom)
+"qil" = (
+/obj/machinery/door_control{
+	id = "store2";
+	name = "Storefront Shutters Control";
+	pixel_x = 24
+	},
+/obj/machinery/alarm/directional/south,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/structure/table_frame,
+/turf/simulated/floor/plating,
+/area/station/public/storefront)
 "qiP" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 4
@@ -82125,6 +82169,9 @@
 /obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "ryd" = (
@@ -82392,6 +82439,17 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/north)
+"rDk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/catwalk/grey,
+/area/station/public/storefront)
 "rDv" = (
 /obj/structure/table/reinforced,
 /obj/item/rpd,
@@ -84550,6 +84608,16 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"ssA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	name = "Storefront Shutters";
+	id_tag = "store2"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/station/public/storefront)
 "ssO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84732,6 +84800,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
+"sxE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
+	},
+/obj/effect/spawner/random/maintenance,
+/obj/structure/shelf,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/storefront)
 "sxI" = (
 /obj/machinery/light{
 	dir = 8
@@ -89422,6 +89502,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
+"uiR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tiles/neutral,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/station/public/storefront)
 "uiU" = (
 /obj/structure/closet/emcloset,
 /obj/structure/window/reinforced{
@@ -91977,6 +92066,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"vkr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance{
+	name = "Storefront Access";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/station/public/storefront)
 "vku" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -93036,6 +93142,12 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
+"vIt" = (
+/obj/machinery/door/morgue/manual_rotation{
+	name = "Study #1"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/library)
 "vIR" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	autolink_id = "o2_in";
@@ -94525,6 +94637,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
+"wmf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "wmz" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
@@ -97343,6 +97471,15 @@
 /obj/effect/turf_decal/tiles/neutral/side,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
+"xoT" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	name = "Storefront Shutters";
+	id_tag = "store2"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/station/public/storefront)
 "xpf" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -132629,7 +132766,7 @@ bYj
 bYj
 uCq
 cHA
-dhG
+kAu
 drn
 cGi
 dmq
@@ -133140,9 +133277,9 @@ ctN
 cvp
 cwN
 bYj
-cWn
-dhG
-dhG
+cDX
+cDX
+cDX
 cDX
 dhG
 cGs
@@ -133397,10 +133534,10 @@ bwT
 cvq
 cwO
 bYj
-czF
+sxE
 cBb
-cHr
-dlM
+iZV
+cDX
 drn
 eAq
 drn
@@ -133639,7 +133776,7 @@ exy
 bYj
 jRu
 cbO
-cdC
+vIt
 ckj
 crn
 ciz
@@ -133654,11 +133791,11 @@ ctH
 bzx
 cwP
 bYj
-drn
-cHr
-drn
-drn
-dhG
+lrt
+uiR
+rDk
+vkr
+owq
 iEX
 rFW
 rFW
@@ -133913,10 +134050,10 @@ cbK
 bYj
 czG
 cBd
-dlM
-cEa
+qil
+cDX
 cNh
-eAq
+wmf
 jOV
 cIS
 vyZ
@@ -134168,10 +134305,10 @@ bYj
 bYj
 bYj
 bYj
-cHA
-cHA
-cHA
-cHA
+ssA
+xoT
+cDX
+cDX
 cHA
 eTB
 cHA

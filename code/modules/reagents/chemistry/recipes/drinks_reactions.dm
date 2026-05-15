@@ -1423,6 +1423,14 @@
 	result_amount = 4
 	mix_message = "The solution swirls together in the container and doesn't stop swirling."
 
+/datum/chemical_reaction/smooth_regular
+	name = "Smooth Regular"
+	id = "smooth_regular"
+	result = "smooth_regular"
+	required_reagents = list("bungojuice" = 1, "mangojuice" = 1, "cream" = 1, "ether" = 1)
+	result_amount = 4
+	mix_message = "The liquids mix together into a yellow cream."
+
 // ----------- drinks from Hispania!
 
 /datum/chemical_reaction/unclegits_specialmilk ///By Ralph & Ume

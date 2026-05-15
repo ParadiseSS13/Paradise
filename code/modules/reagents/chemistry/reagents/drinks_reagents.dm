@@ -1098,6 +1098,32 @@
 	drink_desc = "Spicy and fizzy soda."
 	taste_description = "sweet, carbonated ginger"
 
+// This is not in the barman's recipes because it's intentionally Not A Real Menu Item.
+/datum/reagent/consumable/drink/smooth_regular
+	name = "Smooth Regular"
+	description = "It smells real sweet and also fake sweet."
+	id = "smooth_regular"
+	color = "#FFFF00"
+	drink_icon = "smooth_regular"
+	drink_name = "Glass of Smooth Regular"
+	drink_desc = "It smells real sweet and fake sweet. Shush, man, I'm trying to do fruit science."
+	taste_description = "lulling sweetness, like a mouthful of sheep"
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/consumable/drink/smooth_regular/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustJitter(-30 SECONDS)
+	switch(current_cycle)
+		if(1 to 50)
+			if(prob(5))
+				M.emote("yawn")
+		if(51 to 80)
+			M.Drowsy(20 SECONDS)
+		if(81 to INFINITY)
+			M.Paralyse(10 SECONDS)
+			M.Drowsy(20 SECONDS)
+	return ..() | update_flags
+
 /datum/reagent/consumable/drink/electrolytes/top_up
 	name = "Top-Up"
 	description = "A sports drink for the busy spessman."
