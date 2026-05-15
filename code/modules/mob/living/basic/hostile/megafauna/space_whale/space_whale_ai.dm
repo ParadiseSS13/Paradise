@@ -2,7 +2,7 @@
 	movement_delay = 1 SECONDS
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
+		BB_TARGET_MINIMUM_STAT = DEAD,
 		BB_AGGRO_RANGE = 7,
 	)
 	ai_movement = /datum/ai_movement/jps
@@ -11,7 +11,7 @@
 	max_target_distance = 15
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/target_retaliate,
-		/datum/ai_planning_subtree/find_and_hunt_target/fish,
+		/datum/ai_planning_subtree/find_food,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/targeted_mob_ability/whale_offensive_spellcasting,
 		/datum/ai_planning_subtree/attack_obstacle_in_path/walls,
