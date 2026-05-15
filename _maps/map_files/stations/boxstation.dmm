@@ -44711,6 +44711,19 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"dLl" = (
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker,
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/blue{
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/dorms)
 "dLs" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -130775,7 +130788,7 @@ tKi
 eOj
 tuZ
 aPm
-aSM
+dLl
 aVt
 aZL
 aZL

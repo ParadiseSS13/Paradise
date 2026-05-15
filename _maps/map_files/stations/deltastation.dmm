@@ -33375,10 +33375,15 @@
 /area/station/public/sleep)
 "cAt" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 1
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/blue{
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/red{
+	pixel_y = 5;
+	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
@@ -33802,9 +33807,17 @@
 /area/station/service/barber)
 "cBZ" = (
 /obj/structure/table,
-/obj/item/folder,
+/obj/item/folder{
+	pixel_x = -6
+	},
 /obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 1
+	},
+/obj/item/paper_bin{
+	pixel_x = 6
+	},
+/obj/item/pen{
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
