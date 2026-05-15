@@ -100366,6 +100366,10 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
+"uzT" = (
+/obj/machinery/economy/vending/clean_fun,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "uzY" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -130539,7 +130543,7 @@ kgl
 bHZ
 ybP
 bHZ
-bHZ
+uzT
 bZg
 pjx
 jgx

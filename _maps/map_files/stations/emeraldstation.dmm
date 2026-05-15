@@ -108130,6 +108130,10 @@
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"vzm" = (
+/obj/machinery/economy/vending/clean_fun,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "vzn" = (
 /obj/machinery/door/window/classic/reversed{
 	dir = 1;
@@ -157485,7 +157489,7 @@ vsK
 xvC
 vKs
 mEj
-sgn
+vzm
 byL
 eBb
 pYr

@@ -1499,3 +1499,36 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed, 32, 32)
 
 /obj/machinery/economy/vending/cart/free
 	prices = list()
+
+/obj/machinery/economy/vending/clean_fun
+	name = "Good Clean Fun"
+	desc = "Vends things the Captain and Head of Personnel probably don't you messing with while on the job!"
+	icon_state = "games"
+	icon_lightmask = "games"
+	vend_delay = 15
+	slogan_list = list("Roll for initiative!",
+						"Definitely not satanic!",
+						"Ruin your friendships!",
+						"Summon the red eyes ash drake!",
+						"Escape to a fantasy world!",
+						"Fuel your gambling addiction!",
+						"Fun times forever!")
+	products = list(/obj/item/cardpack/series_command = 15,
+					/obj/item/cardpack/series_engineering = 20,
+					/obj/item/cardpack/series_medical = 20,
+					/obj/item/cardpack/series_research = 20,
+					/obj/item/cardpack/series_security = 20,
+					/obj/item/cardpack/series_supply = 20,
+					/obj/item/cardpack/series_miscellaneous = 20,
+					)
+	contraband = list(/obj/item/cardpack/series_syndicate = 3)
+
+	prices = list(/obj/item/cardpack/series_command = 150,
+					/obj/item/cardpack/series_engineering = 100,
+					/obj/item/cardpack/series_medical = 100,
+					/obj/item/cardpack/series_research = 100,
+					/obj/item/cardpack/series_security = 100,
+					/obj/item/cardpack/series_supply = 100,
+					/obj/item/cardpack/series_miscellaneous = 100,
+					/obj/item/cardpack/series_syndicate = 150,
+					)

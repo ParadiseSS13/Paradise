@@ -54421,6 +54421,11 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/permabrig)
+"hVb" = (
+/obj/machinery/economy/vending/clean_fun,
+/obj/machinery/economy/vending/clean_fun,
+/turf/simulated/floor/wood,
+/area/station/service/library)
 "hVy" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/entry/north)
@@ -134356,7 +134361,7 @@ bbY
 bkN
 aGX
 bau
-btl
+hVb
 bih
 bia
 bju

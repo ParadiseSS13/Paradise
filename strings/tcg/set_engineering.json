@@ -39,8 +39,8 @@
 			"icon_state": "ce",
 			"rarity": "Uncommon",
 			"level": "6",
-			"attack": "",
-			"defense": "",
+			"attack": "2000",
+			"defense": "2200",
 			"effect": "Once during your turn, you may discard a card. Search your deck for a 'Supermatter Crystal' card and add it to your hand. If this card is send to the Morgue, Special Summon an Engineering Unit from the Morgue in Defense Postition",
 			"rules": ""
 		},
@@ -52,8 +52,8 @@
 			"icon_state": "atmos_tech",
 			"rarity": "Common",
 			"level": "4",
-			"attack": "",
-			"defense": "",
+			"attack": "1400",
+			"defense": "1600",
 			"effect": "When this card is Normal Summoned or Special Summoned, search your deck for an Environment card and add it to your hand.",
 			"rules": ""
 		},
@@ -65,8 +65,8 @@
 			"icon_state": "engineer",
 			"rarity": "Common",
 			"level": "3",
-			"attack": "",
-			"defense": "",
+			"attack": "1200",
+			"defense": "1800",
 			"effect": "While this card is in Defense Position, you cannot drop below 100 Lifepoints from battle damage.",
 			"rules": ""
 		},
@@ -78,8 +78,8 @@
 			"icon_state": "poly",
 			"rarity": "Uncommon",
 			"level": "3",
-			"attack": "",
-			"defense": "",
+			"attack": "800",
+			"defense": "800",
 			"effect": "Once per turn, select a card's attack, defense, or effect. Copy that onto this card until the end of your turn. You cannot use this effect until the end of your next turn.",
 			"rules": ""
 		},

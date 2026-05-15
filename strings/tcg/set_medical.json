@@ -39,8 +39,8 @@
 			"icon_state": "cmo",
 			"rarity": "Uncommon",
 			"level": "6",
-			"attack": "",
-			"defense": "",
+			"attack": "1800",
+			"defense": "2000",
 			"effect": "When a Medical Unit you control is sent to the Morgue, you may add it to your hand instead by discarding one card.",
 			"rules": ""
 		},
@@ -52,8 +52,8 @@
 			"icon_state": "doctor",
 			"rarity": "Common",
 			"level": "3",
-			"attack": "",
-			"defense": "",
+			"attack": "900",
+			"defense": "1400",
 			"effect": "Once during your turn, you may discard and you restore 200 Lifepoints. If this card is in Defense Position, restore 200 Lifepoints. Only one 'Medical Doctor' effect may be activated once during your turn.",
 			"rules": ""
 		},
@@ -65,8 +65,8 @@
 			"icon_state": "chemist",
 			"rarity": "Common",
 			"level": "3",
-			"attack": "",
-			"defense": "",
+			"attack": "1100",
+			"defense": "900",
 			"effect": "Once during your turn, you may flip a coin. If heads, you restore 150 Lifepoints. If tails, your opponent restores 150 Lifepoints.",
 			"rules": ""
 		},
@@ -78,8 +78,8 @@
 			"icon_state": "paramedic",
 			"rarity": "Common",
 			"level": "4",
-			"attack": "",
-			"defense": "",
+			"attack": "1000",
+			"defense": "1400",
 			"effect": "Once per turn, discard a card from your hand and add one Unit card from your Morgue to your hand.",
 			"rules": ""
 		},
@@ -91,8 +91,8 @@
 			"icon_state": "virologist",
 			"rarity": "Common",
 			"level": "2",
-			"attack": "",
-			"defense": "",
+			"attack": "800",
+			"defense": "700",
 			"effect": "When this card destroys a Unit in battle, inflict 100 extra Lifepoints at the beginning of your opponent's next Main Phase. Your opponent may negate this by discarding a card. ",
 			"rules": ""
 		},
@@ -104,8 +104,8 @@
 			"icon_state": "coroner",
 			"rarity": "Common",
 			"level": "2",
-			"attack": "",
-			"defense": "",
+			"attack": "600",
+			"defense": "1000",
 			"effect": "Once per turn, discard a card from your hand and add one Item card from your Morgue to your hand.",
 			"rules": ""
 		},
@@ -117,8 +117,8 @@
 			"icon_state": "psych",
 			"rarity": "Common",
 			"level": "2",
-			"attack": "",
-			"defense": "",
+			"attack": "500",
+			"defense": "800",
 			"effect": "At any point during your turn or your opponent's turn, tell your opponent they're doing a good job and you're proud of them. ",
 			"rules": ""
 		},
@@ -130,8 +130,8 @@
 			"icon_state": "runtime",
 			"rarity": "Uncommon",
 			"level": "3",
-			"attack": "",
-			"defense": "",
+			"attack": "400",
+			"defense": "600",
 			"effect": "If your opponent attempts to summon a Mouse, flip a coin. If heads, send the Mouse to the Morgue. If tails, allow the summon to occur.",
 			"rules": ""
 		}

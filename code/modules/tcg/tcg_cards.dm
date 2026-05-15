@@ -200,13 +200,13 @@
 	name = "Battles of Orion: Commendable Command"
 	desc = "Contains five cards from the Command Command series of Battles of Orion! Collect them all!"
 	series = "pack_command"
-	contains_coin = 30 // there's a 10% a coin is included in the pack
+	contains_coin = 30 // there's a 30% a coin is included in the pack
 
 /obj/item/cardpack/series_engineering
 	name = "Battles of Orion: Electrifying Engineering"
 	desc = "Contains five cards from the Electrifying Engeineering series of Battles of Orion! Collect them all!"
 	series = "pack_engineering"
-	contains_coin = 10
+	contains_coin = 10 // there's a 30% a coin is included in the pack
 
 /obj/item/cardpack/series_medical
 	name = "Battles of Orion: Marvelous Medical"
@@ -256,12 +256,6 @@
 	series = "pack_1"
 	contains_coin = 100
 	drop_all_cards = TRUE
-
-/obj/item/cardpack/series_two
-	name = "Battles of Orion: Syndicate Synergies"
-	desc = "Contains six cards straight from Donk Co.! Don't ask how Donk made the cards so accurate."
-	series = "pack_2"
-	contains_coin = 10
 
 /obj/item/cardpack/series_two_deluxe
 	name = "Battles of Orion: Series 2 DELUXE"

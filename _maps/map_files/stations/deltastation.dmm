@@ -33499,11 +33499,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cAU" = (
-/obj/item/kirbyplants/large,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/machinery/economy/vending/clean_fun,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cAV" = (

@@ -33,6 +33,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"S" = (
+/obj/machinery/economy/vending/clean_fun,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "U" = (
 /obj/machinery/light{
 	dir = 4
@@ -32293,7 +32297,7 @@ x
 x
 x
 x
-x
+S
 x
 x
 x

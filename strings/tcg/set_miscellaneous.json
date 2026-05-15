@@ -39,8 +39,8 @@
 			"icon_state": "assistant",
 			"rarity": "Common",
 			"level": "2",
-			"attack": "",
-			"defense": "",
+			"attack": "600",
+			"defense": "500",
 			"effect": "",
 			"rules": ""
 		},
@@ -52,8 +52,8 @@
 			"icon_state": "greytide",
 			"rarity": "Rare",
 			"level": "5",
-			"attack": "",
-			"defense": "",
+			"attack": "1900",
+			"defense": "800",
 			"effect": "Cannot be Normal Summoned. Send an Assistant from your hand or field to the Morgue to Special Summon this card. When this card is Special Summoned, send one Security Unit to the Morgue.",
 			"rules": ""
 		},
@@ -65,8 +65,8 @@
 			"icon_state": "mouse",
 			"rarity": "Common",
 			"level": "1",
-			"attack": "",
-			"defense": "",
+			"attack": "100",
+			"defense": "200",
 			"effect": "You can Special Summon this card from your hand for no cost.",
 			"rules": ""
 		}

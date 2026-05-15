@@ -53735,7 +53735,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/supply)
 "loM" = (
-/obj/machinery/firealarm/directional/west,
+/obj/machinery/economy/vending/clean_fun,
 /turf/simulated/floor/carpet/purple,
 /area/station/service/library)
 "loX" = (
