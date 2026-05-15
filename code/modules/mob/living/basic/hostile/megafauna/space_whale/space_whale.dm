@@ -22,6 +22,7 @@
 	pixel_x = -80
 	pixel_y = -96
 	faction = list("neutral", "whale")
+	weather_immunities = list("lava","ash", "burn", "rad")
 	step_type = FOOTSTEP_MOB_HEAVY
 	true_spawn = FALSE
 	internal_gps = /obj/item/gps/internal/space_whale
