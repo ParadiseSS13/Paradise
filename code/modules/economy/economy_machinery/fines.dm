@@ -8,7 +8,7 @@
 	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	new_attack_chain = TRUE
 	/// Built in radio used to message about crime
-	var/obj/item/radio/Radio
+	var/obj/item/radio/radio
 	/// The set fine amount
 	var/fine_amount = 250
 	/// linked money account database to this scanner. Usually the station database
@@ -24,10 +24,10 @@
 	. = ..()
 	account_database = GLOB.station_money_database
 	linked_account = account_database.get_account_by_department(DEPARTMENT_SECURITY)
-	Radio = new /obj/item/radio(src)
-	Radio.listening = FALSE
-	Radio.config(list("Security" = 0))
-	Radio.follow_target = src
+	radio = new /obj/item/radio(src)
+	radio.listening = FALSE
+	radio.config(list("Security" = 0))
+	radio.follow_target = src
 
 /obj/item/fine_scanner/Destroy()
 	linked_account = null
@@ -71,7 +71,7 @@
 		return
 	GLOB.station_money_database.credit_account(linked_account, fine_amount, "Security Fine", user.name, FALSE)
 	playsound(src, fine_sound, 50, TRUE)
-	Radio.autosay("<b>[C.registered_name] has paid a fine of [fine_amount] credits for the crime of [crime_string]. Fine issued by [user.name].</b>", "Automatic Fine System", "Security")
+	radio.autosay("<b>[C.registered_name] has paid a fine of [fine_amount] credits for the crime of [crime_string]. Fine issued by [user.name].</b>", "Automatic Fine System", "Security")
 	print_report(user, C, crime_string)
 	var/datum/data/record/R = find_security_record("name", C.registered_name)
 	if(istype(R))
