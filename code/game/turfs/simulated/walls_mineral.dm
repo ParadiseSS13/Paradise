@@ -5,6 +5,8 @@
 	canSmoothWith = null
 	var/last_event = 0
 	var/active = FALSE
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
 	return //This override is needed to properly rotate the object when on a shuttle that is rotated.
@@ -17,8 +19,6 @@
 	base_icon_state = "gold_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/gold
 	explosion_block = 0 //gold is a soft metal you dingus.
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_GOLD_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_GOLD_WALLS)
 
 /turf/simulated/wall/mineral/silver
 	name = "silver wall"
@@ -27,8 +27,6 @@
 	icon_state = "silver_wall-0"
 	base_icon_state = "silver_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/silver
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SILVER_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SILVER_WALLS)
 
 /turf/simulated/wall/mineral/diamond
 	name = "diamond wall"
@@ -38,8 +36,6 @@
 	base_icon_state = "diamond_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	explosion_block = 3
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_DIAMOND_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_DIAMOND_WALLS)
 	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/wall/mineral/bananium
@@ -49,8 +45,6 @@
 	icon_state = "bananium_wall-0"
 	base_icon_state = "bananium_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BANANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_BANANIUM_WALLS)
 
 /turf/simulated/wall/mineral/sandstone
 	name = "sandstone wall"
@@ -60,8 +54,6 @@
 	base_icon_state = "sandstone_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/sandstone
 	explosion_block = 0
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SANDSTONE_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SANDSTONE_WALLS)
 
 /turf/simulated/wall/mineral/uranium
 	name = "uranium wall"
@@ -70,8 +62,6 @@
 	icon_state = "uranium_wall-0"
 	base_icon_state = "uranium_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_URANIUM_WALLS)
 	rust_resistance = RUST_RESISTANCE_REINFORCED
 
 /turf/simulated/wall/mineral/uranium/Initialize(mapload)
@@ -87,8 +77,6 @@
 	base_icon_state = "plasma_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	thermal_conductivity = 0.04
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASMA_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_PLASMA_WALLS)
 
 /turf/simulated/wall/mineral/plasma/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
@@ -149,8 +137,6 @@
 	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WOOD_WALLS)
 
 /turf/simulated/wall/mineral/wood/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
@@ -169,7 +155,6 @@
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
 	girder_type = /obj/structure/barricade/wooden
 	hardness = 50
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
 
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
