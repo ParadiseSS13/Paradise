@@ -39,8 +39,8 @@
 			"icon_state": "hos",
 			"rarity": "Rare",
 			"level": "6",
-			"attack": "",
-			"defense": "",
+			"attack": "2200",
+			"defense": "1900",
 			"effect": "Once per turn during your opponent's Battle Phase, you may negate one attack targeting a Security Unit you control. While this card is on the field, your opponent cannot Special Summon more than one Unit per turn.",
 			"rules": ""
 		},
@@ -52,9 +52,9 @@
 			"icon_state": "warden",
 			"rarity": "Uncommon",
 			"level": "5",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1700",
+			"defense": "1900",
+			"effect": "Once during your opponent's Main Phase, choose a card they control. That card cannot attack for the rest of your opponent's turn.",
 			"rules": ""
 		},
 		{
@@ -65,9 +65,9 @@
 			"icon_state": "officer",
 			"rarity": "Common",
 			"level": "3",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1400",
+			"defense": "1200",
+			"effect": "When this card destroys an opposing Unit in battle, your opponent cannot use Item cards for the rest of your turn.",
 			"rules": ""
 		},
 		{
@@ -78,9 +78,9 @@
 			"icon_state": "detective",
 			"rarity": "Common",
 			"level": "4",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1200",
+			"defense": "1400",
+			"effect": "When this card is summoned, choose a face down card controlled by your opponent and reveal it. Do not activate effects and place the card back face down.",
 			"rules": ""
 		},
 		{
@@ -91,8 +91,8 @@
 			"icon_state": "beepsky",
 			"rarity": "Rare",
 			"level": "5",
-			"attack": "",
-			"defense": "",
+			"attack": "1600",
+			"defense": "2000",
 			"effect": "After this card has been attacked, switch the attacking Unit to Defense Position. This Unit cannot switch positions during your opponent's next turn.",
 			"rules": ""
 		},
@@ -104,9 +104,9 @@
 			"icon_state": "araneus",
 			"rarity": "Uncommon",
 			"level": "4",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1600",
+			"defense": "2000",
+			"effect": "Once per turn, flip a coin. If heads, prevent your opponent from switching the position of a card they control.",
 			"rules": ""
 		},
 		{
