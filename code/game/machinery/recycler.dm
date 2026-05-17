@@ -26,23 +26,18 @@
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_TITANIUM, MAT_URANIUM, MAT_DIAMOND, MAT_BLUESPACE, MAT_WOOD, MAT_PLASTIC, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_CARDBOARD), 0, TRUE, null, null, null, TRUE)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	materials.max_amount = INFINITY // This will stop the recycler from forgetting any materials if large amounts of stuff are dumped all at once.
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
-	var/mat_mod = 0
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		mat_mod = 2 * B.rating
-	mat_mod *= 50000
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		amt_made = 25 * M.rating //% of materials salvaged
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	materials.max_amount = mat_mod
+		amt_made = 25 * M.rating // 25% to 100% material recovery as parts improve.
 	amount_produced = min(100, amt_made)
 
 /obj/machinery/recycler/examine(mob/user)
