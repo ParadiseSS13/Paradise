@@ -38,6 +38,8 @@
 	var/parent_stack = FALSE
 	/// Whether this stack can be split into multiple independent stacks.
 	var/allow_splitting = TRUE
+	/// Whether this stack deletes itself when `amount` reaches 0. 
+	var/destroy_upon_empty = TRUE
 
 /obj/item/stack/examine(mob/user)
 	. = ..()
@@ -173,7 +175,7 @@
 		return FALSE
 
 	amount -= used
-	if(check && is_zero_amount(TRUE))
+	if(!destroy_upon_empty && check && is_zero_amount(TRUE))
 		return TRUE
 
 	update_icon(UPDATE_ICON_STATE)
