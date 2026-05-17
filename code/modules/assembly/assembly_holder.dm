@@ -162,13 +162,13 @@
 		if(istype(a_left, a_right.type)) // If they are the same type it causes issues due to window code
 			switch(tgui_alert(user, "Which side would you like to use?", "Choose", list("Left", "Right")))
 				if("Left")
-					a_left.attack_self__legacy__attackchain(user)
+					a_left.activate_self(user)
 				if("Right")
-					a_right.attack_self__legacy__attackchain(user)
+					a_right.activate_self(user)
 			return
 		else
-			a_left.attack_self__legacy__attackchain(user)
-			a_right.attack_self__legacy__attackchain(user)
+			a_left.activate_self(user)
+			a_right.activate_self(user)
 	else
 		var/turf/T = get_turf(src)
 		if(!T)
