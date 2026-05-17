@@ -21,7 +21,6 @@ GLOBAL_LIST_EMPTY(gear_tgui_info)
 
 /datum/ui_module/loadout/ui_static_data(mob/user)
 	// Build custom item list
-	var/list/cui_list
 	var/list/displayed_gears = GLOB.gear_tgui_info
 	if(user?.client) // If they are spawning without a client (somehow), they *cant* have a CUI list
 		for(var/datum/custom_user_item/cui in user.client.cui_entries)
