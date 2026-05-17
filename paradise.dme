@@ -763,6 +763,8 @@
 #include "code\datums\proximity\proximity_monitor.dm"
 #include "code\datums\proximity\singulo_proximity_monitor.dm"
 #include "code\datums\proximity\void_storm_proximity.dm"
+#include "code\datums\space_law\crimes.dm"
+#include "code\datums\space_law\modifiers.dm"
 #include "code\datums\spell_cooldown\spell_charges.dm"
 #include "code\datums\spell_cooldown\spell_cooldown.dm"
 #include "code\datums\spell_handler\alien_spell_handler.dm"
