@@ -166,3 +166,10 @@
 	if(chargelevel != newlevel)
 		chargelevel = newlevel
 		return TRUE
+
+/obj/machinery/cell_charger/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/cell_charger(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	RefreshParts()

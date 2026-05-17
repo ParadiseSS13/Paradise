@@ -9681,11 +9681,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "bmJ" = (
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "bmK" = (
@@ -16265,7 +16265,7 @@
 	},
 /area/station/service/kitchen/freezer)
 "bQV" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/cryo)
 "bQW" = (
@@ -20668,10 +20668,6 @@
 /area/station/maintenance/apmaint)
 "cpF" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -21376,13 +21372,6 @@
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = -4;
-	pixel_y = 1
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = 3
 	},
 /obj/item/toy/figure/crew/scientist{
 	pixel_x = 9;
@@ -23185,10 +23174,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 6;
-	pixel_y = 2
 	},
 /obj/effect/turf_decal/siding{
 	dir = 8
@@ -29610,11 +29595,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "dFO" = (
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 1
 	},
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "dGk" = (
@@ -43321,10 +43305,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/autolathe,
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 9
 	},
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "ieC" = (
@@ -44510,7 +44494,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/mecha_part_fabricator/station{
+/obj/machinery/mecha_part_fabricator/loaded/station{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -48343,8 +48327,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "jJI" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
 /obj/effect/turf_decal/tiles/department/medical,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cloning)
 "jJM" = (
@@ -53108,7 +53092,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "leR" = (
-/obj/machinery/r_n_d/protolathe,
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
 	},
@@ -53122,6 +53105,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
+/obj/machinery/r_n_d/protolathe/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "leT" = (
@@ -53169,30 +53153,16 @@
 /area/station/maintenance/fore2)
 "lfO" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 20;
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/machinery/newscaster/directional/north,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/plasteel{
+	amount = 20;
+	pixel_x = 6;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "lfV" = (
@@ -55564,10 +55534,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/prison)
 "lVF" = (
-/obj/machinery/r_n_d/circuit_imprinter,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
+/obj/machinery/r_n_d/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "lVI" = (
@@ -58267,15 +58237,8 @@
 	pixel_y = -28
 	},
 /obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/tiles/department/cargo/side,
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "mVu" = (
@@ -58392,7 +58355,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/biogenerator,
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandoned_garden)
 "mXw" = (
@@ -61618,7 +61581,6 @@
 "nZl" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
-/obj/item/screwdriver/cargo,
 /obj/item/multitool,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -63198,7 +63160,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/mecha_part_fabricator/station{
+/obj/machinery/mecha_part_fabricator/loaded/station{
 	dir = 4
 	},
 /obj/machinery/requests_console/directional/west,
@@ -67100,10 +67062,6 @@
 /obj/item/storage/box/bodybags{
 	pixel_x = -6;
 	pixel_y = 7
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 9;
-	pixel_y = 3
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -72938,10 +72896,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/autolathe,
 /obj/effect/turf_decal/tiles/department/cargo/side{
 	dir = 1
 	},
+/obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "rNN" = (
@@ -84451,8 +84409,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/asmaint)
 "vAb" = (
-/obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -84461,6 +84417,7 @@
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 8
 	},
+/obj/machinery/biogenerator/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "vAc" = (
