@@ -160,10 +160,10 @@
 	if(items_recycled && sound && (last_consumption_sound + SOUND_COOLDOWN) < world.time)
 		playsound(loc, item_recycle_sound, 100, 0)
 		last_consumption_sound = world.time
-		for(var/atom/movable/AM in atoms_to_qdel)
-			if(QDELETED(AM))
-				continue
-			qdel(AM)
+	for(var/atom/movable/AM in atoms_to_qdel)
+		if(QDELETED(AM))
+			continue
+		qdel(AM)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	I.forceMove(loc)
