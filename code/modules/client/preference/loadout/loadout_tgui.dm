@@ -24,18 +24,32 @@ GLOBAL_LIST_EMPTY(gear_tgui_info)
 	var/list/displayed_gears = GLOB.gear_tgui_info
 	if(user?.client) // If they are spawning without a client (somehow), they *cant* have a CUI list
 		for(var/datum/custom_user_item/cui in user.client.cui_entries)
-			var/obj/item/I = cui.object_typepath
-			displayed_gears["Custom Items"] += list(
-				"[I]" = list(
-				"name" = I.name,
-				"desc" = I.desc,
-				"icon" = I.icon,
-				"icon_state" = I.icon_state,
-				"cost" = 0,
-				"gear_tier" = 0,
-				"allowed_roles" = cui.allowed_jobs,
-				"tweaks" = null,
-			))
+			for(var/datum/gear/custom/gear in GLOB.gear_datums)
+				if(gear.path != cui.object_typepath)
+					continue
+				var/obj/item/I = cui.object_typepath
+
+				var/list/tweaks = list()
+				for(var/datum/gear_tweak/tweak as anything in gear.gear_tweaks)
+					tweaks[tweak.type] += list(list(
+						"name" = tweak.display_type,
+						"icon" = tweak.fa_icon,
+						"tooltip" = tweak.info,
+					)
+				)
+
+				displayed_gears[gear.sort_category] += list(
+					"[I]" = list(
+						"name" = gear.display_name,
+						"desc" = gear.description,
+						"icon" = I.icon,
+						"icon_state" = I.icon_state,
+						"cost" = gear.cost,
+						"gear_tier" = gear.donator_tier,
+						"allowed_roles" = gear.allowed_roles,
+						"tweaks" = tweaks,
+					)
+				)
 
 	var/list/data = list()
 	data["gears"] = displayed_gears
