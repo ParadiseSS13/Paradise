@@ -496,23 +496,6 @@ SUBSYSTEM_DEF(ticker)
 		if(player && player.mind && player.mind.assigned_role && player.mind.assigned_role != player.mind.special_role)
 			SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
 			SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
-			equip_cuis(player)
-
-/datum/controller/subsystem/ticker/proc/equip_cuis(mob/living/carbon/human/H)
-	if(!H.client)
-		return // If they are spawning without a client (somehow), they *cant* have a CUI list
-	for(var/datum/custom_user_item/cui in H.client.cui_entries)
-		var/datum/gear/custom/new_custom = new /datum/gear/custom()
-		var/obj/item/I = cui.object_typepath
-		new_custom.display_name = I.name
-		new_custom.description = I.desc
-		new_custom.path = cui.object_typepath
-		new_custom.slot = I.slot_flags
-		new_custom.allowed_roles = cui.allowed_jobs
-		new_custom.main_typepath = /datum/gear/custom
-		new_custom.cui = cui
-		GLOB.gear_datums += new_custom
-
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
 	var/m

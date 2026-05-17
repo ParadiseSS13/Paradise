@@ -375,7 +375,6 @@
 		character.buckled.dir = character.dir
 
 	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
-	SSticker.equip_cuis(character) // Gives them their CUIs
 
 	SSticker.mode.latespawn(character)
 
