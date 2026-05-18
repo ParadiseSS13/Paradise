@@ -2363,13 +2363,13 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/item/stamp,
 /obj/item/stamp/denied{
 	pixel_x = 4;
 	pixel_y = -2
 	},
 /obj/item/toy/figure/crew/cargotech,
 /obj/item/rcs,
+/obj/item/stamp/granted,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "all" = (
@@ -5084,7 +5084,7 @@
 	},
 /obj/machinery/button/windowtint{
 	dir = 1;
-	id = "rd";
+	id = "Processing";
 	pixel_x = -5;
 	pixel_y = -24
 	},
@@ -5650,6 +5650,13 @@
 "ayv" = (
 /obj/machinery/alarm/directional/north,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "Interrogation";
+	name = "interrogation tint control";
+	pixel_x = -24;
+	req_access = list(63)
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/interrogation)
 "ayx" = (
@@ -13303,6 +13310,10 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 9
 	},
+/obj/item/storage/box/iv_bags{
+	pixel_x = -9;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "bjj" = (
@@ -14141,13 +14152,13 @@
 /area/station/command/office/cmo)
 "buO" = (
 /obj/machinery/firealarm/directional/west,
-/obj/structure/closet/wardrobe,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 9
 	},
+/obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cloning)
 "buP" = (
@@ -32937,7 +32948,6 @@
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "lLi" = (
-/obj/machinery/mecha_part_fabricator/station,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -32946,6 +32956,9 @@
 	pixel_y = 14
 	},
 /obj/machinery/newscaster/directional/north,
+/obj/machinery/mecha_part_fabricator/loaded/station{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "lLn" = (
@@ -42961,11 +42974,11 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "rww" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Interrogation"
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "Interrogation"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/interrogation)
@@ -44169,8 +44182,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/mecha_part_fabricator/station,
 /obj/machinery/alarm/directional/north,
+/obj/machinery/mecha_part_fabricator/loaded/station{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "sdQ" = (
@@ -45633,8 +45648,8 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
 "sLR" = (
-/obj/structure/closet/secure_closet/personal,
 /obj/machinery/light,
+/obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "sLS" = (
@@ -49377,11 +49392,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "uCn" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "Interrogation"
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "Interrogation"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/interrogation)
