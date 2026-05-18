@@ -490,7 +490,10 @@
 	metabolization_rate = 0.5
 	/// How much toxin damage do we do each tick?
 	var/toxin_damage = 0.25
-	//Keeps track of the hand timer so we can cleanup on removal
+	/// Interval between hand throws
+	var/throw_interval = 4 SECONDS
+	/// Keeps track of when the last hand was thrown
+	var/next_throw_time
 
 //Warns you about the impenting hands
 /datum/reagent/helgrasp/on_mob_add(mob/living/affected_mob, amount)
@@ -502,7 +505,9 @@
 /datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= affected_mob.adjustToxLoss(toxin_damage, FALSE)
-	spawn_hands(affected_mob)
+	if(next_throw_time < world.time + throw_interval)
+		spawn_hands(affected_mob)
+		next_throw_time = world.time + throw_interval
 	return ..() | update_flags
 
 /datum/reagent/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
