@@ -18119,9 +18119,19 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/cargo/corner,
-/obj/item/storage/belt/utility,
-/obj/item/screwdriver/cargo,
-/obj/item/rcs,
+/obj/item/storage/belt/utility{
+	pixel_x = 4;
+	pixel_y = -6
+	},
+/obj/item/screwdriver/cargo{
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/item/rcs{
+	pixel_x = 7;
+	pixel_y = 14
+	},
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "drf" = (
@@ -26854,7 +26864,9 @@
 	dir = 1;
 	name = "Cargo Bay Desk"
 	},
-/obj/item/desk_bell,
+/obj/item/desk_bell{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "ieH" = (
