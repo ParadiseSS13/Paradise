@@ -55,4 +55,4 @@
 		new_custom.allowed_roles = cui.allowed_jobs
 		new_custom.main_typepath = /datum/gear/custom
 		new_custom.cui = cui
-		GLOB.gear_datums += new_custom
+		GLOB.gear_datums[cui.object_typepath] = new_custom
