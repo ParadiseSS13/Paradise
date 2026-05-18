@@ -706,6 +706,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	data["alarmActivated"] = alarmActivated || danger_level == ATMOS_ALARM_DANGER
 	data["thresholds"] = generate_thresholds_menu()
 
+	var/area/area_loc = get_area(src)
+	data["fireAlarmActivated"] = area_loc.fire
+
 	// Locked when:
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
@@ -891,6 +894,12 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				if(RCON_YES)
 					rcon_setting = RCON_YES
 
+		if("set_fire_alarm")
+			var/area/area_loc = get_area(src)
+			if(area_loc.fire)
+				area_loc.firereset(src)
+			else
+				area_loc.firealert(src)
 
 		if("command")
 			if(!is_authenticated(usr, active_ui))
