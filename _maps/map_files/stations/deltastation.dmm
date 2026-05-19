@@ -92461,7 +92461,6 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "vtq" = (
