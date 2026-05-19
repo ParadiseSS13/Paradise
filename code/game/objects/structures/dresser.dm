@@ -211,6 +211,3 @@
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/captain(src)
 	new /obj/item/clothing/under/plasmaman/captain(src)
-	new /obj/item/clothing/glasses/hud/tajblind/shaded(src)
-	new /obj/item/clothing/glasses/hud/tajblind/shaded/sec(src)
-	new /obj/item/clothing/glasses/hud/tajblind/shaded/med(src)
