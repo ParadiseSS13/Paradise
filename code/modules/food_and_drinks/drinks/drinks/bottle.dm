@@ -447,3 +447,40 @@
 		to_chat(user, SPAN_NOTICE("You snuff out the flame on \the [src]."))
 		active = FALSE
 		update_icon(UPDATE_OVERLAYS)
+
+// ----------- drinks from Hispania!
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker
+	name = "black fitness shaker"
+	desc = "Big enough to contain enough protein to get perfectly swole. Don't mind the bits."
+	icon_state = "fitness_cup_black"
+	materials = list(MAT_PLASTIC = 500)
+	list_reagents = list("nutriment" = 5, "iron" = 15, "protein" = 5, "water" = 25)
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/red
+	name = "red fitness shaker"
+	icon_state = "fitness_cup_red"
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker/blue
+	name = "blue fitness shaker"
+	icon_state = "fitness_cup_blue"
+
+/obj/item/reagent_containers/drinks/bottle/mezcal
+	name = "400 Conejos"
+	desc = "A thin bottle with very transparent alcohol inside... Wait, is that a worm?"
+	icon_state = "mezcal_bottle"
+	list_reagents = list("mezcal" = 100)
+
+/obj/item/reagent_containers/drinks/bottle/vampire_bestfriend
+	name = "Alucard's guilty sin"
+	desc = "You can distinguish pieces of garlic floating inside."
+	icon_state = "vampire_bf_flask"
+	list_reagents = list("vampire_bf" = 100)
+
+/obj/item/reagent_containers/drinks/bottle/white_wine
+	name = "Corton-Charlemagne Grand Cru"
+	desc = "."
+	icon_state = "white_wine_bottle"
+	list_reagents = list("whitewine" = 100)
+
+// ----------- END of imports from Hispania!
