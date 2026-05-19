@@ -15964,6 +15964,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
 "cxb" = (
@@ -28073,6 +28076,9 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
 "eMZ" = (
@@ -31732,6 +31738,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
 "fDO" = (
@@ -32624,6 +32633,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/fore_port)
 "fMX" = (
@@ -79150,6 +79160,9 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/fore_port)
 "pOP" = (
@@ -81822,8 +81835,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/fore_port)
@@ -89083,6 +89096,13 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
+"san" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/service/fore_port)
 "saq" = (
 /obj/effect/turf_decal/stripes/end,
 /obj/machinery/power/apc/reinforced/directional/north,
@@ -112201,6 +112221,9 @@
 	dir = 1;
 	network = list("SS13","CE")
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
 "wVM" = (
@@ -116327,6 +116350,15 @@
 "xQS" = (
 /turf/simulated/wall,
 /area/station/security/prisonlockers)
+"xQZ" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/service/fore_port)
 "xRa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -130564,7 +130596,7 @@ lRT
 lRT
 mjD
 wKM
-ykc
+xQZ
 wRx
 fsf
 ixp
@@ -131078,7 +131110,7 @@ ujf
 lzd
 ayw
 lIs
-lIs
+san
 fMP
 qui
 uWS
