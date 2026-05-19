@@ -303,6 +303,8 @@
 	var/unique_team = TRUE
 	/// How many players on a team.
 	var/team_size = 1
+	/// How much does each person on the team cost?
+	var/individual_cost = 5
 	/// Team datum to create.
 	var/datum/team/team_type
 
@@ -316,7 +318,7 @@
 /datum/ruleset/team/automatic_deduct(budget)
 	team_size = team_scale()
 	antag_amount = team_size
-	. = antag_cost * antag_amount
+	. = antag_cost + max(((team_size - 1) * individual_cost), 0) // The first antag on a team costs as much as the team.
 	log_dynamic("Automatic deduction: +[antag_amount] [name]\s. Remaining budget: [budget - .].")
 
 /datum/ruleset/team/antagonist_possible(budget)
@@ -331,7 +333,7 @@
 	name = "Cultist"
 	ruleset_weight = 3
 	// antag_weight doesnt matter, since we've already allocated our budget for cultists
-	antag_cost = 6.25 // Minimum team size of 2 is 12.5, or 15 players.
+	antag_cost = 12.5 // 15 players
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
