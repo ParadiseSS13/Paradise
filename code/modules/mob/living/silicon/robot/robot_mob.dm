@@ -1,7 +1,7 @@
 GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
 ))
-GLOBAL_LIST_INIT(available_ai_shells, list())
+GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 
 /mob/living/silicon/robot
 	name = "Cyborg"
@@ -20,6 +20,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	var/custom_name = ""
 	var/custom_sprite = FALSE // Due to all the sprites involved, a var for our custom borgs may be best.
 
+	//form hispania
 	//AI shell stuff
 	/// is this borg a shell?
 	var/shell = FALSE
@@ -27,6 +28,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	var/deployed = FALSE
 	var/mob/living/silicon/ai/mainframe = null
 	var/datum/action/innate/undeployment/undeployment_action = new
+	//end of hispania
 	// HUD stuff.
 	var/atom/movable/screen/hands = null
 	var/list/inventory_screens = list()
@@ -1083,7 +1085,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/encryptionkey/) && opened)
 		if(shell)
-			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft
+			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft, line from hispania
 		if(radio)
 			radio.attackby__legacy__attackchain(used,user)
 		else
@@ -1585,8 +1587,10 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(3) //New Name
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
+		//from hispania
 		if(4) //New Shell
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg shell detected: <a href='?src=\ref[connected_ai];track=[html_encode(name)]'>[name]</a></span><br>")
+		//end of hispania
 		if(5) //Disconnect
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Remote telemetry lost with [name].</span><br>")
 
@@ -2052,6 +2056,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		QDEL_NULL(mmi)
 	return ..()
 
+//from hispania
 /mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
 	shell = TRUE
 	braintype = "AI Shell"
@@ -2133,3 +2138,4 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 
 /mob/living/silicon/robot/shell
 	shell = TRUE
+//end of hispania

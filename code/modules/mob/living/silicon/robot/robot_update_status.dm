@@ -38,7 +38,7 @@
 	diag_hud_set_status()
 	diag_hud_set_health()
 	update_health_hud()
-	diag_hud_set_aishell()
+	diag_hud_set_aishell() //line from hispania
 
 /mob/living/silicon/robot/KnockOut(updating = TRUE)
 	. = ..()

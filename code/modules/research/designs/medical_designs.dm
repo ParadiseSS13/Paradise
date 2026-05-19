@@ -173,6 +173,7 @@
 	build_path = /obj/item/mmi/robotic_brain
 	category = list("Medical")
 
+//from Hispania
 /datum/design/boris_ai_controller
 	name = "B.O.R.I.S."
 	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
@@ -183,7 +184,7 @@
 	construction_time = 75
 	build_path = /obj/item/borg/upgrade/ai
 	category = list("Medical") //didnt know where to put it, so i just put it in the same category as robo brain.
-
+//end of hispania
 
 /datum/design/mmi_radio_upgrade
 	name = "Man-Machine Interface Radio Upgrade"

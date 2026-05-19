@@ -149,10 +149,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/camera/portable/builtInCamera
 
 	var/obj/structure/ai_core/deactivated/linked_core //For exosuit control
+	//from
 	//for shell control
 	var/mob/living/silicon/robot/deployed_shell = null
 	var/datum/action/innate/deploy_shell/deploy_action = new
 	var/datum/action/innate/deploy_last_shell/redeploy_action = new
+	//end of hispania
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE

@@ -38,8 +38,10 @@
 		to_chat(src, SPAN_ROBOTEMOTE("[user] gives you a digital headpat."))
 		to_chat(user, SPAN_ROBOTEMOTE("You give [src] a digital headpat."))
 	else
+		//from hispania
 		var/mob/living/silicon/ai/AI = user
 		AI.deploy_to_shell(src)
+		//end of hispania
 
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)

@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	/// How many times this is disabled by EMPs
 	var/disable_timer = 0
 	/// is the radio a syndie one?
-	var/syndie = FALSE
+	var/syndie = FALSE //line is from hispania
 	/// Areas in which this radio cannot send messages
 	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome, /area/ruin/space/bubblegum_arena)
 

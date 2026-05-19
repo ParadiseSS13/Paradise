@@ -514,12 +514,13 @@
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
-	syndie = TRUE
+	syndie = TRUE //line is from hispania
 	recalculateChannels()
-
+//from hispania
 /obj/item/radio/borg/proc/make_syndie()
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot
 	syndie = TRUE
 	recalculateChannels()
+//end of hispania

@@ -62,7 +62,7 @@
 	else
 		if(lacks_power())
 			if(!aiRestorePowerRoutine)
-				disconnect_shell()
+				disconnect_shell() //line from hispania
 				update_blind_effects()
 				aiRestorePowerRoutine = 1
 				update_sight()
@@ -148,7 +148,7 @@
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
 		return
-
+	//from tg
 	var/old_health = health
 	health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss()
 
@@ -159,7 +159,7 @@
 
 	if(old_health > health || old_stat != stat) // only disconnect if we lose health or change stat
 		disconnect_shell()
-
+	//end of tg
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)

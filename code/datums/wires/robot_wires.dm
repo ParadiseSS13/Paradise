@@ -21,8 +21,10 @@
 	switch(wire)
 		if(WIRE_BORG_LAWCHECK) //Cut the law wire, and the borg will no longer receive law updates from its AI
 			if(!mend)
+				//from hispania
 				if(!R.deployed)
 					R.lawupdate = FALSE
+				//end of hispania
 				if(R.lawupdate)
 					to_chat(R, "LawSync protocol engaged.")
 					R.lawsync()
@@ -34,9 +36,11 @@
 		if(WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mend)
 				if(R.connected_ai)
+					//from hispania
 					R.notify_ai(5)
 					if(R.shell)
 						R.undeploy() //Forced disconnect of an AI should this body be a shell.
+					//end of hispania
 					R.disconnect_from_ai()
 
 		if(WIRE_BORG_CAMERA)
