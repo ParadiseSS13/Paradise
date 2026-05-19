@@ -336,7 +336,6 @@
 	ruleset_weight = 3
 	// antag_weight doesnt matter, since we've already allocated our budget for cultists
 	antag_cost = 12.5 // 15 players
-	minimum_team_size = 2
 	antagonist_type = /datum/antagonist/cultist
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
