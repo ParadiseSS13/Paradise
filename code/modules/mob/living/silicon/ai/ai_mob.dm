@@ -448,7 +448,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /// Disconnect the AI from its its shell.
 /mob/living/silicon/ai/proc/disconnect_shell()
 	if(deployed_shell) //Forcibly call back AI in event of things such as damage, EMP or power loss.
-		to_chat(src, SPAN_DANGER("Your remote connection has been reset!</span>"))
+		to_chat(src, SPAN_DANGER("Your remote connection has been reset!"))
 		deployed_shell.undeploy()
 	diag_hud_set_deployed()
 

@@ -3,7 +3,7 @@
 	check_module_damage()
 
 	if(shell && deployed)
-		mainframe.disconnect_shell()
+		connected_ai.disconnect_shell()
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
 	var/amount = 0
