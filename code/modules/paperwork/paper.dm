@@ -71,6 +71,7 @@
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("<b>Alt-Click</b> [src] with a pen in hand to rename it.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> [src] inhand to fold it into an airplane.")
 	if(user.is_literate())
 		if(in_range(user, src) || isobserver(user))
 			show_content(user)

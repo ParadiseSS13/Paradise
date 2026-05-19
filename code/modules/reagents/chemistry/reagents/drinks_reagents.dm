@@ -1509,8 +1509,8 @@
 
 /datum/reagent/consumable/drink/castor/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coconutwater
@@ -1521,7 +1521,7 @@
 	drink_icon = "glass_white"
 	drink_name = "Glass of Coconut Water"
 	drink_desc = "Diaphanous water with coconut bits floating inside."
-	taste_description = "mildly sweet"
+	taste_description = "mild sweetness"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/drink/cactusjuice
@@ -1534,5 +1534,106 @@
 	drink_desc = "Wait what, cactus?"
 	taste_description = "bland water"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/drink/unclegits_specialmilk
+	name= "Uncle Git's Special Milk"
+	id = "unclegits_specialmilk"
+	description = "It is sticky and has a strong chlorine smell."
+	color = "#FFFEC6"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "gitsmilk"
+	drink_name = "Glass of Uncle Git's Special Milk"
+	drink_desc = "It is sticky and has a strong chlorine smell."
+	taste_description = "someone else's child"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/peach_milkshake
+	name = "Peach Milkshake"
+	id = "peach_milkshake"
+	description = "Pink and very light."
+	color = "#FF7391"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "peach_milkshake"
+	drink_name = "Glass of Peach Milkshake"
+	drink_desc = "Pink and very light. Essential on the first date."
+	taste_description = "dainty sweetness"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+// made with alcohol but apparently ceases to be alcoholic once mixed.
+/datum/reagent/consumable/drink/mango_punch
+	name= "Mango Punch"
+	id = "mango_punch"
+	description = "Packs a punch of sweetness."
+	color = "#fcba22"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "mango_punch"
+	drink_name = "Glass of Mango Punch"
+	drink_desc = "Packs a punch of sweetness."
+	taste_description = "tropical fruit"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/mambo_smoothie
+	name= "Mambo Smoothie"
+	id = "mambo_smoothie"
+	description = "A blend of mango and leafy greens."
+	color = "#A4C639"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "mambo_smoothie"
+	drink_name = "Glass of Mambo Smoothie"
+	drink_desc = "A blend of mango and leafy greens. Do you want to stay fit, mate?"
+	taste_description = "grass"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/annona_blueberries
+	name = "Annona and Blueberries"
+	id = "annona_blueberries"
+	description = "Tropical cocktail."
+	color = "#CE3B00"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "annona_blueberry"
+	drink_name = "Glass of Annona and Blueberries"
+	drink_desc = "Tropical cocktail."
+	taste_description = "sweet fruits"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/annona_cream
+	name = "Annona Cream"
+	id = "annona_cream"
+	description = "A tropical looking cream"
+	color = "#FFD484"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "annona_cream"
+	drink_name = "Glass of Anonna Cream"
+	drink_desc = "A really good tropical cream."
+	taste_description = "creamy edgy fruit"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/nisperorefinedjuice
+	name = "Refined Nispero Juice"
+	description = "Sweetened, refined nispero juice."
+	id = "nisperorefinedjuice"
+	color = "#F09D16"
+	drink_icon = "glass_sunnyorange"
+	drink_name = "Glass of Refined Nispero Juice"
+	drink_desc = "Sweetened, refined nispero juice."
+	taste_description = "cold citric nispero"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/cactus_healthus
+	name = "Super-Healthy Prickly Pear Juice"
+	id = "cactus_healthus"
+	description = "A smoothie mixed with a little of sugar, lemon juice and a prickly pear."
+	color = "#a3a105"
+	drink_icon = "cactus_healthus"
+	drink_name = "Glass of Super-Healthy Prickly Pear"
+	drink_desc = "A bright green cold smoothie. People say its good for weight loss."
+	taste_description = "fresh cold water with a little citric acid"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/drink/cactus_healtus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/nutrition_value = -rand(3,4)
+	update_flags |= M.adjust_nutrition(nutrition_value)
+	return ..() | update_flags
 
 // ----------- END of imports from Hispania!

@@ -793,6 +793,8 @@
 				Mix 10 parts tequila to one part silver.
 				<h2>Synthignon:</h2>
 				Mix one part synthanol to one part wine.
+				<h2>Vampire's Best Friend:</h2>
+				Mix one part White Russian (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>) to one part garlic juice. Botany can help.
 				<br><br><a href='byond://?src=[UID()];seek_page=1'>Back to Table of Contents</a>
 				</body>
 				</html>
@@ -806,6 +808,8 @@
 				<body>
 				<h1>Easy Alcoholic Drinks</h1>
 				Most of these drinks, you should be able to mix right at your dispenser. Drinks marked with a § are for synthetic customers.
+				<h2>Acapulco de Noche:</h2>
+				Mix one part each of tequila, rum, sugar, and ice.
 				<h2>Allies Cocktail:</h2>
 				Mix one part Classic Martini to one part vodka.
 				<h2>Aloe:</h2>
@@ -848,6 +852,10 @@
 				Mix one part each of blood, rum, and kahlua. Medical or Botany can help.
 				<h2>Driest Martini:</h2>
 				Mix one part nothing to one part gin.
+				<h2>Dublin Drop:</h2>
+				Mix one part each of Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>), stout, and whiskey.
+				<h2>Durkehiet: (a Vulpkanin favorite!)</h2>
+				Mix two parts vodka to one part each of triple citrus and honey.
 				<h2>Erika Surprise:</h2>
 				Mix one part each of ale, lime juice, whiskey, banana juice, and ice.
 				<h2>Fernet Cola:</h2>
@@ -860,10 +868,6 @@
 				Mix two parts gin to one part tonic water.
 				<h2>Grog:</h2>
 				Mix one part rum to one part water.
-				<h2>Durkehiet: (a Vulpkanin favorite!)</h2>
-				Mix two parts vodka to one part each of triple citrus and honey.
-				<h2>Dublin Drop:</h2>
-				Mix one part each of Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>), stout, and whiskey.
 				<h2>Irish Coffee:</h2>
 				Mix two parts Irish Cream (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>) to two parts coffee.
 				<h2>Long Island Iced Tea:</h2>
@@ -902,6 +906,8 @@
 				Mix one part each of synthanol, orange juice, and lime juice.
 				<h2>Uplink: §</h2>
 				Mix one part each of synthanol, rum, vodka, tequila, and whiskey.
+				<h2>Vampiro:</h2>
+				Mix two parts tomato juice to one part each of lime juice and tequila.
 				<h2>Vodka Martini:</h2>
 				Mix two parts vodka to one part vermouth.
 				<h2>Vodka and Tonic:</h2>
@@ -951,6 +957,8 @@
 				Mix one part each of vodka, lime juice, grape juice, and silicon. Heat above 373K. Chemistry can help.
 				<h2>Flaming Moe:</h2>
 				Mix one part each of cognac, gin, saline-glucose solution, tequila, and vodka. Heat to 374K. Chemistry can help.
+				<h2>Hanky Panky:</h2>
+				Mix one part each of Fernet, vermouth, gin, and orange juice.
 				<h2>Hooch:</h2>
 				Mix two parts ethanol with one part each welding fuel and universal enzyme. The Kitchen or Chemistry can help.
 				<h2>Islay Whiskey: (a Dionae favorite!)</h2>
@@ -959,10 +967,14 @@
 				Mix four parts Applejack to one part lemon juice.
 				<h2>Jungle Vox: (a Vox favorite!)</h2>
 				Mix one part each of rum, lime juice, sugar, kahlua, and nitrogen. Chemistry can help.
+				<h2>Michelada:</h2>
+				Mix two parts beer to one part each of capsaicin, salt, and lime juice. The Kitchen or Botany can help.
 				<h2>Moonshine:</h2>
 				Mix 10 parts nutriment to five parts universal enzyme. The Kitchen or Chemistry can help.
 				<h2>Neuro-toxin:</h2>
 				Mix one part ether to one part Pan-Galactic Gargle Blaster (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>). Chemistry can help.
+				<h2>Peach Bellini:</h2>
+				Mix one part each of peach juice, wine and tonic. Botany can help.
 				<h2>Sbiten:</h2>
 				Mix 10 parts vodka to one part capsaicin. The Xenobiologist can help.
 				<h2>Singulo:</h2>
@@ -1008,6 +1020,8 @@
 				Mix one part each of ultra lube, oil, and synthanol. Chemistry can help.
 				<h2>Manhattan Project:</h2>
 				Mix 10 parts Manhattan (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>) to one part uranium. Cargo can help.
+				<h2>Matadora Beer</h2>
+				Mix one part each of tequila, Bilk (<a href='byond://?src=[UID()];seek_page=4'>Easy Alcoholic Drinks</a>), Red Mead, and ice.
 				<h2>Red Mead:</h2>
 				Mix one part mead to one part blood. Medical or Botany can help.
 				<h2>Shrub Julep:</h2>
@@ -1119,15 +1133,19 @@
 				<body>
 				<h1>Intermediate Soft Drinks</h1>
 				Most of these drinks require many steps or collaboration with other departments. Drinks marked with § are for synthetic customers only.
+				<h2>Annona and Blueberries:</h2>
+				Mix one part each of annona juice and berry juice. Botany can help.
+				<h2>Annona Cream:</h2>
+				Mix five parts each of sugar and water to two parts corn oil and one part annona juice. Botany or the Kitchen can help.
 				<h2>Arnold Palmer:</h2>
 				Mix one part Lemonade (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part Iced Tea (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>).
 				<h2>Battery Acid: §</h2>
 				Mix one part TCP Sip (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part Triple Citrus (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>).
 				<h2>Bubbly Beep: §</h2>
 				Mix one part space cleaner to one part soda water. Custodial or Chemistry can help.
-				<h2>Bubble Milk Tea</h2>
+				<h2>Bubble Milk Tea:</h2>
 				Mix three parts Milk Tea (<a href='byond://?src=[UID()];seek_page=8'>Easy Soft Drinks</a>) to one part cooked tapioca pearls. The Kitchen and Botany can help.
-				<h2>Bubble Tea</h2>
+				<h2>Bubble Tea:</h2>
 				Mix two parts tea to one part each of sugar and cooked tapioca pearls. The Kitchen and Botany can help.
 				<h2>Cherry Shake:</h2>
 				Mix one part each of cherry jelly, cream, and ice. Botany or the Kitchen can help.
@@ -1141,14 +1159,26 @@
 				Mix 10 parts sugar to five parts each of egg and milk. Cool to 280K. The Kitchen or Chemistry can help.
 				<h2>Horchata:</h2>
 				Mix four parts water, two parts rice, and one part each of sugar and vanilla. Botany or the Kitchen can help.
+				<h2>Mambo Smoothie:</h2>
+				Mix one part each of lettuce juice and mango juice. Botany can help.
+				<h2>Mango Punch:</h2>
+				Mix one part each of mango juice, lime juice, and Goldschlager (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>). Surprisingly non-alcoholic. Botany can help.
+				<h2>Peach Milkshake:</h2>
+				Mix one part each of peach juice, ice, and cream.
 				<h2>Peanut Butter Banana Smoothie:</h2>
 				Mix one part each of soy milk, banana juice, peanut butter, and ice. Botany or the Kitchen can help.
 				<h2>Pumpkin Space Latte:</h2>
 				Mix five parts each of coffee, cream, and pumpkin juice. Botany can help.
+				<h2>Refined Nispero Juice:</h2>
+				Mix ten parts sugar to one part each nispero juice, lemon juice, and ice. Botany can help.
+				<h2>Super Healthy Prickly-Pear Juice:</h2>
+				Mix five parts each of sugar, prickly pear juice, lemon juice, and ice. Botany can help.
 				<h2>Tears of Fyrsskar:</h2>
 				Mix one part each of plasma, oxygen, and Triple Citrus (<a href='byond://?src=[UID()];seek_page=7'>Trivial Soft Drinks</a>). Chemistry can help.
 				<h2>Tin and Tonic: §</h2>
 				Mix one part liquid solder to one part tonic water. Chemistry can help.
+				<h2>Uncle Git's Special Milk:</h2>
+				Mix five parts each of milk, cream, and egg to one part salt. The Kitchen or Botany can help.
 				<h2>Vanilla Pudding:</h2>
 				Mix five parts each of egg, coffee, and vanilla powder. Botany or the Kitchen can help.
 				<h2>Very Berry Smoothie:</h2>
