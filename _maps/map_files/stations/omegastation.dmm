@@ -27928,9 +27928,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"iLc" = (
-/turf/space,
-/area/mine/unexplored/omega/research)
 "iLd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -43010,6 +43007,10 @@
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"rvC" = (
+/obj/item/toy/plushie/slimeplushie,
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/mine/unexplored/omega/research)
 "rvP" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "xeno3";
@@ -94048,10 +94049,10 @@ wXK
 fhk
 wXK
 pRY
-iLc
-iLc
-iLc
-iLc
+coa
+coa
+coa
+coa
 aZD
 aZD
 aZD
@@ -95594,7 +95595,7 @@ vqG
 nDC
 bku
 pRY
-ibr
+rvC
 ibr
 kzg
 vie
