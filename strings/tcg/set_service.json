@@ -39,8 +39,8 @@
 			"icon_state": "hop",
 			"rarity": "Rare",
 			"level": "6",
-			"attack": "",
-			"defense": "",
+			"attack": "1800",
+			"defense": "1800",
 			"effect": "Once per turn, you may target one Unit you control. Shuffle that Unit into your deck and pick a card of a different Faction to put in your hand",
 			"rules": ""
 		},
@@ -52,9 +52,9 @@
 			"icon_state": "botanist",
 			"rarity": "Common",
 			"level": "3",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "900",
+			"defense": "1300",
+			"effect": "Once during your turn if this card is in Defense Position, restore 100 Lifepoints.",
 			"rules": ""
 		},
 		{
@@ -65,9 +65,9 @@
 			"icon_state": "mime",
 			"rarity": "Common",
 			"level": "4",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1100",
+			"defense": "1300",
+			"effect": "When this card is summoned, you may negate a Unit's effect during your opponent's next turn.",
 			"rules": ""
 		},
 		{
@@ -78,8 +78,8 @@
 			"icon_state": "clown",
 			"rarity": "Common",
 			"level": "4",
-			"attack": "",
-			"defense": "",
+			"attack": "1400",
+			"defense": "1000",
 			"effect": "When targeted by an enemy attack or effect, flip a coin. If heads, negate that attack or effect.",
 			"rules": ""
 		},
@@ -91,9 +91,9 @@
 			"icon_state": "janitor",
 			"rarity": "Common",
 			"level": "2",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "700",
+			"defense": "1100",
+			"effect": "Once during your turn, flip a coin. If heads, send one Item card to the Morgue.",
 			"rules": ""
 		},
 		{
@@ -104,9 +104,9 @@
 			"icon_state": "chef",
 			"rarity": "Common",
 			"level": "3",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1400",
+			"defense": "1000",
+			"effect": "While this Unit is the only Unit you control, this card gains 400 ATK.",
 			"rules": ""
 		},
 		{
@@ -117,9 +117,9 @@
 			"icon_state": "bartender",
 			"rarity": "Common",
 			"level": "3",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1700",
+			"defense": "1000",
+			"effect": "Once during your turn, you may either restore 100 Lifepoints to yourself OR deal 100 Lifepoints to your opponent.",
 			"rules": ""
 		},
 		{
@@ -130,9 +130,9 @@
 			"icon_state": "chaplain",
 			"rarity": "Common",
 			"level": "3",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1000",
+			"defense": "1400",
+			"effect": "Once per turn, you may target one Unit you control. It cannot be destroyed by battle this turn.",
 			"rules": ""
 		},
 		{
@@ -143,9 +143,9 @@
 			"icon_state": "librarian",
 			"rarity": "Common",
 			"level": "2",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "600",
+			"defense": "1000",
+			"effect": "Once during your turn, look at the top 2 cards of your deck and palce them back in any order.",
 			"rules": ""
 		},
 		{
@@ -156,9 +156,9 @@
 			"icon_state": "pete",
 			"rarity": "Uncommon",
 			"level": "4",
-			"attack": "",
-			"defense": "",
-			"effect": "",
+			"attack": "1500",
+			"defense": "1000",
+			"effect": "If you control a Chef Unit, this card gains 300 DEF.",
 			"rules": ""
 		}
 	]

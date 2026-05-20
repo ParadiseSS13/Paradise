@@ -117,8 +117,8 @@
 			"icon_state": "paperwork",
 			"rarity": "Uncommon",
 			"level": "2",
-			"attack": "",
-			"defense": "",
+			"attack": "300",
+			"defense": "600",
 			"effect": "While this card is on the field, your opponent must place all Item cards face down to play. Item cards played in response to an attack or card effect are exempt from this.",
 			"rules": ""
 		},
