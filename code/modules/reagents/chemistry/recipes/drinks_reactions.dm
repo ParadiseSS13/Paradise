@@ -1422,3 +1422,149 @@
 	required_reagents = list("degreaser" = 1, "sterilizine" = 1, "drying_agent" = 1, "cleaner" = 1)
 	result_amount = 4
 	mix_message = "The solution swirls together in the container and doesn't stop swirling."
+
+/datum/chemical_reaction/smooth_regular
+	name = "Smooth Regular"
+	id = "smooth_regular"
+	result = "smooth_regular"
+	required_reagents = list("bungojuice" = 1, "mangojuice" = 1, "cream" = 1, "ether" = 1)
+	result_amount = 4
+	mix_message = "The liquids mix together into a yellow cream."
+
+// ----------- drinks from Hispania!
+
+/datum/chemical_reaction/unclegits_specialmilk ///By Ralph & Ume
+	name = "Uncle Git's Special Milk"
+	id = "unclegits_specialmilk"
+	result = "unclegits_specialmilk"
+	required_reagents = list("milk" = 5, "cream" = 5, "sodiumchloride" = 1, "egg" = 5)
+	result_amount = 15
+	mix_message = "The mixture becomes quite sticky."
+	mix_sound = 'sound/effects/blobattack.ogg'
+
+/datum/chemical_reaction/michelada /// By mazapan
+	name = "Michelada"
+	id = "michelada"
+	result = "michelada"
+	required_reagents = list("beer" = 2, "capsaicin" = 1, "sodiumchloride" = 1, "limejuice" = 1)
+	result_amount = 3
+	mix_message = "The beer looks a little more delicious."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/vampiro /// By mazapan
+	name = "Vampiro"
+	id = "vampiro"
+	result = "vampiro"
+	required_reagents = list("tequila" = 1, "tomatojuice" = 2, "limejuice" = 1)
+	result_amount = 4
+	mix_message = "Mariachi sounds loudly in the container."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/acapulco_de_noche /// By mazapan
+	name = "Acapulco de Noche"
+	id = "acapulco_de_noche"
+	result = "acapulco_de_noche"
+	required_reagents = list("tequila" = 1, "rum" = 1, "sugar" = 1, "ice" = 1)
+	result_amount = 4
+	mix_message = "The party has officially begun."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/matadora_beer /// By mazapan
+	name = "Matadora Beer"
+	id = "matadora_beer"
+	result = "matadora_beer"
+	required_reagents = list("tequila" = 1, "bilk" = 1, "red_mead" = 1, "ice" = 1)
+	result_amount = 4
+	mix_message = "Really?"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/hanky_panky /// By mazapan
+	name = "Hanky Panky"
+	id = "hanky_panky"
+	result = "hanky_panky"
+	required_reagents = list("fernet" = 1, "vermouth" = 1, "gin" = 1, "orangejuice" = 1)
+	result_amount = 4
+	mix_message = "The ingredients mix into a dark brown substance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/peach_milkshake
+	name = "Peach Milkshake"
+	id = "peach_milkshake"
+	result = "peach_milkshake"
+	required_reagents = list("peachjuice" = 1, "ice" = 1, "cream" = 1)
+	result_amount = 3
+	mix_message = "The ingredients blend together smoothly."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/peach_bellini
+	name= "Peach Bellini"
+	id = "peach_bellini"
+	result = "peach_bellini"
+	required_reagents = list("peachjuice" = 1, "wine" = 1, "tonic" = 1)
+	result_amount = 3
+	mix_message = "You hear Pachelbel's opus in the distance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mango_punch
+	name= "Mango Punch"
+	id = "mango_punch"
+	result = "mango_punch"
+	required_reagents = list("mangojuice" = 1, "limejuice" = 1, "goldschlager" = 1)
+	result_amount = 3
+	mix_message = "You get a strong whiff of summer."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/vampire_bf
+	name= "Vampire Bestfriend"
+	id = "vampire_bf"
+	result = "vampire_bf"
+	required_reagents = list("whiterussian" = 1, "garlic" = 1)
+	result_amount = 2
+	mix_message = "Smells like blood."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mambo_smoothie
+	name= "Mambo Smoothie"
+	id = "mambo_smoothie"
+	result = "mambo_smoothie"
+	required_reagents = list("lettucejuice" = 1, "mangojuice" = 2)
+	result_amount = 3
+	mix_message = "Smells like hydroponics."
+
+/datum/chemical_reaction/annona_blueberries
+	name = "Annona and Blueberries"
+	id = "annona_blueberries"
+	result = "annona_blueberries"
+	required_reagents = list("berryjuice" = 1, "annonajuice" = 1)
+	result_amount = 2
+	mix_message = "Sweeeet fruits!"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/annona_cream
+	name = "Annona Cream"
+	id = "annona_cream"
+	result = "annona_cream"
+	required_reagents = list("sugar" = 5, "water" = 5, "annonajuice" = 1, "cornoil" = 2)
+	result_amount = 10
+	mix_message = "Look at all that cream!"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/nisperorefinedjuice
+	name = "Refined Nispero Juice"
+	id = "nisperorefinedjuice"
+	result = "nisperorefinedjuice"
+	required_reagents = list("sugar" = 10, "lemonjuice" = 1, "nisperojuice" = 1, "ice" = 1)
+	result_amount = 10
+	mix_message = "Better than orange juice? Maybe."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cactus_healthus
+	name = "Super-Healthy Prickly Pear Juice"
+	id = "cactus_healthus"
+	result = "cactus_healthus"
+	required_reagents = list("sugar" = 5, "cactusjuice" = 5, "lemonjuice" = 5, "ice" = 1)
+	result_amount = 10
+	mix_message = "You mix up a tastier solution for the overfed crew."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+// ----------- END of imports from Hispania!

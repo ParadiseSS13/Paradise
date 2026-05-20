@@ -162,6 +162,11 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Morph"
 					antagonists += list(antag_serialized)
+				else if(istype(M, /mob/living/basic/mouse/irradiated_mouse))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Irradiated Mouse"
+					antagonists += list(antag_serialized)
+
 		else
 			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.
 				highlights += list(serialized)
