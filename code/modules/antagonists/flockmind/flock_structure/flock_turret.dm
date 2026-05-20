@@ -21,6 +21,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/flock/gnesis_turret/Destroy()
+	if(prob(25))
+		new /obj/item/reagent_containers/glass/gnesis/prefilled(get_turf(src))
 	set_target(null)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -31,9 +33,6 @@
 	else
 		icon_state = "teleblocker-off"
 	. = ..()
-
-// /obj/structure/flock/gnesis_turret/update_info_tag()
-// 	info_tag.set_text("Gnesis: [reagents.total_volume]/[reagents.maximum_volume]")
 
 /obj/structure/flock/gnesis_turret/process()
 	if(isnull(flock))

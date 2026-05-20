@@ -31,6 +31,7 @@ GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
 	new /datum/stack_recipe("bright shard", /obj/item/shard/gnesis_glass, time = 0 SECONDS),
 	new /datum/stack_recipe/window("directional gnesis window", /obj/structure/window/flock, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe/window("fulltile gnesis window", /obj/structure/window/flock/fulltile, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe("gnesis cache", /obj/item/reagent_containers/glass/gnesis, 5, time = 2 SECONDS),
 ))
 
 /obj/item/stack/sheet/glass

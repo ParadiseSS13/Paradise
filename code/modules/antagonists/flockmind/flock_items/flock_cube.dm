@@ -13,3 +13,14 @@
 
 	/// How much shit in da cube
 	var/substrate = 10
+
+/obj/item/flock_cube/examine(mob/user)
+	if(!isflockmob(user))
+		return ..()
+
+	. = list(
+		SPAN_FLOCKSAY("<b>###=- Ident confirmed, data packet received.</b>"),
+		SPAN_FLOCKSAY("<b>ID:</b> Substrate Cube"),
+		SPAN_FLOCKSAY("<b>System Storage:</b> [substrate] units"),
+		SPAN_FLOCKSAY("<b>###=-</b>")
+	)

@@ -1853,6 +1853,7 @@
 #include "code\modules\antagonists\flockmind\flock_camera\flocktrace.dm"
 #include "code\modules\antagonists\flockmind\flock_controller\_flock_controller.dm"
 #include "code\modules\antagonists\flockmind\flock_controller\flock_ui.dm"
+#include "code\modules\antagonists\flockmind\flock_items\flock_cache.dm"
 #include "code\modules\antagonists\flockmind\flock_items\flock_cube.dm"
 #include "code\modules\antagonists\flockmind\flock_mob\flock_mob.dm"
 #include "code\modules\antagonists\flockmind\flock_mob\flockbit.dm"
