@@ -120,6 +120,7 @@
 
 #define COLOR_BLOOD_BASE "#A10808"
 #define COLOR_BLOOD_MACHINE "#1F181F"
+#define COLOR_BLOOD_FLOCK "#4d736d"
 #define COLOR_BLOOD_XENO "#05EE05"
 
 // Pipe colours

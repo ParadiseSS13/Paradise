@@ -83,6 +83,18 @@
 	QDEL_NULL(task_tag)
 	return ..()
 
+/mob/living/basic/flock/gib()
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
+	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+
+	flockgibs(loc)
+
+	GLOB.alive_mob_list -= src
+	GLOB.dead_mob_list -= src
+	qdel(src)
+	return TRUE
+
 /mob/living/basic/flock/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 

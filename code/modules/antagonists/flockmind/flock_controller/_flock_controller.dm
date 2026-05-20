@@ -391,6 +391,8 @@
 
 /// Places a flock notice on an atom. See flock_defines.dm
 /datum/flock/proc/add_notice(atom/target, notice_type)
+	if(!overmind)
+		return
 	var/image/I = image(notice_images[notice_type], loc = target)
 	return target.add_alt_appearance(notice_type, I, list(overmind))
 
