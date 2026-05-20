@@ -222,10 +222,21 @@
 /area/holodeck/source_desert)
 "aM" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/chef/classic,
-/obj/item/kitchen/rollingpin,
-/obj/item/clothing/head/chefhat,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 8;
+	pixel_x = 10
+	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/reagentgrinder/upgraded{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "aN" = (
@@ -804,6 +815,11 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
+"df" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/sink/kitchen/directional/north,
+/turf/simulated/floor/plasteel/white,
+/area/ghost_bar)
 "dj" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
@@ -865,7 +881,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/holding)
 "dv" = (
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded,
+/obj/machinery/atmospherics/unary/cryo_cell/loaded/upgraded,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 1
 	},
@@ -932,14 +948,6 @@
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_boxingcourt)
-"dM" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/centcom{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ghost_bar)
 "dN" = (
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/airlock/external_no_weld{
@@ -987,10 +995,12 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "ef" = (
-/obj/machinery/chem_dispenser/beer,
 /obj/structure/table/reinforced,
 /obj/machinery/barsign/ghost_bar{
 	pixel_y = 32
+	},
+/obj/machinery/chem_dispenser/beer/upgraded{
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
@@ -1144,14 +1154,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"eP" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/closet/crate/can,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/ghost_bar)
 "eQ" = (
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_boxingcourt)
@@ -1670,6 +1672,13 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
+"gS" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/icemachine{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ghost_bar)
 "gT" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -2063,14 +2072,27 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "ia" = (
-/obj/machinery/cooking/deepfryer/upgraded,
+/obj/structure/table/reinforced,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/board,
+/obj/item/kitchen/rollingpin{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/clothing/head/chefhat{
+	pixel_x = 8;
+	pixel_y = 13
+	},
+/obj/item/kitchen/knife{
+	pixel_x = -6;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "ib" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
-/obj/machinery/chem_dispenser/soda{
+/obj/machinery/chem_dispenser/soda/upgraded{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -3412,7 +3434,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/admin)
 "mv" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/bodyscanner/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "mw" = (
@@ -3830,7 +3852,7 @@
 /area/shuttle/supply)
 "nF" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
 "nG" = (
@@ -3876,8 +3898,10 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "nM" = (
-/obj/machinery/kitchen_machine/microwave,
 /obj/structure/table/glass/reinforced/plastitanium,
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "nN" = (
@@ -3897,6 +3921,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "nQ" = (
+/obj/item/storage/fancy/cigarettes/dromedaryco,
 /obj/item/lighter/zippo{
 	pixel_x = 5
 	},
@@ -3980,7 +4005,9 @@
 /area/ghost_bar)
 "oa" = (
 /obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/machinery/reagentgrinder/upgraded{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "ob" = (
@@ -4065,7 +4092,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "op" = (
-/obj/item/surgical_drapes,
 /obj/machinery/optable,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
@@ -4089,10 +4115,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "ox" = (
-/obj/machinery/chem_dispenser{
-	desc = "It appears Fox is doing more fruit chemistry today!";
-	hackedcheck = 1
-	},
+/obj/machinery/chem_dispenser/upgraded,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "oy" = (
@@ -4152,32 +4175,17 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "oJ" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/kitchen/knife,
-/obj/machinery/newscaster/directional/west,
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 5
-	},
-/obj/machinery/reagentgrinder{
-	desc = "Used to grind things up into raw materials and liquids.";
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/newscaster/directional/west,
+/obj/machinery/cooking/deepfryer/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "oM" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/beer{
+/obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/machinery/chem_dispenser/beer/upgraded{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/jobs/bar/checker,
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
 "oN" = (
@@ -4227,9 +4235,13 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "oX" = (
-/obj/structure/table,
-/obj/machinery/cooking/grill/upgraded,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	desc = "Cooks and boils stuff, somehow.";
+	pixel_x = -3;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "oZ" = (
@@ -4509,16 +4521,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/item/reagent_containers/iv_bag/blood/a_minus,
-/obj/item/reagent_containers/iv_bag/blood/a_plus,
-/obj/item/reagent_containers/iv_bag/blood/b_minus,
-/obj/item/reagent_containers/iv_bag/blood/b_plus,
-/obj/item/reagent_containers/iv_bag/blood/o_minus,
-/obj/item/reagent_containers/iv_bag/blood/o_plus,
-/obj/structure/closet/crate/freezer,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
+/obj/structure/closet/crate/freezer/iv_storage,
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "qd" = (
@@ -4547,6 +4553,35 @@
 	},
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
+"qi" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/sign/poster/official/random/directional/north,
+/turf/simulated/floor/wood,
+/area/ghost_bar)
+"qk" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/citrus/lime,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/deus,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ghost_bar)
 "qm" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/storage/fancy/matches,
@@ -4816,7 +4851,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "rg" = (
-/obj/machinery/clonescanner,
+/obj/machinery/clonescanner/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "rh" = (
@@ -5332,11 +5367,10 @@
 /area/syndicate_mothership)
 "sT" = (
 /obj/structure/table/wood,
-/obj/machinery/reagentgrinder{
-	desc = "Used to grind things up into raw materials and liquids.";
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
+/obj/machinery/reagentgrinder/upgraded{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
 "sU" = (
@@ -5437,8 +5471,10 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "to" = (
-/obj/machinery/chem_dispenser/soda,
 /obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda/upgraded{
+	pixel_y = 5
+	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "tp" = (
@@ -6172,7 +6208,7 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "vV" = (
-/obj/machinery/cooking/ice_cream_mixer/upgraded,
+/obj/machinery/cooking/ice_cream_mixer/loaded/upgraded,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
@@ -6183,7 +6219,7 @@
 "vX" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/carpet,
 /area/admin)
 "vY" = (
@@ -6407,24 +6443,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
 "wN" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/kitchen/knife,
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 5
-	},
-/obj/machinery/reagentgrinder{
-	desc = "Used to grind things up into raw materials and liquids.";
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker/large,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/grill/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "wP" = (
@@ -6473,8 +6494,8 @@
 /area/admin)
 "wV" = (
 /obj/structure/table,
-/obj/machinery/recharger,
 /obj/item/deck/cards/syndicate/black,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "wW" = (
@@ -6570,10 +6591,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership)
-"xi" = (
-/obj/structure/sign/poster/official/random/directional/north,
-/turf/simulated/floor/wood,
-/area/ghost_bar)
 "xj" = (
 /obj/structure/flora/tree/pine{
 	pixel_x = 1
@@ -6656,6 +6673,11 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"xA" = (
+/obj/structure/railing,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "xB" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "syndishuttle_vent"
@@ -6769,9 +6791,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "xU" = (
-/obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave/upgraded,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/processor/upgraded{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "xV" = (
@@ -6983,9 +7006,8 @@
 /turf/simulated/floor/grass,
 /area/centcom/control)
 "yR" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cooking/stovetop,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "yT" = (
@@ -7072,7 +7094,7 @@
 /area/ghost_bar)
 "zl" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/beer{
+/obj/machinery/chem_dispenser/beer/upgraded{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -7152,14 +7174,14 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "zB" = (
-/obj/machinery/cooking/oven/upgraded,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/stovetop/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "zC" = (
 /obj/machinery/door/window/classic/reversed{
-	name = "bar";
-	dir = 1
+	name = "bar"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -7209,14 +7231,18 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
 "zP" = (
-/obj/machinery/light/small,
-/obj/machinery/economy/vending/dinnerware,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/ice_cream_mixer/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "zQ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/freezer,
+/area/ghost_bar)
+"zR" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/economy/vending/dinnerware,
+/turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "zS" = (
 /obj/item/flag/syndi,
@@ -7245,8 +7271,8 @@
 /area/ninja/outpost)
 "zY" = (
 /obj/structure/table/reinforced,
-/obj/machinery/cooking/stovetop,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/stovetop/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "Aa" = (
@@ -7322,19 +7348,18 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "An" = (
-/obj/item/circular_saw,
-/obj/item/hemostat{
-	pixel_x = -4
-	},
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/mask/surgical,
 /obj/structure/table/reinforced,
-/obj/item/scalpel/laser/manager,
-/obj/item/surgicaldrill,
-/obj/item/bonegel,
-/obj/item/fix_o_vein,
-/obj/item/stack/medical/ointment/advanced,
 /obj/effect/turf_decal/tiles/department/medical/side,
+/obj/item/storage/surgical_tray,
+/obj/item/scalpel/laser/manager{
+	pixel_y = -1
+	},
+/obj/item/clothing/mask/surgical{
+	pixel_y = 7
+	},
+/obj/item/clothing/gloves/color/latex/nitrile{
+	pixel_y = 9
+	},
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "Ao" = (
@@ -7895,8 +7920,8 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
 "Cp" = (
-/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/sink/kitchen/directional/east,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "Cq" = (
@@ -7923,8 +7948,9 @@
 /obj/machinery/barsign{
 	pixel_y = -32
 	},
-/obj/machinery/cooking/oven/upgraded,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/grill/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "Cw" = (
@@ -8142,8 +8168,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
 "Dk" = (
-/obj/machinery/cooking/oven/upgraded,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/stovetop/loaded/upgraded,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "Dl" = (
@@ -8501,10 +8528,8 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "EK" = (
-/obj/machinery/smartfridge/foodcart{
-	dir = 4
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/oven/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "EL" = (
@@ -8576,10 +8601,16 @@
 /area/centcom/control)
 "Fb" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/cooking/board,
+/obj/item/kitchen/knife{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = -10;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "Fc" = (
@@ -9011,7 +9042,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "GE" = (
-/obj/machinery/chem_dispenser,
+/obj/machinery/chem_dispenser/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "GF" = (
@@ -9166,6 +9197,11 @@
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
+"Hk" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/clothing/suit/chef/classic,
+/turf/simulated/floor/plasteel/white,
+/area/tdome/tdomeobserve)
 "Hm" = (
 /obj/effect/spawner/window,
 /obj/structure/sign/public/doors,
@@ -9271,11 +9307,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "HE" = (
-/obj/machinery/recharge_station,
 /obj/effect/turf_decal/tiles/department/security/corner,
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 1
 	},
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "HF" = (
@@ -9849,7 +9885,8 @@
 "JT" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/library/syndie{
-	req_one_access = list()
+	req_one_access = list();
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
@@ -9946,11 +9983,18 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/cooking/board,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "Km" = (
-/obj/machinery/kitchen_machine/microwave/upgraded,
-/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Kn" = (
@@ -10103,17 +10147,17 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
 "KN" = (
-/obj/structure/table,
 /obj/machinery/chem_dispenser/beer/upgraded{
 	pixel_y = 5
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KO" = (
-/obj/structure/table,
-/obj/machinery/chem_dispenser/soda{
+/obj/machinery/chem_dispenser/soda/upgraded{
 	pixel_y = 5
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KP" = (
@@ -10207,16 +10251,6 @@
 	icon_state = "asteroid8"
 	},
 /area/holodeck/source_desert)
-"Lg" = (
-/obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave/upgraded{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/tdome/tdomeobserve)
 "Li" = (
 /obj/structure/bookcase/random,
 /obj/machinery/light/small{
@@ -10261,7 +10295,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership)
 "Lq" = (
-/obj/machinery/recharge_station,
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "Lr" = (
@@ -10318,6 +10352,12 @@
 	dir = 8
 	},
 /area/ghost_bar)
+"LB" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/item/reagent_containers/glass/beaker/large,
+/turf/simulated/floor/plasteel/white,
+/area/ghost_bar)
 "LC" = (
 /obj/structure/chair/comfy/green{
 	dir = 1
@@ -10340,8 +10380,26 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "LG" = (
-/obj/structure/sink/directional/north,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/table/reinforced,
+/obj/machinery/reagentgrinder{
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 7;
+	pixel_x = 12
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -11;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -11
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "LH" = (
@@ -10500,9 +10558,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "Ms" = (
-/obj/machinery/processor,
 /obj/effect/turf_decal/stripes/end,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/processor/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "Mt" = (
@@ -10917,7 +10975,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Oc" = (
-/obj/machinery/mecha_part_fabricator/upgraded,
+/obj/machinery/mecha_part_fabricator/loaded/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Og" = (
@@ -11365,7 +11423,7 @@
 /area/centcom/specops)
 "PC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/soda{
+/obj/machinery/chem_dispenser/soda/upgraded{
 	pixel_y = 5
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -11537,8 +11595,8 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Qd" = (
-/obj/machinery/cell_charger,
 /obj/structure/table,
+/obj/machinery/cell_charger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Qe" = (
@@ -11615,6 +11673,11 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
+"Qp" = (
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/structure/sink/kitchen/directional/west,
+/turf/simulated/floor/plasteel/white,
+/area/ghost_bar)
 "Qr" = (
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/glass/fifty,
@@ -11918,8 +11981,12 @@
 /area/centcom/specops)
 "Rz" = (
 /obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /obj/item/storage/fancy/cigars{
-	pixel_y = 8
+	pixel_y = 8;
+	pixel_x = 3
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -11986,6 +12053,11 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"RJ" = (
+/obj/machinery/cooking/oven/loaded/upgraded,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ghost_bar)
 "RK" = (
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
@@ -12005,7 +12077,7 @@
 /area/ghost_bar)
 "RN" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/soda{
+/obj/machinery/chem_dispenser/soda/upgraded{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -12254,9 +12326,7 @@
 /area/admin)
 "SD" = (
 /obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 4
-	},
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "SE" = (
@@ -12277,7 +12347,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "SG" = (
-/obj/machinery/autolathe/upgraded{
+/obj/machinery/autolathe/loaded/upgraded{
 	hacked = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -12327,10 +12397,10 @@
 /area/ruin/space/bubblegum_arena)
 "SR" = (
 /obj/structure/table/reinforced,
-/obj/machinery/reagentgrinder,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/kitchen/knife,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/reagentgrinder/upgraded{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "SS" = (
@@ -12354,8 +12424,8 @@
 /area/ghost_bar)
 "SX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/cooking/grill,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/cooking/grill/loaded/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "SY" = (
@@ -12530,8 +12600,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "TG" = (
-/obj/machinery/bodyscanner,
 /obj/effect/turf_decal/tiles/department/medical/side,
+/obj/machinery/bodyscanner/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/centcom/control)
 "TH" = (
@@ -12608,6 +12678,13 @@
 "TU" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/evac)
+"TV" = (
+/obj/structure/closet/crate/can,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "TW" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 1
@@ -12627,15 +12704,7 @@
 /area/centcom/control)
 "TZ" = (
 /obj/structure/table,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/hemostat,
-/obj/item/cautery,
-/obj/item/surgicaldrill,
-/obj/item/circular_saw,
-/obj/item/scalpel,
-/obj/item/retractor,
-/obj/item/fix_o_vein,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "Ua" = (
@@ -13118,8 +13187,8 @@
 /turf/simulated/floor/plating,
 /area/centcom/evac)
 "VR" = (
-/obj/machinery/processor,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/processor/upgraded,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "VS" = (
@@ -13186,6 +13255,13 @@
 /obj/effect/landmark/spawner/bubblegum,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
+"Wh" = (
+/obj/machinery/door/airlock/centcom{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "Wi" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/deck/cards/black,
@@ -13682,9 +13758,12 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
 "XR" = (
-/obj/machinery/processor,
-/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /obj/effect/turf_decal/tiles/dark/checker,
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	pixel_y = 5
+	},
+/obj/structure/table/reinforced,
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ghost_bar)
 "XS" = (
@@ -13703,7 +13782,7 @@
 /area/centcom/specops)
 "XX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/beer{
+/obj/machinery/chem_dispenser/beer/upgraded{
 	pixel_y = 5
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -13883,7 +13962,7 @@
 /area/wizard_station)
 "YC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "YD" = (
@@ -14035,7 +14114,7 @@
 /area/centcom/specops)
 "Zm" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Zn" = (
@@ -36281,7 +36360,7 @@ ia
 aM
 oX
 iJ
-Lg
+yR
 Ta
 rQ
 rQ
@@ -36535,7 +36614,7 @@ Jl
 iJ
 iJ
 iJ
-iJ
+Hk
 iJ
 iJ
 Cv
@@ -66623,8 +66702,8 @@ fB
 Me
 Me
 Me
+Me
 tr
-Jy
 qH
 Nm
 cg
@@ -66875,13 +66954,13 @@ Dm
 Me
 Fb
 es
+Qp
 Oj
-zj
+qk
 fF
-rq
+zR
 Me
-xi
-ip
+qi
 Jy
 Hz
 rU
@@ -67136,11 +67215,11 @@ es
 es
 es
 es
-dM
+es
+Wh
 Jy
 Jy
-Jy
-Hz
+xA
 eU
 zE
 Gp
@@ -67393,9 +67472,9 @@ Dk
 EK
 xU
 zP
+gS
 Me
-eP
-Jy
+TV
 Jy
 nZ
 Me
@@ -72518,7 +72597,7 @@ Jy
 Jy
 yO
 Im
-go
+zP
 es
 eV
 es
@@ -72775,7 +72854,7 @@ Jy
 Jy
 CV
 Im
-Dk
+RJ
 es
 zY
 YP
@@ -73289,7 +73368,7 @@ Im
 Im
 Im
 Im
-YP
+LB
 es
 Kl
 YP
@@ -74060,7 +74139,7 @@ ps
 ps
 ps
 Im
-LG
+df
 es
 es
 es
@@ -74321,7 +74400,7 @@ Im
 Oj
 zj
 fF
-es
+gS
 VR
 YP
 Im

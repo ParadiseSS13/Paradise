@@ -57,3 +57,10 @@
 	hunting_behavior = /datum/ai_behavior/hunt_target/interact_with_target/clean
 	hunt_targets = list(/obj/effect/decal/cleanable)
 	hunt_range = 4
+
+/// Find and hunt fish
+/datum/ai_planning_subtree/find_and_hunt_target/fish
+	hunt_targets = list(/mob/living/basic/carp,
+		/mob/living/simple_animal/hostile/retaliate/carp)
+	hunt_chance = 50
+	hunt_range = 16
