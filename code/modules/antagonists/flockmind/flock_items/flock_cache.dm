@@ -5,6 +5,7 @@
 	icon_state = "minicache"
 	inhand_icon_state = "beaker"
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100, 200)
+	has_lid = FALSE
 	volume = 200
 	container_type = REFILLABLE | DRAINABLE
 	materials = list(MAT_GNESIS_GLASS = 2000)
