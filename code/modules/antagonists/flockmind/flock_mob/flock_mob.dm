@@ -23,6 +23,8 @@
 
 	initial_traits = list(TRAIT_FLYING, TRAIT_FLOCK_THING)
 
+	butcher_results = list(/obj/item/stack/sheet/gnesis = 1)
+
 	var/list/actions_to_grant = list(
 		/datum/action/cooldown/flock/convert,
 	)
