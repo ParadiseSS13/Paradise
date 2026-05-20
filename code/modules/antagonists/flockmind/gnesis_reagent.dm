@@ -68,3 +68,23 @@
 				continue
 			holder.remove_reagent(R.id, 0.4)
 			holder.add_reagent("gnesis_tox", 0.4)
+
+/datum/reagent/gnesis/reaction_turf(turf/T, volume, color)
+	. = ..()
+	if(isspaceturf(T))
+		return
+	if(volume >= 50 && (isfloorturf(T) || iswallturf(T)))
+		T.visible_message(SPAN_NOTICE("The substance flows out and sinks into [T], forming new shapes."))
+		flock_convert_turf(T)
+		return
+	else if(volume >= 10)
+		if(prob(50))
+			var/atom/movable/B = new /obj/item/raw_material/scrap_metal
+			B.set_loc(T)
+			B.setMaterial(getMaterial("gnesis"))
+		else
+			var/atom/movable/B = new /obj/item/raw_material/shard
+			B.set_loc(T)
+			B.setMaterial(getMaterial("gnesisglass"))
+		return
+	T.visible_message(SPAN_NOTICE("The substance flows out, spread too thinly."))
