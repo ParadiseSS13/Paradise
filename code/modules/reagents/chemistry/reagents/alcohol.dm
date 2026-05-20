@@ -2422,7 +2422,7 @@
 	drink_name = "Glass of Michelada"
 	drink_desc = "Spicy beer served in a salt-rimmed glass."
 	taste_description = "hot pepper and lime"
-	yuck_descripion = "acidic assembly fluid"
+	yuck_description = "acidic assembly fluid"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/vampiro
@@ -2435,7 +2435,7 @@
 	drink_name = "Glass of Vampiro"
 	drink_desc = "Tequila prepared with tomato juice for a blood-red look."
 	taste_description ="old Mexican spices"
-	yuck_descripion = "acidic assembly fluid"
+	yuck_description = "acidic assembly fluid"
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/acapulco_de_noche
@@ -2448,7 +2448,7 @@
 	drink_name = "Glass of Acapulco de Noche"
 	drink_desc = "A flamboyant cocktail that smells like medicine."
 	taste_description ="a citric dance"
-	yuck_descripion = "acidic stickiness in your tubes"
+	yuck_description = "acidic stickiness in your tubes"
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/matadora_beer
@@ -2462,7 +2462,7 @@
 	drink_name = "Glass of Matadora Beer"
 	drink_desc = "It smells strangely good despite its hodge-podge appearance."
 	taste_description ="lemonade with strawberry soda and medicinal alcohol"
-	yuck_descripion = "acidic gritty clumps in your gears"
+	yuck_description = "acidic gritty clumps in your gears"
 	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/hanky_panky
@@ -2487,7 +2487,7 @@
 	drink_name = "Glass of Peach Bellini"
 	drink_desc = "A mimosa made with peach purée. Oh la la fancy man."
 	taste_description = "fresh peaches"
-	yuck_descripion = "stickiness in your tubes"
+	yuck_description = "stickiness in your tubes"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/vampire_bf
@@ -2500,6 +2500,6 @@
 	drink_name = "Glass of Vampire's Best Friend"
 	drink_desc = "A creamy beverage with chunks of garlic inside. Did you steal the chaplain's flask, son?"
 	taste_description ="garlic"
-	yuck_descripion = "clumps in your gears"
+	yuck_description = "clumps in your gears"
 
 // ----------- END of imports from Hispania!
