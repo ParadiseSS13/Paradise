@@ -1574,6 +1574,7 @@
 	drink_name = "Glass of Uncle Git's Special Milk"
 	drink_desc = "It is sticky and has a strong chlorine smell."
 	taste_description = "someone else's child"
+	yuck_description = "clumps in your motors"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/peach_milkshake
