@@ -452,10 +452,12 @@
 
 /datum/material/gnesis
 	name = "gnesis"
+	id = MAT_GNESIS
 	sheet_type = /obj/item/stack/sheet/gnesis
 
 /datum/material/gnesis_glass
 	name = "translucent gnesis"
+	id = MAT_GNESIS_GLASS
 	sheet_type = /obj/item/stack/sheet/gnesis_glass
 
 /datum/material/bananium
