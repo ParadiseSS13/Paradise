@@ -28608,11 +28608,11 @@
 "jeR" = (
 /obj/machinery/disposal,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sign/public/deathsposal{
-	pixel_y = -32
-	},
 /obj/structure/disposalpipe/trunk{
-	dir = 8
+	dir = 2
+	},
+/obj/structure/sign/public/deathsposal{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
@@ -30933,10 +30933,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
-"kDf" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/science/xenobiology)
 "kDp" = (
 /obj/machinery/hydroponics/constructable{
 	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
@@ -49938,8 +49934,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "uQC" = (
-/obj/structure/disposaloutlet,
-/turf/simulated/wall/r_wall,
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "uQP" = (
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -94310,10 +94307,10 @@ wXK
 pRY
 pRY
 pRY
-kDf
 pRY
-hNp
-xxW
+pRY
+coa
+coa
 aZD
 daW
 qui
@@ -94569,8 +94566,8 @@ svR
 oGS
 jeR
 uQC
-kzg
-laR
+hNp
+xxW
 aZD
 aZD
 daW
