@@ -1,5 +1,6 @@
 /datum/ai_behavior/flock/stare
 	name = "analyzing"
+	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/flock/stare/goap_score(datum/ai_controller/controller)
 	if(controller.behavior_cooldowns[src] > world.time)
@@ -32,6 +33,7 @@
 /datum/ai_behavior/flock/stare_at_bird
 	name = "analyzing"
 	action_cooldown = 1 SECONDS
+	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/flock/stare_at_bird/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
