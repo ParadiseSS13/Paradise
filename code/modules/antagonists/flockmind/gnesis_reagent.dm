@@ -8,10 +8,12 @@
 	process_flags = ORGANIC | SYNTHETIC
 	/// The color of the light to give off
 	var/light_color = "#26ffe6"
-	/// Reagent -> Blood-replacement rate per 2 seconds
-	var/conversion_rate = 1
+	/// Reagent -> Gnesis rate per 2 seconds
+	var/conversion_rate = 0.4
 	/// Amount of gnesis required to turn the victim into a flockbit
 	var/flocksplosion_threshold = 200
+	/// Do not convert these reagents
+	var/list/do_not_convert = list("charcoal", "calomel", "pen_acid", "gnesis_tox")
 
 /datum/reagent/gnesis/on_new(data)
 	..()
@@ -24,7 +26,7 @@
 /datum/reagent/gnesis/on_mob_life(mob/living/M)
 	if(volume > 20) // 2.5 bursts of the turret
 		if(!ismachineperson(M))
-			M.blood_volume -= 0.4
+			M.blood_volume -= conversion_rate
 		M.reagents.add_reagent("gnesis_tox", conversion_rate)
 
 	if(volume > flocksplosion_threshold)
@@ -62,12 +64,11 @@
 
 /datum/reagent/gnesis/process()
 	if(..())
-		var/list/do_not_convert = list("charcoal", "calomel", "pen_acid", "gnesis_tox")
 		for(var/datum/reagent/R in holder.reagent_list)
 			if(R.id in do_not_convert)
 				continue
-			holder.remove_reagent(R.id, 0.4)
-			holder.add_reagent("gnesis_tox", 0.4)
+			holder.remove_reagent(R.id, conversion_rate)
+			holder.add_reagent("gnesis_tox", conversion_rate)
 
 /datum/reagent/gnesis/reaction_turf(turf/T, volume, color)
 	. = ..()
