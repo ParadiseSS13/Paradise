@@ -1,5 +1,6 @@
 /datum/ai_behavior/flock/stare
 	name = "analyzing"
+	action_cooldown = 20 SECONDS
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/flock/stare/goap_score(datum/ai_controller/controller)
@@ -32,32 +33,17 @@
 
 /datum/ai_behavior/flock/stare_at_bird
 	name = "analyzing"
-	action_cooldown = 1 SECONDS
+	action_cooldown = 20 SECONDS
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/flock/stare_at_bird/perform(seconds_per_tick, datum/ai_controller/controller, ...)
 	..()
 	var/mob/living/living_pawn = controller.pawn
-	if(!controller.blackboard[BB_FLOCK_STARING_ACTIVE])
-		controller.set_blackboard_key(BB_FLOCK_STARING_ACTIVE, world.time + (10 SECONDS))
-
-		if(prob(30))
-			living_pawn.emote("stare")
-
-	if(!controller.blackboard[BB_FLOCK_STARE_TARGET])
-		controller.clear_blackboard_key(BB_FLOCK_STARING_ACTIVE)
-		controller.clear_blackboard_key(BB_FLOCK_STARE_TARGET)
-		return AI_BEHAVIOR_SUCCEEDED
-
-	if(!can_see(living_pawn,controller.blackboard[BB_FLOCK_STARE_TARGET]))
-		controller.clear_blackboard_key(BB_FLOCK_STARING_ACTIVE)
-		controller.clear_blackboard_key(BB_FLOCK_STARE_TARGET)
-		return AI_BEHAVIOR_SUCCEEDED
-
-	if(controller.blackboard[BB_FLOCK_STARING_ACTIVE] <= world.time)
-		controller.clear_blackboard_key(BB_FLOCK_STARING_ACTIVE)
-		controller.clear_blackboard_key(BB_FLOCK_STARE_TARGET)
-		return AI_BEHAVIOR_SUCCEEDED
-
 	living_pawn.face_atom(controller.blackboard[BB_FLOCK_STARE_TARGET])
-	return AI_BEHAVIOR_DELAY
+	var/atom/A = controller.blackboard[BB_FLOCK_STARE_TARGET]
+	if(prob(30))
+		living_pawn.manual_emote("stares at [A].")
+
+	controller.clear_blackboard_key(BB_FLOCK_STARE_TARGET)
+
+	return AI_BEHAVIOR_SUCCEEDED

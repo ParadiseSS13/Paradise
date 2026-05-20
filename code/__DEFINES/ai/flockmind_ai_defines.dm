@@ -1,5 +1,4 @@
 // Flockmind Keys]
-#define BB_FLOCK_STARING_ACTIVE "BB_flock_staring"
 #define BB_FLOCK_STARE_TARGET "BB_flock_stare_target"
 #define BB_FLOCK_WANDERING "BB_flock_wandering"
 #define BB_FLOCK_STARE_CD "BB_flock_stare_cooldown"
