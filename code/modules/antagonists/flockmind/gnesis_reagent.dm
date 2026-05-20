@@ -79,12 +79,8 @@
 		return
 	else if(volume >= 10)
 		if(prob(50))
-			var/atom/movable/B = new /obj/item/raw_material/scrap_metal
-			B.set_loc(T)
-			B.setMaterial(getMaterial("gnesis"))
+			new /obj/item/stack/sheet/gnesis(T)
 		else
-			var/atom/movable/B = new /obj/item/raw_material/shard
-			B.set_loc(T)
-			B.setMaterial(getMaterial("gnesisglass"))
+			new /obj/item/stack/sheet/gnesis_glass(T)
 		return
 	T.visible_message(SPAN_NOTICE("The substance flows out, spread too thinly."))
