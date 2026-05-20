@@ -1,6 +1,6 @@
 /obj/item/reagent_containers/glass/gnesis
 	name = "fluid-filled octahedron"
-	desc = "A strange container made of a crystalline matrix. It looks like it can hold reagents but it's a mystery how to access them"
+	desc = "A strange container made of a crystalline matrix. It looks like it can hold reagents but it's a mystery how to access them."
 	icon = 'icons/goonstation/mob/featherzone.dmi'
 	icon_state = "minicache"
 	inhand_icon_state = "beaker"
