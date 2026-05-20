@@ -45,18 +45,19 @@
 			living_pawn.emote("stare")
 
 	if(!controller.blackboard[BB_FLOCK_STARE_TARGET])
+		controller.clear_blackboard_key(BB_FLOCK_STARING_ACTIVE)
+		controller.clear_blackboard_key(BB_FLOCK_STARE_TARGET)
 		return AI_BEHAVIOR_SUCCEEDED
 
 	if(!can_see(living_pawn,controller.blackboard[BB_FLOCK_STARE_TARGET]))
+		controller.clear_blackboard_key(BB_FLOCK_STARING_ACTIVE)
+		controller.clear_blackboard_key(BB_FLOCK_STARE_TARGET)
 		return AI_BEHAVIOR_SUCCEEDED
 
 	if(controller.blackboard[BB_FLOCK_STARING_ACTIVE] <= world.time)
+		controller.clear_blackboard_key(BB_FLOCK_STARING_ACTIVE)
+		controller.clear_blackboard_key(BB_FLOCK_STARE_TARGET)
 		return AI_BEHAVIOR_SUCCEEDED
 
 	living_pawn.face_atom(controller.blackboard[BB_FLOCK_STARE_TARGET])
 	return AI_BEHAVIOR_DELAY
-
-/datum/ai_behavior/flock/stare_at_bird/finish_action(datum/ai_controller/controller, succeeded, ...)
-	. = ..()
-	controller.clear_blackboard_key(BB_FLOCK_STARING_ACTIVE)
-	controller.clear_blackboard_key(BB_FLOCK_STARE_TARGET)
