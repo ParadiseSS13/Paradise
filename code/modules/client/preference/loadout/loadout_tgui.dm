@@ -23,7 +23,19 @@ GLOBAL_LIST_EMPTY(gear_tgui_info)
 	// Build custom item list
 	var/list/displayed_gears = GLOB.gear_tgui_info
 	if(user?.client) // If they are spawning without a client (somehow), they *cant* have a CUI list
-		for(var/datum/custom_user_item/cui in user.client.cui_entries)
+		if(!client)
+		for(var/datum/custom_user_item/cui in client.cui_entries) // Build a CUI list.
+			var/datum/gear/custom/new_custom = new /datum/gear/custom()
+			var/obj/item/I = cui.object_typepath
+			new_custom.display_name = I.name
+			new_custom.description = I.desc
+			new_custom.path = cui.object_typepath
+			new_custom.slot = I.slot_flags
+			new_custom.allowed_roles = cui.allowed_jobs
+			new_custom.main_typepath = /datum/gear/custom
+			new_custom.cui = cui
+			GLOB.gear_datums[cui.object_typepath] = new_custom
+		for(var/datum/custom_user_item/cui in user.client.cui_entries) // Create the displays
 			for(var/datum/gear/custom/gear in GLOB.gear_datums)
 				if(gear.path != cui.object_typepath)
 					continue

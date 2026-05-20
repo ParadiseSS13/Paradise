@@ -31,7 +31,6 @@
 
 	client.playtitlemusic()
 	client.update_active_keybindings()
-	create_cuis()
 
 	//Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
 	if(GLOB.configuration.overflow.reroute_cap && GLOB.configuration.overflow.overflow_server_location)
@@ -41,18 +40,3 @@
 			return //Whitelisted people are immune to overflow rerouting.
 		if(length(GLOB.clients) > GLOB.configuration.overflow.reroute_cap)
 			src << link(GLOB.configuration.overflow.overflow_server_location)
-
-/mob/new_player/proc/create_cuis()
-	if(!client)
-		return // If they are spawning without a client (somehow), they *cant* have a CUI list
-	for(var/datum/custom_user_item/cui in client.cui_entries)
-		var/datum/gear/custom/new_custom = new /datum/gear/custom()
-		var/obj/item/I = cui.object_typepath
-		new_custom.display_name = I.name
-		new_custom.description = I.desc
-		new_custom.path = cui.object_typepath
-		new_custom.slot = I.slot_flags
-		new_custom.allowed_roles = cui.allowed_jobs
-		new_custom.main_typepath = /datum/gear/custom
-		new_custom.cui = cui
-		GLOB.gear_datums[cui.object_typepath] = new_custom
