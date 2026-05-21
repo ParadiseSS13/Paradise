@@ -44095,6 +44095,10 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/obj/machinery/phone{
+	pixel_x = -2;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "ion" = (
@@ -53954,7 +53958,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/command/starboard)
 "ktd" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/extra_insulated/pre_connect{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -62679,13 +62683,13 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "CE"
+	},
 /obj/machinery/door/airlock/command/glass{
 	id_tag = "ceofficedoor";
 	name = "Chief Engineer's Office";
 	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "CE"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
@@ -84816,6 +84820,14 @@
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze{
 	pixel_y = -10
+	},
+/obj/machinery/door_control{
+	id = "ceofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	pixel_x = 6;
+	req_access = list(56);
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
