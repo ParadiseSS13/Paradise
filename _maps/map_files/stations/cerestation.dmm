@@ -22514,9 +22514,6 @@
 	name = "Turbine Access";
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random/dirt/frequent,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
@@ -22524,6 +22521,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor{
 	dir = 4
+	},
+/obj/structure/cable/extra_insulated/pre_connect{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
@@ -66490,10 +66490,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/structure/cable/extra_insulated/pre_connect{
+/obj/effect/spawner/random/dirt/often,
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "ncn" = (
@@ -95110,9 +95110,6 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "tqq" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/airlock/maintenance{
@@ -95124,6 +95121,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/public/storefront)
 "tqE" = (
@@ -110614,7 +110614,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
