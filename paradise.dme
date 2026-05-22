@@ -1840,6 +1840,7 @@
 #include "code\modules\antagonists\flockmind\ai_behaviors\flock_open_container.dm"
 #include "code\modules\antagonists\flockmind\ai_behaviors\flock_rally.dm"
 #include "code\modules\antagonists\flockmind\ai_behaviors\flock_replicate.dm"
+#include "code\modules\antagonists\flockmind\ai_behaviors\flock_resist.dm"
 #include "code\modules\antagonists\flockmind\ai_behaviors\flock_rummage.dm"
 #include "code\modules\antagonists\flockmind\ai_behaviors\flock_shoot.dm"
 #include "code\modules\antagonists\flockmind\ai_behaviors\flock_stare.dm"
