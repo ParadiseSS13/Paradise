@@ -325,12 +325,6 @@
 "fv" = (
 /turf/simulated/floor/plasteel/reactor_pool,
 /area/station/engineering/engine/reactor)
-"fw" = (
-/obj/machinery/atmospherics/pipe/simple/visible/red{
-	dir = 4
-	},
-/turf/space,
-/area/space)
 "fK" = (
 /obj/machinery/light{
 	dir = 4
@@ -511,12 +505,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"hV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/space,
-/area/space)
 "hY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 10
@@ -762,14 +750,16 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "nd" = (
-/obj/machinery/light{
-	dir = 4
+/obj/structure/table/reinforced,
+/obj/item/clothing/head/welding,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
-/obj/structure/closet/crate/can,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -870,8 +860,14 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "pd" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet/crate/can,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -981,6 +977,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"ra" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "rh" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1044,14 +1052,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "st" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Laser Room";
-	dir = 4
+/obj/structure/table/reinforced,
+/obj/item/stack/cable_coil/random{
+	pixel_x = 5;
+	pixel_y = 5
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/item/weldingtool,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "sV" = (
@@ -1079,6 +1086,12 @@
 /obj/structure/railing/pool_lining,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"tF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/space,
+/area/space)
 "tQ" = (
 /obj/machinery/computer/fission_monitor{
 	dir = 1
@@ -1117,6 +1130,12 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/station/engineering/engine/reactor)
+"uq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "ut" = (
 /obj/structure/cable{
@@ -1169,16 +1188,13 @@
 /turf/space,
 /area/space)
 "vl" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/head/welding,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Output to Waste";
+	on = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -1402,13 +1418,15 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "yQ" = (
-/obj/machinery/light{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 8
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "yX" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1479,6 +1497,15 @@
 "zR" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
+"zT" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
 "zV" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
@@ -1747,16 +1774,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
-"En" = (
-/obj/structure/table/reinforced,
-/obj/item/stack/cable_coil/random{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/weldingtool,
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "Ep" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2227,17 +2244,6 @@
 "JX" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
-"Ka" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4;
-	name = "Output to Waste";
-	on = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -2906,17 +2912,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "VL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
+/turf/space,
+/area/space)
 "Wi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3156,13 +3156,13 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "Zi" = (
-/obj/structure/cable{
-	icon_state = "1-8"
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Laser Room";
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -3259,201 +3259,8 @@ vi
 vi
 vi
 vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
 "}
 (2,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(3,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(4,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(5,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
 vi
 vi
 Ar
@@ -3483,29 +3290,8 @@ vi
 vu
 md
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(6,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(3,1,1) = {"
 vi
 vi
 Ar
@@ -3535,29 +3321,8 @@ kx
 kx
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(7,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(4,1,1) = {"
 vi
 vi
 wd
@@ -3587,29 +3352,8 @@ zb
 kq
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(8,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(5,1,1) = {"
 vi
 vi
 IM
@@ -3639,29 +3383,8 @@ fv
 sh
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(9,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(6,1,1) = {"
 vi
 vi
 cc
@@ -3691,29 +3414,8 @@ fv
 oz
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(10,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(7,1,1) = {"
 vi
 vi
 tl
@@ -3743,29 +3445,8 @@ fv
 Ha
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(11,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(8,1,1) = {"
 vi
 vi
 gd
@@ -3795,29 +3476,8 @@ fv
 oz
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(12,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(9,1,1) = {"
 vi
 vi
 xB
@@ -3847,29 +3507,8 @@ fv
 oz
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(13,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(10,1,1) = {"
 vi
 vi
 TJ
@@ -3899,29 +3538,8 @@ fv
 oz
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(14,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(11,1,1) = {"
 vi
 vi
 vK
@@ -3951,29 +3569,8 @@ fv
 kt
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(15,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(12,1,1) = {"
 vi
 vi
 lk
@@ -4003,29 +3600,8 @@ fv
 GE
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(16,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(13,1,1) = {"
 vi
 vi
 lC
@@ -4055,29 +3631,8 @@ fv
 GE
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(17,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(14,1,1) = {"
 vi
 vi
 AV
@@ -4107,29 +3662,8 @@ fv
 Hw
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(18,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(15,1,1) = {"
 vi
 vi
 Eb
@@ -4159,29 +3693,8 @@ fv
 PV
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(19,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(16,1,1) = {"
 vi
 vi
 Er
@@ -4211,29 +3724,8 @@ fv
 fv
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(20,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(17,1,1) = {"
 vi
 vi
 Ep
@@ -4263,29 +3755,8 @@ YD
 GS
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(21,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(18,1,1) = {"
 vi
 vi
 ia
@@ -4314,6 +3785,94 @@ kx
 xr
 xr
 xr
+vi
+"}
+(19,1,1) = {"
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+"}
+(20,1,1) = {"
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+"}
+(21,1,1) = {"
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
+vi
 vi
 vi
 vi
@@ -4351,513 +3910,8 @@ vi
 vi
 vi
 vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
 "}
 (23,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(24,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(25,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(26,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(27,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(28,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(29,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(30,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(31,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-"}
-(32,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
 vi
 vi
 Ar
@@ -4887,29 +3941,8 @@ vi
 vu
 md
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(33,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(24,1,1) = {"
 vi
 vi
 Ar
@@ -4939,29 +3972,8 @@ kx
 kx
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(34,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(25,1,1) = {"
 vi
 vi
 wd
@@ -4991,29 +4003,8 @@ uI
 Oz
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(35,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(26,1,1) = {"
 vi
 vi
 IM
@@ -5043,29 +4034,8 @@ sp
 Fc
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(36,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(27,1,1) = {"
 vi
 vi
 cc
@@ -5088,36 +4058,15 @@ fk
 ud
 dO
 YU
-st
+Zi
 ut
 RR
 Pm
 gj
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(37,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(28,1,1) = {"
 vi
 vi
 EZ
@@ -5147,29 +4096,8 @@ ON
 tU
 kx
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(38,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(29,1,1) = {"
 vi
 vi
 vU
@@ -5199,29 +4127,8 @@ Fc
 Fc
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(39,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(30,1,1) = {"
 vi
 vi
 xB
@@ -5251,29 +4158,8 @@ mz
 Fc
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(40,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(31,1,1) = {"
 vi
 vi
 TJ
@@ -5303,29 +4189,8 @@ yh
 Fc
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(41,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(32,1,1) = {"
 vi
 vi
 vK
@@ -5355,29 +4220,8 @@ Ba
 Fc
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(42,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(33,1,1) = {"
 vi
 vi
 lk
@@ -5407,29 +4251,8 @@ Fc
 Fc
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(43,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(34,1,1) = {"
 vi
 vi
 lC
@@ -5440,7 +4263,7 @@ dK
 fl
 Ey
 ZA
-Zi
+yQ
 wQ
 Pt
 nh
@@ -5459,29 +4282,8 @@ Ae
 tU
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(44,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(35,1,1) = {"
 vi
 vi
 AV
@@ -5504,36 +4306,15 @@ fk
 Iy
 vV
 Ff
-st
+Zi
 Yz
 hz
 Qc
 gj
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(45,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(36,1,1) = {"
 vi
 vi
 Eb
@@ -5544,7 +4325,7 @@ Zy
 Zy
 wP
 ka
-VL
+ra
 Ux
 cw
 bb
@@ -5563,29 +4344,8 @@ ui
 Fc
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(46,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(37,1,1) = {"
 vi
 vi
 Er
@@ -5596,8 +4356,8 @@ kF
 FC
 Zz
 ka
-vl
 nd
+pd
 Bv
 QQ
 WN
@@ -5615,29 +4375,8 @@ zi
 Fc
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(47,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(38,1,1) = {"
 vi
 vi
 Ep
@@ -5658,7 +4397,7 @@ po
 po
 vy
 Av
-Ka
+vl
 Ml
 kx
 Wj
@@ -5667,29 +4406,8 @@ VG
 wl
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(48,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(39,1,1) = {"
 vi
 vi
 ia
@@ -5704,12 +4422,12 @@ Rp
 HQ
 kx
 Yy
-En
+st
 Dv
 Dv
 iV
-yQ
-pd
+zT
+uq
 zI
 Hm
 kx
@@ -5719,13 +4437,8 @@ xr
 xr
 xr
 vi
-vi
-vi
-vi
-vi
-vi
 "}
-(49,1,1) = {"
+(40,1,1) = {"
 vi
 vi
 vi
@@ -5746,29 +4459,8 @@ vi
 vi
 vi
 vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-hV
-fw
-vi
-vi
-vi
-vi
-vi
+tF
+VL
 vi
 vi
 vi
@@ -5777,28 +4469,7 @@ vi
 vi
 vi
 "}
-(50,1,1) = {"
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
-vi
+(41,1,1) = {"
 vi
 vi
 vi
