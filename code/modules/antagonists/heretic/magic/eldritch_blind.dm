@@ -1,12 +1,7 @@
 // Given to heretic monsters.
 /datum/spell/blind/eldritch
 	name = "Eldritch Blind"
-	base_cooldown = 15 SECONDS
-	clothes_req = FALSE
-	invocation_type = "whisper"
-	message = SPAN_NOTICE("Your eyes cry out in pain!")
-	cooldown_min = 2 SECONDS
-	sound = 'sound/magic/blind.ogg'
+
 	is_a_heretic_spell = TRUE
 	invocation = "E'E'S"
 
