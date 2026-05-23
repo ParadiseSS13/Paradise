@@ -325,6 +325,12 @@
 "fv" = (
 /turf/simulated/floor/plasteel/reactor_pool,
 /area/station/engineering/engine/reactor)
+"fw" = (
+/obj/machinery/atmospherics/pipe/simple/visible/red{
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "fK" = (
 /obj/machinery/light{
 	dir = 4
@@ -505,6 +511,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"hV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/space,
+/area/space)
 "hY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 10
@@ -5750,8 +5762,8 @@ vi
 vi
 vi
 vi
-vi
-vi
+hV
+fw
 vi
 vi
 vi
