@@ -183,6 +183,7 @@
 				break
 
 	if(set_path && length(ideal_path))
+		controller.clear_blackboard_key(BB_PATH_TO_USE)
 		controller.set_blackboard_key(BB_PATH_TO_USE, ideal_path)
 	return ideal_atom
 
