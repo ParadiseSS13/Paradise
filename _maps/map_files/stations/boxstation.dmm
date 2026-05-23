@@ -53923,12 +53923,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
-"hKg" = (
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 10
-	},
-/turf/space,
-/area/space)
 "hKO" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/transit_tube/horizontal,
@@ -97831,7 +97825,7 @@ aaa
 aaa
 aaa
 aaa
-hKg
+aaa
 aaa
 aaa
 aaa
