@@ -1468,17 +1468,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"zT" = (
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4;
-	name = "Output to Waste";
-	on = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "zV" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /turf/simulated/floor/engine,
@@ -2226,6 +2215,17 @@
 "JX" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
+"Ka" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Output to Waste";
+	on = 1
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -5646,8 +5646,8 @@ po
 po
 vy
 Av
+Ka
 Ml
-zT
 kx
 Wj
 Wy
@@ -5698,8 +5698,8 @@ Dv
 iV
 yQ
 pd
-Ns
 zI
+Hm
 kx
 kx
 kx
