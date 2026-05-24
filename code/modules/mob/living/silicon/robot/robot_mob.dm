@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		return FALSE
 
 	if(oldname != real_name)
-		notify_ai(3, oldname, newname)
+		notify_ai(RENAME, oldname, newname)
 		custom_name = (newname != get_default_name()) ? newname : null
 		setup_PDA()
 
@@ -746,7 +746,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	if(client.stat_tab == "Status")
 		SSstatpanels.set_status_tab(client)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
-	notify_ai(2)
+	notify_ai(NEW_MODULE)
 
 /mob/living/silicon/robot/proc/initialize_sprites(selected_sprite, list/module_sprites)
 	var/image/sprite_image = module_sprites[selected_sprite]
@@ -763,7 +763,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		U.forceMove(get_turf(src))
 
 /mob/living/silicon/robot/proc/reset_module()
-	notify_ai(2)
+	notify_ai(NEW_MODULE)
 	client?.screen -= hud_used.module_store_icon
 	uneq_all()
 	SStgui.close_user_uis(src)
@@ -1572,7 +1572,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 /**
  * Notifies the AI of a certain event related to borgs and shells.
  *
- * Arguments: (only the notifytype argument is necessary)
+ * Arguments:(only the notifytype argument is necessary)
  * * notifytype - The type of notification to send.
  * * oldname - The old name of the cyborg.
  * * newname - The new name of the cyborg.
@@ -1581,17 +1581,17 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	if(!connected_ai)
 		return
 	switch(notifytype)
-		if(1) //New Cyborg
+		if(NEW_BORG) //New Cyborg
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
-		if(2) //New Module
+		if(NEW_MODULE) //New Module
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
-		if(3) //New Name
+		if(RENAME) //New Name
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
 		//from hispania
-		if(4) //New Shell
+		if(AI_SHELL) //New Shell
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg shell detected: <a href='?src=\ref[connected_ai];track=[html_encode(name)]'>[name]</a></span><br>")
 		//end of hispania
-		if(5) //Disconnect
+		if(DISCONNECT) //Disconnect
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Remote telemetry lost with [name].</span><br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
@@ -1606,7 +1606,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
-		notify_ai(1)
+		notify_ai(NEW_BORG)
 		if(AI.mind.special_role == ROLE_TRAITOR && AI.malf_picker)
 			make_malf_robot(AI)
 		if(module)

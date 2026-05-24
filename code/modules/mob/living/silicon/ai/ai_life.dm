@@ -149,7 +149,6 @@
 	if(status_flags & GODMODE)
 		health = 100
 		set_stat(CONSCIOUS)
-	else
 	//from tg
 	var/old_health = health
 	health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss()

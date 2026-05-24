@@ -37,7 +37,7 @@
 			if(!mend)
 				if(R.connected_ai)
 					//from hispania
-					R.notify_ai(5)
+					R.notify_ai(DISCONNECT)
 					if(R.shell)
 						R.undeploy() //Forced disconnect of an AI should this body be a shell.
 					//end of hispania
