@@ -22,7 +22,6 @@
 	var/ghost_timer
 
 	COOLDOWN_DECLARE(flock_message_cd)
-	COOLDOWN_DECLARE(resist_cd)
 	COOLDOWN_DECLARE(relaymove_cd)
 
 /obj/structure/flock/cage/Initialize(mapload, datum/flock/join_flock)
@@ -86,10 +85,8 @@
 		deconstruct(TRUE)
 
 /obj/structure/flock/cage/container_resist(mob/living/user)
-	if(!COOLDOWN_FINISHED(src, resist_cd))
+	if(!do_after_once(user, 3 SECONDS, FALSE, src, interaction_key = "flock_cage_resist"))
 		return
-
-	COOLDOWN_START(src, resist_cd, 3 SECONDS)
 
 	audible_message("[src] [pick("cracks","bends","shakes","groans")].")
 	playsound(
