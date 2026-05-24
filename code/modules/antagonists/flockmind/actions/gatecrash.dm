@@ -11,6 +11,10 @@
 		if(airlock.canAIControl())
 			targets += airlock
 
+	for(var/obj/mecha/mech in range(10, get_turf(owner)))
+		if(mech.occupant)
+			targets += mech
+
 	if(!length(targets))
 		to_chat(owner, SPAN_NOTICE("No targets in range that can be opened via radio."))
 		return FALSE
@@ -24,12 +28,17 @@
 	return TRUE
 
 /datum/action/cooldown/flock/gatecrash/proc/async_open_doors(list/doors)
-	for(var/obj/machinery/door/airlock/airlock in doors)
-		if(QDELETED(airlock))
+	for(var/obj/target in doors)
+		if(QDELETED(target))
 			continue
 
 		// Stagger openins a little randomly
 		if(prob(20))
 			sleep(0.2 SECONDS)
 
-		INVOKE_ASYNC(airlock, TYPE_PROC_REF(/obj/machinery/door, open))
+		if(isairlock(target))
+			var/obj/machinery/door/airlock/airlock = target
+			INVOKE_ASYNC(airlock, TYPE_PROC_REF(/obj/machinery/door, open))
+		if(ismecha(target))
+			var/obj/mecha/mech = target
+			INVOKE_ASYNC(mech, TYPE_PROC_REF(/obj/mecha, go_out), TRUE)

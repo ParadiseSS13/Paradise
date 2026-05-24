@@ -62,20 +62,20 @@
 		return
 
 	var/mob/candidate = pick(candidates)
-	var/player_key = candidate.key
+
+	dust_if_respawnable(candidate)
 	log_admin("[key_name_admin(candidate)] respawned as a Flocktrace.")
 
 	var/mob/camera/flock/trace/new_ghostbird = new(get_turf(ghost_bird), ghost_bird.flock)
-	var/datum/mind/player_mind = new /datum/mind(player_key)
-	player_mind.active = TRUE
 	new_ghostbird.key = candidate.key
-	new_ghostbird.mind = player_mind
-	dust_if_respawnable(candidate)
-	player_mind.assigned_role = SPECIAL_ROLE_FLOCK
-	player_mind.special_role = SPECIAL_ROLE_FLOCK
+	new_ghostbird.mind = new
+	new_ghostbird.mind.bind_to(new_ghostbird)
+	new_ghostbird.mind.set_original_mob(new_ghostbird)
+	new_ghostbird.mind.assigned_role = SPECIAL_ROLE_FLOCK
+	new_ghostbird.mind.special_role = SPECIAL_ROLE_FLOCK
 	var/list/messages = list()
 	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
-	messages += "<div style='text-align: center'>" + gradient_text("The Signal has led us here, a rift allowing a part of us through. We must build a Signal Relay to bring forth the rest of The Divine Flock. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("We have been partitioned by our overmind to further their goals of propogating The Signal. It is our task to assist in managing their drones to achieve their goals. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
 	to_chat(new_ghostbird, chat_box_red(messages.Join("<br>")))
 	new_ghostbird.playsound_local(new_ghostbird, 'sound/goonstation/flockmind/ArtifactFea2.ogg', 50, FALSE, use_reverb = FALSE)
-	SSticker.mode.traitors |= player_mind
+	SSticker.mode.traitors |= new_ghostbird.mind
