@@ -154,6 +154,8 @@
 
 /mob/living/basic/flock/drone/AltClick(mob/user, modifiers)
 	. = ..()
+	if(stat == DEAD)
+		return
 	var/mob/camera/flock/ghost_bird = user
 	if(!istype(ghost_bird))
 		return
