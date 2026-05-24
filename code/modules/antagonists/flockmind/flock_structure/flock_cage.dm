@@ -92,16 +92,13 @@
 	COOLDOWN_START(src, resist_cd, 3 SECONDS)
 
 	audible_message("[src] [pick("cracks","bends","shakes","groans")].")
-	take_damage(6, BRUTE)
-
 	playsound(
 		src,
 		pick('sound/goonstation/flockmind/flockdrone_grump1.ogg', 'sound/goonstation/flockmind/flockdrone_grump2.ogg', 'sound/goonstation/flockmind/flockdrone_grump3.ogg'),
 		50,
 		TRUE
 	)
-
-	take_damage(1, BRUTE)
+	take_damage(7, BRUTE)
 
 /obj/structure/flock/cage/relaymove(mob/living/user, direction)
 	if(!COOLDOWN_FINISHED(src, relaymove_cd))
