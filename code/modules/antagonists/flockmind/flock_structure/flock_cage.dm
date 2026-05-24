@@ -85,6 +85,7 @@
 		deconstruct(TRUE)
 
 /obj/structure/flock/cage/container_resist(mob/living/user)
+	to_chat(victim, SPAN_WARNING("You resist against the confines of the cage!"))
 	if(!do_after_once(user, 3 SECONDS, FALSE, src, interaction_key = "flock_cage_resist"))
 		return
 
