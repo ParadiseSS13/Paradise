@@ -34,7 +34,7 @@
 
 	to_chat(bird, SPAN_NOTICE("Our internal fabricators spring into action, we must hold still."))
 
-	if(!do_after_once(bird, 8 SECONDS, interaction_key = "flock_lay_egg"))
+	if(!do_after_once(bird, 8 SECONDS, needhand = FALSE, target = bird.loc, interaction_key = "flock_lay_egg"))
 		return FALSE
 
 	bird.substrate.remove_points(bird.flock.current_egg_cost)
