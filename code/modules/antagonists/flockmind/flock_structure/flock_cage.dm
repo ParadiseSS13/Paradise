@@ -139,10 +139,10 @@
 		while(length(items) && !eating)
 			var/obj/item/candidate = pick_n_take(items)
 			if(candidate.resistance_flags & INDESTRUCTIBLE)
-				candidate.forceMove(get_turf(src))
+				human_victim.drop_item_to_ground(candidate, TRUE, TRUE)
 				visible_message(SPAN_WARNING("[src] pulls [eating] from [human_victim] and drops it!"))
 				continue
-			candidate.forceMove(src)
+			human_victim.transfer_item_to(candidate, src, TRUE, TRUE)
 			if(!QDELETED(candidate))
 				set_eating_target(candidate)
 
