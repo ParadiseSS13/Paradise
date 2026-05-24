@@ -31,7 +31,7 @@
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
-	materials = list(MAT_METAL=50)
+	materials = list(MAT_METAL = 2000)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
 /obj/item/cane/get_crutch_efficiency()
@@ -48,7 +48,7 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL // Canes can fold up to fit in bags or pockets
-	materials = list(MAT_METAL = 50)
+	materials = list(MAT_METAL = 1000)
 	attack_verb = list("smacked", "whacked", "bumped", "struck")
 	new_attack_chain = TRUE
 
