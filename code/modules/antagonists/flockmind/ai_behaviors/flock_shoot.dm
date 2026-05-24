@@ -34,6 +34,8 @@
 	return bird.flock.enemies.Copy()
 
 /datum/ai_behavior/flock/attack_target/goap_is_valid_target(datum/ai_controller/controller, atom/target)
+	if(ismecha(target))
+		return TRUE
 	var/mob/living/target_mob = target
 	return ismob(target_mob) && isturf(target_mob.loc) && !target_mob.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE) && !target_mob.IsKnockedDown()
 

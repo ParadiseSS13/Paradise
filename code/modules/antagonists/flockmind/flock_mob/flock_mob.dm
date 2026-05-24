@@ -7,6 +7,8 @@
 
 	pass_flags_self = PASSTABLE | PASSFLOCK
 
+	a_intent = INTENT_DISARM
+
 	light_color = "#26ffe6"
 	light_power = 0.2
 	light_range = 2

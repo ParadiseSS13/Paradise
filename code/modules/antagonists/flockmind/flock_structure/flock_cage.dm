@@ -75,7 +75,7 @@
 			chew_on_mob(seconds_per_tick)
 
 	else
-		eating.take_damage(absorption_rate * seconds_per_tick * 25, ACID, armor_penetration_percentage = 100)
+		eating.take_damage(absorption_rate * seconds_per_tick * 25, BRUTE, armor_penetration_percentage = 100)
 		reagents.add_reagent(/datum/reagent/gnesis, absorption_rate * seconds_per_tick)
 
 	if(victim && COOLDOWN_FINISHED(src, flock_message_cd))
@@ -129,8 +129,8 @@
 		victim.adjustBruteLoss(absorption_rate * seconds_per_tick)
 		if(victim.stat == DEAD)
 			visible_message(SPAN_DANGER("[src] rips apart what remains of [victim]."))
-			set_victim(null)
 			victim.gib()
+			set_victim(null)
 		return
 
 	var/mob/living/carbon/human/human_victim = victim

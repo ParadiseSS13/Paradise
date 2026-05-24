@@ -22,6 +22,10 @@
 
 /obj/projectile/energy/flock_bolt/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
+	if(ismecha(target))
+		var/obj/mecha/M = target
+		M.take_damage(20, BURN)
+
 	if(!isliving(target))
 		return
 

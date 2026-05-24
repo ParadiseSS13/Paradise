@@ -14,7 +14,7 @@
 	var/projectile_count = 4
 	var/projectile_type = /obj/projectile/bullet/dart/piercing/gnesis
 
-	var/mob/current_target
+	var/current_target
 
 /obj/structure/flock/gnesis_turret/Initialize(mapload, datum/flock/join_flock)
 	. = ..()
@@ -76,9 +76,12 @@
 		if(is_valid_target(L))
 			targets += L
 
+	for(var/obj/mecha/M in viewers(range, src))
+		targets += M
+
 	var/target = null
 	var/target_dist = INFINITY
-	for(var/mob/living/L as anything in targets)
+	for(var/L as anything in targets)
 		var/dist = get_dist(src, L)
 		if(dist < target_dist)
 			target = L
@@ -86,7 +89,15 @@
 
 	return target
 
-/obj/structure/flock/gnesis_turret/proc/is_valid_target(mob/living/L)
+/obj/structure/flock/gnesis_turret/proc/is_valid_target(target)
+	if(!can_see(src, target, range))
+		return FALSE
+
+	if(ismecha(target))
+		return TRUE
+
+	var/mob/living/L = target
+
 	if(isflockmob(L))
 		return FALSE
 
@@ -97,9 +108,6 @@
 		return FALSE
 
 	if(L.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE))
-		return FALSE
-
-	if(!can_see(src, L, range))
 		return FALSE
 
 	return TRUE

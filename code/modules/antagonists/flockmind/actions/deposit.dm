@@ -15,8 +15,6 @@
 	playsound(target, 'sound/goonstation/flockmind/flockdrone_quickbuild.ogg', 50, TRUE)
 
 	while(do_after(bird, 1 SECONDS, target =  target, interaction_key = "flock_deposit"))
-		bird.visible_message(SPAN_NOTICE("[bird] deposits materials into [target]."), blind_message = SPAN_HEAR("You hear an otherwordly whirring."))
-
 		var/obj/structure/flock/tealprint/tealprint = target
 		var/deposit = min(bird.substrate.has_points(), tealprint.substrate.how_empty(), FLOCK_SUBSTRATE_COST_DEPOST_TEALPRINT)
 		bird.substrate.remove_points(deposit)

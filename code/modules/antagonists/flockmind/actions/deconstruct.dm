@@ -8,11 +8,6 @@
 	if(!clicked_atom_turf)
 		return FALSE
 
-	// This breaks pathfinding :(
-	// if(!clicked_atom_turf.IsReachableBy(owner))
-	// 	return FALSE
-
-	// So instead:
 	if(get_dist(owner, clicked_atom_turf) > 1)
 		return FALSE
 
