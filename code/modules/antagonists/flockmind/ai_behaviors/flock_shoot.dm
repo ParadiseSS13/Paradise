@@ -23,15 +23,20 @@
 
 	controller.set_blackboard_key(BB_FLOCK_ATTACK_TARGET, target)
 	set_movement_target(controller, target)
-	//controller.queue_behavior(/datum/ai_behavior/frustration, BB_FLOCK_ATTACK_FRUSTRATION, 10 SECONDS)
 
 /datum/ai_behavior/flock/attack_target/goap_precondition(datum/ai_controller/controller)
 	var/mob/living/basic/flock/drone/bird = controller.pawn
-	return length(bird.flock?.enemies)
+	var/list/enemies = bird.flock?.enemies.Copy()
+	for(var/obj/mecha/M in view(search_radius_override, controller.pawn))
+		enemies += M
+	return length(enemies)
 
 /datum/ai_behavior/flock/attack_target/goap_get_potential_targets(datum/ai_controller/controller)
 	var/mob/living/basic/flock/bird = controller.pawn
-	return bird.flock.enemies.Copy()
+	var/list/enemies = bird.flock.enemies.Copy()
+	for(var/obj/mecha/M in view(search_radius_override, controller.pawn))
+		enemies += M
+	return enemies
 
 /datum/ai_behavior/flock/attack_target/goap_is_valid_target(datum/ai_controller/controller, atom/target)
 	if(ismecha(target))
