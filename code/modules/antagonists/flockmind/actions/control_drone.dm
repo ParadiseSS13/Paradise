@@ -52,7 +52,6 @@
 				return FALSE
 
 			pointer_helper(selected_bird, target, 2 SECONDS)
-			selected_bird.say("instruction confirmed: move to location")
 			unset_click_ability(owner, performing_task = TRUE)
 			return TRUE
 
