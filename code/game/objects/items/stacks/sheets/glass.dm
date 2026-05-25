@@ -44,6 +44,12 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	. = ..()
 	. += SPAN_NOTICE("Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
 
+/obj/item/stack/sheet/glass/two
+	amount = 2
+
+/obj/item/stack/sheet/glass/five
+	amount = 5
+
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
 

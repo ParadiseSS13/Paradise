@@ -233,6 +233,10 @@
 /obj/effect/spawner/airlock/s_to_n/long/square,
 /turf/simulated/wall,
 /area/ruin/drakehound_mine/arrivals)
+"hu" = (
+/obj/structure/salvageable/computer,
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/bar)
 "hD" = (
 /obj/machinery/light{
 	dir = 4
@@ -327,10 +331,10 @@
 	},
 /area/ruin/drakehound_mine/solars)
 "iK" = (
-/obj/effect/spawner/random/food_trash,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/salvageable/protolathe,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/drakehound_mine/ship)
 "iN" = (
@@ -467,6 +471,11 @@
 /mob/living/basic/drakehound_breacher/ranged,
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/bar)
+"mp" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/drakehound_mine/ship)
 "mr" = (
 /turf/simulated/mineral/random/space,
 /area/ruin/drakehound_mine/hallway_south)
@@ -855,7 +864,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/shreds,
 /obj/effect/decal/cleanable/shreds,
-/obj/machinery/computer/nonfunctional,
+/obj/structure/salvageable/computer,
 /turf/simulated/floor/plating/airless,
 /area/ruin/drakehound_mine/bridge)
 "wz" = (
@@ -2844,7 +2853,7 @@ TS
 az
 dS
 tV
-rX
+hu
 De
 Xs
 oG
@@ -3705,7 +3714,7 @@ gv
 kr
 kr
 iK
-re
+mp
 kr
 cw
 kr
