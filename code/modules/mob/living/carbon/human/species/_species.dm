@@ -1245,10 +1245,11 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		var/list/prostheses = randomize_chassis_brands()
 		for(var/organ_name in prostheses)
 			var/obj/item/organ/external/each_organ = body.bodyparts_by_name[organ_name]
+			var/datum/robolimb/one_prosthesis = prostheses[organ_name]
 			if(each_organ.is_robotic())
-				each_organ.set_company(prostheses[organ_name].company)
+				each_organ.set_company(one_prosthesis.company)
 			else
-				each_organ.robotize(prostheses[organ_name].company)
+				each_organ.robotize(one_prosthesis.company)
 
 	// This needs to go after prostheses
 	var/obj/item/organ/external/head/head_organ = body.get_organ("head")

@@ -83,8 +83,9 @@
 		var/list/prostheses = randomize_chassis_brands()
 		for(var/organ_name in prostheses)
 			var/obj/item/organ/external/each_organ = body.bodyparts_by_name[organ_name]
+			var/datum/robolimb/one_prosthesis = prostheses[organ_name]
 			if(each_organ)
-				each_organ.robotize(prostheses[organ_name].company)
+				each_organ.robotize(one_prosthesis.company)
 
 	// Coloration.
 	var/pattern = pickweight(list("points" = 3,
@@ -153,7 +154,7 @@
 		return pick(VULP_SILVER, VULP_BLUE, VULP_BLACK)
 	return VULP_WHITE
 
-/datum/species/tajaran/randomize_hair_style(species_bald_prob = 40)
+/datum/species/vulpkanin/randomize_hair_style(species_bald_prob = 40)
 	return ..()
 
 /datum/species/vulpkanin/randomize_hair_colors(datum/robolimb/robohead, body_color = VULP_BLACK, secondary_body_color = VULP_WHITE)
