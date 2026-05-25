@@ -125,7 +125,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/table/reinforced,
+/obj/structure/closet/firecloset/full,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "cM" = (
@@ -235,9 +235,7 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 6
 	},
-/obj/machinery/computer/sm_monitor{
-	dir = 8
-	},
+/obj/structure/closet/secure_closet/engineering_personal,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "eg" = (
@@ -330,6 +328,12 @@
 	dir = 4
 	},
 /obj/structure/closet/crate/can,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
+"fQ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "gd" = (
@@ -476,6 +480,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
 "hB" = (
@@ -540,10 +545,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/visible/red{
+	dir = 6
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "iw" = (
@@ -735,17 +741,24 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"na" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Laser Room";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "nc" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Engine West";
-	dir = 5;
-	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -939,15 +952,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"qk" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "qm" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/random/plushies,
@@ -1092,6 +1096,12 @@
 	},
 /turf/space,
 /area/space)
+"tG" = (
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "tQ" = (
 /obj/machinery/computer/fission_monitor{
 	dir = 1
@@ -1134,6 +1144,9 @@
 "uq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/red{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -1304,6 +1317,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "wV" = (
@@ -1389,15 +1403,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
-"yj" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "yt" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/wall/r_wall,
@@ -1411,9 +1416,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+/obj/machinery/camera{
+	c_tag = "Engine West";
+	dir = 5;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -1508,7 +1514,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
 "zV" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan,
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 9
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "Ab" = (
@@ -1527,6 +1535,9 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
 "Ak" = (
@@ -1544,15 +1555,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
-"Av" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -1613,16 +1615,6 @@
 "Br" = (
 /obj/effect/turf_decal/trimline/misc/toxins/line{
 	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
-"Bv" = (
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1714,6 +1706,13 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
+"DG" = (
+/obj/effect/turf_decal/trimline/misc/toxins/filled/line,
+/obj/machinery/computer/sm_monitor{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/control)
 "DL" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Cooling Loop Bypass";
@@ -1755,10 +1754,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "DY" = (
-/obj/machinery/atmospherics/pipe/simple/visible/red{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
 /turf/simulated/floor/engine,
@@ -1858,6 +1857,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
 /turf/simulated/floor/engine,
@@ -2099,11 +2101,13 @@
 /obj/effect/turf_decal/trimline/misc/toxins/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /obj/machinery/light/floor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "Is" = (
@@ -2551,6 +2555,16 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
+"PK" = (
+/obj/effect/turf_decal/trimline/misc/toxins/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "PV" = (
 /obj/structure/rack{
 	dir = 1
@@ -2573,7 +2587,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 8
 	},
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
 "Qc" = (
 /obj/structure/cable{
@@ -2581,6 +2596,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
@@ -2786,18 +2804,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"Ta" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "Tw" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -2903,6 +2909,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
+"Vr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/binary/pump{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "VG" = (
 /obj/machinery/camera{
 	c_tag = "Supermatter Laser Room Starboard";
@@ -3003,6 +3018,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "XM" = (
@@ -3087,6 +3105,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
 "YD" = (
@@ -3139,14 +3158,13 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "Za" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/red{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/manifold/visible/red,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/item/pipe_meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "Zb" = (
@@ -3312,8 +3330,8 @@ dO
 Ht
 Ns
 Ns
-Ns
-yj
+tG
+dO
 pB
 kx
 kx
@@ -3651,7 +3669,7 @@ Gv
 Gv
 Br
 Gv
-Gv
+PK
 Io
 Kc
 Hm
@@ -3682,8 +3700,8 @@ UM
 UM
 uW
 eQ
-UM
-qk
+Vr
+eQ
 zV
 eq
 LU
@@ -3713,9 +3731,9 @@ IQ
 Ns
 GQ
 MR
-Ns
 KB
 si
+Ns
 lI
 Xe
 Ku
@@ -3745,8 +3763,8 @@ Ns
 Ns
 SB
 az
-az
 Es
+Ns
 Hm
 tE
 OT
@@ -3776,8 +3794,8 @@ lL
 Ns
 iJ
 Xj
-Dv
 qb
+Ns
 zI
 yc
 kx
@@ -4136,7 +4154,7 @@ dQ
 ZP
 BP
 FM
-tQ
+DG
 TJ
 SV
 OC
@@ -4247,7 +4265,7 @@ Ns
 kx
 Fc
 Fc
-Fc
+sp
 Fc
 xr
 vi
@@ -4306,7 +4324,7 @@ fk
 Iy
 vV
 Ff
-Zi
+na
 Yz
 hz
 Qc
@@ -4358,7 +4376,7 @@ Zz
 ka
 nd
 pd
-Bv
+WN
 QQ
 WN
 jy
@@ -4389,16 +4407,16 @@ MK
 ka
 kx
 kx
-Ta
+kx
 QC
 wS
 FZ
 po
 po
 vy
-Av
-vl
 Ml
+vl
+fQ
 kx
 Wj
 Wy
@@ -4429,7 +4447,7 @@ iV
 zT
 uq
 zI
-Hm
+Ns
 kx
 kx
 kx
@@ -4458,9 +4476,9 @@ vi
 vi
 vi
 vi
-vi
-tF
 VL
+tF
+vi
 vi
 vi
 vi

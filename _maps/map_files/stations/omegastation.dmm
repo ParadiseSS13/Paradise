@@ -15395,7 +15395,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port)
 "ceA" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "ceM" = (
@@ -20054,6 +20056,15 @@
 /obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/service/starboard)
+"exA" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/aft)
 "exS" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/extra_insulated{
@@ -25708,6 +25719,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "hAo" = (
@@ -27425,11 +27437,11 @@
 	security_level = 1;
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "iya" = (
@@ -29970,6 +29982,9 @@
 	dir = 1
 	},
 /obj/machinery/alarm/directional/west,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "jVW" = (
@@ -32848,7 +32863,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "lIp" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "lIB" = (
@@ -35510,7 +35527,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -55999,7 +56018,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/station/engineering/ai_transit_tube)
 "xZF" = (
 /obj/machinery/camera/autoname{
@@ -82518,7 +82539,7 @@ nwh
 nwh
 yfY
 wwI
-wwI
+exA
 lfC
 tTI
 xmC
