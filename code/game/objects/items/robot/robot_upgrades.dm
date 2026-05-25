@@ -569,10 +569,10 @@
 	if(..())
 		return
 	if(R.shell)
-		to_chat(usr, "<span class='warning'>This unit is already an AI shell!</span>")
+		to_chat(usr, SPAN_WARNING("This unit is already an AI shell!"))
 		return
 	if(R.key) //You cannot replace a player unless the key is completely removed.
-		to_chat(usr, "<span class='warning'>Intelligence patterns detected in this [R.braintype]. Aborting.</span>")
+		to_chat(usr, SPAN_WARNING("Intelligence patterns detected in this [R.braintype]. Aborting."))
 		return
 
 	R.make_shell(src)

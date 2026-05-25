@@ -326,10 +326,10 @@
 		var/obj/item/borg/upgrade/ai/M = W
 		if(check_completion())
 			if(!isturf(loc))
-				to_chat(user, "<span class='warning'>You cannot install[M], the frame has to be standing on the ground to be perfectly precise!</span>")
+				to_chat(user, SPAN_WARNING("You cannot install[M], the frame has to be standing on the ground to be perfectly precise!"))
 				return
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[M] is stuck to your hand!</span>")
+				to_chat(user, SPAN_WARNING("[M] is stuck to your hand!"))
 				return
 			qdel(M)
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/shell(get_turf(src))

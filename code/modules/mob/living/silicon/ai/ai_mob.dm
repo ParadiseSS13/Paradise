@@ -391,7 +391,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set name = "Deploy to Shell"
 
 	if(stat || lacks_power() || control_disabled)
-		to_chat(src, "<span class='danger'>Wireless networking module is offline.</span>")
+		to_chat(src, SPAN_DANGER("Wireless networking module is offline."))
 		return
 
 	var/list/possible = list()
