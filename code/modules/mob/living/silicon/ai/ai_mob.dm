@@ -406,7 +406,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "No usable AI shell beacons detected.")
 
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
-		target = input(src, "Which body to control?") as null|anything in possible
+		target = tgui_input_list(usr, "Which body to control?", "AI Shell Deployment", possible)
 
 	if (!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)))
 		return
@@ -446,7 +446,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		Remove(owner) //If the last shell is blown, destroy it.
 
-/// Disconnect the AI from its its shell.
+/// Disconnect the AI from its shell.
 /mob/living/silicon/ai/proc/disconnect_shell()
 	if(deployed_shell) //Forcibly call back AI in event of things such as damage, EMP or power loss.
 		to_chat(src, SPAN_DANGER("Your remote connection has been reset!"))
