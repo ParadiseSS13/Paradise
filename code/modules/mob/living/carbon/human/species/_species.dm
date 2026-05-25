@@ -1334,7 +1334,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return 35 - random_skin_tone(name)
 
 /datum/species/proc/randomize_body_color()
-	if(!bodyflags & HAS_SKIN_COLOR)
+	if(!(bodyflags & HAS_SKIN_COLOR))
 		return
 	return base_color
 
