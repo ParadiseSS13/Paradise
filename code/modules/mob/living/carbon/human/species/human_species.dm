@@ -63,3 +63,41 @@
 				new_icobase = 'icons/mob/human_races/human_skintones/r_human_pale.dmi'
 
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
+
+/datum/species/human/randomize_hair_colors(datum/robolimb/robohead, body_color = null, skin_tone = 1)
+	if(skin_tone < 7 || prob(30)) // make dark hair colors more common on dark skin tones
+		return ..()
+	var/list/hair_colors = list()
+	var/list/possible_colors = list(
+		// gray, black, blue - 7 total
+		COLOR_GRAY15,
+		COLOR_SILVER,
+		COLOR_WALL_GUNMETAL,
+		COLOR_GRAY,
+		COLOR_FULL_TONER_BLACK,
+		COLOR_DARK_GRAY,
+		COLOR_BLACK,
+		// brownish - 7 total
+		COLOR_DARK_BROWN,
+		COLOR_CHESTNUT,
+		COLOR_BEASTY_BROWN,
+		COLOR_BROWN_ORANGE,
+	)
+	if(prob(2))
+		hair_colors["h1"] = pick(rand_hex_color())
+		if(prob(33))
+			hair_colors["f1"] = tint_color_hsl(pick(possible_colors), 10)
+		else if(prob(50))
+			hair_colors["f1"] = pick(rand_hex_color())
+		else
+			hair_colors["f1"] = hair_colors["h1"]
+	else
+		hair_colors["h1"] = tint_color_hsl(pick(possible_colors), 10)
+		if(prob(2))
+			hair_colors["f1"] = pick(rand_hex_color())
+		else
+			hair_colors["f1"] = hair_colors["h1"]
+	hair_colors["h2"] = pick(rand_hex_color())
+	hair_colors["f2"] = pick(rand_hex_color())
+
+	return hair_colors

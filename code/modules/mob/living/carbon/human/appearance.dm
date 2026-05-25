@@ -446,3 +446,6 @@
 	if(b_data)
 		bloodcolor = b_data["blood_color"]
 	return bloodcolor
+
+/mob/living/carbon/human/proc/generate_random_appearance(prosthesis_prob = null)
+	dna.species.generate_random_appearance(src, prosthesis_prob)

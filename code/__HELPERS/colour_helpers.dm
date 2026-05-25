@@ -66,3 +66,22 @@
 	var/list/TARGET = rgb2num(color_to_match, COLORSPACE_HSL)
 	RGB[3] = TARGET[3] //change lightness to target lightness
 	return rgb(RGB[1], RGB[2], RGB[3], space = COLORSPACE_HSL)
+
+/// Returns a purely random tint for specific color
+/proc/tint_color(color, range = 25)
+	if(!is_color_text(color)) // if it's not a hex color
+		return color // just leave it as it is
+
+	var/R = clamp(color2R(color) + rand(-range, range), 0, 255)
+	var/G = clamp(color2G(color) + rand(-range, range), 0, 255)
+	var/B = clamp(color2B(color) + rand(-range, range), 0, 255)
+
+	return rgb(R, G, B)
+
+/// Returns a random tint for a specific color in HSL space.
+/proc/tint_color_hsl(color, range = 10)
+	var/list/HSL = rgb2num(color, COLORSPACE_HSL)
+	HSL[1] = clamp(HSL[1] + rand(-range, range), 0, 100)
+	HSL[2] = clamp(HSL[2] + rand(-range, range), 0, 100)
+	HSL[3] = clamp(HSL[3] + rand(-range, range), 0, 100)
+	return rgb(HSL[1], HSL[2], HSL[3], space = COLORSPACE_HSL)

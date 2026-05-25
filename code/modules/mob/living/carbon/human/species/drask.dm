@@ -71,3 +71,6 @@
 
 /datum/species/drask/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/soap(H.loc)
+
+/datum/species/drask/randomize_eye_color()
+	return rand_hex_color()

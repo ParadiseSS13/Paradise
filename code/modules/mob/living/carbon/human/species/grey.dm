@@ -111,3 +111,17 @@
 		H.adjustFireLoss(1)
 		return TRUE
 	return ..()
+
+/datum/species/grey/randomize_eye_color()
+	if(prob(1))
+		return rand_hex_color()
+	// random dark, muted color
+	return rgb(rand(0, 360), rand(0, 60), rand(0, 35), space = COLORSPACE_HSL)
+
+/datum/species/grey/randomize_body_markings(prob_to_apply = 35)
+	return ..()
+
+/datum/species/grey/randomize_body_markings_color(body_markings, body_color = null, skin_tone = 1)
+	if(body_markings == "None")
+		return COLOR_BLACK
+	return rgb(rand(0, 360), rand(0, 60), rand(0, 40), space = COLORSPACE_HSL)

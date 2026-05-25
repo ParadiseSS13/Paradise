@@ -1232,3 +1232,271 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /// Prototype for additional behaviour when a specific species is ground by a compressor.
 /datum/species/proc/do_compressor_grind(mob/living/carbon/human)
 	return
+
+/* Random Appearance Procs by Species
+	These are here instead of in appearance.dm so that they can be accessed by the character creator
+	and other abstract procs without generating an entirely new mob. Each species is expected
+	to override these procs to generate appropriate values.
+*/
+
+/datum/species/proc/generate_random_appearance(mob/living/carbon/human/body, prosthesis_prob = 5)
+	// Prostheses / Alternate robotic parts
+	if(prob(prosthesis_prob))
+		var/list/prostheses = randomize_chassis_brands()
+		for(var/organ_name in prostheses)
+			var/obj/item/organ/external/each_organ = body.bodyparts_by_name[organ_name]
+			if(each_organ.is_robotic())
+				each_organ.set_company(prostheses[organ_name].company)
+			else
+				each_organ.robotize(prostheses[organ_name].company)
+
+	// This needs to go after prostheses
+	var/obj/item/organ/external/head/head_organ = body.get_organ("head")
+	var/datum/robolimb/robohead
+	if(head_organ)
+		if(head_organ.dna.species.bodyflags & ALL_RPARTS)
+			robohead = GLOB.all_robolimbs[head_organ.model]
+
+	// Body color.
+	if(bodyflags & HAS_SKIN_TONE|HAS_ICON_SKIN_TONE)
+		body.s_tone = randomize_skin_tone()
+	if(bodyflags & HAS_SKIN_COLOR)
+		body.change_skin_color(randomize_body_color())
+
+	// Eyes.
+	if(!(bodyflags & ALL_RPARTS || eyes == "blank_eyes" || bodyflags & NO_EYES))
+		body.change_eye_color(randomize_eye_color())
+
+	// Hair.
+	if(!(bodyflags & BALD))
+		head_organ.h_style = randomize_hair_style(robohead)
+	if(!(bodyflags & SHAVED))
+		if(body.gender != FEMALE || prob(5))
+			head_organ.f_style = randomize_facial_hair_style(robohead)
+	if(!(bodyflags & BALD&SHAVED))
+		var/list/hair_colors = randomize_hair_colors(robohead, body.skin_colour, body.s_tone)
+		head_organ.hair_colour = hair_colors["h1"]
+		head_organ.sec_hair_colour = hair_colors["h2"]
+		head_organ.facial_colour = hair_colors["f1"]
+		head_organ.sec_facial_colour = hair_colors["f2"]
+
+	// Accessories.
+	if(bodyflags & HAS_BODY_ACCESSORY)
+		body.m_styles["tail"] = "None"
+		body.body_accessory = GLOB.body_accessory_by_name[randomize_body_accessory()]
+	if(bodyflags & HAS_HEAD_ACCESSORY)
+		head_organ.ha_style = randomize_head_accessory()
+		head_organ.headacc_colour = randomize_head_accessory_color(head_organ.ha_style, body.skin_colour, head_organ.hair_colour)
+
+	// Markings.
+	if(bodyflags & HAS_BODY_MARKINGS)
+		body.m_styles["body"] = randomize_body_markings()
+		body.m_colours["body"] = randomize_body_markings_color(body.m_styles["body"], body.skin_colour, body.s_tone)
+
+	if(bodyflags & HAS_HEAD_MARKINGS)
+		body.m_styles["head"] = randomize_head_markings()
+		body.m_colours["head"] = randomize_head_markings_color(body.m_styles["head"], body.skin_colour)
+
+	if(bodyflags & HAS_TAIL_MARKINGS)
+		body.m_styles["tail"] = randomize_tail_markings()
+		body.m_colours["tail"] = randomize_tail_markings_color(body.m_styles["tail"])
+
+	body.regenerate_icons()
+	body.update_body()
+	body.update_dna()
+
+/datum/species/proc/randomize_chassis_brands()
+	var/list/limb_choices = list()
+	var/list/limb_list = list("l_hand", "l_foot", "r_hand", "r_foot")
+	var/brand_choice = pickweight(list(
+		/datum/robolimb/bishop = 2,
+		/datum/robolimb/hephaestus = 2,
+		/datum/robolimb/wardtakahashi = 1,
+		/datum/robolimb/xion = 2,
+		/datum/robolimb/zenghu = 2,
+		/datum/robolimb/shellguard = 2,)
+	)
+
+	// there should be a decreasing chance to add each additional limb prosthesis
+	for(var/limb in limb_list)
+		if(!length(limb_choices) || prob(30 / length(limb_choices)))
+			if(prob(50))
+				var/upper_limb = "[findtext(limb, "l") ? "l" : "r"]_[findtext(limb, "hand") ? "arm" : "leg"]"
+				limb_choices[upper_limb] = brand_choice
+			limb_choices[limb] = brand_choice
+
+	return limb_choices
+
+/datum/species/proc/randomize_skin_tone()
+	if(bodyflags & HAS_ICON_SKIN_TONE)
+		return random_skin_tone(name)
+	return 35 - random_skin_tone(name)
+
+/datum/species/proc/randomize_body_color()
+	if(!bodyflags & HAS_SKIN_COLOR)
+		return
+	return base_color
+
+/datum/species/proc/randomize_eye_color()
+	if(prob(1))
+		return rand_hex_color()
+	var/chosen_color = pick(
+		rgb(0, 0, 0), // black
+		rgb(150, 150, 150), // grey
+		rgb(102, 51, 0), // brown
+		rgb(153, 102, 0), // chestnut
+		rgb(51, 102, 204), // blue
+		rgb(102, 204, 255), // lighter blue
+		rgb(0, 102, 0), // green
+		rgb(220, 80, 80), // albino reddish
+		)
+	chosen_color = tint_color_hsl(chosen_color)
+	return chosen_color
+
+/datum/species/proc/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = 5)
+	if(bodyflags & BALD)
+		return "Bald"
+	if(prob(species_bald_prob))
+		return "Bald"
+	var/list/generic_hair_styles = list_valid_hairstyles("Human")
+	var/list/all_hair_styles = list_valid_hairstyles(name, robohead)
+	var/list/exclusive_hair_styles = all_hair_styles - generic_hair_styles
+
+	if(prob(70) && length(exclusive_hair_styles))
+		return pick(exclusive_hair_styles)
+
+	return pick(all_hair_styles)
+
+/datum/species/proc/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 20)
+	if(bodyflags & SHAVED)
+		return "Shaved"
+	if(prob(species_shaved_prob))
+		return "Shaved"
+	var/list/generic_hair_styles = list_valid_facial_hairstyles("Human")
+	var/list/all_hair_styles = list_valid_facial_hairstyles(name, robohead)
+	var/list/exclusive_hair_styles = all_hair_styles - generic_hair_styles
+
+	if(prob(70) && length(exclusive_hair_styles))
+		return pick(exclusive_hair_styles)
+
+	return pick(all_hair_styles)
+
+/datum/species/proc/randomize_hair_colors(robohead, body_color = null, skin_tone = null)
+	var/list/hair_colors = list()
+	var/list/possible_colors = list(
+		// gray, black, blue - 10 total
+		COLOR_GRAY15,
+		COLOR_GRAY40,
+		COLOR_SILVER,
+		COLOR_DARK_BLUE_GRAY,
+		COLOR_WALL_GUNMETAL,
+		COLOR_OFF_WHITE,
+		COLOR_GRAY,
+		COLOR_FULL_TONER_BLACK,
+		COLOR_DARK_GRAY,
+		COLOR_BLACK,
+		// yellow, red, orange - 7 total
+		COLOR_YELLOW_GRAY,
+		COLOR_WARM_YELLOW,
+		COLOR_DARK_ORANGE,
+		COLOR_PALE_ORANGE,
+		COLOR_SUN,
+		COLOR_GOLD,
+		COLOR_WHEAT,
+		// brownish - 7 total
+		COLOR_DARK_BROWN,
+		COLOR_CHESTNUT,
+		COLOR_SEDONA,
+		COLOR_BEASTY_BROWN,
+		COLOR_BROWN_ORANGE,
+		COLOR_BROWN,
+		COLOR_CARGO_BROWN,
+	)
+	if(prob(2))
+		hair_colors["h1"] = pick(rand_hex_color())
+		if(prob(33))
+			hair_colors["f1"] = tint_color_hsl(pick(possible_colors), 10)
+		else if(prob(50))
+			hair_colors["f1"] = pick(rand_hex_color())
+		else
+			hair_colors["f1"] = hair_colors["h1"]
+	else
+		hair_colors["h1"] = tint_color_hsl(pick(possible_colors), 10)
+		if(prob(2))
+			hair_colors["f1"] = pick(rand_hex_color())
+		else
+			hair_colors["f1"] = hair_colors["h1"]
+	hair_colors["h2"] = pick(rand_hex_color())
+	hair_colors["f2"] = pick(rand_hex_color())
+
+	return hair_colors
+
+/datum/species/proc/randomize_body_accessory(prob_to_apply = 50)
+	if(!(bodyflags & HAS_BODY_ACCESSORY))
+		return "None"
+	var/list/possible_accessories = list_valid_body_accessories(name)
+	if(!prob(prob_to_apply) && ("None" in possible_accessories))
+		return "None"
+
+	return pick(possible_accessories)
+
+/datum/species/proc/randomize_head_accessory(prob_to_apply = 50)
+	if(!(bodyflags & HAS_HEAD_ACCESSORY))
+		return "None"
+	var/list/possible_accessories = list_valid_head_accessories(name)
+	if(!prob(prob_to_apply) && ("None" in possible_accessories))
+		return "None"
+
+	return pick(possible_accessories)
+
+/datum/species/proc/randomize_head_accessory_color(head_accessory = "None", body_color = null, hair_color = null)
+	if(head_accessory == "None")
+		return COLOR_BLACK
+	return rand_hex_color()
+
+/datum/species/proc/randomize_body_markings(prob_to_apply = 20)
+	if(!(bodyflags & HAS_BODY_MARKINGS))
+		return "None"
+	var/list/possible_markings = list_valid_marking_styles("body", name)
+	if(!prob(prob_to_apply) && ("None" in possible_markings))
+		return "None"
+	var/list/generic_markings = list_valid_marking_styles("body", "Human")
+	var/list/exclusive_markings = possible_markings - generic_markings
+
+	if(prob(70) && length(exclusive_markings))
+		return pick(exclusive_markings)
+
+	return pick(possible_markings)
+
+/datum/species/proc/randomize_body_markings_color(body_markings = "None", body_color = null, skin_tone = null)
+	if(body_markings == "None")
+		return COLOR_BLACK
+	return rand_hex_color()
+
+/datum/species/proc/randomize_head_markings(prob_to_apply = 70)
+	if(!(bodyflags & HAS_HEAD_MARKINGS))
+		return "None"
+	var/list/possible_markings = list_valid_marking_styles("head", name)
+	if(!prob(prob_to_apply) && ("None" in possible_markings))
+		return "None"
+
+	return pick(possible_markings)
+
+/datum/species/proc/randomize_head_markings_color(head_markings = "None", body_color = null)
+	if(head_markings == "None")
+		return COLOR_BLACK
+	return rand_hex_color()
+
+/datum/species/proc/randomize_tail_markings(prob_to_apply = 70)
+	if(!(bodyflags & HAS_TAIL_MARKINGS))
+		return "None"
+	var/list/possible_markings = list_valid_marking_styles("tail", name)
+	if(!prob(prob_to_apply) && ("None" in possible_markings))
+		return "None"
+
+	return pick(possible_markings)
+
+/datum/species/proc/randomize_tail_markings_color(tail_markings = "None")
+	if(tail_markings == "None")
+		return COLOR_BLACK
+	return rand_hex_color()

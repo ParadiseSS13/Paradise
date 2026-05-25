@@ -117,17 +117,6 @@
 		return tint_color(pick(color_options), range)
 	return pick(color_options)
 
-/// Returns a purely random tint for specific color
-/proc/tint_color(color, range = 25)
-	if(!is_color_text(color)) // if it's not a hex color
-		return color // just leave it as it is
-
-	var/R = clamp(color2R(color) + rand(-range, range), 0, 255)
-	var/G = clamp(color2G(color) + rand(-range, range), 0, 255)
-	var/B = clamp(color2B(color) + rand(-range, range), 0, 255)
-
-	return rgb(R, G, B)
-
 /proc/list_valid_head_accessories(species = "Human")
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)

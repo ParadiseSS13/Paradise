@@ -217,3 +217,8 @@
 	H.internal = internal_tank
 	to_chat(H, SPAN_NOTICE("You are now running on plasma internals from [internal_tank]. Oxygen is toxic to your species, so you must breathe plasma only."))
 	H.update_action_buttons_icon()
+
+/datum/species/plasmaman/randomize_eye_color()
+	if(prob(2))
+		return rand_hex_color()
+	return tint_color_hsl("#FFAB00")

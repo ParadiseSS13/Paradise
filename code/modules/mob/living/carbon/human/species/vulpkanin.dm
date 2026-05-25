@@ -1,3 +1,14 @@
+#define VULP_WHITE rgb(200, 5, 65, space = COLORSPACE_HSL)
+// Black and black dilutions
+#define VULP_SILVER rgb(200, 10, 35, space = COLORSPACE_HSL)
+#define VULP_BLUE rgb(200, 10, 20, space = COLORSPACE_HSL)
+#define VULP_BLACK rgb(10, 30, 5, space = COLORSPACE_HSL)
+// Red and red dilutions
+#define VULP_LILAC rgb(15, 30, 30, space = COLORSPACE_HSL)
+#define VULP_YELLOW rgb(25, 50, 45, space = COLORSPACE_HSL)
+#define VULP_APRICOT rgb(20, 90, 30, space = COLORSPACE_HSL)
+#define VULP_RED rgb(15, 80, 10, space = COLORSPACE_HSL)
+
 /datum/species/vulpkanin
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
@@ -60,3 +71,191 @@
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
+
+/datum/species/vulpkanin/generate_random_appearance(mob/living/carbon/human/body, prosthesis_prob = 5)
+	var/obj/item/organ/external/head/head_organ = body.get_organ("head")
+	var/datum/robolimb/robohead
+	if(head_organ)
+		if(head_organ.dna.species.bodyflags & ALL_RPARTS)
+			robohead = GLOB.all_robolimbs[head_organ.model]
+
+	if(prob(prosthesis_prob))
+		var/list/prostheses = randomize_chassis_brands()
+		for(var/organ_name in prostheses)
+			var/obj/item/organ/external/each_organ = body.bodyparts_by_name[organ_name]
+			if(each_organ)
+				each_organ.robotize(prostheses[organ_name].company)
+
+	// Coloration.
+	var/pattern = pickweight(list( // make tiger pattern rarer, more of a tajaran thing
+		"points" = 3,
+		"tiger" = 1,
+		"solid" = 3,
+		"other" = 3))
+	var/base_body_color = randomize_body_color(pattern)
+	var/secondary_body_color = get_color_counterpart(base_body_color)
+	body.change_skin_color(base_body_color)
+
+	// Eyes.
+	body.change_eye_color(randomize_eye_color())
+
+	// Hair.
+	head_organ.h_style = randomize_hair_style(robohead)
+	head_organ.f_style = randomize_facial_hair_style(robohead)
+	var/list/hair_colors = randomize_hair_colors(robohead, base_body_color, secondary_body_color)
+	head_organ.hair_colour = hair_colors["h1"]
+	head_organ.sec_hair_colour = hair_colors["h2"]
+	head_organ.facial_colour = hair_colors["f1"]
+	head_organ.sec_facial_colour = hair_colors["f2"]
+
+	// Accessories.
+	body.m_styles["tail"] = "None"
+	body.body_accessory = null
+	var/random_body_accessory = randomize_body_accessory(100, pattern)
+	if(random_body_accessory != "None")
+		body.body_accessory = GLOB.body_accessory_by_name[random_body_accessory]
+	head_organ.ha_style = randomize_head_accessory(100, pattern)
+	head_organ.headacc_colour = randomize_head_accessory_color("None", secondary_body_color)
+
+	// Markings.
+	body.m_styles["body"] = randomize_body_markings(100, pattern)
+	body.m_colours["body"] = randomize_body_markings_color(body.m_styles["body"], secondary_body_color, body.s_tone)
+	body.m_styles["head"] = randomize_head_markings(100, pattern)
+	body.m_colours["head"] = randomize_head_markings_color(body.m_styles["head"], secondary_body_color)
+	body.m_styles["tail"] = randomize_tail_markings(100, pattern)
+	body.m_colours["tail"] = randomize_tail_markings_color(body.m_styles["tail"], secondary_body_color)
+
+	body.regenerate_icons()
+	body.update_body()
+	body.update_dna()
+
+/datum/species/vulpkanin/randomize_eye_color()
+	return tint_color_hsl(pickweight(list(
+		COLOR_BROWN_ORANGE = 40,
+		COLOR_AMBER = 20,
+		COLOR_BABY_BLUE = 15,
+		COLOR_SILVER = 15,
+		COLOR_PALE_BTL_GREEN = 9,
+		rand_hex_color() = 1,
+		)))
+
+/datum/species/vulpkanin/randomize_body_color(pattern)
+	if(prob(2))
+		return rgb(rand(0, 360), rand(0, 90), rand(30, 50), space = COLORSPACE_HSL)
+	var/list/possible_colors = list(VULP_SILVER, VULP_BLUE, VULP_BLACK, VULP_LILAC, VULP_YELLOW, VULP_APRICOT, VULP_RED)
+	if(pattern == "solid")
+		possible_colors += VULP_WHITE
+	return pick(possible_colors)
+
+/datum/species/vulpkanin/proc/get_color_counterpart(body_color)
+	if(body_color == VULP_SILVER || body_color == VULP_BLUE || body_color == VULP_BLACK)
+		return pick(VULP_LILAC, VULP_YELLOW, VULP_APRICOT, VULP_RED)
+	if(body_color == VULP_LILAC || body_color == VULP_YELLOW || body_color == VULP_APRICOT || body_color == VULP_RED)
+		return pick(VULP_SILVER, VULP_BLUE, VULP_BLACK)
+	return VULP_WHITE
+
+/datum/species/tajaran/randomize_hair_style(species_bald_prob = 40)
+	return ..()
+
+/datum/species/vulpkanin/randomize_hair_colors(datum/robolimb/robohead, body_color = VULP_BLACK, secondary_body_color = VULP_WHITE)
+	var/list/hair_colors = list()
+	if(prob(1))
+		hair_colors["h1"] = rand_hex_color()
+		if(prob(33))
+			hair_colors["f1"] = pick(body_color, secondary_body_color)
+		else if(prob(33))
+			hair_colors["f1"] = rand_hex_color()
+		else
+			hair_colors["f1"] = hair_colors["h1"]
+	else
+		hair_colors["h1"] = pick(body_color, secondary_body_color)
+		if(prob(1))
+			hair_colors["f1"] = rand_hex_color()
+		else
+			hair_colors["f1"] = pick(body_color, secondary_body_color)
+	hair_colors["h2"] = rand_hex_color()
+	hair_colors["f2"] = rand_hex_color()
+
+	return hair_colors
+
+/datum/species/vulpkanin/randomize_body_accessory(prob_to_apply = 100, pattern = "other")
+	if(pattern == "points")
+		return pick("None", "Short Tail", "Straight Bushy Tail")
+	if(pattern == "solid")
+		return pick("None", "Bushy Tail", "Straight Bushy Tail", "Straight Tail", "Tiny Tail")
+	return pick(list_valid_body_accessories(name))
+
+/datum/species/vulpkanin/randomize_head_accessory(prob_to_apply = 100, pattern = "other")
+	if(pattern == "points")
+		return pick("Vulpkanin Nose", "Vulpkanin Nose Alt.")
+	if(pattern == "solid")
+		return "None"
+	return pick(list_valid_head_accessories(name))
+
+/datum/species/vulpkanin/randomize_head_accessory_color(head_accessory = "None", secondary_body_color = VULP_WHITE)
+	return pick(secondary_body_color, VULP_WHITE)
+
+/datum/species/vulpkanin/randomize_body_markings(prob_to_apply = 100, pattern = "other")
+	if(pattern == "solid")
+		return "None"
+	if(pattern == "points")
+		return pick(
+		"Vulpkanin Points",
+		"Vulpkanin Sharp Points",
+		"Vulpkanin Points and Belly",
+		"Vulpkanin Points and Belly Alt.",
+		"Vulpkanin Points and Crest")
+	if(pattern == "tiger")
+		return "Tiger Body"
+	var/list/possible_markings = list_valid_marking_styles("body", name)
+	var/list/generic_markings = list_valid_marking_styles("body", "Human")
+	var/list/exclusive_markings = possible_markings - generic_markings
+
+	if(prob(50) && length(exclusive_markings))
+		return pick(exclusive_markings - list("Tiger Body"))
+
+	return pick(possible_markings - list("Tiger Body"))
+
+/datum/species/vulpkanin/randomize_body_markings_color(body_markings = "None", secondary_body_color = VULP_WHITE, skin_tone = null)
+	return pick(secondary_body_color, VULP_WHITE)
+
+/datum/species/vulpkanin/randomize_head_markings(prob_to_apply = 100, pattern = "other")
+	if(pattern == "solid")
+		return "None"
+	if(pattern == "points")
+		return pick("Vulpkanin Points Head", "Vulpkanin Points Head 2")
+	if(pattern == "tiger")
+		return pick("Vulpkanin Tiger Head", "Vulpkanin Tiger Head and Face")
+	return list_valid_marking_styles("head", name) - list("Vulpkanin Tiger Head", "Vulpkanin Tiger Head and Face")
+
+/datum/species/vulpkanin/randomize_head_markings_color(head_markings = "None", secondary_body_color = VULP_WHITE)
+	return pick(secondary_body_color, VULP_WHITE)
+
+/datum/species/vulpkanin/randomize_tail_markings(prob_to_apply = 100, tail_type = "None", pattern = "other")
+	if(pattern == "solid")
+		return "None"
+	if(pattern == "points")
+		if(tail_type == "Short Tail")
+			return "Short Tail Tip"
+		if(tail_type == "Straight Bushy Tail")
+			return pick("Vulpkanin Bushy Straight Tail Fade", "Vulpkanin Bushy Straight Tail Tip")
+		return pick("Vulpkanin Default Tail Fade", "Vulpkanin Default Tail Tip")
+
+	var/list/valid_tail_markings
+	for(var/one_marking in list_valid_marking_styles("tail", name))
+		if(tail_type in GLOB.marking_styles_list[one_marking].tails_allowed)
+			valid_tail_markings += one_marking
+
+	return pick(valid_tail_markings)
+
+/datum/species/vulpkanin/randomize_tail_markings_color(tail_markings = "None", secondary_body_color = VULP_WHITE)
+	return pick(secondary_body_color, VULP_WHITE)
+
+#undef VULP_WHITE
+#undef VULP_SILVER
+#undef VULP_BLUE
+#undef VULP_BLACK
+#undef VULP_LILAC
+#undef VULP_YELLOW
+#undef VULP_APRICOT
+#undef VULP_RED

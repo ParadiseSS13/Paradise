@@ -47,3 +47,74 @@
 		"is strangling themselves with their own tendrils!")
 
 	plushie_type = /obj/item/toy/plushie/skrellplushie
+
+/datum/species/skrell/randomize_body_color()
+	return rand_hex_color()
+
+/datum/species/skrell/randomize_eye_color()
+	return rgb(rand(200, 360), rand(70, 95), rand(0, 100), space = COLORSPACE_HSL)
+
+/datum/species/skrell/randomize_hair_colors(datum/robolimb/robohead, body_color = COLOR_GRAY, skin_tone = null)
+	var/list/hair_colors = list()
+
+	// usually body color, sometimes hue variant, rarely fully random
+	if(prob(80))
+		hair_colors["h1"] = body_color
+	else if(prob(80))
+		hair_colors["h1"] = rgb(
+			rand(0, 360),
+			rgb2num(body_color, COLORSPACE_HSL)[2],
+			rgb2num(body_color, COLORSPACE_HSL)[3],
+			space = COLORSPACE_HSL)
+	else
+		hair_colors["h1"] = rand_hex_color()
+
+	// usually matches body or hair color, sometimes hue variant, rarely fully random
+	if(prob(80))
+		if(prob(10))
+			hair_colors["f1"] = rgb(
+				rand(0, 360),
+				rgb2num(body_color, COLORSPACE_HSL)[2],
+				rgb2num(body_color, COLORSPACE_HSL)[3],
+				space = COLORSPACE_HSL)
+		else
+			hair_colors["f1"] = body_color
+	else if(prob(80))
+		if(prob(10))
+			hair_colors["f1"] = rgb(
+				rand(0, 360),
+				rgb2num(hair_colors["h1"], COLORSPACE_HSL)[2],
+				rgb2num(hair_colors["h1"], COLORSPACE_HSL)[3],
+				space = COLORSPACE_HSL)
+		else
+			hair_colors["f1"] = hair_colors["h1"]
+	else
+		hair_colors["f1"] = rand_hex_color()
+
+	// accessory, if present, should be a contrasting color in hue and lightness
+	var/contrasting_hue = rgb2num(hair_colors["h1"], COLORSPACE_HSL)[1]
+	contrasting_hue += contrasting_hue < 180 ? 180 : -180
+	var/darker = rgb2num(hair_colors["h1"], COLORSPACE_HSL)[3] > 50
+	hair_colors["h2"] = tint_color_hsl(rgb(
+		contrasting_hue,
+		rand(10, 90),
+		darker ? 10 : 90,
+		space = COLORSPACE_HSL))
+
+	// as above, should be contrasting color
+	contrasting_hue = rgb2num(hair_colors["f1"], COLORSPACE_HSL)[1]
+	contrasting_hue += contrasting_hue < 180 ? 180 : -180
+	darker = rgb2num(hair_colors["f1"], COLORSPACE_HSL)[3] > 50
+	hair_colors["f2"] = tint_color_hsl(rgb(
+		contrasting_hue,
+		rand(10, 90),
+		darker ? 10 : 90,
+		space = COLORSPACE_HSL))
+
+	return hair_colors
+
+/datum/species/skrell/randomize_body_markings(prob_to_apply = 15)
+	return ..()
+
+/datum/species/skrell/randomize_body_markings_color(body_markings = "None", body_color = null, skin_tone = null)
+	return blood_color
