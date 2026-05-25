@@ -87,9 +87,8 @@
 				each_organ.robotize(prostheses[organ_name].company)
 
 	// Coloration.
-	var/pattern = pickweight(list( // make tiger pattern rarer, more of a tajaran thing
-		"points" = 3,
-		"tiger" = 1,
+	var/pattern = pickweight(list("points" = 3,
+		"tiger" = 1, // make tiger pattern rarer, more of a tajaran thing
 		"solid" = 3,
 		"other" = 3))
 	var/base_body_color = randomize_body_color(pattern)
@@ -122,7 +121,7 @@
 	body.m_colours["body"] = randomize_body_markings_color(body.m_styles["body"], secondary_body_color, body.s_tone)
 	body.m_styles["head"] = randomize_head_markings(100, pattern)
 	body.m_colours["head"] = randomize_head_markings_color(body.m_styles["head"], secondary_body_color)
-	body.m_styles["tail"] = randomize_tail_markings(100, pattern)
+	body.m_styles["tail"] = randomize_tail_markings(100, body.body_accessory ? body.body_accessory.name : null, pattern)
 	body.m_colours["tail"] = randomize_tail_markings_color(body.m_styles["tail"], secondary_body_color)
 
 	body.regenerate_icons()
@@ -231,7 +230,7 @@
 /datum/species/vulpkanin/randomize_head_markings_color(head_markings = "None", secondary_body_color = VULP_WHITE)
 	return pick(secondary_body_color, VULP_WHITE)
 
-/datum/species/vulpkanin/randomize_tail_markings(prob_to_apply = 100, tail_type = "None", pattern = "other")
+/datum/species/vulpkanin/randomize_tail_markings(prob_to_apply = 70, tail_type = null, pattern = "other")
 	if(pattern == "solid")
 		return "None"
 	if(pattern == "points")
@@ -241,12 +240,7 @@
 			return pick("Vulpkanin Bushy Straight Tail Fade", "Vulpkanin Bushy Straight Tail Tip")
 		return pick("Vulpkanin Default Tail Fade", "Vulpkanin Default Tail Tip")
 
-	var/list/valid_tail_markings
-	for(var/one_marking in list_valid_marking_styles("tail", name))
-		if(tail_type in GLOB.marking_styles_list[one_marking].tails_allowed)
-			valid_tail_markings += one_marking
-
-	return pick(valid_tail_markings)
+	return ..()
 
 /datum/species/vulpkanin/randomize_tail_markings_color(tail_markings = "None", secondary_body_color = VULP_WHITE)
 	return pick(secondary_body_color, VULP_WHITE)

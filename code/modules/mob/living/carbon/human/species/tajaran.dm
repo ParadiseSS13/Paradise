@@ -130,7 +130,7 @@
 	body.m_colours["body"] = secondary_body_color
 	body.m_styles["head"] = randomize_head_markings(100, pattern)
 	body.m_colours["head"] = secondary_body_color
-	body.m_styles["tail"] = randomize_tail_markings(100, pattern)
+	body.m_styles["tail"] = randomize_tail_markings(100, body.body_accessory ? body.body_accessory.name : null, pattern)
 	body.m_colours["tail"] = secondary_body_color
 
 	body.regenerate_icons()
@@ -266,16 +266,16 @@
 		return TAJARAN_BLACK
 	return get_color_counterpart(body_color)
 
-/datum/species/tajaran/randomize_tail_markings(prob_to_apply = 70, tail_type = "None", pattern = "other")
+/datum/species/tajaran/randomize_tail_markings(prob_to_apply = 70, tail_type = null, pattern = "other")
 	if(pattern == "points")
 		return "Short Tail Tip"
 	if(pattern == "tiger")
-		return tail_type == "None" ? "Tajaran Tail Stripes" : "None"
+		return tail_type == null ? "Tajaran Tail Stripes" : "None"
 	if(pattern == "solid")
 		return "None"
 	if(tail_type == "Short Tail" && prob(50))
 		return "Short Tail Tip"
-	return "None"
+	return ..()
 
 /datum/species/tajaran/randomize_tail_markings_color(tail_markings = "None", body_color = TAJARAN_WHITE)
 	if(body_color == TAJARAN_WHITE)

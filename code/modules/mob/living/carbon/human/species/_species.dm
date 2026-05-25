@@ -1298,7 +1298,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		body.m_colours["head"] = randomize_head_markings_color(body.m_styles["head"], body.skin_colour)
 
 	if(bodyflags & HAS_TAIL_MARKINGS)
-		body.m_styles["tail"] = randomize_tail_markings()
+		body.m_styles["tail"] = randomize_tail_markings(tail_type = body.body_accessory ? body.body_accessory.name : null)
 		body.m_colours["tail"] = randomize_tail_markings_color(body.m_styles["tail"])
 
 	body.regenerate_icons()
@@ -1487,10 +1487,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return COLOR_BLACK
 	return rand_hex_color()
 
-/datum/species/proc/randomize_tail_markings(prob_to_apply = 70)
+/datum/species/proc/randomize_tail_markings(prob_to_apply = 70, tail_type = null)
 	if(!(bodyflags & HAS_TAIL_MARKINGS))
 		return "None"
-	var/list/possible_markings = list_valid_marking_styles("tail", name)
+	var/list/possible_markings = list_valid_marking_styles("tail", name, null, tail_type)
 	if(!prob(prob_to_apply) && ("None" in possible_markings))
 		return "None"
 
