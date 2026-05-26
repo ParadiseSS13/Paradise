@@ -15085,15 +15085,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/aft)
-"bVE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/red{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/station/engineering/engine/reactor)
 "bVH" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -82019,8 +82010,8 @@ kLv
 gBG
 liG
 cEh
-bVE
-liG
+cEh
+gBG
 gBG
 nvj
 nvj
