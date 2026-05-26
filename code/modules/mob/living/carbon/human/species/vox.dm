@@ -178,11 +178,11 @@
 		return COLOR_BLACK
 	if(prob(1))
 		return rand_hex_color()
-	return rgb(rand(0, 360), rand(0, 30), rand(10, 60), COLORSPACE_HSL)
+	return rgb(rand(0, 360), rand(0, 30), rand(10, 60), space = COLORSPACE_HSL)
 
 /datum/species/vox/randomize_tail_markings_color(tail_markings = "None")
 	if(tail_markings == "None")
 		return COLOR_BLACK
 	if(prob(1))
 		return rand_hex_color()
-	return rgb(rand(0, 360), rand(0, 30), rand(10, 60), COLORSPACE_HSL)
+	return rgb(rand(0, 360), rand(0, 60), rand(0, 25), space = COLORSPACE_HSL)

@@ -64,6 +64,19 @@
 
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
 
+/datum/species/human/randomize_gender()
+	return pickweight(list(MALE = 40, FEMALE = 40, PLURAL = 20))
+
+/datum/species/human/randomize_body_type(gender)
+	if(prob(50) && gender != PLURAL)
+		return gender
+	return ..()
+
+/datum/species/human/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 20, gender)
+	if(gender != FEMALE || prob(5))
+		return ..()
+	return "None"
+
 /datum/species/human/randomize_hair_colors(datum/robolimb/robohead, body_color = null, skin_tone = 1)
 	if(skin_tone < 7 || prob(30)) // make dark hair colors more common on dark skin tones
 		return ..()

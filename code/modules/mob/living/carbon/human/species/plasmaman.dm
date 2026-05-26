@@ -221,4 +221,4 @@
 /datum/species/plasmaman/randomize_eye_color()
 	if(prob(2))
 		return rand_hex_color()
-	return tint_color_hsl("#FFAB00")
+	return tint_color_hsl("#FFAB00", 15)

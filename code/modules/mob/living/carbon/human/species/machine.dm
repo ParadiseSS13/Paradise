@@ -236,12 +236,13 @@
 /datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/stack/sheet/mineral/titanium(H.loc)
 
-/datum/species/machine/generate_random_appearance(mob/living/carbon/human/body, prosthesis_prob = 50)
+/datum/species/machine/generate_random_appearance(prosthesis_prob = 100)
 	return ..()
 
 /datum/species/machine/randomize_chassis_brands()
 	var/list/limb_choices = list()
 	var/brand_list = list(
+		/datum/robolimb/morpheus = 9,
 		/datum/robolimb/bishop = 2,
 		/datum/robolimb/hephaestus = 2,
 		/datum/robolimb/wardtakahashi = 1,
@@ -250,22 +251,27 @@
 		/datum/robolimb/shellguard = 2,
 	)
 	var/main_brand = pickweight(brand_list)
-	var/secondary_brand = pickweight(brand_list)
-	var/tertiary_brand = pickweight(brand_list)
+	var/secondary_brand = pickweight(brand_list - main_brand)
+	var/tertiary_brand = pickweight(brand_list - list(main_brand, secondary_brand))
 
 	for(var/limb in has_limbs)
+		var/datum/robolimb/choice
 		if(prob(98))
-			limb_choices[limb] = limb == "head" ? pick(typesof(main_brand)) : main_brand
+			choice = limb == "head" ? pick(typesof(main_brand)) : main_brand
 		else if(prob(80))
-			limb_choices[limb] = limb == "head" ? pick(typesof(secondary_brand)) : secondary_brand
+			choice = limb == "head" ? pick(typesof(secondary_brand)) : secondary_brand
 		else
-			limb_choices[limb] = limb == "head" ? pick(typesof(tertiary_brand)) : tertiary_brand
+			choice = limb == "head" ? pick(typesof(tertiary_brand)) : tertiary_brand
+		if(choice.type != /datum/robolimb/morpheus)
+			if(choice.type != /datum/robolimb/morpheus/alt1 || prob(20))
+				limb_choices[limb] = choice
 
 	return limb_choices
 
 /datum/species/machine/randomize_body_color()
 	if(prob(90))
-		return rgb(rand(0, 360), rand(0, 90), rand(0, 30), space = COLORSPACE_HSL)
+		return rgb(rand(0, 360), rand(0, 90), rand(0, 25), space = COLORSPACE_HSL)
+	return COLOR_BLACK
 
 /datum/species/machine/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = null)
 	if(species_bald_prob)
@@ -309,3 +315,8 @@
 	hair_colors["h1"] = rand_hex_color()
 	hair_colors["f1"] = hair_colors["h1"]
 	return hair_colors
+
+/datum/species/machine/randomize_head_accessory_color(head_accessory = "None", body_color = null, hair_color = null)
+	if(head_accessory == "None")
+		return ..()
+	return rgb(rand(0, 360), rand(0, 100), rand(0, 40), space = COLORSPACE_HSL)

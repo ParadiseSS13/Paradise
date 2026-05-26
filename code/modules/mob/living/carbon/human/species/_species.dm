@@ -1239,72 +1239,82 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	to override these procs to generate appropriate values.
 */
 
-/datum/species/proc/generate_random_appearance(mob/living/carbon/human/body, prosthesis_prob = 5)
+/datum/species/proc/generate_random_appearance(prosthesis_prob = 5)
+	var/datum/character_save/appearance = new
+	appearance.species = name
+
+	// Gender.
+	appearance.gender = randomize_gender()
+	appearance.body_type = randomize_body_type(appearance.gender)
+
 	// Prostheses / Alternate robotic parts
 	if(prob(prosthesis_prob))
 		var/list/prostheses = randomize_chassis_brands()
 		for(var/organ_name in prostheses)
-			var/obj/item/organ/external/each_organ = body.bodyparts_by_name[organ_name]
 			var/datum/robolimb/one_prosthesis = prostheses[organ_name]
-			if(each_organ.is_robotic())
-				each_organ.set_company(one_prosthesis.company)
-			else
-				each_organ.robotize(one_prosthesis.company)
+			appearance.organ_data[organ_name] = "cyborg"
+			appearance.rlimb_data[organ_name] = one_prosthesis.company
 
 	// This needs to go after prostheses
-	var/obj/item/organ/external/head/head_organ = body.get_organ("head")
 	var/datum/robolimb/robohead
-	if(head_organ)
-		if(head_organ.dna.species.bodyflags & ALL_RPARTS)
-			robohead = GLOB.all_robolimbs[head_organ.model]
+	if(bodyflags & ALL_RPARTS)
+		if(appearance.rlimb_data["head"])
+			robohead = GLOB.all_robolimbs[appearance.rlimb_data["head"]]
+		else
+			robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 
 	// Body color.
 	if(bodyflags & HAS_SKIN_TONE|HAS_ICON_SKIN_TONE)
-		body.s_tone = randomize_skin_tone()
+		appearance.s_tone = randomize_skin_tone()
 	if(bodyflags & HAS_SKIN_COLOR)
-		body.change_skin_color(randomize_body_color())
+		appearance.s_colour = randomize_body_color()
 
 	// Eyes.
 	if(!(bodyflags & ALL_RPARTS || eyes == "blank_eyes" || bodyflags & NO_EYES))
-		body.change_eye_color(randomize_eye_color())
+		appearance.e_colour = randomize_eye_color()
 
 	// Hair.
 	if(!(bodyflags & BALD))
-		head_organ.h_style = randomize_hair_style(robohead)
+		appearance.h_style = randomize_hair_style(robohead)
 	if(!(bodyflags & SHAVED))
-		if(body.gender != FEMALE || prob(5))
-			head_organ.f_style = randomize_facial_hair_style(robohead)
+		appearance.f_style = randomize_facial_hair_style(robohead, gender = appearance.gender)
 	if(!(bodyflags & BALD&SHAVED))
-		var/list/hair_colors = randomize_hair_colors(robohead, body.skin_colour, body.s_tone)
-		head_organ.hair_colour = hair_colors["h1"]
-		head_organ.sec_hair_colour = hair_colors["h2"]
-		head_organ.facial_colour = hair_colors["f1"]
-		head_organ.sec_facial_colour = hair_colors["f2"]
+		var/list/hair_colors = randomize_hair_colors(robohead, appearance.s_colour, appearance.s_tone)
+		appearance.h_colour = hair_colors["h1"]
+		appearance.h_sec_colour = hair_colors["h2"]
+		appearance.f_colour = hair_colors["f1"]
+		appearance.f_sec_colour = hair_colors["f2"]
 
 	// Accessories.
 	if(bodyflags & HAS_BODY_ACCESSORY)
-		body.m_styles["tail"] = "None"
-		body.body_accessory = GLOB.body_accessory_by_name[randomize_body_accessory()]
+		appearance.m_styles["tail"] = "None"
+		appearance.body_accessory = randomize_body_accessory()
 	if(bodyflags & HAS_HEAD_ACCESSORY)
-		head_organ.ha_style = randomize_head_accessory()
-		head_organ.headacc_colour = randomize_head_accessory_color(head_organ.ha_style, body.skin_colour, head_organ.hair_colour)
+		appearance.ha_style = randomize_head_accessory()
+		appearance.hacc_colour = randomize_head_accessory_color(appearance.ha_style, appearance.s_colour, appearance.h_colour)
+	if(bodyflags & HAS_ALT_HEADS)
+		appearance.alt_head = randomize_alt_head()
 
 	// Markings.
 	if(bodyflags & HAS_BODY_MARKINGS)
-		body.m_styles["body"] = randomize_body_markings()
-		body.m_colours["body"] = randomize_body_markings_color(body.m_styles["body"], body.skin_colour, body.s_tone)
+		appearance.m_styles["body"] = randomize_body_markings()
+		appearance.m_colours["body"] = randomize_body_markings_color(appearance.m_styles["body"], appearance.s_colour, appearance.s_tone)
 
 	if(bodyflags & HAS_HEAD_MARKINGS)
-		body.m_styles["head"] = randomize_head_markings()
-		body.m_colours["head"] = randomize_head_markings_color(body.m_styles["head"], body.skin_colour)
+		appearance.m_styles["head"] = randomize_head_markings(alt_head = appearance.alt_head)
+		appearance.m_colours["head"] = randomize_head_markings_color(appearance.m_styles["head"], appearance.s_colour)
 
 	if(bodyflags & HAS_TAIL_MARKINGS)
-		body.m_styles["tail"] = randomize_tail_markings(tail_type = body.body_accessory ? body.body_accessory.name : null)
-		body.m_colours["tail"] = randomize_tail_markings_color(body.m_styles["tail"])
+		appearance.m_styles["tail"] = randomize_tail_markings(tail_type = appearance.body_accessory ? appearance.body_accessory : null)
+		appearance.m_colours["tail"] = randomize_tail_markings_color(appearance.m_styles["tail"])
 
-	body.regenerate_icons()
-	body.update_body()
-	body.update_dna()
+	return appearance
+
+/datum/species/proc/randomize_gender()
+	return pick(MALE, FEMALE, PLURAL)
+
+/datum/species/proc/randomize_body_type(gender)
+	return pick(MALE, FEMALE)
 
 /datum/species/proc/randomize_chassis_brands()
 	var/list/limb_choices = list()
@@ -1368,7 +1378,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	return pick(all_hair_styles)
 
-/datum/species/proc/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 20)
+/datum/species/proc/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 20, gender)
 	if(bodyflags & SHAVED)
 		return "Shaved"
 	if(prob(species_shaved_prob))
@@ -1455,6 +1465,15 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return COLOR_BLACK
 	return rand_hex_color()
 
+/datum/species/proc/randomize_alt_head(prob_to_apply = 40)
+	if(!(bodyflags & HAS_ALT_HEADS))
+		return "None"
+	var/list/possible_heads = list_valid_alt_heads(name)
+	if(!prob(prob_to_apply) && ("None" in possible_heads))
+		return "None"
+
+	return pick(possible_heads)
+
 /datum/species/proc/randomize_body_markings(prob_to_apply = 20)
 	if(!(bodyflags & HAS_BODY_MARKINGS))
 		return "None"
@@ -1474,10 +1493,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return COLOR_BLACK
 	return rand_hex_color()
 
-/datum/species/proc/randomize_head_markings(prob_to_apply = 70)
+/datum/species/proc/randomize_head_markings(prob_to_apply = 70, alt_head)
 	if(!(bodyflags & HAS_HEAD_MARKINGS))
 		return "None"
-	var/list/possible_markings = list_valid_marking_styles("head", name)
+	var/list/possible_markings = list_valid_marking_styles("head", name, alt_head = alt_head)
 	if(!prob(prob_to_apply) && ("None" in possible_markings))
 		return "None"
 

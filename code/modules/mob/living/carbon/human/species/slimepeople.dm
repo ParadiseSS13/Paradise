@@ -203,27 +203,14 @@
 	else
 		to_chat(H, SPAN_WARNING("You need to hold still in order to regrow a limb!"))
 
-/datum/species/slime/generate_random_appearance(mob/living/carbon/human/body, prosthesis_prob = 5)
-	var/obj/item/organ/external/head/head_organ = body.get_organ("head")
-	var/datum/robolimb/robohead
-	if(head_organ)
-		if(head_organ.dna.species.bodyflags & ALL_RPARTS)
-			robohead = GLOB.all_robolimbs[head_organ.model]
-
-	// Body color.
-	body.change_skin_color(randomize_body_color())
-
-	// Hair.
-	head_organ.h_style = randomize_hair_style(robohead)
-	if(prob(35))
-		head_organ.f_style = randomize_facial_hair_style(robohead)
-
-	body.regenerate_icons()
-	body.update_body()
-	body.update_dna()
+/datum/species/slime/generate_random_appearance(prosthesis_prob = 0)
+	return ..()
 
 /datum/species/slime/randomize_body_color()
 	return rand_hex_color()
+
+/datum/species/slime/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 60, gender)
+	return ..()
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD

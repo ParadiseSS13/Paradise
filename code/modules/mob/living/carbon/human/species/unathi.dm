@@ -184,7 +184,7 @@
 /datum/species/unathi/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = 80)
 	return ..()
 
-/datum/species/unathi/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 40)
+/datum/species/unathi/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 40, gender)
 	return ..()
 
 /datum/species/unathi/randomize_hair_colors(datum/robolimb/robohead, body_color = null, skin_tone = null)
@@ -224,7 +224,7 @@
 		return rgb(intermediary_color[1], intermediary_color[2], intermediary_color[3], space = COLORSPACE_HSL)
 	return ..()
 
-/datum/species/unathi/randomize_head_markings(prob_to_apply = 50)
+/datum/species/unathi/randomize_head_markings(prob_to_apply = 50, alt_head)
 	return ..()
 
 /datum/species/unathi/randomize_head_markings_color(head_markings = "None", body_color = null)

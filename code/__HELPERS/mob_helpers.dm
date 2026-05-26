@@ -133,6 +133,17 @@
 
 	return pick(valid_head_accessories)
 
+/proc/list_valid_alt_heads(species = "Human")
+	var/list/valid_alt_heads = list()
+	valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option, and there should always be a "None" option.
+	for(var/alternate_head in GLOB.alt_heads_list)
+		var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
+		if(!(species in head.species_allowed))
+			continue
+
+		valid_alt_heads += alternate_head
+	return sortTim(valid_alt_heads, GLOBAL_PROC_REF(cmp_text_asc))
+
 /proc/list_valid_marking_styles(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)

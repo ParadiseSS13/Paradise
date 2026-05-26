@@ -271,52 +271,56 @@
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
 
-/datum/species/moth/generate_random_appearance(mob/living/carbon/human/body, prosthesis_prob = 5)
-	var/obj/item/organ/external/head/head_organ = body.get_organ("head")
-	var/datum/robolimb/robohead
-	if(head_organ)
-		if(head_organ.dna.species.bodyflags & ALL_RPARTS)
-			robohead = GLOB.all_robolimbs[head_organ.model]
+/datum/species/moth/generate_random_appearance(prosthesis_prob = 5)
+	var/datum/character_save/appearance = new
+	appearance.species = name
 
+	// Gender.
+	appearance.gender = randomize_gender()
+	appearance.body_type = randomize_body_type(appearance.gender)
+
+	// Prostheses / Alternate robotic parts
 	if(prob(prosthesis_prob))
 		var/list/prostheses = randomize_chassis_brands()
 		for(var/organ_name in prostheses)
-			var/obj/item/organ/external/each_organ = body.bodyparts_by_name[organ_name]
 			var/datum/robolimb/one_prosthesis = prostheses[organ_name]
-			if(each_organ)
-				each_organ.robotize(one_prosthesis.company)
+			appearance.organ_data[organ_name] = "cyborg"
+			appearance.rlimb_data[organ_name] = one_prosthesis.company
+
+	// This needs to go after prostheses
+	var/datum/robolimb/robohead
+	if(appearance.rlimb_data["head"] && (bodyflags & ALL_RPARTS))
+		robohead = GLOB.all_robolimbs[appearance.rlimb_data["head"]]
 
 	// Markings.
-	body.m_styles["head"] = randomize_head_markings()
-	body.m_colours["head"] = randomize_head_markings_color(body.m_styles["head"])
+	appearance.m_styles["head"] = randomize_head_markings()
+	appearance.m_colours["head"] = randomize_head_markings_color(appearance.m_styles["head"])
 	// should get just "Reddish" from "Reddish Head Markings"
-	var/marking_style = copytext(body.m_styles["head"], 1, -14)
+	var/marking_style = copytext(appearance.m_styles["head"], 1, -14)
 
-	body.m_styles["body"] = "[marking_style] Markings"
-	body.m_colours["body"] = body.m_colours["head"]
+	appearance.m_styles["body"] = "[marking_style] Markings"
+	appearance.m_colours["body"] = appearance.m_colours["head"]
 
 	// Accessories.
-	body.m_styles["tail"] = "None"
-	body.body_accessory = GLOB.body_accessory_by_name[randomize_body_accessory(100, marking_style)]
-	var/accessory_style = copytext(body.body_accessory.name, 1, -6)
+	appearance.m_styles["tail"] = "None"
+	appearance.body_accessory = randomize_body_accessory(100, marking_style)
+	var/accessory_style = copytext(appearance.body_accessory, 1, -6)
 
-	head_organ.ha_style = randomize_head_accessory(50, marking_style, accessory_style)
-	head_organ.headacc_colour = randomize_head_accessory_color(head_organ.ha_style)
+	appearance.ha_style = randomize_head_accessory(50, marking_style, accessory_style)
+	appearance.hacc_colour = randomize_head_accessory_color(appearance.ha_style)
 
 	// Skin.
-	body.s_tone = randomize_skin_tone(marking_style, accessory_style)
+	appearance.s_tone = randomize_skin_tone(marking_style, accessory_style)
 
 	// Hair
-	head_organ.h_style = randomize_hair_style(robohead)
-	var/list/hair_colors = randomize_hair_colors(robohead, body.s_tone, body.m_colours["head"])
-	head_organ.hair_colour = hair_colors["h1"]
-	head_organ.sec_hair_colour = hair_colors["h2"]
-	head_organ.facial_colour = hair_colors["f1"]
-	head_organ.sec_facial_colour = hair_colors["f2"]
+	appearance.h_style = randomize_hair_style(robohead)
+	var/list/hair_colors = randomize_hair_colors(robohead, appearance.s_tone, appearance.m_colours["head"])
+	appearance.h_colour = hair_colors["h1"]
+	appearance.h_sec_colour = hair_colors["h2"]
+	appearance.f_colour = hair_colors["f1"]
+	appearance.f_sec_colour = hair_colors["f2"]
 
-	body.regenerate_icons()
-	body.update_body()
-	body.update_dna()
+	return appearance
 
 /datum/species/moth/randomize_skin_tone(marking_style, accessory_style)
 	var/style_determiner = (marking_style && marking_style != "None") ? marking_style : accessory_style

@@ -72,62 +72,65 @@
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
-/datum/species/vulpkanin/generate_random_appearance(mob/living/carbon/human/body, prosthesis_prob = 5)
-	var/obj/item/organ/external/head/head_organ = body.get_organ("head")
-	var/datum/robolimb/robohead
-	if(head_organ)
-		if(head_organ.dna.species.bodyflags & ALL_RPARTS)
-			robohead = GLOB.all_robolimbs[head_organ.model]
+/datum/species/vulpkanin/generate_random_appearance(prosthesis_prob = 5)
+	var/datum/character_save/appearance = new
+	appearance.species = name
 
+	// Gender.
+	appearance.gender = randomize_gender()
+	appearance.body_type = randomize_body_type(appearance.gender)
+
+	// Prostheses / Alternate robotic parts
 	if(prob(prosthesis_prob))
 		var/list/prostheses = randomize_chassis_brands()
 		for(var/organ_name in prostheses)
-			var/obj/item/organ/external/each_organ = body.bodyparts_by_name[organ_name]
 			var/datum/robolimb/one_prosthesis = prostheses[organ_name]
-			if(each_organ)
-				each_organ.robotize(one_prosthesis.company)
+			appearance.organ_data[organ_name] = "cyborg"
+			appearance.rlimb_data[organ_name] = one_prosthesis.company
+
+	// This needs to go after prostheses
+	var/datum/robolimb/robohead
+	if(appearance.rlimb_data["head"] && (bodyflags & ALL_RPARTS))
+		robohead = GLOB.all_robolimbs[appearance.rlimb_data["head"]]
 
 	// Coloration.
 	var/pattern = pickweight(list("points" = 3,
 		"tiger" = 1, // make tiger pattern rarer, more of a tajaran thing
 		"solid" = 3,
 		"other" = 3))
-	var/base_body_color = randomize_body_color(pattern)
-	var/secondary_body_color = get_color_counterpart(base_body_color)
-	body.change_skin_color(base_body_color)
+	appearance.s_colour = randomize_body_color(pattern)
+	var/secondary_body_color = get_color_counterpart(appearance.s_colour)
 
 	// Eyes.
-	body.change_eye_color(randomize_eye_color())
+	appearance.e_colour = randomize_eye_color()
 
 	// Hair.
-	head_organ.h_style = randomize_hair_style(robohead)
-	head_organ.f_style = randomize_facial_hair_style(robohead)
-	var/list/hair_colors = randomize_hair_colors(robohead, base_body_color, secondary_body_color)
-	head_organ.hair_colour = hair_colors["h1"]
-	head_organ.sec_hair_colour = hair_colors["h2"]
-	head_organ.facial_colour = hair_colors["f1"]
-	head_organ.sec_facial_colour = hair_colors["f2"]
+	appearance.h_style = randomize_hair_style(robohead)
+	appearance.f_style = randomize_facial_hair_style(robohead, gender = appearance.gender)
+	var/list/hair_colors = randomize_hair_colors(robohead, appearance.s_colour, secondary_body_color)
+	appearance.h_colour = hair_colors["h1"]
+	appearance.h_sec_colour = hair_colors["h2"]
+	appearance.f_colour = hair_colors["f1"]
+	appearance.f_sec_colour = hair_colors["f2"]
 
 	// Accessories.
-	body.m_styles["tail"] = "None"
-	body.body_accessory = null
+	appearance.m_styles["tail"] = "None"
+	appearance.body_accessory = null
 	var/random_body_accessory = randomize_body_accessory(100, pattern)
 	if(random_body_accessory != "None")
-		body.body_accessory = GLOB.body_accessory_by_name[random_body_accessory]
-	head_organ.ha_style = randomize_head_accessory(100, pattern)
-	head_organ.headacc_colour = randomize_head_accessory_color("None", secondary_body_color)
+		appearance.body_accessory = random_body_accessory
+	appearance.ha_style = randomize_head_accessory(100, pattern)
+	appearance.hacc_colour = randomize_head_accessory_color("None", secondary_body_color)
 
 	// Markings.
-	body.m_styles["body"] = randomize_body_markings(100, pattern)
-	body.m_colours["body"] = randomize_body_markings_color(body.m_styles["body"], secondary_body_color, body.s_tone)
-	body.m_styles["head"] = randomize_head_markings(100, pattern)
-	body.m_colours["head"] = randomize_head_markings_color(body.m_styles["head"], secondary_body_color)
-	body.m_styles["tail"] = randomize_tail_markings(100, body.body_accessory ? body.body_accessory.name : null, pattern)
-	body.m_colours["tail"] = randomize_tail_markings_color(body.m_styles["tail"], secondary_body_color)
+	appearance.m_styles["body"] = randomize_body_markings(100, pattern)
+	appearance.m_colours["body"] = randomize_body_markings_color(appearance.m_styles["body"], secondary_body_color, appearance.s_tone)
+	appearance.m_styles["head"] = randomize_head_markings(100, pattern)
+	appearance.m_colours["head"] = randomize_head_markings_color(appearance.m_styles["head"], secondary_body_color)
+	appearance.m_styles["tail"] = randomize_tail_markings(100, appearance.body_accessory ? appearance.body_accessory : null, pattern)
+	appearance.m_colours["tail"] = randomize_tail_markings_color(appearance.m_styles["tail"], secondary_body_color)
 
-	body.regenerate_icons()
-	body.update_body()
-	body.update_dna()
+	return appearance
 
 /datum/species/vulpkanin/randomize_eye_color()
 	return tint_color_hsl(pickweight(list(

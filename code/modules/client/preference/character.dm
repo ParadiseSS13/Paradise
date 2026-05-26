@@ -1,7 +1,6 @@
 // PSA To anyone who opens this:
 // Good fucking luck. You will need this: https://www.youtube.com/watch?v=W9GaIbECisQ
 
-
 /datum/character_save
 	var/real_name							//our character's name
 	var/be_random_name = FALSE				//whether we are a random name every round
@@ -1893,9 +1892,78 @@
 					job_engsec_low |= job.flag
 	return 1
 
-/datum/character_save/proc/copy_to(mob/living/carbon/human/character)
+/datum/character_save/proc/apply_appearance(mob/living/carbon/human/character)
 	var/datum/species/S = GLOB.all_species[species]
-	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
+	character.set_species(S.type, delay_icon_update = TRUE)
+	character.change_gender(gender)
+
+	var/obj/item/organ/external/head/head_organ = character.get_organ("head")
+
+	head_organ.hair_colour = h_colour
+	head_organ.sec_hair_colour = h_sec_colour
+	head_organ.facial_colour = f_colour
+	head_organ.sec_facial_colour = f_sec_colour
+
+	head_organ.h_style = h_style
+	head_organ.f_style = f_style
+
+	head_organ.alt_head = alt_head
+
+	head_organ.h_grad_style = h_grad_style
+	head_organ.h_grad_offset_x = h_grad_offset_x
+	head_organ.h_grad_offset_y = h_grad_offset_y
+	head_organ.h_grad_colour = h_grad_colour
+	head_organ.h_grad_alpha = h_grad_alpha
+
+	character.skin_colour = s_colour
+
+	character.s_tone = s_tone
+
+	// Destroy/cyborgize organs
+	for(var/name in organ_data)
+
+		var/status = organ_data[name]
+		var/obj/item/organ/external/each_organ = character.bodyparts_by_name[name]
+		if(each_organ)
+			if(status == "amputated")
+				qdel(each_organ.remove(character))
+
+			else if(status == "cyborg")
+				if(rlimb_data[name])
+					each_organ.robotize(rlimb_data[name], convert_all = 0)
+				else
+					each_organ.robotize()
+		else
+			var/obj/item/organ/internal/internal_organ = character.get_int_organ_tag(name)
+			if(internal_organ)
+				if(status == "cybernetic")
+					internal_organ.robotize()
+
+	// Send signal that robotic limbs have been applied
+	SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
+
+	character.underwear = underwear
+	character.undershirt = undershirt
+	character.socks = socks
+
+	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
+		head_organ.headacc_colour = hacc_colour
+		head_organ.ha_style = ha_style
+	if(character.dna.species.bodyflags & HAS_MARKINGS)
+		character.m_colours = m_colours
+		character.m_styles = m_styles
+
+	if(body_accessory)
+		character.body_accessory = GLOB.body_accessory_by_name[body_accessory]
+	character.change_eye_color(e_colour, skip_icons = TRUE)
+	character.original_eye_color = e_colour
+
+	character.regenerate_icons()
+	character.update_body()
+	character.update_dna()
+
+/datum/character_save/proc/copy_to(mob/living/carbon/human/character)
+	apply_appearance(character)
 	if(be_random_name)
 		real_name = random_name(gender, species)
 	var/balance_check = rebuild_quirks()
@@ -1916,59 +1984,7 @@
 	character.sec_record = sec_record
 	character.gen_record = gen_record
 
-	character.change_gender(gender)
-	character.body_type = body_type  // TODO does this update the character properly or do we need a setter here
 	character.age = age
-
-	//Head-specific
-	var/obj/item/organ/external/head/H = character.get_organ("head")
-
-	H.hair_colour = h_colour
-
-	H.sec_hair_colour = h_sec_colour
-
-	H.facial_colour = f_colour
-
-	H.sec_facial_colour = f_sec_colour
-
-	H.h_style = h_style
-	H.f_style = f_style
-
-	H.alt_head = alt_head
-
-	H.h_grad_style = h_grad_style
-	H.h_grad_offset_x = h_grad_offset_x
-	H.h_grad_offset_y = h_grad_offset_y
-	H.h_grad_colour = h_grad_colour
-	H.h_grad_alpha = h_grad_alpha
-	//End of head-specific.
-
-	character.skin_colour = s_colour
-
-	character.s_tone = s_tone
-
-	// Destroy/cyborgize organs
-	for(var/name in organ_data)
-
-		var/status = organ_data[name]
-		var/obj/item/organ/external/O = character.bodyparts_by_name[name]
-		if(O)
-			if(status == "amputated")
-				qdel(O.remove(character))
-
-			else if(status == "cyborg")
-				if(rlimb_data[name])
-					O.robotize(rlimb_data[name], convert_all = 0)
-				else
-					O.robotize()
-		else
-			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
-			if(I)
-				if(status == "cybernetic")
-					I.robotize()
-
-	// Send signal that robotic limbs have been applied
-	SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
 
 	character.dna.blood_type = b_type
 
@@ -1981,20 +1997,6 @@
 	else if(!l_foot || !r_foot)
 		character.put_in_r_hand(new /obj/item/cane)
 
-	character.underwear = underwear
-	character.undershirt = undershirt
-	character.socks = socks
-
-	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
-		H.headacc_colour = hacc_colour
-		H.ha_style = ha_style
-	if(character.dna.species.bodyflags & HAS_MARKINGS)
-		character.m_colours = m_colours
-		character.m_styles = m_styles
-
-	if(body_accessory)
-		character.body_accessory = GLOB.body_accessory_by_name[body_accessory]
-
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
@@ -2003,8 +2005,6 @@
 			message_admins("[key_name_admin(character)] has spawned with their gender as neuter. Please notify coders.")
 			character.change_gender(PLURAL)
 
-	character.change_eye_color(e_colour, skip_icons = TRUE)
-	character.original_eye_color = e_colour
 	character.dna.flavor_text = flavor_text
 
 	// Runechat Color
