@@ -2355,6 +2355,19 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
+"Mq" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Laser Room";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "MJ" = (
 /obj/machinery/access_button{
 	autolink_id = "engsm_btn_ext";
@@ -3152,17 +3165,6 @@
 "Zb" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Atmos in"
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
-"Zi" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Laser Room";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -4058,7 +4060,7 @@ fk
 ud
 dO
 YU
-Zi
+na
 ut
 RR
 Pm
@@ -4306,7 +4308,7 @@ fk
 Iy
 vV
 Ff
-na
+Mq
 Yz
 hz
 Qc
