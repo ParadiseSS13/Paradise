@@ -645,7 +645,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/computer/nonfunctional,
+/obj/structure/salvageable/computer,
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_south)
 "qv" = (

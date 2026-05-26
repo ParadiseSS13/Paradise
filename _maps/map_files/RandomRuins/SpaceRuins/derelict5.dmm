@@ -233,6 +233,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"EM" = (
+/obj/structure/salvageable/server,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
 "Gx" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
@@ -1045,7 +1049,7 @@ Dt
 Qx
 Qx
 Se
-zN
+EM
 vE
 zN
 Wy
