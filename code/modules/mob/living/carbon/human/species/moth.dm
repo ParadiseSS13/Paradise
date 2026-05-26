@@ -293,7 +293,7 @@
 		robohead = GLOB.all_robolimbs[appearance.rlimb_data["head"]]
 
 	// Markings.
-	appearance.m_styles["head"] = randomize_head_markings(alt_head = null)
+	appearance.m_styles["head"] = randomize_head_markings(null, null)
 	appearance.m_colours["head"] = randomize_head_markings_color(appearance.m_styles["head"])
 	// should get just "Reddish" from "Reddish Head Markings"
 	var/marking_style = copytext(appearance.m_styles["head"], 1, -14)
@@ -441,7 +441,7 @@
 		return COLOR_BLACK
 	return rgb(rand(0, 306), rand(0, 60), rand(0, 20), space = COLORSPACE_HSL)
 
-/datum/species/moth/randomize_head_markings(prob_to_apply = 70)
+/datum/species/moth/randomize_head_markings(prob_to_apply = 70, alt_head)
 	return ..()
 
 /datum/species/moth/randomize_body_markings(prob_to_apply = 70, body_color = null, skin_tone = null, head_markings = null)
