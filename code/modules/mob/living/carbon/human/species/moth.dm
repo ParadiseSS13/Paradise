@@ -293,7 +293,7 @@
 		robohead = GLOB.all_robolimbs[appearance.rlimb_data["head"]]
 
 	// Markings.
-	appearance.m_styles["head"] = randomize_head_markings()
+	appearance.m_styles["head"] = randomize_head_markings(alt_head = null)
 	appearance.m_colours["head"] = randomize_head_markings_color(appearance.m_styles["head"])
 	// should get just "Reddish" from "Reddish Head Markings"
 	var/marking_style = copytext(appearance.m_styles["head"], 1, -14)

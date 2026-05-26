@@ -125,7 +125,7 @@
 	// Markings.
 	appearance.m_styles["body"] = randomize_body_markings(100, pattern)
 	appearance.m_colours["body"] = randomize_body_markings_color(appearance.m_styles["body"], secondary_body_color, appearance.s_tone)
-	appearance.m_styles["head"] = randomize_head_markings(100, pattern)
+	appearance.m_styles["head"] = randomize_head_markings(100, null, pattern)
 	appearance.m_colours["head"] = randomize_head_markings_color(appearance.m_styles["head"], secondary_body_color)
 	appearance.m_styles["tail"] = randomize_tail_markings(100, appearance.body_accessory ? appearance.body_accessory : null, pattern)
 	appearance.m_colours["tail"] = randomize_tail_markings_color(appearance.m_styles["tail"], secondary_body_color)
@@ -222,7 +222,7 @@
 /datum/species/vulpkanin/randomize_body_markings_color(body_markings = "None", secondary_body_color = VULP_WHITE, skin_tone = null)
 	return pick(secondary_body_color, VULP_WHITE)
 
-/datum/species/vulpkanin/randomize_head_markings(prob_to_apply = 100, pattern = "other")
+/datum/species/vulpkanin/randomize_head_markings(prob_to_apply = 100, alt_head, pattern = "other")
 	if(pattern == "solid")
 		return "None"
 	if(pattern == "points")

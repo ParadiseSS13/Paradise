@@ -133,7 +133,7 @@
 	// Markings.
 	appearance.m_styles["body"] = randomize_body_markings(100, pattern)
 	appearance.m_colours["body"] = secondary_body_color
-	appearance.m_styles["head"] = randomize_head_markings(100, pattern)
+	appearance.m_styles["head"] = randomize_head_markings(100, null, pattern)
 	appearance.m_colours["head"] = secondary_body_color
 	appearance.m_styles["tail"] = randomize_tail_markings(100, appearance.body_accessory ? appearance.body_accessory : null, pattern)
 	appearance.m_colours["tail"] = secondary_body_color
@@ -257,7 +257,7 @@
 		return TAJARAN_BLACK
 	return get_color_counterpart(body_color)
 
-/datum/species/tajaran/randomize_head_markings(prob_to_apply = 100, pattern = "other")
+/datum/species/tajaran/randomize_head_markings(prob_to_apply = 100, alt_head, pattern = "other")
 	switch(pattern)
 		if("points")
 			return "Tajaran Points Head"
