@@ -95,7 +95,7 @@
 		/obj/structure/closet/crate/secure/loot,
 	)
 
-/obj/effect/spawner/random/salvage/ore/Initialize()
+/obj/effect/spawner/random/salvage/ore/Initialize(mapload)
 	spawn_loot_count = pick(list(
 		1,
 		2,
