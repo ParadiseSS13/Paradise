@@ -105,8 +105,6 @@
 		/obj/effect/spawner/random/salvage/part/matter_bin = 40,
 		/obj/effect/spawner/random/salvage/part/manipulator = 30,
 
-		/obj/item/circuitboard/autolathe = 35,
-
 		/obj/item/stack/sheet/metal/five = 10,
 		/obj/item/stack/sheet/glass/five = 10,
 		/obj/item/stack/sheet/plastic/five = 10,
@@ -166,8 +164,6 @@
 		/obj/effect/spawner/random/salvage/part/matter_bin = 40,
 		/obj/effect/spawner/random/salvage/part/manipulator = 30,
 
-		#warn perhaps another circuit spawner?
-		// /obj/item/stack/circuit_stack = 50,
 		/obj/effect/spawner/random/circuit/mech = 45,
 		/obj/effect/spawner/random/circuit/common = 50,
 		/obj/effect/spawner/random/circuit/rare = 5,
@@ -195,7 +191,6 @@
 		/obj/effect/spawner/random/salvage_laser = 30,
 		/obj/effect/spawner/random/salvage/part/manipulator = 30,
 
-		/obj/item/storage/toolbox/syndicate/empty = 80,
 		/obj/effect/spawner/random/salvage/destructive_analyzer = 65,
 
 		/obj/item/stack/sheet/metal/five = 15, //same as above but more geared towards stuff used by circuit imprinter
@@ -227,12 +222,14 @@
 			shoot_projectile(user, /obj/projectile/beam/laser/heavylaser)
 			do_sparks(5, TRUE, src) //i'd like to make this flash people. but i'm not sure how to do that. shame!
 
-/obj/structure/salvageable/destructive_analyzer/proc/shoot_projectile(mob/living/target, obj/projectile/projectile_to_shoot)
+/obj/structure/salvageable/destructive_analyzer/proc/shoot_projectile(mob/living/target, obj/projectile/projectile_to_shoot, set_angle)
 	var/obj/projectile/projectile_being_shot = new projectile_to_shoot(get_turf(src))
 	projectile_being_shot.preparePixelProjectile(get_step(src, pick(GLOB.alldirs)), get_turf(src))
 	projectile_being_shot.firer = src
-	#warn hmmmm
-	projectile_being_shot.fire()
+	if(isnum(set_angle))
+		projectile_being_shot.fire(set_angle)
+	else
+		projectile_being_shot.fire()
 
 /obj/structure/salvageable/server
 	name = "broken server"
