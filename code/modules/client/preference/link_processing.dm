@@ -110,7 +110,6 @@
 				if("facial")
 					if(!(S.bodyflags & SHAVED))
 						active_character.f_colour = S.randomize_hair_colors(robohead, active_character.s_colour, active_character.s_tone)["f1"]
-				if("f_style")
 				if("secondary_facial")
 					if(!(S.bodyflags & SHAVED))
 						active_character.f_sec_colour = S.randomize_hair_colors(robohead, active_character.s_colour, active_character.s_tone)["f2"]
