@@ -51,6 +51,8 @@
 	/// How many levels of foam do we have on us? Capped at 5
 	var/foam_level = 0
 
+	/// Is this door prevented from autorotating?
+	var/manual_dir = FALSE
 	/// Is this door barricaded?
 	var/barricaded = FALSE
 	/// How much this door reduces superconductivity to when closed.
@@ -77,10 +79,11 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	for(var/d in GLOB.cardinal)
-		var/turf/T = get_step(src, d)
-		if(iswallturf(T) || locate(/obj/structure/window/full) in T)
-			QUEUE_SMOOTH(T)
+	if(manual_dir == FALSE)
+		for(var/d in GLOB.cardinal)
+			var/turf/T = get_step(src, d)
+			if(iswallturf(T) || locate(/obj/structure/window/full) in T)
+				QUEUE_SMOOTH(T)
 	update_icon()
 	recalculate_atmos_connectivity()
 
@@ -442,7 +445,7 @@
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = DOOR_OPENING
 	var/direction = get_current_direction()
-	dir = direction ? direction : NORTH
+	dir = direction
 	update_icon()
 	recalculate_atmos_connectivity()
 	do_animate("opening")
@@ -495,7 +498,7 @@
 			set_fillers_opacity(TRUE)
 	operating = NONE
 	var/direction = get_current_direction()
-	dir = direction ? direction : NORTH
+	dir = direction
 	update_icon()
 	recalculate_atmos_connectivity()
 	update_freelook_sight()
@@ -507,6 +510,8 @@
 
 /obj/machinery/door/proc/get_current_direction()
 	// Prioritize walls to avoid adjacent airlock shenanigans
+	if(manual_dir == TRUE)
+		return
 	for(var/direction in GLOB.cardinal)
 		if(iswallturf(get_step(src, direction)))
 			return direction
@@ -591,6 +596,10 @@
 	icon = 'icons/obj/doors/doormorgue.dmi'
 	icon_state = "door1"
 
+
+/obj/machinery/door/morgue/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/proc/lock()
 	return
 
@@ -638,12 +647,12 @@
 
 	QDEL_LIST_CONTENTS(fillers)
 
-	if(dir in list(SOUTH, NORTH))
+	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
 		bound_y = 0
 		pixel_y = 0
-		if(dir == NORTH)
+		if(dir == WEST)
 			bound_x = -(width - 1) * world.icon_size
 			pixel_x = -(width - 1) * world.icon_size
 		else
@@ -655,7 +664,7 @@
 		bound_height = width * world.icon_size
 		bound_x = 0
 		pixel_x = 0
-		if(dir == WEST)
+		if(dir == NORTH)
 			bound_y = -(width - 1) * world.icon_size
 			pixel_y = -(width - 1) * world.icon_size
 		else
