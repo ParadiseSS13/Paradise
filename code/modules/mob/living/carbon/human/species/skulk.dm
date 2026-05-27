@@ -196,4 +196,7 @@
 		if(6)
 			return rgb(5, 100, 20, space = COLORSPACE_HSL)
 
+/datum/species/skulk/randomize_body_accessory(prob_to_apply = 100)
+	return ..()
+
 #undef SILK_NUTRITION_AMOUNT

@@ -203,7 +203,7 @@
 	else
 		to_chat(H, SPAN_WARNING("You need to hold still in order to regrow a limb!"))
 
-/datum/species/slime/generate_random_appearance(prosthesis_prob = 0)
+/datum/species/slime/generate_random_appearance(prosthesis_prob = 0, appearance = null)
 	return ..()
 
 /datum/species/slime/randomize_body_color()

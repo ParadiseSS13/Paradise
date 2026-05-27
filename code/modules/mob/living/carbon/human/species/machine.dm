@@ -236,7 +236,7 @@
 /datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/stack/sheet/mineral/titanium(H.loc)
 
-/datum/species/machine/generate_random_appearance(prosthesis_prob = 100)
+/datum/species/machine/generate_random_appearance(prosthesis_prob = 100, appearance = null)
 	return ..()
 
 /datum/species/machine/randomize_chassis_brands()

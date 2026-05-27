@@ -1239,8 +1239,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	to override these procs to generate appropriate values.
 */
 
-/datum/species/proc/generate_random_appearance(prosthesis_prob = 5)
-	var/datum/character_save/appearance = new
+/datum/species/proc/generate_random_appearance(prosthesis_prob = 5, datum/character_save/appearance = null)
+	if(!istype(appearance))
+		appearance = new
 	appearance.species = name
 
 	// Gender.

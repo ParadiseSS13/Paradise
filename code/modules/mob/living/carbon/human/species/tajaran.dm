@@ -76,8 +76,9 @@
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
-/datum/species/tajaran/generate_random_appearance(prosthesis_prob = 5)
-	var/datum/character_save/appearance = new
+/datum/species/tajaran/generate_random_appearance(prosthesis_prob = 5, datum/character_save/appearance = null)
+	if(!istype(appearance))
+		appearance = new
 	appearance.species = name
 
 	// Gender.

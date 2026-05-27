@@ -628,205 +628,24 @@
 
 /datum/character_save/proc/randomise(gender_override)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-	var/datum/species/S = GLOB.all_species[species]
-	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
+	var/datum/species/character_species = GLOB.all_species[species]
+	if(!istype(character_species)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 		species = initial(species)
-		S = GLOB.all_species[species]
-	var/datum/robolimb/robohead
+		character_species = GLOB.all_species[species]
 
-	if(S.bodyflags & ALL_RPARTS)
-		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
-		robohead = GLOB.all_robolimbs[head_model]
+	character_species.generate_random_appearance(prosthesis_prob = species == "machine" ? 100 : 0, appearance = src)
+
 	if(gender_override)
 		gender = gender_override
-	else
-		gender = pick(MALE, FEMALE)
-	body_type = pick(MALE, FEMALE)
+
 	underwear = random_underwear(body_type, species)
 	undershirt = random_undershirt(body_type, species)
 	socks = random_socks(body_type, species)
-	if(length(GLOB.body_accessory_by_species[species]))
-		body_accessory = random_body_accessory(species, S.optional_body_accessory)
-	if(S.bodyflags & HAS_SKIN_TONE)
-		s_tone = 35 - random_skin_tone(species)
-	else if(S.bodyflags & HAS_ICON_SKIN_TONE)
-		s_tone = random_skin_tone(species)
-	h_style = random_hair_style(species, robohead)
-	f_style = random_facial_hair_style(gender, species, robohead)
-	if(!(S.bodyflags & BALD))
-		randomize_hair_color("hair")
-	if(!(S.bodyflags & SHAVED))
-		randomize_hair_color("facial")
-	if(S.bodyflags & HAS_HEAD_ACCESSORY)
-		ha_style = random_head_accessory(species)
-		hacc_colour = randomize_skin_color(1)
-	if(S.bodyflags & HAS_HEAD_MARKINGS)
-		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
-		m_colours["head"] = randomize_skin_color(1)
-	if(S.bodyflags & HAS_BODY_MARKINGS)
-		m_styles["body"] = random_marking_style("body", species)
-		m_colours["body"] = randomize_skin_color(1)
-	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
-		m_colours["tail"] = randomize_skin_color(1)
-	if(!(S.bodyflags & ALL_RPARTS))
-		randomize_eyes_color()
-	if(S.bodyflags & HAS_SKIN_COLOR)
-		randomize_skin_color()
+
 	backbag = pick(GLOB.backbaglist)
-	age = rand(S.min_age, S.max_age)
+	age = rand(character_species.min_age, character_species.max_age)
 	physique = pick(GLOB.character_physiques)
 	height = pick(GLOB.character_heights)
-
-
-/datum/character_save/proc/randomize_hair_color(target = "hair")
-	if(prob (75) && target == "facial") // Chance to inherit hair color
-		f_colour = h_colour
-		return
-
-	var/red
-	var/green
-	var/blue
-
-	var/col = pick ("blonde", "black", "chestnut", "copper", "brown", "wheat", "old", "punk")
-	switch(col)
-		if("blonde")
-			red = 255
-			green = 255
-			blue = 0
-		if("black")
-			red = 0
-			green = 0
-			blue = 0
-		if("chestnut")
-			red = 153
-			green = 102
-			blue = 51
-		if("copper")
-			red = 255
-			green = 153
-			blue = 0
-		if("brown")
-			red = 102
-			green = 51
-			blue = 0
-		if("wheat")
-			red = 255
-			green = 255
-			blue = 153
-		if("old")
-			red = rand (100, 255)
-			green = red
-			blue = red
-		if("punk")
-			red = rand (0, 255)
-			green = rand (0, 255)
-			blue = rand (0, 255)
-
-	red = max(min(red + rand (-25, 25), 255), 0)
-	green = max(min(green + rand (-25, 25), 255), 0)
-	blue = max(min(blue + rand (-25, 25), 255), 0)
-
-	switch(target)
-		if("hair")
-			h_colour = rgb(red, green, blue)
-		if("facial")
-			f_colour = rgb(red, green, blue)
-
-/datum/character_save/proc/randomize_eyes_color()
-	var/red
-	var/green
-	var/blue
-
-	var/col = pick ("black", "grey", "brown", "chestnut", "blue", "lightblue", "green", "albino")
-	switch(col)
-		if("black")
-			red = 0
-			green = 0
-			blue = 0
-		if("grey")
-			red = rand (100, 200)
-			green = red
-			blue = red
-		if("brown")
-			red = 102
-			green = 51
-			blue = 0
-		if("chestnut")
-			red = 153
-			green = 102
-			blue = 0
-		if("blue")
-			red = 51
-			green = 102
-			blue = 204
-		if("lightblue")
-			red = 102
-			green = 204
-			blue = 255
-		if("green")
-			red = 0
-			green = 102
-			blue = 0
-		if("albino")
-			red = rand (200, 255)
-			green = rand (0, 150)
-			blue = rand (0, 150)
-
-	red = max(min(red + rand (-25, 25), 255), 0)
-	green = max(min(green + rand (-25, 25), 255), 0)
-	blue = max(min(blue + rand (-25, 25), 255), 0)
-
-	e_colour = rgb(red, green, blue)
-
-/datum/character_save/proc/randomize_skin_color(pass_on)
-	var/red
-	var/green
-	var/blue
-
-	var/col = pick ("black", "grey", "brown", "chestnut", "blue", "lightblue", "green", "albino")
-	switch(col)
-		if("black")
-			red = 0
-			green = 0
-			blue = 0
-		if("grey")
-			red = rand (100, 200)
-			green = red
-			blue = red
-		if("brown")
-			red = 102
-			green = 51
-			blue = 0
-		if("chestnut")
-			red = 153
-			green = 102
-			blue = 0
-		if("blue")
-			red = 51
-			green = 102
-			blue = 204
-		if("lightblue")
-			red = 102
-			green = 204
-			blue = 255
-		if("green")
-			red = 0
-			green = 102
-			blue = 0
-		if("albino")
-			red = rand (200, 255)
-			green = rand (0, 150)
-			blue = rand (0, 150)
-
-	red = max(min(red + rand (-25, 25), 255), 0)
-	green = max(min(green + rand (-25, 25), 255), 0)
-	blue = max(min(blue + rand (-25, 25), 255), 0)
-
-	if(pass_on)
-		return rgb(red, green, blue)
-	else
-		s_colour = rgb(red, green, blue)
 
 /datum/character_save/proc/blend_backpack(icon/clothes_s, backbag, satchel, backpack="backpack")
 	switch(backbag)

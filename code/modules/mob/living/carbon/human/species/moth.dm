@@ -271,8 +271,9 @@
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
 
-/datum/species/moth/generate_random_appearance(prosthesis_prob = 5)
-	var/datum/character_save/appearance = new
+/datum/species/moth/generate_random_appearance(prosthesis_prob = 5, datum/character_save/appearance = null)
+	if(!istype(appearance))
+		appearance = new
 	appearance.species = name
 
 	// Gender.
@@ -298,7 +299,7 @@
 	// should get just "Reddish" from "Reddish Head Markings"
 	var/marking_style = copytext(appearance.m_styles["head"], 1, -14)
 
-	appearance.m_styles["body"] = "[marking_style] Markings"
+	appearance.m_styles["body"] = length(marking_style) ? "[marking_style] Markings" : "None"
 	appearance.m_colours["body"] = appearance.m_colours["head"]
 
 	// Accessories.
