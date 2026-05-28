@@ -592,13 +592,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			can_be_hatted = TRUE
 			switch(module.module_type)
 				if("Engineer")
-					hat_offsets = alist(SOUTH = list(0, -2), NORTH = list(0, 1), EAST = list(-8, -1), WEST = list(8, -1))
+					hat_offsets = alist(SOUTH = list(0, -2), NORTH = list(0, 1), EAST = list(-8, -1), WEST = list(9, -1))
 				if("Medical")
-					hat_offsets = alist(SOUTH = list(0, -9), NORTH = list(0, -2), EAST = list(-8, -6), WEST = list(8, -6))
+					hat_offsets = alist(SOUTH = list(0, -9), NORTH = list(0, -2), EAST = list(-8, -6), WEST = list(9, -6))
 				if("Service")
-					hat_offsets = alist(SOUTH = list(0, -7), NORTH = list(0, 1), EAST = list(-8, -4), WEST = list(8, -4))
+					hat_offsets = alist(SOUTH = list(0, -7), NORTH = list(0, 1), EAST = list(-8, -4), WEST = list(9, -4))
 				if("Janitor")
-					hat_offsets = alist(SOUTH = list(0, -5), NORTH = list(0, -1), EAST = list(-8, -4), WEST = list(8, -4))
+					hat_offsets = alist(SOUTH = list(0, -5), NORTH = list(0, -1), EAST = list(-8, -4), WEST = list(9, -4))
 		if("Noble")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
@@ -1097,7 +1097,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(user, SPAN_WARNING("Access denied!"))
 		return ITEM_INTERACT_COMPLETE
-	
+
 	if(istype(used, /obj/item/borg/upgrade))
 		var/obj/item/borg/upgrade/U = used
 		if(!opened)
