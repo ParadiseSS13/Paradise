@@ -185,4 +185,5 @@
 		return COLOR_BLACK
 	if(prob(1))
 		return rand_hex_color()
-	return rgb(rand(0, 360), rand(0, 60), rand(0, 25), space = COLORSPACE_HSL)
+	return pick(rgb(rand(0, 360), rand(40, 60), rand(15, 25), space = COLORSPACE_HSL),
+		rgb(rand(0, 360), rand(0, 20), rand(0, 15), space = COLORSPACE_HSL))
