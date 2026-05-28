@@ -186,7 +186,8 @@
 
 /proc/list_valid_body_accessories(species = "Vulpkanin", is_optional = TRUE)
 	var/list/valid_body_accessories = list()
-	if(is_optional)
+	var/datum/species/species_datum = GLOB.all_species[species]
+	if(is_optional && species_datum.optional_body_accessory)
 		valid_body_accessories += null
 
 	if(GLOB.body_accessory_by_species[species])

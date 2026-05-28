@@ -188,7 +188,7 @@
 		if(2)
 			return rgb(130, 90, 20, space = COLORSPACE_HSL)
 		if(3)
-			return rgb(40, 90, 20, space = COLORSPACE_HSL)
+			return rgb(35, 90, 20, space = COLORSPACE_HSL)
 		if(4)
 			return rgb(44, 10, 30, space = COLORSPACE_HSL)
 		if(5)

@@ -633,7 +633,9 @@
 		species = initial(species)
 		character_species = GLOB.all_species[species]
 
-	character_species.generate_random_appearance(prosthesis_prob = species == "machine" ? 100 : 0, appearance = src)
+	organ_data = list()
+	rlimb_data = list()
+	character_species.generate_random_appearance(prosthesis_prob = species == "Machine" ? 100 : 0, appearance = src)
 
 	if(gender_override)
 		gender = gender_override
