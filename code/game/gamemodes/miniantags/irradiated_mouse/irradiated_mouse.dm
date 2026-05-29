@@ -84,6 +84,8 @@
 	var/has_exited_vents = FALSE
 	var/seconds_time_till_death = 60 * 15
 
+	var/cheese_heal = 2
+
 	var/datum/spell/irradiated_mouse_spell/upgrade_radiation/upgrade_radiation_spell
 	var/datum/spell/irradiated_mouse_spell/upgrade_speed/upgrade_speed_spell
 	var/datum/spell/irradiated_mouse_spell/upgrade_damage/upgrade_damage_spell
@@ -99,6 +101,18 @@
 	AddSpell(upgrade_radiation_spell)
 	AddSpell(upgrade_speed_spell)
 	AddSpell(upgrade_damage_spell)
+
+/mob/living/basic/mouse/irradiated_mouse/try_consume_cheese(obj/item/food/sliced/cheesewedge/cheese)
+	if(health >= maxHealth)
+		return
+
+	visible_message(
+		SPAN_NOTICE("[src] gorges on [cheese]."),
+		SPAN_NOTICE("You gorge on [cheese][health < maxHealth ? ", restoring your health" : ""].")
+	)
+
+	adjustBruteLoss(-cheese_heal)
+	qdel(cheese)
 
 /mob/living/basic/mouse/irradiated_mouse/update_desc()
 	. = ..()
