@@ -647,12 +647,12 @@
 
 	QDEL_LIST_CONTENTS(fillers)
 
-	if(dir in list(SOUTH, NORTH))
+	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
 		bound_y = 0
 		pixel_y = 0
-		if(dir == NORTH)
+		if(dir == WEST)
 			bound_x = -(width - 1) * world.icon_size
 			pixel_x = -(width - 1) * world.icon_size
 		else
@@ -664,7 +664,7 @@
 		bound_height = width * world.icon_size
 		bound_x = 0
 		pixel_x = 0
-		if(dir == WEST)
+		if(dir == NORTH)
 			bound_y = -(width - 1) * world.icon_size
 			pixel_y = -(width - 1) * world.icon_size
 		else
