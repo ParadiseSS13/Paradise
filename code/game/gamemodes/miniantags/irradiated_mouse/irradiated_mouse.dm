@@ -102,6 +102,9 @@
 	AddSpell(upgrade_speed_spell)
 	AddSpell(upgrade_damage_spell)
 
+	if(admin_spawned)
+		start_death_countdown()
+
 /mob/living/basic/mouse/irradiated_mouse/try_consume_cheese(obj/item/food/sliced/cheesewedge/cheese)
 	if(health >= maxHealth)
 		return
@@ -128,6 +131,9 @@
 
 /mob/living/basic/mouse/irradiated_mouse/remove_ventcrawl()
 	. = ..()
+	start_death_countdown()
+
+/mob/living/basic/mouse/irradiated_mouse/proc/start_death_countdown()
 	if(!has_exited_vents)
 		upgrade_radiation()
 		upgrade_speed()
