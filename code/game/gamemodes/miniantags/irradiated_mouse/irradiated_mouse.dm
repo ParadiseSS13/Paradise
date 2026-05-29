@@ -79,7 +79,7 @@
 	var/produce_radioactive_sludge = FALSE
 
 	var/speed_per_level = -0.5
-	var/speed_capstone_alpha = 50
+	var/speed_capstone_alpha = 125
 
 	var/has_exited_vents = FALSE
 	var/seconds_time_till_death = 60 * 15
