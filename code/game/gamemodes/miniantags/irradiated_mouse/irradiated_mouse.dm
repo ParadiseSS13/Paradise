@@ -102,9 +102,6 @@
 	AddSpell(upgrade_speed_spell)
 	AddSpell(upgrade_damage_spell)
 
-	if(admin_spawned)
-		start_death_countdown()
-
 /mob/living/basic/mouse/irradiated_mouse/try_consume_cheese(obj/item/food/sliced/cheesewedge/cheese)
 	if(health >= maxHealth)
 		return
@@ -146,7 +143,10 @@
 		return
 
 	if(!has_exited_vents)
-		return
+		if(admin_spawned)
+			start_death_countdown()
+		else
+			return
 
 	// telegraph the radiation by giving tiles harmless alpha radiation
 	for(var/turf/turf in range(1, src))

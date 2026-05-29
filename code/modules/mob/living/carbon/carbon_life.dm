@@ -256,6 +256,9 @@
 			continue
 		if(stat != DEAD)
 			if(M.stat == DEAD && !iscarbon(M))
+				if(istype(M, /mob/living/basic/mouse/irradiated_mouse))
+					apply_effect(5000, IRRADIATE) // you willingly ate the green mouse that is clearly making everyone sick, this is on you
+
 				LAZYREMOVE(stomach_contents, M)
 				qdel(M)
 				continue
