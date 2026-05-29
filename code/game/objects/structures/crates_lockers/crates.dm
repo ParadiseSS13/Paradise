@@ -130,6 +130,8 @@
 	if(!opened && user.loc == src)
 		to_chat(user, SPAN_WARNING("You can't weld [src] from inside!"))
 		return
+	if(!I.tool_enabled && opened) // If the welder isn't on, just put it in the open closet.
+		return FALSE
 	if(!I.tool_use_check(user, 0) || !opened)
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE

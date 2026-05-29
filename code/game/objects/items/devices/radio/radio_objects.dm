@@ -733,8 +733,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	for(var/ch_name in channels)
 		if(!SSradio)
-			sleep(30) // Waiting for SSradio to be created.
-		if(!SSradio)
 			name = "broken radio"
 			return
 

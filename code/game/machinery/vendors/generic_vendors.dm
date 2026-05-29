@@ -48,6 +48,8 @@
 					/obj/item/reagent_containers/drinks/bottle/vermouth = 5,
 					/obj/item/reagent_containers/drinks/bottle/rum = 5,
 					/obj/item/reagent_containers/drinks/bottle/wine = 5,
+					/obj/item/reagent_containers/drinks/bottle/white_wine = 5,
+					/obj/item/reagent_containers/drinks/bottle/mezcal = 5,
 					/obj/item/reagent_containers/drinks/bag/goonbag = 3,
 					/obj/item/reagent_containers/drinks/bottle/cognac = 5,
 					/obj/item/reagent_containers/drinks/bottle/kahlua = 5,
@@ -68,7 +70,8 @@
 					/obj/item/reagent_containers/drinks/ice = 9)
 
 	contraband = list(/obj/item/reagent_containers/drinks/tea = 10,
-					/obj/item/reagent_containers/drinks/bottle/fernet = 5)
+					/obj/item/reagent_containers/drinks/bottle/fernet = 5,
+					/obj/item/reagent_containers/drinks/bottle/vampire_bestfriend = 5,)
 
 	vend_delay = 15
 	slogan_list = list("I hope nobody asks me for a bloody cup o' tea...",
@@ -1108,10 +1111,13 @@
 					/obj/item/reagent_containers/drinks/cans/grape_juice = 10,
 					/obj/item/reagent_containers/drinks/cans/ginger_ale = 10,
 					/obj/item/reagent_containers/drinks/cans/electrolytes = 10,
+					/obj/item/reagent_containers/drinks/cans/mrs_brown = 10,
 					/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 10,
-					/obj/item/reagent_containers/glass/beaker/waterbottle = 10)
+					/obj/item/reagent_containers/glass/beaker/waterbottle = 10,)
 
-	contraband = list(/obj/item/reagent_containers/drinks/cans/thirteenloko = 5)
+	contraband = list(/obj/item/reagent_containers/drinks/cans/thirteenloko = 5,
+					/obj/item/reagent_containers/drinks/cans/behemoth_energy = 5,
+					/obj/item/reagent_containers/drinks/cans/behemoth_energy_lite = 5,)
 
 	prices = list(/obj/item/reagent_containers/drinks/cans/cola = 45,
 				/obj/item/reagent_containers/drinks/cans/space_mountain_wind = 50,
@@ -1121,8 +1127,9 @@
 				/obj/item/reagent_containers/drinks/cans/grape_juice = 50,
 				/obj/item/reagent_containers/drinks/cans/ginger_ale = 50,
 				/obj/item/reagent_containers/drinks/cans/electrolytes = 40,
+					/obj/item/reagent_containers/drinks/cans/mrs_brown = 50,
 				/obj/item/reagent_containers/drinks/bottle/chocolate_milk = 64,
-				/obj/item/reagent_containers/glass/beaker/waterbottle = 20)
+				/obj/item/reagent_containers/glass/beaker/waterbottle = 20,)
 
 	refill_canister = /obj/item/vending_refill/cola
 
