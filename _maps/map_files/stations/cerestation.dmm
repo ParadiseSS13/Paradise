@@ -68544,7 +68544,7 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
