@@ -72,8 +72,8 @@
 	var/alpha_rad = 0
 	var/beta_rad = 0
 	var/gamma_rad = 0
-	var/alpha_rad_per_level = 500
-	var/beta_rad_per_level = 500
+	var/alpha_rad_per_level = 400
+	var/beta_rad_per_level = 400
 	var/gamma_rad_per_level = 0
 	var/radiation_cooldown = 0.1
 	var/produce_radioactive_sludge = FALSE
