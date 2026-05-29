@@ -6186,7 +6186,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "aUT" = (
@@ -69529,7 +69528,8 @@
 	},
 /obj/item/desk_bell{
 	pixel_y = 9;
-	pixel_x = -4
+	pixel_x = -4;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
