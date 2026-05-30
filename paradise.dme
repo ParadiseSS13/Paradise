@@ -2690,6 +2690,7 @@
 #include "code\modules\mob\living\basic\hostile\hivebot.dm"
 #include "code\modules\mob\living\basic\hostile\hivebot_ai.dm"
 #include "code\modules\mob\living\basic\hostile\jungle_animals.dm"
+#include "code\modules\mob\living\basic\hostile\kidan_warriors.dm"
 #include "code\modules\mob\living\basic\hostile\killertomato.dm"
 #include "code\modules\mob\living\basic\hostile\mimic_mobs.dm"
 #include "code\modules\mob\living\basic\hostile\pirate.dm"
