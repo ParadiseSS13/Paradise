@@ -87,11 +87,11 @@
 	SSshuttle.clearHostileEnvironment(src)
 	STOP_PROCESSING(SSprocessing, src)
 
-	if(flock && !flock_won_da_game)
+	if(flock)
 		flock.free_structure(src)
 		flock.game_over(completely_destroy = TRUE)
-
 	turfs_to_convert = null
+
 	qdel(soundloop)
 	qdel(counter)
 	return ..()
@@ -180,7 +180,8 @@
 	var/message = Gibberish("The Signal is coming.", 70, replace_rate = 50)
 	GLOB.major_announcement.Announce(message,
 		"Hijacked Signal",
-		'sound/misc/announce.ogg'
+		'sound/effects/siren-spooky.ogg',
+		new_sound2 = 'sound/AI/aimalf.ogg'
 	)
 
 /// GG
@@ -214,7 +215,7 @@
 	sleep(2 SECONDS)
 
 	flock.set_flock_game_status(FLOCK_ENDGAME_VICTORY)
-	explosion(src, 20, 50, 60, 75, ignorecap = TRUE, cause = src)
+	explosion(src, 30, 60, 80, 100, ignorecap = TRUE, cause = src)
 
 	sleep(2 SECONDS)
 
