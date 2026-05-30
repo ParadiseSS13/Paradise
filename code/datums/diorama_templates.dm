@@ -13,6 +13,11 @@
 	description = "'miners don't die' by hayden"
 	mappath = "_maps/map_files/dioramas/lavaland_diorama.dmm"
 
+/datum/map_template/diorama/decisions
+	name = "Making Decisions Diorama"
+	description = "'Making Decisions' by Alfalfa Scout"
+	mappath = "_maps/map_files/dioramas/making_decisions_diorama.dmm"
+
 /obj/structure/diorama_sign
 	name = "Diorama Sign"
 	desc = ""

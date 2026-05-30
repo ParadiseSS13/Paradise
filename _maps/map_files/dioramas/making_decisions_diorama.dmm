@@ -1,0 +1,286 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/item/toy/plushie/borgplushie/random{
+	pixel_y = 4
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"d" = (
+/turf/simulated/floor/carpet/red,
+/area/space)
+"h" = (
+/obj/item/toy/plushie/draskplushie{
+	pixel_x = 8;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/drinks/mug/rd{
+	pixel_y = 4;
+	pixel_x = -5
+	},
+/turf/simulated/floor/carpet/red,
+/area/space)
+"i" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/sign/bobross,
+/turf/simulated/floor/wood,
+/area/space)
+"k" = (
+/obj/item/clothing/head/beret/cmo{
+	pixel_y = -3
+	},
+/turf/simulated/floor/carpet/red,
+/area/space)
+"m" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/sepia,
+/area/space)
+"o" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/bookcase/sop,
+/turf/simulated/floor/wood,
+/area/space)
+"q" = (
+/turf/template_noop,
+/area/template_noop)
+"r" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"t" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/sepia,
+/area/space)
+"w" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"y" = (
+/obj/structure/window/plastitanium,
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/sepia,
+/area/space)
+"A" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/red,
+/area/space)
+"B" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/obj/machinery/fishtank/tank,
+/obj/item/toy/shell/purple{
+	pixel_y = -6
+	},
+/turf/simulated/floor/sepia,
+/area/space)
+"C" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/machinery/photocopier,
+/turf/simulated/floor/sepia,
+/area/space)
+"F" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"G" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/obj/item/toy/plushie/ipcplushie{
+	pixel_y = 15
+	},
+/turf/simulated/floor/carpet/red,
+/area/space)
+"H" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/security/telescreen/entertainment/television,
+/turf/simulated/floor/wood,
+/area/space)
+"K" = (
+/obj/structure/chair/wood/wings,
+/obj/item/toy/plushie/kidanplushie,
+/obj/item/clothing/head/det_hat{
+	pixel_y = 10;
+	pixel_x = 3
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"L" = (
+/obj/structure/table/wood,
+/obj/item/pen/multi/fountain{
+	pixel_y = 12;
+	pixel_x = -18
+	},
+/obj/item/clipboard{
+	pixel_y = 3;
+	pixel_x = -4
+	},
+/obj/item/paper/sop{
+	pixel_y = 3;
+	pixel_x = -4
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"O" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/toy/round_tuit{
+	pixel_y = 1
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"Q" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"T" = (
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"V" = (
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/regular/hipster{
+	pixel_x = 48;
+	pixel_y = 10
+	},
+/obj/item/flashlight/lamp/green{
+	pixel_y = 12;
+	pixel_x = -5
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"W" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/space)
+"X" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/sepia,
+/area/space)
+"Z" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/structure/closet/cabinet,
+/turf/simulated/floor/wood,
+/area/space)
+
+(1,1,1) = {"
+w
+F
+F
+X
+C
+B
+q
+"}
+(2,1,1) = {"
+T
+H
+r
+h
+d
+y
+q
+"}
+(3,1,1) = {"
+i
+a
+V
+d
+A
+y
+Q
+"}
+(4,1,1) = {"
+o
+K
+L
+k
+G
+y
+q
+"}
+(5,1,1) = {"
+Z
+W
+O
+t
+t
+m
+q
+"}
