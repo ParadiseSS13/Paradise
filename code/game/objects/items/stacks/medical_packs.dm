@@ -173,13 +173,13 @@
 			return FALSE
 
 		var/mob/living/living_user = user
-		if(!HAS_TRAIT(living_user, TRAIT_RADIMMUNE))
+		if(HAS_TRAIT(living_user, TRAIT_RADIMMUNE) || isrobot(living_user))
+			to_chat(user, SPAN_NOTICE("[M] is moving around too much for you to treat it."))
+		else
 			to_chat(user, SPAN_WARN("You feel too sick to do that!"))
 
 			if(user.radiation < 1000)
 				living_user.apply_effect(250, IRRADIATE)
-		else
-			to_chat(user, SPAN_NOTICE("[M] is moving around too much for you to treat it."))
 
 		return FALSE
 
