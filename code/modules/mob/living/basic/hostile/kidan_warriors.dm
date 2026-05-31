@@ -24,8 +24,7 @@
 	is_ranged = TRUE
 	projectile_type = /obj/projectile/bullet/reusable/magspear
 	projectile_sound = 'sound/weapons/grenadelaunch.ogg'
-	ranged_burst_count = 1
-	ranged_burst_interval = 1 SECONDS // Same fire rate as people!
+	ranged_cooldown = 1 SECONDS
 	a_intent = INTENT_HARM
 	damage_coeff = list(BRUTE = 0.7, BURN = 0.9, TOX = 1.5, STAMINA = 0, OXY = 1)
 	minimum_survivable_temperature = 0
