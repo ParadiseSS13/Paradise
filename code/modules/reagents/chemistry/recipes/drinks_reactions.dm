@@ -468,6 +468,22 @@
 	result_amount = 4
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/strawberry_daiquiri
+	name = "Strawberry Daiquiri"
+	id = "strawberry_daiquiri"
+	result = "strawberry_daiquiri"
+	required_reagents = list("berryjuice" = 1, "sugar" = 1, "rum" = 2, "ice" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/miami_vice
+	name = "Miami Vice"
+	id = "miami_vice"
+	result = "miami_vice"
+	required_reagents = list("pinacolada" = 1, "strawberry_daiquiri" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/sbiten
 	name = "Sbiten"
 	id = "sbiten"
