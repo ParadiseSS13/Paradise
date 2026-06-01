@@ -481,7 +481,7 @@
 	id = "miami_vice"
 	result = "miami_vice"
 	required_reagents = list("pinacolada" = 1, "strawberry_daiquiri" = 1)
-	result_amount = 4
+	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/sbiten

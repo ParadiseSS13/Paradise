@@ -403,7 +403,7 @@
 	id = "miami_vice"
 	description = "A pina colada on top of a strawberry daiquiri. A fruity and tart mix."
 	color = "#ffc3cb"
-	alcohol_perc = 0.4
+	alcohol_perc = 0.6
 	drink_icon = "miamiviceglass"
 	drink_name = "Miami Vice"
 	drink_desc = "A pina colada on top of a strawberry daiquiri. You're filled with a longing for an ancient city..."
