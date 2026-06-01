@@ -364,7 +364,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	SStgui.close_uis(wires)
 	if(shell)
 		undeploy()
-		revert_shell()
+		revert_shell() //TTODO: currently delets BORIS.
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)
@@ -2059,20 +2059,20 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 //from hispania
 /mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
 	shell = TRUE
+	mmi = new /obj/item/borg/upgrade/ai // This is an incredibely scuffed way to do this, but the other way was making a whole new proc for shell decontruction
+
 	braintype = "AI Shell"
 	name = "[designation] AI Shell [rand(100,999)]"
 	real_name = name
 	GLOB.available_ai_shells |= src
 	if(camera)
-		camera.c_tag = real_name	//update the camera name too
+		camera.c_tag = real_name//update the camera name too
 
 /mob/living/silicon/robot/proc/revert_shell()
 	if(!shell)
 		return
+	//var/turf/T = get_turf(src) need to figur out how to not delete boris when deconstructed.
 	undeploy()
-	for(var/obj/item/borg/upgrade/ai/boris in src)
-	//A player forced reset of a borg would drop the module before this is called, so this is for catching edge cases
-		qdel(boris)
 	shell = FALSE
 	GLOB.available_ai_shells -= src
 	name = "Unformatted Cyborg [rand(100,999)]"

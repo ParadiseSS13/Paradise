@@ -564,6 +564,8 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "boris"
 	origin_tech = "engineering=3;magnets=4;programming=5"
+	var/alien = FALSE // This is an incredibely scuffed way to do this, but it works.
+	var/syndiemmi = FALSE
 
 /obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R)
 	if(..())

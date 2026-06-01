@@ -322,7 +322,7 @@
 			to_chat(user, SPAN_WARNING("The MMI must go in after everything else!"))
 
 	//from hispania
-	else if(istype(W, /obj/item/borg/upgrade/ai))
+	if(istype(W, /obj/item/borg/upgrade/ai))
 		var/obj/item/borg/upgrade/ai/M = W
 		if(check_completion())
 			if(!isturf(loc))
@@ -356,8 +356,6 @@
 				O.lockcharge = TRUE
 				O.update_stamina_hud()
 	//end of hispania
-	else if(istype(W, /obj/item/stack/cable_coil))
-		to_chat(user, SPAN_NOTICE("You need to attach the wires to the chest before installing it!"))
 	if(is_pen(W))
 		to_chat(user, SPAN_WARNING("You need to use a multitool to name [src]!"))
 	return
