@@ -135,7 +135,7 @@
 			toggle_valve(usr)
 		if("device")
 			if(attached_device)
-				attached_device.attack_self__legacy__attackchain(usr)
+				attached_device.activate_self(usr)
 		if("remove_device")
 			if(attached_device)
 				attached_device.forceMove(get_turf(src))
