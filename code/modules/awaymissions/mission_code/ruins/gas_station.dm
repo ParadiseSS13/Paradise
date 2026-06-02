@@ -10,4 +10,4 @@
 			Make sure you turn off the SMES before you leave! It needs to be on for this place to run and I can't afford anything that makes power because I blew all my cash on gas!"}))
 
 /area/ruin/space/gas_station
-	name = "\improper The Gas Station Name Pending"
+	name = "\improper Garry's Gas Station"
