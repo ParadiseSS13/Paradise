@@ -479,7 +479,7 @@
 /datum/map_template/ruin/space/gas_station
 	id = "gas_station"
 	suffix = "gas_station.dmm"
-	name = "Gas Station Name Pending"
+	name = "Garry's Gas Station"
 	description = "A small locally owned station to get that good stuff! We mean fuel of course."
 
 /datum/map_template/ruin/space/kappa_lab
