@@ -54,7 +54,7 @@
 		loot = list(
 			/obj/effect/decal/remains/human,
 			/obj/effect/decal/cleanable/ash,
-			/obj/item/spear/kidan)
+			/obj/item/kidan_spear)
 
 /mob/living/basic/kidan_warrior/proc/retaliate_callback(mob/living/attacker)
 	if(!istype(attacker))
