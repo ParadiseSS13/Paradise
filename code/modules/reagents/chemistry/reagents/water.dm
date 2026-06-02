@@ -214,9 +214,9 @@
 			blood_prop = new(T)
 			blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
 
-/// If irradiated by gamma radiation and there are advanced viruses in the blood become a sample of viral genetic data
+/// If irradiated by beta radiation and there are advanced viruses in the blood become a sample of viral genetic data
 /datum/reagent/blood/reaction_radiation(amount, emission_type)
-	if(emission_type == GAMMA_RAD && amount > 100)
+	if(emission_type == BETA_RAD && amount > 100)
 		if(data && data["viruses"])
 			var/list/strains = list("radiation" = list())
 			for(var/datum/disease/advance/virus in data["viruses"])
