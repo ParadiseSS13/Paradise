@@ -25205,13 +25205,13 @@
 /area/station/medical/chemistry)
 "bSo" = (
 /obj/machinery/economy/vending/chemdrobe,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 10
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
