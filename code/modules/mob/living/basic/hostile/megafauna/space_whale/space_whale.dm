@@ -61,5 +61,5 @@
 
 /obj/item/gps/internal/space_whale
 	icon_state = null
-	gpstag = "Whaling Signal"
+	gpstag = "Whale Signal"
 	desc = "You hear the groaning call of the space whale."
