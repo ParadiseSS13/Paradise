@@ -47,8 +47,7 @@
 	var/print_cooldown = 5 SECONDS
 	///How much toner the computer has left
 	var/toner = 0
-	///When the computer checks whether or not there's an overdue book
-	var/next_overdue_check = 0
+	COOLDOWN_DECLARE(overdue_check)
 	///The internal radio used to state if books are overdue
 	var/obj/item/radio/radio
 
@@ -65,9 +64,9 @@
 /obj/machinery/computer/library/process()
 	///The computer that is sending the radio message
 	var/branch_name = "Nanotrasen Main Library Branch"
-	if(world.time < next_overdue_check)
+	if(!COOLDOWN_FINISHED(src, overdue_check))
 		return
-	next_overdue_check = world.time + 5 MINUTES
+	COOLDOWN_START(src, overdue_check, 5 MINUTES)
 	for(var/datum/borrowbook/book in checkouts)
 		if(world.time > book.duedate && !book.announced_overdue)
 			book.announced_overdue = TRUE
@@ -138,7 +137,7 @@
 		user.drop_item()
 		toner += T.toner_amount
 		qdel(used)
-		to_chat(user, SPAN_NOTICE("The [src] beeps happily as it accepts a new toner cartridge!"))
+		to_chat(user, SPAN_NOTICE("[src] beeps happily as it accepts a new toner cartridge!"))
 		playsound(src, 'sound/machines/synth_yes.ogg', 15, TRUE)
 		return ITEM_INTERACT_COMPLETE
 
@@ -666,8 +665,8 @@
 	notice.info = {"<b>NANOTRASEN LIBRARY SERVICES</b><br>
 <b>OVERDUE NOTICE</b><hr>
 <b>Dear patron,</b><br>
-While we here at the Nanotrasen Main Library Branch do enjoy our employees utilizing our services, we must <i>kindly</i> remind you that books do have a due date and your on-board Librarian has been notified of your tardiness to return your book which has recently become overdue.
-<br> <br>Failure to return your checked out book(s) may incur further fees and loss of library privileges."}
+While we here at the Nanotrasen Main Library Branch do enjoy our employees utilizing our services, we must <i>kindly</i> remind you that books do have a due date. Library staff have been made aware of your failure to return [book.bookname], which has become overdue.
+<br> <br>Continued tardiness in returning checked out book(s) may incur additional fees and loss of library privileges."}
 	notice.update_icon()
 
 /obj/machinery/computer/library/proc/charge_overdue_fine(datum/borrowbook/book)
@@ -699,7 +698,7 @@ While we here at the Nanotrasen Main Library Branch do enjoy our employees utili
 /obj/machinery/computer/library/emag_act(mob/user)
 	if(print_cooldown <= world.time)
 		new /obj/item/storage/bible/syndi(loc)
-		atom_say("Your ominous book is now done printing!")
+		atom_say("Your book is now done printing. Glory to the Syndicate!")
 		print_cooldown = world.time + PRINTING_COOLDOWN
 		return TRUE
 
