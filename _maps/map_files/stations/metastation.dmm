@@ -39312,6 +39312,13 @@
 /obj/effect/spawner/random/oil/often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"gMd" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/prison)
 "gMg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/firealarm/directional/north,
@@ -41239,6 +41246,13 @@
 /obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
+"hvu" = (
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/brig)
 "hvz" = (
 /obj/effect/turf_decal/tiles/department/security/side,
 /obj/structure/disposalpipe/segment{
@@ -48411,10 +48425,6 @@
 /obj/item/poster/random_official,
 /obj/item/poster/random_official{
 	pixel_y = 5
-	},
-/obj/machinery/camera{
-	c_tag = "Security - Office - Port - West";
-	dir = 4
 	},
 /obj/item/poster/random_official{
 	pixel_y = 13
@@ -57329,7 +57339,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/west,
+/obj/machinery/camera{
+	c_tag = "Security - Office - Port - West";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "mEA" = (
@@ -65659,6 +65672,7 @@
 	},
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/light,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "pvz" = (
@@ -73585,6 +73599,11 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_4)
+"rZa" = (
+/obj/effect/turf_decal/tiles/department/security/side,
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/brig)
 "rZf" = (
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plating,
@@ -117477,7 +117496,7 @@ wyE
 mxD
 kHZ
 xbg
-qLd
+lcu
 qLd
 qLd
 qLd
@@ -117989,7 +118008,7 @@ vdE
 sQA
 mbM
 mbM
-mbM
+gMd
 ldl
 mbM
 lVE
@@ -119032,7 +119051,7 @@ jMs
 hnc
 fht
 acf
-tNL
+rZa
 nvB
 fAm
 jRA
@@ -122108,7 +122127,7 @@ eEO
 fMM
 kRP
 wIX
-kRP
+hvu
 kRP
 kRP
 spF
