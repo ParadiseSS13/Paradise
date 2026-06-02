@@ -21816,6 +21816,7 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/primary)
 "cuV" = (
@@ -26051,6 +26052,7 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/secondary)
 "cRt" = (

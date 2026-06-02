@@ -59512,6 +59512,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "lVG" = (
@@ -72953,10 +72954,6 @@
 /area/station/medical/morgue)
 "oBj" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_x = 30
 	},
@@ -72964,6 +72961,7 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "oBl" = (
@@ -82342,6 +82340,7 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 4
 	},
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "qsh" = (
@@ -110181,13 +110180,16 @@
 /area/station/service/chapel)
 "vQU" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)

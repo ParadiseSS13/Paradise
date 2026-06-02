@@ -45055,8 +45055,9 @@
 	layer = 4;
 	pixel_x = -32
 	},
-/obj/structure/table/tray,
 /obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/structure/table/glass,
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "dRP" = (
@@ -68495,13 +68496,13 @@
 /area/station/security/main)
 "oiA" = (
 /obj/item/storage/surgical_tray,
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "oiD" = (
@@ -90162,6 +90163,7 @@
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "xTR" = (
