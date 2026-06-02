@@ -7544,8 +7544,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/iv_drip,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "bkJ" = (
@@ -7889,8 +7889,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/closet/secure_closet/medical2,
 /obj/machinery/light,
+/obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "bmY" = (
@@ -9499,6 +9499,7 @@
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms1)
 "byZ" = (
@@ -29174,6 +29175,9 @@
 /area/station/maintenance/electrical/port)
 "eZE" = (
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/bodyscanner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "eZF" = (
@@ -37563,9 +37567,8 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/bodyscanner{
-	dir = 4
-	},
+/obj/structure/table,
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "gXH" = (
@@ -61977,6 +61980,7 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 8
 	},
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "lXi" = (
@@ -95423,7 +95427,8 @@
 	pixel_x = 28;
 	name = "custom placement"
 	},
-/obj/machinery/bodyscanner,
+/obj/structure/table,
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "ttH" = (
