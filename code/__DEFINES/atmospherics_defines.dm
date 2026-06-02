@@ -76,7 +76,7 @@
 #define MIN_TOXIC_GAS_DAMAGE				1
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
-#define MOLES_WATER_VAPOR_VISIBLE			2.0		//Moles in a standard cell after which water vapor is visible
+#define MOLES_WATER_VAPOR_VISIBLE			4.0		//Moles in a standard cell after which water vapor is visible
 
 //HYDROGEN
 #define HYDROGEN_BURN_ENERGY				2500000
