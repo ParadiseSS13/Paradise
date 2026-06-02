@@ -81,7 +81,7 @@
 								SPAN_NOTICE("You begin to upload [AI]!"))
 			if(!do_after_once(user, 8 SECONDS, target = AI, allow_moving = FALSE, attempt_cancel_message = "You stop uploading [AI] before completing the upload."))
 				return TRUE
-			var/obj/item/aicard/card = new()
+			var/obj/item/aicard/card = new(get_turf(AI))
 			AI.take_overall_damage(50)
 			AI.transfer_ai(AI_TRANS_TO_CARD, user, null, card)
 			var/list/possible_spawns = GLOB.maints_loot_spawns
