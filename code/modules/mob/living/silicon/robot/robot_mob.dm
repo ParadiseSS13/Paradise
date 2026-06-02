@@ -203,9 +203,11 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.turn_off(src, FALSE)
 
-	//If this body is meant to be a borg controlled by the AI player
-	if(shell)
-		make_shell()
+	//from tg
+	if(shell) //If this body is meant to be a borg controlled by the AI player
+		var/obj/item/borg/upgrade/ai/board = new(src)
+		make_shell(board)
+	//end of tg
 	else if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
@@ -2058,9 +2060,13 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 
 //from hispania
 /mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
+	//from tg
+	if(isnull(board))
+		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
+		return FALSE
+	//end of tg
 	shell = TRUE
-	mmi = new /obj/item/borg/upgrade/ai // This is an incredibely scuffed way to do this, but the other way was making a whole new proc for shell decontruction
-
+	mmi = new /obj/item/borg/upgrade/ai // This is an incredibely scuffed way to do this.
 	braintype = "AI Shell"
 	name = "[designation] AI Shell [rand(100,999)]"
 	real_name = name

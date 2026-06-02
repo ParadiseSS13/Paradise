@@ -562,7 +562,7 @@
 	name = "B.O.R.I.S. module"
 	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
 	icon = 'icons/obj/module.dmi'
-	icon_state = "boris"
+	icon_state = "bluespacearray"
 	origin_tech = "engineering=3;magnets=4;programming=5"
 	var/alien = FALSE // This is an incredibely scuffed way to do this, but it works.
 	var/syndiemmi = FALSE
