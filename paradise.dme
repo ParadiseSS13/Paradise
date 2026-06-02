@@ -2317,7 +2317,7 @@
 #include "code\modules\events\traders.dm"
 #include "code\modules\events\vent_clog.dm"
 #include "code\modules\events\wallrot.dm"
-#include "code\modules\events\whale_mirgration.dm"
+#include "code\modules\events\whale_migration.dm"
 #include "code\modules\events\wormholes.dm"
 #include "code\modules\events\blob\blob_mobs.dm"
 #include "code\modules\events\blob\blob_mobs_ai.dm"
