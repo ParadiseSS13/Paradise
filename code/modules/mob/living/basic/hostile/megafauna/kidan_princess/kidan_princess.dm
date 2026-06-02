@@ -9,6 +9,7 @@
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "kidan_princess"
 	icon_living = "kidan_princess"
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG | MOB_EPIC
 	speak_emote = list("clacks")
 	death_sound = 'sound/voice/scream_kidan.ogg'
 	melee_attack_cooldown_min = 0.75 SECONDS

@@ -5,7 +5,7 @@
 	icon_state = "kidan_warrior"
 	icon_living = "kidan_warrior"
 	icon_dead = "kidan_warrior_dead" // Does not actually exist. Dust on death
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	death_sound = 'sound/voice/scream_kidan.ogg'
 	response_help_continuous = "pushes the"
 	response_help_continuous = "push the"
