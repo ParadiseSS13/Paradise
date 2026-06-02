@@ -366,7 +366,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	SStgui.close_uis(wires)
 	if(shell)
 		undeploy()
-		revert_shell() //TTODO: currently delets BORIS.
+		revert_shell()
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)

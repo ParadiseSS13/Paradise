@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/machinery/camera/portable/builtInCamera
 
 	var/obj/structure/ai_core/deactivated/linked_core //For exosuit control
-	//from
+	//from hispania
 	//for shell control
 	var/mob/living/silicon/robot/deployed_shell = null
 	var/datum/action/innate/deploy_shell/deploy_action = new
