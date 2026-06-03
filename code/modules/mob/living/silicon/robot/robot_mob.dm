@@ -2112,7 +2112,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
  	name = "Disconnect from shell"
  	desc = "Stop controlling your shell and resume normal core operations."
  	button_icon = 'icons/mob/actions/actions.dmi'
- 	button_icon_state = "camera_jump"
+ 	button_icon_state = "ai_core"
 
 /datum/action/innate/undeployment/Trigger()
 	if(!..())
