@@ -184,17 +184,25 @@
 	if(istype(used, /obj/item/card/id))
 		var/obj/item/card/id/ID = used
 		if(!points)
-			to_chat(usr, SPAN_WARNING("There are no points to claim."));
+			to_chat(user, SPAN_WARNING("There are no points to claim!"));
 			return ITEM_INTERACT_COMPLETE
-		if(!scan_id || (req_access_claim in ID.access))
-			ID.mining_points += points
-			ID.total_mining_points += points
-			to_chat(usr, SPAN_NOTICE("<b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!"))
-			points = 0
-			SStgui.update_uis(src)
-		else
-			to_chat(usr, SPAN_WARNING("Required access not found."))
-		add_fingerprint(usr)
+
+		if(scan_id)
+			var/accepted
+			for(var/req in req_access_claim)
+				if(req in ID.access)
+					accepted = TRUE
+					break
+			if(!accepted)
+				to_chat(user, SPAN_WARNING("Required access not found!"))
+				return ITEM_INTERACT_COMPLETE
+
+		ID.mining_points += points
+		ID.total_mining_points += points
+		to_chat(user, SPAN_NOTICE("<b>[points] Mining Points</b> claimed. You have earned a total of <b>[ID.total_mining_points] Mining Points</b> this Shift!"))
+		points = 0
+		SStgui.update_uis(src)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/disk/design_disk))
