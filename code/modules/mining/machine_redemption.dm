@@ -19,7 +19,7 @@
 	/// If TRUE, the ORM will throw stuff at people.
 	var/throw_inventory = FALSE
 	/// % chance per process that the ORM will throw stuff at people when `throw_inventory` is TRUE. Remember that this machine speed processes, so this rolls 5 times per second.
-	var/throw_chance = 20
+	var/throw_chance = 1
 	/// If TRUE, the ORM will shock people that try to use it.
 	var/electrified = FALSE
 	/// List of supply console department names that can receive a notification about ore dumps.
