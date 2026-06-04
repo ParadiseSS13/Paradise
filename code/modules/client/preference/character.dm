@@ -635,6 +635,7 @@
 
 	organ_data = list()
 	rlimb_data = list()
+	reset_appearance()
 	character_species.generate_random_appearance(prosthesis_prob = species == "Machine" ? 100 : 0, appearance = src)
 
 	if(gender_override)
@@ -1782,6 +1783,48 @@
 	character.regenerate_icons()
 	character.update_body()
 	character.update_dna()
+
+/datum/character_save/proc/reset_appearance()
+	h_colour = initial(h_colour)
+	h_sec_colour = initial(h_sec_colour)
+	f_colour = initial(f_colour)
+	f_sec_colour = initial(f_sec_colour)
+
+	h_style = initial(h_style)
+	f_style = initial(f_style)
+
+	alt_head = initial(alt_head)
+
+	h_grad_style = initial(h_grad_style)
+	h_grad_offset_x = initial(h_grad_offset_x)
+	h_grad_offset_y = initial(h_grad_offset_y)
+	h_grad_colour = initial(h_grad_colour)
+	h_grad_alpha = initial(h_grad_alpha)
+
+	s_colour = initial(s_colour)
+
+	s_tone = initial(s_tone)
+
+	underwear = initial(underwear)
+	undershirt = initial(undershirt)
+	socks = initial(socks)
+
+	hacc_colour = initial(hacc_colour)
+	ha_style = initial(ha_style)
+	m_styles = list(
+		"head" = "None",
+		"body" = "None",
+		"tail" = "None",
+		"wing" = "None"
+		)
+	m_colours = list(
+		"head" = "#000000",
+		"body" = "#000000",
+		"tail" = "#000000"
+		)
+
+	body_accessory = initial(body_accessory)
+	e_colour = initial(e_colour)
 
 /datum/character_save/proc/copy_to(mob/living/carbon/human/character)
 	apply_appearance(character)

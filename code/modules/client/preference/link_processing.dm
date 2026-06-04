@@ -199,6 +199,7 @@
 						active_character.species = new_active_character_species
 
 						// Randomize their appearance.
+						active_character.reset_appearance()
 						NS.generate_random_appearance(prosthesis_prob = active_character.species == "machine" ? 100 : 0, appearance = active_character)
 
 						// Reset their quirks.
