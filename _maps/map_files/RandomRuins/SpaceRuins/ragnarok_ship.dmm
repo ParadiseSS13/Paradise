@@ -52,6 +52,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/powered/ragnarok/atmos)
+"aT" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/clockwork,
+/area/ruin/space/powered/ragnarok/dining_hall)
 "aU" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/engine,
@@ -967,6 +971,7 @@
 /area/ruin/space/powered/ragnarok/bakery)
 "nf" = (
 /obj/structure/flora/ausbushes/reedbush,
+/obj/machinery/light/floor,
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/ruin/space/powered/ragnarok/bridge)
 "nh" = (
@@ -981,6 +986,7 @@
 "np" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/light/floor,
 /turf/simulated/floor/engine,
 /area/ruin/space/powered/ragnarok/bridge)
 "ny" = (
@@ -1471,6 +1477,7 @@
 /area/ruin/space/powered/ragnarok/atmos)
 "tO" = (
 /obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/light/floor,
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/ruin/space/powered/ragnarok/bridge)
 "tQ" = (
@@ -2088,6 +2095,11 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/ragnarok/kitchen)
+"Bh" = (
+/obj/structure/statue/plastitanium/kidanstatue,
+/obj/machinery/light,
+/turf/simulated/floor/carpet/lone,
+/area/ruin/space/powered/ragnarok/teleporter)
 "Bl" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered/ragnarok/atmos)
@@ -2338,6 +2350,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/powered/ragnarok/engine)
+"En" = (
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
 "EE" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/simulated/floor/engine,
@@ -3293,6 +3309,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/ragnarok/bathhouse)
+"Tb" = (
+/obj/structure/showcase/machinery/server_broken{
+	name = "inactive server"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/engine,
+/area/ruin/space/powered/ragnarok/teleporter)
 "Tc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3489,6 +3512,10 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/ruin/space/powered/ragnarok/throne)
+"VN" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/wood,
+/area/ruin/space/powered/ragnarok/garden)
 "VR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
@@ -5730,7 +5757,7 @@ Oz
 QM
 Yx
 Oz
-vX
+Tb
 yS
 CD
 MD
@@ -5982,7 +6009,7 @@ Os
 sg
 Os
 Os
-Ou
+Bh
 dP
 pv
 iS
@@ -6322,14 +6349,14 @@ Or
 CP
 HB
 HB
-tx
+aT
 tx
 Xm
 cX
 iW
 zW
 tx
-tx
+aT
 HB
 RU
 RS
@@ -6714,7 +6741,7 @@ Os
 lp
 Os
 Os
-Ou
+Bh
 dP
 ss
 iS
@@ -6950,7 +6977,7 @@ Oz
 MU
 FE
 Oz
-Os
+En
 yS
 Xw
 MD
@@ -7768,7 +7795,7 @@ zK
 JH
 nh
 nh
-nh
+VN
 KW
 JH
 Jb
@@ -7777,7 +7804,7 @@ aI
 Ud
 pY
 JH
-nh
+VN
 nh
 nh
 JH
