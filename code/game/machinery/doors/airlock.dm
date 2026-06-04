@@ -682,7 +682,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			. += "There's a [note.name] pinned to the front..."
 			note.examine(user)
 			. += SPAN_NOTICE("Use an empty hand on the airlock on grab mode to remove [note.name].")
-
+	if(welded)
+		. += SPAN_WARNING("It's welded shut!")
 	if(panel_open)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
