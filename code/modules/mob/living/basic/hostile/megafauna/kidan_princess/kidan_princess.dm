@@ -22,8 +22,6 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	response_help_continuous = "hugs"
 	response_help_continuous = "hug"
-	response_disarm_continuous = "shoves"
-	response_disarm_simple = "shove"
 	response_harm_continuous = "attacks"
 	response_harm_simple = "attack"
 	move_force = MOVE_FORCE_NORMAL

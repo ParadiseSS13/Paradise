@@ -19,7 +19,6 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	melee_attack_cooldown_min = 1 SECONDS
-	melee_attack_cooldown_max = 2 SECONDS
 	attack_verb_continuous = "stabs"
 	attack_verb_simple = "stab"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -133,10 +132,8 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	melee_attack_cooldown_min = 1 SECONDS
-	melee_attack_cooldown_max = 2 SECONDS
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
-	a_intent = INTENT_HELP
 	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1.5, STAMINA = 0, OXY = 1)
 	minimum_survivable_temperature = 0
 	ai_controller = /datum/ai_controller/basic_controller/kidan_servant
