@@ -146,10 +146,16 @@
 	princess.speed -= 1
 	princess.attack_verb_continuous = "punches"
 	princess.attack_verb_simple = "punch"
-	princess.melee_attack_cooldown_min = 0.3
-	princess.melee_attack_cooldown_max = 0.4
-	princess.melee_damage_lower = 5
-	princess.melee_damage_upper = 10
+	if(princess.enraged)
+		princess.melee_attack_cooldown_min = 0.2 SECONDS
+		princess.melee_attack_cooldown_max = 0.3 SECONDS
+		princess.melee_damage_lower = 10
+		princess.melee_damage_upper = 15
+	else
+		princess.melee_attack_cooldown_min = 0.3 SECONDS
+		princess.melee_attack_cooldown_max = 0.4 SECONDS
+		princess.melee_damage_lower = 5
+		princess.melee_damage_upper = 10
 	princess.attack_sound ='sound/weapons/punch1.ogg'
 	princess.martial_rushing = TRUE
 	princess.update_icon(UPDATE_ICON_STATE)
@@ -175,7 +181,10 @@
 	princess.attack_verb_continuous = initial(princess.attack_verb_continuous)
 	princess.attack_verb_simple = initial(princess.attack_verb_simple)
 	princess.melee_attack_cooldown_min = initial(princess.melee_attack_cooldown_min)
-	princess.melee_attack_cooldown_max = initial(princess.melee_attack_cooldown_max)
+	if(princess.enraged)
+		princess.melee_attack_cooldown_max = 1.25 SECONDS
+	else
+		princess.melee_attack_cooldown_max = initial(princess.melee_attack_cooldown_max)
 	princess.melee_damage_lower = initial(princess.melee_damage_lower)
 	princess.melee_damage_upper = initial(princess.melee_damage_upper)
 	princess.attack_sound = initial(princess.attack_sound)

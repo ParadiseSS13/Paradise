@@ -118,9 +118,9 @@
 	name = "Kidan Servant"
 	desc = "A kidan who works in service of their nobility."
 	icon = 'icons/mob/simple_human.dmi'
-	icon_state = "kidan_warrior"
-	icon_living = "kidan_warrior"
-	icon_dead = "kidan_warrior_dead" // Does not actually exist. Dust on death
+	icon_state = "kidan_servant"
+	icon_living = "kidan_servant"
+	icon_dead = "kidan_servant_dead" // Does not actually exist. Dust on death
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
 	death_sound = 'sound/voice/scream_kidan.ogg'
 	response_help_continuous = "pushes the"

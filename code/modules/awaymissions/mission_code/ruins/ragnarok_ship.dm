@@ -3,7 +3,9 @@ GLOBAL_VAR_INIT(ragnarok_kill_count, 0)
 
 /obj/structure/environmental_storytelling_holopad/ragnarok_ship
 	speaking_name = "Princess Zrexx"
-	loop_sleep_time = 8 SECONDS
+	loop_sleep_time = 6 SECONDS
+	/// Did we say everything
+	var/done_talking = FALSE
 
 /obj/structure/environmental_storytelling_holopad/ragnarok_ship/start_message(mob/living/carbon/human/H)
 	activated = TRUE
@@ -21,11 +23,20 @@ GLOBAL_VAR_INIT(ragnarok_kill_count, 0)
 	hologram.set_light(2)
 	hologram.bubble_icon = "swarmer"
 	hologram.pixel_y = 16
-	var/loops = 0
 	for(var/I in things_to_say)
-		loops++
 		hologram.atom_say("[I]")
 		sleep(loop_sleep_time)
+	qdel(hologram)
+	done_talking = TRUE
+	icon_state = "holopad0"
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/environmental_storytelling_holopad/ragnarok_ship/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(activated && !done_talking)
+		underlays += emissive_appearance(icon, "holopad1_lightmask")
 
 /obj/structure/environmental_storytelling_holopad/ragnarok_ship/dining_hall
 	things_to_say = list("Come, stranger, enjoy a feast. My servants have prepared a mighty banquet.",

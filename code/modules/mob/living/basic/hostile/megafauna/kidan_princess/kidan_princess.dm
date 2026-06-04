@@ -32,12 +32,15 @@
 	initial_traits = list(TRAIT_NOFIRE)
 	blood_color = "#FB9800"
 	loot = list(
-			/obj/item/kidan_princess_halberd,
-			/obj/effect/decal/remains/human,
-			/obj/effect/decal/cleanable/ash)
+		/obj/item/kidan_princess_halberd,
+		/obj/effect/decal/remains/human,
+		/obj/effect/decal/cleanable/ash)
+	enraged_loot = /obj/item/clothing/accessory/medal/plasma/princess
 	faction = list("kidan_royalty")
 	ai_controller = /datum/ai_controller/basic_controller/kidan_princess
 	internal_gps = /obj/item/gps/internal/kidan_princess
+	medal_type = BOSS_MEDAL_PRINCESS
+	score_type = PRINCESS_SCORE
 	basic_mob_flags = DEL_ON_DEATH
 	sentience_type = SENTIENCE_OTHER
 	step_type = FOOTSTEP_MOB_SHOE
@@ -87,6 +90,7 @@
 	if(!istype(attacker))
 		return
 	GLOB.kidan_shitlist += attacker
+	ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, attacker)
 	if(!prob(10))
 		return
 	var/taunt = pick(list(
@@ -129,6 +133,11 @@
 
 /mob/living/basic/megafauna/kidan_princess/ruin
 	ruin_boss = TRUE
+
+/mob/living/basic/megafauna/kidan_princess/enrage()
+	. = ..()
+	say("You DARE sully my form with such filth?!")
+	melee_attack_cooldown_max = 1.25 SECONDS
 
 /// Special Halberd loot
 /obj/item/kidan_princess_halberd
