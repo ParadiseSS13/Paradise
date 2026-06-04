@@ -260,9 +260,9 @@
 /obj/structure/flock/cage/proc/ghost_check(mob/user)
 	victim.throw_alert("ghost_cage", /atom/movable/screen/alert/ghost/flock)
 	to_chat(victim, SPAN_GHOSTALERT("You may now click on the ghost prompt on your screen to leave your body. You will be alerted when you're removed from the cage."))
-	if(tgui_alert(victim, "You may now ghost and keep respawnability, you will be notified if you leave the cage, would you like to do so?", "Ghosting", list("Yes", "No")) != "Yes")
+	if(tgui_alert(victim, "You may now ghost and keep respawnability. You will be notified if you leave the cage, would you like to do so?", "Ghosting", list("Yes", "No")) != "Yes")
 		return
-	victim.ghostize()
+	victim.ghostize(GHOST_FLAGS_DEFAULT, ghost_color = "#19b299")
 
 /mob/living/proc/test_cage()
 	var/obj/structure/flock/cage/cage = new(get_turf(src))

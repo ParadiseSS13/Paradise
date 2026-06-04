@@ -142,6 +142,9 @@
 	if(client)
 		to_chat(src, SPAN_ALERT("You cease to exist."))
 
+	if(controlling_bird)
+		controlling_bird.release_control()
+
 	icon_state = "[base_icon_state]-ghost"
 	ghostize(FALSE)
 	flock?.free_unit(src)
