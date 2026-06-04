@@ -772,6 +772,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
 
+/obj/item/circuitboard/autoclave
+	board_name = "Autoclave"
+	icon_state = "medical"
+	build_path = /obj/machinery/autoclave
+	board_type = "machine"
+	origin_tech = "biotech=2;materials=2;magnets=3"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stack/sheet/glass = 1
+						)
+
 /obj/item/circuitboard/scientific_analyzer // fucking US spelling
 	board_name = "Scientific Analyzer"
 	icon_state = "science"

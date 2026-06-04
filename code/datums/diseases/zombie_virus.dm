@@ -181,6 +181,9 @@
 			REMOVE_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 	for(var/obj/item/organ/internal/zombietumor/tumor in H.internal_organs)
 		tumor.remove()
+		if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+			limb.status &= ~ORGAN_DEAD
+	H.update_body()
 	affected_mob.DeleteComponent(/datum/component/zombie_regen)
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()

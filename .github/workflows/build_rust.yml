@@ -8,15 +8,12 @@ jobs:
     if: |
       github.event.issue.pull_request &&
       (github.event.comment.body == '!build_rust') &&
-      ((github.event.sender.id == github.event.issue.user.id) ||
-      (github.event.comment.author_association == 'COLLABORATOR') ||
-      (github.event.comment.author_association == 'MEMBER') ||
-      (github.event.comment.author_association == 'OWNER'))
+      (github.event.comment.author_association == 'OWNER')
 
     runs-on: ubuntu-latest
     steps:
       - id: create_token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@v3.1.1
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
