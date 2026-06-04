@@ -19,6 +19,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddComponent(/datum/component/flock_protection, FALSE, TRUE, FALSE, FALSE)
 	ADD_TRAIT(src, TRAIT_FLOCK_EXAMINE, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FLOCK_THING, INNATE_TRAIT)
 
 /obj/structure/grille/flock/examine(mob/user)
 	if(!isflockmob(user))
@@ -112,6 +113,21 @@
 
 	if(!HAS_TRAIT(crosser, TRAIT_FLOCKPHASE))
 		animate_flockpass(crosser)
+
+/obj/structure/grille/flock/CanPass(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return .
+
+	if(!isflockdrone(mover))
+		return .
+
+	var/mob/living/basic/flock/drone/bird = mover
+	if(HAS_TRAIT(bird, TRAIT_FLOCKPHASE))
+		return TRUE
+
+	if(bird.can_flockphase())
+		return TRUE
 
 /obj/structure/grille/flock/broken
 	desc = "A broken framework of gnesis tubules."

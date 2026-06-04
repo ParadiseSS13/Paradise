@@ -3,7 +3,7 @@
 	desc = "A large closet-like structure that appears to lack a handle. The doors seem to open to the touch."
 	icon_state = "flock"
 	max_integrity = 100
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 70, ACID = 60)
+	armor = list(MELEE = -20, BULLET = -20, LASER = 80, ENERGY = 80, BOMB = 0, RAD = 100, FIRE = 80, ACID = 100)
 	pass_flags = PASSFLOCK
 	material_drop = /obj/item/stack/sheet/gnesis
 	enable_door_overlay = FALSE
@@ -16,6 +16,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddComponent(/datum/component/flock_protection, FALSE, TRUE, FALSE, FALSE)
 	ADD_TRAIT(src, TRAIT_FLOCK_EXAMINE, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FLOCK_THING, INNATE_TRAIT)
 
 /obj/structure/closet/flock/proc/on_crossed(atom/source, atom/movable/crosser)
 	SIGNAL_HANDLER
@@ -25,6 +26,21 @@
 
 	if(!HAS_TRAIT(crosser, TRAIT_FLOCKPHASE))
 		animate_flockpass(crosser)
+
+/obj/structure/closet/flock/CanPass(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return .
+
+	if(!isflockdrone(mover))
+		return .
+
+	var/mob/living/basic/flock/drone/bird = mover
+	if(HAS_TRAIT(bird, TRAIT_FLOCKPHASE))
+		return TRUE
+
+	if(bird.can_flockphase())
+		return TRUE
 
 /obj/structure/closet/flock/examine(mob/user)
 	if(!isflockmob(user))

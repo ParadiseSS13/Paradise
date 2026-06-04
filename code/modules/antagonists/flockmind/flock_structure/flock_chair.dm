@@ -10,6 +10,7 @@
 	. = ..()
 	AddComponent(/datum/component/flock_protection, FALSE, TRUE, FALSE, FALSE)
 	ADD_TRAIT(src, TRAIT_FLOCK_EXAMINE, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FLOCK_THING, INNATE_TRAIT)
 
 /obj/structure/chair/comfy/flock/examine(mob/user)
 	if(!isflockmob(user))

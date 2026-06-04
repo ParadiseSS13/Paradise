@@ -12,6 +12,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_crossed),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	ADD_TRAIT(src, TRAIT_FLOCK_THING, INNATE_TRAIT)
 
 /obj/structure/window/flock/proc/on_crossed(atom/source, atom/movable/crosser)
 	SIGNAL_HANDLER
@@ -32,6 +33,21 @@
 		SPAN_FLOCKSAY("<b>System Integrity:</b> [get_integrity_percentage()]%"),
 		SPAN_FLOCKSAY("<b>###=-</b>")
 	)
+
+/obj/structure/window/flock/CanPass(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return .
+
+	if(!isflockdrone(mover))
+		return .
+
+	var/mob/living/basic/flock/drone/bird = mover
+	if(HAS_TRAIT(bird, TRAIT_FLOCKPHASE))
+		return TRUE
+
+	if(bird.can_flockphase())
+		return TRUE
 
 /obj/structure/window/flock/fulltile
 	dir = SOUTHWEST

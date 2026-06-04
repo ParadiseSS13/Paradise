@@ -2,13 +2,15 @@
 	icon = 'icons/goonstation/mob/featherzone.dmi'
 	name = "imposing wall"
 	desc = "It sounds like it's hollow."
-
+	max_integrity = 200
+	armor = list(MELEE = -20, BULLET = -20, LASER = 80, ENERGY = 80, BOMB = 0, RAD = 100, FIRE = 80, ACID = 100)
 	auto_close_time = 5 SECONDS
 	safe = FALSE
 
 /obj/machinery/door/flock/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FLOCK_EXAMINE, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FLOCK_THING, INNATE_TRAIT)
 	AddComponent(/datum/component/flock_object)
 	AddComponent(/datum/component/flock_protection, report_unarmed=FALSE)
 
