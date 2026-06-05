@@ -7534,12 +7534,6 @@
 /obj/structure/showcase,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
-"AR" = (
-/obj/effect/turf_decal{
-	dir = 8
-	},
-/turf/simulated/wall/mineral/plastitanium,
-/area/shuttle/supply)
 "AV" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
@@ -10982,12 +10976,6 @@
 /obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
-"Oh" = (
-/obj/effect/turf_decal{
-	dir = 4
-	},
-/turf/simulated/wall/mineral/plastitanium,
-/area/shuttle/supply)
 "Oi" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
@@ -34783,7 +34771,7 @@ BL
 BL
 BL
 oV
-Oh
+lq
 lq
 GX
 aN
@@ -35811,7 +35799,7 @@ BO
 nE
 nE
 SS
-AR
+lq
 lq
 Ha
 aN
