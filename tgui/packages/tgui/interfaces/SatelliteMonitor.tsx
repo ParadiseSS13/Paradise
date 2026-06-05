@@ -38,9 +38,16 @@ interface Satellite {
     period_multiplier: number;
     period: number;
     launch_time: number;
-    velocity: number;
-    orbit_progress: number;
+    // velocity: number;
+    // orbit_progress: number;
     planned_maneuvers: Maneuver[];
+    planned_orbit: Point[];
+		posX: number;
+		posY: number;
+		posZ: number;
+		velX: number;
+		velY: number;
+		velZ: number;
   };
   // };
 }
@@ -50,6 +57,12 @@ class Maneuver {
   normal: number = 0;
   burn_time: number = 0;
   time_to_maneuver: number = 0;
+}
+
+class Point {
+  X: number = 0;
+  Y: number = 0;
+  Z: number = 0;
 }
 
 export const SatelliteMonitor = (props, context) => {
@@ -138,11 +151,14 @@ const ManeuverPanel = ({
               <Stack>{`Apoapsis: ${selectedSatellite.orbit_data.apoapsis * (cmagged ? 0.6213 : 1)}${cmagged ? 'mi' : 'km'}`}</Stack>
               <Stack>{`Periapsis: ${selectedSatellite.orbit_data.periapsis}km`}</Stack>
               <Stack>{`Inclination: ${selectedSatellite.orbit_data.inclination}`}</Stack>
+              <Stack>{`Position: (${selectedSatellite.orbit_data.posX}, ${selectedSatellite.orbit_data.posY}, ${selectedSatellite.orbit_data.posZ})`}</Stack>
             </Stack>
             <Stack width="50%" vertical>
               <Stack>{`weight: ${selectedSatellite.weight}kg`}</Stack>
               <Stack>{`fuel usage: ${selectedSatellite.fuel_usage.toPrecision(2)}L/s`}</Stack>
               <Stack>{`Period: ${selectedSatellite.orbit_data.period / deciseconds_in_minute}min`}</Stack>
+              {/* <Stack>{`Velocity: ${Math.sqrt(selectedSatellite.orbit_data.velX ** 2 + selectedSatellite.orbit_data.velY ** 2 + selectedSatellite.orbit_data.velZ ** 2)} km/s`}</Stack>*/}
+              <Stack>{`Velocity: (${selectedSatellite.orbit_data.velX}, ${selectedSatellite.orbit_data.velY}, ${selectedSatellite.orbit_data.velZ})`}</Stack>
             </Stack>
           </Stack>
           <Section title="Burn configuration" mt={3}>
@@ -411,7 +427,9 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
         {satellites.map((satellite: Satellite) => {
           const orbitSizeFull = 100000; // works as a scale
           let size = ((satellite.orbit_data.periapsis + satellite.orbit_data.periapsis) / orbitSizeFull) * 100 + '%';
-          let orbitProgress = `${Math.abs(satellite.orbit_data.orbit_progress - 0.5) * 200}%`;
+          // let orbitProgress = `${Math.abs(satellite.orbit_data.orbit_progress - 0.5) * 200}%`;
+          // const path = satellite.orbit_data.planned_orbit.map((p,i) => (i === 0) ? ``)
+          const path = satellite.orbit_data.planned_orbit.map(p => `${p.X},${p.Y}`).join(" ");
           return (
             <Stack key={satellite.name}>
               {size}
@@ -428,11 +446,19 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                   border: 'none',
                 }}
               >
+                <svg width={200} height={200} style={{ border: "1px solid red" }}>
+                  <polyline
+                    points={path}
+                    fill="none"
+                    stroke="red"
+                    width="2"
+                  />
+                </svg>
                 <img
                   src={`data:image/png;base64,${current_planet_base64}`}
                   style={{
-                    top: '50%',
-                    left: orbitProgress,
+                    top: satellite.orbit_data.posX,
+                    left: satellite.orbit_data.posY,
                     transform: `translate(-50%, -50%) rotate(${0}deg)`, // 0 degree rotation puts it back on track
                     backgroundColor: `cyan`,
                     width: '20px',

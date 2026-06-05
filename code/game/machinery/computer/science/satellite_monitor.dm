@@ -42,17 +42,26 @@
 		var/datum/orbit_data/orbit_data = satellite.orbit_data
 		var/list/planned_maneuvers = list()
 		for(var/datum/maneuver_data/maneuver in orbit_data.planned_maneuvers)
-			planned_maneuvers += list(list(
+			planned_maneuvers += list(list( // funny byond required a listed list to be sent to TGUI
 				"prograde" = maneuver.prograde,
 				"normal" = maneuver.normal,
 				"burn_time" = maneuver.burn_time,
 				"time_to_maneuver" = maneuver.world_time_at_maneuver - world.time
 			))
 
+		var/list/planned_orbit = list()
+		//log_debug("planned_orbit length: [length(orbit_data.planned_orbit)] index0: [(!length(orbit_data.planned_orbit)? "null/0": "([orbit_data.planned_orbit[0]["X"]], [orbit_data.planned_orbit[0]["Y"]], [orbit_data.planned_orbit[0]["Z"]])" )]")
+		for(var/list/point in orbit_data.planned_orbit)
+			planned_orbit += list(list( // funny byond required a listed list to be sent to TGUI
+				"X" = point["X"],
+				"Y" = point["Y"],
+				"Z" = point["Z"]
+			))
+
 		if(planned_maneuvers.len) // in case no maneuver has been set this still needs to become an array
 			planned_maneuvers += list()
 
-		satellite_data += list(list(
+		satellite_data += list(list( // funny byond required a listed list to be sent to TGUI
 			"UID" = satellite.UID(),
 			"name" = satellite.internal_name,
 			"collected_science_data" = satellite.collected_science_data,
@@ -75,9 +84,16 @@
 				"period_multiplier" = orbit_data.period_multiplier,
 				"period" = orbit_data.period,
 				"launch_time" = orbit_data.launch_time,
-				"velocity" = orbit_data.velocity,
-				"orbit_progress" = orbit_data.orbit_progress,
+				//"velocity" = orbit_data.velocity,
+				//"orbit_progress" = orbit_data.orbit_progress,
 				"planned_maneuvers" = planned_maneuvers,
+				"planned_orbit" = planned_orbit,
+				"posX" = orbit_data.posX,
+				"posY" = orbit_data.posY,
+				"posZ" = orbit_data.posZ,
+				"velX" = orbit_data.velX,
+				"velY" = orbit_data.velY,
+				"velZ" = orbit_data.velZ
 			)
 		))
 
