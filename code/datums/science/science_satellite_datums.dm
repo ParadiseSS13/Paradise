@@ -49,8 +49,6 @@
 	var/list/planned_orbit = list()
 	var/should_update_orbit = TRUE
 
-/datum/vector_3/
-
 /datum/orbit_data/proc/vector_3_magnitude(x,y,z)
 	return sqrt(x**2 + y**2 + z**2)
 
