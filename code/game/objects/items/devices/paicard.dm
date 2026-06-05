@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=2"
+	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
 	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/radio/radio

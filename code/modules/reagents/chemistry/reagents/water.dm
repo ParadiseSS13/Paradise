@@ -214,9 +214,9 @@
 			blood_prop = new(T)
 			blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
 
-/// If irradiated by gamma radiation and there are advanced viruses in the blood become a sample of viral genetic data
+/// If irradiated by beta radiation and there are advanced viruses in the blood become a sample of viral genetic data
 /datum/reagent/blood/reaction_radiation(amount, emission_type)
-	if(emission_type == GAMMA_RAD && amount > 100)
+	if(emission_type == BETA_RAD && amount > 100)
 		if(data && data["viruses"])
 			var/list/strains = list("radiation" = list())
 			for(var/datum/disease/advance/virus in data["viruses"])
@@ -490,7 +490,10 @@
 	metabolization_rate = 0.5
 	/// How much toxin damage do we do each tick?
 	var/toxin_damage = 0.25
-	//Keeps track of the hand timer so we can cleanup on removal
+	/// Interval between hand throws
+	var/throw_interval = 4 SECONDS
+	/// Keeps track of when the last hand was thrown
+	var/next_throw_time
 
 //Warns you about the impenting hands
 /datum/reagent/helgrasp/on_mob_add(mob/living/affected_mob, amount)
@@ -502,7 +505,9 @@
 /datum/reagent/helgrasp/on_mob_life(mob/living/carbon/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= affected_mob.adjustToxLoss(toxin_damage, FALSE)
-	spawn_hands(affected_mob)
+	if(next_throw_time < world.time + throw_interval)
+		spawn_hands(affected_mob)
+		next_throw_time = world.time + throw_interval
 	return ..() | update_flags
 
 /datum/reagent/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)

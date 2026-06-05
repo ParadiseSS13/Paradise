@@ -7,6 +7,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
 	var/obj/item/bio_chip_case/case
 	var/static/list/cached_base64_icons = list()

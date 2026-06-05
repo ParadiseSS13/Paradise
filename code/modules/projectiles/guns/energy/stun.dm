@@ -89,7 +89,7 @@
 	This initially causes slowdown of muscle contractions, but continued attack will result in almost complete paralysis of most voluntary skeletal muscle groups, along with feelings of extreme lethargy and fatigue. \
 	These effects are temporary and will subside soon after, causing no lasting harm. By a massive stroke of coincidence, these same particle beams also exhibit a similar effect on the motors of IPC limbs."
 	. += ""
-	. += "The safety and efficiency of the disabler has caused it to rapidly replace tasers in police and security forces across most of known space, \
+	. += "The safety and efficacy of the disabler has caused it to rapidly replace tasers in police and security forces across most of known space, \
 	although the lack of immediate stopping power has prevented a complete replacement."
 
 /obj/item/gun/energy/disabler/Initialize(mapload)

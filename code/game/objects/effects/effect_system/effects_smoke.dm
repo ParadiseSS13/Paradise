@@ -200,15 +200,16 @@
 	if(!istype(T))
 		return
 	var/datum/gas_mixture/env = get_turf_air(T)
-	for(var/obj/effect/hotspot/fake/H in T)
+	for(var/obj/effect/hotspot/H in T)
 		qdel(H)
 
 	if(env.fuel_burnt() == 0)
 		return
 
 	env.set_temperature(2)
-	env.set_nitrogen(env.nitrogen() + env.toxins())
+	env.set_nitrogen(env.nitrogen() + env.toxins() + env.hydrogen())
 	env.set_toxins(0)
+	env.set_hydrogen(0)
 
 	if(smoke.spread_range <= 0 || smoke.lifetime > 0)
 		return

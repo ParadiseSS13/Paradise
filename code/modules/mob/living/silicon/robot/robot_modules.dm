@@ -23,7 +23,7 @@
 	var/list/malf_modules = list()
 	/// A list of modules that require special recharge handling. Examples include things like flashes, sprays and welding tools.
 	var/list/special_rechargables = list()
-	/// A list of all "energy stacks", i.e cables, brute kits, splints, etc.
+	/// A list of all "energy stacks", i.e rods, brute kits, splints, etc.
 	var/list/storages = list()
 	/// A list of all "material stacks", i.e. metal, glass, and reinforced glass
 	var/list/material_storages = list()
@@ -470,8 +470,7 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
-		/obj/item/stack/cable_coil/cyborg,
-		/obj/item/stack/cable_coil/extra_insulated/cyborg,
+		/obj/item/stack/cable_coil/rcl/robot,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/inflatable/cyborg,
@@ -767,8 +766,7 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
-		/obj/item/stack/cable_coil/cyborg,
-		/obj/item/stack/cable_coil/extra_insulated/cyborg,
+		/obj/item/stack/cable_coil/rcl/robot,
 		/obj/item/stack/sheet/glass/cyborg/drone,
 		/obj/item/stack/sheet/rglass/cyborg/drone,
 		/obj/item/stack/sheet/wood/cyborg,
@@ -878,7 +876,7 @@
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
-		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/stack/cable_coil/rcl/robot,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)
@@ -1052,10 +1050,6 @@
 	statpanel_name = "Wooden tiles"
 	max_amount = 60
 
-/datum/robot_storage/energy/cable
-	name = "Cable Synthesizer"
-	statpanel_name = "Cable"
-
 // For the medical stacks, even though the recharge rate is 0, it will be set to 1 by default because of a `max()` proc.
 // It will always take ~12 seconds to fully recharge these stacks beacuse of this. This time does not apply to the syndicate storages.
 /datum/robot_storage/energy/medical
@@ -1127,3 +1121,9 @@
 	statpanel_name = "Metal"
 	stack = /obj/item/stack/sheet/metal
 	add_to_storage = TRUE
+
+/datum/robot_storage/material/cable
+	name = "Cable Storage"
+	statpanel_name = "Cable"
+	max_amount = 90
+	stack = /obj/item/stack/cable_coil/rcl

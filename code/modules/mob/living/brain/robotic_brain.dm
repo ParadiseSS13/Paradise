@@ -7,6 +7,7 @@
 	var/searching_icon = "boris_recharging"
 	var/occupied_icon = "boris"
 	origin_tech = "biotech=3;programming=3;plasmatech=2"
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500)
 	req_access = list(ACCESS_ROBOTICS)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 	var/searching = FALSE

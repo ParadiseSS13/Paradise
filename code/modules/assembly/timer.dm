@@ -2,7 +2,7 @@
 	name = "timer"
 	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock."
 	icon_state = "timer"
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 
 	secured = FALSE
 
@@ -43,7 +43,7 @@
 	cooldown = 2
 	pulse(FALSE)
 	if(loc)
-		loc.visible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
+		loc.audible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
 		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
@@ -64,7 +64,7 @@
 	if(holder)
 		holder.update_icon()
 
-/obj/item/assembly/timer/interact(mob/user as mob)//TODO: Have this use the wires
+/obj/item/assembly/timer/interact(mob/user)//TODO: Have this use the wires
 	if(!secured)
 		user.show_message(SPAN_WARNING("[src] is unsecured!"))
 		return FALSE
@@ -92,6 +92,7 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "timer")
+	return ..()
 
 /obj/item/assembly/timer/Topic(href, href_list)
 	..()
@@ -125,4 +126,4 @@
 		return
 
 	if(usr)
-		attack_self__legacy__attackchain(usr)
+		activate_self(usr)

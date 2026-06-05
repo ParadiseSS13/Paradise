@@ -217,7 +217,7 @@
 // MARK: Necropolis curse
 /datum/status_effect/necropolis_curse
 	id = "necrocurse"
-	duration = 10 MINUTES //you're cursed for 10 minutes have fun
+	duration = 3 MINUTES // Lasts for the same time as Unholy Determination
 	tick_interval = 5 SECONDS
 	alert_type = null
 	var/curse_flags = NONE
@@ -310,8 +310,8 @@
 	return ..()
 
 /datum/status_effect/stacking/heretic_insanity/proc/update_greyscale()
-	var/stack_intensity = 1 - (0.66 * (stacks / max_stacks))
-	var/inverse_intensity = 0.33 * (stacks / max_stacks)
+	var/stack_intensity = 1 - (0.66 * clamp((stacks / (max_stacks / 2)), 0, 1))
+	var/inverse_intensity = 0.33 * clamp((stacks / (max_stacks / 2)), 0, 1)
 	var/custom_greyscale = list(stack_intensity, inverse_intensity, inverse_intensity,\
 								inverse_intensity, stack_intensity, inverse_intensity,\
 								inverse_intensity, inverse_intensity, stack_intensity)

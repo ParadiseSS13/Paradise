@@ -1014,10 +1014,10 @@
 		to_chat(user, SPAN_NOTICE("You begin to butcher [src]..."))
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		if(user.mind && HAS_TRAIT(user.mind, TRAIT_BUTCHER))
-			if(do_mob(user, src, 3 SECONDS) && Adjacent(I))
+			if(do_mob(user, src, butcher_time / 2) && Adjacent(I))
 				harvest(user)
 		else
-			if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
+			if(do_mob(user, src, butcher_time) && Adjacent(I))
 				harvest(user)
 		return TRUE
 

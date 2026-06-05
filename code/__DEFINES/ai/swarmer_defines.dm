@@ -7,3 +7,5 @@
 #define BB_SWARMER_TRAP_ACTION "BB_swarmer_trap_action"
 /// Key where we define the barrier construction ability
 #define BB_SWARMER_BARRIER_ACTION "BB_swarmer_barrier_action"
+/// Key where we define the resource share ability
+#define BB_SWARMER_RESOURCE_SHARE_ACTION "BB_swarmer_resource_share_action"

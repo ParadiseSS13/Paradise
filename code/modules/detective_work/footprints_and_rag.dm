@@ -3,6 +3,7 @@
 	desc = "For cleaning up messes, you suppose."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
+	inhand_icon_state = "rag"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 	volume = 5

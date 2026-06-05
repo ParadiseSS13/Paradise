@@ -2029,28 +2029,32 @@
 		to_chat(M, SPAN_NOTICE("You feel a surge of energy in your muscles, you feel like you can smash anything!"))
 	// No need to change the damage modifier when turning into a non-Kidan, it gets reset when species changes.
 
-/datum/reagent/consumable/ethanol/howler
-	name = "Howler"
-	id = "howler"
-	description = "Old classic human drink that was adopted by Vulpkanin."
+/datum/reagent/consumable/ethanol/durkehiet
+	name = "Durkehiet"
+	id = "durkehiet"
+	description = "A traditional sweet spirit from Kelune dating back to the Vulpkanin's pre-spaceflight era. Even though it was originally concocted as a traditional medicine, it was (and still is) enjoyed recreationally as well."
 	color = "#9c0b0c"
 	alcohol_perc = 0.2
-	drink_icon = "howler"
-	drink_name = "Howler"
-	drink_desc = "Old classic human drink that was adopted by Vulpkanin."
-	taste_description = "citrus"
-	goal_difficulty = REAGENT_GOAL_EASY
+	drink_icon = "durkehiet"
+	drink_name = "durkehiet"
+	drink_desc = "A traditional sweet spirit from Kelune dating back to the Vulpkanin's pre-spaceflight era. Even though it was originally concocted as a traditional medicine, it was (and still is) enjoyed recreationally as well."
+	taste_description = "citrusy sweetness, with faint numbing bitter notes"
+	goal_difficulty = REAGENT_GOAL_HARD
 
-/datum/reagent/consumable/ethanol/howler/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
+/datum/reagent/consumable/ethanol/durkehiet/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
 	if(isvulpkanin(M))
-		M.emote("howl", intentional = TRUE)
+		to_chat(M, SPAN_NOTICE("You feel healthy and invigorated."))
 	return ..()
 
-/datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
-	if(isvulpkanin(M))
-		var/mob/living/carbon/human/H = M
-		H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
-	return ..()
+/datum/reagent/consumable/ethanol/durkehiet/on_mob_life(mob/living/M)
+	if(!isvulpkanin(M))
+		return ..()
+
+	var/mob/living/carbon/human/H = M
+	var/update_flags = STATUS_UPDATE_NONE
+	M.reagents.add_reagent("spaceacillin", 0.4)
+	update_flags |= H.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER)
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/islay_whiskey
 	name = "Islay Whiskey"
@@ -2276,3 +2280,115 @@
 		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
 	else
 		ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
+
+// ----------- drinks from Hispania!
+
+/datum/reagent/consumable/ethanol/mezcal /// By mazapan
+	name = "Mezcal"
+	id = "mezcal"
+	description = "Tequila's older, more worldly cousin."
+	color = "#bcdbcf"
+	dizzy_adj = 3
+	alcohol_perc = 0.6
+	drink_icon = "mezcal_glass"
+	drink_name = "Glass of Mezcal"
+	drink_desc = "A crystal clear glass of 400 Conejos with a little worm inside."
+	taste_description = "tasty worm"
+
+/datum/reagent/consumable/ethanol/white_wine
+	name = "White Wine"
+	id = "whitewine"
+	description = "A fancy version of your regular wine."
+	color = "#EEEDC4"
+	dizzy_adj = 2
+	alcohol_perc = 0.2
+	drink_icon = "white_wine_glass"
+	drink_name = "Glass of White Wine"
+	drink_desc = "A classy glass of white wine."
+	taste_description = "vibrant"
+
+/datum/reagent/consumable/ethanol/michelada
+	name= "Michelada"
+	id = "michelada"
+	description = "Chili beer with lime."
+	color = "#b47b31"
+	alcohol_perc = 0.2
+	drink_icon = "michelada"
+	drink_name = "Glass of Michelada"
+	drink_desc = "Spicy beer served in a salt-rimmed glass."
+	taste_description ="hot pepper and lime"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/vampiro
+	name= "Vampiro"
+	id = "vampiro"
+	description = "Tequila prepared with tomato juice for a blood-red look."
+	color = "#E6502F"
+	alcohol_perc = 0.2
+	drink_icon = "vampiro"
+	drink_name = "Glass of Vampiro"
+	drink_desc = "Tequila prepared with tomato juice for a blood-red look."
+	taste_description ="old Mexican spices"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/ethanol/acapulco_de_noche
+	name= "Acapulco de Noche"
+	id = "acapulco_de_noche"
+	description = "A flamboyant cocktail perfect for the beach."
+	color = "#ff0033"
+	alcohol_perc = 0.3
+	drink_icon = "acapulco_de_noche"
+	drink_name = "Glass of Acapulco de Noche"
+	drink_desc = "A flamboyant cocktail that smells like medicine."
+	taste_description ="a citric dance"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/consumable/ethanol/matadora_beer
+	name= "Matadora beer"
+	id = "matadora_beer"
+	description = "A mix of beer and everything that was in the fridge."
+	color = "#db002b"
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	alcohol_perc = 0.3
+	drink_icon = "matadora_beer"
+	drink_name = "Glass of Matadora Beer"
+	drink_desc = "It smells strangely good despite its hodge-podge appearance."
+	taste_description ="lemonade with strawberry soda and medicinal alcohol"
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/consumable/ethanol/hanky_panky
+	name= "Hanky Panky"
+	id = "hanky_panky"
+	description = "A cocktail ideal for after work."
+	color = "#ab4003"
+	alcohol_perc = 0.3
+	drink_icon = "hanky_panky"
+	drink_name = "Glass of Hanky Panky"
+	drink_desc = "Bad enough to be served in a pretty glass."
+	taste_description = "alcohol both strong and light at the same time"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/peach_bellini
+	name= "Peach Bellini"
+	id = "peach_bellini"
+	description = "A mimosa made with peach purée."
+	color = "#ff7970"
+	alcohol_perc = 0.4
+	drink_icon = "peach_bellini"
+	drink_name = "Glass of Peach Bellini"
+	drink_desc = "A mimosa made with peach purée. Oh la la fancy man."
+	taste_description = "fresh peaches"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/consumable/ethanol/vampire_bf
+	name= "Vampire's Best Friend"
+	id = "vampire_bf"
+	description = "A creamy beverage with chunks of garlic inside."
+	color = "#E0C875"
+	alcohol_perc = 0.7
+	drink_icon = "vampire_bf_glass"
+	drink_name = "Glass of Vampire's Best Friend"
+	drink_desc = "A creamy beverage with chunks of garlic inside. Did you steal the chaplain's flask, son?"
+	taste_description ="garlic"
+
+// ----------- END of imports from Hispania!

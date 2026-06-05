@@ -39,7 +39,7 @@ have ways of interacting with a specific mob and control it.
 	return ..()
 
 /datum/ai_controller/monkey/process(seconds_per_tick)
-	var/mob/living/living_pawn = src.pawn
+	var/mob/living/carbon/human/living_pawn = src.pawn
 	movement_delay = living_pawn.movement_delay() // Circumstances change. Update speed frequently.
 
 	if(!length(living_pawn.do_afters) && living_pawn.ai_controller.blackboard[BB_RESISTING])
@@ -48,11 +48,12 @@ have ways of interacting with a specific mob and control it.
 	if(living_pawn.ai_controller.blackboard[BB_RESISTING])
 		return
 
-	if(living_pawn.IsWeakened() || living_pawn.IsStunned()) // We're stunned - what are we gonna do?
+	if(living_pawn.IsWeakened() || living_pawn.IsStunned() || living_pawn.stam_paralyzed) // We're stunned - what are we gonna do?
 		cancel_actions()
+		GLOB.move_manager.stop_looping(living_pawn)
 		return
 
-	. = ..()
+	return ..()
 
 /datum/ai_controller/monkey/pun_pun
 	movement_delay = 7 DECISECONDS // pun pun moves slower so the bartender can keep track of them
@@ -62,6 +63,24 @@ have ways of interacting with a specific mob and control it.
 		/datum/ai_planning_subtree/punpun_shenanigans,
 	)
 	idle_behavior = /datum/idle_behavior/idle_monkey/pun_pun
+
+/datum/ai_controller/monkey/uplifted_npc
+	movement_delay = 7 DECISECONDS // uplifted npcs move slower so that they're less annoying
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/generic_resist,
+		/datum/ai_planning_subtree/monkey_combat,
+	)
+
+/datum/ai_controller/monkey/uplifted_npc/retaliate(mob/living/living_mob)
+	var/mob/living/carbon/human/me = pawn
+	var/mob/living/carbon/human/target = living_mob
+
+	if(istype(me) && istype(target) \
+		&& target.mind && target.mind.has_antag_datum(/datum/antagonist/uplifted_primitive) \
+		&& target.dna.species.type == me.dna.species.type)
+		return
+
+	return ..()
 
 /datum/ai_controller/monkey/angry
 
@@ -106,7 +125,7 @@ have ways of interacting with a specific mob and control it.
 /datum/ai_controller/monkey/get_able_to_run()
 	var/mob/living/living_pawn = pawn
 
-	if(living_pawn.stat || living_pawn.incapacitated())
+	if(living_pawn.stat || living_pawn.incapacitated() || living_pawn.stam_paralyzed)
 		return AI_UNABLE_TO_RUN
 
 	if(living_pawn.ckey || living_pawn.client)

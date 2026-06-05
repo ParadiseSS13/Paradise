@@ -13,6 +13,7 @@
 	inhand_icon_state = null
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	origin_tech = "materials=3;magnets=3;engineering=3;plasmatech=3"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_PLASMA = 100)
 	active_on_equip = FALSE
 
 	var/active_on_equip_rad = FALSE
@@ -119,6 +120,7 @@
 	desc = "Used by atmospherics techs to visualize pressure, see station structure, and see underfloor objects such as cables and pipes."
 	range = 2
 	origin_tech = "materials=3;magnets=2;engineering=2"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	modes = list(MODE_NONE = MODE_PRESSURE, MODE_PRESSURE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_NONE)
 
 #undef MODE_NONE

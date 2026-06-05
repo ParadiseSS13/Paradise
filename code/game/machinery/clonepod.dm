@@ -272,12 +272,14 @@
 						return
 
 					var/list/EO_path = clone.dna.species.has_limbs[current_limb]["path"]
-					var/obj/item/organ/external/EO = new EO_path(clone) //Passing a human to a limb's New() proc automatically attaches it
+					var/obj/item/organ/external/EO = new EO_path(clone, clone) // Passing a human to a limb's Initialize() proc automatically attaches it
 					desc_flavor = "You see \a [EO.name] growing from [clone]'[clone.p_s()] [EO.amputation_point]."
 					current_limb = null
 					EO.brute_dam = desired_data.limbs[EO.limb_name][1]
 					EO.burn_dam = desired_data.limbs[EO.limb_name][2]
 					EO.status = desired_data.limbs[EO.limb_name][3]
+					if(EO.status & ORGAN_BROKEN)
+						EO.create_fracture_wound()
 					clone.adjustCloneLoss(4 / speed_modifier)
 					clone.regenerate_icons()
 					return
@@ -327,7 +329,10 @@
 			limb.brute_dam = desired_data.limbs[active_limb_name][1]
 			limb.burn_dam = desired_data.limbs[active_limb_name][2]
 			limb.status = desired_data.limbs[active_limb_name][3]
+			if(limb.status & ORGAN_BROKEN)
+				limb.create_fracture_wound()
 			continue
+
 		if(length(limb.children)) //This doesn't support having a vital organ inside a child of a limb that itself isn't vital.
 			for(var/obj/item/organ/external/child in limb.children) //Future coders, if you want to add a species with its brain in its hand or something, change this
 				child.remove(null, TRUE)

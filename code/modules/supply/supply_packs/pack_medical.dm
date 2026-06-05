@@ -104,7 +104,7 @@
 					/obj/item/storage/box/beakers,
 					/obj/item/reagent_containers/glass/bottle/mutagen)
 	cost = 350
-	containertype = /obj/structure/closet/crate/secure/plasma
+	containertype = /obj/structure/closet/crate/secure/medisec
 	containername = "virus crate"
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))

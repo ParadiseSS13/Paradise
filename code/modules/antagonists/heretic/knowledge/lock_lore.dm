@@ -111,16 +111,13 @@
 /datum/heretic_knowledge/key_ring/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
 	if(!length(result_atoms))
 		return FALSE
-	for(var/obj/item/card/id/id in selected_atoms)
-		accesses += id.access
 	for(var/result in result_atoms)
-		if(istype(result, /obj/item/card/id))
-			var/obj/item/card/id/new_card = new result(our_turf)
-			new_card.access = accesses
-		else
-			new result(our_turf)
-	accesses = list()
-	return TRUE
+		if(!ispath(result, /obj/item/card/id/heretic))
+			continue
+		var/obj/item/card/id/heretic/heretic_card = new result(our_turf)
+		for(var/obj/item/card/id/card in selected_atoms)
+			heretic_card.eat_card(card, user)
+			selected_atoms -= card
 
 /datum/heretic_knowledge/mark/lock_mark
 	name = "Mark of Lock"

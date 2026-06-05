@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# debug-server
+# Start a server container with a bash shell for debugging
+
+set -euo pipefail
+
+NETWORK_NAME="paradise_net"
+SERVER_IMAGE="paradise:latest"
+
+# make sure we're at the root of the repository
+if [ ! -f "Dockerfile" ]; then
+    echo >&2 "Error: No Dockerfile found. Are you at the repository root?"
+    exit 1
+fi
+
+# create a server container, but run a bash shell, not DreamDaemon
+docker run \
+    --entrypoint /bin/bash \
+    --interactive \
+    --name paradise_debug_$(date +%s) \
+    --network "${NETWORK_NAME}" \
+    --rm \
+    --tty \
+    "${SERVER_IMAGE}"

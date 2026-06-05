@@ -20,7 +20,7 @@ By design, d1 is the smallest direction and d2 is the highest
 */
 /obj/structure/cable
 	name = "power cable"
-	desc = "A low-cost superconducting cable"
+	desc = "A low-cost superconducting cable."
 	icon = 'icons/obj/power_cond/power_cond_white.dmi'
 	icon_state = "0-1"
 	level = 1
@@ -105,10 +105,10 @@ By design, d1 is the smallest direction and d2 is the highest
 			return
 		coil.cable_join(src, user)
 
-	else if(istype(W, /obj/item/rcl))
-		var/obj/item/rcl/R = W
-		if(R.loaded)
-			R.loaded.cable_join(src, user)
+	else if(istype(W, /obj/item/stack/cable_coil/rcl))
+		var/obj/item/stack/cable_coil/rcl/R = W
+		if(R.amount)
+			R.cable_join(src, user)
 			R.is_empty(user)
 
 	else if(istype(W, /obj/item/toy/crayon))

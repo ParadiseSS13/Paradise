@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		/obj/machinery/atmospherics/unary/outlet_injector = PIPE_INJECTOR,
 		/obj/machinery/atmospherics/unary/passive_vent = PIPE_PASV_VENT,
 		/obj/machinery/atmospherics/binary/circulator = PIPE_CIRCULATOR,
+		/obj/machinery/atmospherics/unary/vent_pump/high_volume = PIPE_HIGH_VOLUME_PUMP,
 		"[PIPE_JUNCTION]" = /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
 		"[PIPE_HE_STRAIGHT]" = /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 		"[PIPE_HE_BENT]" = /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -76,6 +77,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 		"[PIPE_INJECTOR]" = /obj/machinery/atmospherics/unary/outlet_injector,
 		"[PIPE_PASV_VENT]" = /obj/machinery/atmospherics/unary/passive_vent,
 		"[PIPE_CIRCULATOR]" = /obj/machinery/atmospherics/binary/circulator,
+		"[PIPE_HIGH_VOLUME_PUMP]" = /obj/machinery/atmospherics/unary/vent_pump/high_volume,
 ))
 
 /obj/item/pipe
@@ -255,7 +257,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 			return flip
 
 		if(PIPE_SIMPLE_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT,
-			PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_INJECTOR)
+			PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_INJECTOR, PIPE_HIGH_VOLUME_PUMP)
 			return dir
 
 		if(PIPE_SIMPLE_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_JUNCTION,

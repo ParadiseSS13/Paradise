@@ -13,7 +13,7 @@ atomic_float = "1.0.0"
 bitflags = "2.5.0"
 byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.6.14" }
 eyre = "0.6.12"
-rand = { version = "0.8.5", features = ["small_rng"] }
+rand = { version = "0.8.6", features = ["small_rng"] }
 scc = "2.1.1"
 thread-priority = "1.1.0"
 
@@ -43,7 +43,7 @@ dbpnoise = "0.1.2"
 redis = { version = "0.21.4" }
 flume = { version = "0.10" }
 notify-rust = "4.11.7"
-git2 = { version = "0.20.2", default-features = false }
+git2 = { version = "0.20.4", default-features = false }
 once_cell = { version = "1.21" }
 mysql = { git = "https://github.com/ZeWaka/rust-mysql-simple.git", tag = "v26.0.0", default-features = false }
 dashmap = { version = "6.1", features = ["rayon", "serde"] }

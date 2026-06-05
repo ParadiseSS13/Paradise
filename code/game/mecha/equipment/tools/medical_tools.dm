@@ -33,6 +33,7 @@
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 10000)
 	energy_drain = 20
 	equip_cooldown = 20
 	var/mob/living/carbon/patient = null
@@ -252,6 +253,7 @@
 	range = MECHA_MELEE | MECHA_RANGED
 	equip_cooldown = 10
 	origin_tech = "materials=3;biotech=4;magnets=4"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 2000)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Initialize(mapload)
 	. = ..()
@@ -520,6 +522,7 @@
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
 	equip_cooldown = 15
 	energy_drain = 10
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2000, MAT_TITANIUM = 1500)
 	var/dam_force = 20
 
 

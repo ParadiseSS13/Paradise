@@ -70,6 +70,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 
 	var/atom/target = pick_final_target(controller, filtered_targets)
 	controller.set_blackboard_key(target_key, target)
+	SEND_SIGNAL(controller.pawn, COMSIG_HOSTILE_FOUND_TARGET)
 
 	var/atom/potential_hiding_location = targeting_strategy.find_hidden_mobs(living_mob, target)
 

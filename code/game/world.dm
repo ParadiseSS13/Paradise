@@ -19,6 +19,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	// If this instance is listening on port 6666, the server will look for config/overrides_6666.toml
 	GLOB.configuration.load_overrides("config/overrides_[world.port].toml")
 
+	// Adds a hook for loading TM specific configs we can keep in repo.
+	GLOB.configuration.load_overrides("code/testmerge_config.toml")
+
 	#ifdef TEST_CONFIG_OVERRIDE
 	GLOB.configuration.load_overrides("config/tests/config_[TEST_CONFIG_OVERRIDE].toml")
 	#endif
@@ -156,6 +159,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
 		C?.tgui_panel?.send_roundrestart()
+		#ifdef SERVERREGIONS
 		if(C.prefs.server_region)
 			// Keep them on the same relay
 			C << link(GLOB.configuration.system.region_map[C.prefs.server_region])
@@ -163,6 +167,11 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			// Use the default
 			if(GLOB.configuration.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 				C << link("byond://[GLOB.configuration.url.server_url]")
+		#else
+		// Use the default
+		if(GLOB.configuration.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[GLOB.configuration.url.server_url]")
+		#endif
 
 	// And begin the real shutdown
 	rustlibs_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.

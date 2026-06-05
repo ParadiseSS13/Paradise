@@ -118,7 +118,7 @@
 	inhand_icon_state = "jawsoflife"
 	belt_icon = "jaws"
 	origin_tech = "materials=2;engineering=2"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25
 	w_class = WEIGHT_CLASS_NORMAL

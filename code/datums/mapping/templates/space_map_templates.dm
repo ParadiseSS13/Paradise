@@ -46,8 +46,33 @@
 	name = "Asteroid 5"
 	description = "Oh my god, another giant rock!"
 
-/datum/map_template/ruin/space/asteroidmining1
-	id = "asteroidmining1"
+/datum/map_template/ruin/space/asteroid6
+	id = "asteroid6"
+	suffix = "asteroid6.dmm"
+	name = "Asteroid 6"
+	description = "A small collection of ore rich asteroids."
+
+/datum/map_template/ruin/space/asteroid7
+	id = "asteroid7"
+	suffix = "asteroid7.dmm"
+	name = "Asteroid 7"
+	description = "A medium-sized asteroid surrounded by carp that have made it their home."
+
+/datum/map_template/ruin/space/asteroid8
+	id = "asteroid8"
+	suffix = "asteroid8.dmm"
+	name = "Asteroid 8"
+	description = "An engineer's hubris about their engine escape pod seemed to not have navigation systems active."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/asteroid9
+	id = "asteroid9"
+	suffix = "asteroid9.dmm"
+	name = "Asteroid 9"
+	description = "A hollow asteroid inhabited by a group of goliaths."
+
+/datum/map_template/ruin/space/asteroidmining9
+	id = "asteroidmining9"
 	suffix = "asteroidmining1.dmm"
 	name = "Mining Asteroid 1"
 	description = "A giant rock rich in ores!"
@@ -450,3 +475,16 @@
 	suffix = "engineering_vessel.dmm"
 	name = "Engineering Vessel"
 	description = "A small vessel able to have a telecoms relay built inside of it, as well as some miscellaneous cargo."
+
+/datum/map_template/ruin/space/gas_station
+	id = "gas_station"
+	suffix = "gas_station.dmm"
+	name = "Garry's Gas Station"
+	description = "A small locally owned station to get that good stuff! We mean fuel of course."
+
+/datum/map_template/ruin/space/kappa_lab
+	id = "kappa_lab"
+	suffix = "kappalab.dmm"
+	name = "The Kappa Lab"
+	description = "An all-around lab held once in pristine condition has now fallen to into less desirable hands."
+	allow_duplicates = FALSE

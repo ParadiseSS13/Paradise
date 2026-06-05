@@ -11,7 +11,7 @@
 /obj/item/organ/internal/lungs/receive_damage(amount, silent)
 	..()
 	if(damage >= min_bruised_damage && amount > 1 && !get_wound(/datum/wound/ruptured_lungs))
-		wound_list += new /datum/wound/ruptured_lungs(src)
+		add_wound(/datum/wound/ruptured_lungs)
 
 /obj/item/organ/internal/lungs/heal_internal_damage(amount, robo_repair)
 	..()
@@ -55,6 +55,7 @@
 	desc = "A cybernetic version of the lungs found in traditional humanoid entities. It functions the same as an organic lung and is merely meant as a replacement."
 	icon_state = "lungs-c"
 	origin_tech = "biotech=4"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	status = ORGAN_ROBOT
 	var/species_state = "default"
 	var/list/possible = list("default" = /datum/organ/lungs, "vox" = /datum/organ/lungs/vox, "plasmamen" = /datum/organ/lungs/plasmamen)
@@ -87,6 +88,7 @@
 	desc = "A more advanced version of the stock cybernetic lungs. They are capable of filtering out lower levels of toxins and carbon dioxide."
 	icon_state = "lungs-c-u"
 	origin_tech = "biotech=5"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
 	organ_datums = list(/datum/organ/lungs/advanced_cyber)
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded/configure_species(new_species_state)

@@ -3,6 +3,7 @@
 	desc = "This one-use skin applier will add a skin to MODsuits of a specific type. This one applies to standard modsuits."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "skinapplier"
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_PLASMA = 1000)
 	var/skin = "civilian"
 	var/compatible_theme = /datum/mod_theme/standard
 

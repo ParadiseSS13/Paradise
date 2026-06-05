@@ -293,7 +293,8 @@
 		/obj/item/grenade/barrier,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/soap/ds
+		/obj/item/soap/ds,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -318,7 +319,8 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/disk/nuclear/unrestricted
+		/obj/item/disk/nuclear/unrestricted,
+		/obj/item/food/rations/liquidfood
 	)
 
 /datum/outfit/admin/deathsquad_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -602,7 +604,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/ammo_box/a762 = 4
+		/obj/item/ammo_box/a762 = 4,
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/soldier
@@ -616,9 +619,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/lighter = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_robust = 1,
-		/obj/item/ammo_box/magazine/apsm10mm = 2
+		/obj/item/ammo_box/magazine/apsm10mm = 2,
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/officer
@@ -657,8 +659,7 @@
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/gun/projectile/automatic/pistol/type_230 = 1,
 		/obj/item/ammo_box/magazine/apsm10mm = 2,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo/engraved = 1
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/marine/captain
@@ -671,8 +672,7 @@
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/gun/projectile/revolver/mateba = 1,
 		/obj/item/ammo_box/a357 = 2,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo/engraved = 1
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/admiral
@@ -746,7 +746,9 @@
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
+		/obj/item/storage/fancy/crayons/marine = 1,
+		/obj/item/storage/mre = 1
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
@@ -794,7 +796,8 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/ammo_box/magazine/m50 = 3,
+		/obj/item/storage/mre = 1
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -809,7 +812,8 @@
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
 		/obj/item/whetstone = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
+		/obj/item/storage/mre = 1
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
@@ -832,7 +836,8 @@
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/ammo_box/magazine/m50 = 3,
+		/obj/item/storage/mre = 1
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -1568,7 +1573,8 @@
 		/obj/item/storage/box/smoke_grenades = 1,
 		/obj/item/lighter/zippo = 1,
 		/obj/item/clothing/mask/cigarette/cigar = 3,
-		/obj/item/clothing/mask/gas/explorer = 1
+		/obj/item/clothing/mask/gas/explorer = 1,
+		/obj/item/storage/mre = 1
 	)
 
 	bio_chips = list(/obj/item/bio_chip/stealth)
@@ -1664,6 +1670,65 @@
 		P.owner = H.real_name
 		P.ownjob = "Tourist"
 		P.name = "PDA-[H.real_name] ([P.ownjob])"
+
+/datum/outfit/admin/vox_explorer
+	name = "Vox Explorer"
+	uniform = /obj/item/clothing/under/vox/vox_casual
+	back = /obj/item/storage/backpack/satchel
+	mask = /obj/item/clothing/mask/breath/vox/respirator
+	suit = /obj/item/clothing/suit/space/vox/medic
+	l_ear = /obj/item/radio/headset/alt
+	gloves = /obj/item/clothing/gloves/color/yellow/vox
+	glasses = /obj/item/clothing/glasses/sunglasses
+	shoes = /obj/item/clothing/shoes/magboots/vox
+	box = /obj/item/storage/box/survival_vox
+	id = /obj/item/card/id/syndicate
+
+	backpack_contents = list(
+		/obj/item/folder/blue = 1,
+		/obj/item/gun/energy/plasma_pistol = 1,
+		/obj/item/pen/fancy = 1,
+		/obj/item/clothing/head/helmet/space/vox/medic = 1,
+	)
+
+/datum/outfit/admin/vox_explorer/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/obj/item/tank/internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+	if(!H.equip_to_appropriate_slot(internal_tank))
+		if(!H.put_in_any_hand_if_possible(internal_tank))
+			H.drop_item_to_ground(H.l_hand)
+			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
+	H.internal = internal_tank
+
+/datum/outfit/admin/vox_war_drone
+	name = "Vox War Drone"
+	uniform = /obj/item/clothing/under/vox/vox_casual
+	back = /obj/item/storage/backpack/satchel
+	mask = /obj/item/clothing/mask/breath/vox/respirator
+	suit = /obj/item/clothing/suit/space/vox/carapace
+	head = /obj/item/clothing/head/helmet/space/vox/carapace
+	box = /obj/item/storage/box/survival_vox
+	l_ear = /obj/item/radio/headset/alt
+	gloves = /obj/item/clothing/gloves/color/yellow/vox
+	glasses = /obj/item/clothing/glasses/sunglasses
+	shoes = /obj/item/clothing/shoes/magboots/vox
+	box = /obj/item/storage/box/survival_vox
+	id = /obj/item/card/id/syndicate
+
+	backpack_contents = list(
+		/obj/item/melee/energy/sword = 1,
+	)
+
+/datum/outfit/admin/vox_war_drone/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/obj/item/tank/internal_tank = new /obj/item/tank/internals/emergency_oxygen/double/vox(H)
+	if(!H.equip_to_appropriate_slot(internal_tank))
+		if(!H.put_in_any_hand_if_possible(internal_tank))
+			H.drop_item_to_ground(H.l_hand)
+			H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
+			to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug</span>")
+	H.internal = internal_tank
 
 /datum/outfit/admin/supreme
 	name = "Supreme-Inquisitor"

@@ -6,6 +6,7 @@ import type { BooleanLike } from 'tgui-core/react';
 interface FormTypes {
   awaiting_approval: BooleanLike;
   report_details: FormDetails;
+  read_only: BooleanLike;
 }
 
 // all the information necessary to pass into the github api
@@ -30,7 +31,7 @@ const InputTitle = (props) => {
 
 export const BugReportForm = (props) => {
   const { act, data } = useBackend<FormTypes>();
-  const { awaiting_approval, report_details } = data;
+  const { read_only, awaiting_approval, report_details } = data;
   const [checkBox, setCheckbox] = useState(false);
 
   const [title, setTitle] = useState(report_details?.title || '');
@@ -173,20 +174,22 @@ export const BugReportForm = (props) => {
                 onChange={(e) => setLog(e.target.value)}
               />
             </Flex.Item>
-            <Flex.Item my={2}>
-              <Flex className="flex-center">
-                <Flex.Item mx={1}>
-                  <div className="button-cancel" onClick={() => act('cancel')}>
-                    {awaiting_approval ? 'Reject' : 'Cancel'}
-                  </div>
-                </Flex.Item>
-                <Flex.Item mx={1}>
-                  <div className="button-submit" onClick={submit}>
-                    {awaiting_approval ? 'Approve' : 'Submit'}
-                  </div>
-                </Flex.Item>
-              </Flex>
-            </Flex.Item>
+            {!read_only && (
+              <Flex.Item my={2}>
+                <Flex className="flex-center">
+                  <Flex.Item mx={1}>
+                    <div className="button-cancel" onClick={() => act('cancel')}>
+                      {awaiting_approval ? 'Reject' : 'Cancel'}
+                    </div>
+                  </Flex.Item>
+                  <Flex.Item mx={1}>
+                    <div className="button-submit" onClick={submit}>
+                      {awaiting_approval ? 'Approve' : 'Submit'}
+                    </div>
+                  </Flex.Item>
+                </Flex>
+              </Flex.Item>
+            )}
           </Flex>
         </Section>
       </Window.Content>

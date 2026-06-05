@@ -17,7 +17,7 @@
 	id = "diskplantgene"
 	req_tech = list("programming" = 4, "biotech" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=200, MAT_GLASS=100)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	build_path = /obj/item/disk/plantgene
 	category = list("Miscellaneous")
 
@@ -98,7 +98,7 @@
 	id = "safetymuzzle"
 	req_tech = list("materials" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/mask/muzzle/safety
 	category = list("Miscellaneous")
 
@@ -108,7 +108,7 @@
 	id = "shockmuzzle"
 	req_tech = list("materials" = 1, "engineering" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/mask/muzzle/safety/shock
 	category = list("Miscellaneous")
 
@@ -118,7 +118,7 @@
 	id = "datadisk"
 	req_tech = list("programming" = 3, "biotech" = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=300, MAT_GLASS=100)
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	build_path = /obj/item/disk/data
 	category = list("Miscellaneous")
 
@@ -128,7 +128,7 @@
 	id = "emergencyoxygen"
 	req_tech = list("toxins" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=500, MAT_GLASS=100)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 100)
 	build_path = /obj/item/tank/internals/emergency_oxygen/empty
 	category = list("Miscellaneous")
 
@@ -138,7 +138,7 @@
 	id = "extendedoxygen"
 	req_tech = list("toxins" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=800, MAT_GLASS=100)
+	materials = list(MAT_METAL = 800, MAT_GLASS = 100)
 	build_path = /obj/item/tank/internals/emergency_oxygen/engi/empty
 	category = list("Miscellaneous")
 
@@ -148,7 +148,7 @@
 	id = "doubleoxygen"
 	req_tech = list("toxins" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=1500, MAT_GLASS=200)
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
 	build_path = /obj/item/tank/internals/emergency_oxygen/double/empty
 	category = list("Miscellaneous")
 
@@ -158,7 +158,7 @@
 	id = "oxygentank"
 	req_tech = list("toxins" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=3000, MAT_GLASS=500)
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
 	build_path = /obj/item/tank/internals/oxygen/empty
 	category = list("Miscellaneous")
 
@@ -179,6 +179,6 @@
 	id = "autochef_remote"
 	req_tech = list("programming" = 3, "bluespace" = 3, "materials" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=3000)
+	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/autochef_remote
 	category = list("Miscellaneous")

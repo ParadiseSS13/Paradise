@@ -78,34 +78,6 @@
 	desc = "An engraved and fancy version of the claymore. It appears to be less sharp than it's more functional cousin."
 	force = 20
 
-/obj/item/katana
-	name = "katana"
-	desc = "Woefully underpowered in D20."
-	icon = 'icons/obj/weapons/melee.dmi'
-	icon_state = "katana"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
-	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
-	force = 40
-	throwforce = 10
-	sharp = TRUE
-	w_class = WEIGHT_CLASS_BULKY
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
-	resistance_flags = FIRE_PROOF
-	needs_permit = TRUE
-
-/obj/item/katana/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
-
-/obj/item/katana/suicide_act(mob/user)
-	user.visible_message(SPAN_SUICIDE("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
-	return BRUTELOSS
-
 /obj/item/harpoon
 	name = "harpoon"
 	desc = "Tharr she blows!"
@@ -191,7 +163,7 @@
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
-	materials = list(MAT_WOOD = 5000)
+	materials = list(MAT_WOOD = 10000)
 	COOLDOWN_DECLARE(last_deflect)
 	var/deflect_cooldown = 5 MINUTES
 	COOLDOWN_DECLARE(next_throw_time)
@@ -199,6 +171,8 @@
 	var/homerun_ready = FALSE
 	var/homerun_able = FALSE
 	var/deflectmode = FALSE // deflect small/medium thrown objects
+	/// Is the bat made of metal?
+	var/is_metal = FALSE
 
 	new_attack_chain = TRUE
 
@@ -215,9 +189,18 @@
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(!deflectmode)
 			return
-		if(prob(10))
-			visible_message(SPAN_BOLDWARNING("[owner] Deflects [I] directly back at the thrower! It's a home run!"), SPAN_BOLDWARNING("You deflect [I] directly back at the thrower! It's a home run!"))
+		if(prob(5) || homerun_ready)
+			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] far into the air! It's a homerun!"), SPAN_BOLDWARNING("You deflect [I] far into the air! It's a homerun!"))
 			playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
+			do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			hit_object(owner, I, TRUE)
+			return TRUE
+		else if(prob(10))
+			visible_message(SPAN_BOLDWARNING("[owner] deflects [I] directly back at the thrower!"), SPAN_BOLDWARNING("You deflect [I] directly back at the thrower!"))
+			var/sound = 'sound/weapons/baseball_hit.ogg'
+			if(is_metal)
+				sound = 'sound/weapons/effects/batreflect1.ogg'
+			playsound(get_turf(owner), sound, 75, TRUE, -1)
 			do_attack_animation(I, ATTACK_EFFECT_DISARM)
 			I.throw_at(locateUID(I.thrownby), 20, 20, owner)
 			deflectmode = FALSE
@@ -234,13 +217,30 @@
 			return FALSE
 		else
 			visible_message(SPAN_WARNING("[owner] swings and deflects [I]!"), SPAN_WARNING("You swing and deflect [I]!"))
-			playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
+			var/sound = 'sound/weapons/baseball_hit.ogg'
+			if(is_metal)
+				sound = 'sound/weapons/effects/batreflect1.ogg'
+			playsound(get_turf(owner), sound, 75, TRUE, -1)
 			do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
-			deflectmode = FALSE
-			if(!istype(I, /obj/item/beach_ball))
-				COOLDOWN_START(src, last_deflect, deflect_cooldown)
+			hit_object(owner, I)
 			return TRUE
+
+/obj/item/melee/baseball_bat/proc/hit_object(mob/living/carbon/human/owner, obj/item/I, homerun = FALSE)
+	var/deflect_dir = round(get_angle(owner, I)) + (rand() - 0.5) * 180 // 180 degree angle in front of the user.
+	var/deflect_range = rand(5, 10)
+	if(homerun)
+		deflect_dir = round(get_angle(owner, I)) + (rand() - 0.5) * 120
+		deflect_range = 20
+		I.pass_flags |= PASSMOB
+		addtimer(CALLBACK(PROC_REF(reset_flags), I), 0.3 SECONDS)
+	I.throw_at(get_angle_target_turf(owner, deflect_dir, deflect_range), deflect_range, 14, owner)
+	deflectmode = FALSE
+	homerun_ready = FALSE
+	if(!istype(I, /obj/item/beach_ball))
+		COOLDOWN_START(src, last_deflect, deflect_cooldown)
+
+/obj/item/melee/baseball_bat/proc/reset_flags(obj/item/I)
+	I.pass_flags = initial(I.pass_flags)
 
 /obj/item/melee/baseball_bat/activate_self(mob/user)
 	if(..())
@@ -307,6 +307,7 @@
 	icon_state = "baseball_bat_metal"
 	force = 12
 	throwforce = 15
+	is_metal = TRUE
 
 /obj/item/melee/baseball_bat/ablative/IsReflect()//some day this will reflect thrown items instead of lasers
 	var/picksound = rand(1,2)

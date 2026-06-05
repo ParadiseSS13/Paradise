@@ -3,7 +3,6 @@
 	desc = "An amber focusing glass that provides a link to the world beyond. The necklace seems to twitch, but only when you look at it from the corner of your eye."
 	icon_state = "eldritch_necklace"
 	resistance_flags = FIRE_PROOF
-	new_attack_chain = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',

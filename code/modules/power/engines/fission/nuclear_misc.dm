@@ -209,6 +209,7 @@
 /obj/item/grenade/nuclear_starter
 	name = "Neutronic Agitator"
 	desc = "A throwable device capable of inducing an artificial startup in rod chambers. Won't do anything for chambers not positioned correctly, or chambers without any rods inserted."
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GOLD = 2000)
 
 /obj/item/grenade/nuclear_starter/deconstruct(disassembled)
 	qdel(src)
@@ -386,6 +387,7 @@
 	icon_state = "datadisk5"
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_URANIUM = 500, MAT_GOLD = 400)
 	new_attack_chain = TRUE
 
 // MARK: Chamber Doors

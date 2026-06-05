@@ -5,6 +5,7 @@
 	desc = "The cornerstone of any customer service job. You feel an unending urge to ring it. It looks like it can be wrenched or screwdrivered."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "desk_bell"
+	materials = list(MAT_METAL = 4000)
 	/// The amount of times this bell has been rang, used to check the chance it breaks
 	var/times_rang = 0
 	/// Is this bell broken?
@@ -17,11 +18,16 @@
 	var/ring_sound = 'sound/machines/bell.ogg'
 	/// The remote signaller that we're gonna activate to this bell
 	var/obj/item/assembly/signaler/attached_signaler
+	new_attack_chain = TRUE
 
 /obj/item/desk_bell/examine(mob/user)
 	. = ..()
+	if(anchored)
+		. += SPAN_NOTICE("It's anchored in place.")
 	if(!isnull(attached_signaler))
 		. += SPAN_NOTICE("There seems to be an antenna sticking out of the base.")
+	if(broken_ringer)
+		. += SPAN_NOTICE("The clapper looks off. You can probably screw it back in place.")
 
 /obj/item/desk_bell/Destroy()
 	if(!isnull(attached_signaler))
@@ -34,25 +40,27 @@
 		attached_signaler = null
 	return ..()
 
-/obj/item/desk_bell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/desk_bell/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/signaler))
+		return ..()
 	// can only attach its on your person
-	if(istype(I, /obj/item/assembly/signaler))
-		if(!in_inventory)
-			to_chat(user, SPAN_WARNING("[src] needs to be in your inventory if you want to attach [I] to it!"))
-			return
-		if(!isnull(attached_signaler))
-			to_chat(user, SPAN_NOTICE("There's already a signaller attached!"))
-			return
-		var/obj/item/assembly/signaler/signal = I
-		user.transfer_item_to(signal, src)
-		attached_signaler = signal
-		if(signal.receiving)
-			RegisterSignal(attached_signaler, COMSIG_ASSEMBLY_PULSED, PROC_REF(on_signal))
-		user.visible_message(
-			SPAN_NOTICE("[user] attaches [signal] to [src]."),
-			SPAN_NOTICE("You attach [signal] to [src].")
-		)
-	return ..()
+	if(!in_inventory)
+		to_chat(user, SPAN_WARNING("[src] needs to be in your inventory if you want to attach [used] to it!"))
+		return ITEM_INTERACT_COMPLETE
+	if(!isnull(attached_signaler))
+		to_chat(user, SPAN_NOTICE("There's already a signaler attached!"))
+		return ITEM_INTERACT_COMPLETE
+	var/obj/item/assembly/signaler/signal = used
+	user.transfer_item_to(signal, src)
+	attached_signaler = signal
+	if(signal.receiving)
+		RegisterSignal(attached_signaler, COMSIG_ASSEMBLY_PULSED, PROC_REF(on_signal))
+	user.visible_message(
+		SPAN_NOTICE("[user] attaches [signal] to [src]."),
+		SPAN_NOTICE("You attach [signal] to [src].")
+	)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/desk_bell/proc/on_signal()
 	SIGNAL_HANDLER  // COMSIG_ASSEMBLY_PULSED
@@ -64,12 +72,14 @@
 	if(!ring_bell(user, from_signaler) && user)
 		to_chat(user, SPAN_NOTICE("[src] is silent. Some idiot broke it."))
 	ring_cooldown = world.time + ring_cooldown_length
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/desk_bell/attack_hand(mob/living/user)
 	if(in_inventory && ishuman(user))
 		if(!user.get_active_hand())
 			user.put_in_hands(src)
+			add_fingerprint(user)
 			return TRUE
 	return try_ring(user)
 

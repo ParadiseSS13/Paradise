@@ -8,6 +8,9 @@
 		return
 	if(!IsWeakened())
 		to_chat(src, SPAN_NOTICE("You're too exhausted to keep going..."))
+	if(istype(ai_controller))
+		ai_controller.cancel_actions()
+		GLOB.move_manager.stop_looping(src)
 	SEND_SIGNAL(src, COMSIG_CARBON_ENTER_STAMINACRIT)
 	stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	var/prev = stam_paralyzed

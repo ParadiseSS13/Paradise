@@ -127,6 +127,12 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 	max_ammo = 1
 
+/obj/item/ammo_box/magazine/internal/shot/dueling_pistol
+	name = "dueling pistol internal magazine"
+	caliber = "50AE"
+	ammo_type = /obj/item/ammo_casing/dueling
+	max_ammo = 1
+
 /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	ammo_type = /obj/item/ammo_casing/shotgun/assassination
 
@@ -271,6 +277,7 @@
 	multiload = 0
 	slow_loading = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 10000)
 	///A var to check if the mag is being loaded
 	var/being_loaded = FALSE
 	/// There are two reloading processes ongoing so cancel them
@@ -390,7 +397,7 @@
 /obj/item/ammo_box/magazine/tommygunm45
 	name = "drum magazine (.45)"
 	icon_state = "drum45"
-	ammo_type = /obj/item/ammo_casing/c45
+	ammo_type = /obj/item/ammo_casing/c45/nostamina
 	caliber = ".45"
 	max_ammo = 50
 
@@ -611,7 +618,7 @@
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
 	icon_state = "handgun_ammo_battery"
-	materials = list(MAT_METAL = 20000)
+	materials = list(MAT_METAL = 20000, MAT_GLASS = 6000)
 	var/charge = 1000
 
 // Overwrite description so shells aren't displayed

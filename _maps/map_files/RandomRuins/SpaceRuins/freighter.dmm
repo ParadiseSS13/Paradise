@@ -6,8 +6,12 @@
 /obj/item/reagent_containers/spray/cleaner/advanced,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
-"dC" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+"cU" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
 /area/ruin/space/powered)
 "dN" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -63,10 +67,6 @@
 "iq" = (
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/powered)
-"iP" = (
-/obj/machinery/door/airlock/medical,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "jM" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/triple{
@@ -158,6 +158,12 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
+"nj" = (
+/obj/machinery/door/airlock/medical{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "nq" = (
 /obj/structure/closet/crate,
@@ -468,12 +474,6 @@
 /obj/item/toy/plushie/nianplushie,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
-"Je" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/powered)
 "Jw" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty{
@@ -716,6 +716,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered)
+"ZH" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/powered)
 
 (1,1,1) = {"
 Kh
@@ -804,7 +808,7 @@ LW
 lx
 xB
 lx
-WF
+cU
 Kh
 Kh
 Kh
@@ -1049,11 +1053,11 @@ LW
 LW
 LW
 La
-Je
+ZH
 LW
 LW
 LW
-dC
+LW
 uk
 zL
 LW
@@ -1064,7 +1068,7 @@ Kh
 LW
 MX
 zV
-iP
+nj
 xJ
 xJ
 Br
@@ -1083,7 +1087,7 @@ Kh
 LW
 LW
 LW
-dC
+LW
 xJ
 xJ
 La
@@ -1163,7 +1167,7 @@ LW
 LW
 LW
 La
-Je
+ZH
 LW
 LW
 LW

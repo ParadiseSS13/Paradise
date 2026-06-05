@@ -26,11 +26,15 @@
 			register_camera(wearer)
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/helmet/space/hardsuit/ert/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(camera || !has_camera)
 		..(user)
 	else
 		register_camera(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)

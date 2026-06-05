@@ -24,17 +24,18 @@
 	if(stud)
 		. += "It is adorned with a single gem."
 
-/obj/item/clothing/gloves/ring/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
-		var/obj/item/stack/sheet/mineral/diamond/D = I
-		if(stud)
-			to_chat(usr, SPAN_NOTICE("[src] already has a gem."))
-		else
-			if(D.amount >= 1)
-				D.use(1)
-				stud = TRUE
-				update_icon(UPDATE_ICON_STATE)
-				to_chat(usr, SPAN_NOTICE("You socket the diamond into [src]."))
+/obj/item/clothing/gloves/ring/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/sheet/mineral/diamond))
+		return ..()
+
+	var/obj/item/stack/sheet/mineral/diamond/D = used
+	if(stud)
+		to_chat(usr, SPAN_NOTICE("[src] already has a gem."))
+	else if(D.use(1))
+		stud = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(usr, SPAN_NOTICE("You socket the diamond into [src]."))
+	return ITEM_INTERACT_COMPLETE
 
 // s'pensive
 /obj/item/clothing/gloves/ring/silver

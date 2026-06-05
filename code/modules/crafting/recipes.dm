@@ -1404,3 +1404,16 @@
 				/datum/reagent/medicine/spaceacillin = 5, //Burns get infected
 				/datum/reagent/medicine/sterilizine = 10)
 	category = CAT_MISC
+
+/datum/crafting_recipe/beach_chair
+	name = "Beach chair"
+	result = list(/obj/item/chair/beach)
+	reqs = list(/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/cloth = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/bucket_and_spade
+	name = "Small bucket and spade"
+	result = list(/obj/item/toy/bucket_and_spade)
+	reqs = list(/obj/item/stack/sheet/plastic = 2)
+	category = CAT_MISC

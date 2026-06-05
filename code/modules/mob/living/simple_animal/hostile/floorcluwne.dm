@@ -37,7 +37,7 @@
 	var/stage = STAGE_HAUNT
 	var/interest = 0
 	var/target_area
-	var/invalid_area_typecache = list(/area/space, /area/centcom)
+	var/invalid_area_typecache = list(/area/space, /area/lavaland, /area/ruin)
 	var/eating = FALSE
 	var/smiting = FALSE
 	var/admincluwne = FALSE
@@ -79,7 +79,7 @@
 	do_jitter_animation(1000)
 	pixel_y = 8
 
-	if(is_type_in_typecache(get_area(loc), invalid_area_typecache))
+	if(is_type_in_typecache(get_area(loc), invalid_area_typecache) && !is_admin_level(z))
 		var/area = pick(SSmapping.teleportlocs)
 		var/area/tp = SSmapping.teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
@@ -102,7 +102,7 @@
 			if(current_victim.stat == DEAD || current_victim.get_int_organ(/obj/item/organ/internal/honktumor/cursed) || is_type_in_typecache(get_area(T), invalid_area_typecache))
 				Acquire_Victim()
 
-	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(get_area(T), invalid_area_typecache))//if cluwne gets stuck he just teleports
+	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(get_area(T), invalid_area_typecache) && !is_admin_level(z)) // If cluwne gets stuck he just teleports
 		do_teleport(src, T)
 
 	interest++
@@ -164,7 +164,10 @@
 			if(H.stat != DEAD && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 				current_victim = H
 				return target = current_victim
-
+		if(smiting)
+			message_admins("Smiting floor cluwne was deleted due to a lack of valid target.")
+			qdel(src)
+			return
 		if(H && H.stat != DEAD && H != current_victim && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 			current_victim = H
 			interest = 0
@@ -180,7 +183,7 @@
 
 	else
 		layer = GAME_PLANE
-		invisibility = INVISIBILITY_MAXIMUM
+		invisibility = INVISIBILITY_OBSERVER
 		mouse_opacity = 0
 		density = FALSE
 
@@ -335,7 +338,7 @@
 	to_chat(H, SPAN_USERDANGER("You feel a cold, gloved hand clamp down on your ankle!"))
 	for(var/I in 1 to get_dist(src, H))
 
-		if(do_after(src, 10, target = H))
+		if(do_after(src, 1 SECONDS, target = H, hidden = TRUE))
 			step_towards(H, src)
 			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, TRUE, -4)
 			H.emote("scream")
@@ -345,10 +348,10 @@
 	if(get_dist(src,H) <= 1)
 		visible_message(SPAN_DANGER("[src] begins dragging [H] under the floor!"))
 
-		if(do_after(src, 50, target = H) && eating)
+		if(do_after(src, 5 SECONDS, target = H, hidden = TRUE) && eating)
 			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
-			H.invisibility = INVISIBILITY_MAXIMUM
+			H.invisibility = INVISIBILITY_OBSERVER
 			H.mouse_opacity = 0
 			H.density = FALSE
 			H.anchored = TRUE
@@ -375,8 +378,8 @@
 
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
-	if(do_after(src, 50, target = H))
-		if(prob(50) || smiting)
+	if(do_after(src, 5 SECONDS, target = H, hidden = TRUE))
+		if(smiting)
 			H.makeCluwne()
 
 		H.adjustBruteLoss(30)
@@ -398,6 +401,8 @@
 	H.anchored = initial(H.anchored)
 
 	eating = FALSE
+	stage = STAGE_HAUNT
+	interest = 0
 	if(prob(2))
 		switch_stage = max(switch_stage * 0.75, switch_stage_min) //he gets a chance to be faster after each feast
 	if(smiting)
@@ -405,8 +410,6 @@
 		qdel(src)
 	else
 		Acquire_Victim()
-
-		interest = 0
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/client_kill_animation(mob/living/carbon/human/H)
 	if(!H.client)

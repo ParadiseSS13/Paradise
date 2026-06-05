@@ -104,6 +104,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 		/obj/item/tank/internals/emergency_oxygen,
 		/obj/item/tank/internals/emergency_oxygen/engi,
 		/obj/item/vending_refill/cola,
+		/obj/item/cardpack/series_one,
 	) = 85,
 
 	list(
@@ -210,6 +211,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_3, list(
 		/obj/item/bio_chip_implanter/storage,
 		/obj/item/reagent_containers/spray/sticky_tar,
 		/obj/item/storage/box/syndie_kit/space,
+		/obj/item/card/cmag,
 	) = 3,
 ))
 

@@ -13,7 +13,9 @@
 		var/obj/effect/anomaly/A = loc
 		A.anomalyNeutralize()
 
-/obj/item/assembly/signaler/anomaly/attack_self__legacy__attackchain()
+/obj/item/assembly/signaler/anomaly/activate_self(mob/user)
+	if(!user)
+		return ..()
 	return
 
 //Anomaly cores
@@ -84,6 +86,7 @@
 	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
 	icon_state = "reactiveoff"
 	icon = 'icons/obj/clothing/suits.dmi'
+	materials = list(MAT_PLASMA = 8000, MAT_TITANIUM = 14000, MAT_BLUESPACE = 6000)
 
 /obj/item/reactive_armour_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/static/list/anomaly_armour_types = list(

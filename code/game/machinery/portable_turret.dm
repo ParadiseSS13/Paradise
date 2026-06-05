@@ -1119,6 +1119,63 @@
 /obj/machinery/porta_turret_construct/attack_ai()
 	return
 
+/obj/machinery/porta_turret/ruin
+	syndicate = TRUE // Even if it's not a syndie ruin, this keeps it a threat to all
+	power_state = NO_POWER_USE
+	installation = null
+	faction = "hostile"
+	lethal = TRUE
+	lethal_is_configurable = FALSE
+	targetting_is_configurable = FALSE
+	check_arrest = FALSE
+	check_records = FALSE
+	check_access = FALSE
+	check_synth	= TRUE
+	ailock = TRUE
+
+/obj/machinery/porta_turret/ruin/xray
+	projectile = /obj/projectile/beam/xray
+	eprojectile = /obj/projectile/beam/xray
+	shot_sound = 'sound/weapons/laser3.ogg'
+	eshot_sound = 'sound/weapons/laser3.ogg'
+	scan_range = 10
+	shot_delay = 2 SECONDS
+
+/obj/machinery/porta_turret/ruin/lwap
+	projectile = /obj/projectile/beam/laser/sniper/pierce
+	eprojectile = /obj/projectile/beam/laser/sniper/pierce
+	shot_sound = 'sound/weapons/marauder.ogg'
+	eshot_sound = 'sound/weapons/marauder.ogg'
+	scan_range = 16
+	shot_delay = 3 SECONDS
+
+/obj/machinery/porta_turret/ruin/immolator
+	projectile = /obj/projectile/beam/immolator
+	eprojectile = /obj/projectile/beam/immolator
+	shot_sound = 'sound/weapons/laser3.ogg'
+	eshot_sound = 'sound/weapons/laser3.ogg'
+
+/obj/machinery/porta_turret/ruin/accellerator
+	projectile = /obj/projectile/beam/laser/accelerator
+	eprojectile = /obj/projectile/beam/laser/accelerator
+	shot_sound = 'sound/weapons/lasercannonfire.ogg'
+	eshot_sound = 'sound/weapons/lasercannonfire.ogg'
+	scan_range = 12
+
+/obj/machinery/porta_turret/ruin/tesla
+	projectile = /obj/projectile/energy/tesla_bolt
+	eprojectile = /obj/projectile/energy/tesla_bolt
+	shot_sound = 'sound/magic/lightningbolt.ogg'
+	eshot_sound = 'sound/magic/lightningbolt.ogg'
+	shot_delay = 0.2 SECONDS
+
+/obj/machinery/porta_turret/ruin/plasma
+	projectile = /obj/projectile/homing/charged_plasma
+	eprojectile = /obj/projectile/homing/charged_plasma
+	shot_sound = 'sound/weapons/marauder.ogg'
+	eshot_sound = 'sound/weapons/marauder.ogg'
+	shot_delay = 3 SECONDS
+
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
 	icon_state = "syndie_off"

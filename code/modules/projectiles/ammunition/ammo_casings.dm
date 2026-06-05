@@ -44,6 +44,15 @@
 /obj/item/ammo_casing/c38/invisible/fake
 	projectile_type = /obj/projectile/bullet/mime/fake
 
+/obj/item/ammo_casing/dueling
+	name = "dueling round"
+	desc = "A heavy pistol cartridge, modified to fit in a dueling pistol."
+	caliber = "50AE"
+	projectile_type = /obj/projectile/bullet/dueling
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	variance = 15
+
 /obj/item/ammo_casing/c10mm
 	name = "10mm round"
 	desc = "A 10mm pistol cartridge, commonly used in Syndicate sidearms."
@@ -189,6 +198,7 @@
 	projectile_type = /obj/projectile/bullet/pellet
 	pellets = 6
 	variance = 25
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubbershot shell"
@@ -197,14 +207,14 @@
 	projectile_type = /obj/projectile/bullet/pellet/rubber
 	pellets = 6
 	variance = 25
-	materials = list(MAT_METAL=4000)
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
 	desc = "A 12 gauge shell loaded with a beanbag slug for less-lethal takedowns."
 	icon_state = "beanbag"
 	projectile_type = /obj/projectile/bullet/weakbullet
-	materials = list(MAT_METAL=250)
+	materials = list(MAT_METAL = 250)
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
@@ -238,6 +248,7 @@
 	icon_state = "incendiary"
 	projectile_type = /obj/projectile/bullet/incendiary/shell
 	muzzle_flash_color = LIGHT_COLOR_FIRE
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/frag12
 	name = "\improper FRAG-12 slug"
@@ -272,6 +283,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000)
 
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "lasershot"
@@ -289,6 +301,7 @@
 	desc = "An empty 12 gauge shell, ready to be loaded with all manner of projectiles."
 	icon_state = "techshell"
 	projectile_type = null
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 200)
 
 /obj/item/ammo_casing/shotgun/dart
 	name = "shotgun dart"
@@ -298,6 +311,7 @@
 	projectile_type = /obj/projectile/bullet/dart
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
 	. = ..()

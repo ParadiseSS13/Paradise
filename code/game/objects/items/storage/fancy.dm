@@ -58,6 +58,7 @@
 	can_hold = list(/obj/item/food/donut)
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
+	materials = list(MAT_CARDBOARD = 2000)
 
 /obj/item/storage/fancy/donut_box/update_overlays()
 	. = ..()
@@ -111,6 +112,7 @@
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_CARDBOARD = 1000)
 
 /obj/item/storage/fancy/candle_box/Initialize(mapload)
 	. = ..()
@@ -141,6 +143,7 @@
 	can_hold = list(
 		/obj/item/toy/crayon
 	)
+	materials = list(MAT_CARDBOARD = 1000)
 
 /obj/item/storage/fancy/crayons/populate_contents()
 	new /obj/item/toy/crayon/white(src)
@@ -151,6 +154,21 @@
 	new /obj/item/toy/crayon/blue(src)
 	new /obj/item/toy/crayon/purple(src)
 	new /obj/item/toy/crayon/black(src)
+	update_icon()
+
+/obj/item/storage/fancy/crayons/marine
+	name = "box of TSF Standard Issue crayons"
+	desc = "A box of a SolGov Marine's favorite mid-operational snack."
+
+/obj/item/storage/fancy/crayons/marine/populate_contents()
+	new /obj/item/toy/crayon/white/marine(src)
+	new /obj/item/toy/crayon/red/marine(src)
+	new /obj/item/toy/crayon/orange/marine(src)
+	new /obj/item/toy/crayon/yellow/marine(src)
+	new /obj/item/toy/crayon/green/marine(src)
+	new /obj/item/toy/crayon/blue/marine(src)
+	new /obj/item/toy/crayon/purple/marine(src)
+	new /obj/item/toy/crayon/black/marine(src)
 	update_icon()
 
 /obj/item/storage/fancy/crayons/update_overlays()
@@ -186,6 +204,7 @@
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
+	materials = list(MAT_CARDBOARD = 500)
 
 /obj/item/storage/fancy/matches/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -230,6 +249,7 @@
 	icon_type = "cigarette"
 	var/cigarette_slogan = "The preferred brand of coders and developers."
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
+	materials = list(MAT_CARDBOARD = 500)
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
@@ -446,6 +466,7 @@
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 	icon_type = "cigar"
 	var/cigar_type = /obj/item/clothing/mask/cigarette/cigar
+	materials = list(MAT_CARDBOARD = 2000)
 
 /obj/item/storage/fancy/cigars/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -574,6 +595,9 @@
 	icon_type = "juice carton"
 	appearance_flags = parent_type::appearance_flags | KEEP_TOGETHER
 	can_hold = list(/obj/item/reagent_containers/drinks/carton)
+	materials = list(MAT_CARDBOARD = 2000)
+	foldable = /obj/item/stack/sheet/cardboard
+	foldable_amt = 1
 
 /obj/item/storage/fancy/juice_boxes/update_icon_state()
 	return

@@ -7,6 +7,7 @@
 	icon_state = "mecha_equip"
 	force = 5
 	origin_tech = "materials=2;engineering=2"
+	materials = list(MAT_METAL = 10000)
 	max_integrity = 300
 	var/equip_cooldown = 0
 	var/equip_ready = 1

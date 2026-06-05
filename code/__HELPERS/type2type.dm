@@ -164,6 +164,8 @@
 			return 'icons/mob/screen_white.dmi'
 		if("Clockwork")
 			return 'icons/mob/screen_clockwork.dmi'
+		if("Mindflayer")
+			return 'icons/mob/screen_mindflayer.dmi'
 		if("Midnight")
 			return 'icons/mob/screen_midnight.dmi'
 		else

@@ -1,0 +1,13 @@
+[
+	{
+		// Randomly picks a project of an insane engineer being delivered to CentCom
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 3,
+		"submap_size_y": 4,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/asteroid8_submap.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/asteroid8",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/asteroid8",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	}
+]

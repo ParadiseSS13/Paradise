@@ -17,6 +17,7 @@
 	name = "HUD implant"
 	desc = "These cybernetic eyes will display a HUD over everything you see. Maybe."
 	slot = "eye_hud"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
 	var/HUD_type = 0
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
 
@@ -74,6 +75,7 @@
 	desc = "These cybernetic eye implants will display a filth HUD over everything you see."
 	icon_state = "eye_implant_janitor"
 	origin_tech = "materials=4;engineering=4;biotech=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 750, MAT_GOLD = 750)
 	aug_message = "You scan for filth spots around you..."
 	HUD_type = DATA_HUD_JANITOR
 
@@ -82,5 +84,6 @@
 	desc = "These cybernetic eye implants will display a botanical HUD over everything you see."
 	icon_state = "eye_implant_hydro"
 	origin_tech = "materials=4;magnets=4;biotech=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 700, MAT_GOLD = 500)
 	aug_message = "You scan for non-plastic plants around you..."
 	HUD_type = DATA_HUD_HYDROPONIC

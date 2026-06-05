@@ -9,6 +9,7 @@
 	resistance_flags = FLAMMABLE
 	// Recycle your litter, kids!
 	materials = list(MAT_PLASTIC = 100)
+	new_attack_chain = TRUE
 
 /obj/item/trash/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user))
@@ -18,9 +19,6 @@
 		qdel(src)
 		return TRUE
 	return ..()
-
-/obj/item/trash/attack__legacy__attackchain(mob/M as mob, mob/living/user as mob)
-	return
 
 /obj/item/trash/raisins
 	name = "4no raisins"
@@ -210,3 +208,18 @@
 /obj/item/trash/spentcasing/bullet/lasershot
 	desc = "A spent IK-series single-use lasershot cell. It smells of burnt plastic with a metallic-chemical undertone."
 	icon_state = "lasercasing"
+
+// Trash from Hispania!
+
+/obj/item/trash/empty_jar
+	name = "Empty Jar"
+	icon_state = "jar"
+
+/obj/item/trash/empty_plasticcup
+	name = "Empty Plastic Cup"
+	icon_state = "cup"
+
+/obj/item/trash/barcardine
+	name = "barcardine bar wrapper"
+	desc = "An empty wrapper from a barcardine bar. You notice the inside has several medical labels. You're not sure if you care or not about that."
+	icon_state = "barcardine_trash"

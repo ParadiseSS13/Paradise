@@ -9,7 +9,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
-	materials = list(MAT_METAL = 300)
+	materials = list(MAT_METAL = 500)
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "hammered", "smashed", "bludgeoned", "whacked")
 

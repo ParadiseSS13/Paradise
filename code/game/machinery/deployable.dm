@@ -361,6 +361,7 @@
 	inhand_icon_state = "grenade"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	mode = AUTO
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1200, MAT_SILVER = 100, MAT_TITANIUM = 100, MAT_PLASMA = 100)
 	var/generator_type = /obj/structure/dropwall_generator
 	var/uptime = DROPWALL_UPTIME
 	/// If this is true we do not arm again, due to the sleep
@@ -383,10 +384,9 @@
 
 	to_chat(user, "[src] is now in [mode == AUTO ? mode : dir2text(mode)] mode.")
 
-/obj/item/grenade/barrier/dropwall/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/grenade/barrier/dropwall/activate_self(mob/user)
 	armer = user
-
+	return ..()
 
 /obj/item/grenade/barrier/dropwall/end_throw()
 	if(active)
@@ -537,7 +537,7 @@
 	inhand_icon_state = "flashbang"
 	var/owner_uid
 
-/obj/item/grenade/turret/attack_self__legacy__attackchain(mob/user)
+/obj/item/grenade/turret/activate_self(mob/user)
 	owner_uid = user.UID()
 	return ..()
 

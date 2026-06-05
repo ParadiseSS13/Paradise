@@ -71,7 +71,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	origin_tech = "magnets=1;biotech=1"
 	/// Can be SIMPLE_HEALTH_SCAN (damage is only shown as a single % value), or DETAILED_HEALTH_SCAN (shows the % value and also damage for every specific limb).
 	var/mode = DETAILED_HEALTH_SCAN
@@ -367,6 +367,7 @@
 	icon_state = "healthupgrade"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200)
 	usesound = 'sound/items/deconstruct.ogg'
 
 #undef SIMPLE_HEALTH_SCAN

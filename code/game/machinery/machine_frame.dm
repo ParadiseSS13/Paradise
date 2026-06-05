@@ -274,6 +274,7 @@ to destroy them and players will be able to make replacements.
 	board_name = "Booze-O-Mat Vendor"
 	board_type = "machine"
 	origin_tech = "programming=1"
+	materials = list(MAT_GLASS = 750, MAT_METAL = 250)
 	build_path = /obj/machinery/economy/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
@@ -323,6 +324,7 @@ to destroy them and players will be able to make replacements.
 		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe,
 		"TrainDrobe" =							/obj/machinery/economy/vending/traindrobe,
 		"Castivend" =							/obj/machinery/economy/vending/smith,
+		"ChapDrobe" =							/obj/machinery/economy/vending/chapdrobe,
 		"CrewVend 3000" =						/obj/machinery/economy/vending/custom)
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
@@ -377,6 +379,16 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/cell = 5,
+							/obj/item/stock_parts/capacitor = 1)
+
+/obj/item/circuitboard/transformer
+	board_name = "Electrical Transformer"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/smes/transformer
+	board_type = "machine"
+	origin_tech = "programming=3;powerstorage=3;engineering=3"
+	req_components = list(
+							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/emitter
@@ -449,6 +461,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/unary/reactor_gas_node
 	origin_tech = "engineering=2"
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stack/sheet/metal = 2,
@@ -460,6 +473,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/nuclear_centrifuge
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4"
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 4,
 	)
@@ -470,6 +484,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/nuclear_rod_fabricator
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4"
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stock_parts/matter_bin = 2,
@@ -480,11 +495,11 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/reactor_chamber
 	origin_tech = "engineering=2"
+	materials = list(MAT_GLASS = 2000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000)
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/metal = 2,
-		/obj/item/stack/sheet/mineral/plastitanium = 2,
 	)
 
 /obj/item/circuitboard/recharger
@@ -756,6 +771,17 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
+
+/obj/item/circuitboard/autoclave
+	board_name = "Autoclave"
+	icon_state = "medical"
+	build_path = /obj/machinery/autoclave
+	board_type = "machine"
+	origin_tech = "biotech=2;materials=2;magnets=3"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stack/sheet/glass = 1
+						)
 
 /obj/item/circuitboard/scientific_analyzer // fucking US spelling
 	board_name = "Scientific Analyzer"
@@ -1311,6 +1337,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/ai_node/processing_node
 	board_type = "machine"
 	origin_tech = "programming=4"
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 2,
 							/obj/item/stack/sheet/mineral/gold = 1,
@@ -1325,6 +1352,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/ai_node/network_node
 	board_type = "machine"
 	origin_tech = "programming=4"
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 2,
 							/obj/item/stack/sheet/mineral/gold = 1,

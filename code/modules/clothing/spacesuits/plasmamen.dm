@@ -64,8 +64,12 @@
 	else if(on)
 		. += light_icon
 
-/obj/item/clothing/head/helmet/space/plasmaman/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	toggle_light(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user, update_light)
 	if(!update_light)

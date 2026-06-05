@@ -6,6 +6,8 @@
 	name = "grenade casing"
 	desc = "A do it yourself grenade casing!"
 	icon_state = "chemg"
+	materials = list(MAT_METAL = 2000)
+	custom_activation = TRUE
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
 	force = 2
@@ -92,7 +94,10 @@
 			underlays += "[O]_r"
 
 
-/obj/item/grenade/chem_grenade/attack_self__legacy__attackchain(mob/user)
+/obj/item/grenade/chem_grenade/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(stage == READY &&  !active)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
@@ -127,43 +132,45 @@
 		return TRUE
 	return ..()
 
-/obj/item/grenade/chem_grenade/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I,/obj/item/hand_labeler))
-		var/obj/item/hand_labeler/HL = I
+/obj/item/grenade/chem_grenade/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/hand_labeler))
+		var/obj/item/hand_labeler/HL = used
 		if(length(HL.label))
 			label = " ([HL.label])"
-			return 0
-		else
-			if(label)
-				label = null
-				update_icon(UPDATE_ICON_STATE)
-				to_chat(user, "You remove the label from [src].")
-				return 1
-	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
+			return ITEM_INTERACT_COMPLETE
 
+		if(label)
+			label = null
+			update_icon(UPDATE_ICON_STATE)
+			to_chat(user, "You remove the label from [src].")
+		return ITEM_INTERACT_COMPLETE
+
+	if(stage == WIRED && is_type_in_list(used, allowed_containers))
 		if(length(beakers) == 0)
 			container_type = TRANSPARENT // Allows to see reagents in player's made bombs
-		if(length(beakers) == 2)
+		if(length(beakers) >= 2)
 			to_chat(user, SPAN_NOTICE("[src] can not hold more containers."))
-			return
-		else
-			if(I.reagents.total_volume)
-				to_chat(user, SPAN_NOTICE("You add [I] to the assembly."))
-				user.drop_item()
-				I.forceMove(src)
-				beakers += I
-				// Saving reagents to show them via scanners
-				reagents.reagent_list.Add(I.reagents.reagent_list)
-				reagents.update_total()
-			else
-				to_chat(user, SPAN_NOTICE("[I] is empty."))
+			return ITEM_INTERACT_COMPLETE
 
-	else if(stage == EMPTY && istype(I, /obj/item/assembly_holder))
-		var/obj/item/assembly_holder/A = I
+		if(used.reagents.total_volume)
+			to_chat(user, SPAN_NOTICE("You add [used] to the assembly."))
+			user.drop_item()
+			used.forceMove(src)
+			beakers += used
+			// Saving reagents to show them via scanners
+			reagents.reagent_list.Add(used.reagents.reagent_list)
+			reagents.update_total()
+		else
+			to_chat(user, SPAN_NOTICE("[used] is empty."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(stage == EMPTY && istype(used, /obj/item/assembly_holder))
+		var/obj/item/assembly_holder/A = used
 		if(!A.secured)
-			return
-		if(isigniter(A.a_left) == isigniter(A.a_right))	//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
-			return
+			return ITEM_INTERACT_COMPLETE
+
+		if(isigniter(A.a_left) == isigniter(A.a_right))	// Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it.
+			return ITEM_INTERACT_COMPLETE
 
 		user.drop_item()
 		nadeassembly = A
@@ -173,34 +180,17 @@
 		stage = WIRED
 		to_chat(user, SPAN_NOTICE("You add [A] to [src]!"))
 		update_icon(UPDATE_ICON_STATE)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(stage == EMPTY && istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = I
+	if(stage == EMPTY && istype(used, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/C = used
 		C.use(1)
-
 		stage = WIRED
 		to_chat(user, SPAN_NOTICE("You rig [src]."))
 		update_icon(UPDATE_ICON_STATE)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(stage == READY && istype(I, /obj/item/wirecutters))
-		to_chat(user, SPAN_NOTICE("You unlock the assembly."))
-		stage = WIRED
-		update_icon(UPDATE_ICON_STATE)
-
-	else if(stage == WIRED && iswrench(I))
-		to_chat(user, SPAN_NOTICE("You open the grenade and remove the contents."))
-		stage = EMPTY
-		payload_name = null
-		label = null
-		if(nadeassembly)
-			nadeassembly.forceMove(get_turf(src))
-			nadeassembly.master = null
-			nadeassembly = null
-		if(length(beakers))
-			for(var/obj/O in beakers)
-				O.forceMove(get_turf(src))
-			beakers = list()
-		update_icon(UPDATE_ICON_STATE)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/I)
 	if(stage == WIRED)
@@ -240,6 +230,34 @@
 	else if(stage == EMPTY)
 		to_chat(user, SPAN_NOTICE("You need to add an activation mechanism."))
 		return TRUE
+
+/obj/item/grenade/chem_grenade/wrench_act(mob/living/user, obj/item/I)
+	if(stage != WIRED)
+		return TRUE
+
+	to_chat(user, SPAN_NOTICE("You open the grenade and remove the contents."))
+	stage = EMPTY
+	payload_name = null
+	label = null
+	if(nadeassembly)
+		nadeassembly.forceMove(get_turf(src))
+		nadeassembly.master = null
+		nadeassembly = null
+	if(length(beakers))
+		for(var/obj/O in beakers)
+			O.forceMove(get_turf(src))
+		beakers = list()
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+/obj/item/grenade/chem_grenade/wirecutter_act(mob/living/user, obj/item/I)
+	if(stage != READY)
+		return TRUE
+
+	to_chat(user, SPAN_NOTICE("You unlock the assembly."))
+	stage = WIRED
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
 /obj/item/grenade/chem_grenade/HasProximity(atom/movable/AM)
 	if(nadeassembly)
@@ -339,6 +357,7 @@
 	allowed_containers = list(/obj/item/reagent_containers/glass,/obj/item/reagent_containers/condiment,
 								/obj/item/reagent_containers/drinks)
 	origin_tech = "combat=3;engineering=3"
+	materials = list(MAT_METAL = 3000)
 	affected_area = 5
 	ignition_temp = 25 // Large grenades are slightly more effective at setting off heat-sensitive mixtures than smaller grenades.
 	threatscale = 1.1	// 10% more effective.
@@ -369,14 +388,15 @@
 	//I tried to just put it in the allowed_containers list but
 	//if you do that it must have reagents.  If you're going to
 	//make a special case you might as well do it explicitly. -Sayu
-/obj/item/grenade/chem_grenade/large/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/slime_extract) && stage == WIRED)
-		to_chat(user, SPAN_NOTICE("You add [I] to the assembly."))
+/obj/item/grenade/chem_grenade/large/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/slime_extract) && stage == WIRED)
+		to_chat(user, SPAN_NOTICE("You add [used] to the assembly."))
 		user.drop_item()
-		I.loc = src
-		beakers += I
-	else
-		return ..()
+		used.loc = src
+		beakers += used
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /// Intended for rare cryogenic mixes. Cools the area moderately upon detonation.
 /obj/item/grenade/chem_grenade/cryo
@@ -385,6 +405,7 @@
 	icon_state = "cryog"
 	affected_area = 2
 	ignition_temp = -100
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 500)
 
 /// Intended for pyrotechnical mixes. Produces a small fire upon detonation, igniting potentially flammable mixtures.
 /obj/item/grenade/chem_grenade/pyro
@@ -392,6 +413,7 @@
 	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
 	icon_state = "pyrog"
 	origin_tech = "combat=4;engineering=4"
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500)
 	ignition_temp = 500 // This is enough to expose a hotspot.
 
 /// Intended for weaker, but longer lasting effects. Could have some interesting uses.
@@ -400,6 +422,7 @@
 	desc = "A custom made advanced release grenade. It is able to be detonated more than once. Can be configured using a multitool."
 	icon_state = "timeg"
 	origin_tech = "combat=3;engineering=4"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
 /obj/item/grenade/chem_grenade/adv_release/multitool_act(mob/user, obj/item/I)

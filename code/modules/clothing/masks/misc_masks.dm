@@ -3,6 +3,7 @@
 	desc = "To stop that awful noise."
 	icon_state = "muzzle"
 	inhand_icon_state = "muzzle"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 2 SECONDS
@@ -90,7 +91,7 @@
 	icon_state = "muzzle_secure"
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -108,23 +109,26 @@
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
-/obj/item/clothing/mask/muzzle/safety/shock/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
+/obj/item/clothing/mask/muzzle/safety/shock/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/assembly/signaler) || istype(used, /obj/item/assembly/voice))
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, SPAN_NOTICE("Something is already attached to [src]."))
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
+
 		if(!user.drop_item())
-			to_chat(user, SPAN_WARNING("You are unable to insert [W] into [src]."))
-			return FALSE
-		trigger = W
+			to_chat(user, SPAN_WARNING("You are unable to insert [used] into [src]."))
+			return ITEM_INTERACT_COMPLETE
+
+		trigger = used
 		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
-		to_chat(user, SPAN_NOTICE("You attach [W] to [src]."))
-		return TRUE
-	else if(istype(W, /obj/item/assembly))
+		to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/assembly))
 		to_chat(user, SPAN_NOTICE("That won't fit in [src]. Perhaps a signaler or voice analyzer would?"))
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -175,6 +179,7 @@
 	desc = "A sterile mask designed to help prevent the spread of diseases."
 	icon_state = "sterile"
 	inhand_icon_state = "m_mask"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
@@ -194,13 +199,18 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ANTI_VIRAL, "inherent")
 
-/obj/item/clothing/mask/surgical/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/surgical/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/fakemoustache
 	name = "completely real moustache"
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags_inv = HIDEFACE
 	actions_types = list(/datum/action/item_action/pontificate)
 	dog_fashion = /datum/dog_fashion/head/not_ian
@@ -214,8 +224,12 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
-/obj/item/clothing/mask/fakemoustache/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/fakemoustache/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	pontificate(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_MASK)
@@ -228,6 +242,7 @@
 	name = "pig mask"
 	desc = "A rubber pig mask."
 	icon_state = "pig"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 
@@ -235,6 +250,7 @@
 	name = "horse head mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a horse."
 	icon_state = "horsehead"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	var/voicechange = FALSE
@@ -278,6 +294,7 @@
 /obj/item/clothing/mask/face
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 
 /obj/item/clothing/mask/face/rat
 	name = "rat mask"
@@ -330,6 +347,7 @@
 	name = "Guy Fawkes mask"
 	desc = "A mask designed to help you remember a specific date."
 	icon_state = "fawkes"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags_inv = HIDEFACE
 
 // Bandanas
@@ -341,6 +359,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandana" // Default white bandana
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BANDANA
 	can_toggle = TRUE
@@ -356,9 +375,13 @@
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 
-/obj/item/clothing/mask/bandana/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/mask/bandana/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(slot_flags & ITEM_SLOT_MASK || slot_flags & ITEM_SLOT_HEAD)
 		adjustmask(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/bandana/examine(mob/user)
 	. = ..()
@@ -479,11 +502,12 @@
 	desc = "This is a very, very odd looking mask."
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	worn_icon = 'icons/goonstation/mob/clothing/mask.dmi'
 	inhand_icon_state = "cclown_hat"
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags =	BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_cover = MASKCOVERSMOUTH
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
@@ -497,6 +521,7 @@
 	desc = "This is a very, very odd looking mask."
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	worn_icon = 'icons/goonstation/mob/clothing/mask.dmi'
 	inhand_icon_state = "cclown_hat"
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'

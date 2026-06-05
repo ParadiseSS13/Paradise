@@ -27,8 +27,12 @@
 /obj/item/clothing/head/soft/update_icon_state()
 	icon_state = "[initial(icon_state)][flipped ? "_flipped" : ""]"
 
-/obj/item/clothing/head/soft/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/head/soft/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	flip(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
 	flipped = !flipped
@@ -149,6 +153,16 @@
 	name = "robotics cap"
 	desc = "It's a black baseball hat with a red research shield."
 	icon_state = "robo"
+
+/obj/item/clothing/head/soft/baseball_tsf
+	name = "baseball cap"
+	desc = "It's a blue baseball hat with a gold brim, belonging to the Trans-Solar Flares."
+	icon_state = "baseballtsf"
+
+/obj/item/clothing/head/soft/baseball_nt
+	name = "baseball cap"
+	desc = "It's a white baseball hat with a blue brim, belonging to the Cerebron Catchers."
+	icon_state = "baseballnt"
 
 /obj/item/clothing/head/soft/sec
 	name = "security cap"

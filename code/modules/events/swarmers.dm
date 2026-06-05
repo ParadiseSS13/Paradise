@@ -1,6 +1,6 @@
 /datum/event/swarmers
 	name = "Swarmer Infestation"
-	nominal_severity = EVENT_LEVEL_MAJOR
+	nominal_severity = EVENT_LEVEL_MODERATE
 	role_weights = list(ASSIGNMENT_ENGINEERING = 5, ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 0.8)
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 20)
 	/// The name of the notification for dchat
@@ -16,7 +16,11 @@
 	var/list/area_turfs = get_area_turfs(impact_area)
 	for(var/i in 1 to length(area_turfs))
 		var/turf/T = pick_n_take(area_turfs)
-		if(T.is_blocked_turf())
+		var/datum/gas_mixture/environment = T.get_readonly_air()
+		var/datum/tlv/cur_tlv = new/datum/tlv(ONE_ATMOSPHERE * 0.80, ONE_ATMOSPHERE  *0.90, ONE_ATMOSPHERE * 1.10,ONE_ATMOSPHERE * 1.20) /* kpa */
+		var/environment_pressure = environment.return_pressure()
+		var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
+		if(T.is_blocked_turf() || pressure_dangerlevel)
 			shuffle(area_turfs)
 			continue
 		// Give ghosts some time to jump there before it begins.

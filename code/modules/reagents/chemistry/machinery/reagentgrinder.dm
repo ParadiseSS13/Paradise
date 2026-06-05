@@ -100,12 +100,22 @@
 
 /obj/machinery/reagentgrinder/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/reagentgrinder/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	RefreshParts()
+
+/obj/machinery/reagentgrinder/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 
 /obj/machinery/reagentgrinder/RefreshParts()
 	var/H
@@ -166,6 +176,9 @@
 	default_unfasten_wrench(user, I)
 
 /obj/machinery/reagentgrinder/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
@@ -339,6 +352,8 @@
 	if(!beaker)
 		return
 	if(!Adjacent(user))
+		return
+	if(operating)
 		return
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return

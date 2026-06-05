@@ -8,12 +8,14 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
 	tool_behaviour = TOOL_DISSECTOR
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
 
 /obj/item/dissector/upgraded
 	name = "\improper Improved Dissection Manager"
 	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs. This one has had several improvements applied to it."
 	icon_state = "dissector_upgrade"
 	toolspeed = 0.6
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000, MAT_SILVER = 1500, MAT_GOLD = 2000)
 
 // allows for perfect pristine organ extraction. Only available from non-lavaland abductor tech
 /obj/item/dissector/alien
@@ -22,6 +24,7 @@
 	icon_state = "dissector_alien"
 	origin_tech = "abductor=3"
 	toolspeed = 0.2
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 4500, MAT_DIAMOND = 3000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
 
 /obj/item/dissector/Initialize(mapload)
 	. = ..()

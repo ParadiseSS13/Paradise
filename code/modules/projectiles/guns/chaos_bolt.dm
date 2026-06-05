@@ -365,7 +365,7 @@
 		if("chaos wand")
 			item_to_summon = /obj/item/gun/magic/wand/chaos
 		if("revolver")
-			item_to_summon = /obj/item/gun/projectile/revolver
+			item_to_summon = /obj/item/gun/projectile/revolver/syndie
 		if("aeg")
 			item_to_summon = /obj/item/gun/energy/gun/nuclear
 		if("tarot deck")

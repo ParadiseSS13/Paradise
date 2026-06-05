@@ -34,7 +34,7 @@
 	return
 
 /mob/living/silicon/robot/attack_ai(mob/user)
-	if(user.a_intent == INTENT_HELP)
+	if(user.a_intent == INTENT_HELP && is_ai(user))
 		to_chat(src, SPAN_ROBOTEMOTE("[user] gives you a digital headpat."))
 		to_chat(user, SPAN_ROBOTEMOTE("You give [src] a digital headpat."))
 

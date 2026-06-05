@@ -433,8 +433,8 @@
 		if(length(SSticker.mode.apprentices))
 			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
 
-		/*if(length(ticker.mode.ninjas))
-			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
+		if(length(SSticker.mode.ninjas))
+			dat += check_role_table("Ninjas", SSticker.mode.ninjas)
 
 		if(SSticker.mode.cult_team)
 			dat += check_role_table("Cultists", SSticker.mode.cult_team.members)
@@ -484,6 +484,11 @@
 
 		if(length(SSticker.mode.zombie_infected))
 			dat += check_role_table_mob("Pre-zombie infected", SSticker.mode.zombie_infected)
+
+		if(length(SSticker.mode.uplifted_primitives))
+			for(var/datum/species/species_path in SSticker.mode.uplifted_primitives)
+				var/minds = SSticker.mode.uplifted_primitives[species_path]
+				dat += check_role_table("Uplifted Primitives ([species_path::name])", minds)
 
 		if(length(GLOB.ts_spiderlist))
 			var/list/spider_minds = list()

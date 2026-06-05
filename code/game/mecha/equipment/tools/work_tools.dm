@@ -329,6 +329,7 @@
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 30000, MAT_TRANQUILLITE = 10000)
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
 	if(..())
@@ -490,6 +491,7 @@
 	energy_drain = 3000
 	harmful = TRUE
 	range = MECHA_MELEE | MECHA_RANGED
+	materials = list(MAT_METAL = 23000, MAT_TITANIUM = 8000)
 	var/obj/item/kinetic_crusher/mecha/internal_crusher
 
 /obj/item/kinetic_crusher/mecha

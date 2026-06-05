@@ -35,6 +35,7 @@
 		ACCESS_WEAPONS
 	)
 	skeleton_access = list(ACCESS_CAPTAIN)
+	alt_titles = list("Senior Researcher", "Chief Research Officer")
 	minimal_player_age = 21
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	exp_map = list(EXP_TYPE_SCIENCE = 1200)
@@ -286,6 +287,7 @@
 		ACCESS_MINING,
 		ACCESS_MINING_STATION,
 	)
+	alt_titles = list("Genetic Researcher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/geneticist

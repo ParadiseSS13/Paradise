@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
+	materials = list(MAT_METAL = 500, MAT_GLASS = 1000)
 	/// Whether the GPS is on.
 	var/tracking = FALSE
 	/// The tag that is visible to other GPSes.

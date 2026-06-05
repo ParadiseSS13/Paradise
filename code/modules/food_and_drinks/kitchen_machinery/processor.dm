@@ -20,6 +20,14 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
+/obj/machinery/processor/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/processor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	RefreshParts()
+
 /obj/machinery/processor/update_icon_state()
 	. = ..()
 	if(processing)
@@ -187,6 +195,9 @@
 	return 0
 
 /obj/machinery/processor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(processing)
 		to_chat(user, SPAN_WARNING("\the [src] is already processing something!"))
 		return ITEM_INTERACT_COMPLETE

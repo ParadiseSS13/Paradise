@@ -53,6 +53,12 @@
 /obj/item/ammo_casing/energy/laser/eshotgun/cyborg
 	e_cost = 500
 
+/obj/item/ammo_casing/energy/laser/minigun
+	projectile_type = /obj/projectile/beam/laser/minigun
+	click_cooldown_override = 2
+	variance = 20
+	randomspread = 1
+
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"

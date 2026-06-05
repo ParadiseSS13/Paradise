@@ -15,6 +15,9 @@
 // Uncomment this to enable support for multiple instances
 // #define MULTIINSTANCE
 
+// Uncomment this to enable support for server regions
+// #define SERVERREGIONS
+
 #ifdef LOCAL_GAME_TESTS
 #define GAME_TESTS
 #define MAP_TESTS

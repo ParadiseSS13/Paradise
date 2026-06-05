@@ -34,11 +34,14 @@
 	add_fingerprint(user)
 	return TRUE
 
-/obj/item/assembly/shock_kit/attack_self__legacy__attackchain(mob/user as mob)
-	part1.attack_self__legacy__attackchain(user, status)
+/obj/item/assembly/shock_kit/activate_self(mob/user)
+	if(!user)
+		return ..()
+	if(!part1 || !part2)
+		return
+	part1.activate_self(user)
 	part2.attack_self__legacy__attackchain(user, status)
 	add_fingerprint(user)
-	return
 
 /obj/item/assembly/shock_kit/proc/shock_invoke()
 	if(istype(loc, /obj/structure/chair/e_chair))

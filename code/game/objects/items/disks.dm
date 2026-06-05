@@ -5,6 +5,7 @@
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
 	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 
 /obj/item/disk/data
 	name = "Cloning Data Disk"

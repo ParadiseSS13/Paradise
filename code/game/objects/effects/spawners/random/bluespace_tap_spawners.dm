@@ -269,7 +269,8 @@
 		/obj/item/food/burger/ppatty/blue,
 		/obj/item/food/burger/ppatty/purple,
 		/obj/item/food/baguette,
-		/obj/item/food/rofflewaffles
+		/obj/item/food/rofflewaffles,
+		/obj/item/reagent_containers/glass/beaker/waterbottle/fitnessshaker,
 	)
 
 // Rare food pool
@@ -280,7 +281,7 @@
 		/obj/item/food/dionaroast,
 		/obj/item/food/boiledslimecore,
 		/obj/item/food/burger/brain,
-		/obj/item/food/liquidfood,
+		/obj/item/food/rations/liquidfood,
 		/obj/item/food/burger/ghost,
 		/obj/item/food/burger/hamborger,
 		/obj/item/food/burger/ppatty/rainbow,

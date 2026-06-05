@@ -6,10 +6,12 @@
 	name = "Printing Pen"
 	var/mode = 1
 
-/obj/item/pen/multi/robopen/attack_self__legacy__attackchain(mob/user as mob)
-	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour","Mode"))
+/obj/item/pen/multi/robopen/activate_self(mob/user)
+	if(!user)
+		return ..()
+	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour", "Mode"))
 	if(!choice)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	switch(choice)
 		if("Colour")
@@ -21,7 +23,7 @@
 				mode = 1
 			to_chat(user, "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'")
 			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-	return
+	return ITEM_INTERACT_COMPLETE
 
 // Copied over from paper's rename verb
 // see code\modules\paperwork\paper.dm line 62

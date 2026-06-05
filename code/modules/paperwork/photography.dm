@@ -34,38 +34,43 @@
 	var/photo_size = 3
 	var/max_length = 64
 	scatter_distance = 8
+	new_attack_chain = TRUE
 
-/obj/item/photo/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/photo/activate_self(mob/user)
+	if(!user)
+		return ..()
 	user.examinate(src)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/photo/attackby__legacy__attackchain(obj/item/P as obj, mob/user as mob, params)
-	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
+/obj/item/photo/item_interaction(mob/user, obj/item/used, params)
+	if(is_pen(used) || istype(used, /obj/item/toy/crayon))
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
 		if(!txt)
-			return
+			return ITEM_INTERACT_COMPLETE
 		txt = copytext(txt, 1, max_length)
 		if(loc == user && user.stat == CONSCIOUS)
 			scribble = txt
-	else if(P.get_heat())
-		burnphoto(P, user)
-	..()
+			add_fingerprint(user)
+	else if(used.get_heat())
+		burnphoto(used, user)
+	return ..()
 
-/obj/item/photo/proc/burnphoto(obj/item/P, mob/user)
+/obj/item/photo/proc/burnphoto(obj/item/used, mob/user)
 	if(user.restrained())
 		return
 
 	var/class = "warning"
-	if(istype(P, /obj/item/lighter/zippo))
+	if(istype(used, /obj/item/lighter/zippo))
 		class = "rose"
 
-	user.visible_message("<span class='[class]'>[user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-	"<span class='[class]'>You hold [P] up to [src], burning it slowly.</span>")
+	user.visible_message("<span class='[class]'>[user] holds [used] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
+	"<span class='[class]'>You hold [used] up to [src], burning it slowly.</span>")
 
 	if(!do_after(user, 5 SECONDS, target = src))
 		return
 
-	if(user.get_active_hand() != P || !P.get_heat())
-		to_chat(user, SPAN_WARNING("You must hold [P] steady to burn [src]."))
+	if(user.get_active_hand() != used || !used.get_heat())
+		to_chat(user, SPAN_WARNING("You must hold [used] steady to burn [src]."))
 		return
 
 	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
@@ -247,6 +252,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(nsize)
 		size = nsize
 		to_chat(user, SPAN_NOTICE("Camera will now take [size]x[size] photos."))
+		add_fingerprint(user)
 
 /obj/item/camera/pre_attack(atom/target, mob/living/user, params)
 	if(..() || ismob(target))
@@ -263,6 +269,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	else
 		icon_state = icon_off
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
+	add_fingerprint(user)
 
 /obj/item/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/camera_film))
@@ -273,6 +280,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		user.drop_item()
 		qdel(used)
 		pictures_left = pictures_max
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
@@ -304,9 +312,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					if(O.orbiting_uid)
 						continue
 					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
-						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), GHOST_LAYER, SOUTH))
 					else
-						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", GHOST_LAYER, SOUTH))
 				else//its not a ghost
 					continue
 			else//not invisable, not a spookyghost add it.
@@ -314,7 +322,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				if(user.viewing_alternate_appearances && length(user.viewing_alternate_appearances) && ishuman(A) && A.alternate_appearances && length(A.alternate_appearances)) //This whole thing and the stuff below just checks if the atom is a Solid Snake cosplayer.
 					for(var/datum/alternate_appearance/alt_appearance in user.viewing_alternate_appearances)
 						if(alt_appearance.owner == A) //If it turns out they are, don't blow their cover. That'd be rude.
-							atoms.Add(image(alt_appearance.img, A.loc, layer = 4, dir = A.dir)) //Render their disguise.
+							atoms.Add(image(alt_appearance.img, A.loc, layer = MOB_LAYER, dir = A.dir)) //Render their disguise.
 							atoms.Remove(A) //Don't blow their cover.
 							disguised = 1
 							continue
@@ -429,6 +437,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	handle_haunt(user)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // fucking magic numbers
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/camera/proc/reset_cooldown()
@@ -535,6 +544,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	name = "digital camera"
 	desc = "A digital camera."
 	digital = TRUE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 300)
 	var/list/datum/picture/saved_pictures = list()
 	var/max_storage = 10
 
@@ -555,6 +565,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	on = FALSE
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // magic numbers here too
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user)
@@ -595,6 +606,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(picture)
 		printpicture(user, picture)
 		pictures_left --
+	add_fingerprint(user)
 
 /obj/item/camera/digital/CtrlShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -607,6 +619,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	picture = tgui_input_list(user, "Select image to delete", "Delete image", saved_pictures)
 	if(picture)
 		saved_pictures -= picture
+	add_fingerprint(user)
 
 /**************
 *video camera *
@@ -624,6 +637,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
+	new_attack_chain = TRUE
 
 	COOLDOWN_DECLARE(video_cooldown)
 
@@ -659,11 +673,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		QDEL_NULL(camera)
 		visible_message(SPAN_NOTICE("The video camera turns off."))
 
-/obj/item/videocam/attack_self__legacy__attackchain(mob/user)
+/obj/item/videocam/activate_self(mob/user)
+	if(!user)
+		return ..()
+	add_fingerprint(user)
 	if(!COOLDOWN_FINISHED(src, video_cooldown))
 		to_chat(user, SPAN_WARNING("[src] is overheating, give it some time."))
-		return
+		return ITEM_INTERACT_COMPLETE
 	camera_state(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/videocam/examine(mob/user)
 	. = ..()

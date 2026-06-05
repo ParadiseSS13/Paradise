@@ -18,7 +18,6 @@
 
 	var/can_unanchor = TRUE
 
-	var/open_panel = FALSE 	//are the wires exposed?
 	var/active = FALSE		//is the bomb counting down?
 	var/defused = FALSE		//is the bomb capable of exploding?
 	var/obj/item/bombcore/payload = /obj/item/bombcore
@@ -104,7 +103,7 @@
 	. += "A digital display on it reads \"[seconds_remaining()]\"."
 
 /obj/machinery/syndicatebomb/update_icon_state()
-	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
+	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][panel_open ? "-wires" : ""]"
 
 /obj/machinery/syndicatebomb/proc/seconds_remaining()
 	if(active)
@@ -114,7 +113,7 @@
 
 /obj/machinery/syndicatebomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/assembly/signaler))
-		if(open_panel)
+		if(panel_open)
 			wires.Interact(user)
 
 		return ITEM_INTERACT_COMPLETE
@@ -156,12 +155,12 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	open_panel = !open_panel
+	panel_open = !panel_open
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, SPAN_NOTICE("You [open_panel ? "open" : "close"] the wire panel."))
+	to_chat(user, SPAN_NOTICE("You [panel_open ? "open" : "close"] the wire panel."))
 
 /obj/machinery/syndicatebomb/wirecutter_act(mob/user, obj/item/I)
-	if(!open_panel)
+	if(!panel_open)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -169,7 +168,7 @@
 	wires.Interact(user)
 
 /obj/machinery/syndicatebomb/multitool_act(mob/user, obj/item/I)
-	if(!open_panel)
+	if(!panel_open)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -180,21 +179,21 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(open_panel && wires.is_all_cut())
+	if(panel_open && wires.is_all_cut())
 		if(payload)
 			to_chat(user, SPAN_NOTICE("You carefully pry out [payload]."))
 			payload.loc = user.loc
 			payload = null
 		else
 			to_chat(user, SPAN_WARNING("There isn't anything in here to remove!"))
-	else if(open_panel)
+	else if(panel_open)
 		to_chat(user, SPAN_WARNING("The wires connecting the shell to the explosives are holding it down!"))
 	else
 		to_chat(user, SPAN_WARNING("The cover is screwed on, it won't pry off!"))
 
 /obj/machinery/syndicatebomb/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(payload || !wires.is_all_cut() || !open_panel)
+	if(payload || !wires.is_all_cut() || !panel_open)
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -214,9 +213,9 @@
 	return
 
 /obj/machinery/syndicatebomb/interact(mob/user)
-	if(wires && open_panel)
+	if(wires && panel_open)
 		wires.Interact(user)
-	if(!open_panel && can_interact(user))
+	if(!panel_open && can_interact(user))
 		if(!active)
 			spawn()
 				settings(user)
@@ -270,6 +269,9 @@
 				add_attack_logs(user, src, "has primed a [name] ([payload]) for detonation", ATKLOG_FEW)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
 
+/obj/machinery/syndicatebomb/get_internal_wires()
+	return wires
+
 ///Bomb Subtypes///
 
 /obj/machinery/syndicatebomb/training
@@ -301,7 +303,7 @@
 	icon_state = "base-bomb"
 	desc = "An ominous looking device designed to detonate an explosive payload. Can be bolted down using a wrench."
 	payload = null
-	open_panel = TRUE
+	panel_open = TRUE
 	timer_set = 120
 
 /obj/machinery/syndicatebomb/empty/Initialize(mapload)
@@ -383,7 +385,7 @@
 		if(holder.wires)
 			holder.wires.shuffle_wires()
 		holder.defused = 0
-		holder.open_panel = 0
+		holder.panel_open = 0
 		holder.delayedbig = FALSE
 		holder.delayedlittle = FALSE
 		holder.explode_now = FALSE
