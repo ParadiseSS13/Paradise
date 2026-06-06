@@ -1455,7 +1455,7 @@
 	name = "Vampiro"
 	id = "vampiro"
 	result = "vampiro"
-	required_reagents = list("tequila_sunrise" = 1, "tomatojuice" = 1)
+	required_reagents = list("tequilasunrise" = 1, "tomatojuice" = 1)
 	result_amount = 2
 	mix_message = "Mariachi sounds loudly in the container."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
