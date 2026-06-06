@@ -2062,6 +2062,7 @@
 	desc = "Tuits are hard to come by, especially the round ones. Guard it with your life."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "round_tuit_wooden"
+	w_class = WEIGHT_CLASS_TINY
 	COOLDOWN_DECLARE(toy_message_cooldown)
 
 /obj/item/toy/round_tuit/activate_self(mob/user)
