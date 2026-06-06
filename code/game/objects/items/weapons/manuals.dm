@@ -907,7 +907,7 @@
 				<h2>Uplink: §</h2>
 				Mix one part each of synthanol, rum, vodka, tequila, and whiskey.
 				<h2>Vampiro:</h2>
-				Mix two parts tomato juice to one part each of lime juice and tequila.
+				Mix one part tomato juice with one part tequila sunrise.
 				<h2>Vodka Martini:</h2>
 				Mix two parts vodka to one part vermouth.
 				<h2>Vodka and Tonic:</h2>
