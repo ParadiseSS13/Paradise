@@ -107,7 +107,7 @@
 			diag_hud.remove_from_hud(H)
 		else if(istype(hud, /datum/atom_hud/data/human/medical))
 			var/datum/atom_hud/data/human/medical/med_hud = hud
-			med_hud.add_hud_to(H)
+			med_hud.add_to_hud(H)
 
 	// i love snowflake code
 	var/image/health_bar = H.hud_list[DIAG_HUD]

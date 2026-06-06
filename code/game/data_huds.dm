@@ -34,7 +34,7 @@
 	if(U.sensor_mode <= SENSOR_VITALS) return
 	return TRUE
 
-/datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
+/datum/atom_hud/data/human/medical/basic/add_hud_images(mob/M, mob/living/carbon/H)
 	if(check_sensors(H) || isobserver(M))
 		..()
 

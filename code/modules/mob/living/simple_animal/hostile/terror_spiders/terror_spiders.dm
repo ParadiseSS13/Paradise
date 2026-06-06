@@ -289,7 +289,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
 	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	U.add_hud_to(src)
+	U.add_hud_to(src, "spider")
 	spider_creation_time = world.time
 	AddComponent(/datum/component/event_tracker, EVENT_TERROR_SPIDERS)
 
@@ -305,7 +305,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	GLOB.ts_spiderlist -= src
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	U.remove_hud_from(src)
+	U.remove_hud_from(src, "spider")
 	handle_dying()
 
 	spider_mymother = null

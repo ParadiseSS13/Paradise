@@ -23,7 +23,7 @@
 		return
 	for(var/new_hud in hud_types)
 		var/datum/atom_hud/H = GLOB.huds[new_hud]
-		H.add_hud_to(user)
+		H.add_hud_to(user, src)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
 	..()
@@ -31,7 +31,7 @@
 		return
 	for(var/new_hud in hud_types)
 		var/datum/atom_hud/H = GLOB.huds[new_hud]
-		H.remove_hud_from(user)
+		H.remove_hud_from(user, src)
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
 	if(!emagged)

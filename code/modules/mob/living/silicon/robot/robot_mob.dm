@@ -1089,7 +1089,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(user, SPAN_WARNING("Access denied!"))
 		return ITEM_INTERACT_COMPLETE
-	
+
 	if(istype(used, /obj/item/borg/upgrade))
 		var/obj/item/borg/upgrade/U = used
 		if(!opened)
@@ -1249,7 +1249,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	clear_supplied_laws()
 	laws = new /datum/ai_laws/crewsimov
 	var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
-	A.remove_hud_from(user)
+
+	A.remove_hud_from(user, "emag")
 
 /mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
@@ -1635,7 +1636,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_icons()
 	emagged = TRUE
 	var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
-	A.add_hud_to(src)
+	A.add_hud_to(src, "emag")
 	SetLockdown(FALSE)
 
 /mob/living/silicon/robot/proc/make_mindflayer_robot(mob/living/flayer)
