@@ -846,6 +846,10 @@
 				Mix two parts each rum and cola to one part lime juice.
 				<h2>Daiquiri:</h2>
 				Mix two parts rum to one part each of lime juice, sugar, and ice.
+				<h2>Strawberry Daiquiri:</h2>
+				Mix two parts rum to one part each of berry juice, sugar, and ice.
+				<h2>Miami Vice:</h2>
+				Mix one part strawberry saiquiri and one part pina colada.
 				<h2>Demon's Blood:</h2>
 				Mix one part each space mountain wind soda, rum, blood, and Dr. Gibb soda. Medical or Botany can help.
 				<h2>Devil's Kiss:</h2>
