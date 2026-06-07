@@ -44770,7 +44770,7 @@
 	id = "robo"
 	},
 /turf/simulated/floor/plating,
-/area/station/science/robotics/chargebay)
+/area/station/science/robotics)
 "dLN" = (
 /obj/effect/decal/cleanable/molten_object/large,
 /turf/simulated/floor/plating,
@@ -47989,6 +47989,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
+"fgi" = (
+/turf/simulated/wall/r_wall,
+/area/station/science/robotics)
 "fgk" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom/command,
@@ -136045,7 +136048,7 @@ bau
 pua
 bHI
 cfy
-bGr
+fgi
 bWj
 dpB
 bWj
