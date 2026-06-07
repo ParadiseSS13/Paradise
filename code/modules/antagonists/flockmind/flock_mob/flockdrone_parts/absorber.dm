@@ -1,9 +1,10 @@
 /datum/flockdrone_part/absorber
 	var/obj/item/held_item
 
+	/// Damage rate
 	var/absorption_rate = 4
 	/// Per point of integrity, generate this much substrate.
-	var/integrity_substrate_ratio = 4
+	var/integrity_substrate_ratio = 2
 
 /datum/flockdrone_part/absorber/Destroy(force, ...)
 	QDEL_NULL(held_item)
