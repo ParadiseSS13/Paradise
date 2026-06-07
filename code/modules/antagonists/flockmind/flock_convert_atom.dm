@@ -67,6 +67,10 @@
 	. = new /obj/machinery/light/floor/has_bulb/flock(loc)
 	qdel(src)
 
+/obj/structure/computerframe/try_flock_convert(datum/flock/flock, force)
+	. = new /obj/structure/flock/compute(loc, flock)
+	qdel(src)
+
 /obj/machinery/computer4/try_flock_convert(datum/flock/flock, force)
 	. = new /obj/structure/flock/compute(loc, flock)
 	qdel(src)
