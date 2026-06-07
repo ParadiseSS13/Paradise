@@ -3,7 +3,7 @@
 	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_DISASTER
 	role_weights = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 0.7, ASSIGNMENT_MEDICAL = 2)
-	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 40, ASSIGNMENT_MEDICAL = 3)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 25, ASSIGNMENT_MEDICAL = 2)
 
 /datum/event/flockmind/start()
 	INVOKE_ASYNC(src, PROC_REF(create_flock))
