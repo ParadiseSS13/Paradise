@@ -36,7 +36,7 @@
 	..()
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
 	if(!target)
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DEPOSIT_TARGET, target)
 	return AI_BEHAVIOR_SUCCEEDED
@@ -76,7 +76,7 @@
 	var/obj/structure/flock/tealprint/target = controller.blackboard[BB_FLOCK_DEPOSIT_TARGET]
 	if(target)
 		if(!goap_is_valid_target(controller, target))
-			return AI_BEHAVIOR_FAILED
+			return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 		controller.clear_blackboard_key(BB_FLOCK_DEPOSIT_TARGET)
 

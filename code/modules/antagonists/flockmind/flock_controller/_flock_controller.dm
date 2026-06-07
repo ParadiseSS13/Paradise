@@ -460,7 +460,7 @@
 	SIGNAL_HANDLER
 	if(isflockturf(source))
 		stop_tracking_turf(source)
-		claim_turf(source, FALSE) // WAll to floor or visa-versa, keep it updated.
+		claim_turf(source, FALSE) // Wall to floor or visa-versa, keep it updated.
 	else
 		stop_tracking_turf(source)
 

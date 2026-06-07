@@ -15,7 +15,7 @@
 		/datum/action/cooldown/flock/deposit,
 	)
 
-	bandwidth_provided = -FLOCK_COMPUTE_COST_DRONE
+	bandwidth_provided = FLOCK_COMPUTE_COST_DRONE
 
 	initial_traits = list(TRAIT_FLYING, TRAIT_FLOCK_THING, TRAIT_IMPORTANT_SPEAKER)
 
@@ -147,9 +147,9 @@
 		if(NONE)
 			var/turf_status = min(100, floor((length(flock.claimed_floors) + length(flock.claimed_walls)) / FLOCK_TURFS_FOR_RELAY * 100))
 			var/bandwith_status = min(100, floor(flock.available_bandwidth() / FLOCK_COMPUTE_COST_RELAY * 100))
-			status_tab_data[++status_tab_data.len] = list("Bandwidth Progress: ", "[bandwith_status]")
-			status_tab_data[++status_tab_data.len] = list("Area Progress: ", "[turf_status]")
-			status_tab_data[++status_tab_data.len] = list("Total Relay Progress: ", "[(bandwith_status + turf_status) / 2]")
+			status_tab_data[++status_tab_data.len] = list("Bandwidth Progress: ", "[bandwith_status]%")
+			status_tab_data[++status_tab_data.len] = list("Area Progress: ", "[turf_status]%")
+			status_tab_data[++status_tab_data.len] = list("Total Relay Progress: ", "[(bandwith_status + turf_status) / 2]%")
 		if(FLOCK_ENDGAME_RELAY_BUILT)
 			status_tab_data[++status_tab_data.len] = list("Time until Broadcast: ", "[(flock.built_relay.started_time + flock.built_relay.win_time - world.time) / 10] second\s")
 

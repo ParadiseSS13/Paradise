@@ -48,10 +48,10 @@
 	..()
 	var/atom/target = controller.blackboard[BB_FLOCK_ATTACK_TARGET]
 	if(!target)
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	if(!goap_is_valid_target(controller, target))
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	if(!COOLDOWN_FINISHED(controller, blackboard[BB_FLOCK_ATTACK_COOLDOWN]))
 		controller.set_blackboard_key(BB_FLOCK_ATTACK_FRUSTRATION, world.time) // Reset frustration if we're on cooldown.

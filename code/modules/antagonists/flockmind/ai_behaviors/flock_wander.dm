@@ -8,7 +8,7 @@
 	if(destination)
 		controller.set_movement_target(controller, destination)
 		return AI_BEHAVIOR_SUCCEEDED
-	return AI_BEHAVIOR_FAILED
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 /datum/ai_behavior/flock/wander/next_behavior(datum/ai_controller/controller, success)
 	if(success)

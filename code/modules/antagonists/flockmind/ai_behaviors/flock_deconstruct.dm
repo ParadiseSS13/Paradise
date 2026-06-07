@@ -54,7 +54,7 @@
 	..()
 	var/atom/target = overmind_target || get_target(controller, TRUE)
 	if(!target)
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_DECON_TARGET, target)
 

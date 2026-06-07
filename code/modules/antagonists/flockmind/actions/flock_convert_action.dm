@@ -63,5 +63,5 @@
 	bird.flock?.free_turf(bird)
 	qdel(flock_effect)
 
-	flock_convert_turf(T, bird.flock)
+	bird.flock?.claim_turf(T)
 	return TRUE

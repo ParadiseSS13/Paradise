@@ -26,7 +26,7 @@
 	..()
 	var/atom/target = get_target(controller, TRUE)
 	if(!target)
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_RUMMAGE_TARGET, target)
 	return AI_BEHAVIOR_SUCCEEDED
@@ -53,7 +53,7 @@
 	var/mob/living/basic/flock/bird = controller.pawn
 	var/obj/item/target = controller.blackboard[BB_FLOCK_RUMMAGE_TARGET]
 	if(!target)
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	if(DOING_INTERACTION(bird, "flock_rummage"))
 		return AI_BEHAVIOR_DELAY

@@ -26,7 +26,7 @@
 	..()
 	var/atom/target = get_target(controller, TRUE)
 	if(!target)
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_CONTAINER_TARGET, target)
 	return AI_BEHAVIOR_SUCCEEDED
@@ -55,7 +55,7 @@
 	if(target)
 		target.open(bird, TRUE)
 	else
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 	return AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/flock/perform_open_container/finish_action(datum/ai_controller/controller, succeeded, ...)

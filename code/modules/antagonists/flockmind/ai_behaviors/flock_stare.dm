@@ -25,7 +25,7 @@
 		controller.set_blackboard_key(BB_FLOCK_STARE_TARGET, pick(targets))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
-	return AI_BEHAVIOR_FAILED
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 /datum/ai_behavior/flock/stare/next_behavior(datum/ai_controller/controller, success)
 	if(success)

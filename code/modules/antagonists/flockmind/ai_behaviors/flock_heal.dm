@@ -40,7 +40,7 @@
 	..()
 	var/atom/target = overmind_target || goap_get_ideal_target(controller, set_path = TRUE)
 	if(!target)
-		return AI_BEHAVIOR_FAILED
+		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	controller.set_blackboard_key(BB_FLOCK_HEAL_TARGET, target)
 	return AI_BEHAVIOR_SUCCEEDED
@@ -82,7 +82,7 @@
 	if(controller.blackboard[BB_FLOCK_HEAL_FRUSTRATION] >= world.time)
 		return AI_BEHAVIOR_DELAY
 
-	return AI_BEHAVIOR_FAILED
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 /datum/ai_behavior/flock/heal/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()
