@@ -25563,7 +25563,8 @@
 	c_tag = "Cargo Office";
 	dir = 4
 	},
-/obj/item/multitool,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bTG" = (
@@ -26282,7 +26283,10 @@
 "bWW" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
-/obj/item/screwdriver/cargo,
+/obj/item/multitool{
+	pixel_x = 7;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bXd" = (
@@ -26684,6 +26688,9 @@
 	pixel_y = -5
 	},
 /obj/machinery/newscaster/directional/south,
+/obj/item/screwdriver/cargo{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bYH" = (
@@ -43154,12 +43161,15 @@
 /area/station/aisat/service)
 "dpB" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "robo"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
@@ -67743,7 +67753,6 @@
 /area/station/public/toilet/unisex)
 "nQD" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -67758,6 +67767,10 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "robo"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
