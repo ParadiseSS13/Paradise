@@ -47,4 +47,4 @@
 	structure_type = /obj/structure/flock/relay
 
 /datum/flock_unlockable/relay/is_unlockable(datum/flock/flock, total_compute, available_compute)
-	return (flock.total_bandwidth() >= FLOCK_COMPUTE_COST_RELAY) && flock.flock_game_status == NONE
+	return (flock.total_bandwidth() >= FLOCK_COMPUTE_COST_RELAY) && ((length(flock.claimed_floors) + length(flock.claimed_walls)) >= FLOCK_TURFS_FOR_RELAY) && flock.flock_game_status == NONE
