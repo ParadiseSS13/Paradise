@@ -218,20 +218,7 @@
 	if(attached_signaler && !from_signaler)
 		attached_signaler.signal()
 	if(attached_headset)
-		var/datum/tcomms_message/tcm = new
-		tcm.connection = attached_headset.secure_radio_connections[radio_channel]
-		tcm.sender = attached_headset
-		tcm.radio = attached_headset
-		tcm.sender_name = "[name] in [get_location_name(src)]"
-		tcm.message_pieces = list(new /datum/multilingual_say_piece(GLOB.all_languages["Noise"], "dings!"))
-		tcm.sender_job = "Desk Bell"
-		tcm.vname = "clear bell"
-		tcm.signal_type = SIGNALTYPE_AINOTRACK
-		tcm.source_level = loc.z
-		tcm.freq = tcm.connection.frequency
-		for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-			C.handle_message(tcm)
-		qdel(tcm)
+		attached_headset.autosay("dings!", "[name] in [get_location_name(src)]", radio_channel, is_emote = TRUE, sender_job = "Desk Bell", vname = "clear bell")
 	times_rang++
 	return TRUE
 
