@@ -36531,9 +36531,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "cNE" = (
@@ -37837,13 +37834,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
 	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/reinforced/directional/south,
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "cSF" = (
@@ -45418,6 +45409,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/directional/south,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "eak" = (
@@ -46594,6 +46588,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/apmaint2)
+"eyR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -50400,7 +50401,11 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
 "ghs" = (
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/power/apc/reinforced/directional/north,
+/obj/effect/turf_decal/stripes/end,
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "ghv" = (
@@ -55885,6 +55890,9 @@
 /area/station/medical/patients_rooms1)
 "iCq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "iCY" = (
@@ -55959,10 +55967,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
-"iFh" = (
-/obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "iFu" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -58757,6 +58761,13 @@
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"jQS" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "jQX" = (
 /obj/machinery/light/small,
 /obj/item/soap,
@@ -112234,7 +112245,7 @@ cZw
 rFc
 cLi
 cLi
-dkp
+cNB
 pgV
 qod
 pGN
@@ -112749,7 +112760,7 @@ kjM
 hsO
 uMl
 cLi
-cUh
+eyR
 qod
 icI
 dOs
@@ -114032,7 +114043,7 @@ cgQ
 cZw
 ogh
 rYt
-lVs
+jQS
 gSd
 tmS
 qod
@@ -115060,7 +115071,7 @@ gYs
 sWO
 cNB
 gSd
-iFh
+lVs
 eyE
 cZw
 cNB
