@@ -20,7 +20,7 @@
 
 /datum/ai_behavior/flock/find_deposit_target/goap_get_potential_targets(datum/ai_controller/controller)
 	var/list/options = ..()
-	for(var/obj/structure/flock/tealprint in oview(controller.target_search_radius, controller.pawn))
+	for(var/obj/structure/flock/tealprint in range(controller.target_search_radius, controller.pawn))
 		options += tealprint
 	return options
 

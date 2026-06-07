@@ -33,12 +33,12 @@
 	var/mob/living/basic/flock/bird = controller.pawn
 	var/datum/flock/bird_flock = bird.flock
 
-	var/list/options = view(controller.target_search_radius, bird)
+	var/list/options = list()
 	var/list/priority_turfs = bird_flock?.get_priority_turfs()
 	if(length(priority_turfs))
 		options += priority_turfs
 
-	for(var/turf/T as turf in view(controller.target_search_radius, bird))
+	for(var/turf/T as turf in range(controller.target_search_radius, bird))
 		options += T
 
 	return options
