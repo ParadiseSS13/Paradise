@@ -43154,12 +43154,15 @@
 /area/station/aisat/service)
 "dpB" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "robo"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
@@ -67743,7 +67746,6 @@
 /area/station/public/toilet/unisex)
 "nQD" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -67758,6 +67760,10 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "robo"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics/chargebay)
