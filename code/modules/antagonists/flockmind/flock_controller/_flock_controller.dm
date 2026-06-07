@@ -58,6 +58,9 @@
 	/// Flock status, won, lost, etc
 	var/flock_game_status = NONE
 
+	/// Our relay, should it have been built
+	var/obj/structure/flock/relay/built_relay
+
 	/// Current UI tab, saves on data sending.
 	var/ui_tab = FLOCK_UI_DRONES
 
@@ -81,13 +84,13 @@
 
 	for(var/unlockable in all_unlockables)
 		unlockables += new unlockable()
+	START_PROCESSING(SSprocessing, src)
 
 // Called by gamemode code
 /datum/flock/process()
 	if(flock_game_status == FLOCK_ENDGAME_LOST)
 		return
 
-	update_relay_huds()
 	stat_highest_bandwidth = max(stat_highest_bandwidth, bandwidth.has_points())
 
 /// Called after everything is setup, and clients are in control of their mobs.
@@ -594,51 +597,6 @@
 
 	return old_status
 
-/// Update the relay status huds for all flock traces and the overmind.
-/datum/flock/proc/update_relay_huds()
-	var/new_alpha
-
-	switch(flock_game_status)
-		if(NONE)
-			var/percent_avail_bandwidth = min(available_bandwidth() / FLOCK_COMPUTE_COST_RELAY, 1)
-			var/percent_tiles = min((length(claimed_floors) + length(claimed_walls)) / FLOCK_TURFS_FOR_RELAY, 1)
-			new_alpha = round(255 * percent_avail_bandwidth * percent_tiles)
-
-		if(FLOCK_ENDGAME_LOST)
-			new_alpha = 0
-
-		else
-			new_alpha = 255
-
-	var/new_desc
-	switch(flock_game_status)
-		if(NONE)
-			var/percent_avail_bandwidth = min(100, floor(available_bandwidth() / FLOCK_COMPUTE_COST_RELAY * 100))
-			var/percent_tiles = min(100, floor((length(claimed_floors) + length(claimed_walls)) / FLOCK_TURFS_FOR_RELAY * 100))
-			var/percent_total = floor((percent_avail_bandwidth / 100) * (percent_tiles / 100) * 100)
-			new_desc =  "Overall Progress: [percent_total]%</br>Bandwidth: [percent_avail_bandwidth]%</br>Converted: [percent_tiles]%"
-
-		if(FLOCK_ENDGAME_RELAY_BUILT)
-			new_desc = "Time until broadcast: [] seconds."
-
-		if(FLOCK_ENDGAME_RELAY_ACTIVATING, FLOCK_ENDGAME_VICTORY)
-			new_desc = "!!! TRANSMITTING !!!"
-
-	for(var/mob/camera/flock/ghost_bird in (traces + overmind))
-		var/atom/movable/screen/flock_relay_status/status
-		if(ghost_bird.controlling_bird)
-			status = astype(ghost_bird.controlling_bird.hud_used, /datum/hud/flockdrone)?.relay_status
-		else
-			status = astype(ghost_bird.hud_used, /datum/hud/flockghost)?.relay_status
-
-		status.desc = new_desc
-		status.alpha = new_alpha
-		if(status.flock_status == flock_game_status)
-			continue
-
-		status.flock_status = flock_game_status
-		status.update_appearance()
-
 /// Ends the flock if it is unable to continue spreading.
 /datum/flock/proc/consider_game_over()
 	if(!flock_started)
@@ -704,6 +662,8 @@
 	// Remove enemies
 	for(var/mob/M as anything in enemies)
 		remove_enemy(M, TRUE)
+
+	STOP_PROCESSING(SSprocessing, src)
 
 /// Called when an atom marked for deconstruction is qdeleted.
 /datum/flock/proc/deconstruct_mark_deleted(datum/source)
