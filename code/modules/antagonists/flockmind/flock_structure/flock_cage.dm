@@ -16,8 +16,10 @@
 
 	/// With this much gnesis, create an egg.
 	var/egg_gnesis_cost = 100
-	/// Per second, how much gnesis is generated.
-	var/absorption_rate = 2
+	/// Rate of damage to items being consumed by the cage
+	var/absorption_rate = 4
+	/// Per point of damage, generate this much substrate.
+	var/integrity_substrate_ratio = 2
 	/// Timer until you can ghost from your body without penalty
 	var/ghost_timer
 
@@ -74,8 +76,8 @@
 			chew_on_mob(seconds_per_tick)
 
 	else
-		eating.take_damage(absorption_rate * seconds_per_tick * 25, BRUTE, armor_penetration_percentage = 100)
-		reagents.add_reagent(/datum/reagent/gnesis, absorption_rate * seconds_per_tick)
+		var/added = eating.take_damage(absorption_rate * seconds_per_tick * 25, BRUTE, armor_penetration_percentage = 100)
+		reagents.add_reagent(/datum/reagent/gnesis, integrity_substrate_ratio * added)
 
 	if(victim && COOLDOWN_FINISHED(src, flock_message_cd))
 		COOLDOWN_START(src, flock_message_cd, rand(10, 25) SECONDS)
@@ -213,7 +215,7 @@
 		spend_on_cube += reagents.get_reagent_amount(/datum/reagent/gnesis)
 
 	// Cube
-	if(spend_on_cube)
+	if(spend_on_cube && all)
 		reagents.remove_reagent(/datum/reagent/gnesis, spend_on_cube)
 
 		var/obj/item/flock_cube/cube = new

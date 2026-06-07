@@ -4,6 +4,7 @@
 	desc = "It sounds like it's hollow."
 	max_integrity = 200
 	armor = list(MELEE = -20, BULLET = -20, LASER = 80, ENERGY = 80, BOMB = 0, RAD = 100, FIRE = 80, ACID = 100)
+	autoclose = TRUE
 	auto_close_time = 5 SECONDS
 	safe = FALSE
 
@@ -22,6 +23,34 @@
 
 /obj/machinery/door/flock/allowed(mob/M)
 	return isflockmob(M)
+
+/obj/machinery/door/flock/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	var/atom/M = locateUID(pass_info.caller_uid)
+	if(!M)
+		return ..()
+	if(isflockmob(M))
+		return TRUE
+	return ..()
+
+/obj/machinery/door/flock/crush()
+	for(var/turf/T in get_airlock_turfs())
+		for(var/mob/living/L in T)
+			if(isflockmob(L))
+				continue
+			L.visible_message(SPAN_WARNING("[src] closes on [L], crushing [L.p_them()]!"), SPAN_USERDANGER("[src] closes on you and crushes you!"))
+			if(isalien(L))  // For xenos
+				L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) // Xenos go into crit after aproximately the same amount of crushes as humans.
+				L.emote("roar")
+			else if(ishuman(L)) // For humans
+				L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+				if(L.stat == CONSCIOUS)
+					L.emote("scream")
+				L.Weaken(10 SECONDS)
+			else // for simple_animals & borgs
+				L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+			L.add_splatter_floor(T)
+		for(var/obj/mecha/M in T)
+			M.take_damage(DOOR_CRUSH_DAMAGE)
 
 /obj/machinery/door/flock/deconstruct(disassembled)
 	. = ..()

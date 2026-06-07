@@ -65,6 +65,7 @@
 	))
 	soundloop = new(get_turf(src), start_immediately = TRUE)
 	started_time = world.time
+	flock.built_relay = src
 	flock.set_flock_game_status(FLOCK_ENDGAME_RELAY_BUILT)
 
 	log_game("The Flock ([flock?.name || "NULL"]) has constructed a relay at [AREACOORD(src)].")

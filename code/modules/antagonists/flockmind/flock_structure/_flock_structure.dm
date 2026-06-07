@@ -116,6 +116,14 @@
 	if(allow_flockpass)
 		return isflockdrone(mover)
 
+/obj/structure/flock/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	var/atom/M = locateUID(pass_info.caller_uid)
+	if(!M)
+		return ..()
+	if(allow_flockpass)
+		return isflockdrone(M)
+	return ..()
+
 /obj/structure/flock/try_flock_convert(datum/flock/flock, force)
 	return
 

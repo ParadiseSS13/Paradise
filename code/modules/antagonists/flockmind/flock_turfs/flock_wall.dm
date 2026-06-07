@@ -34,3 +34,14 @@
 
 	if(bird.can_flockphase())
 		return TRUE
+
+/turf/simulated/wall/flock/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	var/atom/M = locateUID(pass_info.caller_uid)
+	if(!M)
+		return ..()
+	if(!isflockdrone(M))
+		return ..()
+	var/mob/living/basic/flock/drone/bird = M
+	if(!bird.can_flockphase())
+		return ..()
+	return TRUE
