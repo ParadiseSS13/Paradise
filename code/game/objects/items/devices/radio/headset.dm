@@ -519,8 +519,8 @@
 //from hispania
 /obj/item/radio/borg/proc/make_syndie()
 	qdel(keyslot)
-	keyslot = new /obj/item/encryptionkey/syndicate
-	syndiekey = keyslot
+	//still needs some way to make shells have syndie channel.
+	channels += list("Syndicate" = 1)
 	syndie = TRUE
 	recalculateChannels()
 //end of hispania

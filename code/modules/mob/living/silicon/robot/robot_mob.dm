@@ -699,27 +699,32 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	switch(selected_module)
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
-			module.channels = list("Engineering" = 1)
+			if(!shell)// a shell has the exact same channels as an AI so we skip it.
+				module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Engineering"
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
-			module.channels = list("Service" = 1)
+			if(!shell)
+				module.channels = list("Service" = 1)
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
-			module.channels = list("Medical" = 1)
+			if(!shell)
+				module.channels = list("Medical" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Medical"
 			status_flags &= ~CANPUSH
 			has_advanced_reagent_vision = TRUE
 		if("Mining")
 			module = new /obj/item/robot_module/miner(src)
-			module.channels = list("Supply" = 1)
+			if(!shell)
+				module.channels = list("Supply" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Mining Outpost"
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
-			module.channels = list("Service" = 1)
+			if(!shell)
+				module.channels = list("Service" = 1)
 			has_advanced_reagent_vision = TRUE
 			if(selected_sprite == "Bro")
 				module.module_type = "Brobot"
@@ -741,7 +746,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	module.add_subsystems_and_actions(src)
 	if(emagged)
 		module.emag_act(src)
-	if(!static_radio_channels)
+	if(!static_radio_channels && !shell) // Shells have the same channels as the AI and we dont want to reset them.
 		radio.config(module.channels)
 	rename_character(real_name, get_default_name())
 	initialize_sprites(selected_sprite, module_sprites)
@@ -781,7 +786,8 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	rename_character(real_name, get_default_name("Default"))
 	languages = list()
 	speech_synthesizer_langs = list()
-	radio.recalculateChannels()
+	if(!shell)// Shells have the same channels as the AI and we dont want to reste them.
+		radio.recalculateChannels()
 
 	update_icons()
 	update_headlamp()
@@ -1089,7 +1095,8 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		if(shell)
 			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft, line from hispania
 		if(radio)
-			radio.attackby__legacy__attackchain(used,user)
+			to_chat(user, SPAN_NOTICE("You install [used] into [src]'s radio."))
+			radio.attackby__legacy__attackchain(used, user)
 		else
 			to_chat(user, SPAN_WARNING("[src] has no radio!"))
 		return ITEM_INTERACT_COMPLETE
@@ -2066,7 +2073,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		return FALSE
 	//end of tg
 	shell = TRUE
-	mmi = new /obj/item/borg/upgrade/ai // This is an incredibely scuffed way to do this.
+	mmi = board // This is an incredibely scuffed way to do this.
 	braintype = "AI Shell"
 	name = "[designation] AI Shell [rand(100,999)]"
 	real_name = name
@@ -2077,8 +2084,8 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 /mob/living/silicon/robot/proc/revert_shell()
 	if(!shell)
 		return
-	//var/turf/T = get_turf(src) need to figur out how to not delete boris when deconstructed.
-	undeploy()
+	notify_ai(DISCONNECT)
+	connected_ai = null
 	shell = FALSE
 	GLOB.available_ai_shells -= src
 	name = "Unformatted Cyborg [rand(100,999)]"

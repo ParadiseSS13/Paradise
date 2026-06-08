@@ -566,6 +566,7 @@
 	origin_tech = "engineering=3;magnets=4;programming=5"
 	var/alien = FALSE // This is an incredibely scuffed way to do this, but it works.
 	var/syndiemmi = FALSE
+	var/brainmob = null
 
 /obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R)
 	if(..())
@@ -575,6 +576,9 @@
 		return
 	if(R.key) //You cannot replace a player unless the key is completely removed.
 		to_chat(usr, SPAN_WARNING("Intelligence patterns detected in this [R.braintype]. Aborting."))
+		return
+	if(!R.key)
+		to_chat(usr, SPAN_WARNING("Disassemble the cyborg before installing the B.O.R.I.S. module."))
 		return
 
 	R.make_shell(src)

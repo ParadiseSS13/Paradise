@@ -472,10 +472,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
 	for(var/mob/living/silicon/robot/R in connected_robots)
 		var/robot_status = "Nominal"
-		if(R.shell)
-			robot_status = "AI SHELL"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
+		if(R.shell)//this needs to be below the OFFILINE check since shells will always lack a client form the AIs view.
+			robot_status = "AI SHELL"
 		else if(!R.cell || R.cell.charge <= 0)
 			robot_status = "DEPOWERED"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
