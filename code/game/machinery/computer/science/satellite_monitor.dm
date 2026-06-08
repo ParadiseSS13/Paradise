@@ -49,15 +49,6 @@
 				"time_to_maneuver" = maneuver.world_time_at_maneuver - world.time
 			))
 
-		var/list/planned_orbit = list()
-		//log_debug("planned_orbit length: [length(orbit_data.planned_orbit)] index0: [(!length(orbit_data.planned_orbit)? "null/0": "([orbit_data.planned_orbit[0]["X"]], [orbit_data.planned_orbit[0]["Y"]], [orbit_data.planned_orbit[0]["Z"]])" )]")
-		for(var/list/point in orbit_data.planned_orbit)
-			planned_orbit += list(list( // funny byond required a listed list to be sent to TGUI
-				"X" = point["X"],
-				"Y" = point["Y"],
-				"Z" = point["Z"]
-			))
-
 		if(planned_maneuvers.len) // in case no maneuver has been set this still needs to become an array
 			planned_maneuvers += list()
 
@@ -87,13 +78,9 @@
 				//"velocity" = orbit_data.velocity,
 				//"orbit_progress" = orbit_data.orbit_progress,
 				"planned_maneuvers" = planned_maneuvers,
-				"planned_orbit" = planned_orbit,
-				"posX" = orbit_data.posX,
-				"posY" = orbit_data.posY,
-				"posZ" = orbit_data.posZ,
-				"velX" = orbit_data.velX,
-				"velY" = orbit_data.velY,
-				"velZ" = orbit_data.velZ
+				"planned_orbit" = list(orbit_data.planned_orbit),
+				"position" = orbit_data.position,
+				"velocity" = orbit_data.velocity
 			)
 		))
 

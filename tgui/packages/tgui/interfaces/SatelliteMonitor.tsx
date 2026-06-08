@@ -41,13 +41,9 @@ interface Satellite {
     // velocity: number;
     // orbit_progress: number;
     planned_maneuvers: Maneuver[];
-    planned_orbit: Point[];
-		posX: number;
-		posY: number;
-		posZ: number;
-		velX: number;
-		velY: number;
-		velZ: number;
+    planned_orbit: Vector3[];
+    position: Vector3;
+    velocity: Vector3;
   };
   // };
 }
@@ -59,10 +55,16 @@ class Maneuver {
   time_to_maneuver: number = 0;
 }
 
-class Point {
-  X: number = 0;
-  Y: number = 0;
-  Z: number = 0;
+class Vector3 {
+  x: number = 0;
+  y: number = 0;
+  z: number = 0;
+
+  constructor(x, y, z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
 }
 
 export const SatelliteMonitor = (props, context) => {
@@ -151,14 +153,15 @@ const ManeuverPanel = ({
               <Stack>{`Apoapsis: ${selectedSatellite.orbit_data.apoapsis * (cmagged ? 0.6213 : 1)}${cmagged ? 'mi' : 'km'}`}</Stack>
               <Stack>{`Periapsis: ${selectedSatellite.orbit_data.periapsis}km`}</Stack>
               <Stack>{`Inclination: ${selectedSatellite.orbit_data.inclination}`}</Stack>
-              <Stack>{`Position: (${selectedSatellite.orbit_data.posX}, ${selectedSatellite.orbit_data.posY}, ${selectedSatellite.orbit_data.posZ})`}</Stack>
+              <Stack>{`Position: (${selectedSatellite.orbit_data.position})`}</Stack>
+              <Stack>{`planned_orbit (l: ${selectedSatellite.orbit_data?.planned_orbit?.length}): ${selectedSatellite.orbit_data?.planned_orbit}`}</Stack>
             </Stack>
             <Stack width="50%" vertical>
               <Stack>{`weight: ${selectedSatellite.weight}kg`}</Stack>
-              <Stack>{`fuel usage: ${selectedSatellite.fuel_usage.toPrecision(2)}L/s`}</Stack>
+              <Stack>{`fuel usage: ${selectedSatellite.fuel_usage.toFixed(2)}L/s`}</Stack>
               <Stack>{`Period: ${selectedSatellite.orbit_data.period / deciseconds_in_minute}min`}</Stack>
               {/* <Stack>{`Velocity: ${Math.sqrt(selectedSatellite.orbit_data.velX ** 2 + selectedSatellite.orbit_data.velY ** 2 + selectedSatellite.orbit_data.velZ ** 2)} km/s`}</Stack>*/}
-              <Stack>{`Velocity: (${selectedSatellite.orbit_data.velX}, ${selectedSatellite.orbit_data.velY}, ${selectedSatellite.orbit_data.velZ})`}</Stack>
+              <Stack>{`Velocity: (${selectedSatellite.orbit_data?.velocity})`}</Stack>
             </Stack>
           </Stack>
           <Section title="Burn configuration" mt={3}>
@@ -299,7 +302,7 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
           <Stack>
             <Box width="50%">Period: {satellite.orbit_data.period + 'min'}</Box>
             <Box width="50%" align="right">
-              fuel efficiency: {(1 / satellite.fuel_efficiency).toPrecision(3) + 'L/s'}
+              fuel efficiency: {(1 / satellite.fuel_efficiency).toFixed(3) + 'L/s'}
             </Box>
           </Stack>
           <Stack mt={1}>
@@ -429,7 +432,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
           let size = ((satellite.orbit_data.periapsis + satellite.orbit_data.periapsis) / orbitSizeFull) * 100 + '%';
           // let orbitProgress = `${Math.abs(satellite.orbit_data.orbit_progress - 0.5) * 200}%`;
           // const path = satellite.orbit_data.planned_orbit.map((p,i) => (i === 0) ? ``)
-          const path = satellite.orbit_data.planned_orbit.map(p => `${p.X},${p.Y}`).join(" ");
+          const path = satellite.orbit_data.planned_orbit.map(p => `${p.x},${p.y}`).join(" ");
           return (
             <Stack key={satellite.name}>
               {size}
@@ -457,8 +460,8 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                 <img
                   src={`data:image/png;base64,${current_planet_base64}`}
                   style={{
-                    top: satellite.orbit_data.posX,
-                    left: satellite.orbit_data.posY,
+                    top: satellite.orbit_data?.position?.x ?? 0,
+                    left: satellite.orbit_data?.position?.y ?? 0,
                     transform: `translate(-50%, -50%) rotate(${0}deg)`, // 0 degree rotation puts it back on track
                     backgroundColor: `cyan`,
                     width: '20px',
