@@ -181,7 +181,7 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
-	toolspeed = 0.5
+	toolspeed = 0.4
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 
 /obj/item/scalpel/laser/interact_with_atom(atom/target, mob/living/user, list/modifiers)
