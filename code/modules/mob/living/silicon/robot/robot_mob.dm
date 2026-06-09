@@ -1092,8 +1092,6 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		diag_hud_set_borgcell()
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(used, /obj/item/encryptionkey/) && opened)
-		if(shell)
-			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft, line from hispania
 		if(radio)
 			to_chat(user, SPAN_NOTICE("You install [used] into [src]'s radio."))
 			radio.attackby__legacy__attackchain(used, user)
@@ -1186,6 +1184,9 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		update_icons()
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
+		if(shell) // Prevents AI shell key theft
+			to_chat(user, SPAN_NOTICE("The shell appears to not have an encription key."))
+			return
 		if(radio)
 			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
 		else
@@ -2097,6 +2098,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 /mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
 	real_name = "[AI.real_name] shell [rand(100, 999)] [designation ? "-[designation]" : "[null]"]"	//Randomizing the name so it shows up seperately in the shells list
 	name = real_name
+	setup_PDA()
 	if(camera)
 		camera.c_tag = real_name	//update the camera name too
 	mainframe = AI
