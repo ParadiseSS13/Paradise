@@ -292,6 +292,10 @@
 /datum/flock/proc/total_bandwidth()
 	return bandwidth.has_points()
 
+/// Returns the total amount claimed turfs
+/datum/flock/proc/total_turfs()
+	return (length(claimed_floors) + length(claimed_walls))
+
 /// Returns the amount of available bandwidth. Can return negative if over budget.
 /datum/flock/proc/available_bandwidth()
 	return bandwidth.has_points() - used_bandwidth
