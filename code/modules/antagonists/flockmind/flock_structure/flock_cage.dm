@@ -29,6 +29,7 @@
 /obj/structure/flock/cage/Initialize(mapload, datum/flock/join_flock)
 	. = ..()
 	create_reagents(200)
+	AddComponent(/datum/component/flock_protection)
 
 /obj/structure/flock/cage/Destroy()
 	QDEL_NULL(victim)

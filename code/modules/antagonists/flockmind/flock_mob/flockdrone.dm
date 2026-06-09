@@ -38,7 +38,7 @@
 	name = flock_name(FLOCK_TYPE_DRONE)
 
 	if(stat == CONSCIOUS)
-		INVOKE_ASYNC(src, PROC_REF(say), pick(GLOB.flockdrone_created_phrases))
+		flock_talk(src, pick(GLOB.flockdrone_created_phrases), flock, TRUE)
 
 /mob/living/basic/flock/drone/Destroy()
 	release_control()

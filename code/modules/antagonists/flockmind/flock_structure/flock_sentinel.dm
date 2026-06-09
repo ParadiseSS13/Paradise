@@ -31,6 +31,7 @@
 	charge = new
 	charge.set_max_points(100)
 	. = ..()
+	AddComponent(/datum/component/flock_protection)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/flock/sentinel/Destroy(force)

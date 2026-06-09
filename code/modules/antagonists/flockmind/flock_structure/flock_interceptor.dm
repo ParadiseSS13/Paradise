@@ -23,6 +23,7 @@
 	. = ..()
 	proxmon = new(src, 3, TRUE)
 	process()
+	AddComponent(/datum/component/flock_protection)
 
 /obj/structure/flock/interceptor/Destroy()
 	QDEL_NULL(proxmon)

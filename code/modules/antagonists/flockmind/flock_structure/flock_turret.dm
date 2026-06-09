@@ -18,6 +18,7 @@
 
 /obj/structure/flock/gnesis_turret/Initialize(mapload, datum/flock/join_flock)
 	. = ..()
+	AddComponent(/datum/component/flock_protection)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/flock/gnesis_turret/Destroy()

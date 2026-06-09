@@ -16,6 +16,7 @@
 /obj/structure/flock/egg/finish_building()
 	. = ..()
 
+	AddComponent(/datum/component/flock_protection)
 	spawn_mobs()
 	qdel(src)
 

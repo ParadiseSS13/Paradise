@@ -397,7 +397,8 @@
 	if(!overmind)
 		return
 	var/image/I = image(notice_images[notice_type], loc = target)
-	return target.add_alt_appearance(notice_type, I, list(overmind))
+	var/list/things_that_can_see_notices = list(overmind) + traces
+	return target.add_alt_appearance(notice_type, I, things_that_can_see_notices)
 
 /// Removes a flock notice from an atom.
 /datum/flock/proc/remove_notice(atom/target, notice_type)

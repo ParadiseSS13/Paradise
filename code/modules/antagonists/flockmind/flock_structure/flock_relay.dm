@@ -63,6 +63,7 @@
 		list(1, 1, 1,		   1, 1)
 		)
 	))
+	AddComponent(/datum/component/flock_protection)
 	soundloop = new(get_turf(src), start_immediately = TRUE)
 	started_time = world.time
 	flock.built_relay = src

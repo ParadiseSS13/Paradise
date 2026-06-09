@@ -32,6 +32,7 @@
 	START_PROCESSING(SSobj, src)
 	update_connections()
 	info_tag.set_text("Bandwidth Provided: [bandwidth_provided]")
+	AddComponent(/datum/component/flock_protection)
 
 /obj/structure/flock/collector/Destroy()
 	remove_flockturfs(connected_flockturfs)
