@@ -104,3 +104,21 @@
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 	value = 125 // Mobs that drop this are fairly dangerous, so let's give it some value
+
+/obj/item/salvage/loot/dogtags
+	name = "dog tags"
+	desc = "Dog tags belonging to an unnamed soldier or mercenary. Someone is likely willing to pay good credits to see them returned."
+	icon_state = "dogtag"
+	value = 100
+
+/obj/item/salvage/loot/dogtags/officer
+	name = "officer's dog tags"
+	desc = "Dog tags belonging to an unnamed high-ranking soldier or mercenary. Someone is likely willing to pay good credits to see them returned."
+	icon_state = "dogtag_officer"
+	value = 250
+
+/obj/item/salvage/loot/dogtags/captain
+	name = "captain's dog tags"
+	desc = "Dog tags belonging to an unnamed captain of a soldier or mercenary group. Someone is likely willing to pay good credits to see them returned."
+	icon_state = "dogtag"
+	value = 400
