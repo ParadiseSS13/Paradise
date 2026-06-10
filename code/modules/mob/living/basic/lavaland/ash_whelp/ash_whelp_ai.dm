@@ -20,6 +20,7 @@
 		/datum/ai_planning_subtree/sculpt_statues,
 		/datum/ai_planning_subtree/find_and_hunt_target/corpses/ash_whelp,
 		/datum/ai_planning_subtree/burn_trees,
+		/datum/ai_planning_subtree/find_and_hunt_target/prowl/lavaland,
 	)
 
 /// Cancel melee attacks when we have our breath weapon

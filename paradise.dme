@@ -2751,6 +2751,7 @@
 #include "code\modules\mob\living\basic\hostile\swarmers\swarmer_actions.dm"
 #include "code\modules\mob\living\basic\hostile\swarmers\swarmer_ai.dm"
 #include "code\modules\mob\living\basic\hostile\swarmers\swarmer_effects.dm"
+#include "code\modules\mob\living\basic\lavaland\ash_walkers.dm"
 #include "code\modules\mob\living\basic\lavaland\ash_whelp\ash_whelp.dm"
 #include "code\modules\mob\living\basic\lavaland\ash_whelp\ash_whelp_actions.dm"
 #include "code\modules\mob\living\basic\lavaland\ash_whelp\ash_whelp_ai.dm"

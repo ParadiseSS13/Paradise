@@ -662,6 +662,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 		mobtype = /mob/living/basic/mining/ash_whelp/ice
 	. = ..()
 
+/obj/effect/landmark/mob_spawner/ashwalker_npc
+	mobtype = /mob/living/basic/ash_walker
+
+/obj/effect/landmark/mob_spawner/ashwalker_npc/Initialize(mapload)
+	if(prob(40))
+		mobtype = /mob/living/basic/ash_walker/tough
+	else if(prob(15))
+		mobtype = /mob/living/basic/ash_walker/veteran
+	else if(prob(1))
+		mobtype = /mob/living/basic/ash_walker/elite
+	. = ..()
+
 /obj/effect/landmark/mob_spawner/legion
 	mobtype = /mob/living/basic/mining/hivelord/legion
 
