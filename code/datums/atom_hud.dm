@@ -68,6 +68,7 @@ GLOBAL_LIST_INIT(huds, alist(
 		for(var/atom/A in hudatoms)
 			remove_hud_images(M, A)
 		hudusers -= M
+		M.reload_huds()
 
 /datum/atom_hud/proc/remove_from_hud(atom/A)
 	if(!A)
