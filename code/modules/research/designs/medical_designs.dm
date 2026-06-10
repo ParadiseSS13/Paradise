@@ -241,7 +241,7 @@
 	name = "Incision Management System"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	id = "scalpel_manager"
-	req_tech = list("biotech" = 7, "materials" = 7, "magnets" = 5, "programming" = 4)
+	req_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
 	build_path = /obj/item/scalpel/laser/manager
