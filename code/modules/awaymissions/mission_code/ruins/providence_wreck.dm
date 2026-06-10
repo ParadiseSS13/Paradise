@@ -61,7 +61,7 @@
 		"Log. This is Captain Charon of the independant vessel 'Providence.",
 		"We've sent out a distress signal. Best we can do now is wait.",
 		"The back half of the ship is gone. That hole in the ground... it doesn't end.",
-		"Sergeant Kenefick shined a targeting laser into the hole, and the rangefinder wouldn't stop ticking up.",
+		"Sergeant Kenefick shined a targeting laser into the hole, and the rangefinder wouldn't stop ticking.",
 		"We've lost all contact with engineering, and a chunk of our medical deck is gone.",
 		"I believe we can pull through though. Things seem rough, but we've toughed through worse.",
 		"Captain Charon, signing off."
