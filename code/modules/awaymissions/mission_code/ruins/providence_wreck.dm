@@ -69,7 +69,7 @@
 
 /obj/structure/providence_lockdown_controller
 	name = "lockdown controller"
-	desc = "A machine that controls the heavy blast doors all around the ship. Reversing this should unlock the entire ship for exploration."
+	desc = "A machine that controls the heavy blast doors all around the Providence. Reversing this should unlock the entire ship for exploration."
 	icon = 'icon/obj/machines/mining_machines.dmi'
 	icon_state = "asteroid_magnet"
 	anchored = TRUE
@@ -87,5 +87,5 @@
 	var/list/wave_mobs = list(
 
 	)
-	/// Mob faction
+	/// What faction to give the mobs that spawn
 	var/mob_faction = "providence_attackers"
