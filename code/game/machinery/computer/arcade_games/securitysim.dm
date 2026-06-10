@@ -1,8 +1,8 @@
 #define PROB_CANDIDATE_ERRORS 8.3
 
 #define PROB_UNIQUE_CANDIDATE 2
-#define UNIQUE_STEVE 1
-#define UNIQUE_MIME 2
+#define UNIQUE_MCTIDE 1
+#define UNIQUE_CLING 2
 #define UNIQUE_CEO_CHILD 3
 #define UNIQUE_VIGILANTE 4
 
@@ -12,20 +12,22 @@
 #define RECRUITER_STATUS_NORMAL 2
 #define RECRUITER_STATUS_GAMEOVER 3
 
-/obj/machinery/computer/arcade/recruiter
-	name = "\improper NT Recruiter Simulator"
-	desc = "Weed out the good from bad employees and build the perfect manifest to work aboard the station."
-	icon_state = "arcade_recruiter"
+/obj/machinery/computer/arcade/lawyer
+	name = "\improper NT Magistrate Simulator"
+	desc = "Make sure Security is applying sentences correctly and restore order aboard the station!"
+	icon_state = "arcade_lawyer"
 	icon_screen = "nanotrasen"
 	light_color = LIGHT_COLOR_WHITE
-	circuit = /obj/item/circuitboard/arcade/recruiter
-	var/candidate_name
-	var/candidate_birth
-	var/age
+	circuit = /obj/item/circuitboard/arcade/lawyer
+	var/criminal_name
 	var/datum/species/cand_species
-	var/planet_of_origin
-	var/job_requested
-	var/employment_records
+	var/criminal_job
+	var/crimes_committed
+	var/sentencing
+	var/officer_name
+	var/datum/species/off_species
+	var/station_location
+	var/manner_of_arrest
 	/// Current "turn" of the game
 	var/curriculums
 	/// Total number of "turns" to win
@@ -33,21 +35,22 @@
 	/// Which unique candidate is he?
 	var/unique_candidate
 
-	var/list/planets = list("Earth", "Mars", "Luna", "Jargon 4", "New Canaan", "Mauna-B", "Ahdomai", "Moghes",
-							"Qerrballak", "Xarxis 5", "Hoorlm", "Aurum", "Boron 2", "Kelune", "Dalstadt")
-	/// Planets with either mispellings or ones that cannot support life
-	var/list/incorrect_planets = list("Eath", "Marks", "Lunao", "Jabon 4", "Old Canaan", "Mauna-P",
-									"Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
+	var/list/stations = list("NSS Cyberiad", "NSS Cerebron", "NSS Kerberos", "NSS Legaria", "NSS Farragus", "NSS Diagoras")
+	/// Stations with misspellings, don't support standard crew, or aren't stations at all.
+	var/list/incorrect_stations = list("Earth", "NAS Trurl", "NMS Inferno", "ISS Lexofficium", "NSS Cerberus",
+									  "Nanotrasen HQ", "NSS Cyberad", "NSS Farragas", "KS13", "NSS Exodus")
 
 	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Botanist", "Explorer", "Quartermaster",
 						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner", "Geneticist", "Chaplain", "Librarian",
-						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent", "Smith")
+						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent",
+						"Smith", "Mime")
 	/// Jobs that NT stations dont offer/mispelled
 	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "Brig Physician",
 								"Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician",
 								"Chauffeur", "Teacher", "Maid", "Plumber", "Trader", "Hobo", "NT CEO",
-								"Mime", "Assitant", "Janittor", "Medical", "Generticist", "Baton Officer",
-								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs Agent")
+								"Bridge Assistant", "Assitant", "Janittor", "Medical", "Generticist", "Baton Officer",
+								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs Agent",
+								"Wizard", "Nanotrasen Navy Officer", "Barber", "Ambassador", "Company Shareholder")
 
 	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation, doesn't normally ask for good salaries", "Charged with three counts of aggravated silliness",
 							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
@@ -82,98 +85,98 @@
 									"Connected a plasma storage tank to the air distribution line", "Certified supermatter taste tester",
 									"Is known to spend entire shifts in the arcade instead of working", "Experienced Cybersun Industries roboticist")
 
-	/// Species that are hirable in the eyes of NT
+	/// Species that are hirable in the eyes of NT. Used for name generation
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
 										/datum/species/tajaran, /datum/species/kidan, /datum/species/drask,
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
 										/datum/species/moth, /datum/species/vox, /datum/species/skulk)
-	/// Species that are NOT hirable in the eyes of NT
-	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey,
-										/datum/species/shadow, /datum/species/skeleton, /datum/species/golem)
+
+	/// Crimes that are valid under Space Law, organized by severity for math later
+	var/list/minor_crimes = list("Damage to Station Assets", "Battery", "Drug Possession", "Indecent Exposure", "Abuse of Equipment",
+								"Petty Theft", "Trespass")
+	var/list/medium_crimes = list("Workplace Hazard", "Kidnapping", "Assault", "Narcotics Distribution", "Possession of a Weapon",
+								 "Rioting", "Abuse of Confiscated Equipment", "Robbery")
+	var/list/major_crimes = list("Sabotage", "Aggravated Assault", "Possession of a Restricted Weapon/Item", "Inciting a Riot",
+								"Possession of Contraband", "Theft", "Major Trespass")
+	var/list/exceptional_crimes = list("Grand Sabotage", "Manslaughter", "Attempted Murder", "Grand Theft", "Enemy of the Corporation")
+	var/list/capital_crimes = list("Murder", "Mutiny")
+	/// Crimes that are not valid under Space Law
+	var/list/invalid_crimes = list("Honking", "Cannibalism", "Grand Trespass", "Insulted Me", "Mass Murder", "Capital Theft",
+								  "Impersonation", "Embezzlement", "Vandalism", "Cultist")
 
 	/// Is he a good candidate for hiring?
 	var/good_candidate = TRUE
 	/// Why did you lose?
 	var/reason
 	/// In which screen are we?
-	var/game_status = RECRUITER_STATUS_START
+	var/game_status = LAWYER_STATUS_START
 	/// Used to stop players from spamming the buttons
 	COOLDOWN_DECLARE(spam_cooldown)
 
-/obj/machinery/computer/arcade/recruiter/proc/generate_candidate()
-	if(prob(PROB_CANDIDATE_ERRORS)) // Species
-		cand_species = pick(incorrect_species)
+/obj/machinery/computer/arcade/lawyer/proc/generate_candidate()
+	cand_species = pick(hirable_species)
+	candidate_name = random_name(species = initial(cand_species.name))
+	off_species = pick(hirable_species)
+	officer_name = random_name(species = initial(off_species.name))
+
+	if(prob(PROB_CANDIDATE_ERRORS)) // Station
+		station_location = pick(incorrect_stations)
 		good_candidate = FALSE
 	else
-		cand_species = pick(hirable_species)
+		station_location = pick(stations)
 
-	if(prob(PROB_CANDIDATE_ERRORS)) // Age
-		age = pick(initial(cand_species.max_age) + rand(20, 100), (initial(cand_species.min_age) - rand(1, 7))) // Its either too young or too old for the job
+	if(prob(PROB_CANDIDATE_ERRORS)) // Criminal's Job
+		criminal_job = pick(incorrect_jobs)
 		good_candidate = FALSE
 	else
-		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
+		criminal_job = pick(jobs)
 
-	if(prob(PROB_CANDIDATE_ERRORS)) // Date of birth
-		candidate_birth = "[rand(1, 12)]/[GLOB.game_year - age + pick(-400, -300, -200, -100, 50, 100, 150)]" // The age doesn't match with the date of birth
+	if(prob(PROB_CANDIDATE_ERRORS)) // Manner of Arrest
+		manner_of_arrest = pick(incorrect_records)
 		good_candidate = FALSE
 	else
-		candidate_birth = "[rand(1, 12)]/[GLOB.game_year - age]"
+		manner_of_arrest = pick(records)
 
-	if(prob(PROB_CANDIDATE_ERRORS)) // Name
-		// Lets pick all species with a naming scheme and remove the selected one so we can have a mismatch
-		var/datum/species/wrong_species = pick((hirable_species + /datum/species/monkey + /datum/species/golem - cand_species))
-		candidate_name = random_name(species = initial(wrong_species.name))
-		good_candidate = FALSE
+	if(prob(PROB_CANDIDATE_ERRORS)) // Crimes committed
+		crimes_committed = placeholder
 	else
-		candidate_name = random_name(species = initial(cand_species.name))
+		crimes_committed = placeholder
 
-	if(prob(PROB_CANDIDATE_ERRORS)) // Planet
-		planet_of_origin = pick(incorrect_planets)
-		good_candidate = FALSE
+	if(prob(PROB_CANDIDATE_ERRORS)) // Sentencing time
+		sentencing = placeholder
 	else
-		planet_of_origin = pick(planets)
+		sentencing = placeholder
 
-	if(prob(PROB_CANDIDATE_ERRORS)) // Requested Job
-		job_requested = pick(incorrect_jobs)
+	if(job_requested == "Clown") // Clowns are allowed to commit crimes
 		good_candidate = FALSE
-	else
-		job_requested = pick(jobs)
 
-	if(prob(PROB_CANDIDATE_ERRORS)) // Employment records
-		employment_records = pick(incorrect_records)
-		good_candidate = FALSE
-	else
-		employment_records = pick(records)
-
-	if(job_requested == "Clown") // Clowns always get hired no matter what, ZERO requirements
-		good_candidate = TRUE
-
-/obj/machinery/computer/arcade/recruiter/proc/unique_candidate()
+/obj/machinery/computer/arcade/lawyer/proc/unique_candidate()
 	unique_candidate = pick(UNIQUE_STEVE, UNIQUE_MIME, UNIQUE_CEO_CHILD, UNIQUE_VIGILANTE)
 	switch(unique_candidate)
-		if(UNIQUE_STEVE) // Steve is special
-			candidate_name = "Steve"
-			age = "30"
-			candidate_birth = "12/[GLOB.game_year - 30]"
-			cand_species = /datum/species/human
-			planet_of_origin = "Unknown"
-			job_requested = "Central Command Intern"
-			employment_records = "Experience in pressing buttons"
-		if(UNIQUE_MIME) // Only hire mimes that don't fill their employment application
-			candidate_name = "..."
-			candidate_birth = "..."
-			age = "..."
-			planet_of_origin = "..."
-			job_requested = "Mime"
-			employment_records = "..."
+		if(UNIQUE_MCTIDE) // Grey McTide is always evil
+			criminal_name = "Grey McTide"
+			criminal_job = "Assistant"
+			crimes_committed = "Being annoying"
+			sentencing = "Permanent Imprisonment"
+			officer_name = "John Ponte"
+			station_location = "NSS Cyberiad"
+			manner_of_arrest = "Arrested after hitting an officer with a toolbox and stealing their baton."
+		if(UNIQUE_CLING) // It's funny!
+			criminal_name = "Dr. Chang Ling"
+			criminal_job = "Geneticist"
+			crimes_committed = "Transforming into other people"
+			sentencing = "Execution"
+			officer_name = "Phil Yanst"
+			station_location = "NSS Diagoras"
+			manner_of_arrest = "Two identical staff members ran into each other. After some investigation, one was determined to be fake and arrested."
 		if(UNIQUE_CEO_CHILD) // Hes the son of the CEO, what do you expect?
-			candidate_name = "Johnny Nanotrasen, Jr."
-			age = "12"
-			candidate_birth = "1/[GLOB.game_year - 12]"
-			cand_species = /datum/species/human
-			planet_of_origin = "Unknown"
-			job_requested = "Captain"
-			employment_records = "Whatever"
+			criminal_name = "Johnny Nanotrasen, Jr."
+			criminal_job = "Unemployed"
+			crimes_committed = "Grand Sabotage"
+			sentencing = "Pardoned by Central Command"
+			officer_name = "[REDACTED]"
+			station_location = "NSS Kerberos"
+			manner_of_arrest = "Found cutting wires leading to the tesla containment, arrested on the spot."
 		if(UNIQUE_VIGILANTE) // For some reason vigilantes do get inside NT stations, let them slip in
 			candidate_name = "Owlman"
 			age = "38"
@@ -183,9 +186,9 @@
 			job_requested = "Assistant"
 			employment_records = "Experience in hunting criminals"
 
-/obj/machinery/computer/arcade/recruiter/proc/win()
-	game_status = RECRUITER_STATUS_START
-	atom_say("Congratulations recruiter, the company is going to have a productive shift thanks to you.")
+/obj/machinery/computer/arcade/lawyer/proc/win()
+	game_status = LAWYER_STATUS_START
+	atom_say("Congratulations Magistrate, all the criminals have been put away thanks to you.")
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 20)
 	if(emagged)
 		new /obj/item/stamp/chameleon(get_turf(src))
@@ -193,26 +196,26 @@
 		emagged = FALSE
 	prizevend(50)
 
-/obj/machinery/computer/arcade/recruiter/ui_state(mob/user)
+/obj/machinery/computer/arcade/lawyer/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/arcade/recruiter/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/arcade/lawyer/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "NTRecruiter", name)
 		ui.open()
 
-/obj/machinery/computer/arcade/recruiter/ui_data(mob/user)
+/obj/machinery/computer/arcade/lawyer/ui_data(mob/user)
 	var/list/data = list(
 		"gamestatus" = game_status,
 
-		"cand_name" = candidate_name,
-		"cand_birth" = candidate_birth,
-		"cand_age" = age,
-		"cand_species" = initial(cand_species.name),
-		"cand_planet" = planet_of_origin,
-		"cand_job" = job_requested,
-		"cand_records" = employment_records,
+		"cand_name" = criminal_name,
+		"cand_birth" = criminal_job,
+		"cand_age" = crimes_committed,
+		"cand_species" = sentencing,
+		"cand_planet" = officer_name,
+		"cand_job" = station_location,
+		"cand_records" = manner_of_arrest,
 
 		"cand_curriculum" = curriculums,
 		"total_curriculums" = total_curriculums,
@@ -221,7 +224,7 @@
 	)
 	return data
 
-/obj/machinery/computer/arcade/recruiter/ui_act(action, list/params, datum/tgui/ui)
+/obj/machinery/computer/arcade/lawyer/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -301,10 +304,10 @@
 			playsound(user, 'sound/effects/pressureplate.ogg', 10, TRUE)
 			game_status = RECRUITER_STATUS_START
 
-/obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
+/obj/machinery/computer/arcade/lawyer/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/arcade/recruiter/emag_act(mob/user)
+/obj/machinery/computer/arcade/lawyer/emag_act(mob/user)
 	if(emagged)
 		return
 	if(user)
