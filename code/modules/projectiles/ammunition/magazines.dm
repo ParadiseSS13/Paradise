@@ -58,7 +58,7 @@
 	return 0
 
 /obj/item/ammo_box/magazine/internal/cylinder/charons_special
-	ammo_type = /obj/item/ammo_casing/huntman32
+	ammo_type = /obj/item/ammo_casing/huntsman32
 	caliber = "32"
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
