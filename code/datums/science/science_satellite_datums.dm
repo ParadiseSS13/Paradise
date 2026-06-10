@@ -74,12 +74,12 @@
 		apoapsis = -INFINITY
 		periapsis = INFINITY
 		log_debug("-----------------physics step----------------")
-		for(var/i = 0; i < 3000; i++) // TODO: Refine this number, its way to high
+		for(var/i = 0; i < 6000; i++) // TODO: Refine this number, its way to high
 			if(i < 7)
 				log_debug("pos: ([last_step["position"]]) vel: ([last_step["velocity"]])")
 			last_step = calculate_physics_step(last_step["position"], last_step["velocity"])
 
-			var/point = last_step["position"]
+			var/vector/point = last_step["position"]
 
 			path += point
 			if(last_step["distance"] > apoapsis)
@@ -94,7 +94,7 @@
 		dist = 1 // we should delete the satellite as part of a crash into the planet before this, but just in case
 	var/gravitational_pull = -gravitational_parameter / (dist ** 3)
 
-	var/delta_time = 0.1
+	var/delta_time = 2 //TODO: Set to 0.1
 	// calculate acceleration towards planet
 	var/vector/accel = pos * gravitational_pull
 
@@ -128,10 +128,13 @@
 		planned_maneuvers -= maneuver
 		return
 
-	var/vector/prograde = velocity.Normalize()
-	var/vector/radial = position.Normalize()
+	var/vector/vel_copy = vector(velocity) // we need to copy the vectors as Normalize() modifies the vector itself!
+	var/vector/pos_copy = vector(position)
 
-	var/vector/normal_cross = position.Cross(velocity)
+	var/vector/prograde = vel_copy.Normalize()
+	var/vector/radial = pos_copy.Normalize()
+
+	var/vector/normal_cross = position.Cross(velocity) // Cross() returns a new vector though
 	var/vector/normal = normal_cross.Normalize()
 
 	//var/radial_cross = vector_3_cross(normal["x"], normal["y"], normal["z"], prograde["x"], prograde["y"], prograde["z"])

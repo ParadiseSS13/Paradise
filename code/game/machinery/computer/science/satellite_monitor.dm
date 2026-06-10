@@ -52,6 +52,29 @@
 		if(planned_maneuvers.len) // in case no maneuver has been set this still needs to become an array
 			planned_maneuvers += list()
 
+		var/list/planned_orb = list()
+		for(var/vector/point in orbit_data.planned_orbit)
+			planned_orb += list(list(
+				"x" = point.x,
+				"y" = point.y,
+				"z" = point.z
+			))
+
+		if(planned_orb.len)
+			planned_orb += list()
+
+		var/list/pos_vec = list()
+		if(orbit_data.position)
+			pos_vec["x"] = orbit_data.position.x
+			pos_vec["y"] = orbit_data.position.y
+			pos_vec["z"] = orbit_data.position.z
+
+		var/list/vel_vec = list()
+		if(orbit_data.velocity)
+			vel_vec["x"] = orbit_data.velocity.x
+			vel_vec["y"] = orbit_data.velocity.y
+			vel_vec["z"] = orbit_data.velocity.z
+
 		satellite_data += list(list( // funny byond required a listed list to be sent to TGUI
 			"UID" = satellite.UID(),
 			"name" = satellite.internal_name,
@@ -78,9 +101,9 @@
 				//"velocity" = orbit_data.velocity,
 				//"orbit_progress" = orbit_data.orbit_progress,
 				"planned_maneuvers" = planned_maneuvers,
-				"planned_orbit" = list(orbit_data.planned_orbit),
-				"position" = orbit_data.position,
-				"velocity" = orbit_data.velocity
+				"planned_orbit" = planned_orb,
+				"position" = pos_vec, //orbit_data.position,
+				"velocity" = vel_vec//orbit_data.velocity
 			)
 		))
 

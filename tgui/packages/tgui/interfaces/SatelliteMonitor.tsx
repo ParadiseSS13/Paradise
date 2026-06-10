@@ -48,23 +48,17 @@ interface Satellite {
   // };
 }
 
+interface Vector3 {
+  x: number;
+  y: number;
+  z: number;
+}
+
 class Maneuver {
   prograde: number = 0;
   normal: number = 0;
   burn_time: number = 0;
   time_to_maneuver: number = 0;
-}
-
-class Vector3 {
-  x: number = 0;
-  y: number = 0;
-  z: number = 0;
-
-  constructor(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-  }
 }
 
 export const SatelliteMonitor = (props, context) => {
@@ -153,15 +147,16 @@ const ManeuverPanel = ({
               <Stack>{`Apoapsis: ${selectedSatellite.orbit_data.apoapsis * (cmagged ? 0.6213 : 1)}${cmagged ? 'mi' : 'km'}`}</Stack>
               <Stack>{`Periapsis: ${selectedSatellite.orbit_data.periapsis}km`}</Stack>
               <Stack>{`Inclination: ${selectedSatellite.orbit_data.inclination}`}</Stack>
-              <Stack>{`Position: (${selectedSatellite.orbit_data.position})`}</Stack>
-              <Stack>{`planned_orbit (l: ${selectedSatellite.orbit_data?.planned_orbit?.length}): ${selectedSatellite.orbit_data?.planned_orbit}`}</Stack>
+              <Stack>{`Position: (${selectedSatellite.orbit_data.position?.x}, ${selectedSatellite.orbit_data.position?.y}, ${selectedSatellite.orbit_data.position?.z})`}</Stack>
+              <Stack>{`planned_orbit (l: ${selectedSatellite.orbit_data?.planned_orbit?.length})`}</Stack>
+              <Stack>{`path (15.x: ${selectedSatellite.orbit_data?.planned_orbit[15]?.x})(l: ${selectedSatellite.orbit_data.planned_orbit.map(p => `${p.x},${p.y}`).join(" ")})`}</Stack>
             </Stack>
             <Stack width="50%" vertical>
               <Stack>{`weight: ${selectedSatellite.weight}kg`}</Stack>
               <Stack>{`fuel usage: ${selectedSatellite.fuel_usage.toFixed(2)}L/s`}</Stack>
               <Stack>{`Period: ${selectedSatellite.orbit_data.period / deciseconds_in_minute}min`}</Stack>
               {/* <Stack>{`Velocity: ${Math.sqrt(selectedSatellite.orbit_data.velX ** 2 + selectedSatellite.orbit_data.velY ** 2 + selectedSatellite.orbit_data.velZ ** 2)} km/s`}</Stack>*/}
-              <Stack>{`Velocity: (${selectedSatellite.orbit_data?.velocity})`}</Stack>
+              <Stack>{`Velocity: (${selectedSatellite.orbit_data.velocity?.x}, ${selectedSatellite.orbit_data.velocity?.y}, ${selectedSatellite.orbit_data.velocity?.z})`}</Stack>
             </Stack>
           </Stack>
           <Section title="Burn configuration" mt={3}>
@@ -428,45 +423,76 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
         }}
       >
         {satellites.map((satellite: Satellite) => {
-          const orbitSizeFull = 100000; // works as a scale
-          let size = ((satellite.orbit_data.periapsis + satellite.orbit_data.periapsis) / orbitSizeFull) * 100 + '%';
+          // const orbitSizeFull = 100000; // works as a scale
+          // let size = ((satellite.orbit_data.periapsis + satellite.orbit_data.periapsis) / orbitSizeFull) * 100 + '%';
           // let orbitProgress = `${Math.abs(satellite.orbit_data.orbit_progress - 0.5) * 200}%`;
           // const path = satellite.orbit_data.planned_orbit.map((p,i) => (i === 0) ? ``)
-          const path = satellite.orbit_data.planned_orbit.map(p => `${p.x},${p.y}`).join(" ");
+          const scale = 0.5;
+          const offset = 150;
+
+          const path = satellite.orbit_data.planned_orbit.map(p => `${p.x * scale + offset},${p.y * scale + offset}`).join(" "); // our numbers represent an orbit, we need to add an offset to center the path on the SVG after the scale
           return (
             <Stack key={satellite.name}>
-              {size}
               <Stack
                 style={{
                   top: '50%',
                   left: '50%',
                   transform: `translate(-50%, -50%) rotate(${satellite.orbit_data.inclination}deg)`,
-                  backgroundColor: 'green',
-                  width: size,
-                  height: '5px',
+                  height: '100%',
+                  width: '100%',
                   position: 'absolute',
                   zIndex: orbitZ,
                   border: 'none',
                 }}
               >
-                <svg width={200} height={200} style={{ border: "1px solid red" }}>
+                <svg width={"100%"} height={"100%"} style={
+                  {
+                    height: '100%',
+                    width: '100%',
+                    position:'absolute',
+                    border: "1px solid orange",
+                    }
+                  }>
                   <polyline
+                    viewBox='0 0 300 300'
+                    preserveAspectRatio='xMidYMid meet'
                     points={path}
                     fill="none"
-                    stroke="red"
-                    width="2"
+                    stroke="green"
+                    strokeWidth={3}
+                  />
+                </svg>
+                <svg>
+                  <text x="5" y="30" fill="white">{`
+                  sat scaled X: ${(satellite.orbit_data.position?.x * scale + offset).toFixed(2)}\n
+                  sat scaled Y: ${(satellite.orbit_data.position?.y * scale + offset).toFixed(2)}
+                  `}
+                  </text>
+                </svg>
+                <svg style={{
+                    height: '100%',
+                    width: '100%',
+                    position:'absolute',
+                    border: "1px solid cyan",
+                  }}>
+                  <polyline
+                    viewBox='0 0 300 300'
+                    preserveAspectRatio='xMidYMid meet'
+                    points={"0,0 30,30 15,15 0,30 15,15 30,0"}
+                    fill="none"
+                    stroke="cyan"
+                    strokeWidth={7}
                   />
                 </svg>
                 <img
                   src={`data:image/png;base64,${current_planet_base64}`}
                   style={{
-                    top: satellite.orbit_data?.position?.x ?? 0,
-                    left: satellite.orbit_data?.position?.y ?? 0,
-                    transform: `translate(-50%, -50%) rotate(${0}deg)`, // 0 degree rotation puts it back on track
-                    backgroundColor: `cyan`,
+                    top: satellite.orbit_data.position?.y * scale + offset,
+                    left: satellite.orbit_data.position?.x * scale + offset,
+                    backgroundColor: (satellite.orbit_data?.position?.z > 1)? `cyan` : `blue`,
                     width: '20px',
                     height: '20px',
-                    position: 'relative',
+                    position: 'absolute',
                     zIndex: orbitZ + 5,
                     border: 'none',
                   }}
