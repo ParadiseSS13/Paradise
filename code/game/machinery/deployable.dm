@@ -548,10 +548,8 @@
 
 /obj/item/grenade/turret/mining
 	name = "\"Prospector\" Turret grenade"
-	desc = "Inflates into a Pop-Up turret, shoots everyone on sight who wasn't the primer."
+	desc = "Inflates into a \"Prospector\" Mining Turret - a robust and secure defensive system."
 	icon_state = "mining_turret"
-	worn_icon_state = "flashbang"
-	inhand_icon_state = "flashbang"
 	origin_tech = "materials=4;magnets=4;engineering=5"
 
 /obj/item/grenade/turret/mining/emag_act(mob/user)
