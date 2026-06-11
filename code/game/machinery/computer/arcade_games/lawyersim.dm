@@ -15,7 +15,7 @@
 /obj/machinery/computer/arcade/lawyer
 	name = "\improper NT Magistrate Simulator"
 	desc = "Make sure Security is applying sentences correctly and restore order aboard the station!"
-	icon_state = "arcade_recruiter"
+	icon_state = "arcade_lawyer"
 	icon_screen = "nanotrasen"
 	light_color = LIGHT_COLOR_WHITE
 	circuit = /obj/item/circuitboard/arcade/lawyer
