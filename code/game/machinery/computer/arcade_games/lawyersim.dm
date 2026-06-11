@@ -36,8 +36,7 @@
 	var/total_curriculums = 7
 	/// Which unique candidate is he?
 	var/unique_candidate
-	// RNG Variable
-	var/generator/G = generator("num", 1, 5)
+	// RNG/Loop Variables
 	var/RandNum
 	var/i
 
@@ -158,17 +157,13 @@
 		for(i=0, i<crime_count, i++)
 			if(i!=0)
 				crimes_committed = addtext(crimes_committed, ", ")
-			RandNum = G.Rand() // The random number generation is screwed up
-			if(RandNum == 1)
-				crimes_committed = addtext(crimes_committed, pick(minor_crimes))
-			if(RandNum == 2)
-				crimes_committed = addtext(crimes_committed, pick(medium_crimes))
-			if(RandNum == 3)
-				crimes_committed = addtext(crimes_committed, pick(major_crimes))
-			if(RandNum == 4)
-				crimes_committed = addtext(crimes_committed, pick(exceptional_crimes))
-			if(RandNum == 5)
-				crimes_committed = addtext(crimes_committed, pick(capital_crimes))
+			RandNum = rand(1, 5)
+			switch(RandNum)
+				if(1) crimes_committed = addtext(crimes_committed, pick(minor_crimes))
+				if(2) crimes_committed = addtext(crimes_committed, pick(medium_crimes))
+				if(3) crimes_committed = addtext(crimes_committed, pick(major_crimes))
+				if(4) crimes_committed = addtext(crimes_committed, pick(exceptional_crimes))
+				if(5) crimes_committed = addtext(crimes_committed, pick(capital_crimes))
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Sentencing time
 		sentencing = "placeholder"
