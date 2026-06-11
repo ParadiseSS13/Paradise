@@ -274,7 +274,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override, is_emote = FALSE, sender_job = null, vname = null) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
@@ -299,7 +299,11 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			break
 	if(jammed)
 		message = Gibberish(message, 100)
-	var/list/message_pieces = message_to_multilingual(message)
+	var/list/message_pieces
+	if(is_emote)
+		message_pieces = list(new /datum/multilingual_say_piece(GLOB.all_languages["Noise"], message))
+	else
+		message_pieces = message_to_multilingual(message)
 
 		// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
@@ -308,8 +312,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Automated Announcement"
-	tcm.vname = "synthesized voice"
+	tcm.sender_job = sender_job || "Automated Announcement"
+	tcm.vname = vname || "synthesized voice"
 	tcm.signal_type = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
