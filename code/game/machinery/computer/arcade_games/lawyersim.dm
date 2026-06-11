@@ -202,20 +202,20 @@
 /obj/machinery/computer/arcade/lawyer/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "NTRecruiter", name)
+		ui = new(user, src, "LawyerSim", name)
 		ui.open()
 
 /obj/machinery/computer/arcade/lawyer/ui_data(mob/user)
 	var/list/data = list(
 		"gamestatus" = game_status,
 
-		"cand_name" = criminal_name,
-		"cand_birth" = criminal_job,
-		"cand_age" = crimes_committed,
-		"cand_species" = sentencing,
-		"cand_planet" = officer_name,
-		"cand_job" = station_location,
-		"cand_records" = manner_of_arrest,
+		"crim_name" = criminal_name,
+		"crim_job" = criminal_job,
+		"crimes_list" = crimes_committed,
+		"total_sent" = sentencing,
+		"off_name" = officer_name,
+		"station_loc" = station_location,
+		"arrest_desc" = manner_of_arrest,
 
 		"cand_curriculum" = curriculums,
 		"total_curriculums" = total_curriculums,
