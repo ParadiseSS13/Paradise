@@ -521,7 +521,6 @@
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot
-	channels += list("Syndicate" = 1)// proboably redundant, will need further testing
 	syndie = TRUE
 	recalculateChannels()
 //end of hispania
