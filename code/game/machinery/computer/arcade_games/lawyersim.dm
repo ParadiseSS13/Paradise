@@ -188,7 +188,7 @@
 
 /obj/machinery/computer/arcade/lawyer/proc/win()
 	game_status = RECRUITER_STATUS_START
-	atom_say("Congratulations Magistrate, all the criminals have been put away thanks to you.")
+	atom_say("Congratulations Magistrate, all the criminals have been put away properly thanks to you.")
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 20)
 	if(emagged)
 		new /obj/item/stamp/chameleon(get_turf(src))
@@ -242,14 +242,7 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(!good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				if(emagged)
-					reason = "YOU ENDED UP HIRING A SYNDICATE AGENT IN DISGUISE!"
-					playsound(src, 'sound/misc/for_the_syndicate.ogg', 50)
-					atom_say("FOR THE SYNDICATE!")
-					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 1.5 SECONDS)
-					emagged = FALSE
-					return
-				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
+				reason = "You approved an invalid record! Security is abusing their authority and Nanotrasen is firing everyone involved."
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				return
 			if(curriculums >= total_curriculums)
@@ -266,14 +259,7 @@
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(good_candidate)
 				game_status = RECRUITER_STATUS_GAMEOVER
-				if(emagged)
-					reason = "MANIFEST HIRED STAFF IS NOW RESPONSIBLE FOR IMPORTANT TASKS!"
-					playsound(src, 'sound/misc/what_this_button_do.ogg', 50)
-					atom_say("What does this button do?")
-					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 1.5 SECONDS)
-					emagged = FALSE
-					return
-				reason = "You ended up dismissing a competent candidate and now the company is suffering with the lack of crew..."
+				reason = "You rejected a valid record. Security complained to Nanotrasen about your performance, and they fired you to save face!"
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				return
 			if(curriculums >= total_curriculums)
@@ -306,19 +292,6 @@
 
 /obj/machinery/computer/arcade/lawyer/attack_hand(mob/user)
 	ui_interact(user)
-
-/obj/machinery/computer/arcade/lawyer/emag_act(mob/user)
-	if(emagged)
-		return
-	if(user)
-		to_chat(user, SPAN_NOTICE("You override the menu and revert the game to its previous version."))
-		add_hiddenprint(user)
-	game_status = RECRUITER_STATUS_START
-	name = "\improper NT Recruiter Simulator HARDCORE EDITION"
-	desc = "The advanced version of Nanotrasen's recruiting simulator, used to train the highest echelon of Nanotrasen recruiters. Has double the application count, and supposedly includes some routines to weed out the less skilled."
-	total_curriculums = 14
-	emagged = TRUE
-	return TRUE
 
 #undef PROB_CANDIDATE_ERRORS
 #undef PROB_UNIQUE_CANDIDATE
