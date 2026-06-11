@@ -109,7 +109,7 @@
 	/// Why did you lose?
 	var/reason
 	/// In which screen are we?
-	var/game_status = LAWYER_STATUS_START
+	var/game_status = RECRUITER_STATUS_START
 	/// Used to stop players from spamming the buttons
 	COOLDOWN_DECLARE(spam_cooldown)
 
@@ -187,7 +187,7 @@
 			manner_of_arrest = "Suspect arrested while attempting to order the Captain to give him the contents of the vault."
 
 /obj/machinery/computer/arcade/lawyer/proc/win()
-	game_status = LAWYER_STATUS_START
+	game_status = RECRUITER_STATUS_START
 	atom_say("Congratulations Magistrate, all the criminals have been put away thanks to you.")
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 20)
 	if(emagged)
