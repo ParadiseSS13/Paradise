@@ -1,4 +1,5 @@
 #define PROB_CANDIDATE_ERRORS 8.3
+#define PROB_MULTIPLE_CRIMES 40
 
 #define PROB_UNIQUE_CANDIDATE 2
 #define UNIQUE_MCTIDE 1
@@ -7,10 +8,10 @@
 #define UNIQUE_STEVE 4
 
 // Defines for the game screens
-#define RECRUITER_STATUS_START 0
-#define RECRUITER_STATUS_INSTRUCTIONS 1
-#define RECRUITER_STATUS_NORMAL 2
-#define RECRUITER_STATUS_GAMEOVER 3
+#define LAWYER_STATUS_START 0
+#define LAWYER_STATUS_INSTRUCTIONS 1
+#define LAWYER_STATUS_NORMAL 2
+#define LAWYER_STATUS_GAMEOVER 3
 
 /obj/machinery/computer/arcade/lawyer
 	name = "\improper NT Magistrate Simulator"
@@ -23,6 +24,7 @@
 	var/datum/species/cand_species
 	var/criminal_job
 	var/crimes_committed
+	var/crime_count
 	var/sentencing
 	var/officer_name
 	var/datum/species/off_species
@@ -34,6 +36,10 @@
 	var/total_curriculums = 7
 	/// Which unique candidate is he?
 	var/unique_candidate
+	// RNG Variable
+	var/generator/G = generator("num", 1, 5)
+	var/RandNum
+	var/i
 
 	var/list/stations = list("NSS Cyberiad", "NSS Cerebron", "NSS Kerberos", "NSS Legaria", "NSS Farragus", "NSS Diagoras")
 	/// Stations with misspellings, don't support standard crew, or aren't stations at all.
@@ -109,7 +115,7 @@
 	/// Why did you lose?
 	var/reason
 	/// In which screen are we?
-	var/game_status = RECRUITER_STATUS_START
+	var/game_status = LAWYER_STATUS_START
 	/// Used to stop players from spamming the buttons
 	COOLDOWN_DECLARE(spam_cooldown)
 
@@ -138,12 +144,35 @@
 		manner_of_arrest = pick(records)
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Crimes committed
-		crimes_committed = "placeholder"
+		crimes_committed = pick(invalid_crimes)
+		good_candidate = FALSE
 	else
-		crimes_committed = "placeholder"
+		crimes_committed = ""
+		if(prob(PROB_MULTIPLE_CRIMES)) // 40% chance of having more than one
+			if(prob(PROB_MULTIPLE_CRIMES)) // 40% chance of having more than two
+				crime_count = 3
+			else
+				crime_count = 2
+		else
+			crime_count = 1
+		for(i=0, i<crime_count, i++)
+			if(i!=0)
+				crimes_committed = addtext(crimes_committed, ", ")
+			RandNum = G.Rand() // The random number generation is screwed up
+			if(RandNum == 1)
+				crimes_committed = addtext(crimes_committed, pick(minor_crimes))
+			if(RandNum == 2)
+				crimes_committed = addtext(crimes_committed, pick(medium_crimes))
+			if(RandNum == 3)
+				crimes_committed = addtext(crimes_committed, pick(major_crimes))
+			if(RandNum == 4)
+				crimes_committed = addtext(crimes_committed, pick(exceptional_crimes))
+			if(RandNum == 5)
+				crimes_committed = addtext(crimes_committed, pick(capital_crimes))
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Sentencing time
 		sentencing = "placeholder"
+		good_candidate = FALSE
 	else
 		sentencing = "placeholder"
 
@@ -187,7 +216,7 @@
 			manner_of_arrest = "Suspect arrested while attempting to order the Captain to give him the contents of the vault."
 
 /obj/machinery/computer/arcade/lawyer/proc/win()
-	game_status = RECRUITER_STATUS_START
+	game_status = LAWYER_STATUS_START
 	atom_say("Congratulations Magistrate, all the criminals have been put away properly thanks to you.")
 	playsound(loc, 'sound/arcade/recruiter_win.ogg', 20)
 	if(emagged)
@@ -241,7 +270,7 @@
 		if("hire")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(!good_candidate)
-				game_status = RECRUITER_STATUS_GAMEOVER
+				game_status = LAWYER_STATUS_GAMEOVER
 				reason = "You approved an invalid record! Security is abusing their authority and Nanotrasen is firing everyone involved."
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				return
@@ -258,7 +287,7 @@
 		if("dismiss")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(good_candidate)
-				game_status = RECRUITER_STATUS_GAMEOVER
+				game_status = LAWYER_STATUS_GAMEOVER
 				reason = "You rejected a valid record. Security complained to Nanotrasen about your performance, and they fired you to save face!"
 				playsound(loc, 'sound/misc/compiler-failure.ogg', 3, TRUE)
 				return
@@ -275,7 +304,7 @@
 		if("start_game")
 			playsound(user, 'sound/effects/pressureplate.ogg', 10, TRUE)
 			good_candidate = TRUE
-			game_status = RECRUITER_STATUS_NORMAL
+			game_status = LAWYER_STATUS_NORMAL
 			curriculums = 1
 			if(prob(PROB_UNIQUE_CANDIDATE))
 				unique_candidate()
@@ -284,22 +313,23 @@
 
 		if("instructions")
 			playsound(user, 'sound/effects/pressureplate.ogg', 10, TRUE)
-			game_status = RECRUITER_STATUS_INSTRUCTIONS
+			game_status = LAWYER_STATUS_INSTRUCTIONS
 
 		if("back_to_menu")
 			playsound(user, 'sound/effects/pressureplate.ogg', 10, TRUE)
-			game_status = RECRUITER_STATUS_START
+			game_status = LAWYER_STATUS_START
 
 /obj/machinery/computer/arcade/lawyer/attack_hand(mob/user)
 	ui_interact(user)
 
 #undef PROB_CANDIDATE_ERRORS
+#undef PROB_MULTIPLE_CRIMES
 #undef PROB_UNIQUE_CANDIDATE
 #undef UNIQUE_MCTIDE
 #undef UNIQUE_CLING
 #undef UNIQUE_CEO_CHILD
 #undef UNIQUE_STEVE
-#undef RECRUITER_STATUS_START
-#undef RECRUITER_STATUS_INSTRUCTIONS
-#undef RECRUITER_STATUS_NORMAL
-#undef RECRUITER_STATUS_GAMEOVER
+#undef LAWYER_STATUS_START
+#undef LAWYER_STATUS_INSTRUCTIONS
+#undef LAWYER_STATUS_NORMAL
+#undef LAWYER_STATUS_GAMEOVER
