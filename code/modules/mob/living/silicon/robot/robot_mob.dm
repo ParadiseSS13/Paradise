@@ -1599,10 +1599,10 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
 		//from hispania
 		if(AI_SHELL) //New Shell
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg shell detected: <a href='?src=\ref[connected_ai];track=[html_encode(name)]'>[name]</a></span><br>")
-		//end of hispania
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
 		if(DISCONNECT) //Disconnect
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Remote telemetry lost with [name].</span><br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Remote telemetry lost with [name].")]<br>")
+		//end from hispania
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
