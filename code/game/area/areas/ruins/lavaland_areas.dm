@@ -17,6 +17,9 @@
 /area/ruin/powered/gluttony
 	icon_state = "yellow"
 
+/area/ruin/powered/providence
+	icon_state = "yellow"
+
 /area/ruin/powered/golem_ship
 	name = "Free Golem Ship"
 	icon_state = "yellow"

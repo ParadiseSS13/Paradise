@@ -1,3 +1,5 @@
+#define PW_CHALLENGE_LOOTROOM "PW_CHALLENGE_LOOTROOM"
+
 /obj/structure/environmental_storytelling_holopad/providence
 	speaking_name = "Captain Charon"
 
@@ -70,22 +72,93 @@
 /obj/structure/providence_lockdown_controller
 	name = "lockdown controller"
 	desc = "A machine that controls the heavy blast doors all around the Providence. Reversing this should unlock the entire ship for exploration."
-	icon = 'icon/obj/machines/mining_machines.dmi'
+	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "asteroid_magnet"
 	anchored = TRUE
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 100, ACID = 100)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// How long does it take to remove the lockdown
 	var/lockdown_time = 8 MINUTES
-	/// Number of waves
-	var/wave_count = 4
+	/// Number of waves, minus one for the starting wave
+	var/wave_count = 5
 	/// Minimum mobs per wave
 	var/wave_mob_min = 3
 	/// Max mobs per wave
 	var/wave_mob_max = 6
 	/// Mobs that can spawn in the wave
 	var/list/wave_mobs = list(
-
+			/mob/living/basic/mining/hivelord/legion = 375,
+			/mob/living/basic/ash_walker = 332,
+			/mob/living/basic/mining/goliath = 297,
+			/mob/living/basic/mining/basilisk/watcher = 296,
+			/mob/living/basic/ash_walker/tough = 120,
+			/mob/living/basic/mining/ash_whelp = 98,
+			/mob/living/basic/ash_walker/veteran = 45,
+			/mob/living/basic/mining/hivelord/legion/dwarf = 25,
+			/mob/living/basic/mining/goliath/ancient = 3,
+			/mob/living/basic/ash_walker/elite = 3,
+			/mob/living/basic/mining/basilisk/watcher/magmawing = 3,
+			/mob/living/basic/mining/ash_whelp/ice = 2,
+			/mob/living/basic/mining/basilisk/watcher/icewing = 1,
 	)
 	/// What faction to give the mobs that spawn
 	var/mob_faction = "providence_attackers"
+
+/obj/structure/providence_lockdown_controller/attack_hand(mob/living/user)
+	. = ..()
+	if(!isliving(user))
+		return
+	if(isanimal_or_basicmob(user))
+		return
+	if(!Adjacent(user))
+		return
+	var/result = input_async(user, "Are you sure you want to activate [src]?", list("Yes", "No"))
+	if(!Adjacent(user))
+		return
+	if(result != "Yes")
+		return
+	start_challenge()
+
+/obj/structure/providence_lockdown_controller/proc/start_challenge()
+	icon_state = "asteroid_magnet-on"
+	spawn_wave()
+	var/wave_delay = lockdown_time / wave_count
+	for(var/i in 1 to wave_count)
+		addtimer(CALLBACK(src, PROC_REF(spawn_wave)), wave_delay * i)
+	addtimer(CALLBACK(src, PROC_REF(finish_challenge)), lockdown_time)
+
+/obj/structure/providence_lockdown_controller/proc/finish_challenge()
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+		if(P.density && P.id_tag == PW_CHALLENGE_LOOTROOM && P.z == z && !P.operating)
+			P.open()
+	atom_say("Lockdown lifted. Have a secure daayayyyayyy... -ZZZT!")
+	visible_message("<span class='userdanger'>[src] starts beeping ominously!</span>")
+	for(var/i in 1 to 4)
+		playsound(loc, 'sound/items/timer.ogg', 30, 0)
+		sleep(1 SECONDS)
+	explosion(loc, 2, 5, 10, 16, flame_range = 20, cause = name)
+	qdel(src)
+
+/obj/structure/providence_lockdown_controller/proc/spawn_wave()
+	var/list/valid_turfs = orange(14, get_turf(src)) - orange(7, get_turf(src))
+	var/num_to_spawn = rand(wave_mob_min, wave_mob_max)
+	for(var/i in num_to_spawn)
+		var/turf/valid_spawn
+		while(!valid_spawn)
+			var/turf/T = pick_n_take(valid_turfs)
+			if(!T.is_blocked_turf() && !T.density && !T.contains(/mob) && !istype(T, /turf/simulated/floor/pod))
+				valid_spawn = T
+		var/mob_type = pickweight(wave_mobs)
+		var/mob/living/new_mob  = new mob_type(valid_spawn)
+		new /obj/effect/temp_visual/cosmic_explosion(valid_spawn)
+		if(!new_mob.ai_controller)
+			return
+		new_mob.ai_controller.set_blackboard_key(BB_TRAVEL_DESTINATION, get_turf(src))
+		new_mob.ai_controller.queue_behavior(/datum/ai_behavior/travel_towards, BB_TRAVEL_DESTINATION)
+		new_mob.faction |= mob_faction
+
+/obj/effect/mob_spawn/human/corpse/vulpkanin/captain/providence
+	mob_name = "Charon Protheros"
+	mob_gender = MALE
+
+#undef PW_CHALLENGE_LOOTROOM

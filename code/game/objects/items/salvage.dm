@@ -71,6 +71,13 @@
 	pickup_sound =  sound('sound/hallucinations/im_here2.ogg', 10)
 	drop_sound = sound('sound/hallucinations/look_up2.ogg', 10)
 
+/obj/item/salvage/ruin/broken_rifle
+	name = "broken rifle"
+	desc = "A battered, broken rifle. All but useless as a weapon, however it can be sold for scrap or dismantled for materials."
+	icon_state = "broken_rifle"
+	value = 50
+	materials = list(MAT_METAL = 2000, MAT_PLATINUM = 2000, MAT_IRIDIUM = 2000, MAT_PALLADIUM = 2000)
+
 /// Loot salvage, gained from fighting space simplemobs.
 /obj/item/salvage/loot/pirate
 	name = "stolen jewellery"
