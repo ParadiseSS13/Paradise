@@ -321,7 +321,7 @@
 /obj/structure/salvageable/kitchenvend
 	name = "broken-down kitchen vendor"
 	desc = "A ruined kitchen vending machine. Some of its contents might still be intact."
-	icon_state = "dinnerware-broken"
+	icon_state = "dinnerware_broken"
 	icon = 'icons/obj/vending.dmi'
 	salvageable_parts = list(
 		/obj/item/kitchen/rollingpin = 80,
