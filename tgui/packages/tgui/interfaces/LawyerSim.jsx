@@ -26,7 +26,7 @@ export const LawyerSim = (props) => {
             <Stack.Item grow>
               <Section fill>
                 <Stack.Item pt="45%" fontSize="31px" color="white" textAlign="center" bold>
-                  Nanotrasen Magistrate Simulator DELUXE
+                  Nanotrasen Magistrate Simulator
                 </Stack.Item>
                 <Stack.Item pt="1%" fontSize="16px" textAlign="center" color="label">
                   Work as the station's Magistrate and review Security's arrest records!
