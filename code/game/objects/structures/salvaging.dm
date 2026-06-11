@@ -288,7 +288,7 @@
 /obj/structure/salvageable/seed
 	name = "ruined seed vendor"
 	desc = "This is where the seeds lived. Maybe you can still get some?"//megaseed voiceline reference
-	icon_state = "seeds-broken"
+	icon_state = "seeds_broken"
 	icon = 'icons/obj/vending.dmi'
 	color = "#808080"
 

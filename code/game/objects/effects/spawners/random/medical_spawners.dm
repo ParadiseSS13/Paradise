@@ -1,11 +1,10 @@
 /obj/effect/spawner/random/medical
-	#warn MAKE AN ICON
-	icon_state = "wrench"
+	icon_state = "medical"
 	record_spawn = TRUE
 
 /obj/effect/spawner/random/medical/surgery_tool/common
 	name = "Surgery tool spawner"
-	icon_state = "scapel"
+	icon_state = "scalpel"
 	loot = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,

@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/salvage/part
-	//icon_state = "matter_bin"
-	icon_state = "wrench"
+	icon_state = "stock_parts"
 
 /obj/effect/spawner/random/salvage/part/capacitor
 	loot = list(
@@ -74,7 +73,8 @@
 
 /obj/effect/spawner/random/salvage/machine
 	name = "salvageable machine spawner"
-	icon_state = "arcade"
+	icon = 'icons/obj/salvage_structure.dmi'
+	icon_state = "wreck_circuit_imprinter"
 	loot = list(
 		/obj/structure/salvageable/protolathe,
 		/obj/structure/salvageable/circuit_imprinter,
@@ -91,7 +91,6 @@
 	loot = list(
 		/obj/effect/spawner/random/maintenance,
 		/obj/effect/spawner/random/salvage/machine,
-		// /obj/effect/spawner/random/exotic/ripley,
 		/obj/structure/closet/crate/secure/loot,
 	)
 

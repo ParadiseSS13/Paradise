@@ -59,9 +59,6 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/cleanbot/emagged
-	emagged = TRUE
-
 /mob/living/simple_animal/bot/cleanbot/update_icon_state()
 	return
 
