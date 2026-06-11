@@ -4,7 +4,6 @@
 	icon_state = "ash_whelp"
 	icon_living = "ash_whelp"
 	icon_dead = "ash_whelp_dead"
-	mouse_opacity = MOUSE_OPACITY_ICON
 	butcher_results = list(
 		/obj/item/stack/ore/gold = 3,
 		/obj/item/stack/sheet/animalhide/ashdrake = 1,
