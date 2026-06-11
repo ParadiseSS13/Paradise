@@ -115,7 +115,7 @@
 
 /obj/machinery/computer/arcade/lawyer/proc/generate_candidate()
 	cand_species = pick(hirable_species)
-	candidate_name = random_name(species = initial(cand_species.name))
+	criminal_name = random_name(species = initial(cand_species.name))
 	off_species = pick(hirable_species)
 	officer_name = random_name(species = initial(off_species.name))
 
@@ -138,20 +138,20 @@
 		manner_of_arrest = pick(records)
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Crimes committed
-		crimes_committed = placeholder
+		crimes_committed = "placeholder"
 	else
-		crimes_committed = placeholder
+		crimes_committed = "placeholder"
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Sentencing time
-		sentencing = placeholder
+		sentencing = "placeholder"
 	else
-		sentencing = placeholder
+		sentencing = "placeholder"
 
-	if(job_requested == "Clown") // Clowns are allowed to commit crimes
+	if(criminal_job == "Clown") // Clowns are allowed to commit crimes
 		good_candidate = FALSE
 
 /obj/machinery/computer/arcade/lawyer/proc/unique_candidate()
-	unique_candidate = pick(UNIQUE_STEVE, UNIQUE_MIME, UNIQUE_CEO_CHILD, UNIQUE_VIGILANTE)
+	unique_candidate = pick(UNIQUE_MCTIDE, UNIQUE_CLING, UNIQUE_CEO_CHILD, UNIQUE_STEVE)
 	switch(unique_candidate)
 		if(UNIQUE_MCTIDE) // Grey McTide is always evil
 			criminal_name = "Grey McTide"
@@ -174,7 +174,7 @@
 			criminal_job = "Unemployed"
 			crimes_committed = "Grand Sabotage"
 			sentencing = "Pardoned by Central Command"
-			officer_name = "[REDACTED]"
+			officer_name = "REDACTED"
 			station_location = "NSS Kerberos"
 			manner_of_arrest = "Found cutting wires leading to the tesla containment, arrested on the spot."
 		if(UNIQUE_STEVE) // Impersonating Steve is punishable by death
@@ -322,10 +322,10 @@
 
 #undef PROB_CANDIDATE_ERRORS
 #undef PROB_UNIQUE_CANDIDATE
-#undef UNIQUE_STEVE
-#undef UNIQUE_MIME
+#undef UNIQUE_MCTIDE
+#undef UNIQUE_CLING
 #undef UNIQUE_CEO_CHILD
-#undef UNIQUE_VIGILANTE
+#undef UNIQUE_STEVE
 #undef RECRUITER_STATUS_START
 #undef RECRUITER_STATUS_INSTRUCTIONS
 #undef RECRUITER_STATUS_NORMAL
