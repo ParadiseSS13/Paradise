@@ -39,8 +39,8 @@
 
 /mob/living/basic/ash_walker/tough
 	name = "ash walker hunter"
-	icon_state = "ashwalker_tough"
-	icon_living = "ashwalker_tough"
+	icon_state = "ashwalker_hunter"
+	icon_living = "ashwalker_hunter"
 	damage_coeff = list(BRUTE = 0.9, BURN = 0.6, TOX = 1, CLONE = 1, STAMINA = 1, OXY = 1)
 	melee_damage_lower = 15
 	melee_damage_upper = 20

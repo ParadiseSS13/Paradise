@@ -52,9 +52,10 @@
 
 /// Finally spawn the actual fire, spawns the fire hotspot in case you want to recolour it or something
 /datum/action/cooldown/mob_cooldown/fire_breath/proc/burn_turf(turf/fire_turf, list/hit_list, mob/living/source)
-	var/obj/effect/hotspot/fire_hotspot = new /obj/effect/hotspot(fire_turf, fire_volume, fire_temperature)
-	fire_hotspot.recolor()
-	fire_turf.hotspot_expose(fire_temperature, fire_volume, TRUE)
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(fire_turf)
+	hotspot.temperature = fire_temperature
+	hotspot.recolor()
+	fire_turf.hotspot_expose(fire_temperature, fire_volume)
 
 	for(var/mob/living/barbecued in fire_turf.contents)
 		if(barbecued in hit_list)
@@ -68,7 +69,7 @@
 		hit_list |= robotron
 		robotron.take_damage(mech_damage, BURN, FIRE)
 
-	return fire_hotspot
+	return
 
 /// Do something unpleasant to someone we set on fire
 /datum/action/cooldown/mob_cooldown/fire_breath/proc/on_burn_mob(mob/living/barbecued, mob/living/source)
