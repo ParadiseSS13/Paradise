@@ -116,7 +116,6 @@
 	name = "dog tags"
 	desc = "Dog tags belonging to an unnamed soldier or mercenary. Someone is likely willing to pay good credits to see them returned."
 	icon_state = "dogtag"
-	value = 100
 
 /obj/item/salvage/loot/dogtags/officer
 	name = "officer's dog tags"
@@ -127,5 +126,4 @@
 /obj/item/salvage/loot/dogtags/captain
 	name = "captain's dog tags"
 	desc = "Dog tags belonging to an unnamed captain of a soldier or mercenary group. Someone is likely willing to pay good credits to see them returned."
-	icon_state = "dogtag"
 	value = 400

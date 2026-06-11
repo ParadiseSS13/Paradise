@@ -1,6 +1,5 @@
 /datum/action/cooldown/mob_cooldown/fire_breath
 	name = "Fire Breath"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "fireball"
 	desc = "Breathe a line of flames towards the target."
 	cooldown_time = 3 SECONDS
@@ -179,7 +178,6 @@
 	desc = "Unleash cold fire in all directions"
 	button_icon = 'icons/effects/fire.dmi'
 	button_icon_state = "light"
-	cooldown_time = 6 SECONDS
 	click_to_activate = FALSE
 	fire_range = 3
 	forecast_delay = 1 SECONDS
