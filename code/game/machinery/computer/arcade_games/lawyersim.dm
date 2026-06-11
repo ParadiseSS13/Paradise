@@ -4,7 +4,7 @@
 #define UNIQUE_MCTIDE 1
 #define UNIQUE_CLING 2
 #define UNIQUE_CEO_CHILD 3
-#define UNIQUE_VIGILANTE 4
+#define UNIQUE_STEVE 4
 
 // Defines for the game screens
 #define RECRUITER_STATUS_START 0
@@ -177,14 +177,14 @@
 			officer_name = "[REDACTED]"
 			station_location = "NSS Kerberos"
 			manner_of_arrest = "Found cutting wires leading to the tesla containment, arrested on the spot."
-		if(UNIQUE_VIGILANTE) // For some reason vigilantes do get inside NT stations, let them slip in
-			candidate_name = "Owlman"
-			age = "38"
-			candidate_birth = "6/[GLOB.game_year - 38]"
-			cand_species = /datum/species/human
-			planet_of_origin = "Unknown"
-			job_requested = "Assistant"
-			employment_records = "Experience in hunting criminals"
+		if(UNIQUE_STEVE) // Impersonating Steve is punishable by death
+			criminal_name = "'Steve'"
+			criminal_job = "Central Command Intern"
+			crimes_committed = "Mutiny, Fraud"
+			sentencing = "Execution"
+			officer_name = "Steve"
+			station_location = "NSS Cerebron"
+			manner_of_arrest = "Suspect arrested while attempting to order the Captain to give him the contents of the vault."
 
 /obj/machinery/computer/arcade/lawyer/proc/win()
 	game_status = LAWYER_STATUS_START
