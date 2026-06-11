@@ -546,6 +546,33 @@
 	turret.owner_uid = owner_uid
 	qdel(src)
 
+/obj/item/grenade/turret/mining
+	name = "\"Prospector\" Turret grenade"
+	desc = "Inflates into a Pop-Up turret, shoots everyone on sight who wasn't the primer."
+	icon_state = "mining_turret"
+	worn_icon_state = "flashbang"
+	inhand_icon_state = "flashbang"
+	origin_tech = "materials=4;magnets=4;engineering=5"
+
+/obj/item/grenade/turret/mining/emag_act(mob/user)
+	. = ..()
+	if(emagged)
+		return
+	to_chat(user, SPAN_WARNING("You short out the turret's IFF system."))
+	emagged = TRUE
+
+/obj/item/grenade/turret/mining/prime()
+	var/turf/T = get_turf(src)
+	qdel(src)
+	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
+	playsound(T, 'sound/items/rped.ogg', 100, TRUE)
+	sleep(5 SECONDS)
+	var/obj/machinery/porta_turret/mining_turret/turret = new(T)
+	if(emagged)
+		turret.faction = "hate_everyone"
+		turret.emagged = TRUE
+	qdel(spawning_effect)
+
 /obj/structure/barricade/foam
 	name = "foam blockage"
 	desc = "This foam blocks the airlock from being opened."
