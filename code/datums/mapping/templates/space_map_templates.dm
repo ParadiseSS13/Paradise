@@ -476,6 +476,12 @@
 	name = "Engineering Vessel"
 	description = "A small vessel able to have a telecoms relay built inside of it, as well as some miscellaneous cargo."
 
+/datum/map_template/ruin/space/gas_station
+	id = "gas_station"
+	suffix = "gas_station.dmm"
+	name = "Garry's Gas Station"
+	description = "A small locally owned station to get that good stuff! We mean fuel of course."
+
 /datum/map_template/ruin/space/kappa_lab
 	id = "kappa_lab"
 	suffix = "kappalab.dmm"
