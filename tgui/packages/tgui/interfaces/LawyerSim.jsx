@@ -85,7 +85,8 @@ export const LawyerSim = (props) => {
                   and the circumstances around their arrest!
                 </LabeledList.Item>
                 <LabeledList.Item label="5#" color="silver">
-                  Not every arrest record is good, remember to make your choice based on <b>Space Law</b>!
+                  Be sure to verify that the arresting officer had just cause. If the suspect should never have
+                  been in handcuffs, it's invalid!
                 </LabeledList.Item>
                 <LabeledList.Item label="6#" color="silver">
                   The sentencing should match the crimes committed. Review Space Law for the exact times!
@@ -117,7 +118,7 @@ export const LawyerSim = (props) => {
         <Window.Content>
           <Stack fill vertical>
             <Stack.Item grow>
-              <Section fill scrollable color="label" fontSize="14px" title="Employment Applications">
+              <Section fill scrollable color="label" fontSize="14px" title="Arrest Records">
                 <Box fontSize="24px" textAlign="center" color="silver" bold>
                   Record Number #{cand_curriculum}
                 </Box>
