@@ -77,7 +77,7 @@
 
 	var/list/incorrect_records = list("Suspect appeared nervous during questioning.", "Suspect was present near the incident.", "Suspect became argumentative with security.",
 									 "Suspect declined to answer questions.", "Suspect appeared to be in a hurry.", "Suspect's explanation seemed unlikely.",
-									 "Suspect was observed loitering.", "Suspect displayed suspicious body language.", "Suspect questioned security procedures."
+									 "Suspect was observed loitering.", "Suspect displayed suspicious body language.", "Suspect questioned security procedures.",
 									 "Suspect was carrying unusual equipment.", "Suspect appeared evasive when approached.", "Suspect refused to consent to a search.",
 									 "Suspect was observed speaking quietly.", "Suspect changed direction upon seeing security.", "Suspect failed to appear cooperative.",
 									 "Suspect's account differed from officer observations.", "Suspect was acting suspiciously.", "Suspect refused to allow a search on Green",
