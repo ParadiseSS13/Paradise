@@ -36252,12 +36252,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedservers)
-"gHR" = (
-/obj/machinery/computer/arcade/lawyer{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/arcade,
-/area/station/public/arcade)
 "gHU" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -98467,6 +98461,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
+"ubu" = (
+/obj/machinery/computer/arcade/lawyer{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "ubG" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway";
@@ -134748,7 +134748,7 @@ ujf
 sWJ
 qXt
 aHc
-aHc
+bGI
 uUY
 bGI
 ion
@@ -135005,7 +135005,7 @@ ujf
 cPc
 qXt
 aHc
-gHR
+ubu
 kra
 lPS
 bik
@@ -135519,7 +135519,7 @@ ujf
 uKq
 liV
 aHc
-aHc
+byj
 cZR
 oDx
 oDx
