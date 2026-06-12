@@ -19,6 +19,7 @@
 
 /area/ruin/powered/providence
 	icon_state = "yellow"
+	tele_proof = TRUE
 
 /area/ruin/powered/golem_ship
 	name = "Free Golem Ship"

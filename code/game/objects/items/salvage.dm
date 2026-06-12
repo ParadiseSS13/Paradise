@@ -116,6 +116,7 @@
 	name = "dog tags"
 	desc = "Dog tags belonging to an unnamed soldier or mercenary. Someone is likely willing to pay good credits to see them returned."
 	icon_state = "dogtag"
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/salvage/loot/dogtags/officer
 	name = "officer's dog tags"

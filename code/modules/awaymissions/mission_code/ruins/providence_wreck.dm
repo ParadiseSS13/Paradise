@@ -75,6 +75,7 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "asteroid_magnet"
 	anchored = TRUE
+	density = TRUE
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 100, ACID = 100)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// How long does it take to remove the lockdown
@@ -103,6 +104,8 @@
 	)
 	/// What faction to give the mobs that spawn
 	var/mob_faction = "providence_attackers"
+	/// Are we active
+	var/started = FALSE
 
 /obj/structure/providence_lockdown_controller/attack_hand(mob/living/user)
 	. = ..()
@@ -112,20 +115,20 @@
 		return
 	if(!Adjacent(user))
 		return
-	var/result = input_async(user, "Are you sure you want to activate [src]?", list("Yes", "No"))
-	if(!Adjacent(user))
-		return
-	if(result != "Yes")
+	if(started)
 		return
 	start_challenge()
 
 /obj/structure/providence_lockdown_controller/proc/start_challenge()
 	icon_state = "asteroid_magnet-on"
-	spawn_wave()
+	started = TRUE
+	atom_say("Beginning lockdown lift procedure...")
 	var/wave_delay = lockdown_time / wave_count
 	for(var/i in 1 to wave_count)
 		addtimer(CALLBACK(src, PROC_REF(spawn_wave)), wave_delay * i)
 	addtimer(CALLBACK(src, PROC_REF(finish_challenge)), lockdown_time)
+	sleep(5 SECONDS)
+	spawn_wave()
 
 /obj/structure/providence_lockdown_controller/proc/finish_challenge()
 	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
@@ -140,9 +143,9 @@
 	qdel(src)
 
 /obj/structure/providence_lockdown_controller/proc/spawn_wave()
-	var/list/valid_turfs = orange(14, get_turf(src)) - orange(7, get_turf(src))
+sd	var/list/valid_turfs = orange(8, get_turf(src)) - orange(3, get_turf(src))
 	var/num_to_spawn = rand(wave_mob_min, wave_mob_max)
-	for(var/i in num_to_spawn)
+	for(var/i in 1 to num_to_spawn)
 		var/turf/valid_spawn
 		while(!valid_spawn)
 			var/turf/T = pick_n_take(valid_turfs)
