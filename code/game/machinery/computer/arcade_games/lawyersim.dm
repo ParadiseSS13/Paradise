@@ -26,6 +26,7 @@
 	var/crimes_committed
 	var/crime_count
 	var/sentencing
+	var/running_total
 	var/officer_name
 	var/datum/species/off_species
 	var/station_location
@@ -102,7 +103,7 @@
 	var/list/medium_crimes = list("Workplace Hazard", "Kidnapping", "Assault", "Narcotics Distribution", "Possession of a Weapon",
 								 "Rioting", "Abuse of Confiscated Equipment", "Robbery")
 	var/list/major_crimes = list("Sabotage", "Aggravated Assault", "Possession of a Restricted Weapon/Item", "Inciting a Riot",
-								"Possession of Contraband", "Theft", "Major Trespass")
+								"Theft", "Major Trespass") // Contraband was left off on purpose to avoid more complicated logic
 	var/list/exceptional_crimes = list("Grand Sabotage", "Manslaughter", "Attempted Murder", "Grand Theft", "Enemy of the Corporation")
 	var/list/capital_crimes = list("Murder", "Mutiny")
 	/// Crimes that are not valid under Space Law
@@ -154,22 +155,49 @@
 				crime_count = 2
 		else
 			crime_count = 1
+		running_total = 0
 		for(i=0, i<crime_count, i++)
 			if(i!=0)
 				crimes_committed = addtext(crimes_committed, ", ")
-			RandNum = rand(1, 5)
+			RandNum = rand(1, 10)
 			switch(RandNum)
-				if(1) crimes_committed = addtext(crimes_committed, pick(minor_crimes))
-				if(2) crimes_committed = addtext(crimes_committed, pick(medium_crimes))
-				if(3) crimes_committed = addtext(crimes_committed, pick(major_crimes))
-				if(4) crimes_committed = addtext(crimes_committed, pick(exceptional_crimes))
-				if(5) crimes_committed = addtext(crimes_committed, pick(capital_crimes))
+				if(1 || 2 || 3)
+					crimes_committed = addtext(crimes_committed, pick(minor_crimes))
+					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
+						running_total = running_total + 5
+				if(4 || 5)
+					crimes_committed = addtext(crimes_committed, pick(medium_crimes))
+					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
+						running_total = running_total + 10
+				if(6 || 7)
+					crimes_committed = addtext(crimes_committed, pick(major_crimes))
+					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
+						running_total = running_total + 15
+				if(8 || 9)
+					crimes_committed = addtext(crimes_committed, pick(exceptional_crimes))
+					if(running_total != "Execution")
+						running_total = "Permanent Imprisonment"
+				if(10)
+					crimes_committed = addtext(crimes_committed, pick(capital_crimes))
+					running_total = "Execution"
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Sentencing time
-		sentencing = "placeholder"
+		if((running_total == "Execution") || (running_total == "Permanent Imprisonment"))
+			sentencing = addtext(rand(5,55), " Minutes In Brig")
+		else
+			RandNum = rand(1,5)
+			switch(RandNum)
+				if(1) sentencing = "Permanent Imprisonment"
+				if(2) sentencing = "Execution"
+				if(3) sentencing = "Pardoned by Captain"
+				if(4) sentencing = running_total - 20
+				if(5) sentencing = running_total + 20
 		good_candidate = FALSE
 	else
-		sentencing = "placeholder"
+		if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
+			sentencing = addtext(running_total, " Minutes In Brig")
+		else
+			sentencing = running_total
 
 	if(criminal_job == "Clown") // Clowns are allowed to commit crimes
 		good_candidate = FALSE
