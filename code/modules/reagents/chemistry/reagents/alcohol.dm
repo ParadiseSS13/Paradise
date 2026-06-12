@@ -1409,7 +1409,7 @@
 	alcohol_perc = 0.25
 	drink_icon = "gear_grinder_glass"
 	drink_name = "Glass of Gear Grinder"
-	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
+	drink_desc = "A gritty mixture that looks even worse for organics than it is for robots."
 	taste_description = "grit halting your gears and clogging your servos"
 	yuck_description = "vinegar and regret"
 	COOLDOWN_DECLARE(drink_message_cooldown)
