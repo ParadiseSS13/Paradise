@@ -143,7 +143,7 @@
 	qdel(src)
 
 /obj/structure/providence_lockdown_controller/proc/spawn_wave()
-sd	var/list/valid_turfs = orange(8, get_turf(src)) - orange(3, get_turf(src))
+	var/list/valid_turfs = orange(8, get_turf(src)) - orange(3, get_turf(src))
 	var/num_to_spawn = rand(wave_mob_min, wave_mob_max)
 	for(var/i in 1 to num_to_spawn)
 		var/turf/valid_spawn

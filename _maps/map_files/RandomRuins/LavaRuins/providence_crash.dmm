@@ -75,7 +75,7 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "cI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/salvage/ruin/broken_rifle,
@@ -106,7 +106,7 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "dy" = (
 /obj/machinery/door/airlock/hatch/manual_rotation{
 	dir = 4
@@ -124,13 +124,13 @@
 "ee" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "fs" = (
 /obj/item/shard,
 /obj/item/trash/spentcasing/bullet/medium,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "fP" = (
 /obj/effect/landmark/mob_spawner/goliath,
 /obj/effect/mapping_helpers/no_lava,
@@ -327,7 +327,7 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/template_noop,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "mW" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
@@ -344,7 +344,7 @@
 /area/ruin/powered/providence)
 "nQ" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "oo" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -419,7 +419,7 @@
 /obj/item/shard,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "rP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/no_lava,
@@ -591,7 +591,7 @@
 /area/ruin/powered/providence)
 "Bc" = (
 /turf/template_noop,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "Bl" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
@@ -657,7 +657,7 @@
 "DO" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/template_noop,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "Ed" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/tcomms/relay,
@@ -709,18 +709,18 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "Gu" = (
 /obj/structure/whelp_statue,
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "GB" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/template_noop,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "GI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
@@ -888,12 +888,12 @@
 /obj/structure/whelp_statue,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "PH" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "PR" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
@@ -903,7 +903,7 @@
 "QD" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/chasm/straight_down/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "QS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/species/vulp,
@@ -933,7 +933,7 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "SB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/no_lava,
@@ -1027,7 +1027,7 @@
 /obj/structure/flora/ash/rock/style_random,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/area/lavaland/surface/outdoors/unexplored)
 "Xy" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/mapping_helpers/turfs/damage,
