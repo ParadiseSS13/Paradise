@@ -161,19 +161,19 @@
 				crimes_committed = addtext(crimes_committed, ", ")
 			RandNum = rand(1, 10)
 			switch(RandNum)
-				if(1 || 2 || 3)
+				if(1, 2, 3)
 					crimes_committed = addtext(crimes_committed, pick(minor_crimes))
 					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 						running_total = running_total + 5
-				if(4 || 5)
+				if(4, 5)
 					crimes_committed = addtext(crimes_committed, pick(medium_crimes))
 					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 						running_total = running_total + 10
-				if(6 || 7)
+				if(6, 7)
 					crimes_committed = addtext(crimes_committed, pick(major_crimes))
 					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 						running_total = running_total + 15
-				if(8 || 9)
+				if(8, 9)
 					crimes_committed = addtext(crimes_committed, pick(exceptional_crimes))
 					if(running_total != "Execution")
 						running_total = "Permanent Imprisonment"
@@ -183,19 +183,19 @@
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Sentencing time
 		if((running_total == "Execution") || (running_total == "Permanent Imprisonment"))
-			sentencing = addtext(rand(5,55), " Minutes In Brig")
+			sentencing = text("[rand(5,55)] Minutes In Brig")
 		else
 			RandNum = rand(1,5)
 			switch(RandNum)
 				if(1) sentencing = "Permanent Imprisonment"
 				if(2) sentencing = "Execution"
 				if(3) sentencing = "Pardoned by Captain"
-				if(4) sentencing = running_total - 20
-				if(5) sentencing = running_total + 20
+				if(4) sentencing = text("[running_total - 20] Minutes In Brig")
+				if(5) sentencing = text("[running_total + 20] Minutes In Brig")
 		good_candidate = FALSE
 	else
 		if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
-			sentencing = addtext(running_total, " Minutes In Brig")
+			sentencing = text("[running_total] Minutes In Brig")
 		else
 			sentencing = running_total
 
