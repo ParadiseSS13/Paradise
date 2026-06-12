@@ -66,12 +66,12 @@
 						   "Incident review identified the suspect.", "Biometric records confirmed suspect identity.", "Security personnel responded to disturbance.",
 						   "Unauthorized access triggered investigation.", "Suspect implicated by recovered evidence.", "Security operation resulted in arrest.",
 						   "Suspect found within restricted area.", "Multiple witnesses identified the suspect.", "PDA records supported the investigation.",
-						   "Security officers interrupted the offense.", "Investigation uncovered suspect involvement.", "Security officers executed arrest order.",
+						   "Security officers interrupted the crime.", "Investigation uncovered suspect involvement.", "Security officers executed arrest order.",
 						   "Suspect violated SOP, leading to an arrest pending demotion.", "Evidence recovered from suspect workplace.",
 						   "Security personnel observed prohibited conduct.", "Suspect connected to ongoing investigation.", "Audit logs revealed unauthorized activity.",
 						   "Suspect identified by fibers left at the scene.", "Security officers acted on witness reports.", "Investigation established grounds for detention.",
 						   "Suspect discovered concealing evidence.", "Sensor data implicated the suspect.", "Suspect detained after security interview.",
-						   "Officers observed suspicious interactions.", "Security personnel received incident report.", "Suspect encountered during targeted search.",
+						   "Officers observed suspicious interactions.", "Security personnel received an incident report.", "Suspect encountered during targeted search.",
 						   "Suspect identified through surveillance review.", "Evidence supported immediate detention.", "Security investigation corroborated witness accounts.",
 						   "Suspect arrested following command authorization.")
 
