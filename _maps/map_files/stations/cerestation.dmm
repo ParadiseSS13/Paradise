@@ -36252,6 +36252,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedservers)
+"gHR" = (
+/obj/machinery/computer/arcade/lawyer{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "gHU" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -70687,6 +70693,9 @@
 "nYN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/computer/arcade/lawyer{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "nYP" = (
@@ -134996,7 +135005,7 @@ ujf
 cPc
 qXt
 aHc
-aHc
+gHR
 kra
 lPS
 bik

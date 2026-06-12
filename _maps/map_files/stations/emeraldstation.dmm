@@ -14064,6 +14064,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"cNW" = (
+/obj/machinery/computer/arcade/lawyer{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "cOi" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -99409,10 +99415,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "tKg" = (
+/obj/structure/sign/poster/official/random/directional/west,
 /obj/machinery/computer/arcade/battle{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "tKl" = (
@@ -156789,7 +156795,7 @@ eUC
 eMZ
 eMZ
 tiZ
-tiZ
+cNW
 hNn
 pgu
 ffU

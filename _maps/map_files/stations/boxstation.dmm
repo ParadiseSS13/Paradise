@@ -10113,10 +10113,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/hallway/secondary/entry/north)
 "aMC" = (
-/obj/structure/table,
-/obj/item/reagent_containers/drinks/carton/grape{
-	pixel_x = 5;
-	pixel_y = 5
+/obj/machinery/computer/arcade/lawyer{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -124706,7 +124704,7 @@ aIp
 aJv
 aKI
 xSM
-aMC
+aKK
 aPf
 aZs
 aPm
@@ -125218,7 +125216,7 @@ awl
 lFV
 xUR
 fmN
-aKK
+aMC
 aJw
 tcm
 iiy
