@@ -58,38 +58,30 @@
 								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs Agent",
 								"Wizard", "Nanotrasen Navy Officer", "Barber", "Ambassador", "Company Shareholder")
 
-	var/list/records = list("Ex-convict, reformed after lengthy rehabilitation, doesn't normally ask for good salaries", "Charged with three counts of aggravated silliness",
-							"Awarded the medal of service for outstanding work in botany", "Hacked into the Head of Personnel's office to save Ian",
-							"Has proven knowledge of SOP, but no working experience", "Has worked at Mr Changs",
-							"Spent 2 years as a freelance journalist", "Known as a hero for keeping stations clean during attacks",
-							"Worked as a bureaucrat for SolGov", "Worked in Donk Corporation's toy R&D department",
-							"Did work for USSP as an translator", "Took care of Toxins, Xenobiology, Robotics and R&D as a single worker in the Research department",
-							"Did maintenance on multiple cybernetic limbs over Biotech Solutions", "Traveled through various systems as a businessman",
-							"Worked as a waiter for one year", "Has previous experience as a cameraman",
-							"Spent years of their life being a janitor at Clown College", "Was given numerous good reviews for delivering cargo requests on time",
-							"Helped old people cross the holostreet", "Has proven ability to read", "Served 4 years in NT navy",
-							"Properly set station shields before a massive meteor shower", "Previously assisted people as an assistant",
-							"Created golems for the purpose of making them work for the company", "Worked at the space IRS for 3 years",
-							"Awarded a medal for hosting a fashion contest against the syndicate",
-							"Is certified for EVA repairs", "Known for storing important objects in curious places",
-							"Improved efficiency of Research Outpost by 5.7% through dismissal of underperforming workers", "Skilled in Enterprise Resource Planning",
-							"Prevented three Supermatter Delamination Events in the same shift", "Developed an innovative plasma refinement process that cuts waste gasses in half",
-							"Has received several commendations due to visually appealing kitchen remodelings", "Is known to report any petty Space Law or SOP breakage to the relevant authorities",
-							"As Chef, adapted their menus in order to appeal all stationed species",
-							"Was part of the \"Pump Purgers\", famous for the streak of 102 shifts with no Supermatter Explosions",
-							"Virologist; took it upon themselves to distribute a vaccine to the crew", "Conducted experiments that generated high profits but many casualties",
-							"Did multiple cargo transport jobs for the Port Royal Inc", "Been a test pilot for the new Einstein Engines Inc prototype engines",
-							"Manufactured multiple energy guns at Shellguard Munitions", "Spent years cleaning Aussec Armory guns")
+	var/list/records = list("An investigation led to the suspect's arrest.", "Arresting officer witnessed the crime in progress.",
+						   "Security investigation identified the suspect.", "Suspect matched witness descriptions.",
+						   "Station cameras captured the offense.", "Security officers observed the violation.", "Evidence discovered during search.",
+						   "Suspect detained following security alert.", "Witness testimony established probable cause.",
+						   "Forensic analysis linked suspect to incident.", "Security received credible intelligence.", "Suspect apprehended after attempted evasion.",
+						   "Incident review identified the suspect.", "Biometric records confirmed suspect identity.", "Security personnel responded to disturbance.",
+						   "Unauthorized access triggered investigation.", "Suspect implicated by recovered evidence.", "Security operation resulted in arrest.",
+						   "Suspect found within restricted area.", "Multiple witnesses identified the suspect.", "PDA records supported the investigation.",
+						   "Security officers interrupted the offense.", "Investigation uncovered suspect involvement.", "Security officers executed arrest order.",
+						   "Suspect violated SOP, leading to an arrest pending demotion.", "Evidence recovered from suspect workplace.",
+						   "Security personnel observed prohibited conduct.", "Suspect connected to ongoing investigation.", "Audit logs revealed unauthorized activity.",
+						   "Suspect identified by fibers left at the scene.", "Security officers acted on witness reports.", "Investigation established grounds for detention.",
+						   "Suspect discovered concealing evidence.", "Sensor data implicated the suspect.", "Suspect detained after security interview.",
+						   "Officers observed suspicious interactions.", "Security personnel received incident report.", "Suspect encountered during targeted search.",
+						   "Suspect identified through surveillance review.", "Evidence supported immediate detention.", "Security investigation corroborated witness accounts.",
+						   "Suspect arrested following command authorization.")
 
-	var/list/incorrect_records = list("Caught littering on the NSS Cyberiad", "Scientist involved in the ###### incident",
-									"Rescued four assistants from a plasma fire, but left behind the station blueprints",
-									"Successfully cremated a changeling without stripping them", "Worked at a zoo and got fired for eating a monkey", "None",
-									"Found loitering in front of the bridge", "Wired the engine directly to the power grid", "Known for getting wounded too easily",
-									"Demoted in the past for speaking as a mime", "THEY ARE AFTER ME, SEND HELP!",
-									"Ex-NT recruiter, fired for hiring a syndicate agent as an Chief Engineer", "Took the autolathe circuit board from the Tech Storage as Roboticist",
-									"Did not alert the crew about multiple toxins tests", "Built a medical bay in the Research Division as a Scientist",
-									"Connected a plasma storage tank to the air distribution line", "Certified supermatter taste tester",
-									"Is known to spend entire shifts in the arcade instead of working", "Experienced Cybersun Industries roboticist")
+	var/list/incorrect_records = list("Suspect appeared nervous during questioning.", "Suspect was present near the incident.", "Suspect became argumentative with security.",
+									 "Suspect declined to answer questions.", "Suspect appeared to be in a hurry.", "Suspect's explanation seemed unlikely.",
+									 "Suspect was observed loitering.", "Suspect displayed suspicious body language.", "Suspect questioned security procedures."
+									 "Suspect was carrying unusual equipment.", "Suspect appeared evasive when approached.", "Suspect refused to consent to a search.",
+									 "Suspect was observed speaking quietly.", "Suspect changed direction upon seeing security.", "Suspect failed to appear cooperative.",
+									 "Suspect's account differed from officer observations.", "Suspect was acting suspiciously.", "Suspect refused to allow a search on Green",
+									 "Suspect observed criticizing the decisions of their Head.", "Suspect was resistant towards questioning.")
 
 	/// Species that are hirable in the eyes of NT. Used for name generation
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
@@ -108,7 +100,7 @@
 	var/list/capital_crimes = list("Murder", "Mutiny")
 	/// Crimes that are not valid under Space Law
 	var/list/invalid_crimes = list("Honking", "Cannibalism", "Grand Trespass", "Insulted Me", "Mass Murder", "Capital Theft",
-								  "Impersonation", "Embezzlement", "Vandalism", "Cultist")
+								  "Impersonation", "Embezzlement", "Vandalism", "Cultist", "Loitering", "Criticizing Command")
 
 	/// Is he a good candidate for hiring?
 	var/good_candidate = TRUE
