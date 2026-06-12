@@ -149,18 +149,19 @@
 	if(status_flags & GODMODE)
 		health = 100
 		set_stat(CONSCIOUS)
-	//from tg
-	var/old_health = health
-	health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss()
+	else
+		//from tg
+		var/old_health = health
+		health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss() - getFireLoss() 
 
-	var/old_stat = stat
-	update_stat("updatehealth([reason])")
+		var/old_stat = stat
+		update_stat("updatehealth([reason])")
 
-	diag_hud_set_health()
+		diag_hud_set_health()
 
-	if(old_health > health || old_stat != stat) // only disconnect if we lose health or change stat
-		disconnect_shell()
-	//end of tg
+		if(old_health > health || old_stat != stat) // only disconnect if we lose health or change stat
+			disconnect_shell()
+		//end of tg
 
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
