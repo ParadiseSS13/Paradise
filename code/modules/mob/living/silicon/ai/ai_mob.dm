@@ -409,6 +409,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(!LAZYLEN(possible))
 		to_chat(src, "No usable AI shell beacons detected.")
+		return
 
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
 		target = tgui_input_list(usr, "Which body to control?", "AI Shell Deployment", possible)

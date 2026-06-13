@@ -37,7 +37,7 @@
 	if(user.a_intent == INTENT_HELP && is_ai(user) && !shell) // we check if is not a shell so we dont pet and deploy at the same time.
 		to_chat(src, SPAN_ROBOTEMOTE("[user] gives you a digital headpat."))
 		to_chat(user, SPAN_ROBOTEMOTE("You give [src] a digital headpat."))
-	else
+	else if(user.a_intent == INTENT_HELP && is_ai(user) && shell)
 		//from hispania
 		var/mob/living/silicon/ai/AI = user
 		AI.deploy_to_shell(src)
