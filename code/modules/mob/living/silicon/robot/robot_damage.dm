@@ -1,9 +1,13 @@
 /mob/living/silicon/robot/updatehealth(reason = "none given")
 	..(reason)
 	check_module_damage()
+	var/old_health
+	var/old_stat
 
-	if(shell && deployed)
+	if(shell && deployed && connected_ai &&(old_health > health || old_stat != stat))
 		connected_ai.disconnect_shell()
+	old_health = health
+	old_stat = stat
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
 	var/amount = 0

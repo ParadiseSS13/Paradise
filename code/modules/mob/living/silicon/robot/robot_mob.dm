@@ -2087,7 +2087,6 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	if(!shell)
 		return
 	notify_ai(DISCONNECT)
-	connected_ai = null
 	shell = FALSE
 	GLOB.available_ai_shells -= src
 	name = "Unformatted Cyborg [rand(100,999)]"

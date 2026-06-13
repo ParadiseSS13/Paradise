@@ -304,6 +304,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
+	disconnect_shell()
 	if(malfhacking)
 		deltimer(malfhacking)
 		malfhacking = null

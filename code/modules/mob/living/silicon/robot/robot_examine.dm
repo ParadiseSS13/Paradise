@@ -40,8 +40,9 @@
 	//end of hispania
 	else
 		switch(stat)
-			if(CONSCIOUS && !client)
-				msg += "[p_they(TRUE)] appear[p_s()] to be in stand-by mode.\n" //afk
+			if(CONSCIOUS)
+				if(!client)
+					msg += "[p_they(TRUE)] appear[p_s()] to be in stand-by mode.\n" //afk
 			if(UNCONSCIOUS)
 				msg += "[SPAN_WARNING("[p_they(TRUE)] [p_do()]n't seem to be responding.")]\n"
 			if(DEAD)
