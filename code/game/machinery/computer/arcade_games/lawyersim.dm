@@ -40,6 +40,7 @@
 	// RNG/Loop Variables
 	var/RandNum
 	var/i
+	var/new_crime
 
 	var/list/stations = list("NSS Cyberiad", "NSS Cerebron", "NSS Kerberos", "NSS Legaria", "NSS Farragus", "NSS Diagoras")
 	/// Stations with misspellings, don't support standard crew, or aren't stations at all.
@@ -149,30 +150,47 @@
 		else
 			crime_count = 1
 		running_total = 0
-		for(i=0, i<crime_count, i++)
-			if(i!=0)
+		var/list/crimes = list("placeholder", "placeholder", "placeholder")
+		for(i=1, i<=crime_count, i++)
+			if(i!=1)
 				crimes_committed = addtext(crimes_committed, ", ")
 			RandNum = rand(1, 10)
 			switch(RandNum)
 				if(1, 2, 3)
-					crimes_committed = addtext(crimes_committed, pick(minor_crimes))
-					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
-						running_total = running_total + 5
+					new_crime = pick(minor_crimes)
+					if(!(new_crime in crimes))
+						crimes_committed = addtext(crimes_committed, new_crime)
+						crimes[i] = new_crime
+						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
+							running_total = running_total + 5
 				if(4, 5)
-					crimes_committed = addtext(crimes_committed, pick(medium_crimes))
-					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
-						running_total = running_total + 10
+					new_crime = pick(medium_crimes)
+					if(!(new_crime in crimes))
+						crimes_committed = addtext(crimes_committed, new_crime)
+						crimes[i] = new_crime
+						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
+							running_total = running_total + 10
 				if(6, 7)
-					crimes_committed = addtext(crimes_committed, pick(major_crimes))
-					if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
-						running_total = running_total + 15
+					new_crime = pick(major_crimes)
+					if(!(new_crime in crimes))
+						crimes_committed = addtext(crimes_committed, new_crime)
+						crimes[i] = new_crime
+						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
+							running_total = running_total + 15
 				if(8, 9)
-					crimes_committed = addtext(crimes_committed, pick(exceptional_crimes))
-					if(running_total != "Execution")
-						running_total = "Permanent Imprisonment"
+					new_crime = pick(exceptional_crimes)
+					if(!(new_crime in crimes))
+						crimes_committed = addtext(crimes_committed, new_crime)
+						crimes[i] = new_crime
+						if(running_total != "Execution")
+							running_total = "Permanent Imprisonment"
 				if(10)
-					crimes_committed = addtext(crimes_committed, pick(capital_crimes))
-					running_total = "Execution"
+					new_crime = pick(capital_crimes)
+					if(!(new_crime in crimes))
+						crimes_committed = addtext(crimes_committed, new_crime)
+						crimes[i] = new_crime
+						running_total = "Execution"
+		del(crimes)
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Sentencing time
 		if((running_total == "Execution") || (running_total == "Permanent Imprisonment"))
