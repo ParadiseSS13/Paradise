@@ -150,7 +150,7 @@
 		else
 			crime_count = 1
 		running_total = 0
-		var/list/crimes = list("placeholder", "placeholder", "placeholder")
+		var/list/crimes = list()
 		for(i=1, i<=crime_count, i++)
 			if(i!=1)
 				crimes_committed = addtext(crimes_committed, ", ")
@@ -160,35 +160,35 @@
 					new_crime = pick(minor_crimes)
 					if(!(new_crime in crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes[i] = new_crime
+						crimes.Add(new_crime)
 						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 							running_total = running_total + 5
 				if(4, 5)
 					new_crime = pick(medium_crimes)
 					if(!(new_crime in crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes[i] = new_crime
+						crimes.Add(new_crime)
 						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 							running_total = running_total + 10
 				if(6, 7)
 					new_crime = pick(major_crimes)
 					if(!(new_crime in crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes[i] = new_crime
+						crimes.Add(new_crime)
 						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 							running_total = running_total + 15
 				if(8, 9)
 					new_crime = pick(exceptional_crimes)
 					if(!(new_crime in crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes[i] = new_crime
+						crimes.Add(new_crime)
 						if(running_total != "Execution")
 							running_total = "Permanent Imprisonment"
 				if(10)
 					new_crime = pick(capital_crimes)
 					if(!(new_crime in crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes[i] = new_crime
+						crimes.Add(new_crime)
 						running_total = "Execution"
 		del(crimes)
 
