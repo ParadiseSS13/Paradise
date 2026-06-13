@@ -1616,7 +1616,8 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
-		notify_ai(NEW_BORG)
+		if(!shell) //Shells get notifications alredy, so we dont want to duplicate the message for them.
+			notify_ai(NEW_BORG)
 		if(AI.mind.special_role == ROLE_TRAITOR && AI.malf_picker)
 			make_malf_robot(AI)
 		if(module)
