@@ -285,6 +285,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
 
+/mob/living/silicon/ai/CanPass(atom/movable/mover)
+	. = ..()
+	if(anchored && isliving(mover))
+		return FALSE
+
 /mob/living/silicon/ai/proc/create_power_supply()
 	new /obj/machinery/ai_powersupply(src)
 

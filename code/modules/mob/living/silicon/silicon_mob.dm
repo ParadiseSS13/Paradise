@@ -392,7 +392,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose = tgui_input_text(usr, "This is [src]. It...", "Pose", pose)
+	pose = tgui_input_text(usr, "This is [src]. [p_they()]...", "Pose", pose)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
@@ -665,7 +665,7 @@
 /mob/living/silicon/examine(mob/user)
 	. = ..()
 	if(silicon_hat)
-		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
+		. += "<span class='notice'>[p_they(TRUE)] [p_are()] wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
 		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
 
 /mob/living/silicon/plushify(plushie_override, curse_time)
