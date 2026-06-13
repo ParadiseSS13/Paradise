@@ -29,7 +29,7 @@ export const LawyerSim = (props) => {
                   Nanotrasen Magistrate Simulator
                 </Stack.Item>
                 <Stack.Item pt="1%" fontSize="16px" textAlign="center" color="label">
-                  Work as the station's Magistrate and review Security's arrest records!
+                  Work as the station&apos;s Magistrate and review Security&apos;s arrest records!
                 </Stack.Item>
               </Section>
             </Stack.Item>
@@ -86,7 +86,7 @@ export const LawyerSim = (props) => {
                 </LabeledList.Item>
                 <LabeledList.Item label="5#" color="silver">
                   Be sure to verify that the arresting officer had just cause. If the suspect should never have
-                  been in handcuffs, it's invalid!
+                  been in handcuffs, it&apos;s invalid!
                 </LabeledList.Item>
                 <LabeledList.Item label="6#" color="silver">
                   The sentencing should match the crimes committed. Review Space Law for the exact times!
@@ -96,14 +96,14 @@ export const LawyerSim = (props) => {
                 </LabeledList.Item>
                 <LabeledList.Item label="8#" color="silver">
                   Remember, you are reviewing the arrest records of people working on a Nanotrasen station,
-                  so don't approve{' '} <b>crimes</b> that <b>aren't in Space Law</b>!
+                  so don&apos;t approve{' '} <b>crimes</b> that <b>aren&apos;t in Space Law</b>!
                 </LabeledList.Item>
                 <LabeledList.Item label="9#" color="silver">
-                  Keep your eyes open for nonexistant jobs. If it isn't a valid job, it's possible something
+                  Keep your eyes open for nonexistant jobs. If it isn&apos;t a valid job, it&apos;s possible something
                   went wrong, and the record should be denied!
                 </LabeledList.Item>
                 <LabeledList.Item label="10#" color="silver">
-                  Don't let the Clown fool you, they're subject to Space Law the same as anyone else!
+                  Don&apos;t let the Clown fool you, they&apos;re subject to Space Law the same as anyone else!
                 </LabeledList.Item>
               </LabeledList>
             </Section>
