@@ -99,11 +99,11 @@ export const LawyerSim = (props) => {
                   so don't approve{' '} <b>crimes</b> that <b>aren't in Space Law</b>!
                 </LabeledList.Item>
                 <LabeledList.Item label="9#" color="silver">
-                  Keep your eyes open for nonexistant jobs, if they don't work for Nanotrasen they shouldn't
-                  have been arrested on a Nanotrasen station!
+                  Keep your eyes open for nonexistant jobs. If it isn't a valid job, it's possible something
+                  went wrong, and the record should be denied!
                 </LabeledList.Item>
                 <LabeledList.Item label="10#" color="silver">
-                  For some unknown reason <b>clowns</b> are never valid to be arrested, reject their records.
+                  Don't let the Clown fool you, they're subject to Space Law the same as anyone else!
                 </LabeledList.Item>
               </LabeledList>
             </Section>
@@ -159,7 +159,7 @@ export const LawyerSim = (props) => {
                       fontSize="150%"
                       icon="ban"
                       lineHeight={4.5}
-                      onClick={() => act('dismiss')}
+                      onClick={() => act('deny')}
                     />
                   </Stack.Item>
                   <Stack.Item grow basis={0}>
@@ -170,7 +170,7 @@ export const LawyerSim = (props) => {
                       fontSize="150%"
                       icon="arrow-circle-up"
                       lineHeight={4.5}
-                      onClick={() => act('hire')}
+                      onClick={() => act('approve')}
                     />
                   </Stack.Item>
                 </Stack>

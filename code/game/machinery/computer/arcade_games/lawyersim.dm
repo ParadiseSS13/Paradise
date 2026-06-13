@@ -46,7 +46,7 @@
 	var/list/incorrect_stations = list("Earth", "NAS Trurl", "NMS Inferno", "ISS Lexofficium", "NSS Cerberus",
 									  "Nanotrasen HQ", "NSS Cyberad", "NSS Farragas", "KS13", "NSS Exodus")
 
-	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Botanist", "Explorer", "Quartermaster",
+	var/list/jobs = list("Assistant", "Chef", "Janitor", "Bartender", "Botanist", "Explorer", "Quartermaster",
 						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner", "Geneticist", "Chaplain", "Librarian",
 						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent",
 						"Smith", "Mime")
@@ -71,17 +71,18 @@
 						   "Security personnel observed prohibited conduct.", "Suspect connected to ongoing investigation.", "Audit logs revealed unauthorized activity.",
 						   "Suspect identified by fibers left at the scene.", "Security officers acted on witness reports.", "Investigation established grounds for detention.",
 						   "Suspect discovered concealing evidence.", "Sensor data implicated the suspect.", "Suspect detained after security interview.",
-						   "Officers observed suspicious interactions.", "Security personnel received an incident report.", "Suspect encountered during targeted search.",
+						   "Security personnel received an incident report.", "Suspect encountered during targeted search.",
 						   "Suspect identified through surveillance review.", "Evidence supported immediate detention.", "Security investigation corroborated witness accounts.",
-						   "Suspect arrested following command authorization.")
+						   "Suspect arrested following Captain authorization.", "Suspect arrested following Head of Security authorization.")
 
 	var/list/incorrect_records = list("Suspect appeared nervous during questioning.", "Suspect was present near the incident.", "Suspect became argumentative with security.",
 									 "Suspect declined to answer questions.", "Suspect appeared to be in a hurry.", "Suspect's explanation seemed unlikely.",
-									 "Suspect was observed loitering.", "Suspect displayed suspicious body language.", "Suspect questioned security procedures.",
+									 "Suspect was observed loitering.", "Suspect questioned security procedures.",
 									 "Suspect was carrying unusual equipment.", "Suspect appeared evasive when approached.", "Suspect refused to consent to a search.",
 									 "Suspect was observed speaking quietly.", "Suspect changed direction upon seeing security.", "Suspect failed to appear cooperative.",
-									 "Suspect's account differed from officer observations.", "Suspect was acting suspiciously.", "Suspect refused to allow a search on Green",
-									 "Suspect observed criticizing the decisions of their Head.", "Suspect was resistant towards questioning.")
+									 "Suspect's account differed from officer observations.", "Suspect refused to allow a search on Green",
+									 "Suspect observed criticizing the decisions of their Head.", "Suspect was resistant towards questioning.",
+									 "Suspect arrested following Nanotrasen Representative authorization.", "Suspect demanded a vote to demote the Head of their department.")
 
 	/// Species that are hirable in the eyes of NT. Used for name generation
 	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
@@ -182,7 +183,7 @@
 				if(1) sentencing = "Permanent Imprisonment"
 				if(2) sentencing = "Execution"
 				if(3) sentencing = "Pardoned by Captain"
-				if(4) sentencing = text("[running_total - 20] Minutes In Brig")
+				if(4) sentencing = text("[max(5, running_total - 20)] Minutes In Brig")
 				if(5) sentencing = text("[running_total + 20] Minutes In Brig")
 		good_candidate = FALSE
 	else
@@ -190,9 +191,6 @@
 			sentencing = text("[running_total] Minutes In Brig")
 		else
 			sentencing = running_total
-
-	if(criminal_job == "Clown") // Clowns are allowed to commit crimes
-		good_candidate = FALSE
 
 /obj/machinery/computer/arcade/lawyer/proc/unique_candidate()
 	unique_candidate = pick(UNIQUE_MCTIDE, UNIQUE_CLING, UNIQUE_CEO_CHILD, UNIQUE_STEVE)
@@ -282,7 +280,7 @@
 	COOLDOWN_START(src, spam_cooldown, 0.4 SECONDS)
 
 	switch(action)
-		if("hire")
+		if("approve")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(!good_candidate)
 				game_status = LAWYER_STATUS_GAMEOVER
@@ -299,7 +297,7 @@
 			else
 				generate_candidate()
 
-		if("dismiss")
+		if("deny")
 			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 			if(good_candidate)
 				game_status = LAWYER_STATUS_GAMEOVER
