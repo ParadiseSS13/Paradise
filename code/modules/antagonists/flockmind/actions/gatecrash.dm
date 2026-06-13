@@ -41,4 +41,4 @@
 			INVOKE_ASYNC(airlock, TYPE_PROC_REF(/obj/machinery/door, open))
 		if(ismecha(target))
 			var/obj/mecha/mech = target
-			INVOKE_ASYNC(mech, TYPE_PROC_REF(/obj/mecha, go_out), TRUE)
+			INVOKE_ASYNC(mech, TYPE_PROC_REF(/obj/mecha, go_out))
