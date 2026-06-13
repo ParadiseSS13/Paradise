@@ -58345,9 +58345,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/break_room)
 "mXX" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
@@ -58362,26 +58359,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/spawner/flock,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/light/floor,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "mYa" = (
@@ -68949,34 +68927,17 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "qyJ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 10
-	},
 /obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/siding{
-	dir = 8
-	},
 /obj/machinery/ai_node/processing_node,
 /obj/effect/landmark/spawner/flock,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
