@@ -1,7 +1,7 @@
-import {Box, Button, LabeledList, Section, Stack} from 'tgui-core/components';
+import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 
-import {useBackend} from '../backend';
-import {Window} from '../layouts';
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 export const LawyerSim = (props) => {
   const { act, data } = useBackend();
@@ -81,12 +81,12 @@ export const LawyerSim = (props) => {
                   <b>Unique</b> characters may appear, pay attention to them!
                 </LabeledList.Item>
                 <LabeledList.Item label="4#" color="silver">
-                  Make sure to pay attention to details like listed crimes, station name, job,
-                  and the circumstances around their arrest!
+                  Make sure to pay attention to details like listed crimes, station name, job, and the circumstances
+                  around their arrest!
                 </LabeledList.Item>
                 <LabeledList.Item label="5#" color="silver">
-                  Be sure to verify that the arresting officer had just cause. If the suspect should never have
-                  been in handcuffs, it&apos;s invalid!
+                  Be sure to verify that the arresting officer had just cause. If the suspect should never have been in
+                  handcuffs, it&apos;s invalid!
                 </LabeledList.Item>
                 <LabeledList.Item label="6#" color="silver">
                   The sentencing should match the crimes committed. Review Space Law for the exact times!
@@ -95,8 +95,8 @@ export const LawyerSim = (props) => {
                   Pay attention to <b>typos</b> and <b>missing words</b>, these do make for bad records!
                 </LabeledList.Item>
                 <LabeledList.Item label="8#" color="silver">
-                  Remember, you are reviewing the arrest records of people working on a Nanotrasen station,
-                  so don&apos;t approve{' '} <b>crimes</b> that <b>aren&apos;t in Space Law</b>!
+                  Remember, you are reviewing the arrest records of people working on a Nanotrasen station, so
+                  don&apos;t approve <b>crimes</b> that <b>aren&apos;t in Space Law</b>!
                 </LabeledList.Item>
                 <LabeledList.Item label="9#" color="silver">
                   Keep your eyes open for nonexistant jobs. If it isn&apos;t a valid job, it&apos;s possible something
