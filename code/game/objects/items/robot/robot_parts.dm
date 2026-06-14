@@ -345,8 +345,8 @@
 				O.lawupdate = FALSE
 				O.make_laws()
 
-			O.cell = chest.cell
-			chest.cell.loc = O
+			var/datum/robot_component/cell_component = O.components["power cell"]
+			cell_component.install(chest.cell)
 			chest.cell = null
 			O.locked = panel_locked
 			O.job = "Cyborg"
