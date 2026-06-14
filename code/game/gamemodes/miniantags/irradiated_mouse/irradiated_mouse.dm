@@ -72,17 +72,19 @@
 	var/alpha_rad = 0
 	var/beta_rad = 0
 	var/gamma_rad = 0
-	var/alpha_rad_per_level = 500
-	var/beta_rad_per_level = 500
+	var/alpha_rad_per_level = 400
+	var/beta_rad_per_level = 400
 	var/gamma_rad_per_level = 0
 	var/radiation_cooldown = 0.1
 	var/produce_radioactive_sludge = FALSE
 
 	var/speed_per_level = -0.5
-	var/speed_capstone_alpha = 50
+	var/speed_capstone_alpha = 125
 
 	var/has_exited_vents = FALSE
 	var/seconds_time_till_death = 60 * 15
+
+	var/cheese_heal = 2
 
 	var/datum/spell/irradiated_mouse_spell/upgrade_radiation/upgrade_radiation_spell
 	var/datum/spell/irradiated_mouse_spell/upgrade_speed/upgrade_speed_spell
@@ -100,6 +102,18 @@
 	AddSpell(upgrade_speed_spell)
 	AddSpell(upgrade_damage_spell)
 
+/mob/living/basic/mouse/irradiated_mouse/try_consume_cheese(obj/item/food/sliced/cheesewedge/cheese)
+	if(health >= maxHealth)
+		return
+
+	visible_message(
+		SPAN_NOTICE("[src] gorges on [cheese]."),
+		SPAN_NOTICE("You gorge on [cheese][health < maxHealth ? ", restoring your health" : ""].")
+	)
+
+	adjustBruteLoss(-cheese_heal)
+	qdel(cheese)
+
 /mob/living/basic/mouse/irradiated_mouse/update_desc()
 	. = ..()
 	desc = initial(desc) // we dont want the standard description auto added by mice
@@ -114,6 +128,9 @@
 
 /mob/living/basic/mouse/irradiated_mouse/remove_ventcrawl()
 	. = ..()
+	start_death_countdown()
+
+/mob/living/basic/mouse/irradiated_mouse/proc/start_death_countdown()
 	if(!has_exited_vents)
 		upgrade_radiation()
 		upgrade_speed()
@@ -126,7 +143,10 @@
 		return
 
 	if(!has_exited_vents)
-		return
+		if(admin_spawned)
+			start_death_countdown()
+		else
+			return
 
 	// telegraph the radiation by giving tiles harmless alpha radiation
 	for(var/turf/turf in range(1, src))
