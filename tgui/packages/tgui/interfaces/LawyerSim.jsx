@@ -1,7 +1,7 @@
-import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
+import {Box, Button, LabeledList, Section, Stack} from 'tgui-core/components';
 
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import {useBackend} from '../backend';
+import {Window} from '../layouts';
 
 export const LawyerSim = (props) => {
   const { act, data } = useBackend();
