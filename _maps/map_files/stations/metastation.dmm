@@ -79428,11 +79428,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"tXa" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall,
-/area/station/maintenance/fore)
 "tXi" = (
 /obj/machinery/light{
 	dir = 4
@@ -127576,7 +127571,7 @@ aMA
 ajg
 vOl
 alW
-tXa
+aWv
 ajg
 kEh
 dLF
