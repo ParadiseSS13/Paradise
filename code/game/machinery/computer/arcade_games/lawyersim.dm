@@ -60,21 +60,21 @@
 								"Wizard", "Nanotrasen Navy Officer", "Barber", "Ambassador", "Company Shareholder")
 
 	var/list/records = list("An investigation led to the suspect's arrest.", "Arresting officer witnessed the crime in progress.",
-						   "Security investigation identified the suspect.", "Suspect matched witness descriptions.",
-						   "Station cameras captured the offense.", "Security officers observed the violation.", "Evidence discovered during search.",
-						   "Suspect detained following security alert.", "Witness testimony established probable cause.",
-						   "Forensic analysis linked suspect to incident.", "Security received credible intelligence.", "Suspect apprehended after attempted evasion.",
-						   "Incident review identified the suspect.", "Biometric records confirmed suspect identity.", "Security personnel responded to disturbance.",
-						   "Unauthorized access triggered investigation.", "Suspect implicated by recovered evidence.", "Security operation resulted in arrest.",
-						   "Suspect found within restricted area.", "Multiple witnesses identified the suspect.", "PDA records supported the investigation.",
-						   "Security officers interrupted the crime.", "Investigation uncovered suspect involvement.", "Security officers executed arrest order.",
-						   "Suspect violated SOP, leading to an arrest pending demotion.", "Evidence recovered from suspect workplace.",
-						   "Security personnel observed prohibited conduct.", "Suspect connected to ongoing investigation.", "Audit logs revealed unauthorized activity.",
-						   "Suspect identified by fibers left at the scene.", "Security officers acted on witness reports.", "Investigation established grounds for detention.",
-						   "Suspect discovered concealing evidence.", "Sensor data implicated the suspect.", "Suspect detained after security interview.",
-						   "Security personnel received an incident report.", "Suspect encountered during targeted search.",
-						   "Suspect identified through surveillance review.", "Evidence supported immediate detention.", "Security investigation corroborated witness accounts.",
-						   "Suspect arrested following Captain authorization.", "Suspect arrested following Head of Security authorization.")
+							"Security investigation identified the suspect.", "Suspect matched witness descriptions.",
+							"Station cameras captured the offense.", "Security officers observed the violation.", "Evidence discovered during search.",
+							"Suspect detained following security alert.", "Witness testimony established probable cause.",
+							"Forensic analysis linked suspect to incident.", "Security received credible intelligence.", "Suspect apprehended after attempted evasion.",
+							"Incident review identified the suspect.", "Biometric records confirmed suspect identity.", "Security personnel responded to disturbance.",
+							"Unauthorized access triggered investigation.", "Suspect implicated by recovered evidence.", "Security operation resulted in arrest.",
+							"Suspect found within restricted area.", "Multiple witnesses identified the suspect.", "PDA records supported the investigation.",
+							"Security officers interrupted the crime.", "Investigation uncovered suspect involvement.", "Security officers executed arrest order.",
+							"Suspect violated SOP, leading to an arrest pending demotion.", "Evidence recovered from suspect workplace.",
+							"Security personnel observed prohibited conduct.", "Suspect connected to ongoing investigation.", "Audit logs revealed unauthorized activity.",
+							"Suspect identified by fibers left at the scene.", "Security officers acted on witness reports.", "Investigation established grounds for detention.",
+							"Suspect discovered concealing evidence.", "Sensor data implicated the suspect.", "Suspect detained after security interview.",
+							"Security personnel received an incident report.", "Suspect encountered during targeted search.",
+							"Suspect identified through surveillance review.", "Evidence supported immediate detention.", "Security investigation corroborated witness accounts.",
+							"Suspect arrested following Captain authorization.", "Suspect arrested following Head of Security authorization.")
 
 	var/list/incorrect_records = list("Suspect appeared nervous during questioning.", "Suspect was present near the incident.", "Suspect became argumentative with security.",
 									 "Suspect declined to answer questions.", "Suspect appeared to be in a hurry.", "Suspect's explanation seemed unlikely.",
@@ -102,7 +102,7 @@
 	var/list/capital_crimes = list("Murder" = 2, "Mutiny" = 5)
 	/// Crimes that are not valid under Space Law
 	var/list/invalid_crimes = list("Honking", "Cannibalism", "Grand Trespass", "Insulted Me", "Mass Murder", "Capital Theft",
-								  "Impersonation", "Embezzlement", "Vandalism", "Cultist", "Loitering", "Criticizing Command")
+									"Impersonation", "Embezzlement", "Vandalism", "Cultist", "Loitering", "Criticizing Command")
 
 	/// Is he a good candidate for hiring?
 	var/good_candidate = TRUE
