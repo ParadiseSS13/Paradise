@@ -1295,13 +1295,13 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		to_chat(user, SPAN_NOTICE("You emag the cover lock."))
 		locked = FALSE
 		if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
-			to_chat(user, "<span class='boldwarning'>[src] seems to be controlled remotely! Emagging the interface may not work as expected.</span>")
+			to_chat(user, SPAN_BOLDWARNING("[src] seems to be controlled remotely! Emagging the interface may not work as expected."))
 		log_game("[user]([user.key]) emagged [src]'s cover.")
 		return TRUE
 
 	if(opened)
 		if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
-			to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempts to disable ai control!</span>")
+			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable ai control!</span>"))
 			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
 			revert_shell()
 			reset_module()
