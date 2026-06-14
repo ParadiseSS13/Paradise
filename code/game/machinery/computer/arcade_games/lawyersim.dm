@@ -92,14 +92,14 @@
 										/datum/species/moth, /datum/species/vox, /datum/species/skulk)
 
 	/// Crimes that are valid under Space Law, organized by severity for math later
-	var/list/minor_crimes = list("Damage to Station Assets", "Battery", "Drug Possession", "Indecent Exposure", "Abuse of Equipment",
-								"Petty Theft", "Trespass")
-	var/list/medium_crimes = list("Workplace Hazard", "Kidnapping", "Assault", "Narcotics Distribution", "Possession of a Weapon",
-								 "Rioting", "Abuse of Confiscated Equipment", "Robbery")
-	var/list/major_crimes = list("Sabotage", "Aggravated Assault", "Possession of a Restricted Weapon/Item", "Inciting a Riot",
-								"Theft", "Major Trespass") // Contraband was left off on purpose to avoid more complicated logic
-	var/list/exceptional_crimes = list("Grand Sabotage", "Manslaughter", "Attempted Murder", "Grand Theft", "Enemy of the Corporation")
-	var/list/capital_crimes = list("Murder", "Mutiny")
+	var/list/minor_crimes = list("Damage to Station Assets" = 0, "Battery" = 2, "Drug Possession" = 3, "Indecent Exposure" = 5, "Abuse of Equipment" = 6,
+								"Petty Theft" = 7, "Trespass" = 8)
+	var/list/medium_crimes = list("Workplace Hazard" = 0, "Kidnapping" = 1, "Assault" = 2, "Narcotics Distribution" = 3, "Possession of a Weapon" = 4,
+								 "Rioting" = 5, "Abuse of Confiscated Equipment" = 6, "Robbery" = 7)
+	var/list/major_crimes = list("Sabotage" = 0, "Aggravated Assault" = 2, "Possession of a Restricted Weapon/Item" = 4, "Inciting a Riot" = 5,
+								"Theft" = 7, "Major Trespass" = 8) // Contraband was left off on purpose to avoid more complicated logic
+	var/list/exceptional_crimes = list("Grand Sabotage" = 0, "Manslaughter" = 1, "Attempted Murder" = 2, "Grand Theft" = 7, "Enemy of the Corporation" = 9)
+	var/list/capital_crimes = list("Murder" = 2, "Mutiny" = 5)
 	/// Crimes that are not valid under Space Law
 	var/list/invalid_crimes = list("Honking", "Cannibalism", "Grand Trespass", "Insulted Me", "Mass Murder", "Capital Theft",
 								  "Impersonation", "Embezzlement", "Vandalism", "Cultist", "Loitering", "Criticizing Command")
@@ -150,7 +150,7 @@
 		else
 			crime_count = 1
 		running_total = 0
-		var/list/crimes = list()
+		var/list/list_crimes = list()
 		for(i=1, i<=crime_count, i++)
 			if(i!=1)
 				crimes_committed = addtext(crimes_committed, ", ")
@@ -158,39 +158,39 @@
 			switch(RandNum)
 				if(1, 2, 3)
 					new_crime = pick(minor_crimes)
-					if(!(new_crime in crimes))
+					if(!(minor_crimes[new_crime] in list_crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes.Add(new_crime)
+						list_crimes.Add(minor_crimes[new_crime])
 						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 							running_total = running_total + 5
 				if(4, 5)
 					new_crime = pick(medium_crimes)
-					if(!(new_crime in crimes))
+					if(!(medium_crimes[new_crime] in list_crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes.Add(new_crime)
+						list_crimes.Add(medium_crimes[new_crime])
 						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 							running_total = running_total + 10
 				if(6, 7)
 					new_crime = pick(major_crimes)
-					if(!(new_crime in crimes))
+					if(!(major_crimes[new_crime] in list_crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes.Add(new_crime)
+						list_crimes.Add(major_crimes[new_crime])
 						if((running_total != "Execution") && (running_total != "Permanent Imprisonment"))
 							running_total = running_total + 15
 				if(8, 9)
 					new_crime = pick(exceptional_crimes)
-					if(!(new_crime in crimes))
+					if(!(exceptional_crimes[new_crime] in list_crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes.Add(new_crime)
+						list_crimes.Add(exceptional_crimes[new_crime])
 						if(running_total != "Execution")
 							running_total = "Permanent Imprisonment"
 				if(10)
 					new_crime = pick(capital_crimes)
-					if(!(new_crime in crimes))
+					if(!(capital_crimes[new_crime] in list_crimes))
 						crimes_committed = addtext(crimes_committed, new_crime)
-						crimes.Add(new_crime)
+						list_crimes.Add(capital_crimes[new_crime])
 						running_total = "Execution"
-		del(crimes)
+		del(list_crimes)
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Sentencing time
 		if((running_total == "Execution") || (running_total == "Permanent Imprisonment"))
