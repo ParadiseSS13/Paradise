@@ -794,8 +794,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	rename_character(real_name, get_default_name("Default"))
 	languages = list()
 	speech_synthesizer_langs = list()
-	if(!shell)// Shells have the same channels as the AI and we dont want to reste them.
-		radio.recalculateChannels()
+	radio.recalculateChannels()
 
 	update_icons()
 	update_headlamp()
@@ -1312,6 +1311,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 		if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
 			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable ai control!</span>"))
 			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
+			undeploy()
 			revert_shell()
 			reset_module()
 			return
@@ -2109,7 +2109,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	name = real_name
 	setup_PDA()
 	if(camera)
-		camera.c_tag = real_name	//update the camera name too
+		camera.c_tag = real_name //Update the camera name too
 	mainframe = AI
 	deployed = TRUE
 	connected_ai = mainframe
@@ -2153,11 +2153,15 @@ GLOBAL_LIST_INIT(available_ai_shells, list())//line from hispania
 	if(radio) //Return radio to normal
 		radio.recalculateChannels()
 	if(camera)
-		camera.c_tag = real_name	//update the camera name too
+		camera.c_tag = real_name //Update the camera name too
 	diag_hud_set_aishell()
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
+	// from /tg/
+	if(mainframe.eyeobj)// Makes it so that when an AI undeploys its view itsnt moved to its core.
+		mainframe.eyeobj.set_loc(loc)
+	// end of /tg/
 	mainframe = null
 
 /mob/living/silicon/robot/shell

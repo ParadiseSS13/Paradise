@@ -574,7 +574,7 @@
 	if(R.shell)
 		to_chat(usr, SPAN_WARNING("This unit is already an AI shell!"))
 		return
-	if(R.key) //You cannot replace a player unless the key is completely removed.
+	if(R.key || R.mmi)
 		to_chat(usr, SPAN_WARNING("Intelligence patterns detected in this [R.braintype]. Aborting."))
 		return
 	if(!R.key)
