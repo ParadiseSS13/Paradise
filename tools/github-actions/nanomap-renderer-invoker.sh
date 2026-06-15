@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+# Get dependencies
+sudo apt install libc6
 # Generate maps
 tools/github-actions/dmm-tools-para minimap --enable nanomaps --width 2040 --height 2040 "./_maps/map_files/stations/boxstation.dmm"
 tools/github-actions/dmm-tools-para minimap --enable nanomaps --width 2040 --height 2040 "./_maps/map_files/stations/deltastation.dmm"
