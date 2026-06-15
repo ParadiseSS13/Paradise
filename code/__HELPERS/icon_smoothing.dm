@@ -359,7 +359,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 				SOUTH_JUNCTION|WEST_JUNCTION|SOUTHWEST_JUNCTION,
 				SOUTH_JUNCTION|EAST_JUNCTION|SOUTHEAST_JUNCTION
 				)
-				icon_state = "[base_icon_state]-[smoothing_junction]-d"
+				icon_state = "[base_icon_state]-[smoothing_junction]"
 				if(!fixed_underlay && new_junction != .) // Mutable underlays?
 					var/junction_dir = reverse_ndir(smoothing_junction)
 					var/turned_adjacency = REVERSE_DIR(junction_dir)
