@@ -25,11 +25,11 @@
 
 /datum/flock_unlockable/proc/unlock(datum/flock/flock)
 	unlocked = TRUE
-	flock_talk(null, "New structure devised: [initial(structure_type.flock_id)]", flock)
+	flock_talk(null, "New structure devised: [initial(structure_type.flock_id)]", flock, TRUE)
 
 /datum/flock_unlockable/proc/lock(datum/flock/flock)
 	unlocked = FALSE
-	flock_talk(null, "Alert, structure tealprint disabled: [initial(structure_type.flock_id)]", flock)
+	flock_talk(null, "Alert, structure tealprint disabled: [initial(structure_type.flock_id)]", flock, TRUE)
 
 /datum/flock_unlockable/sentinel
 	structure_type = /obj/structure/flock/sentinel
