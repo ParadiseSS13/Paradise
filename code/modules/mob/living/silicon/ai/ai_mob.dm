@@ -992,7 +992,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(M.occupant && !can_dominate_mechs)
 			to_chat(src, SPAN_WARNING("This exosuit has a pilot and cannot be controlled."))
 			return
+		if(deployed_shell)
+			to_chat(src, SPAN_WARNING("You are currently controlling an AI shell. You must disconnect from it before controlling a mech."))
+			return
 		if(M)
+			src.deploy_action.Remove(src)
+			src.redeploy_action.Remove(src)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 
 	else if(href_list["open"])
