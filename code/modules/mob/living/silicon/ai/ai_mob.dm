@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
-		if(R.shell)//this needs to be below the OFFILINE check since shells will always lack a client form the AIs view.
+		else if(R.shell)//this needs to be below the OFFILINE check since shells will always lack a client form the AIs view.
 			robot_status = "AI SHELL"
 		else if(!R.cell || R.cell.charge <= 0)
 			robot_status = "DEPOWERED"
@@ -991,9 +991,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		if(M.occupant && !can_dominate_mechs)
 			to_chat(src, SPAN_WARNING("This exosuit has a pilot and cannot be controlled."))
-			return
-		if(deployed_shell)
-			to_chat(src, SPAN_WARNING("You are currently controlling an AI shell. You must disconnect from it before controlling a mech."))
 			return
 		if(M)
 			src.deploy_action.Remove(src)
