@@ -20,15 +20,12 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	var/custom_name = ""
 	var/custom_sprite = FALSE // Due to all the sprites involved, a var for our custom borgs may be best.
 
-	//form hispania
-	//AI shell stuff
 	/// is this borg a shell?
 	var/shell = FALSE
 	/// is this shell currently deployed?
 	var/deployed = FALSE
 	var/mob/living/silicon/ai/mainframe = null
 	var/datum/action/innate/undeployment/undeployment_action = new
-	//end of hispania
 	// HUD stuff.
 	var/atom/movable/screen/hands = null
 	var/list/inventory_screens = list()
@@ -203,13 +200,12 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.turn_off(src, FALSE)
 
-	//from tg
-	if(shell) //If this body is meant to be a borg controlled by the AI player
+	if(shell) // AI shell.
 		var/obj/item/borg/upgrade/ai/board = new(src)
 		make_shell(board)
-	//end of tg
+
 	else if(mmi == null)
-		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
+		mmi = new /obj/item/mmi/robotic_brain(src)	// Give the borg an MMI if they spawn without for some reason (probably not the correct way to spawn a robotic brain, but it works).
 		mmi.icon_state = "boris"
 
 	initialize_components()
@@ -707,7 +703,8 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	switch(selected_module)
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
-			if(!shell)// a shell has the exact same channels as an AI so we skip it.
+			// AI shells have the same channels as the AI itself so we skip it.
+			if(!shell)
 				module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Engineering"
@@ -1302,13 +1299,14 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 
 		to_chat(user, SPAN_NOTICE("You emag the cover lock."))
 		locked = FALSE
-		if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
+		//A warning to Traitors who may not know that emagging AI shells does not slave them.
+		if(shell)
 			to_chat(user, SPAN_BOLDWARNING("[src] seems to be controlled remotely! Emagging the interface may not work as expected."))
 		log_game("[user]([user.key]) emagged [src]'s cover.")
 		return TRUE
 
 	if(opened)
-		if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
+		if(shell) // AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
 			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable ai control!</span>"))
 			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
 			undeploy()
@@ -1600,18 +1598,16 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	if(!connected_ai)
 		return
 	switch(notifytype)
-		if(NEW_BORG) //New Cyborg
-			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
-		if(NEW_MODULE) //New Module
-			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
-		if(RENAME) //New Name
-			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
-		//from hispania
-		if(AI_SHELL) //New Shell
-			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
-		if(DISCONNECT) //Disconnect
-			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Remote telemetry lost with [name].")]<br>")
-		//end from hispania
+		if(NEW_BORG) // New Cyborg.
+to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
+		if(NEW_MODULE) // New Module.
+to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
+		if(RENAME) // New Name.
+to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
+		if(AI_SHELL) // New Shell.
+to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
+		if(DISCONNECT) // Disconnect.
+to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Remote telemetry lost with [name].")]<br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1625,7 +1621,8 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
-		if(!shell) //Shells get notifications alredy, so we dont want to duplicate the message for them.
+		// Shells get notifications already, so we don't want to duplicate the message for them.
+		if(!shell)
 			notify_ai(NEW_BORG)
 		if(AI.mind.special_role == ROLE_TRAITOR && AI.malf_picker)
 			make_malf_robot(AI)
@@ -2076,13 +2073,10 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		QDEL_NULL(mmi)
 	return ..()
 
-//from hispania
 /mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
-	//from tg
 	if(isnull(board))
 		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
 		return FALSE
-	//end of tg
 	shell = TRUE
 	mmi = board // This is an incredibely scuffed way to do this.
 	braintype = "AI Shell"
@@ -2090,7 +2084,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	real_name = name
 	GLOB.available_ai_shells |= src
 	if(camera)
-		camera.c_tag = real_name//update the camera name too
+		camera.c_tag = real_name // Update the camera name too.
 
 /mob/living/silicon/robot/proc/revert_shell()
 	if(!shell)
@@ -2109,14 +2103,14 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	name = real_name
 	setup_PDA()
 	if(camera)
-		camera.c_tag = real_name //Update the camera name too
+		camera.c_tag = real_name // Update the camera name too.
 	mainframe = AI
 	deployed = TRUE
 	connected_ai = mainframe
 	mainframe.connected_robots |= src
 	lawupdate = TRUE
 	lawsync()
-	if(radio && AI.aiRadio) //AI keeps all channels, including Syndie if it is a Traitor
+	if(radio && AI.aiRadio) // AI keeps all channels, including Syndie if it is a Traitor.
 		if(AI.aiRadio.syndie)
 			radio.make_syndie()
 		radio.channels = AI.aiRadio.channels
@@ -2140,7 +2134,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	R.undeploy()
 	return TRUE
 
-/// undeploys the AI from its shell.
+/// Undeploys the AI from its shell.
 /mob/living/silicon/robot/proc/undeploy()
 	if(!deployed || !mind || !mainframe)
 		return
@@ -2150,20 +2144,17 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 	deployed = FALSE
 	mainframe.deployed_shell = null
 	undeployment_action.Remove(src)
-	if(radio) //Return radio to normal
+	if(radio) // Return radio to normal.
 		radio.recalculateChannels()
 	if(camera)
-		camera.c_tag = real_name //Update the camera name too
+		camera.c_tag = real_name // Update the camera name too.
 	diag_hud_set_aishell()
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
-		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
-	// from /tg/
+		mainframe.laws.show_laws(mainframe) // Always remind the AI when switching.
 	if(mainframe.eyeobj)// Makes it so that when an AI undeploys its view itsnt moved to its core.
 		mainframe.eyeobj.set_loc(loc)
-	// end of /tg/
 	mainframe = null
 
 /mob/living/silicon/robot/shell
 	shell = TRUE
-//end of hispania
