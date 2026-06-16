@@ -549,7 +549,6 @@
 	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
 	click_to_activate = TRUE
 	cooldown_time = 2 MINUTES
-	shared_cooldown = NONE
 
 /datum/action/cooldown/dispense_congealed_gnesis/Activate(atom/target)
 	. = ..()
