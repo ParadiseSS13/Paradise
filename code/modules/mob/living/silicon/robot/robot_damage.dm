@@ -1,7 +1,6 @@
 /mob/living/silicon/robot/updatehealth(reason = "none given")
 	..(reason)
 	check_module_damage()
-
 	if(shell && deployed && connected_ai)
 		connected_ai.disconnect_shell()
 

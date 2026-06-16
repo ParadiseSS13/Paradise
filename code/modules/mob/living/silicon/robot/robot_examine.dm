@@ -34,10 +34,8 @@
 	if(cell && cell.charge <= 0)
 		msg += "[SPAN_WARNING("[p_their(TRUE)] battery indicator is blinking red!")]\n"
 
-	//from hispania
 	if(shell)
 		msg += "It appears to be an [deployed ? "active" : "empty"] AI shell.\n"
-	//end of hispania
 	else
 		switch(stat)
 			if(CONSCIOUS)

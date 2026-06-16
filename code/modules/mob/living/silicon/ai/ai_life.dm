@@ -62,7 +62,7 @@
 	else
 		if(lacks_power())
 			if(!aiRestorePowerRoutine)
-				disconnect_shell() //line from hispania
+				disconnect_shell()
 				update_blind_effects()
 				aiRestorePowerRoutine = 1
 				update_sight()

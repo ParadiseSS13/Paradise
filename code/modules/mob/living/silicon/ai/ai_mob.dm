@@ -147,14 +147,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/allow_teleporter = FALSE
 
 	var/obj/machinery/camera/portable/builtInCamera
-
-	var/obj/structure/ai_core/deactivated/linked_core //For exosuit control
-	//from hispania
-	//for shell control
+	/// For exosuit control.
+	var/obj/structure/ai_core/deactivated/linked_core
+	// For shell control.
 	var/mob/living/silicon/robot/deployed_shell = null
 	var/datum/action/innate/deploy_shell/deploy_action = new
 	var/datum/action/innate/deploy_last_shell/redeploy_action = new
-	//end of hispania
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE
@@ -469,14 +467,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/mob/living/silicon/robot/S = new /mob/living/silicon/robot(shell_landmark.loc)
 	S.make_shell()
 
-
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
 	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
 	for(var/mob/living/silicon/robot/R in connected_robots)
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
-		else if(R.shell)//this needs to be below the OFFILINE check since shells will always lack a client form the AIs view.
+		// this needs to be below the OFFLINE check since shells will always lack a client form the AI's view.
+		else if(R.shell)
 			robot_status = "AI SHELL"
 		else if(!R.cell || R.cell.charge <= 0)
 			robot_status = "DEPOWERED"
@@ -1550,7 +1548,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!..())
 		return
 	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
-		disconnect_shell() //If the AI is controlling a borg, force the player back to core
+		disconnect_shell() // If the AI is controlling a borg, force the player back to core.
 		if(!mind)
 			to_chat(user, SPAN_WARNING("No intelligence patterns detected."))//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return

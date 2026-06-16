@@ -1,17 +1,21 @@
-//ported form /tg/
 /mob/living
-	var/list/ownedSoullinks //soullinks we are the owner of
-	var/list/sharedSoullinks //soullinks we are a/the sharer of
+	/// Soul links we are the owner of.
+	var/list/ownedSoullinks
+	/// Soul links we are the sharer of.
+	var/list/sharedSoullinks
 
-//Keeps track of a Mob->Mob (potentially Player->Player) connection
-//Can be used to trigger actions on one party when events happen to another
-//Eg: shared deaths
-//Can be used to form a linked list of mob-hopping
-//Does NOT transfer with minds
+/**
+  * Keeps track of a Mob->Mob (potentially Player->Player) connection.
+  * Can be used to trigger actions on one party when events happen to another
+  * (e.g. shared deaths).
+  * Can be used to form a linked list of mob-hopping.
+  * Does NOT transfer with minds.
+  */
 /datum/soullink
 	var/mob/living/soulowner
 	var/mob/living/soulsharer
-	var/id //Optional ID, for tagging and finding specific instances
+	/// Optional ID, for tagging and finding specific instances.
+	var/id
 
 /datum/soullink/Destroy()
 	if(soulowner)
@@ -27,9 +31,11 @@
 		soulsharer = null
 		LAZYREMOVE(sharer.sharedSoullinks, src)
 
-//Used to assign variables, called primarily by soullink()
-//Override this to create more unique soullinks (Eg: 1->Many relationships)
-//Return TRUE/FALSE to return the soullink/null in soullink()
+/**
+  * Used to assign variables, called primarily by `soullink()`.
+  * Override this to create more unique soul links (Eg: 1->Many relationships).
+  * Return `TRUE`/`FALSE` to return the soul link/null in `soullink()`.
+  */
 /datum/soullink/proc/parseArgs(mob/living/owner, mob/living/sharer)
 	if(!owner || !sharer)
 		return FALSE
@@ -39,20 +45,16 @@
 	LAZYADD(sharer.sharedSoullinks, src)
 	return TRUE
 
-//Runs after /living death()
-//Override this for content
+/// Runs after `mob/living` `death()`. Override this for content.
 /datum/soullink/proc/ownerDies(gibbed, mob/living/owner)
 
-//Runs after /living death()
-//Override this for content
+/// Runs after `mob/living` `death()`. Override this for content.
 /datum/soullink/proc/sharerDies(gibbed, mob/living/owner)
 
-//Runs after /living update_revive()
-//Override this for content
+/// Runs after `mob/living` `update_revive()`. Override this for content.
 /datum/soullink/proc/ownerRevives(mob/living/owner)
 
-//Runs after /living update_revive()
-//Override this for content
+/// Runs after `mob/living` `update_revive()`. Override this for content.
 /datum/soullink/proc/sharerRevives(mob/living/owner)
 
 //Quick-use helper
@@ -61,12 +63,8 @@
 	if(S.parseArgs(arglist(args.Copy(2, 0))))
 		return S
 
-
-
-/////////////////
-// MULTISHARER //
-/////////////////
-//Abstract soullink for use with 1 Owner -> Many Sharer setups
+// MARK: Multi Sharer
+/// Abstract soul link for use with 1 Owner -> Many Sharer setups.
 /datum/soullink/multisharer
 	var/list/soulsharers
 
@@ -84,14 +82,8 @@
 /datum/soullink/multisharer/removeSoulsharer(mob/living/sharer)
 	LAZYREMOVE(soulsharers, sharer)
 
-
-
-/////////////////
-// SHARED FATE //
-/////////////////
-//When the soulowner dies, the soulsharer dies, and vice versa
-//This is intended for two players(or AI) and two mobs
-
+// MARK: Shared Fate
+/// When the soul owner dies, the soul sharer dies, and vice versa. This is intended for two players (or AI) and two mobs.
 /datum/soullink/sharedfate/ownerDies(gibbed, mob/living/owner)
 	if(soulsharer)
 		soulsharer.death(gibbed)
@@ -100,25 +92,17 @@
 	if(soulowner)
 		soulowner.death(gibbed)
 
-/////////////////
-// Demon Bind  //
-/////////////////
-//When the soulowner dies, the soulsharer dies, but NOT vice versa
-//This is intended for two players(or AI) and two mobs
-
+// MARK: Demon Bind
+/// When the soulowner dies, the soulsharer dies, but NOT vice versa. This is intended for two players(or AI) and two mobs.
 /datum/soullink/oneway/ownerDies(gibbed, mob/living/owner)
 	if(soulsharer)
 		soulsharer.dust(FALSE)
 
 /datum/soullink/oneway/devilfriend
 
-/////////////////
-// SHARED BODY //
-/////////////////
-//When the soulsharer dies, they're placed in the soulowner, who remains alive
-//If the soulowner dies, the soulsharer is killed and placed into the soulowner (who is still dying)
-//This one is intended for one player moving between many mobs
-
+// MARK: Shared Body
+/// When the soulsharer dies, they're placed in the soulowner, who remains alive.
+/// If the soulowner dies, the soulsharer is killed and placed into the soulowner (who is still dying). This is intended for one player moving between many mobs.
 /datum/soullink/sharedbody/ownerDies(gibbed, mob/living/owner)
 	if(soulowner && soulsharer)
 		if(soulsharer.mind)
@@ -129,15 +113,9 @@
 	if(soulowner && soulsharer && soulsharer.mind)
 		soulsharer.mind.transfer_to(soulowner)
 
-
-
-//////////////////////
-// REPLACEMENT POOL //
-//////////////////////
-//When the owner dies, one of the sharers is placed in the owner's body, fully healed
-//Sort of a "winner-stays-on" soullink
-//Gibbing ends it immediately
-
+// MARK: Replacement Pool
+/// When the owner dies, one of the sharers is placed in the owner's body, fully healed.
+/// Sort of a "winner-stays-on" soullink. Gibbing ends it immediately.
 /datum/soullink/multisharer/replacementpool/ownerDies(gibbed, mob/living/owner)
 	if(LAZYLEN(soulsharers) && !gibbed) //let's not put them in some gibs
 		var/list/souls = shuffle(soulsharers.Copy())
