@@ -12,6 +12,10 @@
 		var/datum/action/cooldown/flock/deposit/deposit_action = locate() in drone.actions
 		return deposit_action.Trigger(target = target)
 
+	if(istype(target, /obj/structure/closet))
+		var/obj/structure/closet/C = target
+		C.toggle()
+
 	var/turf/T = get_turf(target)
 	var/datum/action/cooldown/flock/convert/convert_action = locate() in drone.actions
 	return convert_action.Trigger(target = T)
