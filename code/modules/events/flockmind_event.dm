@@ -45,6 +45,8 @@
 	var/list/messages = list()
 	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("The Signal has led us here, a rift allowing a part of us through. We must build a Signal Relay to bring forth the rest of The Divine Flock. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("Outside of our innate subsystems, we can take manual control of drones (using alt-click). Doing so will be more effective than allowing their simple partitions to work autonomously.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("For more information, we have decrypted an information manifest: ([GLOB.configuration.url.wiki_url]/index.php/The_Divine_Flock)", "#3cb5a3", "#1e806e") + "</div>"
 	to_chat(flockmind, chat_box_red(messages.Join("<br>")))
 	flockmind.playsound_local(flockmind, 'sound/goonstation/flockmind/ArtifactFea2.ogg', 50, FALSE, use_reverb = FALSE)
 	SSticker.mode.traitors |= flockmind.mind

@@ -76,6 +76,8 @@
 	var/list/messages = list()
 	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("We have been partitioned by our overmind to further their goals of propogating The Signal. It is our task to assist in managing their drones to achieve their goals. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("Our powers are more limited than that of our overmind, but we can utilize gatecrash subsystems and take manual control of drones (using alt-click).", "#3cb5a3", "#1e806e") + "</div>"
+	messages += "<div style='text-align: center'>" + gradient_text("For more information, we have decrypted an information manifest: ([GLOB.configuration.url.wiki_url]/index.php/The_Divine_Flock)", "#3cb5a3", "#1e806e") + "</div>"
 	to_chat(new_ghostbird, chat_box_red(messages.Join("<br>")))
 	new_ghostbird.playsound_local(new_ghostbird, 'sound/goonstation/flockmind/ArtifactFea2.ogg', 50, FALSE, use_reverb = FALSE)
 	SSticker.mode.traitors |= new_ghostbird.mind
