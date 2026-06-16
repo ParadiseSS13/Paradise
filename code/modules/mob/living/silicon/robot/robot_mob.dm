@@ -1768,7 +1768,7 @@ to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Remote telemetry lost with
 	..()
 	if(shell)
 		undeploy()
-	adjustStaminaLoss((30 / severity)) //They also get flashed for an additional 30
+	adjustStaminaLoss((30 / severity)) // They also get flashed for an additional 30.
 	switch(severity)
 		if(EMP_HEAVY)
 			disable_random_component(2, 20 SECONDS)
