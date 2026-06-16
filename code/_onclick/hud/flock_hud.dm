@@ -125,6 +125,7 @@
 	name = "converter"
 	active_state = "converter1"
 	inactive_state = "converter0"
+	desc = "Converters are an integrated multitool in every flockdrone's arsenal. On help and disarm intent, it will build structures, open lockers, and convert turfs. On harm or grab intent, it will deconstruct or cage things."
 
 	screen_loc = "CENTER-1:16,SOUTH:5"
 
@@ -134,7 +135,7 @@
 	name = "incapacitator"
 	active_state = "incapacitor1"
 	inactive_state = "incapacitor0"
-
+	desc = "Incapacitators are the primary weapon system of every flockdrone. They fire enhanced stunning rounds capable of disrupting electronics. They will recharge slowly on their own."
 	maptext_x = 6
 	maptext_y = 6
 	screen_loc = "CENTER:16,SOUTH:5"
@@ -179,6 +180,7 @@
 	name = "material decompiler"
 	active_state = "absorber"
 	inactive_state = "absorber"
+	desc = "Absorbers are a key piece of any flockdrone's toolkit. They will pickup items and deconstruct them for substrate - the primary building material of any flock device."
 
 	screen_loc = "CENTER+1:16,SOUTH:5"
 
