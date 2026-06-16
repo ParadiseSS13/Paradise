@@ -3,10 +3,6 @@ set -euo pipefail
 
 # This script loops through every subdir here to generate a list of all maps programatically to avoid the list getting out of date
 
-# We're gonna hijack this to fix nanomaps
-# If this change got merged in, yell at whoever merged this PR -aa07
-tools/github-actions/nanomap-renderer-invoker.sh
-
 cd _maps
 find | grep -Ei ".dmm" | grep -v -e ".before" -e ".backup" > ci_map_testing.dm
 sed -i -e 's/.*/#include \"&\"/' ci_map_testing.dm
