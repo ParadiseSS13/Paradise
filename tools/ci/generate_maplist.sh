@@ -5,9 +5,7 @@ set -euo pipefail
 
 # We're gonna hijack this to fix nanomaps
 # If this change got merged in, yell at whoever merged this PR -aa07
-# Get dependencies
-sudo apt install libc6
-ldd tools/github-actions/dmm-tools-para
+tools/github-actions/nanomap-renderer-invoker.sh
 
 cd _maps
 find | grep -Ei ".dmm" | grep -v -e ".before" -e ".backup" > ci_map_testing.dm
