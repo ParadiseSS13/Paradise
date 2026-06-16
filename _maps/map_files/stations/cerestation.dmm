@@ -98131,10 +98131,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/checkpoint/secondary)
 "tZa" = (
-/obj/structure/cable/extra_insulated{
+/obj/machinery/power/smes/transformer,
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/fore_port)
 "tZf" = (
