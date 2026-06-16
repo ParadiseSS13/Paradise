@@ -993,6 +993,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(M)
 			src.deploy_action.Remove(src)
 			src.redeploy_action.Remove(src)
+			remove_verb(src, /mob/living/silicon/ai/verb/deploy_to_shell) // Deploy to shell has some funky mechanics that i am too lazy to fix, so just I just remove them.
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 
 	else if(href_list["open"])

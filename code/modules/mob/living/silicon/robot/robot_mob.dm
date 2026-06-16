@@ -1,7 +1,7 @@
 GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
 ))
-GLOBAL_LIST_INIT(available_ai_shells, list())
+GLOBAL_LIST_EMPTY(available_ai_shells)
 
 /mob/living/silicon/robot
 	name = "Cyborg"
