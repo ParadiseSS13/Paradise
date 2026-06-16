@@ -427,10 +427,10 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
           // let size = ((satellite.orbit_data.periapsis + satellite.orbit_data.periapsis) / orbitSizeFull) * 100 + '%';
           // let orbitProgress = `${Math.abs(satellite.orbit_data.orbit_progress - 0.5) * 200}%`;
           // const path = satellite.orbit_data.planned_orbit.map((p,i) => (i === 0) ? ``)
-          const scale = 0.5;
-          const offset = 150;
+          const scale = 0.7; // scale is just what looks good with the planet image used
+          const satelliteImageSize = 40;
 
-          const path = satellite.orbit_data.planned_orbit.map(p => `${p.x * scale + offset},${p.y * scale + offset}`).join(" "); // our numbers represent an orbit, we need to add an offset to center the path on the SVG after the scale
+          const path = satellite.orbit_data.planned_orbit.map(p => `${p.x * scale},${p.y * scale}`).join(" "); // our numbers represent an orbit, we need to add an offset to center the path on the SVG after the scale
           return (
             <Stack key={satellite.name}>
               <Stack
@@ -445,58 +445,58 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                   border: 'none',
                 }}
               >
-                <svg width={"100%"} height={"100%"} style={
-                  {
-                    height: '100%',
-                    width: '100%',
-                    position:'absolute',
-                    border: "1px solid orange",
+                <svg
+                  width={"100%"}
+                  height={"100%"}
+                  viewBox='-300 -300 600 600'
+                  preserveAspectRatio='xMidYMid meet'
+                  style={
+                    {
+                      height: '100%',
+                      width: '100%',
+                      position:'absolute',
+                      border: "1px solid orange",
+
                     }
                   }>
                   <polyline
-                    viewBox='0 0 300 300'
-                    preserveAspectRatio='xMidYMid meet'
                     points={path}
                     fill="none"
-                    stroke="green"
+                    stroke="lime"
                     strokeWidth={3}
                   />
+                  <image
+                    href={`data:image/png;base64,${current_planet_base64}`}
+                    x={satellite.orbit_data.position?.x * scale - satelliteImageSize/2}
+                    y={satellite.orbit_data.position?.y * scale - satelliteImageSize/2}
+                    width={`${satelliteImageSize}px`}
+                    height={`${satelliteImageSize}px`}
+                  />
                 </svg>
-                <svg>
+                <svg style={{ width: "100%", height: "100%" }}>
                   <text x="5" y="30" fill="white">{`
-                  sat scaled X: ${(satellite.orbit_data.position?.x * scale + offset).toFixed(2)}\n
-                  sat scaled Y: ${(satellite.orbit_data.position?.y * scale + offset).toFixed(2)}
+                  sat scaled X: ${(satellite.orbit_data.position?.x * scale).toFixed(2)}\n
+                  sat scaled Y: ${(satellite.orbit_data.position?.y * scale).toFixed(2)}\n
                   `}
                   </text>
                 </svg>
-                <svg style={{
-                    height: '100%',
-                    width: '100%',
-                    position:'absolute',
-                    border: "1px solid cyan",
-                  }}>
-                  <polyline
-                    viewBox='0 0 300 300'
-                    preserveAspectRatio='xMidYMid meet'
-                    points={"0,0 30,30 15,15 0,30 15,15 30,0"}
-                    fill="none"
-                    stroke="cyan"
-                    strokeWidth={7}
-                  />
-                </svg>
+                {/*
                 <img
                   src={`data:image/png;base64,${current_planet_base64}`}
+                  draggable={false}
                   style={{
-                    top: satellite.orbit_data.position?.y * scale + offset,
-                    left: satellite.orbit_data.position?.x * scale + offset,
+                    top: `calc(50% + ${satellite.orbit_data.position?.y * scale}px)`,
+                    left: `calc(50% + ${satellite.orbit_data.position?.x * scale}px)`,
                     backgroundColor: (satellite.orbit_data?.position?.z > 1)? `cyan` : `blue`,
                     width: '20px',
                     height: '20px',
                     position: 'absolute',
                     zIndex: orbitZ + 5,
                     border: 'none',
+                    userSelect: 'none',
                   }}
                 />
+        */}
               </Stack>
             </Stack>
           );
