@@ -280,7 +280,7 @@
 	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || A.shell) //shell for AI shell, the line is also from hispania.
+		if(A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A) || A.shell)
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A

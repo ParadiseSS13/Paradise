@@ -67,7 +67,7 @@
 	for(var/s in sharedSoullinks)
 		var/datum/soullink/S = s
 		S.sharerDies(FALSE)
-		S.removeSoulsharer(src) // If a sharer is destroy()'d, they are simply removed.
+		S.removeSoulsharer(src) // If a sharer is `destroy()`'d, they are simply removed.
 	sharedSoullinks = null
 	return ..()
 

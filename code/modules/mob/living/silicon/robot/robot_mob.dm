@@ -1189,11 +1189,11 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 		update_icons()
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
-		if(shell) // Prevents AI shell key theft
+		if(shell) // Prevents AI shell key theft.
 			to_chat(user, SPAN_NOTICE("The shell appears to not have an encription key."))
 			return
 		if(radio)
-			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
+			radio.screwdriver_act(user, I) // Push it to the radio to let it handle everything.
 		else
 			to_chat(user, "Unable to locate a radio.")
 		update_icons()
@@ -1299,7 +1299,7 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 
 		to_chat(user, SPAN_NOTICE("You emag the cover lock."))
 		locked = FALSE
-		//A warning to Traitors who may not know that emagging AI shells does not slave them.
+		// A warning to Traitors who may not know that emagging AI shells does not slave them.
 		if(shell)
 			to_chat(user, SPAN_BOLDWARNING("[src] seems to be controlled remotely! Emagging the interface may not work as expected."))
 		log_game("[user]([user.key]) emagged [src]'s cover.")
@@ -1589,25 +1589,32 @@ GLOBAL_LIST_INIT(available_ai_shells, list())
 /**
  * Notifies the AI of a certain event related to borgs and shells.
  *
- * Arguments:(only the notifytype argument is necessary)
+ * Arguments:
  * * notifytype - The type of notification to send.
  * * oldname - The old name of the cyborg.
  * * newname - The new name of the cyborg.
+ *
+ * Notify Types:
+ * - NEW_BORG: A new cyborg has connected.
+ * - NEW_MODULE: A cyborg has loaded a new module.
+ * - RENAME: A cyborg has been renamed.(This one needs the old and new name arguments.)
+ * - AI_SHELL: A new AI shell has been detected.
+ * - DISCONNECT: A cyborg has disconnected.
  */
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
 		if(NEW_BORG) // New Cyborg.
-to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
 		if(NEW_MODULE) // New Module.
-to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(RENAME) // New Name.
-to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
 		if(AI_SHELL) // New Shell.
-to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
 		if(DISCONNECT) // Disconnect.
-to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Remote telemetry lost with [name].")]<br>")
+			to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Remote telemetry lost with [name].")]<br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -2099,7 +2106,7 @@ to_chat(connected_ai, "<br><br>[SPAN_NOTICE("NOTICE - Remote telemetry lost with
 	diag_hud_set_aishell()
 
 /mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
-	real_name = "[AI.real_name] shell [rand(100, 999)] [designation ? "-[designation]" : "[null]"]"	//Randomizing the name so it shows up seperately in the shells list
+	real_name = "[AI.real_name] shell [rand(100, 999)] [designation ? "-[designation]" : "[null]"]"	// Randomizing the name so it shows up seperately in the shells list.
 	name = real_name
 	setup_PDA()
 	if(camera)

@@ -410,7 +410,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "No usable AI shell beacons detected.")
 		return
 
-	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
+	if(!target || !(target in possible)) // If the AI is looking for a new shell, or its pre-selected shell is no longer valid.
 		target = tgui_input_list(usr, "Which body to control?", "AI Shell Deployment", possible)
 
 	if (!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)))
@@ -449,11 +449,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		var/mob/living/silicon/ai/AI = owner
 		AI.deploy_to_shell(last_used_shell)
 	else
-		Remove(owner) //If the last shell is blown, destroy it.
+		Remove(owner) // If the last shell is blown, destroy it.
 
 /// Disconnect the AI from its shell.
 /mob/living/silicon/ai/proc/disconnect_shell()
-	if(deployed_shell) //Forcibly call back AI in event of things such as damage, EMP or power loss.
+	if(deployed_shell) // Forcibly call back AI in event of things such as damage, EMP or power loss.
 		to_chat(src, SPAN_DANGER("Your remote connection has been reset!"))
 		deployed_shell.undeploy()
 	diag_hud_set_deployed()
@@ -473,7 +473,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
-		// this needs to be below the OFFLINE check since shells will always lack a client form the AI's view.
+		// This needs to be below the OFFLINE check since shells will always lack a client form the AI's view.
 		else if(R.shell)
 			robot_status = "AI SHELL"
 		else if(!R.cell || R.cell.charge <= 0)
