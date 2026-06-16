@@ -25,11 +25,12 @@
 
 /obj/item/robot_parts/attack_self__legacy__attackchain(mob/user)
 	var/list/possible_robolimbs = list()
-	for(var/robolimb in GLOB.all_robolimbs)
-		var/datum/robolimb/robopart = GLOB.all_robolimbs[robolimb]
+	var/limb_name
+	var/datum/robolimb/limb_datum
+	for(limb_name, limb_datum in GLOB.all_robolimbs)
 		for(var/body_part in part)
-			if(body_part in robopart.parts)
-				possible_robolimbs += robolimb
+			if(body_part in limb_datum.parts)
+				possible_robolimbs += limb_name
 				break
 	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", possible_robolimbs)
 	if(!choice)
