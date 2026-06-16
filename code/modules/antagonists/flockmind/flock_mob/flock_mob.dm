@@ -29,6 +29,8 @@
 	blood_color = "#4d736d"
 	blood_volume = BLOOD_VOLUME_OKAY
 
+	contains_xeno_organ = TRUE
+
 	var/list/actions_to_grant = list(
 		/datum/action/cooldown/flock/convert,
 	)

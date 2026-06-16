@@ -163,6 +163,28 @@
 				owner.add_vomit_floor(toxvomit = TRUE)
 				owner.AdjustConfused(rand(4 SECONDS, 6 SECONDS))
 
+/obj/item/organ/internal/liver/xenobiology/gnesis_shard
+	name = "gnesis shard"
+	desc = "This bio-organic chunk of hardened gnesis will likely harm humanoid life more than help."
+	analyzer_price = 20
+
+/obj/item/organ/internal/liver/xenobiology/gnesis_shard/on_life()
+	. = ..()
+
+	var/multiplier = 1
+	switch(organ_quality)
+		if(ORGAN_NORMAL)
+			multiplier = 1.5
+		if(ORGAN_PRISTINE)
+			multiplier = 2
+	if(prob(5))
+		to_chat(owner, SPAN_WARNING("Something hurts awfully in your abdomen."))
+		owner.adjustBruteLoss(5 * multiplier)
+	if(prob(10))
+		owner.adjustToxLoss(-2 * multiplier)
+	if(prob(10))
+		owner.reagents.add_reagent("gnesis_tox", 5 * multiplier)
+
 /obj/item/organ/internal/liver/xenobiology/detox
 	name = "chemical neutralizers"
 	desc = "These glands seem to absorb any liquid they come in contact with, neutralizing any unnatural substances."
@@ -499,6 +521,60 @@
 	else
 		to_chat(user, SPAN_WARNING("We wouldn't get much use out of stinging that."))
 		revert_cast()
+
+/obj/item/organ/internal/appendix/xenobiology/flock_converter
+	name = "drone converter"
+	desc = "This teal organ holds a small gnesis fabricator, allowing the host to convert objects and similar to gnesis."
+	analyzer_price = 40
+	hidden_origin_tech = TECH_MATERIAL
+	hidden_tech_level = 5
+	var/datum/action/cooldown/mob_cooldown/gnesis_action
+
+/obj/item/organ/internal/appendix/xenobiology/flock_converter/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
+	. = ..()
+	gnesis_action = new /datum/action/cooldown/dispense_congealed_gnesis()
+	if(organ_quality == ORGAN_DAMAGED)
+		gnesis_action.cooldown_time = 4 MINUTES
+	gnesis_action.Grant(M)
+
+/obj/item/organ/internal/appendix/xenobiology/flock_converter/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	gnesis_action.Remove(M)
+
+/datum/action/cooldown/dispense_congealed_gnesis
+	name = "Dispense Congealed Gnesis"
+	button_icon = 'icons/goonstation/hud/flock_ui.dmi'
+	button_icon_state = "designate_tile"
+	desc = "Use this to dispense some gnesis onto the ground or into a container."
+	melee_cooldown_time = CLICK_CD_CLICK_ABILITY
+	click_to_activate = TRUE
+	cooldown_time = 2 MINUTES
+	shared_cooldown = NONE
+
+/datum/action/cooldown/dispense_congealed_gnesis/Activate(atom/target)
+	. = ..()
+	var/mob/living/carbon/C = owner
+	if(!iscarbon(C))
+		return
+	if(!C.Adjacent(target))
+		to_chat(C, SPAN_NOTICE("We are too far away to dispense gnesis there."))
+		return
+
+	var/obj/chemholder = new()
+	chemholder.create_reagents(50)
+	if(istype(target, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/glass/container = target
+		if(!container.is_open_container())
+			to_chat(C, SPAN_NOTICE("That container is sealed."))
+			return
+		chemholder.reagents.add_reagent("gnesis_tox", 20)
+		chemholder.reagents.trans_to(container, 20)
+		StartCooldown()
+		return
+	var/turf/target_turf = get_turf(target)
+	chemholder.reagents.add_reagent("gnesis_tox", 50)
+	chemholder.reagents.reaction(target_turf)
+	StartCooldown()
 
 /obj/item/organ/internal/heart/xenobiology/contortion
 	name = "contortion fibers"
@@ -1440,6 +1516,22 @@
 		owner.physiology.stamina_mod /= 0.5
 	owner.physiology.armor = owner.physiology.armor.detachArmor(organ_resistance_boost)
 	QDEL_NULL(organ_resistance_boost)
+
+/obj/item/organ/internal/kidneys/xenobiology/gnesis_filters
+	name = "gnesis mesh kidneys"
+	desc = "This strange organ resembles a pair of biological kidneys, but their micro-structure is interlaced with nanotubules of gnesis."
+	analyzer_price = 40
+
+/obj/item/organ/internal/kidneys/xenobiology/gnesis_filters/on_life()
+	. = ..()
+	var/mult = 1
+	switch(organ_quality)
+		if(ORGAN_NORMAL)
+			mult = 1.5
+		if(ORGAN_PRISTINE)
+			mult = 2
+	owner.adjustToxLoss(-0.6 * mult)
+	owner.reagents.add_reagent("gnesis_tox", 0.1 * mult)
 
 /obj/item/organ/internal/ears/xenobiology/colorful
 	name = "colorful organ"

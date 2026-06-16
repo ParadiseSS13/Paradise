@@ -10,6 +10,7 @@
 	density = FALSE
 	pass_flags = PASSTABLE
 
+	surgery_container = /datum/xenobiology_surgery_container/flockbit
 	// Flockbits don't get specific AI behaviors that would make this broken.
 	point_holder_type = /datum/point_holder/infinite
 

@@ -14,6 +14,7 @@
 		/datum/action/cooldown/flock/cage_mob,
 		/datum/action/cooldown/flock/deposit,
 	)
+	surgery_container = /datum/xenobiology_surgery_container/flockdrone
 
 	bandwidth_provided = FLOCK_COMPUTE_COST_DRONE
 
