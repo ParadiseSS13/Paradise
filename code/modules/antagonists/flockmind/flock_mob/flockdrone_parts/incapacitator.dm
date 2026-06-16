@@ -30,6 +30,9 @@
 
 	var/obj/projectile/energy/flock_bolt/bolt = new(get_turf(drone))
 	bolt.preparePixelProjectile(target, drone)
+	bolt.firer = drone
+	bolt.firer_source_atom = src
+	bolt.def_zone = drone.zone_selected
 	bolt.fire()
 	playsound(drone, 'sound/weapons/resonator_fire.ogg', 50, TRUE)
 
