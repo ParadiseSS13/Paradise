@@ -10,9 +10,7 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	butcher_results = list(/obj/item/food/meat = 1)
-	minimum_survivable_temperature = 0
 
 	blood_color = "#b9ae9c"
 
