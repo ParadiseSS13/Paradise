@@ -72,7 +72,7 @@
 // Grass
 /turf/simulated/floor/grass
 	name = "grass"
-	desc = "lush green grass. Enough of this in one place can make you forget that you're in deep space."
+	desc = "Lush green grass. Enough of this in one place can make you forget that you're in deep space."
 	icon = 'icons/turf/floors/grass.dmi'
 	icon_state = "grass"
 	base_icon_state = "grass"
