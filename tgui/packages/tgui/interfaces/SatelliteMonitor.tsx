@@ -97,6 +97,7 @@ export const SatelliteMonitor = (props, context) => {
                 satellites={satellite_data}
                 current_planet_base64={data.current_planet_base64}
                 current_background_base64={data.current_background_base64}
+                selectedSatellite={selectedSatellite}
               />
             </Section>
           </Stack>
@@ -148,8 +149,6 @@ const ManeuverPanel = ({
               <Stack>{`Periapsis: ${selectedSatellite.orbit_data.periapsis}km`}</Stack>
               <Stack>{`Inclination: ${selectedSatellite.orbit_data.inclination}`}</Stack>
               <Stack>{`Position: (${selectedSatellite.orbit_data.position?.x}, ${selectedSatellite.orbit_data.position?.y}, ${selectedSatellite.orbit_data.position?.z})`}</Stack>
-              <Stack>{`planned_orbit (l: ${selectedSatellite.orbit_data?.planned_orbit?.length})`}</Stack>
-              <Stack>{`path (15.x: ${selectedSatellite.orbit_data?.planned_orbit[15]?.x})(l: ${selectedSatellite.orbit_data.planned_orbit.map(p => `${p.x},${p.y}`).join(" ")})`}</Stack>
             </Stack>
             <Stack width="50%" vertical>
               <Stack>{`weight: ${selectedSatellite.weight}kg`}</Stack>
@@ -380,7 +379,7 @@ const DiskPanel = ({ satellite_data, inserted_disk }) => {
   );
 };
 
-const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64 }) => {
+const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite }) => {
   const orbitZ = 15;
   const planetZ = 10;
   const backgroundZ = 5;
@@ -400,7 +399,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
           src={`data:image/png;base64,${current_background_base64}`}
         />
       </Stack>
-      <Box height="100%">
+      <Box height="100%">  {/*
         <img
           draggable={false}
           style={{
@@ -413,6 +412,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
           }}
           src={`data:image/png;base64,${current_planet_base64}`}
         />
+      */}
       </Box>
       <Box
         width="100%"
@@ -423,14 +423,37 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
         }}
       >
         {satellites.map((satellite: Satellite) => {
-          // const orbitSizeFull = 100000; // works as a scale
-          // let size = ((satellite.orbit_data.periapsis + satellite.orbit_data.periapsis) / orbitSizeFull) * 100 + '%';
-          // let orbitProgress = `${Math.abs(satellite.orbit_data.orbit_progress - 0.5) * 200}%`;
-          // const path = satellite.orbit_data.planned_orbit.map((p,i) => (i === 0) ? ``)
+
           const scale = 0.7; // scale is just what looks good with the planet image used
           const satelliteImageSize = 40;
+          const planetSize = 256;
 
-          const path = satellite.orbit_data.planned_orbit.map(p => `${p.x * scale},${p.y * scale}`).join(" "); // our numbers represent an orbit, we need to add an offset to center the path on the SVG after the scale
+          let frontSegments:Vector3[][] = [];
+          let backSegments:Vector3[][] = [];
+          let currentSegment:Vector3[] = [];
+
+          for(let i = 0; i < satellite.orbit_data.planned_orbit.length - 1; i++) // we need to sort the path behind and in front of the planet to color it properly
+          {
+            let current_sat = satellite.orbit_data.planned_orbit[i];
+            let next_sat = satellite.orbit_data.planned_orbit[i + 1];
+
+            if (Math.sign(current_sat.z) === Math.sign(next_sat.z)) // the planet is at 0,0 so if the segment shares a sign with the next, they must be on the same plane
+            {
+              currentSegment.push(current_sat);
+            }
+            else {
+              currentSegment = [];
+              if(current_sat.z > 0)
+              {
+                frontSegments.push(currentSegment);
+              }
+              else
+              {
+                backSegments.push(currentSegment);
+              }
+            }
+          }
+
           return (
             <Stack key={satellite.name}>
               <Stack
@@ -459,13 +482,32 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
 
                     }
                   }>
-                  <polyline
-                    points={path}
-                    fill="none"
-                    stroke="lime"
-                    strokeWidth={3}
-                  />
+                  {backSegments.map((segment, index) => (
+                    <polyline key={index}
+                      points={segment.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
+                      fill="none"
+                      stroke={(satellite.UID === selectedSatellite?.UID)? "green": "darkgrey"}
+                      strokeWidth={3}
+                    />
+                    ))}
                   <image
+                    href={`data:image/png;base64,${current_planet_base64}`}
+                    x={-planetSize/2}
+                    y={-planetSize/2}
+                    width={planetSize}
+                    height={planetSize}
+                    />
+                  {frontSegments.map((segments, index) => (
+                    <polyline key={index}
+                      points={segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
+                      fill="none"
+                      stroke={(satellite.UID === selectedSatellite?.UID)? "lime": "grey"}
+                      strokeWidth={3}
+                    />
+                  ))}
+                  <image style={{
+                    // opacity: satellite.orbit_data.position?.z > 0? 1: 0.7,
+                  }}
                     href={`data:image/png;base64,${current_planet_base64}`}
                     x={satellite.orbit_data.position?.x * scale - satelliteImageSize/2}
                     y={satellite.orbit_data.position?.y * scale - satelliteImageSize/2}
@@ -473,13 +515,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                     height={`${satelliteImageSize}px`}
                   />
                 </svg>
-                <svg style={{ width: "100%", height: "100%" }}>
-                  <text x="5" y="30" fill="white">{`
-                  sat scaled X: ${(satellite.orbit_data.position?.x * scale).toFixed(2)}\n
-                  sat scaled Y: ${(satellite.orbit_data.position?.y * scale).toFixed(2)}\n
-                  `}
-                  </text>
-                </svg>
+
                 {/*
                 <img
                   src={`data:image/png;base64,${current_planet_base64}`}
