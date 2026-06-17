@@ -2,7 +2,7 @@
 
 /turf/simulated/floor/indestructible/examine(mob/user, infix, suffix)
 	. = ..()
-	. += SPAN_NOTICE("It appears to be effectively impervious to all conventional means of destruction.")
+	. += SPAN_NOTICE("It appears to be effectively impervious to all conventional methods of destruction.")
 
 /turf/simulated/floor/indestructible/update_icon_state()
 	if(!broken && !burnt)
