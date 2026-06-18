@@ -465,7 +465,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			shell_landmark = shell_loc
 
 	var/mob/living/silicon/robot/S = new /mob/living/silicon/robot(shell_landmark.loc)
-	S.make_shell()
+	S.make_shell() // If this is something someone will want to use in the future, you will need to add a board argument to `make_shell()`.
 
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
 	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")

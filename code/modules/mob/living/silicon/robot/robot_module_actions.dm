@@ -78,7 +78,7 @@
 
 /datum/action/innate/robot_sight/engineering_scanner/process()
 	var/mob/living/silicon/robot/user = owner
-	if(!user.client || !user)
+	if(!user || !user.client)
 		return
 	switch(mode)
 		if(MODE_TRAY)
