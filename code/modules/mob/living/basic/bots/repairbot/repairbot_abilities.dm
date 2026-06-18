@@ -8,7 +8,7 @@
 	cooldown_time = 5 SECONDS
 	click_to_activate = TRUE
 
-/datum/action/cooldown/mob_cooldown/bot/build_girder/IsAvailable(feedback)
+/datum/action/cooldown/mob_cooldown/bot/build_girder/IsAvailable(show_message)
 	. = ..()
 	if(!.)
 		return FALSE

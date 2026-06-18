@@ -4,7 +4,7 @@
 	shared_cooldown = NONE
 	melee_cooldown_time = 0 SECONDS
 
-/datum/action/cooldown/mob_cooldown/bot/IsAvailable(feedback)
+/datum/action/cooldown/mob_cooldown/bot/IsAvailable(show_message)
 	. = ..()
 	if(!.)
 		return FALSE

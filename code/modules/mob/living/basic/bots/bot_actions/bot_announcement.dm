@@ -19,7 +19,7 @@
 	src.automated_announcements = automated_announcements
 	return ..()
 
-/datum/action/cooldown/bot_announcement/IsAvailable(feedback)
+/datum/action/cooldown/bot_announcement/IsAvailable(show_message)
 	. = ..()
 	if (!.)
 		return
