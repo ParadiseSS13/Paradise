@@ -482,6 +482,16 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
 
                     }
                   }>
+                  <defs>
+                      <mask id="mask">
+                        {/*
+                        x and y are set to negative half the width and height as the pivot is in the upper left corner and we need to move it to the corner of the actual svg.
+                        Width and height are the values of the viewBox added together.
+                        */}
+                        <rect x="-450" y="-450" width={900} height={900} fill="white" />
+                        <circle cx="0" cy="0" r={planetSize / 2} fill="#AAAAAA" />
+                      </mask>
+                  </defs>
                   {backSegments.map((segment, index) => (
                     <polyline key={index}
                       points={segment.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
@@ -505,14 +515,13 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                       strokeWidth={3}
                     />
                   ))}
-                  <image style={{
-                    // opacity: satellite.orbit_data.position?.z > 0? 1: 0.7,
-                  }}
+                  <image
                     href={`data:image/png;base64,${current_planet_base64}`}
                     x={satellite.orbit_data.position?.x * scale - satelliteImageSize/2}
                     y={satellite.orbit_data.position?.y * scale - satelliteImageSize/2}
                     width={`${satelliteImageSize}px`}
                     height={`${satelliteImageSize}px`}
+                    mask={satellite.orbit_data.position?.z > 0? "" : "url(#mask)"}
                   />
                 </svg>
 
