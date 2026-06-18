@@ -381,7 +381,7 @@
 	. = TRUE
 	switch(action)
 		if("sheet", "alloy")
-			if(scan_id && !allowed(usr) )
+			if(scan_id && !allowed(usr))
 				to_chat(usr, SPAN_WARNING("Required access not found."))
 				return FALSE
 			var/id = params["id"]
