@@ -15,10 +15,14 @@
 	var/status = "OK"
 	var/collected_science_data = 0
 
+/obj/machinery/science_satellite/proc/collect_data(var/amount)
+	collected_science_data += amount * satellite_stats.science_multiplier
+
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
 	internal_name = name
-	orbit_data.owner = satellite_stats
+	orbit_data.stats = satellite_stats
+	orbit_data.owner = src
 	update_icon()
 	SSscience_satellite.satellites += src
 
@@ -71,6 +75,10 @@
 	satellite_stats.active_power_generation += component.component_stats.active_power_generation * multiplier
 	satellite_stats.power_consumption += component.component_stats.power_consumption * multiplier
 	satellite_stats.power_capacity += component.component_stats.power_capacity * multiplier
+	if(add)
+		satellite_stats.capabilities += component.component_stats.capabilities
+	else
+		satellite_stats.capabilities -= component.component_stats.capabilities
 
 	satellite_stats.current_fuel = satellite_stats.fuel_capacity
 	satellite_stats.current_power = satellite_stats.power_capacity
@@ -89,6 +97,7 @@
 		satellite_stats.active_power_generation += component.component_stats.active_power_generation
 		satellite_stats.power_consumption += component.component_stats.power_consumption
 		satellite_stats.power_capacity += component.component_stats.power_capacity
+		satellite_stats.capabilities += component.component_stats.capabilities
 
 	satellite_stats.current_fuel = satellite_stats.fuel_capacity
 	satellite_stats.current_power = satellite_stats.power_capacity

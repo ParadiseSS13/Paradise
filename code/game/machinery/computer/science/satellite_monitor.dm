@@ -121,6 +121,24 @@
 			)
 		))
 
+
+	var/list/weather_nodes = list()
+	for(var/datum/weather_node/node in SSscience_satellite.active_weather_nodes)
+		var/list/this_node = list()
+
+		var/list/pos_vec = list()
+		if(node.position)
+			pos_vec["x"] = node.position.x
+			pos_vec["y"] = node.position.y
+			pos_vec["z"] = node.position.z
+
+		this_node += list(
+			"position" = pos_vec,
+			"node_type" = node.node_type
+		)
+
+		weather_nodes += this_node
+
 	data["satellite_data"] = satellite_data
 	data["inserted_disk"] = istype(inserted_disk)
 	data["cmagged"] = HAS_TRAIT(src, TRAIT_CMAGGED)
@@ -128,6 +146,8 @@
 	data["current_planet_base64"] = current_planet_base64
 	data["current_background_base64"] = current_background_base64
 	data["selected_satellite_UID_ui"] = selected_satellite_ui?.UID()
+	data["weather_nodes"] = weather_nodes
+
 	return data
 
 /obj/machinery/computer/satellite_monitor/ui_interact(mob/user, datum/tgui/ui = null)

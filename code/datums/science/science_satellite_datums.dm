@@ -11,6 +11,7 @@
 	var/current_power = 0
 	var/engine_speed_constant = 0.0001//10
 	var/fuel_usage = 1
+	var/list/capabilities = list()
 
 /datum/orbit_data
 	var/apoapsis = -INFINITY // furthest
@@ -37,7 +38,8 @@
 	//var/orbit_progress = 0 // 0, 1 - 0(periapsis), 0.5(apoapsis)
 
 	var/list/planned_maneuvers = new()
-	var/datum/satellite_stats/owner
+	var/datum/satellite_stats/stats
+	var/obj/machinery/science_satellite/owner
 
 	var/has_been_launched = FALSE
 
@@ -51,10 +53,14 @@
 	var/list/planned_orbit = list()
 	var/should_update_orbit = TRUE
 
+	var/data_processing_cooldown = 60 SECONDS
+
 /// Called by `SSscience_satellitel.dm` in order to make the satellite move
-/datum/orbit_data/proc/heartbeat()
+/datum/orbit_data/proc/heartbeat(delta_time)
 	if(!has_been_launched) // will trigger if no maneuvers have been planned
 		return
+
+	data_processing_cooldown -= delta_time
 
 	if(!position)
 		position = vector(0, 0, 300) // default velocity is calculated from this. Based off geostationary orbit on earth in km
@@ -73,7 +79,7 @@
 		if(world.time > maneuver.world_time_at_maneuver)
 			if(launch_time > world.time) // yet to launch
 				launch_time = world.time
-			perform_burn(maneuver, owner)
+			perform_burn(maneuver, stats)
 
 	if(should_update_orbit) // if a burn has been performed
 		should_update_orbit = FALSE
@@ -101,6 +107,21 @@
 				periapsis = last_step["distance"]
 				periapsis_position = last_step["position"]
 		planned_orbit = path
+
+/datum/orbit_data/proc/process_weather_node(datum/weather_node/weather_node)
+	for(var/capability in stats.capabilities)
+		switch(capability)
+			if(SCIENCE_SATELLITE_HAS_METEOROLOGY)
+				if(istype(weather_node, /datum/weather_node/ash_storm) ||\
+				istype(weather_node, /datum/weather_node/wind) ||\
+				istype(weather_node, /datum/weather_node/acid_rain)
+				)
+					owner.collect_data(weather_node.science_yield)
+			if(SCIENCE_SATELLITE_HAS_MAGNETOMETER)
+				if(istype(weather_node, /datum/weather_node/volcanism) ||\
+				istype(weather_node, /datum/weather_node/pole)
+				)
+					owner.collect_data(weather_node.science_yield)
 
 /datum/orbit_data/proc/calculate_physics_step(vector/pos, vector/vel)
 	var/dist = pos.size
@@ -167,7 +188,13 @@
 /// * `time_to_maneuver` - deciseconds until the maneuver
 /// * `burn_time` - how many ticks this should be done
 /datum/orbit_data/proc/add_maneuver(prograde, normal, time_to_maneuver, burn_time, radial = 0)
+	if(!has_been_launched)
+		for(var/capability in stats.capabilities)
+			if(capability == SCIENCE_SATELLITE_HAS_PLASMA_LAB)
+				owner.collect_data(50)
+
 	has_been_launched = TRUE // TODO: Use launch call
+
 	var/datum/maneuver_data/maneuver = new()
 	maneuver.prograde = prograde
 	maneuver.normal = normal
@@ -256,6 +283,7 @@
 	fuel_capacity = 1
 	fuel_efficiency = 50
 	power_consumption = 10
+	capabilities = list(SCIENCE_SATELLITE_NEEDS_VACUUM)
 
 ////////////////////////////////////////
 // MARK: Science instruments
@@ -264,14 +292,18 @@
 /datum/satellite_stats/science_instrument/meteorological_surveyor
 	weight = 10
 	power_consumption = 10
+	capabilities = list(SCIENCE_SATELLITE_HAS_METEOROLOGY)
 
 /datum/satellite_stats/science_instrument/plasma_lab
 	weight = 10
 	power_consumption = 5
+	capabilities = list(SCIENCE_SATELLITE_HAS_PLASMA_LAB)
 
 /datum/satellite_stats/science_instrument/magnetometer
 	weight = 10
 	power_consumption = 10
+	capabilities = list(SCIENCE_SATELLITE_HAS_MAGNETOMETER)
+
 
 ////////////////////////////////////////
 // MARK: Misc parts

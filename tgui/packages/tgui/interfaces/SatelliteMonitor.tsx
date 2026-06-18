@@ -12,6 +12,12 @@ interface SatelliteMonitorData {
   current_planet_base64: string;
   current_background_base64: string;
   selected_satellite_UID_ui: string;
+  weather_nodes: WeatherNode[];
+}
+
+interface WeatherNode {
+  position: Vector3;
+  node_type: string;
 }
 
 interface Satellite {
@@ -66,7 +72,7 @@ class Maneuver {
 export const SatelliteMonitor = (props, context) => {
   const { act, data } = useBackend<SatelliteMonitorData>();
 
-  const { satellite_data, inserted_disk, cmagged, world_time, selected_satellite_UID_ui } = data;
+  const { satellite_data, inserted_disk, cmagged, world_time, selected_satellite_UID_ui, weather_nodes } = data;
 
   const [plannedManeuver, setPlannedManeuver] = useState<Maneuver>(new Maneuver());
   let selectedSatellite: Satellite | undefined = satellite_data.find(
@@ -100,6 +106,7 @@ export const SatelliteMonitor = (props, context) => {
                 current_planet_base64={data.current_planet_base64}
                 current_background_base64={data.current_background_base64}
                 selectedSatellite={selectedSatellite}
+                weather_nodes={weather_nodes}
               />
             </Section>
           </Stack>
@@ -290,15 +297,15 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
       <Stack mb={2} ml={1}>
         <Section title={satellite.name} width="100%" backgroundColor="#4444">
           <Stack>
-            <Box width="70%">Data processing power: {satellite.science_multiplier * 100 + '%'}</Box>
+            <Box width="70%">Data Processing Power: {satellite.science_multiplier * 100 + '%'}</Box>
             <Box width="30%" align="right">
-              Collected data: {satellite.collected_science_data}
+              Collected Data: {satellite.collected_science_data}
             </Box>
           </Stack>
           <Stack>
             <Box width="50%">Period: {satellite.orbit_data.period + 'min'}</Box>
             <Box width="50%" align="right">
-              fuel efficiency: {(1 / satellite.fuel_efficiency).toFixed(3) + 'L/s'}
+              Fuel Efficiency: {(1 / satellite.fuel_efficiency).toFixed(3) + 'L/s'}
             </Box>
           </Stack>
           <Stack mt={1}>
@@ -333,8 +340,8 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
           </Stack>
           <Stack mt={1}>
             {satellite.passive_power_generation - satellite.power_consumption > 0
-              ? 'power generation: '
-              : 'power consumption: '}
+              ? 'Power Generation: '
+              : 'Power Consumption: '}
 
             {Math.abs(satellite.power_consumption - satellite.passive_power_generation) + 'W/s'}
           </Stack>
@@ -368,7 +375,7 @@ const DiskPanel = ({ satellite_data, inserted_disk }) => {
 
   return (
     <Stack fill align="center">
-      <Stack.Item width="50%">Collected Data: {collected_science_data}</Stack.Item>
+      <Stack.Item width="50%">Total Collected Data: {collected_science_data}</Stack.Item>
       <Stack.Item width="50%" textAlign="right">
         <Button mr={1} disabled={!inserted_disk} tooltip={!inserted_disk ? 'No disk inserted' : ''}>
           Load Data onto Disk
@@ -386,9 +393,10 @@ interface PlanetPanelProps {
   current_planet_base64: string,
   current_background_base64: string,
   selectedSatellite: Satellite | undefined,
+  weather_nodes: WeatherNode[],
 }
 
-const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite } : PlanetPanelProps) => {
+const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite, weather_nodes } : PlanetPanelProps) => {
   class SegmentList {
     segments:Vector3[] = [];
     ownerUID: any;
@@ -536,10 +544,31 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               })
             }
             { /* Apoapsis marker */
-              selectedSatellite ? <circle cx={selectedSatellite.orbit_data.apoapsis_position?.x} cy={selectedSatellite.orbit_data.apoapsis_position?.y} r={8} fill="red" /> : null
+              selectedSatellite ? <circle cx={selectedSatellite.orbit_data.apoapsis_position?.x} cy={selectedSatellite.orbit_data.apoapsis_position?.y} r={12} fill="red" /> : null
+            }
+            {
+              selectedSatellite ? <text x={selectedSatellite.orbit_data.apoapsis_position?.x - 12} y={selectedSatellite.orbit_data.apoapsis_position?.y} fill={"white"}>{`Ap`}</text> : null
             }
             { /* Periapsis marker */
-              selectedSatellite ? <circle cx={selectedSatellite.orbit_data.periapsis_position?.x} cy={selectedSatellite.orbit_data.periapsis_position?.y} r={12} fill="blue" /> : null
+              selectedSatellite ? <circle cx={selectedSatellite.orbit_data.periapsis_position?.x} cy={selectedSatellite.orbit_data.periapsis_position?.y} r={8} fill="blue" /> : null
+            }
+            {
+              selectedSatellite ? <text x={selectedSatellite.orbit_data.periapsis_position?.x - 8} y={selectedSatellite.orbit_data.periapsis_position?.y} fill={"white"}>{`Pe`}</text> : null
+            }
+            {
+              <text x={-290} y={-300} fill={"white"}>{`weather_nodes: (${weather_nodes})`}</text>
+            }
+            {
+              <text x={-290} y={-280} fill={"white"}>{`weather_nodes.length: (${weather_nodes.length})`}</text>
+            }
+            {
+              <text x={-290} y={-260} fill={"white"}>{`weather_nodes.node_type: (${weather_nodes.node_type})`}</text>
+            }
+            {
+              <text x={-290} y={-240} fill={"white"}>{`weather_nodes.position: (${weather_nodes.position.x})`}</text>
+            }
+            {
+              <text x={-290} y={-220} fill={"white"}>{`weather_nodes[0]: (${weather_nodes[0]})`}</text>
             }
             { /* Draw all satellites */
               satellites.map((satellite: Satellite) => {
