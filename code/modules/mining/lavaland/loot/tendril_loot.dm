@@ -196,13 +196,13 @@
 // MARK: Wisp Lantern
 /obj/item/wisp_lantern
 	name = "spooky lantern"
-	desc = "This spooky lantern is home to a friendly wisp."
+	desc = "This spooky lantern is home to a friendly wisp. You can let it out, but it'll return if you don't hold the lanern in your hands or on your belt."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
 	inhand_icon_state = "lantern"
 	light_range = 7
 	slot_flags = ITEM_SLOT_BELT
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000)
 	origin_tech = "biotech=6;magnets=5"
 	new_attack_chain = TRUE
 	var/obj/effect/wisp/wisp
@@ -230,53 +230,54 @@
 	if(!wisp)
 		wisp = new(src)
 
-	if(wisp.loc == src)
+	if(!wisp_friend)
 		wisp_friend = user
-		icon_state = "lantern"
+		update_appearance(UPDATE_ICON_STATE)
 		set_light(0)
 		wisp.orbit(wisp_friend, 20, lock_in_orbit = TRUE)
-		wisp.set_light(2)
-		to_chat(wisp_friend, SPAN_NOTICE("You release the wisp. It begins to bob around your head."))
+		to_chat(wisp_friend, SPAN_NOTICE("You release the wisp. It begins to bob around your head as [src] darkens."))
 		to_chat(wisp_friend, SPAN_NOTICE("The wisp enhances your vision."))
-		RegisterSignal(wisp_friend, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
+		RegisterSignal(src, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight), TRUE)
 		wisp_friend.update_sight()
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 		return ITEM_INTERACT_COMPLETE
 
-	send_wisp_home(user)
+	to_chat(user, SPAN_NOTICE("You return the wisp to [src]."))
+	send_wisp_home()
 
-// You can't just throw away the wisp's house. You're carrying that with you!
-/obj/item/wisp_lantern/dropped(mob/user, silent)
+/obj/item/wisp_lantern/update_icon_state()
 	. = ..()
+	if(wisp_friend)
+		icon_state = "lantern"
+	else
+		icon_state = "lantern-blue"
+
+// The lantern is the wisp's house. You must keep it with you or the wisp will leave.
+/obj/item/wisp_lantern/dropped()
+	. = ..()
+
 	if(!wisp_friend)
 		return
 
-	// It's in our hands (dropped is called when items are removed from inventory slots WHYYYY!?)
-	if(user.is_holding(src))
+	if(loc == wisp_friend)
 		return
 
-	// You can put it in your storage, but it must remain on your person.
-	if(isstorage(loc))
-		if(loc.loc == wisp_friend)
-			return
+	send_wisp_home()
 
-		send_wisp_home()
-
-/obj/item/wisp_lantern/proc/send_wisp_home(mob/user)
-	if(user)
-		to_chat(user, SPAN_NOTICE("You return the wisp to [src]."))
+/obj/item/wisp_lantern/proc/send_wisp_home()
 	UnregisterSignal(wisp_friend, COMSIG_MOB_UPDATE_SIGHT)
 	wisp.stop_orbit()
-	wisp.set_light(0)
 	wisp.forceMove(src)
-	set_light(initial(light_range))
 	wisp_friend.update_sight()
 	to_chat(wisp_friend, SPAN_WARNING("Your vision returns to normal as the wisp returns to [src]."))
-	icon_state = "lantern-blue"
+	set_light(initial(light_range))
+	visible_message(SPAN_NOTICE("[src] begins to glow brightly as the wisp returns to it."))
 	SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 	wisp_friend = null
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/wisp_lantern/proc/update_user_sight(mob/user)
+	SIGNAL_HANDLER // COMSIG_MOB_UPDATE_SIGHT
 	user.sight |= sight_flags
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
@@ -286,7 +287,6 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
 
 // MARK: Warp Cubes
