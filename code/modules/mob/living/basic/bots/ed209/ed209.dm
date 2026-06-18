@@ -79,7 +79,7 @@
 /mob/living/basic/bot/secbot/ed209/examine(mob/user)
 	. = ..()
 	if(sheriffized)
-		. += span_notice("Fastest hand in the west.")
+		. += SPAN_NOTICE("Fastest hand in the west.")
 
 /mob/living/basic/bot/secbot/ed209/bot_reset(bypass_ai_reset = FALSE)
 	. = ..()

@@ -265,7 +265,7 @@
 /mob/living/basic/bot/medbot/emag_effects(mob/user)
 	medical_mode_flags &= ~MEDBOT_DECLARE_CRIT
 	balloon_alert(user, "reagent synthesis circuits shorted")
-	audible_message(span_danger("[src] buzzes oddly!"))
+	audible_message(SPAN_DANGER("[src] buzzes oddly!"))
 	flick_overlay_view(mutable_appearance(icon, "[base_icon_state]_spark"), 1 SECONDS)
 	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
@@ -278,8 +278,8 @@
 		"It appears to be tipped over, and is quietly waiting for someone to set it right.",
 		"It is tipped over and requesting help.",
 		"They are tipped over and appear visibly distressed.",
-		span_warning("They are tipped over and visibly panicking!"),
-		span_warning(span_bold("They are freaking out from being tipped over!"))
+		SPAN_WARNING("They are tipped over and visibly panicking!"),
+		SPAN_WARNING(span_bold("They are freaking out from being tipped over!"))
 	)
 	. += pick(panic_state)
 /*
@@ -344,7 +344,7 @@
 			return
 
 	update_bot_mode(new_mode = BOT_HEALING, update_hud = FALSE)
-	patient.visible_message("[src] is trying to tend the wounds of [patient]", span_userdanger("[src] is trying to tend your wounds!"))
+	patient.visible_message("[src] is trying to tend the wounds of [patient]", SPAN_USERDANGER("[src] is trying to tend your wounds!"))
 	if(!do_after(src, delay = 2 SECONDS, target = patient, interaction_key = TEND_DAMAGE_INTERACTION))
 		update_bot_mode(new_mode = BOT_IDLE)
 		return
@@ -366,7 +366,7 @@
 		if(patient.get_current_damage_of_type(damage_type_healer) <= heal_threshold)
 			done_healing = TRUE
 
-	patient.visible_message(span_notice("[src] tends the wounds of [patient]!"), "[span_infoplain(span_green("[src] tends your wounds!"))]")
+	patient.visible_message(SPAN_NOTICE("[src] tends the wounds of [patient]!"), "[span_infoplain(span_green("[src] tends your wounds!"))]")
 
 	if(done_healing)
 		visible_message(span_infoplain("[src] places [p_their()] tools back into [p_themselves()]."))

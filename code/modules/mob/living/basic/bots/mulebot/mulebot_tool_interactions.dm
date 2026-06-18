@@ -6,12 +6,12 @@
 	if(!(bot_access_flags & BOT_COVER_MAINTS_OPEN) || user.combat_mode)
 		return
 	if(!cell)
-		to_chat(user, span_warning("[src] doesn't have a power cell!"))
+		to_chat(user, SPAN_WARNING("[src] doesn't have a power cell!"))
 		return ITEM_INTERACT_BLOCKING
 	cell.add_fingerprint(user)
 	user.visible_message(
-		span_notice("[user] crowbars [cell] out from [src]."),
-		span_notice("You pry [cell] out of [src]."),
+		SPAN_NOTICE("[user] crowbars [cell] out from [src]."),
+		SPAN_NOTICE("You pry [cell] out of [src]."),
 	)
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(cell)
@@ -22,13 +22,13 @@
 /mob/living/basic/bot/mulebot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(istype(tool, /obj/item/stock_parts/cell) && (bot_access_flags & BOT_COVER_MAINTS_OPEN))
 		if(cell)
-			to_chat(user, span_warning("[src] already has a power cell!"))
+			to_chat(user, SPAN_WARNING("[src] already has a power cell!"))
 			return ITEM_INTERACT_BLOCKING
 		if(!user.transferItemToLoc(tool, src))
 			return ITEM_INTERACT_BLOCKING
 		user.visible_message(
-			span_notice("[user] inserts \a [cell] into [src]."),
-			span_notice("You insert [cell] into [src]."),
+			SPAN_NOTICE("[user] inserts \a [cell] into [src]."),
+			SPAN_NOTICE("You insert [cell] into [src]."),
 		)
 		return ITEM_INTERACT_SUCCESS
 	if(is_wire_tool(tool) && (bot_access_flags & BOT_COVER_MAINTS_OPEN))

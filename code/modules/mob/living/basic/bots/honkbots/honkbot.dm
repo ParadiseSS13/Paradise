@@ -19,9 +19,9 @@
 		HONKBOT_VOICED_HONK_HAPPY = 'sound/items/bikehorn.ogg',
 		HONKBOT_VOICED_HONK_SAD = 'sound/misc/sadtrombone.ogg',
 	)
-	stun_sound = 'sound/items/airhorn/AirHorn.ogg'
+	stun_sound = 'sound/items/airhorn.ogg'
 	baton_type = /obj/item/bikehorn/airhorn
-	cuff_type = /obj/item/restraints/handcuffs/cable/zipties/fake
+	cuff_type = /obj/item/restraints/handcuffs/toy
 
 /mob/living/basic/bot/secbot/honkbot/Initialize(mapload)
 	. = ..()
@@ -67,11 +67,11 @@
 	icon_state = bot_access_flags & BOT_COVER_EMAGGED ? "[base_icon_state]-e" : "[base_icon_state]-c"
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
-	audible_message(span_danger("[src] gives out an evil laugh!"))
+	audible_message(SPAN_DANGER("[src] gives out an evil laugh!"))
 	playsound(src, 'sound/voice/honkbot/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 
 /mob/living/basic/bot/secbot/honkbot/retrieve_emag_message()
-	audible_message(span_danger("[src] gives out an evil laugh!"))
+	audible_message(SPAN_DANGER("[src] gives out an evil laugh!"))
 	playsound(src, 'sound/voice/honkbot/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 
 /mob/living/basic/bot/secbot/honkbot/post_stun(mob/living/carbon/current_target)

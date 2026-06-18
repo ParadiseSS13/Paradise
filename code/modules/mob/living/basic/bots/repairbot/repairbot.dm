@@ -204,7 +204,7 @@
 
 /mob/living/basic/bot/repairbot/proc/attempt_use_stack(obj/item/stack_to_use, atom/target)
 	if(!isdatum(stack_to_use))
-		to_chat(src, span_warning("You do not have anymore [stack_to_use]!"))
+		to_chat(src, SPAN_WARNING("You do not have anymore [stack_to_use]!"))
 		return
 	stack_to_use.melee_attack_chain(src, target)
 
@@ -353,7 +353,7 @@
 	carried.set_bot(src)
 	if(carried.icon_state == "toolbox_default")
 		carried.add_atom_colour(toolbox_color, FIXED_COLOUR_PRIORITY)
-	user.visible_message(span_warning("[user] scoops up [src]!"))
+	user.visible_message(SPAN_WARNING("[user] scoops up [src]!"))
 	user.put_in_hands(carried)
 
 /obj/item/carried_repairbot

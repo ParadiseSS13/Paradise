@@ -37,4 +37,4 @@
 		var/throw_dir = victim.loc == owner.loc ? get_dir(owner, victim) : pick(GLOB.alldirs)
 		var/throwtarget = get_edge_target_turf(victim, throw_dir)
 		victim.throw_at(target = throwtarget, range = 3, speed = 1)
-		victim.visible_message(span_warning("[victim] eats steel!"))
+		victim.visible_message(SPAN_WARNING("[victim] eats steel!"))

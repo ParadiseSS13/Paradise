@@ -100,7 +100,7 @@
 			if(isnull(my_sheet))
 				return
 			if(is_type_in_typecache(my_sheet, eject_blacklist))
-				to_chat(owner, span_warning("You're unable to eject [my_sheet]!"))
+				to_chat(owner, SPAN_WARNING("You're unable to eject [my_sheet]!"))
 				return
 
 			my_sheet.forceMove(owner.drop_location())

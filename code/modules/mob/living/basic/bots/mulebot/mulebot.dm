@@ -109,12 +109,12 @@
 	. = ..()
 	if(bot_access_flags & BOT_COVER_MAINTS_OPEN)
 		if(cell)
-			. += span_notice("It has \a [cell] installed.")
+			. += SPAN_NOTICE("It has \a [cell] installed.")
 			. += span_info("You can use a <b>crowbar</b> to remove it.")
 		else
-			. += span_notice("It has an empty compartment where a <b>power cell</b> can be installed.")
+			. += SPAN_NOTICE("It has an empty compartment where a <b>power cell</b> can be installed.")
 	if(load) //observer check is so we don't show the name of the ghost that's sitting on it to prevent metagaming who's ded.
-		. += span_notice("\A [isobserver(load) ? "ghostly figure" : load] is on its load platform.")
+		. += SPAN_NOTICE("\A [isobserver(load) ? "ghostly figure" : load] is on its load platform.")
 
 /mob/living/basic/bot/mulebot/get_cell()
 	return cell
@@ -130,11 +130,11 @@
 /mob/living/basic/bot/mulebot/turn_on(mob/user)
 	if(bot_access_flags & BOT_COVER_MAINTS_OPEN)
 		if(user)
-			to_chat(user, span_warning("[src]'s maintenance panel is open!"))
+			to_chat(user, SPAN_WARNING("[src]'s maintenance panel is open!"))
 		return FALSE
 	if(!has_power())
 		if(user)
-			to_chat(user, span_warning("[src] has no power!"))
+			to_chat(user, SPAN_WARNING("[src] has no power!"))
 		return FALSE
 	return ..()
 

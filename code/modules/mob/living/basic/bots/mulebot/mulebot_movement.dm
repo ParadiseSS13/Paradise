@@ -4,10 +4,10 @@
 	var/mob/living/bumped_living = bumped_mob
 	if(wires.is_cut(WIRE_AVOIDANCE)) // usually just bumps, but if the avoidance wire is cut, knocks them over.
 		if(iscyborg(bumped_living))
-			visible_message(span_danger("[src] bumps into [bumped_living]!"))
+			visible_message(SPAN_DANGER("[src] bumps into [bumped_living]!"))
 		else if(bumped_living.Knockdown(8 SECONDS))
 			log_combat(src, bumped_living, "knocked down")
-			visible_message(span_danger("[src] knocks over [bumped_living]!"))
+			visible_message(SPAN_DANGER("[src] knocks over [bumped_living]!"))
 	return ..()
 
 /mob/living/basic/bot/mulebot/on_bot_movement(atom/movable/source, atom/oldloc, dir, forced)
@@ -36,14 +36,14 @@
 /mob/living/basic/bot/mulebot/proc/run_over(mob/living/carbon/human/crushed)
 	if (!(bot_access_flags & BOT_COVER_EMAGGED) && !wires.is_cut(WIRE_AVOIDANCE))
 		if (!has_status_effect(/datum/status_effect/careful_driving))
-			crushed.visible_message(span_notice("[src] slows down to avoid crushing [crushed]."))
+			crushed.visible_message(SPAN_NOTICE("[src] slows down to avoid crushing [crushed]."))
 		apply_status_effect(/datum/status_effect/careful_driving)
 		return // Player mules must be emagged before they can trample
 
 	log_combat(src, crushed, "run over", addition = "(DAMTYPE: [uppertext(BRUTE)])")
 	crushed.visible_message(
-		span_danger("[src] drives over [crushed]!"),
-		span_userdanger("[src] drives over you!"),
+		SPAN_DANGER("[src] drives over [crushed]!"),
+		SPAN_USERDANGER("[src] drives over you!"),
 	)
 
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
