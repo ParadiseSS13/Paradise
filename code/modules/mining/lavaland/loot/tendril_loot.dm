@@ -425,6 +425,7 @@
 	actions_types = list(/datum/action/item_action/immortality)
 	materials = list(MAT_BLUESPACE = 1000, MAT_PLASMA = 1000)
 	origin_tech = "bluespace=6;magnets=6"
+	new_attack_chain = TRUE
 	var/cooldown = 0
 
 /obj/item/immortality_talisman/Initialize(mapload)
