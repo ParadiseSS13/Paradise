@@ -34,6 +34,8 @@ interface Satellite {
   orbit_data: {
     apoapsis: number;
     periapsis: number;
+    apoapsis_position: Vector3;
+    periapsis_position: Vector3;
     inclination: number;
     period_multiplier: number;
     period: number;
@@ -383,7 +385,7 @@ interface PlanetPanelProps {
   satellites: Satellite[],
   current_planet_base64: string,
   current_background_base64: string,
-  selectedSatellite: Satellite
+  selectedSatellite: Satellite | undefined,
 }
 
 const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite } : PlanetPanelProps) => {
@@ -396,7 +398,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
   const planetZ = 10;
   const backgroundZ = 5;
 
-  const scale = 0.7; // scale is just what looks good with the planet image used
+  const scale = 0.9; // scale is just what looks good with the planet image used
   const satelliteImageSize = 40;
   const planetSize = 256;
   const viewBox = '-300 -300 600 600';
@@ -479,7 +481,6 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
            position: "absolute",
           }
         }>
-        <Stack>
           <svg width={"100%"}
             height={"100%"}
             viewBox={viewBox}
@@ -502,7 +503,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               <rect x="-450" y="-450" width={900} height={900} fill="white" />
               <circle cx="0" cy="0" r={planetSize / 2} fill="#AAAAAA" />
             </mask>
-            {
+            { /* Draw all the segments behind the planet (some of these will get drawn over by the planet) */
             backSegments.map((segment, index) => {
               return(
               <polyline key={index}
@@ -513,26 +514,34 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               />);
               })
             }
-            <image
+            { /* Draw the planet */
+              <image
               href={`data:image/png;base64,${current_planet_base64}`}
               x={-planetSize/2}
               y={-planetSize/2}
               width={planetSize}
               height={planetSize}
-            />
-            {
+              />
+            }
+            { /* Draw all segments thats in front of the planet */
               frontSegments.map((segment, index) => {
                 return(
                   <polyline key={index}
                     points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
                     fill="none"
-                    stroke={(segment.ownerUID === selectedSatellite?.UID)? "lime": "lightgrey"}
+                    stroke={(segment.ownerUID === selectedSatellite?.UID)? "lime": "lightgrey"} // color segments if a satellite has been clicked on
                     strokeWidth={3}
                   />
                 );
               })
             }
-            {
+            { /* Apoapsis marker */
+              selectedSatellite ? <circle cx={selectedSatellite.orbit_data.apoapsis_position?.x} cy={selectedSatellite.orbit_data.apoapsis_position?.y} r={8} fill="red" /> : null
+            }
+            { /* Periapsis marker */
+              selectedSatellite ? <circle cx={selectedSatellite.orbit_data.periapsis_position?.x} cy={selectedSatellite.orbit_data.periapsis_position?.y} r={12} fill="blue" /> : null
+            }
+            { /* Draw all satellites */
               satellites.map((satellite: Satellite) => {
                 return (
                   <image key={satellite.name}
@@ -541,15 +550,12 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                     y={satellite.orbit_data.position?.y * scale - satelliteImageSize/2}
                     width={`${satelliteImageSize}px`}
                     height={`${satelliteImageSize}px`}
-                    mask={satellite.orbit_data.position?.z > 0? "" : "url(#mask)"}
+                    mask={satellite.orbit_data.position?.z > 0? "" : "url(#mask)"} // if the satellite is "behind" the planet, make it semi-transparent
                   />
                 );
               })
             }
           </svg>
-        </Stack>
-
-
         </Stack>
       }
       </Box>

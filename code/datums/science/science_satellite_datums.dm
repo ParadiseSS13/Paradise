@@ -14,7 +14,15 @@
 
 /datum/orbit_data
 	var/apoapsis = -INFINITY // furthest
+	var/vector/apoapsis_position
 	var/periapsis = INFINITY // closest
+	var/vector/periapsis_position
+
+	var/atmosphere_start = 150
+	var/light_airdrag = 0.99
+	var/atmosphere_thick = 130
+	var/thick_airdrag = 0.8
+
 	//var/eccentricity = 0 // how oval the orbit is
 	var/inclination = 0 // how tilted the orbit is
 	//var/latitude = 0 // the center latitude of the orbit
@@ -52,10 +60,14 @@
 		position = vector(0, 0, 300) // default velocity is calculated from this. Based off geostationary orbit on earth in km
 		velocity = vector(3.6, 0, 0) // when a velocity parameter is equal to (gravitational parameter / magnitude of the position vector) we get a circular orbit.
 
-
 	var/list/step = calculate_physics_step(position, velocity) // where the satellite should move this tick
 	position = step["position"]
 	velocity = step["velocity"]
+	if(step["distance"] < atmosphere_start)
+		should_update_orbit = TRUE
+		velocity *= light_airdrag
+	if(step["distance"] < atmosphere_thick) // even more airdrag
+		velocity *= thick_airdrag
 
 	for(var/datum/maneuver_data/maneuver in planned_maneuvers)
 		if(world.time > maneuver.world_time_at_maneuver)
@@ -73,10 +85,10 @@
 		path += initial_step
 		apoapsis = -INFINITY
 		periapsis = INFINITY
-		log_debug("-----------------physics step----------------")
+		//log_debug("-----------------physics step----------------")
 		for(var/i = 0; i < 6000; i++) // TODO: Refine this number, its way to high
-			if(i < 7)
-				log_debug("pos: ([last_step["position"]]) vel: ([last_step["velocity"]])")
+			//if(i < 7)
+			//	log_debug("pos: ([last_step["position"]]) vel: ([last_step["velocity"]])")
 			last_step = calculate_physics_step(last_step["position"], last_step["velocity"])
 
 			var/vector/point = last_step["position"]
@@ -84,8 +96,10 @@
 			path += point
 			if(last_step["distance"] > apoapsis)
 				apoapsis = last_step["distance"]
+				apoapsis_position = last_step["position"]
 			if(last_step["distance"] < periapsis)
 				periapsis = last_step["distance"]
+				periapsis_position = last_step["position"]
 		planned_orbit = path
 
 /datum/orbit_data/proc/calculate_physics_step(vector/pos, vector/vel)

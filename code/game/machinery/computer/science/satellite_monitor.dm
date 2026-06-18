@@ -75,6 +75,18 @@
 			vel_vec["y"] = orbit_data.velocity.y
 			vel_vec["z"] = orbit_data.velocity.z
 
+		var/list/apoap_vec = list()
+		if(orbit_data.apoapsis_position)
+			apoap_vec["x"] = orbit_data.apoapsis_position.x
+			apoap_vec["y"] = orbit_data.apoapsis_position.y
+			apoap_vec["z"] = orbit_data.apoapsis_position.z
+
+		var/list/periap_vec = list()
+		if(orbit_data.periapsis_position)
+			periap_vec["x"] = orbit_data.periapsis_position.x
+			periap_vec["y"] = orbit_data.periapsis_position.y
+			periap_vec["z"] = orbit_data.periapsis_position.z
+
 		satellite_data += list(list( // funny byond required a listed list to be sent to TGUI
 			"UID" = satellite.UID(),
 			"name" = satellite.internal_name,
@@ -94,6 +106,8 @@
 			"orbit_data" = list(
 				"apoapsis" = orbit_data.apoapsis,
 				"periapsis" = orbit_data.periapsis,
+				"apoapsis_position" = apoap_vec,
+				"periapsis_position" = periap_vec,
 				"inclination" = orbit_data.inclination,
 				"period_multiplier" = orbit_data.period_multiplier,
 				"period" = orbit_data.period,
