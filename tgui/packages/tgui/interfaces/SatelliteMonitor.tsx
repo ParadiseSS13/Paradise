@@ -508,7 +508,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               <polyline key={index}
                   points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
                   fill="none"
-                  stroke={(segment.ownerUID === selectedSatellite?.UID)? "green": "darkgrey"}
+                  stroke={(segment.ownerUID === selectedSatellite?.UID)? "green": "dimgrey"}
                   strokeWidth={3}
               />);
               })
@@ -526,7 +526,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                   <polyline key={index}
                     points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
                     fill="none"
-                    stroke={(segment.ownerUID === selectedSatellite?.UID)? "lime": "grey"}
+                    stroke={(segment.ownerUID === selectedSatellite?.UID)? "lime": "lightgrey"}
                     strokeWidth={3}
                   />
                 );
