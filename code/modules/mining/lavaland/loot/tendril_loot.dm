@@ -240,7 +240,6 @@
 		to_chat(wisp_friend, SPAN_NOTICE("You release the wisp. It begins to bob around your head as [src] darkens."))
 		to_chat(wisp_friend, SPAN_NOTICE("The wisp enhances your vision."))
 		update_appearance(UPDATE_ICON_STATE)
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, SPAN_NOTICE("You return the wisp to [src]."))
@@ -271,7 +270,6 @@
 	to_chat(wisp_friend, SPAN_WARNING("Your vision returns to normal as the wisp returns to [src]."))
 	set_light(initial(light_range), initial(light_power), initial(light_color))
 	visible_message(SPAN_NOTICE("[src] begins to glow brightly as the wisp returns to it."))
-	SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 	wisp_friend = null
 	update_appearance(UPDATE_ICON_STATE)
 
