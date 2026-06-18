@@ -151,26 +151,3 @@
 /mob/living/basic/bot/secbot/ed209/Destroy()
 	. = ..()
 	QDEL_NULL(bot_charge)
-
-/mob/living/basic/bot/secbot/ed209/nukie
-	name = "\improper ED-209(+1) Syndicate Robot"
-	desc = "Wait this one's red? This cannot be good... right??"
-	icon_state = "red209"
-	light_color = "#5c0909"
-	faction = list(ROLE_SYNDICATE)
-	health = 250
-	maxHealth = 250
-	obj_damage = 60
-	req_one_access = list(ACCESS_SYNDICATE)
-	bot_mode_flags = parent_type::bot_mode_flags & ~BOT_MODE_REMOTE_ENABLED
-	radio_key = /obj/item/encryptionkey/syndicate
-	additional_access = /datum/id_trim/syndicom/crew
-	radio_channel = RADIO_CHANNEL_SYNDICATE
-	ai_controller = /datum/ai_controller/basic_controller/bot/ed209/syndicate
-	bot_type = ADVANCED_SEC_BOT
-	hackables = "combat inhibitors"
-	projectile_sound = 'sound/items/weapons/gun/l6/shot.ogg'
-	projectile_type = /obj/projectile/bullet/a7mm
-	emagged_projectile_sound = 'sound/items/weapons/minebot_rocket.ogg'
-	emagged_projectile_type = /obj/projectile/bullet/rocket/weak //lord have mercy
-	ride_component = /datum/component/riding/creature/ed_bot/nukie //ride at ur own risk. especially if its emagged. warranty void

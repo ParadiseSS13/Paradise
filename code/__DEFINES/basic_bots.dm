@@ -1,6 +1,6 @@
 /** Simple Animal BOT defines */
 
-//Assembly defines
+// Assembly defines
 #define ASSEMBLY_FIRST_STEP 1
 #define ASSEMBLY_SECOND_STEP 2
 #define ASSEMBLY_THIRD_STEP 3
@@ -18,32 +18,37 @@
 #define BOT_STEP_MAX_RETRIES 5
 /// Default view range for finding targets.
 #define DEFAULT_SCAN_RANGE 7
-//Amount of time that must pass after a Commissioned bot gets saluted to get another.
+/// Amount of time that must pass after a Commissioned bot gets saluted to get another.
 #define BOT_COMMISSIONED_SALUTE_DELAY (60 SECONDS)
 
-//Bot mode defines displaying how Bots act
-///The Bot is currently active, and will do whatever it is programmed to do.
+// Bot mode defines displaying how Bots act
+/// The Bot is currently active, and will do whatever it is programmed to do.
 #define BOT_MODE_ON (1<<0)
-///The Bot is currently set to automatically patrol the station.
+/// The Bot is currently set to automatically patrol the station.
 #define BOT_MODE_AUTOPATROL (1<<1)
-///The Bot is currently allowed to be remote controlled by Silicon.
+/// The Bot is currently allowed to be remote controlled by Silicon.
 #define BOT_MODE_REMOTE_ENABLED (1<<2)
-///The Bot is allowed to have a ghost placed in control of it.
+/// The Bot is allowed to have a ghost placed in control of it.
 #define BOT_MODE_CAN_BE_SAPIENT (1<<3)
-///The Bot is allowed to be possessed if it is present on mapload.
+/// The Bot is allowed to be possessed if it is present on mapload.
 #define BOT_MODE_ROUNDSTART_POSSESSION (1<<4)
 
-//Bot cover defines indicating the Bot's status
-///The Bot's cover is open and can be modified/emagged by anyone.
+// Bot cover defines indicating the Bot's status
+/// The Bot's cover is open and can be modified/emagged by anyone.
 #define BOT_COVER_MAINTS_OPEN (1<<0)
-///The Bot's cover is locked, and cannot be opened without unlocking it.
+/// The Bot's cover is locked, and cannot be opened without unlocking it.
 #define BOT_COVER_LOCKED (1<<1)
-///The Bot is emagged.
+/// The Bot is emagged.
 #define BOT_COVER_EMAGGED (1<<2)
-///The Bot has been hacked by a Silicon, emagging them, but revertable.
+/// The Bot has been hacked by a Silicon, emagging them, but revertable.
 #define BOT_COVER_HACKED (1<<3)
 
-///bitfield, used by basic bots, for our access flags
+/// Signal sent when a bot is reset
+#define COMSIG_BOT_RESET "bot_reset"
+/// Sent off /mob/living/basic/bot/proc/set_mode_flags() : (new_flags)
+#define COMSIG_BOT_MODE_FLAGS_SET "bot_mode_flags_set"
+
+/// bitfield, used by basic bots, for our access flags
 DEFINE_BITFIELD(bot_access_flags, list(
 	"MAINTS_OPEN" = BOT_COVER_MAINTS_OPEN,
 	"COVER_OPEN" = BOT_COVER_LOCKED,
@@ -51,7 +56,7 @@ DEFINE_BITFIELD(bot_access_flags, list(
 	"COVER_HACKED" = BOT_COVER_HACKED,
 ))
 
-///bitfield, used by simple bots, for our access flags
+/// bitfield, used by simple bots, for our access flags
 DEFINE_BITFIELD(bot_cover_flags, list(
 	"MAINTS_OPEN" = BOT_COVER_MAINTS_OPEN,
 	"COVER_OPEN" = BOT_COVER_LOCKED,
@@ -76,8 +81,6 @@ DEFINE_BITFIELD(bot_cover_flags, list(
 #define FIRE_BOT "Firebot"
 /// Hygienebots
 #define HYGIENE_BOT "Hygienebot"
-/// Vibe bots
-#define VIBE_BOT "Vibebot"
 /// Repairbots
 #define REPAIR_BOT "Repairbot"
 
@@ -121,12 +124,12 @@ DEFINE_BITFIELD(bot_cover_flags, list(
 /// MULEbot - No destination beacon found (or no route)
 #define BOT_NO_ROUTE "Returning Home"
 
-//Secbot and ED209 judgement criteria bitflag values
+// Secbot and ED209 judgement criteria bitflag values
 #define JUDGE_EMAGGED (1<<0)
 #define JUDGE_IDCHECK (1<<1)
 #define JUDGE_WEAPONCHECK (1<<2)
 #define JUDGE_RECORDCHECK (1<<3)
-///lowered threat level
+/// lowered threat level
 #define JUDGE_CHILLOUT (1<<4)
 
 /// Above this level of assessed threat, Beepsky will attack you
@@ -134,8 +137,8 @@ DEFINE_BITFIELD(bot_cover_flags, list(
 /// Above this level of assessed threat, you are extremely threatening
 #define THREAT_ASSESS_MAXIMUM 10
 
-//SecBOT defines on arresting
-///Whether arrests should be broadcasted over the Security radio
+// SecBOT defines on arresting
+/// Whether arrests should be broadcasted over the Security radio
 #define SECBOT_DECLARE_ARRESTS (1<<0)
 ///Will arrest people who lack an ID card
 #define SECBOT_CHECK_IDS (1<<1)
@@ -157,19 +160,19 @@ DEFINE_BITFIELD(security_mode_flags, list(
 	"SECBOT_SABOTEUR_AFFECTED" = SECBOT_SABOTEUR_AFFECTED,
 ))
 
-///can honkbots slip people?
+/// can honkbots slip people?
 #define HONKBOT_MODE_SLIP (1<<6)
 
-//repairbots
-///can we fix breaches
+// repairbots
+/// can we fix breaches
 #define REPAIRBOT_FIX_BREACHES (1<<0)
-///can we fix grilles
+/// can we fix grilles
 #define REPAIRBOT_REPLACE_WINDOWS (1<<1)
-///can we replace tiles
+/// can we replace tiles
 #define REPAIRBOT_REPLACE_TILES (1<<2)
-///can we fix girders
+/// can we fix girders
 #define REPAIRBOT_FIX_GIRDERS (1<<3)
-///can we build girders
+/// can we build girders
 #define REPAIRBOT_BUILD_GIRDERS (1<<4)
 
 DEFINE_BITFIELD(repairbot_flags, list(
@@ -181,17 +184,17 @@ DEFINE_BITFIELD(repairbot_flags, list(
 ))
 
 
-//MedBOT defines
-///Whether to declare if someone (we are healing) is in critical condition
+// MedBOT defines
+/// Whether to declare if someone (we are healing) is in critical condition
 #define MEDBOT_DECLARE_CRIT (1<<0)
-///If the bot will stand still, only healing those next to it.
+/// If the bot will stand still, only healing those next to it.
 #define MEDBOT_STATIONARY_MODE (1<<1)
-///Whether the bot will randomly speak from time to time. This will not actually prevent all speech.
+/// Whether the bot will randomly speak from time to time. This will not actually prevent all speech.
 #define MEDBOT_SPEAK_MODE (1<<2)
 /// is the bot currently tipped over?
 #define MEDBOT_TIPPED_MODE (1<<3)
 
-///can we heal all damage?
+/// can we heal all damage?
 #define HEAL_ALL_DAMAGE "all_damage"
 
 DEFINE_BITFIELD(medical_mode_flags, list(
@@ -201,11 +204,11 @@ DEFINE_BITFIELD(medical_mode_flags, list(
 	"MEDBOT_TIPPED_MODE" = MEDBOT_TIPPED_MODE,
 ))
 
-///Whether we are stationary or not
+/// Whether we are stationary or not
 #define FIREBOT_STATIONARY_MODE (1<<0)
-///If we will extinguish people
+/// If we will extinguish people
 #define FIREBOT_EXTINGUISH_PEOPLE (1<<1)
-///if we will extinguish turfs on flames
+/// if we will extinguish turfs on flames
 #define FIREBOT_EXTINGUISH_FLAMES (1<<2)
 
 DEFINE_BITFIELD(firebot_mode_flags, list(
@@ -214,11 +217,11 @@ DEFINE_BITFIELD(firebot_mode_flags, list(
 	"FIREBOT_EXTINGUISH_FLAMES" = FIREBOT_EXTINGUISH_FLAMES,
 ))
 
-///auto return to home after delivery
+/// auto return to home after delivery
 #define MULEBOT_RETURN_MODE (1<<0)
-///autopickups at beacons
+/// autopickups at beacons
 #define MULEBOT_AUTO_PICKUP_MODE (1<<1)
-///announce every delivery we make
+/// announce every delivery we make
 #define MULEBOT_REPORT_DELIVERY_MODE (1<<2)
 
 DEFINE_BITFIELD(mulebot_delivery_flags, list(
@@ -227,7 +230,7 @@ DEFINE_BITFIELD(mulebot_delivery_flags, list(
 	"MULEBOT_REPORT_DELIVERY_MODE" = MULEBOT_REPORT_DELIVERY_MODE,
 ))
 
-//cleanBOT defines on what to clean
+// cleanBOT defines on what to clean
 #define CLEANBOT_CLEAN_BLOOD (1<<0)
 #define CLEANBOT_CLEAN_TRASH (1<<1)
 #define CLEANBOT_CLEAN_PESTS (1<<2)
@@ -296,6 +299,18 @@ DEFINE_BITFIELD(janitor_mode_flags, list(
 #define MEDIBOT_VOICED_THE_END "Is this the end?"
 #define MEDIBOT_VOICED_NOOO	"Nooo!"
 #define MEDIBOT_VOICED_CHICKEN "LOOK AT ME?! I am a chicken."
+
+// Firebot voice lines
+#define FIREBOT_VOICED_FIRE_DETECTED "Fire detected!"
+#define FIREBOT_VOICED_STOP_DROP "Stop, drop and roll!"
+#define FIREBOT_VOICED_EXTINGUISHING "Extinguishing!"
+#define FIREBOT_VOICED_NO_FIRES "No fires detected."
+#define FIREBOT_VOICED_ONLY_YOU "Only you can prevent station fires."
+#define FIREBOT_VOICED_TEMPERATURE_NOMINAL "Temperature nominal."
+#define FIREBOT_VOICED_KEEP_COOL "Keep it cool."
+#define FIREBOT_VOICED_CANDLE_TIP "Keep candles near curtains for cozy night lights!"
+#define FIREBOT_VOICED_ELECTRIC_FIRE "Keep full buckets of water near outlets in case of an electric fire!"
+#define FIREBOT_VOICED_FUEL_TIP "Pouring fuel on fire makes it burn out faster!"
 
 // repairbot neutral voicelines
 #define REPAIRBOT_VOICED_HOLE "patching holes... but who is going to patch the hole in my heart..."

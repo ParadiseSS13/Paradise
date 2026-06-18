@@ -5,7 +5,7 @@
 		BB_ALWAYS_IGNORE_FACTION = TRUE,
 	)
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity/pacifist,
+		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/respond_to_summon,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/arrest_target,
@@ -38,7 +38,7 @@
 	return (assessed_threat > THREAT_ASSESS_DANGEROUS)
 
 
-/datum/ai_controller/basic_controller/bot/secbot/TryPossessPawn(atom/new_pawn)
+/datum/ai_controller/basic_controller/bot/secbot/try_possess_pawn(atom/new_pawn)
 	. = ..()
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return
@@ -51,9 +51,9 @@
 	var/threat_level = 5 || blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT]
 	INVOKE_ASYNC(announcement, TYPE_PROC_REF(/datum/action/cooldown/bot_announcement, announce), "Level [threat_level] infraction alert!")
 	playsound(pawn, pick(
-		'sound/mobs/non-humanoids/beepsky/criminal.ogg',
-		'sound/mobs/non-humanoids/beepsky/justice.ogg',
-		'sound/mobs/non-humanoids/beepsky/freeze.ogg',
+		'sound/voice/beepsky/criminal.ogg',
+		'sound/voice/beepsky/justice.ogg',
+		'sound/voice/beepsky/freeze.ogg',
 	), 50, FALSE)
 	var/mob/living/basic/bot/secbot/my_bot = pawn
 	my_bot.update_bot_mode(new_mode = BOT_HUNT)
@@ -82,7 +82,6 @@
 	return SUBTREE_RETURN_FINISH_PLANNING
 
 /datum/ai_behavior/basic_melee_attack/interact_once/bot
-	movement_behavior = /datum/ai_movement/basic_avoidance
 
 /datum/ai_behavior/basic_melee_attack/interact_once/bot/finish_action(datum/ai_controller/controller, succeeded, target_key, targeting_strategy_key, hiding_location_key)
 	var/mob/living/carbon/human/human_target = controller.blackboard[target_key]

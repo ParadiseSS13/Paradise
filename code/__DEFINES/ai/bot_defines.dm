@@ -18,6 +18,18 @@
 /// Penalty cooldown if we are unable to path to any beacons
 #define BB_BOT_BEACON_COOLDOWN "bot_beacon_cooldown"
 
+// firebot keys
+/// things we can extinguish
+#define BB_FIREBOT_CAN_EXTINGUISH "can_extinguish"
+/// the target we will extinguish
+#define BB_FIREBOT_EXTINGUISH_TARGET "extinguish_target"
+/// lines we say when we detect a fire
+#define BB_FIREBOT_FIRE_DETECTED_LINES "fire_detected_lines"
+/// lines we say when we are idle
+#define BB_FIREBOT_IDLE_LINES "idle_lines"
+/// lines we say when we are emagged
+#define BB_FIREBOT_EMAGGED_LINES "emagged_lines"
+
 // medbot keys
 /// The patient we must heal
 #define BB_PATIENT_TARGET "patient_target"
@@ -53,14 +65,14 @@
 #define BB_CLEANBOT_EMAGGED_PHRASES "emagged_phrases"
 /// Key that holds drawings we hunt
 #define BB_CLEANABLE_DRAWINGS "cleanable_drawings"
-/// Key that holds our clean target
-#define BB_CLEAN_TARGET "clean_target"
 /// Key that holds the janitor we will befriend
 #define BB_FRIENDLY_JANITOR "friendly_janitor"
 /// Key that holds the victim we will spray
 #define BB_ACID_SPRAY_TARGET "acid_spray_target"
 /// Key that holds trash we will burn
 #define BB_HUNTABLE_TRASH "huntable_trash"
+/// key that holds cooldown after we finish cleaning something, so we dont immediately run off to patrol
+#define BB_POST_CLEAN_COOLDOWN "post_clean_cooldown"
 
 // Secbots
 /// Threat of our current target
@@ -109,3 +121,10 @@
 #define BB_ROBOT_TARGET "robot_target"
 /// Key that holds materials we can refill
 #define BB_REFILLABLE_TARGET "refillable_target"
+
+/// key that holds our delivery destination's name
+#define BB_MULEBOT_DESTINATION_BEACON "mulebot_destination"
+/// key that holds our home port's name
+#define BB_MULEBOT_HOME_BEACON "mulebot_home_beacon"
+/// key that holds our current delivery target atom
+#define BB_MULEBOT_TRAVEL_TARGET "mulebot_travel_target"

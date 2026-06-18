@@ -1,68 +1,60 @@
-/mob/living/basic/bot/secbot/grievous //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
-	name = "General Beepsky"
+/mob/living/basic/bot/secbot/grievous // This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
+	name = "General Griefsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
-	icon = 'icons/mob/silicon/aibots.dmi'
+	icon = 'icons/obj/aibots.dmi'
 	icon_state = "grievous"
 	base_icon_state = "grievous"
 	health = 150
 	maxHealth = 150
 	ai_controller = /datum/ai_controller/basic_controller/bot/secbot/super_beepsky
 	baton_type = /obj/item/melee/energy/sword/saber
-	speed = 4 //he's a fast fucker
-	///chance we block bullets
-	var/block_chance = 50
-	///is our sword currently active?
+	a_intent = INTENT_HARM
+	speed = 0 // he's a fast fucker
+	var/spin_icon = "griefsky-c"
+	/// Damage to deal
+	var/dmg = 30
+	/// chance we block bullets
+	var/block_chance = 80
+	/// is our sword currently active?
 	var/sword_active = FALSE
+	/// Chance to stun victims
+	var/stun_chance = 50
+	/// Flag to stop it spamming messages
+	var/spam_flag = 0
 
 /mob/living/basic/bot/secbot/grievous/Initialize(mapload)
 	. = ..()
-	RegisterSignal(weapon, COMSIG_TRANSFORMING_ON_TRANSFORM, PROC_REF(on_weapon_transform))
 	var/static/list/abilities = list(
 		/datum/action/cooldown/mob_cooldown/bot/sword = null,
 	)
 	grant_actions_by_list(abilities)
-	INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/item, attack_self), src)
-	RegisterSignal(src, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(block_bullets))
-
-
-/mob/living/basic/bot/secbot/grievous/check_block(atom/hit_by, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, damage_type = BRUTE)
-	. = ..()
-	if(. & FAILED_BLOCK)
-		return .
-
-	return (sword_active && prob(block_chance) ? SUCCESSFUL_BLOCK : FAILED_BLOCK)
 
 /mob/living/basic/bot/secbot/grievous/proc/on_weapon_transform(obj/item/source, mob/user, active)
-	SIGNAL_HANDLER
 	if(active)
-		visible_message(span_warning("[src] ignites his energy swords!"))
+		visible_message(SPAN_WARNING("[src] ignites his energy swords!"))
 	sword_active = active
 	update_icon_state()
 
-/mob/living/basic/bot/secbot/grievous/add_arrest_component() //i dont think we'll be arresting people...
+/mob/living/basic/bot/secbot/grievous/add_arrest_component() // i dont think we'll be arresting people...
 	return
 
-/mob/living/basic/bot/secbot/grievous/proc/block_bullets(datum/source, obj/projectile/hitting_projectile)
-	SIGNAL_HANDLER
-
+/mob/living/basic/bot/secbot/grievous/bullet_act(obj/projectile/P) // so uncivilized
 	if(stat != CONSCIOUS )
-		return NONE
+		return FALSE
 
 	if(!sword_active || !prob(block_chance))
 		return NONE
 
-	visible_message(span_warning("[source] deflects [hitting_projectile] with its energy swords!"))
-	playsound(source, 'sound/items/weapons/blade1.ogg', 50, TRUE)
-	return COMPONENT_BULLET_BLOCKED
+	visible_message(SPAN_WARNING("[src] deflects [P] with its energy swords!"))
+	playsound(src, 'sound/weapons/blade1.ogg', 50, TRUE)
 
 /mob/living/basic/bot/secbot/grievous/on_entered(datum/source, atom/movable/movable_target)
 	. = ..()
 	if(!ismob(movable_target) || !ai_controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET] == movable_target)
 		return
-	visible_message(span_warning("[src] flails his swords and cuts [movable_target]!"))
-	playsound(src, 'sound/mobs/non-humanoids/beepsky/beepskyspinsabre.ogg' , 100, TRUE, -1)
+	visible_message(SPAN_WARNING("[src] flails his swords and cuts [movable_target]!"))
+	playsound(src, 'sound/voice/beepsky/beepskyspinsabre.ogg' , 100, TRUE, -1)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, ClickOn), movable_target)
-
 
 /mob/living/basic/bot/secbot/grievous/update_icon_state()
 	. = ..()
@@ -73,25 +65,49 @@
 	QDEL_NULL(weapon)
 	return ..()
 
-/mob/living/basic/bot/secbot/grievous/early_melee_attack(atom/target, list/modifiers, ignore_cooldown)
+/mob/living/basic/bot/secbot/grievous/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	. = ..()
-	if(.)
+	if(!sword_active)
 		return
-	INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/item, melee_attack_chain), src, target)
-	playsound(src, 'sound/items/weapons/blade1.ogg', 50, TRUE, -1)
-	return BASIC_MOB_END_ATTACK_CHAIN_COOLDOWN
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		sword_attack(C)
+
+/mob/living/basic/bot/secbot/grievous/proc/sword_attack(mob/living/carbon/C)     // esword attack
+	do_attack_animation(C)
+	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
+	addtimer(CALLBACK(src, PROC_REF(do_sword_attack), C), 2)
+
+/mob/living/basic/bot/secbot/grievous/proc/do_sword_attack(mob/living/carbon/C)
+	icon_state = spin_icon
+	var/threat = ai_controller.blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT]
+	if(ishuman(C))
+		C.apply_damage(dmg, BRUTE)
+		if(prob(stun_chance))
+			C.Weaken(10 SECONDS)
+	if(dmg)
+		add_attack_logs(src, C, "sliced")
+	if(security_mode_flags & SECBOT_DECLARE_ARRESTS)
+		var/area/location = get_area(src)
+		if(!spam_flag)
+			speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
+			spam_flag = 1
+			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 100) // to avoid spamming comms of sec for each hit
+			visible_message("[src] flails his swords and cuts [C]!")
 
 /mob/living/basic/bot/secbot/grievous/explode()
 	var/atom/drop_location = drop_location()
-	//Parent is dropping the weapon, so let's drop 3 more to make up for it.
+	// Parent is dropping the weapon, so let's drop 3 more to make up for it.
 	for(var/i in 0 to 3)
-		drop_part(baton_type, drop_location)
+		drop_part(weapon, drop_location)
 
 	return ..()
 
+/mob/living/basic/bot/secbot/grievous/proc/spam_flag_false() // used for addtimer to not spam comms
+	spam_flag = 0
 
-/mob/living/basic/bot/secbot/grievous/toy //A toy version of general beepsky!
-	name = "Genewul Bweepskee"
+/mob/living/basic/bot/secbot/grievous/toy // A toy version of general beepsky!
+	name = "Genewul Gwiefsky"
 	desc = "An adorable looking secbot with four toy swords taped to its arms"
 	health = 50
 	maxHealth = 50

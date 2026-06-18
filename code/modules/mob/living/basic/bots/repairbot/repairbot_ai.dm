@@ -33,7 +33,7 @@
 
 /datum/ai_planning_subtree/refill_materials/select_behaviors(datum/ai_controller/basic_controller/bot/controller, seconds_per_tick)
 	var/static/list/refillable_items = typecacheof(list(
-		/obj/item/stack/sheet/iron,
+		/obj/item/stack/sheet/metal,
 		/obj/item/stack/sheet/glass,
 		/obj/item/stack/tile,
 	))
@@ -48,7 +48,7 @@
 
 /datum/ai_behavior/bot_search/refillable_target/valid_target(datum/ai_controller/basic_controller/bot/controller, atom/my_target)
 	var/static/list/desired_types = list(
-		/obj/item/stack/sheet/iron,
+		/obj/item/stack/sheet/metal,
 		/obj/item/stack/sheet/glass,
 		/obj/item/stack/tile,
 	)
@@ -103,8 +103,8 @@
 		return
 	var/static/list/things_to_deconstruct = typecacheof(list(
 		/obj/structure/window,
-		/turf/open/floor,
-		/turf/closed/wall,
+		/turf/simulated/floor,
+		/turf/simulated/wall,
 	))
 	if(!controller.blackboard_key_exists(BB_DECONSTRUCT_TARGET))
 		controller.queue_behavior(/datum/ai_behavior/bot_search/deconstructable, BB_DECONSTRUCT_TARGET, things_to_deconstruct)
@@ -116,7 +116,7 @@
 	action_cooldown = 5 SECONDS
 
 /datum/ai_behavior/bot_search/deconstructable/valid_target(datum/ai_controller/basic_controller/bot/controller, atom/my_target)
-	return (!(my_target.resistance_flags & INDESTRUCTIBLE) && !isgroundlessturf(my_target))
+	return (!(my_target.flags & INDESTRUCTIBLE) && !isspaceturf(my_target))
 
 ///subtree to control bot speech
 /datum/ai_planning_subtree/repairbot_speech
@@ -142,6 +142,7 @@
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/repairbot_speech/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/datum/action/cooldown/bot_announcement/announcement = controller.blackboard[BB_ANNOUNCE_ABILITY]
 	var/list/speech_to_pick_from = (target_key == BB_DECONSTRUCT_TARGET) ? controller.blackboard[BB_REPAIRBOT_EMAGGED_SPEECH] : controller.blackboard[BB_REPAIRBOT_NORMAL_SPEECH]
 	if(!length(speech_to_pick_from))
@@ -182,7 +183,7 @@
 /datum/ai_behavior/bot_search/valid_plateless_turf
 	action_cooldown = 5 SECONDS
 
-/datum/ai_behavior/bot_search/valid_plateless_turf/valid_target(datum/ai_controller/basic_controller/bot/controller, turf/open/my_target)
+/datum/ai_behavior/bot_search/valid_plateless_turf/valid_target(datum/ai_controller/basic_controller/bot/controller, turf/simulated/my_target)
 	var/static/list/blacklist_objects = typecacheof(list(
 		/obj/structure/window,
 		/obj/structure/grille,
@@ -192,7 +193,7 @@
 		if(is_type_in_typecache(possible_blacklisted, blacklist_objects))
 			return FALSE
 
-	if(istype(my_target, /turf/open/floor/plating) && !can_see(controller.pawn, my_target, 5))
+	if(istype(my_target, /turf/simulated/floor/plating) && !can_see(controller.pawn, my_target, 5))
 		return FALSE
 
 	var/static/list/blacklist_areas = typecacheof(list(
@@ -230,14 +231,14 @@
 		controller.queue_behavior(/datum/ai_behavior/targeted_mob_ability/build_girder, BB_GIRDER_BUILD_ABILITY, BB_GIRDER_TARGET)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
-	var/static/list/searchable_turfs = typecacheof(list(/turf/open))
+	var/static/list/searchable_turfs = typecacheof(list(/turf/simulated))
 	controller.queue_behavior(/datum/ai_behavior/bot_search/valid_wall_target, BB_GIRDER_TARGET, searchable_turfs, 5, 10, FALSE, TRUE)
 
 /datum/ai_behavior/bot_search/valid_wall_target
 	action_cooldown = 5 SECONDS
 
 /datum/ai_behavior/bot_search/valid_wall_target/valid_target(datum/ai_controller/basic_controller/bot/controller, turf/my_target)
-	if(istype(get_area(my_target), /area/space) || isgroundlessturf(my_target) || my_target.is_blocked_turf())
+	if(istype(get_area(my_target), /area/space) || isspaceturf(my_target) || my_target.is_blocked_turf())
 		return FALSE
 	var/static/list/blacklist_objects = list(
 		/obj/machinery/door,
@@ -296,7 +297,7 @@
 	var/mob/living/basic/bot/repairbot/living_pawn = controller.pawn
 	if(!(living_pawn.repairbot_flags & REPAIRBOT_FIX_GIRDERS))
 		return
-	var/obj/item/stack/sheet/iron/my_iron = locate() in living_pawn
+	var/obj/item/stack/sheet/metal/my_iron = locate() in living_pawn
 	if(isnull(my_iron) || my_iron.amount < 2)
 		return
 	if(controller.blackboard_key_exists(BB_GIRDER_TO_WALL_TARGET))
@@ -325,6 +326,6 @@
 	action_cooldown = 5 SECONDS
 
 /datum/ai_behavior/bot_search/valid_window_fix/valid_target(datum/ai_controller/basic_controller/bot/controller, obj/my_target)
-	return (my_target.get_integrity() < my_target.max_integrity || !my_target.anchored)
+	return (my_target.obj_integrity < my_target.max_integrity || !my_target.anchored)
 
 #undef REPAIRBOT_SPEECH_TIMER

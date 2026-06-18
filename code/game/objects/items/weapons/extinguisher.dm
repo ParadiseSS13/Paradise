@@ -42,6 +42,11 @@
 	reagent_id = "firefighting_foam"
 	reagent_capacity = 65
 
+/obj/item/extinguisher/atmospherics/firebot
+	has_safety = FALSE
+	precision = TRUE
+	reagent_capacity = INFINITY
+
 /obj/item/extinguisher/atmospherics/empty
 	prefilled = FALSE
 

@@ -5,7 +5,7 @@
 		BB_ALWAYS_IGNORE_FACTION = TRUE,
 	)
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity/pacifist,
+		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/respond_to_summon,
 		/datum/ai_planning_subtree/use_mob_ability/random_honk,
 		/datum/ai_planning_subtree/simple_find_target,
@@ -20,7 +20,7 @@
 		BB_BOT_SUMMON_TARGET,
 	)
 
-/datum/ai_controller/basic_controller/bot/honkbot/TryPossessPawn(atom/new_pawn)
+/datum/ai_controller/basic_controller/bot/honkbot/try_possess_pawn(atom/new_pawn)
 	. = ..()
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return
@@ -55,12 +55,9 @@
 /datum/ai_behavior/bot_search/clown_friends
 
 /datum/ai_behavior/bot_search/clown_friends/valid_target(datum/ai_controller/basic_controller/bot/controller, mob/living/my_target)
-	if(HAS_TRAIT(my_target, TRAIT_PERCEIVED_AS_CLOWN))
+	if(HAS_TRAIT(my_target, TRAIT_CLUMSY))
 		return TRUE
-	if(!istype(my_target, /mob/living/silicon/robot))
-		return FALSE
-	var/mob/living/silicon/robot/robot_target = my_target
-	return istype(robot_target.model, /obj/item/robot_model/clown)
+	return FALSE
 
 /datum/ai_behavior/play_with_clown
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
@@ -73,6 +70,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/play_with_clown/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/living_target = controller.blackboard[target_key]
 	if(QDELETED(living_target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
@@ -94,7 +92,7 @@
 
 /datum/ai_planning_subtree/slip_victims/select_behaviors(datum/ai_controller/basic_controller/bot/controller, seconds_per_tick)
 	var/mob/living/living_pawn = controller.pawn
-	if(!living_pawn.has_gravity())
+	if(!living_pawn.mob_has_gravity(get_turf(living_pawn)))
 		return
 
 	var/atom/slippery_item = controller.blackboard[BB_SLIPPERY_TARGET]
@@ -121,7 +119,7 @@
 /datum/ai_behavior/bot_search/slip_target
 
 /datum/ai_behavior/bot_search/slip_target/valid_target(datum/ai_controller/basic_controller/bot/controller, mob/living/my_target)
-	return (!my_target.buckled && my_target.has_gravity())
+	return (!my_target.buckled && my_target.mob_has_gravity(get_turf(living_pawn)))
 
 /datum/ai_behavior/drag_to_slip
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
@@ -135,6 +133,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/drag_to_slip/perform(seconds_per_tick, datum/ai_controller/controller, slip_target, slippery_target)
+	. = ..()
 	var/mob/living/our_pawn = controller.pawn
 	var/atom/living_target = controller.blackboard[slip_target]
 	if(QDELETED(living_target))

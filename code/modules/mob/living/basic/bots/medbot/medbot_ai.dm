@@ -1,7 +1,7 @@
 #define BOT_PATIENT_PATH_LIMIT 20
 /datum/ai_controller/basic_controller/bot/medbot
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity/pacifist,
+		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/respond_to_summon,
 		/datum/ai_planning_subtree/handle_medbot_speech,
 		/datum/ai_planning_subtree/find_and_hunt_target/patients_in_crit,
@@ -52,6 +52,7 @@
 	action_cooldown = 2 SECONDS
 
 /datum/ai_behavior/find_suitable_patient/perform(seconds_per_tick, datum/ai_controller/basic_controller/bot/controller, target_key, threshold, heal_type, mode_flags, access_flags)
+	. = ..()
 	search_range = (mode_flags & MEDBOT_STATIONARY_MODE) ? 1 : initial(search_range)
 	var/list/ignore_keys = controller.blackboard[BB_TEMPORARY_IGNORE_LIST]
 	for(var/mob/living/carbon/human/treatable_target in oview(search_range, controller.pawn))
@@ -92,6 +93,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/tend_to_patient/perform(seconds_per_tick, datum/ai_controller/basic_controller/bot/controller, target_key, threshold, damage_type_healer, access_flags, is_stationary)
+	. = ..()
 	var/mob/living/carbon/human/patient = controller.blackboard[target_key]
 	if(QDELETED(patient) || patient.stat == DEAD)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
@@ -199,6 +201,7 @@
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/announce_patient/perform(seconds_per_tick, datum/ai_controller/basic_controller/bot/controller, target_key)
+	. = ..()
 	var/mob/living/living_target = controller.blackboard[target_key]
 	if(QDELETED(living_target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED

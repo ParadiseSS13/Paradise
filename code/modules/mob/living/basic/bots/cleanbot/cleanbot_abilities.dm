@@ -13,8 +13,6 @@
 	var/mob/living/basic/bot/bot_owner = owner
 	if((bot_owner.bot_mode_flags & BOT_MODE_ON))
 		return TRUE
-	if(feedback)
-		bot_owner.balloon_alert(bot_owner, "power off!")
 	return FALSE
 
 /datum/action/cooldown/mob_cooldown/bot/foam
@@ -28,7 +26,7 @@
 	var/foam_range = 2
 
 /datum/action/cooldown/mob_cooldown/bot/foam/Activate(mob/living/firer, atom/target)
-	owner.visible_message(span_danger("[owner] whirs and bubbles violently, before releasing a plume of froth!"))
-	do_foam(foam_range, owner, owner.loc)
+	owner.visible_message(SPAN_DANGER("[owner] whirs and bubbles violently, before releasing a plume of froth!"))
+	new /obj/effect/particle_effect/foam(get_turf(owner))
 	StartCooldown()
 	return TRUE

@@ -13,7 +13,7 @@
 		cell = null
 		set_cell_hud()
 
-/mob/living/basic/bot/mulebot/Entered(obj/item/stock_parts/power_store/cell/arrived, atom/old_loc, list/atom/old_locs)
+/mob/living/basic/bot/mulebot/Entered(obj/item/stock_parts/cell/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(istype(arrived) && isnull(cell))
 		assign_cell(arrived)

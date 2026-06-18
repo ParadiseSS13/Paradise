@@ -3,7 +3,7 @@
 /mob/living/basic/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
-	icon = 'icons/mob/silicon/aibots.dmi'
+	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medbot_generic_idle"
 	base_icon_state = "medbot"
 	health = 20
@@ -11,16 +11,13 @@
 	speed = 2
 	light_power = 0.8
 	light_color = "#99ccff"
-	pass_flags = PASSMOB | PASSFLAPS
 	status_flags = (CANPUSH | CANSTUN)
 	ai_controller = /datum/ai_controller/basic_controller/bot/medbot
-	custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 2)
 
 	req_one_access = list(ACCESS_ROBOTICS, ACCESS_MEDICAL)
-	radio_key = /obj/item/encryptionkey/headset_med
-	radio_channel = RADIO_CHANNEL_MEDICAL
+	radio_channel = "Medical"
 	bot_type = MED_BOT
-	data_hud_type = TRAIT_MEDICAL_HUD
+	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 	hackables = "health processor circuits"
 	possessed_message = "You are a medbot! Ensure good health among the crew to the best of your ability!"
 

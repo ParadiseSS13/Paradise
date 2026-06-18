@@ -12,7 +12,7 @@
 
 	ai_movement = /datum/ai_movement/jps/bot
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity/pacifist,
+		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/respond_to_summon,
 		/datum/ai_planning_subtree/salute_authority,
 		/datum/ai_planning_subtree/find_patrol_beacon,
@@ -45,22 +45,12 @@
 		return FALSE
 	return ..()
 
-/datum/ai_controller/basic_controller/bot/TryPossessPawn(atom/new_pawn)
+/datum/ai_controller/basic_controller/bot/try_possess_pawn(atom/new_pawn)
 	. = ..()
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return
 	RegisterSignal(new_pawn, COMSIG_BOT_RESET, PROC_REF(reset_bot))
 	RegisterSignal(new_pawn, COMSIG_AI_BLACKBOARD_KEY_CLEARED(BB_BOT_SUMMON_TARGET), PROC_REF(clear_summon))
-	RegisterSignal(new_pawn, COMSIG_MOB_AI_MOVEMENT_STARTED, PROC_REF(on_movement_start))
-
-/datum/ai_controller/basic_controller/bot/proc/on_movement_start(mob/living/basic/bot/source, atom/target)
-	SIGNAL_HANDLER
-
-	if(current_movement_target == blackboard[BB_BEACON_TARGET])
-		source.update_bot_mode(new_mode = BOT_PATROL)
-		return
-
-	source.clear_path_hud(remove_hud = FALSE)
 
 /datum/ai_controller/basic_controller/bot/proc/add_to_blacklist(atom/target, duration)
 	if(QDELETED(target))
@@ -100,7 +90,7 @@
 
 /datum/ai_controller/basic_controller/bot/proc/reset_bot()
 	SIGNAL_HANDLER
-	CancelActions()
+	cancel_actions()
 	if(!length(reset_keys))
 		return
 	for(var/key in reset_keys)
@@ -109,15 +99,11 @@
 ///set the target if we can reach them
 /datum/ai_controller/basic_controller/bot/proc/set_if_can_reach(key, target, duration, distance = 10, bypass_add_to_blacklist = FALSE)
 	if(can_reach_target(target, distance))
-		EVLOG_MAPTEXT(src, EVLOG_CATEGORY_AI_TARGETING, "[pawn] has selected [target] as a target for blackboard key [key]!", get_turf(target), "Target: [target]")
-		EVLOG_LINES(src, EVLOG_CATEGORY_AI_TARGETING, "Line to target", get_turf(pawn), get_turf(target))
 		set_blackboard_key(key, target)
 		return TRUE
 	if(bypass_add_to_blacklist)
 		return FALSE
 	var/final_duration = duration || blackboard[BB_UNREACHABLE_LIST_COOLDOWN]
-	EVLOG_MAPTEXT(src, EVLOG_CATEGORY_AI_TARGETING, "[pawn] has added [target] to its targetting blacklist!", get_turf(target), "Target: [target]")
-	EVLOG_LINES(src, EVLOG_CATEGORY_AI_TARGETING, "Line to target", get_turf(pawn), get_turf(target))
 	add_to_blacklist(target, final_duration)
 	return FALSE
 
@@ -155,6 +141,7 @@
 /datum/ai_behavior/find_first_beacon_target
 
 /datum/ai_behavior/find_first_beacon_target/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/closest_distance = INFINITY
 	var/mob/living/basic/bot/bot_pawn = controller.pawn
 	var/atom/final_target
@@ -177,6 +164,7 @@
 	action_cooldown = 5 SECONDS
 
 /datum/ai_behavior/find_next_beacon_target/perform(seconds_per_tick, datum/ai_controller/basic_controller/bot/controller, target_key)
+	. = ..()
 	var/mob/living/basic/bot/bot_pawn = controller.pawn
 	var/atom/final_target
 	var/obj/machinery/navbeacon/prev_beacon = controller.blackboard[BB_PREVIOUS_BEACON_TARGET]
@@ -263,14 +251,13 @@
 
 /datum/ai_behavior/find_and_set/valid_authority/search_tactic(datum/ai_controller/controller, locate_path, search_range = SEARCH_TACTIC_DEFAULT_RANGE)
 	for(var/mob/living/nearby_mob in oview(search_range, controller.pawn))
-		if(!HAS_TRAIT(nearby_mob, TRAIT_COMMISSIONED))
-			continue
 		return nearby_mob
 	return null
 
 /datum/ai_behavior/salute_authority
 
 /datum/ai_behavior/salute_authority/perform(seconds_per_tick, datum/ai_controller/controller, target_key, salute_keys)
+	. = ..()
 	if(!controller.blackboard_key_exists(target_key))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	var/list/salute_list = controller.blackboard[salute_keys]
@@ -294,6 +281,7 @@
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/bot_search/perform(seconds_per_tick, datum/ai_controller/basic_controller/bot/controller, target_key, looking_for, radius = 5, pathing_distance = 10, bypass_add_blacklist = FALSE, turf_search = FALSE)
+	. = ..()
 	if(!istype(controller))
 		stack_trace("attempted to give [controller.pawn] the bot search behavior!")
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
@@ -325,6 +313,7 @@
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/bot_speech/perform(seconds_per_tick, datum/ai_controller/controller, list/list_to_pick_from, announce_key)
+	. = ..()
 	var/datum/action/cooldown/bot_announcement/announcement = controller.blackboard[announce_key]
 
 	if(isnull(announcement) || !length(list_to_pick_from))
@@ -347,6 +336,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/bot_interact/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/basic/living_pawn = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 

@@ -4,20 +4,17 @@
 	icon_state = "honkbot"
 	base_icon_state = "honkbot"
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, STAMINA = 0, OXY = 0)
-	custom_materials = list(/datum/material/cardboard = SHEET_MATERIAL_AMOUNT, /datum/material/iron = SHEET_MATERIAL_AMOUNT * 0.8, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 2)
-	req_access = list(ACCESS_ROBOTICS, ACCESS_THEATRE, ACCESS_JANITOR)
-	radio_key = /obj/item/encryptionkey/headset_service
+	req_access = list(ACCESS_ROBOTICS, ACCESS_THEATRE, ACCESS_CLOWN)
 	ai_controller = /datum/ai_controller/basic_controller/bot/honkbot
-	radio_channel = RADIO_CHANNEL_SERVICE
+	radio_channel = "Service"
 	bot_type = HONK_BOT
 	bot_mode_flags = BOT_MODE_ON | BOT_MODE_REMOTE_ENABLED | BOT_MODE_CAN_BE_SAPIENT | BOT_MODE_AUTOPATROL | BOT_MODE_ROUNDSTART_POSSESSION
 	hackables = "sound control systems"
 	path_image_color = "#FF69B4"
-	data_hud_type = TRAIT_SECURITY_HUD_ID_ONLY
-	additional_access = /datum/id_trim/job/clown
+	data_hud_type = DATA_HUD_SECURITY_BASIC
 	possessed_message = "You are a honkbot! Make sure the crew are having a great time!"
 	security_mode_flags = parent_type::security_mode_flags | HONKBOT_MODE_SLIP
-	///our voicelines
+	/// our voicelines
 	var/static/list/honkbot_sounds = list(
 		HONKBOT_VOICED_HONK_HAPPY = 'sound/items/bikehorn.ogg',
 		HONKBOT_VOICED_HONK_SAD = 'sound/misc/sadtrombone.ogg',
@@ -71,11 +68,11 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 	audible_message(span_danger("[src] gives out an evil laugh!"))
-	playsound(src, 'sound/mobs/non-humanoids/honkbot/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
+	playsound(src, 'sound/voice/honkbot/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 
 /mob/living/basic/bot/secbot/honkbot/retrieve_emag_message()
 	audible_message(span_danger("[src] gives out an evil laugh!"))
-	playsound(src, 'sound/mobs/non-humanoids/honkbot/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
+	playsound(src, 'sound/voice/honkbot/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 
 /mob/living/basic/bot/secbot/honkbot/post_stun(mob/living/carbon/current_target)
 	if(!istype(current_target))

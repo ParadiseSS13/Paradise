@@ -20,7 +20,7 @@
 	return ITEM_INTERACT_SUCCESS
 
 /mob/living/basic/bot/mulebot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	if(istype(tool, /obj/item/stock_parts/power_store/cell) && (bot_access_flags & BOT_COVER_MAINTS_OPEN))
+	if(istype(tool, /obj/item/stock_parts/cell) && (bot_access_flags & BOT_COVER_MAINTS_OPEN))
 		if(cell)
 			to_chat(user, span_warning("[src] already has a power cell!"))
 			return ITEM_INTERACT_BLOCKING

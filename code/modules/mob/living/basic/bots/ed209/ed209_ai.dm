@@ -8,7 +8,7 @@
 		BB_ALWAYS_IGNORE_FACTION = TRUE,
 	)
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity/pacifist,
+		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/respond_to_summon,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/ranged_skirmish,
@@ -22,7 +22,7 @@
 	)
 
 
-/datum/ai_controller/basic_controller/bot/ed209/TryPossessPawn(atom/new_pawn)
+/datum/ai_controller/basic_controller/bot/ed209/try_possess_pawn(atom/new_pawn)
 	. = ..()
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return

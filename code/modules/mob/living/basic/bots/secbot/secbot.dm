@@ -1,7 +1,7 @@
 /mob/living/basic/bot/secbot
 	name = "\improper Securitron"
 	desc = "A little security robot. He looks less than thrilled."
-	icon = 'icons/mob/silicon/aibots.dmi'
+	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot"
 	base_icon_state = "secbot"
 	light_color = "#f56275"
@@ -12,27 +12,21 @@
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, STAMINA = 0, OXY = 0)
-	pass_flags = PASSMOB | PASSFLAPS
-	combat_mode = TRUE
-	can_buckle_to = FALSE
+	pass_flags = PASSMOB
 
 	req_one_access = list(ACCESS_SECURITY)
-	radio_key = /obj/item/encryptionkey/secbot //AI Priv + Security
-	radio_channel = RADIO_CHANNEL_SECURITY //Security channel
+	radio_channel = "Security" // Security channel
 	bot_type = SEC_BOT
 	bot_mode_flags = ~BOT_MODE_CAN_BE_SAPIENT
-	data_hud_type = TRAIT_SECURITY_HUD
+	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	hackables = "target identification systems"
 	path_image_color = COLOR_RED
 	possessed_message = "You are a securitron! Guard the station to the best of your ability!"
-	additional_access = /datum/id_trim/job/detective
 
-	custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 1.2, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 3.2)
 	ai_controller = /datum/ai_controller/basic_controller/bot/secbot
-	///Whether this secbot is considered 'commissioned' and given the trait on Initialize.
-	var/commissioned = FALSE
+
 	///The type of baton this Secbot will use
-	var/baton_type = /obj/item/melee/baton/security
+	var/baton_type = /obj/item/melee/baton
 	///The weapon (from baton_type) that will be used to make arrests.
 	var/obj/item/weapon
 	///The threat level of the BOT, will arrest anyone at threatlevel 4 or above
@@ -48,9 +42,9 @@
 	/// Charged each time the violator is stunned on detain
 	var/price_detain = 0
 	///The department the secbot will deposit collected money into
-	var/payment_department = ACCOUNT_SEC
+	var/payment_department = DEPARTMENT_SECURITY
 	///what sound we play when stunning
-	var/stun_sound = 'sound/items/weapons/egloves.ogg'
+	var/stun_sound = 'sound/weapons/egloves.ogg'
 	///The type of cuffs we use on criminals after making arrests
 	var/cuff_type = /obj/item/restraints/handcuffs/cable/zipties/used
 
@@ -58,15 +52,12 @@
 	. = ..()
 	weapon = new baton_type(src)
 	update_appearance(UPDATE_ICON)
-	if(commissioned)
-		ADD_TRAIT(src, TRAIT_COMMISSIONED, INNATE_TRAIT)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddComponent(/datum/component/security_vision, judgement_criteria = NONE, update_judgement_criteria = CALLBACK(src, PROC_REF(judgement_criteria)))
 	add_arrest_component()
 
 /mob/living/basic/bot/secbot/Destroy()
@@ -82,23 +73,13 @@
 	..()
 	update_bot_mode(new_mode = BOT_IDLE)
 
-/mob/living/basic/bot/secbot/on_saboteur(datum/source, disrupt_duration)
-	. = ..()
-	if(!(security_mode_flags & SECBOT_SABOTEUR_AFFECTED))
-		security_mode_flags |= SECBOT_SABOTEUR_AFFECTED
-		addtimer(CALLBACK(src, PROC_REF(remove_saboteur_effect)), disrupt_duration)
-		return TRUE
-
-/mob/living/basic/bot/secbot/proc/remove_saboteur_effect()
-	security_mode_flags &= ~SECBOT_SABOTEUR_AFFECTED
-
-/mob/living/basic/bot/secbot/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)//shocks only make him angry
+/mob/living/basic/bot/secbot/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)// shocks only make him angry
 	if(speed >= initial(speed) + 3)
 		return
 	speed += 3
 	addtimer(VARSET_CALLBACK(src, speed, speed - 3), 6 SECONDS)
-	playsound(src, 'sound/machines/defib/defib_zap.ogg', 50)
-	visible_message(span_warning("[src] shakes and speeds up!"))
+	playsound(src, 'sound/machines/defib_zap.ogg', 50)
+	visible_message(SPAN_WARNING("[src] shakes and speeds up!"))
 
 /mob/living/basic/bot/secbot/Exited(atom/movable/gone, direction)
 	. = ..()
@@ -109,7 +90,7 @@
 // Variables sent to TGUI
 /mob/living/basic/bot/secbot/ui_data(mob/user)
 	var/list/data = ..()
-	if(!(bot_access_flags & BOT_COVER_LOCKED) || HAS_SILICON_ACCESS(user))
+	if(!(bot_access_flags & BOT_COVER_LOCKED) || issilicon(user))
 		data["custom_controls"]["check_id"] = security_mode_flags & SECBOT_CHECK_IDS
 		data["custom_controls"]["check_weapons"] = security_mode_flags & SECBOT_CHECK_WEAPONS
 		data["custom_controls"]["check_warrants"] = security_mode_flags & SECBOT_CHECK_RECORDS
@@ -121,7 +102,7 @@
 /mob/living/basic/bot/secbot/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	var/mob/user = ui.user
-	if(. || (bot_access_flags & BOT_COVER_LOCKED && !HAS_SILICON_ACCESS(user)))
+	if(. || (bot_access_flags & BOT_COVER_LOCKED && !issilicon(user)))
 		return
 
 	switch(action)
@@ -143,12 +124,11 @@
 
 
 /mob/living/basic/bot/secbot/attack_hand(mob/living/carbon/human/user, list/modifiers)
-
 	// Turns an oversight into a feature. Beepsky will now announce when pacifists taunt him over sec comms.
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		user.visible_message(span_notice("[user] taunts [src], daring [p_them()] to give chase!"), \
-			span_notice("You taunt [src], daring [p_them()] to chase you!"), span_hear("You hear someone shout a daring taunt!"), DEFAULT_MESSAGE_RANGE, user)
-		speak("Taunted by pacifist scumbag [RUNECHAT_BOLD("[user]")] in [get_area(src)].", radio_channel)
+		user.visible_message(SPAN_NOTICE("[user] taunts [src], daring [p_them()] to give chase!"), \
+			SPAN_NOTICE("You taunt [src], daring [p_them()] to chase you!"), SPAN_HEAR("You hear someone shout a daring taunt!"))
+		speak("Taunted by pacifist scumbag [user] in [get_area(src)].", radio_channel)
 
 		// Interrupt the attack chain. We've already handled this scenario for pacifists.
 		return
@@ -156,14 +136,12 @@
 	return ..()
 
 /mob/living/basic/bot/secbot/proc/retrieve_emag_message()
-	audible_message(span_danger("[src] buzzes oddly!"))
+	audible_message(SPAN_DANGER("[src] buzzes oddly!"))
 
 /mob/living/basic/bot/secbot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	if(!(bot_access_flags & BOT_COVER_EMAGGED))
 		return
-	if(user)
-		balloon_alert(user, "target assessment circuits shorted")
 
 	retrieve_emag_message()
 	security_mode_flags &= ~SECBOT_DECLARE_ARRESTS
@@ -171,14 +149,14 @@
 	return TRUE
 
 /mob/living/basic/bot/secbot/proc/post_arrest(mob/living/carbon/current_target)
-	playsound(src, SFX_LAW, 50, FALSE)
+	playsound(src, pick(generate_speak_list()), 50, FALSE)
 
 /mob/living/basic/bot/secbot/proc/post_stun(mob/living/carbon/current_target, harm = FALSE)
 	flick("[base_icon_state]-c", src)
 	var/threat = 5 || ai_controller.blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT]
 	if(security_mode_flags & SECBOT_DECLARE_ARRESTS)
 		var/area/location = get_area(src)
-		speak("[security_mode_flags & SECBOT_HANDCUFF_TARGET ? "Arresting" : "Detaining"] level [threat] scumbag [RUNECHAT_BOLD("[current_target]")] in [location].", radio_channel)
+		speak("[security_mode_flags & SECBOT_HANDCUFF_TARGET ? "Arresting" : "Detaining"] level [threat] scumbag [current_target] in [location].", radio_channel)
 	payment_check(current_target)
 	update_bot_mode(new_mode = BOT_PREP_ARREST)
 
@@ -189,7 +167,7 @@
 	return ..()
 
 /mob/living/basic/bot/secbot/proc/retrieve_secbot_drops(atom/drop_location)
-	var/obj/item/bot_assembly/secbot/secbot_assembly = new(drop_location)
+	var/obj/item/secbot_assembly/secbot_assembly = new(drop_location)
 	secbot_assembly.build_step = ASSEMBLY_FIRST_STEP
 	secbot_assembly.add_overlay("hs_hole")
 	secbot_assembly.created_name = name
@@ -216,16 +194,18 @@
 	if(!target_id)
 		say("Unable to pay fine: No ID card found.")
 		return TRUE
-	var/datum/bank_account/insurance = target_id.registered_account
-	if(!insurance)
+	var/datum/money_account/D = GLOB.station_money_database.find_user_account(target_id.associated_account_number, include_departments = FALSE)
+	if(!D)
 		say("Unable to pay fine: No bank account found.")
 		return TRUE
-	if(!insurance.adjust_money(-fair_market_price, "Securitron fine"))
+	if(!GLOB.station_money_database.charge_account(D, -fair_market_price, "Securitron fine", src, FALSE, FALSE))
 		say("Unable to pay fine: Not enough funds in account.")
 		return TRUE
 
-	SSeconomy.get_dep_account(payment_department)?.adjust_money(fair_market_price)
-	say("Fine paid: Thank you for your compliance. Your account been charged [fair_market_price] [MONEY_NAME].")
+	var/datum/money_account_database/main_station/account_database = GLOB.station_money_database
+	var/linked_account = account_database.get_account_by_department(payment_department)
+	GLOB.station_money_database.credit_account(linked_account, -fair_market_price, "Security Fine", src, FALSE)
+	say("Fine paid: Thank you for your compliance. Your account been charged [fair_market_price] credits.")
 	return FALSE
 
 /mob/living/basic/bot/secbot/generate_speak_list()
@@ -262,3 +242,14 @@
 		post_arrest_callback = CALLBACK(src, PROC_REF(post_arrest)),\
 		handcuff_type = cuff_type,\
 	)
+
+/mob/living/basic/bot/secbot/proc/knockOver(mob/living/carbon/C)
+	if(C.key)
+		C.visible_message(SPAN_WARNING(pick( \
+						"[C] dives out of [src]'s way!", \
+						"[C] stumbles over [src]!", \
+						"[C] jumps out of [src]'s path!", \
+						"[C] trips over [src] and falls!", \
+						"[C] topples over [src]!", \
+						"[C] leaps out of [src]'s way!")))
+	C.AdjustParalysis(4 SECONDS)

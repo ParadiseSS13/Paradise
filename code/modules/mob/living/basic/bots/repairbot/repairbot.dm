@@ -2,43 +2,39 @@
 /mob/living/basic/bot/repairbot
 	name = "\improper Repairbot"
 	desc = "I can fix it!"
-	icon = 'icons/mob/silicon/aibots.dmi'
+	icon = 'icons/obj/aibots.dmi'
 	icon_state = "repairbot1"
 	base_icon_state = "repairbot"
-	pass_flags = parent_type::pass_flags | PASSTABLE
+	pass_flags = PASSMOB | PASSTABLE
 	layer = BELOW_MOB_LAYER
 	anchored = FALSE
 	health = 35
-	can_be_held = TRUE
 	maxHealth = 35
-	custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 1.3, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 2)
 	path_image_color = "#80dae7"
 	bot_ui = "RepairBot"
-	req_one_access = list(ACCESS_ROBOTICS, ACCESS_ENGINEERING)
-	radio_key = /obj/item/encryptionkey/headset_service
-	radio_channel = RADIO_CHANNEL_ENGINEERING
+	req_one_access = list(ACCESS_ROBOTICS, ACCESS_ENGINEERING_GENERAL)
+	radio_channel = "Engineering"
 	bot_type = REPAIR_BOT
-	additional_access = /datum/id_trim/job/station_engineer
 	ai_controller = /datum/ai_controller/basic_controller/bot/repairbot
 	mob_size = MOB_SIZE_SMALL
 	possessed_message = "You are a repairbot, cursed to prolong the swiss-cheesening of this death metal trap!"
-	///our iron stack
+	/// our iron stack
 	var/obj/item/stack/sheet/iron/our_iron
-	///our glass stack
+	/// our glass stack
 	var/obj/item/stack/sheet/glass/our_glass
-	///our floor stack
+	/// our floor stack
 	var/obj/item/stack/tile/our_tiles
-	///our welder
+	/// our welder
 	var/obj/item/weldingtool/repairbot/our_welder
-	///our crowbar
+	/// our crowbar
 	var/obj/item/crowbar/our_crowbar
-	///our screwdriver
+	/// our screwdriver
 	var/obj/item/screwdriver/our_screwdriver
-	///our iron rods
+	/// our iron rods
 	var/obj/item/stack/rods/our_rods
-	///our rcd object we use to deconstruct when emagged
+	/// our rcd object we use to deconstruct when emagged
 	var/obj/item/construction/rcd/repairbot/deconstruction_device
-	///possible interactions
+	/// possible interactions
 	var/static/list/possible_stack_interactions = list(
 		/obj/item/stack/sheet/iron = typecacheof(list(/obj/structure/girder)),
 		/obj/item/stack/tile = typecacheof(list(/turf/open/space, /turf/open/floor/plating)),
@@ -48,7 +44,7 @@
 		/obj/item/weldingtool/repairbot = typecacheof(list(/obj/structure/window)),
 		/obj/item/crowbar = typecacheof(list(/obj/machinery/door, /turf/open/floor)),
 	)
-	///our neutral voicelines
+	/// our neutral voicelines
 	var/static/list/neutral_voicelines = list(
 		REPAIRBOT_VOICED_BRICK = 'sound/voice/repairbot/brick.ogg',
 		REPAIRBOT_VOICED_ENTROPY = 'sound/voice/repairbot/entropy.ogg',
@@ -57,24 +53,24 @@
 		REPAIRBOT_VOICED_HOLE = 'sound/voice/repairbot/patchingholes.ogg',
 		REPAIRBOT_VOICED_PAY = 'sound/voice/repairbot/pay.ogg',
 	)
-	///our emagged voicelines
+	/// our emagged voicelines
 	var/static/list/emagged_voicelines = list(
 		REPAIRBOT_VOICED_ENTROPY = 'sound/voice/repairbot/entropy.ogg',
 		REPAIRBOT_VOICED_STRINGS = 'sound/voice/repairbot/strings.ogg',
 		REPAIRBOT_VOICED_PASSION = 'sound/voice/repairbot/passionproject.ogg',
 	)
-	///types we can retrieve from our ui
+	/// types we can retrieve from our ui
 	var/static/list/retrievable_types = list(
 		/obj/item/stack/sheet/iron,
 		/obj/item/stack/sheet/glass,
 		/obj/item/stack/tile,
 	)
 
-	///our flags
+	/// our flags
 	var/repairbot_flags = REPAIRBOT_FIX_BREACHES | REPAIRBOT_FIX_GIRDERS | REPAIRBOT_REPLACE_WINDOWS | REPAIRBOT_REPLACE_TILES | REPAIRBOT_BUILD_GIRDERS
-	///our color
+	/// our color
 	var/toolbox_color = "#445eb3"
-	///toolbox type we drop on death
+	/// toolbox type we drop on death
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 
 /mob/living/basic/bot/repairbot/Initialize(mapload)
@@ -201,7 +197,7 @@
 	target.attack_hand_secondary(src, modifiers) //tip the guy!
 	set_combat_mode(old_combat_mode)
 
-/mob/living/basic/bot/repairbot/start_pulling(atom/movable/movable_pulled, state, force, supress_message)
+/mob/living/basic/bot/repairbot/start_pulling(atom/movable/movable_pulled, state, force, show_message = FALSE)
 	. = ..()
 	if(pulling)
 		setGrabState(GRAB_AGGRESSIVE) //automatically aggro grab everything!

@@ -148,6 +148,9 @@
 /// How often can we get spooked by a target?
 #define BB_STATIONARY_COOLDOWN "BB_STATIONARY_COOLDOWN"
 
+/// Text we display when we befriend someone
+#define BB_FRIENDLY_MESSAGE "friendly_message"
+
 // minebot keys
 /// key that stores our toggle light ability
 #define BB_MINEBOT_LIGHT_ABILITY "BB_MINEBOT_LIGHT_ABILITY"

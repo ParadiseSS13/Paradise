@@ -64,6 +64,12 @@
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
+// Sentience types
+#define SENTIENCE_ORGANIC 1
+#define SENTIENCE_ARTIFICIAL 2
+#define SENTIENCE_OTHER 3
+#define SENTIENCE_MINEBOT 4
+#define SENTIENCE_BOSS 5
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible

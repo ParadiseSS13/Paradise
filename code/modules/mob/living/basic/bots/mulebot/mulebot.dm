@@ -1,7 +1,7 @@
 /mob/living/basic/bot/mulebot
 	name = "\improper MULEbot"
 	desc = "A Multiple Utility Load Effector bot."
-	icon = 'icons/mob/silicon/aibots.dmi'
+	icon = 'icons/obj/aibots.dmi'
 	icon_state = "mulebot0"
 	base_icon_state = "mulebot"
 
@@ -18,19 +18,17 @@
 	animate_movement = SLIDE_STEPS
 	speed = 3
 
-	combat_mode = TRUE
+	a_intent = INTENT_HARM
 
 	buckle_lying = 0
 	buckle_prevents_pull = TRUE // No pulling loaded shit
 
 	bot_mode_flags = ~BOT_MODE_ROUNDSTART_POSSESSION
 	req_one_access = list(ACCESS_ROBOTICS, ACCESS_CARGO)
-	radio_key = /obj/item/encryptionkey/headset_cargo
-	radio_channel = RADIO_CHANNEL_SUPPLY
-	pass_flags = PASSFLAPS
+	radio_channel = "Supply"
+	pass_flags = NONE
 	bot_type = MULE_BOT
 
-	additional_access = /datum/id_trim/job/cargo_technician
 	path_image_color = "#7F5200"
 	hud_type = /datum/hud/living/mulebot
 
@@ -46,19 +44,19 @@
 	/// who's riding us
 	var/mob/living/passenger
 
-	///flags of mulebot mode
+	/// flags of mulebot mode
 	var/mulebot_delivery_flags = MULEBOT_RETURN_MODE | MULEBOT_AUTO_PICKUP_MODE | MULEBOT_REPORT_DELIVERY_MODE
 
 	///Internal Powercell
-	var/obj/item/stock_parts/power_store/cell
-	///How much power we use when we move.
-	var/cell_move_power_usage = 0.0005 * STANDARD_CELL_CHARGE
-	///The amount of steps we should take until we rest for a time.
+	var/obj/item/stock_parts/cell/cell
+	/// How much power we use when we move.
+	var/cell_move_power_usage = 0.0005 * 2500
+	/// The amount of steps we should take until we rest for a time.
 	var/num_steps = 0
 
-	///The chance to be deleted and replaced by a different mule
+	/// The chance to be deleted and replaced by a different mule
 	var/replacement_chance = 0.666
-	///home destination, only used by mappers.
+	/// home destination, only used by mappers.
 	var/home_destination = ""
 
 /mob/living/basic/bot/mulebot/Initialize(mapload)
@@ -69,7 +67,7 @@
 		return INITIALIZE_HINT_QDEL
 
 	set_wires(new /datum/wires/mulebot(src))
-	var/obj/item/stock_parts/power_store/cell/upgraded/new_cell = new(src)
+	var/obj/item/stock_parts/cell/new_cell = new(src)
 	assign_cell(new_cell)
 	ai_controller.set_blackboard_key(BB_MULEBOT_HOME_BEACON, "")
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/mulebot)

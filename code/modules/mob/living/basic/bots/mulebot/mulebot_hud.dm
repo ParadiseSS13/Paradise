@@ -21,7 +21,7 @@
 	var/hovering = FALSE
 
 /atom/movable/screen/mob_charge/proc/update_battery_overlay(atom/target_battery)
-	var/obj/item/stock_parts/power_store/cell/my_cell = target_battery || (locate() in get_mob())
+	var/obj/item/stock_parts/cell/my_cell = target_battery || (locate() in get_mob())
 	if(isnull(my_cell))
 		battery_overlay = null
 	else
@@ -29,7 +29,7 @@
 	update_appearance(UPDATE_ICON)
 
 /atom/movable/screen/mob_charge/proc/calculate_charge()
-	var/obj/item/stock_parts/power_store/cell/my_battery = locate() in get_mob()
+	var/obj/item/stock_parts/cell/my_battery = locate() in get_mob()
 	var/charge_value = isnull(my_battery) ? 0 : round(my_battery.charge/my_battery.maxcharge * 100 , 1)
 	current_charge_level = round(charge_value * 4 / 100)
 	charge_overlay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative'>[charge_value]%</div>")
