@@ -22,6 +22,7 @@
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
+	origin_tech = "bluespace=6"
 	var/obj/item/storage/backpack/shared/bag
 
 /obj/item/shared_storage/Moved(atom/oldloc, dir, forced = FALSE)
@@ -189,6 +190,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
 	materials = list(MAT_GLASS = 4000)
+	origin_tech = "engineering=5;bluespace=5"
 	new_attack_chain = TRUE
 
 /obj/item/ship_in_a_bottle/activate_self(mob/user)
@@ -285,7 +287,7 @@
 	desc = "A mysterious blue cube."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
-	materials = list(MAT_METAL = 8000, MAT_PLASMA = 2000, MAT_DIAMOND = 2000 MAT_BLUESPACE = 2000)
+	materials = list(MAT_METAL = 8000, MAT_PLASMA = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
 	origin_tech = "bluespace=6;magnets=6"
 	new_attack_chain = TRUE
 	var/obj/item/warp_cube/linked
@@ -298,6 +300,9 @@
 	return ..()
 
 /obj/item/warp_cube/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!linked)
 		to_chat(user, "[src] fizzles uselessly.")
 		return ITEM_INTERACT_COMPLETE
@@ -352,7 +357,6 @@
 		blue.linked = src
 
 //Meat Hook
-/obj/item/gun/magic/hook
 	name = "meat hook"
 	desc = "Mid or feed."
 	icon_state = "hook"
@@ -365,6 +369,8 @@
 	flags = NOBLUDGEON
 	force = 18
 	antimagic_flags = NONE
+	materials = list(MAT_METAL = 20000)
+	origin_tech = "combat=5;engineering=5"
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
@@ -416,6 +422,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
+	materials = list(MAT_BLUESPACE = 1000, MAT_PLASMA = 1000)
+	origin_tech = "bluespace=6;magnets=6"
 	var/cooldown = 0
 
 /obj/item/immortality_talisman/Initialize(mapload)
@@ -442,7 +450,10 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/item/immortality_talisman/attack_self__legacy__attackchain(mob/user)
+/obj/item/immortality_talisman/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(cooldown < world.time)
 		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
@@ -463,6 +474,7 @@
 			qdel(Z)
 	else
 		to_chat(user, SPAN_WARNING("[src] is still recharging."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
