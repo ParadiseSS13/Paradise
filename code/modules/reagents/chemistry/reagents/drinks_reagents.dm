@@ -82,6 +82,7 @@
 	drink_name = "Glass of Beet Juice"
 	drink_desc = "Sweet as a 'sugar beet' would imply."
 	taste_description = "beet juice"
+	yuck_description = "sticky grit in your tubes"
 
 /datum/reagent/consumable/drink/plumjuice
 	name = "Plum Juice"
@@ -234,6 +235,7 @@
 	drink_name = "Nothing"
 	drink_desc = "Absolutely nothing."
 	taste_description = "nothing... how?"
+	yuck_description = "nothing... how?"
 
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -333,6 +335,7 @@
 	drink_name = "Glass of coffee"
 	drink_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
 	taste_description = "coffee"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -354,6 +357,7 @@
 	drink_name = "Iced Coffee"
 	drink_desc = "A drink to perk you up and refresh you!"
 	taste_description = "refreshingly cold coffee"
+	yuck_description = "cold grit in your tubes"
 
 /datum/reagent/consumable/drink/coffee/soy_latte
 	name = "Soy Latte"
@@ -365,6 +369,7 @@
 	drink_name = "Soy Latte"
 	drink_desc = "A nice and refrshing beverage while you are reading."
 	taste_description = "milkish coffee"
+	yuck_description = "sticky grit in your tubes"
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
@@ -384,6 +389,7 @@
 	drink_name = "Cafe Latte"
 	drink_desc = "A nice, strong and refreshing beverage while you are reading."
 	taste_description = "milky coffee"
+	yuck_description = "sticky grit in your tubes"
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -430,6 +436,7 @@
 	drink_name = "Glass of Tea"
 	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
 	taste_description = "tea"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -449,6 +456,7 @@
 	drink_name = "Iced Tea"
 	drink_desc = "No relation to a certain rap artist/ actor."
 	taste_description = "cold tea"
+	yuck_description = "cold grit in your tubes"
 
 /datum/reagent/consumable/drink/bananahonk
 	name = "Banana Honk"
@@ -497,6 +505,7 @@
 	drink_name = "Chocolate Pudding"
 	drink_desc = "A decadent chocolate dessert, in drinkable form."
 	taste_description = "chocolate"
+	yuck_description = "grime in your gears"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/vanillapudding
@@ -509,6 +518,7 @@
 	drink_name = "Vanilla Pudding"
 	drink_desc = "A rich vanilla dessert, in drinkable form."
 	taste_description = "vanilla"
+	yuck_description = "grime in your gears"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/cherryshake
@@ -583,6 +593,7 @@
 	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
 	taste_description = "refreshingly cold cocoa"
+	yuck_description = "cold grit in your tubes"
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/tonic
@@ -597,6 +608,7 @@
 	drink_name = "Glass of Tonic Water"
 	drink_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
 	taste_description = "bitterness"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/drink/sodawater
 	name = "Soda Water"
@@ -609,6 +621,7 @@
 	drink_name = "Glass of Soda Water"
 	drink_desc = "Soda water. Why not make a scotch and soda?"
 	taste_description = "fizz"
+	yuck_description = "fizz"
 
 /datum/reagent/consumable/drink/ice
 	name = "Ice"
@@ -620,6 +633,7 @@
 	drink_name = "Glass of ice"
 	drink_desc = "Generally, you're supposed to put something else in there too..."
 	taste_description = "cold"
+	yuck_description = "cold grit in your tubes"
 
 /datum/reagent/consumable/drink/ice/on_mob_life(mob/living/M)
 	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
@@ -851,6 +865,7 @@
 	drink_name = "Tapioca Pearls"
 	drink_desc = "This would go great with sugar, milk, and tea."
 	taste_description = "chewy starch"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/drink/tea/bubbletea
 	name = "Bubble Tea"
@@ -861,6 +876,7 @@
 	drink_desc = "You feel trendy for drinking this."
 	taste_description = "sweet tea with chewy pearls"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/drink/tea/milktea
 	name = "Milk Tea"
@@ -883,6 +899,7 @@
 	drink_desc = "You feel extra trendy for drinking this."
 	taste_description = "sweet milky tea with chewy pearls"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/drink/royrogers
 	name = "Roy Rogers"
@@ -992,6 +1009,7 @@
 	drink_desc = "The vinegar gives this far more bite than any ordinary person would drink straight."
 	taste_description = "vinegar"
 	goal_difficulty = REAGENT_GOAL_HARD
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/drink/berrybeetrefresher
 	name = "Berry Beet Refresher"
@@ -1184,7 +1202,9 @@
 	drink_icon = "tcp_sip_glass"
 	drink_name = "Glass of TCP Sip"
 	drink_desc = "A non-synthanolic refreshment for synthetics."
-	taste_description = "half-emptiness"
+	taste_description = "a little ping"
+	yuck_description = "horrible heartburn"
+	taste_flag = SYNTHETIC
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/drink/electrolytes/tcp_sip/on_mob_life(mob/living/M)
@@ -1286,6 +1306,8 @@
 	drink_name = "Glass of Bubbly Beep"
 	drink_desc = "The cleanest, bubbliest drink on the station."
 	taste_description = "decontamination"
+	yuck_description = "a mouthful of bitter soap"
+	taste_flag = SYNTHETIC
 	goal_difficulty = REAGENT_GOAL_NORMAL
 	process_flags = SYNTHETIC | ORGANIC
 	COOLDOWN_DECLARE(drink_message_cooldown)
@@ -1317,6 +1339,8 @@
 	drink_name = "Glass of Tin and Tonic"
 	drink_desc = "A good sip for a synthetic curious about quinine."
 	taste_description = "smoothly-running processors"
+	taste_flag = SYNTHETIC
+	yuck_description = "a cup of metal"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 	process_flags = SYNTHETIC | ORGANIC
 
@@ -1338,6 +1362,8 @@
 	drink_name = "Glass of Salt and Battery"
 	drink_desc = "Looks like it'll charge you up, but really it'll beat you down."
 	taste_description = "assault to the batteries"
+	taste_flag = SYNTHETIC
+	yuck_description = "a cup of metal"
 	goal_difficulty = REAGENT_GOAL_HARD
 	process_flags = SYNTHETIC | ORGANIC
 
@@ -1379,6 +1405,8 @@
 	drink_name = "Glass of Soft Reset"
 	drink_desc = "Have you tried turning it off and back on again?"
 	taste_description = "a little reboot"
+	taste_flag = SYNTHETIC
+	yuck_description = "forceful expectorant"
 	goal_difficulty = REAGENT_GOAL_HARD
 	process_flags = SYNTHETIC | ORGANIC
 	COOLDOWN_DECLARE(reboot_cooldown)
@@ -1505,6 +1533,7 @@
 	drink_name = "Glass of Castor Oil"
 	drink_desc = "Smells like beans."
 	taste_description = "beans"
+	yuck_description = "subpar lubricant"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/drink/castor/on_mob_life(mob/living/carbon/M)
@@ -1545,6 +1574,7 @@
 	drink_name = "Glass of Uncle Git's Special Milk"
 	drink_desc = "It is sticky and has a strong chlorine smell."
 	taste_description = "someone else's child"
+	yuck_description = "clumps in your motors"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/drink/peach_milkshake

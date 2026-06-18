@@ -93,6 +93,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 200 // Hyperglycaemic shock
 	taste_description = "sweetness"
+	yuck_description = "sticky grit"
 	taste_mult = 1.5
 	allowed_overdose_process = TRUE
 
@@ -126,6 +127,7 @@
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#792300" // rgb: 121, 35, 0
 	taste_description = "soy"
+	yuck_description = "subtle grit"
 	goal_department = "Kitchen"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -137,6 +139,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/mayonnaise
 	name = "Mayonnaise"
@@ -145,6 +148,7 @@
 	reagent_state = LIQUID
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	taste_description = "mayonnaise"
+	yuck_description = "stickiness in your tubes"
 	goal_department = "Kitchen"
 	goal_difficulty = REAGENT_GOAL_HARD
 
@@ -156,6 +160,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#D9A066" // rgb: 217, 160, 102
 	taste_description = "peanuts"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/bbqsauce
 	name = "BBQ Sauce"
@@ -166,6 +171,7 @@
 	color = "#78280A" // rbg: 120, 40, 10
 	taste_mult = 2.5
 	taste_description = "smokey sweetness"
+	yuck_description = "stickiness in your tubes"
 	goal_department = "Kitchen"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -180,6 +186,7 @@
 	addiction_threshold = 2
 	minor_addiction = TRUE
 	taste_description = SPAN_WARNING("HOTNESS")
+	yuck_description = "cosmetic component damage"
 	taste_mult = 1.5
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
@@ -240,6 +247,7 @@
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<span><font color='lightblue'>cold</font></span>"
+	yuck_description = "cosmetic component damage"
 
 /datum/reagent/consumable/frostoil/on_mob_life(mob/living/M)
 	switch(current_cycle)
@@ -281,6 +289,7 @@
 	overdose_threshold = 100
 	taste_mult = 2
 	taste_description = "salt"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/sodiumchloride/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -297,6 +306,7 @@
 	overdose_threshold = 100
 	taste_mult = 2
 	taste_description = "salt"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/potass_chloride/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -309,6 +319,7 @@
 	id = "blackpepper"
 	description = "A powder ground from peppercorns. *AAAACHOOO*"
 	taste_description = "pepper"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/cocoa
 	name = "Cocoa Powder"
@@ -317,6 +328,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#5F3A13"
 	taste_description = "bitter cocoa"
+	yuck_description = "powder coating"
 
 /datum/reagent/consumable/vanilla
 	name = "Vanilla"
@@ -325,6 +337,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#FEFEFE"
 	taste_description = "bitter vanilla"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/garlic
 	name = "Garlic Juice"
@@ -333,6 +346,7 @@
 	color = "#FEFEFE"
 	taste_description = "garlic"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -349,6 +363,7 @@
 	description = "Multi-colored little bits of sugar, commonly found on donuts. Loved by cops."
 	color = "#FF00FF" // rgb: 255, 0, 255
 	taste_description = "crunchy sweetness"
+	yuck_description = "sticky grit in your tubes"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -365,6 +380,7 @@
 	nutriment_factor = 20 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "oil"
+	yuck_description = "lubricant"
 
 /datum/reagent/consumable/olivepaste
 	name = "Olive Paste"
@@ -373,6 +389,7 @@
 	reagent_state = LIQUID
 	color = "#adcf77" //rgb: 173, 207, 119
 	taste_description = "mushy olives"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/oliveoil
 	name = "Olive Oil"
@@ -382,6 +399,7 @@
 	nutriment_factor = 10 * REAGENTS_METABOLISM
 	color = "#DBCF5C" //rgb: 219, 207, 92
 	taste_description = "olive oil"
+	yuck_description = "lubricant"
 	goal_department = "Kitchen"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -399,6 +417,7 @@
 	reagent_state = LIQUID
 	color = "#282314" // rgb: 54, 94, 48
 	taste_description = "sweetness"
+	yuck_description = "cosmetic component damage"
 	goal_department = "Kitchen"
 	goal_difficulty = REAGENT_GOAL_HARD
 
@@ -408,6 +427,7 @@
 	description = "Space age food, since August 25, 1958. Contains dried noodles, vegetables, and chemicals that boil in contact with water."
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "dry ramen coated with what might just be your tears"
+	yuck_description = "jams in your servos"
 
 /datum/reagent/consumable/hot_ramen
 	name = "Hot Ramen"
@@ -417,6 +437,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "cheap ramen and memories"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
@@ -431,6 +452,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "SPICY ramen"
+	yuck_description = "acidic grime in your gears"
 
 /datum/reagent/consumable/hell_ramen/on_mob_life(mob/living/M)
 	M.bodytemperature += 10 * TEMPERATURE_DAMAGE_COEFFICIENT
@@ -442,6 +464,7 @@
 	description = "This is what you rub all over yourself to pretend to be a ghost."
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "flour"
+	yuck_description = "powder coating"
 
 /datum/reagent/consumable/flour/reaction_turf(turf/T, volume)
 	if(!isspaceturf(T))
@@ -454,6 +477,7 @@
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "rice"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/cherryjelly
 	name = "Cherry Jelly"
@@ -462,6 +486,7 @@
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
 	taste_description = "cherry jelly"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/bluecherryjelly
 	name = "Blue Cherry Jelly"
@@ -470,6 +495,7 @@
 	reagent_state = LIQUID
 	color = "#00F0FF"
 	taste_description = "the blues"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/egg
 	name = "Egg"
@@ -478,6 +504,7 @@
 	reagent_state = LIQUID
 	color = "#F0C814"
 	taste_description = "eggs"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/egg/on_mob_life(mob/living/M)
 	if(prob(3))
@@ -491,6 +518,7 @@
 	reagent_state = LIQUID
 	color = "#ffeb91"
 	taste_description = "flour"
+	yuck_description = "powder coating"
 
 /datum/reagent/consumable/corn_syrup
 	name = "Corn Syrup"
@@ -499,6 +527,7 @@
 	reagent_state = LIQUID
 	color = "#ada537"
 	taste_description = "cheap sugar substitute"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 1.2)
@@ -511,6 +540,7 @@
 	reagent_state = LIQUID
 	color = "#484917"
 	taste_description = "diabetes"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/vhfcs/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 2.4)
@@ -524,6 +554,7 @@
 	color = "#d3a308"
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -539,6 +570,7 @@
 	description = "A strong tasting substance that can induce partial blindness."
 	color = "#c0c9a0"
 	taste_description = "pungency"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/onion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -563,6 +595,7 @@
 	drink_name = "Glass of chocolate"
 	drink_desc = "Tasty!"
 	taste_description = "chocolate"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
@@ -580,6 +613,7 @@
 	color = "#21170E"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "tea"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -603,6 +637,7 @@
 	overdose_threshold = 133
 	harmless = FALSE
 	taste_description = "bacon"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/porktonium/overdose_process(mob/living/M, severity)
 	if(prob(15))
@@ -621,6 +656,7 @@
 	metabolization_rate = 0.2
 	nutriment_factor = 2.5 * REAGENTS_METABOLISM
 	taste_description = "broth"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/cheese
 	name = "Cheese"
@@ -628,6 +664,7 @@
 	description = "Some cheese. Pour it out to make it solid."
 	color = "#FFFF00"
 	taste_description = "cheese"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/cheese/on_mob_life(mob/living/M)
 	if(prob(3))
@@ -651,6 +688,7 @@
 	minor_addiction = TRUE
 	harmless = FALSE
 	taste_description = "cheese?"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/fake_cheese/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -669,6 +707,7 @@
 	addiction_threshold = 5
 	minor_addiction = TRUE
 	taste_description = "cheeeeeese...?"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
 	if(prob(5))
@@ -685,6 +724,7 @@
 	description = "Some mushed up cheese curds. You're not quite sure why you did this."
 	color = "#FFFF00"
 	taste_description = "salty cheese"
+	yuck_description = "clogs in your servos"
 
 /datum/reagent/consumable/yogurt
 	name = "yogurt"
@@ -693,6 +733,7 @@
 	reagent_state = LIQUID
 	color = "#FFFFFF"
 	taste_description = "yogurt"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/beans
 	name = "Refried beans"
@@ -701,6 +742,7 @@
 	reagent_state = LIQUID
 	color = "#684435"
 	taste_description = "burritos"
+	yuck_description = "clogs in your servos"
 
 /datum/reagent/consumable/bread
 	name = "Bread"
@@ -708,6 +750,7 @@
 	description = "Bread! Yep, bread."
 	color = "#9C5013"
 	taste_description = "bread"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/consumable/soybeanoil
 	name = "Space-soybean oil"
@@ -716,6 +759,7 @@
 	reagent_state = LIQUID
 	color = "#B1B0B0"
 	taste_description = "oil"
+	yuck_description = "lubricant"
 
 /datum/reagent/consumable/soybeanoil/on_mob_life(mob/living/M)
 	if(prob(10))
@@ -735,6 +779,7 @@
 	harmless = FALSE
 	taste_description = "oil"
 	allowed_overdose_process = TRUE
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/on_mob_life(mob/living/M)
 	if(prob(15))
@@ -768,6 +813,7 @@
 	reagent_state = LIQUID
 	color = "#EBD7D7"
 	taste_description = "meat?"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/meatslurry/on_mob_life(mob/living/M)
 	if(prob(4))
@@ -785,6 +831,7 @@
 	description = "A starchy food paste made from boiled potatoes."
 	color = "#D6D9C1"
 	taste_description = "potatoes"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/gravy
 	name = "Gravy"
@@ -793,6 +840,7 @@
 	reagent_state = LIQUID
 	color = "#B4641B"
 	taste_description = "gravy"
+	yuck_description = "stickiness in your tubes"
 	goal_department = "Kitchen"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
@@ -803,6 +851,7 @@
 	reagent_state = LIQUID
 	color = "#80942F"
 	taste_description = "pungency"
+	yuck_description = "cosmetic component damage"
 
 /datum/reagent/consumable/wasabi/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -822,6 +871,7 @@
 	reagent_state = LIQUID
 	color = "#63DE63"
 	taste_description = "burned food"
+	yuck_description = "cosmetic component damage"
 
 /datum/reagent/questionmark/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
 	if(istype(H) && method == REAGENT_INGEST)
@@ -841,6 +891,7 @@
 	color = "#F5F5F5"
 	metabolization_rate = 0.2
 	taste_description = "excellent cuisine"
+	yuck_description = "grit in your tubes"
 	taste_mult = 4
 
 /datum/reagent/msg/on_mob_life(mob/living/M)
@@ -860,6 +911,7 @@
 	reagent_state = LIQUID
 	color = "#FFFAC8"
 	taste_description = "heart attack"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/cholesterol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -883,6 +935,7 @@
 	reagent_state = LIQUID
 	color = "#C87D28"
 	taste_description = "mold"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/fungus/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -904,6 +957,7 @@
 	color = "#8EAE7B"
 	process_flags = ORGANIC | SYNTHETIC		//Because apparently ghosts in the shell
 	taste_description = "spooks"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/ectoplasm/on_mob_life(mob/living/M)
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
@@ -931,6 +985,7 @@
 	description = "Soap, fit to clean the mouth of a sailor."
 	color = "#FFFFFF"
 	taste_description = "soap"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/soap/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_SOAPY_MOUTH, id)
@@ -947,6 +1002,7 @@
 	reagent_state = LIQUID
 	color = "#FFFF00"
 	taste_description = "puke"
+	yuck_description = "acidic grime in your gears"
 
 /datum/reagent/vomit/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
@@ -959,6 +1015,7 @@
 	reagent_state = LIQUID
 	color = "#78FF74"
 	taste_description = "puke"
+	yuck_description = "acidic grime in your gears"
 
 /datum/reagent/greenvomit/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
@@ -972,6 +1029,7 @@
 	description = "An ichor, derived from a certain mushroom, makes for a bad time."
 	color = "#1d043d"
 	taste_description = "bitter mushroom"
+	yuck_description = "acute stack failure"
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -992,6 +1050,7 @@
 	color = "#b5a213"
 	var/light_activated = FALSE
 	taste_description = "tingling mushroom"
+	yuck_description = "acidic prickles"
 
 /datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
 	if(!light_activated)
@@ -1009,6 +1068,7 @@
 	color = "#d3a308"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	taste_description = "fruity mushroom"
+	yuck_description = "sticky film on your surface"
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1024,6 +1084,7 @@
 	reagent_state = LIQUID
 	color = "#A7EE9F"
 	taste_description = "mint"
+	yuck_description = "cool grit in your tubes"
 
 /datum/reagent/consumable/vinegar
 	name = "Vinegar"
@@ -1032,6 +1093,7 @@
 	taste_description = "vinegar"
 	color = "#ffffff"
 	goal_department = "Kitchen"
+	yuck_description = "cosmetic component damage"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/tapioca_powder
@@ -1040,6 +1102,7 @@
 	description = "A starchy powder made by grinding up cassava. Would be good mixed with water."
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	taste_description = "starchy powder"
+	yuck_description = "powder coating"
 
 /datum/reagent/consumable/drytapioca_pearls
 	name = "Dry Tapioca Pearls"
@@ -1047,6 +1110,7 @@
 	description = "Small, hard balls of dried tapioca powder."
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	taste_description = "dry starchy pearls"
+	yuck_description = "grit in your tubes"
 
 // ----------- Reagents imported from Hispania!
 
@@ -1058,6 +1122,7 @@
 	color = "#fff98f" // rgb: 255, 249, 143
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	taste_description = "butter"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/guacamole
 	name = "guacamole"
@@ -1067,6 +1132,7 @@
 	color = "#32CD32"
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	taste_description = "avocado"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/consumable/discount_sauce
 	name = "discount sauce"
@@ -1076,6 +1142,7 @@
 	color = "#f4fffab3" // rgb: 255, 254, 244
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	taste_description = "sweet iron"
+	yuck_description = "high class machine oil"
 
 /datum/reagent/consumable/discount_sauce/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -1094,5 +1161,6 @@
 	color = "#f7f7f5"
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	taste_description = "sour"
+	yuck_description = "grime in your gears"
 
 // ----------- END of recipe imports from Hispania!
