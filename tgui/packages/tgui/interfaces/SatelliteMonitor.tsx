@@ -379,10 +379,76 @@ const DiskPanel = ({ satellite_data, inserted_disk }) => {
   );
 };
 
-const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite }) => {
+interface PlanetPanelProps {
+  satellites: Satellite[],
+  current_planet_base64: string,
+  current_background_base64: string,
+  selectedSatellite: Satellite
+}
+
+const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite } : PlanetPanelProps) => {
+  class SegmentList {
+    segments:Vector3[] = [];
+    ownerUID: any;
+  }
+
   const orbitZ = 15;
   const planetZ = 10;
   const backgroundZ = 5;
+
+  const scale = 0.7; // scale is just what looks good with the planet image used
+  const satelliteImageSize = 40;
+  const planetSize = 256;
+  const viewBox = '-300 -300 600 600';
+
+  let frontSegments:SegmentList[] = [];
+  let backSegments:SegmentList[] = [];
+  let currentSegment:SegmentList;
+
+
+  for (let i = 0; i < satellites.length; i++) {
+    let current_sat:Satellite = satellites[i];
+    currentSegment = new SegmentList;
+    currentSegment.ownerUID = current_sat.UID;
+
+    for (let j = 0; j < current_sat.orbit_data.planned_orbit.length - 1; j++) {
+
+      let current_element = current_sat.orbit_data.planned_orbit[j];
+      let next_element = current_sat.orbit_data.planned_orbit[j + 1];
+
+      if (Math.sign(current_element.z) === Math.sign(next_element.z)) // the planet is at 0,0 so if the segment shares a sign with the next, they must be on the same plane
+      {
+        currentSegment.segments.push(current_element);
+      }
+      else
+      {
+        if(current_element.z > 0)
+        {
+          frontSegments.push(currentSegment);
+        }
+        else
+        {
+          backSegments.push(currentSegment);
+        }
+
+        currentSegment = new SegmentList;
+        currentSegment.ownerUID = current_sat.UID;
+        currentSegment.segments.push(current_element);
+      }
+    }
+
+    if (currentSegment.segments.length > 0) {
+      if(currentSegment.segments[0].z > 0)
+      {
+        frontSegments.push(currentSegment);
+      }
+      else
+      {
+        backSegments.push(currentSegment);
+      }
+    }
+  }
+
   return (
     <Box m={-1} mt={'-0.7em'}>
       <Stack>
@@ -393,27 +459,11 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
             width: '100%',
             height: '100%',
             position: 'absolute',
-            zIndex: backgroundZ,
             objectFit: 'cover',
           }}
           src={`data:image/png;base64,${current_background_base64}`}
         />
       </Stack>
-      <Box height="100%">  {/*
-        <img
-          draggable={false}
-          style={{
-            userSelect: 'none',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            position: 'absolute',
-            zIndex: planetZ,
-          }}
-          src={`data:image/png;base64,${current_planet_base64}`}
-        />
-      */}
-      </Box>
       <Box
         width="100%"
         height="100%"
@@ -421,101 +471,71 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
           position: 'absolute',
           overflow: 'hidden',
         }}
-      >
-        {satellites.map((satellite: Satellite) => {
-
-          const scale = 0.7; // scale is just what looks good with the planet image used
-          const satelliteImageSize = 40;
-          const planetSize = 256;
-
-          let frontSegments:Vector3[][] = [];
-          let backSegments:Vector3[][] = [];
-          let currentSegment:Vector3[] = [];
-
-          for(let i = 0; i < satellite.orbit_data.planned_orbit.length - 1; i++) // we need to sort the path behind and in front of the planet to color it properly
+      >{
+        <Stack style={
           {
-            let current_sat = satellite.orbit_data.planned_orbit[i];
-            let next_sat = satellite.orbit_data.planned_orbit[i + 1];
-
-            if (Math.sign(current_sat.z) === Math.sign(next_sat.z)) // the planet is at 0,0 so if the segment shares a sign with the next, they must be on the same plane
-            {
-              currentSegment.push(current_sat);
-            }
-            else {
-              currentSegment = [];
-              if(current_sat.z > 0)
-              {
-                frontSegments.push(currentSegment);
-              }
-              else
-              {
-                backSegments.push(currentSegment);
-              }
-            }
+           width: "100%",
+           height: "100%",
+           position: "absolute",
           }
-
-          return (
-            <Stack key={satellite.name}>
-              <Stack
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: `translate(-50%, -50%) rotate(${satellite.orbit_data.inclination}deg)`,
-                  height: '100%',
-                  width: '100%',
-                  position: 'absolute',
-                  zIndex: orbitZ,
-                  border: 'none',
-                }}
-              >
-                <svg
-                  width={"100%"}
-                  height={"100%"}
-                  viewBox='-300 -300 600 600'
-                  preserveAspectRatio='xMidYMid meet'
-                  style={
-                    {
-                      height: '100%',
-                      width: '100%',
-                      position:'absolute',
-                      border: "1px solid orange",
-
-                    }
-                  }>
-                  <defs>
-                      <mask id="mask">
-                        {/*
-                        x and y are set to negative half the width and height as the pivot is in the upper left corner and we need to move it to the corner of the actual svg.
-                        Width and height are the values of the viewBox added together.
-                        */}
-                        <rect x="-450" y="-450" width={900} height={900} fill="white" />
-                        <circle cx="0" cy="0" r={planetSize / 2} fill="#AAAAAA" />
-                      </mask>
-                  </defs>
-                  {backSegments.map((segment, index) => (
-                    <polyline key={index}
-                      points={segment.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
-                      fill="none"
-                      stroke={(satellite.UID === selectedSatellite?.UID)? "green": "darkgrey"}
-                      strokeWidth={3}
-                    />
-                    ))}
-                  <image
-                    href={`data:image/png;base64,${current_planet_base64}`}
-                    x={-planetSize/2}
-                    y={-planetSize/2}
-                    width={planetSize}
-                    height={planetSize}
-                    />
-                  {frontSegments.map((segments, index) => (
-                    <polyline key={index}
-                      points={segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
-                      fill="none"
-                      stroke={(satellite.UID === selectedSatellite?.UID)? "lime": "grey"}
-                      strokeWidth={3}
-                    />
-                  ))}
-                  <image
+        }>
+        <Stack>
+          <svg width={"100%"}
+            height={"100%"}
+            viewBox={viewBox}
+            preserveAspectRatio='xMidYMid meet'
+            style={
+              {
+                height: '100%',
+                width: '100%',
+                position:'absolute',
+                border: "1px solid yellow",
+              }
+            }>
+            <mask id="mask">
+            {
+              /*
+              x and y are set to negative half the width and height as the pivot is in the upper left corner and we need to move it to the corner of the actual svg.
+              Width and height are the values of the viewBox added together.
+              */
+            }
+              <rect x="-450" y="-450" width={900} height={900} fill="white" />
+              <circle cx="0" cy="0" r={planetSize / 2} fill="#AAAAAA" />
+            </mask>
+            {
+            backSegments.map((segment, index) => {
+              return(
+              <polyline key={index}
+                  points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
+                  fill="none"
+                  stroke={(segment.ownerUID === selectedSatellite?.UID)? "green": "darkgrey"}
+                  strokeWidth={3}
+              />);
+              })
+            }
+            <image
+              href={`data:image/png;base64,${current_planet_base64}`}
+              x={-planetSize/2}
+              y={-planetSize/2}
+              width={planetSize}
+              height={planetSize}
+            />
+            {
+              frontSegments.map((segment, index) => {
+                return(
+                  <polyline key={index}
+                    points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
+                    fill="none"
+                    stroke={(segment.ownerUID === selectedSatellite?.UID)? "lime": "grey"}
+                    strokeWidth={3}
+                  />
+                );
+              })
+            }
+            {
+              satellites.map((satellite: Satellite) => {
+                return (
+                  <image key={satellite.name}
                     href={`data:image/png;base64,${current_planet_base64}`}
                     x={satellite.orbit_data.position?.x * scale - satelliteImageSize/2}
                     y={satellite.orbit_data.position?.y * scale - satelliteImageSize/2}
@@ -523,29 +543,15 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
                     height={`${satelliteImageSize}px`}
                     mask={satellite.orbit_data.position?.z > 0? "" : "url(#mask)"}
                   />
-                </svg>
+                );
+              })
+            }
+          </svg>
+        </Stack>
 
-                {/*
-                <img
-                  src={`data:image/png;base64,${current_planet_base64}`}
-                  draggable={false}
-                  style={{
-                    top: `calc(50% + ${satellite.orbit_data.position?.y * scale}px)`,
-                    left: `calc(50% + ${satellite.orbit_data.position?.x * scale}px)`,
-                    backgroundColor: (satellite.orbit_data?.position?.z > 1)? `cyan` : `blue`,
-                    width: '20px',
-                    height: '20px',
-                    position: 'absolute',
-                    zIndex: orbitZ + 5,
-                    border: 'none',
-                    userSelect: 'none',
-                  }}
-                />
-        */}
-              </Stack>
-            </Stack>
-          );
-        })}
+
+        </Stack>
+      }
       </Box>
     </Box>
   );
