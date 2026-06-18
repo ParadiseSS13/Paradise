@@ -237,9 +237,9 @@
 		wisp.orbit(wisp_friend, 20, lock_in_orbit = TRUE)
 		wisp.set_light(2)
 		to_chat(wisp_friend, SPAN_NOTICE("You release the wisp. It begins to bob around your head."))
-		wisp_friend.update_sight()
 		to_chat(wisp_friend, SPAN_NOTICE("The wisp enhances your vision."))
 		RegisterSignal(wisp_friend, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
+		wisp_friend.update_sight()
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 		return ITEM_INTERACT_COMPLETE
 
@@ -248,11 +248,17 @@
 // You can't just throw away the wisp's house. You're carrying that with you!
 /obj/item/wisp_lantern/dropped(mob/user, silent)
 	. = ..()
-	if(wisp?.loc != src)
-		// You can put it in your storage, but it must remain on your person.
-		if(isstorage(loc))
-			if(loc.loc == wisp_friend)
-				return
+	if(!wisp_friend)
+		return
+
+	// It's in our hands (dropped is called when items are removed from inventory slots WHYYYY!?)
+	if(user.is_holding(src))
+		return
+
+	// You can put it in your storage, but it must remain on your person.
+	if(isstorage(loc))
+		if(loc.loc == wisp_friend)
+			return
 
 		send_wisp_home()
 
