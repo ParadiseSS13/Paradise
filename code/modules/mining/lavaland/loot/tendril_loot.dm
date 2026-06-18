@@ -357,6 +357,7 @@
 		blue.linked = src
 
 //Meat Hook
+/obj/item/gun/magic/hook
 	name = "meat hook"
 	desc = "Mid or feed."
 	icon_state = "hook"
