@@ -231,6 +231,7 @@
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
+	origin_tech = "biotech=6;materials=6;magnets=4;programming=3"
 
 /obj/item/scalpel/laser/manager/Initialize(mapload)
 	. = ..()
