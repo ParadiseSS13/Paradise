@@ -142,6 +142,8 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 		new /datum/stack_recipe("tanned wallet", /obj/item/storage/wallet/tanned, 1),
 		new /datum/stack_recipe("black wallet", /obj/item/storage/wallet/black, 1),
 		new /datum/stack_recipe("white wallet", /obj/item/storage/wallet/white, 1),
+		new /datum/stack_recipe("pink wallet", /obj/item/storage/wallet/pink, 1),
+		new /datum/stack_recipe("tsf wallet", /obj/item/storage/wallet/tsf, 1),
 		new /datum/stack_recipe("toolbelt", /obj/item/storage/belt/utility, 4),
 		new /datum/stack_recipe("leather satchel", /obj/item/storage/backpack/satchel, 5),
 		new /datum/stack_recipe("briefcase", /obj/item/storage/briefcase, 4),
