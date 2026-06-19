@@ -230,7 +230,7 @@
 /datum/design/scalpel_laser
 	name = "Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks to be the pinnacle of precision energy cutlery!"
-	id = "scalpel_laser3"
+	id = "scalpel_laser"
 	req_tech = list("biotech" = 4, "materials" = 5, "magnets" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
