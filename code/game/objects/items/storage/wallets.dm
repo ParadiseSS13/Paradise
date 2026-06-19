@@ -111,6 +111,8 @@
 		"wallet_tanned",
 		"wallet_black",
 		"wallet_white",
+		"wallet_pink",
+		"wallet_tsf",
 	)
 
 /obj/item/storage/wallet/random/populate_contents()
@@ -142,3 +144,9 @@
 
 /obj/item/storage/wallet/white
 	icon_state = "wallet_white"
+
+/obj/item/storage/wallet/pink
+	icon_state = "wallet_pink"
+
+/obj/item/storage/wallet/tsf
+	icon_state = "wallet_tsf"
