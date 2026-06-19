@@ -20,6 +20,7 @@
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
+	orbit_data.data_processing_cooldown = 0 // allow immediate collection of data once launched
 	internal_name = name
 	orbit_data.stats = satellite_stats
 	orbit_data.owner = src
@@ -31,8 +32,8 @@
 		new /obj/item/satellite_component/engine/basic_engine,
 		new /obj/item/satellite_component/computer/basic
 	)
-	. = ..()
 	recalculate_stats()
+	. = ..()
 
 /obj/machinery/science_satellite/science/Initialize(mapload)
 	parts = list(
@@ -46,13 +47,12 @@
 		new /obj/item/satellite_component/misc_part/solar_panel,
 		new /obj/item/satellite_component/misc_part/solar_panel
 	)
-	. = ..()
 	recalculate_stats()
+	. = ..()
 
 /obj/machinery/science_satellite/update_overlays()
 	. = ..()
 	for(var/obj/item/satellite_component/part in parts)
-		log_debug("part.overlay_icon: [!!(part.overlay_icon)]")
 		if(!part.overlay_icon)
 			continue
 
@@ -98,6 +98,12 @@
 		satellite_stats.power_consumption += component.component_stats.power_consumption
 		satellite_stats.power_capacity += component.component_stats.power_capacity
 		satellite_stats.capabilities += component.component_stats.capabilities
+		log_debug("added capabilities: [component.component_stats.capabilities]")
+		if(component.component_stats.capabilities.len > 0)
+			log_debug("component.component_stats.capabilities 1: [component.component_stats.capabilities[1]]")
+
+	if(satellite_stats.capabilities.len > 0)
+		log_debug("capability 1: [satellite_stats.capabilities[1]]")
 
 	satellite_stats.current_fuel = satellite_stats.fuel_capacity
 	satellite_stats.current_power = satellite_stats.power_capacity

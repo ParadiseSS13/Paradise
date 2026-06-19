@@ -410,6 +410,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
   const satelliteImageSize = 40;
   const planetSize = 256;
   const viewBox = '-300 -300 600 600';
+  const weather_node_size = 32;
 
   let frontSegments:SegmentList[] = [];
   let backSegments:SegmentList[] = [];
@@ -559,16 +560,49 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               <text x={-290} y={-300} fill={"white"}>{`weather_nodes: (${weather_nodes})`}</text>
             }
             {
-              <text x={-290} y={-280} fill={"white"}>{`weather_nodes.length: (${weather_nodes.length})`}</text>
+              <text x={-290} y={-280} fill={"grey"}>{`Object.keys(weather_nodes[0]): (${Object.keys(weather_nodes[0])})`}</text>
             }
             {
-              <text x={-290} y={-260} fill={"white"}>{`weather_nodes.node_type: (${weather_nodes.node_type})`}</text>
+              <text x={-290} y={-260} fill={"white"}>{`weather_nodes[0].position: (${weather_nodes[0].position.x})`}</text>
+            }
+             {
+              <text x={-290} y={-240} fill={"grey"}>{`weather_nodes[1].position: (${weather_nodes[1].position.x})`}</text>
+            }
+            {/*
+              <text x={-290} y={-260} fill={"white"}>{`Object.keys(weather_nodes.position): (${Object.keys(weather_nodes.position)})`}</text>
+            */}
+            {
+              <text x={-290} y={-220} fill={"white"}>{`weather_nodes.length: (${weather_nodes.length})`}</text>
+            }
+            {/*
+              <text x={-290} y={-220} fill={"white"}>{`weather_nodes.node_type: (${weather_nodes.node_type})`}</text>
             }
             {
-              <text x={-290} y={-240} fill={"white"}>{`weather_nodes.position: (${weather_nodes.position.x})`}</text>
+              <text x={-290} y={-200} fill={"white"}>{`typeof(weather_nodes.position): (${typeof(weather_nodes.position)})`}</text>
             }
             {
-              <text x={-290} y={-220} fill={"white"}>{`weather_nodes[0]: (${weather_nodes[0]})`}</text>
+              <text x={-290} y={-180} fill={"white"}>{`weather_nodes.position == null: (${weather_nodes.position == null})`}</text>
+            }
+            {
+              <text x={-290} y={-160} fill={"white"}>{`weather_nodes[0]: (${weather_nodes[0]})`}</text>
+            */}
+            {
+              weather_nodes.map((weather_nodes, index) => {
+                return(
+                  <>
+                  <image key={index}
+                    href={`data:image/png;base64,${current_planet_base64}`}
+                    x={weather_nodes.position.x - weather_node_size/2}
+                    y={weather_nodes.position.y - weather_node_size/2}
+                    height={weather_node_size}
+                    width={weather_node_size}
+                  />
+                    <text x={weather_nodes.position.x - weather_node_size/2} y={weather_nodes.position.y - weather_node_size/2} fill={"white"}>{`${weather_nodes.node_type.slice(0, 2)}`}</text>
+                    {/* <text x={-290} y={-160 + index *20} fill={"white"}>{`weather_nodes.position: (${weather_nodes.position.x}, ${weather_nodes.position.y})`}</text>*/}
+
+                  </>
+                );
+              })
             }
             { /* Draw all satellites */
               satellites.map((satellite: Satellite) => {

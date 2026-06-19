@@ -128,16 +128,23 @@
 
 		var/list/pos_vec = list()
 		if(node.position)
-			pos_vec["x"] = node.position.x
-			pos_vec["y"] = node.position.y
-			pos_vec["z"] = node.position.z
+			pos_vec += list(
+				"x" = node.position.x,
+				"y" = node.position.y,
+				"z" = node.position.z,
+			)
+			//pos_vec["x"] = node.position.x
+			//pos_vec["y"] = node.position.y
+			//pos_vec["z"] = node.position.z
+		else
+			log_debug("[node.node_type] node.position was null! [node.position]")
 
 		this_node += list(
 			"position" = pos_vec,
 			"node_type" = node.node_type
 		)
 
-		weather_nodes += this_node
+		weather_nodes += list(this_node)
 
 	data["satellite_data"] = satellite_data
 	data["inserted_disk"] = istype(inserted_disk)

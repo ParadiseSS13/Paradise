@@ -15,8 +15,8 @@ SUBSYSTEM_DEF(science_satellite)
 	for(var/i = 0; i < weather_nodes_to_spawn; i++)
 		spawn_weather_node()
 
-	spawn_weather_node(vector(0, planet_radius, 0), /datum/weather_node/pole)
-	spawn_weather_node(vector(0, -planet_radius, 0), /datum/weather_node/pole)
+	spawn_weather_node(vector(0, planet_radius, 1), /datum/weather_node/pole)
+	spawn_weather_node(vector(0, -planet_radius, 1), /datum/weather_node/pole)
 	return
 
 /datum/controller/subsystem/science_satellite/proc/spawn_weather_node(vector/forced_location = null, datum/forced_node = null)
@@ -37,13 +37,12 @@ SUBSYSTEM_DEF(science_satellite)
 		var/random_distance = planet_radius * (rand(0,1000)/1000) ** 0.5
 		var/theta = (rand(0,1000)/1000) * 2 * PI // we divide here to get a random number with decimals
 
-		position_vector = vector(random_distance * cos(theta), random_distance * sin(theta),1) // set the z component here, as we dont care about it other than it beign positive (its positive so weather nodes will be visible to players)
-		weather_node_choice.position = position_vector
+		position_vector = vector(random_distance * cos(theta), random_distance * sin(theta), 1) // set the z component here, as we dont care about it other than it beign positive (its positive so weather nodes will be visible to players)
 
+	weather_node_choice.position = position_vector
 	active_weather_nodes += weather_node_choice
 
 /datum/controller/subsystem/science_satellite/fire()
-	log_debug("subsystem/science_satellite fired for [satellites.len] satellites ")
 	for(var/obj/machinery/science_satellite/satellite in satellites)
 		satellite.orbit_data.heartbeat(wait)
 
@@ -51,6 +50,8 @@ SUBSYSTEM_DEF(science_satellite)
 		for(var/obj/machinery/science_satellite/satellite in satellites)
 			if (!satellite.orbit_data.position)
 				continue
+
+			// TODO: Check cooldown
 
 			if(!weather_node.position)
 				continue

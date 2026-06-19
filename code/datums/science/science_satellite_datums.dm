@@ -53,7 +53,7 @@
 	var/list/planned_orbit = list()
 	var/should_update_orbit = TRUE
 
-	var/data_processing_cooldown = 60 SECONDS
+	var/data_processing_cooldown = 6 SECONDS
 
 /// Called by `SSscience_satellitel.dm` in order to make the satellite move
 /datum/orbit_data/proc/heartbeat(delta_time)
@@ -109,19 +109,21 @@
 		planned_orbit = path
 
 /datum/orbit_data/proc/process_weather_node(datum/weather_node/weather_node)
+	log_debug("stats.capabilities: [stats.capabilities.len]")
 	for(var/capability in stats.capabilities)
+		log_debug("capability: [capability]")
 		switch(capability)
 			if(SCIENCE_SATELLITE_HAS_METEOROLOGY)
 				if(istype(weather_node, /datum/weather_node/ash_storm) ||\
 				istype(weather_node, /datum/weather_node/wind) ||\
-				istype(weather_node, /datum/weather_node/acid_rain)
-				)
+				istype(weather_node, /datum/weather_node/acid_rain))
 					owner.collect_data(weather_node.science_yield)
+					data_processing_cooldown = initial(data_processing_cooldown)
 			if(SCIENCE_SATELLITE_HAS_MAGNETOMETER)
 				if(istype(weather_node, /datum/weather_node/volcanism) ||\
-				istype(weather_node, /datum/weather_node/pole)
-				)
+				istype(weather_node, /datum/weather_node/pole))
 					owner.collect_data(weather_node.science_yield)
+					data_processing_cooldown = initial(data_processing_cooldown)
 
 /datum/orbit_data/proc/calculate_physics_step(vector/pos, vector/vel)
 	var/dist = pos.size
@@ -190,8 +192,9 @@
 /datum/orbit_data/proc/add_maneuver(prograde, normal, time_to_maneuver, burn_time, radial = 0)
 	if(!has_been_launched)
 		for(var/capability in stats.capabilities)
+			log_debug("capability: [capability]")
 			if(capability == SCIENCE_SATELLITE_HAS_PLASMA_LAB)
-				owner.collect_data(50)
+				owner.collect_data(SCIENCE_YIELD_FROM_PLASMA_LAB)
 
 	has_been_launched = TRUE // TODO: Use launch call
 
