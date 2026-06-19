@@ -37,16 +37,8 @@
 			"Scumbag alert!",
 			"Threat detected!"
 		),
-		SPECIAL_LINES = list(
-			"Why y'all causin trouble in my town?",
-			"Fill your hands, you son of a bitch.",
-			"Aint nobody causin trouble in MY jurisdiction."
-		)
-
 	)
-	var/mob/living/basic/bot/secbot/ed209/my_bot = pawn
-	var/list/final_list = my_bot.sheriffized ? lines_to_pick[SPECIAL_LINES] : lines_to_pick[DEFAULT_LINES]
-	INVOKE_ASYNC(announcement, TYPE_PROC_REF(/datum/action/cooldown/bot_announcement, announce), pick(final_list))
+	INVOKE_ASYNC(announcement, TYPE_PROC_REF(/datum/action/cooldown/bot_announcement, announce), pick(lines_to_pick))
 
 /datum/ai_planning_subtree/arrest_target/ed209
 	arrest_behavior = /datum/ai_behavior/basic_melee_attack/interact_once/bot/ed209

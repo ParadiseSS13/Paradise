@@ -8,7 +8,7 @@
 	var/list/data = list()
 	data["powerStatus"] = bot_mode_flags & BOT_MODE_ON
 	data["locked"] = bot_access_flags & BOT_COVER_LOCKED
-	data["siliconUser"] = HAS_SILICON_ACCESS(user)
+	data["siliconUser"] = issilicon(user)
 	data["mode"] = mode ? "[mode]" : "Ready"
 	data["modeStatus"] = ""
 	switch(mode)
@@ -35,7 +35,7 @@
 /mob/living/basic/bot/mulebot/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	var/mob/user = ui.user
-	if(. || (bot_access_flags & BOT_COVER_LOCKED && !HAS_SILICON_ACCESS(user)))
+	if(. || (bot_access_flags & BOT_COVER_LOCKED && !issilicon(user)))
 		return
 
 	bot_control(action, user, params)

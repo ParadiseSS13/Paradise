@@ -2,7 +2,7 @@
 
 /datum/ai_controller/basic_controller/bot/repairbot
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/escape_captivity/pacifist,
+		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/repairbot_speech,
 		/datum/ai_planning_subtree/mug_robot,
 		/datum/ai_planning_subtree/refill_materials,
@@ -151,17 +151,17 @@
 	controller.set_blackboard_key(BB_REPAIRBOT_SPEECH_COOLDOWN, world.time + REPAIRBOT_SPEECH_TIMER)
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
-///subtree to replace iron platings
+/// subtree to replace iron platings
 /datum/ai_planning_subtree/replace_floors
-	///flag we check before executing
+	/// flag we check before executing
 	var/required_flag = REPAIRBOT_REPLACE_TILES
-	///key of our floor target
+	/// key of our floor target
 	var/floor_key = BB_TILELESS_FLOOR
-	///type of tile we need to replace floors
+	/// type of tile we need to replace floors
 	var/needed_tile_type = /obj/item/stack/tile
-	///type of floors we can replace
-	var/list/type_of_turf = list(/turf/open/floor/plating)
-	///our searching behavior
+	/// type of floors we can replace
+	var/list/type_of_turf = list(/turf/simulated/floor/plating)
+	/// our searching behavior
 	var/search_behavior = /datum/ai_behavior/bot_search/valid_plateless_turf
 
 /datum/ai_planning_subtree/replace_floors/New()
@@ -206,8 +206,8 @@
 ///subtree to fix hull breaches
 /datum/ai_planning_subtree/replace_floors/breaches
 	floor_key = BB_BREACHED_FLOOR
-	needed_tile_type = /obj/item/stack/tile/iron
-	type_of_turf = list(/turf/open/space)
+	needed_tile_type = /obj/item/stack/tile/plasteel
+	type_of_turf = list(/turf/space)
 	required_flag = REPAIRBOT_FIX_BREACHES
 	search_behavior = /datum/ai_behavior/bot_search/valid_plateless_turf/breached
 

@@ -92,7 +92,7 @@
 	/// drop determining variable
 	var/health_analyzer = /obj/item/healthanalyzer
 	/// drop determining variable
-	var/medkit_type = /obj/item/storage/medkit
+	var/medkit_type = /obj/item/storage/firstaid
 	///based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
 	var/skin = "generic"
 	/// How much healing do we do at a time?
@@ -177,7 +177,7 @@
 
 /mob/living/basic/bot/medbot/on_craft_completion(list/components, datum/crafting_recipe/current_recipe, atom/crafter)
 	. = ..()
-	var/obj/item/storage/medkit/medkit = locate() in contents
+	var/obj/item/storage/firstaid/medkit = locate() in contents
 	medkit_type = medkit
 	health_analyzer = locate(/obj/item/healthanalyzer) in contents
 	skin = medkit.get_medbot_skin()
@@ -197,7 +197,7 @@
 		. += mutable_appearance(icon, "[base_icon_state]_overlay_wheels")
 
 	var/mode_suffix = mode == BOT_HEALING ? "active" : "idle"
-	if (HAS_TRAIT(src, TRAIT_DEFACED))
+	if(HAS_TRAIT(src, TRAIT_DEFACED))
 		var/mutable_appearance/face = mutable_appearance('icons/mob/silicon/aibot_faces.dmi', "medbot_[mode_suffix]")
 		face.color = painted_face_colour
 		. += face
@@ -232,7 +232,7 @@
 // Variables sent to TGUI
 /mob/living/basic/bot/medbot/ui_data(mob/user)
 	var/list/data = ..()
-	if(!(bot_access_flags & BOT_COVER_LOCKED) || HAS_SILICON_ACCESS(user))
+	if(!(bot_access_flags & BOT_COVER_LOCKED) || issilicon(user))
 		data["custom_controls"]["heal_threshold"] = heal_threshold
 		data["custom_controls"]["speaker"] = medical_mode_flags & MEDBOT_SPEAK_MODE
 		data["custom_controls"]["crit_alerts"] = medical_mode_flags & MEDBOT_DECLARE_CRIT
@@ -243,7 +243,7 @@
 /mob/living/basic/bot/medbot/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	var/mob/user = ui.user
-	if(. || !isliving(ui.user) || (bot_access_flags & BOT_COVER_LOCKED) && !HAS_SILICON_ACCESS(user))
+	if(. || !isliving(ui.user) || (bot_access_flags & BOT_COVER_LOCKED) && !issilicon(user))
 		return
 	switch(action)
 		if("heal_threshold")
@@ -338,7 +338,7 @@
 	if(DOING_INTERACTION(src, TEND_DAMAGE_INTERACTION))
 		return
 
-	if (!(bot_access_flags & BOT_COVER_EMAGGED))
+	if(!(bot_access_flags & BOT_COVER_EMAGGED))
 		if((damage_type_healer == HEAL_ALL_DAMAGE && patient.get_total_damage() <= heal_threshold) || (!(damage_type_healer == HEAL_ALL_DAMAGE) && patient.get_current_damage_of_type(damage_type_healer) <= heal_threshold))
 			to_chat(src, "[patient] is healthy! Your programming prevents you from tending the wounds of anyone with less than [heal_threshold + 1] [damage_type_healer == HEAL_ALL_DAMAGE ? "total" : damage_type_healer] damage.")
 			return
@@ -350,7 +350,7 @@
 		return
 	var/modified_heal_amount = heal_amount * heal_multiplier
 	var/done_healing = FALSE
-	if(damage_type_healer == BRUTE && medkit_type == /obj/item/storage/medkit/brute)
+	if(damage_type_healer == BRUTE && medkit_type == /obj/item/storage/firstaid/brute)
 		modified_heal_amount *= 1.1
 	if(bot_access_flags & BOT_COVER_EMAGGED)
 		patient.reagents?.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)

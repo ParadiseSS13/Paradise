@@ -18,6 +18,7 @@
 		/datum/ai_planning_subtree/find_patrol_beacon,
 	)
 	max_target_distance = AI_BOT_PATH_LENGTH
+	ai_traits = AI_FLAG_PAUSE_DURING_DO_AFTER
 	can_idle = FALSE
 	///minimum distance we need to be from our target in path calculations
 	var/minimum_distance = 0
@@ -112,7 +113,7 @@
 		return TRUE
 	if(get_turf(pawn) == get_turf(target))
 		return TRUE
-	var/list/path = get_path_to(pawn, target, simulated_only = !HAS_TRAIT(pawn, TRAIT_SPACEWALK), mintargetdist = minimum_distance, max_distance = distance, access = get_access())
+	var/list/path = get_path_to(pawn, target, simulated_only = !HAS_TRAIT(pawn, TRAIT_FLYING), mintargetdist = minimum_distance, max_distance = distance, access = get_access())
 	return (!!length(path))
 
 /datum/ai_planning_subtree/find_patrol_beacon
@@ -227,7 +228,7 @@
 	var/mob/living/basic/bot/bot_pawn = controller.pawn
 	if(QDELETED(bot_pawn)) // pawn can be null at this point
 		return ..()
-	bot_pawn.calling_ai_ref = null
+	bot_pawn.calling_ai = null
 	bot_pawn.update_bot_mode(new_mode = BOT_IDLE)
 	return ..()
 
@@ -249,7 +250,7 @@
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 	action_cooldown = BOT_COMMISSIONED_SALUTE_DELAY
 
-/datum/ai_behavior/find_and_set/valid_authority/search_tactic(datum/ai_controller/controller, locate_path, search_range = SEARCH_TACTIC_DEFAULT_RANGE)
+/datum/ai_behavior/find_and_set/valid_authority/search_tactic(datum/ai_controller/controller, locate_path, search_range = 7)
 	for(var/mob/living/nearby_mob in oview(search_range, controller.pawn))
 		return nearby_mob
 	return null

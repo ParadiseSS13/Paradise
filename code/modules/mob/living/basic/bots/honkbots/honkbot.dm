@@ -63,32 +63,50 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 0.2 SECONDS)
 
 /mob/living/basic/bot/secbot/honkbot/post_arrest(mob/living/carbon/current_target)
-	playsound(src, (bot_access_flags & BOT_COVER_EMAGGED ? SFX_HONKBOT_E : 'sound/items/bikehorn.ogg'), 50, FALSE)
+	var/emagged_sounds = list(
+		'sound/effects/pray.ogg',
+		'sound/items/airhorn.ogg',
+		'sound/items/airhorn2.ogg',
+		'sound/items/bikehorn.ogg',
+		'sound/items/weeoo1.ogg',
+		'sound/machines/buzz-sigh.ogg',
+		'sound/machines/ping.ogg',
+		'sound/magic/fireball.ogg',
+		'sound/misc/sadtrombone.ogg',
+		'sound/voice/beepsky/creep.ogg',
+		'sound/voice/beepsky/iamthelaw.ogg',
+		'sound/voice/hiss1.ogg',
+		'sound/weapons/bladeslice.ogg',
+		'sound/weapons/flashbang.ogg',
+	)
+	playsound(src, (bot_access_flags & BOT_COVER_EMAGGED ? pick(emagged_sounds) : 'sound/items/bikehorn.ogg'), 50, FALSE)
 	icon_state = bot_access_flags & BOT_COVER_EMAGGED ? "[base_icon_state]-e" : "[base_icon_state]-c"
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 	audible_message(SPAN_DANGER("[src] gives out an evil laugh!"))
-	playsound(src, 'sound/voice/honkbot/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
+	playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 
 /mob/living/basic/bot/secbot/honkbot/retrieve_emag_message()
 	audible_message(SPAN_DANGER("[src] gives out an evil laugh!"))
-	playsound(src, 'sound/voice/honkbot/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
+	playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 
 /mob/living/basic/bot/secbot/honkbot/post_stun(mob/living/carbon/current_target)
 	if(!istype(current_target))
 		return
 
-	current_target.set_stutter(40 SECONDS)
-	current_target.set_jitter_if_lower(100 SECONDS)
-	set_attacking_state()
+	if(current_target.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
+		return
 	if(HAS_TRAIT(current_target, TRAIT_DEAF))
 		return
-
-	sound_damage(deafen = 10 SECONDS)
+	current_target.SetStuttering(40 SECONDS) // stammer
+	current_target.Deaf(5 SECONDS) // far less damage than the H.O.N.K.
+	current_target.Jitter(100 SECONDS)
+	current_target.Weaken(10 SECONDS)
+	set_attacking_state()
 
 /mob/living/basic/bot/secbot/honkbot/ui_data(mob/user)
 	var/list/data = ..()
-	if(!(bot_access_flags & BOT_COVER_LOCKED) || HAS_SILICON_ACCESS(user))
+	if(!(bot_access_flags & BOT_COVER_LOCKED) || issilicon(user))
 		data["custom_controls"]["slip_people"] = security_mode_flags & HONKBOT_MODE_SLIP
 		data["custom_controls"]["fake_cuff"] = security_mode_flags & SECBOT_HANDCUFF_TARGET
 		data["custom_controls"]["check_ids"] = security_mode_flags & SECBOT_CHECK_IDS
@@ -98,7 +116,7 @@
 /mob/living/basic/bot/secbot/honkbot/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	var/mob/user = ui.user
-	if(. || !isliving(user) || (bot_access_flags & BOT_COVER_LOCKED) && !HAS_SILICON_ACCESS(user))
+	if(. || !isliving(user) || (bot_access_flags & BOT_COVER_LOCKED) && !issilicon(user))
 		return
 	switch(action)
 		if("slip_people")
@@ -111,9 +129,6 @@
 			security_mode_flags ^= SECBOT_CHECK_RECORDS
 
 /mob/living/basic/bot/secbot/honkbot/retrieve_secbot_drops(atom/drop_location)
-	var/obj/item/bot_assembly/honkbot/honkbot_assembly = new(drop_location)
-	honkbot_assembly.build_step = ASSEMBLY_FIRST_STEP
-	honkbot_assembly.created_name = name
 	new /obj/item/assembly/prox_sensor(drop_location)
 	drop_part(baton_type, drop_location)
 

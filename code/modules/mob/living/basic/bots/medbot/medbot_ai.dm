@@ -66,7 +66,7 @@
 				controller.set_if_can_reach(key = BB_PATIENT_TARGET, target = treatable_target, distance = BOT_PATIENT_PATH_LIMIT, bypass_add_to_blacklist = (search_range == 1))
 				break
 			continue
-		if(treatable_target.get_current_damage_of_type(damagetype = heal_type) > threshold)
+		if(treatable_target.get_damage_amount(damagetype = heal_type) > threshold)
 			controller.set_if_can_reach(key = BB_PATIENT_TARGET, target = treatable_target, distance = BOT_PATIENT_PATH_LIMIT, bypass_add_to_blacklist = (search_range == 1))
 			break
 
@@ -101,7 +101,7 @@
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 	var/mob/living/basic/bot/bot_pawn = controller.pawn
-	if(patient.stat >= HARD_CRIT && prob(5))
+	if(patient.stat >= UNCONSCIOUS && prob(5))
 		var/datum/action/cooldown/bot_announcement/announcement = controller.blackboard[BB_ANNOUNCE_ABILITY]
 		announcement?.announce(pick(controller.blackboard[BB_NEAR_DEATH_SPEECH]))
 	bot_pawn.melee_attack(patient)
@@ -129,7 +129,7 @@
 /datum/ai_behavior/tend_to_patient/proc/check_if_healed(mob/living/carbon/human/patient, threshold, damage_type_healer, access_flags)
 	if(access_flags & BOT_COVER_EMAGGED)
 		return (patient.stat > CONSCIOUS)
-	var/patient_damage = (damage_type_healer == HEAL_ALL_DAMAGE) ? patient.get_total_damage() : patient.get_current_damage_of_type(damagetype = damage_type_healer)
+	var/patient_damage = (damage_type_healer == HEAL_ALL_DAMAGE) ? patient.get_total_damage() : patient.get_damage_amount(damagetype = damage_type_healer)
 	return (patient_damage <= threshold)
 
 
@@ -167,7 +167,7 @@
 		speech_to_pick_from = controller.blackboard[BB_IDLE_SPEECH]
 	var/mob/living/living_pawn = controller.pawn
 
-	if(locate(/obj/item/clothing/head/costume/chicken) in living_pawn)
+	if(locate(/obj/item/clothing/head/chicken) in living_pawn)
 		speech_to_pick_from += MEDIBOT_VOICED_CHICKEN
 
 	if(!length(speech_to_pick_from))

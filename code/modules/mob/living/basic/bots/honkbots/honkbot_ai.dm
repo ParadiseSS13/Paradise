@@ -119,7 +119,7 @@
 /datum/ai_behavior/bot_search/slip_target
 
 /datum/ai_behavior/bot_search/slip_target/valid_target(datum/ai_controller/basic_controller/bot/controller, mob/living/my_target)
-	return (!my_target.buckled && my_target.mob_has_gravity(get_turf(living_pawn)))
+	return (!my_target.buckled && my_target.mob_has_gravity(get_turf(controller.pawn)))
 
 /datum/ai_behavior/drag_to_slip
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION

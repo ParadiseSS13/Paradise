@@ -58,8 +58,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 	var/hackables = "system circuits"
 	///Standardizes the vars that indicate the bot is busy with its function.
 	var/mode = BOT_IDLE
-	///Links a bot to the AI calling it.
-	var/calling_ai_ref
+	/// Links a bot to the AI calling it.
+	var/calling_ai
 	/// The bot's radio, for speaking to people.
 	var/obj/item/radio/Radio
 	/// Which channels can the bot listen to
@@ -111,7 +111,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 	AddElement(/datum/element/ai_retaliate)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(handle_loop_movement))
 	RegisterSignal(src, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(after_attacked))
-	RegisterSignal(src, COMSIG_MOB_RETRIEVE_ACCESS, PROC_REF(retrieve_access))
 	GLOB.bots_list += src
 
 	add_language("Galactic Common", 1)
@@ -139,9 +138,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 	access_card.access += ACCESS_ROBOTICS
 	Radio = new/obj/item/radio/headset/bot(src)
 	Radio.follow_target = src
-	provide_additional_access()
-	if(radio_key)
-		Radio.keyslot1 = new radio_key
 
 	//Adds bot to the diagnostic HUD system
 	prepare_huds()
@@ -195,30 +191,30 @@ GLOBAL_LIST_INIT(command_strings, list(
 	return "[mode]"
 
 /**
- * Returns a string of flavor text for emagged bots as defined by policy.
+ * Returns a string of flavor text for emagged bots.
  */
 /mob/living/basic/bot/proc/get_emagged_message()
-	return get_policy(ROLE_EMAGGED_BOT) || "You are a malfunctioning bot! Disrupt everyone and cause chaos!"
+	return "You are a malfunctioning bot! Disrupt everyone and cause chaos!"
 
 /mob/living/basic/bot/proc/turn_on(mob/user)
 	if(stat == DEAD)
 		return FALSE
 	set_mode_flags(bot_mode_flags | BOT_MODE_ON)
 	remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED))
-	set_light_on(bot_mode_flags & BOT_MODE_ON ? TRUE : FALSE)
+	set_light(bot_mode_flags & BOT_MODE_ON ? initial(light_range) : 0)
 	update_appearance()
 	diag_hud_set_botstat()
 	return TRUE
 
 /mob/living/basic/bot/proc/turn_off()
 	set_mode_flags(bot_mode_flags & ~BOT_MODE_ON)
-	set_light_on(bot_mode_flags & BOT_MODE_ON ? TRUE : FALSE)
-	bot_reset() //Resets an AI's call, should it exist.
+	set_light(bot_mode_flags & BOT_MODE_ON ? initial(light_range) : 0)
+	bot_reset() // Resets an AI's call, should it exist.
 	update_appearance()
 
 /mob/living/basic/bot/Destroy()
 	GLOB.bots_list -= src
-	calling_ai_ref = null
+	calling_ai = null
 	clear_path_hud()
 	QDEL_NULL(paicard)
 	QDEL_NULL(pa_system)
@@ -228,7 +224,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /// Returns true if this mob can be controlled
 /mob/living/basic/bot/proc/check_possession(mob/potential_possessor)
-	if (!can_be_possessed)
+	if(!can_be_possessed)
 		to_chat(potential_possessor, SPAN_WARNING("The bot's personality download has been disabled!"))
 	return can_be_possessed
 
@@ -241,25 +237,24 @@ GLOBAL_LIST_INIT(command_strings, list(
 /// Allows renaming the bot to something else
 /mob/living/basic/bot/proc/rename(mob/user)
 	var/new_name = sanitize_text(
-		reject_bad_text(tgui_input_text(
+		tgui_input_text(
 			user = user,
 			message = "This machine is designated [real_name]. Would you like to update [p_their()] registration?",
 			title = "Name change",
 			default = real_name,
 			max_length = MAX_NAME_LEN,
-		)),
-		allow_numbers = TRUE,
+		)
 	)
-	if (isnull(new_name) || QDELETED(src))
+	if(isnull(new_name) || QDELETED(src))
 		return
-	if (key && user != src)
+	if(key && user != src)
 		var/accepted = tgui_alert(
 			src,
 			message = "Do you wish to be renamed to [new_name]?",
 			title = "Name change",
 			buttons = list("Yes", "No"),
 		)
-		if (accepted != "Yes" || QDELETED(src))
+		if(accepted != "Yes" || QDELETED(src))
 			return
 	name = new_name
 	real_name = new_name
@@ -320,16 +315,16 @@ GLOBAL_LIST_INIT(command_strings, list(
 	else
 		. += "[src] is in pristine condition."
 
-	. += SPAN_NOTICE("[p_Their()] maintenance panel is [bot_access_flags & BOT_COVER_MAINTS_OPEN ? "open" : "closed"].")
+	. += SPAN_NOTICE("[p_their()] maintenance panel is [bot_access_flags & BOT_COVER_MAINTS_OPEN ? "open" : "closed"].")
 	. += SPAN_INFO("You can use a <b>screwdriver</b> to [bot_access_flags & BOT_COVER_MAINTS_OPEN ? "close" : "open"] [p_them()].")
 
 	if(bot_access_flags & BOT_COVER_MAINTS_OPEN)
-		. += SPAN_NOTICE("[p_Their()] control panel is [bot_access_flags & BOT_COVER_LOCKED ? "locked" : "unlocked"].")
+		. += SPAN_NOTICE("[p_their()] control panel is [bot_access_flags & BOT_COVER_LOCKED ? "locked" : "unlocked"].")
 		if(!(bot_access_flags & BOT_COVER_EMAGGED) && (issilicon(user) || user.Adjacent(src)))
 			. += SPAN_INFO("Alt-click [issilicon(user) ? "" : "or use your ID on "][p_them()] to [bot_access_flags & BOT_COVER_LOCKED ? "un" : ""]lock [p_their()] control panel.")
 	if(isnull(paicard))
 		return
-	. += SPAN_NOTICE("[p_They()] [p_have()] a pAI device installed.")
+	. += SPAN_NOTICE("[p_they()] [p_have()] a pAI device installed.")
 	if(!(bot_access_flags & BOT_COVER_MAINTS_OPEN))
 		. += SPAN_INFO("You can use a <b>hemostat</b> to remove it.")
 
@@ -437,7 +432,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /mob/living/basic/bot/emp_act(severity)
 	. = ..()
-	var/was_on = mode
 	stat |= EMPED
 	var/obj/effect/overlay/pulse2 = new/obj/effect/overlay ( loc )
 	pulse2.icon = 'icons/effects/effects.dmi'
@@ -469,10 +463,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 		say(message)
 	return
 
-/mob/living/basic/bot/radio(message, list/message_mods = list(), list/spans, language)
-	. = ..()
-	if(.)
-		return
+/mob/living/basic/bot/proc/radio(message, list/message_mods = list(), list/spans, language)
+	return
 
 /mob/living/basic/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	var/obj/item/item_to_drop
@@ -499,18 +491,18 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /mob/living/basic/bot/proc/bot_reset(bypass_ai_reset = FALSE)
 	SEND_SIGNAL(src, COMSIG_BOT_RESET)
-	access_card.set_access(initial_access)
+	access_card.access = initial_access
 	update_bot_mode(new_mode = src::mode)
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 	clear_path_hud()
-	if(bypass_ai_reset || isnull(calling_ai_ref))
+	if(bypass_ai_reset || isnull(calling_ai))
 		return
-	var/mob/living/ai_caller = calling_ai_ref.resolve()
+	var/mob/living/ai_caller = calling_ai
 	if(isnull(ai_caller))
 		return
 	to_chat(ai_caller, SPAN_DANGER("Call command to a bot has been reset."))
-	calling_ai_ref = null
+	calling_ai = null
 
 //PDA control. Some bots, especially MULEs, may have more parameters.
 /mob/living/basic/bot/proc/bot_control(command, mob/user, list/user_access = list())
@@ -628,35 +620,28 @@ GLOBAL_LIST_INIT(command_strings, list(
 /// Places a pAI in control of this mob
 /mob/living/basic/bot/proc/insertpai(mob/user, obj/item/paicard/card)
 	if(paicard)
-		balloon_alert(user, "slot occupied!")
+		to_chat(user, SPAN_WARNING("The PAI slot is occupied!"))
 		return
 	if(key)
-		balloon_alert(user, "personality already present!")
+		to_chat(user, SPAN_WARNING("The PAI personality is already online!"))
 		return
 	if(!(bot_access_flags & BOT_COVER_MAINTS_OPEN))
-		balloon_alert(user, "slot inaccessible!")
+		to_chat(user, SPAN_WARNING("You can't access the PAI slot!"))
 		return
 	if(!(bot_mode_flags & BOT_MODE_CAN_BE_SAPIENT))
-		balloon_alert(user, "incompatible firmware!")
+		to_chat(user, SPAN_WARNING("The bot's firmware is not compatible with your PAI card."))
 		return
 	if(isnull(card.pai?.mind))
-		balloon_alert(user, "pAI is inactive!")
+		to_chat(user, SPAN_WARNING("You have no active PAI in the card!"))
 		return
-	if(!user.transferItemToLoc(card, src))
-		return
+	card.forceMove(src)
 	paicard = card
-	paicard.pai.fold_in()
-	copy_languages(paicard.pai, source_override = LANGUAGE_PAI)
-	set_active_language(paicard.pai.get_selected_language())
-	user.visible_message(SPAN_NOTICE("[user] inserts [card] into [src]!"), SPAN_NOTICE("You insert [card] into [src]."))
+	user.visible_message("[user] inserts [card] into [src]!", SPAN_NOTICE("You insert [card] into [src]."))
 	paicard.pai.mind.transfer_to(src)
 	to_chat(src, SPAN_NOTICE("You sense your form change as you are uploaded into [src]."))
 	name = paicard.pai.name
-	original_faction = get_faction()
-	original_allies = allies
-	SET_FACTION_AND_ALLIES_FROM(src, user)
-	log_combat(user, paicard.pai, "uploaded to [initial(src.name)],")
-	return TRUE
+	faction = user.faction
+	add_attack_logs(user, paicard.pai, "Uploaded to [src.name]")
 
 /mob/living/basic/bot/ghost()
 	if(stat != DEAD) // Only ghost if we're doing this while alive, the pAI probably isn't dead yet.
@@ -666,27 +651,23 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /// Ejects a pAI from this bot
 /mob/living/basic/bot/proc/ejectpai(mob/user = null, announce = TRUE)
-	if(isnull(paicard))
-		return
-
-	if(paicard.pai)
-		if(isnull(mind))
+	if(paicard)
+		if(mind && paicard.pai)
 			mind.transfer_to(paicard.pai)
-	else
-		ghostize(FALSE) // The pAI card that just got ejected was dead.
-
-	key = null
-	paicard.forceMove(drop_location())
-	var/to_log = user ? user : src
-	log_attack(to_log, paicard.pai, "ejected [user ? "from [initial(name)]" : ""].")
-	if(announce)
-		to_chat(paicard.pai, SPAN_NOTICE("You feel your control fade as [paicard] ejects from [initial(name)]."))
-	paicard = null
-	name = initial(name)
-	set_faction(original_faction)
-	set_allies(original_allies)
-	remove_all_languages(source = LANGUAGE_PAI)
-	get_selected_language()
+		else if(paicard.pai)
+			paicard.pai.key = key
+		else
+			ghostize(GHOST_FLAGS_OBSERVE_ONLY) // The pAI card that just got ejected was dead.
+		key = null
+		paicard.forceMove(loc)
+		if(user)
+			add_attack_logs(user, paicard.pai, "Ejected from [src],")
+		else
+			add_attack_logs(src, paicard.pai, "Ejected")
+		if(announce)
+			to_chat(paicard.pai, SPAN_NOTICE("You feel your control fade as [paicard] ejects from [src]."))
+		paicard = null
+		faction = initial(faction)
 
 /// Ejects the pAI remotely.
 /mob/living/basic/bot/proc/eject_pai_remote(mob/user)
@@ -718,20 +699,11 @@ GLOBAL_LIST_INIT(command_strings, list(
 /mob/living/basic/bot/rust_heretic_act()
 	adjustBruteLoss(400)
 
-/mob/living/basic/bot/proc/retrieve_access(mob/bot, list/player_access)
-	SIGNAL_HANDLER
-	player_access += access_card.GetAccess()
+/mob/living/basic/bot/get_access()
+	return access_card.GetAccess()
 
 /mob/living/basic/bot/proc/generate_speak_list()
 	return null
-
-/mob/living/basic/bot/proc/provide_additional_access()
-	var/datum/id_trim/additional_trim = SSid_access.trim_singletons_by_path[additional_access]
-	if(isnull(additional_trim))
-		return
-	access_card.access += (additional_trim.access + additional_trim.wildcard_access)
-	initial_access = access_card.access.Copy()
-
 
 /mob/living/basic/bot/proc/summon_bot(atom/summoner, turf/turf_destination, user_access = list(), grant_all_access = FALSE)
 	if(is_ai(summoner) && !set_ai_caller(summoner))
@@ -739,8 +711,8 @@ GLOBAL_LIST_INIT(command_strings, list(
 	bot_reset(bypass_ai_reset = is_ai(summoner))
 	var/turf/destination = turf_destination ? turf_destination : get_turf(summoner)
 	ai_controller?.set_blackboard_key(BB_BOT_SUMMON_TARGET, destination)
-	var/list/access_to_grant = grant_all_access ? REGION_ACCESS_ALL_STATION : user_access + initial_access
-	access_card.set_access(access_to_grant)
+	var/list/access_to_grant = grant_all_access ? get_all_accesses() : user_access + initial_access
+	access_card.access = access_to_grant
 	speak("Responding.", radio_channel)
 	update_bot_mode(new_mode = BOT_SUMMON)
 	if(client) //if we're sentient, we reset ourselves after a short period
@@ -748,10 +720,9 @@ GLOBAL_LIST_INIT(command_strings, list(
 	return TRUE
 
 /mob/living/basic/bot/proc/set_ai_caller(mob/living/ai_caller)
-	var/atom/calling_ai = calling_ai_ref?.resolve()
 	if(!isnull(calling_ai) && calling_ai != src)
 		return FALSE
-	calling_ai_ref = WEAKREF(ai_caller)
+	calling_ai = ai_caller
 	return TRUE
 
 /mob/living/basic/bot/proc/update_bot_mode(new_mode, update_hud = TRUE)
@@ -764,7 +735,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	SIGNAL_HANDLER
 
 	if(attack_flags & ATTACKER_DAMAGING_ATTACK)
-		do_sparks(number = 5, 4, source = src)
+		do_sparks(5, 4, source = src)
 
 /mob/living/basic/bot/proc/emag_effects(user)
 	return

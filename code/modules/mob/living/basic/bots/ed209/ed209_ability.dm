@@ -12,8 +12,8 @@
 
 /datum/action/cooldown/mob_cooldown/ed209_charge/Activate(atom/target)
 	var/turf/target_turf = get_turf(target)
-	if(isclosedturf(target_turf) || isspaceturf(target_turf))
-		owner.balloon_alert(owner, "base not suitable!")
+	if(target_turf.is_blocked_turf() || isspaceturf(target_turf))
+		to_chat(owner, SPAN_WARNING("Base not suitable!"))
 		return FALSE
 	addtimer(CALLBACK(src, PROC_REF(commence_launch), target), telegraph_duration)
 	owner.Shake(duration = telegraph_duration)
@@ -23,11 +23,9 @@
 /datum/action/cooldown/mob_cooldown/ed209_charge/proc/commence_launch(atom/target)
 	var/turf/target_turf = get_turf(target)
 	owner.throw_at(target = target_turf, range = 7, speed = 1, spin = FALSE, callback = CALLBACK(src, PROC_REF(on_tackle), target_turf))
-	new /obj/effect/temp_visual/mook_dust(owner.loc)
 
 /datum/action/cooldown/mob_cooldown/ed209_charge/proc/on_tackle(turf/target, original_pixel_y)
 	playsound(get_turf(owner), 'sound/effects/meteorimpact.ogg', 100, TRUE)
-	new /obj/effect/temp_visual/mook_dust(owner.loc)
 	for(var/mob/living/victim in oview(1, owner))
 		if(victim in owner.buckled_mobs)
 			continue

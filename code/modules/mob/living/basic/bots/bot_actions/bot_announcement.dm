@@ -21,11 +21,11 @@
 
 /datum/action/cooldown/bot_announcement/IsAvailable(show_message)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
-	if (!isbot(owner))
+	if(!isbot(owner))
 		return FALSE
-	if (!length(automated_announcements))
+	if(!length(automated_announcements))
 		return FALSE
 	return TRUE
 
@@ -107,7 +107,7 @@
 			return TRUE
 
 /datum/action/cooldown/bot_announcement/Activate(trigger_flags, atom/target)
-	if (length(automated_announcements) > 1)
+	if(length(automated_announcements) > 1)
 		ui_interact(owner)
 		return
 	else if(length(automated_announcements) == 1)
@@ -143,14 +143,14 @@
 /// Speak the provided line on the provided radio channel
 /datum/action/cooldown/bot_announcement/proc/announce(line, channel)
 	var/mob/living/basic/bot/bot_owner = owner
-	if (!(bot_owner.bot_mode_flags & BOT_MODE_ON))
+	if(!(bot_owner.bot_mode_flags & BOT_MODE_ON))
 		return
 
 	bot_owner.say(line)
-	if (channel && bot_owner.Radio.channels[channel])
+	if(channel && bot_owner.Radio.channels[channel])
 		bot_owner.Radio.autosay(line, bot_owner, channel)
 
-	if (length(automated_announcements) && !isnull(automated_announcements[line]))
+	if(length(automated_announcements) && !isnull(automated_announcements[line]))
 		playsound(bot_owner, automated_announcements[line], vol = 50, vary = FALSE)
 
 
