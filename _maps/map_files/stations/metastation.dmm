@@ -12544,7 +12544,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/mob/living/simple_animal/bot/secbot/pingsky,
+/mob/living/basic/bot/secbot/pingsky,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
 "bzg" = (
@@ -12900,7 +12900,7 @@
 "bAA" = (
 /obj/machinery/alarm/directional/west,
 /obj/machinery/light/small,
-/mob/living/simple_animal/bot/floorbot{
+/mob/living/basic/bot/repairbot{
 	on = 0
 	},
 /obj/effect/turf_decal/tiles/department/command/corner{
@@ -13544,7 +13544,7 @@
 /area/space/nearstation)
 "bDi" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/bot/cleanbot{
+/mob/living/basic/bot/cleanbot{
 	on = 0
 	},
 /obj/effect/turf_decal/tiles/department/command/corner,
@@ -36619,7 +36619,7 @@
 /turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "fWJ" = (
-/mob/living/simple_animal/bot/secbot/armsky{
+/mob/living/basic/bot/secbot/armsky{
 	auto_patrol = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -65658,7 +65658,7 @@
 	codes_txt = "patrol;next_patrol=1-BrigCells";
 	location = "0-SecurityDesk"
 	},
-/mob/living/simple_animal/bot/secbot/beepsky,
+/mob/living/basic/bot/secbot/beepsky,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},

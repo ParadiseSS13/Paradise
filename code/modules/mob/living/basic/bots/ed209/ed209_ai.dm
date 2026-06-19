@@ -50,8 +50,25 @@
 /datum/ai_behavior/basic_melee_attack/interact_once/bot/ed209/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
 	. = ..()
 	if(!(. & AI_BEHAVIOR_DELAY))
-		return AI_BEHAVIOR_DELAY //this kinda sucks but we have to do this cause we need to shoot while moving to stun
+		return AI_BEHAVIOR_DELAY // this kinda sucks but we have to do this cause we need to shoot while moving to stun
 
+
+/datum/ai_controller/basic_controller/bot/ed209/syndicate
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_UNREACHABLE_LIST_COOLDOWN = 1 MINUTES,
+	)
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/generic_resist,
+		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/basic_ranged_attack_subtree,
+		/datum/ai_planning_subtree/find_patrol_beacon,
+	)
+	reset_keys = list(
+		BB_BEACON_TARGET,
+		BB_PREVIOUS_BEACON_TARGET,
+		BB_BOT_SUMMON_TARGET,
+	)
 
 #undef DEFAULT_LINES
 #undef SPECIAL_LINES

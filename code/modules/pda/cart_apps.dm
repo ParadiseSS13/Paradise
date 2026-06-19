@@ -211,7 +211,7 @@
 	var/list/botsData = list()
 	var/list/beepskyData = list()
 
-	var/mob/living/simple_animal/bot/secbot/active_bot = locateUID(active_uid)
+	var/mob/living/basic/bot/secbot/active_bot = locateUID(active_uid)
 
 	if(active_bot && !QDELETED(active_bot))
 		beepskyData["active"] = active_bot ? sanitize(active_bot.name) : null
@@ -224,9 +224,9 @@
 	else
 		var/botsCount = 0
 		var/list/mob/living/simple_animal/bot/bots = list()
-		for(var/mob/living/simple_animal/bot/secbot/SB in GLOB.bots_list)
+		for(var/mob/living/basic/bot/secbot/SB in GLOB.bots_list)
 			bots += SB
-		for(var/mob/living/simple_animal/bot/ed209/ED in GLOB.bots_list)
+		for(var/mob/living/basic/bot/secbot/ed209/ED in GLOB.bots_list)
 			if(!("syndicate" in ED.faction))
 				bots += ED
 
@@ -434,13 +434,13 @@
 			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/list/CbotData = list()
-	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
+	for(var/mob/living/basic/bot/cleanbot/B in GLOB.bots_list)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
 				continue
 			var/direction = get_dir(pda,B)
-			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
+			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = (B.bot_mode_flags & BOT_MODE_ON) ? "Online" : "Offline")
 
 	var/list/CartData = list()
 	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)

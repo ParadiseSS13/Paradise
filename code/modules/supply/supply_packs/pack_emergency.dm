@@ -6,10 +6,10 @@
 
 /datum/supply_packs/emergency/evac
 	name = "Emergency Equipment Crate"
-	contains = list(/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+	contains = list(/mob/living/basic/bot/repairbot,
+					/mob/living/basic/bot/repairbot,
+					/mob/living/basic/bot/medbot,
+					/mob/living/basic/bot/medbot,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,

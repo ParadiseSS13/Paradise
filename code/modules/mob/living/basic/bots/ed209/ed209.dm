@@ -104,3 +104,52 @@
 /mob/living/basic/bot/secbot/ed209/Destroy()
 	. = ..()
 	QDEL_NULL(bot_charge)
+
+/mob/living/basic/bot/secbot/ed209/syndicate
+	name = "Syndicate Sentry Bot"
+	desc = "A syndicate security bot."
+	icon = 'icons/mecha/mecha.dmi'
+	icon_state = "darkgygax"
+	radio_channel = "Syndicate"
+	health = 300
+	maxHealth = 300
+	obj_damage = 60
+	faction = list("syndicate")
+	light_color = "#5c0909"
+	req_one_access = list(ACCESS_SYNDICATE)
+	bot_mode_flags = parent_type::bot_mode_flags & ~BOT_MODE_REMOTE_ENABLED
+	radio_channel = "Syndicate"
+	ai_controller = /datum/ai_controller/basic_controller/bot/ed209/syndicate
+	bot_type = ADVANCED_SEC_BOT
+	hackables = "combat inhibitors"
+	projectile_sound = 'sound/weapons/wave.ogg'
+	projectile_type = /obj/projectile/bullet/a40mm
+	emagged_projectile_sound = 'sound/weapons/wave.ogg'
+	emagged_projectile_type = /obj/projectile/bullet/a40mm
+	/// Step sound
+	var/stepsound = 'sound/mecha/mechstep.ogg'
+	var/area/syndicate_depot/core/depotarea
+	var/raised_alert = FALSE
+	var/pathing_failed = FALSE
+
+/mob/living/basic/bot/secbot/ed209/syndicate/emag_act(mob/user)
+	to_chat(user, SPAN_WARNING("[src] has no card reader slot!"))
+
+/mob/living/basic/bot/secbot/ed209/syndicate/explode()
+	if(!QDELETED(src))
+		if(depotarea)
+			depotarea.list_remove(src, depotarea.guard_list)
+		visible_message(SPAN_USERDANGER("[src] blows apart!"))
+		do_sparks(3, 1, src)
+		new /obj/effect/decal/cleanable/blood/oil(loc)
+		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
+		wreck.name = "sentry bot wreckage"
+
+		raise_alert("[src] destroyed.")
+
+/mob/living/basic/bot/secbot/ed209/syndicate/proc/raise_alert(reason)
+	if(raised_alert)
+		return
+	raised_alert = TRUE
+	if(depotarea)
+		depotarea.increase_alert(reason)

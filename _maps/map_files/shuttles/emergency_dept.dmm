@@ -218,7 +218,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "aO" = (
-/mob/living/simple_animal/bot/secbot,
+/mob/living/basic/bot/secbot,
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)

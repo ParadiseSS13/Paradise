@@ -21,12 +21,15 @@
 	hackables = "health processor circuits"
 	possessed_message = "You are a medbot! Ensure good health among the crew to the best of your ability!"
 
-	additional_access = /datum/id_trim/medibot
 	announcement_type = /datum/action/cooldown/bot_announcement/medbot
 	path_image_color = "#d9d9f4"
 
-	/// Because of our animation we need to handle drawn-on overlays ourself
-	var/painted_face_colour
+	/// Reagent Beaker
+	var/obj/item/reagent_containers/glass/reagent_glass = null
+	/// Do we use the beaker reagents instead?
+	var/use_beaker = FALSE
+	/// Do we treat viruses
+	var/treat_virus = TRUE
 
 	/// anouncements when we find a target to heal
 	var/static/list/wait_announcements = list(
@@ -95,23 +98,23 @@
 	var/medkit_type = /obj/item/storage/firstaid
 	///based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
 	var/skin = "generic"
-	/// How much healing do we do at a time?
-	var/heal_amount = 2.5
-	/// How much healing multiplier do we have from upgrades?
-	VAR_FINAL/heal_multiplier = 1.0
+	// Setting which reagents to use to treat what by default. By id.
+	var/treatment_brute = "salglu_solution"
+	var/treatment_oxy = "salbutamol"
+	var/treatment_fire = "salglu_solution"
+	var/treatment_tox = "charcoal"
+	var/treatment_virus = "spaceacillin"
 	/// Start healing when they have this much damage in a category
 	var/heal_threshold = 10
-	/// What damage type does this bot support. Because the default is brute, if the medkit is brute-oriented there is a slight bonus to healing. set to "all" for it to heal any of the 4 base damage types
-	var/damage_type_healer = BRUTE
+	/// How much reagent do we inject at a time?
+	var/injection_amount = 15
 
-	///Flags Medbots use to decide how they should be acting.
+	/// Flags Medbots use to decide how they should be acting.
 	var/medical_mode_flags = MEDBOT_DECLARE_CRIT | MEDBOT_SPEAK_MODE
-	//Selections:  MEDBOT_DECLARE_CRIT | MEDBOT_STATIONARY_MODE | MEDBOT_SPEAK_MODE | MEDBOT_TIPPED_MODE
+	// Selections:  MEDBOT_DECLARE_CRIT | MEDBOT_STATIONARY_MODE | MEDBOT_SPEAK_MODE | MEDBOT_TIPPED_MODE
 
-	/// techweb linked to the medbot
-	var/datum/techweb/linked_techweb
-	///our tipper
-	var/datum/weakref/tipper
+	/// our tipper
+	var/tipper
 
 /mob/living/basic/bot/medbot/proc/set_speech_keys()
 	if(isnull(ai_controller))
@@ -138,51 +141,16 @@
 		post_tipped_callback = CALLBACK(src, PROC_REF(after_tip_over)), \
 		post_untipped_callback = CALLBACK(src, PROC_REF(after_righted)))
 
-	AddComponent(/datum/component/defaceable, \
-		drawing_of = "eyes", \
-		on_defaced = CALLBACK(src, PROC_REF(on_defaced)), \
-	)
-
 	var/static/list/hat_offsets = list(4,-9)
 	var/static/list/remove_hat = list(SIGNAL_ADDTRAIT(TRAIT_MOB_TIPPED))
 	var/static/list/prevent_checks = list(TRAIT_MOB_TIPPED)
-	AddElement(/datum/element/hat_wearer,\
-		offsets = hat_offsets,\
-		remove_hat_signals = remove_hat,\
-		traits_prevent_checks = prevent_checks,\
-	)
 	RegisterSignal(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(pre_attack))
-
-	if(!HAS_TRAIT(SSstation, STATION_TRAIT_MEDBOT_MANIA) || !mapload || !is_station_level(z))
-		return INITIALIZE_HINT_LATELOAD
-
 	skin = "adv"
 	update_appearance()
-	damage_type_healer = HEAL_ALL_DAMAGE
 	if(prob(50))
 		name += ", PhD."
 
 	return INITIALIZE_HINT_LATELOAD
-
-/mob/living/basic/bot/medbot/LateInitialize()
-	if(!CONFIG_GET(flag/no_default_techweb_link) && !linked_techweb)
-		CONNECT_TO_RND_SERVER_ROUNDSTART(linked_techweb, src)
-
-	if(linked_techweb)
-		RegisterSignal(linked_techweb, COMSIG_TECHWEB_ADD_DESIGN, PROC_REF(on_techweb_research))
-		RegisterSignal(linked_techweb, COMSIG_TECHWEB_REMOVE_DESIGN, PROC_REF(on_techweb_unresearch))
-
-		for(var/datum/design/medibot_upgrade/design in linked_techweb.get_researched_design_datums())
-			heal_multiplier += design.additive_multiplier
-
-/mob/living/basic/bot/medbot/on_craft_completion(list/components, datum/crafting_recipe/current_recipe, atom/crafter)
-	. = ..()
-	var/obj/item/storage/firstaid/medkit = locate() in contents
-	medkit_type = medkit
-	health_analyzer = locate(/obj/item/healthanalyzer) in contents
-	skin = medkit.get_medbot_skin()
-	damage_type_healer = initial(medkit.damagetype_healed) ? initial(medkit.damagetype_healed) : BRUTE
-	update_appearance()
 
 /mob/living/basic/bot/medbot/update_icon_state()
 	. = ..()
@@ -197,37 +165,17 @@
 		. += mutable_appearance(icon, "[base_icon_state]_overlay_wheels")
 
 	var/mode_suffix = mode == BOT_HEALING ? "active" : "idle"
-	if(HAS_TRAIT(src, TRAIT_DEFACED))
-		var/mutable_appearance/face = mutable_appearance('icons/mob/silicon/aibot_faces.dmi', "medbot_[mode_suffix]")
-		face.color = painted_face_colour
-		. += face
-		. += mutable_appearance('icons/mob/silicon/aibot_faces.dmi', "medbot_highlight_[mode_suffix]")
+	if(bot_mode_flags & BOT_MODE_ON)
+		. += mutable_appearance(icon, "[base_icon_state]_overlay_incapacitated")
+		. += emissive_appearance(icon, "[base_icon_state]_overlay_incapacitated", src, alpha = src.alpha)
 	else
-		if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
-			. += mutable_appearance(icon, "[base_icon_state]_overlay_incapacitated")
-			. += emissive_appearance(icon, "[base_icon_state]_overlay_incapacitated", src, alpha = src.alpha)
-		else if(bot_mode_flags & BOT_MODE_ON)
-			. += mutable_appearance(icon, "[base_icon_state]_overlay_on_[mode_suffix]")
-			. += emissive_appearance(icon, "[base_icon_state]_overlay_on_[mode_suffix]", src, alpha = src.alpha)
+		. += mutable_appearance(icon, "[base_icon_state]_overlay_on_[mode_suffix]")
+		. += emissive_appearance(icon, "[base_icon_state]_overlay_on_[mode_suffix]", src, alpha = src.alpha)
 
-/// Set our drawn-on ink colour
-/mob/living/basic/bot/medbot/proc/on_defaced(ink_colour)
-	SIGNAL_HANDLER
-	painted_face_colour = ink_colour
-
-//this is sin
+// this is sin
 /mob/living/basic/bot/medbot/generate_speak_list()
 	var/static/list/finalized_speak_list = (idle_lines + wait_announcements + afterheal_announcements + near_death_announcements + emagged_announcements + tipped_announcements + untipped_announcements + worried_announcements + misc_announcements)
 	return finalized_speak_list
-
-
-/mob/living/basic/bot/medbot/attack_paw(mob/user, list/modifiers)
-	return attack_hand(user, modifiers)
-
-/mob/living/basic/bot/medbot/multitool_act(mob/living/user, obj/item/multitool/tool)
-	if(!QDELETED(tool.buffer) && istype(tool.buffer, /datum/techweb))
-		linked_techweb = tool.buffer
-	return ITEM_INTERACT_SUCCESS
 
 // Variables sent to TGUI
 /mob/living/basic/bot/medbot/ui_data(mob/user)
@@ -264,10 +212,10 @@
 
 /mob/living/basic/bot/medbot/emag_effects(mob/user)
 	medical_mode_flags &= ~MEDBOT_DECLARE_CRIT
-	balloon_alert(user, "reagent synthesis circuits shorted")
+	to_chat(user, SPAN_WARNING("Reagent synthesis circuits shorted!"))
 	audible_message(SPAN_DANGER("[src] buzzes oddly!"))
 	flick_overlay_view(mutable_appearance(icon, "[base_icon_state]_spark"), 1 SECONDS)
-	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
 
 /mob/living/basic/bot/medbot/examine()
@@ -279,7 +227,7 @@
 		"It is tipped over and requesting help.",
 		"They are tipped over and appear visibly distressed.",
 		SPAN_WARNING("They are tipped over and visibly panicking!"),
-		SPAN_WARNING(span_bold("They are freaking out from being tipped over!"))
+		SPAN_WARNING(SPAN_BOLD("They are freaking out from being tipped over!"))
 	)
 	. += pick(panic_state)
 /*
@@ -297,7 +245,7 @@
  */
 /mob/living/basic/bot/medbot/proc/after_tip_over(mob/user)
 	medical_mode_flags |= MEDBOT_TIPPED_MODE
-	tipper = WEAKREF(user)
+	tipper = user
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	if(prob(10))
 		speak("PSYCH ALERT: Crewmember [user.name] recorded displaying antisocial tendencies torturing bots in [get_area(src)]. Please schedule psych evaluation.", radio_channel)
@@ -314,7 +262,7 @@
  * user - the mob who righted us. Can be null.
  */
 /mob/living/basic/bot/medbot/proc/after_righted(mob/user)
-	var/mob/tipper_mob = isnull(user) ? null : tipper?.resolve()
+	var/mob/tipper_mob = isnull(user) ? null : tipper
 	tipper = null
 	medical_mode_flags &= ~MEDBOT_TIPPED_MODE
 	if(isnull(tipper_mob))
@@ -334,94 +282,102 @@
 	INVOKE_ASYNC(src, PROC_REF(medicate_patient), target)
 	return COMPONENT_HOSTILE_NO_ATTACK
 
-/mob/living/basic/bot/medbot/proc/medicate_patient(mob/living/carbon/human/patient)
-	if(DOING_INTERACTION(src, TEND_DAMAGE_INTERACTION))
-		return
-
+/mob/living/basic/bot/medbot/proc/medicate_patient(mob/living/carbon/human/C)
 	if(!(bot_access_flags & BOT_COVER_EMAGGED))
-		if((damage_type_healer == HEAL_ALL_DAMAGE && patient.get_total_damage() <= heal_threshold) || (!(damage_type_healer == HEAL_ALL_DAMAGE) && patient.get_current_damage_of_type(damage_type_healer) <= heal_threshold))
-			to_chat(src, "[patient] is healthy! Your programming prevents you from tending the wounds of anyone with less than [heal_threshold + 1] [damage_type_healer == HEAL_ALL_DAMAGE ? "total" : damage_type_healer] damage.")
+		if((C.get_total_damage() <= heal_threshold))
+			to_chat(src, "[C] is healthy! Your programming prevents you from tending the wounds of anyone with less than [heal_threshold + 1] total damage.")
 			return
 
 	update_bot_mode(new_mode = BOT_HEALING, update_hud = FALSE)
-	patient.visible_message("[src] is trying to tend the wounds of [patient]", SPAN_USERDANGER("[src] is trying to tend your wounds!"))
-	if(!do_after(src, delay = 2 SECONDS, target = patient, interaction_key = TEND_DAMAGE_INTERACTION))
-		update_bot_mode(new_mode = BOT_IDLE)
-		return
-	var/modified_heal_amount = heal_amount * heal_multiplier
-	var/done_healing = FALSE
-	if(damage_type_healer == BRUTE && medkit_type == /obj/item/storage/firstaid/brute)
-		modified_heal_amount *= 1.1
-	if(bot_access_flags & BOT_COVER_EMAGGED)
-		patient.reagents?.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
-		log_combat(src, patient, "pretended to tend wounds on", "internal tools")
-	else if(damage_type_healer == HEAL_ALL_DAMAGE)
-		patient.heal_ordered_damage(amount = modified_heal_amount, damage_types = list(BRUTE, BURN, TOX, OXY))
-		log_combat(src, patient, "tended the wounds of", "internal tools")
-		if(patient.get_total_damage() <= heal_threshold)
-			done_healing = TRUE
+	var/reagent_id
+	var/beaker_injection // If and what kind of beaker reagent needs to be injected
+
+	if(bot_access_flags & BOT_COVER_EMAGGED) // Emagged! Time to poison everybody.
+		reagent_id = "pancuronium"
 	else
-		patient.heal_damage_type(heal_amount = modified_heal_amount, damagetype = damage_type_healer)
-		log_combat(src, patient, "tended the wounds of", "internal tools")
-		if(patient.get_current_damage_of_type(damage_type_healer) <= heal_threshold)
-			done_healing = TRUE
+		beaker_injection = assess_beaker_injection(C)
+		reagent_id = assess_medication(C, beaker_injection)
 
-	patient.visible_message(SPAN_NOTICE("[src] tends the wounds of [patient]!"), "[span_infoplain(span_green("[src] tends your wounds!"))]")
-
-	if(done_healing)
-		visible_message(span_infoplain("[src] places [p_their()] tools back into [p_themselves()]."))
-		to_chat(src, "[patient] is now healthy!")
-		update_bot_mode(new_mode = BOT_IDLE)
+	if(!reagent_id)
+		bot_reset()
 		return
 
-	if(patient.IsReachableBy(src))
-		melee_attack(patient)
-
-/mob/living/basic/bot/medbot/proc/on_techweb_research(datum/source, datum/design/medibot_upgrade/design)
-	SIGNAL_HANDLER
-
-	if(!istype(design))
+	if(!(bot_access_flags & BOT_COVER_HACKED) && !(bot_access_flags & BOT_COVER_EMAGGED) && check_overdose(C, reagent_id, injection_amount))
+		bot_reset()
 		return
 
-	heal_multiplier += design.additive_multiplier
-	INVOKE_ASYNC(src, PROC_REF(speak), "New knowledge found! Surgical efficacy improved to [round(heal_multiplier * 100)]%!")
+	C.visible_message(
+		SPAN_DANGER("[src] is trying to inject [C]!"),
+		SPAN_USERDANGER("[src] is trying to inject you!")
+	)
 
-/mob/living/basic/bot/medbot/proc/on_techweb_unresearch(datum/source, datum/design/medibot_upgrade/design)
-	SIGNAL_HANDLER
-
-	if(!istype(design))
+	if(!do_after(src, 3 SECONDS, target = C) || !(bot_mode_flags & BOT_MODE_ON) || (get_dist(src, C) > 1))
+		bot_reset()
+		visible_message("[src] retracts its syringe.")
 		return
 
-	heal_multiplier -= design.additive_multiplier
-	INVOKE_ASYNC(src, PROC_REF(speak), "Error! Surgical efficacy decreased to [round(heal_multiplier * 100)]%!")
+	if(!isnull(beaker_injection))
+		if(use_beaker && reagent_glass?.reagents.total_volume)
+			var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+			reagent_glass.reagents.reaction(C, REAGENT_INGEST, fraction)
+			reagent_glass.reagents.trans_to(C, injection_amount) //Inject from beaker instead.
+	else
+		C.reagents.add_reagent(reagent_id, injection_amount)
 
-/datum/id_trim/medibot
-	assignment = JOB_MEDIBOT
-	trim_state = "trim_paramedic"
-	department_color = COLOR_MEDICAL_BLUE
-	subdepartment_color = COLOR_MEDICAL_BLUE
-	sechud_icon_state = SECHUD_PARAMEDIC
-	access = list(
-		ACCESS_BIT_DEN,
-		ACCESS_CARGO,
-		ACCESS_CONSTRUCTION,
-		ACCESS_HYDROPONICS,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MECH_MEDICAL,
-		ACCESS_MEDICAL,
-		ACCESS_MINERAL_STOREROOM,
-		ACCESS_MINING,
-		ACCESS_MINING_STATION,
-		ACCESS_MORGUE,
-		ACCESS_SCIENCE,
-		ACCESS_SERVICE,
-		ACCESS_SURGERY,
-		ACCESS_VIROLOGY,
-		ACCESS_PHARMACY,
-		ACCESS_PARAMEDIC,
-		)
-	honorifics = list("Medical Robot")
-	honorific_positions = HONORIFIC_POSITION_FIRST | HONORIFIC_POSITION_LAST | HONORIFIC_POSITION_FIRST_FULL | HONORIFIC_POSITION_NONE
+	C.visible_message(
+		SPAN_DANGER("[src] injects [C] with its syringe!"),
+		SPAN_USERDANGER("[src] injects you with its syringe!")
+	)
+
+/mob/living/basic/bot/medbot/proc/assess_medication(mob/living/carbon/C, beaker_injection)
+	var/treatable_virus = assess_viruses(C)
+	var/treatable_brute = C.getBruteLoss() >= heal_threshold
+	var/treatable_fire = C.getFireLoss() >= heal_threshold
+	var/treatable_oxy = C.getOxyLoss() >= (heal_threshold + 15)
+	var/treatable_tox = C.getToxLoss() >= heal_threshold
+
+	if((!C.has_organic_damage() || !(treatable_brute || treatable_fire || treatable_oxy || treatable_tox)) && !treatable_virus)
+		return // No organic damage or injuries aren't severe enough, and no virus to treat; abort mission
+
+	if(beaker_injection)
+		return beaker_injection // Custom beaker injections have priority
+
+	if(treatable_virus && !C.reagents.has_reagent(treatment_virus))
+		return treatment_virus
+	if(treatable_brute && !C.reagents.has_reagent(treatment_brute))
+		return treatment_brute
+	if(treatable_fire && !C.reagents.has_reagent(treatment_fire))
+		return treatment_fire
+	if(treatable_oxy && !C.reagents.has_reagent(treatment_oxy))
+		return treatment_oxy
+	if(treatable_tox && !C.reagents.has_reagent(treatment_tox))
+		return treatment_tox
+
+/mob/living/basic/bot/medbot/proc/assess_viruses(mob/living/carbon/C)
+	. = FALSE
+
+	if(!treat_virus)
+		return
+
+	for(var/datum/disease/D as anything in C.viruses)
+		if((!(D.visibility_flags & VIRUS_HIDDEN_SCANNER) || (D.GetDiseaseID() in GLOB.detected_advanced_diseases["[z]"])) && D.severity != VIRUS_NONTHREAT && (D.stage > 1 || D.spread_flags & SPREAD_AIRBORNE))
+			return TRUE // Medbots see viruses that aren't fully hidden and have developed enough/are airborne, ignoring safe viruses
+
+/mob/living/basic/bot/medbot/proc/assess_beaker_injection(mob/living/carbon/C)
+	// If we have and are using a medicine beaker, return any reagent the patient is missing
+	if(use_beaker && reagent_glass?.reagents.total_volume)
+		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
+			if(!C.reagents.has_reagent(R.id))
+				return R.id
+
+/mob/living/basic/bot/medbot/proc/check_overdose(mob/living/carbon/patient, reagent_id, injection_amount)
+	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
+	if(!R.overdose_threshold)
+		return FALSE
+	var/current_volume = patient.reagents.get_reagent_amount(reagent_id)
+	if(current_volume + injection_amount > R.overdose_threshold)
+		return TRUE
+	return FALSE
 
 /mob/living/basic/bot/medbot/autopatrol
 	bot_mode_flags = BOT_MODE_ON | BOT_MODE_AUTOPATROL | BOT_MODE_REMOTE_ENABLED | BOT_MODE_CAN_BE_SAPIENT | BOT_MODE_ROUNDSTART_POSSESSION
@@ -433,58 +389,46 @@
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
-	damage_type_healer = HEAL_ALL_DAMAGE
-	heal_amount = 10
+	treatment_oxy = "perfluorodecalin"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
 
 /mob/living/basic/bot/medbot/derelict
 	name = "\improper Old Medibot"
 	desc = "Looks like it hasn't been modified since the late 2080s."
 	skin = "bezerk"
-	damage_type_healer = HEAL_ALL_DAMAGE
 	medical_mode_flags = MEDBOT_SPEAK_MODE
-	heal_threshold = 0
-	heal_amount = 5
 
-/mob/living/basic/bot/medbot/nukie
-	name = "Oppenheimer"
+/mob/living/basic/bot/medbot/syndicate
+	name = "Suspicious Medibot"
 	desc = "A medibot stolen from a Nanotrasen station and upgraded by the Syndicate. Despite their best efforts at reprogramming, it still appears visibly upset near nuclear explosives."
 	health = 40
 	maxHealth = 40
 	skin = "bezerk"
 	req_one_access = list(ACCESS_SYNDICATE)
 	bot_mode_flags = parent_type::bot_mode_flags & ~BOT_MODE_REMOTE_ENABLED
-	radio_key = /obj/item/encryptionkey/syndicate
-	radio_channel = RADIO_CHANNEL_SYNDICATE
-	damage_type_healer = HEAL_ALL_DAMAGE
-	faction = list(ROLE_SYNDICATE)
-	heal_threshold = 0
-	heal_amount = 5
-	additional_access = /datum/id_trim/syndicom/crew
+	radio_channel = "Syndicate"
+	faction = list("syndicate")
+	treatment_oxy = "perfluorodecalin"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
 
-/mob/living/basic/bot/medbot/nukie/Initialize(mapload, new_skin)
-	. = ..()
-	var/datum/action/minimap/nuclear/tacmap_action = new
-	tacmap_action.Grant(src)
-	add_minimap_blip(src, MINIMAP_NUKEOP_BLIP, "mediborg")
-	RegisterSignal(SSdcs, COMSIG_GLOB_NUKE_DEVICE_DISARMED, PROC_REF(nuke_disarm))
-	RegisterSignal(SSdcs, COMSIG_GLOB_NUKE_DEVICE_ARMED, PROC_REF(nuke_arm))
-	RegisterSignal(SSdcs, COMSIG_GLOB_NUKE_DEVICE_DETONATING, PROC_REF(nuke_detonate))
-	internal_radio.set_frequency(FREQ_SYNDICATE)
-	internal_radio.freqlock = RADIO_FREQENCY_LOCKED
-
-/mob/living/basic/bot/medbot/nukie/proc/nuke_disarm()
+/mob/living/basic/bot/medbot/syndicate/proc/nuke_disarm()
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(speak), pick(untipped_announcements))
 
-/mob/living/basic/bot/medbot/nukie/proc/nuke_arm()
+/mob/living/basic/bot/medbot/syndicate/proc/nuke_arm()
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(speak), pick(worried_announcements))
 
-/mob/living/basic/bot/medbot/nukie/proc/nuke_detonate()
+/mob/living/basic/bot/medbot/syndicate/proc/nuke_detonate()
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(speak), pick(emagged_announcements))
+
+/mob/living/basic/bot/medbot/syndicate/emagged
+	bot_access_flags = BOT_COVER_LOCKED | BOT_COVER_EMAGGED
 
 #undef TEND_DAMAGE_INTERACTION

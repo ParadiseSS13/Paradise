@@ -203,16 +203,16 @@
 	else
 		attack_ai(user)
 
-/mob/living/simple_animal/bot/proc/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+/mob/living/basic/bot/proc/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(Adjacent(A))
 		UnarmedAttack(A)
 	else
 		RangedAttack(A)
 
-/mob/living/simple_animal/bot/secbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+/mob/living/basic/bot/secbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(Adjacent(A))
 		UnarmedAttack(A)
@@ -221,8 +221,8 @@
 		playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50)
 		visible_message("<b>[src]</b> points at [A.name]!")
 
-/mob/living/simple_animal/bot/floorbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+/mob/living/basic/bot/repairbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(isfloorturf(A) && Adjacent(A))
 		var/turf/simulated/floor/F = A
@@ -230,8 +230,8 @@
 		F.break_tile_to_plating()
 		audible_message(SPAN_DANGER("[src] makes an excited booping sound."))
 
-/mob/living/simple_animal/bot/cleanbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+/mob/living/basic/bot/cleanbot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(isfloorturf(A) && Adjacent(A))
 		var/turf/simulated/floor/F = A

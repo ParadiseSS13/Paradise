@@ -541,7 +541,7 @@
 		"buttonact" = "primary"
 	))
 	var/has_bot = FALSE
-	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
+	for(var/mob/living/basic/bot/secbot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
 		has_bot = TRUE
 	data["rows"] += list(list(
 		"title" = "Extra Security Forces",
@@ -582,7 +582,7 @@
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/aiterminal/secondary(mob/user)
-	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
+	for(var/mob/living/basic/bot/secbot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
 		depotarea.list_remove(B, depotarea.guard_list)
 		new /obj/effect/portal(get_turf(B))
 		to_chat(user, "[B] has been recalled.")

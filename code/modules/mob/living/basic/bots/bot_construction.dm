@@ -19,7 +19,7 @@
 			return
 		qdel(W)
 		var/turf/T = get_turf(loc)
-		var/mob/living/simple_animal/bot/cleanbot/A = new /mob/living/simple_animal/bot/cleanbot(T)
+		var/mob/living/basic/bot/cleanbot/A = new /mob/living/basic/bot/cleanbot(T)
 		A.name = created_name
 		A.robot_arm = W.type
 		to_chat(user, SPAN_NOTICE("You add the robot arm to the bucket and sensor assembly. Beep boop!"))
@@ -168,7 +168,7 @@
 				build_step++
 				to_chat(user, SPAN_NOTICE("You complete the ED-209."))
 				var/turf/T = get_turf(src)
-				new /mob/living/simple_animal/bot/ed209(T,created_name,lasercolor)
+				new /mob/living/basic/bot/secbot/ed209(T,created_name,lasercolor)
 				qdel(W)
 				user.unequip(src, force = TRUE)
 				qdel(src)
@@ -306,7 +306,7 @@
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		qdel(W)
-		var/mob/living/simple_animal/bot/floorbot/A = new(get_turf(src), toolbox_color)
+		var/mob/living/basic/bot/repairbot/A = new(get_turf(src), toolbox_color)
 		A.name = created_name
 		A.robot_arm = W.type
 		to_chat(user, SPAN_NOTICE("You add the robot arm to the odd looking toolbox assembly. Boop beep!"))
@@ -400,7 +400,7 @@
 					to_chat(user, SPAN_NOTICE("You complete the Medibot. Beep boop!"))
 					var/turf/T = get_turf(src)
 					if(!syndicate_aligned)
-						var/mob/living/simple_animal/bot/medbot/S = new /mob/living/simple_animal/bot/medbot(T, skin)
+						var/mob/living/basic/bot/medbot/S = new /mob/living/basic/bot/medbot(T, skin)
 						S.name = created_name
 						S.req_access = req_one_access
 						S.treatment_oxy = treatment_oxy
@@ -410,7 +410,7 @@
 						S.treatment_virus = treatment_virus
 						S.robot_arm = robot_arm
 					else
-						new /mob/living/simple_animal/bot/medbot/syndicate(T) //Syndicate medibots are a special case that have so many unique vars on them, it's not worth passing them through construction phases
+						new /mob/living/basic/bot/medbot/syndicate(T) //Syndicate medibots are a special case that have so many unique vars on them, it's not worth passing them through construction phases
 					user.unequip(src, force = TRUE)
 					qdel(src)
 
@@ -478,7 +478,7 @@
 			return
 		build_step++
 		to_chat(user, SPAN_NOTICE("You complete the Securitron! Beep boop."))
-		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot(get_turf(src))
+		var/mob/living/basic/bot/secbot/S = new /mob/living/basic/bot/secbot(get_turf(src))
 		S.name = created_name
 		S.robot_arm = robot_arm
 		qdel(I)
@@ -565,7 +565,7 @@
 		if(!user.unequip(I))
 			return
 		to_chat(user, SPAN_NOTICE("You complete General Griefsky!."))
-		new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
+		new /mob/living/basic/bot/secbot/griefsky(get_turf(src))
 		qdel(I)
 		qdel(src)
 
@@ -580,7 +580,7 @@
 		if(!user.unequip(I))
 			return
 		to_chat(user, SPAN_NOTICE("You complete Genewul Giftskee!."))
-		new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
+		new /mob/living/basic/bot/secbot/griefsky/toy(get_turf(src))
 		qdel(I)
 		qdel(src)
 
@@ -649,7 +649,7 @@
 				return
 			to_chat(user, SPAN_NOTICE("You add the trombone to [src]! Heeeenk!"))
 			qdel(W)
-			var/mob/living/simple_animal/bot/honkbot/A = new /mob/living/simple_animal/bot/honkbot(get_turf(src))
+			var/mob/living/basic/bot/secbot/honkbot/A = new /mob/living/basic/bot/secbot/honkbot(get_turf(src))
 			A.robot_arm = robot_arm
 			qdel(src)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)

@@ -56,6 +56,7 @@
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/find_delivery_beacon/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/basic/bot/mulebot/bot_pawn = controller.pawn
 	var/atom/delivery_beacon
 
@@ -116,9 +117,9 @@
 
 	if(bot_pawn.load)
 		if(bot_pawn.mulebot_delivery_flags & MULEBOT_REPORT_DELIVERY_MODE)
-			bot_pawn.radio_channel = RADIO_CHANNEL_SUPPLY //Supply channel
+			bot_pawn.radio_channel = "Supply" //Supply channel
 			bot_pawn.buzz(MULEBOT_MOOD_CHIME)
-			bot_pawn.speak("Destination [RUNECHAT_BOLD("[beacon.location]")] reached. Unloading [bot_pawn.load].", bot_pawn.radio_channel)
+			bot_pawn.speak("Destination [beacon.location] reached. Unloading [bot_pawn.load].", bot_pawn.radio_channel)
 			bot_pawn.unload(load_direction)
 
 	else
@@ -134,7 +135,7 @@
 			if(atom_to_pick_up?.Adjacent(bot_pawn))
 				bot_pawn.load(atom_to_pick_up)
 				if(bot_pawn.mulebot_delivery_flags & MULEBOT_REPORT_DELIVERY_MODE)
-					bot_pawn.speak("Now loading [bot_pawn.load] at [RUNECHAT_BOLD("[get_area_name(bot_pawn)]")].", bot_pawn.radio_channel)
+					bot_pawn.speak("Now loading [bot_pawn.load] at [get_area_name(bot_pawn)].", bot_pawn.radio_channel)
 
 	if((bot_pawn.mulebot_delivery_flags & MULEBOT_RETURN_MODE) && controller.blackboard[BB_MULEBOT_HOME_BEACON] && controller.blackboard[BB_MULEBOT_HOME_BEACON] != beacon.location)
 		bot_pawn.update_bot_mode(new_mode = BOT_GO_HOME)

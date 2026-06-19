@@ -3833,7 +3833,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/mob/living/simple_animal/bot/secbot/pingsky,
+/mob/living/basic/bot/secbot/pingsky,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -25968,7 +25968,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "erH" = (
-/mob/living/simple_animal/bot/cleanbot{
+/mob/living/basic/bot/cleanbot{
 	name = "Na2CO3"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40796,7 +40796,7 @@
 /area/station/maintenance/science/starboard)
 "hEQ" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/bot/secbot/beepsky{
+/mob/living/basic/bot/secbot/beepsky{
 	name = "Officer Batongsky"
 	},
 /turf/simulated/floor/plating,
@@ -46382,7 +46382,7 @@
 /area/station/turret_protected/ai_upload)
 "iNr" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/bot/secbot/beepsky{
+/mob/living/basic/bot/secbot/beepsky{
 	name = "Officer Pipsqueak"
 	},
 /turf/simulated/floor/plating,
@@ -58000,7 +58000,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/sleeper)
 "ljT" = (
-/mob/living/simple_animal/bot/secbot/armsky{
+/mob/living/basic/bot/secbot/armsky{
 	auto_patrol = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -91005,7 +91005,7 @@
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "svr" = (
 /obj/effect/turf_decal/stripes/line,
-/mob/living/simple_animal/bot/floorbot{
+/mob/living/basic/bot/repairbot{
 	on = 0
 	},
 /obj/structure/extinguisher_cabinet{
@@ -110542,7 +110542,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "wEo" = (
-/mob/living/simple_animal/bot/cleanbot{
+/mob/living/basic/bot/cleanbot{
 	on = 0
 	},
 /obj/machinery/light{

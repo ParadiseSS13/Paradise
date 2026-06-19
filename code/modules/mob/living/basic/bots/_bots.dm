@@ -102,14 +102,11 @@ GLOBAL_LIST_INIT(command_strings, list(
 	var/list/original_allies
 	/// If true we will offer this
 	COOLDOWN_DECLARE(offer_ghosts_cooldown)
-	/// List of overlays to add to the bot if someone has drawn on it, index to a boolean of whether it should ignore paint colour
-	var/list/facepaint_overlays
 
 /mob/living/basic/bot/Initialize(mapload)
 	. = ..()
 
 	AddElement(/datum/element/ai_retaliate)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(handle_loop_movement))
 	RegisterSignal(src, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(after_attacked))
 	GLOB.bots_list += src
 
@@ -215,7 +212,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 /mob/living/basic/bot/Destroy()
 	GLOB.bots_list -= src
 	calling_ai = null
-	clear_path_hud()
 	QDEL_NULL(paicard)
 	QDEL_NULL(pa_system)
 	QDEL_NULL(Radio)
@@ -495,7 +491,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 	update_bot_mode(new_mode = src::mode)
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
-	clear_path_hud()
 	if(bypass_ai_reset || isnull(calling_ai))
 		return
 	var/mob/living/ai_caller = calling_ai
@@ -683,7 +678,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 	speed = 2
 
 	diag_hud_set_botmode()
-	clear_path_hud()
 
 /mob/living/basic/bot/Logout()
 	. = ..()
