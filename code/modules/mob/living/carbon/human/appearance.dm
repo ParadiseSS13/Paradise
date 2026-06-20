@@ -439,6 +439,6 @@
 		bloodcolor = b_data["blood_color"]
 	return bloodcolor
 
-/mob/living/carbon/human/proc/generate_random_appearance(prosthesis_prob = null)
-	var/datum/character_save/appearance = dna.species.generate_random_appearance(prosthesis_prob)
+/mob/living/carbon/human/proc/generate_random_appearance(prosthesis_prob = null, use_gender = null)
+	var/datum/character_save/appearance = dna.species.generate_random_appearance(prosthesis_prob, use_gender)
 	appearance.apply_appearance(src)

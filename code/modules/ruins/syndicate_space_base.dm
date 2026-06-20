@@ -34,7 +34,6 @@
 	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_species_pick = TRUE
 	allow_gender_pick = TRUE
-	skin_tone = 2
 	faction = list("syndicate")
 
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate/Destroy()

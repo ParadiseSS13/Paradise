@@ -76,13 +76,13 @@
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
-/datum/species/tajaran/generate_random_appearance(prosthesis_prob = 5, datum/character_save/appearance = null)
+/datum/species/tajaran/generate_random_appearance(prosthesis_prob = 5, datum/character_save/appearance = null, use_gender = null)
 	if(!istype(appearance))
 		appearance = new
 	appearance.species = name
 
 	// Gender.
-	appearance.gender = randomize_gender()
+	appearance.gender = use_gender ? use_gender : randomize_gender()
 	appearance.body_type = randomize_body_type(appearance.gender)
 
 	// Prostheses / Alternate robotic parts
