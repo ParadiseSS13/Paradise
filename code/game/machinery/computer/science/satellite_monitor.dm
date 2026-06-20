@@ -192,7 +192,6 @@
 			var/time_to_maneuver = text2num(params["timeToManeuver"])
 			atom_say("add_maneuver. prograde: [prograde] normal: [normal] burn_time: [burn_time] time_to_maneuver: [time_to_maneuver]")
 			satellite.orbit_data.add_maneuver(prograde, normal, time_to_maneuver MINUTES, burn_time SECONDS)
-			satellite.status = "waiting for maneuver"
 		if("delete_all_maneuvers")
 			atom_say("delete_all_maneuvers")
 

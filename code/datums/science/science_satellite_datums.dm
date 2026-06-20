@@ -20,9 +20,11 @@
 	var/vector/periapsis_position
 
 	var/atmosphere_start = 150
-	var/light_airdrag = 0.99
+	var/light_airdrag = 0.999
 	var/atmosphere_thick = 130
-	var/thick_airdrag = 0.8
+	var/thick_airdrag = 0.99
+
+	var/crash_heigh = 50
 
 	//var/eccentricity = 0 // how oval the orbit is
 	var/inclination = 0 // how tilted the orbit is
@@ -57,6 +59,8 @@
 
 /// Called by `SSscience_satellitel.dm` in order to make the satellite move
 /datum/orbit_data/proc/heartbeat(delta_time)
+	owner.calculate_status()
+
 	if(!has_been_launched) // will trigger if no maneuvers have been planned
 		return
 
@@ -69,6 +73,8 @@
 	var/list/step = calculate_physics_step(position, velocity) // where the satellite should move this tick
 	position = step["position"]
 	velocity = step["velocity"]
+	if(step["distance"] < crash_heigh)
+		owner.Destroy("[owner.internal_name] crashed, and it's data has been lost!")
 	if(step["distance"] < atmosphere_start)
 		should_update_orbit = TRUE
 		velocity *= light_airdrag

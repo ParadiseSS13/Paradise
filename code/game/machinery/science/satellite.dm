@@ -18,6 +18,22 @@
 /obj/machinery/science_satellite/proc/collect_data(var/amount)
 	collected_science_data += amount * satellite_stats.science_multiplier
 
+/obj/machinery/science_satellite/proc/calculate_status()
+	status = "Idle"
+	if(!orbit_data.position)
+		status = "Waiting for launch"
+	if(orbit_data.planned_maneuvers.len > 0)
+		status = "Waiting for maneuver"
+		for(var/datum/maneuver_data/manuever in orbit_data.planned_maneuvers)
+			if(manuever.world_time_at_maneuver > world.time)
+				status = "Performing maneuver"
+				break
+	if(orbit_data.periapsis < orbit_data.light_airdrag)
+		status = "Warning, air drag at periapsis"
+	if(orbit_data.periapsis < orbit_data.thick_airdrag)
+		status = "Danger! Periapsis inside atmosphere!"
+
+
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
 	orbit_data.data_processing_cooldown = 0 // allow immediate collection of data once launched
@@ -140,10 +156,12 @@
 	multitool.set_multitool_buffer(user, src)
 	linked_multitool = multitool
 
-/obj/machinery/science_satellite/Destroy()
+/obj/machinery/science_satellite/Destroy(var/console_message = null)
 	SSscience_satellite.satellites -= src
 	for(var/obj/machinery/computer/satellite_monitor/console in linked_consoles)
 		console.linked_satellites -= src
+		if(console_message)
+			console.atom_say(console_message)
 	. = ..()
 
 /obj/machinery/science_satellite/attack_hand(mob/user)
