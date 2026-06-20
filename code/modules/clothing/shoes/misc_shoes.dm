@@ -211,6 +211,7 @@
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
 	desc = "Thick-soled boots for industrial work environments."
+	flags = THICKMATERIAL
 	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 20, RAD = 0, FIRE = 50, ACID = 100)
 	materials = list(MAT_METAL = 1000)
 	can_cut_open = 1
