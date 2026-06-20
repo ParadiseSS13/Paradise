@@ -782,7 +782,7 @@
 	name = "TSF Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command
 	suit = /obj/item/clothing/suit/armor/federation/marine/officer
-	head = /obj/item/clothing/head/helmet/federation/marine
+	head = /obj/item/clothing/head/helmet/federation/marine/officer
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
