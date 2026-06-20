@@ -1714,7 +1714,7 @@
 					job_engsec_low |= job.flag
 	return 1
 
-/datum/character_save/proc/apply_appearance(mob/living/carbon/human/character)
+/datum/character_save/proc/apply_appearance(mob/living/carbon/human/character, keep_missing_bodyparts = FALSE)
 	var/datum/species/S = GLOB.all_species[species]
 	character.set_species(S.type, delay_icon_update = TRUE)
 	character.change_gender(gender)
@@ -1741,28 +1741,29 @@
 
 	character.s_tone = s_tone
 
-	// Destroy/cyborgize organs
-	for(var/name in organ_data)
+	if(!keep_missing_bodyparts)
+		// Destroy/cyborgize organs
+		for(var/name in organ_data)
 
-		var/status = organ_data[name]
-		var/obj/item/organ/external/each_organ = character.bodyparts_by_name[name]
-		if(each_organ)
-			if(status == "amputated")
-				qdel(each_organ.remove(character))
+			var/status = organ_data[name]
+			var/obj/item/organ/external/each_organ = character.bodyparts_by_name[name]
+			if(each_organ)
+				if(status == "amputated")
+					qdel(each_organ.remove(character))
 
-			else if(status == "cyborg")
-				if(rlimb_data[name])
-					each_organ.robotize(rlimb_data[name], convert_all = 0)
-				else
-					each_organ.robotize()
-		else
-			var/obj/item/organ/internal/internal_organ = character.get_int_organ_tag(name)
-			if(internal_organ)
-				if(status == "cybernetic")
-					internal_organ.robotize()
+				else if(status == "cyborg")
+					if(rlimb_data[name])
+						each_organ.robotize(rlimb_data[name], convert_all = 0)
+					else
+						each_organ.robotize()
+			else
+				var/obj/item/organ/internal/internal_organ = character.get_int_organ_tag(name)
+				if(internal_organ)
+					if(status == "cybernetic")
+						internal_organ.robotize()
 
-	// Send signal that robotic limbs have been applied
-	SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
+		// Send signal that robotic limbs have been applied
+		SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
 
 	character.underwear = underwear
 	character.undershirt = undershirt
@@ -1811,17 +1812,8 @@
 
 	hacc_colour = initial(hacc_colour)
 	ha_style = initial(ha_style)
-	m_styles = list(
-		"head" = "None",
-		"body" = "None",
-		"tail" = "None",
-		"wing" = "None"
-		)
-	m_colours = list(
-		"head" = "#000000",
-		"body" = "#000000",
-		"tail" = "#000000"
-		)
+	m_styles = DEFAULT_MARKING_STYLES
+	m_colours = DEFAULT_MARKING_COLOURS
 
 	body_accessory = initial(body_accessory)
 	e_colour = initial(e_colour)

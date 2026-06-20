@@ -1349,6 +1349,54 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return
 	return base_color
 
+/datum/species/proc/convert_skin(datum/species/old_species, old_color = null)
+	// If the new species has no body coloration it doesn't matter.
+	if(!(bodyflags & (HAS_ICON_SKIN_TONE|HAS_SKIN_COLOR|HAS_SKIN_TONE)))
+		message_admins("former species is [old_species], new species is [name], no skin color")
+		return COLOR_BLACK
+
+	// Old color is the old species' body color, skin tone, or nothing, depending on species.
+	if(!old_color || !(old_species.bodyflags & (HAS_ICON_SKIN_TONE|HAS_SKIN_COLOR|HAS_SKIN_TONE)))
+		// No body color/skin tone on the old species? Default to old species' flesh color.
+		old_color = old_species.flesh_color
+		if(bodyflags & HAS_SKIN_COLOR)
+			// Flesh color can straightforwardly become a new body color.
+			message_admins("former species is [old_species], new species is [name], using flesh color [old_color]")
+			return old_color
+		message_admins("former species is [old_species], new species is [name], converting flesh color: [skin_tone_from_body_color(old_color)]")
+		return skin_tone_from_body_color(old_color)
+
+	if(bodyflags & HAS_SKIN_COLOR && old_species.bodyflags & HAS_SKIN_COLOR)
+		// If we can keep it the same, keep it the same.
+		message_admins("former species is [old_species], new species is [name], using body color [old_color]")
+		return old_color
+
+	if(bodyflags & HAS_SKIN_COLOR)
+		// The old species doesn't have a body color, but this one does, so convert it
+		message_admins("former species is [old_species], new species is [name], converting skin tone to hex: [old_species.skin_tone_to_hex(old_color)]")
+		return old_species.skin_tone_to_hex(old_color)
+
+	if(old_species.bodyflags & HAS_SKIN_COLOR)
+		// The new species doesn't have a body color, but the old one does, so try to approximate skin tone
+		message_admins("former species is [old_species], new species is [name], converting body color to skin tone: [skin_tone_from_body_color(old_color)] ")
+		return skin_tone_from_body_color(old_color)
+
+	// Neither have body colors, but neither are blank, so they must be skin tones.
+	message_admins("former species is [old_species], new species is [name], converting skin tone to skin tone: [skin_tone_from_skin_tone(old_species, old_color)]")
+	return skin_tone_from_skin_tone(old_species, old_color)
+
+/// Tries to pick the closest skin tone of this species (icon or value) to a given hex color
+/datum/species/proc/skin_tone_from_body_color(body_color)
+	return randomize_skin_tone()
+
+/// Tries to pick the closest skin tone of this species to the skin tone of another
+/datum/species/proc/skin_tone_from_skin_tone(datum/species/old_species, skin_tone)
+	return skin_tone_from_body_color(old_species.skin_tone_to_hex(skin_tone))
+
+/// Represents this species' skin tone as a hex color for species changes.
+/datum/species/proc/skin_tone_to_hex(skin_tone)
+	return COLOR_BLACK
+
 /datum/species/proc/randomize_eye_color()
 	if(prob(1))
 		return rand_hex_color()

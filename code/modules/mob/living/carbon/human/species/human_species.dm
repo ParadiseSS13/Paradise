@@ -72,6 +72,14 @@
 		return gender
 	return ..()
 
+/datum/species/human/skin_tone_from_body_color(body_color)
+	var/list/skin_tones = list("#c4766b", "#cb9189", "#f29835", "#d78f84", "#af704e", "#a86859", "#975e3f", "#9e541d", "#76391e", "#77391b", "#49180e", "#602e29", "#26080e")
+	return skin_tones.Find(pick_closest_list_color(skin_tones, body_color))
+
+/datum/species/human/skin_tone_to_hex(skin_tone)
+	var/list/skin_tones = list("#c4766b", "#cb9189", "#f29835", "#d78f84", "#af704e", "#a86859", "#975e3f", "#9e541d", "#76391e", "#77391b", "#49180e", "#602e29", "#26080e")
+	return skin_tones[skin_tone]
+
 /datum/species/human/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 20, gender)
 	if(gender != FEMALE || prob(5))
 		return ..()

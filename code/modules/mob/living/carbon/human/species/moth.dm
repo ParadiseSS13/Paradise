@@ -376,6 +376,14 @@
 			return 2
 	return ..()
 
+/datum/species/moth/skin_tone_from_body_color(body_color)
+	var/list/skin_tones = list("#81572a", "#a09c82", "#383838", "#6a287b")
+	return skin_tones.Find(pick_closest_list_color(skin_tones, body_color))
+
+/datum/species/moth/skin_tone_to_hex(skin_tone)
+	var/list/skin_tones = list("#81572a", "#a09c82", "#383838", "#6a287b")
+	return skin_tones[skin_tone]
+
 /datum/species/moth/randomize_eye_color()
 	if(prob(80))
 		return COLOR_BLACK

@@ -112,6 +112,20 @@
 		return TRUE
 	return ..()
 
+/datum/species/grey/skin_tone_from_body_color(body_color)
+	var/list/body_rgb = rgb2num(body_color)
+	if(body_rgb[1] == body_rgb[2] && body_rgb[2] == body_rgb[3])
+		return 1
+	if(body_rgb[1] > body_rgb[2] && body_rgb[1] > body_rgb[3])
+		return 4
+	if(body_rgb[2] > body_rgb[3])
+		return 2
+	return 3
+
+/datum/species/grey/skin_tone_to_hex(skin_tone)
+	var/list/tone_colors = list("#575757", "#576b57", "#57576b", "#6b5757")
+	return tone_colors[skin_tone]
+
 /datum/species/grey/randomize_eye_color()
 	if(prob(1))
 		return rand_hex_color()

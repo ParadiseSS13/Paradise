@@ -147,6 +147,14 @@
 	H.adjust_nutrition(-SILK_NUTRITION_AMOUNT)
 	to_chat(user, SPAN_WARNING("You spin a small amount of silk."))
 
+/datum/species/skulk/skin_tone_from_body_color(body_color)
+	var/list/skin_tones = list("#0a0a0b", "#200b0d", "#3a1027", "#393e5a", "#344234", "#867479")
+	return skin_tones.Find(pick_closest_list_color(skin_tones, body_color))
+
+/datum/species/skulk/skin_tone_to_hex(skin_tone)
+	var/list/skin_tones = list("#0a0a0b", "#200b0d", "#3a1027", "#393e5a", "#344234", "#867479")
+	return skin_tones[skin_tone]
+
 /datum/species/skulk/randomize_hair_colors(datum/robolimb/robohead, body_color = null, skin_tone = 1)
 	var/list/hair_colors = list()
 	switch(skin_tone)

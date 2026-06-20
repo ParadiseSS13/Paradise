@@ -153,6 +153,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispatch(A) istype(A, /obj/item/reagent_containers/patch)
 #define isfood(A) istype(A, /obj/item/food)
 #define is_color_text(thing) (istext(thing) && GLOB.regex_rgb_text.Find(thing))
+#define is_color_rgb(thing) (islist(thing) && length(thing) < 5 && length(thing) > 2 && isnum(thing[1]) && isnum(thing[2]) && isnum(thing[3]))
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)

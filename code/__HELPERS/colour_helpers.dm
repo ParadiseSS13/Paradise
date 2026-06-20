@@ -85,3 +85,34 @@
 	HSL[2] = clamp(HSL[2] + rand(-range, range), 0, 100)
 	HSL[3] = clamp(HSL[3] + rand(-range, range), 0, 100)
 	return rgb(HSL[1], HSL[2], HSL[3], space = COLORSPACE_HSL)
+
+/// Returns the index of the closest color in the list.
+/proc/pick_closest_list_color(list/colors, color)
+	var/list/color_rgb
+	if(is_color_text(color))
+		color_rgb = rgb2num(color)
+	else if(is_color_rgb(color))
+		color_rgb = color
+	else
+		return FALSE
+
+	var/distance = 255
+	var/picked_color = COLOR_BLACK
+	for(var/possible_color in colors)
+		var/possible_rgb
+		if(is_color_text(possible_color))
+			possible_rgb = rgb2num(possible_color)
+		else if(is_color_rgb(possible_color))
+			possible_rgb = possible_color
+		else
+			return FALSE
+		if(possible_rgb[1] == color_rgb[1] && possible_rgb[2] == color_rgb[2] && possible_rgb[2] == color_rgb[2])
+			return colors.Find(possible_color)
+		var/possible_distance = sqrt( \
+			(color_rgb[1] - possible_rgb[1]) ** 2 + \
+			(color_rgb[2] - possible_rgb[2]) ** 2 + \
+			(color_rgb[3] - possible_rgb[3]) ** 2)
+		if(possible_distance < distance)
+			distance = possible_distance
+			picked_color = possible_color
+	return picked_color

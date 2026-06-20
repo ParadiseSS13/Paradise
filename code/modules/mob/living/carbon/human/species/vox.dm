@@ -144,6 +144,15 @@
 /datum/species/vox/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/food/fried_vox(H.loc)
 
+/datum/species/vox/skin_tone_from_body_color(body_color)
+	var/list/skin_tones = list("#444706", "#251930", "#4a180c", "#2a2f1e", "#063000", "#082b21", "#661835", "#1e284d")
+	return skin_tones.Find(pick_closest_list_color(skin_tones, body_color))
+
+/datum/species/vox/skin_tone_to_hex(skin_tone)
+	var/list/skin_tones = list("#444706", "#251930", "#4a180c", "#2a2f1e", "#063000", "#082b21", "#661835", "#1e284d")
+	return skin_tones[skin_tone]
+
+
 /datum/species/vox/randomize_eye_color()
 	if(prob(70))
 		return rgb(rand(145, 165), rand(60, 95), rand(30, 80), COLORSPACE_HSL) // teal-turquoise
