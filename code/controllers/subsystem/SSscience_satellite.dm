@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(science_satellite)
 	offline_implications = "The game will no longer update satellite positions, or generate new points to gather science from. Data science will be impossible."
 	cpu_display = SS_CPUDISPLAY_LOW
 	var/list/satellites = list()
-	var/weather_nodes_to_spawn = 10
+	var/weather_nodes_to_spawn = 15
 	var/planet_radius = 128
 	var/list/active_weather_nodes = list()
 
@@ -34,8 +34,8 @@ SUBSYSTEM_DEF(science_satellite)
 	if(forced_location)
 		position_vector = forced_location
 	else
-		var/random_distance = planet_radius * (rand(0,1000)/1000) ** 0.5
-		var/theta = (rand(0,1000)/1000) * 2 * PI // we divide here to get a random number with decimals
+		var/random_distance = planet_radius * (rand(0,1000)/1000) ** 0.5 // we divide here to get a random number with decimals
+		var/theta = rand(0, 360)//(rand(0,1000)/1000) * 2 * PI // get a random angle
 
 		position_vector = vector(random_distance * cos(theta), random_distance * sin(theta), 1) // set the z component here, as we dont care about it other than it beign positive (its positive so weather nodes will be visible to players)
 

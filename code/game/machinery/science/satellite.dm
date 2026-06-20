@@ -98,12 +98,6 @@
 		satellite_stats.power_consumption += component.component_stats.power_consumption
 		satellite_stats.power_capacity += component.component_stats.power_capacity
 		satellite_stats.capabilities += component.component_stats.capabilities
-		log_debug("added capabilities: [component.component_stats.capabilities]")
-		if(component.component_stats.capabilities.len > 0)
-			log_debug("component.component_stats.capabilities 1: [component.component_stats.capabilities[1]]")
-
-	if(satellite_stats.capabilities.len > 0)
-		log_debug("capability 1: [satellite_stats.capabilities[1]]")
 
 	satellite_stats.current_fuel = satellite_stats.fuel_capacity
 	satellite_stats.current_power = satellite_stats.power_capacity
