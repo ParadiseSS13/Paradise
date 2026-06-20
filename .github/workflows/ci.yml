@@ -13,7 +13,7 @@ jobs:
     name: Run Linters
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
 
       - name: Setup Cache
         uses: actions/cache@v5
@@ -68,12 +68,12 @@ jobs:
     name: Lint with OpenDream
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v5.2.0
+        uses: actions/setup-dotnet@v5.3.0
         with:
           dotnet-version: 9.x
       - name: Run OD
@@ -88,7 +88,7 @@ jobs:
       matrix:
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
       - name: Load Build Dependencies
         id: deps
         shell: bash
@@ -146,7 +146,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       - name: Push Docker Image
-        uses: docker/build-push-action@v7.1.0
+        uses: docker/build-push-action@v7.2.0
         with:
           context: .
           tags: ${{ steps.docker_meta.outputs.tags }}
@@ -171,7 +171,7 @@ jobs:
         station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
@@ -193,7 +193,7 @@ jobs:
       matrix:
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
