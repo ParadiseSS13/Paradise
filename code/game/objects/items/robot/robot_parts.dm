@@ -161,9 +161,6 @@
 	return 0
 
 /obj/item/robot_parts/robot_suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-
 	if(istype(used, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 		var/obj/item/stack/sheet/metal/M = used
 		var/obj/item/ed209_assembly/B = new /obj/item/ed209_assembly
@@ -400,9 +397,6 @@
 	return
 
 /obj/item/robot_parts/chest/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-
 	if(istype(used, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, SPAN_NOTICE("You have already inserted a cell!"))
@@ -426,8 +420,6 @@
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/robot_parts/head/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/flash))
 		if(isrobot(user))
 			to_chat(user, SPAN_WARNING("How do you propose to do that?"))
@@ -455,6 +447,7 @@
 		qdel(used)
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/robot_parts/emag_act(user)
 	if(sabotaged)
