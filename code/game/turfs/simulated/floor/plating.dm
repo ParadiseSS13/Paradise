@@ -1,6 +1,5 @@
 /turf/simulated/floor/plating
 	name = "plating"
-	icon_state = "plating"
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null

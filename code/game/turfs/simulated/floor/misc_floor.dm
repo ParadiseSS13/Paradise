@@ -180,7 +180,6 @@
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"
 	desc = "Tightly-pressed brass tiles. They emit minute vibration."
-	icon_state = "plating"
 	baseturf = /turf/simulated/floor/clockwork
 	var/dropped_brass
 	var/uses_overlay = TRUE
