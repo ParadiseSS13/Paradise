@@ -21809,10 +21809,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/office/dark{
+/obj/effect/turf_decal/tiles/department/virology/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/virology/corner{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -30333,11 +30333,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
+	},
+/obj/structure/chair/office{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -47410,9 +47410,6 @@
 /turf/simulated/wall,
 /area/station/maintenance/assembly_line)
 "jwF" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -47420,6 +47417,9 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -65541,7 +65541,7 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 4
 	},
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -74434,7 +74434,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "oPb" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -115149,7 +115149,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "wRN" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
