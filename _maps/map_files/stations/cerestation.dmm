@@ -4955,7 +4955,6 @@
 "aPc" = (
 /obj/structure/shelf/command,
 /obj/item/reagent_containers/drinks/oilcan/full,
-/obj/item/aicard,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "aPf" = (
@@ -11757,11 +11756,11 @@
 /area/station/service/library)
 "bQc" = (
 /obj/structure/shelf/command,
+/obj/item/flag/nt,
 /obj/item/storage/firstaid/o2{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "bQg" = (
@@ -15423,11 +15422,10 @@
 /area/station/hallway/primary/fore/north)
 "csz" = (
 /obj/structure/shelf/command,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 3;
-	pixel_y = 6
+/obj/item/flashlight{
+	pixel_x = 1;
+	pixel_y = 5
 	},
-/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "csA" = (
@@ -16511,7 +16509,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/multitool/command,
 /obj/structure/table/glass/reinforced,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
@@ -90105,10 +90102,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/launch)
 "slH" = (
-/obj/item/flashlight{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/structure/shelf/command,
 /obj/item/stack/package_wrap,
 /obj/item/dest_tagger,
