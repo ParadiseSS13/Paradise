@@ -1475,6 +1475,8 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
+	if(shell)
+		undeploy()
 	if(robot_suit)
 		robot_suit.forceMove(T)
 		robot_suit.l_leg.forceMove(T)
