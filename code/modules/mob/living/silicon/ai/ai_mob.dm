@@ -426,7 +426,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /datum/action/innate/deploy_shell
 	name = "Deploy to AI Shell"
 	desc = "Wirelessly control a specialized cyborg shell."
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "ai_shell"
 
 /datum/action/innate/deploy_shell/Trigger()
@@ -438,7 +437,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /datum/action/innate/deploy_last_shell
 	name = "Reconnect to shell"
 	desc = "Reconnect to the most recently used AI shell."
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "ai_last_shell"
 	var/mob/living/silicon/robot/last_used_shell
 
