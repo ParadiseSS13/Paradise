@@ -413,7 +413,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!target || !(target in possible)) // If the AI is looking for a new shell, or its pre-selected shell is no longer valid.
 		target = tgui_input_list(usr, "Which body to control?", "AI Shell Deployment", possible)
 
-	if (!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)))
+	if(!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)))
 		return
 
 	else if(mind)

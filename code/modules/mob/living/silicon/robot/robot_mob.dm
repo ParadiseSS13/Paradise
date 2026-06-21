@@ -2130,10 +2130,10 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	undeployment_action.Grant(src)
 
 /datum/action/innate/undeployment
- 	name = "Disconnect from shell"
- 	desc = "Stop controlling your shell and resume normal core operations."
- 	button_icon = 'icons/mob/actions/actions.dmi'
- 	button_icon_state = "ai_core"
+	name = "Disconnect from shell"
+	desc = "Stop controlling your shell and resume normal core operations."
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "ai_core"
 
 /datum/action/innate/undeployment/Trigger()
 	if(!..())

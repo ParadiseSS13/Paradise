@@ -47,15 +47,19 @@
 
 /// Runs after `mob/living` `death()`. Override this for content.
 /datum/soullink/proc/ownerDies(gibbed, mob/living/owner)
+	return
 
 /// Runs after `mob/living` `death()`. Override this for content.
 /datum/soullink/proc/sharerDies(gibbed, mob/living/owner)
+	return
 
 /// Runs after `mob/living` `update_revive()`. Override this for content.
 /datum/soullink/proc/ownerRevives(mob/living/owner)
+	return
 
 /// Runs after `mob/living` `update_revive()`. Override this for content.
 /datum/soullink/proc/sharerRevives(mob/living/owner)
+	return
 
 //Quick-use helper
 /proc/soullink(typepath, ...)

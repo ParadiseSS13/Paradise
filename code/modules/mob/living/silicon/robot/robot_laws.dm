@@ -30,7 +30,7 @@
 	to_chat(who, "<b>Obey these laws:</b>")
 	laws.show_laws(who)
 	// TODO: Update to new antagonist system.
-	if (shell) // AI shell.
+	if(shell) // AI shell.
 		to_chat(who, SPAN_USERDANGER("Remember, you are an AI remotely controlling your shell, other AIs can be ignored."))
 	else if(mind && (mind.special_role == SPECIAL_ROLE_TRAITOR && mind.is_original_mob(src)) && connected_ai)
 		to_chat(who, "<b>Remember, [connected_ai.name] is technically your master, but your objective comes first.</b>")
