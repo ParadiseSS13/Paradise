@@ -47,13 +47,13 @@
 	return log_records
 
 /datum/logging/vv_edit_var(var_name, var_value)
-	message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to VV edit a logging object. Inform the host <u>at once</u>.</span>")
+	message_admins(SPAN_USERDANGER("[key_name_admin(src)] attempted to VV edit a logging object. Inform the host <u>at once</u>."))
 	log_admin("[key_name(src)] attempted to VV edit a logging object. Inform the host at once.")
 	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to VV edit a logging object. Inform the host at once.")
 	return FALSE
 
 /datum/logging/can_vv_delete()
-	message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to VV edit a logging object. Inform the host <u>at once</u>.</span>")
+	message_admins(SPAN_USERDANGER("[key_name_admin(src)] attempted to VV edit a logging object. Inform the host <u>at once</u>."))
 	log_admin("[key_name(src)] attempted to VV edit a logging object. Inform the host at once.")
 	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] attempted to VV edit a logging object. Inform the host at once.")
 	return FALSE

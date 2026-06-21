@@ -32,14 +32,14 @@
 /obj/machinery/icemachine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/reagent_containers/glass))
 		if(beaker)
-			to_chat(user, "<span class='notice'>A container is already inside [src].</span>")
+			to_chat(user, SPAN_NOTICE("A container is already inside [src]."))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [used] is stuck to you!</span>")
+			to_chat(user, SPAN_WARNING("\The [used] is stuck to you!"))
 			return ITEM_INTERACT_COMPLETE
 		beaker = used
 		used.forceMove(src)
-		to_chat(user, "<span class='notice'>You add [used] to [src].</span>")
+		to_chat(user, SPAN_NOTICE("You add [used] to [src]."))
 		updateUsrDialog()
 		return ITEM_INTERACT_COMPLETE
 
@@ -51,7 +51,7 @@
 			used.name += " with sprinkles"
 			used.desc += ". This also has sprinkles."
 		else
-			to_chat(user, "<span class='notice'>This [used] already has sprinkles.</span>")
+			to_chat(user, SPAN_NOTICE("This [used] already has sprinkles."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -76,7 +76,7 @@
 			var/transferred = beaker.reagents.trans_id_to(src, id, amount)
 			if(transferred <= 0)
 				return
-			to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it transfers the liquid.</span>")
+			to_chat(usr, SPAN_NOTICE("[src] vibrates for a moment as it transfers the liquid."))
 			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 
 	else if(href_list["remove"])
@@ -87,7 +87,7 @@
 				return
 			if(beaker == null || (id in locked_reagents))
 				reagents.remove_reagent(id,amount)
-				to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it flushes the liquid.</span>")
+				to_chat(usr, SPAN_NOTICE("[src] vibrates for a moment as it flushes the liquid."))
 				playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 				updateUsrDialog()
 				return
@@ -95,7 +95,7 @@
 			var/transferred = reagents.trans_id_to(beaker, id, amount)
 			if(transferred <= 0)
 				return
-			to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it transfers the liquid.</span>")
+			to_chat(usr, SPAN_NOTICE("[src] vibrates for a moment as it transfers the liquid."))
 			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 
 	else if(href_list["main"])

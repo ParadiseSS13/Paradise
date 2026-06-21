@@ -15,45 +15,17 @@ GLOBAL_LIST_EMPTY(staffsays)
 	src.message = message
 	src.time = time
 
-/client/proc/view_msays()
-	set name = "Msays"
-	set desc = "View Msays from the current round."
-	set category = "Admin"
+USER_VERB(view_msays, R_ADMIN|R_MENTOR, "Msays", "View current round Msays.", VERB_CATEGORY_ADMIN)
+	client.display_says(GLOB.msays, "msay")
 
-	if(!check_rights(R_MENTOR | R_ADMIN))
-		return
+USER_VERB(view_devsays, R_ADMIN|R_DEV_TEAM, "Devsays", "View current round Devsays.", VERB_CATEGORY_ADMIN)
+	client.display_says(GLOB.devsays, "devsay")
 
-	display_says(GLOB.msays, "msay")
+USER_VERB(view_asays, R_ADMIN, "Asays", "View current round Asays.", VERB_CATEGORY_ADMIN)
+	client.display_says(GLOB.asays, "asay")
 
-/client/proc/view_devsays()
-	set name = "Devsays"
-	set desc = "View Devsays from the current round."
-	set category = "Admin"
-
-	if(!check_rights(R_DEV_TEAM | R_ADMIN))
-		return
-
-	display_says(GLOB.devsays, "devsay")
-
-/client/proc/view_asays()
-	set name = "Asays"
-	set desc = "View Asays from the current round."
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	display_says(GLOB.asays, "asay")
-
-/client/proc/view_staffsays()
-	set name = "Staffsays"
-	set desc = "View Staffsays from the current round."
-	set category = "Admin"
-
-	if(!check_rights(R_DEV_TEAM | R_ADMIN))
-		return
-
-	display_says(GLOB.staffsays, "staffsay")
+USER_VERB(view_staffsays, R_ADMIN|R_DEV_TEAM, "Staffsays", "View current round Staffsays.", VERB_CATEGORY_ADMIN)
+	client.display_says(GLOB.staffsays, "staffsay")
 
 /client/proc/display_says(list/say_list, title)
 

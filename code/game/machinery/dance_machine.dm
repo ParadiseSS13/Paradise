@@ -20,6 +20,7 @@
 	var/datum/track/selection = null
 	/// If set to FALSE, the dance4 proc that rests the dancer will be replaced by dance2.
 	var/restdancing = TRUE
+	var/list/available = list()
 
 /datum/track
 	var/song_name = "generic"
@@ -34,9 +35,6 @@
 	song_beat = beat
 
 /obj/machinery/disco/proc/add_track(file, name, length, beat)
-	var/sound/S = file
-	if(!istype(S))
-		return
 	if(!name)
 		name = "[file]"
 	if(!beat)
@@ -45,9 +43,12 @@
 		length = 2400 //Unless there's a way to discern via BYOND.
 	var/datum/track/T = new /datum/track(name, file, length, beat)
 	songs += T
+	available += T.song_name
 
 /obj/machinery/disco/Initialize(mapload)
 	. = ..()
+	for(var/datum/track/S in songs)
+		available += S.song_name
 	selection = songs[1]
 
 
@@ -87,69 +88,50 @@
 /obj/machinery/disco/attack_hand(mob/user)
 	if(..())
 		return
-
-	interact(user)
-
-/obj/machinery/disco/interact(mob/user)
 	if(!anchored)
-		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
+		to_chat(user,SPAN_WARNING("This device must be anchored by a wrench!"))
 		return
 	if(!Adjacent(user) && !is_ai(user))
 		return
-	user.set_machine(src)
-	var/list/dat = list()
-	dat +="<div class='statusDisplay' style='text-align:center'>"
-	dat += "<b><A href='byond://?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
-	dat += "</div><br>"
-	dat += "<A href='byond://?src=[UID()];action=select'> Select Track</A><br>"
-	dat += "Track Selected: [selection.song_name]<br>"
-	dat += "Track Length: [DisplayTimeText(selection.song_length)]<br><br>"
-	dat += "<br>DJ's Soundboard:<b><br>"
-	dat +="<div class='statusDisplay'><div style='text-align:center'>"
-	dat += "<A href='byond://?src=[UID()];action=horn'>Air Horn</A>  "
-	dat += "<A href='byond://?src=[UID()];action=alert'>Station Alert</A>  "
-	dat += "<A href='byond://?src=[UID()];action=siren'>Warning Siren</A>  "
-	dat += "<A href='byond://?src=[UID()];action=honk'>Honk</A><br>"
-	dat += "<A href='byond://?src=[UID()];action=pump'>Shotgun Pump</A>"
-	dat += "<A href='byond://?src=[UID()];action=pop'>Gunshot</A>"
-	dat += "<A href='byond://?src=[UID()];action=saber'>Esword</A>"
-	dat += "<A href='byond://?src=[UID()];action=harm'>Harm Alarm</A>"
-	var/datum/browser/popup = new(user, "vending", "Radiance Dance Machine - Mark IV", 400, 350)
-	popup.set_content(dat.Join())
-	popup.open()
+	add_fingerprint(user)
+	ui_interact(user)
 
+/obj/machinery/disco/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "DanceMachine", "Radiant Dance Machine Mk. IV")
+		ui.open()
 
-/obj/machinery/disco/Topic(href, href_list)
+/obj/machinery/disco/ui_data(mob/user)
+	var/list/data = list()
+	data["active"] = active
+	data["selectedSong"] = selection.song_name
+	data["songLength"] = selection.song_length
+	data["charge"] = charge
+	data["available"] = available
+	data["onCooldown"] = !active && stop > world.time
+	return data
+
+/obj/machinery/disco/ui_act(action, params)
 	if(..())
 		return
-	add_fingerprint(usr)
-	switch(href_list["action"])
+	switch(action)
 		if("toggle")
-			if(QDELETED(src))
-				return
 			if(!active)
 				if(stop > world.time)
-					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
-					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				breakitdown()
-				updateUsrDialog()
 			else if(active)
 				stop = 0
-				updateUsrDialog()
 		if("select")
-			if(active)
-				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
+			var/song_name = params["selectedSong"]
+			if(!song_name)
 				return
-
-			var/list/available = list()
 			for(var/datum/track/S in songs)
-				available[S.song_name] = S
-			var/selected = tgui_input_list(usr, "Select a new track", "Track:", available)
-			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
+				if(S.song_name == song_name)
+					selection = S
+			if(!selection)
 				return
-			selection = available[selected]
-			updateUsrDialog()
 		if("horn")
 			deejay('sound/items/airhorn2.ogg')
 		if("alert")
@@ -166,6 +148,7 @@
 			deejay('sound/weapons/saberon.ogg')
 		if("harm")
 			deejay('sound/AI/harmalarm.ogg')
+	return TRUE
 
 /**
  * Starts the dance machine.
@@ -180,7 +163,6 @@
 
 /obj/machinery/disco/proc/deejay(S)
 	if(QDELETED(src) || !active || charge < 5)
-		to_chat(usr, "<span class='warning'>The device is not able to play more DJ sounds at this time.</span>")
 		return
 	charge -= 5
 	playsound(src, S, 300, 1)
@@ -503,7 +485,7 @@
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
 		set_light(0)
-		stop = world.time + 100
+		stop = world.time + 50
 
 
 

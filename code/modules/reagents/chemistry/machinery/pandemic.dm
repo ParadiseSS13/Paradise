@@ -61,11 +61,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 /obj/machinery/pandemic/Initialize(mapload)
 	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/pandemic(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	RefreshParts()
+	initialize_parts()
 
 	GLOB.pandemics |= src
 	var/datum/symptom/S
@@ -79,6 +75,20 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	if(!(z in GLOB.known_advanced_diseases))
 		GLOB.known_advanced_diseases += list("[z]" = list("4:origin", "24:origin"))
 	update_icon()
+
+/obj/machinery/pandemic/proc/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/pandemic(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	RefreshParts()
+
+/obj/machinery/pandemic/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/pandemic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	RefreshParts()
 
 /obj/machinery/pandemic/RefreshParts()
 	var/manip_rating = 0
@@ -154,7 +164,6 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 /obj/machinery/pandemic/proc/create_culture(name, bottle_type = "culture", cooldown = 50)
 	var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
-	B.icon_state = "bottle"
 	B.scatter_atom()
 	replicator_cooldown(cooldown)
 	B.name = "[name] [bottle_type] bottle"
@@ -556,7 +565,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
-		visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
+		visible_message(SPAN_NOTICE("[src] rattles and prints out a sheet of paper."))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 		P.info = "<U><font size=\"4\"><B><center> Releasing Virus </B></center></font></U>"
@@ -616,14 +625,14 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		if(stat & (NOPOWER|BROKEN))
 			return ITEM_INTERACT_COMPLETE
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine!</span>")
+			to_chat(user, SPAN_WARNING("A beaker is already loaded into the machine!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
 
 		beaker = used
 		beaker.forceMove(src)
-		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
+		to_chat(user, SPAN_NOTICE("You add the beaker to the machine."))
 		icon_state = "pandemic1"
 		var/datum/reagent/blood/inserted = locate() in beaker.reagents.reagent_list
 		if(inserted && inserted.data && inserted.data["viruses"])

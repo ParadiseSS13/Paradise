@@ -60,25 +60,25 @@
 		if(istype(I, /obj/item/organ/internal/heart))
 			IC = I
 			break
-	user.visible_message("[user] starts to remove [target]'s organs.", "<span class='notice'>You start to remove [target]'s organs...</span>")
+	user.visible_message("[user] starts to remove [target]'s organs.", SPAN_NOTICE("You start to remove [target]'s organs..."))
 	..()
 
 /datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/AB = target
 	if(IC)
-		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
+		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", SPAN_NOTICE("You pull [IC] out of [target]'s [target_zone]."))
 		user.put_in_hands(IC)
 		IC.remove(target, special = 1)
 		return SURGERY_STEP_CONTINUE
 	if(NO_INTORGANS in AB.dna.species.species_traits)
-		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
+		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", SPAN_NOTICE("You prepare [target]'s [target_zone] for further dissection."))
 		return SURGERY_STEP_CONTINUE
 	else
-		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
+		to_chat(user, SPAN_WARNING("You don't find anything in [target]'s [target_zone]!"))
 		return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("<span class='warning'>[user]'s hand slips, failing to extract anything!</span>", "<span class='warning'>Your hand slips, failing to extract anything!</span>")
+	user.visible_message(SPAN_WARNING("[user]'s hand slips, failing to extract anything!"), SPAN_WARNING("Your hand slips, failing to extract anything!"))
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/internal/gland_insert
@@ -102,7 +102,7 @@
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("<span class='warning'>[user]'s hand slips, failing to insert the gland!</span>", "<span class='warning'>Your hand slips, failing to insert the gland!</span>")
+	user.visible_message(SPAN_WARNING("[user]'s hand slips, failing to insert the gland!"), SPAN_WARNING("Your hand slips, failing to insert the gland!"))
 	return SURGERY_STEP_RETRY
 
 //IPC Gland Surgery//

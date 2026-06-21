@@ -41,6 +41,10 @@ MARK: Helpers
 	if(spread_method == SPREAD_BLOOD)
 		return TRUE
 
+	// Check the disease can spread by a method other than SPREAD_BLOOD ones
+	if(!(D.spread_flags & (SPREAD_CONTACT_FEET | SPREAD_CONTACT_HANDS | SPREAD_CONTACT_GENERAL | SPREAD_AIRBORNE)))
+		return FALSE
+
 	if(src.mind && HAS_TRAIT(src.mind, TRAIT_GERMOPHOBE) && prob(85))
 		return FALSE
 
@@ -164,7 +168,7 @@ MARK: Helpers
 		return FALSE
 	if(notify_ghosts)
 		for(var/mob/ghost as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
-			to_chat(ghost, "<span class='deadsay'><b>Disease outbreak: </b>[src] ([ghost_follow_link(src, ghost)]) [D.carrier ? "is now a carrier of" : "has contracted"] [D]!</span>")
+			to_chat(ghost, SPAN_DEADSAY("<b>Disease outbreak: </b>[src] ([ghost_follow_link(src, ghost)]) [D.carrier ? "is now a carrier of" : "has contracted"] [D]!"))
 		message_admins("[key_name(src)] [D.carrier ? "is now a carrier of" : "has contracted"] [D]!")
 		log_admin("[key_name(src)] [D.carrier ? "is now a carrier of" : "has contracted"] [D]!")
 	AddDisease(D, respect_carrier)
@@ -192,7 +196,7 @@ MARK: Helpers
 	return check_contraction_carbon(D, spread_method)
 
 /mob/living/carbon/can_contract_disease(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
-	return ..() && check_contraction_carbon(D)
+	return ..() && check_contraction_carbon(D) //Think this should be (D, spread_method), not touching it though as I don't know viral code
 
 //MARK: Human
 /mob/living/carbon/human/can_spread_disease(D, spread_method = SPREAD_CONTACT_GENERAL)

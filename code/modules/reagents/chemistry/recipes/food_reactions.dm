@@ -189,7 +189,7 @@
 
 /datum/chemical_reaction/fake_cheese/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='notice'>A faint cheese-ish smell drifts through the air...</span>")
+	T.visible_message(SPAN_NOTICE("A faint cheese-ish smell drifts through the air..."))
 
 /datum/chemical_reaction/weird_cheese
 	name = "Weird cheese"
@@ -258,3 +258,51 @@
 	result = "vinegar"
 	required_reagents = list("acetic_acid" = 1, "water" = 9)
 	result_amount = 10
+
+/datum/chemical_reaction/tapiocadough
+	name = "Tapioca dough"
+	id = "tapiocadough"
+	result = null
+	required_reagents = list("water" = 10, "tapioca" = 15)
+	result_amount = 1
+	mix_message = "The ingredients form a flat dough."
+
+/datum/chemical_reaction/tapiocadough/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/food/tapiocadough(location)
+
+// Corn dough for arepas and the like
+/datum/chemical_reaction/corndough
+	name = "Maize Dough"
+	id = "corndough"
+	result = null
+	required_reagents = list("water" = 10, "corn_starch" = 10)
+	result_amount = 1
+	mix_message = "The ingredients form a dough."
+
+/datum/chemical_reaction/corndough/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/food/dough/corn(location)
+
+// ----------- Reagent recipes imported from Hispania!
+
+/datum/chemical_reaction/butter
+	name = "Butter"
+	id = "butter"
+	result = "butter"
+	required_reagents = list("cream" = 20, "sodiumchloride" = 1)
+	result_amount = 20
+	mix_message = "The butter whips into shape."
+
+/datum/chemical_reaction/cream_cheese
+	name = "Cream Cheese"
+	id = "cream_cheese"
+	result = "cream_cheese"
+	required_reagents = list("cream" = 15, "milk" = 15, "sodiumchloride" = 1)
+	required_catalysts = list("enzyme" = 5)
+	result_amount = 20
+	mix_message = "The cream combines into a smooth cheese."
+
+// ----------- END of recipe imports from Hispania!

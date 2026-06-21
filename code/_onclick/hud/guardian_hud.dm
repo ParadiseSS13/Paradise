@@ -11,23 +11,23 @@
 	action_intent = using
 
 	using = new /atom/movable/screen/guardian/manifest()
-	using.screen_loc = ui_rhand
+	using.screen_loc = UI_RHAND
 	static_inventory += using
 
 	using = new /atom/movable/screen/guardian/recall()
-	using.screen_loc = ui_lhand
+	using.screen_loc = UI_LHAND
 	static_inventory += using
 
 	using = new /atom/movable/screen/guardian/toggle_mode()
-	using.screen_loc = ui_storage1
+	using.screen_loc = UI_STORAGE1
 	static_inventory += using
 
 	using = new /atom/movable/screen/guardian/toggle_light()
-	using.screen_loc = ui_inventory
+	using.screen_loc = UI_INVENTORY
 	static_inventory += using
 
 	using = new /atom/movable/screen/guardian/communicate()
-	using.screen_loc = ui_back
+	using.screen_loc = UI_BACK
 	static_inventory += using
 
 
@@ -47,10 +47,10 @@
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		var/summoner_loc = G.summoner.loc
 		if(istype(summoner_loc, /obj/machinery/atmospherics))
-			to_chat(G, "<span class='warning'>You can not manifest while in these pipes!</span>")
+			to_chat(G, SPAN_WARNING("You can not manifest while in these pipes!"))
 			return
 		if(istype(summoner_loc, /obj/structure/closet/cardboard/agent))
-			to_chat(G, "<span class='warning'>You can not manifest while inside an active Stealth Implant!</span>")
+			to_chat(G, SPAN_WARNING("You can not manifest while inside an active Stealth Implant!"))
 			return
 		if(G.loc == G.summoner)
 			G.Manifest()

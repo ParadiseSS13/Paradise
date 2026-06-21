@@ -3,16 +3,17 @@
 /// wall piece
 /turf/simulated/mineral
 	name = "rock"
-	icon = 'icons/turf/walls/smoothrocks.dmi'
+	icon = 'icons/turf/walls/32x40smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_ROCK_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ROCK_WALLS)
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
 	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
+	flags = NO_RUST
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation_beta = RAD_BETA_BLOCKER
 	layer = EDGED_TURF_LAYER
@@ -73,7 +74,7 @@
 		return FINISH_ATTACK
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(usr, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return FINISH_ATTACK
 
 	if(istype(attacking, /obj/item/pickaxe))
@@ -89,12 +90,12 @@
 			return FINISH_ATTACK
 
 		last_act = world.time
-		to_chat(user, "<span class='notice'>You start picking...</span>")
+		to_chat(user, SPAN_NOTICE("You start picking..."))
 		P.playDigSound()
 
 		if(do_after(user, mine_time * P.toolspeed, target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
-				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
+				to_chat(user, SPAN_NOTICE("You finish cutting into the rock."))
 				gets_drilled(user, productivity_mod = P.bit_productivity_mod)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 
@@ -125,10 +126,10 @@
 	..()
 
 /turf/simulated/mineral/attack_alien(mob/living/carbon/alien/M)
-	to_chat(M, "<span class='notice'>You start digging into the rock...</span>")
+	to_chat(M, SPAN_NOTICE("You start digging into the rock..."))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
 	if(do_after(M, 40, target = src))
-		to_chat(M, "<span class='notice'>You tunnel into the rock.</span>")
+		to_chat(M, SPAN_NOTICE("You tunnel into the rock."))
 		gets_drilled(M)
 
 /turf/simulated/mineral/Bumped(atom/movable/AM)
@@ -209,8 +210,8 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
-	smoothing_groups = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_ROCK_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ROCK_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER
@@ -255,7 +256,7 @@
 		return TRUE
 
 	if(!(is_type_in_typecache(axe, allowed_picks_typecache)))
-		to_chat(user, "<span class='notice'>Only diamond tools or a sonic jackhammer can break this rock.</span>")
+		to_chat(user, SPAN_NOTICE("Only diamond tools or a sonic jackhammer can break this rock."))
 		return TRUE
 
 /turf/simulated/mineral/ancient/lava_land_surface_hard
@@ -285,7 +286,7 @@
 		return TRUE
 
 	if(!(is_type_in_typecache(axe, allowed_picks_typecache)))
-		to_chat(user, "<span class='notice'>Only diamond tools or a sonic jackhammer can break this rock.</span>")
+		to_chat(user, SPAN_NOTICE("Only diamond tools or a sonic jackhammer can break this rock."))
 		return TRUE
 
 /turf/simulated/mineral/random/high_chance

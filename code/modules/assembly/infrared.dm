@@ -2,7 +2,7 @@
 	name = "infrared emitter"
 	desc = "Emits a visible or invisible beam and is triggered when the beam is interrupted."
 	icon_state = "infrared"
-	materials = list(MAT_METAL=1000, MAT_GLASS=500)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	origin_tech = "magnets=2;materials=2"
 
 	bomb_name = "tripwire mine"
@@ -28,7 +28,7 @@
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
 	. += "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
-	. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it.")
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -49,8 +49,8 @@
 	update_icon()
 	return secured
 
-/obj/item/assembly/infra/New()
-	..()
+/obj/item/assembly/infra/Initialize(mapload)
+	. = ..()
 	if(!secured)
 		toggle_secure()
 
@@ -146,6 +146,7 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "infra")
+	return ..()
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
@@ -166,7 +167,7 @@
 		usr << browse(null, "window=infra")
 		return
 	if(usr)
-		attack_self__legacy__attackchain(usr)
+		activate_self(usr)
 
 /obj/item/assembly/infra/AltClick(mob/user)
 	rotate(user)
@@ -185,8 +186,8 @@
 
 
 
-/obj/item/assembly/infra/armed/New()
-	..()
+/obj/item/assembly/infra/armed/Initialize(mapload)
+	. = ..()
 	spawn(3)
 		if(holder)
 			if(holder.master)

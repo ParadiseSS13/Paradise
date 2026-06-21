@@ -2,7 +2,6 @@
 	name = "load bearing equipment"
 	desc = "Used to hold things when you don't have enough hands."
 	icon_state = "webbing"
-	item_color = "webbing"
 	slot = ACCESSORY_SLOT_UTILITY
 	var/slots = 3
 	var/obj/item/storage/internal/hold
@@ -11,7 +10,7 @@
 
 /obj/item/clothing/accessory/storage/Initialize(mapload)
 	. = ..()
-	hold = new/obj/item/storage/internal(src)
+	hold = new/obj/item/storage/internal(src, src)
 	hold.storage_slots = slots
 
 /obj/item/clothing/accessory/storage/Destroy()
@@ -33,8 +32,11 @@
 	if(hold.handle_mousedrop(usr, over_object))
 		..(over_object)
 
-/obj/item/clothing/accessory/storage/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	return hold.attackby__legacy__attackchain(W, user, params)
+/obj/item/clothing/accessory/storage/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!hold.item_interaction(user, used, modifiers))
+		return hold.attackby__legacy__attackchain(used, user, modifiers)
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/accessory/storage/emp_act(severity)
 	..()
@@ -62,44 +64,46 @@
 			L += G.gift:return_inv()
 	return L
 
-/obj/item/clothing/accessory/storage/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/clothing/accessory/storage/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(has_suit)	//if we are part of a suit
 		hold.open(user)
 	else
-		to_chat(user, "<span class='notice'>You empty [src].</span>")
+		to_chat(user, SPAN_NOTICE("You empty [src]."))
 		var/turf/T = get_turf(src)
 		hold.hide_from(usr)
 		for(var/obj/item/I in hold.contents)
 			hold.remove_from_storage(I, T)
 		src.add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/accessory/storage/webbing
 	name = "webbing"
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/storage/black_vest
 	name = "black webbing vest"
 	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
 	icon_state = "vest_black"
-	item_color = "vest_black"
 	slots = 5
 
 /obj/item/clothing/accessory/storage/brown_vest
 	name = "brown webbing vest"
 	desc = "Worn brownish synthcotton vest with lots of pockets to unload your hands."
 	icon_state = "vest_brown"
-	item_color = "vest_brown"
 	slots = 5
 
 /obj/item/clothing/accessory/storage/knifeharness
 	name = "decorated harness"
 	desc = "A heavily decorated harness of sinew and leather with two knife-loops."
 	icon_state = "unathiharness2"
-	item_color = "unathiharness2"
 	slots = 2
 
 /obj/item/clothing/accessory/storage/knifeharness/Initialize(mapload)

@@ -73,7 +73,7 @@
 	if(!.)
 		return
 	target.playsound_local(grenade_turf, 'sound/effects/bang.ogg', 60, TRUE)
-	target.show_message("<span class='warning'>BANG</span>", 2)
+	target.show_message(SPAN_WARNING("BANG"), 2)
 	var/weaken_time = 6 SECONDS
 	if(target.flash_eyes(visual = TRUE))
 		weaken_time /= 2
@@ -83,11 +83,11 @@
 		return
 	switch(rand(1, 5))
 		if(1, 2)
-			to_chat(target, "<span class='warning'>Your ears start to ring!</span>")
+			to_chat(target, SPAN_WARNING("Your ears start to ring!"))
 		if(3, 4)
-			to_chat(target, "<span class='warning'>Your ears start to ring badly!</span>")
+			to_chat(target, SPAN_WARNING("Your ears start to ring badly!"))
 		if(5)
-			to_chat(target, "<span class='warning'>You can't hear anything!</span>")
+			to_chat(target, SPAN_WARNING("You can't hear anything!"))
 			target.Deaf(2 SECONDS)
 
 /**
@@ -119,7 +119,7 @@
 /obj/effect/hallucination/chaser/attacker/space_carp/attack_effects()
 	do_attack_animation(target, ATTACK_EFFECT_BITE)
 	target.playsound_local(get_turf(src), 'sound/weapons/bite.ogg', 50, TRUE)
-	to_chat(target, "<span class='userdanger'>[name] bites you!</span>")
+	to_chat(target, SPAN_USERDANGER("[name] bites you!"))
 
 /obj/effect/hallucination/chaser/attacker/space_carp/on_knockdown()
-	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>", "<span class='userdanger'>[name] bites you!</span>")
+	target.visible_message(SPAN_WARNING("[target] recoils as if hit by something, before suddenly collapsing!"), SPAN_USERDANGER("[name] bites you!"))

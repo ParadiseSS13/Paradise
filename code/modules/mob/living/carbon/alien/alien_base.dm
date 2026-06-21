@@ -33,6 +33,12 @@
 	for(var/organ_path in get_caste_organs())
 		var/obj/item/organ/internal/organ = new organ_path()
 		organ.insert(src)
+	AddComponent(/datum/component/event_tracker, EVENT_XENOS)
+
+/mob/living/carbon/alien/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 1)
 
 /// returns the list of type paths of the organs that we need to insert into
 /// this particular xeno upon its creation
@@ -63,10 +69,10 @@
 	return speech_verb
 
 
-/mob/living/carbon/alien/adjustToxLoss(amount)
+/mob/living/carbon/alien/adjustToxLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
 
-/mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
+/mob/living/carbon/alien/adjustFireLoss(amount, updating_health = TRUE) // Weak to Fire
 	if(amount > 0)
 		return ..(amount * 1.5)
 	else
@@ -174,7 +180,7 @@
 		to_chat(M, alien_message)
 
 /mob/living/carbon/alien/proc/deathrattle_message()
-	return "<i><span class='alien'>The hivemind echoes: [name] has been slain!</span></i>"
+	return "<i>[SPAN_ALIEN("The hivemind echoes: [name] has been slain!")]</i>"
 
 /*----------------------------------------
 Proc: AddInfectionImages()

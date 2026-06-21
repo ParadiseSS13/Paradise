@@ -45,12 +45,12 @@
 			if(prob(2)) // Low prob. since everyone else will also be spouting this
 				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlin's beard!", "Feel the power of the Dark Side!", "A wizard is never late!", "50 points for Security!", "NEC CANTIO!", "STI KALY!", "AULIE OXIN FIERA!", "GAR YOK!", "DIRI CEL!"))
 			if(prob(8)) // Double the stage advancement prob. so each player has a chance to catch a couple
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "that this location gives you a +1 to INT", "an urge to summon familiar")].</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "that this location gives you a +1 to INT", "an urge to summon familiar")]."))
 		if(4)
 			if(prob(1))
 				affected_mob.say(pick("FORTI GY AMA!", "GITTAH WEIGH!", "TOKI WO TOMARE!", "TARCOL MINTI ZHERI!", "ONI SOMA!", "EI NATH!", "BIRUZ BENNAR!", "NWOLC EGNEVER!"))
 			if(prob(3)) // Last stage, so we'll have plenty of time to show these off even with a lower prob.
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside", "that this location gives you a +2 to INT and +1 to WIS", "an urge to teleport", "the magic bubbling in your veins", "an urge to summon familiar")].</span>")
+				to_chat(affected_mob, SPAN_DANGER("You feel [pick("the tidal wave of raw power building inside", "that this location gives you a +2 to INT and +1 to WIS", "an urge to teleport", "the magic bubbling in your veins", "an urge to summon familiar")]."))
 			if(prob(3)) // About 1 minute per item on average
 				spawn_wizard_clothes()
 			if(prob(0.033)) // Assuming 50 infected, someone should teleport every ~2 minutes on average

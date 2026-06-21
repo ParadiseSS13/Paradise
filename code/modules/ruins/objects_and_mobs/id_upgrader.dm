@@ -12,7 +12,7 @@
 	if(istype(used, /obj/item/card/id))
 		var/obj/item/card/id/D = used
 		if(!length(access_to_give))
-			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
+			to_chat(user, SPAN_NOTICE("This machine appears to be configured incorrectly."))
 			return ITEM_INTERACT_COMPLETE
 
 		var/did_upgrade = FALSE
@@ -25,9 +25,9 @@
 				did_upgrade = TRUE
 
 		if(did_upgrade)
-			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
+			to_chat(user, SPAN_NOTICE("An access type was added to your ID card."))
 		else
-			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
+			to_chat(user, SPAN_NOTICE("Your ID card already has all the access this machine can give."))
 
 		return ITEM_INTERACT_COMPLETE
 

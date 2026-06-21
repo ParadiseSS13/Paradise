@@ -1,9 +1,9 @@
 
-/atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/atom/proc/temperature_expose(exposed_temperature, exposed_volume)
 	if(!isnull(reagents))
 		reagents.temperature_reagents(exposed_temperature)
 
-/turf/simulated/temperature_expose(exposed_temperature)
+/turf/simulated/temperature_expose(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature, 10, 300)
 
@@ -259,6 +259,6 @@
 			if(capped)
 				chance = min(chance, 30)
 			if(prob(chance) || bypass_rng)
-				T.visible_message("<span class='warning'>[T] melts!</span>")
+				T.visible_message(SPAN_WARNING("[T] melts!"))
 				T.burn_down()
 	return affected

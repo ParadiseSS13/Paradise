@@ -15,10 +15,6 @@
 	/// How fast do we clean?
 	var/cleanspeed = 15
 
-/mob/living/basic/alien/maid/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/ai_retaliate)
-
 /// Clean instead of attack.
 /mob/living/basic/alien/maid/early_melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	. = ..()
@@ -32,7 +28,7 @@
 	if(ishuman(target))
 		var/atom/movable/H = target
 		H.clean_blood()
-		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
+		visible_message(SPAN_NOTICE("\The [src] polishes \the [target]."))
 		return FALSE
 	target.cleaning_act(src, src, cleanspeed, text_description = ".") // LXM is both the user and the cleaning implement itself. Wow!
 

@@ -251,6 +251,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
         <Button
           icon="print"
           content="Print Release Forms"
+          disabled={!known}
           onClick={() =>
             act('print_release_forms', {
               strain_index: props.strainIndex,

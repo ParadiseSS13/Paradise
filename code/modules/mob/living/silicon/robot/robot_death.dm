@@ -1,6 +1,8 @@
 /mob/living/silicon/robot/gib()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
+
+	remove_robot_mindslave()
 	//robots don't die when gibbed. instead they drop their MMI'd brain
 	var/atom/movable/overlay/animation = null
 	notransform = TRUE

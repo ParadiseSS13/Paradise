@@ -25,6 +25,6 @@
 	if(damage_coeff[CLONE])
 		return adjustHealth(amount * damage_coeff[CLONE], updating_health)
 
-/mob/living/simple_animal/adjustStaminaLoss(amount, updating_health = TRUE)
+/mob/living/simple_animal/adjustStaminaLoss(amount, updating = TRUE)
 	if(damage_coeff[STAMINA])
-		return ..(amount*damage_coeff[STAMINA], updating_health)
+		return ..(amount*damage_coeff[STAMINA], updating)

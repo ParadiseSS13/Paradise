@@ -36,7 +36,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This pumps the contents of the attached pipenet out into the atmosphere. Can be controlled from an Air Alarm.</span>"
+	. += SPAN_NOTICE("This pumps the contents of the attached pipenet out into the atmosphere. Can be controlled from an Air Alarm.")
 	if(welded)
 		. += "It seems welded shut."
 
@@ -124,7 +124,7 @@
 
 	if(welded)
 		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
-			visible_message("<span class='danger'>The welded cover of [src] bursts open!</span>")
+			visible_message(SPAN_DANGER("The welded cover of [src] bursts open!"))
 			for(var/mob/living/M in range(1))
 				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
 			welded = FALSE
@@ -180,7 +180,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))
 		return
-	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the vent.</span>", "<span class='italics'>You hear loud scraping noises.</span>")
+	user.visible_message(SPAN_WARNING("[user] furiously claws at [src]!"), SPAN_NOTICE("You manage to clear away the stuff blocking the vent."), SPAN_ITALICS("You hear loud scraping noises."))
 	welded = FALSE
 	update_icon()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
@@ -207,15 +207,15 @@
 
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
-	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+	to_chat(user, SPAN_NOTICE("You save [src] into [M]'s buffer"))
 
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/I)
 	if(welded)
 		return
-	to_chat(user, "<span class='notice'>You start screwing the vent [open ? "shut" : "open"].</span>")
+	to_chat(user, SPAN_NOTICE("You start screwing the vent [open ? "shut" : "open"]."))
 	if(do_after(user, 20 * I.toolspeed, target = src))
 		I.play_tool_sound(src)
-		user.visible_message("<span class='notice'>[user] screws the vent [open ? "shut" : "open"].</span>", "<span class='notice'>You screw the vent [open ? "shut" : "open"].</span>", "You hear a screwdriver.")
+		user.visible_message(SPAN_NOTICE("[user] screws the vent [open ? "shut" : "open"]."), SPAN_NOTICE("You screw the vent [open ? "shut" : "open"]."), "You hear a screwdriver.")
 		open = !open
 	return TRUE
 
@@ -227,12 +227,12 @@
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(!welded)
 			welded = TRUE
-			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
-				"<span class='notice'>You weld [src] shut!</span>")
+			user.visible_message(SPAN_NOTICE("[user] welds [src] shut!"),\
+				SPAN_NOTICE("You weld [src] shut!"))
 		else
 			welded = FALSE
-			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
-				"<span class='notice'>You unweld [src]!</span>")
+			user.visible_message(SPAN_NOTICE("[user] unwelds [src]!"),\
+				SPAN_NOTICE("You unweld [src]!"))
 		update_icon()
 
 

@@ -15,21 +15,21 @@
 
 /obj/machinery/cooking/stovetop/Initialize(mapload)
 	. = ..()
+	for(var/i in 1 to 4)
+		surfaces += new/datum/cooking_surface/stovetop_burner(src)
+	initialize_parts()
+	RefreshParts()
 
+/obj/machinery/cooking/stovetop/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cooking/stove(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 
-	for(var/i in 1 to 4)
-		surfaces += new/datum/cooking_surface/stovetop_burner(src)
-
-	RefreshParts()
-
 /obj/machinery/cooking/stovetop/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Ctrl-Click</b> on a burner to set its timer, temperature, and toggle it on or off.</span>"
+	. += SPAN_NOTICE("<b>Ctrl-Click</b> on a burner to set its timer, temperature, and toggle it on or off.")
 
 #define ICON_SPLIT_X 16
 #define ICON_SPLIT_Y 21
@@ -71,7 +71,7 @@
 					if(J_LO)
 						burn_victim.adjustFireLossByPart(1, which_hand)
 
-				to_chat(burn_victim, "<span class='danger'>You burn your hand a little taking [burner.container] off of the stove.</span>")
+				to_chat(burn_victim, SPAN_DANGER("You burn your hand a little taking [burner.container] off of the stove."))
 		user.put_in_hands(burner.container)
 		burner.UnregisterSignal(burner.container, COMSIG_PARENT_EXAMINE)
 		burner.container = null
@@ -139,3 +139,10 @@
 		else
 			surface.container = new /obj/item/reagent_containers/cooking/pan(src)
 	update_appearance()
+
+/obj/machinery/cooking/stovetop/loaded/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/cooking/stove(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)

@@ -4,8 +4,8 @@
 		if(prob(90))
 			playsound(loc, "punch", 25, TRUE, -1)
 			add_attack_logs(M, src, "Melee attacked with fists")
-			visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
-					"<span class='userdanger'>[M] has kicked [src]!</span>")
+			visible_message(SPAN_DANGER("[M] has kicked [src]!"), \
+					SPAN_USERDANGER("[M] has kicked [src]!"))
 			if((stat != DEAD) && (damage > 4.9))
 				Paralyse(rand(10 SECONDS, 20 SECONDS))
 
@@ -13,14 +13,14 @@
 			updatehealth()
 		else
 			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-			visible_message("<span class='danger'>[M] has attempted to kick [src]!</span>", \
-					"<span class='userdanger'>[M] has attempted to kick [src]!</span>")
+			visible_message(SPAN_DANGER("[M] has attempted to kick [src]!"), \
+					SPAN_USERDANGER("[M] has attempted to kick [src]!"))
 
 
 /mob/living/carbon/alien/larva/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+			to_chat(user, SPAN_WARNING("You don't want to hurt [src]!"))
 			return FALSE
 		..(user, TRUE)
 		adjustBruteLoss(5 + rand(1, 9))

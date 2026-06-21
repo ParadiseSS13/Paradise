@@ -16,7 +16,7 @@
 
 /datum/spell/rod_form/cast(list/targets,mob/user = usr)
 	if(get_turf(user) != user.loc)
-		to_chat(user, "<span class='warning'>You cannot summon a rod in the ether, the spell fizzles out!</span>")
+		to_chat(user, SPAN_WARNING("You cannot summon a rod in the ether, the spell fizzles out!"))
 		revert_cast()
 		return FALSE
 	for(var/mob/living/M in targets)

@@ -37,7 +37,7 @@
 	icon_state = "syndicate_harbinger"
 	icon_living = "syndicate_harbinger"
 	speak_emote = list("snarls")
-	projectiletype = /obj/item/projectile/bullet/heavybullet
+	projectiletype = /obj/projectile/bullet/heavybullet
 	projectilesound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	internal_gps = null
 	faction = list("syndicate", "spawned_corpse")
@@ -61,7 +61,6 @@
 /obj/item/melee/razorwire/harbinger/Initialize(mapload)
 	. = ..()
 	icon_state = "razorwire"
-	item_state = "razorwire"
 	update_icon()
 
 /obj/item/organ/internal/cyberimp/arm/razorwire/harbinger
@@ -154,13 +153,6 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 	loot = list(
 		/obj/item/paper/sieged_lab_research_paper
 	)
-
-/obj/machinery/door/airlock/bloody
-	icon_state = "closed_bloody"
-	closed_icon_state = "closed_bloody"
-	opening_icon_state = "opening_bloody"
-	closing_icon_state = "closing_bloody"
-	airlock_material = "_" // sentinel value so we don't try adding fillers of any kind
 
 /obj/effect/spawner/random/mine
 	name = "50pc landmine"

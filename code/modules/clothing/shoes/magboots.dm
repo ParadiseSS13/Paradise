@@ -2,12 +2,14 @@
 	name = "magboots"
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	icon_state = "magboots0"
+	inhand_icon_state = "magboots"
 	origin_tech = "materials=3;magnets=4;engineering=4"
 	dyeable = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -33,8 +35,12 @@
 		return
 	check_mag_pulse(user, removing = TRUE)
 
-/obj/item/clothing/shoes/magboots/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/shoes/magboots/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	toggle_magpulse(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, no_message)
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
@@ -85,7 +91,7 @@
 
 /obj/item/clothing/shoes/magboots/advance/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] will not slow you down when active.</span>"
+	. += SPAN_NOTICE("[src] will not slow you down when active.")
 
 /obj/item/clothing/shoes/magboots/advance/examine_more(mob/user)
 	. = ..()
@@ -119,19 +125,18 @@
 
 /obj/item/clothing/shoes/magboots/elite/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] will not slow you down when active.</span>"
+	. += SPAN_NOTICE("[src] will not slow you down when active.")
 
 /obj/item/clothing/shoes/magboots/clown
 	name = "clown shoes"
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
 	icon_state = "clownmag0"
 	magboot_state = "clownmag"
-	item_state = "clown_shoes"
+	inhand_icon_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
 	slowdown_active = SHOES_SLOWDOWN+1
 	slowdown_passive = SHOES_SLOWDOWN+1
 	magpulse_name = "honk-powered traction system"
-	item_color = "clown"
 	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
 
@@ -155,10 +160,10 @@
 		to_chat(user, "You must hold [src] in your hand to do this.")
 		return
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, SPAN_NOTICE("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		to_chat(user, SPAN_NOTICE("You switch on the waddle dampeners!"))
 		enabled_waddle = FALSE
 
 /// bundled with the wiz hardsuit
@@ -175,7 +180,7 @@
 	if(!user)
 		return
 	if(!iswizard(user))
-		to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+		to_chat(user, SPAN_NOTICE("You poke the gem on [src]. Nothing happens."))
 		return
 	..()
 	if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
@@ -189,6 +194,7 @@
 	desc = "These experimental boots try to get around the restrictions of magboots by installing miniature gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
 	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
+	materials = list(MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 4000)
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //In other news, combining magboots with jumpboots is a mess
 	strip_delay = 10 SECONDS
 	put_on_delay = 10 SECONDS
@@ -218,24 +224,24 @@
 /obj/item/clothing/shoes/magboots/gravity/examine(mob/user)
 	. = ..()
 	if(core && cell)
-		. += "<span class='notice'>[src] are fully operational!</span>"
-		. += "<span class='notice'>The boots are [round(cell.percent())]% charged.</span>"
+		. += SPAN_NOTICE("[src] are fully operational!")
+		. += SPAN_NOTICE("The boots are [round(cell.percent())]% charged.")
 	else if(core)
-		. += "<span class='warning'>It has a gravitational anomaly core installed, but no power cell installed.</span>"
+		. += SPAN_WARNING("It has a gravitational anomaly core installed, but no power cell installed.")
 	else if(cell)
-		. += "<span class='warning'>It has a power installed, but no gravitational anomaly core installed.</span>"
+		. += SPAN_WARNING("It has a power installed, but no gravitational anomaly core installed.")
 	else
-		. += "<span class='warning'>It is missing a gravitational anomaly core and a power cell.</span>"
+		. += SPAN_WARNING("It is missing a gravitational anomaly core and a power cell.")
 
 /obj/item/clothing/shoes/magboots/gravity/toggle_magpulse(mob/user, no_message)
 	if(!cell)
-		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		to_chat(user, SPAN_WARNING("Your boots do not have a power cell!"))
 		return
 	else if(cell.charge <= power_consumption_rate && !magpulse)
-		to_chat(user, "<span class='warning'>Your boots do not have enough charge!</span>")
+		to_chat(user, SPAN_WARNING("Your boots do not have enough charge!"))
 		return
 	if(!core)
-		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		to_chat(user, SPAN_WARNING("There's no core installed!"))
 		return
 
 	..()
@@ -246,54 +252,59 @@
 	if(cell.charge <= power_consumption_rate * 2)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
-			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
+			to_chat(user, SPAN_WARNING("[src] has ran out of charge, and turned off!"))
 			toggle_magpulse(user, TRUE)
 	else
 		cell.use(power_consumption_rate)
 
 /obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		to_chat(user, SPAN_WARNING("There's no cell installed!"))
 		return
 
 	if(magpulse)
-		to_chat(user, "<span class='warning'>Turn off the boots first!</span>")
+		to_chat(user, SPAN_WARNING("Turn off the boots first!"))
 		return
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
 	user.put_in_hands(cell)
-	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove [cell] from [src]."))
 	cell.update_icon()
 	cell = null
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+/obj/item/clothing/shoes/magboots/gravity/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
 		if(cell)
-			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
-			return
-		if(!user.drop_item_to_ground(I))
-			return
-		I.forceMove(src)
-		cell = I
-		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
-		update_icon()
-		return
+			to_chat(user, SPAN_WARNING("[src] already has a cell!"))
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+		if(!user.drop_item_to_ground(used))
+			return ITEM_INTERACT_COMPLETE
+
+		used.forceMove(src)
+		cell = used
+		to_chat(user, SPAN_NOTICE("You install [used] into [src]."))
+		update_icon()
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/assembly/signaler/anomaly/grav))
 		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
-			return
+			to_chat(user, SPAN_NOTICE("[src] already has a [used]!"))
+			return ITEM_INTERACT_COMPLETE
+
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
-		I.forceMove(src)
-		core = I
-	else
-		return ..()
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You insert [used] into [src], and [src] starts to warm up."))
+		used.forceMove(src)
+		core = used
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot)
 	..()
@@ -310,7 +321,7 @@
 	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		style.remove(H)
 		if(magpulse)
-			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
+			to_chat(user, SPAN_NOTICE("As [src] are removed, they deactivate."))
 			toggle_magpulse(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
@@ -323,27 +334,27 @@
 
 	if(cell)
 		if(cell.charge <= dash_cost)
-			to_chat(user, "<span class='warning'>Your boots do not have enough charge to dash!</span>")
+			to_chat(user, SPAN_WARNING("Your boots do not have enough charge to dash!"))
 			return
 	else
-		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		to_chat(user, SPAN_WARNING("Your boots do not have a power cell!"))
 		return
 
 	if(!core)
-		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		to_chat(user, SPAN_WARNING("There's no core installed!"))
 		return
 
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's gravitational pulse needs to recharge still!</span>")
+		to_chat(user, SPAN_WARNING("The boot's gravitational pulse needs to recharge still!"))
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 	ADD_TRAIT(user, TRAIT_FLYING, "gravity_boots")
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), user, TRAIT_FLYING, "gravity_boots")))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		user.visible_message(SPAN_WARNING("[usr] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
 	else
 		REMOVE_TRAIT(user, TRAIT_FLYING, "gravity_boots")
-		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(user, SPAN_WARNING("Something prevents you from dashing forward!"))

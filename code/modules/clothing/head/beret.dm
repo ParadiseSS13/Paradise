@@ -4,14 +4,16 @@
 	desc = "A beret, an artist's favorite headwear."
 	icon = 'icons/obj/clothing/head/beret.dmi'
 	icon_state = "beret"
-	item_state = 'icons/mob/clothing/head/beret.dmi'
-	icon_override = 'icons/mob/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	dog_fashion = /datum/dog_fashion/head/beret
-
 	sprite_sheets = list(
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
 		)
+
+/obj/item/clothing/head/beret/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/beret/blue
 	icon_state = "beret_blue"
@@ -34,7 +36,6 @@
 	name = "durathread beret"
 	desc = "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beret_durathread"
-	item_color = null
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 20, ACID = 5)
 
 //Central Command
@@ -89,7 +90,7 @@
 	icon_state = "beret_officer"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/beret/sec 
+	dog_fashion = /datum/dog_fashion/head/beret/sec
 
 /obj/item/clothing/head/beret/sec/corporate
 	name = "corporate security beret"
@@ -146,19 +147,73 @@
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
-	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic smell of burning plasma."
+	desc = "A purple beret with a lavender science insignia emblazoned on it. It has that authentic smell of burning plasma."
 	icon_state = "beret_science"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
+
+/obj/item/clothing/head/beret/sci_alt
+	name = "corporate science beret"
+	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic smell of burning plasma."
+	icon_state = "beret_science_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
 
 /obj/item/clothing/head/beret/robowhite
-	name = "robotics beret"
+	name = "bioengineer beret"
 	desc = "A white beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticswhite"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
 
 /obj/item/clothing/head/beret/roboblack
-	name = "bioengineer beret"
+	name = "robotics beret"
 	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
 	icon_state = "beret_roboticsblack"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
 
+/obj/item/clothing/head/beret/gene
+	name = "genetics beret"
+	desc = "A purple beret with a wine colored science insignia emblazoned on it. It smells of mutagens."
+	icon_state = "beret_genetics"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
+
+/obj/item/clothing/head/beret/gene_alt
+	name = "corporate genetics beret"
+	desc = "A white beret with a wine colored science insignia emblazoned on it. It smells of mutagens."
+	icon_state = "beret_genetics_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
+
+/obj/item/clothing/head/beret/gene_wine
+	name = "wine genetics beret"
+	desc = "A wine colored beret with a white science insignia emblazoned on it. It smells of mutagens."
+	icon_state = "beret_genetics_wine"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+		)
 //Service
 /obj/item/clothing/head/beret/hop
 	name = "head of personnel's beret"
@@ -215,15 +270,150 @@
 	)
 
 /obj/item/clothing/head/beret/med
-	name = "medical beret"
-	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
-	icon_state = "beret_med"
+	name = "doctor's beret"
+	desc = "A light blue beret with a white cross finely threaded into it. It has that sterile smell about it."
+	icon_state = "beret_md"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/med_alt
+	name = "corporate doctor's beret"
+	desc = "A white beret with a light blue cross finely threaded into it. It has that sterile smell about it."
+	icon_state = "beret_md_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 /obj/item/clothing/head/beret/paramedic
 	name = "paramedic's beret"
 	desc = "A blue beret with a white medical insignia emblazoned on it. Save lives with style."
 	icon_state = "beret_paramedic"
 	dog_fashion = /datum/dog_fashion/head/paramedic
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/chem
+	name = "chemist's beret"
+	desc = "A light blue beret with an orange insignia emblazoned on it. It smells of chemicals."
+	icon_state = "beret_chemist"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/chem_alt
+	name = "corporate chemist's beret"
+	desc = "A white beret with an orange insignia emblazoned on it. It smells of chemicals."
+	icon_state = "beret_chemist_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/chem_orange
+	name = "orange chemist's beret"
+	desc = "An orange beret with a white insignia emblazoned on it. It smells of chemicals."
+	icon_state = "beret_chemist_orange"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/coroner
+	name = "coroner's beret"
+	desc = "A light blue beret with a black insignia emblazoned on it. It smells of death."
+	icon_state = "beret_coroner"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/coroner_alt
+	name = "corporate coroner's beret"
+	desc = "A white beret with a black insignia emblazoned on it. It smells of death."
+	icon_state = "beret_coroner_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/coroner_black
+	name = "black coroner's beret"
+	desc = "A black beret with a white insignia emblazoned on it. It smells of death."
+	icon_state = "beret_coroner_black"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/psych
+	name = "psychologist's beret"
+	desc = "A light blue beret with a teal insignia emblazoned on it. It smells of marijuana."
+	icon_state = "beret_psych"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/psych_alt
+	name = "corporate psychologist's beret"
+	desc = "A white beret with a teal insignia emblazoned on it. It smells of marijuana."
+	icon_state = "beret_psych_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/psych_teal
+	name = "teal psychologist's beret"
+	desc = "A teal beret with a white insignia emblazoned on it. It smells of marijuana."
+	icon_state = "beret_psych_teal"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/viro
+	name = "virologist's beret"
+	desc = "A light blue beret with a green insignia emblazoned on it. Create vaccines with style."
+	icon_state = "beret_viro"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/viro_alt
+	name = "corporate virologist's beret"
+	desc = "A white beret with a green insignia emblazoned on it. Create vaccines with style."
+	icon_state = "beret_viro_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/viro_green
+	name = "green virologist's beret"
+	desc = "A green beret with a white insignia emblazoned on it. Create vaccines with style."
+	icon_state = "beret_viro_green"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
@@ -256,7 +446,6 @@
 	name = "mining beret"
 	desc = "An brown beret with a purple insignia emblazoned on it. Won't help you against the atmosphere of the planet, but will look stylish."
 	icon_state = "beret_mining"
-	item_color = "beret_mining"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
@@ -267,7 +456,6 @@
 	name = "expedition beret"
 	desc = "A brown beret with a blue Nanotrasen insignia emblazoned on it. Not much good for space protection, but stylish all the same."
 	icon_state = "beret_expedition"
-	item_color = "beret_expedition"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 6 SECONDS
 	sprite_sheets = list(
@@ -280,7 +468,6 @@
 	name = "smith's beret"
 	desc = "A brown beret with a black insignia emblazoned on it. Won't help you against the atmosphere of the planet, but will look stylish."
 	icon_state = "beret_smith"
-	item_color = "beret_smith"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
@@ -316,7 +503,6 @@
 	name = "\improper TSF Lieutenant's beret"
 	desc = "A beret worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "beret_solgovc"
-	item_color = "solgovc"
 	dog_fashion = null
 	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
@@ -326,7 +512,6 @@
 	desc = "A beret worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. The insignia signifies the wearer bears the rank of a Lieutenant."
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "beret_solgovcelite"
-	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF
 
 //Traitor
@@ -334,7 +519,6 @@
 	name = "syndicate beret"
 	desc = "A dark grey beret with the Syndicate’s unmistakable 'S' logo emblazoned on it. Wearing this just for the looks might not be the wisest idea..."
 	icon_state = "beret_syndie"
-	item_color = "beret_syndie"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',

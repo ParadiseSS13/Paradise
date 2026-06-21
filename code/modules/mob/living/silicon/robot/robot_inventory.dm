@@ -29,7 +29,8 @@
 			A.Remove(src)
 	all_active_items[index] = CYBORG_EMPTY_MODULE
 	SEND_SIGNAL(O, COMSIG_CYBORG_ITEM_DEACTIVATED, src)
-	selected_item = null
+	if(selected_item == O)
+		selected_item = null
 	var/atom/movable/screen/robot/active_module/screen = inventory_screens[index]
 	screen.icon_state = screen.deactivated_icon_string
 
@@ -153,7 +154,6 @@
 		else
 			inventory.deactivate()
 	update_icons()
-	return
 
 //deselect_module(module) - Deselects the module slot specified by "module"
 /mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
@@ -164,7 +164,6 @@
 		var/atom/movable/screen/robot/active_module/inventory = inventory_screens[i]
 		inventory.deactivate()
 	update_icons()
-	return
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
 /mob/living/silicon/robot/proc/toggle_module(module) //Module is 1-3

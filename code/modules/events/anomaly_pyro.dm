@@ -1,5 +1,5 @@
 /datum/event/anomaly/anomaly_pyro
-	name = "Anomaly event"
+	name = "Pyro Anomaly"
 	startWhen = 3
 	announceWhen = 10
 	anomaly_path = /obj/effect/anomaly/pyro

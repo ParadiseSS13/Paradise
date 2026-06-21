@@ -213,7 +213,8 @@ const NanoMapZoomer = (props) => {
               stepPixelSize={10}
               format={(v) => v + 'x'}
               value={props.zoom}
-              onDrag={(e, v) => props.onZoom(e, v)}
+              tickWhileDragging
+              onChange={(e, v) => props.onZoom(e, v)}
             />
             <Button
               ml="0.5em"

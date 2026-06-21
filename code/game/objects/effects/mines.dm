@@ -14,7 +14,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
-	to_chat(victim, "<span class='danger'>*click*</span>")
+	to_chat(victim, SPAN_DANGER("*click*"))
 
 /obj/effect/mine/proc/on_atom_entered(datum/source, atom/movable/entered)
 	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
@@ -31,7 +31,7 @@
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
 		return
-	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
+	visible_message(SPAN_DANGER("[victim] sets off [bicon(src)] [src]!"))
 	do_sparks(3, 1, src)
 	mineEffect(victim)
 	triggered = TRUE
@@ -154,7 +154,7 @@
 	victim.flash_screen_color(red_splash, 10)
 
 	spawn(duration)
-		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
+		to_chat(victim, SPAN_NOTICE("Your bloodlust seeps back into the bog of your subconscious and you regain self control."))
 		qdel(chainsaw)
 		qdel(src)
 
@@ -166,7 +166,7 @@
 /obj/effect/mine/pickup/healing/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel great!</span>")
+	to_chat(victim, SPAN_NOTICE("You feel great!"))
 	victim.revive()
 
 /obj/effect/mine/pickup/speed
@@ -178,8 +178,8 @@
 /obj/effect/mine/pickup/speed/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
 		return
-	to_chat(victim, "<span class='notice'>You feel fast!</span>")
+	to_chat(victim, SPAN_NOTICE("You feel fast!"))
 	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
 	spawn(duration)
 		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
-		to_chat(victim, "<span class='notice'>You slow down.</span>")
+		to_chat(victim, SPAN_NOTICE("You slow down."))

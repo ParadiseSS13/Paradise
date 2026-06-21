@@ -12,7 +12,7 @@
 			qdel(query_watchfind)
 			return
 		if(!query_watchfind.NextRow())
-			to_chat(usr, "<span class='redtext'>[new_ckey] has not been seen before, you can only add known players.</span>")
+			to_chat(usr, SPAN_REDTEXT("[new_ckey] has not been seen before, you can only add known players."))
 			qdel(query_watchfind)
 			return
 		else
@@ -31,7 +31,7 @@
 	qdel(query_watch)
 
 	if(already_watched)
-		to_chat(usr, "<span class='redtext'>[target_ckey] is already on the watchlist.</span>")
+		to_chat(usr, SPAN_REDTEXT("[target_ckey] is already on the watchlist."))
 		return
 	var/reason = input(usr,"Please state the reason","Reason") as message|null
 	if(!reason)

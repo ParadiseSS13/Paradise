@@ -15,12 +15,12 @@
 	if(!victim)
 		switch(intent)
 			if(INTENT_HARM)
-				visible_message("<span class='warning'>[src] swings [implement] wildly!</span>")
+				visible_message(SPAN_WARNING("[src] swings [implement] wildly!"))
 			if(INTENT_HELP)
-				visible_message("<span class='notice'>[src] seems to take a deep breath.</span>")
+				visible_message(SPAN_NOTICE("[src] seems to take a deep breath."))
 		return
 	if(isLivingSSD(victim))
-		visible_message("<span class='notice'>[src] [intent == INTENT_HARM ? "reluctantly " : ""]lowers [p_their()] [implement].</span>")
+		visible_message(SPAN_NOTICE("[src] [intent == INTENT_HARM ? "reluctantly " : ""]lowers [p_their()] [implement]."))
 		return
 
 	var/original_intent = a_intent
@@ -33,13 +33,13 @@
 
 /mob/living/carbon/human/proc/dchat_resist()
 	if(!can_resist())
-		visible_message("<span class='warning'>[src] seems to be unable to do anything!</span>")
+		visible_message(SPAN_WARNING("[src] seems to be unable to do anything!"))
 		return
 	if(!restrained())
-		visible_message("<span class='notice'>[src] seems to be doing nothing in particular.</span>")
+		visible_message(SPAN_NOTICE("[src] seems to be doing nothing in particular."))
 		return
 
-	visible_message("<span class='warning'>[src] is trying to break free!</span>")
+	visible_message(SPAN_WARNING("[src] is trying to break free!"))
 	resist()
 
 /mob/living/carbon/human/proc/dchat_pickup()
@@ -53,22 +53,22 @@
 
 	if(in_hand)
 		if(in_hand.flags & NODROP)
-			visible_message("<span class='warning'>[src] attempts to drop [in_hand], but it seems to be stuck to [p_their()] hand!</span>")
+			visible_message(SPAN_WARNING("[src] attempts to drop [in_hand], but it seems to be stuck to [p_their()] hand!"))
 			return
 		if(in_hand.flags & ABSTRACT)
-			visible_message("<span class='notice'>[src] seems to have [p_their()] hands full!</span>")
+			visible_message(SPAN_NOTICE("[src] seems to have [p_their()] hands full!"))
 			return
-		visible_message("<span class='notice'>[src] drops [in_hand] and picks up [thing] instead!</span>")
+		visible_message(SPAN_NOTICE("[src] drops [in_hand] and picks up [thing] instead!"))
 		unequip(in_hand)
 		in_hand.forceMove(old_loc)
 	else
-		visible_message("<span class='notice'>[src] picks up [thing]!</span>")
+		visible_message(SPAN_NOTICE("[src] picks up [thing]!"))
 	put_in_active_hand(thing)
 
 /mob/living/carbon/human/proc/dchat_throw()
 	var/obj/item/in_hand = get_active_hand()
 	if(!in_hand || in_hand.flags & ABSTRACT)
-		visible_message("<span class='notice'>[src] makes a throwing motion!</span>")
+		visible_message(SPAN_NOTICE("[src] makes a throwing motion!"))
 		return
 	var/atom/possible_target
 	var/cur_turf = get_turf(src)
@@ -85,7 +85,7 @@
 	if(!possible_target)
 		possible_target = cur_turf
 	if(in_hand.flags & NODROP)
-		visible_message("<span class='warning'>[src] tries to throw [in_hand][isturf(possible_target) ? "" : " towards [possible_target]"], but it won't come off [p_their()] hand!</span>")
+		visible_message(SPAN_WARNING("[src] tries to throw [in_hand][isturf(possible_target) ? "" : " towards [possible_target]"], but it won't come off [p_their()] hand!"))
 		return
 	throw_item(possible_target)
 
@@ -93,7 +93,7 @@
 	var/turf/ahead = get_turf(get_step(src, dir))
 	var/mob/living/carbon/human/H = locate(/mob/living/carbon/human) in ahead
 	if(!H)
-		visible_message("<span class='notice'>[src] tries to shove something away!</span>")
+		visible_message(SPAN_NOTICE("[src] tries to shove something away!"))
 		return
 	dna?.species.disarm(src, H)
 
@@ -112,14 +112,14 @@
 
 	var/obj/item/gun/held_gun = get_active_hand()
 	if(!held_gun)
-		visible_message("<span class='warning'>[src] makes fingerguns towards [possible_target]!</span>")
+		visible_message(SPAN_WARNING("[src] makes fingerguns towards [possible_target]!"))
 		return
 	if(!istype(held_gun))
-		visible_message("<span class='warning'>[src] points [held_gun] towards [possible_target]!</span>")
+		visible_message(SPAN_WARNING("[src] points [held_gun] towards [possible_target]!"))
 		return
 	// for his neutral special, he wields a Gun
 	held_gun.afterattack__legacy__attackchain(possible_target, src)
-	visible_message("<span class='danger'>[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]</span>")
+	visible_message(SPAN_DANGER("[src] fires [held_gun][isturf(possible_target) ? "" : " towards [possible_target]!"]"))
 
 /mob/living/carbon/human/proc/dchat_step(dir)
 	if(length(grabbed_by))

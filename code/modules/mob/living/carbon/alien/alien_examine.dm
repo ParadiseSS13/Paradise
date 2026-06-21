@@ -12,7 +12,7 @@
 
 /mob/living/carbon/alien/examine_show_ssd()
 	if(!key)
-		return "<span class='deadsay'>[p_they(TRUE)] [p_are()] completely catatonic, an unfocused look in [p_their()] eyes.</span>\n"
+		return "[SPAN_DEADSAY("[p_they(TRUE)] [p_are()] completely catatonic, an unfocused look in [p_their()] eyes.")]\n"
 	else if(!client)
 		return "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 

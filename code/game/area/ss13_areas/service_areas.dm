@@ -1,3 +1,8 @@
+/area/station/service
+	airlock_wires = /datum/wires/airlock/service
+	area_light_color = LIGHT_COLOR_STATION_WORK
+	area_nightlight_color = LIGHT_COLOR_STATION_WORK_NIGHT
+
 /area/station/service/cafeteria
 	name = "\improper Cafe"
 	icon_state = "cafeteria"
@@ -7,6 +12,23 @@
 	name = "\improper Kitchen"
 	icon_state = "kitchen"
 	request_console_flags = RC_SUPPLY
+
+/area/station/service/break_room
+	name = "\improper Service Break Room"
+	icon_state = "servbreak"
+	request_console_flags = RC_SUPPLY
+
+/area/station/service/kitchen/freezer
+	name = "\improper Kitchen Freezer"
+	icon_state = "kitchen_freezer"
+
+/area/station/service/kitchen/storage
+	name = "\improper Kitchen Storage"
+	icon_state = "kitchen_store"
+
+/area/station/service/pasture
+	name = "\improper Pasture"
+	icon_state = "pasture"
 
 /area/station/service/bar
 	name = "\improper Bar"

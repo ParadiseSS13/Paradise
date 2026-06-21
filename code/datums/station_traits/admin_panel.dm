@@ -1,10 +1,6 @@
-/// Opens the station traits admin panel
-/datum/admins/proc/station_traits_panel()
-	set name = "Modify Station Traits"
-	set category = "Event"
-
+USER_VERB(modify_station_traits, R_ADMIN, "Modify Station Traits", "Open the station traits panel.", VERB_CATEGORY_EVENT)
 	var/static/datum/ui_module/station_traits_panel/station_traits_panel = new
-	station_traits_panel.ui_interact(usr)
+	station_traits_panel.ui_interact(client.mob)
 
 /datum/ui_module/station_traits_panel
 	var/static/list/future_traits
@@ -59,7 +55,7 @@
 				return TRUE
 
 			if(too_late_to_revert())
-				to_chat(ui.user, "<span class='warning'>It's too late to revert station traits, the round has already started!</span>")
+				to_chat(ui.user, SPAN_WARNING("It's too late to revert station traits, the round has already started!"))
 				return TRUE
 
 			if(!station_trait.can_revert)
@@ -75,7 +71,7 @@
 
 		if("setup_future_traits")
 			if(too_late_for_future_traits())
-				to_chat(ui.user, "<span class='warning'>It's too late to add future station traits, the round is already over!</span>")
+				to_chat(ui.user, SPAN_WARNING("It's too late to add future station traits, the round is already over!"))
 				return TRUE
 
 			var/list/new_future_traits = list()
@@ -84,7 +80,7 @@
 				var/datum/station_trait/station_trait_path = text2path(station_trait_text)
 				if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
 					log_admin("[key_name(ui.user)] tried to set an invalid future station trait: [station_trait_text]")
-					to_chat(ui.user, "<span class='warning'>Invalid future station trait: [station_trait_text]</span>")
+					to_chat(ui.user, SPAN_WARNING("Invalid future station trait: [station_trait_text]"))
 					return TRUE
 
 				station_trait_names += initial(station_trait_path.name)
@@ -106,7 +102,7 @@
 
 		if("clear_future_traits")
 			if(!future_traits)
-				to_chat(ui.user, "<span class='warning'>There are no future station traits.</span>")
+				to_chat(ui.user, SPAN_WARNING("There are no future station traits."))
 				return TRUE
 
 			var/message = "[key_name(ui.user)] has cleared the station traits for next round."

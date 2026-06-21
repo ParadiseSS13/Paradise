@@ -18,3 +18,18 @@ export const createDefaultHighlightSetting = (obj?: Record<string, any>) =>
     id: 'default',
     ...obj,
   });
+
+export const createBlacklistSetting = (obj?: Record<string, any>) => ({
+  id: createUuid(),
+  blacklistText: '',
+  censor: false,
+  matchWord: false,
+  matchCase: false,
+  ...obj,
+});
+
+export const createDefaultBlacklistSetting = (obj?: Record<string, any>) =>
+  createBlacklistSetting({
+    id: 'default',
+    ...obj,
+  });

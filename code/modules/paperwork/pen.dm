@@ -14,16 +14,17 @@
 	name = "pen"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
+	new_attack_chain = TRUE
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!</span>")
+	to_chat(viewers(user), SPAN_SUICIDE("[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku!"))
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -71,8 +72,11 @@
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
 		update_icon()
 
-/obj/item/pen/multi/attack_self__legacy__attackchain(mob/living/user as mob)
+/obj/item/pen/multi/activate_self(mob/living/user)
+	if(!user)
+		return ..()
 	select_colour(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pen/multi/update_overlays()
 	. = ..()
@@ -143,26 +147,25 @@
 	origin_tech = "engineering=4;syndicate=2"
 	var/transfer_amount = 50
 
-/obj/item/pen/sleepy/attack__legacy__attackchain(mob/living/M, mob/user)
-	if(!istype(M))
-		return
+/obj/item/pen/sleepy/interact_with_atom(mob/living/target, mob/user, list/modifiers)
+	if(!istype(target))
+		return ..()
 
-	if(!M.can_inject(user, TRUE))
-		return
+	if(!target.can_inject(user, TRUE))
+		return ITEM_INTERACT_COMPLETE
 	var/transfered = 0
 	var/contained = list()
 
-	for(var/R in reagents.reagent_list)
-		var/datum/reagent/reagent = R
+	for(var/datum/reagent/reagent in reagents.reagent_list)
 		contained += "[round(reagent.volume, 0.01)]u [reagent]"
 
-	if(reagents.total_volume && M.reagents)
+	if(reagents.total_volume && target.reagents)
 		var/fraction = min(transfer_amount / reagents.total_volume, 1)
-		reagents.reaction(M, REAGENT_INGEST, fraction)
-		transfered = reagents.trans_to(M, transfer_amount)
-	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
-	return TRUE
+		reagents.reaction(target, REAGENT_INGEST, fraction)
+		transfered = reagents.trans_to(target, transfer_amount)
+	to_chat(user, SPAN_WARNING("You sneakily stab [target] with the pen."))
+	add_attack_logs(user, target, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
@@ -203,29 +206,31 @@
 // E-DAGGER
 
 /obj/item/pen/edagger
+	inhand_icon_state = null
 	origin_tech = "combat=3;syndicate=1"
 	var/active = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	throw_speed = 4
 
-/obj/item/pen/edagger/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	if(cigarette_lighter_act(user, M))
-		return
+/obj/item/pen/edagger/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
+	if(cigarette_lighter_act(user, target))
+		return ITEM_INTERACT_COMPLETE
 
+/obj/item/pen/edagger/attack(mob/living/target, mob/living/user)
 	var/extra_force_applied = FALSE
-	if(active && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
+	if(active && user.dir == target.dir && !HAS_TRAIT(target, TRAIT_FLOORED) && user != target)
 		force += backstab_damage
 		extra_force_applied = TRUE
-		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
-		M.apply_damage(40, STAMINA) //Just enough to slow
-		M.KnockDown(2 SECONDS)
-		M.visible_message(
-			"<span class='warning'>[user] stabs [M] in the back!</span>",
-			"<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>"
+		add_attack_logs(user, target, "Backstabbed with [src]", ATKLOG_ALL)
+		target.apply_damage(40, STAMINA) //Just enough to slow
+		target.KnockDown(2 SECONDS)
+		target.visible_message(
+			SPAN_WARNING("[user] stabs [target] in the back!"),
+			SPAN_USERDANGER("[user] stabs you in the back! The energy blade makes you collapse in pain!")
 		)
 
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -241,22 +246,22 @@
 		return !isnull(cig)
 
 	if(!active)
-		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		to_chat(user, SPAN_WARNING("You need to activate [src] before you can light anything with it!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
 			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			SPAN_NOTICE("You casually slash [src] at [cig], lighting it with the blade."),
+			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	else
 		user.visible_message(
 			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
 			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			SPAN_NOTICE("You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade."),
+			SPAN_DANGER("You hear an energy blade slashing something!")
 		)
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -266,7 +271,10 @@
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return FALSE
 
-/obj/item/pen/edagger/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/pen/edagger/activate_self(mob/living/user)
+	if(!user)
+		return ..()
+
 	if(active)
 		active = FALSE
 		force = initial(force)
@@ -277,7 +285,7 @@
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 2, 1)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		to_chat(user, SPAN_WARNING("[src] can now be concealed."))
 		set_light(0)
 	else
 		active = TRUE
@@ -289,18 +297,17 @@
 		embed_chance = 100 //rule of cool
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 2, TRUE)
-		to_chat(user, "<span class='warning'>[src] is now active.</span>")
+		to_chat(user, SPAN_WARNING("[src] is now active."))
 		set_light(brightness_on, 1)
 	set_sharpness(active)
 	update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pen/edagger/update_icon_state()
 	if(active)
 		icon_state = "edagger"
-		item_state = "edagger"
 	else
 		icon_state = initial(icon_state) //looks like a normal pen when off.
-		item_state = initial(item_state)
 
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
@@ -310,7 +317,7 @@
 /obj/item/pen/multi/poison
 	var/current_poison = null
 
-/obj/item/pen/multi/poison/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/pen/multi/poison/activate_self(mob/living/user)
 	. = ..()
 	switch(colour)
 		if("black")
@@ -323,23 +330,25 @@
 			current_poison = "teslium"
 		if("yellow")
 			current_poison = "pancuronium"
-
+	return ITEM_INTERACT_COMPLETE
 /obj/item/pen/multi/poison/on_write(obj/item/paper/P, mob/user)
 	if(current_poison)
 		if(P.contact_poison)
-			to_chat(user, "<span class='warning'>[P] is already coated.</span>")
+			to_chat(user, SPAN_WARNING("[P] is already coated."))
 		else
 			P.contact_poison = current_poison
 			P.contact_poison_volume = 20
 			P.contact_poison_poisoner = user.name
 			add_attack_logs(user, P, "Poison pen'ed")
-			to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
+			to_chat(user, SPAN_WARNING("You apply the poison to [P]."))
 
 // MARK: CHAMELEON PEN
 /obj/item/pen/chameleon
 	var/forge_name
 
-/obj/item/pen/chameleon/attack_self__legacy__attackchain(mob/user)
+/obj/item/pen/chameleon/activate_self(mob/user)
+	if(!user)
+		return ..()
 	if(!iscarbon(user))
 		return
 
@@ -347,4 +356,4 @@
 		return
 
 	forge_name = tgui_input_text(user, "Enter the name of the person whose signature you want to forge", "Forge name", max_length = MAX_NAME_LEN)
-
+	return ITEM_INTERACT_COMPLETE

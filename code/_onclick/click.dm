@@ -63,7 +63,7 @@
 	if(dragged && !modifiers[dragged])
 		return
 	if(IsFrozen(A) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounceic'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEIC("Interacting with admin-frozen players is not permitted."))
 		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
@@ -135,6 +135,13 @@
 		else
 			update_inv_r_hand()
 		return
+
+	if(isturf(A) && !W)
+		var/turf/clicked_turf = A
+		for(var/obj/machinery/door/AL in clicked_turf.contents)
+			if(!Adjacent(AL) || restrained())
+				continue
+			AL.try_to_activate_door(src)
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	if(A in direct_access())
@@ -443,7 +450,7 @@
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(A)
 
-	var/obj/item/projectile/beam/LE = new /obj/item/projectile/beam(loc)
+	var/obj/projectile/beam/LE = new /obj/projectile/beam(loc)
 	LE.icon = 'icons/effects/genetics.dmi'
 	LE.icon_state = "eyelasers"
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)

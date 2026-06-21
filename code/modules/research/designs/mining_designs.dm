@@ -27,7 +27,7 @@
 	id = "plasmacutter"
 	req_tech = list("materials" = 3, "plasmatech" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1500, MAT_GLASS = 500, MAT_PLASMA = 400)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, MAT_PLASMA = 400)
 	build_path = /obj/item/gun/energy/plasmacutter
 	category = list("Mining")
 

@@ -1,38 +1,43 @@
-
-/*
-	run_armor_check(a,b)
-	args
-	a:def_zone - What part is getting hit, if null will check entire body
-	b:attack_flag - What type of attack, bullet, laser, energy, melee
-
-	Returns
-	0 - no block
-	1 - halfblock
-	2 - fullblock
+/**
+ * Returns final, affected by `armor_penetration_flat` and `armor_penetration_percentage`, armor value of specific armor type
+ *
+ * * def_zone - What part is getting hit, if not set will check armor of entire body
+ * * armor_type - What type of armor is used. MELEE, BULLET, MAGIC etc.
+ * * absorb_text - Text displayed when your armor makes you immune (armor is INFINITY)
+ * * soften_text - Text displayed when 0 < armor < INFINITY. So armor protected us from some damage
+ * * penetrated_text - Text displayed when armor penetration decreases non 0 armor to 0. So it's completely penetrated
+ * * armor_penetration_percentage - % of armor value that is penetrated. Does nothing if armor <= 0. Happens before flat AP
+ * * armor_penetration_flat - armor value that is penetrated. Does nothing if armor <= 0. Occurs after percentage AP
 */
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armour_penetration_percentage = 0)
-	var/armor = getarmor(def_zone, attack_flag)
+/mob/living/proc/run_armor_check(
+	def_zone,
+	armor_type = MELEE,
+	absorb_text = "Your armor absorbs the blow!",
+	soften_text = "Your armor softens the blow!",
+	penetrated_text = "Your armor was penetrated!",
+	armor_penetration_flat,
+	armor_penetration_percentage,
+)
+	. = getarmor(def_zone, armor_type)
 
-	if(armor == INFINITY)
-		to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
-		return armor
-	if(armor <= 0)
-		return armor
-	if(!armour_penetration_flat && !armour_penetration_percentage)
-		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
-		return armor
+	if(. == INFINITY)
+		to_chat(src, SPAN_USERDANGER("[absorb_text]"))
+		return
+	if(. <= 0)
+		return
+	if(!armor_penetration_flat && !armor_penetration_percentage)
+		to_chat(src, SPAN_USERDANGER("[soften_text]"))
+		return
 
-	var/armor_original = armor
-	armor = max(0, (armor * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat)
-	if(armor_original <= armor)
-		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
+	. = max(0, . * (100 - armor_penetration_percentage) / 100 - armor_penetration_flat)
+	if(.)
+		to_chat(src, SPAN_USERDANGER("[soften_text]"))
 	else
-		to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
+		to_chat(src, SPAN_USERDANGER("[penetrated_text]"))
 
-	return armor
-
-//if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
-/mob/living/proc/getarmor(def_zone, type)
+/// Returns armor value of our mob.
+/// As u can see, mobs have no armor by default so we override this proc on mob subtypes if we add them any armor
+/mob/living/proc/getarmor(def_zone, armor_type)
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
@@ -41,10 +46,10 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
-/mob/living/bullet_act(obj/item/projectile/P, def_zone)
+/mob/living/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag, armour_penetration_flat = P.armour_penetration_flat, armour_penetration_percentage = P.armour_penetration_percentage)
+	var/armor = run_armor_check(def_zone, P.flag, armor_penetration_flat = P.armor_penetration_flat, armor_penetration_percentage = P.armor_penetration_percentage)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.dismemberment)
@@ -52,7 +57,7 @@
 	return P.on_hit(src, armor, def_zone)
 
 /// Tries to dodge incoming bullets if we aren't disabled for any reasons. Advised to overide with advanced effects, this is as basic example admins can apply.
-/mob/living/proc/advanced_bullet_dodge(mob/living/source, obj/item/projectile/hitting_projectile)
+/mob/living/proc/advanced_bullet_dodge(mob/living/source, obj/projectile/hitting_projectile)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
@@ -63,8 +68,8 @@
 		return NONE
 
 	source.visible_message(
-		"<span class='danger'>[source] [pick("dodges","jumps out of the way of","evades","dives out of the way of")] [hitting_projectile]!</span>",
-		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
+		SPAN_DANGER("[source] [pick("dodges","jumps out of the way of","evades","dives out of the way of")] [hitting_projectile]!"),
+		SPAN_USERDANGER("You evade [hitting_projectile]!"),
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 	// Chance to dodge multiple shotgun spreads, but not likely. Mainly: Infinite loop prevention from admins setting it to 100 and doing something stupid.
@@ -74,7 +79,7 @@
 		advanced_bullet_dodge_chance = 0
 	return ATOM_PREHIT_FAILURE
 
-/mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
 
 ///As the name suggests, this should be called to apply electric shocks.
@@ -93,17 +98,17 @@
 		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
 		if(shock_damage > 200)
 			visible_message(
-				"<span class='danger'>[src] was arc flashed by \the [source]!</span>",
-				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
-				"<span class='italics'>You hear a lightning-like crack!</span>")
+				SPAN_DANGER("[src] was arc flashed by \the [source]!"),
+				SPAN_USERDANGER("\The [source] arc flashes and electrocutes you!"),
+				SPAN_ITALICS("You hear a lightning-like crack!"))
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
 			explosion(loc, -1, 1, 3, 3, cause = "Extreme Electrocution from [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
 	visible_message(
-		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+		SPAN_DANGER("[src] was shocked by \the [source]!"), \
+		SPAN_USERDANGER("You feel a powerful shock coursing through your body!"), \
+		SPAN_HEAR("You hear a heavy electrical crack.") \
 	)
 	return shock_damage
 
@@ -124,7 +129,7 @@
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(isitem(AM))
 		var/obj/item/thrown_item = AM
-		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
+		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 		var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 		if(nosell_hit)
 			skipcatch = TRUE
@@ -137,10 +142,17 @@
 			add_attack_logs(thrower, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
 		if(nosell_hit)
 			return ..()
-		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", "<span class='userdanger'>You're hit by [thrown_item]!</span>")
+		visible_message(SPAN_DANGER("[src] is hit by [thrown_item]!"), SPAN_USERDANGER("You're hit by [thrown_item]!"))
 		if(!thrown_item.throwforce)
 			return
-		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration_flat, armour_penetration_percentage = thrown_item.armour_penetration_percentage)
+		var/armor = run_armor_check(
+			def_zone = zone,
+			armor_type = MELEE,
+			absorb_text = "Your armor has protected your [parse_zone(zone)].",
+			soften_text = "Your armor has softened hit to your [parse_zone(zone)].",
+			armor_penetration_flat = thrown_item.armor_penetration_flat,
+			armor_penetration_percentage = thrown_item.armor_penetration_percentage,
+		)
 		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, thrown_item.sharp, thrown_item)
 		if(QDELETED(src)) //Damage can delete the mob.
 			return
@@ -153,7 +165,7 @@
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM))
-			to_chat(M.occupant, "<span class='warning'>You don't want to harm other living beings!</span>")
+			to_chat(M.occupant, SPAN_WARNING("You don't want to harm other living beings!"))
 			return
 		M.do_attack_animation(src)
 		if(M.damtype == "brute")
@@ -171,20 +183,20 @@
 			else
 				return
 		updatehealth("mech melee attack")
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='userdanger'>[M.name] hits you!</span>")
+		M.occupant_message(SPAN_DANGER("You hit [src]."))
+		visible_message(SPAN_DANGER("[M.name] hits [src]!"), SPAN_USERDANGER("[M.name] hits you!"))
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
-	else
+	else if(M.occupant.a_intent == INTENT_DISARM)
 		step_away(src,M)
 		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
-		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
-		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
+		M.occupant_message(SPAN_WARNING("You push [src] out of the way."))
+		visible_message(SPAN_WARNING("[M] pushes [src] out of the way."))
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire && !HAS_TRAIT(src, TRAIT_NOFIRE))
 		on_fire = TRUE
-		visible_message("<span class='warning'>[src] catches fire!</span>", "<span class='userdanger'>You're set on fire!</span>")
+		visible_message(SPAN_WARNING("[src] catches fire!"), SPAN_USERDANGER("You're set on fire!"))
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /atom/movable/screen/alert/fire)
 		update_fire()
@@ -282,7 +294,11 @@
 // End BS12 momentum-transfer code.
 
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
-	if(user == src || anchored)
+	if(user == src && ishuman(user))
+		var/mob/living/carbon/human/self = user
+		INVOKE_ASYNC(self, TYPE_PROC_REF(/mob/living/carbon/human, peel_off_synthetic_skin))
+		return
+	if(anchored)
 		return FALSE
 	if(!(status_flags & CANPUSH))
 		return FALSE
@@ -290,17 +306,17 @@
 		return FALSE
 	// This if-statement checks if the user is horizontal, and if the user either has no martial art, or has judo, drunk fighting or krav, in which case it should also fail
 	if(IS_HORIZONTAL(user) && (!user.mind.martial_art || !user.mind.martial_art.can_horizontally_grab))
-		to_chat(user, "<span class='warning'>You fail to get a good grip on [src]!</span>")
+		to_chat(user, SPAN_WARNING("You fail to get a good grip on [src]!"))
 		return
 
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)
-			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
+			to_chat(user, SPAN_NOTICE("You already grabbed [src]."))
 			return
 
 	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
 
-	var/obj/item/grab/G = new /obj/item/grab(user, src)
+	var/obj/item/grab/G = new /obj/item/grab(user, user, src)
 	if(!G)	//the grab will delete itself in New if src is anchored
 		return 0
 	user.put_in_active_hand(G)
@@ -311,10 +327,10 @@
 		G.state = GRAB_AGGRESSIVE
 		G.last_upgrade = world.time
 		if(!supress_message)
-			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
+			visible_message(SPAN_WARNING("[user] has grabbed [src] from behind!"))
 	else*///This is an example of how you can make special types of grabs simply based on direction.
 	if(!supress_message)
-		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
+		visible_message(SPAN_WARNING("[user] has grabbed [src] passively!"))
 
 	return G
 
@@ -329,13 +345,13 @@
 		return // can't attack while eating!
 
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
-		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(M, SPAN_WARNING("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(stat != DEAD)
 		add_attack_logs(M, src, "Slime'd")
 		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
+		visible_message(SPAN_DANGER("\The [M.name] glomps [src]!"), SPAN_USERDANGER("\The [M.name] glomps you!"))
 		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
@@ -346,14 +362,14 @@
 		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(M, SPAN_WARNING("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(M.attack_sound)
 		playsound(loc, M.attack_sound, 50, TRUE, 1)
 	M.do_attack_animation(src)
-	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
+	visible_message(SPAN_DANGER("\The [M] [M.attacktext] [src]!"), \
+					SPAN_USERDANGER("\The [M] [M.attacktext] [src]!"))
 	add_attack_logs(M, src, "Animal attacked")
 	return TRUE
 
@@ -364,51 +380,51 @@
 		attacker.custom_emote(EMOTE_VISIBLE, "[attacker.friendly_verb_continuous] [src].")
 		return FALSE
 	if(HAS_TRAIT(attacker, TRAIT_PACIFISM))
-		to_chat(attacker, "<span class='warning'>You don't want to hurt anyone!</span>")
+		to_chat(attacker, SPAN_WARNING("You don't want to hurt anyone!"))
 		return FALSE
 
 	if(attacker.attack_sound)
 		playsound(loc, attacker.attack_sound, 50, TRUE, 1)
 	attacker.do_attack_animation(src)
-	visible_message("<span class='danger'>[attacker] [attacker.attack_verb_continuous] [src]!</span>", \
-					"<span class='userdanger'>[attacker] [attacker.attack_verb_continuous] [src]!</span>")
+	visible_message(SPAN_DANGER("[attacker] [attacker.attack_verb_continuous] [src]!"), \
+					SPAN_USERDANGER("[attacker] [attacker.attack_verb_continuous] [src]!"))
 	add_attack_logs(attacker, src, "Basicmob attacked")
 	return TRUE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
 	switch(L.a_intent)
 		if(INTENT_HELP)
-			visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
+			visible_message(SPAN_NOTICE("[L.name] rubs its head against [src]."))
 			return 0
 
 		else
 			if(HAS_TRAIT(L, TRAIT_PACIFISM))
-				to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")
+				to_chat(L, SPAN_WARNING("You don't want to hurt anyone!"))
 				return
 
 			L.do_attack_animation(src)
 			if(prob(90))
 				add_attack_logs(L, src, "Larva attacked")
-				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
-						"<span class='userdanger'>[L.name] bites [src]!</span>")
+				visible_message(SPAN_DANGER("[L.name] bites [src]!"), \
+						SPAN_USERDANGER("[L.name] bites [src]!"))
 				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				return 1
 			else
-				visible_message("<span class='danger'>[L.name] has attempted to bite [src]!</span>", \
-					"<span class='userdanger'>[L.name] has attempted to bite [src]!</span>")
+				visible_message(SPAN_DANGER("[L.name] has attempted to bite [src]!"), \
+					SPAN_USERDANGER("[L.name] has attempted to bite [src]!"))
 	return 0
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
+			visible_message(SPAN_NOTICE("[M] caresses [src] with its scythe like arm."))
 			return FALSE
 		if(INTENT_GRAB)
 			grabbedby(M)
 			return FALSE
 		if(INTENT_HARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+				to_chat(M, SPAN_WARNING("You don't want to hurt anyone!"))
 				return FALSE
 			M.do_attack_animation(src)
 			return TRUE

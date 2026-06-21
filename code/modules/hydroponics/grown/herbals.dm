@@ -25,8 +25,8 @@
 		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/stack/medical/bruise_pack/comfrey/C = new(get_turf(user))
-	C.heal_brute = seed.potency
-	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
+	C.heal_brute = seed.potency / 4
+	to_chat(user, SPAN_NOTICE("You mash [src] into a poultice."))
 	user.drop_item()
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
@@ -56,8 +56,8 @@
 		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/stack/medical/ointment/aloe/A = new(get_turf(user))
-	A.heal_burn = seed.potency
-	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
+	A.heal_burn = seed.potency / 4
+	to_chat(user, SPAN_NOTICE("You mash [src] into a poultice."))
 	user.drop_item()
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE

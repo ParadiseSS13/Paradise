@@ -41,7 +41,15 @@
 
 /obj/machinery/autolathe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine = TRUE, _after_insert = CALLBACK(src, PROC_REF(AfterMaterialInsert)))
+	initialize_parts()
+	RefreshParts()
+	RegisterSignal(src, COMSIG_TOOL_ATTACK, PROC_REF(on_tool_attack))
+	wires = new(src)
+	files = new /datum/research/autolathe(src)
+	matching_designs = list()
+
+/obj/machinery/autolathe/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -49,26 +57,23 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
 
-	RegisterSignal(src, COMSIG_TOOL_ATTACK, PROC_REF(on_tool_attack))
-
-	wires = new(src)
-	files = new /datum/research/autolathe(src)
-	matching_designs = list()
-
-/obj/machinery/autolathe/upgraded/Initialize(mapload)
+/obj/machinery/autolathe/loaded/Initialize(mapload)
 	. = ..()
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	materials.insert_amount(MINERAL_MATERIAL_AMOUNT * 50, MAT_METAL)
+	materials.insert_amount(MINERAL_MATERIAL_AMOUNT * 50, MAT_GLASS)
+
+/obj/machinery/autolathe/loaded/upgraded/initialize_parts()
 	component_parts = list()
 	component_parts += new board_type(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
 
-/obj/machinery/autolathe/upgraded/gamma/Initialize(mapload)
+/obj/machinery/autolathe/loaded/upgraded/gamma/Initialize(mapload)
 	. = ..()
 	files = new /datum/research/autolathe/gamma(src)
 	adjust_hacked(TRUE)
@@ -183,27 +188,27 @@
 			var/index = text2num(params["remove_from_queue"])
 			if(isnum(index) && ISINRANGE(index, 1, length(queue)))
 				remove_from_queue(index)
-				to_chat(usr, "<span class='notice'>Removed item from queue.</span>")
+				to_chat(usr, SPAN_NOTICE("Removed item from queue."))
 		if("make")
 			BuildTurf = loc
 			var/datum/design/design_last_ordered
 			design_last_ordered = locateUID(params["make"])
 			if(!istype(design_last_ordered))
-				to_chat(usr, "<span class='warning'>Invalid design</span>")
+				to_chat(usr, SPAN_WARNING("Invalid design"))
 				return
 			if(!(design_last_ordered.id in files.known_designs))
-				to_chat(usr, "<span class='warning'>Invalid design (not in autolathe's known designs, report this error.)</span>")
+				to_chat(usr, SPAN_WARNING("Invalid design (not in autolathe's known designs, report this error.)"))
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/coeff = get_coeff(design_last_ordered)
 			if(design_last_ordered.materials[MAT_METAL] / coeff > materials.amount(MAT_METAL))
-				to_chat(usr, "<span class='warning'>Invalid design (not enough metal)</span>")
+				to_chat(usr, SPAN_WARNING("Invalid design (not enough metal)"))
 				return
 			if(design_last_ordered.materials[MAT_GLASS] / coeff > materials.amount(MAT_GLASS))
-				to_chat(usr, "<span class='warning'>Invalid design (not enough glass)</span>")
+				to_chat(usr, SPAN_WARNING("Invalid design (not enough glass)"))
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
-				to_chat(usr, "<span class='warning'>Invalid design (lathe requires hacking)</span>")
+				to_chat(usr, SPAN_WARNING("Invalid design (lathe requires hacking)"))
 				return
 			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 			var/multiplier = text2num(params["multiplier"])
@@ -218,7 +223,7 @@
 			if((length(queue) + 1) < queue_max_len)
 				add_to_queue(design_last_ordered, multiplier)
 			else
-				to_chat(usr, "<span class='warning'>The autolathe queue is full!</span>")
+				to_chat(usr, SPAN_WARNING("The autolathe queue is full!"))
 			if(!busy)
 				busy = TRUE
 				process_queue()
@@ -266,7 +271,7 @@
 
 /obj/machinery/autolathe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(stat)
@@ -280,11 +285,11 @@
 				var/datum/design/design = D.blueprint // READ ONLY!!
 
 				if(design.id in files.known_designs)
-					to_chat(user, "<span class='warning'>This design has already been loaded into the autolathe.</span>")
+					to_chat(user, SPAN_WARNING("This design has already been loaded into the autolathe."))
 					return TRUE
 
 				if(!files.CanAddDesign2Known(design))
-					to_chat(user, "<span class='warning'>This design is not compatible with the autolathe.</span>")
+					to_chat(user, SPAN_WARNING("This design is not compatible with the autolathe."))
 					return TRUE
 
 				user.visible_message(
@@ -301,12 +306,12 @@
 					SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 				busy = FALSE
 			else
-				to_chat(user, "<span class='warning'>That disk does not have a design on it!</span>")
+				to_chat(user, SPAN_WARNING("That disk does not have a design on it!"))
 			return ITEM_INTERACT_COMPLETE
 
 		else
 			// So that people who are bad at computers don't shred their disks
-			to_chat(user, "<span class='warning'>This is not the correct type of disk for the autolathe!</span>")
+			to_chat(user, SPAN_WARNING("This is not the correct type of disk for the autolathe!"))
 			return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -318,7 +323,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 50))
@@ -331,9 +336,9 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return
-	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
+	default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), I)
 
 /obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -342,7 +347,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	interact(user)
 
@@ -353,7 +358,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, SPAN_ALERT("The autolathe is busy. Please wait for completion of previous operation."))
 		return
 	interact(user)
 
@@ -524,8 +529,12 @@
 	if(!wires.is_cut(WIRE_AUTOLATHE_DISABLE))
 		disabled = FALSE
 
+/obj/machinery/autolathe/get_internal_wires()
+	return wires
+
 /obj/machinery/autolathe/syndicate
 	name = "syndicate autolathe"
+
 	board_type = /obj/item/circuitboard/autolathe/syndi
 
 /obj/machinery/autolathe/syndicate/Initialize(mapload)

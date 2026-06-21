@@ -48,5 +48,5 @@
 			// Set top voted map
 			if(result == "[initial(M.fluff_name)] ([initial(M.technical_name)])")
 				top_voted_map = M
-	to_chat(world, "<span class='interface'>Map for next round: [initial(top_voted_map.fluff_name)] ([initial(top_voted_map.technical_name)])</span>")
+	to_chat(world, SPAN_INTERFACE("Map for next round: [initial(top_voted_map.fluff_name)] ([initial(top_voted_map.technical_name)])"))
 	SSmapping.next_map = new top_voted_map

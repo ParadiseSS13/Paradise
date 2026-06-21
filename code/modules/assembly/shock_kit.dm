@@ -24,21 +24,24 @@
 	part2?.master = null
 	part1 = null
 	part2 = null
-	visible_message("<span class='notice'>[user] disassembles [src].</span>")
+	visible_message(SPAN_NOTICE("[user] disassembles [src]."))
 	qdel(src)
 	return TRUE
 
 /obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
 	status = !status
-	to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
+	to_chat(user, SPAN_NOTICE("[src] is now [status ? "secured" : "unsecured"]!"))
 	add_fingerprint(user)
 	return TRUE
 
-/obj/item/assembly/shock_kit/attack_self__legacy__attackchain(mob/user as mob)
-	part1.attack_self__legacy__attackchain(user, status)
+/obj/item/assembly/shock_kit/activate_self(mob/user)
+	if(!user)
+		return ..()
+	if(!part1 || !part2)
+		return
+	part1.activate_self(user)
 	part2.attack_self__legacy__attackchain(user, status)
 	add_fingerprint(user)
-	return
 
 /obj/item/assembly/shock_kit/proc/shock_invoke()
 	if(istype(loc, /obj/structure/chair/e_chair))

@@ -134,6 +134,10 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
+"Ou" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
 
 (1,1,1) = {"
 aa
@@ -302,7 +306,7 @@ aC
 aa
 aV
 aa
-ab
+Ou
 aa
 aa
 aa
@@ -383,7 +387,7 @@ aC
 aa
 aT
 aa
-ab
+Ou
 aN
 as
 aa

@@ -43,13 +43,6 @@
 	if(temperature_maximum)
 		temperature_max = temperature_maximum
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
-	if(!GLOB.chemical_reagents_list)
-		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
-		var/paths = subtypesof(/datum/reagent)
-		GLOB.chemical_reagents_list = list()
-		for(var/path in paths)
-			var/datum/reagent/D = new path()
-			GLOB.chemical_reagents_list[D.id] = D
 	if(!GLOB.chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 		// It is filtered into multiple lists within a list.
@@ -393,7 +386,7 @@
 					if(5)
 						update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
-				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+				to_chat(M, SPAN_NOTICE("You no longer feel reliant on [R.name]!"))
 				addiction_list.Remove(R)
 				qdel(R)
 
@@ -533,14 +526,14 @@
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/living/M in seen)
 						if(C.mix_message)
-							to_chat(M, "<span class='notice'>[bicon(my_atom)] [C.mix_message]</span>")
+							to_chat(M, SPAN_NOTICE("[bicon(my_atom)] [C.mix_message]"))
 
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, "<span class='notice'>[bicon(my_atom)] [my_atom]'s power is consumed in the reaction.</span>")
+								to_chat(M, SPAN_NOTICE("[bicon(my_atom)] [my_atom]'s power is consumed in the reaction."))
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 
@@ -660,24 +653,24 @@
 			if(affecting)
 				if(chem_temp > H.dna.species.heat_level_1)
 					if(H.reagent_safety_check())
-						to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
+						to_chat(H, SPAN_DANGER("You are scalded by the hot chemicals!"))
 						affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
 						H.emote("scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
 				else if(chem_temp < H.dna.species.cold_level_1)
 					if(H.reagent_safety_check(FALSE))
-						to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
+						to_chat(H, SPAN_DANGER("You are frostbitten by the freezing cold chemicals!"))
 						affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
 						H.emote("scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
 
 		if(method == REAGENT_INGEST)
 			if(chem_temp > H.dna.species.heat_level_1)
-				to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
+				to_chat(H, SPAN_DANGER("You scald yourself trying to consume the boiling hot substance!"))
 				H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
-				to_chat(H, "<span class='danger'>You frostburn yourself trying to consume the freezing cold substance!</span>")
+				to_chat(H, SPAN_DANGER("You frostburn yourself trying to consume the freezing cold substance!"))
 				H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 
@@ -942,19 +935,19 @@
 		trans_data["viruses"] = temp
 	return trans_data
 
-/datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL)
+/datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL, taste_category = TASTE_CATEGORY_ORGANIC)
 	var/list/out = list()
 	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
 	//mobs should get this message when either they cannot taste, the tastes are all too weak for them to detect, or the tastes somehow don't have any strength
 	var/no_taste_text = "something indescribable"
-	if(minimum_percent > 100)
+	if(minimum_percent > 100 || taste_category == TASTE_CATEGORY_NONE)
 		return no_taste_text
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(!R.taste_mult)
 			continue
 		//nutriment carries a list of tastes that originates from the snack food that the nutriment came from
-		if(istype(R, /datum/reagent/consumable/nutriment))
+		if(istype(R, /datum/reagent/consumable/nutriment) && taste_category & TASTE_CATEGORY_ORGANIC)
 			var/list/nutriment_taste_data = R.data
 			for(var/nutriment_taste in nutriment_taste_data)
 				var/ratio = nutriment_taste_data[nutriment_taste]
@@ -964,14 +957,18 @@
 				else
 					reagent_tastes[nutriment_taste] = amount
 		else
-			var/taste_desc = R.taste_description
+			var/taste_desc = R.yuck_description
+			if(taste_category & R.taste_flag) // if they can taste this category, give them the real taste description
+				taste_desc = R.taste_description
+			if(!taste_desc) // if the description ends up empty, skip this taste
+				continue
 			var/taste_amount = R.volume * R.taste_mult
 			if(taste_desc in reagent_tastes)
 				reagent_tastes[taste_desc] += taste_amount
 			else
 				reagent_tastes[taste_desc] = taste_amount
 	//deal with percentages
-	//TODO: may want to sort these from strong to weak
+	sortTim(reagent_tastes, cmp = GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
 	var/total_taste = counterlist_sum(reagent_tastes)
 	if(total_taste <= 0)
 		return no_taste_text
@@ -979,7 +976,7 @@
 		var/percent = (reagent_tastes[taste_desc] / total_taste) * 100
 		if(percent < minimum_percent) //the lower the minimum percent, the more sensitive the message is
 			continue
-		var/intensity_desc = "a hint of"
+		var/intensity_desc = pick("a hint of", "a dash of", "a bit of")
 		if(percent > minimum_percent * 3 && percent != 100)
 			intensity_desc = "a strong flavor of"
 		else if(percent > minimum_percent * 2 || percent == 100)

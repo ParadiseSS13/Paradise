@@ -37,6 +37,12 @@
 	name = "-meat"
 	tastes = list("salty meat" = 1)
 
+/obj/item/food/meat/human/robot // Does it make sense? No. Is it funny? Very!
+	desc = "A slab of robotic meat."
+	icon_state = "robot_meat"
+	list_reagents = list("iron" = 3, "oil" = 3)
+	tastes = list("oily meat" = 1)
+
 /obj/item/food/meat/slab/meatproduct
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
@@ -195,7 +201,7 @@
 	tastes = list("tough meat" = 1)
 
 /obj/item/food/monstermeat/goliath/burn()
-	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	visible_message(SPAN_NOTICE("[src] finishes cooking!"))
 	new /obj/item/food/goliath_steak(loc)
 	qdel(src)
 
@@ -270,15 +276,15 @@
 
 /obj/item/food/meat/patty_raw/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
+	. += SPAN_NOTICE("Use it in hand to shape it into a raw meatball.")
 
 /obj/item/food/meat/patty_raw/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		"<span class='notice'>[user] shapes [src] into a raw meatball.</span>",
-		"<span class='notice'>You shape [src] into a raw meatball.</span>"
+		SPAN_NOTICE("[user] shapes [src] into a raw meatball."),
+		SPAN_NOTICE("You shape [src] into a raw meatball.")
 	)
 	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
 	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
@@ -298,16 +304,16 @@
 
 /obj/item/food/ground_meat/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
-	. += "<span class='notice'>Use it in hand again to flatten it into a raw patty.</span>"
+	. += SPAN_NOTICE("Use it in hand to shape it into a raw meatball.")
+	. += SPAN_NOTICE("Use it in hand again to flatten it into a raw patty.")
 
 /obj/item/food/ground_meat/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		"<span class='notice'>[user] shapes [src] into a ball.</span>",
-		"<span class='notice'>You shape [src] into a ball of raw ground meat.</span>"
+		SPAN_NOTICE("[user] shapes [src] into a ball."),
+		SPAN_NOTICE("You shape [src] into a ball of raw ground meat.")
 	)
 	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
 	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
@@ -326,15 +332,15 @@
 
 /obj/item/food/meat/raw_meatball/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use it in hand to flatten it into a raw patty.</span>"
+	. += SPAN_NOTICE("Use it in hand to flatten it into a raw patty.")
 
 /obj/item/food/meat/raw_meatball/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		"<span class='notice'>[user] flattens [src] into a patty.</span>",
-		"<span class='notice'>You flatten [src] into a raw patty.</span>"
+		SPAN_NOTICE("[user] flattens [src] into a patty."),
+		SPAN_NOTICE("You flatten [src] into a raw patty.")
 	)
 	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
 	var/obj/item/food/meat/patty_raw/M = new(get_turf(user))
@@ -415,16 +421,6 @@
 	tastes = list("meat" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/fried_vox
-	name = "Kentucky Fried Vox"
-	desc = "Bucket of voxxy, yaya!"
-	icon = 'icons/obj/food/meat.dmi'
-	icon_state = "fried_vox"
-	trash = /obj/item/trash/fried_vox
-	list_reagents = list("nutriment" = 3, "protein" = 5)
-	tastes = list("quills" = 1, "the shoal" = 1)
-	goal_difficulty = FOOD_GOAL_EXCESSIVE
-
 //////////////////////
 //		Cubes		//
 //////////////////////
@@ -454,7 +450,7 @@
 	if(LAZYLEN(SSmobs.cubemonkeys) >= GLOB.configuration.general.monkey_cube_cap)
 		return
 	if(!QDELETED(src))
-		visible_message("<span class='notice'>[src] expands!</span>")
+		visible_message(SPAN_NOTICE("[src] expands!"))
 		if(fingerprintslast)
 			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else
@@ -507,6 +503,7 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 	var/amount_grown = 0
+	var/fertile = FALSE
 
 /obj/item/food/egg/throw_impact(atom/hit_atom)
 	..()
@@ -528,40 +525,31 @@
 
 	to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
 	icon_state = "egg-[clr]"
-	item_color = clr
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/egg/blue
 	icon_state = "egg-blue"
-	item_color = "blue"
 
 /obj/item/food/egg/green
 	icon_state = "egg-green"
-	item_color = "green"
 
 /obj/item/food/egg/mime
 	icon_state = "egg-mime"
-	item_color = "mime"
 
 /obj/item/food/egg/orange
 	icon_state = "egg-orange"
-	item_color = "orange"
 
 /obj/item/food/egg/purple
 	icon_state = "egg-purple"
-	item_color = "purple"
 
 /obj/item/food/egg/rainbow
 	icon_state = "egg-rainbow"
-	item_color = "rainbow"
 
 /obj/item/food/egg/red
 	icon_state = "egg-red"
-	item_color = "red"
 
 /obj/item/food/egg/yellow
 	icon_state = "egg-yellow"
-	item_color = "yellow"
 
 /obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."
@@ -708,3 +696,69 @@
 	filling_color = "#FF1C1C"
 	bitesize = 3
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+////////////////////////
+// 		Hispania!		//
+////////////////////////
+
+/obj/item/food/rawmouse
+	name = "raw mouse"
+	desc = "A raw mouse, what did you expect? Disgusting!"
+	icon_state = "raw_mouse"
+	filling_color = "#FF1C1C"
+	list_reagents = list("protein" = 3)
+	tastes = list("nasty" = 1)
+
+/obj/item/food/peach_meat
+	name = "Steak in Peach Sauce"
+	desc = "A good steak dipped in peach sauce with an avocado base."
+	icon_state = "peach_meat"
+	trash = /obj/item/trash/plate
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "protein" = 1, "vitamin" = 1)
+	tastes = list("sweet" = 1, "beefy" = 1)
+
+/obj/item/food/baconrolled
+	name = "Avocado Bacon Rolls"
+	desc = "Rolls of bacon filled up with avocado!"
+	icon_state = "bacon_roll"
+	list_reagents = list("protein" = 1, "nutriment" = 2)
+	tastes = list("meat with vegetables" = 1)
+
+/obj/item/food/meatsteak_cactus
+	name = "cactus steak"
+	desc = "A piece of hot spicy meat. With some prickly pear cactus on top."
+	icon_state = "meatstake_cactus"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	tastes = list("meat" = 1, "cactus" = 1)
+
+/obj/item/food/syntisteak_cactus
+	name = "cactus synthisteak"
+	desc = "A synthetic slab of flesh. With some prickly pear cactus on top."
+	icon_state = "meatstake_cactus"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	tastes = list("meat" = 1, "cactus" = 1)
+
+/obj/item/food/filetmignon
+	name = "Filet Mignon"
+	desc = "Sirloin wrapped in bacon served with mushroom sauce"
+	icon_state = "filetmignon"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1, "protein" = 1)
+	tastes = list("winey" = 1, "beefy" = 1)
+
+/obj/item/food/hotdog/butter
+	name = "butter dog"
+	desc = "Made of butter instead of real dogs."
+	icon_state = "butter_dog"
+	filling_color = "#fff98f"
+	list_reagents = list("nutriment" = 6, "vitamin" = 6, "butter" = 5)
+	tastes = list("bread" = 1)
+
+// ---------- END of imports from Hispania!

@@ -8,7 +8,7 @@
 
 /mob/living/silicon/decoy/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/aicard))
-		to_chat(user, "<span class='warning'>You cannot find an intellicard slot on [src].</span>")
+		to_chat(user, SPAN_WARNING("You cannot find an intellicard slot on [src]."))
 		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
@@ -45,12 +45,12 @@
 		raise_alert()
 	. = ..(pass)
 
-/mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(dmg)
-	. = ..(dmg)
+/mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(amount, updating_health)
+	. = ..(amount)
 	updatehealth()
 
-/mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(dmg)
-	. = ..(dmg)
+/mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(amount, updating_health)
+	. = ..(amount)
 	updatehealth()
 
 /mob/living/silicon/decoy/syndicate/depot/ex_act(severity)

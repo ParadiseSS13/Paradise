@@ -8,7 +8,7 @@ export const AtmosFilter = (props) => {
   const { on, pressure, max_pressure, filter_type, filter_type_list } = data;
 
   return (
-    <Window width={380} height={140}>
+    <Window width={380} height={160}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -38,7 +38,8 @@ export const AtmosFilter = (props) => {
                 minValue={0}
                 maxValue={max_pressure}
                 value={pressure}
-                onDrag={(value) =>
+                tickWhileDragging
+                onChange={(value) =>
                   act('custom_pressure', {
                     pressure: value,
                   })

@@ -15,6 +15,8 @@
 
 	/// The patient's DNA
 	var/datum/dna/genetic_info
+	/// What quirks the patient has
+	var/list/quirks = list()
 
 //The cloning scanner itself.
 /obj/machinery/clonescanner
@@ -71,13 +73,13 @@
 		return
 	var/mob/living/carbon/human/H = O
 	if(H.stat != DEAD)
-		to_chat(user, "<span class='warning'>You don't think it'd be wise to scan a living being.</span>")
+		to_chat(user, SPAN_WARNING("You don't think it'd be wise to scan a living being."))
 		return TRUE
 	if(occupant)
-		to_chat(user, "<span class='warning'>[src] is already occupied!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already occupied!"))
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You put [H] into the cloning scanner.</span>")
+	to_chat(user, SPAN_NOTICE("You put [H] into the cloning scanner."))
 	insert_mob(H)
 	return TRUE
 
@@ -125,6 +127,7 @@
 	scan_result.name = scanned.dna.real_name
 	scan_result.mindUID = scanned.mind.UID()
 	scan_result.genetic_info = scanned.dna.Clone()
+	scan_result.quirks = scanned.quirks.Copy()
 
 	for(var/limb in scanned.dna.species.has_limbs)
 		if(scanned.bodyparts_by_name[limb])
@@ -186,7 +189,6 @@
 	icon_state = "scanner_occupied"
 	return
 
-
 /obj/machinery/clonescanner/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -209,7 +211,19 @@
 
 /obj/machinery/clonescanner/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		to_chat(user, SPAN_NOTICE("The maintenance panel is locked."))
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
+
+/obj/machinery/clonescanner/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	update_icon()
+	RefreshParts()

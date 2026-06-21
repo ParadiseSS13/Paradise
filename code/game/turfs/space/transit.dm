@@ -5,6 +5,7 @@
 	. = ..()
 	// We don't want people building rods in space.
 	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+	update_icon(UPDATE_ICON_STATE)
 
 /// moving to the north
 /turf/space/transit/north
@@ -60,10 +61,6 @@
 
 /turf/space/transit/rpd_act()
 	return
-
-/turf/space/transit/Initialize(mapload)
-	. = ..()
-	update_icon(UPDATE_ICON_STATE)
 
 /turf/space/transit/update_icon_state()
 	var/p = 9

@@ -4,7 +4,6 @@
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "bluespace_crystal" //This is the raw ore from lavaland, so should look like the ore.
-	item_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "bluespace=6;materials=3"
@@ -16,8 +15,8 @@
 
 /obj/item/stack/ore/bluespace_crystal/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can crush this to randomly teleport a short distance.</span>"
-	. += "<span class='notice'>If you throw this at someone, they'll be randomly teleported a short distance away.</span>"
+	. += SPAN_NOTICE("You can crush this to randomly teleport a short distance.")
+	. += SPAN_NOTICE("If you throw this at someone, they'll be randomly teleported a short distance away.")
 
 /obj/item/stack/ore/bluespace_crystal/examine_more(mob/user)
 	. = ..()
@@ -32,14 +31,17 @@
 	. = ..()
 	scatter_atom()
 
-/obj/item/stack/ore/bluespace_crystal/attack_self__legacy__attackchain(mob/user)
+/obj/item/stack/ore/bluespace_crystal/activate_self(mob/user)
 	if(use(1))
 		blink_mob(user)
-		user.visible_message("<span class='notice'>[user] crushes a [singular_name]!</span>")
+		user.visible_message(SPAN_NOTICE("[user] crushes a [singular_name]!"))
+		return ITEM_INTERACT_COMPLETE
+	
+	return ..()
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
 	if(!is_teleport_allowed(L.z))
-		src.visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
+		src.visible_message(SPAN_WARNING("[src]'s fragments begin rapidly vibrating and blink out of existence."))
 		qdel(src)
 		return
 	do_teleport(L, get_turf(L), blink_range, sound_in = 'sound/effects/phasein.ogg')

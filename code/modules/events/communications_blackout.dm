@@ -1,3 +1,7 @@
+/datum/event/communications_blackout
+	name = "Communication Blackout"
+	nominal_severity = EVENT_LEVEL_MODERATE
+
 /datum/event/communications_blackout/announce(false_alarm)
 	var/alert = pick(	"Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you*%fj00)`5vc-BZZT", \
 						"Ionospheric anomalies detected. Temporary telecommunication failu*3mga;b4;'1v?-BZZZT", \
@@ -8,7 +12,7 @@
 
 	for(var/mob/living/silicon/ai/A in GLOB.ai_list)	//AIs are always aware of communication blackouts.
 		to_chat(A, "<br>")
-		to_chat(A, "<span class='warning'><b>[alert]</b></span>")
+		to_chat(A, SPAN_WARNING("<b>[alert]</b>"))
 		to_chat(A, "<br>")
 
 	if(prob(30) || false_alarm)	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.

@@ -85,39 +85,39 @@
 	switch(build)
 		if(0) // Loose frame
 			if(iswrench(used))
-				to_chat(user, "<span class='notice'>You begin to anchor [src] on the floor.</span>")
+				to_chat(user, SPAN_NOTICE("You begin to anchor [src] on the floor."))
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 0))
-					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
+					to_chat(user, SPAN_NOTICE("You anchor \the [src]!"))
 					anchored = TRUE
 					build++
 				return ITEM_INTERACT_COMPLETE
 		if(1) // Fixed to the floor
 			if(iswrench(used))
-				to_chat(user, "<span class='notice'>You begin to de-anchor [src] from the floor.</span>")
+				to_chat(user, SPAN_NOTICE("You begin to de-anchor [src] from the floor."))
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 1))
 					build--
 					anchored = FALSE
-					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
+					to_chat(user, SPAN_NOTICE("You de-anchored \the [src]!"))
 				return ITEM_INTERACT_COMPLETE
 		if(2) // Welded to the floor
 			if(iscoil(used))
 				var/obj/item/stack/cable_coil/C = used
-				to_chat(user, "<span class='notice'>You start adding cables to [src]...</span>")
+				to_chat(user, SPAN_NOTICE("You start adding cables to [src]..."))
 				playsound(get_turf(src), C.usesound, 50, TRUE)
 				if(do_after(user, 20 * C.toolspeed, target = src) && (C.get_amount() >= 2) && (build == 2))
 					C.use(2)
-					to_chat(user, "<span class='notice'>You've added cables to \the [src].</span>")
+					to_chat(user, SPAN_NOTICE("You've added cables to \the [src]."))
 					build++
 				return ITEM_INTERACT_COMPLETE
 		if(3) // Wired
 			if(iswirecutter(used))
-				to_chat(user, "<span class='notice'>You begin to remove the wiring from [src].</span>")
+				to_chat(user, SPAN_NOTICE("You begin to remove the wiring from [src]."))
 				if(do_after(user, 1 SECONDS * used.toolspeed, target = src) && (build == 3))
 					new /obj/item/stack/cable_coil(loc, 2)
 					playsound(get_turf(src), used.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You've removed the cables from \the [src].</span>")
+					to_chat(user, SPAN_NOTICE("You've removed the cables from \the [src]."))
 					build--
 				return ITEM_INTERACT_COMPLETE
 
@@ -127,12 +127,12 @@
 				playsound(get_turf(src), R.usesound, 50, 1)
 				if(do_after(user, 20 * R.toolspeed, target = src) && (R.get_amount() >= 2) && (build == 3))
 					R.use(2)
-					to_chat(user, "<span class='notice'>You've added the grille to \the [src].</span>")
+					to_chat(user, SPAN_NOTICE("You've added the grille to \the [src]."))
 					build++
 				return ITEM_INTERACT_COMPLETE
 		if(4) // Grille in place
 			if(iscrowbar(used))
-				to_chat(user, "<span class='notice'>You begin to pry off the grille from [src]...</span>")
+				to_chat(user, SPAN_NOTICE("You begin to pry off the grille from [src]..."))
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				if(do_after(user, 3 SECONDS * used.toolspeed, target = src) && (build == 4))
 					new /obj/item/stack/rods(loc,2)
@@ -145,7 +145,7 @@
 	if(build != 4)
 		return
 
-	to_chat(user, "<span class='notice'>You finalize the Mass Driver.</span>")
+	to_chat(user, SPAN_NOTICE("You finalize the Mass Driver."))
 	I.play_tool_sound(src)
 	var/obj/machinery/mass_driver/M = new(get_turf(src))
 	M.dir = dir

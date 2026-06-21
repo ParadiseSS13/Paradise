@@ -16,7 +16,7 @@
 
 /obj/machinery/atmospherics/pipe/cap/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Largely cosmetic as pipes automatically seal themselves off from leaking gases if not connected to another pipe. Will prevent a nasty ventcrawler from paying you a visit however.</span>"
+	. += SPAN_NOTICE("Largely cosmetic as pipes automatically seal themselves off from leaking gases if not connected to another pipe. Will prevent a nasty ventcrawler from paying you a visit however.")
 
 /obj/machinery/atmospherics/pipe/cap/hide(i)
 	if(level == 1 && issimulatedturf(loc))

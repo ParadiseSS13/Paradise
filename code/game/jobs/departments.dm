@@ -104,7 +104,7 @@
 		"Anomalist",
 		"Plasma Researcher",
 		"Chemical Researcher",
-		"Geneticist",	//Part of both medical and science
+		"Geneticist",
 		"Roboticist",
 	)
 	head_of_staff = "Research Director"
@@ -175,7 +175,6 @@
 		"Medical Doctor",
 		"Surgeon",
 		"Nurse",
-		"Geneticist",
 		"Psychiatrist",
 		"Chemist",
 		"Virologist",

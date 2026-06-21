@@ -9,8 +9,8 @@ FIRE ALARM
 /obj/machinery/firealarm
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
-	icon = 'icons/obj/monitors.dmi'
-	icon_state = "firealarm_on"
+	icon = 'icons/obj/wallbumps/firealarm.dmi'
+	icon_state = "firealarm_off"
 	/// Whether or not the fire alarm will sound the alarm if its temperature rises above 200C
 	var/detecting = TRUE
 	var/working = TRUE
@@ -19,7 +19,7 @@ FIRE ALARM
 	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 100, fire = 90, acid = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	idle_power_consumption = 2
 	active_power_consumption = 6
 	power_channel = PW_CHANNEL_ENVIRONMENT
@@ -74,16 +74,11 @@ FIRE ALARM
 	if(stat & NOPOWER)
 		icon_state = "firealarm_off"
 		return
-
-	var/area/area = get_area(src)
-	if(area.fire)
-		icon_state = "firealarm_alarming"
-		return
 	if(!detecting)
 		icon_state = "firealarm_detect"
 		return
 	else
-		icon_state = "firealarm_on"
+		icon_state = "firealarm_off"
 
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
@@ -97,20 +92,25 @@ FIRE ALARM
 		underlays += emissive_appearance(icon, "firealarm_overlay_lightmask")
 
 	if(!wiresexposed)
-		underlays += emissive_appearance(icon, "firealarm_lightmask")
+		underlays += emissive_appearance(icon, "firealarm_detect")
+
+	var/area/area = get_area(src)
+	if(area.fire)
+		. += "firealarm_alarming"
+		return
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
-								"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
+			user.visible_message(SPAN_WARNING("Sparks fly out of [src]!"),
+								SPAN_NOTICE("You emag [src], disabling its thermal sensors."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return TRUE
 
-/obj/machinery/firealarm/temperature_expose(temperature, volume)
+/obj/machinery/firealarm/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(!emagged && detecting && temperature > T0C + 200)
+	if(!emagged && detecting && exposed_temperature > T0C + 200)
 		alarm()			// added check of detector status here
 
 /obj/machinery/firealarm/attack_ai(mob/user)
@@ -134,17 +134,17 @@ FIRE ALARM
 	if(buildstage == FIRE_ALARM_UNWIRED && istype(used, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = used
 		if(!coil.use(5))
-			to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
+			to_chat(user, SPAN_WARNING("You need a total of five cables to wire [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
 		buildstage = FIRE_ALARM_READY
 		playsound(get_turf(src), used.usesound, 50, TRUE)
-		to_chat(user, "<span class='notice'>You wire [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You wire [src]!"))
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
 	if(buildstage == FIRE_ALARM_FRAME && istype(used, /obj/item/firealarm_electronics))
-		to_chat(user, "<span class='notice'>You insert the circuit!</span>")
+		to_chat(user, SPAN_NOTICE("You insert the circuit!"))
 		qdel(used)
 		buildstage = FIRE_ALARM_UNWIRED
 		update_icon()
@@ -171,15 +171,15 @@ FIRE ALARM
 		return
 	. = TRUE
 	if(!wiresexposed)
-		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
+		to_chat(user, SPAN_WARNING("You need to expose the wires first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	detecting = !detecting
 	if(detecting)
-		user.visible_message("<span class='warning'>[user] has reconnected [src]'s detecting unit!</span>", "You have reconnected [src]'s detecting unit.")
+		user.visible_message(SPAN_WARNING("[user] has reconnected [src]'s detecting unit!"), "You have reconnected [src]'s detecting unit.")
 	else
-		user.visible_message("<span class='warning'>[user] has disconnected [src]'s detecting unit!</span>", "You have disconnected [src]'s detecting unit.")
+		user.visible_message(SPAN_WARNING("[user] has disconnected [src]'s detecting unit!"), "You have disconnected [src]'s detecting unit.")
 
 /obj/machinery/firealarm/screwdriver_act(mob/user, obj/item/I)
 	if(buildstage != FIRE_ALARM_READY)
@@ -199,7 +199,7 @@ FIRE ALARM
 		return
 	. = TRUE
 	if(!wiresexposed)
-		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
+		to_chat(user, SPAN_WARNING("You need to expose the wires first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -292,7 +292,7 @@ FIRE ALARM
 		return 1
 
 	if(fingerprintslast == user.ckey && world.time < last_time_pulled + 2 SECONDS) //no spamming >:C
-		to_chat(user, "<span class='warning'>[src] is still processing your earlier command.</span>")
+		to_chat(user, SPAN_WARNING("[src] is still processing your earlier command."))
 		return
 
 	toggle_alarm(user)
@@ -312,13 +312,13 @@ FIRE ALARM
 	. = ..()
 	switch(buildstage)
 		if(FIRE_ALARM_FRAME)
-			. += "<span class='notice'>It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.</span>"
+			. += SPAN_NOTICE("It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.")
 		if(FIRE_ALARM_UNWIRED)
-			. += "<span class='notice'>The control board needs <i>wiring</i> and can be <b>pried out</b>.</span>"
+			. += SPAN_NOTICE("The control board needs <i>wiring</i> and can be <b>pried out</b>.")
 		if(FIRE_ALARM_READY)
 			if(wiresexposed)
-				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
-				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
+				. += SPAN_NOTICE("The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.")
+				. += SPAN_NOTICE("The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.")
 
 	. += "It shows the alert level as: <B><U>[capitalize(SSsecurity_level.get_current_level_as_text())]</U></B>."
 
@@ -342,7 +342,7 @@ FIRE ALARM
 	LAZYREMOVE(our_area.firealarms, src)
 	return ..()
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 32, 32)
 
 /*
 FIRE ALARM CIRCUIT

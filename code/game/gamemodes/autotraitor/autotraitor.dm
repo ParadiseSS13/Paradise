@@ -82,9 +82,8 @@
 		if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
 			continue
 		var/mob/living/carbon/human/H = player.current
-		for(var/obj/item/bio_chip/mindshield/I in H.contents)
-			if(I && I.implanted)
-				possible_traitors -= player
+		if(ismindshielded(H))
+			possible_traitors -= player
 		if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
 			possible_traitors -= player
 
@@ -107,7 +106,7 @@
 			var/datum/mind/new_traitor_mind = pick(possible_traitors)
 			var/mob/living/new_traitor = new_traitor_mind.current
 
-			to_chat(new_traitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+			to_chat(new_traitor, "[SPAN_DANGER("ATTENTION:")] It is time to pay your debt to the Syndicate...")
 			new_traitor.mind.add_antag_datum(/datum/antagonist/traitor)
 			message_admins("[key_name(new_traitor)] was added in as a traitor!")
 			log_game("[key_name(new_traitor)] was added in as a traitor.")

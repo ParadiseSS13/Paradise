@@ -11,6 +11,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/bikehorn)
 	cooldown_time = 1 SECONDS
+	materials = list(MAT_METAL = 2500, MAT_BANANIUM = 2000)
 
 /obj/item/mod/module/bikehorn/on_use()
 	. = ..()
@@ -31,6 +32,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	incompatible_modules = list(/obj/item/mod/module/waddle)
+	materials = list(MAT_METAL = 2500, MAT_BANANIUM = 2000)
 
 /obj/item/mod/module/waddle/on_suit_activation()
 	mod.boots.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please

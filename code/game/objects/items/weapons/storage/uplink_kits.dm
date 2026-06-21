@@ -96,7 +96,7 @@
 	name = "Heist Bundle"
 	desc = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation. Drain the vault of all its worth so we can get that pay dirt!11"
 	items = list(
-		/obj/item/gun/projectile/revolver, // 65 TC
+		/obj/item/gun/projectile/revolver/syndie, // 65 TC
 		/obj/item/ammo_box/a357, // 15 TC
 		/obj/item/ammo_box/a357, // 15 TC
 		/obj/item/card/emag, // 30 TC
@@ -153,7 +153,7 @@
 		/obj/item/melee/energy/sword/saber/red, // 40TC
 		/obj/item/bio_chip_implanter/shock, // 50TC
 		/obj/item/dnainjector/telemut/darkbundle, // 0TC
-		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
+		/obj/item/clothing/suit/hooded/chaplain_cassock, // 0TC
 		/obj/item/clothing/glasses/meson/engine/atmos, // 0TC
 		/obj/item/clothing/mask/chameleon/voice_change, // 10TC
 		/obj/item/card/id/syndicate, // 10TC
@@ -173,6 +173,23 @@
 		/obj/item/clothing/gloves/combat, // ~1TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
+		/obj/item/encryptionkey/syndicate) // 10TC
+
+/// 167.5 TC
+/obj/item/storage/box/syndie_kit/bundle/gangster
+	name = "Mob Boss"
+	desc = "Armed with a classic suit and a lethally-effective thompson submachine gun, you are the boss, and they have disrespected you."
+	items = list(
+		/obj/item/gun/projectile/automatic/tommygun, // ~80 TC
+		/obj/item/ammo_box/magazine/tommygunm45, // ~20 TC
+		/obj/item/melee/knuckleduster/syndie, // 15 TC
+		/obj/item/clothing/gloves/color/black, // 0TC
+		/obj/item/clothing/under/suit/mafia, // 0TC
+		/obj/item/clothing/head/fedora, // 0 TC
+		/obj/item/storage/fancy/cigars/cohiba, // 0 TC
+		/obj/item/lighter/zippo/engraved, // 0 TC
+		/obj/item/stack/spacecash/c4500, // ~32.5 TC
+		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /// 215TC + Tactical Grenadier Belt
@@ -215,8 +232,8 @@
 	desc = "Get pretty good with two revolvers, two speedloaders, and a backup combat knife."
 	items = list(
 		/obj/item/kitchen/knife/combat, // 0TC but very robust
-		/obj/item/gun/projectile/revolver,  // 65TC
-		/obj/item/gun/projectile/revolver,  // 65TC
+		/obj/item/gun/projectile/revolver/syndie,  // 65TC
+		/obj/item/gun/projectile/revolver/syndie,  // 65TC
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/encryptionkey/syndicate, // 10TC
@@ -295,6 +312,14 @@
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
 	for(var/obj/item/item as anything in items)
 		new item(src)
+
+/obj/item/storage/box/syndie_kit/pet_assassination_kit
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/pet_assassination_kit/populate_contents()
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
@@ -432,13 +457,12 @@
 
 /obj/item/storage/box/syndie_kit/missionary_set/populate_contents()
 	new /obj/item/nullrod/missionary_staff(src)
-	new /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe(src)
+	new /obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe(src)
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(src)
 	if(prob(25))	//an omen of success to come?
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
-		B.item_state = "greentext"
-
+		B.inhand_icon_state = "greentext"
 
 /obj/item/storage/box/syndie_kit/cutouts
 	name = "Fortified Artistic Box"
@@ -519,11 +543,21 @@
 	new /obj/item/nuke_core_container/supermatter(src)
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
 
+/obj/item/storage/box/syndie_kit/anomalous_particulate
+
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/anomalous_particulate/populate_contents()
+	new /obj/item/ppp_processor(src)
+	new /obj/item/clothing/glasses/hud/anomalous(src)
+	new /obj/item/paper/guides/antag/anomalous_particulate(src)
+
 /obj/item/storage/box/syndie_kit/revolver
 	name = "\improper .357 revolver kit"
 
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
-	new /obj/item/gun/projectile/revolver(src)
+	new /obj/item/gun/projectile/revolver/syndie(src)
 	new /obj/item/ammo_box/a357(src)
 
 /obj/item/storage/box/syndie_kit/stechkin

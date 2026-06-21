@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(changelog)
 	qdel(latest_cl_date)
 
 	if(!GenerateChangelogData()) // if this failed to generate
-		to_chat(world, "<span class='alert'>WARNING: Changelog failed to generate. Please inform a coder/server dev</span>")
+		to_chat(world, SPAN_ALERT("WARNING: Changelog failed to generate. Please inform a coder/server dev"))
 		return ..()
 
 	ss_ready = TRUE
@@ -75,18 +75,18 @@ SUBSYSTEM_DEF(changelog)
 	// If we are ready, process the button style
 	if(C.prefs.lastchangelog != current_cl_timestamp)
 		winset(C, "rpane.changelog", "border=line;background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
-		to_chat(C, "<span class='boldnotice'>Changelog has changed since your last visit.</span>")
+		to_chat(C, SPAN_BOLDNOTICE("Changelog has changed since your last visit."))
 
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
 	// If SQL isnt enabled, dont even queue them, just tell them it wont work
 	if(!SSdbcore.IsConnected())
-		to_chat(C, "<span class='notice'>This server is not running with an SQL backend. Changelog is unavailable.</span>")
+		to_chat(C, SPAN_NOTICE("This server is not running with an SQL backend. Changelog is unavailable."))
 		return
 
 	// If SQL is enabled but we aint ready, queue them up
 	if(!ss_ready)
 		startup_clients_open |= C
-		to_chat(C, "<span class='notice'>The changelog system is still initializing. The changelog will open for you once it has initialized.</span>")
+		to_chat(C, SPAN_NOTICE("The changelog system is still initializing. The changelog will open for you once it has initialized."))
 		return
 
 	UpdatePlayerChangelogDate(C)
@@ -219,5 +219,5 @@ SUBSYSTEM_DEF(changelog)
 				usr << link(url)
 				return TRUE
 
-			to_chat(usr, "<span class='danger'>The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host.</span>")
+			to_chat(usr, SPAN_DANGER("The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host."))
 

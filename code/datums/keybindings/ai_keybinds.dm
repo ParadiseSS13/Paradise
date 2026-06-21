@@ -21,7 +21,7 @@
 	. = ..()
 	var/mob/living/silicon/ai/AI = C.mob
 	if(AI.store_location(location_number))
-		to_chat(AI, "<span class='notice'>Successfully set location [location_number].</span>")
+		to_chat(AI, SPAN_NOTICE("Successfully set location [location_number]."))
 
 /datum/keybinding/ai/store_location/one
 	name = "Store Location One"
@@ -51,11 +51,11 @@
 	var/mob/living/silicon/ai/AI = C.mob
 
 	if(ismecha(AI.loc))
-		to_chat(AI, "<span class='warning'>You can't change camera locations while in a mech!</span>")
+		to_chat(AI, SPAN_WARNING("You can't change camera locations while in a mech!"))
 		return
 
 	if(AI.stored_locations[location_number] == "unset")
-		to_chat(AI, "<span class='warning'>You haven't set location [location_number] yet!</span>")
+		to_chat(AI, SPAN_WARNING("You haven't set location [location_number] yet!"))
 		return
 
 	AI.eyeobj.set_loc(AI.stored_locations[location_number])

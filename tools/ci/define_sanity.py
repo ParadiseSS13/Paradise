@@ -22,7 +22,7 @@ def post_error(define_name, file, github_error_style):
         print(f"::error file={file},title=Define Sanity::{define_name} is defined locally in {file} but not undefined locally!")
     else:
         directory, filename = os.path.split(file)
-        print(f"- Failure: {red(define_name)} is defined locally in {directory}\{red(filename)} but not undefined locally!")
+        print(f"- Failure: {red(define_name)} is defined locally in {red(os.path.join(directory, filename))} but not undefined locally!")
 
 def main():
 

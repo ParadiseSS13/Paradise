@@ -8,7 +8,7 @@
 	var/angle_to_singulo = ATAN2(host.y - source.y, host.x - source.x)
 	var/distance_to_singulo = get_dist(source, host)
 
-	var/obj/item/projectile/P = entered
+	var/obj/projectile/P = entered
 	var/distance = distance_to_singulo
 	var/projectile_angle = P.Angle
 	var/angle_to_projectile = angle_to_singulo

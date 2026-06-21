@@ -70,19 +70,19 @@
 /datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	SHOULD_CALL_PARENT(TRUE)
 	if(req_human && (!ishuman(user) || issmall(user)))
-		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
+		to_chat(user, SPAN_WARNING("We cannot do that in this form!"))
 		return FALSE
 	if(cling.chem_charges < chemical_cost)
-		to_chat(user, "<span class='warning'>We require at least [chemical_cost] unit\s of chemicals to do that!</span>")
+		to_chat(user, SPAN_WARNING("We require at least [chemical_cost] unit\s of chemicals to do that!"))
 		return FALSE
 	if(cling.absorbed_count < req_dna)
-		to_chat(user, "<span class='warning'>We require at least [req_dna] sample\s of compatible DNA.</span>")
+		to_chat(user, SPAN_WARNING("We require at least [req_dna] sample\s of compatible DNA."))
 		return FALSE
 	if(req_stat < user.stat)
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, SPAN_WARNING("We are incapacitated."))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
-		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
+		to_chat(user, SPAN_WARNING("We are incapacitated."))
 		return FALSE
 	return TRUE
 

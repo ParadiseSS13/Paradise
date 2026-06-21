@@ -2,8 +2,12 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak
 	// We only want the announcement to happen after the virus has spawned on station
 	announceWhen = -1
-	// Keep the event running until we announce it
+	// Keep the event running for as long as we have infected
 	noAutoEnd = TRUE
+	name = "Disease Outbreak"
+	role_weights = list(ASSIGNMENT_MEDICAL = 5, ASSIGNMENT_VIROLOGIST = 5, ASSIGNMENT_BOTANIST = 2, ASSIGNMENT_CHEMIST = 2)
+	role_requirements = list(ASSIGNMENT_MEDICAL = 4, ASSIGNMENT_VIROLOGIST = 1, ASSIGNMENT_BOTANIST = 0, ASSIGNMENT_CHEMIST = 1)
+	nominal_severity = EVENT_LEVEL_MODERATE
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/chosen_disease
 
@@ -11,12 +15,13 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/berserker, /datum/disease/zombie, /datum/disease/beesease/wizard_variant,
 										/datum/disease/cold9/wizard_variant, /datum/disease/fluspanish/wizard_variant, /datum/disease/kingstons_advanced/wizard_variant,
 										/datum/disease/dna_retrovirus/wizard_variant, /datum/disease/tuberculosis/wizard_variant, /datum/disease/wizarditis/wizard_variant, /datum/disease/anxiety/wizard_variant,
-										/datum/disease/grut_gut, /datum/disease/wand_rot, /datum/disease/mystic_malaise)
+										/datum/disease/grut_gut, /datum/disease/grut_gut/wizard_variant, /datum/disease/wand_rot, /datum/disease/wand_rot/wizard_variant,  /datum/disease/mystic_malaise, /datum/disease/mystic_malaise/wizard_variant)
 	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
 	var/static/list/diseases_moderate_major = list()
 	var/force_disease_time = 300
 	var/list/infected_players = list()
+	var/first_infection = FALSE
 
 /datum/event/disease_outbreak/setup()
 	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))
@@ -45,11 +50,13 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	for(var/mob/M as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
 		if(istype(chosen_disease, /datum/disease/advance))
 			var/datum/disease/advance/temp_disease = chosen_disease
-			to_chat(M, chat_box_examine("<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms:\n[english_list(temp_disease.symptoms)]\nand the following stats:\n[english_map(temp_disease.GenerateProperties())]</span>"))
+			to_chat(M, chat_box_examine(SPAN_DEADSAY("<b>Disease outbreak:</b> The next new arrival is a carrier of [chosen_disease.name]! A \"[chosen_disease.severity]\" disease with the following symptoms:\n[english_list(temp_disease.symptoms)]\nand the following stats:\n[english_map(temp_disease.GenerateProperties())]")))
 		else
-			to_chat(M, chat_box_examine("<span class='deadsay'><b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!</span>"))
+			to_chat(M, chat_box_examine(SPAN_DEADSAY("<b>Disease outbreak:</b> The next new arrival is a carrier of a \"[chosen_disease.severity]\" disease: [chosen_disease.name]!")))
 
-/datum/event/disease_outbreak/announce()
+/datum/event/disease_outbreak/announce(false_alarm)
+	if(false_alarm)
+		severity = pick(EVENT_LEVEL_MAJOR, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MUNDANE)
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
 			GLOB.major_announcement.Announce("Lethal viral pathogen detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak_virus.ogg')
@@ -57,10 +64,10 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			GLOB.minor_announcement.Announce("Moderate contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
 		if(EVENT_LEVEL_MUNDANE)
 			GLOB.minor_announcement.Announce("Minor contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
-	// We did our announcement, the event no longer needs to run
-	kill()
 
 /datum/event/disease_outbreak/process()
+	if(length(infected_players) > 0)
+		first_infection = TRUE
 	if(activeFor == force_disease_time)
 		for(var/list/disease_event in GLOB.current_pending_diseases)
 			if(chosen_disease == disease_event["disease"])
@@ -71,7 +78,15 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 				break
 	if(length(infected_players) > 2 && announceWhen <= 0)
 		announceWhen = activeFor + 180
+	// The event ends when everyone is cured
+	if(length(infected_players) <= 0 && first_infection)
+		kill()
 	. = ..()
+
+/// Cost of ongoing disease outbreak. 1 medical personnal per 2 infected at major severity.
+/datum/event/disease_outbreak/event_resource_cost()
+	return list("[ASSIGNMENT_MEDICAL]" = (severity / nominal_severity) * (length(infected_players) / 3), "[ASSIGNMENT_VIROLOGIST]" = 1)
+
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)

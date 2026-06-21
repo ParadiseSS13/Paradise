@@ -2,6 +2,7 @@
 	name = "mountable frame"
 	desc = "Place it on a wall."
 	origin_tech = "materials=1;engineering=1"
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
 	usesound = 'sound/items/deconstruct.ogg'
 
 	///amount of metal sheets returned upon the frame being wrenched
@@ -29,11 +30,11 @@
 
 	var/turf/build_turf = get_turf(user)
 	if((mount_requirements & MOUNTED_FRAME_SIMFLOOR) && !isfloorturf(build_turf))
-		to_chat(user, "<span class='warning'>[src] cannot be placed on this spot.</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot be placed on this spot."))
 		return FALSE
 	if(mount_requirements & MOUNTED_FRAME_NOSPACE)
 		var/area/my_area = get_area(build_turf)
 		if(!istype(my_area) || !my_area.requires_power || isspacearea(my_area))
-			to_chat(user, "<span class='warning'>[src] cannot be placed in this area.</span>")
+			to_chat(user, SPAN_WARNING("[src] cannot be placed in this area."))
 			return FALSE
 	return TRUE

@@ -410,7 +410,7 @@ datum/tech/robotics
 
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
-	desc = T.desc + "\n <span class='notice'>Level: [T.level]</span>"
+	desc = T.desc + "\n [SPAN_NOTICE("Level: [T.level]")]"
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
 	tech_id = T.id
@@ -430,7 +430,6 @@ datum/tech/robotics
 	name = "\improper Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk2"
-	materials = list(MAT_METAL=100, MAT_GLASS=100)
 	var/datum/design/blueprint
 	// I'm doing this so that disk paths with pre-loaded designs don't get weird names
 	// Otherwise, I'd use "initial()"

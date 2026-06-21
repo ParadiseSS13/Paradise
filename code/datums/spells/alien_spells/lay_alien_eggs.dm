@@ -30,10 +30,10 @@
 
 	target.color = "#c72623"
 	addtimer(CALLBACK(src, PROC_REF(blow_it_up), target, user), 3 SECONDS)
-	to_chat(user, "<span class='noticealien'>[target] will explode in 3 seconds!</span>")
+	to_chat(user, SPAN_NOTICEALIEN("[target] will explode in 3 seconds!"))
 	return TRUE
 
 /datum/spell/alien_spell/combust_facehuggers/proc/blow_it_up(obj/target, mob/user)
 	add_attack_logs(user, target, "Caused it to explode")
 	explosion(get_turf(target), 0, 2, 3, 3, cause = "[user.ckey]: [name]")
-	to_chat(user, "<span class='noticealien'>[target] has detonated!</span>")
+	to_chat(user, SPAN_NOTICEALIEN("[target] has detonated!"))

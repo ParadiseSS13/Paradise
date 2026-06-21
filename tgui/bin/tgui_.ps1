@@ -40,6 +40,14 @@ function task-install {
   yarn install
 }
 
+## Minifies tgui/html assets
+function task-setup {
+  yarn run build:helpers
+  Write-Output "tgui: html helpers minified"
+  yarn run build:style
+  Write-Output "tgui: html styles minified"
+}
+
 ## Runs rspack
 function task-rspack {
   yarn run rspack @Args
@@ -169,6 +177,7 @@ if ($Args.Length -gt 0) {
     task-prettier
     task-test @Rest
     task-lint
+    task-setup
     task-rspack --mode=production
     task-validate-build
     exit 0
@@ -191,10 +200,12 @@ if ($Args.Length -gt 0) {
 if ($Args.Length -eq 0) {
   task-install
   task-lint --fix
+  task-setup
   task-rspack --mode=production
   exit 0
 }
 
 ## Run rspack with custom flags
 task-install
+task-setup
 task-rspack @Args

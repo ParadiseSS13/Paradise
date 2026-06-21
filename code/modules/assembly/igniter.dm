@@ -2,7 +2,7 @@
 	name = "igniter"
 	desc = "A small electronic device able to ignite combustible substances."
 	icon_state = "igniter"
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	origin_tech = "magnets=1"
 	var/datum/effect_system/spark_spread/sparks
 
@@ -29,8 +29,8 @@
 	if(location)
 		location.hotspot_expose(1000, 1)
 	visible_message(
-		"<span class='notice'>Sparks shoot out of [src].</span>",
-		"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+		SPAN_NOTICE("Sparks shoot out of [src]."),
+		SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	sparks.start()
 
@@ -57,9 +57,10 @@
 
 	return TRUE
 
-/obj/item/assembly/igniter/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/assembly/igniter/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
 	if(!cigarette_lighter_act(user, target))
 		return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -68,24 +69,24 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] and activates it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='notice'>You press [src] against [cig] and activates it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+			SPAN_NOTICE("[user] presses [src] against [cig] and activates it, lighting [cig] in a shower of sparks!"),
+			SPAN_NOTICE("You press [src] against [cig] and activates it, lighting [cig] in a shower of sparks!"),
+			SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] and activates it, lighting [cig] for [target] in a shower of sparks!</span>",
-			"<span class='notice'>You press [src] against [cig] and activate it, lighting [cig] in a shower of sparks!</span>",
-			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+			SPAN_NOTICE("[user] presses [src] against [cig] and activates it, lighting [cig] for [target] in a shower of sparks!"),
+			SPAN_NOTICE("You press [src] against [cig] and activate it, lighting [cig] in a shower of sparks!"),
+			SPAN_WARNING("You hear a shower of sparks shooting out from something!")
 		)
 	sparks.start()	// Make sparks fly!
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/assembly/igniter/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/igniter/activate_self(mob/user)
+	. = ..()
 	if(!istype(loc, /obj/item/assembly_holder))
 		activate()
-	add_fingerprint(user)
 
 /obj/item/assembly/igniter/get_heat()
 	return 2000

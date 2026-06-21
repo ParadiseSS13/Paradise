@@ -5,16 +5,18 @@
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
-	item_state = "defibunit"
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000, MAT_SILVER = 1000)
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	new_attack_chain = TRUE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/back.dmi'
 		)
 
 	/// If the paddles are currently attached to the unit.
@@ -45,7 +47,7 @@
 
 /obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
 	. = ..()
-	paddles = new paddle_type(src)
+	paddles = new paddle_type(src, src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/loaded/Initialize(mapload) // Loaded version starts with high-capacity cell.
@@ -59,7 +61,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to remove the paddles from the defibrillator.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to remove the paddles from the defibrillator.")
 
 /obj/item/defibrillator/proc/update_power()
 	if(cell)
@@ -97,33 +99,39 @@
 	if(ishuman(user) && Adjacent(user))
 		toggle_paddles(user)
 
-/obj/item/defibrillator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
+/obj/item/defibrillator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = used
 		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-		else
-			if(C.maxcharge < paddles.revivecost)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
-				return
-			if(user.drop_item(C))
-				W.forceMove(src)
-				cell = C
-				to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-	if(W == paddles)
-		toggle_paddles(user)
+			to_chat(user, SPAN_NOTICE("[src] already has a cell."))
+			return ITEM_INTERACT_COMPLETE
 
-	update_icon(UPDATE_OVERLAYS)
+		if(C.maxcharge < paddles.revivecost)
+			to_chat(user, SPAN_NOTICE("[src] requires a higher capacity cell."))
+			return ITEM_INTERACT_COMPLETE
+
+		if(user.drop_item(C))
+			used.forceMove(src)
+			cell = C
+			to_chat(user, SPAN_NOTICE("You install a cell in [src]."))
+			update_icon(UPDATE_OVERLAYS)
+			return ITEM_INTERACT_COMPLETE
+
+	if(used == paddles)
+		toggle_paddles(user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, "<span class='notice'>[src] doesn't have a cell.</span>")
+		to_chat(user, SPAN_NOTICE("[src] doesn't have a cell."))
 		return
 
 	cell.update_icon()
 	cell.forceMove(get_turf(loc))
 	cell = null
-	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You remove the cell from [src]."))
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
@@ -147,7 +155,7 @@
 	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
 		if(!user.put_in_hands(paddles))
-			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
+			to_chat(user, SPAN_WARNING("You need a free hand to hold the paddles!"))
 			update_icon(UPDATE_OVERLAYS)
 			return
 		paddles.forceMove(user)
@@ -209,12 +217,12 @@
 	name = "compact defibrillator"
 	desc = "A belt-mounted defibrillator that can be rapidly deployed."
 	icon_state = "defibcompact"
-	item_state = "defibcompact"
 	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	origin_tech = "biotech=5"
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/defibrillator/compact/loaded/Initialize(mapload)
 	. = ..()
@@ -229,7 +237,6 @@
 	name = "combat defibrillator"
 	desc = "A belt-mounted blood-red defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
 	icon_state = "defibcombat"
-	item_state = "defibcombat"
 	paddle_type = /obj/item/shockpaddles/syndicate
 	combat = TRUE
 	safety = FALSE
@@ -244,7 +251,6 @@
 	name = "advanced compact defibrillator"
 	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. The casing is EMP-shielded and heavily reinforced, making it immune to most sources of damage."
 	icon_state = "defibnt"
-	item_state = "defibnt"
 	paddle_type = /obj/item/shockpaddles/advanced
 	combat = TRUE
 	hardened = TRUE // EMP-proof (on the component), but not emag-proof.
@@ -256,8 +262,8 @@
 
 /obj/item/defibrillator/compact/advanced/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] uses an experimental self-charging cell, meaning that it will (probably) never stop working.</span>"
-	. += "<span class='notice'>The advanced paddles can be used to defibrillate through space suits.</span>"
+	. += SPAN_NOTICE("[src] uses an experimental self-charging cell, meaning that it will (probably) never stop working.")
+	. += SPAN_NOTICE("The advanced paddles can be used to defibrillate through space suits.")
 
 /obj/item/defibrillator/compact/advanced/examine_more(mob/user)
 	. = ..()
@@ -291,7 +297,7 @@
 	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
+	inhand_icon_state = "defibpaddles0"
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
@@ -304,7 +310,7 @@
 	var/on_cooldown = FALSE
 
 
-/obj/item/shockpaddles/New(mainunit)
+/obj/item/shockpaddles/Initialize(mapload, mainunit)
 	. = ..()
 
 	if(check_defib_exists(mainunit, null, src))
@@ -328,7 +334,7 @@
 	SIGNAL_HANDLER  // COMSIG_DEFIB_PADDLES_APPLIED
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
+		to_chat(user, SPAN_BOLDNOTICE("You need to wield the paddles in both hands before you can use them on someone!"))
 		return COMPONENT_BLOCK_DEFIB_MISC
 	if(!defib.powered)
 		return COMPONENT_BLOCK_DEFIB_DEAD
@@ -340,10 +346,10 @@
 	on_cooldown = FALSE
 	if(defib.cell)
 		if(defib.cell.charge >= revivecost)
-			defib.visible_message("<span class='notice'>[defib] beeps: Unit ready.</span>")
+			defib.visible_message(SPAN_NOTICE("[defib] beeps: Unit ready."))
 			playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 		else
-			defib.visible_message("<span class='notice'>[defib] beeps: Charge depleted.</span>")
+			defib.visible_message(SPAN_NOTICE("[defib] beeps: Charge depleted."))
 			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		update_icon(UPDATE_ICON_STATE)
 	defib.update_icon(UPDATE_ICON_STATE)
@@ -357,12 +363,12 @@
 /obj/item/shockpaddles/update_icon_state()
 	var/wielded = HAS_TRAIT(src, TRAIT_WIELDED)
 	icon_state = "[base_icon_state][wielded]"
-	item_state = "[base_icon_state][wielded]"
+	inhand_icon_state = "[base_icon_state][wielded]"
 	if(on_cooldown)
 		icon_state = "[base_icon_state][wielded]_cooldown"
 
 /obj/item/shockpaddles/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_DANGER("[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!"))
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	return OXYLOSS
@@ -370,7 +376,7 @@
 /obj/item/shockpaddles/dropped(mob/user)
 	..()
 	if(user)
-		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
+		to_chat(user, SPAN_NOTICE("The paddles snap back into the main unit."))
 		defib.paddles_on_defib = TRUE
 		loc = defib
 		defib.update_icon(UPDATE_OVERLAYS)
@@ -420,7 +426,7 @@
 	desc = "A pair of paddles with flat metal surfaces that are used to deliver powerful electric shocks."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
-	item_state = "defibpaddles0"
+	inhand_icon_state = "defibpaddles0"
 	w_class = WEIGHT_CLASS_BULKY
 	var/revivecost = 1000
 	var/safety = TRUE
@@ -442,7 +448,7 @@
 
 /obj/item/borg_defib/proc/on_cooldown_expire(obj/item/defib)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_READY
-	visible_message("<span class='notice'>[src] beeps: Defibrillation unit ready.</span>")
+	visible_message(SPAN_NOTICE("[src] beeps: Defibrillation unit ready."))
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -450,12 +456,12 @@
 	name = "combat defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
 	icon_state = "syndiepaddles0"
-	item_state = "syndiepaddles0"
+	inhand_icon_state = "syndiepaddles0"
 	base_icon_state = "syndiepaddles"
 
 /obj/item/shockpaddles/advanced
 	name = "advanced defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces that are used to deliver powerful electric shocks. They possess the ability to penetrate armor to deliver shock."
 	icon_state = "ntpaddles0"
-	item_state = "ntpaddles0"
+	inhand_icon_state = "ntpaddles0"
 	base_icon_state = "ntpaddles"

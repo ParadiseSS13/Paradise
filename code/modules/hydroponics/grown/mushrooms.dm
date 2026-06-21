@@ -140,7 +140,7 @@
 /obj/item/food/grown/mushroom/plumphelmet
 	seed = /obj/item/seeds/plump
 	name = "plump-helmet"
-	desc = "<I>Plumus Hellmus</I>: Plump, soft and s-so inviting~"
+	desc = "<i>Hypogeus mycora</i>: Large mushrooms with a purple cap and burgundy-colored spores. Some spacemen like plump helmets for their rounded tops."
 	icon_state = "plumphelmet"
 	filling_color = "#9370DB"
 	tastes = list("plump helmet" = 1, "dwarven hardiness" = 1)
@@ -178,7 +178,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(isspaceturf(user.loc))
-		to_chat(user, "<span class='warning'>You need a solid floor to plant [src] on!</span>")
+		to_chat(user, SPAN_WARNING("You need a solid floor to plant [src] on!"))
 		return ITEM_INTERACT_COMPLETE
 
 	var/mob/living/simple_animal/hostile/mushroom/M = new /mob/living/simple_animal/hostile/mushroom(user.loc)
@@ -188,7 +188,7 @@
 	M.move_to_delay -= round(seed.production / 50)
 	M.health = M.maxHealth
 	qdel(src)
-	to_chat(user, "<span class='notice'>You plant the walking mushroom.</span>")
+	to_chat(user, SPAN_NOTICE("You plant the walking mushroom."))
 
 
 // Chanterelle
@@ -255,11 +255,11 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(isspaceturf(user.loc))
-		to_chat(user, "<span class='warning'>You need a solid floor or wall to plant [src] on!</span>")
+		to_chat(user, SPAN_WARNING("You need a solid floor or wall to plant [src] on!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to plant [src]!</span>")
+		to_chat(user, SPAN_WARNING("You need more space to plant [src]!"))
 		return ITEM_INTERACT_COMPLETE
 
 	var/count = 0
@@ -271,11 +271,11 @@
 	for(var/obj/structure/glowshroom/G in user.loc)
 		count++
 	if(count >= maxcount)
-		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src]!</span>")
+		to_chat(user, SPAN_WARNING("There are too many shrooms here to plant [src]!"))
 		return ITEM_INTERACT_COMPLETE
 
 	new effect_path(user.loc, seed)
-	to_chat(user, "<span class='notice'>You plant [src].</span>")
+	to_chat(user, SPAN_NOTICE("You plant [src]."))
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 

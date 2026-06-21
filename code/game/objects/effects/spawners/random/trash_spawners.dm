@@ -80,3 +80,10 @@
 		return
 
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/trash]")
+
+/obj/effect/spawner/random/trash/spread_tiles
+	spawn_scatter_radius = 2
+
+/obj/effect/spawner/random/trash/spread_tiles/Initialize(mapload)
+	spawn_loot_count = roll("3d3")
+	. = ..()

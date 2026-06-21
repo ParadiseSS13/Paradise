@@ -42,6 +42,7 @@
 	AddComponent(/datum/component/aggro_emote, aggro_sound = 'sound/creatures/pirateengage.ogg', emote_chance = 100)
 	add_language("Galactic Common")
 	set_default_language(GLOB.all_languages["Galactic Common"])
+	AddElement(/datum/element/ai_retaliate)
 	if(prob(50))
 		loot = list(/obj/item/clothing/head/helmet/space/pirate,
 			/obj/item/salvage/loot/pirate,
@@ -59,7 +60,7 @@
 	icon_state = "piratespaceranged"
 	icon_living = "piratespaceranged"
 	is_ranged = TRUE
-	projectile_type = /obj/item/projectile/beam
+	projectile_type = /obj/projectile/beam
 	projectile_sound = 'sound/weapons/laser.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.5 SECONDS // Same fire rate as people!
@@ -90,6 +91,7 @@
 	)
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/pirate,
+		/datum/ai_planning_subtree/target_retaliate/check_faction,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
@@ -112,6 +114,7 @@
 /datum/ai_controller/basic_controller/simple/pirate/ranged
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/pirate,
+		/datum/ai_planning_subtree/target_retaliate/check_faction,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
 		/datum/ai_planning_subtree/maintain_distance,

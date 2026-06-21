@@ -1,4 +1,5 @@
 /datum/event/bureaucratic_error
+	name = "Bureaucratic Error"
 	announceWhen = 1
 	/// Jobs that are not allowed to be picked for the bureaucratic error
 	var/list/blacklisted_jobs = list(
@@ -8,7 +9,8 @@
 		/datum/job/blueshield,
 		/datum/job/chaplain,
 		/datum/job/officer,
-		/datum/job/warden
+		/datum/job/warden,
+		/datum/job/nanotrasentrainer
 	)
 
 	/// Jobs that pass an additional 40% chance per roll to be picked for the bureaucratic error
@@ -49,4 +51,4 @@
 		errors++
 	log_and_message_admins(affected_jobs.Join(".\n"))
 	for(var/mob/M as anything in GLOB.dead_mob_list)
-		to_chat(M, "<span class='deadsay'><b>Bureaucratic Error:</b> The following job slots have changed: \n[affected_jobs.Join(",\n ")].</span>")
+		to_chat(M, SPAN_DEADSAY("<b>Bureaucratic Error:</b> The following job slots have changed: \n[affected_jobs.Join(",\n ")]."))

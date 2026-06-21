@@ -3,8 +3,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler
 	name = "remote signaling device"
 	desc = "Used to remotely activate devices. Allows for syncing when using a signaler on another."
-	icon_state = "signaller"
-	item_state = "signaler"
+	icon_state = "signaler"
 	materials = list(MAT_METAL = 400, MAT_GLASS = 120)
 	origin_tech = "magnets=1;bluespace=1"
 	wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE | ASSEMBLY_WIRE_RADIO_PULSE | ASSEMBLY_WIRE_RADIO_RECEIVE
@@ -27,20 +26,22 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += "The power light is [receiving ? "on" : "off"]"
-	. += "<span class='notice'>Alt+Click to send a signal.</span>"
+	. += SPAN_NOTICE("Alt+Click to send a signal.")
 
 /obj/item/assembly/signaler/AltClick(mob/user)
-	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	to_chat(user, SPAN_NOTICE("You activate [src]."))
 	activate()
 
-/obj/item/assembly/signaler/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(issignaler(W))
-		var/obj/item/assembly/signaler/signaler2 = W
-		if(secured && signaler2.secured)
-			code = signaler2.code
-			frequency = signaler2.frequency
-			to_chat(user, "You transfer the frequency and code to [src].")
-	return ..()
+/obj/item/assembly/signaler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!issignaler(used))
+		return ..()
+	var/obj/item/assembly/signaler/signaler2 = used
+	if(!secured || !signaler2.secured)
+		return ITEM_INTERACT_COMPLETE
+	code = signaler2.code
+	frequency = signaler2.frequency
+	to_chat(user, "You transfer the frequency and code to [src].")
+	return ITEM_INTERACT_COMPLETE
 
 /// Called from activate(), actually invokes the signal on other signallers in the world
 /obj/item/assembly/signaler/proc/signal()
@@ -59,7 +60,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)
-	visible_message("[bicon(src)] *beep* *beep* *beep*")
+	audible_message("[bicon(src)] *beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 
 // Activation pre-runner, handles cooldown and calls signal(), invoked from ui_act()
@@ -75,7 +76,8 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 // UI STUFF //
 
-/obj/item/assembly/signaler/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/signaler/activate_self(mob/user)
+	. = ..()
 	ui_interact(user)
 
 /obj/item/assembly/signaler/ui_state(mob/user)

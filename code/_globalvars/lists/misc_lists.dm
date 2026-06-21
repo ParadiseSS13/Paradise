@@ -98,3 +98,11 @@ GLOBAL_LIST_INIT(admin_permission_names, alist(
 	R_VIEWLOGS = "VIEWLOGS",
 ))
 GLOBAL_PROTECT(admin_permission_names)
+
+GLOBAL_LIST_INIT(blacklisted_heretic_areas, list(
+	/area/station/turret_protected,
+	/area/station/aisat,
+	/area/station/science/toxins/test,
+	))
+
+GLOBAL_LIST_EMPTY(starlight) // Turfs that emit starlight

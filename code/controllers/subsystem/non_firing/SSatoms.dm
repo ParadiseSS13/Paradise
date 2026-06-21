@@ -114,16 +114,7 @@ SUBSYSTEM_DEF(atoms)
 	old_initialized = SSatoms.old_initialized
 	BadInitializeCalls = SSatoms.BadInitializeCalls
 
-
-
-/client/proc/debug_atom_init()
-	set name = "Atom Init Log"
-	set category = "Debug"
-	set desc = "Shows what failed to init this round"
-
-	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
-		return
-
+USER_VERB(debug_atom_init, R_DEBUG|R_VIEWRUNTIMES, "Atom Init Log", "Shows what failed to init this round", VERB_CATEGORY_DEBUG)
 	var/list/html_data = list()
 	html_data += "<h1>Bad Initialize() Calls</h1><table border='1'><tr><th scope='col'>Type</th><th scope='col'>Qdeleted before init</th><th scope='col'>Did not init</th><th scope='col'>Slept during init</th><th scope='col'>No init hint</th></tr>"
 
@@ -134,5 +125,5 @@ SUBSYSTEM_DEF(atoms)
 
 	html_data += "</table>"
 
-	usr << browse(html_data.Join(), "window=initdebug")
+	client << browse(html_data.Join(), "window=initdebug")
 

@@ -17,6 +17,10 @@
 			var/mob/living/buckled_mob = m
 			buckled_mob.setDir(dir)
 
+/obj/structure/chair/wheelchair/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
+	if(do_after(user, 2 SECONDS, target = buckled_mob))
+		return ..()
+
 /obj/structure/chair/wheelchair/post_buckle_mob(mob/living/M)
 	. = ..()
 	handle_layer()
@@ -76,6 +80,7 @@
 			. = 0
 
 		else
+			handle_layer()
 			. = 1
 
 /obj/structure/chair/wheelchair/Bump(atom/A)
@@ -102,7 +107,7 @@
 			victim.Stuttering(12 SECONDS)
 			victim.take_organ_damage(10)
 
-		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+		occupant.visible_message(SPAN_DANGER("[occupant] crashed into \the [A]!"))
 
 /obj/structure/chair/wheelchair/plasteel
 	name = "hardened wheelchair"

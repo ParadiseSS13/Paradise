@@ -6,11 +6,11 @@
 	var/image/selected_overlay			// Overlay for the selected atom only visible for the build mode user
 
 /datum/buildmode_mode/forcemove/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on obj/mob = Select destination</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on obj/mob = Select atom to move</span>")
-	to_chat(user, "<span class='notice'><b>Notice:</b> You need to select the movable atom first, then left-click its destination.</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button on obj/mob = Select destination"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button on obj/mob = Select atom to move"))
+	to_chat(user, SPAN_NOTICE("<b>Notice:</b> You need to select the movable atom first, then left-click its destination."))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/forcemove/handle_click(mob/user, params, atom/A)
 	var/list/pa = params2list(params)
@@ -20,7 +20,7 @@
 	// Selecting the atom to move
 	if(right_click)
 		if(!ismovable(A) || iseffect(A))
-			to_chat(user, "<span class='danger'>You cannot move effects, turfs or areas.</span>")
+			to_chat(user, SPAN_DANGER("You cannot move effects, turfs or areas."))
 			return
 
 		// If we had something previously selected, handle its signal and overlay
@@ -39,7 +39,7 @@
 		selected_overlay.color = "#15d12d"
 		user.client.images += selected_overlay
 
-		to_chat(user, "<span class='notice'>'[selected_atom]' is selected to be moved.</span>")
+		to_chat(user, SPAN_NOTICE("'[selected_atom]' is selected to be moved."))
 		return
 
 	// Selecting the destination to move to
@@ -49,17 +49,17 @@
 	var/atom/destination = A
 
 	if(!selected_atom)
-		to_chat(user, "<span class='danger'>Select an atom to move first (with right-click).</span>")
+		to_chat(user, SPAN_DANGER("Select an atom to move first (with right-click)."))
 		return
 
 	// Block these as they can only lead to issues
 	if(iseffect(destination) || isobserver(destination))
-		to_chat(user, "<span class='danger'>You should not move atoms into effects or ghosts.</span>")
+		to_chat(user, SPAN_DANGER("You should not move atoms into effects or ghosts."))
 		return
 
 	selected_atom.forceMove(destination)
 
-	to_chat(user, "<span class='notice'>'[selected_atom]' is moved to '[destination]'.</span>")
+	to_chat(user, SPAN_NOTICE("'[selected_atom]' is moved to '[destination]'."))
 	log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
 
 	UnregisterSignal(selected_atom, COMSIG_PARENT_QDELETING)

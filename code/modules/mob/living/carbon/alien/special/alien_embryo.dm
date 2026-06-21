@@ -36,24 +36,24 @@
 			if(prob(2))
 				owner.emote("cough")
 			if(prob(2))
-				to_chat(owner, "<span class='danger'>Your throat feels sore.</span>")
+				to_chat(owner, SPAN_DANGER("Your throat feels sore."))
 			if(prob(2))
-				to_chat(owner, "<span class='danger'>Mucous runs down the back of your throat.</span>")
+				to_chat(owner, SPAN_DANGER("Mucous runs down the back of your throat."))
 		if(3)
 			if(prob(2))
 				owner.emote("sneeze")
 			if(prob(2))
 				owner.emote("cough")
 			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your muscles ache.</span>")
+				to_chat(owner, SPAN_DANGER("Your muscles ache."))
 				if(prob(20))
 					owner.take_organ_damage(1)
 			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your chest hurts.</span>")
+				to_chat(owner, SPAN_DANGER("Your chest hurts."))
 				if(prob(20))
 					owner.adjustToxLoss(1)
 		if(4)
-			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your chest...</span>")
+			to_chat(owner, SPAN_DANGER("You feel something tearing its way out of your chest..."))
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
@@ -108,7 +108,7 @@
 			new_xeno.mind.assigned_role = SPECIAL_ROLE_XENOMORPH
 			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH
 			SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))
-			to_chat(new_xeno, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Xenomorph)</span>")
+			to_chat(new_xeno, SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Xenomorph)"))
 
 			if(burst_on_success) //If we burst naturally
 				owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)

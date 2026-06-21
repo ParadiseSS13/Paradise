@@ -30,7 +30,7 @@
 	id = "hyper_cell"
 	req_tech = list("powerstorage" = 5, "materials" = 5, "engineering" = 5)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 70)
+	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 400)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/hyper/empty
 	category = list("Misc", "Power", "Stock Parts")
@@ -41,7 +41,7 @@
 	id = "super_cell"
 	req_tech = list("powerstorage" = 3, "materials" = 3)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 700, MAT_GLASS = 70)
+	materials = list(MAT_METAL = 700, MAT_GLASS = 300)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/super/empty
 	category = list("Misc", "Power", "Stock Parts")
@@ -52,7 +52,7 @@
 	id = "bluespace_cell"
 	req_tech = list("powerstorage" = 6, "materials" = 5, "engineering" = 5, "bluespace" = 5)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 160, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
+	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 600, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/bluespace/empty
 	category = list("Misc", "Power", "Stock Parts")
@@ -106,3 +106,64 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/grounding_rod
 	category = list("Engineering Machinery")
+
+/datum/design/centrifuge
+	name = "Machine Design (Nuclear Centrifuge Board)"
+	desc = "The circuit board for a nuclear centrifuge."
+	id = "nuclear_centrifuge"
+	req_tech = list("programming" = 3, "materials" = 5, "magnets" = 5, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/nuclear_centrifuge
+	category = list("Power", "Engineering Machinery")
+
+/datum/design/rod_fabricator
+	name = "Machine Design (Nuclear Rod Fabricator Board)"
+	desc = "The circuit board for a nuclear rod fabricator."
+	id = "nuclear_fabricator"
+	req_tech = list("programming" = 5, "materials" = 5, "magnets" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/nuclear_rod_fabricator
+	category = list("Power", "Engineering Machinery")
+
+/datum/design/nuclear_gas_node
+	name = "Machine Design (Nuclear Gas Node Board)"
+	desc = "The circuit board for a nuclear gas node."
+	id = "nuclear_gas_node"
+	req_tech = list("programming" = 4, "materials" = 4, "magnets" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/reactor_gas_node
+	category = list("Power", "Engineering Machinery")
+
+/datum/design/rod_fabricator_upgrade
+	name = "Nuclear Rod Fabricator Upgrade"
+	desc = "A design disk containing a dizzying amount of designs and improvements for nuclear rod fabrication."
+	id = "nuclear_fab_upgrade"
+	req_tech = list("programming" = 5, "materials" = 5, "magnets" = 4, "plasmatech" = 3, "toxins" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_URANIUM = 500, MAT_GOLD = 400)
+	build_path = /obj/item/rod_fabricator_upgrade
+	category = list("Power", "Engineering Machinery", "Misc")
+
+/datum/design/reactor_chamber
+	name = "Machine Design (Reactor Chamber Board)"
+	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
+	id = "reactor_chamber"
+	req_tech = list("programming" = 4, "materials" = 4, "magnets" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 2000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000)
+	build_path = /obj/item/circuitboard/machine/reactor_chamber
+	category = list("Power", "Engineering Machinery", "Misc")
+
+/datum/design/neutron_grenade
+	name = "Neutron Agitator Grenade"
+	desc = "A throwable device capable of inducing an artificial startup in rod chambers."
+	id = "neutron_grenade"
+	req_tech = list("materials" = 6, "magnets" = 5, "plasmatech" = 5, "toxins" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GOLD = 2000)
+	build_path = /obj/item/grenade/nuclear_starter
+	category = list("Power", "Misc")
+

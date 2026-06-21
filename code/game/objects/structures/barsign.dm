@@ -109,15 +109,15 @@
 	. = ..()
 	switch(build_stage)
 		if(BARSIGN_FRAME)
-			. += "<span class='notice'>It's missing a <i>circuit board</i> and the <b>bolts</b> are exposed.</span>"
+			. += SPAN_NOTICE("It's missing a <i>circuit board</i> and the <b>bolts</b> are exposed.")
 		if(BARSIGN_CIRCUIT)
-			. += "<span class='notice'>The frame needs <i>wiring</i> and the circuit board could be <b>pried out</b>.</span>"
+			. += SPAN_NOTICE("The frame needs <i>wiring</i> and the circuit board could be <b>pried out</b>.")
 		if(BARSIGN_WIRED)
-			. += "<span class='notice'>The frame lacks a <i>glass screen</i> and is filled with wires that could be <b>cut</b>.</span>"
+			. += SPAN_NOTICE("The frame lacks a <i>glass screen</i> and is filled with wires that could be <b>cut</b>.")
 		if(BARSIGN_COMPLETE)
-			. += "<span class='notice'><b>Alt-Click</b> to toggle its power.</span>"
+			. += SPAN_NOTICE("<b>Alt-Click</b> to toggle its power.")
 			if(panel_open)
-				. += "<span class='notice'>It is disabled by its <i>unscrewed</i> maintenance panel that exposes an area from which the screen could be <b>pried out</b>.</span>"
+				. += SPAN_NOTICE("It is disabled by its <i>unscrewed</i> maintenance panel that exposes an area from which the screen could be <b>pried out</b>.")
 
 /obj/machinery/barsign/proc/is_on()
 	if(power_state == ACTIVE_POWER_USE)
@@ -158,16 +158,16 @@
 	if(..())
 		return
 	if(stat & MAINT)
-		to_chat(user, "<span class='warning'>Wait until the repairs are complete!</span>")
+		to_chat(user, SPAN_WARNING("Wait until the repairs are complete!"))
 		return
 	if((stat & (BROKEN|NOPOWER|EMPED)) || build_stage < BARSIGN_COMPLETE)
-		to_chat(user, "<span class='warning'>The controls seem unresponsive.</span>")
+		to_chat(user, SPAN_WARNING("The controls seem unresponsive."))
 		return
 	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
+		to_chat(user, SPAN_WARNING("Close the maintenance panel first!"))
 		return
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return
 	pick_sign(user)
 
@@ -191,7 +191,7 @@
 					req_access = list(ACCESS_BAR)
 				else
 					req_access = list()
-				to_chat(user, "<span class='notice'>You insert the circuit!</span>")
+				to_chat(user, SPAN_NOTICE("You insert the circuit!"))
 				qdel(electronic)
 				build_stage = BARSIGN_CIRCUIT
 				update_icon()
@@ -202,13 +202,13 @@
 		if(BARSIGN_CIRCUIT)
 			if(istype(used, /obj/item/stack/cable_coil))
 				if(!used.use(5))
-					to_chat(user, "<span class='warning'>You need a total of five cables to wire [src]!</span>")
+					to_chat(user, SPAN_WARNING("You need a total of five cables to wire [src]!"))
 					return ITEM_INTERACT_COMPLETE
 				stat &= ~EMPED
 				build_stage = BARSIGN_WIRED
 				update_icon()
 				playsound(get_turf(src), used.usesound, 50, TRUE)
-				to_chat(user, "<span class='notice'>You wire [src]!</span>")
+				to_chat(user, SPAN_NOTICE("You wire [src]!"))
 				power_state = IDLE_POWER_USE
 				add_fingerprint(user)
 				return ITEM_INTERACT_COMPLETE
@@ -216,7 +216,7 @@
 		if(BARSIGN_WIRED)
 			if(istype(used, /obj/item/stack/sheet/glass))
 				if(!used.use(2))
-					to_chat(user, "<span class='warning'>You need at least 2 sheets of glass for this!</span>")
+					to_chat(user, SPAN_WARNING("You need at least 2 sheets of glass for this!"))
 					return ITEM_INTERACT_COMPLETE
 				build_stage = BARSIGN_COMPLETE
 				playsound(get_turf(src), used.usesound, 50, TRUE)
@@ -253,7 +253,7 @@
 		return
 	. = TRUE
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, SPAN_NOTICE("[src] does not need repairs."))
 		return
 	if(I.tool_behaviour != TOOL_WELDER)
 		return
@@ -283,10 +283,10 @@
 		if(!panel_open)
 			panel_open = TRUE
 			turn_off()
-			to_chat(user, "<span class='notice'>You open the maintenance panel of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You open the maintenance panel of [src]."))
 		else
 			panel_open = FALSE
-			to_chat(user, "<span class='notice'>You close the maintenance panel of [src].</span>")
+			to_chat(user, SPAN_NOTICE("You close the maintenance panel of [src]."))
 		I.play_tool_sound(user, I.tool_volume)
 		add_fingerprint(user)
 
@@ -322,10 +322,10 @@
 		var/obj/item/barsign_electronics/electronic
 		electronic = new /obj/item/barsign_electronics
 		if(!emagged)
-			to_chat(user, "<span class='notice'>You pull the electronics out from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You pull the electronics out from [src]."))
 		else
 			// Give fried electronics if the sign is emagged
-			to_chat(user, "<span class='notice'>You pull the fried electronics out from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You pull the fried electronics out from [src]."))
 			electronic.destroyed = TRUE
 			electronic.icon_state = "door_electronics_smoked"
 		if(!length(req_access))
@@ -337,14 +337,14 @@
 	// Removing the glass screen
 	else if(build_stage == BARSIGN_COMPLETE)
 		if(!panel_open)
-			to_chat(user, "<span class='warning'>Open the maintenance panel first!</span>")
+			to_chat(user, SPAN_WARNING("Open the maintenance panel first!"))
 			return
 			// Drop a shard if the glass is broken
 		if(stat & BROKEN)
-			to_chat(user, "<span class='notice'>You remove the broken screen from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove the broken screen from [src]."))
 			new /obj/item/shard(get_turf(user))
 		else
-			to_chat(user, "<span class='notice'>You pull the glass screen out from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You pull the glass screen out from [src]."))
 			new /obj/item/stack/sheet/glass(get_turf(user), 2)
 		build_stage = BARSIGN_WIRED
 		update_icon()
@@ -363,9 +363,9 @@
 		return
 	if(!(flags & NODECONSTRUCT))
 		if(stat & EMPED)
-			to_chat(user, "<span class='notice'>You remove the burnt wires out from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You remove the burnt wires out from [src]."))
 		else
-			to_chat(user, "<span class='notice'>You cut the wires out from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You cut the wires out from [src]."))
 			new /obj/item/stack/cable_coil(get_turf(user), 5)
 		build_stage = BARSIGN_CIRCUIT
 		update_icon()
@@ -375,12 +375,12 @@
 
 /obj/machinery/barsign/emag_act(mob/user)
 	if(stat & (BROKEN|NOPOWER|EMPED))
-		to_chat(user, "<span class='warning'>[src] cannot be taken over right now!</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot be taken over right now!"))
 		return
 	if(emagged)
-		to_chat(user, "<span class='warning'>[src] is already taken over!</span>")
+		to_chat(user, SPAN_WARNING("[src] is already taken over!"))
 		return
-	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
+	to_chat(user, SPAN_NOTICE("You emag the barsign. Takeover in progress..."))
 	add_fingerprint(user)
 	addtimer(CALLBACK(src, PROC_REF(post_emag)), 10 SECONDS)
 	return TRUE
@@ -427,19 +427,19 @@
 	var/placing_on = get_step(user_turf, user.dir)
 	// Return FALSE if the user isn't facing a wall/window.
 	if(!is_valid_turf(placing_on))
-		to_chat(user, "<span class='warning'>You need to be facing a wall or window to place the [title].</span>")
+		to_chat(user, SPAN_WARNING("You need to be facing a wall or window to place the [title]."))
 		return FALSE
 	// Return FALSE if there isn't space for the entire sign.
 	if((user.dir != NORTH && user.dir != SOUTH) || !is_valid_turf(get_step(placing_on, EAST)))
-		to_chat(user, "<span class='warning'>There is not enough space to place the [title].</span>")
+		to_chat(user, SPAN_WARNING("There is not enough space to place the [title]."))
 		return FALSE
 	// Return FALSE if there's already stuff on the wall.
 	if(gotwallitem(user_turf, FLIP_DIR_VERTICALLY(user.dir)) || gotwallitem(get_step(user_turf, EAST), FLIP_DIR_VERTICALLY(user.dir)))
-		to_chat(user, "<span class='warning'>There's already an item on the wall!</span>")
+		to_chat(user, SPAN_WARNING("There's already an item on the wall!"))
 		return FALSE
 	// Return FALSE if it would cause two bar signs to overlap.
 	if((locate(/obj/machinery/barsign) in get_step(user_turf, WEST)))
-		to_chat(user, "<span class='warning'>There's already a bar sign here!</span>")
+		to_chat(user, SPAN_WARNING("There's already a bar sign here!"))
 		return FALSE
 	return TRUE
 
@@ -480,14 +480,14 @@
 
 /obj/item/barsign_electronics/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use it while in your active hand to toggle the access restrictions.</span>"
+	. += SPAN_NOTICE("Use it while in your active hand to toggle the access restrictions.")
 
 /obj/item/barsign_electronics/attack_self__legacy__attackchain(mob/user)
 	. = ..()
 	if(destroyed)
 		return
 	restricts_access = !restricts_access
-	to_chat(user, "<span class='notice'>You [restricts_access ? "enable" : "disable"] the access restrictions of [src].</span>")
+	to_chat(user, SPAN_NOTICE("You [restricts_access ? "enable" : "disable"] the access restrictions of [src]."))
 
 // For the ghost bar since occupants don't have bar access.
 /obj/machinery/barsign/ghost_bar

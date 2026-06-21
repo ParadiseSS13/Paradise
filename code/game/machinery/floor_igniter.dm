@@ -4,7 +4,7 @@
 	icon_state = "igniter1"
 	plane = FLOOR_PLANE
 	max_integrity = 300
-	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, rad = 0, fire = 100, acid = 70)
+	armor = list(MELEE = 50, BULLET = 30, LASER = 70, ENERGY = 50, BOMB = 20, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	anchored = TRUE
 	idle_power_consumption = 2
@@ -102,10 +102,10 @@
 	disable = !disable
 
 	if(disable)
-		user.visible_message("<span class='warning'>[user] has disabled [src]!</span>", "<span class='warning'>You disable the connection to [src].</span>")
+		user.visible_message(SPAN_WARNING("[user] has disabled [src]!"), SPAN_WARNING("You disable the connection to [src]."))
 		icon_state = "[base_state]-d"
 	else
-		user.visible_message("<span class='warning'>[user] has reconnected [src]!</span>", "<span class='warning'>You fix the connection to [src].</span>")
+		user.visible_message(SPAN_WARNING("[user] has reconnected [src]!"), SPAN_WARNING("You fix the connection to [src]."))
 		if(has_power())
 			icon_state = "[base_state]"
 		else

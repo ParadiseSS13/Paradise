@@ -18,28 +18,28 @@
 
 /obj/item/tarot_generator/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
-		to_chat(user, "<span class='warning'>[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more second\s!</span>")
+		to_chat(user, SPAN_WARNING("[src]'s magic is still recovering from the last card, wait [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] more second\s!"))
 		return
 	if(length(our_card_list) >= maximum_cards)
-		to_chat(user, "<span class='warning'>[src]'s magic can only support up to [maximum_cards] in the world at once, use or destroy some!</span>")
+		to_chat(user, SPAN_WARNING("[src]'s magic can only support up to [maximum_cards] in the world at once, use or destroy some!"))
 		return
 	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), src)
 	our_card_list += MTC
 	user.put_in_hands(MTC)
-	to_chat(user, "<span class='hierophant'>You draw [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+	to_chat(user, SPAN_HIEROPHANT("You draw [MTC.name]... [MTC.card_desc]")) //No period on purpose.
 	COOLDOWN_START(src, card_cooldown, our_card_cooldown_time)
 
 /obj/item/tarot_generator/examine(mob/user)
 	. = ..()
-	. += "<span class='hierophant'>Alt-Shift-Click to destroy all cards it has produced.</span>"
-	. += "<span class='hierophant'>It has [length(our_card_list)] card\s in the world right now.</span>"
+	. += SPAN_HIEROPHANT("Alt-Shift-Click to destroy all cards it has produced.")
+	. += SPAN_HIEROPHANT("It has [length(our_card_list)] card\s in the world right now.")
 	if(!COOLDOWN_FINISHED(src, card_cooldown))
-		. += "<span class='hierophant'>You may draw another card again in [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] second\s.</span>"
+		. += SPAN_HIEROPHANT("You may draw another card again in [round(COOLDOWN_TIMELEFT(src, card_cooldown) / 10)] second\s.")
 
 /obj/item/tarot_generator/AltShiftClick(mob/user)
 	for(var/obj/item/magic_tarot_card/MTC in our_card_list)
 		MTC.dust()
-	to_chat(user, "<span class='hierophant'>You dispell the cards [src] had created.</span>")
+	to_chat(user, SPAN_HIEROPHANT("You dispell the cards [src] had created."))
 
 // Booster packs filled with 3, 5, or 7 playing cards! Used by the wizard space ruin, or rarely in lavaland tendril chests.
 /obj/item/tarot_card_pack
@@ -51,8 +51,8 @@
 	var/cards = 3
 
 /obj/item/tarot_card_pack/attack_self__legacy__attackchain(mob/user)
-	user.visible_message("<span class='notice'>[user] tears open [src].</span>", \
-						"<span class='hierophant'>You tear open [src]!</span>")
+	user.visible_message(SPAN_NOTICE("[user] tears open [src]."), \
+						SPAN_HIEROPHANT("You tear open [src]!"))
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	for(var/i in 1 to cards)
 		new /obj/item/magic_tarot_card(get_turf(src))
@@ -86,9 +86,9 @@
 /obj/item/blank_tarot_card/examine(mob/user)
 	. = ..()
 	if(!let_people_choose)
-		. += "<span class='hierophant'>With a bit of Ink, a work of art could be created. Will you provide your Ink?</span>"
+		. += SPAN_HIEROPHANT("With a bit of Ink, a work of art could be created. Will you provide your Ink?")
 	else
-		. += "<span class='hierophant'>We have the Ink... Could you provide your Vision instead?</span>"
+		. += SPAN_HIEROPHANT("We have the Ink... Could you provide your Vision instead?")
 
 /obj/item/blank_tarot_card/attack_self__legacy__attackchain(mob/user)
 	if(!ishuman(user))
@@ -96,7 +96,7 @@
 	if(!let_people_choose)
 		var/mob/living/carbon/human/H = user
 		if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
-			to_chat(user, "<span class='cult'>No blood to provide?...</span><span class='hierophant'> Then no Ink for the art...</span>")
+			to_chat(user, SPAN_CULT("No blood to provide?...</span><span class='hierophant'> Then no Ink for the art..."))
 			return
 		if(H.blood_volume <= 100) //Shouldn't happen, they should be dead, but failsafe. Not bleeding as then they could recover the blood with blood rites
 			return
@@ -104,7 +104,7 @@
 		H.drop_item()
 		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src))
 		user.put_in_hands(MTC)
-		to_chat(user, "<span class='cult'>Your blood flows into [src]...</span><span class='hierophant'> And your Ink makes a work of art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+		to_chat(user, SPAN_CULT("Your blood flows into [src]...</span><span class='hierophant'> And your Ink makes a work of art! [MTC.name]... [MTC.card_desc]")) //No period on purpose.
 		qdel(src)
 		return
 	var/tarot_type
@@ -120,7 +120,7 @@
 		user.drop_item()
 		var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), null, tarot_type)
 		user.put_in_hands(MTC)
-		to_chat(user, "<span class='hierophant'>You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]</span>") //No period on purpose.
+		to_chat(user, SPAN_HIEROPHANT("You put your Vision into [src], and your Vision makes a work of Art! [MTC.name]... [MTC.card_desc]")) //No period on purpose.
 		qdel(src)
 
 /obj/item/blank_tarot_card/choose //For admins mainly, to spawn a specific tarot card. Not recommended for ruins.
@@ -169,13 +169,13 @@
 /obj/item/magic_tarot_card/examine(mob/user)
 	. = ..()
 	if(!face_down)
-		. += "<span class='hierophant'>[card_desc]</span>"
-	. += "<span class='hierophant'>Alt-Shift-Click to flip the card over.</span>"
+		. += SPAN_HIEROPHANT("[card_desc]")
+	. += SPAN_HIEROPHANT("Alt-Shift-Click to flip the card over.")
 
 /obj/item/magic_tarot_card/examine_more(mob/user)
 	. = ..()
 	if(!face_down)
-		. += "<span class='hierophant'>[src] [our_tarot.extended_desc]</span>"
+		. += SPAN_HIEROPHANT("[src] [our_tarot.extended_desc]")
 
 /obj/item/magic_tarot_card/attack_self__legacy__attackchain(mob/user)
 	poof()
@@ -223,21 +223,21 @@
 	new /obj/effect/temp_visual/revenant(get_turf(src))
 
 /obj/item/magic_tarot_card/proc/dust()
-	visible_message("<span class='danger'>[src] disintegrates into dust!</span>")
+	visible_message(SPAN_DANGER("[src] disintegrates into dust!"))
 	new /obj/effect/temp_visual/revenant(get_turf(src))
 	qdel(src)
 
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user, atom/movable/thrower)
 	if(user != thrower) //Ignore antimagic stuff if the user is the thrower (aka self activation)
 		if(user.can_block_magic(our_tarot.antimagic_flags, 1))
-			visible_message("<span class='warning'>[src] burns up in a flash on contact with [user]!</span>")
+			visible_message(SPAN_WARNING("[src] burns up in a flash on contact with [user]!"))
 			qdel(src)
 			return
 	has_been_activated = TRUE
 	forceMove(user)
 	var/obj/effect/temp_visual/card_preview/tarot/draft = new(user, "tarot_[our_tarot.card_icon]")
 	user.vis_contents += draft
-	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
+	user.visible_message(SPAN_HIEROPHANT("[user] holds up [src]!"))
 	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)
 	if(ismob(thrower) && our_tarot)
 		add_attack_logs(thrower, user, "[thrower] has activated [our_tarot.name] on [user]", ATKLOG_FEW)
@@ -307,7 +307,7 @@
 	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	target.forceMove(pick(GLOB.latejoin))
-	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+	to_chat(target, SPAN_USERDANGER("You are abruptly pulled through space!"))
 
 /datum/tarot/the_magician
 	name = "I - The Magician"
@@ -317,7 +317,7 @@
 
 /datum/tarot/the_magician/activate(mob/living/target)
 	target.apply_status_effect(STATUS_EFFECT_BADASS)
-	to_chat(target, "<span class='notice'>You feel badass.</span>")
+	to_chat(target, SPAN_NOTICE("You feel badass."))
 
 /datum/tarot/the_high_priestess
 	name = "II - The High Priestess"
@@ -350,7 +350,7 @@
 			new /obj/effect/temp_visual/bubblegum_hands/leftsmack(first_turf)
 		sleep(6)
 		var/turf/second_turf = get_turf(owner)
-		to_chat(owner, "<span class='userdanger'>Something huge rends you!</span>")
+		to_chat(owner, SPAN_USERDANGER("Something huge rends you!"))
 		playsound(second_turf, 'sound/misc/demon_attack1.ogg', 100, TRUE, -1)
 		owner.adjustBruteLoss(damage)
 	qdel(src)
@@ -381,12 +381,12 @@
 		L.Add(T)
 
 	if(!length(L))
-		to_chat(target, "<span class='warning'>Huh. No bridge? Well, that sucks.</span>")
+		to_chat(target, SPAN_WARNING("Huh. No bridge? Well, that sucks."))
 		return
 	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	target.forceMove(pick(L))
-	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+	to_chat(target, SPAN_USERDANGER("You are abruptly pulled through space!"))
 
 /datum/tarot/the_hierophant
 	name = "V - The Hierophant"
@@ -458,12 +458,12 @@
 		viable_vendors += candidate
 
 	if(!length(viable_vendors))
-		to_chat(target, "<span class='warning'>No vending machines? Well, with luck cargo will have something to offer. If you go there yourself.</span>")
+		to_chat(target, SPAN_WARNING("No vending machines? Well, with luck cargo will have something to offer. If you go there yourself."))
 		return
 	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	target.forceMove(get_turf(pick(viable_vendors)))
-	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+	to_chat(target, SPAN_USERDANGER("You are abruptly pulled through space!"))
 
 /datum/tarot/wheel_of_fortune
 	name = "X - Wheel of Fortune"
@@ -573,12 +573,12 @@
 		L.Add(T)
 
 	if(!length(L))
-		to_chat(target, "<span class='warning'>Huh. No evidence? Well, that means they can't charge you with a crime, right?</span>")
+		to_chat(target, SPAN_WARNING("Huh. No evidence? Well, that means they can't charge you with a crime, right?"))
 		return
 	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	target.forceMove(pick(L))
-	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+	to_chat(target, SPAN_USERDANGER("You are abruptly pulled through space!"))
 	for(var/obj/structure/closet/C in shuffle(view(9, target)))
 		if(istype(C, /obj/structure/closet/secure_closet))
 			var/obj/structure/closet/secure_closet/SC = C
@@ -612,7 +612,7 @@
 			funny_ruin_list += ruin_landmark
 
 	if(!length(funny_ruin_list))
-		to_chat(target, "<span class='warning'>Huh. No space ruins? Well, this card is RUINED!</span>")
+		to_chat(target, SPAN_WARNING("Huh. No space ruins? Well, this card is RUINED!"))
 		return
 
 	teleport(target, get_turf(pick(funny_ruin_list)))
@@ -620,7 +620,7 @@
 /datum/tarot/the_moon/proc/teleport(mob/living/target, turf/teleport_location)
 	teleport_location.ChangeTurf(/turf/simulated/floor/plating) //we give them plating so they are not trapped in a wall or fall into lava/chasm, and a pickaxe to avoid being trapped in a wall
 	target.forceMove(teleport_location)
-	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+	to_chat(target, SPAN_USERDANGER("You are abruptly pulled through space!"))
 	new /obj/item/pickaxe/emergency(teleport_location)
 	target.update_parallax_contents()
 
@@ -700,13 +700,13 @@
 				var/mob/living/M = AM
 				M.Weaken(6 SECONDS)
 				M.adjustBruteLoss(10)
-				to_chat(M, "<span class='userdanger'>You're slammed into the floor by [name]!</span>")
+				to_chat(M, SPAN_USERDANGER("You're slammed into the floor by [name]!"))
 				add_attack_logs(target, M, "[M] was thrown by [target]'s [name]", ATKLOG_ALMOSTALL)
 		else
 			new sparkle_path(get_turf(AM), get_dir(target, AM))
 			if(isliving(AM))
 				var/mob/living/M = AM
-				to_chat(M, "<span class='userdanger'>You're thrown back by [name]!</span>")
+				to_chat(M, SPAN_USERDANGER("You're thrown back by [name]!"))
 				add_attack_logs(target, M, "[M] was thrown by [target]'s [name]", ATKLOG_ALMOSTALL)
 			INVOKE_ASYNC(AM, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, ((clamp((3 - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, 3))), 1) //So stuff gets tossed around at the same time.
 
@@ -717,7 +717,7 @@
 	card_icon = "the_high_priestess?"
 
 /datum/tarot/reversed/the_high_priestess/activate(mob/living/target)
-	target.visible_message("<span class='colossus'><b>WHO DARES TO TRY TO USE MY POWER IN A CARD?</b></span>")
+	target.visible_message(SPAN_COLOSSUS("<b>WHO DARES TO TRY TO USE MY POWER IN A CARD?</b>"))
 	target.apply_status_effect(STATUS_EFFECT_REVERSED_HIGH_PRIESTESS)
 
 /datum/tarot/reversed/the_empress
@@ -729,7 +729,7 @@
 /datum/tarot/reversed/the_empress/activate(mob/living/target)
 	for(var/mob/living/L in oview(9, target))
 		if(L.can_block_magic(antimagic_flags))
-			to_chat(L, "<span class='notice'>You feel calm for a second, but it quickly passes.</span>")
+			to_chat(L, SPAN_NOTICE("You feel calm for a second, but it quickly passes."))
 			continue
 		L.apply_status_effect(STATUS_EFFECT_PACIFIED)
 
@@ -747,12 +747,12 @@
 			L.Add(head.current)
 
 	if(!length(L))
-		to_chat(target, "<span class='warning'>Huh. No command members? I hope you didn't kill them all already...</span>")
+		to_chat(target, SPAN_WARNING("Huh. No command members? I hope you didn't kill them all already..."))
 		return
 	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	target.forceMove(get_turf(pick(L)))
-	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+	to_chat(target, SPAN_USERDANGER("You are abruptly pulled through space!"))
 
 /datum/tarot/reversed/the_hierophant
 	name = "V - The Hierophant?"
@@ -902,7 +902,7 @@
 		R.add_reagent(get_unrestricted_random_reagent_id(), 10)
 		R.reaction(H, REAGENT_INGEST)
 		R.trans_to(H, 10)
-	target.visible_message("<span class='warning'>[target] consumes 5 pills rapidly!</span>")
+	target.visible_message(SPAN_WARNING("[target] consumes 5 pills rapidly!"))
 
 /datum/tarot/reversed/the_devil
 	name = "XV - The Devil?"
@@ -1004,9 +1004,9 @@
 		L.Add(T)
 
 	if(!length(L))
-		to_chat(target, "<span class='warning'>Hmm. No base? A miner issue.</span>")
+		to_chat(target, SPAN_WARNING("Hmm. No base? A miner issue."))
 		return
 	if(SEND_SIGNAL(target, COMSIG_MOVABLE_TELEPORTING, get_turf(target)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	target.forceMove(pick(L))
-	to_chat(target, "<span class='userdanger'>You are abruptly pulled through space!</span>")
+	to_chat(target, SPAN_USERDANGER("You are abruptly pulled through space!"))

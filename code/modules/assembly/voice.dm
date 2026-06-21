@@ -38,21 +38,22 @@
 
 	else if(findtext(msg, recorded) && type == recorded_type)
 		var/turf/T = get_turf(src)  //otherwise it won't work in hand
-		T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")
+		T.visible_message(SPAN_WARNING("[bicon(src)] beeps!"))
 		pulse(0)
 
 /obj/item/assembly/voice/activate()
 	return ..() // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.
 
 
-/obj/item/assembly/voice/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/voice/activate_self(mob/user)
+	. = ..()
 	if(!user || !secured)
 		return FALSE
 
 	listening = !listening
 	var/turf/T = get_turf(src)
 	T.visible_message("[bicon(src)] beeps, \"[listening ? "Now" : "No longer"] recording input.\"")
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 
 /obj/item/assembly/voice/toggle_secure()
@@ -65,7 +66,10 @@
 	materials = list(MAT_METAL = 210, MAT_GLASS = 50)
 	bomb_name = "noise-activated bomb"
 
-/obj/item/assembly/voice/noise/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/voice/noise/activate_self(mob/user)
+	if(!user)
+		return ..()
+	add_fingerprint(user)
 	return
 
 /obj/item/assembly/voice/noise/examine(mob/user)
@@ -78,4 +82,4 @@
 /obj/item/assembly/voice/noise/hear_message(mob/living/M as mob, msg)
 	pulse(0)
 	var/turf/T = get_turf(src)  //otherwise it won't work in hand
-	T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")
+	T.visible_message(SPAN_WARNING("[bicon(src)] beeps!"))

@@ -28,7 +28,7 @@
 		var/obj/item/mmi/robotic_brain/R = container
 		if(R && R.silenced)
 			if(warning)
-				to_chat(usr, "<span class='warning'>You cannot speak, as your internal speaker is turned off.</span>")
+				to_chat(usr, SPAN_WARNING("You cannot speak, as your internal speaker is turned off."))
 			. = FALSE
 
 /mob/living/brain/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)

@@ -236,7 +236,7 @@
 		if(law == zeroth_law_borg)
 			continue
 		if(law == zeroth_law)
-			to_chat(who, "<span class='danger'>[law.get_index()]. [law.law]</span>")
+			to_chat(who, SPAN_DANGER("[law.get_index()]. [law.law]"))
 		else
 			to_chat(who, "[law.get_index()]. [law.law]")
 
@@ -247,7 +247,7 @@
 		if(law == zeroth_law_borg)
 			continue
 		if(law == zeroth_law)
-			. += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+			. += SPAN_DANGER("[law.get_index()]. [law.law]")
 		else
 			. += "[law.get_index()]. [law.law]"
 

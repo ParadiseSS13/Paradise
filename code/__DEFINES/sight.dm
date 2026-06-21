@@ -23,11 +23,14 @@
 #define INVISIBILITY_SPIRIT 50
 #define SEE_SPIRITS 50
 
-#define SEE_INVISIBLE_OBSERVER_NOOBSERVERS 59
+/// Only observers can see this
+#define INVISIBILITY_HIGH INVISIBILITY_OBSERVER - 1
+/// Observer's vision without ghost vision
+#define SEE_INVISIBLE_OBSERVER_NO_OBSERVERS SEE_INVISIBLE_OBSERVER - 1
+/// Observer's invisibility
 #define INVISIBILITY_OBSERVER 60
+/// Observer's vision with ghost vision
 #define SEE_INVISIBLE_OBSERVER 60
-#define INVISIBILITY_AI_EYE 61
-#define SEE_INVISIBLE_OBSERVER_AI_EYE 61
 
 #define INVISIBILITY_MAXIMUM 100
 

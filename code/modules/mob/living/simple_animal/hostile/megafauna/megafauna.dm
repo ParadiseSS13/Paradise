@@ -160,8 +160,8 @@
 	if(!L)
 		return FALSE
 	visible_message(
-		"<span class='danger'>[src] devours [L]!</span>",
-		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
+		SPAN_DANGER("[src] devours [L]!"),
+		SPAN_USERDANGER("You feast on [L], restoring your health!"))
 	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
 		adjustBruteLoss(-L.maxHealth/2)
 	L.gib()
@@ -193,6 +193,36 @@
 	difficulty_ore_modifier -= 4
 	enraged = FALSE
 
+// MARK: PTL Interaction
+/mob/living/simple_animal/hostile/megafauna/on_ptl_target(obj/machinery/power/transmission_laser/ptl)
+	ptl.RegisterSignal(src, COMSIG_MOB_DEATH, TYPE_PROC_REF(/obj/machinery/power/transmission_laser, untarget), ptl)
+	if(ptl?.firing)
+		on_ptl_fire(ptl)
+	return
+
+/mob/living/simple_animal/hostile/megafauna/on_ptl_tick(obj/machinery/power/transmission_laser/ptl, output_level)
+	loot = list() // disable loot drops form the target to prevent cheese
+	if(10 * output_level * damage_coeff[BURN] / (1 MW) > health) // If we would kill the target dust it.
+		health = 0 // We need this so can_die() won't prevent dusting
+		visible_message(SPAN_DANGER("\The [src] is reduced to dust by the beam!"))
+		dust()
+	else
+		adjustFireLoss(10 * output_level / (1 MW))
+
+/mob/living/simple_animal/hostile/megafauna/on_ptl_untarget(obj/machinery/power/transmission_laser/ptl)
+	on_ptl_stop(ptl)
+	if(ptl)
+		ptl.UnregisterSignal(src, COMSIG_MOB_DEATH)
+
+/mob/living/simple_animal/hostile/megafauna/on_ptl_fire(obj/machinery/power/transmission_laser/ptl)
+	var/orbital_strike = image(icon, src, "orbital_strike", FLY_LAYER, SOUTH)
+	add_overlay(orbital_strike)
+
+/mob/living/simple_animal/hostile/megafauna/on_ptl_stop(obj/machinery/power/transmission_laser/ptl)
+	for(var/image/overlay in overlays)
+		if(overlay.name == "orbital_strike")
+			cut_overlay(overlay)
+
 /mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
 	. = ..()
 	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
@@ -210,7 +240,7 @@
 		return
 	var/obj/tgvehicle/scooter/skateboard/hoverboard/cursed_board = L.buckled
 	// Not a visible message, as walls or such may be in the way
-	to_chat(L, "<span class='userdanger'><b>You hear a loud roar in the distance, and the lights on [cursed_board] begin to spark dangerously, as the board rumbles heavily!</b></span>")
+	to_chat(L, SPAN_USERDANGER("<b>You hear a loud roar in the distance, and the lights on [cursed_board] begin to spark dangerously, as the board rumbles heavily!</b>"))
 	playsound(get_turf(src), 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	cursed_board.necropolis_curse()
 

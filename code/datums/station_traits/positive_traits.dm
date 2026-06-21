@@ -169,11 +169,11 @@
 		/datum/job/bartender = /obj/item/organ/internal/liver/cybernetic,
 		/datum/job/hydro = /obj/item/organ/internal/cyberimp/arm/botanical,
 		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/brain/anti_sleep,
+		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/arm/cargo,
 		/datum/job/smith = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/datum/job/chemist = /obj/item/organ/internal/liver/cybernetic,
-		/datum/job/chief_engineer = /obj/item/organ/internal/cyberimp/brain/wire_interface,
+		/datum/job/chief_engineer = /obj/item/organ/internal/eyes/cybernetic/shield,
 		/datum/job/cmo = /obj/item/organ/internal/cyberimp/chest/reviver,
 		/datum/job/clown = /obj/item/organ/internal/cyberimp/brain/anti_stam, //HONK!
 		/datum/job/chef = /obj/item/organ/internal/cyberimp/chest/nutriment/plus,
@@ -190,7 +190,7 @@
 		/datum/job/paramedic = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/datum/job/psychiatrist = /obj/item/organ/internal/heart/cybernetic/upgraded, //heart of gold. Or at least part gold
 		/datum/job/qm = /obj/item/organ/internal/cyberimp/arm/telebaton,
-		/datum/job/rd = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
+		/datum/job/rd = /obj/item/organ/internal/cyberimp/arm/flash,
 		/datum/job/roboticist = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
 		/datum/job/scientist = /obj/item/organ/internal/ears/cybernetic,
 		/datum/job/xenobiologist = /obj/item/organ/internal/cyberimp/arm/surgery,
@@ -220,4 +220,31 @@
 			ai.eyeobj.relay_speech = TRUE //surveillance upgrade. the ai gets cybernetics too.
 		return
 	var/obj/item/organ/internal/cybernetic = new cybernetic_type()
+
+	// Prevent replacing existing arm implants (protect IPC arm implant)
+	if(istype(cybernetic, /obj/item/organ/internal/cyberimp/arm))
+		var/obj/item/organ/internal/cyberimp/arm/arm_implant = cybernetic
+
+		var/obj/item/organ/external/left_arm = spawned.get_organ("l_arm")
+		var/obj/item/organ/external/right_arm = spawned.get_organ("r_arm")
+
+		var/obj/item/organ/internal/left_arm_implant = spawned.get_organ_slot("l_arm_device")
+		var/obj/item/organ/internal/right_arm_implant = spawned.get_organ_slot("r_arm_device")
+
+		// Try left arm first, then right arm, then replace left arm if both occupied, then just give up.
+		if(left_arm && !left_arm_implant)
+			arm_implant.slot = "l_arm_device"
+			arm_implant.parent_organ = "l_arm"
+		else if(right_arm && !right_arm_implant)
+			arm_implant.slot = "r_arm_device"
+			arm_implant.parent_organ = "r_arm"
+		else if(left_arm)
+			left_arm_implant.remove(spawned)
+			qdel(left_arm_implant)
+			arm_implant.slot = "l_arm_device"
+			arm_implant.parent_organ = "l_arm"
+		else
+			qdel(arm_implant)
+			return
+
 	INVOKE_ASYNC(cybernetic, TYPE_PROC_REF(/obj/item/organ/internal, insert), spawned, TRUE)

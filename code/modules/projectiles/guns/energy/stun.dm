@@ -13,7 +13,7 @@
 	name = "\improper X-260 taser"
 	desc = "A less-lethal pistol that fires electrodes to incapacitate targets."
 	icon_state = "taser"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	inhand_icon_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
@@ -69,7 +69,7 @@
 	name = "disabler"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
-	item_state = null
+	inhand_icon_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	can_flashlight = TRUE
@@ -89,7 +89,7 @@
 	This initially causes slowdown of muscle contractions, but continued attack will result in almost complete paralysis of most voluntary skeletal muscle groups, along with feelings of extreme lethargy and fatigue. \
 	These effects are temporary and will subside soon after, causing no lasting harm. By a massive stroke of coincidence, these same particle beams also exhibit a similar effect on the motors of IPC limbs."
 	. += ""
-	. += "The safety and efficiency of the disabler has caused it to rapidly replace tasers in police and security forces across most of known space, \
+	. += "The safety and efficacy of the disabler has caused it to rapidly replace tasers in police and security forces across most of known space, \
 	although the lack of immediate stopping power has prevented a complete replacement."
 
 /obj/item/gun/energy/disabler/Initialize(mapload)
@@ -105,7 +105,7 @@
 	return ..()
 
 /obj/item/gun/energy/disabler/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth. It looks like [user.p_theyre()] trying to shirk [user.p_their()] responsibilities!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is putting the barrel of [src] in [user.p_their()] mouth. It looks like [user.p_theyre()] trying to shirk [user.p_their()] responsibilities!"))
 	sleep(25)
 	if(user.is_holding(src))
 		if(can_shoot())
@@ -116,7 +116,7 @@
 		else
 			playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 	else
-		user.visible_message("<span class='suicide'>[user] fumbles [src]! [user.p_they(TRUE)] can't even get this right!</span>")
+		user.visible_message(SPAN_SUICIDE("[user] fumbles [src]! [user.p_they(TRUE)] can't even get this right!"))
 	return SHAME
 
 //////////////////////////////
@@ -161,7 +161,7 @@
 	name = "u-ION Silencer"
 	desc = "Nanotrasen's take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
 	icon_state = "tesla"
-	item_state = "tesla"
+	inhand_icon_state = "tesla"
 	origin_tech = "combat=6;syndicate=2"
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
@@ -187,7 +187,7 @@
 /obj/item/gun/energy/arc_revolver
 	name = "arc revolver"
 	desc = "A high-tech revolver that fires internal, 3D printed shock cartridges in a revolving cylinder. \
-	The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
+		The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	icon_state = "stunrevolver"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/arc_revolver)

@@ -41,11 +41,11 @@
 /obj/item/food/egg/watcher/examine(mob/user)
 	. = ..()
 	if(steps_travelled < (steps_to_hatch * WATCHER_EGG_ACTIVE_MOD))
-		. += "<span class='notice'>Something stirs listlessly inside.</span>"
+		. += SPAN_NOTICE("Something stirs listlessly inside.")
 	else if(steps_travelled < (steps_to_hatch * WATCHER_EGG_LIVELY_MOD))
-		. += "<span class='notice'>Something is moving actively inside.</span>"
+		. += SPAN_NOTICE("Something is moving actively inside.")
 	else
-		. += "<span class='boldnotice'>It's jiggling wildly, it's about to hatch!</span>"
+		. += SPAN_BOLDNOTICE("It's jiggling wildly, it's about to hatch!")
 
 
 
@@ -60,7 +60,7 @@
 		return
 	if(steps_travelled < steps_to_hatch)
 		return
-	visible_message("<span class='boldnotice'>[src] splits and unfurls into a baby Watcher!</span>")
+	visible_message(SPAN_BOLDNOTICE("[src] splits and unfurls into a baby Watcher!"))
 	playsound(new_loc, 'sound/effects/splat.ogg', 50, TRUE)
 	new /obj/effect/decal/cleanable/greenglow(new_loc)
 	new /obj/item/watcher_hatchling(new_loc)
@@ -150,7 +150,7 @@
 	/// Datum which keeps us hanging out with our parent
 	var/datum/movement_detector/tracker
 	/// Type of projectile we fire
-	var/projectile_type = /obj/item/projectile/baby_watcher_blast
+	var/projectile_type = /obj/projectile/baby_watcher_blast
 	/// Sound to make when we shoot
 	var/projectile_sound = 'sound/weapons/pierce.ogg'
 	/// Time between taking potshots at goliaths
@@ -193,7 +193,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/O = new projectile_type(T)
+	var/obj/projectile/O = new projectile_type(T)
 	playsound(get_turf(src), projectile_sound, 75, TRUE)
 	O.firer = parent // no hitting owner.
 	O.current = T
@@ -242,17 +242,17 @@
 /// We must guard this corpse
 /obj/effect/watcher_orbiter/proc/on_parent_died(mob/living/parent)
 	SIGNAL_HANDLER
-	visible_message("<span class='notice'>[src] emits a piteous keening in mourning of [parent]!</span>")
+	visible_message(SPAN_NOTICE("[src] emits a piteous keening in mourning of [parent]!"))
 	fire_delay /= on_death_multiplier
 
 /// Exit hyperactive mode
 /obj/effect/watcher_orbiter/proc/on_parent_revived(mob/living/parent)
 	SIGNAL_HANDLER
-	visible_message("<span class='notice'>[src] chirps happily as [parent] suddenly gasps for breath!</span>")
+	visible_message(SPAN_NOTICE("[src] chirps happily as [parent] suddenly gasps for breath!"))
 	fire_delay *= on_death_multiplier
 
 
 /// Beam fired by a baby watcher, doesn't actually do less damage than its parent
-/obj/item/projectile/baby_watcher_blast
+/obj/projectile/baby_watcher_blast
 	name = "hatchling beam"
 	icon_state = "ice_2"

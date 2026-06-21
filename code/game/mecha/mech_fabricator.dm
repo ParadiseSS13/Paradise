@@ -53,15 +53,7 @@
 	// Set up some datums
 	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), 0, FALSE, /obj/item/stack, CALLBACK(src, PROC_REF(can_insert_materials)), CALLBACK(src, PROC_REF(on_material_insert)))
 	materials.precise_insertion = TRUE
-
-	// Components
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/mechfab(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
+	initialize_parts()
 	RefreshParts()
 
 	categories = list(
@@ -89,11 +81,26 @@
 	output_dir = dir
 	return INITIALIZE_HINT_LATELOAD
 
+/obj/machinery/mecha_part_fabricator/proc/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/mechfab(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+
 /obj/machinery/mecha_part_fabricator/LateInitialize()
 	for(var/obj/machinery/computer/rnd_network_controller/RNC as anything in GLOB.rnd_network_managers)
 		if(RNC.network_name == autolink_id)
 			network_manager_uid = RNC.UID()
 			RNC.mechfabs += UID()
+
+/obj/machinery/mecha_part_fabricator/loaded/Initialize(mapload)
+	. = ..()
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	materials.insert_amount(MINERAL_MATERIAL_AMOUNT * 50, MAT_METAL)
+	materials.insert_amount(MINERAL_MATERIAL_AMOUNT * 25, MAT_GLASS)
 
 /obj/machinery/mecha_part_fabricator/proc/get_files()
 	if(!network_manager_uid)
@@ -124,7 +131,7 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	output_dir = turn(output_dir, -90)
-	to_chat(user, "<span class='notice'>You change [src] to output to the [dir2text(output_dir)].</span>")
+	to_chat(user, SPAN_NOTICE("You change [src] to output to the [dir2text(output_dir)]."))
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
 	var/coef_mats = 0
@@ -305,10 +312,10 @@
   */
 /obj/machinery/mecha_part_fabricator/proc/can_insert_materials(mob/user)
 	if(panel_open)
-		to_chat(user, "<span class='warning'>[src] cannot be loaded with new materials while opened!</span>")
+		to_chat(user, SPAN_WARNING("[src] cannot be loaded with new materials while opened!"))
 		return FALSE
 	if(being_built)
-		to_chat(user, "<span class='warning'>[src] is currently building a part! Please wait until completion.</span>")
+		to_chat(user, SPAN_WARNING("[src] is currently building a part! Please wait until completion."))
 		return FALSE
 	return TRUE
 
@@ -328,7 +335,7 @@
 	if(..())
 		return
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, SPAN_WARNING("Access denied."))
 		return
 	ui_interact(user)
 
@@ -460,18 +467,18 @@
 				if(user_pass == C.network_password)
 					C.mechfabs += UID()
 					network_manager_uid = C.UID()
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+					to_chat(usr, SPAN_NOTICE("Successfully linked to <b>[C.network_name]</b>."))
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Password incorrect."))
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+				to_chat(usr, SPAN_ALERT("<b>ERROR:</b> Controller not found. Please file an issue report."))
 
 			return TRUE
 
 
 	var/datum/research/files = get_files()
 	if(!files)
-		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
+		to_chat(usr, SPAN_DANGER("Error - No research network linked."))
 		return
 
 	. = TRUE
@@ -551,20 +558,16 @@
   *
   * Upgraded variant of [/obj/machinery/mecha_part_fabricator].
   */
-/obj/machinery/mecha_part_fabricator/upgraded/Initialize(mapload)
-	. = ..()
-	// Upgraded components
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/mecha_part_fabricator/loaded/upgraded/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mechfab(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
 
-/obj/machinery/mecha_part_fabricator/station
+/obj/machinery/mecha_part_fabricator/loaded/station
 	autolink_id = "station_rnd"
 
 #undef EXOFAB_BASE_CAPACITY

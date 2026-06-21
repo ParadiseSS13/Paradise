@@ -14,7 +14,7 @@
 
 /obj/structure/transit_tube_construction/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
 
 /obj/structure/transit_tube_construction/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -42,21 +42,21 @@
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(!isfloorturf(T) && !isspaceturf(T))
-		to_chat(user, "<span class='warning'>You cannot install [src] here.</span>")
+		to_chat(user, SPAN_WARNING("You cannot install [src] here."))
 		return
 	for(var/obj/turf_contents in T)
 		// It's okay for tube parts to be installed over existing pods.
 		if(!istype(turf_contents, /obj/structure/transit_tube_pod) && turf_contents.density)
-			to_chat(user, "<span class='warning'>There is not enough space to install [src] here.</span>")
+			to_chat(user, SPAN_WARNING("There is not enough space to install [src] here."))
 			return
 	if(is_station && !user.can_reach(src))
-		to_chat(user, "<span class='warning'>[src] must be installed manually.</span>")
+		to_chat(user, SPAN_WARNING("[src] must be installed manually."))
 		return
 
 	var/install_type = flipped ? installed_type_flipped : installed_type
 	var/atom/installed = new install_type(T)
 	installed.dir = dir
-	user.visible_message("<span class='notice'>[user] installs [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] installs [src]."))
 
 	I.play_tool_sound(src, I.tool_volume)
 	qdel(src)
@@ -65,7 +65,7 @@
 /obj/structure/transit_tube_construction/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
-		user.visible_message("<span class='notice'>[user] disassembles [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] disassembles [src]."))
 		qdel(src)
 
 /obj/structure/transit_tube_construction/rpd_act(mob/user, obj/item/rpd/our_rpd)
@@ -93,11 +93,11 @@
 		if(istype(turf_contents, /obj/structure/transit_tube))
 			var/atom/installed = new installed_type(T)
 			installed.dir = dir
-			user.visible_message("<span class='notice'>[user] installs [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] installs [src]."))
 
 			qdel(src)
 
-	to_chat(user, "<span class='warning'>[src] can only be installed in a transit tube!</span>")
+	to_chat(user, SPAN_WARNING("[src] can only be installed in a transit tube!"))
 
 /obj/structure/transit_tube_construction/straight
 	installed_type = /obj/structure/transit_tube

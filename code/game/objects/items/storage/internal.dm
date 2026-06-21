@@ -3,11 +3,11 @@
 /obj/item/storage/internal
 	var/obj/item/master_item
 
-/obj/item/storage/internal/New(obj/item/MI)
+/obj/item/storage/internal/Initialize(mapload, obj/item/MI)
+	. = ..()
 	master_item = MI
 	loc = master_item
 	name = master_item.name
-	..()
 
 /obj/item/storage/internal/Destroy()
 	master_item = null

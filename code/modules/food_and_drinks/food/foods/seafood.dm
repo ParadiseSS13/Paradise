@@ -89,7 +89,7 @@
 
 /obj/item/food/sashimi
 	name = "carp sashimi"
-	desc = "Celebrate surviving attack from hostile alien lifeforms by hospitalising yourself."
+	desc = "Celebrate surviving attack from hostile alien lifeforms by hospitalizing yourself."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sashimi"
 	bitesize = 3
@@ -128,6 +128,10 @@
 	tastes = list("shrimp" = 4)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/shrimp_skewer/bone
+	trash = /obj/item/stack/bone_rods
+	icon_state = "shrimpskewer_bone"
+
 /obj/item/food/fish_skewer
 	name = "fish skewer"
 	desc = "A whole fish battered and grilled on a skewer. Hope you're hungry!"
@@ -138,6 +142,10 @@
 	list_reagents = list("protein" = 6, "vitamin" = 4)
 	tastes = list("shrimp" = 1, "batter" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/fish_skewer/bone
+	trash = /obj/item/stack/bone_rods
+	icon_state = "fishskewer_bone"
 
 /obj/item/food/sliceable/ebi_maki
 	name = "ebi maki roll"
@@ -378,3 +386,40 @@
 	trash = /obj/item/trash/caviar
 	list_reagents = list("protein" = 5)
 	tastes = list("fish" = 2, "high society" = 1)
+	materials = list(MAT_METAL = 100)
+
+////////////////////////
+// 		Hispania!		//
+////////////////////////
+
+/obj/item/food/smokedsalmon
+	name = "smoked salmon steak"
+	desc = "A fillet of freshly-grilled and smoked salmon meat."
+	icon_state = "smokedsalmon"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 5, "vitamin" = 1, "sodiumchloride" = 1)
+	tastes = list("smoked salmon" = 1)
+
+/obj/item/food/avocadosalmon
+	name = "avocado salmon"
+	desc = "A fillet of freshly-grilled of salmon meat with avocado."
+	icon_state = "salmonavocado"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "sodiumchloride" = 1, "protein" = 1)
+	tastes = list("meat with vegetables" = 1)
+
+/obj/item/food/citrussalmon
+	name = "grilled citrus salmon"
+	desc = "A fillet of freshly-grilled of salmon meat with some citrus fruits."
+	icon_state = "citrussalmon"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 4
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "orangejuice" = 2, "lemonjuice" = 2)
+	tastes = list("salmon" = 1, "citrus" = 1)
+
+// ---------- END of imports from Hispania!

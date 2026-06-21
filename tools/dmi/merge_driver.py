@@ -110,11 +110,11 @@ def three_way_merge(base, left, right):
             final_states.append(state)
         elif left_equals:
             # changed only in right
-            print(f"    {state.name!r}: changed in left")
+            print(f"    {state.name!r}: changed in right")
             final_states.append(in_right)
         elif right_equals:
             # changed only in left
-            print(f"    {state.name!r}: changed in right")
+            print(f"    {state.name!r}: changed in left")
             final_states.append(in_left)
         elif states_equal(in_left, in_right):
             # changed in both, to the same thing

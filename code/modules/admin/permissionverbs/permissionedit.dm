@@ -1,10 +1,5 @@
-/client/proc/edit_admin_permissions()
-	set category = "Admin"
-	set name = "Permissions Panel"
-	set desc = "Edit admin permissions"
-	if(!check_rights(R_PERMISSIONS))
-		return
-	usr.client.holder.edit_admin_permissions()
+USER_VERB(edit_admin_permissions, R_PERMISSIONS, "Permissions Panel", "Edit admin permissions", VERB_CATEGORY_ADMIN)
+	client.holder.edit_admin_permissions()
 
 /datum/admins/proc/edit_admin_permissions()
 	if(!check_rights(R_PERMISSIONS))
@@ -41,7 +36,7 @@
 	if(GLOB.configuration.admin.use_database_admins)
 		var/datum/db_query/get_admins = SSdbcore.NewQuery({"
 			SELECT
-				admin.ckey, 
+				admin.ckey,
 				admin_ranks.name,
 				admin.display_rank,
 				IFNULL(admin_ranks.default_permissions, 0),
@@ -126,14 +121,14 @@
 	if(!check_rights(R_PERMISSIONS))
 		return FALSE
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounceooc'>Admin edit blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, SPAN_BOLDANNOUNCEOOC("Admin edit blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to edit admin DB via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to edit admin DB via advanced proc-call")
 		return FALSE
 	if(!usr.client)
 		return FALSE
 	if(!db_available())
-		to_chat(usr, "<span class='warning'>Admin database unavailable</span>")
+		to_chat(usr, SPAN_WARNING("Admin database unavailable"))
 		return FALSE
 	return TRUE
 
@@ -142,16 +137,16 @@
 		return
 
 	if(!istext(target_key))
-		to_chat(usr, "<span class='warning'>Provided key '[target_key]' is not text!</span>")
+		to_chat(usr, SPAN_WARNING("Provided key '[target_key]' is not text!"))
 		return
 
 	target_key = ckey(target_key)
 	if(target_key == "")
-		to_chat(usr, "<span class='warning'>Provided key was blank after converting to ckey!</span>")
+		to_chat(usr, SPAN_WARNING("Provided key was blank after converting to ckey!"))
 		return
 
 	if(!isnum(new_rank))
-		to_chat(usr, "<span class='warning'>Provided rank ID '[new_rank]' is not a number!</span>")
+		to_chat(usr, SPAN_WARNING("Provided rank ID '[new_rank]' is not a number!"))
 		return
 
 	var/datum/db_query/get_rank_name = SSdbcore.NewQuery("SELECT name FROM admin_ranks WHERE id = :new_rank", list(
@@ -165,7 +160,7 @@
 		rank_name = get_rank_name.item[1]
 	qdel(get_rank_name)
 	if(!rank_name)
-		to_chat(usr, "<span class='warning'>Rank with ID [new_rank] not found in database!</span>")
+		to_chat(usr, SPAN_WARNING("Rank with ID [new_rank] not found in database!"))
 		return
 
 	var/datum/db_query/get_admin_id = SSdbcore.NewQuery("SELECT id FROM admin WHERE ckey = :target_key", list(
@@ -195,7 +190,7 @@
 			qdel(insert_new_admin)
 			return
 		qdel(insert_new_admin)
-		message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [target_key] (NEW ADMIN) is now a [rank_name][display_note].</span>")
+		message_admins(SPAN_NOTICE("Admin ranks updated by [usr.ckey]: [target_key] (NEW ADMIN) is now a [rank_name][display_note]."))
 
 		var/logtxt = "Added new admin [target_key] to rank [rank_name][display_note]"
 		var/datum/db_query/add_log = SSdbcore.NewQuery("INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (Now() , :uckey, :uip, :logtxt)", list(
@@ -218,7 +213,7 @@
 				qdel(update_admin_rank)
 				return
 			qdel(update_admin_rank)
-			message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [target_key] is now a [rank_name][display_note].</span>")
+			message_admins(SPAN_NOTICE("Admin ranks updated by [usr.ckey]: [target_key] is now a [rank_name][display_note]."))
 			var/logtxt = "Edited the rank of [target_key] to [rank_name][display_note]"
 
 			if(clear_custom_permissions)
@@ -230,7 +225,7 @@
 					return
 				qdel(clear_permissions)
 				logtxt += " and cleared their custom permissions"
-				message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] no longer has any custom permissions.</span>")
+				message_admins(SPAN_NOTICE("Admin permissions updated by [usr.ckey]: [target_key] no longer has any custom permissions."))
 
 			var/datum/db_query/add_log = SSdbcore.NewQuery("INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (Now() , :uckey, :uip, :logtxt)", list(
 				"uckey" = usr.ckey,
@@ -247,21 +242,21 @@
 		return
 
 	if(!istext(target_key))
-		to_chat(usr, "<span class='warning'>Provided key '[target_key]' is not text!</span>")
+		to_chat(usr, SPAN_WARNING("Provided key '[target_key]' is not text!"))
 		return
 
 	target_key = ckey(target_key)
 	if(target_key == "")
-		to_chat(usr, "<span class='warning'>Provided key was blank after converting to ckey!</span>")
+		to_chat(usr, SPAN_WARNING("Provided key was blank after converting to ckey!"))
 		return
 
 	if(!isnum(permission_bit) || permission_bit < 1 || floor(permission_bit) != permission_bit)
-		to_chat(usr, "<span class='warning'>Provided permission '[permission_bit]' is not positive whole number!</span>")
+		to_chat(usr, SPAN_WARNING("Provided permission '[permission_bit]' is not positive whole number!"))
 		return
 
 	var/pow2 = round(log(2, permission_bit), 1)
 	if((2 ** pow2) != permission_bit)
-		to_chat(usr, "<span class='warning'>Provided permission '[permission_bit]' is not a power of two, and would affect multiple permission bits!</span>")
+		to_chat(usr, SPAN_WARNING("Provided permission '[permission_bit]' is not a power of two, and would affect multiple permission bits!"))
 		return
 
 	var/datum/db_query/get_admin_permissions = SSdbcore.NewQuery("SELECT admin.id, admin_ranks.default_permissions, admin.extra_permissions, admin.removed_permissions FROM admin LEFT OUTER JOIN admin_ranks ON admin.permissions_rank = admin_ranks.id WHERE ckey = :target_key", list(
@@ -284,7 +279,7 @@
 
 	qdel(get_admin_permissions)
 	if(!admin_id)
-		to_chat(usr, "<span class='warning'>No admin found with ckey [target_key]!</span>")
+		to_chat(usr, SPAN_WARNING("No admin found with ckey [target_key]!"))
 		return
 
 	flag_account_for_forum_sync(target_key)
@@ -299,7 +294,7 @@
 			qdel(remove_removal)
 			return
 		qdel(remove_removal)
-		message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] is no longer excluded from having [rights2text(permission_bit)].</span>")
+		message_admins(SPAN_NOTICE("Admin permissions updated by [usr.ckey]: [target_key] is no longer excluded from having [rights2text(permission_bit)]."))
 
 		var/logtxt = "Un-excluded permission [rights2text(permission_bit)] (flag = [permission_bit]) from admin [target_key]"
 		var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -323,7 +318,7 @@
 			qdel(remove_extra)
 			return
 		qdel(remove_extra)
-		message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] no longer has the extra permission [rights2text(permission_bit)].</span>")
+		message_admins(SPAN_NOTICE("Admin permissions updated by [usr.ckey]: [target_key] no longer has the extra permission [rights2text(permission_bit)]."))
 
 		var/logtxt = "Removed extra permission [rights2text(permission_bit)] (flag = [permission_bit]) from admin [target_key]"
 		var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -347,7 +342,7 @@
 			qdel(create_removal)
 			return
 		qdel(create_removal)
-		message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] is now excluded from having [rights2text(permission_bit)].</span>")
+		message_admins(SPAN_NOTICE("Admin permissions updated by [usr.ckey]: [target_key] is now excluded from having [rights2text(permission_bit)]."))
 
 		var/logtxt = "Excluded permission [rights2text(permission_bit)] (flag = [permission_bit]) from admin [target_key]"
 		var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -370,7 +365,7 @@
 		qdel(add_extra)
 		return
 	qdel(add_extra)
-	message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] has been granted the extra permission [rights2text(permission_bit)].</span>")
+	message_admins(SPAN_NOTICE("Admin permissions updated by [usr.ckey]: [target_key] has been granted the extra permission [rights2text(permission_bit)]."))
 
 	var/logtxt = "Added extra permission [rights2text(permission_bit)] (flag = [permission_bit]) to admin [target_key]"
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -388,12 +383,12 @@
 		return
 
 	if(!istext(target_key))
-		to_chat(usr, "<span class='warning'>Provided key '[target_key]' is not text!</span>")
+		to_chat(usr, SPAN_WARNING("Provided key '[target_key]' is not text!"))
 		return
 
 	target_key = ckey(target_key)
 	if(target_key == "")
-		to_chat(usr, "<span class='warning'>Provided key was blank after converting to ckey!</span>")
+		to_chat(usr, SPAN_WARNING("Provided key was blank after converting to ckey!"))
 		return
 
 	var/datum/db_query/get_admin_id = SSdbcore.NewQuery("SELECT admin.id FROM admin WHERE ckey = :target_key", list(
@@ -409,7 +404,7 @@
 	qdel(get_admin_id)
 
 	if(!admin_id)
-		to_chat(usr, "<span class='warning'>No admin found with ckey [target_key]!</span>")
+		to_chat(usr, SPAN_WARNING("No admin found with ckey [target_key]!"))
 		return
 
 	flag_account_for_forum_sync(target_key)
@@ -421,7 +416,7 @@
 		qdel(remove_admin)
 		return
 	qdel(remove_admin)
-	message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [target_key] no longer has any admin rank.</span>")
+	message_admins(SPAN_NOTICE("Admin ranks updated by [usr.ckey]: [target_key] no longer has any admin rank."))
 	var/logtxt = "Removed the admin rank of [target_key]"
 
 	if(clear_custom_permissions)
@@ -432,7 +427,7 @@
 			qdel(clear_permissions)
 			return
 		qdel(clear_permissions)
-		message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] no longer has any custom permissions.</span>")
+		message_admins(SPAN_NOTICE("Admin permissions updated by [usr.ckey]: [target_key] no longer has any custom permissions."))
 		logtxt += " and cleared their custom permissions"
 
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -459,7 +454,7 @@
 	add_rank.warn_execute()
 	qdel(add_rank)
 
-	message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: new rank [rank_name] created.</span>")
+	message_admins(SPAN_NOTICE("Admin ranks updated by [usr.ckey]: new rank [rank_name] created."))
 	var/logtxt = "Created the admin rank [rank_name]"
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
 		INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log`)
@@ -478,7 +473,7 @@
 
 	var/rank_id = get_db_rank_id(rank_name)
 	if(!rank_id)
-		to_chat(usr, "<span class='warning'>No rank named [rank_name] found!</span>")
+		to_chat(usr, SPAN_WARNING("No rank named [rank_name] found!"))
 		return
 
 	var/datum/db_query/get_admins_with_rank = SSdbcore.NewQuery("SELECT ckey FROM admin WHERE permissions_rank = :rank_id", list(
@@ -492,7 +487,7 @@
 		admins += get_admins_with_rank.item[1]
 	qdel(get_admins_with_rank)
 	if(length(admins) > 0)
-		to_chat(usr, "<span class='warning'>[rank_name] is still in use, reassign the following admins first: [admins.Join(", ")]</span>")
+		to_chat(usr, SPAN_WARNING("[rank_name] is still in use, reassign the following admins first: [admins.Join(", ")]"))
 		return
 
 	var/datum/db_query/delete_rank = SSdbcore.NewQuery("DELETE FROM admin_ranks WHERE id = :rank_id", list(
@@ -503,7 +498,7 @@
 		return
 	qdel(delete_rank)
 
-	message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: unused rank [rank_name] deleted.</span>")
+	message_admins(SPAN_NOTICE("Admin ranks updated by [usr.ckey]: unused rank [rank_name] deleted."))
 	var/logtxt = "Deleted the unused admin rank [rank_name]"
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
 		INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log`)
@@ -533,16 +528,16 @@
 		rank_permissions = get_rank_details.item[2]
 	qdel(get_rank_details)
 	if(!rank_id)
-		to_chat(usr, "<span class='warning'>No rank named [rank_name] found!</span>")
+		to_chat(usr, SPAN_WARNING("No rank named [rank_name] found!"))
 		return
 
 	if(!isnum(permission_bit) || permission_bit < 1 || floor(permission_bit) != permission_bit)
-		to_chat(usr, "<span class='warning'>Provided permission '[permission_bit]' is not positive whole number!</span>")
+		to_chat(usr, SPAN_WARNING("Provided permission '[permission_bit]' is not positive whole number!"))
 		return
 
 	var/pow2 = round(log(2, permission_bit), 1)
 	if((2 ** pow2) != permission_bit)
-		to_chat(usr, "<span class='warning'>Provided permission '[permission_bit]' is not a power of two, and would affect multiple permission bits!</span>")
+		to_chat(usr, SPAN_WARNING("Provided permission '[permission_bit]' is not a power of two, and would affect multiple permission bits!"))
 		return
 
 	if(rank_permissions & permission_bit)
@@ -555,7 +550,7 @@
 			qdel(create_removal)
 			return
 		qdel(create_removal)
-		message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [rank_name] no longer has [rights2text(permission_bit)]. An admin reload is required to apply this change.</span>")
+		message_admins(SPAN_NOTICE("Admin ranks updated by [usr.ckey]: [rank_name] no longer has [rights2text(permission_bit)]. An admin reload is required to apply this change."))
 
 		var/logtxt = "Removed permission [rights2text(permission_bit)] (flag = [permission_bit]) from admin rank [rank_name]"
 		var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -578,7 +573,7 @@
 		qdel(grant_permission)
 		return
 	qdel(grant_permission)
-	message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [rank_name] has been given [rights2text(permission_bit)]. An admin reload is required to apply this change.</span>")
+	message_admins(SPAN_NOTICE("Admin ranks updated by [usr.ckey]: [rank_name] has been given [rights2text(permission_bit)]. An admin reload is required to apply this change."))
 
 	var/logtxt = "Added permission [rights2text(permission_bit)] (flag = [permission_bit]) to admin rank [rank_name]"
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"

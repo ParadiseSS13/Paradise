@@ -39,16 +39,16 @@
 /obj/machinery/dish_drive/examine(mob/user)
 	. = ..()
 	if(user.Adjacent(src))
-		. += "<span class='notice'>Alt-click it to beam its waste storage contents to any nearby disposal bins.</span>"
+		. += SPAN_NOTICE("Alt-click it to beam its waste storage contents to any nearby disposal bins.")
 
 /obj/machinery/dish_drive/attack_hand(mob/living/user)
 	if(!LAZYLEN(dish_drive_contents))
-		to_chat(user, "<span class='warning'>There's nothing in [src]!</span>")
+		to_chat(user, SPAN_WARNING("There's nothing in [src]!"))
 		return
 	var/obj/item/I = LAZYACCESS(dish_drive_contents, LAZYLEN(dish_drive_contents)) //the most recently-added item
 	LAZYREMOVE(dish_drive_contents, I)
 	user.put_in_hands(I)
-	to_chat(user, "<span class='notice'>You take out [I] from [src].</span>")
+	to_chat(user, SPAN_NOTICE("You take out [I] from [src]."))
 	playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
 	flick("synthesizer_beam", src)
 
@@ -87,7 +87,7 @@
 		if(is_type_in_list(I, collectable_items) && I.loc != src && (!I.reagents || !I.reagents.total_volume))
 			if(I.Adjacent(src))
 				LAZYADD(dish_drive_contents, I)
-				visible_message("<span class='notice'>[src] beams up [I]!</span>")
+				visible_message(SPAN_NOTICE("[src] beams up [I]!"))
 				I.forceMove(src)
 				SEND_SIGNAL(src, COMSIG_ATOM_DISINFECTED)
 				playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
@@ -98,7 +98,7 @@
 /obj/machinery/dish_drive/attack_ai(mob/living/user)
 	if(stat)
 		return
-	to_chat(user, "<span class='notice'>You send a disposal transmission signal to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You send a disposal transmission signal to [src]."))
 	do_the_dishes(TRUE)
 
 /obj/machinery/dish_drive/AltClick(mob/living/user)
@@ -108,12 +108,12 @@
 /obj/machinery/dish_drive/proc/do_the_dishes(manual)
 	if(!LAZYLEN(dish_drive_contents))
 		if(manual)
-			visible_message("<span class='notice'>[src] is empty!</span>")
+			visible_message(SPAN_NOTICE("[src] is empty!"))
 		return
 	var/obj/machinery/disposal/bin = locate() in view(7, src)
 	if(!bin)
 		if(manual)
-			visible_message("<span class='warning'>[src] buzzes. There are no disposal bins in range!</span>")
+			visible_message(SPAN_WARNING("[src] buzzes. There are no disposal bins in range!"))
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
 	var/disposed = 0
@@ -124,12 +124,12 @@
 			use_power(active_power_consumption)
 			disposed++
 	if(disposed)
-		visible_message("<span class='notice'>[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name].</span>")
+		visible_message(SPAN_NOTICE("[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name]."))
 		playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
 		playsound(bin, 'sound/items/pshoom.ogg', 15, TRUE)
 		Beam(bin, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		bin.update_icon()
 		flick("synthesizer_beam", src)
 	else if(manual)
-		to_chat(usr, "<span class='notice'>There are no disposable items to be beamed.</span>")
+		to_chat(usr, SPAN_NOTICE("There are no disposable items to be beamed."))
 	time_since_dishes = world.time + 60 SECONDS

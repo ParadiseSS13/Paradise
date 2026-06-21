@@ -21,16 +21,16 @@
 
 	var/static/list/message_chances = list(null, 4, 2, 1)
 	if(prob(message_chances[stage]))
-		to_chat(H, "<span class='danger'>You feel [pick("a little silly", "like making a joke", "in the mood for giggling", "like the world is a little more vibrant")].</span>")
+		to_chat(H, SPAN_DANGER("You feel [pick("a little silly", "like making a joke", "in the mood for giggling", "like the world is a little more vibrant")]."))
 	if(prob(message_chances[stage]))
-		to_chat(H, "<span class='danger'>You see [pick("rainbows", "puppies", "banana pies")] for a moment.</span>")
+		to_chat(H, SPAN_DANGER("You see [pick("rainbows", "puppies", "banana pies")] for a moment."))
 
 	if(stage < 3)
 		return
 
 	var/static/list/honk_chances = list(null, null, 4, 0.66)
 	if(prob(honk_chances[stage]))
-		to_chat(H, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
+		to_chat(H, SPAN_DANGER("Your thoughts are interrupted by a loud <b>HONK!</b>"))
 		SEND_SOUND(H, sound(pick(18; 'sound/items/bikehorn.ogg', 1; 'sound/items/airhorn.ogg', 1; 'sound/items/airhorn2.ogg'))) // 10% chance total for an airhorn
 
 	if(stage < 4)

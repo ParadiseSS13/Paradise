@@ -13,6 +13,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 	pickup_sound =  'sound/items/handling/component_pickup.ogg'
+	new_attack_chain = TRUE
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
@@ -34,8 +35,9 @@
 /obj/item/assembly/proc/holder_movement()
 	return
 
-/// Called when attack_self is called
+/// Called when activate_self is called
 /obj/item/assembly/interact(mob/user)
+	add_fingerprint(user)
 	return
 
 /obj/item/assembly/proc/on_atom_entered(datum/source, atom/movable/entered)
@@ -125,28 +127,27 @@
 /obj/item/assembly/proc/attach_assembly(obj/item/assembly/A, mob/user)
 	holder = new /obj/item/assembly_holder(get_turf(src))
 	if(holder.attach(A, src, user))
-		to_chat(user, "<span class='notice'>You attach [A] to [src]!</span>")
+		to_chat(user, SPAN_NOTICE("You attach [A] to [src]!"))
 		user.put_in_active_hand(holder)
 		return TRUE
 	return FALSE
 
-/obj/item/assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(isassembly(W))
-		var/obj/item/assembly/A = W
-		if(!A.secured && !secured)
-			attach_assembly(A, user)
-		return
-
-	return ..()
+/obj/item/assembly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!isassembly(used))
+		return ..()
+	var/obj/item/assembly/A = used
+	if(!A.secured && !secured)
+		attach_assembly(A, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/assembly/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(toggle_secure())
-		to_chat(user, "<span class='notice'>[src] is ready!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is ready!"))
 	else
-		to_chat(user, "<span class='notice'>[src] can now be attached!</span>")
+		to_chat(user, SPAN_NOTICE("[src] can now be attached!"))
 
 /obj/item/assembly/process()
 	STOP_PROCESSING(SSobj, src)
@@ -159,9 +160,9 @@
 		else
 			. += "[src] can be attached!"
 
-/obj/item/assembly/attack_self__legacy__attackchain(mob/user)
+/obj/item/assembly/activate_self(mob/user)
 	if(!user)
-		return
+		return ..()
 	user.set_machine(src)
 	interact(user)
-	return TRUE
+	return ITEM_INTERACT_COMPLETE

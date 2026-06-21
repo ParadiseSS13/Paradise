@@ -249,6 +249,7 @@
 	ambientsounds = list('sound/ambience/dvorak_ambience_final.ogg')
 	min_ambience_cooldown = 110 SECONDS // 3 seconds longer than the length of the song
 	max_ambience_cooldown = 170 SECONDS // A minute break at most
+	airlock_wires = /datum/wires/airlock/secure // D.V.O.R.A.K says fuck you and has randomized all their wires. Have fun!
 
 /area/ruin/space/telecomms/powercontrol
 	name = "\improper Telecommunications Power Control"
@@ -307,3 +308,32 @@
 	name = "Nanotrasen Bluespace Relay #[rand(1, 1000)]" //Give it a random relay name
 	return ..()
 
+/area/ruin/space/kappa_lab
+	name = "\improper Kappa Lab"
+
+/area/ruin/space/kappa_lab/entrance
+	name = "\improper Kappa Lab Entrance"
+
+/area/ruin/space/kappa_lab/eva
+	name = "\improper Kappa Lab EVA Storage"
+
+/area/ruin/space/kappa_lab/medical
+	name = "\improper Kappa Lab Medical Bay"
+
+/area/ruin/space/kappa_lab/hallway
+	name = "\improper Kappa Lab Hallways"
+
+/area/ruin/space/kappa_lab/quarters
+	name = "\improper Kappa Lab Crew Quarters"
+
+/area/ruin/space/kappa_lab/research
+	name = "\improper Kappa Lab Research Wing"
+
+/area/ruin/space/kappa_lab/engineering
+	name = "\improper Kappa Lab Engieering Storage"
+
+/area/ruin/space/kappa_lab/diner
+	name = "\improper Kappa Lab Dining Hall"
+
+/area/ruin/space/kappa_lab/bridge
+	name = "\improper Kappa Lab Bridge"

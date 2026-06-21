@@ -9,7 +9,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
 	anchored = TRUE
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, rad = 100, fire = 90, acid = 70)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 90, ACID = 70)
 	idle_power_consumption = 2
 	active_power_consumption = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -48,7 +48,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 
-	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	user.visible_message(SPAN_NOTICE("[user] starts unwrenching [src] from the wall..."), SPAN_NOTICE("You are unwrenching [src] from the wall..."), SPAN_WARNING("You hear ratcheting."))
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
 

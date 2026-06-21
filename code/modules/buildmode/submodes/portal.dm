@@ -11,12 +11,12 @@
 	var/image/portal_origin_overlay
 
 /datum/buildmode_mode/portal/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button       = Set origin then a destination to create a portal/s</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button      = Quick create portal to an area of choice</span>")
-	to_chat(user, "<span class='notice'>Alt + Left Mouse Button = Alt+Click on any portal to close it</span>")
-	to_chat(user, "<span class='notice'>Right click on tool icon= Change portal settings</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button       = Set origin then a destination to create a portal/s"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button      = Quick create portal to an area of choice"))
+	to_chat(user, SPAN_NOTICE("Alt + Left Mouse Button = Alt+Click on any portal to close it"))
+	to_chat(user, SPAN_NOTICE("Right click on tool icon= Change portal settings"))
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 // Allows user to change portal settings like style, type, and lifetime.
 /datum/buildmode_mode/portal/change_settings(mob/user)
@@ -30,32 +30,32 @@
 	)
 	var/style_name = tgui_input_list(user, "Choose the style of your portals.", "Portal Style", portal_styles)
 	if(style_name == null)
-		to_chat(user, "<span class='warning'>Portal Style not selected, returning to defaults.</span>")
+		to_chat(user, SPAN_WARNING("Portal Style not selected, returning to defaults."))
 		style_name = "NT Standard"
 		return
 	var/selected_style = portal_icon_maps[style_name]
 	portal_icon = selected_style["icon"]
 	portal_icon_state = selected_style["state"]
-	to_chat(user, "<span class='notice'>Portal Style set to [style_name]</span>")
+	to_chat(user, SPAN_NOTICE("Portal Style set to [style_name]"))
 
 	var/two_way_choice = tgui_alert(user, "Portal Type", "Portal Type", list("One-Way", "Two-Way"))
 	if(two_way_choice == null)
-		to_chat(user, "<span class='warning'>Portal Type not selected, returning to defaults.</span>")
+		to_chat(user, SPAN_WARNING("Portal Type not selected, returning to defaults."))
 		two_way = FALSE
 		return
 	two_way = (two_way_choice == "Two-Way")
 	if(two_way)
-		to_chat(user, "<span class='notice'>Two-Way Portal Selected</span>")
+		to_chat(user, SPAN_NOTICE("Two-Way Portal Selected"))
 	else
-		to_chat(user, "<span class='notice'>One-Way Portal Selected</span>")
+		to_chat(user, SPAN_NOTICE("One-Way Portal Selected"))
 
 	var/lifetime_input = tgui_input_number(user, "Select portal duration in seconds (-1 for forever, Min 1, Max 999)", "Portal Duration", 5, max_value = 999, min_value = -1)
 	if(lifetime_input == null)
-		to_chat(user, "<span class='warning'>Portal Lifetime not selected, returning to defaults.</span>")
+		to_chat(user, SPAN_WARNING("Portal Lifetime not selected, returning to defaults."))
 		lifetime = 5 SECONDS
 		return
 	lifetime = lifetime_input SECONDS
-	to_chat(user, "<span class='notice'>Portal Lifetime set to [lifetime_input] seconds</span>")
+	to_chat(user, SPAN_NOTICE("Portal Lifetime set to [lifetime_input] seconds"))
 
 // Handles user click interactions for setting portal origin and destination, or deleting portals.
 /datum/buildmode_mode/portal/handle_click(mob/user, params, obj/loc)
@@ -75,17 +75,17 @@
 			portal_origin_overlay = image(icon = portal_icon, loc = origin, icon_state = portal_icon_state)
 			portal_origin_overlay.color = "#15d12d"
 			user.client.images += portal_origin_overlay
-			to_chat(user, "<span class='notice'>Origin set to [get_area(origin)] Left click again for destination or right click to cancel.</span>")
+			to_chat(user, SPAN_NOTICE("Origin set to [get_area(origin)] Left click again for destination or right click to cancel."))
 		else
 			destination = get_turf(loc)
-			to_chat(user, "<span class='notice'>Destination set to [get_area(destination)]</span>")
+			to_chat(user, SPAN_NOTICE("Destination set to [get_area(destination)]"))
 			if(origin && destination)
 				process_portals(user)
 				reset_portal_selection(user)
 	else if(right_click)
 		if(origin)
 			reset_portal_selection(user)
-			to_chat(user, "<span class='notice'>Portal creation canceled.</span>")
+			to_chat(user, SPAN_NOTICE("Portal creation canceled."))
 			return
 		quick_create_portal(user, loc)
 
@@ -112,7 +112,7 @@
 		destination = pick(filtered_destinations)
 		process_portals(user)
 	else
-		to_chat(user, "<span class='warning'>No destination selected, aborting portal creation.</span>")
+		to_chat(user, SPAN_WARNING("No destination selected, aborting portal creation."))
 	reset_portal_selection(user)
 
 // Processes portal creation by spawning portals and with feedback for admins.

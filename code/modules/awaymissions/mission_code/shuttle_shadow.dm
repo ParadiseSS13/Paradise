@@ -12,7 +12,7 @@
 
 /obj/machinery/atmospherics/trinary/filter/shadow
 	name = "gas filter (Co2 Outlet)"
-	dir = 1
+	dir = NORTH
 	filter_type = 3
 	target_pressure = 99999
 

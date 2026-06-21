@@ -83,7 +83,7 @@
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
 		return
-	to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
+	to_chat(user, SPAN_NOTICEALIEN("We begin tearing down this resin structure."))
 	if(!do_after(user, 40, target = src) || QDELETED(src))
 		return
 	qdel(src)
@@ -102,7 +102,6 @@
 */
 /obj/structure/alien/resin/door
 	name = "resin door"
-
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
 	base_icon_state = "resin"
@@ -161,7 +160,7 @@
 		if(!C.handcuffed)
 			operate(bumped_open)
 		return
-	to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
+	to_chat(user, SPAN_NOTICEALIEN("Your lack of connection to the hive prevents the resin door from opening"))
 /*
   * This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or
   * call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
@@ -187,7 +186,7 @@
 		playsound(loc, close_sound, 50, 1)
 		flick("[initial_state]closing", src)
 	density = !density
-	opacity = !opacity
+	set_opacity(!opacity)
 	state_open = !state_open
 	addtimer(CALLBACK(src, PROC_REF(operate_update), bumped_open), 1 SECONDS)
 
@@ -206,7 +205,7 @@
 	if(user.a_intent != INTENT_HARM)
 		try_to_operate(user)
 		return
-	to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
+	to_chat(user, SPAN_NOTICEALIEN("We begin tearing down this resin structure."))
 	if(!do_after(user, 40, target = src) || QDELETED(src))
 		return
 	qdel(src)
@@ -475,6 +474,7 @@
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	if(status == GROWN)
 		proximity_monitor = new(src)
+	AddComponent(/datum/component/event_tracker, EVENT_XENOS)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -483,19 +483,19 @@
 	if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		switch(status)
 			if(BURST)
-				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
+				to_chat(user, SPAN_NOTICE("You clear the hatched egg."))
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
 				qdel(src)
 				return
 			if(GROWING)
-				to_chat(user, "<span class='notice'>The child is not developed yet.</span>")
+				to_chat(user, SPAN_NOTICE("The child is not developed yet."))
 				return
 			if(GROWN)
-				to_chat(user, "<span class='notice'>You retrieve the child.</span>")
+				to_chat(user, SPAN_NOTICE("You retrieve the child."))
 				burst(FALSE)
 				return
 	else
-		to_chat(user, "<span class='notice'>It feels slimy.</span>")
+		to_chat(user, SPAN_NOTICE("It feels slimy."))
 		user.changeNext_move(CLICK_CD_MELEE)
 
 

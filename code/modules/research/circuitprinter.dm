@@ -1,7 +1,7 @@
 /*///////////////Circuit Imprinter (By Darem)////////////////////////
-	Used to print new circuit boards (for computers and similar systems) and AI modules. Each circuit board pattern are stored in
-a /datum/desgin on the linked R&D console. You can then print them out in a fasion similar to a regular lathe. However, instead of
-using metal and glass, it uses glass and reagents (usually sulfuric acis).
+	Used to print new circuit boards (for computers and similar systems) and AI modules. Each circuit board pattern is stored in
+a /datum/design on the linked R&D console. You can then print them out in a fashion similar to a regular lathe using glass and
+sometimes a secondary material (often gold or diamond).
 
 */
 /obj/machinery/r_n_d/circuit_imprinter
@@ -25,24 +25,30 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	create_reagents()
+	RefreshParts()
+
+/obj/machinery/r_n_d/circuit_imprinter/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	create_reagents()
-	RefreshParts()
 
-/obj/machinery/r_n_d/circuit_imprinter/upgraded/Initialize(mapload)
+/obj/machinery/r_n_d/circuit_imprinter/loaded/Initialize(mapload)
 	. = ..()
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	materials.insert_amount(MINERAL_MATERIAL_AMOUNT * 25, MAT_GLASS)
+
+/obj/machinery/r_n_d/circuit_imprinter/loaded/upgraded/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	RefreshParts()
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace(null)
 
 /obj/machinery/r_n_d/circuit_imprinter/Destroy()
 	if(linked_console)
@@ -79,7 +85,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
+		to_chat(user, SPAN_WARNING("You can't load [src] while it's opened."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

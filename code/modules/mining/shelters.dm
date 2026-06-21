@@ -24,7 +24,7 @@
 			return SHELTER_DEPLOY_BAD_TURFS
 
 		for(var/obj/O in T)
-			if(O.density && O.anchored)
+			if(O.density && O.anchored && !istype(O, /obj/structure/flora/ash)) // ignore large rocks
 				return SHELTER_DEPLOY_ANCHORED_OBJECTS
 	return SHELTER_DEPLOY_ALLOWED
 

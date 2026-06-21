@@ -62,7 +62,7 @@
 
 /obj/item/food/spesslaw
 	name = "spesslaw"
-	desc = "A lawyer's favourite."
+	desc = "A lawyer's favorite."
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "spesslaw"
 	filling_color = "#DE4545"

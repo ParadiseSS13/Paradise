@@ -22,7 +22,7 @@
 	return S
 
 /obj/item/seeds/kudzu/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide!.</span>")
+	user.visible_message(SPAN_SUICIDE("[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide!."))
 	plant(user)
 	return BRUTELOSS
 
@@ -32,13 +32,13 @@
 	var/turf/T = get_turf(src)
 	message_admins("Kudzu planted by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) at ([T.x],[T.y],[T.z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a>)",0,1)
 	investigate_log("was planted by [key_name(user)] at ([T.x],[T.y],[T.z])","kudzu")
-	new /obj/structure/spacevine_controller(user.loc, mutations, potency, production)
+	new /obj/structure/spacevine_controller(T, mutations, potency, production)
 	user.drop_item()
 	qdel(src)
 
 /obj/item/seeds/kudzu/attack_self__legacy__attackchain(mob/user)
 	plant(user)
-	to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
+	to_chat(user, SPAN_NOTICE("You plant the kudzu. You monster."))
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()

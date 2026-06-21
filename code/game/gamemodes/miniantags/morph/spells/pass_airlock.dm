@@ -4,7 +4,7 @@
 	desc = "Reform yourself so you can fit through a non bolted airlock. Takes a while to do and can only be used in a non disguised form."
 	action_icon_state = "morph_airlock"
 	antimagic_flags = NONE
-	selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"
+	selection_activated_message = SPAN_SINISTER("Click on an airlock to try pass it.")
 
 /datum/spell/morph_spell/pass_airlock/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -21,29 +21,29 @@
 
 	if(user.morphed)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
+			to_chat(user, SPAN_WARNING("You can only pass through airlocks in your true form!"))
 		return FALSE
 
 /datum/spell/morph_spell/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	var/obj/machinery/door/airlock/A = targets[1]
 	if(A.locked)
-		to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to create a crack to pass through!</span>")
+		to_chat(user, SPAN_WARNING("[A] is bolted shut! You're unable to create a crack to pass through!"))
 		revert_cast(user)
 		return
-	user.visible_message("<span class='warning'>[user] starts pushing itself against [A]!</span>", "<span class='sinister'>You try to pry [A] open enough to get through.</span>")
+	user.visible_message(SPAN_WARNING("[user] starts pushing itself against [A]!"), SPAN_SINISTER("You try to pry [A] open enough to get through."))
 	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, PROC_REF(pass_check), user, A)), FALSE))
 		if(user.morphed)
-			to_chat(user, "<span class='warning'>You need to stay in your true form to pass through [A]!</span>")
+			to_chat(user, SPAN_WARNING("You need to stay in your true form to pass through [A]!"))
 		else if(A.locked)
-			to_chat(user, "<span class='warning'>[A] is bolted shut! You're unable to create a crack to pass through!</span>")
+			to_chat(user, SPAN_WARNING("[A] is bolted shut! You're unable to create a crack to pass through!"))
 		else
-			to_chat(user, "<span class='warning'>You need to stay still to pass through [A]!</span>")
+			to_chat(user, SPAN_WARNING("You need to stay still to pass through [A]!"))
 		revert_cast(user)
 		return
 	if(QDELETED(A))
 		return
 
-	user.visible_message("<span class='warning'>[user] briefly opens [A] slightly and passes through!</span>", "<span class='sinister'>You slide through the open crack in [A].</span>")
+	user.visible_message(SPAN_WARNING("[user] briefly opens [A] slightly and passes through!"), SPAN_SINISTER("You slide through the open crack in [A]."))
 	user.forceMove(A.loc) // Move into the turf of the airlock
 
 

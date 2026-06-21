@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Seek and destroy stale PRs and Issues
-        uses: actions/stale@v9
+        uses: actions/stale@v10
         with:
           stale-pr-message: 'This pull request seems to be stale as there have been no changes in 14 days, please make changes within 7 days or the PR will be closed. If you believe this is a mistake, please inform a development team member on Discord.'
           close-pr-message: 'This pull request has not received any updates since being marked stale, and as such is now being automatically closed. Please feel free to re-open this pull request or open a new one once you have new updates.'

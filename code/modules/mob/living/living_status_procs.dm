@@ -573,6 +573,20 @@ STATUS EFFECTS
 /mob/living/proc/AdjustCultSlur(amount, bound_lower = 0, bound_upper = 5 MINUTES)
 	SetCultSlur(directional_bounded_sum(AmountCultSlurring(), amount, bound_lower, bound_upper))
 
+// Hereticslurring
+/mob/living/proc/AmountHereticSlurring()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HERETIC_SLUR)
+
+/mob/living/proc/HereticSlur(amount)
+	SetHereticSlur(max(AmountHereticSlurring(), amount))
+
+/mob/living/proc/SetHereticSlur(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HERETIC_SLUR, amount)
+
+/mob/living/proc/AdjustHereticSlur(amount, bound_lower = 0, bound_upper = 5 MINUTES)
+	SetHereticSlur(directional_bounded_sum(AmountHereticSlurring(), amount, bound_lower, bound_upper))
+
+
 /* STUN */
 /mob/living/proc/IsStunned() //If we're stunned
 	return has_status_effect(STATUS_EFFECT_STUN)
@@ -887,11 +901,11 @@ STATUS EFFECTS
 		if(amount) //don't spam up the chat for continuous stuns
 			if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
 				if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
-					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
+					visible_message(SPAN_WARNING("[src][priority_absorb_key["visible_message"]]"), SPAN_BOLDWARNING("[priority_absorb_key["self_message"]]"))
 				else if(priority_absorb_key["visible_message"])
-					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
+					visible_message(SPAN_WARNING("[src][priority_absorb_key["visible_message"]]"))
 				else if(priority_absorb_key["self_message"])
-					to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
+					to_chat(src, SPAN_BOLDWARNING("[priority_absorb_key["self_message"]]"))
 			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE
 
@@ -909,6 +923,11 @@ STATUS EFFECTS
 
 /mob/living/proc/reset_shocked()
 	flags_2 &= ~ SHOCKED_2
+
+///Adjust the disgust level of a mob
+/mob/proc/adjust_disgust(amount)
+	return
+
 
 #undef RETURN_STATUS_EFFECT_STRENGTH
 #undef SET_STATUS_EFFECT_STRENGTH

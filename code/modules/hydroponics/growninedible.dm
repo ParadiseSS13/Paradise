@@ -11,6 +11,7 @@
 	var/obj/item/seeds/seed = null
 	/// The unsorted seed of this plant, if any. Used by the seed extractor.
 	var/obj/item/unsorted_seeds/unsorted_seed = null
+	new_attack_chain = TRUE
 
 /obj/item/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -40,10 +41,10 @@
 	QDEL_NULL(seed)
 	return ..()
 
-/obj/item/grown/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	..()
-	if(istype(O, /obj/item/plant_analyzer))
+/obj/item/grown/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/plant_analyzer))
 		send_plant_details(user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)
@@ -62,15 +63,13 @@
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 
-/obj/item/grown/extinguish_light(force = FALSE)
-	if(!force)
-		return
+/obj/item/grown/extinguish_light(force)
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
 	set_light(0)
 
 /obj/item/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='notice'>This is \a </span><span class='name'>[src]</span>\n"
+	var/msg = "[SPAN_NOTICE("This is")][SPAN_NAME(" \a [src]")]\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	msg += "</span>"
@@ -80,5 +79,5 @@
 /obj/item/grown/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		send_plant_details(user)

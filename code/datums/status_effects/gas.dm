@@ -13,7 +13,7 @@
 /datum/status_effect/freon/on_apply()
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(owner_resist))
 	if(!owner.stat)
-		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
+		to_chat(owner, SPAN_USERDANGER("You become frozen in a cube!"))
 	cube = icon('icons/effects/freeze.dmi', "ice_cube")
 	owner.add_overlay(cube)
 	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")

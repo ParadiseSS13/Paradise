@@ -27,7 +27,7 @@
 /obj/item/assembly/prox_sensor/examine(mob/user)
 	. = ..()
 	if(timing)
-		. += "<span class='notice'>The proximity sensor is arming.</span>"
+		. += SPAN_NOTICE("The proximity sensor is arming.")
 	else
 		. += "The proximity sensor is [scanning ? "armed" : "disarmed"]."
 
@@ -62,7 +62,7 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE)
-	visible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
+	audible_message("[bicon(src)] *beep* *beep* *beep*", "*beep* *beep* *beep*")
 	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = -10)
 	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
@@ -137,7 +137,7 @@
 
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>[src] is unsecured!</span>")
+		user.show_message(SPAN_WARNING("[src] is unsecured!"))
 		return FALSE
 	var/timing_ui = ""
 	var/time_display = ""
@@ -157,6 +157,7 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "prox")
+	return ..()
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()
@@ -182,4 +183,4 @@
 		return
 
 	if(usr)
-		attack_self__legacy__attackchain(usr)
+		activate_self(usr)

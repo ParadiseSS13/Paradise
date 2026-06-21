@@ -51,7 +51,7 @@
 	product_type = /obj/item/food/soup/chicken_noodle_soup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
-		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_ITEM(/obj/item/food/meat/chicken),
 		PCWJ_ADD_ITEM(/obj/item/food/boiledspaghetti),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
 		PCWJ_ADD_REAGENT("water", 10),
@@ -145,6 +145,44 @@
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 
+/datum/cooking/recipe_step/add_item/fried_skrell/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/skrell))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/frog_leg
+	container_type = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/frog_leg
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_skrell(),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe_step/add_item/grey/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/grey))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/grey_gruel
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/grey_gruel
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/grey(),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/hong_kong_borscht
 	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/hong_kong_borscht
@@ -212,6 +250,26 @@
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
 
+/datum/cooking/recipe_step/add_item/fried_taj/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/tajaran))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/feline_mignon
+	container_type = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/feline_mignon
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/fried_taj(),
+		PCWJ_ADD_REAGENT("wine", 5, optional = TRUE),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/misosoup
 	container_type = /obj/item/reagent_containers/cooking/pot
 	product_type = /obj/item/food/soup/misosoup
@@ -273,6 +331,25 @@
 		PCWJ_ADD_REAGENT("water", 10),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
 	)
+
+/datum/cooking/recipe_step/add_item/plasmaman/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/plasmaman))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/plasmabone_broth
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/plasmabone_broth
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/plasmaman(),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+	appear_in_default_catalog = FALSE
 
 /datum/cooking/recipe/red_porridge
 	container_type = /obj/item/reagent_containers/cooking/pot
@@ -810,3 +887,209 @@
 		PCWJ_ADD_ITEM(/obj/item/food/choc_pile),
 		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
 	)
+
+/datum/cooking/recipe/tapioca_pudding
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/tapioca_pudding
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_REAGENT("tapioca", 5),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+
+// ----------- Stove recipes imported from Hispania!
+
+/datum/cooking/recipe/pancake_mermelada
+	container_type = /obj/item/reagent_containers/cooking/pan
+	product_type = /obj/item/food/pancake/mermelada_pancake
+	catalog_category = COOKBOOK_CATEGORY_BREAKFASTS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/cookiedough),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/nispero),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus),
+		PCWJ_USE_STOVE(J_MED, 10 SECONDS),
+	)
+
+/// By Hexi
+/datum/cooking/recipe/macacosoup
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/soup/macacosoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_REAGENT("water", 10),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
+		PCWJ_ADD_ITEM(/obj/item/food/monkeycube),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+
+/datum/cooking/recipe/furamingosoup
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/soup/furamingosoup
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_REAGENT("water", 10),
+		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_ITEM(/obj/item/food/shrimp),
+		PCWJ_USE_STOVE(J_MED, 15 SECONDS),
+	)
+
+// CaribeanParadise
+/datum/cooking/recipe/caribean_paradise
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/caribean_paradise
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_REAGENT("coconutwater", 35),
+		PCWJ_ADD_REAGENT("mangojuice", 15),
+		PCWJ_ADD_REAGENT("blackpepper", 5),
+		PCWJ_ADD_REAGENT("sodiumchloride", 5),
+		PCWJ_ADD_REAGENT("limejuice", 5),
+		PCWJ_USE_STOVE(J_MED, 15 SECONDS),
+	)
+
+// Garlic Soup
+/datum/cooking/recipe/garlic_soup
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/soup/garlic
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_REAGENT("water", 5),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_ITEM(/obj/item/food/sliceable/bread),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/sausage),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+
+/datum/cooking/recipe/mushrooms_curry
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/mushrooms_curry
+	catalog_category = COOKBOOK_CATEGORY_VEGE
+	steps = list(
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/chanterelle),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+
+/datum/cooking/recipe/elfs_poison
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/soup/elfs_poison
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_REAGENT("water", 10),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/chanterelle),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/chanterelle),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/mushroom/amanita),
+		PCWJ_USE_STOVE(J_LO, 20 SECONDS),
+	)
+
+// SALMON CONSOME
+/datum/cooking/recipe/salmonconsome
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/soup/fishconsome
+	catalog_category = COOKBOOK_CATEGORY_SOUPS
+	steps = list(
+		PCWJ_ADD_REAGENT("water", 5),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/onion),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+
+// SALMON CURRY
+/datum/cooking/recipe/salmoncurry
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/salmoncurry
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("sodiumchloride", 1),
+		PCWJ_ADD_REAGENT("blackpepper", 1),
+		PCWJ_ADD_ITEM(/obj/item/food/salmonmeat),
+		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/garlic),
+		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
+	)
+
+// FUNNY HAHAHA
+/datum/cooking/recipe/gigapuddi
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/gigapuddi
+	catalog_category = COOKBOOK_CATEGORY_DESSERTS
+	steps = list(
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
+		PCWJ_USE_STOVE(J_LO, 5 SECONDS),
+	)
+
+/datum/cooking/recipe/gigapuddi/happypuddi
+	product_type = /obj/item/food/gigapuddi/happy
+	steps = list(
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("sugar", 10),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
+		PCWJ_USE_STOVE(J_LO, 5 SECONDS),
+	)
+
+/datum/cooking/recipe/gigapuddi/angrypuddi
+	product_type = /obj/item/food/gigapuddi/anger
+	steps = list(
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("sodiumchloride", 10),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/egg),
+		PCWJ_ADD_ITEM(/obj/item/food/chocolatebar),
+		PCWJ_USE_STOVE(J_LO, 5 SECONDS),
+	)
+
+// HISPANIA CANDIES
+/datum/cooking/recipe/nisperocandy
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/candy/nispero
+	catalog_category = COOKBOOK_CATEGORY_CANDY
+	steps = list(
+		PCWJ_ADD_REAGENT("sugar", 10),
+		PCWJ_ADD_REAGENT("cornoil", 5),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/nispero),
+		PCWJ_ADD_PRODUCE(/obj/item/food/grown/citrus/lemon),
+		PCWJ_USE_STOVE(J_HI, 15 SECONDS),
+	)
+
+/datum/cooking/recipe/mousse_avocado
+	container_type = /obj/item/reagent_containers/cooking/pot
+	product_type = /obj/item/food/mousse_avocado
+	catalog_category = COOKBOOK_CATEGORY_CANDY
+	steps = list(
+		PCWJ_ADD_REAGENT("sugar", 5),
+		PCWJ_ADD_REAGENT("milk", 5),
+		PCWJ_ADD_REAGENT("cocoa", 5),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/avocado),
+		PCWJ_USE_STOVE(J_HI, 10 SECONDS),
+	)
+
+// ---------- END of recipe imports from Hispania!

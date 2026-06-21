@@ -24,18 +24,18 @@ Bonus
 	level = 5
 	severity = 3
 	chem_treatments = list(
-		"synaptazine" = list("multiplier" = 0, "timer" = 0),
+		"synaptizine" = list("multiplier" = 0, "timer" = 0),
 		"ephedrine" = list("multiplier" = 0, "timer" = 0))
 
 /datum/symptom/hallucigen/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(1, 2)
-			to_chat(M, "<span class='warning'>[pick("Something appears in your peripheral vision, then winks out.", "You hear a faint whisper with no source.", "Your head aches.")]</span>")
+			to_chat(M, SPAN_WARNING("[pick("Something appears in your peripheral vision, then winks out.", "You hear a faint whisper with no source.", "Your head aches.")]"))
 		if(3, 4)
-			to_chat(M, "<span class='warning'><b>[pick("Something is following you.", "You are being watched.", "You hear a whisper in your ear.", "Thumping footsteps slam toward you from nowhere.")]</b></span>")
+			to_chat(M, SPAN_WARNING("<b>[pick("Something is following you.", "You are being watched.", "You hear a whisper in your ear.", "Thumping footsteps slam toward you from nowhere.")]</b>"))
 		else
-			to_chat(M, "<span class='userdanger'>[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]</span>")
+			to_chat(M, SPAN_USERDANGER("[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]"))
 			M.AdjustHallucinate(5 SECONDS)
 
 	return

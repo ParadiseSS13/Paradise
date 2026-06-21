@@ -3,8 +3,9 @@
 	desc = "A beacon used by a teleporter."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
-	item_state = "signaler"
+	inhand_icon_state = "signaler"
 	origin_tech = "bluespace=1"
+	materials = list(MAT_METAL = 300, MAT_GLASS = 200)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throw_range = 9
@@ -29,7 +30,7 @@
 	if(!emagged)
 		emagged = TRUE
 		syndicate = TRUE
-		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+		to_chat(user, SPAN_NOTICE("The This beacon now only be locked on to by emagged teleporters!"))
 		return TRUE
 
 
@@ -42,6 +43,19 @@
 /obj/item/beacon/emagged
 	syndicate = TRUE
 	emagged = TRUE
+
+// Spawns a spider fuel rod for ninja objectives
+/obj/item/beacon/ninja_rod_spawner
+	name = "spider clan beacon"
+	desc = "A label on it reads: <i>Activate to have a spider clan brand fuel rod teleported to your location</i>."
+	origin_tech = "bluespace=6;syndicate=3"
+
+/obj/item/beacon/ninja_rod_spawner/attack_self__legacy__attackchain(mob/user)
+	if(!user)
+		return
+	var/obj/item/nuclear_rod/fuel/uranium_238/spiders/new_rod = new(user.loc)
+	qdel(src)
+	user.put_in_hands(new_rod)
 
 // SINGULO BEACON SPAWNER
 /obj/item/beacon/syndicate
@@ -58,7 +72,7 @@
 
 /obj/item/beacon/syndicate/attack_self__legacy__attackchain(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, SPAN_NOTICE("Locked In"))
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
@@ -77,6 +91,7 @@
 		"Hacker" = /obj/item/storage/box/syndie_kit/bundle/hacker,
 		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
+		"Mob Boss" = /obj/item/storage/box/syndie_kit/bundle/gangster,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
 		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid,
 		"Ocelot" = /obj/item/storage/box/syndie_kit/bundle/ocelot,
@@ -104,7 +119,7 @@
 		bundle_name = pick(unselected)
 	var/bundle = bundles[bundle_name]
 	bundle = new bundle(user.loc)
-	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]!</span>")
+	to_chat(user, SPAN_NOTICE("Welcome to [station_name()], [bundle_name]!"))
 	user.drop_item()
 	SSblackbox.record_feedback("tally", "syndicate_bundle_pick", 1, "[bundle]")
 	qdel(src)
@@ -115,7 +130,7 @@
 
 /obj/item/beacon/syndicate/power_sink/attack_self__legacy__attackchain(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, SPAN_NOTICE("Locked In"))
 		new /obj/item/powersink(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
@@ -128,7 +143,7 @@
 
 /obj/item/beacon/syndicate/bomb/attack_self__legacy__attackchain(mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>Locked In</span>")
+		to_chat(user, SPAN_NOTICE("Locked In"))
 		new bomb(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()

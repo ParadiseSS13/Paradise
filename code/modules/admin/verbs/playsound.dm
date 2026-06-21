@@ -1,26 +1,17 @@
 GLOBAL_LIST_EMPTY(sounds_cache)
 
-/client/proc/stop_global_admin_sounds()
-	set category = "Event"
-	set name = "Stop Global Admin Sounds"
-	if(!check_rights(R_SOUNDS))
-		return
-
+USER_VERB(stop_global_admin_sounds, R_SOUNDS, "Stop Global Admin Sounds", "Stop all playing admin sounds", VERB_CATEGORY_EVENT)
 	var/sound/awful_sound = sound(null, repeat = 0, wait = 0, channel = CHANNEL_ADMIN)
 
-	log_admin("[key_name(src)] stopped admin sounds.")
-	message_admins("[key_name_admin(src)] stopped admin sounds.", 1)
+	log_admin("[key_name(client)] stopped admin sounds.")
+	message_admins("[key_name_admin(client)] stopped admin sounds.", 1)
 	for(var/mob/M in GLOB.player_list)
 		M << awful_sound
 		var/client/C = M.client
 		C?.tgui_panel?.stop_music()
 
-/client/proc/play_sound(S as sound)
-	set category = "Event"
-	set name = "Legacy Play Global Sound"
-	if(!check_rights(R_SOUNDS))	return
-
-	if(alert("WARNING: Legacy Play Global Sound does not support CDN asset sending. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really use Legacy Play Global Sound?", "Yes", "No") == "No")
+USER_VERB(play_sound, R_SOUNDS, "Legacy Play Global Sound", "Send a sound to players", VERB_CATEGORY_EVENT, S as sound)
+	if(alert(client, "WARNING: Legacy Play Global Sound does not support CDN asset sending. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really use Legacy Play Global Sound?", "Yes", "No") == "No")
 		return
 
 	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
@@ -28,85 +19,73 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	GLOB.sounds_cache += S
 
-	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
+	if(alert(client, "Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
 		return
 
-	if(holder.fakekey)
-		if(alert("Playing this sound will expose your real ckey despite being in stealth mode. You sure?", "Double check" ,"Play", "Cancel") == "Cancel")
+	if(client.holder.fakekey)
+		if(alert(client, "Playing this sound will expose your real ckey despite being in stealth mode. You sure?", "Double check" ,"Play", "Cancel") == "Cancel")
 			return
 
-
-	log_admin("[key_name(src)] played sound [S]")
-	message_admins("[key_name_admin(src)] played sound [S]", 1)
+	log_admin("[key_name(client)] played sound [S]")
+	message_admins("[key_name_admin(client)] played sound [S]", 1)
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
-			if(ckey in M.client.prefs.admin_sound_ckey_ignore)
+			if(client.ckey in M.client.prefs.admin_sound_ckey_ignore)
 				continue // This player has this admin muted
 			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
 				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
 
 			var/this_uid = M.client.UID()
-			to_chat(M, "<span class='boldannounceic'>[ckey] played <code>[S]</code> (<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
+			to_chat(M, SPAN_BOLDANNOUNCEIC("[client.ckey] played <code>[S]</code> (<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[client.ckey]'>ALWAYS SILENCE THIS ADMIN</a>)"))
 			SEND_SOUND(M, uploaded_sound)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-/client/proc/play_local_sound(S as sound)
-	set category = "Event"
-	set name = "Play Local Sound"
-	if(!check_rights(R_SOUNDS))	return
-
-	log_admin("[key_name(src)] played a local sound [S]")
-	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
-	playsound(get_turf(src.mob), S, 50, FALSE, 0)
+USER_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Send a sound to players", VERB_CATEGORY_EVENT, S as sound)
+	log_admin("[key_name(client)] played a local sound [S]")
+	message_admins("[key_name_admin(client)] played a local sound [S]", 1)
+	playsound(get_turf(client.mob), S, 50, FALSE, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/play_server_sound()
-	set category = "Event"
-	set name = "Play Server Sound"
-	if(!check_rights(R_SOUNDS))	return
-
+USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to players", VERB_CATEGORY_EVENT)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = input(client, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
-	play_sound(melody)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Server Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
+	SSuser_verbs.invoke_verb(client, /datum/user_verb/play_local_sound, melody)
 
-/client/proc/play_intercomm_sound()
-	set category = "Event"
-	set name = "Play Sound via Intercomms"
-	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
-	if(!check_rights(R_SOUNDS))	return
+USER_VERB(play_intercomm_sound, \
+	R_SOUNDS, "Play Sound via Intercomms", \
+	"Plays a sound at every intercomm on the station z level. Works best with small sounds.", \
+	VERB_CATEGORY_EVENT)
 
-	var/A = alert("This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
+	var/A = alert(client, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = input(client, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
 	var/cvol = 35
-	var/inputvol = input("How loud would you like this to be? (1-70)", "Volume", "35") as num | null
+	var/inputvol = input(client, "How loud would you like this to be? (1-70)", "Volume", "35") as num | null
 	if(!inputvol)	return
 	if(inputvol && inputvol >= 1 && inputvol <= 70)
 		cvol = inputvol
 
 	//Allows for override to utilize intercomms on all z-levels
-	var/B = alert("Do you want to play through intercomms on ALL Z-levels, or just the station?", "Override", "All", "Station")
+	var/B = alert(client, "Do you want to play through intercomms on ALL Z-levels, or just the station?", "Override", "All", "Station")
 	var/ignore_z = 0
 	if(B == "All")
 		ignore_z = 1
 
 	//Allows for override to utilize incomplete and unpowered intercomms
-	var/C = alert("Do you want to play through unpowered / incomplete intercomms, so the crew can't silence it?", "Override", "Yep", "Nope")
+	var/C = alert(client, "Do you want to play through unpowered / incomplete intercomms, so the crew can't silence it?", "Override", "Yep", "Nope")
 	var/ignore_power = 0
 	if(C == "Yep")
 		ignore_power = 1
@@ -119,27 +98,16 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			continue
 		playsound(I, melody, cvol)
 
-/client/proc/stop_sounds_global()
-	set category = "Debug"
-	set name = "Stop Sounds Global"
-	set desc = "Stop all playing sounds globally."
-	if(!check_rights(R_SOUNDS))
-		return
-
-	log_admin("[key_name(src)] stopped all currently playing sounds.")
-	message_admins("[key_name_admin(src)] stopped all currently playing sounds.")
+USER_VERB(stop_sounds_global, R_SOUNDS, "Stop Sounds Global", "Stop all playing sounds globally.", VERB_CATEGORY_DEBUG)
+	log_admin("[key_name(client)] stopped all currently playing sounds.")
+	message_admins("[key_name_admin(client)] stopped all currently playing sounds.")
 	for(var/mob/M in GLOB.player_list)
 		SEND_SOUND(M, sound(null))
 		var/client/C = M.client
 		C?.tgui_panel?.stop_music()
 
-/client/proc/play_sound_tgchat()
-	set category = "Event"
-	set name = "Play Global Sound"
-	if(!check_rights(R_SOUNDS))
-		return
-
-	var/sound_mode = tgui_alert(src, "Play a sound from which source?", "Select Source", list("Web", "Upload MP3"))
+USER_VERB(play_sound_tgchat, R_SOUNDS, "Play Global Sound", "Play a sound to be heard by all players.", VERB_CATEGORY_EVENT)
+	var/sound_mode = tgui_alert(client, "Play a sound from which source?", "Select Source", list("Web", "Upload MP3"))
 	if(!sound_mode)
 		return
 
@@ -152,18 +120,18 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	if(sound_mode == "Web")
 		if(!GLOB.configuration.system.ytdlp_url)
-			to_chat(src, "<span class='boldwarning'>yt-dlp was not configured, action unavailable</span>") //Check config
+			to_chat(client, SPAN_BOLDWARNING("yt-dlp was not configured, action unavailable")) //Check config
 			return
 
-		web_sound_input = tgui_input_text(src, "Enter content URL", "Play Internet Sound", null)
+		web_sound_input = tgui_input_text(client, "Enter content URL", "Play Internet Sound", null)
 		if(!length(web_sound_input))
 			return
 
 		web_sound_input = trim(web_sound_input)
 
 		if(findtext(web_sound_input, ":") && !findtext(web_sound_input, GLOB.is_http_protocol))
-			to_chat(src, "<span class='boldwarning'>Non-http(s) URIs are not allowed.</span>")
-			to_chat(src, "<span class='warning'>For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website.</span>")
+			to_chat(client, SPAN_BOLDWARNING("Non-http(s) URIs are not allowed."))
+			to_chat(client, SPAN_WARNING("For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website."))
 			return
 
 		// Prepare the body
@@ -181,35 +149,35 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			try
 				data = json_decode(media_poll_response.body)
 			catch(var/exception/e)
-				to_chat(src, "<span class='boldwarning'>yt-dlp JSON parsing FAILED:</span>")
-				to_chat(src, "<span class='warning'>[e]: [media_poll_response.body]</span>")
+				to_chat(client, SPAN_BOLDWARNING("yt-dlp JSON parsing FAILED:"))
+				to_chat(client, SPAN_WARNING("[e]: [media_poll_response.body]"))
 				return
 		else
-			to_chat(src, "<span class='boldwarning'>yt-dlp URL retrieval FAILED:</span>")
-			to_chat(src, "<span class='warning'>[media_poll_response.body]</span>")
+			to_chat(client, SPAN_BOLDWARNING("yt-dlp URL retrieval FAILED:"))
+			to_chat(client, SPAN_WARNING("[media_poll_response.body]"))
 			return
 
 	else if(sound_mode == "Upload MP3")
 		if(GLOB.configuration.asset_cache.asset_transport == "simple")
-			if(tgui_alert(src, "WARNING: Your server is using simple asset transport. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really play direct sound?", list("Yes", "No")) != "Yes")
+			if(tgui_alert(client, "WARNING: Your server is using simple asset transport. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really play direct sound?", list("Yes", "No")) != "Yes")
 				return
 			must_send_assets = TRUE
 
-		var/soundfile = input(src, "Choose an MP3 file to play", "Upload Sound") as null|file
+		var/soundfile = input(client, "Choose an MP3 file to play", "Upload Sound") as null|file
 		if(!soundfile)
 			return
 
 		var/static/regex/only_extension = regex(@{"^.*\.([a-z0-9]{1,5})$"}, "gi")
 		var/extension = only_extension.Replace("[soundfile]", "$1")
 		if(!length(extension) || extension != "mp3")
-			to_chat(src, "<span class='boldwarning'>Invalid filename extension.</span>")
+			to_chat(client, SPAN_BOLDWARNING("Invalid filename extension."))
 			return
 
 		var/static/playsound_notch = 1
 		asset_name = "admin_sound_[playsound_notch++].[extension]"
 		SSassets.transport.register_asset(asset_name, soundfile)
-		log_admin("[key_name_admin(src)] uploaded admin sound '[soundfile]' to asset transport.")
-		message_admins("[key_name_admin(src)] uploaded admin sound '[soundfile]' to asset transport.")
+		log_admin("[key_name_admin(client)] uploaded admin sound '[soundfile]' to asset transport.")
+		message_admins("[key_name_admin(client)] uploaded admin sound '[soundfile]' to asset transport.")
 
 		var/static/regex/remove_extension = regex(@{"\.[a-z0-9]+$"}, "gi")
 		data["title"] = remove_extension.Replace("[soundfile]", "")
@@ -227,26 +195,26 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		music_extra_data["link"] = data["webpage_url"]
 		music_extra_data["title"] = data["title"]
 
-		var/res = tgui_alert(src, "Show the title of and link to this song to the players?\n[title]", "Show Info?", list("Yes", "No"))
+		var/res = tgui_alert(client, "Show the title of and link to this song to the players?\n[title]", "Show Info?", list("Yes", "No"))
 		if(!res)
 			return
 		if(res == "Yes")
-			log_admin("[key_name(src)] played sound: [web_sound_input]")
-			message_admins("[key_name(src)] played sound: [web_sound_input]")
-			to_chat(world, "<span class='boldannounceooc'>[src.ckey] played: [webpage_url]</span>")
+			log_admin("[key_name(client)] played sound: [web_sound_input]")
+			message_admins("[key_name(client)] played sound: [web_sound_input]")
+			to_chat(world, SPAN_BOLDANNOUNCEOOC("[client.ckey] played: [webpage_url]"))
 		else if(res == "No")
 			music_extra_data["link"] = "Song Link Hidden"
 			music_extra_data["title"] = "Song Title Hidden"
 			music_extra_data["artist"] = "Song Artist Hidden"
-			log_admin("[key_name(src)] played sound: [web_sound_input]")
-			message_admins("[key_name(src)] played sound: [web_sound_input]")
-			to_chat(world, "<span class='boldannounceooc'>[src.ckey] played a sound</span>")
+			log_admin("[key_name(client)] played sound: [web_sound_input]")
+			message_admins("[key_name(client)] played sound: [web_sound_input]")
+			to_chat(world, SPAN_BOLDANNOUNCEOOC("[client.ckey] played a sound"))
 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound TGchat")
 
 	if(!must_send_assets && web_sound_url && !findtext(web_sound_url, GLOB.is_http_protocol))
-		to_chat(src, "<span class='boldwarning'>BLOCKED: Content URL not using http(s) protocol</span>", confidential = TRUE)
-		to_chat(src, "<span class='warning'>The media provider returned a content URL that isn't using the HTTP or HTTPS protocol</span>", confidential = TRUE)
+		to_chat(client, SPAN_BOLDWARNING("BLOCKED: Content URL not using http(s) protocol"), confidential = TRUE)
+		to_chat(client, SPAN_WARNING("The media provider returned a content URL that isn't using the HTTP or HTTPS protocol"), confidential = TRUE)
 		return
 
 	if(web_sound_url)
@@ -254,14 +222,14 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			var/client/C = M.client
 			var/player_uid = M.client.UID()
 			if(C.prefs.sound & SOUND_MIDI)
-				if(ckey in M.client.prefs.admin_sound_ckey_ignore)
-					to_chat(C, "<span class='warning'>But [src.ckey] is muted locally in preferences!</span>")
+				if(client.ckey in M.client.prefs.admin_sound_ckey_ignore)
+					to_chat(C, SPAN_WARNING("But [client.ckey] is muted locally in preferences!"))
 					continue
 				else
 					if(must_send_assets)
 						SSassets.transport.send_assets(C, asset_name)
 					C.tgui_panel?.play_music(web_sound_url, music_extra_data)
-					to_chat(C, "<span class='warning'>(<a href='byond://?src=[player_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[player_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
+					to_chat(C, SPAN_WARNING("(<a href='byond://?src=[player_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[player_uid];action=muteAdmin&a=[client.ckey]'>ALWAYS SILENCE THIS ADMIN</a>)"))
 			else
-				to_chat(C, "<span class='warning'>But Admin MIDIs are disabled in preferences!</span>")
+				to_chat(C, SPAN_WARNING("But Admin MIDIs are disabled in preferences!"))
 	return

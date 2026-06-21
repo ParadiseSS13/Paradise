@@ -16,7 +16,7 @@
 	for(var/mob/living/to_knock_down in orange(1, user))
 		if(to_knock_down.KnockDown(10 SECONDS))
 			cast_resolved = TRUE
-			to_knock_down.visible_message("<span class='noticealien'>[user] sweeps [to_knock_down] off their feet!</span>")
+			to_knock_down.visible_message(SPAN_NOTICEALIEN("[user] sweeps [to_knock_down] off their feet!"))
 	if(!cast_resolved)
 		revert_cast()
 

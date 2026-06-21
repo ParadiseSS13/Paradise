@@ -35,7 +35,7 @@
 	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/storage/backpack/duffel(src)
 	new /obj/item/storage/backpack/explorer(src)
-	new /obj/item/storage/backpack/satchel/explorer(src)
+	new /obj/item/storage/backpack/satchel_explorer(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
@@ -80,9 +80,8 @@
 /obj/structure/closet/secure_closet/smith
 	name = "smith's locker"
 	req_access = list(ACCESS_SMITH)
-	icon_state = "cargo"
+	icon_state = "smith"
 	opened_door_sprite = "cargo"
-	closed_door_sprite = "smith"
 
 /obj/structure/closet/secure_closet/smith/populate_contents()
 	new /obj/item/radio/headset/headset_cargo(src)
@@ -100,7 +99,7 @@
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
 	new /obj/item/radio/headset/heads/qm(src)
 	new /obj/item/door_remote/quartermaster(src)
-	new /obj/item/organ/internal/eyes/cybernetic/meson(src)
+	new /obj/item/autosurgeon/organ/one_use/meson_eyes(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
 	new /obj/item/clothing/accessory/medal/supply(src)
 	new /obj/item/clothing/accessory/medal/supply(src)
@@ -112,6 +111,7 @@
 	new /obj/item/cartridge/qm(src)
 	new /obj/item/storage/bag/mail(src)
 	new /obj/item/melee/knuckleduster/nanotrasen(src)
+	new /obj/item/gun/energy/gun/mini(src)
 
 /// used in mining outpost
 /obj/structure/closet/secure_closet/quartermaster/lavaland

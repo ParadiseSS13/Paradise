@@ -33,4 +33,4 @@
 	var/final_combo_text = combo_text_override
 	if(!final_combo_text)
 		final_combo_text = english_list(steps, and_text = " ", comma_text = " ")
-	to_chat(user, "<span class='notice'>[name]</span>: [final_combo_text]. [explaination_text]")
+	to_chat(user, "[SPAN_NOTICE("[name]")]: [final_combo_text]. [explaination_text]")

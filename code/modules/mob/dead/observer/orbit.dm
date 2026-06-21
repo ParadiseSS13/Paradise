@@ -30,7 +30,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 				. = TRUE
 				return
 			var/mob/dead/observer/ghost = ui.user
-			ghost.ManualFollow(poi)
+			ghost.manual_follow(poi)
 			. = TRUE
 		if("refresh")
 			update_static_data(ui.user, ui)
@@ -108,6 +108,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					- changelings
 					- revolutionaries/headrevs
 					- event
+					- Heretic (I think?)
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
@@ -145,7 +146,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Terror Spider"
 					antagonists += list(antag_serialized)
-				else if(istype(M, /mob/living/simple_animal/revenant))
+				else if(istype(M, /mob/living/basic/revenant))
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Revenant"
 					antagonists += list(antag_serialized)
@@ -161,6 +162,11 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Morph"
 					antagonists += list(antag_serialized)
+				else if(istype(M, /mob/living/basic/mouse/irradiated_mouse))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Irradiated Mouse"
+					antagonists += list(antag_serialized)
+
 		else
 			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.
 				highlights += list(serialized)

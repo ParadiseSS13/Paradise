@@ -51,9 +51,9 @@
 
 	/mob/living/simple_animal/pet/dog/corgi,
 	/mob/living/simple_animal/pet/dog/corgi/lisa,
-	/mob/living/simple_animal/hostile/retaliate/goat,
-	/mob/living/simple_animal/turkey,
-	/mob/living/simple_animal/chick,
+	/mob/living/basic/goat,
+	/mob/living/basic/turkey,
+	/mob/living/basic/chick,
 	/mob/living/simple_animal/pet/cat,
 	/mob/living/simple_animal/pet/dog/pug,
 	/mob/living/simple_animal/pet/dog/fox,
@@ -75,20 +75,28 @@
 	name = "pig crate"
 	content_mob = /mob/living/basic/pig
 
+/obj/structure/closet/critter/isopod
+	name = "ahuitz crate"
+	content_mob = /mob/living/basic/isopod
+
 /obj/structure/closet/critter/goat
 	name = "goat crate"
-	content_mob = /mob/living/simple_animal/hostile/retaliate/goat
+	content_mob = /mob/living/basic/goat
 
 /obj/structure/closet/critter/turkey
 	name = "turkey crate"
-	content_mob = /mob/living/simple_animal/turkey
+	content_mob = /mob/living/basic/turkey
 
 /obj/structure/closet/critter/chick
 	name = "chicken crate"
-	content_mob = /mob/living/simple_animal/chick
+	content_mob = /mob/living/basic/chick
 
 /obj/structure/closet/critter/chick/populate_contents()
 	amount = rand(1, 3)
+
+/obj/structure/closet/critter/isopod_small
+	name = "deverka crate"
+	content_mob = /mob/living/basic/isopod/small
 
 /obj/structure/closet/critter/cat
 	name = "cat crate"

@@ -25,24 +25,27 @@
 
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/recycler(null)
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_TITANIUM, MAT_URANIUM, MAT_DIAMOND, MAT_BLUESPACE, MAT_WOOD, MAT_PLASTIC, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_CARDBOARD), 0, TRUE, null, null, null, TRUE)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	materials.max_amount = INFINITY // This will stop the recycler from forgetting any materials if large amounts of stuff are dumped all at once.
+	initialize_parts()
 	RefreshParts()
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/recycler/proc/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/recycler(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+
+/obj/machinery/recycler/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/recycler(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
-	var/mat_mod = 0
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		mat_mod = 2 * B.rating
-	mat_mod *= 50000
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		amt_made = 25 * M.rating //% of materials salvaged
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	materials.max_amount = mat_mod
+		amt_made = 25 * M.rating // 25% to 100% material recovery as parts improve.
 	amount_produced = min(100, amt_made)
 
 /obj/machinery/recycler/examine(mob/user)
@@ -82,7 +85,7 @@
 
 /obj/machinery/recycler/cmag_act(mob/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>The board is completely fried.</span>")
+		to_chat(user, SPAN_WARNING("The board is completely fried."))
 		return FALSE
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
@@ -90,12 +93,12 @@
 			emergency_mode = FALSE
 			update_icon(UPDATE_ICON_STATE)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		to_chat(user, "<span class='notice'>You use the jestographic sequencer on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You use the jestographic sequencer on [src]."))
 		return TRUE
 
 /obj/machinery/recycler/emag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, "<span class='warning'>The access panel is coated in yellow ooze...</span>")
+		to_chat(user, SPAN_WARNING("The access panel is coated in yellow ooze..."))
 		return FALSE
 	if(!emagged)
 		emagged = TRUE
@@ -103,7 +106,7 @@
 			emergency_mode = FALSE
 			update_icon(UPDATE_ICON_STATE)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
+		to_chat(user, SPAN_NOTICE("You use the cryptographic sequencer on [src]."))
 		return TRUE
 
 /obj/machinery/recycler/update_icon_state()
@@ -136,6 +139,7 @@
 	if(isitem(AM0))
 		to_eat += AM0.GetAllContents()
 	var/items_recycled = 0
+	var/list/atom/movable/atoms_to_qdel = list()
 
 	for(var/i in to_eat)
 		var/atom/movable/AM = i
@@ -150,6 +154,7 @@
 				emergency_stop(AM)
 		else if(isitem(AM))
 			recycle_item(AM)
+			atoms_to_qdel += AM
 			items_recycled++
 		else
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
@@ -158,6 +163,10 @@
 	if(items_recycled && sound && (last_consumption_sound + SOUND_COOLDOWN) < world.time)
 		playsound(loc, item_recycle_sound, 100, 0)
 		last_consumption_sound = world.time
+	for(var/atom/movable/AM in atoms_to_qdel)
+		if(QDELETED(AM))
+			continue
+		qdel(AM)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	I.forceMove(loc)
@@ -165,10 +174,8 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(I)
 	if(!material_amount)
-		qdel(I)
 		return
 	materials.insert_item(I, multiplier = (amount_produced / 100))
-	qdel(I)
 	materials.retrieve_all()
 
 
@@ -234,7 +241,7 @@
 		return
 
 	eat_dir = turn(eat_dir, 90)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, SPAN_NOTICE("[src] will now accept items from [dir2text(eat_dir)]."))
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"

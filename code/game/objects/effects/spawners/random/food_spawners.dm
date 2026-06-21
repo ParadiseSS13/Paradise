@@ -50,3 +50,20 @@
 		/obj/effect/spawner/random/food_or_drink/salad,
 		/obj/effect/spawner/random/food_or_drink/dinner,
 	)
+
+/obj/effect/spawner/random/food_or_drink/juice_boxes
+	name = "juice box spawner"
+	loot = list(
+		/obj/item/reagent_containers/drinks/carton/apple = 2,
+		/obj/item/reagent_containers/drinks/carton/banana = 2,
+		/obj/item/reagent_containers/drinks/carton/berry = 2,
+		/obj/item/reagent_containers/drinks/carton/carrot = 1,
+		/obj/item/reagent_containers/drinks/carton/grape = 2,
+		/obj/item/reagent_containers/drinks/carton/lemonade = 1,
+		/obj/item/reagent_containers/drinks/carton/orange = 2,
+		/obj/item/reagent_containers/drinks/carton/pineapple = 2,
+		/obj/item/reagent_containers/drinks/carton/plum = 1,
+		/obj/item/reagent_containers/drinks/carton/tomato = 2,
+		/obj/item/reagent_containers/drinks/carton/vegetable = 1,
+		/obj/item/reagent_containers/drinks/carton/watermelon = 2,
+	)

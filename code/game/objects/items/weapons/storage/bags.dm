@@ -56,12 +56,12 @@
 
 /obj/item/storage/bag/trash/can_be_inserted(obj/item/I, stop_messages = FALSE)
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
-		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+		to_chat(usr, SPAN_WARNING("You can't seem to fit [I] into [src]."))
 		return FALSE
 	if(ishuman(loc)) // If the trashbag is on a humanoid, they can't store things in it while it's in their pockets
 		var/mob/living/carbon/human/H = loc
 		if(H.l_store == src || H.r_store == src)
-			to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+			to_chat(usr, SPAN_WARNING("You can't seem to fit [I] into [src]."))
 			return FALSE
 	. = ..()
 
@@ -74,7 +74,7 @@
 	update_weight()
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))
 	playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE, -1)
 	return TOXLOSS
 
@@ -115,19 +115,18 @@
 	desc = "It's a very flimsy, very noisy alternative to a bag."
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
-	item_state = "plasticbag"
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_BULKY
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
+	materials = list(MAT_PLASTIC = 6000)
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(slot == ITEM_SLOT_HEAD && length(contents))
-		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
+		to_chat(M, SPAN_WARNING("You need to empty the bag first!"))
 		return FALSE
 	return ..()
-
 
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
 	if(slot==ITEM_SLOT_HEAD)
@@ -206,7 +205,7 @@
 	// into the box.
 	if(istype(user.pulling, /obj/structure/ore_box))
 		var/obj/structure/ore_box/box = user.pulling
-		box.attackby__legacy__attackchain(src, user)
+		box.item_interaction(user, src)
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -229,6 +228,7 @@
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
+	materials = list(MAT_GOLD = 250, MAT_URANIUM = 500)
 	icon_state = "satchel_bspace"
 
 /obj/item/storage/bag/ore/cyborg/holding
@@ -266,24 +266,36 @@
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 400)
+
+/obj/item/storage/bag/plants/portaseeder/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/storage/bag/plants/portaseeder/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to convert the plants inside to seeds.</span>"
+		. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> to convert the plants inside to seeds.")
 
 /obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
 	if(!length(contents))
-		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
+		to_chat(user, SPAN_WARNING("[src] has no seeds inside!"))
 		return
 	var/had_anything = FALSE
+	var/seed_amount = 1
+	// Multiply seeds by productivity
+	seed_amount = clamp(seed_amount * bit_productivity_mod, 1, 4)
+	// Reduce with low efficiency
+	if(bit_efficiency_mod < 1)
+		seed_amount = max(1, seed_amount * bit_efficiency_mod)
 	for(var/obj/item/O in contents)
-		had_anything |= seedify(O, 1)
+		had_anything |= seedify(O, seed_amount)
 	hide_from_all()
 	if(had_anything)
-		to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
+		to_chat(user, SPAN_NOTICE("[src] whirrs a bit as it converts the plants inside to seeds."))
 	else
-		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
+		to_chat(user, SPAN_WARNING("[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside."))
 	playsound(user, "sound/machines/ding.ogg", 25)
 
 /obj/item/storage/bag/plants/portaseeder/CtrlShiftClick(mob/user)
@@ -309,7 +321,7 @@
 /obj/item/storage/bag/plants/seed_sorting_tray/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to sort seeds inside.</span>"
+		. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> to sort seeds inside.")
 
 ////////////////////////////////////////
 // MARK:	Cash bag
@@ -357,7 +369,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	slot_flags = null
-	materials = list(MAT_METAL=3000)
+	materials = list(MAT_METAL = 3000)
 	can_hold = list(
 		/obj/item/food,
 		/obj/item/reagent_containers/drinks,
@@ -446,9 +458,9 @@
 			INVOKE_ASYNC(src, PROC_REF(do_scatter), I)
 
 	if(found_table)
-		user.visible_message("<span class='notice'>[user] unloads [user.p_their()] serving tray.</span>")
+		user.visible_message(SPAN_NOTICE("[user] unloads [user.p_their()] serving tray."))
 	else
-		user.visible_message("<span class='warning'>[user] upends [user.p_their()] serving tray, sending everything on it crashing down to the floor!</span>")
+		user.visible_message(SPAN_WARNING("[user] upends [user.p_their()] serving tray, sending everything on it crashing down to the floor!"))
 	update_icon(UPDATE_OVERLAYS)
 	return ..()
 
@@ -508,7 +520,6 @@
 	desc = "A bag for envelopes, stamps, pens, and papers."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mailbag"
-	item_state = "mailbag"
 	storage_slots = 14
 	max_combined_w_class = 28
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
@@ -524,7 +535,6 @@
 	desc = "A bag for storing various small scale construction supplies, such as wiring and circuit boards."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
-	item_state = "construction_bag"
 	storage_slots = 30
 	max_combined_w_class = 60
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
@@ -540,7 +550,6 @@
 	desc = "A fireproof bag for storing modifications, casts, and modification components."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "smith_bag"
-	item_state = "smith_bag"
 	storage_slots = 30
 	max_combined_w_class = 60
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS

@@ -14,7 +14,7 @@
 	var/brute_damage = user.getBruteLoss()
 	var/burn_damage = user.getFireLoss()
 
-	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
+	to_chat(user, SPAN_NOTICE("We transform our appearance."))
 	user.dna.SetSEState(GLOB.monkeyblock,0,1)
 	singlemutcheck(user,GLOB.monkeyblock, MUTCHK_FORCED)
 	if(istype(user))

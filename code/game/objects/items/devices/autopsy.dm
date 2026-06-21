@@ -74,14 +74,14 @@
 /obj/item/autopsy_scanner/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can use a pen on it to quickly write a coroner's report.</span>"
+		. += SPAN_NOTICE("You can use a pen on it to quickly write a coroner's report.")
 
 /obj/item/autopsy_scanner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!is_pen(used))
 		return ..()
 
 	if(!COOLDOWN_FINISHED(src, print_cooldown))
-		to_chat(user, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		to_chat(user, SPAN_WARNING("[src] is busy, try again in a few seconds."))
 		return ITEM_INTERACT_COMPLETE
 
 	var/dead_name = tgui_input_text(user, "Insert name of deceased individual", default = target_name, title = "Coroner's Report", max_length = 60)
@@ -105,7 +105,7 @@
 		return FINISH_ATTACK
 
 	if(!COOLDOWN_FINISHED(src, print_cooldown))
-		to_chat(user, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		to_chat(user, SPAN_WARNING("[src] is busy, try again in a few seconds."))
 		return
 
 	COOLDOWN_START(src, print_cooldown, PRINT_TIMER)
@@ -164,7 +164,7 @@
 		for(var/chemID in chemtraces)
 			scan_data += chemID
 			scan_data += "<br>"
-	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+	user.visible_message(SPAN_WARNING("[src] rattles and prints out a sheet of paper."))
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	sleep(10)
@@ -191,15 +191,15 @@
 		wdata.Cut()
 		chemtraces.Cut()
 		timeofdeath = null
-		to_chat(user, "<span class='warning'>A new patient has been registered. Purging data for previous patient.</span>")
+		to_chat(user, SPAN_WARNING("A new patient has been registered. Purging data for previous patient."))
 
 	timeofdeath = target.timeofdeath
 
 	var/obj/item/organ/external/S = target.get_organ(user.zone_selected)
 	if(!S)
-		to_chat(user, "<span class='warning'>You can't scan this body part.</span>")
+		to_chat(user, SPAN_WARNING("You can't scan this body part."))
 		return ITEM_INTERACT_COMPLETE
-	target.visible_message("<span class='warning'>[user] scans the wounds on [target]'s [S.name] with [src]</span>")
+	target.visible_message(SPAN_WARNING("[user] scans the wounds on [target]'s [S.name] with [src]"))
 
 	add_data(S)
 	return ITEM_INTERACT_COMPLETE

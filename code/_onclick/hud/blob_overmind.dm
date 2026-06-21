@@ -140,7 +140,7 @@
 	blobpwrdisplay = new /atom/movable/screen()
 	blobpwrdisplay.name = "blob power"
 	blobpwrdisplay.icon_state = "block"
-	blobpwrdisplay.screen_loc = ui_health
+	blobpwrdisplay.screen_loc = UI_HEALTH
 	blobpwrdisplay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blobpwrdisplay.layer = ABOVE_HUD_LAYER
 	blobpwrdisplay.plane = ABOVE_HUD_PLANE
@@ -149,7 +149,7 @@
 	blobhealthdisplay = new /atom/movable/screen()
 	blobhealthdisplay.name = "blob health"
 	blobhealthdisplay.icon_state = "block"
-	blobhealthdisplay.screen_loc = ui_internal
+	blobhealthdisplay.screen_loc = UI_INTERNAL
 	static_inventory += blobhealthdisplay
 
 	using = new /atom/movable/screen/blob/blob_help()
@@ -157,45 +157,45 @@
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/jump_to_node()
-	using.screen_loc = ui_inventory
+	using.screen_loc = UI_INVENTORY
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/jump_to_core()
-	using.screen_loc = ui_zonesel
+	using.screen_loc = UI_ZONESEL
 	using.hud = src
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/blobbernaut()
-	using.screen_loc = ui_id
+	using.screen_loc = UI_ID
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/storage_blob()
-	using.screen_loc = ui_belt
+	using.screen_loc = UI_BELT
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/resource_blob()
-	using.screen_loc = ui_back
+	using.screen_loc = UI_BACK
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/node_blob()
-	using.screen_loc = using.screen_loc = ui_rhand
+	using.screen_loc = using.screen_loc = UI_RHAND
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/factory_blob()
-	using.screen_loc = using.screen_loc = ui_lhand
+	using.screen_loc = using.screen_loc = UI_LHAND
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/readapt_chemical()
-	using.screen_loc = ui_storage1
+	using.screen_loc = UI_STORAGE1
 	using.hud = src
 	static_inventory += using
 
 	using = new /atom/movable/screen/blob/relocate_core()
-	using.screen_loc = ui_storage2
+	using.screen_loc = UI_STORAGE2
 	static_inventory += using
 
 	var/mob/camera/blob/B = user
-	if(!B.is_offspring && (length(GLOB.clients) > GLOB.configuration.event.blob_highpop_trigger)) // Checks if the blob is an offspring or below a population value, to not create split button if it is
+	if(!B.is_offspring && (length(GLOB.clients) >= GLOB.configuration.event.blob_highpop_trigger)) // Checks if the blob is an offspring or below a population value, to not create split button if it is
 		using = new /atom/movable/screen/blob/split()
-		using.screen_loc = ui_acti
+		using.screen_loc = UI_ACTI
 		static_inventory += using

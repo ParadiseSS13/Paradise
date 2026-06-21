@@ -48,7 +48,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/Initialize()
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-			"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
+			SPAN_BOLDMESSAGE("Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking."),
 			"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
 
 	response_phrases = list("Thanks" = "Thanks for the ahelp!",
@@ -157,7 +157,7 @@ SUBSYSTEM_DEF(tickets)
 		key_and_name = key_name(M, TRUE, ticket_help_type, ticket_id = ticketNum)
 
 	var/list/L = list()
-	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_and_name][one_line ? " " : "<br>"]</span>"
+	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span>[SPAN_BOLDNOTICE("[key_and_name][one_line ? " " : "<br>"]")]"
 	if(M)
 		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)])"
 	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
@@ -248,7 +248,7 @@ SUBSYSTEM_DEF(tickets)
 		return
 	var/datum/ticket/T = allTickets[ticketId]
 	if(T.ticket_converted)
-		to_chat(usr, "<span class='warning'>This ticket has already been converted!</span>")
+		to_chat(usr, SPAN_WARNING("This ticket has already been converted!"))
 		return
 	convert_ticket(T)
 	message_staff("<span class='[span_class]'>[usr.client] / ([usr]) converted [ticket_name] number [ticketId]</span>")
@@ -305,18 +305,18 @@ SUBSYSTEM_DEF(tickets)
 			if(!closeTicket(N))
 				to_chat(C, "Unable to close ticket")
 		if("Man Up")
-			C.man_up(returnClient(N))
+			SSuser_verbs.invoke_verb(C, /datum/user_verb/man_up, returnClient(N))
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
-			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key]</span>")
+			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:[SPAN_ADMINTICKETALT(" [message_key]")]")
 			sendFollowupToDiscord(T, C, "*Autoresponded with [message_key]*")
 			log_game("[C] has auto responded to [T.client_ckey]\'s adminhelp with: [response_phrases[message_key]]")
 		if("Mentorhelp")
 			convert_ticket(T)
 		else
 			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
-			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
-			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:<span class='adminticketalt'> [message_key]</span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
+			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> [SPAN_ADMINTICKETALT("[response_phrases[message_key]]")]")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
+			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:[SPAN_ADMINTICKETALT(" [message_key]")]") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			sendFollowupToDiscord(T, C, "*Autoresponded with [message_key]*")
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
@@ -579,7 +579,7 @@ UI STUFF
 	for(var/key in C?.persistent.pm_tracker.pms)
 		var/datum/pm_convo/convo = C.persistent.pm_tracker.pms[key]
 		if(convo.typing)
-			dat += "<i><span class='typing'>[key] is typing</span></i><br />"
+			dat += "<i>[SPAN_TYPING("[key] is typing")]</i><br />"
 
 	var/found_typing = FALSE
 	for(var/client/X in GLOB.admins)
@@ -592,7 +592,7 @@ UI STUFF
 				continue
 			var/datum/pm_convo/convo = X.persistent.pm_tracker.pms[key]
 			if(convo.typing)
-				dat += "<i><span class='typing'>[key] is typing</span></i><br />"
+				dat += "<i>[SPAN_TYPING("[key] is typing")]</i><br />"
 				found_typing = TRUE
 				break
 		if(found_typing)
@@ -669,9 +669,9 @@ UI STUFF
 /datum/controller/subsystem/tickets/proc/message_staff(msg, prefix_type = TICKET_STAFF_MESSAGE_PREFIX, important = FALSE)
 	switch(prefix_type)
 		if(TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
-			msg = "<span class='admin_channel'>ADMIN TICKET: [msg]</span>"
+			msg = SPAN_ADMIN_CHANNEL("ADMIN TICKET: [msg]")
 		if(TICKET_STAFF_MESSAGE_PREFIX)
-			msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+			msg = SPAN_ADMINTICKET("[SPAN_PREFIX("ADMIN TICKET:")] [msg]")
 	message_adminTicket(chat_box_ahelp(msg), important)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
@@ -715,7 +715,7 @@ UI STUFF
 	if(href_list["detailclose"])
 		var/indexNum = text2num(href_list["detailclose"])
 		if(!check_rights(close_rights))
-			to_chat(usr, "<span class='warning'>Not enough rights to close this ticket.</span>")
+			to_chat(usr, SPAN_WARNING("Not enough rights to close this ticket."))
 			return
 		if(alert("Are you sure? This will send a negative message.", null,"Yes","No") != "Yes")
 			return
@@ -747,9 +747,9 @@ UI STUFF
 
 	if(href_list["resolveall"])
 		if(ticket_system_name == "Mentor Tickets")
-			usr.client.resolveAllMentorTickets()
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/resolve_all_mentor_tickets)
 		else
-			usr.client.resolveAllAdminTickets()
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/resolve_all_admin_tickets)
 
 	if(href_list["close"])
 		onCloseDetailUI(usr)
@@ -759,7 +759,7 @@ UI STUFF
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>")
 		else
-			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+			message_staff(SPAN_ADMIN_CHANNEL("[usr.client] / ([usr]) has taken [ticket_name] number [index]"), TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] is being handled by [usr.client].</span>")
 
 /datum/controller/subsystem/tickets/proc/unassignTicket(index)
@@ -770,7 +770,7 @@ UI STUFF
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>")
 		else
-			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+			message_staff(SPAN_ADMIN_CHANNEL("[usr.client] / ([usr]) has unassigned [ticket_name] number [index]"), TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
 
 
 /datum/controller/subsystem/tickets/Shutdown()

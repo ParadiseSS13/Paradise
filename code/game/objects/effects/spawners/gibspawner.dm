@@ -41,3 +41,16 @@
 	gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST),list(WEST, NORTHWEST, SOUTHWEST),list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, GLOB.alldirs)
 	gibamounts[6] = pick(0,1,2)
 	..()
+
+/obj/effect/gibspawner/vox
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs/vox, /obj/effect/decal/cleanable/blood/gibs/down/vox, /obj/effect/decal/cleanable/blood/gibs/vox, /obj/effect/decal/cleanable/blood/gibs/vox, /obj/effect/decal/cleanable/blood/gibs/vox, /obj/effect/decal/cleanable/blood/gibs/vox, /obj/effect/decal/cleanable/blood/gibs/core/vox)
+	gibamounts = list(1,1,1,1,1,1,1)
+
+/obj/effect/gibspawner/vox/New()
+	gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST),list(WEST, NORTHWEST, SOUTHWEST),list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, GLOB.alldirs, list())
+	gibamounts[6] = pick(0,1,2)
+	..()
+
+/obj/effect/gibspawner/vox/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/mob_dna)
+	if(!..()) // Probably admin spawned
+		gib.blood_DNA["Unknown Vox DNA"] = "A+"

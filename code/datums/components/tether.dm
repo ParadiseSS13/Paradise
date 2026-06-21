@@ -74,7 +74,7 @@
 		return
 	var/atom/atom = parent
 	atom?.setDir(get_dir(parent, newloc))
-	to_chat(atom, "<span class='warning'>You can't move in that direction with the [tethered_to] tethered to you!</span>")
+	to_chat(atom, SPAN_WARNING("You can't move in that direction with the [tethered_to] tethered to you!"))
 	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 /datum/component/tether/proc/pre_tethered_movement(atom/movable/source, newloc)
@@ -86,13 +86,13 @@
 	durability_cost()
 	var/atom/atom = parent
 	atom?.setDir(get_dir(parent, newloc))
-	to_chat(atom, "<span class='warning'>You can't move in that direction with the [tethered_to] tethered to you!</span>")
+	to_chat(atom, SPAN_WARNING("You can't move in that direction with the [tethered_to] tethered to you!"))
 	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 /datum/component/tether/proc/can_equip(atom/source, mob/user)
 	// Check to make sure we dont go into an inventory outside of our range
 	if(get_dist(get_turf(parent), get_turf(user)) > max_range)
-		to_chat(user, "<span class='warning'>You try to pick up [tethered_to], you can't pull it's [tether_name] any farther!</span>")
+		to_chat(user, SPAN_WARNING("You try to pick up [tethered_to], you can't pull it's [tether_name] any farther!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/tether/proc/parent_check_bounds(atom/movable/source, atom/mover, atom/old_loc, direction)
@@ -167,7 +167,7 @@
 		return
 	durability -= cost
 	if(durability <= 0 && !QDELETED(tethered_to))
-		tethered_to.visible_message("<span class='warning'>[tethered_to]'s [tether_name] wears out and snaps back!</span>")
+		tethered_to.visible_message(SPAN_WARNING("[tethered_to]'s [tether_name] wears out and snaps back!"))
 		terminate()
 		return TRUE // it breaks, let the parent move outside of the range again
 	return FALSE

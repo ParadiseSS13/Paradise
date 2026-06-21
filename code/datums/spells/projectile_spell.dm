@@ -25,7 +25,7 @@
 
 	for(var/mob/living/target in targets)
 		spawn(0)
-			var/obj/item/projectile/projectile = new proj_type(get_turf(user))
+			var/obj/projectile/projectile = new proj_type(get_turf(user))
 			projectile.icon = proj_icon
 			projectile.icon_state = proj_icon_state
 			projectile.dir = get_dir(target, projectile)

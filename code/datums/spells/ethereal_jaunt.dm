@@ -8,8 +8,10 @@
 	nonabstract_req = TRUE
 	centcom_cancast = FALSE //Prevent people from getting to centcom
 	var/sound1 = 'sound/magic/ethereal_enter.ogg'
+	var/sound2 = 'sound/magic/ethereal_exit.ogg'
 	var/jaunt_duration = 50 //in deciseconds
 	var/jaunt_in_time = 5
+	var/jaunt_out_time = null
 	var/jaunt_in_type = /obj/effect/temp_visual/wizard
 	var/jaunt_out_type = /obj/effect/temp_visual/wizard/out
 	var/jaunt_type_path = /obj/effect/dummy/spell_jaunt
@@ -26,7 +28,7 @@
 		if(SEND_SIGNAL(target, COMSIG_MOB_PRE_JAUNT, target) & COMPONENT_BLOCK_JAUNT)
 			continue
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
-			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
+			to_chat(target, SPAN_WARNING("You are somehow too bound to your current location to abandon it."))
 			continue
 		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
 
@@ -52,11 +54,14 @@
 		jaunt_steam(mobloc)
 	ADD_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
 	holder.reappearing = 1
-	playsound(get_turf(target), 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+	playsound(get_turf(target), sound2, 50, TRUE, -1)
 	sleep(jaunt_in_time * 4)
 	new jaunt_in_type(mobloc, holder.dir)
 	target.setDir(holder.dir)
-	sleep(jaunt_in_time)
+	var/time_to_jaunt_out = jaunt_in_time
+	if(jaunt_out_time)
+		time_to_jaunt_out = jaunt_out_time
+	sleep(time_to_jaunt_out)
 	qdel(holder)
 	if(!QDELETED(target))
 		if(mobloc.is_blocked_turf(exclude_mobs = TRUE))
@@ -103,7 +108,7 @@
 		forceMove(newLoc)
 		return
 	if(!IS_DIR_DIAGONAL(direction))
-		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+		to_chat(user, SPAN_WARNING("Something is blocking the way!"))
 		return
 	var/turf/possible_1 = get_step(src, turn(direction, 45))
 	var/turf/possible_2 = get_step(src, turn(direction, -45))
@@ -113,7 +118,7 @@
 	if(can_move(possible_2))
 		forceMove(possible_2)
 		return
-	to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+	to_chat(user, SPAN_WARNING("Something is blocking the way!"))
 
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/T)
 	return TRUE

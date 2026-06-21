@@ -5,8 +5,8 @@
 	icon = 'icons/obj/objects.dmi'
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
 
-/obj/item/holder/New()
-	..()
+/obj/item/holder/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/holder/Destroy()
@@ -78,7 +78,7 @@
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
-	to_chat(src, "<span class='notice'>\The [grabber] scoops you up.</span>")
+	to_chat(src, SPAN_NOTICE("\The [grabber] scoops you up."))
 	grabber.status_flags |= PASSEMOTES
 	return H
 
@@ -99,6 +99,13 @@
 	desc = "It's a tiny little itty bitty critter."
 	icon_state = "mothroach"
 	slot_flags = ITEM_SLOT_HEAD
+
+/obj/item/holder/isopod_small
+	name = "deverka"
+	desc = "A tiny isopod that wriggles and chitters!"
+	icon_state = "deverka"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = null
 
 /obj/item/holder/drone/emagged
 	icon_state = "drone-emagged"

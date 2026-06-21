@@ -25,7 +25,7 @@
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
 	if(!length(GLOB.wizardstart))
-		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
+		to_chat(wizard.current, SPAN_DANGER("A starting location for you could not be found, please report this bug!"))
 		return FALSE
 	return TRUE
 
@@ -33,6 +33,8 @@
 	for(var/datum/mind/wiz in pre_wizards)
 		wiz.add_antag_datum(/datum/antagonist/wizard)
 		wiz.current.forceMove(pick(GLOB.wizardstart))
+		var/mob/living/carbon/human/human_wizard = wiz.current // Honestly if the wizard isn't a human then someone else has gone horribly wrong
+		human_wizard.clear_quirks()
 	pre_wizards.Cut()
 	..()
 
@@ -53,7 +55,7 @@
 /datum/game_mode/wizard/declare_completion(ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(length(wizards)>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
+		to_chat(world, SPAN_WARNING("<FONT size = 3><B> The wizard[(length(wizards)>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT>"))
 	..()
 	return TRUE
 

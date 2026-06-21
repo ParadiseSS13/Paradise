@@ -27,6 +27,6 @@
 	if(corpse.stat != DEAD || !description_text)
 		return // Why the hell you put this on them then
 	if(naive_description && HAS_TRAIT(corpse_inspector, TRAIT_COMIC_SANS))
-		examine_list += "<span class='notice'>[naive_description]</span>"
+		examine_list += SPAN_NOTICE("[naive_description]")
 		return
-	examine_list += "<span class='notice'>[description_text]</span>"
+	examine_list += SPAN_NOTICE("[description_text]")

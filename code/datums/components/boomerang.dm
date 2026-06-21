@@ -79,8 +79,8 @@
 		addtimer(CALLBACK(true_parent, TYPE_PROC_REF(/atom/movable, throw_at), thrown_by, boomerang_throw_range, throwing_datum.speed, null, TRUE), 0.1 SECONDS)
 		COOLDOWN_START(src, last_boomerang_throw, BOOMERANG_REBOUND_INTERVAL)
 	var/mob/thrower = throwing_datum?.get_thrower()
-	true_parent.visible_message("<span class='danger'>[true_parent] is flying back at [thrower]!</span>", \
-						"<span class='danger'>You see [true_parent] fly back at you!</span>", \
-						"<span class='hear'>You hear an aerodynamic woosh!</span>")
+	true_parent.visible_message(SPAN_DANGER("[true_parent] is flying back at [thrower]!"), \
+						SPAN_DANGER("You see [true_parent] fly back at you!"), \
+						SPAN_HEAR("You hear an aerodynamic woosh!"))
 
 #undef BOOMERANG_REBOUND_INTERVAL

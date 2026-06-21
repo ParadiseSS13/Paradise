@@ -10,7 +10,13 @@
 	var/list/ui_users = list()
 	var/broken_icon_state = "mirror_broke"
 
+	/// what to show when a ghost Boo!'s this mirror
+	var/icon/spooked_icon
+	/// Whether a mirror can be Boo!'d or not. Magic mirrors are animated, so this is used to stop them from looking weird
+	var/can_be_spooked = TRUE
+
 /obj/structure/mirror/organ
+	can_be_spooked = FALSE
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -25,6 +31,7 @@
 			if(WEST)
 				pixel_x = 32
 	GLOB.mirrors += src
+	spooked_icon = update_spooked_icon(icon("icons/mob/human.dmi", "husk_s"), SOUTH, 8, 0)
 
 /obj/structure/mirror/Destroy()
 	QDEL_LIST_ASSOC_VAL(ui_users)
@@ -62,14 +69,14 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
+	user.visible_message(SPAN_NOTICE("[user] begins to unfasten [src]."), SPAN_NOTICE("You begin to unfasten [src]."))
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	if(broken)
-		user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
+		user.visible_message(SPAN_NOTICE("[user] drops the broken shards to the floor."), SPAN_NOTICE("You drop the broken shards on the floor."))
 		new /obj/item/shard(get_turf(user))
 	else
-		user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
+		user.visible_message(SPAN_NOTICE("[user] carefully places [src] on the floor."), SPAN_NOTICE("You carefully place [src] on the floor."))
 		new /obj/item/mounted/mirror(get_turf(user))
 	qdel(src)
 
@@ -86,12 +93,39 @@
 		if(BURN)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
+/obj/structure/mirror/get_spooked()
+	if(!can_be_spooked || broken)
+		return
+	flicker_ghost(spooked_icon)
+	return TRUE
+
+/// This proc sets the icon that will show up in the mirror when spooked
+/// * icon_to_show - which icon
+/// * offset_dir - you might want to move the icon so it appears in the mirror
+/// * offset_pixels - how many pixels you need to move the icon
+/// * wrap - if the icon should wrap around
+/obj/structure/mirror/proc/update_spooked_icon(icon/icon_to_show, offset_dir, offset_pixels, wrap)
+	var/icon/our_icon = icon_to_show
+	our_icon.Shift(offset_dir,offset_pixels,wrap)
+	var/icon/alpha_mask = new("icons/obj/watercloset.dmi", "mirror_mask")
+	our_icon.AddAlphaMask(alpha_mask)
+	var/icon/added_icons = new("icons/obj/watercloset.dmi", "mirror")
+	added_icons.Blend(our_icon, ICON_OVERLAY)
+	return added_icons
+
+/// Shows the icon in the mirror with its mask
+/obj/structure/mirror/proc/flicker_ghost(icon/icon_to_show)
+	icon = icon_to_show
+	sleep(rand(5,10))
+	icon = initial(icon)
+	return
 
 /obj/item/mounted/mirror
 	name = "mirror"
 	desc = "Some reflective glass ready to be hung on a wall. Don't break it!"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
+	materials = list(MAT_GLASS = 2500)
 
 /obj/item/mounted/mirror/do_build(turf/on_wall, mob/user)
 	var/obj/structure/mirror/M = new /obj/structure/mirror(get_turf(user), get_dir(on_wall, user), 1)
@@ -105,6 +139,11 @@
 	var/options = list("Name", "Body", "Voice")
 	var/organ_warn = FALSE
 	var/actually_magical = TRUE
+	can_be_spooked = FALSE
+
+/obj/structure/mirror/magic/Initialize(mapload, newdir, building)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
 	if(!ishuman(user) || broken)
@@ -131,8 +170,8 @@
 
 		if("Body")
 			if(organ_warn)
-				to_chat(user, "<span class='boldwarning'>Using the mirror will destroy any non biochip implants in you!</span>")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask")
+				to_chat(user, SPAN_BOLDWARNING("Using the mirror will destroy any non biochip implants in you!"))
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Skkulakin")
 			if(actually_magical)
 				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Vox", "Plasmaman", "Kidan", "Slime People")
 
@@ -174,9 +213,6 @@
 /obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
 
-/obj/structure/mirror/magic/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	return
-
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
 
@@ -186,4 +222,3 @@
 	options = list("Body")
 	organ_warn = TRUE
 	actually_magical = FALSE
-

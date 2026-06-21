@@ -146,16 +146,14 @@ const ItemsPage = (_properties) => {
   const SelectEquipment = (items: UplinkItem[], searchText = '') => {
     items = filter(items, (item) => !!item.name);
     if (searchText) {
-      items = filter(
-        items,
-        createSearch(searchText, (item) => {
-          let key = `${item.name}|${item.desc}|${item.cost}tc`;
-          if (item.hijack_only) {
-            key += '|hijack';
-          }
-          return key;
-        })
-      );
+      const matches = createSearch<UplinkItem>(searchText, (item) => {
+        let key = `${item.name}|${item.desc}|${item.cost}tc`;
+        if (item.hijack_only) {
+          key += '|hijack';
+        }
+        return key;
+      });
+      items = filter(items, (item) => matches(item));
     }
     return sortBy(items, (item) => item.name);
   };
@@ -429,10 +427,8 @@ const ExploitableInfoPage = (_properties) => {
   const SelectMembers = (people: Exploitable[], searchText = ''): Exploitable[] => {
     let members = filter(people, (member) => !!member.name);
     if (searchText) {
-      members = filter(
-        members,
-        createSearch(searchText, (member) => member.name)
-      );
+      const matches = createSearch<Exploitable>(searchText, (member) => member.name);
+      members = filter(members, (member) => matches(member));
     }
     return sortBy(members, (member) => member.name);
   };

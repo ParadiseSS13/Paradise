@@ -35,7 +35,7 @@
 
 /obj/machinery/optable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Click-drag</b> someone to the table to place them on top of the table.</span>"
+	. += SPAN_NOTICE("<b>Click-drag</b> someone to the table to place them on top of the table.")
 
 /obj/machinery/optable/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSTABLE))
@@ -60,7 +60,7 @@
 	if((!ishuman(user) && !isrobot(user)) || !istype(new_patient))
 		return
 	if(patient in buckled_mobs)
-		to_chat(user, "<span class='notice'>The table is already occupied!</span>")
+		to_chat(user, SPAN_NOTICE("The table is already occupied!"))
 		return
 
 	// Attempt to settle the patient in
@@ -70,7 +70,7 @@
 	patient = new_patient
 
 	if(length(injected_reagents))
-		to_chat(new_patient, "<span class='danger'>You feel a series of tiny pricks!</span>")
+		to_chat(new_patient, SPAN_DANGER("You feel a series of tiny pricks!"))
 
 	update_appearance(UPDATE_ICON_STATE)
 
@@ -99,6 +99,6 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
+		to_chat(user, SPAN_NOTICE("You deconstruct the table."))
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)

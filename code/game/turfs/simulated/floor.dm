@@ -12,9 +12,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor
 	name = "floor"
-	icon_state = "dont_use_this_floor"
 	plane = FLOOR_PLANE
-	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
+	var/icon_regular_floor = "tile_standard" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.020
 	heat_capacity = 100000
@@ -32,7 +31,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/Initialize(mapload)
 	. = ..()
 	if(icon_state in GLOB.icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default
-		icon_regular_floor = "floor"
+		icon_regular_floor = "tile_standard"
 	else
 		icon_regular_floor = icon_state
 
@@ -40,10 +39,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(is_shielded())
 		return
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			ChangeTurf(baseturf, keep_icon = FALSE) // we do not keep the icon so that asteroid platings can work properly
-		if(2.0)
-			switch(pick(1,2;75,3))
+
+		if(EXPLODE_HEAVY)
+			switch(rand(1, 3))
 				if(1)
 					spawn(0)
 						ReplaceWithLattice()
@@ -57,11 +57,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 						break_tile()
 					hotspot_expose(1000, 100)
 					if(prob(33)) new /obj/item/stack/sheet/metal(src)
-		if(3.0)
+
+		if(EXPLODE_LIGHT)
 			if(prob(50))
 				break_tile()
 				hotspot_expose(1000, 100)
-	return
 
 /turf/simulated/floor/burn_down()
 	ex_act(EXPLODE_HEAVY)
@@ -168,18 +168,18 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		if(P.pipe_type != -1) // ANY PIPE
 			user.visible_message( \
 				"[user] starts sliding [P] along \the [src].", \
-				"<span class='notice'>You slide [P] along \the [src].</span>", \
+				SPAN_NOTICE("You slide [P] along \the [src]."), \
 				"You hear the scrape of metal against something.")
 			user.drop_item()
 
 			if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
-				P.dir = 5
-				if(user.dir == 1)
-					P.dir = 6
-				else if(user.dir == 2)
-					P.dir = 9
-				else if(user.dir == 4)
-					P.dir = 10
+				P.dir = NORTHEAST
+				if(user.dir == NORTH)
+					P.dir = SOUTHEAST
+				else if(user.dir == SOUTH)
+					P.dir = NORTHWEST
+				else if(user.dir == EAST)
+					P.dir = SOUTHWEST
 			else
 				P.setDir(user.dir)
 
@@ -219,10 +219,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		burnt = FALSE
 		current_overlay = null
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")
+			to_chat(user, SPAN_DANGER("You remove the broken plating."))
 	else
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
+			to_chat(user, SPAN_DANGER("You remove the floor tile."))
 		if(floor_tile && make_tile)
 			new floor_tile(src)
 	return make_plating()
@@ -265,3 +265,9 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/proc/get_prying_tools()
 	return list(TOOL_CROWBAR)
+
+/turf/simulated/floor/magic_rust_turf()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+	ChangeTurf(/turf/simulated/floor/plating)
+	return ..()

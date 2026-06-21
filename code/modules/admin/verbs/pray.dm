@@ -8,7 +8,7 @@
 
 	if(usr.client)
 		if(check_mute(client.ckey, MUTE_PRAY))
-			to_chat(usr, "<span class='warning'>You cannot pray (muted).</span>")
+			to_chat(usr, SPAN_WARNING("You cannot pray (muted)."))
 			return
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
 			return
@@ -30,7 +30,7 @@
 		deity = GET_CULT_DATA(entity_name, "Cult God")
 
 	log_say("(PRAYER) [msg]", usr)
-	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && HAS_MIND_TRAIT(usr, TRAIT_HOLY) ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A href='byond://?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A href='byond://?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
+	msg = SPAN_NOTICE("[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && HAS_MIND_TRAIT(usr, TRAIT_HOLY) ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A href='byond://?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A href='byond://?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]")
 
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
@@ -43,7 +43,7 @@
 
 /proc/Centcomm_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
-	msg = "<span class='boldnotice'><font color=orange>CENTCOMM: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")])):</span> [msg]"
+	msg = "[SPAN_BOLDNOTICE("<font color=orange>CENTCOMM: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")])):")] [msg]"
 	for(var/client/X in GLOB.admins)
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg, MESSAGE_TYPE_ADMINPM)
@@ -52,7 +52,7 @@
 
 /proc/Syndicate_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
-	msg = "<span class='boldnotice'><font color='#DC143C'>SYNDICATE: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]"
+	msg = "[SPAN_BOLDNOTICE("<font color='#DC143C'>SYNDICATE: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):")] [msg]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg, MESSAGE_TYPE_ADMINPM)
@@ -67,9 +67,9 @@
 		"sender_uid" = Sender.UID(),
 		"message" = html_decode(msg)))
 	GLOB.ert_request_messages.Insert(1, insert_this) // insert it to the top of the list
-	msg = "<span class='adminnotice'><b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A href='byond://?_src_=holder;ErtReply=[Sender.UID()]'>RESPOND</A>):</b> [msg]</span>"
+	msg = SPAN_ADMINNOTICE("<b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<A href='byond://?_src_=holder;ErtReply=[Sender.UID()]'>RESPOND</A>):</b> [msg]")
 	if(repeat_warning)
-		msg += "<BR><span class='adminnotice'><b>WARNING: ERT request has gone 5 minutes with no reply!</b></span>"
+		msg += "<BR>[SPAN_ADMINNOTICE("<b>WARNING: ERT request has gone 5 minutes with no reply!</b>")]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg, MESSAGE_TYPE_ADMINPM)
@@ -80,16 +80,16 @@
 	var/nuke_code = get_nuke_code()
 	var/nuke_status = get_nuke_status()
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
-	msg = "<span class='adminnotice'><b><font color=orange>NUKE CODE REQUEST: </font>[key_name(Sender)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")]):</b> [msg]</span>"
+	msg = SPAN_ADMINNOTICE("<b><font color=orange>NUKE CODE REQUEST: </font>[key_name(Sender)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")]):</b> [msg]")
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg, MESSAGE_TYPE_ADMINPM)
 			if(nuke_status == NUKE_MISSING)
-				to_chat(X, "<span class='userdanger'>The nuclear device is not on station!</span>")
+				to_chat(X, SPAN_USERDANGER("The nuclear device is not on station!"))
 			else
 				to_chat(X, "<b>The nuke code is [nuke_code].</b>")
 				if(nuke_status == NUKE_CORE_MISSING)
-					to_chat(X, "<span class='userdanger'>The nuclear device does not have a core, and will not arm!</span>")
+					to_chat(X, SPAN_USERDANGER("The nuclear device does not have a core, and will not arm!"))
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 

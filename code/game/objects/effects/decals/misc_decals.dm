@@ -75,3 +75,6 @@
 	var/scale = (rand(2, 10) / 10) + (rand(0, 5) / 100)
 	transform = matrix(transform, scale, scale, MATRIX_SCALE)
 	setDir(pick(NORTH, SOUTH, EAST, WEST))
+
+/obj/effect/decal/station_sign
+	icon = 'icons/turf/station_signs.dmi'

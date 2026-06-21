@@ -81,6 +81,7 @@
 	icon_state = "motion2"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "programming=2;magnets=2"
+	materials = list(MAT_METAL = 500)
 	var/ai_beacon = FALSE //If this beacon allows for AI control. Exists to avoid using istype() on checking.
 	var/charges_left = 2
 
@@ -178,7 +179,7 @@
 
 	mech.setInternalDamage(MECHA_INT_CONTROL_LOST)
 	if(mech.occupant)
-		mech.occupant_message("<span class='danger'>Coordination system calibration failure. Manual restart required.</span>")
+		mech.occupant_message(SPAN_DANGER("Coordination system calibration failure. Manual restart required."))
 		SEND_SOUND(mech.occupant, sound('sound/machines/warning-buzzer.ogg'))
 
 	do_sparks(3, FALSE, mech.loc)
@@ -198,6 +199,7 @@
 	name = "exosuit AI control beacon"
 	desc = "A device used to transmit exosuit data. Also allows active AI units to take control of said exosuit."
 	origin_tech = "programming=3;magnets=2;engineering=2"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 200)
 	ai_beacon = TRUE
 
 /obj/item/storage/box/mechabeacons

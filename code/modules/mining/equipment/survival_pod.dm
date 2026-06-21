@@ -15,13 +15,14 @@
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template
 	var/used = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/survivalcapsule/emag_act()
 	if(!emagged)
-		to_chat(usr, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+		to_chat(usr, SPAN_WARNING("You short out the safeties, allowing it to be placed in the station sector."))
 		emagged = TRUE
 		return TRUE
-	to_chat(usr, "<span class='warning'>The safeties are already shorted out!</span>")
+	to_chat(usr, SPAN_WARNING("The safeties are already shorted out!"))
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
@@ -37,28 +38,31 @@
 	. += "This capsule has the [template.name] stored."
 	. += template.description
 
-/obj/item/survivalcapsule/attack_self__legacy__attackchain()
+/obj/item/survivalcapsule/activate_self(mob/user)
+	if(..())
+		return
+
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
-		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
+		loc.visible_message(SPAN_WARNING("[src] begins to shake. Stand back!"))
 		used = TRUE
 		sleep(50)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
 		var/turf/UT = get_turf(usr)
 		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
-			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
+			to_chat(usr, SPAN_NOTICE("Error. Deployment was attempted on the station sector. Deployment aborted."))
 			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
 			used = FALSE
 			return
 		switch(status)
 			if(SHELTER_DEPLOY_BAD_AREA)
-				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")
+				loc.visible_message(SPAN_WARNING("[src] will not function in this area."))
 			if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
 				var/width = template.width
 				var/height = template.height
-				loc.visible_message("<span class='warning'>[src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
+				loc.visible_message(SPAN_WARNING("[src] doesn't have room to deploy! You need to clear a [width]x[height] area!"))
 
 		if(status != SHELTER_DEPLOY_ALLOWED)
 			used = FALSE
@@ -72,6 +76,13 @@
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
+
+		// get structures on turf, then delete large rocks and plants
+		var/affected_turfs = template.get_affected_turfs(deploy_location, TRUE)
+		for(var/turf/selected_turf as anything in affected_turfs)
+			for(var/obj/structure/flora/ash/found_flora in selected_turf)
+				qdel(found_flora)
+
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SHELTER_PLACED, T)
 		qdel(src)
 
@@ -90,9 +101,10 @@
 //Window
 /obj/structure/window/full/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40pod_window.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/pod_window_edges.dmi'
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
@@ -142,9 +154,15 @@
 	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
 
+/obj/machinery/door/airlock/survival_pod/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/survival_pod/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/survival_pod/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"
@@ -213,6 +231,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
 	anchored = TRUE
 	density = TRUE
+	tracking = TRUE
 	pixel_y = -32
 	light_power = 1.4
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
@@ -228,12 +247,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
-						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(SPAN_WARNING("[user] starts to disassemble [src]."), \
+						SPAN_NOTICE("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
 		return
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-				"<span class='notice'>You disassemble [src].</span>", "You hear clanking and banging noises.")
+	user.visible_message(SPAN_WARNING("[user] disassembles [src]."), \
+				SPAN_NOTICE("You disassemble [src]."), "You hear clanking and banging noises.")
 	new /obj/item/gps(loc)
 	qdel(src)
 
@@ -324,12 +343,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
-						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(SPAN_WARNING("[user] starts to disassemble [src]."), \
+						SPAN_NOTICE("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
 		return
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-						"<span class='notice'>You disassemble [src].</span>", "You hear something fall on the floor.")
+	user.visible_message(SPAN_WARNING("[user] disassembles [src]."), \
+						SPAN_NOTICE("You disassemble [src]."), "You hear something fall on the floor.")
 	deconstruct()
 
 /obj/structure/fans/tiny
@@ -370,8 +389,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/W)
 	. = TRUE
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(SPAN_WARNING("[user] disassembles [src]."), \
+						SPAN_NOTICE("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(!W.use_tool(src, user, 2 SECONDS, volume = 50))
 		return
 	new /obj/item/stack/rods(loc)
@@ -404,7 +423,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	icon = initial(I.icon)
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
-	item_state = initial(I.item_state)
+	inhand_icon_state = initial(I.inhand_icon_state)
 	lefthand_file = initial(I.lefthand_file)
 	righthand_file = initial(I.righthand_file)
 	slot_flags = initial(I.slot_flags)

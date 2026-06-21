@@ -37,14 +37,14 @@
 	if(!istype(M))
 		return FALSE
 	if(M == usr && M.mind == contractor_mind)
-		to_chat(M, "<span class='warning'>The portal is here to extract the contract target, not you!</span>")
+		to_chat(M, SPAN_WARNING("The portal is here to extract the contract target, not you!"))
 		return FALSE
 	if(M.mind != target_mind)
 		if(usr?.mind == contractor_mind) // Contractor shoving a non-target into the portal
-			to_chat(M, "<span class='warning'>Somehow you are not sure [M] is the target you have to kidnap.</span>")
+			to_chat(M, SPAN_WARNING("Somehow you are not sure [M] is the target you have to kidnap."))
 			return FALSE
 		else if(usr == M) // Non-target trying to enter the portal
-			to_chat(M, "<span class='warning'>Somehow you are not sure this is a good idea.</span>")
+			to_chat(M, SPAN_WARNING("Somehow you are not sure this is a good idea."))
 			return FALSE
 		return FALSE
 	return ..()

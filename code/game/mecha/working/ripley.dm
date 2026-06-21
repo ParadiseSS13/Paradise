@@ -14,6 +14,7 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	var/list/cargo = list()
 	var/cargo_capacity = 15
 
@@ -169,7 +170,6 @@
 	initial_icon = "deathripley"
 	step_in = 3
 	slow_pressure_step_in = 3
-	opacity=0
 	max_temperature = 65000
 	max_integrity = 300
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, RAD = 0, FIRE = 100, ACID = 100)
@@ -262,7 +262,7 @@
 	if(href_list["drop_from_cargo"])
 		var/obj/O = locate(href_list["drop_from_cargo"])
 		if(O && (O in cargo))
-			occupant_message("<span class='notice'>You unload [O].</span>")
+			occupant_message(SPAN_NOTICE("You unload [O]."))
 			O.loc = get_turf(src)
 			cargo -= O
 			var/turf/T = get_turf(O)
@@ -307,5 +307,5 @@
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
+		desc += "</br>[SPAN_DANGER("The mech's equipment slots spark dangerously!")]"
 	return ..()

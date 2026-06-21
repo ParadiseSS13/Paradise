@@ -78,7 +78,7 @@
 
 /obj/machinery/abductor/gland_dispenser/attack_hand(mob/user)
 	if(!isabductor(user))
-		to_chat(user, "<span class='warning'>You don't understand any of the alien writing!</span>")
+		to_chat(user, SPAN_WARNING("You don't understand any of the alien writing!"))
 		return
 	ui_interact(user)
 

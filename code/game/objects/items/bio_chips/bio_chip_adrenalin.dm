@@ -9,7 +9,7 @@
 
 /obj/item/bio_chip/adrenalin/activate()
 	uses--
-	to_chat(imp_in, "<span class='notice'>You feel a sudden surge of energy!</span>")
+	to_chat(imp_in, SPAN_NOTICE("You feel a sudden surge of energy!"))
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
 	imp_in.SetKnockDown(0)
@@ -44,7 +44,7 @@
 
 /obj/item/bio_chip/basic_adrenalin/activate()
 	uses--
-	to_chat(imp_in, "<span class='notice'>You feel a sudden surge of energy!</span>")
+	to_chat(imp_in, SPAN_NOTICE("You feel a sudden surge of energy!"))
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
 	imp_in.SetKnockDown(0)
@@ -79,7 +79,7 @@
 
 /obj/item/bio_chip/proto_adrenalin/activate()
 	uses--
-	to_chat(imp_in, "<span class='notice'>You feel a sudden surge of energy!</span>")
+	to_chat(imp_in, SPAN_NOTICE("You feel a sudden surge of energy!"))
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
 	imp_in.SetKnockDown(0)

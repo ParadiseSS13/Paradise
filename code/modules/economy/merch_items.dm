@@ -75,6 +75,13 @@
 	cost = 200
 	category = MERCH_CAT_TOY
 
+/datum/merch_item/tcg/series_one
+	name = "Battles of Orion: Series 1"
+	desc = "The brand-new trading card game on the scene with all your favorite Nanotrasen employees!"
+	typepath = /obj/item/cardpack/series_one
+	cost = 100
+	category = MERCH_CAT_TOY
+
 /datum/merch_item/katana
 	name = "Replica Katana"
 	desc = "Woefully underpowered in D20."
@@ -226,6 +233,13 @@
 	name = "Nian Flag"
 	desc = "A well-crafted Nianen flag. Approved by the CDM and the Crafting Guild."
 	typepath = /obj/item/flag/species/nian
+	cost = 500
+	category = MERCH_CAT_DECORATION
+
+/datum/merch_item/flag_skulk
+	name = "Skkulakin Flag"
+	desc = "The foreboding flag of the Silver Collective. Blessed by Skkula-Kkavan priests."
+	typepath = /obj/item/flag/species/skulk
 	cost = 500
 	category = MERCH_CAT_DECORATION
 

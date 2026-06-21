@@ -160,3 +160,44 @@
 /datum/turf_reservation/transit
 	turf_type = /turf/space/transit
 	required_traits = list(TCOMM_RELAY_ALWAYS)
+
+/datum/turf_reservation/shuttle
+
+/datum/turf_reservation/shuttle/proc/locate_docking_port()
+	// Search the turfs for docking ports
+	// - We need to find the mobile docking port because that is the heart of
+	//   the shuttle.
+	// - We need to check that no additional ports have slipped in from the
+	//   template, because that causes unintended behaviour.
+	var/mobile_docking_ports = 0
+	var/obj/docking_port/mobile/port
+	for(var/T as anything in reserved_turfs)
+		for(var/obj/docking_port/P in T)
+			if(istype(P, /obj/docking_port/mobile))
+				port = P
+				mobile_docking_ports++
+				if(mobile_docking_ports > 1)
+					qdel(P, force = TRUE)
+					stack_trace("shuttle template has multiple mobile docking ports")
+				else if(!port.timid)
+					// The shuttle template we loaded isn't "timid" which means
+					// it's already registered with the shuttles subsystem.
+					// This is a bad thing.
+					stack_trace("shuttle template is non-timid! Unloading.")
+					port.jumpToNullSpace()
+					return
+
+			if(istype(P, /obj/docking_port/stationary))
+				stack_trace("shuttle template has a stationary docking port")
+
+	if(!port)
+		stack_trace("could not find shuttle template mobile docking port")
+		return
+
+	RegisterSignal(port, COMSIG_MOBILE_PORT_DOCKED, PROC_REF(cleanup))
+	return port
+
+/datum/turf_reservation/shuttle/proc/cleanup(datum/source, obj/docking_port/stationary/dest)
+	SIGNAL_HANDLER // COMSIG_MOBILE_PORT_DOCKED
+	UnregisterSignal(source, COMSIG_MOBILE_PORT_DOCKED)
+	qdel(src)

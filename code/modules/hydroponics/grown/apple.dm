@@ -13,7 +13,7 @@
 	icon_grow = "apple-grow"
 	icon_dead = "apple-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list(/obj/item/seeds/apple/gold)
+	mutatelist = list(/obj/item/seeds/apple/gold, /obj/item/seeds/apple/poisoned)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
 /obj/item/food/grown/apple

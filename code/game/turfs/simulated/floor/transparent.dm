@@ -42,6 +42,8 @@
 	underlays += I
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
+	if(baseturf == /turf/space)
+		GLOB.starlight += src
 	QUEUE_SMOOTH(src)
 
 /turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/I)
@@ -50,7 +52,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You fix some cracks in the glass.</span>")
+		to_chat(user, SPAN_NOTICE("You fix some cracks in the glass."))
 		overlays -= current_overlay
 		current_overlay = null
 		burnt = FALSE
@@ -70,10 +72,10 @@
 			R = robouser.all_active_items[metal_slot]
 
 	if(!istype(R, /obj/item/stack/sheet/metal) || R.get_amount() < 2)
-		to_chat(user, "<span class='danger'>You also need to hold two sheets of metal to dismantle \the [src]!</span>")
+		to_chat(user, SPAN_DANGER("You also need to hold two sheets of metal to dismantle \the [src]!"))
 		return
 
-	to_chat(user, "<span class='notice'>You begin replacing [src]...</span>")
+	to_chat(user, SPAN_NOTICE("You begin replacing [src]..."))
 	playsound(src, I.usesound, 80, TRUE)
 
 	if(do_after(user, 3 SECONDS * I.toolspeed, target = src))
@@ -97,6 +99,7 @@
 			new /obj/item/stack/sheet/plastitaniumglass(src, 2)
 	R.use(2)
 	playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
+	GLOB.starlight -= src
 	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/transparent/glass/extinguish_light(force)
@@ -137,7 +140,7 @@
 	var/obj/item/thing = user.get_inactive_hand()
 	if(!thing || !(thing.tool_behaviour in get_prying_tools()))
 		return
-	to_chat(user, "<span class='danger'>You need to hold two sheets of metal to dismantle \the [src]!</span>")
+	to_chat(user, SPAN_DANGER("You need to hold two sheets of metal to dismantle \the [src]!"))
 
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"

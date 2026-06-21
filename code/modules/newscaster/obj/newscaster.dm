@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 
 /obj/machinery/newscaster/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to remove the photo currently inside it.")
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
@@ -143,17 +143,17 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
+	to_chat(user, SPAN_NOTICE("Now [anchored ? "un" : ""]securing [name]"))
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
+		to_chat(user, SPAN_WARNING("The broken remains of [src] fall on the ground."))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 	else
-		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+		to_chat(user, SPAN_NOTICE("You [anchored ? "un" : ""]secure [name]."))
 		new /obj/item/mounted/frame/display/newscaster_frame(loc)
 	qdel(src)
 
@@ -386,8 +386,8 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				var/obj/item/photo/P = usr.get_active_hand()
 				if(istype(P) && usr.transfer_item_to(P, src))
 					photo = P
-					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
-										"<span class='notice'>You insert [P] into [src]'s photo slot.</span>")
+					usr.visible_message(SPAN_NOTICE("[usr] inserts [P] into [src]'s photo slot."),\
+										SPAN_NOTICE("You insert [P] into [src]'s photo slot."))
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))
 				var/mob/living/silicon/M = usr
@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				P.construct(selection)
 				P.forceMove(src)
 				photo = P
-				visible_message("<span class='notice'>[src]'s photo slot quietly whirs as it prints [P] inside it.</span>")
+				visible_message(SPAN_NOTICE("[src]'s photo slot quietly whirs as it prints [P] inside it."))
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 		if("eject_photo")
 			eject_photo(usr)
@@ -672,7 +672,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	// Print it
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
+	visible_message(SPAN_NOTICE("[src] whirs as it prints a newspaper."))
 	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**

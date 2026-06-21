@@ -54,9 +54,7 @@
 "cl" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "cM" = (
 /obj/effect/decal/cleanable/blood/writing{
@@ -106,9 +104,7 @@
 /area/ruin/space/tcommsat)
 "fS" = (
 /obj/structure/rack,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "gg" = (
 /obj/structure/chair{
@@ -193,9 +189,7 @@
 "le" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "lk" = (
 /obj/structure/window/reinforced{
@@ -209,9 +203,7 @@
 "lo" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "lq" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit,
@@ -234,9 +226,7 @@
 "nk" = (
 /obj/structure/rack,
 /obj/item/wirerod,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "nv" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -273,9 +263,7 @@
 "oZ" = (
 /obj/structure/rack,
 /obj/item/circuitboard/teleporter,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "pg" = (
 /obj/machinery/economy/vending/snack,
@@ -333,9 +321,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "sb" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "sm" = (
 /obj/structure/chair{
@@ -417,8 +403,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"Av" = (
-/obj/machinery/door/airlock/external,
+"AA" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "AV" = (
@@ -433,12 +421,6 @@
 "BD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
-"Cq" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	locked = 1
-	},
-/turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "CC" = (
 /obj/structure/window/reinforced{
@@ -496,6 +478,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/tcommsat)
+"GT" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "GV" = (
 /obj/structure/door_assembly/door_assembly_hatch,
@@ -611,6 +599,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"NS" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	locked = 1;
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "Or" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plating/airless,
@@ -764,9 +759,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "UK" = (
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/tcommsat)
 "UP" = (
 /obj/structure/window/reinforced{
@@ -868,9 +861,7 @@
 /area/ruin/space/tcommsat)
 "Zd" = (
 /obj/structure/closet/malf_suits,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "Zi" = (
 /obj/structure/window/reinforced{
@@ -1305,7 +1296,7 @@ kx
 ot
 nk
 sb
-Cq
+NS
 Sp
 Wc
 jk
@@ -1470,7 +1461,7 @@ wO
 KH
 Ac
 rc
-Cq
+NS
 Wc
 Wc
 Wc
@@ -1479,7 +1470,7 @@ Is
 Sp
 Wc
 Wc
-Or
+AA
 Pn
 FK
 al
@@ -2048,14 +2039,14 @@ my
 fI
 rc
 rc
-Or
+AA
 eu
 BD
 mL
 mL
 mL
 Yt
-Av
+GT
 Ua
 Vf
 nX
@@ -2246,7 +2237,7 @@ Go
 yM
 Wc
 Wc
-Cq
+NS
 UC
 rc
 rc
@@ -2590,7 +2581,7 @@ wO
 HW
 fh
 rc
-Cq
+NS
 ii
 Is
 gg

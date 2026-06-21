@@ -28,7 +28,10 @@
 /datum/ai_planning_subtree/random_speech/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	if(!SPT_PROB(speech_chance, seconds_per_tick))
 		return
-	speak(controller)
+	for(var/mob/living/listener in hearers(11, controller.pawn))
+		if(listener.client && listener.stat != DEAD)
+			speak(controller)
+			return
 
 /// Actually perform an action
 /datum/ai_planning_subtree/random_speech/proc/speak(datum/ai_controller/controller)

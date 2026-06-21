@@ -1,6 +1,6 @@
 /datum/outfit/abductor
 	name = "Abductor Basic"
-	uniform = /obj/item/clothing/under/color/grey //they're greys gettit
+	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
 	back = /obj/item/storage/backpack
 	l_ear = /obj/item/radio/headset/abductor
@@ -50,6 +50,8 @@
 
 /datum/outfit/abductor/scientist
 	name = "Abductor Scientist"
+	suit = /obj/item/clothing/suit/storage/labcoat/abductor
+
 	backpack_contents = list(
 		/obj/item/abductor/gizmo = 1
 		)

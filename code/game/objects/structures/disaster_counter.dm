@@ -87,6 +87,10 @@
 	name = "supermatter disaster counter"
 	counter_id = "supermatter"
 
+/obj/structure/disaster_counter/reactor
+	name = "reactor disaster counter"
+	counter_id = "reactor"
+
 /obj/structure/disaster_counter/chemistry
 	name = "chemistry disaster counter"
 	counter_id = "chemistry"

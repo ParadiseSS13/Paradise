@@ -60,7 +60,8 @@
 		return FALSE
 
 	if(checks_nullification && HAS_TRAIT(user, TRAIT_MINDFLAYER_NULLIFIED))
-		flayer_datum.send_swarm_message("We do not have the energy to manifest that currently...")
+		if(show_message)
+			flayer_datum.send_swarm_message("We do not have the energy to manifest that currently...")
 		return FALSE
 	return TRUE
 

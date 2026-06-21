@@ -112,7 +112,7 @@
 					/obj/item/tank/internals/emergency_oxygen/double/vox,
 					/obj/item/tank/internals/emergency_oxygen/double/vox)
 	cost = 200
-	containertype = /obj/structure/closet/crate/medical
+	containertype = /obj/structure/closet/crate/internals/nitrogen
 	containername = "vox life support supplies crate"
 
 /datum/supply_packs/emergency/plasmamansupport

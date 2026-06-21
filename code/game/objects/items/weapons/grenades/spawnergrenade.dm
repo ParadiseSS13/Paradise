@@ -6,7 +6,7 @@
 	var/spawner_type = null // must be an object path
 	var/deliveryamt = 1 // amount of type to deliver
 	var/flash_viewers = TRUE
-	spawner_type = /mob/living/simple_animal/hostile/viscerator
+	spawner_type = /mob/living/basic/viscerator
 
 /obj/item/grenade/spawnergrenade/prime() // Prime now just handles the two loops that query for people in lockers and people who can see it.
 

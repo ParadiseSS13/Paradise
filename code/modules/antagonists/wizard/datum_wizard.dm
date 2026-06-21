@@ -44,7 +44,7 @@
 
 /datum/antagonist/wizard/farewell()
 	if(owner?.current)
-		to_chat(owner.current, "<span class='warning'><font size = 3><b>You have been brainwashed! You are no longer a [name]!</b></font></span>")
+		to_chat(owner.current, SPAN_WARNING("<font size = 3><b>You have been brainwashed! You are no longer a [name]!</b></font>"))
 
 /datum/antagonist/wizard/add_owner_to_gamemode()
 	SSticker.mode.wizards |= owner

@@ -217,7 +217,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_atmospheric
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 75, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/advanced
 	name = "'Daedalus' advanced"
@@ -557,6 +557,68 @@
 
 /obj/item/mod/armor/mod_theme_rescue
 	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 250, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
+
+/datum/mod_theme/salvation
+	name = "'Salvation' hazard"
+	desc = "An experimental medical suit designed for emergency care in conflict zones and extreme environmental hazards."
+	extended_desc = "An experimental upgrade to the Apollo and Valkyrie lines, the D-142E 'Salvation' is a bulky, moderately-armored medical modsuit designed by DeForest Medical Corperation. \
+	Sacrificing the light-weight design of previous iterations for additional protection from both weapons and environmental factors, while boasting a more powerful core and servos to partially offset the excess weight. \
+	The suit's armor has seen even more improvements with a careful mix of composite and standard ballistic armor, along with an advanced CBRN active protection system. \
+	The experimental nature of this suit makes it exclusive to the most practical and wealthy positions outside DeForest testing."
+	default_skin = "salvation"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_salvation
+	resistance_flags = ACID_PROOF
+	flag_2_flags = RAD_PROTECT_CONTENTS_2 // only protects stored items
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	charge_drain = DEFAULT_CHARGE_DRAIN * 2
+	slowdown_active = 0.35
+	inbuilt_modules = list(/obj/item/mod/module/cbrn)
+	allowed_suit_storage = list(
+		/obj/item/healthanalyzer,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/stack/medical,
+		/obj/item/sensor_device,
+		/obj/item/storage/pill_bottle,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/bag/bio,
+		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/gun
+	)
+	skins = list(
+		"salvation" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL | STOPSPRESSUREDMAGE | BLOCK_GAS_SMOKE_EFFECT | BLOCKHAIR,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK | HIDEEYES | HIDEEARS | HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH | HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT | HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_salvation
+	armor = list(MELEE = 25, BULLET = 20, LASER = 15, ENERGY = 10, BOMB = 25, RAD = 150, FIRE = 250, ACID = 150) //Extra armor in compensation of being slower then, and an improvement of the valkyrie.
+
 
 /datum/mod_theme/research
 	name = "'Minerva' research"
@@ -1384,3 +1446,58 @@
 /// considering this should not be used, it's getting just DS armor, not infinity in everything.
 /obj/item/mod/armor/mod_theme_administrative
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+
+/datum/mod_theme/ninja
+	name = "'Shinobi' stealthsuit"
+	desc = "A specialized modsuit worn by the spider clan's elite ninja operatives."
+	default_skin = "ninja"
+	armor_type_1 = /obj/item/mod/armor/mod_theme_ninja
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flag_2_flags = RAD_PROTECT_CONTENTS_2
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	slowdown_inactive = 1
+	slowdown_active = 0.3
+	ui_theme = "syndicate"
+	allowed_suit_storage = list(
+		/obj/item/katana/energy,
+		/obj/item/wormhole_jaunter/ninja_bomb,
+		/obj/item/throwing_star,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/gun,
+		/obj/item/ninja_scanner,
+	)
+	skins = list(
+		"ninja" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE | BLOCKHAIR,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK | HIDEEYES | HIDEEARS | HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH,
+				SEALED_COVER = HEADCOVERSEYES,
+				CAN_OVERSLOT = TRUE,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT | HIDETAIL,
+				CAN_OVERSLOT = TRUE,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/mod_theme_ninja
+
+	armor = list(MELEE = 50, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 25, RAD = 200, FIRE = INFINITY, ACID = INFINITY)

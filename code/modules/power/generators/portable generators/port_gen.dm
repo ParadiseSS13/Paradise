@@ -17,9 +17,9 @@
 	. = ..()
 	if(!in_range(user, src))
 		if(active)
-			. += "<span class='notice'>The generator is on.</span>"
+			. += SPAN_NOTICE("The generator is on.")
 		else
-			. += "<span class='notice'>The generator is off.</span>"
+			. += SPAN_NOTICE("The generator is off.")
 
 /obj/machinery/power/port_gen/process()
 	if(anchored && powernet && active && has_fuel() && !is_broken())

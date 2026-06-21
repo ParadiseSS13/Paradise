@@ -8,9 +8,12 @@ import { storage } from 'common/storage';
 import DOMPurify from 'dompurify';
 
 import {
+  addBlacklistSetting,
   addHighlightSetting,
   loadSettings,
+  removeBlacklistSetting,
   removeHighlightSetting,
+  updateBlacklistSetting,
   updateHighlightSetting,
   updateSettings,
 } from '../settings/actions';
@@ -180,11 +183,15 @@ export const chatMiddleware = (store) => {
       type === loadSettings.type ||
       type === addHighlightSetting.type ||
       type === removeHighlightSetting.type ||
-      type === updateHighlightSetting.type
+      type === updateHighlightSetting.type ||
+      type === addBlacklistSetting.type ||
+      type === removeBlacklistSetting.type ||
+      type === updateBlacklistSetting.type
     ) {
       next(action);
       const settings = selectSettings(store.getState());
       chatRenderer.setHighlight(settings.highlightSettings, settings.highlightSettingById);
+      chatRenderer.setBlacklist(settings.blacklistSettings, settings.blacklistSettingById);
       return;
     }
     if (type === 'roundrestart') {

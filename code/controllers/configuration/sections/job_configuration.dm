@@ -1,5 +1,11 @@
 /// Config holder for all job related things
 /datum/configuration_section/job_configuration
+	/// Will the crew be given extended access if the manifest count is low enough?
+	var/allow_skeleton_crew_access = TRUE
+	/// Number of crew on the manifest needed to activate skeleton crew access
+	var/skeleton_crew_threshold = 30
+	/// Number of crew on the manifest needed to disable skeleton crew access
+	var/skeleton_crew_escape_threshold = 35
 	/// Do we want to restrict jobs based on account age
 	var/restrict_jobs_on_account_age = FALSE
 	/// Allow admins to bypass age-based job restrictions
@@ -29,6 +35,9 @@
 
 /datum/configuration_section/job_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
+	CONFIG_LOAD_BOOL(allow_skeleton_crew_access, data["allow_skeleton_crew_access"])
+	CONFIG_LOAD_NUM(skeleton_crew_threshold, data["skeleton_crew_threshold"])
+	CONFIG_LOAD_NUM(skeleton_crew_escape_threshold, data["skeleton_crew_escape_threshold"])
 	CONFIG_LOAD_BOOL(restrict_jobs_on_account_age, data["restrict_jobs_on_account_age"])
 	CONFIG_LOAD_BOOL(restrict_jobs_on_account_age_admin_bypass, data["restrict_jobs_on_account_age_admin_bypass"])
 	CONFIG_LOAD_BOOL(enable_exp_tracking, data["enable_exp_tracking"])

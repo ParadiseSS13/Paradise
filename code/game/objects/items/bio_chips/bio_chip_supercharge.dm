@@ -9,7 +9,7 @@
 
 /obj/item/bio_chip/supercharge/activate()
 	uses--
-	to_chat(imp_in, "<span class='notice'>You feel an electric sensation as your components enter overdrive!</span>")
+	to_chat(imp_in, SPAN_NOTICE("You feel an electric sensation as your components enter overdrive!"))
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
 	imp_in.SetKnockDown(0)

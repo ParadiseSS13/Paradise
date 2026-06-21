@@ -266,6 +266,10 @@
 	name = "Colonel REAL_NAME"
 	desc = "Keep away from live vox."
 
+/datum/dog_fashion/head/fried_nian_empty
+	name = "Colonel REAL_NAME"
+	desc = "Keep away from live nianae."
+
 /datum/dog_fashion/head/hos
 	name = "Head of Security REAL_NAME"
 	desc = "Probably better than the last HoS."

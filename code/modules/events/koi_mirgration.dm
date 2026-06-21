@@ -1,4 +1,5 @@
 /datum/event/carp_migration/koi
+	name =  "Koi School"
 	spawned_mobs = list(
 	/mob/living/simple_animal/hostile/retaliate/carp/koi = 98,
 	/mob/living/simple_animal/hostile/retaliate/carp/koi/honk = 2)

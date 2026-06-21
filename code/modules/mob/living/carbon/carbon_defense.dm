@@ -11,7 +11,7 @@
 
 			throw_mode_off()
 			put_in_active_hand(AM)
-			visible_message("<span class='warning'>[src] catches [AM]!</span>")
+			visible_message(SPAN_WARNING("[src] catches [AM]!"))
 			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 			return TRUE
 	return ..()
@@ -22,6 +22,7 @@
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
+	. = ..()
 	if(!iscarbon(user))
 		return
 
@@ -50,7 +51,7 @@
 			apply_damage(M.powerlevel * 5, STAMINA) //5-50 stamina damage, at starting power level 10 this means 50, 35, 20 on consecutive hits - stamina crit in 3 hits
 			KnockDown(M.powerlevel SECONDS)
 			Stuttering(M.powerlevel SECONDS)
-			visible_message("<span class='danger'>[M] has shocked [src]!</span>", "<span class='userdanger'>[M] has shocked you!</span>")
+			visible_message(SPAN_DANGER("[M] has shocked [src]!"), SPAN_USERDANGER("[M] has shocked you!"))
 			M.powerlevel -= 3
 			if(M.powerlevel < 0)
 				M.powerlevel = 0

@@ -67,6 +67,33 @@
 		PCWJ_ADD_ITEM(/obj/item/organ/internal/brain),
 	)
 
+/datum/cooking/recipe_step/add_item/kidan/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/kidan))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/bug_bar
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/bug_bar
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/kidan(),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe/bug_burger
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/bug_burger
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_ADD_ITEM(/obj/item/food/bug_bar),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/cheeseburger
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/cheese
@@ -158,7 +185,7 @@
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/bun),
-		PCWJ_ADD_ITEM(/obj/item/robot_parts/head),
+		new /datum/cooking/recipe_step/add_item/robot_head(),
 	)
 
 /datum/cooking/recipe/hotdog
@@ -354,6 +381,42 @@
 		PCWJ_ADD_ITEM(/obj/item/food/tofu),
 	)
 
+/datum/cooking/recipe_step/add_item/slime/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/slime))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/turkish_delight
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/turkish_delight
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/slime(),
+	)
+	appear_in_default_catalog = FALSE
+
+/datum/cooking/recipe_step/add_item/machine/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/organ/external/external = added_item
+	if(!istype(external))
+		return PCWJ_CHECK_INVALID
+
+	if(istype(external.dna.species, /datum/species/machine))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe/wafers
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/wafers
+	steps = list(
+		new /datum/cooking/recipe_step/add_item/machine(),
+	)
+	appear_in_default_catalog = FALSE
+
 /datum/cooking/recipe/xenoburger
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/burger/xeno
@@ -411,6 +474,88 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 		PCWJ_ADD_ITEM(/obj/item/food/meatsteak),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard, exact = TRUE),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/plasma_glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich/plasma
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard/plasma),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/plastitanium_glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich/plasma/plastitanium
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard/plastitanium),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/// A step that allows either direct adding of a supermatter sliver
+/// (if you have somehow manage to hold one), or
+/// from tongs if those are used and contain a sliver in them.
+/datum/cooking/recipe_step/add_item/supermatter_sliver
+
+/datum/cooking/recipe_step/add_item/supermatter_sliver/check_conditions_met(obj/added_item, datum/cooking/recipe_tracker/tracker)
+	var/obj/item/retractor/supermatter/tongs = added_item
+	if(istype(tongs) && tongs.sliver)
+		return PCWJ_CHECK_VALID
+
+	var/obj/item/nuke_core/supermatter_sliver/sliver = added_item
+	if(istype(sliver))
+		return PCWJ_CHECK_VALID
+
+	return PCWJ_CHECK_INVALID
+
+/datum/cooking/recipe_step/add_item/supermatter_sliver/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
+	var/obj/item/retractor/supermatter/tongs = used_item
+	if(istype(tongs) && tongs.sliver)
+		. = ..(tongs.sliver, tracker, user)
+		// TODO: refactor the tongs so they actually check if(sliver) in `update_icon()` instead of manually setting the icons everywhere.
+		tongs.sliver = null
+		tongs.update_appearance(UPDATE_ICON_STATE)
+	else
+		. = ..()
+
+/datum/cooking/recipe_step/add_item/supermatter_sliver/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
+	var/obj/item/container = locateUID(tracker.container_uid)
+	if(!istype(container))
+		return FALSE
+
+	var/obj/item/retractor/supermatter/tongs = added_item
+	if(istype(tongs))
+		for(var/obj/item/nuke_core/supermatter_sliver/sliver in container.contents)
+			if(istype(sliver))
+				return TRUE
+
+	return ..()
+
+/datum/cooking/recipe_step/add_item/supermatter_sliver/get_pda_formatted_desc()
+	return "Add a sliver of a supermatter crystal."
+
+/datum/cooking/recipe/supermatter_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/supermatter_sandwich
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		new /datum/cooking/recipe_step/add_item/supermatter_sliver(),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
 
@@ -473,7 +618,7 @@
 	product_type = /obj/item/food/jelliedtoast/cherry
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
 		PCWJ_ADD_REAGENT("cherryjelly", 5),
 	)
 
@@ -482,7 +627,7 @@
 	product_type = /obj/item/food/jelliedtoast/slime
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
 		PCWJ_ADD_REAGENT("slimejelly", 5),
 	)
 
@@ -520,3 +665,74 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/tomato),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
+
+/datum/cooking/recipe/drytapioca_pearls
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/reagent_containers/food/drytapioca_pearls
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/tapiocadough)
+	)
+
+/datum/cooking/recipe/nothingburger
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/burger/nothing
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_ADD_REAGENT("nothing", 10),
+	)
+
+// ----------- Board recipes imported from Hispania!
+
+/datum/cooking/recipe/butter_dog
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/hotdog/butter
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/bun),
+		PCWJ_ADD_REAGENT("butter", 30),
+	)
+
+// Buttertoast //
+/datum/cooking/recipe/butter_toast
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/butter_toast
+	catalog_category = COOKBOOK_CATEGORY_BREAD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
+		PCWJ_ADD_REAGENT("butter", 5),
+	)
+
+/datum/cooking/recipe/avocadosandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/avocadosandwich
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/avocado),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/avocado),
+		PCWJ_ADD_REAGENT("mayonnaise", 10),
+		PCWJ_ADD_ITEM(/obj/item/food/toast),
+	)
+
+/datum/cooking/recipe/baconrolled
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/baconrolled
+	catalog_category = COOKBOOK_CATEGORY_SIDES
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/avocado),
+		PCWJ_ADD_ITEM(/obj/item/food/bacon),
+	)
+
+/datum/cooking/recipe/salmoncreamtoast
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/salmoncreamtoast
+	catalog_category = COOKBOOK_CATEGORY_SEAFOOD
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/baguette),
+		PCWJ_ADD_ITEM(/obj/item/food/smokedsalmon),
+		PCWJ_ADD_REAGENT("cream_cheese", 10),
+	)
+
+// ----------- END of recipe imports from Hispania!

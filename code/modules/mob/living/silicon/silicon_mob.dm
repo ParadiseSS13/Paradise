@@ -5,6 +5,7 @@
 	weather_immunities = list("ash")
 	mob_biotypes = MOB_ROBOTIC
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	initial_traits = list(TRAIT_RESISTHEAT)
 
 	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
 	// which would be converted to armor datum during initialization.
@@ -51,7 +52,7 @@
 	)
 
 	var/obj/item/silicon_hat
-	var/hat_offset_y = -3
+	var/hat_offsets = alist(SOUTH = list(0, -3), NORTH = list(0, -3), EAST = list(0, -3), WEST = list(0, -3))
 	/// For cyborgs with wide "heads", when false causes the hat icon to be stretched.
 	var/is_centered = FALSE
 	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
@@ -82,17 +83,13 @@
 	/// The delay used when toggling door bolts or electrification
 	var/door_bolt_delay = 3 SECONDS
 
-/mob/living/silicon/New()
-	GLOB.silicon_mob_list |= src
-	..()
-	add_language("Galactic Common")
-	init_subsystems()
-	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
-
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+	GLOB.silicon_mob_list |= src
+	for(var/hud_key, hud in GLOB.huds)
+		var/datum/atom_hud/data/diagnostic/diag_hud = hud
+		if(!istype(diag_hud))
+			continue
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
@@ -104,6 +101,10 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	regenerate_icons()
 
+	add_language("Galactic Common")
+	init_subsystems()
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -126,6 +127,9 @@
 	return FALSE
 
 /mob/living/silicon/proc/get_radio()
+	return
+
+/mob/living/silicon/proc/open_pda()
 	return
 
 /mob/living/silicon/proc/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
@@ -244,8 +248,8 @@
 		if(EMP_LIGHT)
 			take_organ_damage(10)
 	flash_eyes(affect_silicon = 1)
-	to_chat(src, "<span class='danger'>*BZZZT*</span>")
-	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
+	to_chat(src, SPAN_DANGER("*BZZZT*"))
+	to_chat(src, SPAN_WARNING("Warning: Electromagnetic pulse detected."))
 
 
 /mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
@@ -253,7 +257,7 @@
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+		to_chat(user, SPAN_ALERT("[p_their(TRUE)] outer shell is too tough."))
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
@@ -266,21 +270,21 @@
 		return
 	. = TRUE
 	if(!getBruteLoss())
-		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+		to_chat(user, SPAN_NOTICE("Nothing to fix!"))
 		return
 	else if(!getBruteLoss(TRUE))
-		to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+		to_chat(user, SPAN_WARNING("The damaged components are beyond saving!"))
 		return
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 	adjustBruteLoss(-30)
 	add_fingerprint(user)
-	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
+	user.visible_message(SPAN_ALERT("[user] patches some dents on [src] with [I]."))
 
 
-/mob/living/silicon/bullet_act(obj/item/projectile/Proj)
+/mob/living/silicon/bullet_act(obj/projectile/Proj)
 	if(!Proj.nodamage)
-		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armour_penetration_flat, Proj.armour_penetration_percentage)
+		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armor_penetration_flat, Proj.armor_penetration_percentage)
 		switch(Proj.damage_type)
 			if(BRUTE)
 				adjustBruteLoss(damage)
@@ -305,19 +309,19 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			bonus_damage = H.physiology.melee_bonus
-		var/damage = run_armor(I.force + bonus_damage, I.damtype, MELEE, 0, I.armour_penetration_flat, I.armour_penetration_percentage)
+		var/damage = run_armor(I.force + bonus_damage, I.damtype, MELEE, 0, I.armor_penetration_flat, I.armor_penetration_percentage)
 		apply_damage(damage, I.damtype, def_zone)
 
 ///returns the damage value of the attack after processing the silicons's various armor protections
-/mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+/mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
-	var/armor_protection = 0
+	var/armor_protection
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
-	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
+	if(armor_protection > 0)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp(armor_protection * (100 - armor_penetration_percentage) / 100 - armor_penetration_flat, 0, 100)
+	return round(damage_amount * (100 - armor_protection) / 100, DAMAGE_PRECISION)
 
 /mob/living/silicon/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
 	return FALSE //The only effect that can hit them atm is flashes and they still directly edit so this works for now
@@ -388,7 +392,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose = tgui_input_text(usr, "This is [src]. It...", "Pose", pose)
+	pose = tgui_input_text(usr, "This is [src]. [p_they()]...", "Pose", pose)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
@@ -428,7 +432,7 @@
 	janisensor.add_hud_to(src)
 
 /mob/living/silicon/proc/toggle_sensor_mode()
-	to_chat(src, "<span class='notice'>Please select sensor type.</span>")
+	to_chat(src, SPAN_NOTICE("Please select sensor type."))
 	var/static/list/sensor_choices = list("Security" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "securityhud"),
 							"Medical" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "healthhud"),
 							"Diagnostic" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "diagnostichud"),
@@ -441,26 +445,26 @@
 	switch(sensor_type)
 		if("Security")
 			add_sec_hud()
-			to_chat(src, "<span class='notice'>Security records overlay enabled.</span>")
+			to_chat(src, SPAN_NOTICE("Security records overlay enabled."))
 		if("Medical")
 			add_med_hud()
-			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
+			to_chat(src, SPAN_NOTICE("Life signs monitor overlay enabled."))
 		if("Diagnostic")
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+			to_chat(src, SPAN_NOTICE("Robotics diagnostic overlay enabled."))
 		if("Janitor")
 			add_jani_hud()
-			to_chat(src, "<span class='notice'>Janitorial filth overlay enabled.</span>")
+			to_chat(src, SPAN_NOTICE("Janitorial filth overlay enabled."))
 		if("None")
 			to_chat(src, "Sensor augmentations disabled.")
 
-/mob/living/silicon/adjustToxLoss(amount)
+/mob/living/silicon/adjustToxLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, flash_type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(affect_silicon)
 		return ..()
 
@@ -496,8 +500,8 @@
 		return
 	var/image/head_icon
 
-	if(silicon_hat.icon_override)
-		hat_icon_file = silicon_hat.icon_override
+	if(silicon_hat.worn_icon)
+		hat_icon_file = silicon_hat.worn_icon
 	if(!hat_icon_state)
 		hat_icon_state = silicon_hat.icon_state
 	if(isnull(hat_alpha))
@@ -513,9 +517,20 @@
 	if(!(hat_icon_file || hat_icon_state))
 		return
 	var/image/borgI = image(hat_icon_file, hat_icon_state)
+	if(hat_offsets[SOUTH][1] == hat_offsets[NORTH][1] && hat_offsets[SOUTH][1] == hat_offsets[EAST][1] && hat_offsets[SOUTH][1] == hat_offsets[WEST][1] && \
+			hat_offsets[SOUTH][2] == hat_offsets[NORTH][2] && hat_offsets[SOUTH][2] == hat_offsets[EAST][2] && hat_offsets[SOUTH][2] == hat_offsets[WEST][2])
+		borgI.pixel_x = hat_offsets[SOUTH][1]
+		borgI.pixel_y = hat_offsets[SOUTH][2]
+	else
+		var/icon/temp_icon = icon(borgI.icon, borgI.icon_state)
+		for(var/dir in GLOB.cardinal)
+			var/icon/dir_image = icon(borgI.icon, borgI.icon_state)
+			dir_image.Shift(WEST, hat_offsets[dir][1])
+			dir_image.Shift(NORTH, hat_offsets[dir][2])
+			temp_icon.Insert(dir_image, dir = dir)
+		borgI = image(temp_icon)
 	borgI.alpha = hat_alpha
 	borgI.color = hat_color
-	borgI.pixel_y = hat_offset_y
 	if(!is_centered)
 		borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 	return borgI
@@ -534,38 +549,76 @@
 
 	if(!item_to_add)
 		user.visible_message(
-			"<span class='notice'>[user] pats [src] on the head.</span>",
-			"<span class='notice'>You pat [src] on the head.</span>")
+			SPAN_NOTICE("[user] pats [src] on the head."),
+			SPAN_NOTICE("You pat [src] on the head."))
 		return FALSE
 
 	if(!istype(item_to_add, /obj/item/clothing/head))
-		to_chat(user, "<span class='warning'>[item_to_add] cannot be worn on the head by [src]!</span>")
+		to_chat(user, SPAN_WARNING("[item_to_add] cannot be worn on the head by [src]!"))
 		return FALSE
 
 	if(!can_be_hatted)
-		to_chat(user, "<span class='notice'>No matter how hard you try you don't seem to be able to put a hat on [src]!</span>")
+		to_chat(user, SPAN_NOTICE("No matter how hard you try you don't seem to be able to put a hat on [src]!"))
 		return FALSE
 
 	if(silicon_hat)
-		to_chat(user, "<span class='warning'>[src] can't wear more than one hat!</span>")
+		to_chat(user, SPAN_WARNING("[src] can't wear more than one hat!"))
 		return FALSE
 
 	if(!can_wear_restricted_hats && is_type_in_list(item_to_add, restricted_hats))
-		to_chat(user, "<span class='warning'>[item_to_add] does not fit on the head of [src]!</span>")
+		to_chat(user, SPAN_WARNING("[item_to_add] does not fit on the head of [src]!"))
 		return FALSE
 
 	if(!user.transfer_item_to(item_to_add, src))
-		to_chat(user, "<span class='warning'>[item_to_add] is stuck to your hand, you cannot put it on [src]!</span>")
+		to_chat(user, SPAN_WARNING("[item_to_add] is stuck to your hand, you cannot put it on [src]!"))
 		return FALSE
 
 	user.visible_message(
-		"<span class='notice'>[user] puts [item_to_add] on [real_name].</span>",
-		"<span class='notice'>You put [item_to_add] on [real_name].</span>"
+		SPAN_NOTICE("[user] puts [item_to_add] on [real_name]."),
+		SPAN_NOTICE("You put [item_to_add] on [real_name].")
 	)
 	silicon_hat = item_to_add
+	var/datum/action/A = new /datum/action/innate/drop_silicon_hat(src)
+	A.Grant(src)
 	update_icons()
 
 	return TRUE
+
+/datum/action/innate/drop_silicon_hat
+	name = "Drop hat"
+	desc = "Discard your hat onto the ground."
+
+/datum/action/innate/drop_silicon_hat/apply_button_overlay(atom/movable/screen/movable/action_button/current_button)
+	current_button.cut_overlays()
+	var/mob/living/silicon/S = owner
+	button_icon = S.silicon_hat.icon
+	button_icon_state = S.silicon_hat.icon_state
+	if(button_icon && button_icon_state)
+		var/image/img = image(button_icon, current_button, "scan_mode")
+		img.appearance_flags = RESET_COLOR | RESET_ALPHA
+		current_button.overlays += img
+
+/datum/action/innate/drop_silicon_hat/Activate()
+	var/mob/living/silicon/S = owner
+	// Sillycones will not escape from the wrath of the shamebrero!
+	if(S.silicon_hat.flags & NODROP)
+		to_chat(S, SPAN_WARNING("[S.silicon_hat] is stuck to your head! It is impossible to remove!"))
+		return
+
+	if(is_ai(S))
+		S.visible_message(
+			SPAN_NOTICE("[S] ejects [S.silicon_hat] from [S.p_their()] hat storage area."),
+			SPAN_NOTICE("You eject [S.silicon_hat] from your hat storage area."),
+			SPAN_NOTICE("You hear a quiet pneumatic hiss followed by something landing on the floor.")
+		)
+	else
+		S.visible_message(
+			SPAN_NOTICE("[S] shakes [S.silicon_hat] off [S.p_their()] head."),
+			SPAN_NOTICE("You shake [S.silicon_hat] off your head."),
+			SPAN_NOTICE("You hear something land on the floor.")
+		)
+	S.drop_hat()
+	Remove(owner)
 
 /**
   * Attempts to remove any hats a silicon is wearing.
@@ -576,15 +629,20 @@
   */
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(!silicon_hat)
-		to_chat(user, "<span class='warning'>[src] isn't wearing anything on their head!</span>")
+		to_chat(user, SPAN_WARNING("[src] isn't wearing anything on their head!"))
 		return FALSE
 	if(silicon_hat.flags & NODROP)
-		to_chat(user, "<span class='warning'>[silicon_hat.name] is stuck on [src]'s head, it is impossible to remove!</span>")
+		to_chat(user, SPAN_WARNING("[silicon_hat] is stuck on [src]'s head, it is impossible to remove!"))
 		return FALSE
 
-	to_chat(user, "<span class='warning'>You remove [silicon_hat.name] from [src]'s head.</span>")
+	user.visible_message(
+		SPAN_WARNING("[user] removes [silicon_hat] from [src]'s head!"),
+		SPAN_WARNING("You remove [silicon_hat] from [src]'s head!")
+	)
 	user.put_in_hands(silicon_hat)
-
+	for(var/datum/action/A in src.actions)
+		if(A.name == "Drop hat")
+			A.Remove(src)
 	null_hat()
 	update_icons()
 
@@ -599,6 +657,7 @@
 
 /mob/living/silicon/proc/null_hat()
 	silicon_hat = null
+	hat_icon_file = initial(hat_icon_file)
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null
@@ -606,8 +665,11 @@
 /mob/living/silicon/examine(mob/user)
 	. = ..()
 	if(silicon_hat)
-		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
+		. += "<span class='notice'>[p_they(TRUE)] [p_are()] wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
 		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
 
 /mob/living/silicon/plushify(plushie_override, curse_time)
 	. = ..(/obj/item/toy/plushie/borgplushie, curse_time)
+
+/mob/living/silicon/rust_heretic_act()
+	adjustBruteLoss(75)

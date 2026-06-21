@@ -163,7 +163,7 @@
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[desc_flavor]</span>"
+	. += SPAN_NOTICE("[desc_flavor]")
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 // Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
@@ -204,7 +204,7 @@
 			biomass += MEAT_BIOMASS_VALUE
 			show_message = TRUE
 	if(show_message)
-		visible_message("<span class='notice'>[src] sucks in nearby biomass.</span>")
+		visible_message(SPAN_NOTICE("[src] sucks in nearby biomass."))
 
 	//If we're cloning someone, we haven't generated a list of limbs to grow, and we're before any possibility of not having any limbs left to grow.
 	if(currently_cloning && !length(limbs_to_grow) && clone_progress < 20)
@@ -272,12 +272,14 @@
 						return
 
 					var/list/EO_path = clone.dna.species.has_limbs[current_limb]["path"]
-					var/obj/item/organ/external/EO = new EO_path(clone) //Passing a human to a limb's New() proc automatically attaches it
+					var/obj/item/organ/external/EO = new EO_path(clone, clone) // Passing a human to a limb's Initialize() proc automatically attaches it
 					desc_flavor = "You see \a [EO.name] growing from [clone]'[clone.p_s()] [EO.amputation_point]."
 					current_limb = null
 					EO.brute_dam = desired_data.limbs[EO.limb_name][1]
 					EO.burn_dam = desired_data.limbs[EO.limb_name][2]
 					EO.status = desired_data.limbs[EO.limb_name][3]
+					if(EO.status & ORGAN_BROKEN)
+						EO.create_fracture_wound()
 					clone.adjustCloneLoss(4 / speed_modifier)
 					clone.regenerate_icons()
 					return
@@ -327,7 +329,10 @@
 			limb.brute_dam = desired_data.limbs[active_limb_name][1]
 			limb.burn_dam = desired_data.limbs[active_limb_name][2]
 			limb.status = desired_data.limbs[active_limb_name][3]
+			if(limb.status & ORGAN_BROKEN)
+				limb.create_fracture_wound()
 			continue
+
 		if(length(limb.children)) //This doesn't support having a vital organ inside a child of a limb that itself isn't vital.
 			for(var/obj/item/organ/external/child in limb.children) //Future coders, if you want to add a species with its brain in its hand or something, change this
 				child.remove(null, TRUE)
@@ -353,6 +358,8 @@
 
 		organ.damage = desired_data.organs[candidate_for_insertion][1]
 		organ.status = desired_data.organs[candidate_for_insertion][2]
+	for(var/datum/quirk/quirk as anything in patient_data.quirks)
+		quirk.apply_quirk_effects(clone)
 
 	clone.updatehealth("droplimb")
 	clone.regenerate_icons()
@@ -380,8 +387,8 @@
 		clone.grab_ghost()
 		clone.update_revive()
 		REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
-		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
-		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
+		to_chat(clone, SPAN_USERDANGER("You remember nothing from the time that you were dead!"))
+		to_chat(clone, SPAN_NOTICE("There's a bright flash of light, and you take your first breath once more."))
 
 		reset_cloning()
 		return TRUE
@@ -398,8 +405,8 @@
 	clone.grab_ghost()
 	clone.update_revive()
 	REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
-	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
-	to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
+	to_chat(clone, SPAN_USERDANGER("You remember nothing from the time that you were dead!"))
+	to_chat(clone, SPAN_DANGER("You're ripped out of blissful oblivion! You feel like shit."))
 
 	reset_cloning()
 	return TRUE
@@ -500,28 +507,28 @@
 		stored_organs++
 
 	if(stored_organs >= organ_storage_capacity)
-		to_chat(inserter, "<span class='warning'>[src]'s organ storage is full!</span>")
+		to_chat(inserter, SPAN_WARNING("[src]'s organ storage is full!"))
 		return
 
 	if(is_internal_organ(inserted))
 		if(is_type_in_list(inserted, FORBIDDEN_INTERNAL_ORGANS))
-			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+			to_chat(inserter, SPAN_WARNING("[src] refuses [inserted]."))
 			return
 		if(is_type_in_list(inserted, UPGRADE_LOCKED_ORGANS) && speed_modifier < 4) //if our manipulators aren't fully upgraded
-			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+			to_chat(inserter, SPAN_WARNING("[src] refuses [inserted]."))
 			return
 		if(inserted.status & ORGAN_ROBOT && speed_modifier == 1) //if our manipulators aren't upgraded at all
-			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+			to_chat(inserter, SPAN_WARNING("[src] refuses [inserted]."))
 			return
 
 	if(is_external_organ(inserted))
 		if(is_type_in_list(inserted, FORBIDDEN_LIMBS))
-			to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+			to_chat(inserter, SPAN_WARNING("[src] refuses [inserted]."))
 			return
 		var/obj/item/organ/external/EO = inserted
 		if(length(EO.children))
 			if((stored_organs + 1 + length(EO.children)) > organ_storage_capacity)
-				to_chat(inserter, "<span class='warning'>You can't fit all of [inserted] into [src]'s organ storage!</span>")
+				to_chat(inserter, SPAN_WARNING("You can't fit all of [inserted] into [src]'s organ storage!"))
 				return
 			has_children = TRUE
 			for(var/obj/item/organ/external/child in EO.children)
@@ -531,7 +538,7 @@
 				EO.compile_icon()
 
 	if(is_type_in_list(inserted, ALLOWED_ROBOT_PARTS) && speed_modifier == 1) //if our manipulators aren't upgraded at all
-		to_chat(inserter, "<span class='warning'>[src] refuses [inserted].</span>")
+		to_chat(inserter, SPAN_WARNING("[src] refuses [inserted]."))
 		return
 
 	if(ismob(inserted.loc))
@@ -539,14 +546,14 @@
 		if(!M.get_active_hand() == inserted)
 			return //not sure how this would happen, but smartfridges check for it so
 		if(!M.unequip(inserted))
-			to_chat(inserter, "<span class='warning'>[inserted] is stuck to you!</span>")
+			to_chat(inserter, SPAN_WARNING("[inserted] is stuck to you!"))
 			return
 
 	inserted.forceMove(src)
-	to_chat(inserter, "<span class='notice'>You insert [inserted] into [src]'s organ storage.</span>")
+	to_chat(inserter, SPAN_NOTICE("You insert [inserted] into [src]'s organ storage."))
 	SStgui.try_update_ui(inserter, src)
 	if(has_children)
-		visible_message("<span class='notice'>There's a crunching sound as [src] breaks down [inserted] into discrete parts.</span>", "You hear a loud crunch.")
+		visible_message(SPAN_NOTICE("There's a crunching sound as [src] breaks down [inserted] into discrete parts."), "You hear a loud crunch.")
 
 /obj/machinery/clonepod/proc/get_stored_organ(organ)
 	for(var/obj/item/organ/external/EO in contents)
@@ -566,13 +573,13 @@
 
 	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
 		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, SPAN_WARNING("Access denied."))
 			return ITEM_INTERACT_COMPLETE
 
 		switch(tgui_alert(user, "Perform an emergency ejection of [src]?", "Cloning pod", list("Yes", "No")))
 			if("Yes")
 				eject_clone(TRUE) // GET OUT
-				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
+				to_chat(user, SPAN_WARNING("You force [src] to eject its clone!"))
 				log_admin("[key_name(user)] has activated a cloning pod's emergency eject at [COORD(src)] (clone: [key_name(clone)])")
 		return ITEM_INTERACT_COMPLETE
 

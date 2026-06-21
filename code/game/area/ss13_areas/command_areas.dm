@@ -1,6 +1,11 @@
 
 //Command
 
+/area/station/command
+	airlock_wires = /datum/wires/airlock/command
+	area_light_color = LIGHT_COLOR_STATION_WORK
+	area_nightlight_color = LIGHT_COLOR_STATION_WORK_NIGHT
+
 /area/station/command/bridge
 	name = "\improper Bridge"
 	icon_state = "bridge"
@@ -16,6 +21,10 @@
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Bridge"
 	request_console_announces = TRUE
+
+/area/station/command/office
+	area_light_color = LIGHT_COLOR_STATION_OFFICE
+	area_nightlight_color = LIGHT_COLOR_STATION_OFFICE_NIGHT
 
 /area/station/command/office/captain
 	name = "\improper Captain's Office"

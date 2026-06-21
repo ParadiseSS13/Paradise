@@ -15,6 +15,7 @@ GLOBAL_LIST_INIT(ruin_prototypes, list(/area/ruin,
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = RUINS_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/ruin/unpowered
 

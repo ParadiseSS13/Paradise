@@ -34,8 +34,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(gender, species = "Human", datum/robolimb/robohead)
-	var/h_style = "Bald"
+/proc/list_valid_hairstyles(species = "Human", datum/robolimb/robohead)
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
@@ -55,14 +54,14 @@
 		else //If the user is not a species who can have robotic heads, use the default handling.
 			if(species in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 				valid_hairstyles += hairstyle
+	return length(valid_hairstyles) ? sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) : list("Bald")
 
-	if(length(valid_hairstyles))
-		h_style = pick(valid_hairstyles)
+/proc/random_hair_style(species = "Human", datum/robolimb/robohead)
+	var/list/valid_hairstyles = list_valid_hairstyles(species, robohead)
 
-	return h_style
+	return pick(valid_hairstyles)
 
-/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
-	var/f_style = "Shaved"
+/proc/list_valid_facial_hairstyles(species = "Human", datum/robolimb/robohead)
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
 		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
@@ -83,10 +82,12 @@
 			if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
-	if(length(valid_facial_hairstyles))
-		f_style = pick(valid_facial_hairstyles)
+	return length(valid_facial_hairstyles) ? sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) : list("Shaved")
 
-	return f_style
+/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
+	var/list/valid_facial_hairstyles = list_valid_facial_hairstyles(species, robohead)
+
+	return pick(valid_facial_hairstyles)
 
 // it might be made species related, but it is pretty okay now
 /proc/random_hair_color(tint = TRUE, range)
@@ -127,8 +128,7 @@
 
 	return rgb(R, G, B)
 
-/proc/random_head_accessory(species = "Human")
-	var/ha_style = "None"
+/proc/list_valid_head_accessories(species = "Human")
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
 		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
@@ -137,13 +137,14 @@
 			continue
 		valid_head_accessories += head_accessory
 
-	if(length(valid_head_accessories))
-		ha_style = pick(valid_head_accessories)
+	return length(valid_head_accessories) ? sortTim(valid_head_accessories, GLOBAL_PROC_REF(cmp_text_asc)) : list("None")
 
-	return ha_style
+/proc/random_head_accessory(species = "Human")
+	var/list/valid_head_accessories = list_valid_head_accessories(species)
 
-/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
-	var/m_style = "None"
+	return pick(valid_head_accessories)
+
+/proc/list_valid_marking_styles(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
 		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
@@ -176,10 +177,23 @@
 					continue
 		valid_markings += marking
 
-	if(length(valid_markings))
-		m_style = pick(valid_markings)
+	return length(valid_markings) ? sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc)) : list("None")
 
-	return m_style
+/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
+	var/list/valid_markings = list_valid_marking_styles(location, species, robohead, body_accessory, alt_head)
+
+	return pick(valid_markings)
+
+/proc/list_valid_body_accessories(species = "Vulpkanin", is_optional = TRUE)
+	var/list/valid_body_accessories = list()
+	if(is_optional)
+		valid_body_accessories += null
+
+	if(GLOB.body_accessory_by_species[species])
+		for(var/name in GLOB.body_accessory_by_species[species])
+			valid_body_accessories += name
+
+	return length(valid_body_accessories) ? sortTim(valid_body_accessories, GLOBAL_PROC_REF(cmp_text_asc)) : null
 
 /**
   * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
@@ -189,13 +203,7 @@
   * * is_optional - Whether *no* body accessory (null) is an option.
  */
 /proc/random_body_accessory(species = "Vulpkanin", is_optional = TRUE)
-	var/list/valid_body_accessories = list()
-	if(is_optional)
-		valid_body_accessories += null
-
-	if(GLOB.body_accessory_by_species[species])
-		for(var/name in GLOB.body_accessory_by_species[species])
-			valid_body_accessories += name
+	var/list/valid_body_accessories = list_valid_body_accessories(species, is_optional)
 
 	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 
@@ -237,7 +245,7 @@
 		if("execute", SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
-				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized [SPAN_WARNING("EXECUTION")] for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
 		if("search", SEC_RECORD_STATUS_SEARCH)
@@ -245,7 +253,7 @@
 		if("monitor", SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
-			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to [SPAN_WARNING("DEMOTE")] for [their_rank] [their_name], with comment: [comment]")
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -485,18 +493,28 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_EMPTY(do_after_once_tracker)
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE, interaction_key = null)
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE, interaction_key = null, list/extra_checks = list(), allow_moving_target = FALSE)
 	if(!user || !target)
 		return
 
 	var/cache_key = "[user.UID()][target.UID()][special_identifier]"
 	if(GLOB.do_after_once_tracker[cache_key])
 		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
-		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
+		to_chat(user, SPAN_WARNING("[attempt_cancel_message]"))
 		return FALSE
+
+	extra_checks += CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)), interaction_key = interaction_key)
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks, interaction_key = interaction_key, allow_moving_target = allow_moving_target)
 	GLOB.do_after_once_tracker[cache_key] = FALSE
+
+// Please don't use this unless you absolutely need to. Just have a direct call to do_after_once whenever possible.
+/proc/interrupt_do_after_once(mob/user, atom/target, special_identifier)
+	var/cache_key = "[user.UID()][target.UID()][special_identifier]"
+	if(GLOB.do_after_once_tracker[cache_key])
+		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
+		return TRUE
+	return FALSE
 
 /proc/do_after_once_checks(cache_key)
 	if(GLOB.do_after_once_tracker[cache_key] && GLOB.do_after_once_tracker[cache_key] == DOAFTERONCE_MAGIC)
@@ -581,10 +599,10 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(!.)
 			. = M
 		else
-			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			to_chat(user, SPAN_WARNING("Multiple mobs in [A], using first mob found..."))
 			break
 	if(!.)
-		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
+		to_chat(user, SPAN_WARNING("No mob located in [A]."))
 
 // Suppress the mouse macros
 /mob/proc/LogMouseMacro(verbused, params)
@@ -814,3 +832,39 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(bypass_warning && length(limbs))
 			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
 	return (((chest_blacklisted && !base_zone) || even_weights) ? pickweight(limbs) : ran_zone(base_zone, base_probability, limbs))
+
+/proc/create_xeno(ckey, mob/user)
+	if(!ckey)
+		var/list/candidates = list()
+		for(var/mob/M in GLOB.player_list)
+			if(M.stat != DEAD)
+				continue //we are not dead!
+			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+				continue //we don't want to be an alium
+			if(jobban_isbanned(M, ROLE_ALIEN) || jobban_isbanned(M, ROLE_SYNDICATE))
+				continue //we are jobbanned
+			if(M.client.is_afk())
+				continue //we are afk
+			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
+				continue //we have a live body we are tied to
+			candidates += M.ckey
+		if(length(candidates))
+			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
+		else
+			to_chat(user, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>")
+	if(!istext(ckey))	return 0
+
+	var/alien_caste = input(user, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
+	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
+	var/mob/living/carbon/alien/new_xeno
+	switch(alien_caste)
+		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
+		if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
+		if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
+		if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
+		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
+		else			return 0
+
+	new_xeno.ckey = ckey
+	message_admins(SPAN_NOTICE("[key_name_admin(user)] has spawned [ckey] as a filthy xeno [alien_caste]."), 1)
+	return 1

@@ -140,7 +140,7 @@ export const DecalPainter = () => {
   const categoryStyles = availableStyles[selectedCategory];
 
   return (
-    <Window width={600} height={565}>
+    <Window width={650} height={565}>
       <Window.Content scrollable>
         <DecalPainterContext.Provider value={{ categoryStyles, removalMode }}>
           <Stack fill>

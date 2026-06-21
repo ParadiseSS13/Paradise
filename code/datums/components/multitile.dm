@@ -16,7 +16,7 @@
  */
 
 //distance_from_center does not include src itself
-/datum/component/multitile/Initialize(new_filler_map)
+/datum/component/multitile/Initialize(new_filler_map, dense_blocking_construction = FALSE)
 	if(!length(new_filler_map))
 		return COMPONENT_INCOMPATIBLE
 
@@ -33,8 +33,7 @@
 	for(var/i in 1 to length(new_filler_map))
 		if(length(new_filler_map[i] != max_width))
 			stack_trace("A multitile component was passed a list wich did not have the same length every row. Atom parent is: [parent]")
-			var/obj/machinery/machine = parent
-			machine.deconstruct()
+			decon_parent()
 			return COMPONENT_INCOMPATIBLE
 
 		for(var/j in 1 to length(new_filler_map[i]))
@@ -46,27 +45,33 @@
 	var/distance_from_center_y = (max_height - 1) / 2
 
 	if(owner.x - offset_x + distance_from_center_x > world.maxx || owner.x + offset_x - distance_from_center_x < 1)
-		var/obj/machinery/machine = parent
-		machine.deconstruct()
+		decon_parent()
 		return COMPONENT_INCOMPATIBLE
 
 	if(owner.y + offset_y + distance_from_center_y > world.maxy || owner.y - offset_y - distance_from_center_y < 1)
-		var/obj/machinery/machine = parent
-		machine.deconstruct()
+		decon_parent()
 		return COMPONENT_INCOMPATIBLE
 
 	var/current_height = 0
 	var/current_width = 1
 	var/tile_index = 1
 
-	for(var/turf/filler_turf as anything in block( 
+	for(var/turf/filler_turf as anything in block(
 	owner.x - offset_x - distance_from_center_x, owner.y + offset_y - distance_from_center_y, owner.z,
 	owner.x - offset_x + distance_from_center_x, owner.y + offset_y + distance_from_center_y, owner.z,
 	))
-		//Last check is for filler row lists of length 1.
+		// Last check is for filler row lists of length 1.
 		if(new_filler_map[max_height - current_height][current_width] == 1) // Because the `block()` proc always works from the bottom left to the top right, we have to loop through our list in reverse
+			if(dense_blocking_construction && filler_turf.is_blocked_turf())
+				// Turf blocked? No workey
+				decon_parent()
+				// Still instant but the code doesn't like it if you qdel(src) here
+				QDEL_IN(src, 1 DECISECONDS)
+				return // Not an incompatible component, just invalid construction
+
 			var/obj/structure/filler/new_filler = new(filler_turf)
 			all_fillers += new_filler
+			new_filler.parent = owner
 		current_width += 1
 		tile_index++
 		if(tile_index % max_width == 1)
@@ -78,3 +83,8 @@
 /datum/component/multitile/Destroy(force, silent)
 	QDEL_LIST_CONTENTS(all_fillers)
 	return ..()
+
+/datum/component/multitile/proc/decon_parent()
+	var/obj/machinery/machine = parent
+	machine.visible_message("[machine] is blocked from placement here!")
+	machine.deconstruct()

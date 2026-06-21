@@ -5,6 +5,7 @@
 	language = "Sol Common"
 	species_traits = list(LIPS)
 	skinned_type = /obj/item/stack/sheet/animalhide/human
+	meat_type = /obj/item/food/meat/human
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
@@ -14,7 +15,7 @@
 	making humans one of the most recognizable and socially diverse species in the sector."
 
 	/// Organized to be from Light to Dark.
-	icon_skin_tones = list(
+	icon_skin_tones = alist(
 		1 = "Default White",
 		2 = "Pale",
 		3 = "Classic",
@@ -62,6 +63,3 @@
 				new_icobase = 'icons/mob/human_races/human_skintones/r_human_pale.dmi'
 
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
-
-
-

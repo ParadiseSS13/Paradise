@@ -24,7 +24,7 @@
 
 /mob/living/simple_animal/hostile/guardian/charger/OpenFire(atom/A)
 	if(!charging)
-		visible_message("<span class='danger'>[src] [ranged_message] at [A]!</span>")
+		visible_message(SPAN_DANGER("[src] [ranged_message] at [A]!"))
 		ranged_cooldown = world.time + ranged_cooldown_time
 		clear_alert("charge")
 		chargealert = null
@@ -63,7 +63,7 @@
 					blocked = TRUE
 			if(!blocked)
 				L.KnockDown(2 SECONDS)
-				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] slams into you!</span>")
+				L.visible_message(SPAN_DANGER("[src] slams into [L]!"), SPAN_USERDANGER("[src] slams into you!"))
 				L.apply_damage(20, BRUTE)
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, 1)
 				shake_camera(L, 4, 3)

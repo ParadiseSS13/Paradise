@@ -123,6 +123,7 @@
 			traitor_datum.delayed_objectives = TRUE
 			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), random_time, TIMER_DELETE_ME)
 
+		traitor_datum.is_roundstart = TRUE
 		traitor.add_antag_datum(traitor_datum)
 
 	..()

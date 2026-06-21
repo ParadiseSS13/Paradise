@@ -11,7 +11,7 @@
 	name = "supply shuttle"
 	id = "supply"
 	callTime = 2 MINUTES
-	dir = 8
+	dir = WEST
 	width = 12
 	dwidth = 5
 	height = 7
@@ -22,7 +22,7 @@
 		"living creatures" = list(
 			/mob/living,
 			/obj/structure/blob,
-			/obj/structure/spider/spiderling,
+			/mob/living/basic/spiderling,
 			/obj/machinery/clonepod,
 			/obj/item/paicard),
 		"classified nuclear weaponry" = list(
@@ -41,7 +41,9 @@
 			/obj/machinery/the_singularitygen,
 			/obj/effect/hierophant,
 			/obj/item/warp_cube),
-		"undelivered mail" = list(/obj/item/envelope))
+		"undelivered mail" = list(/obj/item/envelope),
+		"live ordnance" = list(/obj/machinery/syndicatebomb)
+		)
 
 	// The current manifest of what's on the shuttle.
 	var/datum/economy/cargo_shuttle_manifest/manifest = new
@@ -75,7 +77,7 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port)
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port, force=FALSE, transit=FALSE)
 	. = ..()
 	if(.)
 		return
@@ -146,6 +148,23 @@
 		PC.update_icon()
 
 		SG.should_send_crate = FALSE
+	if(SSshuttle.shuttle_loan_UID)
+		var/datum/event/shuttle_loan/shuttle_loan = locateUID(SSshuttle.shuttle_loan_UID)
+		if(!shuttle_loan.dispatched)
+			return
+		// let the situation spawn its items
+		var/list/spawn_list = list()
+		shuttle_loan.situation.spawn_items(spawn_list, emptyTurfs)
+		var/false_positive = 0
+		while(spawn_list.len && emptyTurfs.len)
+			var/turf/spawn_turf = pick_n_take(emptyTurfs)
+			if(spawn_turf.contents.len && false_positive < 5)
+				false_positive++
+				continue
+			var/spawn_type = pick_n_take(spawn_list)
+			new spawn_type(spawn_turf)
+		// Clear the event so it doesn't cause a problem again
+		SSshuttle.shuttle_loan_UID = null
 
 /obj/docking_port/mobile/supply/proc/scan_cargo()
 	manifest = new
@@ -302,11 +321,11 @@
 		credit_changes[item.account] += item.credits
 
 		if(item.credits > 0)
-			msg += "<span class='good'>[item.account.account_name] +[item.credits]</span>: [item.reason]<br>"
+			msg += "[SPAN_GOOD("[item.account.account_name] +[item.credits]")]: [item.reason]<br>"
 		else if(item.credits == 0)
 			msg += "<span class='[item.zero_is_good ? "good" : "bad"]'>[item.account.account_name] Notice</span>: [item.reason]<br>"
 		else
-			msg += "<span class='bad'>[item.account.account_name] [item.credits]</span>: [item.reason]<br>"
+			msg += "[SPAN_BAD("[item.account.account_name] [item.credits]")]: [item.reason]<br>"
 
 		if(item.requests_console_department)
 			if(!department_messages[item.requests_console_department])

@@ -114,8 +114,8 @@
 
 		if(beingborged)
 			revolutionary.visible_message(
-				"<span class='userdanger'>The frame beeps contentedly, purging the hostile memory engram from the MMI before initalizing it.</span>",
-				"<span class='userdanger'>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]</span>")
+				SPAN_USERDANGER("The frame beeps contentedly, purging the hostile memory engram from the MMI before initalizing it."),
+				SPAN_USERDANGER("The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]"))
 			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 		else
 			var/class = activate_protection ? "biggerdanger" : "userdanger" // biggerdanger only shows up when protection happens (usually in a red-flood of combat text)
@@ -134,10 +134,10 @@
 /datum/game_mode/revolution/declare_completion()
 	if(finished == REV_VICTORY)
 		SSticker.mode_result = "revolution win - heads killed"
-		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
+		to_chat(world, SPAN_REDTEXT("The heads of staff were killed or exiled! The revolutionaries win!"))
 	else if(finished == STATION_VICTORY)
 		SSticker.mode_result = "revolution loss - rev heads killed"
-		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
+		to_chat(world, SPAN_REDTEXT("The heads of staff managed to stop the revolution!"))
 	..()
 	return TRUE
 
@@ -166,7 +166,7 @@
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
-				text += "<span class='boldannounceic'>Target</span>"
+				text += SPAN_BOLDANNOUNCEIC("Target")
 			text += printplayer(head, 1)
 		text += "<br>"
 		return text.Join("")

@@ -80,7 +80,7 @@
 	// insert cell
 	var/obj/item/stock_parts/cell/C = used
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 
 	component_parts += C
@@ -88,8 +88,8 @@
 	cell.forceMove(src)
 	C.add_fingerprint(user)
 	user.visible_message(
-		"<span class='notice'>[user] inserts a power cell into [src].</span>",
-		"<span class='notice'>You insert the power cell into [src].</span>"
+		SPAN_NOTICE("[user] inserts a power cell into [src]."),
+		SPAN_NOTICE("You insert the power cell into [src].")
 	)
 	return ITEM_INTERACT_COMPLETE
 
@@ -115,7 +115,7 @@
 
 /obj/machinery/space_heater/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I, 0)
-	return TRUE	
+	return TRUE
 
 /obj/machinery/space_heater/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
@@ -145,7 +145,7 @@
 
 	else
 		on = !on
-		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] switches [on ? "on" : "off"] [src]."),SPAN_NOTICE("You switch [on ? "on" : "off"] [src]."))
 		update_icon()
 	return
 
@@ -176,8 +176,8 @@
 				cell = null
 				RefreshParts()
 				usr.visible_message(
-					"<span class='notice'>[usr] removes the power cell from [src].</span>",
-					"<span class='notice'>You remove the power cell from [src].</span>"
+					SPAN_NOTICE("[usr] removes the power cell from [src]."),
+					SPAN_NOTICE("You remove the power cell from [src].")
 					)
 
 			if("cellinstall")
@@ -191,11 +191,11 @@
 							C.add_fingerprint(usr)
 
 							usr.visible_message(
-								"<span class='notice'>[usr] inserts a power cell into [src].</span>",
-								"<span class='notice'>You insert the power cell into [src].</span>"
+								SPAN_NOTICE("[usr] inserts a power cell into [src]."),
+								SPAN_NOTICE("You insert the power cell into [src].")
 								)
 						else
-							to_chat(usr, "<span class='warning'>[C] is stuck to your hand!</span>")
+							to_chat(usr, SPAN_WARNING("[C] is stuck to your hand!"))
 
 		updateDialog()
 	else

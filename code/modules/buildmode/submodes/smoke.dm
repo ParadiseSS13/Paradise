@@ -5,8 +5,8 @@
 
 /datum/buildmode_mode/smoke/show_help(mob/user)
 	var/list/messages = list(
-		"<span class='notice'>Left Click = Smoke 'em!</span>",
-		"<span class='notice'>Right Click on Tool Icon = Change Effect Type</span>",
+		SPAN_NOTICE("Left Click = Smoke 'em!"),
+		SPAN_NOTICE("Right Click on Tool Icon = Change Effect Type"),
 	)
 	to_chat(user, chat_box_notice(messages.Join("<br>")))
 

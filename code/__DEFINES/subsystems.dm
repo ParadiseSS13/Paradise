@@ -50,25 +50,28 @@
 #define INIT_ORDER_PROFILER	101
 #define INIT_ORDER_QUEUE 100 // Load this quickly so people cant queue skip
 #define INIT_ORDER_TITLE 99 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_GARBAGE 25
-#define INIT_ORDER_DBCORE 24
-#define INIT_ORDER_REDIS 23 // Make sure we dont miss any events
-#define INIT_ORDER_BLACKBOX 22
-#define INIT_ORDER_CLEANUP 21
-#define INIT_ORDER_INPUT 20
-#define INIT_ORDER_SOUNDS 19
-#define INIT_ORDER_INSTRUMENTS 18
-#define INIT_ORDER_RESEARCH 17 // SoonTM
-#define INIT_ORDER_VIS 16
-#define INIT_ORDER_STATION 15 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
-#define INIT_ORDER_EVENTS 14
-#define INIT_ORDER_JOBS 13
-#define INIT_ORDER_AI_MOVEMENT 12
-#define INIT_ORDER_AI_CONTROLLERS 11
-#define INIT_ORDER_TICKER 10
-#define INIT_ORDER_MAPPING 9
-#define INIT_ORDER_EARLY_ASSETS 8
-#define INIT_ORDER_ATOMS 7
+#define INIT_ORDER_GARBAGE 27
+#define INIT_ORDER_DBCORE 26
+#define INIT_ORDER_REDIS 25 // Make sure we dont miss any events
+#define INIT_ORDER_BLACKBOX 24
+#define INIT_ORDER_USER_VERBS 23
+#define INIT_ORDER_CLEANUP 22
+#define INIT_ORDER_INPUT 21
+#define INIT_ORDER_SOUNDS 20
+#define INIT_ORDER_INSTRUMENTS 19
+#define INIT_ORDER_RESEARCH 18 // SoonTM
+#define INIT_ORDER_VIS 17
+#define INIT_ORDER_STATION 16 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_EVENTS 15
+#define INIT_ORDER_JOBS 14
+#define INIT_ORDER_AI_MOVEMENT 13
+#define INIT_ORDER_AI_CONTROLLERS 12
+#define INIT_ORDER_TICKER 11
+#define INIT_ORDER_MAPPING 10
+#define INIT_ORDER_SPATIAL_GRID 9
+#define INIT_ORDER_AI_IDLE_CONTROLLERS 8
+#define INIT_ORDER_EARLY_ASSETS 7
+#define INIT_ORDER_ATOMS 6
 #define INIT_ORDER_MACHINES 5
 #define INIT_ORDER_HOLIDAY 4
 #define INIT_ORDER_IDLENPCS 3
@@ -97,6 +100,7 @@
 #define FIRE_PRIORITY_PING			10
 #define FIRE_PRIORITY_NIGHTSHIFT	10
 #define FIRE_PRIORITY_IDLE_NPC		10
+#define FIRE_PRIORITY_UNPLANNED_NPC	10
 #define FIRE_PRIORITY_CLEANUP		10
 #define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_RESEARCH		10 // SoonTM

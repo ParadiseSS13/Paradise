@@ -16,8 +16,8 @@
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_packs/misc/station_goal/bsa/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
-	P.special_enabled = TRUE
+	var/datum/supply_packs/engineering/bsa/P = SSeconomy.supply_packs["[/datum/supply_packs/engineering/bsa]"]
+	P.cost = 1500
 
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
@@ -38,7 +38,7 @@
 
 /obj/machinery/bsa/multitool_act(mob/living/user, obj/item/multitool/M)
 	M.buffer = src
-	to_chat(user, "<span class='notice'>You store linkage information in [M]'s buffer.</span>")
+	to_chat(user, SPAN_NOTICE("You store linkage information in [M]'s buffer."))
 	return TRUE
 
 /obj/machinery/bsa/back
@@ -61,16 +61,16 @@
 /obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/multitool/M)
 	. = TRUE
 	if(!M.buffer)
-		to_chat(user, "<span class='warning'>[M]'s buffer is empty!</span>")
+		to_chat(user, SPAN_WARNING("[M]'s buffer is empty!"))
 		return
 	if(istype(M.buffer,/obj/machinery/bsa/back))
 		back = M.buffer
 		M.buffer = null
-		to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
+		to_chat(user, SPAN_NOTICE("You link [src] with [back]."))
 	else if(istype(M.buffer,/obj/machinery/bsa/front))
 		front = M.buffer
 		M.buffer = null
-		to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
+		to_chat(user, SPAN_NOTICE("You link [src] with [front]."))
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)

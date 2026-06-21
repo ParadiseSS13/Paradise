@@ -31,9 +31,9 @@
 
 /obj/item/food/grown/carrot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!used.sharp)
-		return NONE
+		return ..()
 
-	to_chat(user, "<span class='notice'>You sharpen [src] into a shiv with [used].</span>")
+	to_chat(user, SPAN_NOTICE("You sharpen [src] into a shiv with [used]."))
 	var/obj/item/kitchen/knife/shiv/carrot/shiv = new ()
 	if(!remove_item_from_storage(user))
 		user.unequip(src)

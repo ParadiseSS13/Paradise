@@ -32,7 +32,7 @@
 		return ..()
 
 	if((isnull(linked_pos) || locked(user) != VENDOR_LOCKED) && istype(used, /obj/item/eftpos))
-		visible_message("<span class='notice'>[src] beeps as [user] links it to [used].</span>", "<span class='notice'>You hear something beep.</span>")
+		visible_message(SPAN_NOTICE("[src] beeps as [user] links it to [used]."), SPAN_NOTICE("You hear something beep."))
 		if(!isnull(linked_pos))
 			linked_pos.linked_vendors -= src
 		linked_pos = used
@@ -40,7 +40,7 @@
 		pos.linked_vendors += src
 		return ITEM_INTERACT_COMPLETE
 	else if(isnull(linked_pos))
-		to_chat(user, "<span class='warning'>You need to link a point of sale device first!</span>")
+		to_chat(user, SPAN_WARNING("You need to link a point of sale device first!"))
 		return ITEM_INTERACT_COMPLETE
 	else if(locked(user) == VENDOR_LOCKED)
 		return ..()
@@ -51,21 +51,21 @@
 /// Tries to add something to the vendor. can_wait returns INSERT_NEEDS_INPUT if it would wait for user input, quiet suppresses success messages, and bag is used when the item is being transferred from a storage item.
 /obj/machinery/economy/vending/custom/proc/try_add_stock(mob/living/user, obj/item/used, can_wait = TRUE, quiet = FALSE, obj/item/storage/bag = null)
 	if(istype(used, /obj/item/holder))
-		to_chat(user, "<span class='warning'>[used] wriggles out of your hands!</span>")
+		to_chat(user, SPAN_WARNING("[used] wriggles out of your hands!"))
 		user.drop_item_to_ground(used)
 		return INSERT_FAIL
 	if(isnull(bag) && !user.canUnEquip(used, FALSE))
-		to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
+		to_chat(user, SPAN_WARNING("\The [used] is stuck to your hand!"))
 		return INSERT_FAIL
 	else if(bag)
 		if(!Adjacent(user))
-			to_chat(user, "<span class='warning'>You can't reach [src] from here!</span>")
+			to_chat(user, SPAN_WARNING("You can't reach [src] from here!"))
 			return INSERT_FAIL
 		if(!user.is_holding(bag))
-			to_chat(user, "<span class='warning'>\The [bag] isn't in your hand anymore!</span>")
+			to_chat(user, SPAN_WARNING("\The [bag] isn't in your hand anymore!"))
 			return INSERT_FAIL
 		if(used.loc != bag)
-			to_chat(user, "<span class='warning'>\The [used] isn't in [bag] anymore!</span>")
+			to_chat(user, SPAN_WARNING("\The [used] isn't in [bag] anymore!"))
 			return INSERT_FAIL
 
 	for(var/datum/data/vending_product/physical/record in physical_product_records)
@@ -82,7 +82,7 @@
 					bag.remove_from_storage(used)
 				used.forceMove(src)
 				if(!quiet)
-					user.visible_message("<span class='notice'>[user] puts [used] into [src].</span>", "<span class='notice>'You put [used] into [src].</span>")
+					user.visible_message(SPAN_NOTICE("[user] puts [used] into [src]."), "<span class='notice>'You put [used] into [src].</span>")
 				return INSERT_DONE
 
 	if(!can_wait)
@@ -92,21 +92,21 @@
 	if(!isnum(price))
 		return INSERT_FAIL
 	if(!Adjacent(user))
-		to_chat(user, "<span class='warning'>You can't reach [src] from here!</span>")
+		to_chat(user, SPAN_WARNING("You can't reach [src] from here!"))
 		return INSERT_FAIL
 	if(isnull(bag))
 		if(!user.is_holding(used))
-			to_chat(user, "<span class='warning'>\The [used] isn't in your hand anymore!</span>")
+			to_chat(user, SPAN_WARNING("\The [used] isn't in your hand anymore!"))
 			return INSERT_FAIL
 		if(!user.canUnEquip(used, FALSE))
-			to_chat(user, "<span class='warning'>\The [used] is stuck to your hand!</span>")
+			to_chat(user, SPAN_WARNING("\The [used] is stuck to your hand!"))
 			return INSERT_FAIL
 	else
 		if(!user.is_holding(bag))
-			to_chat(user, "<span class='warning'>\The [bag] isn't in your hand anymore!</span>")
+			to_chat(user, SPAN_WARNING("\The [bag] isn't in your hand anymore!"))
 			return INSERT_FAIL
 		if(used.loc != bag)
-			to_chat(user, "<span class='warning'>\The [used] isn't in [bag] anymore!</span>")
+			to_chat(user, SPAN_WARNING("\The [used] isn't in [bag] anymore!"))
 			return INSERT_FAIL
 
 	var/datum/data/vending_product/physical/record = new(used.name, used.icon, used.icon_state)
@@ -120,7 +120,7 @@
 		bag.remove_from_storage(used)
 	used.forceMove(src)
 	if(!quiet)
-		user.visible_message("<span class='notice'>[user] puts [used] into [src].</span>", "<span class='notice'>You put [used] into [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] puts [used] into [src]."), SPAN_NOTICE("You put [used] into [src]."))
 	return INSERT_DONE
 
 /obj/machinery/economy/vending/custom/MouseDrop_T(atom/dragged, mob/user, params)
@@ -141,7 +141,7 @@
 
 		// result == INSERT_NEEDS_INPUT
 		if(inserted)
-			user.visible_message("<span class='notice'>[user] transfers some things from [bag] into [src].</span>", "<span class='notice'>You transfer some things from [bag] into [src].</span>")
+			user.visible_message(SPAN_NOTICE("[user] transfers some things from [bag] into [src]."), SPAN_NOTICE("You transfer some things from [bag] into [src]."))
 			// We've reported on our insertions so far, don't repeat it.
 			inserted = FALSE
 
@@ -151,19 +151,19 @@
 			break
 
 	if(inserted)
-		user.visible_message("<span class='notice'>[user] transfers everything from [bag] into [src].</span>", "<span class='notice'>You transfer everything from [bag] into [src].</span>")
+		user.visible_message(SPAN_NOTICE("[user] transfers everything from [bag] into [src]."), SPAN_NOTICE("You transfer everything from [bag] into [src]."))
 
 	return TRUE
 
 /obj/machinery/economy/vending/custom/crowbar_act(mob/user, obj/item/I)
 	if(!isnull(linked_pos) && locked(user) == VENDOR_LOCKED)
-		user.visible_message("<span class='notice'>[user] tries to pry [src] apart, but fails.</span>", "<span class='warning'>The lock on [src] resists your efforts to pry it apart.</span>")
+		user.visible_message(SPAN_NOTICE("[user] tries to pry [src] apart, but fails."), SPAN_WARNING("The lock on [src] resists your efforts to pry it apart."))
 		return TRUE
 	return ..()
 
 /obj/machinery/economy/vending/custom/wrench_act(mob/user, obj/item/I)
 	if(!isnull(linked_pos) && locked(user) == VENDOR_LOCKED)
-		user.visible_message("<span class='notice'>[user] tries to loosen the bolts on [src], but fails.</span>", "<span class='warning'>The lock on [src] is covering its bolts.</span>")
+		user.visible_message(SPAN_NOTICE("[user] tries to loosen the bolts on [src], but fails."), SPAN_WARNING("The lock on [src] is covering its bolts."))
 		return TRUE
 	return ..()
 

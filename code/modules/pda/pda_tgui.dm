@@ -79,6 +79,9 @@
 				if(A)
 					start_program(A)
 		if("Eject")//Ejects the cart, only done from hub.
+			// Do not eject the sillycone cart!
+			if(silicon_pda)
+				return
 			if(!isnull(cartridge))
 				var/obj/item/cartridge/C = cartridge
 				if(ismob(loc))

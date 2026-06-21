@@ -89,20 +89,20 @@
 
 /obj/machinery/atmospherics/portable/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(!in_range(src, user))
 		return
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	if(holding_tank)
-		to_chat(user, "<span class='notice'>You remove [holding_tank] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [holding_tank] from [src]."))
 		replace_tank(user, TRUE)
 
 /obj/machinery/atmospherics/portable/examine(mob/user)
 	. = ..()
 	if(holding_tank)
-		. += "<span class='notice'>\The [src] contains [holding_tank]. Alt-click [src] to remove it.</span>"
+		. += SPAN_NOTICE("\The [src] contains [holding_tank]. Alt-click [src] to remove it.")
 
 /obj/machinery/atmospherics/portable/return_analyzable_air()
 	return air_contents
@@ -127,7 +127,7 @@
 			var/obj/item/tank/T = used
 			user.drop_item()
 			if(holding_tank)
-				to_chat(user, "<span class='notice'>[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
+				to_chat(user, SPAN_NOTICE("[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"]."))
 				replace_tank(user, FALSE)
 			T.loc = src
 			holding_tank = T
@@ -141,20 +141,20 @@
 		return
 	if(connected_port)
 		disconnect()
-		to_chat(user, "<span class='notice'>You disconnect [name] from the port.</span>")
+		to_chat(user, SPAN_NOTICE("You disconnect [name] from the port."))
 		update_icon()
 	else
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
 		if(possible_port)
 			if(connect(possible_port))
 				on = FALSE
-				to_chat(user, "<span class='notice'>You connect [src] to the port.</span>")
+				to_chat(user, SPAN_NOTICE("You connect [src] to the port."))
 				update_icon()
 			else
-				to_chat(user, "<span class='notice'>[src] failed to connect to the port.</span>")
+				to_chat(user, SPAN_NOTICE("[src] failed to connect to the port."))
 				return
 		else
-			to_chat(user, "<span class='notice'>Nothing happens.</span>")
+			to_chat(user, SPAN_NOTICE("Nothing happens."))
 
 /obj/machinery/atmospherics/portable/attacked_by(obj/item/attacker, mob/living/user)
 	if(attacker.force < 10 && !(stat & BROKEN))

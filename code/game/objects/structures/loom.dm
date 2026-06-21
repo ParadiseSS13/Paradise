@@ -9,10 +9,14 @@
 	icon_state = "loom"
 	density = TRUE
 	anchored = TRUE
+	// TODO: should absolutely be keyed to tool speed but
+	// is just a constant for now for use in tests
+	var/disassemble_speed = 5 SECONDS
 
-/obj/structure/loom/attackby__legacy__attackchain(obj/item/I, mob/user)
+/obj/structure/loom/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(weave(I, user))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/structure/loom/crowbar_act(mob/user, obj/item/I)
@@ -20,7 +24,7 @@
 	if(!I.use_tool(src, user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(I.use_tool(src, user, disassemble_speed, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct(disassembled = TRUE)
 
@@ -40,17 +44,17 @@
 	if(!istype(W))
 		return FALSE
 	if(!anchored)
-		user.show_message("<span class='notice'>The loom needs to be wrenched down.</span>", 1)
+		user.show_message(SPAN_NOTICE("The loom needs to be wrenched down."), 1)
 		return FALSE
 	if(W.amount < FABRIC_PER_SHEET)
-		user.show_message("<span class='notice'>You need at least [FABRIC_PER_SHEET] units of fabric before using this.</span>", 1)
+		user.show_message(SPAN_NOTICE("You need at least [FABRIC_PER_SHEET] units of fabric before using this."), 1)
 		return FALSE
-	user.show_message("<span class='notice'>You start weaving [W] through the loom...</span>", 1)
+	user.show_message(SPAN_NOTICE("You start weaving [W] through the loom..."), 1)
 	if(do_after(user, W.pull_effort, target = src))
 		if(W.amount >= FABRIC_PER_SHEET)
 			new W.loom_result(drop_location())
 			W.use(FABRIC_PER_SHEET)
-			user.show_message("<span class='notice'>You weave [W] into a workable fabric.</span>", 1)
+			user.show_message(SPAN_NOTICE("You weave [W] into a workable fabric."), 1)
 	return TRUE
 
 #undef FABRIC_PER_SHEET

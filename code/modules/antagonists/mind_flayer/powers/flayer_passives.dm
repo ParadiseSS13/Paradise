@@ -350,11 +350,11 @@
 		ADD_TRAIT(owner, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
 		stored_invis = owner.invisibility
 		owner.set_invisible(SEE_INVISIBLE_LIVING)
-		to_chat(owner, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators activate.</span>")
+		to_chat(owner, SPAN_NOTICE("You feel a slight shiver as the cybernetic obfuscators activate."))
 
 /datum/mindflayer_passive/radio_jammer/on_remove()
 	QDEL_NULL(internal_jammer)
 	REMOVE_TRAIT(owner, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
 	if(stored_invis)
 		owner.set_invisible(stored_invis)
-	to_chat(owner, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators deactivate.</span>")
+	to_chat(owner, SPAN_NOTICE("You feel a slight shiver as the cybernetic obfuscators deactivate."))

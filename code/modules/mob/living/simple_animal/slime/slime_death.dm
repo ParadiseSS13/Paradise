@@ -28,6 +28,9 @@
 	set_stat(DEAD) //Temporarily set to dead for icon updates
 	regenerate_icons()
 	set_stat(CONSCIOUS)
+	if(holding_organ)
+		eject_organ()
+	underlays.Cut()
 
 	return ..(gibbed)
 

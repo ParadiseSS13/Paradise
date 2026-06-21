@@ -94,7 +94,7 @@
 		if(I.flags & ABSTRACT)
 			return
 		if(isprojectile(entered))
-			var/obj/item/projectile/P = entered
+			var/obj/projectile/P = entered
 			if(P.original != parent)
 				return
 	if(ismob(source))

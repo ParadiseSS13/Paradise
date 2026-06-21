@@ -81,7 +81,7 @@
 /atom/movable/screen/act_intent
 	name = "intent"
 	icon_state = "help"
-	screen_loc = ui_acti
+	screen_loc = UI_ACTI
 
 /atom/movable/screen/act_intent/Click(location, control, params)
 	if(ishuman(usr))
@@ -228,7 +228,7 @@
 /atom/movable/screen/zone_sel
 	name = "damage zone"
 	icon_state = "zone_sel"
-	screen_loc = ui_zonesel
+	screen_loc = UI_ZONESEL
 	var/overlay_file = 'icons/mob/zone_sel.dmi'
 	var/selecting = "chest"
 	var/static/list/hover_overlays_cache = list()
@@ -359,7 +359,7 @@
 	name = "crafting menu"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "craft"
-	screen_loc = ui_crafting
+	screen_loc = UI_CRAFTING
 
 /atom/movable/screen/craft/Click()
 	if(!isliving(usr))
@@ -371,7 +371,7 @@
 	name = "language menu"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "talk_wheel"
-	screen_loc = ui_language_menu
+	screen_loc = UI_LANGUAGE_MENU
 
 /atom/movable/screen/language_menu/Click()
 	var/mob/M = usr
@@ -519,19 +519,19 @@
 /atom/movable/screen/healths
 	name = "health"
 	icon_state = "health0"
-	screen_loc = ui_health
+	screen_loc = UI_HEALTH
 
 /atom/movable/screen/healths/alien
 	icon = 'icons/mob/screen_alien.dmi'
-	screen_loc = ui_alien_health
+	screen_loc = UI_ALIEN_HEALTH
 
 /atom/movable/screen/healths/bot
 	icon = 'icons/mob/screen_bot.dmi'
-	screen_loc = ui_borg_health
+	screen_loc = UI_BORG_HEALTH
 
 /atom/movable/screen/healths/robot
 	icon = 'icons/mob/screen_robot.dmi'
-	screen_loc = ui_borg_health
+	screen_loc = UI_BORG_HEALTH
 
 /atom/movable/screen/healths/corgi
 	icon = 'icons/mob/screen_corgi.dmi'
@@ -539,7 +539,7 @@
 /atom/movable/screen/healths/slime
 	icon = 'icons/mob/screen_slime.dmi'
 	icon_state = "slime_health0"
-	screen_loc = ui_slime_health
+	screen_loc = UI_SLIME_HEALTH
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healths/guardian
@@ -551,7 +551,7 @@
 /atom/movable/screen/healthdoll
 	name = "health doll"
 	icon_state = "healthdoll_DEAD"
-	screen_loc = ui_healthdoll
+	screen_loc = UI_HEALTHDOLL
 	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays
 
 /atom/movable/screen/healthdoll/Click()
@@ -563,7 +563,7 @@
 	name = "nutrition"
 	icon = 'icons/mob/screen_hunger.dmi'
 	icon_state = null
-	screen_loc = ui_nutrition
+	screen_loc = UI_NUTRITION
 
 /atom/movable/screen/component_button
 	var/atom/movable/screen/parent
@@ -578,4 +578,4 @@
 
 /atom/movable/screen/healths/stamina
 	icon_state = "stamina_0"
-	screen_loc = ui_stamina
+	screen_loc = UI_STAMINA

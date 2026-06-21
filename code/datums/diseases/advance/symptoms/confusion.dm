@@ -24,7 +24,7 @@ Bonus
 	level = 4
 	severity = 2
 	chem_treatments = list(
-		"synaptazine" = list("multiplier" = 0, "timer" = 0),
+		"synaptizine" = list("multiplier" = 0, "timer" = 0),
 		"ephedrine" = list("multiplier" = 0, "timer" = 0),
 		"methamphetamine" = list("multiplier" = 0, "timer" = 0),
 		"coffee" = list("multiplier" = 0.7, "timer" = 0),
@@ -34,10 +34,10 @@ Bonus
 /datum/symptom/confusion/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/carbon/M = A.affected_mob
 	if(prob(A.progress ** 2))
-		to_chat(M, "<span class='userdanger'>You can't think straight!</span>")
+		to_chat(M, SPAN_USERDANGER("You can't think straight!"))
 		M.AdjustConfused(16 SECONDS * unmitigated, bound_lower = 0, bound_upper = 200 SECONDS)
 
 	else
-		to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your mind blanks for a moment.")]</span>")
+		to_chat(M, SPAN_WARNING("[pick("Your head hurts.", "Your mind blanks for a moment.")]"))
 
 	return

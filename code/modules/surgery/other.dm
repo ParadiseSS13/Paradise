@@ -81,7 +81,7 @@
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected.status & ORGAN_INT_BLEEDING))
-		to_chat(user, "<span class='notice'>The veins in [affected] seem to be in perfect shape!</span>")
+		to_chat(user, SPAN_NOTICE("The veins in [affected] seem to be in perfect shape!"))
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
@@ -96,8 +96,8 @@
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'>You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
+		SPAN_NOTICE("[user] has patched the damaged vein in [target]'s [affected.name] with \the [tool]."),
+		SPAN_NOTICE("You have patched the damaged vein in [target]'s [affected.name] with \the [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -111,8 +111,8 @@
 /datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
-		"<span class='warning'>Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
+		SPAN_WARNING("[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
+		SPAN_WARNING("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(5, 0)
@@ -134,7 +134,7 @@
 /datum/surgery_step/treat_burns/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected.status & ORGAN_BURNT))
-		to_chat(user, "<span class='warning'>The skin on [target]'s [parse_zone(affected)] seems to be in perfect condition, it doesn't need treatment.</span>")
+		to_chat(user, SPAN_WARNING("The skin on [target]'s [parse_zone(affected)] seems to be in perfect condition, it doesn't need treatment."))
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
@@ -156,8 +156,8 @@
 	target.update_body()
 
 	user.visible_message(
-		"<span class='notice'>[user] finishes treating affected tissue in [target]'s [affected.name].</span>",
-		"<span class='notice'>You finish treating affected tissue in [target]'s [affected.name] with [tool].</span>",
+		SPAN_NOTICE("[user] finishes treating affected tissue in [target]'s [affected.name]."),
+		SPAN_NOTICE("You finish treating affected tissue in [target]'s [affected.name] with [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -170,8 +170,8 @@
 	stack.use(1)
 
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!</span>",
-		"<span class='warning'>Your hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!</span>",
+		SPAN_WARNING("[user]'s hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!"),
+		SPAN_WARNING("Your hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -207,8 +207,8 @@
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'>[user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'>You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
+		SPAN_NOTICE("[user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool]."),
+		SPAN_NOTICE("You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
@@ -218,8 +218,8 @@
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!</span>",
-		"<span class='warning'>Your hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!</span>",
+		SPAN_WARNING("[user]'s hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!"),
+		SPAN_WARNING("Your hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(20)
@@ -289,8 +289,8 @@
 			target.update_body()
 
 		user.visible_message(
-			"<span class='notice'>[user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>",
-			"<span class='notice'>You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>",
+			SPAN_NOTICE("[user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]"),
+			SPAN_NOTICE("You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
@@ -308,8 +308,8 @@
 	container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>",
-		"<span class='warning'>Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>",
+		SPAN_WARNING("[user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!"),
+		SPAN_WARNING("Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 

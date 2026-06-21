@@ -3,13 +3,13 @@
 	desc = "A spray bottle, with an unscrewable top."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
-	item_state = "cleaner"
 	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
+	materials = list(MAT_PLASTIC = 12000)
 	// TRUE if spray amount and range can be toggled via `attack_self()`.
 	var/adjustable = TRUE
 	var/adjust_action = "turn the nozzle"
@@ -41,23 +41,23 @@
 
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1) //this block copypasted from reagent_containers/glass, for lack of a better solution
 		if(!A.reagents.total_volume && A.reagents)
-			to_chat(user, "<span class='notice'>[A] is empty.</span>")
+			to_chat(user, SPAN_NOTICE("[A] is empty."))
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>[src] is full.</span>")
+			to_chat(user, SPAN_NOTICE("[src] is full."))
 			return
 
 		if(!is_open_container())
-			to_chat(user, "<span class='notice'>[src] cannot be refilled.</span>")
+			to_chat(user, SPAN_NOTICE("[src] cannot be refilled."))
 			return
 
 		var/trans = A.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [A].</span>")
+		to_chat(user, SPAN_NOTICE("You fill [src] with [trans] units of the contents of [A]."))
 		return
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is empty!"))
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
@@ -85,9 +85,10 @@
 
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
+	var/spray_divisor = 1 / clamp(round(get_dist_euclidian(get_turf(A), get_turf(src))), 1, spray_currentrange)
 	var/obj/effect/decal/chempuff/chem_puff = new /obj/effect/decal/chempuff(get_turf(src))
 	chem_puff.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(chem_puff, amount_per_transfer_from_this, 1/spray_currentrange)
+	reagents.trans_to(chem_puff, amount_per_transfer_from_this, spray_divisor)
 	chem_puff.icon += mix_color_from_reagents(chem_puff.reagents.reagent_list)
 
 	var/datum/move_loop/our_loop = GLOB.move_manager.move_towards_legacy(chem_puff, A, 3 DECISECONDS, timeout = spray_currentrange * 3 DECISECONDS, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
@@ -101,13 +102,13 @@
 		return FINISH_ATTACK
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (amount_per_transfer_from_this == 10 ? spray_maxrange : spray_minrange)
-	to_chat(user, "<span class='notice'>You [adjust_action]. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	to_chat(user, SPAN_NOTICE("You [adjust_action]. You'll now use [amount_per_transfer_from_this] units per spray."))
 
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
-	. += "<span class='notice'><b>Alt-Shift-Click</b> to empty it.</span>"
+	. += SPAN_NOTICE("<b>Alt-Shift-Click</b> to empty it.")
 
 /obj/item/reagent_containers/spray/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -115,7 +116,7 @@
 	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Bottle", list("Yes", "No")) != "Yes")
 		return
 	if(isturf(user.loc) && loc == user)
-		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
+		to_chat(user, SPAN_NOTICE("You empty [src] onto the floor."))
 		reagents.reaction(user.loc)
 		reagents.clear_reagents()
 
@@ -135,7 +136,6 @@
 	name = "advanced space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	icon_state = "adv_cleaner"
-	item_state = "adv_cleaner"
 	volume = 500
 	spray_maxrange = 3
 	spray_currentrange = 3
@@ -150,9 +150,9 @@
 		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
 			reagents.del_reagent(R.id)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] identifies and removes a filthy substance.</span>")
+				to_chat(loc, SPAN_WARNING("[src] identifies and removes a filthy substance."))
 			else
-				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
+				visible_message(SPAN_WARNING("[src] identifies and removes a filthy substance."))
 
 /obj/item/reagent_containers/spray/cleaner/drone
 	desc = "BLAM!-brand non-foaming space cleaner!"
@@ -190,7 +190,6 @@
 	desc = "Manufactured by UhangInc, used to blind and down an opponent quickly."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
-	item_state = "pepperspray"
 	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
@@ -204,7 +203,6 @@
 	desc = "A seemingly innocent sunflower...with a twist."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
-	item_state = "sunflower"
 	belt_icon = null
 	adjustable = FALSE
 	amount_per_transfer_from_this = 1
@@ -217,7 +215,6 @@
 	desc = "A utility used to spray large amounts of reagents in a given area."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "chemsprayer"
-	item_state = "chemsprayer"
 	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
 	spray_currentrange = 7
@@ -270,7 +267,6 @@
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
-	item_state = "plantbgone"
 	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
@@ -282,7 +278,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	icon_state = "syndie_spraycan"
-	item_state = "syndie_spraycan"
 	container_type = AMOUNT_VISIBLE
 	list_reagents = list("sticky_tar" = 100)
 

@@ -257,7 +257,10 @@
 		if(usr != occupant)	return
 		var/obj/item/mecha_parts/mecha_equipment/equip = afilter.getObj("select_equip")
 		if(equip && (equip in equipment))
+			if(selected)
+				selected.on_unequip()
 			selected = equip
+			selected.on_equip()
 			occupant_message("You switch to [equip]")
 			visible_message("[src] raises [equip]")
 			send_byjax(occupant, "exosuit.browser", "eq_list", get_equipment_list())
@@ -383,7 +386,7 @@
 		if(usr != occupant)
 			return
 		if(occupant && !iscarbon(occupant))
-			to_chat(occupant, "<span class='danger'>You do not have any DNA!</span>")
+			to_chat(occupant, SPAN_DANGER("You do not have any DNA!"))
 			return
 		dna = occupant.dna.unique_enzymes
 		occupant_message("You feel a prick as the needle takes your DNA sample.")

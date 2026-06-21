@@ -14,8 +14,8 @@
 	. = ..()
 	var/count = max_docks - length(placed_docks)
 	var/plural = count > 1
-	. += "<span class='notice'>There [plural ? "are" : "is"] [count] use[plural ? "s" : ""] left.</span>"
-	. += "<span class='notice'><b>Alt-Click</b> to call the ship to an existing docking area.</span>"
+	. += SPAN_NOTICE("There [plural ? "are" : "is"] [count] use[plural ? "s" : ""] left.")
+	. += SPAN_NOTICE("<b>Alt-Click</b> to call the ship to an existing docking area.")
 
 /obj/item/whiteship_port_generator/activate_self(mob/user)
 	. = FINISH_ATTACK
@@ -25,17 +25,17 @@
 
 	if(is_station_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock in the station's sector at [COORD(user)].")
-		to_chat(user, "<span class='notice'>New docking areas cannot be designated within the station's sector!</span>")
+		to_chat(user, SPAN_NOTICE("New docking areas cannot be designated within the station's sector!"))
 		return
 
 	if(is_admin_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock on Centcomm level at [COORD(user)].")
-		to_chat(user, "<span class='notice'>New docking areas cannot be designated in this sector!</span>")
+		to_chat(user, SPAN_NOTICE("New docking areas cannot be designated in this sector!"))
 		return
 
 	if(is_mining_level(user.z))
 		log_admin("[key_name(user)] attempted to create a whiteship dock on Lavaland at [COORD(user)].")
-		to_chat(user, "<span class='notice'>New docking areas cannot be designated planet side!</span>")
+		to_chat(user, SPAN_NOTICE("New docking areas cannot be designated planet side!"))
 		return
 
 	var/list/docks_per_z = list()
@@ -45,13 +45,13 @@
 		docks_per_z["[placed_dock.z]"]++
 
 	if(docks_per_z["[user.z]"] >= 3)
-		to_chat(user, "<span class='notice'>This sector cannot support any more docking areas!</span>")
+		to_chat(user, SPAN_NOTICE("This sector cannot support any more docking areas!"))
 		return
 
 	var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 	var/dir_choice = tgui_input_list(user, "Select the new docking area orientation.", "Dock Orientation", dir_choices)
 	if(!dir_choice)
-		to_chat(user, "<span class='notice'>Docking placement cancelled.</span>")
+		to_chat(user, SPAN_NOTICE("Docking placement cancelled."))
 		return
 
 	var/dest_dir = dir_choices[dir_choice]
@@ -71,23 +71,23 @@
 		max_x = max_x < 0 ? T.x : max(max_x, T.x)
 		max_y = max_y < 0 ? T.y : max(max_y, T.y)
 		if(!isspaceturf(T))
-			to_chat(user, "<span class='notice'>Obstruction found in docking space area, aborting!</span>")
+			to_chat(user, SPAN_NOTICE("Obstruction found in docking space area, aborting!"))
 			qdel(port, force = TRUE)
 			return
 		for(var/obj/O in T.contents)
 			if(O == port)
 				continue
 			else
-				to_chat(user, "<span class='notice'>Objects found in docking space area, aborting!</span>")
+				to_chat(user, SPAN_NOTICE("Objects found in docking space area, aborting!"))
 				qdel(port, force = TRUE)
 				return
 
 	if(min_x <= TRANSITION_BORDER_WEST + 1 || max_x >= TRANSITION_BORDER_EAST - 1)
-		to_chat(user, "<span class='notice'>Docking space area too close to edge of sector, aborting!</span>")
+		to_chat(user, SPAN_NOTICE("Docking space area too close to edge of sector, aborting!"))
 		qdel(port, force = TRUE)
 		return
 	if(min_y <= TRANSITION_BORDER_SOUTH + 1 || max_y >= TRANSITION_BORDER_NORTH - 1)
-		to_chat(user, "<span class='notice'>Docking space area too close to edge of sector, aborting!</span>")
+		to_chat(user, SPAN_NOTICE("Docking space area too close to edge of sector, aborting!"))
 		qdel(port, force = TRUE)
 		return
 
@@ -99,7 +99,7 @@
 		max_length = 20
 	)
 	if(!name)
-		to_chat(user, "<span class='notice'>Docking placement cancelled.</span>")
+		to_chat(user, SPAN_NOTICE("Docking placement cancelled."))
 		qdel(port, force = TRUE)
 		return
 
@@ -116,7 +116,7 @@
 		possible_destinations = S.possible_destinations
 
 	log_admin("[key_name(user)] created a whiteship dock named '[name]' at [COORD(port)].")
-	to_chat(user, "<span class='notice'>Landing zone set.</span>")
+	to_chat(user, SPAN_NOTICE("Landing zone set."))
 
 /obj/item/whiteship_port_generator/AltClick(mob/user, modifiers)
 	for(var/obj/machinery/computer/shuttle/white_ship/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle/white_ship))
@@ -162,13 +162,13 @@
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
-		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		to_chat(usr, SPAN_DANGER("Access denied."))
 		return TRUE
 	var/list/options = params2list(possible_destinations)
 	if(action == "move")
 		var/destination = params["move"]
 		if(!options.Find(destination))//figure out if this translation works
-			message_admins("<span class='boldannounceooc'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
+			message_admins("[SPAN_BOLDANNOUNCEOOC("EXPLOIT:")] [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
@@ -177,9 +177,9 @@
 				add_fingerprint(usr)
 				return TRUE
 			if(1)
-				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+				to_chat(usr, SPAN_WARNING("Invalid shuttle requested."))
 			if(2)
-				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+				to_chat(usr, SPAN_NOTICE("Unable to comply."))
 			if(3)
 				atom_say("Shuttle is regenerating fuel. Please wait...")
 			if(4)

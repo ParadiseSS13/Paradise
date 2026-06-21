@@ -3,22 +3,27 @@
 	name = "hard hat"
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
-	item_state = "hardhat0_yellow"
 	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
-	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = 50)
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
+	/// Determines used sprites: hardhat[on]_[hat_color]
+	var/hat_color = "yellow"
 
-/obj/item/clothing/head/hardhat/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/clothing/head/hardhat/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	toggle_helmet_light(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/head/hardhat/proc/toggle_helmet_light(mob/living/user)
 	on = !on
@@ -29,8 +34,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/head/hardhat/update_icon_state()
-	icon_state = "hardhat[on]_[item_color]"
-	item_state = "hardhat[on]_[item_color]"
+	icon_state = "hardhat[on]_[hat_color]"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
@@ -47,19 +51,17 @@
 		on = FALSE
 		turn_off()
 		update_icon(UPDATE_ICON_STATE)
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+		visible_message(SPAN_DANGER("[src]'s light fades and turns off."))
 
 /obj/item/clothing/head/hardhat/orange
 	name = "orange hard hat"
 	icon_state = "hardhat0_orange"
-	item_state = "hardhat0_orange"
-	item_color = "orange"
+	hat_color = "orange"
 
 /obj/item/clothing/head/hardhat/red
 	name = "firefighter helmet"
 	icon_state = "hardhat0_red"
-	item_state = "hardhat0_red"
-	item_color = "red"
+	hat_color = "red"
 	flags = STOPSPRESSUREDMAGE
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
@@ -70,8 +72,7 @@
 /obj/item/clothing/head/hardhat/white
 	name = "white hard hat"
 	icon_state = "hardhat0_white"
-	item_state = "hardhat0_white"
-	item_color = "white"
+	hat_color = "white"
 	flags = STOPSPRESSUREDMAGE
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
@@ -82,17 +83,15 @@
 /obj/item/clothing/head/hardhat/dblue
 	name = "blue hard hat"
 	icon_state = "hardhat0_dblue"
-	item_state = "hardhat0_dblue"
-	item_color = "dblue"
+	hat_color = "dblue"
 
 /obj/item/clothing/head/hardhat/atmos
 	name = "atmospheric technician's firefighting helmet"
 	desc = "A firefighter's helmet, able to keep the user cool in any situation."
 	icon = 'icons/obj/clothing/head/utility.dmi'
-	icon_override = 'icons/mob/clothing/head/utility.dmi'
+	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "hardhat0_atmos"
-	item_color = "atmos"
-	item_state = 'icons/mob/clothing/head/utility.dmi'
+	hat_color = "atmos"
 	flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	heat_protection = HEAD
@@ -100,6 +99,7 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = null
+	icon_monitor = null
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/utility.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head/utility.dmi',
@@ -110,11 +110,14 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/utility.dmi'
 	)
 
+/obj/item/clothing/head/hardhat/atmos/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/hardhat/durathread
 	name = "durathread hard hat"
 	icon_state = "hardhat0_durathread"
-	item_state = "hardhat0_durathread"
-	item_color = "durathread"
+	hat_color = "durathread"
 	desc = "A hard hat made from durathread, leather, and light fixture components."
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
 	sprite_sheets = list(

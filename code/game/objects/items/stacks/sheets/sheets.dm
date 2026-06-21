@@ -20,4 +20,4 @@
 
 /obj/item/stack/sheet/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Use it in hand</b> to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.</span>"
+	. += SPAN_NOTICE("<b>Use it in hand</b> to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.")

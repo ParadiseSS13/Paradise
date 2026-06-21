@@ -14,7 +14,6 @@
 
 	radio_channel = "Security"
 	bot_type = SEC_BOT
-	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
 	req_access = list(ACCESS_SECURITY)
@@ -39,7 +38,7 @@
 	var/weapons_check = TRUE //If true, arrest people for weapons if they don't have access
 	var/check_records = TRUE //Does it check security records?
 	var/no_handcuffs = FALSE //If true, don't handcuff
-	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
+	var/projectile = /obj/projectile/beam/disabler //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 	var/baton_delayed = FALSE
 	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
@@ -129,7 +128,7 @@
 	if(..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, SPAN_WARNING("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE
@@ -194,22 +193,22 @@
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits.</span>")
+			to_chat(user, SPAN_WARNING("You short out [src]'s target assessment circuits."))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+		audible_message(SPAN_DANGER("[src] buzzes oddly!"))
 		declare_arrests = FALSE
 		icon_state = "[lasercolor]ed209[on]"
 		set_weapon()
 
-/mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = FALSE
 		if(lasercolor == "b")
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
+			if(istype(Proj, /obj/projectile/beam/lasertag/redtag))
 				lasertag_check = TRUE
 
 		else if(lasercolor == "r")
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
+			if(istype(Proj, /obj/projectile/beam/lasertag/bluetag))
 				lasertag_check = TRUE
 
 		if(lasertag_check)
@@ -220,7 +219,7 @@
 			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE
 
-	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
+	if(istype(Proj ,/obj/projectile/beam)||istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
@@ -395,7 +394,7 @@
 
 /mob/living/simple_animal/bot/ed209/explode()
 	GLOB.move_manager.stop_looping(src)
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(SPAN_USERDANGER("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 
 	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
@@ -441,16 +440,16 @@
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged)
 		if(lasercolor)
-			projectile = /obj/item/projectile/beam/disabler
+			projectile = /obj/projectile/beam/disabler
 		else
-			projectile = /obj/item/projectile/beam
+			projectile = /obj/projectile/beam
 	else
 		if(!lasercolor)
-			projectile = /obj/item/projectile/beam/disabler
+			projectile = /obj/projectile/beam/disabler
 		else if(lasercolor == "b")
-			projectile = /obj/item/projectile/beam/lasertag/bluetag
+			projectile = /obj/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
-			projectile = /obj/item/projectile/beam/lasertag/redtag
+			projectile = /obj/projectile/beam/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(lastfired && world.time - lastfired < shot_delay)
@@ -470,7 +469,7 @@
 
 	if(!isturf(U))
 		return
-	var/obj/item/projectile/A = new projectile(loc)
+	var/obj/projectile/A = new projectile(loc)
 	playsound(loc, shoot_sound, 50, 1)
 	A.current = U
 	A.yo = U.y - T.y
@@ -572,8 +571,8 @@
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	set_mode(BOT_ARREST)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	C.visible_message(SPAN_DANGER("[src] is trying to put zipties on [C]!"),\
+						SPAN_USERDANGER("[src] is trying to put zipties on you!"))
 
 	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 

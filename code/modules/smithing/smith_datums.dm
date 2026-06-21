@@ -84,6 +84,12 @@
 	var/fire_rate_multiplier = 1.0
 	/// Multiplier for tool uses and lens uses.
 	var/durability_mult = 1.0
+	/// Force multiplier
+	var/force_mult = 1.0
+	/// Throw force multiplier
+	var/throw_force_mult = 1.0
+	/// Throw embed chance multiplier
+	var/embed_chance_mult = 1.0
 	/// Is this material valid for secondary goals?
 	var/secondary_goal_candidate = FALSE
 	/// How much is this secondary goal worth?
@@ -103,6 +109,9 @@
 	durability_mult = MINOR_MATERIAL_BUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_EASY
+	force_mult = MINOR_MATERIAL_DEBUFF
+	throw_force_mult = MINOR_MATERIAL_DEBUFF
+	embed_chance_mult = MINOR_MATERIAL_DEBUFF
 	color_tint = "#78787b"
 
 /datum/smith_material/silver
@@ -116,6 +125,9 @@
 	projectile_damage_multiplier = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	force_mult = MINOR_MATERIAL_DEBUFF
+	throw_force_mult = MINOR_MATERIAL_BUFF
+	embed_chance_mult = MINOR_MATERIAL_DEBUFF
 	color_tint = "#f0f0f0"
 
 /datum/smith_material/gold
@@ -133,6 +145,9 @@
 	durability_mult = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	force_mult = MINOR_MATERIAL_DEBUFF
+	throw_force_mult = MINOR_MATERIAL_BUFF
+	embed_chance_mult = MINOR_MATERIAL_DEBUFF
 	color_tint = "#ffd659"
 
 /datum/smith_material/plasma
@@ -146,6 +161,9 @@
 	durability_mult = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_EASY
+	force_mult = MINOR_MATERIAL_BUFF
+	throw_force_mult = MINOR_MATERIAL_BUFF
+	embed_chance_mult = MAJOR_MATERIAL_DEBUFF
 	color_tint = "#ba3692"
 
 /datum/smith_material/titanium
@@ -161,6 +179,9 @@
 	fire_rate_multiplier = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_EASY
+	force_mult = MINOR_MATERIAL_BUFF
+	throw_force_mult = MINOR_MATERIAL_DEBUFF
+	embed_chance_mult = MINOR_MATERIAL_BUFF
 	color_tint = "#c1c9cf"
 
 /datum/smith_material/uranium
@@ -182,6 +203,9 @@
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
 	color_tint = "#2c8c46"
+	force_mult = MAJOR_MATERIAL_BUFF
+	throw_force_mult = MAJOR_MATERIAL_BUFF
+	embed_chance_mult = MAJOR_MATERIAL_DEBUFF
 	/// Radioactive, woah
 	var/radiation_amount = 15
 
@@ -194,6 +218,9 @@
 	tool_failure_mult = MINOR_MATERIAL_DEBUFF
 	tool_productivity_mult = MAJOR_MATERIAL_BUFF
 	durability_mult = MAJOR_MATERIAL_BUFF
+	force_mult = MAJOR_MATERIAL_BUFF
+	throw_force_mult = MINOR_MATERIAL_BUFF
+	embed_chance_mult = MAJOR_MATERIAL_DEBUFF
 	color_tint = "#aef2f4"
 
 /datum/smith_material/bluespace
@@ -208,6 +235,9 @@
 	tool_productivity_mult = MAJOR_MATERIAL_BUFF
 	power_draw_mult = MAJOR_MATERIAL_BUFF
 	projectile_damage_multiplier = MAJOR_MATERIAL_BUFF
+	force_mult = MAJOR_MATERIAL_DEBUFF
+	throw_force_mult = MAJOR_MATERIAL_BUFF
+	embed_chance_mult = MAJOR_MATERIAL_BUFF
 	color_tint = "#2e50b7"
 
 /datum/smith_material/plasteel
@@ -226,6 +256,9 @@
 	durability_mult = MAJOR_MATERIAL_BUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	force_mult = MAJOR_MATERIAL_BUFF
+	throw_force_mult = MAJOR_MATERIAL_DEBUFF
+	embed_chance_mult = MINOR_MATERIAL_DEBUFF
 	color_tint = "#555053"
 
 /datum/smith_material/plastitanium
@@ -245,6 +278,9 @@
 	durability_mult = MAJOR_MATERIAL_BUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_HARD
+	force_mult = MAJOR_MATERIAL_BUFF
+	throw_force_mult = MAJOR_MATERIAL_DEBUFF
+	embed_chance_mult = MAJOR_MATERIAL_DEBUFF
 	color_tint = "#8a838a"
 
 /datum/smith_material/iridium
@@ -262,6 +298,9 @@
 	power_draw_mult = MINOR_MATERIAL_BUFF
 	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
 	durability_mult = MINOR_MATERIAL_BUFF
+	force_mult = MINOR_MATERIAL_BUFF
+	throw_force_mult = MINOR_MATERIAL_BUFF
+	embed_chance_mult = MINOR_MATERIAL_BUFF
 	color_tint = "#62c3cc"
 
 /datum/smith_material/palladium
@@ -279,6 +318,9 @@
 	power_draw_mult = MINOR_MATERIAL_DEBUFF
 	projectile_damage_multiplier = MINOR_MATERIAL_DEBUFF
 	durability_mult = MINOR_MATERIAL_BUFF
+	force_mult = MINOR_MATERIAL_BUFF
+	throw_force_mult = MAJOR_MATERIAL_BUFF
+	embed_chance_mult = MAJOR_MATERIAL_BUFF
 	color_tint = "#d36717"
 
 /datum/smith_material/platinum
@@ -296,6 +338,9 @@
 	projectile_damage_multiplier = MINOR_MATERIAL_BUFF
 	power_draw_mult = MINOR_MATERIAL_BUFF
 	durability_mult = MINOR_MATERIAL_BUFF
+	force_mult = MAJOR_MATERIAL_BUFF
+	throw_force_mult = MINOR_MATERIAL_BUFF
+	embed_chance_mult = MAJOR_MATERIAL_BUFF
 	color_tint = "#c7d3f9"
 
 /datum/smith_material/brass
@@ -316,9 +361,74 @@
 	durability_mult = MINOR_MATERIAL_DEBUFF
 	secondary_goal_candidate = TRUE
 	secondary_goal_difficulty = SMITH_GOAL_MEDIUM
+	force_mult = MAJOR_MATERIAL_DEBUFF
+	throw_force_mult = MAJOR_MATERIAL_DEBUFF
+	embed_chance_mult = MAJOR_MATERIAL_BUFF
 	color_tint = "#97681b"
 
 #undef MAJOR_MATERIAL_BUFF
 #undef MINOR_MATERIAL_BUFF
 #undef MINOR_MATERIAL_DEBUFF
 #undef MAJOR_MATERIAL_DEBUFF
+
+// Wrappings
+
+/datum/handle_wrapping
+	var/name = "Boring Debug"
+	/// Wrap overlay icon
+	var/wrap_overlay = "basic_wrap"
+	/// Speed modifier
+	var/speed_mod = 0.0
+	/// Productivity mod
+	var/productivity_mod = 0
+	/// damage increase
+	var/force_increase = 0
+	/// throw damage increase
+	var/throw_force_increase = 0
+	/// throw embed chance increase
+	var/embed_chance_increase = 0
+	/// Is the wrapping conductive
+	var/conductive = FALSE
+
+/datum/handle_wrapping/cable
+	name = "cable wrapping"
+	wrap_overlay = "cable_wrap"
+	speed_mod = 0.1
+	productivity_mod = -0.1
+	force_increase = 1
+	conductive = TRUE
+
+/datum/handle_wrapping/cloth
+	name = "cloth wrapping"
+	wrap_overlay = "cloth_wrap"
+	speed_mod = 0.1
+	productivity_mod = 0.1
+
+/datum/handle_wrapping/leather
+	name = "leather wrapping"
+	wrap_overlay = "leather_wrap"
+	force_increase = 1
+	throw_force_increase = 1
+	embed_chance_increase = 5
+
+/datum/handle_wrapping/durathread
+	name = "durathread wrapping"
+	wrap_overlay = "durathread_wrap"
+	speed_mod = 0.15
+	productivity_mod = 0.15
+
+/datum/handle_wrapping/goliath_hide
+	name = "goliath hide wrapping"
+	wrap_overlay = "goliath_wrap"
+	force_increase = 1
+	throw_force_increase = 1
+	embed_chance_increase = 10
+
+/datum/handle_wrapping/mothsilk
+	name = "mothsilk wrapping"
+	wrap_overlay = "moth_wrap"
+	speed_mod = 0.2
+	productivity_mod = 0.2
+	force_increase = 1.5
+	throw_force_increase = 1.5
+	embed_chance_increase = 10

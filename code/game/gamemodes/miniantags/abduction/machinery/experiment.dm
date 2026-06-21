@@ -30,14 +30,14 @@
 	if(isabductor(target))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
+		to_chat(user, SPAN_NOTICE("[src] is already occupied."))
 		return TRUE
 	if(target.buckled)
 		return
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
+		to_chat(user, SPAN_WARNING("[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
 		return TRUE
-	visible_message("<span class='notice'>[user] puts [target] into [src].</span>")
+	visible_message(SPAN_NOTICE("[user] puts [target] into [src]."))
 
 	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
@@ -49,7 +49,7 @@
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
 	if(!isabductor(user))
-		to_chat(user, "<span class='warning'>You don't understand any of the alien writing!</span>")
+		to_chat(user, SPAN_WARNING("You don't understand any of the alien writing!"))
 		return
 	ui_interact(user)
 
@@ -126,14 +126,14 @@
 		sleep(5)
 		switch(text2num(type))
 			if(1)
-				to_chat(H, "<span class='warning'>You feel violated.</span>")
+				to_chat(H, SPAN_WARNING("You feel violated."))
 			if(2)
-				to_chat(H, "<span class='warning'>You feel yourself being sliced apart and put back together.</span>")
+				to_chat(H, SPAN_WARNING("You feel yourself being sliced apart and put back together."))
 			if(3)
-				to_chat(H, "<span class='warning'>You feel intensely watched.</span>")
+				to_chat(H, SPAN_WARNING("You feel intensely watched."))
 		sleep(5)
-		to_chat(H, "<span class='warning'><b>Your mind snaps!</b></span>")
-		to_chat(H, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
+		to_chat(H, SPAN_WARNING("<b>Your mind snaps!</b>"))
+		to_chat(H, "<big>[SPAN_WARNING("<b>You can't remember how you got here...</b>")]</big>")
 		SSticker.mode.abductees += H.mind
 
 		var/objtype = pick(subtypesof(/datum/objective/abductee/))
@@ -185,12 +185,12 @@
 		if(isabductor(grabbed.affecting))
 			return ITEM_INTERACT_COMPLETE
 		if(occupant)
-			to_chat(user, "<span class='notice'>[src] is already occupied!</span>")
+			to_chat(user, SPAN_NOTICE("[src] is already occupied!"))
 			return ITEM_INTERACT_COMPLETE
 		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")
+			to_chat(user, SPAN_WARNING("[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head."))
 			return ITEM_INTERACT_COMPLETE
-		visible_message("<span class='notice'>[user] puts [grabbed.affecting] into [src].</span>")
+		visible_message(SPAN_NOTICE("[user] puts [grabbed.affecting] into [src]."))
 		var/mob/living/carbon/human/H = grabbed.affecting
 		H.forceMove(src)
 		occupant = H
@@ -228,7 +228,7 @@
 	COOLDOWN_START(src, spam_cooldown, 2 SECONDS)
 	if(!occupant)
 		return
-	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
+	to_chat(occupant, SPAN_WARNING("You start trying to break free!"))
 	if(!do_after_once(occupant, 20 SECONDS, FALSE, src, hidden = TRUE))
 		return
 	var/list/possible_results = list(
@@ -242,14 +242,14 @@
 /obj/machinery/abductor/experiment/proc/electrocute_abductee()
 	if(!occupant)
 		return
-	to_chat(occupant, "<span class='warning'>Something is electrifying you!</span>")
+	to_chat(occupant, SPAN_WARNING("Something is electrifying you!"))
 	occupant.electrocute_act(10, src)
 	do_sparks(5, TRUE, src)
 
 /obj/machinery/abductor/experiment/proc/sedate_abductee()
 	if(!occupant)
 		return
-	to_chat(occupant, "<span class='warning'>Something is stabbing you in the back!</span>")
+	to_chat(occupant, SPAN_WARNING("Something is stabbing you in the back!"))
 	occupant.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
 	occupant.reagents.add_reagent("pancuronium", 3)
 

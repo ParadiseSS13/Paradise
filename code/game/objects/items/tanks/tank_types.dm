@@ -17,6 +17,7 @@
 	icon_state = "generic"
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	force = 10
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
 
 /obj/item/tank/internals/oxygen
 	name = "oxygen tank"
@@ -45,7 +46,8 @@
 	name = "anesthetic tank"
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
-	item_state = "an_tank"
+	worn_icon_state = "an_tank"
+	inhand_icon_state = "an_tank"
 	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/internals/anesthetic/populate_gas()
@@ -65,17 +67,19 @@
 /obj/item/tank/internals/plasma/populate_gas()
 	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
-/obj/item/tank/internals/plasma/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/flamethrower))
-		var/obj/item/flamethrower/F = I
-		if((!F.status)||(F.ptank))
-			return
-		master = F
-		F.ptank = src
-		user.transfer_item_to(src, F)
-		F.update_icon()
-	else
+/obj/item/tank/internals/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/flamethrower))
 		return ..()
+
+	var/obj/item/flamethrower/F = used
+	if((!F.status) || (F.ptank))
+		return ITEM_INTERACT_COMPLETE
+
+	master = F
+	F.ptank = src
+	user.transfer_item_to(src, F)
+	F.update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/tank/internals/plasma/full/populate_gas()
 	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -90,7 +94,6 @@
 	name = "plasma internals tank"
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasma_fr"
-	item_state = "plasma_fr"
 
 /obj/item/tank/internals/plasmaman/populate_gas()
 	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -101,7 +104,6 @@
 
 /obj/item/tank/internals/plasmaman/belt
 	icon_state = "plasmaman_tank_belt"
-	item_state = "plasmaman_tank_belt"
 	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	force = 5
@@ -134,6 +136,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
 	volume = 1 // Roughly 4m 15s of air
+	materials = list(MAT_METAL = 500, MAT_GLASS = 100)
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
 	air_contents.set_oxygen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -145,6 +148,7 @@
 	name = "extended-capacity emergency oxygen tank"
 	icon_state = "emergency_engi"
 	volume = 3 // Lasts 12m 45s
+	materials = list(MAT_METAL = 800, MAT_GLASS = 100)
 
 /obj/item/tank/internals/emergency_oxygen/engi/empty/populate_gas()
 	return
@@ -159,6 +163,7 @@
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
 	volume = 6 // Lasts 25m 30s
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
 	return
@@ -198,7 +203,6 @@
 	name = "air tank"
 	desc = "Mixed anyone?"
 	icon_state = "air"
-	item_state = "air"
 	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/internals/air/populate_gas()
@@ -211,7 +215,6 @@
 /obj/item/tank/internals/generic
 	name = "gas tank"
 	desc = "A generic tank used for storing and transporting gasses. Can be used for internals."
-	item_state = "generic"
 
 /obj/item/tank/internals/generic/populate_gas()
 	return

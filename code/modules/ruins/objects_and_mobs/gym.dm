@@ -19,6 +19,7 @@
 		return
 	flick("[icon_state]2", src)
 	playsound(loc, pick(hit_sounds), 25, TRUE, -1)
+	user.overeatduration = max(0, user.overeatduration - 1)
 
 /obj/structure/punching_bag/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -46,6 +47,9 @@
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
 	return
 
+/obj/structure/weightmachine/attack_tk(mob/user)
+	return
+
 /obj/structure/weightmachine/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
@@ -69,13 +73,14 @@
 		var/finishmessage = pick("You feel stronger!","You feel like you can take on the world!","You feel robust!","You feel indestructible!")
 		icon_state = initial(icon_state)
 		to_chat(user, finishmessage)
+		user.overeatduration = max(0, user.overeatduration - 6)
 
 /obj/structure/weightmachine/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	if(in_use)
-		to_chat(user, "<span class='warning'>It's currently in use - wait a bit.</span>")
+		to_chat(user, SPAN_WARNING("It's currently in use - wait a bit."))
 		return
 	else
 		WELDER_ATTEMPT_SLICING_MESSAGE

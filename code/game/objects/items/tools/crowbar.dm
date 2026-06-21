@@ -3,7 +3,6 @@
 	desc = "A basic crowbar made of forged steel. Handy for opening unpowered airlocks, prying out objects, and being an improvised melee weapon."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
-	item_state = "crowbar"
 	belt_icon = "crowbar"
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
@@ -15,6 +14,7 @@
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+	new_attack_chain = TRUE
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
@@ -27,7 +27,6 @@
 /obj/item/crowbar/red
 	desc = "A hefty steel crowbar with red stripes. It'll hit a bit harder than a normal crowbar."
 	icon_state = "crowbar_red"
-	item_state = "crowbar_red"
 	belt_icon = "crowbar_red"
 	force = 8
 
@@ -35,7 +34,6 @@
 	name = "brass crowbar"
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	icon_state = "crowbar_brass"
-	item_state = "crowbar_brass"
 	belt_icon = "crowbar_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -48,7 +46,6 @@
 	throwforce = 3
 	materials = list(MAT_TITANIUM = 250)
 	icon_state = "crowbar_titanium"
-	item_state = "crowbar_titanium"
 	origin_tech = "materials=2"
 	toolspeed = 1.25
 
@@ -61,7 +58,6 @@
 	throw_range = 3
 	materials = list(MAT_METAL = 400)
 	icon_state = "crowbar_large"
-	item_state = "crowbar_large"
 	toolspeed = 0.5
 
 /obj/item/crowbar/engineering
@@ -73,7 +69,6 @@
 	throw_range = 3
 	materials = list(MAT_METAL = 400)
 	icon_state = "crowbar_eng"
-	item_state = "crowbar_eng"
 	belt_icon = "crowbar_eng"
 	toolspeed = 0.5
 
@@ -82,7 +77,7 @@
 	if(!user)
 		return
 
-	user.visible_message("<span class='suicide'>[user] looks up and hooks [src] into a ceiling tile! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] looks up and hooks [src] into a ceiling tile! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 	user.Immobilize(10 SECONDS)
 	playsound(loc, 'sound/items/crowbar.ogg', 50, TRUE, -1)
@@ -90,7 +85,7 @@
 	sleep(2 SECONDS)
 	add_fingerprint(user)
 
-	to_chat(user, "<span class='userdanger'>You pry open the ceiling tile above you and look beyond it.. oh God, what the hell is <i>that?!</i></span>")
+	to_chat(user, SPAN_USERDANGER("You pry open the ceiling tile above you and look beyond it.. oh God, what the hell is <i>that?!</i>"))
 	user.emote("scream")
 	animate_fading_leap_up(user)
 
@@ -116,13 +111,14 @@
 	name = "jaws of life"
 	desc = "A compact and powerful industrial tool with a modular head. This one has a set of prying jaws attached, which are strong enough to pry open powered airlocks."
 	icon_state = "jaws_pry"
-	item_state = "jawsoflife"
+	inhand_icon_state = "jawsoflife"
 	belt_icon = "jaws"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/Initialize(mapload)
@@ -130,14 +126,17 @@
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(SPAN_SUICIDE("[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/crowbar/power/attack_self__legacy__attackchain(mob/user)
+/obj/item/crowbar/power/activate_self(mob/user)
+	if(..())
+		return
+
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
+	to_chat(user, SPAN_NOTICE("You attach the cutting jaws to [src]."))
 	for(var/obj/item/smithed_item/tool_bit/bit in attached_bits)
 		bit.on_detached()
 		bit.forceMove(cutjaws)

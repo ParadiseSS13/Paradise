@@ -13,6 +13,10 @@
 #define TARGET_INVALID_CULTIST			12
 #define TARGET_INVALID_CULT_CONVERTABLE	13
 #define TARGET_CRYOING					14
+#define TARGET_INVALID_HEAD				15
+#define TARGET_INVALID_ANTAG			16
+#define TARGET_INVALID_CONFLICTING_OBJECTIVE	17
+#define TARGET_INVALID_HERETIC			18
 
 //gamemode istype helpers
 #define GAMEMODE_IS_CULT		(SSticker && istype(SSticker.mode, /datum/game_mode/cult))
@@ -49,6 +53,7 @@
 #define SPECIAL_ROLE_MIND_FLAYER "Mind Flayer"
 #define SPECIAL_ROLE_VAMPIRE_THRALL "Vampire Thrall"
 #define SPECIAL_ROLE_WIZARD "Wizard"
+#define SPECIAL_ROLE_WIZARD_ADEPT "Wizard Adept"
 #define SPECIAL_ROLE_WIZARD_APPRENTICE "Wizard Apprentice"
 #define SPECIAL_ROLE_XENOMORPH "Xenomorph"
 #define SPECIAL_ROLE_XENOMORPH_QUEEN "Xenomorph Queen"
@@ -57,8 +62,12 @@
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA "Xenomorph Larva"
 #define SPECIAL_ROLE_ZOMBIE "Zombie"
+#define SPECIAL_ROLE_UPLIFTED_PRIMITIVE "Uplifted Primitive"
 #define SPECIAL_ROLE_TOURIST "Tourist"
+#define SPECIAL_ROLE_HERETIC "Heretic"
 #define SPECIAL_ROLE_EVENTMISC "Event Role"
+#define SPECIAL_ROLE_NINJA "Space Ninja"
+#define SPECIAL_ROLE_IRRADIATED_MOUSE "Irradiated Mouse"
 
 // Constants used by code which checks the status of nuclear blasts during a
 // round, regardless of original game mode, e.g. setting the ending cinematic.

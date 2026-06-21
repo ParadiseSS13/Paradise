@@ -14,7 +14,7 @@
 	else
 		user.set_light(6)
 	user.light_on = !user.light_on
-	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
+	to_chat(user, SPAN_NOTICE("You toggle your light [user.light_on ? "on" : "off"]."))
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
@@ -30,7 +30,7 @@
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "minebot")
 
 	update_user_sight(user)
-	to_chat(user, "<span class='notice'>You toggle your meson vision [!active ? "on" : "off"].</span>")
+	to_chat(user, SPAN_NOTICE("You toggle your meson vision [!active ? "on" : "off"]."))
 
 /datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
 	user.sight = initial(user.sight)

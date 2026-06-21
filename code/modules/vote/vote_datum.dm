@@ -61,7 +61,7 @@
 	switch(vote_result_type)
 		if(VOTE_RESULT_TYPE_MAJORITY)
 			if(!length(voted))
-				to_chat(world, "<span class='interface'>No votes were cast. Do you all hate democracy?!</span>") // shame them
+				to_chat(world, SPAN_INTERFACE("No votes were cast. Do you all hate democracy?!")) // shame them
 				return null
 
 			var/list/results = list()
@@ -88,10 +88,10 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, "<span class='interface'><code>[res]</code> - [results[res]] vote\s</span>")
+					to_chat(world, SPAN_INTERFACE("<code>[res]</code> - [results[res]] vote\s"))
 				else
 					// Make it normal
-					to_chat(world, "<span class='interface'><code>[res]</code> - [results[res]] vote\s</span>")
+					to_chat(world, SPAN_INTERFACE("<code>[res]</code> - [results[res]] vote\s"))
 
 				// And log it to the DB
 				if(!is_custom)
@@ -99,17 +99,17 @@
 
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
-				to_chat(world, "<span class='interface'><b>Its a tie between [english_list(winning_options)]. Picking <code>[random_dictator]</code> at random.</b></span>") // shame them
+				to_chat(world, SPAN_INTERFACE("<b>Its a tie between [english_list(winning_options)]. Picking <code>[random_dictator]</code> at random.</b>")) // shame them
 				return random_dictator
 
 			// If we got here there must only be one thing in the list
 			var/res = winning_options[1]
 
 			if(res in choices)
-				to_chat(world, "<span class='interface'><b><code>[res]</code> won the vote.</b></span>")
+				to_chat(world, SPAN_INTERFACE("<b><code>[res]</code> won the vote.</b>"))
 				return res
 
-			to_chat(world, "<span class='interface'>The winner of the vote ([sanitize(res)]) isnt a valid choice? What the heck?</span>")
+			to_chat(world, SPAN_INTERFACE("The winner of the vote ([sanitize(res)]) isnt a valid choice? What the heck?"))
 			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(res)], choices were [json_encode(choices)]")
 			return null
 
@@ -198,4 +198,4 @@
 			if(params["target"] in choices)
 				voted[usr.ckey] = params["target"]
 			else
-				message_admins("<span class='boldannounceooc'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
+				message_admins("[SPAN_BOLDANNOUNCEOOC("\[EXPLOIT\]")] User [key_name_admin(usr)] spoofed a vote in the vote panel!")

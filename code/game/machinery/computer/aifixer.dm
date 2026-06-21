@@ -14,9 +14,9 @@
 		if(stat & BROKEN)
 			return ..()
 		if(stat & NOPOWER)
-			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge.</span>")
+			to_chat(user, SPAN_WARNING("The screws on [name]'s screen won't budge."))
 		else
-			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
+			to_chat(user, SPAN_WARNING("The screws on [name]'s screen won't budge and it emits a warning beep!."))
 		return TRUE
 	else
 		return ..()
@@ -64,10 +64,10 @@
 	switch(action)
 		if("fix")
 			if(occupant.suiciding)
-				to_chat(usr, "<span class='warning'>Memory corruption detected in recovery partition, likely due to a sudden self-induced shutdown. AI is unrecoverable.</span>")
+				to_chat(usr, SPAN_WARNING("Memory corruption detected in recovery partition, likely due to a sudden self-induced shutdown. AI is unrecoverable."))
 				return
 			if(active) // Prevent from starting a fix while fixing.
-				to_chat(usr, "<span class='warning'>You are already fixing this AI!</span>")
+				to_chat(usr, SPAN_WARNING("You are already fixing this AI!"))
 				return
 			active = TRUE
 			INVOKE_ASYNC(src, PROC_REF(fix_ai))
@@ -123,20 +123,20 @@
 		AI.control_disabled = TRUE
 		AI.aiRadio.disabledAi = TRUE
 		to_chat(AI, "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here.")
-		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
+		to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		update_icon(UPDATE_OVERLAYS)
 
 	else //Uploading AI from terminal to card
 		if(occupant && !active)
 			to_chat(occupant, "You have been downloaded to a mobile storage device. Still no remote access.")
-			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [occupant.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+			to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [occupant.name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 			occupant.forceMove(card)
 			occupant = null
 			update_icon(UPDATE_OVERLAYS)
 		else if(active)
-			to_chat(user, "<span class='boldannounceic'>ERROR</span>: Reconstruction in progress.")
+			to_chat(user, "[SPAN_BOLDANNOUNCEIC("ERROR")]: Reconstruction in progress.")
 		else if(!occupant)
-			to_chat(user, "<span class='boldannounceic'>ERROR</span>: Unable to locate artificial intelligence.")
+			to_chat(user, "[SPAN_BOLDANNOUNCEIC("ERROR")]: Unable to locate artificial intelligence.")
 
 /obj/machinery/computer/aifixer/Destroy()
 	if(occupant)

@@ -6,7 +6,7 @@
 	clothes_req = FALSE
 	antimagic_flags = NONE
 
-	message = "<span class='notice'>You toggle your night vision!</span>"
+	message = SPAN_NOTICE("You toggle your night vision!")
 
 /datum/spell/night_vision/create_new_targeting()
 	return new /datum/spell_targeting/self

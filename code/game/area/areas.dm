@@ -93,6 +93,9 @@
 	/// Turrets use this list to see if individual power/lethal settings are allowed. Contains the /obj/machinery/turretid for this area
 	var/list/turret_controls = list()
 
+	/// Wire assignment for airlocks in this area
+	var/airlock_wires = /datum/wires/airlock
+
 	/// The flags applied to request consoles spawned in this area.
 	/// See [RC_ASSIST], [RC_SUPPLY], [RC_INFO].
 	var/request_console_flags = 0
@@ -111,6 +114,8 @@
 	*/
 	luminosity = TRUE
 	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	var/area_light_color = null
+	var/area_nightlight_color = null
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
@@ -336,10 +341,7 @@
 	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
-			GLOB.firealarm_soundloop.start(F)
+		start_alarm_sounds()
 		if(!firealarm_sound_stop_timer)
 			firealarm_sound_stop_timer = addtimer(CALLBACK(src, PROC_REF(stop_alarm_sounds)), 4 MINUTES, TIMER_STOPPABLE | TIMER_UNIQUE)
 
@@ -352,10 +354,19 @@
 
 	START_PROCESSING(SSobj, src)
 
+/area/proc/start_alarm_sounds()
+	for(var/obj/machinery/firealarm/F in firealarms)
+		F.update_icon()
+		GLOB.firealarm_soundloop.start(F)
+	for(var/obj/machinery/alarm/A in air_alarms)
+		GLOB.firealarm_soundloop.start(A)
+
 /area/proc/stop_alarm_sounds()
 	for(var/obj/machinery/firealarm/F in firealarms)
 		F.update_icon()
 		GLOB.firealarm_soundloop.stop(F)
+	for(var/obj/machinery/alarm/A in air_alarms)
+		GLOB.firealarm_soundloop.stop(A)
 /**
   * Reset the firealarm alert for this area
   *
@@ -371,10 +382,7 @@
 		if(firealarm_sound_stop_timer)
 			deltimer(firealarm_sound_stop_timer)
 			firealarm_sound_stop_timer = null
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
-			GLOB.firealarm_soundloop.stop(F, TRUE)
+		stop_alarm_sounds()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)

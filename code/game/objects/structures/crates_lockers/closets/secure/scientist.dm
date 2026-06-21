@@ -18,6 +18,25 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
+/obj/structure/closet/secure_closet/xenobiologist
+	name = "xenobiologists's locker"
+	req_access = list(ACCESS_XENOBIOLOGY)
+	icon_state = "xenobiology"
+	opened_door_sprite = "white_secure"
+
+/obj/structure/closet/secure_closet/xenobiologist/populate_contents()
+	new /obj/item/storage/backpack/science(src)
+	new /obj/item/storage/backpack/satchel_tox(src)
+	new /obj/item/clothing/under/rank/rnd/scientist(src)
+	new /obj/item/clothing/under/rank/rnd/scientist/skirt(src)
+	new /obj/item/clothing/suit/storage/labcoat/science(src)
+	new /obj/item/radio/headset/headset_xenobio(src)
+	new /obj/item/tank/internals/air(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/sandal/white(src)
+
+
 /obj/structure/closet/secure_closet/roboticist
 	name = "roboticist's locker"
 	req_access = list(ACCESS_ROBOTICS)
@@ -57,9 +76,9 @@
 	new /obj/item/laser_pointer(src)
 	new /obj/item/door_remote/research_director(src)
 	new /obj/item/reagent_containers/drinks/mug/rd(src)
-	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 	new /obj/item/clothing/accessory/medal/science(src)
-
+	new /obj/item/gun/energy/gun/mini(src)
+	new /obj/item/autosurgeon/organ/one_use/diagnostic_hud(src)
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"

@@ -89,7 +89,7 @@
 /obj/structure/necropolis_gate/attack_hand(mob/user)
 	. = ..()
 	if(locked)
-		to_chat(user, "<span class='boldannounceic'>It's [open ? "stuck open" : "locked"].</span>")
+		to_chat(user, SPAN_BOLDANNOUNCEIC("It's [open ? "stuck open" : "locked"]."))
 		return
 
 	if(GLOB.necropolis_gate == src) //funny override for knock knock gate
@@ -107,7 +107,7 @@
 
 	if(open)
 		new /obj/effect/temp_visual/necropolis(T)
-		visible_message("<span class='boldwarning'>The door slams closed!</span>")
+		visible_message(SPAN_BOLDWARNING("The door slams closed!"))
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 80000)
 		density = TRUE
 		var/turf/sight_blocker_turf = get_turf(src)
@@ -124,7 +124,7 @@
 
 	cut_overlay(door_overlay)
 	new /obj/effect/temp_visual/necropolis/open(T)
-	visible_message("<span class='warning'>The door starts to grind open...</span>")
+	visible_message(SPAN_WARNING("The door starts to grind open..."))
 	playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 20000)
 	addtimer(CALLBACK(src, PROC_REF(toggle_closed_delayed_step)), 2.2 SECONDS, TIMER_UNIQUE)
 	return TRUE
@@ -164,7 +164,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		var/safety = tgui_alert(user, "You think this might be a bad idea...", "Knock on the door?", list("Proceed", "Abort"))
 		if(!safety || safety == "Abort" || !in_range(src, user) || !src || open || changing_openness || user.incapacitated())
 			return
-		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", "<span class='boldannounceic'>You tentatively knock on [src]...</span>")
+		user.visible_message(SPAN_WARNING("[user] knocks on [src]..."), SPAN_BOLDANNOUNCEIC("You tentatively knock on [src]..."))
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
 	return ..()
 
@@ -174,14 +174,14 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	if(..())
 		locked = TRUE
 		var/turf/T = get_turf(src)
-		visible_message("<span class='userdanger'>Something horrible emerges from the Necropolis!</span>")
+		visible_message(SPAN_USERDANGER("Something horrible emerges from the Necropolis!"))
 		message_admins("[user ? ADMIN_LOOKUPFLW(user) : "Unknown"] has released Legion!")
 		log_game("[user ? key_name(user) : "Unknown"] released Legion.")
 
 		var/sound/legion_sound = sound('sound/creatures/legion_spawn.ogg')
 		for(var/mob/M in GLOB.player_list)
 			if(M.z == z && M.client)
-				to_chat(M, "<span class='userdanger'>Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. Something horrible has been released.</span>")
+				to_chat(M, SPAN_USERDANGER("Discordant whispers flood your mind in a thousand voices. Each one speaks your name, over and over. Something horrible has been released."))
 				M.playsound_local(T, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, S = legion_sound)
 				M.flash_screen_color("#FF0000", 5 SECONDS)
 		var/mutable_appearance/release_overlay = mutable_appearance('icons/effects/effects.dmi', "legiondoor")

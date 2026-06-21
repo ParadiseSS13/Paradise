@@ -18,7 +18,7 @@
 	id = "decloner"
 	req_tech = list("combat" = 5, "materials" = 5, "biotech" = 6, "plasmatech" = 7)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 10000)
 	build_path = /obj/item/weaponcrafting/gunkit/decloner
 	category = list("Weapons")
 
@@ -256,7 +256,7 @@
 	id = "techshotshell"
 	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 4, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 200)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Weapons")
 

@@ -25,7 +25,7 @@
 			if(prob(2))
 				H.emote("cough")
 			if(prob(3))
-				to_chat(H, "<span class='notice'>You itch.</span>")
+				to_chat(H, SPAN_NOTICE("You itch."))
 				H.adjustBruteLoss(rand(4, 6))
 		if(3)
 			var/obj/item/organ/external/stomach = H.bodyparts_by_name[pick("chest", "groin")]
@@ -34,12 +34,12 @@
 				H.emote("cough")
 				stomach.receive_damage(rand(0, 5))
 			if(prob(3))
-				to_chat(H, "<span class='notice'>You hear faint barking.</span>")
+				to_chat(H, SPAN_NOTICE("You hear faint barking."))
 				stomach.receive_damage(rand(4, 6))
 			if(prob(2))
-				to_chat(H, "<span class='notice'>You crave meat.</span>")
+				to_chat(H, SPAN_NOTICE("You crave meat."))
 			if(prob(3))
-				to_chat(H, "<span class='danger'>Your stomach growls!</span>")
+				to_chat(H, SPAN_DANGER("Your stomach growls!"))
 				stomach.receive_damage(rand(5, 10))
 		if(4)
 			var/obj/item/organ/external/stomach = H.bodyparts_by_name[pick("chest", "groin")]
@@ -48,24 +48,24 @@
 				H.emote("cough")
 				stomach.receive_damage(rand(0, 5))
 			if(prob(5))
-				to_chat(H, "<span class='danger'>Your stomach barks?!</span>")
+				to_chat(H, SPAN_DANGER("Your stomach barks?!"))
 				stomach.receive_damage(rand(5, 10))
 			if(prob(5))
 				H.visible_message(
-					"<span class='danger'>[H] howls!</span>",
-					"<span class='userdanger'>You howl!</span>"
+					SPAN_DANGER("[H] howls!"),
+					SPAN_USERDANGER("You howl!")
 					)
 				H.AdjustConfused(rand(12 SECONDS, 16 SECONDS))
 				stomach.receive_damage(rand(0, 5))
 			if(prob(5))
 				if(!barklimit)
-					to_chat(H, "<span class='danger'>Your stomach growls!</span>")
+					to_chat(H, SPAN_DANGER("Your stomach growls!"))
 					stomach.receive_damage(rand(5, 10))
 				else
 					var/atom/hairball = pick(prob(50) ? puppy_types : plush_types)
 					H.visible_message(
-						"<span class='danger'>[H] coughs up \a [initial(hairball.name)]!</span>",
-						"<span class='userdanger'>You cough up \a [initial(hairball.name)]?!</span>"
+						SPAN_DANGER("[H] coughs up \a [initial(hairball.name)]!"),
+						SPAN_USERDANGER("You cough up \a [initial(hairball.name)]?!")
 						)
 					new hairball(H.loc)
 					barklimit--

@@ -1,0 +1,7 @@
+/mob/living/simple_animal/hostile/retaliate/goat/@SUBTYPES : /mob/living/basic/goat/@SUBTYPES{@OLD}
+/mob/living/simple_animal/chick/@SUBTYPES : /mob/living/basic/chick/@SUBTYPES{@OLD}
+/mob/living/simple_animal/chicken/@SUBTYPES : /mob/living/basic/chicken/@SUBTYPES{@OLD}
+/mob/living/simple_animal/turkey/@SUBTYPES : /mob/living/basic/turkey/@SUBTYPES{@OLD}
+/mob/living/simple_animal/goose/@SUBTYPES : /mob/living/basic/goose/@SUBTYPES{@OLD}
+/mob/living/simple_animal/seal/@SUBTYPES : /mob/living/basic/seal/@SUBTYPES{@OLD}
+/mob/living/simple_animal/walrus/@SUBTYPES : /mob/living/basic/seal/walrus/@SUBTYPES{@OLD}

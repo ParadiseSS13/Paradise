@@ -21,7 +21,7 @@
 	metal_sheets_refunded = 1
 
 /obj/item/mounted/frame/light_switch/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/light_switch(get_turf(user), get_dir(user, on_wall))
+	new /obj/machinery/light_switch(get_turf(user), get_dir(on_wall, user))
 	qdel(src)
 
 /obj/item/mounted/frame/light_switch/windowtint

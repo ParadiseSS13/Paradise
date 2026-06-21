@@ -33,7 +33,7 @@
 	var/poison_type = "toxin"
 	/// List of stuff (mice) that we want to eat
 	var/static/list/edibles = list(
-		/mob/living/simple_animal/mouse,
+		/mob/living/basic/mouse,
 	)
 
 /mob/living/basic/snake/Initialize(mapload)

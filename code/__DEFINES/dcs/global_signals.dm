@@ -27,3 +27,6 @@
 
 /// Used when a shelter capsule deploys
 #define COMSIG_GLOB_SHELTER_PLACED "!shelter_placed"
+
+/// sent after world.maxx and/or world.maxy are expanded: (has_expanded_world_maxx, has_expanded_world_maxy)
+#define COMSIG_GLOB_EXPANDED_WORLD_BOUNDS "!expanded_world_bounds"

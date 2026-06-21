@@ -8,16 +8,17 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 	desc = "It looks like you're writing a letter. Want some help?"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "clipboard"
-	item_state = "clipboard"
+	inhand_icon_state = "clipboard"
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	var/obj/item/pen/containedpen
 	var/obj/item/toppaper
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
+	new_attack_chain = TRUE
 
-/obj/item/clipboard/New()
-	..()
+/obj/item/clipboard/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/clipboard/AltClick(mob/user)
@@ -26,6 +27,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 			penPlacement(user, user.get_active_hand(), TRUE)
 		else
 			removePen(user)
+
 		return
 	. = ..()
 
@@ -42,27 +44,29 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to remove its pen.</span>"
+	. += SPAN_NOTICE("<b>Alt-Click</b> to remove its pen.")
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 
 /obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	if(placing)
 		if(containedpen)
-			to_chat(user, "<span class='warning'>There's already a pen in [src]!</span>")
+			to_chat(user, SPAN_WARNING("There's already a pen in [src]!"))
 			return
 		if(!is_pen(P))
 			return
-		to_chat(user, "<span class='notice'>You slide [P] into [src].</span>")
+		to_chat(user, SPAN_NOTICE("You slide [P] into [src]."))
 		user.transfer_item_to(P, src)
 		containedpen = P
+		add_fingerprint(user)
 	else
 		if(!containedpen)
-			to_chat(user, "<span class='warning'>There isn't a pen in [src] for you to remove!</span>")
+			to_chat(user, SPAN_WARNING("There isn't a pen in [src] for you to remove!"))
 			return
-		to_chat(user, "<span class='notice'>You remove [containedpen] from [src].</span>")
+		to_chat(user, SPAN_NOTICE("You remove [containedpen] from [src]."))
 		user.put_in_hands(containedpen)
 		containedpen = null
+		add_fingerprint(user)
 	update_icon()
 
 /obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
@@ -95,30 +99,39 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 			break
 	. += "clipboard_over"
 
-/obj/item/clipboard/attackby__legacy__attackchain(obj/item/W, mob/user)
-	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
-		user.unequip(W)
-		W.forceMove(src)
-		to_chat(user, "<span class='notice'>You clip [W] onto [src].</span>")
+/obj/item/clipboard/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(isPaperwork(used)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
+		user.unequip(used)
+		used.forceMove(src)
+		to_chat(user, SPAN_NOTICE("You clip [used] onto [src]."))
 		playsound(loc, "pageturn", 50, 1)
-		if(isPaperwork(W) == PAPERWORK)
-			toppaper = W
+		if(isPaperwork(used) == PAPERWORK)
+			toppaper = used
 		update_icon()
-	else if(is_pen(W))
-		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
-			penPlacement(user, W, TRUE)
-			return
-		if(!Adjacent(user) || user.incapacitated())
-			return
-		toppaper.attackby__legacy__attackchain(W, user)
-	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
-		toppaper.attackby__legacy__attackchain(W, user)
-		update_icon()
-	else
-		return ..()
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/clipboard/attack_self__legacy__attackchain(mob/user)
+	if(is_pen(used))
+		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
+			penPlacement(user, used, TRUE)
+			return ITEM_INTERACT_COMPLETE
+		toppaper.item_interaction(user, used, modifiers)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stamp) && toppaper) // We can stamp the topmost piece of paper.
+		toppaper.item_interaction(user, used, modifiers)
+		update_icon()
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/item/clipboard/activate_self(mob/user)
+	if(!user)
+		return ..()
 	showClipboard(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clipboard/Topic(href, href_list)
 	..()
@@ -134,7 +147,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		var/obj/item/P = locate(href_list["remove"]) in src
 		if(isPaperwork(P))
 			usr.put_in_hands(P)
-			to_chat(usr, "<span class='notice'>You remove [P] from [src].</span>")
+			to_chat(usr, SPAN_NOTICE("You remove [P] from [src]."))
 			toppaper = locate(/obj/item/paper) in src
 			if(!toppaper) //In case there's no paper, try find a paper bundle instead
 				toppaper = locate(/obj/item/paper_bundle) in src
@@ -143,7 +156,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		if(!isPaperwork(P))
 			return
 		if(is_pen(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
-			P.attackby__legacy__attackchain(I, usr)
+			P.item_interaction(usr, I)
 		else if(isPaperwork(P) == PAPERWORK) //Why can't these be subtypes of paper
 			P.examine(usr)
 		else if(isPaperwork(P) == PHOTO)
@@ -153,7 +166,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 		var/obj/item/P = locate(href_list["topPaper"]) in src
 		if(P == toppaper)
 			return
-		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")
+		to_chat(usr, SPAN_NOTICE("You flick the pages so that [P] is on top."))
 		playsound(loc, "pageturn", 50, 1)
 		toppaper = P
 	update_icon()

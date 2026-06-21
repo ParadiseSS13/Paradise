@@ -18,7 +18,7 @@
 	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS
 	spawnableAtoms = list(/mob/living/simple_animal/hostile/syndicate = 50, \
 		/mob/living/simple_animal/hostile/syndicate/ranged = 20, \
-		/mob/living/simple_animal/hostile/viscerator = 30)
+		/mob/living/basic/viscerator = 30)
 	spawnableTurfs = list()
 
 // Generators

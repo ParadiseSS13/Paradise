@@ -5,12 +5,12 @@
 	var/objholder = null
 
 /datum/buildmode_mode/fill/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button + Alt on turf/obj/mob = Delete region</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button on turf/obj/mob      = Select corner"))
+	to_chat(user, SPAN_NOTICE("Left Mouse Button + Alt on turf/obj/mob = Delete region"))
+	to_chat(user, SPAN_NOTICE("Right Mouse Button on buildmode button = Select object type"))
 	to_chat(user, "<span class='notice'>Left Mouse Button + alt on turf/obj    = Copy object type")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, SPAN_NOTICE("***********************************************************"))
 
 /datum/buildmode_mode/fill/change_settings(mob/user)
 	var/target_path = tgui_input_text(user, "Enter typepath:" , "Typepath", "/obj/structure/closet")
@@ -33,11 +33,11 @@
 	if(left_click && alt_click)
 		if(isturf(object) || isobj(object) || ismob(object))
 			objholder = object.type
-			to_chat(user, "<span class='notice'>[initial(object.name)] ([object.type]) selected.</span>")
+			to_chat(user, SPAN_NOTICE("[initial(object.name)] ([object.type]) selected."))
 		else
-			to_chat(user, "<span class='notice'>[initial(object.name)] is not a turf, object, or mob! Please select again.</span>")
+			to_chat(user, SPAN_NOTICE("[initial(object.name)] is not a turf, object, or mob! Please select again."))
 	if(isnull(objholder))
-		to_chat(user, "<span class='warning'>Select an object type first.</span>")
+		to_chat(user, SPAN_WARNING("Select an object type first."))
 		deselect_region()
 		return
 	..()

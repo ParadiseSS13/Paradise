@@ -13,9 +13,9 @@
 //Recover from stuns.
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)
 	if(IS_HORIZONTAL(user))
-		to_chat(user, "<span class='notice'>We arise.</span>")
+		to_chat(user, SPAN_NOTICE("We arise."))
 	else
-		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")
+		to_chat(user, SPAN_NOTICE("Adrenaline rushes through us."))
 	user.SetSleeping(0)
 	user.WakeUp()
 	user.SetParalysis(0)

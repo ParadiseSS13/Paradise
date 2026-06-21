@@ -6,7 +6,11 @@ GLOBAL_LIST_EMPTY(string_assoc_lists)
 /datum/proc/string_assoc_list(list/values)
 	var/list/string_id = list()
 	for(var/val in values)
-		string_id += "[val]_[values[val]]"
+		if(islist(values[val]))
+			var/list/value = values[val]
+			string_id += "[val]_[value.Join("-")]" // horrible, nonexhaustive hack
+		else
+			string_id += "[val]_[values[val]]"
 	string_id = string_id.Join("-")
 
 	. = GLOB.string_assoc_lists[string_id]

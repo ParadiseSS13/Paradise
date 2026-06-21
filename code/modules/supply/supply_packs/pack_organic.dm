@@ -25,6 +25,17 @@
 	containername = "food crate"
 	announce_beacons = list("Kitchen" = list("Kitchen"))
 
+/datum/supply_packs/organic/liquid_food
+	name = "LiquidFood Ration Crate"
+	contains = list(/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood,
+					/obj/item/food/rations/liquidfood)
+	cost = 500
+	containername = "Ration crate"
+
 /datum/supply_packs/organic/pizza
 	name = "Pizza Crate"
 	contains = list(/obj/item/pizzabox/margherita,
@@ -204,6 +215,15 @@
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
 
+/datum/supply_packs/organic/juice_boxes
+	name = "Stationside Juice Boxes Variety Pack"
+	contains = list(/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+		/obj/item/storage/fancy/juice_boxes/full,
+	)
+	cost = 400
+	containername = "juice box box box"
+
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"
@@ -222,6 +242,15 @@
 	)
 	containertype = /obj/structure/closet/critter/pig
 	containername = "pig crate"
+
+/datum/supply_packs/organic/isopod
+	name = "Ahuitz Crate"
+	cost = 100
+	contains_special = list(
+		"Ahuitz"
+	)
+	containertype = /obj/structure/closet/critter/isopod
+	containername = "ahuitz crate"
 
 /datum/supply_packs/organic/goat
 	name = "Goat Crate"
@@ -270,6 +299,15 @@
 	contains = list(/obj/item/petcollar,
 					/obj/item/toy/cattoy)
 	containername = "cat crate"
+
+/datum/supply_packs/organic/isopod_small
+	name = "Deverka Crate"
+	cost = 300
+	contains_special = list(
+		"Deverka"
+	)
+	containertype = /obj/structure/closet/critter/isopod_small
+	containername = "deverka crate"
 
 /datum/supply_packs/organic/pug
 	name = "Pug Crate"
@@ -379,7 +417,8 @@
 
 /datum/supply_packs/organic/hydroponics/seeds
 	name = "Seeds Crate"
-	contains = list(/obj/item/seeds/chili,
+	contains = list(/obj/item/seeds/tower,
+					/obj/item/seeds/chili,
 					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
@@ -390,6 +429,8 @@
 					/obj/item/seeds/wheat/rice,
 					/obj/item/seeds/carrot,
 					/obj/item/seeds/sunflower,
+					/obj/item/seeds/lettuce,
+					/obj/item/seeds/onion,
 					/obj/item/seeds/chanter,
 					/obj/item/seeds/potato,
 					/obj/item/seeds/sugarcane)
@@ -444,3 +485,11 @@
 					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 150
 	containername = "beekeeper suits"
+
+/datum/supply_packs/organic/bottler
+	name = "Bottler Unit Crate"
+	contains = list(/obj/machinery/bottler)
+	cost = 150
+	containertype = /obj/structure/largecrate
+	containername = "Bottler Unit Crate"
+

@@ -43,9 +43,11 @@
 	if(!SPT_PROB(relay_chance, seconds_per_tick))
 		return
 
-	if(controller.blackboard_key_exists(BB_HIVE_PARTNER))
-		controller.queue_behavior(/datum/ai_behavior/relay_message, BB_HIVE_PARTNER)
-		return SUBTREE_RETURN_FINISH_PLANNING
+	for(var/mob/living/listener in hearers(11, controller.pawn))
+		if(listener.client && listener.stat != DEAD)
+			if(controller.blackboard_key_exists(BB_HIVE_PARTNER))
+				controller.queue_behavior(/datum/ai_behavior/relay_message, BB_HIVE_PARTNER)
+				return SUBTREE_RETURN_FINISH_PLANNING
 	controller.queue_behavior(/datum/ai_behavior/find_and_set/hive_partner, BB_HIVE_PARTNER, /mob/living/basic/hivebot)
 
 /datum/ai_behavior/find_and_set/hive_partner
@@ -78,6 +80,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/relay_message/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/mob/living/target = controller.blackboard[target_key]
 	var/mob/living/living_pawn = controller.pawn
 

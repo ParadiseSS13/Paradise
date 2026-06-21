@@ -20,7 +20,7 @@
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
 	custom_name = TRUE
-	frequency  = AIRLOCK_FREQ
+	frequency  = INTERROGATION_FREQ
 
 /obj/item/radio/intercom/private
 	name = "station intercom (Private)"
@@ -30,7 +30,7 @@
 /obj/item/radio/intercom/command
 	name = "station intercom (Command)"
 	custom_name = TRUE
-	frequency = COMM_FREQ
+	frequency = COM_FREQ
 
 /obj/item/radio/intercom/specops
 	name = "\improper Special Operations intercom"
@@ -49,8 +49,11 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, direction, building = 3)
+/obj/item/radio/intercom/Initialize(mapload, direction, building = 3)
 	. = ..()
+	if(!custom_name)
+		name = "station intercom (General)"
+
 	buildstage = building
 	if(buildstage)
 		update_operating_status()
@@ -63,17 +66,12 @@
 	GLOB.global_intercoms.Add(src)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/item/radio/intercom/Initialize(mapload)
+/obj/item/radio/intercom/department/medbay/Initialize(mapload, direction, building)
 	. = ..()
-	if(!custom_name)
-		name = "station intercom (General)"
-
-/obj/item/radio/intercom/department/medbay/New()
-	..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
 
-/obj/item/radio/intercom/department/security/New()
-	..()
+/obj/item/radio/intercom/department/security/Initialize(mapload, direction, building)
+	. = ..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
 		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY)
@@ -85,21 +83,21 @@
 	frequency = SYND_FREQ
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
-/obj/item/radio/intercom/syndicate/New()
-	..()
+/obj/item/radio/intercom/syndicate/Initialize(mapload, direction, building)
+	. = ..()
 	internal_channels[num2text(SYND_FREQ)] = list(ACCESS_SYNDICATE)
 
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
 
-/obj/item/radio/intercom/pirate/New()
-	..()
+/obj/item/radio/intercom/pirate/Initialize(mapload, direction, building)
+	. = ..()
 	internal_channels.Cut()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
 		num2text(AI_FREQ)  = list(),
-		num2text(COMM_FREQ)= list(),
+		num2text(COM_FREQ)= list(),
 		num2text(ENG_FREQ) = list(),
 		num2text(MED_FREQ) = list(),
 		num2text(MED_I_FREQ)=list(),
@@ -141,11 +139,11 @@
 	. = ..()
 	switch(buildstage)
 		if(0)
-			. += "<span class='notice'>The frame is <b>welded</b> to the wall, but missing <i>circuitry</i>.</span>"
+			. += SPAN_NOTICE("The frame is <b>welded</b> to the wall, but missing <i>circuitry</i>.")
 		if(1)
-			. += "<span class='notice'>The speaker needs to be <i>wired</i>, though the board could be <b>pried</b> out.</span>"
+			. += SPAN_NOTICE("The speaker needs to be <i>wired</i>, though the board could be <b>pried</b> out.")
 		if(2)
-			. += "<span class='notice'>The intercom is <b>wired</b>, and the maintenance panel is <i>unscrewed</i>.</span>"
+			. += SPAN_NOTICE("The intercom is <b>wired</b>, and the maintenance panel is <i>unscrewed</i>.")
 
 /obj/item/radio/intercom/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
@@ -153,18 +151,18 @@
 	else if(iscoil(W) && buildstage == 1)
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() < 5)
-			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
+			to_chat(user, SPAN_WARNING("You need more cable for this!"))
 			return
 		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1)
 			coil.use(5)
-			to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
+			to_chat(user, SPAN_NOTICE("You wire \the [src]!"))
 			buildstage = 2
 		return 1
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 10 * W.toolspeed, target = src) && buildstage == 0)
 			qdel(W)
-			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
+			to_chat(user, SPAN_NOTICE("You insert \the [W] into \the [src]!"))
 			buildstage = 1
 		return 1
 	else
@@ -181,11 +179,11 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
+	to_chat(user, SPAN_NOTICE("You begin removing the electronics..."))
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 1)
 		return
 	new /obj/item/intercom_electronics(get_turf(src))
-	to_chat(user, "<span class='notice'>The circuit board pops out!</span>")
+	to_chat(user, SPAN_NOTICE("The circuit board pops out!"))
 	buildstage = 0
 
 /obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/I)
@@ -200,7 +198,7 @@
 	on = TRUE
 	b_stat = FALSE
 	buildstage = 3
-	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
+	to_chat(user, SPAN_NOTICE("You secure the electronics!"))
 	update_icon(UPDATE_ICON_STATE)
 	update_operating_status()
 	for(var/i, i<= 5, i++)
@@ -226,9 +224,9 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
 		return
-	to_chat(user, "<span class='notice'>You start slicing [src] from the wall...</span>")
+	to_chat(user, SPAN_NOTICE("You start slicing [src] from the wall..."))
 	if(I.use_tool(src, user, 10, amount = 3, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You cut [src] free from the wall!</span>")
+		to_chat(user, SPAN_NOTICE("You cut [src] free from the wall!"))
 		new /obj/item/mounted/frame/intercom(get_turf(src))
 		qdel(src)
 
@@ -298,6 +296,6 @@
 	name = "prison intercom"
 	desc = "A reliable form of communication even during local communication blackouts. It looks like it has been modified to not broadcast. Not so reliable, I guess..."
 
-/obj/item/radio/intercom/locked/prison/New()
-	..()
+/obj/item/radio/intercom/locked/prison/Initialize(mapload, direction, building)
+	. = ..()
 	wires.cut(WIRE_RADIO_TRANSMIT)

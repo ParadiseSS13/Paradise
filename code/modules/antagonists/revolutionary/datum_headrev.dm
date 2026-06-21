@@ -16,7 +16,7 @@ RESTRICT_TYPE(/datum/antagonist/rev/head)
 	INVOKE_ASYNC(revolting, TYPE_PROC_REF(/datum/team/revolution, process_promotion), REVOLUTION_PROMOTION_AT_LEAST_ONE)
 
 /datum/antagonist/rev/head/greet()
-	return "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>"
+	return SPAN_USERDANGER("You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!")
 
 /datum/antagonist/rev/head/add_owner_to_gamemode()
 	SSticker.mode.head_revolutionaries |= owner
@@ -64,5 +64,5 @@ RESTRICT_TYPE(/datum/antagonist/rev/head)
 	demoted.converted = FALSE
 	old_owner.add_antag_datum(demoted, SSticker.mode.get_rev_team())
 	demoted.silent = FALSE
-	to_chat(old_owner.current, "<span class='userdanger'>The Revolution is disappointed in your leadership! You are a regular revolutionary now!</span>")
+	to_chat(old_owner.current, SPAN_USERDANGER("The Revolution is disappointed in your leadership! You are a regular revolutionary now!"))
 

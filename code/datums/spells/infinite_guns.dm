@@ -34,9 +34,6 @@
 	desc = "A small flame, ready to launch from your hand."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unathi"
-	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	color = "#e1ff00" // red + yellow = orange
 	guns_left = 20
 	fire_sound = 'sound/magic/Fireball.ogg'
@@ -47,5 +44,5 @@
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/fireball
 
 /obj/item/ammo_casing/magic/arcane_barrage/fireball
-	projectile_type = /obj/item/projectile/magic/fireball
+	projectile_type = /obj/projectile/magic/fireball
 	muzzle_flash_effect = null

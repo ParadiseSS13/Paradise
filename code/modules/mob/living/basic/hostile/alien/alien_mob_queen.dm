@@ -12,7 +12,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/alien/queen
 
 	is_ranged = TRUE
-	projectile_type = /obj/item/projectile/neurotox
+	projectile_type = /obj/projectile/neurotox
 	projectile_sound = 'sound/weapons/pierce.ogg'
 	ranged_cooldown = 3 SECONDS
 

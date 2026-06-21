@@ -1,4 +1,6 @@
 /datum/event/pda_spam
+	name = "PDA Spam"
+	role_weights = list(ASSIGNMENT_CREW = 4)
 	endWhen = 36000
 	var/last_spam_time = 0
 	var/obj/machinery/message_server/useMS

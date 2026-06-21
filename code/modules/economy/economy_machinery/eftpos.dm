@@ -65,9 +65,9 @@
 				scan_card(O, user)
 				SStgui.update_uis(src)
 			else
-				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to linked account.</span>")
+				to_chat(user, "[bicon(src)][SPAN_WARNING("Unable to connect to linked account.")]")
 		else
-			to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
+			to_chat(user, "[bicon(src)][SPAN_WARNING("Unable to connect to accounts database.")]")
 	else
 		return ..()
 
@@ -118,20 +118,20 @@
 				access_code = trycode
 				print_reference()
 			else
-				to_chat(user, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
+				to_chat(user, "[bicon(src)][SPAN_WARNING("Incorrect code entered.")]")
 		if("link_account")
 			if(!account_database)
 				reconnect_database()
 			if(!account_database)
-				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
+				to_chat(user, "[bicon(src)][SPAN_WARNING("Unable to connect to accounts database.")]")
 				return
 			var/datum/money_account/target_account = locateUID(params["account"])
 			if(!istype(target_account))
-				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to inputted account.</span>")
+				to_chat(user, "[bicon(src)][SPAN_WARNING("Unable to connect to inputted account.")]")
 				return
 			// in this case we don't care about authenticating login because we're sending money into the account
 			linked_account = target_account
-			to_chat(user, "[bicon(src)]<span class='warning'>Linked account successfully set to [target_account.account_name]</span>")
+			to_chat(user, "[bicon(src)][SPAN_WARNING("Linked account successfully set to [target_account.account_name]")]")
 		if("trans_purpose")
 			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose, encode = FALSE)
 			if(!check_user_position(user) || !purpose)
@@ -156,7 +156,7 @@
 					if(vendor.linked_pos == src)
 						SStgui.update_uis(vendor, TRUE)
 			else
-				to_chat(user, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
+				to_chat(user, "[bicon(src)][SPAN_WARNING("No account connected to send transactions to.")]")
 		if("reset")
 			//reset the access code - requires HoP/captain access
 			var/obj/item/I = user.get_active_hand()
@@ -164,10 +164,10 @@
 				var/obj/item/card/id/C = I
 				if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
 					access_code = 1000
-					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to [access_code].</span>")
+					to_chat(user, "[bicon(src)][SPAN_NOTICE("Access code reset to [access_code].")]")
 			else if(istype(I, /obj/item/card/emag))
 				access_code = 1000
-				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to [access_code].</span>")
+				to_chat(user, "[bicon(src)][SPAN_NOTICE("Access code reset to [access_code].")]")
 		if("offer")
 			if(can_offer)
 				offer(user)
@@ -177,18 +177,18 @@
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user, secured = TRUE)
 	if(!transaction_locked || transaction_paid || !secured)
-		visible_message("<span class='notice'>[user] swipes a card through [src], but nothing happens.</span>")
+		visible_message(SPAN_NOTICE("[user] swipes a card through [src], but nothing happens."))
 		return
 
-	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
+	visible_message(SPAN_NOTICE("[user] swipes a card through [src]."))
 
 	if(!linked_account)
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"EFTPOS is not connected to an account.\"</span>", "<span class='notice'>You hear something buzz.</span>")
+		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"EFTPOS is not connected to an account.\"")]", SPAN_NOTICE("You hear something buzz."))
 		return
 
 	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number, include_departments = FALSE)
 	if(!D)
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Card is not connected to an account.\"</span>", "<span class='notice'>You hear something buzz.</span>")
+		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Card is not connected to an account.\"")]", SPAN_NOTICE("You hear something buzz."))
 		return
 	//if security level high enough, prompt for pin
 	var/attempt_pin
@@ -198,7 +198,7 @@
 			return
 	//given the credentials, can the associated account be accessed right now?
 	if(!GLOB.station_money_database.try_authenticate_login(D, attempt_pin, restricted_bypass = FALSE))
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Access denied.\"</span>", "<span class='notice'>You hear something buzz.</span>")
+		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Access denied.\"")]", SPAN_NOTICE("You hear something buzz."))
 		return
 	if(tgui_alert(user, "Are you sure you want to pay $[transaction_amount] to: [linked_account.account_name]", "Confirm transaction", list("Yes", "No")) != "Yes")
 		return
@@ -206,11 +206,11 @@
 		return
 	//attempt to charge account money
 	if(!GLOB.station_money_database.charge_account(D, transaction_amount, transaction_purpose, machine_name, FALSE, FALSE))
-		visible_message("[bicon(src)]<span class='warning'>[src] buzzes as its display flashes \"Insufficient funds.\"</span>", "<span class='notice'>You hear something buzz.</span>")
+		visible_message("[bicon(src)][SPAN_WARNING("[src] buzzes as its display flashes \"Insufficient funds.\"")]", SPAN_NOTICE("You hear something buzz."))
 		return
 	GLOB.station_money_database.credit_account(linked_account, transaction_amount, transaction_purpose, machine_name, FALSE)
 	playsound(src, transaction_sound, 50, TRUE)
-	visible_message("[bicon(src)]<span class='notice'>[src] chimes as its display reads \"Transaction successful!\"</span>", "<span class='notice'>You hear something chime.</span>")
+	visible_message("[bicon(src)][SPAN_NOTICE("[src] chimes as its display reads \"Transaction successful!\"")]", SPAN_NOTICE("You hear something chime."))
 	transaction_paid = TRUE
 	addtimer(VARSET_CALLBACK(src, transaction_paid, FALSE), 5 SECONDS)
 
@@ -263,25 +263,25 @@
 /obj/item/eftpos/register/examine(mob/user)
 	. = ..()
 	if(!anchored)
-		. += "<span class='notice'>Alt-click to rotate it.</span>"
+		. += SPAN_NOTICE("Alt-click to rotate it.")
 	else
-		. += "<span class='notice'>It is secured in place.</span>"
+		. += SPAN_NOTICE("It is secured in place.")
 
 /obj/item/eftpos/register/AltClick(mob/user)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(!Adjacent(user))
 		return
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is secured in place!</span>")
+		to_chat(user, SPAN_WARNING("[src] is secured in place!"))
 		return
 	setDir(turn(dir, 90))
 
 /obj/item/eftpos/register/attack_hand(mob/user)
 	if(anchored)
 		if(!check_user_position(user))
-			to_chat(user, "<span class='warning'>You need to be behind [src] to use it!</span>")
+			to_chat(user, SPAN_WARNING("You need to be behind [src] to use it!"))
 			return
 		add_fingerprint(user)
 		ui_interact(user)
@@ -292,7 +292,7 @@
 	return GLOB.human_adjacent_state
 
 /obj/item/eftpos/register/attack_self__legacy__attackchain(mob/user)
-	to_chat(user, "<span class='notice'>[src] has to be set down and secured to be used.</span>")
+	to_chat(user, SPAN_NOTICE("[src] has to be set down and secured to be used."))
 
 /obj/item/eftpos/register/check_user_position(mob/user)
 	if(!..())

@@ -3,13 +3,13 @@
 	desc = "The second-most important part of bureaucracy, after the pen of course."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_bin1"
-	item_state = "sheet-metal"
 	throwforce = 1
 	throw_speed = 3
 	pressure_resistance = 8
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 	var/letterhead_type
+	new_attack_chain = TRUE
 
 /obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
@@ -95,33 +95,31 @@
 		user.put_in_hands(P)
 		P.add_fingerprint(user)
 		P.scatter_atom()
-		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You take [P] out of [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is empty!"))
 
 	add_fingerprint(user)
 	return
 
-
-/obj/item/paper_bin/attackby__legacy__attackchain(obj/item/paper/i as obj, mob/user as mob, params)
-	if(istype(i))
-		user.drop_item()
-		i.loc = src
-		to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
-		papers.Add(i)
-		amount++
-	else
+/obj/item/paper_bin/item_interaction(mob/living/user, obj/item/paper/used, list/modifiers)
+	if(!istype(used))
 		return ..()
-
+	user.drop_item()
+	used.forceMove(src)
+	to_chat(user, SPAN_NOTICE("You put [used] in [src]."))
+	papers.Add(used)
+	amount++
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/paper_bin/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		if(amount)
-			. += "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>"
+			. += SPAN_NOTICE("There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.")
 		else
-			. += "<span class='notice'>There are no papers in the bin.</span>"
-
+			. += SPAN_NOTICE("There are no papers in the bin.")
 
 /obj/item/paper_bin/update_icon_state()
 	if(amount < 1)
@@ -147,13 +145,12 @@
 			P = new /obj/item/paper/carbon
 		P.loc = user.loc
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
+		to_chat(user, SPAN_NOTICE("You take [P] out of [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, SPAN_NOTICE("[src] is empty!"))
 
 	add_fingerprint(user)
 	return
-
 
 /obj/item/paper_bin/nanotrasen
 	name = "nanotrasen paper bin"

@@ -49,7 +49,7 @@
 			beeagents += R
 		var/bee_amount = round(created_volume * 0.2)
 		for(var/i in 1 to bee_amount)
-			var/mob/living/simple_animal/hostile/poison/bees/new_bee = new(location)
+			var/mob/living/basic/bee/new_bee = new(location)
 			if(LAZYLEN(beeagents))
 				new_bee.assign_reagent(pick(beeagents))
 
@@ -213,8 +213,8 @@
 	name = "Phlogiston"
 	id = "phlogiston"
 	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1, "stabilizing_agent" = 1)
-	result_amount = 4
+	required_reagents = list("phosacid" = 1, "plasma" = 1, "stabilizing_agent" = 1)
+	result_amount = 3
 	mix_message = "The substance becomes sticky and extremely warm."
 
 /datum/chemical_reaction/phlogiston_dust
@@ -230,7 +230,7 @@
 	name = "Phlogiston Fire"
 	id = "phlogiston_fire"
 	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "plasma" = 1, "sacid" = 1)
+	required_reagents = list("phosacid" = 1, "plasma" = 1)
 	mix_message = "The substance erupts into wild flames."
 
 /datum/chemical_reaction/phlogiston_fire/on_reaction(datum/reagents/holder, created_volume)
@@ -371,7 +371,7 @@
 	result = null
 	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
-	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
+	mix_message = SPAN_DANGER("The reaction releases an electrical blast!")
 	mix_sound = 'sound/magic/lightningbolt.ogg'
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)

@@ -58,7 +58,7 @@
 	flags = ABSTRACT | NODROP | DROPDEL
 	gender = PLURAL
 	force = 21 // allows them to break down doors aka NOT FUCKING AROUND
-	armour_penetration_percentage = -20
+	armor_penetration_percentage = -20
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "mauled", "cut", "savaged", "clawed")
@@ -73,6 +73,7 @@
 
 /obj/item/zombie_claw/Initialize(mapload, new_parent_spell)
 	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 	if(new_parent_spell)
 		parent_spell = new_parent_spell
 		RegisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
@@ -90,9 +91,9 @@
 	return ..()
 
 /obj/item/zombie_claw/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] dull claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
+	return SPAN_WARNING("[owner.p_they(TRUE)] [owner.p_have(FALSE)] dull claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].")
 
-/obj/item/zombie_claw/pre_attack(atom/A, mob/living/user, params)
+/obj/item/zombie_claw/pre_attack(atom/target, mob/living/user, params)
 	. = ..()
 	if(!HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
 		if(user.reagents.has_reagent("zombiecure2"))
@@ -129,18 +130,18 @@
 		to_chat(user, "<span class='warning zombie'>[target]'s brains are blocked.</span>")
 		return // Armor blocks zombies trying to eat your brains!
 
-	to_chat(target, "<span class='userdanger'>[user]'s claws dig into your [brain_holder.encased]!</span>")
-	user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_holder.name]!</span>", "<span class='danger zombie'>We dig into [target]'s [brain_holder.encased ? brain_holder.encased : brain_holder]...</span>")
+	to_chat(target, SPAN_USERDANGER("[user]'s claws dig into your [brain_holder.encased]!"))
+	user.visible_message(SPAN_DANGER("[user] digs their claws into [target]'s [brain_holder.name]!"), "<span class='danger zombie'>We dig into [target]'s [brain_holder.encased ? brain_holder.encased : brain_holder]...</span>")
 	playsound(user, 'sound/weapons/armblade.ogg', 50, TRUE)
 	if(!do_mob(user, target, 3 SECONDS))
 		return FALSE
 
 	playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
-	brain_holder.fracture()
-	brain_holder.broken_description = "split open"
+	brain_holder.fracture(fracture_name_override = "split open")
+
 	brain_holder.open = ORGAN_ORGANIC_VIOLENT_OPEN
-	to_chat(target, "<span class='userdanger'>Your [brain_holder.name] is violently cracked open!</span>")
-	user.visible_message("<span class='danger'>[user] violently splits apart [target]'s [brain_holder.name]!</span>", "<span class='danger zombie'>We crack apart [target]'s [brain_holder.name]!</span>")
+	to_chat(target, SPAN_USERDANGER("Your [brain_holder.name] is violently cracked open!"))
+	user.visible_message(SPAN_DANGER("[user] violently splits apart [target]'s [brain_holder.name]!"), "<span class='danger zombie'>We crack apart [target]'s [brain_holder.name]!</span>")
 	return TRUE
 
 
@@ -161,7 +162,7 @@
 		return // Armor blocks zombies trying to eat your brains!
 
 	// already have the disease, or have contracted it. Good for feedback when being attacked while wearing a biosuit
-	if(target.HasDisease(/datum/disease/zombie) || target.ContractDisease(new /datum/disease/zombie))
+	if(target.HasDisease(/datum/disease/zombie) || target.ContractDisease(new /datum/disease/zombie, SPREAD_BLOOD))
 		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
 		target.bleed_rate = max(5, target.bleed_rate + 1) // it transfers via blood, you know. It had to get in somehow.
 		for(var/datum/disease/zombie/zomb in target.viruses)
@@ -180,7 +181,7 @@
 /obj/item/zombie_claw/plague_claw
 	name = "Plague Claws"
 	desc = "Claws extend from your rotting hands, oozing a putrid ichor. Perfect for rending bone and flesh for your master."
-	armour_penetration_flat = 15
+	armor_penetration_flat = 15
 	force = 13
 
 /obj/item/zombie_claw/plague_claw/Initialize(mapload, new_parent_spell, disease)
@@ -188,7 +189,7 @@
 	claw_disease = disease
 
 /obj/item/zombie_claw/plague_claw/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] sharp, ichor-laden claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
+	return SPAN_WARNING("[owner.p_they(TRUE)] [owner.p_have(FALSE)] sharp, ichor-laden claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].")
 
 /obj/item/zombie_claw/plague_claw/activate_self(mob/user)
 	if(..())

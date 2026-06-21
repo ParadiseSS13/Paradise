@@ -30,7 +30,8 @@
 		/obj/item/photo,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver,
-		/obj/item/stamp)
+		/obj/item/stamp,
+		/obj/item/tcg_card)
 	cant_hold = list(
 		/obj/item/screwdriver/power
 	)

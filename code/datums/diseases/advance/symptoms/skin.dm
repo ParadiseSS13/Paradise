@@ -35,7 +35,7 @@ BONUS
 			if(5)
 				H.change_skin_tone(85, TRUE)
 			else
-				H.visible_message("<span class='warning'>[H] looks a bit pale...</span>", "<span class='notice'>Your skin suddenly appears lighter...</span>")
+				H.visible_message(SPAN_WARNING("[H] looks a bit pale..."), SPAN_NOTICE("Your skin suddenly appears lighter..."))
 
 	return
 
@@ -78,6 +78,6 @@ BONUS
 			if(5)
 				H.change_skin_tone(-85, TRUE)
 			else
-				H.visible_message("<span class='warning'>[H] looks a bit dark...</span>", "<span class='notice'>Your skin suddenly appears darker...</span>")
+				H.visible_message(SPAN_WARNING("[H] looks a bit dark..."), SPAN_NOTICE("Your skin suddenly appears darker..."))
 
 	return

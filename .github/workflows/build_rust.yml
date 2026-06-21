@@ -8,15 +8,12 @@ jobs:
     if: |
       github.event.issue.pull_request &&
       (github.event.comment.body == '!build_rust') &&
-      ((github.event.sender.id == github.event.issue.user.id) ||
-      (github.event.comment.author_association == 'COLLABORATOR') ||
-      (github.event.comment.author_association == 'MEMBER') ||
-      (github.event.comment.author_association == 'OWNER'))
+      (github.event.comment.author_association == 'OWNER')
 
     runs-on: ubuntu-latest
     steps:
       - id: create_token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3.2.0
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
@@ -47,7 +44,7 @@ jobs:
           echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
           echo "PR_HEAD_LABEL=`jq -r '.head.label' <<<$pr_json`" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6.0.2
         with:
           repository: ${{ env.PR_REPO }}
           ref: ${{ env.PR_BRANCH }}

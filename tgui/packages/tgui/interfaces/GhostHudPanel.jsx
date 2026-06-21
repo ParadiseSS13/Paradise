@@ -19,8 +19,8 @@ export const GhostHudPanel = (props) => {
             label="Radioactivity"
             type="radioactivity"
             is_active={radioactivity}
-            act_on={'rads_on'}
-            act_off={'rads_off'}
+            act_on={'toggle_rad'}
+            act_off={'toggle_rad'}
           />
           <Divider />
           <HudEntry label="Antag HUD" is_active={ahud} act_on={'ahud_on'} act_off={'ahud_off'} />

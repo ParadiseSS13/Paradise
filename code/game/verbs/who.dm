@@ -64,7 +64,7 @@
 			if(DEAD)
 				if(isobserver(C.mob))
 					var/mob/dead/observer/observer = C.mob
-					if(observer.started_as_observer)
+					if(observer.ghost_flags & GHOST_START_AS_OBSERVER)
 						entry += " - <font color='gray'>Observing</font>"
 					else
 						entry += " - <font color='black'><b>DEAD</b></font>"
@@ -101,7 +101,7 @@
 	to_chat(src, msg.Join("<br>"))
 
 /client/verb/adminwho()
-	set category = "Admin"
+	set category = VERB_CATEGORY_ADMIN
 	set name = "Adminwho"
 
 	var/list/adminmsg = list()
@@ -165,5 +165,5 @@
 		final_message += mentormsg
 		final_message += "<br>"
 	if(!num_admins_online || !num_mentors_online)
-		final_message += "<span class='notice'>Even with no [!num_admins_online ? "admins" : ""][!num_admins_online && !num_mentors_online ? " or " : ""][!num_mentors_online ? "mentors" : ""] are online, make a ticket anyways. [!num_admins_online ? "Adminhelps" : ""][!num_admins_online && !num_mentors_online ? " and " : ""][!num_mentors_online ? "Mentorhelps" : ""] will be relayed to discord, and staff will still be informed.</span>"
+		final_message += SPAN_NOTICE("Even with no [!num_admins_online ? "admins" : ""][!num_admins_online && !num_mentors_online ? " or " : ""][!num_mentors_online ? "mentors" : ""] are online, make a ticket anyways. [!num_admins_online ? "Adminhelps" : ""][!num_admins_online && !num_mentors_online ? " and " : ""][!num_mentors_online ? "Mentorhelps" : ""] will be relayed to discord, and staff will still be informed.")
 	to_chat(src, final_message.Join(""))
