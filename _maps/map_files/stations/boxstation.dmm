@@ -2550,6 +2550,9 @@
 	id_tag = "Secure Armory";
 	name = "Secure Armory Shutters"
 	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ama" = (
@@ -11351,7 +11354,7 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore)
 "aRr" = (
 /obj/structure/disposalpipe/segment{
@@ -48436,6 +48439,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/security/warden)
 "foC" = (
@@ -56133,6 +56137,9 @@
 	name = "Security Blast Door"
 	},
 /obj/effect/turf_decal/tiles/department/security,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "iIA" = (
@@ -82476,6 +82483,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 1
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)

@@ -5919,6 +5919,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "blo" = (
@@ -16975,6 +16976,9 @@
 	name = "Security Reception"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/lobby)
 "dsA" = (
@@ -33152,7 +33156,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block)
 "gDQ" = (
 /obj/machinery/firealarm/directional/north,
@@ -48622,6 +48629,7 @@
 	id_tag = "Secure Armory";
 	name = "Secure Armory Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "jHZ" = (
@@ -71406,7 +71414,8 @@
 	name = "Security Atmospherics Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/security/aft_starboard)
 "okn" = (
 /obj/structure/closet/secure_closet/evidence/detective,
