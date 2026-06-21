@@ -25,6 +25,8 @@
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	var/list/possible_robolimbs = list()
 	for(var/robolimb in GLOB.all_robolimbs)
 		var/datum/robolimb/robopart = GLOB.all_robolimbs[robolimb]
