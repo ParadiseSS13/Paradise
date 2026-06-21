@@ -7,6 +7,7 @@
 	var/list/part = null
 	var/sabotaged = FALSE //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
+	new_attack_chain = TRUE
 
 /obj/item/robot_parts/Initialize(mapload, model)
 	. = ..()
@@ -23,7 +24,7 @@
 
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
-/obj/item/robot_parts/attack_self__legacy__attackchain(mob/user)
+/obj/item/robot_parts/activate_self(mob/user)
 	var/list/possible_robolimbs = list()
 	for(var/robolimb in GLOB.all_robolimbs)
 		var/datum/robolimb/robopart = GLOB.all_robolimbs[robolimb]
@@ -33,11 +34,12 @@
 				break
 	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", possible_robolimbs)
 	if(!choice)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(loc != user)
-		return
+		return ITEM_INTERACT_COMPLETE
 	model_info = choice
 	to_chat(usr, SPAN_NOTICE("You change the company limb model to [choice]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/robot_parts/l_arm
 	name = "left arm"
@@ -129,8 +131,9 @@
 	forced_ai = null
 	return ..()
 
-/obj/item/robot_parts/robot_suit/attack_self__legacy__attackchain(mob/user)
-	return
+/obj/item/robot_parts/robot_suit/activate_self(mob/user)
+	if(!istype(user))
+		return ..()
 
 /obj/item/robot_parts/robot_suit/update_overlays()
 	. = ..()
@@ -155,95 +158,106 @@
 				return 1
 	return 0
 
-/obj/item/robot_parts/robot_suit/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
-		var/obj/item/stack/sheet/metal/M = W
+/obj/item/robot_parts/robot_suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
+		var/obj/item/stack/sheet/metal/M = used
 		var/obj/item/ed209_assembly/B = new /obj/item/ed209_assembly
 		B.forceMove(get_turf(src))
 		to_chat(user, "You armed the robot frame")
 		M.use(1)
-		if(user.get_inactive_hand()==src)
+		if(user.get_inactive_hand() == src)
 			user.unequip(src)
 			user.put_in_inactive_hand(B)
 		qdel(src)
-	if(istype(W, /obj/item/robot_parts/l_leg))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/robot_parts/l_leg))
 		if(l_leg)
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.drop_item()
-		W.forceMove(src)
-		l_leg = W
+		used.forceMove(src)
+		l_leg = used
 		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/robot_parts/r_leg))
+	if(istype(used, /obj/item/robot_parts/r_leg))
 		if(r_leg)
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.drop_item()
-		W.forceMove(src)
-		r_leg = W
+		used.forceMove(src)
+		r_leg = used
 		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/robot_parts/l_arm))
+	if(istype(used, /obj/item/robot_parts/l_arm))
 		if(l_arm)
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.drop_item()
-		W.forceMove(src)
-		l_arm = W
+		used.forceMove(src)
+		l_arm = used
 		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/robot_parts/r_arm))
+	if(istype(used, /obj/item/robot_parts/r_arm))
 		if(r_arm)
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.drop_item()
-		W.forceMove(src)
-		r_arm = W
+		used.forceMove(src)
+		r_arm = used
 		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/robot_parts/chest))
-		var/obj/item/robot_parts/chest/CH = W
+	if(istype(used, /obj/item/robot_parts/chest))
+		var/obj/item/robot_parts/chest/CH = used
 		if(chest)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(CH.wired && CH.cell)
 			user.drop_item()
-			W.forceMove(src)
-			chest = W
+			used.forceMove(src)
+			chest = used
 			update_icon(UPDATE_OVERLAYS)
 		else if(!CH.wired)
 			to_chat(user, SPAN_NOTICE("You need to attach wires to it first!"))
 		else
 			to_chat(user, SPAN_NOTICE("You need to attach a cell to it first!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/robot_parts/head))
-		var/obj/item/robot_parts/head/HD = W
+	if(istype(used, /obj/item/robot_parts/head))
+		var/obj/item/robot_parts/head/HD = used
 		if(head)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(HD.flash2 && HD.flash1)
 			user.drop_item()
-			W.forceMove(src)
-			head = W
+			used.forceMove(src)
+			head = used
 			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, SPAN_NOTICE("You need to attach a flash to it first!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/multitool))
+	if(istype(used, /obj/item/multitool))
 		if(check_completion())
 			Interact(user)
 		else
 			to_chat(user, SPAN_WARNING("The endoskeleton must be assembled before debugging can begin!"))
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/mmi))
-		var/obj/item/mmi/M = W
+	if(istype(used, /obj/item/mmi))
+		var/obj/item/mmi/M = used
 		if(check_completion())
 			if(!isturf(loc))
 				to_chat(user, SPAN_WARNING("You can't put [M] in, the frame has to be standing on the ground to be perfectly precise."))
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(!M.brainmob)
 				to_chat(user, SPAN_WARNING("Sticking an empty [M] into the frame would sort of defeat the purpose."))
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob, "nonhumandept"))
-				to_chat(user, SPAN_WARNING("This [W] is not fit to serve as a cyborg!"))
-				return
+				to_chat(user, SPAN_WARNING("This [used] is not fit to serve as a cyborg!"))
+				return ITEM_INTERACT_COMPLETE
 
 			if(!M.brainmob.key)
 				var/mob/dead/observer/G = M.brainmob.get_ghost()
@@ -253,17 +267,17 @@
 						M.next_possible_ghost_ping = world.time + 30 SECONDS // Avoid spam
 				else
 					to_chat(user, SPAN_NOTICE("[M] is completely unresponsive; there's no point."))
-					return
+					return ITEM_INTERACT_COMPLETE
 				to_chat(user, SPAN_WARNING("[M] is currently inactive. Try again later."))
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(M.brainmob.stat == DEAD)
 				to_chat(user, SPAN_WARNING("Sticking a dead [M] into the frame would sort of defeat the purpose."))
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(M.brainmob.mind?.has_antag_datum(/datum/antagonist/rev/head))
 				to_chat(user, SPAN_WARNING("The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [M]."))
-				return
+				return ITEM_INTERACT_COMPLETE
 
 
 			var/datum/ai_laws/laws_to_give
@@ -273,7 +287,7 @@
 
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), aisync, forced_ai)
 			if(!O)
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			user.drop_item()
 
@@ -307,7 +321,7 @@
 			chest.cell = null
 
 			M.forceMove(O) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
-			O.mmi = W
+			O.mmi = used
 			if(O.mmi.syndiemmi)
 				O.syndiemmi_override()
 				to_chat(O, SPAN_WARNING("ALERT: Foreign hardware detected."))
@@ -324,13 +338,16 @@
 			if(!locomotion)
 				O.SetLockdown(TRUE)
 				to_chat(O, SPAN_DANGER("Error: Servo motors unresponsive. Lockdown enabled."))
+			return ITEM_INTERACT_COMPLETE
 
 		else
 			to_chat(user, SPAN_WARNING("The MMI must go in after everything else!"))
+			return ITEM_INTERACT_COMPLETE
 
-	if(is_pen(W))
+	if(is_pen(used))
 		to_chat(user, SPAN_WARNING("You need to use a multitool to name [src]!"))
-	return
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <A href='byond://?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
@@ -380,53 +397,62 @@
 	Interact(usr)
 	return
 
-/obj/item/robot_parts/chest/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/stock_parts/cell))
+/obj/item/robot_parts/chest/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stock_parts/cell))
 		if(cell)
 			to_chat(user, SPAN_NOTICE("You have already inserted a cell!"))
-			return
-		else
-			user.drop_item()
-			W.forceMove(src)
-			cell = W
-			to_chat(user, SPAN_NOTICE("You insert the cell!"))
-	if(istype(W, /obj/item/stack/cable_coil))
+			return ITEM_INTERACT_COMPLETE
+
+		user.drop_item()
+		used.forceMove(src)
+		cell = used
+		to_chat(user, SPAN_NOTICE("You insert the cell!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/cable_coil))
 		if(wired)
 			to_chat(user, SPAN_NOTICE("You have already inserted wire!"))
-			return
-		else
-			var/obj/item/stack/cable_coil/coil = W
-			coil.use(1)
-			wired = TRUE
-			to_chat(user, SPAN_NOTICE("You insert the wire!"))
-	return
+			return ITEM_INTERACT_COMPLETE
 
-/obj/item/robot_parts/head/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/flash))
+		var/obj/item/stack/cable_coil/coil = used
+		coil.use(1)
+		wired = TRUE
+		to_chat(user, SPAN_NOTICE("You insert the wire!"))
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/robot_parts/head/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/flash))
 		if(isrobot(user))
 			to_chat(user, SPAN_WARNING("How do you propose to do that?"))
-			return
-		else if(flash1 && flash2)
+			return ITEM_INTERACT_COMPLETE
+		if(flash1 && flash2)
 			to_chat(user, SPAN_NOTICE("You have already inserted the eyes!"))
-			return
-		else if(flash1)
+			return ITEM_INTERACT_COMPLETE
+		if(flash1)
 			user.drop_item()
-			W.forceMove(src)
-			flash2 = W
+			used.forceMove(src)
+			flash2 = used
 			to_chat(user, SPAN_NOTICE("You insert the flash into the eye socket!"))
-		else
-			user.drop_item()
-			W.forceMove(src)
-			flash1 = W
-			to_chat(user, SPAN_NOTICE("You insert the flash into the eye socket!"))
-	else if(istype(W, /obj/item/stock_parts/manipulator))
+			return ITEM_INTERACT_COMPLETE
+
+		user.drop_item()
+		used.forceMove(src)
+		flash1 = used
+		to_chat(user, SPAN_NOTICE("You insert the flash into the eye socket!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stock_parts/manipulator))
 		to_chat(user, SPAN_NOTICE("You install some manipulators and modify the head, creating a functional spider-bot!"))
 		new /mob/living/basic/spiderbot(get_turf(loc))
 		user.drop_item()
-		qdel(W)
+		qdel(used)
 		qdel(src)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/robot_parts/emag_act(user)
 	if(sabotaged)
