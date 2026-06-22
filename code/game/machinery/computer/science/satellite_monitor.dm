@@ -154,6 +154,7 @@
 	data["current_background_base64"] = current_background_base64
 	data["selected_satellite_UID_ui"] = selected_satellite_ui?.UID()
 	data["weather_nodes"] = weather_nodes
+	data["planet_radius"] = SSscience_satellite.planet_radius
 
 	return data
 

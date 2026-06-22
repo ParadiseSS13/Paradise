@@ -24,20 +24,10 @@
 	var/atmosphere_thick = 130
 	var/thick_airdrag = 0.99
 
-	var/crash_heigh = 50
-
-	//var/eccentricity = 0 // how oval the orbit is
 	var/inclination = 0 // how tilted the orbit is
-	//var/latitude = 0 // the center latitude of the orbit
-	//var/altitude = 40000
-	var/const/period_multiplier = 10//80000//4000
+
 	var/period = 20 MINUTES // probably breaks physics, but its a video game
-	//var/planet_mass = 5 // lavaland is less dense than earth, and will have a lower gravity
 	var/launch_time = INFINITY
-
-	//var/velocity = 0 // -1, 1
-
-	//var/orbit_progress = 0 // 0, 1 - 0(periapsis), 0.5(apoapsis)
 
 	var/list/planned_maneuvers = new()
 	var/datum/satellite_stats/stats
@@ -47,7 +37,7 @@
 
 	var/planet_gravitational_constant = 9
 	var/planet_mass = 442
-	var/gravitational_parameter = 3986// planet_gravitational_constant * planet_mass // known as "GM" gravity times mass. Default here is 3986 based off earth
+	var/gravitational_parameter = 3986 // planet_gravitational_constant * planet_mass // known as "GM" gravity times mass. Default here is 3986 based off earth
 
 	var/vector/position
 	var/vector/velocity
@@ -73,7 +63,7 @@
 	var/list/step = calculate_physics_step(position, velocity) // where the satellite should move this tick
 	position = step["position"]
 	velocity = step["velocity"]
-	if(step["distance"] < crash_heigh)
+	if(step["distance"] < SSscience_satellite.planet_radius)
 		owner.Destroy("[owner.internal_name] crashed, and it's data has been lost!")
 	if(step["distance"] < atmosphere_start)
 		should_update_orbit = TRUE

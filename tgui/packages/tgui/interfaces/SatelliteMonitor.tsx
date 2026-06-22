@@ -13,6 +13,7 @@ interface SatelliteMonitorData {
   current_background_base64: string;
   selected_satellite_UID_ui: string;
   weather_nodes: WeatherNode[];
+  planet_radius: number;
 }
 
 interface WeatherNode {
@@ -72,7 +73,7 @@ class Maneuver {
 export const SatelliteMonitor = (props, context) => {
   const { act, data } = useBackend<SatelliteMonitorData>();
 
-  const { satellite_data, inserted_disk, cmagged, world_time, selected_satellite_UID_ui, weather_nodes } = data;
+  const { satellite_data, inserted_disk, cmagged, world_time, selected_satellite_UID_ui, weather_nodes, planet_radius } = data;
 
   const [plannedManeuver, setPlannedManeuver] = useState<Maneuver>(new Maneuver());
   let selectedSatellite: Satellite | undefined = satellite_data.find(
@@ -107,6 +108,7 @@ export const SatelliteMonitor = (props, context) => {
                 current_background_base64={data.current_background_base64}
                 selectedSatellite={selectedSatellite}
                 weather_nodes={weather_nodes}
+                planet_radius={planet_radius}
               />
             </Section>
           </Stack>
@@ -394,21 +396,17 @@ interface PlanetPanelProps {
   current_background_base64: string,
   selectedSatellite: Satellite | undefined,
   weather_nodes: WeatherNode[],
+  planet_radius: number,
 }
 
-const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite, weather_nodes } : PlanetPanelProps) => {
+const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite, weather_nodes, planet_radius } : PlanetPanelProps) => {
   class SegmentList {
     segments:Vector3[] = [];
     ownerUID: any;
   }
 
-  const orbitZ = 15;
-  const planetZ = 10;
-  const backgroundZ = 5;
-
   const scale = 0.9; // scale is just what looks good with the planet image used
   const satelliteImageSize = 40;
-  const planetSize = 256;
   const viewBox = '-300 -300 600 600';
   const weather_node_size = 32;
 
@@ -510,7 +508,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               */
             }
               <rect x="-450" y="-450" width={900} height={900} fill="white" />
-              <circle cx="0" cy="0" r={planetSize / 2} fill="#AAAAAA" />
+              <circle cx="0" cy="0" r={planet_radius} fill="#AAAAAA" />
             </mask>
             { /* Draw all the segments behind the planet (some of these will get drawn over by the planet) */
             backSegments.map((segment, index) => {
@@ -526,10 +524,10 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
             { /* Draw the planet */
               <image
               href={`data:image/png;base64,${current_planet_base64}`}
-              x={-planetSize/2}
-              y={-planetSize/2}
-              width={planetSize}
-              height={planetSize}
+              x={-planet_radius}
+              y={-planet_radius}
+              width={planet_radius * 2}
+              height={planet_radius * 2}
               />
             }
             { /* Draw all segments thats in front of the planet */
@@ -557,49 +555,17 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               selectedSatellite ? <text x={selectedSatellite.orbit_data.periapsis_position?.x - 8} y={selectedSatellite.orbit_data.periapsis_position?.y} fill={"white"}>{`Pe`}</text> : null
             }
             {
-              <text x={-290} y={-300} fill={"white"}>{`weather_nodes: (${weather_nodes})`}</text>
-            }
-            {
-              <text x={-290} y={-280} fill={"grey"}>{`Object.keys(weather_nodes[0]): (${Object.keys(weather_nodes[0])})`}</text>
-            }
-            {
-              <text x={-290} y={-260} fill={"white"}>{`weather_nodes[0].position: (${weather_nodes[0].position.x})`}</text>
-            }
-             {
-              <text x={-290} y={-240} fill={"grey"}>{`weather_nodes[1].position: (${weather_nodes[1].position.x})`}</text>
-            }
-            {/*
-              <text x={-290} y={-260} fill={"white"}>{`Object.keys(weather_nodes.position): (${Object.keys(weather_nodes.position)})`}</text>
-            */}
-            {
-              <text x={-290} y={-220} fill={"white"}>{`weather_nodes.length: (${weather_nodes.length})`}</text>
-            }
-            {/*
-              <text x={-290} y={-220} fill={"white"}>{`weather_nodes.node_type: (${weather_nodes.node_type})`}</text>
-            }
-            {
-              <text x={-290} y={-200} fill={"white"}>{`typeof(weather_nodes.position): (${typeof(weather_nodes.position)})`}</text>
-            }
-            {
-              <text x={-290} y={-180} fill={"white"}>{`weather_nodes.position == null: (${weather_nodes.position == null})`}</text>
-            }
-            {
-              <text x={-290} y={-160} fill={"white"}>{`weather_nodes[0]: (${weather_nodes[0]})`}</text>
-            */}
-            {
               weather_nodes.map((weather_nodes, index) => {
                 return(
                   <>
-                  <image key={index}
-                    href={`data:image/png;base64,${current_planet_base64}`}
-                    x={weather_nodes.position.x - weather_node_size/2}
-                    y={weather_nodes.position.y - weather_node_size/2}
-                    height={weather_node_size}
-                    width={weather_node_size}
-                  />
+                    <image key={index}
+                      href={`data:image/png;base64,${current_planet_base64}`}
+                      x={weather_nodes.position.x - weather_node_size/2}
+                      y={weather_nodes.position.y - weather_node_size/2}
+                      height={weather_node_size}
+                      width={weather_node_size}
+                    />
                     <text x={weather_nodes.position.x - weather_node_size/2} y={weather_nodes.position.y - weather_node_size/2} fill={"white"}>{`${weather_nodes.node_type.slice(0, 2)}`}</text>
-                    {/* <text x={-290} y={-160 + index *20} fill={"white"}>{`weather_nodes.position: (${weather_nodes.position.x}, ${weather_nodes.position.y})`}</text>*/}
-
                   </>
                 );
               })
