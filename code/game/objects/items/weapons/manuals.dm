@@ -874,6 +874,8 @@
 				Mix one part each of Cuba Libre, vodka, gin, and tequila.
 				<h2>Margarita:</h2>
 				Mix two parts tequila to one part lime juice.
+				<h2>Miami Vice:</h2>
+				Mix one part Strawberry Daiquiri and one part Piña Colada.
 				<h2>Mint Julep:</h2>
 				Mix one part each of whiskey, ice, sugar, and mint. Botany or the Kitchen can help.
 				<h2>Mojito:</h2>
@@ -894,6 +896,8 @@
 				Mix one part each of cognac, lemon juice, and orange juice.
 				<h2>Snow White:</h2>
 				Mix one part beer to one part lemon-lime.
+				<h2>Strawberry Daiquiri:</h2>
+				Mix two parts rum to one part each of berry juice, sugar, and ice.
 				<h2>Syndicate Bomb:</h2>
 				Mix one part Whiskey Cola to one part beer.
 				<h2>Synth 'n Soda: §</h2>
@@ -907,7 +911,7 @@
 				<h2>Uplink: §</h2>
 				Mix one part each of synthanol, rum, vodka, tequila, and whiskey.
 				<h2>Vampiro:</h2>
-				Mix two parts tomato juice to one part each of lime juice and tequila.
+				Mix one part tomato juice with one part Tequila Sunrise.
 				<h2>Vodka Martini:</h2>
 				Mix two parts vodka to one part vermouth.
 				<h2>Vodka and Tonic:</h2>
