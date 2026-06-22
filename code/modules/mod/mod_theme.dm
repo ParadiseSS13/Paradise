@@ -437,6 +437,7 @@
 		/obj/item/stack/medical,
 		/obj/item/sensor_device,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
 	)
@@ -523,6 +524,7 @@
 		/obj/item/stack/medical,
 		/obj/item/sensor_device,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
 		/obj/item/melee/classic_baton/telescopic,
@@ -583,6 +585,7 @@
 		/obj/item/stack/medical,
 		/obj/item/sensor_device,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
 		/obj/item/melee/classic_baton/telescopic,

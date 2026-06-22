@@ -9,6 +9,8 @@
 	new /obj/item/storage/box/syringes(src)
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/patch_packs(src)
+	new /obj/item/storage/box/suture_pack(src)
+	new /obj/item/storage/box/mesh_pack(src)
 	new /obj/item/storage/box/iv_bags(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/reagent_containers/dropper(src)

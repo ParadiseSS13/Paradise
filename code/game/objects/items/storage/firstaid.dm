@@ -433,3 +433,30 @@
 	for(var/I in 1 to 5)
 		new /obj/item/reagent_containers/patch/silver_sulf/small(src)
 		new /obj/item/reagent_containers/patch/styptic/small(src)
+
+/*
+ * Suture and Mesh Packs
+ */
+
+/obj/item/storage/suture_pack
+	name = "suture pack"
+	desc = "A cardboard container designed to safely hold needles and sutures."
+	icon_state = "suture_pack"
+	inhand_icon_state = "contsolid"
+	belt_icon = "patch_pack"
+	use_sound = "patchpack"
+	w_class = WEIGHT_CLASS_SMALL
+	can_hold = list(/obj/item/stack/medical/suture)
+	cant_hold = list(/obj/item/stack/medical/suture/regen_mesh)
+	allow_quick_gather = TRUE
+	use_to_pickup = TRUE
+	storage_slots = 14
+	display_contents_with_number = TRUE
+	materials = list(MAT_CARDBOARD = 4000)
+
+/obj/item/storage/suture_pack/mesh
+	name = "mesh pack"
+	desc = "A cardboard container designed to organize packs of regenerative mesh."
+	icon_state = "mesh_pack"
+	can_hold = list(/obj/item/stack/medical/suture/regen_mesh)
+	cant_hold = list()

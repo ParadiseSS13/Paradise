@@ -964,6 +964,30 @@
 /obj/item/storage/box/patch_packs/empty/populate_contents()
 	return
 
+/obj/item/storage/box/suture_pack
+	name = "box of suture packs"
+	desc = "It has pictures of suture packs on its front."
+	icon_state = "patch_box"
+
+/obj/item/storage/box/suture_pack/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/suture_pack(src)
+
+/obj/item/storage/box/suture_pack/empty/populate_contents()
+	return
+
+/obj/item/storage/box/mesh_pack
+	name = "box of mesh packs"
+	desc = "It has pictures of mesh packs on its front."
+	icon_state = "patch_box"
+
+/obj/item/storage/box/mesh_pack/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/suture_pack/mesh(src)
+
+/obj/item/storage/box/mesh_pack/empty/populate_contents()
+	return
+
 /obj/item/storage/box/bodybags
 	name = "body bags"
 	desc = "This box contains body bags."
