@@ -39,7 +39,7 @@
 		to_chat(user, SPAN_ROBOTEMOTE("You give [src] a digital headpat."))
 	else if(user.a_intent == INTENT_HELP && is_ai(user) && shell)
 		var/mob/living/silicon/ai/AI = user
-		if(AI.controlled_mech) // If the AI is in a mech it cant control a shell.
+		if(AI.controlled_mech) // If the AI is in a mech it can’t control a shell.
 			to_chat(AI, SPAN_WARNING("Disconnect from your mech before piloting a shell."))
 			return
 		AI.deploy_to_shell(src)

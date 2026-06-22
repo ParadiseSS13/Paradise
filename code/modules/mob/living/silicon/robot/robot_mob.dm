@@ -2160,7 +2160,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) // Always remind the AI when switching.
-	if(mainframe.eyeobj)// Makes it so that when an AI undeploys its view itsnt moved to its core.
+	if(mainframe.eyeobj)// Makes it so that when an AI undeploys its view isn’t moved to its core.
 		mainframe.eyeobj.set_loc(loc)
 	mainframe = null
 
