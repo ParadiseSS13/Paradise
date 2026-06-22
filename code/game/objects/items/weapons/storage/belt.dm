@@ -97,6 +97,7 @@
 		/obj/item/hammer,
 		/obj/item/stack/cable_coil/rcl,
 		/obj/item/melee/sickly_blade/lock,
+		/obj/item/lightreplacer,
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
