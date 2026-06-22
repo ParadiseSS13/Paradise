@@ -1,9 +1,3 @@
-/mob/living
-	/// Soul links we are the owner of.
-	var/list/ownedSoullinks
-	/// Soul links we are the sharer of.
-	var/list/sharedSoullinks
-
 /**
   * Keeps track of a Mob->Mob (potentially Player->Player) connection.
   * Can be used to trigger actions on one party when events happen to another

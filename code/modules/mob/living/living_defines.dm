@@ -144,3 +144,9 @@
 
 	/// How long does it take to harvest a mob?
 	var/butcher_time = 8 SECONDS
+
+	/// Soul links we are the owner of.
+	var/list/ownedSoullinks
+	/// Soul links we are the sharer of.
+	var/list/sharedSoullinks
+
