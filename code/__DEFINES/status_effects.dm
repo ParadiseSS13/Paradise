@@ -82,6 +82,8 @@
 
 #define STATUS_EFFECT_OVERCLOCK /datum/status_effect/overclock
 
+#define STATUS_EFFECT_DUELING /datum/status_effect/dueling
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -111,6 +113,8 @@
 #define STATUS_EFFECT_BLOODLETTING /datum/status_effect/saw_bleed/bloodletting //nerfed version
 
 #define STATUS_EFFECT_GROUNDPOUND /datum/status_effect/stacking/ground_pound //if hit twice, the third attack will fling the target
+
+#define STATUS_EFFECT_BLUESPACE_THREADS /datum/status_effect/stacking/unstable_bluespace_threads // if hit twice, the third attack will cause something random
 
 #define STATUS_EFFECT_TELEPORTSICK /datum/status_effect/teleport_sickness //increasing debuffs as you rapidly teleport.
 

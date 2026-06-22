@@ -360,9 +360,9 @@
 /datum/spell/pulse_demon/overload/proc/detonate(mob/living/basic/demon/pulse_demon/user, obj/machinery/target)
 	if(!QDELETED(target))
 		if(spell_level == level_max)
-			explosion(get_turf(target), 0, 1, 2, 2, smoke = TRUE, cause = "Pulse Demon: [name]")
+			explosion(get_turf(target), 0, 1, 2, 2, cause = "Pulse Demon: [name]")
 		else
-			explosion(get_turf(target), 0, 0, 2, 2, smoke = TRUE, cause = "Pulse Demon: [name]")
+			explosion(get_turf(target), 0, 0, 2, 2, cause = "Pulse Demon: [name]")
 		if(!QDELETED(target))
 			qdel(target)
 
@@ -542,7 +542,7 @@
 	level_max = 0
 	base_cooldown = 0
 	var/static/list/upgrade_icons = list(
-		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/power.dmi', icon_state = "apcemag"),
+		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/wallbumps/apc.dmi', icon_state = "apcemag"),
 		PD_UPGRADE_DRAIN_SPEED  = image(icon = 'icons/obj/power.dmi', icon_state = "ccharger"),
 		PD_UPGRADE_MAX_HEALTH   = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "bluespace_matter_bin"),
 		PD_UPGRADE_HEALTH_REGEN = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "femto_mani"),

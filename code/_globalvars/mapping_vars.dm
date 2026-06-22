@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(newplayer_start)
 GLOBAL_LIST_EMPTY(latejoin)
 GLOBAL_LIST_EMPTY(prisonwarp)	//prisoners go to these
 GLOBAL_LIST_EMPTY(syndieprisonwarp)	//contractor targets go to these
+GLOBAL_LIST_EMPTY(ninjaprisonwarp)	// ninja targets go to these
 GLOBAL_LIST_EMPTY(antagextractwarp)	// exfiltrating antags go here
 GLOBAL_LIST_EMPTY(backroomswarp) //backrooms hallucinators go to these
 GLOBAL_LIST_EMPTY(xeno_spawn)//Aliens spawn at these.
@@ -37,7 +38,6 @@ GLOBAL_LIST_EMPTY(aroomwarp)
 GLOBAL_LIST_EMPTY(prisonsecuritywarp)	//prison security goes to these
 GLOBAL_LIST_EMPTY(prisonwarped)	//list of players already warped
 GLOBAL_LIST_EMPTY(nukedisc_respawn)
-GLOBAL_LIST_EMPTY(ninjastart)
 GLOBAL_LIST_EMPTY(carplist) //list of all carp-spawn landmarks
 GLOBAL_LIST_EMPTY(syndicateofficer)
 GLOBAL_LIST_EMPTY(roundstart_observer_start)

@@ -60,6 +60,7 @@
 		/obj/item/fish,
 		/obj/item/fish_eggs,
 		/obj/item/food/shrimp,
+		/obj/item/grown/bananapeel/clownfish,
 	)
 	resistance_flags = FLAMMABLE
 

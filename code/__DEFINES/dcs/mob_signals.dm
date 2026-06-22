@@ -255,6 +255,10 @@
 #define COMSIG_MOB_PRE_JAUNT "spell_mob_pre_jaunt"
 	#define COMPONENT_BLOCK_JAUNT (1<<0)
 
+/// from handle_ventcrawl(): (mob/living/crawler)
+#define COMSIG_LIVING_TRY_VENTCRAWL "living_try_ventcrawl"
+/// from add_ventcrawler(): (mob/living/crawler)
+#define COMSIG_LIVING_ENTER_VENTCRAWL "living_enter_ventcrawl"
 /// from remove_ventcrawler(): (mob/living/crawler)
 #define COMSIG_LIVING_EXIT_VENTCRAWL "living_exit_ventcrawl"
 
@@ -316,6 +320,9 @@
 
 ///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
 #define COMSIG_BASICMOB_POST_ATTACK_RANGED "basicmob_post_attack_ranged"
+
+/// from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
+#define COMSIG_BASICMOB_POST_ATTACK_RANGED_BURST "basicmob_post_attack_ranged_burst"
 
 /// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/activated)
 #define COMSIG_MOB_ABILITY_STARTED "mob_ability_base_started"

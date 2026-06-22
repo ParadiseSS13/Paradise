@@ -622,6 +622,16 @@
 	nitrogen = 0
 	},
 /area/lavaland/surface/outdoors)
+"fE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 4
+	},
+/turf/simulated/floor/pod/light/lavaland_air{
+	oxygen = 0;
+	nitrogen = 0
+	},
+/area/ruin/unpowered/althland_excavation)
 "fH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1248,14 +1258,6 @@
 	nitrogen = 0
 	},
 /area/lavaland/surface/outdoors)
-"Lt" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/pod/light/lavaland_air{
-	oxygen = 0;
-	nitrogen = 0
-	},
-/area/ruin/unpowered/althland_excavation)
 "Lz" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
@@ -1702,7 +1704,7 @@ sj
 TN
 TN
 aU
-Lt
+fE
 am
 iW
 OX

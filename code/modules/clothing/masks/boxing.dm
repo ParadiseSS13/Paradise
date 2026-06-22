@@ -2,6 +2,7 @@
 	name = "balaclava"
 	desc = "LOADSAMONEY!"
 	icon_state = "balaclava"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	can_toggle = TRUE
@@ -27,6 +28,7 @@
 	name = "luchador mask"
 	desc = "Worn by robust fighters, flying high to defeat their foes!"
 	icon_state = "luchag"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	sprite_sheets = list(

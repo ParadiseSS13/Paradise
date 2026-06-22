@@ -125,3 +125,10 @@
 	temperature = T20C
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
+
+/turf/simulated/floor/indestructible/titanium
+	name = "shuttle floor"
+	icon_state = "titanium"
+
+/turf/simulated/floor/indestructible/titanium/blue
+	icon_state = "titanium_blue"

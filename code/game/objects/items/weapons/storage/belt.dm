@@ -95,7 +95,7 @@
 		/obj/item/robotanalyzer,
 		/obj/item/rpd/bluespace,
 		/obj/item/hammer,
-		/obj/item/rcl,
+		/obj/item/stack/cable_coil/rcl,
 		/obj/item/melee/sickly_blade/lock,
 	)
 
@@ -143,7 +143,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
-	new /obj/item/rcl(src)
+	new /obj/item/stack/cable_coil/rcl(src)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()
@@ -323,6 +323,7 @@
 		/obj/item/sample/print,
 		/obj/item/forensics/swab,
 		/obj/item/forensics/sample_kit,
+		/obj/item/fine_scanner,
 	)
 
 /obj/item/storage/belt/security/full/populate_contents()
@@ -714,6 +715,8 @@
 	desc = "A dorky fannypack for keeping small items in."
 	icon_state = "fannypack_leather"
 	storage_slots = 3
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_FANNYPACK
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"

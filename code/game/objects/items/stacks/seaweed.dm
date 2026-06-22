@@ -1,6 +1,6 @@
 /obj/item/stack/seaweed
 	name = "seaweed sheet"
-	desc = "Weed.. from the Sea!"
+	desc = "Weed... From the Sea!"
 	singular_name = "seaweed sheet"
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "seaweed"
@@ -9,9 +9,6 @@
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/seaweed
-
-/obj/item/stack/seaweed/attack_self__legacy__attackchain(mob/user)
-	return
 
 /obj/item/stack/seaweed/attack_self_tk()
 	return

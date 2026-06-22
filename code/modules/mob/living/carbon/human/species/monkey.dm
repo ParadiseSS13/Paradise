@@ -15,7 +15,6 @@
 	greater_form = /datum/species/human
 	no_equip = ITEM_SLOT_BELT | ITEM_SLOT_ID | ITEM_SLOT_LEFT_EAR | ITEM_SLOT_RIGHT_EAR | ITEM_SLOT_EYES | ITEM_SLOT_GLOVES | ITEM_SLOT_SHOES | ITEM_SLOT_OUTER_SUIT | ITEM_SLOT_JUMPSUIT | ITEM_SLOT_LEFT_POCKET | ITEM_SLOT_RIGHT_POCKET | ITEM_SLOT_SUIT_STORE |  ITEM_SLOT_PDA | ITEM_SLOT_NECK
 	inherent_factions = list("jungle", "monkey")
-	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
 	ventcrawler = VENTCRAWLER_NUDE

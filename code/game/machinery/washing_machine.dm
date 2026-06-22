@@ -270,6 +270,8 @@
 		color_sources += C
 	for(var/obj/item/stamp/S in contents)
 		color_sources += S
+	for(var/obj/item/toy/shell/L in contents)
+		color_sources += L
 	if(!length(color_sources))
 		return
 	color_source = pick(color_sources)
@@ -279,6 +281,9 @@
 	if(istype(color_source, /obj/item/stamp))
 		var/obj/item/stamp/S = color_source
 		wash_color = S.dye_color
+	if(istype(color_source, /obj/item/toy/shell))
+		var/obj/item/toy/shell/L = color_source
+		wash_color = L.dye_color
 
 /obj/machinery/washing_machine/proc/start_wash_cycle()
 	if(stat & (NOPOWER|BROKEN))

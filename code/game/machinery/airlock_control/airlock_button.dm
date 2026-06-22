@@ -15,11 +15,17 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	/// Command, whether this button cycles in or out. This is /tmp/ so mappers dont try and define it in a map. Its assigned at runtime.
 	var/tmp/assigned_command
 
-/obj/machinery/access_button/Initialize(mapload)
+/obj/machinery/access_button/Initialize(mapload, direction)
 	. = ..()
 	GLOB.all_airlock_access_buttons += src
 	if(assigned_command)
 		stack_trace("A mapper tried to set assigned_command to [assigned_command] on [type] at [x],[y],[z]. This should not be mapped in.")
+
+	if(direction)
+		setDir(direction)
+
+	if(!mapload)
+		set_pixel_offsets_from_dir(25, -25, 25, -25)
 
 /obj/machinery/access_button/Destroy()
 	GLOB.all_airlock_access_buttons -= src

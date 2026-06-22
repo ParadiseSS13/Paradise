@@ -60,6 +60,13 @@
 	min_temp = T0C + 100
 	mix_message = "The mixture deepens to a dark blue, and slowly begins to corrode its container."
 
+/datum/chemical_reaction/phosacid
+	name = "Phosphoric acid"
+	result = "phosacid"
+	required_reagents = list("sacid" = 2, "phosphorus" = 1)
+	result_amount = 3
+	mix_message = "The mixture goes clear."
+
 /datum/chemical_reaction/initropidril
 	name = "Initropidril"
 	id = "initropidril"

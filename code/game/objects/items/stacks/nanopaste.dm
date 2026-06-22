@@ -11,49 +11,63 @@
 	max_amount = 6
 	merge_type = /obj/item/stack/nanopaste
 
-/obj/item/stack/nanopaste/attack__legacy__attackchain(mob/living/M as mob, mob/user as mob)
-	if(!istype(M) || !istype(user))
-		return 0
-	if(isrobot(M))	//Repairing cyborgs
-		var/mob/living/silicon/robot/R = M
-		if(R.getBruteLoss() || R.getFireLoss())
+/obj/item/stack/nanopaste/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(ismob(target))
+		if(isrobot(target))	// Repairing cyborgs.
+			var/mob/living/silicon/robot/R = target
+			if(!R.getBruteLoss() && !R.getFireLoss())
+				to_chat(user, SPAN_NOTICE("All [R]'s systems are nominal."))
+				return ITEM_INTERACT_COMPLETE
+
 			R.heal_overall_damage(15, 15)
 			use(1)
-			user.visible_message(SPAN_NOTICE("[user] applies some [src] at [R]'s damaged areas."),\
-				SPAN_NOTICE("You apply some [src] at [R]'s damaged areas."))
-		else
-			to_chat(user, SPAN_NOTICE("All [R]'s systems are nominal."))
+			user.visible_message(
+				SPAN_NOTICE("[user] applies some [src] at [R]'s damaged areas."),
+				SPAN_NOTICE("You apply some [src] at [R]'s damaged areas.")
+			)
+			return ITEM_INTERACT_COMPLETE
 
-	if(ishuman(M)) //Repairing robotic limbs and IPCs
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/external_limb = H.get_organ(user.zone_selected)
+		if(ishuman(target)) // Repairing robotic limbs and IPCs.
+			var/mob/living/carbon/human/H = target
+			var/obj/item/organ/external/external_limb = H.get_organ(user.zone_selected)
+			if(!external_limb)
+				to_chat(user, SPAN_WARNING("[H] is missing that limb!"))
+				return ITEM_INTERACT_COMPLETE
 
-		if(external_limb && external_limb.is_robotic())
+			if(!external_limb.is_robotic())
+				to_chat(user, SPAN_WARNING("That limb is not robotic!"))
+				return ITEM_INTERACT_COMPLETE
+
 			robotic_limb_repair(user, external_limb, H)
-		else
-			to_chat(user, SPAN_NOTICE("[src] won't work on that."))
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/stack/nanopaste/afterattack__legacy__attackchain(atom/A, mob/user, proximity_flag)
-	if(!ismecha(A) || user.a_intent == INTENT_HARM || !proximity_flag)
-		return
-	var/obj/mecha/mecha = A
-	if((mecha.obj_integrity >= mecha.max_integrity) && !mecha.internal_damage)
-		to_chat(user, SPAN_NOTICE("[mecha] is at full integrity!"))
-		return
-	if(mecha.state == MECHA_MAINT_OFF)
-		to_chat(user, SPAN_WARNING("[mecha] cannot be repaired without maintenance protocols active!"))
-		return
-	if(mecha.repairing)
-		to_chat(user, SPAN_NOTICE("[mecha] is currently being repaired!"))
-		return
-	if(mecha.internal_damage & MECHA_INT_TANK_BREACH)
-		mecha.clearInternalDamage(MECHA_INT_TANK_BREACH)
-		user.visible_message(SPAN_NOTICE("[user] repairs the damaged air tank."), SPAN_NOTICE("You repair the damaged air tank."))
-	else if(mecha.obj_integrity < mecha.max_integrity)
-		mecha.obj_integrity += min(20, mecha.max_integrity - mecha.obj_integrity)
-		use(1)
-		user.visible_message(SPAN_NOTICE("[user] applies some [src] to [mecha]'s damaged areas."),\
-		SPAN_NOTICE("You apply some [src] to [mecha]'s damaged areas."))
+	if(ismecha(target))
+		var/obj/mecha/mecha = target
+		if((mecha.obj_integrity >= mecha.max_integrity) && !mecha.internal_damage)
+			to_chat(user, SPAN_NOTICE("[mecha] is at full integrity!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(mecha.state == MECHA_MAINT_OFF)
+			to_chat(user, SPAN_WARNING("[mecha] cannot be repaired without maintenance protocols active!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(mecha.repairing)
+			to_chat(user, SPAN_NOTICE("[mecha] is currently being repaired!"))
+			return ITEM_INTERACT_COMPLETE
+
+		if(mecha.internal_damage & MECHA_INT_TANK_BREACH)
+			mecha.clearInternalDamage(MECHA_INT_TANK_BREACH)
+			user.visible_message(SPAN_NOTICE("[user] repairs the damaged air tank."), SPAN_NOTICE("You repair the damaged air tank."))
+			return ITEM_INTERACT_COMPLETE
+
+		if(mecha.obj_integrity < mecha.max_integrity)
+			mecha.obj_integrity += min(20, mecha.max_integrity - mecha.obj_integrity)
+			use(1)
+			user.visible_message(SPAN_NOTICE("[user] applies some [src] to [mecha]'s damaged areas."),\
+			SPAN_NOTICE("You apply some [src] to [mecha]'s damaged areas."))
+			return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/stack/nanopaste/proc/robotic_limb_repair(mob/user, obj/item/organ/external/external_limb, mob/living/carbon/human/H)
 	if(!external_limb.get_damage())
@@ -93,7 +107,7 @@
 	energy_type = /datum/robot_storage/energy/medical/nanopaste
 	is_cyborg = TRUE
 
-/obj/item/stack/nanopaste/cyborg/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/stack/nanopaste/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(get_amount() <= 0)
 		to_chat(user, SPAN_WARNING("You don't have enough energy to dispense more [name]!"))
 	else

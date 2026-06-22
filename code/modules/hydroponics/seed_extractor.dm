@@ -64,6 +64,14 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
+/obj/machinery/seed_extractor/upgraded/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/seed_extractor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	RefreshParts()
+
 /obj/machinery/seed_extractor/Destroy()
 	QDEL_LIST_CONTENTS(piles)
 	return ..()

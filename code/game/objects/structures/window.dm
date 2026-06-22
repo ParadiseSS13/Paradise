@@ -19,7 +19,7 @@
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
 	var/heat_resistance = 800
-	var/decon_speed = null
+	var/decon_speed = 2 SECONDS
 	var/fulltile = FALSE
 	var/shardtype = /obj/item/shard
 	var/glass_decal = /obj/effect/decal/cleanable/glass
@@ -79,9 +79,6 @@
 
 	if(fulltile)
 		setDir()
-
-	if(decon_speed == null && fulltile)
-		decon_speed = 2 SECONDS
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
@@ -534,7 +531,7 @@
 	if(barricaded)
 		to_chat(user, SPAN_WARNING("[src] is already barricaded!"))
 		return
-	
+
 	if(used.get_amount() < 2)
 		to_chat(user, SPAN_WARNING("You need at least two planks of wood to barricade [src]!"))
 		return
@@ -546,7 +543,7 @@
 	to_chat(user, SPAN_NOTICE("You begin boarding up [src]..."))
 	if(!do_after_once(user, 4 SECONDS, target = src))
 		return
-	
+
 	/// Quick checks to make sure nothing has changed during the timer.
 	if(!density || barricaded)
 		return
@@ -600,6 +597,19 @@
 	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
 	glass_amount = 2
 	var/id
+
+/obj/structure/window/reinforced/indestructible
+	resistance_flags = INDESTRUCTIBLE
+	env_smash_level = INFINITY // I am invincible!
+
+/obj/structure/window/reinforced/indestructible/screwdriver_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/window/reinforced/indestructible/crowbar_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/window/reinforced/indestructible/ex_act(severity)
+	return
 
 /obj/machinery/button/windowtint
 	name = "window tint control"
@@ -699,9 +709,9 @@
 	heat_resistance = 32000
 	max_integrity = 150
 	explosion_block = 1
+	decon_speed = 3 SECONDS
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
-	rad_insulation_gamma = RAD_GAMMA_WINDOW
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_conversion_amount = 2
 
@@ -716,6 +726,7 @@
 	heat_resistance = 32000
 	max_integrity = 500
 	explosion_block = 2
+	decon_speed = 5 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -735,6 +746,7 @@
 	heat_resistance = 32000
 	max_integrity = 600
 	explosion_block = 2
+	decon_speed = 7 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_WINDOW
@@ -754,7 +766,7 @@
 	flags = PREVENT_CLICK_UNDER
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
 
 /obj/structure/window/full/screwdriver_act(mob/user, obj/item/I)
 	if(barricaded)
@@ -771,8 +783,8 @@
 	return ..()
 
 /obj/structure/window/full/basic
-	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Has very light protection from radiation"
-	icon = 'icons/obj/smooth_structures/windows/window.dmi'
+	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
+	icon = 'icons/obj/smooth_structures/windows/32x40window.dmi'
 	icon_state = "window-0"
 	base_icon_state = "window"
 	max_integrity = 50
@@ -780,8 +792,8 @@
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
-	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through. When hit with Gamma particles it will become charged and start emitting Beta particles"
-	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
+	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
+	icon = 'icons/obj/smooth_structures/windows/32x40plasma_window.dmi'
 	icon_state = "plasma_window-0"
 	base_icon_state = "plasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -789,9 +801,12 @@
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
 	max_integrity = 300
-	explosion_block = 1
-	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
+	explosion_block = 1
+	decon_speed = 3 SECONDS
+	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
@@ -800,8 +815,8 @@
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
-	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof. When hit with Gamma particles it will become charged and start emitting Beta particles"
-	icon = 'icons/obj/smooth_structures/windows/rplasma_window.dmi'
+	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
+	icon = 'icons/obj/smooth_structures/windows/32x40rplasma_window.dmi'
 	icon_state = "rplasma_window-0"
 	base_icon_state = "rplasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -811,6 +826,7 @@
 	heat_resistance = 32000
 	max_integrity = 1000
 	explosion_block = 2
+	decon_speed = 5 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
@@ -824,8 +840,8 @@
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
-	desc = "It looks rather strong. Might take a few good hits to shatter it. Offers superior protection from radiation"
-	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
+	desc = "It looks rather strong. Might take a few good hits to shatter it."
+	icon = 'icons/obj/smooth_structures/windows/32x40reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	max_integrity = 100
@@ -846,7 +862,7 @@
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
-	icon = 'icons/obj/smooth_structures/windows/tinted_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40tinted_window.dmi'
 	icon_state = "tinted_window-0"
 	base_icon_state = "tinted_window"
 	opacity = TRUE
@@ -854,16 +870,18 @@
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
-	icon = 'icons/obj/smooth_structures/windows/shuttle_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40shuttle_window.dmi'
 	icon_state = "shuttle_window-0"
 	base_icon_state = "shuttle_window"
 	max_integrity = 200
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
+	decon_speed = 6 SECONDS
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 100, FIRE = 80, ACID = 100)
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/shuttle_window_edges.dmi'
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	glass_type = /obj/item/stack/sheet/titaniumglass
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // shuttle windows should probably be a bit stronger, too
 	// Mostly for the mining shuttle.
@@ -878,17 +896,19 @@
 /obj/structure/window/full/plastitanium
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium. When hit with Gamma particles it will become charged and start emitting Beta particles"
-	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	max_integrity = 1200
 	reinf = TRUE
 	heat_resistance = 32000
+	decon_speed = 7 SECONDS
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/plastitanium_window_edges.dmi'
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS //used in shuttles, same reason as above
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
@@ -938,14 +958,16 @@
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/window/reinforced/clockwork/fulltile
+	icon = 'icons/obj/smooth_structures/windows/32x40clockwork_window.dmi'
 	icon_state = "clockwork_window-0"
 	base_icon_state = "clockwork_window"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_MINERAL_WALLS)
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 120
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/clockwork_window_edges.dmi'
 	level = 3
 	glass_amount = 2

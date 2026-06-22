@@ -567,16 +567,6 @@ h2.alert {
   font-style: italic;
 }
 
-.zombie {
-  color: #7c4848;
-}
-
-.zombielarge {
-  color: #7c4848;
-  font-weight: bold;
-  font-size: 120%;
-}
-
 // MARK: MEGAFAUNA
 .colossus {
   color: #7f282a;
@@ -614,7 +604,13 @@ h2.alert {
 }
 
 .zombie {
-  color: #ff0000;
+  color: #7c4848;
+}
+
+.zombielarge {
+  color: #7c4848;
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .soghun {

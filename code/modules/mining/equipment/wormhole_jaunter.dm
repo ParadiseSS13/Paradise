@@ -197,9 +197,9 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	thrower = null
 	return ..()
 
-/obj/item/grenade/jaunter_grenade/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/grenade/jaunter_grenade/activate_self(mob/user)
 	thrower = user
+	return ..()
 
 /obj/item/grenade/jaunter_grenade/prime()
 	var/area/our_area = get_area(src)

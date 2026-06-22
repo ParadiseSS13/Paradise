@@ -16,7 +16,8 @@
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
 	. += "[get_ammo(0, 0)] of those are live rounds."
-	. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to spin it's barrel.")
+	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder)) // Ideally, a double barrel shotgun or peashooter has no cylinder.
+		. += SPAN_NOTICE("You can <b>Alt-Click</b> [src] to spin it's cylinder.")
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = 1)
 	if(spin)
@@ -65,7 +66,11 @@
 /obj/item/gun/projectile/revolver/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-
+	if(user.incapacitated())
+		to_chat(user, SPAN_WARNING("You can't do that right now!"))
+		return
+	if(unique_reskin && !current_skin && loc == user)
+		reskin_gun(user)
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		return ..()
 	var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
@@ -112,6 +117,20 @@
 	user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 	user.bleed(BLOOD_VOLUME_NORMAL)
 	user.death() // Just in case
+
+/// Syndicate .357, same as the basetype except it can be customised
+/obj/item/gun/projectile/revolver/syndie
+	unique_reskin = TRUE
+
+/obj/item/gun/projectile/revolver/syndie/Initialize(mapload)
+	. = ..()
+	options["Default"] = "revolver"
+	options["Golden Finish"] = "revolver-gold"
+	options["Silver Finish"] = "revolver-silver"
+	options["Bronze Finish"] = "revolver-bronze"
+	options["Copper Finish"] = "revolver-copper"
+	options["Fancy"] = "revolver-fancy"
+	options["Rose Gold Finish"] = "revolver-rose"
 
 /// Summoned by the Finger Gun spell, from advanced mimery traitor item
 /obj/item/gun/projectile/revolver/fingergun
@@ -361,6 +380,33 @@
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
 		sling = FALSE
 		update_icon(UPDATE_ICON_STATE)
+
+
+// Dueling Pistols //
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol
+	name = "dueling pistol"
+	desc = "An expensive pistol used for settling disputes."
+	icon_state = "dueling_pistol"
+	fire_sound = 'sound/weapons/gunshots/gunshot_pistolH.ogg'
+	inhand_icon_state ="pistol"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_BELT
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/dueling_pistol
+	unique_reskin = FALSE
+	can_sawoff = FALSE
+	can_holster = TRUE
+
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol/AltClick(mob/living/user)
+	. = ..()
+	if(loc != user)
+		return
+	user.apply_status_effect(STATUS_EFFECT_DUELING)
+
+/obj/item/gun/projectile/revolver/doublebarrel/dueling_pistol/attackby__legacy__attackchain(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/stack/cable_coil))
+		return
+	else
+		return ..()
 
 //caneshotgun
 

@@ -13,6 +13,7 @@
 	name = "\improper MARSOC uniform"
 	desc = "A comfortable and durable combat uniform worn by marines of the Trans-Solar Federation's Marine Special Operations Command."
 	icon_state = "solgovelite"
+	sprite_sheets = list()
 
 /obj/item/clothing/under/solgov/command
 	name = "\improper TSF officer's uniform"
@@ -23,6 +24,7 @@
 	name = "\improper MARSOC officer's uniform"
 	desc = "A comfortable and durable combat uniform worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. This one has additional insignia on its shoulders and cuffs."
 	icon_state = "solgovcelite"
+	sprite_sheets = list()
 
 /obj/item/clothing/under/solgov/rep
 	name = "\improper TSF representative's uniform"

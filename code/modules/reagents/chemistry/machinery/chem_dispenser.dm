@@ -8,7 +8,6 @@
 	idle_power_consumption = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/ui_title = "Chem Dispenser 5000"
-	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 10
@@ -30,27 +29,29 @@
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+	dispensable_reagents = sortList(dispensable_reagents)
+
+/obj/machinery/chem_dispenser/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
-	dispensable_reagents = sortList(dispensable_reagents)
 
-/obj/machinery/chem_dispenser/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/chem_dispenser/upgraded/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
@@ -73,17 +74,15 @@
 		"diethylamine")
 	upgrade_reagents = null
 
-/obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
-	. = ..()
+/obj/machinery/chem_dispenser/mutagensaltpeter/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
-	RefreshParts()
 
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)
@@ -357,29 +356,25 @@
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/soda/Initialize(mapload)
-	. = ..()
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/chem_dispenser/soda/initialize_parts()
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
 
-/obj/machinery/chem_dispenser/soda/upgraded/Initialize(mapload)
-	. = ..()
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/chem_dispenser/soda/upgraded/initialize_parts()
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
 
 /obj/machinery/chem_dispenser/beer
 	icon_state = "booze_dispenser"
@@ -393,29 +388,25 @@
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
 
-/obj/machinery/chem_dispenser/beer/Initialize(mapload)
-	. = ..()
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/chem_dispenser/beer/initialize_parts()
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
 
-/obj/machinery/chem_dispenser/beer/upgraded/Initialize(mapload)
-	. = ..()
-	QDEL_LIST_CONTENTS(component_parts)
+/obj/machinery/chem_dispenser/beer/upgraded/initialize_parts()
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new cell_type(null)
-	RefreshParts()
 
 // Handheld chem dispenser
 /obj/item/handheld_chem_dispenser

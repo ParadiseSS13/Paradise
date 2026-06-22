@@ -101,9 +101,10 @@
 //Window
 /obj/structure/window/full/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40pod_window.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/pod_window_edges.dmi'
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
@@ -153,9 +154,15 @@
 	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
 
+/obj/machinery/door/airlock/survival_pod/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/airlock/survival_pod/glass
 	opacity = FALSE
 	glass = TRUE
+
+/obj/machinery/door/airlock/survival_pod/glass/manual_rotation
+	manual_dir = TRUE
 
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"

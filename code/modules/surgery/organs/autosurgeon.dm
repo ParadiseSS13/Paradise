@@ -190,4 +190,44 @@
 /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/syndie_mantis/l
 
+/obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger
+	starting_organ = /obj/item/organ/internal/cyberimp/chest/skinmonger
+
+/obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger/attack_self__legacy__attackchain(mob/user)
+	if(!storedorgan)
+		return ..()
+
+	// Configure identity before implantation...
+	var/obj/item/organ/internal/cyberimp/chest/skinmonger/implant = storedorgan
+
+	// Check if they have a monitor head
+	var/has_monitor_head = FALSE
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/head/head_organ = H.bodyparts_by_name["head"]
+		if(head_organ?.model)
+			var/datum/robolimb/R = GLOB.all_robolimbs[head_organ.model]
+			if(R?.is_monitor)
+				has_monitor_head = TRUE
+				to_chat(user, SPAN_WARNING("The Skinmonger is confused by your freakishly large head, but attempts to disguise you anyway."))
+
+	// Only ask for identity if they're a machine person and don't have a monitor head
+	if(ismachineperson(user) && !has_monitor_head)
+		if(!implant.configured_identity || implant.configured_identity == "Unknown")
+			var/chosen_name = tgui_input_text(user, "The Skinmonger generously offers to turn you into someone else. But who?", default = "Unknown", max_length = MAX_NAME_LEN)
+			if(!chosen_name)
+				return
+
+			// Allow to appear as "Unknown" (default value)
+			if(chosen_name != "Unknown")
+				chosen_name = reject_bad_name(chosen_name, max_length = MAX_NAME_LEN)
+				if(!chosen_name)
+					to_chat(user, SPAN_WARNING("The implanter quietly hisses, rejecting your choice."))
+					return
+
+			implant.configured_identity = chosen_name
+
+	// ... then implant
+	return ..()
+
 #undef INFINITE

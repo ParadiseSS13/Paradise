@@ -35,6 +35,14 @@
 "bl" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/trade/sol)
+"ci" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
 "dh" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 5
@@ -427,13 +435,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
-"zF" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/turf/simulated/floor/wood,
-/area/shuttle/trade/sol)
 "AX" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
@@ -452,6 +453,22 @@
 	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"BL" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/docking_port/mobile/trader{
+	height = 20;
+	width = 16;
+	dwidth = 8;
+	preferred_direction = 1;
+	dir = 1;
+	port_direction = 8
+	},
+/turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "Cq" = (
 /obj/machinery/light/small{
@@ -591,33 +608,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
-"Kz" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
-/obj/docking_port/mobile/trader{
-	height = 20;
-	width = 16;
-	dwidth = 8;
-	preferred_direction = 1;
-	dir = 1;
-	port_direction = 8
-	},
-/turf/simulated/floor/wood,
-/area/shuttle/trade/sol)
 "ME" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/minerals,
 /turf/simulated/floor/carpet/royalblue,
-/area/shuttle/trade/sol)
-"Oi" = (
-/obj/machinery/door/airlock/titanium,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/wood,
-/area/shuttle/trade/sol)
-"Pl" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/trade/sol)
 "Pm" = (
 /obj/structure/shuttle/engine/heater,
@@ -628,6 +622,13 @@
 /area/shuttle/trade/sol)
 "PM" = (
 /obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"QG" = (
+/obj/machinery/door/airlock/titanium{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "SR" = (
@@ -748,6 +749,13 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/shuttle/trade/sol)
+"ZW" = (
+/obj/machinery/door/airlock/titanium/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
 
 (1,1,1) = {"
 sI
@@ -762,28 +770,28 @@ sI
 sI
 sI
 bl
-Pl
+bl
 nR
 nR
 nR
-Pl
-Pl
-Pl
+bl
+bl
+bl
 sI
 "}
 (2,1,1) = {"
 bl
 Tk
 Tk
-Pl
+bl
 nR
 nR
 nR
-Pl
-Pl
-Pl
-Pl
-Pl
+bl
+bl
+bl
+bl
+bl
 gA
 pF
 pF
@@ -797,11 +805,11 @@ sI
 Tk
 WP
 sd
-Pl
+bl
 Yd
 DN
 VE
-Pl
+bl
 si
 Cq
 JH
@@ -819,15 +827,15 @@ sI
 Tk
 Hh
 hs
-Oi
+QG
 Hi
 ab
 Tf
-Pl
+bl
 pK
 Hi
 Hi
-mT
+ZW
 sp
 xH
 qR
@@ -841,45 +849,45 @@ sI
 Tk
 jC
 Xd
-Pl
+bl
 Hi
 Hi
 GG
-Pl
+bl
 nR
 mT
 nR
-Pl
+bl
 mT
-Pl
-Pl
-Pl
+bl
+bl
+bl
 xv
-Pl
-Pl
+bl
+bl
 bl
 "}
 (6,1,1) = {"
 bl
 Tk
 Tk
-Pl
+bl
 Hi
 Hi
 xi
-Pl
+bl
 SR
 Hi
 qd
 wg
 Hi
 kN
-Pl
+bl
 Ks
 Hi
 rc
 fN
-Pl
+bl
 "}
 (7,1,1) = {"
 sI
@@ -889,7 +897,7 @@ nR
 hy
 AX
 mk
-mT
+ZW
 Hi
 rr
 Be
@@ -901,7 +909,7 @@ rt
 YD
 hV
 zE
-Pl
+bl
 "}
 (8,1,1) = {"
 sI
@@ -911,7 +919,7 @@ nR
 Dk
 at
 TC
-Pl
+bl
 Dy
 jO
 ME
@@ -923,7 +931,7 @@ eS
 hO
 lz
 Hi
-zF
+ci
 "}
 (9,1,1) = {"
 sI
@@ -933,7 +941,7 @@ nR
 FR
 at
 TC
-Pl
+bl
 Gi
 jO
 aH
@@ -945,7 +953,7 @@ eS
 hO
 lz
 Hi
-Kz
+BL
 "}
 (10,1,1) = {"
 sI
@@ -955,7 +963,7 @@ nR
 BJ
 xS
 ea
-mT
+ZW
 Hi
 jC
 mP
@@ -967,65 +975,65 @@ rt
 dh
 DR
 sq
-Pl
+bl
 "}
 (11,1,1) = {"
 bl
 Tk
 Tk
-Pl
+bl
 Hi
 Hi
 xi
-Pl
+bl
 EI
 Hi
 XD
 IH
 Hi
 eN
-Pl
+bl
 Ks
 Hi
 PM
 HV
-Pl
+bl
 "}
 (12,1,1) = {"
 Tk
 rr
 TE
-Pl
+bl
 Hi
 Hi
 dC
-Pl
+bl
 nR
 mT
 nR
-Pl
+bl
 mT
-Pl
-Pl
-Pl
+bl
+bl
+bl
 CA
-Pl
-Pl
+bl
+bl
 bl
 "}
 (13,1,1) = {"
 Tk
 kA
 hs
-Oi
+QG
 Hi
 ab
 Tf
-Pl
+bl
 pK
 Hi
 Hi
-mT
+ZW
 ly
 pF
 eD
@@ -1039,11 +1047,11 @@ sI
 Tk
 Wx
 hd
-Pl
+bl
 Yd
 aZ
 es
-Pl
+bl
 si
 oC
 yX
@@ -1061,15 +1069,15 @@ sI
 bl
 Tk
 Tk
-Pl
+bl
 nR
 nR
 nR
-Pl
-Pl
-Pl
-Pl
-Pl
+bl
+bl
+bl
+bl
+bl
 Zo
 xH
 xH
@@ -1092,12 +1100,12 @@ sI
 sI
 sI
 bl
-Pl
+bl
 nR
 nR
 nR
-Pl
-Pl
-Pl
+bl
+bl
+bl
 sI
 "}

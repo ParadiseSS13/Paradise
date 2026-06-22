@@ -12,13 +12,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/mech_transport)
-"aW" = (
-/obj/machinery/door/airlock/hatch,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/mech_transport)
 "aZ" = (
 /obj/effect/spawner/random/loot_crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
@@ -141,17 +134,19 @@
 /obj/item/chair,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
-"ma" = (
-/obj/machinery/door/airlock/hatch,
+"mn" = (
+/turf/template_noop,
+/area/template_noop)
+"mV" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "mechtransport_lockdown";
 	name = "lockdown blast door"
 	},
-/turf/simulated/floor/mineral/plastitanium,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
-"mn" = (
-/turf/template_noop,
-/area/template_noop)
 "nO" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -347,14 +342,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
-"yR" = (
-/obj/machinery/door/airlock/hatch,
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "mechtransport_lockdown";
-	name = "lockdown blast door"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/mech_transport)
 "zy" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
@@ -399,9 +386,6 @@
 	stat = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
-/area/ruin/space/mech_transport)
-"CK" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/space/mech_transport)
 "CL" = (
 /obj/item/stack/sheet/metal,
@@ -576,6 +560,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
+"Ox" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "mechtransport_lockdown";
+	name = "lockdown blast door"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/mech_transport)
 "OQ" = (
 /obj/effect/turf_decal/delivery/partial{
 	dir = 8
@@ -670,6 +664,15 @@
 	amount = 15
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/mech_transport)
+"UX" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/mech_transport)
 "Vj" = (
 /obj/structure/shuttle/engine/heater,
@@ -1088,7 +1091,7 @@ Uf
 sH
 kI
 di
-CK
+vo
 vo
 vo
 vo
@@ -1212,7 +1215,7 @@ VS
 VS
 RY
 VS
-yR
+mV
 Kz
 Lq
 HK
@@ -1238,7 +1241,7 @@ VS
 VS
 VS
 di
-CK
+vo
 jd
 vo
 vo
@@ -1300,7 +1303,7 @@ VS
 VS
 VS
 VS
-ma
+Ox
 uu
 QC
 HT
@@ -1394,7 +1397,7 @@ pJ
 VS
 zM
 VS
-aW
+UX
 aq
 gk
 sY

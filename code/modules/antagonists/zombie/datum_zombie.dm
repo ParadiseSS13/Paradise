@@ -64,6 +64,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	. = messages
 	if(owner && owner.current)
 		messages.Add("<br>[SPAN_NOTICE("You can use your claws to break down doors, and to crack open damaged skulls. Once their head is open, use an empty hand to eat their brains. Alternatively, grab someone aggressively and them harm them to bite and infect them. You heal slowly but you heal faster in the dark, after death you will slowly revive and reawaken.")]")
+		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/zomboidalert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/zombie/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()

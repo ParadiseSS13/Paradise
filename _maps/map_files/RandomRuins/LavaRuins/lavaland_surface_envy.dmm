@@ -94,11 +94,6 @@
 	},
 /turf/simulated/floor/plating/damaged,
 /area/ruin/powered/envy)
-"p" = (
-/obj/machinery/door/airlock/hatch,
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/plating,
-/area/ruin/powered/envy)
 "q" = (
 /obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plating,
@@ -107,6 +102,13 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Z" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plating,
+/area/ruin/powered/envy)
 
 (1,1,1) = {"
 a
@@ -236,7 +238,7 @@ i
 i
 i
 i
-p
+Z
 A
 a
 "}

@@ -13,7 +13,9 @@
 		var/obj/effect/anomaly/A = loc
 		A.anomalyNeutralize()
 
-/obj/item/assembly/signaler/anomaly/attack_self__legacy__attackchain()
+/obj/item/assembly/signaler/anomaly/activate_self(mob/user)
+	if(!user)
+		return ..()
 	return
 
 //Anomaly cores

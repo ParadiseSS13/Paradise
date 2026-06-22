@@ -121,6 +121,22 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/welded
 	welded = TRUE
 
+/// Special case so spawners with doors autorotate, otherwise identicle
+/obj/machinery/door/airlock/spawner
+
+/obj/machinery/door/airlock/spawner/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/// Lateint required to actually rotate
+/obj/machinery/door/airlock/spawner/LateInitialize()
+	. = ..()
+	var/direction = get_current_direction()
+	dir = direction
+
+/obj/machinery/door/airlock/spawner/welded
+	welded = TRUE
+
 /*
  * reimp, imitate an access denied event.
  */
@@ -160,6 +176,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		max_integrity = normal_integrity
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
+	var/direction = get_current_direction()
+	dir = direction ? direction : NORTH
 	update_icon()
 	prepare_huds()
 	for(var/hud_key, hud in GLOB.huds)
@@ -183,6 +201,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		var/snowflake_path = /datum/wires/airlock/ruin
 		return new snowflake_path(src)
 	return source_area?.airlock_wires ? new source_area.airlock_wires(src) : new /datum/wires/airlock(src)
+
+/obj/machinery/door/airlock/get_internal_wires()
+	return wires
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
@@ -661,7 +682,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			. += "There's a [note.name] pinned to the front..."
 			note.examine(user)
 			. += SPAN_NOTICE("Use an empty hand on the airlock on grab mode to remove [note.name].")
-
+	if(welded)
+		. += SPAN_WARNING("It's welded shut!")
 	if(panel_open)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
@@ -1011,7 +1033,21 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	add_fingerprint(user)
 	if(!headbutt_shock_check(user))
 		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/katana/energy) && user.a_intent == INTENT_HELP)
+		if(locked)
+			if(!do_after_once(user, 5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
+				return ITEM_INTERACT_COMPLETE
+			unlock()
+			return ITEM_INTERACT_COMPLETE
+		else
+			if(!do_after_once(user, 2.5 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = FALSE))
+				return ITEM_INTERACT_COMPLETE
+			open()
+			return ITEM_INTERACT_COMPLETE
 	if(panel_open)
+		if(istype(used, /obj/item/kitchen/utensil/fork))
+			return NONE
+
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
 				if(istype(used, /obj/item/stack/sheet/metal))

@@ -35,7 +35,7 @@
 	/// Tracks how wet the mob is. Only used for examining the mob
 	var/wetlevel = 0
 
-	/// Used to track how much CO2 is in our system. Too much CO2 means you get stunned and die
+	/// Used to track how long CO2 has been in our system, too long and we pass out and die.
 	var/co2overloadtime = null
 
 	/*

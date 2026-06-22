@@ -72,7 +72,7 @@
 	It is is commonly found in the pockets of private individuals and corporate management alike."
 	. += ""
 	. += "The pistol packs the same punch as its bigger brother, but the compact frame has come at the cost of a smaller power cell, making it less suitable for extended engagements. \
-	Despite this, it is responsible for thwarting numerous attempted muggings, kidnappings, and assassinations across the Sector ever year."
+	Despite this, it is responsible for thwarting numerous attempted muggings, kidnappings, and assassinations across the Sector every year."
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
 	gun_light = new /obj/item/flashlight/seclite(src)

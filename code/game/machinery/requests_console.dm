@@ -69,6 +69,10 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/reminder_timer_id = TIMER_ID_NULL
 	var/has_active_secondary_goal = FALSE
 
+/obj/machinery/requests_console/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("You can <b>Alt-Click</b> to quickly swipe your ID.")
+
 /obj/machinery/requests_console/power_change()
 	if(!..())
 		return
@@ -291,6 +295,10 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("toggleSilent")
 			silent = !silent
 
+/obj/machinery/requests_console/AltClick(mob/living/user)
+	if(Adjacent(user) && user.get_id_card())
+		use_id(user, user.get_id_card())
+
 /obj/machinery/requests_console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/obj/item/stamp/stamp = used
 	if(istype(stamp))
@@ -300,16 +308,21 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 		return ITEM_INTERACT_COMPLETE
 
-	var/obj/item/card/id/id_card = used
+	if(use_id(user, used))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/machinery/requests_console/proc/use_id(mob/living/user, obj/item/card/id/id_card)
 	if(!istype(id_card))
-		return ..()
+		return FALSE
 
 	if(inoperable(MAINT))
-		return ITEM_INTERACT_COMPLETE
+		return TRUE
 	if(screen == RCS_MESSAUTH)
 		msgVerified = "Verified by [id_card.registered_name] ([id_card.assignment])"
 		SStgui.update_uis(src)
-		return ITEM_INTERACT_COMPLETE
+		return TRUE
 	if(screen == RCS_ANNOUNCE)
 		if(ACCESS_RC_ANNOUNCE in id_card.GetAccess())
 			announceAuth = TRUE
@@ -318,20 +331,20 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			reset_message()
 			to_chat(user, SPAN_WARNING("You are not authorized to send announcements."))
 		SStgui.update_uis(src)
-		return ITEM_INTERACT_COMPLETE
+		return TRUE
 	if(screen == RCS_SECONDARY)
 		secondaryGoalAuth = TRUE
 		goalRequester = id_card
 		has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
 
-		return ITEM_INTERACT_COMPLETE
+		return TRUE
 	if(screen == RCS_SHIPPING)
 		msgVerified = "Sender verified as [id_card.registered_name] ([id_card.assignment])"
 		SStgui.update_uis(src)
 
-		return ITEM_INTERACT_COMPLETE
+		return TRUE
 
-	return ..()
+	return FALSE
 
 /obj/machinery/requests_console/proc/reset_message(mainmenu = FALSE)
 	message = ""

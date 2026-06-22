@@ -200,3 +200,30 @@
 	spawn_list.Add(/obj/item/paper/fluff/cargo/bomb)
 	for(var/i in 1 to 4)
 		spawn_list.Add(/mob/living/basic/clown)
+
+/datum/shuttle_loan_situation/monkey_business
+	sender = "Central Command Research Division"
+	announcement_text = "A number of monkeys escaped our containment. It seems they've snuck aboard your cargo shuttle. They're not happy."
+	bonus_points = 500 // It's a lot of monkeys
+	logging_desc = "Shuttle with angry monkeys"
+
+/datum/shuttle_loan_situation/monkey_business/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
+	var/list/monkey_types = list(
+		/mob/living/carbon/human/monkey/angry,
+		/mob/living/carbon/human/nian_worme/angry,
+		/mob/living/carbon/human/stok/angry,
+		/mob/living/carbon/human/farwa/angry,
+		/mob/living/carbon/human/neara/angry,
+		/mob/living/carbon/human/farwa/angry,
+	)
+	var/list/weapon_types = list(
+		/obj/item/storage/toolbox = 10,
+		/obj/item/spear = 5,
+		/obj/item/melee/baseball_bat = 3,
+		/obj/item/melee/bone_sword = 1
+	)
+
+	for(var/i in 1 to 5)
+		spawn_list.Add(pick(monkey_types))
+		spawn_list.Add(pickweight(weapon_types))
+	spawn_list.Add(/mob/living/basic/gorilla)

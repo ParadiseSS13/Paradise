@@ -122,7 +122,7 @@
 /datum/spell/ai_spell/return_to_core
 	name = "Return to Main Core"
 	desc = "Leave the APC you are shunted to, and return to your core."
-	action_icon = 'icons/obj/power.dmi'
+	action_icon = 'icons/obj/wallbumps/apc.dmi'
 	action_icon_state = "apcemag"
 	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
 

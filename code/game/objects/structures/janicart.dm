@@ -269,7 +269,12 @@
 	if(my_spray)
 		. += "cart_spray"
 	if(my_replacer)
-		. += "cart_replacer"
+		if(my_replacer.emagged)
+			. += "cart_replacer_red"
+		else if(istype(my_replacer, /obj/item/lightreplacer/bluespace))
+			. += "cart_replacer_blue"
+		else
+			. += "cart_replacer"
 	if(signs)
 		. += "cart_sign[signs]"
 	if(reagents.total_volume > 0)

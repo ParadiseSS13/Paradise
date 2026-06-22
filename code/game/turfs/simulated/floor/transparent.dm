@@ -42,6 +42,8 @@
 	underlays += I
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
 	icon_state = "" //Prevents default icon appearing behind the glass
+	if(baseturf == /turf/space)
+		GLOB.starlight += src
 	QUEUE_SMOOTH(src)
 
 /turf/simulated/floor/transparent/glass/welder_act(mob/user, obj/item/I)
@@ -97,6 +99,7 @@
 			new /obj/item/stack/sheet/plastitaniumglass(src, 2)
 	R.use(2)
 	playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
+	GLOB.starlight -= src
 	ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/transparent/glass/extinguish_light(force)

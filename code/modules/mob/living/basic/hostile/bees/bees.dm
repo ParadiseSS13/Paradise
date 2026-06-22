@@ -42,7 +42,7 @@
 	minimum_survivable_temperature = 0
 	gold_core_spawnable = FRIENDLY_SPAWN
 	basic_mob_flags = DEL_ON_DEATH
-	initial_traits = list(TRAIT_FLYING)
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE)
 	ai_controller = /datum/ai_controller/basic_controller/bee
 	/// the reagent the bee has
 	var/datum/reagent/beegent = null

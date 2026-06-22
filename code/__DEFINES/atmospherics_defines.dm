@@ -18,8 +18,8 @@
 /// -14C - Temperature used for kitchen cold room, medical freezer, etc.
 #define COLD_ROOM_TEMP			259.15
 
-/// -193C - Temperature used for server rooms
-#define SERVER_ROOM_TEMP			80
+/// 1C - Temperature used for server rooms
+#define SERVER_ROOM_TEMP			274
 
 #define MOLES_CELLSTANDARD		(ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION))	//moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO		(MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
@@ -76,7 +76,7 @@
 #define MIN_TOXIC_GAS_DAMAGE				1
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
-#define MOLES_WATER_VAPOR_VISIBLE			2.0		//Moles in a standard cell after which water vapor is visible
+#define MOLES_WATER_VAPOR_VISIBLE			4.0		//Moles in a standard cell after which water vapor is visible
 
 //HYDROGEN
 #define HYDROGEN_BURN_ENERGY				2500000

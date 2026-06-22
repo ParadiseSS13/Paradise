@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# zzz-destroy-everything-zzz
+# Activate the Nuclear Authentication Disk
+
+set -euo pipefail
+
+#
+# !!! This script will destroy everything !!!
+#
+# Your database and server containers will be stopped and deleted.
+# The database volume containing all the data in your database will be deleted.
+# The server image you last built will be deleted.
+# The docker network the database container and server container used to talk to each other will be deleted.
+# The entire secret/ directory, and the database credentials kept there, will be deleted.
+# The backup file for your database will be deleted.
+#
+# NOTE: Destroys all of the things. !! EVERYTHING !! You have been warned!
+#
+
+BACKUP_FILE="paradise_db.sql"
+DB_CONTAINER="paradise_db"
+DB_VOLUME="paradise_db_data"
+NETWORK_NAME="paradise_net"
+SERVER_CONTAINER="paradise"
+SERVER_IMAGE="paradise:latest"
+ZZZ_DESTROY="honk-honk-honk"
+
+# make sure we're at the root of the repository
+if [ ! -f "Dockerfile" ]; then
+    echo >&2 "Error: No Dockerfile found. Are you at the repository root?"
+    exit 1
+fi
+
+# make sure the user actually wants to run this...
+if [ "${1:-}" != "${ZZZ_DESTROY}" ]; then
+    echo >&2 "Error: If you *really* want to do this:"
+    echo >&2 ""
+    echo >&2 "$0 ${ZZZ_DESTROY}"
+    echo >&2 ""
+    echo >&2 "There is NO way to UNDO this! If you do this, you destroy *everything*, PERMANENTLY!"
+    exit 1
+fi
+
+# engaging nuclear authentication disk...
+docker stop "${SERVER_CONTAINER}" || true
+docker stop "${DB_CONTAINER}" || true
+docker rm "${DB_CONTAINER}" || true
+docker image rm "${SERVER_IMAGE}" || true
+docker network rm "${NETWORK_NAME}" || true
+docker volume rm "${DB_VOLUME}" || true
+rm -frv secret
+rm -fv "${BACKUP_FILE}"
+echo "You honked my battleship!"

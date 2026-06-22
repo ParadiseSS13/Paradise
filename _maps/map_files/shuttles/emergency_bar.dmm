@@ -38,13 +38,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/wood,
 /area/shuttle/escape)
-"al" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/escape)
 "am" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light/spot{
@@ -160,13 +153,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/shuttle/escape)
-"aJ" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/closet/crate/internals,
@@ -301,14 +287,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
-"bi" = (
-/obj/machinery/door/airlock{
-	name = "Toilet"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/escape)
 "bn" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -337,30 +315,6 @@
 /obj/item/ashtray/glass,
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/carpet/royalblack,
-/area/shuttle/escape)
-"bt" = (
-/obj/machinery/door/airlock{
-	name = "Unit 1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/escape)
-"bv" = (
-/obj/machinery/door/airlock{
-	name = "Unit 2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/escape)
-"bw" = (
-/obj/machinery/door/airlock{
-	name = "Unit 3"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
 /area/shuttle/escape)
 "bx" = (
 /obj/machinery/sleeper{
@@ -392,9 +346,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/shuttle/escape)
-"bC" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/escape)
 "bD" = (
 /obj/machinery/computer/station_alert{
 	dir = 4
@@ -419,6 +370,15 @@
 "bL" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
+/area/shuttle/escape)
+"bY" = (
+/obj/machinery/door/airlock{
+	name = "Unit 1";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/shuttle/escape)
 "cE" = (
 /obj/effect/turf_decal/woodsiding{
@@ -481,6 +441,14 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
+"lu" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/escape)
 "lA" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
@@ -496,6 +464,13 @@
 	},
 /obj/structure/musician/piano,
 /turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"mj" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "mV" = (
 /obj/structure/chair/wood/wings,
@@ -548,7 +523,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "qr" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "rr" = (
 /obj/machinery/computer/crew{
@@ -605,6 +580,14 @@
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"vu" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "wk" = (
 /obj/structure/sign/poster/contraband/borg_fancy_2/directional/west,
@@ -678,6 +661,15 @@
 /obj/structure/table/wood,
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"As" = (
+/obj/machinery/door/airlock{
+	name = "Unit 3";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/shuttle/escape)
 "AA" = (
 /obj/structure/chair/wood/wings{
@@ -766,6 +758,15 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"EQ" = (
+/obj/machinery/door/airlock{
+	name = "Unit 2";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/escape)
 "FK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -843,6 +844,15 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"KG" = (
+/obj/machinery/door/airlock{
+	name = "Toilet";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/shuttle/escape)
 "LD" = (
 /obj/machinery/status_display{
@@ -1074,12 +1084,6 @@
 	},
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/escape)
-"Uq" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "Uv" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 10
@@ -1120,29 +1124,29 @@ ah
 ah
 ah
 ab
-bC
-bC
+ab
+ab
 ac
 ac
-bC
-bC
+ab
+ab
 TE
-bC
+ab
 CF
-bC
+ab
 ac
 ac
 ac
-bC
+ab
 Rv
-bC
+ab
 aI
-bC
+ab
 ac
 ac
-bC
-bC
-bC
+ab
+ab
+ab
 ab
 ah
 "}
@@ -1154,8 +1158,8 @@ ah
 ah
 ab
 ac
-bC
-bC
+ab
+ab
 bp
 wC
 wC
@@ -1172,12 +1176,12 @@ aT
 aA
 TG
 aA
-bC
+ab
 NQ
 bo
-bt
+bY
 ao
-bC
+ab
 qr
 qr
 "}
@@ -1187,10 +1191,10 @@ ah
 ah
 ab
 ac
-bC
+ab
 bD
 zM
-bC
+ab
 pT
 aF
 aF
@@ -1207,12 +1211,12 @@ Dy
 aA
 aA
 aA
-bC
+ab
 NQ
 bo
-bC
-bC
-bC
+ab
+ab
+ab
 bJ
 bL
 "}
@@ -1220,12 +1224,12 @@ bL
 ah
 ah
 ab
-bC
+ab
 JE
 ec
 xd
 Ul
-bC
+ab
 NC
 aF
 aF
@@ -1242,25 +1246,25 @@ Dy
 aA
 aA
 aA
-bi
+KG
 bo
 bo
-bv
+EQ
 ao
-bC
+ab
 bJ
 bL
 "}
 (5,1,1) = {"
 ah
 ab
-bC
+ab
 LD
 Pf
 nM
 an
 ak
-bC
+ab
 NC
 aF
 aF
@@ -1277,32 +1281,32 @@ aH
 aA
 aA
 aA
-bC
+ab
 JC
 bA
-bC
-bC
-bC
+ab
+ab
+ab
 bJ
 bL
 "}
 (6,1,1) = {"
 ab
-bC
+ab
 aq
 an
 an
 an
 an
 an
-bC
-bC
+ab
+ab
 aG
 aG
-bC
-bC
-bC
-bC
+ab
+ab
+ab
+ab
 Bf
 as
 XS
@@ -1312,12 +1316,12 @@ LV
 aA
 aA
 IJ
-bC
+ab
 bo
 bo
-bw
+As
 wk
-bC
+ab
 qr
 qr
 "}
@@ -1347,12 +1351,12 @@ aA
 aA
 aA
 rE
-bC
+ab
 SW
 NH
-bC
+ab
 bB
-bC
+ab
 bJ
 bL
 "}
@@ -1365,12 +1369,12 @@ Rt
 zU
 Qy
 an
-aJ
+lu
 br
 br
 br
 br
-al
+vu
 aA
 aA
 aA
@@ -1382,12 +1386,12 @@ aA
 aA
 aA
 dn
-bC
-bC
-bC
-bC
-bC
-bC
+ab
+ab
+ab
+ab
+ab
+ab
 bJ
 bL
 "}
@@ -1417,30 +1421,30 @@ aA
 aA
 aA
 rE
-bC
+ab
 bx
 RQ
 aO
 bx
-bC
+ab
 bJ
 bL
 "}
 (10,1,1) = {"
 ab
-bC
+ab
 aq
 an
 an
 an
 an
 an
-bC
-bC
+ab
+ab
 AQ
 AQ
-bC
-bC
+ab
+ab
 Bf
 aA
 Jz
@@ -1452,30 +1456,30 @@ Jz
 Jz
 aA
 ss
-bC
+ab
 MZ
 bn
 bn
 PS
-bC
+ab
 qr
 qr
 "}
 (11,1,1) = {"
 ah
 ab
-bC
+ab
 Rh
 bd
 Uv
 an
 ak
-bC
+ab
 aa
 nk
 nk
 ZH
-bC
+ab
 ug
 JQ
 Di
@@ -1492,7 +1496,7 @@ bn
 bn
 bn
 by
-bC
+ab
 bJ
 bL
 "}
@@ -1500,17 +1504,17 @@ bL
 ah
 ah
 ab
-bC
+ab
 rr
 Tb
 cE
 pC
-bC
+ab
 HV
 nk
 nk
 ff
-bC
+ab
 aB
 Zz
 bq
@@ -1522,12 +1526,12 @@ Zz
 Ai
 aM
 aA
-Uq
+mj
 bn
 bn
 bn
 by
-bC
+ab
 bJ
 bL
 "}
@@ -1537,15 +1541,15 @@ ah
 ah
 ab
 ac
-bC
+ab
 aw
 MX
-bC
+ab
 aC
 nk
 nk
 zZ
-bC
+ab
 lG
 Zz
 aP
@@ -1562,7 +1566,7 @@ wF
 bn
 bn
 ol
-bC
+ab
 bJ
 bL
 "}
@@ -1574,13 +1578,13 @@ ah
 ah
 ab
 ac
-bC
-bC
+ab
+ab
 aK
 bz
 bz
 aK
-bC
+ab
 Na
 hO
 Zz
@@ -1592,12 +1596,12 @@ cF
 Qp
 bf
 az
-bC
+ab
 uO
 YQ
 af
 Ej
-bC
+ab
 qr
 qr
 "}
@@ -1610,29 +1614,29 @@ ah
 ah
 ah
 ab
-bC
-bC
+ab
+ab
 ax
 ax
-bC
-bC
+ab
+ab
 ac
-bC
+ab
 ac
-bC
-ac
-ac
-ac
-bC
-ac
-bC
-ac
-bC
+ab
 ac
 ac
-bC
-bC
-bC
+ac
+ab
+ac
+ab
+ac
+ab
+ac
+ac
+ab
+ab
+ab
 ab
 ah
 "}

@@ -378,6 +378,16 @@
 	cut(wires[rand(1, length(wires))])
 
 /**
+* Cuts a random uncut wire.
+*/
+/datum/wires/proc/cut_random_uncut_wire()
+	var/list/uncut_list = wires - cut_wires
+	if(!length(uncut_list))
+		return
+	var/random_wire = pick(uncut_list)
+	cut(random_wire)
+
+/**
  * Cuts all wires.
  */
 /datum/wires/proc/cut_all()

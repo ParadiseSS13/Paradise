@@ -46,8 +46,9 @@
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
-	var/hunger_drain = HUNGER_FACTOR
-	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
+	var/hunger_drain = HUNGER_FACTOR // the most widely used factor; humans use a different one
+	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL
+	var/taste_category = TASTE_CATEGORY_ORGANIC // what kinds of taste messages will they get?
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
 
 	var/siemens_coeff = 1 //base electrocution coefficient
@@ -96,7 +97,6 @@
 	var/meat_type = /obj/item/food/meat
 	var/no_equip	// bitflags of slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
-	var/can_craft = TRUE // Can this mob using crafting or not?
 
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
@@ -971,7 +971,7 @@
 	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
 		H.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE)
+	if(radiation > RAD_MOB_MUTATE && !HAS_TRAIT(H, TRAIT_GENELESS))
 		if(prob(1))
 			to_chat(H, SPAN_DANGER("You mutate!"))
 			randmutb(H)

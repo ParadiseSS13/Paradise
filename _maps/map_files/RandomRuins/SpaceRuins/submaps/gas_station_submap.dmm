@@ -1,0 +1,128 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"d" = (
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "gas_station_sensor";
+	output = 127
+	},
+/turf/simulated/floor/engine/hydrogen,
+/area/ruin/space/gas_station)
+"e" = (
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/gas_station)
+"i" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	autolink_id = "gas_station_outlet_scrubber"
+	},
+/turf/simulated/floor/engine/hydrogen,
+/area/ruin/space/gas_station)
+"k" = (
+/obj/item/toy/plushie/plasmamanplushie,
+/obj/item/clothing/mask/cigarette/rollie{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/gas_station)
+"p" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/gas_station/fuel,
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/gas_station)
+"r" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine/hydrogen,
+/area/ruin/space/gas_station)
+"x" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4
+	},
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/gas_station)
+"A" = (
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "gas_station_sensor";
+	output = 127
+	},
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/gas_station)
+"D" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	autolink_id = "gas_station_outlet_scrubber"
+	},
+/turf/simulated/floor/engine/plasma,
+/area/ruin/space/gas_station)
+"J" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/gas_station/fuel,
+/turf/simulated/floor/engine/hydrogen,
+/area/ruin/space/gas_station)
+"Q" = (
+/turf/simulated/floor/engine/hydrogen,
+/area/ruin/space/gas_station)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+e
+e
+p
+a
+"}
+(3,1,1) = {"
+a
+e
+A
+D
+a
+"}
+(4,1,1) = {"
+a
+x
+k
+e
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+Q
+Q
+J
+a
+"}
+(7,1,1) = {"
+a
+Q
+d
+i
+a
+"}
+(8,1,1) = {"
+a
+r
+k
+Q
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+a
+a
+"}

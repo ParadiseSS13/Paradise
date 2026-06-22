@@ -6,6 +6,7 @@
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "burning"
+	taste_flag = ORGANIC | SYNTHETIC
 	burn_temperature = T0C + 500
 	burn_duration = 20 SECONDS
 	burn_color = "white"
@@ -54,6 +55,7 @@
 	description = "A highly flammable jellied fuel."
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
+	taste_flag = ORGANIC | SYNTHETIC
 	color = "#C86432"
 	taste_description = "burning"
 	burn_temperature = T0C + 500
@@ -96,7 +98,9 @@
 	drink_icon = "fuel_glass"
 	drink_name = "Glass of welder fuel"
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
-	taste_description = "mistakes"
+	taste_flag = SYNTHETIC
+	taste_description = "internal combustion"
+	yuck_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
 	burn_temperature = T0C + 400
 	burn_duration = 15 SECONDS // Barely better than default
@@ -161,6 +165,7 @@
 	reagent_state = LIQUID
 	color = "#7A2B94"
 	taste_description = "corporate assets going to waste"
+	taste_flag = ORGANIC | SYNTHETIC
 	taste_mult = 1.5
 	burn_temperature = T0C + 400
 	burn_duration = 20 SECONDS
@@ -195,6 +200,7 @@
 	description = "Thermite produces an aluminothermic reaction known as a thermite reaction. Can be used to melt walls."
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
+	taste_flag = ORGANIC | SYNTHETIC
 	taste_description = "rust"
 	burn_temperature = T0C + 1500 // hahahahHAHAHAHAH LET IT BURN
 	burn_duration = 5 SECONDS // Not for long though
@@ -233,6 +239,7 @@
 	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "sweetness"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/stabilizing_agent
 	name = "Stabilizing Agent"
@@ -318,6 +325,7 @@
 	metabolization_rate = 0.05
 	penetrates_skin = TRUE
 	taste_description = "explosions"
+	yuck_description = "powder coating"
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
 	if(volume >= 5 && !isspaceturf(T))
@@ -332,6 +340,7 @@
 	color = "#FFFF00"
 	penetrates_skin = TRUE
 	taste_description = "salt"
+	yuck_description = "powder coating"
 
 /datum/reagent/smoke_powder
 	name = "Smoke Powder"
@@ -340,6 +349,7 @@
 	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "smoke"
+	yuck_description = "powder coating"
 
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
@@ -349,6 +359,7 @@
 	color = "#0000FF"
 	penetrates_skin = TRUE
 	taste_description = "loud noises"
+	yuck_description = "powder coating"
 
 /datum/reagent/cryostylane
 	name = "Cryostylane"
@@ -428,6 +439,7 @@
 	reagent_state = LIQUID
 	color = "#A0A090"
 	taste_description = "the inside of a fire extinguisher"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 // Put out fire
@@ -449,6 +461,7 @@
 	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
 	color = "#500064" // rgb: 80, 0, 100
 	taste_description = "corporate assets going to waste"
+	taste_flag = ORGANIC | SYNTHETIC
 	taste_mult = 1.5
 
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
@@ -479,6 +492,7 @@
 	description = "Pure, liquid confetti. Explodes into a colorful bomb when exposed to heat."
 	color = "#500064" // rgb: 80, 0, 100
 	taste_description = "the tears of janitors"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/confetti/reaction_turf(turf/T, volume)
 	var/confetti = /obj/effect/decal/cleanable/confetti

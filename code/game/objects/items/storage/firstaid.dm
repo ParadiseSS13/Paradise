@@ -380,6 +380,7 @@
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
 	rapid_post_instake_message = "stamps the entire contents of the patch pack all over their entire body!"
 	wrapper_state = "patch_pack_wrap"
+	materials = list(MAT_CARDBOARD = 4000)
 
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"

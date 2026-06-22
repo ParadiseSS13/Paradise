@@ -177,9 +177,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.change_eye_color(eye_c, FALSE)
 	M.change_skin_tone(random_skin_tone(M.dna.species.name))
 	head_organ.headacc_colour = pick("#1f138b", "#272525", "#07a035", "#8c00ff", "#a80c0c")
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(head_organ.dna.species.name)
 	if(M.gender != FEMALE) // no beard for women pls
-		head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
+		head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
 
 	M.rename_character(M.real_name, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
 	M.age = rand(23,35)

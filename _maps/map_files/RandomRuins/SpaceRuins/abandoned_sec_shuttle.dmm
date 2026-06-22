@@ -53,6 +53,15 @@
 	},
 /turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
+"k" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark/airless,
+/area/ruin/space/sec_shuttle)
 "m" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/blood,
@@ -153,12 +162,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
-"U" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
-	},
-/turf/template_noop,
-/area/ruin/space/sec_shuttle)
 "V" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
@@ -176,7 +179,7 @@
 	dir = 8;
 	icon_state = "burst_l"
 	},
-/turf/template_noop,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
 "Z" = (
 /obj/structure/computerframe,
@@ -201,7 +204,7 @@ z
 z
 z
 Y
-U
+V
 V
 V
 e
@@ -260,7 +263,7 @@ z
 z
 z
 z
-c
+k
 H
 H
 w

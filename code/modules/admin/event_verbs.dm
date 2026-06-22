@@ -353,27 +353,34 @@ USER_VERB(everyone_random, R_SERVER|R_EVENT, "Make Everyone Random", \
 
 USER_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", "Create a custom explosion.", VERB_CATEGORY_EVENT, atom/O as obj|mob|turf in view())
 	var/devastation = input(client, "Range of total devastation. -1 to none", "Input")  as num|null
-	if(devastation == null) return
+	if(devastation == null)
+		return
 	var/heavy = input(client, "Range of heavy impact. -1 to none", "Input")  as num|null
-	if(heavy == null) return
+	if(heavy == null)
+		return
 	var/light = input(client, "Range of light impact. -1 to none", "Input")  as num|null
-	if(light == null) return
+	if(light == null)
+		return
 	var/flash = input(client, "Range of flash. -1 to none", "Input")  as num|null
-	if(flash == null) return
+	if(flash == null)
+		return
 	var/flames = input(client, "Range of flames. -1 to none", "Input")  as num|null
-	if(flames == null) return
+	if(flames == null)
+		return
+	var/ignore_cap = tgui_input_list(client, "Ignore bomb cap?", "Bomb cap", list("Yes", "No"))
+	if(isnull(ignore_cap))
+		return
+	ignore_cap = (ignore_cap == "Yes") ? TRUE : FALSE
 
 	if((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
 		if((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
 			if(alert(client, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
 				return
 
-		explosion(O, devastation, heavy, light, flash, null, null,flames, cause = "[client.ckey]: Explosion command")
+		explosion(O, devastation, heavy, light, flash, null, ignore_cap, flames, cause = "[client.ckey]: Explosion command")
 		log_admin("[key_name(client)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
 		message_admins("[key_name_admin(client)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "EXPL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		return
-	else
 		return
 
 USER_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", "Cause an electromagnetic pulse.", VERB_CATEGORY_EVENT, atom/O as obj|mob|turf in view())

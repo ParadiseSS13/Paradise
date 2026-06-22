@@ -26,7 +26,7 @@
 /turf/simulated/floor/engine,
 /area/template_noop)
 "da" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/template_noop)
 "dD" = (
 /mob/living/basic/alien/sentinel,
@@ -313,7 +313,7 @@
 /area/template_noop)
 "DH" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/dvorak/vendor_room,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/template_noop)
 "Ep" = (
 /obj/effect/spawner/random/barrier/obstruction,

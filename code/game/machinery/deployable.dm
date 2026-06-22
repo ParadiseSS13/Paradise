@@ -384,10 +384,9 @@
 
 	to_chat(user, "[src] is now in [mode == AUTO ? mode : dir2text(mode)] mode.")
 
-/obj/item/grenade/barrier/dropwall/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/grenade/barrier/dropwall/activate_self(mob/user)
 	armer = user
-
+	return ..()
 
 /obj/item/grenade/barrier/dropwall/end_throw()
 	if(active)
@@ -538,7 +537,7 @@
 	inhand_icon_state = "flashbang"
 	var/owner_uid
 
-/obj/item/grenade/turret/attack_self__legacy__attackchain(mob/user)
+/obj/item/grenade/turret/activate_self(mob/user)
 	owner_uid = user.UID()
 	return ..()
 

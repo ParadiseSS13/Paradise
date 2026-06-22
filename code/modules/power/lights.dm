@@ -38,7 +38,36 @@
 
 /obj/machinery/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/light_construct/setDir(newdir)
+	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
 
 /obj/machinery/light_construct/examine(mob/user)
 	. = ..()
@@ -270,7 +299,7 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#e0eeff"
+	var/nightshift_light_color = "#fafaeb"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
@@ -291,9 +320,9 @@
 	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
-	brightness_color = "#ffebb0"
+	brightness_color = "#fac192"
 	nightshift_light_range = 4
-	nightshift_light_color = "#ffefa0" // #a0a080
+	nightshift_light_color = "#e29a5f" // #a0a080
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
 
@@ -379,6 +408,20 @@
 	if(A && !A.requires_power)
 		on = TRUE
 
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
+
 	switch(base_state)
 		if("tube")
 			brightness_range = 8
@@ -393,6 +436,11 @@
 			if(prob(3))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
+
+	if(A.area_light_color)
+		brightness_color = A.area_light_color
+	if(A.area_nightlight_color)
+		nightshift_light_color = A.area_nightlight_color
 
 /obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
@@ -999,6 +1047,22 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update()
+
+/obj/machinery/light/setDir(newdir)
+	. = ..()
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
 
 /obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered

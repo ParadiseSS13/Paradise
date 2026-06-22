@@ -249,6 +249,14 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_category = RPD_DEVICES
 	rpd_dispensable = TRUE
 
+/datum/pipes/atmospheric/high_volume_vent
+	pipe_name = "high volume vent pump"
+	pipe_id = PIPE_HIGH_VOLUME_PUMP
+	orientations = 4
+	pipe_icon = "uvent"
+	pipe_category = RPD_DEVICES
+	rpd_dispensable = TRUE
+
 //Heat exchange pipes
 
 /datum/pipes/atmospheric/simple/he

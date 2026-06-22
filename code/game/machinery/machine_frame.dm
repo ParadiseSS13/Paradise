@@ -324,6 +324,7 @@ to destroy them and players will be able to make replacements.
 		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe,
 		"TrainDrobe" =							/obj/machinery/economy/vending/traindrobe,
 		"Castivend" =							/obj/machinery/economy/vending/smith,
+		"ChapDrobe" =							/obj/machinery/economy/vending/chapdrobe,
 		"CrewVend 3000" =						/obj/machinery/economy/vending/custom)
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
@@ -378,6 +379,16 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/cell = 5,
+							/obj/item/stock_parts/capacitor = 1)
+
+/obj/item/circuitboard/transformer
+	board_name = "Electrical Transformer"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/smes/transformer
+	board_type = "machine"
+	origin_tech = "programming=3;powerstorage=3;engineering=3"
+	req_components = list(
+							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/emitter
@@ -484,12 +495,11 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/reactor_chamber
 	origin_tech = "engineering=2"
-	materials = list(MAT_GLASS = 2000)
+	materials = list(MAT_GLASS = 2000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000)
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/metal = 2,
-		/obj/item/stack/sheet/mineral/plastitanium = 2,
 	)
 
 /obj/item/circuitboard/recharger
@@ -761,6 +771,17 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
+
+/obj/item/circuitboard/autoclave
+	board_name = "Autoclave"
+	icon_state = "medical"
+	build_path = /obj/machinery/autoclave
+	board_type = "machine"
+	origin_tech = "biotech=2;materials=2;magnets=3"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stack/sheet/glass = 1
+						)
 
 /obj/item/circuitboard/scientific_analyzer // fucking US spelling
 	board_name = "Scientific Analyzer"

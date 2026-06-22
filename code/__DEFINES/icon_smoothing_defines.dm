@@ -69,7 +69,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(23)			///turf/simulated/wall/material
 #define SMOOTH_GROUP_SYNDICATE_WALLS S_TURF(24)			///turf/simulated/wall/r_wall/syndicate, /turf/simulated/indestructible/syndicate
 #define SMOOTH_GROUP_HOTEL_WALLS S_TURF(25)				///turf/simulated/indestructible/hotelwall
-#define SMOOTH_GROUP_MINERAL_WALLS S_TURF(26)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
+#define SMOOTH_GROUP_ROCK_WALLS S_TURF(26)				///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
 #define SMOOTH_GROUP_BOSS_WALLS S_TURF(27)				///turf/simulated/indestructible/riveted/boss
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(28)	///turf/simulated/wall/mineral/titanium/survival
 
@@ -83,35 +83,28 @@ DEFINE_BITFIELD(smoothing_flags, list(
 /* /obj included */
 
 #define SMOOTH_GROUP_WALLS S_OBJ(0)						///turf/simulated/wall, /obj/structure/falsewall
-#define SMOOTH_GROUP_URANIUM_WALLS S_OBJ(1)				///turf/simulated/wall/mineral/uranium, /obj/structure/falsewall/uranium
-#define SMOOTH_GROUP_GOLD_WALLS S_OBJ(2)				///turf/simulated/wall/mineral/gold, /obj/structure/falsewall/gold
-#define SMOOTH_GROUP_SILVER_WALLS S_OBJ(3)				///turf/simulated/wall/mineral/silver, /obj/structure/falsewall/silver
-#define SMOOTH_GROUP_DIAMOND_WALLS S_OBJ(4)				///turf/simulated/wall/mineral/diamond, /obj/structure/falsewall/diamond
-#define SMOOTH_GROUP_PLASMA_WALLS S_OBJ(5)				///turf/simulated/wall/mineral/plasma, /obj/structure/falsewall/plasma
-#define SMOOTH_GROUP_BANANIUM_WALLS S_OBJ(6)			///turf/simulated/wall/mineral/bananium, /obj/structure/falsewall/bananium
-#define SMOOTH_GROUP_SANDSTONE_WALLS S_OBJ(7)			///turf/simulated/wall/mineral/sandstone, /obj/structure/falsewall/sandstone
-#define SMOOTH_GROUP_WOOD_WALLS S_OBJ(8)				///turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood
-#define SMOOTH_GROUP_IRON_WALLS S_OBJ(9)				///turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron
-#define SMOOTH_GROUP_ABDUCTOR_WALLS S_OBJ(10)			///turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor
-#define SMOOTH_GROUP_TITANIUM_WALLS S_OBJ(11)			///turf/simulated/wall/mineral/titanium, /obj/structure/falsewall/titanium
-#define SMOOTH_GROUP_ASTEROID_WALLS S_OBJ(12)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
-#define SMOOTH_GROUP_PLASTITANIUM_WALLS S_OBJ(13)		///turf/simulated/wall/mineral/plastitanium, /obj/structure/falsewall/plastitanium
-#define SMOOTH_GROUP_SURVIVAL_TIANIUM_POD S_OBJ(14)		///turf/simulated/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/shuttle/survival_pod
-#define SMOOTH_GROUP_HIERO_WALL S_OBJ(15)				///obj/effect/temp_visual/elite_tumor_wall, /obj/effect/temp_visual/hierophant/wall
-#define SMOOTH_GROUP_BRASS_WALL S_OBJ(16)				///turf/simulated/wall/mineral/brass, /obj/structure/falsewall/brass
-#define SMOOTH_GROUP_REGULAR_WALLS S_OBJ(17)			///turf/simulated/wall, /obj/structure/falsewall
-#define SMOOTH_GROUP_REINFORCED_WALLS S_OBJ(18)			///turf/simulated/wall/r_wall, /obj/structure/falsewall/reinforced
-#define SMOOTH_GROUP_CULT_WALLS S_OBJ(19)				///turf/simulated/wall/cult
-#define SMOOTH_GROUP_BACKROOMS_WALLS S_OBJ(20)			///turf/simulated/wall/backrooms, /obj/structure/falsewall/backrooms
+#define SMOOTH_GROUP_MINERAL_WALLS S_OBJ(1)				///turf/simulated/wall/mineral, /obj/structure/falsewall variants for said mineral walls.
+#define SMOOTH_GROUP_IRON_WALLS S_OBJ(2)				///turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron
+#define SMOOTH_GROUP_ABDUCTOR_WALLS S_OBJ(3)			///turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor
+#define SMOOTH_GROUP_TITANIUM_WALLS S_OBJ(4)			///turf/simulated/wall/mineral/titanium, /obj/structure/falsewall/titanium
+#define SMOOTH_GROUP_ASTEROID_WALLS S_OBJ(5)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
+#define SMOOTH_GROUP_PLASTITANIUM_WALLS S_OBJ(6)		///turf/simulated/wall/mineral/plastitanium, /obj/structure/falsewall/plastitanium
+#define SMOOTH_GROUP_SURVIVAL_TIANIUM_POD S_OBJ(7)		///turf/simulated/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/shuttle/survival_pod
+#define SMOOTH_GROUP_HIERO_WALL S_OBJ(8)				///obj/effect/temp_visual/elite_tumor_wall, /obj/effect/temp_visual/hierophant/wall
+#define SMOOTH_GROUP_BRASS_WALL S_OBJ(9)				///turf/simulated/wall/mineral/brass, /obj/structure/falsewall/brass
+#define SMOOTH_GROUP_REGULAR_WALLS S_OBJ(10)			///turf/simulated/wall, /obj/structure/falsewall
+#define SMOOTH_GROUP_REINFORCED_WALLS S_OBJ(11)			///turf/simulated/wall/r_wall, /obj/structure/falsewall/reinforced
+#define SMOOTH_GROUP_CULT_WALLS S_OBJ(12)				///turf/simulated/wall/cult
+#define SMOOTH_GROUP_BACKROOMS_WALLS S_OBJ(13)			///turf/simulated/wall/backrooms, /obj/structure/falsewall/backrooms
 
-#define SMOOTH_GROUP_WINDOW_FULLTILE S_OBJ(21)			///turf/simulated/indestructible/fakeglass, /obj/structure/window/full/basic, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced
-#define SMOOTH_GROUP_WINDOW_FULLTILE_BRASS S_OBJ(22)	///obj/structure/window/brass/fulltile
-#define SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM S_OBJ(23)	///turf/simulated/indestructible/opsglass, /obj/structure/window/plasma/reinforced/plastitanium
-#define SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE S_OBJ(24)	///obj/structure/window/shuttle
+#define SMOOTH_GROUP_WINDOW_FULLTILE S_OBJ(14)			///turf/simulated/indestructible/fakeglass, /obj/structure/window/full/basic, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced
+#define SMOOTH_GROUP_WINDOW_FULLTILE_BRASS S_OBJ(15)	///obj/structure/window/brass/fulltile
+#define SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM S_OBJ(16)	///turf/simulated/indestructible/fakeglass/plastitanium, /obj/structure/window/plasma/reinforced/plastitanium
+#define SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE S_OBJ(17)	///obj/structure/window/shuttle
 
 #define SMOOTH_GROUP_LATTICE  S_OBJ(30)					///obj/structure/lattice
 
-#define SMOOTH_GROUP_AIRLOCK S_OBJ(40)					///obj/machinery/door/airlock
+#define SMOOTH_GROUP_AIRLOCK S_OBJ(40)					///obj/machinery/door/airlock, /obj/machinery/door/poddoor, /obj/machinery/door/poddoor/shutters, /obj/machinery/door/firedoor
 
 #define SMOOTH_GROUP_TABLES S_OBJ(50)					///obj/structure/table
 #define SMOOTH_GROUP_WOOD_TABLES S_OBJ(51)				///obj/structure/table/wood
@@ -129,7 +122,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_SECURITY_BARRICADE S_OBJ(63)		///obj/structure/barricade/security
 #define SMOOTH_GROUP_SANDBAGS S_OBJ(64)					///obj/structure/barricade/sandbags
 
-#define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/plasma/reinforced/plastitanium, /turf/simulated/indestructible/opsglass, /obj/structure/shuttle
+#define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/plasma/reinforced/plastitanium, /turf/simulated/indestructible/fakeglass/plastitanium, /obj/structure/shuttle
 
 #define SMOOTH_GROUP_CLEANABLE_DIRT	S_OBJ(67)			///obj/effect/decal/cleanable/dirt
 

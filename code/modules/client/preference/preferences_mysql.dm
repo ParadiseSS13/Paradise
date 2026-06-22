@@ -69,9 +69,12 @@
 			map_vote_pref_json = json_decode(raw_fptp)
 		catch
 			map_vote_pref_json = list()
+
+	#ifdef SERVERREGIONS
 	// Sanitize the region
 	if(!(server_region in GLOB.configuration.system.region_map))
 		server_region = null // This region doesnt exist anymore
+	#endif
 
 	return TRUE
 

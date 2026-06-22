@@ -4,6 +4,21 @@
 /obj/item/toy/figure/crew/syndie,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
+"bu" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/obj/docking_port/mobile/trader{
+	height = 21;
+	width = 14;
+	dwidth = 7;
+	preferred_direction = 1;
+	dir = 2
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
 "bZ" = (
 /turf/template_noop,
 /area/template_noop)
@@ -157,6 +172,14 @@
 /obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
+"lB" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	id_tag = "s_docking_airlock";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
 "nc" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/plastitanium{
@@ -167,20 +190,6 @@
 "nY" = (
 /obj/machinery/light/spot,
 /obj/machinery/economy/atm/directional/east,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/trade/sol)
-"oZ" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/hatch{
-	id_tag = "s_docking_airlock"
-	},
-/obj/docking_port/mobile/trader{
-	height = 21;
-	width = 14;
-	dwidth = 7;
-	preferred_direction = 1;
-	dir = 2
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
 "ps" = (
@@ -236,13 +245,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
-"uK" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/hatch{
-	id_tag = "s_docking_airlock"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/trade/sol)
 "vM" = (
 /obj/machinery/computer/shuttle/trade/sol,
 /obj/effect/turf_decal/woodsiding{
@@ -292,11 +294,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/trade/sol)
-"ye" = (
-/obj/machinery/door/airlock/hatch,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
 "yH" = (
 /obj/effect/turf_decal/woodsiding{
@@ -405,9 +402,6 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
-"JI" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/trade/sol)
 "KA" = (
 /obj/machinery/flasher_button{
 	id = "trader_flash";
@@ -484,6 +478,13 @@
 /obj/item/scalpel,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
+"Qp" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/trade/sol)
 "RQ" = (
 /obj/structure/shelf,
 /obj/effect/turf_decal/siding{
@@ -557,12 +558,12 @@ bZ
 bZ
 bZ
 LQ
-JI
-JI
-JI
-JI
-JI
-JI
+LQ
+LQ
+LQ
+LQ
+LQ
+LQ
 bZ
 "}
 (2,1,1) = {"
@@ -579,9 +580,9 @@ bZ
 bZ
 bZ
 LQ
-JI
+LQ
 VQ
-JI
+LQ
 kx
 tH
 nc
@@ -594,7 +595,7 @@ LQ
 eK
 iA
 kM
-ye
+Qp
 kc
 SY
 LQ
@@ -604,7 +605,7 @@ bZ
 LQ
 gD
 xz
-JI
+LQ
 hn
 HA
 nc
@@ -612,43 +613,43 @@ Jn
 bZ
 "}
 (4,1,1) = {"
-JI
-JI
+LQ
+LQ
 TU
-JI
-JI
-JI
+LQ
+LQ
+LQ
 ip
 CP
-JI
+LQ
 LQ
 bZ
 LQ
 LQ
 TK
 eK
-JI
+LQ
 kc
 sH
-JI
-JI
-JI
+LQ
+LQ
+LQ
 "}
 (5,1,1) = {"
-JI
+LQ
 zm
 kc
 CU
-JI
+LQ
 gI
 kc
 kc
 Xj
-JI
-JI
-JI
-JI
-JI
+LQ
+LQ
+LQ
+LQ
+LQ
 Fd
 LQ
 kc
@@ -658,7 +659,7 @@ nc
 Jn
 "}
 (6,1,1) = {"
-JI
+LQ
 Ia
 kc
 sA
@@ -669,7 +670,7 @@ kc
 zY
 ID
 du
-JI
+LQ
 lk
 sz
 kc
@@ -681,7 +682,7 @@ nc
 Jn
 "}
 (7,1,1) = {"
-oZ
+bu
 jy
 kc
 kc
@@ -692,7 +693,7 @@ kc
 kc
 kc
 Zu
-ye
+Qp
 kc
 kc
 kc
@@ -700,11 +701,11 @@ kc
 kc
 xR
 kE
-JI
-JI
+LQ
+LQ
 "}
 (8,1,1) = {"
-uK
+lB
 jy
 kc
 kc
@@ -715,7 +716,7 @@ kc
 kc
 kc
 Zu
-ye
+Qp
 kc
 kc
 kc
@@ -723,11 +724,11 @@ kc
 kc
 vM
 kE
-JI
-JI
+LQ
+LQ
 "}
 (9,1,1) = {"
-JI
+LQ
 wq
 kc
 sA
@@ -738,7 +739,7 @@ kc
 Hn
 PN
 ps
-JI
+LQ
 jd
 gl
 kc
@@ -750,20 +751,20 @@ nc
 Jn
 "}
 (10,1,1) = {"
-JI
+LQ
 fN
 kc
 nY
-JI
+LQ
 KA
 kc
 kc
 tl
-JI
-JI
-JI
-JI
-JI
+LQ
+LQ
+LQ
+LQ
+LQ
 Fd
 LQ
 kc
@@ -773,27 +774,27 @@ nc
 Jn
 "}
 (11,1,1) = {"
-JI
-JI
+LQ
+LQ
 Gr
-JI
-JI
-JI
+LQ
+LQ
+LQ
 ip
 WV
-JI
+LQ
 LQ
 bZ
 LQ
-JI
+LQ
 TK
 eK
-JI
+LQ
 kc
 sH
-JI
-JI
-JI
+LQ
+LQ
+LQ
 "}
 (12,1,1) = {"
 LQ
@@ -801,17 +802,17 @@ LQ
 eK
 DB
 kM
-ye
+Qp
 kc
 hF
 LQ
 bZ
 bZ
 bZ
-JI
+LQ
 gD
 xz
-JI
+LQ
 km
 km
 nc
@@ -832,9 +833,9 @@ bZ
 bZ
 bZ
 LQ
-JI
+LQ
 av
-JI
+LQ
 za
 Qk
 nc
@@ -856,11 +857,11 @@ bZ
 bZ
 bZ
 LQ
-JI
-JI
-JI
-JI
-JI
-JI
+LQ
+LQ
+LQ
+LQ
+LQ
+LQ
 bZ
 "}

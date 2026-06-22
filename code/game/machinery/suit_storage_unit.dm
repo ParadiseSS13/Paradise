@@ -191,18 +191,20 @@
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
-	suit_type = /obj/item/mod/control/pre_equipped/medical
+	suit_type = /obj/item/mod/control/pre_equipped/salvation
 	req_access = list(ACCESS_CMO)
 
 /obj/machinery/suit_storage_unit/cmo/secure
 	secure = TRUE
 
-//version of the SSU for medbay secondary storage. Includes magboots. //no it doesn't, it aint have shit for magboots
+//version of the SSU for medbay secondary storage. This is scuffed but woe mapping conflicts
 /obj/machinery/suit_storage_unit/cmo/sec_storage
 	name = "medical suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas
+	suit_type = /obj/item/mod/control/pre_equipped/medical
 
 /obj/machinery/suit_storage_unit/cmo/sec_storage/secure
+	req_access = list(ACCESS_MEDICAL)
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/clown
@@ -321,6 +323,9 @@
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
 /obj/machinery/suit_storage_unit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil/fork))
+		return NONE
+
 	if(shocked)
 		if(shock(user, 100))
 			return ITEM_INTERACT_COMPLETE
@@ -774,3 +779,7 @@
 	if(!uv_super)
 		toggleUV(TRUE)
 	secure = FALSE
+
+
+/obj/machinery/suit_storage_unit/get_internal_wires()
+	return wires

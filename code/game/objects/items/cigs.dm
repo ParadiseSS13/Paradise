@@ -23,6 +23,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cig"
 	lefthand_file = 'icons/mob/inhands/smoking_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/smoking_righthand.dmi'
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null

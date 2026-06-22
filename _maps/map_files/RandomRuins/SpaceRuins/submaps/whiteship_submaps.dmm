@@ -21,9 +21,6 @@
 /obj/effect/turf_decal/delivery/red/hollow/right,
 /turf/simulated/floor/plasteel/dark,
 /area/template_noop)
-"bl" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/template_noop)
 "cl" = (
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
@@ -1484,7 +1481,7 @@ qr
 ja
 zY
 AX
-bl
+fM
 qr
 qr
 qr
@@ -1862,7 +1859,7 @@ qr
 Py
 zY
 ha
-bl
+fM
 qr
 qr
 qr
@@ -1911,7 +1908,7 @@ Gh
 Ow
 EA
 IL
-bl
+fM
 qr
 qr
 qr

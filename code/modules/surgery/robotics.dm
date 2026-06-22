@@ -280,10 +280,10 @@
 	if(C.get_amount() < 3)
 		to_chat(user, SPAN_WARNING("You need three or more cable pieces to repair this damage."))
 		return SURGERY_BEGINSTEP_SKIP
-	C.use(3)
+	C.use(3, C.destroy_upon_empty)
 	user.visible_message(
-		"[user] begins to splice new cabling into [target]'s [affected.name].",
-		"You begin to splice new cabling into [target]'s [affected.name].",
+		SPAN_NOTICE("[user] begins to splice new cabling into [target]'s [affected.name]."),
+		SPAN_NOTICE("You begin to splice new cabling into [target]'s [affected.name]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
@@ -294,7 +294,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		SPAN_NOTICE("[user] finishes splicing cable into [target]'s [affected.name]."),
-		SPAN_NOTICE("You finishes splicing new cable into [target]'s [affected.name]."),
+		SPAN_NOTICE("You finish splicing new cable into [target]'s [affected.name]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.heal_damage(0, rand(30, 50), 1, 1)
@@ -787,11 +787,21 @@
 
 	var/new_gender = gender_list[gender_key]
 	var/old_name = target.real_name
-	target.real_name = new_name
+	var/identity_type = "core identity parameters"
+
+	// Prioritize replacing a synthetic skin identity over the IPC's actual identity
+	var/obj/item/organ/external/head = target.bodyparts_by_name["head"]
+	if(head && head.has_synthetic_skin)
+		head.synthetic_skin_identity = new_name
+		target.real_name = new_name
+		identity_type = "synthetic facial identity"
+	else
+		target.real_name = new_name
+
 	target.gender = new_gender
 	user.visible_message(
-		SPAN_NOTICE("[user] edits [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]."),
-		SPAN_NOTICE("You alter [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]."),
+		SPAN_NOTICE("[user] edits [old_name]'s [identity_type] with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]."),
+		SPAN_NOTICE("You alter [old_name]'s [identity_type] with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 

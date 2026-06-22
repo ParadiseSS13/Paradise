@@ -189,8 +189,13 @@ def check_camel_case_type_names(idx, line):
 
 UID_WITH_PARAMETER = re.compile(r"\bUID\(\w+\)")
 def check_uid_parameters(idx, line):
-    if result := UID_WITH_PARAMETER.search(line):
+    if UID_WITH_PARAMETER.search(line):
         return [(idx + 1, "UID() does not take arguments. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
+
+IN_VARS_INVALID_CHECK = re.compile(r"in vars\b")
+def check_in_vars_access(idx, line):
+    if IN_VARS_INVALID_CHECK.search(line):
+        return [(idx + 1, "Our codebase does not allow checking if variables are in vars directly")]
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -210,6 +215,7 @@ CODE_CHECKS = [
     check_istype_src,
     check_camel_case_type_names,
     check_uid_parameters,
+    check_in_vars_access,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:

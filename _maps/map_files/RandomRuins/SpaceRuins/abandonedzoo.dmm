@@ -170,16 +170,6 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
-"aD" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/research,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unpowered)
 "aE" = (
 /obj/machinery/shieldwallgen{
 	activated = 1;
@@ -562,10 +552,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
-"bG" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
 "bH" = (
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating,
@@ -667,6 +653,23 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"UD" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"Wk" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/highsecurity{
+	name = "Bio Containment";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 aa
@@ -744,14 +747,14 @@ ah
 ap
 ai
 ai
-aD
+Wk
 aL
 aR
 aL
 aL
 aR
 aL
-aD
+Wk
 bv
 bv
 bJ
@@ -891,9 +894,9 @@ ay
 ay
 aH
 ay
-bG
+UD
 bL
-bG
+UD
 aa
 aa
 aa
@@ -914,9 +917,9 @@ ay
 ay
 bq
 ay
-bG
+UD
 bM
-bG
+UD
 aa
 aa
 aa
@@ -1043,14 +1046,14 @@ an
 aq
 au
 am
-aD
+Wk
 aL
 ba
 aL
 aL
 ba
 aL
-aD
+Wk
 bD
 Qh
 ov

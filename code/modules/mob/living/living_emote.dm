@@ -76,7 +76,7 @@
 	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_alien = "lets out a waning guttural screech, green blood bubbling from its maw..."
-	message_robot = "shudders violently for a moment before falling still, its eyes slowly darkening."
+	message_robot = "shudders violently for a moment before falling still, their eyes slowly darkening."
 	message_AI = "screeches, its screen flickering as its systems slowly halt."
 	message_larva = "lets out a sickly hiss of air and falls limply to the floor..."
 	message_monkey = "lets out a faint chimper as it collapses and stops moving..."

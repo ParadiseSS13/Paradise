@@ -181,8 +181,8 @@
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(head_organ.dna.species.name)
+	head_organ.f_style = random_facial_hair_style(head_organ.dna.species.name)
 	M.body_accessory = null
 	M.regenerate_icons()
 	M.update_body()

@@ -1221,7 +1221,7 @@
 	to_chat(owner, SPAN_USERDANGER("THE JOY! THE POWER! YOU CAN FEEL THE HONKMOTHERS SMILE! YOU CAN FEEL- oh no"))
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/proc/finalize_death(mob/living/carbon/human/M)
-	explosion(get_turf(M),0,2,4,4, smoke = TRUE, cause = owner)
+	explosion(get_turf(M),0,2,4,4, cause = owner)
 	M.gib()
 
 /obj/item/organ/internal/heart/xenobiology/cursed_bananium/on_life()

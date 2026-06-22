@@ -34,7 +34,7 @@
 	desc = "An ammunition box filled with .45 caliber pistol cartridges, commonly used in high-power pistols and submachine guns."
 	icon_state = "45box"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/c45
+	ammo_type = /obj/item/ammo_casing/c45/nostamina
 	max_ammo = 20
 
 /obj/item/ammo_box/rubber45

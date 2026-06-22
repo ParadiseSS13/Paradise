@@ -69,10 +69,10 @@
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/food/salmonsteak),
-		PCWJ_ADD_ITEM(/obj/item/food/salmonsteak),
-		PCWJ_ADD_ITEM(/obj/item/food/salmonsteak),
-		PCWJ_ADD_ITEM(/obj/item/food/salmonsteak),
+		PCWJ_ADD_ITEM(/obj/item/food/smokedsalmon),
+		PCWJ_ADD_ITEM(/obj/item/food/smokedsalmon),
+		PCWJ_ADD_ITEM(/obj/item/food/smokedsalmon),
+		PCWJ_ADD_ITEM(/obj/item/food/smokedsalmon),
 		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
 	)
 
@@ -132,7 +132,7 @@
 	catalog_category = COOKBOOK_CATEGORY_SUSHI
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/boiledrice),
-		PCWJ_ADD_ITEM(/obj/item/food/salmonsteak),
+		PCWJ_ADD_ITEM(/obj/item/food/smokedsalmon),
 		PCWJ_ADD_ITEM(/obj/item/stack/seaweed),
 	)
 

@@ -22,6 +22,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	icon = 'icons/mob/animal.dmi'
 	hud_type = /datum/hud/simple_animal
 
+	initial_traits = list(TRAIT_NOFIRE)
+
 	var/basic_mob_flags
 
 	// State changes and data for alive/dead/gibbed.

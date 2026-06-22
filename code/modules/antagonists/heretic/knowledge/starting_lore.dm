@@ -168,7 +168,18 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	our_new_heart.AddComponent(/datum/component/living_heart)
 	to_chat(user, SPAN_WARNING("You feel your [our_new_heart.name] begin pulse faster and faster as it awakens!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
-	return TRUE
+
+	// Give them their knowledge button if they dont have one.
+	if(!find_menu(user, our_heretic))
+		QDEL_NULL(our_heretic.our_menu)
+		our_heretic.our_menu = new()
+		our_heretic.our_menu.Grant(user)
+
+/datum/heretic_knowledge/living_heart/proc/find_menu(mob/living/user, datum/antagonist/heretic/heretic)
+	for(var/datum/action/A in user.actions)
+		if(A == heretic.our_menu)
+			return TRUE
+	return FALSE
 
 /// Checks if the passed heart is a valid heart to become a living heart
 /datum/heretic_knowledge/living_heart/proc/is_valid_heart(obj/item/organ/new_heart)
@@ -338,3 +349,48 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	var/drain_message = pick_list(HERETIC_INFLUENCE_FILE, "drain_message")
 	to_chat(user, SPAN_HIEROPHANT("[drain_message]"))
 	return .
+
+/**
+ * Allows the heretic to break all of their knives in the world.
+ * This requires a knowledge point and makes them go on knife cooldown.
+ */
+/datum/heretic_knowledge/destroy_knives
+	name = "Rite of Sunset's End"
+	desc = "Sacrifice a single point of knowledge to shatter all of your summoned blades. You will be unable to summon more for a while, but afterwards you will have all your potential summons again."
+	is_starting_knowledge = TRUE
+	priority = MAX_KNOWLEDGE_PRIORITY - 2 // Important, but shouldnt get in the way of more important rituals.
+	abstract_parent_type = /datum/heretic_knowledge/destroy_knives
+	required_atoms = list()
+	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
+	research_tree_icon_state = "eldritch_blade"
+
+	/// Holds our knife knowledge so we dont have to search for it every time.
+	var/datum/heretic_knowledge/limited_amount/starting/knife_knowledge
+
+/datum/heretic_knowledge/destroy_knives/can_be_invoked(datum/antagonist/heretic/invoker)
+	if(!knife_knowledge)
+		for(var/knowledge_index in invoker.researched_knowledge)
+			if(istype(invoker.researched_knowledge[knowledge_index], /datum/heretic_knowledge/limited_amount/starting))
+				knife_knowledge = invoker.get_knowledge(knowledge_index)
+				break
+	if(!knife_knowledge)
+		return FALSE
+	if(!length(knife_knowledge.created_items))
+		return FALSE
+	return TRUE
+
+/datum/heretic_knowledge/destroy_knives/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/our_turf)
+	var/datum/antagonist/heretic/heretic = IS_HERETIC(user)
+	if(!heretic.knowledge_points)
+		to_chat(user, SPAN_HIEROPHANT("You lack a point of knowledge to offer the rite!"))
+		return FALSE
+	if(tgui_alert(user, "This will cost you a point of knowledge and will destroy all your linked blades. Are you sure?", "Rite of Sunset's End", list("Yes", "No")) != "Yes")
+		return FALSE
+	return TRUE
+
+/datum/heretic_knowledge/destroy_knives/on_finished_recipe(mob/living/user, list/selected_atoms, turf/our_turf)
+	var/datum/antagonist/heretic/heretic = IS_HERETIC(user)
+	knife_knowledge.delete_items()
+	user.apply_status_effect(/datum/status_effect/broken_blade, knife_knowledge.research_tree_icon_state)
+	heretic.knowledge_points--
+	. = ..()
