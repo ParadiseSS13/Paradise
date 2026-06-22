@@ -1202,6 +1202,7 @@
 					/obj/item/analyzer = 5,
 					/obj/item/t_scanner = 5,
 					/obj/item/stack/cable_coil/random = 10,
+					/obj/item/stack/cable_coil/extra_insulated = 10,
 					/obj/item/clothing/gloves/color/yellow = 1,
 					/obj/item/crowbar/large = 1)
 
