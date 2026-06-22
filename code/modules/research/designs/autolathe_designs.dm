@@ -705,6 +705,14 @@
 	build_path = /obj/item/light/tube
 	category = list("initial", "Construction")
 
+/datum/design/light_tube_large
+	name = "Large Light Tube"
+	id = "large_light_tube"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 400)
+	build_path = /obj/item/light/tube/large
+	category = list("hacked", "Construction")
+
 /datum/design/light_bulb
 	name = "Light Bulb"
 	id = "light_bulb"
