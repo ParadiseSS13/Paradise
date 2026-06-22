@@ -983,7 +983,7 @@
 
 /obj/item/storage/box/mesh_pack/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/suture_pack/mesh(src)
+		new /obj/item/storage/mesh_pack(src)
 
 /obj/item/storage/box/mesh_pack/empty/populate_contents()
 	return

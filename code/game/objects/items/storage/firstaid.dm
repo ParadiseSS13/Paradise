@@ -446,7 +446,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture)
+	can_hold = list(/obj/item/stack/medical/suture, /obj/item/suture_needle)
 	cant_hold = list(/obj/item/stack/medical/suture/regen_mesh)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
@@ -454,9 +454,17 @@
 	display_contents_with_number = TRUE
 	materials = list(MAT_CARDBOARD = 4000)
 
-/obj/item/storage/suture_pack/mesh
+/obj/item/storage/mesh_pack
 	name = "mesh pack"
 	desc = "A cardboard container designed to organize packs of regenerative mesh."
 	icon_state = "mesh_pack"
-	can_hold = list(/obj/item/stack/medical/suture/regen_mesh)
-	cant_hold = list()
+	inhand_icon_state = "contsolid"
+	belt_icon = "patch_pack"
+	use_sound = "patchpack"
+	w_class = WEIGHT_CLASS_SMALL
+	can_hold = list(/obj/item/stack/medical/suture/regen_mesh, /obj/item/biomesh)
+	allow_quick_gather = TRUE
+	use_to_pickup = TRUE
+	storage_slots = 14
+	display_contents_with_number = TRUE
+	materials = list(MAT_CARDBOARD = 4000)
