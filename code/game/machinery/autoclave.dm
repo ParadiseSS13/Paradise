@@ -123,7 +123,7 @@
 
 	if(is_open && occupant)
 		add_fingerprint(user)
-		user.put_in_active_hand(occupant)
+		user.put_in_hands(occupant)
 		to_chat(user, SPAN_NOTICE("You take [occupant] out of [src]."))
 		occupant = null
 		update_appearance(UPDATE_OVERLAYS)
