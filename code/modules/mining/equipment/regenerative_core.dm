@@ -100,7 +100,7 @@
 
 /obj/item/organ/internal/regenerative_core/activate_self(mob/user)
 	if(!user)
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 	applyto(user, user)
 	return ITEM_INTERACT_COMPLETE
 
