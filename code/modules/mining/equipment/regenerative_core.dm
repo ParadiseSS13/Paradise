@@ -99,7 +99,9 @@
 	if(proximity_flag)
 		applyto(target, user)
 
-/obj/item/organ/internal/regenerative_core/attack_self__legacy__attackchain(mob/user)
+/obj/item/organ/internal/regenerative_core/activate_self(mob/user)
+	if(!user)
+		return ITEM_INTERACT_COMPLETE
 	applyto(user, user)
 
 /obj/item/organ/internal/regenerative_core/insert(mob/living/carbon/M, special = 0)
