@@ -287,7 +287,7 @@
 
 /datum/map_template/ruin/lavaland/providence_crash
 	id = "providence crash"
-	suffix = "providence_crash.dmm"
+	suffix = "lavaland_surface_providence_crash.dmm"
 	name = "Crash of the Providence"
 	description = "A wrecked vulpkanin mercenary vessel. There may still be some treasures hidden behind the locked door."
 	allow_duplicates = FALSE
