@@ -36,7 +36,7 @@
 		blink_mob(user)
 		user.visible_message(SPAN_NOTICE("[user] crushes a [singular_name]!"))
 		return ITEM_INTERACT_COMPLETE
-	
+
 	return ..()
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
@@ -62,6 +62,9 @@
 	icon_state = "refined_bluespace_crystal"
 	points = 0
 	refined_type = null
+
+/obj/item/stack/ore/bluespace_crystal/refined/five
+	amount = 5
 
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/stack/ore/bluespace_crystal/artificial

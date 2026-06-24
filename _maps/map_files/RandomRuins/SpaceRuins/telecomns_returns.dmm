@@ -468,7 +468,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "kl" = (
-/obj/machinery/computer/nonfunctional{
+/obj/structure/salvageable/computer{
 	dir = 1
 	},
 /turf/simulated/floor/engine,

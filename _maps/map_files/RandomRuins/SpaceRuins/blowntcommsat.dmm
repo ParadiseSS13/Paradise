@@ -138,6 +138,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/stack/tape_roll,
+/obj/item/scalpel/laser/laser2,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "ii" = (
@@ -203,10 +204,15 @@
 "lo" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
+/obj/item/wirerod,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "lq" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"mn" = (
+/obj/item/shard,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "my" = (
@@ -224,8 +230,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "nk" = (
-/obj/structure/rack,
-/obj/item/wirerod,
+/obj/structure/salvageable/destructive_analyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/tcommsat)
 "nv" = (
@@ -501,8 +506,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "If" = (
-/obj/structure/table,
-/obj/item/scalpel/laser/laser2,
+/obj/structure/salvageable/protolathe,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Is" = (
@@ -804,8 +808,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "WP" = (
-/obj/structure/table,
-/obj/item/shard,
+/obj/structure/salvageable/computer{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Ye" = (
@@ -1916,7 +1921,7 @@ Wc
 VH
 Wc
 IG
-Wc
+mn
 Wc
 hQ
 Wr

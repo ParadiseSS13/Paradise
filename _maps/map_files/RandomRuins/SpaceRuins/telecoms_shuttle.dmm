@@ -265,9 +265,6 @@
 /obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
-"R" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/ruin/space/unpowered)
 "U" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -289,6 +286,12 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
+"X" = (
+/obj/structure/salvageable/computer{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unpowered)
 "Y" = (
 /obj/structure/railing{
@@ -326,20 +329,20 @@
 
 (1,1,1) = {"
 f
-R
+B
 N
-R
+B
 N
-R
+B
 f
 "}
 (2,1,1) = {"
 f
-R
+B
 u
 v
 z
-R
+B
 f
 "}
 (3,1,1) = {"
@@ -380,46 +383,46 @@ a
 "}
 (7,1,1) = {"
 B
-R
+B
 H
 l
 d
-R
+B
 B
 "}
 (8,1,1) = {"
-R
+B
 x
 C
 E
 Y
 M
-R
+B
 "}
 (9,1,1) = {"
-R
+B
 e
 F
 k
 W
 Q
-R
+B
 "}
 (10,1,1) = {"
-R
+B
 q
-q
+X
 s
 w
 n
-R
+B
 "}
 (11,1,1) = {"
 L
 O
 O
 O
-R
-R
+B
+B
 L
 "}

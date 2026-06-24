@@ -182,7 +182,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/sec_shuttle)
 "Z" = (
-/obj/structure/computerframe,
+/obj/structure/salvageable/computer,
 /turf/simulated/floor/plasteel/dark/airless,
 /area/ruin/space/sec_shuttle)
 

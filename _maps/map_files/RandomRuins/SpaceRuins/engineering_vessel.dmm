@@ -164,6 +164,12 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
+"F" = (
+/obj/structure/salvageable/computer{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
 "H" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
@@ -390,7 +396,7 @@ d
 C
 q
 p
-A
+F
 a
 "}
 (7,1,1) = {"
