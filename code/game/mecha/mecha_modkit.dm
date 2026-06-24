@@ -40,6 +40,7 @@
 /obj/item/mecha_modkit/voice/nanotrasen
 	name = "mecha voice modification kit : Nanotrasen"
 	desc = "This modification kit updates a mech's onboard voice to Nanotrasen."
+	icon_state = "harddisk_mini_nt"
 	nominalsound = 'sound/mecha/nominalnano.ogg'
 	zoomsound = 'sound/mecha/imag_enhnano.ogg'
 	critdestrsound = 'sound/mecha/critdestrnano.ogg'
@@ -50,6 +51,7 @@
 /obj/item/mecha_modkit/voice/syndicate
 	name = "mecha voice modification kit : Syndicate"
 	desc = "This suspicious modification kit updates a mech's onboard voice to Syndicate."
+	icon_state = "harddisk_mini_syndi"
 	origin_tech = "syndicate=1"
 	nominalsound = 'sound/mecha/nominalsyndi.ogg'
 	zoomsound = 'sound/mecha/imag_enhsyndi.ogg'
@@ -62,6 +64,7 @@
 /obj/item/mecha_modkit/voice/honk
 	name = "mecha voice modification kit : Honk"
 	desc = "This modification kit updates a mech's onboard voice to Honk. Why?"
+	icon_state = "harddisk_mini_clown"
 	nominalsound = 'sound/items/bikehorn.ogg'
 	zoomsound = 'sound/items/bikehorn.ogg'
 	critdestrsound = 'sound/items/Airhorn2.ogg'
@@ -73,6 +76,7 @@
 /obj/item/mecha_modkit/voice/silent
 	name = "mecha voice modification kit : Silent"
 	desc = "This modification kit silences a mech's onboard voice."
+	icon_state = "harddisk_mini_mime"
 	nominalsound = null
 	zoomsound = null
 	critdestrsound = null
