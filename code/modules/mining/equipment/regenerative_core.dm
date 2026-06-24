@@ -94,15 +94,15 @@
 			user.drop_item()
 			qdel(src)
 
-/obj/item/organ/internal/regenerative_core/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
-	. = ..()
-	if(proximity_flag)
-		applyto(target, user)
+/obj/item/organ/internal/regenerative_core/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
+	applyto(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ/internal/regenerative_core/activate_self(mob/user)
 	if(!user)
 		return ITEM_INTERACT_COMPLETE
 	applyto(user, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ/internal/regenerative_core/insert(mob/living/carbon/M, special = 0)
 	..()
