@@ -16,7 +16,7 @@
 // skip_do_after - When TRUE, do after and visible messages are disabled
 
 /atom/proc/is_dirty()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //So we don't need a cleaning_act for every cmaggable object
+	if(HAS_TRAIT(src, TRAIT_CMAGGED)) // So we don't need a cleaning_act for every cmaggable object
 		return TRUE
 	if(ismob(src))
 		// Mobs always get cleaned directly, because humans have clothing that needs cleaning, and because it'd just feel weird to automatically clean under them.
