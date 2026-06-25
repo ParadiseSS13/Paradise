@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "syndicate=4;magnets=4"
+	origin_tech = "materials=5;magnets=4;syndicate=4"
 	var/can_use = TRUE
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_item = /obj/item/cigbutt
