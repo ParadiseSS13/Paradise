@@ -805,7 +805,7 @@
 	contraband = TRUE
 
 /datum/supply_packs/misc/premium_havana_cigar
-	name = "premium Havana cigar crate"
+	name = "Premium Havana Cigar Crate"
 	contains = list(
 		/obj/item/storage/fancy/havana_cigar
 	)

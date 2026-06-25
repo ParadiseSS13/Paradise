@@ -188,7 +188,7 @@
 		if(scan_id)
 			var/accepted
 			for(var/req in req_access_claim)
-				if(req in ID.access)
+				if(req in ID.GetAccess())
 					accepted = TRUE
 					break
 			if(!accepted)

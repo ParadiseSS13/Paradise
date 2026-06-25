@@ -27102,7 +27102,9 @@
 /obj/machinery/camera/toxins{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/airless,
+/turf/simulated/floor/indestructible/airless{
+	icon_state = "engine"
+	},
 /area/station/science/toxins/test)
 "cZc" = (
 /obj/structure/cable/yellow,
@@ -58867,6 +58869,7 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "ndU" = (
@@ -67195,6 +67198,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "pUh" = (
@@ -80331,6 +80335,10 @@
 /obj/structure/railing/pool_lining,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"ujl" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/station/telecomms/chamber)
 "ujB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -148455,7 +148463,7 @@ bxf
 bFm
 bRo
 bKl
-bOa
+ujl
 dRN
 kwJ
 aXL

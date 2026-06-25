@@ -123,6 +123,11 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	req_access = list(ACCESS_SYNDICATE)
 	req_one_access = list()
 
+/// General space ruin air alarms
+/obj/machinery/alarm/ruin
+	report_danger_level = FALSE
+	remote_control = FALSE
+
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
 
@@ -1236,6 +1241,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 32, 32)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 32, 32)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 32, 32)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/ruin, 32, 32)
 
 /*
 AIR ALARM CIRCUIT

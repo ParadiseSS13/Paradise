@@ -132,6 +132,14 @@
 	options["Fancy"] = "revolver-fancy"
 	options["Rose Gold Finish"] = "revolver-rose"
 
+/// Special revolver found in the vulpkanin ship lavaland ruin
+/obj/item/gun/projectile/revolver/charons_special
+	name = "Charon's Modified Revolver"
+	desc = "A bog-standard service revolver, modified to fire special .32 caliber \"Huntsman\" rounds. The barrel is engraved with a captain's insignia and a pair of wings."
+	icon_state = "charons-special"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/charons_special
+	origin_tech = "combat=6;materials=5"
+
 /// Summoned by the Finger Gun spell, from advanced mimery traitor item
 /obj/item/gun/projectile/revolver/fingergun
 	name = "finger gun"
