@@ -67664,6 +67664,7 @@
 /area/station/medical/surgery/primary)
 "lEa" = (
 /obj/machinery/smartfridge/secure/medbay,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "lEc" = (
