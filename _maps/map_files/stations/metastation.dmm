@@ -80333,6 +80333,10 @@
 /obj/structure/railing/pool_lining,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"ujl" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/station/telecomms/chamber)
 "ujB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -148457,7 +148461,7 @@ bxf
 bFm
 bRo
 bKl
-bOa
+ujl
 dRN
 kwJ
 aXL
