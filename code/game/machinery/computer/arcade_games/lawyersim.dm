@@ -20,16 +20,27 @@
 	icon_screen = "nanotrasen"
 	light_color = LIGHT_COLOR_WHITE
 	circuit = /obj/item/circuitboard/arcade/lawyer
+	/// The name of the criminal
 	var/criminal_name
+	/// The species of the criminal, used for name generation
 	var/datum/species/cand_species
+	/// The criminal's job
 	var/criminal_job
+	/// The crimes the criminal committed
 	var/crimes_committed
+	/// The number of crimes, used for crime generation
 	var/crime_count
+	/// The sentence applied to the criminal, based on their crimes
 	var/sentencing
+	/// The running total for temporary crimes, used to determine sentencing
 	var/running_total
+	/// The name of the arresting officer
 	var/officer_name
+	/// The species of the arresting officer, used for name generation
 	var/datum/species/off_species
+	/// The station the crime took place on
 	var/station_location
+	/// The circumstances around the arrest
 	var/manner_of_arrest
 	/// Current "turn" of the game
 	var/curriculums
@@ -37,16 +48,20 @@
 	var/total_curriculums = 7
 	/// Which unique candidate is he?
 	var/unique_candidate
-	// RNG/Loop Variables
+	// RNG variable
 	var/RandNum
+	/// Loop control variable
 	var/i
+	/// The crime about to be added to the full list, used for internal checks & math
 	var/new_crime
 
+	/// Valid stations
 	var/list/stations = list("NSS Cyberiad", "NSS Cerebron", "NSS Kerberos", "NSS Legaria", "NSS Farragus", "NSS Diagoras")
 	/// Stations with misspellings, don't support standard crew, or aren't stations at all.
 	var/list/incorrect_stations = list("Earth", "NAS Trurl", "NMS Inferno", "ISS Lexofficium", "NSS Cerberus",
 										"Nanotrasen HQ", "NSS Cyberad", "NSS Farragas", "KS13", "NSS Exodus")
 
+	/// Valid jobs
 	var/list/jobs = list("Assistant", "Chef", "Janitor", "Bartender", "Botanist", "Explorer", "Quartermaster",
 						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner", "Geneticist", "Chaplain", "Librarian",
 						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent",
@@ -59,6 +74,7 @@
 								"Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs Agent",
 								"Wizard", "Nanotrasen Navy Officer", "Barber", "Ambassador", "Company Shareholder")
 
+	/// Valid 'Manner of Arrest' records
 	var/list/records = list("An investigation led to the suspect's arrest.", "Arresting officer witnessed the crime in progress.",
 							"Security investigation identified the suspect.", "Suspect matched witness descriptions.",
 							"Station cameras captured the offense.", "Security officers observed the violation.", "Evidence discovered during search.",
@@ -76,6 +92,7 @@
 							"Suspect identified through surveillance review.", "Evidence supported immediate detention.", "Security investigation corroborated witness accounts.",
 							"Suspect arrested following Captain authorization.", "Suspect arrested following Head of Security authorization.")
 
+	/// Invalid 'Manner of Arrest' records
 	var/list/incorrect_records = list("Suspect appeared nervous during questioning.", "Suspect was present near the incident.", "Suspect became argumentative with security.",
 										"Suspect declined to answer questions.", "Suspect appeared to be in a hurry.", "Suspect's explanation seemed unlikely.",
 										"Suspect was observed loitering.", "Suspect questioned security procedures.",
@@ -91,20 +108,24 @@
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
 										/datum/species/moth, /datum/species/vox, /datum/species/skulk)
 
-	/// Crimes that are valid under Space Law, organized by severity for math later
+	/// Valid minor crimes
 	var/list/minor_crimes = list("Damage to Station Assets" = 0, "Battery" = 2, "Drug Possession" = 3, "Indecent Exposure" = 5, "Abuse of Equipment" = 6,
 								"Petty Theft" = 7, "Trespass" = 8)
+	/// Valid medium crimes
 	var/list/medium_crimes = list("Workplace Hazard" = 0, "Kidnapping" = 1, "Assault" = 2, "Narcotics Distribution" = 3, "Possession of a Weapon" = 4,
 									"Rioting" = 5, "Abuse of Confiscated Equipment" = 6, "Robbery" = 7)
+	/// Valid major crimes
 	var/list/major_crimes = list("Sabotage" = 0, "Aggravated Assault" = 2, "Possession of a Restricted Weapon/Item" = 4, "Inciting a Riot" = 5,
 								"Theft" = 7, "Major Trespass" = 8) // Contraband was left off on purpose to avoid more complicated logic
+	/// Valid exceptional crimes
 	var/list/exceptional_crimes = list("Grand Sabotage" = 0, "Manslaughter" = 1, "Attempted Murder" = 2, "Grand Theft" = 7, "Enemy of the Corporation" = 9)
+	/// Valid capital crimes
 	var/list/capital_crimes = list("Murder" = 2, "Mutiny" = 5)
 	/// Crimes that are not valid under Space Law
 	var/list/invalid_crimes = list("Honking", "Cannibalism", "Grand Trespass", "Insulted Me", "Mass Murder", "Capital Theft",
 									"Impersonation", "Embezzlement", "Vandalism", "Cultist", "Loitering", "Criticizing Command")
 
-	/// Is he a good candidate for hiring?
+	/// Is the full record valid?
 	var/good_candidate = TRUE
 	/// Why did you lose?
 	var/reason
@@ -150,6 +171,7 @@
 		else
 			crime_count = 1
 		running_total = 0
+		/// Collects the crimes being applied for this record
 		var/list/list_crimes = list()
 		for(i=1, i<=crime_count, i++)
 			if(i!=1)
