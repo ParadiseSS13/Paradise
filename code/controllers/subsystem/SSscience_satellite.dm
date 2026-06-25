@@ -66,27 +66,33 @@ SUBSYSTEM_DEF(science_satellite)
 	var/vector/position
 	var/square_detection_range = 256
 	var/node_type = "NULL_WEATHER"
+	var/detection_requirement
 	var/science_yield = 1
 
 /datum/weather_node/pole
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_POLE
+	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
 	science_yield = 20
 
 /datum/weather_node/wind
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_WIND
+	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
 	science_yield = 20
 
 
 /datum/weather_node/ash_storm
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ASH_STORM
+	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
 	science_yield = 40
 
 
 /datum/weather_node/acid_rain
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ACID_RAIN
+	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
 	science_yield = 60
 
 
 /datum/weather_node/volcanism
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ASH_STORM
+	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
 	science_yield = 160

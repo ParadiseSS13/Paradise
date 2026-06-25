@@ -38,13 +38,13 @@ interface Satellite {
   current_power: number;
   current_fuel: number;
   fuel_usage: number;
+  has_been_launched: number;
   orbit_data: {
     apoapsis: number;
     periapsis: number;
     apoapsis_position: Vector3;
     periapsis_position: Vector3;
     inclination: number;
-    period_multiplier: number;
     period: number;
     launch_time: number;
     // velocity: number;
@@ -261,30 +261,33 @@ const ManeuverPanel = ({
                   </Button>
                 )}
               </Box>
-              {selectedSatellite.orbit_data.planned_maneuvers.length > 0
-                ? selectedSatellite.orbit_data.planned_maneuvers.map((maneuver: Maneuver) => {
-                    let time = maneuver.time_to_maneuver / deciseconds_in_minute; // BYOND handles everything in deciseconds
-                    // prettier-ignore
-                    let minuteString = (Math.sign(time) === 1 ? '' : '-') + Math.abs(Math.trunc(time)).toString().padStart(2, '0'); // force show sign on 0, force 2 digits
-                    // prettier-ignore
-                    let secondsString = Math.abs(Math.trunc((time % 1) * 60)).toString().padStart(2, '0'); // remove sign, force 2 digits
+              {selectedSatellite.orbit_data.planned_maneuvers.length > 0 ?
+                selectedSatellite.orbit_data.planned_maneuvers.map((maneuver: Maneuver) => {
+                  let time = maneuver.time_to_maneuver / deciseconds_in_minute; // BYOND handles everything in deciseconds
+                  // prettier-ignore
+                  let minuteString = (Math.sign(time) === 1 ? '' : '-') + Math.abs(Math.trunc(time)).toString().padStart(2, '0'); // force show sign on 0, force 2 digits
+                  // prettier-ignore
+                  let secondsString = Math.abs(Math.trunc((time % 1) * 60)).toString().padStart(2, '0'); // remove sign, force 2 digits
 
-                    return (
-                      <Stack key={maneuver.time_to_maneuver} scrollable mt={3}>
-                        <Stack vertical>
-                          <Stack>{`Maneuver in ${minuteString}:${secondsString}`}</Stack>
-                          <Stack>{`Prograde: ${maneuver.prograde} Normal: ${maneuver.normal} Burn Time: ${maneuver.burn_time / deciseconds_in_second}s`}</Stack>
-                        </Stack>
+                  return (
+                    <Stack key={maneuver.time_to_maneuver} scrollable mt={3}>
+                      <Stack vertical>
+                        <Stack>{`Maneuver in ${minuteString}:${secondsString}`}</Stack>
+                        <Stack>{`Prograde: ${maneuver.prograde} Normal: ${maneuver.normal} Burn Time: ${maneuver.burn_time / deciseconds_in_second}s`}</Stack>
                       </Stack>
-                    );
-                  })
-                : selectedSatellite.status === 'OK' && (
-                    <Box backgroundColor="red" textAlign="center" height="100%">
-                      <Button width="100px" height="100px" textAlign="center">
-                        <b>LAUNCH</b>
-                      </Button>
-                    </Box>
-                  )}
+                    </Stack>
+                  );
+                })
+              : !selectedSatellite.has_been_launched && (
+                  <Box backgroundColor="red" textAlign="center" height="100%">
+                    <Button width="100px" height="100px" textAlign="center"
+                      onClick={() => { act('launch', {
+                        uid: selectedSatellite.UID,
+                      }); }}>
+                      <b>LAUNCH</b>
+                    </Button>
+                  </Box>
+                )}
             </Section>
           </Section>
         </Stack>
@@ -510,17 +513,31 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               <rect x="-450" y="-450" width={900} height={900} fill="white" />
               <circle cx="0" cy="0" r={planet_radius} fill="#AAAAAA" />
             </mask>
-            { /* Draw all the segments behind the planet (some of these will get drawn over by the planet) */
-            backSegments.map((segment, index) => {
-              return(
-              <polyline key={index}
+            { /* Draw all the segments that is not selected behind the planet (some of these will get drawn over by the planet) */
+              backSegments.filter((s) => s.ownerUID !== selectedSatellite?.UID).map((segment, index) => {
+                return(
+                <polyline key={index}
+                    points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
+                    fill="none"
+                    stroke={"dimgrey"}
+                    strokeWidth={3}
+                />);
+                })
+            }
+            { /* Draw segments that belong to the selected satellite so its in front of the other back lines */
+              backSegments.filter((s) => s.ownerUID === selectedSatellite?.UID).map((segment, index) => {
+                return(
+                  <polyline key={index}
                   points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
                   fill="none"
-                  stroke={(segment.ownerUID === selectedSatellite?.UID)? "green": "dimgrey"}
+                  stroke={"darkgreen"}
                   strokeWidth={3}
-              />);
-              })
-            }
+                  />
+                );
+              }
+            )}
+
+
             { /* Draw the planet */
               <image
               href={`data:image/png;base64,${current_planet_base64}`}
@@ -530,13 +547,25 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               height={planet_radius * 2}
               />
             }
-            { /* Draw all segments thats in front of the planet */
-              frontSegments.map((segment, index) => {
+            { /* Draw all not selected segments thats in front of the planet */
+              frontSegments.filter((s) => s.ownerUID !== selectedSatellite?.UID).map((segment, index) => {
                 return(
                   <polyline key={index}
                     points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
                     fill="none"
-                    stroke={(segment.ownerUID === selectedSatellite?.UID)? "lime": "lightgrey"} // color segments if a satellite has been clicked on
+                    stroke={"lightgrey"} // color segments if a satellite has been clicked on
+                    strokeWidth={3}
+                  />
+                );
+              })
+            }
+            { /* Draw segments that belong to the selected satellite so its in front of the other front lines */
+              frontSegments.filter((s) => s.ownerUID === selectedSatellite?.UID).map((segment, index) => {
+                return (
+                  <polyline key={index}
+                    points={segment.segments.map(p => `${p.x * scale},${p.y * scale}`).join(" ")}
+                    fill="none"
+                    stroke={"lime"} // color segments if a satellite has been clicked on
                     strokeWidth={3}
                   />
                 );

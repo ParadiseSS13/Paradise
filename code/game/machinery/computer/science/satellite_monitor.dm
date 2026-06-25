@@ -42,7 +42,7 @@
 		var/datum/orbit_data/orbit_data = satellite.orbit_data
 		var/list/planned_maneuvers = list()
 		for(var/datum/maneuver_data/maneuver in orbit_data.planned_maneuvers)
-			planned_maneuvers += list(list( // funny byond required a listed list to be sent to TGUI
+			planned_maneuvers += list(list( // funny byond required a listed list to be sent to TGUI, because they will merge the associative lists and overwrite their values
 				"prograde" = maneuver.prograde,
 				"normal" = maneuver.normal,
 				"burn_time" = maneuver.burn_time,
@@ -52,16 +52,16 @@
 		if(planned_maneuvers.len) // in case no maneuver has been set this still needs to become an array
 			planned_maneuvers += list()
 
-		var/list/planned_orb = list()
-		for(var/vector/point in orbit_data.planned_orbit)
-			planned_orb += list(list(
+		var/list/predicted_orbit = list()
+		for(var/vector/point in orbit_data.predicted_orbit)
+			predicted_orbit += list(list(
 				"x" = point.x,
 				"y" = point.y,
 				"z" = point.z
 			))
 
-		if(planned_orb.len)
-			planned_orb += list()
+		if(predicted_orbit.len)
+			predicted_orbit += list()
 
 		var/list/pos_vec = list()
 		if(orbit_data.position)
@@ -103,19 +103,19 @@
 			"current_power" = satellite.satellite_stats.current_power,
 			"current_fuel" = satellite.satellite_stats.current_fuel,
 			"fuel_usage" = satellite.satellite_stats.fuel_usage,
+			"has_been_launched" = satellite.orbit_data.has_been_launched,
 			"orbit_data" = list(
 				"apoapsis" = orbit_data.apoapsis,
 				"periapsis" = orbit_data.periapsis,
 				"apoapsis_position" = apoap_vec,
 				"periapsis_position" = periap_vec,
 				"inclination" = orbit_data.inclination,
-				"period_multiplier" = orbit_data.period_multiplier,
 				"period" = orbit_data.period,
 				"launch_time" = orbit_data.launch_time,
 				//"velocity" = orbit_data.velocity,
 				//"orbit_progress" = orbit_data.orbit_progress,
 				"planned_maneuvers" = planned_maneuvers,
-				"planned_orbit" = planned_orb,
+				"planned_orbit" = predicted_orbit,
 				"position" = pos_vec, //orbit_data.position,
 				"velocity" = vel_vec//orbit_data.velocity
 			)
@@ -182,11 +182,12 @@
 
 	switch(action)
 		if("launch")
-			atom_say("launch")
-
-			// TODO: Launch code
-			satellite.status = "in orbit"
+			atom_say("launching satellite")
+			satellite.orbit_data.launch()
 		if("add_maneuver")
+			if(!satellite.orbit_data.has_been_launched)
+				atom_say("[satellite.internal_name] needs to be launched first!")
+				return FALSE
 			var/prograde = text2num(params["prograde"])
 			var/normal = text2num(params["normal"])
 			var/burn_time = text2num(params["burnTime"])

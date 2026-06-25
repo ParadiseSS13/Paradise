@@ -114,7 +114,7 @@
 	icon_state = "powercell"
 	overlay_icon = "overlay_powercell"
 	desc = "An electric generator for a satellite."
-	component_stats = new /datum/satellite_stats/misc_parts/power_cell()
+	component_stats = new /datum/satellite_stats/misc_part/power_cell()
 
 
 /obj/item/satellite_component/interact_with_atom(atom/target, mob/living/user, list/modifiers)
