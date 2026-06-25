@@ -25248,16 +25248,6 @@
 "cNa" = (
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
-"cNc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "cNf" = (
 /obj/machinery/power/apc/reinforced/directional/north,
 /obj/structure/cable/extra_insulated{
@@ -45681,9 +45671,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iQk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/extra_insulated{
@@ -60624,9 +60611,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "nJP" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/extra_insulated{
@@ -65329,9 +65313,6 @@
 /area/station/maintenance/port)
 "poQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -67986,9 +67967,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
 "qhd" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -81462,9 +81440,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/dirt/often,
 /obj/effect/decal/cleanable/dirt,
@@ -86879,9 +86854,6 @@
 /area/station/aisat)
 "wrk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -132015,7 +131987,7 @@ fZo
 cOJ
 seF
 fDI
-cNc
+qKA
 wrk
 wrk
 uGA
