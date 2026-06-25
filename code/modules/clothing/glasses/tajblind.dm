@@ -25,6 +25,7 @@
 /obj/item/clothing/glasses/hud/tajblind/examine()
 	. = ..()
 	. += SPAN_NOTICE("You can <b>Ctrl-Shift-Click</b> [src] to toggle its electronics if present.")
+	. += SPAN_NOTICE("You could easily craft a HUD into it.")
 
 /obj/item/clothing/glasses/hud/tajblind/activate_self(mob/user)
 	if(..())
