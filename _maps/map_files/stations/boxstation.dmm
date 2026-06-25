@@ -25550,7 +25550,8 @@
 	c_tag = "Cargo Office";
 	dir = 4
 	},
-/obj/item/multitool,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bTG" = (
@@ -26269,7 +26270,10 @@
 "bWW" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
-/obj/item/screwdriver/cargo,
+/obj/item/multitool{
+	pixel_x = 7;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bXd" = (
@@ -26671,6 +26675,9 @@
 	pixel_y = -5
 	},
 /obj/machinery/newscaster/directional/south,
+/obj/item/screwdriver/cargo{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "bYH" = (
