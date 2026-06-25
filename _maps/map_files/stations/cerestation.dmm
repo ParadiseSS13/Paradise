@@ -1741,6 +1741,12 @@
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"amg" = (
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/bridge)
 "amk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -36768,6 +36774,12 @@
 "gNQ" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/fore/east)
+"gOa" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/bridge)
 "gOf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/chair/sofa/bench/left{
@@ -38937,6 +38949,15 @@
 /obj/effect/turf_decal/tiles/department/cargo,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/starboard)
+"hmC" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/bridge)
 "hmD" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/extra_insulated{
@@ -70825,6 +70846,9 @@
 /obj/machinery/power/apc/critical/directional/north,
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -150709,10 +150733,10 @@ aEU
 eTm
 nZB
 utR
-tpA
+gOa
 aUF
-utR
-tpA
+hmC
+amg
 tpA
 xYZ
 fcE
