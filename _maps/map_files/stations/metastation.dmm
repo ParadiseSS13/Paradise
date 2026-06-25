@@ -58869,6 +58869,7 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "ndU" = (
@@ -67197,6 +67198,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "pUh" = (
