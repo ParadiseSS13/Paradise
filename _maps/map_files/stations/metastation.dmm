@@ -79639,15 +79639,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
-"uap" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
-	},
-/turf/simulated/floor/catwalk/grey,
-/area/station/maintenance/fpmaint)
 "uaD" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -103169,7 +103160,7 @@ xLn
 smd
 aHk
 hRr
-uap
+ruB
 qVp
 iak
 iak
