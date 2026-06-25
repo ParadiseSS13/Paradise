@@ -337,7 +337,7 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
 		/obj/item/reagent_containers/borghypo,
-		/obj/item/scalpel/laser/laser1,
+		/obj/item/scalpel/laser,
 		/obj/item/hemostat,
 		/obj/item/retractor,
 		/obj/item/circular_saw,
@@ -820,7 +820,7 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
 		/obj/item/reagent_containers/borghypo/syndicate,
-		/obj/item/scalpel/laser/laser1,
+		/obj/item/scalpel/laser,
 		/obj/item/hemostat,
 		/obj/item/retractor,
 		/obj/item/melee/energy/sword/cyborg/saw, //Energy saw -- primary weapon
