@@ -120,7 +120,7 @@
 							/obj/item/reagent_containers/applicator/burn,
 							/obj/item/clothing/glasses/sunglasses,
 							/obj/item/food/fortunecookie,
-							/obj/item/scalpel/laser/laser1,
+							/obj/item/scalpel/laser,
 							/obj/item/surgical_drapes,
 							/obj/item/toy/figure/crew/cmo,
 							/obj/item/toy/figure/crew/chemist,
