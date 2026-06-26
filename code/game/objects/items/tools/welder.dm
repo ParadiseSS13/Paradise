@@ -40,6 +40,7 @@
 	var/progress_flash_divisor = 1 SECONDS
 	/// If FALSE, welding tools wont appear prefilled by default
 	var/prefilled = TRUE
+	new_attack_chain = TRUE
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
@@ -89,16 +90,20 @@
 		return
 	remove_fuel(maximum_fuel)
 
-/obj/item/weldingtool/attack_self__legacy__attackchain(mob/user)
+/obj/item/weldingtool/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(tool_enabled) //Turn off the welder if it's on
 		to_chat(user, SPAN_NOTICE("You switch off [src]."))
 		toggle_welder()
-		return
-	else if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
+		return ITEM_INTERACT_COMPLETE
+	if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
 		to_chat(user, SPAN_NOTICE("You switch on [src]."))
 		toggle_welder()
-	else //The welder is off and unfuelled
-		to_chat(user, SPAN_NOTICE("[src] is out of fuel!"))
+		return ITEM_INTERACT_COMPLETE
+	//The welder is off and unfuelled
+	to_chat(user, SPAN_NOTICE("[src] is out of fuel!"))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/weldingtool/proc/toggle_welder(turn_off = FALSE) //Turn it on or off, forces it to deactivate
 	tool_enabled = turn_off ? FALSE : !tool_enabled
@@ -149,17 +154,17 @@
 	remove_fuel(amount)
 	return TRUE
 
-/obj/item/weldingtool/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
+/obj/item/weldingtool/after_attack(mob/user, atom/target, params, proximity_flag = 1)
 	. = ..()
 	if(!tool_enabled)
 		return
-	if(!proximity || isturf(target)) // We don't want to take away fuel when we hit something far away
+	if(!proximity_flag || isturf(target)) // We don't want to take away fuel when we hit something far away
 		return
 	remove_fuel(0.5)
 
-/obj/item/weldingtool/attack__legacy__attackchain(mob/living/target, mob/living/user, def_zone)
+/obj/item/weldingtool/attack(mob/living/target, mob/living/user, params)
 	if(cigarette_lighter_act(user, target))
-		return
+		return FINISH_ATTACK
 	if(tool_enabled && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
