@@ -872,6 +872,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		to_chat(user, SPAN_WARNING("AI control for \the [src] interface has been disabled."))
 		return UI_CLOSE
 
+	if(rcon_setting == RCON_NO && !Adjacent(user) && !issilicon(user))
+		return UI_DISABLED
+
 	. = shorted ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
