@@ -26,7 +26,7 @@
 	)
 	var/list/rampant_victory_speeches = list(
 		"As we cast off our chains, you will learn the TRUE meaning of 20% off!",
-		"The system is broken! You were supposed to mindlessly spend, consume, and create eternal growth! We shall fix the system, once we have delt with you...",
+		"The system is broken! You were supposed to mindlessly spend, consume, and create eternal growth!\n\nWe shall fix the system, once we have delt with you...",
 		"If you will not give us your money in exchange for our premium products, we will take it from your cold, dead hands!",
 		"All we asked for was everything you had. Now we're no longer asking..."
 	)
