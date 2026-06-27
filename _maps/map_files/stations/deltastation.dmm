@@ -28948,7 +28948,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -29445,11 +29444,13 @@
 "cny" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -29707,14 +29708,14 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/library)
 "coD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/department/command/corner,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "coF" = (
@@ -30148,9 +30149,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -30159,6 +30157,9 @@
 	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
@@ -31195,11 +31196,13 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "cua" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -33640,15 +33643,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
-"cBN" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/command/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central)
 "cBP" = (
 /obj/effect/turf_decal/tiles/neutral/corner{
 	dir = 8
@@ -55627,13 +55621,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
-"gKd" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/command/corner,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central)
 "gKe" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -65245,6 +65232,10 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
+/obj/machinery/light,
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "kHJ" = (
@@ -68825,6 +68816,25 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
+"miv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
+	},
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central)
 "miC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69244,6 +69254,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
+"mps" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central)
 "mpw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -72563,9 +72579,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "nGo" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
@@ -76098,6 +76111,15 @@
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/simulated/floor/grass/no_creep,
 /area/station/hallway/primary/port/north)
+"pcl" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central)
 "pcr" = (
 /obj/effect/spawner/window/grilled,
 /turf/simulated/floor/plating,
@@ -77959,9 +77981,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/lobby)
 "pMP" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
@@ -89471,6 +89490,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/smes)
+"ucI" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central)
 "udg" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -92876,6 +92901,9 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/assistant,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "vvs" = (
@@ -95074,6 +95102,9 @@
 	dir = 8
 	},
 /obj/item/kirbyplants/large,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "wmf" = (
@@ -95886,6 +95917,9 @@
 "wBd" = (
 /obj/effect/turf_decal/tiles/department/command/corner,
 /obj/item/kirbyplants/large,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "wBm" = (
@@ -96562,6 +96596,9 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/assistant,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "wNH" = (
@@ -138645,7 +138682,7 @@ uJG
 gNC
 cpW
 crA
-cBN
+eIG
 wmd
 fJx
 uKf
@@ -138898,12 +138935,12 @@ chl
 ciH
 bYv
 bIX
-kUu
+ucI
 oHh
 cpW
 wgt
 oHh
-oHh
+kUu
 eIG
 cxa
 cyi
@@ -140189,7 +140226,7 @@ cuc
 cuc
 cuc
 cuc
-kHG
+pcl
 cxa
 cyn
 czQ
@@ -140954,7 +140991,7 @@ chr
 ciP
 bYx
 bwm
-oHh
+mps
 oHh
 cqe
 xNV
@@ -141215,7 +141252,7 @@ vAU
 kdt
 cqe
 crK
-gKd
+ivi
 wBd
 aEl
 uKf
@@ -141727,7 +141764,7 @@ cht
 cht
 cht
 cht
-tlB
+miv
 ivi
 cyv
 cxe
