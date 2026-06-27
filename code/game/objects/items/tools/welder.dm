@@ -93,19 +93,19 @@
 /obj/item/weldingtool/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
-	if(tool_enabled) //Turn off the welder if it's on
+	if(tool_enabled) // Turn off the welder if it's on.
 		to_chat(user, SPAN_NOTICE("You switch off [src]."))
 		toggle_welder()
 		return ITEM_INTERACT_COMPLETE
-	if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
+	if(GET_FUEL) // The welder is off, but we need to check if there is fuel in the tank.
 		to_chat(user, SPAN_NOTICE("You switch on [src]."))
 		toggle_welder()
 		return ITEM_INTERACT_COMPLETE
-	//The welder is off and unfuelled
+	// The welder is off and out of fuel.
 	to_chat(user, SPAN_NOTICE("[src] is out of fuel!"))
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/weldingtool/proc/toggle_welder(turn_off = FALSE) //Turn it on or off, forces it to deactivate
+/obj/item/weldingtool/proc/toggle_welder(turn_off = FALSE) // Turn it on or off, forces it to deactivate.
 	tool_enabled = turn_off ? FALSE : !tool_enabled
 	if(tool_enabled)
 		START_PROCESSING(SSobj, src)
@@ -154,17 +154,16 @@
 	remove_fuel(amount)
 	return TRUE
 
-/obj/item/weldingtool/after_attack(mob/user, atom/target, params, proximity_flag = 1)
+/obj/item/weldingtool/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 	if(!tool_enabled)
 		return
-	if(!proximity_flag || isturf(target)) // We don't want to take away fuel when we hit something far away
-		return
+	if(cigarette_lighter_act(user, target))
+		remove_fuel(0.5)
+		return ITEM_INTERACT_COMPLETE
 	remove_fuel(0.5)
 
 /obj/item/weldingtool/attack(mob/living/target, mob/living/user, params)
-	if(cigarette_lighter_act(user, target))
-		return FINISH_ATTACK
 	if(tool_enabled && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
