@@ -465,15 +465,11 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		if(regen_type_applied == "Legion")
-			if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
-				owner.remove_CC()
-				for(var/obj/item/organ/external/E in H.bodyparts)
-					E.fix_internal_bleeding()
-					E.fix_burn_wound()
-					E.mend_fracture()
-			else
-				to_chat(owner, SPAN_WARNING("...But the core was weakened, it is not close enough to the rest of the legions of the necropolis."))
+		owner.remove_CC()
+		for(var/thing in H.bodyparts)
+			var/obj/item/organ/external/E = thing
+			E.fix_internal_bleeding()
+			E.mend_fracture()
 			return TRUE
 		if(regen_type_applied == "Hivelord")
 			var/area/A = get_area(H)
