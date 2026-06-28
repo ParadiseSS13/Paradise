@@ -80,7 +80,7 @@ SUBSYSTEM_DEF(science_satellite)
 				if(weather_node.get_2D_square_distance(weather_node.position, position_vector) < square_minimum_distance_to_others)
 					position_vector = weather_node_choice.get_random_circular_vector(max_spawn_radius)
 					success = FALSE
-					weather_node.distance_tries = i + 1
+					weather_node.distance_tries = i + 2 // this run is i + 1, but we failed already, so i + 2
 					break;
 			if(success) // if none of the weather nodes were close to this one, we can place it there
 				break;
