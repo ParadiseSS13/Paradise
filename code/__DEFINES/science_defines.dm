@@ -1,3 +1,19 @@
+// Each level requires slightly more effort than the last. Roughly based off 40x^2.2
+// Reaching level 2 is supposed to be a "tutorial" or as difficult as pressing a few buttons
+// Level 8+ are supposed to be unlocked using reward items (research notes, changeling eggs etc.)
+#define SCIENCE_POINTS_FOR_LEVEL_2 40
+#define SCIENCE_POINTS_FOR_LEVEL_3 250		// +210
+#define SCIENCE_POINTS_FOR_LEVEL_4 600 		// +350
+#define SCIENCE_POINTS_FOR_LEVEL_5 1200 	// +600
+#define SCIENCE_POINTS_FOR_LEVEL_6 2000		// +800
+#define SCIENCE_POINTS_FOR_LEVEL_7 3000		// +1000
+#define SCIENCE_POINTS_FOR_LEVEL_8 4500 	// +1500
+#define SCIENCE_POINTS_FOR_LEVEL_9 6500 	// +2000
+#define SCIENCE_POINTS_FOR_LEVEL_10 10000 	// +3500
+
+////////////////////////////////////////
+// MARK: Data Science
+////////////////////////////////////////
 #define SCIENCE_SATELLITE_WEATHER_NODE_ASH_STORM "ASH_STORM"
 #define SCIENCE_SATELLITE_WEATHER_NODE_WIND "WIND"
 #define SCIENCE_SATELLITE_WEATHER_NODE_VOLCANISM "VOLCANISM"
@@ -12,15 +28,3 @@
 
 #define SCIENCE_YIELD_FROM_PLASMA_LAB 50
 
-// Each level requires slightly more effort than the last. Roughly based off 40x^2.2
-// Reaching level 2 is supposed to be a "tutorial" or as difficult as pressing a few buttons
-// Level 8+ are supposed to be unlocked using reward items (research notes, changeling eggs etc.)
-#define SCIENCE_POINTS_FOR_LEVEL_2 40
-#define SCIENCE_POINTS_FOR_LEVEL_3 250		// +210
-#define SCIENCE_POINTS_FOR_LEVEL_4 600 		// +350
-#define SCIENCE_POINTS_FOR_LEVEL_5 1200 	// +600
-#define SCIENCE_POINTS_FOR_LEVEL_6 2000		// +800
-#define SCIENCE_POINTS_FOR_LEVEL_7 3000		// +1000
-#define SCIENCE_POINTS_FOR_LEVEL_8 4500 	// +1500
-#define SCIENCE_POINTS_FOR_LEVEL_9 6500 	// +2000
-#define SCIENCE_POINTS_FOR_LEVEL_10 10000 	// +3500
