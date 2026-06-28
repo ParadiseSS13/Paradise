@@ -452,7 +452,7 @@
 /obj/item/circuitboard/satellite_monitor
 	board_name = "Satellite Monitor"
 	icon_state = "science"
-	build_path = /obj/machinery/computer/satellite_monitor
+	build_path = /obj/machinery/computer/science_collector/satellite_monitor
 
 /obj/item/circuitboard/large_tank_control
 	board_name = "Large Tank Control"

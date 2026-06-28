@@ -115,7 +115,10 @@ export const SatelliteMonitor = (props, context) => {
             </Section>
           </Stack>
           <Section height="3em">
-            <DiskPanel inserted_disk={inserted_disk} satellite_data={satellite_data} />
+            <DiskPanel
+              inserted_disk={inserted_disk}
+              satellite_data={satellite_data}
+              act={act} />
           </Section>
         </Stack>
       </Window.Content>
@@ -374,7 +377,7 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
   ));
 };
 
-const DiskPanel = ({ satellite_data, inserted_disk }) => {
+const DiskPanel = ({ satellite_data, inserted_disk, act }) => {
   let collected_science_data = 0;
   for (let i = 0; i < satellite_data.length; i++) {
     collected_science_data += satellite_data[i].collected_science_data;
@@ -384,10 +387,17 @@ const DiskPanel = ({ satellite_data, inserted_disk }) => {
     <Stack fill align="center">
       <Stack.Item width="50%">Total Collected Data: {collected_science_data}</Stack.Item>
       <Stack.Item width="50%" textAlign="right">
-        <Button mr={1} disabled={!inserted_disk} tooltip={!inserted_disk ? 'No disk inserted' : ''}>
+        <Button
+          mr={1}
+          disabled={!inserted_disk}
+          tooltip={!inserted_disk ? 'No disk inserted' : ''}
+          onClick={() => { act('load_data_onto_disk'); }}>
           Load Data onto Disk
         </Button>
-        <Button disabled={!inserted_disk} tooltip={!inserted_disk ? 'No disk inserted' : ''}>
+        <Button
+          disabled={!inserted_disk}
+          tooltip={!inserted_disk ? 'No disk inserted' : ''}
+          onClick={() => { act('eject_disk'); }}>
           Eject Disk
         </Button>
       </Stack.Item>

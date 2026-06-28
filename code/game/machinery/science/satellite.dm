@@ -158,7 +158,7 @@
 
 /obj/machinery/science_satellite/Destroy(var/console_message = null)
 	SSscience_satellite.satellites -= src
-	for(var/obj/machinery/computer/satellite_monitor/console in linked_consoles)
+	for(var/obj/machinery/computer/science_collector/satellite_monitor/console in linked_consoles)
 		console.linked_satellites -= src
 		if(console_message)
 			console.atom_say(console_message)

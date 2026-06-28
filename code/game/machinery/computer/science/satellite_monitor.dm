@@ -1,15 +1,61 @@
-/obj/machinery/computer/satellite_monitor
+/obj/machinery/computer/science_collector/
+	var/obj/item/disk/tech_disk/inserted_disk
+	var/max_level_increase = 0
+	var/list/thresholds = list(
+		SCIENCE_POINTS_FOR_LEVEL_2,
+		SCIENCE_POINTS_FOR_LEVEL_3,
+		SCIENCE_POINTS_FOR_LEVEL_4,
+		SCIENCE_POINTS_FOR_LEVEL_5,
+		SCIENCE_POINTS_FOR_LEVEL_6,
+		SCIENCE_POINTS_FOR_LEVEL_7,
+		SCIENCE_POINTS_FOR_LEVEL_8,
+		SCIENCE_POINTS_FOR_LEVEL_9,
+		SCIENCE_POINTS_FOR_LEVEL_10,
+	)
+
+/obj/machinery/computer/science_collector/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/disk/tech_disk))
+		user.drop_item()
+		used.forceMove(src)
+		inserted_disk = used
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/machinery/computer/science_collector/proc/load_data_onto_disk(datum/tech/tech_to_load, data_points)
+	if(!inserted_disk)
+		return
+
+	var/datum/tech/new_tech = new tech_to_load
+	for(var/i = 1; i < thresholds.len; i++)
+		if(data_points < thresholds[i])
+			continue
+		new_tech.level = min(i + 1, tech_to_load.max_level + max_level_increase)
+
+	atom_say("loaded [new_tech.name] level [new_tech.level]")
+	inserted_disk.load_tech(new_tech)
+
+/obj/machinery/computer/science_collector/proc/eject_disk(mob/user)
+	if(!inserted_disk)
+		return
+
+	inserted_disk.forceMove(loc)
+	if(user)
+		if(Adjacent(user) && !issilicon(user))
+			user.put_in_hands(inserted_disk)
+
+	inserted_disk = null
+
+/obj/machinery/computer/science_collector/satellite_monitor
 	name = "Satellite Monitor"
 	icon_screen = "sat"
 	var/list/linked_satellites = new()
-	var/obj/item/disk/tech_disk/inserted_disk
 	var/datum/tech/programming/data_collected
 	var/current_planet_theme
 	var/current_background_base64
 	var/obj/machinery/science_satellite/selected_satellite_ui
 	circuit = /obj/item/circuitboard/satellite_monitor
 
-/obj/machinery/computer/satellite_monitor/Initialize(mapload)
+/obj/machinery/computer/science_collector/satellite_monitor/Initialize(mapload)
 	. = ..()
 	var/icon/temp_background = icon('icons/effects/parallax.dmi', "layer1")
 	temp_background.Blend(icon('icons/effects/parallax.dmi', "layer2"), ICON_ADD)
@@ -20,22 +66,22 @@
 	theme = (theme)? theme : "planet_lava"
 	current_planet_theme = "[theme].png" //icon2base64(icon('icons/effects/planets.dmi', theme, SOUTH, 1))
 
-/obj/machinery/computer/satellite_monitor/attack_ai(mob/user)
+/obj/machinery/computer/science_collector/satellite_monitor/attack_ai(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN | NOPOWER))
 		return
 	ui_interact(user)
 
-/obj/machinery/computer/satellite_monitor/attack_hand(mob/living/user)
+/obj/machinery/computer/science_collector/satellite_monitor/attack_hand(mob/living/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN | NOPOWER))
 		return
 	ui_interact(user)
 
-/obj/machinery/computer/satellite_monitor/ui_state(mob/user)
+/obj/machinery/computer/science_collector/satellite_monitor/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/satellite_monitor/ui_data(mob/user)
+/obj/machinery/computer/science_collector/satellite_monitor/ui_data(mob/user)
 	var/list/data = list()
 	var/list/satellite_data = list()
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
@@ -159,13 +205,13 @@
 
 	return data
 
-/obj/machinery/computer/satellite_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/science_collector/satellite_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SatelliteMonitor", name)
 		ui.open()
 
-/obj/machinery/computer/satellite_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/machinery/computer/science_collector/satellite_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	. = TRUE
@@ -178,8 +224,8 @@
 		selected_satellite_ui = satellite
 		return
 
-	if(!satellite)
-		return
+	//if(!satellite)
+	//	return
 
 	switch(action)
 		if("launch")
@@ -201,24 +247,29 @@
 			satellite.orbit_data.planned_maneuvers = new()
 		if("load_data_onto_disk")
 			atom_say("load_data_onto_disk")
+			var/data_points = 0
+			for(var/obj/machinery/science_satellite/linked_satellite in linked_satellites)
+				data_points += linked_satellite.collected_science_data
 
+			load_data_onto_disk(/datum/tech/programming/, data_points)
 			// TODO: Load Data
 			return FALSE
 		if("eject_disk")
+			eject_disk(ui.user)
 			// TODO: Ejeckt Disk
 			return FALSE
 
-/obj/machinery/computer/satellite_monitor/ui_assets(mob/user)
+/obj/machinery/computer/science_collector/satellite_monitor/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/simple/science_satellite),
 	)
 
-/obj/machinery/computer/satellite_monitor/proc/get_satellite_from_UID(uid)
+/obj/machinery/computer/science_collector/satellite_monitor/proc/get_satellite_from_UID(uid)
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
 		if(satellite.UID() == uid)
 			return satellite
 
-/obj/machinery/computer/satellite_monitor/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/computer/science_collector/satellite_monitor/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(!istype(I, /obj/item/multitool))
 		return
@@ -242,21 +293,21 @@
 	satellite.linked_consoles += src
 	return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/computer/satellite_monitor/cmag_act(mob/user)
+/obj/machinery/computer/science_collector/satellite_monitor/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return FALSE
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	to_chat(user, SPAN_NOTICE("You slather [src]'s keyboard with bananium!"))
 	return TRUE
 
-/obj/machinery/computer/satellite_monitor/examine(mob/user)
+/obj/machinery/computer/science_collector/satellite_monitor/examine(mob/user)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 
 	. += SPAN_WARNING("Bananium ooze is dripping from the keyboard!")
 
-/obj/machinery/computer/satellite_monitor/Destroy()
+/obj/machinery/computer/science_collector/satellite_monitor/Destroy()
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)
 		satellite.linked_consoles -= src
 	. = ..()
