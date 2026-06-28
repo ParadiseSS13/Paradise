@@ -24,7 +24,7 @@
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED
-	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
+	taste_category = TASTE_CATEGORY_SYNTHETIC
 	blood_color = COLOR_BLOOD_MACHINE
 	flesh_color = "#AAAAAA"
 

@@ -186,31 +186,29 @@
 	if(active && isturf(user.loc))
 		trigger(user)
 
+/// Tries to join to the last laid cable on the turf `user` has just left, followed by trying to lay another cable secton on the turf that was just entered.
 /obj/item/stack/cable_coil/rcl/proc/trigger(mob/user)
-	if(is_empty(user, 0))
+	if(is_empty(user, FALSE))
 		to_chat(user, SPAN_WARNING("[src] is empty!"))
 		return
 
+	// Try to join our new cable to the last cable we laid, unless we just walked backwards.
 	if(last)
-		if(get_dist(last, user) == 1) //hacky, but it works
-			var/turf/T = get_turf(user)
-			if(!isturf(T) || T.intact || !T.can_have_cabling())
-				last = null
-				return
-
-			if(get_dir(last, user) == last.d2)
-				//Did we just walk backwards? Well, that's the one direction we CAN'T complete a stub.
-				last = null
-				return
-
-			cable_join(last, user)
+		if(get_dir(last, user) != last.d2)
+			cable_join(last, user, FALSE)
 			if(is_empty(user))
-				return //If we've run out, display message and exit
+				last = null
+				return
 
-		else
-			last = null
+	// `last` is guranteed to be on a cableable turf, but the turf we just walked into is not.
+	var/turf/T = get_turf(user)
+	if(!isturf(T) || T.intact || !T.can_have_cabling())
+		to_chat(user, SPAN_WARNING("You can only lay cables on catwalks and plating!"))
+		last = null
+		return
+
 	last = place_turf(get_turf(loc), user, turn(user.dir, 180))
-	is_empty(user) //If we've run out, display message
+	is_empty(user)
 
 /obj/item/stack/cable_coil/rcl/empty/Initialize(mapload)
 	..()
