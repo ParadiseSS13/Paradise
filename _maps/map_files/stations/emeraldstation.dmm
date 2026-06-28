@@ -25431,6 +25431,9 @@
 	name = "Chemistry Privacy Shutter"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/chemistry)
 "fcP" = (
@@ -57529,6 +57532,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/chemistry)
 "lyH" = (

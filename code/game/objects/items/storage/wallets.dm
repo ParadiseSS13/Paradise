@@ -14,6 +14,7 @@
 		/obj/item/seeds,
 		/obj/item/stack/medical,
 		/obj/item/toy/crayon,
+		/obj/item/toy/round_tuit,
 		/obj/item/coin,
 		/obj/item/food/candy/chocolate_coin,
 		/obj/item/food/candy/coin,
@@ -112,6 +113,7 @@
 		/obj/item/stack/spacecash/c100)
 	var/coin = pickweight(list(/obj/item/coin/iron = 3,
 							/obj/item/coin/silver = 2,
+							/obj/item/toy/round_tuit = 1,
 							/obj/item/coin/gold = 1))
 
 	new cash(src)
