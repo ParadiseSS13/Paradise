@@ -1963,6 +1963,7 @@
 #include "code\modules\asset_cache\assets\asset_paper.dm"
 #include "code\modules\asset_cache\assets\asset_rpd.dm"
 #include "code\modules\asset_cache\assets\asset_safe.dm"
+#include "code\modules\asset_cache\assets\asset_science_satellite.dm"
 #include "code\modules\asset_cache\assets\asset_strip.dm"
 #include "code\modules\asset_cache\assets\asset_tgui.dm"
 #include "code\modules\asset_cache\assets\asset_vv.dm"

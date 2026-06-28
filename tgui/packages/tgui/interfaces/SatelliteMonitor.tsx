@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, Button, NumberInput, ProgressBar, Section, Stack } from 'tgui-core/components';
 
+import { resolveAsset } from '../assets'; /* Used to load assets from PNGs from the `code\modules\asset_cache\assets` folder*/
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -9,7 +10,7 @@ interface SatelliteMonitorData {
   inserted_disk: boolean;
   cmagged: boolean;
   world_time: number;
-  current_planet_base64: string;
+  current_planet_theme: string;
   current_background_base64: string;
   selected_satellite_UID_ui: string;
   weather_nodes: WeatherNode[];
@@ -19,6 +20,7 @@ interface SatelliteMonitorData {
 interface WeatherNode {
   position: Vector3;
   node_type: string;
+  asset_icon: string;
 }
 
 interface Satellite {
@@ -104,7 +106,7 @@ export const SatelliteMonitor = (props, context) => {
             <Section fill width="50%">
               <PlanetPanel
                 satellites={satellite_data}
-                current_planet_base64={data.current_planet_base64}
+                current_planet_theme={data.current_planet_theme}
                 current_background_base64={data.current_background_base64}
                 selectedSatellite={selectedSatellite}
                 weather_nodes={weather_nodes}
@@ -395,14 +397,14 @@ const DiskPanel = ({ satellite_data, inserted_disk }) => {
 
 interface PlanetPanelProps {
   satellites: Satellite[],
-  current_planet_base64: string,
+  current_planet_theme: string,
   current_background_base64: string,
   selectedSatellite: Satellite | undefined,
   weather_nodes: WeatherNode[],
   planet_radius: number,
 }
 
-const PlanetPanel = ({ satellites, current_planet_base64, current_background_base64, selectedSatellite, weather_nodes, planet_radius } : PlanetPanelProps) => {
+const PlanetPanel = ({ satellites, current_planet_theme, current_background_base64, selectedSatellite, weather_nodes, planet_radius } : PlanetPanelProps) => {
   class SegmentList {
     segments:Vector3[] = [];
     ownerUID: any;
@@ -411,7 +413,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
   const scale = 0.9; // scale is just what looks good with the planet image used
   const satelliteImageSize = 40;
   const viewBox = '-300 -300 600 600';
-  const weather_node_size = 32;
+  const weather_node_size = 40; // based off what looks good
 
   let frontSegments:SegmentList[] = [];
   let backSegments:SegmentList[] = [];
@@ -540,7 +542,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
 
             { /* Draw the planet */
               <image
-              href={`data:image/png;base64,${current_planet_base64}`}
+              href={resolveAsset(current_planet_theme)}
               x={-planet_radius}
               y={-planet_radius}
               width={planet_radius * 2}
@@ -584,17 +586,17 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               selectedSatellite ? <text x={selectedSatellite.orbit_data.periapsis_position?.x - 8} y={selectedSatellite.orbit_data.periapsis_position?.y} fill={"white"}>{`Pe`}</text> : null
             }
             {
-              weather_nodes.map((weather_nodes, index) => {
+              weather_nodes.map((node, index) => {
                 return(
                   <>
                     <image key={index}
-                      href={`data:image/png;base64,${current_planet_base64}`}
-                      x={weather_nodes.position.x - weather_node_size/2}
-                      y={weather_nodes.position.y - weather_node_size/2}
+                      href={resolveAsset(node.asset_icon)}
+                      x={node.position.x - weather_node_size/2}
+                      y={node.position.y - weather_node_size/2}
                       height={weather_node_size}
                       width={weather_node_size}
                     />
-                    <text x={weather_nodes.position.x - weather_node_size/2} y={weather_nodes.position.y - weather_node_size/2} fill={"white"}>{`${weather_nodes.node_type.slice(0, 2)}`}</text>
+                    <text x={node.position.x - weather_node_size/2} y={node.position.y - weather_node_size/2} fill={"white"}>{`${node.node_type.slice(0, 2)}`}</text>
                   </>
                 );
               })
@@ -603,7 +605,7 @@ const PlanetPanel = ({ satellites, current_planet_base64, current_background_bas
               satellites.map((satellite: Satellite) => {
                 return (
                   <image key={satellite.name}
-                    href={`data:image/png;base64,${current_planet_base64}`}
+                    href={resolveAsset(current_planet_theme)}
                     x={satellite.orbit_data.position?.x * scale - satelliteImageSize/2}
                     y={satellite.orbit_data.position?.y * scale - satelliteImageSize/2}
                     width={`${satelliteImageSize}px`}

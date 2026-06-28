@@ -4,7 +4,7 @@
 	var/list/linked_satellites = new()
 	var/obj/item/disk/tech_disk/inserted_disk
 	var/datum/tech/programming/data_collected
-	var/current_planet_base64
+	var/current_planet_theme
 	var/current_background_base64
 	var/obj/machinery/science_satellite/selected_satellite_ui
 	circuit = /obj/item/circuitboard/satellite_monitor
@@ -18,7 +18,7 @@
 
 	var/theme = SSmapping.lavaland_theme?.planet_icon_state
 	theme = (theme)? theme : "planet_lava"
-	current_planet_base64 = icon2base64(icon('icons/effects/planets.dmi', theme, SOUTH, 1))
+	current_planet_theme = "[theme].png" //icon2base64(icon('icons/effects/planets.dmi', theme, SOUTH, 1))
 
 /obj/machinery/computer/satellite_monitor/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -141,7 +141,8 @@
 
 		this_node += list(
 			"position" = pos_vec,
-			"node_type" = node.node_type
+			"node_type" = node.node_type,
+			"asset_icon" = node.asset_icon
 		)
 
 		weather_nodes += list(this_node)
@@ -150,7 +151,7 @@
 	data["inserted_disk"] = istype(inserted_disk)
 	data["cmagged"] = HAS_TRAIT(src, TRAIT_CMAGGED)
 	data["world_time"] = world.time
-	data["current_planet_base64"] = current_planet_base64
+	data["current_planet_theme"] = current_planet_theme
 	data["current_background_base64"] = current_background_base64
 	data["selected_satellite_UID_ui"] = selected_satellite_ui?.UID()
 	data["weather_nodes"] = weather_nodes
@@ -206,6 +207,11 @@
 		if("eject_disk")
 			// TODO: Ejeckt Disk
 			return FALSE
+
+/obj/machinery/computer/satellite_monitor/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/science_satellite),
+	)
 
 /obj/machinery/computer/satellite_monitor/proc/get_satellite_from_UID(uid)
 	for(var/obj/machinery/science_satellite/satellite in linked_satellites)

@@ -10,16 +10,25 @@ SUBSYSTEM_DEF(science_satellite)
 	var/weather_nodes_to_spawn = 15
 	var/planet_radius = 128
 	var/list/active_weather_nodes = list()
+	var/max_spawn_radius = 110 // smaller than the planet radius in order to not have nodes at the edge of the planet
+	var/square_distance_between_nodes = 32 ** 2
+	var/distance_tries = 5 // how many times the distance check for each node will be ran
 
 /datum/controller/subsystem/science_satellite/Initialize()
-	for(var/i = 0; i < weather_nodes_to_spawn; i++)
-		spawn_weather_node()
+	spawn_weather_node(0, vector(0, planet_radius, 1), /datum/weather_node/pole, "north_pole.png")
+	spawn_weather_node(0, vector(0, -planet_radius, 1), /datum/weather_node/pole, "south_pole.png")
 
-	spawn_weather_node(vector(0, planet_radius, 1), /datum/weather_node/pole)
-	spawn_weather_node(vector(0, -planet_radius, 1), /datum/weather_node/pole)
+	for(var/i = 0; i < weather_nodes_to_spawn; i++)
+		spawn_weather_node(square_distance_between_nodes)
+
 	return
 
-/datum/controller/subsystem/science_satellite/proc/spawn_weather_node(vector/forced_location = null, datum/forced_node = null)
+/// Adds a weather node to SSscience_satellite
+/// * `minimum_distance_to_others` - How far away from other nodes does this have to be. Overridden by `forced_loacation`.
+/// * `forced_location` - Select the location of the node, should be within `planet_radius` otherwise you'll have nodes floating in space
+/// * `forced_node` - Select a specific node to spawn
+/// * `custom_asset_icon` - Select a custom image (note, this image needs to be defined in `code\modules\asset_cache\assets`)
+/datum/controller/subsystem/science_satellite/proc/spawn_weather_node(square_minimum_distance_to_others = 0, vector/forced_location = null, datum/forced_node = null, custom_asset_icon = null)
 	var/datum/weather_node/weather_node_choice
 	if(forced_node)
 		weather_node_choice = new forced_node
@@ -30,14 +39,27 @@ SUBSYSTEM_DEF(science_satellite)
 		20; new /datum/weather_node/acid_rain,
 		10; new /datum/weather_node/volcanism)
 
+	if(custom_asset_icon)
+		weather_node_choice.asset_icon = custom_asset_icon
+
 	var/vector/position_vector
 	if(forced_location)
 		position_vector = forced_location
 	else
-		var/random_distance = planet_radius * (rand(0,1000)/1000) ** 0.5 // we divide here to get a random number with decimals
-		var/theta = rand(0, 360)//(rand(0,1000)/1000) * 2 * PI // get a random angle
+		position_vector = weather_node_choice.get_random_circular_vector(max_spawn_radius)
 
-		position_vector = vector(random_distance * cos(theta), random_distance * sin(theta), 1) // set the z component here, as we dont care about it other than it beign positive (its positive so weather nodes will be visible to players)
+		// try to place the node away from other nodes, still places it if this fails
+		for(var/i = 0; i < distance_tries; i++)
+			var/success = TRUE
+			for(var/datum/weather_node/weather_node in active_weather_nodes)
+				if(weather_node.get_2D_square_distance(weather_node.position, position_vector) < square_minimum_distance_to_others)
+					position_vector = weather_node_choice.get_random_circular_vector(max_spawn_radius)
+					success = FALSE
+					weather_node.distance_tries = i
+					break;
+			if(success) // if none of the weather nodes were close to this one, we can place it there
+				break;
+
 
 	weather_node_choice.position = position_vector
 	active_weather_nodes += weather_node_choice
@@ -56,43 +78,62 @@ SUBSYSTEM_DEF(science_satellite)
 			if(!weather_node.position)
 				continue
 			// calculate the square distance, ignoring the z axis
-			var/square_2D_dist = (satellite.orbit_data.position.x - weather_node.position.x) ** 2 +\
-			(satellite.orbit_data.position.y - weather_node.position.y) ** 2
+			var/square_2D_dist = weather_node.get_2D_square_distance(satellite.orbit_data.position, weather_node.position)
+
 
 			if(square_2D_dist < weather_node.square_detection_range)
 				satellite.orbit_data.process_weather_node(weather_node)
 
 /datum/weather_node
 	var/vector/position
-	var/square_detection_range = 256
+	var/square_detection_range = 16 ** 2
 	var/node_type = "NULL_WEATHER"
 	var/detection_requirement
 	var/science_yield = 1
+	/// the png listed in `asset_science_satellite.dm`
+	var/asset_icon
+	var/distance_tries = 0 // used for debugging
+
+/datum/weather_node/proc/get_2D_square_distance(vector/vector_a, vector/vector_b)
+	return (vector_a.x - vector_b.x) ** 2 +	(vector_a.y - vector_b.y) ** 2
+
+
+/datum/weather_node/proc/get_random_circular_vector(max_distance)
+	var/random_distance = max_distance * (rand(0,1000)/1000) ** 0.5 // we divide here to get a random number with decimals
+	var/theta = rand(0, 360) // get a random angle
+
+	var/vector/random_circular_vector = vector(random_distance * cos(theta), random_distance * sin(theta), 1) // set the z component here, as we dont care about it other than it beign positive (its positive so weather nodes will be visible to players)
+	return random_circular_vector
 
 /datum/weather_node/pole
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_POLE
 	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
 	science_yield = 20
+	asset_icon = "north_pole.png"
 
 /datum/weather_node/wind
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_WIND
 	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
 	science_yield = 20
+	asset_icon = "wind_storm.png"
 
 
 /datum/weather_node/ash_storm
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ASH_STORM
 	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
 	science_yield = 40
+	asset_icon = "ash_storm.png"
 
 
 /datum/weather_node/acid_rain
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ACID_RAIN
 	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
 	science_yield = 60
+	asset_icon = "acid_rain.png"
 
 
 /datum/weather_node/volcanism
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ASH_STORM
 	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
 	science_yield = 160
+	asset_icon = "eruption.png"
