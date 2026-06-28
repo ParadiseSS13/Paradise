@@ -466,11 +466,10 @@
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
 		owner.remove_CC()
-		for(var/thing in H.bodyparts)
-			var/obj/item/organ/external/E = thing
+		for(var/obj/item/organ/external/E in H.bodyparts)
 			E.fix_internal_bleeding()
+			E.fix_burn_wound()
 			E.mend_fracture()
-			return TRUE
 		if(regen_type_applied == "Hivelord")
 			var/area/A = get_area(H)
 			if(isspaceturf(get_turf(H)) || isspacearea(A) || istype(A, /area/syndicate_depot) || istype(A, /area/ruin/space) || istype(A, /area/shuttle))
