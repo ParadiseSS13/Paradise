@@ -11,15 +11,40 @@ SUBSYSTEM_DEF(science_satellite)
 	var/planet_radius = 128
 	var/list/active_weather_nodes = list()
 	var/max_spawn_radius = 110 // smaller than the planet radius in order to not have nodes at the edge of the planet
-	var/square_distance_between_nodes = 32 ** 2
-	var/distance_tries = 5 // how many times the distance check for each node will be ran
+	var/square_distance_between_nodes = 20 ** 2
+	var/distance_tries = 10 // how many times the distance check for each node will be tried
 
 /datum/controller/subsystem/science_satellite/Initialize()
+	// spawn 2 pole nodes at the actual edge of the planet, instead of the stricter `max_spawn_radius`
 	spawn_weather_node(0, vector(0, planet_radius, 1), /datum/weather_node/pole, "north_pole.png")
 	spawn_weather_node(0, vector(0, -planet_radius, 1), /datum/weather_node/pole, "south_pole.png")
 
-	for(var/i = 0; i < weather_nodes_to_spawn; i++)
-		spawn_weather_node(square_distance_between_nodes)
+	var/volcanism_to_spawn = pick(
+		70; 1,
+		20; 2,
+		10; 3)
+	var/acid_rain_to_spawn = pick(
+		60; 2,
+		30; 3,
+		10; 4)
+	var/ash_storms_to_spawn = pick(
+		50; 5,
+		40; 6,
+		10; 7)
+
+	var/winds_to_spawn = weather_nodes_to_spawn - volcanism_to_spawn - acid_rain_to_spawn - ash_storms_to_spawn
+
+	for(var/i = 0; i < volcanism_to_spawn; i++)
+		spawn_weather_node(forced_node = /datum/weather_node/volcanism)
+
+	for(var/i = 0; i < acid_rain_to_spawn; i++)
+		spawn_weather_node(forced_node = /datum/weather_node/acid_rain)
+
+	for(var/i = 0; i < ash_storms_to_spawn; i++)
+		spawn_weather_node(forced_node = /datum/weather_node/ash_storm)
+
+	for(var/i = 0; i < winds_to_spawn; i++)
+		spawn_weather_node(forced_node = /datum/weather_node/wind)
 
 	return
 
@@ -28,7 +53,7 @@ SUBSYSTEM_DEF(science_satellite)
 /// * `forced_location` - Select the location of the node, should be within `planet_radius` otherwise you'll have nodes floating in space
 /// * `forced_node` - Select a specific node to spawn
 /// * `custom_asset_icon` - Select a custom image (note, this image needs to be defined in `code\modules\asset_cache\assets`)
-/datum/controller/subsystem/science_satellite/proc/spawn_weather_node(square_minimum_distance_to_others = 0, vector/forced_location = null, datum/forced_node = null, custom_asset_icon = null)
+/datum/controller/subsystem/science_satellite/proc/spawn_weather_node(square_minimum_distance_to_others = square_distance_between_nodes, vector/forced_location = null, datum/forced_node = null, custom_asset_icon = null)
 	var/datum/weather_node/weather_node_choice
 	if(forced_node)
 		weather_node_choice = new forced_node
@@ -55,7 +80,7 @@ SUBSYSTEM_DEF(science_satellite)
 				if(weather_node.get_2D_square_distance(weather_node.position, position_vector) < square_minimum_distance_to_others)
 					position_vector = weather_node_choice.get_random_circular_vector(max_spawn_radius)
 					success = FALSE
-					weather_node.distance_tries = i
+					weather_node.distance_tries = i + 1
 					break;
 			if(success) // if none of the weather nodes were close to this one, we can place it there
 				break;
