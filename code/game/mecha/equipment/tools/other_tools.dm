@@ -169,7 +169,7 @@
 	name = "repair droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost all types of external or internal damage."
 	icon_state = "repair_droid_item"
-	origin_tech ="magnets=3;programming=3;engineering=4"
+	origin_tech ="magnets=3;engineering=4"
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_GOLD = 1000, MAT_SILVER = 2000)
 	equip_cooldown = 20
 	energy_drain = 50

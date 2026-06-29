@@ -279,6 +279,7 @@
 	desc = "Your brain is melting just from looking at this endless knowledge."
 	info = "<b>Information written here is beyond your understanding</b>"
 	origin_tech = "materials=10;engineering=10;plasmatech=10;powerstorage=10;bluespace=10;biotech=10;combat=10;magnets=10;programming=10;toxins=10;syndicate=10;abductor=10"
+	science_reward_types = list(/datum/tech/materials, /datum/tech/engineering, /datum/tech/plasmatech, /datum/tech/powerstorage, /datum/tech/bluespace, /datum/tech/biotech, /datum/tech/combat, /datum/tech/magnets, /datum/tech/programming, /datum/tech/toxins, /datum/tech/syndicate, /datum/tech/abductor)
 
 /obj/item/storage/box/debug/debugtools/populate_contents()
 	new /obj/item/card/emag(src)

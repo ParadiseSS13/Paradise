@@ -6,7 +6,6 @@
 	desc = "Protected by FRM."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
-	origin_tech = "programming=2"
 	materials = list(MAT_METAL = 10000)
 	/// Whether or not the cyborg needs to have a chosen module before they can receive this upgrade.
 	var/require_module = FALSE
@@ -268,7 +267,7 @@
 	desc = "Used to activate a cyborg's VTEC systems, allowing them to retain more speed when damaged. Alternatively speeds up slow vehicles."
 	icon_state = "cyborg_upgrade2"
 	require_module = TRUE
-	origin_tech = "engineering=4;materials=5;programming=4"
+	origin_tech = "engineering=4;materials=5"
 	materials = list(MAT_METAL = 80000 , MAT_GLASS = 6000 , MAT_URANIUM = 5000)
 
 /obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)

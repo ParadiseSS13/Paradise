@@ -70,6 +70,7 @@
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
 	origin_tech = "biotech=7" // You need to be really lucky to obtain it.
+	science_reward_types = list(/datum/tech/biotech)
 	var/datum/mind/origin
 	var/time = 0
 

@@ -135,7 +135,7 @@
 	name = "micro-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "micro_mani"
-	origin_tech = "materials=1;programming=1"
+	origin_tech = "materials=1"
 	materials = list(MAT_METAL = 100)
 
 /obj/item/stock_parts/micro_laser
@@ -172,7 +172,7 @@
 /obj/item/stock_parts/manipulator/nano
 	name = "nano-manipulator"
 	icon_state = "nano_mani"
-	origin_tech = "materials=3;programming=2"
+	origin_tech = "materials=3"
 	rating = 2
 	materials = list(MAT_METAL = 150)
 
@@ -211,7 +211,7 @@
 /obj/item/stock_parts/manipulator/pico
 	name = "pico-manipulator"
 	icon_state = "pico_mani"
-	origin_tech = "materials=4;programming=4;engineering=4"
+	origin_tech = "materials=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL = 200)
 
@@ -250,7 +250,7 @@
 /obj/item/stock_parts/manipulator/femto
 	name = "femto-manipulator"
 	icon_state = "femto_mani"
-	origin_tech = "materials=6;programming=4;engineering=4"
+	origin_tech = "materials=6;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL = 200, MAT_DIAMOND = 30, MAT_TITANIUM = 30)
 
@@ -264,6 +264,6 @@
 /obj/item/stock_parts/matter_bin/bluespace
 	name = "bluespace matter bin"
 	icon_state = "bluespace_matter_bin"
-	origin_tech = "materials=6;programming=4;engineering=4"
+	origin_tech = "materials=6;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL = 250, MAT_DIAMOND = 100, MAT_BLUESPACE = 100)

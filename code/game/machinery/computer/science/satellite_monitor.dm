@@ -1,12 +1,13 @@
 /obj/machinery/computer/science_collector/satellite_monitor
 	name = "Satellite Monitor"
 	icon_screen = "sat"
+	science_type = /datum/tech/programming
+	circuit = /obj/item/circuitboard/satellite_monitor
 	var/list/linked_satellites = new()
 	var/datum/tech/programming/data_collected
 	var/current_planet_theme
 	var/current_background_base64
 	var/obj/machinery/science_satellite/selected_satellite_ui
-	circuit = /obj/item/circuitboard/satellite_monitor
 
 /obj/machinery/computer/science_collector/satellite_monitor/Initialize(mapload)
 	. = ..()

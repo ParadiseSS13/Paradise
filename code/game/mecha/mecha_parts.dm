@@ -8,7 +8,7 @@
 	icon_state = "blank"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	flags = CONDUCT
-	origin_tech = "programming=2;materials=2;engineering=2"
+	origin_tech = "materials=2;engineering=2"
 
 /obj/item/mecha_parts/core
 	name = "mech power core"
@@ -46,7 +46,7 @@
 	name = "\improper Ripley torso"
 	desc = "A torso part of Ripley APLU. Contains power unit, processing core and life support systems."
 	icon_state = "ripley_harness"
-	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
+	origin_tech = "materials=2;biotech=2;engineering=2"
 	materials = list(MAT_METAL = 20000, MAT_GLASS = 7500)
 
 /obj/item/mecha_parts/part/ripley_left_arm
@@ -91,40 +91,40 @@
 	name = "\improper Gygax torso"
 	desc = "A torso part of Gygax. Contains power unit, processing core and life support systems. Has an additional equipment slot."
 	icon_state = "gygax_harness"
-	origin_tech = "programming=2;materials=4;biotech=3;engineering=3"
+	origin_tech = "materials=4;biotech=3;engineering=3"
 	materials = list(MAT_METAL = 20000, MAT_GLASS = 10000, MAT_DIAMOND = 2000)
 
 /obj/item/mecha_parts/part/gygax_head
 	name = "\improper Gygax head"
 	desc = "A Gygax head. Houses advanced surveillance and targeting sensors."
 	icon_state = "gygax_head"
-	origin_tech = "programming=2;materials=4;magnets=3;engineering=3"
+	origin_tech = "materials=4;magnets=3;engineering=3"
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_DIAMOND = 2000)
 
 /obj/item/mecha_parts/part/gygax_left_arm
 	name = "\improper Gygax left arm"
 	desc = "A Gygax left arm. Data and power sockets are compatible with most exosuit tools and weapons."
 	icon_state = "gygax_l_arm"
-	origin_tech = "programming=2;materials=4;engineering=3"
+	origin_tech = "materials=4;engineering=3"
 	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 1000)
 
 /obj/item/mecha_parts/part/gygax_right_arm
 	name = "\improper Gygax right arm"
 	desc = "A Gygax right arm. Data and power sockets are compatible with most exosuit tools and weapons."
 	icon_state = "gygax_r_arm"
-	origin_tech = "programming=2;materials=4;engineering=3"
+	origin_tech = "materials=4;engineering=3"
 	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 1000)
 
 /obj/item/mecha_parts/part/gygax_left_leg
 	name = "\improper Gygax left leg"
 	icon_state = "gygax_l_leg"
-	origin_tech = "programming=2;materials=4;engineering=3"
+	origin_tech = "materials=4;engineering=3"
 	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 2000)
 
 /obj/item/mecha_parts/part/gygax_right_leg
 	name = "\improper Gygax right leg"
 	icon_state = "gygax_r_leg"
-	origin_tech = "programming=2;materials=4;engineering=3"
+	origin_tech = "materials=4;engineering=3"
 	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 2000)
 
 /obj/item/mecha_parts/part/gygax_armour
@@ -146,37 +146,37 @@
 /obj/item/mecha_parts/part/durand_torso
 	name = "\improper Durand torso"
 	icon_state = "durand_harness"
-	origin_tech = "programming=2;materials=3;biotech=3;engineering=3"
+	origin_tech = "materials=3;biotech=3;engineering=3"
 	materials = list(MAT_METAL = 25000, MAT_GLASS = 10000, MAT_SILVER = 10000)
 
 /obj/item/mecha_parts/part/durand_head
 	name = "\improper Durand head"
 	icon_state = "durand_head"
-	origin_tech = "programming=2;materials=3;magnets=3;engineering=3"
+	origin_tech = "materials=3;magnets=3;engineering=3"
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 15000, MAT_SILVER = 2000)
 
 /obj/item/mecha_parts/part/durand_left_arm
 	name = "\improper Durand left arm"
 	icon_state = "durand_l_arm"
-	origin_tech = "programming=2;materials=3;engineering=3"
+	origin_tech = "materials=3;engineering=3"
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 4000)
 
 /obj/item/mecha_parts/part/durand_right_arm
 	name = "\improper Durand right arm"
 	icon_state = "durand_r_arm"
-	origin_tech = "programming=2;materials=3;engineering=3"
+	origin_tech = "materials=3;engineering=3"
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 4000)
 
 /obj/item/mecha_parts/part/durand_left_leg
 	name = "\improper Durand left leg"
 	icon_state = "durand_l_leg"
-	origin_tech = "programming=2;materials=3;engineering=3"
+	origin_tech = "materials=3;engineering=3"
 	materials = list(MAT_METAL = 15000, MAT_SILVER = 4000)
 
 /obj/item/mecha_parts/part/durand_right_leg
 	name = "\improper Durand right leg"
 	icon_state = "durand_r_leg"
-	origin_tech = "programming=2;materials=3;engineering=3"
+	origin_tech = "materials=3;engineering=3"
 	materials = list(MAT_METAL = 15000, MAT_SILVER = 4000)
 
 /obj/item/mecha_parts/part/durand_armor
@@ -300,13 +300,13 @@
 /obj/item/mecha_parts/part/phazon_torso
 	name = "\improper Phazon torso"
 	icon_state = "phazon_harness"
-	origin_tech = "programming=4;materials=4;bluespace=4;plasmatech=5"
+	origin_tech = "materials=4;bluespace=4;plasmatech=5"
 	materials = list(MAT_METAL = 35000, MAT_GLASS = 10000, MAT_PLASMA = 20000)
 
 /obj/item/mecha_parts/part/phazon_head
 	name = "\improper Phazon head"
 	icon_state = "phazon_head"
-	origin_tech = "programming=3;materials=3;magnets=3"
+	origin_tech = "materials=3;magnets=3"
 	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000, MAT_PLASMA = 10000)
 
 /obj/item/mecha_parts/part/phazon_left_arm
@@ -358,7 +358,7 @@
 	name = "\improper Odysseus torso"
 	desc = "A torso part of Odysseus. Contains power unit, processing core and life support systems."
 	icon_state = "odysseus_torso"
-	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
+	origin_tech = "materials=2;biotech=2;engineering=2"
 	materials = list(MAT_METAL = 12000)
 
 /obj/item/mecha_parts/part/odysseus_left_arm
@@ -408,7 +408,7 @@
 	name = "\improper Nkarrdem torso"
 	desc = "A torso part of Nkarrdem. Contains power unit, processing core and life support systems."
 	icon_state = "nkarrdem_harness"
-	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
+	origin_tech = "materials=2;biotech=2;engineering=2"
 	materials = list(MAT_METAL = 12000)
 
 /obj/item/mecha_parts/part/nkarrdem_left_arm
@@ -466,7 +466,7 @@
 	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/gygax
-	origin_tech = "programming=4;combat=3;engineering=3"
+	origin_tech = "combat=3;engineering=3"
 
 /obj/item/circuitboard/mecha/gygax/main
 	board_name = "Gygax Central Control Module"
@@ -479,11 +479,11 @@
 /obj/item/circuitboard/mecha/gygax/targeting
 	board_name = "Gygax Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
-	origin_tech = "programming=4;combat=4"
+	origin_tech = "combat=4"
 
 
 /obj/item/circuitboard/mecha/durand
-	origin_tech = "programming=4;combat=3;engineering=3"
+	origin_tech = "combat=3;engineering=3"
 
 /obj/item/circuitboard/mecha/durand/main
 	board_name = "Durand Central Control Module"
@@ -496,11 +496,11 @@
 /obj/item/circuitboard/mecha/durand/targeting
 	board_name = "Durand Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
-	origin_tech = "programming=4;combat=4;engineering=3"
+	origin_tech = "combat=4;engineering=3"
 
 
 /obj/item/circuitboard/mecha/phazon
-	origin_tech = "programming=5;plasmatech=4"
+	origin_tech = "plasmatech=4"
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 
 /obj/item/circuitboard/mecha/phazon/main
@@ -517,7 +517,7 @@
 
 
 /obj/item/circuitboard/mecha/honker
-	origin_tech = "programming=3;engineering=3"
+	origin_tech = "engineering=3"
 
 /obj/item/circuitboard/mecha/honker/main
 	board_name = "H.O.N.K Central Control Module"
@@ -533,7 +533,7 @@
 
 
 /obj/item/circuitboard/mecha/reticence
-	origin_tech = "programming=3;engineering=3"
+	origin_tech = "engineering=3"
 
 /obj/item/circuitboard/mecha/reticence/main
 	board_name = "Reticence Central Control Module"
@@ -549,7 +549,7 @@
 
 
 /obj/item/circuitboard/mecha/odysseus
-	origin_tech = "programming=3;biotech=3"
+	origin_tech = "biotech=3"
 
 /obj/item/circuitboard/mecha/odysseus/main
 	board_name = "Odysseus Central Control Module"

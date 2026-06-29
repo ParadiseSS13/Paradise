@@ -4,6 +4,7 @@
 	desc = "Still it beats furiously, emanating an aura of utter hate."
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
+	science_reward_types = list(/datum/tech/biotech)
 	organ_datums = list(/datum/organ/heart/always_beating, /datum/organ/battery)
 
 /obj/item/organ/internal/heart/demon/update_icon_state()

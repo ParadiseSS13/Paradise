@@ -1068,11 +1068,15 @@
 
 /obj/item/paper/researchnotes/Initialize(mapload)
 	. = ..()
-	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
-	var/mytech = pick(possible_techs)
+	var/list/possible_rewards = list(/datum/tech/materials, /datum/tech/engineering, /datum/tech/plasmatech, /datum/tech/powerstorage, /datum/tech/bluespace, /datum/tech/biotech, /datum/tech/combat, /datum/tech/magnets, /datum/tech/programming, /datum/tech/syndicate)
+	var/datum/tech/chosen_tech = pick(possible_rewards)
+	var/datum/tech/reward_tech = new chosen_tech
+	science_reward_types = list(chosen_tech)
 	var/mylevel = rand(7, 9)
-	origin_tech = "[mytech]=[mylevel]"
-	name = "research notes - [mytech] [mylevel]"
+	var/part_of_science_rework = (chosen_tech in list(/datum/tech/programming))
+	if(!part_of_science_rework) // science rework, this is temporary
+		origin_tech = "[reward_tech.name]=[mylevel]"
+	name = "research notes - [reward_tech.name][(part_of_science_rework)? "" : " [mylevel]"]"
 
 // I want this type dead
 /obj/item/paper/instruction

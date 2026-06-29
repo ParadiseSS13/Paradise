@@ -368,7 +368,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	icon_state = "dvorak_upload"
 	inhand_icon_state = "camera_bug"
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "syndicate=4;programming=6"
+	origin_tech = "syndicate=4"
 	/// Integrated AI upload
 	var/obj/machinery/computer/aiupload/dvorak/integrated_console
 

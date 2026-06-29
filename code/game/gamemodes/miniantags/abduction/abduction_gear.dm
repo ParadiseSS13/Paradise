@@ -51,6 +51,7 @@ CONTENTS:
 	icon_state = "alienhelmet"
 	blockTracking = 1
 	origin_tech = "materials=7;magnets=4;abductor=3"
+	science_reward_types = list(/datum/tech/materials)
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
@@ -77,6 +78,7 @@ CONTENTS:
 	inhand_icon_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
+	science_reward_types = list(/datum/tech/magnets)
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
@@ -191,7 +193,8 @@ CONTENTS:
 	name = "abductor silencer"
 	desc = "A compact device used to shut down communications equipment."
 	icon_state = "silencer"
-	origin_tech = "materials=4;programming=7;abductor=3"
+	origin_tech = "materials=4;abductor=3"
+	science_reward_types = list(/datum/tech/programming)
 
 /obj/item/abductor/silencer/attack__legacy__attackchain(mob/living/M, mob/user)
 	if(!AbductorCheck(user))
@@ -235,6 +238,7 @@ CONTENTS:
 	icon_state = "alienpistol"
 	inhand_icon_state = "alienpistol"
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
+	science_reward_types = list(/datum/tech/magnets)
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	can_holster = TRUE
 
@@ -248,6 +252,7 @@ CONTENTS:
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
+	science_reward_types = list(/datum/tech/biotech)
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	var/mode = BATON_STUN
 
@@ -439,6 +444,7 @@ CONTENTS:
 	icon_state = "gizmo_scan"
 	inhand_icon_state = "gizmo"
 	origin_tech = "engineering=7;magnets=4;bluespace=4;abductor=3"
+	science_reward_types = list(/datum/tech/engineering)
 	var/mode = GIZMO_SCAN
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console

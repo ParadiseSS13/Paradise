@@ -11,7 +11,7 @@
 	inhand_icon_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
-	origin_tech = "engineering=4;biotech=2;programming=5"
+	origin_tech = "engineering=4;biotech=2"
 	var/scanning = FALSE
 	var/list/log = list()
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)

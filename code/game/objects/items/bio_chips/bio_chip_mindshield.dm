@@ -1,7 +1,7 @@
 /obj/item/bio_chip/mindshield
 	name = "mindshield bio-chip"
 	desc = "Stops people messing with your mind."
-	origin_tech = "materials=2;biotech=4;programming=4"
+	origin_tech = "materials=2"
 	activated = BIOCHIP_ACTIVATED_PASSIVE
 	implant_data = /datum/implant_fluff/mindshield
 	implant_state = "implant-nanotrasen"
@@ -47,7 +47,7 @@
 /obj/item/bio_chip/mindshield/syndicate
 	name = "syndishield bio-chip"
 	desc = "Stops Nanotrasen from messing with your mind."
-	origin_tech = "materials=2;biotech=4;programming=4;syndicate=3"
+	origin_tech = "materials=2;biotech=4;syndicate=3"
 	implant_data = /datum/implant_fluff/syndicate_shield
 	hud_icon_state = "hud_imp_syndiloyal"
 	cult_source = "twisted plans of the Syndicate"

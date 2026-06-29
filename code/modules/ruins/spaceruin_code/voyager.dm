@@ -10,7 +10,8 @@
 	force = 5
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	origin_tech = "programming=6;biotech=6"
+	origin_tech = "biotech=6"
+	science_reward_types = list(/datum/tech/programming, /datum/tech/biotech)
 
 /obj/item/golden_record/Initialize(mapload)
 	. = ..()

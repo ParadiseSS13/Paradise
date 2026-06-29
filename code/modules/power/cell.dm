@@ -254,6 +254,7 @@
 	desc = "A self-recarging power cell. It produces endless amounts of energy seemingly out of nowhere."
 	icon_state = "icell"
 	origin_tech =  "powerstorage=7"
+	science_reward_types = list(/datum/tech/powerstorage)
 	maxcharge = 30000
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 12000, MAT_GOLD = 6000, MAT_TITANIUM = 6000, MAT_URANIUM = 6000, MAT_DIAMOND = 6000, MAT_BLUESPACE = 6000) // If you actually get this and recycle it, it better be worth it.
 	rating = 6

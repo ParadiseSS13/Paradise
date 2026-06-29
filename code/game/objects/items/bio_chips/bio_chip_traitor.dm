@@ -1,7 +1,7 @@
 /obj/item/bio_chip/traitor
 	name = "Mindslave Bio-chip"
 	desc = "Divide and Conquer!"
-	origin_tech = "programming=5;biotech=5;syndicate=8"
+	origin_tech = "biotech=5;syndicate=8"
 	activated = FALSE
 	implant_data = /datum/implant_fluff/traitor
 	implant_state = "implant-syndicate"

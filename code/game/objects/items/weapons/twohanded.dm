@@ -443,6 +443,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 2
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
+	science_reward_types = list(/datum/tech/plasmatech)
 
 /obj/item/singularityhammer/Initialize(mapload)
 	. = ..()
@@ -510,6 +511,7 @@
 	throwforce = 30
 	w_class = WEIGHT_CLASS_HUGE
 	origin_tech = "combat=4;powerstorage=7"
+	science_reward_types = list(/datum/tech/powerstorage)
 
 /obj/item/mjollnir/Initialize(mapload)
 	. = ..()

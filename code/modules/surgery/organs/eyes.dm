@@ -152,7 +152,7 @@
 	icon_state = "eyes-c-xray"
 	see_in_dark = 8
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
-	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
+	origin_tech = "materials=4;biotech=7;magnets=4"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_URANIUM = 1000, MAT_DIAMOND = 1000, MAT_BLUESPACE = 1000)
 
 /obj/item/organ/internal/eyes/cybernetic/xray/hardened
@@ -160,7 +160,8 @@
 	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. This pair has been hardened for special operations personnel."
 	eye_color = "#FFCC00"
 	emp_proof = TRUE
-	origin_tech = "materials=6;programming=5;biotech=7;magnets=6;syndicate=3"
+	origin_tech = "materials=6;biotech=7;magnets=6;syndicate=3"
+	science_reward_types = list(/datum/tech/biotech)
 
 /obj/item/organ/internal/eyes/cybernetic/thermals
 	name = "thermal eyes"
@@ -171,14 +172,14 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	see_in_dark = 8
-	origin_tech = "materials=5;programming=4;biotech=4;magnets=4;syndicate=1"
+	origin_tech = "materials=5;biotech=4;magnets=4;syndicate=1"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 
 /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
 	name = "hardened thermal eyes"
 	desc = "These cybernetic eye implants will give you thermal vision. Vertical slit pupil included. This pair has been hardened for special operations personnel."
 	emp_proof = TRUE
-	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
+	origin_tech = "materials=6;biotech=6;magnets=6;syndicate=3"
 
 /obj/item/organ/internal/eyes/cybernetic/scope
 	name = "\improper Kaleido Optics eyes"
@@ -186,7 +187,7 @@
 	icon_state = "eyes-c-kaleido"
 	eye_color = "#6f00ff"
 	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
-	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
+	origin_tech = "materials=5;biotech=4;magnets=4"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 	var/scope_range = 0.8 //Only used in initialize. Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
 	var/active = FALSE
@@ -210,7 +211,7 @@
 	name = "\improper Hardened Kaleido Optics eyes"
 	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active. This pair has been hardened for special operations personnel, and has enhanced zoom functionality."
 	flash_protect = FLASH_PROTECTION_SENSITIVE
-	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
+	origin_tech = "materials=6;biotech=6;magnets=6;syndicate=3"
 	scope_range = 1.25
 	emp_proof = TRUE
 

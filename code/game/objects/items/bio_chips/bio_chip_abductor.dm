@@ -4,6 +4,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "implant"
 	origin_tech = "materials=2;biotech=7;magnets=4;bluespace=4;abductor=5"
+	science_reward_types = list(/datum/tech/biotech)
 	implant_data = /datum/implant_fluff/abductor
 	implant_state = "implant-alien"
 

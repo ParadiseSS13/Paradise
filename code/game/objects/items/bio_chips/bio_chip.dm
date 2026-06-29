@@ -8,7 +8,7 @@
 	name = "bio-chip"
 	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
-	origin_tech = "materials=2;biotech=3;programming=2"
+	origin_tech = "materials=2;biotech=3"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	flags = DROPDEL  // By default, don't let implants be harvestable.
 

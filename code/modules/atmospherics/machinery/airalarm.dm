@@ -1248,7 +1248,7 @@ Just an object used in constructing air alarms
 	desc = "Looks like a circuit. Probably is."
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
-	origin_tech = "engineering=2;programming=1"
+	origin_tech = "engineering=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
 #undef AALARM_PRESET_HUMAN

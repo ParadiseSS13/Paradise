@@ -39,7 +39,7 @@
 	name = "Medical HUD implant"
 	desc = "These cybernetic eye implants will display a medical HUD over everything you see."
 	icon_state = "eye_implant_medical"
-	origin_tech = "materials=4;programming=4;biotech=4"
+	origin_tech = "materials=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
 	HUD_type = DATA_HUD_MEDICAL_ADVANCED
 
@@ -55,7 +55,7 @@
 	name = "Employment HUD implant"
 	desc = "These cybernetic eye implants will display an employment HUD over everything you see."
 	icon_state = "eye_implant_skill"
-	origin_tech = "materials=4;programming=4;biotech=3"
+	origin_tech = "materials=4;biotech=3"
 	aug_message = "Employment records pop up next to everyone. So many cases of surgical malpractice..."
 	HUD_type = DATA_HUD_SECURITY_BASIC
 
@@ -63,7 +63,7 @@
 	name = "Security HUD implant"
 	desc = "These cybernetic eye implants will display a security HUD over everything you see."
 	icon_state = "eye_implant_security"
-	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
+	origin_tech = "materials=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 

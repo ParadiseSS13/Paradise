@@ -273,7 +273,6 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/vendor
 	board_name = "Booze-O-Mat Vendor"
 	board_type = "machine"
-	origin_tech = "programming=1"
 	materials = list(MAT_GLASS = 750, MAT_METAL = 250)
 	build_path = /obj/machinery/economy/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
@@ -375,7 +374,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/smes
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=3;engineering=3"
+	origin_tech = "powerstorage=3;engineering=3"
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/cell = 5,
@@ -386,7 +385,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/smes/transformer
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=3;engineering=3"
+	origin_tech = "powerstorage=3;engineering=3"
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/capacitor = 1)
@@ -396,7 +395,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/emitter
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=4;engineering=4"
+	origin_tech = "powerstorage=4;engineering=4"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -406,7 +405,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/compressor
 	board_type = "machine"
-	origin_tech = "programming=4;powerstorage=4;engineering=4"
+	origin_tech = "powerstorage=4;engineering=4"
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/manipulator = 6)
@@ -416,7 +415,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/turbine
 	board_type = "machine"
-	origin_tech = "programming=4;powerstorage=4;engineering=4"
+	origin_tech = "powerstorage=4;engineering=4"
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/capacitor = 6)
@@ -426,7 +425,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/unary/thermomachine
 	board_type = "machine"
-	origin_tech = "programming=3;plasmatech=3"
+	origin_tech = "plasmatech=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/micro_laser = 2,
@@ -438,7 +437,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/space_heater
 	board_type = "machine"
-	origin_tech = "programming=3;plasmatech=3"
+	origin_tech = "plasmatech=3"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/capacitor = 1,
@@ -449,7 +448,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/electrolyzer
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=3"
+	origin_tech = "engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stock_parts/matter_bin = 2,
@@ -472,7 +471,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/nuclear_centrifuge
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
+	origin_tech = "engineering=4"
 	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 4,
@@ -483,7 +482,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/nuclear_rod_fabricator
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
+	origin_tech = "engineering=4"
 	materials = list(MAT_GOLD = 1000, MAT_GLASS = 1000)
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,
@@ -515,7 +514,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/snow_machine
 	board_type = "machine"
-	origin_tech = "programming=2;materials=2"
+	origin_tech = "materials=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1)
@@ -525,7 +524,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/biogenerator
 	board_type = "machine"
-	origin_tech = "programming=2;biotech=3;materials=3"
+	origin_tech = "biotech=3;materials=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -537,7 +536,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/plantgenes
 	board_type = "machine"
-	origin_tech = "programming=3;biotech=3"
+	origin_tech = "biotech=3"
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
@@ -551,7 +550,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/seed_extractor
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -561,7 +559,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/hydroponics/constructable
 	board_type = "machine"
-	origin_tech = "programming=1;biotech=2"
+	origin_tech = "biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -572,7 +570,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/kitchen_machine/microwave
 	board_type = "machine"
-	origin_tech = "programming=2;magnets=2"
+	origin_tech = "magnets=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 2,
@@ -583,7 +581,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/cooking/deepfryer
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stock_parts/capacitor = 1,
@@ -594,7 +591,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/gibber
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -604,7 +601,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/tesla_coil
 	board_type = "machine"
-	origin_tech = "programming=3;magnets=3;powerstorage=3"
+	origin_tech = "magnets=3;powerstorage=3"
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -613,7 +610,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/grounding_rod
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=3;magnets=3;plasmatech=2"
+	origin_tech = "powerstorage=3;magnets=3;plasmatech=2"
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -622,7 +619,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/processor
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -632,7 +628,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "service"
 	build_path = /obj/machinery/recycler
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -642,13 +638,11 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/washing_machine
 	board_type = "machine"
-	origin_tech = "programming=1"
 
 /obj/item/circuitboard/smartfridge
 	board_name = "Smartfridge"
 	build_path = /obj/machinery/smartfridge
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1)
 	var/static/list/fridge_names_paths = list(
@@ -693,7 +687,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/monkey_recycler
 	board_type = "machine"
-	origin_tech = "programming=1;biotech=2"
+	origin_tech = "biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -703,7 +697,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/hologram/holopad
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -712,7 +705,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/chem_dispenser
 	board_type = "machine"
-	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
+	origin_tech = "materials=4;plasmatech=4;biotech=3"
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/capacitor = 1,
@@ -726,7 +719,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/chem_master
 	board_type = "machine"
-	origin_tech = "materials=3;programming=2;biotech=3"
+	origin_tech = "materials=3;biotech=3"
 	req_components = list(
 							/obj/item/reagent_containers/glass/beaker = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -757,7 +750,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/chem_heater
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;biotech=2"
+	origin_tech = "engineering=2;biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1)
@@ -788,7 +781,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/r_n_d/scientific_analyzer
 	board_type = "machine"
-	origin_tech = "magnets=2;engineering=2;programming=2"
+	origin_tech = "magnets=2;engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -799,7 +792,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/autolathe
 	board_type = "machine"
-	origin_tech = "engineering=2;programming=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 3,
 							/obj/item/stock_parts/manipulator = 1,
@@ -818,7 +811,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/r_n_d/protolathe
 	board_type = "machine"
-	origin_tech = "engineering=2;programming=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 2,
@@ -866,7 +859,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/r_n_d/circuit_imprinter
 	board_type = "machine"
-	origin_tech = "engineering=2;programming=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -877,7 +870,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/port_gen/pacman
 	board_type = "machine"
-	origin_tech = "programming=2;powerstorage=3;plasmatech=3;engineering=3"
+	origin_tech = "powerstorage=3;plasmatech=3;engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1,
@@ -887,19 +880,18 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/pacman/super
 	board_name = "SUPERPACMAN-type Generator"
 	build_path = /obj/machinery/power/port_gen/pacman/super
-	origin_tech = "programming=3;powerstorage=4;engineering=4"
+	origin_tech = "powerstorage=4;engineering=4"
 
 /obj/item/circuitboard/pacman/mrs
 	board_name = "MRSPACMAN-type Generator"
 	build_path = /obj/machinery/power/port_gen/pacman/mrs
-	origin_tech = "programming=3;powerstorage=4;engineering=4;plasmatech=4"
+	origin_tech = "powerstorage=4;engineering=4;plasmatech=4"
 
 /obj/item/circuitboard/rdserver
 	board_name = "R&D Server"
 	icon_state = "science"
 	build_path = /obj/machinery/r_n_d/server
 	board_type = "machine"
-	origin_tech = "programming=3"
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stock_parts/scanning_module = 1)
@@ -909,7 +901,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/mecha_part_fabricator
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -921,7 +913,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/clonepod
 	board_type = "machine"
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stock_parts/scanning_module = 1,
@@ -934,7 +926,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/clonescanner
 	board_type = "machine"
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stock_parts/micro_laser = 1,
@@ -946,7 +938,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 	req_components = list(/obj/item/stock_parts/scanning_module = 1,
 						/obj/item/stock_parts/manipulator = 1,
 						/obj/item/stock_parts/micro_laser = 1,
@@ -958,7 +950,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/mech_bay_recharge_port
 	board_type = "machine"
-	origin_tech = "programming=3;powerstorage=3;engineering=3"
+	origin_tech = "powerstorage=3;engineering=3"
 	req_components = list(
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stock_parts/capacitor = 5)
@@ -968,7 +960,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/teleport/hub
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=4;bluespace=4;materials=4"
+	origin_tech = "engineering=4;bluespace=4;materials=4"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 3,
 							/obj/item/stock_parts/matter_bin = 1)
@@ -978,7 +970,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/teleport/station
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4;bluespace=4;plasmatech=3"
+	origin_tech = "engineering=4;bluespace=4;plasmatech=3"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 2,
@@ -989,7 +981,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/teleport/perma
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=4;bluespace=4;materials=4"
+	origin_tech = "engineering=4;bluespace=4;materials=4"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 3,
 							/obj/item/stock_parts/matter_bin = 1)
@@ -1009,7 +1001,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/telepad
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=3;plasmatech=4;bluespace=4"
+	origin_tech = "engineering=3;plasmatech=4;bluespace=4"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 1,
@@ -1021,7 +1013,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/quantumpad
 	board_type = "machine"
-	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4"
+	origin_tech = "engineering=3;plasmatech=3;bluespace=4"
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 1,
 							/obj/item/stock_parts/capacitor = 1,
@@ -1033,7 +1025,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/sleeper
 	board_type = "machine"
-	origin_tech = "programming=3;biotech=2;engineering=3"
+	origin_tech = "biotech=2;engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -1055,7 +1047,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/bodyscanner
 	board_type = "machine"
-	origin_tech = "programming=3;biotech=2;engineering=3"
+	origin_tech = "biotech=2;engineering=3"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stack/cable_coil = 2,
@@ -1066,7 +1058,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	build_path = /obj/machinery/atmospherics/unary/cryo_cell
 	board_type = "machine"
-	origin_tech = "programming=4;biotech=3;engineering=4;plasmatech=3"
+	origin_tech = "biotech=3;engineering=4;plasmatech=3"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1,
@@ -1078,7 +1070,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	build_path = /obj/machinery/pandemic
 	req_components = list(/obj/item/stock_parts/manipulator = 1, /obj/item/stock_parts/micro_laser = 1)
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 
 /obj/item/circuitboard/cell_charger
 	board_name = "Cell Charger"
@@ -1104,7 +1096,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/anomaly_refinery
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=4;"
+	origin_tech = "engineering=4;"
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stack/sheet/glass = 1,
@@ -1117,7 +1109,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/tcomms/relay
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;bluespace=2"
+	origin_tech = "engineering=2;bluespace=2"
 	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/tcomms/core
@@ -1125,7 +1117,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/tcomms/core
 	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
+	origin_tech = "engineering=2"
 	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 // End telecomms circuit boards
 
@@ -1134,7 +1126,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/salvage_redemption
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/scanning_module = 3,
@@ -1145,7 +1137,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/mineral/smart_hopper
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/matter_bin = 3,
@@ -1156,7 +1148,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/magma_crucible
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=4"
+	origin_tech = "engineering=4"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/micro_laser = 2,
@@ -1168,7 +1160,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/smithing/casting_basin
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=4"
+	origin_tech = "engineering=4"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -1180,7 +1172,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/smithing/power_hammer
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=4"
+	origin_tech = "engineering=4"
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 4,
 							/obj/item/stack/sheet/plasteel = 1)
@@ -1190,7 +1182,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/smithing/lava_furnace
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=4"
+	origin_tech = "engineering=4"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 4,
 							/obj/item/assembly/igniter = 1)
@@ -1200,7 +1192,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/smithing/kinetic_assembler
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=4"
+	origin_tech = "engineering=4"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/manipulator = 3,
@@ -1211,7 +1203,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/smithing/scientific_assembler
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=4"
+	origin_tech = "engineering=4"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/manipulator = 3,
@@ -1222,7 +1214,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/mineral/ore_redemption
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=2"
+	origin_tech = "engineering=2"
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/matter_bin = 1,
@@ -1243,7 +1235,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "supply"
 	build_path = /obj/machinery/mineral/equipment_vendor
 	board_type = "machine"
-	origin_tech = "programming=1;engineering=3"
+	origin_tech = "engineering=3"
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/matter_bin = 3)
@@ -1267,7 +1259,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/economy/arcade/claw
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -1279,7 +1270,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/prize_counter
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -1291,7 +1281,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/gameboard
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
@@ -1302,7 +1291,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	build_path = /obj/machinery/economy/merch
 	board_type = "machine"
-	origin_tech = "programming=1"
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1)
@@ -1336,7 +1324,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/ai_node/processing_node
 	board_type = "machine"
-	origin_tech = "programming=4"
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 2,
@@ -1351,7 +1338,6 @@ to destroy them and players will be able to make replacements.
 	icon_state = "science"
 	build_path = /obj/machinery/ai_node/network_node
 	board_type = "machine"
-	origin_tech = "programming=4"
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 250)
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 2,
@@ -1365,7 +1351,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "generic"
 	board_type = "machine"
 	build_path = /obj/machinery/autochef
-	origin_tech = "programming=3;bluespace=3;materials=3"
+	origin_tech = "bluespace=3;materials=3"
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/micro_laser = 1,
@@ -1377,7 +1363,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (DNA analyzer)"
 	build_path = /obj/machinery/dnaforensics
 	board_type = "machine"
-	origin_tech = "programming=2;combat=2"
+	origin_tech = "combat=2"
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/manipulator = 1)
@@ -1387,7 +1373,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Microscope)"
 	build_path = /obj/machinery/microscope
 	board_type = "machine"
-	origin_tech = "programming=2;combat=2"
+	origin_tech = "combat=2"
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stack/sheet/glass = 1)

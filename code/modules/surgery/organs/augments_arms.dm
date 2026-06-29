@@ -375,7 +375,8 @@
 	name = "combat cybernetics implant"
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm."
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
-	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6"
+	science_reward_types = list(/datum/tech/combat)
 	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
 
 /obj/item/organ/internal/cyberimp/arm/combat/Initialize(mapload)
@@ -401,7 +402,7 @@
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	icon_state = "toolkit_surgical"
 	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/fix_o_vein/augment, /obj/item/surgicaldrill/augment)
-	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
+	origin_tech = "materials=3;engineering=3;biotech=3;magnets=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/dufflebag_med)
 	augment_icon = "toolkit_med"
 	do_extra_render = TRUE

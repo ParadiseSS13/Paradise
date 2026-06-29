@@ -4,7 +4,7 @@
 	It can be installed into a cyborg shell, AI core, mech, spiderbot, or an Integrated Robotic Chassis' chest cavity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
-	origin_tech = "biotech=2;programming=3;engineering=2"
+	origin_tech = "biotech=2;engineering=2"
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	new_attack_chain = TRUE
 
@@ -305,7 +305,7 @@
 	name = "\improper Syndicate Man-Machine Interface"
 	desc = "The Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's inside. Cyborgs, mechs, spiderbots, or IRCs made with this MMI will be slaved to the owner. Does not fit into NT AI cores. \
 	Cyborgs will appear to be linked to an AI (if present). If someone attempts to detonate the cyborg, it will automatically block the attempt and then disconnect from the AI. No emagged equipment is provided."
-	origin_tech = "biotech=4;programming=4;syndicate=2"
+	origin_tech = "biotech=4;syndicate=2"
 	syndiemmi = TRUE
 	mmi_item_name = "Syndicate Man-Machine Interface"
 	extended_desc = "Before the development of the mindslave implant, the mind-controlling technology was first prototyped using existing MMI systems. The unfettered access given to the user's brain made the task of delivering the memetic payloads trivial, allowing for brainwashing techniques to be perfected before moving on to a miniaturised implant. \

@@ -169,7 +169,7 @@
 	desc = "<I>Plumus Locomotus</I>: The beginning of the great walk."
 	icon_state = "walkingmushroom"
 	filling_color = "#9370DB"
-	origin_tech = "biotech=4;programming=5"
+	origin_tech = "biotech=4"
 	tastes = list("walking mushroom" = 1, "motion" = 1)
 	can_distill = FALSE
 

@@ -1,5 +1,8 @@
 /obj/machinery/computer/science_collector/
 	var/obj/item/disk/tech_disk/inserted_disk
+	/// Used to determine what reward item is needed to increase the max level
+	var/datum/tech/science_type
+	var/list/redeemed_reward_items = list()
 	var/max_level_increase = 0
 	var/list/thresholds = list(
 		SCIENCE_POINTS_FOR_LEVEL_2,
@@ -19,7 +22,32 @@
 		used.forceMove(src)
 		inserted_disk = used
 		return ITEM_INTERACT_COMPLETE
+	else if(try_redeem_reward_item(used)) // on sucessful redeem
+		return ITEM_INTERACT_COMPLETE
 	return ..()
+
+/obj/machinery/computer/science_collector/proc/try_redeem_reward_item(obj/item/used)
+	if(!istype(science_type, /datum/tech/)) // you forgot to set this
+		log_debug("Science type not set on [src]")
+		return FALSE
+
+	if(!used.science_reward_types.len) // if its not a reward item
+		return FALSE
+
+	if(used in redeemed_reward_items) // if the item has already been redeemed here
+		atom_say("Error: This item has already been scanned.")
+		return FALSE
+
+	if(!(science_type in used.science_reward_types)) // if the item is a reward item, but of the wrong type
+		atom_say("Error: Unknown object.")
+		return FALSE
+
+	// if the used item is a reward for this machine
+	max_level_increase++;
+	redeemed_reward_items += used
+	atom_say("Item sucessfully scanned, capabilities improved.")
+
+	return TRUE
 
 /obj/machinery/computer/science_collector/proc/load_data_onto_disk(datum/tech/tech_to_load, data_points)
 	if(!inserted_disk)

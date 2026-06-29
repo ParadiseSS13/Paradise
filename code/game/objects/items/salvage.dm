@@ -53,7 +53,7 @@
 
 /obj/item/salvage/ruin/nanotrasen/Initialize(mapload)
 	. = ..()
-	origin_tech = pick("combat=5", "materials=5", "engineering=5", "biotech=5", "powerstorage=5", "programming=5")
+	origin_tech = pick("combat=5", "materials=5", "engineering=5", "biotech=5", "powerstorage=5")
 
 /obj/item/salvage/ruin/carp
 	name = "carp scales"

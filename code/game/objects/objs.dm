@@ -2,6 +2,8 @@
 	animate_movement = SLIDE_STEPS
 	/// Used by R&D to determine what research bonuses it grants.
 	var/origin_tech = null
+	/// Used as a replacement for origin_tech. Populate this with `datum/tech/` to allow upgrading the science gathering machine.
+	var/list/science_reward_types = list()
 	/// A list of otherwise restricted /datum/species type paths that are permitted to wear this item.
 	var/list/species_exception = null
 	/// Can this object cut?

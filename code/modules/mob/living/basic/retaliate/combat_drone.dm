@@ -144,6 +144,10 @@
 	var/list/options = subtypesof(/obj/item/circuitboard/random_tech_level)
 	for(var/i in 1 to num_boards)
 		var/obj/item/circuitboard/random_tech_level/board = pick_n_take(options)
+		if(board.is_rare)
+			if(prob(80))
+				new /obj/item/circuitboard/nonfunctional(T)
+				continue
 		new board(T)
 
 // Becomes a board with a random level in the specified tech
@@ -153,14 +157,18 @@
 	var/lower_bound = 3
 	/// Upper bound of random tech level
 	var/upper_bound = 6
+	/// Used for the science rework, gives the board a chance to not spawn, as this enemy isnt truely a reward item worthy enemy
+	var/is_rare = FALSE
 
 /obj/item/circuitboard/random_tech_level/Initialize(mapload)
 	. = ..()
-	origin_tech += "[rand(lower_bound, upper_bound)]"
+	if(!is_rare)
+		origin_tech += "[rand(lower_bound, upper_bound)]"
 
 /obj/item/circuitboard/random_tech_level/motherboard
 	name = "Drone CPU motherboard"
-	origin_tech = "programming="
+	science_reward_types = list(/datum/tech/programming)
+	is_rare = TRUE
 
 /obj/item/circuitboard/random_tech_level/interface
 	name = "Drone neural interface"

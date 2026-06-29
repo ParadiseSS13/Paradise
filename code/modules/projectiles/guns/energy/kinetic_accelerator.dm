@@ -407,7 +407,7 @@
 	desc = "An upgrade for kinetic accelerators."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
-	origin_tech = "programming=2;materials=2;magnets=4"
+	origin_tech = "materials=2;magnets=4"
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner

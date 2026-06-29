@@ -4,7 +4,6 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"
 	inhand_icon_state = "electronic"
-	origin_tech = "programming=2"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_GLASS = 1000)
 	usesound = 'sound/items/deconstruct.ogg'

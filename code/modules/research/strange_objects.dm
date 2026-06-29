@@ -58,7 +58,7 @@
 	)
 
 	// Assign it a random tech level
-	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming")
+	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets")
 	origin_tech = "[pick(possible_techs)]=[rand(2, 5)]"
 
 

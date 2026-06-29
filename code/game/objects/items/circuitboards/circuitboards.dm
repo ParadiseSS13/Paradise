@@ -8,7 +8,7 @@
 	desc = "A monitor board whose type can be changed when screwed."
 	icon_state = "security"
 	build_path = /obj/machinery/computer/security
-	origin_tech = "programming=2;combat=2"
+	origin_tech = "combat=2"
 	var/static/list/monitor_names_paths = list(
 							"Camera Monitor" = /obj/machinery/computer/security,
 							"Wooden TV" = /obj/machinery/computer/security/wooden_tv,
@@ -101,19 +101,18 @@
 	board_name = "Xenobiology Console"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
-	origin_tech = "programming=3;biotech=3"
+	origin_tech = "biotech=3"
 
 /obj/item/circuitboard/aicore
 	board_name = "AI Core"
 	icon_state = "science"
-	origin_tech = "programming=3"
 	board_type = "other"
 
 /obj/item/circuitboard/aiupload
 	board_name = "AI Upload"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/aiupload
-	origin_tech = "programming=4;engineering=4"
+	origin_tech = "engineering=4"
 
 /obj/item/circuitboard/aiupload_broken
 	board_name = "AI Upload"
@@ -124,7 +123,7 @@
 	board_name = "Cyborg Upload"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/borgupload
-	origin_tech = "programming=4;engineering=4"
+	origin_tech = "engineering=4"
 
 /obj/item/circuitboard/nonfunctional
 	board_name = "destroyed"
@@ -135,25 +134,24 @@
 	board_name = "Medical Records"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/med_data
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 
 /obj/item/circuitboard/scan_consolenew
 	board_name = "DNA Machine"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/scan_consolenew
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 
 /obj/item/circuitboard/communications
 	board_name = "Communications Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/communications
-	origin_tech = "programming=3;magnets=3"
+	origin_tech = "magnets=3"
 
 /obj/item/circuitboard/card
 	board_name = "ID Computer"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/card
-	origin_tech = "programming=3"
 
 /obj/item/circuitboard/card/minor
 	board_name = "Dept ID Computer"
@@ -197,13 +195,13 @@
 	board_name = "Teleporter Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/teleporter
-	origin_tech = "programming=3;bluespace=3;plasmatech=3"
+	origin_tech = "bluespace=3;plasmatech=3"
 
 /obj/item/circuitboard/secure_data
 	board_name = "Security Records"
 	icon_state = "security"
 	build_path = /obj/machinery/computer/secure_data
-	origin_tech = "programming=2;combat=2"
+	origin_tech = "combat=2"
 
 /obj/item/circuitboard/stationalert_engineering
 	board_name = "Station Alert Console - Engineering"
@@ -234,49 +232,44 @@
 	board_name = "Robotics Control Console"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/robotics
-	origin_tech = "programming=3"
 
 /obj/item/circuitboard/drone_control
 	board_name = "Drone Control"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/drone_control
-	origin_tech = "programming=3"
 
 /obj/item/circuitboard/cloning
 	board_name = "Cloning Machine Console"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/cloning
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 
 /obj/item/circuitboard/arcade/battle
 	board_name = "Arcade Battle"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/battle
-	origin_tech = "programming=1"
 
 /obj/item/circuitboard/arcade/orion_trail
 	board_name = "Orion Trail"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/orion_trail
-	origin_tech = "programming=1"
 
 /obj/item/circuitboard/arcade/recruiter
 	board_name = "Nanotrasen Recruiter Simulator"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/recruiter
-	origin_tech = "programming=1"
 
 /obj/item/circuitboard/solar_control
 	board_name = "Solar Control"
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/solar_control
-	origin_tech = "programming=2;powerstorage=2"
+	origin_tech = "powerstorage=2"
 
 /obj/item/circuitboard/powermonitor
 	board_name = "Power Monitor"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/monitor
-	origin_tech = "programming=2;powerstorage=2"
+	origin_tech = "powerstorage=2"
 
 /obj/item/circuitboard/powermonitor/secret
 	board_name = "Outdated Power Monitor"
@@ -296,19 +289,19 @@
 	board_name = "Supermatter Monitoring Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/sm_monitor
-	origin_tech = "programming=2;powerstorage=2"
+	origin_tech = "powerstorage=2"
 
 /obj/item/circuitboard/singulo_monitor
 	board_name = "Singularity Monitoring Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/singulo_monitor
-	origin_tech = "programming=2;powerstorage=2"
+	origin_tech = "powerstorage=2"
 
 /obj/item/circuitboard/fission_monitor
 	board_name = "\improper NGCR Monitoring Console"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/fission_monitor
-	origin_tech = "programming=2;powerstorage=2"
+	origin_tech = "powerstorage=2"
 
 // RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
@@ -342,38 +335,35 @@
 	board_name = "Crew Monitoring Computer"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/crew
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 
 /obj/item/circuitboard/mech_bay_power_console
 	board_name = "Mech Bay Power Control Console"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/mech_bay_power_console
-	origin_tech = "programming=3;powerstorage=3"
+	origin_tech = "powerstorage=3"
 
 /obj/item/circuitboard/ai_resource_console
 	board_name = "AI Resource Management Console"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/ai_resource
-	origin_tech = "programming=4"
 
 /obj/item/circuitboard/ordercomp
 	board_name = "Supply Ordering Console"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/supplycomp/public
-	origin_tech = "programming=3"
 
 /obj/item/circuitboard/supplycomp
 	board_name = "Supply Shuttle Console"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/supplycomp
-	origin_tech = "programming=3"
 	var/contraband_enabled = 0
 
 /obj/item/circuitboard/operating
 	board_name = "Operating Computer"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/operating
-	origin_tech = "programming=2;biotech=3"
+	origin_tech = "biotech=3"
 
 /obj/item/circuitboard/shuttle
 	board_name = "Shuttle"
@@ -430,13 +420,12 @@
 	board_name = "Holodeck Control"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/holodeck_control
-	origin_tech = "programming=4"
 
 /obj/item/circuitboard/aifixer
 	board_name = "AI Integrity Restorer"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/aifixer
-	origin_tech = "programming=2;biotech=2"
+	origin_tech = "biotech=2"
 
 /obj/item/circuitboard/area_atmos
 	board_name = "Area Air Control"
@@ -447,7 +436,7 @@
 	board_name = "Telepad Control Console"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/telescience
-	origin_tech = "programming=3;bluespace=3;plasmatech=4"
+	origin_tech = "bluespace=3;plasmatech=4"
 
 /obj/item/circuitboard/satellite_monitor
 	board_name = "Satellite Monitor"
@@ -458,13 +447,13 @@
 	board_name = "Large Tank Control"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/general_air_control/large_tank_control
-	origin_tech = "programming=2;engineering=3;materials=2"
+	origin_tech = "engineering=3;materials=2"
 
 /obj/item/circuitboard/turbine_computer
 	board_name = "Turbine Computer"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/turbine_computer
-	origin_tech = "programming=4;engineering=4;powerstorage=4"
+	origin_tech = "engineering=4;powerstorage=4"
 
 /obj/item/circuitboard/supplycomp/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE

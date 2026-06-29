@@ -124,15 +124,15 @@
 // but make sure we don't spawn the same kind of tech
 // level research paper twice on the ruin.
 GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
-	"materials",
-	"engineering",
-	"plasmatech",
-	"powerstorage",
-	"bluespace",
-	"biotech",
-	"combat",
-	"magnets",
-	"programming"
+	/datum/tech/materials,
+	/datum/tech/engineering,
+	/datum/tech/plasmatech,
+	/datum/tech/powerstorage,
+	/datum/tech/bluespace,
+	/datum/tech/biotech,
+	/datum/tech/combat,
+	/datum/tech/magnets,
+	/datum/tech/programming
 ))
 
 /obj/item/paper/sieged_lab_research_paper
@@ -144,9 +144,13 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 		return INITIALIZE_HINT_QDEL
 
 	var/tech_level = rand(7, 9)
-	var/tech_name = pick_n_take(GLOB.ruin_sieged_lab_research_loot)
-	origin_tech = "[tech_name]=[tech_level]"
-	name = "research notes - [tech_name] [tech_level]"
+	var/chosen_tech = pick_n_take(GLOB.ruin_sieged_lab_research_loot)
+	var/datum/tech/reward_tech = new chosen_tech
+	var/part_of_science_rework = (chosen_tech in list(/datum/tech/programming))
+	if(!part_of_science_rework) // science rework, this is temporary
+		origin_tech = "[reward_tech.name]=[tech_level]"
+	name = "research notes - [reward_tech.name][(part_of_science_rework)? "" : " [tech_level]"]"
+	science_reward_types = list(chosen_tech)
 
 /obj/effect/spawner/random/sieged_lab/research_paper
 	name = "sieged lab loot research paper spawner"

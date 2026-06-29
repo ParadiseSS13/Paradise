@@ -472,7 +472,7 @@
 	icon_state = "door_electronics"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
-	origin_tech = "engineering=2;programming=1"
+	origin_tech = "engineering=2"
 	usesound = 'sound/items/deconstruct.ogg'
 	var/destroyed = FALSE
 	/// Restricts the sign to bar access if TRUE

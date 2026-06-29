@@ -403,6 +403,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
+	science_reward_types = list(/datum/tech/combat)
 	execution_speed = 2 SECONDS
 
 /obj/item/gun/energy/laser/instakill/examine(mob/user)

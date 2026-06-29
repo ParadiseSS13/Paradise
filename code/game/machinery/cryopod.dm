@@ -167,12 +167,10 @@
 /obj/item/circuitboard/cryopodcontrol
 	board_name = "Cryogenic Oversight Console"
 	build_path = "/obj/machinery/computer/cryopod"
-	origin_tech = "programming=1"
 
 /obj/item/circuitboard/robotstoragecontrol
 	board_name = "Robotic Storage Console"
 	build_path = "/obj/machinery/computer/cryopod/robot"
-	origin_tech = "programming=1"
 
 //Cryopods themselves.
 /obj/machinery/cryopod
@@ -736,7 +734,7 @@
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return TRUE
-			
+
 	return FALSE
 
 /// Immeditely teleport a human or robot to cryo and then despawn them.

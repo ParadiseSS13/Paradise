@@ -52,7 +52,7 @@
 	var/obj/item/r_hand_obj = null
 	implant_overlay = null
 	slot = "brain_antidrop"
-	origin_tech = "materials=4;programming=5;biotech=4"
+	origin_tech = "materials=4;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
@@ -130,7 +130,7 @@
 /obj/item/organ/internal/cyberimp/brain/anti_drop/hardened
 	name = "Hardened Anti-drop implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
-	origin_tech = "materials=6;programming=5;biotech=5"
+	origin_tech = "materials=6;biotech=5"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 1000)
 	emp_proof = TRUE
 
@@ -139,7 +139,7 @@
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when fatigued. Incompatible with the Neural Jumpstarter."
 	icon_state = "brain_implant_rebooter"
 	slot = "brain_antistun"
-	origin_tech = "materials=5;programming=4;biotech=5"
+	origin_tech = "materials=5;biotech=5"
 	/// How much we multiply the owners stamina regen block modifier by.
 	var/stamina_crit_time_multiplier = 0.4
 	/// Are we currently modifying somoeones stamina regen block modifier? If so, we will want to undo it on removal.
@@ -184,7 +184,7 @@
 /obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	name = "Hardened CNS Rebooter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
-	origin_tech = "materials=6;programming=5;biotech=5"
+	origin_tech = "materials=6;biotech=5"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep
@@ -192,7 +192,7 @@
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	implant_color = "#0356fc"
 	slot = "brain_antistun" //one or the other not both.
-	origin_tech = "materials=5;programming=4;biotech=5"
+	origin_tech = "materials=5;biotech=5"
 	var/cooldown = FALSE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/on_life()
@@ -228,7 +228,7 @@
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened
 	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
-	origin_tech = "materials=6;programming=5;biotech=5"
+	origin_tech = "materials=6;biotech=5"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
@@ -299,7 +299,7 @@
 	desc = "This cybernetic brain implant will allow you to interface with electrical currents to sense the purpose of wires."
 	implant_color = "#fff782"
 	slot = "brain_wire_interface"
-	origin_tech = "materials=5;programming=4;biotech=4"
+	origin_tech = "materials=5;biotech=4"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 400, MAT_GOLD = 400)
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/insert(mob/living/carbon/M, special = FALSE)
@@ -320,7 +320,7 @@
 /obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	name = "Hardened Wire interface implant"
 	desc = "This wire interface implant is actually wireless, to avoid issues with electromagnetic pulses."
-	origin_tech = "materials=6;programming=6;biotech=6"
+	origin_tech = "materials=6;biotech=6"
 	emp_proof = TRUE
 
 // An implant that injects you with mephedrone on demand, acting like a bootleg sandevistan
@@ -705,7 +705,7 @@
 	desc = "This implant will attempt to revive and heal you out of critical condition or death. For the faint of heart!"
 	icon_state = "reviver_implant"
 	implant_overlay = null
-	origin_tech = "materials=5;programming=5;biotech=6"
+	origin_tech = "materials=5;biotech=6"
 	materials = list(MAT_METAL = 800, MAT_GLASS = 800, MAT_GOLD = 300, MAT_URANIUM = 500)
 	slot = "heartdrive"
 	augment_icon = "reviver"
@@ -950,7 +950,7 @@
 	name = "Reactive Repair Implant"
 	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
 	implant_color = "#0ac0d8"
-	origin_tech = "materials=4;programming=4;biotech=4;magnets=4;engineering=4"
+	origin_tech = "materials=4;biotech=4;magnets=4;engineering=4"
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	slot = "stomach" //Can't have a nutriment pump with it.
 	requires_machine_person = TRUE
@@ -978,7 +978,7 @@
 	name = "IPC ER-OR Joint Implant"
 	desc = "This is a basetype. Notify a coder!"
 	implant_color = "#eeff00"
-	origin_tech = "materials=5;programming=4;biotech=4"
+	origin_tech = "materials=5;biotech=4"
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	slot = "joints"
 	requires_machine_person = TRUE
@@ -987,7 +987,7 @@
 	name = "Magnetic Joints Implant"
 	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and fluid movement."
 	implant_color = "#670db1"
-	origin_tech = "materials=4;programming=4;biotech=4;magnets=4;engineering=4"
+	origin_tech = "materials=4;biotech=4;magnets=4;engineering=4"
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/emp_act(severity)
 	if(!owner || emp_proof)
@@ -1011,7 +1011,7 @@
 	name = "Sealed Joints Implant"
 	desc = "This implant seals and reinforces IPC joints, securing the limbs better for industrial work, though prone to locking up."
 	implant_color = "#b10d0d"
-	origin_tech = "materials=4;programming=4;biotech=4;engineering=4;combat=4;"
+	origin_tech = "materials=4;biotech=4;engineering=4;combat=4;"
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/emp_act(severity)
 	if(!owner || emp_proof)
@@ -1035,7 +1035,7 @@
 	name = "Electromagnetic Shielding Implant"
 	desc = "This implant improves the conductivity of the IPC frame, providing partial protection against EMPs."
 	implant_color = "#301beeff"
-	origin_tech = "materials=4;programming=4;biotech=4;engineering=4;combat=4;"
+	origin_tech = "materials=4;biotech=4;engineering=4;combat=4;"
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/emp_shield/insert(mob/living/carbon/M, special = FALSE)
 	..()
@@ -1049,7 +1049,7 @@
 	name = "Experimental Defensive Implant"
 	desc = "This implant deploys experimental nanobots into the IPC chassis to harden joints and provide partial protection against EMPs."
 	implant_color = "#065513ff"
-	origin_tech = "materials=5;programming=5;biotech=5;engineering=5;combat=5;"
+	origin_tech = "materials=5;biotech=5;engineering=5;combat=5;"
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed_and_emp/insert(mob/living/carbon/M, special = FALSE)
 	..()
@@ -1065,7 +1065,7 @@
 	name = "\improper Nanite pacifier"
 	desc = "This implant acts on mindflayer nanobots like smoke does to bees, rendering them significantly more docile."
 	implant_color = COLOR_BLACK
-	origin_tech = "materials=4;programming=4;biotech=5;combat=4;"
+	origin_tech = "materials=4;biotech=5;combat=4;"
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_GOLD = 3000, MAT_PLASMA = 10000)
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/insert(mob/living/carbon/M, special)

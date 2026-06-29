@@ -25,6 +25,7 @@
 	icon_state = "pyro_core"
 	anomaly_type = /obj/effect/anomaly/pyro
 	origin_tech = "plasmatech=7"
+	science_reward_types = list(/datum/tech/plasmatech)
 
 /obj/item/assembly/signaler/anomaly/cryo
 	name = "cryogenic anomaly core"
@@ -32,6 +33,7 @@
 	icon_state = "cryo_core"
 	anomaly_type = /obj/effect/anomaly/cryo
 	origin_tech = "biotech=7"
+	science_reward_types = list(/datum/tech/biotech)
 
 /obj/item/assembly/signaler/anomaly/grav
 	name = "gravitational anomaly core"
@@ -39,6 +41,7 @@
 	icon_state = "grav_core"
 	anomaly_type = /obj/effect/anomaly/grav
 	origin_tech = "magnets=7"
+	science_reward_types = list(/datum/tech/magnets)
 
 /obj/item/assembly/signaler/anomaly/flux
 	name = "flux anomaly core"
@@ -46,12 +49,14 @@
 	icon_state = "flux_core"
 	anomaly_type = /obj/effect/anomaly/flux
 	origin_tech = "powerstorage=7"
+	science_reward_types = list(/datum/tech/powerstorage)
 
 /obj/item/assembly/signaler/anomaly/bluespace
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
 	anomaly_type = /obj/effect/anomaly/bluespace
 	origin_tech = "bluespace=7"
+	science_reward_types = list(/datum/tech/bluespace)
 
 /obj/item/assembly/signaler/anomaly/vortex
 	name = "vortex anomaly core"
@@ -59,6 +64,7 @@
 	icon_state = "vortex_core"
 	anomaly_type = /obj/effect/anomaly/bhole
 	origin_tech = "engineering=7"
+	science_reward_types = list(/datum/tech/engineering)
 
 /obj/item/assembly/signaler/anomaly/random
 	name = "Random anomaly core"

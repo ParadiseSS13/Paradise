@@ -4,7 +4,7 @@
 	icon_state = "door_electronics"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
-	origin_tech = "engineering=2;programming=1"
+	origin_tech = "engineering=2"
 	req_access = list(ACCESS_ENGINE)
 	usesound = 'sound/items/deconstruct.ogg'
 	/// List of accesses currently set
