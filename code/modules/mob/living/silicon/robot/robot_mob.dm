@@ -747,6 +747,8 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		return FALSE
 	modtype = selected_module
 	designation = selected_module
+	if(shell) // Upade the shell name right after choosing a module.
+		real_name = "[real_name] -[designation]"
 	module.add_languages(src)
 	module.add_armor(src)
 	module.add_subsystems_and_actions(src)
@@ -2089,7 +2091,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	shell = TRUE
 	mmi = board // This is to drop the BORIS module when we decontruct a shell.
 	braintype = "AI Shell"
-	name = "[designation] AI Shell [rand(100,999)]"
+	name = "AI Shell [rand(100,999)]"
 	real_name = name
 	GLOB.available_ai_shells |= src
 	if(camera)
