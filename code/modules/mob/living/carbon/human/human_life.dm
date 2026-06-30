@@ -782,6 +782,9 @@
 		nutrition_display.icon_state = null
 		return
 	nutrition_display.icon = dna.species.hunger_icon
+	if(nutrition_hud_override)
+		nutrition_display.icon_state = nutrition_hud_override
+		return
 	switch(nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			nutrition_display.icon_state = "fat"

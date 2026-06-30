@@ -322,6 +322,16 @@
 #define HEALTH_HUD_OVERRIDE_CRIT 1
 #define HEALTH_HUD_OVERRIDE_DEAD 2
 #define HEALTH_HUD_OVERRIDE_HEALTHY 3
+
+// Defines icon states used in /mob/living/carbon/human/proc/handle_nutrition_alerts to override nutrition status
+#define NUTRITION_HUD_OVERRIDE_NONE null
+#define NUTRITION_HUD_OVERRIDE_FAT "fat"
+#define NUTRITION_HUD_OVERRIDE_FULL "full"
+#define NUTRITION_HUD_OVERRIDE_WELL_FED "well_fed"
+#define NUTRITION_HUD_OVERRIDE_FED "fed"
+#define NUTRITION_HUD_OVERRIDE_HUNGRY "hungry"
+#define NUTRITION_HUD_OVERRIDE_STARVING "starving"
+
 // Eye protection
 #define FLASH_PROTECTION_VERYVUNERABLE -4
 #define FLASH_PROTECTION_EXTRA_SENSITIVE -2
