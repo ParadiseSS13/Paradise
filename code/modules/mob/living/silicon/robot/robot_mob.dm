@@ -24,6 +24,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	var/shell = FALSE
 	/// is this shell currently deployed?
 	var/deployed = FALSE
+	/// The AI deployed to a shell.
 	var/mob/living/silicon/ai/mainframe = null
 	var/datum/action/innate/undeployment/undeployment_action = new
 	// HUD stuff.
@@ -200,7 +201,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.turn_off(src, FALSE)
 
-	if(shell) // AI shell.
+	if(shell)
 		var/obj/item/borg/upgrade/ai/board = new(src)
 		make_shell(board)
 
@@ -801,7 +802,6 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	ionpulse = FALSE
 	weapons_unlock = FALSE
 	add_language("Robot Talk", TRUE)
-	revert_shell()
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 	armor = getArmor(arglist(initial(armor)))
@@ -1307,7 +1307,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 
 	if(opened)
 		if(shell) // AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
-			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable ai control!</span>"))
+			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable ai control!"))
 			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
 			undeploy()
 			revert_shell()
@@ -2087,7 +2087,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
 		return FALSE
 	shell = TRUE
-	mmi = board // This is an incredibely scuffed way to do this.
+	mmi = board // This is to drop the BORIS module when we decontruct a shell.
 	braintype = "AI Shell"
 	name = "[designation] AI Shell [rand(100,999)]"
 	real_name = name
@@ -2124,7 +2124,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 			radio.make_syndie()
 		radio.channels = AI.aiRadio.channels
 		for(var/chan in radio.channels)
-			radio.secure_radio_connections[chan] = SSradio.add_object(radio, SSradio.radiochannels[chan],  RADIO_CHAT)
+			radio.secure_radio_connections[chan] = SSradio.add_object(radio, SSradio.radiochannels[chan], RADIO_CHAT)
 
 	diag_hud_set_aishell()
 	undeployment_action.Grant(src)
@@ -2166,3 +2166,4 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 
 /mob/living/silicon/robot/shell
 	shell = TRUE
+	allow_rename = FALSE // This is to prevent someone renaming the shell and causing confusion with it.

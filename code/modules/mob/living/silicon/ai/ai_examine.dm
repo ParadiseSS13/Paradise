@@ -19,7 +19,7 @@
 			msg += "It is non-responsive and displaying the text: \"RUNTIME: Sensory Overload, stack 26/3\".\n"
 		if(deployed_shell)
 			msg += "The wireless networking light is blinking.\n"
-		if(!shunted && !client)
+		if(!shunted && !client && !deployed_shell) // An AI deployed to a shell will always lack a client, but also have a client just in another body.
 			msg += "[src]Core.exe has stopped responding! NTOS is searching for a solution to the problem...\n"
 		msg += "</span>"
 	msg += "</span>"

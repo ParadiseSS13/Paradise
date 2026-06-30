@@ -1366,7 +1366,6 @@
 				return
 			AI.deploy_action.Grant(AI)
 			AI.redeploy_action.Grant(AI)
-			add_verb(AI, /mob/living/silicon/ai/verb/deploy_to_shell) // Now the deploy to shell verb can be funky.
 			to_chat(AI, SPAN_NOTICE("Returning to core..."))
 			AI.controlled_mech = null
 			if(istype(AI.eyeobj))

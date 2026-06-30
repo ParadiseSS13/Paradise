@@ -390,10 +390,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/dat_text = dat.Join("")
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
-/mob/living/silicon/ai/verb/deploy_to_shell(mob/living/silicon/robot/target)
-	set category = "AI Commands"
-	set name = "Deploy to Shell"
-
+/mob/living/silicon/ai/proc/deploy_to_shell(mob/living/silicon/robot/target)
 	if(stat || lacks_power() || control_disabled)
 		to_chat(src, SPAN_DANGER("Wireless networking module is offline."))
 		return
@@ -989,10 +986,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			to_chat(src, SPAN_WARNING("This exosuit has a pilot and cannot be controlled."))
 			return
 		if(M)
-			src.deploy_action.Remove(src)
-			src.redeploy_action.Remove(src)
-			remove_verb(src, /mob/living/silicon/ai/verb/deploy_to_shell) // Deploy to shell has some funky mechanics that i am too lazy to fix, so just I just remove them.
-			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
+			deploy_action.Remove(src)
+			redeploy_action.Remove(src)
+			M.transfer_ai(AI_MECH_HACK, src, usr) // Called on the mech itself.
 
 	else if(href_list["open"])
 		var/mob/target = locate(href_list["open"]) in GLOB.mob_list

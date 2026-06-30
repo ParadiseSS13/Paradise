@@ -78,14 +78,10 @@
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
-		S.ownerDies(FALSE)
-		qdel(s) // If the owner is `destroy()`'d, the soul link is `destroy()`'d
-	ownedSoullinks = null
+		S.ownerDies(gibbed, src)
 	for(var/s in sharedSoullinks)
 		var/datum/soullink/S = s
-		S.sharerDies(FALSE)
-		S.removeSoulsharer(src) // If a sharer is `destroy()`'d, they are simply removed.
-	sharedSoullinks = null
+		S.sharerDies(gibbed, src)
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
