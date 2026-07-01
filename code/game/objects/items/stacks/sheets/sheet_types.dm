@@ -511,6 +511,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 		new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
 		new /datum/stack_recipe("donut box", /obj/item/storage/fancy/donut_box/empty, 1),
 		new /datum/stack_recipe("patch pack", /obj/item/storage/pill_bottle/patch_pack, 2),
+		new /datum/stack_recipe("suture pack", /obj/item/storage/suture_pack, 2),
+		new /datum/stack_recipe("mesh pack", /obj/item/storage/mesh_pack, 2),
 		)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("folder", /obj/item/folder),
