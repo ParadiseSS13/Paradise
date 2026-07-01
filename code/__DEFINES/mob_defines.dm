@@ -323,7 +323,7 @@
 #define HEALTH_HUD_OVERRIDE_DEAD 2
 #define HEALTH_HUD_OVERRIDE_HEALTHY 3
 
-// Defines icon states used in /mob/living/carbon/human/proc/handle_nutrition_alerts to override nutrition status
+// Defines icon states used in `/mob/living/carbon/human/proc/handle_nutrition_alerts` to override nutrition status.
 #define NUTRITION_HUD_OVERRIDE_NONE null
 #define NUTRITION_HUD_OVERRIDE_FAT "fat"
 #define NUTRITION_HUD_OVERRIDE_FULL "full"

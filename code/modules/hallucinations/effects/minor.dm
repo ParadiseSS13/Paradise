@@ -209,7 +209,7 @@
 	if(target.nutrition > NUTRITION_LEVEL_FED)
 		target.nutrition_hud_override = pick(NUTRITION_HUD_OVERRIDE_HUNGRY, NUTRITION_HUD_OVERRIDE_STARVING)
 	else
-		target.nutrition_hud_override = pick(NUTRITION_HUD_OVERRIDE_FAT, NUTRITION_HUD_OVERRIDE_FULL) // You think you're full, but you're not
+		target.nutrition_hud_override = pick(NUTRITION_HUD_OVERRIDE_FAT, NUTRITION_HUD_OVERRIDE_FULL) // You think you're full, but you're not.
 	if(istype(target))
 		target.handle_nutrition_alerts()
 
