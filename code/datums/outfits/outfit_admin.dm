@@ -1559,7 +1559,7 @@
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/viper
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/jackboots
+	shoes = /obj/item/clothing/shoes/combat
 	head = null // will end up being the bandana
 	mask = /obj/item/clothing/mask/bandana/black // will end up being a cigar
 	l_ear = /obj/item/radio/headset/ert/alt/solgov
