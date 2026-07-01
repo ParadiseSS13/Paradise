@@ -79,9 +79,17 @@ export async function reloadByondCache(bundleDir) {
     return;
   }
 
-  const pids = cacheDirs.map((cacheDir) => {
-    return parseInt(cacheDir.split('\\cache\\tmp')[1], 10);
-  });
+  const pids = [];
+
+  for (const cacheDir of cacheDirs) {
+    const pid = parseInt(cacheDir.split('tmp')[1], 10);
+    pids.push(pid);
+
+    const pidFile = cacheDir + '/pid.htm';
+    if (!fs.existsSync(pidFile)) {
+      fs.writeFileSync(pidFile, String(pid), 'utf8');
+    }
+  }
 
   const dssPromise = DreamSeeker.getInstancesByPids(pids);
   // Copy assets

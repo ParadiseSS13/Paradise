@@ -5,6 +5,7 @@
  */
 
 import { exec } from 'node:child_process';
+import os from 'node:os';
 import { promisify } from 'node:util';
 
 import axios, { isAxiosError } from 'axios';
@@ -74,32 +75,9 @@ export class DreamSeeker {
       return instances;
     }
 
-    const command = 'netstat -ano | findstr TCP | findstr 0.0.0.0:0';
-
     try {
-      const { stdout } = await promisify(exec)(command, {
-        // Max buffer of 1MB (default is 200KB)
-        maxBuffer: 1024 * 1024,
-      });
-
-      // Line format:
-      // proto addr mask mode pid
-      const entries = [];
-      const lines = stdout.split('\r\n');
-
-      for (let line of lines) {
-        const words = line.match(/\S+/g);
-        if (!words || words.length === 0) {
-          continue;
-        }
-        const entry = {
-          addr: words[1],
-          pid: parseInt(words[4], 10),
-        };
-        if (pidsToResolve.includes(entry.pid)) {
-          entries.push(entry);
-        }
-      }
+      const entries =
+        os.platform() === 'win32' ? await getWindowsEntries(pidsToResolve) : await getLinuxEntries(pidsToResolve);
 
       const len = entries.length;
       logger.log('found', len, plural('instance', len));
@@ -119,6 +97,68 @@ export class DreamSeeker {
     }
     return instances;
   }
+}
+
+async function getWindowsEntries(pidsToResolve) {
+  const { stdout } = await run('netstat -ano | findstr TCP | findstr 0.0.0.0:0');
+
+  // Line format:
+  // proto addr mask mode pid
+  const entries = [];
+  const lines = stdout.split('\r\n');
+
+  for (let line of lines) {
+    const words = line.match(/\S+/g);
+    if (!words || words.length === 0) {
+      continue;
+    }
+    const entry = {
+      addr: words[1],
+      pid: parseInt(words[4], 10),
+    };
+    if (pidsToResolve.includes(entry.pid)) {
+      entries.push(entry);
+    }
+  }
+  return entries;
+}
+
+async function getLinuxEntries(pidsToResolve) {
+  const { stdout } = await run('ss -tlnp');
+
+  const addrs = [];
+
+  for (const line of stdout.split('\n')) {
+    if (!line.includes('wineserver') || !line.includes('127.0.0.1')) continue;
+
+    const parts = line.trim().split(/\s+/);
+    const addr = parts[3];
+
+    addrs.push(addr);
+  }
+
+  const entries = (
+    await Promise.all(
+      addrs.map(async (addr) => {
+        try {
+          const result = await axios.get(`http://${addr}/pid.htm`, { timeout: 300 });
+
+          const pid = parseInt(result.data, 10);
+          return Number.isNaN(pid) ? null : { pid, addr };
+        } catch {
+          return null;
+        }
+      })
+    )
+  ).filter(Boolean);
+
+  return entries;
+}
+
+async function run(command) {
+  return promisify(exec)(command, {
+    maxBuffer: 1024 * 1024,
+  });
 }
 
 function plural(word, n) {
