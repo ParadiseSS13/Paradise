@@ -191,6 +191,8 @@
 		var/datum/tech/T = path
 		GLOB.rnd_tech_id_to_name[initial(T.id)] = initial(T.name)
 
+	populate_global_drink_lists()
+
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
