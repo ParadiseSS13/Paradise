@@ -37,6 +37,12 @@
 	welcome_sound = 'sound/AI/welcome_diagoras.ogg'
 	voteable = FALSE
 
+/datum/map/omegastation
+	fluff_name = "NSS Legaria"
+	technical_name = "OmegaStation"
+	map_path = "_maps/map_files/stations/omegastation.dmm"
+	max_players_random = 35
+
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
 	technical_name = "test_tiny"
