@@ -56048,7 +56048,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/machinery/computer/arcade/orion_trail{
+/obj/machinery/computer/arcade/lawyer{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,

@@ -70687,6 +70687,9 @@
 "nYN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/computer/arcade/lawyer{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "nYP" = (
@@ -98460,6 +98463,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
+"ubu" = (
+/obj/machinery/computer/arcade/lawyer{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "ubG" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway";
@@ -134741,7 +134750,7 @@ ujf
 sWJ
 qXt
 aHc
-aHc
+bGI
 uUY
 bGI
 ion
@@ -134998,7 +135007,7 @@ ujf
 cPc
 qXt
 aHc
-aHc
+ubu
 kra
 lPS
 bik
@@ -135512,7 +135521,7 @@ ujf
 uKq
 liV
 aHc
-aHc
+byj
 cZR
 oDx
 oDx

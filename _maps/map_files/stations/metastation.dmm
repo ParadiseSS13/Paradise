@@ -3705,6 +3705,10 @@
 /area/station/public/arcade)
 "aGL" = (
 /obj/structure/chair/comfy/black,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aGO" = (
@@ -87112,13 +87116,12 @@
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
 "wuH" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/machinery/camera{
 	c_tag = "Arcade";
 	dir = 6
+	},
+/obj/structure/chair/stool{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -88130,6 +88133,10 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"wJW" = (
+/obj/machinery/computer/arcade/lawyer,
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "wKg" = (
 /obj/structure/closet/l3closet/janitor,
 /obj/machinery/light{
@@ -127090,7 +127097,7 @@ rPt
 aFT
 ajg
 qxS
-alW
+akg
 uZt
 ajg
 aGL
@@ -127604,8 +127611,8 @@ nwU
 aMA
 ajg
 vOl
-akg
-aDY
+alW
+aWv
 ajg
 kEh
 dLF
@@ -127862,8 +127869,8 @@ jbe
 ajg
 qWM
 ajg
-aWv
-ajg
+aiY
+wJW
 wuH
 aEk
 aQv

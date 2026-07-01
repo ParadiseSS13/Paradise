@@ -1130,6 +1130,7 @@
 #include "code\game\machinery\computer\singulo_monitor.dm"
 #include "code\game\machinery\computer\sm_monitor.dm"
 #include "code\game\machinery\computer\station_alert.dm"
+#include "code\game\machinery\computer\arcade_games\lawyersim.dm"
 #include "code\game\machinery\computer\arcade_games\recruiter.dm"
 #include "code\game\machinery\doors\airlock.dm"
 #include "code\game\machinery\doors\airlock_electronics.dm"
