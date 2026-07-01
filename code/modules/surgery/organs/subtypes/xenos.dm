@@ -43,15 +43,15 @@
 	else
 		. += SPAN_NOTICE("You can hijack the latent functions of this organ by using a Hemostat on it.")
 
-/obj/item/organ/internal/alien/attackby__legacy__attackchain(obj/item/hemostat/item, mob/user, params)
-	if(istype(item))
-		if(!hijacked)
-			to_chat(user, SPAN_NOTICE("You slice off the control node of this organ. This organ will now be effective against aliens."))
-		else
-			to_chat(user, SPAN_NOTICE("You reattach the control node of this organ. This organ will now be effective against those who attack the hive."))
-		hijacked = !hijacked
-		return
-	return ..()
+/obj/item/organ/internal/alien/item_interaction(mob/living/user, obj/item/hemostat/used, list/modifiers)
+	if(!istype(used))
+		return ..()
+	if(!hijacked)
+		to_chat(user, SPAN_NOTICE("You slice off the control node of this organ. This organ will now be effective against aliens."))
+	else
+		to_chat(user, SPAN_NOTICE("You reattach the control node of this organ. This organ will now be effective against those who attack the hive."))
+	hijacked = !hijacked
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ/internal/alien/prepare_eat()
 	var/obj/S = ..()
