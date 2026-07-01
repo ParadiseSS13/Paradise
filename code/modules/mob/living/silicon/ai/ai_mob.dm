@@ -147,8 +147,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/allow_teleporter = FALSE
 
 	var/obj/machinery/camera/portable/builtInCamera
-
-	var/obj/structure/ai_core/deactivated/linked_core //For exosuit control
+	/// For exosuit control.
+	var/obj/structure/ai_core/deactivated/linked_core
+	// For shell control.
+	/// The shell an AI is deployed to.
+	var/mob/living/silicon/robot/deployed_shell = null
+	var/datum/action/innate/deploy_shell/deploy_action = new
+	var/datum/action/innate/deploy_last_shell/redeploy_action = new
 
 	/// If our AI doesn't want to be the arrivals announcer, this gets set to FALSE.
 	var/announce_arrivals = TRUE
@@ -224,6 +229,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	additional_law_channels["Holopad"] = ":h"
 
 	aiCamera = new/obj/item/camera/siliconcam/ai_camera(src)
+	deploy_action.Grant(src)
 
 	if(isturf(loc))
 		add_ai_verbs(src)
@@ -297,6 +303,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
+	disconnect_shell()
 	if(malfhacking)
 		deltimer(malfhacking)
 		malfhacking = null
@@ -384,12 +391,88 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/dat_text = dat.Join("")
 	src << browse(dat_text, "window=aialerts&can_close=0")
 
+/mob/living/silicon/ai/proc/deploy_to_shell(mob/living/silicon/robot/target)
+	if(stat || lacks_power() || control_disabled)
+		to_chat(src, SPAN_DANGER("Wireless networking module is offline."))
+		return
+
+	var/list/possible = list()
+
+	for(var/borgie in GLOB.available_ai_shells)
+		var/mob/living/silicon/robot/R = borgie
+		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)))
+			possible += R
+
+
+	if(!LAZYLEN(possible))
+		to_chat(src, SPAN_NOTICE("No usable AI shell beacons detected."))
+		return
+
+	if(!target || !(target in possible)) // If the AI is looking for a new shell, or its pre-selected shell is no longer valid.
+		target = tgui_input_list(usr, "Which body to control?", "AI Shell Deployment", possible)
+
+	if(!target || target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)))
+		return
+
+	else if(mind)
+		soullink(/datum/soullink/sharedbody, src, target)
+		deployed_shell = target
+		target.deploy_init(src)
+		mind.transfer_to(target)
+	diag_hud_set_deployed()
+
+/datum/action/innate/deploy_shell
+	name = "Deploy to AI Shell"
+	desc = "Wirelessly control a specialized cyborg shell."
+	button_icon_state = "ai_shell"
+
+/datum/action/innate/deploy_shell/Trigger()
+	var/mob/living/silicon/ai/AI = owner
+	if(!AI)
+		return
+	AI.deploy_to_shell()
+
+/datum/action/innate/deploy_last_shell
+	name = "Reconnect to shell"
+	desc = "Reconnect to the most recently used AI shell."
+	button_icon_state = "ai_last_shell"
+	var/mob/living/silicon/robot/last_used_shell
+
+/datum/action/innate/deploy_last_shell/Trigger()
+	if(!owner)
+		return
+	if(last_used_shell)
+		var/mob/living/silicon/ai/AI = owner
+		AI.deploy_to_shell(last_used_shell)
+	else
+		Remove(owner) // If the last shell is blown, destroy it.
+
+/// Disconnect the AI from its shell.
+/mob/living/silicon/ai/proc/disconnect_shell()
+	if(deployed_shell) // Forcibly call back AI in event of things such as damage, EMP or power loss.
+		to_chat(src, SPAN_DANGER("Your remote connection has been reset!"))
+		deployed_shell.undeploy()
+	diag_hud_set_deployed()
+
+/mob/living/silicon/ai/proc/spawn_shell()
+	var/obj/shell_landmark
+	for(var/obj/effect/landmark/shell_loc in GLOB.landmarks_list)
+		if(shell_loc.name == "AI Shell")
+			shell_landmark = shell_loc
+
+	var/mob/living/silicon/robot/S = new /mob/living/silicon/robot(shell_landmark.loc)
+	var/obj/item/borg/ai/board = new /obj/item/borg/ai
+	S.make_shell(board)
+
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
 	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
 	for(var/mob/living/silicon/robot/R in connected_robots)
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
+		// This needs to be below the OFFLINE check since shells will always lack a client form the AI's view.
+		else if(R.shell)
+			robot_status = "AI SHELL"
 		else if(!R.cell || R.cell.charge <= 0)
 			robot_status = "DEPOWERED"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
@@ -808,6 +891,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	..()
 	Stun((12 SECONDS) / severity)
 	view_core()
+	disconnect_shell()
 
 /mob/living/silicon/ai/ex_act(severity)
 	..()
@@ -904,7 +988,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			to_chat(src, SPAN_WARNING("This exosuit has a pilot and cannot be controlled."))
 			return
 		if(M)
-			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
+			deploy_action.Remove(src)
+			redeploy_action.Remove(src)
+			M.transfer_ai(AI_MECH_HACK, src, usr) // Called on the mech itself.
 
 	else if(href_list["open"])
 		var/mob/target = locate(href_list["open"]) in GLOB.mob_list
@@ -1459,6 +1545,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!..())
 		return
 	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
+		disconnect_shell() // If the AI is controlling a borg, force the player back to core.
 		if(!mind)
 			to_chat(user, SPAN_WARNING("No intelligence patterns detected."))//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return

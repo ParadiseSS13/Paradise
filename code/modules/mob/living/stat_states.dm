@@ -84,6 +84,13 @@
 			var/datum/spell/spell = S
 			spell.build_all_button_icons()
 
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerRevives(src)
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerRevives(src)
+
 	return TRUE
 
 /mob/living/proc/check_death_method()

@@ -321,6 +321,39 @@
 		else
 			to_chat(user, SPAN_WARNING("The MMI must go in after everything else!"))
 
+	if(istype(W, /obj/item/borg/upgrade/ai))
+		var/obj/item/borg/upgrade/ai/M = W
+		if(check_completion())
+			if(!isturf(loc))
+				to_chat(user, SPAN_WARNING("You cannot install[M], the frame has to be standing on the ground to be perfectly precise!"))
+				return
+			if(!user.drop_item())
+				to_chat(user, SPAN_WARNING("[M] is stuck to your hand!"))
+				return
+			qdel(M)
+			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/shell(get_turf(src))
+
+			if(!aisync)
+				lawsync = FALSE
+				O.connected_ai = null
+			else
+				if(forced_ai)
+					O.connected_ai = forced_ai
+				O.notify_ai(AI_SHELL)
+			if(!lawsync)
+				O.lawupdate = FALSE
+				O.make_laws()
+
+			var/datum/robot_component/cell_component = O.components["power cell"]
+			cell_component.install(chest.cell)
+			chest.cell = null
+			O.locked = panel_locked
+			O.job = "Cyborg"
+			forceMove(O)
+			O.robot_suit = src
+			if(!locomotion)
+				O.lockcharge = TRUE
+				O.update_stamina_hud()
 	if(is_pen(W))
 		to_chat(user, SPAN_WARNING("You need to use a multitool to name [src]!"))
 	return

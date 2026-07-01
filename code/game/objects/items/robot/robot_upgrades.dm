@@ -132,7 +132,7 @@
 	if(!R.allow_rename)
 		to_chat(R, SPAN_WARNING("Internal diagnostic error: incompatible upgrade module detected."))
 		return
-	R.notify_ai(3, R.name, heldname)
+	R.notify_ai(RENAME, R.name, heldname)
 	R.name = heldname
 	R.custom_name = heldname
 	R.real_name = heldname
@@ -160,7 +160,7 @@
 	R.set_stat(CONSCIOUS)
 	GLOB.dead_mob_list -= R //please never forget this ever kthx
 	GLOB.alive_mob_list += R
-	R.notify_ai(1)
+	R.notify_ai(NEW_BORG)
 
 	return TRUE
 
@@ -552,3 +552,29 @@
 		/obj/item/reagent_containers/spray/cleaner/safety/abductor,
 		/obj/item/lightreplacer/bluespace/abductor
 	)
+
+// MARK: B.O.R.I.S.
+/obj/item/borg/upgrade/ai
+	name = "B.O.R.I.S. module"
+	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
+	icon_state = "bluespacearray"
+	origin_tech = "engineering=3;magnets=4;programming=5"
+	var/alien = FALSE // This is an incredibely scuffed way to do this, but it works.
+	var/syndiemmi = FALSE
+	var/brainmob = null
+
+/obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+	if(R.shell)
+		to_chat(usr, SPAN_WARNING("This unit is already an AI shell!"))
+		return
+	if(R.key || R.mmi)
+		to_chat(usr, SPAN_WARNING("Intelligence patterns detected in this [R.braintype]. Aborting."))
+		return
+	if(!R.key)
+		to_chat(usr, SPAN_WARNING("Disassemble the cyborg before installing the B.O.R.I.S. module."))
+		return
+
+	R.make_shell(src)
+	return TRUE
