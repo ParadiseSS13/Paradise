@@ -531,7 +531,7 @@
 	id = "omnizine_no_addiction"
 	overdose_threshold = 0
 	addiction_chance = 0
-	addiction_chance_additional = 100
+	addiction_chance_additional = 0
 	addiction_threshold = 0
 
 /datum/reagent/medicine/omnizine/synthetic
@@ -545,7 +545,7 @@
 	id = "synthetic_omnizine_no_addiction"
 	overdose_threshold = 0
 	addiction_chance = 0
-	addiction_chance_additional = 100
+	addiction_chance_additional = 0
 	addiction_threshold = 0
 
 /datum/reagent/medicine/calomel
