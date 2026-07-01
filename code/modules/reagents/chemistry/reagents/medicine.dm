@@ -534,12 +534,19 @@
 	addiction_chance_additional = 100
 	addiction_threshold = 0
 
-// Used in the IPC supercharge implant - because IPCs deserve the little bit of healing too.
-/datum/reagent/medicine/omnizine/no_addict/synthetic
+/datum/reagent/medicine/omnizine/synthetic
 	name = "Smart Metal"
-	id = "synthetic_omnizine_no_addiction"
+	id = "synthetic_omnizine"
 	description = "An exotic liquid metal alloy that flows into cracks, fractures, and other surface imperfections before solidifying to patch up damaged components."
 	process_flags = SYNTHETIC
+
+// Used in the IPC supercharge implant - because IPCs deserve the little bit of healing too.
+/datum/reagent/medicine/omnizine/synthetic/no_addict
+	id = "synthetic_omnizine_no_addiction"
+	overdose_threshold = 0
+	addiction_chance = 0
+	addiction_chance_additional = 100
+	addiction_threshold = 0
 
 /datum/reagent/medicine/calomel
 	name = "Calomel"
