@@ -25,7 +25,7 @@
 	..()
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		H.add_hud_to(M)
+		H.add_hud_to(M, src)
 		M.permanent_huds |= H
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(mob/living/carbon/M, special = 0)
@@ -33,7 +33,7 @@
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		M.permanent_huds ^= H
-		H.remove_hud_from(M)
+		H.remove_hud_from(M, src)
 
 /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	name = "Medical HUD implant"

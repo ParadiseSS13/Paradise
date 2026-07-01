@@ -74,7 +74,7 @@
 			return
 		for(var/new_hud in hud_types)
 			var/datum/atom_hud/H = GLOB.huds[new_hud]
-			H.remove_hud_from(user)
+			H.remove_hud_from(user, src)
 		hud_types = null
 		return
 	electronics = TRUE
@@ -84,7 +84,7 @@
 		return
 	for(var/new_hud in hud_types)
 		var/datum/atom_hud/H = GLOB.huds[new_hud]
-		H.add_hud_to(user)
+		H.add_hud_to(user, src)
 
 /obj/item/clothing/glasses/hud/tajblind/meson
 	name = "\improper Tajaran engineering meson veil"

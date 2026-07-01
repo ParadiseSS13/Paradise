@@ -676,7 +676,7 @@ SUBSYSTEM_DEF(ticker)
 			continue
 		for(var/m in GLOB.player_list)
 			var/mob/M = m
-			antag_hud.add_hud_to(M)
+			antag_hud.add_hud_to(M, "round end")
 
 	var/static/list/base_encouragement_messages = list(
 		"Keep on keeping on!",

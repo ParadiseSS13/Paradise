@@ -337,7 +337,7 @@
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	H.add_hud_to(owner)
+	H.add_hud_to(owner, src)
 	owner.permanent_huds |= H
 	return ..()
 
@@ -345,7 +345,7 @@
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	owner.permanent_huds ^= H
-	H.remove_hud_from(owner)
+	H.remove_hud_from(owner, src)
 
 /datum/status_effect/hippocratic_oath/tick()
 	// Death transforms you into a snake after a short grace period

@@ -13,7 +13,7 @@
 		M.mind.antag_hud.leave_hud(M)
 	add_to_hud(M)
 	if(self_visible)
-		add_hud_to(M)
+		add_hud_to(M, "antag")
 	M.mind.antag_hud = src
 
 /datum/atom_hud/antag/proc/leave_hud(mob/M)
@@ -22,7 +22,7 @@
 	if(!istype(M))
 		CRASH("leave_hud(): [M] ([M.type]) is not a mob!")
 	remove_from_hud(M)
-	remove_hud_from(M)
+	remove_hud_from(M, "antag")
 	if(M.mind)
 		M.mind.antag_hud = null
 
@@ -31,13 +31,13 @@
 		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
 	add_to_hud(M)
 	if(self_visible)
-		add_hud_to(M)
+		add_hud_to(M, "antag")
 
 /datum/atom_hud/antag/hidden/secondary/leave_hud(mob/M)
 	if(!istype(M))
 		CRASH("leave_hud(): [M] ([M.type]) is not a mob!")
 	remove_from_hud(M)
-	remove_hud_from(M)
+	remove_hud_from(M, "antag")
 
 //GAME_MODE PROCS
 //called to set a mob's antag icon state
@@ -71,7 +71,7 @@
 		if(!istype(data_hud))
 			continue
 		if(current in data_hud.hudusers)
-			data_hud.remove_hud_from(current)
+			data_hud.remove_hud_from(current, "antag")
 
 
 ///Master Servent Datum Sytems,Based on TG Gang system//

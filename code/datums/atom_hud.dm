@@ -36,9 +36,12 @@ GLOBAL_LIST_INIT(huds, alist(
 	))
 
 /datum/atom_hud
-	var/list/atom/hudatoms = list() //list of all atoms which display this hud
-	var/list/mob/hudusers = list() //list with all mobs who can see the hud
-	var/list/hud_icons = list() //these will be the indexes for the atom's hud_list
+	/// All the atoms that display this hud.
+	var/list/atom/hudatoms = list()
+	/// All the mobs who can see this hud, and their sources. each_mob = list(source/1, source/2).
+	var/list/mob/hudusers = list()
+	/// Indexes for the atom's hud_list.
+	var/list/hud_icons = list()
 	/// Do we ignore the invisibility check? Used by anom huds so we can see our stuff.
 	var/ignore_invisibility_check = FALSE
 
@@ -54,43 +57,51 @@ GLOBAL_LIST_INIT(huds, alist(
 	GLOB.all_huds -= src
 	return ..()
 
-/datum/atom_hud/proc/remove_hud_from(mob/M)
+/datum/atom_hud/proc/remove_hud_from(mob/M, atom/source)
 	if(!M)
 		return
 	if(src in M.permanent_huds)
 		return
-	for(var/atom/A in hudatoms)
-		remove_from_single_hud(M, A)
-	hudusers -= M
+	hudusers[M] -= source
+
+	if(!length(hudusers[M]))
+		for(var/atom/A in hudatoms)
+			remove_hud_images(M, A)
+		hudusers -= M
+		M.reload_huds()
 
 /datum/atom_hud/proc/remove_from_hud(atom/A)
 	if(!A)
 		return
 	for(var/mob/M in hudusers)
-		remove_from_single_hud(M, A)
+		hudusers[M] -= A
+		if(!length(hudusers[M]))
+			remove_hud_images(M, A)
 	hudatoms -= A
 
-/datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
+/datum/atom_hud/proc/remove_hud_images(mob/M, atom/A) // Unsafe, no sanity apart from client.
 	if(!M || !M.client || !A)
 		return
 	for(var/i in hud_icons)
 		M.client.images -= A.hud_list[i]
 
-/datum/atom_hud/proc/add_hud_to(mob/M)
+/datum/atom_hud/proc/add_hud_to(mob/M, atom/source)
 	if(!M)
 		return
-	hudusers |= M
+	if(!(M in hudusers))
+		hudusers[M] = list()
+	hudusers[M] |= source
 	for(var/atom/A in hudatoms)
-		add_to_single_hud(M, A)
+		add_hud_images(M, A)
 
 /datum/atom_hud/proc/add_to_hud(atom/A)
 	if(!A)
 		return
 	hudatoms |= A
 	for(var/mob/M in hudusers)
-		add_to_single_hud(M, A)
+		add_hud_images(M, A)
 
-/datum/atom_hud/proc/add_to_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
+/datum/atom_hud/proc/add_hud_images(mob/M, atom/A) // Unsafe, no sanity apart from client.
 	if(!M || !M.client || !A)
 		return
 	if((A.invisibility > M.see_invisible) && !ignore_invisibility_check) // yee yee ass snowflake check for our yee yee ass snowflake huds
@@ -111,10 +122,9 @@ GLOBAL_LIST_INIT(huds, alist(
 		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.traitors))
 			serv_huds += serv.thrallhud
 
-
 	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
-			hud.add_hud_to(src)
+			hud.add_hud_to(src, hud.hudusers[src][1])
 
 /mob/new_player/reload_huds()
 	return
