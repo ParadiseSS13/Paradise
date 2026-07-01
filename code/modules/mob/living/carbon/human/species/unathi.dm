@@ -170,3 +170,67 @@
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
 	cooldown_duration = 3 MINUTES
 	welding_fuel_used = 0 // Ash walkers dont need welding fuel to use ignite
+
+/datum/species/unathi/randomize_body_color()
+	if(prob(20))
+		return rgb(rand(0, 150), rand(0, 20), rand(5, 10), space = COLORSPACE_HSL) // black-ish
+	return rgb(rand(0, 150), rand(50, 95), rand(20, 30), space = COLORSPACE_HSL) // clay-ish
+
+/datum/species/unathi/randomize_eye_color()
+	if(prob(60))
+		return ..()
+	return tint_color_hsl(pick(COLOR_AMBER, COLOR_CULT_RED))
+
+/datum/species/unathi/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = 80)
+	return ..()
+
+/datum/species/unathi/randomize_facial_hair_style(datum/robolimb/robohead, species_shaved_prob = 40, gender)
+	return ..()
+
+/datum/species/unathi/randomize_hair_colors(datum/robolimb/robohead, body_color = null, skin_tone = null)
+	var/list/hair_colors = list()
+	if(!body_color)
+		body_color = COLOR_BROWN_ORANGE
+	var/keratin_color = pick(COLOR_BEIGE, COLOR_GRAY15)
+	for(var/hair_part in list("h1", "h2", "f1", "f2"))
+		if(prob(1))
+			hair_colors[hair_part] = rand_hex_color()
+		else
+			hair_colors[hair_part] = pick(body_color, keratin_color)
+
+	return hair_colors
+
+/datum/species/unathi/randomize_head_accessory(prob_to_apply = 90)
+	return ..()
+
+/datum/species/unathi/randomize_head_accessory_color(head_accessory = "None", body_color = null, hair_color = null)
+	if(prob(90))
+		return pick(COLOR_BEIGE, COLOR_GRAY15)
+	if(prob(60))
+		return hair_color
+	return body_color
+
+/datum/species/unathi/randomize_body_markings(prob_to_apply = 50)
+	return ..()
+
+/datum/species/unathi/randomize_body_markings_color(body_markings = "None", body_color = COLOR_BROWN_ORANGE, skin_tone = null)
+	var/list/possible_markings = list_valid_marking_styles("body", name)
+	var/list/generic_markings = list_valid_marking_styles("body", "Human")
+	var/list/exclusive_markings = possible_markings - generic_markings
+
+	if(body_markings in exclusive_markings)
+		var/list/intermediary_color = rgb2num(body_color, COLORSPACE_HSL)
+		intermediary_color[3] = clamp(intermediary_color[3] + rand(-30, 30), 0, 100)
+		return rgb(intermediary_color[1], intermediary_color[2], intermediary_color[3], space = COLORSPACE_HSL)
+	return ..()
+
+/datum/species/unathi/randomize_head_markings(prob_to_apply = 50, alt_head)
+	return ..()
+
+/datum/species/unathi/randomize_head_markings_color(head_markings = "None", body_color = null)
+	if(!body_color)
+		body_color = COLOR_BROWN_ORANGE
+
+	var/list/intermediary_color = rgb2num(body_color, COLORSPACE_HSL)
+	intermediary_color[3] = clamp(intermediary_color[3] + rand(-30, 30), 0, 100)
+	return rgb(intermediary_color[1], intermediary_color[2], intermediary_color[3], space = COLORSPACE_HSL)

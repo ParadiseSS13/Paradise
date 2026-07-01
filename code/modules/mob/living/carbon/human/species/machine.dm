@@ -235,3 +235,88 @@
 
 /datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/stack/sheet/mineral/titanium(H.loc)
+
+/datum/species/machine/generate_random_appearance(prosthesis_prob = 100, appearance = null)
+	return ..()
+
+/datum/species/machine/randomize_chassis_brands()
+	var/list/limb_choices = list()
+	var/brand_list = list(
+		/datum/robolimb/morpheus = 9,
+		/datum/robolimb/bishop = 2,
+		/datum/robolimb/hephaestus = 2,
+		/datum/robolimb/wardtakahashi = 1,
+		/datum/robolimb/xion = 2,
+		/datum/robolimb/zenghu = 2,
+		/datum/robolimb/shellguard = 2,
+	)
+	var/main_brand = pickweight(brand_list)
+	var/secondary_brand = pickweight(brand_list - main_brand)
+	var/tertiary_brand = pickweight(brand_list - list(main_brand, secondary_brand))
+
+	for(var/limb in has_limbs)
+		var/datum/robolimb/choice
+		if(prob(98))
+			choice = limb == "head" ? pick(typesof(main_brand)) : main_brand
+		else if(prob(80))
+			choice = limb == "head" ? pick(typesof(secondary_brand)) : secondary_brand
+		else
+			choice = limb == "head" ? pick(typesof(tertiary_brand)) : tertiary_brand
+		if(choice.type != /datum/robolimb/morpheus)
+			if(choice.type != /datum/robolimb/morpheus/alt1 || prob(20))
+				limb_choices[limb] = choice
+
+	return limb_choices
+
+/datum/species/machine/randomize_body_color()
+	if(prob(90))
+		return rgb(rand(0, 360), rand(0, 90), rand(0, 25), space = COLORSPACE_HSL)
+	return COLOR_BLACK
+
+/datum/species/machine/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = null)
+	if(species_bald_prob)
+		return ..()
+	if(robohead.is_monitor || robohead.company == "Zeng-Hu Pharmaceuticals")
+		species_bald_prob = 5
+	else
+		species_bald_prob = 50
+	return ..(robohead, species_bald_prob)
+
+/datum/species/machine/randomize_hair_colors(datum/robolimb/robohead, body_color = null, skin_tone = null)
+	// humanlike hair for humanlike chassis
+	if(robohead.company == "Zeng-Hu Pharmaceuticals")
+		return ..()
+
+	var/list/hair_colors = list(
+		"h1" = COLOR_BLACK,
+		"h2" = rand_hex_color(),
+		"f1" = COLOR_BLACK,
+		"f1" = rand_hex_color()
+	)
+	// monitor colors
+	if(robohead.is_monitor)
+		if(prob(80))
+			return hair_colors
+		if(prob(80))
+			hair_colors["h1"] = rgb(rand(0, 360), 90, rand(40, 80), space = COLORSPACE_HSL) // deep saturated color
+			return hair_colors
+		hair_colors["h1"] = rand_hex_color()
+		return hair_colors
+
+	// non-monitor colors
+	if(prob(20))
+		return ..()
+	if(prob(20))
+		return hair_colors
+	if(prob(80))
+		hair_colors["h1"] = rgb(rand(0, 360), 90, rand(40, 80), space = COLORSPACE_HSL) // deep saturated color
+		hair_colors["f1"] = hair_colors["h1"]
+		return hair_colors
+	hair_colors["h1"] = rand_hex_color()
+	hair_colors["f1"] = hair_colors["h1"]
+	return hair_colors
+
+/datum/species/machine/randomize_head_accessory_color(head_accessory = "None", body_color = null, hair_color = null)
+	if(head_accessory == "None")
+		return ..()
+	return rgb(rand(0, 360), rand(0, 100), rand(0, 40), space = COLORSPACE_HSL)

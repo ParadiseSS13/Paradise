@@ -144,3 +144,56 @@
 
 /datum/species/vox/do_compressor_grind(mob/living/carbon/human/H)
 	new /obj/item/food/fried_vox(H.loc)
+
+/datum/species/vox/skin_tone_from_body_color(body_color)
+	var/list/skin_tones = list("#444706", "#251930", "#4a180c", "#2a2f1e", "#063000", "#082b21", "#661835", "#1e284d")
+	return skin_tones.Find(pick_closest_list_color(skin_tones, body_color))
+
+/datum/species/vox/skin_tone_to_hex(skin_tone)
+	var/list/skin_tones = list("#444706", "#251930", "#4a180c", "#2a2f1e", "#063000", "#082b21", "#661835", "#1e284d")
+	return skin_tones[skin_tone]
+
+
+/datum/species/vox/randomize_eye_color()
+	if(prob(70))
+		return rgb(rand(145, 165), rand(60, 95), rand(30, 80), COLORSPACE_HSL) // teal-turquoise
+	return rand_hex_color()
+
+/datum/species/vox/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = 20)
+	return ..()
+
+/datum/species/vox/randomize_hair_colors(datum/robolimb/robohead, body_color = null, skin_tone = 1)
+	var/list/hair_colors = list()
+	if(prob(2))
+		hair_colors["h1"] = rgb(rand(0, 360), rand(0, 40), rand(0, 30), space = COLORSPACE_HSL)
+		if(prob(33))
+			hair_colors["f1"] = rgb(rand(0, 50), rand(0, 50), rand(0, 30), space = COLORSPACE_HSL)
+		else if(prob(50))
+			hair_colors["f1"] = rgb(rand(0, 360), rand(0, 40), rand(0, 30), space = COLORSPACE_HSL)
+		else
+			hair_colors["f1"] = hair_colors["h1"]
+	else
+		hair_colors["h1"] = rgb(rand(0, 50), rand(0, 50), rand(0, 30), space = COLORSPACE_HSL)
+		if(prob(2))
+			hair_colors["f1"] = rgb(rand(0, 360), rand(0, 40), rand(0, 30), space = COLORSPACE_HSL)
+		else
+			hair_colors["f1"] = hair_colors["h1"]
+	hair_colors["h2"] = rand_hex_color()
+	hair_colors["f2"] = rand_hex_color()
+
+	return hair_colors
+
+/datum/species/vox/randomize_body_markings_color(body_markings = "None", body_color = null, skin_tone = 1)
+	if(body_markings == "None")
+		return COLOR_BLACK
+	if(prob(1))
+		return rand_hex_color()
+	return rgb(rand(0, 360), rand(0, 30), rand(10, 60), space = COLORSPACE_HSL)
+
+/datum/species/vox/randomize_tail_markings_color(tail_markings = "None")
+	if(tail_markings == "None")
+		return COLOR_BLACK
+	if(prob(1))
+		return rand_hex_color()
+	return pick(rgb(rand(0, 360), rand(40, 60), rand(15, 25), space = COLORSPACE_HSL),
+		rgb(rand(0, 360), rand(0, 20), rand(0, 15), space = COLORSPACE_HSL))

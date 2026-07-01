@@ -1,7 +1,6 @@
 // PSA To anyone who opens this:
 // Good fucking luck. You will need this: https://www.youtube.com/watch?v=W9GaIbECisQ
 
-
 /datum/character_save
 	var/real_name							//our character's name
 	var/be_random_name = FALSE				//whether we are a random name every round
@@ -629,205 +628,27 @@
 
 /datum/character_save/proc/randomise(gender_override)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-	var/datum/species/S = GLOB.all_species[species]
-	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
+	var/datum/species/character_species = GLOB.all_species[species]
+	if(!istype(character_species)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 		species = initial(species)
-		S = GLOB.all_species[species]
-	var/datum/robolimb/robohead
+		character_species = GLOB.all_species[species]
 
-	if(S.bodyflags & ALL_RPARTS)
-		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
-		robohead = GLOB.all_robolimbs[head_model]
+	organ_data = list()
+	rlimb_data = list()
+	reset_appearance()
+	character_species.generate_random_appearance(prosthesis_prob = species == "Machine" ? 100 : 0, appearance = src)
+
 	if(gender_override)
 		gender = gender_override
-	else
-		gender = pick(MALE, FEMALE)
-	body_type = pick(MALE, FEMALE)
+
 	underwear = random_underwear(body_type, species)
 	undershirt = random_undershirt(body_type, species)
 	socks = random_socks(body_type, species)
-	if(length(GLOB.body_accessory_by_species[species]))
-		body_accessory = random_body_accessory(species, S.optional_body_accessory)
-	if(S.bodyflags & HAS_SKIN_TONE)
-		s_tone = 35 - random_skin_tone(species)
-	else if(S.bodyflags & HAS_ICON_SKIN_TONE)
-		s_tone = random_skin_tone(species)
-	h_style = random_hair_style(species, robohead)
-	f_style = random_facial_hair_style(gender, species, robohead)
-	if(!(S.bodyflags & BALD))
-		randomize_hair_color("hair")
-	if(!(S.bodyflags & SHAVED))
-		randomize_hair_color("facial")
-	if(S.bodyflags & HAS_HEAD_ACCESSORY)
-		ha_style = random_head_accessory(species)
-		hacc_colour = randomize_skin_color(1)
-	if(S.bodyflags & HAS_HEAD_MARKINGS)
-		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
-		m_colours["head"] = randomize_skin_color(1)
-	if(S.bodyflags & HAS_BODY_MARKINGS)
-		m_styles["body"] = random_marking_style("body", species)
-		m_colours["body"] = randomize_skin_color(1)
-	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
-		m_colours["tail"] = randomize_skin_color(1)
-	if(!(S.bodyflags & ALL_RPARTS))
-		randomize_eyes_color()
-	if(S.bodyflags & HAS_SKIN_COLOR)
-		randomize_skin_color()
+
 	backbag = pick(GLOB.backbaglist)
-	age = rand(S.min_age, S.max_age)
+	age = rand(character_species.min_age, character_species.max_age)
 	physique = pick(GLOB.character_physiques)
 	height = pick(GLOB.character_heights)
-
-
-/datum/character_save/proc/randomize_hair_color(target = "hair")
-	if(prob (75) && target == "facial") // Chance to inherit hair color
-		f_colour = h_colour
-		return
-
-	var/red
-	var/green
-	var/blue
-
-	var/col = pick ("blonde", "black", "chestnut", "copper", "brown", "wheat", "old", "punk")
-	switch(col)
-		if("blonde")
-			red = 255
-			green = 255
-			blue = 0
-		if("black")
-			red = 0
-			green = 0
-			blue = 0
-		if("chestnut")
-			red = 153
-			green = 102
-			blue = 51
-		if("copper")
-			red = 255
-			green = 153
-			blue = 0
-		if("brown")
-			red = 102
-			green = 51
-			blue = 0
-		if("wheat")
-			red = 255
-			green = 255
-			blue = 153
-		if("old")
-			red = rand (100, 255)
-			green = red
-			blue = red
-		if("punk")
-			red = rand (0, 255)
-			green = rand (0, 255)
-			blue = rand (0, 255)
-
-	red = max(min(red + rand (-25, 25), 255), 0)
-	green = max(min(green + rand (-25, 25), 255), 0)
-	blue = max(min(blue + rand (-25, 25), 255), 0)
-
-	switch(target)
-		if("hair")
-			h_colour = rgb(red, green, blue)
-		if("facial")
-			f_colour = rgb(red, green, blue)
-
-/datum/character_save/proc/randomize_eyes_color()
-	var/red
-	var/green
-	var/blue
-
-	var/col = pick ("black", "grey", "brown", "chestnut", "blue", "lightblue", "green", "albino")
-	switch(col)
-		if("black")
-			red = 0
-			green = 0
-			blue = 0
-		if("grey")
-			red = rand (100, 200)
-			green = red
-			blue = red
-		if("brown")
-			red = 102
-			green = 51
-			blue = 0
-		if("chestnut")
-			red = 153
-			green = 102
-			blue = 0
-		if("blue")
-			red = 51
-			green = 102
-			blue = 204
-		if("lightblue")
-			red = 102
-			green = 204
-			blue = 255
-		if("green")
-			red = 0
-			green = 102
-			blue = 0
-		if("albino")
-			red = rand (200, 255)
-			green = rand (0, 150)
-			blue = rand (0, 150)
-
-	red = max(min(red + rand (-25, 25), 255), 0)
-	green = max(min(green + rand (-25, 25), 255), 0)
-	blue = max(min(blue + rand (-25, 25), 255), 0)
-
-	e_colour = rgb(red, green, blue)
-
-/datum/character_save/proc/randomize_skin_color(pass_on)
-	var/red
-	var/green
-	var/blue
-
-	var/col = pick ("black", "grey", "brown", "chestnut", "blue", "lightblue", "green", "albino")
-	switch(col)
-		if("black")
-			red = 0
-			green = 0
-			blue = 0
-		if("grey")
-			red = rand (100, 200)
-			green = red
-			blue = red
-		if("brown")
-			red = 102
-			green = 51
-			blue = 0
-		if("chestnut")
-			red = 153
-			green = 102
-			blue = 0
-		if("blue")
-			red = 51
-			green = 102
-			blue = 204
-		if("lightblue")
-			red = 102
-			green = 204
-			blue = 255
-		if("green")
-			red = 0
-			green = 102
-			blue = 0
-		if("albino")
-			red = rand (200, 255)
-			green = rand (0, 150)
-			blue = rand (0, 150)
-
-	red = max(min(red + rand (-25, 25), 255), 0)
-	green = max(min(green + rand (-25, 25), 255), 0)
-	blue = max(min(blue + rand (-25, 25), 255), 0)
-
-	if(pass_on)
-		return rgb(red, green, blue)
-	else
-		s_colour = rgb(red, green, blue)
 
 /datum/character_save/proc/blend_backpack(icon/clothes_s, backbag, satchel, backpack="backpack")
 	switch(backbag)
@@ -1893,9 +1714,112 @@
 					job_engsec_low |= job.flag
 	return 1
 
-/datum/character_save/proc/copy_to(mob/living/carbon/human/character)
+/datum/character_save/proc/apply_appearance(mob/living/carbon/human/character, keep_missing_bodyparts = FALSE)
 	var/datum/species/S = GLOB.all_species[species]
-	character.set_species(S.type, delay_icon_update = TRUE) // Yell at me if this causes everything to melt
+	character.set_species(S.type, delay_icon_update = TRUE)
+	character.change_gender(gender)
+
+	var/obj/item/organ/external/head/head_organ = character.get_organ("head")
+
+	head_organ.hair_colour = h_colour
+	head_organ.sec_hair_colour = h_sec_colour
+	head_organ.facial_colour = f_colour
+	head_organ.sec_facial_colour = f_sec_colour
+
+	head_organ.h_style = h_style
+	head_organ.f_style = f_style
+
+	head_organ.alt_head = alt_head
+
+	head_organ.h_grad_style = h_grad_style
+	head_organ.h_grad_offset_x = h_grad_offset_x
+	head_organ.h_grad_offset_y = h_grad_offset_y
+	head_organ.h_grad_colour = h_grad_colour
+	head_organ.h_grad_alpha = h_grad_alpha
+
+	character.skin_colour = s_colour
+
+	character.s_tone = s_tone
+
+	if(!keep_missing_bodyparts)
+		// Destroy/cyborgize organs
+		for(var/name in organ_data)
+
+			var/status = organ_data[name]
+			var/obj/item/organ/external/each_organ = character.bodyparts_by_name[name]
+			if(each_organ)
+				if(status == "amputated")
+					qdel(each_organ.remove(character))
+
+				else if(status == "cyborg")
+					if(rlimb_data[name])
+						each_organ.robotize(rlimb_data[name], convert_all = 0)
+					else
+						each_organ.robotize()
+			else
+				var/obj/item/organ/internal/internal_organ = character.get_int_organ_tag(name)
+				if(internal_organ)
+					if(status == "cybernetic")
+						internal_organ.robotize()
+
+		// Send signal that robotic limbs have been applied
+		SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
+
+	character.underwear = underwear
+	character.undershirt = undershirt
+	character.socks = socks
+
+	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
+		head_organ.headacc_colour = hacc_colour
+		head_organ.ha_style = ha_style
+	if(character.dna.species.bodyflags & HAS_MARKINGS)
+		character.m_colours = m_colours
+		character.m_styles = m_styles
+
+	if(body_accessory)
+		character.body_accessory = GLOB.body_accessory_by_name[body_accessory]
+	character.change_eye_color(e_colour, skip_icons = TRUE)
+	character.original_eye_color = e_colour
+
+	character.regenerate_icons()
+	character.update_body()
+	character.update_dna()
+
+/datum/character_save/proc/reset_appearance()
+	h_colour = initial(h_colour)
+	h_sec_colour = initial(h_sec_colour)
+	f_colour = initial(f_colour)
+	f_sec_colour = initial(f_sec_colour)
+
+	h_style = initial(h_style)
+	f_style = initial(f_style)
+
+	alt_head = initial(alt_head)
+
+	h_grad_style = initial(h_grad_style)
+	h_grad_offset_x = initial(h_grad_offset_x)
+	h_grad_offset_y = initial(h_grad_offset_y)
+	h_grad_colour = initial(h_grad_colour)
+	h_grad_alpha = initial(h_grad_alpha)
+
+	s_colour = initial(s_colour)
+
+	s_tone = initial(s_tone)
+
+	underwear = initial(underwear)
+	undershirt = initial(undershirt)
+	socks = initial(socks)
+
+	hacc_colour = initial(hacc_colour)
+	ha_style = initial(ha_style)
+	m_styles = DEFAULT_MARKING_STYLES
+	m_colours = DEFAULT_MARKING_COLOURS
+
+	body_accessory = initial(body_accessory)
+	e_colour = initial(e_colour)
+
+/datum/character_save/proc/copy_to(mob/living/carbon/human/character)
+	apply_appearance(character)
 	if(be_random_name)
 		real_name = random_name(gender, species)
 	var/balance_check = rebuild_quirks()
@@ -1916,59 +1840,7 @@
 	character.sec_record = sec_record
 	character.gen_record = gen_record
 
-	character.change_gender(gender)
-	character.body_type = body_type  // TODO does this update the character properly or do we need a setter here
 	character.age = age
-
-	//Head-specific
-	var/obj/item/organ/external/head/H = character.get_organ("head")
-
-	H.hair_colour = h_colour
-
-	H.sec_hair_colour = h_sec_colour
-
-	H.facial_colour = f_colour
-
-	H.sec_facial_colour = f_sec_colour
-
-	H.h_style = h_style
-	H.f_style = f_style
-
-	H.alt_head = alt_head
-
-	H.h_grad_style = h_grad_style
-	H.h_grad_offset_x = h_grad_offset_x
-	H.h_grad_offset_y = h_grad_offset_y
-	H.h_grad_colour = h_grad_colour
-	H.h_grad_alpha = h_grad_alpha
-	//End of head-specific.
-
-	character.skin_colour = s_colour
-
-	character.s_tone = s_tone
-
-	// Destroy/cyborgize organs
-	for(var/name in organ_data)
-
-		var/status = organ_data[name]
-		var/obj/item/organ/external/O = character.bodyparts_by_name[name]
-		if(O)
-			if(status == "amputated")
-				qdel(O.remove(character))
-
-			else if(status == "cyborg")
-				if(rlimb_data[name])
-					O.robotize(rlimb_data[name], convert_all = 0)
-				else
-					O.robotize()
-		else
-			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
-			if(I)
-				if(status == "cybernetic")
-					I.robotize()
-
-	// Send signal that robotic limbs have been applied
-	SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
 
 	character.dna.blood_type = b_type
 
@@ -1981,20 +1853,6 @@
 	else if(!l_foot || !r_foot)
 		character.put_in_r_hand(new /obj/item/cane)
 
-	character.underwear = underwear
-	character.undershirt = undershirt
-	character.socks = socks
-
-	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
-		H.headacc_colour = hacc_colour
-		H.ha_style = ha_style
-	if(character.dna.species.bodyflags & HAS_MARKINGS)
-		character.m_colours = m_colours
-		character.m_styles = m_styles
-
-	if(body_accessory)
-		character.body_accessory = GLOB.body_accessory_by_name[body_accessory]
-
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
@@ -2003,8 +1861,6 @@
 			message_admins("[key_name_admin(character)] has spawned with their gender as neuter. Please notify coders.")
 			character.change_gender(PLURAL)
 
-	character.change_eye_color(e_colour, skip_icons = TRUE)
-	character.original_eye_color = e_colour
 	character.dna.flavor_text = flavor_text
 
 	// Runechat Color

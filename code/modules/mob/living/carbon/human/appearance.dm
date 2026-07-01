@@ -426,19 +426,11 @@
 	return sortTim(valid_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_alt_heads()
-	var/list/valid_alt_heads = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no alt heads.
-	valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option, and there should always be a "None" option.
-	for(var/alternate_head in GLOB.alt_heads_list)
-		var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
-		if(!(H.dna.species.name in head.species_allowed))
-			continue
 
-		valid_alt_heads += alternate_head
-
-	return sortTim(valid_alt_heads, GLOBAL_PROC_REF(cmp_text_asc))
+	return list_valid_alt_heads(dna.species.name)
 
 /mob/living/carbon/human/proc/get_blood_color()
 	var/bloodcolor = "#A10808"
@@ -446,3 +438,7 @@
 	if(b_data)
 		bloodcolor = b_data["blood_color"]
 	return bloodcolor
+
+/mob/living/carbon/human/proc/generate_random_appearance(prosthesis_prob = null, use_gender = null)
+	var/datum/character_save/appearance = dna.species.generate_random_appearance(prosthesis_prob, use_gender)
+	appearance.apply_appearance(src)

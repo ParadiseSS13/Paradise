@@ -270,3 +270,197 @@
 
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
+
+/datum/species/moth/generate_random_appearance(prosthesis_prob = 5, datum/character_save/appearance = null, use_gender = null)
+	if(!istype(appearance))
+		appearance = new
+	appearance.species = name
+
+	// Gender.
+	appearance.gender = use_gender ? use_gender : randomize_gender()
+	appearance.body_type = randomize_body_type(appearance.gender)
+
+	// Prostheses / Alternate robotic parts
+	if(prob(prosthesis_prob))
+		var/list/prostheses = randomize_chassis_brands()
+		for(var/organ_name in prostheses)
+			var/datum/robolimb/one_prosthesis = prostheses[organ_name]
+			appearance.organ_data[organ_name] = "cyborg"
+			appearance.rlimb_data[organ_name] = one_prosthesis.company
+
+	// This needs to go after prostheses
+	var/datum/robolimb/robohead
+	if(appearance.rlimb_data["head"] && (bodyflags & ALL_RPARTS))
+		robohead = GLOB.all_robolimbs[appearance.rlimb_data["head"]]
+
+	// Markings.
+	appearance.m_styles["head"] = randomize_head_markings(null, null)
+	appearance.m_colours["head"] = randomize_head_markings_color(appearance.m_styles["head"])
+	// should get just "Reddish" from "Reddish Head Markings"
+	var/marking_style = copytext(appearance.m_styles["head"], 1, -14)
+
+	appearance.m_styles["body"] = length(marking_style) ? "[marking_style] Markings" : "None"
+	appearance.m_colours["body"] = appearance.m_colours["head"]
+
+	// Accessories.
+	appearance.m_styles["tail"] = "None"
+	appearance.body_accessory = randomize_body_accessory(100, marking_style)
+	var/accessory_style = copytext(appearance.body_accessory, 1, -6)
+
+	appearance.ha_style = randomize_head_accessory(50, marking_style, accessory_style)
+	appearance.hacc_colour = randomize_head_accessory_color(appearance.ha_style)
+
+	// Skin.
+	appearance.s_tone = randomize_skin_tone(marking_style, accessory_style)
+
+	// Hair
+	appearance.h_style = randomize_hair_style(robohead)
+	var/list/hair_colors = randomize_hair_colors(robohead, appearance.s_tone, appearance.m_colours["head"])
+	appearance.h_colour = hair_colors["h1"]
+	appearance.h_sec_colour = hair_colors["h2"]
+	appearance.f_colour = hair_colors["f1"]
+	appearance.f_sec_colour = hair_colors["f2"]
+
+	return appearance
+
+/datum/species/moth/randomize_skin_tone(marking_style, accessory_style)
+	var/style_determiner = (marking_style && marking_style != "None") ? marking_style : accessory_style
+
+	// If you know a better way of making skin tone determined by marking/accessory, do tell.
+	switch(style_determiner)
+		if("Atlas")
+			return 1
+		if("Brown")
+			return pick(1, 2, 3)
+		if("Deathshead")
+			return pick(2, 3)
+		if("Feathery")
+			return 2
+		if("Firewatch")
+			return pick(1, 2)
+		if("Gothic")
+			return pick(2, 3, 4)
+		if("Jungle")
+			return 1
+		if("Lightbearer")
+			return pick(1, 2)
+		if("Lovers")
+			return pick(2, 4)
+		if("Luna")
+			return 1
+		if("Monarch")
+			return 1
+		if("Moon Fly")
+			return pick(2, 3, 4)
+		if("Mothra")
+			return pick(1, 2, 3)
+		if("Oak Worm")
+			return 1
+		if("Plain")
+			return 1
+		if("Plasmafire")
+			return pick(1, 4)
+		if("Poison")
+			return pick(2, 4)
+		if("Ragged")
+			return 1
+		if("Reddish")
+			return pick(1, 4)
+		if("Rosy")
+			return 1
+		if("Royal")
+			return 2
+		if("Snow")
+			return pick(2, 3)
+		if("White Fly")
+			return 2
+	return ..()
+
+/datum/species/moth/skin_tone_from_body_color(body_color)
+	var/list/skin_tones = list("#81572a", "#a09c82", "#383838", "#6a287b")
+	return skin_tones.Find(pick_closest_list_color(skin_tones, body_color))
+
+/datum/species/moth/skin_tone_to_hex(skin_tone)
+	var/list/skin_tones = list("#81572a", "#a09c82", "#383838", "#6a287b")
+	return skin_tones[skin_tone]
+
+/datum/species/moth/randomize_eye_color()
+	if(prob(80))
+		return COLOR_BLACK
+	if(prob(1))
+		return rand_hex_color()
+	return rgb(rand(0, 360), rand(0, 70), rand(0, 20))
+
+/datum/species/moth/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = 70)
+	return ..()
+
+/datum/species/moth/randomize_hair_colors(datum/robolimb/robohead, body_color = null, marking_color = null)
+	var/list/hair_colors = list(
+		"h1" = "#e5cd99",
+		"h2" = rand_hex_color(),
+		"f1" = COLOR_BLACK,
+		"f2" = COLOR_BLACK
+	)
+	switch(body_color)
+		if(2)
+			hair_colors["h1"] = "#cdcdc6"
+		if(3)
+			hair_colors["h1"] = "#6c6c6c"
+		if(4)
+			hair_colors["h1"] = "#d37ed8"
+	if(marking_color)
+		var/list/marking_rgb = rgb2num(marking_color)
+		var/list/hair_rgb = rgb2num(hair_colors["h1"])
+		hair_colors["h1"] = rgb(
+			hair_rgb[1] + marking_rgb[1],
+			hair_rgb[2] + marking_rgb[2],
+			hair_rgb[3] + marking_rgb[3])
+	return hair_colors
+
+/datum/species/moth/randomize_body_accessory(prob_to_apply = 100, marking_style = null)
+	var/list/valid_body_accessories = list_valid_body_accessories(name, FALSE)
+	if(prob(95) && marking_style && ("[marking_style] Wings" in valid_body_accessories))
+		return "[marking_style] Wings"
+	var/list/unique_accessories = list()
+	var/list/head_marking_styles = list_valid_marking_styles("head", name)
+	for(var/each_accessory in valid_body_accessories)
+		var/corresponding_head_marking = "[copytext(each_accessory, 1, -6)] Head Markings"
+		if(!(corresponding_head_marking in head_marking_styles))
+			unique_accessories |= list(each_accessory)
+	return pick(unique_accessories)
+
+/datum/species/moth/randomize_head_accessory(prob_to_apply = 100, marking_style = null, accessory_style = null)
+	var/list/valid_head_accessories = list_valid_head_accessories(name)
+	if(accessory_style)
+		if("[accessory_style] Antennae" in valid_head_accessories)
+			return "[accessory_style] Antennae"
+		return "Burnt Off Antennae"
+	if(marking_style && ("[marking_style] Antennae" in valid_head_accessories))
+		return "[marking_style] Antennae"
+	var/list/unique_accessories = list()
+	var/list/head_marking_styles = list_valid_marking_styles("head", name)
+	for(var/each_accessory in valid_head_accessories)
+		var/corresponding_head_marking = "[copytext(each_accessory, 1, -9)] Head Markings"
+		if(!(corresponding_head_marking in head_marking_styles))
+			unique_accessories |= list(each_accessory)
+	return pick(unique_accessories)
+
+/datum/species/moth/randomize_head_accessory_color(head_accessory = "None", body_color = null, hair_color = null)
+	if(prob(70))
+		return COLOR_BLACK
+	return rgb(rand(0, 306), rand(0, 60), rand(0, 20), space = COLORSPACE_HSL)
+
+/datum/species/moth/randomize_head_markings(prob_to_apply = 70, alt_head)
+	return ..()
+
+/datum/species/moth/randomize_body_markings(prob_to_apply = 70, body_color = null, skin_tone = null, head_markings = null)
+	if(!head_markings)
+		return ..()
+	var/marking_style = copytext(head_markings, 1, -14)
+	return "[marking_style] Markings"
+
+/datum/species/moth/randomize_head_markings_color(head_markings = null, body_markings_color = null)
+	return body_markings_color ? body_markings_color : rgb(rand(0, 360), rand(0, 60), rand(0, 15), space = COLORSPACE_HSL)
+
+/datum/species/moth/randomize_body_markings_color(body_markings = null, head_markings_color = null)
+	return head_markings_color ? head_markings_color : rgb(rand(0, 360), rand(0, 60), rand(0, 15), space = COLORSPACE_HSL)
