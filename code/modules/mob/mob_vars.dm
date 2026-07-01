@@ -203,6 +203,8 @@
 
 	/// Overrides the health HUD element state if set.
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
+	/// Overrides the nutrition HUD element state if set.
+	var/nutrition_hud_override = NUTRITION_HUD_OVERRIDE_NONE
 	/// A soft reference to the location where this mob's runechat message will appear. Uses `UID()`.
 	var/runechat_msg_location
 	/// The datum receiving keyboard input. parent mob by default.
