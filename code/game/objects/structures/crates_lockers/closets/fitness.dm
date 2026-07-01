@@ -22,7 +22,6 @@
 	new /obj/item/clothing/neck/towel(src)
 	new /obj/item/clothing/neck/towel(src)
 
-
 /obj/structure/closet/boxinggloves
 	name = "boxing gloves"
 	desc = "It's a storage unit for gloves for use in the boxing ring."
