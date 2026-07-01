@@ -461,7 +461,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			shell_landmark = shell_loc
 
 	var/mob/living/silicon/robot/S = new /mob/living/silicon/robot(shell_landmark.loc)
-	var/obj/item/borg/ai/board = new /obj/item/borg/ai
+	var/obj/item/borg/upgrade/ai/board = new /obj/item/borg/upgrade/ai
 	S.make_shell(board)
 
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
