@@ -1,6 +1,5 @@
-//Shared Bag
-
-//Internal
+// MARK: Paradox Bag
+// External storage.
 /obj/item/storage/backpack/shared
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
@@ -11,7 +10,7 @@
 /obj/item/storage/backpack/shared/Adjacent(atom/neighbor, recurse = 1)
 	return red?.Adjacent(neighbor, recurse) || blue?.Adjacent(neighbor, recurse)
 
-//External
+// Internal storage.
 /obj/item/shared_storage
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
@@ -100,8 +99,7 @@
 
 			add_fingerprint(M)
 
-//Book of Babel
-
+// MARK: Book of Babel
 /obj/item/book_of_babel
 	name = "Book of Babel"
 	desc = "An ancient tome written in countless tongues. The text on the pages is so small and dense that it appears to be a solid black mass until viewed up close."
@@ -122,8 +120,7 @@
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 
-//Boat
-
+// MARK: Lava Boat
 /obj/vehicle/lavaboat
 	name = "lava boat"
 	desc = "A boat used for traversing lava."
@@ -182,8 +179,7 @@
 	time = 50
 	category = CAT_PRIMAL
 
-//Dragon Boat
-
+// MARK: Ship in Bottle
 /obj/item/ship_in_a_bottle
 	name = "ship in a bottle"
 	desc = "A tiny ship inside a bottle."
@@ -212,49 +208,24 @@
 	generic_pixel_x = 1
 	vehicle_move_delay = 1
 
-//Wisp Lantern
+// MARK: Wisp Lantern
 /obj/item/wisp_lantern
 	name = "spooky lantern"
-	desc = "This lantern gives off no light, but is home to a friendly wisp."
+	desc = "This spooky lantern is home to a friendly wisp. You can let it out, but it'll return if you don't hold the lanern in your hands or on your belt."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
 	inhand_icon_state = "lantern"
 	light_range = 7
+	light_color = "#4882E9"
+	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000)
+	origin_tech = "biotech=6;magnets=5"
+	new_attack_chain = TRUE
 	var/obj/effect/wisp/wisp
+	/// Tracks who the wisp is orbiting.
+	var/mob/living/wisp_friend
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-
-/obj/item/wisp_lantern/attack_self__legacy__attackchain(mob/user)
-	if(!wisp)
-		to_chat(user, SPAN_WARNING("The wisp has gone missing!"))
-		icon_state = "lantern"
-		return
-
-	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
-
-		to_chat(user, SPAN_NOTICE("You release the wisp. It begins to bob around your head."))
-		icon_state = "lantern"
-		wisp.orbit(user, 20, lock_in_orbit = TRUE)
-		set_light(0)
-
-		user.update_sight()
-		to_chat(user, SPAN_NOTICE("The wisp enhances your vision."))
-
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
-	else
-		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
-
-		to_chat(user, SPAN_NOTICE("You return the wisp to the lantern."))
-		wisp.stop_orbit()
-		wisp.forceMove(src)
-		set_light(initial(light_range))
-
-		user.update_sight()
-		to_chat(user, SPAN_NOTICE("Your vision returns to normal."))
-
-		icon_state = "lantern-blue"
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
@@ -262,13 +233,63 @@
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
-		if(wisp.loc == src)
+		if(wisp.loc != src)
+			send_wisp_home()
 			qdel(wisp)
-		else
-			wisp.visible_message(SPAN_NOTICE("[wisp] has a sad feeling for a moment, then it passes."))
+
 	return ..()
 
+/obj/item/wisp_lantern/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!wisp)
+		wisp = new(src)
+
+	if(!wisp_friend)
+		wisp_friend = user
+		RegisterSignal(wisp_friend, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
+		wisp_friend.update_sight()
+		set_light(2, 2, "#8AFFFF")
+		wisp.orbit(wisp_friend, 20, lock_in_orbit = TRUE)
+		to_chat(wisp_friend, SPAN_NOTICE("You release the wisp. It begins to bob around your head as [src] darkens."))
+		to_chat(wisp_friend, SPAN_NOTICE("The wisp enhances your vision."))
+		update_appearance(UPDATE_ICON_STATE)
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You return the wisp to [src]."))
+	send_wisp_home()
+
+/obj/item/wisp_lantern/update_icon_state()
+	. = ..()
+	if(wisp_friend)
+		icon_state = "lantern"
+	else
+		icon_state = "lantern-blue"
+
+/obj/item/wisp_lantern/dropped()
+	. = ..()
+	if(!wisp_friend)
+		return
+
+	if(loc == wisp_friend)
+		return
+
+	send_wisp_home()
+
+/obj/item/wisp_lantern/proc/send_wisp_home()
+	UnregisterSignal(wisp_friend, COMSIG_MOB_UPDATE_SIGHT)
+	wisp.stop_orbit()
+	wisp.forceMove(src)
+	wisp_friend.update_sight()
+	to_chat(wisp_friend, SPAN_WARNING("Your vision returns to normal as the wisp returns to [src]."))
+	set_light(initial(light_range), initial(light_power), initial(light_color))
+	visible_message(SPAN_NOTICE("[src] begins to glow brightly as the wisp returns to it."))
+	wisp_friend = null
+	update_appearance(UPDATE_ICON_STATE)
+
 /obj/item/wisp_lantern/proc/update_user_sight(mob/user)
+	SIGNAL_HANDLER // COMSIG_MOB_UPDATE_SIGHT
 	user.sight |= sight_flags
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
@@ -278,10 +299,9 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
 
-//Red/Blue Cubes
+// MARK: Warp Cubes
 /obj/item/warp_cube
 	name = "blue cube"
 	desc = "A mysterious blue cube."
@@ -356,7 +376,7 @@
 		linked = blue
 		blue.linked = src
 
-//Meat Hook
+// MARK: Meat Hook
 /obj/item/gun/magic/hook
 	name = "meat hook"
 	desc = "Mid or feed."
@@ -413,8 +433,7 @@
 	QDEL_NULL(chain)
 	return ..()
 
-//Immortality Talisman
-
+// MARK: Immortality Talisman
 /obj/item/immortality_talisman
 	name = "\improper Immortality Talisman"
 	desc = "A dread talisman that can render you completely invulnerable."

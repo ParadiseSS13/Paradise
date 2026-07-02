@@ -1,6 +1,7 @@
 /turf/space
 	icon = 'icons/turf/space.dmi'
 	name = "\proper space"
+	desc = "The infinite expanse of space. It's hazardous to traverse without proper protection."
 	icon_state = "0"
 
 	temperature = TCMB

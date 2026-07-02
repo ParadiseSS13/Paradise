@@ -70687,6 +70687,9 @@
 "nYN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/computer/arcade/lawyer{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "nYP" = (
@@ -87486,13 +87489,15 @@
 /area/station/maintenance/security/fore_starboard)
 "rIK" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/station/maintenance/fsmaint)
 "rIR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -98131,10 +98136,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/checkpoint/secondary)
 "tZa" = (
-/obj/structure/cable/extra_insulated{
+/obj/machinery/power/smes/transformer,
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes/transformer,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/fore_port)
 "tZf" = (
@@ -98458,6 +98463,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
+"ubu" = (
+/obj/machinery/computer/arcade/lawyer{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "ubG" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway";
@@ -134739,7 +134750,7 @@ ujf
 sWJ
 qXt
 aHc
-aHc
+bGI
 uUY
 bGI
 ion
@@ -134996,7 +135007,7 @@ ujf
 cPc
 qXt
 aHc
-aHc
+ubu
 kra
 lPS
 bik
@@ -135510,7 +135521,7 @@ ujf
 uKq
 liV
 aHc
-aHc
+byj
 cZR
 oDx
 oDx
