@@ -21,6 +21,7 @@
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
+	origin_tech = "bluespace=6"
 	var/obj/item/storage/backpack/shared/bag
 
 /obj/item/shared_storage/Moved(atom/oldloc, dir, forced = FALSE)
@@ -101,16 +102,23 @@
 // MARK: Book of Babel
 /obj/item/book_of_babel
 	name = "Book of Babel"
-	desc = "An ancient tome written in countless tongues."
+	desc = "An ancient tome written in countless tongues. The text on the pages is so small and dense that it appears to be a solid black mass until viewed up close."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book1"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "programming=7"
+	new_attack_chain = TRUE
 
-/obj/item/book_of_babel/attack_self__legacy__attackchain(mob/user)
-	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
+/obj/item/book_of_babel/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You flip through the pages of the book, quickly and conveniently learning every language in existence."))
+	to_chat(user, SPAN_WARNING("Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops!"))
 	user.grant_all_babel_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // MARK: Lava Boat
 /obj/vehicle/lavaboat
@@ -177,12 +185,19 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
+	materials = list(MAT_GLASS = 4000)
+	origin_tech = "engineering=5;bluespace=5"
+	new_attack_chain = TRUE
 
-/obj/item/ship_in_a_bottle/attack_self__legacy__attackchain(mob/user)
+/obj/item/ship_in_a_bottle/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	new /obj/vehicle/lavaboat/dragon(get_turf(src))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/vehicle/lavaboat/dragon
 	name = "mysterious boat"
@@ -292,6 +307,9 @@
 	desc = "A mysterious blue cube."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
+	materials = list(MAT_METAL = 8000, MAT_PLASMA = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
+	origin_tech = "bluespace=6;magnets=6"
+	new_attack_chain = TRUE
 	var/obj/item/warp_cube/linked
 	var/cooldown = FALSE
 
@@ -301,23 +319,30 @@
 		linked = null
 	return ..()
 
-/obj/item/warp_cube/attack_self__legacy__attackchain(mob/user)
+/obj/item/warp_cube/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!linked)
 		to_chat(user, "[src] fizzles uselessly.")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, SPAN_WARNING("[src] sparks and fizzles."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(cooldown)
 		to_chat(user, SPAN_WARNING("[src] sparks and fizzles."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked)) & COMPONENT_BLOCK_TELEPORT)
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
+
 	if(is_station_level(user.z) && !iswizard(user)) // specifically not station (instead of lavaland) so it works for explorers potentially
 		user.visible_message(SPAN_WARNING("[user] begins to channel [src]!"), SPAN_WARNING("You begin channeling [src], cutting through the interference of the station!"))
 		if(!do_after_once(user, 4 SECONDS, TRUE, src, allow_moving = TRUE, must_be_held = TRUE))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 	user.visible_message(SPAN_WARNING("[user] disappears in a puff of smoke!"))
 
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -333,6 +358,7 @@
 	cooldown = TRUE
 	linked.cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset)), 20 SECONDS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/warp_cube/proc/reset()
 	cooldown = FALSE
@@ -364,6 +390,8 @@
 	flags = NOBLUDGEON
 	force = 18
 	antimagic_flags = NONE
+	materials = list(MAT_METAL = 20000)
+	origin_tech = "combat=5;engineering=5"
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
@@ -414,6 +442,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
+	materials = list(MAT_BLUESPACE = 1000, MAT_PLASMA = 1000)
+	origin_tech = "bluespace=6;magnets=6"
+	new_attack_chain = TRUE
 	var/cooldown = 0
 
 /obj/item/immortality_talisman/Initialize(mapload)
@@ -440,7 +471,10 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/item/immortality_talisman/attack_self__legacy__attackchain(mob/user)
+/obj/item/immortality_talisman/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(cooldown < world.time)
 		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
@@ -461,6 +495,7 @@
 			qdel(Z)
 	else
 		to_chat(user, SPAN_WARNING("[src] is still recharging."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
