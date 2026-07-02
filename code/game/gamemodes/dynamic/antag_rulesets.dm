@@ -42,8 +42,7 @@
 	)
 	/// Roles that shouldn't be an antag if hijack isn't allowed.
 	var/list/hijack_only_jobs = list(
-		"AI",
-		"Cyborg"
+		"AI"
 	)
 	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
