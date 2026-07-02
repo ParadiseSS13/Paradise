@@ -10,10 +10,6 @@
 	var/is_production = FALSE
 	/// If above is true, you can run a shell command
 	var/shutdown_shell_command = null
-	/// Internal API host
-	var/api_host = null
-	/// Internal API key
-	var/api_key = null
 	/// Github API token
 	var/github_api_token = null
 	/// List of IP addresses which bypass world topic rate limiting
@@ -47,8 +43,6 @@
 
 	CONFIG_LOAD_STR(topic_key, data["communications_password"])
 	CONFIG_LOAD_STR(shutdown_shell_command, data["shutdown_shell_command"])
-	CONFIG_LOAD_STR(api_host, data["api_host"])
-	CONFIG_LOAD_STR(api_key, data["api_key"])
 	CONFIG_LOAD_STR(github_api_token, data["github_api_token"])
 
 	CONFIG_LOAD_LIST(topic_ip_ratelimit_bypass, data["topic_ip_ratelimit_bypass"])

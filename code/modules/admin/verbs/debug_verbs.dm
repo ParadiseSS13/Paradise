@@ -38,10 +38,10 @@ USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall
 		if(!procname)	return
 
 		// absolutely not
-		if(findtextEx(trim(lowertext(procname)), "rustg"))
-			message_admins(SPAN_USERDANGER("[key_name_admin(client)] attempted to proc call rust-g procs. Inform the host <u>at once</u>."))
-			log_admin("[key_name(client)] attempted to proc call rust-g procs. Inform the host at once.")
-			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(client)] attempted to proc call rustg things. Inform the host at once.")
+		if(findtextEx(trim(lowertext(procname)), "rustlibs"))
+			message_admins(SPAN_USERDANGER("[key_name_admin(client)] attempted to proc call rustlibs procs. Inform the host <u>at once</u>."))
+			log_admin("[key_name(client)] attempted to proc call rustlibs procs. Inform the host at once.")
+			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(client)] attempted to proc call rustlibs procs. Inform the host at once.")
 			return
 
 		if(targetselected && !hascall(target,procname))

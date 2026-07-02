@@ -1,7 +1,10 @@
 mod jobs;
 mod logging;
 mod mapmanip;
+mod mfa;
 mod milla;
+mod misc;
+// If its prefixed with rustlibs, its a port of the rust-g ones
 mod rustlibs_dmi;
 mod rustlibs_file;
 mod rustlibs_git;
