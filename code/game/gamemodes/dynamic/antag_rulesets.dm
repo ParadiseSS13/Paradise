@@ -40,6 +40,11 @@
 		"Chief Engineer",
 		"Quartermaster"
 	)
+	/// Roles that shouldn't be an antag if hijack isn't allowed.
+	var/list/hijack_only_jobs = list(
+		"AI",
+		"Cyborg"
+	)
 	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
 	/// A blacklist of species names that cannot play this antagonist
@@ -81,6 +86,9 @@
 /datum/ruleset/proc/antagonist_possible(budget)
 	return budget >= antag_cost
 
+/datum/ruleset/proc/can_assign_hijack_objective()
+	return FALSE
+
 /datum/ruleset/proc/roundstart_pre_setup()
 	if(antag_amount == 0)
 		return
@@ -94,6 +102,9 @@
 
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		banned_jobs += protected_jobs
+
+	if(!can_assign_hijack_objective())
+		banned_jobs += hijack_only_jobs
 
 	shuffle_inplace(possible_antags)
 	for(var/datum/mind/antag as anything in possible_antags)
@@ -363,3 +374,12 @@
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, SPAN_WARNING("<FONT size = 3>The staff managed to stop the cult!</FONT>"))
+
+/// Helper functions for Malf AI pop checks
+
+/datum/ruleset/traitor/can_assign_hijack_objective()
+	var/total_players
+	total_players = GLOB.roundstart_ready_players
+	if(total_players < GLOB.configuration.gamemode.min_players_hijack_roundstart)
+		return FALSE
+	return TRUE
