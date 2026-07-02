@@ -45,6 +45,8 @@ RESTRICT_TYPE(/datum/ai_controller)
 	var/continue_processing_when_client = FALSE
 	/// Distance to give up on target.
 	var/max_target_distance = 14
+	/// The search radius when looking for interesting things.
+	var/target_search_radius = 5
 	/// Cooldown for new plans, to prevent AI from going nuts if it can't think of new plans and looping on end
 	COOLDOWN_DECLARE(failed_planning_cooldown)
 	/// All subtrees this AI has available. Will run them in order, so make sure
@@ -142,8 +144,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 		return
 	var/list/temp_subtree_list = list()
 	for(var/subtree in planning_subtrees)
-		var/subtree_instance = GLOB.ai_subtrees[subtree]
+		var/datum/ai_planning_subtree/subtree_instance = GLOB.ai_subtrees[subtree]
 		temp_subtree_list += subtree_instance
+		subtree_instance.setup(src)
 	planning_subtrees = temp_subtree_list
 
 /// Proc to move from one pawn to another. This will destroy the target's existing controller.
@@ -344,7 +347,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 		qdel(src)
 
 /datum/ai_controller/proc/setup_able_to_run()
-	// paused_until is handled by PauseAi() manually
+	// paused_until is handled by pause_ai() manually
 	RegisterSignals(pawn, list(SIGNAL_ADDTRAIT(TRAIT_AI_PAUSED), SIGNAL_REMOVETRAIT(TRAIT_AI_PAUSED)), PROC_REF(update_able_to_run))
 
 /datum/ai_controller/proc/clear_able_to_run()
@@ -520,6 +523,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 		CRASH("Behavior [behavior_type] not found.")
 	var/list/arguments = args.Copy()
 	arguments[1] = src
+
+	if(!behavior.setup(arglist(arguments)))
+		return FALSE
 
 	// It's still in the plan, don't add it again to current_behaviors
 	// but do keep it in the planned behavior list so its not cancelled

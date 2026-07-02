@@ -229,9 +229,9 @@
 	/// These are generally cheaper than looping contents so they go first
 	switch(destination_turf.pathing_pass_method)
 		// This is already assumed to be true
-		//if(TURF_PATHING_PASS_DENSITY)
-		//	if(destination_turf.density)
-		//		return TRUE
+		if(TURF_PATHING_PASS_DENSITY)
+			if(destination_turf.density)
+				return TRUE
 		if(TURF_PATHING_PASS_PROC)
 			if(!destination_turf.CanPathfindPass(actual_dir, pass_info))
 				return TRUE
@@ -309,6 +309,8 @@
 	var/datum/can_pass_info/rider_info = null
 	/// If our mob is buckled to something, what's it like
 	var/datum/can_pass_info/buckled_info = null
+	/// If our mob is flock phasing or can flock phase.
+	var/able_to_flockphase = FALSE
 
 	var/list/factions = list()
 
@@ -363,6 +365,10 @@
 	if(iscameramob(construct_from))
 		src.camera_type = construct_from.type
 	src.is_bot = isbot(construct_from)
+	if(isflockdrone(construct_from))
+		var/mob/living/basic/flock/drone/bird = construct_from
+		if(HAS_TRAIT(bird, TRAIT_FLOCKPHASE) || bird.substrate.has_points(10))
+			able_to_flockphase = TRUE
 
 	if(construct_from.pulling)
 		src.pulling_info = new(construct_from.pulling, access, no_id, call_depth + 1)

@@ -46,6 +46,7 @@
 #define ROLE_GHOST				"ghost role"
 #define ROLE_ELITE				"lavaland elite"
 #define ROLE_NINJA				"ninja"
+#define ROLE_FLOCK				"flockmind"
 #define ROLE_IRRADIATED_MOUSE	"irradiated mouse"
 #define ROLE_UPLIFTED_PRIMITIVE	"uplifted primitive"
 
@@ -78,6 +79,7 @@ GLOBAL_LIST_INIT(special_roles_antags, list(
 	ROLE_IRRADIATED_MOUSE,
 
 	ROLE_UPLIFTED_PRIMITIVE,
+	ROLE_FLOCK,
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
