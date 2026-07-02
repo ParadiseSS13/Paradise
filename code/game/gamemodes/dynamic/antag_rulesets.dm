@@ -375,8 +375,7 @@
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, SPAN_WARNING("<FONT size = 3>The staff managed to stop the cult!</FONT>"))
 
-/// Helper functions for Malf AI pop checks
-
+/// Helper functions for Malf AI pop checks.
 /datum/ruleset/traitor/can_assign_hijack_objective()
 	var/total_players
 	total_players = GLOB.roundstart_ready_players
