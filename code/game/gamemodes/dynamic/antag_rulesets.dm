@@ -42,8 +42,7 @@
 	)
 	/// Roles that shouldn't be an antag if hijack isn't allowed.
 	var/list/hijack_only_jobs = list(
-		"AI",
-		"Cyborg"
+		"AI"
 	)
 	/// Applies the mind roll to assigned_role, preventing them from rolling a normal job. Good for wizards and nuclear operatives.
 	var/assign_job_role = FALSE
@@ -375,8 +374,7 @@
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, SPAN_WARNING("<FONT size = 3>The staff managed to stop the cult!</FONT>"))
 
-/// Helper functions for Malf AI pop checks
-
+/// Helper functions for Malf AI pop checks.
 /datum/ruleset/traitor/can_assign_hijack_objective()
 	var/total_players
 	total_players = GLOB.roundstart_ready_players
