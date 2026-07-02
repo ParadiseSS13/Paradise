@@ -3705,6 +3705,10 @@
 /area/station/public/arcade)
 "aGL" = (
 /obj/structure/chair/comfy/black,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aGO" = (
@@ -25248,16 +25252,6 @@
 "cNa" = (
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
-"cNc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "cNf" = (
 /obj/machinery/power/apc/reinforced/directional/north,
 /obj/structure/cable/extra_insulated{
@@ -27102,7 +27096,9 @@
 /obj/machinery/camera/toxins{
 	dir = 1
 	},
-/turf/simulated/floor/indestructible/airless,
+/turf/simulated/floor/indestructible/airless{
+	icon_state = "engine"
+	},
 /area/station/science/toxins/test)
 "cZc" = (
 /obj/structure/cable/yellow,
@@ -45649,9 +45645,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iQk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/extra_insulated{
@@ -58855,6 +58848,7 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "ndU" = (
@@ -60609,9 +60603,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "nJP" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/extra_insulated{
@@ -65314,9 +65305,6 @@
 /area/station/maintenance/port)
 "poQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -67183,6 +67171,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "pUh" = (
@@ -67416,21 +67405,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"pYr" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore2)
 "pYs" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/sillycup{
@@ -67970,9 +67944,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
 "qhd" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79654,15 +79625,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
-"uap" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
-	},
-/turf/simulated/floor/catwalk/grey,
-/area/station/maintenance/fpmaint)
 "uaD" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -80335,6 +80297,10 @@
 /obj/structure/railing/pool_lining,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"ujl" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/station/telecomms/chamber)
 "ujB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81458,9 +81424,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random/trash,
 /obj/effect/spawner/random/dirt/often,
 /obj/effect/decal/cleanable/dirt,
@@ -86875,9 +86838,6 @@
 /area/station/aisat)
 "wrk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -87108,13 +87068,12 @@
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
 "wuH" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/machinery/camera{
 	c_tag = "Arcade";
 	dir = 6
+	},
+/obj/structure/chair/stool{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -88126,6 +88085,10 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"wJW" = (
+/obj/machinery/computer/arcade/lawyer,
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "wKg" = (
 /obj/structure/closet/l3closet/janitor,
 /obj/machinery/light{
@@ -103205,7 +103168,7 @@ xLn
 smd
 aHk
 hRr
-uap
+ruB
 qVp
 iak
 iak
@@ -115791,7 +115754,7 @@ mtd
 ycD
 jbQ
 vym
-pYr
+nSl
 jac
 lIM
 gWW
@@ -127086,7 +127049,7 @@ rPt
 aFT
 ajg
 qxS
-alW
+akg
 uZt
 ajg
 aGL
@@ -127600,8 +127563,8 @@ nwU
 aMA
 ajg
 vOl
-akg
-aDY
+alW
+aWv
 ajg
 kEh
 dLF
@@ -127858,8 +127821,8 @@ jbe
 ajg
 qWM
 ajg
-aWv
-ajg
+aiY
+wJW
 wuH
 aEk
 aQv
@@ -132011,7 +131974,7 @@ fZo
 cOJ
 seF
 fDI
-cNc
+qKA
 wrk
 wrk
 uGA
@@ -148459,7 +148422,7 @@ bxf
 bFm
 bRo
 bKl
-bOa
+ujl
 dRN
 kwJ
 aXL

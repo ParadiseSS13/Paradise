@@ -10,6 +10,7 @@
 	var/hud_access_override = FALSE
 	/// Used for debug huds at examine.dm, gives us all rights for records
 	var/hud_debug = FALSE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 
 /obj/item/clothing/glasses/hud/Initialize(mapload)
@@ -51,7 +52,6 @@
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/health/sunglasses
@@ -63,7 +63,6 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/diagnostic
@@ -80,7 +79,6 @@
 	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
@@ -90,7 +88,6 @@
 	inhand_icon_state = "sunglasses"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/security
@@ -108,7 +105,6 @@
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/security/sunglasses
@@ -120,7 +116,6 @@
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	hide_examine = TRUE
 	flags_cover = GLASSESCOVERSEYES
 
@@ -146,7 +141,6 @@
 	icon_state = "hydroponichudnight"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/skills
@@ -163,7 +157,6 @@
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/janitor
@@ -181,7 +174,6 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/janitor/night
@@ -191,5 +183,4 @@
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	flags_cover = GLASSESCOVERSEYES

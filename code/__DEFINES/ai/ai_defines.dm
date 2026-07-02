@@ -86,4 +86,4 @@
 /// probability that the pawn should try resisting out of restraints
 #define RESIST_SUBTREE_PROB 50
 /// macro for whether it's appropriate to resist right now, used by resist subtree
-#define SHOULD_RESIST(source) (source.on_fire || source.buckled || source.restrained() || source.pulledby)
+#define SHOULD_RESIST(source) (source.on_fire || source.buckled || source.restrained() || source.pulledby || istype(source.loc, /obj/structure/closet))

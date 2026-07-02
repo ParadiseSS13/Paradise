@@ -346,19 +346,15 @@
 		return
 
 	to_chat(user, SPAN_NOTICE("You install the upgrade on [src]."))
-	add_overlay("advanced")
+	icon_state = "health2"
 	playsound(loc, I.usesound, 50, TRUE)
 	advanced = TRUE
 	qdel(I)
 
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
+	icon_state = "health2"
 	advanced = TRUE
-
-/obj/item/healthanalyzer/advanced/Initialize(mapload)
-	. = ..()
-	add_overlay("advanced")
-
 
 /obj/item/healthupgrade
 	name = "Health Analyzer Upgrade"
