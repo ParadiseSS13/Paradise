@@ -376,8 +376,4 @@
 
 /// Helper functions for Malf AI pop checks.
 /datum/ruleset/traitor/can_assign_hijack_objective()
-	var/total_players
-	total_players = GLOB.roundstart_ready_players
-	if(total_players < GLOB.configuration.gamemode.min_players_hijack_roundstart)
-		return FALSE
-	return TRUE
+	return (total_players >= GLOB.configuration.gamemode.min_players_hijack_roundstart)
