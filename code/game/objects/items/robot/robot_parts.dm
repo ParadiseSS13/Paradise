@@ -343,15 +343,15 @@
 			to_chat(user, SPAN_WARNING("The MMI must go in after everything else!"))
 			return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/borg/upgrade/ai))
-		var/obj/item/borg/upgrade/ai/M = W
+	if(istype(used, /obj/item/borg/upgrade/ai))
+		var/obj/item/borg/upgrade/ai/M = used
 		if(check_completion())
 			if(!isturf(loc))
 				to_chat(user, SPAN_WARNING("You cannot install[M], the frame has to be standing on the ground to be perfectly precise!"))
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(!user.drop_item())
 				to_chat(user, SPAN_WARNING("[M] is stuck to your hand!"))
-				return
+				return ITEM_INTERACT_COMPLETE
 			qdel(M)
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot/shell(get_turf(src))
 
@@ -376,7 +376,7 @@
 			if(!locomotion)
 				O.lockcharge = TRUE
 				O.update_stamina_hud()
-	if(is_pen(W))
+	if(is_pen(used))
 		to_chat(user, SPAN_WARNING("You need to use a multitool to name [src]!"))
 		return ITEM_INTERACT_COMPLETE
 	return ..()
