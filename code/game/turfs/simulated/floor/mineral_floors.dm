@@ -25,6 +25,7 @@
 //PLASMA
 /turf/simulated/floor/mineral/plasma
 	name = "plasma floor"
+	desc = "Flooring constructed from pure plasma crystal. There is absolutely nothing that can go wrong."
 	icon_state = "plasma"
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
@@ -66,6 +67,7 @@
 //GOLD
 /turf/simulated/floor/mineral/gold
 	name = "gold floor"
+	desc = "Flooring made of solid gold. It's only a matter of time before someone tries to steal it."
 	icon_state = "gold"
 	floor_tile = /obj/item/stack/tile/mineral/gold
 	icons = list("gold","gold_dam")
@@ -78,6 +80,7 @@
 //SILVER
 /turf/simulated/floor/mineral/silver
 	name = "silver floor"
+	desc = "Flooring made of solid silver. Not quite as valuable as gold, but still very snobby to use."
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
@@ -100,7 +103,8 @@
 //TITANIUM (shuttle)
 
 /turf/simulated/floor/mineral/titanium
-	name = "shuttle floor"
+	name = "titanium floor"
+	desc = "Lightweight flooring made out of titanium, often used in spacecraft construction."
 	icon_state = "titanium"
 	floor_tile = /obj/item/stack/tile/mineral/titanium
 
@@ -139,7 +143,8 @@
 
 //PLASTITANIUM (syndieshuttle)
 /turf/simulated/floor/mineral/plastitanium
-	name = "shuttle floor"
+	name = "plastitanium floor"
+	desc = "Evil-looking flooring made out of plastitanium. Often used for constructing military-grade spacecraft."
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
 
@@ -156,6 +161,7 @@
 
 /turf/simulated/floor/mineral/plastitanium/red/brig
 	name = "brig floor"
+	desc = "You're either taking the Big Ride, or taking someone else on it."
 
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen
 	oxygen = 0
@@ -165,6 +171,7 @@
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
 	name = "bananium floor"
+	desc = "Flooring constructed from pure bananium crystal. It squeaks with every step taken on it. Pressing into it causes it to HONK!"
 	icon_state = "bananium"
 	floor_tile = /obj/item/stack/tile/mineral/bananium
 	icons = list("bananium","bananium_dam")
@@ -224,6 +231,7 @@
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"
+	desc = "Flooring constructed from pure tranquilite crystal. No matter how hard it is stamped on, no sound is produced."
 	icon_state = "tranquillite"
 	icons = list("tranquillite", "tranquillite_dam")
 	floor_tile = /obj/item/stack/tile/mineral/tranquillite
@@ -235,6 +243,7 @@
 //DIAMOND
 /turf/simulated/floor/mineral/diamond
 	name = "diamond floor"
+	desc = "Flooring made out of pure diamond. Considering the large variety of industrial and scientific uses for diamond, this seems extremely wasteful."
 	icon_state = "diamond"
 	floor_tile = /obj/item/stack/tile/mineral/diamond
 	icons = list("diamond","diamond_dam")
@@ -242,6 +251,7 @@
 //URANIUM
 /turf/simulated/floor/mineral/uranium
 	name = "uranium floor"
+	desc = "Flooring made from uranium. It's radioactive, IT'S RADIOACTIVE!"
 	icon_state = "uranium"
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
@@ -283,6 +293,7 @@
 // ALIEN ALLOY
 /turf/simulated/floor/mineral/abductor
 	name = "alien floor"
+	desc = "Did we learn the secrets of building floors from an advanced alien civilization like this one?"
 	icon_state = "alienpod1"
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")

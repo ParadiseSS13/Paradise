@@ -383,6 +383,41 @@
 		/obj/item/kitchen/knife
 	)
 
+/obj/item/storage/belt/federation_webbing/marine/populate_contents()
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marine_officer/populate_contents()
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marsoc/populate_contents()
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marsoc_officer/populate_contents()
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
@@ -513,23 +548,6 @@
 		to_chat(user, SPAN_WARNING("[I] is too big for [src]."))
 		return
 	return ..()
-
-/obj/item/storage/belt/military/assault/marines/full/populate_contents()
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	update_icon()
-
-/obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	update_icon()
 
 /obj/item/storage/belt/military/assault/soviet/full/populate_contents()
 	new /obj/item/ammo_box/magazine/ak814(src)
