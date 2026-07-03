@@ -413,7 +413,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 				if(2)
 					cures += cure_pick(GLOB.plant_cures)
 				if(3)
-					cures += cure_pick(GLOB.drinks)
+					cures += cure_pick(GLOB.alcoholic_drinks | GLOB.soft_drinks)
 		for(var/cure in cures)
 			// Get the cure name from the cure_id
 			var/datum/reagent/D = GLOB.chemical_reagents_list[cure]

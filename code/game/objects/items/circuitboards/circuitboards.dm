@@ -266,6 +266,12 @@
 	build_path = /obj/machinery/computer/arcade/recruiter
 	origin_tech = "programming=1"
 
+/obj/item/circuitboard/arcade/lawyer
+	board_name = "Nanotrasen Magistrate Simulator"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/arcade/lawyer
+	origin_tech = "programming=1"
+
 /obj/item/circuitboard/solar_control
 	board_name = "Solar Control"
 	icon_state = "engineering"
