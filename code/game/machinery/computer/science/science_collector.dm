@@ -2,7 +2,9 @@
 	var/obj/item/disk/tech_disk/inserted_disk
 	/// Used to determine what reward item is needed to increase the max level
 	var/datum/tech/science_type
+	/// Holds items already redeemed, so they cant be redeemed multiple times
 	var/list/redeemed_reward_items = list()
+	/// Used to exceed the tech limit on tech datums (usually 7)
 	var/max_level_increase = 0
 	var/list/thresholds = list(
 		SCIENCE_POINTS_FOR_LEVEL_2,
@@ -26,6 +28,7 @@
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
+/// Increases the maximum level this computer can load onto a disk.
 /obj/machinery/computer/science_collector/proc/try_redeem_reward_item(obj/item/used)
 	if(!istype(science_type, /datum/tech/)) // you forgot to set this
 		log_debug("Science type not set on [src]")
@@ -49,6 +52,7 @@
 
 	return TRUE
 
+/// Converts the `data_points` variable into levels on the tech datum, then puts a new datum onto the disk. Capped by the maximum level on the tech datum plus any redeemed reward items.
 /obj/machinery/computer/science_collector/proc/load_data_onto_disk(datum/tech/tech_to_load, data_points)
 	if(!inserted_disk)
 		return
@@ -62,6 +66,7 @@
 	atom_say("loaded [new_tech.name] level [new_tech.level]")
 	inserted_disk.load_tech(new_tech)
 
+/// Puts an inserted disk, if any into the users hand.
 /obj/machinery/computer/science_collector/proc/eject_disk(mob/user)
 	if(!inserted_disk)
 		return
