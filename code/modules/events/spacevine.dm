@@ -85,6 +85,8 @@
 
 
 /turf/simulated/floor/vines
+	name = "vine floor"
+	desc = "A thick mat of living vines."
 	color = "#aa77aa"
 	icon_state = "vinefloor"
 

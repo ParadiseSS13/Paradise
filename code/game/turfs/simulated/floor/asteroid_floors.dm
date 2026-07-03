@@ -4,6 +4,7 @@
 /turf/simulated/floor/plating/asteroid
 	gender = PLURAL
 	name = "asteroid sand"
+	desc = "Dusty space rock with a consistency similar to terrestrial sandstone."
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
@@ -110,6 +111,7 @@
 
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
+	desc = "A thick layer of volcanic rock, specificially basalt."
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	icon_state = "basalt"
 	icon_plating = "basalt"
@@ -216,7 +218,7 @@
 
 /turf/simulated/floor/plating/asteroid/snow
 	name = "snow"
-	desc = "Looks cold."
+	desc = "A cold layer of accumulated ice crystals with a consistency ranging between fluffy powder and heavy sand. As more and more snow falls, the bottom layers will eventually be compacted into solid ice."
 	icon = 'icons/turf/snow.dmi'
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	icon_state = "snow"
