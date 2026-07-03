@@ -16,8 +16,8 @@ SUBSYSTEM_DEF(science_satellite)
 
 /datum/controller/subsystem/science_satellite/Initialize()
 	// spawn 2 pole nodes at the actual edge of the planet, instead of the stricter `max_spawn_radius`
-	spawn_weather_node(0, vector(0, planet_radius, 1), /datum/weather_node/pole, "north_pole.png")
-	spawn_weather_node(0, vector(0, -planet_radius, 1), /datum/weather_node/pole, "south_pole.png")
+	spawn_weather_node(0, vector(0, planet_radius, 1), /datum/weather_node/pole)
+	spawn_weather_node(0, vector(0, -planet_radius, 1), /datum/weather_node/pole/south)
 
 	var/volcanism_to_spawn = pick(
 		70; 1,
@@ -52,8 +52,7 @@ SUBSYSTEM_DEF(science_satellite)
 /// * `minimum_distance_to_others` - How far away from other nodes does this have to be. Overridden by `forced_loacation`.
 /// * `forced_location` - Select the location of the node, should be within `planet_radius` otherwise you'll have nodes floating in space
 /// * `forced_node` - Select a specific node to spawn
-/// * `custom_asset_icon` - Select a custom image (note, this image needs to be defined in `code\modules\asset_cache\assets`)
-/datum/controller/subsystem/science_satellite/proc/spawn_weather_node(square_minimum_distance_to_others = square_distance_between_nodes, vector/forced_location = null, datum/forced_node = null, custom_asset_icon = null)
+/datum/controller/subsystem/science_satellite/proc/spawn_weather_node(square_minimum_distance_to_others = square_distance_between_nodes, vector/forced_location = null, datum/forced_node = null)
 	var/datum/weather_node/weather_node_choice
 	if(forced_node)
 		weather_node_choice = new forced_node
@@ -63,9 +62,6 @@ SUBSYSTEM_DEF(science_satellite)
 		30; new /datum/weather_node/ash_storm,
 		20; new /datum/weather_node/acid_rain,
 		10; new /datum/weather_node/volcanism)
-
-	if(custom_asset_icon)
-		weather_node_choice.asset_icon = custom_asset_icon
 
 	var/vector/position_vector
 	if(forced_location)
@@ -135,6 +131,9 @@ SUBSYSTEM_DEF(science_satellite)
 	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
 	science_yield = 20
 	asset_icon = "north_pole.png"
+
+/datum/weather_node/pole/south
+	asset_icon = "south_pole.png"
 
 /datum/weather_node/wind
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_WIND
