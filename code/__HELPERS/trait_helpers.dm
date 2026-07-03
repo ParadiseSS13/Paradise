@@ -296,6 +296,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "trait_ai_paused"
 
+#define TRAIT_TEMPERATE_PARTIER "temperate_partier" // Mob won't wake up drunk in a random department
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion

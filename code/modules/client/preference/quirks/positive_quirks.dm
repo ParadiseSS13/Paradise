@@ -196,3 +196,9 @@
 	cost = 1
 	species_flags = QUIRK_MACHINE_INCOMPATIBLE
 	organ_to_give = /obj/item/organ/internal/cyberimp/mouth/breathing_tube
+
+/datum/quirk/temperate_partier
+	name = "Temperate Partier"
+	desc = "You never wake up drunk in an unrelated department. You know better than to drink like that on a work night."
+	cost = 1
+	trait_to_apply = TRAIT_TEMPERATE_PARTIER

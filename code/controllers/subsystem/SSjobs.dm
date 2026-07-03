@@ -163,11 +163,11 @@ SUBSYSTEM_DEF(jobs)
 		var/turf/T = null
 		var/obj/S = null
 		var/list/landmarks = GLOB.landmarks_list
-		if(drunken_spawning)
+		if(drunken_spawning && !HAS_TRAIT(H, TRAIT_TEMPERATE_PARTIER))
 			landmarks = shuffle(landmarks) //Shuffle it so it's random
 
 		for(var/obj/effect/landmark/start/sloc in landmarks)
-			if(sloc.name != rank && !drunken_spawning)
+			if(sloc.name != rank && !(drunken_spawning && !HAS_TRAIT(H, TRAIT_TEMPERATE_PARTIER)))
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
@@ -224,7 +224,7 @@ SUBSYSTEM_DEF(jobs)
 		return H
 	if(late_arrivals_spawning)
 		H.forceMove(pick(GLOB.latejoin))
-	if(drunken_spawning)
+	if(drunken_spawning && !HAS_TRAIT(H, TRAIT_TEMPERATE_PARTIER))
 		var/obj/item/organ/internal/liver/L
 		var/liver_multiplier = 1
 		L = H.get_int_organ(/obj/item/organ/internal/liver)
