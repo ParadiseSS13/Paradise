@@ -1220,6 +1220,10 @@
 		if(M.mob_biotypes & MOB_BUG)
 			var/damage = min(round(0.4 * volume, 0.1), 10)
 			M.adjustToxLoss(damage)
+		if(istype(M, /mob/living/basic/megafauna/kidan_princess))
+			var/mob/living/basic/megafauna/kidan_princess/princess = M
+			if(!princess.enraged)
+				princess.enrage()
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/damage = 1

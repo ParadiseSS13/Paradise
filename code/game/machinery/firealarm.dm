@@ -343,6 +343,7 @@ FIRE ALARM
 	return ..()
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/no_alarm, 32, 32)
 
 /*
 FIRE ALARM CIRCUIT
