@@ -46,8 +46,9 @@
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
-	var/hunger_drain = HUNGER_FACTOR
-	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
+	var/hunger_drain = HUNGER_FACTOR // the most widely used factor; humans use a different one
+	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL
+	var/taste_category = TASTE_CATEGORY_ORGANIC // what kinds of taste messages will they get?
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
 
 	var/siemens_coeff = 1 //base electrocution coefficient

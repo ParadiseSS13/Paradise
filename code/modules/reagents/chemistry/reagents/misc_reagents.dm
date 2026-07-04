@@ -56,6 +56,7 @@
 	description = "A chemical element."
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "like a pencil or something"
+	yuck_description = "powder coating"
 
 /datum/reagent/carbon/reaction_turf(turf/T, volume)
 	if(!(locate(/obj/effect/decal/cleanable/dirt) in T) && !isspaceturf(T)) // Only add one dirt per turf.  Was causing people to crash.
@@ -67,6 +68,7 @@
 	description = "Gold is a dense, soft, shiny metal and the most malleable and ductile metal known."
 	color = "#F7C430" // rgb: 247, 196, 48
 	taste_description = "bling"
+	yuck_description = "connectivity"
 
 
 /datum/reagent/silver
@@ -75,6 +77,7 @@
 	description = "A lustrous metallic element regarded as one of the precious metals."
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
+	yuck_description = "connectivity"
 
 /datum/reagent/aluminum
 	name = "Aluminum"
@@ -89,6 +92,7 @@
 	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "a CPU"
+	yuck_description = "superior connectivity"
 
 /datum/reagent/copper
 	name = "Copper"
@@ -96,6 +100,7 @@
 	description = "A highly ductile metal."
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "copper"
+	yuck_description = "connectivity"
 
 /datum/reagent/copper/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/stack/sheet/metal))
@@ -117,6 +122,7 @@
 	description = "Pure iron is a metal."
 	color = "#525152" // rgb: 200, 165, 220
 	taste_description = "metal"
+	yuck_description = "connectivity"
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -134,6 +140,7 @@
 	reagent_state = LIQUID
 	color = "#9E6B38" // rgb: 158, 107, 56
 	taste_description = "extreme discomfort"
+	taste_flag = ORGANIC | SYNTHETIC
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
@@ -144,6 +151,7 @@
 	reagent_state = GAS
 	color = "#404030" // rgb: 64, 64, 48
 	taste_description = "floor cleaner"
+	yuck_description = "clean components"
 
 /datum/reagent/diethylamine
 	name = "Diethylamine"
@@ -162,7 +170,9 @@
 	shock_reduction = 25
 	view_true_health = TRUE
 	metabolization_rate = 0.1
-	taste_description = "motor oil"
+	taste_description = "smooth joints and quiet servos"
+	yuck_description = "motor oil"
+	taste_flag = SYNTHETIC
 	process_flags = SYNTHETIC
 	/// What this becomes after burning.
 	var/reagent_after_burning = "ash"
@@ -207,6 +217,7 @@
 	description = "You should probably pour this down the sink, where it belongs."
 	color = "#fbba16"
 	taste_description = "old french fries"
+	yuck_description = "lubricant"
 	reagent_after_burning = "cooking_oil_inert"
 
 /datum/reagent/oil/cooking/reaction_turf(turf/T, volume)
@@ -217,6 +228,7 @@
 	name = "Burned Cooking Oil"
 	description = "It's full of char and mixed with so much crud it's probably useless."
 	id = "cooking_oil_inert"
+	yuck_description = "gritty lubricant"
 
 /datum/reagent/oil/cooking/inert/reaction_temperature(exposed_temperature, exposed_volume)
 	// don't do anything
@@ -267,6 +279,7 @@
 	reagent_state = LIQUID
 	color = "#191919"
 	taste_description = "ash"
+	yuck_description = "powder coating"
 
 /datum/reagent/acetone
 	name = "Acetone"
@@ -275,6 +288,7 @@
 	reagent_state = LIQUID
 	color = "#474747"
 	taste_description = "nail polish remover"
+	yuck_description = "cosmetic component damage"
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -288,6 +302,7 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	taste_description = "one third of an explosion"
+	yuck_description = "powder coating"
 
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -401,6 +416,7 @@
 	reagent_state = LIQUID
 	color = "#FF97B9"
 	taste_description = "<font color='pink'><b>hugs</b></font>"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/love
 	name = "Pure love"
@@ -410,6 +426,7 @@
 	color = "#FF83A5"
 	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
 	taste_description = "<font color='pink'><b>love</b></font>"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/love/on_mob_add(mob/living/L)
 	..()
@@ -447,7 +464,8 @@
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "a funny flavour"
+	taste_description = "a funny flavor"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/jestosterone/on_new()
 	..()
@@ -516,7 +534,8 @@
 	color = "#353535" // Should be dark grey, there are already a fair number of white chemicals
 	process_flags = ORGANIC | SYNTHETIC
 	drink_desc = "The color of the glass' surroundings seem to drain as you look at it."
-	taste_description = "an entertaining flavour"
+	taste_description = "an entertaining flavor"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/mimestrogen/on_new()
 	..()
@@ -589,6 +608,7 @@
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
 	taste_description = "sweetness"
+	yuck_description = "stickiness in your tubes"
 
 /datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
 	if(prob(2))
@@ -650,6 +670,7 @@
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
 	taste_description = "waste"
+	yuck_description = "grit in your tubes"
 
 /datum/reagent/toxin/teapowder
 	name = "Ground Tea Leaves"
@@ -658,6 +679,7 @@
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0"
 	taste_description = "the future"
+	yuck_description = "grit in your tubes"
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 

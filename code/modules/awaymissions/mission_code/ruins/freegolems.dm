@@ -35,7 +35,7 @@
   */
 /obj/machinery/mineral/ore_redemption/golem
 	req_access = list(ACCESS_FREE_GOLEMS)
-	req_access_claim = ACCESS_FREE_GOLEMS
+	req_access_claim = list(ACCESS_FREE_GOLEMS)
 
 /obj/machinery/mineral/ore_redemption/golem/Initialize(mapload)
 	. = ..()

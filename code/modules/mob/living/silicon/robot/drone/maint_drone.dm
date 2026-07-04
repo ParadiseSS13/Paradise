@@ -16,7 +16,7 @@
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
-	hat_offset_y = -15
+	hat_offsets = alist(SOUTH = list(0, -15), NORTH = list(0, -15), EAST = list(0, -15), WEST = list(0, -15))
 	is_centered = TRUE
 	can_be_hatted = TRUE
 	can_wear_restricted_hats = TRUE

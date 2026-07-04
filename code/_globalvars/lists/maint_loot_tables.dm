@@ -114,19 +114,17 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 
 	list(
 		// Small chance of tier 1 stock parts
-		/obj/item/stock_parts/capacitor,
-		/obj/item/stock_parts/manipulator,
-		/obj/item/stock_parts/matter_bin,
-		/obj/item/stock_parts/micro_laser,
-		/obj/item/stock_parts/scanning_module,
+		/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/scanning_module = 2,
 
 		// Coins
-		/obj/item/coin/silver,
-		/obj/item/coin/twoheaded,
+		/obj/item/coin/silver = 2,
+		/obj/item/coin/twoheaded = 2,
+		/obj/item/toy/round_tuit,
 	) = 2,
-
-	// A round tuit
-	/obj/item/toy/round_tuit = 1,
 
 ))
 

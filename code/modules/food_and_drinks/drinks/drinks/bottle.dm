@@ -479,7 +479,7 @@
 
 /obj/item/reagent_containers/drinks/bottle/white_wine
 	name = "Corton-Charlemagne Grand Cru"
-	desc = "."
+	desc = "A bottle straight from Sol's most famous wine-making region... or a very convincing knock-off."
 	icon_state = "white_wine_bottle"
 	list_reagents = list("whitewine" = 100)
 

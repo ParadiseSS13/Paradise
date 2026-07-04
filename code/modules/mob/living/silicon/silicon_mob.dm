@@ -52,7 +52,7 @@
 	)
 
 	var/obj/item/silicon_hat
-	var/hat_offset_y = -3
+	var/hat_offsets = alist(SOUTH = list(0, -3), NORTH = list(0, -3), EAST = list(0, -3), WEST = list(0, -3))
 	/// For cyborgs with wide "heads", when false causes the hat icon to be stretched.
 	var/is_centered = FALSE
 	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
@@ -392,7 +392,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose = tgui_input_text(usr, "This is [src]. It...", "Pose", pose)
+	pose = tgui_input_text(usr, "This is [src]. [p_they()]...", "Pose", pose)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
@@ -517,9 +517,20 @@
 	if(!(hat_icon_file || hat_icon_state))
 		return
 	var/image/borgI = image(hat_icon_file, hat_icon_state)
+	if(hat_offsets[SOUTH][1] == hat_offsets[NORTH][1] && hat_offsets[SOUTH][1] == hat_offsets[EAST][1] && hat_offsets[SOUTH][1] == hat_offsets[WEST][1] && \
+			hat_offsets[SOUTH][2] == hat_offsets[NORTH][2] && hat_offsets[SOUTH][2] == hat_offsets[EAST][2] && hat_offsets[SOUTH][2] == hat_offsets[WEST][2])
+		borgI.pixel_x = hat_offsets[SOUTH][1]
+		borgI.pixel_y = hat_offsets[SOUTH][2]
+	else
+		var/icon/temp_icon = icon(borgI.icon, borgI.icon_state)
+		for(var/dir in GLOB.cardinal)
+			var/icon/dir_image = icon(borgI.icon, borgI.icon_state)
+			dir_image.Shift(WEST, hat_offsets[dir][1])
+			dir_image.Shift(NORTH, hat_offsets[dir][2])
+			temp_icon.Insert(dir_image, dir = dir)
+		borgI = image(temp_icon)
 	borgI.alpha = hat_alpha
 	borgI.color = hat_color
-	borgI.pixel_y = hat_offset_y
 	if(!is_centered)
 		borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 	return borgI
@@ -654,7 +665,7 @@
 /mob/living/silicon/examine(mob/user)
 	. = ..()
 	if(silicon_hat)
-		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
+		. += "<span class='notice'>[p_they(TRUE)] [p_are()] wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
 		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"
 
 /mob/living/silicon/plushify(plushie_override, curse_time)

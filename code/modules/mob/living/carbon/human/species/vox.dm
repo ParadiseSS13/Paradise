@@ -34,6 +34,7 @@
 	butt_sprite = "vox"
 
 	reagent_tag = PROCESS_ORG | PROCESS_SYN
+	taste_category = TASTE_CATEGORY_BOTH
 	scream_verb = "shrieks"
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'

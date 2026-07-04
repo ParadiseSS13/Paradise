@@ -111,6 +111,13 @@
 #define TASTE_SENSITIVITY_DULL 25
 #define TASTE_SENSITIVITY_NO_TASTE 101
 
+// Taste category - determines what types of reagents mob can taste
+// Reagents they can't taste will produce "yucky" or "indescribable" message by default
+#define TASTE_CATEGORY_NONE 0
+#define TASTE_CATEGORY_ORGANIC 1
+#define TASTE_CATEGORY_SYNTHETIC 2
+#define TASTE_CATEGORY_BOTH TASTE_CATEGORY_ORGANIC | TASTE_CATEGORY_SYNTHETIC
+
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
 #define SYNTHETIC 2

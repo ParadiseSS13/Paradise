@@ -217,7 +217,7 @@
 // MARK: Necropolis curse
 /datum/status_effect/necropolis_curse
 	id = "necrocurse"
-	duration = 10 MINUTES //you're cursed for 10 minutes have fun
+	duration = 3 MINUTES // Lasts for the same time as Unholy Determination
 	tick_interval = 5 SECONDS
 	alert_type = null
 	var/curse_flags = NONE

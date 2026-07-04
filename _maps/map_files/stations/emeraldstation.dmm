@@ -4856,6 +4856,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "aZu" = (
@@ -5918,6 +5919,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "blo" = (
@@ -14063,6 +14065,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"cNW" = (
+/obj/machinery/computer/arcade/lawyer{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "cOi" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -14477,6 +14485,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "cTt" = (
@@ -16973,6 +16982,9 @@
 	name = "Security Reception"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/lobby)
 "dsA" = (
@@ -17538,6 +17550,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-4"
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "dxU" = (
@@ -21330,9 +21343,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "eob" = (
@@ -23436,12 +23447,12 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -25430,6 +25441,9 @@
 	name = "Chemistry Privacy Shutter"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/chemistry)
 "fcP" = (
@@ -30441,7 +30455,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/security/fore)
 "gbn" = (
 /obj/structure/bed,
@@ -32745,6 +32760,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "gze" = (
@@ -33094,6 +33110,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "gDD" = (
@@ -33148,7 +33165,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block)
 "gDQ" = (
 /obj/machinery/firealarm/directional/north,
@@ -34234,6 +34254,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-4"
 	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "gQg" = (
@@ -37810,6 +37831,10 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "hzc" = (
@@ -38410,6 +38435,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "hDO" = (
@@ -39769,6 +39795,9 @@
 "hVe" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
@@ -41466,6 +41495,10 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "imI" = (
@@ -48605,6 +48638,7 @@
 	id_tag = "Secure Armory";
 	name = "Secure Armory Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "jHZ" = (
@@ -52098,10 +52132,13 @@
 	name = "Aft Starboard Solar Access";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
@@ -53606,6 +53643,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"kJv" = (
+/obj/machinery/camera{
+	c_tag = "Fore Port Solar Control";
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/fore_port)
 "kJw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random/directional/north,
@@ -53877,6 +53921,9 @@
 "kLR" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
@@ -57499,6 +57546,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
 /obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/chemistry)
 "lyH" = (
@@ -59482,6 +59532,7 @@
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "lVG" = (
@@ -60959,6 +61010,9 @@
 "mmf" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
@@ -68976,6 +69030,13 @@
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"nNC" = (
+/obj/machinery/camera{
+	c_tag = "Aft Starboard Solar Control";
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/aft_starboard)
 "nNH" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "waste_in"
@@ -70713,11 +70774,11 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 6
-	},
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/drip,
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "oem" = (
@@ -71365,7 +71426,8 @@
 	name = "Security Atmospherics Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/security/aft_starboard)
 "okn" = (
 /obj/structure/closet/secure_closet/evidence/detective,
@@ -72913,10 +72975,6 @@
 /area/station/medical/morgue)
 "oBj" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_x = 30
 	},
@@ -72924,6 +72982,7 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
 "oBl" = (
@@ -79614,6 +79673,9 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "pOO" = (
@@ -79980,10 +80042,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
 	},
-/obj/machinery/camera{
-	c_tag = "Fore Port Solar Control";
-	dir = 9
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "pTY" = (
@@ -80726,6 +80785,10 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "qbZ" = (
@@ -82298,6 +82361,7 @@
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 4
 	},
+/obj/machinery/autoclave,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
 "qsh" = (
@@ -83008,6 +83072,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "qAW" = (
@@ -83930,6 +83995,16 @@
 "qKo" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/central/north)
+"qKC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint)
 "qKE" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
@@ -83953,6 +84028,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "qKQ" = (
@@ -84198,6 +84274,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "qMY" = (
@@ -88772,6 +88849,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "0-8"
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "rHj" = (
@@ -91437,6 +91515,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-4"
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "sgs" = (
@@ -92345,6 +92424,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/trash,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "sqE" = (
@@ -95022,8 +95102,9 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 9
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 4;
+	level = 2
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -95250,6 +95331,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "sVN" = (
@@ -99348,10 +99430,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "tKg" = (
+/obj/structure/sign/poster/official/random/directional/west,
 /obj/machinery/computer/arcade/battle{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/random/directional/west,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "tKl" = (
@@ -102093,7 +102175,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "umn" = (
-/obj/effect/spawner/random/barrier/obstruction,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -102107,9 +102188,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/chemistry,
-/obj/effect/turf_decal/tiles/department/security/checker,
-/turf/simulated/floor/plasteel,
+/obj/effect/spawner/random/barrier/obstruction,
+/turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "umv" = (
 /obj/item/kirbyplants/large,
@@ -105532,6 +105612,9 @@
 "uVV" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
@@ -110118,13 +110201,16 @@
 /area/station/service/chapel)
 "vQU" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/secondary)
@@ -112126,6 +112212,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "wmk" = (
@@ -116363,10 +116450,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Aft Starboard Solar Control";
-	dir = 5
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "xic" = (
@@ -120125,7 +120208,8 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "xVI" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -146665,7 +146749,7 @@ dGi
 usw
 pOM
 pTR
-dXx
+kJv
 dGi
 lfn
 mQF
@@ -147177,7 +147261,7 @@ gEj
 uyf
 fxy
 yaB
-pAR
+qKC
 auV
 aSK
 qsb
@@ -156726,7 +156810,7 @@ eUC
 eMZ
 eMZ
 tiZ
-tiZ
+cNW
 hNn
 pgu
 ffU
@@ -176100,7 +176184,7 @@ qsn
 mFr
 mFr
 mFr
-vmB
+nNC
 avm
 mFr
 jnP

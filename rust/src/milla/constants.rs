@@ -33,7 +33,7 @@ pub(crate) const TOXINS_MIN_VISIBILITY_MOLES: f32 = 0.5;
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
 
 /// How many moles are needed to make water vapor visible.
-pub(crate) const WATER_VAPOR_VISIBILITY_MOLES: f32 = 2.0;
+pub(crate) const WATER_VAPOR_VISIBILITY_MOLES: f32 = 4.0;
 
 /// How much stuff needs to react before we think hotspots and BYOND care.
 pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.1;
@@ -242,3 +242,7 @@ pub(crate) const BYOND_WIND_MULTIPLIER: f32 = 0.5;
 /// The smallest temperature allowed for the purpose of caluclating pressure.
 /// Prevents weirdness from absolute-zero gas having no pressure at all.
 pub(crate) const MINIMUM_TEMPERATURE_FOR_PRESSURE: f32 = 1.0;
+
+/// How much of the excess temperature in a hotspot should be lost to the tile every tick.
+/// Makes hotspots die out if they're not burning fast enough.
+pub(crate) const HOTSPOT_CONDUCTION: f32 = 0.1;

@@ -190,6 +190,13 @@
 	description = "Just somewhere quiet, where I can focus on my work with \
 		no interruptions."
 
+/datum/map_template/ruin/space/ragnarok_ship
+	id = "ragnarok"
+	suffix = "ragnarok_ship.dmm"
+	name = "The Ragnarok"
+	description = "A large kidan space yacht carrying royalty. Expect an opulant trial."
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/space/mech_transport
 	id = "mech-transport"
 	suffix = "mechtransport.dmm"
@@ -475,6 +482,12 @@
 	suffix = "engineering_vessel.dmm"
 	name = "Engineering Vessel"
 	description = "A small vessel able to have a telecoms relay built inside of it, as well as some miscellaneous cargo."
+
+/datum/map_template/ruin/space/gas_station
+	id = "gas_station"
+	suffix = "gas_station.dmm"
+	name = "Garry's Gas Station"
+	description = "A small locally owned station to get that good stuff! We mean fuel of course."
 
 /datum/map_template/ruin/space/kappa_lab
 	id = "kappa_lab"
