@@ -564,17 +564,5 @@
 	var/brainmob = null
 
 /obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R)
-	if(..())
-		return
-	if(R.shell)
-		to_chat(usr, SPAN_WARNING("This unit is already an AI shell!"))
-		return
-	if(R.key || R.mmi)
-		to_chat(usr, SPAN_WARNING("Intelligence patterns detected in this [R.braintype]. Aborting."))
-		return
-	if(!R.key)
-		to_chat(usr, SPAN_WARNING("Disassemble the cyborg before installing the B.O.R.I.S. module."))
-		return
-
-	R.make_shell(src)
-	return TRUE
+	to_chat(usr, SPAN_NOTICE("The B.O.R.I.S. module can only be installed into an endoskeleton."))
+	return

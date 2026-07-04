@@ -1192,7 +1192,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
 		if(shell) // Prevents AI shell key theft.
-			to_chat(user, SPAN_NOTICE("The shell appears to not have an encription key."))
+			to_chat(user, SPAN_NOTICE("The shell appears to not have an encryption key."))
 			return
 		if(radio)
 			radio.screwdriver_act(user, I) // Push it to the radio to let it handle everything.
@@ -2089,7 +2089,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		stack_trace("make_shell was called without a board argument! This is never supposed to happen!")
 		return FALSE
 	shell = TRUE
-	mmi = board // This is to drop the BORIS module when we decontruct a shell.
+	mmi = board // This is to drop the BORIS module when we deconstruct a shell.
 	braintype = "AI Shell"
 	name = "AI Shell [rand(100,999)]"
 	real_name = name
@@ -2110,7 +2110,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	diag_hud_set_aishell()
 
 /mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
-	real_name = "[AI.real_name] shell [rand(100, 999)] [designation ? "-[designation]" : "[null]"]"	// Randomizing the name so it shows up seperately in the shells list.
+	real_name = "[AI.real_name] shell [rand(100, 999)] [designation ? "-[designation]" : ""]"	// Randomizing the name so it shows up seperately in the shells list.
 	name = real_name
 	setup_PDA()
 	if(camera)
