@@ -36,14 +36,14 @@
 					access_id.forceMove(get_turf(user))
 					user.put_in_hands(access_id)
 					access_id = null
-				return ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/petcollar/item_interaction(mob/living/user, obj/item/card/id/tool, list/modifiers)
 	if(!istype(tool))
 		return ..()
 	if(access_id)
 		to_chat(user, SPAN_WARNING("There is already \a [access_id] clipped onto [src]."))
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 	user.drop_item()
 	tool.forceMove(src)
 	access_id = tool
