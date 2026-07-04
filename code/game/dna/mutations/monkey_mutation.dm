@@ -79,6 +79,7 @@
 	if(has_greater_form)
 		H.set_species(has_greater_form, keep_missing_bodyparts = TRUE)
 
+
 	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
 	addtimer(CALLBACK(src, PROC_REF(finish_unmonkeyize), H, !has_greater_form), 2.2 SECONDS)
 
@@ -90,6 +91,38 @@
 		H.gib()
 		return
 
+	var/datum/character_save/appearance = H.dna.species.generate_random_appearance(prosthesis_prob = 0)
+
+	H.skin_colour = appearance.s_colour
+	H.s_tone = appearance.s_tone
+
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+
+	head_organ.hair_colour = appearance.h_colour
+	head_organ.sec_hair_colour = appearance.h_sec_colour
+	head_organ.facial_colour = appearance.f_colour
+	head_organ.sec_facial_colour = appearance.f_sec_colour
+
+	head_organ.alt_head = appearance.alt_head
+
+	if(H.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
+		head_organ.headacc_colour = appearance.hacc_colour
+		head_organ.ha_style = appearance.ha_style
+	if(H.dna.species.bodyflags & HAS_MARKINGS)
+		H.m_colours = appearance.m_colours
+		for(var/style in appearance.m_styles)
+			if("Tattoo" in appearance.m_styles[style])
+				continue
+			H.m_styles = appearance.m_styles
+	if(appearance.body_accessory)
+		H.body_accessory = GLOB.body_accessory_by_name[appearance.body_accessory]
+
+	H.change_eye_color(appearance.e_colour, skip_icons = TRUE)
+	H.original_eye_color = appearance.e_colour
+
+	H.regenerate_icons()
+	H.update_body()
+	H.update_dna()
 	H.real_name = H.dna.real_name
 	H.name = H.real_name
 
