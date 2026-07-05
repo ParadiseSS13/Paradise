@@ -6,6 +6,7 @@
 	icon_state = "eggs"
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/fish/fish_type = null			//Holds the datum of the fish that the egg is for, null means dud eggs
+	new_attack_chain = TRUE
 
 /obj/item/fish_eggs/goldfish
 	name = "goldfish eggs"
