@@ -633,8 +633,6 @@
 	desc = "A bundle of sterilized sutures used for sealing up minor cuts and lacerations."
 	icon_state = "suture"
 	merge_type = /obj/item/stack/medical/adv/suture
-	amount = 10
-	max_amount = 10
 	heal_brute = 10
 	stop_bleeding = 1200
 	healverb = "suturing"
