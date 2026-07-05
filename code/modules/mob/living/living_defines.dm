@@ -149,4 +149,3 @@
 	var/list/ownedSoullinks
 	/// Soul links we are the sharer of.
 	var/list/sharedSoullinks
-

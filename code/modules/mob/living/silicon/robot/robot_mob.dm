@@ -1097,7 +1097,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		module?.update_cells()
 		diag_hud_set_borgcell()
 		return ITEM_INTERACT_COMPLETE
-	else if(istype(used, /obj/item/encryptionkey/) && opened)
+	if(istype(used, /obj/item/encryptionkey/) && opened)
 		if(radio)
 			to_chat(user, SPAN_NOTICE("You install [used] into [src]'s radio."))
 			radio.attackby__legacy__attackchain(used, user)
@@ -1309,7 +1309,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 
 	if(opened)
 		if(shell) // AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
-			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable ai control!"))
+			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable AI control!"))
 			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
 			undeploy()
 			revert_shell()
