@@ -1366,14 +1366,14 @@
 
 /datum/crafting_recipe/emergency_suture
 	name = "Emergency suture"
-	result = list(/obj/item/stack/medical/suture/emergency)
+	result = list(/obj/item/stack/medical/adv/suture/emergency)
 	reqs = list(/obj/item/suture_needle = 1,
 				/obj/item/stack/sheet/cloth = 1) // normal clothing thread
 	category = CAT_MISC
 
 /datum/crafting_recipe/suture
 	name = "Suture"
-	result = list(/obj/item/stack/medical/suture)
+	result = list(/obj/item/stack/medical/adv/suture)
 	reqs = list(/obj/item/suture_needle = 1,
 				/datum/reagent/molten_plastic = 10, // 1 sheet of plastic
 				/datum/reagent/medicine/sterilizine = 5) // Molten plastic is probably already sterile
@@ -1381,7 +1381,7 @@
 
 /datum/crafting_recipe/medicated_suture
 	name = "Medicated suture"
-	result = list(/obj/item/stack/medical/suture/medicated)
+	result = list(/obj/item/stack/medical/adv/suture/medicated)
 	reqs = list(/obj/item/suture_needle = 1,
 				/datum/reagent/molten_plastic = 10,
 				/datum/reagent/medicine/heal_on_apply/styptic_powder = 30,
@@ -1390,7 +1390,7 @@
 
 /datum/crafting_recipe/regenerative_mesh
 	name = "Regenerative mesh"
-	result = list(/obj/item/stack/medical/suture/regen_mesh)
+	result = list(/obj/item/stack/medical/adv/regen_mesh)
 	reqs = list(/obj/item/biomesh = 1,
 				/datum/reagent/medicine/heal_on_apply/silver_sulfadiazine = 10,
 				/datum/reagent/medicine/sterilizine = 10)
@@ -1398,7 +1398,7 @@
 
 /datum/crafting_recipe/advanced_regenerative_mesh
 	name = "Advanced regenerative mesh"
-	result = list(/obj/item/stack/medical/suture/regen_mesh/advanced)
+	result = list(/obj/item/stack/medical/adv/regen_mesh/advanced)
 	reqs = list(/obj/item/biomesh = 1,
 				/datum/reagent/medicine/heal_on_apply/synthflesh = 10,
 				/datum/reagent/medicine/spaceacillin = 5, //Burns get infected
