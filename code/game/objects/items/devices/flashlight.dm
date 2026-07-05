@@ -13,6 +13,7 @@
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
+	new_attack_chain = TRUE
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
@@ -31,55 +32,70 @@
 		set_light(0)
 	update_icon()
 
-/obj/item/flashlight/attack_self__legacy__attackchain(mob/user)
+/obj/item/flashlight/activate_self(mob/user)
 	if(!isturf(user.loc))
-		to_chat(user, "You cannot turn the light on while in this [user.loc].")//To prevent some lighting anomalities.
-		return FALSE
+		to_chat(user, "You cannot toggle the light while obscured by [user.loc].") // To prevent some lighting anomalities.
+		return ITEM_INTERACT_COMPLETE
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
 	update_action_buttons()
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/flashlight/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
 	add_fingerprint(user)
-	if(on && user.zone_selected == "eyes")
-
-		if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
-			return ..()	//just hit them in the head
-
-		if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
-			to_chat(user, SPAN_NOTICE("You don't have the dexterity to do this!"))
-			return
-
-		var/mob/living/carbon/human/H = M	//mob has protective eyewear
-		if(istype(H) && ((H.head && H.head.flags_cover & HEADCOVERSEYES) || (H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) || (H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES)))
-			to_chat(user, SPAN_NOTICE("You're going to need to remove that [(H.head && H.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask" : "glasses"] first."))
-			return
-
-		if(M == user)	//they're using it on themselves
-			if(M.flash_eyes(visual = 1))
-				M.visible_message(SPAN_NOTICE("[M] directs [src] to [M.p_their()] eyes."), \
-									SPAN_NOTICE("You wave the light in front of your eyes! Trippy!"))
-			else
-				M.visible_message(SPAN_NOTICE("[M] directs [src] to [M.p_their()] eyes."), \
-									SPAN_NOTICE("You wave the light in front of your eyes."))
-		else
-
-			user.visible_message(SPAN_NOTICE("[user] directs [src] to [M]'s eyes."), \
-								SPAN_NOTICE("You direct [src] to [M]'s eyes."))
-
-			if(istype(H)) //robots and aliens are unaffected
-				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-				if(M.stat == DEAD || !eyes || HAS_TRAIT(M, TRAIT_BLIND))	//mob is dead or fully blind
-					to_chat(user, SPAN_NOTICE("[M]'s pupils are unresponsive to the light!"))
-				else if(HAS_TRAIT(M, TRAIT_XRAY_VISION) || eyes.see_in_dark >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
-					to_chat(user, SPAN_NOTICE("[M]'s pupils glow eerily!"))
-				else //they're okay!
-					if(M.flash_eyes(visual = 1))
-						to_chat(user, SPAN_NOTICE("[M]'s pupils narrow."))
-	else
+	if(!(on && user.zone_selected == "eyes"))
 		return ..()
+
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50)) // Too dumb to use flashlight properly.
+		return ..() // Just hit them in the head.
+
+	if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey") // Don't have necessary dexterity.
+		to_chat(user, SPAN_NOTICE("You don't have the dexterity to do this!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/mob/living/carbon/human/human_target = target
+	if(istype(human_target) && \
+		((human_target.head && human_target.head.flags_cover & HEADCOVERSEYES) || \
+		(human_target.wear_mask && human_target.wear_mask.flags_cover & MASKCOVERSEYES) || \
+		(human_target.glasses && human_target.glasses.flags_cover & GLASSESCOVERSEYES)))
+		// Mob has protective eyewear.
+		to_chat(user, SPAN_NOTICE("You're going to need to remove that [(human_target.head && human_target.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (human_target.wear_mask && human_target.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask" : "glasses"] first."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(target == user) // They're using it on themselves.
+		if(target.flash_eyes(visual = 1))
+			target.visible_message(SPAN_NOTICE("[target] directs [src] to [target.p_their()] eyes."),
+								SPAN_NOTICE("You wave the light in front of your eyes! Trippy!"))
+		else
+			target.visible_message(SPAN_NOTICE("[target] directs [src] to [target.p_their()] eyes."),
+								SPAN_NOTICE("You wave the light in front of your eyes."))
+
+	else
+		user.visible_message(SPAN_NOTICE("[user] directs [src] to [target]'s eyes."),
+							SPAN_NOTICE("You direct [src] to [target]'s eyes."))
+
+		if(!istype(human_target)) // Robots and aliens are unaffected.
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/organ/internal/eyes/eyes = human_target.get_int_organ(/obj/item/organ/internal/eyes)
+		if(target.stat == DEAD || !eyes || HAS_TRAIT(target, TRAIT_BLIND)) // Target is dead or fully blind.
+			if(ismachineperson(target))
+				to_chat(user, SPAN_NOTICE("[target]'s camera doesn't respond to the light!"))
+			else
+				to_chat(user, SPAN_NOTICE("[target]'s pupils are unresponsive to the light!"))
+		else if(HAS_TRAIT(target, TRAIT_XRAY_VISION) || eyes.see_in_dark >= 8)
+			// Target has X-RAY vision or has a tapetum lucidum.
+			// (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms)
+			if(ismachineperson(target))
+				to_chat(user, SPAN_NOTICE("[target]'s camera lens reflects the light eerily!"))
+			else
+				to_chat(user, SPAN_NOTICE("[target]'s pupils glow eerily!"))
+		else // They're okay!
+			if(target.flash_eyes(visual = 1))
+				if(ismachineperson(target))
+					to_chat(user, SPAN_NOTICE("[target]'s camera lens refocuses."))
+				else
+					to_chat(user, SPAN_NOTICE("[target]'s pupils narrow."))
 
 /obj/item/flashlight/extinguish_light(force = FALSE)
 	if(on)
@@ -143,7 +159,7 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	attack_self__legacy__attackchain(user)
+	activate_self(user)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -205,18 +221,17 @@
 	attack_verb = list()
 	update_brightness()
 
-/obj/item/flashlight/flare/attack_self__legacy__attackchain(mob/user)
+/obj/item/flashlight/flare/activate_self(mob/user)
 	// Usual checks
 	if(!fuel)
 		to_chat(user, SPAN_NOTICE("[src] is out of fuel."))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(on)
 		to_chat(user, SPAN_NOTICE("[src] is already on."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	. = ..()
 	// All good, turn it on.
-	if(.)
+	if(..())
 		user.visible_message(SPAN_NOTICE("[user] activates [src]."), SPAN_NOTICE("You activate [src]."))
 		if(produce_heat)
 			force = on_damage
@@ -224,6 +239,7 @@
 			hitsound = 'sound/items/welder.ogg'
 			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/flashlight/flare/used
 	fuel = 0
@@ -335,7 +351,7 @@
 		update_brightness()
 		icon_state = initial(icon_state)
 
-/obj/item/flashlight/slime/attack_self__legacy__attackchain(mob/user)
+/obj/item/flashlight/slime/activate_self(mob/user)
 	return //Bio-luminescence does not toggle.
 
 /obj/item/flashlight/slime/extinguish_light(force = FALSE)
@@ -368,25 +384,27 @@
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
 	return TRUE
 
-/obj/item/flashlight/emp/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/emp/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(on && user.zone_selected == "eyes") // call original attack proc only if aiming at the eyes
-		..()
-	return
+		return ..()
 
-/obj/item/flashlight/emp/afterattack__legacy__attackchain(atom/A as mob|obj, mob/user, proximity)
-	if(!proximity) return
-	if(emp_cur_charges > 0)
-		emp_cur_charges -= 1
-		A.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].", \
-											"<span class='userdanger'>[user] blinks \the [src] at \the [A].")
-		if(ismob(A))
-			var/mob/M = A
-			add_attack_logs(user, M, "Hit with EMP-light")
-		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
-		A.emp_act(EMP_HEAVY)
-	else
+/obj/item/flashlight/emp/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+	if(emp_cur_charges <= 0)
 		to_chat(user, SPAN_WARNING("\The [src] needs time to recharge!"))
-	return
+		return FINISH_ATTACK
+
+/obj/item/flashlight/emp/attack(mob/living/target, mob/living/carbon/human/user)
+	if(..())
+		return FINISH_ATTACK
+	emp_cur_charges -= 1
+	target.visible_message("<span class='danger'>[user] blinks \the [src] at \the [target].",
+										"<span class='userdanger'>[user] blinks \the [src] at \the [target].")
+	if(ismob(target))
+		add_attack_logs(user, target, "Hit with EMP-light")
+	to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
+	target.emp_act(EMP_HEAVY)
 
 /// invisible lighting source
 /obj/item/flashlight/spotlight
