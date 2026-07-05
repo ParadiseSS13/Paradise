@@ -46,6 +46,9 @@
 
 /obj/item/flashlight/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
 	add_fingerprint(user)
+	if(!istype(target))
+		return ..()
+
 	if(!(on && user.zone_selected == "eyes"))
 		return ..()
 
@@ -98,6 +101,7 @@
 					to_chat(user, SPAN_NOTICE("[target]'s camera lens refocuses."))
 				else
 					to_chat(user, SPAN_NOTICE("[target]'s pupils narrow."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flashlight/extinguish_light(force = FALSE)
 	if(on)
