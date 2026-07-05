@@ -33,6 +33,8 @@
 	update_icon()
 
 /obj/item/flashlight/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!isturf(user.loc))
 		to_chat(user, "You cannot toggle the light while obscured by [user.loc].") // To prevent some lighting anomalities.
 		return ITEM_INTERACT_COMPLETE
@@ -352,6 +354,8 @@
 		icon_state = initial(icon_state)
 
 /obj/item/flashlight/slime/activate_self(mob/user)
+	if(!user)
+		return ..()
 	return //Bio-luminescence does not toggle.
 
 /obj/item/flashlight/slime/extinguish_light(force = FALSE)
