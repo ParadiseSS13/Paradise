@@ -564,5 +564,5 @@
 	var/brainmob = null
 
 /obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R)
-	to_chat(usr, SPAN_NOTICE("The B.O.R.I.S. module can only be installed into an endoskeleton."))
+	to_chat(usr, SPAN_NOTICE("The B.O.R.I.S. module can only be installed into an endoskeleton.")) // Since the BORIS module is an upgrade that acts as an MMI.
 	return
