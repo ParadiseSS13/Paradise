@@ -47,6 +47,10 @@
 
 /obj/item/flashlight/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	add_fingerprint(user)
+	if(istype(target, /obj/structure/ai_core/deactivated))
+		to_chat(user, SPAN_NOTICE("You can already tell there's no AI in this core, but you shine [src] at it anyway. It doesn't respond."))
+		return ITEM_INTERACT_COMPLETE
+
 	if(!ismob(target))
 		return ..()
 
@@ -66,42 +70,67 @@
 		(human_target.wear_mask && human_target.wear_mask.flags_cover & MASKCOVERSEYES) || \
 		(human_target.glasses && human_target.glasses.flags_cover & GLASSESCOVERSEYES)))
 		// Mob has protective eyewear.
-		to_chat(user, SPAN_NOTICE("You're going to need to remove that [(human_target.head && human_target.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (human_target.wear_mask && human_target.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask" : "glasses"] first."))
+		var/blocking_target = "glasses"
+		if(human_target.wear_mask && human_target.wear_mask.flags_cover & MASKCOVERSEYES)
+			blocking_target = "mask"
+		if(human_target.head && human_target.head.flags_cover & HEADCOVERSEYES)
+			blocking_target = "helmet"
+		to_chat(user, SPAN_NOTICE("You're going to need to remove the [blocking_target] first."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(target == user) // They're using it on themselves.
-		if(target.flash_eyes(visual = 1))
+		if(human_target.flash_eyes(visual = TRUE))
 			target.visible_message(SPAN_NOTICE("[target] directs [src] to [target.p_their()] eyes."),
 								SPAN_NOTICE("You wave the light in front of your eyes! Trippy!"))
 		else
 			target.visible_message(SPAN_NOTICE("[target] directs [src] to [target.p_their()] eyes."),
 								SPAN_NOTICE("You wave the light in front of your eyes."))
+		return ITEM_INTERACT_COMPLETE
 
-	else
-		user.visible_message(SPAN_NOTICE("[user] directs [src] to [target]'s eyes."),
-							SPAN_NOTICE("You direct [src] to [target]'s eyes."))
+	user.visible_message(SPAN_NOTICE("[user] directs [src] to [target]'s eyes."),
+						SPAN_NOTICE("You direct [src] to [target]'s eyes."))
 
-		if(!istype(human_target)) // Robots and aliens are unaffected.
+	if(issilicon(target))
+		var/mob/living/silicon/robot/silicon_target = target
+		var/datum/robot_component/camera/camera
+		if(isrobot(target))
+			camera = silicon_target.get_component("camera")
+		if(isrobot(target) && !camera)
+			to_chat(user, SPAN_WARNING("[target]'s camera is missing!"))
 			return ITEM_INTERACT_COMPLETE
-		var/obj/item/organ/internal/eyes/eyes = human_target.get_int_organ(/obj/item/organ/internal/eyes)
-		if(target.stat == DEAD || !eyes || HAS_TRAIT(target, TRAIT_BLIND)) // Target is dead or fully blind.
-			if(ismachineperson(target))
-				to_chat(user, SPAN_NOTICE("[target]'s camera doesn't respond to the light!"))
-			else
-				to_chat(user, SPAN_NOTICE("[target]'s pupils are unresponsive to the light!"))
-		else if(HAS_TRAIT(target, TRAIT_XRAY_VISION) || eyes.see_in_dark >= 8)
-			// Target has X-RAY vision or has a tapetum lucidum.
-			// (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms)
-			if(ismachineperson(target))
-				to_chat(user, SPAN_NOTICE("[target]'s camera lens reflects the light eerily!"))
-			else
-				to_chat(user, SPAN_NOTICE("[target]'s pupils glow eerily!"))
-		else // They're okay!
-			if(target.flash_eyes(visual = 1))
-				if(ismachineperson(target))
-					to_chat(user, SPAN_NOTICE("[target]'s camera lens refocuses."))
-				else
-					to_chat(user, SPAN_NOTICE("[target]'s pupils narrow."))
+		if(silicon_target.stat == DEAD || (camera && camera.component_disabled))
+			to_chat(user, SPAN_WARNING("[target]'s camera doesn't respond to the light!"))
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, SPAN_NOTICE("[target]'s camera lens refocuses."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!istype(human_target)) // Aliens are unaffected.
+		return ITEM_INTERACT_COMPLETE
+
+	if(!human_target.bodyparts_by_name["head"])
+		to_chat(user, SPAN_WARNING("You can't find [target]'s [ismachineperson(target) ? "camera" : "eyes"] because they have no head!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/organ/internal/eyes/eyes = human_target.get_int_organ(/obj/item/organ/internal/eyes)
+	if(!eyes)
+		to_chat(user, SPAN_WARNING("[target] has no [ismachineperson(target) ? "camera" : "eyes"]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(human_target.stat == DEAD || HAS_TRAIT(human_target, TRAIT_BLIND)) // Target is dead or fully blind.
+		to_chat(user, SPAN_NOTICE("[target]'s [ismachineperson(target) ? "camera doesn't" : "pupils don't"] respond to the light!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(HAS_TRAIT(target, TRAIT_XRAY_VISION) || eyes.see_in_dark >= 3)
+		// Target has X-RAY vision or has a tapetum lucidum.
+		// (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms)
+		if(ismachineperson(target))
+			to_chat(user, SPAN_NOTICE("[target]'s camera lens reflects the light eerily!"))
+		else
+			to_chat(user, SPAN_NOTICE("[target]'s pupils glow eerily!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(human_target.flash_eyes(visual = TRUE))
+		to_chat(user, SPAN_NOTICE("[target]'s [ismachineperson(target) ? "camera lens refocuses" : "pupils narrow"]."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flashlight/extinguish_light(force = FALSE)
