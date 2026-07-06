@@ -11,7 +11,8 @@
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_color = "#ffffd0"
 	var/on = FALSE
-	var/brightness_on = 4 //luminosity when on
+	/// Luminosity when turned on.
+	var/brightness_on = 4
 	var/togglesound = 'sound/weapons/empty.ogg'
 	new_attack_chain = TRUE
 
@@ -36,7 +37,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	if(!isturf(user.loc))
-		to_chat(user, "You cannot toggle the light while obscured by [user.loc].") // To prevent some lighting anomalities.
+		to_chat(user, "You cannot toggle [src] while obscured by [user.loc].") // To prevent some lighting anomalities.
 		return ITEM_INTERACT_COMPLETE
 	on = !on
 	playsound(user, togglesound, 100, 1)
@@ -44,9 +45,9 @@
 	update_action_buttons()
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/flashlight/interact_with_atom(mob/living/target, mob/living/user, list/modifiers)
+/obj/item/flashlight/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	add_fingerprint(user)
-	if(!istype(target))
+	if(!ismob(target))
 		return ..()
 
 	if(!(on && user.zone_selected == "eyes"))
@@ -230,10 +231,10 @@
 /obj/item/flashlight/flare/activate_self(mob/user)
 	// Usual checks
 	if(!fuel)
-		to_chat(user, SPAN_NOTICE("[src] is out of fuel."))
+		to_chat(user, SPAN_WARNING("[src] is already spent!"))
 		return ITEM_INTERACT_COMPLETE
 	if(on)
-		to_chat(user, SPAN_NOTICE("[src] is already on."))
+		to_chat(user, SPAN_WARNING("[src] is already lit!"))
 		return ITEM_INTERACT_COMPLETE
 
 	// All good, turn it on.
@@ -407,11 +408,13 @@
 	if(..())
 		return FINISH_ATTACK
 	emp_cur_charges -= 1
-	target.visible_message("<span class='danger'>[user] blinks \the [src] at \the [target].",
-										"<span class='userdanger'>[user] blinks \the [src] at \the [target].")
+	target.visible_message(
+		SPAN_DANGER("[user] blinks [src] at [target]!"),
+		SPAN_USERDANGER("[user] blinks [src] at you!")
+	)
 	if(ismob(target))
 		add_attack_logs(user, target, "Hit with EMP-light")
-	to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
+	to_chat(user, SPAN_NOTICE("[src] now has [emp_cur_charges] charge\s."))
 	target.emp_act(EMP_HEAVY)
 
 /// invisible lighting source
