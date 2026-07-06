@@ -95,9 +95,9 @@
 		var/datum/robot_component/camera/camera
 		if(isrobot(target))
 			camera = silicon_target.get_component("camera")
-		if(isrobot(target) && !camera)
-			to_chat(user, SPAN_WARNING("[target]'s camera is missing!"))
-			return ITEM_INTERACT_COMPLETE
+			if(!camera)
+				to_chat(user, SPAN_WARNING("[target]'s camera is missing!"))
+				return ITEM_INTERACT_COMPLETE
 		if(silicon_target.stat == DEAD || (camera && camera.component_disabled))
 			to_chat(user, SPAN_WARNING("[target]'s camera doesn't respond to the light!"))
 			return ITEM_INTERACT_COMPLETE
