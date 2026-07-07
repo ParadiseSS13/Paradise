@@ -20,9 +20,9 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	var/custom_name = ""
 	var/custom_sprite = FALSE // Due to all the sprites involved, a var for our custom borgs may be best.
 
-	/// is this borg a shell?
+	/// Is this borg a shell?
 	var/shell = FALSE
-	/// is this shell currently deployed?
+	/// Is this shell currently deployed?
 	var/deployed = FALSE
 	/// The AI deployed to a shell.
 	var/mob/living/silicon/ai/mainframe = null

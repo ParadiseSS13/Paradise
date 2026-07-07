@@ -403,7 +403,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)))
 			possible += R
 
-
 	if(!LAZYLEN(possible))
 		to_chat(src, SPAN_NOTICE("No usable AI shell beacons detected."))
 		return

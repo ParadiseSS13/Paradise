@@ -347,7 +347,7 @@
 		var/obj/item/borg/upgrade/ai/M = used
 		if(check_completion())
 			if(!isturf(loc))
-				to_chat(user, SPAN_WARNING("You cannot install[M], the frame has to be standing on the ground to be perfectly precise!"))
+				to_chat(user, SPAN_WARNING("You cannot install [M], the frame has to be standing on the ground to be perfectly precise!"))
 				return ITEM_INTERACT_COMPLETE
 			if(!user.drop_item())
 				to_chat(user, SPAN_WARNING("[M] is stuck to your hand!"))
