@@ -747,8 +747,9 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 		return FALSE
 	modtype = selected_module
 	designation = selected_module
-	if(shell) // Upade the shell name right after choosing a module.
+	if(shell) // Update the shell name right after choosing a module.
 		real_name = "[real_name] -[designation]"
+		name = real_name
 	module.add_languages(src)
 	module.add_armor(src)
 	module.add_subsystems_and_actions(src)
