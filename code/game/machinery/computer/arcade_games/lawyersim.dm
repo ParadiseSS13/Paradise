@@ -188,7 +188,7 @@
 				if(4, 5)
 					new_crime = pick(medium_crimes)
 					if(!(medium_crimes[new_crime] in list_crimes))
-						if(i!=1)
+						if(i != 1)
 							crimes_committed = addtext(crimes_committed, ", ")
 						crimes_committed = addtext(crimes_committed, new_crime)
 						list_crimes.Add(medium_crimes[new_crime])
