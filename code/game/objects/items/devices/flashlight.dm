@@ -101,7 +101,7 @@
 		if(silicon_target.stat == DEAD || (camera && camera.component_disabled))
 			to_chat(user, SPAN_WARNING("[target]'s camera doesn't respond to the light!"))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, SPAN_NOTICE("[target]'s camera lens refocuses."))
+		to_chat(user, SPAN_NOTICE("[target]'s camera aperture makes a series of clicks as it adjusts to the light."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!istype(human_target)) // Aliens are unaffected.
@@ -260,7 +260,7 @@
 /obj/item/flashlight/flare/activate_self(mob/user)
 	// Usual checks
 	if(!fuel)
-		to_chat(user, SPAN_WARNING("[src] is already spent!"))
+		to_chat(user, SPAN_WARNING("[src] is already burnt out!"))
 		return ITEM_INTERACT_COMPLETE
 	if(on)
 		to_chat(user, SPAN_WARNING("[src] is already lit!"))
