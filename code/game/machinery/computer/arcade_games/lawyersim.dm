@@ -197,7 +197,7 @@
 				if(6, 7)
 					new_crime = pick(major_crimes)
 					if(!(major_crimes[new_crime] in list_crimes))
-						if(i!=1)
+						if(i != 1)
 							crimes_committed = addtext(crimes_committed, ", ")
 						crimes_committed = addtext(crimes_committed, new_crime)
 						list_crimes.Add(major_crimes[new_crime])
