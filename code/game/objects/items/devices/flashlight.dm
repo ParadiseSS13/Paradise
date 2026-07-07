@@ -130,7 +130,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(human_target.flash_eyes(visual = TRUE))
-		to_chat(user, SPAN_NOTICE("[target]'s [ismachineperson(target) ? "camera lens refocuses" : "pupils narrow"]."))
+		to_chat(user, SPAN_NOTICE("[target]'s [ismachineperson(target) ? "camera aperture narrows" : "pupils narrow"]."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flashlight/extinguish_light(force = FALSE)
