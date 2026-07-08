@@ -786,7 +786,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/scientific_analyzer // fucking US spelling
 	board_name = "Scientific Analyzer"
 	icon_state = "science"
-	build_path = /obj/machinery/rnd/scientific_analyzer
+	build_path = /obj/machinery/r_n_d/scientific_analyzer
 	board_type = "machine"
 	origin_tech = "magnets=2;engineering=2;programming=2"
 	req_components = list(
@@ -816,7 +816,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/protolathe
 	board_name = "Protolathe"
 	icon_state = "science"
-	build_path = /obj/machinery/rnd/protolathe
+	build_path = /obj/machinery/r_n_d/protolathe
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	req_components = list(
@@ -864,7 +864,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/circuit_imprinter
 	board_name = "Circuit Imprinter"
 	icon_state = "science"
-	build_path = /obj/machinery/rnd/circuit_imprinter
+	build_path = /obj/machinery/r_n_d/circuit_imprinter
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	req_components = list(
@@ -897,7 +897,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/rdserver
 	board_name = "R&D Server"
 	icon_state = "science"
-	build_path = /obj/machinery/rnd/server
+	build_path = /obj/machinery/r_n_d/server
 	board_type = "machine"
 	origin_tech = "programming=3"
 	req_components = list(

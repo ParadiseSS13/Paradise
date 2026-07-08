@@ -5,13 +5,13 @@ It is used to analyze hand-held objects and advance technological research. Cont
 
 Note: Must be placed within 3 tiles of the R&D Console
 */
-/obj/machinery/rnd/scientific_analyzer
+/obj/machinery/r_n_d/scientific_analyzer
 	name = "Scientific Analyzer"
 	desc = "Learn science by analyzing things!"
 	icon_state = "s_analyzer"
 	var/decon_mod = 0
 
-/obj/machinery/rnd/scientific_analyzer/Initialize(mapload)
+/obj/machinery/r_n_d/scientific_analyzer/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/scientific_analyzer(null)
@@ -20,7 +20,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
 
-/obj/machinery/rnd/scientific_analyzer/upgraded/Initialize(mapload)
+/obj/machinery/r_n_d/scientific_analyzer/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/scientific_analyzer(null)
@@ -29,26 +29,26 @@ Note: Must be placed within 3 tiles of the R&D Console
 	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
 	RefreshParts()
 
-/obj/machinery/rnd/scientific_analyzer/Destroy()
+/obj/machinery/r_n_d/scientific_analyzer/Destroy()
 	if(linked_console)
 		linked_console.linked_analyzer = null
 	return ..()
 
-/obj/machinery/rnd/scientific_analyzer/RefreshParts()
+/obj/machinery/r_n_d/scientific_analyzer/RefreshParts()
 	var/T = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		T += S.rating
 	decon_mod = T
 
 
-/obj/machinery/rnd/scientific_analyzer/proc/ConvertReqString2List(list/source_list)
+/obj/machinery/r_n_d/scientific_analyzer/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
 
 
-/obj/machinery/rnd/scientific_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/r_n_d/scientific_analyzer/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/storage/part_replacer) || istype(used, /obj/item/gripper))
 		return ..()
 

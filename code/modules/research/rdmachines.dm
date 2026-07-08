@@ -1,7 +1,7 @@
 //All devices that link into the R&D console fall into thise type for easy identification and some shared procs.
 
 
-/obj/machinery/rnd
+/obj/machinery/r_n_d
 	name = "R&D Device"
 	icon = 'icons/obj/machines/research.dmi'
 	density = TRUE
@@ -14,12 +14,12 @@
 	var/efficiency_coeff = 1
 	var/list/categories = list()
 
-/obj/machinery/rnd/Initialize(mapload)
+/obj/machinery/r_n_d/Initialize(mapload)
 	. = ..()
 	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, PROC_REF(is_insertion_ready)), CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	materials.precise_insertion = TRUE
 
-/obj/machinery/rnd/Destroy()
+/obj/machinery/r_n_d/Destroy()
 	if(loaded_item)
 		loaded_item.forceMove(get_turf(src))
 		loaded_item = null
@@ -28,7 +28,7 @@
 	return ..()
 
 //whether the machine can have an item inserted in its current state.
-/obj/machinery/rnd/proc/is_insertion_ready(mob/user)
+/obj/machinery/r_n_d/proc/is_insertion_ready(mob/user)
 	if(panel_open)
 		to_chat(user, SPAN_WARNING("You can't load [src] while it's opened!"))
 		return FALSE
@@ -55,7 +55,7 @@
 
 	return TRUE
 
-/obj/machinery/rnd/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+/obj/machinery/r_n_d/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	var/stack_name
 	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
 		stack_name = "bluespace"
@@ -67,5 +67,5 @@
 	add_overlay("protolathe_[stack_name]")
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), "protolathe_[stack_name]"), 10)
 
-/obj/machinery/rnd/proc/check_mat(datum/design/being_built, M)
+/obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, M)
 	return 0 // number of copies of design beign_built you can make with material M

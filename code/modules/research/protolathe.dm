@@ -7,7 +7,7 @@ it creates. All the menus and other manipulation commands are in the R&D console
 Note: Must be placed west/left of and R&D console to function.
 
 */
-/obj/machinery/rnd/protolathe
+/obj/machinery/r_n_d/protolathe
 	name = "Protolathe"
 	desc = "Converts raw materials into useful objects."
 	icon_state = "protolathe"
@@ -25,13 +25,13 @@ Note: Must be placed west/left of and R&D console to function.
 		"Weapons"
 	)
 
-/obj/machinery/rnd/protolathe/Initialize(mapload)
+/obj/machinery/r_n_d/protolathe/Initialize(mapload)
 	. = ..()
 	initialize_parts()
 	create_reagents()
 	RefreshParts()
 
-/obj/machinery/rnd/protolathe/proc/initialize_parts()
+/obj/machinery/r_n_d/protolathe/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -41,13 +41,13 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 
-/obj/machinery/rnd/protolathe/loaded/Initialize(mapload)
+/obj/machinery/r_n_d/protolathe/loaded/Initialize(mapload)
 	. = ..()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.insert_amount(MINERAL_MATERIAL_AMOUNT * 50, MAT_METAL)
 	materials.insert_amount(MINERAL_MATERIAL_AMOUNT * 20, MAT_GLASS)
 
-/obj/machinery/rnd/protolathe/loaded/upgraded/initialize_parts()
+/obj/machinery/r_n_d/protolathe/loaded/upgraded/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -57,12 +57,12 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace(null)
 
-/obj/machinery/rnd/protolathe/Destroy()
+/obj/machinery/r_n_d/protolathe/Destroy()
 	if(linked_console)
 		linked_console.linked_lathe = null
 	return ..()
 
-/obj/machinery/rnd/protolathe/RefreshParts()
+/obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
 	reagents.maximum_volume = 0
 	for(var/obj/item/reagent_containers/glass/G in component_parts)
@@ -76,7 +76,7 @@ Note: Must be placed west/left of and R&D console to function.
 		T -= M.rating
 	efficiency_coeff = min(max(0, T / 10), 1)
 
-/obj/machinery/rnd/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
+/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
 	if(!A)
 		A = reagents.get_reagent_amount(M)
@@ -85,7 +85,7 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-/obj/machinery/rnd/protolathe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/r_n_d/protolathe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
@@ -101,7 +101,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 	return ..()
 
-/obj/machinery/rnd/protolathe/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return
 	. = TRUE
