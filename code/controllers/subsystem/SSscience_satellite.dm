@@ -101,13 +101,13 @@ SUBSYSTEM_DEF(science_satellite)
 			// calculate the square distance, ignoring the z axis
 			var/square_2D_dist = weather_node.get_2D_square_distance(satellite.orbit_data.position, weather_node.position)
 
-
+			// if the square distance is smaller than the detection range, check if the satellite can process the node
 			if(square_2D_dist < weather_node.square_detection_range)
 				satellite.orbit_data.process_weather_node(weather_node)
 
 /datum/weather_node
 	var/vector/position
-	var/square_detection_range = 16 ** 2
+	var/square_detection_range = 24 ** 2
 	var/node_type = "NULL_WEATHER"
 	var/detection_requirement
 	var/science_yield = 1
@@ -129,7 +129,7 @@ SUBSYSTEM_DEF(science_satellite)
 /datum/weather_node/pole
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_POLE
 	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
-	science_yield = 20
+	science_yield = 10
 	asset_icon = "north_pole.png"
 
 /datum/weather_node/pole/south
@@ -138,26 +138,26 @@ SUBSYSTEM_DEF(science_satellite)
 /datum/weather_node/wind
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_WIND
 	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
-	science_yield = 20
+	science_yield = 10
 	asset_icon = "wind_storm.png"
 
 
 /datum/weather_node/ash_storm
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ASH_STORM
 	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
-	science_yield = 40
+	science_yield = 20
 	asset_icon = "ash_storm.png"
 
 
 /datum/weather_node/acid_rain
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ACID_RAIN
 	detection_requirement = SCIENCE_SATELLITE_HAS_METEOROLOGY
-	science_yield = 60
+	science_yield = 30
 	asset_icon = "acid_rain.png"
 
 
 /datum/weather_node/volcanism
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_ASH_STORM
 	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
-	science_yield = 160
+	science_yield = 80
 	asset_icon = "eruption.png"

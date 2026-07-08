@@ -36,7 +36,6 @@
 
 /obj/machinery/science_satellite/Initialize(mapload)
 	. = ..()
-	orbit_data.data_processing_cooldown = 0 // allow immediate collection of data once launched
 	internal_name = name
 	orbit_data.stats = satellite_stats
 	orbit_data.owner = src
@@ -99,26 +98,14 @@
 	satellite_stats.current_fuel = satellite_stats.fuel_capacity
 	satellite_stats.current_power = satellite_stats.power_capacity
 
-	satellite_stats.fuel_usage = (1 + satellite_stats.weight * 0.1) / satellite_stats.fuel_efficiency
+	satellite_stats.update_fuel_usage()
+	//satellite_stats.fuel_usage = (1 + satellite_stats.weight * 0.1) / satellite_stats.fuel_efficiency
 
 /obj/machinery/science_satellite/proc/recalculate_stats()
 	satellite_stats = new()
 
 	for(var/obj/item/satellite_component/component in parts)
-		satellite_stats.weight += component.component_stats.weight
-		satellite_stats.fuel_efficiency += component.component_stats.fuel_efficiency
-		satellite_stats.fuel_capacity += component.component_stats.fuel_capacity
-		satellite_stats.science_multiplier += component.component_stats.science_multiplier
-		satellite_stats.passive_power_generation += component.component_stats.passive_power_generation
-		satellite_stats.active_power_generation += component.component_stats.active_power_generation
-		satellite_stats.power_consumption += component.component_stats.power_consumption
-		satellite_stats.power_capacity += component.component_stats.power_capacity
-		satellite_stats.capabilities += component.component_stats.capabilities
-
-	satellite_stats.current_fuel = satellite_stats.fuel_capacity
-	satellite_stats.current_power = satellite_stats.power_capacity
-
-	satellite_stats.fuel_usage = (1 + satellite_stats.weight * 0.1) / satellite_stats.fuel_efficiency
+		adjust_stats(component)
 
 /obj/machinery/science_satellite/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

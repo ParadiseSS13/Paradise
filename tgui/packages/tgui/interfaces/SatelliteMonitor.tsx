@@ -307,7 +307,7 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
       <Stack mb={2} ml={1}>
         <Section title={satellite.name} width="100%" backgroundColor="#4444">
           <Stack>
-            <Box width="70%">Data Processing Power: {satellite.science_multiplier * 100 + '%'}</Box>
+            <Box width="70%">Data Processing Power: {Math.round(satellite.science_multiplier * 100) + '%'}</Box>
             <Box width="30%" align="right">
               Collected Data: {satellite.collected_science_data}
             </Box>
@@ -315,7 +315,7 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
           <Stack>
             <Box width="50%">Period: {satellite.orbit_data.period + 'min'}</Box>
             <Box width="50%" align="right">
-              Fuel Efficiency: {(1 / satellite.fuel_efficiency).toFixed(3) + 'L/s'}
+              {`Fuel Usage: ${satellite.fuel_usage.toFixed(2)}L/s`}
             </Box>
           </Stack>
           <Stack mt={1}>

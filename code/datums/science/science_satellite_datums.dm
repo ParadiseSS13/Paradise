@@ -6,6 +6,7 @@
 #define APOAPSIS_POSITION_STRING "APOAPSIS_POSITION"
 #define PERIAPSIS_POSITION_STRING "PERIAPSIS_POSITION"
 #define PREDICTED_ORBIT_STRING "PREDICTED_ORBIT"
+#define NODE_PROCESSING_COOLDOWN 6 SECONDS
 
 /datum/satellite_stats
 	var/weight = 0
@@ -19,7 +20,7 @@
 	var/current_fuel = 0
 	var/current_power = 0
 	var/engine_speed_constant = 0.0001//10
-	var/fuel_usage = 1
+	var/fuel_usage = 0
 	var/list/capabilities = list()
 
 /datum/orbit_data
@@ -54,7 +55,7 @@
 	var/list/predicted_orbit = list()
 	var/should_update_orbit = TRUE
 
-	var/data_processing_cooldown = 6 SECONDS
+	var/list/recently_processed_weather_nodes = list()
 
 	var/physics_delta_time = 4 //TODO: Set to 0.1
 
@@ -68,7 +69,7 @@
 	if(!has_been_launched)
 		return
 
-	data_processing_cooldown -= delta_time
+	stats.current_power = min(stats.current_power + stats.passive_power_generation, stats.power_capacity)
 
 	var/list/step = calculate_physics_step(position, velocity) // where the satellite should move this tick
 	position = step[POSITION_STRING]
@@ -182,16 +183,35 @@
 // MARK: process_weather
 ////////////////////////////////////////
 /datum/orbit_data/proc/process_weather_node(datum/weather_node/weather_node)
-	for(var/capability in stats.capabilities) // We want to give science for every part, including duplicate, that can detect a weather node
-		switch(capability)
-			if(SCIENCE_SATELLITE_HAS_METEOROLOGY)
-				if(weather_node.detection_requirement == SCIENCE_SATELLITE_HAS_METEOROLOGY)
-					owner.collect_data(weather_node.science_yield)
-					data_processing_cooldown = initial(data_processing_cooldown)
-			if(SCIENCE_SATELLITE_HAS_MAGNETOMETER)
-				if(weather_node.detection_requirement == SCIENCE_SATELLITE_HAS_MAGNETOMETER)
-					owner.collect_data(weather_node.science_yield)
-					data_processing_cooldown = initial(data_processing_cooldown)
+	if(weather_node in recently_processed_weather_nodes)
+		return
+
+	for(var/capability in stats.capabilities) // We want to give science for every part that can detect a weather node, including duplicates
+		if(capability == weather_node.detection_requirement)
+			//if(stats.power_consumption > stats.current_power)
+			//	continue
+
+			/*
+				if(SCIENCE_SATELLITE_USES_POWER_ON_THRUST in stats.capabilities)
+					var/obj/item/satellite_component/science_instrument/plasma_lab = /obj/item/satellite_component/science_instrument/plasma_lab/ in owner.parts
+					stats.current_power -= engine.power_consumption * fraction_burn
+
+					add powerdraw to defines and check the part?
+			*/
+
+			owner.collect_data(weather_node.science_yield)
+			recently_processed_weather_nodes += weather_node
+			log_debug("weather_node: [weather_node] recently_processed_weather_nodes.len: [recently_processed_weather_nodes.len]")
+
+			weather_node.asset_icon = "planet_lava.png" //TODO: Remove debug
+			addtimer(CALLBACK(src, PROC_REF(remove_weather_node_from_processed), weather_node), NODE_PROCESSING_COOLDOWN)
+
+			stats.current_power -= stats.power_consumption
+
+/datum/orbit_data/proc/remove_weather_node_from_processed(datum/weather_node/weather_node)
+	log_debug("remove_weather_node_from_processed")
+	recently_processed_weather_nodes -= weather_node
+	weather_node.asset_icon = initial(weather_node.asset_icon)
 
 ////////////////////////////////////////
 // MARK: physics_step
@@ -234,6 +254,22 @@
 		return
 
 	log_debug("INITIAL perform_burn: new velocity: [velocity]")
+
+	var/obj/item/satellite_component/engine/engine = locate(/obj/item/satellite_component/engine/) in owner.parts
+	var/fuel_step = stats.fuel_usage * fraction_burn
+	if(stats.current_fuel <= 0.01) // we might get a small fraction here due to the division below
+		stats.current_fuel = 0
+		planned_maneuvers -= maneuver
+		return
+	else if(fuel_step > stats.current_fuel) // if we dont have enough fuel
+		fuel_step = stats.current_fuel / fuel_step
+		fraction_burn *= fuel_step
+
+	stats.current_power += engine.component_stats.active_power_generation * fraction_burn
+	stats.current_fuel -= fuel_step
+	stats.update_fuel_usage()
+	if(SCIENCE_SATELLITE_USES_POWER_ON_THRUST in stats.capabilities)
+		stats.current_power -= engine.component_stats.power_consumption * fraction_burn
 
 	var/vector/vel_copy = vector(velocity) // we need to copy the vectors as Normalize() modifies the vector itself!
 	var/vector/pos_copy = vector(position)
@@ -328,6 +364,10 @@
 /datum/maneuver_data/proc/get_magnitude()
 	return ROOT(prograde ** 2 + normal ** 2 + radial ** 2, 2)
 
+
+/datum/satellite_stats/proc/update_fuel_usage()
+	fuel_usage = (weight + current_fuel) / fuel_efficiency
+
 ////////////////////////////////////////
 // MARK: Chassis stats (base)
 ////////////////////////////////////////
@@ -349,45 +389,45 @@
 ////////////////////////////////////////
 
 /datum/satellite_stats/computer/basic
-	weight = 10
-	power_consumption = 10
-	science_multiplier = 10
-	power_capacity = 10
+	weight = 15
+	// power_consumption = 50
+	science_multiplier = 0.1 // additive
+	power_capacity = 1000
 
 /datum/satellite_stats/computer/science
-	weight = 10
-	power_consumption = 25
-	science_multiplier = 20
-	power_capacity = 10
+	weight = 25
+	// power_consumption = 50
+	science_multiplier = 0.25 // additive
+	power_capacity = 2000
 
 /datum/satellite_stats/computer/efficient
 	weight = 10
-	power_consumption = 7
-	science_multiplier = 5
-	power_capacity = 10
+	// power_consumption = 50
+	science_multiplier = 0.05 // additive
+	power_capacity = 500
 
 ////////////////////////////////////////
 // MARK: Engines
 ////////////////////////////////////////
 
 /datum/satellite_stats/engine/basic_engine
-	weight = 10
-	fuel_capacity = 10
-	fuel_efficiency = 10
-	active_power_generation = 1
+	weight = 100
+	fuel_capacity = 150
+	fuel_efficiency = 100
+	active_power_generation = 100
 
 /datum/satellite_stats/engine/small_engine
-	weight = 5
-	fuel_capacity = 5
-	fuel_efficiency = 9
-	active_power_generation = 1
+	weight = 50
+	fuel_capacity = 50
+	fuel_efficiency = 80
+	active_power_generation = 25
 
 /datum/satellite_stats/engine/ion_engine
-	weight = 10
+	weight = 100
 	fuel_capacity = 1
-	fuel_efficiency = 50
-	power_consumption = 10
-	capabilities = list(SCIENCE_SATELLITE_NEEDS_VACUUM)
+	fuel_efficiency = 500
+	power_consumption = 100
+	capabilities = list(SCIENCE_SATELLITE_NEEDS_VACUUM, SCIENCE_SATELLITE_USES_POWER_ON_THRUST)
 
 ////////////////////////////////////////
 // MARK: Science instruments
@@ -395,17 +435,17 @@
 
 /datum/satellite_stats/science_instrument/meteorological_surveyor
 	weight = 10
-	power_consumption = 10
+	power_consumption = 400
 	capabilities = list(SCIENCE_SATELLITE_HAS_METEOROLOGY)
 
 /datum/satellite_stats/science_instrument/plasma_lab
 	weight = 10
-	power_consumption = 5
+	power_consumption = 1000
 	capabilities = list(SCIENCE_SATELLITE_HAS_PLASMA_LAB)
 
 /datum/satellite_stats/science_instrument/magnetometer
 	weight = 10
-	power_consumption = 10
+	power_consumption = 500
 	capabilities = list(SCIENCE_SATELLITE_HAS_MAGNETOMETER)
 
 
@@ -419,11 +459,11 @@
 
 /datum/satellite_stats/misc_part/electric_generator
 	weight = 5
-	passive_power_generation = 20
+	active_power_generation = 75
 
 /datum/satellite_stats/misc_part/power_cell
 	weight = 5
-	power_capacity = 20
+	power_capacity = 5000
 
 #undef VELOCITY_STRING
 #undef POSITION_STRING
@@ -433,3 +473,4 @@
 #undef APOAPSIS_POSITION_STRING
 #undef PERIAPSIS_POSITION_STRING
 #undef PREDICTED_ORBIT_STRING
+#undef NODE_PROCESSING_COOLDOWN
