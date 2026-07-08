@@ -1,7 +1,9 @@
 /obj/machinery/rnd_server
 	name = "\improper R&D Server"
+	desc = "A server dedicated to performing various research operations automatically."
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-off"
+	var/active = FALSE
 	/// ID to autolink to, used in mapload
 	var/autolink_id = null
 	/// UID of the network that we use
@@ -11,6 +13,7 @@
 	var/point_generation = 20 // MIXTODO - Balance later.
 	/// Total points this server has generated
 	var/total_points = 0
+	var/original_desc = "A server dedicated to performing various research operations automatically."
 
 /obj/machinery/rnd_server/Initialize(mapload)
 	..()
@@ -41,12 +44,12 @@
 	for(var/obj/item/stock_parts/S in component_parts)
 		T += S.rating
 	efficiency_coeff = T
+	desc = original_desc + "\n [SPAN_NOTICE("It is generating [((point_generation * efficiency_coeff) / 2)] points per second")]"
 
 /obj/machinery/rnd_server/process()
-	if(!is_operational())
-		return
 	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
 	var/tp = (point_generation * efficiency_coeff)
+	total_points += tp
 	var/list/tl = list("research" = tp)
 	RNC.research_files.addpoints(tl)
 
@@ -105,6 +108,8 @@
 	// Network metadata
 	data["network_name"] = RNC.network_name
 	data["linked_core_addr"] = "\ref[RNC]"
+	data["total_points"] = total_points
+	data["point_gen"] = ((point_generation * efficiency_coeff) / 2) // points per second
 
 	return data
 

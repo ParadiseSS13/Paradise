@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 
 export const RndServer = (props) => {
   const { act, data } = useBackend();
-  const { active, network_name } = data;
+  const { active, network_name, point_gen, total_points } = data;
 
   return (
     <Window width={600} height={500} resizable>
@@ -26,6 +26,12 @@ export const RndServer = (props) => {
           </LabeledList>
         </Section>
         {network_name === null ? <UnlinkedView /> : <LinkedView />}
+        <Section title="Server Information">
+          <LabeledList>
+            <LabeledList.Item label="Point Generation">{point_gen} Research Points per second</LabeledList.Item>
+            <LabeledList.Item label="Total Generated">{total_points} Research Points </LabeledList.Item>
+          </LabeledList>
+        </Section>
       </Window.Content>
     </Window>
   );
