@@ -897,7 +897,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/rdserver
 	board_name = "R&D Server"
 	icon_state = "science"
-	build_path = /obj/machinery/rnd/server
+	build_path = /obj/machinery/rnd_server
 	board_type = "machine"
 	origin_tech = "programming=3"
 	req_components = list(
