@@ -63,7 +63,10 @@ research holder datum.
 	var/list/blacklisted_designs = list()
 	/// Used during the rnd sync system, to ensure that blacklists are reverted, then cleared.
 	var/list/unblacklisted_designs = list()
-
+	/// Points for research operations.
+	var/list/research_points = list("research" = 0, "illegal" = 0, "alien" = 0)
+	/// Total research points we've generated in this research datum
+	var/list/total_points = list("research" = 0, "illegal" = 0, "alien" = 0)
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
 	// MON DIEU!!!
@@ -365,93 +368,3 @@ research holder datum.
 	level = 0
 	ui_icon = "satellite"
 
-/*
-datum/tech/arcane
-	name = "Arcane Research"
-	desc = "Research into the occult and arcane field for use in practical science"
-	id = "arcane"
-	level = 0 //It didn't become "secret" as advertised.
-
-//Branch Techs
-datum/tech/explosives
-	name = "Explosives Research"
-	desc = "The creation and application of explosive materials."
-	id = "explosives"
-	req_tech = list("materials" = 3)
-
-datum/tech/generators
-	name = "Power Generation Technology"
-	desc = "Research into more powerful and more reliable sources."
-	id = "generators"
-	req_tech = list("powerstorage" = 2)
-
-datum/tech/robotics
-	name = "Robotics Technology"
-	desc = "The development of advanced automated, autonomous machines."
-	id = "robotics"
-	req_tech = list("materials" = 3, "programming" = 3)
-*/
-
-/obj/item/disk/tech_disk
-	name = "\improper Technology Disk"
-	desc = "A disk for storing technology data for further research."
-	icon_state = "datadisk2"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
-	var/tech_id = null
-	var/tech_name = null
-	// These variables are copied from /datum/tech. They must be copied and cached
-	// to prevent retroactively updating all disks when a new research level is unlocked
-	/// The level of the copied technology. Please see /datum/tech.level
-	var/tech_level = 0
-	/// The rarity of the copied technology. Affects sell price. Please see /datum/tech.rare
-	var/tech_rarity = 0
-	var/default_name = "\improper Technology Disk"
-	var/default_desc = "A disk for storing technology data for further research."
-
-/obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
-	name = "[default_name] \[[T]\]"
-	desc = T.desc + "\n [SPAN_NOTICE("Level: [T.level]")]"
-	// NOTE: This is just a reference to the tech on the system it grabbed it from
-	// This seems highly fragile
-	tech_id = T.id
-	tech_name = T.name
-	tech_level = T.level
-	tech_rarity = T.rare
-
-/obj/item/disk/tech_disk/proc/wipe_tech()
-	name = default_name
-	desc = default_desc
-	tech_id = null
-	tech_name = null
-	tech_level = 0
-	tech_rarity = 0
-
-/obj/item/disk/design_disk
-	name = "\improper Component Design Disk"
-	desc = "A disk for storing device design data for construction in lathes."
-	icon_state = "datadisk2"
-	var/datum/design/blueprint
-	// I'm doing this so that disk paths with pre-loaded designs don't get weird names
-	// Otherwise, I'd use "initial()"
-	var/default_name = "\improper Component Design Disk"
-	var/default_desc = "A disk for storing device design data for construction in lathes."
-
-/obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
-	name = "[default_name] \[[D]\]"
-	desc = D.desc
-	// NOTE: This is just a reference to the design on the system it grabbed it from
-	// This seems highly fragile
-	blueprint = D
-
-/obj/item/disk/design_disk/proc/wipe_blueprint()
-	name = default_name
-	desc = default_desc
-	blueprint = null
-
-/datum/research/autolathe/syndicate/New()
-	// Used by syndi autolathe in syndie space base ruin. Removes methods of contacting main station.
-	. = ..()
-	known_designs -= "intercom_electronics"
-	known_designs -= "radio_headset"
-	known_designs -= "bounced_radio"
-	known_designs -= "newscaster_frame"
