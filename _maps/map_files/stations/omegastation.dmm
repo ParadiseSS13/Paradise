@@ -39292,10 +39292,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
-"plf" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/station/omegastation/engine,
-/turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored/omega/engineering)
 "pln" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -77658,7 +77654,7 @@ gBG
 aZD
 aZD
 hPz
-plf
+lZE
 cRA
 ciP
 rLm
