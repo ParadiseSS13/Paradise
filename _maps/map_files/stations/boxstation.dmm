@@ -2550,6 +2550,9 @@
 	id_tag = "Secure Armory";
 	name = "Secure Armory Shutters"
 	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ama" = (
@@ -10113,10 +10116,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/hallway/secondary/entry/north)
 "aMC" = (
-/obj/structure/table,
-/obj/item/reagent_containers/drinks/carton/grape{
-	pixel_x = 5;
-	pixel_y = 5
+/obj/machinery/computer/arcade/lawyer{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -11351,7 +11352,7 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/fore)
 "aRr" = (
 /obj/structure/disposalpipe/segment{
@@ -40439,11 +40440,11 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
-	dir = 1
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -48440,6 +48441,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 8
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/security/warden)
 "foC" = (
@@ -56155,6 +56157,9 @@
 	name = "Security Blast Door"
 	},
 /obj/effect/turf_decal/tiles/department/security,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "iIA" = (
@@ -78848,6 +78853,9 @@
 /area/station/maintenance/asmaint)
 "sMv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "sMw" = (
@@ -82534,6 +82542,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 1
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
@@ -124785,7 +124796,7 @@ aIp
 aJv
 aKI
 xSM
-aMC
+aKK
 aPf
 aZs
 aPm
@@ -125297,7 +125308,7 @@ awl
 lFV
 xUR
 fmN
-aKK
+aMC
 aJw
 tcm
 iiy
