@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 
 	// Unlink all attached servers
 	for(var/server_uid in servers)
-		var/obj/machinery/r_n_d/server/S = locateUID(server_uid)
+		var/obj/machinery/rnd/server/S = locateUID(server_uid)
 		if(!S)
 			continue
 
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	var/list/devices = list()
 
 	for(var/server_uid in servers)
-		var/obj/machinery/r_n_d/server/S = locateUID(server_uid)
+		var/obj/machinery/rnd/server/S = locateUID(server_uid)
 		if(!S)
 			servers -= server_uid
 			continue
@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 
-					var/obj/machinery/r_n_d/server/S = locateUID(params["uid"])
+					var/obj/machinery/rnd/server/S = locateUID(params["uid"])
 					servers -= params["uid"]
 					if(S)
 						S.unlink()
