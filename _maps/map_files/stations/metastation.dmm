@@ -92046,12 +92046,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/security/permabrig)
-"xVn" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/station/medical/storage)
 "xVD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
@@ -113093,7 +113087,7 @@ cBE
 cYI
 dcN
 cBE
-xVn
+vob
 vob
 vob
 vob
