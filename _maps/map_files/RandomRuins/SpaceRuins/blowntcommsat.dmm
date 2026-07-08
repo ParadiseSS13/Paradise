@@ -443,6 +443,9 @@
 "DH" = (
 /obj/structure/table,
 /obj/item/circular_saw,
+/obj/item/scalpel/laser{
+	pixel_y = 7
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Ef" = (
@@ -502,7 +505,6 @@
 /area/ruin/space/tcommsat)
 "If" = (
 /obj/structure/table,
-/obj/item/scalpel/laser/laser2,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Is" = (
