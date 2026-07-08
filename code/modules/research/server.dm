@@ -1,14 +1,16 @@
-// These currently dont actually do anything
-// They will serve a purpose once the R&D rework is done
-
 /obj/machinery/rnd_server
 	name = "\improper R&D Server"
+	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-off"
 	/// ID to autolink to, used in mapload
 	var/autolink_id = null
 	/// UID of the network that we use
 	var/network_manager_uid = null
-
+	var/efficiency_coeff = 1
+	/// How many points this generates each process() call
+	var/point_generation = 20 // MIXTODO - Balance later.
+	/// Total points this server has generated
+	var/total_points = 0
 
 /obj/machinery/rnd_server/Initialize(mapload)
 	..()
@@ -34,6 +36,19 @@
 	else
 		icon_state = "RD-server-on"
 
+/obj/machinery/rnd_server/RefreshParts()
+	var/T = 0
+	for(var/obj/item/stock_parts/S in component_parts)
+		T += S.rating
+	efficiency_coeff = T
+
+/obj/machinery/rnd_server/process()
+	if(!is_operational())
+		return
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	var/tp = (point_generation * efficiency_coeff)
+	var/list/tl = list("research" = tp)
+	RNC.research_files.addpoints(tl)
 
 /obj/machinery/rnd_server/power_change()
 	if(!..())

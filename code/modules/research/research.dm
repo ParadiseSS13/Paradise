@@ -82,6 +82,16 @@ research holder datum.
 
 
 
+/datum/research/proc/addpoints(list/points_list)
+	for(var/i in points_list)
+		if((i in research_points) && points_list[i] > 0)
+			research_points[i] = FLOOR(research_points[i] + points_list[i], 0.1)
+		if((i in total_points) && points_list[i] > 0)
+			total_points[i] = FLOOR(total_points[i] + points_list[i], 0.1)
+
+// MIXTODO - proc for taking and setting points.
+
+
 //Checks to see if tech has all the required pre-reqs.
 //Input: datum/tech; Output: 0/1 (false/true)
 /datum/research/proc/TechHasReqs(datum/tech/T)
