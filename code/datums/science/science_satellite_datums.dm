@@ -186,7 +186,6 @@
 	if(weather_node in recently_processed_weather_nodes)
 		return
 
-	for(var/)
 
 	for(var/capability in stats.capabilities) // We want to give science for every part that can detect a weather node, including duplicates
 		if(capability == weather_node.detection_requirement)
