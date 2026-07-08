@@ -97,6 +97,7 @@
 		/obj/item/hammer,
 		/obj/item/stack/cable_coil/rcl,
 		/obj/item/melee/sickly_blade/lock,
+		/obj/item/lightreplacer,
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -203,6 +204,8 @@
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
+		/obj/item/storage/mesh_pack,
 		/obj/item/stack/medical,
 		/obj/item/flashlight/pen,
 		/obj/item/clothing/mask/surgical,
@@ -1052,6 +1055,8 @@
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
+		/obj/item/storage/mesh_pack,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/drinks,
 		/obj/item/organ/internal/regenerative_core,
