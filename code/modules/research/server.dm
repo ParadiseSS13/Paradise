@@ -3,7 +3,8 @@
 	desc = "A server dedicated to performing various research operations automatically."
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-off"
-	var/active = FALSE
+	density = TRUE
+	anchored = TRUE
 	/// ID to autolink to, used in mapload
 	var/autolink_id = null
 	/// UID of the network that we use
