@@ -13,6 +13,7 @@ Mineral Sheets
 		- Platinum
 		- Alien Alloy
 		- Adamantine
+		- Gnesis
 */
 
 GLOBAL_LIST_INIT(sandstone_recipes, list (
@@ -136,6 +137,13 @@ GLOBAL_LIST_INIT(abductor_recipes, list (
 
 GLOBAL_LIST_INIT(adamantine_recipes, list(
 	new /datum/stack_recipe("incomplete servant golem shell", /obj/item/golem_shell/servant, req_amount = 1, res_amount = 1),
+	))
+
+GLOBAL_LIST_INIT(gnesis_recipes, list (
+	new /datum/stack_recipe("flock chair", /obj/structure/chair/comfy/flock, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("flock closet", /obj/structure/closet/flock, 2, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("flock grille", /obj/structure/grille/flock, 1, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("flock door", /obj/machinery/door/flock, 10, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
 GLOBAL_LIST_INIT(snow_recipes, list(
@@ -599,6 +607,23 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 
 /obj/item/stack/sheet/mineral/adamantine/fifty
 	amount = 50
+
+/*
+ * Gnesis
+ */
+
+/obj/item/stack/sheet/gnesis
+	name = "wafers"
+	desc = "A rare, complex crystalline matrix with a lazily shifting internal structure. Not to be confused with gneiss, a metamorphic rock."
+	singular_name = "wafer"
+	icon_state = "gnesis"
+	materials = list(MAT_GNESIS = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/gnesis
+	dynamic_icon_state = FALSE
+
+/obj/item/stack/sheet/gnesis/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.gnesis_recipes
 
 /*
  * Snow

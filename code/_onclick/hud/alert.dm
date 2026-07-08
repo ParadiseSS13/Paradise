@@ -658,6 +658,18 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	infected_user.ghostize()
 
+/atom/movable/screen/alert/ghost/flock
+	desc = "Would you like to ghost? You will be notified when your body is removed from the cage."
+
+/atom/movable/screen/alert/ghost/flock/Click()
+	if(!..())
+		return
+	var/mob/living/carbon/human/caged_user = usr
+	if(!istype(caged_user) || caged_user.stat == DEAD)
+		caged_user.clear_alert("ghost_cage")
+		return
+	caged_user.ghostize()
+
 /atom/movable/screen/alert/notify_action
 	name = "Body created"
 	desc = "A body was created. You can enter it."

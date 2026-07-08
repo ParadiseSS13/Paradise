@@ -14,6 +14,12 @@
 	see_in_dark = 6
 	butcher_results = list(/obj/item/food/meat = 3)
 	response_disarm = "gently pushes aside"
+	var/collar_icon_state = "fox"
+
+/mob/living/simple_animal/pet/dog/fox/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state)
+	regenerate_icons()
 
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/renault

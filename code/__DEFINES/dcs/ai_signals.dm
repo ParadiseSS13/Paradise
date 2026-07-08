@@ -20,3 +20,6 @@
 #define COMSIG_AI_CONTROLLER_PICKED_BEHAVIORS "ai_controller_picked_behaviors"
 ///sent from ai controllers when they stop possessing a pawn: (datum/ai_controller/source_controller)
 #define COMSIG_AI_CONTROLLER_UNPOSSESSED_PAWN "ai_controller_unpossessed_pawn"
+
+/// Signal sent when a mob's AI turns on or off.
+#define COMSIG_AI_STATUS_CHANGE "ai_status_change"

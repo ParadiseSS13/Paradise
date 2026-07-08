@@ -105,3 +105,12 @@
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	icon_prefix = "plastitanium"
 	welded_type = /obj/item/stack/sheet/plastitaniumglass
+
+/obj/item/shard/gnesis_glass
+	name = "bright shard"
+	desc = "A jagged shard of weird alien computer crystal stuff."
+	color = "#1bdebd"
+	force = 7
+	throwforce = 12
+	materials = list(MAT_GNESIS_GLASS = MINERAL_MATERIAL_AMOUNT * 0.5)
+	welded_type = /obj/item/stack/sheet/gnesis_glass

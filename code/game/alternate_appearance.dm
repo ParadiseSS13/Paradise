@@ -98,6 +98,13 @@
 		display_alt_appearance(key, displayTo)
 
 
+/*
+	Gets an alternate appearance for the provided key
+	key - the key to the assoc list of key = /datum/alternate_appearances
+*/
+/atom/proc/get_alt_appearance(key)
+	return alternate_appearances?[key]
+
 //////////////
 // WRAPPERS //
 //////////////

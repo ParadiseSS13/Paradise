@@ -62,6 +62,10 @@
 		if(STAMINA)
 			return getStaminaLoss()
 
+/mob/living/proc/get_damage_percent()
+	var/max = getMaxHealth()
+	var/loss = getBruteLoss() + getFireLoss() + getToxLoss() + getCloneLoss() + getOxyLoss()
+	return ceil((max - loss) / max * 100)
 
 /mob/living/proc/apply_damages(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = 0, stamina = 0)
 	if(blocked >= 100)	return 0

@@ -190,6 +190,8 @@
 #define SHOCK_ILLUSION 	(1<<2)
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN 	(1<<3)
+/// Shock damage is reduced by the average siemen's coeff
+#define SHOCK_USE_AVG_SIEMENS (1 << 4)
 
 #define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
 
@@ -232,6 +234,9 @@
 #define EXAMINE_MORE_WINDOW 1 SECONDS
 
 #define DIRECTION_LOCK_SLOWDOWN 3
+
+// Helpers
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
 
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))

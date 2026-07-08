@@ -18,3 +18,9 @@
 /// the other subtrees should multiple exist in the controller.
 /datum/ai_planning_subtree/proc/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	return
+
+/datum/ai_planning_subtree/proc/setup(datum/ai_controller/controller)
+	return
+
+/datum/ai_planning_subtree/proc/process_behavior_selection(datum/ai_controller/controller, seconds_per_tick)
+	select_behaviors(controller, seconds_per_tick)

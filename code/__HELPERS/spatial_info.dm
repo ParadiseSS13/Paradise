@@ -383,3 +383,14 @@
 		if(!test_turf.is_blocked_turf(exclude_mobs = TRUE))
 			return FALSE
 	return TRUE
+
+/// Returns the manhattan distance between two atoms. Returns INFINITY if either are not on a turf, for BYOND get_dist() parity.
+/proc/get_dist_manhattan(atom/A, atom/B)
+	if(!A.z || !B.z)
+		return INFINITY
+
+	if(A == B)
+		return -1
+
+	return abs(A.x - B.x) + abs(A.y - B.y) + abs(A.z - B.z)
+

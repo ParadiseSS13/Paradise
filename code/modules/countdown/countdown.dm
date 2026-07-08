@@ -115,3 +115,13 @@
 		return
 	var/time_left = max(0, (A.death_time - world.time) / 10)
 	return round(time_left)
+
+/obj/effect/countdown/flock
+	name = "flock relay countdown"
+	text_size = 1
+
+/obj/effect/countdown/flock/get_value()
+	var/obj/structure/flock/relay/R = attached_to
+	if(!istype(R))
+		return
+	return "<div align='center' valign='middle' style='position:relative; top:0px; left:0px'>[round_down((R.started_time + R.win_time - world.time) / 10)]</div>"

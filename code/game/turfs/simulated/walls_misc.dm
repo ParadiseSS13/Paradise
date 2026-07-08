@@ -107,3 +107,10 @@
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
+
+/turf/simulated/wall/gnesis
+	name = "gnesis wall"
+	desc = "A thick metal wall, it look very old."
+	icon = 'icons/goonstation/turf/flock.dmi'
+	color = "#1bdebd"
+	sheet_type = /obj/item/stack/sheet/gnesis
