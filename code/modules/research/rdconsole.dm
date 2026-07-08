@@ -70,11 +70,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	/// Holder for the inserted design disk
 	var/obj/item/disk/design_disk/d_disk = null
 	/// Linked scientific analyser
-	var/obj/machinery/r_n_d/scientific_analyzer/linked_analyzer = null
+	var/obj/machinery/rnd/scientific_analyzer/linked_analyzer = null
 	/// Linked protolathe
-	var/obj/machinery/r_n_d/protolathe/linked_lathe = null
+	var/obj/machinery/rnd/protolathe/linked_lathe = null
 	/// Linked circuit imprinter
-	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null
+	var/obj/machinery/rnd/circuit_imprinter/linked_imprinter = null
 	/// ID to autolink to, used in mapload
 	var/autolink_id = null
 	/// UID of the network that we use
@@ -124,21 +124,21 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
-	for(var/obj/machinery/r_n_d/D in range(range, src))
+	for(var/obj/machinery/rnd/D in range(range, src))
 		if(!isnull(D.linked_console) || D.panel_open)
 			continue
 
-		if(istype(D, /obj/machinery/r_n_d/scientific_analyzer))
+		if(istype(D, /obj/machinery/rnd/scientific_analyzer))
 			if(linked_analyzer == null)
 				linked_analyzer = D
 				D.linked_console = src
 
-		else if(istype(D, /obj/machinery/r_n_d/protolathe))
+		else if(istype(D, /obj/machinery/rnd/protolathe))
 			if(linked_lathe == null)
 				linked_lathe = D
 				D.linked_console = src
 
-		else if(istype(D, /obj/machinery/r_n_d/circuit_imprinter))
+		else if(istype(D, /obj/machinery/rnd/circuit_imprinter))
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
@@ -209,7 +209,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(user, SPAN_NOTICE("You disable the security protocols"))
 		return TRUE
 
-/obj/machinery/computer/rdconsole/proc/prompt_eject_sheets(obj/machinery/r_n_d/machine, material_id, amount)
+/obj/machinery/computer/rdconsole/proc/prompt_eject_sheets(obj/machinery/rnd/machine, material_id, amount)
 	if(!machine)
 		return
 	if(!(material_id in machine.materials.materials))
@@ -364,7 +364,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 
 
-/obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
+/obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/rnd/machine, design_id, amount)
 	if(!machine)
 		to_chat(usr, SPAN_DANGER("No linked device detected."))
 		return
@@ -373,8 +373,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!files)
 		return
 
-	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
-	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
+	var/is_lathe = istype(machine, /obj/machinery/rnd/protolathe)
+	var/is_imprinter = istype(machine, /obj/machinery/rnd/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
 		to_chat(usr, SPAN_DANGER("Unexpected linked device type."))
@@ -446,7 +446,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/key = usr.key
 	addtimer(CALLBACK(src, PROC_REF(finish_machine), key, amount, enough_materials, machine, being_built, efficient_mats), time_to_construct)
 
-/obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
+/obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/rnd/machine, datum/design/being_built, list/efficient_mats)
 	if(machine)
 		if(enough_materials && being_built)
 			if(is_station_level(z))
@@ -784,7 +784,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ui = new(user, src, "RndConsole", name)
 		ui.open()
 
-/obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
+/obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/rnd/machine, list/data)
 	if(!machine)
 		return
 
@@ -801,8 +801,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["loaded_materials"] = materials_list
 	data["loaded_chemicals"] = loaded_chemicals
 
-	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
-	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
+	var/is_lathe = istype(machine, /obj/machinery/rnd/protolathe)
+	var/is_imprinter = istype(machine, /obj/machinery/rnd/circuit_imprinter)
 
 	if(!is_lathe && !is_imprinter)
 		return

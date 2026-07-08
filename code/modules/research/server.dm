@@ -1,7 +1,7 @@
 // These currently dont actually do anything
 // They will serve a purpose once the R&D rework is done
 
-/obj/machinery/r_n_d/server
+/obj/machinery/rnd/server
 	name = "\improper R&D Server"
 	icon_state = "RD-server-off"
 	/// ID to autolink to, used in mapload
@@ -10,7 +10,7 @@
 	var/network_manager_uid = null
 
 
-/obj/machinery/r_n_d/server/Initialize(mapload)
+/obj/machinery/rnd/server/Initialize(mapload)
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
@@ -21,53 +21,53 @@
 	return INITIALIZE_HINT_LATELOAD
 
 
-/obj/machinery/r_n_d/server/LateInitialize()
+/obj/machinery/rnd/server/LateInitialize()
 	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
 		if(RNC.network_name == autolink_id)
 			network_manager_uid = RNC.UID()
 			RNC.servers += UID()
 
 
-/obj/machinery/r_n_d/server/update_icon_state()
+/obj/machinery/rnd/server/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "RD-server-off"
 	else
 		icon_state = "RD-server-on"
 
 
-/obj/machinery/r_n_d/server/power_change()
+/obj/machinery/rnd/server/power_change()
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/rnd/server/crowbar_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
 
-/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/rnd/server/screwdriver_act(mob/living/user, obj/item/I)
 	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
 	return TRUE
 
-/obj/machinery/r_n_d/server/proc/unlink()
+/obj/machinery/rnd/server/proc/unlink()
 	network_manager_uid = null
 	SStgui.update_uis(src)
 
-/obj/machinery/r_n_d/server/attack_hand(mob/user)
+/obj/machinery/rnd/server/attack_hand(mob/user)
 	ui_interact(user)
 
 
-/obj/machinery/r_n_d/server/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/rnd/server/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "RndServer", name)
 		ui.open()
 
 
-/obj/machinery/r_n_d/server/ui_data(mob/user)
+/obj/machinery/rnd/server/ui_data(mob/user)
 	var/list/data = list()
 
 	var/obj/machinery/computer/rnd_network_controller/RNC
@@ -94,7 +94,7 @@
 	return data
 
 
-/obj/machinery/r_n_d/server/ui_act(action, list/params)
+/obj/machinery/rnd/server/ui_act(action, list/params)
 	// Check against href exploits
 	if(..())
 		return
@@ -142,5 +142,5 @@
 
 // PRESETS //
 
-/obj/machinery/r_n_d/server/station
+/obj/machinery/rnd/server/station
 	autolink_id = "station_rnd"
