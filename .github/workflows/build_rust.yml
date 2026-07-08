@@ -8,7 +8,7 @@ jobs:
     if: |
       github.event.issue.pull_request &&
       (github.event.comment.body == '!build_rust') &&
-      (github.event.comment.author_association == 'OWNER')
+      (github.event.comment.author_association == 'ADMIN')
 
     runs-on: ubuntu-latest
     steps:
