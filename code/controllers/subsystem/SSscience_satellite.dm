@@ -129,7 +129,10 @@ SUBSYSTEM_DEF(science_satellite)
 /datum/weather_node/pole
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_POLE
 	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
+	/// how much science does this node give
 	science_yield = 10
+	/// a percentage that is the new science yield after this has been processed once
+	science_depletion_rate = 0.97
 	asset_icon = "north_pole.png"
 
 /datum/weather_node/pole/south

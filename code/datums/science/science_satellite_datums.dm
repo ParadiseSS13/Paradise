@@ -186,6 +186,8 @@
 	if(weather_node in recently_processed_weather_nodes)
 		return
 
+	for(var/)
+
 	for(var/capability in stats.capabilities) // We want to give science for every part that can detect a weather node, including duplicates
 		if(capability == weather_node.detection_requirement)
 			//if(stats.power_consumption > stats.current_power)
@@ -200,18 +202,15 @@
 			*/
 
 			owner.collect_data(weather_node.science_yield)
+			weather_node.science_yield *= weather_node.science_depletion_rate
 			recently_processed_weather_nodes += weather_node
-			log_debug("weather_node: [weather_node] recently_processed_weather_nodes.len: [recently_processed_weather_nodes.len]")
 
-			weather_node.asset_icon = "planet_lava.png" //TODO: Remove debug
 			addtimer(CALLBACK(src, PROC_REF(remove_weather_node_from_processed), weather_node), NODE_PROCESSING_COOLDOWN)
 
 			stats.current_power -= stats.power_consumption
 
 /datum/orbit_data/proc/remove_weather_node_from_processed(datum/weather_node/weather_node)
-	log_debug("remove_weather_node_from_processed")
 	recently_processed_weather_nodes -= weather_node
-	weather_node.asset_icon = initial(weather_node.asset_icon)
 
 ////////////////////////////////////////
 // MARK: physics_step
