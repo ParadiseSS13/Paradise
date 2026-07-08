@@ -132,7 +132,7 @@
 	force = 3
 
 /obj/item/fish/shark/wirecutter_act(mob/user, obj/item/wirecutters/tool)
-	to_chat(user, "You rip out the teeth of \the [src.name]!")
+	to_chat(user, SPAN_NOTICE("You rip out the teeth of \the [src.name]!"))
 	new /obj/item/fish/toothless_shark(get_turf(src))
 	new /obj/item/shard/shark_teeth(get_turf(src))
 	qdel(src)
@@ -164,7 +164,7 @@
 /obj/item/fish/catfish/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!used.sharp)
 		return ..()
-	to_chat(user, "You carefully clean and gut \the [src.name].")
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
 	new /obj/item/food/catfishmeat(get_turf(src))
 	new /obj/item/food/catfishmeat(get_turf(src))
 	qdel(src)
@@ -183,7 +183,7 @@
 /obj/item/fish/salmon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!used.sharp)
 		return ..()
-	to_chat(user, "You carefully clean and gut \the [src.name].")
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
 	new /obj/item/food/salmonmeat(get_turf(src))
 	new /obj/item/food/salmonmeat(get_turf(src))
 	qdel(src)
@@ -199,7 +199,7 @@
 /obj/item/fish/babycarp/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!used.sharp)
 		return ..()
-	to_chat(user, "You carefully clean and gut \the [src.name].")
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
 	new /obj/item/food/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
