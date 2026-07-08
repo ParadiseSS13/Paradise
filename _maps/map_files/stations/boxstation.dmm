@@ -23278,7 +23278,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "bJs" = (
@@ -24085,7 +24085,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 10
 	},
-/obj/machinery/r_n_d/protolathe/loaded,
+/obj/machinery/rnd/protolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "bNu" = (
@@ -24660,7 +24660,7 @@
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 4
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "bPA" = (
@@ -63428,7 +63428,7 @@
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "lTr" = (
-/obj/machinery/r_n_d/scientific_analyzer,
+/obj/machinery/rnd/scientific_analyzer,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},

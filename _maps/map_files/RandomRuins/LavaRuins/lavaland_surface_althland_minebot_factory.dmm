@@ -748,7 +748,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_factory)
 "rM" = (
-/obj/machinery/r_n_d/circuit_imprinter,
+/obj/machinery/rnd/circuit_imprinter,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor/west{
 	layer = 1.9;

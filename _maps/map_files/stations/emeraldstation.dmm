@@ -12858,7 +12858,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 5
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "cBP" = (
@@ -38797,7 +38797,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
-/obj/machinery/r_n_d/protolathe/loaded,
+/obj/machinery/rnd/protolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "hHu" = (
@@ -58854,7 +58854,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "lNy" = (
@@ -111438,7 +111438,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "wdX" = (
-/obj/machinery/r_n_d/scientific_analyzer,
+/obj/machinery/rnd/scientific_analyzer,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 10
 	},

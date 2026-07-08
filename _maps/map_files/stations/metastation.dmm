@@ -9639,7 +9639,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "bmK" = (
@@ -42878,7 +42878,7 @@
 /area/station/hallway/secondary/bridge)
 "hYA" = (
 /obj/machinery/requests_console/directional/north,
-/obj/machinery/r_n_d/scientific_analyzer,
+/obj/machinery/rnd/scientific_analyzer,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
@@ -53078,7 +53078,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
-/obj/machinery/r_n_d/protolathe/loaded,
+/obj/machinery/rnd/protolathe/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "leT" = (
@@ -55505,7 +55505,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "lVI" = (

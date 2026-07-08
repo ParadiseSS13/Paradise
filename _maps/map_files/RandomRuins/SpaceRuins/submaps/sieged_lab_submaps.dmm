@@ -85,7 +85,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "bD" = (
-/obj/machinery/r_n_d/circuit_imprinter,
+/obj/machinery/rnd/circuit_imprinter,
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "bL" = (

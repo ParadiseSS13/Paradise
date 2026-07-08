@@ -39080,7 +39080,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "cWQ" = (
-/obj/machinery/r_n_d/scientific_analyzer,
+/obj/machinery/rnd/scientific_analyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "cWR" = (
@@ -39095,7 +39095,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 4
 	},
-/obj/machinery/r_n_d/protolathe/loaded,
+/obj/machinery/rnd/protolathe/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "cWT" = (
@@ -39377,7 +39377,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "cYw" = (
@@ -39562,7 +39562,7 @@
 /turf/simulated/wall,
 /area/station/science/research)
 "cZw" = (
-/obj/machinery/r_n_d/scientific_analyzer,
+/obj/machinery/rnd/scientific_analyzer,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
 "cZx" = (
@@ -41155,7 +41155,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
 "dfS" = (
-/obj/machinery/r_n_d/protolathe,
+/obj/machinery/rnd/protolathe,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/port2)
 "dfU" = (
@@ -48110,7 +48110,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 6
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "dXs" = (

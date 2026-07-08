@@ -183,7 +183,7 @@
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "Bo" = (
-/obj/machinery/r_n_d/circuit_imprinter,
+/obj/machinery/rnd/circuit_imprinter,
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "CH" = (
@@ -243,7 +243,7 @@
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "RD" = (
-/obj/machinery/r_n_d/protolathe,
+/obj/machinery/rnd/protolathe,
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "RO" = (

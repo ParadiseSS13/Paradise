@@ -10961,7 +10961,7 @@
 /area/station/maintenance/security/starboard)
 "bKq" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/r_n_d/protolathe/loaded,
+/obj/machinery/rnd/protolathe/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "bKv" = (
@@ -20571,7 +20571,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "djd" = (
-/obj/machinery/r_n_d/scientific_analyzer,
+/obj/machinery/rnd/scientific_analyzer,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
@@ -95837,7 +95837,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 8
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/rnd)
 "tyK" = (
@@ -103713,7 +103713,7 @@
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 1
 	},
-/obj/machinery/r_n_d/circuit_imprinter/loaded,
+/obj/machinery/rnd/circuit_imprinter/loaded,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "vhk" = (
