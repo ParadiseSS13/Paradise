@@ -236,10 +236,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 	if(d_disk && d_disk.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
-	else if(t_disk && t_disk.tech_id)
-		var/datum/tech/tech = files.find_possible_tech_with_id(t_disk.tech_id)
-		if(!isnull(tech))
-			tech.level = t_disk.tech_level
+	else if(t_disk) // MIXTODO - Allow for selecting specific point amounts.
+		var/disk_points = t_disk.stored_research
+		var/temp_points = t_disk.unload_research(disk_points)
+		files.addpoints(temp_points)
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()
@@ -611,15 +611,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				to_chat(ui.user, SPAN_WARNING("Can not simultaneously wipe tech disk and design disk."))
 				return FALSE
 			if(t_disk)
-				t_disk.wipe_tech()
+				t_disk.wipe_research()
 			if(d_disk)
 				d_disk.wipe_blueprint()
 
 		if("copy_tech") //Copy some technology data from the research holder to the disk.
 			// Somehow this href makes me very nervous
+			/* MIXTODO - Allow for selecting specific point amounts.
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
 				t_disk.load_tech(known)
+			*/
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
@@ -926,7 +928,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			tech_levels[++tech_levels.len] = this_tech_list
 
 	else if(menu == MENU_DISK)
-
+		/* MIXTODO - Rework to points, allow for selecting specific point amounts.
 		if(t_disk != null)
 			if(t_disk.tech_id == null)
 				var/list/to_copy = list()
@@ -951,8 +953,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					disk_data["name"] = stored_tech.name
 					disk_data["level"] = stored_tech.level
 					disk_data["desc"] = stored_tech.desc
-
-		else if(d_disk != null)
+		slightly cursed but yes
+		else*/ if(d_disk != null)
 			if(d_disk.blueprint == null)
 				var/list/to_copy = list()
 				data["to_copy"] = to_copy

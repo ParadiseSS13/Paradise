@@ -9,10 +9,8 @@
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 	/// An associated list of organ datums that this organ has.
 	var/list/datum/organ/organ_datums
-	/// This contains the hidden RnD levels of an organ to prevent rnd from using it.
-	var/hidden_origin_tech
-	/// What is the level of tech for the hidden tech type?
-	var/hidden_tech_level = 1
+	/// Points gained from xenobio analysing this organ.
+	var/hidden_points = 0
 	/// How much is this organ worth in the xenobiology organ analyzer?
 	var/analyzer_price = 10
 	/// what quality is this organ? Only useful for xeno organs

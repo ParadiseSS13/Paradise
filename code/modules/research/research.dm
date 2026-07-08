@@ -68,8 +68,8 @@ research holder datum.
 	/// Total research points we've generated in this research datum
 	var/list/total_points = list("research" = 0, "illegal" = 0, "alien" = 0)
 
-/datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
-	// MON DIEU!!!
+/datum/research/New()
+	// MON DIEU!!! - Im not even gonna question why this monologue is here, or why the french wrote our original research.
 	// These are semi-global, but not TOTALLY global?
 	// Using research disks, you can get techs/designs from one research datum
 	// onto another. What consequences this could have, I am presently unsure, but
@@ -80,8 +80,6 @@ research holder datum.
 		possible_designs += new D(src)
 	RefreshResearch()
 
-
-
 /datum/research/proc/addpoints(list/points_list)
 	for(var/i in points_list)
 		if((i in research_points) && points_list[i] > 0)
@@ -89,8 +87,19 @@ research holder datum.
 		if((i in total_points) && points_list[i] > 0)
 			total_points[i] = FLOOR(total_points[i] + points_list[i], 0.1)
 
-// MIXTODO - proc for taking and setting points.
-
+// Autobalance determines if requesting more points then we have will automatically reduce the request or just cancel it.
+/datum/research/proc/takepoints(list/points_list, autobalance = TRUE)
+	for(var/i in points_list)
+		var/ti = i
+		if(research_points[i] < points_list[i] && autobalance == TRUE)
+			ti = research_points[i]
+		if(research_points[i] < points_list[i] && autobalance == FALSE)
+			return
+		if((i in research_points) && points_list[i] > 0)
+			research_points[i] = FLOOR(research_points[i] - ti, 0.1)
+			return ti // return how many points so we dont accidentally take more then we have.
+		log_debug("Research point withdrawl failed unexpectedly.")
+		return
 
 //Checks to see if tech has all the required pre-reqs.
 //Input: datum/tech; Output: 0/1 (false/true)

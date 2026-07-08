@@ -40,7 +40,7 @@
 /obj/machinery/doppler_array/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = used
-		disk.load_tech(toxins_tech)
+		// disk.load_tech(toxins_tech) MIXTODO - Change toxins to points
 		to_chat(user, SPAN_NOTICE("You swipe the disk into [src]."))
 		return ITEM_INTERACT_COMPLETE
 	return ..()

@@ -548,7 +548,7 @@
 	SSblackbox.record_feedback("tally", "cargo manifests sold", 1, "amount")
 	SSblackbox.record_feedback("tally", "cargo manifests sold", item.credits, "credits")
 
-
+/* MIXTODO - change to points
 /datum/economy/simple_seller/tech_levels
 	var/list/temp_tech_levels
 
@@ -632,7 +632,7 @@
 		item.reason = "[disk.tech_name] - no new data."
 		manifest.line_items += item
 		SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "repeat")
-
+*/
 
 /datum/economy/simple_seller/designs
 	var/list/temp_designs

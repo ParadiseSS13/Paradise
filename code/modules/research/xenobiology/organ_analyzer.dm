@@ -146,7 +146,7 @@
 	playsound(src, 'sound/machines/ping.ogg', 50, FALSE)
 	processing_organ = FALSE
 
-	if(contains_organ.hidden_origin_tech)
+	if(contains_organ.hidden_points > 0)
 		handle_disk()
 
 	var/account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
@@ -166,33 +166,5 @@
 
 /obj/machinery/organ_analyzer/proc/handle_disk()
 	var/obj/item/disk/tech_disk/disk = new /obj/item/disk/tech_disk(src.loc)
-	var/datum/tech/tech
-
-	switch(contains_organ.hidden_origin_tech)
-		if(TECH_MATERIAL)
-			tech = new /datum/tech/materials
-		if(TECH_ENGINEERING)
-			tech = new /datum/tech/engineering
-		if(TECH_PLASMA)
-			tech = new /datum/tech/plasmatech
-		if(TECH_POWER)
-			tech = new /datum/tech/powerstorage
-		if(TECH_BLUESPACE)
-			tech = new /datum/tech/bluespace
-		if(TECH_BIO)
-			tech = new /datum/tech/biotech
-		if(TECH_COMBAT)
-			tech = new /datum/tech/combat
-		if(TECH_MAGNETS)
-			tech = new /datum/tech/magnets
-		if(TECH_PROGRAM)
-			tech = new /datum/tech/programming
-		if(TECH_TOXINS)
-			tech = new /datum/tech/toxins
-		if(TECH_SYNDICATE)
-			tech = new /datum/tech/syndicate
-		if(TECH_ABDUCTOR)
-			tech = new /datum/tech/abductor
-
-	tech.level = contains_organ.hidden_tech_level
-	disk.load_tech(tech)
+	var/organ_points = contains_organ.hidden_points
+	disk.load_research(list("research" = organ_points))

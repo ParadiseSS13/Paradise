@@ -68,8 +68,7 @@
 	slot = "plasmavessel"
 	alien_powers = list(/datum/spell/alien_spell/plant_weeds, /datum/spell/alien_spell/transfer_plasma)
 	human_powers = list(/datum/spell/alien_spell/syphon_plasma)
-	hidden_origin_tech = TECH_PLASMA
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 	var/stored_plasma = 100
 	var/max_plasma = 300
@@ -150,8 +149,7 @@
 	origin_tech = "biotech=5;materials=2;combat=2"
 	alien_powers = list(/datum/spell/touch/alien_spell/corrosive_acid)
 	human_powers = list(/datum/spell/touch/alien_spell/burning_touch)
-	hidden_origin_tech = TECH_ENGINEERING
-	hidden_tech_level = 6
+	hidden_points = 3000
 
 /obj/item/organ/internal/alien/hivenode
 	name = "xeno hive node"
@@ -160,8 +158,7 @@
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
 	alien_powers = list(/datum/spell/alien_spell/whisper)
-	hidden_origin_tech = TECH_BLUESPACE
-	hidden_tech_level = 6
+	hidden_points = 3000
 
 /obj/item/organ/internal/alien/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -186,8 +183,7 @@
 	origin_tech = "biotech=5;combat=5"
 	alien_powers = list(/datum/spell/alien_spell/neurotoxin)
 	human_powers = list(/datum/spell/alien_spell/neurotoxin/death_to_xenos)
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 6
+	hidden_points = 3000
 
 /obj/item/organ/internal/alien/resinspinner
 	name = "xeno resin organ"
@@ -196,8 +192,7 @@
 	origin_tech = "biotech=5;materials=4"
 	alien_powers = list(/datum/spell/alien_spell/build_resin)
 	human_powers = list(/datum/spell/touch/alien_spell/consume_resin)
-	hidden_origin_tech = TECH_MATERIAL
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/alien/eggsac
 	name = "xeno egg sac"
@@ -208,5 +203,4 @@
 	alien_powers = list(/datum/spell/alien_spell/plant_weeds/eggs)
 	human_powers = list(/datum/spell/alien_spell/combust_facehuggers)
 	cargo_profit = 1000
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 7
+	hidden_points = 4500

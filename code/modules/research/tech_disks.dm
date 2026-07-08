@@ -1,3 +1,4 @@
+/*
 /obj/item/disk/tech_disk
 	name = "\improper Technology Disk"
 	desc = "A disk for storing technology data for further research."
@@ -31,31 +32,40 @@
 	tech_name = null
 	tech_level = 0
 	tech_rarity = 0
+*/
 
-/*
-	var/points = 0
-	/// "research", "illegal", "alien"
-	var/p_type = null
+/obj/item/disk/tech_disk
+	name = "\improper Technology Disk"
+	desc = "A disk for storing technology data for further research."
+	icon_state = "datadisk2"
+	materials = list(MAT_METAL=30, MAT_GLASS=10)
+	var/list/stored_research = list("research" = 0, "illegal" = 0, "alien" = 0)
+	var/default_name = "\improper Technology Disk"
+	var/default_desc = "A disk for storing technology data for further research."
 
-// Discs can only hold one kind of research, so we need some special behavior.
-// Returns TRUE if operation was complete, FALSE if not.
-/obj/item/disk/tech_disk/proc/load_research(research_points, r_type)
-	if(points < 0) // Incase we magically get negative points.
-		points = 0
-		log_debug("Tech Disk [src] had negative points, points set to 0")
-	if(points == 0)
-		points += research_points
-		p_type = r_type
-	if(points > 0 && p_type == r_type)
-		points += research_points
-		return TRUE
-	return FALSE
+/obj/item/disk/tech_disk/proc/load_research(list/points_list)
+	for(var/i in points_list)
+		if((i in stored_research) && points_list[i] > 0)
+			stored_research[i] = FLOOR(stored_research[i] + points_list[i], 0.1)
+			name = "[default_name] \[[stored_research["research"]]\]" // MIXTODO - Make disks display what kind of points they hold.
+			return points_list[i] // return the points that were successfully transfered.
+		return
+
+/obj/item/disk/tech_disk/proc/unload_research(list/points_list, autobalance = TRUE)
+	for(var/i in points_list)
+		var/ti = i
+		if(stored_research[i] < points_list[i] && autobalance == TRUE)
+			ti = stored_research[i]
+		if(stored_research[i] < points_list[i] && autobalance == FALSE)
+			return
+		if((i in stored_research) && points_list[i] > 0)
+			stored_research[i] = FLOOR(stored_research[i] - ti, 0.1)
+			return ti // return how many points so we dont accidentally take more then we have.
+		log_debug("[src] unloading failed unexpectedly.")
+		return
 
 /obj/item/disk/tech_disk/proc/wipe_research()
-	points = 0
-	p_type = null
-
-*/
+	stored_research = list("research" = 0, "illegal" = 0, "alien" = 0)
 
 
 /obj/item/disk/design_disk

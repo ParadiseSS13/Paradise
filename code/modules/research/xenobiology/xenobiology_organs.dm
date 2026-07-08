@@ -212,8 +212,7 @@
 	name = "flame sack"
 	desc = "An unusual set of aerosolizing glands capable of starting light fires."
 	analyzer_price = 50
-	hidden_origin_tech = TECH_PLASMA
-	hidden_tech_level = 5
+	hidden_points = 2500
 
 /obj/item/organ/internal/lungs/xenobiology/flame_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -320,8 +319,7 @@
 	desc = "This organ replaces its own cells so quickly, that it appears to spread this effect to other cells around it in a rather exhaustive process."
 	analyzer_price = 25
 	can_paradox = TRUE
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 5
+	hidden_points = 2500
 
 /obj/item/organ/internal/heart/xenobiology/hyperactive/on_life()
 	. = ..()
@@ -410,8 +408,7 @@
 	name = "vocal cord remnants"
 	desc = "The remnants of a great beast's vocal coords. While only a fraction of the true organ's power, these could probably still get decently loud."
 	analyzer_price = 35
-	hidden_origin_tech = TECH_COMBAT
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/cyberimp/mouth/xenobiology/vocal_remnants/Initialize(mapload)
 	. = ..()
@@ -430,8 +427,7 @@
 	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with venom."
 	analyzer_price = 35
 	var/terror = FALSE
-	hidden_origin_tech = TECH_COMBAT
-	hidden_tech_level = 5
+	hidden_points = 2500
 
 /obj/item/organ/internal/appendix/xenobiology/toxin_stinger/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -505,8 +501,7 @@
 	desc = "A set of bands that wrap around joints and ligaments and muscles alike, pulling the body into unnatural shapes."
 	analyzer_price = 75
 	can_paradox = TRUE
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/heart/xenobiology/contortion/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -573,8 +568,7 @@
 	desc = "A large sack spilling with blood. Despite the fact it oozes with blood, you can feel its hunger for more."
 	analyzer_price = 75
 	can_paradox = TRUE
-	hidden_origin_tech = TECH_BLUESPACE
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/heart/xenobiology/bloody_sack/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -637,8 +631,7 @@
 	name = "hungry organ"
 	desc = "This organ seems to actively attempt to dissolve and absorb anything it touches."
 	analyzer_price = 40
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 // checks with those with the eat gene from adding/removing matter eater
 /obj/item/organ/internal/liver/xenobiology/hungry/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
@@ -667,8 +660,7 @@
 	name = "writhing tendrils"
 	desc = "This organ is constantly squirming and writhing around. Yuck."
 	analyzer_price = 20
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 5
+	hidden_points = 2500
 
 /obj/item/organ/internal/appendix/xenobiology/tendril/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -744,8 +736,7 @@
 	name = "glowing core"
 	desc = "This organ glows with a strange energy from its depths. Is it even appropiate to call this an organ?"
 	analyzer_price = 40
-	hidden_origin_tech = TECH_BLUESPACE
-	hidden_tech_level = 6
+	hidden_points = 3000
 
 /obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing/Initialize(mapload)
 	. = ..()
@@ -836,8 +827,7 @@
 	name = "sweaty organ"
 	desc = "It constantly sweats, seeking to cool itself off from its environment."
 	analyzer_price = 30
-	hidden_origin_tech = TECH_TOXINS
-	hidden_tech_level = 6
+	hidden_points = 3000
 
 /obj/item/organ/internal/kidneys/xenobiology/sweating/on_life()
 	. = ..()
@@ -856,8 +846,7 @@
 	name = "soupy organ"
 	desc = "This organ seems to barely keep its own form together. It also reeks of tomato sauce."
 	analyzer_price = 15
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 6
+	hidden_points = 3000
 	var/original_name
 	var/original_own_species_blood
 	var/original_exotic_blood
@@ -890,14 +879,13 @@
 	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with potent venom."
 	analyzer_price = 60
 	terror = TRUE
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/lungs/xenobiology/mirror
 	name = "silvered organ"
 	desc = "This organ is dazzlingly reflective."
 	analyzer_price = 30
-	hidden_origin_tech = TECH_MATERIAL
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/lungs/xenobiology/mirror/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -939,8 +927,7 @@
 	desc = "This organ refuses to sit still, constantly moving about however it can."
 	analyzer_price = 75
 	can_paradox = TRUE
-	hidden_origin_tech = TECH_POWER
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/heart/xenobiology/squirming/Initialize(mapload)
 	. = ..()
@@ -964,8 +951,7 @@
 	name = "electromagnetic strands"
 	desc = "A large number of electrically sensitive strands all bundled up together. It has lost most of its potential."
 	analyzer_price = 30
-	hidden_origin_tech = TECH_MAGNETS
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/appendix/xenobiology/electro_strands/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -984,8 +970,7 @@
 	analyzer_price = 30
 	var/original_unarmed
 	var/original_sharpened
-	hidden_origin_tech = TECH_COMBAT
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/liver/xenobiology/sharp/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -1014,8 +999,7 @@
 	name = "mimicry organ"
 	desc = "This organ continues to make odd sounds, copying things that it has heard."
 	analyzer_price = 15
-	hidden_origin_tech = TECH_ENGINEERING
-	hidden_tech_level = 5
+	hidden_points = 2500
 
 /obj/item/organ/internal/appendix/xenobiology/noisemaker/insert(mob/living/carbon/human/M, special = 0, dont_remove_slot = 0)
 	. = ..()
@@ -1057,8 +1041,7 @@
 	name = "photosensitive receptors"
 	desc = "A set of organs receptive to light in the spectrum of -- hey, wait a second. Aren't these just eyes?"
 	analyzer_price = 40
-	hidden_origin_tech = TECH_BIO
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 /obj/item/organ/internal/eyes/xenobiology/receptors/insert(mob/living/carbon/M, special, dont_remove_slot)
 	switch(organ_quality)
@@ -1098,8 +1081,7 @@
 	desc = "Squeak squeak squeak sqonk honk honk snorf"
 	analyzer_price = 5
 	can_paradox = TRUE
-	hidden_origin_tech = TECH_SYNDICATE
-	hidden_tech_level = 3
+	hidden_points = 10000 // Special
 
 /obj/item/organ/internal/heart/xenobiology/bananium/insert(mob/living/carbon/human/M, special, dont_remove_slot)
 	. = ..()
@@ -1180,8 +1162,7 @@
 	analyzer_price = 50
 	unremovable = TRUE
 	layer = ABOVE_MOB_LAYER // front and center baybee
-	hidden_origin_tech = TECH_SYNDICATE
-	hidden_tech_level = 3
+	hidden_points = 10000 // Special
 	warning = TRUE
 	var/list/clown_noises = list(
 		"HONK!",
@@ -1241,8 +1222,7 @@
 	name = "supercharged core"
 	desc = "This specialized core thrumms with potental and energy. It desperately seeks release."
 	analyzer_price = 80
-	hidden_origin_tech = TECH_TOXINS
-	hidden_tech_level = 7
+	hidden_points = 4500
 
 
 /obj/item/organ/internal/cell/xenobiology/supercharged/Initialize(mapload)
@@ -1462,8 +1442,7 @@
 	name = "sinister organ"
 	desc = "This organ is brimming with foul aura. Small buds seem to be growing out of it"
 	analyzer_price = 60
-	hidden_origin_tech = TECH_COMBAT
-	hidden_tech_level = 6
+	hidden_points = 3000
 
 /obj/item/organ/internal/ears/xenobiology/sinister/Initialize(mapload)
 	. = ..()
