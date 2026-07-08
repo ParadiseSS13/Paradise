@@ -812,3 +812,67 @@
 	cost = 5000 // This is a very luxurious product. And it's only made on Earth. And it's subject to TSF export taxes.
 	containername = "premium Havana cigar crate"
 	containertype = /obj/structure/largecrate
+
+/datum/supply_packs/misc/athletic
+	name = "Athletic Wardrobe Crate"
+	contains = list(
+		/obj/item/clothing/under/pants/shorts/grey,
+		/obj/item/clothing/under/pants/shorts/black,
+		/obj/item/clothing/under/pants/shorts/red,
+		/obj/item/clothing/under/pants/shorts/blue,
+		/obj/item/clothing/under/pants/shorts/green,
+		/obj/item/clothing/under/misc/swimsuit/red,
+		/obj/item/clothing/under/misc/swimsuit/black,
+		/obj/item/clothing/under/misc/swimsuit/blue,
+		/obj/item/clothing/under/misc/swimsuit/green,
+		/obj/item/clothing/under/misc/swimsuit/purple,
+		/obj/item/clothing/under/misc/wetsuit/green,
+		/obj/item/clothing/under/misc/wetsuit/gold,
+		/obj/item/clothing/under/misc/wetsuit/pink,
+		/obj/item/clothing/under/misc/wetsuit/purple,
+		/obj/item/clothing/under/misc/wetsuit/orange,
+	)
+	cost = 300
+	containername = "athletic wardrobe crate"
+
+/datum/supply_packs/misc/beach_towels
+	name = "Beach Towels Crate"
+	contains = list(
+		/obj/item/clothing/neck/towel/beach,
+		/obj/item/clothing/neck/towel/beach/lava_waves,
+		/obj/item/clothing/neck/towel/beach/water_waves,
+		/obj/item/clothing/neck/towel/beach/striped_green,
+		/obj/item/clothing/neck/towel/beach/striped_red,
+		/obj/item/clothing/neck/towel/beach/striped_blue,
+		/obj/item/clothing/neck/towel/beach/ian,
+		/obj/item/clothing/neck/towel/beach/dolphin,
+	)
+	cost = 200
+	containername = "beach towels crate"
+
+/datum/supply_packs/misc/beach_chairs
+	name = "Folding Beach Chairs Crate"
+	contains = list(
+		/obj/item/chair/beach,
+		/obj/item/chair/beach/blue,
+		/obj/item/chair/beach/red,
+		/obj/item/chair/beach/green,
+		/obj/item/chair/beach/fuchsia,
+		/obj/item/chair/beach/yellow,
+	)
+	cost = 300
+	containername = "folding beach chairs crate"
+
+/datum/supply_packs/misc/beach_toys
+	name = "Beach Toys Crate"
+	contains = list(
+		/obj/item/toy/bucket_and_spade,
+		/obj/item/toy/bucket_and_spade,
+		/obj/item/toy/pool_noodle/pink,
+		/obj/item/toy/pool_noodle/lime,
+		/obj/item/toy/pool_noodle/aqua,
+		/obj/item/toy/pool_noodle/violet,
+		/obj/item/toy/pool_noodle/orange,
+	)
+	cost = 150
+	containername = "beach toys crate"
