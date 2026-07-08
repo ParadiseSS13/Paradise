@@ -22637,6 +22637,9 @@
 	dir = 5
 	},
 /obj/machinery/light,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/cloning)
 "czz" = (
@@ -88966,9 +88969,6 @@
 /obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 5
-	},
-/obj/effect/turf_decal/tiles/department/medical/side{
-	dir = 6
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/cmo)
