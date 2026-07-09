@@ -637,7 +637,7 @@ USER_CONTEXT_MENU(randomize_appearance, R_EVENT, "\[Admin\] Randomize appearance
 	if(!isnum(prosthesis_prob))
 		return
 
-	var/randomize_gender = tgui_alert(usr, "Randomize gender?", "Randomize Appearance", list("Yes", "No")) == "Yes"
+	var/randomize_gender = tgui_alert(client, "Randomize gender?", "Randomize Appearance", list("Yes", "No")) == "Yes"
 
 	M.generate_random_appearance(prosthesis_prob, use_gender = randomize_gender ? null : M.gender)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Randomize Appearance")
