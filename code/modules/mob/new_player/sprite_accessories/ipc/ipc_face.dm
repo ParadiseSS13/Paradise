@@ -143,3 +143,60 @@
 	icon_state = "rainbow_hesp_alt"
 	models_allowed = list("Hephaestus Industries alt.")
 
+/datum/sprite_accessory/hair/ipc/ipc_screen_sinus
+	name = "Sinus Rhythm IPC Screen"
+	icon_state = "sinus"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_glasses
+	name = "Glasses IPC Screen"
+	icon_state = "glasses"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_star
+	name = "Star IPC Screen"
+	icon_state = "star"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_pong
+	name = "Pong IPC Screen"
+	icon_state = "pong"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_crosshair
+	name = "Crosshair IPC Screen"
+	icon_state = "crosshair"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_throbber
+	name = "Throbber IPC Screen"
+	icon_state = "throbber"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_mew
+	name = "Mew IPC Screen"
+	icon_state = "mew"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_smile
+	name = "Smile IPC Screen"
+	icon_state = "smile"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_skull
+	name = "Skull IPC Screen"
+	icon_state = "skull"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_hal
+	name = "HAL IPC Screen"
+	icon_state = "hal"
+	secondary_theme = "fg"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_paradise
+	name = "Paradise IPC Screen"
+	icon_state = "paradise"
+
+/datum/sprite_accessory/hair/ipc/ipc_screen_paradise_alt
+	name = "Paradise Alt. IPC Screen"
+	icon_state = "paradise_alt"
