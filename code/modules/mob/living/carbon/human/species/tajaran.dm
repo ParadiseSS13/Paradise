@@ -151,6 +151,8 @@
 		)))
 
 /datum/species/tajaran/randomize_body_color()
+	if(prob(5))
+		return rgb(rand(0, 360), rand(0, 90), rand(30, 50), space = COLORSPACE_HSL)
 	return pick(
 		TAJARAN_WHITE,
 		TAJARAN_BLUE,

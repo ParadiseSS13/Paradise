@@ -270,7 +270,7 @@
 
 /datum/species/machine/randomize_body_color()
 	if(prob(90))
-		return rgb(rand(0, 360), rand(0, 90), rand(0, 25), space = COLORSPACE_HSL)
+		return rgb(rand(0, 360), rand(0, 95), rand(0, 20), space = COLORSPACE_HSL)
 	return COLOR_BLACK
 
 /datum/species/machine/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = null)

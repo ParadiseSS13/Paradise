@@ -173,8 +173,8 @@
 
 /datum/species/unathi/randomize_body_color()
 	if(prob(20))
-		return rgb(rand(0, 150), rand(0, 20), rand(5, 10), space = COLORSPACE_HSL) // black-ish
-	return rgb(rand(0, 150), rand(50, 95), rand(20, 30), space = COLORSPACE_HSL) // clay-ish
+		return rgb(rand(0, 150), rand(0, 40), rand(5, 10), space = COLORSPACE_HSL) // black-ish
+	return rgb(rand(0, 150), rand(60, 100), rand(15, 30), space = COLORSPACE_HSL) // clay-ish
 
 /datum/species/unathi/randomize_eye_color()
 	if(prob(60))

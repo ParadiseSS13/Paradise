@@ -49,7 +49,7 @@
 	plushie_type = /obj/item/toy/plushie/skrellplushie
 
 /datum/species/skrell/randomize_body_color()
-	return pickweight(list(rgb(rand(0, 360), rand(50, 95), rand(30, 40), space = COLORSPACE_HSL) = 50,
+	return pickweight(list(rgb(rand(0, 360), rand(50, 95), rand(25, 40), space = COLORSPACE_HSL) = 50,
 		rgb(rand(0, 360), rand(5, 80), rand(5, 50), space = COLORSPACE_HSL) = 50))
 
 /datum/species/skrell/randomize_eye_color()

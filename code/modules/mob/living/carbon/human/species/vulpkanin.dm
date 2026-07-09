@@ -144,7 +144,7 @@
 		)))
 
 /datum/species/vulpkanin/randomize_body_color(pattern)
-	if(prob(2))
+	if(prob(5))
 		return rgb(rand(0, 360), rand(0, 90), rand(30, 50), space = COLORSPACE_HSL)
 	var/list/possible_colors = list(VULP_SILVER, VULP_BLUE, VULP_BLACK, VULP_LILAC, VULP_YELLOW, VULP_APRICOT, VULP_RED)
 	if(pattern == "solid")

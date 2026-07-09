@@ -628,6 +628,22 @@ USER_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/l
 	log_admin("[key_name(client)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins(SPAN_NOTICE("[key_name_admin(client)] changed the equipment of [key_name_admin(M)] to [dresscode]."), 1)
 
+USER_CONTEXT_MENU(randomize_appearance, R_EVENT, "\[Admin\] Randomize appearance", mob/living/carbon/human/M in GLOB.human_list)
+	if(!ishuman(M) && !isobserver(M))
+		alert(client, "Invalid mob")
+		return
+
+	var/prosthesis_prob = tgui_input_number(client, "Enter prosthesis probability between 0 and 100. Close to cancel.", "Randomize Appearance", 0, 100, 0)
+	if(!isnum(prosthesis_prob))
+		return
+
+	var/randomize_gender = tgui_alert(usr, "Randomize gender?", "Randomize Appearance", list("Yes", "No")) == "Yes"
+
+	M.generate_random_appearance(prosthesis_prob, use_gender = randomize_gender ? null : M.gender)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Randomize Appearance")
+	log_admin("[key_name(client)] randomized the appearance of [key_name(M)].")
+	message_admins(SPAN_NOTICE("[key_name_admin(client)] randomized the appearance of [key_name_admin(M)]."), 1)
+
 USER_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create an antagonist of your choice", VERB_CATEGORY_EVENT)
 	if(client.holder)
 		client.holder.one_click_antag()
