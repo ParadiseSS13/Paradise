@@ -9,6 +9,8 @@
 #define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
 //from [/datum/move_loop/has_target/jps/recalculate_path] ():
 #define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
+//from [/datum/move_loop/has_target/astar/recalculate_path] ():
+#define COMSIG_MOVELOOP_ASTAR_REPATH "moveloop_astar_repath"
 ///From base of /datum/move_loop/process() after attempting to move a movable: (datum/move_loop/loop, old_dir)
 #define COMSIG_MOVABLE_MOVED_FROM_LOOP "movable_moved_from_loop"
 ///from [/datum/move_loop/has_target/jps/on_finish_pathing]
