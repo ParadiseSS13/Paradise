@@ -1,16 +1,16 @@
 /obj/item/disk/tech_disk
 	name = "\improper Technology Disk"
-	desc = "A disk for storing technology data for further research."
+	desc = "A disk for storing research data for further research, it is only capable of holding one type of research at a time."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/list/stored_research = list() // "research", "illegal", "alien"
 	var/default_name = "\improper Technology Disk"
-	var/default_desc = "A disk for storing technology data for further research."
+	var/default_desc = "A disk for storing research data for further research, it is only capable of holding one type of research at a time."
 
 /obj/item/disk/tech_disk/proc/load_research(list/points_list)
 	for(var/i in points_list)
 		if(points_list.len > 1)
-			log_debug("Tech disk at [COORD] attempted load with over 1 research type.")
+			log_debug("Tech disk at [AREACOORD(src)] attempted load with over 1 research type.")
 			return // no more then one.
 		if(stored_research.len == 0 && points_list[i] > 0)
 			stored_research += points_list
@@ -49,7 +49,7 @@
 	if(stored_research[i] > 0)
 		name = "[default_name] \[[stored_research[i]]\]"
 		var/p_type = get_key_by_index(stored_research, 1) // kinda fragile but disks should never have more then 1 key/value.
-		desc = "[default_desc] \n [SPAN_NOTICE("Type: [p_type]")]"
+		desc = "[default_desc] \n[SPAN_NOTICE("Type: [p_type]")]"
 	else
 		name = default_name
 		desc = default_desc
