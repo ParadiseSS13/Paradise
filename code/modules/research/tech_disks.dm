@@ -1,72 +1,92 @@
-/*
 /obj/item/disk/tech_disk
 	name = "\improper Technology Disk"
 	desc = "A disk for storing technology data for further research."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
-	var/tech_id = null
-	var/tech_name = null
-	// These variables are copied from /datum/tech. They must be copied and cached
-	// to prevent retroactively updating all disks when a new research level is unlocked
-	/// The level of the copied technology. Please see /datum/tech.level
-	var/tech_level = 0
-	/// The rarity of the copied technology. Affects sell price. Please see /datum/tech.rare
-	var/tech_rarity = 0
-	var/default_name = "\improper Technology Disk"
-	var/default_desc = "A disk for storing technology data for further research."
-
-/obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
-	name = "[default_name] \[[T]\]"
-	desc = T.desc + "\n [SPAN_NOTICE("Level: [T.level]")]"
-	// NOTE: This is just a reference to the tech on the system it grabbed it from
-	// This seems highly fragile
-	tech_id = T.id
-	tech_name = T.name
-	tech_level = T.level
-	tech_rarity = T.rare
-
-/obj/item/disk/tech_disk/proc/wipe_tech()
-	name = default_name
-	desc = default_desc
-	tech_id = null
-	tech_name = null
-	tech_level = 0
-	tech_rarity = 0
-*/
-
-/obj/item/disk/tech_disk
-	name = "\improper Technology Disk"
-	desc = "A disk for storing technology data for further research."
-	icon_state = "datadisk2"
-	materials = list(MAT_METAL=30, MAT_GLASS=10)
-	var/list/stored_research = list("research" = 0, "illegal" = 0, "alien" = 0)
+	var/list/stored_research = list() // "research", "illegal", "alien"
 	var/default_name = "\improper Technology Disk"
 	var/default_desc = "A disk for storing technology data for further research."
 
 /obj/item/disk/tech_disk/proc/load_research(list/points_list)
 	for(var/i in points_list)
+		if(points_list.len > 1)
+			log_debug("Tech disk at [COORD] attempted load with over 1 research type.")
+			return // no more then one.
+		if(stored_research.len == 0 && points_list[i] > 0)
+			stored_research += points_list
+			update_inspect(i)
+			log_debug("Added [points_list[i]] to an empty tech disk") // MIXTODO - Remove logging
+			return points_list[i]
 		if((i in stored_research) && points_list[i] > 0)
+			log_debug("Added [points_list[i]] to a tech disk containing [stored_research[i]]") // MIXTODO - Remove logging
 			stored_research[i] = FLOOR(stored_research[i] + points_list[i], 0.1)
-			name = "[default_name] \[[stored_research["research"]]\]" // MIXTODO - Make disks display what kind of points they hold.
+			update_inspect(i)
 			return points_list[i] // return the points that were successfully transfered.
+		log_debug("Attempted to add different, 0 or negative poinst to tech disk [src]") // MIXTODO - Remove logging
 		return
 
 /obj/item/disk/tech_disk/proc/unload_research(list/points_list, autobalance = TRUE)
 	for(var/i in points_list)
-		var/ti = i
 		if(stored_research[i] < points_list[i] && autobalance == TRUE)
-			ti = stored_research[i]
+			points_list[i] = stored_research[i]
 		if(stored_research[i] < points_list[i] && autobalance == FALSE)
 			return
+		var/ti = points_list[i]
 		if((i in stored_research) && points_list[i] > 0)
-			stored_research[i] = FLOOR(stored_research[i] - ti, 0.1)
+			stored_research[i] = FLOOR(stored_research[i] - points_list[i], 0.1)
+			if(stored_research[i] <= 0)
+				stored_research.len = 0 //if we have no points, remove list contents so a new type can be added
+			update_inspect(i)
+			log_debug("removed [ti] points from tech disk") // MIXTODO - Remove logging
 			return ti // return how many points so we dont accidentally take more then we have.
-		log_debug("[src] unloading failed unexpectedly.")
 		return
 
 /obj/item/disk/tech_disk/proc/wipe_research()
-	stored_research = list("research" = 0, "illegal" = 0, "alien" = 0)
+	stored_research = list()
+	update_inspect()
 
+/obj/item/disk/tech_disk/proc/update_inspect(i)
+	if(stored_research[i] > 0)
+		name = "[default_name] \[[stored_research[i]]\]"
+		var/p_type = get_key_by_index(stored_research, 1) // kinda fragile but disks should never have more then 1 key/value.
+		desc = "[default_desc] \n [SPAN_NOTICE("Type: [p_type]")]"
+	else
+		name = default_name
+		desc = default_desc
+/* MIXTODO - Remove debug tooling
+
+/obj/item/disk/tech_disk/multitool_act(mob/living/user, obj/item/I)
+	var/obj/item/multitool/disk_loader/M = I
+	if(M.p_mode == "unload")
+		unload_research(M.to_load)
+		return
+	if(M.p_mode == "load")
+		load_research(M.to_load)
+		return
+
+
+/obj/item/multitool/disk_loader
+	name = "disk loader"
+	var/p_mode = "load"
+	var/load_points = 0
+	var/point_type = null
+	var/list/to_load = list()
+
+/obj/item/multitool/disk_loader/activate_self(mob/user)
+	. = ..()
+	load_points = tgui_input_number(usr, "Select Points", "Points", 0, 10000, 0)
+	point_type = tgui_alert(usr, "Select Type", "Type", list("research", "illegal", "alien"))
+	p_mode = tgui_alert(usr, "Select Mode", "Mode", list("load", "unload"))
+	var/tmp_strg = "[point_type]=[load_points]"
+	to_load = ConvertReqString2List(tmp_strg)
+
+/obj/item/multitool/disk_loader/proc/ConvertReqString2List(list/source_list)
+	var/list/temp_list = params2list(source_list)
+	for(var/O in temp_list)
+		temp_list[O] = text2num(temp_list[O])
+	return temp_list
+
+*/
 
 /obj/item/disk/design_disk
 	name = "\improper Component Design Disk"
