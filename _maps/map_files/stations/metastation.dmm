@@ -18000,6 +18000,7 @@
 	dir = 4
 	},
 /obj/machinery/alarm/server/directional/north,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/station/science/server/coldroom)
 "cbl" = (
@@ -22508,6 +22509,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/station/science/server/coldroom)
@@ -27599,8 +27603,8 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "dct" = (
@@ -40316,10 +40320,10 @@
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
-/obj/machinery/ai_node/processing_node,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/rnd_server/station,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "hdX" = (
@@ -68605,7 +68609,7 @@
 /obj/effect/turf_decal/siding{
 	dir = 4
 	},
-/obj/machinery/ai_node/network_node,
+/obj/machinery/rnd_server/station,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "quh" = (
@@ -89310,7 +89314,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "xcy" = (

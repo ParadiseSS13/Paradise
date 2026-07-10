@@ -7819,6 +7819,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/department/command,
+/obj/machinery/rnd_server/station,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "bCM" = (
@@ -19966,7 +19967,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos/asteroid_filtering)
 "dZt" = (
-/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -19974,6 +19974,7 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "dZx" = (
@@ -20794,6 +20795,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/tiles/department/command,
+/obj/machinery/rnd_server/station,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "eiF" = (
@@ -26953,12 +26955,12 @@
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "fqW" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 8
-	},
 /obj/machinery/alarm/server/directional/south,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
@@ -28607,7 +28609,6 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
-/obj/machinery/ai_node/processing_node,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "fHd" = (
@@ -70232,10 +70233,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "nZP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
 /obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "nZQ" = (
@@ -113510,7 +113511,6 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
-/obj/machinery/ai_node/network_node,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "wAw" = (

@@ -7,6 +7,8 @@ SUBSYSTEM_DEF(research)
 	offline_implications = "Ingame R&D will no longer have an OOC backup. No immediate action is needed."
 	/// List of R&D backups - Key = datum ID, value = /datum/rnd_backup
 	var/list/backups = list()
+	/// Used to ensure research lists contain valid point types.
+	var/list/point_types = list("research", "illegal", "alien")
 
 /datum/controller/subsystem/research/get_stat_details()
 	return "C:[length(backups)]"

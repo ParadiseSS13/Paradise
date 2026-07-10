@@ -29,15 +29,6 @@
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
-"aar" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 6
-	},
-/obj/machinery/ai_node/network_node,
-/turf/simulated/floor/plasteel/dark/telecomms{
-	icon_state = "bcircuit"
-	},
-/area/station/science/server/coldroom)
 "aas" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -965,6 +956,7 @@
 	dir = 9
 	},
 /obj/machinery/light,
+/obj/machinery/rnd_server/station,
 /turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
@@ -3381,6 +3373,15 @@
 /obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
+"azZ" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/obj/machinery/rnd_server/station,
+/turf/simulated/floor/plasteel/dark/telecomms{
+	icon_state = "bcircuit"
+	},
+/area/station/science/server/coldroom)
 "aAe" = (
 /obj/machinery/computer/security{
 	dir = 1
@@ -66814,7 +66815,6 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/obj/machinery/ai_node/processing_node,
 /turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
@@ -84787,7 +84787,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/atmospherics/portable/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "rbm" = (
@@ -133037,7 +133037,7 @@ bSv
 ahD
 jOi
 wXW
-aar
+eqj
 fIu
 nfq
 wXW
@@ -133294,7 +133294,7 @@ pqv
 xAU
 jOi
 wXW
-eqj
+azZ
 got
 agA
 wXW

@@ -8,6 +8,7 @@
 	var/default_desc = "A disk for storing research data for further research, it is only capable of holding one type of research at a time."
 
 /obj/item/disk/tech_disk/proc/load_research(list/points_list)
+	check_point_key(points_list)
 	for(var/i in points_list)
 		if(points_list.len > 1)
 			log_debug("Tech disk at [AREACOORD(src)] attempted load with over 1 research type.")
@@ -26,6 +27,7 @@
 		return
 
 /obj/item/disk/tech_disk/proc/unload_research(list/points_list, autobalance = TRUE)
+	check_point_key(points_list)
 	for(var/i in points_list)
 		if(stored_research[i] < points_list[i] && autobalance == TRUE)
 			points_list[i] = stored_research[i]
@@ -53,7 +55,22 @@
 	else
 		name = default_name
 		desc = default_desc
-/* MIXTODO - Remove debug tooling
+
+/// Checks both stored and incoming research lists for non-standard point types
+/obj/item/disk/tech_disk/proc/check_point_key(list/points_list)
+	if(stored_research.len > 0)
+		var/i = stored_research.len
+		stored_research &= SSresearch.point_types
+		if(i != stored_research.len)
+			log_debug("Invalid research point type attempted at [AREACOORD(src)].")
+	if(points_list)
+		var/li = points_list.len
+		points_list &= SSresearch.point_types
+		if(li != points_list.len)
+			log_debug("Invalid research point type attempted at [AREACOORD(src)].")
+
+
+/* MIXTODO - Remove debug tooling when finished
 
 /obj/item/disk/tech_disk/multitool_act(mob/living/user, obj/item/I)
 	var/obj/item/multitool/disk_loader/M = I
