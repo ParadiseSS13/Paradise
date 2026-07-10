@@ -211,27 +211,6 @@
 /obj/machinery/rnd_server/ui_data(mob/user)
 	var/list/data = list()
 
-	var/obj/machinery/computer/rnd_network_controller/RNC
-	if(network_manager_uid)
-		RNC = locateUID(network_manager_uid)
-
-	if(!network_manager_uid || !RNC)
-		network_manager_uid = null
-		data["network_name"] = null
-
-		var/list/controllers = list()
-		for(var/obj/machinery/computer/rnd_network_controller/RNC2 in GLOB.rnd_network_managers)
-			if(atoms_share_level(RNC2, src))
-				controllers += list(list("addr" = "\ref[RNC2]", "netname" = RNC2.network_name))
-
-		data["controllers"] = controllers
-
-		return data // Short circuit here, we aint linked
-
-	// Network metadata
-	data["network_name"] = RNC.network_name
-	data["linked_core_addr"] = "\ref[RNC]"
-
 	var/pgt = point_generation[1]
 	var/pgv = point_generation[pgt] * (efficiency_coeff / point_generation.len) // TGUI wont display a second type of point, but it should display the first accurately.
 
@@ -271,6 +250,27 @@
 		data["disk_stored_p"] = null
 
 	data["active"] = active
+
+	var/obj/machinery/computer/rnd_network_controller/RNC
+	if(network_manager_uid)
+		RNC = locateUID(network_manager_uid)
+
+	if(!network_manager_uid || !RNC)
+		network_manager_uid = null
+		data["network_name"] = null
+
+		var/list/controllers = list()
+		for(var/obj/machinery/computer/rnd_network_controller/RNC2 in GLOB.rnd_network_managers)
+			if(atoms_share_level(RNC2, src))
+				controllers += list(list("addr" = "\ref[RNC2]", "netname" = RNC2.network_name))
+
+		data["controllers"] = controllers
+
+		return data // Short circuit here, we aint linked
+
+	// Network metadata
+	data["network_name"] = RNC.network_name
+	data["linked_core_addr"] = "\ref[RNC]"
 
 	return data
 
@@ -319,7 +319,7 @@
 				if(RNC)
 					RNC.servers -= UID()
 				network_manager_uid = null
-				SStgui.update_uis(src)
+			SStgui.update_uis(src)
 
 		// You should only be able to link if its not linked, to prevent weirdness
 		if("link")

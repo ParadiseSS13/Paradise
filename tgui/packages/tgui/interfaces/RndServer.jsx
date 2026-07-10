@@ -76,6 +76,7 @@ const DiskView = (_properties) => {
             <LabeledList.Item label="Eject Disk">
               <Button
                 content={'Eject'}
+                color="red"
                 onClick={() => act('eject_disk')}
                 icon="arrow-up-from-bracket"
               />
