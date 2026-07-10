@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(research)
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY // ALL THE THINGS
 	wait = 60 SECONDS
 	cpu_display = SS_CPUDISPLAY_LOW
-	offline_implications = "Ingame R&D will no longer have an OOC backup. No immediate action is needed."
+	offline_implications = "Ingame R&D may no longer function correctly and will no longer have an OOC backup. Shuttle Call recommended."
 	/// List of R&D backups - Key = datum ID, value = /datum/rnd_backup
 	var/list/backups = list()
 	/// Used to ensure research lists contain valid point types.
