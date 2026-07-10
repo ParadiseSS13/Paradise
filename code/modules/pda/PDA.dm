@@ -119,9 +119,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 	return id
 
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
+	var/mob/user = usr
 	if((!is_screen_atom(over_object)) && can_use())
-		return attack_self__legacy__attackchain(M)
+		return activate_self(user)
 
 /obj/item/pda/activate_self(mob/user)
 	if(active_uplink_check(user))
