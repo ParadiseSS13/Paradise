@@ -154,7 +154,7 @@
 	if(A)
 		A.take_damage(brute, burn, sharp)
 		updatehealth()
-		if(old_health > health && shell && deployed && mainframe) // Only disconnect if we lose health.
+		if((old_health > health) && shell && deployed && mainframe) // Only disconnect if we lose health.
 			mainframe.disconnect_shell()
 		return
 
@@ -171,7 +171,7 @@
 
 		parts -= picked
 	updatehealth()
-	if(old_health > health && shell && deployed && mainframe) // Only disconnect if we lose health.
+	if((old_health > health) && shell && deployed && mainframe) // Only disconnect if we lose health.
 		mainframe.disconnect_shell()
 
 /*
