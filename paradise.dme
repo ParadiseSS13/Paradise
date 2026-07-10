@@ -1332,7 +1332,6 @@
 #include "code\game\objects\items\latexballoon.dm"
 #include "code\game\objects\items\lighters.dm"
 #include "code\game\objects\items\paint_bucket.dm"
-#include "code\game\objects\items\paiwire.dm"
 #include "code\game\objects\items\picket_signs.dm"
 #include "code\game\objects\items\random_items.dm"
 #include "code\game\objects\items\RCD.dm"
