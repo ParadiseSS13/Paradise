@@ -21,7 +21,7 @@
 		icon_state = icon; \
 	}
 
-MAILSORTINGHELPERS(disposals, list(TAGGER_LOCATION_DISPOSALS), "mail_sorting")
+MAILSORTINGHELPERS(disposals, list(TAGGER_LOCATION_DISPOSALS), "mail_sorting_sup")
 MAILSORTINGHELPERS(cargo_bay, list(TAGGER_LOCATION_CARGO_BAY), "mail_sorting_sup")
 MAILSORTINGHELPERS(qm_office, list(TAGGER_LOCATION_QM_OFFICE), "mail_sorting_com")
 MAILSORTINGHELPERS(engineering, list(TAGGER_LOCATION_ENGINEERING), "mail_sorting_eng")
