@@ -82,6 +82,8 @@
 	new_attack_chain = TRUE
 
 /obj/item/clown_recorder/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(cooldown > world.time)
 		to_chat(user, SPAN_NOTICE("The tape is still winding back."))
 		return ITEM_INTERACT_COMPLETE
