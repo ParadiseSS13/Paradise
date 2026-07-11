@@ -15,7 +15,7 @@
 	/// Do we send our points to the server or store them?
 	var/send_points = FALSE
 	var/efficiency_coeff = 1
-	// Multiple types of points is not supported in the TGUI, but technically is code-wise. (tgui will just fetch the first type)
+	// Multiple types of points is technically supported codewise, but not supported by TGUI as its not expected, TGUI will just fetch the first in the list.
 	/// How many points this generates each process() call
 	var/list/point_generation = list("research" = 20) // MIXTODO - Balance later.
 	/// Points stored within this server.
