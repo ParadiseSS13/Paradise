@@ -22,7 +22,6 @@
 	var/list/stored_points = list()
 	/// Total points this server has generated.
 	var/list/total_points = list()
-	var/original_desc = "A server dedicated to performing various research operations automatically."
 	var/obj/item/disk/tech_disk/t_disk = null
 	/// How much heat does this put out?
 	var/heat_amount = 25000
