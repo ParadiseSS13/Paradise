@@ -446,7 +446,7 @@
 	user.visible_message(
 		SPAN_WARNING("[user] inserts [src] into a data port on [target]!"),
 		SPAN_NOTICE("You insert [src] into a data port on [target]."),
-		SPAN_NOTICE("You hear the satisfying click of a wire jack fastening into place.")
+		SPAN_HEAR("You hear the satisfying click of a wire jack fastening into place.")
 	)
 	user.drop_item()
 	src.loc = target
