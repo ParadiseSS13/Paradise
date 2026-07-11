@@ -6,7 +6,6 @@
 #define APOAPSIS_POSITION_STRING "APOAPSIS_POSITION"
 #define PERIAPSIS_POSITION_STRING "PERIAPSIS_POSITION"
 #define PREDICTED_ORBIT_STRING "PREDICTED_ORBIT"
-#define NODE_PROCESSING_COOLDOWN 6 SECONDS
 
 /datum/satellite_stats
 	var/weight = 0
@@ -40,8 +39,8 @@
 	var/launch_time = INFINITY
 
 	var/list/planned_maneuvers = new()
-	var/datum/satellite_stats/stats
-	var/obj/machinery/science_satellite/owner
+	var/datum/satellite_stats/stats // initialized by `satellite.dm`
+	var/obj/machinery/science_satellite/owner // initialized by `satellite.dm`
 
 	var/has_been_launched = FALSE
 
@@ -54,8 +53,6 @@
 
 	var/list/predicted_orbit = list()
 	var/should_update_orbit = TRUE
-
-	var/list/recently_processed_weather_nodes = list()
 
 	var/physics_delta_time = 4 //TODO: Set to 0.1
 
@@ -164,9 +161,7 @@
 // MARK: launch
 ////////////////////////////////////////
 /datum/orbit_data/proc/launch()
-	for(var/capability in stats.capabilities)
-		if(capability == SCIENCE_SATELLITE_HAS_PLASMA_LAB)
-			owner.collect_data(SCIENCE_YIELD_FROM_PLASMA_LAB)
+	owner.try_collecting_data_from_all_components(SCIENCE_SATELLITE_HAS_PLASMA_LAB, SCIENCE_YIELD_FROM_PLASMA_LAB)
 
 	position = vector(0, 0, 300) // default velocity is calculated from this. Based off geostationary orbit on earth in km
 	velocity = vector(3.6, 0, 0) // when a velocity parameter is equal to (gravitational parameter / magnitude of the position vector) we get a circular orbit.
@@ -178,38 +173,6 @@
 	//log_debug("first_step POSITION_STRING: [first_step[POSITION_STRING]] VELOCITY_STRING: [first_step[VELOCITY_STRING]] ")
 
 	should_update_orbit = TRUE
-
-////////////////////////////////////////
-// MARK: process_weather
-////////////////////////////////////////
-/datum/orbit_data/proc/process_weather_node(datum/weather_node/weather_node)
-	if(weather_node in recently_processed_weather_nodes)
-		return
-
-
-	for(var/capability in stats.capabilities) // We want to give science for every part that can detect a weather node, including duplicates
-		if(capability == weather_node.detection_requirement)
-			//if(stats.power_consumption > stats.current_power)
-			//	continue
-
-			/*
-				if(SCIENCE_SATELLITE_USES_POWER_ON_THRUST in stats.capabilities)
-					var/obj/item/satellite_component/science_instrument/plasma_lab = /obj/item/satellite_component/science_instrument/plasma_lab/ in owner.parts
-					stats.current_power -= engine.power_consumption * fraction_burn
-
-					add powerdraw to defines and check the part?
-			*/
-
-			owner.collect_data(weather_node.science_yield)
-			weather_node.science_yield *= weather_node.science_depletion_rate
-			recently_processed_weather_nodes += weather_node
-
-			addtimer(CALLBACK(src, PROC_REF(remove_weather_node_from_processed), weather_node), NODE_PROCESSING_COOLDOWN)
-
-			stats.current_power -= stats.power_consumption
-
-/datum/orbit_data/proc/remove_weather_node_from_processed(datum/weather_node/weather_node)
-	recently_processed_weather_nodes -= weather_node
 
 ////////////////////////////////////////
 // MARK: physics_step
@@ -388,21 +351,18 @@
 
 /datum/satellite_stats/computer/basic
 	weight = 15
-	// power_consumption = 50
-	science_multiplier = 0.1 // additive
-	power_capacity = 1000
+	science_multiplier = 0.50 // additive as a percent
+	power_capacity = 2000
 
 /datum/satellite_stats/computer/science
 	weight = 25
-	// power_consumption = 50
-	science_multiplier = 0.25 // additive
+	science_multiplier = 1.00 // additive as a percent
 	power_capacity = 2000
 
 /datum/satellite_stats/computer/efficient
 	weight = 10
-	// power_consumption = 50
-	science_multiplier = 0.05 // additive
-	power_capacity = 500
+	science_multiplier = 0.25 // additive as a percent
+	power_capacity = 1000
 
 ////////////////////////////////////////
 // MARK: Engines
@@ -432,17 +392,17 @@
 ////////////////////////////////////////
 
 /datum/satellite_stats/science_instrument/meteorological_surveyor
-	weight = 10
+	weight = 50
 	power_consumption = 400
 	capabilities = list(SCIENCE_SATELLITE_HAS_METEOROLOGY)
 
 /datum/satellite_stats/science_instrument/plasma_lab
-	weight = 10
+	weight = 50
 	power_consumption = 1000
 	capabilities = list(SCIENCE_SATELLITE_HAS_PLASMA_LAB)
 
 /datum/satellite_stats/science_instrument/magnetometer
-	weight = 10
+	weight = 50
 	power_consumption = 500
 	capabilities = list(SCIENCE_SATELLITE_HAS_MAGNETOMETER)
 
@@ -461,7 +421,7 @@
 
 /datum/satellite_stats/misc_part/power_cell
 	weight = 5
-	power_capacity = 5000
+	power_capacity = 2000
 
 #undef VELOCITY_STRING
 #undef POSITION_STRING
@@ -471,4 +431,3 @@
 #undef APOAPSIS_POSITION_STRING
 #undef PERIAPSIS_POSITION_STRING
 #undef PREDICTED_ORBIT_STRING
-#undef NODE_PROCESSING_COOLDOWN

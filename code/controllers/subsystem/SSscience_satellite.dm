@@ -103,14 +103,17 @@ SUBSYSTEM_DEF(science_satellite)
 
 			// if the square distance is smaller than the detection range, check if the satellite can process the node
 			if(square_2D_dist < weather_node.square_detection_range)
-				satellite.orbit_data.process_weather_node(weather_node)
+				satellite.try_collecting_data_from_all_components(weather_node.detection_requirement, weather_node.science_yield, weather_node)
 
 /datum/weather_node
 	var/vector/position
 	var/square_detection_range = 24 ** 2
 	var/node_type = "NULL_WEATHER"
 	var/detection_requirement
+	/// how much science does this node give
 	var/science_yield = 1
+	/// a percentage that is the new science yield after this has been processed once
+	var/science_depletion_rate = 0.97
 	/// the png listed in `asset_science_satellite.dm`
 	var/asset_icon
 	var/distance_tries = 0 // used for debugging
@@ -129,10 +132,7 @@ SUBSYSTEM_DEF(science_satellite)
 /datum/weather_node/pole
 	node_type = SCIENCE_SATELLITE_WEATHER_NODE_POLE
 	detection_requirement = SCIENCE_SATELLITE_HAS_MAGNETOMETER
-	/// how much science does this node give
 	science_yield = 10
-	/// a percentage that is the new science yield after this has been processed once
-	science_depletion_rate = 0.97
 	asset_icon = "north_pole.png"
 
 /datum/weather_node/pole/south

@@ -1,3 +1,5 @@
+#define NODE_PROCESSING_COOLDOWN 6 SECONDS
+
 /obj/machinery/science_satellite
 	name = "satellite chassis"
 	var/internal_name // to stop the handlabler
@@ -15,23 +17,7 @@
 	var/status = "OK"
 	var/collected_science_data = 0
 
-/obj/machinery/science_satellite/proc/collect_data(var/amount)
-	collected_science_data += amount * satellite_stats.science_multiplier
-
-/obj/machinery/science_satellite/proc/calculate_status()
-	status = "Idle"
-	if(!orbit_data.position)
-		status = "Waiting for launch"
-	if(orbit_data.planned_maneuvers.len > 0)
-		status = "Waiting for maneuver."
-		for(var/datum/maneuver_data/manuever in orbit_data.planned_maneuvers)
-			if(manuever.world_time_at_maneuver < world.time)
-				status = "Performing maneuver."
-				break
-	if(orbit_data.periapsis < orbit_data.light_airdrag)
-		status = "Warning, air drag at periapsis."
-	if(orbit_data.periapsis < orbit_data.thick_airdrag)
-		status = "Danger! Periapsis inside atmosphere!"
+	var/list/recently_processed_weather_nodes = list()
 
 
 /obj/machinery/science_satellite/Initialize(mapload)
@@ -65,6 +51,61 @@
 	recalculate_stats()
 	. = ..()
 
+/// Adds data to a satellite using its science multiplier
+/obj/machinery/science_satellite/proc/collect_data(var/amount)
+	collected_science_data += amount * satellite_stats.science_multiplier
+
+/// Calculates the display message to give users in the UI
+/obj/machinery/science_satellite/proc/calculate_status()
+	status = "Idle"
+	if(!orbit_data.position)
+		status = "Waiting for launch."
+	if(orbit_data.planned_maneuvers.len > 0)
+		status = "Waiting for maneuver."
+		for(var/datum/maneuver_data/manuever in orbit_data.planned_maneuvers)
+			if(manuever.world_time_at_maneuver < world.time)
+				status = "Performing maneuver."
+				break
+	if(orbit_data.periapsis < orbit_data.light_airdrag)
+		status = "Warning, expected air drag at periapsis."
+	if(orbit_data.periapsis < orbit_data.thick_airdrag)
+		status = "Danger! Periapsis inside atmosphere!"
+
+/// Returns a true if the satellites power is greater than the components use
+/obj/machinery/science_satellite/proc/enough_power_for_component_use(obj/item/satellite_component/component)
+	log_debug("component.component_stats.power_consumption: [component.component_stats.power_consumption] satellite_stats.current_power: [satellite_stats.current_power]")
+	return (component.component_stats.power_consumption <= satellite_stats.current_power)
+
+/obj/machinery/science_satellite/proc/try_collecting_data_from_all_components(science_type, amount_to_collect, datum/weather_node/weather_node = null)
+	log_debug("try_collecting_data_from_all_components science_type: [science_type]")
+
+	if(weather_node in recently_processed_weather_nodes)
+		log_debug("weather_node in recently_processed_weather_nodes")
+		return
+
+	for(var/obj/item/satellite_component/component in parts)
+		log_debug("component: [component]")
+		for(var/capability in component.component_stats.capabilities)
+			log_debug("capability: [capability]")
+			if(!enough_power_for_component_use(component)) // ddont check parts we dont have power to use
+				continue
+			else if(capability == science_type) // if we have power, and the type is a match
+				collect_data(amount_to_collect)
+				satellite_stats.current_power -= component.component_stats.power_consumption
+				if(!weather_node)
+					continue
+
+				weather_node.science_yield *= weather_node.science_depletion_rate
+				recently_processed_weather_nodes += weather_node
+
+				// If SSscience_satellite is stopped and restarted this might allow collecting from the same node twice, low impact and unlikely to happen
+				addtimer(CALLBACK(src, PROC_REF(remove_weather_node_from_processed), weather_node), NODE_PROCESSING_COOLDOWN)
+			else
+				log_debug("[capability] != [science_type]")
+
+/obj/machinery/science_satellite/proc/remove_weather_node_from_processed(datum/weather_node/weather_node)
+	recently_processed_weather_nodes -= weather_node
+
 /obj/machinery/science_satellite/update_overlays()
 	. = ..()
 	for(var/obj/item/satellite_component/part in parts)
@@ -74,7 +115,6 @@
 		var/image/overlay_image = image(icon, part.overlay_icon)
 		overlay_image.color = part.color
 		. += overlay_image
-
 
 /obj/machinery/science_satellite/proc/adjust_stats(obj/item/satellite_component/component, add = TRUE)
 
@@ -170,3 +210,5 @@
 	. = ..()
 	. += SPAN_NOTICE("<b>Click</b> with a multitool when the panel is open to store the satellite's connection data into the multitools buffer.")
 	. += SPAN_NOTICE("<b>Click</b> with an empty hand when the panel is open to rename the satellite.")
+
+#undef NODE_PROCESSING_COOLDOWN
