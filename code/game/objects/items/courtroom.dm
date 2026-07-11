@@ -30,7 +30,7 @@
 	new_attack_chain = TRUE
 
 /obj/item/gavelblock/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(used))
+	if(!istype(used, /obj/item/gavelhammer))
 		return ..()
 	if(world.time > next_gavel_hit)
 		playsound(loc, 'sound/items/gavel.ogg', 100, 1)
