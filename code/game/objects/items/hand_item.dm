@@ -36,7 +36,7 @@
 
 	var/obj/structure/table/the_table = O
 
-	if(!(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left))) // so you can't do 2 weak slaps followed by a big slam
+	if(!(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left))) // So you can't do 2 weak slaps followed by a big slam.
 		user.do_attack_animation(the_table)
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 40, TRUE)
 		user.visible_message(SPAN_NOTICE("[user] slaps [user.p_their()] hand on [the_table]."), SPAN_NOTICE("You slap your hand on [the_table]."))
@@ -44,7 +44,7 @@
 		if(table_smacks_left <= 0)
 			qdel(src)
 		return
-	transform = transform.Scale(1.5) // BIG slap
+	transform = transform.Scale(1.5) // BIG slap!
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		transform = transform.Scale(2)
 		color = COLOR_GREEN
@@ -91,9 +91,9 @@
 		return ..()
 	var/mob/living/creature = M
 	SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))
-	creature.Confused(10 SECONDS) //SMACK CAM
-	creature.EyeBlind(2 SECONDS) //OH GOD MY EARS ARE RINGING
-	creature.Deaf(4 SECONDS) //OH MY HEAD
+	creature.Confused(10 SECONDS) // SMACK CAM!
+	creature.EyeBlind(2 SECONDS) // OH GOD MY EARS ARE RINGING!
+	creature.Deaf(4 SECONDS) // OH MY HEAD!
 
 /obj/item/slapper/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
 	if(target_atom == src)
