@@ -40,3 +40,5 @@
 			SPAN_NOTICE("You strike [src] with [used].")
 			SPAN_HEAR("You hear a gavel banging!")
 		)
+		return ITEM_INTERACT_COMPLETE
+
