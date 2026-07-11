@@ -65,6 +65,8 @@
 		var/obj/item/tank/tank = used
 		blow(tank, user)
 		return ITEM_INTERACT_COMPLETE
+
 	if(used.sharp || used.get_heat() || is_pointed(used))
 		burst()
+
 	return ITEM_INTERACT_COMPLETE
