@@ -36,8 +36,8 @@
 		playsound(loc, 'sound/items/gavel.ogg', 100, 1)
 		next_gavel_hit = world.time + 5 SECONDS
 		user.visible_message(
-			SPAN_WARNING("[user] strikes [src] with [used]!")
-			SPAN_NOTICE("You strike [src] with [used].")
+			SPAN_WARNING("[user] strikes [src] with [used]!"),
+			SPAN_NOTICE("You strike [src] with [used]."),
 			SPAN_HEAR("You hear a gavel banging!")
 		)
 		return ITEM_INTERACT_COMPLETE
