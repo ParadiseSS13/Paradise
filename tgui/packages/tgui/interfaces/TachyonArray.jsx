@@ -5,14 +5,15 @@ import { Window } from '../layouts';
 
 export const TachyonArray = (props) => {
   const { act, data } = useBackend();
-  const { records = [], explosion_target, toxins_tech, printing } = data;
+  const { records = [], explosion_target, stored_points, printing, success_points } = data;
   return (
     <Window width={500} height={600}>
       <Window.Content scrollable>
         <Section>
           <LabeledList>
             <LabeledList.Item label="Shift's Target">{explosion_target}</LabeledList.Item>
-            <LabeledList.Item label="Current Toxins Level">{toxins_tech}</LabeledList.Item>
+            <LabeledList.Item label="Stored Points">{stored_points} Research Points</LabeledList.Item>
+            <LabeledList.Item label="On Success">{success_points} Research Points</LabeledList.Item>
             <LabeledList.Item label="Administration">
               <Button
                 icon="print"

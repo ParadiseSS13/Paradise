@@ -81,6 +81,7 @@ research holder datum.
 	RefreshResearch()
 
 /datum/research/proc/addpoints(list/points_list)
+	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
 		if((i in research_points) && points_list[i] > 0)
 			research_points[i] = FLOOR(research_points[i] + points_list[i], 0.1)
@@ -89,6 +90,7 @@ research holder datum.
 
 // Autobalance determines if requesting more points then we have will automatically reduce the request or just cancel it.
 /datum/research/proc/takepoints(list/points_list, autobalance = TRUE)
+	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
 		var/ti = i
 		if(research_points[i] < points_list[i] && autobalance == TRUE)

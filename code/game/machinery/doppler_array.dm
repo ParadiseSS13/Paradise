@@ -6,12 +6,15 @@
 	density = TRUE
 	anchored = TRUE
 	atom_say_verb = "states coldly"
-	var/list/logged_explosions = list()
+	var/list/logged_explosions = list() // MIXTODO - Revisit after experiment multipliers.
 	var/explosion_target
-	var/datum/tech/toxins/toxins_tech
-	var/max_toxins_tech = 7
+	var/stored_points = 0
+	/// Points you get for being exactly on target - before any multipliers.
+	var/target_points = 10000
 	/// List of linked machines
 	var/list/linked_machines = list()
+	/// The maximum amount of times this doppler array can complete toxins before the points scale to 0.
+	var/maximum_comps = 10
 
 /datum/explosion_log
 	var/logged_time
@@ -29,19 +32,25 @@
 /obj/machinery/doppler_array/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
-	explosion_target = rand(8, 20)
-	toxins_tech = new /datum/tech/toxins(src)
+	roll_target()
+	// target_points = FLOOR(10000 * SSresearch.experi_mult["toxins"], 1) // MIXTODO - Floor not required unless default value changed later.
 
 /obj/machinery/doppler_array/Destroy()
 	logged_explosions.Cut()
 	UnregisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
 	return ..()
 
+/obj/machinery/doppler_array/examine()
+	. += SPAN_NOTICE("There are [stored_points] research points stored.")
+
 /obj/machinery/doppler_array/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = used
-		// disk.load_tech(toxins_tech) MIXTODO - Change toxins to points
-		to_chat(user, SPAN_NOTICE("You swipe the disk into [src]."))
+		var/list/tl = list("research" = stored_points)
+		var/i = disk.load_research(tl)
+		if(i)
+			to_chat(user, SPAN_NOTICE("You swipe the disk into [src], loading [stored_points] points."))
+			stored_points -= i
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
@@ -72,6 +81,9 @@
 
 /obj/machinery/doppler_array/AltClick(mob/user)
 	rotate(user)
+
+/obj/machinery/doppler_array/proc/roll_target()
+	explosion_target = rand(8, 20)
 
 /obj/machinery/doppler_array/proc/rotate(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -150,14 +162,17 @@
 	logged_explosions.Insert(1, new /datum/explosion_log(station_time_timestamp(), "[coordinates]", "[devastation_range], [heavy_impact_range], [light_impact_range]", capped ? "[orig_dev_range], [orig_heavy_range], [orig_light_range]" : "n/a")) //Newer logs appear first
 	messages += "Event successfully logged in internal database."
 	var/miss_by = abs(explosion_target - orig_light_range)
-	var/tmp_tech = max_toxins_tech - miss_by
+	var/tmp_pnt
 	if(!miss_by)
 		messages += "Explosion size matches target."
+		roll_target()
+		tmp_pnt = (target_points * (1-(SSresearch.successful_toxins / maximum_comps))) // Linear decrease
+		stored_points += tmp_pnt
+		messages += "[tmp_pnt] Research Points generated. Swipe a technology disk to save data."
+		if(SSresearch.successful_toxins < 10)
+			SSresearch.successful_toxins += 1
 	else
 		messages += "Target ([explosion_target]) missed by : [miss_by]."
-	if(tmp_tech > toxins_tech.level)
-		toxins_tech.level = tmp_tech
-		messages += "Toxins technology level upgraded to [toxins_tech.level]. Swipe a technology disk to save data."
 	for(var/message in messages)
 		atom_say(message)
 	for(var/obj/machinery/anomaly_refinery/anom_refiner in linked_machines)
@@ -188,6 +203,7 @@
 /obj/machinery/doppler_array/ui_data(mob/user)
 	var/list/data = list()
 	var/list/records = list()
+	var/tmp_points = (target_points * (1-(SSresearch.successful_toxins / maximum_comps)))
 	for(var/i in 1 to length(logged_explosions))
 		var/datum/explosion_log/E = logged_explosions[i]
 		records += list(list(
@@ -197,7 +213,8 @@
 			"theoretical_size_message" = E.theoretical_size_message,
 			"index" = i))
 	data["explosion_target"] = explosion_target
-	data["toxins_tech"] = toxins_tech.level
+	data["stored_points"] = stored_points
+	data["success_points"] = tmp_points
 	data["records"] = records
 	data["printing"] = active_timers
 	return data

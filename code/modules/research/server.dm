@@ -74,7 +74,6 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/rnd_server/proc/points_to_disk(list/points_list)
-	check_point_key(points_list)
 	for(var/i in points_list)
 		if(stored_points[i] <= 0)
 			return // No point doing all that if we have no points to give.
@@ -83,19 +82,6 @@
 		var/t = t_disk.load_research(points_list)
 		stored_points[i] -= t
 	SStgui.update_uis(src)
-
-/// Checks both stored and incoming research lists for non-standard point types
-/obj/machinery/rnd_server/proc/check_point_key(list/points_list)
-	if(stored_points.len > 0)
-		var/i = stored_points.len
-		stored_points &= SSresearch.point_types
-		if(i != stored_points.len)
-			log_debug("Invalid research point type attempted at [AREACOORD(src)].")
-	if(points_list)
-		var/li = points_list.len
-		points_list &= SSresearch.point_types
-		if(li != points_list.len)
-			log_debug("Invalid research point type attempted at [AREACOORD(src)].")
 
 /// Input: Opposite of what you want: TRUE/FALSE, none will switch between the two.
 /obj/machinery/rnd_server/proc/switch_mode(choice)
