@@ -438,12 +438,16 @@
 
 /obj/item/pai_cable/proc/plugin(obj/machinery/target, mob/user)
 	if(!(isairlock(target) || istype(target, /obj/machinery/camera)))
-		user.visible_message("[user] dumbly fumbles to find a place on [target] to plug in [src].",
-			"There aren't any ports on [target] that match the jack belonging to [src].")
+		user.visible_message(
+			SPAN_WARNING("[user] dumbly fumbles to find a place on [target] to plug in [src]."),
+			SPAN_WARNING("There aren't any ports on [target] that match the jack belonging to [src].")
+		)
 		return
-	user.visible_message("[user] inserts [src] into a data port on [target].",
-		"You insert [src] into a data port on [target].",
-		"You hear the satisfying click of a wire jack fastening into place.")
+	user.visible_message(
+		SPAN_WARNING("[user] inserts [src] into a data port on [target]!"),
+		SPAN_NOTICE("You insert [src] into a data port on [target]."),
+		SPAN_NOTICE("You hear the satisfying click of a wire jack fastening into place.")
+	)
 	user.drop_item()
 	src.loc = target
 	src.machine = target
