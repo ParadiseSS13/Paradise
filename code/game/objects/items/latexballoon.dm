@@ -10,6 +10,7 @@
 	cares_about_temperature = TRUE
 	var/state
 	var/datum/gas_mixture/air_contents = null
+	new_attack_chain = TRUE
 
 /obj/item/latexballon/Destroy()
 	QDEL_NULL(air_contents)
@@ -59,10 +60,11 @@
 	if(exposed_temperature > T0C+100)
 		burst()
 
-/obj/item/latexballon/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
-		var/obj/item/tank/T = W
-		blow(T, user)
-		return
-	if(W.sharp || W.get_heat() || is_pointed(W))
+/obj/item/latexballon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tank))
+		var/obj/item/tank/tank = used
+		blow(tank, user)
+		return ITEM_INTERACT_COMPLETE
+	if(used.sharp || used.get_heat() || is_pointed(used))
 		burst()
+		return ITEM_INTERACT_COMPLETE
