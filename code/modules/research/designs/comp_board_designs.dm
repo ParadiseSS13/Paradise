@@ -248,7 +248,7 @@
 	id = "rdnetworkcontrol"
 	req_tech = list("programming" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 10000, MAT_DIAMOND = 10000) // Ideally we dont want people printing these all over the place.
 	build_path = /obj/item/circuitboard/rnd_network_controller
 	category = list("Computer Boards")
 
