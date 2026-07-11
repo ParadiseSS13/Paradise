@@ -85,7 +85,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	if(cooldown > world.time)
-		to_chat(user, SPAN_NOTICE("The tape is still winding back."))
+		to_chat(user, SPAN_WARNING("The tape is still winding back!"))
 		return ITEM_INTERACT_COMPLETE
 	playsound(src, pick('sound/voice/sitcom_laugh.ogg', 'sound/voice/sitcom_laugh2.ogg'), 50, FALSE)
 	cooldown = HAS_TRAIT(src, TRAIT_CMAGGED) ? world.time + LAUGH_COOLDOWN_CMAG : world.time + LAUGH_COOLDOWN
