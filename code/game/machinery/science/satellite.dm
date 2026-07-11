@@ -52,7 +52,7 @@
 	. = ..()
 
 /// Adds data to a satellite using its science multiplier
-/obj/machinery/science_satellite/proc/collect_data(var/amount)
+/obj/machinery/science_satellite/proc/collect_data(amount)
 	collected_science_data += amount * satellite_stats.science_multiplier
 
 /// Calculates the display message to give users in the UI
@@ -71,11 +71,6 @@
 	if(orbit_data.periapsis < orbit_data.thick_airdrag)
 		status = "Danger! Periapsis inside atmosphere!"
 
-/// Returns a true if the satellites power is greater than the components use
-/obj/machinery/science_satellite/proc/enough_power_for_component_use(obj/item/satellite_component/component)
-	log_debug("component.component_stats.power_consumption: [component.component_stats.power_consumption] satellite_stats.current_power: [satellite_stats.current_power]")
-	return (component.component_stats.power_consumption <= satellite_stats.current_power)
-
 /obj/machinery/science_satellite/proc/try_collecting_data_from_all_components(science_type, amount_to_collect, datum/weather_node/weather_node = null)
 	log_debug("try_collecting_data_from_all_components science_type: [science_type]")
 
@@ -87,7 +82,7 @@
 		log_debug("component: [component]")
 		for(var/capability in component.component_stats.capabilities)
 			log_debug("capability: [capability]")
-			if(!enough_power_for_component_use(component)) // ddont check parts we dont have power to use
+			if(!satellite_stats.enough_power_for_component_use(component)) // ddont check parts we dont have power to use
 				continue
 			else if(capability == science_type) // if we have power, and the type is a match
 				collect_data(amount_to_collect)

@@ -45,7 +45,7 @@
 
 
 /obj/item/satellite_component/engine/small_engine
-	name = "basic engine"
+	name = "small engine"
 	icon_state = "small_thrust"
 	overlay_icon = "overlay_smallthrust"
 	desc = "A small engine that has a lower weight, but also lower fuel efficiency."
@@ -53,10 +53,10 @@
 
 
 /obj/item/satellite_component/engine/ion_engine
-	name = "basic engine"
+	name = "ion engine"
 	icon_state = "ion_thrust"
 	overlay_icon = "overlay_ionthrust"
-	desc = "An ion engine that uses ionized gass as a propellant. Extremely high fuel efficiency, buy uses power."
+	desc = "An ion engine that uses ionized gass as a propellant. Extremely high fuel efficiency, but uses power instead of generating it."
 	component_stats = new /datum/satellite_stats/engine/ion_engine()
 
 

@@ -167,7 +167,7 @@ const ManeuverPanel = ({
               <Stack>{`Position: (${selectedSatellite.orbit_data.position?.x}, ${selectedSatellite.orbit_data.position?.y}, ${selectedSatellite.orbit_data.position?.z})`}</Stack>
             </Stack>
             <Stack width="50%" vertical>
-              <Stack>{`weight: ${selectedSatellite.weight}kg`}</Stack>
+              <Stack>{`weight (total): ${Math.round(selectedSatellite.weight + selectedSatellite.current_fuel)}kg`}</Stack>
               <Stack>{`fuel usage: ${selectedSatellite.fuel_usage.toFixed(2)}L/s`}</Stack>
               <Stack>{`Period: ${selectedSatellite.orbit_data.period / deciseconds_in_minute}min`}</Stack>
               {/* <Stack>{`Velocity: ${Math.sqrt(selectedSatellite.orbit_data.velX ** 2 + selectedSatellite.orbit_data.velY ** 2 + selectedSatellite.orbit_data.velZ ** 2)} km/s`}</Stack>*/}
@@ -307,9 +307,9 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
       <Stack mb={2} ml={1}>
         <Section title={satellite.name} width="100%" backgroundColor="#4444">
           <Stack>
-            <Box width="70%">Data Processing Power: {Math.round(satellite.science_multiplier * 100) + '%'}</Box>
-            <Box width="30%" align="right">
-              Collected Data: {satellite.collected_science_data}
+            <Box width="50%">Data Processing Power: {Math.round(satellite.science_multiplier * 100) + '%'}</Box>
+            <Box width="50%" align="right">
+              Collected Data: {Math.round(satellite.collected_science_data)}
             </Box>
           </Stack>
           <Stack>
@@ -349,11 +349,7 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
             </Stack.Item>
           </Stack>
           <Stack mt={1}>
-            {satellite.passive_power_generation - satellite.power_consumption > 0
-              ? 'Power Generation: '
-              : 'Power Consumption: '}
-
-            {Math.abs(satellite.power_consumption - satellite.passive_power_generation) + 'W/s'}
+            {`Passive power generation: ${satellite.passive_power_generation}W/s`}
           </Stack>
           <Stack>
             <Box mt={1} width="50%">
@@ -385,7 +381,7 @@ const DiskPanel = ({ satellite_data, inserted_disk, act }) => {
 
   return (
     <Stack fill align="center">
-      <Stack.Item width="50%">Total Collected Data: {collected_science_data}</Stack.Item>
+      <Stack.Item width="50%">Total Collected Data: {collected_science_data.toFixed(1)}</Stack.Item>
       <Stack.Item width="50%" textAlign="right">
         <Button
           mr={1}

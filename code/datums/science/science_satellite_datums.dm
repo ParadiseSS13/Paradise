@@ -66,7 +66,7 @@
 	if(!has_been_launched)
 		return
 
-	stats.current_power = min(stats.current_power + stats.passive_power_generation, stats.power_capacity)
+	stats.add_power(stats.passive_power_generation)
 
 	var/list/step = calculate_physics_step(position, velocity) // where the satellite should move this tick
 	position = step[POSITION_STRING]
@@ -88,6 +88,8 @@
 
 		apoapsis_position = prediction[APOAPSIS_POSITION_STRING]
 		periapsis_position = prediction[PERIAPSIS_POSITION_STRING]
+
+		should_update_orbit = FALSE
 
 ////////////////////////////////////////
 // MARK: predict_orbit
@@ -218,19 +220,23 @@
 
 	var/obj/item/satellite_component/engine/engine = locate(/obj/item/satellite_component/engine/) in owner.parts
 	var/fuel_step = stats.fuel_usage * fraction_burn
-	if(stats.current_fuel <= 0.01) // we might get a small fraction here due to the division below
-		stats.current_fuel = 0
-		planned_maneuvers -= maneuver
-		return
-	else if(fuel_step > stats.current_fuel) // if we dont have enough fuel
-		fuel_step = stats.current_fuel / fuel_step
-		fraction_burn *= fuel_step
+	if(fuel_step > stats.current_fuel) // if we dont have enough fuel
+		fraction_burn *= stats.current_fuel / fuel_step // multiply the fraction burn with the percentage of fuel we do have
+		// stats.current_fuel = 0
+		fuel_step = stats.fuel_usage * fraction_burn // then recalculate the fuel step
+		if(maneuver in planned_maneuvers)
+			planned_maneuvers -= maneuver
 
-	stats.current_power += engine.component_stats.active_power_generation * fraction_burn
+	stats.add_power(engine.component_stats.active_power_generation * fraction_burn)
 	stats.current_fuel -= fuel_step
 	stats.update_fuel_usage()
 	if(SCIENCE_SATELLITE_USES_POWER_ON_THRUST in stats.capabilities)
-		stats.current_power -= engine.component_stats.power_consumption * fraction_burn
+		// multiply the fraction of the burn with the fraction of the power to get power draw
+		var/power_fraction = stats.remove_power(engine.component_stats.power_consumption * fraction_burn)
+		if(power_fraction < 1) // if we dont have enough power
+			fraction_burn *= power_fraction // reduce the fraction of the burn (can also happen in conjunction with the fuel division)
+			if(maneuver in planned_maneuvers)
+				planned_maneuvers -= maneuver
 
 	var/vector/vel_copy = vector(velocity) // we need to copy the vectors as Normalize() modifies the vector itself!
 	var/vector/pos_copy = vector(position)
@@ -326,43 +332,57 @@
 	return ROOT(prograde ** 2 + normal ** 2 + radial ** 2, 2)
 
 
+////////////////////////////////////////
+// MARK: stats procs
+////////////////////////////////////////
+
 /datum/satellite_stats/proc/update_fuel_usage()
+	if(!fuel_efficiency)
+		return
 	fuel_usage = (weight + current_fuel) / fuel_efficiency
+
+/datum/satellite_stats/proc/add_power(amount)
+	current_power = min(current_power + amount, power_capacity)
+
+/// removes power from the stats, returns a fraction if `current_power` is less than `amount`
+/datum/satellite_stats/proc/remove_power(amount)
+	if(!amount)
+		return
+	var/power_fraction = 1
+	if(amount > current_power)
+		power_fraction = current_power / amount
+	current_power = max(current_power - amount, 0)
+	return power_fraction
+
+/// Returns true if the satellites power is greater than the components use
+/datum/satellite_stats/proc/enough_power_for_component_use(obj/item/satellite_component/component)
+	return (component.component_stats.power_consumption <= current_power)
 
 ////////////////////////////////////////
 // MARK: Chassis stats (base)
 ////////////////////////////////////////
 
 /datum/satellite_stats/base_stats
-	weight = 1
-	fuel_efficiency = 1
-	fuel_capacity = 1
-	science_multiplier = 1
-	passive_power_generation = 0
-	active_power_generation = 0
-	power_consumption = 0
-	power_capacity = 1
-	current_fuel = 1
-	current_power = 1
+	science_multiplier = 1 // we set this to 1 here so that the satellites all start at "100% science" while the other parts might not give any multiplier
 
 ////////////////////////////////////////
 // MARK: Computers
 ////////////////////////////////////////
 
 /datum/satellite_stats/computer/basic
-	weight = 15
+	weight = 60
 	science_multiplier = 0.50 // additive as a percent
-	power_capacity = 2000
+	power_capacity = 10000
 
 /datum/satellite_stats/computer/science
-	weight = 25
+	weight = 100
 	science_multiplier = 1.00 // additive as a percent
-	power_capacity = 2000
+	power_capacity = 25000
 
 /datum/satellite_stats/computer/efficient
-	weight = 10
+	weight = 40
 	science_multiplier = 0.25 // additive as a percent
-	power_capacity = 1000
+	power_capacity = 10000
 
 ////////////////////////////////////////
 // MARK: Engines
@@ -370,21 +390,21 @@
 
 /datum/satellite_stats/engine/basic_engine
 	weight = 100
-	fuel_capacity = 150
-	fuel_efficiency = 100
-	active_power_generation = 100
+	fuel_capacity = 600
+	fuel_efficiency = 500
+	active_power_generation = 2500
 
 /datum/satellite_stats/engine/small_engine
 	weight = 50
-	fuel_capacity = 50
-	fuel_efficiency = 80
-	active_power_generation = 25
+	fuel_capacity = 200
+	fuel_efficiency = 400
+	active_power_generation = 1000
 
 /datum/satellite_stats/engine/ion_engine
 	weight = 100
-	fuel_capacity = 1
-	fuel_efficiency = 500
-	power_consumption = 100
+	fuel_capacity = 40
+	fuel_efficiency = 2500
+	power_consumption = 1000
 	capabilities = list(SCIENCE_SATELLITE_NEEDS_VACUUM, SCIENCE_SATELLITE_USES_POWER_ON_THRUST)
 
 ////////////////////////////////////////
@@ -392,18 +412,18 @@
 ////////////////////////////////////////
 
 /datum/satellite_stats/science_instrument/meteorological_surveyor
-	weight = 50
-	power_consumption = 400
+	weight = 200
+	power_consumption = 10000
 	capabilities = list(SCIENCE_SATELLITE_HAS_METEOROLOGY)
 
 /datum/satellite_stats/science_instrument/plasma_lab
-	weight = 50
-	power_consumption = 1000
+	weight = 200
+	power_consumption = 10000
 	capabilities = list(SCIENCE_SATELLITE_HAS_PLASMA_LAB)
 
 /datum/satellite_stats/science_instrument/magnetometer
-	weight = 50
-	power_consumption = 500
+	weight = 200
+	power_consumption = 10000
 	capabilities = list(SCIENCE_SATELLITE_HAS_MAGNETOMETER)
 
 
@@ -412,16 +432,16 @@
 ////////////////////////////////////////
 
 /datum/satellite_stats/misc_part/solar_panel
-	weight = 2
-	passive_power_generation = 5
+	weight = 8
+	passive_power_generation = 100
 
 /datum/satellite_stats/misc_part/electric_generator
-	weight = 5
-	active_power_generation = 75
+	weight = 20
+	active_power_generation = 7500
 
 /datum/satellite_stats/misc_part/power_cell
-	weight = 5
-	power_capacity = 2000
+	weight = 20
+	power_capacity = 20000
 
 #undef VELOCITY_STRING
 #undef POSITION_STRING
