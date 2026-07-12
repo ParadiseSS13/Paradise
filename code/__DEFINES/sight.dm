@@ -15,6 +15,9 @@
 #define INVISIBILITY_HIDDEN_RUNES 30
 #define SEE_INVISIBLE_HIDDEN_RUNES 30
 
+#define INVISIBILITY_FLOCK 30
+#define SEE_INVISIBLE_FLOCK 30
+
 #define SEE_INVISIBLE_LEVEL_ONE 35	//Used by some stuff in code. It's really poorly organized.
 
 #define SEE_INVISIBLE_LEVEL_TWO 45	//Used by some other stuff in code. It's really poorly organized.
