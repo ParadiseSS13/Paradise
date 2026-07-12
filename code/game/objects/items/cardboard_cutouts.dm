@@ -11,11 +11,12 @@
 		"Deathsquad Commando", "Ian", "Slaughter Demon",
 		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider",
 		"Changeling", "Vampire", "Abductor", "Zombie", "Soviet Marine", "Federation Marine")
-	/// If the cutout is pushed over and has to be righted
+	/// If the cutout is pushed over and has to be righted.
 	var/pushed_over = FALSE
-	/// If the cutout actually appears as what it portray and not a discolored version
+	/// If the cutout actually appears as what it portray and not a discolored version.
 	var/deceptive = FALSE
 	materials = list(MAT_CARDBOARD = 10000)
+	new_attack_chain = TRUE
 
 /obj/item/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
@@ -33,36 +34,39 @@
 	alpha = initial(alpha)
 	pushed_over = TRUE
 
-/obj/item/cardboard_cutout/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/cardboard_cutout/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!pushed_over)
-		return
+		return ITEM_INTERACT_COMPLETE
 	to_chat(user, SPAN_NOTICE("You right [src]."))
 	desc = initial(desc)
 	icon = initial(icon)
-	icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
+	icon_state = initial(icon_state) // This resets a cutout to its blank state - this is intentional to allow for resetting.
 	pushed_over = FALSE
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/cardboard_cutout/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/toy/crayon))
-		change_appearance(I, user)
-		return
+/obj/item/cardboard_cutout/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/toy/crayon))
+		change_appearance(used, user)
+		return ITEM_INTERACT_COMPLETE
 	// Why yes, this does closely resemble mob and object attack code.
-	if(I.flags & NOBLUDGEON)
-		return
-	if(!I.force)
+	if(used.flags & NOBLUDGEON)
+		return ITEM_INTERACT_COMPLETE
+	if(!used.force)
 		playsound(loc, 'sound/weapons/tap.ogg', 20, TRUE, -1)
-	else if(I.hitsound)
-		playsound(loc, I.hitsound, 20, TRUE, -1)
+	else if(used.hitsound)
+		playsound(loc, used.hitsound, 20, TRUE, -1)
 
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 
-	if(I.force)
+	if(used.force)
 		user.visible_message("<span class='danger'>[user] has hit \
-			[src] with [I]!</span>", "<span class='danger'>You hit [src] \
-			with [I]!</span>")
+			[src] with [used]!</span>", "<span class='danger'>You hit [src] \
+			with [used]!</span>")
 
-		if(prob(I.force))
+		if(prob(used.force))
 			push_over()
 
 /obj/item/cardboard_cutout/bullet_act(obj/projectile/P)
