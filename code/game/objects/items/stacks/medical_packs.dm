@@ -669,14 +669,12 @@
 	if(!istype(target_needle) || !user.can_reach(target_needle))
 		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
 		return FALSE
-	var/atom/old_loc = loc
+	var/atom/old_loc = get_turf(loc)
 	. = ..()
 	if(.)
 		qdel(target_needle)
 		if(is_zero_amount(FALSE) && depleted_type)
 			var/needle = new depleted_type(old_loc)
-			if(ishuman(old_loc))
-				forceMove(needle, old_loc.loc)
 
 /obj/item/stack/medical/adv/suture/emergency
 	name = "emergency sutures"
