@@ -66,6 +66,7 @@
 	open = !open
 	if(!open)
 		icon_state = "lipstick"
+		return ITEM_INTERACT_COMPLETE
 	var/mutable_appearance/colored = mutable_appearance('icons/obj/items.dmi', "lipstick_uncap_color")
 	colored.color = lipstick_colors[colour]
 	icon_state = "lipstick_uncap"
