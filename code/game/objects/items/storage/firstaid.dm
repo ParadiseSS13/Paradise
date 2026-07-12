@@ -446,8 +446,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture, /obj/item/suture_needle)
-	cant_hold = list(/obj/item/stack/medical/suture/regen_mesh)
+	can_hold = list(/obj/item/stack/medical/adv/suture, /obj/item/suture_needle)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 14
@@ -462,7 +461,7 @@
 	belt_icon = "patch_pack"
 	use_sound = "patchpack"
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/stack/medical/suture/regen_mesh, /obj/item/biomesh)
+	can_hold = list(/obj/item/stack/medical/adv/regen_mesh, /obj/item/biomesh)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
 	storage_slots = 14

@@ -674,7 +674,7 @@
 	if(.)
 		qdel(target_needle)
 		if(is_zero_amount(FALSE) && depleted_type)
-			var/needle = new depleted_type(old_loc)
+			new depleted_type(old_loc)
 
 /obj/item/stack/medical/adv/suture/emergency
 	name = "emergency sutures"
