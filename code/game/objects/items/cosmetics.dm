@@ -137,71 +137,79 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(user.zone_selected == "mouth")
-		if(!get_location_accessible(human_target, "mouth"))
-			to_chat(user, SPAN_WARNING("The mask is in the way!"))
-			return ITEM_INTERACT_COMPLETE
-
-		if(human_head.f_style == "Shaved")
-			to_chat(user, SPAN_WARNING("Already clean-shaven!"))
-			return ITEM_INTERACT_COMPLETE
-
-		if(human_target == user) // Shaving yourself.
-			user.visible_message(SPAN_NOTICE("[user] starts to shave [user.p_their()] facial hair with [src]."),
-				SPAN_NOTICE("You take a moment shave your facial hair with \the [src]."))
-			if(!do_after(user, 50 * toolspeed, target = human_target))
-				return ITEM_INTERACT_COMPLETE
-			user.visible_message(SPAN_NOTICE("[user] shaves [user.p_their()] facial hair clean with [src]."),
-				SPAN_NOTICE("You finish shaving with [src]. Fast and clean!"))
-			human_head.f_style = "Shaved"
-			human_target.update_fhair()
-			playsound(src.loc, usesound, 20, 1)
-			return ITEM_INTERACT_COMPLETE
-
-		var/turf/user_loc = user.loc
-		var/turf/human_loc = human_target.loc
-		user.visible_message(SPAN_DANGER("[user] tries to shave [human_target]'s facial hair with \the [src]."),
-			SPAN_WARNING("You start shaving [human_target]'s facial hair."))
-		if(!do_after(user, 50 * toolspeed, target = human_target))
-			return ITEM_INTERACT_COMPLETE
-		if(!(user_loc == user.loc && human_loc == human_target.loc))
-			return ITEM_INTERACT_COMPLETE
-		user.visible_message(SPAN_DANGER("[user] shaves off [human_target]'s facial hair with \the [src]."),
-			SPAN_NOTICE("You shave [human_target]'s facial hair clean off."))
-		human_head.f_style = "Shaved"
-		human_target.update_fhair()
-		playsound(src.loc, usesound, 20, 1)
-
-	if(!get_location_accessible(human_target, "head"))
-		to_chat(user, SPAN_WARNING("The headgear is in the way!"))
+		shave_face(target, user)
 		return ITEM_INTERACT_COMPLETE
+
+	shave_head(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/razor/proc/shave_head(mob/living/carbon/human/target, mob/living/user)
+	var/obj/item/organ/external/head/human_head = target.get_organ("head")
+	if(!get_location_accessible(target, "head"))
+		to_chat(user, SPAN_WARNING("The headgear is in the way!"))
+		return FALSE
 
 	if(human_head.h_style == "Bald" || human_head.h_style == "Balding Hair" || human_head.h_style == "Skinhead")
 		to_chat(user, SPAN_WARNING("There is not enough hair left to shave..."))
-		return ITEM_INTERACT_COMPLETE
+		return FALSE
 
-	if(human_target == user) // Shaving yourself.
+	if(target == user) // Shaving yourself.
 		user.visible_message(SPAN_WARNING("[user] starts to shave [user.p_their()] head with [src]."),
 			SPAN_WARNING("You start to shave your head with \the [src]."))
-		if(!do_after(user, 50 * toolspeed, target = human_target))
-			return ITEM_INTERACT_COMPLETE
-		user.visible_message(SPAN_NOTICE("[user] shaves [user.p_their()] head with [src]."),
-			SPAN_NOTICE("You finish shaving with \the [src]."))
-		human_head.h_style = "Skinhead"
-		human_target.update_hair()
-		playsound(src.loc, usesound, 40, 1)
-		return ITEM_INTERACT_COMPLETE
+	else
+		user.visible_message(SPAN_DANGER("[user] tries to shave [target]'s head with \the [src]!"),
+			SPAN_WARNING("You start shaving [target]'s head."))
 
 	var/turf/user_loc = user.loc
-	var/turf/human_loc = human_target.loc
-	user.visible_message(SPAN_DANGER("[user] tries to shave [human_target]'s head with \the [src]!"),
-		SPAN_WARNING("You start shaving [human_target]'s head."))
-	if(!do_after(user, 50 * toolspeed, target = human_target))
-		return ITEM_INTERACT_COMPLETE
-	if(!(user_loc == user.loc && human_loc == human_target.loc))
-		return ITEM_INTERACT_COMPLETE
-	user.visible_message(SPAN_DANGER("[user] shaves [human_target]'s head bald with \the [src]!"),
-		SPAN_WARNING("You shave [human_target]'s head bald."))
+	var/turf/target_loc = target.loc
+	if(!do_after(user, 50 * toolspeed, target = target))
+		return FALSE
+	if(!(user_loc == user.loc && target_loc == target.loc))
+		return FALSE
+
+	if(target == user)
+		user.visible_message(SPAN_NOTICE("[user] shaves [user.p_their()] head with [src]."),
+			SPAN_NOTICE("You finish shaving with \the [src]."))
+	else
+		user.visible_message(SPAN_DANGER("[user] shaves [target]'s head bald with \the [src]!"),
+			SPAN_WARNING("You shave [target]'s head bald."))
 	human_head.h_style = "Skinhead"
-	human_target.update_hair()
+	target.update_hair()
 	playsound(src.loc, usesound, 40, 1)
-	return ITEM_INTERACT_COMPLETE
+	return TRUE
+
+/obj/item/razor/proc/shave_face(mob/living/carbon/human/target, mob/living/user)
+	var/obj/item/organ/external/head/human_head = target.get_organ("head")
+	if(!get_location_accessible(target, "mouth"))
+		to_chat(user, SPAN_WARNING("The mask is in the way!"))
+		return FALSE
+
+	if(human_head.f_style == "Shaved")
+		to_chat(user, SPAN_WARNING("Already clean-shaven!"))
+		return FALSE
+
+	if(target == user) // Shaving yourself.
+		user.visible_message(SPAN_NOTICE("[user] starts to shave [user.p_their()] facial hair with [src]."),
+			SPAN_NOTICE("You take a moment shave your facial hair with \the [src]."))
+	else
+		user.visible_message(SPAN_DANGER("[user] tries to shave [target]'s facial hair with \the [src]."),
+			SPAN_WARNING("You start shaving [target]'s facial hair."))
+
+	var/turf/user_loc = user.loc
+	var/turf/target_loc = target.loc
+	if(!do_after(user, 50 * toolspeed, target = target))
+		return FALSE
+	if(!(user_loc == user.loc && target_loc == target.loc))
+		return FALSE
+
+	if(target == user)
+		user.visible_message(SPAN_NOTICE("[user] shaves [user.p_their()] facial hair clean with [src]."),
+			SPAN_NOTICE("You finish shaving with [src]. Fast and clean!"))
+	else
+		user.visible_message(SPAN_DANGER("[user] shaves off [target]'s facial hair with \the [src]."),
+			SPAN_NOTICE("You shave [target]'s facial hair clean off."))
+
+	human_head.f_style = "Shaved"
+	target.update_fhair()
+	playsound(src.loc, usesound, 20, 1)
+	return TRUE
