@@ -26,7 +26,7 @@
 	/// How much heat does this put out?
 	var/heat_amount = 25000
 	/// Are we overheating?
-	var/overheating = FALSE
+	var/overheating = FALSE // MIXTODO - Make the overheat sprite actually display
 	// What's the overheat temperature?
 	var/overheat_temp = 324
 	/// Used to ensure it takes a few seconds of being hot before overheating

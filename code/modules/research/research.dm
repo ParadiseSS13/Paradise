@@ -64,9 +64,9 @@ research holder datum.
 	/// Used during the rnd sync system, to ensure that blacklists are reverted, then cleared.
 	var/list/unblacklisted_designs = list()
 	/// Points for research operations.
-	var/list/research_points = list("research" = 0, "illegal" = 0, "alien" = 0)
+	var/list/research_points = list()
 	/// Total research points we've generated in this research datum
-	var/list/total_points = list("research" = 0, "illegal" = 0, "alien" = 0)
+	var/list/total_points = list()
 
 /datum/research/New()
 	// MON DIEU!!! - Im not even gonna question why this monologue is here, or why the french wrote our original research.

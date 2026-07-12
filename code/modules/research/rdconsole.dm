@@ -236,7 +236,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 	if(d_disk && d_disk.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
-	else if(t_disk) // MIXTODO - Allow for selecting specific point amounts.
+	else if(t_disk)
 		var/disk_points = t_disk.stored_research
 		var/temp_points = t_disk.unload_research(disk_points)
 		files.addpoints(temp_points)
@@ -590,7 +590,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			selected_category = "Viewing Category [next_category]"
 
-		if("updt_tech") //Update the research holder with information from the technology disk.
+		if("take_from_disk") //Update the research holder with information from the technology disk.
 			add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), TECH_UPDATE_DELAY)
 
@@ -615,13 +615,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(d_disk)
 				d_disk.wipe_blueprint()
 
-		if("copy_tech") //Copy some technology data from the research holder to the disk.
-			// Somehow this href makes me very nervous
-			/* MIXTODO - Allow for selecting specific point amounts.
-			var/datum/tech/known = files.known_tech[params["id"]]
-			if(t_disk && known)
-				t_disk.load_tech(known)
-			*/
+		if("send_to_disk") //Copy some technology data from the research holder to the disk.
+			var/tpl = assoc_to_keys(files.research_points)
+			var/tpt = tgui_alert(usr, "Select Type", "Type", tpl)
+			var/amnt = input(usr, "Please enter amount to transfer", "Disk Transfer", 0)
+			if(!amnt || amnt <= 0)
+				return
+			var/list/to_send = list("[tpt]" = amnt)
+			var/i = t_disk.load_research(to_send)
+			files.takepoints(i)
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
@@ -927,34 +929,26 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			this_tech_list["ui_icon"] = T.ui_icon
 			tech_levels[++tech_levels.len] = this_tech_list
 
-	else if(menu == MENU_DISK)
-		/* MIXTODO - Rework to points, allow for selecting specific point amounts.
+	else if(menu == MENU_DISK) // MIXTODO - Current WIP
 		if(t_disk != null)
-			if(t_disk.tech_id == null)
+			if(t_disk.stored_research.len == 0)
 				var/list/to_copy = list()
 				data["to_copy"] = to_copy
-				for(var/v in files.known_tech)
-					var/datum/tech/T = files.known_tech[v]
-					if(T.level <= 0)
-						continue
+				for(var/v in files.research_points)
 					var/list/item = list()
 					to_copy[++to_copy.len] = item
-					item["name"] = T.name
-					item["id"] = T.id
+					item["type"] = files.research_points[v]
+					item["amount"] = files.research_points[files.research_points[v]] // No im not sorry.
 			else
-				var/datum/tech/stored_tech = files.find_possible_tech_with_id(t_disk.tech_id)
 				var/list/disk_data = list()
 				data["disk_data"] = disk_data
-				if(isnull(stored_tech))
-					disk_data["name"] = "Unknown"
-					disk_data["level"] = 0
-					disk_data["desc"] = "Unrecognized technology detected in disk."
+				if(t_disk.stored_research.len == 0)
+					disk_data["type"] = null
+					disk_data["amount"] = 0
 				else
-					disk_data["name"] = stored_tech.name
-					disk_data["level"] = stored_tech.level
-					disk_data["desc"] = stored_tech.desc
-		slightly cursed but yes
-		else*/ if(d_disk != null)
+					disk_data["type"] = t_disk.stored_research[1]
+					disk_data["amount"] = t_disk.stored_research[t_disk.stored_research[1]]
+		else if(d_disk != null)
 			if(d_disk.blueprint == null)
 				var/list/to_copy = list()
 				data["to_copy"] = to_copy

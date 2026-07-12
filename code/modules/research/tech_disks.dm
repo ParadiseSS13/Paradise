@@ -34,7 +34,6 @@
 			if(stored_research[i] <= 0)
 				stored_research.len = 0 //if we have no points, remove list contents so a new type can be added
 			update_inspect(i)
-			log_debug("removed [ti] points from tech disk") // MIXTODO - Remove logging
 			return ti // return how many points so we dont accidentally take more then we have.
 		return
 

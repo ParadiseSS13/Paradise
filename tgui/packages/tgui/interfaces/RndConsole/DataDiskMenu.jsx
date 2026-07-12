@@ -16,12 +16,10 @@ const TechSummary = (props) => {
   return (
     <Box>
       <LabeledList>
-        <LabeledList.Item label="Name">{disk_data.name}</LabeledList.Item>
-        <LabeledList.Item label="Level">{disk_data.level}</LabeledList.Item>
-        <LabeledList.Item label="Description">{disk_data.desc}</LabeledList.Item>
+        <LabeledList.Item label="Stored Points">{disk_data.amount} {disk_data.type} points.</LabeledList.Item>
       </LabeledList>
       <Box mt="10px">
-        <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_tech')} />
+        <Button content="Upload to Database" icon="arrow-up" onClick={() => act('take_from_disk')} />
       </Box>
     </Box>
   );
@@ -87,7 +85,37 @@ const DiskSection = (props) => {
   );
 };
 
-const CopySubmenu = (props) => {
+// MIXTODO - Current WIP
+const CopyPointsSubmenu = (props) => {
+  const { data, act } = useBackend();
+  const { disk_type, to_copy } = data;
+  const { title } = props;
+
+  return (
+    <DiskSection title={title}>
+      <Box overflowY="auto" overflowX="hidden" maxHeight="450px">
+        <LabeledList>
+          {to_copy
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(({ type, amount }) => (
+              <LabeledList.Item noColon label={type} key={amount}>
+                <Button
+                  icon="arrow-down"
+                  content="Copy to Disk"
+                  onClick={() => {
+                      act('send_to_disk');
+                    }
+                  }
+                />
+              </LabeledList.Item>
+            ))}
+        </LabeledList>
+      </Box>
+    </DiskSection>
+  );
+};
+
+const CopyDesignSubmenu = (props) => {
   const { data, act } = useBackend();
   const { disk_type, to_copy } = data;
   const { title } = props;
@@ -104,12 +132,9 @@ const CopySubmenu = (props) => {
                   icon="arrow-down"
                   content="Copy to Disk"
                   onClick={() => {
-                    if (disk_type === DISK_TYPE_TECH) {
-                      act('copy_tech', { id });
-                    } else {
                       act('copy_design', { id });
                     }
-                  }}
+                  }
                 />
               </LabeledList.Item>
             ))}
@@ -134,7 +159,7 @@ export const DataDiskMenu = (props) => {
           <LatheSummary />
         </DiskSection>
       ) : (
-        <CopySubmenu title="Design Disk" />
+        <CopyDesignSubmenu title="Design Disk" />
       );
     case DISK_TYPE_TECH:
       if (disk_data) {
@@ -144,7 +169,7 @@ export const DataDiskMenu = (props) => {
           </DiskSection>
         );
       } else {
-        return <CopySubmenu title="Technology Disk" />;
+        return <CopyPointsSubmenu title="Technology Disk" />;
       }
     default:
       return <>UNRECOGNIZED DISK TYPE</>;
