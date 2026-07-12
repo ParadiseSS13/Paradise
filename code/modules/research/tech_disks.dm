@@ -4,26 +4,21 @@
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/list/stored_research = list() // "research", "illegal", "alien"
-	var/default_name = "\improper Technology Disk"
-	var/default_desc = "A disk for storing research data for further research, it is only capable of holding one type of research at a time."
 
 /obj/item/disk/tech_disk/proc/load_research(list/points_list)
 	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
 		if(points_list.len > 1)
 			log_debug("Tech disk at [AREACOORD(src)] attempted load with over 1 research type.")
-			return // no more then one.
+			return FALSE // no more then one, FALSE can be used to inform user.
 		if(stored_research.len == 0 && points_list[i] > 0)
 			stored_research += points_list
 			update_inspect(i)
-			log_debug("Added [points_list[i]] to an empty tech disk") // MIXTODO - Remove logging
 			return points_list[i]
 		if((i in stored_research) && points_list[i] > 0)
-			log_debug("Added [points_list[i]] to a tech disk containing [stored_research[i]]") // MIXTODO - Remove logging
 			stored_research[i] = FLOOR(stored_research[i] + points_list[i], 0.1)
 			update_inspect(i)
 			return points_list[i] // return the points that were successfully transfered.
-		log_debug("Attempted to add different, 0 or negative poinst to tech disk [src]") // MIXTODO - Remove logging
 		return
 
 /obj/item/disk/tech_disk/proc/unload_research(list/points_list, autobalance = TRUE)
@@ -49,14 +44,12 @@
 
 /obj/item/disk/tech_disk/proc/update_inspect(i)
 	if(stored_research[i] > 0)
-		name = "[default_name] \[[stored_research[i]]\]"
+		name = "[initial(name)] \[[stored_research[i]]\]"
 		var/p_type = get_key_by_index(stored_research, 1) // kinda fragile but disks should never have more then 1 key/value.
-		desc = "[default_desc] \n[SPAN_NOTICE("Type: [p_type]")]"
+		desc = "[initial(desc)] \n[SPAN_NOTICE("Type: [p_type]")]"
 	else
-		name = default_name
-		desc = default_desc
-
-/* MIXTODO - Remove debug tooling when finished
+		name = initial(name)
+		desc = initial(desc)
 
 /obj/item/disk/tech_disk/multitool_act(mob/living/user, obj/item/I)
 	var/obj/item/multitool/disk_loader/M = I
@@ -88,8 +81,6 @@
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
-
-*/
 
 /obj/item/disk/design_disk
 	name = "\improper Component Design Disk"
