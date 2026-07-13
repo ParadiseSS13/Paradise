@@ -102,6 +102,7 @@
 		SPAN_HEAR("You hear soot rustling."))
 	choice.forceMove(get_turf(src))
 	choice.add_fingerprint(usr)
+	add_fingerprint(usr)
 	if(ishuman(usr))
 		var/mob/living/carbon/human/user = usr
 		user.equip_to_slot_if_possible(choice, (user.hand ? ITEM_SLOT_LEFT_HAND : ITEM_SLOT_RIGHT_HAND), disable_warning = TRUE)
