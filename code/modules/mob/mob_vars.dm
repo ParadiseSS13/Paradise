@@ -104,6 +104,8 @@
 
 	var/in_throw_mode = FALSE
 
+	var/datum/language/default_language
+
 	// See /datum/emote
 
 	/// Cooldown on audio effects from emotes.

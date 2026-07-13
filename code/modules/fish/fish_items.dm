@@ -11,6 +11,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
+	new_attack_chain = TRUE
 
 /obj/item/fish_net
 	name = "fish net"
@@ -20,6 +21,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
+	new_attack_chain = TRUE
 
 /obj/item/fish_net/suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
 	visible_message(SPAN_SUICIDE("[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -33,6 +35,7 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
+	new_attack_chain = TRUE
 
 /obj/item/tank_brush
 	name = "aquarium brush"
@@ -43,6 +46,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	attack_verb = list("scrubbed", "brushed", "scraped")
+	new_attack_chain = TRUE
 
 /obj/item/tank_brush/suicide_act(mob/user)
 	visible_message(SPAN_SUICIDE("[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -104,6 +108,7 @@
 	force = 1
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
 	hitsound = 'sound/effects/snap.ogg'
+	new_attack_chain = TRUE
 
 /obj/item/fish/glofish
 	name = "glofish"
@@ -126,14 +131,12 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/shark/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
-	if(istype(O, /obj/item/wirecutters))
-		to_chat(user, "You rip out the teeth of \the [src.name]!")
-		new /obj/item/fish/toothless_shark(get_turf(src))
-		new /obj/item/shard/shark_teeth(get_turf(src))
-		qdel(src)
-		return
-	..()
+/obj/item/fish/shark/wirecutter_act(mob/user, obj/item/wirecutters/tool)
+	to_chat(user, SPAN_NOTICE("You rip out the teeth of \the [src.name]!"))
+	new /obj/item/fish/toothless_shark(get_turf(src))
+	new /obj/item/shard/shark_teeth(get_turf(src))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/fish/toothless_shark
 	name = "toothless shark"
@@ -158,14 +161,14 @@
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-/obj/item/fish/catfish/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
-	if(O.sharp)
-		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/catfishmeat(get_turf(src))
-		new /obj/item/food/catfishmeat(get_turf(src))
-		qdel(src)
-		return
-	..()
+/obj/item/fish/catfish/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
+		return ..()
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
+	new /obj/item/food/catfishmeat(get_turf(src))
+	new /obj/item/food/catfishmeat(get_turf(src))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/fish/goldfish
 	name = "goldfish"
@@ -177,14 +180,14 @@
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-/obj/item/fish/salmon/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
-	if(O.sharp)
-		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/salmonmeat(get_turf(src))
-		new /obj/item/food/salmonmeat(get_turf(src))
-		qdel(src)
-		return
-	..()
+/obj/item/fish/salmon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
+		return ..()
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
+	new /obj/item/food/salmonmeat(get_turf(src))
+	new /obj/item/food/salmonmeat(get_turf(src))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/fish/babycarp
 	name = "baby space carp"
@@ -193,14 +196,13 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/babycarp/attackby__legacy__attackchain(obj/item/O, mob/user as mob)
-	if(O.sharp)
-		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
-		qdel(src)
-		return
-	..()
-
+/obj/item/fish/babycarp/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
+		return ..()
+	to_chat(user, SPAN_NOTICE("You carefully clean and gut \the [src.name]."))
+	new /obj/item/food/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grown/bananapeel/clownfish
 	name = "clown fish"
