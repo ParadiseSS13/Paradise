@@ -62,9 +62,11 @@
 	user.do_attack_animation(src)
 
 	if(used.force)
-		user.visible_message("<span class='danger'>[user] has hit \
-			[src] with [used]!</span>", "<span class='danger'>You hit [src] \
-			with [used]!</span>")
+		user.visible_message(
+			SPAN_DANGER("[user] hits [src] with [used]!"),
+			SPAN_DANGER("You hit [src] with [used]!"),
+			SPAN_HEAR("You hear something slap a sheet of cardboard.")
+		)
 
 		if(prob(used.force))
 			push_over()
@@ -97,7 +99,11 @@
 		return
 	if(!do_after(user, 10, FALSE, src, TRUE))
 		return
-	user.visible_message(SPAN_NOTICE("[user] gives [src] a new look."), SPAN_NOTICE("Voila! You give [src] a new look."))
+	user.visible_message(
+		SPAN_NOTICE("[user] gives [src] a new look."),
+		SPAN_NOTICE("Voila! You give [src] a new look."),
+		SPAN_HEAR("You hear a crayon scribbling on cardboard.")
+	)
 	alpha = 255
 	icon = initial(icon)
 	if(!deceptive)
