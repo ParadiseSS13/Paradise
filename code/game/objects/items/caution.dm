@@ -40,7 +40,7 @@
 	else
 		armed = FALSE
 		timepassed = 0
-	to_chat(human_user, SPAN_NOTICE("You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]"))
+	to_chat(human_user, SPAN_NOTICE("You [timing ? "activate [src]'s timer, you have 15 seconds." : "de-activate [src]'s timer."]"))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/caution/proximity_sign/process()
@@ -88,11 +88,11 @@
 
 	var/turf/T = get_turf(target)
 	if(T.is_blocked_turf(exclude_mobs = TRUE)) // Can't put mines on a tile that has dense stuff.
-		to_chat(user, SPAN_NOTICE("The space is occupied! You cannot place a mine there!"))
+		to_chat(user, SPAN_WARNING("The space is occupied! You cannot place a mine there!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!use(1)) // Can't place a landmine if you don't have a landmine.
-		to_chat(user, SPAN_NOTICE("[src] is out of landmines! It can be refilled at a cyborg charger."))
+		to_chat(user, SPAN_WARNING("[src] is out of landmines! It can be refilled at a cyborg charger."))
 		return ITEM_INTERACT_COMPLETE
 
 	playsound(src.loc, 'sound/machines/click.ogg', 20, TRUE)
