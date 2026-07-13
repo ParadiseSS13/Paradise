@@ -5392,7 +5392,9 @@
 /area/station/engineering/engine/reactor)
 "axk" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 8
+	},
 /obj/machinery/door/window{
 	name = "Chemistry Desk"
 	},
@@ -8717,7 +8719,8 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "ceblast";
-	name = "Engineering Lockdown Shutters"
+	name = "Engineering Lockdown Shutters";
+	id_tag = "ceblast"
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room)
@@ -10653,6 +10656,11 @@
 /obj/machinery/door/airlock/atmos{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "ceblast";
+	name = "Engineering Lockdown Shutters";
+	id_tag = "ceblast"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "aUk" = (
@@ -10877,30 +10885,36 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "aUU" = (
-/obj/structure/table/glass,
-/obj/machinery/door/window{
-	dir = 8
-	},
-/obj/item/storage/firstaid/fire{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/fire{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/fire{
-	pixel_x = -3;
-	pixel_y = -3
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 8
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
 	},
-/turf/simulated/floor/plasteel,
+/obj/structure/shelf/medbay,
+/obj/item/clothing/head/helmet/space/plasmaman{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/under/plasmaman/enviroslacks,
+/obj/item/clothing/head/helmet/space/plasmaman/white,
+/obj/item/clothing/under/plasmaman{
+	pixel_x = 2;
+	pixel_y = -6
+	},
+/obj/item/clothing/head/helmet/space/plasmaman{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/head/helmet/space/plasmaman{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/under/plasmaman{
+	pixel_x = 2;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel/white,
 /area/station/medical/storage)
 "aUV" = (
 /obj/effect/turf_decal/delivery,
@@ -12722,6 +12736,7 @@
 /area/space)
 "bgm" = (
 /obj/machinery/ai_node/network_node,
+/obj/machinery/alarm/server/directional/east,
 /turf/simulated/floor/bluegrid,
 /area/station/science/server/coldroom)
 "bgq" = (
@@ -13267,24 +13282,23 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bjf" = (
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/brute{
-	pixel_x = 6;
-	pixel_y = 6
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
+	pixel_x = -4
 	},
-/obj/item/storage/firstaid/brute{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = 5
 	},
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/brute{
-	pixel_x = -3;
-	pixel_y = -3
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = 10
 	},
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/structure/shelf/medbay,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/station/medical/storage)
 "bjh" = (
 /obj/structure/table/reinforced,
@@ -16138,10 +16152,6 @@
 "czs" = (
 /obj/structure/cable/extra_insulated/pre_connect{
 	icon_state = "4-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "ceblast";
-	name = "Engineering Lockdown Shutters"
 	},
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
@@ -24040,6 +24050,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"gKN" = (
+/obj/machinery/smartfridge/medbay,
+/obj/machinery/door/firedoor{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/station/medical/chemistry)
 "gKO" = (
 /obj/structure/table/wood,
 /obj/item/radio{
@@ -27301,8 +27318,8 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/toxin{
+/obj/item/storage/firstaid/o2,
+/obj/item/storage/firstaid/o2{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -30507,7 +30524,7 @@
 "kmy" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -32948,9 +32965,7 @@
 	pixel_y = 14
 	},
 /obj/machinery/newscaster/directional/north,
-/obj/machinery/mecha_part_fabricator/loaded/station{
-	dir = 4
-	},
+/obj/machinery/mecha_part_fabricator/loaded/station,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "lLn" = (
@@ -35466,7 +35481,9 @@
 /turf/simulated/floor/plating/asteroid,
 /area/station/maintenance/fsmaint)
 "new" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
@@ -35483,7 +35500,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/medical/glass,
+/obj/machinery/door/airlock/medical/glass{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /turf/simulated/floor/plasteel/white,
@@ -38229,10 +38248,6 @@
 "oGc" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "ceblast";
-	name = "Engineering Lockdown Shutters"
-	},
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
@@ -38242,6 +38257,11 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
+/obj/machinery/door/poddoor/preopen{
+	id = "ceblast";
+	name = "Engineering Lockdown Shutters";
+	id_tag = "ceblast"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "oGe" = (
@@ -39746,10 +39766,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/poddoor/preopen{
-	id = "ceblast";
-	name = "Engineering Lockdown Shutters"
-	},
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
@@ -41409,6 +41425,9 @@
 	},
 /obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
+	},
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
@@ -43082,6 +43101,19 @@
 /area/station/engineering/gravitygenerator)
 "rwW" = (
 /obj/machinery/smartfridge/medbay,
+/obj/machinery/door/firedoor{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistbot";
+	name = "Chemistry Privacy Shutters";
+	id_tag = "chemistbot";
+	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown"
+	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "rxb" = (
@@ -43509,10 +43541,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics/chargebay)
 "rIz" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "ceblast";
-	name = "Engineering Lockdown Shutters"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
 	dir = 1;
@@ -43535,6 +43563,11 @@
 	},
 /obj/structure/plasticflaps{
 	opacity = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "ceblast";
+	name = "Engineering Lockdown Shutters";
+	id_tag = "ceblast"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -44224,9 +44257,7 @@
 "scQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/medical/side{
-	dir = 6
-	},
+/obj/effect/turf_decal/tiles/department/medical/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/storage)
 "sdL" = (
@@ -44251,9 +44282,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/alarm/directional/north,
-/obj/machinery/mecha_part_fabricator/loaded/station{
-	dir = 4
-	},
+/obj/machinery/mecha_part_fabricator/loaded/station,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "sdQ" = (
@@ -51393,22 +51422,22 @@
 /obj/machinery/door/window{
 	dir = 8
 	},
-/obj/item/storage/firstaid/o2{
+/obj/structure/window/reinforced,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
+	dir = 8
+	},
+/obj/item/storage/firstaid/fire{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/storage/firstaid/o2{
+/obj/item/storage/firstaid/fire{
 	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/o2{
+/obj/item/storage/firstaid/brute{
 	pixel_x = -3;
 	pixel_y = -3
-	},
-/obj/structure/window/reinforced,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
@@ -90234,7 +90263,7 @@ mpt
 sPJ
 qwJ
 mxM
-rwW
+gKN
 tzc
 fyc
 fyc
