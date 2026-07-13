@@ -10,7 +10,6 @@
 	. = ..()
 	AddComponent(/datum/component/ducttape, src, null, 0, 0, TRUE) // Add this to something to make it sticky but without the tape overlay.
 
-
 /obj/item/decorations/sticky_decorations/flammable
 	resistance_flags = FLAMMABLE
 

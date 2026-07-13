@@ -14,12 +14,15 @@
 	new_attack_chain = TRUE
 
 /obj/item/flag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
 	if(used.get_heat() && !(resistance_flags & ON_FIRE))
-		user.visible_message(SPAN_NOTICE("[user] lights [src] with [used]."), SPAN_NOTICE("You light [src] with [used]."), SPAN_WARNING("You hear a low whoosh."))
+		user.visible_message(
+			SPAN_WARNING("[user] lights [src] with [used]!"),
+			SPAN_NOTICE("You light [src] with [used]."),
+			SPAN_HEAR("You hear a low, firey whoosh.")
+		)
 		fire_act()
 		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/flag/activate_self(mob/user)
 	if(..())
