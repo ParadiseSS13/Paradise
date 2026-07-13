@@ -59,8 +59,11 @@
 	icon_state = "datadisk[diskcolor]"
 
 /obj/item/disk/data/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	read_only = !read_only
 	to_chat(user, SPAN_NOTICE("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/disk/data/examine(mob/user)
 	. = ..()
