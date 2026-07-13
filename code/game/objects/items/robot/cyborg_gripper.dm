@@ -341,7 +341,8 @@
 		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/reagent_containers/patch,
-		/obj/item/reagent_containers/pill
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/iv_bag
 	)
 
 /obj/item/gripper/medical/Initialize(mapload)
