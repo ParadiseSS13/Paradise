@@ -45,6 +45,8 @@
 /obj/structure/closet/body_bag/wirecutter_act(mob/user, obj/item/used)
 	if(!istype(used, /obj/item/wirecutters))
 		return
+	if(name == initial(name))
+		return
 	to_chat(user, SPAN_NOTICE("You cut the tag off the bodybag."))
 	name = initial(name)
 	cut_overlays()
