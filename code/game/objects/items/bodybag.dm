@@ -47,7 +47,11 @@
 		return
 	if(name == initial(name))
 		return
-	to_chat(user, SPAN_NOTICE("You cut the tag off the bodybag."))
+	user.visible_message(
+		SPAN_NOTICE("[user] cuts the tag off the body bag."),
+		SPAN_NOTICE("You cut the tag off the body bag."),
+		SPAN_HEAR("You hear a little snip.")
+	)
 	name = initial(name)
 	cut_overlays()
 	return ITEM_INTERACT_COMPLETE
