@@ -699,7 +699,8 @@
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
-
+	if(!user) // Prevents a runtime when examine is called. Yes, regular examine().
+		user = usr
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src))
 		. += SPAN_DANGER("Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.")
 		. += SPAN_USERDANGER("Now stop staring at this worthless fake and FIND THE REAL ONE!")
