@@ -380,17 +380,17 @@
 /datum/satellite_stats/computer/basic
 	weight = 60
 	science_multiplier = 0.50 // additive as a percent
-	power_capacity = 10000
+	power_capacity = 12000
 
 /datum/satellite_stats/computer/science
-	weight = 100
+	weight = 60
 	science_multiplier = 1.00 // additive as a percent
-	power_capacity = 25000
+	power_capacity = 10000
 
 /datum/satellite_stats/computer/efficient
 	weight = 40
 	science_multiplier = 0.25 // additive as a percent
-	power_capacity = 10000
+	power_capacity = 15000
 
 ////////////////////////////////////////
 // MARK: Engines
@@ -442,6 +442,10 @@
 /datum/satellite_stats/misc_part/solar_panel
 	weight = 80
 	passive_power_generation = 100
+
+/datum/satellite_stats/misc_part/radioisotope_thermoelectric_generator
+	weight = 250
+	passive_power_generation = 500
 
 /datum/satellite_stats/misc_part/electric_generator
 	weight = 150

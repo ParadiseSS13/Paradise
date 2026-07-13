@@ -13,14 +13,14 @@
 	name = "basic on-board computer"
 	icon_state = "basic_comp"
 	overlay_icon = "overlay_bascomp"
-	desc = "A standard satellite computer that doesn't specialize in anything."
+	desc = "A basic satellite computer."
 	component_stats = new /datum/satellite_stats/computer/basic()
 
 /obj/item/satellite_component/computer/science
 	name = "scientific on-board computer"
 	icon_state = "science_comp"
 	overlay_icon = "overlay_scicomp"
-	desc = "A satelite computer that focuses on processing more data at the cost of more power usage. "
+	desc = "A satelite computer that focuses on processing more data but has a lower power capacity. "
 	component_stats = new /datum/satellite_stats/computer/science()
 
 
@@ -28,7 +28,7 @@
 	name = "efficient on-board computer"
 	icon_state = "efficient_comp"
 	overlay_icon = "overlay_effcomp"
-	desc = "A computer that focuses on powersaving at the cost of data processing."
+	desc = "A computer that is lighter and has more power capacity, but is worse at collecting data."
 	component_stats = new /datum/satellite_stats/computer/efficient()
 
 
@@ -48,7 +48,7 @@
 	name = "small engine"
 	icon_state = "small_thrust"
 	overlay_icon = "overlay_smallthrust"
-	desc = "A small engine that has a lower weight, but also lower fuel efficiency."
+	desc = "A small engine that has a lower weight and also lower fuel efficiency."
 	component_stats = new /datum/satellite_stats/engine/small_engine()
 
 
@@ -72,20 +72,20 @@
 /obj/item/satellite_component/science_instrument/meteorological_surveyor
 	name = "meteorological surveyor"
 	icon_state = "surveyor"
-	desc = "A meteorological surveyor meant for a satellite. Allows collecting data from ash storms and weather clouds."
+	desc = "A meteorological surveyor meant for a satellite. Allows collecting data from ash storms, windstorms, and acid rainfall."
 	component_stats = new /datum/satellite_stats/science_instrument/meteorological_surveyor()
 
 /obj/item/satellite_component/science_instrument/plasma_lab
 	name = "plasma lab"
 	icon_state = "plasma_lab"
-	desc = "A plasma lab meant for a satellite. Provides a large one time data collection."
+	desc = "A plasma lab meant for a satellite. Provides collects data once when launched. The experiment will fail if the satellite has insufficient power."
 	component_stats = new /datum/satellite_stats/science_instrument/plasma_lab()
 
 
 /obj/item/satellite_component/science_instrument/magnetometer
 	name = "magnetometer"
 	icon_state = "magnetometer"
-	desc = "A magnetormeter meant for a satellite. Allows collecting data from ash storms and volcanism."
+	desc = "A magnetormeter meant for a satellite. Allows collecting data from volcanism and the poles."
 	component_stats = new /datum/satellite_stats/science_instrument/magnetometer()
 
 
@@ -100,12 +100,22 @@
 	desc = "A set of solar panels for a satellite."
 	component_stats = new /datum/satellite_stats/misc_part/solar_panel()
 
+/obj/item/satellite_component/misc_part/radioisotope_thermoelectric_generator
+	name = "radioisotope thermoelectric generator"
+	icon_state = "rtg"
+	desc = "A radioisotope thermoelectric generator. Has a radioactive core that keeps producing electricity for decades. Leaks a small amount of radiation."
+	component_stats = new /datum/satellite_stats/misc_part/radioisotope_thermoelectric_generator()
+
+/obj/item/satellite_component/misc_part/radioisotope_thermoelectric_generator/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/inherent_radioactivity, 20, 20, 0, 2) // 20 alpha, 20 beta, with a 2 second cooldown
+
 
 /obj/item/satellite_component/misc_part/electric_generator
 	name = "satellite generator"
 	icon_state = "generator"
 	overlay_icon = "overlay_generator"
-	desc = "An electric generator for a satellite."
+	desc = "An electric generator a satellite can use to convert fuel into electricity."
 	component_stats = new /datum/satellite_stats/misc_part/electric_generator()
 
 
@@ -113,7 +123,7 @@
 	name = "satellite power cell"
 	icon_state = "powercell"
 	overlay_icon = "overlay_powercell"
-	desc = "An electric generator for a satellite."
+	desc = "A power cell for a satellite allowing it to store generated power when its not processing data."
 	component_stats = new /datum/satellite_stats/misc_part/power_cell()
 
 
