@@ -585,6 +585,78 @@
 /datum/spell/hackerman_deck/proc/lower_recent_hacking()
 	recent_hacking--
 
+/obj/item/organ/internal/cyberimp/brain/neural_computer
+	name = "I-04 Neural Computer"
+	desc = "An experimental and dubiously ethical implant that connects straight into the user's central nervous system, \
+		using the innate processing power of humanoid biology to perform calculations and operations beneficial to research. \
+		The I-04 utilizes some of its processing to slowly repair damage to the user's central nervous system that may or \
+		may not be caused by its operation."
+	implant_overlay = null
+	implant_color = null
+	icon_state = "neural_comp"
+	slot = "brain_antistun" // MIXTODO - Ask design on if this should actually occupy the antistun slot.
+	var/network_manager_uid = null
+	var/list/point_gen = list("research" = 20, "illegal" = 10) // MIXTODO - Balance later
+	var/disabled = FALSE
+	/// Brain damage gained on EMP.
+	var/brain_damage = 30
+
+/obj/item/organ/internal/cyberimp/brain/neural_computer/examine(mob/user)
+	. = ..()
+	if(!network_manager_uid)
+		. += SPAN_NOTICE("It is not connected to any research network, it will not generate points!")
+		. += SPAN_NOTICE("It can be connected by using a multitool.")
+
+/obj/item/organ/internal/cyberimp/brain/neural_computer/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(!network_manager_uid)
+		var/list/controllers = list()
+		for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+			if(atoms_share_level(RNC, src))
+				controllers += list("[RNC.network_name]" = RNC.UID())
+		var/cname = tgui_input_list(user, "Select research network", "Network management", controllers)
+		var/new_uid = controllers[cname]
+		var/obj/machinery/computer/rnd_network_controller/RNC2 = locateUID(new_uid)
+		if(cname)
+			var/tpass = tgui_input_text(user, "Enter network password", "Network management")
+			if(tpass == RNC2.network_password)
+				network_manager_uid = RNC2.UID()
+				to_chat(user, SPAN_NOTICE("Network successfully linked."))
+				return
+			to_chat(user, SPAN_NOTICE("Password incorrect."))
+			return
+	else
+		to_chat(user, SPAN_WARNING("Wiping device connection!"))
+		if(do_after(user, 5 SECONDS, target = src ))
+			network_manager_uid = null
+			to_chat(user, SPAN_WARNING("Device connection wiped!"))
+
+/obj/item/organ/internal/cyberimp/brain/neural_computer/on_life()
+	if(disabled)
+		return
+	if(!network_manager_uid)
+		return
+	if(owner.getBrainLoss())
+		owner.adjustBrainLoss(-1)
+		return // dont generate any points if we're healing brain damage
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	RNC.research_files.addpoints(point_gen)
+	var/temp = point_gen[1]
+	var/tp = point_gen[temp]
+	log_debug("added [tp] [temp] points from neural computer")
+
+/obj/item/organ/internal/cyberimp/brain/neural_computer/emp_act(severity)
+	. = ..()
+	if(!owner || emp_proof)
+		return
+	owner.adjustBrainLoss(brain_damage / severity)
+	disabled = TRUE
+	to_chat(owner, SPAN_WARNING("A powerful jolt shoots up your back!"))
+	addtimer(CALLBACK(src, PROC_REF(reactivate)), 30 SECONDS)
+
+/obj/item/organ/internal/cyberimp/brain/neural_computer/proc/reactivate()
+	disabled = FALSE
+
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth
 	parent_organ = "mouth"

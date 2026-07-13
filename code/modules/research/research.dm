@@ -78,9 +78,15 @@ research holder datum.
 		possible_tech += new T(src)
 	for(var/D in subtypesof(/datum/design))
 		possible_designs += new D(src)
+	research_points = SSresearch.point_types
+	for(var/i in research_points)
+		research_points[i] = 0
+	total_points = SSresearch.point_types
+	for(var/i in total_points)
+		total_points[i] = 0
 	RefreshResearch()
 
-/datum/research/proc/addpoints(list/points_list)
+/datum/research/proc/addpoints(list/points_list) // MIXTODO - Ive somehow fucked this up, that or the servers, fix tmw
 	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
 		if((i in research_points) && points_list[i] > 0)
