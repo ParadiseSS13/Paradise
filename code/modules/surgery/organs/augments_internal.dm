@@ -632,6 +632,8 @@
 			to_chat(user, SPAN_WARNING("Device connection wiped!"))
 
 /obj/item/organ/internal/cyberimp/brain/neural_computer/on_life()
+	if(!owner.last_known_ckey) // If the owner has no ckey associated, they arent "sapient" and should not generate points.
+		return
 	if(disabled)
 		return
 	if(!network_manager_uid)
