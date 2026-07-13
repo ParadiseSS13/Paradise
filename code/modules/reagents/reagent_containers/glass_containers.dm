@@ -236,9 +236,9 @@
 	volume = 100
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
 
-/obj/item/reagent_containers/glass/beaker/large/robot // Only for medcial borgs.
+/obj/item/reagent_containers/glass/beaker/large/robot // Only for borgs.
 	name = "large integrated beaker"
-	desc = "A large beaker that can't be moved outside of the robot."
+	desc = "An internal chemical beaker used for holding a large reserve of chemicals."
 
 /obj/item/reagent_containers/glass/beaker/large/robot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/gripper)) // So the borg isn't able to take out its beaker.
