@@ -28,11 +28,6 @@
 	var/periapsis = INFINITY // closest
 	var/vector/periapsis_position
 
-	var/atmosphere_start = 150
-	var/light_airdrag = 0.999
-	var/atmosphere_thick = 130
-	var/thick_airdrag = 0.99
-
 	var/inclination = 0 // how tilted the orbit is
 
 	var/period = 20 MINUTES // probably breaks physics, but its a video game
@@ -154,13 +149,13 @@
 		return
 
 	var/had_air_drag = FALSE
-	if(distance < atmosphere_thick) // if the satellite is very deep into the atmosphere
+	if(distance < SSscience_satellite.atmosphere_thick) // if the satellite is very deep into the atmosphere
 		had_air_drag = TRUE
-		velocity_to_affect *= thick_airdrag
-	else if(distance < atmosphere_start) // if the satellite is slightly into the atmosphere
+		velocity_to_affect *= SSscience_satellite.thick_airdrag
+	else if(distance < SSscience_satellite.atmosphere_start) // if the satellite is slightly into the atmosphere
 		had_air_drag = TRUE
 		//should_update_orbit = TRUE
-		velocity_to_affect *= light_airdrag
+		velocity_to_affect *= SSscience_satellite.light_airdrag
 
 	if(had_air_drag)
 		should_update_orbit = TRUE

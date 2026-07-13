@@ -92,9 +92,9 @@
 		status = "Waiting for maneuver"
 		if(is_performing_maneuver())
 			status = "Performing maneuver"
-	if(orbit_data.periapsis < orbit_data.light_airdrag)
+	if(orbit_data.periapsis < SSscience_satellite.light_airdrag)
 		status = "Warning, expected air drag at periapsis"
-	if(orbit_data.periapsis < orbit_data.thick_airdrag)
+	if(orbit_data.periapsis < SSscience_satellite.thick_airdrag)
 		status = "Danger! Periapsis inside atmosphere!"
 
 /obj/machinery/science_satellite/proc/is_performing_maneuver()

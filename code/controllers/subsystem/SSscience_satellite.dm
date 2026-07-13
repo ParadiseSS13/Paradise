@@ -8,7 +8,13 @@ SUBSYSTEM_DEF(science_satellite)
 	cpu_display = SS_CPUDISPLAY_LOW
 	var/list/satellites = list()
 	var/weather_nodes_to_spawn = 15
+
 	var/planet_radius = 128
+	var/atmosphere_start = 150
+	var/light_airdrag = 0.999
+	var/atmosphere_thick = 130
+	var/thick_airdrag = 0.99
+
 	var/list/active_weather_nodes = list()
 	var/max_spawn_radius = 110 // smaller than the planet radius in order to not have nodes at the edge of the planet
 	var/square_distance_between_nodes = 20 ** 2

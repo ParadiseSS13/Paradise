@@ -165,10 +165,10 @@ const ManeuverPanel = ({
           <Stack>
             <Stack width="50%" vertical>
               {Math.abs(selectedSatellite.orbit_data.apoapsis) > 1e30 ? <Stack>Apoapsis: Waiting for launch</Stack> : /* Nearly infinity, meaning its not been set */
-                <Stack>{`Apoapsis: ${selectedSatellite.orbit_data.apoapsis * (cmagged ? 0.6213 : 1)}${cmagged ? 'mi' : 'km'}`}</Stack>
+                <Stack>{`Apoapsis: ${(selectedSatellite.orbit_data.apoapsis * (cmagged ? 0.6213 : 1)).toFixed(2)}${cmagged ? 'mi' : 'km'}`}</Stack>
               }
               {Math.abs(selectedSatellite.orbit_data.periapsis) > 1e30 ? <Stack>Periapsis: Waiting for launch</Stack> : /* Nearly infinity, meaning its not been set */
-                <Stack>{`Periapsis: ${selectedSatellite.orbit_data.periapsis}km`}</Stack>
+                <Stack>{`Periapsis: ${(selectedSatellite.orbit_data.periapsis).toFixed(2)}km`}</Stack>
               }
               <Stack>{`Inclination: ${selectedSatellite.orbit_data.inclination}`}</Stack>
               {
