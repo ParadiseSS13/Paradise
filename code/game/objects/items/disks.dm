@@ -6,11 +6,12 @@
 	pickup_sound =  'sound/items/handling/disk_pickup.ogg'
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	new_attack_chain = TRUE
 
 /obj/item/disk/data
 	name = "Cloning Data Disk"
 	var/datum/dna2_record/buf = null
-	var/read_only = FALSE //Well,it's still a floppy disk
+	var/read_only = FALSE // Well, it's still a floppy disk.
 
 /obj/item/disk/data/proc/initialize_data()
 	buf = new
@@ -57,9 +58,9 @@
 	var/diskcolor = pick(0, 1, 2, 3, 4, 5)
 	icon_state = "datadisk[diskcolor]"
 
-/obj/item/disk/data/attack_self__legacy__attackchain(mob/user)
+/obj/item/disk/data/activate_self(mob/user)
 	read_only = !read_only
-	to_chat(user, "You flip the write-protect tab to [read_only ? "protected" : "unprotected"].")
+	to_chat(user, SPAN_NOTICE("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
 
 /obj/item/disk/data/examine(mob/user)
 	. = ..()
