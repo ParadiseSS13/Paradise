@@ -44,6 +44,8 @@
 	AddElement(/datum/element/high_value_item)
 
 /obj/item/hand_tele/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	// The turf the user is currently located in.
 	var/turf/current_location = get_turf(user)
 	if(emp_timer > world.time)
