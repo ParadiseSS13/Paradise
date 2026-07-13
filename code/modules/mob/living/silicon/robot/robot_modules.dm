@@ -347,7 +347,6 @@
 		/obj/item/fix_o_vein,
 		/obj/item/extinguisher/mini/cyborg,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker/large,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/stack/medical/bruise_pack/advanced/cyborg,
 		/obj/item/stack/medical/ointment/advanced/cyborg,
