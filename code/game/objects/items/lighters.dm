@@ -30,11 +30,6 @@
 	update_icon()
 
 /obj/item/lighter/activate_self(mob/living/user)
-	. = ..()
-	if(!lit)
-		turn_on_lighter(user)
-	else
-/obj/item/lighter/activate_self(mob/living/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	if(!lit)
