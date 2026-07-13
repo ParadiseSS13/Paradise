@@ -331,13 +331,12 @@
 
 // Medical Gripper
 // For medical borgs, for doing medical stuff!
-// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool for cyborgs. This one is covered with hygenic medical-grade silicone rubber. \
 	Use it to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_help_up = TRUE
-	can_hold = list(
+	can_hold = list( 
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/applicator,
