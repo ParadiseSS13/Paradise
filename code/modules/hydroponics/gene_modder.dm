@@ -665,6 +665,8 @@
 	icon_state = "datadisk_hydro"
 
 /obj/item/disk/plantgene/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return ITEM_INTERACT_COMPLETE
 	read_only = !read_only
