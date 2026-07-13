@@ -8,7 +8,13 @@ jobs:
     if: |
       github.event.issue.pull_request &&
       (github.event.comment.body == '!build_rust') &&
-      (github.event.comment.author_association == 'OWNER')
+      (
+        github.event.comment.user.id == 25063394 ||
+        github.event.comment.user.id == 116982774 ||
+        github.event.comment.user.id == 108773801 ||
+        github.event.comment.user.id == 144391971
+      )
+    # AA07 25063394, Burzah 116982774, DGamerL 108773801, Pollard 144391971
 
     runs-on: ubuntu-latest
     steps:

@@ -1,7 +1,6 @@
 /turf/simulated/floor/plating
 	name = "plating"
 	desc = "Bare hull plating, normally hidden by a layer of flooring. The cavity between the floor and the plating is used to carry cables, pipes, and other utilities."
-	icon_state = "plating"
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null

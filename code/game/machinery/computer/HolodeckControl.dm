@@ -224,7 +224,6 @@
 // Holographic Items!
 /turf/simulated/floor/holofloor
 	thermal_conductivity = 0
-	icon_state = "plating"
 
 /turf/simulated/floor/holofloor/Initialize(mapload)
 	. = ..()
