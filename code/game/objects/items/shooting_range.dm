@@ -9,13 +9,13 @@
 
 /obj/item/target/Destroy()
 	cut_overlays()
-	// if a target is deleted and associated with a stake, force stake to forget
+	// If a target is deleted and associated with a stake, force stake to forget.S
 	for(var/obj/structure/target_stake/T in view(3, src))
 		if(T.pinned_target == src)
 			T.pinned_target = null
 			T.density = TRUE
 			break
-	return ..() // delete target
+	return ..() // Delete target.
 
 /obj/item/target/Move()
 	..()
@@ -29,12 +29,12 @@
 	// a stake's density to 0 meaning it can't be pushed anymore. Instead of pushing
 	// the stake now, we have to push the target.
 
-
-/obj/item/target/welder_act(mob/user, obj/item/I)
+/obj/item/target/welder_act(mob/user, obj/item/weldingtool/tool)
 	. = TRUE
-	if(!use_tool(src, user, 0, volume = I.tool_volume))
+	if(!use_tool(src, user, 0, volume = tool.tool_volume))
 		return
 	overlays.Cut()
+	playsound(loc, tool.usesound, 50, 1)
 	to_chat(user, SPAN_NOTICE("You slice off [src]'s uneven chunks of aluminium and scorch marks."))
 
 /obj/item/target/attack_hand(mob/user)
@@ -69,25 +69,25 @@
 /obj/item/target/syndicate
 	icon_state = "target_s"
 	desc = "A shooting target that looks like a syndicate scum."
-	hp = 2600 // i guess syndie targets are sturdier?
+	hp = 2600 // I guess syndie targets are sturdier?
 
 /obj/item/target/alien
 	icon_state = "target_q"
 	desc = "A shooting target that looks like a xenomorphic alien."
-	hp = 2350 // alium onest too kinda
+	hp = 2350 // Alium ones too kinda.
 
 #define DECALTYPE_SCORCH 1
 #define DECALTYPE_BULLET 2
 
 /obj/item/target/bullet_act(obj/projectile/P)
-	var/p_x = P.p_x + pick(0,0,0,0,0,-1,1) // really ugly way of coding "sometimes offset P.p_x!"
+	var/p_x = P.p_x + pick(0,0,0,0,0,-1,1) // Really ugly way of coding "sometimes offset P.p_x!"
 	var/p_y = P.p_y + pick(0,0,0,0,0,-1,1)
 	var/decaltype = DECALTYPE_SCORCH
 	if(istype(P, /obj/projectile/bullet))
 		decaltype = DECALTYPE_BULLET
 
 	var/icon/C = icon(icon, icon_state)
-	if(LAZYLEN(overlays) <= 35 && C.GetPixel(p_x, p_y)) // if the located pixel isn't blank (null)
+	if(LAZYLEN(overlays) <= 35 && C.GetPixel(p_x, p_y)) // If the located pixel isn't blank (null).
 		hp -= P.damage
 		if(hp <= 0)
 			visible_message(SPAN_DANGER("[src] breaks into tiny pieces and collapses!"))
@@ -98,7 +98,7 @@
 		bullet_hole.pixel_y = p_y - 1
 		if(decaltype == DECALTYPE_SCORCH)
 			if(P.damage >= 20 || istype(P, /obj/projectile/beam/practice))
-				bullet_hole.dir = pick(NORTH,SOUTH,EAST,WEST) // random scorch design. light_scorch does not have different directions
+				bullet_hole.dir = pick(NORTH,SOUTH,EAST,WEST) // Random scorch design. light_scorch does not have different directions.
 			else
 				bullet_hole.icon_state = "light_scorch"
 		else
@@ -106,7 +106,7 @@
 		add_overlay(bullet_hole)
 		return
 
-	return -1 // the bullet/projectile goes through the target! Ie, you missed
+	return -1 // The bullet/projectile goes through the target! I.e., you missed.
 
 #undef DECALTYPE_SCORCH
 #undef DECALTYPE_BULLET
