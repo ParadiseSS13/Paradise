@@ -601,10 +601,12 @@
 	QDEL_NULL(gene)
 	return ..()
 
-/obj/item/disk/plantgene/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
-	if(is_pen(W))
-		rename_interactive(user, W)
+/obj/item/disk/plantgene/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/disk/plantgene/update_name()
 	. = ..()
@@ -662,11 +664,12 @@
 
 	icon_state = "datadisk_hydro"
 
-/obj/item/disk/plantgene/attack_self__legacy__attackchain(mob/user)
+/obj/item/disk/plantgene/activate_self(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return ITEM_INTERACT_COMPLETE
 	read_only = !read_only
 	to_chat(user, SPAN_NOTICE("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/disk/plantgene/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
