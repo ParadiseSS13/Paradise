@@ -18,9 +18,11 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/cigbutt) || istype(used, /obj/item/match))
-		user.visible_message(SPAN_NOTICE("[user] places [used] in [src]."),
+		user.visible_message(
+			SPAN_NOTICE("[user] places [used] in [src]."),
 			SPAN_NOTICE("You put [used] in [src]."),
-			SPAN_HEAR("You hear a soft tap."))
+			SPAN_HEAR("You hear a soft tap.")
+		)
 		used.forceMove(src)
 		add_fingerprint(user)
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
@@ -28,9 +30,11 @@
 
 	var/obj/item/clothing/mask/cigarette/cig = used
 	if(cig.lit)
-		user.visible_message(SPAN_NOTICE("[user] crushes [cig] in [src], putting it out."),
+		user.visible_message(
+			SPAN_NOTICE("[user] crushes [cig] in [src], putting it out."),
 			SPAN_NOTICE("You crush [cig] in [src], putting it out."),
-			SPAN_HEAR("You hear the crumpling of a snuffed cigarette."))
+			SPAN_HEAR("You hear the crumpling of a snuffed cigarette.")
+		)
 		var/obj/item/butt = new cig.butt_type(src)
 		cig.transfer_fingerprints_to(butt)
 		qdel(cig)
@@ -39,9 +43,11 @@
 		return ITEM_INTERACT_COMPLETE
 
 	used.forceMove(src)
-	user.visible_message(SPAN_NOTICE("[user] places an entire unlit [cig] in [src]."),
+	user.visible_message(
+		SPAN_NOTICE("[user] places an entire unlit [cig] in [src]."),
 		SPAN_NOTICE("You place [cig] in [src] without even smoking it. Why would you do that?"),
-		SPAN_HEAR("You hear a soft tap."))
+		SPAN_HEAR("You hear a soft tap.")
+	)
 	add_fingerprint(user)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 	return ITEM_INTERACT_COMPLETE
@@ -97,9 +103,11 @@
 		to_chat(usr, SPAN_WARNING("You can't reach that far!"))
 		return
 
-	usr.visible_message(SPAN_NOTICE("[usr] fishes [choice] out of [src]."),
+	usr.visible_message(
+		SPAN_NOTICE("[usr] fishes [choice] out of [src]."),
 		SPAN_NOTICE("You [length(contents) > max_butts * 0.5 ? "get ash on yourself, but you fish" : "pick"] [choice] out of [src]."),
-		SPAN_HEAR("You hear soot rustling."))
+		SPAN_HEAR("You hear soot rustling.")
+	)
 	choice.forceMove(get_turf(src))
 	choice.add_fingerprint(usr)
 	add_fingerprint(usr)
