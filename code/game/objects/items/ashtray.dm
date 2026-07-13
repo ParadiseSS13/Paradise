@@ -62,12 +62,13 @@
 
 /obj/item/ashtray/update_desc()
 	. = ..()
+	desc = initial(desc)
 	if(length(contents) == max_butts)
-		desc = initial(desc) + " It's stuffed full."
+		desc += " It's stuffed full."
 	else if(length(contents) > max_butts * 0.5)
-		desc = initial(desc) + " It's half-filled."
-	else
-		desc = initial(desc)
+		desc += " It's half-filled."
+	if(length(contents))
+		desc += " You can use <b>Alt-Click</b> to fish through the contents."
 
 /obj/item/ashtray/proc/empty_tray()
 	for(var/obj/item/I in contents)
