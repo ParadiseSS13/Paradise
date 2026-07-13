@@ -5,6 +5,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "target_h"
 	var/hp = 1800
+	new_attack_chain = TRUE
 
 /obj/item/target/Destroy()
 	cut_overlays()

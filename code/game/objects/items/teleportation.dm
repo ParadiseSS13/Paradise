@@ -25,6 +25,7 @@
 	var/active_portals = 0
 	/// Variable contains next time hand tele can be used to make it not EMP proof
 	var/emp_timer = 0
+	new_attack_chain = TRUE
 
 /obj/item/hand_tele/examine_more(mob/user)
 	. = ..()
@@ -42,46 +43,50 @@
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
-/obj/item/hand_tele/attack_self__legacy__attackchain(mob/user)
+/obj/item/hand_tele/activate_self(mob/user)
 	// The turf the user is currently located in.
 	var/turf/current_location = get_turf(user)
 	if(emp_timer > world.time)
 		do_sparks(5, 0, loc)
-		to_chat(user, SPAN_WARNING("[src] attempts to create a portal, but abruptly shuts off."))
-		return
-	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
-		to_chat(user, SPAN_NOTICE("\The [src] is malfunctioning."))
-		return
-	var/list/L = list()
+		to_chat(user, SPAN_WARNING("[src] attempts to create a portal, but abruptly shuts off!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!current_location || !is_teleport_allowed(current_location.z)) // If turf was not found or they're somewhere teleproof.
+		to_chat(user, SPAN_WARNING("[src] is malfunctioning!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/list/locations = list()
 	for(var/obj/machinery/computer/teleporter/com in SSmachines.get_by_type(/obj/machinery/computer/teleporter))
 		if(com.target)
 			if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
-				L["[com.id] (Active)"] = com.target
+				locations["[com.id] (Active)"] = com.target
 			else
-				L["[com.id] (Inactive)"] = com.target
+				locations["[com.id] (Inactive)"] = com.target
 	var/list/turfs = list()
-	var/area/A
-	for(var/turf/T in orange(10))
-		if(T.x>world.maxx-8 || T.x<8)
-			continue	//putting them at the edge is dumb
-		if(T.y>world.maxy-8 || T.y<8)
+	var/area/each_area
+	for(var/turf/each_turf in orange(10))
+		if(each_turf.x > world.maxx - 8 || each_turf.x < 8)
+			continue // Putting them at the edge is dumb.
+		if(each_turf.y > world.maxy - 8 || each_turf.y < 8)
 			continue
-		A = get_area(T)
-		if(A.tele_proof)
+		each_area = get_area(each_turf)
+		if(each_area.tele_proof)
 			continue // Telescience-proofed areas require a beacon.
-		turfs += T
+		turfs += each_turf
 	if(length(turfs))
-		L["None (Dangerous)"] = pick(turfs)
+		locations["None (Dangerous)"] = pick(turfs)
 	flick("hand_tele_activated", src)
-	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
-	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
-		return
+	var/picked_location = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", locations)
+	if(!picked_location || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
+		return ITEM_INTERACT_COMPLETE
+
 	if(active_portals >= 3)
-		user.show_message(SPAN_NOTICE("\The [src] is recharging!"))
-		return
-	var/T = L[t1]
+		user.show_message(SPAN_WARNING("[src] is recharging!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/destination = locations[picked_location]
 	user.show_message(SPAN_NOTICE("Locked In."), 2)
-	var/obj/effect/portal/P = new /obj/effect/portal/hand_tele(get_turf(src), T, src, creation_mob = user)
+	var/obj/effect/portal/P = new /obj/effect/portal/hand_tele(get_turf(src), destination, src, creation_mob = user)
 	try_move_adjacent(P)
 	active_portals++
 	add_fingerprint(user)
