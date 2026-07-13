@@ -58,7 +58,8 @@
 		return
 	var/mob/living/carbon/C = AM
 	if(C.m_intent != MOVE_INTENT_WALK)
-		visible_message("[src] beeps, \"Sign says walk, asshole.\"")
+		audible_message(SPAN_USERDANGER("[src] beeps, \"Sign says walk, asshole.\""),
+			SPAN_USERDANGER("\"Sign says walk, asshole.\""))
 		playsound(src, 'sound/misc/sign_says_walk.ogg', 40)
 		explosion(src.loc, -1,0,2, cause = "Exploding wet floor sign")
 		if(ishuman(C))
