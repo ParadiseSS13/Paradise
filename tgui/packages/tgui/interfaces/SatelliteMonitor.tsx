@@ -615,17 +615,11 @@ const PlanetPanel = ({ satellites, current_planet_theme, current_background_base
                 );
               })
             }
-            { /* Apoapsis marker */
-              selectedSatellite?.has_been_launched && <circle cx={selectedSatellite.orbit_data.apoapsis_position?.x} cy={selectedSatellite.orbit_data.apoapsis_position?.y} r={12} fill="red" />
+            { /* Periapsis marker see `asset_science_satellite.dm` for location of assets */
+              selectedSatellite?.has_been_launched && <image href={resolveAsset("periapsis.png")} x={selectedSatellite.orbit_data.periapsis_position?.x - weather_node_size/2} y={selectedSatellite.orbit_data.periapsis_position?.y - weather_node_size/2} height={weather_node_size} width={weather_node_size} />
             }
-            {
-              selectedSatellite?.has_been_launched && <text x={selectedSatellite.orbit_data.apoapsis_position?.x - 12} y={selectedSatellite.orbit_data.apoapsis_position?.y} fill={"white"}>{`Ap`}</text>
-            }
-            { /* Periapsis marker */
-              selectedSatellite?.has_been_launched && <circle cx={selectedSatellite.orbit_data.periapsis_position?.x} cy={selectedSatellite.orbit_data.periapsis_position?.y} r={8} fill="blue" />
-            }
-            {
-              selectedSatellite?.has_been_launched && <text x={selectedSatellite.orbit_data.periapsis_position?.x - 8} y={selectedSatellite.orbit_data.periapsis_position?.y} fill={"white"}>{`Pe`}</text>
+            { /* Apoapsis marker see `asset_science_satellite.dm` for location of assets */
+              selectedSatellite?.has_been_launched && <image href={resolveAsset("apoapsis.png")} x={selectedSatellite.orbit_data.apoapsis_position?.x - weather_node_size/2} y={selectedSatellite.orbit_data.apoapsis_position?.y - weather_node_size/2} height={weather_node_size} width={weather_node_size} />
             }
             {
               weather_nodes.map((node, index) => {

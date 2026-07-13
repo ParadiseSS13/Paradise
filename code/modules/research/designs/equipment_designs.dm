@@ -406,7 +406,7 @@
 	id = "solar_panel"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000, MAT_SILVER = 2000)
-	req_tech = list("programming" = 2, "magnets" = 2)
+	req_tech = list("programming" = 2, "materials" = 2)
 	build_path = /obj/item/satellite_component/misc_part/solar_panel
 	category = list("Equipment")
 
@@ -416,7 +416,7 @@
 	id = "radioisotope_thermoelectric_generator"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_URANIUM = 10000, MAT_GOLD = 6000)
-	req_tech = list("programming" = 2, "magnets" = 5, "engineering" = 5)
+	req_tech = list("programming" = 5, "magnets" = 5, "engineering" = 5)
 	build_path = /obj/item/satellite_component/misc_part/radioisotope_thermoelectric_generator
 	category = list("Equipment")
 
@@ -426,7 +426,7 @@
 	id = "electric_generator"
 	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 10000)
-	req_tech = list("programming" = 2, "magnets" = 2, "engineering" = 2)
+	req_tech = list("programming" = 2, "magnets" = 2)
 	build_path = /obj/item/satellite_component/misc_part/electric_generator
 	category = list("Equipment")
 
@@ -436,6 +436,6 @@
 	id = "power_cell"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 6000, MAT_GOLD = 2000)
-	req_tech = list("programming" = 2, "magnets" = 2)
+	req_tech = list("programming" = 3, "magnets" = 3, "materials" = 3)
 	build_path = /obj/item/satellite_component/misc_part/power_cell
 	category = list("Equipment")
