@@ -391,6 +391,15 @@
 	build_path = /obj/item/circuitboard/rdserver
 	category = list("Research Machinery")
 
+/datum/design/satellite_monitor
+	name = "Console Board (Satellite Monitor)"
+	desc = "Allows for the construction of circuit boards used to build satellite monitors."
+	id = "satellitemonitor"
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/satellite_monitor
+	category = list("Research Machinery")
+
 /datum/design/gibber
 	name = "Machine Design (Gibber Board)"
 	desc = "The circuit board for a gibber."
