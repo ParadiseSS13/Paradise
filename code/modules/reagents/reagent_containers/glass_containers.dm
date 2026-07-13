@@ -242,7 +242,7 @@
 
 /obj/item/reagent_containers/glass/beaker/large/robot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/gripper)) // So the borg isn't able to take out its beaker.
-		to_chat(user, SPAN_NOTICE("You cant grab [used]."))
+		to_chat(user, SPAN_NOTICE("You can't grab [used]."))
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
