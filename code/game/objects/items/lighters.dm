@@ -34,7 +34,14 @@
 	if(!lit)
 		turn_on_lighter(user)
 	else
+/obj/item/lighter/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	if(!lit)
+		turn_on_lighter(user)
+	else
 		turn_off_lighter(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -71,8 +78,8 @@
 		if(affecting.receive_damage(0, 5))		//INFERNO
 			H.UpdateDamageIcon()
 		user.visible_message(
-			SPAN_WARNING("[user] burns [user.p_their()] hand with [src] while lighting it."),
-			SPAN_WARNING("You light [src], but you burn your hand in the process."),
+			SPAN_WARNING("[user] burns [user.p_their()] hand with [src] while lighting it!"),
+			SPAN_WARNING("You light [src], but you burn your hand in the process!"),
 			SPAN_HEAR("You hear the click of a lighter and a small hiss of pain.")
 		)
 	if(world.time > next_on_message)
