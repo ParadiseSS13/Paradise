@@ -75,6 +75,11 @@
 			vel_vec["y"] = orbit_data.velocity.y
 			vel_vec["z"] = orbit_data.velocity.z
 
+		var/generators_available = 0
+		for(var/capabilitiy in satellite.satellite_stats.capabilities)
+			if(capabilitiy == SCIENCE_SATELLITE_HAS_GENERATOR)
+				generators_available++
+
 		var/list/apoap_vec = list()
 		if(orbit_data.apoapsis_position)
 			apoap_vec["x"] = orbit_data.apoapsis_position.x
@@ -97,12 +102,15 @@
 			"fuel_capacity" = satellite.satellite_stats.fuel_capacity,
 			"science_multiplier" = satellite.satellite_stats.science_multiplier,
 			"passive_power_generation" = satellite.satellite_stats.passive_power_generation,
-			"active_power_generation" = satellite.satellite_stats.active_power_generation,
+			"active_power_generation" = satellite.satellite_stats.active_power_generation * satellite.is_performing_maneuver() + satellite.generators_in_use * SCIENCE_SATELLITE_WATTS_PER_GENERATOR,
 			"power_consumption" = satellite.satellite_stats.power_consumption,
 			"power_capacity" = satellite.satellite_stats.power_capacity,
 			"current_power" = satellite.satellite_stats.current_power,
 			"current_fuel" = satellite.satellite_stats.current_fuel,
 			"fuel_usage" = satellite.satellite_stats.fuel_usage,
+			"generators_available" = generators_available,
+			"generators_in_use" = satellite.generators_in_use,
+			"fuel_per_generator" = SCIENCE_SATELLITE_MILLILITER_USE_PER_GENERATOR,
 			"has_been_launched" = satellite.orbit_data.has_been_launched,
 			"orbit_data" = list(
 				"apoapsis" = orbit_data.apoapsis,
@@ -170,11 +178,11 @@
 		return
 	. = TRUE
 
-	atom_say("ui_act uid: [params["uid"]]")
+	atom_say("ui_act uid: [params["uid"]]") //TODO: Remove debug
 
 	var/obj/machinery/science_satellite/satellite = get_satellite_from_UID(params["uid"])
 	if(action == "select_satellite") // satellite can be null here in order to unset the selected satellite
-		atom_say("select_satellite")
+		atom_say("select_satellite") //TODO: Remove debug
 		selected_satellite_ui = satellite
 		return
 
@@ -208,6 +216,9 @@
 			load_data_onto_disk(/datum/tech/programming/, data_points)
 			// TODO: Load Data
 			return FALSE
+		if("set_generators_in_use")
+			log_debug("param: generators_in_use: [text2num(params["generators_in_use"])]")
+			satellite.generators_in_use = text2num(params["generators_in_use"]) // precision down to 0.1
 		if("eject_disk")
 			eject_disk(ui.user)
 			// TODO: Ejeckt Disk

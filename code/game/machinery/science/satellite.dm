@@ -17,6 +17,8 @@
 	var/status = "OK"
 	var/collected_science_data = 0
 
+	var/generators_in_use = 0
+
 	var/list/recently_processed_weather_nodes = list()
 
 
@@ -36,17 +38,43 @@
 	recalculate_stats()
 	. = ..()
 
-/obj/machinery/science_satellite/science/Initialize(mapload)
+/obj/machinery/science_satellite/debug/Initialize(mapload)
 	parts = list(
-		new /obj/item/satellite_component/engine/small_engine,
-		new /obj/item/satellite_component/computer/basic,
+		new /obj/item/satellite_component/engine/basic_engine,
+		new /obj/item/satellite_component/computer/science,
+		new /obj/item/satellite_component/computer/science,
+		new /obj/item/satellite_component/computer/science,
 		new /obj/item/satellite_component/science_instrument/meteorological_surveyor,
 		new /obj/item/satellite_component/science_instrument/plasma_lab,
 		new /obj/item/satellite_component/science_instrument/magnetometer,
 		new /obj/item/satellite_component/misc_part/solar_panel,
 		new /obj/item/satellite_component/misc_part/solar_panel,
 		new /obj/item/satellite_component/misc_part/solar_panel,
-		new /obj/item/satellite_component/misc_part/solar_panel
+		new /obj/item/satellite_component/misc_part/solar_panel,
+		new /obj/item/satellite_component/misc_part/power_cell,
+		new /obj/item/satellite_component/misc_part/power_cell,
+		new /obj/item/satellite_component/misc_part/power_cell,
+		new /obj/item/satellite_component/misc_part/electric_generator,
+		new /obj/item/satellite_component/misc_part/electric_generator,
+		new /obj/item/satellite_component/misc_part/electric_generator
+	)
+	recalculate_stats()
+	. = ..()
+
+/obj/machinery/science_satellite/ion/Initialize(mapload)
+	parts = list(
+		new /obj/item/satellite_component/engine/ion_engine,
+		new /obj/item/satellite_component/computer/efficient,
+		new /obj/item/satellite_component/science_instrument/meteorological_surveyor,
+		new /obj/item/satellite_component/science_instrument/plasma_lab,
+		new /obj/item/satellite_component/science_instrument/magnetometer,
+		new /obj/item/satellite_component/misc_part/solar_panel,
+		new /obj/item/satellite_component/misc_part/solar_panel,
+		new /obj/item/satellite_component/misc_part/solar_panel,
+		new /obj/item/satellite_component/misc_part/solar_panel,
+		new /obj/item/satellite_component/misc_part/electric_generator,
+		new /obj/item/satellite_component/misc_part/electric_generator,
+		new /obj/item/satellite_component/misc_part/electric_generator
 	)
 	recalculate_stats()
 	. = ..()
@@ -59,29 +87,29 @@
 /obj/machinery/science_satellite/proc/calculate_status()
 	status = "Idle"
 	if(!orbit_data.position)
-		status = "Waiting for launch."
+		status = "Waiting for launch"
 	if(orbit_data.planned_maneuvers.len > 0)
-		status = "Waiting for maneuver."
-		for(var/datum/maneuver_data/manuever in orbit_data.planned_maneuvers)
-			if(manuever.world_time_at_maneuver < world.time)
-				status = "Performing maneuver."
-				break
+		status = "Waiting for maneuver"
+		if(is_performing_maneuver())
+			status = "Performing maneuver"
 	if(orbit_data.periapsis < orbit_data.light_airdrag)
-		status = "Warning, expected air drag at periapsis."
+		status = "Warning, expected air drag at periapsis"
 	if(orbit_data.periapsis < orbit_data.thick_airdrag)
 		status = "Danger! Periapsis inside atmosphere!"
 
-/obj/machinery/science_satellite/proc/try_collecting_data_from_all_components(science_type, amount_to_collect, datum/weather_node/weather_node = null)
-	log_debug("try_collecting_data_from_all_components science_type: [science_type]")
+/obj/machinery/science_satellite/proc/is_performing_maneuver()
+	for(var/datum/maneuver_data/manuever in orbit_data.planned_maneuvers)
+		if(manuever.world_time_at_maneuver < world.time)
+			return TRUE
 
+	return FALSE
+
+/obj/machinery/science_satellite/proc/try_collecting_data_from_all_components(science_type, amount_to_collect, datum/weather_node/weather_node = null)
 	if(weather_node in recently_processed_weather_nodes)
-		log_debug("weather_node in recently_processed_weather_nodes")
 		return
 
 	for(var/obj/item/satellite_component/component in parts)
-		log_debug("component: [component]")
 		for(var/capability in component.component_stats.capabilities)
-			log_debug("capability: [capability]")
 			if(!satellite_stats.enough_power_for_component_use(component)) // ddont check parts we dont have power to use
 				continue
 			else if(capability == science_type) // if we have power, and the type is a match
@@ -95,8 +123,6 @@
 
 				// If SSscience_satellite is stopped and restarted this might allow collecting from the same node twice, low impact and unlikely to happen
 				addtimer(CALLBACK(src, PROC_REF(remove_weather_node_from_processed), weather_node), NODE_PROCESSING_COOLDOWN)
-			else
-				log_debug("[capability] != [science_type]")
 
 /obj/machinery/science_satellite/proc/remove_weather_node_from_processed(datum/weather_node/weather_node)
 	recently_processed_weather_nodes -= weather_node

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, NumberInput, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { Box, Button, NoticeBox, NumberInput, ProgressBar, Section, Stack } from 'tgui-core/components';
 
 import { resolveAsset } from '../assets'; /* Used to load assets from PNGs from the `code\modules\asset_cache\assets` folder*/
 import { useBackend } from '../backend';
@@ -40,6 +40,9 @@ interface Satellite {
   current_power: number;
   current_fuel: number;
   fuel_usage: number;
+  generators_available: number;
+  generators_in_use: number;
+  fuel_per_generator: number;
   has_been_launched: number;
   orbit_data: {
     apoapsis: number;
@@ -161,17 +164,26 @@ const ManeuverPanel = ({
         <Stack vertical width="100%">
           <Stack>
             <Stack width="50%" vertical>
-              <Stack>{`Apoapsis: ${selectedSatellite.orbit_data.apoapsis * (cmagged ? 0.6213 : 1)}${cmagged ? 'mi' : 'km'}`}</Stack>
-              <Stack>{`Periapsis: ${selectedSatellite.orbit_data.periapsis}km`}</Stack>
+              {Math.abs(selectedSatellite.orbit_data.apoapsis) > 1e30 ? <Stack>Apoapsis: Waiting for launch</Stack> : /* Nearly infinity, meaning its not been set */
+                <Stack>{`Apoapsis: ${selectedSatellite.orbit_data.apoapsis * (cmagged ? 0.6213 : 1)}${cmagged ? 'mi' : 'km'}`}</Stack>
+              }
+              {Math.abs(selectedSatellite.orbit_data.periapsis) > 1e30 ? <Stack>Periapsis: Waiting for launch</Stack> : /* Nearly infinity, meaning its not been set */
+                <Stack>{`Periapsis: ${selectedSatellite.orbit_data.periapsis}km`}</Stack>
+              }
               <Stack>{`Inclination: ${selectedSatellite.orbit_data.inclination}`}</Stack>
-              <Stack>{`Position: (${selectedSatellite.orbit_data.position?.x}, ${selectedSatellite.orbit_data.position?.y}, ${selectedSatellite.orbit_data.position?.z})`}</Stack>
+              {
+                (selectedSatellite.orbit_data.position?.x) && /* if the x component is undefined, the rest hasn't been set either */
+                <Stack>{`Position: (${selectedSatellite.orbit_data.position?.x.toFixed(1)}, ${selectedSatellite.orbit_data.position?.y.toFixed(1)}, ${selectedSatellite.orbit_data.position?.z.toFixed(1)})`}</Stack>
+              }
             </Stack>
             <Stack width="50%" vertical>
               <Stack>{`weight (total): ${Math.round(selectedSatellite.weight + selectedSatellite.current_fuel)}kg`}</Stack>
               <Stack>{`fuel usage: ${selectedSatellite.fuel_usage.toFixed(2)}L/s`}</Stack>
               <Stack>{`Period: ${selectedSatellite.orbit_data.period / deciseconds_in_minute}min`}</Stack>
-              {/* <Stack>{`Velocity: ${Math.sqrt(selectedSatellite.orbit_data.velX ** 2 + selectedSatellite.orbit_data.velY ** 2 + selectedSatellite.orbit_data.velZ ** 2)} km/s`}</Stack>*/}
-              <Stack>{`Velocity: (${selectedSatellite.orbit_data.velocity?.x}, ${selectedSatellite.orbit_data.velocity?.y}, ${selectedSatellite.orbit_data.velocity?.z})`}</Stack>
+              {
+                (selectedSatellite.orbit_data.velocity?.x) && /* if the x component is undefined, the rest hasn't been set either */
+                <Stack>{`Velocity: (${selectedSatellite.orbit_data.velocity?.x.toFixed(1)}, ${selectedSatellite.orbit_data.velocity?.y.toFixed(1)}, ${selectedSatellite.orbit_data.velocity?.z.toFixed(1)})`}</Stack>
+              }
             </Stack>
           </Stack>
           <Section title="Burn configuration" mt={3}>
@@ -319,18 +331,20 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
             </Box>
           </Stack>
           <Stack mt={1}>
-            <Stack.Item align="center" width="15%">
+            <Stack.Item width="15%" align="center">
               Fuel:
             </Stack.Item>
             <Stack.Item width="85%">
+              {!satellite.fuel_capacity? <NoticeBox m={0}>Missing engine!</NoticeBox> :
               <ProgressBar
-                value={satellite.current_fuel / satellite.fuel_capacity}
-                ranges={{
-                  good: [0.9, Infinity],
-                  average: [0.5, 0.9],
-                  bad: [-Infinity, 0.5],
-                }}
+              value={satellite.current_fuel / satellite.fuel_capacity}
+              ranges={{
+                good: [0.75, Infinity],
+                average: [0.25, 0.75],
+                bad: [-Infinity, 0.25],
+              }}
               />
+            }
             </Stack.Item>
           </Stack>
           <Stack mt={1}>
@@ -338,24 +352,46 @@ const SatellitePanel = ({ satellite_data, selectedSatellite, act }) => {
               Power:
             </Stack.Item>
             <Stack.Item width="85%">
+              {!satellite.power_capacity? <NoticeBox m={0}>Missing computer!</NoticeBox> :
               <ProgressBar
-                value={satellite.current_power / satellite.power_capacity}
-                ranges={{
-                  good: [0.9, Infinity],
-                  average: [0.5, 0.9],
-                  bad: [-Infinity, 0.5],
-                }}
+              value={satellite.current_power / satellite.power_capacity}
+              ranges={{
+                good: [0.75, Infinity],
+                average: [0.25, 0.75],
+                bad: [-Infinity, 0.25],
+              }}
               />
+              }
             </Stack.Item>
           </Stack>
           <Stack mt={1}>
-            {`Passive power generation: ${satellite.passive_power_generation}W/s`}
+            {`Power generation: ${satellite.passive_power_generation + satellite.active_power_generation}W/s`}
           </Stack>
           <Stack>
-            <Box mt={1} width="50%">
+            <Box mt={1} width="40%">
               status: {satellite.status}
             </Box>
-            <Box width="50%" align="right">
+            { (!satellite.generators_available)? <Box width="45%" align="right" /> : /* if we dont have generators, display a placeholder box for consistent sizing */
+            <Box width="45%" align="right">
+                {`Generator (${satellite.generators_available}): `}
+                <NumberInput
+                  width="3.1em"
+                  value={Math.round(satellite.generators_in_use * satellite.fuel_per_generator)} // funny floating point numbers sometimes gives number + micro fraction here
+                  minValue={0}
+                  maxValue={satellite.fuel_per_generator * satellite.generators_available}
+                  step={satellite.fuel_per_generator / 20}
+                  stepPixelSize={10}
+                  onChange={(value) => {
+                    act('set_generators_in_use', {
+                      uid: satellite.UID,
+                      generators_in_use: (value / satellite.fuel_per_generator), // since we're already using milliliters here
+                    });
+                  }}
+                />
+                mL/s
+            </Box>
+            }
+            <Box width="15%" align="right">
               <Button
                 onClick={() => {
                   act('select_satellite', {
@@ -580,16 +616,16 @@ const PlanetPanel = ({ satellites, current_planet_theme, current_background_base
               })
             }
             { /* Apoapsis marker */
-              selectedSatellite ? <circle cx={selectedSatellite.orbit_data.apoapsis_position?.x} cy={selectedSatellite.orbit_data.apoapsis_position?.y} r={12} fill="red" /> : null
+              selectedSatellite?.has_been_launched && <circle cx={selectedSatellite.orbit_data.apoapsis_position?.x} cy={selectedSatellite.orbit_data.apoapsis_position?.y} r={12} fill="red" />
             }
             {
-              selectedSatellite ? <text x={selectedSatellite.orbit_data.apoapsis_position?.x - 12} y={selectedSatellite.orbit_data.apoapsis_position?.y} fill={"white"}>{`Ap`}</text> : null
+              selectedSatellite?.has_been_launched && <text x={selectedSatellite.orbit_data.apoapsis_position?.x - 12} y={selectedSatellite.orbit_data.apoapsis_position?.y} fill={"white"}>{`Ap`}</text>
             }
             { /* Periapsis marker */
-              selectedSatellite ? <circle cx={selectedSatellite.orbit_data.periapsis_position?.x} cy={selectedSatellite.orbit_data.periapsis_position?.y} r={8} fill="blue" /> : null
+              selectedSatellite?.has_been_launched && <circle cx={selectedSatellite.orbit_data.periapsis_position?.x} cy={selectedSatellite.orbit_data.periapsis_position?.y} r={8} fill="blue" />
             }
             {
-              selectedSatellite ? <text x={selectedSatellite.orbit_data.periapsis_position?.x - 8} y={selectedSatellite.orbit_data.periapsis_position?.y} fill={"white"}>{`Pe`}</text> : null
+              selectedSatellite?.has_been_launched && <text x={selectedSatellite.orbit_data.periapsis_position?.x - 8} y={selectedSatellite.orbit_data.periapsis_position?.y} fill={"white"}>{`Pe`}</text>
             }
             {
               weather_nodes.map((node, index) => {
@@ -610,6 +646,7 @@ const PlanetPanel = ({ satellites, current_planet_theme, current_background_base
             { /* Draw all satellites */
               satellites.map((satellite: Satellite) => {
                 return (
+                  (satellite?.has_been_launched) &&
                   <image key={satellite.name}
                     href={resolveAsset(current_planet_theme)}
                     x={satellite.orbit_data.position?.x * scale - satelliteImageSize/2}

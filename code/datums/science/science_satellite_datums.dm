@@ -67,6 +67,14 @@
 		return
 
 	stats.add_power(stats.passive_power_generation)
+	if(owner.generators_in_use)
+		var/fuel_fraction = stats.current_fuel * 1000 / owner.generators_in_use // mL of fuel available
+		fuel_fraction = min(fuel_fraction, 1) // if we have enough fuel for all generators, the fraction is 1
+		stats.add_power(owner.generators_in_use * fuel_fraction * SCIENCE_SATELLITE_WATTS_PER_GENERATOR)
+		stats.current_fuel -= owner.generators_in_use * SCIENCE_SATELLITE_MILLILITER_USE_PER_GENERATOR * fuel_fraction / 1000 // subtract mL of fuel from the total fuel
+
+	if(stats.current_fuel <= 0)
+		owner.generators_in_use = 0
 
 	var/list/step = calculate_physics_step(position, velocity) // where the satellite should move this tick
 	position = step[POSITION_STRING]
@@ -432,15 +440,16 @@
 ////////////////////////////////////////
 
 /datum/satellite_stats/misc_part/solar_panel
-	weight = 8
+	weight = 80
 	passive_power_generation = 100
 
 /datum/satellite_stats/misc_part/electric_generator
-	weight = 20
-	active_power_generation = 7500
+	weight = 150
+	active_power_generation = SCIENCE_SATELLITE_WATTS_PER_GENERATOR
+	capabilities = list(SCIENCE_SATELLITE_HAS_GENERATOR)
 
 /datum/satellite_stats/misc_part/power_cell
-	weight = 20
+	weight = 50
 	power_capacity = 20000
 
 #undef VELOCITY_STRING
