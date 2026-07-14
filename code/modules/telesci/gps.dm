@@ -135,6 +135,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/activate_self(mob/user)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
+	add_fingerprint(user)
 	ui_interact(user)
 	return ITEM_INTERACT_COMPLETE
 
