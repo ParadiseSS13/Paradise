@@ -36,6 +36,7 @@
 		turn_on_lighter(user)
 	else
 		turn_off_lighter(user)
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
@@ -107,12 +108,14 @@
 
 /obj/item/lighter/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/lighter/attack(mob/living/target, mob/living/carbon/human/user)
 	if(lit && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
+		add_fingerprint(user)
 
 	return ..()
 
@@ -140,6 +143,7 @@
 			SPAN_NOTICE("After some fiddling, you manage to light [cig] for [target] with [src].")
 		)
 	cig.light(user, target)
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/lighter/process()
@@ -216,6 +220,7 @@
 			SPAN_ROSE("You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [cig] with.")
 		)
 	cig.light(user, target)
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
