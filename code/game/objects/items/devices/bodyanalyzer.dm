@@ -17,7 +17,18 @@
 	var/time_to_use = 0 // How much time remaining before next scan is available.
 	var/usecharge = 750
 	var/scan_time = 5 SECONDS //how long does it take to scan
-	var/scan_cd = 30 SECONDS //how long before we can scan again
+	/// Is the analyzer ready to scan?
+	var/ready = TRUE
+	/// Is the analyzer currently printing a report?
+	var/printing = FALSE
+	/// Current time remaining before another scan can be done.
+	var/time_to_use = 0
+	/// Energy cost of one scan.
+	var/usecharge = 750
+	/// Time needed to perform a scan.
+	var/scan_time = 5 SECONDS
+	/// Cooldown between scans.
+	var/scan_cd = 30 SECONDS
 	new_attack_chain = TRUE
 
 /obj/item/bodyanalyzer/get_cell()
@@ -67,7 +78,7 @@
 
 	add_fingerprint(user)
 	if(!ready)
-		to_chat(user, SPAN_NOTICE("The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))
+		to_chat(user, SPAN_WARNING("The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 		return ITEM_INTERACT_COMPLETE
 
@@ -75,7 +86,7 @@
 		mobScan(target, user)
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_NOTICE("The scanner beeps angrily at you! It's out of charge!"))
+	to_chat(user, SPAN_WARNING("The scanner beeps angrily at you! It's out of charge!"))
 	playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 	return ITEM_INTERACT_COMPLETE
 
@@ -84,23 +95,23 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(!ready)
-		to_chat(user, SPAN_NOTICE("[src] is currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))
+		to_chat(user, SPAN_WARNING("[src] is currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(user.cell.charge >= usecharge)
 		mobScan(target, user)
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_NOTICE("You need to recharge before you can use [src]"))
+	to_chat(user, SPAN_WARNING("You need to recharge before you can use [src]!"))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/target, mob/user)
 	if(!ishuman(target) && !iscorgi(target))
-		to_chat(user, SPAN_NOTICE("Scanning error detected. Invalid specimen."))
+		to_chat(user, SPAN_WARNING("Scanning error detected. Invalid specimen."))
 		return
 
 	if(iscorgi(target) && target.stat == DEAD)
-		to_chat(user, SPAN_NOTICE("You wonder if [target.p_they()] was a good dog. <b>[src] tells you they were the best...</b>")) // :'(
+		to_chat(user, SPAN_DEADSAY("You wonder if [target.p_they()] was a good dog. <b>[src] tells you they were the best...</b>")) // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
 		update_icon(UPDATE_ICON_STATE)
@@ -109,7 +120,10 @@
 		return
 
 	var/report = generate_printing_text(target, user)
-	user.visible_message("[user] begins scanning [target] with [src].", "You begin scanning [target].")
+	user.visible_message(
+		SPAN_NOTICE("[user] begins scanning [target] with [src]."),
+		SPAN_NOTICE("You begin scanning [target].")
+	)
 	if(!do_after(user, scan_time, target = target))
 		return
 	var/obj/item/paper/printout = new
