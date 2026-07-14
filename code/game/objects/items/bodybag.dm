@@ -12,6 +12,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
+	transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
@@ -40,6 +41,7 @@
 	cut_overlays()
 	if(new_name)
 		add_overlay("bodybag_label")
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/body_bag/wirecutter_act(mob/user, obj/item/used)
@@ -54,6 +56,7 @@
 	)
 	name = initial(name)
 	cut_overlays()
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
@@ -75,7 +78,9 @@
 		if(!ishuman(usr) || opened || length(contents))
 			return FALSE
 		visible_message(SPAN_NOTICE("[usr] folds up [src]."))
-		new item_path(get_turf(src))
+		var/obj/item/bodybag/new_bag = new item_path(get_turf(src))
+		transfer_fingerprints_to(new_bag)
+		new_bag.add_fingerprint(usr)
 		qdel(src)
 		return
 	. = ..()
