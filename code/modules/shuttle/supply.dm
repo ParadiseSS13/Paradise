@@ -548,39 +548,28 @@
 	SSblackbox.record_feedback("tally", "cargo manifests sold", 1, "amount")
 	SSblackbox.record_feedback("tally", "cargo manifests sold", item.credits, "credits")
 
-/* MIXTODO - change to points
+
 /datum/economy/simple_seller/tech_levels
-	var/list/temp_tech_levels
 
-/datum/economy/simple_seller/tech_levels/begin_scan(obj/docking_port/mobile/supply/S)
-	temp_tech_levels = SSeconomy.tech_levels.Copy()
-
-/datum/economy/simple_seller/tech_levels/begin_sell(obj/docking_port/mobile/supply/S)
-	temp_tech_levels = SSeconomy.tech_levels.Copy()
-
-/datum/economy/simple_seller/tech_levels/proc/get_price(tech_rarity, tech_level, sold_level = null)
-	// Calculates tech disk's supply points sell cost
-	if(!sold_level)
-		sold_level = 1
-
-	if(sold_level >= tech_level)
-		return 0
-
-	var/cost = 0
-	for(var/i in (sold_level + 1) to tech_level)
-		cost += i * 5 * tech_rarity
-
+/datum/economy/simple_seller/tech_levels/proc/get_price(list/points_list)
+	var/cost
+	for(var/i in points_list)
+		if((i in SSeconomy.point_to_cost) && points_list[i] > 0)
+			if(SSeconomy.research_points[i] >= SSeconomy.maximum_points_sold[i])
+				return
+			if((SSeconomy.research_points[i] += points_list[i]) > SSeconomy.maximum_points_sold[i])
+				points_list[i] = (SSeconomy.research_points[i] += points_list[i]) - SSeconomy.maximum_points_sold[i] // get the remaining difference.
+			cost += FLOOR((points_list[i] * SSeconomy.point_to_cost[i]), 0.1)
 	return cost
 
 /datum/economy/simple_seller/tech_levels/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = AM
-		if(!disk.tech_id)
+		if(disk.stored_research.len == 0)
 			return COMSIG_CARGO_SELL_WRONG
 
-		var/cost = get_price(disk.tech_rarity, disk.tech_level, temp_tech_levels[disk.tech_id])
+		var/cost = get_price(disk.stored_research)
 		if(cost)
-			temp_tech_levels[disk.tech_id] = disk.tech_level
 			return COMSIG_CARGO_SELL_NORMAL
 		return COMSIG_CARGO_SELL_WRONG
 
@@ -589,27 +578,27 @@
 		return
 
 	var/obj/item/disk/tech_disk/disk = AM
-	if(!disk.tech_id)
+	if(disk.stored_research.len == 0)
 		return
 
-	var/cost = get_price(disk.tech_rarity, disk.tech_level, SSeconomy.tech_levels[disk.tech_id])
+	var/cost = get_price(disk.stored_research)
 	if(!cost)
 		return
-
-	SSeconomy.tech_levels[disk.tech_id] = disk.tech_level
+	for(var/i in disk.stored_research)
+		SSeconomy.research_points[i] += disk.stored_research[i]
 	SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "amount")
 	SSblackbox.record_feedback("tally", "cargo tech disks sold", cost, "credits")
 
 	var/datum/economy/line_item/cargo_item = new
 	cargo_item.account = SSeconomy.cargo_account
 	cargo_item.credits = cost / 2
-	cargo_item.reason = "[disk.tech_name] - new data."
+	cargo_item.reason = "Tech disk containing new data."
 	manifest.line_items += cargo_item
 
 	var/datum/economy/line_item/science_item = new
 	science_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE)
 	science_item.credits = cost / 2
-	science_item.reason = "[disk.tech_name] - new data."
+	science_item.reason = "Tech disk containing new data."
 	manifest.line_items += science_item
 
 /datum/economy/simple_seller/tech_levels/sell_wrong(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
@@ -621,18 +610,17 @@
 	item.credits = 0
 
 	var/obj/item/disk/tech_disk/disk = AM
-	if(!disk.tech_id)
+	if(disk.stored_research.len == 0)
 		item.reason = "Blank tech disk."
 		manifest.line_items += item
 		SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "blank")
 		return
 
-	var/cost = get_price(disk.tech_rarity, disk.tech_level, SSeconomy.tech_levels[disk.tech_id])
+	var/cost = get_price(disk.stored_research)
 	if(!cost)
-		item.reason = "[disk.tech_name] - no new data."
+		item.reason = "No new data on tech disk."
 		manifest.line_items += item
 		SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "repeat")
-*/
 
 /datum/economy/simple_seller/designs
 	var/list/temp_designs

@@ -89,7 +89,12 @@ SUBSYSTEM_DEF(economy)
 	var/centcom_message
 	/// Typepaths for unusual plants we've already sent CentComm, associated with their potencies
 	var/list/discovered_plants = list()
-	var/list/tech_levels = list()
+	/// Types of points we've already sent to CentComm, associated with their amount.
+	var/list/research_points = list()
+	/// Point type to cost conversion.
+	var/list/point_to_cost = list("research" = 0.5, "illegal" = 2, "alien" = 2.5)
+	/// Maximum amount of each point we can sell.
+	var/list/maximum_points_sold = list("research" = 6000, "illegal" = 390, "alien" = 450) // values total to the original maximum credits from levels.
 	var/list/research_designs = list()
 
 	///Requested crates, waiting for approval by department heads

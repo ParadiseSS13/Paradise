@@ -5,17 +5,13 @@
 // MAXIMUM SCIENCE
 /datum/job_objective/further_research
 	objective_name = "Perform Research for Nanotrasen"
-	description = "Utilize the facilities on this research installation to increase half of the research levels to level 5. \
-	Copy the research onto disks and get the Supply department to ship them to the NAS Trurl."
+	description = "Utilize the facilities on this research installation to generate 3000 research points.\
+	Copy the points onto tech disks and get the Supply department to ship them to the NAS Trurl."
 	gives_payout = TRUE
 	completion_payment = 150
 
 /datum/job_objective/further_research/check_for_completion()
-	var/techs_above_threshold = 0
-	for(var/tech in SSeconomy.tech_levels)
-		if(SSeconomy.tech_levels[tech] >= 5)
-			techs_above_threshold++
-	if(techs_above_threshold >= 6)
+	if(SSeconomy.research_points["research"] >= 3000)
 		return TRUE
 	return FALSE
 

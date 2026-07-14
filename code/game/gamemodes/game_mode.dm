@@ -258,8 +258,8 @@
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_3, list("escapees", "on_pod_3"))
 	if(escaped_on_pod_4)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_4, list("escapees", "on_pod_4"))
-	for(var/tech_id in SSeconomy.tech_levels)
-		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.tech_levels[tech_id], tech_id)
+	for(var/points in SSeconomy.research_points)
+		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.research_points[points])
 
 	var/round_text = GLOB.round_id ? "Round [GLOB.round_id]" : "Unknown Round"
 	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "[round_text] of [get_webhook_name()] has ended - [surviving_total] survivors, [ghosts] ghosts.")
