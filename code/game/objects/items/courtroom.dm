@@ -40,5 +40,7 @@
 			SPAN_NOTICE("You strike [src] with [used]."),
 			SPAN_HEAR("You hear a gavel banging!")
 		)
+		add_fingerprint(user)
+		used.add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
