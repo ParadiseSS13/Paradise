@@ -127,6 +127,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(active_uplink_check(user))
 		return ..()
 	ui_interact(user)
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pda/proc/start_program(datum/data/pda/P)
@@ -296,6 +297,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, SPAN_NOTICE("You insert [cartridge] into [src]."))
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/card/id))
@@ -318,6 +320,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			SStgui.update_uis(src)
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
+			add_fingerprint(user)
 			return ITEM_INTERACT_COMPLETE
 		//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
 		if(!(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user) || (isturf(loc) && in_range(src, user)))))
@@ -326,6 +329,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, SPAN_NOTICE("You put [idcard] into \the [src]'s ID slot.<br>You can remove it with ALT click."))
 		update_icon(UPDATE_OVERLAYS)
 		SStgui.update_uis(src)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/paicard) && !src.pai)
@@ -335,7 +339,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, SPAN_NOTICE("You slot \the [used] into [src]."))
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
+
 	if(is_pen(used))
 		if(held_pen)
 			to_chat(user, SPAN_NOTICE("There is already a pen in \the [src]."))
@@ -344,6 +350,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		add_pen(used)
 		to_chat(user, SPAN_NOTICE("You slide \the [used] into \the [src]."))
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/pda/proc/add_pen(obj/item/P)
@@ -362,8 +369,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return ..()
 	if(iscarbon(target))
 		scanmode.scan_mob(target, user)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 	scanmode.scan_atom(target, user)
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pda/proc/explode() //This needs tuning.
