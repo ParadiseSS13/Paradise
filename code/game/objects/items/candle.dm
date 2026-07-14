@@ -117,6 +117,7 @@
 		return ..()
 	user.visible_message(SPAN_NOTICE("[user] snuffs out [src]."))
 	unlight()
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/candle/lit
