@@ -15,23 +15,27 @@
 	var/accuracy // 0 is the best accuracy.
 	/// FALSE: Sum gas mixes then present. TRUE: Present each mix individually
 	var/show_detailed = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("Alt-click [src] to activate the barometer function.")
 	. += SPAN_NOTICE("Alt-Shift-click [src] to toggle detailed reporting on or off.")
 
-/obj/item/analyzer/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/analyzer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.stat)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/turf/location = user.loc
 	if(!isturf(location))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	atmos_scan(user = user, target = location, detailed = show_detailed)
 	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/analyzer/AltShiftClick(mob/user)
 	show_detailed = !show_detailed
@@ -100,14 +104,15 @@
 			amount += inaccurate
 	return DisplayTimeText(max(1, amount))
 
-/obj/item/analyzer/afterattack__legacy__attackchain(atom/target, mob/user, proximity, params)
-	. = ..()
+/obj/item/analyzer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	..()
 	if(!can_see(user, target, 1))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(target.return_analyzable_air())
 		atmos_scan(user, target, detailed = show_detailed)
 	else
 		atmos_scan(user, get_turf(target), detailed = show_detailed)
+	return ITEM_INTERACT_COMPLETE
 
 /**
  * Outputs a message to the user describing the target's gasmixes.
