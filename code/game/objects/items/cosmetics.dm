@@ -71,6 +71,7 @@
 	colored.color = lipstick_colors[colour]
 	icon_state = "lipstick_uncap"
 	add_overlay(colored)
+	add_fingerprint(user)
 
 /obj/item/lipstick/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!open || !ismob(target))
@@ -93,6 +94,7 @@
 		human_target.lip_style = "lipstick"
 		human_target.lip_color = lipstick_colors[colour]
 		human_target.update_body()
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
@@ -108,6 +110,7 @@
 	human_target.lip_style = "lipstick"
 	human_target.lip_color = lipstick_colors[colour]
 	human_target.update_body()
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/razor
@@ -193,6 +196,7 @@
 	human_head.h_style = "Skinhead"
 	target.update_hair()
 	playsound(src.loc, usesound, 40, 1)
+	add_fingerprint(user)
 	return TRUE
 
 /obj/item/razor/proc/shave_face(mob/living/carbon/human/target, mob/living/user)
@@ -240,4 +244,5 @@
 	human_head.f_style = "Shaved"
 	target.update_fhair()
 	playsound(src.loc, usesound, 20, 1)
+	add_fingerprint(user)
 	return TRUE
