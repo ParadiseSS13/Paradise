@@ -21,7 +21,7 @@
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		desc += " The screen only shows the word KILL flashing over and over."
+		desc += "The screen only shows the word 'KILL' flashing over and over."
 		if(user)
 			to_chat(user, SPAN_WARNING("You short out the safeties on [src]."))
 			add_fingerprint(user)
@@ -43,7 +43,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(emagged)
-		return
+		return NONE
 
 	var/mob/living/carbon/human/human_target = target
 	if(human_target.health > HEALTH_THRESHOLD_CRIT && !human_target.undergoing_cardiac_arrest())
@@ -91,19 +91,21 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
+	if(..())
+		return FINISH_ATTACK
 	if(!ishuman(target))
-		return ..()
+		return FINISH_ATTACK
 
 	if(cooldown)
 		to_chat(user, SPAN_WARNING("[src] is still charging!"))
-		return
+		return FINISH_ATTACK
 
 	if(!emagged)
-		return
+		return FINISH_ATTACK
 
 	var/user_UID = user.UID()
 	if(HAS_TRAIT_FROM(target, TRAIT_WAS_BATONNED, user_UID)) // No following up with baton or dual wielding defibs for stunlock cheese purposes.
-		return
+		return FINISH_ATTACK
 
 	user.visible_message(
 		SPAN_DANGER("[user] violently shocks [target] with [src]!"),
