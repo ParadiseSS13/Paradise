@@ -27,6 +27,7 @@
 	user.update_inv_l_hand()
 	to_chat(user, SPAN_NOTICE("You blow up [src] with [tank]."))
 	air_contents = tank.remove_air_volume(3)
+	add_fingerprint(user)
 
 /obj/item/latexballon/proc/burst()
 	if(!air_contents || icon_state != "latexballon_blow")
