@@ -75,6 +75,7 @@
 	user.forceMove(pick(L))
 	smoke.start()
 	uses--
+	add_fingerprint(user)
 
 	if(!uses)
 		to_chat(user, SPAN_WARNING("The scroll fizzles out of existence as the last of the magic within fades."))
