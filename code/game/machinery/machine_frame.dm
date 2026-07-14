@@ -841,7 +841,9 @@ to destroy them and players will be able to make replacements.
 	. += SPAN_NOTICE("Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.")
 	. += SPAN_NOTICE("Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.")
 
-/obj/item/circuitboard/dish_drive/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/circuitboard/dish_drive/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	suction = !suction
 	to_chat(user, SPAN_NOTICE("You [suction ? "enable" : "disable"] the board's suction function."))
 
@@ -995,14 +997,13 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/target
 
-/obj/item/circuitboard/teleporter_perma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/gps))
-		var/obj/item/gps/L = I
-		if(L.locked_location)
-			target = get_turf(L.locked_location)
-			to_chat(user, SPAN_CAUTION("You upload the data from [L]"))
-		return
-	return ..()
+/obj/item/circuitboard/teleporter_perma/item_interaction(mob/living/user, obj/item/gps/used, list/modifiers)
+	if(!istype(used))
+		return ..()
+	if(used.locked_location)
+		target = get_turf(used.locked_location)
+		to_chat(user, SPAN_CAUTION("You upload the data from [used]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/circuitboard/telesci_pad
 	board_name = "Telepad"
