@@ -65,6 +65,7 @@
 	if(user.incapacitated() || !user.Adjacent(target))
 		return ITEM_INTERACT_COMPLETE
 
+	add_fingerprint(user)
 	if(!ready)
 		to_chat(user, SPAN_NOTICE("The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
