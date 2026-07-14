@@ -30,6 +30,7 @@
 	rolled = !rolled
 	user.visible_message(SPAN_NOTICE("[user] [rolled ? "rolls up" : "unfurls"] [src]."), SPAN_NOTICE("You [rolled ? "roll up" : "unfurl"] [src]."), SPAN_WARNING("You hear fabric rustling."))
 	update_icon()
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flag/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
@@ -253,6 +254,7 @@
 			updated_icon_state = icon_state
 			desc = chosen_flag.desc
 			used = TRUE
+			add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flag/chameleon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -268,6 +270,7 @@
 		log_game("[key_name(user)] has hidden [used] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 		investigate_log("[key_name(user)] has hidden [used] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has hidden [used] ready for detonation in", ATKLOG_MOST)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(used.get_heat() && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
@@ -277,6 +280,7 @@
 		investigate_log("[key_name_admin(user)] has lit [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has lit (booby trapped with [boobytrap]", ATKLOG_FEW)
 		burn()
+		add_fingerprint(user) // Good luck lifting the print before it explodes, though.
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
