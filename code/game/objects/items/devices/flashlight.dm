@@ -43,12 +43,14 @@
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
 	update_action_buttons()
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flashlight/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	add_fingerprint(user)
 	if(istype(target, /obj/structure/ai_core/deactivated))
 		to_chat(user, SPAN_NOTICE("You can already tell there's no AI in this core, but you shine [src] at it anyway. It doesn't respond."))
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(!ismob(target))
@@ -85,6 +87,7 @@
 		else
 			target.visible_message(SPAN_NOTICE("[target] directs [src] to [target.p_their()] eyes."),
 								SPAN_NOTICE("You wave the light in front of your eyes."))
+			add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(SPAN_NOTICE("[user] directs [src] to [target]'s eyes."),
@@ -93,6 +96,7 @@
 	if(issilicon(target))
 		var/mob/living/silicon/robot/silicon_target = target
 		var/datum/robot_component/camera/camera
+		add_fingerprint(user)
 		if(isrobot(target))
 			camera = silicon_target.get_component("camera")
 			if(!camera)
@@ -111,6 +115,7 @@
 		to_chat(user, SPAN_WARNING("You can't find [target]'s [ismachineperson(target) ? "camera" : "eyes"] because they have no head!"))
 		return ITEM_INTERACT_COMPLETE
 
+	add_fingerprint(user)
 	var/obj/item/organ/internal/eyes/eyes = human_target.get_int_organ(/obj/item/organ/internal/eyes)
 	if(!eyes)
 		to_chat(user, SPAN_WARNING("[target] has no [ismachineperson(target) ? "camera" : "eyes"]!"))
