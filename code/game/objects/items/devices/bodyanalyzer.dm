@@ -96,6 +96,8 @@
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/target, mob/user)
 	if(!ishuman(target) && !iscorgi(target))
 		to_chat(user, SPAN_NOTICE("Scanning error detected. Invalid specimen."))
+		return
+
 	if(iscorgi(target) && target.stat == DEAD)
 		to_chat(user, SPAN_NOTICE("You wonder if [target.p_they()] was a good dog. <b>[src] tells you they were the best...</b>")) // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
