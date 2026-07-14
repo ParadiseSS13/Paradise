@@ -18,6 +18,7 @@
 	var/usecharge = 750
 	var/scan_time = 5 SECONDS //how long does it take to scan
 	var/scan_cd = 30 SECONDS //how long before we can scan again
+	new_attack_chain = TRUE
 
 /obj/item/bodyanalyzer/get_cell()
 	return cell
@@ -60,65 +61,71 @@
 	if(printing)
 		. += "bodyanalyzer_printing"
 
-/obj/item/bodyanalyzer/attack__legacy__attackchain(mob/living/M, mob/living/carbon/human/user)
-	if(user.incapacitated() || !user.Adjacent(M))
-		return
+/obj/item/bodyanalyzer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(user.incapacitated() || !user.Adjacent(target))
+		return ITEM_INTERACT_COMPLETE
 
 	if(!ready)
 		to_chat(user, SPAN_NOTICE("The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(cell.charge >= usecharge)
-		mobScan(M, user)
-	else
-		to_chat(user, SPAN_NOTICE("The scanner beeps angrily at you! It's out of charge!"))
-		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+		mobScan(target, user)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/bodyanalyzer/borg/attack__legacy__attackchain(mob/living/M, mob/living/silicon/robot/user)
-	if(user.incapacitated() || !user.Adjacent(M))
-		return
+	to_chat(user, SPAN_NOTICE("The scanner beeps angrily at you! It's out of charge!"))
+	playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/bodyanalyzer/borg/interact_with_atom(atom/target, mob/living/silicon/robot/user, list/modifiers)
+	if(user.incapacitated() || !user.Adjacent(target))
+		return ITEM_INTERACT_COMPLETE
 
 	if(!ready)
 		to_chat(user, SPAN_NOTICE("[src] is currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.cell.charge >= usecharge)
-		mobScan(M, user)
-	else
-		to_chat(user, SPAN_NOTICE("You need to recharge before you can use [src]"))
+		mobScan(target, user)
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
-	if(ishuman(M))
-		var/report = generate_printing_text(M, user)
-		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
-		if(do_after(user, scan_time, target = M))
-			var/obj/item/paper/printout = new
-			printout.info = report
-			printout.name = "Scan report - [M.name]"
-			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			user.put_in_hands(printout)
-			time_to_use = world.time + scan_cd
-			if(isrobot(user))
-				var/mob/living/silicon/robot/R = user
-				R.cell.use(usecharge)
-			else
-				cell.use(usecharge)
-			ready = FALSE
-			printing = TRUE
-			update_icon()
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
-			addtimer(VARSET_CALLBACK(src, printing, FALSE), 1.4 SECONDS)
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_OVERLAYS), 1.5 SECONDS)
-	else if(iscorgi(M) && M.stat == DEAD)
-		to_chat(user, SPAN_NOTICE("You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b>")) // :'(
+	to_chat(user, SPAN_NOTICE("You need to recharge before you can use [src]"))
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/bodyanalyzer/proc/mobScan(mob/living/target, mob/user)
+	if(!ishuman(target) && !iscorgi(target))
+		to_chat(user, SPAN_NOTICE("Scanning error detected. Invalid specimen."))
+	if(iscorgi(target) && target.stat == DEAD)
+		to_chat(user, SPAN_NOTICE("You wonder if [target.p_they()] was a good dog. <b>[src] tells you they were the best...</b>")) // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
 		time_to_use = world.time + scan_cd
+		return
+
+	var/report = generate_printing_text(target, user)
+	user.visible_message("[user] begins scanning [target] with [src].", "You begin scanning [target].")
+	if(!do_after(user, scan_time, target = target))
+		return
+	var/obj/item/paper/printout = new
+	printout.info = report
+	printout.name = "Scan report - [target.name]"
+	playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	user.put_in_hands(printout)
+	time_to_use = world.time + scan_cd
+	if(isrobot(user))
+		var/mob/living/silicon/robot/R = user
+		R.cell.use(usecharge)
 	else
-		to_chat(user, SPAN_NOTICE("Scanning error detected. Invalid specimen."))
+		cell.use(usecharge)
+	ready = FALSE
+	printing = TRUE
+	update_icon()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
+	addtimer(VARSET_CALLBACK(src, printing, FALSE), 1.4 SECONDS)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_OVERLAYS), 1.5 SECONDS)
 
 //Unashamedly ripped from adv_med.dm
 /obj/item/bodyanalyzer/proc/generate_printing_text(mob/living/M, mob/user)
