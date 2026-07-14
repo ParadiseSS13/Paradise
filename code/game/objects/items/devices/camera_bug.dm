@@ -35,6 +35,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	ui_interact(user)
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/camera_bug/ui_state(mob/user)
