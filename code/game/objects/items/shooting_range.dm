@@ -9,7 +9,7 @@
 
 /obj/item/target/Destroy()
 	cut_overlays()
-	// If a target is deleted and associated with a stake, force stake to forget.S
+	// If a target is deleted and associated with a stake, force stake to forget.
 	for(var/obj/structure/target_stake/T in view(3, src))
 		if(T.pinned_target == src)
 			T.pinned_target = null
