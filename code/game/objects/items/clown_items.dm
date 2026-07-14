@@ -43,10 +43,12 @@
 
 /obj/item/bikehorn/golden/attack(mob/living/target, mob/living/carbon/human/user)
 	flip_mobs(user)
+	add_fingerprint(user)
 	return ..()
 
 /obj/item/bikehorn/golden/activate_self(mob/user)
 	flip_mobs(user)
+	add_fingerprint(user)
 	return ..()
 
 /obj/item/bikehorn/golden/proc/flip_mobs(mob/user)
@@ -89,12 +91,14 @@
 		return ITEM_INTERACT_COMPLETE
 	playsound(src, pick('sound/voice/sitcom_laugh.ogg', 'sound/voice/sitcom_laugh2.ogg'), 50, FALSE)
 	cooldown = HAS_TRAIT(src, TRAIT_CMAGGED) ? world.time + LAUGH_COOLDOWN_CMAG : world.time + LAUGH_COOLDOWN
+	add_fingerprint(user)
 
 /obj/item/clown_recorder/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return FALSE
 	to_chat(user, SPAN_NOTICE("Winding back speed has been improved by the bananium ooze!"))
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	add_fingerprint(user)
 	return TRUE
 
 #undef LAUGH_COOLDOWN
