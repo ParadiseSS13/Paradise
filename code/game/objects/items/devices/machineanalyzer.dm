@@ -22,7 +22,7 @@
 	msgs += SPAN_NOTICE("Chassis Temperature: ???")
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-/obj/item/robotanalyzer/interact_with_atom(atom/target, mob/living/user, list/modifiers) // Scanning a machine object
+/obj/item/robotanalyzer/interact_with_atom(atom/target, mob/living/user, list/modifiers) // Scanning a machine object.
 	if(!ismachinery(target) && !ismob(target))
 		return ..()
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
