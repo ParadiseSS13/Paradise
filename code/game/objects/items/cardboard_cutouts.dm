@@ -23,6 +23,7 @@
 		return ..()
 	user.visible_message(SPAN_WARNING("[user] pushes over [src]!"), SPAN_DANGER("You push over [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+	add_fingerprint(user)
 	push_over()
 
 /obj/item/cardboard_cutout/proc/push_over()
@@ -44,6 +45,7 @@
 	icon = initial(icon)
 	icon_state = initial(icon_state) // This resets a cutout to its blank state - this is intentional to allow for resetting.
 	pushed_over = FALSE
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/cardboard_cutout/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -70,6 +72,7 @@
 
 		if(prob(used.force))
 			push_over()
+	add_fingerprint(user)
 
 /obj/item/cardboard_cutout/bullet_act(obj/projectile/P)
 	visible_message(SPAN_DANGER("[src] is hit by [P]!"))
@@ -104,6 +107,7 @@
 		SPAN_NOTICE("Voila! You give [src] a new look."),
 		SPAN_HEAR("You hear a crayon scribbling on cardboard.")
 	)
+	add_fingerprint(user)
 	alpha = 255
 	icon = initial(icon)
 	if(!deceptive)
@@ -222,7 +226,7 @@
 			desc = "A cardboard cutout of a vampire."
 			icon_state = "cutout_vampire"
 
-	return 1
+	return TRUE
 
 /obj/item/cardboard_cutout/setDir()
 	dir = SOUTH
