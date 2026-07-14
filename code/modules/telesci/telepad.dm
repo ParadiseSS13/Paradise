@@ -8,7 +8,6 @@
 	idle_power_consumption = 200
 	active_power_consumption = 5000
 	var/efficiency
-	new_attack_chain = TRUE
 
 /obj/machinery/telepad/Initialize(mapload)
 	. = ..()
