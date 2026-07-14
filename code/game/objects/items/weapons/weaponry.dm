@@ -148,11 +148,25 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/spear/kidan
-	name = "\improper Kidan spear"
-	desc = "A one-handed spear brought over from the Kidan homeworld."
+/obj/item/kidan_spear
+	name = "\improper kidan spear"
+	desc = "A one-handed spear made of a design that traces back to the kidan homeworld."
+	icon = 'icons/obj/weapons/spears.dmi'
 	icon_state = "kidanspear"
-	throwforce = 15
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	force = 15
+	throwforce = 18
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	materials = list(MAT_METAL = 500, MAT_PLASMA = 500, MAT_TITANIUM = 500)
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	sharp = TRUE
+	armor_penetration_flat = 5
+	no_spin_thrown = TRUE
+	needs_permit = TRUE
+	resistance_flags = FIRE_PROOF
 
 /obj/item/melee/baseball_bat
 	name = "baseball bat"

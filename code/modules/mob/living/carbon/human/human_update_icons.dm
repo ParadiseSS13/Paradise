@@ -1262,6 +1262,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!body_accessory.try_restrictions(src))
 		return
 
+	dna.species.updatespeciescolor(src)
 	var/icon/spines_icon = new /icon(body_accessory.icon, spines)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		spines_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)

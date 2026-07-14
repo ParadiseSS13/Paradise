@@ -188,7 +188,7 @@
 		if(scan_id)
 			var/accepted
 			for(var/req in req_access_claim)
-				if(req in ID.access)
+				if(req in ID.GetAccess())
 					accepted = TRUE
 					break
 			if(!accepted)
@@ -283,7 +283,7 @@
 /obj/machinery/mineral/ore_redemption/emag_act(mob/user)
 	if(emagged)
 		return FALSE
-	
+
 	to_chat(user, SPAN_NOTICE("You short out the ID scanner on [src], allowing anyone to access it."))
 	scan_id = FALSE
 	emagged = TRUE
@@ -326,10 +326,10 @@
 /obj/machinery/mineral/ore_redemption/proc/is_electrified()
 	if(!is_powered())
 		return FALSE
-	
+
 	if(wires.is_cut(WIRE_ELECTRIFY) || !COOLDOWN_FINISHED(src, temp_shock))
 		return TRUE
-	
+
 	return FALSE
 
 // MARK: UI
@@ -381,7 +381,7 @@
 	. = TRUE
 	switch(action)
 		if("sheet", "alloy")
-			if(!allowed(usr))
+			if(scan_id && !allowed(usr))
 				to_chat(usr, SPAN_WARNING("Required access not found."))
 				return FALSE
 			var/id = params["id"]
@@ -590,7 +590,7 @@
 	give_points(inserted_type, inserted)
 	SStgui.update_uis(src)
 
-// MARK: Wires 
+// MARK: Wires
 /datum/wires/ore_redemption
 	holder_type = /obj/machinery/mineral/ore_redemption
 	wire_count = 3
@@ -642,7 +642,7 @@
 	var/obj/machinery/mineral/ore_redemption/orm = holder
 	. += "The orange light is [(orm.is_electrified()) ? "off" : "on"]."
 	. += "The red light is [(orm.throw_inventory && orm.is_powered()) ? "off" : "blinking"]."
-	. += "The ID scanner light is [(orm.scan_id && !orm.emagged && orm.is_powered()) ? "off" : "on"]."
+	. += "The ID scanner light is [(orm.scan_id && !orm.emagged && orm.is_powered()) ? "on" : "off"]."
 
 /obj/machinery/mineral/ore_redemption/get_internal_wires()
 	return wires

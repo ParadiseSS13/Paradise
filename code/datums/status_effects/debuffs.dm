@@ -1605,3 +1605,47 @@
 		new /obj/effect/temp_visual/temporal_slash(get_turf(owner), owner)
 
 #undef FINISHER_THRESHOLD
+
+/datum/status_effect/ice_block_talisman
+	id = "ice_block_talisman"
+	duration = 4 SECONDS
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = /atom/movable/screen/alert/status_effect/ice_block_talisman
+	/// Stored icon overlay for the hit mob, removed when effect is removed
+	var/icon/cube
+
+/datum/status_effect/ice_block_talisman/on_creation(mob/living/new_owner, set_duration)
+	if(isnum(set_duration))
+		duration = set_duration
+	return ..()
+
+/atom/movable/screen/alert/status_effect/ice_block_talisman
+	name = "Frozen Solid"
+	desc = "You're frozen inside an ice cube, and cannot move!"
+	icon_state = "frozen"
+
+/datum/status_effect/ice_block_talisman/on_apply()
+	RegisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(owner_moved))
+	if(!owner.stat)
+		to_chat(owner, SPAN_USERDANGER("You become frozen in a cube!"))
+	cube = icon('icons/effects/freeze.dmi', "ice_cube")
+	var/list/icon_dimensions = get_icon_dimensions(owner.icon)
+	cube.Scale(icon_dimensions["width"], icon_dimensions["height"])
+	owner.add_overlay(cube)
+	return ..()
+
+/// Blocks movement from the status effect owner
+/datum/status_effect/ice_block_talisman/proc/owner_moved()
+	SIGNAL_HANDLER
+	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
+/datum/status_effect/ice_block_talisman/be_replaced()
+	owner.cut_overlay(cube)
+	UnregisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE)
+	return ..()
+
+/datum/status_effect/ice_block_talisman/on_remove()
+	if(!owner.stat)
+		to_chat(owner, SPAN_NOTICE("The cube melts!"))
+	owner.cut_overlay(cube)
+	UnregisterSignal(owner, COMSIG_MOVABLE_PRE_MOVE)

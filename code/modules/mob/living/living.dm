@@ -747,6 +747,8 @@
 					existing_trail.color = H.dna.species.blood_color
 			else if(isalien(src))
 				existing_trail.color = "#05EE05"
+			else if(isflockmob(src))
+				existing_trail.color = COLOR_BLOOD_FLOCK
 			else
 				existing_trail.color = "#A10808"
 

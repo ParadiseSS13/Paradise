@@ -208,7 +208,7 @@
 /obj/item/flag/chameleon
 	name = "chameleon flag"
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
-	origin_tech = "syndicate=1;magnets=4"
+	origin_tech = "materials=5;magnets=4;syndicate=1"
 	var/updated_icon_state = null
 	var/used = FALSE
 	var/obj/item/grenade/boobytrap = null

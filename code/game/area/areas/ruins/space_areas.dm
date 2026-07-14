@@ -337,3 +337,43 @@
 
 /area/ruin/space/kappa_lab/bridge
 	name = "\improper Kappa Lab Bridge"
+
+/area/ruin/space/powered/ragnarok/bridge
+	name = "Ragnarok Bridge"
+
+/area/ruin/space/powered/ragnarok/dining_hall
+	name = "Ragnarok Dining Hall"
+
+/area/ruin/space/powered/ragnarok/teleporter
+	name = "Ragnarok Teleporter Hub"
+
+/area/ruin/space/powered/ragnarok/bakery
+	name = "Ragnarok Bakery"
+
+/area/ruin/space/powered/ragnarok/bathhouse
+	name = "Ragnarok Bathhouse"
+
+/area/ruin/space/powered/ragnarok/garden
+	name = "Ragnarok Gardens"
+
+/area/ruin/space/powered/ragnarok/foyer
+	name = "Ragnarok Foyer"
+
+/area/ruin/space/powered/ragnarok/kitchen
+	name = "Ragnarok Kitchen"
+
+/area/ruin/space/powered/ragnarok/throne
+	name = "Ragnarok Throneroom"
+
+/area/ruin/space/powered/ragnarok/vault
+	name = "Ragnarok Vault"
+
+/area/ruin/space/powered/ragnarok/engine
+	name = "Ragnarok Engine Bay"
+
+
+/area/ruin/space/powered/ragnarok/maints
+	name = "Ragnarok Maintenance"
+
+/area/ruin/space/powered/ragnarok/atmos
+	name = "Ragnarok Atmospherics Bay"

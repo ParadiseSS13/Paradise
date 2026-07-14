@@ -1,6 +1,5 @@
-//Shared Bag
-
-//Internal
+// MARK: Paradox Bag
+// External storage.
 /obj/item/storage/backpack/shared
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
@@ -11,7 +10,7 @@
 /obj/item/storage/backpack/shared/Adjacent(atom/neighbor, recurse = 1)
 	return red?.Adjacent(neighbor, recurse) || blue?.Adjacent(neighbor, recurse)
 
-//External
+// Internal storage.
 /obj/item/shared_storage
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
@@ -22,6 +21,7 @@
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
+	origin_tech = "bluespace=6"
 	var/obj/item/storage/backpack/shared/bag
 
 /obj/item/shared_storage/Moved(atom/oldloc, dir, forced = FALSE)
@@ -99,23 +99,28 @@
 
 			add_fingerprint(M)
 
-//Book of Babel
-
+// MARK: Book of Babel
 /obj/item/book_of_babel
 	name = "Book of Babel"
-	desc = "An ancient tome written in countless tongues."
+	desc = "An ancient tome written in countless tongues. The text on the pages is so small and dense that it appears to be a solid black mass until viewed up close."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book1"
-	w_class = 2
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "programming=7"
+	new_attack_chain = TRUE
 
-/obj/item/book_of_babel/attack_self__legacy__attackchain(mob/user)
-	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
+/obj/item/book_of_babel/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You flip through the pages of the book, quickly and conveniently learning every language in existence."))
+	to_chat(user, SPAN_WARNING("Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops!"))
 	user.grant_all_babel_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
-//Boat
-
+// MARK: Lava Boat
 /obj/vehicle/lavaboat
 	name = "lava boat"
 	desc = "A boat used for traversing lava."
@@ -174,19 +179,25 @@
 	time = 50
 	category = CAT_PRIMAL
 
-//Dragon Boat
-
+// MARK: Ship in Bottle
 /obj/item/ship_in_a_bottle
 	name = "ship in a bottle"
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
+	materials = list(MAT_GLASS = 4000)
+	origin_tech = "engineering=5;bluespace=5"
+	new_attack_chain = TRUE
 
-/obj/item/ship_in_a_bottle/attack_self__legacy__attackchain(mob/user)
+/obj/item/ship_in_a_bottle/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	new /obj/vehicle/lavaboat/dragon(get_turf(src))
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/vehicle/lavaboat/dragon
 	name = "mysterious boat"
@@ -197,49 +208,24 @@
 	generic_pixel_x = 1
 	vehicle_move_delay = 1
 
-//Wisp Lantern
+// MARK: Wisp Lantern
 /obj/item/wisp_lantern
 	name = "spooky lantern"
-	desc = "This lantern gives off no light, but is home to a friendly wisp."
+	desc = "This spooky lantern is home to a friendly wisp. You can let it out, but it'll return if you don't hold the lanern in your hands or on your belt."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
 	inhand_icon_state = "lantern"
 	light_range = 7
+	light_color = "#4882E9"
+	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000)
+	origin_tech = "biotech=6;magnets=5"
+	new_attack_chain = TRUE
 	var/obj/effect/wisp/wisp
+	/// Tracks who the wisp is orbiting.
+	var/mob/living/wisp_friend
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-
-/obj/item/wisp_lantern/attack_self__legacy__attackchain(mob/user)
-	if(!wisp)
-		to_chat(user, SPAN_WARNING("The wisp has gone missing!"))
-		icon_state = "lantern"
-		return
-
-	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
-
-		to_chat(user, SPAN_NOTICE("You release the wisp. It begins to bob around your head."))
-		icon_state = "lantern"
-		wisp.orbit(user, 20, lock_in_orbit = TRUE)
-		set_light(0)
-
-		user.update_sight()
-		to_chat(user, SPAN_NOTICE("The wisp enhances your vision."))
-
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
-	else
-		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
-
-		to_chat(user, SPAN_NOTICE("You return the wisp to the lantern."))
-		wisp.stop_orbit()
-		wisp.forceMove(src)
-		set_light(initial(light_range))
-
-		user.update_sight()
-		to_chat(user, SPAN_NOTICE("Your vision returns to normal."))
-
-		icon_state = "lantern-blue"
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
@@ -247,13 +233,63 @@
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
-		if(wisp.loc == src)
+		if(wisp.loc != src)
+			send_wisp_home()
 			qdel(wisp)
-		else
-			wisp.visible_message(SPAN_NOTICE("[wisp] has a sad feeling for a moment, then it passes."))
+
 	return ..()
 
+/obj/item/wisp_lantern/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!wisp)
+		wisp = new(src)
+
+	if(!wisp_friend)
+		wisp_friend = user
+		RegisterSignal(wisp_friend, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
+		wisp_friend.update_sight()
+		set_light(2, 2, "#8AFFFF")
+		wisp.orbit(wisp_friend, 20, lock_in_orbit = TRUE)
+		to_chat(wisp_friend, SPAN_NOTICE("You release the wisp. It begins to bob around your head as [src] darkens."))
+		to_chat(wisp_friend, SPAN_NOTICE("The wisp enhances your vision."))
+		update_appearance(UPDATE_ICON_STATE)
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You return the wisp to [src]."))
+	send_wisp_home()
+
+/obj/item/wisp_lantern/update_icon_state()
+	. = ..()
+	if(wisp_friend)
+		icon_state = "lantern"
+	else
+		icon_state = "lantern-blue"
+
+/obj/item/wisp_lantern/dropped()
+	. = ..()
+	if(!wisp_friend)
+		return
+
+	if(loc == wisp_friend)
+		return
+
+	send_wisp_home()
+
+/obj/item/wisp_lantern/proc/send_wisp_home()
+	UnregisterSignal(wisp_friend, COMSIG_MOB_UPDATE_SIGHT)
+	wisp.stop_orbit()
+	wisp.forceMove(src)
+	wisp_friend.update_sight()
+	to_chat(wisp_friend, SPAN_WARNING("Your vision returns to normal as the wisp returns to [src]."))
+	set_light(initial(light_range), initial(light_power), initial(light_color))
+	visible_message(SPAN_NOTICE("[src] begins to glow brightly as the wisp returns to it."))
+	wisp_friend = null
+	update_appearance(UPDATE_ICON_STATE)
+
 /obj/item/wisp_lantern/proc/update_user_sight(mob/user)
+	SIGNAL_HANDLER // COMSIG_MOB_UPDATE_SIGHT
 	user.sight |= sight_flags
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
@@ -263,15 +299,17 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
 
-//Red/Blue Cubes
+// MARK: Warp Cubes
 /obj/item/warp_cube
 	name = "blue cube"
 	desc = "A mysterious blue cube."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
+	materials = list(MAT_METAL = 8000, MAT_PLASMA = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
+	origin_tech = "bluespace=6;magnets=6"
+	new_attack_chain = TRUE
 	var/obj/item/warp_cube/linked
 	var/cooldown = FALSE
 
@@ -281,23 +319,30 @@
 		linked = null
 	return ..()
 
-/obj/item/warp_cube/attack_self__legacy__attackchain(mob/user)
+/obj/item/warp_cube/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!linked)
 		to_chat(user, "[src] fizzles uselessly.")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, SPAN_WARNING("[src] sparks and fizzles."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(cooldown)
 		to_chat(user, SPAN_WARNING("[src] sparks and fizzles."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked)) & COMPONENT_BLOCK_TELEPORT)
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
+
 	if(is_station_level(user.z) && !iswizard(user)) // specifically not station (instead of lavaland) so it works for explorers potentially
 		user.visible_message(SPAN_WARNING("[user] begins to channel [src]!"), SPAN_WARNING("You begin channeling [src], cutting through the interference of the station!"))
 		if(!do_after_once(user, 4 SECONDS, TRUE, src, allow_moving = TRUE, must_be_held = TRUE))
-			return
+			return ITEM_INTERACT_COMPLETE
+
 	user.visible_message(SPAN_WARNING("[user] disappears in a puff of smoke!"))
 
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -313,6 +358,7 @@
 	cooldown = TRUE
 	linked.cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset)), 20 SECONDS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/warp_cube/proc/reset()
 	cooldown = FALSE
@@ -330,8 +376,7 @@
 		linked = blue
 		blue.linked = src
 
-//Meat Hook
-
+// MARK: Meat Hook
 /obj/item/gun/magic/hook
 	name = "meat hook"
 	desc = "Mid or feed."
@@ -345,6 +390,8 @@
 	flags = NOBLUDGEON
 	force = 18
 	antimagic_flags = NONE
+	materials = list(MAT_METAL = 20000)
+	origin_tech = "combat=5;engineering=5"
 
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
@@ -386,8 +433,7 @@
 	QDEL_NULL(chain)
 	return ..()
 
-//Immortality Talisman
-
+// MARK: Immortality Talisman
 /obj/item/immortality_talisman
 	name = "\improper Immortality Talisman"
 	desc = "A dread talisman that can render you completely invulnerable."
@@ -396,6 +442,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
+	materials = list(MAT_BLUESPACE = 1000, MAT_PLASMA = 1000)
+	origin_tech = "bluespace=6;magnets=6"
+	new_attack_chain = TRUE
 	var/cooldown = 0
 
 /obj/item/immortality_talisman/Initialize(mapload)
@@ -422,7 +471,10 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/item/immortality_talisman/attack_self__legacy__attackchain(mob/user)
+/obj/item/immortality_talisman/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(cooldown < world.time)
 		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
@@ -443,6 +495,7 @@
 			qdel(Z)
 	else
 		to_chat(user, SPAN_WARNING("[src] is still recharging."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
