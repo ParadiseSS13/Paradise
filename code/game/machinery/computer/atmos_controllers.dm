@@ -675,9 +675,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					scrubber.scrub_N2 = !scrubber.scrub_N2
 				if("o2_scrub")
 					scrubber.scrub_O2 = !scrubber.scrub_O2
-				if("scrub_h2")
+				if("h2_scrub")
 					scrubber.scrub_H2 = !scrubber.scrub_H2
-				if("scrub_h2o")
+				if("h2o_scrub")
 					scrubber.scrub_H2O = !scrubber.scrub_H2O
 				if("widenet")
 					scrubber.widenet = !scrubber.widenet
