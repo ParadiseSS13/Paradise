@@ -107,3 +107,4 @@
 	new /obj/machinery/telepad_cargo(user.loc)
 	playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
