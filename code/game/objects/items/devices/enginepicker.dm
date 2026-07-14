@@ -48,9 +48,12 @@
 
 /// Spawns and logs / announces the appropriate engine based on the choice made.
 /obj/item/enginepicker/proc/processchoice(obj/item/beacon/engine/choice, mob/living/carbon/user)
-	var/issuccessful = FALSE	// Check for a successful choice.
-	var/engtype					// Engine type.
-	var/G						// Generator that will be spawned.
+	/// Check for a successful choice.
+	var/issuccessful = FALSE
+	/// Engine type.
+	var/engtype
+	/// Generator that will be spawned.			
+	var/G						
 	var/turf/T = get_turf(choice)
 
 	if(length(choice.enginetype) > 1)	// If the beacon has multiple engine types.
@@ -84,19 +87,19 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			announcer.say(";Engine delivery detected. Type: [engtype].")	// Let's announce the terrible choice to everyone.
 
-		visible_message(SPAN_NOTICE("[src] begins to violently vibrate and hiss, then promptly disintegrates!"))
+		visible_message(SPAN_WARNING("[src] begins to violently vibrate and hiss, then promptly disintegrates!"))
 		qdel(src)	// Self-destructs to prevent crew from spawning multiple engines.
 	else
-		visible_message(SPAN_NOTICE("[src] buzzes! No beacon found or selected!"))
+		visible_message(SPAN_WARNING("[src] buzzes! No beacon found or selected!"))
 		isactive = FALSE
 		return
 
 // Deletes objects and mobs from the beacon's turf.
 /obj/item/enginepicker/proc/clearturf(turf/T)
 	for(var/obj/item/I in T)
-		I.visible_message("[I] gets crushed to dust!")
+		I.visible_message(SPAN_WARNING("[I] gets crushed to dust!"))
 		qdel(I)
 
 	for(var/mob/living/M in T)
-		M.visible_message("[M] gets obliterated!")
+		M.visible_message(SPAN_DANGER("[M] gets obliterated!"))
 		M.gib()
