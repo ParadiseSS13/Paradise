@@ -606,6 +606,7 @@
 		return ITEM_INTERACT_COMPLETE
 	if(is_pen(used))
 		rename_interactive(user, used)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 /obj/item/disk/plantgene/update_name()
@@ -671,6 +672,7 @@
 		return ITEM_INTERACT_COMPLETE
 	read_only = !read_only
 	to_chat(user, SPAN_NOTICE("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/disk/plantgene/cmag_act(mob/user)

@@ -62,6 +62,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	read_only = !read_only
+	add_fingerprint(user)
 	to_chat(user, SPAN_NOTICE("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
 	return ITEM_INTERACT_COMPLETE
 
