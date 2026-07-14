@@ -33,6 +33,7 @@
 	if(armed)
 		armed = FALSE
 		to_chat(user, SPAN_NOTICE("You disarm \the [src]."))
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 	timing = !timing
 	if(timing)
@@ -41,6 +42,7 @@
 		armed = FALSE
 		timepassed = 0
 	to_chat(human_user, SPAN_NOTICE("You [timing ? "activate [src]'s timer, you have 15 seconds." : "de-activate [src]'s timer."]"))
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/caution/proximity_sign/process()
