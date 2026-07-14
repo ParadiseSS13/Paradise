@@ -100,7 +100,7 @@
 		var/list/msgs = list()
 		user.visible_message(
 			SPAN_WARNING("[user] analyzes the floor's vitals!"),
-			SPAN_NOTICE("You stupidly try to analyze the floor's vitals!")
+			SPAN_WARNING("You stupidly try to analyze the floor's vitals!")
 		)
 		msgs += SPAN_NOTICE("Analyzing results for The floor:\nOverall status: Healthy")
 		msgs += SPAN_NOTICE("Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burn</font>/<font color='red'>Brute</font>")
@@ -133,7 +133,7 @@
 		msgs += SPAN_WARNING("<b>Warning: Blood Level ERROR: --% --cl.</span><span class='notice'>Type: ERROR")
 		msgs += SPAN_NOTICE("Subject's pulse: <font color='red'>-- bpm.</font>")
 		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/probably_dead = (M.stat == DEAD)
 
