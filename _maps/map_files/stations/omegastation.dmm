@@ -11893,6 +11893,10 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	layer = 2
 	},
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 27
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "bac" = (
@@ -33075,6 +33079,10 @@
 /area/station/public/storage/tools)
 "lOm" = (
 /obj/structure/closet/bombcloset,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
 "lOS" = (
