@@ -594,9 +594,9 @@
 	implant_overlay = null
 	implant_color = null
 	icon_state = "neural_comp"
-	slot = "brain_antistun" // MIXTODO - Ask design on if this should actually occupy the antistun slot.
+	slot = "brain_antistun"
 	var/network_manager_uid = null
-	var/list/point_gen = list("research" = 20, "illegal" = 10) // MIXTODO - Balance later
+	var/list/point_gen = list("research" = 20) // MIXTODO - Balance later
 	var/disabled = FALSE
 	/// Brain damage gained on EMP.
 	var/brain_damage = 30
@@ -609,7 +609,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/neural_computer/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
-	if(!network_manager_uid)
+	if(!network_manager_uid) // MIXTODO - Fix runtime and failure when multi-tooling in hand.
 		var/list/controllers = list()
 		for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
 			if(atoms_share_level(RNC, src))

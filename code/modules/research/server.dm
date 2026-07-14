@@ -140,7 +140,8 @@
 		if(send_points == TRUE && !network_manager_uid)	// We cant send points to the aether if theres no connected network.
 			send_points = FALSE
 		for(var/i in point_generation)
-			var/list/tl = point_generation[i] * (efficiency_coeff / point_generation.len)
+			var/list/tl = point_generation
+			tl[i] *= (efficiency_coeff / point_generation.len) // We divide by length so generating a second type doesnt double the output.
 			if(send_points == TRUE)
 				var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
 				RNC.research_files.addpoints(tl)
