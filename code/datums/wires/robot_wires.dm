@@ -21,12 +21,12 @@
 	switch(wire)
 		if(WIRE_BORG_LAWCHECK) //Cut the law wire, and the borg will no longer receive law updates from its AI
 			if(!mend)
-				if(!R.deployed)
-					R.lawupdate = FALSE
 				if(R.lawupdate)
 					to_chat(R, "LawSync protocol engaged.")
 					R.lawsync()
 					R.show_laws()
+				if(!R.deployed)
+					R.lawupdate = FALSE
 			else
 				if(!R.lawupdate && !R.emagged)
 					R.lawupdate = TRUE
