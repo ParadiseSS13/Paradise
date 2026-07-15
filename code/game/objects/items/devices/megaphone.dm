@@ -74,6 +74,7 @@
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			message = pick(insultmsg)
 		say_msg(user, message)
+		add_fingerprint(user)
 
 		on_cooldown = TRUE
 		addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), (HAS_TRAIT(src, TRAIT_CMAGGED) || emagged) ? modified_cooldown : normal_cooldown)
