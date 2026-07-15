@@ -776,7 +776,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	for(var/obj/item/borg/upgrade/U in contents)
 		if(istype(U, /obj/item/borg/upgrade/reset)) // The reset module is supposed to be consumed on use, this stops it from dropping on the floor if used
 			QDEL_NULL(U)
-		if(istype(U, /obj/item/borg/upgrade/ai)) // So you can chnage the shell module but not drop the BORIS module.
+		if(istype(U, /obj/item/borg/upgrade/ai)) // So you can change the shell module but not drop the BORIS module.
 			continue
 		U.forceMove(get_turf(src))
 
