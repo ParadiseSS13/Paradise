@@ -8,7 +8,7 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
-	w_class = WEIGHT_CLASS_SMALL // Increased to 2, because diodes are w_class 2. Conservation of matter.
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=1;magnets=2"
 	var/pointer_icon_state
 	var/energy = 5
@@ -65,11 +65,13 @@
 		return ..()
 
 	if(diode)
-		to_chat(user, SPAN_WARNING("[src] already has a cell!"))
+		to_chat(user, SPAN_WARNING("There's already a [diode.name] inside [src]!"))
 		return ITEM_INTERACT_COMPLETE
 
-	user.drop_item()
-	used.loc = src
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+	used.forceMove(src)
 	diode = used
 	to_chat(user, SPAN_NOTICE("You install [diode] in [src]."))
 	return ITEM_INTERACT_COMPLETE
