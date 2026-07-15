@@ -1,4 +1,4 @@
-/// iIf the icon_state for the TTV's tank is in assemblies.dmi
+/// If the icon_state for the TTV's tank is in `assemblies.dmi`.
 #define TTV_TANK_ICON_STATES list("anesthetic", "emergency", "emergency_double", "emergency_engi", "emergency_sleep", "jetpack", "jetpack_black", "jetpack_void", "oxygen", "oxygen_f", "oxygen_fr", "plasma")
 
 /obj/item/transfer_valve
@@ -57,23 +57,23 @@
 
 	var/obj/item/assembly/assembly = used
 	if(assembly.secured)
-		to_chat(user, SPAN_WARNING("The device is secured!"))
+		to_chat(user, SPAN_WARNING("[assembly] is secured and cannot be attached! Loosen it with a screwdriver."))
 		return ITEM_INTERACT_COMPLETE
 	if(attached_device)
-		to_chat(user, SPAN_WARNING("There is already a device attached to the valve, remove it first!"))
+		to_chat(user, SPAN_WARNING("There is already a [attached_device.name] attached to the valve, remove it first!"))
 		return ITEM_INTERACT_COMPLETE
 	if(!user.transfer_item_to(assembly, src))
 		return ITEM_INTERACT_COMPLETE
 	attached_device = assembly
 	to_chat(user, SPAN_NOTICE("You attach [assembly] to the valve controls and secure it."))
 	assembly.holder = src
-	assembly.toggle_secure()	// This calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
+	assembly.toggle_secure()	// This calls `update_icon()`, which calls `update_icon()` on the holder (i.e. the bomb).
 
 	investigate_log("[key_name(user)] attached a [assembly] to a transfer valve.", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "attached [assembly] to a transfer valve", ATKLOG_FEW)
 	log_game("[key_name_admin(user)] attached [assembly] to a transfer valve.")
 	attacher = user
-	SStgui.update_uis(src) // update all UIs attached to src
+	SStgui.update_uis(src) // Update all UIs attached to src.
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
