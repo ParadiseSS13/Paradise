@@ -106,6 +106,14 @@
 
 /obj/item/analyzer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	..()
+	if(target.return_analyzable_air())
+		atmos_scan(user, target, detailed = show_detailed)
+	else
+		atmos_scan(user, get_turf(target), detailed = show_detailed)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/analyzer/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	..()
 	if(!can_see(user, target, 1))
 		return ITEM_INTERACT_COMPLETE
 	if(target.return_analyzable_air())
