@@ -17,6 +17,7 @@
 	var/span = "reallybig"
 	/// List of insults to be sent when the megaphone is cmagged.
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
+	new_attack_chain = TRUE
 
 /obj/item/megaphone/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] is uttering [user.p_their()] last words into [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -30,35 +31,41 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		. += SPAN_WARNING("Yellow ooze seems to be seeping from the speaker...")
 
-/obj/item/megaphone/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/megaphone/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(check_mute(user.ckey, MUTE_IC))
-		to_chat(src, SPAN_WARNING("You cannot speak in IC (muted)."))
-		return
+		to_chat(src, SPAN_WARNING("You cannot speak in IC (muted)!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(!ishuman(user))
 		to_chat(user, SPAN_WARNING("You don't know how to use this!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(!user.can_speak())
-		to_chat(user, SPAN_WARNING("You find yourself unable to speak at all."))
-		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/abductor/H = user
-		if(isabductor(H))
-			to_chat(user, SPAN_WARNING("Megaphones can't project psionic communication!"))
-			return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H && H.mind && H.mind.miming)
-			to_chat(user, SPAN_WARNING("Your vow of silence prevents you from speaking."))
-			return
-		if(HAS_TRAIT(H, TRAIT_COMIC_SANS))
-			span = "sans"
+		to_chat(user, SPAN_WARNING("You find yourself unable to speak at all!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(isabductor(user))
+		to_chat(user, SPAN_WARNING("Megaphones can't project psionic communication!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/mob/living/carbon/human/H = user
+	if(H && H.mind && H.mind.miming)
+		to_chat(user, SPAN_WARNING("Your vow of silence prevents you from speaking!"))
+		return ITEM_INTERACT_COMPLETE
+
 	if(on_cooldown)
 		to_chat(user, SPAN_WARNING("[src] needs to recharge!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
+	if(HAS_TRAIT(H, TRAIT_COMIC_SANS))
+		span = "sans"
 
 	var/message = tgui_input_text(user, "Shout a message:", "Megaphone")
 	if(!message)
-		return
+		return ITEM_INTERACT_COMPLETE
 	message = capitalize(message)
 	var/list/message_pieces = message_to_multilingual(message)
 	user.handle_speech_problems(message_pieces)
@@ -70,6 +77,7 @@
 
 		on_cooldown = TRUE
 		addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), (HAS_TRAIT(src, TRAIT_CMAGGED) || emagged) ? modified_cooldown : normal_cooldown)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/megaphone/proc/say_msg(mob/living/user, message)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -106,4 +114,3 @@
 	emagged = TRUE
 	span = "reallybig userdanger"  // really obvious, but also really loud
 	return TRUE
-
