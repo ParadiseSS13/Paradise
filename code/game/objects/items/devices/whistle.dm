@@ -64,6 +64,7 @@
 	if(!COOLDOWN_FINISHED(src, whistle_cooldown))
 		return ITEM_INTERACT_COMPLETE
 
+	add_fingerprint(user)
 	playsound(src, pick('sound/items/whistle1.ogg', 'sound/items/whistle2.ogg', 'sound/items/whistle3.ogg'), 25)
 	COOLDOWN_START(src, whistle_cooldown, 4 SECONDS)
 	return ITEM_INTERACT_COMPLETE
