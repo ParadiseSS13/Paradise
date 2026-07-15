@@ -1315,8 +1315,8 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 			to_chat(user, SPAN_BOLDWARNING("[src] is remotely controlled! Your emag attempts to disable AI control!"))
 			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
 			undeploy()
-			revert_shell()
 			reset_module()
+			revert_shell()
 			return
 		if(emagged)
 			to_chat(user, SPAN_WARNING("The emag sparks, and flashes red. [src] has already been emagged!"))
@@ -2100,6 +2100,7 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	if(camera)
 		camera.c_tag = real_name // Update the camera name too.
 
+/// Reverts a shell back to a unformatted cyborg also drops the BORIS module.
 /mob/living/silicon/robot/proc/revert_shell()
 	if(!shell)
 		return
@@ -2108,6 +2109,9 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 	GLOB.available_ai_shells -= src
 	name = "Unformatted Cyborg [rand(100,999)]"
 	real_name = name
+	for(var/obj/item/borg/upgrade/ai/U in src.contents)
+		if(U)
+			U.forceMove(src.loc)
 	if(camera)
 		camera.c_tag = real_name
 	diag_hud_set_aishell()
