@@ -88,14 +88,19 @@
 				which_hand = "r_hand"
 
 			triggered(user, which_hand)
-			user.visible_message(SPAN_WARNING("[user] accidentally sets off [src], breaking [user.p_their()] fingers."), SPAN_WARNING("You accidentally trigger [src]!"))
-			return
+			user.visible_message(
+				SPAN_WARNING("[user] accidentally sets off [src], breaking [user.p_their()] fingers."),
+				SPAN_WARNING("You accidentally trigger [src]!"),
+				SPAN_HEAR("You hear the snap of a mousetrap and the snap of a bone!")
+			)
+			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, SPAN_NOTICE("You disarm [src]."))
 
 	armed = !armed
 	update_icon()
 	playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE, -3)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(!armed)
@@ -107,7 +112,11 @@
 		which_hand = "r_hand"
 
 	triggered(user, which_hand)
-	user.visible_message(SPAN_WARNING("[user] accidentally sets off [src], breaking [user.p_their()] fingers."), SPAN_WARNING("You accidentally trigger [src]!"))
+	user.visible_message(
+		SPAN_WARNING("[user] accidentally sets off [src], breaking [user.p_their()] fingers."),
+		SPAN_WARNING("You accidentally trigger [src]!"),
+		SPAN_HEAR("You hear the snap of a mousetrap and the snap of a bone!")
+	)
 
 
 /obj/item/assembly/mousetrap/on_atom_entered(datum/source, atom/movable/entered)
@@ -116,7 +125,11 @@
 			var/mob/living/carbon/H = entered
 			if(H.m_intent == MOVE_INTENT_RUN)
 				triggered(H)
-				H.visible_message(SPAN_WARNING("[H] accidentally steps on [src]."), SPAN_WARNING("You accidentally step on [src]"))
+				H.visible_message(
+					SPAN_WARNING("[H] accidentally steps on [src]."),
+					SPAN_WARNING("You accidentally step on [src]"),
+					SPAN_HEAR("You hear the snap of a mousetrap.")
+				)
 
 		else if(ismouse(entered))
 			triggered(entered)
@@ -128,7 +141,11 @@
 
 /obj/item/assembly/mousetrap/on_found(mob/finder)
 	if(armed)
-		finder.visible_message(SPAN_WARNING("[finder] accidentally sets off [src], breaking [finder.p_their()] fingers."), SPAN_WARNING("You accidentally trigger [src]!"))
+		finder.visible_message(
+			SPAN_WARNING("[finder] accidentally sets off [src], breaking [finder.p_their()] fingers."),
+			SPAN_WARNING("You accidentally trigger [src]!"),
+			SPAN_HEAR("You hear the snap of a mousetrap and the snap of a bone!")
+		)
 		triggered(finder, finder.hand ? "l_hand" : "r_hand")
 		return TRUE // End the search!
 
