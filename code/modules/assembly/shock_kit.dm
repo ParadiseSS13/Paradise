@@ -30,7 +30,10 @@
 
 /obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
 	status = !status
-	to_chat(user, SPAN_NOTICE("[src] is now [status ? "secured" : "unsecured"]!"))
+	if(status)
+		to_chat(user, SPAN_NOTICE("You ready and secure [src]!"))
+	else
+		to_chat(user, SPAN_NOTICE("You unsecure [src] with [I] so it can be attached!"))
 	add_fingerprint(user)
 	return TRUE
 
@@ -40,7 +43,7 @@
 	if(!part1 || !part2)
 		return
 	part1.activate_self(user)
-	part2.attack_self__legacy__attackchain(user, status)
+	part2.activate_self(user)
 	add_fingerprint(user)
 
 /obj/item/assembly/shock_kit/proc/shock_invoke()

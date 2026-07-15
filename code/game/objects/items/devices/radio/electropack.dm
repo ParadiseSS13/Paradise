@@ -9,6 +9,7 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	/// The integrated signaler
 	var/obj/item/assembly/signaler/electropack/integrated_signaler
+	new_attack_chain = TRUE
 
 /obj/item/electropack/Initialize(mapload)
 	. = ..()
@@ -37,33 +38,39 @@
 
 	..()
 
-/obj/item/electropack/attack_self__legacy__attackchain(mob/user)
+/obj/item/electropack/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/electropack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/item/electropack/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	..()
 
-	if(istype(W, /obj/item/clothing/head/helmet))
-		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(user)
-		A.icon = 'icons/obj/assemblies.dmi'
+	if(!istype(used, /obj/item/clothing/head/helmet))
+		return NONE
 
-		if(!user.unequip(W))
-			to_chat(user, SPAN_NOTICE("\the [W] is stuck to your hand, you cannot attach it to \the [src]!"))
-			return
+	var/obj/item/assembly/shock_kit/kit = new /obj/item/assembly/shock_kit(user)
+	kit.icon = 'icons/obj/assemblies.dmi'
 
-		W.forceMove(A)
-		W.master = A
-		A.part1 = W
+	if(!user.unequip(used))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you cannot attach it to [src]!"))
+		return ITEM_INTERACT_COMPLETE
 
-		user.transfer_item_to(src, A)
-		master = A
-		A.part2 = src
+	used.forceMove(kit)
+	used.master = kit
+	kit.part1 = used
 
-		user.put_in_hands(A)
-		A.add_fingerprint(user)
-		if(src.flags & NODROP)
-			A.set_nodrop(TRUE)
+	user.transfer_item_to(src, kit)
+	master = kit
+	kit.part2 = src
 
+	user.put_in_hands(kit)
+	kit.add_fingerprint(user)
+	if(src.flags & NODROP)
+		kit.set_nodrop(TRUE)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/electropack/proc/handle_shock()
 	if(istype(master, /obj/item/assembly/shock_kit))
