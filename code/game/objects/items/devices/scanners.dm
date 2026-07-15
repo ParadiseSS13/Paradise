@@ -20,6 +20,7 @@ SLIME SCANNER
 	materials = list(MAT_METAL = 300)
 	origin_tech = "magnets=1;engineering=1"
 	var/on = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/t_scanner/Destroy()
 	if(on)
@@ -34,8 +35,9 @@ SLIME SCANNER
 	else
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/t_scanner/attack_self__legacy__attackchain(mob/user)
+/obj/item/t_scanner/activate_self(mob/user)
 	toggle_on()
+	add_fingerprint(user)
 
 /obj/item/t_scanner/process()
 	if(!on)
@@ -92,10 +94,12 @@ SLIME SCANNER
 /obj/item/reagent_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 	do_scan(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_scanner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 	do_scan(target, user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_scanner/proc/do_scan(atom/target, mob/living/user)
 	if(user.stat != CONSCIOUS)
@@ -103,6 +107,8 @@ SLIME SCANNER
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
 		return
+
+	add_fingerprint(user)
 
 	if(!target.reagents)
 		to_chat(user, SPAN_NOTICE("No significant chemical agents found in [target]."))
@@ -170,15 +176,19 @@ SLIME SCANNER
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throw_speed = 3
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	new_attack_chain = TRUE
 
-/obj/item/slime_scanner/attack__legacy__attackchain(mob/living/M, mob/living/user)
+/obj/item/slime_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.incapacitated() || user.AmountBlinded())
-		return
-	if(!isslime(M))
+		return ..()
+	if(!isslime(target))
 		to_chat(user, SPAN_WARNING("This device can only scan slimes!"))
-		return
-	slime_scan(M, user)
+		return ITEM_INTERACT_COMPLETE
+
+	slime_scan(target, user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
 	to_chat(user, "========================")
