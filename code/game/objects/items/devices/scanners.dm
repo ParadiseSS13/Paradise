@@ -36,8 +36,11 @@ SLIME SCANNER
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/t_scanner/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	toggle_on()
 	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/t_scanner/process()
 	if(!on)
