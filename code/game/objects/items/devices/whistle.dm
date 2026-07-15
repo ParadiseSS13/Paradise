@@ -26,6 +26,7 @@
 
 	add_fingerprint(user)
 	next_use_time = world.time + USE_COOLDOWN
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/hailer/emag_act(mob/user)
 	add_fingerprint(user)
