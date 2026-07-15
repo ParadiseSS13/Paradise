@@ -660,8 +660,8 @@
 /area/lavaland/surface/outdoors/unexplored)
 "Ed" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/tcomms/relay,
 /obj/effect/mapping_helpers/no_lava,
+/obj/machinery/tcomms/relay/start_off,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/powered/providence)
 "Eg" = (

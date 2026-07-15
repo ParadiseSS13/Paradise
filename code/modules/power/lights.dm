@@ -328,7 +328,6 @@
 
 /obj/machinery/light/spot
 	name = "spotlight"
-	light_type = /obj/item/light/tube/large
 	brightness_range = 12
 	brightness_power = 4
 
@@ -683,12 +682,6 @@
 				to_chat(user, SPAN_NOTICE("You insert [L]."))
 				switchcount = L.switchcount
 				rigged = L.rigged
-				if(L.brightness_range)
-					brightness_range = L.brightness_range
-				if(L.brightness_power)
-					brightness_power = L.brightness_power
-				if(L.brightness_color)
-					brightness_color = L.brightness_color
 				lightmaterials = L.materials
 				on = has_power()
 				update(TRUE, TRUE, FALSE)
@@ -917,9 +910,6 @@
 	var/obj/item/light/L = new light_type()
 	L.status = status
 	L.rigged = rigged
-	L.brightness_range = brightness_range
-	L.brightness_power = brightness_power
-	L.brightness_color = brightness_color
 	L.materials = lightmaterials
 
 	// light item inherits the switchcount, then zero it
@@ -1032,12 +1022,6 @@
 	materials = list(MAT_GLASS = 200)
 	/// Is the light rigged to explode?
 	var/rigged = FALSE
-	/// Light range
-	var/brightness_range = 2
-	/// Light intensity
-	var/brightness_power = 1
-	/// Light colour
-	var/brightness_color = null
 
 /obj/item/light/Initialize(mapload)
 	. = ..()
@@ -1090,13 +1074,6 @@
 	icon_state = "ltube"
 	base_state = "ltube"
 	inhand_icon_state = "c_tube"
-	brightness_range = 8
-
-/obj/item/light/tube/large
-	w_class = WEIGHT_CLASS_SMALL
-	name = "large light tube"
-	brightness_range = 15
-	brightness_power = 2
 
 /**
   * # Light Bulb
@@ -1109,7 +1086,6 @@
 	icon_state = "lbulb"
 	base_state = "lbulb"
 	inhand_icon_state = "contvapour"
-	brightness_range = 5
 
 /obj/item/light/throw_impact(atom/hit_atom)
 	..()

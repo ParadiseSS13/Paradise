@@ -99,8 +99,6 @@
 	/// This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/forced_look = null
 
-	var/datum/language/default_language
-
 	var/datum/middle_click_override/middleClickOverride = null
 
 	/// Famous last words -- if succumbing, what the user's last words were
