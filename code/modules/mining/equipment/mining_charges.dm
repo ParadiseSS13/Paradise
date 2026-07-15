@@ -165,7 +165,7 @@
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/item/grenade/plastic/miningcharge))
-		return ITEM_INTERACT_COMPLETE
+		return ..()
 
 	var/obj/item/grenade/plastic/miningcharge/charge = target
 	if(charge.hacked)
