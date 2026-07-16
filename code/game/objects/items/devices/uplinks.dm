@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/items_generated = FALSE
 
 	var/datum/data/record/selected_record
+	new_attack_chain = TRUE
 
 /obj/item/uplink/ui_host()
 	return loc
