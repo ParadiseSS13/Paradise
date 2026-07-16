@@ -21,11 +21,11 @@
 
 	if(istype(loc, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/S = loc
-		if(S.part1 == src)
-			S.part1 = null
+		if(S.attached_helmet == src)
+			S.attached_helmet = null
 
-		else if(S.part2 == src)
-			S.part2 = null
+		else if(S.attached_electropack == src)
+			S.attached_electropack = null
 
 		master = null
 
@@ -51,26 +51,42 @@
 	if(!istype(used, /obj/item/clothing/head/helmet))
 		return NONE
 
+	attach_helmet(used, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/electropack/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	..()
+
+	if(!istype(target, /obj/item/clothing/head/helmet))
+		return NONE
+
+	attach_helmet(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/electropack/proc/attach_helmet(obj/item/clothing/head/helmet/used, mob/living/user)
+	if(!istype(used))
+		return FALSE
+
 	var/obj/item/assembly/shock_kit/kit = new /obj/item/assembly/shock_kit(user)
 	kit.icon = 'icons/obj/assemblies.dmi'
 
 	if(!user.unequip(used))
 		to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you cannot attach it to [src]!"))
-		return ITEM_INTERACT_COMPLETE
+		return FALSE
 
 	used.forceMove(kit)
 	used.master = kit
-	kit.part1 = used
+	kit.attached_helmet = used
 
 	user.transfer_item_to(src, kit)
 	master = kit
-	kit.part2 = src
+	kit.attached_electropack = src
 
 	user.put_in_hands(kit)
 	kit.add_fingerprint(user)
 	if(src.flags & NODROP)
 		kit.set_nodrop(TRUE)
-	return ITEM_INTERACT_COMPLETE
+	return TRUE
 
 /obj/item/electropack/proc/handle_shock()
 	if(istype(master, /obj/item/assembly/shock_kit))
