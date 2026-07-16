@@ -115,11 +115,11 @@
 /obj/item/radio/intercom/attack_ai(mob/user)
 	add_hiddenprint(user)
 	add_fingerprint(user)
-	attack_self__legacy__attackchain(user)
+	activate_self(user)
 
 /obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
-	attack_self__legacy__attackchain(user)
+	activate_self(user)
 
 /obj/item/radio/intercom/receive_range(freq, level)
 	if(!is_listening())
@@ -131,7 +131,7 @@
 			return -1
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))
-			return -1//Prevents broadcast of messages over devices lacking the encryption
+			return -1 // Prevents broadcast of messages over devices lacking the encryption
 
 	return canhear_range
 
@@ -145,33 +145,37 @@
 		if(2)
 			. += SPAN_NOTICE("The intercom is <b>wired</b>, and the maintenance panel is <i>unscrewed</i>.")
 
-/obj/item/radio/intercom/attackby__legacy__attackchain(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/tape_roll)) //eww
-		return
-	else if(iscoil(W) && buildstage == 1)
-		var/obj/item/stack/cable_coil/coil = W
+/obj/item/radio/intercom/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/tape_roll)) // Eww.
+		return ITEM_INTERACT_COMPLETE
+
+	if(iscoil(used) && buildstage == 1)
+		var/obj/item/stack/cable_coil/coil = used
 		if(coil.get_amount() < 5)
 			to_chat(user, SPAN_WARNING("You need more cable for this!"))
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1)
 			coil.use(5)
-			to_chat(user, SPAN_NOTICE("You wire \the [src]!"))
+			to_chat(user, SPAN_NOTICE("You wire [src]!"))
 			buildstage = 2
-		return 1
-	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 10 * W.toolspeed, target = src) && buildstage == 0)
-			qdel(W)
-			to_chat(user, SPAN_NOTICE("You insert \the [W] into \the [src]!"))
+			add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/intercom_electronics) && buildstage == 0)
+		playsound(get_turf(src), used.usesound, 50, 1)
+		if(do_after(user, 10 * used.toolspeed, target = src) && buildstage == 0)
+			qdel(used)
+			to_chat(user, SPAN_NOTICE("You insert [used] into [src]!"))
 			buildstage = 1
-		return 1
-	else
+			add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
 		return ..()
 
 /obj/item/radio/intercom/AltClick(mob/user)
 	. = ..()
 	if(broadcasting)
-		investigate_log("had its hotmic toggled on via hotkey by [key_name(user)].", INVESTIGATE_HOTMIC) ///Allows us to track who spams all these on if they do.
+		investigate_log("had its hotmic toggled on via hotkey by [key_name(user)].", INVESTIGATE_HOTMIC) /// Allows us to track who spams all these on if they do.
 
 /obj/item/radio/intercom/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != 1)
