@@ -8,7 +8,6 @@
 	Cardboard Tube
 	Fan
 	Gaming Kit
-	Gift
 	Kidan Globe
 	Lightning
 	Newton Cradle
@@ -176,20 +175,6 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "fan"
 	desc = "A small desktop fan. The button seems to be stuck in the 'on' position."
-
-
-/obj/item/gift
-	name = "gift"
-	desc = "A wrapped item."
-	icon_state = "gift3"
-	inhand_icon_state = "gift"
-	w_class = WEIGHT_CLASS_BULKY
-	var/size = 3.0
-	var/obj/item/gift = null
-
-/obj/item/gift/emp_act(severity)
-	..()
-	gift.emp_act(severity)
 
 /obj/item/kidanglobe
 	name = "Kidan homeworld globe"

@@ -7,6 +7,32 @@
 /*
  * Gifts
  */
+/obj/item/gift
+	name = "gift"
+	desc = "A wrapped item."
+	icon_state = "gift3"
+	inhand_icon_state = "gift"
+	w_class = WEIGHT_CLASS_BULKY
+	var/size = 3.0
+	var/obj/item/gift_inside = null
+	new_attack_chain = TRUE
+
+/obj/item/gift/emp_act(severity)
+	..()
+	gift_inside.emp_act(severity)
+
+/obj/item/gift/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	user.unequip(src, force = TRUE)
+	if(gift_inside)
+		user.put_in_active_hand(gift_inside)
+		gift_inside.add_fingerprint(user)
+	else
+		to_chat(user, SPAN_WARNING("The gift was empty!"))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
 /obj/item/a_gift
 	name = "gift"
 	desc = "PRESENTS!!!! eek!"
@@ -14,6 +40,7 @@
 	inhand_icon_state = "gift"
 	resistance_flags = FLAMMABLE
 	scatter_distance = 10
+	new_attack_chain = TRUE
 
 /obj/item/a_gift/Initialize(mapload)
 	. = ..()
@@ -23,32 +50,10 @@
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
 
-/obj/item/gift/attack_self__legacy__attackchain(mob/user as mob)
-	user.drop_item()
-	if(src.gift)
-		user.put_in_active_hand(gift)
-		src.gift.add_fingerprint(user)
-	else
-		to_chat(user, SPAN_NOTICE("The gift was empty!"))
-	qdel(src)
-
-/obj/effect/spresent/relaymove(mob/user as mob)
-	if(user.stat)
-		return
-	to_chat(user, SPAN_NOTICE("You can't move."))
-
-/obj/effect/spresent/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!istype(used, /obj/item/wirecutters))
-		to_chat(user, SPAN_NOTICE("I need wirecutters for that."))
+/obj/item/a_gift/activate_self(mob/user)
+	if(..())
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_NOTICE("You cut open the present."))
-	for(var/mob/M in src) //Should only be one but whatever.
-		M.forceMove(loc)
-	qdel(src)
-	return ITEM_INTERACT_COMPLETE
-
-/obj/item/a_gift/attack_self__legacy__attackchain(mob/M as mob)
 	var/gift_type = pick(
 		/obj/effect/spawner/random/toy/carp_plushie,
 		/obj/effect/spawner/random/plushies,
@@ -111,14 +116,15 @@
 		/obj/item/stack/tile/fakespace/loaded,
 		)
 
-	if(!ispath(gift_type,/obj/item))	return
+	if(!ispath(gift_type,/obj/item))
+		return ITEM_INTERACT_COMPLETE
 
-	var/obj/item/I = new gift_type(M)
-	M.unequip(src, force = TRUE)
-	M.put_in_hands(I)
-	I.add_fingerprint(M)
+	var/obj/item/new_gift = new gift_type(user)
+	user.unequip(src, force = TRUE)
+	user.put_in_hands(new_gift)
+	new_gift.add_fingerprint(user)
 	qdel(src)
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /*
  * Wrapping Paper
@@ -138,3 +144,29 @@
 	. = ..()
 	to_chat(user, SPAN_NOTICE("You need to use it on a package that has already been wrapped!"))
 	return ITEM_INTERACT_COMPLETE
+
+// The effect when you wrap a dead body in gift wrap.
+/obj/effect/spresent
+	name = "strange present"
+	desc = "It's a ... present?"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "strangepresent"
+	density = TRUE
+	anchored = FALSE
+
+/obj/effect/spresent/relaymove(mob/user)
+	if(user.stat)
+		return
+	to_chat(user, SPAN_NOTICE("You can't move."))
+
+/obj/effect/spresent/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/wirecutters))
+		to_chat(user, SPAN_WARNING("You need wirecutters for that!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You cut open the present."))
+	for(var/mob/M in src) // Should only be one but whatever.
+		M.forceMove(loc)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+

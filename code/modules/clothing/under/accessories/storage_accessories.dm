@@ -59,9 +59,9 @@
 	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
 	for(var/obj/item/gift/G in src)
-		L += G.gift
-		if(isstorage(G.gift))
-			L += G.gift:return_inv()
+		L += G.gift_inside
+		if(isstorage(G.gift_inside))
+			L += G.gift_inside:return_inv()
 	return L
 
 /obj/item/clothing/accessory/storage/activate_self(mob/user)
