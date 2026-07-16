@@ -65,7 +65,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 	change_voice = !change_voice
-	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
+	to_chat(user, SPAN_NOTICE("You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
