@@ -170,7 +170,7 @@
 			add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
-		return ..()
+	return ..()
 
 /obj/item/radio/intercom/AltClick(mob/user)
 	. = ..()
