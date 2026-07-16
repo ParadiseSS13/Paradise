@@ -25,6 +25,7 @@
 	var/create_full = FALSE
 	var/create_with_tank = FALSE
 	var/igniter_type = /obj/item/assembly/igniter
+	new_attack_chain = TRUE
 
 /obj/item/flamethrower/Destroy()
 	QDEL_NULL(weldtool)
@@ -67,9 +68,10 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/flamethrower/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!cigarette_lighter_act(user, target))
-		return ..()
+		return NONE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -105,8 +107,7 @@
 		else
 			user.visible_message(
 				SPAN_DANGER("[user] carelessly lifts up [src] and releases a large burst of flame at [target] to light [target.p_their()] [cig.name], accidentally setting [target.p_them()] ablaze!"),
-				"<span class='danger'>You lift up [src] up and point it at [target], squeezing the trigger to light [target.p_their()] [cig.name]. \
-				Unfortunately, your squeeze a little too hard and release large burst of flame that sets [target.p_them()] ablaze!</span>",
+				SPAN_DANGER("You lift up [src] up and point it at [target], squeezing the trigger to light [target.p_their()] [cig.name]. Unfortunately, your squeeze a little too hard and release large burst of flame that sets [target.p_them()] ablaze!"),
 				SPAN_DANGER("You hear a plume of fire and something igniting!")
 			)
 		target.adjust_fire_stacks(2)
@@ -114,56 +115,59 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/flamethrower/afterattack__legacy__attackchain(atom/target, mob/user, flag)
-	. = ..()
-	if(flag)
-		return // too close
-	if(!user)
-		return
+/obj/item/flamethrower/attack(mob/living/target, mob/living/carbon/human/user)
+	if(user.Adjacent(target))
+		return ..() // Too close.
 	if(user.mind?.martial_art?.no_guns)
 		to_chat(user, SPAN_WARNING("[user.mind.martial_art.no_guns_message]"))
-		return
+		return NONE
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
 		to_chat(user, SPAN_WARNING("Your meaty finger is far too large for the trigger guard!"))
-		return
-	if(user.get_active_hand() == src) // Make sure our user is still holding us
-		var/turf/target_turf = get_turf(target)
-		if(target_turf)
-			var/turflist = get_line(user, target_turf)
-			add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
-			flame_turf(turflist)
+		return NONE
+	var/turf/target_turf = get_turf(target)
+	if(target_turf)
+		var/turflist = get_line(user, target_turf)
+		add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
+		flame_turf(turflist)
+	add_fingerprint(user)
+	return FINISH_ATTACK
 
-/obj/item/flamethrower/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(isigniter(I))
-		var/obj/item/assembly/igniter/IG = I
-		if(IG.secured)
-			return
-		if(igniter)
-			return
-		if(!user.drop_item())
-			return
-		IG.forceMove(src)
-		igniter = IG
-		update_icon()
-		return
-
-	else if(istype(I, /obj/item/tank/internals/plasma))
-		if(ptank)
-			if(user.drop_item())
-				I.forceMove(src)
-				ptank.forceMove(get_turf(src))
-				ptank = I
-				to_chat(user, SPAN_NOTICE("You swap the plasma tank in [src]!"))
-			return
-		if(!user.drop_item())
-			return
-		I.forceMove(src)
-		ptank = I
-		update_icon()
-		return
-
-	else
+/obj/item/flamethrower/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!isigniter(used) && !istype(used, /obj/item/tank/internals/plasma))
 		return ..()
+
+	if(isigniter(used))
+		var/obj/item/assembly/igniter/new_igniter = used
+		if(new_igniter.secured)
+			to_chat(user, SPAN_WARNING("[new_igniter] is secured and cannot be attached! Loosen it with a screwdriver."))
+			return ITEM_INTERACT_COMPLETE
+		if(igniter)
+			to_chat(user, SPAN_WARNING("[src] already has an igniter installed!"))
+			return ITEM_INTERACT_COMPLETE
+		if(!user.drop_item())
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, SPAN_NOTICE("You install [used] in [src]."))
+		new_igniter.forceMove(src)
+		igniter = new_igniter
+		update_icon()
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	used.forceMove(src)
+	if(ptank)
+		ptank.forceMove(get_turf(src))
+		to_chat(user, SPAN_NOTICE("You swap the plasma tank in [src]."))
+	else
+		to_chat(user, SPAN_NOTICE("You install [used] in [src]."))
+	ptank = used
+	update_icon()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flamethrower/wrench_act(mob/user, obj/item/I)
 	if(status)
@@ -191,23 +195,30 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	status = !status
-	to_chat(user, SPAN_NOTICE("[igniter] is now [status ? "secured" : "unsecured"]!"))
+	to_chat(user, SPAN_NOTICE("You [status ? "secure" : "unsecure"] [igniter] attached to [src]."))
 	update_icon()
+	add_fingerprint(user)
 
 /obj/item/flamethrower/return_analyzable_air()
 	if(ptank)
 		return ptank.return_analyzable_air()
 	return null
 
-/obj/item/flamethrower/attack_self__legacy__attackchain(mob/user)
+/obj/item/flamethrower/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	toggle_igniter(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flamethrower/AltClick(mob/user)
-	if(ptank && isliving(user) && user.Adjacent(src))
-		user.put_in_hands(ptank)
-		ptank = null
-		to_chat(user, SPAN_NOTICE("You remove the plasma tank from [src]!"))
-		update_icon()
+	if(!(ptank && isliving(user) && user.Adjacent(src)))
+		return
+	user.put_in_hands(ptank)
+	ptank = null
+	to_chat(user, SPAN_NOTICE("You remove the plasma tank from [src]."))
+	update_icon()
+	add_fingerprint(user)
 
 /obj/item/flamethrower/examine(mob/user)
 	. = ..()
@@ -216,10 +227,10 @@
 
 /obj/item/flamethrower/proc/toggle_igniter(mob/user)
 	if(!ptank)
-		to_chat(user, SPAN_NOTICE("Attach a plasma tank first!"))
+		to_chat(user, SPAN_WARNING("Attach a plasma tank first!"))
 		return
 	if(!status)
-		to_chat(user, SPAN_NOTICE("Secure the igniter first!"))
+		to_chat(user, SPAN_WARNING("Secure the igniter first!"))
 		return
 	to_chat(user, SPAN_NOTICE("You [lit ? "extinguish" : "ignite"] [src]!"))
 	lit = !lit
@@ -264,7 +275,7 @@
 	operating = FALSE
 	for(var/mob/M in viewers(1, loc))
 		if(M.client && M.machine == src)
-			attack_self__legacy__attackchain(M)
+			activate_self(M)
 
 /obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)
 	//Transfer 5% of current tank air contents to turf
@@ -299,7 +310,7 @@
 		log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
 		igniter.ignite_turf(src,target_turf, release_amount = 100)
 		QDEL_NULL(ptank)
-		return 1 //It hit the flamethrower, not them
+		return TRUE //It hit the flamethrower, not them
 
 /obj/item/assembly/igniter/proc/flamethrower_process(turf/simulated/location)
 	location.hotspot_expose(700, 2)
