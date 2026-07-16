@@ -55,6 +55,9 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/garrote/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
+	if(..())
+		return FINISH_ATTACK
+
 	if(garrote_time > world.time) // Cooldown.
 		return NONE
 
