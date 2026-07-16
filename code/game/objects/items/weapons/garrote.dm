@@ -104,6 +104,7 @@
 	garrote_time = world.time + 10
 	START_PROCESSING(SSobj, src)
 	strangling = target
+	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, TRUE, -10, ignore_walls = FALSE)
