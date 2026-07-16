@@ -15,7 +15,7 @@
 	if(sk)
 		shocker = sk
 
-	if(isnull(shocker)) //This e-chair was not custom built
+	if(isnull(shocker)) // This e-chair was not custom built.
 		shocker = new(src)
 		var/obj/item/clothing/head/helmet/attached_helmet = new(shocker)
 		var/obj/item/electropack/attached_electropack = new(shocker)

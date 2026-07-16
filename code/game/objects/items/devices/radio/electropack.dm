@@ -46,19 +46,15 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/electropack/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	..()
-
 	if(!istype(used, /obj/item/clothing/head/helmet))
-		return NONE
+		return ..()
 
 	attach_helmet(used, user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/electropack/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	..()
-
 	if(!istype(target, /obj/item/clothing/head/helmet))
-		return NONE
+		return ..()
 
 	attach_helmet(target, user)
 	return ITEM_INTERACT_COMPLETE
