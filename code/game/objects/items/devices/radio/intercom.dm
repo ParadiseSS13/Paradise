@@ -131,7 +131,7 @@
 			return -1
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))
-			return -1 // Prevents broadcast of messages over devices lacking the encryption
+			return -1 // Prevents broadcast of messages over devices lacking the encryption.
 
 	return canhear_range
 
