@@ -14,8 +14,11 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
-	var/cc_beacon = FALSE // Set if allowed to teleport to even if on zlevel2.
-	var/wormhole_weaver = FALSE // Special beacons for wormwhole weaver.
+	/// If `TRUE`, this beacon allows teleporters to ignore the CC Z-level anti-teleportation protection when targeting it.
+	var/cc_beacon = FALSE
+	/// Is this beacon used for the wormhole weaver?
+	var/wormhole_weaver = FALSE
+	/// Can teleporter consoles see this beacon? Used for pre-mapped permanent teleporters that shouldn't be targetable.
 	var/broadcast_to_teleport_hubs = TRUE
 	new_attack_chain = TRUE
 
@@ -31,7 +34,7 @@
 	if(!emagged)
 		emagged = TRUE
 		syndicate = TRUE
-		to_chat(user, SPAN_NOTICE("This beacon now only be locked on to by emagged teleporters!"))
+		to_chat(user, SPAN_NOTICE("[src] can now only be locked on to by emagged teleporters!"))
 		return TRUE
 
 /// Probably a better way of doing this, I'm lazy.
