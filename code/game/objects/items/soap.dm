@@ -41,11 +41,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	var/mouth_term = "mouth out"
-	var/mob/living/carbon/human/human_target = target
-	var/obj/item/organ/external/head/human_head = human_target.get_organ("head")
-	var/datum/robolimb/robohead = GLOB.all_robolimbs[human_head.model]
-
-	if((human_head.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor && !HAS_TRAIT(target, TRAIT_IPC_CAN_EAT))
+	if(ismachineperson(target) && !HAS_TRAIT(target, TRAIT_IPC_CAN_EAT))
 		mouth_term = "speaker grille"
 
 	user.visible_message(
