@@ -12,15 +12,13 @@
 	flags = NOBLUDGEON
 	var/list/signs = list()
 	var/max_signs = 6
-	var/creation_time = 0 // Time to create a holosign in deciseconds.
+	/// Time to create a holosign in deciseconds.
+	var/creation_time = 0
 	var/holosign_type = null
 	var/holocreator_busy = FALSE // To prevent placing multiple holo barriers at once.
 	new_attack_chain = TRUE
 
 /obj/item/holosign_creator/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-
 	if(!check_allowed_items(target, 1))
 		to_chat(user, SPAN_WARNING("You can't create a holosign there!"))
 		return ITEM_INTERACT_COMPLETE
