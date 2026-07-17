@@ -115,22 +115,22 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/flamethrower/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/flamethrower/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.Adjacent(target))
 		return ..() // Too close.
 	if(user.mind?.martial_art?.no_guns)
 		to_chat(user, SPAN_WARNING("[user.mind.martial_art.no_guns_message]"))
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
 		to_chat(user, SPAN_WARNING("Your meaty finger is far too large for the trigger guard!"))
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 	var/turf/target_turf = get_turf(target)
 	if(target_turf)
 		var/turflist = get_line(user, target_turf)
 		add_attack_logs(user, target, "Flamethrowered at [target.x],[target.y],[target.z]")
 		flame_turf(turflist)
 	add_fingerprint(user)
-	return FINISH_ATTACK
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flamethrower/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!isigniter(used) && !istype(used, /obj/item/tank/internals/plasma))
