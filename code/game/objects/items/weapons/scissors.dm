@@ -19,10 +19,10 @@
 
 /obj/item/scissors/interact_with_atom(mob/living/carbon/human/target, mob/living/user, list/modifiers)
 	if(user.a_intent != INTENT_HELP)
-		return
+		return ..()
 
 	if(!ishuman(target))
-		return
+		return ..()
 
 	var/obj/item/organ/external/head/head_organ = target.get_organ("head")
 	if(!head_organ)
