@@ -24,6 +24,8 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
+	add_fingerprint(user)
+
 	if(!gripped)
 		gripped = TRUE
 		to_chat(user, "You tighten your grip on [src], ensuring you won't drop it.")
