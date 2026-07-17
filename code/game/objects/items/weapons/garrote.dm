@@ -54,39 +54,40 @@
 	update_icon(UPDATE_ICON_STATE)
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/garrote/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
+/obj/item/garrote/interact_with_atom(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers)
 	if(..())
-		return FINISH_ATTACK
+		return ITEM_INTERACT_COMPLETE
 
 	if(garrote_time > world.time) // Cooldown.
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 
-	if(!ishuman(user)) // spap_hand is a proc of /mob/living, user is simply /mob.
-		return NONE
+	if(!ishuman(user))
+		to_chat(user, SPAN_WARNING("You lack the dexterity to use this!"))
+		return ITEM_INTERACT_COMPLETE
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, SPAN_WARNING("You must use both hands to garrote [target]!"))
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 
 	if(!ishuman(target))
 		to_chat(user, SPAN_WARNING("You don't think that garroting [target] would be very effective...!"))
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 
 	if(target == user)
 		user.suicide() // This will display a prompt for confirmation first.
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 
 	if(target.dir != user.dir && !target.incapacitated())
 		to_chat(user, SPAN_WARNING("You cannot use [src] on [target] from that angle!"))
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 
 	if(improvised && ((target.head && (target.head.flags_cover & HEADCOVERSMOUTH)) || (target.wear_mask && (target.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
 		to_chat(user, SPAN_WARNING("[target]'s neck is blocked by something [target.p_theyre()] wearing!"))
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 
 	if(strangling)
 		to_chat(user, SPAN_WARNING("You cannot use [src] on two people at once!"))
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 
 	activate_self(user)
 
@@ -104,7 +105,7 @@
 			grab.hud.name = "kill"
 			target.AdjustSilence(2 SECONDS)
 
-	garrote_time = world.time + 10
+	garrote_time = world.time + 1 SECONDS
 	START_PROCESSING(SSobj, src)
 	strangling = target
 	add_fingerprint(user)
@@ -118,7 +119,7 @@
 		SPAN_HEAR("You hear struggling and wire strain against flesh!")
 		)
 
-	return FINISH_ATTACK
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/garrote/process()
 	if(!strangling)
