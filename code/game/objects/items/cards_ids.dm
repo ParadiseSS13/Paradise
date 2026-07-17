@@ -643,7 +643,7 @@
 	icon_state = "HoP"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS, ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS,
 				ACCESS_AI_UPLOAD, ACCESS_EVA, ACCESS_HEADS, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_ENGINEERING_GENERAL,
-				ACCESS_MORGUE, ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, 
+				ACCESS_MORGUE, ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS,
 				ACCESS_INTERNAL_AFFAIRS, ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 				ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
@@ -978,7 +978,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data", "id", "gold", "silver", "security", "detective", "warden", "internalaffairsagent", "medical", "coroner", "chemist", "virologist", "paramedic", "psychiatrist", "geneticist", "research", "roboticist", "quartermaster", "cargo", "shaftminer", "engineering", "atmostech", "captain", "HoP", "HoS", "CMO", "RD", "CE", "assistant", "clown", "mime", "botanist", "librarian", "chaplain", "bartender", "chef", "janitor", "rainbow", "prisoner", "explorer", "nctrainer")
+	return list("data", "id", "gold", "silver", "security", "detective", "warden", "internalaffairsagent", "medical", "coroner", "chemist", "virologist", "paramedic", "psychiatrist", "geneticist", "research", "roboticist", "quartermaster", "cargo", "shaftminer", "smith", "engineering", "atmostech", "captain", "HoP", "HoS", "CMO", "RD", "CE", "assistant", "clown", "mime", "botanist", "librarian", "chaplain", "bartender", "chef", "janitor", "rainbow", "prisoner", "explorer", "nctrainer")
 
 /proc/get_centcom_card_skins()
 	return list("centcom", "blueshield", "magistrate", "ntrep", "ERT_leader", "ERT_empty", "ERT_security", "ERT_engineering", "ERT_medical", "ERT_janitorial", "ERT_paranormal", "deathsquad", "commander", "syndie", "TDred", "TDgreen")
