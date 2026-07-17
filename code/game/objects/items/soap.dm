@@ -40,14 +40,22 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		return ITEM_INTERACT_COMPLETE
 
+	var/mouth_term = "mouth out"
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/head/human_head = human_target.get_organ("head")
+	var/datum/robolimb/robohead = GLOB.all_robolimbs[human_head.model]
+
+	if((human_head.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor && !HAS_TRAIT(target, TRAIT_IPC_CAN_EAT))
+		mouth_term = "speaker grille"
+
 	user.visible_message(
-		SPAN_WARNING("[user] starts washing [target == user ? "[target.p_their()] own" : "[target]'s"] mouth out with [src]!"),
-		SPAN_NOTICE("You start washing [target == user ? "your own" : "[target]'s"] mouth out with [src]!")
+		SPAN_WARNING("[user] starts washing [target == user ? "[target.p_their()] own" : "[target]'s"] [mouth_term] with [src]!"),
+		SPAN_NOTICE("You start washing [target == user ? "your own" : "[target]'s"] [mouth_term] with [src]!")
 	)
 	if(do_after_once(user, cleanspeed, target = target))
 		user.visible_message(
-			SPAN_WARNING("[user] washes [target == user ? "[target.p_their()] own" : "[target]'s"] mouth out with [src]!"),
-			SPAN_WARNING("You wash [target == user ? "your own" : "[target]'s"] mouth out with [src]!")
+			SPAN_WARNING("[user] washes [target == user ? "[target.p_their()] own" : "[target]'s"] [mouth_term] with [src]!"),
+			SPAN_WARNING("You wash [target == user ? "your own" : "[target]'s"] [mouth_term] with [src]!")
 		)
 		target.reagents.add_reagent("soapreagent", 6)
 	return ITEM_INTERACT_COMPLETE
