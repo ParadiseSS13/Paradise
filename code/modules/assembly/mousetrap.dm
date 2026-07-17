@@ -127,7 +127,7 @@
 				triggered(H)
 				H.visible_message(
 					SPAN_WARNING("[H] accidentally steps on [src]."),
-					SPAN_WARNING("You accidentally step on [src]"),
+					SPAN_WARNING("You accidentally step on [src]."),
 					SPAN_HEAR("You hear the snap of a mousetrap.")
 				)
 
