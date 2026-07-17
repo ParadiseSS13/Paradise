@@ -39,6 +39,7 @@
 		SPAN_HEAR("You hear the snip snip of scissors.")
 	)
 	playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
+	add_fingerprint(user)
 
 	if(!do_after(user, 5 SECONDS * toolspeed, target = target))
 		user.visible_message(
