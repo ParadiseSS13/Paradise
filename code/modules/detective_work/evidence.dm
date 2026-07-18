@@ -6,63 +6,78 @@
 	icon = 'icons/obj/forensics/forensics.dmi'
 	icon_state = "evidenceobj"
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 
-/obj/item/evidencebag/afterattack__legacy__attackchain(obj/item/I, mob/user,proximity)
-	if(!proximity || loc == I)
+/obj/item/evidencebag/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(loc == target)
+		return ITEM_INTERACT_COMPLETE
+
+	evidencebag_equip(target, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/evidencebag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(evidencebag_equip(used, user))
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/item/evidencebag/proc/evidencebag_equip(obj/item/used, mob/user)
+	if(!istype(used) || used.anchored)
 		return
-	evidencebagEquip(I, user)
 
-/obj/item/evidencebag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(evidencebagEquip(I, user))
-		return TRUE
-
-/obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)
-	if(!istype(I) || I.anchored)
+	if(istype(used, /obj/item/storage/box))
+		to_chat(user, SPAN_WARNING("This box is too big to fit in the evidence bag!"))
 		return
 
-	if(istype(I, /obj/item/storage/box))
-		to_chat(user, SPAN_NOTICE("This box is too big to fit in the evidence bag."))
-		return
-
-	if(istype(I, /obj/item/evidencebag))
+	if(istype(used, /obj/item/evidencebag))
 		to_chat(user, SPAN_NOTICE("You find putting an evidence bag in another evidence bag to be slightly absurd."))
-		return 1 //now this is podracing
+		return TRUE // Now this is podracing.
 
-	if(I.w_class > WEIGHT_CLASS_NORMAL)
-		to_chat(user, SPAN_NOTICE("[I] won't fit in [src]."))
+	if(used.w_class > WEIGHT_CLASS_NORMAL)
+		to_chat(user, SPAN_WARNING("[used] won't fit in [src]!"))
 		return
 
 	if(length(contents))
-		to_chat(user, SPAN_NOTICE("[src] already has something inside it."))
+		to_chat(user, SPAN_WARNING("[src] already has something inside it!"))
 		return
 
-	if(!isturf(I.loc)) //If it isn't on the floor. Do some checks to see if it's in our hands or a box. Otherwise give up.
-		if(isstorage(I.loc))	//in a container.
-			var/obj/item/storage/U = I.loc
-			U.remove_from_storage(I, src)
-		else if(!user.is_holding(I) || !user.unequip(I))					//in a hand
+	if(!isturf(used.loc)) // If it isn't on the floor. Do some checks to see if it's in our hands or a box. Otherwise give up.
+		if(isstorage(used.loc))	// In a container.
+			var/obj/item/storage/container = used.loc
+			container.remove_from_storage(used, src)
+		else if(!user.is_holding(used) || !user.unequip(used))					// In a hand.
 			return
 
-	user.visible_message(SPAN_NOTICE("[user] puts [I] into [src]."), SPAN_NOTICE("You put [I] inside [src]."),\
-	SPAN_NOTICE("You hear a rustle as someone puts something into a plastic bag."))
+	user.visible_message(
+		SPAN_NOTICE("[user] puts [used] into [src]."),
+		SPAN_NOTICE("You put [used] inside [src]."),
+		SPAN_NOTICE("You hear a rustle as someone puts something into a plastic bag.")
+	)
 
-	I.forceMove(src)
-	w_class = I.w_class
+	used.forceMove(src)
+	w_class = used.w_class
 	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS|UPDATE_DESC)
 	return TRUE
 
-/obj/item/evidencebag/attack_self__legacy__attackchain(mob/user)
+/obj/item/evidencebag/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!length(contents))
-		to_chat(user, "[src] is empty.")
+		to_chat(user, SPAN_WARNING("[src] is empty!"))
 		icon_state = "evidenceobj"
-		return
-	var/obj/item/I = contents[1]
-	user.visible_message(SPAN_NOTICE("[user] takes [I] out of [src]."), SPAN_NOTICE("You take [I] out of [src]."),\
-	SPAN_NOTICE("You hear someone rustle around in a plastic bag, and remove something."))
-	user.put_in_hands(I)
-	I.pickup(user)
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/item/first_item = contents[1]
+	user.visible_message(
+		SPAN_NOTICE("[user] takes [first_item] out of [src]."),
+		SPAN_NOTICE("You take [first_item] out of [src]."),
+		SPAN_NOTICE("You hear someone rustle around in a plastic bag, and remove something.")
+	)
+	user.put_in_hands(first_item)
+	first_item.pickup(user)
 	w_class = WEIGHT_CLASS_TINY
 	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS|UPDATE_DESC)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/evidencebag/update_icon_state()
 	if(length(contents))
@@ -75,12 +90,12 @@
 	if(!length(contents))
 		return
 	var/obj/item/I = contents[1]
-	var/image/img = image("icon"=I, "layer"=FLOAT_LAYER)	// take a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
+	var/image/img = image("icon"=I, "layer"=FLOAT_LAYER)	// TSake a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
 	img.plane = FLOAT_PLANE
 	img.pixel_x = 0
 	img.pixel_y = 0
 	. += img
-	. += "evidence"	// should look nicer for transparent stuff. not really that important, but hey.
+	. += "evidence"	// Should look nicer for transparent stuff. Not really that important, but hey.
 
 /obj/item/evidencebag/update_desc(updates)
 	. = ..()
@@ -136,7 +151,7 @@
 	desc = "A stiff paper card for preserving fingerprints. This one is unused."
 	icon_state = "fingerprint"
 	inhand_icon_state = "paper"
-	/// if true, the print was pulled instead of being manually pressed.
+	/// If true, the print was pulled instead of being manually pressed.
 	var/pulled = FALSE
 
 /obj/item/sample/print/update_icon_state()
