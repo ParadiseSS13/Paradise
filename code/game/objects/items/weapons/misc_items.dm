@@ -237,7 +237,7 @@
 	user.Beam(target, "lightning", 'icons/obj/zap.dmi', 50, 15)
 
 /obj/item/newton
-	name = "newton cradle"
+	name = "\improper Newton's cradle"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "newton"
 	desc = "A device bored paper pushers use to remind themselves that time did not stop yet. Contains gravity."
