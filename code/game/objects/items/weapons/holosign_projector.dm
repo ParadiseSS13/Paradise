@@ -42,6 +42,10 @@
 		to_chat(user, SPAN_WARNING("[src] is projecting at max capacity!"))
 		return ITEM_INTERACT_COMPLETE
 
+	create_sign(target_turf, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/holosign_creator/proc/create_sign(turf/target, mob/user)
 	playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
 	if(creation_time)
 		holocreator_busy = TRUE
@@ -51,10 +55,11 @@
 		holocreator_busy = FALSE
 		if(length(signs) >= max_signs)
 			return ITEM_INTERACT_COMPLETE
-		if(target_turf.is_blocked_turf(exclude_mobs = TRUE)) // Don't try to sneak dense stuff on our tile during the wait.
+		if(target.is_blocked_turf(exclude_mobs = TRUE)) // Don't try to sneak dense stuff on our tile during the wait.
 			return ITEM_INTERACT_COMPLETE
 	var/obj/structure/holosign/new_sign = new holosign_type(get_turf(target), src)
 	to_chat(user, SPAN_NOTICE("You create [new_sign] with [src]."))
+
 	return new_sign
 
 /obj/item/holosign_creator/activate_self(mob/user)
@@ -89,7 +94,7 @@
 	if(ishuman(user))
 		. += SPAN_NOTICE("Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.")
 
-/obj/item/holosign_creator/janitor/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+/obj/item/holosign_creator/janitor/create_sign(turf/target, mob/user)
 	var/obj/structure/holosign/wetsign/new_sign = ..()
 	if(istype(new_sign) && wet_enabled)
 		new_sign.wet_timer_start(src)
