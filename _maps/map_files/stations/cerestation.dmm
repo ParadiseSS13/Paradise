@@ -14147,10 +14147,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/brig)
-"chM" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "chQ" = (
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel,
@@ -14590,6 +14586,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/tiles/department/command/side,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "clr" = (
@@ -15463,6 +15460,7 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "csL" = (
@@ -16507,17 +16505,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
 "cBp" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/structure/disposalpipe/sortjunction,
 /obj/structure/table/glass/reinforced,
+/obj/effect/mapping_helpers/sortjunc_helper/hop_office,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "cBs" = (
@@ -16620,11 +16616,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tiles/neutral,
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "cBR" = (
@@ -23262,9 +23257,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/a)
 "dKK" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
@@ -23272,6 +23264,7 @@
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "dKL" = (
@@ -33291,9 +33284,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -34902,13 +34892,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/science/port)
 "gpi" = (
-/obj/structure/chair/comfy/lime{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
 /obj/effect/landmark/start/chief_engineer,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/chair/comfy/yellow{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "gpk" = (
@@ -39163,12 +39156,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/processing)
-"hor" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "hov" = (
 /obj/effect/spawner/random/fungus/frequent,
 /turf/simulated/wall/r_wall,
@@ -49409,28 +49396,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
 "jsO" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/sortjunction{
-	dir = 8;
-	sort_type_txt = "18"
-	},
-/obj/machinery/hologram/holopad,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/sortjunction{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/sortjunc_helper/captains_office,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "jsP" = (
@@ -53127,9 +53095,6 @@
 /obj/structure/chair/comfy/corp,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/landmark/start/captain,
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -53137,6 +53102,10 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/sortjunc_helper/captains_office,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "khH" = (
@@ -55814,9 +55783,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -55824,6 +55790,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tiles/neutral,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "kKL" = (
@@ -56322,24 +56291,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
-"kPU" = (
-/obj/machinery/door/airlock/command/glass{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge_upper";
-	layer = 2.6;
-	name = "Emergency Blast Door"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "kQc" = (
 /obj/machinery/light{
 	dir = 4
@@ -72459,15 +72410,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
-"oqu" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/meeting_room)
 "oqz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -73277,6 +73219,7 @@
 	layer = 2.6;
 	name = "Emergency Blast Door"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "oxM" = (
@@ -76815,35 +76758,18 @@
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/disposal/east)
 "pmo" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 1;
-	sort_type_txt = "15"
-	},
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi/fountain,
-/obj/structure/table/glass/reinforced,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/wood,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/sortjunction/reversed{
+/obj/structure/disposalpipe/junction{
 	dir = 1
 	},
+/obj/structure/table/glass/reinforced,
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi/fountain,
-/obj/effect/mapping_helpers/sortjunc_helper/hop_office,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "pmV" = (
@@ -80182,6 +80108,9 @@
 /obj/structure/sign/poster/official/random/directional/east,
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
@@ -87959,10 +87888,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
-"rMM" = (
-/obj/structure/disposalpipe/segment/corner,
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "rMO" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -91361,10 +91286,6 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/fore_starboard)
-"sxT" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/meeting_room)
 "sye" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -99500,7 +99421,9 @@
 	},
 /obj/structure/chair/comfy/blue,
 /obj/effect/landmark/start/nanotrasen_rep,
-/obj/structure/disposalpipe/junction/reversed,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "ulK" = (
@@ -105192,12 +105115,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/landmark/start/head_of_personnel,
 /obj/structure/chair/comfy/blue,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "vwe" = (
@@ -107276,7 +107196,6 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "vRL" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command/glass{
 	dir = 4
 	},
@@ -111317,9 +111236,6 @@
 	pixel_y = 7;
 	req_one_access = list(19,41)
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/item/ashtray/bronze,
 /obj/structure/table/glass/reinforced,
 /turf/simulated/floor/plasteel/dark,
@@ -114093,6 +114009,13 @@
 	},
 /turf/space,
 /area/station/engineering/solar/fore_port)
+"xql" = (
+/obj/effect/turf_decal/tiles/department/command/corner,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/meeting_room)
 "xqn" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tiles/department/medical/corner,
@@ -151812,10 +151735,10 @@ bMQ
 nNY
 imn
 xLP
-hor
-chM
+tpA
+tpA
 vRL
-sxT
+aUp
 ulw
 cBp
 cCR
@@ -152326,10 +152249,10 @@ bMQ
 bRS
 fxL
 xLP
-rMM
-chM
-kPU
-sxT
+tpA
+tpA
+vRL
+aUp
 vvZ
 pmo
 lVh
@@ -152587,7 +152510,7 @@ tpA
 clV
 xPq
 oBM
-oqu
+aQl
 gpi
 xOT
 pHE
@@ -152844,8 +152767,8 @@ nyj
 aop
 aNY
 aPo
-aPm
 aUp
+aPm
 iEC
 wEV
 djE
@@ -153101,8 +153024,8 @@ jYR
 clW
 xYZ
 lOm
-aPm
 aUp
+aPm
 cCZ
 ixI
 ixI
@@ -153358,8 +153281,8 @@ xCm
 tpA
 xYZ
 aPq
-aPm
-iEC
+aUp
+xql
 jVh
 ixI
 bCK
