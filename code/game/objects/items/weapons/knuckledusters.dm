@@ -28,13 +28,13 @@
 
 	if(!gripped)
 		gripped = TRUE
-		to_chat(user, "You tighten your grip on [src], ensuring you won't drop it.")
+		to_chat(user, SPAN_NOTICE("You tighten your grip on [src], ensuring you won't drop it."))
 		set_nodrop(TRUE, user)
 		ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
 		return ITEM_INTERACT_COMPLETE
 
 	gripped = FALSE
-	to_chat(user, "You relax your grip on [src].")
+	to_chat(SPAN_NOTICE(user, "You relax your grip on [src]."))
 	set_nodrop(FALSE, user)
 	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
 	return ITEM_INTERACT_COMPLETE
@@ -47,9 +47,9 @@
 
 /obj/item/melee/knuckleduster/pre_attack(atom/target, mob/living/user, params)
 	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
+	return ..()
 
-/obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/carbon/human/user)
-	. = ..()
+/obj/item/melee/knuckleduster/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!ishuman(target) || QDELETED(target))
 		return FINISH_ATTACK
 
