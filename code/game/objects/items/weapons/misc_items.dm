@@ -137,6 +137,7 @@
 
 	used.forceMove(src)
 	hidden_object = used
+	add_fingerprint(user)
 	to_chat(user, SPAN_NOTICE("You hide [used] inside the crutch tip."))
 
 /obj/item/crutches/attack_hand(mob/user, pickupfireoverride)
@@ -262,6 +263,7 @@
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time
+		add_fingerprint(user)
 
 /obj/item/popsicle_stick
 	name = "popsicle stick"
