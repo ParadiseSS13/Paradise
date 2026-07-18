@@ -76699,10 +76699,10 @@
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/command/starboard)
 "plu" = (
-/obj/structure/chair/comfy/shuttle,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/structure/chair/comfy/blue,
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
 "ply" = (
