@@ -19,6 +19,7 @@
 	var/cooldown = 0
 	var/icon_prefix
 	var/obj/item/stack/sheet/welded_type = /obj/item/stack/sheet/glass
+	new_attack_chain = TRUE
 
 /obj/item/shard/suicide_act(mob/user)
 		to_chat(viewers(user), pick(SPAN_DANGER("[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!"),
@@ -49,22 +50,25 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/shard/afterattack__legacy__attackchain(atom/movable/AM, mob/user, proximity)
+/obj/item/shard/after_attack(atom/movable/target, mob/living/carbon/human/user, proximity)
 	if(!proximity || !(src in user))
-		return
-	if(isturf(AM))
-		return
-	if(isstorage(AM))
-		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
-			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-			if(affecting.is_robotic())
-				return
-			to_chat(H, SPAN_WARNING("[src] cuts into your hand!"))
-			if(affecting.receive_damage(force * 0.5))
-				H.UpdateDamageIcon()
+		return ..()
+	if(isturf(target))
+		return ..()
+	if(isstorage(target))
+		return ..()
+	if(!ishuman(user))
+		return ..()
+	if(user.gloves || HAS_TRAIT(user, TRAIT_PIERCEIMMUNE))
+		return ..()
+
+	var/obj/item/organ/external/affecting = user.get_organ("[user.hand ? "l" : "r" ]_hand")
+	if(affecting.is_robotic())
+		return ..()
+	to_chat(user, SPAN_WARNING("[src] cuts into your hand!"))
+	if(affecting.receive_damage(force * 0.5))
+		user.UpdateDamageIcon()
+	add_fingerprint(user)
 
 /obj/item/shard/welder_act(mob/user, obj/item/I)
 	. = TRUE
