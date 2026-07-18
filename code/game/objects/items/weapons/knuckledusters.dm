@@ -53,7 +53,7 @@
 	if(..())
 		return FINISH_ATTACK
 	if(!ishuman(target) || QDELETED(target))
-		return ..()
+		return FINISH_ATTACK
 
 	var/obj/item/organ/external/punched = target.get_organ(user.zone_selected)
 	if(!length(punched.internal_organs))
