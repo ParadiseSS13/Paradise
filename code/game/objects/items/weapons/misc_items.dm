@@ -219,6 +219,8 @@
 	icon_state = "1"
 
 /obj/item/lightning/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(..())
+		return FINISH_ATTACK
 	var/angle = get_angle(target, user)
 	//to_chat(world, angle)
 	angle = round(angle) + 45
