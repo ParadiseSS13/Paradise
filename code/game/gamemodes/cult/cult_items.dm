@@ -644,7 +644,7 @@
 /obj/item/whetstone/cult/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	..()
 	if(used_up)
-		to_chat(user, SPAN_NOTICE("[src] crumbles to ashes."))
+		to_chat(user, SPAN_WARNING("[src] crumbles to ashes!"))
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 

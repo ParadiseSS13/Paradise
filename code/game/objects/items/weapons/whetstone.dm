@@ -69,11 +69,12 @@
 
 	var/datum/unarmed_attack/attack = user.get_unarmed_attack()
 	if(!istype(attack, /datum/unarmed_attack/claws))
+		to_chat(user, SPAN_WARNING("You don't have claws to sharpen!"))
 		return ITEM_INTERACT_COMPLETE
 
 	var/datum/unarmed_attack/claws/claw_attack = attack
 	if(claw_attack.has_been_sharpened)
-		to_chat(user, SPAN_WARNING("You can not sharpen your claws any further!"))
+		to_chat(user, SPAN_WARNING("You cannot sharpen your claws any further!"))
 		return ITEM_INTERACT_COMPLETE
 
 	claw_attack.has_been_sharpened = TRUE
