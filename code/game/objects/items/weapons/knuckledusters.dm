@@ -49,7 +49,7 @@
 	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 	return ..()
 
-/obj/item/melee/knuckleduster/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/knuckleduster/after_attack(mob/living/carbon/human/target, mob/user, proximity_flag, click_parameters)
 	if(!ishuman(target) || QDELETED(target))
 		return FINISH_ATTACK
 
