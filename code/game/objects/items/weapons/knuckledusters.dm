@@ -34,7 +34,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	gripped = FALSE
-	to_chat(SPAN_NOTICE(user, "You relax your grip on [src]."))
+	to_chat(user, SPAN_NOTICE("You relax your grip on [src]."))
 	set_nodrop(FALSE, user)
 	REMOVE_TRAIT(src, TRAIT_SKIP_EXAMINE, "knuckledusters")
 	return ITEM_INTERACT_COMPLETE
