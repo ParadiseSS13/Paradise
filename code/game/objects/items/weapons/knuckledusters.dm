@@ -51,7 +51,7 @@
 
 /obj/item/melee/knuckleduster/after_attack(mob/living/carbon/human/target, mob/user, proximity_flag, click_parameters)
 	if(!ishuman(target) || QDELETED(target))
-		return FINISH_ATTACK
+		return ..()
 
 	var/obj/item/organ/external/punched = target.get_organ(user.zone_selected)
 	if(!length(punched.internal_organs))
