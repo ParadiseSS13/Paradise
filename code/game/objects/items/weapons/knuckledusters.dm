@@ -50,6 +50,8 @@
 	return ..()
 
 /obj/item/melee/knuckleduster/after_attack(mob/living/carbon/human/target, mob/user, proximity_flag, click_parameters)
+	if(..())
+		return FINISH_ATTACK
 	if(!ishuman(target) || QDELETED(target))
 		return ..()
 
