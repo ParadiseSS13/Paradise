@@ -157,3 +157,4 @@
 	desc = "You party like there's no tomorrow every day, the consequences are a problem for future you! When the shift starts, you will always wake up in a random part of the station, drunk."
 	cost = -1
 	trait_to_apply = TRAIT_WORK_HARD_PARTY_HARDER
+	conflicting_quirks = list(/datum/quirk/temperate_partier)
