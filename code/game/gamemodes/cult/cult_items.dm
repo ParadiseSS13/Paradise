@@ -639,13 +639,14 @@
 	claw_damage_increase = 4
 
 /obj/item/whetstone/cult/update_icon_state()
-	icon_state = "cult_sharpener[used ? "_used" : ""]"
+	icon_state = "cult_sharpener[used_up ? "_used" : ""]"
 
-/obj/item/whetstone/cult/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/whetstone/cult/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	..()
-	if(used)
+	if(used_up)
 		to_chat(user, SPAN_NOTICE("[src] crumbles to ashes."))
 		qdel(src)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_containers/drinks/bottle/unholywater
 	name = "flask of unholy water"
