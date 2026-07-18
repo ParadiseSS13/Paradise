@@ -65,10 +65,11 @@
 	var/obj/item/organ/external/affecting = user.get_organ("[user.hand ? "l" : "r" ]_hand")
 	if(affecting.is_robotic())
 		return ..()
-	to_chat(user, SPAN_WARNING("[src] cuts into your hand!"))
+	to_chat(user, SPAN_DANGER("[src] cuts into your hand!"))
 	if(affecting.receive_damage(force * 0.5))
 		user.UpdateDamageIcon()
 	add_fingerprint(user)
+	return FINISH_ATTACK
 
 /obj/item/shard/welder_act(mob/user, obj/item/I)
 	. = TRUE
