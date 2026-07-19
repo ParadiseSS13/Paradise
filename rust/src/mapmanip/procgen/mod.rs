@@ -1,4 +1,4 @@
-use std::{collections::{HashMap, HashSet}, iter::Map};
+use std::collections::{HashMap, HashSet};
 
 use super::core::GridMap;
 

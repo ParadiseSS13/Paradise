@@ -200,7 +200,6 @@
 #include "code\__HELPERS\_logging.dm"
 #include "code\__HELPERS\_string_lists.dm"
 #include "code\__HELPERS\AnimationLibrary.dm"
-#include "code\__HELPERS\api.dm"
 #include "code\__HELPERS\atom_helpers.dm"
 #include "code\__HELPERS\basic_ai.dm"
 #include "code\__HELPERS\bitflag_lists.dm"

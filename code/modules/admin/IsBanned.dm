@@ -77,7 +77,7 @@
 
 
 	// If 2FA is enabled, makes sure they were authed within the last minute
-	if(check_2fa && GLOB.configuration.system.api_host)
+	if(check_2fa)
 		// First see if they exist at all
 		var/datum/db_query/check_query = SSdbcore.NewQuery("SELECT 2fa_status, ip FROM player WHERE ckey=:ckey", list("ckey" = ckey(key)))
 
