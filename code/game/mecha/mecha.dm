@@ -1035,20 +1035,20 @@
 	if(!..())
 		return
 
- //Transfer from core or card to mech. Proc is called by mech.
+ // Transfer from core or card to mech. Proc is called by mech.
 	switch(interaction)
-		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
-			if(!maint_access) //Mech must be in maint mode to allow carding.
+		if(AI_TRANS_TO_CARD) // Upload AI from mech to AI card.
+			if(!maint_access) // Mech must be in maint mode to allow carding.
 				to_chat(user, SPAN_WARNING("[name] must have maintenance protocols active in order to allow a transfer."))
 				return
 			AI = occupant
-			if(!AI || !is_ai(occupant)) //Mech does not have an AI for a pilot
+			if(!AI || !is_ai(occupant)) // Mech does not have an AI for a pilot
 				to_chat(user, SPAN_WARNING("No AI detected in the [name] onboard computer."))
 				return
-			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
+			if(AI.mind.special_role) // Malf AIs cannot leave mechs. Except through death.
 				to_chat(user, SPAN_BOLDANNOUNCEIC("ACCESS DENIED."))
 				return
-			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
+			AI.aiRestorePowerRoutine = 0// So the AI initially has power.
 			AI.control_disabled = TRUE
 			AI.aiRadio.disabledAi = TRUE
 			AI.forceMove(card)
@@ -1058,17 +1058,18 @@
 			icon_state = reset_icon(icon_state)+"-open"
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
+			card.held_ai = AI
 
-		if(AI_MECH_HACK) //Called by AIs on the mech
+		if(AI_MECH_HACK) // Called by AIs on the mech
 			AI.linked_core = new /obj/structure/ai_core/deactivated(AI.loc)
 			if(AI.can_dominate_mechs)
-				if(occupant) //Oh, I am sorry, were you using that?
-					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!")
+				if(occupant) // Oh, I am sorry, were you using that?
+					to_chat(AI, SPAN_WARNING("Pilot detected! Forced ejection initiated!"))
 					to_chat(occupant, SPAN_DANGER("You have been forcibly ejected!"))
-					go_out(1) //IT IS MINE, NOW. SUCK IT, RD!
+					go_out(1) // IT IS MINE, NOW. SUCK IT, RD!
 			ai_enter_mech(AI, interaction)
 
-		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
+		if(AI_TRANS_FROM_CARD) // Using an AI card to upload to a mech.
 			AI = locate(/mob/living/silicon/ai) in card
 			if(!AI)
 				to_chat(user, SPAN_WARNING("There is no AI currently installed on this device."))
@@ -1076,13 +1077,14 @@
 			else if(AI.stat || !AI.client)
 				to_chat(user, SPAN_WARNING("[AI.name] is currently unresponsive, and cannot be uploaded."))
 				return
-			else if(occupant || dna) //Normal AIs cannot steal mechs!
+			else if(occupant || dna) // Normal AIs cannot steal mechs!
 				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].")
 				return
 			AI.control_disabled = FALSE
 			AI.aiRadio.disabledAi = FALSE
 			to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 			ai_enter_mech(AI, interaction)
+			card.held_ai = null
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
 /obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
@@ -1102,7 +1104,7 @@
 	AI.controlled_mech = src
 	AI.remote_control = src
 	AI.reset_perspective(src)
-	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
+	AI.can_shunt = FALSE // ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? SPAN_BOLDNOTICE("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
 	to_chat(AI, SPAN_BOLDNOTICE("Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions."))
