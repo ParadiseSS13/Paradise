@@ -31,7 +31,7 @@ export const QuirkMenu = () => {
 
   // Track quirk conflicts
   const hasConflicts = (q: Quirk) => {
-    for(const selectedQuirk in selectedSet) {
+    for (const selectedQuirk in selectedSet) {
       if (q.conflicts && q.conflicts.includes(data.all_quirks[selectedQuirk].path)) {
         return true;
       }
