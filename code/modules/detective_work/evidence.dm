@@ -29,7 +29,7 @@
 		return
 
 	if(istype(used, /obj/item/evidencebag))
-		to_chat(user, SPAN_NOTICE("You find putting an evidence bag in another evidence bag to be slightly absurd."))
+		to_chat(user, SPAN_WARNING("You find putting an evidence bag in another evidence bag to be slightly absurd!"))
 		return TRUE // Now this is podracing.
 
 	if(used.w_class > WEIGHT_CLASS_NORMAL)
@@ -90,7 +90,7 @@
 	if(!length(contents))
 		return
 	var/obj/item/I = contents[1]
-	var/image/img = image("icon"=I, "layer"=FLOAT_LAYER)	// TSake a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
+	var/image/img = image("icon" = I, "layer" = FLOAT_LAYER)	// Take a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
 	img.plane = FLOAT_PLANE
 	img.pixel_x = 0
 	img.pixel_y = 0
