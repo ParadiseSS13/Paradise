@@ -111,27 +111,31 @@
 	else
 		flash_timer = null
 
-/obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 10 SECONDS, targeted = TRUE)
+/obj/item/flash/proc/flash_carbon(mob/living/carbon/target, mob/user, power = 10 SECONDS, targeted = TRUE)
 	if(user)
-		add_attack_logs(user, M, "Flashed with [src]")
+		add_attack_logs(user, target, "Flashed with [src]")
 		if(targeted)
-			if(M.flash_eyes(1, 1))
-				M.AdjustConfused(power)
-				revolution_conversion(M, user)
-				if(!M.absorb_stun(0))
-					M.drop_l_hand()
-					M.drop_r_hand()
-				visible_message(SPAN_DISARM("[user] blinds [M] with [src]!"))
-				to_chat(user, SPAN_DANGER("You blind [M] with [src]!"))
-				to_chat(M, SPAN_USERDANGER("[user] blinds you with [src]!"))
+			if(target.flash_eyes(1, 1))
+				target.AdjustConfused(power)
+				revolution_conversion(target, user)
+				if(!target.absorb_stun(0))
+					target.drop_l_hand()
+					target.drop_r_hand()
+				target.visible_message(
+					SPAN_DANGER("[user] blinds [target] with [src]!"),
+					SPAN_USERDANGER("[user] blinds you with [src]!"),
+					SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+				)
 			else
-				visible_message(SPAN_DISARM("[user] fails to blind [M] with [src]!"))
-				to_chat(user, SPAN_WARNING("You fail to blind [M] with [src]!"))
-				to_chat(M, SPAN_DANGER("[user] fails to blind you with [src]!"))
+				target.visible_message(
+					SPAN_DISARM("[user] fails to blind [target] with [src]!"),
+					SPAN_USERDANGER("[user] fails to blind you with [src]!"),
+					SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+				)
 			return
 
-	if(M.flash_eyes())
-		M.AdjustConfused(power)
+	if(target.flash_eyes())
+		target.AdjustConfused(power)
 
 /obj/item/flash/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!try_use_flash(user))
