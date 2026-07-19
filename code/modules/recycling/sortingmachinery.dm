@@ -104,14 +104,14 @@
 	icon_state = "deliverycrate2"
 	var/obj/item/wrapped = null
 	var/giftwrapped = FALSE
-	var/sort_tag = 1
+	var/sort_tag = TAGGER_LOCATION_DISPOSALS
 	new_attack_chain = TRUE
 
 /obj/item/small_delivery/update_desc()
 	. = ..()
 	desc = initial(desc)
 	if(sort_tag)
-		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sort_tag]]\"."
+		desc += SPAN_NOTICE("The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sort_tag]]\".")
 
 /obj/item/small_delivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -410,7 +410,7 @@
 		if(!O.sealed)		//unsealed shipping packages will default to disposals
 			O.sort_tag = 1
 	if(!delivery_check)
-		H.destination_tag = 1
+		H.destination_tag = TAGGER_LOCATION_DISPOSALS
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)

@@ -562,7 +562,21 @@
 		wrapcheck = 1
 
 	if(wrapcheck == 1)
-		H.tomail = 1
+var/wrapcheck = FALSE
+var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
+// travels through the pipes.
+//Hacky test to get drones to mail themselves through disposals.
+for(var/mob/living/silicon/robot/drone/D in src)
+wrapcheck = TRUE
+
+for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
+wrapcheck = TRUE
+
+for(var/obj/item/small_delivery/O in src)
+wrapcheck = TRUE
+
+if(wrapcheck)
+H.tomail = TRUE
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
@@ -676,9 +690,11 @@
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
 	var/has_fat_guy = FALSE	// true if contains a fat person
 	/// Destination the holder is set to, defaulting to disposals and changes if the contents have a mail/sort tag.
-	var/destination_tag = 1
-	var/tomail = 0 //changes if contains wrapped package
-	var/hasmob = 0 //If it contains a mob
+	var/destination_tag = TAGGER_LOCATION_DISPOSALS
+	/// Do we contain a package?
+	var/tomail = FALSE
+	/// Do we contain a mob?
+	var/hasmob = FALSE
 
 /obj/structure/disposalholder/Destroy()
 	QDEL_NULL(gas)
