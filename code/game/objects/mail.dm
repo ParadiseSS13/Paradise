@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
+	new_attack_chain = TRUE
 
 	var/list/possible_contents = list()
 	/// A list that contains the names of the jobs that can receive this type of letter. Only the base job has to be put in it, alternative titles have the same definition on the mind. Name of the job can be found in `mind.assigned_role`
@@ -22,12 +23,14 @@
 	playsound(loc, 'sound/effects/-adminhelp.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/envelope/attack_self__legacy__attackchain(mob/user)
+/obj/item/envelope/activate_self(mob/user)
 	if(!user?.mind)
-		return
+		return ..()
+
 	if(user.real_name != recipient)
 		to_chat(user, SPAN_WARNING("You don't want to open up another person's mail, that's an invasion of their privacy!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
 		to_chat(user, SPAN_NOTICE("You begin to open the envelope."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
@@ -35,6 +38,7 @@
 		for(var/obj/item/I in contents)
 			user.put_in_hands(I)
 		qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/envelope/Initialize(mapload)
 	. = ..()
@@ -242,54 +246,83 @@
 	var/obj/item/envelope/saved
 	/// How far away can the scanner scan mail or people
 	var/scanner_range = 7
+	new_attack_chain = TRUE
 
 /obj/item/mail_scanner/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("Scan a letter to log it into the active database, then scan the person you wish to hand the letter to. Correctly scanning the recipient of the letter logged into the active database will add credits to the Supply budget.")
 
-/obj/item/mail_scanner/attack__legacy__attackchain()
-	return
-
-/obj/item/mail_scanner/afterattack__legacy__attackchain(atom/A, mob/user)
-	if(get_dist(A, user) > scanner_range)
+/obj/item/mail_scanner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(get_dist(target, user) > scanner_range)
 		to_chat(user, SPAN_WARNING("The scanner doesn't reach that far!"))
-		return
-	if(istype(A, /obj/item/envelope))
-		var/obj/item/envelope/envelope = A
-		if(envelope.has_been_scanned)
-			to_chat(user, SPAN_WARNING("This letter has already been logged to the active database!"))
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
-		to_chat(user, SPAN_NOTICE("You add [envelope] to the active database."))
-		playsound(loc, 'sound/mail/mailscanned.ogg', 50, TRUE)
-		saved = A
-		SSblackbox.record_feedback("amount", "successful_mail_scan", 1)
-		return
-	if(isliving(A))
-		var/mob/living/M = A
-		if(!saved)
-			to_chat(user, SPAN_WARNING("Error: You have not logged mail to the mail scanner!"))
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
+		return ITEM_INTERACT_COMPLETE
 
-		if(M.stat == DEAD)
-			to_chat(user, SPAN_WARNING("Consent Verification failed: You can't deliver mail to a corpse!"))
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
+	if(istype(target, /obj/item/envelope))
+		scan_envelope(target, user)
+		return ITEM_INTERACT_COMPLETE
 
-		if(M.real_name != saved.recipient)
-			to_chat(user, SPAN_WARNING("'Identity Verification failed: Target is not an authorized recipient of this package!"))
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
+	if(isliving(target))
+		scan_recipient(target, user)
+		return ITEM_INTERACT_COMPLETE
 
-		if(!M.client)
-			to_chat(user, SPAN_WARNING("Consent Verification failed: The scanner will not accept confirmation of orders from SSD people!"))
-			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
-			return
+	return ..()
 
-		saved.has_been_scanned = TRUE
-		saved = null
-		to_chat(user, SPAN_NOTICE("Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!"))
-		playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
-		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Nanotrasen Mail and Interstellar Logistics", supress_log = FALSE)
-		SSblackbox.record_feedback("amount", "successful_mail_delivery", 1)
+/obj/item/mail_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/item/envelope))
+		scan_envelope(target, user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(isliving(target))
+		scan_recipient(target, user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/item/mail_scanner/proc/scan_envelope(obj/item/envelope/envelope, mob/user)
+	if(!istype(envelope))
+		return FALSE
+
+	if(envelope.has_been_scanned)
+		to_chat(user, SPAN_WARNING("This letter has already been logged to the active database!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	to_chat(user, SPAN_NOTICE("You add [envelope] to the active database."))
+	playsound(loc, 'sound/mail/mailscanned.ogg', 50, TRUE)
+	saved = A
+	SSblackbox.record_feedback("amount", "successful_mail_scan", 1)
+	add_fingerprint(user)
+	return TRUE
+
+/obj/item/mail_scanner/proc/scan_recipient(mob/living/recipient, mob/user)
+	if(!istype(recipient))
+		return FALSE
+
+	if(!saved)
+		to_chat(user, SPAN_WARNING("Error: You have not logged mail to the mail scanner!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	if(recipient.stat == DEAD)
+		to_chat(user, SPAN_WARNING("Consent Verification failed: You can't deliver mail to a corpse!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	if(recipient.real_name != saved.recipient)
+		to_chat(user, SPAN_WARNING("'Identity Verification failed: Target is not an authorized recipient of this package!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	if(!recipient.client)
+		to_chat(user, SPAN_WARNING("Consent Verification failed: The scanner will not accept confirmation of orders from SSD people!"))
+		playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
+		return FALSE
+
+	saved.has_been_scanned = TRUE
+	saved = null
+	to_chat(user, SPAN_NOTICE("Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!"))
+	playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
+	GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Nanotrasen Mail and Interstellar Logistics", supress_log = FALSE)
+	SSblackbox.record_feedback("amount", "successful_mail_delivery", 1)
+	add_fingerprint(user)
+	return TRUE
