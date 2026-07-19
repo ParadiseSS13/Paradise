@@ -106,6 +106,10 @@
 	// Is the gripper interacting with an item?
 	if(isitem(target))
 		var/obj/item/I = target
+		if(I.is_robot_module())
+			to_chat(user, SPAN_WARNING("You can't grab your own modules!"))
+			return ITEM_INTERACT_COMPLETE
+
 		// Make sure the item is something the gripper can hold
 		if(can_hold_all_items || is_type_in_typecache(I, can_hold))
 			to_chat(user, SPAN_NOTICE("You collect [I]."))
