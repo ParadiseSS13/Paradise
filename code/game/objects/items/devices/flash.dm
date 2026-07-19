@@ -36,8 +36,13 @@
 	if(!can_overcharge || !istype(used, /obj/item/stock_parts/cell))
 		return ..()
 
-	if(!battery_panel || overcharged)
-		return ..()
+	if(!battery_panel)
+		to_chat(user, SPAN_WARNING("You need to unscrew the battery panel before inserting [used]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(overcharged)
+		to_chat(user, SPAN_WARNING("There's already a power cell attached to [src]!"))
+		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, SPAN_NOTICE("You jam [used] into the battery compartment on [src]."))
 	qdel(used)
@@ -135,7 +140,11 @@
 	if(istype(target, /obj/machinery/camera))
 		var/obj/machinery/camera/camera = target
 		camera.emp_act(EMP_HEAVY)
-		to_chat(user, SPAN_DISARM("You hit the lens of [camera] with [src], temporarily disabling the camera!"))
+		user.visible_message(
+			SPAN_WARNING("[user] flashes [camera] with [src], temporarily overloading its sensors!"),
+			SPAN_DISARM("You flash the lens of [camera] with [src], temporarily overloading its sensors!"),
+			SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+		)
 		log_admin("[key_name(user)] EMPd a camera with a flash")
 		user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
 		add_attack_logs(user, camera, "EMPd with [src]", ATKLOG_ALL)
@@ -148,6 +157,11 @@
 		if(overcharged)
 			carbon_target.adjust_fire_stacks(6)
 			carbon_target.IgniteMob()
+			carbon_target.visible_message(
+				SPAN_DANGER("[carbon_target] suddenly bursts into flames!"),
+				SPAN_USERDANGER("You suddenly burst into flames!"),
+				SPAN_DANGER("You hear a flame erupting!")
+			)
 			burn_out()
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
@@ -158,14 +172,16 @@
 		if(silicon_target.flash_eyes(intensity = 1.25, affect_silicon = TRUE)) // 40 * 1.25 = 50 stamina damage
 			user.visible_message(
 				SPAN_DISARM("[user] overloads [target]'s sensors with [src]!"),
-				SPAN_DANGER("You overload [target]'s sensors with [src]!")
+				SPAN_DANGER("You overload [target]'s sensors with [src]!"),
+				SPAN_HEAR("A click and a rising high pitched tone fills the air!")
 			)
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
 		SPAN_DISARM("[user] fails to blind [target] with [src]!"),
-		SPAN_WARNING("You fail to blind [target] with [src]!")
+		SPAN_WARNING("You fail to blind [target] with [src]!"),
+		SPAN_HEAR("A click and a rising high pitched tone fills the air!")
 	)
 
 /obj/item/flash/activate_self(mob/user)
@@ -178,7 +194,8 @@
 	add_fingerprint(user)
 	user.visible_message(
 		SPAN_DISARM("[user]'s [name] emits a blinding light!"),
-		SPAN_DANGER("Your [name] emits a blinding light!")
+		SPAN_DANGER("Your [name] emits a blinding light!"),
+		SPAN_HEAR("A click and a rising high pitched tone fills the air!")
 	)
 	for(var/mob/living/carbon/mob_target in oviewers(3, null))
 		flash_carbon(mob_target, user, 6 SECONDS, 0)
