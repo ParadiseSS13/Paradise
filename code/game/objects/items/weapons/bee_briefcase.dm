@@ -41,11 +41,11 @@
 
 	var/obj/item/reagent_containers/syringe/syringe = used
 	if(!bees_left)
-		to_chat(user, SPAN_WARNING("The briefcase is empty, so there is no point in injecting something into it!"))
+		to_chat(user, SPAN_WARNING("[src] is empty, so there is no point in injecting something into it!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!syringe.reagents || !syringe.reagents.total_volume)
-		to_chat(user, SPAN_WARNING("That syringe is empty!"))
+		to_chat(user, SPAN_WARNING("[syringe] is empty!"))
 		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, SPAN_NOTICE("You inject [src] with [syringe]."))
@@ -56,9 +56,9 @@
 		if(each_reagent.id == "lazarus_reagent")		// RELOAD THE BEES (1 bee per 1 unit, max 15 bees).
 			if(bees_left < 15)
 				bees_left = min(15, round((bees_left + each_reagent.volume), 1))	// No partial bees, max 15 bees in case at any given time.
-				to_chat(user, SPAN_WARNING("The buzzing inside the briefcase intensifies as new bees form inside."))
+				to_chat(user, SPAN_WARNING("The buzzing inside [src] intensifies as new bees form inside."))
 			else
-				to_chat(user, SPAN_WARNING("The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped..."))
+				to_chat(user, SPAN_WARNING("The buzzing inside [src] swells momentarily, then returns to normal. Guess it was too cramped..."))
 		syringe.reagents.clear_reagents()
 		syringe.update_icon()
 	add_fingerprint(user)
