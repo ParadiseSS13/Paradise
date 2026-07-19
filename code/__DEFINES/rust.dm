@@ -37,14 +37,18 @@
 	else
 		// First check if it's built in the usual place.
 		if(fexists("./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"))
+			log_world("\[Rustlibs] Loading debug build")
 			return __rustlib = "./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"
 		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
+			log_world("\[Rustlibs] Loading release build")
 			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
 		// Then check in the current directory.
 		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
+			log_world("\[Rustlibs] Loading repository build A")
 			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
 
 		// And elsewhere.
+		log_world("\[Rustlibs] Loading repository build B")
 		var/assignment_confirmed = (__rustlib = "rustlibs[RUSTLIBS_SUFFIX].dll")
 		// This being spanned over multiple lines is kinda scuffed, but its needed because of https://www.byond.com/forum/post/2072419
 		return assignment_confirmed
@@ -132,6 +136,23 @@
 
 /proc/mapmanip_read_dmm(mapname)
 	return RUSTLIB_CALL(mapmanip_read_dmm_file, mapname)
+
+// MARK: MFA
+
+/proc/rustlibs_mfa_generate_secret()
+	return RUSTLIB_CALL(mfa_generate_secret)
+
+/proc/rustlibs_mfa_generate_qr(secret, ckey)
+	return RUSTLIB_CALL(mfa_generate_qr, secret, ckey)
+
+/proc/rustlibs_mfa_verify_code(secret, code)
+	return RUSTLIB_CALL(mfa_verify_code, secret, code)
+
+
+// MARK: Misc
+
+/proc/rustlibs_generate_uuid()
+	return RUSTLIB_CALL(misc_new_uuid)
 
 // MARK: TOML
 /proc/rustlibs_read_toml_file(path)
