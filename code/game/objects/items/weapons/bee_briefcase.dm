@@ -12,8 +12,8 @@
 	var/bees_left = 10
 	var/list/blood_list = list()
 	var/sound_file = 'sound/misc/briefcase_bees.ogg'
-	var/next_sound = 0
 	new_attack_chain = TRUE
+	COOLDOWN_DECLARE(bee_sound_cooldown)
 
 /obj/item/bee_briefcase/Destroy()
 	blood_list.Cut()
@@ -72,9 +72,9 @@
 		to_chat(user, SPAN_DANGER("The lack of all and any bees at this event has been somewhat of a let-down..."))
 		return ITEM_INTERACT_COMPLETE
 
-	if(world.time >= next_sound)		// This cooldown doesn't prevent us from releasing bees, just stops the sound.
-		next_sound = world.time + 90
+	if(COOLDOWN_FINISHED(src, bee_sound_cooldown))		// This cooldown doesn't prevent us from releasing bees, just stops the sound.
 		playsound(loc, sound_file, 35)
+		COOLDOWN_START(src, bee_sound_cooldown, 90 SECONDS)
 
 	var/bees_released
 	// Release up to 5 bees per use. Without using Lazarus Reagent, that means two uses. WITH Lazarus Reagent, you can get more if you don't release the last bee.
