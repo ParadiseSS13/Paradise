@@ -6300,12 +6300,12 @@ __metadata:
   linkType: hard
 
 "brace-expansion@npm:^1.1.7":
-  version: 1.1.15
-  resolution: "brace-expansion@npm:1.1.15"
+  version: 1.1.16
+  resolution: "brace-expansion@npm:1.1.16"
   dependencies:
     balanced-match: "npm:^1.0.0"
     concat-map: "npm:0.0.1"
-  checksum: 10c0/648e273f57cfa9ed67d8a77bdb15b408205465d33da9331808ee3c188d8b55674c9cdbf1f320b65bc562e485e1263360ae62ad355e128e0435891f6430e795d7
+  checksum: 10c0/b2a915bbedbf4e45840d1fb9a4d391bbf26a79475bd134714d3cee34f1f0edb0ce982738028843be5fbaf8039429f71fa487df8c915b6065ced542c83e58fae6
   languageName: node
   linkType: hard
 
@@ -13348,14 +13348,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "js-yaml@npm:5.0.0"
+"js-yaml@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "js-yaml@npm:5.1.0"
   dependencies:
     argparse: "npm:^2.0.1"
   bin:
     js-yaml: bin/js-yaml.mjs
-  checksum: 10c0/06899cf94a6715eff69eafea08b066fa6978750231039393fba2902dc631af10dc47705eadfd688cc22bf27ae22dbc2548d936d89cf487b3224c59ffe227c45f
+  checksum: 10c0/a21c3817fb736ab3215c9d1ffb0a94823d02ecb51b481e88ab4bf0f9522baccbe9168bdf265bc315124d5087e2261de93e56176c2a7cd589d8275a18d7b3316e
   languageName: node
   linkType: hard
 
@@ -19732,7 +19732,7 @@ __metadata:
     axios: "npm:^1.15.2"
     source-map: "npm:^0.7.6"
     stacktrace-parser: "npm:^0.1.11"
-    ws: "npm:^8.21.0"
+    ws: "npm:^8.21.1"
   languageName: unknown
   linkType: soft
 
@@ -19819,7 +19819,7 @@ __metadata:
     file-extension-icon-js: "npm:^1.1.6"
     highlight.js: "npm:^11.11.1"
     jest: "npm:^29.7.0"
-    js-yaml: "npm:^5.0.0"
+    js-yaml: "npm:^5.1.0"
     lodash: "npm:^4.18.1"
     marked: "npm:^4.3.0"
     react: "npm:^19.2.0"
@@ -21173,13 +21173,13 @@ __metadata:
   linkType: hard
 
 "websocket-driver@npm:>=0.5.1, websocket-driver@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "websocket-driver@npm:0.7.4"
+  version: 0.7.5
+  resolution: "websocket-driver@npm:0.7.5"
   dependencies:
     http-parser-js: "npm:>=0.5.1"
     safe-buffer: "npm:>=5.1.0"
     websocket-extensions: "npm:>=0.1.1"
-  checksum: 10c0/5f09547912b27bdc57bac17b7b6527d8993aa4ac8a2d10588bb74aebaf785fdcf64fea034aae0c359b7adff2044dd66f3d03866e4685571f81b13e548f9021f1
+  checksum: 10c0/843a3c9f529ce07f2721829f70f62986247525ab22625e857b69da13dc90967bacfe57b85e196801b565cd797e309ddd5b06fa8435732e34e8a8ab6201d7abed
   languageName: node
   linkType: hard
 
@@ -21687,9 +21687,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.21.0":
-  version: 8.21.0
-  resolution: "ws@npm:8.21.0"
+"ws@npm:^8.21.1":
+  version: 8.21.1
+  resolution: "ws@npm:8.21.1"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -21698,7 +21698,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10c0/ef4a243476283fc49bc7550966c4af4aa0eef56273837211e700de3b664e08604a760cdddcb5ba43c049140e74ccfec5b0ee0bb439e08c2adf9138902fdde5f9
+  checksum: 10c0/c4c6f1d95f6d465262de2037c57c715725d67e078dd49420ede4e19115668aba159cb64d85c5e89c06eb2826be599e62e5095860ad6cc54ff42e8bd7684e1db8
   languageName: node
   linkType: hard
 
