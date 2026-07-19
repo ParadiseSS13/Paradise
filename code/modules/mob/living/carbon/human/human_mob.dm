@@ -2001,7 +2001,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/forceFed(obj/item/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
-			to_chat(user, SPAN_NOTICE("Where do you intend to put [toEat]? \The [src] doesn't have a mouth!"))
+			to_chat(user, SPAN_NOTICE("Where do you intend to put [toEat]? [src] doesn't have a mouth!"))
 			return FALSE
 	return ..()
 
