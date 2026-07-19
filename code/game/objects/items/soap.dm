@@ -33,15 +33,15 @@
 	if(!ishuman(target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		return ..() // Cleaning mobs is done on attack() so they get visibly bonked by the soap.
 
+	var/mob/living/carbon/human/human_target = target
 	// Mmm, delicious soap!
 	if(isdrask(target) && user == target && user.a_intent == INTENT_GRAB)
-		var/mob/living/carbon/human/muncher = target
-		eat_soap(muncher)
+		eat_soap(human_target)
 		user.changeNext_move(CLICK_CD_MELEE)
 		return ITEM_INTERACT_COMPLETE
 
 	var/mouth_term = "mouth out"
-	if(ismachineperson(target) && !HAS_TRAIT(target, TRAIT_IPC_CAN_EAT))
+	if(!human_target.check_has_mouth())
 		mouth_term = "speaker grille"
 
 	user.visible_message(

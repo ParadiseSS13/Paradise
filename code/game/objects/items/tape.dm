@@ -12,7 +12,7 @@
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/stack/tape_roll/interact_with_atom(atom/target, mob/living/user, list/modifiers)	
+/obj/item/stack/tape_roll/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ishuman(target)) // What good is a duct tape mask if you are unable to speak?
 		return ..()
 
@@ -25,28 +25,30 @@
 		to_chat(user, SPAN_WARNING("You'll need more tape for this!"))
 		return ITEM_INTERACT_COMPLETE
 
+	var/mouth_term = "mouth"
 	if(!H.check_has_mouth())
-		to_chat(user, "[H.p_they(TRUE)] [H.p_have()] no mouth to tape over!")
-		return ITEM_INTERACT_COMPLETE
+		mouth_term = "speaker grille"
 
 	user.visible_message(
-		SPAN_WARNING("[user] is taping [H]'s mouth closed!"),
-		SPAN_NOTICE("You try to tape [H == user ? "your own" : "[H]'s"] mouth shut!"),
+		SPAN_WARNING("[user] is taping over [H]'s [mouth_term]!"),
+		SPAN_NOTICE("You try to tape over [H == user ? "your own" : "[H]'s"] [mouth_term]!"),
 		SPAN_WARNING("You hear tape ripping.")
 		)
 	if(!do_after(user, 5 SECONDS, target = H))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!use(2))
-		to_chat(user, SPAN_NOTICE("You don't have enough tape!"))
+		to_chat(user, SPAN_WARNING("You don't have enough tape!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(H.wear_mask)
-		to_chat(user, SPAN_NOTICE("[H == user ? user : H]'s mouth is already covered!"))
+		to_chat(user, SPAN_WARNING("[H == user ? user : H]'s [mouth_term] is already covered!"))
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(SPAN_WARNING("[user] tapes [H]'s mouth shut!"),
-	SPAN_NOTICE("You cover [H == user ? "your own" : "[H]'s"] mouth with a piece of duct tape.[H == user ? null : " That will shut them up."]"))
+	user.visible_message(
+		SPAN_WARNING("[user] tapes over [H]'s [mouth_term]!"),
+		SPAN_NOTICE("You cover [H == user ? "your own" : "[H]'s"] [mouth_term] with a piece of duct tape.[H == user ? null : " That will shut them up."]")
+	)
 	var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag
 	H.equip_to_slot(G, ITEM_SLOT_MASK)
 	G.add_fingerprint(user)
