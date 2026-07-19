@@ -289,7 +289,7 @@
 
 	to_chat(user, SPAN_NOTICE("You add [envelope] to the active database."))
 	playsound(loc, 'sound/mail/mailscanned.ogg', 50, TRUE)
-	saved = A
+	saved = envelope
 	SSblackbox.record_feedback("amount", "successful_mail_scan", 1)
 	add_fingerprint(user)
 	return TRUE
