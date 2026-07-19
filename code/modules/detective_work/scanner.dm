@@ -102,16 +102,11 @@
 		to_chat(usr, SPAN_WARNING("The scanner has no logs or is in use."))
 
 /obj/item/detective_scanner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-
 	add_fingerprint(user)
 	scan(target, user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/detective_scanner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
 
 	add_fingerprint(user)
 	scan(target, user)
