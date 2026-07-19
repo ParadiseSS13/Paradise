@@ -491,6 +491,9 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/shipping_package/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(sealed)
 		to_chat(user, SPAN_NOTICE("You tear open [src], dropping the contents onto the floor."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
