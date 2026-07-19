@@ -3,7 +3,7 @@
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
-	inhand_icon_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
+	inhand_icon_state = "flashtool"	// Looks exactly like a flash (and nothing like a flashbang).
 	belt_icon = "flash"
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -61,7 +61,7 @@
 	battery_panel = !battery_panel
 	return TRUE
 
-/obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
+/obj/item/flash/proc/burn_out() // Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
 	icon_state = "[initial(icon_state)]burnt"
 	visible_message(SPAN_NOTICE("[src] burns out!"))
@@ -139,6 +139,7 @@
 		log_admin("[key_name(user)] EMPd a camera with a flash")
 		user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
 		add_attack_logs(user, camera, "EMPd with [src]", ATKLOG_ALL)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(iscarbon(target))
@@ -148,6 +149,7 @@
 			carbon_target.adjust_fire_stacks(6)
 			carbon_target.IgniteMob()
 			burn_out()
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(issilicon(target))
@@ -158,6 +160,7 @@
 				SPAN_DISARM("[user] overloads [target]'s sensors with [src]!"),
 				SPAN_DANGER("You overload [target]'s sensors with [src]!")
 			)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
@@ -169,6 +172,7 @@
 	if(!try_use_flash(user))
 		return NONE
 
+	add_fingerprint(user)
 	user.visible_message(
 		SPAN_DISARM("[user]'s [name] emits a blinding light!"),
 		SPAN_DANGER("Your [name] emits a blinding light!")
