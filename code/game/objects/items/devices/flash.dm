@@ -169,6 +169,9 @@
 	)
 
 /obj/item/flash/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!try_use_flash(user))
 		return NONE
 
