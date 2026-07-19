@@ -61,6 +61,7 @@
 				to_chat(user, SPAN_WARNING("The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped..."))
 		syringe.reagents.clear_reagents()
 		syringe.update_icon()
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/bee_briefcase/activate_self(mob/user)
@@ -83,4 +84,5 @@
 			B.befriend(fren)
 		bees_released++
 	bees_left -= bees_released
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
