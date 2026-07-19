@@ -10,6 +10,12 @@
 	var/giftwrapped = FALSE
 	var/sort_tag = 1
 
+/obj/structure/big_delivery/update_desc()
+	. = ..()
+	desc = initial(desc)
+	if(sort_tag)
+		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sort_tag]]\"."
+
 /obj/structure/big_delivery/Destroy()
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in contents)
@@ -97,6 +103,12 @@
 	var/sort_tag = 1
 	new_attack_chain = TRUE
 
+/obj/item/small_delivery/update_desc()
+	. = ..()
+	desc = initial(desc)
+	if(sort_tag)
+		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sort_tag]]\"."
+
 /obj/item/small_delivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
 		AM.ex_act()
@@ -130,6 +142,7 @@
 		to_chat(user, SPAN_NOTICE("*[tag]*"))
 		sort_tag = tagger.current_tag
 		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+		update_desc()
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/shipping_package))
@@ -141,10 +154,13 @@
 		to_chat(user, SPAN_NOTICE("You rip the label off the shipping package and affix it to [src]."))
 		qdel(package)
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
+		update_desc()
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(is_pen(used))
 		rename_interactive(user, used)
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/stack/wrapping_paper) && !giftwrapped)
@@ -156,7 +172,8 @@
 		giftwrapped = TRUE
 		user.visible_message(SPAN_NOTICE("[user] wraps the package in festive paper!"))
 		if(paper_roll.amount <= 0 && !paper_roll.loc) // If we used our last wrapping paper, drop a cardboard tube.
-			new /obj/item/c_tube( get_turf(user) )
+			new /obj/item/c_tube(get_turf(user))
+		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
