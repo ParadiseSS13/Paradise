@@ -548,35 +548,21 @@
 	flushing = 1
 	flick("[icon_state]-flush", src)
 
-	var/wrapcheck = 0
+	var/wrapcheck = FALSE
 	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
-												// travels through the pipes.
+	// travels through the pipes.
 	//Hacky test to get drones to mail themselves through disposals.
 	for(var/mob/living/silicon/robot/drone/D in src)
-		wrapcheck = 1
+		wrapcheck = TRUE
 
 	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
-		wrapcheck = 1
+		wrapcheck = TRUE
 
 	for(var/obj/item/small_delivery/O in src)
-		wrapcheck = 1
+		wrapcheck = TRUE
 
-	if(wrapcheck == 1)
-var/wrapcheck = FALSE
-var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
-// travels through the pipes.
-//Hacky test to get drones to mail themselves through disposals.
-for(var/mob/living/silicon/robot/drone/D in src)
-wrapcheck = TRUE
-
-for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
-wrapcheck = TRUE
-
-for(var/obj/item/small_delivery/O in src)
-wrapcheck = TRUE
-
-if(wrapcheck)
-H.tomail = TRUE
+	if(wrapcheck)
+		H.tomail = TRUE
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
