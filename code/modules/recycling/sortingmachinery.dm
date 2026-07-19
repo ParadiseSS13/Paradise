@@ -319,8 +319,12 @@
 	return ..()
 
 /obj/item/dest_tagger/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	add_fingerprint(user)
 	ui_interact(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/dest_tagger/ui_state(mob/user)
 	return GLOB.default_state
