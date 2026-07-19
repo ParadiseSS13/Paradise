@@ -63,6 +63,7 @@
 			to_chat(user, SPAN_NOTICE("*[tag]*"))
 			sort_tag = O.current_tag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+			update_appearance(UPDATE_DESC)
 
 	else if(istype(W, /obj/item/shipping_package))
 		var/obj/item/shipping_package/sp = W
@@ -73,9 +74,12 @@
 			to_chat(user, SPAN_NOTICE("You rip the label off the shipping package and affix it to [src]."))
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
+			update_appearance(UPDATE_DESC)
+			add_fingerprint(user)
 
 	else if(is_pen(W))
 		rename_interactive(user, W)
+		add_fingerprint(user)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
 		var/obj/item/stack/wrapping_paper/WP = W
@@ -142,7 +146,7 @@
 		to_chat(user, SPAN_NOTICE("*[tag]*"))
 		sort_tag = tagger.current_tag
 		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
-		update_desc()
+		update_appearance(UPDATE_DESC)
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/shipping_package))
@@ -154,7 +158,7 @@
 		to_chat(user, SPAN_NOTICE("You rip the label off the shipping package and affix it to [src]."))
 		qdel(package)
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
-		update_desc()
+		update_appearance(UPDATE_DESC)
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
