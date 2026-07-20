@@ -34,6 +34,7 @@
 		to_chat(user, SPAN_WARNING("You try to draw power from [src], but you cannot hold the power at this time!"))
 		return ITEM_INTERACT_COMPLETE
 
+	add_fingerprint(user)
 	user.middleClickOverride = clickBehavior
 	to_chat(user, SPAN_NOTICE("You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!"))
 	return ITEM_INTERACT_COMPLETE
