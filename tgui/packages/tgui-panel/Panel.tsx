@@ -4,11 +4,12 @@
  * @license MIT
  */
 
+import { useCallback, useState } from 'react';
 import { Pane } from 'tgui/layouts';
 import { Button, Section, Stack } from 'tgui-core/components';
 
 import { NowPlayingWidget, useAudio } from './audio';
-import { ChatPanel, ChatTabs } from './chat';
+import { ChatPanel, ChatSearchBar, ChatTabs } from './chat';
 import { useGame } from './game';
 import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
@@ -19,6 +20,8 @@ export const Panel = (props) => {
   const audio = useAudio();
   const settings = useSettings();
   const game = useGame();
+  const [searchOpen, setSearchOpen] = useState(false);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
   if (process.env.NODE_ENV !== 'production') {
     const { useDebug, KitchenSink } = require('tgui/debug');
     const debug = useDebug();
@@ -42,6 +45,16 @@ export const Panel = (props) => {
               <Stack.Item>
                 <Button
                   color="grey"
+                  selected={searchOpen}
+                  icon="search"
+                  tooltip="Search chat"
+                  tooltipPosition="bottom-start"
+                  onClick={() => setSearchOpen(!searchOpen)}
+                />
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  color="grey"
                   selected={audio.visible}
                   icon="music"
                   tooltip="Music player"
@@ -61,6 +74,11 @@ export const Panel = (props) => {
             </Stack>
           </Section>
         </Stack.Item>
+        {searchOpen && (
+          <Stack.Item>
+            <ChatSearchBar onClose={closeSearch} />
+          </Stack.Item>
+        )}
         {audio.visible && (
           <Stack.Item>
             <Section>

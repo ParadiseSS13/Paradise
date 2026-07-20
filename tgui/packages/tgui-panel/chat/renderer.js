@@ -8,6 +8,7 @@ import DOMPurify from 'dompurify';
 import { createLogger } from 'tgui/logging';
 import { EventEmitter } from 'tgui-core/events';
 
+import { chatSearchController } from './ChatSearchController';
 import {
   COMBINE_MAX_MESSAGES,
   COMBINE_MAX_TIME_WINDOW,
@@ -117,6 +118,7 @@ class ChatRenderer {
     this.visibleMessages = [];
     this.page = null;
     this.events = new EventEmitter();
+    chatSearchController.setMatchSelectedHandler((matchedTextNode) => this.scrollToMatchedText(matchedTextNode));
     // Scroll handler
     /** @type {HTMLElement} */
     this.scrollNode = null;
@@ -355,6 +357,14 @@ class ChatRenderer {
     this.scrollNode.scrollTop = this.scrollNode.scrollHeight;
   }
 
+  scrollToMatchedText(matchedTextNode) {
+    if (this.scrollTracking) {
+      this.scrollTracking = false;
+      this.events.emit('scrollTrackingChanged', false);
+    }
+    matchedTextNode.scrollIntoView({ block: 'center' });
+  }
+
   changePage(page) {
     if (!this.isReady()) {
       this.page = page;
@@ -379,6 +389,7 @@ class ChatRenderer {
       this.rootNode.appendChild(fragment);
       node.scrollIntoView();
     }
+    chatSearchController.onCurrentPageChanged(this.visibleMessages);
   }
 
   getCombinableMessage(predicate, now, from, to) {
@@ -518,6 +529,7 @@ class ChatRenderer {
       if (canPageAcceptType(this.page, message.type) && !isBlacklisted) {
         fragment.appendChild(node);
         this.visibleMessages.push(message);
+        chatSearchController.onMessageAdded(message, this.visibleMessages);
       }
     }
     if (node) {
@@ -575,12 +587,14 @@ class ChatRenderer {
         logger.log(`pruned ${fromIndex} stored messages`);
       }
     }
+    chatSearchController.onCurrentPageChanged(this.visibleMessages);
   }
 
   rebuildChat() {
     if (!this.isReady()) {
       return;
     }
+    chatSearchController.beginChatRebuild();
     // Make a copy of messages
     const fromIndex = Math.max(0, this.messages.length - MAX_VISIBLE_MESSAGES);
     const messages = this.messages.slice(fromIndex);
@@ -593,9 +607,8 @@ class ChatRenderer {
     this.messages = [];
     this.visibleMessages = [];
     // Repopulate the chat log
-    this.processBatch(messages, {
-      notifyListeners: false,
-    });
+    this.processBatch(messages, { notifyListeners: false });
+    chatSearchController.endChatRebuild(this.visibleMessages);
   }
 
   /**
@@ -616,6 +629,7 @@ class ChatRenderer {
     }
     // Remove pruned messages from the message array
     this.messages = this.messages.filter((message) => message.node !== 'pruned');
+    chatSearchController.onCurrentPageChanged(this.visibleMessages);
     logger.log(`Cleared chat`);
   }
 

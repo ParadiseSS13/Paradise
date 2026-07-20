@@ -150,7 +150,9 @@ export const highlightNode = (node, regex, words, createNode = createHighlightNo
     createNode = createHighlightNode;
   }
   let n = 0;
-  const childNodes = node.childNodes;
+  // Highlighting replaces text nodes with spans. Use a snapshot so new spans
+  // created during this pass are not visited and highlighted a second time.
+  const childNodes = Array.from(node.childNodes);
   for (let i = 0; i < childNodes.length; i++) {
     const node = childNodes[i];
     // Is a text node

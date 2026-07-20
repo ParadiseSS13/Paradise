@@ -39,6 +39,33 @@
   bottom: 1em;
 }
 
+.Chat__searchBar {
+  padding: 0.4em;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-section);
+  box-shadow: 0 0.15em 0.35em hsl(0, 0%, 0%, 0.35);
+}
+
+.Chat__searchCount {
+  min-width: 3.5em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.Chat__searchSpinner {
+  color: var(--color-primary);
+}
+
+.Chat__searchMatch {
+  color: var(--color-black);
+  background: hsl(50, 100%, 63.5%);
+}
+
+.Chat__searchMatch--active {
+  color: hsl(0, 0%, 100%);
+  background: var(--color-blue);
+}
+
 .Chat__reconnected {
   font-size: 0.85em;
   text-align: center;
