@@ -24,6 +24,7 @@
 
 	var/force_unwielded = 5
 	var/force_wielded = 24
+	new_attack_chain = TRUE
 
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
@@ -35,13 +36,16 @@
 	icon_state = "[base_icon_state]0"
 	return ..()
 
-/obj/item/fireaxe/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
+/obj/item/fireaxe/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
 		return
-	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
-		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
-			var/obj/structure/W = A
-			W.obj_destruction("fireaxe")
+	if(!HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
+		return
+	if(!istype(target, /obj/structure/window) && !istype(A, /obj/structure/grille))
+		return
+
+	var/obj/structure/target_structure = target
+	target_structure.obj_destruction("fireaxe")
 
 /// Blatant imitation of the fireaxe, but made out of bone.
 /obj/item/fireaxe/boneaxe
@@ -73,18 +77,26 @@
 /obj/item/fireaxe/energized/process()
 	charge = min(charge + 1, max_charge)
 
-/obj/item/fireaxe/energized/attack__legacy__attackchain(mob/M, mob/user)
+/obj/item/fireaxe/energized/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_WIELDED) && charge == max_charge)
-		if(isliving(M))
-			var/mob/living/target = M
-			charge = 0
-			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-			user.visible_message(SPAN_DANGER("[user] slams the charged axe into [M.name] with all [user.p_their()] might!"))
-			do_sparks(1, 1, src)
-			target.KnockDown(8 SECONDS)
-			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
-			M.throw_at(throw_target, 5, 1)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED) || charge != max_charge)
+		return FINISH_ATTACK
+
+	if(!isliving(M))
+		return FINISH_ATTACK
+
+	charge = 0
+	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
+	target.visible_message(
+		SPAN_DANGER("[user] slams the charged axe into [target] with all [user.p_their()] might!"),
+		SPAN_USERDANGER("[user] slams into you with incredible force!"),
+		SPAN_HEAR("You hear a collossal impact!")
+	)
+	do_sparks(1, 1, src)
+	target.KnockDown(8 SECONDS)
+	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
+	target.throw_at(throw_target, 5, 1)
+	return FINISH_ATTACK
 
 /*
  * Double-Bladed Energy Swords - Cheridan
@@ -119,6 +131,7 @@
 	var/force_wielded = 34
 	var/wieldsound = 'sound/weapons/saberon.ogg'
 	var/unwieldsound = 'sound/weapons/saberoff.ogg'
+	new_attack_chain = TRUE
 
 /obj/item/dualsaber/Initialize(mapload)
 	. = ..()
@@ -148,22 +161,25 @@
 		icon_state = "dualsaber0"
 		set_light(0)
 
-/obj/item/dualsaber/attack__legacy__attackchain(mob/target, mob/living/user)
+/obj/item/dualsaber/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
-		return
+		return ITEM_INTERACT_COMPLETE
 
+/obj/item/dualsaber/pre_attack(atom/target, mob/living/user, params)
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, SPAN_WARNING("You grip the blade too hard and accidentally drop it!"))
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			user.drop_item_to_ground(src)
-			return
+			return FINISH_ATTACK
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40) && force)
 		to_chat(user, SPAN_WARNING("You twirl around a bit before losing your balance and impaling yourself on [src]."))
 		user.take_organ_damage(20, 25)
-		return
+		return FINISH_ATTACK
+
 	if((HAS_TRAIT(src, TRAIT_WIELDED)) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+		return CONTINUE_ATTACK
 
 /obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -285,6 +301,7 @@
 	var/obj/item/grenade/explosive = null
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
+	new_attack_chain = TRUE
 
 /obj/item/spear/Initialize(mapload)
 	. = ..()
@@ -320,11 +337,10 @@
 	qdel(tip)
 	..()
 
-
-/obj/item/spear/afterattack__legacy__attackchain(atom/movable/AM, mob/user, proximity)
-	if(!proximity)
+/obj/item/spear/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
 		return
-	if(isturf(AM)) //So you can actually melee with it
+	if(isturf(AM)) // So you can actually melee with it.
 		return
 	if(explosive && HAS_TRAIT(src, TRAIT_WIELDED))
 		explosive.forceMove(AM)
@@ -365,39 +381,43 @@
 	force_wielded = 25
 	attack_verb = list("gored")
 
-/obj/item/spear/grey_tide/afterattack__legacy__attackchain(atom/movable/AM, mob/living/user, proximity)
+/obj/item/spear/grey_tide/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(!proximity)
 		return
 	user.faction |= "greytide(\ref[user])"
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(istype (L, /mob/living/simple_animal/hostile/illusion))
-			return
-		if(!L.stat && prob(50))
-			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
-			M.faction = user.faction.Copy()
-			M.attack_sound = hitsound
-			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
-			M.GiveTarget(L)
+	if(!isliving(target))
+		return
+	if(istype (L, /mob/living/simple_animal/hostile/illusion))
+		return
+	if(!L.stat && prob(50))
+		var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
+		M.faction = user.faction.Copy()
+		M.attack_sound = hitsound
+		M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
+		M.GiveTarget(L)
 
 //Putting heads on spears
-/obj/item/spear/attackby__legacy__attackchain(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/organ/external/head))
-		if(user.unequip(src) && user.drop_item())
-			to_chat(user, SPAN_NOTICE("You stick [I] onto the spear and stand it upright on the ground."))
-			var/obj/structure/headspear/HS = new /obj/structure/headspear(get_turf(src))
-			var/matrix/M = matrix()
-			I.transform = M
-			var/image/IM = image(I.icon, I.icon_state)
-			IM.overlays = I.overlays.Copy()
-			HS.overlays += IM
-			I.forceMove(HS)
-			HS.mounted_head = I
-			forceMove(HS)
-			HS.contained_spear = src
-	else
+/obj/item/spear/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/organ/external/head))
 		return ..()
+
+	if(!(user.unequip(src) && user.drop_item()))
+		to_chat(user, SPAN_WARNING("You can't attach [src] to [used] when one is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You stick [used] onto the spear and stand it upright on the ground."))
+	var/obj/structure/headspear/head_spear = new /obj/structure/headspear(get_turf(src))
+	var/matrix/transform_matrix = matrix()
+	used.transform = transform_matrix
+	var/image/spear_overlays = image(used.icon, used.icon_state)
+	spear_overlays.overlays = used.overlays.Copy()
+	head_spear.overlays += spear_overlays
+	used.forceMove(head_spear)
+	head_spear.mounted_head = used
+	forceMove(head_spear)
+	head_spear.contained_spear = src
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/headspear
 	name = "head on a spear"
@@ -443,6 +463,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 2
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
+	new_attack_chain = TRUE
 
 /obj/item/singularityhammer/Initialize(mapload)
 	. = ..()
@@ -483,18 +504,19 @@
 			step_towards(H, pull)
 			step_towards(H, pull)
 
-/obj/item/singularityhammer/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
+/obj/item/singularityhammer/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
 		return
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		if(charged == 2)
-			charged = 0
-			if(isliving(A))
-				var/mob/living/Z = A
-				Z.take_organ_damage(20, 0)
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			var/turf/target = get_turf(A)
-			vortex(target, user)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+	if(charged != 2)
+		return
+	charged = 0
+	if(isliving(target))
+		target.take_organ_damage(20, 0)
+	playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+	var/turf/target_turf = get_turf(target)
+	vortex(target_turf, user)
 
 /obj/item/mjollnir
 	name = "Mjolnir"
@@ -510,6 +532,7 @@
 	throwforce = 30
 	w_class = WEIGHT_CLASS_HUGE
 	origin_tech = "combat=4;powerstorage=7"
+	new_attack_chain = TRUE
 
 /obj/item/mjollnir/Initialize(mapload)
 	. = ..()
@@ -527,12 +550,17 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
-/obj/item/mjollnir/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/mjollnir/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	..()
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		M.Stun(6 SECONDS)
-		shock(M)
+	if(!isliving(target)
+		return
+
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+
+	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	target.Stun(6 SECONDS)
+	shock(target)
 
 /obj/item/mjollnir/throw_impact(atom/target)
 	. = ..()
@@ -560,6 +588,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	var/charged = 5
 	origin_tech = "combat=5;bluespace=4"
+	new_attack_chain = TRUE
 
 /obj/item/knighthammer/Initialize(mapload)
 	. = ..()
@@ -581,37 +610,39 @@
 /obj/item/knighthammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer0"
 
-/obj/item/knighthammer/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
+/obj/item/knighthammer/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
 		return
-	if(charged == 5)
-		charged = 0
-		if(isliving(A))
-			var/mob/living/Z = A
-			if(Z.health >= 1)
-				Z.visible_message(SPAN_DANGER("[Z.name] was sent flying by a blow from [src]!"),
-					SPAN_USERDANGER("You feel a powerful blow connect with your body and send you flying!"),
-					SPAN_DANGER("You hear something heavy impact flesh!."))
-				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
-				Z.throw_at(throw_target, 200, 4)
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
-				Z.visible_message(SPAN_DANGER("[Z.name] was blown to pieces by the power of [src]!"),
-					SPAN_USERDANGER("You feel a powerful blow rip you apart!"),
-					SPAN_DANGER("You hear a heavy impact and the sound of ripping flesh!."))
-				Z.gib()
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			if(iswallturf(A))
-				var/turf/simulated/wall/Z = A
-				Z.ex_act(EXPLODE_HEAVY)
-				charged = 3
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(isstructure(A) || ismecha(A))
-				var/obj/Z = A
-				Z.ex_act(EXPLODE_HEAVY)
-				charged = 3
-				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+	if(charged != 5)
+		return
+
+	charged = 0
+	if(isliving(target))
+		var/mob/living/Z = target
+		if(Z.health >= 1)
+			Z.visible_message(SPAN_DANGER("[Z.name] was sent flying by a blow from [src]!"),
+				SPAN_USERDANGER("You feel a powerful blow connect with your body and send you flying!"),
+				SPAN_DANGER("You hear something heavy impact flesh!."))
+			var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
+			Z.throw_at(throw_target, 200, 4)
+			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+		else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
+			Z.visible_message(SPAN_DANGER("[Z.name] was blown to pieces by the power of [src]!"),
+				SPAN_USERDANGER("You feel a powerful blow rip you apart!"),
+				SPAN_DANGER("You hear a heavy impact and the sound of ripping flesh!."))
+			Z.gib()
+			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		if(iswallturf(target))
+			var/turf/simulated/wall/Z = target
+			Z.ex_act(EXPLODE_HEAVY)
+			charged = 3
+			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+		else if(isstructure(target) || ismecha(target))
+			var/obj/Z = target
+			Z.ex_act(EXPLODE_HEAVY)
+			charged = 3
+			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 
 // PYRO CLAWS
 /obj/item/pyro_claws
@@ -633,6 +664,7 @@
 	toolspeed = 0.5
 	var/lifetime = 60 SECONDS
 	var/next_spark_time
+	new_attack_chain = TRUE
 
 /obj/item/pyro_claws/Initialize(mapload)
 	. = ..()
@@ -657,30 +689,33 @@
 	if(prob(15))
 		do_sparks(rand(1,6), 1, loc)
 
-/obj/item/pyro_claws/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
+/obj/item/pyro_claws/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
 		return
+
 	if(prob(60) && world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
 		next_spark_time = world.time + 0.8 SECONDS
-	if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
 
-		if(!A.requiresID() || A.allowed(user))
+	if(!istype(target, /obj/machinery/door/airlock))
+		return
+	var/obj/machinery/door/airlock/A = target
+
+	if(!A.requiresID() || A.allowed(user))
+		return
+
+	if(A.locked)
+		to_chat(user, SPAN_WARNING("The airlock's bolts prevent it from being forced!"))
+		return
+
+	if(A.arePowerSystemsOn())
+		user.visible_message(SPAN_WARNING("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"), SPAN_WARNING("You start forcing the airlock open."), SPAN_WARNING("You hear a metal screeching sound."))
+		playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+		if(!do_after(user, 25, target = A))
 			return
 
-		if(A.locked)
-			to_chat(user, SPAN_NOTICE("The airlock's bolts prevent it from being forced."))
-			return
-
-		if(A.arePowerSystemsOn())
-			user.visible_message(SPAN_WARNING("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"), SPAN_WARNING("You start forcing the airlock open."), SPAN_WARNING("You hear a metal screeching sound."))
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 25, target = A))
-				return
-
-		user.visible_message(SPAN_WARNING("[user] forces the airlock open with [user.p_their()] [name]!"), SPAN_WARNING("You force open the airlock."), SPAN_WARNING("You hear a metal screeching sound."))
-		A.open(2)
+	user.visible_message(SPAN_WARNING("[user] forces the airlock open with [user.p_their()] [name]!"), SPAN_WARNING("You force open the airlock."), SPAN_WARNING("You hear a metal screeching sound."))
+	A.open(2)
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
@@ -772,6 +807,7 @@
 	throw_speed = 3
 	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
+	new_attack_chain = TRUE
 
 /obj/item/push_broom/Initialize(mapload)
 	. = ..()
@@ -793,11 +829,13 @@
 /obj/item/push_broom/proc/unwield(obj/item/source, mob/user)
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 
-/obj/item/push_broom/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	. = ..()
-	if(!proximity)
-		return
+/obj/item/push_broom/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	sweep(user, A, FALSE)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/push_broom/proc/sweep(mob/user, atom/A, moving = TRUE)
 	SIGNAL_HANDLER
@@ -925,6 +963,7 @@
 	var/static/list/obliteration_targets = list(/turf/simulated/wall, /obj/machinery/door/airlock)
 	/// Whether we'll knockdown on hit
 	var/charged = TRUE
+	new_attack_chain = TRUE
 
 /obj/item/supermatter_halberd/Initialize(mapload)
 	. = ..()
