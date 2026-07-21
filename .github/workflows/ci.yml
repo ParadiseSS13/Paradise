@@ -26,7 +26,7 @@ jobs:
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v6.3.0
         with:
           python-version: '3.13'
           cache: 'pip'
