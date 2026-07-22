@@ -74,7 +74,7 @@
 							/obj/item/toy/figure/crew/hos,
 							/obj/item/toy/figure/crew/secofficer,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Head of Security", "Security Officer", "Detective", "Warden")
+	job_list = DEP_MAIL_LIST_SECURITY
 
 /obj/item/envelope/science
 	icon_state = "mail_sci"
@@ -92,7 +92,7 @@
 							/obj/item/toy/figure/crew/roboticist,
 							/obj/item/toy/figure/crew/scientist,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Research Director", "Roboticist", "Geneticist", "Scientist")
+	job_list = DEP_MAIL_LIST_SCIENCE
 
 /obj/item/envelope/supply
 	icon_state = "mail_sup"
@@ -109,7 +109,7 @@
 							/obj/item/toy/figure/crew/qm,
 							/obj/item/toy/figure/crew/miner,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
+	job_list = DEP_MAIL_LIST_SUPPLY
 
 /obj/item/envelope/medical
 	icon_state = "mail_med"
@@ -128,7 +128,7 @@
 							/obj/item/toy/figure/crew/md,
 							/obj/item/toy/figure/crew/virologist,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
+	job_list = DEP_MAIL_LIST_MEDICAL
 
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"
@@ -144,7 +144,7 @@
 							/obj/item/toy/figure/crew/ce,
 							/obj/item/toy/figure/crew/engineer,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
+	job_list = DEP_MAIL_LIST_ENGINEERING
 
 /obj/item/envelope/bread
 	icon_state = "mail_serv"
@@ -162,7 +162,7 @@
 							/obj/item/toy/figure/crew/janitor,
 							/obj/item/toy/figure/crew/librarian,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Librarian")
+	job_list = DEP_MAIL_LIST_BREAD
 
 /obj/item/envelope/circuses
 	icon_state = "mail_serv"
@@ -179,7 +179,7 @@
 							/obj/item/toy/figure/crew/chaplain,
 							/obj/item/toy/figure/crew/mime,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Clown", "Mime", "Head of Personnel", "Chaplain")
+	job_list = DEP_MAIL_LIST_SERVICE
 
 
 /obj/item/envelope/command
@@ -196,7 +196,7 @@
 							/obj/item/toy/figure/crew/iaa,
 							/obj/item/toy/figure/crew/dsquad,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Nanotrasen Career Trainer")
+	job_list = DEP_MAIL_LIST_COMMAND
 
 /obj/item/envelope/misc
 	possible_contents = list(/obj/item/clothing/under/misc/assistantformal,
@@ -211,7 +211,7 @@
 							/obj/item/toy/figure/owl,
 							/obj/item/toy/figure/griffin,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Assistant")
+	job_list = DEP_MAIL_LIST_MISC
 
 
 	/*//////////////////////\/

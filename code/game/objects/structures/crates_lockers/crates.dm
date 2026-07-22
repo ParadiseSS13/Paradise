@@ -617,20 +617,33 @@
 	icon_closed = "mailsealed"
 	material_drop = /obj/item/stack/sheet/plastic
 	material_drop_amount = 4
-	var/list/possible_contents = list(/obj/item/envelope/security,
-										/obj/item/envelope/science,
-										/obj/item/envelope/supply,
-										/obj/item/envelope/medical,
-										/obj/item/envelope/engineering,
-										/obj/item/envelope/bread,
-										/obj/item/envelope/circuses,
-										/obj/item/envelope/command,
-										/obj/item/envelope/misc)
+	var/list/possible_contents = list(/obj/item/envelope/security = DEP_MAIL_LIST_SECURITY,
+										/obj/item/envelope/science = DEP_MAIL_LIST_SCIENCE,
+										/obj/item/envelope/supply = DEP_MAIL_LIST_SUPPLY,
+										/obj/item/envelope/medical = DEP_MAIL_LIST_MEDICAL,
+										/obj/item/envelope/engineering = DEP_MAIL_LIST_ENGINEERING,
+										/obj/item/envelope/bread = DEP_MAIL_LIST_BREAD,
+										/obj/item/envelope/circuses = DEP_MAIL_LIST_SERVICE,
+										/obj/item/envelope/command = DEP_MAIL_LIST_COMMAND,
+										/obj/item/envelope/misc = DEP_MAIL_LIST_MISC)
 
 /obj/structure/closet/crate/mail/populate_contents()
 	. = ..()
-	for(var/i in 1 to rand(5, 10))
-		var/item = pick(possible_contents)
+	var/list/narrowed_contents = possible_contents.Copy()
+	for(var/envelope_type in narrowed_contents)
+		var/found = FALSE
+		for(var/datum/mind/recipient in SSticker.minds)
+			var/turf/recipient_turf = get_turf(recipient.current)
+			if(recipient.offstation_role || !ishuman(recipient.current) || is_admin_level(recipient_turf.z))
+				continue
+			if(recipient.assigned_role in narrowed_contents[envelope_type])
+				found = TRUE
+				break
+		if(!found)
+			narrowed_contents -= envelope_type
+
+	for(var/i in 1 to (ceil(length(GLOB.crew_list) / 20) + rand(1, 5))) // Scale number of letters with number of crew
+		var/item = pick(narrowed_contents)
 		new item(src)
 
 /obj/structure/closet/crate/tape/populate_contents()
