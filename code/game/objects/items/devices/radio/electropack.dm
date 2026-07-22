@@ -98,7 +98,7 @@
 
 // This should honestly just proxy the UI to the internal signaler
 /obj/item/electropack/ui_state(mob/user)
-	return GLOB.inventory_state
+	return GLOB.deep_inventory_state
 
 /obj/item/electropack/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
