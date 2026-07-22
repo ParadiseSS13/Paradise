@@ -197,7 +197,7 @@
 	if(!H || !H.dna)
 		return
 
-	sex = capitalize(H.gender)
+	sex = H.gender == PLURAL ? "Genderless" : capitalize(H.gender)
 	age = H.age
 	blood_type = H.dna.blood_type
 	dna_hash = H.dna.unique_enzymes
