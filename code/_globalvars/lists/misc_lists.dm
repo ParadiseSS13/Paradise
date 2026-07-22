@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(tilt_crits)
 GLOBAL_LIST_EMPTY(seeds_cached_base64_icons)
 
 /// Assoc list of all RND techs with ID to name
-GLOBAL_LIST_EMPTY(rnd_tech_id_to_name)
+GLOBAL_LIST_EMPTY(rnd_technode_id_to_name)
 
 /// List of things that restrain teslas.
 GLOBAL_LIST_EMPTY(tesla_containment)

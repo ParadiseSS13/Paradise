@@ -187,9 +187,9 @@
 		crit = new path()
 		GLOB.tilt_crits[path] = crit
 
-	for(var/path in subtypesof(/datum/tech))
-		var/datum/tech/T = path
-		GLOB.rnd_tech_id_to_name[initial(T.id)] = initial(T.name)
+	for(var/path in subtypesof(/datum/technode))
+		var/datum/technode/T = path
+		GLOB.rnd_technode_id_to_name[initial(T.id)] = initial(T.name)
 
 	populate_global_drink_lists()
 

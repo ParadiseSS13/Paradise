@@ -85,7 +85,7 @@ const DiskSection = (props) => {
   );
 };
 
-// MIXTODO - Current WIP
+// MIXTODO - Finish disks fully
 const CopyPointsSubmenu = (props) => {
   const { data, act } = useBackend();
   const { disk_type, to_copy } = data;

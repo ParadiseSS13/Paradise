@@ -82,14 +82,13 @@
 			data["linked"] = TRUE
 			data["network_name"] = RNC.network_name
 
-			for(var/tech_id in files.known_tech)
+			for(var/tech_id in files.known_technodes)
 				if(!(tech_id in tech_assoc_temp))
 					tech_assoc_temp[tech_id] = list()
 
-				var/datum/tech/T = files.known_tech[tech_id]
+				var/datum/technode/T = files.known_technodes[tech_id]
 				var/list/tech_data = tech_assoc_temp[tech_id]
 				tech_data["name"] = T.name
-				tech_data["network_level"] = T.level
 		else
 			network_manager_uid = null
 
@@ -101,7 +100,7 @@
 			if(!(tech_id in tech_assoc_temp))
 				tech_assoc_temp[tech_id] = list()
 
-			var/tech_name = GLOB.rnd_tech_id_to_name[tech_id]
+			var/tech_name = GLOB.rnd_technode_id_to_name[tech_id]
 			var/list/tech_data = tech_assoc_temp[tech_id]
 			tech_data["name"] = tech_name
 			tech_data["disk_level"] = inserted_disk.stored_tech_assoc[tech_id]
@@ -150,15 +149,21 @@
 				network_manager_uid = null
 				return FALSE
 
-			var/datum/tech/T = RNC.research_files.known_tech[tech]
+			var/datum/technode/T = RNC.research_files.id_to_possible_technode(tech)
 			if(!T)
 				return
 
-			var/choice = tgui_alert(usr, "Do you want to import this level to the network (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Import", list("Yes", "No"))
-			if(choice != "Yes")
+			if(tech in RNC.research_files.known_technodes)
+				to_chat(usr, SPAN_NOTICE("Node: [T.name] already in Network: <b>[RNC.network_name]</b>."))
 				return FALSE
 
-			T.level = inserted_disk.stored_tech_assoc[tech]
+
+
+			var/choice = tgui_alert(usr, "Do you want to import this research node ([T.name]) to the network?", "Data Import", list("Yes", "No"))
+			if(choice != "Yes")
+				return FALSE
+			RNC.research_files.unlock_technode(T)
+			to_chat(usr, SPAN_NOTICE("Node: [T.name] successfully added to Network: <b>[RNC.network_name]</b>."))
 
 		if("savetech2disk")
 			if(!network_manager_uid)
@@ -174,15 +179,18 @@
 				network_manager_uid = null
 				return FALSE
 
-			var/datum/tech/T = RNC.research_files.known_tech[tech]
+			var/datum/technode/T = RNC.research_files.known_technodes[tech]
 			if(!T)
 				return
 
-			var/choice = tgui_alert(usr, "Do you want to export this tech data to the disk (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Export", list("Yes", "No"))
+			var/choice = tgui_alert(usr, "Do you want to export this research node ([T.name]) to the disk?", "Data Export", list("Yes", "No"))
 			if(choice != "Yes")
 				return FALSE
 
-			inserted_disk.stored_tech_assoc[tech] = T.level
+			if(T.id in inserted_disk.stored_tech_assoc)
+				to_chat(usr, SPAN_NOTICE("Node: [T.name] already in Disk."))
+				return FALSE
+			inserted_disk.stored_tech_assoc += T.id
 			inserted_disk.last_backup_time = time2text(ROUND_TIME, "hh:mm:ss")
 
 		if("saveall2network")
@@ -202,9 +210,10 @@
 				return FALSE
 
 			var/datum/research/files = RNC.research_files
-			for(var/tech_id in files.known_tech)
-				var/datum/tech/T = files.known_tech[tech_id]
-				T.level = inserted_disk.stored_tech_assoc[tech_id]
+			for(var/i in inserted_disk.stored_tech_assoc)
+				var/datum/technode/T = files.id_to_possible_technode(inserted_disk.stored_tech_assoc[i])
+				files.unlock_technode(T)
+
 
 		if("saveall2disk")
 			if(!network_manager_uid)
@@ -223,9 +232,9 @@
 				return FALSE
 
 			var/datum/research/files = RNC.research_files
-			for(var/tech_id in files.known_tech)
-				var/datum/tech/T = files.known_tech[tech_id]
-				inserted_disk.stored_tech_assoc[tech_id] = T.level
+			for(var/i in files.known_technodes)
+				if(!(i in inserted_disk.stored_tech_assoc))
+					inserted_disk.stored_tech_assoc += i
 
 			inserted_disk.last_backup_time = time2text(ROUND_TIME, "hh:mm:ss")
 
@@ -260,7 +269,7 @@
 	desc = "A disk for storing technology data for backup purposes."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL = 30, MAT_GLASS = 10)
-	/// Assoc list of tech levels. Key is tech ID, value is tech level
+	/// List of stored technode IDs
 	var/list/stored_tech_assoc = list()
 	/// Text of last backup time
 	var/last_backup_time
@@ -269,10 +278,6 @@
 /obj/item/disk/rnd_backup_disk/Initialize(mapload)
 	. = ..()
 	scatter_atom()
-	// Level it all out
-	for(var/tech_id in GLOB.rnd_tech_id_to_name)
-		stored_tech_assoc[tech_id] = 0
-
 
 /obj/item/disk/rnd_backup_disk/examine(mob/user)
 	. = ..()
@@ -289,6 +294,6 @@
 
 /obj/item/disk/rnd_backup_disk/admin/Initialize(mapload)
 	. = ..()
-	// Just make it 10 on everything - who cares
-	for(var/tech_id in GLOB.rnd_tech_id_to_name)
-		stored_tech_assoc[tech_id] = 10
+	// Just make it all technodes - who cares
+	for(var/tech_id in GLOB.rnd_technode_id_to_name)
+		stored_tech_assoc += tech_id

@@ -120,7 +120,7 @@
 				return TRUE
 			to_chat(user, SPAN_NOTICE("Contract complete. Good work - your cut of the pay has been forwarded to your uplink."))
 			var/obj/machinery/computer/rnd_network_controller/rnd = attacked_obj
-			rnd.research_files.known_tech = list()
+			rnd.research_files.known_technodes = list()
 			ninja_obj.completed = TRUE
 			ninja_obj.complete_objective()
 			return TRUE

@@ -24,20 +24,24 @@ SUBSYSTEM_DEF(research)
 		var/datum/rnd_backup/B = backups[rnc_uid]
 		B.last_name = RNC.network_name
 		B.last_timestamp = time2text(ROUND_TIME, "hh:mm:ss")
-		B.levels.Cut()
-		for(var/tech_id in RNC.research_files.known_tech)
-			var/datum/tech/T = RNC.research_files.known_tech[tech_id]
-			B.levels[tech_id] = T.level
+		for(var/node_id in RNC.research_files.known_technodes)
+			var/datum/technode/T = RNC.research_files.known_technodes[node_id]
+			B.technodes[node_id] = T
+		for(var/point_type in RNC.research_files.research_points)
+			B.points[point_type] = RNC.research_files.research_points[point_type]
+
 
 /datum/rnd_backup
 	/// Name of last network
 	var/last_name
 	/// Timestamp of last backup
 	var/last_timestamp
-	/// List of levels
-	var/list/levels = list()
+	/// List of technodes
+	var/list/technodes = list()
+	/// List of points
+	var/list/points = list()
 
 /datum/rnd_backup/proc/to_backup_disk(turf/T)
 	var/obj/item/disk/rnd_backup_disk/D = new(T)
-	D.stored_tech_assoc = levels
+	D.stored_tech_assoc = technodes
 	D.last_backup_time = last_timestamp

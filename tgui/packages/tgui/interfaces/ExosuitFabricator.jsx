@@ -6,8 +6,6 @@ import {
   Dropdown,
   Icon,
   Input,
-  LabeledList,
-  Modal,
   Section,
   Stack,
   Table,
@@ -39,7 +37,6 @@ export const ExosuitFabricator = (properties) => {
   return (
     <Window width={950} height={625}>
       <Window.Content className="Exofab">
-        <LevelsModal showLevelsModal={showLevelsModal} setShowLevelsModal={setShowLevelsModal} />
         <Stack fill>
           <Stack.Item grow>
             <Stack fill vertical>
@@ -392,39 +389,4 @@ const LinkMenu = (properties) => {
       </Window.Content>
     </Window>
   );
-};
-
-const LevelsModal = (properties) => {
-  const { act, data } = useBackend();
-  const { tech_levels } = data;
-
-  const { showLevelsModal, setShowLevelsModal } = properties;
-
-  if (showLevelsModal) {
-    return (
-      <Modal maxWidth="75%" width={window.innerWidth + 'px'} maxHeight={window.innerHeight * 0.75 + 'px'} mx="auto">
-        <Section
-          title="Current tech levels"
-          buttons={
-            <Button
-              content="Close"
-              onClick={() => {
-                setShowLevelsModal(false);
-              }}
-            />
-          }
-        >
-          <LabeledList>
-            {tech_levels.map(({ name, level }) => (
-              <LabeledList.Item label={name} key={name}>
-                {level}
-              </LabeledList.Item>
-            ))}
-          </LabeledList>
-        </Section>
-      </Modal>
-    );
-  } else {
-    return null;
-  }
 };

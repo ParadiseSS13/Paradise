@@ -1061,18 +1061,35 @@
 		add_attack_logs(src, user, "Picked up [src], coated with [contact_poison] by [contact_poison_poisoner]")
 		contact_poison = null
 
+/*  MIXTODO ;
+	Currently, these are just quickly converted to points without much thought, they will be revisited to rework/remove/rebalance/whatever
+*/
 /obj/item/paper/researchnotes
-	name = "paper - 'Research Notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a scientific analyzer in R&D could make sense of them?</b>"
+	name = "research notes"
+	info = "<b>The notes appear gibberish to you. Perhaps a scientific analyzer in R&D could make sense of them?</b>" // MIXTODO - revisit if analyser shot in foot.
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
+	var/p_type
+	var/amount
 
 /obj/item/paper/researchnotes/Initialize(mapload)
 	. = ..()
-	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
-	var/mytech = pick(possible_techs)
-	var/mylevel = rand(7, 9)
-	origin_tech = "[mytech]=[mylevel]"
-	name = "research notes - [mytech] [mylevel]"
+	var/list/possible_research = list("research" = 7, "illegal" = 1)
+	var/p_name = pick("old", "torn", "aged", "time-worn")
+	p_type = pickweight(possible_research)
+	amount = 0
+	if(p_type == "research")
+		amount = rand(4000, 8000)
+	else
+		amount = rand(100, 200) // MIXTODO - revisit after balancing points/rework these
+	name = "[p_name] [initial(name)]"
+
+/obj/item/paper/researchnotes/examine(mob/user)
+	. = ..()
+	var/temp_points = round(amount, 1000)
+	if(HAS_TRAIT(user.mind, TRAIT_CRAFTY))
+		. += SPAN_NOTICE("You could collect [amount] [p_type] points from these notes")
+	else
+		. += SPAN_NOTICE("You can't make much sense of the notes' contents, but you estimate it's worth about [temp_points] research points of some kind.")
 
 // I want this type dead
 /obj/item/paper/instruction

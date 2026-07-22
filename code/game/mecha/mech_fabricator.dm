@@ -376,18 +376,6 @@
 	data["categories"] = categories
 	data["curCategory"] = selected_category
 
-	var/list/tech_levels = list()
-	for(var/tech_id in files.known_tech)
-		var/datum/tech/T = files.known_tech[tech_id]
-		if(T.level <= 0)
-			continue
-		var/list/this_tech_list = list()
-		this_tech_list["name"] = T.name
-		this_tech_list["level"] = T.level
-		this_tech_list["desc"] = T.desc
-		tech_levels[++tech_levels.len] = this_tech_list
-	data["tech_levels"] = tech_levels
-
 	// Materials
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/list/mats = list()

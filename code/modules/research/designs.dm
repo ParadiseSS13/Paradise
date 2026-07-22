@@ -31,20 +31,34 @@ other types of metals and chemistry for reagents).
 
 /// Datum for object designs, used in construction
 /datum/design
-	var/name = "Name"					//Name of the created object.
-	var/desc = "Desc"					//Description of the created object.
-	var/id = "id"						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
-	var/list/req_tech = list()			//IDs of that techs the object originated from and the minimum level requirements.
-	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
-	var/list/materials = list()			//List of materials. Format: "id" = amount.
-	var/construction_time				//Amount of time required for building the object
-	var/build_path = null				//The file path of the object that gets created
-	var/list/make_reagents = list()			//Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
-	var/locked = FALSE						//If true it will spawn inside a lockbox with currently sec access
-	var/access_requirement = list(ACCESS_ARMORY) //What special access requirements will the lockbox have? Defaults to armory.
-	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
-	var/list/reagents_list = list()			//List of reagents. Format: "id" = amount.
+	/// Name of the created object.
+	var/name = "Name"
+	/// Description of the created object.
+	var/desc = "Desc"
+	/// ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols.
+	var/id = "id"
+	/// IDs of that techs the object originated from and the minimum level requirements.
+	var/list/req_tech = list()
+	/// Flag as to what kind of machine the design is built in. See defines.
+	var/build_type = null
+	/// List of material cost, Format: "id" = amount.
+	var/list/materials = list()
+	/// Amount of time required for producing the object.
+	var/construction_time
+	/// The file path of the object that gets created.
+	var/build_path = null
+	/// List of Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
+	var/list/make_reagents = list()
+	/// If true it will spawn inside a lockbox requiring 'access_requirement' to unlock.
+	var/locked = FALSE
+	/// What special access requirements will the lockbox have? Defaults to armory.
+	var/access_requirement = list(ACCESS_ARMORY)
+	/// Primarily used for Mech Fabricators, but can be used for anything
+	var/category = null
+	/// List of reagent cost, Format: "id" = amount.
+	var/list/reagents_list = list()
 	var/maxstack = 1
-	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
+	/// How many times faster than normal is this to build on the protolathe.
+	var/lathe_time_factor = 1
 	/// Determines whether or not we get to get a design blueprint from a disk
 	var/requires_whitelist = FALSE

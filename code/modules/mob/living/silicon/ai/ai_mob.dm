@@ -494,32 +494,26 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, SPAN_WARNING("No research server found!"))
 		return
 	var/list/possible_tech = list()
-	for(var/datum/tech/T in files.possible_tech)
+	for(var/datum/technode/T in files.visible_technodes)
 		possible_tech += T
 	while(!upgraded)
-		var/datum/tech/tech_to_upgrade = pick_n_take(possible_tech)
+		var/datum/technode/tech_to_upgrade = pick_n_take(possible_tech)
 		// If there are no possible techs to upgrade, stop the program
 		if(!tech_to_upgrade)
 			to_chat(src, SPAN_NOTICE("Current research cannot be discovered any further."))
 			research_subsystem = FALSE
 			return
 		// No illegals until level 10
-		if(research_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
+		if(research_level < 10 && istype(tech_to_upgrade, /datum/technode/illegal))
 			continue
 		// No alien research
-		if(istype(tech_to_upgrade, /datum/tech/abductor))
+		if(istype(tech_to_upgrade, /datum/technode/alien))
 			continue
-		var/datum/tech/current = files.find_possible_tech_with_id(tech_to_upgrade.id)
+		var/datum/technode/current = files.id_to_possible_technode(tech_to_upgrade.id)
 		if(!current)
 			continue
-		// If the tech is level 7 and the program too weak, don't upgrade
-		if(current.level >= 7 && research_level < 5)
-			continue
-		// Nothing beyond 8
-		if(current.level >= 8)
-			continue
-		files.UpdateTech(tech_to_upgrade.id, current.level + 1)
-		aiRadio.autosay("Discovered innovations have led to an increase in the field of [current]!", src, "Science")
+		files.unlock_technode(tech_to_upgrade)
+		aiRadio.autosay("AI innovations have led to the discovery of [current]!", src, "Science")
 		upgraded = TRUE
 
 /mob/living/silicon/ai/proc/pick_icon()

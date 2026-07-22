@@ -197,7 +197,7 @@
 /obj/machinery/rnd_server/ui_data(mob/user)
 	var/list/data = list()
 
-	var/pgt = point_generation[1]
+	var/pgt = point_generation[1] // MIXTODO - Make servers TGUI work with multiple point types now that im not fucking stupid.
 	var/pgv = point_generation[pgt] * (efficiency_coeff / point_generation.len) // TGUI wont display a second type of point, but it should display the first accurately.
 
 	// Point data

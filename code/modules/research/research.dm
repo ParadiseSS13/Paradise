@@ -1,63 +1,31 @@
 /*
-General Explination:
-The research datum is the "folder" where all the research information is stored in a R&D console. It's also a holder for all the
-various procs used to manipulate it. It has four variables and seven procs:
+General Explaination:
+The research datum contains all points, technodes and designs of a particular research network, it also containts the procs required
+to manipulate these things. Nothing should ever have custom procs for adding/taking points directly from the vars, it should use the
+procs in this file.
 
-Variables:
-- possible_tech is a list of all the /datum/tech that can potentially be researched by the player. The RefreshResearch() proc
-(explained later) only goes through those when refreshing what you know. Generally, possible_tech contains ALL of the existing tech
-but it is possible to add tech to the game that DON'T start in it (example: Xeno tech). Generally speaking, you don't want to mess
-with these since they should be the default version of the datums. They're actually stored in a list rather then using typesof to
-refer to them since it makes it a bit easier to search through them for specific information.
-- know_tech is the companion list to possible_tech. It's the tech you can actually research and improve. Until it's added to this
-list, it can't be improved. All the tech in this list are visible to the player.
-- possible_designs is functionally identical to possbile_tech except it's for /datum/design.
-- known_designs is functionally identical to known_tech except it's for /datum/design
+Each RnD Network Manager contains its own research datum, meaning all research is local and will be destroyed along with the console.
 
-Procs:
-- TechHasReqs: Used by other procs (specifically RefreshResearch) to see whether all of a tech's requirements are currently in
-known_tech and at a high enough level.
-- DesignHasReqs: Same as TechHasReqs but for /datum/design and known_design.
-- AddTech2Known: Adds a /datum/tech to known_tech. It checks to see whether it already has that tech (if so, it just replaces it). If
-it doesn't have it, it adds it. Note: It does NOT check possible_tech at all. So if you want to add something strange to it (like
-a player made tech?) you can.
-- AddDesign2Known: Same as AddTech2Known except for /datum/design and known_designs.
-- RefreshResearch: This is the workhorse of the R&D system. It updates the /datum/research holder and adds any unlocked tech paths
-and designs you have reached the requirements for. It only checks through possible_tech and possible_designs, however, so it won't
-accidentally add "secret" tech to it.
-- UpdateTech is used as part of the actual researching process. It takes an ID and finds techs with that same ID in known_tech. When
-it finds it, it checks to see whether it can improve it at all. If the known_tech's level is less then or equal to
-the inputted level, it increases the known tech's level to the inputted level -1 or know tech's level +1 (whichever is higher).
-
-The tech datums are the actual "tech trees" that you improve through researching. Each one has five variables:
-- Name:		Pretty obvious. This is often viewable to the players.
-- Desc:		Pretty obvious. Also player viewable.
-- ID:		This is the unique ID of the tech that is used by the various procs to find and/or maniuplate it.
-- Level:	This is the current level of the tech. All techs start at 1 and have a max of 20. Devices and some techs require a certain
-level in specific techs before you can produce them.
-- Req_tech:	This is a list of the techs required to unlock this tech path. If left blank, it'll automatically be loaded into the
-research holder datum.
-
+Point operations are always performed through lists in the form of ("Type" = amount), e.g. list("research" = 500), if an operation attempts
+to use a point type that does not exist in SSresearch then that point type will be removed.
 */
-/***************************************************************
-**						Master Types						  **
-**	Includes all the helper procs and basic tech processing.  **
-***************************************************************/
 
 /// Holder for all the existing, archived, and known tech. Individual to each network controller.
 /datum/research
 	// These lists hold datum/tech
 
 
-	// Possible is a list of direct datum references known is a list of id -> datum mappings
-	var/list/possible_tech = list()
-	/// List of locally known tech.
-	var/list/known_tech = list()
+	/// List of all possible technodes, in direct datum references.
+	var/list/possible_technodes = list()
+	/// List of technodes we can see, in direct datum references.
+	var/list/visible_technodes = list()
+	/// List of locally known technodes, list of id -> datum mappings.
+	var/list/known_technodes = list()
 
 
 	/// List of all designs
 	var/list/possible_designs = list()
-	/// List of available designs
+	/// List of available designs, list of id -> datum mappings
 	var/list/known_designs = list()
 	/// List of designs that have been blacklisted by the server controller
 	var/list/blacklisted_designs = list()
@@ -74,8 +42,8 @@ research holder datum.
 	// Using research disks, you can get techs/designs from one research datum
 	// onto another. What consequences this could have, I am presently unsure, but
 	// I imagine nothing good.
-	for(var/T in subtypesof(/datum/tech))
-		possible_tech += new T(src)
+	for(var/T in subtypesof(/datum/technode))
+		possible_technodes += new T(src)
 	for(var/D in subtypesof(/datum/design))
 		possible_designs += new D(src)
 	research_points = SSresearch.point_types
@@ -86,74 +54,139 @@ research holder datum.
 		total_points[i] = 0
 	RefreshResearch()
 
+/// Anything calling this proc should use the returned value to remove points from itself.
 /datum/research/proc/addpoints(list/points_list)
 	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
 		if((i in research_points) && points_list[i] > 0)
 			research_points[i] = FLOOR(research_points[i] + points_list[i], 0.1)
+			return points_list // So the caller doesnt delete points that werent sent.
 		if((i in total_points) && points_list[i] > 0)
 			total_points[i] = FLOOR(total_points[i] + points_list[i], 0.1)
+	RefreshResearch() // Update visibility when adding points to ensure nodes show correctly.
 
 // Autobalance determines if requesting more points then we have will automatically reduce the request or just cancel it.
+/// Anything calling this proc should use the returned value to add points to itself.
 /datum/research/proc/takepoints(list/points_list, autobalance = TRUE)
 	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
 	for(var/i in points_list)
-		var/ti = i
 		if(research_points[i] < points_list[i] && autobalance == TRUE)
-			ti = research_points[i]
+			points_list[i] = research_points[i]
 		if(research_points[i] < points_list[i] && autobalance == FALSE)
 			return
 		if((i in research_points) && points_list[i] > 0)
-			research_points[i] = FLOOR(research_points[i] - ti, 0.1)
-			return ti // return how many points so we dont accidentally take more then we have.
+			research_points[i] = FLOOR(research_points[i] - points_list[i], 0.1)
+			return points_list
 		log_debug("Research point withdrawl failed unexpectedly.")
 		return
 
-//Checks to see if tech has all the required pre-reqs.
-//Input: datum/tech; Output: 0/1 (false/true)
-/datum/research/proc/TechHasReqs(datum/tech/T)
-	if(length(T.req_tech) == 0)
+/// Checks to see if technode has all the required pre-reqs. Output: TRUE/FALSE
+/datum/research/proc/technode_has_prereqs(datum/technode/T)
+	if(T.starting_node == TRUE)
 		return TRUE
-	for(var/req in T.req_tech)
-		var/datum/tech/known = known_tech[req]
-		if(!known || known.level < T.req_tech[req])
-			return FALSE
+	var/prereqs_met = 0
+	for(var/i in T.prereqs)
+		if(i in known_technodes)
+			prereqs_met += 1
+	if(prereqs_met == T.prereqs.len)
+		return TRUE
+	return FALSE
+
+/// Checks to see if research datum can buy this technode. Output: TRUE/FALSE
+/datum/research/proc/can_buy_technode(datum/technode/T)
+	var/costs_met = 0
+	for(var/i in T.cost)
+		if(research_points[i] >= T.cost[i])
+			costs_met += 1
+	if(costs_met == T.cost.len)
+		return TRUE
+	return FALSE
+
+/// Output: TRUE/FALSE (success/fail)
+/datum/research/proc/unlock_technode(datum/technode/T)
+	if(T.id in known_technodes)
+		log_debug("(Unlock Node) Technode [T.name] attempted unlock but was already unlocked.")
+		return FALSE
+	var/list/i = list("[T.id]" = T)
+	known_technodes += i
+	for(var/d in T.unlocks)
+		AddDesign2Known(find_possible_design_by_id(d))
+	RefreshResearch()
+	log_debug("(Unlock Node) Technode [T.name] successfully unlocked.") // MIXTODO - Remove logging later
 	return TRUE
 
-//Checks to see if design has all the required pre-reqs.
-//Input: datum/design; Output: 0/1 (false/true)
+/// Checks if technode can be brought, if so, buys it. Output: TRUE/FALSE (success/fail)
+/datum/research/proc/buy_technode(datum/technode/T)
+	if(!check_technode_visibility(T))
+		log_debug("(Buy Node) Attempted to buy Technode [T.name] but it was not visible.")
+		return FALSE // We can't see this node, meaning we cannot unlock it normally.
+	if(T.id in known_technodes)
+		return FALSE // No buying the same node twice.
+	if(technode_has_prereqs(T) == TRUE && can_buy_technode(T) == TRUE)
+		for(var/i in T.cost)
+			research_points[i] -= T.cost[i]
+			unlock_technode(T)
+		log_debug("(Buy Node) Technode [T.name] successfully brought.") // MIXTODO - Remove logging later
+		return TRUE
+	log_debug("(Buy Node) Technode [T.name] failed buy.")// MIXTODO - Remove logging later
+	return FALSE
+
+/// Checks if the technode is visible, adds/removes it from visible_technodes if required. Output: TRUE/FALSE
+/datum/research/proc/check_technode_visibility(datum/technode/T)
+	if(T.id in known_technodes)
+		if(T in visible_technodes)
+			visible_technodes -= T
+		log_debug("(Check Vis) Technode [T.name] was already known.") // MIXTODO - Remove logging later
+		return FALSE // Technode is already known, we don't need to check this.
+	if(T.starting_node == FALSE && T.prereqs.len == 0)
+		log_debug("(Check Vis) Technode [T.name] has no prereqs and isnt a starting node.") // MIXTODO - Remove logging later
+		return FALSE
+	if(T.cost_hidden.len > 0)
+		var/tc = 0
+		for(var/i in T.cost_hidden)
+			if(total_points[i] > T.cost_hidden[i])
+				tc += 1
+		if(tc == T.cost_hidden.len)
+			log_debug("(Check Vis - Hidden) Technode [T.name] was declared visible.") // MIXTODO - Remove logging later
+			return TRUE
+		log_debug("(Check Vis - Hidden) Technode [T.name] was declared NOT visible.") // MIXTODO - Remove logging later
+		return FALSE
+	if(technode_has_prereqs(T))
+		if(!(T in visible_technodes))
+			visible_technodes += T
+		log_debug("(Check Vis) Technode [T.name] was declared visible.") // MIXTODO - Remove logging later
+		return TRUE
+	log_debug("(Check Vis) Technode [T.name] was declared NOT visible.") // MIXTODO - Remove logging later
+	return FALSE
+
+/// Checks possible technode list for id, returns T if found.
+/datum/research/proc/id_to_possible_technode(id)
+	for(var/datum/technode/T in possible_technodes)
+		if(T.id == id)
+			return T
+
+/datum/research/proc/design_id_to_technode(id)
+	for(var/datum/technode/T in possible_technodes)
+		if(id in T.unlocks)
+			return T
+		return FALSE
+
 /datum/research/proc/DesignHasReqs(datum/design/D)
 	if(D.id in blacklisted_designs)
 		return FALSE
 	if(D.requires_whitelist && !(known_designs[D.id]))
 		return FALSE
-	if(length(D.req_tech) == 0)
+	var/datum/technode/T = design_id_to_technode(D.id)
+	if(!T)
+		return TRUE // No technode unlocks this design and it doesnt require a disk, it should be unlocked.
+	if(T.id in known_technodes)
 		return TRUE
-	for(var/req in D.req_tech)
-		var/datum/tech/known = known_tech[req]
-		if(!known || known.level < D.req_tech[req])
-			return FALSE
-	return TRUE
-
-//Adds a tech to known_tech list. Checks to make sure there aren't duplicates and updates existing tech's levels if needed.
-//Input: datum/tech; Output: Null
-/datum/research/proc/AddTech2Known(datum/tech/T)
-	if(T.id in known_tech)
-		var/datum/tech/known = known_tech[T.id]
-		if(T.level > known.level)
-			known.level = T.level
-		return
-	known_tech[T.id] = T
-
-/datum/research/proc/find_possible_tech_with_id(id)
-	for(var/datum/tech/T in possible_tech)
-		if(T.id == id)
-			return T
+	return FALSE
 
 /datum/research/proc/CanAddDesign2Known(datum/design/D)
 	if(D.id in known_designs)
 		return FALSE
-	if(D.id in blacklisted_designs)
+	if(!DesignHasReqs(D))
 		return FALSE
 	return TRUE
 
@@ -161,71 +194,27 @@ research holder datum.
 	if(!D)
 		return FALSE
 	if(!CanAddDesign2Known(D))
-		return TRUE
-	// Global datums make me nervous
+		return FALSE
 	known_designs[D.id] = D
 	return TRUE
 
-//Refreshes known_tech and known_designs list.
+//Refreshes visible_technodes and known_designs lists.
 //Input/Output: n/a
 /datum/research/proc/RefreshResearch()
-	for(var/datum/tech/PT in possible_tech)
-		if(TechHasReqs(PT))
-			AddTech2Known(PT)
+	for(var/datum/technode/PT in possible_technodes)
+		check_technode_visibility(PT)
 	for(var/datum/design/PD in possible_designs)
-		if(DesignHasReqs(PD))
-			if(!AddDesign2Known(PD))
-				stack_trace("Game attempted to add a null design to list of known designs! Design: [PD] with ID: [PD.id]")
-	if(length(blacklisted_designs)) //No need to run this unless there are blacklisted designs
+		AddDesign2Known(PD) // Checking for dupes/requirements is already done in these procs.
+	if(length(blacklisted_designs)) // No need to run this unless there are blacklisted designs
 		known_designs -= blacklisted_designs
-	for(var/v in known_tech)
-		var/datum/tech/T = known_tech[v]
-		T.level = clamp(T.level, 0, 20)
 
-//Refreshes the levels of a given tech.
-//Input: Tech's ID and Level; Output: null
-/datum/research/proc/UpdateTech(ID, level)
-	var/datum/tech/KT = known_tech[ID]
-	if(KT)
-		if(KT.level <= level)
-			// Will bump the tech to (value_of_target) automatically -
-			// after that it'll bump it up by 1 until it's greater
-			// than the source tech
-			KT.level = max((KT.level + 1), level)
-			SSblackbox.log_research(KT.name, KT.level)
-
-//Checks if the origin level can raise current tech levels
-//Input: Tech's ID and Level; Output: TRUE for yes, FALSE for no
-/datum/research/proc/IsTechHigher(ID, level)
-	var/datum/tech/KT = known_tech[ID]
-	if(KT)
-		if(KT.level <= level)
-			return TRUE
-		else
-			return FALSE
+/datum/research/proc/find_possible_design_by_id(id)
+	for(var/datum/design/i in possible_designs)
+		if(i.id == id)
+			return i
 
 /datum/research/proc/FindDesignByID(id)
 	return known_designs[id]
-
-// A common task is for one research datum to copy over its techs and designs
-// and update them on another research datum.
-// Arguments:
-// `other` - The research datum to send designs and techs to
-/datum/research/proc/push_data(datum/research/other)
-	other.blacklisted_designs += (blacklisted_designs - other.blacklisted_designs)
-	for(var/v in unblacklisted_designs)
-		blacklisted_designs -= v
-		other.blacklisted_designs -= v
-		unblacklisted_designs -= v
-		other.unblacklisted_designs += v //Needed so the main rnd console actually removes the rest of the blacklists in the fucking world
-	for(var/v in known_tech)
-		var/datum/tech/T = known_tech[v]
-		other.AddTech2Known(T)
-	for(var/v in known_designs)
-		var/datum/design/D = known_designs[v]
-		other.AddDesign2Known(D)
-	other.RefreshResearch()
-
 
 //Autolathe files
 /datum/research/autolathe
@@ -257,8 +246,8 @@ research holder datum.
 
 //Biogenerator files
 /datum/research/biogenerator/New()
-	for(var/T in (subtypesof(/datum/tech)))
-		possible_tech += new T(src)
+	for(var/T in (subtypesof(/datum/technode)))
+		possible_technodes += new T(src)
 	for(var/path in subtypesof(/datum/design))
 		var/datum/design/D = new path(src)
 		possible_designs += D
@@ -272,8 +261,8 @@ research holder datum.
 
 //Smelter files
 /datum/research/smelter/New()
-	for(var/T in (subtypesof(/datum/tech)))
-		possible_tech += new T(src)
+	for(var/T in (subtypesof(/datum/technode)))
+		possible_technodes += new T(src)
 	for(var/path in subtypesof(/datum/design))
 		var/datum/design/D = new path(src)
 		possible_designs += D
@@ -284,114 +273,3 @@ research holder datum.
 	if(!(D.build_type & SMELTER))
 		return FALSE
 	return ..()
-
-/***************************************************************
-**						Technology Datums					  **
-**	Includes all the various technoliges and what they make.  **
-***************************************************************/
-
-/// Datum of individual technologies.
-/datum/tech
-	var/name = "name"					//Name of the technology.
-	var/desc = "description"			//General description of what it does and what it makes.
-	var/id = "id"						//An easily referenced ID. Must be alphanumeric, lower-case, and no symbols.
-	var/level = 1						//A simple number scale of the research level. Level 0 = Secret tech.
-	var/max_level = 1          // Maximum level this can be at (for job objectives)
-	var/rare = 1						//How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
-	/// Name of the FontAwesome icon to represent the tech
-	var/ui_icon = null
-	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
-
-
-//Trunk Technologies (don't require any other techs and you start knowning them).
-
-/datum/tech/materials
-	name = "Materials Research"
-	desc = "Development of new and improved materials."
-	id = TECH_MATERIAL
-	max_level = 7
-	ui_icon = "layer-group"
-
-/datum/tech/engineering
-	name = "Engineering Research"
-	desc = "Development of new and improved engineering parts and methods."
-	id = TECH_ENGINEERING
-	max_level = 7
-	ui_icon = "tools"
-
-/datum/tech/plasmatech
-	name = "Plasma Research"
-	desc = "Research into the mysterious substance colloqually known as 'plasma'."
-	id = TECH_PLASMA
-	max_level = 7
-	rare = 3
-	ui_icon = "fire"
-
-/datum/tech/powerstorage
-	name = "Power Manipulation Technology"
-	desc = "The various technologies behind the storage and generation of electicity."
-	id = TECH_POWER
-	max_level = 7
-	ui_icon = "bolt"
-
-/datum/tech/bluespace
-	name = "'Bluespace' Research"
-	desc = "Research into the sub-reality known as 'bluespace'."
-	id = TECH_BLUESPACE
-	max_level = 7
-	rare = 2
-	ui_icon = "gem"
-
-/datum/tech/biotech
-	name = "Biological Technology"
-	desc = "Research into the deeper mysteries of life and organic substances."
-	id = TECH_BIO
-	max_level = 7
-	ui_icon = "seedling"
-
-/datum/tech/combat
-	name = "Combat Systems Research"
-	desc = "The development of offensive and defensive systems."
-	id = TECH_COMBAT
-	max_level = 7
-	ui_icon = "shield-alt"
-
-/datum/tech/magnets
-	name = "Electromagnetic Spectrum Research"
-	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
-	id = TECH_MAGNETS
-	max_level = 7
-	ui_icon = "magnet"
-
-/datum/tech/programming
-	name = "Data Theory Research"
-	desc = "The development of new computer and artificial intelligence and data storage systems."
-	id = TECH_PROGRAM
-	max_level = 7
-	ui_icon = "server"
-
-/// not meant to be raised by deconstruction, do not give objects toxins as an origin_tech
-/datum/tech/toxins
-	name = "Toxins Research"
-	desc = "Research into plasma based explosive devices. Upgrade through testing explosives in the toxins lab."
-	id = TECH_TOXINS
-	max_level = 7
-	rare = 2
-	ui_icon = "explosion"
-
-/datum/tech/syndicate
-	name = "Illegal Technologies Research"
-	desc = "The study of technologies that violate standard Nanotrasen regulations."
-	id = TECH_SYNDICATE
-	max_level = 0 // Don't count towards maxed research, since it's illegal.
-	rare = 4
-	ui_icon = "user-astronaut"
-
-/datum/tech/abductor
-	name = "Alien Technologies Research"
-	desc = "The study of technologies used by the advanced alien race known as Abductors."
-	id = TECH_ABDUCTOR
-	rare = 5
-	level = 0
-	ui_icon = "satellite"
-

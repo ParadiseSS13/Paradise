@@ -264,17 +264,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	var/list/temp_tech = linked_analyzer.ConvertReqString2List(linked_analyzer.loaded_item.origin_tech)
-	var/pointless = FALSE
-
-	for(var/T in temp_tech)
-		if(files.IsTechHigher(T, temp_tech[T]))
-			pointless = TRUE
-			break
-
-	if(!pointless)
-		var/choice = alert(user, "This item does not raise tech levels. Proceed destroying loaded item anyway?", "Are you sure you want to destroy this item?", "Proceed", "Cancel")
-		if(choice == "Cancel" || !linked_analyzer)
-			return
 
 	linked_analyzer.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
@@ -338,7 +327,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(user, SPAN_DANGER("[linked_analyzer] appears to be empty."))
 	else
 		for(var/T in temp_tech)
-			files.UpdateTech(T, temp_tech[T])
 		send_mats()
 		linked_analyzer.loaded_item = null
 
@@ -767,8 +755,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/datum/research/files = get_files()
 	if(!files)
 		return
-	for(var/T in files.known_tech)
-		files.UpdateTech(T, 8)
+	for(var/T in files.possible_technodes)
+		files.unlock_technode(T)
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
@@ -915,21 +903,96 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["category"] = selected_category
 
 	if(menu == MENU_MAIN)
-		var/list/tech_levels = list()
-		data["tech_levels"] = tech_levels
-		for(var/v in files.known_tech)
-			var/datum/tech/T = files.known_tech[v]
-			if(T.level <= 0)
-				continue
-			var/list/this_tech_list = list()
-			this_tech_list["id"] = T.id
-			this_tech_list["name"] = T.name
-			this_tech_list["level"] = T.level
-			this_tech_list["desc"] = T.desc
-			this_tech_list["ui_icon"] = T.ui_icon
-			tech_levels[++tech_levels.len] = this_tech_list
+		data["visible_nodes"] = list()
+		for(var/datum/technode/T in files.visible_technodes)
+			var/list/vis_node_data = list()
+			vis_node_data["name"] = T.name
+			vis_node_data["desc"] = T.desc
+			vis_node_data["id"] = T.id
+			vis_node_data["type"] = T.node_type
+			vis_node_data["type_path"] = T
 
-	else if(menu == MENU_DISK) // MIXTODO - Current WIP
+			vis_node_data["cost"] = list()
+			for(var/i in T.cost)
+				var/list/temp_cost = list()
+				temp_cost["type"] = i
+				temp_cost["amount"] = T.cost[i]
+				vis_node_data["cost"] += temp_cost
+
+			vis_node_data["prereqs"] = list()
+			for(var/id in T.prereqs)
+				var/datum/technode/P = files.id_to_possible_technode(id)
+				var/list/temp_prereqs = list()
+				temp_prereqs["prereq_name"] = P.name
+				temp_prereqs["prereq_id"] = P.id
+
+				var/prereq_unlocked = FALSE
+				if(P.id in files.known_technodes)
+					prereq_unlocked = TRUE
+				temp_prereqs["prereq_is_unlocked"] = prereq_unlocked
+
+				vis_node_data["prereqs"] += temp_prereqs
+
+			vis_node_data["unlocks"] = list()
+			for(var/id in T.unlocks)
+				var/datum/design/D = files.find_possible_design_by_id(id)
+				var/obj/O = D.build_path
+				var/list/temp_unlocks = list()
+				temp_unlocks["unlock_id"] = D.id
+				temp_unlocks["unlock_name"] = O.name
+				temp_unlocks["unlock_desc"] = O.desc
+				temp_unlocks["unlock_icon"] = O.icon
+				temp_unlocks["unlock_icon_state"] = O.icon_state
+				vis_node_data["unlocks"] += temp_unlocks
+
+			data["visible_nodes"] += vis_node_data
+
+		data["known_nodes"] = list()
+		for(var/tid in files.known_technodes)
+			var/datum/technode/T = files.id_to_possible_technode(tid)
+			var/list/known_node_data = list()
+			known_node_data["name"] = T.name
+			known_node_data["desc"] = T.desc
+			known_node_data["id"] = T.id
+			known_node_data["type"] = T.node_type
+			known_node_data["path"] = T
+			known_node_data["known"] = TRUE
+
+			known_node_data["cost"] = list() // Cost and prereqs arent super useful for known nodes, but its more effort to change the TGUI currently to not show them
+			for(var/i in T.cost)			 // MIXTODO - Eventually make TGUI not explode without this
+				var/list/temp_cost = list()
+				temp_cost["type"] = i
+				temp_cost["amount"] = T.cost[i]
+				known_node_data["cost"] += temp_cost
+
+			known_node_data["prereqs"] = list()
+			for(var/id in T.prereqs)
+				var/datum/technode/P = files.id_to_possible_technode(id)
+				var/list/temp_prereqs = list()
+				temp_prereqs["prereq_name"] = P.name
+				temp_prereqs["prereq_id"] = P.id
+
+				var/prereq_unlocked = FALSE
+				if(P.id in files.known_technodes)
+					prereq_unlocked = TRUE
+				temp_prereqs["prereq_is_unlocked"] = prereq_unlocked
+
+				known_node_data["prereqs"] += temp_prereqs
+
+			known_node_data["unlocks"] = list()
+			for(var/id in T.unlocks)
+				var/datum/design/D = files.find_possible_design_by_id(id)
+				var/obj/O = D.build_path
+				var/list/temp_unlocks = list()
+				temp_unlocks["id"] = D.id
+				temp_unlocks["unlock_name"] = O.name
+				temp_unlocks["unlock_desc"] = O.desc
+				temp_unlocks["unlock_icon"] = O.icon
+				temp_unlocks["unlock_icon_state"] = O.icon_state
+				known_node_data["unlocks"] += temp_unlocks
+			data["known_nodes"] += known_node_data
+
+	else if(menu == MENU_DISK) // MIXTODO - Finish disks fully
 		if(t_disk != null)
 			if(t_disk.stored_research.len == 0)
 				var/list/to_copy = list()
@@ -990,7 +1053,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/list/temp_tech = linked_analyzer.ConvertReqString2List(linked_analyzer.loaded_item.origin_tech)
 		var/list/tech_levels = list()
 		data["tech_levels"] = tech_levels
-		for(var/v in files.known_tech)
+/*		for(var/v in files.known_tech) - MIXTODO
 			var/datum/tech/T = files.known_tech[v]
 			if(T.level <= 0)
 				continue
@@ -1002,6 +1065,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			this_tech_list["ui_icon"] = T.ui_icon
 			this_tech_list["object_level"] = temp_tech[T.id]
 			tech_levels[++tech_levels.len] = this_tech_list
+*/
 
 	else if(menu == MENU_LATHE && linked_lathe)
 		ui_machine_data(linked_lathe, data)

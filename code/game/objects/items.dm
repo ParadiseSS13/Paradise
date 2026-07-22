@@ -280,8 +280,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(origin_tech)
 			msg += "[SPAN_NOTICE("Testing potentials:")]<BR>"
 			var/list/techlvls = params2list(origin_tech)
-			for(var/T in techlvls) //This needs to use the better names.
-				msg += "Tech: [GLOB.rnd_tech_id_to_name[T]] | Magnitude: [techlvls[T]] <br>"
 		else
 			msg += "[SPAN_DANGER("No tech origins detected.")]<BR>"
 
