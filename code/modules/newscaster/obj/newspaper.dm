@@ -46,7 +46,7 @@
 		to_chat(user, SPAN_WARNING("Unroll it first!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(!is_literate(user))
+	if(!user.is_literate())
 		to_chat(user, SPAN_WARNING("The paper is full of unintelligible symbols!"))
 		return ITEM_INTERACT_COMPLETE
 
