@@ -31,100 +31,108 @@
 	var/scribble_page = null
 	/// Whether the newspaper is rolled or not, making it a deadly weapon.
 	var/rolled = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/newspaper/Initialize(mapload)
 	. = ..()
 	if(!news_content)
 		news_content = list()
 
-/obj/item/newspaper/attack_self__legacy__attackchain(mob/user)
+/obj/item/newspaper/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(rolled)
 		to_chat(user, SPAN_WARNING("Unroll it first!"))
-		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/human_user = user
-		var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-		pages = 0
-		switch(screen)
-			if(SCREEN_COVER) //Cover
-				dat += "<div align='center'><b><font size=6>The Griffon</font></b></div>"
-				dat += "<div align='center'><font size=2>Nanotrasen-standard newspaper, for use on Nanotrasen Space Facilities</font></div><hr>"
-				if(!length(news_content))
-					if(important_message)
-						dat += "Contents:<br><ul><b><font color='red'>**</font>Important Security Announcement<font color='red'>**</font></b> <font size=2>\[page [pages+2]\]</font><br></ul>"
-					else
-						dat += "<i>Other than the title, the rest of the newspaper is unprinted...</i>"
+		return ITEM_INTERACT_COMPLETE
+
+	if(!ishuman(user))
+		to_chat(user, SPAN_WARNING("The paper is full of unintelligible symbols!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/mob/living/carbon/human/human_user = user
+	add_fingerprint(user)
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	pages = 0
+	switch(screen)
+		if(SCREEN_COVER) //Cover
+			dat += "<div align='center'><b><font size=6>The Griffon</font></b></div>"
+			dat += "<div align='center'><font size=2>Nanotrasen-standard newspaper, for use on Nanotrasen Space Facilities</font></div><hr>"
+			if(!length(news_content))
+				if(important_message)
+					dat += "Contents:<br><ul><b><font color='red'>**</font>Important Security Announcement<font color='red'>**</font></b> <font size=2>\[page [pages+2]\]</font><br></ul>"
 				else
-					dat += "Contents:<br><ul>"
-					for(var/datum/feed_channel/NP in news_content)
-						pages++
-					if(important_message)
-						dat += "<b><font color='red'>**</font>Important Security Announcement<font color='red'>**</font></b> <font size=2>\[page [pages+2]\]</font><br>"
-					var/temp_page=0
-					for(var/datum/feed_channel/NP in news_content)
-						temp_page++
-						dat += "<b>[NP.channel_name]</b> <font size=2>\[page [temp_page+1]\]</font><br>"
-					dat += "</ul>"
-				if(scribble_page==curr_page)
-					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='byond://?src=[human_user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
-			if(SCREEN_PAGE_INNER) // X channel pages inbetween.
-				for(var/datum/feed_channel/NP in news_content)
-					pages++ //Let's get it right again.
-				var/datum/feed_channel/C = news_content[curr_page]
-				dat += "<font size=4><b>[C.channel_name]</b></font><font size=1> \[created by: <font color='maroon'>[C.author]</font>\]</font><br><br>"
-				if(C.censored)
-					dat += "This channel was deemed dangerous to the general welfare of the station and therefore marked with a <b><font color='red'>D-Notice</b></font>. Its contents were not transferred to the newspaper at the time of printing."
-				else
-					if(!length(C.messages))
-						dat += "No Feed stories stem from this channel..."
-					else
-						dat += "<ul>"
-						var/i = 0
-						for(var/datum/feed_message/MESSAGE in C.messages)
-							var/title = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.title
-							var/body = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.body
-							i++
-							dat += "<b>[title]</b> <br>"
-							dat += "[body] <br>"
-							if(MESSAGE.img)
-								user << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
-								dat += "<img src='tmp_photo[i].png' width = '180'><br>"
-							dat += "<font size=1>\[Story by <font color='maroon'>[MESSAGE.author]</font>\]</font><br><br>"
-						dat += "</ul>"
-				if(scribble_page==curr_page)
-					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<br><hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div> <div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div>"
-			if(SCREEN_PAGE_LAST) //Last page
+					dat += "<i>Other than the title, the rest of the newspaper is unprinted...</i>"
+			else
+				dat += "Contents:<br><ul>"
 				for(var/datum/feed_channel/NP in news_content)
 					pages++
-				if(important_message!=null)
-					dat += "<div style='float:center;'><font size=4><b>Wanted Issue:</b></font></div><br><br>"
-					dat += "<b>Criminal name</b>: <font color='maroon'>[important_message.author]</font><br>"
-					dat += "<b>Description</b>: [important_message.body]<br>"
-					dat += "<b>Photo:</b>: "
-					if(important_message.img)
-						user << browse_rsc(important_message.img, "tmp_photow.png")
-						dat += "<br><img src='tmp_photow.png' width = '180'>"
-					else
-						dat += "None"
-				else
-					dat += "<i>Apart from some uninteresting Classified ads, there's nothing on this page...</i>"
-				if(scribble_page==curr_page)
-					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
+				if(important_message)
+					dat += "<b><font color='red'>**</font>Important Security Announcement<font color='red'>**</font></b> <font size=2>\[page [pages+2]\]</font><br>"
+				var/temp_page=0
+				for(var/datum/feed_channel/NP in news_content)
+					temp_page++
+					dat += "<b>[NP.channel_name]</b> <font size=2>\[page [temp_page+1]\]</font><br>"
+				dat += "</ul>"
+			if(scribble_page==curr_page)
+				dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
+			dat+= "<hr><div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='byond://?src=[human_user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
+		if(SCREEN_PAGE_INNER) // X channel pages inbetween.
+			for(var/datum/feed_channel/NP in news_content)
+				pages++ //Let's get it right again.
+			var/datum/feed_channel/C = news_content[curr_page]
+			dat += "<font size=4><b>[C.channel_name]</b></font><font size=1> \[created by: <font color='maroon'>[C.author]</font>\]</font><br><br>"
+			if(C.censored)
+				dat += "This channel was deemed dangerous to the general welfare of the station and therefore marked with a <b><font color='red'>D-Notice</b></font>. Its contents were not transferred to the newspaper at the time of printing."
 			else
-				// No trailing punctuation so that it's easy to copy and paste the address
-				if(GLOB.configuration.url.github_url)
-					dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Please report this error, along with any more information you have, to [GLOB.configuration.url.github_url]/issues/new?template=bug_report.md"
+				if(!length(C.messages))
+					dat += "No Feed stories stem from this channel..."
 				else
-					dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Unfortunately there is no GitHub URL set in the config. This is really bad."
+					dat += "<ul>"
+					var/i = 0
+					for(var/datum/feed_message/MESSAGE in C.messages)
+						var/title = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.title
+						var/body = (MESSAGE.censor_flags & NEWSCASTER_CENSOR_STORY) ? "\[REDACTED\]" : MESSAGE.body
+						i++
+						dat += "<b>[title]</b> <br>"
+						dat += "[body] <br>"
+						if(MESSAGE.img)
+							user << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
+							dat += "<img src='tmp_photo[i].png' width = '180'><br>"
+						dat += "<font size=1>\[Story by <font color='maroon'>[MESSAGE.author]</font>\]</font><br><br>"
+					dat += "</ul>"
+			if(scribble_page==curr_page)
+				dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
+			dat+= "<br><hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div> <div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div>"
+		if(SCREEN_PAGE_LAST) //Last page
+			for(var/datum/feed_channel/NP in news_content)
+				pages++
+			if(important_message!=null)
+				dat += "<div style='float:center;'><font size=4><b>Wanted Issue:</b></font></div><br><br>"
+				dat += "<b>Criminal name</b>: <font color='maroon'>[important_message.author]</font><br>"
+				dat += "<b>Description</b>: [important_message.body]<br>"
+				dat += "<b>Photo:</b>: "
+				if(important_message.img)
+					user << browse_rsc(important_message.img, "tmp_photow.png")
+					dat += "<br><img src='tmp_photow.png' width = '180'>"
+				else
+					dat += "None"
+			else
+				dat += "<i>Apart from some uninteresting Classified ads, there's nothing on this page...</i>"
+			if(scribble_page==curr_page)
+				dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
+			dat+= "<hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
+		else
+			// No trailing punctuation so that it's easy to copy and paste the address
+			if(GLOB.configuration.url.github_url)
+				dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Please report this error, along with any more information you have, to [GLOB.configuration.url.github_url]/issues/new?template=bug_report.md"
+			else
+				dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Unfortunately there is no GitHub URL set in the config. This is really bad."
 
-		dat += "<br><hr><div align='center'>[curr_page+1]</div>"
-		human_user << browse(dat, "window=newspaper_main;size=300x400")
-		onclose(human_user, "newspaper_main")
-	else
-		to_chat(user, SPAN_WARNING("The paper is full of unintelligible symbols!"))
+	dat += "<br><hr><div align='center'>[curr_page+1]</div>"
+	human_user << browse(dat, "window=newspaper_main;size=300x400")
+	onclose(human_user, "newspaper_main")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/newspaper/Topic(href, href_list)
 	if(..())
@@ -153,37 +161,48 @@
 		curr_page--
 		playsound(loc, "pageturn", 50, TRUE)
 	if(loc == M)
-		attack_self__legacy__attackchain(M)
+		activate_self(M)
 
-/obj/item/newspaper/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		if(rolled)
-			to_chat(user, SPAN_WARNING("Unroll it first!"))
-			return
-		if(scribble_page == curr_page)
-			to_chat(user, SPAN_NOTICE("There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?"))
-		else
-			var/s = tgui_input_text(user, "Write something", "Newspaper")
-			if(!s || !Adjacent(user))
-				return
-			scribble_page = curr_page
-			scribble = s
-			user.visible_message(SPAN_NOTICE("[user] scribbles something on [src]."),\
-								SPAN_NOTICE("You scribble on page number [curr_page] of [src]."))
-			attack_self__legacy__attackchain(user)
-		return
-	return ..()
+/obj/item/newspaper/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!is_pen(used))
+		return ..()
+
+	if(rolled)
+		to_chat(user, SPAN_WARNING("Unroll it first!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(scribble_page == curr_page)
+		to_chat(user, SPAN_NOTICE("There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/new_text = tgui_input_text(user, "Write something", "Newspaper")
+	if(!new_text || !Adjacent(user))
+		return ITEM_INTERACT_COMPLETE
+	scribble_page = curr_page
+	scribble = new_text
+	user.visible_message(
+		SPAN_NOTICE("[user] scribbles something on [src]."),
+		SPAN_NOTICE("You scribble on page number [curr_page] of [src]."),
+		SPAN_HEAR("You hear scribbling...")
+	)
+	add_fingerprint(user)
+	activate_self(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/newspaper/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
-		rolled = !rolled
-		icon_state = "newspaper[rolled ? "_rolled" : ""]"
-		update_icon()
-		var/verbtext = "[rolled ? "" : "un"]roll"
-		user.visible_message(SPAN_NOTICE("[user] [verbtext]s [src]."),\
-								SPAN_NOTICE("You [verbtext] [src]."))
-		name = "[rolled ? "rolled" : ""] [initial(name)]"
-	return ..()
+	if(!(ishuman(user) && Adjacent(user) && !user.incapacitated()))
+		return ..()
+
+	rolled = !rolled
+	icon_state = "newspaper[rolled ? "_rolled" : ""]"
+	update_icon()
+	var/verbtext = "[rolled ? "" : "un"]roll"
+	user.visible_message(
+		SPAN_NOTICE("[user] [verbtext]s [src]."),
+		SPAN_NOTICE("You [verbtext] [src]."),
+		SPAN_HEAR("You hear a roll of paper [verbtext]ing.")
+	)
+	name = "[rolled ? "rolled" : ""] [initial(name)]"
 
 #undef SCREEN_COVER
 #undef SCREEN_PAGE_INNER
