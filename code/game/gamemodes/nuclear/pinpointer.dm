@@ -162,8 +162,11 @@
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
-	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal. \n \
-			<b>Alt-click</b> to toggle mode."
+	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal.
+
+/obj/item/pinpointer/advpinpointer/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE(<b>Alt-click</b> to toggle mode.")
 	modes = list(MODE_ADV)
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
@@ -302,7 +305,7 @@
 
 /obj/item/pinpointer/nukeop/workdisk()
 	if(GLOB.bomb_set)	// If the bomb is set, lead to the shuttle.
-		mode = MODE_SHIP	// Ensures worklocation() continues to work.
+		mode = MODE_SHIP	// Ensures `worklocation()` continues to work.
 		modes = list(MODE_SHIP)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	// Plays a beep.
 		visible_message("Shuttle Locator mode actived.")			// Lets the mob holding it know that the mode has changed.
@@ -312,7 +315,7 @@
 
 /obj/item/pinpointer/nukeop/workbomb()
 	if(GLOB.bomb_set)	// If the bomb is set, lead to the shuttle.
-		mode = MODE_SHIP	// Ensures worklocation() continues to work.
+		mode = MODE_SHIP	// Ensures `worklocation()` continues to work.
 		modes = list(MODE_SHIP)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	// Plays a beep.
 		visible_message("Shuttle Locator mode actived.")			// Lets the mob holding it know that the mode has changed.
@@ -352,7 +355,7 @@
 /obj/item/pinpointer/operative/proc/scan_for_ops()
 	if(mode != MODE_OPERATIVE)
 		return
-	nearest_op = null // Resets nearest_op every time it scans.
+	nearest_op = null // Resets `nearest_op` every time it scans.
 
 	var/closest_distance = 1000
 	for(var/datum/mind/Mind in SSticker.mode.syndicates)
