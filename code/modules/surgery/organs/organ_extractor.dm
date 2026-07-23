@@ -51,40 +51,40 @@
 /obj/item/organ_extractor/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(in_use)
 		to_chat(user, SPAN_WARNING("[src] is already busy!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(!iscarbon(target))
 		to_chat(user, SPAN_WARNING("ERROR: [target] has no organs to harvest!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/mob/living/carbon/carbon_target = target
 	if(!length(carbon_target.client_mobs_in_contents)) // Basically, we don't want someone putting organs in monkeys then extracting from it. Has to be someone who had a client in the past.
 		to_chat(user, SPAN_WARNING("ERROR: [carbon_target] has no soul trace to assist in targeting the drill bit!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(!IS_HORIZONTAL(carbon_target) && carbon_target.stat == CONSCIOUS)
 		to_chat(user, SPAN_WARNING("ERROR: [carbon_target] is not restrained, and may move during the operation! Correction required!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(storedorgan)
 		to_chat(user, SPAN_WARNING("NOTICE: Internal organ deteced. Beginning insertion procedure!"))
 		insert_organ(user, carbon_target)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	in_use = TRUE
 	var/obj/item/chosen_organ = tgui_input_list(user, "Please select an organ for removal", "Organ Selection", carbon_target.internal_organs)
 	if(!chosen_organ || !user.Adjacent(carbon_target))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(!istype(chosen_organ, /obj/item/organ/internal)) // Safety first.
 		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] is not valid for removal for unknown reasons!"))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(istype(chosen_organ, /obj/item/organ/internal/brain/mmi_holder)) // This breaks shit.
 		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] is too big for the holding tank and would damage [src] too much!"))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(HAS_TRAIT(chosen_organ, TRAIT_ORGAN_INSERTED_WHILE_DEAD))
 		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] was inserted when [carbon_target] was dead, and has no soul trace to lock onto!"))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/organ/internal/internal_organ = chosen_organ
 	var/drilled_organ = internal_organ.parent_organ
@@ -102,11 +102,11 @@
 	if(!do_after_once(user, insert_time, target = carbon_target)) // Slightly longer than stamina crit, at least cuff and buckle them to a pipe or something.
 		to_chat(user, SPAN_WARNING("ERROR: Process interrupted!"))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(!internal_organ || !istype(internal_organ) || !(internal_organ.owner == carbon_target)) // Organ got deleted / moved somewhere else?
 		to_chat(user, SPAN_WARNING("ERROR: unable to find the desired organ!"))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
 		SPAN_DANGER("[user] removes [internal_organ] from [carbon_target]!"),
@@ -118,6 +118,8 @@
 	internal_organ.remove(carbon_target)
 	in_use = FALSE
 	insert_internal_organ_in_extractor(internal_organ)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ_extractor/proc/insert_organ(mob/user, mob/our_target)
 	if(!storedorgan)
