@@ -162,16 +162,16 @@
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
-	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal.
-
-/obj/item/pinpointer/advpinpointer/examine(mob/user)
-	. = ..()
-	. += SPAN_NOTICE(<b>Alt-click</b> to toggle mode.")
+	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
 	modes = list(MODE_ADV)
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
 	var/obj/target = null
 	var/setting = 0
+
+/obj/item/pinpointer/advpinpointer/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("<b>Alt-click</b> to toggle mode.")
 
 /obj/item/pinpointer/advpinpointer/process()
 	switch(setting)
