@@ -203,8 +203,11 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	var/saved_maptext = null
-	var/owner // soft ref of the ticket owner's UID().
+	/// Soft ref of the ticket owner's `UID()`.
+	var/owner
+	/// Ticket machine that spawned this ticket.
 	var/obj/machinery/ticket_machine/source
+	/// The number that determines when the HoP will see you.
 	var/ticket_number
 	new_attack_chain = TRUE
 
