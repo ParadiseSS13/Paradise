@@ -409,7 +409,7 @@
 		add_fingerprint(user)
 		return ITEM_INTERACT_COMPLETE
 
-	return ..() // Fallthrough to parent so that bags can pick seeds up
+	return ..() // Fall through to parent so that bags can pick seeds up.
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant
