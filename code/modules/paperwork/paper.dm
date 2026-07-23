@@ -1073,11 +1073,11 @@
 
 /obj/item/paper/researchnotes/Initialize(mapload)
 	. = ..()
-	var/list/possible_research = list("research" = 7, "illegal" = 1)
+	var/list/possible_research = list("Research" = 7, "Illegal" = 1)
 	var/p_name = pick("old", "torn", "aged", "time-worn")
 	p_type = pickweight(possible_research)
 	amount = 0
-	if(p_type == "research")
+	if(p_type == "Research")
 		amount = rand(4000, 8000)
 	else
 		amount = rand(100, 200) // MIXTODO - revisit after balancing points/rework these

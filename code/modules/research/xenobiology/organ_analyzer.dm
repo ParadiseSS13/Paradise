@@ -167,4 +167,4 @@
 /obj/machinery/organ_analyzer/proc/handle_disk()
 	var/obj/item/disk/tech_disk/disk = new /obj/item/disk/tech_disk(src.loc)
 	var/organ_points = contains_organ.hidden_points
-	disk.load_research(list("research" = organ_points))
+	disk.load_research(list("Research" = organ_points))

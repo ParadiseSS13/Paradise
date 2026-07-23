@@ -17,7 +17,7 @@
 	var/efficiency_coeff = 1
 	// Multiple types of points is technically supported codewise, but not supported by TGUI as its not expected, TGUI will just fetch the first in the list.
 	/// How many points this generates each process() call
-	var/list/point_generation = list("research" = 20) // MIXTODO - Balance later.
+	var/list/point_generation = list("Research" = 20) // MIXTODO - Balance later.
 	/// Points stored within this server.
 	var/list/stored_points = list()
 	/// Total points this server has generated.

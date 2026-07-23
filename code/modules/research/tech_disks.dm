@@ -3,7 +3,7 @@
 	desc = "A disk for storing research data for further research, it is only capable of holding one type of research at a time."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
-	var/list/stored_research = list() // "research", "illegal", "alien"
+	var/list/stored_research = list() // "Research", "Illegal", "Alien"
 
 /obj/item/disk/tech_disk/proc/load_research(list/points_list)
 	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
@@ -70,7 +70,7 @@
 /obj/item/multitool/disk_loader/activate_self(mob/user)
 	. = ..()
 	load_points = tgui_input_number(usr, "Select Points", "Points", 0, 10000, 0)
-	point_type = tgui_alert(usr, "Select Type", "Type", list("research", "illegal", "alien"))
+	point_type = tgui_alert(usr, "Select Type", "Type", list("Research", "Illegal", "Alien"))
 	p_mode = tgui_alert(usr, "Select Mode", "Mode", list("load", "unload"))
 	var/tmp_strg = "[point_type]=[load_points]"
 	to_load = ConvertReqString2List(tmp_strg)

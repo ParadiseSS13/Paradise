@@ -92,9 +92,9 @@ SUBSYSTEM_DEF(economy)
 	/// Types of points we've already sent to CentComm, associated with their amount.
 	var/list/research_points = list()
 	/// Point type to cost conversion.
-	var/list/point_to_cost = list("research" = 0.5, "illegal" = 2, "alien" = 2.5)
+	var/list/point_to_cost = list("Research" = 0.5, "Illegal" = 2, "Alien" = 2.5) // MIXTODO - Rebalance later, it doesnt need to be the same as original.
 	/// Maximum amount of each point we can sell.
-	var/list/maximum_points_sold = list("research" = 6000, "illegal" = 390, "alien" = 450) // values total to the original maximum credits from levels.
+	var/list/maximum_points_sold = list("Research" = 6000, "Illegal" = 390, "Alien" = 450) // values total to the original maximum credits from levels.
 	var/list/research_designs = list()
 
 	///Requested crates, waiting for approval by department heads

@@ -46,7 +46,7 @@
 /obj/machinery/doppler_array/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = used
-		var/list/tl = list("research" = stored_points)
+		var/list/tl = list("Research" = stored_points)
 		var/i = disk.load_research(tl)
 		if(i)
 			to_chat(user, SPAN_NOTICE("You swipe the disk into [src], loading [stored_points] points."))

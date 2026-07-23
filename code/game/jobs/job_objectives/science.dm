@@ -11,7 +11,7 @@
 	completion_payment = 150
 
 /datum/job_objective/further_research/check_for_completion()
-	if(SSeconomy.research_points["research"] >= 3000)
+	if(SSeconomy.research_points["Research"] >= 3000)
 		return TRUE
 	return FALSE
 

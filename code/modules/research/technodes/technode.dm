@@ -9,7 +9,7 @@
 	/// List of design IDs this node unlocks.
 	var/list/unlocks = list()
 	/// Points of each type required to unlock this node.
-	var/list/cost = list("research" = 500)
+	var/list/cost = list("Research" = 250)
 
 	/// Will this node be visible even without prereqs?
 	var/starting_node = FALSE

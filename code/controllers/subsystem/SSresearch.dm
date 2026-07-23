@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(research)
 	/// List of R&D backups - Key = datum ID, value = /datum/rnd_backup
 	var/list/backups = list()
 	/// Used to ensure research lists contain valid point types.
-	var/list/point_types = list("research", "illegal", "alien")
+	var/list/point_types = list("Research", "Illegal", "Alien")
 	/// Used to determine toxins reward, global as toxins is only used for points by the station.
 	var/successful_toxins = 0
 

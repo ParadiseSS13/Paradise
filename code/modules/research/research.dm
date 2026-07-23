@@ -1,12 +1,12 @@
 /*
 General Explaination:
 The research datum contains all points, technodes and designs of a particular research network, it also containts the procs required
-to manipulate these things. Nothing should ever have custom procs for adding/taking points directly from the vars, it should use the
+to manipulate these things. Nothing should ever have custom procs for adding/taking points, technodes or designs directly from the vars, it should use the
 procs in this file.
 
 Each RnD Network Manager contains its own research datum, meaning all research is local and will be destroyed along with the console.
 
-Point operations are always performed through lists in the form of ("Type" = amount), e.g. list("research" = 500), if an operation attempts
+Point operations are always performed through lists in the form of ("Type" = amount), e.g. list("Research" = 500), if an operation attempts
 to use a point type that does not exist in SSresearch then that point type will be removed.
 */
 

@@ -596,7 +596,7 @@
 	icon_state = "neural_comp"
 	slot = "brain_antistun"
 	var/network_manager_uid = null
-	var/list/point_gen = list("research" = 20) // MIXTODO - Balance later
+	var/list/point_gen = list("Research" = 20) // MIXTODO - Balance later
 	var/disabled = FALSE
 	/// Brain damage gained on EMP.
 	var/brain_damage = 30

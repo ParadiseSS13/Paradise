@@ -9,7 +9,7 @@
 	desc = "wowwie im a test node!"
 	id = "alien_test_1"
 	prereqs = list("rnd_test_1")
-	cost_hidden = list("alien" = 50)
+	cost_hidden = list("Alien" = 50)
 
 /datum/technode/alien/test2
 	name = "Alien Node Test 2"
