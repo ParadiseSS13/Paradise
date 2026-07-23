@@ -8,14 +8,14 @@
 	var/maximum_cards = 3
 	/// List of cards we have created, to check against maximum, and so we can purge them from the pack.
 	var/list/our_card_list = list()
-	///How long the cooldown is each time we draw a card before we can draw another?
+	/// How long the cooldown is each time we draw a card before we can draw another?
 	var/our_card_cooldown_time = 25 SECONDS
 	COOLDOWN_DECLARE(card_cooldown)
 	new_attack_chain = TRUE
 
 /obj/item/tarot_generator/wizard
 	maximum_cards = 5
-	our_card_cooldown_time = 12 SECONDS  // A minute for a full hand of 5 cards
+	our_card_cooldown_time = 12 SECONDS  // A minute for a full hand of 5 cards.
 
 /obj/item/tarot_generator/activate_self(mob/user)
 	if(..())
@@ -32,7 +32,7 @@
 	var/obj/item/magic_tarot_card/MTC = new /obj/item/magic_tarot_card(get_turf(src), src)
 	our_card_list += MTC
 	user.put_in_hands(MTC)
-	to_chat(user, SPAN_HIEROPHANT("You draw [MTC.name]... [MTC.card_desc]")) //No period on purpose.
+	to_chat(user, SPAN_HIEROPHANT("You draw [MTC.name]... [MTC.card_desc]")) // No period on purpose.
 	COOLDOWN_START(src, card_cooldown, our_card_cooldown_time)
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
@@ -55,7 +55,7 @@
 	desc = "A pack of 3 Enchanted tarot cards. Collect them all!"
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "pack"
-	///How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega
+	/// How many cards in a pack. 3 in base, 5 in jumbo, 7 in mega.
 	var/cards = 3
 	new_attack_chain = TRUE
 
