@@ -6,7 +6,6 @@
 	name = "Machine Board (Telecommunications Core)"
 	desc = "Allows for the construction of Telecommunications Cores."
 	id = "s-hub"
-	req_tech = list("programming" = 2, "engineering" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/tcomms/core
@@ -16,7 +15,6 @@
 	name = "Machine Board (Telecommunications Relay)"
 	desc = "Allows for the construction of Telecommunications Relays."
 	id = "s-relay"
-	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/tcomms/relay

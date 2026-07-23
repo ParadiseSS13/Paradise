@@ -37,8 +37,6 @@ other types of metals and chemistry for reagents).
 	var/desc = "Desc"
 	/// ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols.
 	var/id = "id"
-	/// IDs of that techs the object originated from and the minimum level requirements.
-	var/list/req_tech = list()
 	/// Flag as to what kind of machine the design is built in. See defines.
 	var/build_type = null
 	/// List of material cost, Format: "id" = amount.
