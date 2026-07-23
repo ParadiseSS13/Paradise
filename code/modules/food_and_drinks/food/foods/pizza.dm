@@ -345,7 +345,10 @@
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)
 		user.put_in_hands(pizza)
-		to_chat(user, SPAN_NOTICE("You take [pizza] out of [src]."))
+		user.visible_message(
+			SPAN_NOTICE("[user] takes [pizza] out of [src]."),
+			SPAN_NOTICE("You take [pizza] out of [src].")
+		)
 		pizza = null
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		add_fingerprint(user) // Make the detective investigate who took the last slice of pizza. That'll end well.
@@ -393,7 +396,7 @@
 			to_chat(user, SPAN_WARNING("Close [open ? src : box] first!"))
 			return ITEM_INTERACT_COMPLETE
 
-		// Make a list of all boxes to be added
+		// Make a list of all boxes to be added.
 		var/list/boxestoadd = list()
 		boxestoadd += box
 		for(var/obj/item/pizzabox/i in box.boxes)
@@ -575,7 +578,7 @@
 
 	if(pizza_bomb_status != PIZZA_BOMB_TIMER_SET)
 		if(pizza_bomb_status != PIZZA_BOMB_PRIMED)
-			// Can only toggle disarmed boxes
+			// Can only toggle disarmed boxes.
 			open = !open
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 			add_fingerprint(user)
@@ -627,7 +630,7 @@
 	if(pizza_bomb_status == PIZZA_BOMB_PRIMED)
 		to_chat(user, SPAN_DANGER("Oh God, what wire do you cut?!"))
 		var/chosen_wire = tgui_input_list(user, "OH GOD OH GOD", "WHAT WIRE?!", wires)
-		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained() || !chosen_wire)
+		if(!in_range(src, user) || issilicon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained() || !chosen_wire)
 			return ITEM_INTERACT_COMPLETE
 
 		playsound(src, used.usesound, 50, TRUE, 1)
