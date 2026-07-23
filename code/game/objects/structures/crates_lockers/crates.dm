@@ -642,7 +642,7 @@
 		if(!found)
 			narrowed_contents -= envelope_type
 
-	for(var/i in 1 to (ceil(length(GLOB.crew_list) / 20) + rand(1, 5))) // Scale number of letters with number of crew
+	for(var/i in 1 to (ceil(length(GLOB.crew_list) / 20) + rand(1, 5))) // Scale number of letters with number of crew.
 		var/item = pick(narrowed_contents)
 		new item(src)
 
