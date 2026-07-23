@@ -46,7 +46,7 @@
 		to_chat(user, SPAN_WARNING("Unroll it first!"))
 		return ITEM_INTERACT_COMPLETE
 
-	if(!ishuman(user))
+	if(!is_literate(user))
 		to_chat(user, SPAN_WARNING("The paper is full of unintelligible symbols!"))
 		return ITEM_INTERACT_COMPLETE
 
@@ -123,7 +123,7 @@
 				dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
 			dat+= "<hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
 		else
-			// No trailing punctuation so that it's easy to copy and paste the address
+			// No trailing punctuation so that it's easy to copy and paste the address.
 			if(GLOB.configuration.url.github_url)
 				dat += "We're sorry to break your immersion, but there has been an error with the newscaster. Please report this error, along with any more information you have, to [GLOB.configuration.url.github_url]/issues/new?template=bug_report.md"
 			else
