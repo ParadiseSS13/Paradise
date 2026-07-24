@@ -3,7 +3,7 @@ import { Box, Button, Divider, Icon, LabeledList, Section, Stack } from 'tgui-co
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-type Quirk = { name: string; cost: number; desc: string; path: string };
+type Quirk = { name: string; cost: number; desc: string; path: string; conflicts: string[] };
 type Data = { selected_quirks: string[]; all_quirks: Quirk[] };
 
 // Helper to calculate the balance for a given set of selected quirk names
@@ -29,6 +29,16 @@ export const QuirkMenu = () => {
 
   const canAfford = (q: Quirk) => q.cost <= 0 || balance >= q.cost;
 
+  // Track quirk conflicts
+  const hasConflicts = (q: Quirk) => {
+    for (const selectedQuirk in selectedSet) {
+      if (q.conflicts && q.conflicts.includes(data.all_quirks[selectedQuirk].path)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const toggle = (q: Quirk) => {
     const isChosen = selectedSet.has(q.name);
 
@@ -41,7 +51,7 @@ export const QuirkMenu = () => {
       }
     } else {
       // Logic for ADDING a quirk
-      if (q.cost > 0 && !canAfford(q)) {
+      if ((q.cost > 0 && !canAfford(q)) || hasConflicts(q)) {
         return;
       }
     }
@@ -76,6 +86,11 @@ export const QuirkMenu = () => {
           if (q.cost > 0 && !canAfford(q)) {
             disabled = true;
             buttonContent = 'Locked';
+            buttonColor = 'average';
+          }
+          if (hasConflicts(q)) {
+            disabled = true;
+            buttonContent = 'Locked (Conflict)';
             buttonColor = 'average';
           }
         } else {
