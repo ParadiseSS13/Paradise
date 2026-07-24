@@ -110,7 +110,7 @@
 
 /datum/sprite_accessory/hair/ipc/hephaestus_alt_off
 	name = "Dark Hephaestus Screen"
-	icon_state = "off"
+	icon_state = "off_hesp_alt"
 	models_allowed = list("Hephaestus Industries alt.")
 
 /datum/sprite_accessory/hair/ipc/hephaestus_alt_pink
