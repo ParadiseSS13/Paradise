@@ -15,13 +15,15 @@
 	else
 		icon_state = "[base_icon_state]-off"
 
-/obj/item/organ/internal/heart/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/organ/internal/heart/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(status & ORGAN_DEAD)
 		to_chat(user, SPAN_WARNING("You can't restart a dead heart."))
-		return
+		return ITEM_INTERACT_COMPLETE
 	var/datum/organ/heart/heart = organ_datums[ORGAN_DATUM_HEART]
 	heart.try_restart(8 SECONDS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
 	var/datum/organ/heart/heart = organ_datums[ORGAN_DATUM_HEART]
@@ -55,16 +57,15 @@
 	var/heal_burn = 0
 	var/heal_oxy = 0
 
-/obj/item/organ/internal/heart/cursed/attack__legacy__attackchain(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
-	if(H == user && istype(H))
-		if(NO_BLOOD in H.dna.species.species_traits)
-			to_chat(H, SPAN_USERDANGER("[src] is not compatible with your form!"))
-			return
-		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
-		user.drop_item()
-		insert(user)
-	else
+/obj/item/organ/internal/heart/cursed/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
+	if(!(target == user && istype(user)))
 		return ..()
+	if(NO_BLOOD in user.dna.species.species_traits)
+		to_chat(user, SPAN_USERDANGER("[src] is not compatible with your form!"))
+		return ITEM_INTERACT_COMPLETE
+	playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
+	user.drop_item()
+	insert(user)
 
 /obj/item/organ/internal/heart/cursed/on_life()
 	if(world.time > (last_pump + pump_delay) && !in_grace_period)

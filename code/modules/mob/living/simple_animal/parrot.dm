@@ -759,7 +759,6 @@
 		"The reactor is going supercritical!",
 		"Danger! Reactor core chamber meltdown in progress! Integrity: 79.47%"
 		)
-	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	available_channels = list(":e")
 

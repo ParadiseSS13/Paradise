@@ -12,7 +12,6 @@
 	Kidan Globe
 	Lightning
 	Newton Cradle
-	PAI cable
 	Red Phone
 	Popsicle Sticks
 */
@@ -228,13 +227,6 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "newton"
 	desc = "A device bored paper pushers use to remind themselves that time did not stop yet. Contains gravity."
-
-/obj/item/pai_cable
-	name = "data cable"
-	desc = "A flexible coated cable with a universal jack on one end."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "wire1"
-	var/obj/machinery/machine
 
 /obj/item/phone
 	name = "red phone"
