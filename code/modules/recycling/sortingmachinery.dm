@@ -366,6 +366,21 @@
 
 	. = ..()
 
+/obj/machinery/disposal/delivery_chute/MouseDrop_T(atom/movable/dropping, mob/user, params)
+	if(!Adjacent(user) || !dropping.Adjacent(user) || QDELETED(dropping))
+		return
+
+	if(!isturf(dropping.loc)) // If it's in storage or held by a mob you don't need this proc.
+		return
+
+	if(!dropping.can_be_pulled(user))
+		return
+
+	dropping.add_fingerprint(user)
+	dropping.forceMove(src)
+	flush()
+	return TRUE
+
 /obj/machinery/disposal/delivery_chute/Bumped(atom/movable/AM) //Go straight into the chute
 	if(isprojectile(AM)	|| is_ai(AM) || QDELETED(AM))
 		return
