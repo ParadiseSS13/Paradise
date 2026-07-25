@@ -968,7 +968,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ship"
 	w_class = WEIGHT_CLASS_SMALL
-	// If the ship is on.
+	/// If the ship is on.
 	var/active = FALSE
 	new_attack_chain = TRUE
 
