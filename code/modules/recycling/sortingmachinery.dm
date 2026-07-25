@@ -8,7 +8,13 @@
 	var/obj/wrapped = null
 	var/init_welded = FALSE
 	var/giftwrapped = FALSE
-	var/sortTag = 1
+	var/sort_tag = 1
+
+/obj/structure/big_delivery/update_desc()
+	. = ..()
+	desc = initial(desc)
+	if(sort_tag)
+		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sort_tag]]\"."
 
 /obj/structure/big_delivery/Destroy()
 	var/turf/T = get_turf(src)
@@ -52,24 +58,28 @@
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = W
 
-		if(sortTag != O.currTag)
-			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
+		if(sort_tag != O.current_tag)
+			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.current_tag])
 			to_chat(user, SPAN_NOTICE("*[tag]*"))
-			sortTag = O.currTag
+			sort_tag = O.current_tag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+			update_appearance(UPDATE_DESC)
 
 	else if(istype(W, /obj/item/shipping_package))
 		var/obj/item/shipping_package/sp = W
 		if(sp.sealed)
 			return
 		else
-			sortTag = sp.sortTag
+			sort_tag = sp.sort_tag
 			to_chat(user, SPAN_NOTICE("You rip the label off the shipping package and affix it to [src]."))
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
+			update_appearance(UPDATE_DESC)
+			add_fingerprint(user)
 
 	else if(is_pen(W))
 		rename_interactive(user, W)
+		add_fingerprint(user)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
 		var/obj/item/stack/wrapping_paper/WP = W
@@ -94,7 +104,14 @@
 	icon_state = "deliverycrate2"
 	var/obj/item/wrapped = null
 	var/giftwrapped = FALSE
-	var/sortTag = 1
+	var/sort_tag = TAGGER_LOCATION_DISPOSALS
+	new_attack_chain = TRUE
+
+/obj/item/small_delivery/update_desc()
+	. = ..()
+	desc = initial(desc)
+	if(sort_tag)
+		desc += SPAN_NOTICE("The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sort_tag]]\".")
 
 /obj/item/small_delivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -108,49 +125,62 @@
 		var/atom/A = i
 		A.emp_act(severity)
 
-/obj/item/small_delivery/attack_self__legacy__attackchain(mob/user)
-	if(wrapped?.loc == src) //sometimes items can disappear. For example, bombs. --rastaf0
+/obj/item/small_delivery/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(wrapped?.loc == src) // Sometimes items can disappear. For example, bombs. --rastaf0
 		wrapped.forceMove(get_turf(src))
 		if(ishuman(user))
 			user.put_in_hands(wrapped)
 	playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	qdel(src)
 
-/obj/item/small_delivery/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/dest_tagger))
-		var/obj/item/dest_tagger/O = W
+/obj/item/small_delivery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/dest_tagger))
+		var/obj/item/dest_tagger/tagger = used
 
-		if(sortTag != O.currTag)
-			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
-			to_chat(user, SPAN_NOTICE("*[tag]*"))
-			sortTag = O.currTag
-			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+		if(sort_tag == tagger.current_tag)
+			return ITEM_INTERACT_COMPLETE
+		var/tag = uppertext(GLOB.TAGGERLOCATIONS[tagger.current_tag])
+		to_chat(user, SPAN_NOTICE("*[tag]*"))
+		sort_tag = tagger.current_tag
+		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+		update_appearance(UPDATE_DESC)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/shipping_package))
-		var/obj/item/shipping_package/sp = W
-		if(sp.sealed)
-			return
-		else
-			sortTag = sp.sortTag
-			to_chat(user, SPAN_NOTICE("You rip the label off the shipping package and affix it to [src]."))
-			qdel(sp)
-			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	if(istype(used, /obj/item/shipping_package))
+		var/obj/item/shipping_package/package = used
+		if(package.sealed)
+			return ITEM_INTERACT_COMPLETE
 
-	else if(is_pen(W))
-		rename_interactive(user, W)
+		sort_tag = package.sort_tag
+		to_chat(user, SPAN_NOTICE("You rip the label off the shipping package and affix it to [src]."))
+		qdel(package)
+		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
+		update_appearance(UPDATE_DESC)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
-		var/obj/item/stack/wrapping_paper/WP = W
-		if(WP.use(1))
-			icon_state = "giftcrate[wrapped.w_class]"
-			giftwrapped = TRUE
-			user.visible_message(SPAN_NOTICE("[user] wraps the package in festive paper!"))
-			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
-				new /obj/item/c_tube( get_turf(user) )
-		else
-			to_chat(user, SPAN_NOTICE("You need more paper."))
-	else
-		return ..()
+	if(is_pen(used))
+		rename_interactive(user, used)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/wrapping_paper) && !giftwrapped)
+		var/obj/item/stack/wrapping_paper/paper_roll = used
+		if(!paper_roll.use(1))
+			to_chat(user, SPAN_WARNING("You need more paper to wrap this!"))
+			return ITEM_INTERACT_COMPLETE
+		icon_state = "giftcrate[wrapped.w_class]"
+		giftwrapped = TRUE
+		user.visible_message(SPAN_NOTICE("[user] wraps the package in festive paper!"))
+		if(paper_roll.amount <= 0 && !paper_roll.loc) // If we used our last wrapping paper, drop a cardboard tube.
+			new /obj/item/c_tube(get_turf(user))
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/stack/package_wrap
 	name = "package wrapper"
@@ -274,10 +304,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 250, MAT_GLASS = 150)
 	///Value of the tag
-	var/currTag = 1
+	var/current_tag = 1
 	//The whole system for the sort_type var is determined based on the order of this list,
 	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sort_type = list(1) --Superxpdude
 	var/datum/ui_module/destination_tagger/destination_tagger
+	new_attack_chain = TRUE
 
 /obj/item/dest_tagger/Initialize(mapload)
 	. = ..()
@@ -287,9 +318,13 @@
 	QDEL_NULL(destination_tagger)
 	return ..()
 
-/obj/item/dest_tagger/attack_self__legacy__attackchain(mob/user)
+/obj/item/dest_tagger/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	add_fingerprint(user)
 	ui_interact(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/dest_tagger/ui_state(mob/user)
 	return GLOB.default_state
@@ -331,6 +366,21 @@
 
 	. = ..()
 
+/obj/machinery/disposal/delivery_chute/MouseDrop_T(atom/movable/dropping, mob/user, params)
+	if(!Adjacent(user) || !dropping.Adjacent(user) || QDELETED(dropping))
+		return
+
+	if(!isturf(dropping.loc)) // If it's in storage or held by a mob you don't need this proc.
+		return
+
+	if(!dropping.can_be_pulled(user))
+		return
+
+	dropping.add_fingerprint(user)
+	dropping.forceMove(src)
+	flush()
+	return TRUE
+
 /obj/machinery/disposal/delivery_chute/Bumped(atom/movable/AM) //Go straight into the chute
 	if(isprojectile(AM)	|| is_ai(AM) || QDELETED(AM))
 		return
@@ -363,19 +413,19 @@
 /obj/machinery/disposal/delivery_chute/flush()
 	flushing = 1
 	flick("intake-closing", src)
-	var/deliveryCheck = 0
+	var/delivery_check = FALSE
 	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
 													// travels through the pipes.
 	for(var/obj/structure/big_delivery/O in src)
-		deliveryCheck = 1
+		delivery_check = TRUE
 	for(var/obj/item/small_delivery/O in src)
-		deliveryCheck = 1
+		delivery_check = TRUE
 	for(var/obj/item/shipping_package/O in src)
-		deliveryCheck = 1
+		delivery_check = TRUE
 		if(!O.sealed)		//unsealed shipping packages will default to disposals
-			O.sortTag = 1
-	if(deliveryCheck == 0)
-		H.destinationTag = 1
+			O.sort_tag = 1
+	if(!delivery_check)
+		H.destination_tag = TAGGER_LOCATION_DISPOSALS
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
@@ -425,70 +475,86 @@
 	desc = "A pre-labeled package for shipping an item to coworkers."
 	icon = 'icons/obj/boxes.dmi'
 	icon_state = "shippack"
-	var/obj/item/wrapped = null
-	var/sortTag = 1
+	var/obj/item/object_inside = null
+	var/sort_tag = 1
 	var/sealed = 0
+	new_attack_chain = TRUE
 
-/obj/item/shipping_package/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/item/shipping_package/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(sealed)
-		if(is_pen(O))
+		if(is_pen(used))
 			var/str = tgui_input_text(user, "Intended recipient?", "Address", max_length = MAX_NAME_LEN)
 			if(!str || !length(str))
-				to_chat(user, SPAN_NOTICE("Invalid text."))
-				return
+				to_chat(user, SPAN_WARNING("Invalid text!"))
+				return ITEM_INTERACT_COMPLETE
 			user.visible_message(SPAN_NOTICE("[user] addresses [src] to [str]."))
 			name = "Shipping package (RE: [str])"
-		return
-	if(wrapped)
-		to_chat(user, SPAN_NOTICE("[src] already contains \a [wrapped]."))
-		return
-	if(isitem(O) && !isstorage(O) && !istype(O, /obj/item/shipping_package))
-		if(!user.canUnEquip(O))
-			to_chat(user, SPAN_WARNING("[O] is stuck to your hand, you cannot put it in [src]!"))
-			return
-		if(O.w_class > 3)
-			to_chat(user, SPAN_NOTICE("[O] is too large to fit in [src]."))
-		else
-			wrapped = O
-			user.transfer_item_to(O, src)
-			O.add_fingerprint(usr)
-			add_fingerprint(usr)
-			to_chat(user, SPAN_NOTICE("You put [O] in [src]."))
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/shipping_package/attack_self__legacy__attackchain(mob/user)
+	if(object_inside)
+		to_chat(user, SPAN_WARNING("[src] already contains [object_inside]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(isitem(used) && !isstorage(used) && !istype(used, /obj/item/shipping_package)))
+		return ..()
+
+	if(!user.canUnEquip(used))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you cannot put it in [src]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(used.w_class > 3)
+		to_chat(user, SPAN_NOTICE("[used] is too large to fit in [src]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	object_inside = used
+	user.transfer_item_to(used, src)
+	used.add_fingerprint(usr)
+	add_fingerprint(usr)
+	to_chat(user, SPAN_NOTICE("You put [used] in [src]."))
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/shipping_package/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(sealed)
 		to_chat(user, SPAN_NOTICE("You tear open [src], dropping the contents onto the floor."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 		user.unequip(src)
-		wrapped.forceMove(get_turf(user))
-		wrapped = null
+		object_inside.forceMove(get_turf(user))
+		object_inside = null
 		qdel(src)
-	else if(wrapped)
+		return ITEM_INTERACT_COMPLETE
+
+	if(object_inside)
 		switch(tgui_alert(user, "Select an action:", "Shipping", list("Remove Object", "Seal Package", "Cancel")))
 			if("Remove Object")
 				to_chat(user, SPAN_NOTICE("You shake out [src]'s contents onto the floor."))
-				wrapped.forceMove(get_turf(user))
-				wrapped = null
+				object_inside.forceMove(get_turf(user))
+				object_inside = null
 			if("Seal Package")
 				to_chat(user, SPAN_NOTICE("You seal [src], preparing it for delivery."))
 				icon_state = "shippack_sealed"
 				sealed = 1
 				update_appearance(UPDATE_DESC)
-	else
-		if(tgui_alert(user, "Do you want to tear up the package?", "Shipping", list("Yes", "No")) == "Yes")
-			to_chat(user, SPAN_NOTICE("You shred [src]."))
-			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
-			user.drop_item_to_ground(src)
-			qdel(src)
+		return ITEM_INTERACT_COMPLETE
+
+	if(tgui_alert(user, "Do you want to tear up the package?", "Shipping", list("Yes", "No")) != "Yes")
+		return ITEM_INTERACT_COMPLETE
+	to_chat(user, SPAN_NOTICE("You shred [src]."))
+	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	user.drop_item_to_ground(src)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/shipping_package/update_desc()
 	. = ..()
 	desc = "A pre-labeled package for shipping an item to coworkers."
-	if(sortTag)
-		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sortTag]]\"."
+	if(sort_tag)
+		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sort_tag]]\"."
 	if(!sealed)
 		desc += " The package is not sealed."
 
 /obj/item/shipping_package/Destroy()
-	QDEL_NULL(wrapped)
+	QDEL_NULL(object_inside)
 	return ..()

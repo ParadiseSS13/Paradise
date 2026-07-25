@@ -13,6 +13,7 @@
 	var/list/allowed_instrument_ids
 	/// How far away our song datum can be heard.
 	var/instrument_range = 15
+	new_attack_chain = TRUE
 
 /obj/item/instrument/Initialize(mapload)
 	. = ..()
@@ -27,8 +28,13 @@
 	user.visible_message(SPAN_SUICIDE("[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
-/obj/item/instrument/attack_self__legacy__attackchain(mob/user)
+/obj/item/instrument/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/instrument/ui_data(mob/user)
 	return song.ui_data(user)

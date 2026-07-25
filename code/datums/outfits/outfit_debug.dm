@@ -61,9 +61,12 @@
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = 1 // yeah, all channels, sure, probably fine
 
-/obj/item/encryptionkey/syndicate/all_channels/attack_self__legacy__attackchain(mob/user, pickupfireoverride)
+/obj/item/encryptionkey/syndicate/all_channels/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	change_voice = !change_voice
-	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
+	to_chat(user, SPAN_NOTICE("You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
 	var/new_name = tgui_input_text(user, "Enter new fake agent name...", "New name", max_length = MAX_NAME_LEN)

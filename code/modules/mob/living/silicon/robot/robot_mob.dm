@@ -1076,7 +1076,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(used, /obj/item/encryptionkey) && opened)
 		if(radio)
 			to_chat(user, SPAN_NOTICE("You install [used] into [src]'s radio."))
-			radio.attackby__legacy__attackchain(used, user)
+			radio.item_interaction(user, used)
 		else
 			to_chat(user, SPAN_WARNING("[src] has no radio!"))
 		return ITEM_INTERACT_COMPLETE
@@ -1381,7 +1381,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
-			O.attack_self__legacy__attackchain(src)
+			if(O.new_attack_chain)
+				O.activate_self(src)
+			else
+				O.attack_self__legacy__attackchain(src)
 		return TRUE
 
 	if(href_list["act"])

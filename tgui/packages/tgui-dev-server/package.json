@@ -5,10 +5,10 @@
   "type": "module",
   "dependencies": {
     "@rspack/core": "^1.5.8",
-    "axios": "^1.15.2",
+    "axios": "^1.18.0",
     "source-map": "^0.7.6",
     "stacktrace-parser": "^0.1.11",
-    "ws": "^8.21.0"
+    "ws": "^8.21.1"
   },
   "devDependencies": {
     "@types/ws": "^8.18.1"
