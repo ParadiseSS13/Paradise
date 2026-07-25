@@ -84,6 +84,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	/// A timer that, when going off, will turn this radio on again
 	var/radio_enable_timer
+	new_attack_chain = TRUE
 
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -118,12 +119,16 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
 
-/obj/item/radio/attack_self__legacy__attackchain(mob/user)
+/obj/item/radio/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/radio/interact(mob/user)
 	if(!user)
-		return 0
+		return FALSE
 	if(b_stat)
 		wires.Interact(user)
 		return
@@ -272,7 +277,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override, is_emote = FALSE, sender_job = null, vname = null) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
@@ -297,7 +302,11 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			break
 	if(jammed)
 		message = Gibberish(message, 100)
-	var/list/message_pieces = message_to_multilingual(message)
+	var/list/message_pieces
+	if(is_emote)
+		message_pieces = list(new /datum/multilingual_say_piece(GLOB.all_languages["Noise"], message))
+	else
+		message_pieces = message_to_multilingual(message)
 
 		// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
@@ -306,8 +315,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Automated Announcement"
-	tcm.vname = "synthesized voice"
+	tcm.sender_job = sender_job || "Automated Announcement"
+	tcm.vname = vname || "synthesized voice"
 	tcm.signal_type = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
@@ -668,22 +677,20 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/borg/ert/specops
 	keyslot = new /obj/item/encryptionkey/centcom
 
-/obj/item/radio/borg/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/encryptionkey/))
+/obj/item/radio/borg/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/encryptionkey))
+		return NONE
 
-		if(keyslot)
-			to_chat(user, "The radio can't hold another key!")
-			return
+	if(keyslot)
+		to_chat(user, SPAN_WARNING("The radio can't hold another key!"))
+		return ITEM_INTERACT_COMPLETE
 
-		if(!keyslot)
-			user.drop_item()
-			W.loc = src
-			keyslot = W
+	user.drop_item()
+	used.forceMove(src)
+	keyslot = used
 
-		recalculateChannels()
-		return
-
-	return ..()
+	recalculateChannels()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -695,19 +702,17 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 			secure_radio_connections[ch_name] = null
 
-
-		if(keyslot)
-			var/turf/T = get_turf(user)
-			if(T)
-				keyslot.loc = T
-				keyslot = null
+		var/turf/T = get_turf(user)
+		if(T)
+			keyslot.forceMove(T)
+			keyslot = null
 
 		recalculateChannels()
-		to_chat(user, "You pop out the encryption key in the radio!")
+		to_chat(user, SPAN_NOTICE("You pop out the encryption key in the radio!"))
 		I.play_tool_sound(user, I.tool_volume)
 
 	else
-		to_chat(user, "This radio doesn't have any encryption keys!")
+		to_chat(user, SPAN_WARNING("This radio doesn't have any encryption keys!"))
 
 /obj/item/radio/borg/recalculateChannels()
 	channels = list()
@@ -732,8 +737,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 
 	for(var/ch_name in channels)
-		if(!SSradio)
-			sleep(30) // Waiting for SSradio to be created.
 		if(!SSradio)
 			name = "broken radio"
 			return

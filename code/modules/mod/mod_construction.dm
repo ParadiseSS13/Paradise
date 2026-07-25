@@ -93,6 +93,10 @@
 	theme = /datum/mod_theme/research
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
 
+/obj/item/mod/construction/plating/salvation
+	theme = /datum/mod_theme/salvation
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_URANIUM = 2000, MAT_PLASMA = 1000)
+
 #define START_STEP "start"
 #define CORE_STEP "core"
 #define SCREWED_CORE_STEP "screwed_core"

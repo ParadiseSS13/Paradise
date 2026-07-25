@@ -296,7 +296,9 @@
 			. += "[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]"
 		return
 	if(light)
-		underlays += emissive_appearance(icon, "[icon_lightmask ? "[icon_lightmask]_lightmask" : "[icon_state]_off"]")
+		var/mutable_appearance/lightmask  = emissive_appearance(icon, "[icon_lightmask ? "[icon_lightmask]_lightmask" : "[icon_state]_off"]")
+		lightmask.transform = transform
+		underlays += lightmask
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -337,7 +339,7 @@
  *  products that the vending machine is to carry without manually populating
  *  src.product_records.
  */
-/obj/machinery/economy/vending/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE)
+/obj/machinery/economy/vending/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE, price_mult = 1)
 	for(var/typepath in productlist)
 		var/amount = productlist[typepath]
 		if(isnull(amount))
@@ -350,7 +352,7 @@
 		if(!start_empty)
 			R.amount = amount
 		R.max_amount = amount
-		R.price = (typepath in prices) ? prices[typepath] : 0
+		R.price = (typepath in prices) ? (prices[typepath] * price_mult) : 0
 		recordlist += R
 /**
   * Refill a vending machine from a refill canister
@@ -994,6 +996,7 @@
 /obj/machinery/economy/vending/proc/on_untilt(atom/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_MOVABLE_UNTILTED
 	tilted = FALSE
+	update_icon(UPDATE_OVERLAYS)
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/economy/vending/proc/throw_item()
@@ -1055,6 +1058,10 @@
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
 
 	tilt_over(should_throw_at_target ? victim : null)
+
+/obj/machinery/economy/vending/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))

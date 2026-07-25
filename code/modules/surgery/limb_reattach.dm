@@ -156,7 +156,7 @@
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
-
+	target.update_hands_hud()
 
 // This is a step that handles robotic limb attachment while skipping the "connect" step
 // THIS IS DISTINCT FROM USING A CYBORG LIMB TO CREATE A NEW LIMB ORGAN

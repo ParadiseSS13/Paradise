@@ -427,31 +427,34 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	materials = list(MAT_METAL = 5000)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
+	new_attack_chain = TRUE
 
-/obj/item/conveyor_construct/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	..()
-	if(!istype(I, /obj/item/conveyor_switch_construct))
-		return
-	var/obj/item/conveyor_switch_construct/C = I
-	to_chat(user, SPAN_NOTICE("You link [src] to [C]."))
-	id = C.id
+/obj/item/conveyor_construct/item_interaction(mob/user, obj/item/conveyor_switch_construct/used, list/modifiers)
+	if(!istype(used, /obj/item/conveyor_switch_construct))
+		return ..()
+	to_chat(user, SPAN_NOTICE("You link [src] to [used]."))
+	id = used.id
+	add_fingerprint(user)
+	used.add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/conveyor_construct/afterattack__legacy__attackchain(turf/T, mob/user, proximity)
-	if(!proximity)
-		return
-	if(user.incapacitated())
-		return
-	if(!isfloorturf(T))
-		return
-	if(T == get_turf(user))
-		to_chat(user, SPAN_NOTICE("You cannot place [src] under yourself."))
-		return
-	if(locate(/obj/machinery/conveyor) in T) //Can't put conveyors beneath conveyors
-		to_chat(user, SPAN_NOTICE("There's already a conveyor there!"))
-		return
-	var/obj/machinery/conveyor/C = new(T, user.dir, id)
-	transfer_fingerprints_to(C)
+/obj/item/conveyor_construct/interact_with_atom(turf/target, mob/living/user, list/modifiers)
+	if(!isfloorturf(target))
+		return ..()
+
+	if(target == get_turf(user))
+		to_chat(user, SPAN_WARNING("You cannot place [src] under yourself!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(locate(/obj/machinery/conveyor) in target) // Can't put conveyors beneath conveyors.
+		to_chat(user, SPAN_WARNING("There's already a conveyor there!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/machinery/conveyor/new_conveyor = new(target, user.dir, id)
+	transfer_fingerprints_to(new_conveyor)
+	new_conveyor.add_fingerprint(user)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
@@ -463,40 +466,43 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	materials = list(MAT_METAL = 450, MAT_GLASS = 190)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
+	new_attack_chain = TRUE
 
 /obj/item/conveyor_switch_construct/Initialize(mapload, new_id)
 	. = ..()
 	if(new_id)
 		id = new_id
 	else
-		id = world.time + rand() //this couldn't possibly go wrong
+		id = world.time + rand() // This couldn't possibly go wrong.
 
+/obj/item/conveyor_switch_construct/interact_with_atom(turf/target, mob/living/user, list/modifiers)
+	if(!isfloorturf(target))
+		return ..()
 
-/obj/item/conveyor_switch_construct/afterattack__legacy__attackchain(turf/T, mob/user, proximity)
-	if(!proximity)
-		return
-	if(user.incapacitated())
-		return
-	if(!isfloorturf(T))
-		return
 	var/found = FALSE
-	for(var/obj/machinery/conveyor/C in view())
-		if(C.id == id)
+	for(var/obj/machinery/conveyor/found_conveyor in view())
+		if(found_conveyor.id == id)
 			found = TRUE
 			break
 	if(!found)
-		to_chat(user, SPAN_NOTICE("[src] did not detect any linked conveyor belts in range."))
-		return
-	var/obj/machinery/conveyor_switch/NC = new(T, id)
-	transfer_fingerprints_to(NC)
-	qdel(src)
+		to_chat(user, SPAN_WARNING("[src] did not detect any linked conveyor belts in range!"))
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/conveyor_switch_construct/attackby__legacy__attackchain(obj/item/I, mob/user)
-	if(!istype(I, /obj/item/conveyor_switch_construct))
+	var/obj/machinery/conveyor_switch/new_switch = new(target, id)
+	transfer_fingerprints_to(new_switch)
+	new_switch.add_fingerprint(user)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/conveyor_switch_construct/item_interaction(mob/user, obj/item/conveyor_switch_construct/used, list/modifiers)
+	if(!istype(used, /obj/item/conveyor_switch_construct))
 		return ..()
-	var/obj/item/conveyor_switch_construct/S = I
-	id = S.id
+
+	id = used.id
 	to_chat(user, SPAN_NOTICE("You link the two switch constructs."))
+	add_fingerprint(user)
+	used.add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/paper/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"

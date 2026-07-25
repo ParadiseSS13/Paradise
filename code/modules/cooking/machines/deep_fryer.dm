@@ -108,12 +108,12 @@
 	container.make_mini()
 	vis_contents += container
 
-/obj/machinery/cooking/deepfryer/upgraded/InitializeParts()
+/obj/machinery/cooking/deepfryer/loaded/upgraded/InitializeParts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cooking/deep_fryer(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 

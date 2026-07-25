@@ -380,6 +380,7 @@
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"
 	rapid_post_instake_message = "stamps the entire contents of the patch pack all over their entire body!"
 	wrapper_state = "patch_pack_wrap"
+	materials = list(MAT_CARDBOARD = 4000)
 
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"
@@ -432,3 +433,38 @@
 	for(var/I in 1 to 5)
 		new /obj/item/reagent_containers/patch/silver_sulf/small(src)
 		new /obj/item/reagent_containers/patch/styptic/small(src)
+
+/*
+ * Suture and Mesh Packs
+ */
+
+/obj/item/storage/suture_pack
+	name = "suture pack"
+	desc = "A cardboard container designed to safely hold needles and sutures."
+	icon_state = "suture_pack"
+	inhand_icon_state = "contsolid"
+	belt_icon = "patch_pack"
+	use_sound = "patchpack"
+	w_class = WEIGHT_CLASS_SMALL
+	can_hold = list(/obj/item/stack/medical/suture, /obj/item/suture_needle)
+	cant_hold = list(/obj/item/stack/medical/suture/regen_mesh)
+	allow_quick_gather = TRUE
+	use_to_pickup = TRUE
+	storage_slots = 14
+	display_contents_with_number = TRUE
+	materials = list(MAT_CARDBOARD = 4000)
+
+/obj/item/storage/mesh_pack
+	name = "mesh pack"
+	desc = "A cardboard container designed to organize packs of regenerative mesh."
+	icon_state = "mesh_pack"
+	inhand_icon_state = "contsolid"
+	belt_icon = "patch_pack"
+	use_sound = "patchpack"
+	w_class = WEIGHT_CLASS_SMALL
+	can_hold = list(/obj/item/stack/medical/suture/regen_mesh, /obj/item/biomesh)
+	allow_quick_gather = TRUE
+	use_to_pickup = TRUE
+	storage_slots = 14
+	display_contents_with_number = TRUE
+	materials = list(MAT_CARDBOARD = 4000)

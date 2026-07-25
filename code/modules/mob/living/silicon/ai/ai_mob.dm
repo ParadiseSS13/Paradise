@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	see_invisible = SEE_INVISIBLE_LIVING_AI
 	see_in_dark = 8
 	hud_type = /datum/hud/ai
-	hat_offset_y = 3
+	hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 	is_centered = TRUE
 	can_be_hatted = TRUE
 	var/list/network = list("SS13", "Mining Outpost", "Labor Camp")
@@ -184,7 +184,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	remove_verb(src, GLOB.ai_verbs_default)
 	remove_verb(src, silicon_subsystems)
 
-/mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
+/mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
+	. = ..()
 	announcer = new(config_type = /datum/announcement_configuration/ai)
 	announcer.author = name
 
@@ -266,8 +267,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 			on_mob_init()
 
-	spawn(5)
-		new /obj/machinery/ai_powersupply(src)
+	addtimer(CALLBACK(src, PROC_REF(create_power_supply)), 5 DECISECONDS)
 
 	eyeobj = new /mob/camera/eye/ai(loc, name, src, src)
 
@@ -283,11 +283,15 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	for(var/I in 1 to 4)
 		stored_locations += "unset" //This is checked in ai_keybinds.dm.
 
-	..()
-
-/mob/living/silicon/ai/Initialize(mapload)
-	. = ..()
 	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
+
+/mob/living/silicon/ai/CanPass(atom/movable/mover)
+	. = ..()
+	if(anchored && isliving(mover))
+		return FALSE
+
+/mob/living/silicon/ai/proc/create_power_supply()
+	new /obj/machinery/ai_powersupply(src)
 
 /mob/living/silicon/ai/Destroy()
 	GLOB.ai_list -= src

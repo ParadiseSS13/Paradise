@@ -14,6 +14,14 @@
 	multi_sprite_step = 1
 	icon_state = "357_box"
 
+/obj/item/ammo_box/huntsman32
+	name = "speed loader (.32 Huntsman)"
+	desc = "A small device designed to quickly reload revolvers. Seven round capacity."
+	materials = list()
+	ammo_type = /obj/item/ammo_casing/huntsman32
+	multi_sprite_step = 1 // see: /obj/item/ammo_box/update_icon()
+	icon_state = "357"
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	desc = "An ammunition box filled with 9mm pistol cartridges, commonly used in handguns and submachine guns."

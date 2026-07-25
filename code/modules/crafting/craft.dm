@@ -23,7 +23,8 @@
 						list(
 							CAT_CAKE,
 							CAT_SUSHI,
-							CAT_SANDWICH
+							CAT_SANDWICH,
+							CAT_MEAT
 						),
 						// Decoration subcategories
 						list(

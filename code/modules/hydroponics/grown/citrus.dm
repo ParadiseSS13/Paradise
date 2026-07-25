@@ -1,7 +1,7 @@
 // Citrus - base type
 /obj/item/food/grown/citrus
 	seed = /obj/item/seeds/lime
-	name = "citrus"
+	name = "citrus fruit"
 	desc = ABSTRACT_TYPE_DESC
 	icon_state = "lime"
 	bitesize_mod = 2

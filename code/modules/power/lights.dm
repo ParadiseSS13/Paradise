@@ -299,7 +299,7 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#e0eeff"
+	var/nightshift_light_color = "#fafaeb"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
@@ -320,7 +320,7 @@
 	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
-	brightness_color = "#faca92"
+	brightness_color = "#fac192"
 	nightshift_light_range = 4
 	nightshift_light_color = "#e29a5f" // #a0a080
 	light_type = /obj/item/light/bulb
@@ -328,7 +328,6 @@
 
 /obj/machinery/light/spot
 	name = "spotlight"
-	light_type = /obj/item/light/tube/large
 	brightness_range = 12
 	brightness_power = 4
 
@@ -436,6 +435,11 @@
 			if(prob(3))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
+
+	if(A.area_light_color)
+		brightness_color = A.area_light_color
+	if(A.area_nightlight_color)
+		nightshift_light_color = A.area_nightlight_color
 
 /obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
@@ -678,12 +682,6 @@
 				to_chat(user, SPAN_NOTICE("You insert [L]."))
 				switchcount = L.switchcount
 				rigged = L.rigged
-				if(L.brightness_range)
-					brightness_range = L.brightness_range
-				if(L.brightness_power)
-					brightness_power = L.brightness_power
-				if(L.brightness_color)
-					brightness_color = L.brightness_color
 				lightmaterials = L.materials
 				on = has_power()
 				update(TRUE, TRUE, FALSE)
@@ -912,9 +910,6 @@
 	var/obj/item/light/L = new light_type()
 	L.status = status
 	L.rigged = rigged
-	L.brightness_range = brightness_range
-	L.brightness_power = brightness_power
-	L.brightness_color = brightness_color
 	L.materials = lightmaterials
 
 	// light item inherits the switchcount, then zero it
@@ -1027,12 +1022,6 @@
 	materials = list(MAT_GLASS = 200)
 	/// Is the light rigged to explode?
 	var/rigged = FALSE
-	/// Light range
-	var/brightness_range = 2
-	/// Light intensity
-	var/brightness_power = 1
-	/// Light colour
-	var/brightness_color = null
 
 /obj/item/light/Initialize(mapload)
 	. = ..()
@@ -1085,13 +1074,6 @@
 	icon_state = "ltube"
 	base_state = "ltube"
 	inhand_icon_state = "c_tube"
-	brightness_range = 8
-
-/obj/item/light/tube/large
-	w_class = WEIGHT_CLASS_SMALL
-	name = "large light tube"
-	brightness_range = 15
-	brightness_power = 2
 
 /**
   * # Light Bulb
@@ -1104,7 +1086,6 @@
 	icon_state = "lbulb"
 	base_state = "lbulb"
 	inhand_icon_state = "contvapour"
-	brightness_range = 5
 
 /obj/item/light/throw_impact(atom/hit_atom)
 	..()

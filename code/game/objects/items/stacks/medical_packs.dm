@@ -26,10 +26,6 @@
 		to_chat(user, SPAN_DANGER("[src] cannot be applied to [M]!"))
 		return FALSE
 
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, SPAN_DANGER("You don't have the dexterity to do this!"))
-		return FALSE
-
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
@@ -170,6 +166,21 @@
 		return FALSE
 
 	if(!ishuman(M))
+		return FALSE
+
+	if(istype(M, /mob/living/basic/mouse/irradiated_mouse))
+		if(!istype(/mob/living, user))
+			return FALSE
+
+		var/mob/living/living_user = user
+		if(HAS_TRAIT(living_user, TRAIT_RADIMMUNE) || isrobot(living_user))
+			to_chat(user, SPAN_NOTICE("[M] is moving around too much for you to treat it."))
+		else
+			to_chat(user, SPAN_WARN("You feel too sick to do that!"))
+
+			if(user.radiation < 1000)
+				living_user.apply_effect(250, IRRADIATE)
+
 		return FALSE
 
 	var/mob/living/carbon/human/H = M
