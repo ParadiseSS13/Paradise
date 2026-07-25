@@ -51,23 +51,7 @@
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
-/obj/structure/window/plastitanium{
-	dir = 1
-	},
-/mob/living/simple_animal/pet/dog/pug,
-/obj/structure/bed/dogbed,
-/turf/simulated/floor/grass/jungle,
-/area/centcom/diorama/lavaland)
-"g" = (
-/obj/structure/window/plastitanium{
-	dir = 8
-	},
-/obj/structure/window/plastitanium{
-	dir = 1
-	},
-/mob/living/simple_animal/pet/cat/cak,
-/obj/structure/bed/dogbed,
-/turf/simulated/floor/grass/jungle,
+/turf/simulated/floor/engine/cult,
 /area/centcom/diorama/lavaland)
 "i" = (
 /obj/structure/table/glass,
@@ -93,7 +77,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
 	dir = 4
 	},
-/mob/living/simple_animal/pet/dog/corgi/narsie,
 /turf/simulated/floor/engine/cult,
 /area/centcom/diorama/lavaland)
 "o" = (
@@ -110,28 +93,15 @@
 "p" = (
 /obj/structure/window/plastitanium,
 /obj/structure/window/plastitanium{
-	dir = 1
-	},
-/obj/machinery/door/window/survival_pod{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
-	dir = 4
-	},
-/turf/simulated/floor/grass/jungle,
+/turf/simulated/floor/engine/cult,
 /area/centcom/diorama/lavaland)
 "q" = (
 /turf/simulated/floor/plasteel/white,
 /area/centcom/diorama/lavaland)
-"s" = (
+"t" = (
 /obj/structure/window/plastitanium{
-	dir = 1
-	},
-/obj/machinery/door/window/survival_pod{
-	dir = 4
-	},
-/mob/living/simple_animal/pet/dog/corgi/lisa,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
 	dir = 4
 	},
 /turf/simulated/floor/grass/jungle,
@@ -144,6 +114,7 @@
 	dir = 8
 	},
 /obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/cat/cak,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/diorama/lavaland)
 "z" = (
@@ -173,6 +144,7 @@
 	dir = 1
 	},
 /obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/corgi/narsie,
 /turf/simulated/floor/engine/cult,
 /area/centcom/diorama/lavaland)
 "J" = (
@@ -225,11 +197,6 @@
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
-/obj/structure/window/plastitanium{
-	dir = 1
-	},
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/diorama/lavaland)
 "Z" = (
@@ -246,7 +213,7 @@
 
 (1,1,1) = {"
 u
-g
+Y
 o
 Y
 D
@@ -254,10 +221,10 @@ f
 J
 "}
 (2,1,1) = {"
-s
 L
+t
 L
-L
+t
 l
 p
 J

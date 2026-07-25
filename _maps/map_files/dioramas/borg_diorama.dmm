@@ -2,14 +2,14 @@
 "a" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "b" = (
 /obj/machinery/conveyor{
 	dir = 4
 	},
 /obj/item/flash,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "d" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -19,14 +19,14 @@
 	},
 /obj/item/robot_parts/r_leg,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "e" = (
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/mech_bay_recharge_floor,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "f" = (
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "l" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 8
@@ -36,7 +36,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/bluegrid,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "m" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -46,7 +46,7 @@
 	},
 /obj/item/flash,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "n" = (
 /obj/structure/window/plastitanium{
 	dir = 1
@@ -61,7 +61,7 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "o" = (
 /obj/structure/window/plastitanium{
 	dir = 1
@@ -73,13 +73,13 @@
 /obj/item/robotanalyzer,
 /obj/item/mod/control/pre_equipped/corporate,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "s" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "t" = (
 /turf/template_noop,
 /area/template_noop)
@@ -92,7 +92,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "v" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -101,24 +101,24 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "w" = (
 /obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "y" = (
 /obj/structure/window/plastitanium{
 	dir = 1
 	},
 /obj/machinery/mecha_part_fabricator/loaded,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "z" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "A" = (
 /obj/structure/diorama_sign,
 /turf/template_noop,
@@ -128,7 +128,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "C" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -137,7 +137,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "D" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -147,23 +147,23 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "E" = (
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "F" = (
 /obj/structure/window/plastitanium{
 	dir = 4
 	},
-/obj/machinery/conveyor/auto/ccw{
+/obj/item/robot_parts/l_arm,
+/obj/machinery/conveyor/counterclockwise{
 	dir = 5
 	},
-/obj/item/robot_parts/l_arm,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "G" = (
 /obj/structure/window/plastitanium,
 /obj/machinery/conveyor_switch/oneway,
@@ -171,7 +171,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "I" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -181,7 +181,7 @@
 	},
 /obj/item/robot_parts/chest,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "L" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 8
@@ -191,7 +191,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/bluegrid,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "M" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -200,20 +200,20 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "Q" = (
 /obj/machinery/conveyor{
 	dir = 4
 	},
 /obj/item/robot_parts/head,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "R" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk/grey,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "T" = (
 /obj/structure/window/plastitanium{
 	dir = 1
@@ -223,14 +223,14 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "X" = (
 /obj/structure/window/plastitanium{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 "Y" = (
 /obj/structure/window/plastitanium{
 	dir = 1
@@ -240,7 +240,7 @@
 	},
 /obj/structure/ai_core,
 /turf/simulated/floor/plating,
-/area/centcom/diorama/lavaland)
+/area/centcom/diorama/borg)
 
 (1,1,1) = {"
 o
