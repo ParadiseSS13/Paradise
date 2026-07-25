@@ -26,11 +26,6 @@
 	description = "'Vet Visit Diorama' by haydenredacted"
 	mappath = "_maps/map_files/dioramas/vet_diorama.dmm"
 
-/datum/map_template/diorama/decisions
-	name = "Making Decisions Diorama"
-	description = "'Making Decisions' by Alfalfa Scout"
-	mappath = "_maps/map_files/dioramas/making_decisions_diorama.dmm"
-
 /obj/structure/diorama_sign
 	name = "Diorama Sign"
 	desc = ""
@@ -57,6 +52,3 @@
 
 /area/centcom/diorama/vet
 	name = "Vet Visit Diorama"
-
-/area/centcom/diorama/decisions
-	name = "Making Decisions Diorama"
