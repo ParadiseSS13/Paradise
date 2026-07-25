@@ -233,7 +233,7 @@
 
 	if(length(valid_dioramas))
 		var/datum/map_template/diorama/chosen = pick(valid_dioramas)
-		var/turf/T = locate(95, 117, 1)
+		var/turf/T = locate(108, 117, 1)
 		if(chosen.fits_in_map_bounds(T))
 			chosen.load(T)
 			for(var/obj/structure/diorama_sign/S in world)

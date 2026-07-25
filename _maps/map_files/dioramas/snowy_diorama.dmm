@@ -2,19 +2,19 @@
 "a" = (
 /mob/living/basic/pet/penguin/emperor,
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "d" = (
 /obj/structure/window/plastitanium{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "f" = (
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "g" = (
 /obj/structure/diorama_sign,
 /turf/template_noop,
@@ -28,17 +28,17 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "k" = (
 /mob/living/simple_animal/hostile/winter/santa{
 	AIStatus = 3
 	},
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "m" = (
 /obj/structure/flora/tree/pine,
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "q" = (
 /obj/structure/window/plastitanium{
 	dir = 1
@@ -47,45 +47,45 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "r" = (
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "s" = (
 /mob/living/basic/pet/penguin/baby,
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "w" = (
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "x" = (
 /obj/structure/window/plastitanium{
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "y" = (
 /obj/structure/lightable/bonfire/lit/dense,
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "A" = (
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "D" = (
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "G" = (
 /turf/template_noop,
 /area/template_noop)
@@ -99,11 +99,11 @@
 	},
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 "U" = (
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/plating/asteroid/snow,
-/area/ruin/powered/snow_biodome)
+/area/centcom/diorama/snowy)
 
 (1,1,1) = {"
 q
