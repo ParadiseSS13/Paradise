@@ -485,6 +485,11 @@
 		if(length(SSticker.mode.zombie_infected))
 			dat += check_role_table_mob("Pre-zombie infected", SSticker.mode.zombie_infected)
 
+		if(length(SSticker.mode.uplifted_primitives))
+			for(var/datum/species/species_path in SSticker.mode.uplifted_primitives)
+				var/minds = SSticker.mode.uplifted_primitives[species_path]
+				dat += check_role_table("Uplifted Primitives ([species_path::name])", minds)
+
 		if(length(GLOB.ts_spiderlist))
 			var/list/spider_minds = list()
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)

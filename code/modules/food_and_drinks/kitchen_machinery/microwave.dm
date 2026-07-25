@@ -32,7 +32,7 @@
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/microwave(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()

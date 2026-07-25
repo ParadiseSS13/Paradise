@@ -67,6 +67,7 @@
 	new /obj/item/reagent_containers/drinks/flask/barflask(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/autosurgeon/organ/one_use/sec_hud(src)
+	new /obj/item/fine_scanner(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -89,6 +90,7 @@
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/fine_scanner(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -110,6 +112,7 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)
+	new /obj/item/fine_scanner(src)
 
 /obj/structure/closet/secure_closet/evidence
 	name = "evidence locker"
@@ -211,6 +214,7 @@
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/briefcase/crimekit(src)
+	new /obj/item/fine_scanner(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

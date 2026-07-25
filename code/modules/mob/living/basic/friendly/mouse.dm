@@ -12,7 +12,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	butcher_results = list(/obj/item/food/meat = 1)
+	butcher_results = list(/obj/item/food/rawmouse = 1)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
@@ -125,10 +125,10 @@
 	cable.deconstruct()
 
 /mob/living/basic/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)// Prevents mouse from pulling things
-	if(istype(AM, /obj/item/food/sliced/cheesewedge))
+	if(istype(AM, /obj/item/food/sliced/cheesewedge) || istype(AM, /mob/living/basic/mouse))
 		return ..() // Get dem
 	if(show_message)
-		to_chat(src, SPAN_WARNING("You are too small to pull anything except cheese."))
+		to_chat(src, SPAN_WARNING("You are too small to pull anything except cheese and other mice."))
 	return
 
 /mob/living/basic/mouse/proc/on_atom_entered(datum/source, atom/movable/entered)

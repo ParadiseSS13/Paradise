@@ -111,6 +111,13 @@
 #define TASTE_SENSITIVITY_DULL 25
 #define TASTE_SENSITIVITY_NO_TASTE 101
 
+// Taste category - determines what types of reagents mob can taste
+// Reagents they can't taste will produce "yucky" or "indescribable" message by default
+#define TASTE_CATEGORY_NONE 0
+#define TASTE_CATEGORY_ORGANIC 1
+#define TASTE_CATEGORY_SYNTHETIC 2
+#define TASTE_CATEGORY_BOTH TASTE_CATEGORY_ORGANIC | TASTE_CATEGORY_SYNTHETIC
+
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
 #define SYNTHETIC 2
@@ -183,6 +190,8 @@
 #define SHOCK_ILLUSION 	(1<<2)
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN 	(1<<3)
+/// Shock damage is reduced by the average siemen's coeff
+#define SHOCK_USE_AVG_SIEMENS (1 << 4)
 
 #define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
 
@@ -225,6 +234,9 @@
 #define EXAMINE_MORE_WINDOW 1 SECONDS
 
 #define DIRECTION_LOCK_SLOWDOWN 3
+
+// Helpers
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
 
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
@@ -315,6 +327,16 @@
 #define HEALTH_HUD_OVERRIDE_CRIT 1
 #define HEALTH_HUD_OVERRIDE_DEAD 2
 #define HEALTH_HUD_OVERRIDE_HEALTHY 3
+
+// Defines icon states used in `/mob/living/carbon/human/proc/handle_nutrition_alerts` to override nutrition status.
+#define NUTRITION_HUD_OVERRIDE_NONE null
+#define NUTRITION_HUD_OVERRIDE_FAT "fat"
+#define NUTRITION_HUD_OVERRIDE_FULL "full"
+#define NUTRITION_HUD_OVERRIDE_WELL_FED "well_fed"
+#define NUTRITION_HUD_OVERRIDE_FED "fed"
+#define NUTRITION_HUD_OVERRIDE_HUNGRY "hungry"
+#define NUTRITION_HUD_OVERRIDE_STARVING "starving"
+
 // Eye protection
 #define FLASH_PROTECTION_VERYVUNERABLE -4
 #define FLASH_PROTECTION_EXTRA_SENSITIVE -2

@@ -48,13 +48,24 @@
 
 /obj/machinery/bodyscanner/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/bodyscanner/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
-	RefreshParts()
+
+/obj/machinery/bodyscanner/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/bodyscanner(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 2)
 
 /obj/machinery/bodyscanner/RefreshParts()
 	for(var/obj/item/stock_parts/scanning_module/S in component_parts)

@@ -8,15 +8,18 @@ jobs:
     if: |
       github.event.issue.pull_request &&
       (github.event.comment.body == '!build_rust') &&
-      ((github.event.sender.id == github.event.issue.user.id) ||
-      (github.event.comment.author_association == 'COLLABORATOR') ||
-      (github.event.comment.author_association == 'MEMBER') ||
-      (github.event.comment.author_association == 'OWNER'))
+      (
+        github.event.comment.user.id == 25063394 ||
+        github.event.comment.user.id == 116982774 ||
+        github.event.comment.user.id == 108773801 ||
+        github.event.comment.user.id == 144391971
+      )
+    # AA07 25063394, Burzah 116982774, DGamerL 108773801, Pollard 144391971
 
     runs-on: ubuntu-latest
     steps:
       - id: create_token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@v3.2.0
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
@@ -47,7 +50,7 @@ jobs:
           echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
           echo "PR_HEAD_LABEL=`jq -r '.head.label' <<<$pr_json`" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7.0.0
         with:
           repository: ${{ env.PR_REPO }}
           ref: ${{ env.PR_BRANCH }}

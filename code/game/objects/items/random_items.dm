@@ -30,7 +30,7 @@
 
 /obj/item/reagent_containers/drinks/bottle/random_drink/Initialize(mapload)
 	. = ..()
-	var/list/possible_drinks = GLOB.drinks.Copy()
+	var/list/possible_drinks = GLOB.alcoholic_drinks | GLOB.synthanolic_drinks | GLOB.soft_drinks | GLOB.synthetic_soft_drinks
 	if(prob(50))
 		possible_drinks += list("pancuronium","lsd","omnizine","blood")
 

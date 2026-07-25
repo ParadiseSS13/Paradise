@@ -34,8 +34,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(gender, species = "Human", datum/robolimb/robohead)
-	var/h_style = "Bald"
+/proc/list_valid_hairstyles(species = "Human", datum/robolimb/robohead)
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
@@ -55,14 +54,14 @@
 		else //If the user is not a species who can have robotic heads, use the default handling.
 			if(species in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 				valid_hairstyles += hairstyle
+	return length(valid_hairstyles) ? sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) : list("Bald")
 
-	if(length(valid_hairstyles))
-		h_style = pick(valid_hairstyles)
+/proc/random_hair_style(species = "Human", datum/robolimb/robohead)
+	var/list/valid_hairstyles = list_valid_hairstyles(species, robohead)
 
-	return h_style
+	return pick(valid_hairstyles)
 
-/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
-	var/f_style = "Shaved"
+/proc/list_valid_facial_hairstyles(species = "Human", datum/robolimb/robohead)
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
 		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
@@ -83,10 +82,12 @@
 			if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
-	if(length(valid_facial_hairstyles))
-		f_style = pick(valid_facial_hairstyles)
+	return length(valid_facial_hairstyles) ? sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) : list("Shaved")
 
-	return f_style
+/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
+	var/list/valid_facial_hairstyles = list_valid_facial_hairstyles(species, robohead)
+
+	return pick(valid_facial_hairstyles)
 
 // it might be made species related, but it is pretty okay now
 /proc/random_hair_color(tint = TRUE, range)
@@ -127,8 +128,7 @@
 
 	return rgb(R, G, B)
 
-/proc/random_head_accessory(species = "Human")
-	var/ha_style = "None"
+/proc/list_valid_head_accessories(species = "Human")
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
 		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
@@ -137,13 +137,14 @@
 			continue
 		valid_head_accessories += head_accessory
 
-	if(length(valid_head_accessories))
-		ha_style = pick(valid_head_accessories)
+	return length(valid_head_accessories) ? sortTim(valid_head_accessories, GLOBAL_PROC_REF(cmp_text_asc)) : list("None")
 
-	return ha_style
+/proc/random_head_accessory(species = "Human")
+	var/list/valid_head_accessories = list_valid_head_accessories(species)
 
-/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
-	var/m_style = "None"
+	return pick(valid_head_accessories)
+
+/proc/list_valid_marking_styles(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
 		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
@@ -176,10 +177,23 @@
 					continue
 		valid_markings += marking
 
-	if(length(valid_markings))
-		m_style = pick(valid_markings)
+	return length(valid_markings) ? sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc)) : list("None")
 
-	return m_style
+/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
+	var/list/valid_markings = list_valid_marking_styles(location, species, robohead, body_accessory, alt_head)
+
+	return pick(valid_markings)
+
+/proc/list_valid_body_accessories(species = "Vulpkanin", is_optional = TRUE)
+	var/list/valid_body_accessories = list()
+	if(is_optional)
+		valid_body_accessories += null
+
+	if(GLOB.body_accessory_by_species[species])
+		for(var/name in GLOB.body_accessory_by_species[species])
+			valid_body_accessories += name
+
+	return length(valid_body_accessories) ? sortTim(valid_body_accessories, GLOBAL_PROC_REF(cmp_text_asc)) : null
 
 /**
   * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
@@ -189,13 +203,7 @@
   * * is_optional - Whether *no* body accessory (null) is an option.
  */
 /proc/random_body_accessory(species = "Vulpkanin", is_optional = TRUE)
-	var/list/valid_body_accessories = list()
-	if(is_optional)
-		valid_body_accessories += null
-
-	if(GLOB.body_accessory_by_species[species])
-		for(var/name in GLOB.body_accessory_by_species[species])
-			valid_body_accessories += name
+	var/list/valid_body_accessories = list_valid_body_accessories(species, is_optional)
 
 	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 

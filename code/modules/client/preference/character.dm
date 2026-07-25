@@ -652,7 +652,7 @@
 		s_tone = 35 - random_skin_tone(species)
 	else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 		s_tone = random_skin_tone(species)
-	h_style = random_hair_style(gender, species, robohead)
+	h_style = random_hair_style(species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
 	if(!(S.bodyflags & BALD))
 		randomize_hair_color("hair")

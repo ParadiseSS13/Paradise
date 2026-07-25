@@ -296,3 +296,16 @@
 /obj/machinery/atmospherics/unary/thermomachine/heater/on
 	on = TRUE
 	icon_state = "heater_1"
+
+/obj/machinery/atmospherics/unary/thermomachine/upgraded/Initialize(mapload)
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/thermomachine(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(src)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(src)
+	component_parts += new /obj/item/stack/sheet/glass(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	RefreshParts()
+	update_icon()

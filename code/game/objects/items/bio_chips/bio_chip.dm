@@ -35,6 +35,7 @@
 
 	///the implant_fluff datum attached to this implant, purely cosmetic "lore" information
 	var/datum/implant_fluff/implant_data = /datum/implant_fluff
+	new_attack_chain = TRUE
 
 /obj/item/bio_chip/Initialize(mapload)
 	. = ..()
@@ -155,7 +156,6 @@
 			return 1
 		else
 			return 0
-
 
 	loc = source
 	imp_in = source

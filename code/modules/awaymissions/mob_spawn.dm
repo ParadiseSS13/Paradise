@@ -305,12 +305,12 @@
 		if(hair_style)
 			D.h_style = hair_style
 		else
-			D.h_style = random_hair_style(H.gender, D.dna.species.name)
+			D.h_style = random_hair_style(D.dna.species.name)
 
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else if(H.gender != FEMALE) // no beard for women
-			D.f_style = random_facial_hair_style(H.gender, D.dna.species.name)
+			D.f_style = random_facial_hair_style(D.dna.species.name)
 
 		if(hair_color)
 			D.hair_colour = hair_color
@@ -709,6 +709,38 @@
 	mob_name = "skeleton"
 	mob_species = /datum/species/skeleton/brittle
 	mob_gender = NEUTER
+
+/obj/effect/mob_spawn/human/corpse/vulpkanin
+	name = "vulpkanin"
+	mob_species = /datum/species/vulpkanin
+
+/obj/effect/mob_spawn/human/corpse/vulpkanin/merc
+	outfit = /datum/outfit/vulpkanin_merc
+
+/datum/outfit/vulpkanin_merc
+	name = "vulpkanin mercenary"
+	uniform = /obj/item/clothing/under/syndicate/tacticool
+	suit = /obj/item/clothing/suit/armor/vest
+	shoes = /obj/item/clothing/shoes/jackboots
+	gloves = /obj/item/clothing/gloves/color/black
+
+/obj/effect/mob_spawn/human/corpse/vulpkanin/officer
+	outfit = /datum/outfit/vulpkanin_merc/officer
+
+/datum/outfit/vulpkanin_merc/officer
+	name = "vulpkanin officer"
+	uniform = /obj/item/clothing/under/rank/procedure/blueshield
+	suit = /obj/item/clothing/suit/armor/secjacket
+	head = /obj/item/clothing/head/beret/blue
+
+/obj/effect/mob_spawn/human/corpse/vulpkanin/captain
+	outfit = /datum/outfit/vulpkanin_merc/captain
+
+/datum/outfit/vulpkanin_merc/captain
+	name = "vulpkanin captain"
+	uniform = /obj/item/clothing/under/rank/captain
+	suit = /obj/item/clothing/suit/armor/secjacket
+	head = /obj/item/clothing/head/caphat
 
 /datum/outfit/randomizer
 	name = "randomizer"

@@ -181,13 +181,13 @@
 
 	container.make_mini()
 
-/obj/machinery/cooking/grill/upgraded/InitializeParts()
+/obj/machinery/cooking/grill/loaded/upgraded/InitializeParts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/grill(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	RefreshParts()
 
 /obj/item/circuitboard/grill

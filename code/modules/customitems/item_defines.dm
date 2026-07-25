@@ -631,6 +631,7 @@
 	desc = "A worn down visor from a vox raider's gear, crudely ripped from its helmet and linked into the security systems of the station. The word 'Kask' is scratched into the side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "hud-spartan"
+	icon_monitor = null
 
 //////////// Hats ////////////
 /// Regens: Heather Winceworth
@@ -1755,6 +1756,21 @@
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
+
+/obj/item/clothing/neck/necklace/reward/brass_watch
+	name = "brass pocketwatch"
+	desc = "A classy brass pocketwatch, complete with a matching chain to attach it to your uniform. It has \"Event Extravaganza '26\" engraved on the inside of the lid."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "brass_pocketwatch"
+	sprite_sheets = list("Drask" = 'icons/mob/clothing/species/drask/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Skkulakin" = 'icons/mob/clothing/species/skkulakin/neck.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi')
+
+/obj/item/clothing/neck/necklace/reward/brass_watch/examine(mob/user)
+	. = ..()
+	. += "It is currently [station_time_timestamp()]."
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

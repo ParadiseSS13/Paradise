@@ -12,7 +12,6 @@
 	Kidan Globe
 	Lightning
 	Newton Cradle
-	PAI cable
 	Red Phone
 	Popsicle Sticks
 */
@@ -22,6 +21,7 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "rollball"
 	desc = "A device bored paper pushers use to remind themselves that the time did not stop yet."
+	new_attack_chain = TRUE
 
 /obj/item/cane
 	name = "cane"
@@ -31,8 +31,9 @@
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
-	materials = list(MAT_METAL=50)
+	materials = list(MAT_METAL = 2000)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
+	new_attack_chain = TRUE
 
 /obj/item/cane/get_crutch_efficiency()
 	return 2
@@ -48,7 +49,7 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL // Canes can fold up to fit in bags or pockets
-	materials = list(MAT_METAL = 50)
+	materials = list(MAT_METAL = 1000)
 	attack_verb = list("smacked", "whacked", "bumped", "struck")
 	new_attack_chain = TRUE
 
@@ -99,46 +100,53 @@
 	/// Is the secret compartment open?
 	var/is_open = FALSE
 	/// Tiny item that can be hidden on crutches with a screwdriver
-	var/obj/item/hidden = null
+	var/obj/item/hidden_object = null
+	new_attack_chain = TRUE
 
 /obj/item/crutches/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded = 5, force_wielded = 5, icon_wielded = "crutches1")
 
 /obj/item/crutches/Destroy()
-	if(hidden)
-		hidden.forceMove(get_turf(src))
-		hidden = null
+	if(hidden_object)
+		hidden_object.forceMove(get_turf(src))
+		hidden_object = null
 	return ..()
 
 /obj/item/crutches/update_icon_state() //Currently only here to fuck with the on-mob icons.
 	icon_state = "crutches0"
 	return ..()
 
-/obj/item/crutches/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	. = ..()
+/obj/item/crutches/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!is_open)
-		return
-	if(!hidden && I.tool_behaviour != TOOL_SCREWDRIVER && I.w_class == WEIGHT_CLASS_TINY)
-		if(istype(I, /obj/item/disk/nuclear))
-			to_chat(user, SPAN_WARNING("You think you're gonna need more than crutches if your employers find out what you just tried to do..."))
-			return
-		if(I.flags & ABSTRACT)
-			return
-		if(!user.unequip(I))
-			to_chat(user, SPAN_NOTICE("[I] doesn't seem to want to go into [src]!"))
-			return
-		I.forceMove(src)
-		hidden = I
-		to_chat(user, SPAN_NOTICE("You hide [I] inside the crutch tip."))
+		return ..()
+
+	if(!(!hidden_object && used.tool_behaviour != TOOL_SCREWDRIVER && used.w_class == WEIGHT_CLASS_TINY))
+		return ..()
+
+	if(istype(used, /obj/item/disk/nuclear))
+		to_chat(user, SPAN_WARNING("You think you're gonna need more than crutches if your employers find out what you just tried to do..."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(used.flags & ABSTRACT)
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.unequip(used))
+		to_chat(user, SPAN_NOTICE("[used] is stuck to your hand! You can't put it inside [src]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	used.forceMove(src)
+	hidden_object = used
+	add_fingerprint(user)
+	to_chat(user, SPAN_NOTICE("You hide [used] inside the crutch tip."))
 
 /obj/item/crutches/attack_hand(mob/user, pickupfireoverride)
 	if(!is_open)
 		return ..()
-	if(hidden)
-		user.put_in_hands(hidden)
-		to_chat(user, SPAN_NOTICE("You remove [hidden] from the crutch tip!"))
-		hidden = null
+	if(hidden_object)
+		user.put_in_hands(hidden_object)
+		to_chat(user, SPAN_NOTICE("You remove [hidden_object] from the crutch tip!"))
+		hidden_object = null
 
 	add_fingerprint(user)
 
@@ -162,6 +170,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 5
+	materials = list(MAT_CARDBOARD = 2000)
+	new_attack_chain = TRUE
 
 /obj/item/c_tube/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	qdel(src)
@@ -175,7 +185,7 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "fan"
 	desc = "A small desktop fan. The button seems to be stuck in the 'on' position."
-
+	new_attack_chain = TRUE
 
 /obj/item/gift
 	name = "gift"
@@ -195,19 +205,23 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "kidanglobe"
 	desc = "A globe of the Kidan homeworld."
+	new_attack_chain = TRUE
 
 /obj/item/lightning
 	name = "lightning"
 	icon = 'icons/obj/lightning.dmi'
 	icon_state = "lightning"
 	desc = "test lightning."
+	new_attack_chain = TRUE
 
 /obj/item/lightning/Initialize(mapload)
 	. = ..()
 	icon_state = "1"
 
-/obj/item/lightning/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
-	var/angle = get_angle(A, user)
+/obj/item/lightning/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(..())
+		return FINISH_ATTACK
+	var/angle = get_angle(target, user)
 	//to_chat(world, angle)
 	angle = round(angle) + 45
 	if(angle > 180)
@@ -220,20 +234,14 @@
 	//to_chat(world, "adjusted [angle]")
 	icon_state = "[angle]"
 	//to_chat(world, "[angle] [(get_dist(user, A) - 1)]")
-	user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)
+	user.Beam(target, "lightning", 'icons/obj/zap.dmi', 50, 15)
 
 /obj/item/newton
-	name = "newton cradle"
+	name = "\improper Newton's cradle"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "newton"
 	desc = "A device bored paper pushers use to remind themselves that time did not stop yet. Contains gravity."
-
-/obj/item/pai_cable
-	name = "data cable"
-	desc = "A flexible coated cable with a universal jack on one end."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "wire1"
-	var/obj/machinery/machine
+	new_attack_chain = TRUE
 
 /obj/item/phone
 	name = "red phone"
@@ -248,14 +256,20 @@
 	attack_verb = list("called", "rang")
 	hitsound = 'sound/weapons/ring.ogg'
 	var/cooldown = 0
+	new_attack_chain = TRUE
 
-/obj/item/phone/attack_self__legacy__attackchain(mob/user)
+/obj/item/phone/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time
+		add_fingerprint(user)
 
 /obj/item/popsicle_stick
 	name = "popsicle stick"
 	desc = "A small wooden stick, usually topped by popsicles or other frozen treats."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "popsicle_stick"
+	new_attack_chain = TRUE

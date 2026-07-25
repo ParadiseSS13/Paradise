@@ -292,7 +292,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/recharger,
+/obj/machinery/recharger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "eP" = (
@@ -334,8 +334,8 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/cell_charger,
 /obj/item/weed_extract,
+/obj/machinery/cell_charger/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "sd" = (
@@ -345,13 +345,10 @@
 /area/shuttle/administration)
 "tn" = (
 /obj/docking_port/mobile/admin{
-	dir = 2;
 	dwidth = 9;
 	height = 18;
-	id = "admin";
 	name = "skipjack";
 	roundstart_move = "cc_bay_1";
-	timid = 1;
 	width = 19
 	},
 /obj/machinery/door/airlock/external{
@@ -533,8 +530,8 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "Vl" = (
-/obj/machinery/bodyscanner,
 /obj/machinery/light,
+/obj/machinery/bodyscanner/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "XB" = (

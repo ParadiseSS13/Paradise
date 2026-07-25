@@ -7,6 +7,15 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
+/obj/item/ammo_casing/huntsman32
+	name = ".32 huntsman round"
+	desc = "A .32 caliber round. The bullet is scored and designed to fragment on hit, dealing large amounts of damage to large creatures."
+	icon_state = "magnum_steel"
+	caliber = "32"
+	projectile_type = /obj/projectile/bullet
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+
 /obj/item/ammo_casing/rubber9mm
 	name = "9mm rubber round"
 	desc = "A 9mm pistol cartridge. This one has a rubber tip for less-lethal takedowns."
@@ -19,7 +28,7 @@
 	desc = "A 7.62mm rifle cartridge, often used in Soviet rifles."
 	icon_state = "rifle_brass"
 	caliber = "a762"
-	projectile_type = /obj/projectile/bullet
+	projectile_type = /obj/projectile/bullet/huntsman32
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 

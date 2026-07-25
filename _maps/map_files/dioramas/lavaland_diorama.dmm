@@ -2,25 +2,32 @@
 "a" = (
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
-"f" = (
+/area/centcom/diorama/lavaland)
+"e" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
 /obj/structure/marker_beacon,
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
+"f" = (
+/obj/effect/mob_spawn/human/corpse/miner,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/diorama/lavaland)
 "i" = (
 /obj/structure/window/plastitanium,
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "k" = (
 /turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "o" = (
 /obj/structure/flora/ash/tall_shroom,
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "q" = (
 /turf/template_noop,
 /area/template_noop)
@@ -33,17 +40,17 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "C" = (
 /obj/structure/window/plastitanium{
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "G" = (
 /obj/item/kinetic_crusher,
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "H" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -52,17 +59,24 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "L" = (
 /obj/structure/window/plastitanium{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "M" = (
 /obj/structure/flora/ash/rock,
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
+"Q" = (
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/obj/structure/flora/ash/stem_shroom,
+/turf/simulated/floor/plating/asteroid/basalt,
+/area/centcom/diorama/lavaland)
 "R" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -71,25 +85,25 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "S" = (
 /obj/structure/flora/ash/rock,
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 "X" = (
 /obj/structure/window/plastitanium,
 /obj/structure/window/plastitanium{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt,
-/area/lavaland/surface/outdoors/unexplored)
+/area/centcom/diorama/lavaland)
 
 (1,1,1) = {"
 R
 L
 L
-L
+Q
 L
 i
 q
@@ -123,7 +137,7 @@ q
 "}
 (5,1,1) = {"
 H
-B
+e
 B
 B
 B

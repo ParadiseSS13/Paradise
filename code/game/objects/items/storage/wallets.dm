@@ -14,6 +14,7 @@
 		/obj/item/seeds,
 		/obj/item/stack/medical,
 		/obj/item/toy/crayon,
+		/obj/item/toy/round_tuit,
 		/obj/item/coin,
 		/obj/item/food/candy/chocolate_coin,
 		/obj/item/food/candy/coin,
@@ -75,7 +76,7 @@
 		return
 	. += mutable_appearance(front_id.icon, front_id.icon_state)
 	. += front_id.overlays
-	. += mutable_appearance(icon, "wallet_overlay")
+	. += mutable_appearance(icon, "[icon_state]_overlay")
 
 	// fuck yeah, ass photo in my wallet
 	var/obj/item/photo/photo = locate(/obj/item/photo) in contents
@@ -85,7 +86,7 @@
 	MA.pixel_x = 11
 	MA.pixel_y = 1
 	. += MA
-	. += mutable_appearance(icon, "photo_overlay")
+	. += mutable_appearance(icon, "[icon_state]_photo")
 
 /obj/item/storage/wallet/update_name(updates)
 	. = ..()
@@ -104,6 +105,17 @@
 	else
 		return ..()
 
+/obj/item/storage/wallet/random/Initialize(mapload)
+	. = ..()
+	icon_state = pick(
+		"wallet",
+		"wallet_tanned",
+		"wallet_black",
+		"wallet_white",
+		"wallet_pink",
+		"wallet_tsf",
+	)
+
 /obj/item/storage/wallet/random/populate_contents()
 	var/cash = pick(/obj/item/stack/spacecash,
 		/obj/item/stack/spacecash/c5,
@@ -112,6 +124,7 @@
 		/obj/item/stack/spacecash/c100)
 	var/coin = pickweight(list(/obj/item/coin/iron = 3,
 							/obj/item/coin/silver = 2,
+							/obj/item/toy/round_tuit = 1,
 							/obj/item/coin/gold = 1))
 
 	new cash(src)
@@ -119,9 +132,23 @@
 		new cash(src)
 	new coin(src)
 
-
 // Arcade Wallet
 /obj/item/storage/wallet/cheap
 	name = "cheap wallet"
 	desc = "A cheap and flimsy wallet from the arcade."
 	storage_slots = 5		//smaller storage than normal wallets
+
+/obj/item/storage/wallet/tanned
+	icon_state = "wallet_tanned"
+
+/obj/item/storage/wallet/black
+	icon_state = "wallet_black"
+
+/obj/item/storage/wallet/white
+	icon_state = "wallet_white"
+
+/obj/item/storage/wallet/pink
+	icon_state = "wallet_pink"
+
+/obj/item/storage/wallet/tsf
+	icon_state = "wallet_tsf"

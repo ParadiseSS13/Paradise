@@ -326,7 +326,7 @@
 	var/obj/item/reagent_containers/glass/rag/rag = player.spawn_obj_in_hand(/obj/item/reagent_containers/glass/rag)
 	rag.wipespeed = 0
 	player.click_on(floor)
-	TEST_ASSERT_LAST_CHATLOG(player, "You clean the floor with the damp rag.")
+	TEST_ASSERT_LAST_CHATLOG(player, "You clean the steel floor with the damp rag.")
 
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 	rag.reagents.add_reagent("omnizine", 10)
