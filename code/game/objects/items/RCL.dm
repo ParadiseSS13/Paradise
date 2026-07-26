@@ -73,10 +73,10 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/stack/cable_coil/rcl/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!istype(target, /obj/item/stack/cable_coil))	
-		..()
+	if(!istype(target, /obj/item/stack/cable_coil))
+		var/result = ..()
 		is_empty(user)
-		return NONE
+		return result ? ITEM_INTERACT_COMPLETE : NONE
 
 	load_cable(user, target)
 	return ITEM_INTERACT_COMPLETE
