@@ -295,15 +295,12 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
 	var/obj/machinery/atmospherics/unary/vent_pump/valid_supply = null
 	var/obj/machinery/atmospherics/unary/vent_pump/valid_scrubber = null
-	var/valid_target_type = -1
-	if(istype(loc, /obj/machinery/atmospherics))
-		var/obj/machinery/atmospherics/pipe_loc = loc
-		valid_target_type = pipe_loc.connected_to
+	var/obj/machinery/atmospherics/pipe/pipe_loc = loc
 	for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
-		if(P.welded && (!istype(loc, /obj/machinery/atmospherics) || valid_target_type == CONNECT_TYPE_SUPPLY))
+		if(P.welded && (!istype(pipe_loc, /obj/machinery/atmospherics) || pipe_loc.parent == P.parent))
 			valid_supply = P
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
-		if(C.welded && (!istype(loc, /obj/machinery/atmospherics) || valid_target_type == CONNECT_TYPE_SCRUBBER))
+		if(C.welded && (!istype(pipe_loc, /obj/machinery/atmospherics) || pipe_loc.parent == C.parent))
 			valid_scrubber = C
 	if(!(valid_supply || valid_scrubber))
 		to_chat(src, SPAN_WARNING("No welded vent or scrubber nearby!"))
