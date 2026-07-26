@@ -331,14 +331,16 @@
 
 // Medical Gripper
 // For medical borgs, for doing medical stuff!
-// Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
+// Not giving this anything useful to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool for cyborgs. This one is covered with hygenic medical-grade silicone rubber. \
 	Use it to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_help_up = TRUE
-	// REMOVE actions_types from here if you add a can_hold list for this gripper!
-	actions_types = list()
+	can_hold = list(
+		/obj/item/clothing/head,
+		/obj/item/key/ambulance, // I mean, the paramedic never uses it, so...
+	)
 
 /obj/item/gripper/medical/Initialize(mapload)
 	. = ..()
@@ -353,13 +355,14 @@
 	can_help_up = TRUE
 	// Everything in this list is currently for either playing games or otherwise assisting the crew in mundane, non-impactful ways.
 	can_hold = list(
+		/obj/item/clothing/head,
 		/obj/item/deck,
 		/obj/item/cardhand,
 		/obj/item/coin,
 		/obj/item/paper,
 		/obj/item/photo,
 		/obj/item/toy/plushie,
-		/obj/item/clothing/mask/cigarette
+		/obj/item/clothing/mask/cigarette,
 	)
 
 // Mining Gripper
@@ -368,9 +371,10 @@
 	name = "mining gripper"
 	desc = "A grasping tool for cyborgs. This ruggedized version will let you add goliath plating to yourself and activate survival capsules. You could also use it to swing a pickaxe if you don't feel like using your drill."
 	can_hold = list(
+		/obj/item/clothing/head,
 		/obj/item/pickaxe,	// Because the image of a mining borg ignoring its built-in drill and instead choosing to swing an old-fashioned pickaxe is funny.
 		/obj/item/stack/sheet/animalhide/goliath_hide,
-		/obj/item/survivalcapsule
+		/obj/item/survivalcapsule,
 	)
 
 //	Engineering Gripper
@@ -380,6 +384,7 @@
 	desc = "A grasping tool for cyborgs. This version can hold a wide variety of constructon components for use in engineering work."
 	engineering_machine_interaction = TRUE
 	can_hold = list(
+		/obj/item/clothing/head,
 		/obj/item/firealarm_electronics,
 		/obj/item/airalarm_electronics,
 		/obj/item/airlock_electronics,
@@ -400,4 +405,28 @@
 		/obj/item/stack/tile/light,
 		/obj/item/light,
 		/obj/item/nuclear_rod,
+	)
+
+// Janitorial Gripper
+// For Janitorial borgs. Mostly just to let them put on a hat.
+/obj/item/gripper/janitor
+	name = "janitorial gripper"
+	desc = "A grasping tool for cyborgs. This version is made from hygenic easy-clean material so you can easily keep it (and everything else) clean."
+	can_hold = list(
+		/obj/item/clothing/head,
+		/obj/item/caution, // Holosigns are overrated!
+		/obj/item/key/janitor, // It'll be funny I swear.
+	)
+
+// Security Gripper
+// For secruity borgs. Mostly just to let them put on a hat.
+/obj/item/gripper/security
+	name = "security gripper"
+	desc = "A grasping tool for cyborgs. This version can hold a few basic security items, but isn't too useful on the front line."
+	can_hold = list(
+		/obj/item/clothing/head,
+		/obj/item/key/security, // Secway!
+		/obj/item/taperecorder,
+		/obj/item/tape,
+		/obj/item/food/donut, // "Borg! Bring me a donut, with the sprinkles!"
 	)
