@@ -38,14 +38,15 @@
 
 /obj/item/fireaxe/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
-		return
+		return FINISH_ATTACK
 	if(!HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
-		return
+		return ..()
 	if(!istype(target, /obj/structure/window) && !istype(A, /obj/structure/grille))
-		return
+		return ..()
 
 	var/obj/structure/target_structure = target
 	target_structure.obj_destruction("fireaxe")
+	return FINISH_ATTACK
 
 /// Blatant imitation of the fireaxe, but made out of bone.
 /obj/item/fireaxe/boneaxe
@@ -80,10 +81,10 @@
 /obj/item/fireaxe/energized/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || charge != max_charge)
-		return FINISH_ATTACK
+		return
 
 	if(!isliving(M))
-		return FINISH_ATTACK
+		return
 
 	charge = 0
 	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
@@ -171,15 +172,14 @@
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			user.drop_item_to_ground(src)
 			return FINISH_ATTACK
-	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40) && force)
-		to_chat(user, SPAN_WARNING("You twirl around a bit before losing your balance and impaling yourself on [src]."))
+		to_chat(user, SPAN_WARNING("You twirl around a bit before losing your balance and impaling yourself on [src]!"))
 		user.take_organ_damage(20, 25)
 		return FINISH_ATTACK
 
 	if((HAS_TRAIT(src, TRAIT_WIELDED)) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
-		return CONTINUE_ATTACK
+		return ..()
 
 /obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -339,13 +339,12 @@
 
 /obj/item/spear/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
-		return
-	if(isturf(AM)) // So you can actually melee with it.
-		return
+		return FINISH_ATTACK
 	if(explosive && HAS_TRAIT(src, TRAIT_WIELDED))
 		explosive.forceMove(AM)
 		explosive.prime()
 		qdel(src)
+		return FINISH_ATTACK
 
 /obj/item/spear/throw_impact(atom/target)
 	. = ..()
@@ -382,20 +381,20 @@
 	attack_verb = list("gored")
 
 /obj/item/spear/grey_tide/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
-	..()
 	if(!proximity)
-		return
+		return FINISH_ATTACK
 	user.faction |= "greytide(\ref[user])"
 	if(!isliving(target))
-		return
+		return ..()
 	if(istype (L, /mob/living/simple_animal/hostile/illusion))
-		return
+		return FINISH_ATTACK
 	if(!L.stat && prob(50))
 		var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 		M.faction = user.faction.Copy()
 		M.attack_sound = hitsound
 		M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
 		M.GiveTarget(L)
+		return FINISH_ATTACK
 
 //Putting heads on spears
 /obj/item/spear/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -506,17 +505,18 @@
 
 /obj/item/singularityhammer/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
-		return
+		return FINISH_ATTACK
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		return
+		return ..()
 	if(charged != 2)
-		return
+		return ..()
 	charged = 0
 	if(isliving(target))
 		target.take_organ_damage(20, 0)
 	playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 	var/turf/target_turf = get_turf(target)
 	vortex(target_turf, user)
+	return FINISH_ATTACK
 
 /obj/item/mjollnir
 	name = "Mjolnir"
@@ -551,16 +551,16 @@
 	target.throw_at(throw_target, 200, 4)
 
 /obj/item/mjollnir/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
-	..()
 	if(!isliving(target)
-		return
+		return ..()
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		return
+		return ..()
 
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	target.Stun(6 SECONDS)
 	shock(target)
+	return FINISH_ATTACK
 
 /obj/item/mjollnir/throw_impact(atom/target)
 	. = ..()
@@ -612,24 +612,28 @@
 
 /obj/item/knighthammer/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
-		return
-	if(charged != 5)
-		return
+		return FINISH_ATTACK
+	if(charged < 5)
+		return ..()
 
 	charged = 0
 	if(isliving(target))
 		var/mob/living/Z = target
-		if(Z.health >= 1)
-			Z.visible_message(SPAN_DANGER("[Z.name] was sent flying by a blow from [src]!"),
+		if(Z.health > HEALTH_THRESHOLD_CRIT)
+			Z.visible_message(SPAN_DANGER(
+				"[Z.name] was sent flying by a blow from [src]!"),
 				SPAN_USERDANGER("You feel a powerful blow connect with your body and send you flying!"),
-				SPAN_DANGER("You hear something heavy impact flesh!."))
+				SPAN_DANGER("You hear something heavy impact flesh!.")
+			)
 			var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 			Z.throw_at(throw_target, 200, 4)
 			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-		else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
-			Z.visible_message(SPAN_DANGER("[Z.name] was blown to pieces by the power of [src]!"),
+		else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health <= HEALTH_THRESHOLD_CRIT)
+			Z.visible_message(
+				SPAN_DANGER("[Z.name] was blown to pieces by the power of [src]!"),
 				SPAN_USERDANGER("You feel a powerful blow rip you apart!"),
-				SPAN_DANGER("You hear a heavy impact and the sound of ripping flesh!."))
+				SPAN_DANGER("You hear a heavy impact and the sound of ripping flesh!.")
+			)
 			Z.gib()
 			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -643,6 +647,7 @@
 			Z.ex_act(EXPLODE_HEAVY)
 			charged = 3
 			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+	return FINISH_ATTACK
 
 // PYRO CLAWS
 /obj/item/pyro_claws
@@ -691,7 +696,7 @@
 
 /obj/item/pyro_claws/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
-		return
+		return FINISH_ATTACK
 
 	if(prob(60) && world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
@@ -830,9 +835,8 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 
 /obj/item/push_broom/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-
+	if(isturf(target) || isitem(target))
+		return ..()
 	sweep(user, A, FALSE)
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
