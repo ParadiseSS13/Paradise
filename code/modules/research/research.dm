@@ -8,6 +8,8 @@ Each RnD Network Manager contains its own research datum, meaning all research i
 
 Point operations are always performed through lists in the form of ("Type" = amount), e.g. list("Research" = 500), if an operation attempts
 to use a point type that does not exist in SSresearch then that point type will be removed.
+
+If you want to add a new point type, look at SSResearch.
 */
 
 /// Holder for all the existing, archived, and known tech. Individual to each network controller.

@@ -12,6 +12,9 @@ SUBSYSTEM_DEF(research)
 	/// Used to determine toxins reward, global as toxins is only used for points by the station.
 	var/successful_toxins = 0
 
+/* If attempting to add a new point type, it will simply need to be added to the `point_types` list above and to the lists in SSEconomy (if sellable).
+   The hard part of adding a new point type is figuring out what technodes should require it and how you should get it. */
+
 /datum/controller/subsystem/research/get_stat_details()
 	return "C:[length(backups)]"
 
