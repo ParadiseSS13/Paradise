@@ -36433,6 +36433,7 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "hlh" = (
@@ -37881,10 +37882,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "hzn" = (
-/obj/machinery/door/airlock/maintenance{
-	locked = 1;
-	dir = 4
-	},
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -37894,6 +37891,11 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
+/obj/machinery/door/airlock/public/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "hzA" = (
