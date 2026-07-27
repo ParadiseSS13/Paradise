@@ -673,7 +673,7 @@
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("declares")
-	key = "]"
+	key = "|"
 	flags = RESTRICTED | NOLIBRARIAN
 	follow = TRUE
 	syllables = list ("beep", "boop")
@@ -747,6 +747,7 @@
 			set_default_language(null)
 		else
 			var/datum/language/L = GLOB.all_languages[href_list["default_lang"]]
+			message_admins("language selected is [L]")
 			if(L)
 				set_default_language(L)
 		check_languages()
