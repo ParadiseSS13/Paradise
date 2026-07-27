@@ -26,7 +26,13 @@
 	var/hacked = FALSE
 	var/blade_color
 	var/brightness_on = 2
-	var/colormap = list(red = LIGHT_COLOR_RED, blue = LIGHT_COLOR_LIGHTBLUE, green = LIGHT_COLOR_GREEN, purple = LIGHT_COLOR_PURPLE, rainbow = LIGHT_COLOR_WHITE)
+	var/colormap = list(
+		red = LIGHT_COLOR_RED,
+		blue = LIGHT_COLOR_LIGHTBLUE,
+		green = LIGHT_COLOR_GREEN,
+		purple = LIGHT_COLOR_PURPLE,
+		rainbow = LIGHT_COLOR_WHITE,
+	)
 	var/force_unwielded = 3
 	var/force_wielded = 34
 	var/wieldsound = 'sound/weapons/saberon.ogg'
@@ -125,7 +131,8 @@
 		if(!isitem(hitby))
 			return TRUE
 		var/obj/item/TT = hitby
-		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
+		//Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS)
 		return TRUE
 	if(isitem(hitby))
 		melee_attack_chain(owner, hitby.loc)
@@ -133,7 +140,8 @@
 		melee_attack_chain(owner, hitby)
 	return TRUE
 
-/obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
+// In case it just so happens that it is still activated on the ground, prevents hulk from picking it up.
+/obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, SPAN_WARNING("You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!"))
 		return TRUE
@@ -191,7 +199,10 @@
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
-	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
+	sprite_sheets_inhand = list(
+		"Vox" = 'icons/mob/clothing/species/vox/held.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/held.dmi'
+	)
 	toolspeed = 0.5
 	var/lifetime = 60 SECONDS
 	var/next_spark_time
@@ -200,7 +211,10 @@
 /obj/item/pyro_claws/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.5, \
+		_parryable_attack_types = ALL_ATTACK_TYPES)
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/pyro_claws/Destroy()
@@ -240,12 +254,20 @@
 		return
 
 	if(A.arePowerSystemsOn())
-		user.visible_message(SPAN_WARNING("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"), SPAN_WARNING("You start forcing the airlock open."), SPAN_WARNING("You hear a metal screeching sound."))
+		user.visible_message(
+			SPAN_WARNING("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"),
+			SPAN_WARNING("You start forcing the airlock open."),
+			SPAN_HEAR("You hear a metal screeching sound.")
+		)
 		playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
 		if(!do_after(user, 25, target = A))
 			return
 
-	user.visible_message(SPAN_WARNING("[user] forces the airlock open with [user.p_their()] [name]!"), SPAN_WARNING("You force open the airlock."), SPAN_WARNING("You hear a metal screeching sound."))
+	user.visible_message(
+		SPAN_WARNING("[user] forces the airlock open with [user.p_their()] [name]!"),
+		SPAN_WARNING("You force open the airlock."),
+		SPAN_HEAR("You hear a metal screeching come to a halt.")
+	)
 	A.open(2)
 
 /obj/item/clothing/gloves/color/black/pyro_claws
@@ -288,7 +310,11 @@
 		to_chat(user, SPAN_NOTICE("[src] are unable to deploy the blades with the items in your hands!"))
 		return
 	var/obj/item/W = new /obj/item/pyro_claws
-	user.visible_message(SPAN_WARNING("[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!"), SPAN_NOTICE("You deploy [W] from your wrists!"), SPAN_WARNING("You hear the shower of sparks!"))
+	user.visible_message(
+		SPAN_WARNING("[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!"),
+		SPAN_NOTICE("You deploy [W] from your wrists!"),
+		SPAN_HEAR("You hear the shower of sparks!")
+	)
 	user.put_in_hands(W)
 	on_cooldown = TRUE
 	set_nodrop(TRUE, user)

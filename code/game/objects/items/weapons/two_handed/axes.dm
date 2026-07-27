@@ -29,8 +29,16 @@
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/forces_doors_open)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS, _requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
-	AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.7, \
+		_parryable_attack_types = MELEE_ATTACK, \
+		_parry_cooldown = (10 / 3) SECONDS, \
+		_requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
+	AddComponent(/datum/component/two_handed, \
+		force_unwielded = force_unwielded, \
+		force_wielded = force_wielded, \
+		icon_wielded = "[base_icon_state]1")
 
 /obj/item/fireaxe/update_icon_state()  // Currently only here to fuck with the on-mob icons.
 	icon_state = "[base_icon_state]0"
@@ -69,7 +77,9 @@
 	. = ..()
 	// only update the new args
 	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]2")
+	AddComponent(/datum/component/two_handed, \
+		force_wielded = force_wielded, \
+		icon_wielded = "[base_icon_state]2")
 
 /obj/item/fireaxe/energized/Destroy()
 	STOP_PROCESSING(SSobj, src)

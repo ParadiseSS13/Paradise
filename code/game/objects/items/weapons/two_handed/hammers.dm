@@ -91,7 +91,12 @@
 
 /obj/item/mjollnir/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.25, \
+		_parryable_attack_types = ALL_ATTACK_TYPES, \
+		_parry_cooldown = (4 / 3) SECONDS, \
+		_requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 25, \
 		force_unwielded = force, \
@@ -99,9 +104,11 @@
 
 /obj/item/mjollnir/proc/shock(mob/living/target)
 	do_sparks(5, 1, target.loc)
-	target.visible_message(SPAN_DANGER("[target] was shocked by [src]!"),
+	target.visible_message(
+		SPAN_DANGER("[target] was shocked by [src]!"),
 		SPAN_USERDANGER("You feel a powerful shock course through your body sending you flying!"),
-		SPAN_DANGER("You hear a heavy electrical crack!"))
+		SPAN_DANGER("You hear a heavy electrical crack!")
+	)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 
@@ -148,7 +155,12 @@
 /obj/item/knighthammer/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.25, \
+		_parryable_attack_types = ALL_ATTACK_TYPES, \
+		_parry_cooldown = (4 / 3) SECONDS, \
+		_requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 30, \
 		force_unwielded = force, \

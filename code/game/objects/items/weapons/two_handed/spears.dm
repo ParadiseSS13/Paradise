@@ -27,7 +27,12 @@
 
 /obj/item/spear/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS, _requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.7, \
+		_parryable_attack_types = MELEE_ATTACK, \
+		_parry_cooldown = (10 / 3) SECONDS, \
+		_requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = force_wielded, \
 		force_unwielded = force_unwielded, \
@@ -82,9 +87,9 @@
 	icon_state = "bone_spear0"
 	force = 11
 	force_unwielded = 11
-	force_wielded = 20					//I have no idea how to balance
+	force_wielded = 20					// I have no idea how to balance.
 	throwforce = 22
-	armor_penetration_percentage = 15				//Enhanced armor piercing
+	armor_penetration_percentage = 15				// Enhanced armor piercing.
 
 // Blatant imitation of spear, but all natural. Also not valid for explosive modification.
 /obj/item/spear/bamboo
@@ -154,7 +159,11 @@
 	return ..()
 
 /obj/structure/headspear/attack_hand(mob/living/user)
-	user.visible_message(SPAN_WARNING("[user] kicks over [src]!"), SPAN_DANGER("You kick down [src]!"))
+	user.visible_message(
+		SPAN_WARNING("[user] kicks over [src]!"),
+		SPAN_DANGER("You kick down [src]!"),
+		SPAN_HEAR("You hear a sharp kick and a head rolling!")
+	)
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	var/turf/T = get_turf(src)
 	if(contained_spear)
@@ -191,10 +200,18 @@
 
 /obj/item/supermatter_halberd/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT) //so it can't be dusted by the SM
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT) // So it can't be dusted by the SM.
 	AddComponent(/datum/component/forces_doors_open)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
-	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1")
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.25, \
+		_parryable_attack_types = ALL_ATTACK_TYPES, \
+		_parry_cooldown = (4 / 3) SECONDS, \
+		_requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
+	AddComponent(/datum/component/two_handed, \
+		force_wielded = 40, \
+		force_unwielded = force, \
+		icon_wielded = "[base_icon_state]1")
 
 /obj/item/supermatter_halberd/update_icon_state()
 	icon_state = "[base_icon_state]0"
@@ -207,7 +224,8 @@
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
-	if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)) //same behavior as a fireaxe for windows
+	// Same behavior as a fireaxe for windows.
+	if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
 		var/obj/structure/W = A
 		W.obj_destruction("fireaxe")
 
@@ -226,9 +244,11 @@
 
 		if(charged)
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
-			target.visible_message(SPAN_DANGER("[src] flares with energy and shocks [target]!"), \
-									SPAN_USERDANGER("You're shocked by [src]!"), \
-									SPAN_WARNING("You hear shocking."))
+			target.visible_message(
+				SPAN_DANGER("[src] flares with energy and shocks [target]!"),
+				SPAN_USERDANGER("You're shocked by [src]!"),
+				SPAN_HEAR("You hear shocking.")
+			)
 			target.KnockDown(4 SECONDS)
 			do_sparks(3, FALSE, src)
 			charged = FALSE
