@@ -63,7 +63,7 @@
 		return FINISH_ATTACK
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	if(charged != 2)
+	if(charged < 2)
 		return ..()
 	charged = 0
 	if(isliving(target))
@@ -188,27 +188,25 @@
 		var/mob/living/Z = target
 		if(Z.health > HEALTH_THRESHOLD_CRIT)
 			Z.visible_message(SPAN_DANGER(
-				"[Z.name] was sent flying by a blow from [src]!"),
+				SPAN_DANGER("[Z.name] was sent flying by a blow from [src]!"),
 				SPAN_USERDANGER("You feel a powerful blow connect with your body and send you flying!"),
-				SPAN_DANGER("You hear something heavy impact flesh!.")
+				SPAN_DANGER("You hear something heavy impact flesh!")
 			)
 			var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 			Z.throw_at(throw_target, 200, 4)
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-		else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health <= HEALTH_THRESHOLD_CRIT)
+		// Target is in crit, check if we're holding securely enough to gib them.
+		else if(HAS_TRAIT(src, TRAIT_WIELDED))
 			Z.visible_message(
-				SPAN_DANGER("[Z.name] was blown to pieces by the power of [src]!"),
+				SPAN_DANGER("[Z.name] was blownt o pieces by the power of [src]!"),
 				SPAN_USERDANGER("You feel a powerful blow rip you apart!"),
-				SPAN_DANGER("You hear a heavy impact and the sound of ripping flesh!.")
+				SPAN_DANGER("You hear a heavy impact and the sound of ripping flesh!")
 			)
 			Z.gib()
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+		playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+		return FINISH_ATTACK
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		if(iswallturf(target))
-			var/turf/simulated/wall/Z = target
-			Z.ex_act(EXPLODE_HEAVY)
-			charged = 3
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+			var/simulated/wall/Z = target
 		else if(isstructure(target) || ismecha(target))
 			var/obj/Z = target
 			Z.ex_act(EXPLODE_HEAVY)

@@ -234,24 +234,21 @@
 	if(prob(15))
 		do_sparks(rand(1,6), 1, loc)
 
-/obj/item/pyro_claws/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
-	if(!proximity_flag)
-		return FINISH_ATTACK
-
+/obj/item/pyro_claws/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(prob(60) && world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
 		next_spark_time = world.time + 0.8 SECONDS
 
 	if(!istype(target, /obj/machinery/door/airlock))
-		return
+		return ..()
 	var/obj/machinery/door/airlock/A = target
 
 	if(!A.requiresID() || A.allowed(user))
-		return
+		return ..()
 
 	if(A.locked)
 		to_chat(user, SPAN_WARNING("The airlock's bolts prevent it from being forced!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(A.arePowerSystemsOn())
 		user.visible_message(
@@ -261,7 +258,7 @@
 		)
 		playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
 		if(!do_after(user, 25, target = A))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
 		SPAN_WARNING("[user] forces the airlock open with [user.p_their()] [name]!"),
@@ -269,6 +266,7 @@
 		SPAN_HEAR("You hear a metal screeching come to a halt.")
 	)
 	A.open(2)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
