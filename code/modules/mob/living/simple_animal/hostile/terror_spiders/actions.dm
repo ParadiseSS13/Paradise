@@ -311,14 +311,12 @@
 	if(valid_supply && valid_supply.welded)
 		valid_supply.welded = FALSE
 		valid_supply.update_icon()
-		valid_supply.update_pipe_image()
 		forceMove(valid_supply.loc)
 		valid_supply.visible_message(SPAN_DANGER("[src] smashes the welded cover off [valid_supply]!"))
 		return
 	if(valid_scrubber && valid_scrubber.welded)
 		valid_scrubber.welded = FALSE
 		valid_scrubber.update_icon()
-		valid_scrubber.update_pipe_image()
 		forceMove(valid_scrubber.loc)
 		valid_scrubber.visible_message(SPAN_DANGER("[src] smashes the welded cover off [valid_scrubber]!"))
 		return
