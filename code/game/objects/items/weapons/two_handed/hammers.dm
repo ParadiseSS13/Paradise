@@ -187,7 +187,7 @@
 	if(isliving(target))
 		var/mob/living/Z = target
 		if(Z.health > HEALTH_THRESHOLD_CRIT)
-			Z.visible_message(SPAN_DANGER(
+			Z.visible_message(
 				SPAN_DANGER("[Z.name] was sent flying by a blow from [src]!"),
 				SPAN_USERDANGER("You feel a powerful blow connect with your body and send you flying!"),
 				SPAN_DANGER("You hear something heavy impact flesh!")

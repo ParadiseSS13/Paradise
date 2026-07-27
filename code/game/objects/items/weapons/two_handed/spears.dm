@@ -217,70 +217,74 @@
 	icon_state = "[base_icon_state]0"
 	return ..()
 
-/obj/item/supermatter_halberd/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/supermatter_halberd/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
+		return FINISH_ATTACK
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		return
+		return FINISH_ATTACK
 
 	// Same behavior as a fireaxe for windows.
-	if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
-		var/obj/structure/W = A
-		W.obj_destruction("fireaxe")
+	if(istype(target, /obj/structure/window) || istype(target, /obj/structure/grille))
+		var/obj/structure/target_structure = target
+		target_structure.obj_destruction("fireaxe")
+		return FINISH_ATTACK
 
 	// Dusting dead people + knocking down people.
-	if(isliving(A))
-		var/mob/living/target = A
-		if(target.stat == DEAD)
-			visible_message(SPAN_DANGER("[user] raises [src] high, ready to bring it down on [target]!"))
-			if(do_after(user, 1 SECONDS, TRUE, target))
-				visible_message(SPAN_DANGER("[user] brings down [src], obliterating [target] with a heavy blow!"))
+	if(isliving(target))
+		var/mob/living/living_target = target
+		if(living_target.stat == DEAD)
+			visible_message(SPAN_DANGER("[user] raises [src] high, ready to bring it down on [living_target]!"))
+			if(do_after(user, 1 SECONDS, TRUE, living_target))
+				visible_message(SPAN_DANGER("[user] brings down [src], obliterating [living_target] with a heavy blow!"))
 				playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
-				target.dust()
-				return
+				living_target.dust()
+				return FINISH_ATTACK
 			to_chat(user, SPAN_NOTICE("You lower [src]. There'll be time to obliterate them later..."))
-			return
+			return FINISH_ATTACK
 
 		if(charged)
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
-			target.visible_message(
-				SPAN_DANGER("[src] flares with energy and shocks [target]!"),
+			living_target.visible_message(
+				SPAN_DANGER("[src] flares with energy and shocks [living_target]!"),
 				SPAN_USERDANGER("You're shocked by [src]!"),
 				SPAN_HEAR("You hear shocking.")
 			)
-			target.KnockDown(4 SECONDS)
+			living_target.KnockDown(4 SECONDS)
 			do_sparks(3, FALSE, src)
 			charged = FALSE
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 4 SECONDS)
 
 	// Walls and airlock obliteration logic.
-	if(!is_type_in_list(A, obliteration_targets))
-		return
+	if(!is_type_in_list(target, obliteration_targets))
+		return FINISH_ATTACK
 
-	if(istype(A, /turf/simulated/wall/indestructible))
-		return
+	if(istype(target, /turf/simulated/wall/indestructible))
+		return FINISH_ATTACK
 
-	to_chat(user, SPAN_NOTICE("You start to obliterate [A]."))
+	to_chat(user, SPAN_NOTICE("You start to obliterate [target]."))
 	playsound(loc, hitsound, 50, TRUE)
 
-	var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(A))
+	var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(target))
 
-	if(do_after(user, 5 SECONDS * toolspeed, target = A))
-		new /obj/effect/temp_visual/obliteration(A, A)
-		playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
-
-		if(iswallturf(A))
-			var/turf/AT = A
-			AT.ChangeTurf(/turf/simulated/floor/plating)
-			return
-
-		if(istype(A, /obj/machinery/door/airlock))
-			qdel(A)
-			return
-
+	if(!do_after(user, 5 SECONDS * toolspeed, target = target))
 		qdel(rays)
-		return
+		return FINISH_ATTACK
+
+	new /obj/effect/temp_visual/obliteration(target, target)
+	playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
+
+	if(iswallturf(target))
+		var/turf/target_turf = target
+		target_turf.ChangeTurf(/turf/simulated/floor/plating)
+		return FINISH_ATTACK
+
+	if(istype(target, /obj/machinery/door/airlock))
+		qdel(target)
+		return FINISH_ATTACK
+
+	qdel(rays)
+	return FINISH_ATTACK
 
 /obj/item/supermatter_halberd/proc/recharge()
 	charged = TRUE
