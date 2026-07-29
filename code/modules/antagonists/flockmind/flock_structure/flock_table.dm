@@ -1,6 +1,6 @@
 /obj/structure/table/reinforced/flock
-	name = "odd table"
-	desc = "It's a flat surface made of a strange material. Despite its strange appearance, there's not many things this could be except a table."
+	name = "odd slab"
+	desc = "It's a flat surface made of a strange material. Despite its alien appearance, there's not many things this could be except a table."
 	icon = 'icons/obj/smooth_structures/tables/flock_table.dmi'
 	icon_state = "flock_table-0"
 	base_icon_state = "flock_table"

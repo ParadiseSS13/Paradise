@@ -1882,6 +1882,7 @@
 #include "code\modules\antagonists\flockmind\flock_structure\flock_relay.dm"
 #include "code\modules\antagonists\flockmind\flock_structure\flock_rift.dm"
 #include "code\modules\antagonists\flockmind\flock_structure\flock_sentinel.dm"
+#include "code\modules\antagonists\flockmind\flock_structure\flock_shelf.dm"
 #include "code\modules\antagonists\flockmind\flock_structure\flock_table.dm"
 #include "code\modules\antagonists\flockmind\flock_structure\flock_tealprint.dm"
 #include "code\modules\antagonists\flockmind\flock_structure\flock_turret.dm"
