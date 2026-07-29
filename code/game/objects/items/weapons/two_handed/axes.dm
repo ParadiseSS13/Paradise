@@ -21,7 +21,6 @@
 	usesound = 'sound/items/crowbar.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
-
 	var/force_unwielded = 5
 	var/force_wielded = 24
 	new_attack_chain = TRUE
@@ -34,7 +33,7 @@
 		_stamina_coefficient = 0.7, \
 		_parryable_attack_types = MELEE_ATTACK, \
 		_parry_cooldown = (10 / 3) SECONDS, \
-		_requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
+		_requires_two_hands = TRUE) // 2.3333 seconds of parry cooldown for 30% uptime.
 	AddComponent(/datum/component/two_handed, \
 		force_unwielded = force_unwielded, \
 		force_wielded = force_wielded, \

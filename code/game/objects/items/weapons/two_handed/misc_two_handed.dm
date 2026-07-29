@@ -70,6 +70,7 @@
 /obj/item/dualsaber/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(cigarette_lighter_act(user, target))
 		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 /obj/item/dualsaber/pre_attack(atom/target, mob/living/user, params)
 	if(HAS_TRAIT(user, TRAIT_HULK))

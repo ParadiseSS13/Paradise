@@ -32,7 +32,7 @@
 		_stamina_coefficient = 0.7, \
 		_parryable_attack_types = MELEE_ATTACK, \
 		_parry_cooldown = (10 / 3) SECONDS, \
-		_requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
+		_requires_two_hands = TRUE) // 2.3333 seconds of parry cooldown for 30% uptime.
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = force_wielded, \
 		force_unwielded = force_unwielded, \
@@ -42,7 +42,7 @@
 	icon_state = "[base_icon_state]0"
 
 /obj/item/spear/proc/add_plasmaglass()
-	// re-add the component to reset the stats
+	// Re-add the component to reset the stats.
 	force_wielded = 19
 	force_unwielded = 11
 	throwforce = 21
@@ -57,7 +57,7 @@
 /obj/item/spear/CheckParts(list/parts_list)
 	var/obj/item/shard/tip = locate() in parts_list
 	if(istype(tip, /obj/item/shard/plasma))
-		// re-add the component to reset the stats
+		// Re-add the component to reset the stats.
 		add_plasmaglass()
 
 	update_icon()
@@ -207,7 +207,7 @@
 		_stamina_coefficient = 0.25, \
 		_parryable_attack_types = ALL_ATTACK_TYPES, \
 		_parry_cooldown = (4 / 3) SECONDS, \
-		_requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
+		_requires_two_hands = TRUE) // 0.3333 seconds of parry cooldown for 75% uptime.
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 40, \
 		force_unwielded = force, \
@@ -284,7 +284,100 @@
 		return FINISH_ATTACK
 
 	qdel(rays)
-	return FINISH_ATTACK
+/obj/item/supermatter_halberd/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return ..()
+
+	// Dusting dead people.
+	if(isliving(target))
+		var/mob/living/living_target = target
+		if(!living_target.stat == DEAD)
+			return ..() // Attack as normal.
+
+		visible_message(SPAN_DANGER("[user] raises [src] high, ready to bring it down on [living_target]!"))
+		if(!do_after(user, 1 SECONDS, TRUE, living_target))
+			to_chat(user, SPAN_NOTICE("You lower [src]. There'll be time to obliterate them later..."))
+			return ITEM_INTERACT_COMPLETE
+
+		visible_message(
+			SPAN_DANGER("[user] brings down [src], obliterating [living_target] with a heavy blow!"),
+			SPAN_DANGER("A deafening resonance fills the air, followed by silence...")
+		)
+		user.do_attack_animation(human_target)
+		playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
+		living_target.dust()
+		return ITEM_INTERACT_COMPLETE
+
+	// Walls and airlock obliteration logic.
+	if(!is_type_in_list(target, obliteration_targets))
+		return ..()
+
+	if(istype(target, /turf/simulated/wall/indestructible))
+		return ..()
+
+	user.visible_message(
+		SPAN_DANGER("[user] embeds [src] into [target] and starts to obliterate it!"),
+		SPAN_NOTICE("You embed [src] into [target] and start to obliterate it."),
+		SPAN_DANGER("You hear something being struck by a weapon!") // Default deaf message.
+	)
+	user.do_attack_animation(target)
+	playsound(loc, hitsound, 50, TRUE)
+
+	var/obj/effect/temp_visual/obliteration_rays/rays = new(get_turf(target))
+
+	if(!do_after(user, 5 SECONDS * toolspeed, target = target))
+		user.visible_message(
+			SPAN_NOTICE("[user] removes [src] from [target]."),
+			SPAN_NOTICE("You remove [src] from [target]. There'll be time to obliterate it later...")
+		)
+		qdel(rays)
+		return ITEM_INTERACT_COMPLETE
+
+	user.visible_message(
+		SPAN_DANGER("[user] obliterates [target]!"),
+		SPAN_NOTICE("You obliterate [target]."),
+		SPAN_DANGER("A deafening resonance fills the air, followed by silence...")
+	)
+	new /obj/effect/temp_visual/obliteration(target, target)
+	playsound(loc, 'sound/effects/supermatter.ogg', 25, TRUE)
+
+	if(iswallturf(target))
+		var/turf/target_turf = target
+		target_turf.ChangeTurf(/turf/simulated/floor/plating)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(target, /obj/machinery/door/airlock))
+		qdel(target)
+		return ITEM_INTERACT_COMPLETE
+
+	qdel(rays)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/supermatter_halberd/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
+		return FINISH_ATTACK
+
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return ..()
+
+	if(isliving(target) && charged)
+		playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
+		living_target.visible_message(
+			SPAN_DANGER("[src] flares with energy and shocks [living_target]!"),
+			SPAN_USERDANGER("You're shocked by [src]!"),
+			SPAN_HEAR("You hear shocking!")
+		)
+		living_target.KnockDown(4 SECONDS)
+		do_sparks(3, FALSE, src)
+		charged = FALSE
+		addtimer(CALLBACK(src, PROC_REF(recharge)), 4 SECONDS)
+		return FINISH_ATTACK
+
+	// Same behavior as a fireaxe for windows.
+	if(istype(target, /obj/structure/window) || istype(target, /obj/structure/grille))
+		var/obj/structure/target_structure = target
+		target_structure.obj_destruction("fireaxe")
+		return FINISH_ATTACK
 
 /obj/item/supermatter_halberd/proc/recharge()
 	charged = TRUE

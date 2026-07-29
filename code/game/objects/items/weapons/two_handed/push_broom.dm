@@ -96,8 +96,8 @@
 		_stamina_coefficient = 0.25, \
 		_parryable_attack_types = ALL_ATTACK_TYPES, \
 		_parry_cooldown = (4 / 3) SECONDS, \
-		_requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
-	// parent component handles this
+		_requires_two_hands = TRUE) // 0.3333 seconds of parry cooldown for 75% uptime.
+	// Parent component handles this.
 	AddComponent(/datum/component/two_handed, force_wielded = 25, force_unwielded = force)
 
 /obj/item/push_broom/traitor/examine(mob/user)
@@ -107,7 +107,7 @@
 			Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
 			and minorly fatigues them, and harm intent hits them normally.")
 
-/obj/item/push_broom/traitor/attack__legacy__attackchain(mob/target, mob/living/user)
+/obj/item/push_broom/traitor/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
 		return ..()
 
@@ -120,12 +120,13 @@
 				SPAN_USERDANGER("[user] sweeps you away!"),
 				SPAN_HEAR("You hear sweeping.")
 			)
+			user.do_attack_animation(human_target, ATTACK_EFFECT_BOOP)
 			playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
 
 			var/atom/throw_target = get_edge_target_turf(human_target, get_dir(src, get_step_away(human_target, src)))
 			human_target.throw_at(throw_target, 3, 1)
-
 			add_attack_logs(user, human_target, "Swept away with titanium push broom", ATKLOG_ALL)
+			return ITEM_INTERACT_COMPLETE
 
 		if(INTENT_DISARM)
 			if(human_target.stat || IS_HORIZONTAL(human_target))
@@ -136,13 +137,13 @@
 				SPAN_USERDANGER("[user] sweeps your legs out from under you!"),
 				SPAN_HEAR("You hear sweeping.")
 			)
-
 			user.do_attack_animation(human_target, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+
 			human_target.apply_damage(5, BRUTE)
 			human_target.KnockDown(4 SECONDS)
-
 			add_attack_logs(user, human_target, "Leg swept with titanium push broom", ATKLOG_ALL)
+			return ITEM_INTERACT_COMPLETE
 
 		if(INTENT_GRAB)
 			human_target.visible_message(
@@ -150,13 +151,13 @@
 				SPAN_USERDANGER("[user] smacks you with the brush of [user.p_their()] broom!"),
 				SPAN_HEAR("You hear a smacking noise.")
 			)
-
 			user.do_attack_animation(human_target, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, TRUE, -1)
+
 			human_target.AdjustConfused(4 SECONDS, 0, 4 SECONDS) // No stacking infinitely.
 			human_target.apply_damage(15, STAMINA)
-
 			add_attack_logs(user, human_target, "Swept with the brush of the titanium push broom", ATKLOG_ALL)
+			return ITEM_INTERACT_COMPLETE
 
 		if(INTENT_HARM)
 			return ..()
