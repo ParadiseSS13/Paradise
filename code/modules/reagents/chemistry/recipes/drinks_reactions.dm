@@ -1543,7 +1543,7 @@
 	name= "Mambo Smoothie"
 	id = "mambo_smoothie"
 	result = "mambo_smoothie"
-	required_reagents = list("lettucejuice" = 1, "mangojuice" = 2)
+	required_reagents = list("kiwijuice" = 1, "mangojuice" = 2)
 	result_amount = 3
 	mix_message = "Smells like hydroponics."
 

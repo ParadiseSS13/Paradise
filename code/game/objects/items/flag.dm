@@ -11,17 +11,27 @@
 	resistance_flags = FLAMMABLE
 	custom_fire_overlay = "fire"
 	var/rolled = FALSE
+	new_attack_chain = TRUE
 
-/obj/item/flag/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	. = ..()
-	if(W.get_heat() && !(resistance_flags & ON_FIRE))
-		user.visible_message(SPAN_NOTICE("[user] lights [src] with [W]."), SPAN_NOTICE("You light [src] with [W]."), SPAN_WARNING("You hear a low whoosh."))
+/obj/item/flag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.get_heat() && !(resistance_flags & ON_FIRE))
+		user.visible_message(
+			SPAN_WARNING("[user] lights [src] with [used]!"),
+			SPAN_NOTICE("You light [src] with [used]."),
+			SPAN_HEAR("You hear a low, firey whoosh.")
+		)
 		fire_act()
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
-/obj/item/flag/attack_self__legacy__attackchain(mob/user)
+/obj/item/flag/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	rolled = !rolled
 	user.visible_message(SPAN_NOTICE("[user] [rolled ? "rolls up" : "unfurls"] [src]."), SPAN_NOTICE("You [rolled ? "roll up" : "unfurl"] [src]."), SPAN_WARNING("You hear fabric rustling."))
 	update_icon()
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flag/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
 	..()
@@ -218,7 +228,7 @@
 	. = ..()
 	updated_icon_state = icon_state
 
-/obj/item/flag/chameleon/attack_self__legacy__attackchain(mob/user)
+/obj/item/flag/chameleon/activate_self(mob/user)
 	if(used)
 		return ..()
 
@@ -233,7 +243,7 @@
 
 	var/input_flag = tgui_input_list(user, "Choose a flag to disguise this as.", "Choose a flag.", show_flag)
 	if(!input_flag)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(user && (src in user.GetAllContents()))
 		var/obj/item/flag/chosen_flag = flag[input_flag]
@@ -244,28 +254,36 @@
 			updated_icon_state = icon_state
 			desc = chosen_flag.desc
 			used = TRUE
+			add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/flag/chameleon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grenade) && !boobytrap)
-		if(user.drop_item())
-			boobytrap = I
-			trapper = user
-			I.forceMove(src)
-			to_chat(user, SPAN_NOTICE("You hide [I] in [src]. It will detonate some time after the flag is lit on fire."))
-			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
-			log_game("[key_name(user)] has hidden [I] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
-			investigate_log("[key_name(user)] has hidden [I] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
-			add_attack_logs(user, src, "has hidden [I] ready for detonation in", ATKLOG_MOST)
-	else if(I.get_heat() && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
+/obj/item/flag/chameleon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/grenade) && !boobytrap)
+		if(!user.drop_item())
+			return ITEM_INTERACT_COMPLETE
+		boobytrap = used
+		trapper = user
+		used.forceMove(src)
+		to_chat(user, SPAN_NOTICE("You hide [used] in [src]. It will detonate some time after the flag is lit on fire."))
+		var/turf/bombturf = get_turf(src)
+		var/area/A = get_area(bombturf)
+		log_game("[key_name(user)] has hidden [used] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
+		investigate_log("[key_name(user)] has hidden [used] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has hidden [used] ready for detonation in", ATKLOG_MOST)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(used.get_heat() && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		log_game("[key_name_admin(user)] has lit [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 		investigate_log("[key_name_admin(user)] has lit [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has lit (booby trapped with [boobytrap]", ATKLOG_FEW)
 		burn()
-	else
-		return ..()
+		add_fingerprint(user) // Good luck lifting the print before it explodes, though.
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/flag/chameleon/screwdriver_act(mob/user, obj/item/I)
 	if(!boobytrap || user != trapper)
