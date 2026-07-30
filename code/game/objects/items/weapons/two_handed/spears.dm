@@ -304,7 +304,7 @@
 			SPAN_DANGER("[user] brings down [src], obliterating [living_target] with a heavy blow!"),
 			SPAN_DANGER("A deafening resonance fills the air, followed by silence...")
 		)
-		user.do_attack_animation(human_target)
+		user.do_attack_animation(living_target)
 		playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
 		living_target.dust()
 		return ITEM_INTERACT_COMPLETE
@@ -362,6 +362,7 @@
 		return ..()
 
 	if(isliving(target) && charged)
+		var/mob/living/living_target = target
 		playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
 		living_target.visible_message(
 			SPAN_DANGER("[src] flares with energy and shocks [living_target]!"),
