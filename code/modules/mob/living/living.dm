@@ -452,11 +452,6 @@
 		//for(var/obj/item/storage/S in Storage.return_inv()) //Check for storage items
 		//	L += get_contents(S)
 
-		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
-			L += G.gift_inside
-			if(isstorage(G.gift_inside))
-				L += get_contents(G.gift_inside)
-
 		for(var/obj/item/small_delivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
 			if(isstorage(D.wrapped)) //this should never happen
@@ -478,10 +473,6 @@
 			L += get_contents(S)
 		for(var/obj/item/bio_chip/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
-		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
-			L += G.gift_inside
-			if(isstorage(G.gift_inside))
-				L += get_contents(G.gift_inside)
 
 		for(var/obj/item/small_delivery/D in contents) //Check for package wrapped items
 			L += D.wrapped

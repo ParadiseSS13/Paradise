@@ -7,52 +7,30 @@
 /*
  * Gifts
  */
-/obj/item/gift
+/obj/item/small_delivery/gift
 	name = "gift"
 	desc = "A wrapped item."
-	icon_state = "gift3"
+	icon_state = "giftcrate2"
+	giftwrapped = TRUE
 	inhand_icon_state = "gift"
-	w_class = WEIGHT_CLASS_BULKY
-	var/size = 3.0
-	var/obj/item/gift_inside = null
-	new_attack_chain = TRUE
 
-/obj/item/gift/emp_act(severity)
+/obj/item/small_delivery/gift/Initialize(mapload)
 	..()
-	gift_inside.emp_act(severity)
+	if(wrapped && isitem(wrapped))
+		icon_state = "giftcrate[wrapped.w_class]"
 
-/obj/item/gift/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-	user.unequip(src, force = TRUE)
-	if(gift_inside)
-		user.put_in_active_hand(gift_inside)
-		gift_inside.add_fingerprint(user)
-	else
+/obj/item/small_delivery/gift/activate_self(mob/user)
+	if(!wrapped)
 		to_chat(user, SPAN_WARNING("The gift was empty!"))
-	qdel(src)
-	return ITEM_INTERACT_COMPLETE
+	return ..()
 
-/obj/item/a_gift
-	name = "gift"
+/obj/item/small_delivery/gift/random
 	desc = "PRESENTS!!!! eek!"
-	icon_state = "gift1"
-	inhand_icon_state = "gift"
-	resistance_flags = FLAMMABLE
-	scatter_distance = 10
+	icon_state = "giftcrate2"
 	new_attack_chain = TRUE
 
-/obj/item/a_gift/Initialize(mapload)
-	. = ..()
+/obj/item/small_delivery/gift/random/Initialize(mapload)
 	scatter_atom()
-	if(w_class > 0 && w_class < 4)
-		icon_state = "gift[w_class]"
-	else
-		icon_state = "gift[pick(1, 2, 3)]"
-
-/obj/item/a_gift/activate_self(mob/user)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
 
 	var/gift_type = pick(
 		/obj/effect/spawner/random/toy/carp_plushie,
@@ -116,15 +94,10 @@
 		/obj/item/stack/tile/fakespace/loaded,
 		)
 
-	if(!ispath(gift_type,/obj/item))
-		return ITEM_INTERACT_COMPLETE
-
-	var/obj/item/new_gift = new gift_type(user)
-	user.unequip(src, force = TRUE)
-	user.put_in_hands(new_gift)
-	new_gift.add_fingerprint(user)
-	qdel(src)
-	return ITEM_INTERACT_COMPLETE
+	wrapped = new gift_type(src)
+	if(!(wrapped in contents))
+		wrapped = contents[1]
+	return ..()
 
 /*
  * Wrapping Paper

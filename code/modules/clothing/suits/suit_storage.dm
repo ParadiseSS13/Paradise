@@ -74,10 +74,10 @@
 			L += I
 	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
-		L += G.gift_inside
-		if(isstorage(G.gift_inside))
-			L += G.gift_inside:return_inv()
+	for(var/obj/item/small_delivery/gift/G in src)
+		L += G.wrapped
+		if(isstorage(G.wrapped))
+			L += G.wrapped:return_inv()
 	return L
 
 /obj/item/clothing/suit/storage/serialize()
