@@ -26,8 +26,6 @@
 
 /obj/item/small_delivery/gift/random
 	desc = "PRESENTS!!!! eek!"
-	icon_state = "giftcrate2"
-	new_attack_chain = TRUE
 
 /obj/item/small_delivery/gift/random/Initialize(mapload)
 	scatter_atom()
