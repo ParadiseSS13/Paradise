@@ -206,7 +206,7 @@
 		return FINISH_ATTACK
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		if(iswallturf(target))
-			var/simulated/wall/Z = target
+			var/turf/simulated/wall/Z = target
 		else if(isstructure(target) || ismecha(target))
 			var/obj/Z = target
 			Z.ex_act(EXPLODE_HEAVY)

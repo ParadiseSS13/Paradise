@@ -72,6 +72,7 @@
 		explosive.prime()
 		qdel(src)
 		return FINISH_ATTACK
+	return ..()
 
 /obj/item/spear/throw_impact(atom/target)
 	. = ..()
