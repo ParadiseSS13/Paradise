@@ -209,7 +209,7 @@
 			var/turf/simulated/wall/Z = target
 		else if(isstructure(target) || ismecha(target))
 			var/obj/Z = target
-			Z.ex_act(EXPLODE_HEAVY)
-			charged = 3
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
+		Z.ex_act(EXPLODE_HEAVY)
+		charged = 3
+		playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 	return FINISH_ATTACK
