@@ -229,15 +229,15 @@
 	lifetime -= 2 SECONDS
 	if(lifetime <= 0)
 		visible_message(SPAN_WARNING("[src] slides back into the depths of [loc]'s wrists."))
-		do_sparks(rand(1,6), 1, loc)
+		do_sparks(rand(1, 6), 1, loc)
 		qdel(src)
 		return
 	if(prob(15))
-		do_sparks(rand(1,6), 1, loc)
+		do_sparks(rand(1, 6), 1, loc)
 
 /obj/item/pyro_claws/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(prob(60) && world.time > next_spark_time)
-		do_sparks(rand(1,6), 1, loc)
+		do_sparks(rand(1, 6), 1, loc)
 		next_spark_time = world.time + 0.8 SECONDS
 
 	if(!istype(target, /obj/machinery/door/airlock))
