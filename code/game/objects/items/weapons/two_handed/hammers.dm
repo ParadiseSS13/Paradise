@@ -207,9 +207,10 @@
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		if(iswallturf(target))
 			var/turf/simulated/wall/Z = target
+			Z.ex_act(EXPLODE_HEAVY)
 		else if(isstructure(target) || ismecha(target))
 			var/obj/Z = target
-		Z.ex_act(EXPLODE_HEAVY)
+			Z.ex_act(EXPLODE_HEAVY)
 		charged = 3
 		playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 	return FINISH_ATTACK
