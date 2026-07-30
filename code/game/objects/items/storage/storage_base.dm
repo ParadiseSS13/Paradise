@@ -206,7 +206,7 @@
 		L += S.return_inv()
 	for(var/obj/item/small_delivery/gift/G in src)
 		L += G.wrapped
-		if(isstorage(G.wrapped)) // If the gift contains a storage item
+		if(isstorage(G.wrapped)) // If the gift contains a storage item.
 			var/obj/item/storage/S = G.wrapped
 			L += S.return_inv()
 	for(var/obj/item/folder/F in src)

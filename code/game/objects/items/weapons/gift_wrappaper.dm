@@ -9,7 +9,7 @@
  */
 /obj/item/small_delivery/gift
 	name = "gift"
-	desc = "A wrapped item."
+	desc = "A gift-wrapped item."
 	icon_state = "giftcrate2"
 	giftwrapped = TRUE
 	inhand_icon_state = "gift"
