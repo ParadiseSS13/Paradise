@@ -61,7 +61,7 @@
 		to_chat(user, SPAN_WARNING("[src] already has an implant stored!"))
 		return ITEM_INTERACT_COMPLETE
 
-	else if(!uses)
+	if(!uses)
 		to_chat(user, SPAN_WARNING("[src] has already been used up!"))
 		return ITEM_INTERACT_COMPLETE
 
