@@ -9,7 +9,7 @@
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	icon_state = "ivbag"
 	volume = 200
-	/// Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
+	/// Everything above 10 is NOT usable on a person and is instead used for transferring to other containers.
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
@@ -95,7 +95,7 @@
 		return
 
 	if(amount_per_transfer_from_this > 10)
-		// Prevents people from switching to illegal transfer values while the IV is already in someone, i.e. anything over 10
+		// Prevents people from switching to illegal transfer values while the IV is already in someone, i.e. anything over 10.
 		visible_message(
 			SPAN_DANGER("The IV bag's needle pops out of [injection_target]'s body. The transfer amount is too high!"),
 			SPAN_DANGER("The IV bag's needle pops out of [injection_target]'s body. The transfer amount is too high!")
