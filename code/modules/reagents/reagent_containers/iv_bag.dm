@@ -145,6 +145,7 @@
 				SPAN_USERDANGER("[user] removes [src]'s needle from [L]'s body!"),
 				SPAN_DANGER("[user] removes [src]'s needle from [L]'s body!")
 			)
+			add_fingerprint(user)
 			end_processing()
 		else // Inserting the needle.
 			if(!L.can_inject(user, TRUE))
@@ -167,6 +168,7 @@
 				SPAN_USERDANGER("[user] inserts [src]'s needle into [L]'s body!"),
 				SPAN_DANGER("[user] inserts [src]'s needle into [L]'s body!")
 			)
+			add_fingerprint(user)
 			begin_processing(L)
 
 /obj/item/reagent_containers/iv_bag/normal_act(atom/target, mob/living/user)
