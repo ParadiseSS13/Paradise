@@ -1,6 +1,6 @@
 /obj/structure/shelf/flock
 	name = "strange shelf"
-	desc = "A shelf (most likely) made of a strange material."
+	desc = "A shelf (most likely), made of a strange material."
 	icon_state = "shelf_flock"
 	shelf_style = "flock"
 	build_stack_type = /obj/item/stack/sheet/gnesis
