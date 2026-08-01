@@ -94,7 +94,7 @@
 		SPAN_HEAR("You hear a drill spin up!")
 	)
 	if(carbon_target.can_feel_pain())
-		to_chat(carbon_target, SPAN_DANGER("You feel a lot of pain as [user] drills into your [drilled_organ]!"))
+		to_chat(carbon_target, SPAN_USERDANGER("You feel a lot of pain as [user] drills into your [drilled_organ]!"))
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
 
 	if(!advanced)
