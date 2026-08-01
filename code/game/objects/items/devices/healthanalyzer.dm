@@ -96,6 +96,9 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/healthanalyzer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ismob(target))
+		return ..()
+
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		var/list/msgs = list()
 		user.visible_message(
