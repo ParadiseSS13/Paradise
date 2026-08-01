@@ -199,7 +199,6 @@ Each role inherits the lower role's responsibilities
 `Headcoders` are the overarching "administrators" of the repository. People
 included in this role are:
 
-- [Burzah](https://github.com/Burzah)
 - [DGamerL](https://github.com/DGamerL)
 - [PollardTheDragon](https://github.com/PollardTheDragon)
 
@@ -209,10 +208,7 @@ included in this role are:
 PRs. People included in this role are:
 
 - [AffectedArc07](https://github.com/AffectedArc07)
-- [Charliminator](https://github.com/hal9000PR)
-- [FunnyMan3595](https://github.com/FunnyMan3595)
 - [lewcc](https://github.com/lewcc)
-- [SteelSlayer](https://github.com/SteelSlayer)
 - [Warriorstar](https://github.com/warriorstar-orion)
 
 ---
@@ -221,8 +217,6 @@ PRs. People included in this role are:
 affect mergeability status. People included in this role are:
 
 - [JimKil3](https://github.com/JimKil3)
-- [Pooble](https://github.com/poobsie)
-- [Sirryan2002](https://github.com/Sirryan2002)
 - [Wilkson](https://github.com/BiancaWilkson)
 
 ---

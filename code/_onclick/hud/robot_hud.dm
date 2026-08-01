@@ -59,6 +59,17 @@
 		var/mob/living/silicon/robot/R = usr
 		R.toggle_module(module_number)
 
+/atom/movable/screen/robot/language_menu
+	name = "language menu"
+	icon_state = "talk_wheel"
+	screen_loc = UI_BORG_LANUGAGE_MENU
+
+/atom/movable/screen/robot/language_menu/Click()
+	var/mob/M = usr
+	if(!istype(M))
+		return
+	M.check_languages()
+
 /atom/movable/screen/robot/radio
 	name = "radio"
 	icon_state = "radio"
@@ -115,6 +126,18 @@
 	var/mob/living/silicon/robot/R = usr
 	R.open_pda()
 
+/atom/movable/screen/robot/sensors
+	name = "Toggle Sensor Augmentation"
+	icon_state = "sensor"
+	screen_loc = UI_BORG_SENSOR
+
+/atom/movable/screen/robot/sensors/Click()
+	if(..())
+		return
+	if(isrobot(usr))
+		var/mob/living/silicon/robot/borg = usr
+		borg.sensor_mode()
+
 /atom/movable/screen/robot/mov_intent
 	name = "fast/slow toggle"
 	icon_state = "running"
@@ -142,7 +165,7 @@
 	var/mob/living/silicon/robot/mymobR = mymob
 
 //Language menu
-	using = new /atom/movable/screen/language_menu
+	using = new /atom/movable/screen/robot/language_menu
 	using.screen_loc = UI_BORG_LANUGAGE_MENU
 	static_inventory += using
 
@@ -159,7 +182,7 @@
 		mymobR.inventory_screens += using
 
 //Sec/Med HUDs
-	using = new /atom/movable/screen/ai/sensors()
+	using = new /atom/movable/screen/robot/sensors()
 	using.screen_loc = UI_BORG_SENSOR
 	static_inventory += using
 

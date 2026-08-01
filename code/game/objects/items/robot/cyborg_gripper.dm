@@ -106,6 +106,10 @@
 	// Is the gripper interacting with an item?
 	if(isitem(target))
 		var/obj/item/I = target
+		if(I.is_robot_module())
+			to_chat(user, SPAN_WARNING("You can't grab your own modules!"))
+			return ITEM_INTERACT_COMPLETE
+
 		// Make sure the item is something the gripper can hold
 		if(can_hold_all_items || is_type_in_typecache(I, can_hold))
 			to_chat(user, SPAN_NOTICE("You collect [I]."))
@@ -331,7 +335,6 @@
 
 // Medical Gripper
 // For medical borgs, for doing medical stuff!
-// Not giving this anything useful to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool for cyborgs. This one is covered with hygenic medical-grade silicone rubber. \
@@ -340,6 +343,11 @@
 	can_hold = list(
 		/obj/item/clothing/head,
 		/obj/item/key/ambulance, // I mean, the paramedic never uses it, so...
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/patch,
+		/obj/item/reagent_containers/pill
 	)
 
 /obj/item/gripper/medical/Initialize(mapload)
