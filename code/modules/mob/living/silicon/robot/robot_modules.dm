@@ -2,7 +2,7 @@
 	name = "robot module"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
-	w_class = 100
+	w_class = WEIGHT_CLASS_GIGANTIC
 	flags = CONDUCT
 	var/module_armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -346,7 +346,7 @@
 		/obj/item/bonegel,
 		/obj/item/fix_o_vein,
 		/obj/item/extinguisher/mini/cyborg,
-		/obj/item/reagent_containers/glass/beaker/large,
+		/obj/item/reagent_containers/glass/beaker/large/robot,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/stack/medical/bruise_pack/advanced/cyborg,
@@ -950,6 +950,9 @@
 
 /// Checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
+	if(istype(loc, /obj/item/robot_module))
+		return TRUE
+
 	if(!isrobot(loc))
 		return FALSE
 

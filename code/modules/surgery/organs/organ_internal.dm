@@ -21,10 +21,10 @@
 	var/is_xeno_organ = FALSE
 	/// Does this organ give a warning upon being inserted?
 	var/warning = FALSE
-	/// Does this organ show outside the mob, and what is the icon state?
-	var/augment_state = null
-	/// Does this organ actually have a sprite for it being on the arm? And what is the path of it.
+	/// The icon file for the augment that shows outside the mob, if any.
 	var/augment_icon = null
+	/// The icon state for the augment that shows outside the mob, if any.
+	var/augment_state = null
 	/// Does this organ have a extra render mechanic?
 	var/do_extra_render = FALSE
 	/// Does this organ ignore skin covers?
@@ -242,7 +242,8 @@
 	if(our_parent.augmented_skin_cover_level && !always_show_augment)
 		return FALSE
 
-	return TRUE
+	var/mutable_appearance/default_appearance = mutable_appearance(augment_icon, augment_state, layer = -INTORGAN_LAYER)
+	return default_appearance
 
 // An extra render used in certain situations.
 /obj/item/organ/internal/proc/extra_render()
@@ -254,7 +255,8 @@
 	if(our_parent.augmented_skin_cover_level && !always_show_augment)
 		return FALSE
 
-	return TRUE
+	var/mutable_appearance/default_appearance = mutable_appearance(augment_icon, augment_state, layer = -INTORGAN_LAYER)
+	return default_appearance
 
 /obj/item/organ/internal/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
 	if(!(target == user && ishuman(user)))

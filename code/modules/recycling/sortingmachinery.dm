@@ -135,6 +135,7 @@
 			user.put_in_hands(wrapped)
 	playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/small_delivery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/dest_tagger))
