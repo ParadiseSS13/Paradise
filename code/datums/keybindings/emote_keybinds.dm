@@ -331,6 +331,10 @@
 	linked_emote = /datum/emote/living/brain/boop
 	name = "Boop"
 
+/datum/keybinding/emote/carbon/brain/scream
+	linked_emote = /datum/emote/living/brain/scream
+	name = "Scream"
+
 /datum/keybinding/emote/carbon/human
 	category = KB_CATEGORY_EMOTE_HUMAN
 
