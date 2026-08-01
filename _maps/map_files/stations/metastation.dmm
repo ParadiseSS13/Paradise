@@ -11713,7 +11713,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/tiles/department/command/side,
-/obj/item/beacon,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "bwg" = (
@@ -11745,10 +11744,12 @@
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bwj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/railing/cap/reversed{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
@@ -12272,18 +12273,13 @@
 	c_tag = "Bridge - Command Chair";
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
 "byt" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
 "byu" = (
@@ -13573,10 +13569,13 @@
 /area/station/command/bridge)
 "bDX" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/machinery/door/airlock/command/glass{
 	name = "Council Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "council_chamber"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "bDY" = (
@@ -13585,9 +13584,7 @@
 /area/station/command/bridge)
 "bDZ" = (
 /obj/structure/chair/comfy/black,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bEb" = (
@@ -13853,11 +13850,17 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bFN" = (
 /obj/structure/table/wood,
 /obj/item/folder/white,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bFO" = (
@@ -13867,6 +13870,9 @@
 /obj/item/ashtray/glass{
 	pixel_x = -9;
 	pixel_y = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
@@ -15510,12 +15516,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
-"bNS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/station/command/bridge)
 "bNU" = (
 /obj/item/toy/plushie/nukeplushie,
 /obj/item/toy/syndicateballoon{
@@ -31991,15 +31991,17 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/command{
-	id_tag = "ntrepofficedoor";
-	name = "NT Representative's Office";
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/access/all/command/ntrep,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/door/airlock/command/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "NT"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -38909,7 +38911,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/hologram/holopad,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "gIq" = (
@@ -43291,6 +43293,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
+"igi" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/bridge)
 "igm" = (
 /obj/effect/turf_decal/tiles/department/security/corner,
 /turf/simulated/floor/plasteel,
@@ -46210,7 +46216,9 @@
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "council_chamber"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "jby" = (
@@ -47520,13 +47528,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/lounge)
-"jzW" = (
-/obj/structure/chair/comfy/beige,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/station/command/bridge)
 "jAh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -56141,6 +56142,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "mhM" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
 "mhS" = (
@@ -57559,7 +57563,9 @@
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "council_chamber"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "mJJ" = (
@@ -58643,13 +58649,16 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/command{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/access/all/command/blueshield,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "BS"
+	},
+/obj/machinery/door/airlock/command/glass{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
@@ -74987,7 +74996,9 @@
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "council_chamber"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "sxV" = (
@@ -77229,6 +77240,12 @@
 /obj/machinery/light,
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
+"tiT" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/station/command/bridge)
 "tjq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -82257,12 +82274,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
-"uRT" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
 "uSc" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/effect/turf_decal/tiles/department/security/side{
@@ -83758,7 +83769,9 @@
 	id_tag = "council blast";
 	name = "Council Blast Doors"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "council_chamber"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "vrb" = (
@@ -84551,6 +84564,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "vBI" = (
@@ -85647,7 +85661,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "council_chamber"
+	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "vXk" = (
@@ -86943,10 +86959,11 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "wsw" = (
-/obj/machinery/light_switch{
+/obj/machinery/button/windowtint{
 	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
+	id = "council_chamber";
+	pixel_y = -22;
+	req_access = list(19)
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
@@ -118908,7 +118925,7 @@ aIb
 bkW
 btY
 boD
-boE
+igi
 btQ
 jse
 vdP
@@ -119427,7 +119444,7 @@ byp
 byq
 bAi
 xhX
-uRT
+boE
 bFK
 bkW
 bLl
@@ -119684,8 +119701,8 @@ byw
 byq
 byq
 bDM
-bNS
 bwi
+tiT
 bkW
 bac
 bNd
@@ -119941,7 +119958,7 @@ bwh
 byr
 byq
 bDz
-bNS
+bwi
 bFM
 vqS
 bJr
@@ -120198,7 +120215,7 @@ mhM
 bys
 byq
 boE
-jzW
+bDY
 bFN
 mJv
 bJr
@@ -121992,7 +122009,7 @@ aIH
 nki
 bum
 boD
-boE
+igi
 sLs
 jse
 bCA
