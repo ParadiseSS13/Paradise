@@ -294,12 +294,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Used to prevent multiple floating blades from triggering over the same target
 #define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"
 
-
 /// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "trait_ai_paused"
 /// trait that prevents AI controllers from making new plans, but not executing plans
 #define TRAIT_AI_DISABLE_PLANNING "TRAIT_AI_DISABLE_PLANNING"
 
+#define TRAIT_TEMPERATE_PARTIER "temperate_partier" // Mob won't wake up drunk in a random department
 /// This mob's speech is heard through walls by dead players/observers even if it has no client. Idk a better name
 #define TRAIT_IMPORTANT_SPEAKER "important_speaker"
 /// Ignores line of sight for the purposes of send_speech()

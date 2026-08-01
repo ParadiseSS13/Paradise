@@ -72,6 +72,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	/// Type of pen this PDA spawns with.
 	var/obj/item/pen/default_pen = /obj/item/pen
 	var/retro_mode = 0
+	new_attack_chain = TRUE
 
 /*
  *	The Actual PDA
@@ -118,14 +119,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 	return id
 
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
+	var/mob/user = usr
 	if((!is_screen_atom(over_object)) && can_use())
-		return attack_self__legacy__attackchain(M)
+		return activate_self(user)
 
-/obj/item/pda/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/pda/activate_self(mob/user)
 	if(active_uplink_check(user))
-		return
+		return ..()
 	ui_interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pda/proc/start_program(datum/data/pda/P)
 	if(P && ((P in programs) || (cartridge && (P in cartridge.programs))))
@@ -283,10 +286,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(wearing_human.wear_id == src)
 			wearing_human.sec_hud_set_ID()
 
-/obj/item/pda/attackby__legacy__attackchain(obj/item/C, mob/user, params)
+/obj/item/pda/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	..()
-	if(istype(C, /obj/item/cartridge) && !cartridge)
-		cartridge = C
+	if(istype(used, /obj/item/cartridge) && !cartridge)
+		cartridge = used
 		user.drop_item()
 		cartridge.forceMove(src)
 		cartridge.update_programs(src)
@@ -294,14 +297,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, SPAN_NOTICE("You insert [cartridge] into [src]."))
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(C, /obj/item/card/id))
-		var/obj/item/card/id/idcard = C
+	if(istype(used, /obj/item/card/id))
+		var/obj/item/card/id/idcard = used
 		if(!idcard.registered_name)
-			to_chat(user, SPAN_NOTICE("\The [src] rejects the ID."))
+			to_chat(user, SPAN_NOTICE("\The [src] rejects [idcard]."))
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!owner)
 			var/datum/data/pda/app/nanobank/nanobank_program = (locate(/datum/data/pda/app/nanobank) in programs)
 			if(nanobank_program && idcard.associated_account_number)
@@ -315,29 +320,38 @@ GLOBAL_LIST_EMPTY(PDAs)
 			SStgui.update_uis(src)
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
-		else
-			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user) || (isturf(loc) && in_range(src, user))))
-				id_check(user, 2)
-				to_chat(user, SPAN_NOTICE("You put the ID into \the [src]'s slot.<br>You can remove it with ALT click."))
-				update_icon(UPDATE_OVERLAYS)
-				SStgui.update_uis(src)
+			add_fingerprint(user)
+			return ITEM_INTERACT_COMPLETE
+		//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
+		if(!(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user) || (isturf(loc) && in_range(src, user)))))
+			return ITEM_INTERACT_COMPLETE
+		id_check(user, 2)
+		to_chat(user, SPAN_NOTICE("You put [idcard] into \the [src]'s ID slot.<br>You can remove it with ALT click."))
+		update_icon(UPDATE_OVERLAYS)
+		SStgui.update_uis(src)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(C, /obj/item/paicard) && !src.pai)
+	if(istype(used, /obj/item/paicard) && !src.pai)
 		user.drop_item()
-		C.forceMove(src)
-		pai = C
-		to_chat(user, SPAN_NOTICE("You slot \the [C] into [src]."))
+		used.forceMove(src)
+		pai = used
+		to_chat(user, SPAN_NOTICE("You slot \the [used] into [src]."))
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	else if(is_pen(C))
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(is_pen(used))
 		if(held_pen)
 			to_chat(user, SPAN_NOTICE("There is already a pen in \the [src]."))
-		else
-			user.drop_item()
-			add_pen(C)
-			to_chat(user, SPAN_NOTICE("You slide \the [C] into \the [src]."))
-			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+			return ITEM_INTERACT_COMPLETE
+		user.drop_item()
+		add_pen(used)
+		to_chat(user, SPAN_NOTICE("You slide \the [used] into \the [src]."))
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/pda/proc/add_pen(obj/item/P)
 	P.forceMove(src)
@@ -350,13 +364,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 	held_pen = null
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pda/attack__legacy__attackchain(mob/living/C as mob, mob/living/user as mob)
-	if(iscarbon(C) && scanmode)
-		scanmode.scan_mob(C, user)
-
-/obj/item/pda/afterattack__legacy__attackchain(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
-	if(proximity && scanmode)
-		scanmode.scan_atom(A, user)
+/obj/item/pda/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!scanmode)
+		return ..()
+	if(iscarbon(target))
+		scanmode.scan_mob(target, user)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+	scanmode.scan_atom(target, user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/pda/proc/explode() //This needs tuning.
 	if(!detonate)

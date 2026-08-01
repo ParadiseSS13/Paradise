@@ -8,8 +8,9 @@
 	hitsound = 'sound/weapons/slap.ogg'
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
+	new_attack_chain = TRUE
 
-/obj/item/slapper/attack__legacy__attackchain(mob/M, mob/living/carbon/human/user)
+/obj/item/slapper/attack(mob/living/M, mob/living/user)
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
 	user.visible_message(SPAN_DANGER("[user] slaps [M]!"), SPAN_NOTICE("You slap [M]!"), SPAN_HEAR("You hear a slap."))
@@ -20,39 +21,41 @@
 	if(force)
 		return ..()
 
-/obj/item/slapper/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/slapper/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!isliving(user))
 		return
 	var/mob/living/L = user
 	L.emote("highfive", intentional = TRUE)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/slapper/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
+/obj/item/slapper/attack_obj(obj/O, mob/living/user, params)
 	if(!istype(O, /obj/structure/table))
 		return ..()
 
 	var/obj/structure/table/the_table = O
 
-	if(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
-		transform = transform.Scale(1.5) // BIG slap
-		if(HAS_TRAIT(user, TRAIT_HULK))
-			transform = transform.Scale(2)
-			color = COLOR_GREEN
-		user.do_attack_animation(the_table)
-		if(ishuman(user))
-			var/mob/living/carbon/human/human_user = user
-			if(istype(human_user.shoes, /obj/item/clothing/shoes/cowboy))
-				human_user.say(pick("Hot damn!", "Hoo-wee!", "Got-dang!"))
-		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 110, TRUE)
-		user.visible_message("<b>[SPAN_DANGER("[user] slams [user.p_their()] fist down on [the_table]!")]</b>", "<b>[SPAN_DANGER("You slam your fist down on [the_table]!")]</b>")
-		qdel(src)
-	else
+	if(!(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left))) // So you can't do 2 weak slaps followed by a big slam.
 		user.do_attack_animation(the_table)
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 40, TRUE)
 		user.visible_message(SPAN_NOTICE("[user] slaps [user.p_their()] hand on [the_table]."), SPAN_NOTICE("You slap your hand on [the_table]."))
 		table_smacks_left--
 		if(table_smacks_left <= 0)
 			qdel(src)
+		return
+	transform = transform.Scale(1.5) // BIG slap!
+	if(HAS_TRAIT(user, TRAIT_HULK))
+		transform = transform.Scale(2)
+		color = COLOR_GREEN
+	user.do_attack_animation(the_table)
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(istype(human_user.shoes, /obj/item/clothing/shoes/cowboy))
+			human_user.say(pick("Hot damn!", "Hoo-wee!", "Got-dang!"))
+	playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 110, TRUE)
+	user.visible_message("<b>[SPAN_DANGER("[user] slams [user.p_their()] fist down on [the_table]!")]</b>", "<b>[SPAN_DANGER("You slam your fist down on [the_table]!")]</b>")
+	qdel(src)
 
 /obj/item/slapper/get_clamped_volume() //Without this, you would hear the slap twice if it has force.
 	return 0
@@ -83,14 +86,14 @@
 		UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
 	return ..()
 
-/obj/item/slapper/parry/attack__legacy__attackchain(mob/M, mob/living/carbon/human/user)
-	if(isliving(M))
-		var/mob/living/creature = M
-		SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))
-		creature.Confused(10 SECONDS) //SMACK CAM
-		creature.EyeBlind(2 SECONDS) //OH GOD MY EARS ARE RINGING
-		creature.Deaf(4 SECONDS) //OH MY HEAD
-	return ..()
+/obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
+	if(!isliving(M))
+		return ..()
+	var/mob/living/creature = M
+	SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))
+	creature.Confused(10 SECONDS) // SMACK CAM!
+	creature.EyeBlind(2 SECONDS) // OH GOD MY EARS ARE RINGING!
+	creature.Deaf(4 SECONDS) // OH MY HEAD!
 
 /obj/item/slapper/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
 	if(target_atom == src)
