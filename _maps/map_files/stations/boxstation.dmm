@@ -30605,16 +30605,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
-"cpi" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft/north)
 "cpn" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
@@ -31233,6 +31223,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/department/engineering/corner,
+/obj/structure/sign/poster/random/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
 "crY" = (
@@ -31623,8 +31614,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "ctl" = (
-/obj/structure/sign/poster/random/directional/east,
 /obj/effect/turf_decal/tiles/department/engineering/corner,
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
 "ctq" = (
@@ -53186,6 +53177,16 @@
 	},
 /turf/simulated/floor/plasteel/reactor_pool/wall,
 /area/station/engineering/engine/reactor)
+"hsB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/aft/north)
 "hsE" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -60556,15 +60557,13 @@
 /area/station/supply/smith_office)
 "kEA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
 "kEK" = (
@@ -78726,6 +78725,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
+"sIS" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/aft/north)
 "sJo" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -80631,10 +80640,10 @@
 /area/station/engineering/engine/reactor)
 "tDt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/north)
 "tDv" = (
@@ -88700,7 +88709,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "xlw" = (
 /obj/structure/cable{
@@ -119965,9 +119974,9 @@ cgl
 cjk
 wuu
 ieo
+sIS
 ckO
 ckO
-cpi
 fku
 doc
 ckO
@@ -120222,7 +120231,7 @@ cgk
 sRk
 lcw
 bJe
-tDt
+hsB
 tDt
 kEA
 meh
