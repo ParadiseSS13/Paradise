@@ -2866,6 +2866,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandoned_office)
 "aFS" = (
@@ -10891,9 +10894,6 @@
 /area/station/service/chapel)
 "cfK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
@@ -23018,6 +23018,15 @@
 /obj/effect/turf_decal/tiles/department/science/corner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
+"eEI" = (
+/obj/item/paper,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/abandoned_office)
 "eEP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
@@ -27906,9 +27915,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "fzW" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "0-4"
-	},
 /obj/machinery/camera{
 	c_tag = "Abandoned Office";
 	dir = 4
@@ -36418,13 +36424,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "hld" = (
-/obj/machinery/door/airlock/public/glass{
-	locked = 1;
-	name = "Plasmoid Inc: FORECLOSED"
-	},
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	name = "Plasmoid Inc: FORECLOSED";
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "hlh" = (
@@ -37873,17 +37882,21 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "hzn" = (
-/obj/machinery/door/airlock/maintenance{
-	locked = 1;
-	dir = 4
-	},
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/door/airlock/public/glass{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "hzA" = (
 /obj/structure/girder,
@@ -38454,9 +38467,6 @@
 "hDO" = (
 /obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "hDQ" = (
@@ -50982,11 +50992,10 @@
 	icon_state = "cobweb2"
 	},
 /obj/item/chair/wood,
-/obj/machinery/light_switch{
-	name = "north bump";
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/light_switch/off{
 	pixel_y = 24
 	},
-/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "kgg" = (
@@ -54581,6 +54590,9 @@
 	},
 /obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "kRj" = (
@@ -55678,6 +55690,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/machinery/power/apc/reinforced/directional/east,
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "lfe" = (
@@ -56071,11 +56087,11 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen/multi,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
@@ -73436,6 +73452,9 @@
 /obj/item/newspaper,
 /obj/effect/spawner/random/trash,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "oFJ" = (
@@ -81868,6 +81887,9 @@
 /obj/item/vending_refill/coffee,
 /obj/effect/spawner/random/cobweb/right/frequent,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_office)
 "qng" = (
@@ -84556,8 +84578,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "qQo" = (
-/obj/structure/grille,
 /obj/structure/barricade/wooden,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandoned_office)
 "qQs" = (
@@ -113359,9 +113381,6 @@
 /obj/structure/table,
 /obj/item/paper/crumpled,
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
@@ -157587,7 +157606,7 @@ mUZ
 hrw
 fhz
 fzW
-nho
+eEI
 qNZ
 doI
 uZS
