@@ -117,17 +117,6 @@
 		return tint_color(pick(color_options), range)
 	return pick(color_options)
 
-/// Returns a purely random tint for specific color
-/proc/tint_color(color, range = 25)
-	if(!is_color_text(color)) // if it's not a hex color
-		return color // just leave it as it is
-
-	var/R = clamp(color2R(color) + rand(-range, range), 0, 255)
-	var/G = clamp(color2G(color) + rand(-range, range), 0, 255)
-	var/B = clamp(color2B(color) + rand(-range, range), 0, 255)
-
-	return rgb(R, G, B)
-
 /proc/list_valid_head_accessories(species = "Human")
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
@@ -143,6 +132,17 @@
 	var/list/valid_head_accessories = list_valid_head_accessories(species)
 
 	return pick(valid_head_accessories)
+
+/proc/list_valid_alt_heads(species = "Human")
+	var/list/valid_alt_heads = list()
+	valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option, and there should always be a "None" option.
+	for(var/alternate_head in GLOB.alt_heads_list)
+		var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
+		if(!(species in head.species_allowed))
+			continue
+
+		valid_alt_heads += alternate_head
+	return sortTim(valid_alt_heads, GLOBAL_PROC_REF(cmp_text_asc))
 
 /proc/list_valid_marking_styles(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/list/valid_markings = list()
@@ -186,7 +186,8 @@
 
 /proc/list_valid_body_accessories(species = "Vulpkanin", is_optional = TRUE)
 	var/list/valid_body_accessories = list()
-	if(is_optional)
+	var/datum/species/species_datum = GLOB.all_species[species]
+	if(is_optional && species_datum.optional_body_accessory)
 		valid_body_accessories += null
 
 	if(GLOB.body_accessory_by_species[species])

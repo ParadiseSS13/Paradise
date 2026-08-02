@@ -241,13 +241,8 @@
 	var/pda = -1
 	var/backpack_contents = -1
 	var/suit_store = -1
-	var/hair_style
-	var/facial_hair_style
-	var/hair_color
-	var/facial_hair_color
-	/// If set, should be a value between -185 and 220. Go to `random_skin_tone()` for species-specific numbers' range you'd like to use
-	var/skin_tone
-	var/eyes_color
+	// Whether this mob should have a random appearance. Turn off for loot spawners which SHOULD look like the thing you just killed
+	var/randomize_appearance = TRUE
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
@@ -280,13 +275,8 @@
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
 		H.set_species(mob_species)
-	if(mob_gender)
-		H.change_gender(mob_gender)
-		if(mob_gender == FEMALE)
-			H.change_body_type(FEMALE)
-	else if(prob(50))
-		H.change_gender(FEMALE)
-		H.change_body_type(FEMALE)
+	if(randomize_appearance)
+		H.generate_random_appearance(prosthesis_prob = 0, use_gender = mob_gender)
 	if(!mob_name) // randomise our name if it's not yet overriden
 		H.rename_character(H.real_name, random_name(H.gender, H.dna.species.name))
 
@@ -294,47 +284,10 @@
 		H.Drain()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
 		H.cure_husk()
+
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
-	var/obj/item/organ/external/head/D = H.get_organ("head")
-	if(istype(D))
-		if(eyes_color)
-			H.change_eye_color(eyes_color, FALSE)
-
-		if(hair_style)
-			D.h_style = hair_style
-		else
-			D.h_style = random_hair_style(D.dna.species.name)
-
-		if(facial_hair_style)
-			D.f_style = facial_hair_style
-		else if(H.gender != FEMALE) // no beard for women
-			D.f_style = random_facial_hair_style(D.dna.species.name)
-
-		if(hair_color)
-			D.hair_colour = hair_color
-			D.sec_hair_colour = tint_color(hair_color, HAIR_TINT_RANGE)
-		else
-			D.hair_colour = random_hair_color(range = HAIR_TINT_RANGE)
-			D.sec_hair_colour = tint_color(D.hair_colour, HAIR_TINT_RANGE)
-
-		if(facial_hair_color)
-			D.facial_colour = facial_hair_color
-			D.sec_facial_colour = tint_color(facial_hair_color, HAIR_TINT_RANGE)
-		else
-			D.facial_colour = tint_color(D.hair_colour, HAIR_TINT_RANGE)
-			D.sec_facial_colour = tint_color(D.hair_colour, HAIR_TINT_RANGE)
-
-	if(!isnull(skin_tone))
-		H.change_skin_tone(skin_tone)
-	else
-		H.change_skin_tone(random_skin_tone(H.dna.species.name))
-
-	if(istype(D))
-		H.change_skin_color(tint_color(D.hair_colour))
-	else
-		H.change_skin_color(random_hair_color())
 
 	if(dna_scrambled)
 		H.get_dna_scrambled()
