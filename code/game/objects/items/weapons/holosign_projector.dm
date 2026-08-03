@@ -19,6 +19,9 @@
 	new_attack_chain = TRUE
 
 /obj/item/holosign_creator/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isstorage(target))
+		return ..()
+
 	if(!check_allowed_items(target, 1))
 		to_chat(user, SPAN_WARNING("You can't create a holosign there!"))
 		return ITEM_INTERACT_COMPLETE
@@ -51,12 +54,15 @@
 		holocreator_busy = TRUE
 		if(!do_after(user, creation_time, target = target))
 			holocreator_busy = FALSE
-			return ITEM_INTERACT_COMPLETE
+			return
+
 		holocreator_busy = FALSE
 		if(length(signs) >= max_signs)
-			return ITEM_INTERACT_COMPLETE
+			return
+
 		if(target.is_blocked_turf(exclude_mobs = TRUE)) // Don't try to sneak dense stuff on our tile during the wait.
-			return ITEM_INTERACT_COMPLETE
+			return
+
 	var/obj/structure/holosign/new_sign = new holosign_type(get_turf(target), src)
 	to_chat(user, SPAN_NOTICE("You create [new_sign] with [src]."))
 
