@@ -225,7 +225,7 @@
 	if(istype(used, /obj/item/ammo_box))
 		var/obj/item/ammo_box/used_box = used
 		for(var/obj/item/ammo_casing/used_casing in used_box.stored_ammo)
-			var/did_load = give_round(used_casing, replace_spent)
+			var/did_load = give_round(used_casing)
 			if(did_load)
 				used_box.stored_ammo -= used_casing
 				num_loaded++
@@ -234,7 +234,7 @@
 
 	if(istype(used, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/used_casing = used
-		if(give_round(used_casing, replace_spent))
+		if(give_round(used_casing))
 			user.transfer_item_to(used_casing, src)
 			num_loaded++
 		else
