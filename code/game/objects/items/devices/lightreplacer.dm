@@ -126,8 +126,7 @@
 					qdel(bulb)
 
 		if(!found_lightbulbs)
-			to_chat(user, SPAN_WARNING("[container] contains no bulbs!"))
-			return ITEM_INTERACT_COMPLETE
+			return ..()
 
 		if(!replaced_something && uses == max_uses)
 			to_chat(user, SPAN_WARNING("[src] is full!"))
@@ -220,8 +219,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(isitem(target))
-		item_interaction(user, target)
-		return ITEM_INTERACT_COMPLETE
+		return item_interaction(user, target)
 
 	var/turf/replace_turf = get_turf(target)
 	if(!istype(replace_turf))
