@@ -144,6 +144,7 @@
 	head_spear.mounted_head = used
 	forceMove(head_spear)
 	head_spear.contained_spear = src
+	head_spear.add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/headspear
@@ -225,7 +226,7 @@
 	// Dusting dead people.
 	if(isliving(target))
 		var/mob/living/living_target = target
-		if(!living_target.stat == DEAD)
+		if(living_target.stat != DEAD)
 			return ..() // Attack as normal.
 
 		visible_message(SPAN_DANGER("[user] raises [src] high, ready to bring it down on [living_target]!"))

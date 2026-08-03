@@ -197,7 +197,7 @@
 		// Target is in crit, check if we're holding securely enough to gib them.
 		else if(HAS_TRAIT(src, TRAIT_WIELDED))
 			Z.visible_message(
-				SPAN_DANGER("[Z.name] was blownt o pieces by the power of [src]!"),
+				SPAN_DANGER("[Z.name] was blown to pieces by the power of [src]!"),
 				SPAN_USERDANGER("You feel a powerful blow rip you apart!"),
 				SPAN_DANGER("You hear a heavy impact and the sound of ripping flesh!")
 			)
