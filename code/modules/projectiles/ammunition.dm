@@ -217,6 +217,7 @@
 		return ..()
 
 	load_box(used, user)
+	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/ammo_box/proc/load_box(obj/item/used, mob/living/user, silent = FALSE)
