@@ -1,5 +1,5 @@
 /obj/item/aicard
-	name = "inteliCard"
+	name = "intelliCard"
 	desc = "A handy pocket card used to extract an artificial intelligence for transport."
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
@@ -16,7 +16,16 @@
 
 /obj/item/aicard/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!target)
-		return
+		return NONE
+
+	if(!(istype(target, /obj/machinery/computer/aifixer) || \
+		istype(target, /obj/structure/ai_core) || \
+		istype(target, /obj/mecha) || \
+		istype(target, /obj/structure/mecha_wreckage) || \
+		istype(target, /mob/living/silicon/ai) || \
+		istype(target, /obj/machinery/computer/emergency_shuttle)
+	))
+		return NONE
 
 	if(held_ai) // AI is on the card, implies user wants to upload it.
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, held_ai, src)
@@ -24,7 +33,8 @@
 
 	else // No AI on the card, therefore the user wants to download one.
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
-		held_ai.cancel_camera() // AI are forced to move when transferred, so do this whenever one is downloaded.
+		if(held_ai)
+			held_ai.cancel_camera() // AI are forced to move when transferred, so do this whenever one is downloaded.
 
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS) // Whatever happened, update the card's state (icon, name) to match.
 	return ITEM_INTERACT_COMPLETE
