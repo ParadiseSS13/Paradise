@@ -1458,29 +1458,32 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
 		return
-	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
-		if(!mind)
-			to_chat(user, SPAN_WARNING("No intelligence patterns detected."))//No more magical carding of empty cores, AI RETURN TO BODY!!!11
+	if(interaction != AI_TRANS_TO_CARD) // The only possible interaction. Upload AI mob to a card.
+		return
+
+	if(!mind)
+		to_chat(user, SPAN_WARNING("No intelligence patterns detected.")) // No more magical carding of empty cores, AI RETURN TO BODY!!!11
+		return
+
+	if(stat != DEAD)
+		to_chat(user, SPAN_NOTICE("Beginning active intelligence transfer: please wait."))
+
+		if(!do_after_once(user, 5 SECONDS, target = src) || !Adjacent(user))
+			to_chat(user, SPAN_WARNING("Intelligence transfer aborted."))
 			return
 
-		if(stat != DEAD)
-			to_chat(user, SPAN_NOTICE("Beginning active intelligence transfer: please wait."))
-
-			if(!do_after_once(user, 5 SECONDS, target = src) || !Adjacent(user))
-				to_chat(user, SPAN_WARNING("Intelligence transfer aborted."))
-				return
-
-		new /obj/structure/ai_core/deactivated(loc)//Spawns a deactivated terminal at AI location.
-		aiRestorePowerRoutine = 0//So the AI initially has power.
-		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
-		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
-		if(GetComponent(/datum/component/ducttape))
-			QDEL_NULL(builtInCamera)
-		if(program_picker)
-			program_picker.reset_programs()
-		forceMove(card) //Throw AI into the card.
-		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
-		to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+	new /obj/structure/ai_core/deactivated(loc) // Spawns a deactivated terminal at AI location.
+	aiRestorePowerRoutine = 0 // So the AI initially has power.
+	control_disabled = TRUE // Can't control things remotely if you're stuck in a card!
+	aiRadio.disabledAi = TRUE // No talking on the built-in radio for you either!
+	if(GetComponent(/datum/component/ducttape))
+		QDEL_NULL(builtInCamera)
+	if(program_picker)
+		program_picker.reset_programs()
+	forceMove(card) // Throw AI into the card.
+	card.held_ai = src
+	to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
+	to_chat(user, "[SPAN_BOLDNOTICE("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
 /mob/living/silicon/ai/can_buckle()
 	return FALSE
