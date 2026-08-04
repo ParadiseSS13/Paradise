@@ -483,7 +483,7 @@
 	..()
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
 	if((is_pen(used)) && modified && !FD.pen)
-		if(!user.unequip(used)) // `forceMove()` happens in `add_pen()`.
+		if(!user.unequip(used)) // forceMove happens in add_pen
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		add_pen(used)
@@ -492,6 +492,7 @@
 
 /obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
 	if(modified)
+		to_chat(user, SPAN_WARNING("[src] has already been modified!"))
 		return
 
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
