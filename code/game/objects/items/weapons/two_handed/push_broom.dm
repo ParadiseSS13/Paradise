@@ -48,6 +48,8 @@
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
+	if(user.a_intent != INTENT_HELP)
+		return ..()
 /obj/item/push_broom/proc/sweep(mob/user, atom/A, moving = TRUE)
 	SIGNAL_HANDLER
 	var/turf/current_item_loc = moving ? user.loc : (isturf(A) ? A : A.loc)
