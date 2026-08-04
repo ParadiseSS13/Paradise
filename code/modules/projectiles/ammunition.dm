@@ -147,7 +147,8 @@
 	var/caliber
 	var/multiload = 1
 	var/slow_loading = FALSE
-	var/list/initial_mats // For calculating refund values.
+	/// For calculating refund values.
+	var/list/initial_mats
 	new_attack_chain = TRUE
 
 /obj/item/ammo_box/Initialize(mapload)

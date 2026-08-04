@@ -483,7 +483,7 @@
 	..()
 	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
 	if((is_pen(used)) && modified && !FD.pen)
-		if(!user.unequip(used)) // forceMove happens in add_pen
+		if(!user.unequip(used)) // `forceMove()` happens in `add_pen()`.
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		add_pen(used)
