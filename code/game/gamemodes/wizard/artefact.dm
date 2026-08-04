@@ -65,7 +65,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(used)
-		to_chat(user, SPAN_WARNING("You've already summoned an apprentice or you are in process of summoning one."))
+		to_chat(user, SPAN_WARNING("You've already summoned an apprentice or you are in process of summoning one!"))
 		return ITEM_INTERACT_COMPLETE
 
 	ui_interact(user)
@@ -111,7 +111,7 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = TRUE
-	var/spawn_path = /mob/living/basic/cow // Defaulty cows to prevent unintentional narsies.
+	var/spawn_path = /mob/living/basic/cow // Default to cows to prevent unintentional Nar'Sies.
 	var/spawn_amt_left = 20
 
 /obj/effect/rend/New(loc, spawn_type, spawn_amt, desc)
@@ -286,15 +286,15 @@ GLOBAL_LIST_EMPTY(multiverse)
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/faction = list("unassigned")
 	var/cooldown = 0
-	// Time in deciseconds between uses--default of 40 seconds.
-	var/cooldown_between_uses = 400 DECISECONDS
+	/// Time between uses. Default of 40 seconds.
+	var/cooldown_between_uses = 40 SECONDS
 	var/assigned = "unassigned"
 	var/evil = TRUE
-	// What's the probability this sword will be evil when activated?
+	/// What's the probability this sword will be evil when activated?
 	var/probability_evil = 30
-	// Do we want the species randomized along with equipment should the user be duplicated in their entirety?
+	/// Do we want the species randomized along with equipment should the user be duplicated in their entirety?
 	var/duplicate_self = 0
-	// Type of sword to equip.
+	/// Type of sword to equip.
 	var/sword_type = /obj/item/multisword
 	new_attack_chain = TRUE
 
