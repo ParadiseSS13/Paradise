@@ -212,6 +212,7 @@
 /obj/item/pyro_claws/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/forces_doors_open)
 	AddComponent(/datum/component/parry, \
 		_stamina_constant = 2, \
 		_stamina_coefficient = 0.5, \
@@ -235,39 +236,25 @@
 	if(prob(15))
 		do_sparks(rand(1, 6), 1, loc)
 
-/obj/item/pyro_claws/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(prob(60) && world.time > next_spark_time)
-		do_sparks(rand(1, 6), 1, loc)
-		next_spark_time = world.time + 0.8 SECONDS
+/obj/item/pyro_claws/door_force_try_message(obj/machinery/door/door, mob/user)
+	user.visible_message(
+		SPAN_WARNING("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"),
+		SPAN_WARNING("You start forcing the airlock open."),
+		SPAN_HEAR("You hear a metal screeching sound.")
+	)
 
-	if(!istype(target, /obj/machinery/door/airlock))
-		return ..()
-	var/obj/machinery/door/airlock/A = target
-
-	if(!A.requiresID() || A.allowed(user))
-		return ..()
-
-	if(A.locked)
-		to_chat(user, SPAN_WARNING("The airlock's bolts prevent it from being forced!"))
-		return ITEM_INTERACT_COMPLETE
-
-	if(A.arePowerSystemsOn())
-		user.visible_message(
-			SPAN_WARNING("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"),
-			SPAN_WARNING("You start forcing the airlock open."),
-			SPAN_HEAR("You hear a metal screeching sound.")
-		)
-		playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-		if(!do_after(user, 25, target = A))
-			return ITEM_INTERACT_COMPLETE
-
+/obj/item/pyro_claws/door_force_success_message(obj/machinery/door/door, mob/user)
 	user.visible_message(
 		SPAN_WARNING("[user] forces the airlock open with [user.p_their()] [name]!"),
 		SPAN_WARNING("You force open the airlock."),
 		SPAN_HEAR("You hear a metal screeching come to a halt.")
 	)
-	A.open(2)
-	return ITEM_INTERACT_COMPLETE
+
+/obj/item/pyro_claws/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(prob(60) && world.time > next_spark_time)
+		do_sparks(rand(1, 6), 1, loc)
+		next_spark_time = world.time + 0.8 SECONDS
+	return NONE
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
