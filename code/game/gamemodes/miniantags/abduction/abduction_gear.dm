@@ -290,6 +290,9 @@ CONTENTS:
 			icon_state = "wonderprodProbe"
 
 /obj/item/abductor_baton/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(!isabductor(user))
 		return FINISH_ATTACK
 
@@ -297,6 +300,9 @@ CONTENTS:
 		return FINISH_ATTACK
 
 /obj/item/abductor_baton/attack(mob/living/target, mob/living/carbon/human/user)
+	if(!ismob(target))
+		return ..()
+
 	user.do_attack_animation(target)
 
 	if(isrobot(target))
