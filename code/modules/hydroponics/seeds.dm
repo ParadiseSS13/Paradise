@@ -659,7 +659,7 @@
 
 /obj/item/unsorted_seeds/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(is_pen(used))
-		to_chat(user, SPAN_NOTICE("Sort it first."))
+		to_chat(user, SPAN_WARNING("Sort it first."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!istype(used, /obj/item/plant_analyzer))
