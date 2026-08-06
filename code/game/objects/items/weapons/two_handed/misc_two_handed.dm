@@ -238,15 +238,15 @@
 
 /obj/item/pyro_claws/door_force_try_message(obj/machinery/door/door, mob/user)
 	user.visible_message(
-		SPAN_WARNING("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"),
-		SPAN_WARNING("You start forcing the airlock open."),
+		SPAN_WARNING("[user] jams [user.p_their()] [name] into [door] and starts prying it open!"),
+		SPAN_WARNING("You start forcing [door] open."),
 		SPAN_HEAR("You hear a metal screeching sound.")
 	)
 
 /obj/item/pyro_claws/door_force_success_message(obj/machinery/door/door, mob/user)
 	user.visible_message(
-		SPAN_WARNING("[user] forces the airlock open with [user.p_their()] [name]!"),
-		SPAN_WARNING("You force open the airlock."),
+		SPAN_WARNING("[user] forces [door] open with [user.p_their()] [name]!"),
+		SPAN_WARNING("You force open [door]."),
 		SPAN_HEAR("You hear a metal screeching come to a halt.")
 	)
 
