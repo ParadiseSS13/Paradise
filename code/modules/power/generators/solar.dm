@@ -195,7 +195,7 @@
 	icon_state = "sp_base"
 	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	var/tracker = 0
+	var/tracker = FALSE
 	var/glass_type = null
 	new_attack_chain = TRUE
 
@@ -243,7 +243,8 @@
 			istype(used, /obj/item/stack/sheet/plasmaglass) || \
 			istype(used, /obj/item/stack/sheet/plasmarglass) || \
 			istype(used, /obj/item/stack/sheet/plastitaniumglass))
-		if(!(anchored || !isturf(loc)))
+		if(!anchored || !isturf(loc))
+			to_chat(user, SPAN_WARNING("You need to anchor [src] with a wrench before you can add glass!"))
 			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/stack/sheet/sheets = used
@@ -261,7 +262,6 @@
 			new /obj/machinery/power/tracker(get_turf(src), src)
 		else
 			new /obj/machinery/power/solar(get_turf(src), src)
-		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
