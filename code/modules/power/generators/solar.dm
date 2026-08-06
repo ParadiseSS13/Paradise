@@ -197,6 +197,7 @@
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
 	var/tracker = 0
 	var/glass_type = null
+	new_attack_chain = TRUE
 
 /obj/item/solar_assembly/attack_hand(mob/user)
 	if(!anchored)
@@ -219,34 +220,50 @@
 	if(anchored)
 		.+= SPAN_NOTICE("The solar assembly needs <i>glass</i> to be completed.")
 
-/obj/item/solar_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/item/solar_assembly/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tracker_electronics))
+		if(tracker)
+			to_chat(user, SPAN_WARNING("There are already tracker electronics in [src]!"))
+			return ITEM_INTERACT_COMPLETE
+		if(!user.drop_item())
+			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+			return ITEM_INTERACT_COMPLETE
+		tracker = TRUE
+		qdel(used)
+		user.visible_message(
+			SPAN_NOTICE("[user] inserts the electronics into the solar assembly."),
+			SPAN_NOTICE("You insert the electronics into the solar assembly."),
+			SPAN_NOTICE("You hear electronics click into place.")
+		)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
-	if(anchored || !isturf(loc))
-		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass) || istype(W, /obj/item/stack/sheet/plasmaglass) || istype(W, /obj/item/stack/sheet/plasmarglass) || istype(W, /obj/item/stack/sheet/plastitaniumglass))
-			var/obj/item/stack/sheet/S = W
-			if(S.use(2))
-				glass_type = S.merge_type
-				playsound(loc, S.usesound, 50, 1)
-				user.visible_message("[user] places the glass on the solar assembly.", SPAN_NOTICE("You place the glass on the solar assembly."))
-				if(tracker)
-					new /obj/machinery/power/tracker(get_turf(src), src)
-				else
-					new /obj/machinery/power/solar(get_turf(src), src)
-			else
-				to_chat(user, SPAN_WARNING("You need two sheets of glass to put them into a solar panel."))
-				return
-			return TRUE
+	if(istype(used, /obj/item/stack/sheet/glass) || \
+			istype(used, /obj/item/stack/sheet/rglass) || \
+			istype(used, /obj/item/stack/sheet/plasmaglass) || \
+			istype(used, /obj/item/stack/sheet/plasmarglass) || \
+			istype(used, /obj/item/stack/sheet/plastitaniumglass))
+		if(!(anchored || !isturf(loc)))
+			return ITEM_INTERACT_COMPLETE
 
-	if(!tracker)
-		if(istype(W, /obj/item/tracker_electronics))
-			if(!user.drop_item())
-				return
-			tracker = TRUE
-			qdel(W)
-			user.visible_message("[user] inserts the electronics into the solar assembly.", SPAN_NOTICE("You insert the electronics into the solar assembly."))
-			return TRUE
-	else
-		return ..()
+		var/obj/item/stack/sheet/sheets = used
+		if(!sheets.use(2))
+			to_chat(user, SPAN_WARNING("You need two sheets of glass to put them into a solar panel."))
+			return ITEM_INTERACT_COMPLETE
+		glass_type = sheets.merge_type
+		playsound(loc, sheets.usesound, 50, 1)
+		user.visible_message(
+			SPAN_NOTICE("[user] places the glass on the solar assembly."),
+			SPAN_NOTICE("You place the glass on the solar assembly."),
+			SPAN_HEAR("You hear glass panels click into place.")
+		)
+		if(tracker)
+			new /obj/machinery/power/tracker(get_turf(src), src)
+		else
+			new /obj/machinery/power/solar(get_turf(src), src)
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/solar_assembly/crowbar_act(mob/living/user, obj/item/I)
 	if(!tracker)
@@ -256,18 +273,30 @@
 		return
 	new /obj/item/tracker_electronics(loc)
 	tracker = FALSE
-	user.visible_message("[user] takes out the electronics from the solar assembly.", SPAN_NOTICE("You take out the electronics from the solar assembly."))
+	user.visible_message(
+		SPAN_NOTICE("[user] takes out the electronics from the solar assembly."),
+		SPAN_NOTICE("You take out the electronics from the solar assembly."),
+		SPAN_HEAR("You hear electronics snap out of place.")
+	)
 
 /obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
 	if(!anchored && isturf(loc))
 		if(I.use_tool(src, user, I.tool_volume))
 			anchored = TRUE
-			user.visible_message("[user] wrenches the solar assembly into place.", SPAN_NOTICE("You wrench the solar assembly into place."))
+			user.visible_message(
+				SPAN_NOTICE("[user] wrenches the solar assembly into place."),
+				SPAN_NOTICE("You wrench the solar assembly into place."),
+				SPAN_HEAR("You hear a wrench tightening.")
+			)
 			return TRUE
 	else
 		if(I.use_tool(src, user, I.tool_volume))
 			anchored = FALSE
-			user.visible_message("[user] unwrenches the solar assembly from its place.", SPAN_NOTICE("You unwrench the solar assembly from its place."))
+			user.visible_message(
+				SPAN_NOTICE("[user] unwrenches the solar assembly from its place."),
+				SPAN_NOTICE("You unwrench the solar assembly from its place."),
+				SPAN_HEAR("You hear a wrench loosening.")
+			)
 			return TRUE
 
 //
