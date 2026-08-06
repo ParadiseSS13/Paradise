@@ -212,13 +212,13 @@
 
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("The solar assembly is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.")
+	. += SPAN_NOTICE("[src] is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.")
 	if(tracker)
-		. += SPAN_NOTICE("The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.")
+		. += SPAN_NOTICE("It has a tracking circuit installed. It can be <b>pried out</b>.")
 	else
-		. += SPAN_NOTICE("The solar assembly has a slot for a <i>tracking circuit</i> board.")
+		. += SPAN_NOTICE("It has a slot for a <i>tracking circuit</i> board.")
 	if(anchored)
-		.+= SPAN_NOTICE("The solar assembly needs <i>glass</i> to be completed.")
+		. += SPAN_NOTICE("It needs <i>glass</i> to be completed.")
 
 /obj/item/solar_assembly/item_interaction(mob/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/tracker_electronics))
