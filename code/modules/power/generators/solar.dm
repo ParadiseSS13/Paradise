@@ -261,6 +261,7 @@
 			new /obj/machinery/power/tracker(get_turf(src), src)
 		else
 			new /obj/machinery/power/solar(get_turf(src), src)
+		qdel(src)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
