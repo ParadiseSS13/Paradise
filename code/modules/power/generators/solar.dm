@@ -231,8 +231,8 @@
 		tracker = TRUE
 		qdel(used)
 		user.visible_message(
-			SPAN_NOTICE("[user] inserts the electronics into the solar assembly."),
-			SPAN_NOTICE("You insert the electronics into the solar assembly."),
+			SPAN_NOTICE("[user] inserts [used] into [src]."),
+			SPAN_NOTICE("You insert [used] into [src]."),
 			SPAN_NOTICE("You hear electronics click into place.")
 		)
 		add_fingerprint(user)
@@ -249,13 +249,13 @@
 
 		var/obj/item/stack/sheet/sheets = used
 		if(!sheets.use(2))
-			to_chat(user, SPAN_WARNING("You need two sheets of glass to put them into a solar panel."))
+			to_chat(user, SPAN_WARNING("You need two sheets of glass to finish [src]."))
 			return ITEM_INTERACT_COMPLETE
 		glass_type = sheets.merge_type
 		playsound(loc, sheets.usesound, 50, 1)
 		user.visible_message(
-			SPAN_NOTICE("[user] places the glass on the solar assembly."),
-			SPAN_NOTICE("You place the glass on the solar assembly."),
+			SPAN_NOTICE("[user] places [used] on [src]."),
+			SPAN_NOTICE("You place [used] on [src]."),
 			SPAN_HEAR("You hear glass panels click into place.")
 		)
 		if(tracker)
@@ -274,30 +274,18 @@
 		return
 	new /obj/item/tracker_electronics(loc)
 	tracker = FALSE
-	user.visible_message(
-		SPAN_NOTICE("[user] takes out the electronics from the solar assembly."),
-		SPAN_NOTICE("You take out the electronics from the solar assembly."),
-		SPAN_HEAR("You hear electronics snap out of place.")
-	)
+	CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE
 
 /obj/item/solar_assembly/wrench_act(mob/living/user, obj/item/I)
 	if(!anchored && isturf(loc))
 		if(I.use_tool(src, user, I.tool_volume))
 			anchored = TRUE
-			user.visible_message(
-				SPAN_NOTICE("[user] wrenches the solar assembly into place."),
-				SPAN_NOTICE("You wrench the solar assembly into place."),
-				SPAN_HEAR("You hear a wrench tightening.")
-			)
+			WRENCH_ANCHOR_MESSAGE
 			return TRUE
 	else
 		if(I.use_tool(src, user, I.tool_volume))
 			anchored = FALSE
-			user.visible_message(
-				SPAN_NOTICE("[user] unwrenches the solar assembly from its place."),
-				SPAN_NOTICE("You unwrench the solar assembly from its place."),
-				SPAN_HEAR("You hear a wrench loosening.")
-			)
+			WRENCH_UNANCHOR_MESSAGE
 			return TRUE
 
 //
