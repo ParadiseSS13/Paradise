@@ -144,3 +144,61 @@
 
 /datum/martial_art/cqc/explaination_footer(user)
 	to_chat(user, "<b>Your slaps hit considerably harder, and allow you to parry incoming melee attacks.</b>")
+
+/obj/item/cqc_manual
+	name = "old manual"
+	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "cqcmanual"
+	new_attack_chain = TRUE
+
+/obj/item/cqc_manual/activate_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return ..()
+
+	if(!user.mind)
+		return ITEM_INTERACT_COMPLETE
+
+	if(IS_CHANGELING(user) || IS_MINDFLAYER(user))
+		to_chat(user, SPAN_WARNING("We try multiple times, but we simply cannot grasp the basics of CQC!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(user.mind.has_antag_datum(/datum/antagonist/vampire))
+		to_chat(user, SPAN_WARNING("Your blood lust distracts you from the basics of CQC!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(IS_HERETIC(user))
+		to_chat(user, SPAN_HIEROPHANT_WARNING("The mansus remembers the basics of CQC. You do not need to."))
+		return ITEM_INTERACT_COMPLETE
+
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, SPAN_WARNING("The mere thought of combat, let alone CQC, makes your head spin!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_BOLDANNOUNCEIC("You remember the basics of CQC."))
+	var/datum/martial_art/cqc/CQC = new(null)
+	CQC.teach(user)
+	user.drop_item_to_ground(src, TRUE)
+	visible_message(SPAN_WARNING("[src] beeps ominously, and a moment later it bursts up in flames."))
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
+/datum/action/defensive_stance
+	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
+	button_icon_state = "block"
+
+/datum/action/defensive_stance/Trigger(left_click)
+	var/mob/living/carbon/human/H = owner
+	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial-arts users anyway
+	if(!MA.can_parry)
+		to_chat(H, SPAN_WARNING("You can't parry right now."))
+		return
+	if(H.incapacitated())
+		to_chat(H, SPAN_WARNING("You can't defend yourself while you're incapacitated."))
+		return
+	var/obj/item/slapper/parry/slap = new(H)
+	if(H.put_in_hands(slap))
+		H.visible_message(SPAN_DANGER("[H] assumes a defensive stance!"), "<b><i>You drop back into a defensive stance.</i></b>")
+	else
+		to_chat(H, SPAN_WARNING("Your hands are full."))
