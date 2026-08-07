@@ -28,6 +28,7 @@
 	F.teach(user)
 	to_chat(user, SPAN_BOLDANNOUNCEIC("You have learned the ancient martial art of mimes."))
 	user.drop_item_to_ground(src, TRUE)
+	visible_message(SPAN_WARNING("[src] suddenly bursts into a silent inferno before turning into a pile of invisible ash!"))
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
 

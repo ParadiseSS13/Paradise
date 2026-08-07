@@ -48,5 +48,7 @@
 	F.teach(user)
 	to_chat(user, SPAN_BOLDANNOUNCEIC("You have learned the ancient martial art of the Admins."))
 	user.drop_item_to_ground(src, TRUE)
+	visible_message(SPAN_WARNING("You eat [src] to ensure that no-one else can access its power!"))
+	playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE

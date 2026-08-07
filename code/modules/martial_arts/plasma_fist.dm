@@ -37,5 +37,7 @@
 	F.teach(user)
 	to_chat(user, SPAN_BOLDANNOUNCEIC("You have learned the ancient martial art of Plasma Fist."))
 	user.drop_item_to_ground(src, TRUE)
+	visible_message(SPAN_WARNING("[src] crumbles to dust!"))
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE

@@ -190,15 +190,18 @@
 
 /datum/action/defensive_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
-	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial-arts users anyway
+	var/datum/martial_art/MA = H.mind.martial_art // This should never be available to non-martial-arts users anyway.
 	if(!MA.can_parry)
-		to_chat(H, SPAN_WARNING("You can't parry right now."))
+		to_chat(H, SPAN_WARNING("You can't parry right now!"))
 		return
 	if(H.incapacitated())
-		to_chat(H, SPAN_WARNING("You can't defend yourself while you're incapacitated."))
+		to_chat(H, SPAN_WARNING("You can't defend yourself while you're incapacitated!"))
 		return
 	var/obj/item/slapper/parry/slap = new(H)
 	if(H.put_in_hands(slap))
-		H.visible_message(SPAN_DANGER("[H] assumes a defensive stance!"), "<b><i>You drop back into a defensive stance.</i></b>")
+		H.visible_message(
+			SPAN_DANGER("[H] assumes a defensive stance!"),
+			SPAN_NOTICE("You drop back into a defensive stance.")
+		)
 	else
-		to_chat(H, SPAN_WARNING("Your hands are full."))
+		to_chat(H, SPAN_WARNING("Your hands are full!"))

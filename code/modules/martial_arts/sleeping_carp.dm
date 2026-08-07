@@ -68,7 +68,7 @@
 		to_chat(user, SPAN_WARNING("Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!"))
 		return ITEM_INTERACT_COMPLETE
 
-	else if(IS_HERETIC(user))
+	if(IS_HERETIC(user))
 		to_chat(user, SPAN_HIEROPHANT_WARNING("You and everyone else are already dreaming. You need to wake up, not sleep more..."))
 		return ITEM_INTERACT_COMPLETE
 
