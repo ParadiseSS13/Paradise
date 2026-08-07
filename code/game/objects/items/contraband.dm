@@ -25,7 +25,7 @@
 
 /obj/item/reagent_containers/pill/random_drugs/Initialize(mapload)
 	. = ..()
-	icon_state = "pill[rand(1,20)]"
+	icon_state = "pill[rand(1,28)]"
 
 	name = "[pick_list("chemistry_tools.json", "CYBERPUNK_drug_prefixes")] [pick_list("chemistry_tools.json", "CYBERPUNK_drug_suffixes")]"
 

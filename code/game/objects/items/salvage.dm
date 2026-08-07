@@ -11,6 +11,7 @@
 	drop_sound = 'sound/items/handling/salvagedrop.ogg'
 	/// How much is the salvage worth?
 	var/value = 100
+	new_attack_chain = TRUE
 
 /obj/item/salvage/examine(mob/user)
 	. = ..()
@@ -110,7 +111,7 @@
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
-	value = 125 // Mobs that drop this are fairly dangerous, so let's give it some value
+	value = 125 // Mobs that drop this are fairly dangerous, so let's give it some value.
 
 /obj/item/salvage/loot/dogtags
 	name = "dog tags"

@@ -485,24 +485,27 @@
 	contraband_enabled = !contraband_enabled
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
-/obj/item/circuitboard/rdconsole/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(allowed(user))
-			user.visible_message(SPAN_NOTICE("[user] waves [user.p_their()] ID past [src]'s access protocol scanner."), SPAN_NOTICE("You swipe your ID past [src]'s access protocol scanner."))
-			var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
-			if(!console_choice)
-				return
-			switch(console_choice)
-				if("R&D Core")
-					board_name = "RD Console"
-					build_path = /obj/machinery/computer/rdconsole/core
-				if("Public")
-					board_name = "RD Console - Public"
-					build_path = /obj/machinery/computer/rdconsole/public
+/obj/item/circuitboard/rdconsole/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda)))
+		return ..()
+	if(!allowed(user))
+		to_chat(user, SPAN_WARNING("Access Denied."))
+		return ITEM_INTERACT_COMPLETE
+	user.visible_message(
+		SPAN_NOTICE("[user] waves [used] past [src]'s access protocol scanner."),
+		SPAN_NOTICE("You swipe [used] past [src]'s access protocol scanner.")
+	)
+	var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
+	if(!console_choice)
+		return ITEM_INTERACT_COMPLETE
+	switch(console_choice)
+		if("R&D Core")
+			board_name = "RD Console"
+			build_path = /obj/machinery/computer/rdconsole/core
+		if("Public")
+			board_name = "RD Console - Public"
+			build_path = /obj/machinery/computer/rdconsole/public
 
-			format_board_name()
-			to_chat(user, SPAN_NOTICE("Access protocols set to [console_choice]."))
-		else
-			to_chat(user, SPAN_WARNING("Access Denied."))
-		return
-	return ..()
+	format_board_name()
+	to_chat(user, SPAN_NOTICE("Access protocols set to [console_choice]."))
+	return ITEM_INTERACT_COMPLETE

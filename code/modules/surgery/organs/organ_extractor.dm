@@ -9,6 +9,7 @@
 	var/insert_time = 12 SECONDS
 	var/self_insert_time = 7 SECONDS
 	var/advanced = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/organ_extractor/examine(mob/user)
 	. = ..()
@@ -22,13 +23,14 @@
 		return storedorgan.screwdriver_act(user, I)
 
 /obj/item/organ_extractor/wrench_act(mob/living/user, obj/item/I)
-	if(storedorgan)
-		to_chat(user, SPAN_WARNING("You unwrench the jar, and [storedorgan] falls onto the floor!"))
-		storedorgan.forceMove(get_turf(user))
-		storedorgan = null
-		playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-		overlays.Cut()
-		return TRUE
+	if(!storedorgan)
+		return
+	to_chat(user, SPAN_WARNING("You unwrench the jar, and [storedorgan] falls onto the floor!"))
+	storedorgan.forceMove(get_turf(user))
+	storedorgan = null
+	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
+	overlays.Cut()
+	return TRUE
 
 /obj/item/organ_extractor/emag_act(mob/user)
 	if(storedorgan)
@@ -38,70 +40,86 @@
 	if(storedorgan)
 		storedorgan.emp_act(severity)
 
-/obj/item/organ_extractor/attack_self__legacy__attackchain(mob/user)
-	insert_organ(user, user)
+/obj/item/organ_extractor/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/organ_extractor/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
+	add_fingerprint(user)
+	insert_organ(user, user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/organ_extractor/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(in_use)
 		to_chat(user, SPAN_WARNING("[src] is already busy!"))
-		return
-	if(!iscarbon(M))
-		to_chat(user, SPAN_WARNING("ERROR: [M] has no organs to harvest!"))
-		return
+		return ITEM_INTERACT_COMPLETE
+	if(!iscarbon(target))
+		to_chat(user, SPAN_WARNING("ERROR: [target] has no organs to harvest!"))
+		return ITEM_INTERACT_COMPLETE
 
-	var/mob/living/carbon/C = M
-	if(!length(C.client_mobs_in_contents)) //Basically, we don't want someone putting organs in monkeys then extracting from it. Has to be someone who had a client in the past
-		to_chat(user, SPAN_WARNING("ERROR: [C] has no soul trace to assist in targeting the drill bit!"))
-		return
-	if(!IS_HORIZONTAL(C) && C.stat == CONSCIOUS)
-		to_chat(user, SPAN_WARNING("ERROR: [C] is not restrained, and may move during the operation! Correction required."))
-		return
+	var/mob/living/carbon/carbon_target = target
+	if(!length(carbon_target.client_mobs_in_contents)) // Basically, we don't want someone putting organs in monkeys then extracting from it. Has to be someone who had a client in the past.
+		to_chat(user, SPAN_WARNING("ERROR: [carbon_target] has no soul trace to assist in targeting the drill bit!"))
+		return ITEM_INTERACT_COMPLETE
+	if(!IS_HORIZONTAL(carbon_target) && carbon_target.stat == CONSCIOUS)
+		to_chat(user, SPAN_WARNING("ERROR: [carbon_target] is not restrained, and may move during the operation! Correction required!"))
+		return ITEM_INTERACT_COMPLETE
 	if(storedorgan)
 		to_chat(user, SPAN_WARNING("NOTICE: Internal organ deteced. Beginning insertion procedure!"))
-		insert_organ(user, C)
-		return
+		insert_organ(user, carbon_target)
+		return ITEM_INTERACT_COMPLETE
 
 	in_use = TRUE
-	var/obj/item/chosen_organ = tgui_input_list(user, "Please select an organ for removal", "Organ Selection", C.internal_organs)
-	if(!chosen_organ || !user.Adjacent(C))
+	var/obj/item/chosen_organ = tgui_input_list(user, "Please select an organ for removal", "Organ Selection", carbon_target.internal_organs)
+	if(!chosen_organ || !user.Adjacent(carbon_target))
 		in_use = FALSE
-		return
-	if(!istype(chosen_organ, /obj/item/organ/internal)) //Saftey first
+		return ITEM_INTERACT_COMPLETE
+	if(!istype(chosen_organ, /obj/item/organ/internal)) // Safety first.
 		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] is not valid for removal for unknown reasons!"))
 		in_use = FALSE
-		return
-	if(istype(chosen_organ, /obj/item/organ/internal/brain/mmi_holder)) //This breaks shit
+		return ITEM_INTERACT_COMPLETE
+	if(istype(chosen_organ, /obj/item/organ/internal/brain/mmi_holder)) // This breaks shit.
 		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] is too big for the holding tank and would damage [src] too much!"))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(HAS_TRAIT(chosen_organ, TRAIT_ORGAN_INSERTED_WHILE_DEAD))
-		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] was inserted when [C] was dead, and has no soul trace to lock onto!"))
+		to_chat(user, SPAN_WARNING("ERROR: [chosen_organ] was inserted when [carbon_target] was dead, and has no soul trace to lock onto!"))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/organ/internal/internal_organ = chosen_organ
 	var/drilled_organ = internal_organ.parent_organ
-	user.visible_message(SPAN_DANGER("[user] activates [src] and begins to drill into [C]!"), SPAN_WARNING("You level the extractor at [M] and hold down the trigger."))
-	to_chat(C, SPAN_DANGER("You feel a lot of pain as [user] drills into your [drilled_organ]!"))
+	user.visible_message(
+		SPAN_DANGER("[user] activates [src] and begins to drill into [carbon_target]!"),
+		SPAN_WARNING("You level the extractor at [target] and hold down the trigger."),
+		SPAN_HEAR("You hear a drill spin up!")
+	)
+	if(carbon_target.can_feel_pain())
+		to_chat(carbon_target, SPAN_USERDANGER("You feel a lot of pain as [user] drills into your [drilled_organ]!"))
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
 
 	if(!advanced)
-		C.apply_damage(15, BRUTE, drilled_organ)
-	if(!do_after_once(user, insert_time, target = C))// Slightly longer than stamina crit, at least cuff and buckle them to a pipe or something
+		carbon_target.apply_damage(15, BRUTE, drilled_organ)
+	if(!do_after_once(user, insert_time, target = carbon_target)) // Slightly longer than stamina crit, at least cuff and buckle them to a pipe or something.
 		to_chat(user, SPAN_WARNING("ERROR: Process interrupted!"))
 		in_use = FALSE
-		return
-	if(!internal_organ || !istype(internal_organ) || !(internal_organ.owner == C)) //Organ got deleted / moved somewhere else?
+		return ITEM_INTERACT_COMPLETE
+	if(!internal_organ || !istype(internal_organ) || !(internal_organ.owner == carbon_target)) // Organ got deleted / moved somewhere else?
 		to_chat(user, SPAN_WARNING("ERROR: unable to find the desired organ!"))
 		in_use = FALSE
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(SPAN_DANGER("[user] removes [internal_organ] from [C]!"), SPAN_WARNING("You remove [internal_organ] from [C] as it gets sucked into [src]'s internal container!"))
+	user.visible_message(
+		SPAN_DANGER("[user] removes [internal_organ] from [carbon_target]!"),
+		SPAN_WARNING("You remove [internal_organ] from [carbon_target] as it gets sucked into [src]'s internal container!"),
+		SPAN_HEAR("You hear a sickening splorch, like an organ being sucked out of a body!")
+	)
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 75, TRUE)
-	C.apply_damage(10, BRUTE, drilled_organ)
-	internal_organ.remove(C)
+	carbon_target.apply_damage(10, BRUTE, drilled_organ)
+	internal_organ.remove(carbon_target)
 	in_use = FALSE
 	insert_internal_organ_in_extractor(internal_organ)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ_extractor/proc/insert_organ(mob/user, mob/our_target)
 	if(!storedorgan)
@@ -136,7 +154,7 @@
 	if(!advanced)
 		C.apply_damage(10, BRUTE, drilled_organ)
 	var/obj/item/organ/internal/replaced = C.get_organ_slot(storedorgan.slot)
-	if(replaced) //Lets not destroy someones brain fully by putting someone elses brain in that slot.
+	if(replaced) // Lets not destroy someones brain fully by putting someone elses brain in that slot.
 		if(advanced)
 			// Protects us from killing IPCs by removing their microbattery.
 			replaced.remove(C, TRUE)
@@ -144,7 +162,7 @@
 			replaced.remove(C)
 		replaced.forceMove(get_turf(src))
 		if(istype(storedorgan, /obj/item/organ/internal/heart) && ((/obj/item/organ/internal/cyberimp/brain/sensory_enhancer in C.internal_organs) || C.reagents.addiction_threshold_accumulated[/datum/reagent/mephedrone]))
-			var/damage_to_deal = 40 - storedorgan.damage // Make it so the heart ends up with 40 damage
+			var/damage_to_deal = 40 - storedorgan.damage // Make it so the heart ends up with 40 damage.
 			storedorgan.receive_damage(damage_to_deal) // Damage the heart so you can't endlessly OD for cheap easily.
 			to_chat(user, SPAN_WARNING("CAUTION: Crystalized mephedrone has bounced off the drill into [storedorgan], causing internal damage!"))
 	SSblackbox.record_feedback("tally", "o_implant_extract", 1, "[storedorgan.type]")
@@ -155,12 +173,12 @@
 	overlays.Cut()
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		H.set_heartattack(FALSE) //Otherwise you die if you try to do an organic heart, very funny, very bad
+		H.set_heartattack(FALSE) // Otherwise you die if you try to do an organic heart, very funny, very bad.
 
 /obj/item/organ_extractor/proc/insert_internal_organ_in_extractor(obj/item/organ/organ_to_be_inserted)
 	organ_to_be_inserted.forceMove(src)
 	storedorgan = organ_to_be_inserted
-	storedorgan.rejuvenate() //Organ gets dumped into the internal mito tank, heals it up. And nanites for robotic organs, I guess.
+	storedorgan.rejuvenate() // Organ gets dumped into the internal mito tank, heals it up. And nanites for robotic organs, I guess.
 	var/organ_x = storedorgan.pixel_x
 	var/organ_y = storedorgan.pixel_y
 	storedorgan.pixel_x = 2
@@ -173,7 +191,7 @@
 	overlays += img
 	storedorgan.pixel_x = organ_x
 	storedorgan.pixel_y = organ_y
-	overlays += "[icon_state]_2" //should look nicer for transparent stuff.
+	overlays += "[icon_state]_2" // Should look nicer for transparent stuff.
 
 /// Advanced abductor version. Is a lot faster with implanting into others
 /obj/item/organ_extractor/abductor
@@ -184,11 +202,12 @@
 	self_insert_time = 1 SECONDS
 	advanced = TRUE
 
-/obj/item/organ_extractor/abductor/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/organ_extractor/abductor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
-	if(istype(I, /obj/item/organ/internal) && !storedorgan)
-		user.unequip(I)
-		insert_internal_organ_in_extractor(I)
+	if(istype(used, /obj/item/organ/internal) && !storedorgan)
+		user.unequip(used)
+		insert_internal_organ_in_extractor(used)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/organ_extractor/abductor/emp_act(severity)
 	return FALSE
