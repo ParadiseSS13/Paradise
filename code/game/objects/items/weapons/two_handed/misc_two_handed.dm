@@ -333,3 +333,101 @@
 	on_cooldown = FALSE
 	set_nodrop(FALSE, loc)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
+
+
+/obj/item/bostaff
+	name = "bo staff"
+	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
+	icon = 'icons/obj/weapons/melee.dmi'
+	icon_state = "bostaff0"
+	base_icon_state = "bostaff"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
+	force = 10
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	throwforce = 20
+	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
+	new_attack_chain = TRUE
+
+/obj/item/bostaff/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
+
+/obj/item/bostaff/update_icon_state()
+	icon_state = "[base_icon_state]0"
+
+/obj/item/bostaff/pre_attack(atom/target, mob/living/user, params)
+	add_fingerprint(user)
+
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, SPAN_WARNING("You feel violence is not the answer."))
+		return FINISH_ATTACK
+
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		to_chat(user, SPAN_WARNING("You club yourself over the head with [src]."))
+		user.Weaken(6 SECONDS)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(2 * force, BRUTE, "head")
+		else
+			user.take_organ_damage(2 * force)
+		return FINISH_ATTACK
+
+	if(isrobot(target))
+		return ..()
+
+	if(!isliving(target))
+		return ..()
+
+	var/mob/living/carbon/carbon_target = target
+	if(carbon_target.stat)
+		to_chat(user, SPAN_WARNING("It would be dishonorable to attack a foe while [carbon_target.p_they()] cannot retaliate."))
+		return FINISH_ATTACK
+
+	if(user.a_intent != INTENT_DISARM)
+		return ..()
+
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return ..()
+	if(!ishuman(target))
+		return ..()
+
+	var/mob/living/carbon/human/human_target = target
+	var/list/fluffmessages = list("[user] clubs [human_target] with [src]!",
+								"[user] smacks [human_target] with the butt of [src]!",
+								"[user] broadsides [human_target] with [src]!",
+								"[user] smashes [human_target]'s head with [src]!",
+								"[user] beats [human_target] with front of [src]!",
+								"[user] twirls and slams [human_target] with [src]!")
+	human_target.visible_message(
+		SPAN_WARNING("[pick(fluffmessages)]"),
+		SPAN_USERDANGER("[pick(fluffmessages)]"),
+		SPAN_DANGER("You hear someone being attacked with a weapon!")
+	)
+	playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, TRUE, -1)
+	human_target.apply_damage(rand(13, 20), STAMINA)
+	if(prob(10))
+		human_target.visible_message(
+			SPAN_WARNING("[human_target] collapses!"),
+			SPAN_USERDANGER("Your legs give out!"),
+			SPAN_HEAR("You hear a body fall to the ground!")
+		)
+		human_target.Weaken(8 SECONDS)
+	if(human_target.getStaminaLoss() && !human_target.IsSleeping())
+		var/total_health = (human_target.health - human_target.getStaminaLoss())
+		if(total_health <= HEALTH_THRESHOLD_CRIT && !human_target.stat)
+			human_target.visible_message(
+				SPAN_WARNING("[user] delivers a heavy hit to [human_target]'s head, knocking [human_target.p_them()] out cold!"),
+				SPAN_USERDANGER("[user] knocks you unconscious!"),
+				SPAN_HEAR("You hear a body fall to the ground!")
+			)
+			human_target.SetSleeping(60 SECONDS)
+			human_target.adjustBrainLoss(25)
+	return FINISH_ATTACK
+
+/obj/item/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		return ..()
+	return FALSE
