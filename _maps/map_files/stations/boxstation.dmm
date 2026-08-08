@@ -39086,13 +39086,6 @@
 	c_tag = "Engineering West";
 	dir = 4
 	},
-/obj/machinery/door_control{
-	desc = "A remote control-switch for secure storage.";
-	id = "Secure Storage";
-	name = "Engineering Secure Storage";
-	pixel_x = -24;
-	req_access = list(56)
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -39283,6 +39276,13 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/door_control{
+	desc = "A remote control-switch for secure storage.";
+	id = "Secure Storage";
+	name = "Engineering Secure Storage";
+	req_access = list(32);
+	pixel_y = 32
 	},
 /turf/simulated/floor/catwalk,
 /area/station/engineering/secure_storage)
