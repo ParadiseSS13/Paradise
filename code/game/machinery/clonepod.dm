@@ -649,8 +649,8 @@
 		if(istype(patient_mind, /datum/mind))
 			patient_mind.transfer_to(clone)
 			clone.grab_ghost()
-			to_chat(clone, SPAN_WARNING("<b>Agony blazes across your consciousness as your body is torn apart.</b>\
-			<br><i>Is this what dying is like? Yes it is.</i>"))
+			to_chat(clone, SPAN_BIGGERDANGER("Agony blazes across your consciousness as your body is torn apart!")
+			to_chat(clone, SPAN_USERDANGER("Is this what dying is like? Yes it is."))
 			SEND_SOUND(clone, sound('sound/hallucinations/veryfar_noise.ogg', 0, TRUE, 50))
 		sleep(40)
 		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)

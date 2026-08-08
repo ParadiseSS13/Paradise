@@ -46,7 +46,7 @@
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
 	if(defib)
-		. += SPAN_NOTICE("There is a defib unit hooked up. Alt-click to remove it.")
+		. += SPAN_NOTICE("There is a defibrillator unit hooked up. <b>Alt-click</b> to remove it.")
 		if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 			. += SPAN_NOTICE("Due to a security situation, its locking clamps can be toggled by swiping any ID.")
 		else

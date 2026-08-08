@@ -538,7 +538,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 	if(user.hand)
 		temp = user.bodyparts_by_name["l_hand"]
 	if(temp && !temp.is_usable())
-		to_chat(user, SPAN_NOTICE("You try to move your [temp], but cannot!"))
+		to_chat(user, SPAN_USERDANGER("You try to move your [temp], but cannot!"))
 		return
 	if(sink_flags & SINK_BUSY)
 		to_chat(user, SPAN_NOTICE("Someone's already washing here."))

@@ -9,14 +9,14 @@
 
 /datum/antagonist/mindslave/heretic_monster/farewell()
 	if(owner.current)
-		to_chat(owner.current, SPAN_WARNING("Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!"))
-		owner.current.visible_message(SPAN_WARNING("[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!"))
+		to_chat(owner.current, SPAN_BIGGERDANGER("Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!"))
+		owner.current.visible_message(SPAN_DANGER("[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!"))
 
 	return ..()
 
 /datum/antagonist/mindslave/heretic_monster/Destroy(force, ...)
 	if(master.current)
-		to_chat(master.current, SPAN_WARNING("The essence of [owner], your servant, fades from your mind."))
+		to_chat(master.current, SPAN_DANGER("The essence of [owner], your servant, fades from your mind."))
 	return ..()
 
 
