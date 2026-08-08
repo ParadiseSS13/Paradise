@@ -13508,7 +13508,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "bDz" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
