@@ -1278,12 +1278,12 @@
 			if("Target")
 				var/mob/living/carbon/human/new_target = usr.client?.holder.marked_datum
 				if(!istype(new_target))
-					to_chat(usr, "<span class='warning'>You need to mark a human to do this!</span>")
+					to_chat(usr, SPAN_WARNING("You need to mark a human to do this!"))
 					return
 
 				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-					to_chat(current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
-					to_chat(current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
+					to_chat(current, SPAN_DANGER("The Mansus has modified your targets. Go find them!"))
+					to_chat(current, SPAN_DANGER("[new_target.real_name], the [new_target.mind?.assigned_role || "human"]."))
 					var/datum/antagonist/heretic/hereitic = has_antag_datum(/datum/antagonist/heretic)
 					hereitic.add_sacrifice_target(new_target)
 			if("RemoveTarget")
@@ -1300,14 +1300,14 @@
 					return
 
 				if(!thereitic.remove_sacrifice_target(chosen_target))
-					to_chat(usr, "<span class='warning'>Failed to remove [name_of_removed] from [current]'s sacrifice list. Perhaps they're no longer in the list anyways.</span>")
+					to_chat(usr, SPAN_WARNING("Failed to remove [name_of_removed] from [current]'s sacrifice list. Perhaps they're no longer in the list anyways."))
 					return
 
 				if(tgui_alert(usr, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-					to_chat(current, "<span class='danger'>The Mansus has modified your targets.</span>")
+					to_chat(current, SPAN_DANGER("The Mansus has modified your targets."))
 			if("focus")
 				current.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(current)), ITEM_SLOT_NECK, TRUE, TRUE)
-				to_chat(current, "<span class='danger'>The Mansus has given you a focus!</span>")
+				to_chat(current, SPAN_DANGER("The Mansus has given you a focus!"))
 				log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a heretic focus")
 			if("knowledge")
 				var/change_num = tgui_input_number(usr, "Add or remove knowledge points", "Points", 0, 100, -100)

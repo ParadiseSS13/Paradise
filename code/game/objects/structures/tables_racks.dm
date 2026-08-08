@@ -1033,8 +1033,10 @@
 		if(!user.drop_item(src))
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
-		user.visible_message("<span class='notice'>[user] assembles \a [R].\
-			</span>", SPAN_NOTICE("You assemble \a [R]."))
+		user.visible_message(
+			SPAN_NOTICE("[user] assembles \a [R]."),
+			SPAN_NOTICE("You assemble \a [R].")
+		)
 		R.add_fingerprint(user)
 		qdel(src)
 	building = FALSE

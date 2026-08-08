@@ -9,14 +9,14 @@
 
 /datum/antagonist/mindslave/heretic_monster/farewell()
 	if(owner.current)
-		to_chat(owner.current, "<span class='warning'>Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!</span>")
-		owner.current.visible_message("<span class='warning'>[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!</span>")
+		to_chat(owner.current, SPAN_WARNING("Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!"))
+		owner.current.visible_message(SPAN_WARNING("[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!"))
 
 	return ..()
 
 /datum/antagonist/mindslave/heretic_monster/Destroy(force, ...)
 	if(master.current)
-		to_chat(master.current, "<span class='warning'>The essence of [owner], your servant, fades from your mind.</span>")
+		to_chat(master.current, SPAN_WARNING("The essence of [owner], your servant, fades from your mind."))
 	return ..()
 
 
@@ -28,7 +28,7 @@
 
 /datum/antagonist/mindslave/heretic_monster/greet()
 	var/list/messages = list()
-	messages.Add("<span class='boldnotice'>You are a [ishuman(owner.current) ? "shambling corpse returned":"horrible creation brought"] to this plane through the Gates of the Mansus.</span>")
-	messages.Add("<span class='notice'>Your master is [master.current.name]. Assist them to all ends.</span>")
+	messages.Add(SPAN_BOLDNOTICE("You are a [ishuman(owner.current) ? "shambling corpse returned":"horrible creation brought"] to this plane through the Gates of the Mansus."))
+	messages.Add(SPAN_NOTICE("Your master is [master.current.name]. Assist them to all ends."))
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/heretic/heretic_gain.ogg'))
 	return messages
