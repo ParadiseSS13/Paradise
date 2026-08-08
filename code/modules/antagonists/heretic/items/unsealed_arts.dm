@@ -74,7 +74,7 @@
 
 /obj/structure/unsealed_art/beauty/examine_more(mob/user)
 	. = ..()
-	. += "<span class='notice'>This unsealed art will bewitch any non-heretic that lays their eyes on it, forcing them to stare deeply upon its beauty. They cannot look away.</span"
+	. += SPAN_NOTICE("This unsealed art will bewitch any non-heretic that lays their eyes on it, forcing them to stare deeply upon its beauty. They cannot look away.")
 
 /obj/structure/unsealed_art/beauty/Destroy()
 	QDEL_NULL(eyeobj)

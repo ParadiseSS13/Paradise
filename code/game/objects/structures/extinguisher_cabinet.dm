@@ -110,7 +110,7 @@
 		if(user.hand)
 			temp = H.bodyparts_by_name["l_hand"]
 		if(temp && !temp.is_usable())
-			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
+			to_chat(user, SPAN_WARNING("You try to move your [temp.name], but cannot!"))
 			return
 	if(has_extinguisher)
 		if(icon_state == "extinguisher_closed")

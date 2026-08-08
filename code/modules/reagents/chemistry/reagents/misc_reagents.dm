@@ -406,7 +406,7 @@
 				H.drop_item_to_ground(H.wear_mask)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
 			H.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
-			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
+			to_chat(H, SPAN_NOTICE("Hair bursts forth from your every follicle!"))
 	..()
 
 /datum/reagent/hugs
@@ -924,7 +924,7 @@
 
 /datum/reagent/bluespace/on_mob_life(mob/living/M)
 	if(current_cycle > 10 && prob(10))
-		to_chat(M, "<span class='warning'>You feel unstable...</span>")
+		to_chat(M, SPAN_WARNING("You feel unstable..."))
 		M.Jitter(2 SECONDS)
 		current_cycle = 1
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 3 SECONDS)

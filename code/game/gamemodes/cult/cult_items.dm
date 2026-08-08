@@ -936,7 +936,7 @@
 		if(IS_CULTIST(holder))
 			to_chat(holder, SPAN_CULTITALIC("The shield's illusions are back at full strength!"))
 		else
-			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
+			to_chat(holder, SPAN_WARNING("[src] vibrates slightly, and starts glowing."))
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(reflect_chance))

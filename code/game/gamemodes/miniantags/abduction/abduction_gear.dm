@@ -583,7 +583,7 @@ CONTENTS:
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 
-		to_chat(L, SPAN_ITALICS("You hear a voice in your head saying: </span><span class='abductor'>[message]"))
+		to_chat(L, "[SPAN_ITALICS("You hear a voice in your head saying:")] [SPAN_ABDUCTOR(message)]")
 		to_chat(user, SPAN_NOTICE("You send the message to your target."))
 		log_say("[key_name(user)] sent an abductor mind message to [key_name(L)]: '[message]'", user)
 
