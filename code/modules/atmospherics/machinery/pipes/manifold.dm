@@ -163,8 +163,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.</span>"
+	. += SPAN_NOTICE("This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.")
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
@@ -178,8 +178,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.</span>"
+	. += SPAN_NOTICE("This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.")
 
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow
 	color = PIPE_COLOR_YELLOW
@@ -216,8 +216,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.</span>"
+	. += SPAN_NOTICE("This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.")
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
@@ -231,8 +231,8 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.</span>"
+	. += SPAN_NOTICE("This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.")
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow
 	color = PIPE_COLOR_YELLOW

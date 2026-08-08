@@ -11,7 +11,7 @@
 /datum/action/cooldown/mob_cooldown/bluespace_horror/summon_mobs/Activate(atom/target)
 	var/mob/living/basic/megafauna/bluespace_horror/summoner = owner
 	if(!istype(summoner))
-		to_chat(owner, "<span class='warning'>I am unable to summon servants!</span>")
+		to_chat(owner, SPAN_WARNING("I am unable to summon servants!"))
 		return
 
 	var/amount_to_spawn = rand(2, 5)
@@ -39,7 +39,7 @@
 	for(var/i in 1 to 9)
 		new /obj/effect/temp_visual/dragon_swoop/bluespace_horror(T)
 		T = get_step(T, dir_to_target)
-	owner.visible_message("<span class='danger'>[owner] prepares to charge!</span>")
+	owner.visible_message(SPAN_DANGER("[owner] prepares to charge!"))
 	addtimer(CALLBACK(src, PROC_REF(charge_to), dir_to_target, 0), 4)
 	StartCooldown()
 
@@ -67,8 +67,8 @@
 	for(var/mob/living/L in T.contents - owner)
 		if(owner.faction_check_mob(L))
 			continue
-		owner.visible_message("<span class='danger'>[owner] tramples and kicks [L]!</span>")
-		to_chat(L, "<span class='userdanger'>[owner] tramples you and kicks you away!</span>")
+		owner.visible_message(SPAN_DANGER("[owner] tramples and kicks [L]!"))
+		to_chat(L, SPAN_USERDANGER("[owner] tramples you and kicks you away!"))
 		L.throw_at(throwtarget, 10, 1, owner)
 		L.Weaken(1 SECONDS) // Pain Train has no breaks.
 		if(L in hit_targets)

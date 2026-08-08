@@ -86,11 +86,14 @@
 /obj/item/grown/nettle/death
 	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
-	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounceic'>rage</span> in you just from looking at it!"
+	desc = "The glowing nettle incites rage in you just from looking at it!"
 	icon_state = "deathnettle"
 	force = 25
 	throwforce = 10
 	origin_tech = "combat=5"
+
+/obj/item/grown/nettle/death/Initialize(mapload)
+	desc = "The [SPAN_DANGER("glowing")] nettle incites [SPAN_BOLDANNOUNCEIC("rage")] in you just from looking at it!"
 
 /obj/item/grown/nettle/death/add_juice()
 	..()

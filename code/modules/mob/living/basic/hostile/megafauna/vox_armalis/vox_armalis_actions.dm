@@ -17,7 +17,7 @@
 	armalis.next_move_modifier -= 0.5
 	armalis.speed -= 1
 	addtimer(CALLBACK(src, PROC_REF(end_qani)), 20 SECONDS)
-	to_chat(armalis, "<span class='notice'>A flood of suppressants and performance enhancers flood your system, while your augments go into overdrive.</span>")
+	to_chat(armalis, SPAN_NOTICE("A flood of suppressants and performance enhancers flood your system, while your augments go into overdrive."))
 	StartCooldown()
 
 /// Leaves an afterimage behind the mob when they move
