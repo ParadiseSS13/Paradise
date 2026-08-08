@@ -93,6 +93,7 @@
 	origin_tech = "combat=5"
 
 /obj/item/grown/nettle/death/Initialize(mapload)
+	. = ..()
 	desc = "The [SPAN_DANGER("glowing")] nettle incites [SPAN_BOLDANNOUNCEIC("rage")] in you just from looking at it!"
 
 /obj/item/grown/nettle/death/add_juice()

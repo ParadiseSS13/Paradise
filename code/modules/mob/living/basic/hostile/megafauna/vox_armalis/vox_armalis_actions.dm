@@ -34,8 +34,8 @@
 	if(HAS_TRAIT(armalis, TRAIT_IMMOBILIZED))
 		return NONE
 	armalis.visible_message(
-		"<span class='danger'>[armalis] effortlessly dodges [hitting_projectile]!</span>",
-		"<span class='userdanger'>You effortlessly evade [hitting_projectile]!</span>",
+		SPAN_DANGER("[armalis] effortlessly dodges [hitting_projectile]!"),
+		SPAN_USERDANGER("You effortlessly evade [hitting_projectile]!"),
 	)
 	playsound(armalis, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 	armalis.add_filter("mephedrone_overdose_blur", 2, gauss_blur_filter(5))
@@ -50,7 +50,7 @@
 	UnregisterSignal(armalis, COMSIG_ATOM_PREHIT)
 	armalis.next_move_modifier += 0.5
 	armalis.speed += 1
-	to_chat(armalis, "<span class='notice'>Your augments return to standard operation speeds as the suppressants wear off.</span>")
+	to_chat(armalis, SPAN_NOTICE("Your augments return to standard operation speeds as the suppressants wear off."))
 
 /datum/action/cooldown/mob_cooldown/vox_armalis/swap_ammo
 	name = "Switch Ammunition"
@@ -80,19 +80,19 @@
 			comp.casing_type = /obj/item/ammo_casing/caseless/spike_flechettes
 			comp.burst_shots = 1
 			comp.cooldown_time = 0.5 SECONDS
-			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to flechette shot.</span>")
+			to_chat(armalis, SPAN_NOTICE("You switch your heavy spikethrower to flechette shot."))
 		if(2)
 			ammo_type++
 			comp.casing_type = /obj/item/ammo_casing/caseless/spike_penetrator
 			comp.burst_shots = 1
 			comp.cooldown_time = 1 SECONDS
-			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to penetrating shot.</span>")
+			to_chat(armalis, SPAN_NOTICE("You switch your heavy spikethrower to penetrating shot."))
 		if(3)
 			ammo_type = 1
 			comp.casing_type = /obj/item/ammo_casing/caseless/heavy_spike
 			comp.burst_shots = 2
 			comp.cooldown_time = 0.5 SECONDS
-			to_chat(armalis, "<span class='notice'>You switch your heavy spikethrower to heavy spike shot.</span>")
+			to_chat(armalis, SPAN_NOTICE("You switch your heavy spikethrower to heavy spike shot."))
 	StartCooldown()
 
 /datum/action/cooldown/mob_cooldown/vox_armalis/ignite_claws
@@ -118,7 +118,7 @@
 		armalis.attack_verb_simple = initial(armalis.attack_verb_simple)
 		armalis.attack_verb_continuous = initial(armalis.attack_verb_continuous)
 		playsound(armalis, 'sound/weapons/saberoff.ogg', 80, TRUE)
-		to_chat(armalis, "<span class='notice'>You switch off your plasma talons.</span>")
+		to_chat(armalis, SPAN_NOTICE("You switch off your plasma talons."))
 	else
 		armalis.plasma_claws = TRUE
 		armalis.melee_damage_lower += 10
@@ -127,6 +127,6 @@
 		armalis.attack_verb_simple = "slash"
 		armalis.attack_verb_continuous = "slashes"
 		playsound(armalis, 'sound/weapons/saberon.ogg', 80, TRUE)
-		to_chat(armalis, "<span class='warning'>You switch on your plasma talons.</span>")
+		to_chat(armalis, SPAN_WARNING("You switch on your plasma talons."))
 	armalis.update_icon(UPDATE_OVERLAYS)
 	StartCooldown()
