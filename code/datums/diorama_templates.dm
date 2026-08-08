@@ -2,7 +2,6 @@
 	var/description
 	var/diorama_id
 
-
 /datum/map_template/diorama/snowy
 	name = "Snowy Diorama"
 	description = "'Santa's Secret Surprise' by haydenredacted"
@@ -25,6 +24,11 @@
 	name = "Vet Visit Diorama"
 	description = "'Vet Visit Diorama' by haydenredacted"
 	mappath = "_maps/map_files/dioramas/vet_diorama.dmm"
+
+/datum/map_template/diorama/borg
+	name = "A Cyborg's Creation Diorama"
+	description = "'A Cyborg's Creation Diorama' by haydenredacted"
+	mappath = "_maps/map_files/dioramas/borg_diorama.dmm"
 
 /datum/map_template/diorama/decisions
 	name = "Making Decisions Diorama"
@@ -57,3 +61,6 @@
 
 /area/centcom/diorama/vet
 	name = "Vet Visit Diorama"
+
+/area/centcom/diorama/decisions
+	name = "Makign Decisions Diorama"

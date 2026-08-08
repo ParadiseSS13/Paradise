@@ -986,6 +986,7 @@
 	color = "#FFFFFF"
 	taste_description = "soap"
 	yuck_description = "grime in your gears"
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/soap/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_SOAPY_MOUTH, id)

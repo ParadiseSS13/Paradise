@@ -4,10 +4,10 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "d" = (
 /turf/simulated/floor/carpet/red,
-/area/space)
+/area/centcom/diorama/decisions)
 "h" = (
 /obj/item/toy/plushie/draskplushie{
 	pixel_x = 8;
@@ -18,7 +18,7 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/carpet/red,
-/area/space)
+/area/centcom/diorama/decisions)
 "i" = (
 /obj/structure/window/plastitanium{
 	dir = 1
@@ -28,13 +28,13 @@
 	},
 /obj/structure/sign/bobross,
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "k" = (
 /obj/item/clothing/head/beret/cmo{
 	pixel_y = -3
 	},
 /turf/simulated/floor/carpet/red,
-/area/space)
+/area/centcom/diorama/decisions)
 "m" = (
 /obj/structure/window/plastitanium,
 /obj/structure/window/plastitanium{
@@ -44,7 +44,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/sepia,
-/area/space)
+/area/centcom/diorama/decisions)
 "o" = (
 /obj/structure/window/plastitanium{
 	dir = 1
@@ -54,7 +54,7 @@
 	},
 /obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "q" = (
 /turf/template_noop,
 /area/template_noop)
@@ -64,7 +64,7 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "t" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -73,7 +73,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/sepia,
-/area/space)
+/area/centcom/diorama/decisions)
 "w" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -85,18 +85,18 @@
 	dir = 9
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "y" = (
 /obj/structure/window/plastitanium,
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/sepia,
-/area/space)
+/area/centcom/diorama/decisions)
 "A" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
-/area/space)
+/area/centcom/diorama/decisions)
 "B" = (
 /obj/structure/window/plastitanium,
 /obj/structure/window/plastitanium{
@@ -110,7 +110,7 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/sepia,
-/area/space)
+/area/centcom/diorama/decisions)
 "C" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -120,7 +120,7 @@
 	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/sepia,
-/area/space)
+/area/centcom/diorama/decisions)
 "F" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -129,7 +129,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "G" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -138,12 +138,12 @@
 	pixel_y = 15
 	},
 /turf/simulated/floor/carpet/red,
-/area/space)
+/area/centcom/diorama/decisions)
 "H" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "K" = (
 /obj/structure/chair/wood/wings,
 /obj/item/toy/plushie/kidanplushie,
@@ -152,7 +152,7 @@
 	pixel_x = 3
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "L" = (
 /obj/structure/table/wood,
 /obj/item/pen/multi/fountain{
@@ -168,7 +168,7 @@
 	pixel_x = -4
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "O" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -181,7 +181,7 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "Q" = (
 /obj/structure/diorama_sign,
 /turf/template_noop,
@@ -194,7 +194,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "V" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/regular/hipster{
@@ -206,7 +206,7 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "W" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -215,7 +215,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 "X" = (
 /obj/structure/window/plastitanium{
 	dir = 8
@@ -224,7 +224,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/sepia,
-/area/space)
+/area/centcom/diorama/decisions)
 "Z" = (
 /obj/structure/window/plastitanium{
 	dir = 4
@@ -237,7 +237,7 @@
 	},
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/wood,
-/area/space)
+/area/centcom/diorama/decisions)
 
 (1,1,1) = {"
 w

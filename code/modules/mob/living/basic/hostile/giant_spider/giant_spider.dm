@@ -103,6 +103,8 @@
 				continue
 			if(L.stat != DEAD)
 				continue
+			if(isLivingSSD(L))
+				continue
 			if(istype(L, /mob/living/basic/giant_spider))
 				continue
 			if(Adjacent(L))
@@ -117,7 +119,7 @@
 		if(length(choices))
 			cocoon_target = tgui_input_list(src, "What do you wish to cocoon?", "Cocoon Wrapping", choices)
 		else
-			to_chat(src, "<span class='warning'>No suitable dead prey or wrappable objects found nearby.")
+			to_chat(src, SPAN_WARNING("No suitable dead prey or wrappable objects found nearby."))
 			return
 
 	if(cocoon_target)

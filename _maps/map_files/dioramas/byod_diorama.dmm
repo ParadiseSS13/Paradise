@@ -1,41 +1,313 @@
-"a" = (/obj/structure/disposalpipe/junction/reversed{dir = 8},/obj/structure/window/plastitanium{dir = 1},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"b" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 9},/obj/structure/disposalpipe/segment/corner{dir = 2},/obj/structure/window/plastitanium{dir = 4},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"c" = (/obj/structure/window/plastitanium{dir = 4},/obj/structure/disposalpipe/junction/reversed{dir = 2},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"e" = (/obj/machinery/atmospherics/portable/pump/bluespace,/obj/machinery/atmospherics/unary/portables_connector{dir = 1},/obj/structure/window/plastitanium{dir = 4},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"g" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/window/plastitanium,/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"h" = (/obj/structure/window/plastitanium,/obj/structure/disposalpipe/segment,/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"k" = (/turf/template_noop,/area/template_noop)
-"m" = (/obj/structure/cable,/obj/structure/grille,/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"o" = (/obj/structure/disposalpipe/segment/corner{dir = 4},/obj/item/clothing/gloves/color/yellow,/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"p" = (/obj/structure/disposalpipe/junction{dir = 8},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"q" = (/obj/structure/disposalpipe/segment/corner{dir = 1},/obj/structure/window/plastitanium,/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"t" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/disposalpipe/segment,/obj/structure/window/plastitanium{dir = 8},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"v" = (/obj/structure/cable{icon_state = "1-8"},/obj/structure/disposalpipe/segment/corner{dir = 2},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"w" = (/obj/structure/cable{icon_state = "4-8"},/obj/item/paper/diorama/byod,/obj/structure/disposalpipe/junction{dir = 1},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"x" = (/obj/structure/disposalpipe/segment,/obj/structure/window/plastitanium{dir = 1},/obj/structure/window/plastitanium{dir = 8},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"z" = (/obj/structure/disposalpipe/segment/corner{dir = 4},/obj/structure/window/plastitanium{dir = 1},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"A" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/obj/structure/cable{icon_state = "2-8"},/obj/structure/disposalpipe/segment{dir = 4},/obj/item/rpd{pixel_x = 6; pixel_y = 11},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"C" = (/obj/structure/disposalpipe/segment,/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"D" = (/obj/machinery/power/smes/magical,/obj/item/storage/toolbox/mechanical/old{pixel_x = -4; pixel_y = 15},/obj/structure/window/plastitanium{dir = 8},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"E" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/obj/structure/disposalpipe/segment,/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"G" = (/obj/structure/disposalpipe/trunk,/obj/machinery/disposal,/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"H" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/obj/structure/cable{icon_state = "2-4"},/obj/structure/disposalpipe/segment{dir = 4},/obj/item/multitool,/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"I" = (/obj/structure/disposalpipe/segment/corner{dir = 8},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"K" = (/obj/structure/disposalpipe/segment,/obj/structure/window/plastitanium{dir = 8},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"L" = (/obj/structure/diorama_sign,/turf/template_noop,/area/template_noop)
-"M" = (/obj/structure/window/plastitanium,/obj/structure/window/plastitanium{dir = 8},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"N" = (/obj/machinery/atmospherics/pipe/simple/visible,/obj/item/clothing/head/welding,/obj/structure/window/plastitanium{dir = 4},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"Q" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/window/plastitanium{dir = 1},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"R" = (/obj/structure/disposalpipe/segment/corner{dir = 8},/obj/structure/window/plastitanium{dir = 4},/obj/structure/window/plastitanium{dir = 1},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"S" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 6},/obj/structure/cable/yellow{icon_state = "0-8"},/obj/machinery/power/terminal,/obj/structure/disposalpipe/segment/corner{dir = 1},/obj/structure/window/plastitanium{dir = 8},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
-"X" = (/obj/structure/disposalpipe/segment/corner{dir = 8},/obj/structure/window/plastitanium,/obj/structure/window/plastitanium{dir = 4},/turf/simulated/floor/plating,/area/centcom/diorama/byod)
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"b" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"c" = (
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"e" = (
+/obj/machinery/atmospherics/portable/pump/bluespace,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"g" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"h" = (
+/obj/structure/window/plastitanium,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"k" = (
+/turf/template_noop,
+/area/template_noop)
+"m" = (
+/obj/structure/cable,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"o" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/obj/item/clothing/gloves/color/yellow,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"p" = (
+/obj/structure/disposalpipe/junction{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"q" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"t" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"v" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"w" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/paper/diorama/byod,
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"x" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"z" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"A" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/rpd{
+	pixel_x = 6;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"C" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"D" = (
+/obj/machinery/power/smes/magical,
+/obj/item/storage/toolbox/mechanical/old{
+	pixel_x = -4;
+	pixel_y = 15
+	},
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"E" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"G" = (
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"H" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/multitool,
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"I" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"K" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"L" = (
+/obj/structure/diorama_sign,
+/turf/template_noop,
+/area/template_noop)
+"M" = (
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"N" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/item/clothing/head/welding,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"Q" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"R" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"S" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/terminal,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/obj/structure/window/plastitanium{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
+"X" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/obj/structure/window/plastitanium,
+/obj/structure/window/plastitanium{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/centcom/diorama/lavaland)
 
 (1,1,1) = {"
-xzQaR
-tIGCe
-KopIN
-SEHAb
-Dwvmc
-MhqgX
-kkLkk
+x
+t
+K
+S
+D
+M
+k
+"}
+(2,1,1) = {"
+z
+I
+o
+E
+w
+h
+k
+"}
+(3,1,1) = {"
+Q
+G
+p
+H
+v
+q
+L
+"}
+(4,1,1) = {"
+a
+C
+I
+A
+m
+g
+k
+"}
+(5,1,1) = {"
+R
+e
+N
+b
+c
+X
+k
 "}
