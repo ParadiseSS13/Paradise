@@ -136,6 +136,11 @@ USER_VERB(play_sound_tgchat, R_SOUNDS, "Play Global Sound", "Play a sound to be 
 
 		// Prepare the body
 		var/list/request_body = list("url" = web_sound_input)
+		// Patch around the YTDLP server breaking in its current form
+		// Making these empty dicts overrides the default on the YTDLP server where it tries to parse with invalid args
+		request_body["opts"] = alist()
+		request_body["opts"]["extractor_args"] = alist()
+
 		// Send the request off
 		var/datum/http_request/media_poll_request = new()
 		// The fact we are using GET with a body offends me
