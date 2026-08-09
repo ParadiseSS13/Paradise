@@ -153,16 +153,14 @@
 	if(!HAS_TRAIT(user.mind, TRAIT_SMITH))
 		return
 	if(do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
-		var/compiled_message = "<span class='notice'>\
-		You determine the following properties on [src]: <br>\
-		Base Laser Speed mod: [base_laser_speed_mult] <br>\
-		Base Power Draw mod: [base_power_mult] <br>\
-		Base Damage mod: [base_damage_mult] <br>\
-		Base Fire Rate mod: [base_fire_rate_mult] <br>\
-		Laser Speed Multiplier: [laser_speed_mult] <br>\
-		Power Draw Multiplier: [power_mult] <br>\
-		Damage multiplier: [damage_mult] <br>\
-		Fire Rate Multiplier: [fire_rate_mult] <br>\
-		Durability: [durability] <br>\
-		</span>"
-		to_chat(user, compiled_message)
+		var/compiled_message = "You determine the following properties on [src]:"
+		compiled_message += "Base Laser Speed mod: [base_laser_speed_mult]"
+		compiled_message += "Base Power Draw mod: [base_power_mult]"
+		compiled_message += "Base Damage mod: [base_damage_mult]"
+		compiled_message += "Base Fire Rate mod: [base_fire_rate_mult]"
+		compiled_message += "Laser Speed Multiplier: [laser_speed_mult]"
+		compiled_message += "Power Draw Multiplier: [power_mult]"
+		compiled_message += "Damage multiplier: [damage_mult]"
+		compiled_message += "Fire Rate Multiplier: [fire_rate_mult]"
+		compiled_message += "Durability: [durability]"
+		to_chat(user, SPAN_NOTICE(compiled_message))

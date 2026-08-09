@@ -155,16 +155,14 @@
 	if(!HAS_TRAIT(user.mind, TRAIT_SMITH))
 		return
 	if(do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
-		var/compiled_message = "<span class='notice'>\
-		You determine the following properties on [src]: <br>\
-		Base Speed mod: [base_speed_mod] <br>\
-		Base Efficiency mod: [base_efficiency_mod] <br>\
-		Base Productivity mod: [base_productivity_mod] <br>\
-		Speed Multiplier: [speed_mod] <br>\
-		Efficiency Multiplier: [efficiency_mod] <br>\
-		Productivity Multiplier: [productivity_mod] <br>\
-		Failure Rate: [failure_rate] <br>\
-		Size Mod: [size_mod] <br>\
-		Durability: [durability] <br>\
-		</span>"
-		to_chat(user, compiled_message)
+		var/compiled_message = "You determine the following properties on [src]:"
+		compiled_message += "Base Speed mod: [base_speed_mod]"
+		compiled_message += "Base Efficiency mod: [base_efficiency_mod]"
+		compiled_message += "Base Productivity mod: [base_productivity_mod]"
+		compiled_message += "Speed Multiplier: [speed_mod]"
+		compiled_message += "Efficiency Multiplier: [efficiency_mod]"
+		compiled_message += "Productivity Multiplier: [productivity_mod]"
+		compiled_message += "Failure Rate: [failure_rate]"
+		compiled_message += "Size Mod: [size_mod]"
+		compiled_message += "Durability: [durability]"
+		to_chat(user, SPAN_NOTICE(compiled_message))
