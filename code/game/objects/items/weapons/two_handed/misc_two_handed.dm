@@ -367,6 +367,7 @@
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, SPAN_WARNING("You club yourself over the head with [src]."))
+		user.do_attack_animation(target)
 		user.Weaken(6 SECONDS)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -406,6 +407,7 @@
 		SPAN_USERDANGER("[pick(fluffmessages)]"),
 		SPAN_DANGER("You hear someone being attacked with a weapon!")
 	)
+	user.do_attack_animation(target)
 	playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, TRUE, -1)
 	human_target.apply_damage(rand(13, 20), STAMINA)
 	if(prob(10))
