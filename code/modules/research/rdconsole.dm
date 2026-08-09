@@ -457,7 +457,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				SSblackbox.record_feedback("tally", "station_protolathe_production", amount, "[being_built.type]")
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
-				new_item.scatter_atom()
+				if(new_item.pixel_x == 0 && new_item.pixel_y == 0)
+					new_item.scatter_atom()
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]",INVESTIGATE_SINGULO)
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
@@ -1043,6 +1044,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "core R&D console"
 	desc = "A console used to interface with R&D tools."
 	autolink_id = "station_rnd"
+
+/obj/machinery/computer/rdconsole/core/shipwright
+	req_one_access = list(ACCESS_SHIPWRIGHT)
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"

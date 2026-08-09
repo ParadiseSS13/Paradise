@@ -147,3 +147,6 @@
 /area/station/security/permasolitary
 	name = "Solitary Confinement"
 	icon_state = "solitary"
+
+/area/station/security/brig_pilot
+	name = "Brig Pilot's Hangar"

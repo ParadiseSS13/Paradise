@@ -178,3 +178,45 @@
 /datum/outfit/job/atmos/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_FIRE_FIGHTER, JOB_TRAIT)
+
+/datum/job/shipwright
+	title = "Shipwright"
+	flag = JOB_SHIPWRIGHT
+	department_flag = JOBCAT_ENGSEC
+	description = "Builds and maintains space pods."
+	department_head = list("Chief Engineer")
+	job_department_flags = DEP_FLAG_ENGINEERING
+	supervisors = "the chief engineer"
+	selection_color = "#fff5cc"
+	total_positions = 1
+	spawn_positions = 1
+	minimal_player_age = 7
+	access = list(
+		ACCESS_ENGINEERING_GENERAL,
+		ACCESS_EVA,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SHIPWRIGHT,
+	)
+	exp_map = list(EXP_TYPE_CREW = 300)
+	outfit = /datum/outfit/job/shipwright
+	standard_paycheck = CREW_PAY_MEDIUM
+	difficulty = MEDIUM_DIFFICULTY
+	alt_titles = list("Pod Pilot")
+
+/datum/outfit/job/shipwright
+	name = "Shipwright"
+	jobtype = /datum/job/shipwright
+
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
+	belt = /obj/item/storage/belt/utility/full
+	shoes = /obj/item/clothing/shoes/workboots
+	l_ear = /obj/item/radio/headset/headset_eng
+	gloves = /obj/item/clothing/gloves/color/black
+	glasses = /obj/item/clothing/glasses/sunglasses
+	backpack = /obj/item/storage/backpack
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/engineering
+	r_pocket = /obj/item/storage/bag/construction
+	pda = /obj/item/pda/engineering
+	box = /obj/item/storage/box/engineer

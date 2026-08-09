@@ -85,6 +85,12 @@
 			return FALSE
 		return TRUE
 
+	if(istype(the_target, /obj/tgvehicle/sealed/vectorcraft/spacepod))
+		var/obj/tgvehicle/sealed/vectorcraft/spacepod/pod = the_target
+		if(!pod.driver)
+			return FALSE
+		return TRUE
+
 	return FALSE
 
 /// Returns true if the mob and target share factions

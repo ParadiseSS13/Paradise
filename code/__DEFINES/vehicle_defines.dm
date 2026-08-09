@@ -51,3 +51,18 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 
 ///Similar to DELAY_TO_GLIDE_SIZE, except without the clamping, and it supports piping in an unrelated scalar
 #define MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, movement_disparity) (world.icon_size / ((delay) / world.tick_lag) * movement_disparity * GLOB.glide_size_multiplier)
+
+#define POD_MAIN_BOARD 1
+#define POD_MAIN_SECURE 2
+#define POD_SEC_BOARD 3
+#define POD_SEC_SECURE 4
+#define POD_HULL_METAL 5
+#define POD_METAL_WRENCH 6
+#define POD_HULL_WIRES 7
+#define POD_WIRES_WIRECUTTERS 8
+#define POD_HULL_WINDOW 9
+#define POD_WINDOW_WRENCH 10
+#define POD_PLATE_INSERT 11
+#define POD_ALL_WELD 12
+
+#define HAS_LIGHTS (1<<0)

@@ -69,6 +69,8 @@
 #define ACCESS_SUPPLY_SHUTTLE			79
 #define ACCESS_TRAINER					80
 #define ACCESS_EVIDENCE					81	//! Security evidence room
+#define ACCESS_SHIPWRIGHT				82
+#define ACCESS_BRIG_PILOT				83
 
 #define ACCESS_WEAPONS					99	//! Weapon authorization for secbots.
 

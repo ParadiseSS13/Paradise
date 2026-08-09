@@ -52,6 +52,9 @@ GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
 	. = ..()
 	. += SPAN_NOTICE("Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
 
+/obj/item/stack/sheet/glass/ten
+	amount = 10
+
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
 

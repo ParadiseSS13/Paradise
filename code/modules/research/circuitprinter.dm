@@ -108,3 +108,9 @@ sometimes a secondary material (often gold or diamond).
 	if(linked_console)
 		linked_console.linked_imprinter = null
 		linked_console = null
+
+/obj/machinery/r_n_d/circuit_imprinter/pod_board_etcher
+	name = "space pod board etcher"
+	desc = "Manufactures circuit boards for the construction of space pods."
+	categories = list("Space Pod Boards")
+
