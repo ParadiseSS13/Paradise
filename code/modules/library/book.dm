@@ -295,7 +295,7 @@
 				to_chat(user, SPAN_NOTICE("You change your mind."))
 				return
 			if(page_choice <= 0 || page_choice > length(pages))
-				to_chat(user, SPAN_NOTICE("That is not an acceptable value."))
+				to_chat(user, SPAN_WARNING("That is not an acceptable value!"))
 				return
 			remove_page(page_choice)
 

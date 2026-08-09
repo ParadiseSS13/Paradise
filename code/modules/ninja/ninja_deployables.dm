@@ -150,11 +150,11 @@
 /obj/item/wormhole_jaunter/ninja_bomb/turf_check(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf)
-		to_chat(user, SPAN_NOTICE("You're having difficulties getting the [name] to work."))
+		to_chat(user, SPAN_WARNING("You're having difficulties getting the [name] to work."))
 		return FALSE
 	var/area/our_area = get_area(device_turf)
 	if(!istype(our_area, bomb_target))
-		to_chat(user, SPAN_NOTICE("You're having difficulties getting the [name] to work."))
+		to_chat(user, SPAN_WARNING("You're having difficulties getting the [name] to work."))
 		return FALSE
 	return TRUE
 

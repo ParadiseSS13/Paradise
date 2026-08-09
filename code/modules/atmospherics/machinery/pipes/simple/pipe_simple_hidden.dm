@@ -32,7 +32,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe.")
+			a Universal Pipe Adapter.")
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal
 	name = "Universal pipe adapter"

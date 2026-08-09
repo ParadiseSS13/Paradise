@@ -226,8 +226,8 @@
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		SPAN_NOTICE("\the [user] puts \the [what] into \the [src]."),
-		SPAN_NOTICE("You put \the [what] into \the [src].")
+		SPAN_NOTICE("[user] puts [what] into [src]."),
+		SPAN_NOTICE("You put [what] into [src].")
 	)
 
 	user.drop_item()

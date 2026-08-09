@@ -264,7 +264,7 @@
 
 /obj/item/tcgcard_deck/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("\The [src] has [contents.len] cards inside.")
+	. += SPAN_NOTICE("[src] has [contents.len] cards inside.")
 
 /obj/item/tcgcard_deck/update_icon()
 	. = ..()
@@ -354,8 +354,8 @@
 	user.put_in_hands(drawn_card)
 	drawn_card.update_icon()
 	user.visible_message(
-		SPAN_NOTICE("[user] draws a card from \the [src]!"),
-		SPAN_NOTICE("You draw a card from \the [src]!")
+		SPAN_NOTICE("[user] draws a card from [src]!"),
+		SPAN_NOTICE("You draw a card from [src]!")
 	)
 	update_icon()
 	if(!contents.len)
@@ -372,8 +372,8 @@
 		card.forceMove(src)
 	if(visible)
 		user.visible_message(
-			SPAN_NOTICE("[user] shuffles \the [src]!"),
-			SPAN_NOTICE("You shuffle \the [src]!")
+			SPAN_NOTICE("[user] shuffles [src]!"),
+			SPAN_NOTICE("You shuffle [src]!")
 		)
 
 /obj/item/tcgcard_deck/proc/flip_deck()

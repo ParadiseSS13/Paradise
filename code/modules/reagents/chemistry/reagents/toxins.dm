@@ -365,7 +365,7 @@
 	if(was_skin_removed)
 		H.visible_message(
 			SPAN_WARNING("The synthetic skin on [H]'s body bubbles and melts away."),
-			SPAN_WARNING("The synthetic skin on your body bubbles and melts away.")
+			SPAN_DANGER("The synthetic skin on your body bubbles and melts away.")
 		)
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)

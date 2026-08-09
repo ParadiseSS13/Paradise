@@ -673,7 +673,7 @@
 					continue
 				L.stop_pulling()
 				L.visible_message(
-					SPAN_WARNING("[L] is hit by a hyperspace ripple!"),
+					SPAN_DANGER("[L] is hit by a hyperspace ripple!"),
 					SPAN_USERDANGER("You feel an immense crushing pressure as the space around you ripples.")
 				)
 				L.gib()

@@ -653,7 +653,7 @@
 	if(!open)
 		open = TRUE
 		antable = TRUE
-		to_chat(user, SPAN_NOTICE("You tear \the [src] open."))
+		to_chat(user, SPAN_NOTICE("You tear [src] open."))
 		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 		icon_state = "[initial_state]open"
 	return ITEM_INTERACT_COMPLETE
@@ -667,7 +667,7 @@
 		icon_state = "[initial_state]open"
 		return
 	if(!open)
-		to_chat(usr, SPAN_WARNING("Open \the [src] first!"))
+		to_chat(usr, SPAN_WARNING("Open [src] first!"))
 		return
 	else
 		..()
