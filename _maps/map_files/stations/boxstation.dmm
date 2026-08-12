@@ -50724,6 +50724,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
+"gmm" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "gmu" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plasteel,
@@ -50883,6 +50887,10 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
+/obj/item/ashtray/glass{
+	pixel_x = -1;
+	pixel_y = 3
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "gqr" = (
@@ -84395,6 +84403,7 @@
 	dir = 9
 	},
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "vip" = (
@@ -88636,6 +88645,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"wXe" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/drinkingglasses{
+	pixel_x = 0;
+	pixel_y = -2
+	},
+/obj/item/ashtray/glass{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "wXg" = (
 /obj/effect/spawner/random/maintenance,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -119845,8 +119866,8 @@ ckv
 ckv
 ckv
 ckv
-ckv
-ckv
+wXe
+gmm
 ckv
 pKY
 iul
