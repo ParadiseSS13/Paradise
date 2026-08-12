@@ -396,6 +396,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		reminder_timer_id = TIMER_ID_NULL
 		return
 
+	if(stat & NOPOWER)
+		return
+
 	atom_say("Unread message(s) available.")
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
