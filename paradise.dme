@@ -446,6 +446,7 @@
 #include "code\datums\datacore.dm"
 #include "code\datums\datum.dm"
 #include "code\datums\datumvars.dm"
+#include "code\datums\diorama_templates.dm"
 #include "code\datums\dog_fashion.dm"
 #include "code\datums\emote.dm"
 #include "code\datums\event_structures.dm"

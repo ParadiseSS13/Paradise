@@ -173,7 +173,8 @@
 	unintentional_audio_cooldown = 3.5 SECONDS
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/human/monkey, // screech instead
-		/mob/living/silicon // Robot sounds
+		/mob/living/silicon, // Robot sounds
+		/mob/living/brain
 	)
 
 /datum/emote/living/carbon/human/scream/select_message_type(mob/user, msg, intentional)

@@ -1,4 +1,4 @@
-#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
+#define MAX_PILL_SPRITE 28 //max icon state of the pill sprites
 #define MAX_PATCH_SPRITE 21 //max icon state of the patch sprites
 #define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
 
