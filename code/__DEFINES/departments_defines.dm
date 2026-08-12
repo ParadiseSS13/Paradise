@@ -32,3 +32,13 @@
 // 	DEPARTMENT_COMMAND = DEP_FLAG_COMMAND
 // 	)
 // )
+
+#define DEP_MAIL_LIST_SECURITY list("Head of Security", "Security Officer", "Detective", "Warden")
+#define DEP_MAIL_LIST_SCIENCE list("Research Director", "Roboticist", "Geneticist", "Scientist")
+#define DEP_MAIL_LIST_SUPPLY list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
+#define DEP_MAIL_LIST_MEDICAL list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
+#define DEP_MAIL_LIST_ENGINEERING list("Chief Engineer", "Station Engineer", "Life Support Specialist")
+#define DEP_MAIL_LIST_BREAD list("Bartender", "Chef", "Botanist", "Janitor", "Librarian")
+#define DEP_MAIL_LIST_SERVICE list("Clown", "Mime", "Head of Personnel", "Chaplain")
+#define DEP_MAIL_LIST_COMMAND list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent", "Nanotrasen Career Trainer")
+#define DEP_MAIL_LIST_MISC list("Assistant")
