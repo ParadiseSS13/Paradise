@@ -120,6 +120,8 @@
 		to_chat(user, SPAN_WARNING("[src] is out of fuel!"))
 		return
 
+	add_fingerprint(user)
+
 	// Plasma explodes when exposed to fire.
 	if(reagents.get_reagent_amount("plasma"))
 		var/datum/effect_system/reagents_explosion/E = new()
@@ -155,6 +157,7 @@
 	STOP_PROCESSING(SSobj, src)
 	set_light(0)
 	update_appearance()
+	add_fingerprint(user)
 	return TRUE
 
 /// Spreads reagents in a 3x3 area centered on the thurible
