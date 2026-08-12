@@ -339,6 +339,7 @@
 			user.put_in_hands(beaker)
 		beaker = null
 		update_icon()
+		add_fingerprint(user)
 		return
 
 	if(!is_drink)
