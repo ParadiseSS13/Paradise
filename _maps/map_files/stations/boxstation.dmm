@@ -25084,10 +25084,6 @@
 /obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
-"bRv" = (
-/obj/structure/sign/poster/contraband/random/directional/south,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/assembly_line)
 "bRw" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -29123,6 +29119,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/random/directional/east,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "ciE" = (
@@ -54609,6 +54606,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint2)
+"hYB" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "hYH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -56095,6 +56096,11 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
+"iFU" = (
+/obj/structure/lattice,
+/obj/structure/sign/poster/contraband/random/directional/south,
+/turf/space,
+/area/space/nearstation)
 "iGf" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -72205,6 +72211,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "pLr" = (
@@ -78372,6 +78379,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/storage)
+"ssT" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/structure/sign/poster/official/random/directional/west,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/aft/north)
 "ssV" = (
 /obj/structure/table,
 /obj/item/toy/figure/crew/secofficer,
@@ -95618,8 +95633,8 @@ aaa
 aaa
 aaa
 aaa
-aab
-bRv
+iFU
+yhd
 dWp
 fij
 cMC
@@ -118288,13 +118303,13 @@ cgS
 cgS
 cgS
 cgS
-ckv
+hYB
 ybL
 ckv
 ckv
 kKw
 ckv
-ckv
+hYB
 cgW
 mXJ
 cqs
@@ -120341,7 +120356,7 @@ cjk
 wuu
 ieo
 sIS
-ckO
+ssT
 ckO
 fku
 cig
