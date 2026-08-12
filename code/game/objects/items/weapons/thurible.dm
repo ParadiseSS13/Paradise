@@ -22,6 +22,7 @@
 									"cbd", "space_drugs", "nicotine", "jestosterone", "nothing")
 	/// How many reagents are consumed with each swing?
 	var/swing_reagents_consumed = 2
+	new_attack_chain = TRUE
 
 /obj/item/thurible/Initialize(mapload)
 	. = ..()
@@ -53,21 +54,29 @@
 			H.update_inv_r_hand()
 	return ..()
 
-/obj/item/thurible/attackby__legacy__attackchain(obj/item/fire_source, mob/user, params)
-	. = ..()
-	if(fire_source.get_heat())
-		user.visible_message(
-			SPAN_NOTICE("[user] lights [src] with [fire_source]."),
-			SPAN_NOTICE("You light [src] with [fire_source]."),
-			SPAN_WARNING("You hear a low whoosh.")
-		)
-		light(user)
+/obj/item/thurible/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/thurible/attack_self__legacy__attackchain(mob/user)
+	if(!used.get_heat())
+		return NONE
+
+	user.visible_message(
+		SPAN_NOTICE("[user] lights [src] with [used]."),
+		SPAN_NOTICE("You light [src] with [used]."),
+		SPAN_WARNING("You hear a low whoosh.")
+	)
+	light(user)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/thurible/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(lit)
 		to_chat(user, SPAN_WARNING("You extinguish [src]."))
 		put_out(user)
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/thurible/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
