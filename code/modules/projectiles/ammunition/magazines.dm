@@ -43,19 +43,19 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return 0
+		return FALSE
 
 	for(var/i in 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
 		if(!bullet || !bullet.BB) // found a spent ammo
 			stored_ammo[i] = R
-			R.loc = src
+			R.forceMove(src)
 
 			if(bullet)
-				bullet.loc = get_turf(loc)
-			return 1
+				bullet.forceMove(get_turf(loc))
+			return TRUE
 
-	return 0
+	return FALSE
 
 /obj/item/ammo_box/magazine/internal/cylinder/charons_special
 	ammo_type = /obj/item/ammo_casing/huntsman32
@@ -262,10 +262,10 @@
 /obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
+		return FALSE
 	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber9mm))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
@@ -471,7 +471,7 @@
 
 /obj/item/ammo_box/magazine/m12g/rubbershot/give_round(obj/item/ammo_casing/R, replace_spent)
 	if(istype(R, /obj/item/ammo_casing/shotgun/frag12) || istype(R, /obj/item/ammo_casing/shotgun/buckshot))
-		return 0
+		return FALSE
 	return ..()
 
 /obj/item/ammo_box/magazine/m12g/stun
@@ -578,10 +578,10 @@
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
+		return FALSE
 	if(istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/riot))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/toy/m762
 	name = "donksoft box magazine"

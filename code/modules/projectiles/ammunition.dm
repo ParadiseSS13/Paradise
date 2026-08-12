@@ -187,7 +187,7 @@
 
 	if(length(stored_ammo) < max_ammo)
 		stored_ammo += R
-		R.loc = src
+		R.forceMove(src)
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 		update_mat_value()
 		return TRUE
@@ -197,10 +197,10 @@
 			if(!AC.BB)
 				// Found a spent ammo.
 				stored_ammo -= AC
-				AC.loc = get_turf(loc)
+				AC.forceMove(get_turf(loc))
 
 				stored_ammo += R
-				R.loc = src
+				R.forceMove(src)
 				playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
 				update_mat_value()
 				return TRUE
