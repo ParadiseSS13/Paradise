@@ -412,8 +412,8 @@
 		return 0
 
 	var/can_flip = 1
-	for(var/mob/A in oview(src,0))//loc)
-		if(istype(A))
+	for(var/mob/A in oview(src, 0)) // Our loc.
+		if(istype(A) && !isobserver(A))
 			can_flip = 0
 	if(!can_flip)
 		return 0

@@ -1,6 +1,7 @@
 /obj/item/organ/internal/alien
 	origin_tech = null
 	icon_state = null
+	inhand_icon_state = "meatball"
 	var/list/alien_powers = list()
 	var/list/human_powers = list()
 	icon = 'icons/obj/xeno_organs.dmi'
