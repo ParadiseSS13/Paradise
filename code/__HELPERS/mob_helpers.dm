@@ -135,7 +135,7 @@
 
 /proc/list_valid_alt_heads(species = "Human")
 	var/list/valid_alt_heads = list()
-	valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option, and there should always be a "None" option.
+	valid_alt_heads["None"] = GLOB.alt_heads_list["None"] // The only null entry should be the "None" option, and there should always be a "None" option.
 	for(var/alternate_head in GLOB.alt_heads_list)
 		var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
 		if(!(species in head.species_allowed))
