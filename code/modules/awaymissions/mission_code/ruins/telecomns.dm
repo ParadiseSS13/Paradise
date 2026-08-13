@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/bot_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
-		for(var/mob/living/simple_animal/bot/B in GLOB.telecomms_bots)
+		for(var/mob/living/basic/bot/B in GLOB.telecomms_bots)
 			B.call_bot(null, T, FALSE)
 		qdel(src)
 

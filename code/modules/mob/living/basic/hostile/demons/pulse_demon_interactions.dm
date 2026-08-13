@@ -106,7 +106,7 @@
 	else
 		attack_ai(user)
 
-/mob/living/simple_animal/bot/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
+/mob/living/basic/bot/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	if(user.loc == src)
 		return
 	to_chat(user, SPAN_WARNING("You are now inside [src]. If it is destroyed, you will be dropped onto the ground, and may die if there is no cable under you."))
@@ -116,7 +116,7 @@
 	user.current_bot = src
 	hijacked = TRUE
 
-/mob/living/simple_animal/bot/relaymove(mob/user, dir)
+/mob/living/basic/bot/relaymove(mob/user, dir)
 	if(!on)
 		to_chat(user, "[src] isn't turned on!")
 		return
@@ -243,7 +243,7 @@
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 				playsound(F, 'sound/effects/blobattack.ogg', 40, TRUE)
 
-/mob/living/simple_animal/bot/mulebot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+/mob/living/basic/bot/mulebot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
 	if(!on)
 		return
 	if(istype(A) && Adjacent(A) && ismovable(A))

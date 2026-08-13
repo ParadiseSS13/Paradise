@@ -1,6 +1,6 @@
 /datum/emote/living/silicon
 	// Humans are allowed for the sake of IPCs
-	mob_type_allowed_typecache = list(/mob/living/silicon, /mob/living/simple_animal/bot, /mob/living/carbon/human)
+	mob_type_allowed_typecache = list(/mob/living/silicon, /mob/living/basic/bot, /mob/living/carbon/human)
 	mob_type_blacklist_typecache = list()
 
 /datum/emote/living/silicon/can_run_emote(mob/user, status_check, intentional)

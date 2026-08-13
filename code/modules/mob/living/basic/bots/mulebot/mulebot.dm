@@ -58,6 +58,8 @@
 	var/replacement_chance = 0.666
 	/// home destination, only used by mappers.
 	var/home_destination = ""
+	/// The mulebot's wires
+	var/datum/wires/wires
 
 /mob/living/basic/bot/mulebot/Initialize(mapload)
 	. = ..()
@@ -66,16 +68,17 @@
 		new /mob/living/basic/bot/mulebot/paranormal(loc)
 		return INITIALIZE_HINT_QDEL
 
-	set_wires(new /datum/wires/mulebot(src))
+	wires = new /datum/wires/mulebot(src)
 	var/obj/item/stock_parts/cell/new_cell = new(src)
 	assign_cell(new_cell)
 	ai_controller.set_blackboard_key(BB_MULEBOT_HOME_BEACON, "")
-	AddElement(/datum/element/ridable, /datum/component/riding/creature/mulebot)
+	#warn add /datum/component/riding/creature/mulebot
+	AddElement(/datum/element/ridable)
 	ADD_TRAIT(src, TRAIT_NOMOBSWAP, INNATE_TRAIT)
 	add_traits(list(TRAIT_NOMOBSWAP, TRAIT_COMBAT_MODE_LOCK), INNATE_TRAIT)
 	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_pre_move))
 
-	set_id(suffix || assign_random_name())
+	set_id(suffix)
 	suffix = null
 	if(name == "\improper MULEbot")
 		name = "\improper MULEbot [id]"
@@ -97,10 +100,10 @@
 
 
 /mob/living/basic/bot/mulebot/attack_hand(mob/living/carbon/human/user, list/modifiers)
-	if(bot_access_flags & BOT_COVER_MAINTS_OPEN && !HAS_AI_ACCESS(user))
-		wires.interact(user)
+	if(bot_access_flags & BOT_COVER_MAINTS_OPEN && !is_ai_eye(user))
+		wires.Interact(user)
 		return
-	if(wires.is_cut(WIRE_RX) && HAS_AI_ACCESS(user))
+	if(wires.is_cut(WIRE_REMOTE_RX) && is_ai_eye(user))
 		return
 
 	return ..()
@@ -110,7 +113,7 @@
 	if(bot_access_flags & BOT_COVER_MAINTS_OPEN)
 		if(cell)
 			. += SPAN_NOTICE("It has \a [cell] installed.")
-			. += span_info("You can use a <b>crowbar</b> to remove it.")
+			. += SPAN_INFO("You can use a <b>crowbar</b> to remove it.")
 		else
 			. += SPAN_NOTICE("It has an empty compartment where a <b>power cell</b> can be installed.")
 	if(load) //observer check is so we don't show the name of the ghost that's sitting on it to prevent metagaming who's ded.
@@ -140,7 +143,7 @@
 
 /mob/living/basic/bot/mulebot/update_icon_state() //if you change the icon_state names, please make sure to update /datum/wires/mulebot/on_pulse() as well. <3
 	. = ..()
-	icon_state = "[base_icon_state][(bot_mode_flags & BOT_MODE_ON) ? wires?.is_cut(WIRE_AVOIDANCE) : "0"]"
+	icon_state = "[base_icon_state][(bot_mode_flags & BOT_MODE_ON) ? wires?.is_cut(WIRE_MOB_AVOIDANCE) : "0"]"
 
 /mob/living/basic/bot/mulebot/update_overlays()
 	. = ..()
@@ -173,19 +176,19 @@
 /mob/living/basic/bot/mulebot/proc/buzz(type)
 	switch(type)
 		if(MULEBOT_MOOD_SIGH)
-			audible_message(span_hear("[src] makes a sighing buzz."))
-			playsound(src, 'sound/machines/buzz/buzz-sigh.ogg', 50, FALSE)
+			audible_message(SPAN_HEAR("[src] makes a sighing buzz."))
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		if(MULEBOT_MOOD_ANNOYED)
-			audible_message(span_hear("[src] makes an annoyed buzzing sound."))
-			playsound(src, 'sound/machines/buzz/buzz-two.ogg', 50, FALSE)
+			audible_message(SPAN_HEAR("[src] makes an annoyed buzzing sound."))
+			playsound(src, 'sound/machines/buzz-two.ogg', 50, FALSE)
 		if(MULEBOT_MOOD_DELIGHT)
-			audible_message(span_hear("[src] makes a delighted ping!"))
+			audible_message(SPAN_HEAR("[src] makes a delighted ping!"))
 			playsound(src, 'sound/machines/ping.ogg', 50, FALSE)
 		if(MULEBOT_MOOD_CHIME)
-			audible_message(span_hear("[src] makes a chiming sound!"))
+			audible_message(SPAN_HEAR("[src] makes a chiming sound!"))
 			playsound(src, 'sound/machines/chime.ogg', 50, FALSE)
 	flick("[base_icon_state]1", src)
 
 /// returns true if the bot is fully powered.
 /mob/living/basic/bot/mulebot/proc/has_power()
-	return cell && cell.charge > 0 && (!wires.is_cut(WIRE_POWER1) && !wires.is_cut(WIRE_POWER2))
+	return cell && cell.charge > 0 && (!wires.is_cut(WIRE_MAIN_POWER1) && !wires.is_cut(WIRE_MAIN_POWER2))

@@ -1,7 +1,7 @@
 /datum/ui_module/botcall
 	name = "Access Robot Control"
 
-	var/mob/living/simple_animal/bot/bot
+	var/mob/living/basic/bot/bot
 	var/mob/living/silicon/ai/AI
 
 /datum/ui_module/botcall/ui_state(mob/user)

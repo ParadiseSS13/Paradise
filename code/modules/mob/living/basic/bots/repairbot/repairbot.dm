@@ -19,7 +19,7 @@
 	mob_size = MOB_SIZE_SMALL
 	possessed_message = "You are a repairbot, cursed to prolong the swiss-cheesening of this death metal trap!"
 	/// our iron stack
-	var/obj/item/stack/sheet/iron/our_iron
+	var/obj/item/stack/sheet/metal/our_metal
 	/// our glass stack
 	var/obj/item/stack/sheet/glass/our_glass
 	/// our floor stack
@@ -33,16 +33,16 @@
 	/// our iron rods
 	var/obj/item/stack/rods/our_rods
 	/// our rcd object we use to deconstruct when emagged
-	var/obj/item/construction/rcd/repairbot/deconstruction_device
+	var/obj/item/rcd/repairbot/deconstruction_device
 	/// possible interactions
 	var/static/list/possible_stack_interactions = list(
-		/obj/item/stack/sheet/iron = typecacheof(list(/obj/structure/girder)),
-		/obj/item/stack/tile = typecacheof(list(/turf/open/space, /turf/open/floor/plating)),
+		/obj/item/stack/sheet/metal = typecacheof(list(/obj/structure/girder)),
+		/obj/item/stack/tile = typecacheof(list(/turf/space, /turf/simulated/floor/plating)),
 		/obj/item/stack/sheet/glass = typecacheof(list(/obj/structure/grille)),
 	)
 	var/static/list/possible_tool_interactions = list(
 		/obj/item/weldingtool/repairbot = typecacheof(list(/obj/structure/window)),
-		/obj/item/crowbar = typecacheof(list(/obj/machinery/door, /turf/open/floor)),
+		/obj/item/crowbar = typecacheof(list(/obj/machinery/door, /turf/simulated/floor)),
 	)
 	/// our neutral voicelines
 	var/static/list/neutral_voicelines = list(
@@ -61,7 +61,7 @@
 	)
 	/// types we can retrieve from our ui
 	var/static/list/retrievable_types = list(
-		/obj/item/stack/sheet/iron,
+		/obj/item/stack/sheet/metal,
 		/obj/item/stack/sheet/glass,
 		/obj/item/stack/tile,
 	)
@@ -84,7 +84,7 @@
 	grant_actions_by_list(abilities)
 	add_traits(list(TRAIT_SPACEWALK, TRAIT_NEGATES_GRAVITY, TRAIT_MOB_MERGE_STACKS, TRAIT_FIREDOOR_OPENER), INNATE_TRAIT)
 	our_welder = new(src)
-	our_welder.switched_on(src)
+	our_welder.tool_enabled = TRUE
 	our_crowbar = new(src)
 	our_screwdriver = new(src)
 	our_rods = new(src, our_rods::max_amount)
@@ -95,38 +95,38 @@
 	toolbox_color = new_color
 	update_appearance()
 
-/mob/living/basic/bot/repairbot/attackby(obj/item/potential_stack, mob/living/carbon/human/user, list/modifiers, list/attack_modifiers)
+/mob/living/basic/bot/repairbot/attack_by(obj/item/potential_stack, mob/living/carbon/human/user, list/params)
 	if(!istype(potential_stack, /obj/item/stack))
 		return ..()
 	attempt_merge(potential_stack, user)
 
 /mob/living/basic/bot/repairbot/proc/attempt_merge(obj/item/stack/potential_stack, mob/living/user)
-	var/static/list/our_contents = list(/obj/item/stack/sheet/iron, /obj/item/stack/sheet/glass, /obj/item/stack/tile, /obj/item/stack/rods)
+	var/static/list/our_contents = list(/obj/item/stack/sheet/metal, /obj/item/stack/sheet/glass, /obj/item/stack/tile, /obj/item/stack/rods)
 	for(var/obj/item/stack/content as anything in our_contents)
 		if(!istype(potential_stack, content))
 			continue
 		var/obj/item/stack/our_sheet = locate(content) in src
 		if(isnull(our_sheet))
-			if(!user.transferItemToLoc(potential_stack, src))
-				user.balloon_alert(user, "stuck to your hand!")
+			if(!user.transfer_item_to(potential_stack, src))
+				to_chat(user, SPAN_WARNING("[potential_stack] is stuck to your hand!"))
 				return
-			balloon_alert(user, "inserted")
+			to_chat(user, SPAN_NOTICE("Inserted [potential_stack]."))
 			return
 		if(our_sheet.amount >= our_sheet.max_amount)
-			user?.balloon_alert(user, "full!")
+			to_chat(user, SPAN_WARNING("[src] is already full!"))
 			return
 		if(!our_sheet.can_merge(potential_stack))
-			user?.balloon_alert(user, "not suitable!")
+			to_chat(user, SPAN_WARNING("Cannot refill with [potential_stack]!"))
 			return
-		var/atom/movable/to_move = potential_stack.split_stack(min(our_sheet.max_amount - our_sheet.amount, potential_stack.amount))
+		var/atom/movable/to_move = potential_stack.split(user, min(our_sheet.max_amount - our_sheet.amount, potential_stack.amount))
 		to_move.forceMove(src)
-		balloon_alert(user, "inserted")
+		to_chat(user, SPAN_NOTICE("Inserted [potential_stack]."))
 		return
 
 /mob/living/basic/bot/repairbot/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(istype(arrived, /obj/item/stack/sheet/iron) && isnull(our_iron)) //show iron tiles and glass in our hands
-		our_iron = arrived
+	if(istype(arrived, /obj/item/stack/sheet/metal) && isnull(our_metal)) //show iron tiles and glass in our hands
+		our_metal = arrived
 		update_appearance()
 	if(istype(arrived, /obj/item/stack/sheet/glass) && isnull(our_glass))
 		our_glass = arrived
@@ -151,8 +151,8 @@
 		return
 
 	//priority interactions
-	if(istype(target, /turf/open/space))
-		var/turf/open/space/space_target = target
+	if(istype(target, /turf/space))
+		var/turf/space/space_target = target
 		if(!space_target.has_valid_support() && !(locate(/obj/structure/lattice) in space_target))
 			attempt_use_stack(our_rods ? our_rods : our_rods::name, space_target)
 
@@ -161,8 +161,8 @@
 		if(grille_target.broken)
 			attempt_use_stack(our_rods ? our_rods : our_rods::name, grille_target)
 
-	if(istype(target, /turf/open))
-		var/turf/open/open_target = target
+	if(istype(target, /turf/simulated/floor))
+		var/turf/simulated/floor/open_target = target
 		if(open_target.broken || open_target.burnt)
 			our_welder?.melee_attack_chain(src, open_target)
 
@@ -214,7 +214,7 @@
 
 /mob/living/basic/bot/repairbot/Destroy()
 	. = ..()
-	QDEL_NULL(our_iron)
+	QDEL_NULL(our_metal)
 	QDEL_NULL(our_glass)
 	QDEL_NULL(our_tiles)
 	QDEL_NULL(our_welder)
@@ -232,8 +232,8 @@
 		our_welder = null
 	if(gone == our_tiles)
 		our_tiles = null
-	if(gone == our_iron)
-		our_iron = null
+	if(gone == our_metal)
+		our_metal = null
 	if(gone == our_glass)
 		our_glass = null
 	if(gone == our_rods)
@@ -266,8 +266,8 @@
 		glass.pixel_w = -6
 		glass.pixel_z = -5
 		. += glass
-	if(our_iron)
-		var/mutable_appearance/iron =  mutable_appearance(icon, "repairbot_iron_overlay", BELOW_MOB_LAYER - 0.02, appearance_flags = RESET_COLOR|KEEP_APART)
+	if(our_metal)
+		var/mutable_appearance/iron =  mutable_appearance(icon, "repairbot_metal_overlay", BELOW_MOB_LAYER - 0.02, appearance_flags = RESET_COLOR|KEEP_APART)
 		iron.pixel_w = 7
 		iron.pixel_z = -5
 		. += iron
@@ -283,7 +283,7 @@
 /mob/living/basic/bot/repairbot/ui_data(mob/user)
 	var/list/data = ..()
 	data["repairbot_materials"] = list()
-	if((bot_access_flags & BOT_COVER_LOCKED) && !issilicon(user) && !isAdminGhostAI(user))
+	if((bot_access_flags & BOT_COVER_LOCKED) && !issilicon(user) && !is_ai_eye(user))
 		return data
 	data["custom_controls"]["fix_breaches"] = repairbot_flags & REPAIRBOT_FIX_BREACHES
 	data["custom_controls"]["replace_windows"] = repairbot_flags & REPAIRBOT_REPLACE_WINDOWS
@@ -297,7 +297,7 @@
 			continue
 
 		data["repairbot_materials"] += list(list(
-			"material_ref" = REF(to_retrieve),
+			"material_ref" = UID(to_retrieve),
 			"material_icon" = to_retrieve::icon,
 			"material_icon_state" = to_retrieve::icon_state,
 		))
@@ -340,29 +340,27 @@
 	return ..()
 
 /obj/item/weldingtool/repairbot
-	max_fuel = INFINITY
-	starting_fuel = TRUE
+	maximum_fuel = INFINITY
+	prefilled = TRUE
 	change_icons = FALSE
 
-/obj/item/construction/rcd/repairbot
+/obj/item/rcd/repairbot
 	matter = INFINITY
-	has_ammobar = FALSE
 
-/mob/living/basic/bot/repairbot/mob_pickup(mob/living/user)
+/mob/living/basic/bot/repairbot/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)
 	var/obj/item/carried_repairbot/carried = new(get_turf(src))
 	carried.set_bot(src)
 	if(carried.icon_state == "toolbox_default")
 		carried.add_atom_colour(toolbox_color, FIXED_COLOUR_PRIORITY)
-	user.visible_message(SPAN_WARNING("[user] scoops up [src]!"))
-	user.put_in_hands(carried)
+	grabber.visible_message(SPAN_WARNING("[grabber] scoops up [src]!"))
+	grabber.put_in_hands(carried)
 
 /obj/item/carried_repairbot
 	desc = "A most robust bot!"
-	attack_verb_continuous = list("robusts")
-	attack_verb_simple = list("robust")
-	hitsound = 'sound/items/weapons/smash.ogg'
-	drop_sound = 'sound/items/handling/toolbox/toolbox_drop.ogg'
-	pickup_sound = 'sound/items/handling/toolbox/toolbox_pickup.ogg'
+	attack_verb = list("robusted")
+	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	///the bot we own
 	var/atom/movable/our_bot
 
@@ -385,7 +383,7 @@
 /obj/item/carried_repairbot/proc/release_bot(bypass_delete = FALSE)
 	if(!isnull(our_bot))
 		our_bot.forceMove(drop_location())
-		our_bot.balloon_alert_to_viewers("plops down")
+		our_bot.visible_message()
 	if(!bypass_delete)
 		qdel(src)
 

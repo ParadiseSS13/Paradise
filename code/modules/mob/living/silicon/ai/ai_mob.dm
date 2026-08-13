@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/can_shunt = TRUE
 	var/last_announcement = ""
 	var/datum/announcer/announcer
-	var/mob/living/simple_animal/bot/Bot
+	var/mob/living/basic/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = FALSE //Waypoint mode is for selecting a turf via clicking.
 	var/apc_override = FALSE	//hack for letting the AI use its APC even when visionless
@@ -865,7 +865,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(href_list["trackbot"])
-		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
+		var/mob/living/basic/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
 		if(istype(target))
 			ai_actual_track(target)
 		else

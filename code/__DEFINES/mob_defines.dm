@@ -268,7 +268,7 @@
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)			(istype((A), /mob/living/basic/mouse))
-#define isbot(A)			(istype((A), /mob/living/simple_animal/bot))
+#define isbot(A)			(istype((A), /mob/living/basic/bot))
 #define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      	(istype((A), /mob/living/basic/diona_nymph))
 #define iscaterpillar(A)	(istype((A), /mob/living/basic/nian_caterpillar))
@@ -291,7 +291,7 @@
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
 #define ispathbrain(A)		(ispath(A, /mob/living/brain))
 #define ispathslime(A)		(ispath(A, /mob/living/simple_animal/slime))
-#define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
+#define ispathbot(A)			(ispath(A, /mob/living/basic/bot))
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 

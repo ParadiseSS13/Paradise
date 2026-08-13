@@ -2973,8 +2973,6 @@
 #include "code\modules\mob\living\simple_animal\shade.dm"
 #include "code\modules\mob\living\simple_animal\simple_animal.dm"
 #include "code\modules\mob\living\simple_animal\simple_animal_damage.dm"
-#include "code\modules\mob\living\simple_animal\bot\bot.dm"
-#include "code\modules\mob\living\simple_animal\bot\mulebot.dm"
 #include "code\modules\mob\living\simple_animal\friendly\cat.dm"
 #include "code\modules\mob\living\simple_animal\friendly\corgi_stripping.dm"
 #include "code\modules\mob\living\simple_animal\friendly\dog.dm"

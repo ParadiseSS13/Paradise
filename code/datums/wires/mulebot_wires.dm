@@ -1,6 +1,6 @@
 /datum/wires/mulebot
 	randomize = TRUE
-	holder_type = /mob/living/simple_animal/bot/mulebot
+	holder_type = /mob/living/basic/bot/mulebot
 	wire_count = 10
 	proper_name = "Mulebot"
 
@@ -13,7 +13,7 @@
 	return ..()
 
 /datum/wires/mulebot/interactable(mob/user)
-	var/mob/living/simple_animal/bot/mulebot/M = holder
+	var/mob/living/basic/bot/mulebot/M = holder
 	if(M.open)
 		return TRUE
 	return FALSE

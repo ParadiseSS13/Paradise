@@ -1,4 +1,4 @@
-/mob/living/basic/bot/mulebot/execute_resist()
+/mob/living/basic/bot/mulebot/run_resist()
 	. = ..()
 	if(load)
 		unload()
@@ -24,7 +24,7 @@
 	if(!isliving(user))
 		return
 
-	if(!istype(atom_to_load) || isdead(atom_to_load) || iseyemob(atom_to_load) || istype(atom_to_load, /obj/effect/dummy/phased_mob))
+	if(!istype(atom_to_load) || is_dead(atom_to_load) || is_ai_eye(atom_to_load) || istype(atom_to_load, /obj/effect/dummy))
 		return
 
 	load(atom_to_load)
@@ -34,13 +34,10 @@
 	return ..()
 
 /mob/living/basic/bot/mulebot/relaymove(mob/living/user, direction)
-	if(user.incapacitated)
+	if(user.incapacitated())
 		return
 	if(load == user)
 		unload()
-
-/mob/living/basic/bot/mulebot/remove_air(amount) //To prevent riders suffocating
-	return loc ? loc.remove_air(amount) : null
 
 /// Called to load an atom on the mulebot, which is usually a crate, unless if hacked
 /mob/living/basic/bot/mulebot/proc/load(atom/movable/atom_to_load)
@@ -108,7 +105,6 @@
 		cached_load.forceMove(loc)
 		cached_load.pixel_y = initial(cached_load.pixel_y)
 		cached_load.layer = initial(cached_load.layer)
-		SET_PLANE_EXPLICIT(cached_load, initial(cached_load.plane), src)
 		load = null
 
 	if(dirn) //move the thing to the delivery point.

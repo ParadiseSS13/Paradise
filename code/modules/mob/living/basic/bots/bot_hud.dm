@@ -36,3 +36,35 @@
 			holder.icon_state = "hudmove"
 		else
 			holder.icon_state = ""
+
+///proc that handles moving along the bot's drawn path
+/mob/living/basic/bot/proc/handle_loop_movement(atom/movable/source, atom/oldloc, dir, forced)
+	SIGNAL_HANDLER
+
+	handle_hud_path()
+	on_bot_movement(source, oldloc, dir, forced)
+
+/mob/living/basic/bot/proc/handle_hud_path()
+	if(client || !length(current_pathed_turfs) || isnull(ai_controller))
+		return
+
+	var/turf/our_turf = get_turf(src)
+	var/image/target_image = current_pathed_turfs[our_turf]
+	if(target_image)
+		animate(target_image, alpha = 0, time = 0.3 SECONDS)
+	current_pathed_turfs -= our_turf
+
+///proc that handles deleting the bot's drawn path when needed
+/mob/living/basic/bot/proc/clear_path_hud(remove_hud = TRUE)
+	for(var/turf/index as anything in current_pathed_turfs)
+		var/image/our_image = current_pathed_turfs[index]
+		animate(our_image, alpha = 0, time = 0.3 SECONDS)
+		current_pathed_turfs -= index
+
+	if(!remove_hud)
+		return
+
+	// Call hud remove handlers to ensure viewing user client images are removed
+	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC], GLOB.huds[DATA_HUD_BOT_PATH])
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.remove_atom_from_hud(src)

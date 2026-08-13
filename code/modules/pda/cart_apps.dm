@@ -223,14 +223,14 @@
 
 	else
 		var/botsCount = 0
-		var/list/mob/living/simple_animal/bot/bots = list()
+		var/list/mob/living/basic/bot/bots = list()
 		for(var/mob/living/basic/bot/secbot/SB in GLOB.bots_list)
 			bots += SB
 		for(var/mob/living/basic/bot/secbot/ed209/ED in GLOB.bots_list)
 			if(!("syndicate" in ED.faction))
 				bots += ED
 
-		for(var/mob/living/simple_animal/bot/B in bots)
+		for(var/mob/living/basic/bot/B in bots)
 			botsCount++
 			if(B.loc)
 				var/area/our_area = get_area(B)
@@ -261,14 +261,14 @@
 			active_uid = null
 
 		if("stop", "go", "home")
-			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
 				active_bot.handle_command(usr, action)
 			else
 				active_uid = null
 
 		if("summon")
-			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
 				active_bot.handle_command(usr, "summon", list("target" = get_turf(usr), "useraccess" = usr.get_access()))
 			else
@@ -286,7 +286,7 @@
 	var/list/muleData = list()
 	var/list/mulebotsData = list()
 
-	var/mob/living/simple_animal/bot/mulebot/active_bot = locateUID(active_uid)
+	var/mob/living/basic/bot/mulebot/active_bot = locateUID(active_uid)
 
 	if(active_bot && !QDELETED(active_bot))
 		muleData["active"] = active_bot ? sanitize(active_bot.name) : null
@@ -307,7 +307,7 @@
 
 	else
 		var/mulebotsCount = 0
-		for(var/mob/living/simple_animal/bot/mulebot/B in GLOB.bots_list)
+		for(var/mob/living/basic/bot/mulebot/B in GLOB.bots_list)
 			mulebotsCount++
 			if(B.loc)
 				var/area/our_area = get_area(B)
@@ -338,14 +338,14 @@
 			active_uid = null
 
 		if("stop", "start", "home", "unload", "target")
-			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
 				active_bot.handle_command(usr, action)
 			else
 				active_uid = null
 
 		if("set_auto_return", "set_pickup_type")
-			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
 				active_bot.handle_command(usr, action, params)
 			else

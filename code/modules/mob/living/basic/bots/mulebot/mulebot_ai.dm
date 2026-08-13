@@ -26,12 +26,12 @@
 
 /datum/ai_controller/basic_controller/bot/mulebot/setup_able_to_run()
 	. = ..()
-	var/mob/living/basic/bot/my_bot = pawn
+	var/mob/living/basic/bot/mulebot/my_bot = pawn
 	var/static/list/wire_signals = list(
-		COMSIG_MEND_WIRE(WIRE_POWER1), //this framework is insane
-		COMSIG_MEND_WIRE(WIRE_POWER2),
-		COMSIG_CUT_WIRE(WIRE_POWER1),
-		COMSIG_CUT_WIRE(WIRE_POWER2),
+		COMSIG_MEND_WIRE(WIRE_MAIN_POWER1), //this framework is insane
+		COMSIG_MEND_WIRE(WIRE_MAIN_POWER2),
+		COMSIG_CUT_WIRE(WIRE_MAIN_POWER1),
+		COMSIG_CUT_WIRE(WIRE_MAIN_POWER2),
 	)
 	RegisterSignals(my_bot.wires, wire_signals, PROC_REF(update_able_to_run))
 	var/static/list/content_signals = list(
@@ -46,7 +46,7 @@
 
 /datum/ai_planning_subtree/find_delivery_beacon/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/basic/bot/mulebot/bot_pawn = controller.pawn
-	if(bot_pawn.wires.is_cut(WIRE_BEACON))
+	if(bot_pawn.wires.is_cut(WIRE_BEACON_RX))
 		return
 
 	if(!controller.blackboard_key_exists(BB_MULEBOT_TRAVEL_TARGET))
@@ -106,6 +106,7 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/handle_delivery/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	. = ..()
 	var/obj/machinery/navbeacon/beacon = controller.blackboard[target_key]
 	var/mob/living/basic/bot/mulebot/bot_pawn = controller.pawn
 

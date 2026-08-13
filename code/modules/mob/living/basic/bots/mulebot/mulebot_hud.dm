@@ -8,9 +8,9 @@
 	set_hud_image_state(DIAG_BATT_HUD, "hudbatt[RoundDiagBar(cell.charge/cell.maxcharge)]")
 
 /atom/movable/screen/mob_charge
-	icon = 'icons/obj/machines/cell_charger.dmi'
+	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger"
-	screen_loc = ui_stamina
+	screen_loc = UI_STAMINA
 	///used to find the overlay for charger icon
 	var/current_charge_level = 4
 	///dynamic, based on what cell our nulebot's using
