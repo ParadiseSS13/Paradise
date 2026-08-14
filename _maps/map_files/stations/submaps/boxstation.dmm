@@ -2323,7 +2323,7 @@
 "Ge" = (
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "rune8";
-	color = #FF0000
+	color = FF0000
 	},
 /turf/template_noop,
 /area/template_noop)
