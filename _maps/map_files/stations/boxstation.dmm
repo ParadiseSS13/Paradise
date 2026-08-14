@@ -72997,7 +72997,6 @@
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "BS"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -76363,7 +76362,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "rvo" = (
-/obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "NTR"
 	},
