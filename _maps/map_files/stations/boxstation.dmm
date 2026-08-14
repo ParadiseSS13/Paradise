@@ -52218,10 +52218,6 @@
 /obj/machinery/newscaster/security_unit/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
-"hgF" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/apmaint2)
 "hgH" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Turbine Access";
@@ -62811,10 +62807,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"lIP" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/engineering/gravitygenerator)
 "lIV" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -63535,7 +63527,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/station/maintenance/fpmaint)
 "lYc" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
@@ -64064,10 +64056,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"mjH" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/command/office/ntrep)
 "mjN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -71005,10 +70993,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
-"pkZ" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "plj" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 10
@@ -72483,9 +72467,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
-"pPx" = (
-/turf/space,
-/area/station/maintenance/apmaint2)
 "pPJ" = (
 /obj/machinery/door/firedoor{
 	dir = 4
@@ -79474,11 +79455,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/engineering/secure_storage)
-"sPF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/fungus/frequent,
-/turf/simulated/wall,
-/area/station/maintenance/apmaint)
 "sPN" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -85149,9 +85125,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
 	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -111969,16 +111942,16 @@ cQy
 pOC
 pOC
 pOC
-tWa
-pPx
+cQy
+aab
 aab
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+aab
+aab
+aab
 aaa
 aaa
 aaa
@@ -112235,7 +112208,7 @@ jlS
 mnN
 mnN
 mnN
-aaa
+aab
 aaa
 aaa
 aaa
@@ -112492,7 +112465,7 @@ tHE
 fcp
 xEw
 mnN
-aaa
+aab
 aaa
 aaa
 aaa
@@ -113263,7 +113236,7 @@ yfP
 gXh
 xEw
 fzl
-aaa
+aab
 aaa
 aaa
 aaa
@@ -113520,9 +113493,9 @@ sqN
 lPx
 xEw
 mnN
-pkZ
-aaa
-aaa
+aab
+aab
+aab
 aaa
 aaa
 aaa
@@ -113779,7 +113752,7 @@ bFC
 bFC
 bFC
 bFC
-aaa
+aab
 aaa
 aaa
 aaa
@@ -114036,7 +114009,7 @@ ejF
 wwz
 jEq
 bFC
-aaa
+aab
 aaa
 aaa
 aaa
@@ -114807,7 +114780,7 @@ qis
 oXq
 bFE
 bFC
-aaa
+aab
 aaa
 aaa
 aaa
@@ -115064,7 +115037,7 @@ jou
 xMn
 bFE
 bFC
-aaa
+aab
 aaa
 aaa
 aaa
@@ -115320,9 +115293,9 @@ bFC
 bFC
 bFC
 bFC
-lIP
-aaa
-aaa
+bFC
+aab
+aab
 aab
 aaa
 aaa
@@ -116087,7 +116060,7 @@ xWd
 cZw
 cZw
 llo
-hgF
+cLi
 mYe
 uTV
 hMT
@@ -116566,7 +116539,7 @@ pnc
 pnc
 xyI
 cgQ
-sPF
+rgs
 cgQ
 qUZ
 coL
@@ -120372,7 +120345,7 @@ aPH
 aEj
 aMA
 qpK
-mjH
+cgW
 cgW
 cgW
 cgW
