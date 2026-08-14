@@ -61360,10 +61360,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
-"lbH" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/space,
-/area/station/maintenance/apmaint2)
 "lbZ" = (
 /obj/structure/closet/wardrobe/black,
 /turf/simulated/floor/plating,
@@ -116060,7 +116056,7 @@ cLi
 mYe
 uTV
 hMT
-cQy
+pOC
 afX
 afX
 afX
@@ -116572,9 +116568,9 @@ dar
 dar
 cQy
 cQy
-cQy
-lbH
-lbH
+pOC
+pOC
+pOC
 aaa
 aab
 aaa

@@ -632,6 +632,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"jY" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/obj/item/toy/figure/mech/mauler{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/turf/template_noop,
+/area/template_noop)
 "jZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -1432,6 +1440,17 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/engine,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"uj" = (
+/obj/item/disk/nuclear/training{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/obj/item/toy/figure/crew/syndie{
+	pixel_x = -7;
+	pixel_y = -3
+	},
+/turf/template_noop,
+/area/template_noop)
 "up" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
@@ -2063,6 +2082,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"BG" = (
+/obj/item/toy/nuke,
+/turf/template_noop,
+/area/template_noop)
 "BS" = (
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
@@ -4353,7 +4376,7 @@ Rn
 Rn
 Rn
 Rn
-Rn
+jY
 Rn
 tb
 fL
@@ -4384,8 +4407,8 @@ Rn
 (19,1,1) = {"
 Rn
 Rn
-Rn
-Rn
+dh
+uj
 Rn
 hs
 Hw
@@ -4417,7 +4440,7 @@ Rn
 Rn
 Rn
 Rn
-Rn
+BG
 Rn
 Rn
 Rn
@@ -4449,7 +4472,7 @@ Rn
 Rn
 Rn
 Rn
-Rn
+ve
 Rn
 Rn
 Rn
