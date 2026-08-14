@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
 		for(var/mob/living/basic/bot/B in GLOB.telecomms_bots)
-			B.call_bot(null, T, FALSE)
+			B.summon_bot(null, T)
 		qdel(src)
 
 // This effect surrounds the table with loot in the telecomms core room. If you take from this table, dvorak will be pissed if you try to leave.

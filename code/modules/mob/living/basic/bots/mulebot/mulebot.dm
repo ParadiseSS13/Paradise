@@ -54,19 +54,20 @@
 	/// The amount of steps we should take until we rest for a time.
 	var/num_steps = 0
 
-	/// The chance to be deleted and replaced by a different mule
-	var/replacement_chance = 0.666
 	/// home destination, only used by mappers.
 	var/home_destination = ""
 	/// The mulebot's wires
 	var/datum/wires/wires
 
+	/// TODO: Replace this with all of tg's forensics and /datum/component/blood_walk
+	var/bloodiness = 0
+	var/currentBloodColor = "#A10808"
+	var/currentDNA = null
+
 /mob/living/basic/bot/mulebot/Initialize(mapload)
 	. = ..()
 
-	if(prob(replacement_chance) && mapload)
-		new /mob/living/basic/bot/mulebot/paranormal(loc)
-		return INITIALIZE_HINT_QDEL
+	// TODO: port paranormal mulebots?
 
 	wires = new /datum/wires/mulebot(src)
 	var/obj/item/stock_parts/cell/new_cell = new(src)
@@ -74,8 +75,7 @@
 	ai_controller.set_blackboard_key(BB_MULEBOT_HOME_BEACON, "")
 	#warn add /datum/component/riding/creature/mulebot
 	AddElement(/datum/element/ridable)
-	ADD_TRAIT(src, TRAIT_NOMOBSWAP, INNATE_TRAIT)
-	add_traits(list(TRAIT_NOMOBSWAP, TRAIT_COMBAT_MODE_LOCK), INNATE_TRAIT)
+	#warn maybe add TRAIT_NOMOBSWAP and TRAIT_COMBAT_MODE_LOCK-equivalent for intents
 	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_pre_move))
 
 	set_id(suffix)
@@ -123,7 +123,7 @@
 	return cell
 
 /mob/living/basic/bot/mulebot/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
-	if(!can_unarmed_attack())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(isturf(target) && isturf(loc) && loc.Adjacent(target) && load)
 		unload(get_dir(loc, target))
@@ -192,3 +192,13 @@
 /// returns true if the bot is fully powered.
 /mob/living/basic/bot/mulebot/proc/has_power()
 	return cell && cell.charge > 0 && (!wires.is_cut(WIRE_MAIN_POWER1) && !wires.is_cut(WIRE_MAIN_POWER2))
+
+/mob/living/basic/bot/mulebot/get_bot_data()
+	. = list(
+	"name" = name, // name is the actual bot name. PAI may change it. Mulebot suffix system uses bot_name // WHY, WHO MADE THIS
+	"model" = "MULE", //
+	"status" = mode, // BOT_IDLE is 0, using mode_name will bsod tgui
+	"location" = get_area(src),
+	"on" = bot_mode_flags & BOT_MODE_ON,
+	"UID" = UID(),
+	)

@@ -14,7 +14,7 @@
 
 /datum/wires/mulebot/interactable(mob/user)
 	var/mob/living/basic/bot/mulebot/M = holder
-	if(M.open)
+	if(M.bot_access_flags & BOT_COVER_MAINTS_OPEN)
 		return TRUE
 	return FALSE
 

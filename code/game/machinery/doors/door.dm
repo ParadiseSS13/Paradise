@@ -195,9 +195,6 @@
 				cmag_switch(FALSE, user)
 				return
 			open()
-			if(isbot(user))
-				var/mob/living/basic/bot/B = user
-				B.door_opened(src)
 		else
 			if(pry_open_check(user))
 				return

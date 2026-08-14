@@ -42,7 +42,7 @@
 	return TRUE
 
 /mob/living/basic/bot/mulebot/bot_control(command, mob/user, list/params = list(), pda = FALSE)
-	if(pda && wires.is_cut(WIRE_RX)) // MULE wireless is controlled by wires.
+	if(pda && wires.is_cut(WIRE_REMOTE_RX)) // MULE wireless is controlled by wires.
 		return
 
 	switch(command)
@@ -109,7 +109,7 @@
 		ai_controller.set_blackboard_key(BB_MULEBOT_HOME_BEACON, "")
 		return
 	ai_controller.set_blackboard_key(BB_MULEBOT_HOME_BEACON, home_beacon.location)
-	log_transport("[id]: MULEbot successfuly set home location to ID [home_beacon.location] at [home_beacon.x], [home_beacon.y], [home_beacon.z]")
+	log_debug("[id]: MULEbot successfuly set home location to ID [home_beacon.location] at [home_beacon.x], [home_beacon.y], [home_beacon.z]")
 
 ///Sets the new ID of the mulebot
 /mob/living/basic/bot/mulebot/proc/set_id(new_id)

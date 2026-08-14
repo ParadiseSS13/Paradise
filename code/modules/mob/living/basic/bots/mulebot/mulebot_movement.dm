@@ -2,11 +2,11 @@
 	if(mind || !isliving(bumped_mob)) //if there's a sentience controlling the bot, they aren't allowed to harm folks.
 		return ..()
 	var/mob/living/bumped_living = bumped_mob
-	if(wires.is_cut(WIRE_AVOIDANCE)) // usually just bumps, but if the avoidance wire is cut, knocks them over.
-		if(iscyborg(bumped_living))
+	if(wires.is_cut(WIRE_MOB_AVOIDANCE)) // usually just bumps, but if the avoidance wire is cut, knocks them over.
+		if(isrobot(bumped_living))
 			visible_message(SPAN_DANGER("[src] bumps into [bumped_living]!"))
-		else if(bumped_living.Knockdown(8 SECONDS))
-			log_combat(src, bumped_living, "knocked down")
+		else if(bumped_living.KnockDown(8 SECONDS))
+			add_attack_logs(src, bumped_living, "knocked down")
 			visible_message(SPAN_DANGER("[src] knocks over [bumped_living]!"))
 	return ..()
 
@@ -26,21 +26,19 @@
 	SIGNAL_HANDLER
 
 	if(!(bot_mode_flags & BOT_MODE_ON))
-		return COMPONENT_MOB_BOT_BLOCK_PRE_STEP
+		return COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE
 
 	if((cell && (cell.charge < cell_move_power_usage)) || !has_power())
 		turn_off()
-		return COMPONENT_MOB_BOT_BLOCK_PRE_STEP
+		return COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE
 
 // when mulebot is in the same loc
 /mob/living/basic/bot/mulebot/proc/run_over(mob/living/carbon/human/crushed)
-	if(!(bot_access_flags & BOT_COVER_EMAGGED) && !wires.is_cut(WIRE_AVOIDANCE))
-		if(!has_status_effect(/datum/status_effect/careful_driving))
-			crushed.visible_message(SPAN_NOTICE("[src] slows down to avoid crushing [crushed]."))
-		apply_status_effect(/datum/status_effect/careful_driving)
+	if(!(bot_access_flags & BOT_COVER_EMAGGED) && !wires.is_cut(WIRE_MOB_AVOIDANCE))
+		crushed.visible_message(SPAN_NOTICE("[src] slows down to avoid crushing [crushed]."))
 		return // Player mules must be emagged before they can trample
 
-	log_combat(src, crushed, "run over", addition = "(DAMTYPE: [uppertext(BRUTE)])")
+	add_attack_logs(src, crushed, "Run over(DAMTYPE: [uppertext(BRUTE)])")
 	crushed.visible_message(
 		SPAN_DANGER("[src] drives over [crushed]!"),
 		SPAN_USERDANGER("[src] drives over you!"),
@@ -63,10 +61,10 @@
 	add_mob_blood(crushed)
 
 	var/turf/below_us = get_turf(src)
-	below_us.add_mob_blood(crushed)
+	crushed.add_mob_blood(crushed)
+	crushed.add_splatter_floor(below_us)
 
-	AddComponent(/datum/component/blood_walk, \
-		blood_type = /obj/effect/decal/cleanable/blood/tracks, \
-		target_dir_change = TRUE, \
-		transfer_blood_dna = TRUE, \
-		max_blood = 4)
+	var/list/blood_dna = crushed.get_blood_dna_list()
+	if(blood_dna)
+		transfer_blood_dna(blood_dna)
+		currentBloodColor = crushed.dna.species.blood_color

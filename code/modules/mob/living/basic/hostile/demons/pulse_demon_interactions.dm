@@ -117,14 +117,14 @@
 	hijacked = TRUE
 
 /mob/living/basic/bot/relaymove(mob/user, dir)
-	if(!on)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		to_chat(user, "[src] isn't turned on!")
 		return
 	if(ispulsedemon(user))
 		var/mob/living/basic/demon/pulse_demon/demon = user
 		if(demon.bot_movedelay <= world.time && dir)
 			Move(get_step(get_turf(src), dir))
-			demon.bot_movedelay = world.time + (BOT_STEP_DELAY * (base_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
+			demon.bot_movedelay = world.time + (BOT_STEP_DELAY * (move_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
 
 /obj/machinery/recharger/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	user.forceMove(src)
@@ -244,7 +244,7 @@
 				playsound(F, 'sound/effects/blobattack.ogg', 40, TRUE)
 
 /mob/living/basic/bot/mulebot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!on)
+	if(!(bot_mode_flags & BOT_MODE_ON))
 		return
 	if(istype(A) && Adjacent(A) && ismovable(A))
 		to_chat(user, "<span class='notice'You try to load [A] onto [src].</span>")

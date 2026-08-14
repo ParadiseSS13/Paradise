@@ -100,6 +100,12 @@ GLOBAL_LIST_INIT(command_strings, list(
 	var/list/original_faction
 	// The allies of the bot before it inherited the pai's faction
 	var/list/original_allies
+	/// Timer for bots disabled by a baton
+	var/disabling_timer_id = null
+	/// Is currently hijacked by a pulse demon?
+	var/hijacked = FALSE
+	/// Is currently emagged?
+	var/emagged = FALSE
 	/// If true we will offer this
 	COOLDOWN_DECLARE(offer_ghosts_cooldown)
 
@@ -133,7 +139,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	access_card = new /obj/item/card/id(src)
 	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += ACCESS_ROBOTICS
-	Radio = new/obj/item/radio/headset/bot(src)
+	Radio = new/obj/item/radio/headset(src)
 	Radio.follow_target = src
 
 	//Adds bot to the diagnostic HUD system
@@ -266,9 +272,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 	return has_access(list(), req_access, acc)
 
-/mob/living/basic/bot/bee_friendly()
-	return TRUE
-
 /mob/living/basic/bot/death(gibbed)
 	if(paicard)
 		ejectpai()
@@ -299,6 +302,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	if(user)
 		log_attack(user, src, "emagged")
 	emag_effects(user)
+	emagged = TRUE
 	return TRUE
 
 /mob/living/basic/bot/examine(mob/user)
@@ -485,6 +489,20 @@ GLOBAL_LIST_INIT(command_strings, list(
 	dropped_gun.cell.charge = 0
 	dropped_gun.update_appearance()
 
+/mob/living/basic/bot/proc/disable(time)
+	if(disabling_timer_id)
+		deltimer(disabling_timer_id) // If we already have disabling timer, lets replace it with new one
+	if(bot_mode_flags & BOT_MODE_ON)
+		turn_off()
+	disabling_timer_id = addtimer(CALLBACK(src, PROC_REF(enable)), time, TIMER_STOPPABLE)
+
+/mob/living/basic/bot/proc/enable()
+	if(disabling_timer_id)
+		deltimer(disabling_timer_id)
+		disabling_timer_id = null
+	if(!(bot_mode_flags & BOT_MODE_ON))
+		turn_on()
+
 /mob/living/basic/bot/proc/bot_reset(bypass_ai_reset = FALSE)
 	SEND_SIGNAL(src, COMSIG_BOT_RESET)
 	access_card.access = initial_access
@@ -500,7 +518,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	calling_ai = null
 
 //PDA control. Some bots, especially MULEs, may have more parameters.
-/mob/living/basic/bot/proc/bot_control(command, mob/user, list/user_access = list())
+/mob/living/basic/bot/proc/bot_control(command, mob/user, list/params = list())
 	if(!(bot_mode_flags & BOT_MODE_ON) || bot_access_flags & BOT_COVER_EMAGGED || !(bot_mode_flags & BOT_MODE_REMOTE_ENABLED)) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
 		return TRUE //ACCESS DENIED
 	if(client && command != "ejectpai")
@@ -512,9 +530,20 @@ GLOBAL_LIST_INIT(command_strings, list(
 		if("patrolon")
 			set_mode_flags(bot_mode_flags | BOT_MODE_AUTOPATROL)
 		if("summon")
-			summon_bot(user, user_access = user_access)
+			summon_bot(user, user_access = params["user_access"])
 		if("ejectpai")
 			eject_pai_remote(user)
+
+// AI bot access verb TGUI
+/mob/living/basic/bot/proc/get_bot_data()
+	. = list(
+	"name" = name, // name is the actual bot name. PAI may change it. Mulebot suffix system uses bot_name // WHY, WHO MADE THIS
+	"model" = "", //
+	"status" = mode, // BOT_IDLE is 0, using mode_name will bsod tgui
+	"location" = get_area(src),
+	"on" = bot_mode_flags & BOT_MODE_ON,
+	"UID" = UID(),
+	)
 
 /mob/living/basic/bot/proc/set_patrol_off()
 	bot_reset()

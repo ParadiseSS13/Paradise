@@ -3,7 +3,7 @@
 	update_appearance()
 
 /mob/living/basic/bot/mulebot/crowbar_act(mob/living/user, obj/item/tool)
-	if(!(bot_access_flags & BOT_COVER_MAINTS_OPEN) || user.combat_mode)
+	if(!(bot_access_flags & BOT_COVER_MAINTS_OPEN) || user.a_intent == INTENT_HARM)
 		return
 	if(!cell)
 		to_chat(user, SPAN_WARNING("[src] doesn't have a power cell!"))
@@ -31,7 +31,7 @@
 			SPAN_NOTICE("You insert [cell] into [src]."),
 		)
 		return ITEM_INTERACT_COMPLETE
-	if(is_wire_tool(tool) && (bot_access_flags & BOT_COVER_MAINTS_OPEN))
+	if(ismultitool(tool) && (bot_access_flags & BOT_COVER_MAINTS_OPEN))
 		attack_hand(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()

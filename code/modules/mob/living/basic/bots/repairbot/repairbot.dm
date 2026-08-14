@@ -82,7 +82,8 @@
 		/datum/action/repairbot_resources = null,
 	)
 	grant_actions_by_list(abilities)
-	add_traits(list(TRAIT_SPACEWALK, TRAIT_NEGATES_GRAVITY, TRAIT_MOB_MERGE_STACKS, TRAIT_FIREDOOR_OPENER), INNATE_TRAIT)
+	// TODO: other traits added by tg: TRAIT_NEGATES_GRAVITY, TRAIT_MOB_MERGE_STACKS, TRAIT_FIREDOOR_OPENER
+	add_traits(list(TRAIT_SPACEWALK), INNATE_TRAIT)
 	our_welder = new(src)
 	our_welder.tool_enabled = TRUE
 	our_crowbar = new(src)
@@ -182,20 +183,20 @@
 	//tool interactions
 	var/list/our_tools = list(our_welder, our_crowbar)
 	for(var/obj/item/tool in our_tools)
-		if(is_type_in_typecache(target, possible_tool_interactions[tool.type]) && !combat_mode)
+		if(is_type_in_typecache(target, possible_tool_interactions[tool.type]) && a_intent != INTENT_HARM)
 			tool.melee_attack_chain(src, target)
 			return
 
 /mob/living/basic/bot/repairbot/proc/emagged_interactions(atom/target, modifiers)
 	if(!istype(target, /mob/living/silicon/robot))
-		deconstruction_device?.interact_with_atom_secondary(target, src, modifiers)
+		deconstruction_device?.interact_with_atom(target, src, modifiers)
 		return
 	if(HAS_TRAIT(target, TRAIT_MOB_TIPPED))
 		return
-	var/old_combat_mode = combat_mode
-	set_combat_mode(TRUE)
-	target.attack_hand_secondary(src, modifiers) //tip the guy!
-	set_combat_mode(old_combat_mode)
+	var/old_intent = a_intent
+	a_intent = INTENT_HARM
+	target.attack_hand(src, modifiers) //tip the guy!
+	a_intent = old_intent
 
 /mob/living/basic/bot/repairbot/start_pulling(atom/movable/movable_pulled, state, force, show_message = FALSE)
 	. = ..()

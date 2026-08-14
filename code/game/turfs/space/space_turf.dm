@@ -243,3 +243,12 @@
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
+
+/turf/space/can_cross_safely(atom/movable/crossing)
+	return HAS_TRAIT(crossing, TRAIT_SPACEWALK)
+
+/turf/space/proc/has_valid_support()
+	for (var/direction in GLOB.cardinal)
+		if(istype(get_step(src, direction), /turf/simulated/floor))
+			return TRUE
+	return FALSE

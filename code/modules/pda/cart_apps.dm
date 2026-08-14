@@ -263,14 +263,14 @@
 		if("stop", "go", "home")
 			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.handle_command(usr, action)
+				active_bot.bot_control(action, usr)
 			else
 				active_uid = null
 
 		if("summon")
 			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.handle_command(usr, "summon", list("target" = get_turf(usr), "useraccess" = usr.get_access()))
+				active_bot.bot_control("summon", usr, list("target" = get_turf(usr), "user_access" = usr.get_access()))
 			else
 				active_uid = null
 
@@ -299,10 +299,10 @@
 				"mode" = active_bot.mode,
 				"home" = active_bot.home_destination,
 				"powr" = (active_bot.cell ? active_bot.cell.percent() : 0),
-				"retn" = active_bot.auto_return,
-				"pick" = active_bot.auto_pickup,
+				"retn" = active_bot.mulebot_delivery_flags & MULEBOT_RETURN_MODE,
+				"pick" = active_bot.mulebot_delivery_flags & MULEBOT_AUTO_PICKUP_MODE,
 				"load" = active_bot.load,
-				"dest" = sanitize(active_bot.destination)
+				"dest" = sanitize(active_bot.ai_controller.blackboard[BB_MULEBOT_DESTINATION_BEACON])
 			)
 
 	else
@@ -340,14 +340,14 @@
 		if("stop", "start", "home", "unload", "target")
 			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.handle_command(usr, action)
+				active_bot.bot_control(action, usr)
 			else
 				active_uid = null
 
 		if("set_auto_return", "set_pickup_type")
 			var/mob/living/basic/bot/active_bot = locateUID(active_uid)
 			if(active_bot && !QDELETED(active_bot))
-				active_bot.handle_command(usr, action, params)
+				active_bot.bot_control(action, usr, params)
 			else
 				active_uid = null
 

@@ -962,7 +962,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, SPAN_DANGER("Interface error. Unit is already in use."))
 		return
 
-	Bot.call_bot(src, waypoint)
+	Bot.summon_bot(src, waypoint)
 
 /mob/living/silicon/ai/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listened_for))

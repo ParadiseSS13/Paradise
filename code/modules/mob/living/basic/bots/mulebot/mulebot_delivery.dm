@@ -20,7 +20,7 @@
 
 // mousedrop a crate to load the bot
 // can load anything if hacked
-/mob/living/basic/bot/mulebot/mouse_drop_receive(atom/movable/atom_to_load, mob/user, params)
+/mob/living/basic/bot/mulebot/MouseDrop_T(atom/movable/atom_to_load, mob/living/user)
 	if(!isliving(user))
 		return
 
