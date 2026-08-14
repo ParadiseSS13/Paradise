@@ -2863,6 +2863,9 @@
 /obj/item/pipe_meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"Rn" = (
+/turf/template_noop,
+/area/template_noop)
 "Ro" = (
 /obj/machinery/atmospherics/meter,
 /obj/effect/turf_decal/stripes/line{
@@ -3697,7 +3700,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 TS
 fZ
@@ -3749,7 +3752,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 RE
 RE
@@ -3801,7 +3804,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 RE
 Um
@@ -3905,7 +3908,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 Qv
 AS
@@ -3957,7 +3960,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 RE
 pi
@@ -4009,7 +4012,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 RE
 RE
@@ -4113,7 +4116,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 Qv
 pK
@@ -4165,7 +4168,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 RE
 ze
@@ -4217,7 +4220,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 UM
 Ti
@@ -4321,7 +4324,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 OL
 vA
@@ -4373,7 +4376,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 RE
 sW
@@ -4425,7 +4428,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 RE
 Jq

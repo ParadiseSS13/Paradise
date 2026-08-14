@@ -102,6 +102,11 @@
 /obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine
 	name = "Boxstation, Engine Room"
 
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hidey_hole
+	name = "Boxstation, Hiding Spot"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/hidey_hole
+
 // Gas Station Ruin mapmanips
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/gas_station/fuel
 	name = "Gas Station, Fuel"
