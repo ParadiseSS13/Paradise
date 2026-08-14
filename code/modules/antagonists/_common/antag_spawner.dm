@@ -250,7 +250,6 @@
 	candidate_search_start_message = "You break the seal on the bottle, calling upon the dire spirits of the underworld..."
 	candidate_search_fail_message = "The demons do not respond to your summon. Perhaps you should try again later."
 	objective_verb = "Kill"
-	role_define = ROLE_DEMON
 	monster_type = /mob/living/basic/demon/slaughter
 
 /obj/item/antag_spawner/monster/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
