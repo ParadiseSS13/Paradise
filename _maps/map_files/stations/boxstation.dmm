@@ -55391,6 +55391,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
+"izb" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/hiding_spot,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "izd" = (
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
@@ -76204,6 +76208,17 @@
 	pixel_x = -10;
 	pixel_y = 1
 	},
+/obj/item/soap/deluxe{
+	pixel_x = 3;
+	pixel_y = -8
+	},
+/obj/item/reagent_containers/drinks/cans/synthanol{
+	pixel_x = -14;
+	pixel_y = -3
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "rqF" = (
@@ -90674,6 +90689,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/gravitygenerator)
+"xMJ" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "xMU" = (
 /obj/structure/table,
 /obj/effect/spawner/random/toy/action_figure,
@@ -118128,7 +118149,7 @@ bkT
 bhz
 bgs
 nHI
-coL
+izb
 gzN
 aaa
 jap
@@ -118385,7 +118406,7 @@ bkS
 aYn
 bfM
 nHI
-coL
+xMJ
 cgQ
 aaa
 jmg

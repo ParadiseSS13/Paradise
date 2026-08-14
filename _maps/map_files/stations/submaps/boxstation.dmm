@@ -396,6 +396,33 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"hk" = (
+/obj/item/toy/plushie/draskplushie{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/toy/plushie/ipcplushie{
+	pixel_x = -10;
+	pixel_y = 1
+	},
+/obj/item/soap/deluxe{
+	pixel_x = 3;
+	pixel_y = -8
+	},
+/obj/item/reagent_containers/drinks/cans/synthanol{
+	pixel_x = -14;
+	pixel_y = -3
+	},
+/turf/template_noop,
+/area/template_noop)
+"ho" = (
+/obj/item/toy/plushie/humanplushie,
+/obj/item/clothing/head/collectable/captain{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/turf/template_noop,
+/area/template_noop)
 "hs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -640,6 +667,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"kB" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/obj/effect/decal/cleanable/blood,
+/turf/template_noop,
+/area/template_noop)
 "kH" = (
 /obj/structure/rack{
 	dir = 1
@@ -1048,6 +1080,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
+"pd" = (
+/obj/item/toy/plushie/abductor/agent,
+/turf/template_noop,
+/area/template_noop)
 "pi" = (
 /obj/structure/rack{
 	dir = 1
@@ -1176,6 +1212,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"rc" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/obj/effect/spawner/random/toy/carp_plushie,
+/turf/template_noop,
+/area/template_noop)
 "ry" = (
 /obj/machinery/light{
 	dir = 4
@@ -1241,6 +1282,11 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"sr" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/obj/item/toy/plushie/abductor,
+/turf/template_noop,
+/area/template_noop)
 "sw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1872,6 +1918,10 @@
 /obj/machinery/light,
 /turf/simulated/floor/noslip,
 /area/station/engineering/control)
+"Ar" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/turf/template_noop,
+/area/template_noop)
 "Av" = (
 /obj/machinery/power/reactor_power{
 	dir = 1
@@ -1974,6 +2024,10 @@
 "BS" = (
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
+"BY" = (
+/obj/item/toy/plushie/voxplushie,
+/turf/template_noop,
+/area/template_noop)
 "BZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/engine,
@@ -2200,6 +2254,12 @@
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"Ge" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "rune[1-8]"
+	},
+/turf/template_noop,
+/area/template_noop)
 "Gj" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /turf/simulated/floor/plasteel/dark,
@@ -2223,6 +2283,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"Gx" = (
+/obj/item/kitchen/knife,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/template_noop,
+/area/template_noop)
 "GB" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Gas to Chamber"
@@ -2458,6 +2523,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"KY" = (
+/obj/effect/spawner/random/toy/carp_plushie,
+/turf/template_noop,
+/area/template_noop)
 "Lc" = (
 /obj/structure/girder,
 /turf/simulated/floor/plasteel/dark,
@@ -3698,9 +3767,9 @@ TJ
 TJ
 TJ
 TJ
+Ar
 TJ
-TJ
-Rn
+Ar
 TJ
 TS
 fZ
@@ -3750,7 +3819,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 Rn
 TJ
@@ -3802,9 +3871,9 @@ TJ
 TJ
 TJ
 TJ
-TJ
-TJ
 Rn
+TJ
+hk
 TJ
 RE
 Um
@@ -3906,9 +3975,9 @@ TJ
 TJ
 TJ
 TJ
+Ar
 TJ
-TJ
-Rn
+kB
 TJ
 Qv
 AS
@@ -3958,9 +4027,9 @@ TJ
 TJ
 TJ
 TJ
-TJ
-TJ
 Rn
+TJ
+Ge
 TJ
 RE
 pi
@@ -4010,9 +4079,9 @@ TJ
 TJ
 TJ
 TJ
-TJ
-TJ
 Rn
+TJ
+Gx
 TJ
 RE
 RE
@@ -4116,7 +4185,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+rc
 TJ
 Qv
 pK
@@ -4168,7 +4237,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+BY
 TJ
 RE
 ze
@@ -4220,7 +4289,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+KY
 TJ
 UM
 Ti
@@ -4324,7 +4393,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+sr
 TJ
 OL
 vA
@@ -4376,7 +4445,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+ho
 TJ
 RE
 sW
@@ -4428,7 +4497,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+pd
 TJ
 RE
 Jq
