@@ -65,6 +65,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"bx" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/obj/machinery/hydroponics/soil,
+/turf/template_noop,
+/area/template_noop)
 "bH" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -136,6 +141,18 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"cX" = (
+/obj/item/toy/plushie/greyplushie,
+/obj/item/clothing/head/collectable/beret{
+	pixel_x = 0;
+	pixel_y = 12
+	},
+/obj/item/restraints/handcuffs/toy{
+	pixel_x = -7;
+	pixel_y = -7
+	},
+/turf/template_noop,
+/area/template_noop)
 "db" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1128,6 +1145,14 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"pr" = (
+/obj/item/toy/plushie/lizardplushie,
+/obj/item/clothing/head/collectable/hos{
+	pixel_x = -1;
+	pixel_y = 8
+	},
+/turf/template_noop,
+/area/template_noop)
 "px" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -2665,6 +2690,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"MN" = (
+/obj/machinery/hydroponics/soil,
+/turf/template_noop,
+/area/template_noop)
 "MQ" = (
 /obj/structure/sign/nosmoking/alt{
 	pixel_y = -32
@@ -2681,6 +2710,18 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"MX" = (
+/obj/item/toy/plushie/nymphplushie,
+/obj/item/shovel/spade{
+	pixel_x = -8;
+	pixel_y = -10
+	},
+/obj/item/cultivator{
+	pixel_x = -2;
+	pixel_y = -8
+	},
+/turf/template_noop,
+/area/template_noop)
 "MY" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2857,6 +2898,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"OG" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/obj/item/toy/plushie/nianplushie,
+/obj/item/clothing/mask/gas,
+/turf/template_noop,
+/area/template_noop)
 "OI" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
 /obj/item/toy/plushie/borgplushie/random,
@@ -4234,7 +4281,7 @@ TJ
 TJ
 TJ
 TJ
-Ar
+bx
 TJ
 rc
 TJ
@@ -4286,7 +4333,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+MX
 TJ
 BY
 TJ
@@ -4338,7 +4385,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+MN
 TJ
 KY
 TJ
@@ -4442,7 +4489,7 @@ TJ
 TJ
 TJ
 TJ
-Ar
+OG
 TJ
 sr
 TJ
@@ -4494,7 +4541,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+cX
 TJ
 ho
 TJ
@@ -4546,7 +4593,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+pr
 TJ
 pd
 TJ
