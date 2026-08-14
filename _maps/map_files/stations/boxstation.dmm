@@ -5667,10 +5667,6 @@
 "awV" = (
 /turf/simulated/wall,
 /area/station/security/processing)
-"awX" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "awY" = (
 /obj/machinery/door/window{
 	name = "Bar Door";
@@ -46211,10 +46207,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
-"eGP" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "eGU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -65727,9 +65719,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
-"mWg" = (
-/turf/space,
-/area/space/nearstation)
 "mWQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -71521,6 +71510,9 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "pxv" = (
@@ -71697,7 +71689,7 @@
 "pAh" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/station/maintenance/solar_maintenance/aft_port)
 "pAl" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
@@ -91428,9 +91420,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"yaU" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "yaW" = (
 /obj/machinery/photocopier,
 /obj/machinery/light{
@@ -111727,7 +111716,7 @@ cRA
 otx
 xSF
 aab
-mWg
+aaa
 aaa
 aaa
 aab
@@ -111984,7 +111973,7 @@ cRA
 jCt
 swl
 aab
-dmD
+cQy
 pOC
 pOC
 pOC
@@ -112240,8 +112229,8 @@ cQy
 cRA
 ntD
 swl
-awX
-eGP
+swl
+tWa
 cZI
 wXb
 rjt
@@ -112498,7 +112487,7 @@ cSR
 gOm
 cVl
 pAh
-yaU
+cQy
 cZI
 cNB
 rjt
@@ -112750,7 +112739,7 @@ sXR
 vOd
 cUh
 shl
-cRA
+cQy
 cTa
 cUe
 cVd
@@ -113007,11 +112996,11 @@ qod
 pGN
 cUh
 vnk
-cRA
+cQy
 cST
 cUd
 cVm
-cRA
+cQy
 tmS
 kbV
 cNB
@@ -113264,11 +113253,11 @@ cLF
 icI
 cNB
 qEc
-cRA
+cQy
 cRA
 jer
 cRA
-cRA
+cQy
 rYt
 tTM
 lji
