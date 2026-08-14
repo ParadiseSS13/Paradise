@@ -76200,22 +76200,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/storage)
 "rqD" = (
-/obj/item/toy/plushie/draskplushie{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/item/toy/plushie/ipcplushie{
-	pixel_x = -10;
-	pixel_y = 1
-	},
-/obj/item/soap/deluxe{
-	pixel_x = 3;
-	pixel_y = -8
-	},
-/obj/item/reagent_containers/drinks/cans/synthanol{
-	pixel_x = -14;
-	pixel_y = -3
-	},
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
 	},
