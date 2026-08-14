@@ -47320,6 +47320,11 @@
 "feN" = (
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
+"feO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "feQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
@@ -51926,6 +51931,11 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/aft)
+"gYQ" = (
+/obj/effect/spawner/random/barrier/grille_often,
+/obj/effect/spawner/random/cobweb/left/frequent,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "gYZ" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "hop";
@@ -58983,6 +58993,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
+"kbV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "kct" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -63018,6 +63033,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"lMv" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "lMP" = (
 /obj/structure/sign/poster/contraband/random/directional/north,
 /turf/simulated/floor/wood,
@@ -76523,6 +76542,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
+"rxs" = (
+/obj/effect/spawner/random/barrier/grille_often,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "rxW" = (
 /obj/effect/turf_decal/tiles/department/security/side{
 	dir = 8
@@ -78141,6 +78164,10 @@
 /obj/effect/turf_decal/tiles/department/medical,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/aft)
+"siw" = (
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "six" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -83594,6 +83621,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
+"uFD" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "uFH" = (
 /obj/effect/turf_decal/tiles/jobs/bar/checker,
 /obj/structure/table/reinforced,
@@ -89666,6 +89697,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"xsu" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "xsx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/seeds/ambrosia,
@@ -90136,6 +90176,7 @@
 "xDp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/beerkeg,
+/obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "xDr" = (
@@ -113018,7 +113059,7 @@ cUd
 cVm
 cRA
 tmS
-cZw
+kbV
 cNB
 eLb
 cQy
@@ -113534,7 +113575,7 @@ cLi
 bhO
 wLo
 cZw
-cZw
+kbV
 rna
 jlS
 tzV
@@ -113791,7 +113832,7 @@ cLi
 rEZ
 wLo
 cNB
-tmS
+rxs
 gSd
 bFC
 bFC
@@ -114295,7 +114336,7 @@ cLi
 cUh
 qod
 cLi
-tmS
+gYQ
 wXb
 vAT
 rEZ
@@ -114304,7 +114345,7 @@ qst
 cNB
 cLi
 wLo
-cNB
+lMv
 cZw
 mcz
 bFC
@@ -114819,7 +114860,7 @@ mAq
 rEZ
 wLo
 cZw
-cNB
+sJQ
 tmS
 bFC
 sOz
@@ -115325,7 +115366,7 @@ weq
 cLi
 jUM
 cNB
-cNB
+gSd
 cLi
 cLi
 qst
@@ -115590,17 +115631,17 @@ cNB
 cLi
 wLo
 cZw
-cNB
-cNB
+gSd
+rxs
 cNB
 uVX
 rUM
 rYt
 bhO
-cNB
+uFD
 tmS
 rna
-cZw
+feO
 cQy
 afX
 afX
@@ -115849,9 +115890,9 @@ wLo
 cZw
 cZw
 cZw
-cNB
+sJQ
 xWd
-cNB
+siw
 cZw
 cNB
 cNB
@@ -116104,13 +116145,13 @@ cZw
 cNB
 wLo
 cZw
-cNB
+siw
 cNB
 cZw
 xWd
 cZw
 cZw
-cZw
+mAq
 hgF
 cZw
 uTV
@@ -116361,13 +116402,13 @@ eXz
 tmS
 sTD
 rrb
-rrb
+xsu
 rrb
 rrb
 nrX
-cNB
+sJQ
 ydO
-tmS
+rxs
 rEZ
 xDp
 rPm
