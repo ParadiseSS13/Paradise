@@ -2610,7 +2610,7 @@
 "Lr" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
 /obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
 /turf/template_noop,
 /area/template_noop)
