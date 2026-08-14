@@ -97,6 +97,18 @@
 	},
 /turf/simulated/floor/plasteel/reactor_pool/wall,
 /area/station/engineering/engine/reactor)
+"co" = (
+/obj/item/clothing/gloves/color/fyellow{
+	pixel_x = -12;
+	pixel_y = 0
+	},
+/obj/item/wirecutters{
+	pixel_x = 4;
+	pixel_y = -10
+	},
+/obj/effect/decal/remains/human,
+/turf/template_noop,
+/area/template_noop)
 "cp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -420,6 +432,10 @@
 /obj/item/clothing/head/collectable/captain{
 	pixel_x = 1;
 	pixel_y = 9
+	},
+/obj/item/id_decal/gold{
+	pixel_x = 5;
+	pixel_y = -7
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -923,6 +939,16 @@
 /obj/item/flashlight,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"nl" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "0-8"
+	},
+/obj/item/stack/cable_coil/extra_insulated{
+	amount = 1;
+	icon_state = "coil1"
+	},
+/turf/template_noop,
+/area/template_noop)
 "nq" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
@@ -1424,6 +1450,10 @@
 /obj/item/rpd,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"ut" = (
+/obj/item/toy/plushie/borgplushie/random,
+/turf/template_noop,
+/area/template_noop)
 "uv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1485,6 +1515,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"vo" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/template_noop,
+/area/template_noop)
 "vq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/wall/r_wall,
@@ -2026,6 +2063,10 @@
 /area/station/engineering/engine/supermatter)
 "BY" = (
 /obj/item/toy/plushie/voxplushie,
+/obj/item/clothing/head/collectable/hardhat{
+	pixel_x = 1;
+	pixel_y = 20
+	},
 /turf/template_noop,
 /area/template_noop)
 "BZ" = (
@@ -2256,7 +2297,8 @@
 /area/station/engineering/control)
 "Ge" = (
 /obj/effect/decal/cleanable/crayon{
-	icon_state = "rune[1-8]"
+	icon_state = "rune8";
+	color = red
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -2374,6 +2416,10 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
+"Ig" = (
+/obj/item/ai_module/toy_ai,
+/turf/template_noop,
+/area/template_noop)
 "Ii" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/red{
 	dir = 4
@@ -2811,6 +2857,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
+"OI" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot,
+/obj/item/toy/plushie/borgplushie/random,
+/turf/template_noop,
+/area/template_noop)
 "OL" = (
 /obj/machinery/door/airlock/engineering/glass{
 	autoclose = 0;
@@ -3767,7 +3818,7 @@ TJ
 TJ
 TJ
 TJ
-Ar
+vo
 TJ
 Ar
 TJ
@@ -3819,7 +3870,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+nl
 TJ
 Rn
 TJ
@@ -3871,7 +3922,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+co
 TJ
 hk
 TJ
@@ -3975,7 +4026,7 @@ TJ
 TJ
 TJ
 TJ
-Ar
+OI
 TJ
 kB
 TJ
@@ -4027,7 +4078,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+Ig
 TJ
 Ge
 TJ
@@ -4079,7 +4130,7 @@ TJ
 TJ
 TJ
 TJ
-Rn
+ut
 TJ
 Gx
 TJ
@@ -4183,7 +4234,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Ar
 TJ
 rc
 TJ
@@ -4235,7 +4286,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 BY
 TJ
@@ -4287,7 +4338,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 KY
 TJ
@@ -4391,7 +4442,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Ar
 TJ
 sr
 TJ
@@ -4443,7 +4494,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 ho
 TJ
@@ -4495,7 +4546,7 @@ TJ
 TJ
 TJ
 TJ
-TJ
+Rn
 TJ
 pd
 TJ
