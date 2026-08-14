@@ -71491,9 +71491,6 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "NTR"
 	},
@@ -71505,9 +71502,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/ntrep,
 /obj/structure/cable{
 	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
