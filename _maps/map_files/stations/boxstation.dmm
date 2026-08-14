@@ -82017,10 +82017,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"tWa" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/apmaint2)
 "tWe" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "gravity"
@@ -112195,11 +112191,11 @@ cRA
 ntD
 swl
 swl
-tWa
+cQy
 cZI
 wXb
 rjt
-tWa
+cQy
 mnN
 mnN
 mnN
@@ -116576,7 +116572,7 @@ dar
 dar
 cQy
 cQy
-tWa
+cQy
 lbH
 lbH
 aaa
