@@ -18,8 +18,8 @@
 		"submap_size_y": 1,
 		"submap_size_z": 1,
 		"submaps_dmm": "submaps/boxstation.dmm",
-		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hidey_hole",
-		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/hidey_hole",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/hiding_spot",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/hiding_spot",
 		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
 	}
 ]
