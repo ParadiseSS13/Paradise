@@ -80930,7 +80930,6 @@
 /area/station/security/permabrig)
 "txa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light/floor,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
