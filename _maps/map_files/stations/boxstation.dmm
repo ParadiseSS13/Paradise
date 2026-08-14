@@ -49292,6 +49292,10 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"fUL" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/station/public/storage/office)
 "fUW" = (
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall,
@@ -72269,6 +72273,12 @@
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
+"pLj" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/station/procedure/trainer_office)
 "pLr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -76252,12 +76262,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/storage)
-"rqD" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "rqF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor/west{
@@ -90767,12 +90771,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/gravitygenerator)
-"xMJ" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "xMU" = (
 /obj/structure/table,
 /obj/effect/spawner/random/toy/action_figure,
@@ -118483,8 +118481,8 @@ cGQ
 bkS
 aYn
 bfM
-nHI
-xMJ
+fUL
+coL
 cgQ
 aaa
 jmg
@@ -118741,7 +118739,7 @@ bkW
 bhF
 bgx
 nHI
-rqD
+coL
 cgQ
 cvx
 kDN
@@ -118998,7 +118996,7 @@ gHr
 gHr
 gHr
 gHr
-gHr
+pLj
 gHr
 ldv
 cMu
