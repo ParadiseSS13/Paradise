@@ -2321,10 +2321,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/control)
 "Ge" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "rune8";
-	color = FF0000
+/obj/effect/rune{
+	cultist_desc = "an imitation of the real thing with no power.";
+	desc = "An odd collection of symbols drawn in what seems to be very old and dry blood.";
+	name = "old smeared rune";
+	light_range = 1;
+	light_color = "880000"
 	},
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
 /turf/template_noop,
 /area/template_noop)
 "Gj" = (
