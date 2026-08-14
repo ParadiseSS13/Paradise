@@ -364,8 +364,6 @@
 		remove_ignored_atom(A)
 
 /mob/living/simple_animal/bot/handle_automated_action()
-	diag_hud_set_botmode()
-
 	if(COOLDOWN_FINISHED(src, ignore_list_cleanup_cd))
 		clear_ignore_list()
 		COOLDOWN_START(src, ignore_list_cleanup_cd, 20 SECONDS)
@@ -383,7 +381,7 @@
 		if(BOT_SUMMON)		// Called by PDA
 			bot_summon()
 			return
-		if(BOT_PATHING)
+		if(BOT_MOVING)
 			return FALSE
 	return TRUE // Successful completion. Used to prevent child process() continuing if this one is ended early.
 

@@ -65,7 +65,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "dk" = (
-/mob/living/basic/bot/honkbot,
+/mob/living/simple_animal/bot/honkbot,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "dz" = (
@@ -226,7 +226,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "kO" = (
-/mob/living/basic/bot/secbot/ed209,
+/mob/living/simple_animal/bot/ed209,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "lo" = (
@@ -519,7 +519,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "AW" = (
-/mob/living/basic/bot/secbot,
+/mob/living/simple_animal/bot/secbot,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "AZ" = (
@@ -1155,7 +1155,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "Xz" = (
-/mob/living/basic/bot/medbot,
+/mob/living/simple_animal/bot/medbot,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "XL" = (

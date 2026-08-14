@@ -828,10 +828,7 @@
 /area/ruin/space/derelict/arrival)
 "co" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/bot/secbot/buzzsky{
-	desc = "It's Comrade Blyatsky! Powered by vodka, communism, and hardbass.";
-	name = "Comrade Blyatsky"
-	},
+/mob/living/basic/bot/secbot/buzzsky,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cp" = (

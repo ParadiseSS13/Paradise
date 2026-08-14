@@ -1,0 +1,7 @@
+/mob/living/simple_animal/bot/secbot/beepsky : /mob/living/basic/bot/secbot/beepsky/officer
+/mob/living/simple_animal/bot/secbot/armsky : /mob/living/basic/bot/secbot/beepsky/armsky{@OLD;auto_patrol=@SKIP}
+/mob/living/simple_animal/bot/secbot/pingsky : /mob/living/basic/bot/secbot/pingsky
+/mob/living/simple_animal/bot/secbot/buzzsky : /mob/living/basic/bot/secbot/buzzsky
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms : /mob/living/basic/bot/secbot/buzzsky/telecomms
+/mob/living/simple_animal/bot/cleanbot : /mob/living/basic/bot/cleanbot
+/mob/living/simple_animal/bot/floorbot : /mob/living/basic/bot/repairbot

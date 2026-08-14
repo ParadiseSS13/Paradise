@@ -260,7 +260,7 @@
 /turf/simulated/floor/grass,
 /area/start)
 "D" = (
-/mob/living/basic/bot/medbot,
+/mob/living/simple_animal/bot/medbot,
 /turf/simulated/floor/grass,
 /area/start)
 "E" = (

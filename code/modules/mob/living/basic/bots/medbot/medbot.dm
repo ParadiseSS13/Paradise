@@ -106,6 +106,8 @@
 	var/treatment_virus = "spaceacillin"
 	/// Start healing when they have this much damage in a category
 	var/heal_threshold = 10
+	/// What damage type does this bot support. Because the default is brute, if the medkit is brute-oriented there is a slight bonus to healing. set to "all" for it to heal any of the 4 base damage types
+	var/damage_type_healer = BRUTE
 	/// How much reagent do we inject at a time?
 	var/injection_amount = 15
 

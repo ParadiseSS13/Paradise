@@ -24998,7 +24998,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/mob/living/basic/bot/secbot/beepsky,
+/mob/living/basic/bot/secbot/beepsky/officer,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -61793,9 +61793,7 @@
 	codes_txt = "patrol;next_patrol=Armory_South";
 	location = "Armory_North"
 	},
-/mob/living/basic/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "jhB" = (

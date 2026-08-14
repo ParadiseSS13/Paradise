@@ -243,13 +243,13 @@
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 				playsound(F, 'sound/effects/blobattack.ogg', 40, TRUE)
 
-/mob/living/basic/bot/mulebot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
-	if(!(bot_mode_flags & BOT_MODE_ON))
-		return
-	if(istype(A) && Adjacent(A) && ismovable(A))
-		to_chat(user, "<span class='notice'You try to load [A] onto [src].</span>")
-		load(A)
-		return
-	if(load)
-		to_chat(user, "<span class='notice'You unload [load].</span>")
-		unload(0)
+// /mob/living/simple_animal/bot/mulebot/attack_integrated_pulsedemon(mob/living/basic/demon/pulse_demon/user, atom/A)
+// 	if(!on)
+// 		return
+// 	if(istype(A) && Adjacent(A) && ismovable(A))
+// 		to_chat(user, "<span class='notice'You try to load [A] onto [src].</span>")
+// 		load(A)
+// 		return
+// 	if(load)
+// 		to_chat(user, "<span class='notice'You unload [load].</span>")
+// 		unload(0)

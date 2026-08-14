@@ -12900,9 +12900,7 @@
 "bAA" = (
 /obj/machinery/alarm/directional/west,
 /obj/machinery/light/small,
-/mob/living/basic/bot/repairbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
@@ -13544,9 +13542,7 @@
 /area/space/nearstation)
 "bDi" = (
 /obj/machinery/light/small,
-/mob/living/basic/bot/cleanbot{
-	on = 0
-	},
+/mob/living/basic/bot/cleanbot,
 /obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/aisat/interior)
@@ -36619,9 +36615,7 @@
 /turf/simulated/floor/catwalk/black,
 /area/station/engineering/control)
 "fWJ" = (
-/mob/living/basic/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -65658,7 +65652,7 @@
 	codes_txt = "patrol;next_patrol=1-BrigCells";
 	location = "0-SecurityDesk"
 	},
-/mob/living/basic/bot/secbot/beepsky,
+/mob/living/basic/bot/secbot/beepsky/officer,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},

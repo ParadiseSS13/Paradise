@@ -114,7 +114,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "z" = (
-/mob/living/basic/bot/medbot,
+/mob/living/simple_animal/bot/medbot,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "B" = (

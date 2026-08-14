@@ -286,7 +286,7 @@
 	var/list/muleData = list()
 	var/list/mulebotsData = list()
 
-	var/mob/living/basic/bot/mulebot/active_bot = locateUID(active_uid)
+	var/mob/living/simple_animal/bot/mulebot/active_bot = locateUID(active_uid)
 
 	if(active_bot && !QDELETED(active_bot))
 		muleData["active"] = active_bot ? sanitize(active_bot.name) : null
@@ -299,15 +299,15 @@
 				"mode" = active_bot.mode,
 				"home" = active_bot.home_destination,
 				"powr" = (active_bot.cell ? active_bot.cell.percent() : 0),
-				"retn" = active_bot.mulebot_delivery_flags & MULEBOT_RETURN_MODE,
-				"pick" = active_bot.mulebot_delivery_flags & MULEBOT_AUTO_PICKUP_MODE,
+				"retn" = active_bot.auto_return,
+				"pick" = active_bot.auto_pickup,
 				"load" = active_bot.load,
-				"dest" = sanitize(active_bot.ai_controller.blackboard[BB_MULEBOT_DESTINATION_BEACON])
+				"dest" = sanitize(active_bot.destination)
 			)
 
 	else
 		var/mulebotsCount = 0
-		for(var/mob/living/basic/bot/mulebot/B in GLOB.bots_list)
+		for(var/mob/living/simple_animal/bot/mulebot/B in GLOB.bots_list)
 			mulebotsCount++
 			if(B.loc)
 				var/area/our_area = get_area(B)

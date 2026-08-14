@@ -200,8 +200,12 @@
 
 /mob/living/basic/bot/repairbot/start_pulling(atom/movable/movable_pulled, state, force, show_message = FALSE)
 	. = ..()
-	if(pulling)
-		setGrabState(GRAB_AGGRESSIVE) //automatically aggro grab everything!
+	if(pulling && ismob(movable_pulled))
+		var/mob/grabbed = movable_pulled
+		for(var/X in grabbed.grabbed_by)
+			var/obj/item/grab/G = X
+			if(G.pulledby == src)
+				G.state = GRAB_AGGRESSIVE //automatically aggro grab everything!
 
 /mob/living/basic/bot/repairbot/proc/attempt_use_stack(obj/item/stack_to_use, atom/target)
 	if(!isdatum(stack_to_use))
@@ -209,9 +213,10 @@
 		return
 	stack_to_use.melee_attack_chain(src, target)
 
-/mob/living/basic/bot/repairbot/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash, length = 25)
-	if(affect_silicon)
-		return ..()
+// TODO: Port flash_act for mobs
+// /mob/living/basic/bot/repairbot/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash, length = 25)
+// 	if(affect_silicon)
+// 		return ..()
 
 /mob/living/basic/bot/repairbot/Destroy()
 	. = ..()
@@ -343,7 +348,6 @@
 /obj/item/weldingtool/repairbot
 	maximum_fuel = INFINITY
 	prefilled = TRUE
-	change_icons = FALSE
 
 /obj/item/rcd/repairbot
 	matter = INFINITY

@@ -25968,9 +25968,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "erH" = (
-/mob/living/basic/bot/cleanbot{
-	name = "Na2CO3"
-	},
+/mob/living/basic/bot/cleanbot,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment/corner,
 /obj/effect/turf_decal/tiles/department/chemistry/side{
@@ -40796,9 +40794,7 @@
 /area/station/maintenance/science/starboard)
 "hEQ" = (
 /obj/structure/bed/dogbed,
-/mob/living/basic/bot/secbot/beepsky{
-	name = "Officer Batongsky"
-	},
+/mob/living/basic/bot/secbot/beepsky/officer,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/west)
 "hEU" = (
@@ -46382,9 +46378,7 @@
 /area/station/turret_protected/ai_upload)
 "iNr" = (
 /obj/structure/bed/dogbed,
-/mob/living/basic/bot/secbot/beepsky{
-	name = "Officer Pipsqueak"
-	},
+/mob/living/basic/bot/secbot/beepsky/officer,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "iNs" = (
@@ -58000,9 +57994,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/sleeper)
 "ljT" = (
-/mob/living/basic/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -91005,9 +90997,7 @@
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "svr" = (
 /obj/effect/turf_decal/stripes/line,
-/mob/living/basic/bot/repairbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 30
@@ -110542,9 +110532,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "wEo" = (
-/mob/living/basic/bot/cleanbot{
-	on = 0
-	},
+/mob/living/basic/bot/cleanbot,
 /obj/machinery/light{
 	dir = 4
 	},

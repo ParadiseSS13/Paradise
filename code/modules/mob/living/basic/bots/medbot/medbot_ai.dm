@@ -45,7 +45,7 @@
 		controller.queue_behavior(/datum/ai_behavior/tend_to_patient, BB_PATIENT_TARGET, bot_pawn.heal_threshold, bot_pawn.bot_access_flags, is_stationary)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
-	controller.queue_behavior(/datum/ai_behavior/find_suitable_patient, BB_PATIENT_TARGET, bot_pawn.heal_threshold, bot_pawn.medical_mode_flags, bot_pawn.bot_access_flags)
+	controller.queue_behavior(/datum/ai_behavior/find_suitable_patient, BB_PATIENT_TARGET, bot_pawn.heal_threshold, bot_pawn.damage_type_healer, bot_pawn.medical_mode_flags, bot_pawn.bot_access_flags)
 
 /datum/ai_behavior/find_suitable_patient
 	var/search_range = 7
@@ -62,7 +62,12 @@
 		if((access_flags & BOT_COVER_EMAGGED) && treatable_target.stat == CONSCIOUS)
 			controller.set_if_can_reach(key = BB_PATIENT_TARGET, target = treatable_target, distance = BOT_PATIENT_PATH_LIMIT, bypass_add_to_blacklist = (search_range == 1))
 			break
-		if(treatable_target.get_total_damage() > threshold && source_mob.assess_viruses(treatable_target))
+		if((heal_type == HEAL_ALL_DAMAGE))
+			if(treatable_target.get_total_damage() > threshold)
+				controller.set_if_can_reach(key = BB_PATIENT_TARGET, target = treatable_target, distance = BOT_PATIENT_PATH_LIMIT, bypass_add_to_blacklist = (search_range == 1))
+				break
+			continue
+		if(treatable_target.get_damage_amount(damagetype = heal_type) > threshold)
 			controller.set_if_can_reach(key = BB_PATIENT_TARGET, target = treatable_target, distance = BOT_PATIENT_PATH_LIMIT, bypass_add_to_blacklist = (search_range == 1))
 			break
 

@@ -1352,10 +1352,7 @@
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "hv" = (
-/mob/living/basic/bot/secbot/beepsky{
-	desc = "Powered by the tears and sweat of laborers.";
-	name = "Prison Ofitser"
-	},
+/mob/living/basic/bot/secbot/beepsky/officer,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp/security)
 "hw" = (

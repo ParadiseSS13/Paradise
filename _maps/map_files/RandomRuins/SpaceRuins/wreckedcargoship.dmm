@@ -1064,7 +1064,7 @@
 /area/ruin/space/wreck_cargoship)
 "RZ" = (
 /obj/structure/rack,
-/mob/living/basic/bot/secbot/griefsky/toy,
+/mob/living/simple_animal/bot/secbot/griefsky/toy,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4

@@ -54,9 +54,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "fD" = (
-/mob/living/basic/bot/secbot/buzzsky/telecomms{
-	advanced_bullet_dodge_chance = 15
-	},
+/mob/living/basic/bot/secbot/buzzsky/telecomms,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/template_noop)
@@ -70,7 +68,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "fM" = (
-/mob/living/basic/bot/secbot/buzzsky/telecomms/doomba,
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
 /turf/template_noop,
 /area/template_noop)
 "gz" = (
@@ -427,9 +425,7 @@
 /area/template_noop)
 "OT" = (
 /obj/effect/decal/cleanable/dirt/blackpowder,
-/mob/living/basic/bot/secbot/buzzsky/telecomms{
-	advanced_bullet_dodge_chance = 15
-	},
+/mob/living/basic/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/engine,
 /area/template_noop)
 "Ps" = (

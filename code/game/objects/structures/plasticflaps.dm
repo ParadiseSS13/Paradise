@@ -68,7 +68,7 @@
 		var/mob/living/M = A
 		if(isbot(A)) //Bots understand the secrets
 			return TRUE
-		if(M.buckled && istype(M.buckled, /mob/living/basic/bot/mulebot)) // mulebot passenger gets a free pass.
+		if(M.buckled && istype(M.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
 			return TRUE
 		if(!IS_HORIZONTAL(M) && !M.ventcrawler && M.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE

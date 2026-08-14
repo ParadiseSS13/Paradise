@@ -3,7 +3,7 @@
 
 /datum/supply_packs/misc/mule
 	name = "MULEbot Crate"
-	contains = list(/mob/living/basic/bot/mulebot)
+	contains = list(/mob/living/simple_animal/bot/mulebot)
 	cost = 250
 	containertype = /obj/structure/largecrate/mule
 	containername = "\improper MULEbot crate"
