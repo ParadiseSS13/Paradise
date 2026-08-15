@@ -15540,10 +15540,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "bgV" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/effect/turf_decal/tiles/department/medical/corner{
 	dir = 1
 	},
@@ -41135,15 +41131,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
-"djZ" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/nw)
 "dkb" = (
 /obj/item/radio/intercom/locked/ai_private{
 	pixel_x = -29
@@ -49855,6 +49842,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
+"gfP" = (
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "ggr" = (
 /obj/item/stack/rods{
 	amount = 4
@@ -53089,6 +53086,12 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
+"hyx" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "hyH" = (
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -58311,6 +58314,9 @@
 /area/station/maintenance/aft2)
 "jNe" = (
 /obj/machinery/suit_storage_unit/blueshield/secure,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jNu" = (
@@ -117544,7 +117550,7 @@ xcV
 clR
 jNe
 cgS
-bgS
+hyx
 jmr
 bkv
 uhY
@@ -117801,7 +117807,7 @@ wgt
 tvi
 ciH
 oLT
-djZ
+bnP
 jmr
 bkv
 uhY
@@ -118829,7 +118835,7 @@ jLr
 jKj
 bqF
 cgW
-bgP
+gfP
 aMv
 bkv
 uhY
