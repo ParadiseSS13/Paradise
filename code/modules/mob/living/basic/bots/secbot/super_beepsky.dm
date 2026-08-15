@@ -2,8 +2,8 @@
 	name = "General Griefsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "grievous"
-	base_icon_state = "grievous"
+	icon_state = "griefsky"
+	base_icon_state = "griefsky"
 	health = 150
 	maxHealth = 150
 	ai_controller = /datum/ai_controller/basic_controller/bot/secbot/super_beepsky

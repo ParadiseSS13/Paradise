@@ -2,8 +2,8 @@
 	name = "\improper Securitron"
 	desc = "A little security robot. He looks less than thrilled."
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "secbot"
-	base_icon_state = "secbot"
+	icon_state = "secbot0"
+	base_icon_state = "secbot0"
 	light_color = "#f56275"
 	light_power = 0.8
 	gender = MALE

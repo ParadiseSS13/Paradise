@@ -1,8 +1,8 @@
 /mob/living/basic/bot/secbot/ed209
 	name = "\improper ED-209 Security Robot"
 	desc = "A security robot. He looks less than thrilled."
-	icon_state = "ed209"
-	base_icon_state = "ed209"
+	icon_state = "ed2090"
+	base_icon_state = "ed2090"
 	light_color = "#f84e4e"
 	density = TRUE
 	health = 100
