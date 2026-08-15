@@ -2,6 +2,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	force = 3
 	throw_range = 5
+	new_attack_chain = TRUE
 	var/created_name
 	var/build_step = ASSEMBLY_FIRST_STEP
 	var/robot_arm = /obj/item/robot_parts/r_arm
