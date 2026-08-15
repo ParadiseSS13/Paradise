@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 		return
 	destination = L[desc]
 
-/obj/item/wormhole_jaunter/contractor/activate_self(mob/user) // message is later down
+/obj/item/wormhole_jaunter/contractor/activate_self(mob/user) // Message is later down.
 	if(!user)
 		return ..()
 	activate(user, TRUE)
