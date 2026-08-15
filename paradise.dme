@@ -2776,7 +2776,7 @@
 #include "code\modules\mob\living\basic\posessed_object.dm"
 #include "code\modules\mob\living\basic\bots\_bots.dm"
 #include "code\modules\mob\living\basic\bots\bot_ai.dm"
-#include "code\modules\mob\living\basic\bots\bot_hud.dm"
+#include "code\modules\mob\living\basic\bots\bot_diag_hud.dm"
 #include "code\modules\mob\living\basic\bots\assembly\bot_assembly.dm"
 #include "code\modules\mob\living\basic\bots\assembly\cleanbot_assembly.dm"
 #include "code\modules\mob\living\basic\bots\assembly\ed209_assembly.dm"

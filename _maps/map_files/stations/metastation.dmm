@@ -23255,10 +23255,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/storage)
 "cDr" = (
-/obj/item/toolbox_tiles{
-	desc = "Why won't it work?";
-	name = "FloorDiffBot"
-	},
+/obj/item/bot_assembly/repairbot,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "cDs" = (

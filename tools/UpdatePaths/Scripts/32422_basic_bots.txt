@@ -11,3 +11,5 @@
 /mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba : /mob/living/basic/bot/secbot/buzzsky/telecomms/doomba
 /mob/living/simple_animal/bot/honkbot : /mob/living/basic/bot/secbot/honkbot
 /mob/living/simple_animal/bot/ed209 : /mob/living/basic/bot/secbot/ed209
+/obj/item/firstaid_arm_assembly : /obj/item/bot_assembly/medbot
+/obj/item/toolbox_tiles : /obj/item/bot_assembly/repairbot
