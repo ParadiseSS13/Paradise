@@ -1719,13 +1719,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// Check for weapons
 	if(judgement_criteria & SECBOT_CHECK_WEAPONS)
 		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
-			if(l_hand.needs_permit)
+			if(l_hand && l_hand.needs_permit)
 				threatcount += 4
-			if(r_hand.needs_permit)
+			if(r_hand && r_hand.needs_permit)
 				threatcount += 4
-			if(belt.needs_permit)
+			if(belt && belt.needs_permit)
 				threatcount += 4
-			if(s_store.needs_permit)
+			if(s_store && s_store.needs_permit)
 				threatcount += 4
 
 	// Check for arrest warrant
