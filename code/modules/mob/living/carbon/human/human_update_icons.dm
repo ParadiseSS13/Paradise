@@ -420,7 +420,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(hair.secondary_theme)
 				var/mutable_appearance/img_secondary = mutable_appearance(hair.icon, "[hair.icon_state]_[hair.secondary_theme]_s")
 				if(!hair.no_sec_colour)
-					img_secondary.color = COLOR_MATRIX_ADD(O.sec_hair_colour)
+					img_secondary.color = list(null, null, null, null, O.sec_hair_colour)
 				MA.overlays += img_secondary
 
 	overlays_standing[HAIR_LAYER] = MA
@@ -1262,6 +1262,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!body_accessory.try_restrictions(src))
 		return
 
+	dna.species.updatespeciescolor(src)
 	var/icon/spines_icon = new /icon(body_accessory.icon, spines)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		spines_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)

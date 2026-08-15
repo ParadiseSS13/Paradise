@@ -3,7 +3,7 @@
 #define BARSIGN_WIRED		2
 #define BARSIGN_COMPLETE	3
 
-// All Signs are 64 by 32 pixels, they take two tiles
+// All Signs are 64 by 32 pixels, they take two tiles.
 /obj/machinery/barsign
 	name = "Bar Sign"
 	desc = "A bar sign with no writing on it."
@@ -26,7 +26,7 @@
 /obj/machinery/barsign/Initialize(mapload)
 	. = ..()
 
-	// Fill the barsigns lists
+	// Fill the barsigns lists.
 	for(var/bartype in subtypesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
 		if(signinfo.hidden)
@@ -179,7 +179,7 @@
 
 /obj/machinery/barsign/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	switch(build_stage)
-		// Inserting the electronics/circuit
+		// Inserting the electronics/circuit.
 		if(BARSIGN_FRAME)
 			if(istype(used, /obj/item/barsign_electronics))
 				var/obj/item/barsign_electronics/electronic = used
@@ -198,7 +198,7 @@
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				add_fingerprint(user)
 				return ITEM_INTERACT_COMPLETE
-		// Wiring the bar sign
+		// Wiring the bar sign.
 		if(BARSIGN_CIRCUIT)
 			if(istype(used, /obj/item/stack/cable_coil))
 				if(!used.use(5))
@@ -212,7 +212,7 @@
 				power_state = IDLE_POWER_USE
 				add_fingerprint(user)
 				return ITEM_INTERACT_COMPLETE
-		// Placing in the glass
+		// Placing in the glass.
 		if(BARSIGN_WIRED)
 			if(istype(used, /obj/item/stack/sheet/glass))
 				if(!used.use(2))
@@ -317,14 +317,14 @@
 		return
 	if(flags & NODECONSTRUCT)
 		return
-		// Removing the electronics
+		// Removing the electronics.
 	if(build_stage == BARSIGN_CIRCUIT)
 		var/obj/item/barsign_electronics/electronic
 		electronic = new /obj/item/barsign_electronics
 		if(!emagged)
 			to_chat(user, SPAN_NOTICE("You pull the electronics out from [src]."))
 		else
-			// Give fried electronics if the sign is emagged
+			// Give fried electronics if the sign is emagged.
 			to_chat(user, SPAN_NOTICE("You pull the fried electronics out from [src]."))
 			electronic.destroyed = TRUE
 			electronic.icon_state = "door_electronics_smoked"
@@ -417,7 +417,6 @@
 			new /obj/item/shard(drop_location())
 	qdel(src)
 
-
 /datum/stack_recipe/barsign_frame
 
 /datum/stack_recipe/barsign_frame/try_build(mob/user, obj/item/stack/S, multiplier)
@@ -464,7 +463,6 @@
 	else
 		O.pixel_y = 32
 
-
 /obj/item/barsign_electronics
 	name = "bar sign electronics"
 	desc = "A circuit. It has a small data storage component filled with various bar sign designs."
@@ -477,17 +475,22 @@
 	var/destroyed = FALSE
 	/// Restricts the sign to bar access if TRUE
 	var/restricts_access = TRUE
+	new_attack_chain = TRUE
 
 /obj/item/barsign_electronics/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("Use it while in your active hand to toggle the access restrictions.")
 
-/obj/item/barsign_electronics/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/barsign_electronics/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(destroyed)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	restricts_access = !restricts_access
 	to_chat(user, SPAN_NOTICE("You [restricts_access ? "enable" : "disable"] the access restrictions of [src]."))
+	return ITEM_INTERACT_COMPLETE
 
 // For the ghost bar since occupants don't have bar access.
 /obj/machinery/barsign/ghost_bar
@@ -499,7 +502,6 @@
 	barsigns |= syndisigns
 	set_random_sign()
 
-
 /datum/barsign
 	var/name = "Name"
 	var/desc = "desc"
@@ -509,7 +511,7 @@
 	/// Signs that have a syndicate theme. Normally accessed by emagging the sign.
 	var/syndicate = FALSE
 
-//Anything below this is where all the specific signs are. If people want to add more signs, add them below.
+// Anything below this is where all the specific signs are. If people want to add more signs, add them below.
 /datum/barsign/maltesefalcon
 	name = "Maltese Falcon"
 	desc = "The Maltese Falcon, Space Bar and Grill."

@@ -177,3 +177,11 @@
 	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
 	result_amount = 3
 	mix_message = SPAN_DANGER("After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.")
+
+/datum/chemical_reaction/frigidi
+	name = "Frigidi"
+	id = "frigidi"
+	result = "frigidi"
+	required_reagents = list("cryostylane" = 1, "w33d" = 1, "lube" = 1)
+	result_amount = 3
+	mix_message = "The mixture makes the container cool to the touch."

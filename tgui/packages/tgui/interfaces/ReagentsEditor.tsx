@@ -52,24 +52,20 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     } = useBackend<ReagentsEditorData>();
 
     let reagents = Object.entries(reagentsInContainer)
-      .map(
-        ([reagentID, reagent]): FilteredReagentInformation => ({
-          ...reagent,
-          ...reagentsInformation[reagentID],
-          id: reagentID,
-        })
-      )
+      .map(([reagentID, reagent]): FilteredReagentInformation => ({
+        ...reagent,
+        ...reagentsInformation[reagentID],
+        id: reagentID,
+      }))
       .sort((a, b) => a.name.localeCompare(b.name));
     if (this.state.searchText !== '') {
       reagents = reagents.concat(
         Object.entries(reagentsInformation)
           .filter(([reagentID, _]) => reagentsInContainer[reagentID] === undefined)
-          .map(
-            ([reagentID, reagent]): FilteredReagentInformation => ({
-              ...reagent,
-              id: reagentID,
-            })
-          )
+          .map(([reagentID, reagent]): FilteredReagentInformation => ({
+            ...reagent,
+            id: reagentID,
+          }))
           .sort((a, b) => a.name.localeCompare(b.name))
       );
     }

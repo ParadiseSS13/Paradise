@@ -548,21 +548,21 @@
 	flushing = 1
 	flick("[icon_state]-flush", src)
 
-	var/wrapcheck = 0
+	var/wrapcheck = FALSE
 	var/obj/structure/disposalholder/H = new(src)	// virtual holder object which actually
-												// travels through the pipes.
+	// travels through the pipes.
 	//Hacky test to get drones to mail themselves through disposals.
 	for(var/mob/living/silicon/robot/drone/D in src)
-		wrapcheck = 1
+		wrapcheck = TRUE
 
 	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
-		wrapcheck = 1
+		wrapcheck = TRUE
 
 	for(var/obj/item/small_delivery/O in src)
-		wrapcheck = 1
+		wrapcheck = TRUE
 
-	if(wrapcheck == 1)
-		H.tomail = 1
+	if(wrapcheck)
+		H.tomail = TRUE
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
@@ -676,9 +676,11 @@
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
 	var/has_fat_guy = FALSE	// true if contains a fat person
 	/// Destination the holder is set to, defaulting to disposals and changes if the contents have a mail/sort tag.
-	var/destinationTag = 1
-	var/tomail = 0 //changes if contains wrapped package
-	var/hasmob = 0 //If it contains a mob
+	var/destination_tag = TAGGER_LOCATION_DISPOSALS
+	/// Do we contain a package?
+	var/tomail = FALSE
+	/// Do we contain a mob?
+	var/hasmob = FALSE
 
 /obj/structure/disposalholder/Destroy()
 	QDEL_NULL(gas)
@@ -714,21 +716,21 @@
 				has_fat_guy = TRUE			// set flag on holder
 		if(istype(AM, /obj/structure/big_delivery) && !hasmob)
 			var/obj/structure/big_delivery/T = AM
-			destinationTag = T.sortTag
+			destination_tag = T.sort_tag
 		if(istype(AM, /obj/item/small_delivery) && !hasmob)
 			var/obj/item/small_delivery/T = AM
-			destinationTag = T.sortTag
+			destination_tag = T.sort_tag
 		//Drones can mail themselves through maint.
 		if(isdrone(AM))
 			var/mob/living/silicon/robot/drone/drone = AM
-			destinationTag = drone.mail_destination
+			destination_tag = drone.mail_destination
 		if(istype(AM, /mob/living/silicon/robot/syndicate/saboteur))
 			var/mob/living/silicon/robot/syndicate/saboteur/S = AM
-			destinationTag = S.mail_destination
+			destination_tag = S.mail_destination
 		if(istype(AM, /obj/item/shipping_package) && !hasmob)
 			var/obj/item/shipping_package/sp = AM
 			if(sp.sealed)	//only sealed packages get delivered to their intended destination
-				destinationTag = sp.sortTag
+				destination_tag = sp.sort_tag
 
 
 	// start the movement process
@@ -1181,7 +1183,6 @@
 	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
 	var/list/sort_type = list(1)
-	var/sort_type_txt //Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
@@ -1204,36 +1205,9 @@
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload)
 	. = ..()
 	updatedir()
-	if(mapload)
-		parse_sort_destinations()
 	update_appearance(UPDATE_NAME|UPDATE_DESC)
 	update()
 	return
-
-/obj/structure/disposalpipe/sortjunction/proc/parse_sort_destinations()
-	if(sort_type_txt == "1")
-		return
-
-	var/list/sort_type_str = splittext(sort_type_txt, ";")
-	var/mapping_fail
-
-	if(length(sort_type_str)) // Default to disposals if mapped with it along other destinations
-		if("1" in sort_type_str)
-			mapping_fail = "Mutually exclusive sort types in sort_type_txt"
-		else
-			var/new_sort_type = list()
-			for(var/x in sort_type_str)
-				var/n = text2num(x)
-				if(n)
-					new_sort_type |= n
-			if(length(new_sort_type))
-				sort_type = new_sort_type
-			else
-				mapping_fail = "No sort types after parsing sort_type_txt"
-	else
-		mapping_fail = "Sort_type_txt is empty"
-	if(mapping_fail)
-		stack_trace("[src] mapped incorrectly at [x],[y],[z] - [mapping_fail]")
 
 /obj/structure/disposalpipe/sortjunction/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(..())
@@ -1241,13 +1215,13 @@
 
 	if(istype(I, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = I
-		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
+		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.current_tag])
 		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
-		if(O.currTag == 1)
+		if(O.current_tag == 1)
 			sort_type = list(1)
 			to_chat(user, SPAN_NOTICE("Filter set to [tag] only."))
-		else if(O.currTag in sort_type)
-			sort_type.Remove(O.currTag)
+		else if(O.current_tag in sort_type)
+			sort_type.Remove(O.current_tag)
 			to_chat(user, SPAN_NOTICE("Removed [tag] from filter."))
 			if(!length(sort_type))
 				sort_type.Add(1) // Default to Disposals if everything is removed.
@@ -1255,7 +1229,7 @@
 		else
 			if(1 in sort_type) // Remove Disposals if a destination is added.
 				sort_type.Remove(1)
-			sort_type.Add(O.currTag)
+			sort_type.Add(O.current_tag)
 			to_chat(user, SPAN_NOTICE("Added [tag] to filter."))
 		update_appearance(UPDATE_NAME|UPDATE_DESC)
 		return ITEM_INTERACT_COMPLETE
@@ -1295,7 +1269,7 @@
 		return posdir
 
 /obj/structure/disposalpipe/sortjunction/transfer(obj/structure/disposalholder/H)
-	var/nextdir = nextdir(H.dir, H.destinationTag)
+	var/nextdir = nextdir(H.dir, H.destination_tag)
 	H.dir = nextdir
 	var/turf/T = H.nextloc()
 	var/obj/structure/disposalpipe/P = H.findpipe(T)

@@ -68,3 +68,9 @@
 /obj/effect/decal/cleanable/blood/gibs/down/vox
 	basecolor = "#2299FC"
 	fleshcolor = "#808D11"
+
+/obj/effect/decal/cleanable/blood/gibs/flock
+	basecolor = COLOR_BLOOD_FLOCK
+
+/obj/effect/decal/cleanable/blood/gibs/core/flock
+	basecolor = COLOR_BLOOD_FLOCK

@@ -159,7 +159,6 @@
 /obj/effect/wisp/ghost
 	name = "mischievous wisp"
 	desc = "A wisp that seems to want to get up to shenanigans. It often seems disappointed, for some reason."
-	light_range = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/wisp/ghost/Initialize(mapload, mob/dead/observer/ghost)

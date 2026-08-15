@@ -36,9 +36,13 @@
 	user.drop_item()
 	qdel(src)
 
-/obj/item/seeds/kudzu/attack_self__legacy__attackchain(mob/user)
+/obj/item/seeds/kudzu/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	plant(user)
 	to_chat(user, SPAN_NOTICE("You plant the kudzu. You monster."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()
