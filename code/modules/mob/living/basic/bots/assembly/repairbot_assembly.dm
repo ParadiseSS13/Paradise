@@ -35,27 +35,27 @@
 /obj/item/bot_assembly/repairbot/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	switch(build_step)
 		if(ASSEMBLY_FIRST_STEP)
-			if(!istype(tool, /obj/item/bodypart/arm/left/robot) && !istype(tool, /obj/item/bodypart/arm/right/robot))
+			if(!istype(tool, /obj/item/robot_parts/l_arm) && !istype(tool, /obj/item/robot_parts/r_arm))
 				return NONE
 			if(!can_finish_build(tool, user))
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			build_step++
-			to_chat(user, span_notice("You add [tool] to [src]. Boop beep!"))
+			to_chat(user, SPAN_NOTICE("You add [tool] to [src]. Boop beep!"))
 			qdel(tool)
 			update_appearance()
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 		if(ASSEMBLY_SECOND_STEP)
-			if(!istype(tool, /obj/item/stack/conveyor))
+			if(!istype(tool, /obj/item/conveyor_construct))
 				return NONE
 			if(!can_finish_build(tool, user))
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			var/mob/living/basic/bot/repairbot/repair = new(drop_location())
 			repair.name = created_name
 			repair.toolbox = toolbox
 			repair.set_color(toolbox_color)
-			to_chat(user, span_notice("You add [tool] to [src]. Boop beep!"))
+			to_chat(user, SPAN_NOTICE("You add [tool] to [src]. Boop beep!"))
 			var/obj/item/stack/crafting_stack = tool
 			crafting_stack.use(1)
 			qdel(src)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE

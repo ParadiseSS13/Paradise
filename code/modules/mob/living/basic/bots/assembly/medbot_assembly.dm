@@ -6,7 +6,7 @@
 	created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
 	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
 	var/healthanalyzer = /obj/item/healthanalyzer
-	var/medkit_type = /obj/item/storage/medkit
+	var/medkit_type = /obj/item/storage/firstaid
 
 /obj/item/bot_assembly/medbot/proc/set_skin(skin)
 	src.skin = skin
@@ -18,29 +18,29 @@
 		if(ASSEMBLY_FIRST_STEP)
 			if(!istype(tool, /obj/item/healthanalyzer))
 				return NONE
-			if(!user.temporarilyRemoveItemFromInventory(tool))
-				return ITEM_INTERACT_BLOCKING
+			if(!user.unequip(tool))
+				return ITEM_INTERACT_COMPLETE
 			healthanalyzer = tool.type
-			to_chat(user, span_notice("You add [tool] to [src]."))
+			to_chat(user, SPAN_NOTICE("You add [tool] to [src]."))
 			qdel(tool)
 			name = "first aid/robot arm/health analyzer assembly"
 			add_overlay("[base_icon_state]_analyzer")
 			build_step++
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE
 
 		if(ASSEMBLY_SECOND_STEP)
 			if(!isprox(tool))
 				return NONE
 			if(!can_finish_build(tool, user))
-				return ITEM_INTERACT_BLOCKING
+				return ITEM_INTERACT_COMPLETE
 			qdel(tool)
 			var/mob/living/basic/bot/medbot/medbot = new(drop_location(), skin)
-			to_chat(user, span_notice("You complete the Medbot. Beep boop!"))
+			to_chat(user, SPAN_NOTICE("You complete the Medbot. Beep boop!"))
 			medbot.name = created_name
 			medbot.medkit_type = medkit_type
 			medbot.robot_arm = robot_arm
 			medbot.health_analyzer = healthanalyzer
-			var/obj/item/storage/medkit/medkit = medkit_type
+			var/obj/item/storage/firstaid/medkit = medkit_type
 			medbot.damage_type_healer = initial(medkit.damagetype_healed) ? initial(medkit.damagetype_healed) : BRUTE
 			qdel(src)
-			return ITEM_INTERACT_SUCCESS
+			return ITEM_INTERACT_COMPLETE

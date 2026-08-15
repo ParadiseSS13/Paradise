@@ -347,7 +347,7 @@
 	if(isprox(used))
 		to_chat(user, SPAN_NOTICE("You add [used] to [src]."))
 		qdel(used)
-		user.put_in_hands(new /obj/item/bucket_sensor)
+		user.put_in_hands(new /obj/item/bot_assembly/cleanbot)
 		user.unequip(src)
 		qdel(src)
 		return ITEM_INTERACT_COMPLETE

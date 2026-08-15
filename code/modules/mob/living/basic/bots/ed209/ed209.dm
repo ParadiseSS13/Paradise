@@ -82,7 +82,7 @@
 			security_mode_flags ^= SECBOT_CHECK_RECORDS
 
 /mob/living/basic/bot/secbot/ed209/retrieve_secbot_drops(atom/drop_location)
-	var/obj/item/ed209_assembly/ed_assembly = new(drop_location)
+	var/obj/item/bot_assembly/ed209/ed_assembly = new(drop_location)
 	ed_assembly.build_step = ASSEMBLY_FIRST_STEP
 	ed_assembly.add_overlay("hs_hole")
 	ed_assembly.created_name = name

@@ -23,7 +23,8 @@
 	var/med_bot_skin = null
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
-
+	/// Defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
+	var/damagetype_healed
 
 /obj/item/storage/firstaid/regular
 	name = "first-aid kit"
@@ -61,6 +62,7 @@
 	icon_state = "firstaid_burn"
 	inhand_icon_state = "firstaid_burn"
 	med_bot_skin = "ointment"
+	damagetype_healed = BURN
 
 /obj/item/storage/firstaid/fire/populate_contents()
 	new /obj/item/stack/medical/suture/regen_mesh/advanced(src)
@@ -79,6 +81,7 @@
 	icon_state = "firstaid_toxin"
 	inhand_icon_state = "firstaid_toxin"
 	med_bot_skin = "tox"
+	damagetype_healed = TOX
 
 /obj/item/storage/firstaid/toxin/populate_contents()
 	for(var/I in 1 to 3)
@@ -95,6 +98,7 @@
 	icon_state = "firstaid_o2"
 	inhand_icon_state = "firstaid_o2"
 	med_bot_skin = "o2"
+	damagetype_healed = OXY
 
 /obj/item/storage/firstaid/o2/populate_contents()
 	new /obj/item/reagent_containers/pill/salbutamol(src)
@@ -112,6 +116,7 @@
 	icon_state = "firstaid_brute"
 	inhand_icon_state = "firstaid_brute"
 	med_bot_skin = "brute"
+	damagetype_healed = BRUTE
 
 /obj/item/storage/firstaid/brute/populate_contents()
 	new /obj/item/stack/medical/suture/medicated(src)
@@ -130,6 +135,7 @@
 	icon_state = "firstaid_advanced"
 	inhand_icon_state = "firstaid_advanced"
 	med_bot_skin = "adv"
+	damagetype_healed = HEAL_ALL_DAMAGE
 
 /obj/item/storage/firstaid/adv/populate_contents()
 	new /obj/item/stack/medical/bruise_pack(src)
@@ -172,6 +178,7 @@
 	req_one_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
+	damagetype_healed = HEAL_ALL_DAMAGE
 
 /obj/item/storage/firstaid/tactical/populate_contents()
 	new /obj/item/reagent_containers/hypospray/combat(src)

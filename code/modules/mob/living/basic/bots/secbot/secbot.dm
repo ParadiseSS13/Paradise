@@ -167,7 +167,7 @@
 	return ..()
 
 /mob/living/basic/bot/secbot/proc/retrieve_secbot_drops(atom/drop_location)
-	var/obj/item/secbot_assembly/secbot_assembly = new(drop_location)
+	var/obj/item/bot_assembly/secbot/secbot_assembly = new(drop_location)
 	secbot_assembly.build_step = ASSEMBLY_FIRST_STEP
 	secbot_assembly.add_overlay("hs_hole")
 	secbot_assembly.created_name = name
