@@ -18,7 +18,7 @@ function ExtractVersion {
 	param([string] $Path, [string] $Key)
 	foreach ($Line in Get-Content $Path) {
 		if ($Line.StartsWith("export $Key=")) {
-			return $Line.Substring("export $Key=".Length).Trim('"')
+			return $Line.Substring("export $Key=".Length)
 		}
 	}
 	throw "Couldn't find value for $Key in $Path"
@@ -42,9 +42,10 @@ if (!(Test-Path $PythonExe -PathType Leaf)) {
 	New-Item $Cache -ItemType Directory -ErrorAction silentlyContinue | Out-Null
 
 	$Archive = "$Cache/python-$PythonVersion-embed.zip"
-	$WebRequestUrl = "https://www.python.org/ftp/python/$PythonVersion/python-$PythonVersion-embed-amd64.zip"
-	Write-Output "Downloading from $WebRequestUrl"
-	Invoke-WebRequest $WebRequestUrl -OutFile $Archive -ErrorAction Stop
+	Invoke-WebRequest `
+		"https://www.python.org/ftp/python/$PythonVersion/python-$PythonVersion-embed-amd64.zip" `
+		-OutFile $Archive `
+		-ErrorAction Stop
 
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($Archive, $PythonDir)
 

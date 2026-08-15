@@ -5,7 +5,7 @@
 	desc = "It's a bucket. With a sensor attached."
 	name = "proxy bucket"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "bucket_proxy"
+	icon_state = "cleanbot_assembly"
 	force = 3
 	throwforce = 5
 	throw_range = 5
