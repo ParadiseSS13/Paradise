@@ -68,7 +68,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "fM" = (
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba,
+/mob/living/basic/bot/secbot/buzzsky/telecomms/doomba,
 /turf/template_noop,
 /area/template_noop)
 "gz" = (
