@@ -57,34 +57,38 @@ GLOBAL_LIST_INIT(huds, alist(
 	GLOB.all_huds -= src
 	return ..()
 
+/// Removes `source` from mob's hud sources, and if mob has no hud sources, removes their ability to see this hud
 /datum/atom_hud/proc/remove_hud_from(mob/M, atom/source)
 	if(!M)
 		return
 	if(src in M.permanent_huds)
 		return
-	hudusers[M] -= source
+	if(hudusers[M])
+		hudusers[M] -= source
+	if(hudusers[M] && length(hudusers[M]))
+		return
 
-	if(!length(hudusers[M]))
-		for(var/atom/A in hudatoms)
-			remove_hud_images(M, A)
-		hudusers -= M
-		M.reload_huds()
+	for(var/atom/A in hudatoms)
+		remove_hud_images(M, A)
+	hudusers -= M
+	M.reload_huds()
 
+/// Removes a single item from being displayed on this hud, for example, removes one mess from janihud.
 /datum/atom_hud/proc/remove_from_hud(atom/A)
 	if(!A)
 		return
 	for(var/mob/M in hudusers)
-		hudusers[M] -= A
-		if(!length(hudusers[M]))
-			remove_hud_images(M, A)
+		remove_hud_images(M, A)
 	hudatoms -= A
 
+/// Removes all of the hud pictures that `A` produces from mob `M`'s view.
 /datum/atom_hud/proc/remove_hud_images(mob/M, atom/A) // Unsafe, no sanity apart from client.
 	if(!M || !M.client || !A)
 		return
 	for(var/i in hud_icons)
 		M.client.images -= A.hud_list[i]
 
+/// Adds `source` to mob's sources of this hud, and shows them all the pictures on the hud
 /datum/atom_hud/proc/add_hud_to(mob/M, atom/source)
 	if(!M)
 		return
@@ -94,6 +98,7 @@ GLOBAL_LIST_INIT(huds, alist(
 	for(var/atom/A in hudatoms)
 		add_hud_images(M, A)
 
+/// Adds single atom `A` to the list of pictures this hud will display. Shows them to mobs with this hud.
 /datum/atom_hud/proc/add_to_hud(atom/A)
 	if(!A)
 		return
@@ -101,6 +106,7 @@ GLOBAL_LIST_INIT(huds, alist(
 	for(var/mob/M in hudusers)
 		add_hud_images(M, A)
 
+/// Adds all hud images that `A` produces to player `M`'s view.
 /datum/atom_hud/proc/add_hud_images(mob/M, atom/A) // Unsafe, no sanity apart from client.
 	if(!M || !M.client || !A)
 		return
