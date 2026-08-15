@@ -249,7 +249,7 @@
 	return HAS_TRAIT(crossing, TRAIT_SPACEWALK)
 
 /turf/space/proc/has_valid_support()
-	for (var/direction in GLOB.cardinal)
+	for(var/direction in GLOB.cardinal)
 		if(istype(get_step(src, direction), /turf/simulated/floor))
 			return TRUE
 	return FALSE

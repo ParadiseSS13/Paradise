@@ -65,7 +65,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "dk" = (
-/mob/living/simple_animal/bot/honkbot,
+/mob/living/basic/bot/secbot/honkbot,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "dz" = (
@@ -226,7 +226,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "kO" = (
-/mob/living/simple_animal/bot/ed209,
+/mob/living/basic/bot/secbot/ed209,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "lo" = (

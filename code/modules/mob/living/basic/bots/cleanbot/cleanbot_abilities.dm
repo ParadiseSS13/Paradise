@@ -11,7 +11,7 @@
 	if(!isbot(owner))
 		return TRUE
 	var/mob/living/basic/bot/bot_owner = owner
-	if((bot_owner.bot_mode_flags & BOT_MODE_ON))
+	if(bot_owner.bot_mode_flags & BOT_MODE_ON)
 		return TRUE
 	return FALSE
 

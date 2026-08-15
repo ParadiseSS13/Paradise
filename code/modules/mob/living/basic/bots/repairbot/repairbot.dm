@@ -303,7 +303,7 @@
 			continue
 
 		data["repairbot_materials"] += list(list(
-			"material_ref" = UID(to_retrieve),
+			"material_ref" = to_retrieve.UID(),
 			"material_icon" = to_retrieve::icon,
 			"material_icon_state" = to_retrieve::icon_state,
 		))

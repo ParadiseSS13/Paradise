@@ -33,13 +33,13 @@
 	if(active)
 		visible_message(SPAN_WARNING("[src] ignites his energy swords!"))
 	sword_active = active
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/basic/bot/secbot/griefsky/add_arrest_component() // i dont think we'll be arresting people...
 	return
 
 /mob/living/basic/bot/secbot/griefsky/bullet_act(obj/projectile/P) // so uncivilized
-	if(stat != CONSCIOUS )
+	if(stat != CONSCIOUS)
 		return FALSE
 
 	if(!sword_active || !prob(block_chance))
