@@ -2527,6 +2527,14 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
+"alK" = (
+/obj/item/kirbyplants/large,
+/obj/machinery/camera{
+	c_tag = "Nanotrasen Representative's Office";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "alM" = (
 /obj/machinery/light_switch{
 	dir = 1;
@@ -45041,9 +45049,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "efV" = (
-/obj/machinery/camera{
-	c_tag = "Nanotrasen Representative's Office"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -118818,7 +118823,7 @@ cgW
 vzi
 ybL
 ckv
-hYB
+alK
 gnU
 jLr
 jKj
