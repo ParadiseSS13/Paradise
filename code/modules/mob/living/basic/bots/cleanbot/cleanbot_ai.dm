@@ -154,7 +154,6 @@
 
 /datum/ai_planning_subtree/use_mob_ability/foam_area
 	ability_key = BB_CLEANBOT_FOAM
-	finish_planning = FALSE
 
 /datum/ai_planning_subtree/use_mob_ability/foam_area/select_behaviors(datum/ai_controller/basic_controller/bot/controller, seconds_per_tick)
 	var/mob/living/basic/bot/bot_pawn = controller.pawn

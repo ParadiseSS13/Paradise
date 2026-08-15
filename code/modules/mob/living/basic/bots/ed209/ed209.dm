@@ -2,7 +2,7 @@
 	name = "\improper ED-209 Security Robot"
 	desc = "A security robot. He looks less than thrilled."
 	icon_state = "ed2090"
-	base_icon_state = "ed2090"
+	base_icon_state = "ed209"
 	light_color = "#f84e4e"
 	density = TRUE
 	health = 100
@@ -113,15 +113,12 @@
 	radio_channel = "Syndicate"
 	health = 300
 	maxHealth = 300
-	obj_damage = 60
 	faction = list("syndicate")
 	light_color = "#5c0909"
 	req_one_access = list(ACCESS_SYNDICATE)
 	bot_mode_flags = parent_type::bot_mode_flags & ~BOT_MODE_REMOTE_ENABLED
 	radio_channel = "Syndicate"
 	ai_controller = /datum/ai_controller/basic_controller/bot/ed209/syndicate
-	bot_type = ADVANCED_SEC_BOT
-	hackables = "combat inhibitors"
 	projectile_sound = 'sound/weapons/wave.ogg'
 	projectile_type = /obj/projectile/bullet/a40mm
 	emagged_projectile_sound = 'sound/weapons/wave.ogg'

@@ -3,7 +3,6 @@
 /mob/living/basic/bot/cleanbot
 	name = "\improper Cleanbot"
 	desc = "A little cleaning robot, he looks so excited!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot0"
 	health = 25
 	maxHealth = 25

@@ -3,7 +3,6 @@
 /mob/living/basic/bot/firebot
 	name = "\improper Firebot"
 	desc = "A little fire extinguishing bot. He looks rather anxious."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "firebot1"
 	light_color = "#8cffc9"
 	light_power = 0.8

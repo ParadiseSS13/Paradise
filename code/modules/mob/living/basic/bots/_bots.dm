@@ -10,8 +10,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /mob/living/basic/bot
 	icon = 'icons/obj/aibots.dmi'
-	layer = MOB_LAYER
-	gender = NEUTER
 	mob_biotypes = MOB_ROBOTIC
 	basic_mob_flags = DEL_ON_DEATH
 	density = FALSE

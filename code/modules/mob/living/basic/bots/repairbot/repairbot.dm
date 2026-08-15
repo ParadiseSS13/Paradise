@@ -2,12 +2,10 @@
 /mob/living/basic/bot/repairbot
 	name = "\improper Repairbot"
 	desc = "I can fix it!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "repairbot1"
 	base_icon_state = "repairbot"
 	pass_flags = PASSMOB | PASSTABLE
 	layer = BELOW_MOB_LAYER
-	anchored = FALSE
 	health = 35
 	maxHealth = 35
 	path_image_color = "#80dae7"
@@ -347,7 +345,6 @@
 
 /obj/item/weldingtool/repairbot
 	maximum_fuel = INFINITY
-	prefilled = TRUE
 
 /obj/item/rcd/repairbot
 	matter = INFINITY

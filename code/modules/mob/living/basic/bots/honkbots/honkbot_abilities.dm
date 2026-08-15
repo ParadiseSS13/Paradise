@@ -3,7 +3,6 @@
 	desc = "Spread cheer and joy all around!"
 	button_icon = 'icons/obj/items.dmi'
 	button_icon_state = "bike_horn"
-	cooldown_time = 5 SECONDS
 	click_to_activate = FALSE
 	///callback after we have honked
 	var/datum/callback/post_honk_callback

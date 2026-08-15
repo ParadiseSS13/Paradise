@@ -3,7 +3,6 @@
 /mob/living/basic/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medbot_generic_idle"
 	base_icon_state = "medbot"
 	health = 20

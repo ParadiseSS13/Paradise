@@ -1,18 +1,14 @@
 /mob/living/basic/bot/secbot
 	name = "\improper Securitron"
 	desc = "A little security robot. He looks less than thrilled."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
-	base_icon_state = "secbot0"
+	base_icon_state = "secbot"
 	light_color = "#f56275"
 	light_power = 0.8
 	gender = MALE
-	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, STAMINA = 0, OXY = 0)
-	pass_flags = PASSMOB
 
 	req_one_access = list(ACCESS_SECURITY)
 	radio_channel = "Security" // Security channel

@@ -1,7 +1,6 @@
 /mob/living/basic/bot/secbot/griefsky // This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
 	name = "General Griefsky"
 	desc = "Is that a secbot with four eswords in its arms...?"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "griefsky"
 	base_icon_state = "griefsky"
 	health = 150

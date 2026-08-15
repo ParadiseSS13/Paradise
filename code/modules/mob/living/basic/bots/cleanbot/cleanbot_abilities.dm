@@ -2,7 +2,6 @@
 	background_icon_state = "bg_tech_blue"
 	overlay_icon_state = "bg_tech_blue_border"
 	shared_cooldown = NONE
-	melee_cooldown_time = 0 SECONDS
 
 /datum/action/cooldown/mob_cooldown/bot/IsAvailable(show_message)
 	. = ..()
