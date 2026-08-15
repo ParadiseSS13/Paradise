@@ -69,10 +69,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
 /obj/machinery/phone{
-	pixel_y = 2
+	pixel_y = 2;
+	pixel_x = 7
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
+	},
+/obj/item/book/manual/wiki/faxes{
+	pixel_x = -10;
+	pixel_y = 3
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -28890,7 +28895,9 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "ciH" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "ciJ" = (
@@ -52051,7 +52058,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 37;
-	pixel_y = 4
+	pixel_y = 1
 	},
 /obj/item/paper/ntrep{
 	pixel_y = 3;
@@ -55148,6 +55155,10 @@
 /area/station/maintenance/port)
 "iul" = (
 /obj/structure/table/wood,
+/obj/item/pen/multi/fountain{
+	pixel_x = 5;
+	pixel_y = 9
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "iuF" = (
@@ -61626,7 +61637,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/station/maintenance/apmaint2)
 "ljv" = (
 /obj/machinery/nuclear_centrifuge,
@@ -80434,6 +80445,10 @@
 /obj/item/book/manual/wiki/sop_command{
 	pixel_x = 8;
 	pixel_y = 2
+	},
+/obj/item/pen/multi/fountain{
+	pixel_x = 0;
+	pixel_y = 6
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
