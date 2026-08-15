@@ -15,6 +15,8 @@ NC = "\033[0m"  # No Color
 BURNDOWN_LIST = {
     p(x)
     for x in {
+        "/mob/living/simple_animal/bot",
+        "/mob/living/simple_animal/bot/mulebot",
         "/mob/living/simple_animal/drone",
         "/mob/living/simple_animal/hostile",
         "/mob/living/simple_animal/hostile/ancient_robot_leg",
