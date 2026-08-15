@@ -14746,7 +14746,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/firealarm/directional/south,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "beg" = (
@@ -20888,9 +20890,6 @@
 /area/station/command/office/captain)
 "bAb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -28888,9 +28887,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "ciH" = (
@@ -29824,7 +29820,7 @@
 	initialize_directions = 11
 	},
 /obj/structure/disposalpipe/segment/corner{
-	dir = 2
+	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -46874,18 +46870,13 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/aft)
 "eUG" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/drinkingglasses{
-	pixel_x = 0;
-	pixel_y = -2
-	},
-/obj/item/ashtray/glass{
-	pixel_x = -1;
-	pixel_y = 9
-	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "eUN" = (
@@ -52191,6 +52182,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "hfp" = (
@@ -57383,6 +57375,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"jsf" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "jsC" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
@@ -58184,10 +58180,6 @@
 "jKj" = (
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -60926,7 +60918,11 @@
 "kRP" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box{
-	pixel_x = 1;
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/obj/item/storage/box/drinkingglasses{
+	pixel_x = 7;
 	pixel_y = 3
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -118287,7 +118283,7 @@ tkb
 cgW
 lfV
 krA
-ckv
+jsf
 cgS
 ayg
 tmr
