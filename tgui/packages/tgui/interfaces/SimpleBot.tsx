@@ -1,15 +1,6 @@
 import { useBackend } from 'tgui/backend';
 import { Window } from 'tgui/layouts';
-import {
-  Button,
-  Icon,
-  LabeledControls,
-  NoticeBox,
-  Section,
-  Slider,
-  Stack,
-  Tooltip,
-} from 'tgui-core/components';
+import { Button, Icon, LabeledControls, NoticeBox, Section, Slider, Stack, Tooltip } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 import { capitalizeAll } from 'tgui-core/string';
 
@@ -74,11 +65,7 @@ export function BotControl(props) {
     <Section fill scrollable title="Controls">
       <LabeledControls wrap>
         {Object.entries(custom_controls).map((control) => (
-          <LabeledControls.Item
-            pb={2}
-            key={control[0]}
-            label={capitalizeAll(control[0].replace('_', ' '))}
-          >
+          <LabeledControls.Item pb={2} key={control[0]} label={capitalizeAll(control[0].replace('_', ' '))}>
             <ControlHelper control={control} />
           </LabeledControls.Item>
         ))}
@@ -106,11 +93,7 @@ function TabDisplay(props) {
           icon={emagged ? 'bug' : 'lock'}
           onClick={() => act('hack')}
           selected={!emagged}
-          tooltip={
-            !emagged
-              ? 'Unlocks the safety protocols.'
-              : 'Resets the bot operating system.'
-          }
+          tooltip={!emagged ? 'Unlocks the safety protocols.' : 'Resets the bot operating system.'}
         >
           {emagged ? 'Malfunctional' : 'Safety Lock'}
         </Button>
@@ -147,23 +130,14 @@ function PaiButton(props) {
 
   if (!pai_inserted) {
     return (
-      <Button
-        color="transparent"
-        icon="robot"
-        tooltip={`Insert an active PAI card to control this device.`}
-      >
+      <Button color="transparent" icon="robot" tooltip={`Insert an active PAI card to control this device.`}>
         No PAI Inserted
       </Button>
     );
   }
 
   return (
-    <Button
-      disabled={!pai_inserted}
-      icon="eject"
-      onClick={() => act('eject_pai')}
-      tooltip={`Ejects the current PAI.`}
-    >
+    <Button disabled={!pai_inserted} icon="eject" onClick={() => act('eject_pai')} tooltip={`Ejects the current PAI.`}>
       Eject PAI
     </Button>
   );
@@ -173,63 +147,29 @@ function PaiButton(props) {
 function SettingsDisplay(props) {
   const { act, data } = useBackend<Data>();
   const {
-    settings: {
-      airplane_mode,
-      patrol_station,
-      power,
-      maintenance_lock,
-      allow_possession,
-      possession_enabled,
-    },
+    settings: { airplane_mode, patrol_station, power, maintenance_lock, allow_possession, possession_enabled },
   } = data;
 
   return (
     <LabeledControls>
       <LabeledControls.Item label="Power">
         <Tooltip content={`Powers ${power ? 'off' : 'on'} the bot.`}>
-          <Icon
-            size={2}
-            name="power-off"
-            color={power ? 'good' : 'gray'}
-            onClick={() => act('power')}
-          />
+          <Icon size={2} name="power-off" color={power ? 'good' : 'gray'} onClick={() => act('power')} />
         </Tooltip>
       </LabeledControls.Item>
       <LabeledControls.Item label="Airplane Mode">
-        <Tooltip
-          content={`${
-            !airplane_mode ? 'Disables' : 'Enables'
-          } remote access via console.`}
-        >
-          <Icon
-            size={2}
-            name="plane"
-            color={airplane_mode ? 'yellow' : 'gray'}
-            onClick={() => act('airplane')}
-          />
+        <Tooltip content={`${!airplane_mode ? 'Disables' : 'Enables'} remote access via console.`}>
+          <Icon size={2} name="plane" color={airplane_mode ? 'yellow' : 'gray'} onClick={() => act('airplane')} />
         </Tooltip>
       </LabeledControls.Item>
       <LabeledControls.Item label="Patrol Station">
-        <Tooltip
-          content={`${
-            patrol_station ? 'Disables' : 'Enables'
-          } automatic station patrol.`}
-        >
-          <Icon
-            size={2}
-            name="map-signs"
-            color={patrol_station ? 'good' : 'gray'}
-            onClick={() => act('patrol')}
-          />
+        <Tooltip content={`${patrol_station ? 'Disables' : 'Enables'} automatic station patrol.`}>
+          <Icon size={2} name="map-signs" color={patrol_station ? 'good' : 'gray'} onClick={() => act('patrol')} />
         </Tooltip>
       </LabeledControls.Item>
       <LabeledControls.Item label="Maintenance Lock">
         <Tooltip
-          content={
-            maintenance_lock
-              ? 'Opens the maintenance hatch for repairs.'
-              : 'Closes the maintenance hatch.'
-          }
+          content={maintenance_lock ? 'Opens the maintenance hatch for repairs.' : 'Closes the maintenance hatch.'}
         >
           <Icon
             size={2}
