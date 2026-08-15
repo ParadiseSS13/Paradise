@@ -12154,7 +12154,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/vault)
 "aUF" = (
-/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "aUG" = (
@@ -34277,7 +34276,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/woodsiding,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "cHb" = (
@@ -46783,11 +46784,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "eRS" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
 	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
@@ -57385,10 +57386,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"jsf" = (
-/obj/machinery/firealarm/directional/south,
-/turf/simulated/floor/wood,
-/area/station/command/office/ntrep)
 "jsC" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
@@ -75990,9 +75987,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "rmK" = (
-/obj/structure/chair/sofa/left{
-	dir = 1
-	},
+/obj/structure/chair/sofa/right,
 /turf/simulated/floor/wood,
 /area/station/procedure/trainer_office)
 "rmN" = (
@@ -77588,9 +77583,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "rWJ" = (
-/obj/structure/chair/sofa/right{
-	dir = 1
-	},
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/wood,
 /area/station/procedure/trainer_office)
 "rWK" = (
@@ -83555,14 +83548,14 @@
 /area/station/maintenance/aft2)
 "uGq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/woodsiding{
-	dir = 6
-	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
 	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
@@ -86584,6 +86577,9 @@
 "waV" = (
 /obj/structure/chair/sofa/right{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -118050,7 +118046,7 @@ rmi
 cgW
 vpo
 rkN
-gdn
+ckv
 cgS
 aSA
 bWw
@@ -118307,7 +118303,7 @@ tkb
 cgW
 lfV
 krA
-jsf
+ckv
 cgS
 ayg
 tmr
@@ -118564,7 +118560,7 @@ awg
 cgW
 hgr
 ybL
-ckv
+gdn
 cgS
 cgS
 cgS
