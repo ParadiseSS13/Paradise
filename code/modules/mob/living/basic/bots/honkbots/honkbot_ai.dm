@@ -77,7 +77,7 @@
 	var/mob/living/living_pawn = controller.pawn
 	var/datum/action/honk_ability = controller.blackboard[BB_HONK_ABILITY]
 	honk_ability?.Trigger()
-	living_pawn.manual_emote("celebrates with [living_target]!")
+	living_pawn.manual_emote("[living_pawn] celebrates with [living_target]!")
 	living_pawn.emote("flip")
 	living_pawn.emote("beep")
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED

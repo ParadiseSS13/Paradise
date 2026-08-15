@@ -55,7 +55,6 @@
 	. = ..()
 	search_range = (mode_flags & MEDBOT_STATIONARY_MODE) ? 1 : initial(search_range)
 	var/list/ignore_keys = controller.blackboard[BB_TEMPORARY_IGNORE_LIST]
-	var/mob/living/basic/bot/medbot/source_mob = controller.pawn
 	for(var/mob/living/carbon/human/treatable_target in oview(search_range, controller.pawn))
 		if(LAZYACCESS(ignore_keys, treatable_target) || treatable_target.stat == DEAD)
 			continue

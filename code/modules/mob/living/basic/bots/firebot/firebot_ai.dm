@@ -96,6 +96,8 @@
 		if(!isspaceturf(possible_turf))
 			continue
 		var/turf/simulated/open_turf = possible_turf
+		if(!istype(open_turf))
+			continue
 		if(!open_turf.active_hotspot)
 			continue
 		if(LAZYACCESS(ignore_list, possible_turf))

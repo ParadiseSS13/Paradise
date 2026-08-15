@@ -624,6 +624,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///every object that is currently the active storage of some client mob has this trait
 #define TRAIT_ACTIVE_STORAGE "active_storage"
 
+// MARK: HUD Traits
+// TODO: Not actually implemented yet, need HUD trait refactor from tg
+
+#define TRAIT_MEDICAL_HUD "med_hud"
+#define TRAIT_MEDICAL_HUD_SENSOR_ONLY "med_hud_lesser"
+#define TRAIT_SECURITY_HUD "sec_hud"
+#define TRAIT_SECURITY_HUD_ID_ONLY "sec_hud_lesser"
+#define TRAIT_DIAGNOSTIC_HUD "diag_hud"
+#define TRAIT_BOT_PATH_HUD "bot_path_hud"
+
 //***** PROC WRAPPERS *****//
 /// Proc wrapper of add_trait. You should only use this for callback. Otherwise, use the macro.
 /proc/callback_add_trait(datum/target, trait, source)

@@ -17,7 +17,7 @@
 	req_one_access = list(ACCESS_ROBOTICS, ACCESS_MEDICAL)
 	radio_channel = "Medical"
 	bot_type = MED_BOT
-	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
+	data_hud_type = TRAIT_MEDICAL_HUD
 	hackables = "health processor circuits"
 	possessed_message = "You are a medbot! Ensure good health among the crew to the best of your ability!"
 

@@ -270,7 +270,7 @@
 	if(our_hat)
 		salute_list += "tips [our_hat] at "
 
-	bot_pawn.manual_emote(pick(salute_list) + " [controller.blackboard[target_key]]!")
+	bot_pawn.manual_emote("[bot_pawn] " + pick(salute_list) + " [controller.blackboard[target_key]]!")
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/salute_authority/finish_action(datum/ai_controller/controller, succeeded, target_key)
