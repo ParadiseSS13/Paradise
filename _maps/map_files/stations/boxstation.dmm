@@ -11607,6 +11607,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "aSC" = (
@@ -12148,6 +12149,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/vault)
 "aUF" = (
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "aUG" = (
@@ -14744,7 +14746,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/item/kirbyplants/large,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "beg" = (
@@ -21924,6 +21926,14 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"bFh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/station/command/office/ntrep)
 "bFi" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Dorm";
@@ -29803,7 +29813,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms1)
 "cmM" = (
-/obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -47621,9 +47630,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "fly" = (
@@ -49550,6 +49556,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
 "gbl" = (
@@ -50366,6 +50375,12 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
@@ -57539,9 +57554,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "jwc" = (
-/obj/machinery/alarm/directional/east,
 /obj/machinery/computer/secure_data{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -60801,6 +60818,10 @@
 	},
 /turf/simulated/floor/transparent/glass,
 /area/station/hallway/primary/central/south)
+"kPD" = (
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "kPE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69807,6 +69828,12 @@
 "oJr" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/asmaint)
+"oJG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/station/command/office/ntrep)
 "oJX" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -71997,6 +72024,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
+"pGC" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/directional/east,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "pGL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
@@ -72142,14 +72176,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"pKY" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/item/kirbyplants/large,
-/turf/simulated/floor/wood,
-/area/station/command/office/ntrep)
 "pLj" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 8
@@ -77036,26 +77062,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
-"rJZ" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/door_control{
-	id = "sssssssssssssssssssss";
-	name = "Office Door";
-	normaldoorcontrol = 1;
-	pixel_x = 0;
-	pixel_y = -40;
-	req_access = list(73)
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "rKV" = (
 /turf/simulated/wall,
 /area/station/science/hallway)
@@ -80838,7 +80844,6 @@
 /area/station/security/permabrig)
 "txa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light/floor,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "txr" = (
@@ -81437,9 +81442,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/reception)
 "tLC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
@@ -85336,6 +85338,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "vyw" = (
@@ -91143,10 +91146,10 @@
 /obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 8
 	},
-/obj/structure/railing/corner{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/railing{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
 "xWO" = (
@@ -111930,7 +111933,7 @@ cRA
 jCt
 swl
 aab
-cQy
+pOC
 pOC
 pOC
 pOC
@@ -112186,8 +112189,8 @@ cQy
 cRA
 ntD
 swl
-swl
-cQy
+cRA
+pOC
 cZI
 wXb
 rjt
@@ -112444,8 +112447,8 @@ cSR
 gOm
 cVl
 pAh
-cQy
 cZI
+cNB
 cNB
 rjt
 cQy
@@ -115543,6 +115546,7 @@ tmS
 rna
 feO
 cQy
+aab
 afX
 afX
 afX
@@ -115553,7 +115557,6 @@ afX
 afX
 afX
 afX
-aaa
 aab
 dmD
 afX
@@ -115800,6 +115803,7 @@ cZw
 cNB
 cZw
 cQy
+aab
 afX
 dmD
 dmD
@@ -115810,7 +115814,6 @@ dmD
 dmD
 dmD
 afX
-aaa
 aab
 dmD
 dmD
@@ -116057,17 +116060,17 @@ mYe
 uTV
 hMT
 pOC
-afX
-afX
-afX
-afX
-afX
-afX
-afX
-afX
-afX
-afX
 aab
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
+afX
 aab
 aab
 aab
@@ -116314,6 +116317,7 @@ xDp
 rPm
 uEO
 pOC
+aab
 aaa
 aab
 aaa
@@ -116322,7 +116326,6 @@ aab
 aaa
 aaa
 aab
-aaa
 aaa
 aaa
 aab
@@ -116571,6 +116574,7 @@ cQy
 pOC
 pOC
 pOC
+aab
 aaa
 aab
 aaa
@@ -116579,7 +116583,6 @@ aab
 aaa
 aaa
 aab
-aaa
 aaa
 aaa
 afX
@@ -116738,7 +116741,7 @@ kGJ
 aMA
 aMA
 aOr
-rJZ
+bcv
 aMA
 aMA
 aMA
@@ -119317,7 +119320,7 @@ vxR
 ckw
 ckw
 bAb
-ckv
+hYB
 rvo
 bgP
 aMv
@@ -119571,7 +119574,7 @@ sgA
 txa
 aaR
 fls
-sme
+bFh
 sme
 cmM
 heM
@@ -119828,7 +119831,7 @@ irk
 dkB
 hbw
 tLC
-ckw
+oJG
 ckw
 bee
 cgW
@@ -120084,9 +120087,9 @@ cgW
 kXw
 jwc
 iul
-pKY
-ckv
-ckv
+hYB
+pGC
+kPD
 eUG
 wSa
 dix
