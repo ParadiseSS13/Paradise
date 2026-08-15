@@ -519,7 +519,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "AW" = (
-/mob/living/simple_animal/bot/secbot,
+/mob/living/basic/bot/secbot,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "AZ" = (
@@ -1155,7 +1155,7 @@
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "Xz" = (
-/mob/living/simple_animal/bot/medbot,
+/mob/living/basic/bot/medbot,
 /turf/simulated/floor/carpet,
 /area/shuttle/arrival/station)
 "XL" = (
