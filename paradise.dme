@@ -585,7 +585,6 @@
 #include "code\datums\components\connect_range.dm"
 #include "code\datums\components\corpse_description.dm"
 #include "code\datums\components\cross_shock_component.dm"
-#include "code\datums\components\cuff_n_stun.dm"
 #include "code\datums\components\cult_held_body.dm"
 #include "code\datums\components\damage_aura.dm"
 #include "code\datums\components\deadchat_control.dm"

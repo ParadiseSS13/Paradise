@@ -10,7 +10,7 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/respond_to_summon,
-		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/simple_find_target/target_allies,
 		/datum/ai_planning_subtree/ranged_skirmish,
 		/datum/ai_planning_subtree/arrest_target/ed209,
 		/datum/ai_planning_subtree/find_patrol_beacon,

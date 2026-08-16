@@ -18,8 +18,7 @@
 		HONKBOT_VOICED_HONK_HAPPY = 'sound/items/bikehorn.ogg',
 		HONKBOT_VOICED_HONK_SAD = 'sound/misc/sadtrombone.ogg',
 	)
-	stun_sound = 'sound/items/airhorn.ogg'
-	baton_type = /obj/item/bikehorn/airhorn
+	baton_type = /obj/item/bikehorn
 	cuff_type = /obj/item/restraints/handcuffs/toy
 
 /mob/living/basic/bot/secbot/honkbot/Initialize(mapload)
@@ -40,20 +39,16 @@
 	bike_honk.post_honk_callback = CALLBACK(src, PROC_REF(set_attacking_state))
 	ai_controller.set_blackboard_key(BB_HONK_ABILITY, bike_honk)
 
-	AddComponent(/datum/component/slippery,\
-		knockdown = 6 SECONDS,\
-		paralyze = 3 SECONDS,\
-		on_slip_callback = CALLBACK(src, PROC_REF(post_slip)),\
-		can_slip_callback = CALLBACK(src, PROC_REF(pre_slip)),\
-	)
+	AddComponent(/datum/component/slippery, src, 6 SECONDS, 100, 0, FALSE, TRUE, "slip", FALSE)
 
 /mob/living/basic/bot/secbot/honkbot/generate_speak_list()
 	return honkbot_sounds
 
-/mob/living/basic/bot/secbot/honkbot/proc/pre_slip()
-	return (prob(70) && ai_controller?.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
+/mob/living/basic/bot/secbot/honkbot/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	set_attacking_state()
+	. = ..()
 
-/mob/living/basic/bot/secbot/honkbot/proc/post_slip()
+/mob/living/basic/bot/secbot/honkbot/after_slip()
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/mob/living/basic/bot, speak), HONKBOT_VOICED_HONK_SAD)
 	set_attacking_state()
 
@@ -97,11 +92,20 @@
 		return
 	if(HAS_TRAIT(current_target, TRAIT_DEAF))
 		return
-	current_target.SetStuttering(40 SECONDS) // stammer
-	current_target.Deaf(5 SECONDS) // far less damage than the H.O.N.K.
-	current_target.Jitter(100 SECONDS)
-	current_target.Weaken(10 SECONDS)
-	set_attacking_state()
+	if(security_mode_flags & SECBOT_HANDCUFF_TARGET)
+		if(!iscarbon(current_target))
+			return
+		if(current_target.handcuffed)
+			return
+		playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE)
+		current_target.visible_message(SPAN_DANGER("[src] is trying to put zipties on [current_target]!"),\
+			SPAN_DANGER("[src] is trying to put zipties on you!"))
+
+		if(!do_after(src, 4 SECONDS, current_target))
+			return
+		current_target.handcuffed = new cuff_type(current_target)
+		current_target.update_handcuffed()
+		post_arrest(current_target)
 
 /mob/living/basic/bot/secbot/honkbot/ui_data(mob/user)
 	var/list/data = ..()
@@ -129,7 +133,7 @@
 
 /mob/living/basic/bot/secbot/honkbot/retrieve_secbot_drops(atom/drop_location)
 	new /obj/item/assembly/prox_sensor(drop_location)
-	drop_part(baton_type, drop_location)
+	drop_part(/obj/item/bikehorn/airhorn, drop_location)
 
 /mob/living/basic/bot/secbot/honkbot/nopatrol
 	bot_mode_flags = parent_type::bot_mode_flags & ~BOT_MODE_AUTOPATROL

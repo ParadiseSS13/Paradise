@@ -456,7 +456,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	if(!message)
 		return
 	if(channel)
-		Radio.autosay(message, name, channel == "headset" ? null : channel)
+		Radio.autosay(message, name, channel)
 	else
 		say(message)
 	return

@@ -268,6 +268,7 @@ DEFINE_BITFIELD(janitor_mode_flags, list(
 #define BEEPSKY_VOICED_YOUR_MOVE "Your move, creep."
 #define BEEPSKY_VOICED_I_AM_THE_LAW "I am the law!"
 #define BEEPSKY_VOICED_SECURE_DAY "Have a secure day."
+#define BEEPSKY_VOICED_RADIO "You can't outrun a radio."
 #define BEEPSKY_VOICED_INSULT "Fuck you."
 
 #define MEDIBOT_VOICED_HOLD_ON "Hey! Hold on, I'm coming."

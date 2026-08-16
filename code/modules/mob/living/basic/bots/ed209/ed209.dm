@@ -29,10 +29,6 @@
 	. = ..()
 	set_weapon()
 	bot_charge = new(src)
-	AddComponent(/datum/component/stun_n_cuff,\
-		stun_sound = 'sound/weapons/egloves.ogg',\
-		handcuff_type = /obj/item/restraints/handcuffs/cable/zipties,\
-	)
 
 /mob/living/basic/bot/secbot/ed209/bot_reset(bypass_ai_reset = FALSE)
 	. = ..()

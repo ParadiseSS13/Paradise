@@ -19,13 +19,15 @@
 	path_image_color = COLOR_RED
 	possessed_message = "You are a securitron! Guard the station to the best of your ability!"
 
+	a_intent = INTENT_HELP
+
 	ai_controller = /datum/ai_controller/basic_controller/bot/secbot
 
-	///The type of baton this Secbot will use
-	var/baton_type = /obj/item/melee/baton
-	///The weapon (from baton_type) that will be used to make arrests.
-	var/obj/item/weapon
-	///The threat level of the BOT, will arrest anyone at threatlevel 4 or above
+	/// The type of baton the secbot will use
+	var/baton_type = /obj/item/melee/baton/infinite_cell
+	/// The baton this Secbot will use
+	var/obj/item/baton
+	/// The threat level of the BOT, will arrest anyone at threatlevel 4 or above
 	var/threatlevel = 0
 
 	/// Flags SecBOTs use on what to check on targets when arresting, and whether they should announce it to security/handcuff their target
@@ -37,16 +39,16 @@
 	var/price_arrest = 0
 	/// Charged each time the violator is stunned on detain
 	var/price_detain = 0
-	///The department the secbot will deposit collected money into
+	/// The department the secbot will deposit collected money into
 	var/payment_department = DEPARTMENT_SECURITY
-	///what sound we play when stunning
-	var/stun_sound = 'sound/weapons/egloves.ogg'
-	///The type of cuffs we use on criminals after making arrests
+	/// The type of cuffs we use on criminals after making arrests
 	var/cuff_type = /obj/item/restraints/handcuffs/cable/zipties/used
+	/// Are we arresting someone?
+	var/arresting = FALSE
 
 /mob/living/basic/bot/secbot/Initialize(mapload)
 	. = ..()
-	weapon = new baton_type(src)
+	baton = new baton_type(src)
 	update_appearance(UPDATE_ICON)
 
 	var/static/list/loc_connections = list(
@@ -54,10 +56,9 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-	add_arrest_component()
 
 /mob/living/basic/bot/secbot/Destroy()
-	QDEL_NULL(weapon)
+	QDEL_NULL(baton)
 	return ..()
 
 /mob/living/basic/bot/secbot/update_icon_state()
@@ -79,8 +80,8 @@
 
 /mob/living/basic/bot/secbot/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(gone == weapon)
-		weapon = null
+	if(gone == baton)
+		baton = null
 		update_appearance()
 
 // Variables sent to TGUI
@@ -93,6 +94,29 @@
 		data["custom_controls"]["handcuff_targets"] = security_mode_flags & SECBOT_HANDCUFF_TARGET
 		data["custom_controls"]["arrest_alert"] = security_mode_flags & SECBOT_DECLARE_ARRESTS
 	return data
+
+/mob/living/basic/bot/secbot/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	if(!early_melee_attack(target, modifiers, ignore_cooldown))
+		return FALSE
+	if(QDELETED(target))
+		return FALSE
+	if(!iscarbon(target))
+		..()
+	var/mob/living/carbon/C = target
+	face_atom(C)
+	if(!emagged) // This keeps it from harm batonning
+		a_intent = INTENT_HELP
+	if(istype(baton, /obj/item/melee/baton)) // We need to do this so beepsky can stun but things like honkbots will be fine
+		var/obj/item/melee/baton/stunner = baton
+		stunner.melee_attack_chain(src, C)
+	else
+		baton.melee_attack_chain(src, C)
+
+	if((C.IsWeakened() || istype(src, /mob/living/basic/bot/secbot/honkbot)) && !arresting)
+		arresting = TRUE
+		post_stun(C)
+		arresting = FALSE
+	return TRUE
 
 // Actions received from TGUI
 /mob/living/basic/bot/secbot/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -145,7 +169,16 @@
 	return TRUE
 
 /mob/living/basic/bot/secbot/proc/post_arrest(mob/living/carbon/current_target)
-	playsound(src, pick(generate_speak_list()), 50, FALSE)
+	var/sound = pick(list(
+		'sound/voice/beepsky/god.ogg',
+		'sound/voice/beepsky/creep.ogg',
+		'sound/voice/beepsky/iamthelaw.ogg',
+		'sound/voice/beepsky/secureday.ogg',
+		'sound/voice/beepsky/insult.ogg',
+		'sound/voice/beepsky/radio.ogg'
+	))
+
+	playsound(src, sound, 50, FALSE)
 
 /mob/living/basic/bot/secbot/proc/post_stun(mob/living/carbon/current_target, harm = FALSE)
 	flick("[base_icon_state]-c", src)
@@ -155,6 +188,20 @@
 		speak("[security_mode_flags & SECBOT_HANDCUFF_TARGET ? "Arresting" : "Detaining"] level [threat] scumbag [current_target] in [location].", radio_channel)
 	payment_check(current_target)
 	update_bot_mode(new_mode = BOT_PREP_ARREST)
+	if(security_mode_flags & SECBOT_HANDCUFF_TARGET)
+		if(!iscarbon(current_target))
+			return
+		if(current_target.handcuffed)
+			return
+		playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE)
+		current_target.visible_message(SPAN_DANGER("[src] is trying to put zipties on [current_target]!"),\
+			SPAN_DANGER("[src] is trying to put zipties on you!"))
+
+		if(!do_after(src, 4 SECONDS, current_target))
+			return
+		current_target.handcuffed = new cuff_type(current_target)
+		current_target.update_handcuffed()
+		post_arrest(current_target)
 
 /mob/living/basic/bot/secbot/explode()
 	var/atom/drop_location = drop_location()
@@ -168,7 +215,7 @@
 	secbot_assembly.add_overlay("hs_hole")
 	secbot_assembly.created_name = name
 	new /obj/item/assembly/prox_sensor(drop_location)
-	drop_part(weapon, drop_location)
+	new /obj/item/melee/baton(drop_location)
 
 /mob/living/basic/bot/secbot/proc/on_entered(datum/source, atom/movable/to_be_tripped)
 	SIGNAL_HANDLER
@@ -213,6 +260,7 @@
 		BEEPSKY_VOICED_I_AM_THE_LAW = 'sound/voice/beepsky/iamthelaw.ogg',
 		BEEPSKY_VOICED_SECURE_DAY = 'sound/voice/beepsky/secureday.ogg',
 		BEEPSKY_VOICED_INSULT = 'sound/voice/beepsky/insult.ogg',
+		BEEPSKY_VOICED_RADIO = 'sound/voice/beepsky/radio.ogg'
 	)
 	return secbot_lines
 
@@ -230,14 +278,6 @@
 	if(security_mode_flags & SECBOT_SABOTEUR_AFFECTED)
 		final |= JUDGE_CHILLOUT
 	return final
-
-/mob/living/basic/bot/secbot/proc/add_arrest_component()
-	AddComponent(/datum/component/stun_n_cuff,\
-		stun_sound = stun_sound,\
-		post_stun_callback = CALLBACK(src, PROC_REF(post_stun)),\
-		post_arrest_callback = CALLBACK(src, PROC_REF(post_arrest)),\
-		handcuff_type = cuff_type,\
-	)
 
 /mob/living/basic/bot/secbot/proc/knockOver(mob/living/carbon/C)
 	if(C.key)

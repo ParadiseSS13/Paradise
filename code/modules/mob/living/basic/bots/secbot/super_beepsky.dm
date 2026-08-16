@@ -34,9 +34,6 @@
 	sword_active = active
 	update_icon(UPDATE_ICON_STATE)
 
-/mob/living/basic/bot/secbot/griefsky/add_arrest_component() // i dont think we'll be arresting people...
-	return
-
 /mob/living/basic/bot/secbot/griefsky/bullet_act(obj/projectile/P) // so uncivilized
 	if(stat != CONSCIOUS)
 		return FALSE
@@ -61,11 +58,15 @@
 	icon_state = "[base_icon_state][ sword_active ? "-c" : ""]"
 
 /mob/living/basic/bot/secbot/griefsky/Destroy()
-	QDEL_NULL(weapon)
+	QDEL_NULL(baton)
 	return ..()
 
 /mob/living/basic/bot/secbot/griefsky/melee_attack(atom/target, list/modifiers, ignore_cooldown)
-	. = ..()
+	if(!early_melee_attack(target, modifiers, ignore_cooldown))
+		return FALSE
+	if(QDELETED(target))
+		return FALSE
+	face_atom(target)
 	if(!sword_active)
 		return
 	if(iscarbon(target))
@@ -98,7 +99,7 @@
 	var/atom/drop_location = drop_location()
 	// Parent is dropping the weapon, so let's drop 3 more to make up for it.
 	for(var/i in 0 to 3)
-		drop_part(weapon, drop_location)
+		drop_part(baton_type, drop_location)
 
 	return ..()
 
