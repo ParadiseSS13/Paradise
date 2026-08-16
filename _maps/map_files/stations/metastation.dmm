@@ -64433,9 +64433,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/public/fitness)
 "oWH" = (
-/obj/machinery/door/firedoor{
-	dir = 4
-	},
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Staff Entrance";
 	dir = 4
