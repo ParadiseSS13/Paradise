@@ -20,11 +20,29 @@
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
-	var/med_bot_skin = null
+	var/med_bot_skin = "generic"
 	var/syndicate_aligned = FALSE
 	var/robot_arm // This is for robot construction
 	/// Defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
 	var/damagetype_healed
+
+/obj/item/storage/firstaid/attackby__legacy__attackchain(obj/item/used, mob/user, params)
+	if(!(istype(used, /obj/item/robot_parts/l_arm) || istype(used, /obj/item/robot_parts/r_arm)))
+		return ..()
+
+	if(length(contents))
+		to_chat(user, SPAN_NOTICE("You cannot attach [used] with items still in [src]."))
+		return TRUE
+
+	to_chat(user, SPAN_NOTICE("You attach [used] to [src]."))
+	var/obj/item/bot_assembly/medbot/assembly = new(drop_location())
+	assembly.set_skin(med_bot_skin)
+	assembly.robot_arm = used.type
+	assembly.medkit_type = type
+	qdel(used)
+	qdel(src)
+	user.put_in_hands(assembly)
+	return TRUE
 
 /obj/item/storage/firstaid/regular
 	name = "first-aid kit"
@@ -61,7 +79,7 @@
 	desc = "A medical kit that contains several medical patches and pills for treating burns. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid_burn"
 	inhand_icon_state = "firstaid_burn"
-	med_bot_skin = "ointment"
+	med_bot_skin = "burn"
 	damagetype_healed = BURN
 
 /obj/item/storage/firstaid/fire/populate_contents()
@@ -97,7 +115,7 @@
 	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
 	icon_state = "firstaid_o2"
 	inhand_icon_state = "firstaid_o2"
-	med_bot_skin = "o2"
+	med_bot_skin = "oxy"
 	damagetype_healed = OXY
 
 /obj/item/storage/firstaid/o2/populate_contents()

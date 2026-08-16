@@ -30,7 +30,7 @@
 	/// Do we treat viruses
 	var/treat_virus = TRUE
 
-	/// anouncements when we find a target to heal
+	/// announcements when we find a target to heal
 	var/static/list/wait_announcements = list(
 		MEDIBOT_VOICED_HOLD_ON = 'sound/voice/medbot/coming.ogg',
 		MEDIBOT_VOICED_WANT_TO_HELP = 'sound/voice/medbot/help.ogg',
@@ -146,7 +146,7 @@
 	var/static/list/remove_hat = list(SIGNAL_ADDTRAIT(TRAIT_MOB_TIPPED))
 	var/static/list/prevent_checks = list(TRAIT_MOB_TIPPED)
 	RegisterSignal(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, PROC_REF(pre_attack))
-	skin = "adv"
+
 	update_appearance()
 	if(prob(50))
 		name += ", PhD."

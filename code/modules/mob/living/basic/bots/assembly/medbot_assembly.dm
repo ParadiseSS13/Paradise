@@ -23,7 +23,7 @@
 			healthanalyzer = tool.type
 			to_chat(user, SPAN_NOTICE("You add [tool] to [src]."))
 			qdel(tool)
-			name = "first aid/robot arm/health analyzer assembly"
+			name = "first aid/robot arm assembly"
 			add_overlay("[base_icon_state]_analyzer")
 			build_step++
 			return ITEM_INTERACT_COMPLETE
