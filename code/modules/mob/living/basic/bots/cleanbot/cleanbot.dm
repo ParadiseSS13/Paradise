@@ -240,6 +240,11 @@
 
 	if(is_type_in_typecache(target, cleanable_decals))
 		clean_target(target)
+		return FALSE
+
+	if(is_type_in_typecache(target, cleanable_blood))
+		clean_target(target)
+		return FALSE
 
 	if(!(iscarbon(target) && (bot_access_flags & BOT_COVER_EMAGGED)) && !is_type_in_typecache(target, huntable_trash))
 		return FALSE
