@@ -56077,6 +56077,7 @@
 	pixel_y = -28
 	},
 /obj/item/kirbyplants/large,
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "mgP" = (
@@ -64449,6 +64450,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/psychology,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "psychoffice"
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
@@ -78570,6 +78574,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "tEq" = (
