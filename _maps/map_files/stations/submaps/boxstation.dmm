@@ -518,9 +518,6 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
 /obj/machinery/power/rad_collector{
 	anchored = 1
 	},

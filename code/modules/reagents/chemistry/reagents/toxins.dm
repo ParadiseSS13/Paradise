@@ -956,6 +956,49 @@
 			M.Paralyse(50 SECONDS)
 	return ..() | update_flags
 
+/datum/reagent/frigidi
+	name = "Frigidi"
+	id = "frigidi"
+	description = "Budget industrial coolant appropriate for large spacecraft and detrimental to smaller machines. May cause microbattery damage."
+	reagent_state = LIQUID
+	color = "#444E90"
+	metabolization_rate = 0.8
+	penetrates_skin = TRUE
+	process_flags = ORGANIC | SYNTHETIC
+	taste_mult = 0
+
+/datum/reagent/frigidi/on_mob_life(mob/living/M)
+	if(!ismachineperson(M))
+		var/update_flags = STATUS_UPDATE_NONE | M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		return ..() | update_flags
+	var/mob/living/carbon/human/target = M
+	switch(current_cycle)
+		if(1 to 5)
+			if(M.nutrition > NUTRITION_LEVEL_HUNGRY)
+				M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_HUNGRY
+				target.handle_nutrition_alerts()
+		if(6 to 9)
+			M.AdjustEyeBlurry(10 SECONDS)
+			M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_STARVING
+			target.handle_nutrition_alerts()
+		if(10)
+			M.emote("faint")
+			M.Weaken(10 SECONDS)
+		if(11 to INFINITY)
+			M.Paralyse(50 SECONDS)
+			if(prob(10))
+				var/obj/item/organ/internal/cell/microbattery = M.get_organ_slot("heart")
+				if(istype(microbattery))
+					microbattery.receive_damage(2, TRUE)
+	var/update_flags = STATUS_UPDATE_NONE
+	return ..() | update_flags
+
+/datum/reagent/frigidi/on_mob_delete(mob/living/M)
+	if(ismachineperson(M))
+		var/mob/living/carbon/human/target = M
+		M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_NONE
+		target.handle_nutrition_alerts()
+
 /datum/reagent/sulfonal
 	name = "Sulfonal"
 	id = "sulfonal"

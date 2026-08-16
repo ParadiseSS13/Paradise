@@ -20,7 +20,7 @@
 	gps = new(src)
 
 /obj/item/mod/module/gps/on_use()
-	gps.attack_self__legacy__attackchain(mod.wearer)
+	gps.activate_self(mod.wearer)
 
 ///Hydraulic Clamp - Lets you pick up and drop crates.
 /obj/item/mod/module/clamp
