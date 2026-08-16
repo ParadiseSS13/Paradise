@@ -286,7 +286,7 @@
 	player.put_away(beaker)
 	target.puppet.forceMove(get_turf(iv_drip))
 	iv_drip.drag_drop_onto(target.puppet, player.puppet)
-	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] inserts [blood_bag]'s needle into [target.puppet]'s arm")
+	TEST_ASSERT_LAST_CHATLOG(player, SPAN_DANGER("[player.puppet] inserts [blood_bag]'s needle into [target.puppet]'s body!"))
 
 	blood_bag = player.spawn_obj_in_hand(/obj/item/reagent_containers/iv_bag)
 	player.puppet.swap_hand()

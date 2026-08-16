@@ -29,8 +29,7 @@
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
-		/datum/surgery_step/proxy/ib,  // just do IB here since we're sawing the bone anyway
-		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/proxy/ib,
 		/datum/surgery_step/cavity/make_space,
 		/datum/surgery_step/proxy/cavity_manipulation,
 		/datum/surgery_step/cavity/close_space,
@@ -39,7 +38,7 @@
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/cavity_implant/soft/boneless
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/cavity_implant/soft/boneless/can_start(mob/user, mob/living/carbon/target)
 	if(!HAS_TRAIT(target, TRAIT_NO_BONES))
@@ -76,7 +75,7 @@
 	)
 
 /datum/surgery/intermediate/open_cavity
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/intermediate/open_cavity/implant
 	name = "implant object"
@@ -132,7 +131,7 @@
 	return extracting
 
 /datum/surgery_step/cavity/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		SPAN_WARNING("[user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!"),
 		SPAN_WARNING("Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!"),
@@ -169,7 +168,7 @@
 	return ..()
 
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		SPAN_NOTICE("[user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]."),
 		SPAN_NOTICE("You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]."),
@@ -204,7 +203,7 @@
 	return ..()
 
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		SPAN_NOTICE("[user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool]."),
 		SPAN_NOTICE("You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool]."),
@@ -316,7 +315,7 @@
 	return ..()
 
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(get_item_inside(affected))
 		to_chat(user, SPAN_NOTICE("There seems to be something in there already!"))
 		return SURGERY_STEP_CONTINUE

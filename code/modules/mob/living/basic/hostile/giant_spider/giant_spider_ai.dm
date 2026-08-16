@@ -182,7 +182,7 @@
 	var/list/food = list()
 	var/list/can_see = view(scan_range, spider)
 	for(var/mob/living/C in can_see)
-		if(C.stat && !istype(C, /mob/living/basic/giant_spider) && !C.anchored)
+		if(C.stat && !istype(C, /mob/living/basic/giant_spider) && !C.anchored && !isLivingSSD(C))
 			food += C
 	if(length(food))
 		controller.set_blackboard_key(target_key, pick(food))
