@@ -38,4 +38,4 @@
 		O.mode = AI_DISPLAY_MODE_BSOD
 
 	if(istype(loc, /obj/item/aicard))
-		loc.icon_state = "aicard-404"
+		loc.update_icon()
