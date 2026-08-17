@@ -33,7 +33,7 @@ export const QuirkMenu = () => {
   const hasConflicts = (q: Quirk) => {
     for (const quirkName of selectedSet) {
       const selectedQuirk = data.all_quirks.filter((quirk) => quirk.name === quirkName)[0];
-      if(q.conflicts && q.conflicts.includes(selectedQuirk.path)) {
+      if (q.conflicts && q.conflicts.includes(selectedQuirk.path)) {
         return true;
       }
     }
