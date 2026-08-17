@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 		for(var/datum/quirk/existing_quirk in active_character.quirks)
 			if(existing_quirk.type in to_add.conflicting_quirks)
 				to_chat(src.client, SPAN_WARNING("You can't take that quirk at the same time as [existing_quirk::name]!"))
-			return FALSE
+				return FALSE
 	active_character.quirks += to_add
 	return TRUE
 
