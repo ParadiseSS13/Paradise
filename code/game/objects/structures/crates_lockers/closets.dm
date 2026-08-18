@@ -343,6 +343,8 @@
 		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/stack/package_wrap))
 		return
+	else if(istype(W, /obj/item/extraction_pack))
+		return
 	else if(user.a_intent != INTENT_HARM)
 		closed_item_click(user)
 		return ITEM_INTERACT_COMPLETE
