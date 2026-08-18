@@ -182,7 +182,7 @@
 					data["goals"] += list(payload)
 			if(MED_DATA_MEDBOT)
 				data["medbots"] = list()
-				for(var/mob/living/simple_animal/bot/medbot/M in GLOB.bots_list)
+				for(var/mob/living/basic/bot/medbot/M in GLOB.bots_list)
 					if(M.z != z)
 						continue
 					var/turf/T = get_turf(M)
@@ -193,7 +193,7 @@
 						medbot["area"] = A.name
 						medbot["x"] = T.x
 						medbot["y"] = T.y
-						medbot["on"] = M.on
+						medbot["on"] = M.bot_mode_flags & BOT_MODE_ON
 						if(!isnull(M.reagent_glass) && M.use_beaker)
 							medbot["use_beaker"] = 1
 							medbot["total_volume"] = M.reagent_glass.reagents.total_volume

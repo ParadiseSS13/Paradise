@@ -7,26 +7,26 @@ GLOBAL_LIST_EMPTY(telecomms_bots)
 GLOBAL_LIST_EMPTY(telecomms_doomsday_device)
 GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms
+/mob/living/basic/bot/secbot/buzzsky/telecomms
 	name = "Soldier Shocksy"
 	desc = "It's Soldier Shocksy! Rusted and falling apart, this bot seems quite intent in beating you up."
 	faction = list("malf_drone")
 
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/Initialize(mapload)
+/mob/living/basic/bot/secbot/buzzsky/telecomms/Initialize(mapload)
 	. = ..()
 	GLOB.telecomms_bots += src
 
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/Destroy()
+/mob/living/basic/bot/secbot/buzzsky/telecomms/Destroy()
 	GLOB.telecomms_bots -= src
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba
+/mob/living/basic/bot/secbot/buzzsky/telecomms/doomba
 	name = "A FUCKING DOOMBA"
 	desc = "IT'S GOT A BOMB RUN!"
 	var/obj/structure/reagent_dispensers/fueltank/internal_tank
 	var/obj/structure/marker_beacon/dock_marker/collision/decorative_eye
 
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/Initialize(mapload)
+/mob/living/basic/bot/secbot/buzzsky/telecomms/doomba/Initialize(mapload)
 	. = ..()
 	internal_tank = new(src)
 	decorative_eye = new(src)
@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	internal_tank.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	decorative_eye.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba/explode()
+/mob/living/basic/bot/secbot/buzzsky/telecomms/doomba/explode()
 	visible_message(SPAN_USERDANGER("[src] EXPLODES!"))
 	var/your_doom = get_turf(src)
 	new /obj/item/grenade/frag(your_doom)
@@ -61,8 +61,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/bot_trap/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(isrobot(entered) || ishuman(entered))
 		var/turf/T = get_turf(src)
-		for(var/mob/living/simple_animal/bot/B in GLOB.telecomms_bots)
-			B.call_bot(null, T, FALSE)
+		for(var/mob/living/basic/bot/B in GLOB.telecomms_bots)
+			B.summon_bot(null, T)
 		qdel(src)
 
 // This effect surrounds the table with loot in the telecomms core room. If you take from this table, dvorak will be pissed if you try to leave.
@@ -438,7 +438,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/effect/spawner/random/telecomms_doomba_one_in_twenty
 	name = "doomba very rarely"
-	loot = list(/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/doomba)
+	loot = list(/mob/living/basic/bot/secbot/buzzsky/telecomms/doomba)
 	spawn_loot_chance = 5
 
 // This could work in any ruin. However for now, as the scope is quite large, it's going to be coded a bit more to D.V.O.R.A.K

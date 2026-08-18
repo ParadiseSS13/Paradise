@@ -299,6 +299,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// trait that prevents AI controllers from making new plans, but not executing plans
 #define TRAIT_AI_DISABLE_PLANNING "TRAIT_AI_DISABLE_PLANNING"
 
+/// Trait allowing mobs to move to space tiles as part of pathfinding. Shouldn't be used as a generic "safe to cross space" trait
+#define TRAIT_SPACEWALK "spacewalk"
+
 #define TRAIT_TEMPERATE_PARTIER "temperate_partier" // Mob won't wake up drunk in a random department
 /// This mob's speech is heard through walls by dead players/observers even if it has no client. Idk a better name
 #define TRAIT_IMPORTANT_SPEAKER "important_speaker"
@@ -628,6 +631,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 ///every object that is currently the active storage of some client mob has this trait
 #define TRAIT_ACTIVE_STORAGE "active_storage"
+
+// MARK: HUD Traits
+// TODO: Not actually implemented yet, need HUD trait refactor from tg
+
+#define TRAIT_MEDICAL_HUD "med_hud"
+#define TRAIT_MEDICAL_HUD_SENSOR_ONLY "med_hud_lesser"
+#define TRAIT_SECURITY_HUD "sec_hud"
+#define TRAIT_SECURITY_HUD_ID_ONLY "sec_hud_lesser"
+#define TRAIT_DIAGNOSTIC_HUD "diag_hud"
+#define TRAIT_BOT_PATH_HUD "bot_path_hud"
 
 // Flock trait sources
 /// Under control

@@ -449,9 +449,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "Jk" = (

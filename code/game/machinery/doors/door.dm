@@ -195,9 +195,6 @@
 				cmag_switch(FALSE, user)
 				return
 			open()
-			if(isbot(user))
-				var/mob/living/simple_animal/bot/B = user
-				B.door_opened(src)
 		else
 			if(pry_open_check(user))
 				return
@@ -336,18 +333,23 @@
 /obj/machinery/door/emag_act(mob/user)
 	if(density)
 		flick("door_spark", src)
-		sleep(6)
-		open()
-		emagged = TRUE
+		addtimer(CALLBACK(src, PROC_REF(finish_emag_act)), 0.6 SECONDS)
 		return TRUE
+
+/obj/machinery/door/proc/finish_emag_act()
+	open()
+	emagged = TRUE
 
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
 		return FALSE
 	flick("door_spark", src)
-	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
-	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	// The cmag doesn't automatically open doors. It inverts access, not provides it!
+	addtimer(CALLBACK(src, PROC_REF(finish_cmag_act)), 0.6 SECONDS)
 	return TRUE
+
+/obj/machinery/door/proc/finish_cmag_act()
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
 /obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)

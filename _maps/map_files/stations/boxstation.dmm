@@ -44,7 +44,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
 	dir = 9
 	},
-/mob/living/simple_animal/bot/secbot/pingsky,
+/mob/living/basic/bot/secbot/pingsky,
 /turf/simulated/floor/catwalk/black,
 /area/station/turret_protected/aisat/interior)
 "aai" = (
@@ -1382,9 +1382,7 @@
 	codes_txt = "patrol;next_patrol=Armory_North";
 	location = "Armory_South"
 	},
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ahW" = (
@@ -2275,9 +2273,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6
 	},
-/mob/living/simple_animal/bot/floorbot{
-	on = 0
-	},
+/mob/living/basic/bot/repairbot,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/aisat/atmos)
@@ -7199,7 +7195,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/bot/secbot/beepsky,
+/mob/living/basic/bot/secbot/beepsky/officer,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "aCp" = (
@@ -84442,9 +84438,7 @@
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
 "vpC" = (
-/mob/living/simple_animal/bot/cleanbot{
-	on = 0
-	},
+/mob/living/basic/bot/cleanbot,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plating,
 /area/station/aisat/service)

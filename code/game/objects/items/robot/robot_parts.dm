@@ -163,7 +163,7 @@
 /obj/item/robot_parts/robot_suit/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/stack/sheet/metal) && !l_arm && !r_arm && !l_leg && !r_leg && !chest && !head)
 		var/obj/item/stack/sheet/metal/M = used
-		var/obj/item/ed209_assembly/B = new /obj/item/ed209_assembly
+		var/obj/item/bot_assembly/ed209/B = new /obj/item/bot_assembly/ed209
 		B.forceMove(get_turf(src))
 		to_chat(user, "You armed the robot frame")
 		M.use(1)
