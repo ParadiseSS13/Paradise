@@ -40,7 +40,7 @@
 		user.visible_message(SPAN_WARNING("[user] bashes [src] with [used]!"))
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 		cooldown = world.time
-		return ITEM_INTERACT_COMPLETE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/shield/riot/roman
 	name = "roman shield"
