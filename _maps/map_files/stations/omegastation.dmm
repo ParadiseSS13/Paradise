@@ -46651,9 +46651,6 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
 "sUf" = (
-/obj/structure/janitorialcart,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/mop,
 /obj/effect/turf_decal/tiles/department/virology/corner,
 /obj/effect/turf_decal/tiles/department/science/corner{
 	dir = 8
@@ -46662,6 +46659,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/janitorialcart/full,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "sVf" = (
