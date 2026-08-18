@@ -185,7 +185,7 @@
 			to_chat(user, SPAN_WARNING("There are no points to claim!"));
 			return ITEM_INTERACT_COMPLETE
 
-		if(scan_id)
+		if(scan_id && length(req_access_claim))
 			var/accepted
 			for(var/req in req_access_claim)
 				if(req in ID.GetAccess())
