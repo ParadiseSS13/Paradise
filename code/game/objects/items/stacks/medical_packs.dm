@@ -395,33 +395,43 @@
 
 // Sutures and burn meshes
 
-/obj/item/stack/medical/suture
-	name = "sutures"
-	singular_name = "suture"
-	desc = "A bundle of sterilized sutures used for sealing up minor cuts and lacerations."
-	icon_state = "suture"
+/obj/item/stack/medical/adv
+	name = "advanced abstract medical stack"
+	singular_name = "advanced abstract medical item"
+	desc = ABSTRACT_TYPE_DESC
 	gender = PLURAL
-	merge_type = /obj/item/stack/medical/suture
+	merge_type = /obj/item/stack/medical/adv
 	amount = 10
 	max_amount = 10
-	heal_brute = 10
-	stop_bleeding = 1200
 	dynamic_icon_state = TRUE
 	delay = 1 SECONDS
-	healverb = "suturing"
-	var/healverb_past = "sutured"
+	healverb = "mending"
+	var/healverb_past = "mended"
 	var/self_delay = 3 SECONDS
 	var/mob/current_target
 	/// The type of the item we create when depleted
-	var/depleted_type = /obj/item/suture_needle
+	var/depleted_type = null
 
-/obj/item/stack/medical/suture/can_merge(obj/item/check, inhand = FALSE)
+/obj/item/stack/medical/adv/attack_hand(mob/user)
+	if(user.is_in_inactive_hand(src))
+		return ..()
+	if(!check_can_pickup(user))
+		return FALSE
+	pickup(user)
+	add_fingerprint(user)
+	if(!user.put_in_active_hand(src))
+		dropped(user, TRUE)
+		return FALSE
+
+	return TRUE
+
+/obj/item/stack/medical/adv/can_merge(obj/item/check, inhand = FALSE)
 	if(is_cyborg) // No merging cyborg stacks into other stacks
 		return FALSE
 	if(ismob(loc) && !inhand) // no merging with items that are on the mob
 		return FALSE
 	if(!istype(check, merge_type))
-		if(!istype(check, depleted_type))
+		if(depleted_type && !istype(check, depleted_type))
 			return FALSE
 		else
 			return amount > 0
@@ -431,7 +441,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/stack/medical/suture/merge_without_del(obj/item/material, mob/user = usr)
+/obj/item/stack/medical/adv/merge_without_del(obj/item/material, mob/user = usr)
 	if(istype(material, /obj/item/stack))
 		return ..()
 	if(QDELETED(material))
@@ -444,7 +454,7 @@
 		// Get amount from user
 	var/min = 0
 	var/max = get_amount()
-	var/stackmaterial = tgui_input_number(user, "How many segments do you wish to transfer to the other needle? (Max: [max])", "Suture Split", max_value = max)
+	var/stackmaterial = tgui_input_number(user, "How many segments do you wish to transfer? (Max: [max])", "Split", max_value = max)
 	if(isnull(stackmaterial) || stackmaterial <= min || stackmaterial > get_amount())
 		return FALSE
 
@@ -455,57 +465,23 @@
 	to_chat(user, SPAN_NOTICE("You transfer [stackmaterial] segments to [material]."))
 	return stackmaterial
 
-/obj/item/stack/medical/suture/merge(obj/item/stack/material)
-	. = merge_without_del(material)
-	if(is_zero_amount(FALSE))
-		if(depleted_type)
-			var/needle = new depleted_type(src.loc)
-			if(ishuman(src.loc))
-				var/mob/living/carbon/human/human_user = src.loc
-				human_user.put_in_active_hand(needle)
-		qdel(src)
-
-/obj/item/stack/medical/suture/AltClick(mob/living/user)
-	to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
-	return FALSE
-
-/obj/item/stack/medical/suture/split(mob/user, amount, obj/item/suture_needle/target_needle)
-	if(!istype(target_needle) || !user.can_reach(target_needle))
-		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
-		return FALSE
-	. = ..()
-	if(!.)
-		return
-	var/obj/item/stack/material = .
-	var/newloc = target_needle.loc
-	qdel(target_needle)
-	forceMove(material, newloc)
-
-/obj/item/stack/medical/suture/change_stack(mob/user, amount, obj/item/suture_needle/target_needle)
-	if(!istype(target_needle) || !user.can_reach(target_needle))
-		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
-		return FALSE
-	. = ..()
-	if(.)
-		qdel(target_needle)
-
-/obj/item/stack/medical/suture/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/item/stack/medical/adv/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!can_merge(used, TRUE))
 		return ..()
 
 	var/obj/item/stack/material = used
 	var/merge_amount = merge(material)
 	if(merge_amount)
-		if(istype(material))
+		if(material.type == merge_type)
 			merge_amount = material.get_amount()
 		to_chat(user, SPAN_NOTICE("Your [material.name] stack now contains [merge_amount] [singular_name]\s."))
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/stack/medical/suture/apply(mob/living/carbon/human/target, mob/user)
+/obj/item/stack/medical/adv/apply(mob/living/carbon/human/target, mob/user)
 	. = FALSE
 	if(current_target)
 		if(current_target != target)
-			to_chat(user, SPAN_WARNING("You're already suturing [current_target]."))
+			to_chat(user, SPAN_WARNING("You're already [healverb] [current_target]."))
 			return
 
 		// Allow for cancelling of the target by clicking again
@@ -592,7 +568,7 @@
 	current_target = null
 	user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/stack/medical/suture/proc/apply_to(mob/living/carbon/human/target, mob/user, obj/item/organ/external/current_limb, allow_stop_bleeding = TRUE)
+/obj/item/stack/medical/adv/proc/apply_to(mob/living/carbon/human/target, mob/user, obj/item/organ/external/current_limb, allow_stop_bleeding = TRUE)
 	if(!use(1))
 		return FALSE
 
@@ -603,7 +579,7 @@
 		target.suppress_bloodloss(stop_bleeding)
 	return TRUE
 
-/obj/item/stack/medical/suture/proc/most_damaged_limb(mob/living/carbon/human/target)
+/obj/item/stack/medical/adv/proc/most_damaged_limb(mob/living/carbon/human/target)
 	var/obj/item/organ/external/most_damaged
 	var/most_damaged_amount = 0
 	var/focus_brute = (heal_brute > 0)
@@ -621,7 +597,7 @@
 			most_damaged_amount = E.burn_dam
 	return most_damaged
 
-/obj/item/stack/medical/suture/proc/try_swap_to_most_damaged_limb(mob/living/carbon/human/target, mob/user, obj/item/organ/external/current_limb)
+/obj/item/stack/medical/adv/proc/try_swap_to_most_damaged_limb(mob/living/carbon/human/target, mob/user, obj/item/organ/external/current_limb)
 	if(heal_brute && current_limb.brute_dam)
 		return current_limb
 	if(heal_burn && current_limb.burn_dam)
@@ -636,7 +612,7 @@
 		return
 	return new_limb
 
-/obj/item/stack/medical/suture/proc/on_target_zone_change(mob/living/carbon/human/target, mob/user)
+/obj/item/stack/medical/adv/proc/on_target_zone_change(mob/living/carbon/human/target, mob/user)
 	var/obj/item/organ/external/new_limb = target.get_organ(user.zone_selected)
 	if(!new_limb)
 		to_chat(user, SPAN_WARNING("That limb is missing!"))
@@ -651,67 +627,115 @@
 		return new_limb
 	return FALSE
 
-/obj/item/stack/medical/suture/emergency
+/obj/item/stack/medical/adv/suture
+	name = "sutures"
+	singular_name = "suture"
+	desc = "A bundle of sterilized sutures used for sealing up minor cuts and lacerations."
+	icon_state = "suture"
+	merge_type = /obj/item/stack/medical/adv/suture
+	heal_brute = 10
+	stop_bleeding = 1200
+	healverb = "suturing"
+	healverb_past = "sutured"
+	depleted_type = /obj/item/suture_needle
+
+/obj/item/stack/medical/adv/suture/merge(obj/item/stack/material)
+	. = merge_without_del(material)
+	if(is_zero_amount(FALSE))
+		if(depleted_type)
+			var/needle = new depleted_type(src.loc)
+			if(ishuman(src.loc))
+				var/mob/living/carbon/human/human_user = src.loc
+				human_user.put_in_active_hand(needle)
+		qdel(src)
+
+/obj/item/stack/medical/adv/suture/AltClick(mob/living/user)
+	to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+	return FALSE
+
+/obj/item/stack/medical/adv/suture/split(mob/user, amount, obj/item/suture_needle/target_needle)
+	if(!istype(target_needle) || !user.can_reach(target_needle))
+		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+		return FALSE
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/stack/material = .
+	var/newloc = target_needle.loc
+	qdel(target_needle)
+	forceMove(material, newloc)
+
+/obj/item/stack/medical/adv/suture/change_stack(mob/user, amount, obj/item/suture_needle/target_needle)
+	if(!istype(target_needle) || !user.can_reach(target_needle))
+		to_chat(user, SPAN_WARNING("You can't remove this thread without transfering it to a proper needle!"))
+		return FALSE
+	var/atom/old_loc = get_turf(loc)
+	. = ..()
+	if(.)
+		qdel(target_needle)
+		if(is_zero_amount(FALSE) && depleted_type)
+			new depleted_type(old_loc)
+
+/obj/item/stack/medical/adv/suture/emergency
 	name = "emergency sutures"
 	singular_name = "emergency suture"
 	desc = "A small bundle of cheap sutures. They're not pretty, but still quite effective at keeping the blood inside your body."
 	icon_state = "suture_emer"
-	merge_type = /obj/item/stack/medical/suture/emergency
+	merge_type = /obj/item/stack/medical/adv/suture/emergency
 	heal_brute = 5
 
-/obj/item/stack/medical/suture/medicated
+/obj/item/stack/medical/adv/suture/medicated
 	name = "medicated sutures"
 	singular_name = "medicated suture"
 	desc = "A bundle of sterilized sutures used for sealing up minor cuts and lacerations. These have been treated with potent healing chemicals, dramatically improving their wound-sealing capability."
 	icon_state = "suture_medicated"
-	merge_type = /obj/item/stack/medical/suture/medicated
+	merge_type = /obj/item/stack/medical/adv/suture/medicated
 	heal_brute = 15
 	stop_bleeding = 2000
 
-/obj/item/stack/medical/suture/regen_mesh
+/obj/item/stack/medical/adv/regen_mesh
 	name = "regenerative mesh"
 	desc = "A sheet of bacteriostatic mesh used to graft minor burns, housed in a sterile packet."
 	singular_name = "mesh piece"
 	icon_state = "regen_mesh"
-	merge_type = /obj/item/stack/medical/suture/regen_mesh
+	merge_type = /obj/item/stack/medical/adv/regen_mesh
 	healverb = "grafting"
 	healverb_past = "grafted"
-	heal_brute = 0
 	heal_burn = 10
 	depleted_type = null
 	/// This var determines if the sterile packaging of the mesh has been opened.
 	var/is_open = TRUE
 
-/obj/item/stack/medical/suture/regen_mesh/Initialize(mapload, new_amount, merge)
+/obj/item/stack/medical/adv/regen_mesh/Initialize(mapload, new_amount, merge)
 	. = ..()
 	if(amount == max_amount)  // only seal full mesh packs
 		is_open = FALSE
 		update_appearance()
 
-/obj/item/stack/medical/suture/regen_mesh/update_icon_state()
+/obj/item/stack/medical/adv/regen_mesh/update_icon_state()
 	if(is_open)
 		return ..()
 	icon_state = "[initial(icon_state)]_closed"
 
-/obj/item/stack/medical/suture/regen_mesh/apply(mob/living/carbon/human/target, mob/user)
+/obj/item/stack/medical/adv/regen_mesh/apply(mob/living/carbon/human/target, mob/user)
 	open_mesh()
 	. = ..()
 
-/obj/item/stack/medical/suture/regen_mesh/change_stack(mob/user, amount)
+/obj/item/stack/medical/adv/regen_mesh/change_stack(mob/user, amount)
 	open_mesh()
 	. = ..()
 
-/obj/item/stack/medical/suture/regen_mesh/proc/open_mesh()
+/obj/item/stack/medical/adv/regen_mesh/proc/open_mesh()
 	if(!is_open)
 		is_open = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src, 'sound/items/poster_ripped.ogg', 20, TRUE)
 
-/obj/item/stack/medical/suture/regen_mesh/advanced
+/obj/item/stack/medical/adv/regen_mesh/advanced
 	name = "advanced regenerative mesh"
 	desc = "A sheet of medically-treated bacteriostatic mesh used to graft moderate burns, housed in a sterile packet."
 	icon_state = "advanced_mesh"
-	merge_type = /obj/item/stack/medical/suture/regen_mesh/advanced
+	merge_type = /obj/item/stack/medical/adv/regen_mesh/advanced
 	heal_burn = 15
 
 /obj/item/suture_needle
