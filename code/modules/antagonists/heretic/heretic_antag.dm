@@ -658,7 +658,7 @@
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	knowledge_points++
 	if(owner.current.stat == CONSCIOUS)
-		to_chat(owner.current, SPAN_HEAR("You hear a whisper... <span class='hierophant'>[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]"))
+		to_chat(owner.current, SPAN_HEAR("You hear a whisper... [SPAN_HIEROPHANT(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]"))
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
 /datum/game_mode/proc/auto_declare_completion_heretic()

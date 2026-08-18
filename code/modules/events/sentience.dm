@@ -53,7 +53,6 @@
 	print_command_report(sentience_report, "NAS Trurl Update", FALSE)
 
 /datum/event/sentience/proc/greet_sentient(mob/living/carbon/human/M)
-	to_chat(M, chat_box_green("[SPAN_USERDANGER("Hello world!")]<br><span class='warning'>Due to freak radiation, you have gained \
-							human level intelligence and the ability to speak and understand \
-							human language!</span>"))
+	to_chat(M, chat_box_green("[SPAN_USERDANGER("Hello world!")]<br>[SPAN_WARNING("Due to freak radiation, you have gained \
+							human level intelligence and the ability to speak and understand human language!")]"))
 	M.create_log(MISC_LOG, "[M] was made into a sentient animal")

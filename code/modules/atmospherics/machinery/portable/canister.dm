@@ -116,9 +116,9 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Connect a canister to a connector port using a wrench. To fill a tank, attach it to the canister, increase the \
+	. += SPAN_NOTICE("Connect a canister to a connector port using a wrench. To fill a tank, attach it to the canister, increase the \
 			release pressure, and open the valve. Alt-click to eject the tank, or use another to hot-swap. A gas analyzer can be used to check \
-			the contents of the canister.</span>"
+			the contents of the canister.")
 	if(isAntag(user))
 		. += SPAN_NOTICE("Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open.")
 
@@ -450,7 +450,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[H2O\]"
 	icon_state = "lightgrey" //See Initialize()
 	can_label = FALSE
-	
+
 /obj/machinery/atmospherics/portable/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
@@ -512,10 +512,10 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/water_vapor/Initialize(mapload)
 	. = ..()
-	
+
 	canister_color["prim"] = "lightgrey"
 	air_contents.set_water_vapor((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
-	
+
 	update_icon()
 
 /obj/machinery/atmospherics/portable/canister/air/Initialize(mapload)

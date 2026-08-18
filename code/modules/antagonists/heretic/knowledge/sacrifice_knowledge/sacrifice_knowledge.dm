@@ -549,9 +549,9 @@
 		var/composed_return_message = ""
 		composed_return_message += SPAN_NOTICE("Your victim, [sac_target], was returned to the station - ")
 		if(sac_target.stat == DEAD)
-			composed_return_message += "<span class='red'>dead. </span>"
+			composed_return_message += SPAN_RED("dead. ")
 		else
-			composed_return_message += "<span class='green'>alive, but with a shattered mind. </span>"
+			composed_return_message += SPAN_GREEN("alive, but with a shattered mind. ")
 
 		composed_return_message += SPAN_NOTICE("You hear a whisper... ")
 		composed_return_message += SPAN_HIEROPHANT_WARNING("[get_area_name(safe_turf, TRUE)]")

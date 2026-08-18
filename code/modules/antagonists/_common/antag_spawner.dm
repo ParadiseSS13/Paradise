@@ -179,10 +179,8 @@
 	desc = "A magically infused bottle of blood, distilled from countless murder victims. Used in unholy rituals to attract horrifying creatures."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
-	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
-		turning back now!</span>"
-	var/veil_msg = "<span class='warning'>You sense a dark presence lurking \
-		just beyond the veil...</span>"
+	var/shatter_msg = SPAN_NOTICE("You shatter the bottle. No turning back now!")
+	var/veil_msg = SPAN_WARNING("You sense a dark presence lurking just beyond the veil...")
 	var/objective_verb = "Kill"
 	var/mob/living/demon_type = /mob/living/basic/demon/slaughter
 
@@ -243,8 +241,7 @@
 		countless hugging attacks. Used in funny rituals to attract \
 		adorable creatures."
 	icon_state = "vialtickles"
-	veil_msg = "<span class='warning'>You sense an adorable presence \
-		lurking just beyond the veil...</span>"
+	veil_msg = SPAN_WARNING("You sense an adorable presence lurking just beyond the veil...")
 	objective_verb = "Hug and tickle"
 	demon_type = /mob/living/basic/demon/slaughter/laughter
 
@@ -254,8 +251,7 @@
 		ground up shadowling bones. Used in dark rituals to attract \
 		dark creatures."
 	icon_state = "vialshadows"
-	veil_msg = "<span class='warning'>You sense a dark presence \
-		lurking in the shadows...</span>"
+	veil_msg = SPAN_WARNING("You sense a dark presence lurking in the shadows...")
 	demon_type = /mob/living/basic/demon/shadow
 
 ///////////MORPH
@@ -265,10 +261,8 @@
 	desc = "A magically infused bottle of ooze, distilled by methods rather not be spoken of. Used to awaken an all-consuming monstrosity."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialooze"
-	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
-		turning back now!</span>"
-	var/veil_msg = "<span class='warning'>The sludge is awake and seeps \
-		away...</span>"
+	var/shatter_msg = SPAN_NOTICE("You shatter the bottle. No turning back now!")
+	var/veil_msg = SPAN_WARNING("The sludge is awake and seeps away...")
 	var/objective_verb = "Eat"
 	var/mob/living/morph_type = /mob/living/simple_animal/hostile/morph
 
@@ -335,10 +329,8 @@
 	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialectoplasm"
-	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
-		turning back now!</span>"
-	var/veil_msg = "<span class='warning'>The ectoplasm is awake and seeps \
-		away...</span>"
+	var/shatter_msg = SPAN_NOTICE("You shatter the bottle. No turning back now!")
+	var/veil_msg = SPAN_WARNING("The ectoplasm is awake and seeps away...")
 	var/objective_verb = "Harvest"
 	var/mob/living/revenant = /mob/living/basic/revenant
 

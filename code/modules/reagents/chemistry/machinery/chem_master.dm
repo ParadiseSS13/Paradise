@@ -581,7 +581,7 @@
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
 
 	if(amount_per_item < 0.1)
-		to_chat(user, "<span class='warning'>Cannot create pills smaller than 0.1u!</span>")
+		to_chat(user, SPAN_WARNING("Cannot create pills smaller than 0.1u!"))
 		return
 
 	var/data = list()
