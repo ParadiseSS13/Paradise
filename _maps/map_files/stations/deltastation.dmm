@@ -34244,6 +34244,10 @@
 "cEj" = (
 /obj/structure/sink/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/mirror{
+	pixel_x = -27;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/toilet/lockerroom)
 "cEo" = (
