@@ -93,7 +93,7 @@
 	desc = "A newly born watcher, apparently free of the Necropolis' corruption. Perhaps one of the last."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "watcher_baby"
-	/// No. The child will not die to lava.
+	// No. The child will not die to lava.
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	// Pocket monster. Plus doesn't work in bag.
 	w_class = WEIGHT_CLASS_SMALL
