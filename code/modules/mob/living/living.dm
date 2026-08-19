@@ -452,11 +452,6 @@
 		//for(var/obj/item/storage/S in Storage.return_inv()) //Check for storage items
 		//	L += get_contents(S)
 
-		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
-			L += G.gift
-			if(isstorage(G.gift))
-				L += get_contents(G.gift)
-
 		for(var/obj/item/small_delivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
 			if(isstorage(D.wrapped)) //this should never happen
@@ -478,10 +473,6 @@
 			L += get_contents(S)
 		for(var/obj/item/bio_chip/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
-		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
-			L += G.gift
-			if(isstorage(G.gift))
-				L += get_contents(G.gift)
 
 		for(var/obj/item/small_delivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
@@ -747,6 +738,8 @@
 					existing_trail.color = H.dna.species.blood_color
 			else if(isalien(src))
 				existing_trail.color = "#05EE05"
+			else if(isflockmob(src))
+				existing_trail.color = COLOR_BLOOD_FLOCK
 			else
 				existing_trail.color = "#A10808"
 

@@ -204,10 +204,10 @@
 
 	for(var/obj/item/storage/S in src) // Inventory of nested storage items
 		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
-		L += G.gift
-		if(isstorage(G.gift)) // If the gift contains a storage item
-			var/obj/item/storage/S = G.gift
+	for(var/obj/item/small_delivery/gift/G in src)
+		L += G.wrapped
+		if(isstorage(G.wrapped)) // If the gift contains a storage item.
+			var/obj/item/storage/S = G.wrapped
 			L += S.return_inv()
 	for(var/obj/item/folder/F in src)
 		L += F.contents
