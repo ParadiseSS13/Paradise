@@ -2866,7 +2866,7 @@
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/sortjunc_helper/ce_office,
+/obj/effect/mapping_helpers/sortjunc_helper/disposals,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/north)
 "ana" = (
@@ -10302,6 +10302,7 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/sortjunction/reversed,
+/obj/effect/mapping_helpers/sortjunc_helper/medbay,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "aSl" = (
@@ -47264,6 +47265,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
+"tkX" = (
+/obj/machinery/poolcontroller/invisible/nuclear,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "tln" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -80001,7 +80006,7 @@ wXh
 pmt
 jjl
 cQk
-hZH
+tkX
 hZH
 eax
 wBo
