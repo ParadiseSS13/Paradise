@@ -36,9 +36,7 @@
 		kill()
 		return
 	var/mob/camera/flock/overmind/flockmind = new /mob/camera/flock/overmind(pick(spawn_locs))
-	flockmind.key = C.key
-	flockmind.mind = new
-	flockmind.mind.bind_to(flockmind)
+	C.mind.transfer_to(flockmind, FALSE)
 	flockmind.mind.set_original_mob(flockmind)
 	flockmind.mind.assigned_role = SPECIAL_ROLE_FLOCK
 	flockmind.mind.special_role = SPECIAL_ROLE_FLOCK
