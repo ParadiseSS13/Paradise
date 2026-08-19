@@ -30,16 +30,19 @@
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("shoved", "bashed")
-	var/cooldown = 0 //shield bash cooldown. based on world.time
+	var/cooldown = 0 // Shield bash cooldown. Based on world.time.
 	var/list/allowed_bashers = list(/obj/item/melee/baton, /obj/item/kitchen/knife/combat)
 
 /obj/item/shield/riot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!is_type_in_list(used, allowed_bashers))
 		return ..()
+
 	if(cooldown >= world.time - 2.5 SECONDS)
-		user.visible_message(SPAN_WARNING("[user] bashes [src] with [used]!"))
-		playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
-		cooldown = world.time
+		return ITEM_INTERACT_COMPLETE
+
+	user.visible_message(SPAN_WARNING("[user] bashes [src] with [used]!"))
+	playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
+	cooldown = world.time
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/shield/riot/roman
@@ -80,7 +83,7 @@
 /obj/item/shield/energy
 	name = "energy combat shield"
 	desc = "A shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere."
-	icon_state = "eshield0" // eshield1 for expanded
+	icon_state = "eshield0" // eshield1 for expanded.
 	force = 3
 	throwforce = 3
 	throw_speed = 3
@@ -157,7 +160,7 @@
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
-	return FALSE // by not calling the parent the hit_reaction signal is never sent
+	return FALSE // By not calling the parent the hit_reaction signal is never sent.
 
 /obj/item/shield/riot/tele/activate_self(mob/living/user)
 	if(..())
