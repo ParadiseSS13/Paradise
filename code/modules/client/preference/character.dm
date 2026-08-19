@@ -1762,9 +1762,6 @@
 					if(status == "cybernetic")
 						internal_organ.robotize()
 
-		// Send signal that robotic limbs have been applied
-		SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
-
 	character.underwear = underwear
 	character.undershirt = undershirt
 	character.socks = socks
@@ -1784,6 +1781,9 @@
 	character.regenerate_icons()
 	character.update_body()
 	character.update_dna()
+
+	// Send signal that robotic limbs have been applied
+	SEND_SIGNAL(character, COMSIG_HUMAN_ROBOTIC_LIMBS_APPLIED)
 
 /datum/character_save/proc/reset_appearance()
 	h_colour = initial(h_colour)
@@ -1819,12 +1819,12 @@
 	e_colour = initial(e_colour)
 
 /datum/character_save/proc/copy_to(mob/living/carbon/human/character)
-	apply_appearance(character)
 	if(be_random_name)
 		real_name = random_name(gender, species)
 	var/balance_check = rebuild_quirks()
 	for(var/datum/quirk/to_add in quirks)
 		to_add.apply_quirk_effects(character)
+	apply_appearance(character)
 	if(balance_check > 0)
 		log_debug("[src] spawned in with more quirks than they should have been able to. Quirk balance of [balance_check].")
 	character.add_language(language)
