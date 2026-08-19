@@ -72567,6 +72567,10 @@
 	},
 /turf/space,
 /area/space)
+"rHE" = (
+/obj/machinery/poolcontroller/invisible/nuclear,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "rHF" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tiles/department/medical/side,
@@ -139473,7 +139477,7 @@ oWm
 rdm
 ujj
 vHR
-jMX
+rHE
 jMX
 jMX
 jMX
