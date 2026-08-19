@@ -12,7 +12,7 @@
 	desc = "A .32 caliber round. The bullet is scored and designed to fragment on hit, dealing large amounts of damage to large creatures."
 	icon_state = "magnum_steel"
 	caliber = "32"
-	projectile_type = /obj/projectile/bullet
+	projectile_type = /obj/projectile/bullet/huntsman32
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
@@ -28,7 +28,7 @@
 	desc = "A 7.62mm rifle cartridge, often used in Soviet rifles."
 	icon_state = "rifle_brass"
 	caliber = "a762"
-	projectile_type = /obj/projectile/bullet/huntsman32
+	projectile_type = /obj/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 

@@ -48,6 +48,12 @@
 	diode = new /obj/item/stock_parts/micro_laser/ultra(src)
 
 /obj/item/laser_pointer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!isturf(target.loc))
+		return NONE
+
+	if(isstorage(target))
+		return NONE
+
 	laser_act(target, user, modifiers)
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
