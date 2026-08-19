@@ -81281,6 +81281,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"tPF" = (
+/obj/machinery/poolcontroller/invisible/nuclear,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "tPG" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -120600,7 +120604,7 @@ dkz
 lqn
 jjz
 hrW
-nxq
+tPF
 nxq
 lKP
 fbR
