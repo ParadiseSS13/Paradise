@@ -210,7 +210,9 @@ SUBSYSTEM_DEF(shuttle)
 	for(var/thing in GLOB.shuttle_caller_list)
 		if(is_ai(thing))
 			var/mob/living/silicon/ai/AI = thing
-			if(AI.stat || !AI.client)
+			if(AI.deployed_shell && !AI.deployed_shell.client)
+				continue
+			if(AI.stat || (!AI.client && !AI.deployed_shell))
 				continue
 		else if(istype(thing, /obj/machinery/computer/communications))
 			var/obj/machinery/computer/communications/C = thing
