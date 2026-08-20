@@ -16,7 +16,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	var/prob_quality_decrease = 0
 	var/allow_temp_change = TRUE
 	var/allow_toggling = TRUE
-	/// Tracks whether one may deepfry anything
+	/// Tracks whether one may deep fry *anything*.
 	var/frier_bypass = FALSE
 	VAR_PRIVATE/burn_callback
 	VAR_PRIVATE/fire_callback

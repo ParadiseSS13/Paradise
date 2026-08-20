@@ -90,7 +90,7 @@
 	if(istype(used, /obj/item/autochef_remote))
 		return
 	if(istype(used, /obj/item/disk/nuclear))
-		used.visible_message(SPAN_WARNING("[used] disapears as soon as it touches the scalding oil!"))
+		used.visible_message(SPAN_DANGER("[used] disappears as soon as it touches the scalding oil!"))
 		qdel(used)
 		return ITEM_INTERACT_COMPLETE
 	if(surface)

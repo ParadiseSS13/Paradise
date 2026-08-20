@@ -176,7 +176,7 @@
 	result.name = "deep-fried [food_item.name]"
 	result.desc = "It has been deep-fried."
 	result.cooktype["deep fried"] = TRUE
-	if(istype(container.contents[1], /obj/item/food)) // just in case we're deep frying something inedible
+	if(istype(container.contents[1], /obj/item/food)) // Just in case we're deep frying something inedible.
 		food_item.reagents.trans_to(result, food_item.reagents.total_volume)
 	else
 		result.reagents.add_reagent("nutriment", 5)
