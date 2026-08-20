@@ -40,7 +40,7 @@
 	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500) // Same as robobrain.
 	construction_time = 75
 	build_path = /obj/item/borg/upgrade/ai
-	category = list("Miscellaneous")
+	category = list("Miscellaneous", "Misc")
 
 /datum/design/paicard
 	name = "Personal Artificial Intelligence Card"
