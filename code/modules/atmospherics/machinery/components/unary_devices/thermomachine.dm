@@ -54,12 +54,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
-		if(on)
-			on = FALSE
-			update_icon()
-		else
-			on = TRUE
-			update_icon()
+		toggle(user)
 
 /obj/machinery/atmospherics/unary/thermomachine/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
