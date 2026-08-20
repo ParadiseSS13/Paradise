@@ -95,6 +95,9 @@
 
 /obj/item/food/mugcake/Initialize(mapload, obj/item/container)
 	. = ..()
+	if(istype(loc, /obj/item/kitchen/utensil))
+		return
+
 	if(istype(container, /obj/item/reagent_containers/drinks/mug))
 		trash = container
 		container.forceMove(src)
