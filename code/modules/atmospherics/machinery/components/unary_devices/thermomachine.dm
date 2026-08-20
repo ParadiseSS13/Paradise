@@ -60,12 +60,18 @@
 	if(can_use_shortcut(user))
 		if(cooling)
 			target_temperature = min_temperature
+			if(user)
+				to_chat(user, SPAN_NOTICE("You set the [src] to the minimum temperature."))
 		else
 			target_temperature = max_temperature
+			if(user)
+				to_chat(user, SPAN_NOTICE("You set the [src] to the maximum temperature."))
 
 /obj/machinery/atmospherics/unary/thermomachine/AltShiftClick(mob/living/carbon/human/user)
 	if(can_use_shortcut(user))
 		swap_function()
+		if(user)
+			to_chat(user, SPAN_NOTICE("You switch the [src] to [cooling ? "cooling" : "heating"] mode."))
 
 /obj/machinery/atmospherics/unary/thermomachine/AICtrlClick(mob/living/silicon/user)
 	if(can_use_shortcut(user))
