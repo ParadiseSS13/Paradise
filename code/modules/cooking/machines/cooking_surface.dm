@@ -16,6 +16,8 @@ RESTRICT_TYPE(/datum/cooking_surface)
 	var/prob_quality_decrease = 0
 	var/allow_temp_change = TRUE
 	var/allow_toggling = TRUE
+	/// Tracks whether one may deepfry anything
+	var/frier_bypass = FALSE
 	VAR_PRIVATE/burn_callback
 	VAR_PRIVATE/fire_callback
 	VAR_PRIVATE/alarm_callback
@@ -43,7 +45,7 @@ RESTRICT_TYPE(/datum/cooking_surface)
 		#endif
 
 		container.set_cooker_data(src, stop_watch(cooktime) SECONDS)
-		var/process_result = container.process_item(user, parent)
+		var/process_result = container.process_item(user, parent, frier_bypass)
 		if(process_result == PCWJ_COMPLETE)
 			SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_COMPLETE, src)
 

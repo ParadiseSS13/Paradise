@@ -29,9 +29,18 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
+/obj/machinery/cooking/deepfryer/emag_act(mob/user)
+	emagged = TRUE
+	visible_message(SPAN_WARNING("Hot oil begins to sputter and boil dangerously inside the fry pit!"), SPAN_WARNING("You hear something begin to boil and sputter angerly."))
+	for(var/datum/cooking_surface/deepfryer_basin/frier in surfaces)
+		frier.frier_bypass = TRUE
+	do_sparks(5, FALSE, src)
+
 /obj/machinery/cooking/deepfryer/examine(mob/user)
 	. = ..()
 	. += SPAN_NOTICE("<b>Ctrl-Click</b> on a basin to set its timer and toggle it on or off.")
+	if(emagged)
+		. += . += SPAN_WARNING("Hot oil sputters and boils angerly inside the fry basins.")
 
 #define ICON_SPLIT_X 16
 #define ICON_SPLIT_Y 16
@@ -70,6 +79,7 @@
 
 		user.put_in_hands(surface.container)
 		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
+		surface.container.surface = null
 		surface.container = null
 		update_appearance(UPDATE_ICON)
 
@@ -134,4 +144,5 @@
 	for(var/i in 1 to length(surfaces))
 		var/datum/cooking_surface/surface = surfaces[i]
 		surface.container = new /obj/item/reagent_containers/cooking/deep_basket(src)
+		surface.container.surface = surface
 	update_appearance()
