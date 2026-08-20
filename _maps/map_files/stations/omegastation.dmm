@@ -40241,9 +40241,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 2
-	},
+/obj/structure/disposalpipe/junction/reversed,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port)
 "pJE" = (
