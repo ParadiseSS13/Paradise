@@ -37,6 +37,8 @@
 		// State of charge is in kJ so we multiply it by 1000 to get Joules
 		desc += SPAN_NOTICE("It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.")
 	update_icon(UPDATE_OVERLAYS)
+	if(istype(loc, /obj/machinery/cell_charger))
+		loc.update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
