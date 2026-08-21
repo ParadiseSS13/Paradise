@@ -46284,9 +46284,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"sNQ" = (
-/turf/simulated/wall,
-/area/space)
 "sNU" = (
 /obj/structure/bookcase/random,
 /obj/item/radio/intercom{
@@ -54483,12 +54480,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
-"xgy" = (
-/obj/machinery/door/airlock/engineering/manual_rotation{
-	dir = 4
-	},
-/turf/space,
-/area/space)
 "xhm" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -98943,9 +98934,9 @@ aZD
 aZD
 aZD
 aZD
-sNQ
-xgy
-sNQ
+aZD
+aZD
+aZD
 aZD
 aZD
 aZD
