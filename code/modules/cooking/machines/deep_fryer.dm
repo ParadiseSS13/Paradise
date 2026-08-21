@@ -40,7 +40,7 @@
 	. = ..()
 	. += SPAN_NOTICE("<b>Ctrl-Click</b> on a basin to set its timer and toggle it on or off.")
 	if(emagged)
-		. += . += SPAN_WARNING("Hot oil sputters and boils angrily inside the fry basins.")
+		. += SPAN_WARNING("Hot oil sputters and boils angrily inside the fry basins.")
 
 #define ICON_SPLIT_X 16
 #define ICON_SPLIT_Y 16
