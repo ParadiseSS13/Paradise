@@ -60,7 +60,7 @@
 		var/obj/item/stack/sheet/mineral/plasma/old_stack = used
 		var/obj/item/new_stack = old_stack.split(user, 1)
 		if(!new_stack)
-			to_chat(user, SPAN_WARNING("You need at least 1 sheet of plasma to EMP-proof the camera!"))
+			to_chat(user, SPAN_WARNING("You need at least 1 sheet of plasma to add EMP-shielding to [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, SPAN_NOTICE("You attach [used] into the assembly inner circuits."))
