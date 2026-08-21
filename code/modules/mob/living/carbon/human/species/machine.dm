@@ -291,7 +291,7 @@
 		"h1" = COLOR_BLACK,
 		"h2" = rand_hex_color(),
 		"f1" = COLOR_BLACK,
-		"f1" = rand_hex_color()
+		"f2" = rand_hex_color()
 	)
 	// monitor colors
 	if(robohead.is_monitor)
