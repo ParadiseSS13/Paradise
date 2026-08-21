@@ -77,7 +77,6 @@
 	upgrades += used
 	add_fingerprint(user)
 	used.forceMove(src)
-	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/camera_assembly/crowbar_act(mob/user, obj/item/I)
