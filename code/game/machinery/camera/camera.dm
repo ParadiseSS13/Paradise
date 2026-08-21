@@ -145,8 +145,8 @@
 	..()
 
 /obj/machinery/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	var/attach_msg = SPAN_NOTICE("You attach [used] into the assembly inner circuits.")
-	var/reject_msg = SPAN_WARNING("The camera already has that upgrade!")
+	var/attach_msg = SPAN_NOTICE("You attach [used] to the inner circuits of [src].")
+	var/reject_msg = SPAN_WARNING("[src] already has that upgrade!")
 
 	if(istype(used, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
@@ -155,7 +155,7 @@
 		if(!isEmpProof())
 			var/obj/item/stack/sheet/mineral/plasma/P = used
 			if(!P.use(1))
-				to_chat(user, SPAN_WARNING("You need at least one sheet of plasma to upgrade EMP-proof [src]!"))
+				to_chat(user, SPAN_WARNING("You need at least one sheet of plasma to add EMP shielding to [src]!"))
 				return ITEM_INTERACT_COMPLETE
 			upgradeEmpProof()
 			to_chat(user, attach_msg)
