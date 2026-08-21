@@ -12,11 +12,11 @@
 	icon_state = "cameracase"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 400, MAT_GLASS = 250)
+	new_attack_chain = TRUE
 	//	Motion, EMP-Proof
 	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma)
 	var/list/upgrades = list()
 	var/state = ASSEMBLY_UNBUILT
-
 
 /obj/item/camera_assembly/Destroy()
 	QDEL_LIST_CONTENTS(upgrades)
@@ -35,29 +35,37 @@
 			. += SPAN_NOTICE("The camera assembly is <b>wired</b>, but the maintenence panel needs to be <i>screwed shut</i>.")
 			. += SPAN_NOTICE("Upgrades can be added to the camera assembly, and removed with a crowbar.")
 
-/obj/item/camera_assembly/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(state == ASSEMBLY_WELDED && iscoil(I))
-		var/obj/item/stack/cable_coil/C = I
-		if(C.use(2))
-			to_chat(user, SPAN_NOTICE("You add wires to the assembly."))
-			playsound(loc, I.usesound, 50, 1)
-			state = ASSEMBLY_WIRED
-		else
+/obj/item/camera_assembly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(state == ASSEMBLY_WELDED && iscoil(used))
+		var/obj/item/stack/cable_coil/cables = used
+		if(!cables.use(2))
 			to_chat(user, SPAN_WARNING("You need 2 coils of wire to wire the assembly."))
-		return
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You add wires to the assembly."))
+		playsound(loc, used.usesound, 50, 1)
+		state = ASSEMBLY_WIRED
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
 	// Upgrades!
-	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
-		if(!user.drop_item_to_ground(I))
-			to_chat(user, SPAN_WARNING("[I] is stuck!"))
-			return
-		to_chat(user, SPAN_NOTICE("You attach [I] into the assembly inner circuits."))
-		upgrades += I
-		user.drop_item()
-		I.loc = src
-		return
-	else
-		return ..()
+	if(is_type_in_list(used, upgrades))
+		to_chat(user, SPAN_WARNING("The assembly already has that upgrade!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!is_type_in_list(used, possible_upgrades))
+		return NONE
+
+	if(!user.drop_item_to_ground(used))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You attach [used] into the assembly inner circuits."))
+	upgrades += used
+	user.drop_item()
+	used.forceMove(src)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/camera_assembly/crowbar_act(mob/user, obj/item/I)
 	if(!length(upgrades))
@@ -69,7 +77,7 @@
 	if(U)
 		to_chat(user, SPAN_NOTICE("You detach an upgrade from the assembly."))
 		playsound(loc, I.usesound, 50, 1)
-		U.loc = get_turf(src)
+		U.forceMove(get_turf(src))
 		upgrades -= U
 
 /obj/item/camera_assembly/screwdriver_act(mob/user, obj/item/I)
@@ -82,13 +90,13 @@
 	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
 	if(!input)
 		state = ASSEMBLY_WIRED
-		to_chat(usr, SPAN_WARNING("No input found please hang up and try your call again."))
+		to_chat(usr, SPAN_WARNING("No input found. Please hang up and try your call again."))
 		return
 
 	var/list/tempnetwork = splittext(input, ",")
 	if(length(tempnetwork) < 1)
 		state = ASSEMBLY_WIRED
-		to_chat(usr, SPAN_WARNING("No network found please hang up and try your call again."))
+		to_chat(usr, SPAN_WARNING("No network found. Please hang up and try your call again."))
 		return
 
 	var/area/camera_area = get_area(src)
@@ -97,14 +105,11 @@
 	state = ASSEMBLY_BUILT
 	var/list/network_list = uniquelist(tempnetwork)
 	var/list/visible_networks = difflist(network_list, GLOB.restricted_camera_networks)
-	var/obj/machinery/camera/C = new(loc, length(visible_networks) > 0)
-	loc = C
-	C.assembly = src
 
+	var/obj/machinery/camera/C = new(loc, length(visible_networks) > 0, src)
+	forceMove(C)
 	C.auto_turn()
-
 	C.network = network_list
-
 	C.c_tag = input
 
 	for(var/i = 5; i >= 0; i -= 1)
@@ -115,7 +120,6 @@
 			var/confirm = tgui_alert(user, "Is this what you want? Chances Remaining: [i]", "Confirmation", list("Yes", "No"))
 			if(confirm == "Yes")
 				break
-
 
 /obj/item/camera_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != ASSEMBLY_WIRED)
@@ -180,7 +184,6 @@
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 	qdel(src)
-
 
 #undef ASSEMBLY_UNBUILT
 #undef ASSEMBLY_WRENCHED

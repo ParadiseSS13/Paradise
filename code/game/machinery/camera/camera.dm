@@ -44,10 +44,14 @@
 	/// If this camera doesnt add to camera chunks. Used by camera bugs.
 	var/non_chunking_camera = FALSE
 
-/obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
+/obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE, obj/item/camera_assembly/use_assembly = null)
 	. = ..()
 	wires = new(src)
-	assembly = new(src)
+	if(istype(use_assembly))
+		assembly = use_assembly
+	else
+		assembly = new(src)
+	apply_upgrades()
 	assembly.state = 4
 	assembly.anchored = TRUE
 	assembly.update_icon()
@@ -69,7 +73,7 @@
 
 /obj/machinery/camera/proc/create_prox_monitor()
 	if(!proximity_monitor)
-		proximity_monitor = new(src, 1)
+		proximity_monitor = new(src, CAMERA_VIEW_DISTANCE)
 		RegisterSignal(proximity_monitor, COMSIG_PARENT_QDELETING, PROC_REF(proximity_deleted))
 
 /obj/machinery/camera/Moved(atom/OldLoc, Dir, Forced)
@@ -102,7 +106,6 @@
 			. += SPAN_NOTICE("[src]'s <b>internal wires</b> are preventing you from cutting it free.")
 		else
 			. += SPAN_NOTICE("[src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.")
-
 
 /obj/machinery/camera/emp_act(severity)
 	if(!status)
@@ -242,8 +245,10 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(SPAN_WARNING("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
-						SPAN_WARNING("You unweld [src], leaving it as just a frame bolted to the wall"))
+		visible_message(
+			SPAN_WARNING("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+			SPAN_WARNING("You unweld [src], leaving it as just a frame bolted to the wall.")
+		)
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -339,10 +344,10 @@
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
-		return 0
+		return FALSE
 	if(stat & EMPED)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/machinery/camera/proc/can_see()
 	var/list/see = null
@@ -452,7 +457,6 @@
 	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
 	GLOB.cameranet.update_portable_camera(src, prev_turf)
 	prev_turf = get_turf(src)
-
 
 /obj/machinery/camera/toxins // cameras to be used in toxins
 	c_tag = "Research Toxins Test Chamber East";
