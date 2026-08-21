@@ -145,8 +145,8 @@
 	..()
 
 /obj/machinery/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	var/msg = SPAN_NOTICE("You attach [used] into the assembly inner circuits.")
-	var/msg2 = SPAN_NOTICE("The camera already has that upgrade!")
+	var/attach_msg = SPAN_NOTICE("You attach [used] into the assembly inner circuits.")
+	var/reject_msg = SPAN_WARNING("The camera already has that upgrade!")
 
 	if(istype(used, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
@@ -154,22 +154,24 @@
 			return ITEM_INTERACT_COMPLETE
 		if(!isEmpProof())
 			var/obj/item/stack/sheet/mineral/plasma/P = used
+			if(!P.use(1))
+				to_chat(user, SPAN_WARNING("You need at least one sheet of plasma to upgrade EMP-proof [src]!"))
+				return ITEM_INTERACT_COMPLETE
 			upgradeEmpProof()
-			to_chat(user, "[msg]")
-			P.use(1)
+			to_chat(user, attach_msg)
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "[msg2]")
+			to_chat(user, reject_msg)
 	else if(istype(used, /obj/item/assembly/prox_sensor) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!isMotion())
 			upgradeMotion()
-			to_chat(user, "[msg]")
+			to_chat(user, attach_msg)
 			qdel(used)
 		else
-			to_chat(user, "[msg2]")
+			to_chat(user, reject_msg)
 
 		return ITEM_INTERACT_COMPLETE
 

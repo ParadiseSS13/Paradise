@@ -56,13 +56,26 @@
 	if(!is_type_in_list(used, possible_upgrades))
 		return NONE
 
+	if(istype(used, /obj/item/stack/sheet/mineral/plasma))
+		var/obj/item/stack/sheet/mineral/plasma/old_stack = used
+		var/obj/item/new_stack = old_stack.split(user, 1)
+		if(!new_stack)
+			to_chat(user, SPAN_WARNING("You need at least 1 sheet of plasma to EMP-proof the camera!"))
+			return ITEM_INTERACT_COMPLETE
+
+		to_chat(user, SPAN_NOTICE("You attach [used] into the assembly inner circuits."))
+		new_stack.forceMove(src)
+		upgrades += new_stack
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
 	if(!user.drop_item_to_ground(used))
 		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 
 	to_chat(user, SPAN_NOTICE("You attach [used] into the assembly inner circuits."))
 	upgrades += used
-	user.drop_item()
+	add_fingerprint(user)
 	used.forceMove(src)
 	add_fingerprint(user)
 	return ITEM_INTERACT_COMPLETE
