@@ -110,7 +110,7 @@
 			hair_colors["f1"] = tint_color_hsl(pick(possible_colors), 10)
 		else if(prob(50))
 			hair_colors["f1"] = rand_hex_color()
-		elsE
+		else
 			hair_colors["f1"] = hair_colors["h1"]
 	else
 		hair_colors["h1"] = tint_color_hsl(pick(possible_colors), 10)
