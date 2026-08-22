@@ -156,7 +156,7 @@
 
 /datum/species/vox/randomize_eye_color()
 	if(prob(70))
-		return rgb(rand(145, 165), rand(60, 95), rand(30, 80), COLORSPACE_HSL) // teal-turquoise
+		return rgb(rand(145, 165), rand(60, 95), rand(30, 80), space = COLORSPACE_HSL) // teal-turquoise
 	return rand_hex_color()
 
 /datum/species/vox/randomize_hair_style(datum/robolimb/robohead, species_bald_prob = 20)

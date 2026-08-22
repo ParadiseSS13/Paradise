@@ -105,20 +105,20 @@
 		COLOR_BROWN_ORANGE,
 	)
 	if(prob(2))
-		hair_colors["h1"] = pick(rand_hex_color())
+		hair_colors["h1"] = rand_hex_color()
 		if(prob(33))
 			hair_colors["f1"] = tint_color_hsl(pick(possible_colors), 10)
 		else if(prob(50))
-			hair_colors["f1"] = pick(rand_hex_color())
-		else
+			hair_colors["f1"] = rand_hex_color()
+		elsE
 			hair_colors["f1"] = hair_colors["h1"]
 	else
 		hair_colors["h1"] = tint_color_hsl(pick(possible_colors), 10)
 		if(prob(2))
-			hair_colors["f1"] = pick(rand_hex_color())
+			hair_colors["f1"] = rand_hex_color()
 		else
 			hair_colors["f1"] = hair_colors["h1"]
-	hair_colors["h2"] = pick(rand_hex_color())
-	hair_colors["f2"] = pick(rand_hex_color())
+	hair_colors["h2"] = rand_hex_color()
+	hair_colors["f2"] = rand_hex_color()
 
 	return hair_colors

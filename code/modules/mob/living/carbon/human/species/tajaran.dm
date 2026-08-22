@@ -199,21 +199,21 @@
 	if(!secondary_body_color)
 		secondary_body_color = get_color_counterpart(body_color)
 	if(prob(1))
-		hair_colors["h1"] = pick(rand_hex_color())
+		hair_colors["h1"] = rand_hex_color()
 		if(prob(33))
 			hair_colors["f1"] = pick(body_color, secondary_body_color)
 		else if(prob(33))
-			hair_colors["f1"] = pick(rand_hex_color())
+			hair_colors["f1"] = rand_hex_color()
 		else
 			hair_colors["f1"] = hair_colors["h1"]
 	else
 		hair_colors["h1"] = pick(body_color, secondary_body_color)
 		if(prob(1))
-			hair_colors["f1"] = pick(rand_hex_color())
+			hair_colors["f1"] = rand_hex_color()
 		else
 			hair_colors["f1"] = pick(body_color, secondary_body_color)
-	hair_colors["h2"] = pick(rand_hex_color())
-	hair_colors["f2"] = pick(rand_hex_color())
+	hair_colors["h2"] = rand_hex_color()
+	hair_colors["f2"] = rand_hex_color()
 
 	return hair_colors
 
