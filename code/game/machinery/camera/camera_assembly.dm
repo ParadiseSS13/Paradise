@@ -60,10 +60,10 @@
 		var/obj/item/stack/sheet/mineral/plasma/old_stack = used
 		var/obj/item/new_stack = old_stack.split(user, 1)
 		if(!new_stack)
-			to_chat(user, SPAN_WARNING("You need at least 1 sheet of plasma to add EMP-shielding to [src]!"))
+			to_chat(user, SPAN_WARNING("You need at least one sheet of plasma to add EMP shielding to [src]!"))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, SPAN_NOTICE("You attach [used] into the assembly inner circuits."))
+		to_chat(user, SPAN_NOTICE("You attach [used] to the inner circuits of [src]."))
 		new_stack.forceMove(src)
 		upgrades += new_stack
 		add_fingerprint(user)
@@ -73,7 +73,7 @@
 		to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 		return ITEM_INTERACT_COMPLETE
 
-	to_chat(user, SPAN_NOTICE("You attach [used] into the assembly inner circuits."))
+	to_chat(user, SPAN_NOTICE("You attach [used] to the inner circuits of [src]."))
 	upgrades += used
 	add_fingerprint(user)
 	used.forceMove(src)
