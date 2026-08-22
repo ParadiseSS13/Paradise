@@ -278,7 +278,7 @@
 		if("load")
 			if(!t_disk || !stored_points)
 				return
-			var/amnt = input(usr, "Please enter amount to transfer", "Disk Transfer", 0)
+			var/amnt = tgui_input_number(usr, "Please enter amount to transfer", "Disk Transfer")
 			var/p_type = stored_points[1]
 			if(amnt < 0 || !amnt)
 				return // No.
