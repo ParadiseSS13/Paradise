@@ -56345,6 +56345,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/virology)
+"gZo" = (
+/obj/machinery/poolcontroller/invisible/nuclear,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "gZR" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "Detective"
@@ -123490,7 +123494,7 @@ cOm
 mDy
 cPK
 wCr
-jEI
+gZo
 jEI
 dUI
 dmq
