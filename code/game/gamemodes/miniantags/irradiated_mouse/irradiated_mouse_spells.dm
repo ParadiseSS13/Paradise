@@ -76,6 +76,9 @@
 
 /datum/spell/mouse_sludge_ejection/cast(list/targets, mob/user)
 	. = ..()
+	if(!isturf(user.loc)) // No making sludge from pipes.
+		revert_cast()
+		return
 	to_chat(user, SPAN_NOTICE("You shed part of your fur into a semi-liquid puddle on the floor!"))
 	new /obj/effect/decal/cleanable/radioactive_sludge(get_turf(user))
 	var/turf/turf = get_turf(user)
