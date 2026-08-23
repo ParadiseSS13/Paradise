@@ -105,6 +105,9 @@
 		else
 			M.forceMove(loc)
 
+	if(!has_power())
+		return
+
 	if(occupant)
 		if(auto_eject_dead && occupant.stat == DEAD)
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
