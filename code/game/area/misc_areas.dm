@@ -28,11 +28,9 @@
 
 /area/space/nearstation/centcom
 	icon_state = "space_near_cc"
-	area_icon_text = "CC"
 
 /area/space/nearstation/no_teleport
 	icon_state = "space_near_notp"
-	area_icon_text = "NOTP"
 	tele_proof = TRUE
 
 /area/space/atmosalert()

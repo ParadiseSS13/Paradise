@@ -7,7 +7,7 @@ from avulto import DMI
 def check_duplicate_names(dmi: DMI) -> list[str]:
     states = set()
     failures = []
-    for state in dmi.states():
+    for state in dmi.states:
         # Movement states have the same name as their non-movement counterparts
         if (state.name, state.movement) in states:
             duplicates.append(f"duplicate state name `{state.name}`")
