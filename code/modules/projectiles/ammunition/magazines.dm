@@ -43,19 +43,19 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/R, replace_spent = 0)
 	if(!R || (caliber && R.caliber != caliber) || (!caliber && R.type != ammo_type))
-		return 0
+		return FALSE
 
 	for(var/i in 1 to length(stored_ammo))
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
 		if(!bullet || !bullet.BB) // found a spent ammo
 			stored_ammo[i] = R
-			R.loc = src
+			R.forceMove(src)
 
 			if(bullet)
-				bullet.loc = get_turf(loc)
-			return 1
+				bullet.forceMove(get_turf(loc))
+			return TRUE
 
-	return 0
+	return FALSE
 
 /obj/item/ammo_box/magazine/internal/cylinder/charons_special
 	ammo_type = /obj/item/ammo_casing/huntsman32
@@ -262,10 +262,10 @@
 /obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
+		return FALSE
 	if(istype(contents[length(contents)], /obj/item/ammo_casing/rubber9mm))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
@@ -287,28 +287,33 @@
 	/// There are two reloading processes ongoing so cancel them
 	var/double_loaded = FALSE
 
-/obj/item/ammo_box/magazine/wt550m9/attackby__legacy__attackchain(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_casing))
-		var/obj/item/ammo_casing/AC = A
-		if(give_round(AC))
-			user.transfer_item_to(AC, src)
-			return
-	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
-		to_chat(user, SPAN_NOTICE("You begin to load the magazine with [A]."))
-		var/obj/item/ammo_box/AB = A
-		for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
-			if(length(stored_ammo) >= max_ammo)
-				to_chat(user, SPAN_NOTICE("You stop loading the magazine with [A]."))
-				break
-			if(do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = SPAN_NOTICE("You stop loading the magazine with [A].")))
-				src.give_round(AC)
-				AB.stored_ammo -= AC
-				update_mat_value()
-				update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-				AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
-			else
-				break
+/obj/item/ammo_box/magazine/wt550m9/load_box(obj/item/used, mob/living/user, silent = FALSE)
+	if(istype(used, /obj/item/ammo_casing))
+		var/obj/item/ammo_casing/used_casing = used
+		if(give_round(used_casing))
+			user.transfer_item_to(used_casing, src)
+		return
+
+	if(!(istype(used, /obj/item/ammo_box/wt550) || istype(used, /obj/item/ammo_box/magazine/wt550m9)))
+		return
+
+	to_chat(user, SPAN_NOTICE("You begin to load the magazine with [used]."))
+	var/obj/item/ammo_box/used_box = used
+
+	for(var/obj/item/ammo_casing/used_casing in used_box.stored_ammo)
+		if(length(stored_ammo) >= max_ammo)
+			to_chat(user, SPAN_NOTICE("You stop loading the magazine with [used]."))
+			break
+
+		if(!do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = SPAN_NOTICE("You stop loading the magazine with [used].")))
+			break
+
+		src.give_round(used_casing)
+		used_box.stored_ammo -= used_casing
+		update_mat_value()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		used_box.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -466,7 +471,7 @@
 
 /obj/item/ammo_box/magazine/m12g/rubbershot/give_round(obj/item/ammo_casing/R, replace_spent)
 	if(istype(R, /obj/item/ammo_casing/shotgun/frag12) || istype(R, /obj/item/ammo_casing/shotgun/buckshot))
-		return 0
+		return FALSE
 	return ..()
 
 /obj/item/ammo_box/magazine/m12g/stun
@@ -573,10 +578,10 @@
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
 	if(!ammo)
-		return 0
+		return FALSE
 	if(istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/riot))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_box/magazine/toy/m762
 	name = "donksoft box magazine"
@@ -646,11 +651,13 @@
 	. = ..()
 	. += SPAN_NOTICE("There is [charge_percent()]% charge left!")
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attack_self__legacy__attackchain()
-	return
+/obj/item/ammo_box/magazine/detective/speedcharger/activate_self(mob/user)
+	if(!user)
+		return ..()
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/ammo_box/magazine/detective/speedcharger/attackby__legacy__attackchain()
-	return
+/obj/item/ammo_box/magazine/detective/speedcharger/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	return NONE
 
 /obj/item/ammo_box/magazine/c_foam
 	name = "\improper C-Foam canister"
@@ -659,5 +666,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/c_foam
 	max_ammo = 12
 
-/obj/item/ammo_box/magazine/c_foam/attack_self__legacy__attackchain(mob/user)
-	return
+/obj/item/ammo_box/magazine/c_foam/activate_self(mob/user)
+	if(!user)
+		return ..()
+	return ITEM_INTERACT_COMPLETE
