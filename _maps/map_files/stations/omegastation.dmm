@@ -3695,9 +3695,6 @@
 /area/station/engineering/engine/reactor)
 "apz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/spawner/xeno,
 /obj/structure/cable/extra_insulated{
@@ -3706,6 +3703,7 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/port)
 "apN" = (
@@ -9254,6 +9252,9 @@
 	dir = 9
 	},
 /obj/structure/closet/secure_closet/engineering_welding,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "aNs" = (
@@ -19047,12 +19048,12 @@
 /turf/simulated/floor/plasteel/reactor_pool,
 /area/station/engineering/engine/reactor)
 "eaK" = (
-/obj/item/kirbyplants/large,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -30
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/economy/vending/detdrobe,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "ebi" = (
@@ -37656,9 +37657,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/autolathe/loaded,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
@@ -38842,13 +38840,15 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/camera/autoname{
 	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
@@ -46764,6 +46764,7 @@
 /obj/machinery/door/firedoor{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "tbW" = (
@@ -47028,10 +47029,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"thf" = (
-/obj/item/storage/box/pillbottles,
-/turf/simulated/wall/r_wall,
-/area/station/science/misc_lab)
 "thv" = (
 /obj/effect/turf_decal/tiles/department/security/corner{
 	dir = 8
@@ -98239,7 +98236,7 @@ bdf
 bed
 hvi
 bff
-thf
+mxB
 qDF
 oHo
 vuk
