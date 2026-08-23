@@ -145,10 +145,10 @@
 	// Removing cells from cell chargers.
 	if(istype(target, /obj/machinery/cell_charger))
 		var/obj/machinery/cell_charger/cell_charger = target
-		if(cell_charger.charging)
-			gripped_item = cell_charger.charging
-			cell_charger.charging.add_fingerprint(user)
-			cell_charger.charging.forceMove(src)
+		if(cell_charger.cell_inside)
+			gripped_item = cell_charger.cell_inside
+			cell_charger.cell_inside.add_fingerprint(user)
+			cell_charger.cell_inside.forceMove(src)
 			cell_charger.removecell()
 		user.visible_message(
 			SPAN_NOTICE("[user] removes the cell from [cell_charger]."),
