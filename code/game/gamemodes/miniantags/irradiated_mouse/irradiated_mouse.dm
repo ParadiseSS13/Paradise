@@ -162,7 +162,7 @@
 /mob/living/basic/mouse/irradiated_mouse/proc/give_intro_text()
 	var/list/messages = list()
 	messages.Add(SPAN_USERDANGER("<center>You are an Irradiated Mouse!</center>"))
-	messages.Add(SPAN_NOTICE("Due to your proximity to radioactive material laying around you've started rapidly mutating! You're slowly growing larger, meaning, and angrier! Its time to take it out on the crew for the years of being hunted by mousetraps!"))
+	messages.Add(SPAN_NOTICE("Due to your proximity to radioactive material laying around you've started rapidly mutating! You're slowly growing larger, meaner, and angrier! Its time to take it out on the crew for the years of being hunted by mousetraps!"))
 	messages.Add(SPAN_SPECIALNOTICE("Your radioactive nature has made your body unstable! Bite crew to irradiate them and gain points towards useful upgrades."))
 	messages.Add(SPAN_SPECIALNOTICE("Mindless bodies or corpses will not benefit you towards your upgrades."))
 	messages.Add(SPAN_SPECIALNOTICE("As you upgrade yourself, you will slowly grow in size and health."))
