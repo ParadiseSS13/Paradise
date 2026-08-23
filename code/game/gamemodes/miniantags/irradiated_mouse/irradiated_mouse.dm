@@ -176,7 +176,7 @@
 	on_upgrade()
 	radiation_amount += 100
 	if(radiation_level < GAMMA_RAD)
-		radiation_level = round_down(1 + (radiation_level / 2)) // one level up every two levels
+		radiation_level = round_down(1 + (radiation_level / 2)) // One level up every two levels.
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_speed()
 	speed_upgrades++
