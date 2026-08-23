@@ -25,7 +25,7 @@
 /obj/item/soap/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!ismob(target))
 		// if it's a storage item and it isn't dirty, just put the soap in the storage
-		if(isstorage(target) && !target.is_dirty())
+		if((isstorage(target) || is_surface(target)) && !target.is_dirty())
 			return ..()
 		target.cleaning_act(user, src, cleanspeed)
 		return ITEM_INTERACT_COMPLETE
