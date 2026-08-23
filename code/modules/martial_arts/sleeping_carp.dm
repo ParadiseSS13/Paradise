@@ -54,7 +54,7 @@
 	new_attack_chain = TRUE
 
 /obj/item/sleeping_carp_scroll/activate_self(mob/living/carbon/human/user)
-	if(!istype(user) || !user)
+	if(!istype(user))
 		return ..()
 
 	if(!user.mind)
