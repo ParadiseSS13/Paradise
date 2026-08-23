@@ -64,6 +64,8 @@
 /area/ruin/unpowered/syndicate_space_base/cave
 	name = "Syndicate Space Base Cave"
 	icon_state = "cave"
+	area_icon_text = "CAVE"
+	area_icon_color = AREA_COLOR_MINING
 
 /area/ruin/unpowered/syndicate_space_base/inner
 	name = "Syndicate Space Base Inner Asteroid"
