@@ -399,8 +399,7 @@
 	controlled_by.controlling_bird = src
 
 	if(controlled_by.mind)
-		key = controlled_by.key
-		mind = controlled_by.mind
+		controlled_by.mind.transfer_to(src, FALSE)
 
 	if(isflocktrace(controlled_by))
 		flock.add_notice(src, FLOCK_NOTICE_FLOCKTRACE_CONTROL)
@@ -440,8 +439,7 @@
 
 	master_bird.forceMove(destination)
 	if(mind)
-		master_bird.key = key
-		master_bird.mind = mind
+		mind.transfer_to(master_bird, FALSE)
 
 	flock_talk(null, "Control of [real_name] surrendered.", flock, involuntary = TRUE)
 	if(!dest_was_safe)
