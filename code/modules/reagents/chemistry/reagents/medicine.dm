@@ -466,7 +466,7 @@
 /datum/reagent/medicine/omnizine
 	name = "Omnizine"
 	id = "omnizine"
-	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries. May be habit forming. Overdose may cause dizziness, tremors, confusion, and sudden loss of muscle strength.""
+	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries. May be habit forming. Overdose may cause dizziness, tremors, confusion, and sudden loss of muscle strength."
 	reagent_state = LIQUID
 	color = "#d6047f"
 	metabolization_rate = 0.2
