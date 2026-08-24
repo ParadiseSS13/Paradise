@@ -138,6 +138,9 @@
 		target.AdjustConfused(power)
 
 /obj/item/flash/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/machinery/camera) && !iscarbon(target) && !issilicon(target))
+		return NONE
+
 	if(!try_use_flash(user))
 		return NONE
 

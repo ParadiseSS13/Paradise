@@ -266,6 +266,11 @@
 			break
 		if(!I.anchored)
 			I.forceMove(src)
+			var/list/all_contents = I.get_all_contents()
+			for(var/obj/item/storage/one_content in all_contents)
+				if(isstorage(one_content))
+					for(var/mob/player in one_content.mobs_viewing)
+						one_content.hide_from(player)
 			itemcount++
 
 	for(var/mob/M in loc)

@@ -1240,12 +1240,6 @@
 /obj/machinery/light/small,
 /turf/space,
 /area/space/nearstation/centcom)
-"fr" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/control)
 "fs" = (
 /obj/item/disk/plantgene,
 /turf/simulated/floor/plating/asteroid/snow,
@@ -6349,6 +6343,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"wv" = (
+/turf/space,
+/area/template_noop)
 "ww" = (
 /obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 30
@@ -6892,12 +6889,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
-"yq" = (
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/grass,
-/area/centcom/control)
 "yr" = (
 /obj/structure/sign/medical,
 /turf/simulated/wall/indestructible/riveted,
@@ -7815,13 +7806,6 @@
 /obj/structure/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
-"Cb" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/pointybush,
-/turf/simulated/floor/grass,
-/area/centcom/control)
 "Cc" = (
 /obj/machinery/door_control/no_emag{
 	id = "syndicate_jail_cell";
@@ -8579,21 +8563,18 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
-"EX" = (
-/obj/structure/chair/comfy/black{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/control)
 "EZ" = (
 /obj/machinery/computer/bsa_control/admin,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
 "Fa" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/palebush,
-/turf/simulated/floor/grass,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 8
+	},
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "Fb" = (
 /obj/structure/table/reinforced,
@@ -9412,6 +9393,12 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
+"Ic" = (
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/control)
 "Id" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
@@ -10809,9 +10796,11 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "Nn" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/palebush,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/centcom/control)
 "No" = (
@@ -10979,9 +10968,13 @@
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "Oi" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/grass,
+/obj/effect/turf_decal/tiles/department/security/side{
+	dir = 4
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "Oj" = (
 /obj/structure/closet/secure_closet/freezer/kitchen{
@@ -11043,12 +11036,6 @@
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)
-"Oq" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/control)
 "Or" = (
 /obj/item/flag/sec,
 /turf/simulated/floor/plasteel/dark,
@@ -11492,10 +11479,6 @@
 /obj/structure/table/tray,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
-"PO" = (
-/obj/structure/flora/ausbushes/fernybush,
-/turf/simulated/floor/grass,
-/area/centcom/control)
 "PP" = (
 /obj/structure/railing{
 	dir = 4
@@ -11780,14 +11763,6 @@
 	},
 /turf/space,
 /area/space/centcomm)
-"QI" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
-/obj/item/ashtray/glass,
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/control)
 "QK" = (
 /obj/structure/chair/sofa,
 /turf/simulated/floor/carpet/black,
@@ -12137,13 +12112,6 @@
 "RY" = (
 /turf/simulated/floor/pod/dark,
 /area/syndicate_mothership)
-"RZ" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/control)
 "Sa" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -12475,9 +12443,8 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
 "Tl" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 1
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -12676,12 +12643,9 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "TW" = (
-/obj/effect/turf_decal/tiles/department/security/side{
-	dir = 1
-	},
-/obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel/dark,
-/area/centcom/control)
+/obj/structure/window/plastitanium,
+/turf/space,
+/area/template_noop)
 "TX" = (
 /obj/effect/turf_decal/tiles/department/virology/side{
 	dir = 8
@@ -13740,6 +13704,14 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"XO" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/grass,
+/area/centcom/control)
 "XQ" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -38378,10 +38350,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 YA
-Cb
-Sk
-Rg
 ZC
 TY
 YN
@@ -38635,9 +38607,9 @@ aN
 aN
 aN
 aN
-YA
-YA
-YA
+aN
+aN
+aN
 YA
 Om
 TY
@@ -38892,10 +38864,10 @@ aN
 aN
 aN
 aN
-sm
-QI
-EX
-EX
+aN
+aN
+aN
+YA
 ZC
 TY
 YN
@@ -39149,10 +39121,10 @@ aN
 aN
 aN
 aN
-sm
-Oq
-ZC
-ZC
+aN
+aN
+aN
+YA
 ZC
 TY
 YN
@@ -39406,10 +39378,10 @@ aN
 aN
 aN
 aN
-sm
-TW
-fr
-ZC
+aN
+aN
+aN
+YA
 ZC
 TY
 YN
@@ -39663,9 +39635,9 @@ aN
 aN
 aN
 aN
-YA
-YA
-YA
+aN
+aN
+aN
 YA
 Or
 TY
@@ -39920,10 +39892,10 @@ aN
 aN
 aN
 aN
+aN
+aN
+aN
 YA
-Cb
-Sk
-Rg
 ZC
 TY
 YN
@@ -41719,13 +41691,13 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-sm
-yq
-Rg
+aa
+aa
+YA
+YA
+YA
+YA
+Nn
 RV
 ZC
 WX
@@ -41975,15 +41947,15 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-sm
-PO
-Rg
-Tl
+wv
+wv
+wv
+wv
+wv
+wv
+TW
+Fa
+Ic
 ZC
 Wd
 ZC
@@ -42232,15 +42204,15 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-sm
-Fa
-Rg
-Tl
+wv
+wv
+wv
+wv
+wv
+wv
+TW
+ZC
+ZC
 ZC
 Wd
 ZC
@@ -42489,15 +42461,15 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-sm
-Oi
-Rg
-RZ
+wv
+wv
+wv
+wv
+wv
+wv
+TW
+ZC
+ZC
 ZC
 Wd
 ZC
@@ -42746,15 +42718,15 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-sm
-Nn
-Rg
-Tl
+wv
+wv
+wv
+wv
+wv
+wv
+TW
+ZC
+ZC
 ZC
 Wd
 ZC
@@ -43003,14 +42975,14 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-sm
+wv
+wv
+wv
+wv
+wv
+wv
+TW
 Oi
-Rg
 Tl
 ZC
 Wd
@@ -43261,13 +43233,13 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-sm
-PO
-Rg
+aa
+aa
+YA
+YA
+YA
+YA
+XO
 Sa
 ZC
 WX

@@ -65,7 +65,7 @@
 	force = 5
 	flags = DROPDEL | ABSTRACT | NODROP
 	attack_verb = list("slapped", "backhanded", "smacked", "discombobulated")
-	table_smacks_left = 10 //Much more smackitude
+	table_smacks_left = 10 // Much more smackitude.
 
 /obj/item/slapper/parry/Initialize(mapload)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS) //75% uptime
@@ -86,14 +86,15 @@
 		UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
 	return ..()
 
-/obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
-	if(!isliving(M))
+/obj/item/slapper/parry/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!isliving(target))
 		return ..()
-	var/mob/living/creature = M
+	var/mob/living/creature = target
 	SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))
 	creature.Confused(10 SECONDS) // SMACK CAM!
 	creature.EyeBlind(2 SECONDS) // OH GOD MY EARS ARE RINGING!
 	creature.Deaf(4 SECONDS) // OH MY HEAD!
+	return FINISH_ATTACK
 
 /obj/item/slapper/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
 	if(target_atom == src)

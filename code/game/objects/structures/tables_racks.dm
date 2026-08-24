@@ -412,8 +412,8 @@
 		return 0
 
 	var/can_flip = 1
-	for(var/mob/A in oview(src,0))//loc)
-		if(istype(A))
+	for(var/mob/A in oview(src, 0)) // Our loc.
+		if(istype(A) && !isobserver(A))
 			can_flip = 0
 	if(!can_flip)
 		return 0
@@ -1015,7 +1015,7 @@
 	icon_state = "rack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)
-	var/building = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1024,17 +1024,26 @@
 	new /obj/item/stack/sheet/metal(user.loc)
 	qdel(src)
 
-/obj/item/rack_parts/attack_self__legacy__attackchain(mob/user)
-	if(building)
-		return
-	building = TRUE
+/obj/item/rack_parts/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	to_chat(user, SPAN_NOTICE("You start constructing a rack..."))
-	if(do_after(user, 50, target = user, progress=TRUE))
-		if(!user.drop_item(src))
-			return
-		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
-		user.visible_message("<span class='notice'>[user] assembles \a [R].\
-			</span>", SPAN_NOTICE("You assemble \a [R]."))
-		R.add_fingerprint(user)
-		qdel(src)
-	building = FALSE
+
+	if(!do_after_once(user, 50, target = user, progress = TRUE))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item(src))
+		to_chat(user, SPAN_WARNING("[src] is stuck to your hand!"))
+		return ITEM_INTERACT_COMPLETE
+
+	var/obj/structure/rack/new_rack = new /obj/structure/rack(user.loc)
+	user.visible_message(
+		SPAN_NOTICE("[user] assembles \a [new_rack]."),
+		SPAN_NOTICE("You assemble \a [new_rack]."),
+		SPAN_HEAR("You hear thin metal sheets clicking into place.")
+	)
+	transfer_fingerprints_to(new_rack)
+	new_rack.add_fingerprint(user)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
