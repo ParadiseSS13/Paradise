@@ -4,6 +4,7 @@
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_NECK
+	new_attack_chain = TRUE
 
 /obj/item/holder/Initialize(mapload)
 	. = ..()
@@ -25,9 +26,16 @@
 
 		qdel(src)
 
-/obj/item/holder/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	for(var/mob/M in src.contents)
-		M.attack_by(W, user, params)
+/obj/item/holder/item_interaction(mob/user, obj/item/used, list/modifiers)
+	for(var/mob/held_mob in src.contents)
+		if(!held_mob.item_interaction(user, used, modifiers))
+			used.melee_attack_chain(user, held_mob, list2params(modifiers))
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/holder/ranged_item_interaction(mob/user, obj/item/used, list/modifiers)
+	for(var/mob/held_mob in src.contents)
+		held_mob.ranged_item_interaction(user, used, modifiers)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)

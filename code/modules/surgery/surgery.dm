@@ -489,6 +489,8 @@
 			if(SURGERY_BLOODSPREAD_FULLBODY)
 				target.visible_message(SPAN_NOTICE("A spray of blood coats [user]."))
 				H.bloody_body(target)
+	if(!tool)
+		return
 	SEND_SIGNAL(tool, COMSIG_MOB_REAGENT_EXCHANGE, target)
 	tool.AddComponent(/datum/component/viral_contamination, target.viruses)
 

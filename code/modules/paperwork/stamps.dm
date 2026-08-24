@@ -11,6 +11,7 @@
 	attack_verb = list("stamped")
 	/// What color will this crayon dye clothes, cables, etc? used for for updateIcon purposes on other objs
 	var/dye_color = DYE_GREEN
+	new_attack_chain = TRUE
 
 /obj/item/stamp/suicide_act(mob/user)
 	user.visible_message(SPAN_SUICIDE("[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead."))

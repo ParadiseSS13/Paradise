@@ -19,7 +19,6 @@
 		return INITIALIZE_HINT_QDEL
 	Reset()
 
-
 /obj/machinery/computer/arcade/proc/prizevend(score)
 	if(!length(contents))
 		var/prize_amount
@@ -45,7 +44,6 @@
 	for(var/i = num_of_prizes; i > 0; i--)
 		prizevend()
 	explosion(get_turf(src), -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes, cause = "EMP'd arcade machine")
-
 
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
@@ -241,7 +239,6 @@
 
 	return
 
-
 /obj/machinery/computer/arcade/battle/emag_act(user as mob)
 	if(!emagged)
 		Reset()
@@ -269,7 +266,6 @@
 #define ORION_TRAIL_COLLISION	"Collision"
 #define ORION_TRAIL_SPACEPORT	"Spaceport"
 #define ORION_TRAIL_BLACKHOLE	"BlackHole"
-
 
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
@@ -901,7 +897,6 @@
 
 				eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];leave_spaceport=1'>Depart Spaceport</a></P>"
 
-
 //Add Random/Specific crewmember
 /obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(specific = "")
 	var/newcrew = ""
@@ -935,7 +930,6 @@
 		settlers -= removed
 		alive--
 	return removed
-
 
 /obj/machinery/computer/arcade/orion_trail/proc/win()
 	playing = 0
@@ -976,7 +970,9 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ship"
 	w_class = WEIGHT_CLASS_SMALL
-	var/active = FALSE //if the ship is on
+	/// If the ship is on.
+	var/active = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/orion_ship/examine(mob/user)
 	. = ..()
@@ -986,9 +982,13 @@
 		else
 			. += SPAN_NOTICE("There's a little switch on the bottom. It's flipped up.")
 
-/obj/item/orion_ship/attack_self__legacy__attackchain(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
+/obj/item/orion_ship/activate_self(mob/user) // Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse.
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(active)
-		return
+		to_chat(user, SPAN_WARNING("You can't seem to turn it off!"))
+		return ITEM_INTERACT_COMPLETE
 
 	message_admins("[key_name_admin(usr)] primed an explosive Orion ship for detonation.")
 	log_game("[key_name(usr)] primed an explosive Orion ship for detonation.")
@@ -1008,6 +1008,7 @@
 	visible_message(SPAN_USERDANGER("[src] explodes!"))
 	explosion(src.loc, 1,2,4, flame_range = 3, cause = "Orion Ship Minibomb")
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 
 #undef ORION_TRAIL_WINTURN

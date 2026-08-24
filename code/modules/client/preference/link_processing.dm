@@ -460,7 +460,7 @@
 					if(check_rights(R_ADMIN, FALSE, user))
 						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
 					else
-						possible_body_accessories = list_valid_body_accessories(active_character.body_accessory, S.optional_body_accessory)
+						possible_body_accessories = list_valid_body_accessories(active_character.species, S.optional_body_accessory)
 					if(S.optional_body_accessory)
 						possible_body_accessories |= "None" //the only null entry should be the "None" option
 					else

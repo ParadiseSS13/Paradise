@@ -511,6 +511,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 		new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
 		new /datum/stack_recipe("donut box", /obj/item/storage/fancy/donut_box/empty, 1),
 		new /datum/stack_recipe("patch pack", /obj/item/storage/pill_bottle/patch_pack, 2),
+		new /datum/stack_recipe("suture pack", /obj/item/storage/suture_pack, 2),
+		new /datum/stack_recipe("mesh pack", /obj/item/storage/mesh_pack, 2),
 		)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("folder", /obj/item/folder),
@@ -539,8 +541,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	if(!istype(used, /obj/item/stamp/clown) || isstorage(loc))
 		return ..()
 
+	var/atom/droploc = drop_location()
 	if(use(1))
-		var/atom/droploc = drop_location()
 		to_chat(user, SPAN_NOTICE("You stamp the cardboard! It's a clown box! Honk!"))
 		playsound(used, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
 		new/obj/item/storage/box/clown(droploc)

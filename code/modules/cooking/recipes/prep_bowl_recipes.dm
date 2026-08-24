@@ -22,6 +22,17 @@
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 	)
 
+/datum/cooking/recipe/ash_salad
+	container_type = /obj/item/reagent_containers/cooking/bowl
+	product_type = /obj/item/food/salad/ash_salad
+	catalog_category = COOKBOOK_CATEGORY_SALADS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/mushroom_leaf),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/mushroom_leaf),
+		PCWJ_ADD_ITEM(/obj/item/food/grown/ash_flora/cactus_fruit),
+		PCWJ_ADD_ITEM(/obj/item/food/goliath_steak),
+	)
+
 /datum/cooking/recipe/caesar_salad
 	container_type = /obj/item/reagent_containers/cooking/bowl
 	product_type = /obj/item/food/salad/caesar

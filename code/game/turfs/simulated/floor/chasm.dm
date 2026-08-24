@@ -1,6 +1,6 @@
 /turf/simulated/floor/chasm
 	name = "chasm"
-	desc = "Watch your step."
+	desc = "A hole in the ground that's so deep that you can't see the bottom. Watch your step."
 	baseturf = /turf/simulated/floor/chasm
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "chasms-255"

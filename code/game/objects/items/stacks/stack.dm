@@ -38,6 +38,8 @@
 	var/parent_stack = FALSE
 	/// Whether this stack can be split into multiple independent stacks.
 	var/allow_splitting = TRUE
+	/// Whether this stack deletes itself when `amount` reaches 0. 
+	var/destroy_upon_empty = TRUE
 
 /obj/item/stack/examine(mob/user)
 	. = ..()
@@ -348,15 +350,15 @@
 /**
  * Returns TRUE if the item stack is the equivalent of a 0 amount item.
  *
- * Also deletes the item if delete_if_zero is TRUE and the stack does not have
- * is_cyborg set to true.
+ * Arguments: `delete_if_zero`: Deletes the stack if `TRUE` and the stack does not have
+ * `is_cyborg` set to `TRUE` or `destroy_upon_empty` set to `FALSE`.
  */
 /obj/item/stack/proc/is_zero_amount(delete_if_zero = TRUE)
 	if(is_cyborg)
 		return source.amount < cost
 
 	if(amount < 1)
-		if(delete_if_zero)
+		if(destroy_upon_empty && delete_if_zero)
 			qdel(src)
 		return TRUE
 	return FALSE

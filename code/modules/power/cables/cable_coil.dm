@@ -28,7 +28,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	usesound = 'sound/items/deconstruct.ogg'
 	/// Deletes the cable coil upon getting empty.
 	/// Used for RCL cable spools to stop the stack from being eaten.
-	var/destroy_upon_empty = TRUE
 	/// Type of cable this coil makes
 	var/cable_type = /obj/structure/cable
 	/// Bitflag of the types of cable we can add cable to with this coil.
@@ -225,7 +224,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
 			C.deconstruct()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)

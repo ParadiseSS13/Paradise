@@ -22,8 +22,9 @@
 	pixel_x = -80
 	pixel_y = -96
 	faction = list("neutral", "whale")
+	weather_immunities = list("lava","ash", "burn", "rad")
 	step_type = FOOTSTEP_MOB_HEAVY
-	true_spawn = FALSE
+	internal_gps = /obj/item/gps/internal/space_whale
 	ai_controller = /datum/ai_controller/basic_controller/space_whale
 	innate_actions = list(
 		/datum/action/cooldown/mob_cooldown/space_whale/charge = BB_WHALE_CHARGE_ACTION)
@@ -57,3 +58,8 @@
 		if(harbringer == attacker) // Do not commit suicide attacking yourself
 			continue
 		harbringer.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
+
+/obj/item/gps/internal/space_whale
+	icon_state = null
+	gpstag = "Whale Signal"
+	desc = "You hear the groaning call of the space whale."

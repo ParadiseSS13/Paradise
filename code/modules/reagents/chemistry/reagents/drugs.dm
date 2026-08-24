@@ -768,6 +768,7 @@
 	addiction_chance_additional = 20
 	addiction_threshold = 10
 	taste_description = "flips"
+	taste_flag = ORGANIC | SYNTHETIC
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_HARD
 
@@ -1167,6 +1168,7 @@
 	color = "#17dd17"
 	process_flags = SYNTHETIC
 	taste_description = "man, like, totally the best most relaxing thing ever, dude"
+	taste_flag = SYNTHETIC
 
 /datum/reagent/w33d/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1204,6 +1206,7 @@
 	addiction_chance = 10
 	addiction_threshold = 10
 	taste_description = "very poor life choices"
+	taste_flag = ORGANIC | SYNTHETIC
 	allowed_overdose_process = TRUE
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -1288,7 +1291,9 @@
 	addiction_threshold = 5
 	metabolization_rate = 0.6
 	addiction_decay_rate = 0.1 //very low to force them to take time off of meth
-	taste_description = "wiper fluid"
+	taste_description = "slick servos"
+	taste_flag = SYNTHETIC
+	yuck_description = "wiper fluid"
 	var/tenacity = 1.5 // higher is worse
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_NORMAL
@@ -1325,7 +1330,9 @@
 	description = "This is a special lubricant designed to attract onto and excite parasitic mindflayer swarms, revealing if someone hosts a hive. Doesn't include a cooling agent, so tends to cause overheating."
 	harmless = FALSE
 	color = "#163b39"
-	taste_description = "batteries"
+	taste_description = "stack overflow"
+	taste_flag = SYNTHETIC
+	yuck_description = "batteries"
 	process_flags = SYNTHETIC
 
 /datum/reagent/lube/conductive/on_mob_life(mob/living/M)
@@ -1372,7 +1379,9 @@
 	addiction_chance = 10
 	addiction_threshold = 5
 	addiction_decay_rate = 0.2
-	taste_description = "silicon"
+	taste_description = "heat conducting throughout the chassis"
+	taste_flag = SYNTHETIC
+	yuck_description = "silicon"
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_HARD
 

@@ -36,6 +36,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "antiseptic"
+	yuck_description = "sterilization"
 	goal_difficulty = REAGENT_GOAL_EASY
 
 	//makes you squeaky clean
@@ -449,6 +450,7 @@
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
 	taste_description = "dust"
+	taste_flag = ORGANIC | SYNTHETIC
 	goal_difficulty = REAGENT_GOAL_EASY
 	max_kidney_damage = 0
 
@@ -529,15 +531,22 @@
 	id = "omnizine_no_addiction"
 	overdose_threshold = 0
 	addiction_chance = 0
-	addiction_chance_additional = 100
+	addiction_chance_additional = 0
 	addiction_threshold = 0
 
-// Used in the IPC supercharge implant - because IPCs deserve the little bit of healing too.
-/datum/reagent/medicine/omnizine/no_addict/synthetic
+/datum/reagent/medicine/omnizine/synthetic
 	name = "Smart Metal"
-	id = "synthetic_omnizine_no_addiction"
+	id = "synthetic_omnizine"
 	description = "An exotic liquid metal alloy that flows into cracks, fractures, and other surface imperfections before solidifying to patch up damaged components."
 	process_flags = SYNTHETIC
+
+// Used in the IPC supercharge implant - because IPCs deserve the little bit of healing too.
+/datum/reagent/medicine/omnizine/synthetic/no_addict
+	id = "synthetic_omnizine_no_addiction"
+	overdose_threshold = 0
+	addiction_chance = 0
+	addiction_chance_additional = 0
+	addiction_threshold = 0
 
 /datum/reagent/medicine/calomel
 	name = "Calomel"
@@ -1103,6 +1112,7 @@
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
 	taste_description = "sweetness"
+	yuck_description = "stickiness in your tubes"
 	goal_difficulty = REAGENT_GOAL_EASY
 	max_kidney_damage = 0
 
@@ -1252,7 +1262,9 @@
 	reagent_state = LIQUID
 	color = "#28b581"
 	process_flags = SYNTHETIC
-	taste_description = "silicon"
+	taste_flag = SYNTHETIC
+	taste_description = "incredible connectivity"
+	yuck_description = "silicon"
 
 /datum/reagent/medicine/stimulative_agent/surge_plus/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1461,7 +1473,9 @@
 	reagent_state = LIQUID
 	color = "#CC7A00"
 	process_flags = SYNTHETIC
+	taste_flag = SYNTHETIC
 	taste_description = "overclocking"
+	yuck_description = "nail polish remover"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
@@ -1490,7 +1504,9 @@
 	reagent_state = LIQUID
 	color = "#D7B395"
 	process_flags = SYNTHETIC
-	taste_description = "heavy metals"
+	taste_flag = SYNTHETIC
+	taste_description = "smooth processing"
+	yuck_description = "heavy metals"
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)

@@ -169,7 +169,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/Initialize(mapload, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+	. = ..()
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -203,8 +204,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		var/datum/robot_component/C = components[V]
 		C.install(new C.external_type, FALSE)
 
-	..()
-
 	add_robot_verbs()
 
 	// Remove inherited verbs that effectively do nothing for cyborgs, or lead to unintended behaviour.
@@ -216,7 +215,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/obj/item/stock_parts/cell/C = cell || new default_cell_type(src)
 	cell_component.install(C)
 
-	init(alien, connect_to_AI, ai_to_sync_to)
+	init(connect_to_AI, ai_to_sync_to)
 
 	diag_hud_set_borgcell()
 	scanner = new(src)
@@ -234,7 +233,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!has_gravity(T))
 			new /obj/effect/particle_effect/ion_trails(T, _dir)
 
-/mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/proc/init(connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
 	additional_law_channels["Binary"] = ":b "
@@ -589,73 +588,81 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Engineering", "Miner_old", "JanBot2", "Medbot", "engineerrobot", "maximillion", "secborg", "Hydrobot")
 			can_be_hatted = TRUE // Their base sprite USED to already come with a hat
 			can_wear_restricted_hats = TRUE
-		if("Rover")
-			can_be_hatted = FALSE
-			hat_offset_y = -1
+		if("Rover") // bit of an oddball with different shapes per department
+			can_be_hatted = TRUE
+			switch(module.module_type)
+				if("Engineer")
+					hat_offsets = alist(SOUTH = list(0, -2), NORTH = list(0, 1), EAST = list(-8, -1), WEST = list(9, -1))
+				if("Medical")
+					hat_offsets = alist(SOUTH = list(0, -9), NORTH = list(0, -2), EAST = list(-8, -6), WEST = list(9, -6))
+				if("Service")
+					hat_offsets = alist(SOUTH = list(0, -7), NORTH = list(0, 1), EAST = list(-8, -4), WEST = list(9, -4))
+				if("Janitor")
+					hat_offsets = alist(SOUTH = list(0, -5), NORTH = list(0, -1), EAST = list(-8, -4), WEST = list(9, -4))
 		if("Noble")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = 4
+			hat_offsets = alist(SOUTH = list(0, 4), NORTH = list(0, 4), EAST = list(0, 4), WEST = list(0, 4))
 		if("Droid_Medical")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = 4
+			hat_offsets = alist(SOUTH = list(0, 4), NORTH = list(0, 4), EAST = list(0, 4), WEST = list(0, 4))
 		if("Droid_Mining", "mk2", "mk3")
 			can_be_hatted = TRUE
 			is_centered = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Bloodhound", "Bloodhound_Deathsquad", "syndie_bloodhound", "Bloodhound_Combat")
 			can_be_hatted = TRUE
-			hat_offset_y = 1
+			hat_offsets = alist(SOUTH = list(0, 1), NORTH = list(0, 1), EAST = list(0, 1), WEST = list(0, 1))
 		if("Cricket")
 			can_be_hatted = TRUE
-			hat_offset_y = 2
+			hat_offsets = alist(SOUTH = list(0, 2), NORTH = list(0, 2), EAST = list(0, 2), WEST = list(0, 2))
 		if("Droid_Combat")
 			can_be_hatted = TRUE
 			hat_alpha = 255
-			hat_offset_y = 2
+			hat_offsets = alist(SOUTH = list(0, 2), NORTH = list(0, 2), EAST = list(0, 2), WEST = list(0, 2))
 		if("Droid_Combat_Roll")
 			can_be_hatted = TRUE
 			hat_alpha = 0
 		if("syndi_medi", "surgeon", "toiletbot", "custodiborg")
 			can_be_hatted = TRUE
 			is_centered = TRUE
-			hat_offset_y = 1
+			hat_offsets = alist(SOUTH = list(0, 1), NORTH = list(0, 1), EAST = list(0, 1), WEST = list(0, 1))
 		if("Security", "janitorrobot", "medicalrobot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Brobot", "Service", "Service2", "robot_old", "securityrobot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Miner", "lavaland")
 			can_be_hatted = TRUE
-			hat_offset_y = -1
+			hat_offsets = alist(SOUTH = list(0, -1), NORTH = list(0, -1), EAST = list(0, -1), WEST = list(0, -1))
 		if("Standard")
 			can_be_hatted = TRUE
-			hat_offset_y = -3
+			hat_offsets = alist(SOUTH = list(0, -3), NORTH = list(0, -3), EAST = list(0, -3), WEST = list(0, -3))
 		if("Droid")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_restricted_hats = TRUE
-			hat_offset_y = -4
+			hat_offsets = alist(SOUTH = list(0, -4), NORTH = list(0, -4), EAST = list(0, -4), WEST = list(0, -4))
 		if("Landmate", "syndi_engi")
 			can_be_hatted = TRUE
-			hat_offset_y = -7
+			hat_offsets = alist(SOUTH = list(0, -7), NORTH = list(0, -7), EAST = list(0, -7), WEST = list(0, -7))
 		if("Mop_Gear_Rex")
 			can_be_hatted = TRUE
-			hat_offset_y = -6
+			hat_offsets = alist(SOUTH = list(0, -6), NORTH = list(0, -6), EAST = list(0, -6), WEST = list(0, -6))
 		if("Qualified_Doctor")
 			can_be_hatted = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Squat_Miner")
 			can_be_hatted = TRUE
 		if("Coffin_Miner")
 			can_be_hatted = TRUE
-			hat_offset_y = 3
+			hat_offsets = alist(SOUTH = list(0, 3), NORTH = list(0, 3), EAST = list(0, 3), WEST = list(0, 3))
 		if("Heavy_Sec")
 			can_be_hatted = TRUE
 			can_wear_restricted_hats = TRUE
@@ -1069,7 +1076,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(used, /obj/item/encryptionkey) && opened)
 		if(radio)
 			to_chat(user, SPAN_NOTICE("You install [used] into [src]'s radio."))
-			radio.attackby__legacy__attackchain(used, user)
+			radio.item_interaction(user, used)
 		else
 			to_chat(user, SPAN_WARNING("[src] has no radio!"))
 		return ITEM_INTERACT_COMPLETE
@@ -1090,7 +1097,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(user, SPAN_WARNING("Access denied!"))
 		return ITEM_INTERACT_COMPLETE
-	
+
 	if(istype(used, /obj/item/borg/upgrade))
 		var/obj/item/borg/upgrade/U = used
 		if(!opened)
@@ -1374,7 +1381,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
-			O.attack_self__legacy__attackchain(src)
+			if(O.new_attack_chain)
+				O.activate_self(src)
+			else
+				O.attack_self__legacy__attackchain(src)
 		return TRUE
 
 	if(href_list["act"])
@@ -1738,7 +1748,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	has_advanced_reagent_vision = TRUE
 
-/mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/deathsquad/init(connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
 	module.add_languages(src)
@@ -1772,14 +1782,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	has_advanced_reagent_vision = TRUE
 
 
-/mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/ert/init(connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
 	radio = new /obj/item/radio/borg/ert(src)
 	radio.recalculateChannels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc)
-	..(loc)
+/mob/living/silicon/robot/ert/Initialize(mapload, connect_to_AI, mob/living/silicon/ai/ai_to_sync_to)
+	. = ..()
 	var/rnum = rand(1,1000)
 	var/borgname = "[eprefix] ERT [rnum]"
 	name = borgname
@@ -1826,7 +1836,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	has_advanced_reagent_vision = TRUE
 
-/mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/destroyer/init(connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	additional_law_channels["Binary"] = ":b "
 	laws = new /datum/ai_laws/deathsquad
