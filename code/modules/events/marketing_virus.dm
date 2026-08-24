@@ -5,10 +5,11 @@
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 2, ASSIGNMENT_CREW = 10)
 	noAutoEnd = TRUE
 
-	var/area/origin_area
-	var/infected_areas_qty
 	var/list/marketer_human_icons = list()
 	var/list/evil_human_icons = list()
+
+	var/area/origin_area
+	var/infected_areas_qty
 	var/list/infectable_vendors = list()
 	var/list/infected_areas = list()
 	var/list/infected_holopads = list()
@@ -36,6 +37,9 @@
 	for(var/obj/machinery/hologram/holopad/holopad in SSmachines.get_by_type(/obj/machinery/hologram/holopad))
 		if(get_area(holopad) in remaining_areas)
 			remaining_holopads += holopad
+			RegisterSignal(holopad, COMSIG_TOOL_ATTACK, PROC_REF(holopad_tool_retaliate))
+			holopad.AddElement(/datum/element/relay_attackers)
+			RegisterSignal(holopad, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(holopad_attack_retaliate))
 			RegisterSignal(holopad, COMSIG_PARENT_QDELETING, PROC_REF(remove_holopad))
 
 	for(var/obj/machinery/economy/vending/vending in SSmachines.get_by_type(/obj/machinery/economy/vending))
@@ -135,6 +139,8 @@
 			var/obj/remove_hologram = infected_holopads[candidate]
 			qdel(remove_hologram)
 			infected_holopads.Remove(candidate)
+			candidate.RemoveElement(/datum/element/relay_attackers)
+			UnregisterSignal(candidate, list(COMSIG_TOOL_ATTACK, COMSIG_ATOM_WAS_ATTACKED))
 
 /datum/event/marketing_virus/proc/entrap_area(area/target, atom/moved)
 	SIGNAL_HANDLER // COMSIG_MOVABLE_ENTERED_AREA
@@ -217,6 +223,12 @@
 		return pick(infectable_vendors[target])
 	else if(length(infected_vendors[target]))
 		return pick(infected_vendors[target])
+
+/datum/event/marketing_virus/proc/holopad_tool_retaliate(datum/source, atom/tool, mob/user)
+	return
+
+/datum/event/marketing_virus/proc/holopad_attack_retaliate(datum/source, mob/attacker, attack_flags)
+	return
 
 /mob/living/carbon/human/marketing_virus_hologram
 	flags = parent_type::flags | ABSTRACT
