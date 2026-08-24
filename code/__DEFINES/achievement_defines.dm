@@ -62,6 +62,7 @@
 #define BOSS_MEDAL_FLESHLING "Fleshling Killer"
 #define BOSS_MEDAL_HARBINGER "Syndicate Harbinger Killer"
 #define BOSS_MEDAL_DVORAK "Shutting Down D.V.O.R.A.K"
+#define BOSS_MEDAL_PRINCESS	  "Princess Zrexx"
 
 #define BOSS_MEDAL_MINER_CRUSHER "Blood-drunk Miner Crusher"
 #define BOSS_MEDAL_BUBBLEGUM_CRUSHER "Bubblegum Crusher"
@@ -84,6 +85,8 @@
 #define ROBOT_SCORE "Ancient Robots Killed"
 #define FLESHLING_SCORE "Fleshlings Killed"
 #define HARBINGER_SCORE "Syndicate Harbingers Killed"
+#define PRINCESS_SCORE 		"Kidan Princesses Killed"
+
 
 
 /// DB ID for the amount of achievements unlocked by the player.
