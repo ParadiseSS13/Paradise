@@ -276,7 +276,8 @@
 	on = 1
 	},
 /obj/effect/turf_decal/tiles/department/medical/checker,
-/obj/machinery/computer/operating,
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bd" = (
@@ -296,19 +297,16 @@
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bf" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/o2{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/toxin{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 5
 	},
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bg" = (
@@ -396,11 +394,12 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "bx" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
 /obj/machinery/light,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
+	},
+/obj/machinery/computer/operating{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
@@ -601,10 +600,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "cw" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
+	},
+/obj/machinery/optable,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
@@ -630,16 +631,21 @@
 /area/shuttle/escape)
 "cE" = (
 /obj/effect/turf_decal/tiles/department/medical/checker,
-/obj/machinery/optable,
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "cG" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/latex/nitrile,
-/obj/item/clothing/mask/breath,
 /obj/effect/turf_decal/tiles/department/medical/checker,
-/obj/item/storage/surgical_tray{
-	pixel_y = 12
+/obj/item/storage/firstaid/toxin{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/o2{
+	pixel_x = -3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
@@ -857,16 +863,14 @@
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "xD" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 4
 	},
+/obj/item/storage/surgical_tray{
+	pixel_y = 12
+	},
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "yh" = (
@@ -1082,17 +1086,13 @@
 	pixel_x = -5;
 	pixel_y = -5
 	},
-/obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv{
 	pixel_x = 5;
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel/white,
-/area/shuttle/escape)
-"Qf" = (
-/obj/machinery/defibrillator_mount/loaded,
-/turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "Qr" = (
 /turf/simulated/floor/mineral/plastitanium,
@@ -1662,7 +1662,7 @@ ab
 bF
 aM
 bF
-Qf
+ab
 cE
 fz
 fz
