@@ -138,7 +138,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/stack/tape_roll,
-/obj/item/scalpel/laser/laser2,
+/obj/item/scalpel/laser,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "ii" = (
