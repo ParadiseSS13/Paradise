@@ -1325,6 +1325,49 @@
 /obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return ((stat & BROKEN) || !pass_info.is_living)
 
+/obj/machinery/porta_turret/mining_turret
+	name = "\"Prospector\" Pop-Up Turret"
+	desc = "A deployable turret equipped with a proto-kinetic accelerator, useful for those who need to secure a place in harsh environments."
+	icon_state = "standard_mining"
+	base_icon_state = "standard_mining"
+	projectile = /obj/projectile/kinetic/turret
+	eprojectile = /obj/projectile/kinetic/turret
+	shot_sound = 'sound/weapons/kenetic_accel.ogg'
+	eshot_sound = 'sound/weapons/kenetic_accel.ogg'
+	health = 150
+	installation = null
+	always_up = TRUE
+	interact_offline = TRUE
+	power_state = NO_POWER_USE
+	has_cover = FALSE
+	raised = TRUE
+	shot_delay = 2 SECONDS
+	scan_range = 3
+
+	faction = "neutral"
+
+	lethal = TRUE
+	lethal_is_configurable = FALSE
+	targetting_is_configurable = FALSE
+	check_arrest = FALSE
+	check_records = FALSE
+	check_access = FALSE
+	check_synth	= TRUE
+	ailock = TRUE
+
+/obj/machinery/porta_turret/mining_turret/update_icon_state()
+	if(stat & BROKEN)
+		icon_state = "standard_broken"
+
+/obj/machinery/porta_turret/mining_turret/setup()
+	return
+
+/obj/machinery/porta_turret/mining_turret/CanPass(atom/A)
+	return ((stat & BROKEN) || !isliving(A))
+
+/obj/machinery/porta_turret/mining_turret/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	return ((stat & BROKEN) || !pass_info.is_living)
+
 // Meatpackers' ruin turret
 /obj/machinery/porta_turret/meatpacker_ship
 	name = "ship defense turret"

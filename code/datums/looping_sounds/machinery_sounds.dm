@@ -6,6 +6,15 @@
 	end_sound = 'sound/machines/shower/shower_end.ogg'
 	volume = 20
 
+/datum/looping_sound/flock_relay
+	mid_sounds = list('sound/goonstation/flockmind/Flock_Reactor.ogg' = 1)
+	mid_length = 33 SECONDS
+	volume = 40
+	extra_range = 10
+	falloff_exponent = 10
+	falloff_distance = 5
+	channel = CHANNEL_ENGINE
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/supermatter

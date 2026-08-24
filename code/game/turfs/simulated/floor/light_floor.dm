@@ -1,5 +1,6 @@
 /turf/simulated/floor/light
 	name = "light floor"
+	desc = "Highly advanced technology that combines the functions of walking surface and area lighting. What will science think of next?"
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
 	/// Are we on
@@ -8,6 +9,10 @@
 	var/can_modify_colour = TRUE
 	/// Are we draining power
 	var/using_power = FALSE
+
+/turf/simulated/floor/light/examine(mob/user, infix, suffix)
+	. = ..()
+	. += SPAN_NOTICE("Use a multitool to change the hue of [src].")
 
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()

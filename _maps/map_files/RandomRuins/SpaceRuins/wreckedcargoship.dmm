@@ -551,7 +551,7 @@
 /area/ruin/space/wreck_cargoship)
 "tB" = (
 /obj/machinery/door/firedoor/border_only/closed{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
@@ -669,7 +669,7 @@
 /area/ruin/space/wreck_cargoship)
 "Bo" = (
 /obj/machinery/door/firedoor/border_only/closed{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -707,7 +707,7 @@
 /area/ruin/space/wreck_cargoship)
 "Co" = (
 /obj/machinery/door/firedoor/border_only/closed{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,

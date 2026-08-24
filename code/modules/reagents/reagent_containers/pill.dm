@@ -14,7 +14,7 @@
 /obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
-		icon_state = "pill[rand(1, 20)]"
+		icon_state = "pill[rand(1, 28)]"
 
 /obj/item/reagent_containers/pill/activate_self(mob/user)
 	if(..())
@@ -79,13 +79,13 @@
 /obj/item/reagent_containers/pill/tox
 	name = "\improper Toxin pill"
 	desc = "Highly toxic."
-	icon_state = "pill21"
+	icon_state = "pill_skull"
 	list_reagents = list("toxin" = 50)
 
 /obj/item/reagent_containers/pill/initropidril
 	name = "\improper Initropidril pill"
 	desc = "Don't swallow this."
-	icon_state = "pill21"
+	icon_state = "pill_skull"
 	list_reagents = list("initropidril" = 50)
 
 /obj/item/reagent_containers/pill/fakedeath
@@ -204,7 +204,7 @@
 /obj/item/reagent_containers/pill/lazarus_reagent
 	name = "\improper Lazarus Reagent pill"
 	desc = "Miraculous drug used for revival. Use with caution. Improper use may cause bodies to violently blow apart."
-	icon_state = "pill9"
+	icon_state = "pill26"
 	list_reagents = list("lazarus_reagent" = 1)
 
 /obj/item/reagent_containers/pill/rezadone

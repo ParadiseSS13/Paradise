@@ -448,6 +448,9 @@
 "DH" = (
 /obj/structure/table,
 /obj/item/circular_saw,
+/obj/item/scalpel/laser{
+	pixel_y = 7
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Ef" = (

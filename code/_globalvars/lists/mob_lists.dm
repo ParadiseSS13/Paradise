@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(hear_radio_list)			//Mobs that hear the radio even if there's 
 
 GLOBAL_LIST_EMPTY(emote_list)
 
+GLOBAL_LIST_EMPTY(kidan_shitlist)
+
 /// Blacklist of types that swarmers should not touch
 GLOBAL_LIST_INIT(swarmer_blacklist, list(
 	/obj/item/gun,

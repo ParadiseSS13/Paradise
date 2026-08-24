@@ -186,7 +186,6 @@
 	inhand_icon_state = "knife"
 	force = 18
 	w_class = WEIGHT_CLASS_NORMAL
-	new_attack_chain = TRUE
 
 /obj/item/kitchen/knife/envy/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
