@@ -466,7 +466,7 @@
 /datum/reagent/medicine/omnizine
 	name = "Omnizine"
 	id = "omnizine"
-	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries."
+	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries. May be habit forming. Overdose may cause dizziness, tremors, confusion, and sudden loss of muscle strength.""
 	reagent_state = LIQUID
 	color = "#d6047f"
 	metabolization_rate = 0.2
@@ -573,7 +573,7 @@
 /datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
 	id = "potass_iodide"
-	description = "Potassium iodide is a medicinal drug used to counter the effects of radiation poisoning."
+	description = "Potassium iodide is a medicinal drug used to counter the effects of radiation poisoning. Works slowly, but is very well-tolerated in clinical trials."
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "cleansing"
@@ -749,7 +749,7 @@
 /datum/reagent/medicine/diphenhydramine
 	name = "Diphenhydramine"
 	id = "diphenhydramine"
-	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
+	description = "Anti-allergy medication. May cause drowsiness. Do not operate heavy machinery while using this. Higher doses may cause hallucinations."
 	reagent_state = LIQUID
 	color = "#5BCBE1"
 	addiction_chance = 1
@@ -842,7 +842,7 @@
 /datum/reagent/medicine/oculine
 	name = "Oculine"
 	id = "oculine"
-	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects."
+	description = "Oculine is a saline eye medication with mydriatic and antibiotic effects. Well-tolerated in clinical trials."
 	reagent_state = LIQUID
 	color = "#757377"
 	taste_description = "clarity"
@@ -873,7 +873,7 @@
 /datum/reagent/medicine/atropine
 	name = "Atropine"
 	id = "atropine"
-	description = "Atropine is a potent cardiac resuscitant but it can causes confusion, dizzyness and hyperthermia."
+	description = "Atropine is a potent cardiac resuscitant. May cause confusion, dizziness and hyperthermia."
 	reagent_state = LIQUID
 	metabolization_rate = 0.2
 	overdose_threshold = 25
@@ -902,7 +902,7 @@
 /datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
 	id = "epinephrine"
-	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest."
+	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest. Overdose may cause weakness, vomiting, and dizziness."
 	reagent_state = LIQUID
 	color = "#96B1AE"
 	metabolization_rate = 0.2
@@ -1022,7 +1022,7 @@
 /datum/reagent/medicine/sanguine_reagent
 	name = "Sanguine Reagent"
 	id = "sanguine_reagent"
-	description = "A deeply crimson almost-gel that can mimic blood, regardless of type."
+	description = "A deeply crimson almost-gel that can mimic blood, regardless of type. Overdose may cause shortness of breath and blood vomiting."
 	color = "#770101"
 	taste_description = "coppery fuel"
 	harmless = FALSE
@@ -1079,7 +1079,7 @@
 /datum/reagent/medicine/osseous_reagent
 	name = "Osseous Reagent"
 	id = "osseous_reagent"
-	description = "A solution of pinkish gel with white shards floating in it, which is supposedly able to be processed into bone gel."
+	description = "A solution of pinkish gel with white shards floating in it, which is supposedly able to be processed into bone gel. Toxic and may cause bone tumors when applied directly to patients."
 	color = "#c9abab"
 	taste_description = "chunky marrow"
 	harmless = FALSE
@@ -1109,7 +1109,7 @@
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
-	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
+	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling. Well-tolerated in clinical trials."
 	color = "#D1D1F1"
 	taste_description = "sweetness"
 	yuck_description = "stickiness in your tubes"
@@ -1257,8 +1257,8 @@
 /datum/reagent/medicine/stimulative_agent/surge_plus
 	name = "Surge Plus"
 	id = "surge_plus"
-	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficincy of synthetic locomotive systems, allowing the user to run faster whilst also clearing stuns. \
-	If overdosed, it will cause short-circuits that will inflict damage and reduce locomotive efficiancy gains."
+	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficiency of synthetic locomotive systems, allowing the user to run faster whilst also clearing stuns. \
+	If overdosed, it will cause short-circuits that will inflict damage and reduce locomotive efficiency gains."
 	reagent_state = LIQUID
 	color = "#28b581"
 	process_flags = SYNTHETIC
