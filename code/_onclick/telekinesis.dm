@@ -113,7 +113,7 @@
 
 /obj/item/tk_grab/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!target || !user)
-		return FINISH_ATTACK
+		return ..()
 	if(last_throw + TK_COOLDOWN > world.time)
 		return FINISH_ATTACK
 	if(!host || host != user)
@@ -142,7 +142,7 @@
 
 	if(isitem(focus) && target.Adjacent(focus) && !user.in_throw_mode)
 		var/obj/item/I = focus
-		var/resolved = target.new_attack_chain ? target.attack_by(src, user, click_parameters) : target.attackby__legacy__attackchain(I, user, params)
+		var/resolved = target.new_attack_chain ? target.attack_by(src, user, click_parameters) : target.attackby__legacy__attackchain(I, user, click_parameters)
 		if(!resolved && target && I)
 			if(I.new_attack_chain)
 				I.after_attack(target, user, TRUE, click_parameters)
