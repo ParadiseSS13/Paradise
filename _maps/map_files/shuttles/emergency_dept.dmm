@@ -271,12 +271,12 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "bc" = (
-/obj/structure/bed/roller,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
 /obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/machinery/computer/operating,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "bd" = (
@@ -629,8 +629,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "cE" = (
-/obj/structure/bed/roller,
 /obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/machinery/optable,
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "cG" = (
@@ -638,6 +638,9 @@
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/mask/breath,
 /obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/item/storage/surgical_tray{
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel/white,
 /area/shuttle/escape)
 "cH" = (
