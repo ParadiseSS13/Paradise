@@ -17,7 +17,7 @@
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
 	id = "hydrocodone"
-	description = "An extremely effective painkiller; may have long term abuse consequences."
+	description = "An extremely effective painkiller."
 	reagent_state = LIQUID
 	color = "#C805DC"
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
@@ -32,7 +32,7 @@
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
-	description = "Sterilizes wounds in preparation for surgery."
+	description = "Sterilizes wounds in preparation for surgery. Sterilizes liquid vessels and syringes as well."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "antiseptic"
@@ -140,7 +140,7 @@
 /datum/reagent/medicine/mitocholide
 	name = "Mitocholide"
 	id = "mitocholide"
-	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs."
+	description = "A specialized drug that stimulates the mitochondria of cells to encourage healing of internal organs. Ineffective against internal bleeding."
 	reagent_state = LIQUID
 	color = "#8523be"
 	taste_description = "nurturing"
@@ -269,7 +269,7 @@
 /datum/reagent/medicine/salglu_solution
 	name = "Saline-Glucose Solution"
 	id = "salglu_solution"
-	description = "This saline and glucose solution can help stabilize critically injured patients and cleanse wounds."
+	description = "This saline and glucose solution can help stabilize critically injured patients and those in shock."
 	reagent_state = LIQUID
 	color = "#cbc6ce"
 	penetrates_skin = TRUE
@@ -337,7 +337,7 @@
 /datum/reagent/medicine/heal_on_apply/synthflesh
 	name = "Synthflesh"
 	id = "synthflesh"
-	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically."
+	description = "A resorbable microfibrillar collagen and protein mixture that can rapidly heal injuries when applied topically. At sufficient saturation, reverses husking from burns."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
 	penetrates_skin = TRUE
@@ -378,7 +378,7 @@
 /datum/reagent/medicine/heal_on_apply/styptic_powder
 	name = "Styptic Powder"
 	id = "styptic_powder"
-	description = "Styptic (aluminum sulfate) powder helps control bleeding and heal physical wounds."
+	description = "Styptic (aluminum sulfate) powder helps to control bleeding and heal physical wounds."
 	reagent_state = LIQUID
 	color = "#FF9696"
 	metabolization_rate = 3
@@ -447,7 +447,7 @@
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
 	id = "charcoal"
-	description = "Activated charcoal helps to absorb toxins."
+	description = "Activated charcoal slowly absorbs toxins in the body."
 	reagent_state = LIQUID
 	taste_description = "dust"
 	taste_flag = ORGANIC | SYNTHETIC
@@ -573,7 +573,7 @@
 /datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
 	id = "potass_iodide"
-	description = "Potassium Iodide is a medicinal drug used to counter the effects of radiation poisoning."
+	description = "Potassium iodide is a medicinal drug used to counter the effects of radiation poisoning."
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "cleansing"
@@ -607,7 +607,7 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
-	name = "Salicylic Acid"
+	name = "Acetylsalicylic Acid"
 	id = "sal_acid"
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
@@ -695,7 +695,7 @@
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
-	description = "Ephedrine is a plant-derived stimulant."
+	description = "Ephedrine is a plant-derived stimulant. Use with caution. May cause vomiting."
 	reagent_state = LIQUID
 	color = "#a185b1"
 	metabolization_rate = 0.3
@@ -1500,7 +1500,7 @@
 /datum/reagent/medicine/liquid_solder
 	name = "Liquid Solder"
 	id = "liquid_solder"
-	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
+	description = "A solution formulated to clean and repair damaged connections in positronic brains while in use."
 	reagent_state = LIQUID
 	color = "#D7B395"
 	process_flags = SYNTHETIC

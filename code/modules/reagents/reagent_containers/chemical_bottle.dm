@@ -60,7 +60,7 @@
 	list_reagents = list("salglu_solution" = 30)
 
 /obj/item/reagent_containers/glass/bottle/salicylic
-	name = "salicylic acid bottle"
+	name = "acetylsalicylic acid bottle"
 	desc = "A small bottle containing medicine for pain and fevers."
 	list_reagents = list("sal_acid" = 30)
 
