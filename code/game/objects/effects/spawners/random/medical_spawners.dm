@@ -19,7 +19,7 @@
 
 /obj/effect/spawner/random/medical/surgery_tool/adv
 	loot = list(
-		/obj/item/scalpel/laser/laser2,
+		/obj/item/scalpel/laser,
 		/obj/item/surgical_drapes,
 	)
 
