@@ -288,7 +288,7 @@
 /obj/structure/salvageable/seed
 	name = "ruined seed vendor"
 	desc = "This is where the seeds lived. Maybe you can still get some?"//megaseed voiceline reference
-	icon_state = "seeds_broken"
+	icon_state = "seeds_broken_full"
 	icon = 'icons/obj/vending.dmi'
 	color = "#808080"
 
@@ -321,7 +321,7 @@
 /obj/structure/salvageable/kitchenvend
 	name = "broken-down kitchen vendor"
 	desc = "A ruined kitchen vending machine. Some of its contents might still be intact."
-	icon_state = "dinnerware_broken"
+	icon_state = "dinnerware_broken_full"
 	icon = 'icons/obj/vending.dmi'
 	salvageable_parts = list(
 		/obj/item/kitchen/rollingpin = 80,
