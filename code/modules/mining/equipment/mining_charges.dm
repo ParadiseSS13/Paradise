@@ -77,10 +77,20 @@
 	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)
 
 /obj/item/grenade/plastic/miningcharge/prime()
-	if(hacked) //try not to blow your fingers off
+	if(hacked) // Try not to blow your fingers off.
 		explode()
 		return
-	var/turf/simulated/mineral/location = get_turf(target_atom)
+	var/turf/simulated/mineral/location
+	if(target_atom)
+		if(!QDELETED(target_atom))
+			if(isturf(target_atom))
+				location = get_turf(target_atom)
+			else
+				location = get_atom_on_turf(target_atom)
+			target_atom.overlays -= image_overlay
+	else
+		location = get_atom_on_turf(src)
+
 	var/datum/effect_system/smoke_spread/S = new
 	S.set_up(smoke_amount, 0, location, null)
 	S.start()
@@ -88,14 +98,14 @@
 		var/distance = get_dist_euclidian(location, rock)
 		if(distance <= boom_sizes[3])
 			if(rock.ore)
-				rock.ore.drop_max += 3 // if rock is going to get drilled, add bonus mineral amount
+				rock.ore.drop_max += 3 // If rock is going to get drilled, add bonus mineral amount.
 				rock.ore.drop_min += 3
 			rock.gets_drilled(triggered_by_explosion = TRUE)
 	for(var/mob/living/carbon/C in circlerange(location, boom_sizes[3]))
 		var/distance = get_dist_euclidian(location, C)
 		C.flash_eyes()
-		C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
-		C.AdjustDeaf((boom_sizes[3] - distance) * 5 SECONDS) //guaranteed deafness
+		C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) // 1 second for how close you are to center if you're in range.
+		C.AdjustDeaf((boom_sizes[3] - distance) * 5 SECONDS) // Guaranteed deafness.
 		var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 		if(istype(ears) && C.check_ear_prot() < HEARING_PROTECTION_MINOR) //headsets should be enough to avoid taking damage
 			ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
@@ -193,6 +203,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Detonator-0"
+	new_attack_chain = TRUE
 
 	/// list of all bombs connected to a detonator for a moment
 	var/list/bombs = list()
@@ -211,19 +222,23 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/detonator/attack_self__legacy__attackchain(mob/user)
+/obj/item/detonator/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	playsound(src, 'sound/items/detonator.ogg', 40)
-	if(length(bombs))
-		to_chat(user, SPAN_NOTICE("Activating explosives..."))
-		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			if(QDELETED(charge))
-				bombs -= charge
-				update_icon() //if the last bomb was qdeleted, detonator icon should change after activating
-				continue
-			if(charge.installed)
-				bombs -= charge
-				charge.detonate()
-				update_icon()
-	else
+	if(!length(bombs))
 		to_chat(user, SPAN_WARNING("There are no charges linked to a detonator!"))
-	return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("Activating explosives..."))
+	for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
+		if(QDELETED(charge))
+			bombs -= charge
+			update_icon() // If the last bomb was qdeleted, detonator icon should change after activating.
+			continue
+		if(charge.installed)
+			bombs -= charge
+			charge.detonate()
+			update_icon()
+	return ITEM_INTERACT_COMPLETE
