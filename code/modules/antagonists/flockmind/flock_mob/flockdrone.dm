@@ -3,8 +3,6 @@
 	hud_type = /datum/hud/flockdrone
 	ai_controller = /datum/ai_controller/flock/drone
 
-	move_force = MOVE_FORCE_WEAK
-
 	actions_to_grant = list(
 		/datum/action/cooldown/flock/release_control,
 		/datum/action/cooldown/flock/nest,
@@ -399,7 +397,8 @@
 	controlled_by.controlling_bird = src
 
 	if(controlled_by.mind)
-		controlled_by.mind.transfer_to(src, FALSE)
+		key = controlled_by.key
+		mind = controlled_by.mind
 
 	if(isflocktrace(controlled_by))
 		flock.add_notice(src, FLOCK_NOTICE_FLOCKTRACE_CONTROL)
@@ -439,7 +438,8 @@
 
 	master_bird.forceMove(destination)
 	if(mind)
-		mind.transfer_to(master_bird, FALSE)
+		master_bird.key = key
+		master_bird.mind = mind
 
 	flock_talk(null, "Control of [real_name] surrendered.", flock, involuntary = TRUE)
 	if(!dest_was_safe)
