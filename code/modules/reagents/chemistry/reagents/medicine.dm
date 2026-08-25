@@ -269,7 +269,7 @@
 /datum/reagent/medicine/salglu_solution
 	name = "Saline-Glucose Solution"
 	id = "salglu_solution"
-	description = "This saline and glucose solution can help stabilize critically injured patients and those in shock."
+	description = "This saline and glucose solution can help stabilize critically injured patients and those in shock. It can also be used as a fluid replacement to treat minor blood loss."
 	reagent_state = LIQUID
 	color = "#cbc6ce"
 	penetrates_skin = TRUE
@@ -695,7 +695,7 @@
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
-	description = "Ephedrine is a plant-derived stimulant. Use with caution. May cause vomiting."
+	description = "Ephedrine is a plant-derived stimulant that can also assist the stabilisation of critical patients (in combination with other treatments). May cause vomiting, dizziness, and muscle weakness in excessive doses."
 	reagent_state = LIQUID
 	color = "#a185b1"
 	metabolization_rate = 0.3
