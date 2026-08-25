@@ -1214,7 +1214,7 @@
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
+	description = "A military-grade psychostimulant that dramatically improves muscular performance, eliminates lactic acid buildup, sharpens reaction times, and promotes the regeneration of damaged tissues. Above the teraputic dose, positive effects are reduced and cytotoxic effects are known to occur."
 	color = "#96210de3"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
@@ -1257,7 +1257,7 @@
 /datum/reagent/medicine/stimulative_agent/surge_plus
 	name = "Surge Plus"
 	id = "surge_plus"
-	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficiency of synthetic locomotive systems, allowing the user to run faster whilst also clearing stuns. \
+	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficiency of synthetic locomotive systems, allowing the user to run faster and increasing component processing speed. \
 	If overdosed, it will cause short-circuits that will inflict damage and reduce locomotive efficiency gains."
 	reagent_state = LIQUID
 	color = "#28b581"
@@ -1431,7 +1431,7 @@
 /datum/reagent/medicine/omnizine_diluted
 	name = "Diluted Omnizine"
 	id = "weak_omnizine"
-	description = "Slowly heals all damage types. A far weaker substitute than actual omnizine."
+	description = "A stereoisomer of omnizine. It has the same range of medical applications, but structural differences make it bind less effectively to therapeutic targets. It is, however, known to be far less addictive."
 	reagent_state = LIQUID
 	color = "#c173c4"
 	overdose_threshold = 30
@@ -1442,7 +1442,7 @@
 /datum/reagent/medicine/omnizine_diluted/godblood
 	name = "Godblood"
 	id = "godblood"
-	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
+	description = "A strange ichor that glows with mysterious power. It miracuously heals a wide range of injuries through unknown mechanisms, albeit slowly."
 	overdose_threshold = 150
 
 /datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
@@ -1520,7 +1520,7 @@
 /datum/reagent/medicine/bicaridine
 	name = "Bicaridine"
 	id = "bicaridine"
-	description = "Restores bruising. Overdose causes it instead."
+	description = "A plant-derived drug that promotes tissue repair and wound healing. High concentrations will cause harmful inflammation and lesions."
 	reagent_state = LIQUID
 	color = "#bb3805"
 	overdose_threshold = 30
@@ -1540,7 +1540,7 @@
 /datum/reagent/medicine/kelotane
 	name = "Kelotane"
 	id = "kelotane"
-	description = "Restores fire damage. Overdose causes it instead."
+	description = "A plant-derived drug that promotes the regrowth of tissues damaged or destroyed by burns. High concentrations are corrosive and will cause chemical burns."
 	reagent_state = LIQUID
 	color = "#dae907"
 	overdose_threshold = 30
@@ -1562,7 +1562,7 @@
 /datum/reagent/medicine/earthsblood
 	name = "Earthsblood"
 	id = "earthsblood"
-	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
+	description = "A strange ichor derived from <i>Ambrosia gaia</i>. It can treat an extremely broad range of injuries through unknown mechanisms, but is known to cause harmful changes in brain chemistry, which incidentally also inhibit violent impulses."
 	color = "#FFAF00"
 	overdose_threshold = 25
 	addiction_threshold = 50
@@ -1698,7 +1698,7 @@
 /datum/reagent/medicine/lavaland_extract
 	name = "Lavaland Extract"
 	id = "lavaland_extract"
-	description = "An extract of lavaland atmospheric and mineral elements. Heals the user in small doses, but is extremely toxic otherwise."
+	description = "An extremely potent drug that supercharges the body's natural healing mechanisms. It is highly toxic outside of its recommended dosage. Nanotrasen continues to strongly assert that it is purified from natural minerials and trace atmospheric gasses found on Lavaland. Any statements you make to the contrary during your gainful employment are grounds for demotion, reassignment, or termination at the discretion of Nanotrasen."
 	color = "#5a2323"
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 	harmless = FALSE
