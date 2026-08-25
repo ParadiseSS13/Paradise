@@ -275,6 +275,8 @@
 	if(!istype(appearance))
 		appearance = new
 	appearance.species = name
+	appearance.height = pick(GLOB.character_heights)
+	appearance.physique = pick(GLOB.character_physiques)
 
 	// Gender.
 	appearance.gender = use_gender ? use_gender : randomize_gender()

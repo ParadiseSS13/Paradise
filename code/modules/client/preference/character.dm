@@ -1718,6 +1718,8 @@
 	var/datum/species/S = GLOB.all_species[species]
 	character.set_species(S.type, delay_icon_update = TRUE)
 	character.change_gender(gender)
+	character.physique = physique
+	character.height = height
 
 	var/obj/item/organ/external/head/head_organ = character.get_organ("head")
 
@@ -1833,8 +1835,6 @@
 	character.dna.real_name = real_name
 	character.name = character.real_name
 
-	character.physique = physique
-	character.height = height
 	character.flavor_text = flavor_text
 	character.med_record = med_record
 	character.sec_record = sec_record

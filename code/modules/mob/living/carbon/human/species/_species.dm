@@ -1244,6 +1244,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(!istype(appearance))
 		appearance = new
 	appearance.species = name
+	appearance.height = pick(GLOB.character_heights)
+	appearance.physique = pick(GLOB.character_physiques)
 
 	// Gender.
 	appearance.gender = use_gender ? use_gender : randomize_gender()
