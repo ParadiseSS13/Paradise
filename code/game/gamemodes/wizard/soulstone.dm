@@ -11,6 +11,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "bluespace=4;materials=5"
+	new_attack_chain = TRUE
 
 	/// Should we show rays? Triggered by a held body
 	var/animate_rays = FALSE
@@ -88,169 +89,190 @@
 			animate(offset = 0, time = 10 SECONDS)
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
-/obj/item/soulstone/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
-	if(M == user)
-		return
+/obj/item/soulstone/interact_with_atom(mob/living/carbon/human/target, mob/living/user, list/modifiers)
+	if(target == user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(!ishuman(target))
+		return NONE
 
 	if(!can_use(user))
 		user.Weaken(10 SECONDS)
 		user.emote("scream")
 		to_chat(user, SPAN_USERDANGER("Your body is wracked with debilitating pain!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(spent)
 		to_chat(user, SPAN_WARNING("There is no power left in the shard."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(!ishuman(M)) //If target is not a human
-		return ..()
-
-	if(!M.mind)
+	if(!target.mind)
 		to_chat(user, SPAN_WARNING("This being has no soul!"))
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
-	if(jobban_isbanned(M, ROLE_CULTIST) || jobban_isbanned(M, ROLE_SYNDICATE))
+	if(jobban_isbanned(target, ROLE_CULTIST) || jobban_isbanned(target, ROLE_SYNDICATE))
 		to_chat(user, SPAN_WARNING("A mysterious force prevents you from trapping this being's soul."))
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
-	if(IS_CULTIST(user) && IS_CULTIST(M))
+	if(IS_CULTIST(user) && IS_CULTIST(target))
 		to_chat(user, SPAN_CULTLARGE("\"Come now, do not capture your fellow's soul.\""))
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
-	if((M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(M, TRAIT_XENOBIO_SPAWNED_HUMAN))
+	if((target.mind.offstation_role && target.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(target, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, SPAN_WARNING("This being's soul seems worthless. Not even the stone will absorb it."))
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 	if(optional)
-		if(!M.ckey)
+		if(!target.ckey)
 			to_chat(user, SPAN_WARNING("They have no soul!"))
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, SPAN_WARNING("You attempt to channel [M]'s soul into [src]. You must give the soul some time to react and stand still..."))
+		to_chat(user, SPAN_WARNING("You attempt to channel [target]'s soul into [src]. You must give the soul some time to react and stand still..."))
 
-		var/mob/player_mob = M
-		var/ghost = M.get_ghost()
-		if(ghost) // In case our player ghosted and we need to throw the alert at their ghost instead
+		var/mob/player_mob = target
+		var/ghost = target.get_ghost()
+		if(ghost) // In case our player ghosted and we need to throw the alert at their ghost instead.
 			player_mob = ghost
 		var/client/player_client = player_mob.client
 		to_chat(player_mob, SPAN_WARNING("[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond."))
 		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
-		var/atom/movable/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
+		var/atom/movable/screen/alert/notify_soulstone/stone_alert = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
 		if(player_client.prefs && player_client.prefs.UI_style)
-			A.icon = ui_style2icon(player_client.prefs.UI_style)
+			stone_alert.icon = ui_style2icon(player_client.prefs.UI_style)
 
-		// Pass the stuff to the alert itself
-		A.stone = src
-		A.stoner = user.real_name
+		// Pass the stuff to the alert itself.
+		stone_alert.stone = src
+		stone_alert.stoner = user.real_name
 
-		// Layer shenanigans to make the alert display the soulstone
+		// Layer shenanigans to make the alert display the soulstone.
 		var/old_layer = layer
 		var/old_plane = plane
 		layer = FLOAT_LAYER
 		plane = FLOAT_PLANE
-		A.overlays += src
+		stone_alert.overlays += src
 		layer = old_layer
 		plane = old_plane
 
-		// Give the victim 10 seconds to respond
+		// Give the victim 10 seconds to respond.
 		sleep(10 SECONDS)
 
 		if(!opt_in)
 			to_chat(user, SPAN_WARNING("The soul resists your attempts at capturing it!"))
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		opt_in = FALSE
 
-		if(spent)//checking one more time against shenanigans
-			return
+		if(spent) // Checking one more time against shenanigans.
+			return ITEM_INTERACT_COMPLETE
 
-	add_attack_logs(user, M, "Stolestone'd with [name]")
-	transfer_soul("VICTIM", M, user)
-	return
+	add_attack_logs(user, target, "Stolestone'd with [name]")
+	transfer_soul("VICTIM", target, user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/soulstone/attackby__legacy__attackchain(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
+/obj/item/soulstone/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/bible) && !IS_CULTIST(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		if(purified)
-			return
+			to_chat(user, SPAN_WARNING("[src] has already been exorcised!"))
+			return ITEM_INTERACT_COMPLETE
+
 		to_chat(user, SPAN_NOTICE("You begin to exorcise [src]."))
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
-		if(do_after(user, 40, target = src))
-			remove_filter("ray")
-			usability = TRUE
-			purified = TRUE
-			optional = TRUE
-			icon_state = "purified_soulstone"
-			icon_state_full = "purified_soulstone2"
-			for(var/mob/M in contents)
-				if(M.mind)
-					icon_state = "purified_soulstone2"
-					if(IS_CULTIST(M))
-						M.mind.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
-						to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] \
-									and the memories of your time as their servant with it.</span>")
-						to_chat(M, SPAN_DANGER("Assist [user], your saviour, and get vengeance on those who enslaved you!"))
-					else
-						to_chat(M, SPAN_DANGER("Your soulstone has been exorcised, and you are now bound to obey [user]."))
+		if(!do_after(user, 40, target = src))
+			return ITEM_INTERACT_COMPLETE
 
-			for(var/mob/living/simple_animal/shade/EX in src)
-				EX.holy = TRUE
-				EX.icon_state = "shade_angelic"
-			user.visible_message(SPAN_NOTICE("[user] purifies [src]!"), SPAN_NOTICE("You purify [src]!"))
+		remove_filter("ray")
+		usability = TRUE
+		purified = TRUE
+		optional = TRUE
+		icon_state = "purified_soulstone"
+		icon_state_full = "purified_soulstone2"
+		for(var/mob/M in contents)
+			if(M.mind)
+				icon_state = "purified_soulstone2"
+				if(IS_CULTIST(M))
+					M.mind.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
+					to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] \
+								and the memories of your time as their servant with it.</span>")
+					to_chat(M, SPAN_DANGER("Assist [user], your saviour, and get vengeance on those who enslaved you!"))
+				else
+					to_chat(M, SPAN_DANGER("Your soulstone has been exorcised, and you are now bound to obey [user]."))
 
-	else if(istype(O, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
+		for(var/mob/living/simple_animal/shade/EX in src)
+			EX.holy = TRUE
+			EX.icon_state = "shade_angelic"
+		user.visible_message(
+			SPAN_NOTICE("[user] purifies [src]!"),
+			SPAN_NOTICE("You purify [src]!")
+		)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(!purified)
-			return
-		to_chat(user, SPAN_NOTICE("You begin to cleanse [src] of holy magic."))
-		if(do_after(user, 40, target = src))
-			remove_filter("ray")
-			usability = FALSE
-			purified = FALSE
-			optional = FALSE
-			icon_state = "soulstone"
-			icon_state_full = "soulstone2"
-			for(var/mob/M in contents)
-				if(M.mind)
-					icon_state = "soulstone2"
-					M.mind.add_antag_datum(/datum/antagonist/cultist)
-					to_chat(M, SPAN_CULT("Your shard has been cleansed of holy magic, and you are now bound to the cult's will. Obey them and assist in their goals."))
-			for(var/mob/living/simple_animal/shade/EX in src)
-				EX.holy = FALSE
-				EX.icon_state = GET_CULT_DATA(shade_icon_state, "shade")
-			to_chat(user, SPAN_NOTICE("You have cleansed [src] of holy magic."))
-	else
-		..()
+			to_chat(user, SPAN_WARNING("[src] has not been corrupted by holy magic!"))
+			return ITEM_INTERACT_COMPLETE
 
-/obj/item/soulstone/attack_self__legacy__attackchain(mob/living/user)
+		to_chat(user, SPAN_NOTICE("You begin to cleanse [src] of holy magic."))
+		if(!do_after(user, 40, target = src))
+			return ITEM_INTERACT_COMPLETE
+
+		remove_filter("ray")
+		usability = FALSE
+		purified = FALSE
+		optional = FALSE
+		icon_state = "soulstone"
+		icon_state_full = "soulstone2"
+		for(var/mob/M in contents)
+			if(M.mind)
+				icon_state = "soulstone2"
+				M.mind.add_antag_datum(/datum/antagonist/cultist)
+				to_chat(M, SPAN_CULT("Your shard has been cleansed of holy magic, and you are now bound to the cult's will. Obey them and assist in their goals."))
+		for(var/mob/living/simple_animal/shade/EX in src)
+			EX.holy = FALSE
+			EX.icon_state = GET_CULT_DATA(shade_icon_state, "shade")
+		to_chat(user, SPAN_NOTICE("You have cleansed [src] of holy magic."))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/item/soulstone/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in contents
 	if(!in_range(src, user) || !S)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(can_use(user))
 		release_shades(user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, SPAN_NOTICE("The shard feels too tough to shatter, you are not holy enough to free its captive!"))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!do_after_once(user, 10 SECONDS, FALSE, src))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!S)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/datum/component/construct_held_body/body_holder = S.GetComponent(/datum/component/construct_held_body)
 	var/atom/movable/dropped_body = body_holder.held_body
 	body_holder.drop_body()
 	if(!dropped_body)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message("[user] shatters the soulstone apart! Releasing [dropped_body] from their prison!", "You shatter the soulstone holding [dropped_body], binding them free!", "You hear something shatter with a ghastly crack.")
+	user.visible_message(
+		SPAN_NOTICE("[user] shatters the soulstone apart! Releasing [dropped_body] from their prison!"),
+		SPAN_NOTICE("You shatter the soulstone holding [dropped_body], binding them free!"),
+		SPAN_NOTICE("You hear something shatter with a ghastly crack.")
+	)
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/soulstone/proc/release_shades(mob/user)
 	for(var/mob/living/simple_animal/shade/A in src)
