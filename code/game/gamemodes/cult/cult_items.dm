@@ -679,6 +679,7 @@
 	desc = "A small metal orb, crackling with the power of a barely-restrained curse. Crushing the orb will unleash its energy, targeting the vessel which attempts to save the station from its fate."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shuttlecurse"
+	new_attack_chain = TRUE
 	var/global/curselimit = 0
 
 /obj/item/shuttle_curse/activate_self(mob/living/user)
@@ -979,6 +980,7 @@
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	needs_permit = TRUE
+	new_attack_chain = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
 /obj/item/cult_spear/Initialize(mapload)
@@ -1036,8 +1038,11 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/cult_spear/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/cult_spear/after_attack(mob/living/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!istype(target))
+		return FINISH_ATTACK
+
 	var/datum/status_effect/cult_stun_mark/stun_mark = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
 	if(stun_mark && HAS_TRAIT(src, TRAIT_WIELDED))
 		stun_mark.trigger()
@@ -1147,7 +1152,7 @@
 	if(!istype(target, /obj/effect/rune/teleport))
 		to_chat(user, SPAN_WARNING("[src] only works on teleport runes."))
 		return FINISH_ATTACK
-	if(!proximity)
+	if(!proximity_flag)
 		to_chat(user, SPAN_WARNING("You are too far away from the teleport rune."))
 		return FINISH_ATTACK
 	var/obj/effect/rune/teleport/rune = target
