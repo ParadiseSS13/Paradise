@@ -96673,6 +96673,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/legal/courtroom)
+"thd" = (
+/obj/machinery/poolcontroller/invisible/nuclear,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "the" = (
 /obj/effect/turf_decal{
 	dir = 8
@@ -133603,7 +133607,7 @@ nAj
 vGY
 cCx
 vwt
-hHD
+thd
 hHD
 hWI
 kxw

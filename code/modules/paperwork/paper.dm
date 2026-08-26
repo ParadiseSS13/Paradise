@@ -551,7 +551,10 @@
 
 	if(!stamped)
 		stamped = new
-	stamped += S.type
+	if(istype(S, /obj/item/stamp/mod))
+		stamped += S.icon_state == "stamp-ok" ? /obj/item/stamp/granted : /obj/item/stamp/denied
+	else
+		stamped += S.type
 	stamp_overlays += stampoverlay
 	update_icon(UPDATE_OVERLAYS)
 

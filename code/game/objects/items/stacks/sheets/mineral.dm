@@ -141,6 +141,8 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 
 GLOBAL_LIST_INIT(gnesis_recipes, list (
 	new /datum/stack_recipe("flock chair", /obj/structure/chair/comfy/flock, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("flock table", /obj/structure/table/reinforced/flock, 2, time = 5.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("flock shelf", /obj/structure/shelf/flock, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("flock closet", /obj/structure/closet/flock, 2, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("flock grille", /obj/structure/grille/flock, 1, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("flock door", /obj/machinery/door/flock, 10, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
