@@ -4,6 +4,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 80, ACID = 70)
+	new_attack_chain = TRUE
 
 /obj/item/shield/proc/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
@@ -29,17 +30,20 @@
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("shoved", "bashed")
-	var/cooldown = 0 //shield bash cooldown. based on world.time
+	var/cooldown = 0 // Shield bash cooldown. Based on world.time.
 	var/list/allowed_bashers = list(/obj/item/melee/baton, /obj/item/kitchen/knife/combat)
 
-/obj/item/shield/riot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(is_type_in_list(W, allowed_bashers))
-		if(cooldown < world.time - 2.5 SECONDS)
-			user.visible_message(SPAN_WARNING("[user] bashes [src] with [W]!"))
-			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
-			cooldown = world.time
-	else
-		..()
+/obj/item/shield/riot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!is_type_in_list(used, allowed_bashers))
+		return ..()
+
+	if(cooldown >= world.time - 2.5 SECONDS)
+		return ITEM_INTERACT_COMPLETE
+
+	user.visible_message(SPAN_WARNING("[user] bashes [src] with [used]!"))
+	playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
+	cooldown = world.time
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/shield/riot/roman
 	name = "roman shield"
@@ -79,7 +83,7 @@
 /obj/item/shield/energy
 	name = "energy combat shield"
 	desc = "A shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere."
-	icon_state = "eshield0" // eshield1 for expanded
+	icon_state = "eshield0" // eshield1 for expanded.
 	force = 3
 	throwforce = 3
 	throw_speed = 3
@@ -103,7 +107,9 @@
 /obj/item/shield/energy/IsReflect()
 	return (active)
 
-/obj/item/shield/energy/attack_self__legacy__attackchain(mob/living/carbon/human/user)
+/obj/item/shield/energy/activate_self(mob/living/carbon/human/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	toggle(user, FALSE)
 
 /obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
@@ -154,9 +160,11 @@
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
-	return FALSE // by not calling the parent the hit_reaction signal is never sent
+	return FALSE // By not calling the parent the hit_reaction signal is never sent.
 
-/obj/item/shield/riot/tele/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/shield/riot/tele/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = 3
@@ -172,7 +180,7 @@
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
 		slot_flags = ITEM_SLOT_BACK
-		to_chat(user, SPAN_NOTICE("You extend \the [src]."))
+		to_chat(user, SPAN_NOTICE("You extend [src]."))
 	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 	if(ishuman(user))
@@ -180,4 +188,4 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	return
+	return ITEM_INTERACT_COMPLETE

@@ -295,9 +295,9 @@
 
 	return 2
 
-/mob/living/silicon/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
-		place_on_head(user.get_active_hand(), user)
+/mob/living/silicon/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
+		place_on_head(used, user)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

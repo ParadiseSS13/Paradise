@@ -47,8 +47,8 @@
 		return FINISH_ATTACK
 
 /obj/structure/unsealed_art/wrench_act(mob/living/user, obj/item/I)
-	. = ..()
 	default_unfasten_wrench(user, I, 3 SECONDS)
+	return TRUE
 
 /// This proc triggers when the art has been covered by sheets, going inert
 /obj/structure/unsealed_art/proc/on_cover()

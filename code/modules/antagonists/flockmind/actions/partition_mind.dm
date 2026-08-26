@@ -71,8 +71,7 @@
 	new_ghostbird.mind = new
 	new_ghostbird.mind.bind_to(new_ghostbird)
 	new_ghostbird.mind.set_original_mob(new_ghostbird)
-	new_ghostbird.mind.assigned_role = SPECIAL_ROLE_FLOCK
-	new_ghostbird.mind.special_role = SPECIAL_ROLE_FLOCK
+	new_ghostbird.mind.make_Flockmind()
 	var/list/messages = list()
 	messages += "<div style='font-size: 200%;text-align: center'>You are [gradient_text("The Divine Flock","#3cb5a3", "#124e43")]</div>"
 	messages += "<div style='text-align: center'>" + gradient_text("We have been partitioned by our overmind to further their goals of propogating The Signal. It is our task to assist in managing their drones to achieve their goals. Such is the will of the Monarch.", "#3cb5a3", "#1e806e") + "</div>"

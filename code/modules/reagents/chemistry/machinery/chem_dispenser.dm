@@ -109,7 +109,7 @@
 		. += SPAN_NOTICE("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
 		. += SPAN_NOTICE("The status display reads: <br>Recharging <b>[recharge_amount]</b> power units per interval.<br>Power efficiency increased by <b>[round((powerefficiency * 1000) - 100, 1)]%</b>.")
-
+		. += SPAN_NOTICE("You can <b>Alt-Click</b> to quickly remove [beaker].")
 
 /obj/machinery/chem_dispenser/process()
 	if(recharge_counter >= 4)
@@ -330,14 +330,26 @@
 	ui_interact(user)
 
 /obj/machinery/chem_dispenser/AltClick(mob/user)
-	if(!is_drink || !Adjacent(user))
+	if(!Adjacent(user))
+		return
+	if(beaker) // Getting the beaker out is probably gonna be a more common desire than turning it around.
+		beaker.forceMove(get_turf(src))
+		if(!issilicon(user) && (!user.get_active_hand() || !user.get_inactive_hand()))
+			user.put_in_hands(beaker)
+		beaker = null
+		update_icon()
+		add_fingerprint(user)
+		return
+
+	if(!is_drink)
 		return
 	if(user.incapacitated())
 		to_chat(user, SPAN_WARNING("You can't do that right now!"))
 		return
 	if(anchored)
-		to_chat(user, SPAN_WARNING("[src] is anchored to the floor!"))
+		to_chat(user, SPAN_WARNING("There's no beaker inside and you can't rotate it while it's anchored!"))
 		return
+
 	pixel_x = 0
 	pixel_y = 0
 	setDir(turn(dir, 90))

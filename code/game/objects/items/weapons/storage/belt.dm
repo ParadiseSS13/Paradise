@@ -1066,8 +1066,7 @@
 		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/grenade/turret/mining)
 
-/obj/item/storage/belt/mining/vendor/Initialize(mapload)
-	. = ..()
+/obj/item/storage/belt/mining/vendor/populate_contents()
 	new /obj/item/survivalcapsule(src)
 
 /obj/item/storage/belt/mining/alt

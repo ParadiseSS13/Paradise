@@ -214,9 +214,8 @@
 		var/image/I = new(U.icon, "loadedfood")
 		I.color = filling_color
 		U.overlays += I
-		var/obj/item/food/collected = new type
+		var/obj/item/food/collected = new type(U)
 		collected.name = name
-		collected.loc = U
 		collected.reagents.remove_any(collected.reagents.total_volume)
 		collected.trash = null
 		if(reagents.total_volume > bitesize)

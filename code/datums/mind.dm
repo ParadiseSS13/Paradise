@@ -134,7 +134,7 @@
 	if(isliving(current))
 		destroyed_body_json = json_encode(current.serialize())
 
-/datum/mind/proc/bind_to(mob/living/new_character)
+/datum/mind/proc/bind_to(mob/new_character)
 	current = new_character
 	new_character.mind = src
 	RegisterSignal(current, COMSIG_PARENT_QDELETING, PROC_REF(archive_deleted_body), override = TRUE)
@@ -147,11 +147,9 @@
 		current.mind = null
 	current = null
 
-/datum/mind/proc/transfer_to(mob/living/new_character)
+/datum/mind/proc/transfer_to(mob/new_character, transfer_actions_to_target = TRUE)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
-	var/mob/living/old_current = current
-	if(!istype(new_character))
-		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
+	var/mob/old_current = current
 	if(current)					//remove ourself from our old body's mind variable
 		if(isliving(current))
 			current.med_hud_set_status()
@@ -168,19 +166,20 @@
 
 	bind_to(new_character)
 
-	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
-		var/datum/antagonist/A = a
-		A.on_body_transfer(old_current, current)
-	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
-	transfer_actions(new_character)
-	if(martial_art)
-		for(var/datum/martial_art/MA in known_martial_arts)
-			MA.reset_combos(old_current) // Clear combos on old body
-			if(MA.temporary)
-				MA.remove(current)
-			else
-				MA.remove(current)
-				MA.teach(current)
+	if(transfer_actions_to_target)
+		for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+			var/datum/antagonist/A = a
+			A.on_body_transfer(old_current, current)
+		transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
+		transfer_actions(new_character)
+		if(martial_art)
+			for(var/datum/martial_art/MA in known_martial_arts)
+				MA.reset_combos(old_current) // Clear combos on old body
+				if(MA.temporary)
+					MA.remove(current)
+				else
+					MA.remove(current)
+					MA.teach(current)
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
@@ -1901,6 +1900,11 @@
 	if(!(src in SSticker.mode.blob_overminds))
 		SSticker.mode.blob_overminds += src
 		special_role = SPECIAL_ROLE_BLOB_OVERMIND
+
+/datum/mind/proc/make_Flockmind()
+	if(!(src in SSticker.mode.flockminds))
+		SSticker.mode.flockminds += src
+		special_role = SPECIAL_ROLE_FLOCK
 
 /datum/mind/proc/make_mind_flayer()
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
