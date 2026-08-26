@@ -489,7 +489,7 @@
 		return ..()
 
 	if(drawing_power)
-		to_chat(user, SPAN_WARNING("You're already charging."))
+		to_chat(user, SPAN_WARNING("You're already charging!"))
 		return ITEM_INTERACT_COMPLETE
 
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -502,12 +502,12 @@
 
 	if(apc.emagged || apc.stat & BROKEN)
 		do_sparks(3, 1, apc)
-		to_chat(human_user, SPAN_WARNING("The APC power currents surge erratically, damaging your chassis!"))
+		to_chat(human_user, SPAN_USERDANGER("The APC power currents surge erratically, damaging your chassis!"))
 		human_user.adjustFireLoss(10, 0)
 		return ITEM_INTERACT_COMPLETE
 
 	if(!(apc.cell && apc.cell.charge > 0))
-		to_chat(user, SPAN_WARNING("There is no charge to draw from that APC."))
+		to_chat(user, SPAN_WARNING("There is no charge to draw from that APC!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(human_user.nutrition >= NUTRITION_LEVEL_WELL_FED)
