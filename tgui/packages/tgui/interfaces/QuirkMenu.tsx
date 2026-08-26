@@ -29,7 +29,7 @@ export const QuirkMenu = () => {
 
   const canAfford = (q: Quirk) => q.cost <= 0 || balance >= q.cost;
 
-  // Track quirk conflicts
+  // Track quirk conflicts.
   const hasConflicts = (q: Quirk) => {
     for (const quirkName of selectedSet) {
       const selectedQuirk = data.all_quirks.filter((quirk) => quirk.name === quirkName)[0];
