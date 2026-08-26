@@ -1,14 +1,7 @@
 import { useBackend } from 'tgui/backend';
 import { BotControl, BotSettings } from 'tgui/interfaces/SimpleBot';
 import { Window } from 'tgui/layouts';
-import {
-  Button,
-  DmIcon,
-  Flex,
-  NoticeBox,
-  Section,
-  Stack,
-} from 'tgui-core/components';
+import { Button, DmIcon, Flex, NoticeBox, Section, Stack } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 
 type Data = {
@@ -85,12 +78,7 @@ function RepairBotMats(props) {
                 })
               }
             >
-              <DmIcon
-                icon={mat.material_icon}
-                icon_state={mat.material_icon_state}
-                height="48px"
-                width="48px"
-              />
+              <DmIcon icon={mat.material_icon} icon_state={mat.material_icon_state} height="48px" width="48px" />
             </Button>
           </Flex.Item>
         ))}

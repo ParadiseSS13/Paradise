@@ -1,11 +1,4 @@
-import {
-  Button,
-  DmIcon,
-  Flex,
-  ProgressBar,
-  Section,
-  Stack,
-} from 'tgui-core/components';
+import { Button, DmIcon, Flex, ProgressBar, Section, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -37,13 +30,7 @@ export const RepairbotResources = (props) => {
           textAlign="center"
           scrollable
           buttons={
-            <DmIcon
-              mt={-5.7}
-              icon={repairbot_icon}
-              icon_state={repairbot_icon_state}
-              height="96px"
-              width="96px"
-            />
+            <DmIcon mt={-5.7} icon={repairbot_icon} icon_state={repairbot_icon_state} height="96px" width="96px" />
           }
         >
           <Stack wrap>
@@ -72,11 +59,7 @@ export const RepairbotResources = (props) => {
                   <Flex.Item ml={1}>
                     <Stack vertical height="65px">
                       <Stack.Item width="100px" mt={1.5}>
-                        <ProgressBar
-                          value={stack.stack_amount}
-                          maxValue={stack.stack_maximum_amount}
-                          color="green"
-                        />
+                        <ProgressBar value={stack.stack_amount} maxValue={stack.stack_maximum_amount} color="green" />
                       </Stack.Item>
                       <Stack.Item>
                         <Button
