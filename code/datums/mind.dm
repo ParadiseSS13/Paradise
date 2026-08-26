@@ -1901,6 +1901,11 @@
 		SSticker.mode.blob_overminds += src
 		special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
+/datum/mind/proc/make_Flockmind()
+	if(!(src in SSticker.mode.flockminds))
+		SSticker.mode.flockminds += src
+		special_role = SPECIAL_ROLE_FLOCK
+
 /datum/mind/proc/make_mind_flayer()
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
 		add_antag_datum(/datum/antagonist/mindflayer)
