@@ -457,6 +457,10 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
+/obj/item/toy/figure/crew/dsquad{
+	pixel_x = -8;
+	pixel_y = 13
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "acN" = (
@@ -6383,12 +6387,13 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
 "aBq" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/toy/figure/crew/dsquad,
 /obj/machinery/alarm/directional/west,
+/obj/machinery/computer/message_monitor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "aBv" = (
@@ -11390,7 +11395,7 @@
 "aYb" = (
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel/white,
-/area/station/maintenance/aft)
+/area/station/medical/virology)
 "aYg" = (
 /obj/machinery/camera/autoname,
 /obj/machinery/economy/vending/plasmaresearch,
@@ -40437,9 +40442,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/xenobiology)
 "pSb" = (
-/obj/machinery/atmospherics/binary/pump{
-	name = "Port to Hot Loop";
-	dir = 4
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4;
+	name = "Hot Loop to Port"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/toxins/mixing)
