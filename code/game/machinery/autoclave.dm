@@ -195,7 +195,7 @@
 	return TRUE
 
 /obj/machinery/autoclave/proc/try_start()
-	if(work_timer_id || !occupant || panel_open)
+	if(work_timer_id || !occupant || panel_open || !has_power())
 		return FALSE
 
 	soundloop.start()

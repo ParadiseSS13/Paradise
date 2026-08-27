@@ -1,5 +1,5 @@
 // PSA To anyone who opens this:
-// Good fucking luck. You will need this: https://www.youtube.com/watch?v=W9GaIbECisQ
+// Good fucking luck. You will need this: https://www.youtube.com/watch?v=QHRuTYtSbJQ
 
 
 /datum/character_save
