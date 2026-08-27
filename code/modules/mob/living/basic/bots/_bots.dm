@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	faction = list("neutral", "silicon", "turret")
 	light_range = 3
 	light_power = 0.6
-	speed = 3
+	speed = 0
 
 	/// Access needed to use this robot
 	var/req_one_access = list(ACCESS_ROBOTICS)

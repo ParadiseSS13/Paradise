@@ -54,6 +54,7 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/ai_retaliate)
 
 /mob/living/basic/bot/secbot/Destroy()
 	QDEL_NULL(baton)
@@ -69,10 +70,10 @@
 	update_bot_mode(new_mode = BOT_IDLE)
 
 /mob/living/basic/bot/secbot/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)// shocks only make him angry
-	if(speed >= initial(speed) + 3)
+	if(speed >= initial(speed) - 3)
 		return
-	speed += 3
-	addtimer(VARSET_CALLBACK(src, speed, speed - 3), 6 SECONDS)
+	speed -= 3
+	addtimer(VARSET_CALLBACK(src, speed, speed + 3), 6 SECONDS)
 	playsound(src, 'sound/machines/defib_zap.ogg', 50)
 	visible_message(SPAN_WARNING("[src] shakes and speeds up!"))
 
