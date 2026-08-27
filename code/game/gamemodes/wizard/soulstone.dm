@@ -91,9 +91,12 @@
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 /obj/item/soulstone/interact_with_atom(mob/living/carbon/human/target, mob/living/user, list/modifiers)
 	if(target == user)
+		to_chat(user, SPAN_DANGER("You feel it would be very unwise to use [src] on yourself..."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!ishuman(target))
+		if(ismob(target))
+			to_chat(user, SPAN_WARNING("[src] doesn't seem to react to [target]! It cannot be used to trap [target.p_their()] soul."))
 		return NONE
 
 	if(!can_use(user))
@@ -124,7 +127,7 @@
 
 	if(optional)
 		if(!target.ckey)
-			to_chat(user, SPAN_WARNING("They have no soul!"))
+			to_chat(user, SPAN_WARNING("[target.p_they(TRUE)] have no soul!"))
 			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, SPAN_WARNING("You attempt to channel [target]'s soul into [src]. You must give the soul some time to react and stand still..."))
@@ -193,8 +196,7 @@
 				icon_state = "purified_soulstone2"
 				if(IS_CULTIST(M))
 					M.mind.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
-					to_chat(M, "<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] \
-								and the memories of your time as their servant with it.</span>")
+					to_chat(M, SPAN_USERDANGER("An unfamiliar white light flashes through your mind, cleansing the taint of [GET_CULT_DATA(entity_title1, "Nar'Sie")] and the memories of your time as their servant with it.")
 					to_chat(M, SPAN_DANGER("Assist [user], your saviour, and get vengeance on those who enslaved you!"))
 				else
 					to_chat(M, SPAN_DANGER("Your soulstone has been exorcised, and you are now bound to obey [user]."))
