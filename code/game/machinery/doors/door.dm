@@ -65,7 +65,7 @@
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("<b>Alt-Click</b> to knock on it.") // i don't know a better way to handle this. sorry.
+	. += SPAN_NOTICE("<b>Alt-Click</b> to knock on it.")
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
