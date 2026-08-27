@@ -262,9 +262,11 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(src, 'sound/magic/hereticknock.ogg', 50, 1)
-	user.visible_message("[user] knocks on [src].", \
-						"You knock on [src].", \
-						"You hear a knocking sound.")
+	user.visible_message(
+		SPAN_NOTICE("[user] knocks on [src]."),
+		SPAN_NOTICE("You knock on [src]."),
+		SPAN_HEAR("You hear a knocking sound.")
+	)
 	add_fingerprint(user)
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
