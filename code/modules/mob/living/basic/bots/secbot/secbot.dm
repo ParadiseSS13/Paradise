@@ -54,7 +54,6 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/ai_retaliate)
 
 /mob/living/basic/bot/secbot/Destroy()
 	QDEL_NULL(baton)
