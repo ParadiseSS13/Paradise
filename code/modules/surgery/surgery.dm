@@ -148,6 +148,11 @@
 		return null
 
 /datum/surgery/proc/complete(mob/living/carbon/human/target)
+	if(ishuman(target))
+		var/datum/status_effect/incapacitating/sleeping/S = target.IsSleeping()
+		if(target.stat == UNCONSCIOUS && !(S?.voluntary) && target == target && target.client)
+			target.client.give_award(/datum/award/achievement/jobs/sandman, target)
+
 	target.surgeries -= src
 	qdel(src)
 

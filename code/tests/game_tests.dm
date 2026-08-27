@@ -9,6 +9,7 @@
 #endif
 
 #ifdef GAME_TESTS
+#include "test_achievements.dm"
 #include "atmos\test_ventcrawl.dm"
 #include "attack_chain\test_attack_chain_borgs.dm"
 #include "attack_chain\test_attack_chain_cult_dagger.dm"

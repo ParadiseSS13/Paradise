@@ -48,4 +48,6 @@
 				if(!target.mind.isblessed)
 					target.mind.isblessed = TRUE
 					user.mind.num_blessed++
+					if(user.client)
+						user.client.give_award(/datum/award/achievement/jobs/bless, user)
 

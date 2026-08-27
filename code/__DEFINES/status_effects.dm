@@ -9,6 +9,19 @@
 
 #define STATUS_EFFECT_REFRESH 3 // if it only allows one, and new instances just instead refresh the timer
 
+
+#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
+
+//several flags for the Necropolis curse status effect
+///makes the edges of the target's screen obscured
+#define CURSE_BLINDING (1<<0)
+
+///causes gradual damage
+#define CURSE_WASTING (1<<1)
+
+///hands reach out from the sides of the screen, doing damage and stunning if they hit the target
+#define CURSE_GRASPING (1<<2)
+
 ///////////
 // BUFFS //
 ///////////
@@ -151,17 +164,6 @@
 #define STATUS_EFFECT_TEMPORAL_SLASH /datum/status_effect/temporal_slash
 
 #define STATUS_EFFECT_TEMPORAL_SLASH_FINISHER /datum/status_effect/temporal_slash_finisher
-
-
-//#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
-//#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
-//#define CURSE_SPAWNING	2 //spawns creatures that attack the target only
-//#define CURSE_WASTING	4 //causes gradual damage
-//#define CURSE_GRASPING	8 //hands reach out from the sides of the screen, doing damage and stunning if they hit the target
-
-//#define STATUS_EFFECT_KINDLE /datum/status_effect/kindle //A knockdown reduced by 1 second for every 3 points of damage the target takes.
-
-//#define STATUS_EFFECT_ICHORIAL_STAIN /datum/status_effect/ichorial_stain //Prevents a servant from being revived by vitality matrices for one minute.
 
 /// Whether a moth's wings are burnt
 #define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings

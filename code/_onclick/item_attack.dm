@@ -193,6 +193,8 @@
 		var/mob/living/carbon/human/human_target = target
 		if(human_target.check_shields(src, force, "[user]'s [name]", MELEE_ATTACK))
 			return FALSE
+		if(force && target == user && user.client)
+			user.client.give_award(/datum/award/achievement/misc/selfouch, user)
 	add_fingerprint(user)
 
 	return TRUE

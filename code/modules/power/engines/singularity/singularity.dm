@@ -62,6 +62,12 @@ GLOBAL_VAR_INIT(global_singulo_id, 1)
 			break
 	all_possible_areas = findUnrestrictedEventArea()
 
+/obj/singularity/examine(mob/user, infix, suffix)
+	. = ..()
+	if(admin_spawned || !isliving(user))
+		return
+	user.client.give_award(/datum/award/achievement/jobs/singulo_sight, user)
+
 /obj/singularity/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)

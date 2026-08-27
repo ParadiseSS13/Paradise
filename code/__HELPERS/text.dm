@@ -782,3 +782,6 @@
 	text = replacetext(text, "\proper", "")
 	text = replacetext(text, "\improper", "")
 	return text
+
+/proc/format_table_name(table as text)
+	return table

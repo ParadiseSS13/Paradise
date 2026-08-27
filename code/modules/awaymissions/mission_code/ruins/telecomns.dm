@@ -180,6 +180,9 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 			new /obj/item/ai_upgrade/surveillance_upgrade(our_death_turf)
 		else // 10% chance
 			new /obj/item/ai_upgrade/malf_upgrade(our_death_turf)
+	for(var/mob/living/M in range(7, src))
+		if(M.client && M.stat != DEAD)
+			M.client.give_award(/datum/award/achievement/boss/dvorak, M)
 	our_death_turf = null
 	return ..()
 

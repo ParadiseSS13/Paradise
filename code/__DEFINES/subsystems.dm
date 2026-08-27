@@ -59,6 +59,8 @@
 #define INIT_ORDER_INPUT 21
 #define INIT_ORDER_SOUNDS 20
 #define INIT_ORDER_INSTRUMENTS 19
+//#warn ARGHH WHAT ORDER
+#define INIT_ORDER_ACHIEVEMENTS 19
 #define INIT_ORDER_RESEARCH 18 // SoonTM
 #define INIT_ORDER_VIS 17
 #define INIT_ORDER_STATION 16 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
@@ -105,6 +107,7 @@
 #define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_RESEARCH		10 // SoonTM
 #define FIRE_PRIORITY_AMBIENCE		10
+#define FIRE_PRIORITY_ACHIEVEMENTS  10
 #define FIRE_PRIORITY_VIS			10
 #define FIRE_PRIORITY_GARBAGE		15
 #define FIRE_PRIORITY_AIR			20
@@ -168,3 +171,5 @@
 #define SS_CPUDISPLAY_LOW 1
 #define SS_CPUDISPLAY_DEFAULT 2
 #define SS_CPUDISPLAY_HIGH 3
+
+#define SPEEDRUN_ROUND_TIME (720 SECONDS)

@@ -1978,3 +1978,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 // Wrappers for BYOND default procs which can't directly be called by call().
 /proc/_step(ref, dir)
 	step(ref, dir)
+
+/// Abstraction over using mob.client to just check if there's a connected player.
+#define HAS_CONNECTED_PLAYER(mob) (mob.client)
