@@ -1132,11 +1132,13 @@
 	w_class = WEIGHT_CLASS_SMALL
 	new_attack_chain = TRUE
 
-/obj/item/portal_amulet/after_attack(atom/target, mob/living/carbon/user, proximity_flag, click_parameters)
-	. = ..()
+/obj/item/portal_amulet/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/effect/rune))
+		return ..()
+
 	if(!IS_CULTIST(user))
 		if(!iscarbon(user))
-			return FINISH_ATTACK
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, SPAN_CULTLARGE("\"So, you want to explore space?\""))
 		to_chat(user, SPAN_USERDANGER("Space flashes around you as you are moved somewhere else!"))
 		user.Confused(20 SECONDS)
@@ -1144,26 +1146,21 @@
 		user.EyeBlind(20 SECONDS)
 		do_teleport(user, get_turf(user), 5, sound_in = 'sound/magic/cult_spell.ogg')
 		qdel(src)
-		return FINISH_ATTACK
-
-	if(!istype(target, /obj/effect/rune))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(!istype(target, /obj/effect/rune/teleport))
 		to_chat(user, SPAN_WARNING("[src] only works on teleport runes."))
-		return FINISH_ATTACK
-	if(!proximity_flag)
-		to_chat(user, SPAN_WARNING("You are too far away from the teleport rune."))
-		return FINISH_ATTACK
+		return ITEM_INTERACT_COMPLETE
+
 	var/obj/effect/rune/teleport/rune = target
 	attempt_portal(rune, user)
-	return FINISH_ATTACK
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/portal_amulet/proc/attempt_portal(obj/effect/rune/teleport/R, mob/user)
 	var/list/potential_runes = list()
 	var/list/teleport_names = list()
 	var/list/duplicate_rune_count = list()
-	var/turf/T = get_turf(src) //used to tell the other rune where we came from
+	var/turf/T = get_turf(src) // Used to tell the other rune where we came from.
 
 	for(var/I in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/target = I
@@ -1186,8 +1183,8 @@
 		to_chat(user, SPAN_CULTITALIC("You are not in the right dimension!"))
 		return
 
-	var/input_rune_key = tgui_input_list(user, "Choose a rune to make a portal to", "Rune to make a portal to", potential_runes) //we know what key they picked
-	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to make a portal to", "Rune to make a portal to", potential_runes) // We know what key they picked.
+	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] // What rune does that key correspond to?
 	if(QDELETED(R) || QDELETED(actual_selected_rune) || !Adjacent(user) || user.incapacitated())
 		return
 
@@ -1241,7 +1238,7 @@ GLOBAL_LIST_EMPTY(proteon_portals)
 	light_range = 3
 	light_color = LIGHT_COLOR_RED
 	new_attack_chain = TRUE
-	/// A nice blood colour matrix
+	/// A nice blood colour matrix.
 	var/list/blood_color_matrix = list(1.25,-0.1,-0.1,0, 0,0.15,0,0, 0,0,0.15,0, 0,0,0,1, 0,0,0,0)
 
 
