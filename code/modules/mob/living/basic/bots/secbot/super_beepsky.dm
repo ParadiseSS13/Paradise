@@ -8,7 +8,6 @@
 	ai_controller = /datum/ai_controller/basic_controller/bot/secbot/super_beepsky
 	baton_type = /obj/item/melee/energy/sword/saber
 	a_intent = INTENT_HARM
-	speed = 0 // he's a fast fucker
 	var/spin_icon = "griefsky-c"
 	/// Damage to deal
 	var/dmg = 30
