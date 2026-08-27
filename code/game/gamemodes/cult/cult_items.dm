@@ -1138,7 +1138,7 @@
 		if(!iscarbon(user))
 			return FINISH_ATTACK
 		to_chat(user, SPAN_CULTLARGE("\"So, you want to explore space?\""))
-		to_chat(user, SPAN_WARNING("Space flashes around you as you are moved somewhere else!"))
+		to_chat(user, SPAN_USERDANGER("Space flashes around you as you are moved somewhere else!"))
 		user.Confused(20 SECONDS)
 		user.flash_eyes(override_blindness_check = TRUE)
 		user.EyeBlind(20 SECONDS)
