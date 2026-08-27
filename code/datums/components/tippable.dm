@@ -62,7 +62,7 @@
 	if(is_tipped && user.a_intent == INTENT_HELP)
 		INVOKE_ASYNC(src, PROC_REF(try_untip), source, user)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
-	else if ((!is_tipped) && user.a_intent == INTENT_DISARM)
+	else if((!is_tipped) && user.a_intent == INTENT_DISARM)
 		INVOKE_ASYNC(src, PROC_REF(try_tip), source, user)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 

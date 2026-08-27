@@ -111,8 +111,8 @@
 		stunner.melee_attack_chain(src, C)
 	else
 		baton.melee_attack_chain(src, C)
-
-	if((C.IsWeakened() || istype(src, /mob/living/basic/bot/secbot/honkbot)) && !arresting)
+	var/mob/living/basic/bot/secbot/honkbot/honker = src
+	if((C.IsWeakened() || istype(honker)) && !arresting)
 		arresting = TRUE
 		post_stun(C)
 		arresting = FALSE
