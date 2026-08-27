@@ -102,7 +102,7 @@
 	last_use_time = world.time
 	add_fingerprint(user)
 
-	// Figure out our real function
+	// Figure out our real function.
 	switch(function_id)
 		if(STRANGEOBJECT_FUNCTION_TELEPORT)
 			to_chat(user, SPAN_NOTICE("[src] begins to vibrate!"))
