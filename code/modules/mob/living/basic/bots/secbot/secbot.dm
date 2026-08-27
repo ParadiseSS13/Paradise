@@ -19,8 +19,6 @@
 	path_image_color = COLOR_RED
 	possessed_message = "You are a securitron! Guard the station to the best of your ability!"
 
-	a_intent = INTENT_HELP
-
 	ai_controller = /datum/ai_controller/basic_controller/bot/secbot
 
 	/// The type of baton the secbot will use
