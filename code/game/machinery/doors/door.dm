@@ -261,7 +261,7 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
+	playsound(src, 'sound/magic/hereticknock.ogg', 50, 1)
 	user.visible_message("[user] knocks on [src].", \
 						"You knock on [src].", \
 						"You hear a knocking sound.")
