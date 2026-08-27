@@ -401,6 +401,16 @@
 	build_path = /obj/item/circuitboard/gibber
 	category = list ("Misc. Machinery")
 
+/datum/design/papershredder
+	name = "Machine Design (Paper Shredder)"
+	desc = "The circuit board for a paper shredder."
+	id = "papershredder"
+	req_tech = list("programming" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/papershredder
+	category = list ("Misc. Machinery")
+
 /datum/design/smartfridge
 	name = "Machine Design (Smartfridge Board)"
 	desc = "The circuit board for a smartfridge."

@@ -601,6 +601,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
 
+obj/item/circuitboard/papershredder
+	board_name = "Paper Shredder"
+	icon_state = "service"
+	build_path = /obj/machinery/papershredder
+	board_type = "machine"
+	origin_tech = "programming=3; engineering=1"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 1,
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stack/cable_coil = 5)
+
 /obj/item/circuitboard/tesla_coil
 	board_name = "Tesla Coil"
 	icon_state = "engineering"
