@@ -334,7 +334,33 @@ SUBSYSTEM_DEF(shuttle)
 
 	QDEL_LIST_CONTENTS(remove_images)
 
+/datum/controller/subsystem/shuttle/proc/prepare_mail_delivery()
+	. = list()
+
+	var/list/narrowed_contents = GLOB.mail_crate_possible_contents.Copy()
+	for(var/envelope_type in narrowed_contents)
+		var/found = FALSE
+		for(var/datum/mind/recipient in SSticker.minds)
+			var/turf/recipient_turf = get_turf(recipient.current)
+			if(recipient.offstation_role || !ishuman(recipient.current) || is_admin_level(recipient_turf.z))
+				continue
+			if(recipient.assigned_role in narrowed_contents[envelope_type])
+				found = TRUE
+				break
+		if(!found)
+			narrowed_contents -= envelope_type
+
+	// Scale number of letters with number of crew.
+	var/envelope_count = min(length(narrowed_contents), (ceil(length(GLOB.crew_list) / 20) + rand(1, 5)))
+	for(var/i in 1 to envelope_count)
+		. += pick(narrowed_contents)
+
 /datum/controller/subsystem/shuttle/proc/mail_delivery()
+	var/list/envelope_types = prepare_mail_delivery()
+	if(!length(envelope_types))
+		log_debug("no recipients found for mail delivery, cancelling mail crate")
+		return
+
 	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
 		if(console.department != "Cargo Bay")
 			continue
@@ -349,7 +375,7 @@ SUBSYSTEM_DEF(shuttle)
 		stack_trace("There were no available turfs on the Supply Shuttle to spawn a mail crate in!")
 		return
 	var/turf/spawn_location = pick(supply_shuttle_turfs)
-	new /obj/structure/closet/crate/mail(spawn_location)
+	new /obj/structure/closet/crate/mail(spawn_location, envelope_types)
 
 /// Loads a shuttle from the template into a cordon. Returns its docking port if successful.
 /datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/template)
