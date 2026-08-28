@@ -212,7 +212,7 @@
 
 		valid_targets += possible_target
 
-	// See what kind of target we're missing
+	// See what kind of target we're missing.
 	var/has_head = 0
 	var/has_sec = 0
 	var/has_dep = 0
@@ -224,7 +224,7 @@
 		if(M.job_datum.job_department_flags & heretic_mind.job_datum.job_department_flags)
 			has_dep = 1
 
-	// Now, ensure we have our targets
+	// Now, ensure we have our targets:
 	// - Two are completely random
 	// - One from your department
 	// - One from security
@@ -238,7 +238,7 @@
 				reroll_target += head_mind
 				break
 
-	// Second target, any security
+	// Second target, any security.
 	if(!has_sec)
 		for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
 			if(sec_mind.assigned_role in GLOB.active_security_positions)
@@ -254,7 +254,7 @@
 				reroll_target += department_mind
 				break
 
-	// Now grab completely random targets until we'll full
+	// Now grab completely random targets until we'll full.
 	if(!reroll_target)
 		reroll_target = pick_n_take(valid_targets)
 
