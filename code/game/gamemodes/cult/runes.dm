@@ -19,7 +19,7 @@ To draw a rune, use a ritual dagger.
 	desc = "An odd collection of symbols drawn in what seems to be blood."
 	/// Description that cultists see
 	var/cultist_desc = "a basic rune with no function." //This is shown to cultists who examine the rune in order to determine its true purpose.
-	/// Description that acolytes see. Defaults to cult desc unless stated
+	/// Description that acolytes see. Defaults to cult description unless stated.
 	var/acolyte_desc
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
@@ -491,20 +491,20 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
 		if(!IS_CULTIST(M) || (M.mind && IS_SACRIFICE_TARGET(M.mind)))
-			if(isconstruct(M)) // No offering constructs please
+			if(isconstruct(M)) // No offering constructs, please.
 				continue
 			offer_targets += M
 
-	// Offering a head/brain
+	// Offering a head/brain.
 	for(var/obj/item/organ/O in T)
 		var/mob/living/brain/b_mob
-		if(istype(O, /obj/item/organ/external/head)) // Offering a head
+		if(istype(O, /obj/item/organ/external/head)) // Offering a head.
 			var/obj/item/organ/external/head/H = O
 			for(var/obj/item/organ/internal/brain/brain in H.contents)
 				b_mob = brain.brainmob
 				brain.forceMove(T)
 
-		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain
+		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain.
 			var/obj/item/organ/internal/brain/brain = O
 			b_mob = brain.brainmob
 
@@ -524,11 +524,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 	rune_in_use = FALSE
 
 /obj/effect/rune/sacrifice/proc/do_sacrifice(mob/living/offering, list/invokers)
-	var/mob/living/user = invokers[1] //the first invoker is always the user
+	var/mob/living/user = invokers[1] // The first invoker is always the user.
 	var/valid = FALSE
 
 	var/datum/antagonist/heretic/ascended_heretic = IS_HERETIC(offering)
-	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/basic/heretic_summon/star_gazer)) // No sliping an ascended heretic on a sacrifice rune to sacrifice them, lmao
+	if(ascended_heretic?.ascended && offering.stat != DEAD || istype(offering, /mob/living/basic/heretic_summon/star_gazer)) // No slipping an ascended heretic on a sacrifice rune to sacrifice them, lmao.
 		for(var/M in invokers)
 			to_chat(M, SPAN_CULTITALIC("[offering] is too powerful to be sacrificed alive!"))
 		fail_invoke()
@@ -568,8 +568,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE, SOUND_RANGE_SET(10))
 	if(((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind))
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
-		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
-		stone.transfer_soul("FORCE", offering, user) // If it cannot be added
+		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during `transfer_soul()`.
+		stone.transfer_soul("FORCE", offering, user) // If it cannot be added.
 		stone.invisibility = 0
 		var/put_in_hands = user.put_in_any_hand_if_possible(stone)
 		if(put_in_hands)

@@ -345,8 +345,7 @@
 
 		if(IS_ACOLYTE(M))
 			M.mind.remove_antag_datum(/datum/antagonist/acolyte)
-
-			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+			holder.remove_reagent(id, volume)
 			M.SetJitter(0)
 			return
 

@@ -440,13 +440,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	SIGNAL_HANDLER  // COMSIG_OBJECTIVE_TARGET_FOUND
 	if(!new_target)
 		return
-	// Notify the first available protect objective that we have a target
+	// Notify the first available protect objective that we have a target.
 	for(var/datum/objective/protect/protect_obj in GLOB.all_objectives)
 		if(!protect_obj.target && protect_obj.owner && protect_obj.holder)
 			var/datum/mind/assassination_target = protect_obj.try_find_assassination_target()
 			if(assassination_target && !protect_obj.is_invalid_target(assassination_target))
 				protect_obj.target = assassination_target
-				// Cancel the fallback timer since we now have a target
+				// Cancel the fallback timer since we now have a target.
 				if(protect_obj.fallback_timer_id)
 					deltimer(protect_obj.fallback_timer_id)
 					protect_obj.fallback_timer_id = null

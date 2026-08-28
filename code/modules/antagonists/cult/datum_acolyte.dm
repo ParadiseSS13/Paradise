@@ -10,7 +10,7 @@ RESTRICT_TYPE(/datum/antagonist/acolyte)
 	clown_text_span_class = "cultitalic"
 	wiki_page_name = "Cultist"
 	boss_title = "Dark Emination"
-	/// Number of times they can use a revive rune to heal
+	/// Number of times the acolyte can use a revive rune to heal.
 	var/revives_left = 3
 
 /datum/antagonist/acolyte/on_gain()
@@ -28,7 +28,7 @@ RESTRICT_TYPE(/datum/antagonist/acolyte)
 	if(!owner.current)
 		return ..()
 	owner.current.faction -= "cult"
-	owner.current.create_log(CONVERSION_LOG, "Deconverted from an acolyte") // yes, this is its own log, instead of the default MISC_LOG
+	owner.current.create_log(CONVERSION_LOG, "Deconverted from an acolyte") // Yes, this is its own log, instead of the default MISC_LOG.
 	for(var/datum/action/innate/cult/C in owner.current.actions)
 		qdel(C)
 
@@ -101,7 +101,7 @@ RESTRICT_TYPE(/datum/antagonist/acolyte)
 	var/where = H.equip_in_one_of_slots(new item_path(H), slots)
 	if(where)
 		to_chat(H, SPAN_DANGER("You have \a [initial(item_path.name)] in your [where]."))
-		if(H.s_active) // Update whatever inventory they have open
+		if(H.s_active) // Update whatever inventory they have open.
 			H.s_active.orient2hud(H)
 			H.s_active.show_to(H)
 		return TRUE
