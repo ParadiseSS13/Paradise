@@ -71,9 +71,11 @@
 	/// How many times have we bitten a valid mob (for upgrades).
 	var/mousebites = 0
 	/// How many bites are required per available upgrade.
-	var/mousebites_per_upgrade = 10
+	var/mousebites_per_upgrade = 8
+	/// How many additional mousebites required we require on every levelup
+	var/mousebite_increment = 1
 	/// How much health do we gain/restore per upgrade.
-	var/health_increase = 25
+	var/health_increase = 20
 	/// How much do we resize per level gained.
 	var/resize_factor = 1.1
 
@@ -91,7 +93,7 @@
 	var/radiation_amount = 100
 
 	/// How much speed is increased (bigger negative = faster).
-	var/speed_per_level = -0.5
+	var/speed_per_level = -0.4
 
 	/// How much damage is increased ever level.
 	var/damage_per_level = 3
@@ -177,6 +179,8 @@
 	radiation_amount += 100
 	if(radiation_level < GAMMA_RAD)
 		radiation_level = round_down(1 + (radiation_level / 2)) // One level up every two levels.
+	if(!(radiation_level % 2))
+		to_chat(src, SPAN_NOTICE("Your radiation becomes more lethal!"))
 
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_speed()
 	speed_upgrades++
@@ -209,6 +213,7 @@
 /mob/living/basic/mouse/irradiated_mouse/proc/on_upgrade()
 	maxHealth += health_increase
 	health += health_increase
+	mousebites_per_upgrade += mousebite_increment
 	update_health_hud()
 	var/matrix/mouse_transform = matrix(transform)
 	mouse_transform.Scale(resize_factor)
