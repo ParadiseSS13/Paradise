@@ -42,7 +42,7 @@
 			For IPCs, this covers all body parts, making them look human (except monitor-shaped heads). \
 			For all others, it covers prosthetic limbs."
 	cost = 4
-	item_to_give = /obj/item/epidermal_applicator
+	item_to_give = /obj/item/epidermal_applicator/aftermarket
 
 /datum/quirk/lifelike/apply_quirk_effects(mob/living/carbon/human/target, character)
 	. = ..(target, character)

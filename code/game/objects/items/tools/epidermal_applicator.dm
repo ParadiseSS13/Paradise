@@ -207,3 +207,9 @@
 			to_chat(target, SPAN_NOTICE("You feel a thin layer of synthetic skin form over your [affected.name]."))
 
 	applying = FALSE
+
+
+/obj/item/epidermal_applicator/aftermarket
+	name = "aftermarket applicator"
+	desc = "A Zeng-Hu Pharmaceuticals epidermal applicator. This one looks a bit cheaply made."
+	origin_tech = "biotech=1;materials=2;engineering=1"
