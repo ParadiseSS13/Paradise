@@ -475,7 +475,6 @@
 		to_chat(owner, SPAN_NOTICE("Your [src] feels functional again."))
 	crit_fail = FALSE
 
-
 /obj/item/apc_powercord
 	name = "power cable"
 	desc = "Insert into a nearby APC to draw power from it."
@@ -483,31 +482,40 @@
 	icon_state = "wire1"
 	flags = NOBLUDGEON
 	var/drawing_power = FALSE
+	new_attack_chain = TRUE
 
-/obj/item/apc_powercord/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag, click_parameters)
-	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
+/obj/item/apc_powercord/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user))
 		return ..()
+
 	if(drawing_power)
-		to_chat(user, SPAN_WARNING("You're already charging."))
-		return
+		to_chat(user, SPAN_WARNING("You're already charging!"))
+		return ITEM_INTERACT_COMPLETE
+
 	user.changeNext_move(CLICK_CD_MELEE)
-	var/obj/machinery/power/apc/A = target
-	var/mob/living/carbon/human/H = user
-	var/datum/organ/battery/power_source = H.get_int_organ_datum(ORGAN_DATUM_BATTERY)
-	if(istype(power_source))
-		if(A.emagged || A.stat & BROKEN)
-			do_sparks(3, 1, A)
-			to_chat(H, SPAN_WARNING("The APC power currents surge erratically, damaging your chassis!"))
-			H.adjustFireLoss(10,0)
-		else if(A.cell && A.cell.charge > 0)
-			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
-				to_chat(user, SPAN_WARNING("You are already fully charged!"))
-			else
-				INVOKE_ASYNC(src, PROC_REF(powerdraw_loop), A, H)
-		else
-			to_chat(user, SPAN_WARNING("There is no charge to draw from that APC."))
-	else
+	var/obj/machinery/power/apc/apc = target
+	var/mob/living/carbon/human/human_user = user
+	var/datum/organ/battery/power_source = human_user.get_int_organ_datum(ORGAN_DATUM_BATTERY)
+	if(!istype(power_source))
 		to_chat(user, SPAN_WARNING("You lack a power source in which to store charge!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(apc.emagged || apc.stat & BROKEN)
+		do_sparks(3, 1, apc)
+		to_chat(human_user, SPAN_USERDANGER("The APC power currents surge erratically, damaging your chassis!"))
+		human_user.adjustFireLoss(10, 0)
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(apc.cell && apc.cell.charge > 0))
+		to_chat(user, SPAN_WARNING("There is no charge to draw from that APC!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(human_user.nutrition >= NUTRITION_LEVEL_WELL_FED)
+		to_chat(user, SPAN_WARNING("You are already fully charged!"))
+		return ITEM_INTERACT_COMPLETE
+
+	INVOKE_ASYNC(src, PROC_REF(powerdraw_loop), apc, human_user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message(SPAN_NOTICE("[H] inserts a power connector into \the [A]."), SPAN_NOTICE("You begin to draw power from \the [A]."))
