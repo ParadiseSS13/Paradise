@@ -300,6 +300,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	mind.current.update_stat()
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
+	if(istype(mind.current.loc, /obj/item/mmi/robotic_brain))
+		var/obj/item/mmi/robotic_brain/robobrain = mind.current.loc
+		if(robobrain.searching)
+			visible_message(SPAN_NOTICE("[src] chimes quietly."))
+			robobrain.searching = FALSE
+			robobrain.become_occupied(robobrain.occupied_icon)
 
 	return TRUE
 
