@@ -73978,6 +73978,13 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/science/robotics)
+"qwl" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/east)
 "qwo" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -77597,13 +77604,6 @@
 /obj/structure/chair/sofa/left,
 /turf/simulated/floor/wood,
 /area/station/procedure/trainer_office)
-"rWK" = (
-/obj/machinery/firealarm/directional/north,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/port/east)
 "rWS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -115239,7 +115239,7 @@ bdz
 gOk
 biF
 dmv
-bkg
+qwl
 wrU
 wrU
 wrU
@@ -115751,7 +115751,7 @@ bbP
 beg
 daT
 kot
-rWK
+bkg
 dmx
 bkg
 gvY
