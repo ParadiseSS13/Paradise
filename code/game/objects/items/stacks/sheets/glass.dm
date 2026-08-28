@@ -5,6 +5,7 @@
  *	4. REINFORCED PLASMA GLASS
  *	5. TITANIUM GLASS
  *	6. PLASTITANIUM GLASS
+ *	7. GNESIS GLASS
 
  Todo: Create a unified construct_window(sheet, user, created_window, full_window)
 
@@ -24,6 +25,13 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
 	new /datum/stack_recipe("glass ashtray", /obj/item/ashtray/glass, 1, time = 1 SECONDS),
 	new /datum/stack_recipe("dropper", /obj/item/reagent_containers/dropper, 1, time = 1 SECONDS),
+))
+
+GLOBAL_LIST_INIT(gnesis_glass_recipes, list (
+	new /datum/stack_recipe("bright shard", /obj/item/shard/gnesis_glass, time = 0 SECONDS),
+	new /datum/stack_recipe/window("directional gnesis window", /obj/structure/window/flock, time = 1 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe/window("fulltile gnesis window", /obj/structure/window/flock/fulltile, 2, time = 2 SECONDS, on_floor = TRUE, window_checks = TRUE),
+	new /datum/stack_recipe("gnesis cache", /obj/item/reagent_containers/glass/gnesis, 5, time = 2 SECONDS),
 ))
 
 /obj/item/stack/sheet/glass
@@ -65,20 +73,21 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	. = ..()
 	recipes = GLOB.glass_recipes
 
-/obj/item/stack/sheet/glass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/CC = W
+/obj/item/stack/sheet/glass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/CC = used
 		if(CC.get_amount() < 5)
-			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
-			return
+			to_chat(user, SPAN_WARNING("[used] doesn't have enough cable! You need 5 lengths."))
+			return ITEM_INTERACT_COMPLETE
+
 		CC.use(5)
 		to_chat(user, SPAN_NOTICE("You attach wire to [src]."))
 		new /obj/item/stack/light_w(user.loc)
 		use(1)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/V  = W
+	if(istype(used, /obj/item/stack/rods))
+		var/obj/item/stack/rods/V  = used
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
 		V.use(1)
@@ -88,7 +97,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		G.use(1)
 		if(!G && !RG && replace)
 			user.put_in_hands(RG)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -186,21 +195,21 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	. = ..()
 	recipes = GLOB.pglass_recipes
 
-/obj/item/stack/sheet/plasmaglass/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/V  = W
-		var/obj/item/stack/sheet/plasmarglass/RG = new (user.loc)
-		RG.add_fingerprint(user)
-		V.use(1)
-		var/obj/item/stack/sheet/glass/G = src
-		src = null
-		var/replace = (user.get_inactive_hand()==G)
-		G.use(1)
-		if(!G && !RG && replace)
-			user.put_in_hands(RG)
-	else
+/obj/item/stack/sheet/plasmaglass/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/rods))
 		return ..()
+
+	var/obj/item/stack/rods/V  = used
+	var/obj/item/stack/sheet/plasmarglass/RG = new (user.loc)
+	RG.add_fingerprint(user)
+	V.use(1)
+	var/obj/item/stack/sheet/glass/G = src
+	src = null
+	var/replace = (user.get_inactive_hand() == G)
+	G.use(1)
+	if(!G && !RG && replace)
+		user.put_in_hands(RG)
+	return ITEM_INTERACT_COMPLETE
 
 //////////////////////////////
 // MARK: REINFORCED PLASMA GLASS
@@ -311,3 +320,21 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	. = ..()
 	recipes = GLOB.plastitaniumglass_recipes
 
+//////////////////////////////
+// MARK: GNESIS GLASS
+//////////////////////////////
+/obj/item/stack/sheet/gnesis_glass
+	name = "transculent wafers"
+	singular_name = "transculent wafer"
+	desc = "A rare, complex crystalline matrix with a lazily shifting internal structure. The layers are arranged to let light through."
+	icon_state = "gnesisglass"
+	materials = list(MAT_GNESIS_GLASS = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/gnesis_glass
+	armor = list(MELEE = 20, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 50, FIRE = 100, ACID = 20)
+	resistance_flags = FIRE_PROOF
+	point_value = 5
+	dynamic_icon_state = FALSE
+
+/obj/item/stack/sheet/gnesis_glass/Initialize(mapload, new_amount, merge)
+	. = ..()
+	recipes = GLOB.gnesis_glass_recipes

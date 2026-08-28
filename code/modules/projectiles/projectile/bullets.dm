@@ -52,6 +52,15 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
+/obj/projectile/bullet/huntsman32
+	damage = 20
+
+/obj/projectile/bullet/huntsman32/on_hit(atom/target, blocked = 0)
+	if(..(target, blocked) && isliving(target))
+		var/mob/living/L = target
+		if(L.mob_size >= MOB_SIZE_LARGE)
+			L.apply_damage(80, BRUTE)
+
 /obj/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX
@@ -108,6 +117,30 @@
 	if(..(target, blocked))
 		var/mob/living/M = target
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
+
+/obj/projectile/bullet/dueling
+	damage = 10
+
+/obj/projectile/bullet/dueling/on_hit(atom/target, blocked = 0)
+	if(..(target, blocked))
+		var/target_valid = FALSE
+		var/source_valid = FALSE
+		var/mob/living/M = target
+		for(var/datum/status_effect/S in M.status_effects)
+			if(istype(S, STATUS_EFFECT_DUELING))
+				target_valid = TRUE
+		if(!target_valid)
+			return
+		var/mob/living/F = firer
+		for(var/datum/status_effect/S in F.status_effects)
+			if(istype(S, STATUS_EFFECT_DUELING))
+				source_valid = TRUE
+		if(!source_valid)
+			return
+		M.apply_damage(90, BRUTE, def_zone)
+		M.AdjustKnockDown(5 SECONDS)
+		M.remove_status_effect(STATUS_EFFECT_DUELING)
+		F.remove_status_effect(STATUS_EFFECT_DUELING)
 
 /obj/projectile/bullet/midbullet
 	damage = 20

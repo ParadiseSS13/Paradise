@@ -718,3 +718,128 @@
 	name = "runed stone chair"
 	desc = "A cold stone throne engraved with indecipherable symbols. Studying them causes your head to pound."
 	buildstacktype = null
+
+/obj/structure/chair/comfy/beach
+	name = "beach chair"
+	desc = "Perfect for relaxing in the sun by the waves."
+	icon_state = "beach_chair"
+	buckle_lying = TRUE
+	buildstacktype = null
+	item_chair = /obj/item/chair/beach
+	var/stripes_color = null
+
+/obj/structure/chair/comfy/beach/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/chair/comfy/beach/update_overlays()
+	. = ..()
+	if(stripes_color)
+		var/image/icon_overlay = image(icon, "beach_chair_stripes")
+		icon_overlay.color = stripes_color
+		. += icon_overlay
+
+/obj/structure/chair/comfy/beach/blue
+	name = "blue beach chair"
+	item_chair = /obj/item/chair/beach/blue
+	stripes_color = COLOR_BABY_BLUE
+
+/obj/structure/chair/comfy/beach/red
+	name = "red beach chair"
+	item_chair = /obj/item/chair/beach/red
+	stripes_color = COLOR_SOFT_RED
+
+/obj/structure/chair/comfy/beach/green
+	name = "green beach chair"
+	item_chair = /obj/item/chair/beach/green
+	stripes_color = COLOR_PALE_GREEN_GRAY
+
+/obj/structure/chair/comfy/beach/fuchsia
+	name = "fuchsia beach chair"
+	item_chair = /obj/item/chair/beach/fuchsia
+	stripes_color = COLOR_PALE_PURPLE_GRAY
+
+/obj/structure/chair/comfy/beach/yellow
+	name = "yellow beach chair"
+	item_chair = /obj/item/chair/beach/yellow
+	stripes_color = COLOR_AMBER
+
+/obj/structure/chair/comfy/beach/post_buckle_mob(mob/living/sitter)
+	. = ..()
+	if(dir == EAST)
+		sitter.set_lying_angle(270)
+	else if(dir == WEST)
+		sitter.set_lying_angle(90)
+	else
+		sitter.set_lying_angle(0)
+		sitter.pixel_y = 0
+
+/obj/structure/chair/comfy/beach/rotate()
+	. = ..()
+	for(var/mob/living/sitter in buckled_mobs)
+		if(dir == EAST)
+			sitter.set_lying_angle(270)
+		else if(dir == WEST)
+			sitter.set_lying_angle(90)
+		else
+			sitter.set_lying_angle(0)
+			sitter.pixel_y = 0
+
+/obj/structure/chair/comfy/beach/deconstruct()
+	// If we don't have the NOCONSTRUCT flag
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/wood(loc, 2)
+		new /obj/item/stack/sheet/cloth(loc, 1)
+	..()
+
+/obj/item/chair/beach
+	name = "folded beach chair"
+	desc = "A beach chair folded up for easy carrying."
+	icon_state = "beach_chair_folded"
+	inhand_icon_state = "beach_chair"
+	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_WOOD = 2000, MAT_CLOTH = 1000)
+	origin_type = /obj/structure/chair/comfy/beach
+	force = 4
+	throwforce = 8
+	hitsound = 'sound/items/beach_chair_hit_1.ogg'
+	break_chance = 10
+	force_unwielded = 4
+	force_wielded = 6
+	var/stripes_color = null
+
+/obj/item/chair/beach/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/chair/beach/update_overlays()
+	. = ..()
+	if(stripes_color)
+		var/image/icon_overlay = image(icon, "beach_chair_folded_stripes")
+		icon_overlay.color = stripes_color
+		. += icon_overlay
+
+/obj/item/chair/beach/blue
+	name = "folded blue beach chair"
+	origin_type = /obj/structure/chair/comfy/beach/blue
+	stripes_color = COLOR_BABY_BLUE
+
+/obj/item/chair/beach/red
+	name = "folded red beach chair"
+	origin_type = /obj/structure/chair/comfy/beach/red
+	stripes_color = COLOR_SOFT_RED
+
+/obj/item/chair/beach/green
+	name = "folded green beach chair"
+	origin_type = /obj/structure/chair/comfy/beach/green
+	stripes_color = COLOR_PALE_GREEN_GRAY
+
+/obj/item/chair/beach/fuchsia
+	name = "folded fuchsia beach chair"
+	origin_type = /obj/structure/chair/comfy/beach/fuchsia
+	stripes_color = COLOR_PALE_PURPLE_GRAY
+
+/obj/item/chair/beach/yellow
+	name = "folded yellow beach chair"
+	origin_type = /obj/structure/chair/comfy/beach/yellow
+	stripes_color = COLOR_AMBER

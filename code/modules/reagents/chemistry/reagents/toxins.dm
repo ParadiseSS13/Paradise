@@ -45,6 +45,7 @@
 	reagent_state = LIQUID
 	color = "#0b8f70" // rgb: 11, 143, 112
 	taste_description = "slimes"
+	yuck_description = "grime in your gears"
 	taste_mult = 1.3
 
 /datum/reagent/slimejelly/reaction_mob(mob/living/M, method, volume, show_message)
@@ -136,6 +137,7 @@
 	reagent_state = LIQUID
 	color = "#484848" // rgb: 72, 72, 72
 	taste_description = "sweet"
+	yuck_description = "heaviness"
 
 /datum/reagent/lead/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -175,6 +177,7 @@
 	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "acid"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -190,6 +193,7 @@
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
 	taste_description = "the colour blue and regret"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
@@ -209,6 +213,7 @@
 	metabolization_rate = 0.3
 	taste_mult = 0.9
 	taste_description = "slime"
+	yuck_description = "grime in your gears"
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -236,6 +241,7 @@
 	reagent_state = LIQUID
 	color = "#7DFF00"
 	taste_description = "slime"
+	yuck_description = "grime in your gears"
 
 /datum/reagent/stable_mutagen/on_new(data)
 	..()
@@ -271,6 +277,7 @@
 	color = "#B8B8C0" // rgb: 184, 184, 192
 	taste_mult = 0
 	taste_description = "the inside of a reactor"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE)
@@ -306,6 +313,7 @@
 	color = "#00FF32"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = SPAN_USERDANGER("ACID")
+	taste_flag = ORGANIC | SYNTHETIC
 	var/acidpwr = 10 //the amount of protection removed from the armour
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_EASY
@@ -347,6 +355,16 @@
 		var/obj/item/organ/external/affecting = H.get_organ("head")
 		if(istype(affecting))
 			affecting.disfigure()
+
+	var/was_skin_removed = FALSE
+	for(var/obj/item/organ/external/limb in H.bodyparts)
+		if(limb.has_synthetic_skin)
+			was_skin_removed = TRUE
+			limb.remove_synthetic_skin(TRUE)
+
+	if(was_skin_removed)
+		H.visible_message("<span class='warning'>The synthetic skin on [H]'s body bubbles and melts away.</span>", \
+						"<span class='warning'>The synthetic skin on your body bubbles and melts away.</span>")
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()
@@ -420,6 +438,7 @@
 	color = "#0080ff"
 	reagent_state = LIQUID
 	taste_description = "vinegar"
+	yuck_description = "cosmetic component damage"
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -443,6 +462,43 @@
 		H.emote("scream")
 	else
 		H.adjustBruteLoss(min(5, volume * 0.25))
+
+/datum/reagent/phosacid
+	name = "Phosphoric acid"
+	id = "phosacid"
+	description = "A clear and odourless moderately strong acid. It's a pretty good rust remover."
+	color = "#0080ff"
+	taste_description = "sour"
+	yuck_description = "maintenance"
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/phosacid/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
+	if(method != REAGENT_TOUCH)
+		to_chat(H, SPAN_WARNING("The transparent acidic substance stings[volume < 15 ? " you, but isn't concentrated enough to harm you" : null]!"))
+		if(volume >= 15)
+			H.adjustBruteLoss(2)
+			H.emote("scream")
+		return
+
+	if(H.wear_mask || H.head)
+		return
+
+	if(volume >= 25 && prob(75))
+		var/obj/item/organ/external/affecting = H.get_organ("head")
+		if(istype(affecting))
+			affecting.disfigure()
+		H.adjustBruteLoss(5)
+		H.adjustFireLoss(15)
+		H.emote("scream")
+	else
+		H.adjustBruteLoss(min(5, volume * 0.25))
+
+/datum/reagent/phosacid/reaction_turf(turf/T)
+	if(!HAS_TRAIT(T, TRAIT_RUSTY))
+		return
+	T.RemoveElement(/datum/element/rust)
+	T.RemoveElement(/datum/element/rust/heretic)
 
 /datum/reagent/carpotoxin
 	name = "Carpotoxin"
@@ -498,6 +554,7 @@
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer."
 	taste_description = "beer"
+	yuck_description = "the assembly line"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -620,6 +677,7 @@
 	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "bitterness"
+	yuck_description = "the assembly line"
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -638,6 +696,7 @@
 	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "apples"
+	yuck_description = "the assembly line"
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -897,6 +956,49 @@
 			M.Paralyse(50 SECONDS)
 	return ..() | update_flags
 
+/datum/reagent/frigidi
+	name = "Frigidi"
+	id = "frigidi"
+	description = "Budget industrial coolant appropriate for large spacecraft and detrimental to smaller machines. May cause microbattery damage."
+	reagent_state = LIQUID
+	color = "#444E90"
+	metabolization_rate = 0.8
+	penetrates_skin = TRUE
+	process_flags = ORGANIC | SYNTHETIC
+	taste_mult = 0
+
+/datum/reagent/frigidi/on_mob_life(mob/living/M)
+	if(!ismachineperson(M))
+		var/update_flags = STATUS_UPDATE_NONE | M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		return ..() | update_flags
+	var/mob/living/carbon/human/target = M
+	switch(current_cycle)
+		if(1 to 5)
+			if(M.nutrition > NUTRITION_LEVEL_HUNGRY)
+				M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_HUNGRY
+				target.handle_nutrition_alerts()
+		if(6 to 9)
+			M.AdjustEyeBlurry(10 SECONDS)
+			M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_STARVING
+			target.handle_nutrition_alerts()
+		if(10)
+			M.emote("faint")
+			M.Weaken(10 SECONDS)
+		if(11 to INFINITY)
+			M.Paralyse(50 SECONDS)
+			if(prob(10))
+				var/obj/item/organ/internal/cell/microbattery = M.get_organ_slot("heart")
+				if(istype(microbattery))
+					microbattery.receive_damage(2, TRUE)
+	var/update_flags = STATUS_UPDATE_NONE
+	return ..() | update_flags
+
+/datum/reagent/frigidi/on_mob_delete(mob/living/M)
+	if(ismachineperson(M))
+		var/mob/living/carbon/human/target = M
+		M.nutrition_hud_override = NUTRITION_HUD_OVERRIDE_NONE
+		target.handle_nutrition_alerts()
+
 /datum/reagent/sulfonal
 	name = "Sulfonal"
 	id = "sulfonal"
@@ -944,6 +1046,7 @@
 	color = "#D1DED1"
 	metabolization_rate = 0.2
 	taste_description = "battery acid"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1160,6 +1263,10 @@
 		if(M.mob_biotypes & MOB_BUG)
 			var/damage = min(round(0.4 * volume, 0.1), 10)
 			M.adjustToxLoss(damage)
+		if(istype(M, /mob/living/basic/megafauna/kidan_princess))
+			var/mob/living/basic/megafauna/kidan_princess/princess = M
+			if(!princess.enraged)
+				princess.enrage()
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/damage = 1
@@ -1248,6 +1355,7 @@
 	reagent_state = LIQUID
 	color = "#00FD00"
 	taste_description = "slime"
+	yuck_description = "bright grime in your gears"
 
 /datum/reagent/glowing_slurry/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //same as mutagen
 	if(!M || !M.dna)
@@ -1280,6 +1388,7 @@
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = SPAN_WARNING("ANTS OH GOD")
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/ants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1310,6 +1419,7 @@
 
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "electricity"
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/teslium/on_mob_life(mob/living/M)
 	shock_timer++
@@ -1364,6 +1474,7 @@
 	description = "Glass, crushed into a coarse powder made up of razor-sharp shards."
 	color = "#87c6dac8"
 	taste_description = SPAN_USERDANGER("Broken glass!")
+	taste_flag = ORGANIC | SYNTHETIC
 
 /datum/reagent/glass_shards/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

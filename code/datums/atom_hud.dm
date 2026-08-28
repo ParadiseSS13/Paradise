@@ -32,6 +32,7 @@ GLOBAL_LIST_INIT(huds, alist(
 	DATA_HUD_HERETIC = new/datum/atom_hud/data/heretic(),
 	ANTAG_HUD_HERETIC = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_HERETIC_BEAST = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_UPLIFTED_TEAMLESS = new/datum/atom_hud/antag/hidden/secondary(),
 	))
 
 /datum/atom_hud

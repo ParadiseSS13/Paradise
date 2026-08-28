@@ -18,7 +18,11 @@
 /datum/martial_art/adminfu/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D)
-	D.Stun(50 SECONDS)
+	D.Weaken(50 SECONDS, TRUE)
+	D.visible_message(
+		SPAN_WARNING("[A] pinches [D] in a flurry of places, rendering them helpless!"),
+		SPAN_USERDANGER("[A] pinches you at lightning speed! Your body gives out!")
+	)
 	return TRUE
 
 /datum/martial_art/adminfu/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)

@@ -293,7 +293,8 @@
 		/obj/item/grenade/barrier,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/soap/ds
+		/obj/item/soap/ds,
+		/obj/item/food/rations/liquidfood
 	)
 
 	cybernetic_implants = list(
@@ -318,7 +319,8 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/disk/nuclear/unrestricted
+		/obj/item/disk/nuclear/unrestricted,
+		/obj/item/food/rations/liquidfood
 	)
 
 /datum/outfit/admin/deathsquad_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -602,7 +604,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/ammo_box/a762 = 4
+		/obj/item/ammo_box/a762 = 4,
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/soldier
@@ -616,9 +619,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/lighter = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_robust = 1,
-		/obj/item/ammo_box/magazine/apsm10mm = 2
+		/obj/item/ammo_box/magazine/apsm10mm = 2,
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/officer
@@ -657,8 +659,7 @@
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/gun/projectile/automatic/pistol/type_230 = 1,
 		/obj/item/ammo_box/magazine/apsm10mm = 2,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo/engraved = 1
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/marine/captain
@@ -671,8 +672,7 @@
 		/obj/item/storage/box/soviet = 1,
 		/obj/item/gun/projectile/revolver/mateba = 1,
 		/obj/item/ammo_box/a357 = 2,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/lighter/zippo/engraved = 1
+		/obj/item/storage/soviet_ration = 1
 	)
 
 /datum/outfit/admin/soviet/admiral
@@ -724,15 +724,13 @@
 	I.assignment = "Trans-Solar Federation Representative"
 	H.sec_hud_set_ID()
 
-
 /datum/outfit/admin/solgov
 	name = "TSF Marine"
 	uniform = /obj/item/clothing/under/solgov
-	suit = /obj/item/clothing/suit/armor/bulletproof
+	suit = /obj/item/clothing/suit/armor/federation/marine
 	back = /obj/item/storage/backpack/ert/solgov
-	belt = /obj/item/storage/belt/military/assault/marines/full
-	head = /obj/item/clothing/head/soft/solgov/marines
-	glasses = /obj/item/clothing/glasses/night
+	belt = /obj/item/storage/belt/federation_webbing/marine
+	head = /obj/item/clothing/head/helmet/federation/marine
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt/solgov
@@ -740,14 +738,15 @@
 	l_hand = /obj/item/gun/projectile/automatic/shotgun/bulldog
 	suit_store = /obj/item/gun/projectile/automatic/pistol/m1911
 	r_pocket = /obj/item/flashlight/seclite
-	pda = /obj/item/pda
+	pda = /obj/item/pda/heads/ert/tsf
 	box = /obj/item/storage/box/responseteam
 	backpack_contents = list(
+		/obj/item/clothing/head/soft/solgov/marines = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/storage/fancy/crayons/marine = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+		/obj/item/storage/fancy/crayons/marine = 1,
+		/obj/item/storage/mre = 1
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
@@ -760,7 +759,6 @@
 	)
 
 	var/is_solgov_lieutenant = FALSE
-
 
 /datum/outfit/admin/solgov/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -783,19 +781,20 @@
 /datum/outfit/admin/solgov/lieutenant
 	name = "TSF Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command
-	head = /obj/item/clothing/head/beret/solgov
+	suit = /obj/item/clothing/suit/armor/federation/marine/officer
+	head = /obj/item/clothing/head/helmet/federation/marine/officer
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	l_hand = null
-	belt = /obj/item/melee/baton/loaded
+	belt = /obj/item/storage/belt/federation_webbing/marine_officer
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	backpack_contents = list(
+		/obj/item/clothing/head/beret/solgov = 1,
 		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/storage/mre = 1
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -804,13 +803,14 @@
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	head = null
+	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/explorer/marines
-	belt = /obj/item/storage/belt/military/assault/marines/elite/full
+	belt = /obj/item/storage/belt/federation_webbing/marsoc
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
 		/obj/item/whetstone = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
+		/obj/item/storage/mre = 1
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
@@ -825,15 +825,14 @@
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = null
-	belt = /obj/item/melee/baton/loaded
+	belt = /obj/item/storage/belt/federation_webbing/marsoc_officer
 	l_hand = null
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/ammo_box/magazine/m50 = 3
+		/obj/item/storage/mre = 1
 	)
 	is_solgov_lieutenant = TRUE
 
@@ -1555,7 +1554,7 @@
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/viper
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/jackboots
+	shoes = /obj/item/clothing/shoes/combat
 	head = null // will end up being the bandana
 	mask = /obj/item/clothing/mask/bandana/black // will end up being a cigar
 	l_ear = /obj/item/radio/headset/ert/alt/solgov
@@ -1569,7 +1568,8 @@
 		/obj/item/storage/box/smoke_grenades = 1,
 		/obj/item/lighter/zippo = 1,
 		/obj/item/clothing/mask/cigarette/cigar = 3,
-		/obj/item/clothing/mask/gas/explorer = 1
+		/obj/item/clothing/mask/gas/explorer = 1,
+		/obj/item/storage/mre = 1
 	)
 
 	bio_chips = list(/obj/item/bio_chip/stealth)

@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm
 	name = "air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/wallbumps/alarm.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
 	idle_power_consumption = 4
@@ -122,6 +122,11 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
 	req_one_access = list()
+
+/// General space ruin air alarms
+/obj/machinery/alarm/ruin
+	report_danger_level = FALSE
+	remote_control = FALSE
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
@@ -195,7 +200,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				"water vapor"      = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
-				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
+				"temperature"    = new/datum/tlv(T0C, T0C+5, T0C+80, T0C+100), // K
 			)
 		if(AALARM_PRESET_DISABLED)
 			no_cycle_after = TRUE
@@ -232,7 +237,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 		buildstage = AIR_ALARM_FRAME
 		wiresexposed = TRUE
-		set_pixel_offsets_from_dir(24, -24, 24, -24)
+		set_pixel_offsets_from_dir(32, -32, 32, -32)
 
 	GLOB.air_alarms += src
 	alarm_area.air_alarms += src
@@ -706,6 +711,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	data["alarmActivated"] = alarmActivated || danger_level == ATMOS_ALARM_DANGER
 	data["thresholds"] = generate_thresholds_menu()
 
+	var/area/area_loc = get_area(src)
+	data["fireAlarmActivated"] = area_loc.fire
+
 	// Locked when:
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
@@ -864,6 +872,9 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		to_chat(user, SPAN_WARNING("AI control for \the [src] interface has been disabled."))
 		return UI_CLOSE
 
+	if(rcon_setting == RCON_NO && !Adjacent(user) && !issilicon(user))
+		return UI_DISABLED
+
 	. = shorted ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
@@ -891,6 +902,12 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				if(RCON_YES)
 					rcon_setting = RCON_YES
 
+		if("set_fire_alarm")
+			var/area/area_loc = get_area(src)
+			if(area_loc.fire)
+				area_loc.firereset(src)
+			else
+				area_loc.firealert(src)
 
 		if("command")
 			if(!is_authenticated(usr, active_ui))
@@ -1221,12 +1238,13 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	req_access = null
 	req_one_access = null
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 24, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 24, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 24, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 24, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 24, 24)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/all_access, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/ruin, 32, 32)
 
 /*
 AIR ALARM CIRCUIT

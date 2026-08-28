@@ -39,23 +39,32 @@
 
 /obj/machinery/plantgenes/Initialize(mapload)
 	. = ..()
+	initialize_parts()
+	RefreshParts()
+
+/obj/machinery/plantgenes/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	RefreshParts()
 
-/obj/machinery/plantgenes/seedvault/Initialize(mapload)
-	. = ..()
+/obj/machinery/plantgenes/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/plantgenes(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/triphasic(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+
+/obj/machinery/plantgenes/seedvault/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes/vault(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
 	for(var/atom/movable/A in contents)
@@ -592,10 +601,13 @@
 	QDEL_NULL(gene)
 	return ..()
 
-/obj/item/disk/plantgene/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	..()
-	if(is_pen(W))
-		rename_interactive(user, W)
+/obj/item/disk/plantgene/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	if(is_pen(used))
+		rename_interactive(user, used)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/disk/plantgene/update_name()
 	. = ..()
@@ -653,11 +665,15 @@
 
 	icon_state = "datadisk_hydro"
 
-/obj/item/disk/plantgene/attack_self__legacy__attackchain(mob/user)
+/obj/item/disk/plantgene/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+		return ITEM_INTERACT_COMPLETE
 	read_only = !read_only
 	to_chat(user, SPAN_NOTICE("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/disk/plantgene/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -685,7 +701,8 @@
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
-
+	if(!user) // Prevents a runtime when examine is called. Yes, regular examine().
+		user = usr
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src))
 		. += SPAN_DANGER("Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.")
 		. += SPAN_USERDANGER("Now stop staring at this worthless fake and FIND THE REAL ONE!")

@@ -820,6 +820,13 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/suit/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = list(MELEE = 45, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) // Still good. Not OP.
+		return
+	armor = list(MELEE = 115, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
 	desc = "The skull of a dragon."
@@ -830,6 +837,13 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/head/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = list(MELEE = 45, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) // Still good. Not OP.
+		return
+	armor = list(MELEE = 115, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/suit/hooded/goliath
 	name = "goliath cloak"

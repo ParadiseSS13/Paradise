@@ -153,6 +153,21 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation/no_teleport)
+"dh" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms Satellite";
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
 "dn" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 4
@@ -366,18 +381,6 @@
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/tele)
-"gJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
-/obj/machinery/door/airlock/hatch{
-	name = "Telecoms Satellite"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "gR" = (
@@ -831,6 +834,24 @@
 	},
 /turf/simulated/floor/plasteel/full,
 /area/ruin/space/telecomms/foyer)
+"pp" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms Satellite";
+	dir = 4
+	},
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "dvorak";
+	id_tag = "dvorak"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/foyer)
 "pE" = (
 /obj/effect/spawner/random/cobweb/left/frequent,
 /obj/effect/spawner/random/cobweb/right/frequent,
@@ -865,6 +886,22 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
+"qm" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecoms Lounge";
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/door/poddoor{
+	id = "dvorak";
+	id_tag = "dvorak"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/computer)
 "qn" = (
 /obj/machinery/porta_turret/ai_turret/disable{
 	check_synth = 1;
@@ -1343,6 +1380,17 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
+"wQ" = (
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/firedoor{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Core Access";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/telecomms/chamber)
 "wW" = (
 /obj/machinery/light_switch{
 	pixel_y = 28
@@ -1408,19 +1456,6 @@
 "xG" = (
 /obj/structure/chair/office/dark{
 	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/computer)
-"xL" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
-/obj/machinery/door/airlock/hatch{
-	name = "Telecoms Lounge"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	id = "dvorak";
-	id_tag = "dvorak"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
@@ -2511,21 +2546,6 @@
 "PQ" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomms/tele)
-"PU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
-/obj/machinery/door/airlock/hatch{
-	name = "Telecoms Satellite"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id = "dvorak";
-	id_tag = "dvorak"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/foyer)
 "PZ" = (
 /turf/template_noop,
 /area/space/no_teleport)
@@ -3097,14 +3117,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
-"Zj" = (
-/obj/structure/fans/tiny/invisible,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Core Access"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/telecomms/chamber)
 "Zl" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -6200,10 +6212,10 @@ zG
 Dr
 ph
 UE
-PU
+pp
 Sn
 cH
-gJ
+dh
 IE
 IE
 vZ
@@ -6510,7 +6522,7 @@ ux
 ux
 Zu
 ME
-Zj
+wQ
 EM
 il
 Af
@@ -6914,7 +6926,7 @@ Pl
 Pl
 Kc
 RB
-xL
+qm
 YF
 nL
 nL

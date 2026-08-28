@@ -84,13 +84,6 @@
 "ap" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/dorms_med)
-"aq" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/onehalf/drone_bay)
 "ar" = (
 /turf/simulated/wall,
 /area/ruin/space/onehalf/drone_bay)
@@ -328,17 +321,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
-"aV" = (
-/obj/machinery/door/airlock/medical/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/white,
-/area/ruin/space/onehalf/dorms_med)
-"aW" = (
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/onehalf/dorms_med)
 "aX" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1129,6 +1111,12 @@
 /mob/living/basic/carp,
 /turf/template_noop,
 /area/space/nearstation)
+"tW" = (
+/obj/machinery/door/airlock{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/onehalf/dorms_med)
 "xr" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -1156,6 +1144,24 @@
 /obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
+"TO" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/onehalf/drone_bay)
+"Yf" = (
+/obj/machinery/door/airlock/medical/glass{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/onehalf/dorms_med)
 
 (1,1,1) = {"
 aa
@@ -1340,7 +1346,7 @@ ag
 am
 am
 aK
-aV
+Yf
 bg
 bx
 bN
@@ -1428,7 +1434,7 @@ ah
 ap
 ap
 ap
-aW
+tW
 bh
 bv
 aI
@@ -1491,9 +1497,9 @@ aa
 aa
 ad
 ai
-aq
+TO
 aD
-aq
+TO
 aX
 bm
 bn

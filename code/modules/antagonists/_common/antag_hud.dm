@@ -26,6 +26,18 @@
 	if(M.mind)
 		M.mind.antag_hud = null
 
+/datum/atom_hud/antag/hidden/secondary/join_hud(mob/M, slave)
+	if(!istype(M))
+		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
+	add_to_hud(M)
+	if(self_visible)
+		add_hud_to(M)
+
+/datum/atom_hud/antag/hidden/secondary/leave_hud(mob/M)
+	if(!istype(M))
+		CRASH("leave_hud(): [M] ([M.type]) is not a mob!")
+	remove_from_hud(M)
+	remove_hud_from(M)
 
 //GAME_MODE PROCS
 //called to set a mob's antag icon state

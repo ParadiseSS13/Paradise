@@ -6,7 +6,7 @@
 	var/implant_overlay
 	var/crit_fail = FALSE //Used by certain implants to disable them.
 	tough = TRUE // Immune to damage
-	augment_state ='icons/mob/human_races/robotic.dmi'
+	augment_icon ='icons/mob/human_races/robotic.dmi'
 
 /obj/item/organ/internal/cyberimp/Initialize(mapload, mob/M = null)
 	. = ..()
@@ -340,7 +340,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
 	origin_tech = "combat=6;biotech=6;syndicate=4"
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_PLASMA = 10000, MAT_DIAMOND = 4000, MAT_BLUESPACE = 4000)
-	augment_icon = "sandy"
+	augment_state = "sandy"
 	always_show_augment = TRUE // A bit too big and bright to hide with synthetic skin.
 	///The icon state used for the on mob sprite. Default is sandy. Drask and vox have their own unique sprites
 	var/custom_mob_sprite = "sandy"
@@ -375,17 +375,19 @@
 	REMOVE_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/render()
-	. = ..()
-	if(!.)
-		return
+	var/mutable_appearance/custom_appearance = ..()
+	if(!custom_appearance)
+		return FALSE
+
 	if(isvox(owner))
 		custom_mob_sprite = "vox_sandy"
 	else if(isdrask(owner))
 		custom_mob_sprite = "drask_sandy"
 	else
 		custom_mob_sprite = "sandy"
-	var/mutable_appearance/our_MA = mutable_appearance(augment_state, custom_mob_sprite, layer = -INTORGAN_LAYER)
-	return our_MA
+
+	custom_appearance.icon_state = custom_mob_sprite
+	return custom_appearance
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/emp_act(severity)
 	. = ..()
@@ -597,14 +599,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;biotech=3"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 250)
-	augment_icon = "breathing_tube"
-
-/obj/item/organ/internal/cyberimp/mouth/breathing_tube/render()
-	. = ..()
-	if(!.)
-		return
-	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
-	return our_MA
+	augment_state = "breathing_tube"
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	if(emp_proof)
@@ -632,7 +627,7 @@
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_GOLD = 500)
-	augment_icon = "nutripump"
+	augment_state = "nutripump"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/examine(mob/user)
 	. = ..()
@@ -674,14 +669,6 @@
 	synthesizing = FALSE
 	addtimer(CALLBACK(src, PROC_REF(emp_cool)), 60 SECONDS)
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/render()
-	. = ..()
-	if(!.)
-		return
-	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
-	return our_MA
-
-
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
@@ -690,7 +677,7 @@
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_GOLD = 500, MAT_URANIUM = 750)
-	augment_icon = "nutripump_adv"
+	augment_state = "nutripump_adv"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	name = "hardened nutriment pump implant"
@@ -708,7 +695,7 @@
 	origin_tech = "materials=5;programming=5;biotech=6"
 	materials = list(MAT_METAL = 800, MAT_GLASS = 800, MAT_GOLD = 300, MAT_URANIUM = 500)
 	slot = "heartdrive"
-	augment_icon = "reviver"
+	augment_state = "reviver"
 	/// How long the implant will go on cooldown for once the user has exited crit, in seconds.
 	var/revive_cost = 0 SECONDS
 	/// Are we in the progress of healing the user?
@@ -731,13 +718,6 @@
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened/Initialize(mapload)
 	. = ..()
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
-
-/obj/item/organ/internal/cyberimp/chest/reviver/render()
-	. = ..()
-	if(!.)
-		return
-	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
-	return our_MA
 
 /obj/item/organ/internal/cyberimp/chest/reviver/dead_process()
 	if(status & ORGAN_DEAD)
@@ -1093,6 +1073,182 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_food/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
 	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/skinmonger
+	name = "\improper Skinmonger"
+	desc = "A strange implant that continuously produces and replaces synthetic skin. \
+			Will not apply skin to a monitor-shaped head."
+	implant_color = "#FFDDAA"
+	slot = "chest_synthetic_skin"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "materials=6;biotech=7;syndicate=1"
+	augment_state = "nutripump"
+	/// Whether regeneration is allowed. This is disabled temporarily by an EMP
+	var/regeneration_active = TRUE
+	/// How long to wait after finding a target body part to replace skin on
+	var/regen_cooldown = 30 SECONDS
+	/// Whether we're currently regenerating
+	var/regenerating = FALSE
+	/// Normally synthetic skin doesn't have memory of the identity we're disguised as. This implant does, though
+	var/configured_identity = "Unknown"
+	/// Flag for tracking if we've used up the implant's initial deployment of skin
+	var/initial_surge_used = FALSE
+
+/obj/item/organ/internal/cyberimp/chest/skinmonger/insert(mob/living/carbon/M, special = 0)
+	. = ..()
+
+	if(!initial_surge_used)
+		apply_full_synthetic_skin(M)
+		to_chat(M, SPAN_WARNING("In an instant, a surge of skin wraps around you and binds itself to your body!"))
+		playsound(M, 'sound/surgery/organ2.ogg', 70, TRUE, frequency = 0.8)
+		initial_surge_used = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/skinmonger/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+	regenerating = FALSE
+	remove_all_synthetic_skin(M)
+
+// Called when synthetic skin is removed from any part - starts regeneration cycle
+/obj/item/organ/internal/cyberimp/chest/skinmonger/proc/start_regeneration()
+	if(!regeneration_active || regenerating)
+		return
+
+	regenerating = TRUE
+	// Wait before we trigger the first regen.
+	addtimer(CALLBACK(src, PROC_REF(regenerate_next_part)), regen_cooldown)
+
+/obj/item/organ/internal/cyberimp/chest/skinmonger/proc/regenerate_next_part()
+	if(!owner || !regeneration_active || !regenerating)
+		return
+
+	var/mob/living/carbon/human/H = owner
+	var/list/unskinned_parts = list()
+
+	// Find all robotic parts without synthetic skin.
+	for(var/obj/item/organ/external/E in H.bodyparts)
+		if(!E.is_robotic() || E.has_synthetic_skin)
+			continue
+
+		// Skip monitor heads
+		if(E.limb_name == "head" && E.model)
+			var/datum/robolimb/R = GLOB.all_robolimbs[E.model]
+			if(R && R.is_monitor)
+				continue
+
+		unskinned_parts += E
+
+	// If no parts need skin, kill the regen cycle
+	if(!length(unskinned_parts))
+		regenerating = FALSE
+		return
+
+	// Pick a random part and apply skin
+	var/obj/item/organ/external/chosen_part = pick(unskinned_parts)
+	chosen_part.has_synthetic_skin = TRUE
+	// Apply owner's skin color to synthetic skin
+	if(ishuman(H))
+		chosen_part.synthetic_skin_colour = H.skin_colour
+	// Set identity for head regeneration
+	if(chosen_part.limb_name == "head")
+		var/identity_to_use = configured_identity
+		chosen_part.synthetic_skin_identity = identity_to_use
+		if(ishuman(H))
+			H.real_name = identity_to_use
+
+	// Chest and lower body tied together for regeneration
+	if(chosen_part.limb_name == "chest")
+		var/obj/item/organ/external/groin_limb = H.bodyparts_by_name["groin"]
+		if(groin_limb && groin_limb.is_robotic() && !groin_limb.has_synthetic_skin)
+			groin_limb.has_synthetic_skin = TRUE
+			groin_limb.synthetic_skin_colour = H.skin_colour
+			groin_limb.force_icon = null
+			groin_limb.mob_icon = null
+			groin_limb.compile_icon()
+
+	if(chosen_part.limb_name == "groin")
+		var/obj/item/organ/external/chest_limb = H.bodyparts_by_name["chest"]
+		if(chest_limb && chest_limb.is_robotic() && !chest_limb.has_synthetic_skin)
+			chest_limb.has_synthetic_skin = TRUE
+			chest_limb.synthetic_skin_colour = H.skin_colour
+			chest_limb.force_icon = null
+			chest_limb.mob_icon = null
+			chest_limb.compile_icon()
+
+	// Refresh sprite
+	chosen_part.force_icon = null
+	chosen_part.mob_icon = null
+	chosen_part.compile_icon()
+	H.update_body(rebuild_base = TRUE)
+
+	to_chat(H, SPAN_NOTICE("You feel a wave of synthetic skin gush forth and bind to your [chosen_part.name]."))
+
+	// Schedule next regeneration if more parts need skin. Otherwise, we're done
+	if(length(unskinned_parts) > 1)
+		addtimer(CALLBACK(src, PROC_REF(regenerate_next_part)), regen_cooldown)
+	else
+		regenerating = FALSE
+
+// One-time application of skin across the entire chassis when the implant is inserted.
+/obj/item/organ/internal/cyberimp/chest/skinmonger/proc/apply_full_synthetic_skin(mob/living/carbon/human/target)
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/H = target
+	var/head_skinned = FALSE
+	for(var/obj/item/organ/external/E in H.bodyparts)
+		if(!E.is_robotic() || E.has_synthetic_skin)
+			continue
+
+		// Skip monitor heads
+		if(E.limb_name == "head" && E.model)
+			var/datum/robolimb/R = GLOB.all_robolimbs[E.model]
+			if(R && R.is_monitor)
+				continue
+
+		E.has_synthetic_skin = TRUE
+		// Apply owner's skin color to synthetic skin
+		E.synthetic_skin_colour = H.skin_colour
+		// Set configured identity for head
+		if(E.limb_name == "head")
+			E.synthetic_skin_identity = configured_identity
+			head_skinned = TRUE
+		// Clear sprite cache
+		E.force_icon = null
+		E.mob_icon = null
+		E.compile_icon()
+
+	// Apply facial identity if head was skinned
+	if(head_skinned)
+		H.real_name = configured_identity
+
+	H.update_body(rebuild_base = TRUE)
+
+/obj/item/organ/internal/cyberimp/chest/skinmonger/proc/remove_all_synthetic_skin(mob/living/carbon/human/target)
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/H = target
+	for(var/obj/item/organ/external/E in H.bodyparts)
+		if(E.is_robotic() && E.has_synthetic_skin)
+			E.remove_synthetic_skin(silent = TRUE) // silent because it spams the user otherwise
+
+	to_chat(H, SPAN_WARNING("You feel your synthetic skin melt away."))
+	H.update_body(rebuild_base = TRUE)
+
+// EMP wipes all synthetic skin and puts the implant on cooldown
+/obj/item/organ/internal/cyberimp/chest/skinmonger/emp_act(severity)
+	. = ..()
+
+	regenerating = FALSE
+	regeneration_active = FALSE
+	remove_all_synthetic_skin(owner)
+
+	addtimer(CALLBACK(src, PROC_REF(restart_regeneration)), regen_cooldown)
+
+/obj/item/organ/internal/cyberimp/chest/skinmonger/proc/restart_regeneration()
+	if(owner)
+		regeneration_active = TRUE
+		start_regeneration()
 
 //BOX O' IMPLANTS
 

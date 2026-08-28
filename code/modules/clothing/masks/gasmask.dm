@@ -3,6 +3,7 @@
 	desc = "A face-covering mask that can be connected to an air supply. Used by mischievous assistants and syndicate agents alike."
 	icon_state = "gas_alt"
 	inhand_icon_state = "gas_alt"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES

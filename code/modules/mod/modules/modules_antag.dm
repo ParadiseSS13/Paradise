@@ -16,6 +16,7 @@
 	overlay_state_inactive = "module_armorbooster_off"
 	overlay_state_active = "module_armorbooster_on"
 	use_mod_colors = TRUE
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 	/// Whether or not this module removes pressure protection.
 	var/remove_pressure_protection = TRUE
 	/// Speed added to the control unit.
@@ -100,6 +101,7 @@
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/insignia)
 	overlay_state_inactive = "module_insignia"
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 
 /obj/item/mod/module/insignia/generate_worn_overlay(user, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
@@ -639,3 +641,77 @@
 /obj/item/mod/module/anomaly_locked/teslawall/prebuilt
 	prebuilt = TRUE
 	removable = FALSE // No switching it into another suit / no free anomaly core
+
+/obj/item/mod/module/shinobi_stealth
+	name = "MOD shinobi stealth module"
+	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced stealth technology in the classic ninja scarf."
+	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	removable = FALSE
+	/// Linked sneaking action
+	var/datum/action/cooldown/ninja/ninja_cloak/cloak_action
+
+/obj/item/mod/module/shinobi_stealth/Initialize(mapload)
+	. = ..()
+	cloak_action = new(src)
+
+/obj/item/mod/module/shinobi_stealth/on_suit_activation()
+	. = ..()
+	cloak_action.Grant(mod.wearer)
+
+/obj/item/mod/module/shinobi_stealth/on_suit_deactivation(deleting = FALSE)
+	if(deleting)
+		return
+	cloak_action.stop_sneaking()
+	cloak_action.Remove(mod.wearer)
+
+/obj/item/mod/module/shinobi_freedom
+	name = "MOD shinobi escape module"
+	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced escaping technology in the classic ninja boots."
+	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	removable = FALSE
+	/// Linked freedom action
+	var/datum/action/cooldown/ninja/freedom_shoes/freedoms_action
+
+/obj/item/mod/module/shinobi_freedom/Initialize(mapload)
+	. = ..()
+	freedoms_action = new(src)
+
+/obj/item/mod/module/shinobi_freedom/on_suit_activation()
+	. = ..()
+	ADD_TRAIT(mod.wearer, TRAIT_GOTTAGONOTSOFAST, src)
+	freedoms_action.Grant(mod.wearer)
+
+/obj/item/mod/module/shinobi_freedom/on_suit_deactivation(deleting = FALSE)
+	if(deleting)
+		return
+	REMOVE_TRAIT(mod.wearer, TRAIT_GOTTAGONOTSOFAST, src)
+	freedoms_action.Remove(mod.wearer)
+
+/obj/item/mod/module/shinobi_stims
+	name = "MOD shinobi stimulant module"
+	desc = "An advanced module, designed by the Spider Clan, that replicates the advanced stimulants technology in the classic ninja kabuto."
+	icon_state = "armor_booster"
+	origin_tech = "combat=5;bluespace=6;syndicate=4"
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
+	removable = FALSE
+	/// Linked stims action
+	var/datum/action/cooldown/ninja/stim_suit/antistun_action
+
+/obj/item/mod/module/shinobi_stims/Initialize(mapload)
+	. = ..()
+	antistun_action = new(src)
+
+/obj/item/mod/module/shinobi_stims/on_suit_activation()
+	. = ..()
+	ADD_TRAIT(mod.wearer, TRAIT_GOTTAGONOTSOFAST, src)
+	antistun_action.Grant(mod.wearer)
+
+/obj/item/mod/module/shinobi_stims/on_suit_deactivation(deleting = FALSE)
+	if(deleting)
+		return
+	REMOVE_TRAIT(mod.wearer, TRAIT_GOTTAGONOTSOFAST, src)
+	antistun_action.Remove(mod.wearer)

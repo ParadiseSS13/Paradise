@@ -221,6 +221,7 @@
 	overlay_state_active = "module_light_on"
 	light_color = COLOR_WHITE
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 	///The light power for the mod
 	var/mod_light_range = 4
 	///The light range for the mod
@@ -457,6 +458,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/plasma_stabilizer)
 	overlay_state_inactive = "module_plasma"
+	icon_monitor = 'icons/mob/clothing/modsuit/species/modules_monitor.dmi'
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 
 /obj/item/mod/module/plasma_stabilizer/on_equip()

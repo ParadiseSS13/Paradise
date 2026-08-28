@@ -48,6 +48,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
+"i" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/public/glass{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/unpowered)
 "k" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -136,12 +145,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
-"z" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Bridge"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/unpowered)
 "A" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 1
@@ -161,9 +164,6 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
-"F" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/unpowered)
 "H" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
@@ -177,7 +177,7 @@
 /area/ruin/space/unpowered)
 "J" = (
 /obj/effect/spawner/airlock/e_to_w,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/unpowered)
 "K" = (
 /obj/structure/shuttle/engine/heater{
@@ -253,6 +253,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
+"T" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/unpowered)
 "U" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -286,13 +293,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
-"Y" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/unpowered)
 "Z" = (
 /obj/structure/shelf,
 /obj/effect/spawner/random/bluespace_tap/clothes_rare,
@@ -321,7 +321,7 @@ P
 (2,1,1) = {"
 P
 C
-F
+C
 r
 N
 C
@@ -354,10 +354,10 @@ K
 f
 H
 W
-F
+C
 C
 o
-F
+C
 U
 m
 a
@@ -369,10 +369,10 @@ C
 S
 H
 X
-Y
+i
 c
 b
-z
+T
 p
 E
 A
@@ -384,10 +384,10 @@ K
 g
 H
 I
-F
+C
 C
 d
-F
+C
 q
 p
 A
@@ -411,7 +411,7 @@ a
 (8,1,1) = {"
 P
 C
-F
+C
 v
 L
 C
@@ -429,7 +429,7 @@ P
 C
 a
 a
-F
+C
 C
 a
 C

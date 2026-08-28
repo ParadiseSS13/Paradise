@@ -95,8 +95,9 @@
 		/obj/item/robotanalyzer,
 		/obj/item/rpd/bluespace,
 		/obj/item/hammer,
-		/obj/item/rcl,
+		/obj/item/stack/cable_coil/rcl,
 		/obj/item/melee/sickly_blade/lock,
+		/obj/item/lightreplacer,
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -143,7 +144,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
-	new /obj/item/rcl(src)
+	new /obj/item/stack/cable_coil/rcl(src)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()
@@ -203,6 +204,8 @@
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
+		/obj/item/storage/mesh_pack,
 		/obj/item/stack/medical,
 		/obj/item/flashlight/pen,
 		/obj/item/clothing/mask/surgical,
@@ -323,6 +326,7 @@
 		/obj/item/sample/print,
 		/obj/item/forensics/swab,
 		/obj/item/forensics/sample_kit,
+		/obj/item/fine_scanner,
 	)
 
 /obj/item/storage/belt/security/full/populate_contents()
@@ -381,6 +385,41 @@
 		/obj/item/melee/classic_baton,
 		/obj/item/kitchen/knife
 	)
+
+/obj/item/storage/belt/federation_webbing/marine/populate_contents()
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marine_officer/populate_contents()
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marsoc/populate_contents()
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/ammo_box/magazine/m45(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
+
+/obj/item/storage/belt/federation_webbing/marsoc_officer/populate_contents()
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	update_icon()
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
@@ -512,23 +551,6 @@
 		to_chat(user, SPAN_WARNING("[I] is too big for [src]."))
 		return
 	return ..()
-
-/obj/item/storage/belt/military/assault/marines/full/populate_contents()
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	update_icon()
-
-/obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	new /obj/item/ammo_box/magazine/m45(src)
-	update_icon()
 
 /obj/item/storage/belt/military/assault/soviet/full/populate_contents()
 	new /obj/item/ammo_box/magazine/ak814(src)
@@ -714,6 +736,8 @@
 	desc = "A dorky fannypack for keeping small items in."
 	icon_state = "fannypack_leather"
 	storage_slots = 3
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_FANNYPACK
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -1031,16 +1055,18 @@
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
+		/obj/item/storage/suture_pack,
+		/obj/item/storage/mesh_pack,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/drinks,
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon,
-		/obj/item/grenade/plastic/miningcharge)
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/grenade/turret/mining)
 
-/obj/item/storage/belt/mining/vendor/Initialize(mapload)
-	. = ..()
+/obj/item/storage/belt/mining/vendor/populate_contents()
 	new /obj/item/survivalcapsule(src)
 
 /obj/item/storage/belt/mining/alt

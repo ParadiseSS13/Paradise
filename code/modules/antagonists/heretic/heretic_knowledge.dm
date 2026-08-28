@@ -248,6 +248,17 @@
 		LAZYADD(created_items,created_thing.UID())
 	return TRUE
 
+/datum/heretic_knowledge/limited_amount/proc/delete_items()
+	for(var/ref as anything in created_items)
+		var/atom/real_thing = locateUID(ref)
+		if(QDELETED(real_thing))
+			LAZYREMOVE(created_items, ref)
+			continue
+		real_thing.visible_message("[real_thing] suddenly glows brightly and shatters into countless shards!", "Something loudly shatters nearby!")
+		playsound(real_thing, "shatter", 70, TRUE)
+		qdel(real_thing)
+		LAZYREMOVE(created_items, ref)
+
 /**
  * A knowledge subtype for limited_amount knowledge
  * used for base knowledge (the ones that make blades)

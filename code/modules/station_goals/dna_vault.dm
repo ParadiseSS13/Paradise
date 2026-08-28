@@ -177,10 +177,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			break
 
 	AddComponent(/datum/component/multitile, list(
-		list(0, 1, MACH_CENTER, 1, 0),
-		list(0, 1,		 0,	   1, 0),
-		list(0, 1,		 0,	   1, 0)
-	))
+		list(1, MACH_CENTER, 1),
+		list(1,		 0,		 1),
+		list(1,		 0,		 1)), TRUE)
+
 /obj/machinery/dna_vault/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "vaultoff"

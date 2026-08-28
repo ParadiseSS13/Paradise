@@ -7,9 +7,10 @@
 	icon_state = "autoimplanter"
 	w_class = WEIGHT_CLASS_SMALL
 	var/uses = INFINITE
+	new_attack_chain = TRUE
 
 /obj/item/autosurgeon/attack_self_tk(mob/user)
-	return //stops TK fuckery
+	return // Stops TK fuckery.
 
 /obj/item/autosurgeon/organ
 	name = "implant autosurgeon"
@@ -28,15 +29,20 @@
 	I.forceMove(src)
 	name = "[initial(name)] ([storedorgan.name])"
 
-/obj/item/autosurgeon/organ/attack_self__legacy__attackchain(mob/user) //when the object it used...
+/obj/item/autosurgeon/organ/activate_self(mob/user) // When the object is used...
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!uses)
 		to_chat(user, SPAN_ALERT("[src] has already been used. The tools are dull and won't reactivate."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	else if(!storedorgan)
 		to_chat(user, SPAN_ALERT("[src] currently has no implant stored."))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	SSblackbox.record_feedback("tally", "o_implant_auto", 1, "[storedorgan.type]")
-	storedorgan.insert(user) //insert stored organ into the user
+	storedorgan.insert(user) // Insert stored organ into the user.
 	user.visible_message(SPAN_NOTICE("[user] presses a button on [src], and you hear a short mechanical noise."), SPAN_NOTICE("You feel a sharp sting as [src] plunges into your body."))
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, TRUE)
 	storedorgan = null
@@ -45,22 +51,29 @@
 		uses--
 	if(!uses)
 		desc = "[initial(desc)] Looks like it's been used up."
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/autosurgeon/organ/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, organ_type))
-		if(storedorgan)
-			to_chat(user, SPAN_ALERT("[src] already has an implant stored."))
-			return
-		else if(!uses)
-			to_chat(user, SPAN_ALERT("[src] has already been used up."))
-			return
-		if(!user.drop_item())
-			return
-		I.forceMove(src)
-		storedorgan = I
-		to_chat(user, SPAN_NOTICE("You insert [I] into [src]."))
-	else
+/obj/item/autosurgeon/organ/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, organ_type))
 		return ..()
+
+	if(storedorgan)
+		to_chat(user, SPAN_WARNING("[src] already has an implant stored!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!uses)
+		to_chat(user, SPAN_WARNING("[src] has already been used up!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!user.drop_item())
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand! You can't store it in [src]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	used.forceMove(src)
+	storedorgan = used
+	add_fingerprint(user)
+	to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/autosurgeon/organ/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -110,7 +123,7 @@
 	name = "suspicious implant autosurgeon"
 	icon_state = "syndicate_autoimplanter"
 
-/obj/item/autosurgeon/organ/syndicate/attack_self__legacy__attackchain(mob/user)
+/obj/item/autosurgeon/organ/syndicate/activate_self(mob/user)
 	if(storedorgan && uses && storedorgan.is_robotic()) // Helps keep the syndicate ones hidden. One can peel them off if they want them to be visable.
 		storedorgan.self_augmented_skin_level = 3
 	return ..()
@@ -189,5 +202,45 @@
 
 /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/syndie_mantis/l
+
+/obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger
+	starting_organ = /obj/item/organ/internal/cyberimp/chest/skinmonger
+
+/obj/item/autosurgeon/organ/syndicate/oneuse/skinmonger/activate_self(mob/user)
+	if(!storedorgan)
+		return ..()
+
+	// Configure identity before implantation...
+	var/obj/item/organ/internal/cyberimp/chest/skinmonger/implant = storedorgan
+
+	// Check if they have a monitor head
+	var/has_monitor_head = FALSE
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/head/head_organ = H.bodyparts_by_name["head"]
+		if(head_organ?.model)
+			var/datum/robolimb/R = GLOB.all_robolimbs[head_organ.model]
+			if(R?.is_monitor)
+				has_monitor_head = TRUE
+				to_chat(user, SPAN_WARNING("The Skinmonger is confused by your freakishly large head, but attempts to disguise you anyway."))
+
+	// Only ask for identity if they're a machine person and don't have a monitor head
+	if(ismachineperson(user) && !has_monitor_head)
+		if(!implant.configured_identity || implant.configured_identity == "Unknown")
+			var/chosen_name = tgui_input_text(user, "The Skinmonger generously offers to turn you into someone else. But who?", default = "Unknown", max_length = MAX_NAME_LEN)
+			if(!chosen_name)
+				return
+
+			// Allow to appear as "Unknown" (default value)
+			if(chosen_name != "Unknown")
+				chosen_name = reject_bad_name(chosen_name, max_length = MAX_NAME_LEN)
+				if(!chosen_name)
+					to_chat(user, SPAN_WARNING("The implanter quietly hisses, rejecting your choice."))
+					return
+
+			implant.configured_identity = chosen_name
+
+	// ... then implant
+	return ..()
 
 #undef INFINITE

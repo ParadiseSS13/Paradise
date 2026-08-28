@@ -80,7 +80,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_depot/outer)
 "at" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "au" = (
 /obj/machinery/light{
@@ -267,7 +267,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_depot/core)
 "bf" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/outer)
 "bh" = (
 /obj/machinery/light{
@@ -394,22 +394,6 @@
 /obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_depot/core)
-"bH" = (
-/obj/machinery/door/airlock/silver,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_depot/core)
-"bI" = (
-/obj/machinery/door/poddoor{
-	id_tag = "syndi_depot_rear";
-	name = "Sealed Doors";
-	protected = 0
-	},
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/obj/machinery/door/airlock/external{
-	id_tag = "sst_away"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_depot/outer)
 "bJ" = (
 /obj/effect/spawner/random/syndicate/trapped_documents,
 /turf/simulated/floor/plasteel/dark,
@@ -493,14 +477,14 @@
 	dir = 6;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "bY" = (
 /obj/effect/landmark{
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "bZ" = (
 /obj/effect/spawner/random/syndicate/wallvault,
@@ -516,14 +500,14 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cc" = (
 /obj/effect/landmark{
 	dir = 10;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cd" = (
 /obj/effect/spawner/random/syndicate/mob,
@@ -543,7 +527,7 @@
 	name = "mysterious button";
 	power_state = 0
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/outer)
 "cg" = (
 /obj/structure/falsewall,
@@ -565,7 +549,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "ck" = (
 /obj/machinery/turretid/syndicate{
@@ -692,7 +676,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cD" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
@@ -753,21 +737,21 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cP" = (
 /obj/effect/landmark{
 	dir = 5;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cR" = (
 /obj/effect/landmark{
 	dir = 9;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cS" = (
 /mob/living/silicon/decoy/syndicate/depot,
@@ -870,17 +854,37 @@
 /obj/structure/sign/poster/contraband/lusty_xenomorph/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_depot/core)
+"rv" = (
+/obj/machinery/door/airlock/silver{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_depot/core)
 "rJ" = (
 /obj/structure/sign/poster/contraband/tools/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_depot/core)
-"tE" = (
-/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/east,
+"tu" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_depot/core)
-"uH" = (
-/obj/machinery/door/airlock/silver,
+"tB" = (
+/obj/machinery/door/poddoor{
+	id_tag = "syndi_depot_rear";
+	name = "Sealed Doors";
+	protected = 0
+	},
 /obj/effect/mapping_helpers/airlock/access/all/syndicate,
+/obj/machinery/door/airlock/external{
+	id_tag = "sst_away";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_depot/outer)
+"tE" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_depot/core)
 "BU" = (
@@ -924,6 +928,13 @@
 /area/syndicate_depot/core)
 "VS" = (
 /obj/structure/sign/poster/official/obey/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_depot/core)
+"YZ" = (
+/obj/machinery/door/airlock/silver{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_depot/core)
 "ZV" = (
@@ -2634,7 +2645,7 @@ aE
 aD
 aD
 aD
-aF
+tu
 aD
 aD
 aQ
@@ -2745,7 +2756,7 @@ bS
 cd
 cq
 cq
-bH
+rv
 aD
 cW
 aD
@@ -2791,7 +2802,7 @@ at
 aQ
 aD
 aD
-uH
+YZ
 bS
 ce
 cr
@@ -3148,7 +3159,7 @@ bf
 bl
 aj
 aj
-bI
+tB
 bT
 cg
 af

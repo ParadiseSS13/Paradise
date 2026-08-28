@@ -261,6 +261,16 @@
 	build_path = /obj/item/circuitboard/reagentgrinder
 	category = list ("Medical Machinery")
 
+/datum/design/autoclave
+	name = "Machine Design (Autoclave)"
+	desc = "The circuit board for an Autoclave."
+	id = "reagentgrinder"
+	req_tech = list("biotech" = 2, "materials" = 3, "magnets" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/autoclave
+	category = list ("Medical Machinery")
+
 /datum/design/sleeper
 	name = "Machine Board (Sleeper)"
 	desc = "Allows for the construction of circuit boards used to build a Sleeper."
@@ -519,6 +529,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/deepfryer
+	category = list("Misc. Machinery")
+
+/datum/design/stovetop
+	name = "Machine Board (Stovetop)"
+	desc = "The circuit board for a Stovetop."
+	id = "stove"
+	req_tech = list("biotech" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/cooking/stove
 	category = list("Misc. Machinery")
 
 /datum/design/orion_trail

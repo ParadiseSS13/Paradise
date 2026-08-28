@@ -403,8 +403,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"Av" = (
-/obj/machinery/door/airlock/external,
+"AA" = (
+/obj/machinery/door/airlock/hatch{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "AV" = (
@@ -419,12 +421,6 @@
 "BD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
-"Cq" = (
-/obj/machinery/door/airlock/hatch/syndicate{
-	locked = 1
-	},
-/turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "CC" = (
 /obj/structure/window/reinforced{
@@ -447,6 +443,9 @@
 "DH" = (
 /obj/structure/table,
 /obj/item/circular_saw,
+/obj/item/scalpel/laser{
+	pixel_y = 7
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Ef" = (
@@ -483,6 +482,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
+"GT" = (
+/obj/machinery/door/airlock/external{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "GV" = (
 /obj/structure/door_assembly/door_assembly_hatch,
 /turf/simulated/floor/plating/airless,
@@ -500,7 +505,6 @@
 /area/ruin/space/tcommsat)
 "If" = (
 /obj/structure/table,
-/obj/item/scalpel/laser/laser2,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Is" = (
@@ -597,6 +601,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"NS" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	locked = 1;
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "Or" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plating/airless,
@@ -1287,7 +1298,7 @@ kx
 ot
 nk
 sb
-Cq
+NS
 Sp
 Wc
 jk
@@ -1452,7 +1463,7 @@ wO
 KH
 Ac
 rc
-Cq
+NS
 Wc
 Wc
 Wc
@@ -1461,7 +1472,7 @@ Is
 Sp
 Wc
 Wc
-Or
+AA
 Pn
 FK
 al
@@ -2030,14 +2041,14 @@ my
 fI
 rc
 rc
-Or
+AA
 eu
 BD
 mL
 mL
 mL
 Yt
-Av
+GT
 Ua
 Vf
 nX
@@ -2228,7 +2239,7 @@ Go
 yM
 Wc
 Wc
-Cq
+NS
 UC
 rc
 rc
@@ -2572,7 +2583,7 @@ wO
 HW
 fh
 rc
-Cq
+NS
 ii
 Is
 gg

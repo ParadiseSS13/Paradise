@@ -29,7 +29,8 @@
 			A.Remove(src)
 	all_active_items[index] = CYBORG_EMPTY_MODULE
 	SEND_SIGNAL(O, COMSIG_CYBORG_ITEM_DEACTIVATED, src)
-	selected_item = null
+	if(selected_item == O)
+		selected_item = null
 	var/atom/movable/screen/robot/active_module/screen = inventory_screens[index]
 	screen.icon_state = screen.deactivated_icon_string
 

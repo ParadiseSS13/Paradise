@@ -1,0 +1,13 @@
+[
+	{
+		// Randomly picks an engine to place, keeping engineering on their toes
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 18,
+		"submap_size_y": 23,
+		"submap_size_z": 1,
+		"submaps_dmm": "submaps/boxstation.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/station/boxstation/engine",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/station/boxstation/engine",
+		"submaps_can_repeat": true // doesn't matter, as there's only one insert marker
+	}
+]

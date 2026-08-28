@@ -17,6 +17,7 @@
 	usesound = 'sound/weapons/flash.ogg'
 	origin_tech = "bluespace=3"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 3750)
+	new_attack_chain = TRUE
 	/// Power cell (10000W)
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad
@@ -46,10 +47,13 @@
 /**
   * Used to select telepad location.
   */
-/obj/item/rcs/attack_self__legacy__attackchain(mob/user)
+/obj/item/rcs/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(teleporting)
 		to_chat(user, SPAN_WARNING("Error: Unable to change destination while in use."))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/list/L = list() // List of avaliable telepads
 	var/list/areaindex = list() // Telepad area location
@@ -74,7 +78,7 @@
 	else // Else choose the value of the selection
 		pad = L[select]
 	playsound(src, 'sound/effects/pop.ogg', 25, TRUE) // And play a sound either way.
-
+	return ITEM_INTERACT_COMPLETE
 
 /**
   * Returns a random location in a z level
@@ -100,7 +104,6 @@
 		do_sparks(3, TRUE, src)
 		to_chat(user, SPAN_BOLDWARNING("Warning: Safeties disabled."))
 		return TRUE
-
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)

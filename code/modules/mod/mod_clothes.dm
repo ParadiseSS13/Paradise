@@ -2,6 +2,7 @@
 	name = "MOD helmet"
 	desc = "A helmet for a MODsuit."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	icon_monitor = 'icons/mob/clothing/modsuit/species/monitor_helmets.dmi'
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
 	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
@@ -10,6 +11,11 @@
 	permeability_coefficient = 0.01
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
+		"Skrell" = 'icons/mob/clothing/modsuit/species/skrell_modsuits.dmi',
+		"Nian" = 'icons/mob/clothing/modsuit/species/nian_modsuits.dmi',
+		"Diona" = 'icons/mob/clothing/modsuit/species/diona_modsuits.dmi',
+		"Kidan" = 'icons/mob/clothing/modsuit/species/kidan_modsuits.dmi',
+		"Drask" = 'icons/mob/clothing/modsuit/species/drask_modsuits.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
@@ -36,12 +42,16 @@
 	insert_max = 0
 	hide_tail_by_species = list("modsuit")
 	sprite_sheets = list(
+		"Skrell" = 'icons/mob/clothing/modsuit/species/skrell_modsuits.dmi',
+		"Nian" = 'icons/mob/clothing/modsuit/species/nian_modsuits.dmi',
+		"Diona" = 'icons/mob/clothing/modsuit/species/diona_modsuits.dmi',
+		"Kidan" = 'icons/mob/clothing/modsuit/species/kidan_modsuits.dmi',
+		"Drask" = 'icons/mob/clothing/modsuit/species/drask_modsuits.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 	)
-
 
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
@@ -55,12 +65,16 @@
 	cold_protection = HANDS|ARMS
 	permeability_coefficient = 0.01
 	sprite_sheets = list(
+		"Skrell" = 'icons/mob/clothing/modsuit/species/skrell_modsuits.dmi',
+		"Nian" = 'icons/mob/clothing/modsuit/species/nian_modsuits.dmi',
+		"Diona" = 'icons/mob/clothing/modsuit/species/diona_modsuits.dmi',
+		"Kidan" = 'icons/mob/clothing/modsuit/species/kidan_modsuits.dmi',
+		"Drask" = 'icons/mob/clothing/modsuit/species/drask_modsuits.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 	)
-
 
 /obj/item/clothing/shoes/mod
 	name = "MOD boots"
@@ -74,6 +88,11 @@
 	cold_protection = FEET|LEGS
 	permeability_coefficient = 0.01
 	sprite_sheets = list(
+		"Skrell" = 'icons/mob/clothing/modsuit/species/skrell_modsuits.dmi',
+		"Nian" = 'icons/mob/clothing/modsuit/species/nian_modsuits.dmi',
+		"Diona" = 'icons/mob/clothing/modsuit/species/diona_modsuits.dmi',
+		"Kidan" = 'icons/mob/clothing/modsuit/species/kidan_modsuits.dmi',
+		"Drask" = 'icons/mob/clothing/modsuit/species/drask_modsuits.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/modsuit/species/vulp_modsuits.dmi',
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',

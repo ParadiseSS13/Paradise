@@ -21,10 +21,10 @@
 	var/is_xeno_organ = FALSE
 	/// Does this organ give a warning upon being inserted?
 	var/warning = FALSE
-	/// Does this organ show outside the mob, and what is the icon state?
-	var/augment_state = null
-	/// Does this organ actually have a sprite for it being on the arm? And what is the path of it.
+	/// The icon file for the augment that shows outside the mob, if any.
 	var/augment_icon = null
+	/// The icon state for the augment that shows outside the mob, if any.
+	var/augment_state = null
 	/// Does this organ have a extra render mechanic?
 	var/do_extra_render = FALSE
 	/// Does this organ ignore skin covers?
@@ -242,7 +242,8 @@
 	if(our_parent.augmented_skin_cover_level && !always_show_augment)
 		return FALSE
 
-	return TRUE
+	var/mutable_appearance/default_appearance = mutable_appearance(augment_icon, augment_state, layer = -INTORGAN_LAYER)
+	return default_appearance
 
 // An extra render used in certain situations.
 /obj/item/organ/internal/proc/extra_render()
@@ -254,31 +255,30 @@
 	if(our_parent.augmented_skin_cover_level && !always_show_augment)
 		return FALSE
 
-	return TRUE
+	var/mutable_appearance/default_appearance = mutable_appearance(augment_icon, augment_state, layer = -INTORGAN_LAYER)
+	return default_appearance
 
-/obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
-	if(M == user && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(is_xeno_organ)
-			to_chat(user, SPAN_WARNING("It wouldnt be a very good idea to eat this."))
-			return ..()
-		var/obj/item/food/S = prepare_eat()
-		if(S)
-			H.drop_item()
-			H.put_in_active_hand(S)
-			S.interact_with_atom(H, H)
-			qdel(src)
-	else
-		..()
+/obj/item/organ/internal/interact_with_atom(atom/target, mob/living/carbon/human/user, list/modifiers)
+	if(!(target == user && ishuman(user)))
+		return ..()
+	if(is_xeno_organ)
+		to_chat(user, SPAN_WARNING("It wouldnt be a very good idea to eat this."))
+		return ITEM_INTERACT_COMPLETE
+	var/obj/item/food/organ_to_eat = prepare_eat()
+	if(organ_to_eat)
+		user.drop_item()
+		user.put_in_active_hand(organ_to_eat)
+		organ_to_eat.interact_with_atom(user, user)
+		qdel(src)
 
-/obj/item/organ/internal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(is_robotic() && istype(I, /obj/item/stack/synthetic_skin))
-		var/obj/item/stack/synthetic_skin/skin = I
-		skin.use(1)
-		self_augmented_skin_level = skin.skin_level
-		to_chat(user, SPAN_NOTICE("You apply [skin] to [src]."))
-		return
-	return ..()
+/obj/item/organ/internal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!(is_robotic() && istype(used, /obj/item/stack/synthetic_skin)))
+		return ..()
+	var/obj/item/stack/synthetic_skin/skin = used
+	skin.use(1)
+	self_augmented_skin_level = skin.skin_level
+	to_chat(user, SPAN_NOTICE("You apply [skin] to [src]."))
+	return ITEM_INTERACT_COMPLETE
 
 
 /****************************************************

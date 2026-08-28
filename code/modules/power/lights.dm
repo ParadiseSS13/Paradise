@@ -38,7 +38,27 @@
 
 /obj/machinery/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
+	offset_by_dir()
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/light_construct/setDir(newdir)
+	. = ..()
+	offset_by_dir()
+
+/obj/machinery/light_construct/proc/offset_by_dir()
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
 
 /obj/machinery/light_construct/examine(mob/user)
 	. = ..()
@@ -187,6 +207,9 @@
 	sheets_refunded = 3
 	construct_type = /obj/machinery/light/floor/built
 
+/obj/machinery/light_construct/floor/offset_by_dir()
+	return
+
 /obj/machinery/light_construct/clockwork/small
 	name = "small brass light fixture frame"
 	desc = "A small brass light fixture under construction."
@@ -204,6 +227,9 @@
 	fixture_type = "clockwork_floor"
 	sheets_refunded = 3
 	construct_type = /obj/machinery/light/clockwork/floor/built
+
+/obj/machinery/light_construct/clockwork/floor/offset_by_dir()
+	return
 
 #undef LIGHT_CONSTRUCT_EMPTY_FRAME
 #undef LIGHT_CONSTRUCT_WIRED
@@ -270,7 +296,7 @@
 	/// Light intensity when in night shift mode
 	var/nightshift_light_power = 0.45
 	/// The colour of the light while it's in night shift mode
-	var/nightshift_light_color = "#e0eeff"
+	var/nightshift_light_color = "#fafaeb"
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
@@ -295,9 +321,9 @@
 	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
-	brightness_color = "#ffebb0"
+	brightness_color = "#fac192"
 	nightshift_light_range = 4
-	nightshift_light_color = "#ffefa0" // #a0a080
+	nightshift_light_color = "#e29a5f" // #a0a080
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
 
@@ -323,7 +349,6 @@
 
 /obj/machinery/light/spot
 	name = "spotlight"
-	light_type = /obj/item/light/tube/large
 	brightness_range = 12
 	brightness_power = 4
 
@@ -403,6 +428,8 @@
 	if(A && !A.requires_power)
 		on = TRUE
 
+	offset_by_dir()
+
 	switch(base_state)
 		if("tube")
 			brightness_range = 8
@@ -417,6 +444,32 @@
 			if(prob(3))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
+
+	if(A.area_light_color)
+		brightness_color = A.area_light_color
+	if(A.area_nightlight_color)
+		nightshift_light_color = A.area_nightlight_color
+
+/obj/machinery/light/proc/offset_by_dir()
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = 20
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+		if(EAST)
+			pixel_x = 8
+			pixel_y = 4
+		if(WEST)
+			pixel_x = -8
+			pixel_y = 4
+
+/obj/machinery/light/floor/offset_by_dir()
+	return
+
+/obj/machinery/light/clockwork/floor/offset_by_dir()
+	return
 
 /obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
@@ -659,12 +712,6 @@
 				to_chat(user, SPAN_NOTICE("You insert [L]."))
 				switchcount = L.switchcount
 				rigged = L.rigged
-				if(L.brightness_range)
-					brightness_range = L.brightness_range
-				if(L.brightness_power)
-					brightness_power = L.brightness_power
-				if(L.brightness_color)
-					brightness_color = L.brightness_color
 				lightmaterials = L.materials
 				on = has_power()
 				update(TRUE, TRUE, FALSE)
@@ -891,9 +938,6 @@
 	var/obj/item/light/L = new light_type()
 	L.status = status
 	L.rigged = rigged
-	L.brightness_range = brightness_range
-	L.brightness_power = brightness_power
-	L.brightness_color = brightness_color
 	L.materials = lightmaterials
 
 	// light item inherits the switchcount, then zero it
@@ -1005,12 +1049,7 @@
 	materials = list(MAT_GLASS = 200)
 	/// Is the light rigged to explode?
 	var/rigged = FALSE
-	/// Light range
-	var/brightness_range = 2
-	/// Light intensity
-	var/brightness_power = 1
-	/// Light colour
-	var/brightness_color = null
+	new_attack_chain = TRUE
 
 /obj/item/light/Initialize(mapload)
 	. = ..()
@@ -1020,6 +1059,10 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update()
+
+/obj/machinery/light/setDir(newdir)
+	. = ..()
+	offset_by_dir()
 
 /obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered
@@ -1047,13 +1090,6 @@
 	icon_state = "ltube"
 	base_state = "ltube"
 	inhand_icon_state = "c_tube"
-	brightness_range = 8
-
-/obj/item/light/tube/large
-	w_class = WEIGHT_CLASS_SMALL
-	name = "large light tube"
-	brightness_range = 15
-	brightness_power = 2
 
 /**
   * # Light Bulb
@@ -1066,7 +1102,6 @@
 	icon_state = "lbulb"
 	base_state = "lbulb"
 	inhand_icon_state = "contvapour"
-	brightness_range = 5
 
 /obj/item/light/throw_impact(atom/hit_atom)
 	..()
@@ -1088,38 +1123,44 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode. Light replacers eat them.
-/obj/item/light/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = I
-
-		if(!length(S.reagents.reagent_list))
-			return
-
-		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
-			to_chat(user, SPAN_DANGER("You inject the solution into [src], rigging it to explode!"))
-			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
-			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
-
-			rigged = TRUE
-			S.reagents.clear_reagents()
-
-		else // If it has a reagent, but it's not plasma
-			to_chat(user, SPAN_WARNING("You fail to rig [src] with the solution."))
-
-	else // If it's not a syringe
+/obj/item/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/reagent_containers/syringe))
 		return ..()
 
-/obj/item/light/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	..()
-	shatter()
+	var/obj/item/reagent_containers/syringe/syringe = used
 
-/obj/item/light/attack_obj__legacy__attackchain(obj/O, mob/living/user, params)
+	if(!length(syringe.reagents.reagent_list))
+		to_chat(user, SPAN_WARNING("[syringe] is empty, it can't rig the light!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(!(syringe.reagents.has_reagent("plasma", 5) || syringe.reagents.has_reagent("plasma_dust", 5)))
+		to_chat(user, SPAN_WARNING("You fail to rig [src] with the solution!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_DANGER("You inject the solution into [src], rigging it to explode!"))
+	log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
+	message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
+
+	rigged = TRUE
+	syringe.reagents.clear_reagents()
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/light/attack(mob/living/target, mob/living/carbon/human/user)
 	..()
 	shatter()
+	return FINISH_ATTACK
+
+/obj/item/light/attack_obj(obj/attacked_obj, mob/living/user, params)
+	..()
+	shatter()
+	return FINISH_ATTACK
 
 /obj/item/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
-		visible_message(SPAN_WARNING("[src] shatters."), SPAN_WARNING("You hear a small glass object shatter."))
+		visible_message(
+			SPAN_WARNING("[src] shatters."),
+			SPAN_WARNING("You hear a small glass object shatter.")
+		)
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE

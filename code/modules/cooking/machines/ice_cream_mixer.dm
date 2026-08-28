@@ -68,12 +68,12 @@
 	else
 		. += image(icon = icon, icon_state = "ice_cream_mixer_door_open", layer = ABOVE_OBJ_LAYER)
 
-/obj/machinery/cooking/ice_cream_mixer/upgraded/InitializeParts()
+/obj/machinery/cooking/ice_cream_mixer/loaded/upgraded/InitializeParts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cooking/ice_cream_mixer(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/quadultra(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	RefreshParts()
 
 /obj/machinery/cooking/ice_cream_mixer/loaded/Initialize(mapload)

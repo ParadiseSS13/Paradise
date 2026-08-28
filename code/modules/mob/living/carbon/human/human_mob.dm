@@ -1152,7 +1152,7 @@
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(!H || !H.can_intake_reagents)
+	if(!H || (!H.can_intake_reagents && !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT)))
 		return FALSE
 	return TRUE
 
@@ -1663,6 +1663,13 @@
 		return
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
+	var/obj/item/clothing/glasses/glasses = get_item_by_slot(ITEM_SLOT_EYES)
+	if(glasses)
+		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+		var/worn_icon = glasses.worn_icon || (robohead && robohead.is_monitor ? glasses.icon_monitor : FALSE) || listgetindex(glasses.sprite_sheets, head_organ.dna.species.sprite_sheet_name) || 'icons/mob/clothing/eyes.dmi'
+		var/worn_icon_state = glasses.worn_icon_state || glasses.icon_state
+		var/icon/glasses_icon = new /icon("icon" = worn_icon, "icon_state" = worn_icon_state)
+		hair.Blend(glasses_icon, ICON_UNDERLAY)
 	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
 	MA.plane = ABOVE_LIGHTING_PLANE
 	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
@@ -1672,8 +1679,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/eyes_shine()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(!get_location_accessible(src, "eyes"))
-		return FALSE
 	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
 	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		return TRUE
@@ -1989,17 +1994,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/selfFeed(obj/item/food/toEat, fullness)
 	if(!check_has_mouth())
-		if(!ismachineperson(src) || (ismachineperson(src) && !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT)))
-			to_chat(src, SPAN_NOTICE("Where do you intend to put [toEat]? You don't have a mouth!"))
-			return FALSE
+		to_chat(src, SPAN_NOTICE("Where do you intend to put [toEat]? You don't have a mouth!"))
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!ismachineperson(src) || !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
-			if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
-				to_chat(user, SPAN_NOTICE("Where do you intend to put [toEat]? \The [src] doesn't have a mouth!"))
-				return FALSE
+		if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
+			to_chat(user, SPAN_NOTICE("Where do you intend to put [toEat]? [src] doesn't have a mouth!"))
+			return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(obj/item/reagent_containers/drinks/toDrink)
@@ -2196,7 +2199,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		makeCluwne()
 
 /mob/living/carbon/human/is_literate()
-	return getBrainLoss() < 90
+	return getBrainLoss() < 50
 
 
 /mob/living/carbon/human/fakefire(fire_icon = "Generic_mob_burning")

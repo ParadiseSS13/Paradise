@@ -3,6 +3,7 @@
 	desc = "Unce unce unce unce."
 	icon_state = "headphones0"
 	inhand_icon_state = "headphones"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/ears.dmi'
 	actions_types = list(/datum/action/item_action/change_headphones_song, /datum/action/item_action/toggle_music_notes)
 	var/datum/song/headphones/song
 	var/on = FALSE

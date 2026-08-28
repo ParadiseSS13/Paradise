@@ -134,7 +134,7 @@
 
 /obj/structure/barricade/wooden/Destroy()
 	de_barricade()
-	..()
+	. = ..()
 
 /obj/structure/barricade/wooden/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -384,10 +384,9 @@
 
 	to_chat(user, "[src] is now in [mode == AUTO ? mode : dir2text(mode)] mode.")
 
-/obj/item/grenade/barrier/dropwall/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/grenade/barrier/dropwall/activate_self(mob/user)
 	armer = user
-
+	return ..()
 
 /obj/item/grenade/barrier/dropwall/end_throw()
 	if(active)
@@ -538,7 +537,7 @@
 	inhand_icon_state = "flashbang"
 	var/owner_uid
 
-/obj/item/grenade/turret/attack_self__legacy__attackchain(mob/user)
+/obj/item/grenade/turret/activate_self(mob/user)
 	owner_uid = user.UID()
 	return ..()
 
@@ -546,6 +545,31 @@
 	var/obj/machinery/porta_turret/inflatable_turret/turret = new(get_turf(loc))
 	turret.owner_uid = owner_uid
 	qdel(src)
+
+/obj/item/grenade/turret/mining
+	name = "\"Prospector\" Turret grenade"
+	desc = "Inflates into a \"Prospector\" Mining Turret - a robust and secure defensive system."
+	icon_state = "mining_turret"
+	origin_tech = "materials=4;magnets=4;engineering=5"
+
+/obj/item/grenade/turret/mining/emag_act(mob/user)
+	. = ..()
+	if(emagged)
+		return
+	to_chat(user, SPAN_WARNING("You short out the turret's IFF system."))
+	emagged = TRUE
+
+/obj/item/grenade/turret/mining/prime()
+	var/turf/T = get_turf(src)
+	qdel(src)
+	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
+	playsound(T, 'sound/items/rped.ogg', 100, TRUE)
+	sleep(5 SECONDS)
+	var/obj/machinery/porta_turret/mining_turret/turret = new(T)
+	if(emagged)
+		turret.faction = "hate_everyone"
+		turret.emagged = TRUE
+	qdel(spawning_effect)
 
 /obj/structure/barricade/foam
 	name = "foam blockage"

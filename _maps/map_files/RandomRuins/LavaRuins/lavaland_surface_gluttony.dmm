@@ -88,6 +88,13 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
+"H" = (
+/obj/machinery/door/airlock/uranium{
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/gluttony)
 "R" = (
 /turf/simulated/wall/indestructible/uranium,
 /area/ruin/powered/gluttony)
@@ -335,7 +342,7 @@ i
 i
 i
 i
-S
+H
 u
 u
 "}

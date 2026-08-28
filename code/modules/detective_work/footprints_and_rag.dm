@@ -3,6 +3,7 @@
 	desc = "For cleaning up messes, you suppose."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
+	inhand_icon_state = "rag"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 	volume = 5
@@ -21,6 +22,9 @@
 		return ..()
 
 /obj/item/reagent_containers/glass/rag/normal_act(atom/target, mob/living/user)
+	// if it's a storage item and it isn't dirty, just put the rag in the storage
+	if(isstorage(target) && !target.is_dirty())
+		return ..()
 	target.cleaning_act(user, src, wipespeed)
 	return TRUE
 

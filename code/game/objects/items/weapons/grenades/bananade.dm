@@ -30,27 +30,22 @@
 	desc = "A grenade casing made of bananium."
 	icon_state = "banana_casing"
 	deliveryamt = 0
-
-/obj/item/grenade/bananade/casing/attack_hand()
-	return // No activating an empty grenade
-
-/obj/item/grenade/bananade/casing/attack_self__legacy__attackchain()
-	return // Stop trying to break stuff
+	custom_activation = TRUE // Used to make it unprimable.
 
 /obj/item/grenade/bananade/casing/prime()
-	return // The grenade isnt completed yet, dont even try to blow it up
+	return // The grenade isnt completed yet, dont even try to blow it up!
 
-/obj/item/grenade/bananade/casing/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grown/bananapeel))
-		if(deliveryamt < 9)
-			to_chat(user, "<span  class='notice'>You add another banana peel to the assembly.</span>")
-			deliveryamt += 1
-			qdel(I)
-		else
-			to_chat(user, SPAN_NOTICE("The bananade is full, screwdriver it shut to ready it."))
-		return
+/obj/item/grenade/bananade/casing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/grown/bananapeel))
+		return ..()
 
-	return ..()
+	if(deliveryamt < 9)
+		to_chat(user, SPAN_NOTICE("You add another banana peel to the assembly"))
+		deliveryamt += 1
+		qdel(used)
+	else
+		to_chat(user, SPAN_WARNING("[src] is full. Screwdriver it shut to ready it."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/grenade/bananade/casing/screwdriver_act(mob/living/user, obj/item/I)
 	if(!deliveryamt)

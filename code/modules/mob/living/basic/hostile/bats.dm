@@ -33,7 +33,7 @@
 	faction = list("scarybat")
 	gold_core_spawnable = HOSTILE_SPAWN
 
-	initial_traits = list(TRAIT_FLYING)
+	initial_traits = list(TRAIT_FLYING, TRAIT_NOFIRE)
 
 /mob/living/basic/scarybat/Initialize(mapload, mob/living/L)
 	. = ..()

@@ -105,6 +105,9 @@
 	else if(!rad_component)
 		start_rads()
 
+/obj/item/nuclear_rod/proc/do_special_effect()
+	return
+
 /obj/item/nuclear_rod/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	check_rad_shield()
@@ -163,6 +166,17 @@
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	craftable = TRUE
 	materials = list(MAT_METAL = 2000, MAT_URANIUM = 1000)
+
+/obj/item/nuclear_rod/fuel/uranium_238/spiders
+	name = "spider-clan uranium 238 fuel rod"
+	desc = "A small fuel rod for most NGCR reactors. This one was green webs coating its surface, with tiny spiders skittering along them."
+	w_class = WEIGHT_CLASS_NORMAL
+	craftable = FALSE
+	adjacent_requirements = list()
+
+/obj/item/nuclear_rod/fuel/uranium_238/spiders/do_special_effect()
+	if(prob(5))
+		new /mob/living/basic/spiderling(get_turf(src))
 
 /obj/item/nuclear_rod/fuel/weak_thorium
 	name = "weak thorium fuel rod"

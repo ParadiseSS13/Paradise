@@ -264,6 +264,18 @@
 /datum/xenobiology_surgery_container/goliath
 	xeno_specialized_organs = list(/obj/item/organ/internal/appendix/xenobiology/tendril)
 
+/datum/xenobiology_surgery_container/flockbit
+	xeno_specialized_organs = list(
+		/obj/item/organ/internal/liver/xenobiology/gnesis_shard,
+	)
+
+/datum/xenobiology_surgery_container/flockdrone
+	xeno_specialized_organs = list(
+		/obj/item/organ/internal/appendix/xenobiology/flock_converter,
+		/obj/item/organ/internal/kidneys/xenobiology/gnesis_filters,
+		/obj/item/organ/internal/liver/xenobiology/gnesis_shard,
+	)
+
 /datum/xenobiology_surgery_container/megacarp
 	xeno_specialized_organs = list(/obj/item/organ/internal/heart/xenobiology/megacarp)
 

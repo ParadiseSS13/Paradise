@@ -94,6 +94,19 @@
 	list_reagents = list("nutriment" = 12, "protein" = 6, "vitamin" = 6)
 	tastes = list("lettuce" = 2, "salami" = 2, "mozzarella cheese" = 2, "tomatoes" = 2, "dressing" = 1)
 
+/obj/item/food/salad/ash_salad
+	name = "Ashlander Salad"
+	desc = "A salad of edible fauna and flora from an ashy wasteland."
+	resistance_flags = FIRE_PROOF
+	icon_state = "ash_salad"
+	list_reagents = list("protein" = 2, "vitamin" = 2, "plantmatter" = 2, "vitfro" = 1, "nicotine" = 2) // Nutritious and addictive
+	tastes = list("meat" = 1, "cactus fruit" = 2, "mushroomy cabbage" = 1, "ash" = 1)
+
+/obj/item/food/salad/ash_salad/burn()
+	visible_message(SPAN_NOTICE("[src] burns, leaving only the Goliath Steak!")) // The steak is lavaproof, the rest is only fireproof
+	new /obj/item/food/goliath_steak(loc)
+	qdel(src)
+
 /obj/item/food/salad/caesar
 	name = "Caesar salad"
 	desc = "A simple yet flavorful salad of onions, lettuce, croutons, and shreds of cheese dressed in oil. Comes with a slice of pita bread!"
@@ -290,12 +303,3 @@
 		to_chat(user, SPAN_USERDANGER("You bite down on an un-popped kernel!"))
 		unpopped = max(0, unpopped-1)
 	..()
-
-/obj/item/food/liquidfood
-	name = "\improper LiquidFood ration"
-	desc = "A prepackaged grey slurry of all the essential nutrients for a spacefarer on the go. Should this be crunchy?"
-	icon_state = "liquidfood"
-	trash = /obj/item/trash/liquidfood
-	filling_color = "#A8A8A8"
-	bitesize = 4
-	list_reagents = list("nutriment" = 20, "iron" = 3, "vitamin" = 2)

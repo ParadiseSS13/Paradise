@@ -111,7 +111,7 @@
 		var/obj/tgvehicle/sealed/car/clowncar/cc = loc
 		return cc.fire_cannon_at(A, src, params)
 
-	if(restrained())
+	if(restrained() | istype(loc, /obj/structure/flock/cage))
 		RestrainedClickOn(A)
 		return
 
@@ -135,6 +135,13 @@
 		else
 			update_inv_r_hand()
 		return
+
+	if(isturf(A) && !W)
+		var/turf/clicked_turf = A
+		for(var/obj/machinery/door/AL in clicked_turf.contents)
+			if(!Adjacent(AL) || restrained())
+				continue
+			AL.try_to_activate_door(src)
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	if(A in direct_access())

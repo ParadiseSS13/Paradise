@@ -134,13 +134,6 @@
 /obj/machinery/disco/immobile,
 /turf/simulated/floor/light,
 /area/ruin/powered/beach)
-"ay" = (
-/obj/machinery/door/airlock/sandstone{
-	name = "Restroom"
-	},
-/obj/effect/turf_decal/sand,
-/turf/simulated/floor/plating,
-/area/ruin/powered/beach)
 "az" = (
 /obj/item/clothing/neck/necklace/dope,
 /obj/item/reagent_containers/spray/spraytan,
@@ -205,13 +198,6 @@
 "aQ" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/ruin/powered/beach)
-"aR" = (
-/obj/machinery/door/airlock/sandstone{
-	name = "Bar"
-	},
-/obj/effect/turf_decal/sand,
-/turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "aU" = (
 /obj/effect/overlay/palmtree_l,
@@ -407,6 +393,14 @@
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/pod,
 /area/ruin/powered/beach)
+"fO" = (
+/obj/machinery/door/airlock/sandstone{
+	name = "Restroom";
+	dir = 4
+	},
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plating,
+/area/ruin/powered/beach)
 "gg" = (
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/pod/dark,
@@ -509,6 +503,14 @@
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/wood,
+/area/ruin/powered/beach)
+"Kv" = (
+/obj/machinery/door/airlock/sandstone{
+	name = "Bar";
+	dir = 4
+	},
+/obj/effect/turf_decal/sand,
+/turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "Pl" = (
 /obj/effect/turf_decal/sand/plating,
@@ -911,7 +913,7 @@ aC
 aC
 aC
 aC
-aR
+Kv
 aK
 Pl
 bE
@@ -1007,7 +1009,7 @@ aC
 aC
 aC
 aC
-aR
+Kv
 aK
 bE
 bE
@@ -1196,7 +1198,7 @@ aa
 bW
 ao
 ar
-ay
+fO
 bE
 bE
 bE

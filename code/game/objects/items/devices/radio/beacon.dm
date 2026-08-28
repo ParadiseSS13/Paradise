@@ -14,9 +14,13 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
-	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
-	var/wormhole_weaver = FALSE // special beacons for wormwhole weaver
+	/// If `TRUE`, this beacon allows teleporters to ignore the CC Z-level anti-teleportation protection when targeting it.
+	var/cc_beacon = FALSE
+	/// Is this beacon used for the wormhole weaver?
+	var/wormhole_weaver = FALSE
+	/// Can teleporter consoles see this beacon? Used for pre-mapped permanent teleporters that shouldn't be targetable.
 	var/broadcast_to_teleport_hubs = TRUE
+	new_attack_chain = TRUE
 
 /obj/item/beacon/Initialize(mapload)
 	. = ..()
@@ -30,9 +34,8 @@
 	if(!emagged)
 		emagged = TRUE
 		syndicate = TRUE
-		to_chat(user, SPAN_NOTICE("The This beacon now only be locked on to by emagged teleporters!"))
+		to_chat(user, SPAN_NOTICE("[src] can now only be locked on to by emagged teleporters!"))
 		return TRUE
-
 
 /// Probably a better way of doing this, I'm lazy.
 /obj/item/beacon/bacon
@@ -43,6 +46,20 @@
 /obj/item/beacon/emagged
 	syndicate = TRUE
 	emagged = TRUE
+
+// Spawns a spider fuel rod for ninja objectives
+/obj/item/beacon/ninja_rod_spawner
+	name = "spider clan beacon"
+	desc = "A label on it reads: <i>Activate to have a spider clan brand fuel rod teleported to your location</i>."
+	origin_tech = "bluespace=6;syndicate=3"
+
+/obj/item/beacon/ninja_rod_spawner/activate_self(mob/user)
+	if(!user)
+		return ..()
+	var/obj/item/nuclear_rod/fuel/uranium_238/spiders/new_rod = new(user.loc)
+	qdel(src)
+	user.put_in_hands(new_rod)
+	return ITEM_INTERACT_COMPLETE
 
 // SINGULO BEACON SPAWNER
 /obj/item/beacon/syndicate
@@ -57,13 +74,15 @@
 		mycomputer.mybeacon = null
 	return ..()
 
-/obj/item/beacon/syndicate/attack_self__legacy__attackchain(mob/user)
-	if(user)
-		to_chat(user, SPAN_NOTICE("Locked In"))
-		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
-		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
-		user.drop_item()
-		qdel(src)
+/obj/item/beacon/syndicate/activate_self(mob/user)
+	if(!user)
+		return ..()
+	to_chat(user, SPAN_NOTICE("Locked In."))
+	new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
+	playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
+	user.drop_item()
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/beacon/syndicate/bundle
 	desc = "A label on it reads: <i>Activate to select a bundle</i>."
@@ -78,6 +97,7 @@
 		"Hacker" = /obj/item/storage/box/syndie_kit/bundle/hacker,
 		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
+		"Mob Boss" = /obj/item/storage/box/syndie_kit/bundle/gangster,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
 		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid,
 		"Ocelot" = /obj/item/storage/box/syndie_kit/bundle/ocelot,
@@ -87,9 +107,9 @@
 	var/list/selected = list()
 	var/list/unselected = list()
 
-/obj/item/beacon/syndicate/bundle/attack_self__legacy__attackchain(mob/user)
+/obj/item/beacon/syndicate/bundle/activate_self(mob/user)
 	if(!user)
-		return
+		return ..()
 
 	if(!length(selected))
 		unselected = bundles.Copy()
@@ -99,7 +119,7 @@
 
 	var/bundle_name = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
 	if(!bundle_name || QDELETED(src))
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(bundle_name == "Random")
 		bundle_name = pick(unselected)
@@ -110,30 +130,35 @@
 	SSblackbox.record_feedback("tally", "syndicate_bundle_pick", 1, "[bundle]")
 	qdel(src)
 	user.put_in_hands(bundle)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/beacon/syndicate/power_sink
 	desc = "A label on it reads: <i>Warning: Activating this device will send a power sink to your location</i>."
 
-/obj/item/beacon/syndicate/power_sink/attack_self__legacy__attackchain(mob/user)
-	if(user)
-		to_chat(user, SPAN_NOTICE("Locked In"))
-		new /obj/item/powersink(user.loc)
-		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
-		user.drop_item()
-		qdel(src)
+/obj/item/beacon/syndicate/power_sink/activate_self(mob/user)
+	if(!user)
+		return ..()
+	to_chat(user, SPAN_NOTICE("Locked In."))
+	new /obj/item/powersink(user.loc)
+	playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
+	user.drop_item()
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/beacon/syndicate/bomb
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
 	origin_tech = "bluespace=5;syndicate=5"
 	var/bomb = /obj/machinery/syndicatebomb
 
-/obj/item/beacon/syndicate/bomb/attack_self__legacy__attackchain(mob/user)
-	if(user)
-		to_chat(user, SPAN_NOTICE("Locked In"))
-		new bomb(user.loc)
-		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
-		user.drop_item()
-		qdel(src)
+/obj/item/beacon/syndicate/bomb/activate_self(mob/user)
+	if(!user)
+		return ..()
+	to_chat(user, SPAN_NOTICE("Locked In."))
+	new bomb(user.loc)
+	playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
+	user.drop_item()
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/beacon/syndicate/bomb/emp
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance EMP explosive to your location</i>."

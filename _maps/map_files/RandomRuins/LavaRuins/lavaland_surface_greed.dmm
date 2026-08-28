@@ -116,8 +116,10 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
-"J" = (
-/obj/machinery/door/airlock/gold,
+"D" = (
+/obj/machinery/door/airlock/gold{
+	dir = 4
+	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
@@ -340,7 +342,7 @@ m
 m
 m
 m
-J
+D
 a
 a
 a

@@ -72,7 +72,7 @@
 				current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
 			chassis.occupant_message("You mop \the [target].")
 			if(holosign_enabled)
-				holosign_controller.afterattack__legacy__attackchain(target_turf, chassis.occupant, TRUE)
+				holosign_controller.interact_with_atom(target_turf, chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
@@ -110,7 +110,7 @@
 	if(afilter.get("toggle_holosign"))
 		holosign_enabled = !holosign_enabled
 		if(!holosign_enabled)
-			holosign_controller.attack_self__legacy__attackchain(chassis.occupant)
+			holosign_controller.activate_self(chassis.occupant)
 		update_equip_info()
 		return
 
@@ -132,11 +132,11 @@
 	to_chat(user, SPAN_NOTICE("You short out the safeties on [src]."))
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/action(atom/target)
-	if(istype(target, /obj/machinery/light))
-		chassis.Beam(target, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+	var/turf/T = get_turf(target)
+	for(var/obj/machinery/light/bulb in T)
+		chassis.Beam(bulb, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		playsound(src, 'sound/items/pshoom.ogg', 40, 1)
-		var/obj/machinery/light/light_to_fix = target
-		light_to_fix.fix(chassis.occupant, src, emagged)
+		bulb.fix(chassis.occupant, src, emagged)
 
 // Mecha spray
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray

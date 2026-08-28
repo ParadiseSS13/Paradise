@@ -231,6 +231,10 @@
 	display_name = "Skirt, black"
 	path = /obj/item/clothing/under/dress/blackskirt
 
+/datum/gear/uniform/skirt/black_tango
+	display_name = "black tango dress"
+	path = /obj/item/clothing/under/dress/blacktango
+
 /datum/gear/uniform/skirt/blue_tango
 	display_name = "blue tango dress"
 	path = /obj/item/clothing/under/dress/blacktango/blue
@@ -625,6 +629,10 @@
 	display_name = "Shorts, grey"
 	path = /obj/item/clothing/under/pants/shorts/grey
 
+/datum/gear/uniform/shorts/jean
+	display_name = "Shorts, jean"
+	path = /obj/item/clothing/under/pants/shorts/jeanshorts
+
 /datum/gear/uniform/pants
 	main_typepath = /datum/gear/uniform/pants
 
@@ -714,3 +722,15 @@
 	display_name = "Orange Hawaiian T-Shirt"
 	description = "A nice t-shirt to remind about warm beaches. This one is orange."
 	path = /obj/item/clothing/under/misc/orangehawaiianshirt
+
+/datum/gear/uniform/suit/baseball
+	display_name = "Baseball Uniform, Generic"
+	path = /obj/item/clothing/under/misc/baseball
+
+/datum/gear/uniform/suit/baseballtsf
+	display_name = "Baseball Uniform, Trans-Solar Federation"
+	path = /obj/item/clothing/under/misc/baseball/solgov
+
+/datum/gear/uniform/suit/baseballnt
+	display_name = "Baseball Uniform, Nanotrasen"
+	path = /obj/item/clothing/under/misc/baseball/nanotrasen

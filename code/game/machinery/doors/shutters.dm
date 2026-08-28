@@ -8,10 +8,16 @@
 	damage_deflection = 20
 	dir = EAST
 
+/obj/machinery/door/poddoor/shutters/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "open"
 	density = FALSE
 	opacity = FALSE
+
+/obj/machinery/door/poddoor/shutters/preopen/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/poddoor/shutters/radiation
 	name = "radiation shutters"
@@ -20,12 +26,18 @@
 	rad_insulation_beta = RAD_BETA_BLOCKER
 	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION
 
+/obj/machinery/door/poddoor/shutters/radiation/manual_rotation
+	manual_dir = TRUE
+
 /obj/machinery/door/poddoor/shutters/radiation/preopen
 	icon_state = "open"
 	density = FALSE
 	opacity = FALSE
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_NO_INSULATION
+
+/obj/machinery/door/poddoor/shutters/radiation/preopen/manual_rotation
+	manual_dir = TRUE
 
 /obj/machinery/door/poddoor/shutters/radiation/open()
 	. = ..()

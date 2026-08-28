@@ -378,12 +378,12 @@
  */
 /obj/item/rcd/proc/get_airlock_image(airlock_type)
 	var/obj/machinery/door/airlock/airlock = airlock_type
-	var/icon/base = icon(initial(airlock.icon), "closed")
+	var/icon/base = icon(initial(airlock.icon), "closed", dir = WEST)
 	if(initial(airlock.glass))
-		var/icon/glass_fill = icon(initial(airlock.overlays_file), "glass_closed")
+		var/icon/glass_fill = icon(initial(airlock.overlays_file), "glass_closed", dir = WEST)
 		base.Blend(glass_fill, ICON_OVERLAY)
 	else
-		var/icon/solid_fill = icon(initial(airlock.icon), "fill_closed")
+		var/icon/solid_fill = icon(initial(airlock.icon), "fill_closed", dir = WEST)
 		base.Blend(solid_fill, ICON_OVERLAY)
 	return "[icon2base64(base)]"
 

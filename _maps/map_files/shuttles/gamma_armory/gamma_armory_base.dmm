@@ -31,7 +31,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma)
 "i" = (
-/obj/machinery/autolathe/upgraded/gamma,
+/obj/machinery/autolathe/loaded/upgraded/gamma,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,

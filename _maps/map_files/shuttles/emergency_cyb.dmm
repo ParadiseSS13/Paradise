@@ -175,13 +175,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
-"aF" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
 "aG" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
@@ -399,13 +392,6 @@
 "bB" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/plasteel,
-/area/shuttle/escape)
-"bC" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "bD" = (
 /obj/docking_port/mobile/emergency{
@@ -818,6 +804,29 @@
 "cH" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
+"Bf" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
+"JT" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/shuttle/escape)
+"Nv" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -1082,12 +1091,12 @@ ao
 an
 an
 an
-aF
+Nv
 an
 an
 an
 an
-bC
+Bf
 bB
 ba
 bR
@@ -1114,12 +1123,12 @@ ao
 an
 an
 an
-aF
+Nv
 an
 an
 an
 an
-bC
+Bf
 bB
 ba
 cr
@@ -1287,7 +1296,7 @@ bT
 bT
 bT
 cg
-cl
+JT
 cp
 cs
 cv
@@ -1319,7 +1328,7 @@ bU
 bU
 bU
 ch
-cl
+JT
 cp
 cs
 cv

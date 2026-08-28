@@ -249,6 +249,8 @@
 		return TRUE
 	I.play_tool_sound(src)
 	var/obj/machinery/new_machine = new circuit.build_path(loc)
+	if(QDELETED(new_machine))
+		return TRUE
 	new_machine.on_construction()
 	for(var/obj/O in new_machine.component_parts)
 		qdel(O)
@@ -324,6 +326,7 @@ to destroy them and players will be able to make replacements.
 		"LawDrobe" =							/obj/machinery/economy/vending/lawdrobe,
 		"TrainDrobe" =							/obj/machinery/economy/vending/traindrobe,
 		"Castivend" =							/obj/machinery/economy/vending/smith,
+		"ChapDrobe" =							/obj/machinery/economy/vending/chapdrobe,
 		"CrewVend 3000" =						/obj/machinery/economy/vending/custom)
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
@@ -494,12 +497,11 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/reactor_chamber
 	origin_tech = "engineering=2"
-	materials = list(MAT_GLASS = 2000)
+	materials = list(MAT_GLASS = 2000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000)
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/metal = 2,
-		/obj/item/stack/sheet/mineral/plastitanium = 2,
 	)
 
 /obj/item/circuitboard/recharger
@@ -772,6 +774,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stock_parts/matter_bin = 1)
 
+/obj/item/circuitboard/autoclave
+	board_name = "Autoclave"
+	icon_state = "medical"
+	build_path = /obj/machinery/autoclave
+	board_type = "machine"
+	origin_tech = "biotech=2;materials=2;magnets=3"
+	req_components = list(
+							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stack/sheet/glass = 1
+						)
+
 /obj/item/circuitboard/scientific_analyzer // fucking US spelling
 	board_name = "Scientific Analyzer"
 	icon_state = "science"
@@ -830,7 +843,9 @@ to destroy them and players will be able to make replacements.
 	. += SPAN_NOTICE("Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.")
 	. += SPAN_NOTICE("Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.")
 
-/obj/item/circuitboard/dish_drive/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/circuitboard/dish_drive/activate_self(mob/living/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	suction = !suction
 	to_chat(user, SPAN_NOTICE("You [suction ? "enable" : "disable"] the board's suction function."))
 
@@ -984,14 +999,13 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/target
 
-/obj/item/circuitboard/teleporter_perma/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/gps))
-		var/obj/item/gps/L = I
-		if(L.locked_location)
-			target = get_turf(L.locked_location)
-			to_chat(user, SPAN_CAUTION("You upload the data from [L]"))
-		return
-	return ..()
+/obj/item/circuitboard/teleporter_perma/item_interaction(mob/living/user, obj/item/gps/used, list/modifiers)
+	if(!istype(used))
+		return ..()
+	if(used.locked_location)
+		target = get_turf(used.locked_location)
+		to_chat(user, SPAN_CAUTION("You upload the data from [used]."))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/circuitboard/telesci_pad
 	board_name = "Telepad"

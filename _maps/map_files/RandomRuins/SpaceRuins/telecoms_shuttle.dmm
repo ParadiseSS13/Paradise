@@ -84,7 +84,7 @@
 /obj/structure/sign/electricshock{
 	pixel_x = -32
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/unpowered)
 "q" = (
 /obj/machinery/computer/nonfunctional{
@@ -162,7 +162,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "B" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/unpowered)
 "C" = (
 /obj/structure/railing{
@@ -233,7 +233,7 @@
 /area/ruin/space/unpowered)
 "L" = (
 /obj/machinery/porta_turret,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/unpowered)
 "M" = (
 /obj/machinery/suit_storage_unit/cmo/sec_storage/secure,

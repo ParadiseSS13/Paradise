@@ -308,3 +308,72 @@
 	name = "Nanotrasen Bluespace Relay #[rand(1, 1000)]" //Give it a random relay name
 	return ..()
 
+/area/ruin/space/kappa_lab
+	name = "\improper Kappa Lab"
+
+/area/ruin/space/kappa_lab/entrance
+	name = "\improper Kappa Lab Entrance"
+
+/area/ruin/space/kappa_lab/eva
+	name = "\improper Kappa Lab EVA Storage"
+
+/area/ruin/space/kappa_lab/medical
+	name = "\improper Kappa Lab Medical Bay"
+
+/area/ruin/space/kappa_lab/hallway
+	name = "\improper Kappa Lab Hallways"
+
+/area/ruin/space/kappa_lab/quarters
+	name = "\improper Kappa Lab Crew Quarters"
+
+/area/ruin/space/kappa_lab/research
+	name = "\improper Kappa Lab Research Wing"
+
+/area/ruin/space/kappa_lab/engineering
+	name = "\improper Kappa Lab Engieering Storage"
+
+/area/ruin/space/kappa_lab/diner
+	name = "\improper Kappa Lab Dining Hall"
+
+/area/ruin/space/kappa_lab/bridge
+	name = "\improper Kappa Lab Bridge"
+
+/area/ruin/space/powered/ragnarok/bridge
+	name = "Ragnarok Bridge"
+
+/area/ruin/space/powered/ragnarok/dining_hall
+	name = "Ragnarok Dining Hall"
+
+/area/ruin/space/powered/ragnarok/teleporter
+	name = "Ragnarok Teleporter Hub"
+
+/area/ruin/space/powered/ragnarok/bakery
+	name = "Ragnarok Bakery"
+
+/area/ruin/space/powered/ragnarok/bathhouse
+	name = "Ragnarok Bathhouse"
+
+/area/ruin/space/powered/ragnarok/garden
+	name = "Ragnarok Gardens"
+
+/area/ruin/space/powered/ragnarok/foyer
+	name = "Ragnarok Foyer"
+
+/area/ruin/space/powered/ragnarok/kitchen
+	name = "Ragnarok Kitchen"
+
+/area/ruin/space/powered/ragnarok/throne
+	name = "Ragnarok Throneroom"
+
+/area/ruin/space/powered/ragnarok/vault
+	name = "Ragnarok Vault"
+
+/area/ruin/space/powered/ragnarok/engine
+	name = "Ragnarok Engine Bay"
+
+
+/area/ruin/space/powered/ragnarok/maints
+	name = "Ragnarok Maintenance"
+
+/area/ruin/space/powered/ragnarok/atmos
+	name = "Ragnarok Atmospherics Bay"

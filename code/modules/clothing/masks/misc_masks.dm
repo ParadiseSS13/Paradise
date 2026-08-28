@@ -3,6 +3,7 @@
 	desc = "To stop that awful noise."
 	icon_state = "muzzle"
 	inhand_icon_state = "muzzle"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 2 SECONDS
@@ -178,6 +179,7 @@
 	desc = "A sterile mask designed to help prevent the spread of diseases."
 	icon_state = "sterile"
 	inhand_icon_state = "m_mask"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
@@ -208,6 +210,7 @@
 	name = "completely real moustache"
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags_inv = HIDEFACE
 	actions_types = list(/datum/action/item_action/pontificate)
 	dog_fashion = /datum/dog_fashion/head/not_ian
@@ -239,6 +242,7 @@
 	name = "pig mask"
 	desc = "A rubber pig mask."
 	icon_state = "pig"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 
@@ -246,6 +250,7 @@
 	name = "horse head mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a horse."
 	icon_state = "horsehead"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	var/voicechange = FALSE
@@ -289,6 +294,7 @@
 /obj/item/clothing/mask/face
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 
 /obj/item/clothing/mask/face/rat
 	name = "rat mask"
@@ -341,6 +347,7 @@
 	name = "Guy Fawkes mask"
 	desc = "A mask designed to help you remember a specific date."
 	icon_state = "fawkes"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	flags_inv = HIDEFACE
 
 // Bandanas
@@ -352,6 +359,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandana" // Default white bandana
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BANDANA
 	can_toggle = TRUE
@@ -494,11 +502,12 @@
 	desc = "This is a very, very odd looking mask."
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	worn_icon = 'icons/goonstation/mob/clothing/mask.dmi'
 	inhand_icon_state = "cclown_hat"
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags =	BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_cover = MASKCOVERSMOUTH
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
@@ -512,6 +521,7 @@
 	desc = "This is a very, very odd looking mask."
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/mask.dmi'
 	worn_icon = 'icons/goonstation/mob/clothing/mask.dmi'
 	inhand_icon_state = "cclown_hat"
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'

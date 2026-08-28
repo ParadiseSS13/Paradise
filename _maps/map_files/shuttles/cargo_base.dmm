@@ -83,7 +83,7 @@
 /obj/effect/turf_decal{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/supply)
 "t" = (
 /obj/structure/window/reinforced{
@@ -115,7 +115,7 @@
 /obj/effect/turf_decal{
 	dir = 8
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/supply)
 "I" = (
 /obj/effect/turf_decal{
@@ -134,9 +134,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/supply)
-"U" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 
 (1,1,1) = {"
@@ -164,7 +161,7 @@ i
 i
 I
 r
-U
+a
 w
 "}
 (3,1,1) = {"
@@ -220,7 +217,7 @@ e
 e
 R
 H
-U
+a
 y
 "}
 (7,1,1) = {"

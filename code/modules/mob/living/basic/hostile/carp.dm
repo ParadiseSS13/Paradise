@@ -39,7 +39,7 @@
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
 
-	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
+	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE, TRAIT_NOFIRE)
 
 	var/random_color = TRUE // if the carp uses random coloring
 	var/rarechance = 1 // chance for rare color variant

@@ -134,7 +134,7 @@
 	if(isliving(current))
 		destroyed_body_json = json_encode(current.serialize())
 
-/datum/mind/proc/bind_to(mob/living/new_character)
+/datum/mind/proc/bind_to(mob/new_character)
 	current = new_character
 	new_character.mind = src
 	RegisterSignal(current, COMSIG_PARENT_QDELETING, PROC_REF(archive_deleted_body), override = TRUE)
@@ -147,11 +147,9 @@
 		current.mind = null
 	current = null
 
-/datum/mind/proc/transfer_to(mob/living/new_character)
+/datum/mind/proc/transfer_to(mob/new_character, transfer_actions_to_target = TRUE)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
-	var/mob/living/old_current = current
-	if(!istype(new_character))
-		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
+	var/mob/old_current = current
 	if(current)					//remove ourself from our old body's mind variable
 		if(isliving(current))
 			current.med_hud_set_status()
@@ -168,19 +166,20 @@
 
 	bind_to(new_character)
 
-	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
-		var/datum/antagonist/A = a
-		A.on_body_transfer(old_current, current)
-	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
-	transfer_actions(new_character)
-	if(martial_art)
-		for(var/datum/martial_art/MA in known_martial_arts)
-			MA.reset_combos(old_current) // Clear combos on old body
-			if(MA.temporary)
-				MA.remove(current)
-			else
-				MA.remove(current)
-				MA.teach(current)
+	if(transfer_actions_to_target)
+		for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+			var/datum/antagonist/A = a
+			A.on_body_transfer(old_current, current)
+		transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
+		transfer_actions(new_character)
+		if(martial_art)
+			for(var/datum/martial_art/MA in known_martial_arts)
+				MA.reset_combos(old_current) // Clear combos on old body
+				if(MA.temporary)
+					MA.remove(current)
+				else
+					MA.remove(current)
+					MA.teach(current)
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
@@ -408,6 +407,30 @@
 	else
 		. += "thrall|<b>NO</b>"
 
+/datum/mind/proc/memory_edit_space_ninja(mob/living/carbon/human/H)
+	. = _memory_edit_header("space_ninja")
+	var/datum/antagonist/space_ninja/ninja = has_antag_datum(/datum/antagonist/space_ninja)
+	if(ninja)
+		. += "<b><font color='red'>SPACE NINJA</font></b>|<a href='byond://?src=[UID()];space_ninja=clear'>no</a>"
+		if(!ninja.has_antag_objectives())
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];space_ninja=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='byond://?src=[UID()];space_ninja=space_ninja'>space_ninja</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_NINJA)
+
+/datum/mind/proc/memory_edit_wizard_adept(mob/living/carbon/human/H)
+	. = _memory_edit_header("wizard_adept")
+	var/datum/antagonist/wizard/wiz = has_antag_datum(/datum/antagonist/wizard/adept)
+	if(wiz)
+		. += "<b><font color='red'>WIZARD ADEPT</font></b>|<a href='byond://?src=[UID()];wizard_adept=clear'>no</a>"
+		if(!wiz.has_antag_objectives())
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];wizard_adept=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='byond://?src=[UID()];wizard_adept=wizard_adept'>wizard_adept</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_WIZARD)
+
 /datum/mind/proc/memory_edit_mind_flayer(mob/living/carbon/human/H)
 	. = _memory_edit_header("mind_flayer")
 	var/datum/antagonist/mindflayer/flayer = has_antag_datum(/datum/antagonist/mindflayer)
@@ -477,6 +500,15 @@
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
 	else
 		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
+
+/datum/mind/proc/memory_edit_uplifted(mob/living/H)
+	. = _memory_edit_header("uplifted", list())
+	if(has_antag_datum(/datum/antagonist/uplifted_primitive))
+		. += "<a href='byond://?src=[UID()];uplifted=clear'>no</a>|<b><font color='red'>UPLIFTED</font></b>"
+	else
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];uplifted=uplifted'>uplifted</a>"
+
+	. += _memory_edit_role_enabled(ROLE_UPLIFTED_PRIMITIVE)
 
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
@@ -605,6 +637,10 @@
 		sections["changeling"] = memory_edit_changeling(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
+		/** SPACE NINJA */
+		sections["space_ninja"] = memory_edit_space_ninja(H)
+		/** WIZARD ADEPT **/
+		sections["wizard_adept"] = memory_edit_wizard_adept(H)
 		/** MINDFLAYER ***/
 		sections["mind_flayer"] = memory_edit_mind_flayer(H)
 		/** HERETIC ***/
@@ -615,6 +651,8 @@
 		sections["abductor"] = memory_edit_abductor(H)
 		/** Zombies **/
 		sections["zombie"] = memory_edit_zombie(H)
+		/** Uplifted Primitives **/
+		sections["uplifted"] = memory_edit_uplifted(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
@@ -1169,6 +1207,32 @@
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
+	else if(href_list["space_ninja"])
+		switch(href_list["space_ninja"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/space_ninja))
+					remove_antag_datum(/datum/antagonist/space_ninja)
+					log_admin("[key_name(usr)] has de-ninja'd [key_name(current)].")
+					message_admins("[key_name(usr)] has de-ninja'd [key_name(current)].")
+			if("space_ninja")
+				make_space_ninja()
+				log_admin("[key_name(usr)] has ninja'd [key_name(current)].")
+				to_chat(current, "<b><font color='red'>Your training awakens, and a myserious set of gear teleports in around you... You are a Space Ninja!</font></b>")
+				message_admins("[key_name(usr)] has ninja'd [key_name(current)].")
+
+	else if(href_list["wizard_adept"])
+		switch(href_list["wizard_adept"])
+			if("clear")
+				if(has_antag_datum(/datum/antagonist/wizard/adept))
+					remove_antag_datum(/datum/antagonist/wizard/adept)
+					log_admin("[key_name(usr)] has de-wizard adept'd [key_name(current)].")
+					message_admins("[key_name(usr)] has de-wizard adept'd [key_name(current)].")
+			if("wizard_adept")
+				make_wizard_adept()
+				log_admin("[key_name(usr)] has wizard adept'd [key_name(current)].")
+				to_chat(current, "<b><font color='red'>Your sorcerous mind remembers your spellcasting! You are a Space Wizard Adept!</font></b>")
+				message_admins("[key_name(usr)] has wizard adept'd [key_name(current)].")
+
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
 			if("clear")
@@ -1371,6 +1435,22 @@
 				message_admins("[key_name_admin(usr)] has removed the zombie virus from [key_name(current)].")
 				log_admin("[key_name(usr)] has removed the zombie virus from [key_name(current)].")
 				current.create_log(MISC_LOG, "[key_name(current)] had their zombie virus admin-removed by [key_name_admin(usr)]")
+
+	else if(href_list["uplifted"])
+		switch(href_list["uplifted"])
+			if("clear")
+				if(!has_antag_datum(/datum/antagonist/uplifted_primitive))
+					return
+				remove_antag_datum(/datum/antagonist/uplifted_primitive)
+				message_admins("[key_name_admin(usr)] has de-uplifted'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has de-uplifted'ed [key_name(current)].")
+			if("uplifted")
+				if(has_antag_datum(/datum/antagonist/uplifted_primitive))
+					return
+				add_antag_datum(/datum/antagonist/uplifted_primitive)
+				message_admins("[key_name_admin(usr)] has uplifted'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has uplifted'ed [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was made into an uplifted primitive by [key_name_admin(usr)]")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -1821,10 +1901,25 @@
 		SSticker.mode.blob_overminds += src
 		special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
+/datum/mind/proc/make_Flockmind()
+	if(!(src in SSticker.mode.flockminds))
+		SSticker.mode.flockminds += src
+		special_role = SPECIAL_ROLE_FLOCK
+
 /datum/mind/proc/make_mind_flayer()
 	if(!has_antag_datum(/datum/antagonist/mindflayer))
 		add_antag_datum(/datum/antagonist/mindflayer)
 		SSticker.mode.mindflayers |= src
+
+/datum/mind/proc/make_space_ninja()
+	if(!has_antag_datum(/datum/antagonist/space_ninja))
+		add_antag_datum(/datum/antagonist/space_ninja)
+		SSticker.mode.ninjas |= src
+
+/datum/mind/proc/make_wizard_adept()
+	if(!has_antag_datum(/datum/antagonist/wizard/adept))
+		add_antag_datum(/datum/antagonist/wizard/adept)
+		SSticker.mode.wizards |= src
 
 /datum/mind/proc/make_heretic()
 	if(!has_antag_datum(/datum/antagonist/heretic))

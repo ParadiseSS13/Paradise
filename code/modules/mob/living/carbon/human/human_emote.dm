@@ -173,7 +173,8 @@
 	unintentional_audio_cooldown = 3.5 SECONDS
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/human/monkey, // screech instead
-		/mob/living/silicon // Robot sounds
+		/mob/living/silicon, // Robot sounds
+		/mob/living/brain
 	)
 
 /datum/emote/living/carbon/human/scream/select_message_type(mob/user, msg, intentional)
@@ -724,6 +725,31 @@
 	sound = "sound/effects/chitter.ogg"
 	species_type_whitelist_typecache = list(/datum/species/skulk)
 	muzzled_noises = list("frustrated")
+
+/datum/emote/living/carbon/human/droop
+	key = "droop"
+	key_third_person = "droop"
+	message = "droops their antennae."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/wing_preen
+	key = "wpreen"
+	key_third_person = "wpreen"
+	message = "preens their wings."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/antenna_preen
+	key = "apreen"
+	key_third_person = "apreen"
+	message = "preens their antennae."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/antenna_angle
+	key = "aangle"
+	key_third_person = "aangle"
+	message = "angles their antennae."
+	message_param = "angles their antennae towards %t."
+	species_type_whitelist_typecache = list(/datum/species/moth)
 
 /datum/emote/living/carbon/human/quill
 	key = "quill"

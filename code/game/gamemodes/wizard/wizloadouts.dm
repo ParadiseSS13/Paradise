@@ -53,7 +53,7 @@
 		Bring them to the afterlife, one trigger pull at a time. <br> \
 		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
 		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
-	items_path = list(/obj/item/gun/projectile/revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
+	items_path = list(/obj/item/gun/projectile/revolver/syndie, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
 	spells_path = list(/datum/spell/ethereal_jaunt, /datum/spell/turf_teleport/blink, \
 		/datum/spell/summonitem, /datum/spell/noclothes, /datum/spell/lichdom/gunslinger)
 	category = "Unique"

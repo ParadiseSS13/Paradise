@@ -38,15 +38,7 @@
 
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/smes(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/cell/high(null)
-	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 5)
+	initialize_parts()
 	RefreshParts()
 
 	// When (re)built, try to connect to the powernet under us.
@@ -66,18 +58,27 @@
 	terminal.master = src
 	update_icon()
 
-/obj/machinery/power/smes/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/power/smes/proc/initialize_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/smes(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
-	RefreshParts()
+
+/obj/machinery/power/smes/upgraded/initialize_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/smes(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/cell/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 5)
 
 /obj/machinery/power/smes/RefreshParts()
 	var/IO = 0
@@ -454,9 +455,9 @@
 	..()
 
 /obj/machinery/power/smes/engineering
-	charge = 0.08e6 // Engineering starts with some charge for singulo
+	charge = 0.1e7 // Engineering starts with some charge for engines
 	input_level = 200000
-	output_level = 80000
+	output_level = 190000
 
 /obj/machinery/power/smes/empty
 

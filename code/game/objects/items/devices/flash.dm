@@ -3,7 +3,7 @@
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
-	inhand_icon_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
+	inhand_icon_state = "flashtool"	// Looks exactly like a flash (and nothing like a flashbang).
 	belt_icon = "flash"
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -27,19 +27,28 @@
 	var/flash_timer
 	/// How long do we have between flashes
 	var/time_between_flashes = 5 SECONDS
+	new_attack_chain = TRUE
 
 	var/use_sound = 'sound/weapons/flash.ogg'
 	COOLDOWN_DECLARE(flash_cooldown)
 
-/obj/item/flash/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!can_overcharge || !istype(I, /obj/item/stock_parts/cell))
-		return
+/obj/item/flash/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!can_overcharge || !istype(used, /obj/item/stock_parts/cell))
+		return ..()
 
-	if(battery_panel && !overcharged)
-		to_chat(user, SPAN_NOTICE("You jam [I] into the battery compartment on [src]."))
-		qdel(I)
-		overcharged = TRUE
-		update_icon(UPDATE_OVERLAYS)
+	if(!battery_panel)
+		to_chat(user, SPAN_WARNING("You need to unscrew the battery panel before inserting [used]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	if(overcharged)
+		to_chat(user, SPAN_WARNING("There's already a power cell attached to [src]!"))
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, SPAN_NOTICE("You jam [used] into the battery compartment on [src]."))
+	qdel(used)
+	overcharged = TRUE
+	update_icon(UPDATE_OVERLAYS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flash/update_overlays()
 	. = ..()
@@ -57,7 +66,7 @@
 	battery_panel = !battery_panel
 	return TRUE
 
-/obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
+/obj/item/flash/proc/burn_out() // Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
 	icon_state = "[initial(icon_state)]burnt"
 	visible_message(SPAN_NOTICE("[src] burns out!"))
@@ -102,70 +111,108 @@
 	else
 		flash_timer = null
 
-/obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 10 SECONDS, targeted = TRUE)
+/obj/item/flash/proc/flash_carbon(mob/living/carbon/target, mob/user, power = 10 SECONDS, targeted = TRUE)
 	if(user)
-		add_attack_logs(user, M, "Flashed with [src]")
+		add_attack_logs(user, target, "Flashed with [src]")
 		if(targeted)
-			if(M.flash_eyes(1, 1))
-				M.AdjustConfused(power)
-				revolution_conversion(M, user)
-				if(!M.absorb_stun(0))
-					M.drop_l_hand()
-					M.drop_r_hand()
-				visible_message(SPAN_DISARM("[user] blinds [M] with [src]!"))
-				to_chat(user, SPAN_DANGER("You blind [M] with [src]!"))
-				to_chat(M, SPAN_USERDANGER("[user] blinds you with [src]!"))
+			if(target.flash_eyes(1, 1))
+				target.AdjustConfused(power)
+				revolution_conversion(target, user)
+				if(!target.absorb_stun(0))
+					target.drop_l_hand()
+					target.drop_r_hand()
+				target.visible_message(
+					SPAN_DANGER("[user] blinds [target] with [src]!"),
+					SPAN_USERDANGER("[user] blinds you with [src]!"),
+					SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+				)
 			else
-				visible_message(SPAN_DISARM("[user] fails to blind [M] with [src]!"))
-				to_chat(user, SPAN_WARNING("You fail to blind [M] with [src]!"))
-				to_chat(M, SPAN_DANGER("[user] fails to blind you with [src]!"))
+				target.visible_message(
+					SPAN_DISARM("[user] fails to blind [target] with [src]!"),
+					SPAN_USERDANGER("[user] fails to blind you with [src]!"),
+					SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+				)
 			return
 
-	if(M.flash_eyes())
-		M.AdjustConfused(power)
+	if(target.flash_eyes())
+		target.AdjustConfused(power)
 
-/obj/item/flash/attack__legacy__attackchain(mob/living/M, mob/user)
-	if(!try_use_flash(user))
-		return FALSE
-	if(iscarbon(M))
-		flash_carbon(M, user, 10 SECONDS, 1)
-		if(overcharged)
-			M.adjust_fire_stacks(6)
-			M.IgniteMob()
-			burn_out()
-		return TRUE
-	else if(issilicon(M))
-		add_attack_logs(user, M, "Flashed with [src]")
-		if(M.flash_eyes(intensity = 1.25, affect_silicon = TRUE)) // 40 * 1.25 = 50 stamina damage
-			user.visible_message(SPAN_DISARM("[user] overloads [M]'s sensors with [src]!"), SPAN_DANGER("You overload [M]'s sensors with [src]!"))
-		return TRUE
-	user.visible_message(SPAN_DISARM("[user] fails to blind [M] with [src]!"), SPAN_WARNING("You fail to blind [M] with [src]!"))
+/obj/item/flash/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!istype(target, /obj/machinery/camera) && !iscarbon(target) && !issilicon(target))
+		return NONE
 
-/obj/item/flash/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity, params)
-	if(!proximity)
-		return
-	if(!istype(target, /obj/machinery/camera))
-		return
 	if(!try_use_flash(user))
-		return
-	var/obj/machinery/camera/C = target
-	C.emp_act(EMP_HEAVY)
-	to_chat(user,SPAN_NOTICE("You hit the lens of [C] with [src], temporarily disabling the camera!"))
-	log_admin("[key_name(user)] EMPd a camera with a flash")
-	user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
-	add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
+		return NONE
 
-/obj/item/flash/attack_self__legacy__attackchain(mob/living/carbon/user, flag = 0, emp = 0)
-	if(!try_use_flash(user))
-		return FALSE
-	user.visible_message(SPAN_DISARM("[user]'s [name] emits a blinding light!"), SPAN_DANGER("Your [name] emits a blinding light!"))
-	for(var/mob/living/carbon/M in oviewers(3, null))
-		flash_carbon(M, user, 6 SECONDS, 0)
-	for(var/obj/machinery/camera/C in view(3, user))
-		C.emp_act(EMP_LIGHT)
+	if(istype(target, /obj/machinery/camera))
+		var/obj/machinery/camera/camera = target
+		camera.emp_act(EMP_HEAVY)
+		user.visible_message(
+			SPAN_WARNING("[user] flashes [camera] with [src], temporarily overloading its sensors!"),
+			SPAN_DISARM("You flash the lens of [camera] with [src], temporarily overloading its sensors!"),
+			SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+		)
 		log_admin("[key_name(user)] EMPd a camera with a flash")
 		user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
-		add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
+		add_attack_logs(user, camera, "EMPd with [src]", ATKLOG_ALL)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon_target = target
+		flash_carbon(target, user, 10 SECONDS, 1)
+		if(overcharged)
+			carbon_target.adjust_fire_stacks(6)
+			carbon_target.IgniteMob()
+			carbon_target.visible_message(
+				SPAN_DANGER("[carbon_target] suddenly bursts into flames!"),
+				SPAN_USERDANGER("You suddenly burst into flames!"),
+				SPAN_DANGER("You hear a flame erupting!")
+			)
+			burn_out()
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(issilicon(target))
+		var/mob/living/silicon/silicon_target = target
+		add_attack_logs(user, target, "Flashed with [src]")
+		if(silicon_target.flash_eyes(intensity = 1.25, affect_silicon = TRUE)) // 40 * 1.25 = 50 stamina damage
+			user.visible_message(
+				SPAN_DISARM("[user] overloads [target]'s sensors with [src]!"),
+				SPAN_DANGER("You overload [target]'s sensors with [src]!"),
+				SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+			)
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
+
+	user.visible_message(
+		SPAN_DISARM("[user] fails to blind [target] with [src]!"),
+		SPAN_WARNING("You fail to blind [target] with [src]!"),
+		SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+	)
+
+/obj/item/flash/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
+	if(!try_use_flash(user))
+		return NONE
+
+	add_fingerprint(user)
+	user.visible_message(
+		SPAN_DISARM("[user]'s [name] emits a blinding light!"),
+		SPAN_DANGER("Your [name] emits a blinding light!"),
+		SPAN_HEAR("A click and a rising high pitched tone fills the air!")
+	)
+	for(var/mob/living/carbon/mob_target in oviewers(3, null))
+		flash_carbon(mob_target, user, 6 SECONDS, 0)
+
+	for(var/obj/machinery/camera/camera_target in view(3, user))
+		camera_target.emp_act(EMP_LIGHT)
+		log_admin("[key_name(user)] EMPd a camera with a flash")
+		user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
+		add_attack_logs(user, camera_target, "EMPd with [src]", ATKLOG_ALL)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flash/emp_act(severity)
 	if(!try_use_flash())
@@ -205,11 +252,11 @@
 	origin_tech = null
 	can_overcharge = FALSE
 
-/obj/item/flash/cyborg/attack__legacy__attackchain(mob/living/M, mob/user)
+/obj/item/flash/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
-/obj/item/flash/cyborg/attack_self__legacy__attackchain(mob/user)
+/obj/item/flash/cyborg/activate_self(mob/user)
 	..()
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
 
@@ -264,7 +311,7 @@
 
 /obj/item/flash/memorizer
 	name = "memorizer"
-	desc = "If you see this, you're not likely to remember it any time soon." // Why doesn't this at least delete your notes smh
+	desc = "If you see this, you're not likely to remember it any time soon." // Why doesn't this at least delete your notes smh.
 	icon_state = "memorizer"
 	inhand_icon_state = "tele_baton"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'

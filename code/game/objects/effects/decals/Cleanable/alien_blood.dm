@@ -6,7 +6,7 @@
 
 /obj/effect/decal/cleanable/blood/xeno/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
-	amount = 2
+	cleanable_amount = 2
 
 /obj/effect/decal/cleanable/blood/gibs/xeno
 	name = "xeno gibs"
@@ -46,7 +46,7 @@
 
 /obj/effect/decal/cleanable/blood/slime/streak
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
-	amount = 2
+	cleanable_amount = 2
 
 /obj/effect/decal/cleanable/blood/vox
 	name = "vox blood"
@@ -68,3 +68,9 @@
 /obj/effect/decal/cleanable/blood/gibs/down/vox
 	basecolor = "#2299FC"
 	fleshcolor = "#808D11"
+
+/obj/effect/decal/cleanable/blood/gibs/flock
+	basecolor = COLOR_BLOOD_FLOCK
+
+/obj/effect/decal/cleanable/blood/gibs/core/flock
+	basecolor = COLOR_BLOOD_FLOCK
