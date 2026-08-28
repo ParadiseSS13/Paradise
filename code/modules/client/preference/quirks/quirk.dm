@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 /*
 * The proc for actually applying a quirk to a mob, most often during spawning.
 */
-/datum/quirk/proc/apply_quirk_effects(mob/living/carbon/human/quirky)
+// Note to any future contributor, if you want to add a quirk that applies a gene you need to paste the genes `activate()` proc into the quirks `apply_quirk_effects()` proc.
 	SHOULD_CALL_PARENT(TRUE)
 	if(!istype(quirky))
 		log_debug("[src] did not find a mob to apply its effects to.")
@@ -132,18 +132,3 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 /mob/living/carbon/human/proc/clear_quirks()
 	for(var/datum/quirk/quirk in quirks)
 		qdel(quirk)
-
-/*
-* The proc for actually applying a genetic quirk to a mob, most often during spawning.
-  This does not change the gene of the mob so it cant be extracted in the game.
-  Always call the parent proc when overriding this.
-
-* Argunments:
-** quirky - The mob to apply the quirk to
-** typepath - Typepath of the mutation we want to apply
-
-/datum/quirk/genetic/apply_quirk_effects(mob/living/carbon/human/quirky, datum/mutation/typepath)
-	..()
-	var/datum/mutation/gene = new(typepath)
-	gene.activate(quirky)
-*/
