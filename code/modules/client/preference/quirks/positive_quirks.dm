@@ -212,7 +212,7 @@
 
 /datum/quirk/genetic/tiny/apply_quirk_effects(typepath = /datum/mutation/dwarf)
 	..()
-	owner.pass_flags |= PASSTABLE // I'M AT MY WITS END THIS IS THE ONYL WAY I KNOW TO MAKE THIS WORK.
+	owner.pass_flags |= PASSTABLE // I'M AT MY WITS END THIS IS THE ONLY WAY I KNOW TO MAKE THIS WORK.
 	owner.resize = 0.8
 	owner.update_transform()
 
