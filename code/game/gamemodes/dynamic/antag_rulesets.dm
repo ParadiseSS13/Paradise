@@ -267,6 +267,14 @@
 		return ..()
 	return RULESET_FAILURE_CHANGELING_SECONDARY_RULESET
 
+/datum/ruleset/acolyte
+	name = "Acolyte"
+	ruleset_weight = 9
+	antag_cost = 10
+	antagonist_type = /datum/antagonist/acolyte
+
+	banned_jobs = list("Cyborg", "AI", "Chaplain")
+
 // This is the fucking worst, but its required to not change functionality with mindflayers. Cannot be rolled normally, this is applied by other methods.
 /datum/ruleset/implied
 	name = "BASE IMPLIED RULESET"

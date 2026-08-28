@@ -61,6 +61,8 @@
 	var/list/datum/mind/mindflayers = list()
 	/// A list of all minds which have the heretic antag datum
 	var/list/datum/mind/heretics = list()
+	/// A list of all minds which have the acolyte antag datum
+	var/list/datum/mind/acolytes = list()
 
 	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
 	var/list/datum/mind/pre_traitors = list()

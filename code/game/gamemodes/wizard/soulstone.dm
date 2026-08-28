@@ -117,6 +117,10 @@
 		to_chat(user, SPAN_CULTLARGE("\"Come now, do not capture your fellow's soul.\""))
 		return ..()
 
+	if(IS_ACOLYTE(user))
+		to_chat(user, SPAN_CULTLARGE("\"You feel the power of the soul stone is just out of your reach.\""))
+		return ..()
+
 	if((M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(M, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, SPAN_WARNING("This being's soul seems worthless. Not even the stone will absorb it."))
 		return ..()
@@ -446,11 +450,11 @@
 
 	if(user)
 		S.faction |= "\ref[user]" //Add the master as a faction, allowing inter-mob cooperation
-		if(iswizard(user))
+		if(iswizard(user) || IS_ACOLYTE(user))
 			var/datum/antagonist/wizard/construct/construct = new /datum/antagonist/wizard/construct()
 			construct.my_creator = user
 			S.mind.add_antag_datum(construct)
-		if(IS_CULTIST(user))
+		if(IS_CULTIST(user) && !IS_ACOLYTE(user))
 			S.mind.add_antag_datum(/datum/antagonist/cultist)
 			to_chat(S, SPAN_USERDANGER("Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs."))
 		else
