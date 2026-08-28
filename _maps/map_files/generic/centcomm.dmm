@@ -4954,13 +4954,6 @@
 /area/tdome/tdomeobserve)
 "rt" = (
 /obj/machinery/door_control/no_emag{
-	id = "sec";
-	name = "CentCom Security Shutters";
-	pixel_x = 8;
-	pixel_y = 36;
-	req_access = list(101)
-	},
-/obj/machinery/door_control/no_emag{
 	id = "CC";
 	name = "Thunderdome Shutters";
 	pixel_x = 8;
