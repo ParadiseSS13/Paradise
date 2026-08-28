@@ -132,3 +132,18 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 /mob/living/carbon/human/proc/clear_quirks()
 	for(var/datum/quirk/quirk in quirks)
 		qdel(quirk)
+
+/*
+* The proc for actually applying a genetic quirk to a mob, most often during spawning.
+  This does not change the gene of the mob so it cant be extracted in the game.
+  Always call the parent proc when overriding this.
+
+* Argunments:
+** quirky - The mob to apply the quirk to
+** gene - Typepath of the mutation we want to aplly
+*/
+/datum/quirk/genetic/apply_quirk_effects(mob/living/carbon/human/quirky, datum/mutation/gene)
+	..()
+	gene.activate(quirky)
+
+

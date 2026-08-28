@@ -202,3 +202,14 @@
 	desc = "You never wake up drunk in an unrelated department. You know better than to drink like that on a work night."
 	cost = 1
 	trait_to_apply = TRAIT_TEMPERATE_PARTIER
+
+/datum/quirk/genetic/tiny
+	name = "Tiny"
+	desc = "You are smaller than the average person."
+	cost = 4
+	trait_to_apply = TRAIT_DWARF
+	species_flags = QUIRK_MACHINE_INCOMPATIBLE
+
+/datum/quirk/genetic/tiny/apply_quirk_effects(gene = /datum/mutation/dwarf)
+	..()
+
