@@ -67,6 +67,7 @@
 	attack_verb_simple = "bites"
 	attack_verb_continuous = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
+	can_be_scooped = FALSE
 
 	/// How many times have we bitten a valid mob (for upgrades).
 	var/mousebites = 0
