@@ -358,7 +358,8 @@
 	banned_mutual_rulesets = list(
 		/datum/ruleset/traitor,
 		/datum/ruleset/vampire,
-		/datum/ruleset/changeling
+		/datum/ruleset/changeling,
+		/datum/ruleset/acolyte
 	)
 	banned_jobs = list("Cyborg", "AI", "Chaplain", "Head of Personnel")
 
