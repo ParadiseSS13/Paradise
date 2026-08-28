@@ -140,10 +140,10 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 
 * Argunments:
 ** quirky - The mob to apply the quirk to
-** gene - Typepath of the mutation we want to aplly
-*/
-/datum/quirk/genetic/apply_quirk_effects(mob/living/carbon/human/quirky, datum/mutation/gene)
+** typepath - Typepath of the mutation we want to apply
+
+/datum/quirk/genetic/apply_quirk_effects(mob/living/carbon/human/quirky, datum/mutation/typepath)
 	..()
+	var/datum/mutation/gene = new(typepath)
 	gene.activate(quirky)
-
-
+*/
