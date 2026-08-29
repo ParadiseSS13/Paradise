@@ -48,7 +48,7 @@
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
 				H.emote("scream")
-				H.adjustFireLossByPart(rand(20, 30), "head")
+				H.adjustFireLossByPart(rand(20, 30), BODY_ZONE_HEAD)
 				H.UpdateDamageIcon()
 			else
 				target.adjustFireLoss(25)
