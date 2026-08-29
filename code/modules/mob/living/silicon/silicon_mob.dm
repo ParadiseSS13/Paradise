@@ -409,27 +409,27 @@
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
 	var/datum/atom_hud/janisensor = GLOB.huds[jani_hud]
-	secsensor.remove_hud_from(src)
-	medsensor.remove_hud_from(src)
-	diagsensor.remove_hud_from(src)
-	janisensor.remove_hud_from(src)
+	secsensor.remove_hud_from(src, "silicon")
+	medsensor.remove_hud_from(src, "silicon")
+	diagsensor.remove_hud_from(src, "silicon")
+	janisensor.remove_hud_from(src, "silicon")
 
 
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	secsensor.add_hud_to(src)
+	secsensor.add_hud_to(src, "silicon")
 
 /mob/living/silicon/proc/add_med_hud()
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	medsensor.add_hud_to(src)
+	medsensor.add_hud_to(src, "silicon")
 
 /mob/living/silicon/proc/add_diag_hud()
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
-	diagsensor.add_hud_to(src)
+	diagsensor.add_hud_to(src, "silicon")
 
 /mob/living/silicon/proc/add_jani_hud()
 	var/datum/atom_hud/janisensor = GLOB.huds[jani_hud]
-	janisensor.add_hud_to(src)
+	janisensor.add_hud_to(src, "silicon")
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	to_chat(src, SPAN_NOTICE("Please select sensor type."))

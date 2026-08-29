@@ -417,7 +417,7 @@
 		new /obj/item/reagent_containers/pill/charcoal(src)
 
 /obj/item/storage/pill_bottle/painkillers
-	name = "Pill Bottle (Salicylic Acid)"
+	name = "Pill Bottle (Acetylsalicylic Acid)"
 	desc = "Contains various pills for minor pain relief."
 	wrapper_color = COLOR_RED
 
