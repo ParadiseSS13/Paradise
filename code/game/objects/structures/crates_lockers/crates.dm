@@ -617,21 +617,16 @@
 	icon_closed = "mailsealed"
 	material_drop = /obj/item/stack/sheet/plastic
 	material_drop_amount = 4
-	var/list/possible_contents = list(/obj/item/envelope/security,
-										/obj/item/envelope/science,
-										/obj/item/envelope/supply,
-										/obj/item/envelope/medical,
-										/obj/item/envelope/engineering,
-										/obj/item/envelope/bread,
-										/obj/item/envelope/circuses,
-										/obj/item/envelope/command,
-										/obj/item/envelope/misc)
+	var/list/envelope_types = list()
+
+/obj/structure/closet/crate/mail/Initialize(mapload, envelope_types_)
+	envelope_types = envelope_types_
+	. = ..()
 
 /obj/structure/closet/crate/mail/populate_contents()
 	. = ..()
-	for(var/i in 1 to rand(5, 10))
-		var/item = pick(possible_contents)
-		new item(src)
+	for(var/envelope_type in envelope_types)
+		new envelope_type(src)
 
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))

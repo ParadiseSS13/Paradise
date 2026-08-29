@@ -98,12 +98,12 @@
 
 	atom_parent.unbuckle_all_mobs(TRUE)
 
-	SEND_SIGNAL(atom_parent, COMSIG_MOVABLE_UNTILTED, user)
-
 	atom_parent.layer = initial(atom_parent.layer)
 
 	var/matrix/M = matrix()
 	M.Turn(0)
 	atom_parent.transform = M
+
+	SEND_SIGNAL(atom_parent, COMSIG_MOVABLE_UNTILTED, user)
 	if(istype(user) && user.incapacitated())
 		return COMPONENT_BLOCK_UNTILT

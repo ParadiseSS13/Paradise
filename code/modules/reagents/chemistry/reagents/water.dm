@@ -64,7 +64,7 @@
 		if(E.is_cleanable())
 			qdel(E)
 	else
-		if(O.simulated)
+		if(O.simulated && (!(istype(O, /obj/machinery/door/window) || istype(O, /obj/structure/window)) || !O.opacity))
 			O.color = initial(O.color)
 		O.clean_blood()
 

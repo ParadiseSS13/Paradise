@@ -59,6 +59,16 @@
 	if(mind?.current == src)
 		mind.unbind()
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerDies(FALSE)
+		qdel(s) // If the owner is `destroy()`'d, the soul link is `destroy()`'d.
+	ownedSoullinks = null
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerDies(FALSE)
+		S.removeSoulsharer(src) // If a sharer is `destroy()`'d, they are simply removed.
+	sharedSoullinks = null
 	return ..()
 
 /mob/living/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
@@ -452,11 +462,6 @@
 		//for(var/obj/item/storage/S in Storage.return_inv()) //Check for storage items
 		//	L += get_contents(S)
 
-		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
-			L += G.gift
-			if(isstorage(G.gift))
-				L += get_contents(G.gift)
-
 		for(var/obj/item/small_delivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
 			if(isstorage(D.wrapped)) //this should never happen
@@ -478,10 +483,6 @@
 			L += get_contents(S)
 		for(var/obj/item/bio_chip/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
-		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
-			L += G.gift
-			if(isstorage(G.gift))
-				L += get_contents(G.gift)
 
 		for(var/obj/item/small_delivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
