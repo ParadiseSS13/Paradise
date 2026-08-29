@@ -143,7 +143,7 @@
 	required_reagents = list("hydrogen" = 1, "fluorine" = 1, "oil" = 1)
 	result_amount = 3
 	min_temp = T0C + 100
-	mix_message = "The mixture rapidly turns into a dense pink liquid."
+	mix_message = "The mixture rapidly turns into a dense azure liquid."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/ephedrine
