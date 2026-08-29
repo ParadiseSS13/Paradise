@@ -49,6 +49,11 @@
 	if(victim && flock)
 		flock.update_enemy(victim)
 
+	if(isanimal_or_basicmob(victim))
+		victim.gib()
+		var/obj/structure/flock/egg/bit/B = new /obj/structure/flock/egg/bit(get_turf(src), flock)
+		qdel(src)
+
 	victim.adjustCloneLoss(rand(2,6))
 
 	if(victim && COOLDOWN_FINISHED(src, flock_message_cd))
