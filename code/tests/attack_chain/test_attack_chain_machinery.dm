@@ -131,7 +131,7 @@
 	TEST_ASSERT_LAST_CHATLOG(player, "already a cell in the charger")
 	qdel(cell2)
 	player.click_on(cell_charger)
-	TEST_ASSERT_NULL(cell_charger.charging, "cell charger still charging")
+	TEST_ASSERT_NULL(cell_charger.cell_inside, "cell charger still charging")
 	qdel(cell)
 	player.retrieve(screwdriver)
 	player.click_on(cell_charger)

@@ -26,7 +26,7 @@
 	name = "Grut Gut"
 	max_stages = 5
 	stage_prob = 5
-	spread_text = "Non-contagious"
+	spread_text = "Airborne"
 	cure_text = "Pyrotech stabilizing agents"
 	agent = "Eruca Stomachum"
 	cures = list("stabilizing_agent")
@@ -99,7 +99,7 @@
 	name = "Wand Rot"
 	max_stages = 5
 	stage_prob = 5
-	spread_text = "Non-contagious"
+	spread_text = "Airborne"
 	cure_text = "Acetaldehyde"
 	agent = "nasum magicum"
 	cures = list("acetaldehyde")
@@ -168,8 +168,7 @@
 	name = "Mystic Malaise"
 	max_stages = 5
 	stage_prob = 5
-	spread_text = "Non-contagious"
-	spread_flags = SPREAD_CONTACT_GENERAL
+	spread_text = "Airborne"
 	cure_text = "liquid dark matter"
 	agent = "Spatio Ventrem"
 	cures = list("liquid_dark_matter")
