@@ -53,6 +53,7 @@
 		victim.gib()
 		var/obj/structure/flock/egg/bit/B = new /obj/structure/flock/egg/bit(get_turf(src), flock)
 		qdel(src)
+		return
 
 	victim.adjustCloneLoss(rand(2,6))
 
