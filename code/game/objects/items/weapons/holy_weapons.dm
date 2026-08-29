@@ -835,8 +835,8 @@
 			var/mob/living/carbon/human/H = target
 
 			if(H.mind)
-				if(IS_ACOLYTE(M))
-					M.mind.remove_antag_datum(/datum/antagonist/acolyte)
+				if(IS_ACOLYTE(H))
+					H.mind.remove_antag_datum(/datum/antagonist/acolyte)
 					cleansing = FALSE
 					return
 
