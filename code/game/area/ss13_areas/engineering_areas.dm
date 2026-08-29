@@ -90,7 +90,7 @@
 	icon_state = "engi"
 
 /area/station/engineering/ai_transit_tube
-	name = "\improper AI Minisat Tranit Tube"
+	name = "\improper AI Minisat Transit Tube"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 

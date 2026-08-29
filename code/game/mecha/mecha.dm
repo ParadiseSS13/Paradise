@@ -1364,6 +1364,8 @@
 				to_chat(AI, SPAN_USERDANGER("Inactive core destroyed. Unable to return."))
 				AI.linked_core = null
 				return
+			AI.deploy_action.Grant(AI)
+			AI.redeploy_action.Grant(AI)
 			to_chat(AI, SPAN_NOTICE("Returning to core..."))
 			AI.controlled_mech = null
 			if(istype(AI.eyeobj))

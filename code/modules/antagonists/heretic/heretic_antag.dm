@@ -279,7 +279,7 @@
 	if(!issilicon(our_mob))
 		GLOB.reality_smash_track.add_tracked_mind(owner)
 	var/datum/atom_hud/data/heretic/h_hud = GLOB.huds[DATA_HUD_HERETIC]
-	h_hud.add_hud_to(our_mob)
+	h_hud.add_hud_to(our_mob, src)
 	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, src.UID())
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
 	RegisterSignal(our_mob, COMSIG_MOB_BEFORE_SPELL_CAST, PROC_REF(on_spell_cast))
@@ -293,7 +293,7 @@
 	if(owner in GLOB.reality_smash_track.tracked_heretics)
 		GLOB.reality_smash_track.remove_tracked_mind(owner)
 	var/datum/atom_hud/data/heretic/h_hud = GLOB.huds[DATA_HUD_HERETIC]
-	h_hud.remove_hud_from(our_mob)
+	h_hud.remove_hud_from(our_mob, src)
 
 	REMOVE_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, src.UID())
 	UnregisterSignal(our_mob, list(

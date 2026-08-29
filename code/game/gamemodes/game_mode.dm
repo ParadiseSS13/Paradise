@@ -38,6 +38,7 @@
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
 	var/list/blob_overminds = list()
+	var/list/flockminds = list()
 	var/list/incursion_portals = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode

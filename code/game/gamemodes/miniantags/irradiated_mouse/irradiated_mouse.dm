@@ -16,7 +16,7 @@
 		return
 
 	var/mob/candidate = pick(candidates)
-	var/obj/vents = get_valid_vent_spawns(TRUE, TRUE, 0) // find an unwelded vent with nobody nearby
+	var/obj/vents = get_valid_vent_spawns(TRUE, TRUE, 3) // find an unwelded vent with nobody nearby
 	if(!length(vents))
 		message_admins("Warning: No suitable vents detected for spawning an irradiated mouse.")
 		return

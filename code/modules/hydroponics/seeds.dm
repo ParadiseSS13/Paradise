@@ -37,6 +37,7 @@
 	var/weed_chance = 5
 	/// If weed chance passes, this many weeds sprout during growth
 	var/weed_rate = 1
+	new_attack_chain = TRUE
 
 	/// The size of a small mutation for each stat.
 	var/static/list/stat_mutation_sizes = list(
@@ -394,19 +395,21 @@
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  // In case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/plant_analyzer))
+/obj/item/seeds/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/plant_analyzer))
 		to_chat(user, SPAN_NOTICE("This is \a [SPAN_NAME("[src].")]"))
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, SPAN_NOTICE("[text]"))
+			to_chat(user, SPAN_NOTICE(text))
 
-		return
-	if(is_pen(O))
+		return ITEM_INTERACT_COMPLETE
+
+	if(is_pen(used))
 		variant_prompt(user)
-		return
-	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+		add_fingerprint(user)
+		return ITEM_INTERACT_COMPLETE
 
+	return ..() // Fall through to parent so that bags can pick seeds up.
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant
@@ -616,7 +619,7 @@
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
-
+	new_attack_chain = TRUE
 	var/datum/unsorted_seed/seed_data
 
 /obj/item/unsorted_seeds/Initialize(mapload, obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
@@ -642,23 +645,31 @@
 /obj/item/unsorted_seeds/proc/sort(depth = 1)
 	seed_data.transform(src, depth)
 
-/obj/item/unsorted_seeds/attack_self__legacy__attackchain(mob/user)
-	user.visible_message(SPAN_NOTICE("[user] crudely sorts through [src] by hand."), "<span class='notice'>You crudely sort through [src] by hand. This would be easier and more effective with some sort of tool.")
+/obj/item/unsorted_seeds/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+	user.visible_message(
+		SPAN_NOTICE("[user] crudely sorts through [src] by hand."),
+		SPAN_NOTICE("You crudely sort through [src] by hand. This would be easier and more effective with some sort of tool."),
+		SPAN_HEAR("You hear shuffling seeds.")
+	)
 	if(do_after(user, 3 SECONDS, TRUE, src, must_be_held = TRUE))
 		sort()
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/unsorted_seeds/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, SPAN_NOTICE("This is \a [SPAN_NAME("[src].")]"))
-		var/text = get_analyzer_text()
-		if(text)
-			to_chat(user, SPAN_NOTICE("[text]"))
+/obj/item/unsorted_seeds/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		to_chat(user, SPAN_WARNING("Sort it first."))
+		return ITEM_INTERACT_COMPLETE
 
-		return
-	if(is_pen(O))
-		to_chat(user, SPAN_NOTICE("Sort it first."))
-		return
-	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+	if(!istype(used, /obj/item/plant_analyzer))
+		return ..()
+
+	to_chat(user, SPAN_NOTICE("This is \a [SPAN_NAME("[src].")]"))
+	var/text = get_analyzer_text()
+	if(text)
+		to_chat(user, SPAN_NOTICE("[text]"))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/unsorted_seeds/proc/get_analyzer_text(show_detail = TRUE)
 	var/list/output = list()

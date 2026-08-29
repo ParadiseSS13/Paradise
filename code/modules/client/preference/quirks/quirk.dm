@@ -26,6 +26,8 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 	var/organ_slot_to_remove
 	/// If the quirk should spawn a mob with the player.
 	var/mob_to_spawn
+	/// What quirks cannot be taken with this quirk.
+	var/list/conflicting_quirks
 
 /datum/quirk/Destroy(force, ...)
 	remove_quirk_effects()
@@ -116,6 +118,11 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 	if((to_add.species_flags & QUIRK_PLASMAMAN_INCOMPATIBLE) && (active_character.species == "Plasmaman")) //If someone can figure out how to only let plasmaman with a secondary language take this feel free to do that
 		to_chat(src.client, SPAN_WARNING("You can't put that quirk on a plasmaman, you have no species language!"))
 		return FALSE
+	if(to_add.conflicting_quirks)
+		for(var/datum/quirk/existing_quirk in active_character.quirks)
+			if(existing_quirk.type in to_add.conflicting_quirks)
+				to_chat(src.client, SPAN_WARNING("You can't take that quirk at the same time as [existing_quirk::name]!"))
+				return FALSE
 	active_character.quirks += to_add
 	return TRUE
 

@@ -399,26 +399,27 @@
 		return FALSE
 	return ..()
 
-/obj/item/radio/headset/attackby__legacy__attackchain(obj/item/key, mob/user)
-	if(istype(key, /obj/item/encryptionkey/))
+/obj/item/radio/headset/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/encryptionkey))
+		return NONE
 
-		if(keyslot1 && keyslot2)
-			to_chat(user, "The headset can't hold another key!")
-			return
+	if(keyslot1 && keyslot2)
+		to_chat(user, SPAN_WARNING("[src] can't hold another key!"))
+		return ITEM_INTERACT_COMPLETE
 
-		if(!user.transfer_item_to(key, src, FALSE, FALSE))
-			to_chat(user, SPAN_WARNING("[key] is stuck to your hand, you can't insert it in [src]."))
-			return
+	if(!user.transfer_item_to(used, src, FALSE, FALSE))
+		to_chat(user, SPAN_WARNING("[used] is stuck to your hand, you can't insert it in [src]!"))
+		return ITEM_INTERACT_COMPLETE
 
-		if(!keyslot1)
-			keyslot1 = key
-		else
-			keyslot2 = key
+	if(!keyslot1)
+		keyslot1 = used
+	else
+		keyslot2 = used
 
-		recalculateChannels()
-		return
-
-	return ..()
+	to_chat(user, SPAN_NOTICE("You insert [used] into [src]."))
+	add_fingerprint(user)
+	recalculateChannels()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -434,19 +435,19 @@
 		if(keyslot1)
 			var/turf/T = get_turf(user)
 			if(T)
-				keyslot1.loc = T
+				keyslot1.forceMove(T)
 				keyslot1 = null
 		if(keyslot2)
 			var/turf/T = get_turf(user)
 			if(T)
-				keyslot2.loc = T
+				keyslot2.forceMove(T)
 				keyslot2 = null
 
 		recalculateChannels()
-		to_chat(user, "You pop out the encryption keys in the headset!")
+		to_chat(user, SPAN_NOTICE("You pop out the encryption keys in the headset!"))
 		I.play_tool_sound(user, I.tool_volume)
 	else
-		to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
+		to_chat(user, SPAN_NOTICE("This headset doesn't have any encryption keys!  How useless..."))
 
 /obj/item/radio/headset/recalculateChannels(setDescription = FALSE)
 	channels = list()
@@ -514,4 +515,12 @@
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
+	syndie = TRUE
+	recalculateChannels()
+
+/obj/item/radio/borg/proc/make_syndie()
+	qdel(keyslot)
+	keyslot = new /obj/item/encryptionkey/syndicate
+	syndiekey = keyslot
+	syndie = TRUE
 	recalculateChannels()

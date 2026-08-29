@@ -202,6 +202,7 @@
 	desc = "You never wake up drunk in an unrelated department. You know better than to drink like that on a work night."
 	cost = 1
 	trait_to_apply = TRAIT_TEMPERATE_PARTIER
+	conflicting_quirks = list(/datum/quirk/work_hard_party_harder)
 
 /datum/quirk/tiny
 	name = "Tiny"
