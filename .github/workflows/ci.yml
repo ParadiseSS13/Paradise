@@ -207,6 +207,7 @@ jobs:
         uses: getong/mariadb-action@v1.11
         with:
           mariadb version: '12.3.2'
+          mysql root password: 'root'
 
       - name: Setup & Validate DB
         run: |
