@@ -61,6 +61,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/obj/item/encryptionkey/syndicate/syndiekey = null
 	/// How many times this is disabled by EMPs
 	var/disable_timer = 0
+	/// Is the radio a syndie one?
+	var/syndie = FALSE
 	/// Areas in which this radio cannot send messages
 	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome, /area/ruin/space/bubblegum_arena)
 
@@ -84,6 +86,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	/// A timer that, when going off, will turn this radio on again
 	var/radio_enable_timer
+	new_attack_chain = TRUE
 
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -118,12 +121,16 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
 
-/obj/item/radio/attack_self__legacy__attackchain(mob/user)
+/obj/item/radio/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	interact(user)
+	add_fingerprint(user)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/radio/interact(mob/user)
 	if(!user)
-		return 0
+		return FALSE
 	if(b_stat)
 		wires.Interact(user)
 		return
@@ -672,22 +679,20 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/borg/ert/specops
 	keyslot = new /obj/item/encryptionkey/centcom
 
-/obj/item/radio/borg/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/encryptionkey/))
+/obj/item/radio/borg/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/encryptionkey))
+		return NONE
 
-		if(keyslot)
-			to_chat(user, "The radio can't hold another key!")
-			return
+	if(keyslot)
+		to_chat(user, SPAN_WARNING("The radio can't hold another key!"))
+		return ITEM_INTERACT_COMPLETE
 
-		if(!keyslot)
-			user.drop_item()
-			W.loc = src
-			keyslot = W
+	user.drop_item()
+	used.forceMove(src)
+	keyslot = used
 
-		recalculateChannels()
-		return
-
-	return ..()
+	recalculateChannels()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -699,19 +704,17 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 			secure_radio_connections[ch_name] = null
 
-
-		if(keyslot)
-			var/turf/T = get_turf(user)
-			if(T)
-				keyslot.loc = T
-				keyslot = null
+		var/turf/T = get_turf(user)
+		if(T)
+			keyslot.forceMove(T)
+			keyslot = null
 
 		recalculateChannels()
-		to_chat(user, "You pop out the encryption key in the radio!")
+		to_chat(user, SPAN_NOTICE("You pop out the encryption key in the radio!"))
 		I.play_tool_sound(user, I.tool_volume)
 
 	else
-		to_chat(user, "This radio doesn't have any encryption keys!")
+		to_chat(user, SPAN_WARNING("This radio doesn't have any encryption keys!"))
 
 /obj/item/radio/borg/recalculateChannels()
 	channels = list()

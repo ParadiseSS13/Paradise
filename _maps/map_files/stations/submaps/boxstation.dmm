@@ -518,9 +518,6 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
 /obj/machinery/power/rad_collector{
 	anchored = 1
 	},
@@ -1326,6 +1323,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"tG" = (
+/obj/machinery/poolcontroller/invisible/nuclear,
+/turf/simulated/floor/plasteel/reactor_pool,
+/area/station/engineering/engine/reactor)
 "tI" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -4137,7 +4138,7 @@ UV
 oF
 gk
 kH
-SX
+tG
 SX
 Yn
 Iw

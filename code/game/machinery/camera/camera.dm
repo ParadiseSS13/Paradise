@@ -44,10 +44,14 @@
 	/// If this camera doesnt add to camera chunks. Used by camera bugs.
 	var/non_chunking_camera = FALSE
 
-/obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
+/obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE, obj/item/camera_assembly/use_assembly = null)
 	. = ..()
 	wires = new(src)
-	assembly = new(src)
+	if(istype(use_assembly))
+		assembly = use_assembly
+	else
+		assembly = new(src)
+	apply_upgrades()
 	assembly.state = 4
 	assembly.anchored = TRUE
 	assembly.update_icon()
@@ -69,7 +73,7 @@
 
 /obj/machinery/camera/proc/create_prox_monitor()
 	if(!proximity_monitor)
-		proximity_monitor = new(src, 1)
+		proximity_monitor = new(src, CAMERA_VIEW_DISTANCE)
 		RegisterSignal(proximity_monitor, COMSIG_PARENT_QDELETING, PROC_REF(proximity_deleted))
 
 /obj/machinery/camera/Moved(atom/OldLoc, Dir, Forced)
@@ -102,7 +106,6 @@
 			. += SPAN_NOTICE("[src]'s <b>internal wires</b> are preventing you from cutting it free.")
 		else
 			. += SPAN_NOTICE("[src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.")
-
 
 /obj/machinery/camera/emp_act(severity)
 	if(!status)
@@ -142,8 +145,8 @@
 	..()
 
 /obj/machinery/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	var/msg = SPAN_NOTICE("You attach [used] into the assembly inner circuits.")
-	var/msg2 = SPAN_NOTICE("The camera already has that upgrade!")
+	var/attach_msg = SPAN_NOTICE("You attach [used] to the inner circuits of [src].")
+	var/reject_msg = SPAN_WARNING("[src] already has that upgrade!")
 
 	if(istype(used, /obj/item/stack/sheet/mineral/plasma) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
@@ -151,22 +154,24 @@
 			return ITEM_INTERACT_COMPLETE
 		if(!isEmpProof())
 			var/obj/item/stack/sheet/mineral/plasma/P = used
+			if(!P.use(1))
+				to_chat(user, SPAN_WARNING("You need at least one sheet of plasma to add EMP shielding to [src]!"))
+				return ITEM_INTERACT_COMPLETE
 			upgradeEmpProof()
-			to_chat(user, "[msg]")
-			P.use(1)
+			to_chat(user, attach_msg)
 			return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "[msg2]")
+			to_chat(user, reject_msg)
 	else if(istype(used, /obj/item/assembly/prox_sensor) && panel_open)
 		if(!user.canUnEquip(used, FALSE))
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!isMotion())
 			upgradeMotion()
-			to_chat(user, "[msg]")
+			to_chat(user, attach_msg)
 			qdel(used)
 		else
-			to_chat(user, "[msg2]")
+			to_chat(user, reject_msg)
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -242,8 +247,10 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(SPAN_WARNING("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
-						SPAN_WARNING("You unweld [src], leaving it as just a frame bolted to the wall"))
+		visible_message(
+			SPAN_WARNING("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+			SPAN_WARNING("You unweld [src], leaving it as just a frame bolted to the wall.")
+		)
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -339,10 +346,10 @@
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
-		return 0
+		return FALSE
 	if(stat & EMPED)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/machinery/camera/proc/can_see()
 	var/list/see = null
@@ -452,7 +459,6 @@
 	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
 	GLOB.cameranet.update_portable_camera(src, prev_turf)
 	prev_turf = get_turf(src)
-
 
 /obj/machinery/camera/toxins // cameras to be used in toxins
 	c_tag = "Research Toxins Test Chamber East";

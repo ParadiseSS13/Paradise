@@ -10,6 +10,7 @@
 
 	var/voice
 	var/active
+	new_attack_chain = TRUE
 
 /obj/item/voice_changer/Initialize(mapload)
 	. = ..()
@@ -24,12 +25,15 @@
 
 	return ..()
 
-/obj/item/voice_changer/attack_self__legacy__attackchain(mob/user)
+/obj/item/voice_changer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	active = !active
 	icon_state = "voice_changer_[active ? "on" : "off"]"
 	to_chat(user, SPAN_NOTICE("You toggle [src] [active ? "on" : "off"]."))
-
+	add_fingerprint(user)
 	update_action_buttons()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/voice_changer/proc/set_voice(mob/user)
 	var/chosen_voice = tgui_input_text(user, "What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer")

@@ -144,6 +144,7 @@
 	if(status_flags & GODMODE)
 		return
 
+	var/old_health = health
 	brute = max((brute - damage_protection) * brute_mod, 0)
 	burn = max((burn - damage_protection) * burn_mod, 0)
 
@@ -153,6 +154,8 @@
 	if(A)
 		A.take_damage(brute, burn, sharp)
 		updatehealth()
+		if((old_health > health) && shell && deployed && mainframe) // Only disconnect if we lose health.
+			mainframe.disconnect_shell()
 		return
 
 	while(LAZYLEN(parts) && (brute > 0 || burn > 0))
@@ -168,6 +171,8 @@
 
 		parts -= picked
 	updatehealth()
+	if((old_health > health) && shell && deployed && mainframe) // Only disconnect if we lose health.
+		mainframe.disconnect_shell()
 
 /*
 Begins the stamcrit reboot process for borgs. Stuns them, and warns people if the borg has no power source.
