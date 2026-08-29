@@ -485,6 +485,9 @@ CREATE TABLE `vpn_whitelist` (
 --
 -- Table structure for table `task_queue`
 --
+DROP TABLE IF EXISTS `task_queue`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `task_queue` (
 	`task_id` UUID NOT NULL,
 	`task_type` VARCHAR(128) NOT NULL COLLATE 'utf8mb4_general_ci',
