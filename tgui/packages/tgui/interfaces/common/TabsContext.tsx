@@ -23,5 +23,4 @@ export const useTabs = () => {
   return context;
 };
 
-
 export default TabsContext;

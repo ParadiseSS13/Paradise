@@ -128,7 +128,7 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	if(length(task_queue))
 		task_queue.Cut()
 	var/obj/recipe_output = recipe_type
-	atom_say("Recipe selected: [initial(recipe_output::name)].")
+	atom_say("Recipe selected: [recipe_output::name].")
 
 /obj/machinery/autochef/proc/toggle_state()
 	switch(current_state)
