@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(quirk_paths)
 * The proc for actually applying a quirk to a mob, most often during spawning.
 */
 // Note to any future contributor, if you want to add a quirk that applies a gene you need to paste the genes `activate()` proc into the quirks `apply_quirk_effects()` proc.
-/datum/quirk/proc/apply_quirk_effects(mob/living/quirky)
+/datum/quirk/proc/apply_quirk_effects(mob/living/carbon/human/quirky)
 	SHOULD_CALL_PARENT(TRUE)
 	if(!istype(quirky))
 		log_debug("[src] did not find a mob to apply its effects to.")
