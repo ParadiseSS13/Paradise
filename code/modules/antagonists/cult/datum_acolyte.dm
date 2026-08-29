@@ -23,7 +23,6 @@ RESTRICT_TYPE(/datum/antagonist/acolyte)
 	if(!ishuman(owner.current))
 		return FALSE
 	give_item(/obj/item/melee/cultblade/dagger)
-	give_item(/obj/item/stack/sheet/runed_metal/ten)
 
 /datum/antagonist/acolyte/detach_from_owner()
 	if(!owner.current)
