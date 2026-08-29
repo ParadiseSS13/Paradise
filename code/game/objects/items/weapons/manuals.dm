@@ -1164,7 +1164,7 @@
 				<h2>Horchata:</h2>
 				Mix four parts water, two parts rice, and one part each of sugar and vanilla. Botany or the Kitchen can help.
 				<h2>Mambo Smoothie:</h2>
-				Mix one part each of lettuce juice and mango juice. Botany can help.
+				Mix one part each of kiwi juice and mango juice. Botany can help.
 				<h2>Mango Punch:</h2>
 				Mix one part each of mango juice, lime juice, and Goldschlager (<a href='byond://?src=[UID()];seek_page=3'>Trivial Alcoholic Drinks</a>). Surprisingly non-alcoholic. Botany can help.
 				<h2>Peach Milkshake:</h2>

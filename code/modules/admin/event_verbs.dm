@@ -700,3 +700,14 @@ USER_CONTEXT_MENU(headset_message, R_SERVER|R_EVENT, "\[Admin\] Headset Message"
 	H.create_log(MISC_LOG, "Headset Message: [input]", "From: [key_name_admin(src)]")
 	to_chat(H, "<span class = 'specialnotice bold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
 	SEND_SOUND(H, 'sound/effects/headset_message.ogg')
+
+USER_VERB(set_next_round_lavaland, R_ADMIN, "Set Next Round Lavaland", "Set the Lavaland theme for the next round", VERB_CATEGORY_EVENT)
+	if(!SSmapping)
+		to_chat(client, SPAN_WARNING("SSmapping is not initialized yet."))
+		return
+
+	var/list/lavaland_themes = subtypesof(/datum/lavaland_theme)
+	var/choice = tgui_input_list(client, "Select the Lavaland theme for next round.", "Next Lavaland Theme", lavaland_themes)
+	if(choice)
+		SSmapping.next_lavaland_theme = choice
+		message_admins("[key_name_admin(client)] set the Lavaland theme for next round to [choice].")
