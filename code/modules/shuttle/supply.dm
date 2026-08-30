@@ -549,20 +549,28 @@
 	SSblackbox.record_feedback("tally", "cargo manifests sold", item.credits, "credits")
 
 
-/datum/economy/simple_seller/tech_levels
+/datum/economy/simple_seller/research_points
 
-/datum/economy/simple_seller/tech_levels/proc/get_price(list/points_list)
+/datum/economy/simple_seller/research_points/proc/get_price(list/points_list)
 	var/cost
+	if(!points_list)
+		return 0 // Nothing.
 	for(var/i in points_list)
-		if((i in SSeconomy.point_to_cost) && points_list[i] > 0)
-			if(SSeconomy.research_points[i] >= SSeconomy.maximum_points_sold[i])
-				return
-			if((SSeconomy.research_points[i] += points_list[i]) > SSeconomy.maximum_points_sold[i])
-				points_list[i] = (SSeconomy.research_points[i] += points_list[i]) - SSeconomy.maximum_points_sold[i] // get the remaining difference.
-			cost += FLOOR((points_list[i] * SSeconomy.point_to_cost[i]), 0.1)
+		var/temp_amnt = points_list[i]
+		var/prior_cost = 0 // We get the prior cost so, selling 6000 disks of 1 point rewards the same as 1 disk of 6000 points
+		if(i in SSeconomy.research_points)
+			prior_cost = 4 * SSeconomy.research_points[i] ** SSeconomy.point_scalar[i]
+			temp_amnt += SSeconomy.research_points[i]
+		if(i in SSeconomy.maximum_points_sold)
+			if(SSeconomy.research_points[i] > SSeconomy.maximum_points_sold[i])
+				return 0 // Can't sell anymore.
+			if(temp_amnt > SSeconomy.maximum_points_sold[i])
+				temp_amnt -= (temp_amnt - SSeconomy.maximum_points_sold[i])
+		var/temp_cost = (4 * temp_amnt ** SSeconomy.point_scalar[i])
+		cost += FLOOR(temp_cost - prior_cost, 1)
 	return cost
 
-/datum/economy/simple_seller/tech_levels/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+/datum/economy/simple_seller/research_points/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
 	if(istype(AM, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = AM
 		if(disk.stored_research.len == 0)
@@ -573,7 +581,7 @@
 			return COMSIG_CARGO_SELL_NORMAL
 		return COMSIG_CARGO_SELL_WRONG
 
-/datum/economy/simple_seller/tech_levels/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+/datum/economy/simple_seller/research_points/sell_normal(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
 	if(!..())
 		return
 
@@ -601,7 +609,7 @@
 	science_item.reason = "Tech disk containing new data."
 	manifest.line_items += science_item
 
-/datum/economy/simple_seller/tech_levels/sell_wrong(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
+/datum/economy/simple_seller/research_points/sell_wrong(obj/docking_port/mobile/supply/S, atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest)
 	if(!..())
 		return
 

@@ -91,10 +91,10 @@ SUBSYSTEM_DEF(economy)
 	var/list/discovered_plants = list()
 	/// Types of points we've already sent to CentComm, associated with their amount.
 	var/list/research_points = list()
-	/// Point type to cost conversion.
-	var/list/point_to_cost = list("Research" = 0.5, "Illegal" = 2, "Alien" = 2.5) // MIXTODO - Rebalance later, it doesnt need to be the same as original.
+	/// Point type to cost scalar.
+	var/list/point_scalar = list("Research" = 0.78, "Illegal" = 0.82, "Alien" = 0.86) // This might need further tweaking, cost = 4*points^scalar
 	/// Maximum amount of each point we can sell.
-	var/list/maximum_points_sold = list("Research" = 6000, "Illegal" = 390, "Alien" = 450) // values total to the original maximum credits from levels.
+	var/list/maximum_points_sold = list("Research" = 6000) // As research is infinitely renewable its capped to a reasonable amount (~3550cr)
 	var/list/research_designs = list()
 
 	///Requested crates, waiting for approval by department heads
