@@ -14,11 +14,11 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	description = "A puppet state controlled by Nanotrasen and centered around Epsilon Eridani. It is a laissez-faire free market corporatocracy with countless corporate entities operating within.\
 	Regulations and laws are far looser than in any other major power, provided that no one steps on the toes of Nanotrasen."
 	viable_random_events = list(
-	/datum/event_news/placeholder_event
+		/datum/event_news/placeholder_event
 	)
 	viable_mundane_events = list(
-	/datum/event_news/generic_faction_anti_piracy,
-	/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_anti_piracy,
+		/datum/event_news/generic_faction_hyperspace_phenomina,
 	)
 
 /datum/lore_location/epsilon_eridani // YOU ARE HERE!
@@ -29,48 +29,48 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	What did change was the sudden appearance of Epsilon Eridani II, colloqually known as \"Lavaland\". The bluespace phenomina and extreme mineral wealth of Lavaland prompted Nanotrasen to move in to \
 	secure it for themselves, despite the considerable risks of operating in and around the planet."
 	viable_random_events = list(
-	/datum/event_news/generic_faction_anti_piracy,
+		/datum/event_news/generic_faction_anti_piracy,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/tourism,
+		/datum/event_news/tourism,
 	)
 
 /datum/lore_location/centcomm
 	name = "NAS Trurl"
 	description = "Nanotrasen's administrative centre for Epsilon Eridani, usually referred to as \"Central Command\" or \"CentComm\"."
 	viable_random_events = list(
-	/datum/event_news/security_breach,
+		/datum/event_news/security_breach,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/tourism,
+		/datum/event_news/tourism,
 	)
 
 /datum/lore_location/anansi
 	name = "NSS Anansi"
 	description = "Medical station ran by Second Green Cross (but owned by Nanotrasen) for handling emergency cases from nearby colonies."
 	viable_random_events = list(
-	/datum/event_news/virus_outbreak,
-	/datum/event_news/blob_outbreak,
-	/datum/event_news/terror_spider_outbreak,
-	/datum/event_news/flock_outbreak,
-	/datum/event_news/the_wizard,
-	/datum/event_news/corporate_attack,
-	/datum/event_news/nanotrasen_protests_stopped,
+		/datum/event_news/virus_outbreak,
+		/datum/event_news/blob_outbreak,
+		/datum/event_news/terror_spider_outbreak,
+		/datum/event_news/flock_outbreak,
+		/datum/event_news/the_wizard,
+		/datum/event_news/corporate_attack,
+		/datum/event_news/nanotrasen_protests_stopped,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/security_breach,
-	/datum/event_news/research_breakthrough_anansi,
+		/datum/event_news/security_breach,
+		/datum/event_news/research_breakthrough_anansi,
 	)
 
 /datum/lore_location/icarus
 	name = "NSV Icarus"
 	description = "A corvette assigned to patrol the station's local space. It has several wings of experimental combat drones to assist in patrols."
 	viable_random_events = list(
-	/datum/event_news/the_wizard,
-	/datum/event_news/corporate_attack,
+		/datum/event_news/the_wizard,
+		/datum/event_news/corporate_attack,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/security_breach,
+		/datum/event_news/security_breach,
 	)
 
 /datum/lore_location/new_gibson
@@ -137,11 +137,11 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	description = "The TSF, sometimes known as SolGov, is a unitary federal democracy and one of the largest superpowers in the Orion Arm. \
 	Nanotrasen is technically incorporated here, but in reality prefers to base its critical operations away from SolGov's prying eyes."
 	viable_random_events = list(
-	/datum/event_news/tsf_new_fleet,
+		/datum/event_news/tsf_new_fleet,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/generic_faction_anti_piracy,
-	/datum/event_news/generic_faction_nanotrasen_fuel_cost,
+		/datum/event_news/generic_faction_anti_piracy,
+		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
 	)
 
 /datum/lore_location/earth
@@ -213,13 +213,13 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	It maintains massive armed forces thanks to widespread conscription, allowing it to fend off larger powers and intimidate smaller ones. \
 	Despite being ideologically opposed to everything Nanotrasen stands for, it is forced to conduct business with it thanks to Nanotrasen's near monopoly on the Plasma market."
 	viable_random_events = list(
-	/datum/event_news/ussp_mobilization,
-	/datum/event_news/ussp_nian_deal,
+		/datum/event_news/ussp_mobilization,
+		/datum/event_news/ussp_nian_deal,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/generic_faction_anti_piracy,
-	/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-	/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_anti_piracy,
+		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
+		/datum/event_news/generic_faction_hyperspace_phenomina,
 	)
 
 /datum/lore_location/cygini
@@ -242,12 +242,12 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	name = "Royal Domain of Qerballak"
 	description = "The largest Skrell-majority nation in Orion, and one of the Spur's oldest extant states; the Royal Domain of Qerballak is a decentralized constitutional monarchy."
 	viable_random_events = list(
-	/datum/event_news/qerballak_monarch_decree,
+		/datum/event_news/qerballak_monarch_decree,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/generic_faction_anti_piracy,
-	/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-	/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_anti_piracy,
+		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
+		/datum/event_news/generic_faction_hyperspace_phenomina,
 	)
 
 /datum/lore_location/crown
@@ -277,9 +277,9 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	/datum/event_news/silver_collective_interdiction
 	)
 	viable_mundane_events = list(
-	/datum/event_news/generic_faction_anti_piracy,
-	/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-	/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_anti_piracy,
+		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
+		/datum/event_news/generic_faction_hyperspace_phenomina,
 	)
 
 /datum/lore_location/votum_accorium 
@@ -303,12 +303,12 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	description = "An officially sanctioned offshoot of the Silver Collective, the Artificer's Union is a secular state that operates a conventional corporate economy with government mediation. \
 	It has existed long enough to have developed a substantially different technology base from its progenitor."
 	viable_random_events = list(
-	/datum/event_news/artificers_union_concrete_shortage
+		/datum/event_news/artificers_union_concrete_shortage
 	)
 	viable_mundane_events = list(
-	/datum/event_news/generic_faction_anti_piracy,
-	/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-	/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_anti_piracy,
+		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
+		/datum/event_news/generic_faction_hyperspace_phenomina,
 	)
 
 // MARK: Kidan Anarchy
@@ -317,10 +317,10 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	description = "The shattered remains of the once-proud Kidan Empire. It is now composed of many smaller kingdoms, all vying against each other for dominance and the right to reunite the empire under their banner. \
 	While the chaos of the initial decades after the Kidan War has declined considerably, continued feuding and wars between the many Kidan kingdoms ensures the name continues to stick."
 	viable_random_events = list(
-	/datum/event_news/kidan_anarchy_dynastic_war,
+		/datum/event_news/kidan_anarchy_dynastic_war,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_hyperspace_phenomina,
 	)
 
 /datum/lore_location/aurum
@@ -329,10 +329,10 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	it was subjected to a cataclysmic nuclear bombardment at the end of the Siege of Aurum in the closing act of the Kidan War. \
 	Centuries later it remains mostly uninhabited, with only a sparse few archeological and scientific outposts dotting the surface."
 	viable_random_events = list(
-	/datum/event_news/aurum_unexploded_nuke,
+		/datum/event_news/aurum_unexploded_nuke,
 	)
 	viable_mundane_events = list(
-	/datum/event_news/placeholder_event,
+		/datum/event_news/placeholder_event,
 	)
 
 // MARK: League of Kelune
@@ -342,12 +342,12 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	It is believed to be home to considerable reserves of unexploited plasma. Sabotage, and a mixture of poltical pressure and preferential prices for plasma fuel has thus far \
 	rendered developing substantial domestic plasma extraction uneconomical."
 	viable_random_events = list(
-	/datum/event_news/league_of_kelune_silver_collective_talks
+		/datum/event_news/league_of_kelune_silver_collective_talks
 	)
 	viable_mundane_events = list(
-	/datum/event_news/generic_faction_anti_piracy,
-	/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-	/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_anti_piracy,
+		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
+		/datum/event_news/generic_faction_hyperspace_phenomina,
 	)
 
 /datum/lore_location/kelune
