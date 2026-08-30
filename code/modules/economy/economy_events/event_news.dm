@@ -34,7 +34,7 @@
 // Generic
 /datum/event_news/generic_faction_anti_piracy/generate()
 	title = "[topic.name] announces anti-piracy initative"
-	body = "In response to concerns about [pick("the security of vital shipping lanes", "increasing regional pirate activity", "reports of vox raiders", "Syndicate activity")]\
+	body = "In response to concerns about [pick("the security of vital shipping lanes", "increasing regional pirate activity", "reports of vox raiders", "Syndicate activity")] \
 	the [topic.name] has announced [pick("additional naval patrols", "the formation of escorted merchant convoys", "the deployment of additional hyperwave radar installations")] to \
 	help protect vulnerable targets and counteract the heightened threat."
 
