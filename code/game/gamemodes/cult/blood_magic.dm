@@ -274,7 +274,7 @@
 
 /datum/spell/horror
 	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
-	base_cooldown = 1 SECOND
+	base_cooldown = 1 SECONDS
 	var/datum/action/innate/cult/blood_spell/attached_action
 
 /datum/spell/horror/Destroy()
