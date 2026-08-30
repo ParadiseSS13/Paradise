@@ -38,12 +38,13 @@
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, SPAN_WARNING("You need a tighter grip!"))
 			return ITEM_INTERACT_COMPLETE
-		if(!target.Adjacent(src))
-			to_chat(user, SPAN_WARNING("[target] needs to be closer to force them into the deep frier!"))
-			return ITEM_INTERACT_COMPLETE
 		user.visible_message(SPAN_WARNING("[user] begins to force [target] into the deep frier!"), SPAN_WARNING("You begin to force [target] into the burning hot oil!"))
 		while(do_after_once(user, 5 SECONDS, target = target))
-			to_chat(target, SPAN_USERDANGER("Your face is seared with scalding hot oil!"))
+			target.visible_message(
+				SPAN_DANGER("[user] sears [target]'s face with scalding hot oil!"),
+				SPAN_USERDANGER("Your face is seared with scalding hot oil!"),
+				SPAN_DANGER("You hear struggling and the sound of scalding hot oil searing something!")
+			)
 			playsound(src, 'sound/machines/kitchen/deep_fryer_evil.ogg', 50, TRUE)
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
@@ -53,8 +54,6 @@
 			else
 				target.adjustFireLoss(25)
 		user.changeNext_move(CLICK_CD_MELEE)
-
-
 
 /obj/machinery/cooking/deepfryer/proc/InitializeParts()
 	component_parts = list()
