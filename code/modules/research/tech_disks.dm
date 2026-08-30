@@ -4,6 +4,7 @@
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/list/stored_research = list() // "Research", "Illegal", "Alien"
+	var/possible_skins = list("Normal", "Research", "Illegal", "Alien")
 
 /obj/item/disk/tech_disk/proc/load_research(list/points_list)
 	points_list &= SSresearch.point_types // If a point type isnt recognised, remove it.
@@ -13,11 +14,11 @@
 			return FALSE // no more then one, FALSE can be used to inform user.
 		if(stored_research.len == 0 && points_list[i] > 0)
 			stored_research += points_list
-			update_inspect(i)
+			change_name(i)
 			return points_list[i]
 		if((i in stored_research) && points_list[i] > 0)
 			stored_research[i] = FLOOR(stored_research[i] + points_list[i], 0.1)
-			update_inspect(i)
+			change_name(i)
 			return points_list[i] // return the points that were successfully transfered.
 		return
 
@@ -33,24 +34,26 @@
 			stored_research[i] = FLOOR(stored_research[i] - points_list[i], 0.1)
 			if(stored_research[i] <= 0)
 				stored_research.len = 0 //if we have no points, remove list contents so a new type can be added
-			update_inspect(i)
+			change_name(i)
 			return ti // return how many points so we dont accidentally take more then we have.
 		return
 
 /obj/item/disk/tech_disk/proc/wipe_research()
 	stored_research = list()
-	update_inspect()
+	change_name()
 
-/obj/item/disk/tech_disk/proc/update_inspect(i)
-	if(stored_research[i] > 0)
-		name = "[initial(name)] \[[stored_research[i]]\]"
-		var/p_type = get_key_by_index(stored_research, 1) // kinda fragile but disks should never have more then 1 key/value.
-		desc = "[initial(desc)] \n[SPAN_NOTICE("Type: [p_type]")]"
-	else
-		name = initial(name)
-		desc = initial(desc)
+/obj/item/disk/tech_disk/proc/change_name(type)
+	if(stored_research.len > 0 && type)
+		name = "[initial(name)] \[[stored_research[type]]\]"
+		return
+	name = initial(name)
 
-/obj/item/disk/tech_disk/multitool_act(mob/living/user, obj/item/I)
+/obj/item/disk/tech_disk/examine(mob/user)
+	. = ..()
+	for(var/i in stored_research)
+		. += "It contains [stored_research[i]] [i] points."
+
+/obj/item/disk/tech_disk/multitool_act(mob/living/user, obj/item/I) // MIXTODO - Remove
 	var/obj/item/multitool/disk_loader/M = I
 	if(M.p_mode == "unload")
 		unload_research(M.to_load)
