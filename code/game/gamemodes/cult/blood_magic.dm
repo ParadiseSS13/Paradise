@@ -330,7 +330,7 @@
 		owner.visible_message(SPAN_WARNING("Thin grey dust falls from [owner]'s hand!"), \
 		SPAN_CULTITALIC("You invoke the veiling spell, hiding nearby runes and cult structures."))
 		charges--
-		if(!IS_ACOLYTE(owner) && !SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
+		if(!IS_ACOLYTE(owner) && !SSticker.mode.cult_team?.cult_risen || !SSticker.mode.cult_team?.cult_ascendant)
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(4)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
@@ -346,7 +346,7 @@
 		SPAN_CULTITALIC("You invoke the counterspell, revealing nearby runes and cult structures."))
 		charges--
 		owner.whisper(invocation)
-		if(!IS_ACOLYTE(owner) && !SSticker.mode.cult_team.cult_risen || !SSticker.mode.cult_team.cult_ascendant)
+		if(!IS_ACOLYTE(owner) && !SSticker.mode.cult_team?.cult_risen || !SSticker.mode.cult_team?.cult_ascendant)
 			playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, SOUND_RANGE_SET(7)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
