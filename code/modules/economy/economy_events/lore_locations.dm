@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 /datum/lore_location/cygini
 	name = "Cygini Prime"
 	description = "The snowswept planet of Cygini Prime was the birthplace of the Union of Soviet Socialist Planets during the Cygini Crisis, and continues to be its capitol. \
-	It is a heavily industrialized world that maintains higher standards of living many surrounding USSP systems."
+	It is a heavily industrialized world that maintains higher standards of living than many surrounding USSP systems."
 	viable_random_events = list(
 		/datum/event_news/industrial_accident,
 		/datum/event_news/nanotrasen_protests,
