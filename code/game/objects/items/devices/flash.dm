@@ -138,11 +138,11 @@
 		target.AdjustConfused(power)
 
 /obj/item/flash/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!istype(target, /obj/machinery/camera) && !iscarbon(target) && !issilicon(target))
+	if(!ismob(target) && !istype(target, /obj/machinery/camera))
 		return NONE
 
 	if(!try_use_flash(user))
-		return NONE
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(target, /obj/machinery/camera))
 		var/obj/machinery/camera/camera = target
@@ -190,6 +190,7 @@
 		SPAN_WARNING("You fail to blind [target] with [src]!"),
 		SPAN_HEAR("A click and a rising high pitched tone fills the air!")
 	)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flash/activate_self(mob/user)
 	if(..())
@@ -253,12 +254,18 @@
 	can_overcharge = FALSE
 
 /obj/item/flash/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	..()
+	if(!..())
+		return ITEM_INTERACT_COMPLETE
+
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flash/cyborg/activate_self(mob/user)
-	..()
+	if(!..())
+		return ITEM_INTERACT_COMPLETE
+	
 	new /obj/effect/temp_visual/borgflash(get_turf(src))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/flash/cyborg/cyborg_recharge(coeff, emagged)
 	if(broken)
