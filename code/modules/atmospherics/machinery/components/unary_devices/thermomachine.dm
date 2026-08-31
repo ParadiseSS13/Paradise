@@ -43,7 +43,7 @@
 	. = ..()
 	. += SPAN_NOTICE("Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.")
 	. += SPAN_NOTICE("The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).")
-	. += SPAN_NOTICE("You can <b>Ctrl-Click</b> this to toggle it on.
+	. += SPAN_NOTICE("You can <b>Ctrl-Click</b> this to toggle it on.”)
 	. += SPAN_NOTICE("You can <b>Alt-Click</b> this to set the thermostat to the [cooling ? "minimum" : "maximum"] temperature.")
 	. += SPAN_NOTICE("You can <b>Alt-Shift-Click</b> this to switch it to [cooling ? "heating" : "cooling"] mode.")
 	if(in_range(user, src) || isobserver(user))
