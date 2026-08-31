@@ -442,7 +442,7 @@
 	name = "blob zombie"
 	var/image/I = image('icons/mob/blob.dmi', src, "blob_head")
 	I.color = blob.color
-	target.client.images += I
+	target.client?.images += I
 	owning_hallucination = blob
 	blob.chaser_blob_head = I
 
