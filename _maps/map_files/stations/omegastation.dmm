@@ -31940,8 +31940,7 @@
 	icon_state = "0-2"
 	},
 /mob/living/basic/bot/cleanbot{
-	name = "Scrubs, MD";
-	on = 0
+	name = "Scrubs, MD"
 	},
 /obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/tiles/department/medical/side{
