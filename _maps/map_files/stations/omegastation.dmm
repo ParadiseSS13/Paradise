@@ -35919,7 +35919,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/basic/bot/secbot/armsky,
+/mob/living/basic/bot/secbot/beepsky/armsky,
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=Armory_South";
 	location = "Armory_South_East"
