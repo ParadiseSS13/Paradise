@@ -1168,50 +1168,50 @@
 	else
 		germ_level += n
 
-/mob/living/carbon/human/proc/check_and_regenerate_organs(mob/living/carbon/human/H) //Regenerates missing limbs/organs.
-	var/list/types_of_int_organs = list() //This will hold all the types of organs in the mob before rejuvenation.
-	for(var/obj/item/organ/internal/I in H.internal_organs)
-		types_of_int_organs |= I.type //Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
+/mob/living/carbon/human/proc/check_and_regenerate_organs() // Regenerates missing limbs/organs.
+	var/list/types_of_int_organs = list() // This will hold all the types of organs in the mob before rejuvenation.
+	for(var/obj/item/organ/internal/I in internal_organs)
+		types_of_int_organs |= I.type // Compiling the list of organ types. It is possible for organs to be missing from this list if they are absent from the mob.
 
 	//Clean up limbs
-	for(var/organ_name in H.bodyparts_by_name)
-		var/obj/item/organ/organ = H.bodyparts_by_name[organ_name]
-		if(!organ) //The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
+	for(var/organ_name in bodyparts_by_name)
+		var/obj/item/organ/organ = bodyparts_by_name[organ_name]
+		if(!organ) // The !organ check is to account for mechanical limb (prostheses) losses, since those are handled in a way that leaves indexed but null list entries instead of stumps.
 			qdel(organ)
-			H.bodyparts_by_name -= organ_name //Making sure the list entry is removed.
+			bodyparts_by_name -= organ_name // Making sure the list entry is removed.
 
 	//Replacing lost limbs with the species default.
 	var/mob/living/carbon/human/temp_holder
-	for(var/limb_type in H.dna.species.has_limbs)
-		if(!(limb_type in H.bodyparts_by_name))
-			var/list/organ_data = H.dna.species.has_limbs[limb_type]
+	for(var/limb_type in dna.species.has_limbs)
+		if(!(limb_type in bodyparts_by_name))
+			var/list/organ_data = dna.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(temp_holder, temp_holder)
-			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
-				continue					//In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
-											//while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
+			if(get_limb_by_name(O.name)) // Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
+				continue					// In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
+											// while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
 			else
-				O = new limb_path(H, H) //Create the limb on the player.
-				O.owner = H
-				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
-				if(O.body_part == HEAD) //They're sprouting a fresh head so lets hook them up with their genetic stuff so their new head looks like the original.
-					H.UpdateAppearance()
+				O = new limb_path(src, src) // Create the limb on the player.
+				O.owner = src
+				bodyparts |= bodyparts_by_name[O.limb_name]
+				if(O.body_part == HEAD) // They're sprouting a fresh head so lets hook them up with their genetic stuff so their new head looks like the original.
+					UpdateAppearance()
 
-	//Replacing lost organs with the species default.
+	// Replacing lost organs with the species default.
 	temp_holder = new /mob/living/carbon/human/fake()
-	var/list/species_organs = H.dna.species.has_organ.Copy() //Compile a list of species organs and tack on the mutantears afterward.
-	if(H.dna.species.mutantears)
-		species_organs["ears"] = H.dna.species.mutantears
+	var/list/species_organs = dna.species.has_organ.Copy() // Compile a list of species organs and tack on the mutantears afterward.
+	if(dna.species.mutantears)
+		species_organs["ears"] = dna.species.mutantears
 	for(var/index in species_organs)
 		var/organ = species_organs[index]
-		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
-			var/obj/item/organ/internal/I = new organ(temp_holder, temp_holder) //Create the organ inside our holder so we can check it before implantation.
-			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
-				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nian eyes, since,
-										//while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
+		if(!(organ in types_of_int_organs)) // If the mob is missing this particular organ...
+			var/obj/item/organ/internal/I = new organ(temp_holder, temp_holder) // Create the organ inside our holder so we can check it before implantation.
+			if(get_organ_slot(I.slot)) // Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
+				continue				 // In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nian eyes, since,
+										// while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
-				I = new organ(H, H) //Create the organ inside the player.
-				I.insert(H)
+				I = new organ(src, src) // Create the organ inside the player.
+				I.insert(src)
 	qdel(temp_holder)
 
 /**
@@ -1233,7 +1233,7 @@
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
-	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
+	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
 	REMOVE_TRAIT(src, TRAIT_SKELETONIZED, null)
