@@ -107,3 +107,52 @@ RESTRICT_TYPE(/datum/antagonist/acolyte)
 		return TRUE
 	to_chat(H, SPAN_USERDANGER("Unfortunately, you weren't able to get \a [initial(item_path.name)]. This is very bad and you should adminhelp immediately (press F1)."))
 	return FALSE
+
+/datum/game_mode/proc/auto_declare_completion_acolyte()
+	if(length(acolytes))
+		var/list/text = list("<br><font size=3>[SPAN_BOLD("The acolytes were:")]</font>")
+		for(var/datum/mind/acolyte in acolytes)
+			var/acolyte_win = TRUE
+
+			text += "<br>[acolyte.get_display_key()] was [acolyte.name] and "
+			if(acolyte.current)
+				if(acolyte.current.stat == DEAD)
+					text += "[SPAN_BOLD("died")]!"
+				else
+					text += SPAN_BOLD("survived!")
+				if(acolyte.current.real_name != acolyte.name)
+					text += " as [acolyte.current.real_name]"
+				else
+					text += "!"
+			else
+				text += SPAN_BOLD("had [acolyte.p_their()] body destroyed!")
+
+			// Removed sanity if(acolyte) because we -want- a runtime to inform us that the acolytes list is incorrect and needs to be fixed.
+			var/datum/antagonist/acolyte/A = acolyte.has_antag_datum(/datum/antagonist/acolyte)
+
+			var/list/all_objectives = A.get_antag_objectives(include_team = FALSE)
+
+			if(length(all_objectives))
+				var/count = 1
+				for(var/datum/objective/objective in all_objectives)
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text]"
+					if(objective.check_completion())
+						if(istype(objective, /datum/objective/steal))
+							var/datum/objective/steal/S = objective
+							SSblackbox.record_feedback("nested tally", "acolyte_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
+						else
+							SSblackbox.record_feedback("nested tally", "acolyte_objective", 1, list("[objective.type]", "SUCCESS"))
+					else
+						if(istype(objective, /datum/objective/steal))
+							var/datum/objective/steal/S = objective
+							SSblackbox.record_feedback("nested tally", "acolyte_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
+						else
+							SSblackbox.record_feedback("nested tally", "acolyte_objective", 1, list("[objective.type]", "FAIL"))
+						acolyte_win = FALSE
+					count++
+
+			if(acolyte_win)
+				SSblackbox.record_feedback("tally", "acolyte_success", 1, "SUCCESS")
+			else
+				SSblackbox.record_feedback("tally", "acolyte_success", 1, "FAIL")
+		return text.Join("")

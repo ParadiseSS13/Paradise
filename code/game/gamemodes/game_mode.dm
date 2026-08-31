@@ -645,6 +645,7 @@
 	. += auto_declare_completion_enthralled()
 	. += auto_declare_completion_mindflayer()
 	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_acolyte()
 	. += auto_declare_completion_heretic()
 	. += auto_declare_completion_nuclear()
 	. += auto_declare_completion_wizard()
