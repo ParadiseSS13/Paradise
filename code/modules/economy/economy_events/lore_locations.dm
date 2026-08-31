@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 		/datum/event_news/generic_faction_hyperspace_phenomena,
 	)
 
-/datum/lore_location/Cygni
+/datum/lore_location/cygni
 	name = "Cygni Prime"
 	description = "The snowswept planet of Cygni Prime was the birthplace of the Union of Soviet Socialist Planets during the Cygni Crisis, and continues to be its capitol. \
 	It is a heavily industrialized world that maintains higher standards of living than many surrounding USSP systems."
