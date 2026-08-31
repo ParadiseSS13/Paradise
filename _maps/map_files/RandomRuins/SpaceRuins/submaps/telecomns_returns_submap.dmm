@@ -238,6 +238,10 @@
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/template_noop,
 /area/template_noop)
+"sJ" = (
+/obj/structure/salvageable/computer,
+/turf/template_noop,
+/area/template_noop)
 "uH" = (
 /obj/structure/table/glass/reinforced/plasma,
 /obj/item/stack/sheet/mineral/plasma/fifty,
@@ -888,7 +892,7 @@ qr
 qr
 Gh
 qr
-Gx
+sJ
 ir
 qr
 qr
@@ -2190,7 +2194,7 @@ qr
 qr
 Gh
 qr
-Gx
+sJ
 ir
 qr
 qr

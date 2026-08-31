@@ -149,9 +149,23 @@
 	},
 /turf/simulated/floor/plating/burnt/airless,
 /area/ruin)
+"qb" = (
+/obj/structure/salvageable/protolathe,
+/turf/simulated/floor/plating/airless,
+/area/ruin)
+"CD" = (
+/obj/structure/salvageable/computer{
+	dir = 8
+	},
+/turf/simulated/floor/plating/burnt/airless,
+/area/ruin)
 "QL" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/burnt/airless,
+/area/ruin)
+"XH" = (
+/obj/structure/salvageable/server,
+/turf/simulated/floor/plating/airless,
 /area/ruin)
 
 (1,1,1) = {"
@@ -247,7 +261,7 @@ aa
 aa
 aa
 ag
-ay
+CD
 aa
 aE
 aI
@@ -301,7 +315,7 @@ aa
 aa
 ah
 aE
-aF
+qb
 aa
 ad
 aa
@@ -517,7 +531,7 @@ aa
 aa
 aa
 aa
-aF
+XH
 aa
 aa
 aa

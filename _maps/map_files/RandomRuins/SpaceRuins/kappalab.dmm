@@ -2655,13 +2655,13 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/kappa_lab/medical)
 "NT" = (
-/obj/machinery/computer/nonfunctional{
-	dir = 8
-	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/salvageable/computer{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/kappa_lab/bridge)
 "Ob" = (
@@ -3417,6 +3417,13 @@
 	icon_state = "solarpanel"
 	},
 /area/ruin/space/unpowered)
+"ZH" = (
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
+	},
+/obj/structure/salvageable/machine,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/kappa_lab/bridge)
 "ZM" = (
 /obj/machinery/atmospherics/binary/volume_pump/on{
 	dir = 8;
@@ -4332,7 +4339,7 @@ UN
 Zl
 xj
 my
-Sy
+ZH
 Ch
 VP
 VP

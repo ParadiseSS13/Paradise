@@ -160,6 +160,10 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
+"V" = (
+/obj/structure/salvageable/machine,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
 "Z" = (
 /obj/item/grenade/chem_grenade/drugs,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -254,7 +258,7 @@ r
 u
 w
 b
-a
+b
 a
 a
 a
@@ -271,7 +275,7 @@ j
 j
 v
 j
-b
+V
 b
 b
 b

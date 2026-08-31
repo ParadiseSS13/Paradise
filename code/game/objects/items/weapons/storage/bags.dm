@@ -572,7 +572,7 @@
 	storage_slots = 15
 	max_combined_w_class = 60
 	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/salvage)
+	can_hold = list(/obj/item/salvage, /obj/item/stack/ore/salvage)
 
 /obj/item/storage/bag/expedition/robust
 	name = "robust treasure satchel"
