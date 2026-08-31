@@ -300,6 +300,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AI_DISABLE_PLANNING "TRAIT_AI_DISABLE_PLANNING"
 
 #define TRAIT_TEMPERATE_PARTIER "temperate_partier" // Mob won't wake up drunk in a random department
+#define TRAIT_WORK_HARD_PARTY_HARDER "work_hard_party_harder" // Mob will wake up drunk somewhere random even if nobody else does
 /// This mob's speech is heard through walls by dead players/observers even if it has no client. Idk a better name
 #define TRAIT_IMPORTANT_SPEAKER "important_speaker"
 /// Ignores line of sight for the purposes of send_speech()

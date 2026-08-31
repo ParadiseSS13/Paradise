@@ -180,7 +180,7 @@ fluff_undershirts = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 72
+sql_version = 73
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -841,9 +841,6 @@ toast_on_init_complete = true
 # Location of server resources. Used to offload sending the paradise.rsc from DD to a webserver
 # NOTE: This wants paradise.rsc inside a zip file, and it is HTTP ONLY. NO HTTPS
 #rsc_urls = ["http://www.paradisestation.org/windows/paradise.rsc.zip"]
-# Link URL to link forum accounts to ckeys. If set to an empty string, no link option will be offered
-# Token is appended right on the end, so set parameters as needed
-#forum_link_url = "https://example.com/link.php?token="
 # URL for accessing player info from admin webtools
 # Ckey is appended right on the end, so set parameters as needed
 #forum_playerinfo_url = "https://example.com/info.php?ckey="
@@ -861,8 +858,6 @@ github_url = "https://github.com/ParadiseSS13/Paradise"
 exploit_url = "https://www.paradisestation.org/forum/179-exploit-reports/"
 # Discord address
 #discord_url = "http://example.org"
-# Discord address (forum-based invite)
-discord_forum_url = "https://www.paradisestation.org/forum/discord/invite/general/"
 # Donations address
 donations_url = "https://www.patreon.com/ParadiseStation"
 # Ban appeals URL - usually for a forum or wherever people should go to contact your admins
