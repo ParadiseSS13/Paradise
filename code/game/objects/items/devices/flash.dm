@@ -27,6 +27,8 @@
 	var/flash_timer
 	/// How long do we have between flashes
 	var/time_between_flashes = 5 SECONDS
+	/// Is this a cyborg's flash?
+	var/borg_flash = FALSE
 	new_attack_chain = TRUE
 
 	var/use_sound = 'sound/weapons/flash.ogg'
@@ -88,6 +90,9 @@
 		deltimer(flash_timer)
 		flash_timer = addtimer(CALLBACK(src, PROC_REF(flash_recharge)), 10 SECONDS, TIMER_STOPPABLE)
 
+	if(borg_flash)
+		new /obj/effect/temp_visual/borgflash(get_turf(src))
+
 	playsound(loc, use_sound, 100, TRUE)
 
 	flick("[initial(icon_state)]2", src)
@@ -143,6 +148,7 @@
 
 	if(!try_use_flash(user))
 		return ITEM_INTERACT_COMPLETE
+
 
 	if(istype(target, /obj/machinery/camera))
 		var/obj/machinery/camera/camera = target
@@ -250,22 +256,8 @@
 	return TRUE
 
 /obj/item/flash/cyborg
-	origin_tech = null
 	can_overcharge = FALSE
-
-/obj/item/flash/cyborg/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!..())
-		return ITEM_INTERACT_COMPLETE
-
-	new /obj/effect/temp_visual/borgflash(get_turf(src))
-	return ITEM_INTERACT_COMPLETE
-
-/obj/item/flash/cyborg/activate_self(mob/user)
-	if(!..())
-		return ITEM_INTERACT_COMPLETE
-	
-	new /obj/effect/temp_visual/borgflash(get_turf(src))
-	return ITEM_INTERACT_COMPLETE
+	borg_flash = TRUE
 
 /obj/item/flash/cyborg/cyborg_recharge(coeff, emagged)
 	if(broken)
