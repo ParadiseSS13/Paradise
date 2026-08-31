@@ -28,6 +28,12 @@
 /proc/level_boosts_signal(z)
 	return check_level_trait(z, BOOSTS_SIGNAL)
 
+/proc/is_upper_level(z)
+	return check_level_trait(z, ZTRAIT_UPPER_LEVEL)
+
+/proc/is_lower_level(z)
+	return check_level_trait(z, ZTRAIT_LOWER_LEVEL)
+
 #define is_reserved_level(z) check_level_trait(z, ZTRAIT_RESERVED)
 
 // Used for the nuke disk, or for checking if players survived through xenos

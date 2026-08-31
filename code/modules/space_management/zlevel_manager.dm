@@ -54,6 +54,13 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 		throw EXCEPTION("Non-existent z level: '[A]'")
 	return levels_by_name[A]
 
+/// Return the first z-list found which has the specified trait.
+/datum/zlev_manager/proc/get_zlev_by_trait(trait)
+	for(var/z in z_list)
+		var/datum/space_level/level = z_list[z]
+		if(trait in level.flags)
+			return level
+
 /*
 * "Dirt" management
 * "Dirt" is used to keep track of whether a z level should automatically have

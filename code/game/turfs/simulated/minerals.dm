@@ -168,6 +168,10 @@
 		if(1)
 			gets_drilled(null, 1)
 
+/turf/simulated/mineral/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	. = ..()
+	return . || pass_info.incorporeal_move
+
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList = list(
 		/datum/ore/iron = 40,

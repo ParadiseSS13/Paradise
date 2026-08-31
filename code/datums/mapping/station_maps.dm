@@ -37,6 +37,35 @@
 	welcome_sound = 'sound/AI/welcome_diagoras.ogg'
 	voteable = FALSE
 
+#warn adjust all these before release
+
+/datum/map/prototypestation
+	fluff_name = "Avernus Complex"
+	technical_name = "PrototypeStation"
+	map_path = "_maps/map_files/stations/prototypestation.dmm"
+	linkage = UNAFFECTED
+	level_names = list(
+		SUB_STATION,
+		MAIN_STATION,
+	)
+	level_traits = list(
+		list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, AI_OK, ZTRAIT_LOWER_LEVEL),
+		list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, AI_OK, ZTRAIT_UPPER_LEVEL, ZTRAIT_WINTER_LEVEL),
+	)
+
+/datum/map/moonstation
+	fluff_name = "Avernus Complex"
+	technical_name = "MoonStation"
+	map_path = "_maps/map_files/stations/moonstation.dmm"
+	level_names = list(
+		SUB_STATION,
+		MAIN_STATION,
+	)
+	level_traits = list(
+		list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, AI_OK, ZTRAIT_LOWER_LEVEL),
+		list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, AI_OK, ZTRAIT_UPPER_LEVEL),
+	)
+
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
 	technical_name = "test_tiny"

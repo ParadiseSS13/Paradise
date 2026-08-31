@@ -20,3 +20,11 @@
 	var/min_players_random = 0
 	/// Sound to play at the start of the game, aka the welcoming sound
 	var/welcome_sound = 'sound/AI/welcome.ogg'
+	var/linkage = CROSSLINKED
+	var/transition_tag = TRANSITION_TAG_SPACE
+	var/list/level_names = list(
+		MAIN_STATION,
+	)
+	var/list/level_traits = list(
+		list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK),
+	)
