@@ -137,7 +137,7 @@ jobs:
             # full length sha
             type=sha,format=long
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v4.4.0
+        uses: docker/login-action@v4.5.2
         if: ${{ github.event_name != 'pull_request' }}
         with:
           registry: ghcr.io
@@ -194,15 +194,26 @@ jobs:
         byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v7.0.0
+
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
           release: ${{ matrix.byondtype }}
+
+      - name: Shutdown Ubuntu MySQL (SUDO)
+        run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
+
+      - name: Set up MariaDB
+        uses: getong/mariadb-action@v1.11
+        with:
+          mariadb version: '12.3.2'
+          mysql root password: 'root'
+
       - name: Setup & Validate DB
         run: |
-          sudo systemctl start mysql
           python3 tools/ci/generate_sql_scripts.py
           tools/ci/validate_sql.sh
+
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'

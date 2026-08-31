@@ -275,6 +275,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/choice = alert(user, "This item does not raise tech levels. Proceed destroying loaded item anyway?", "Are you sure you want to destroy this item?", "Proceed", "Cancel")
 		if(choice == "Cancel" || !linked_analyzer)
 			return
+		// Prevent remote activation of the scanner, unless you're someone that's supposed to be able to do that.
+		if(!Adjacent(user) && !issilicon(user))
+			to_chat(user, SPAN_WARNING("You moved too far away from [src]!"))
+			return
 
 	linked_analyzer.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
