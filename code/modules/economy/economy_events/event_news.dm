@@ -47,21 +47,21 @@
 	[random_name(random_organic_species())] was quoted as saying. The two parties' delegations will meet [pick("next week", "next month", "in due course", "soon")] for negotiations, \
 	although pundits have already pointed out Nanotrasen has historically remained steadfast in maintaining the price it believes is fair."
 
-/datum/event_news/generic_faction_hyperspace_phenomina/generate()
+/datum/event_news/generic_faction_hyperspace_phenomena/generate()
 	author = "Interstellar Shipping Union"
-	title = "Hyperspace phenomina near the [topic.name]"
+	title = "Hyperspace phenomena near the [topic.name]"
 	body = "Several astrological observitories have detected natural hyperspace fluctuations near the [topic.name]."
 	if(prob(50))
-		body += "These fluctuations will result in [pick("minor turbulance", "slightly increased travel times", "slightly decreased travel times")] for hyperspace travel for the duration of the phenomina."
+		body += "These fluctuations will result in [pick("minor turbulence", "slightly increased travel times", "slightly decreased travel times")] for hyperspace travel for the duration of the phenomena."
 	else
-		body += "The effects of these fluctuations are unpredictable and are being continiously monitored. \
-		Pilots are advised to evaluate local conditions and maintain caution during hyperspace travel for the duration of the phenomina."
+		body += "The effects of these fluctuations are unpredictable and are being continuously monitored. \
+		Pilots are advised to evaluate local conditions and maintain caution during hyperspace travel for the duration of the phenomena."
 
 // TSF Specific
 /datum/event_news/tsf_new_fleet/generate()
 	title = "[topic.name] adds new patrol fleet to naval assets"
 	body = "Shipyards at [pick("Luna", "Biesel", "Venus", "several federal systems")] have completed construction of \
-	[pick("several dozen destroyers", "a dozen destroyers and a handful of cruisers", "A battleship and her escorts", "a carrier and her escorts")]. After the proper chirstening ceremonies, they will be \
+	[pick("several dozen destroyers", "a dozen destroyers and a handful of cruisers", "a battleship and her escorts", "a carrier and her escorts")]. After the proper chirstening ceremonies, they will be \
 	[pick("deployed along the border regions", "begin patrolling several systems that have been requesting a stronger naval presence", "begin pirate interdiction operations in ernest", \
 	"able to replace vessels due to come back to drydock for maintenance refits")]. Defence analysts agree that this is a step in the right direction, \
 	noting the increasing demands placed on the Federal Navy over the past decades."
@@ -78,7 +78,7 @@
 /datum/event_news/ussp_nian_deal/generate()
 	title = "[topic.name] secures trade deal with Nionic Trade League"
 	body = "[pick("Today", "Yesterday", "Last week", "At the start of this month")] on the Nian homeworld of Dom, [topic.name] diplomats and [pick("high ranking members", "the head")] of the Nionic Trade League \
-	successfully closed a trade deal. [pick("Technological exchanges", "mineral-product agreements", "the reaffirmation of free and preferential trade")] between the two nations featrured most strongly in the agreement. \
+	successfully closed a trade deal. [pick("Technological exchanges", "Mineral-product agreements", "The reaffirmation of free and preferential trade")] between the two nations featured most strongly in the agreement. \
 	Economic forecasts are forseeing an improved economic outlook for the USSP, reversing the onset of an economic downturn caused by the market-wide effects of rising plasma prices."
 
 // Royal Domain of Qerballak Specific
@@ -87,40 +87,40 @@
 	body = "[pick("Today", "Yesterday", "Last week", "At the start of this month")], the High Monarch issued a decree calling for \
 	[pick("peace and unity among the stars", "the rights of all sapient species to be respected", "Nanotrasen to respect the rights of cyborgs", "the TSF to respect the rights of IPCs", \
 	"The Silver Collective to respect the rights of [pick("Vox", "IPCs", "Humans", "Those not fortunate enough to be born as a Skkulakin, Drask, or Vulpkanin.")]", \
-	"the site known as \"WetSkrell.nt\" to be permanently shut down immeditely")]. Unfortunately, the High Monarch's decree is unlikely to change the state of affairs in the Orion Arm."
+	"the site known as \"WetSkrell.nt\" to be permanently shut down immediately")]. Unfortunately, the High Monarch's decree is unlikely to change the state of affairs in the Orion Arm."
 
 // Silver Collective Specific
 /datum/event_news/silver_collective_interdiction/generate()
-	title = "[topic.name] impounds forigen vessel"
+	title = "[topic.name] impounds foreign vessel"
 	body = "A private vessel originating from the [pick("Union of Soviet Socialist Planets", "Trans-Solar Federation", "Royal Domain of Qerballak", "Nionic Trade League", "Kidan Anarchy")] \
-	was impounded [pick("Today", "Yesterday", "Last week", "At the start of this month")] after being interdicted by the Silver Collective Void Navy."
+	was impounded [pick("today", "yesterday", "last week", "at the start of this month")] after being interdicted by the Silver Collective Void Navy."
 	if(prob(50))
 		body += "in an offical statement, the SCVN said they had strong reason to believe the ship contained \
 		[pick("contraband", "heretical persons", "cultists", "demons", "persons wishing to do harm to The Collective")]. The ship's crew remain in custody, \
-		and the consulute of their place of origin is trying to establish contact."
+		and the consulate of their place of origin is trying to establish contact."
 	else
 		body += "The ship's captain commented \"[pick("We were half a lightyear outside the border!", "This is unacceptable, we've done nothing wrong, all of this is bogus!", \
-		"This is the last time I go near these dammned spiders...")]\""
+		"This is the last time I go near these damned spiders...")]\""
 
 // Artificers' Union Specific
 /datum/event_news/artificers_union_concrete_shortage/generate()
 	title = "[topic.name] faces shortage of concrete"
 	body = "[pick("For reasons unknown", "Due to extremely specific industrial demand", "Because of the so-called \"abdominal concrete\" trend started by youth influencers")], \
-	the [topic.name] is facing [pick("an unprecidented shortage", "critically low reserves", "a concerning lack", "inadequate stocks")] of concrete."
+	the [topic.name] is facing [pick("an unprecedented shortage", "critically low reserves", "a concerning lack", "inadequate stocks")] of concrete."
 	if(prob(50))
 		body += "Several major domestic corporations have already reached out to factions such as the \
 		[pick("Union of Soviet Socialist Planets", "Trans-Solar Federation", "Royal Domain of Qerballak", "Nionic Trade League", "League of Kelune", "Drask Enclaves")], eagerly looking to strike up a trade deal."
 	else
-		body += "The Union had already directed concrete manufacturning plants to increase production in anticipation of the trend, but it will take time for the shortfalls to be covered by new capacity."
+		body += "The Union had already directed concrete manufacturing plants to increase production in anticipation of the trend, but it will take time for the shortfalls to be covered by new capacity."
 	
 // Kidan Anarchy Specific
 /datum/event_news/kidan_anarchy_dynastic_war/generate()
-	title = "dynastic war breaks out in the [topic.name]"
+	title = "Dynastic war breaks out in the [topic.name]"
 	body = "The [pick("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan")] Dynasty has [pick("launched an incursion", "raided", "begun an invasion")] \
 	of a rival dynasty, causing several others to be drawn into fighting as defensive alliances trigger. \
 	Neighboring factions have placed their border forces on high alert as a precaution against fighting spilling over into their territory."
 	if(prob(10))
-		body += "The currently neutral Princess Zrax, presently on a luxury cruse through Epsilon Eridani aboard her royal yaucht, was quoted as saying \"many of the kingdoms have lost the old ways. \
+		body += "The currently neutral Princess Zrax, presently on a luxury cruse through Epsilon Eridani aboard her royal yacht, was quoted as saying \"many of the kingdoms have lost the old ways. \
 		We of the Zrax Dynasty are content to bide our time until the correct opportunty arises. \
 		The Eternal Empire was not forged in a single war by impatient rulers, and it shall not be reforged by the same, either."
 	
@@ -142,15 +142,15 @@
 	if(nuke_exploded)
 		body = "A nuclear detonation was observed on [topic.name] today. An archeological dig site had located the remains of an intact Imperial-era hive, \
 		but appear to have set off an unexploded nuclear device left over from the siege of [topic.name]. \
-		[pick("There were no survivors.", "remarkably, one of the dig team managed to survive by diving into a perfectly preserved refrigerator moments before the detonation, which protected them from the blast.")]"
+		[pick("There were no survivors.", "Remarkably, one of the dig team managed to survive by diving into a perfectly preserved refrigerator moments before the detonation, which protected them from the blast.")]"
 	else
 		body = "An archeological dig site on [topic.name] has managed to locate the preserved remains of an intact Imperial-era hive, \
-		but progress was immeditely halted upon the discovery of an unexploded nuclear device left over from the siege of [topic.name]. Dig team leader [random_name(species = "Kidan")] was quoted as saying \
+		but progress was immediately halted upon the discovery of an unexploded nuclear device left over from the siege of [topic.name]. Dig team leader [random_name(species = "Kidan")] was quoted as saying \
 		\"[pick("It's remarkable that we didn't set it off when we breached into the chamber", "We were -THIS- close to being atomized", \
 		"It's very scary, I've had collegues that have lost their lives to these things during a dig.")] We've called in specialist bomb diposal experts, \
 		hopefully they can make the site safe again so we can get back to piecing together what histories have been lost down here.\""
 	body += "<br><br>During the siege of [topic.name], an unimaginable amount of ordinance was dropped during orbital bombardment. Some of it never detonated, and remains a very real danger centuries later. \
-	threatening the safety of anyone trying to uncover the lost secrets of [topic.name]"
+	threatening the safety of anyone trying to uncover the lost secrets of [topic.name]."
 
 /datum/event_news/moghes_clan_war/generate()
 	title = "Unathi clan war breaks out on [topic.name]"
@@ -165,7 +165,7 @@
 	body = "[pick("A large protest","A picket line","A crowd of protesters","A protest march")] on [topic.name] has surrounded \
 	[pick("Nanotrasen's branch office","a Nanotrasen industrial complex","a Nanotrasen training center","a Nanotrasen research facility")]. \
 	Productivity has ground to a halt, as access to the workplace is completely blocked. Nanotrasen is calling for protesters to \
-	[pick("cease and desist","disperse immeditely","get real jobs","just go home already")] before they \
+	[pick("cease and desist","disperse immediately","get real jobs","just go home already")] before they \
 	[pick("\'REDACTED\'","deploy asset protection teams","force them to complete a job application","get nasty")]."
 
 /datum/event_news/nanotrasen_protests_stopped/generate()
@@ -284,7 +284,7 @@
 	body = "A [pick("vampire", "vile bloodsucker")], [random_name(species = random_organic_species())], has been [pick("discovered", "revealed", "identified", "confronted")] on [topic.name] earlier today."
 	if(prob(33))
 		body += "They were successfully [pick("cornered", "ambushed", "intercepted", "arrested", "captured", "contained")] by security forces after \
-		[pick("a botched kidnapping", "being caught mid-feeding", "intelligence reports pinpointed their wareabouts")]. \
+		[pick("a botched kidnapping", "being caught mid-feeding", "intelligence reports pinpointed their whereabouts")]. \
 		Thankfully, no lives were claimed. Authorities advise increased vigilance, and security has been tightened."
 	else if(prob(33))
 		body += "After [pick("feeding on multiple victims", "draining numerous civilians dry", "gorging themselves in a feeding frenzy")], security forces. \
@@ -300,7 +300,7 @@
 	body = "A [pick("mindflayer", "vile brain leech")], [random_name(species = "Machine")], has been [pick("discovered", "revealed", "identified", "confronted")] on [topic.name] earlier today."
 	if(prob(33))
 		body += "They were successfully [pick("cornered", "ambushed", "intercepted", "arrested", "captured", "contained")] by security forces after \
-		[pick("a botched kidnapping", "being caught trying to absorb someone's mind", "intelligence reports pinpointed their wareabouts")]. \
+		[pick("a botched kidnapping", "being caught trying to absorb someone's mind", "intelligence reports pinpointed their whereabouts")]. \
 		Thankfully, no lives were claimed."
 	else if(prob(33))
 		body += "After [pick("draining the minds of multiple victims", "leaving several victims comatose")], security forces. \
@@ -313,7 +313,7 @@
 
 /datum/event_news/changeling_attack/generate()
 	title = "Changeling attack on [topic.name]"
-	body = "A [pick("Changeling", "Polymorphic alien organism", "flesh-shaper")] masquerading as [random_name(species = random_organic_species())] has been \
+	body = "A [pick("changeling", "polymorphic alien organism", "flesh-shaper")] masquerading as [random_name(species = random_organic_species())] has been \
 	[pick("discovered", "revealed", "identified", "exposed")] on [topic.name] earlier today."
 	if(prob(33))
 		body += "They were [pick("ground into fine paste", "crushed under a small shuttlecraft", "incinerated", "stepped on after transforming into a slug-like creature")] by security forces after \
@@ -332,7 +332,7 @@
 	title = "Blob organism outbreak on [topic.name]"
 	body = "A [pick("Level 5 biohazard", "blob organism", "strange blob")] on [topic.name] has resulted in quarantine, stopping much shipping in the area."
 	if(prob(25))
-		body += "Combat operations are ongoing, and requests for immedite assistance have been answered by \
+		body += "Combat operations are ongoing, and requests for immediate assistance have been answered by \
 		[pick("a patrolling navy destroyer", "a Nanotrasen Emergency Response Team", "Shellguard mercenaries", "an independent space wizard")], due to arrive shortly."
 	if(prob(30))
 		body += "The outbreak is [pick("barely contained", "threatening to expand", "in danger of overwhelming security forces")], \
@@ -342,9 +342,9 @@
 
 /datum/event_news/terror_spider_outbreak/generate()
 	title = "Terror spider outbreak on [topic.name]"
-	body = "A [pick("Level 3 biohazard", "terror spider infestation", "aggressive nest of genetically modified spiders")] on [topic.name] has resulted in quarantine, stopping much shipping in the area."
+	body = "A [pick("Level 3 biohazard", "terror spider infestation", "ravenous nest of genetically modified spiders")] on [topic.name] has resulted in quarantine, stopping much shipping in the area."
 	if(prob(10))
-		body += "Combat operations are ongoing, and requests for immedite assistance have been answered by \
+		body += "Combat operations are ongoing, and requests for immediate assistance have been answered by \
 		[pick("a patrolling navy destroyer", "a Nanotrasen Emergency Response Team", "Shellguard mercenaries", "an independent space wizard")], due to arrive shortly."
 	if(prob(30))
 		body += "The outbreak is [pick("barely contained", "threatening to expand", "in danger of overwhelming security forces")], \
@@ -354,7 +354,7 @@
 
 /datum/event_news/flock_outbreak/generate()
 	title = "Strange birds on [topic.name]"
-	body = "An outbreak of [pick("strange teal birds", "an aggressive alien species known as \"The Divine Flock\"")] on [topic.name] has caused significiant damage as a large amount of infrastructure was \
+	body = "An outbreak of [pick("strange teal birds", "an aggressive alien species known as \"The Divine Flock\"")] on [topic.name] has caused significant damage as a large amount of infrastructure was \
 	transformed into alien material."
 	if(prob(10))
 		body += "A strange dome was then fabricated which soon exploded, taking a large area with it. \
@@ -367,13 +367,13 @@
 	body = "[pick("A Member of the Space Wizards Federation", "An independent space wizard", "An evil sorcerer",)] suddenly manifested on [topic.name] [pick("earlier today", "two days ago", "three days ago")]\
 	and proceeded to [pick("loudly declare \"FRIENDSHIP IS A SCAM!\"", "summon guns into the hands of all nearby observers", "trap the nearest helpless victim inside their crystal")]."
 	if(prob(33))
-		body += "They followed up by casting [pick("\"Spectral Blade\"", "\"Improved Spectral Blade\"", "a \"Magic Missile\" so devestating that all regretted crossing paths with this rebellious foe", \
+		body += "They followed up by casting [pick("\"Spectral Blade\"", "\"Improved Spectral Blade\"", "a \"Magic Missile\" so devastating that all regretted crossing paths with this rebellious foe", \
 		"\"Fireball\"", "\"FIREBALL!\"")] and proceeded to go on a rampage until [pick("no one was left standing", "they apparently grew bored and disappeared", "they were finally slain by security forces")]."
 	else if(prob(33))
-		body += "They then produced a [pick("\"Staff of Chaos\"", "\"Staff of Change\"", "\"Wand of Fireball\"", "Strange hammer", "an endless stream of magical guns", "multiple shards of deadly supermatter")] \
+		body += "They then produced [pick("a \"Staff of Chaos\"", "a \"Staff of Change\"", "a \"Wand of Fireball\"", "a Strange hammer", "an endless stream of magical guns", "multiple shards of deadly supermatter")] \
 		and caused a massacre lasting until [pick("no one was left standing", "they apparently grew bored and disappeared", "they were finally slain by security forces")]."
 	else
-		body += "They were then immeditely [pick("set upon and brutally beaten by bystanders", "competently terminated by security forces", "killed when they cast an EMP spell... While being a robot")]."
+		body += "They were then immediately [pick("set upon and brutally beaten by bystanders", "competently terminated by security forces", "killed when they cast an EMP spell... While being a robot")]."
 
 // MARK: Other news
 /datum/event_news/research_breakthrough/generate()

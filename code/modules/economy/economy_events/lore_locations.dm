@@ -18,15 +18,15 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	)
 	viable_mundane_events = list(
 		/datum/event_news/generic_faction_anti_piracy,
-		/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_hyperspace_phenomena,
 	)
 
 /datum/lore_location/epsilon_eridani // YOU ARE HERE!
 	name = "Epsilon Eridani"
 	description = "The core system of the Free Eridani Repiblic, and the most profitable of Nanotrasen's holdings by a considerable margin. Centuries ago during the initial colonization of the system by the TSF, \
-	the entire system disappeared in a massive bluespace translocation event and remained missing until a few years after the Cygini Crisis, when it reappeared hundreds of lightyears from its original location. \
+	the entire system disappeared in a massive bluespace translocation event and remained missing until a few years after the Cygni Crisis, when it reappeared hundreds of lightyears from its original location. \
 	The characteristics of star and its orbiting planets all perfectly matched old records, and the remains of the original colonies were located, all having been wiped out centuries prior. \
-	What did change was the sudden appearance of Epsilon Eridani II, colloqually known as \"Lavaland\". The bluespace phenomina and extreme mineral wealth of Lavaland prompted Nanotrasen to move in to \
+	What did change was the sudden appearance of Epsilon Eridani II, colloqually known as \"Lavaland\". The bluespace phenomena and extreme mineral wealth of Lavaland prompted Nanotrasen to move in to \
 	secure it for themselves, despite the considerable risks of operating in and around the planet."
 	viable_random_events = list(
 		/datum/event_news/generic_faction_anti_piracy,
@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/lore_location/luthien
 	name = "Luthien"
-	description = "A feral, untamed world (largely jungle) within the Free Eridani Republic. A few heavilly fortified colonies dot the planet. \
+	description = "A feral, untamed world (largely jungle) within the Free Eridani Republic. A few heavily fortified colonies dot the planet. \
 	Many species of rare flora and fauna provide exciting research and pharmaceutical potential, and the planet is popular with thrill-seeking hunters and explorers. \
 	Wild beasts attack the colonies regularly, although the tight military control maintained by Nanotrasen ensures mostly nominal safety and high public order."
 	viable_random_events = list(
@@ -219,12 +219,12 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_mundane_events = list(
 		/datum/event_news/generic_faction_anti_piracy,
 		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-		/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_hyperspace_phenomena,
 	)
 
-/datum/lore_location/cygini
-	name = "Cygini Prime"
-	description = "The snowswept planet of Cygini Prime was the birthplace of the Union of Soviet Socialist Planets during the Cygini Crisis, and continues to be its capitol. \
+/datum/lore_location/Cygni
+	name = "Cygni Prime"
+	description = "The snowswept planet of Cygni Prime was the birthplace of the Union of Soviet Socialist Planets during the Cygni Crisis, and continues to be its capitol. \
 	It is a heavily industrialized world that maintains higher standards of living than many surrounding USSP systems."
 	viable_random_events = list(
 		/datum/event_news/industrial_accident,
@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_mundane_events = list(
 		/datum/event_news/generic_faction_anti_piracy,
 		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-		/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_hyperspace_phenomena,
 	)
 
 /datum/lore_location/crown
@@ -279,12 +279,12 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_mundane_events = list(
 		/datum/event_news/generic_faction_anti_piracy,
 		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-		/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_hyperspace_phenomena,
 	)
 
 /datum/lore_location/votum_accorium 
 	name = "Votum-Accorium"
-	description = "The mysterious homeworld of the Skkulakin, and the most important of their Brightworlds. The sprawling cities of this planet are fortresses against an eternal siege of whiteout blizards"
+	description = "The mysterious homeworld of the Skkulakin, and the most important of their Brightworlds. The sprawling cities of this planet are fortresses against an eternal siege of whiteout blizzards."
 	viable_random_events = list(
 		/datum/event_news/industrial_accident,
 		/datum/event_news/wild_animal_attack,
@@ -308,7 +308,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_mundane_events = list(
 		/datum/event_news/generic_faction_anti_piracy,
 		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-		/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_hyperspace_phenomena,
 	)
 
 // MARK: Kidan Anarchy
@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 		/datum/event_news/kidan_anarchy_dynastic_war,
 	)
 	viable_mundane_events = list(
-		/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_hyperspace_phenomena,
 	)
 
 /datum/lore_location/aurum
@@ -347,7 +347,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_mundane_events = list(
 		/datum/event_news/generic_faction_anti_piracy,
 		/datum/event_news/generic_faction_nanotrasen_fuel_cost,
-		/datum/event_news/generic_faction_hyperspace_phenomina,
+		/datum/event_news/generic_faction_hyperspace_phenomena,
 	)
 
 /datum/lore_location/kelune
@@ -385,7 +385,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 /datum/lore_location/diona_reef
 	name = "Diona Reef EE-N-03"
 	description = "A large diona reef drifting through interstellar space near the Free Eridani Republic. \
-	It is a living structure composed of millions of indivdual diona nymphs all connected in a single gestalt conciousness."
+	It is a living structure composed of millions of individual diona nymphs all connected in a single gestalt conciousness."
 	viable_random_events = list(
 	/datum/event_news/placeholder_event
 	)
