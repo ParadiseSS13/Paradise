@@ -77,9 +77,6 @@
 GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
 
 /obj/item/dna_probe/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(..())
-		return ITEM_INTERACT_COMPLETE
-
 	//tray plants
 	if(istype(target,/obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/tray = target
