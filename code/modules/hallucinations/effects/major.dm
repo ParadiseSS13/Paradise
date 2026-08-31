@@ -472,7 +472,7 @@
 	. = ..()
 	var/image/I = image('icons/mob/blob.dmi', target, icon_state = "blob_head")
 	I.color = blob.color
-	target.client.images += I
+	target.client?.images += I
 	blob.target_blob_head = I
 
 /**
