@@ -17212,7 +17212,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "blX" = (
-/obj/machinery/hologram/holopad,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "bmc" = (
@@ -45829,6 +45829,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "egn" = (
@@ -46269,14 +46273,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "epu" = (
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8
 	},
-/obj/machinery/alarm/directional/south,
 /obj/effect/mapping_helpers/sortjunc_helper/disposals,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
@@ -73633,7 +73632,6 @@
 /area/station/medical/patients_rooms1)
 "qrZ" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
 "qsa" = (
@@ -86731,6 +86729,13 @@
 	},
 /turf/simulated/floor/catwalk/white,
 /area/station/science/hallway)
+"wph" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/alarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/east)
 "wpz" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -90948,6 +90953,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"yfI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/port/east)
 "yfJ" = (
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
@@ -113572,7 +113593,7 @@ aSu
 aSu
 aSu
 bgE
-bmf
+yfI
 bkg
 blX
 wrU
@@ -114601,7 +114622,7 @@ bgY
 mfx
 biF
 dmv
-bkg
+wph
 wrU
 wrU
 wrU
