@@ -377,7 +377,10 @@
 	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
 	SSticker.equip_cuis(character) // Gives them their CUIs
 
-	SSticker.mode.latespawn(character)
+	if(!IsAdminJob(rank))
+		SSticker.mode.latespawn(character)
+	else
+		log_dynamic("Admin joined. Budget remains unchanged.", TRUE)
 
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)
