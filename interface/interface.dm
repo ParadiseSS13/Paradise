@@ -21,8 +21,6 @@
 	if(GLOB.configuration.url.forum_url)
 		if(tgui_alert(src, "Open the forum in your browser?", "Forum", list("Yes", "No")) != "Yes")
 			return
-		if(GLOB.configuration.url.forum_link_url && prefs && !prefs.fuid)
-			link_forum_account()
 		src << link(GLOB.configuration.url.forum_url)
 	else
 		to_chat(src, SPAN_DANGER("The forum URL is not set in the server configuration."))
@@ -54,21 +52,15 @@
 	set desc = "Join our Discord server."
 	set hidden = 1
 
-	var/durl
 	// Use normal URL
-	if(GLOB.configuration.url.discord_url)
-		durl = GLOB.configuration.url.discord_url
-
-	// Use forums URL if set
-	if(GLOB.configuration.url.forum_link_url && GLOB.configuration?.url.discord_forum_url && prefs?.fuid)
-		durl = GLOB.configuration.url.discord_forum_url
-
-	if(!durl)
+	if(!GLOB.configuration.url.discord_url)
 		to_chat(src, SPAN_DANGER("The Discord URL is not set in the server configuration."))
 		return
+
 	if(tgui_alert(src, "This will invite you to our Discord server. Are you sure?", "Discord", list("Yes", "No")) != "Yes")
 		return
-	src << link(durl)
+
+	src << link(GLOB.configuration.url.discord_url)
 
 /client/verb/donate()
 	set name = "Donate"
