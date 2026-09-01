@@ -109,12 +109,6 @@
 		stunner.melee_attack_chain(src, C)
 	else
 		baton.melee_attack_chain(src, C)
-
-	var/threat = 5 || ai_controller.blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT]
-	if(security_mode_flags & SECBOT_DECLARE_ARRESTS)
-		var/area/location = get_area(src)
-		speak("[security_mode_flags & SECBOT_HANDCUFF_TARGET ? "Arresting" : "Detaining"] level [threat] scumbag [target] in [location].", radio_channel)
-
 	var/mob/living/basic/bot/secbot/honkbot/honker = src
 	if((C.IsWeakened() || istype(honker)) && !arresting)
 		arresting = TRUE
@@ -186,6 +180,10 @@
 
 /mob/living/basic/bot/secbot/proc/post_stun(mob/living/carbon/current_target, harm = FALSE)
 	flick("[base_icon_state]-c", src)
+	var/threat = 5 || ai_controller.blackboard[BB_CURRENT_CRIMINAL_ASSESSMENT]
+	if(security_mode_flags & SECBOT_DECLARE_ARRESTS)
+		var/area/location = get_area(src)
+		speak("[security_mode_flags & SECBOT_HANDCUFF_TARGET ? "Arresting" : "Detaining"] level [threat] scumbag [current_target] in [location].", radio_channel)
 	payment_check(current_target)
 	update_bot_mode(new_mode = BOT_PREP_ARREST)
 	if(security_mode_flags & SECBOT_HANDCUFF_TARGET)
@@ -289,3 +287,4 @@
 						"[C] topples over [src]!", \
 						"[C] leaps out of [src]'s way!")))
 	C.AdjustParalysis(4 SECONDS)
+

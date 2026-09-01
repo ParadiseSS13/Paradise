@@ -58,6 +58,9 @@
 	), 50, FALSE)
 	var/mob/living/basic/bot/secbot/my_bot = pawn
 	my_bot.update_bot_mode(new_mode = BOT_HUNT)
+	if(my_bot.security_mode_flags & SECBOT_DECLARE_ARRESTS)
+		var/area/location = get_area(my_bot)
+		my_bot.speak("[my_bot.security_mode_flags & SECBOT_HANDCUFF_TARGET ? "Arresting" : "Detaining"] level [threat_level] scumbag [blackboard[BB_BASIC_MOB_CURRENT_TARGET]] in [location].", my_bot.radio_channel)
 
 /datum/ai_controller/basic_controller/bot/secbot/proc/on_clear_target()
 	SIGNAL_HANDLER
