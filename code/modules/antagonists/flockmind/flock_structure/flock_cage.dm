@@ -28,6 +28,8 @@
 	AddComponent(/datum/component/flock_protection)
 
 /obj/structure/flock/cage/Destroy()
+	if(victim)
+		victim.clear_alert("ghost_cage")
 	QDEL_NULL(victim)
 	return ..()
 
