@@ -208,6 +208,14 @@
 				B.radio_config.Insert(1, "[B.radio_channel]")
 				B.radio_config["[B.radio_channel]"] = 1
 		config(B.radio_config)
+	var/mob/living/basic/bot/BB = loc
+	if(istype(BB))
+		if(!BB.radio_config)
+			BB.radio_config = list("AI Private" = 1)
+			if(!(BB.radio_channel in BB.radio_config)) // Put it first so it's the :h channel
+				BB.radio_config.Insert(1, "[BB.radio_channel]")
+				BB.radio_config["[BB.radio_channel]"] = 1
+		config(BB.radio_config)
 
 /mob/living/simple_animal/bot/proc/try_chasing_target(mob/target)
 	if(target in view(12, src))

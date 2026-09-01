@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	access_card = new /obj/item/card/id(src)
 	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += ACCESS_ROBOTICS
-	Radio = new/obj/item/radio/headset(src)
+	Radio = new/obj/item/radio/headset/bot(src)
 	Radio.follow_target = src
 
 	//Adds bot to the diagnostic HUD system
@@ -203,6 +203,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	set_mode_flags(bot_mode_flags | BOT_MODE_ON)
 	remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED))
 	set_light(bot_mode_flags & BOT_MODE_ON ? initial(light_range) : 0)
+	ai_controller.set_ai_status(AI_STATUS_ON)
 	update_appearance()
 	diag_hud_set_botstat()
 	return TRUE
@@ -210,6 +211,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 /mob/living/basic/bot/proc/turn_off()
 	set_mode_flags(bot_mode_flags & ~BOT_MODE_ON)
 	set_light(bot_mode_flags & BOT_MODE_ON ? initial(light_range) : 0)
+	ai_controller.set_ai_status(AI_STATUS_OFF)
 	bot_reset() // Resets an AI's call, should it exist.
 	update_appearance()
 
