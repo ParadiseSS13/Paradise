@@ -33,10 +33,8 @@
 	SIGNAL_HANDLER
 	var/datum/action/cooldown/bot_announcement/announcement = blackboard[BB_ANNOUNCE_ABILITY]
 	var/static/list/lines_to_pick = list(
-		DEFAULT_LINES = list(
-			"Scumbag alert!",
-			"Threat detected!"
-		),
+		"Scumbag alert!",
+		"Threat detected!"
 	)
 	INVOKE_ASYNC(announcement, TYPE_PROC_REF(/datum/action/cooldown/bot_announcement, announce), pick(lines_to_pick))
 
