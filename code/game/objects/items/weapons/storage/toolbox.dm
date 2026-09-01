@@ -154,3 +154,39 @@
 	new /obj/item/stack/cable_coil/orange(src)
 	new /obj/item/stack/cable_coil/cyan(src)
 	new /obj/item/stack/cable_coil/white(src)
+
+// repairbot assembly
+/obj/item/storage/toolbox/tool_act(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/assembly/prox_sensor))
+		return ..()
+	var/static/list/allowed_toolbox = list(
+		/obj/item/storage/toolbox/artistic,
+		/obj/item/storage/toolbox/electrical,
+		/obj/item/storage/toolbox/emergency,
+		/obj/item/storage/toolbox/mechanical,
+		/obj/item/storage/toolbox/syndicate,
+	)
+
+	if(!is_type_in_list(src, allowed_toolbox) && (type != /obj/item/storage/toolbox))
+		return FINISH_ATTACK
+	if(contents.len >= 1)
+		to_chat(user, SPAN_NOTICE("[src] isn't empty!"))
+		return FINISH_ATTACK
+
+	var/static/list/toolbox_colors = list(
+		/obj/item/storage/toolbox = "#445eb3",
+		/obj/item/storage/toolbox/emergency = "#b34444",
+		/obj/item/storage/toolbox/electrical = "#b77931",
+		/obj/item/storage/toolbox/artistic = "#378752",
+		/obj/item/storage/toolbox/syndicate = "#3d3d3d",
+	)
+
+	var/obj/item/bot_assembly/repairbot/repair = new(drop_location())
+	repair.toolbox = type
+	var/new_color = toolbox_colors[type] || "#445eb3"
+	repair.set_color(new_color)
+	repair.update_appearance()
+	to_chat(user, SPAN_NOTICE("You add [used] to [src]."))
+	qdel(used)
+	qdel(src)
+	return FINISH_ATTACK

@@ -371,11 +371,21 @@
 	time = 40
 	category = CAT_ROBOT
 
-/datum/crafting_recipe/floorbot
-	name = "Floorbot"
+/datum/crafting_recipe/repairbot
+	name = "Repairbot"
 	result = list(/mob/living/basic/bot/repairbot)
 	reqs = list(/obj/item/storage/toolbox = 1,
 				/obj/item/stack/tile/plasteel = 10,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/robot_parts/r_arm = 1)
+	time = 40
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/firebot
+	name = "Firebot"
+	result = list(/mob/living/basic/bot/firebot)
+	reqs = list(/obj/item/extinguisher = 1,
+				/obj/item/clothing/head/hardhat = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	time = 40

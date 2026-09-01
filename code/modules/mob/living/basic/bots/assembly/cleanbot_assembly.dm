@@ -24,7 +24,6 @@
 		bucket_obj = null
 	return ..()
 
-
 /obj/item/bot_assembly/cleanbot/Destroy(force)
 	QDEL_NULL(bucket_obj)
 	return ..()

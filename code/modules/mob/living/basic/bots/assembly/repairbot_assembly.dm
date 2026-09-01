@@ -1,6 +1,6 @@
 /obj/item/bot_assembly/repairbot
 	name = "Repairbot Chasis"
-	desc = "It's a toolbox with tiles sticking out the top."
+	desc = "It's a toolbox with a screen sticking out the top."
 	icon_state = "repairbot_box"
 	throwforce = 10
 	created_name = "Repairbot"
@@ -46,7 +46,10 @@
 			return ITEM_INTERACT_COMPLETE
 
 		if(ASSEMBLY_SECOND_STEP)
-			if(!istype(tool, /obj/item/conveyor_construct))
+			if(!istype(tool, /obj/item/stack/tile/plasteel))
+				return NONE
+			var/obj/item/stack/tile/plasteel/material = tool
+			if(material.amount < 10)
 				return NONE
 			if(!can_finish_build(tool, user))
 				return ITEM_INTERACT_COMPLETE
@@ -56,6 +59,6 @@
 			repair.set_color(toolbox_color)
 			to_chat(user, SPAN_NOTICE("You add [tool] to [src]. Boop beep!"))
 			var/obj/item/stack/crafting_stack = tool
-			crafting_stack.use(1)
+			crafting_stack.use(10)
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE
