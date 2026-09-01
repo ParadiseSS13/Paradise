@@ -96,12 +96,16 @@
 
 	/// How much speed is increased (bigger negative = faster).
 	var/speed_per_level = -0.4
-
 	/// How much damage is increased ever level.
 	var/damage_per_level = 3
 
 	/// How much does cheese heal us?
 	var/cheese_heal = 2
+
+	/// contains a list of UIDs of mobs who have been bitten and their ammount.
+	var/list/bitten_mobs = list()
+	/// The maximum mousebite points one mob will provide
+	var/max_bites_per_mob = 10
 
 	var/datum/spell/irradiated_mouse_spell/upgrade_radiation/upgrade_radiation_spell
 	var/datum/spell/irradiated_mouse_spell/upgrade_speed/upgrade_speed_spell
@@ -126,7 +130,15 @@
 		var/mob/living/L = target
 		contaminate_target(target, src, radiation_amount, radiation_level)
 		if(ishuman(L) && L.mind && !(L.stat & DEAD)) // Only living, sentient crew should qualify for this
-			mousebites++
+			var/mob_UID = L.UID()
+			if(!(mob_UID in bitten_mobs))
+				bitten_mobs.Add(mob_UID)
+				mousebites++
+			else if((bitten_mobs[mob_UID] < max_bites_per_mob))
+				bitten_mobs[mob_UID] += 1
+				mousebites++
+			else
+				to_chat(src, SPAN_DANGER("You have obtained all the useful biomatter from this one!"))
 		else
 			to_chat(src, SPAN_WARNING("You wont be able to obtain any usable biomatter from this one."))
 		if(mousebites >= mousebites_per_upgrade)
