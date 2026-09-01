@@ -94,7 +94,7 @@
 	/// drop determining variable
 	var/health_analyzer = /obj/item/healthanalyzer
 	/// drop determining variable
-	var/medkit_type = /obj/item/storage/firstaid
+	var/medkit_type = /obj/item/storage/firstaid/regular/empty
 	///based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
 	var/skin = "generic"
 	// Setting which reagents to use to treat what by default. By id.
