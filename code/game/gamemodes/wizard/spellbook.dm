@@ -610,13 +610,13 @@
 	limit = 3
 	is_ragin_restricted = TRUE
 
-/datum/spellbook_entry/item/shadowbottle
-	name = "Bottle of Shadows"
-	desc = "A bottle of pure darkness, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned from the shadows are indiscriminate in their killing, and you yourself may become a victim."
-	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
-	category = "Summons"
-	limit = 3
-	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
+///datum/spellbook_entry/item/shadowbottle
+//	name = "Bottle of Shadows"
+//	desc = "A bottle of pure darkness, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned from the shadows are indiscriminate in their killing, and you yourself may become a victim."
+//	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
+//	category = "Summons"
+//	limit = 3
+//	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
 
 /datum/spellbook_entry/item/revenantbottle
 	name = "Bottle of Ectoplasm"
