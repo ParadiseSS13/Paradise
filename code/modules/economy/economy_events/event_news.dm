@@ -50,7 +50,7 @@
 /datum/event_news/generic_faction_hyperspace_phenomena/generate()
 	author = "Interstellar Shipping Union"
 	title = "Hyperspace phenomena near the [topic.name]"
-	body = "Several astrological observitories have detected natural hyperspace fluctuations near the [topic.name]."
+	body = "Several astrological observatories have detected natural hyperspace fluctuations near the [topic.name]."
 	if(prob(50))
 		body += "These fluctuations will result in [pick("minor turbulence", "slightly increased travel times", "slightly decreased travel times")] for hyperspace travel for the duration of the phenomena."
 	else
@@ -86,7 +86,7 @@
 	title = "High Monarch of the [topic.name] issues decree"
 	body = "[pick("Today", "Yesterday", "Last week", "At the start of this month")], the High Monarch issued a decree calling for \
 	[pick("peace and unity among the stars", "the rights of all sapient species to be respected", "Nanotrasen to respect the rights of cyborgs", "the TSF to respect the rights of IPCs", \
-	"The Silver Collective to respect the rights of [pick("Vox", "IPCs", "Humans", "Those not fortunate enough to be born as a Skkulakin, Drask, or Vulpkanin.")]", \
+	"The Silver Collective to respect the rights of [pick("Vox", "IPCs", "Humans", "those not fortunate enough to be born as a Skkulakin, Drask, or Vulpkanin.")]", \
 	"the site known as \"WetSkrell.nt\" to be permanently shut down immediately")]. Unfortunately, the High Monarch's decree is unlikely to change the state of affairs in the Orion Arm."
 
 // Silver Collective Specific
@@ -156,7 +156,7 @@
 	title = "Unathi clan war breaks out on [topic.name]"
 	body = "[pick("Today", "Yesterday", "Last week", "At the start of this month")], [topic.name] was embroiled in yet another clan war. The instigating factor was \
 	[pick("one clan's chief insulting the other's [pick("mother", "honor", "fashion sense,", "cooking skills")]", "the discovery of untapped fossil water in disputed territory", \
-	"a misunderstanding arising from re-enacting a scene from an action movie from Earth", "everyone involved feeling a bit bored at the time")]. The populatuion is already well-used to such \
+	"a misunderstanding arising from re-enacting a scene from an action movie from Earth", "everyone involved feeling a bit bored at the time")]. The population is already well-used to such \
 	events, and given the number of ongoing clan conflicts, the overall situation on [topic.name] in practice remains mostly as it was."
 
 // MARK: Civil Unrest
@@ -171,14 +171,14 @@
 /datum/event_news/nanotrasen_protests_stopped/generate()
 	title = "Anti-Nanotrasen protests on [topic.name] come to an end"
 	body = "[pick("Anti-Nanotrasen protests","Attempts by Nanotrasen workers to form a union")] on [topic.name] have come to an end after \
-	[pick("fizzling out unceremoniously", "Nanotrasen security forces dispersed crowd", "rubber nuclear weapons were deployed to subdue the crowds", "\'REDACTED\'")]. \
+	[pick("fizzling out unceremoniously", "Nanotrasen security forces dispersed the crowds", "rubber nuclear weapons were deployed to subdue the crowds", "\'REDACTED\'")]. \
 	The editor reminds all personnel that unauthorized protests or attempts to unionize will not be tolerated."
 
 /datum/event_news/riots/generate()
 	title = "Riots on [topic.name]"
 	body = "[pick("Riots have", "Unrest has")] broken out on [topic.name]. Authorities call for calm, as \
 	[pick("various parties", "rebellious elements", "peacekeeping forces", "\'REDACTED\'")] begin stockpiling weaponry and armour. \
-	Meanwhile, food and mineral prices are dropping as local industries attempt empty their stocks in expectation of looting."
+	Meanwhile, food and mineral prices are dropping as local industries attempt to empty their stocks in expectation of looting."
 
 /datum/event_news/riots_stopped/generate()
 	title = "Riots on [topic.name]"

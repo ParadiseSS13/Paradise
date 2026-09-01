@@ -211,7 +211,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	name = "Union of Soviet Socialist Planets"
 	description = "The USSP is federation of communist states that broke off from the TSF during the Cygni Crisis. \
 	It maintains massive armed forces thanks to widespread conscription, allowing it to fend off larger powers and intimidate smaller ones. \
-	Despite being ideologically opposed to everything Nanotrasen stands for, it is forced to conduct business with it thanks to Nanotrasen's near monopoly on the Plasma market."
+	Despite being ideologically opposed to everything Nanotrasen stands for, it is forced to conduct business with it thanks to Nanotrasen's near monopoly on the plasma market."
 	viable_random_events = list(
 		/datum/event_news/ussp_mobilization,
 		/datum/event_news/ussp_nian_deal,
@@ -253,7 +253,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 /datum/lore_location/crown
 	name = "The Crown"
 	description = "The Skrellian homeworld is a mostly water-covered planet dotted with island chains and atols, the great Skrellian cities are found beneath the oceans. \
-	This seat of power of the Royal Domain of Qerballak's monarch."
+	This is the seat of power of the Royal Domain of Qerballak's monarch."
 	viable_random_events = list(
 		/datum/event_news/nanotrasen_protests,
 		/datum/event_news/research_breakthrough,
@@ -325,7 +325,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/lore_location/aurum
 	name = "Aurum"
-	description = "The barren homeworld of the Kidan. Once covered in sprawling hives and pastures for rearing diona nymphs, \
+	description = "The barren homeworld of the Kidan. Once covered in sprawling hives and pastures for rearing Diona nymphs, \
 	it was subjected to a cataclysmic nuclear bombardment at the end of the Siege of Aurum in the closing act of the Kidan War. \
 	Centuries later it remains mostly uninhabited, with only a sparse few archeological and scientific outposts dotting the surface."
 	viable_random_events = list(
@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 /datum/lore_location/league_of_kelune
 	name = "League of Kelune"
 	description = "A cooperative organization of various Vulpkanin states. Kelune has limited actual power but wields considerable diplomatic influence and respect among its peer nations. \
-	It is believed to be home to considerable reserves of unexploited plasma. Sabotage, and a mixture of poltical pressure and preferential prices for plasma fuel has thus far \
+	It is believed to be home to considerable reserves of unexploited plasma. A mixture of sabotage, political pressure, and preferential prices for plasma fuel has thus far \
 	rendered developing substantial domestic plasma extraction uneconomical."
 	viable_random_events = list(
 		/datum/event_news/league_of_kelune_silver_collective_talks
