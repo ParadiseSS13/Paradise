@@ -134,7 +134,7 @@
 			if(!(mob_UID in bitten_mobs))
 				bitten_mobs.Add(mob_UID)
 				mousebites++
-			else if((bitten_mobs[mob_UID] < max_bites_per_mob))
+			else if(bitten_mobs[mob_UID] < max_bites_per_mob)
 				bitten_mobs[mob_UID] += 1
 				mousebites++
 			else
