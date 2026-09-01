@@ -268,7 +268,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	if(!(bot_access_flags & BOT_COVER_LOCKED)) // Unlocked.
 		return TRUE
 
-	return has_access(list(), req_access, acc)
+	return has_access(req_access, req_one_access, acc)
 
 /mob/living/basic/bot/death(gibbed)
 	if(paicard)
@@ -378,6 +378,7 @@ GLOBAL_LIST_INIT(command_strings, list(
 	tool.play_tool_sound(src)
 	bot_access_flags ^= BOT_COVER_MAINTS_OPEN
 	to_chat(user, SPAN_NOTICE("The maintenance panel is now [bot_access_flags & BOT_COVER_MAINTS_OPEN ? "opened" : "closed"]."))
+	return TRUE
 
 /mob/living/basic/bot/welder_act(mob/living/user, obj/item/tool)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -385,10 +386,11 @@ GLOBAL_LIST_INIT(command_strings, list(
 		return FALSE
 
 	if(!tool.use_tool(src, user, 0 SECONDS, volume=40))
-		return
+		return FALSE
 
 	heal_overall_damage(10)
-	user.visible_message(SPAN_NOTICE("[user] repairs [src]!"),SPAN_NOTICE("You repair [src]."))
+	user.visible_message(SPAN_NOTICE("[user] repairs [src]!"), SPAN_NOTICE("You repair [src]."))
+	return TRUE
 
 /mob/living/basic/bot/attack_by(obj/item/attacking_item, mob/living/user, params)
 	if(attacking_item.GetID())
@@ -409,6 +411,9 @@ GLOBAL_LIST_INIT(command_strings, list(
 		SPAN_NOTICE("You pull [paicard] out of [initial(src.name)] with [attacking_item]."))
 
 	ejectpai(user)
+
+/mob/living/basic/bot/attack_ghost(mob/M)
+	ui_interact(M)
 
 /mob/living/basic/bot/adjustHealth(amount, updating_health)
 	if(amount > 0 && stat != DEAD)
