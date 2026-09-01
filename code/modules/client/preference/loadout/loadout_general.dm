@@ -305,6 +305,11 @@
 	path = /obj/item/toy/plushie/nianplushie
 	sort_category = "Plushies"
 
+/datum/gear/slimeplushie
+	display_name = "Slime plushie"
+	path = /obj/item/toy/plushie/slimeplushie
+	sort_category = "Plushies"
+
 /datum/gear/borgplushie
 	display_name = "Borg plushie"
 	path = /obj/item/toy/plushie/borgplushie
