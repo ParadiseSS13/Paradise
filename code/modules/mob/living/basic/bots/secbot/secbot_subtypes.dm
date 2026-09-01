@@ -37,3 +37,17 @@
 	S.reagents.add_reagent("whiskey", 15)
 	S.on_reagent_change()
 	return ..()
+
+/mob/living/basic/bot/secbot/buzzsky
+	name = "Officer Buzzsky"
+	desc = "It's Officer Buzzsky! Rusted and falling apart, he seems less than thrilled with the crew for leaving him in his current state."
+	base_icon = "rustbot"
+	icon_state = "rustbot0"
+	bot_mode_flags = BOT_MODE_ON
+	security_mode_flags = NONE
+	emagged = TRUE
+
+/mob/living/basic/bot/secbot/buzzsky/Initialize(mapload)
+	. = ..()
+	bot_access_flags |= BOT_COVER_EMAGGED
+	bot_access_flags |= BOT_COVER_LOCKED

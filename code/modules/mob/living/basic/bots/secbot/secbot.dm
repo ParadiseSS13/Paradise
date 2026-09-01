@@ -158,9 +158,6 @@
 
 /mob/living/basic/bot/secbot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(!(bot_access_flags & BOT_COVER_EMAGGED))
-		return
-
 	retrieve_emag_message()
 	security_mode_flags &= ~SECBOT_DECLARE_ARRESTS
 	update_appearance()
