@@ -757,11 +757,11 @@
 			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
 				if(!isnull(HB.limit))
 					HB.limit++
-		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
-			uses += 1
-			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
-				if(!isnull(SB.limit))
-					SB.limit++
+		// else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
+		// 	uses += 1
+		// 	for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
+		// 		if(!isnull(SB.limit))
+		// 			SB.limit++
 		else
 			uses += 2
 			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
