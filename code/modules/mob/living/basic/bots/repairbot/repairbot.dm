@@ -136,9 +136,7 @@
 		our_rods = arrived
 
 /mob/living/basic/bot/repairbot/UnarmedAttack(atom/target, proximity_flag, list/modifiers)
-	. = ..()
-
-	if(!. || !proximity_flag)
+	if(!proximity_flag)
 		return
 
 	if(bot_access_flags & BOT_COVER_EMAGGED)
@@ -149,28 +147,32 @@
 		attempt_merge(target, src)
 		return
 
-	//priority interactions
+	// priority interactions
 	if(istype(target, /turf/space))
 		var/turf/space/space_target = target
 		if(!space_target.has_valid_support() && !(locate(/obj/structure/lattice) in space_target))
 			attempt_use_stack(our_rods ? our_rods : our_rods::name, space_target)
+			return
 
 	if(istype(target, /obj/structure/grille))
 		var/obj/structure/grille/grille_target = target
 		if(grille_target.broken)
 			attempt_use_stack(our_rods ? our_rods : our_rods::name, grille_target)
+			return
 
 	if(istype(target, /turf/simulated/floor))
 		var/turf/simulated/floor/open_target = target
 		if(open_target.broken || open_target.burnt)
 			our_welder?.melee_attack_chain(src, open_target)
+			return
 
 	if(istype(target, /obj/structure/window))
 		var/obj/structure/window/target_window = target
 		if(!target_window.anchored)
 			our_screwdriver?.melee_attack_chain(src, target_window)
+			return
 
-	//stack interactions
+	// stack interactions
 	for(var/obj/item/stack/stack_type as anything in possible_stack_interactions)
 		if(!is_type_in_typecache(target, possible_stack_interactions[stack_type]))
 			continue
@@ -178,12 +180,14 @@
 		attempt_use_stack(target_stack ? target_stack : stack_type::name, target)
 		return
 
-	//tool interactions
+	// tool interactions
 	var/list/our_tools = list(our_welder, our_crowbar)
 	for(var/obj/item/tool in our_tools)
 		if(is_type_in_typecache(target, possible_tool_interactions[tool.type]) && a_intent != INTENT_HARM)
 			tool.melee_attack_chain(src, target)
 			return
+
+	return ..()
 
 /mob/living/basic/bot/repairbot/proc/emagged_interactions(atom/target, modifiers)
 	if(!istype(target, /mob/living/silicon/robot))
