@@ -219,7 +219,7 @@
 	health += health_increase
 	mousebites_per_upgrade += mousebite_increment
 	update_health_hud()
-	if(radiation_upgrades + speed_upgrades + damage_upgrades == 7)
+	if(radiation_upgrades + speed_upgrades + damage_upgrades == 6) // Make rad easier to shoot
 		density = TRUE
 		pass_flags &= ~PASSMOB
 		to_chat(src, SPAN_BOLDNOTICE("You feel as if you've grown large enough to be easier to shoot at!"))
