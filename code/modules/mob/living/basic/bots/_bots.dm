@@ -287,11 +287,6 @@ GLOBAL_LIST_INIT(command_strings, list(
 
 /mob/living/basic/bot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(bot_access_flags & BOT_COVER_LOCKED) // First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
-		bot_access_flags &= ~BOT_COVER_LOCKED
-		return TRUE
-	if((bot_access_flags & BOT_COVER_LOCKED) || !(bot_access_flags & BOT_COVER_MAINTS_OPEN)) // Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		return FALSE
 	bot_access_flags |= BOT_COVER_EMAGGED
 	bot_access_flags |= BOT_COVER_LOCKED
 	set_mode_flags(bot_mode_flags & ~BOT_MODE_REMOTE_ENABLED) // Manually emagging the bot also locks the AI from controlling it.

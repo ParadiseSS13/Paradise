@@ -288,3 +288,7 @@
 						"[C] leaps out of [src]'s way!")))
 	C.AdjustParalysis(4 SECONDS)
 
+/mob/living/basic/bot/secbot/emag_effects(user)
+	. = ..()
+	audible_message(SPAN_DANGER("[src] buzzes oddly!"))
+	ai_controller.pause_ai(5 SECONDS) // Give emag man a couple seconds to GTFO
