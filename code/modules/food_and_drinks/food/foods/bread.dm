@@ -65,7 +65,6 @@
 	icon_state = "spidermeatslice"
 	list_reagents = list("protein" = 4, "nutriment" = 2, "toxin" = 3, "vitamin" = 1)
 	tastes = list("bread" = 10, "cobwebs" = 5)
-	list_reagents = list("toxin" = 2)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
 /obj/item/food/sliceable/bananabread

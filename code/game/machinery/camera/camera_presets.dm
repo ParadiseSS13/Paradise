@@ -139,26 +139,34 @@
 // UPGRADE PROCS
 
 /obj/machinery/camera/proc/upgradeEmpProof()
+	if(isEmpProof())
+		return
 	assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(assembly))
-	setPowerUsage()
+	apply_upgrades()
 
 /obj/machinery/camera/proc/upgradeXRay()
+	if(isXRay())
+		return
 	assembly.upgrades.Add(new /obj/item/analyzer(assembly))
-	setPowerUsage()
-	//Update what it can see.
-	GLOB.cameranet.update_visibility(src, 0)
+	apply_upgrades()
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()
 	if(isMotion())
 		return
-	if(name == initial(name))
-		name = "motion-sensitive security camera"
 	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
-	proximity_monitor = new(src, CAMERA_VIEW_DISTANCE)
+	apply_upgrades()
+
+/obj/machinery/camera/proc/apply_upgrades()
 	setPowerUsage()
-	// Add it to machines that process
-	START_PROCESSING(SSmachines, src)
+	if(isMotion())
+		if(name == initial(name))
+			name = "motion-sensitive security camera"
+		set_area_motion(get_area(src))
+		if(!isprocessing)
+			START_PROCESSING(SSmachines, src)
+	if(isXRay())
+		GLOB.cameranet.update_visibility(src, 0)
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1

@@ -65,9 +65,17 @@
 	. += status_string()
 
 /obj/item/lightreplacer/item_interaction(mob/user, obj/item/used, list/modifiers)
+	if(fill_replacer(user, used))
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/item/lightreplacer/proc/fill_replacer(mob/user, obj/item/used)
+	if(!istype(used))
+		return FALSE
+
 	if(uses >= max_uses)
 		to_chat(user, SPAN_WARNING("[src] is full!"))
-		return ITEM_INTERACT_COMPLETE
+		return TRUE
 
 	if(istype(used, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/stack = used
@@ -77,23 +85,23 @@
 			to_chat(user, SPAN_NOTICE("You insert some glass into [src]. You have [uses] light\s remaining."))
 		else
 			to_chat(user, SPAN_WARNING("You need one sheet of glass to replace lights!"))
-		return ITEM_INTERACT_COMPLETE
+		return TRUE
 
 	if(istype(used, /obj/item/shard))
 		if(!user.drop_item_to_ground(used))
 			to_chat(user, SPAN_WARNING("[used] is stuck to your hand!"))
-			return ITEM_INTERACT_COMPLETE
+			return TRUE
 
 		AddUses(increment)
 		to_chat(user, SPAN_NOTICE("You insert a shard of glass into [src]. You have [uses] light\s remaining."))
 		qdel(used)
-		return ITEM_INTERACT_COMPLETE
+		return TRUE
 
 	if(istype(used, /obj/item/light))
 		var/obj/item/light/bulb = used
 		if(!user.drop_item_to_ground(bulb))
 			to_chat(user, SPAN_WARNING("[bulb] is stuck to your hand!"))
-			return ITEM_INTERACT_COMPLETE
+			return TRUE
 
 		if(bulb.status == LIGHT_OK)
 			AddUses(1)
@@ -126,16 +134,15 @@
 					qdel(bulb)
 
 		if(!found_lightbulbs)
-			to_chat(user, SPAN_WARNING("[container] contains no bulbs!"))
-			return ITEM_INTERACT_COMPLETE
+			return FALSE
 
 		if(!replaced_something && uses == max_uses)
 			to_chat(user, SPAN_WARNING("[src] is full!"))
-			return ITEM_INTERACT_COMPLETE
+			return TRUE
 
 		to_chat(user, SPAN_NOTICE("You fill [src] with lights from [container]. " + status_string() + ""))
-		return ITEM_INTERACT_COMPLETE
-	return ..()
+		return TRUE
+	return FALSE
 
 /obj/item/lightreplacer/emag_act(user as mob)
 	if(!emagged)
@@ -210,18 +217,21 @@
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
-	if(uses > 0)
-		return 1
-	else
-		return 0
+	return (uses > 0)
 
 /obj/item/lightreplacer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	if(isitem(target))
-		item_interaction(user, target)
-		return ITEM_INTERACT_COMPLETE
+		if(isstorage(target) && uses >= max_uses)
+			return ..()
+		if(fill_replacer(user, target))
+			return ITEM_INTERACT_COMPLETE
+		return ..()
+
+	if(is_surface(target))
+		return NONE
 
 	var/turf/replace_turf = get_turf(target)
 	if(!istype(replace_turf))

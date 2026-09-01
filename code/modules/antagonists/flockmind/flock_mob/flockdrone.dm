@@ -3,8 +3,6 @@
 	hud_type = /datum/hud/flockdrone
 	ai_controller = /datum/ai_controller/flock/drone
 
-	move_force = MOVE_FORCE_WEAK
-
 	actions_to_grant = list(
 		/datum/action/cooldown/flock/release_control,
 		/datum/action/cooldown/flock/nest,
