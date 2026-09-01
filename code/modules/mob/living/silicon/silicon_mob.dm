@@ -673,3 +673,7 @@
 
 /mob/living/silicon/rust_heretic_act()
 	adjustBruteLoss(75)
+
+/mob/living/silicon/get_spooked()
+	to_chat(src, SPAN_WHISPER("[pick(GLOB.boo_phrases_robot)]"))
+	return TRUE
