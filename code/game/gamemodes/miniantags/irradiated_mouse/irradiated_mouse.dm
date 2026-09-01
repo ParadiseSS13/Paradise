@@ -63,6 +63,7 @@
 	a_intent = INTENT_HARM
 	melee_damage_lower = 3
 	melee_damage_upper = 5
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSDOOR
 	appearance_flags = LONG_GLIDE | PIXEL_SCALE
 	attack_verb_simple = "bites"
 	attack_verb_continuous = "bites"
@@ -91,7 +92,7 @@
 	/// What type of radiation are we currently giving off.
 	var/radiation_level = ALPHA_RAD
 	/// How intense is our radiation?
-	var/radiation_amount = 100
+	var/radiation_amount = 10
 
 	/// How much speed is increased (bigger negative = faster).
 	var/speed_per_level = -0.4
@@ -169,7 +170,9 @@
 	messages.Add(SPAN_SPECIALNOTICE("Your radioactive nature has made your body unstable! Bite crew to irradiate them and gain points towards useful upgrades."))
 	messages.Add(SPAN_SPECIALNOTICE("Mindless bodies or corpses will not benefit you towards your upgrades."))
 	messages.Add(SPAN_SPECIALNOTICE("As you upgrade yourself, you will slowly grow in size and health."))
+	messages.Add(SPAN_SPECIALNOTICE("At a certian size, guns will no longer shoot over you and require more evasion to avoid!"))
 	messages.Add(SPAN_SPECIALNOTICE("Be wary of mousetraps! They will kill you instantly."))
+	messages.Add(SPAN_SPECIALNOTICE("Use your 'hide' ability to make yourself appear underneath objects, and allow you to pass under doors unobstructed."))
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	messages.Add(SPAN_MOTD("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Irradiated_Mouse)"))
 	to_chat(src, chat_box_red(messages.Join("<br>")))
@@ -177,7 +180,7 @@
 /mob/living/basic/mouse/irradiated_mouse/proc/upgrade_radiation()
 	radiation_upgrades++
 	on_upgrade()
-	radiation_amount += 100
+	radiation_amount += 10
 	if(radiation_level < GAMMA_RAD)
 		radiation_level = round_down(1 + (radiation_upgrades / 2)) // One level up every two levels.
 	if(!(radiation_level % 2))
@@ -216,6 +219,10 @@
 	health += health_increase
 	mousebites_per_upgrade += mousebite_increment
 	update_health_hud()
+	if(radiation_upgrades + speed_upgrades + damage_upgrades == 7)
+		density = TRUE
+		pass_flags &= ~PASSMOB
+		to_chat(src, SPAN_BOLDNOTICE("You feel as if you've grown large enough to be easier to shoot at!"))
 	var/matrix/mouse_transform = matrix(transform)
 	mouse_transform.Scale(resize_factor)
 	animate(src, transform = mouse_transform, time = 1, pixel_y = pixel_y += 2, easing = EASE_IN|EASE_OUT)
