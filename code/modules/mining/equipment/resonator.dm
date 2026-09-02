@@ -60,10 +60,13 @@
 		new /obj/effect/temp_visual/resonance(target_turf, user, src, mode, adding_failure)
 		user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/resonator/pre_attack(atom/target, mob/user, params)
+/obj/item/resonator/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isstorage(target) || is_surface(target) || istype(target, /obj/item/mod/control))
+		return NONE
+
 	if(check_allowed_items(target, not_inside = TRUE))
 		create_resonance(target, user)
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
