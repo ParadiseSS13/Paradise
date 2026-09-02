@@ -221,7 +221,6 @@
 	return power_icon_cache[power_machine.type][dir2text(machine_dir)] // return the icon incase we need it!
 
 /datum/ui_module/powernet_debugger/ui_act(action, params, datum/tgui/ui)
-	// mirror the verb's gate (see USER_VERB in SSmachinery.dm): debug or var-edit rights may drive the tool
 	if(!check_rights(R_DEBUG|R_VAREDIT, TRUE, ui.user))
 		return
 	if(..())
