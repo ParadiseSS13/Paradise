@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Table, Box, LabeledList, Collapsible, ProgressBar, Tabs, Icon } from '../components';
+import { Button, Collapsible, Icon, LabeledList, Section, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const PowernetDebugger = (props, context) => {
