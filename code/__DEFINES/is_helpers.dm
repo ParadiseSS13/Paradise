@@ -108,6 +108,13 @@
 
 #define istable(S) (istype(S, /obj/structure/table))
 
+GLOBAL_LIST_INIT(placeable_surface_types, typecacheof(list(
+	/obj/structure/table,
+	/obj/structure/rack,
+	/obj/structure/shelf,)))
+
+#define is_surface(W) (is_type_in_typecache(W, GLOB.placeable_surface_types))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,

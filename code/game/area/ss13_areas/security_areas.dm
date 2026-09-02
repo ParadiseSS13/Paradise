@@ -145,6 +145,14 @@
 	icon_state = "defusal"
 	area_icon_text = "DEF"
 
+/area/station/security/gamma_dock_access
+	name = "\improper Gamma Armory Dock Access"
+	icon_state = "gamma_access"
+
+/area/station/security/gamma_dock
+	name = "\improper Gamma Armory Dock"
+	icon_state = "gamma_dock"
+
 // Checkpoints
 
 /area/station/security/checkpoint

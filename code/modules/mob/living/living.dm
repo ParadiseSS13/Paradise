@@ -59,6 +59,16 @@
 	if(mind?.current == src)
 		mind.unbind()
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
+	for(var/s in ownedSoullinks)
+		var/datum/soullink/S = s
+		S.ownerDies(FALSE)
+		qdel(s) // If the owner is `destroy()`'d, the soul link is `destroy()`'d.
+	ownedSoullinks = null
+	for(var/s in sharedSoullinks)
+		var/datum/soullink/S = s
+		S.sharerDies(FALSE)
+		S.removeSoulsharer(src) // If a sharer is `destroy()`'d, they are simply removed.
+	sharedSoullinks = null
 	return ..()
 
 /mob/living/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)

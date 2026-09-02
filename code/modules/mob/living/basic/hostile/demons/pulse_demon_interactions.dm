@@ -143,21 +143,21 @@
 
 /obj/machinery/cell_charger/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	user.forceMove(src)
-	if(!charging)
+	if(!cell_inside)
 		to_chat(user, SPAN_WARNING("There is no cell charging. Click again to retry."))
 		return
 	to_chat(user, SPAN_NOTICE("You are now attempting to hijack [src], this will take approximately [user.hijack_time / 10] seconds."))
-	if(charging.rigged)
-		to_chat(user, SPAN_NOTICE("You are now inside [charging]. Click on a hijacked APC to return."))
-		user.forceMove(charging)
+	if(cell_inside.rigged)
+		to_chat(user, SPAN_NOTICE("You are now inside [cell_inside]. Click on a hijacked APC to return."))
+		user.forceMove(cell_inside)
 		return
 	if(!do_after(user, user.hijack_time, FALSE, src))
 		return
-	if(!charging)
+	if(!cell_inside)
 		to_chat(src, SPAN_WARNING("Failed to hijack [src]."))
 		return
-	to_chat(user, SPAN_NOTICE("You are now inside [charging]. Click on a hijacked APC to return."))
-	user.forceMove(charging)
+	to_chat(user, SPAN_NOTICE("You are now inside [cell_inside]. Click on a hijacked APC to return."))
+	user.forceMove(cell_inside)
 
 /obj/machinery/recharge_station/attack_pulsedemon(mob/living/basic/demon/pulse_demon/user)
 	user.forceMove(src)
