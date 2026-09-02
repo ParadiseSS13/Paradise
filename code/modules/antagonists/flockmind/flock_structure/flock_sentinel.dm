@@ -19,7 +19,7 @@
 	/// Attacks require charging
 	var/datum/point_holder/charge
 	/// Charge gained per second while a target is in range
-	var/charge_per_second = 10
+	var/charge_per_second = 5
 	/// Trend of charge.
 	var/charge_status = NOT_CHARGED
 	/// Turret range
@@ -39,7 +39,7 @@
 	QDEL_NULL(charge)
 	return ..()
 
-/obj/structure/flock/sentinel/process(seconds_per_tick)
+/obj/structure/flock/sentinel/process()
 	if(isnull(flock))
 		set_active(FALSE)
 		return PROCESS_KILL
@@ -54,7 +54,7 @@
 
 	if(!active)
 		if(charge.has_points())
-			charge.adjust_points((charge_per_second / 2) * seconds_per_tick)
+			charge.adjust_points((charge_per_second / 4))
 			update_info_tag()
 			charge_status = LOSING_CHARGE
 		else
@@ -64,7 +64,7 @@
 
 	// Gain more charge
 	if(charge_status != CHARGED)
-		charge.adjust_points(charge_per_second * seconds_per_tick)
+		charge.adjust_points(charge_per_second * 2)
 		update_info_tag()
 		if(charge.has_points(100))
 			charge_status = CHARGED
@@ -99,7 +99,7 @@
 	charge.adjust_points(-100)
 	update_info_tag()
 
-	target.electrocute_act(30, src, 1)
+	target.electrocute_act(45, src, 1)
 	addtimer(CALLBACK(src, PROC_REF(clear_trait), target), 2 SECONDS)
 
 	Beam(target, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', 0.5 SECONDS, INFINITY)
@@ -127,7 +127,7 @@
 			end_of_chain = FALSE
 
 			hit_mobs += M
-			M.electrocute_act(20, src, 0)
+			M.electrocute_act(30, src, 0)
 			previous_hit.Beam(M, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', 0.5 SECONDS, INFINITY)
 			target.visible_message(
 				SPAN_DANGER("<b>[M]</b> is struck by a bolt of energy arcing off of <b>[previous_hit]</b>."),
