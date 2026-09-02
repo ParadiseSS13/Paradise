@@ -1233,7 +1233,7 @@
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
 	restore_all_organs() //Rejuvenate and reset all existing organs.
-	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
+	check_and_regenerate_organs() // Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
 	REMOVE_TRAIT(src, TRAIT_SKELETONIZED, null)
