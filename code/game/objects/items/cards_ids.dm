@@ -517,7 +517,7 @@
 /obj/item/card/id/brig_pilot
 	name = "Brig Pilot ID"
 	registered_name = "Brig Pilot"
-	icon_state = "security"
+	icon_state = "brig_pilot"
 	access = list(
 		ACCESS_BRIG_PILOT,
 		ACCESS_SEC_DOORS,
@@ -645,7 +645,7 @@
 /obj/item/card/id/shipwright
 	name = "Shipwright ID"
 	registered_name = "Shipwright"
-	icon_state = "engineering"
+	icon_state = "shipwright"
 	access = list(
 		ACCESS_ENGINEERING_GENERAL,
 		ACCESS_EVA,
