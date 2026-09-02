@@ -28,6 +28,8 @@
 	var/list/stolen_valor = list()
 	/// Currently attached weapon, usually a knife.
 	var/obj/item/weapon
+	/// Stores the force of the weapon before it was attached, to account for smith knives and sharpening
+	var/initial_weapon_force
 	/// Our clean speed
 	var/cleanspeed = 3 SECONDS
 	/// list of our officer titles
@@ -108,7 +110,7 @@
 	)
 
 	grant_actions_by_list(innate_actions)
-	update_appearance(UPDATE_ICON)
+	update_icon()
 
 /mob/living/basic/bot/cleanbot/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -118,7 +120,7 @@
 
 	if(istype(arrived, /obj/item/kitchen/knife) && isnull(weapon))
 		weapon = arrived
-		update_appearance()
+		update_icon()
 
 /mob/living/basic/bot/cleanbot/Exited(atom/movable/gone, direction)
 	. = ..()
@@ -126,7 +128,7 @@
 		build_bucket = null
 	else if(gone == weapon)
 		weapon = null
-	update_appearance()
+	update_icon()
 
 /mob/living/basic/bot/cleanbot/examine(mob/user)
 	. = ..()
@@ -141,11 +143,11 @@
 /mob/living/basic/bot/cleanbot/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(var_name == NAMEOF(src, base_icon))
-		update_appearance(UPDATE_ICON)
+		update_icon(UPDATE_ICON)
 
 /mob/living/basic/bot/cleanbot/emag_effects(mob/user)
 	if(weapon)
-		weapon.force = initial(weapon.force)
+		weapon.force = initial_weapon_force
 	audible_message(SPAN_DANGER("[src] buzzes oddly!"))
 
 /mob/living/basic/bot/cleanbot/explode()
@@ -153,7 +155,7 @@
 	build_bucket?.forceMove(drop_loc)
 	new /obj/item/assembly/prox_sensor(drop_loc)
 	if(weapon)
-		weapon.force = initial(weapon.force)
+		weapon.force = initial_weapon_force
 		weapon.forceMove(drop_loc)
 	return ..()
 
@@ -197,7 +199,7 @@
 	return ..()
 
 /mob/living/basic/bot/cleanbot/attack_by(obj/item/attacking, mob/living/user, params)
-	if(!istype(attacking, /obj/item/kitchen/knife) || user.intent != INTENT_HELP)
+	if(!istype(attacking, /obj/item/kitchen/knife) || user.a_intent != INTENT_HELP)
 		return ..()
 	attach_knife(user, attacking)
 
@@ -207,18 +209,21 @@
 	deputize(used_item, user)
 
 /mob/living/basic/bot/cleanbot/proc/deputize(obj/item/kitchen/knife/knife, mob/user)
-	if(!in_range(src, user) && (knife.flags & NODROP || !user.transfer_item_to(knife, src)))
+	if(!Adjacent(user) || knife.flags & NODROP || !user.transfer_item_to(knife, src))
 		return
+	weapon = knife
+	initial_weapon_force = weapon.force
 	if(!(bot_access_flags & BOT_COVER_EMAGGED))
 		weapon.force *= 0.5
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/basic/bot/cleanbot/proc/on_entered(datum/source, atom/movable/shanked_victim)
 	SIGNAL_HANDLER
-	if(!weapon || !has_gravity() || !iscarbon(shanked_victim))
+	if(!weapon || !has_gravity(src) || !iscarbon(shanked_victim))
 		return
 
 	var/mob/living/carbon/stabbed_carbon = shanked_victim
