@@ -27,7 +27,6 @@
 /obj/item/pods_parts/hull
 	name = "space pod hull"
 	desc = "The beginning of every space pod."
-	icon_state = "raptor0"
 	var/state = POD_MAIN_BOARD
 	var/obj/tgvehicle/sealed/vectorcraft/spacepod/pod_type
 	pixel_x = -32

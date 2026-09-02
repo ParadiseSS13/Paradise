@@ -116,5 +116,5 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/pod_fabricator
 	name = "space pod fabricator"
-	desc = "Converts raw materials into useful objects."
+	desc = "Allows for building space pod parts."
 	categories = list("Space Pods")

@@ -10,15 +10,10 @@
 	icon = 'icons/obj/spacepods/raptor.dmi'
 	base_icon_state = "raptor"
 	icon_state = "raptor-off"
-	bound_width = 32
-	bound_height = 32
 	mouse_pointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	max_acceleration = 4
 	accel_step = 0.22
 	acceleration = 0.30
-	max_deceleration = 2
-	max_velocity = 50
-	max_integrity = 100
 	/// Pod flags, currently keyed to what's available for mechs.
 	var/pod_flags = MECH_HAS_LIGHTS
 	/// Reagent container holding plasma fuel.

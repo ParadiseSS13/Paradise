@@ -5,7 +5,6 @@
 /obj/tgvehicle/sealed/vectorcraft
 	name = "all-terrain hovercraft"
 	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-Earth technologies that are still relevant on most planet-bound outposts."
-	inertia_moving = FALSE
 	animate_movement = 0
 	max_integrity = 100
 	var/vector = list("x" = 0, "y" = 0) //vector math
