@@ -150,7 +150,8 @@
 	// priority interactions
 	if(istype(target, /turf/space))
 		var/turf/space/space_target = target
-		if(!space_target.has_valid_support() && !(locate(/obj/structure/lattice) in space_target))
+		var/obj/structure/lattice = locate(/obj/structure/lattice, space_target)
+		if(space_target.has_valid_support() && !lattice)
 			attempt_use_stack(our_rods ? our_rods : our_rods::name, space_target)
 			return
 
@@ -271,13 +272,13 @@
 	. += our_box
 	if(our_glass)
 		var/mutable_appearance/glass =  mutable_appearance(icon, "repairbot_glass_overlay", BELOW_MOB_LAYER - 0.02, appearance_flags = RESET_COLOR|KEEP_APART)
-		glass.pixel_w = -6
-		glass.pixel_z = -5
+		//glass.pixel_x = -6
+		glass.pixel_y = 5
 		. += glass
 	if(our_metal)
 		var/mutable_appearance/iron =  mutable_appearance(icon, "repairbot_metal_overlay", BELOW_MOB_LAYER - 0.02, appearance_flags = RESET_COLOR|KEEP_APART)
-		iron.pixel_w = 7
-		iron.pixel_z = -5
+		iron.pixel_x = 2
+		iron.pixel_y = 5
 		. += iron
 
 /mob/living/basic/bot/repairbot/generate_speak_list()
@@ -352,6 +353,7 @@
 
 /obj/item/rcd/repairbot
 	matter = INFINITY
+	mode = MODE_DECON
 
 /mob/living/basic/bot/repairbot/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)
 	var/obj/item/carried_repairbot/carried = new(get_turf(src))
