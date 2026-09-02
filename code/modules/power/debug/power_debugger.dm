@@ -1,17 +1,3 @@
-/// Rights that may open and use the Powernet Debugger.
-#define PW_DEBUGGER_RIGHTS	(R_DEBUG|R_VAREDIT)
-
-/client/proc/powernet_debugger()
-	set name = "Powernet Debugger"
-	set category = "Debug"
-	set desc = "Get Debug Information about Local/Regional Powernets in the World"
-
-	if(!check_rights(PW_DEBUGGER_RIGHTS))
-		return
-
-	var/datum/ui_module/powernet_debugger/P = new()
-	P.ui_interact(usr)
-
 /// Screen define, makes the TGUI for the powernet debugger display the list of regional powernets in the world
 #define PW_DEBUG_SCREEN_POWERNETS	1
 /// Screen define, makes the TGUI for the powernet debugger display detailed information about a specified Regional/Local Net
@@ -235,7 +221,8 @@
 	return power_icon_cache[power_machine.type][dir2text(machine_dir)] // return the icon incase we need it!
 
 /datum/ui_module/powernet_debugger/ui_act(action, params, datum/tgui/ui)
-	if(!check_rights(PW_DEBUGGER_RIGHTS, TRUE, ui.user))
+	// mirror the verb's gate (see USER_VERB in SSmachinery.dm): debug or var-edit rights may drive the tool
+	if(!check_rights(R_DEBUG|R_VAREDIT, TRUE, ui.user))
 		return
 	if(..())
 		return
@@ -290,7 +277,6 @@
 		if("filter_pipes")
 			filter_pipes = !filter_pipes
 
-#undef PW_DEBUGGER_RIGHTS
 #undef PW_DEBUG_SCREEN_POWERNETS
 #undef PW_DEBUG_SCREEN_DETAILS
 #undef PW_MIN_CABLE_COUNT
