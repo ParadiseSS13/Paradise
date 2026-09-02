@@ -51,9 +51,9 @@
 		var/obj/structure/cable/our_cable =	locate(/obj/structure/cable) in our_turf
 		if(!our_cable || !our_cable.powernet || !our_cable.powernet.available_power)
 			return
-		var/area/to_deduct_from = get_area(our_cable)
 		living_to_shock.electrocute_act(shock_damage, parent)
-		to_deduct_from.powernet.use_active_power(PW_CHANNEL_EQUIPMENT, energy_cost)
+		// can assume that powernnet is not null
+		our_cable.powernet.power_demand += energy_cost
 		playsound(get_turf(parent), 'sound/effects/eleczap.ogg', 30, TRUE)
 	else
 		living_to_shock.electrocute_act(shock_damage, parent)
