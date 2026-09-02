@@ -218,12 +218,8 @@
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
 			stored_mob = null
-		else if(HAS_TRAIT(src, TRAIT_FROM_TENDRIL))
-			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
-		else if(dwarf_mob)
-			new /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf(T)
 		else
-			new /obj/effect/mob_spawn/human/corpse/damaged/legioninfested(T)
+			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
 	..(gibbed)
 
 // Legion skull
