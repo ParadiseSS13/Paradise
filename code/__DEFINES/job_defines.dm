@@ -8,6 +8,17 @@
 
 #define MAX_DIFFICULTY				6
 
+#define JOB_SELECT_AVAILABLE 0
+#define JOB_SELECT_SLOTS_FILLED 1
+#define JOB_SELECT_PLAYER_BANNED 2
+#define JOB_SELECT_NOT_ENOUGH_PLAYTIME 3
+#define JOB_SELECT_ADMIN_ONLY 4
+#define JOB_SELECT_EXP_RESTRICTED 5
+#define JOB_SELECT_MENTOR_ONLY 6
+#define JOB_SELECT_DISABILITY_BARRED 7
+#define JOB_SELECT_AMPUTEE_BARRED 8
+#define JOB_SELECT_QUIRK_BARRED 9
+
 ///////////////////////////////
 //          WARNING          //
 ////////////////////////////////////////////////////////////////////////
